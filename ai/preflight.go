@@ -89,13 +89,11 @@ func (c *Client) resolveCredential(ctx context.Context, scope CallScope, b Bindi
 
 // checkSnapshot verifies the separately resolved binding and credential form
 // one consistent snapshot: same tenant, same account, the referenced
-// credential, and both versioned. It fails rather than re-resolving (D2,
-// ADR-0003); a consistent new credential version is not a conflict.
+// credential, both versioned, and paired with the same binding version. It
+// fails rather than re-resolving (D2, ADR-0003); a consistent new credential
+// version is not a conflict.
 //
-// Whether the credential still matches the binding *version* it was asked
-// about is the CredentialResolver's duty (it returns ErrSnapshotConflict):
-// a credential carries no binding version, so the library can only require
-// both snapshots to be versioned. A foreign-tenant credential is reported as
+// A foreign-tenant credential is reported as
 // tenant_denied rather than hidden like a foreign binding: the binding was
 // already authorized for this tenant, so nothing about another tenant's
 // records is revealed, and the host fault should be visible.
@@ -109,6 +107,8 @@ func checkSnapshot(scope CallScope, b Binding, cred Credential) *Error {
 		return snapshotConflict("credential account does not match the binding account")
 	case b.Version == "" || cred.Version == "":
 		return snapshotConflict("binding and credential snapshots must both be versioned")
+	case cred.BindingVersion != b.Version:
+		return snapshotConflict("binding changed between the binding and credential reads")
 	}
 	return nil
 }

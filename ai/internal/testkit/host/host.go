@@ -177,10 +177,10 @@ func (h *Host) ResolveBinding(ctx context.Context, scope ai.CallScope, bindingID
 	return b, nil
 }
 
-// ResolveCredential implements ai.CredentialResolver. Like a careful backend,
-// it refuses with ai.ErrSnapshotConflict when the binding it is asked about is
-// no longer the current version, instead of pairing a stale binding with
-// today's credential.
+// ResolveCredential implements ai.CredentialResolver. It stamps the snapshot
+// with the binding version it currently stores — not the version it was
+// handed — so the library, not this double, detects a binding that changed
+// between the two reads.
 func (h *Host) ResolveCredential(_ context.Context, scope ai.CallScope, b ai.Binding) (ai.Credential, error) {
 	h.mu.Lock()
 	h.countLocked(scope.RequestID).Credentials++
@@ -194,12 +194,10 @@ func (h *Host) ResolveCredential(_ context.Context, scope ai.CallScope, b ai.Bin
 	if h.credFailure != nil {
 		return ai.Credential{}, h.credFailure
 	}
-	if current, ok := h.bindings[bindingKey{scope.TenantID, b.BindingID}]; !ok || current.Version != b.Version {
-		return ai.Credential{}, ai.ErrSnapshotConflict
-	}
 	c, ok := h.credentials[credentialKey{scope.TenantID, b.CredentialRef}]
 	if !ok {
 		return ai.Credential{}, ErrNotFound
 	}
+	c.BindingVersion = h.bindings[bindingKey{scope.TenantID, b.BindingID}].Version
 	return c, nil
 }

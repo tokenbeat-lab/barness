@@ -96,6 +96,8 @@ var rejections = []rejection{
 				w.updateBinding(tenantA, func(b *ai.Binding) { b.Version, b.Enabled = "b2", false })
 			})
 		}},
+	{id: "host-reports-snapshot-conflict", code: ai.CodeCredentialUnavailable, phase: ai.PhaseConsistency,
+		arrange: func(w *world) { w.host.FailCredentials(ai.ErrSnapshotConflict) }},
 	{id: "credential-rehomed-between-reads", code: ai.CodeCredentialUnavailable, phase: ai.PhaseConsistency,
 		arrange: func(w *world) {
 			w.host.BeforeCredential(func() {

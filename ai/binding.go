@@ -73,6 +73,11 @@ type Credential struct {
 	CredentialID  string
 	// Version is required; an unversioned snapshot cannot be proven consistent.
 	Version string
+	// BindingVersion is the binding version the credential backend paired this
+	// snapshot with, read from its own current record — not copied from the
+	// binding it was handed. It must equal the version the call resolved;
+	// otherwise the binding changed between the two reads (D2, ADR-0003).
+	BindingVersion string
 	// AccountScopeID is the vendor account the key belongs to; it must match
 	// the binding's.
 	AccountScopeID string
@@ -125,12 +130,11 @@ type BindingResolver interface {
 }
 
 // CredentialResolver is implemented by the trusted host. It returns the
-// credential snapshot the given binding version references. If that binding
-// version is no longer current (updated, disabled) and the backend cannot
-// pair it with a credential consistently, it must return ErrSnapshotConflict
-// rather than today's credential: the library verifies tenant, account,
-// reference and that both snapshots are versioned, but cannot see the
-// backend's current binding version. The library does not cache it.
+// credential snapshot the binding references, stamped with the binding
+// version the backend paired it with (Credential.BindingVersion); the library
+// rejects the snapshot when that differs from the version it resolved. A
+// backend may instead return ErrSnapshotConflict itself. The library does not
+// cache it.
 type CredentialResolver interface {
 	ResolveCredential(ctx context.Context, scope CallScope, binding Binding) (Credential, error)
 }
