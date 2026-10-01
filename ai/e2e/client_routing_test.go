@@ -10,32 +10,11 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
-// TestClientRouting covers how a call reaches its adapter: the callable models
-// are the binding's AllowedModels intersected with the catalog, the Client is
-// safe to share across tenants, and its configuration is fixed at construction.
+// TestClientRouting covers how a call reaches its adapter: endpoints obey the
+// assembly's transport rules, the Client is safe to share across tenants, and
+// its configuration is fixed at construction. Model authorization (AllowedModels
+// ∩ catalog) is part of the preflight matrix in TestPreflightRejections.
 func TestClientRouting(t *testing.T) {
-	denied := []struct {
-		id, model string
-		code      ai.Code
-	}{
-		{"model-not-allowed-by-binding", "gpt-4.1", ai.CodeTenantDenied},
-		{"model-not-in-catalog", "gpt-legacy-x", ai.CodeInvalidRequest},
-	}
-	for _, d := range denied {
-		t.Run(d.id, func(t *testing.T) {
-			ev, w, f := startHardeningCase(t, "P01-E07-"+d.id)
-			enqueue(ev, w, sseReply(t, f, provider.FramingLF))
-			target := ai.Target{BindingID: "primary", ModelID: d.model}
-			res, err := w.client.Complete(ctxFor(t), textScope("req-"+d.id), target, textRequest(f), nil)
-			ev.Record("result", res)
-			ev.Check("no inference request sent", len(w.provider.Requests()) == 0, "got %d", len(w.provider.Requests()))
-			checkFailed(ev, res, err)
-			ev.Check("error code", errors.Is(err, &ai.Error{Code: d.code}), "want %s, got %v", d.code, err)
-			ev.Check("identity reported unresolved", !res.Metadata.Resolved && res.Metadata.ModelID == "" && res.Message.Model == "",
-				"metadata=%+v model=%q", res.Metadata, res.Message.Model)
-		})
-	}
-
 	t.Run("loopback-http-refused-without-test-assembly", func(t *testing.T) {
 		ev, _, f := startHardeningCase(t, "P01-E07-loopback-http-refused-without-test-assembly")
 		// Same binding, but the Client is assembled as production would be: no

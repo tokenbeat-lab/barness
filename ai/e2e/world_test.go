@@ -21,7 +21,46 @@ type tenantKey struct {
 var (
 	tenantA = tenantKey{tenant: "tenant-a", secret: "sk-test-tenant-a-0001", alias: "key:tenant-a@v1"}
 	tenantB = tenantKey{tenant: "tenant-b", secret: "sk-test-tenant-b-0001", alias: "key:tenant-b@v1"}
+	// tenantA2 is tenant A's key after rotating K1→K2; same credential, new version.
+	tenantA2 = tenantKey{tenant: "tenant-a", secret: "sk-test-tenant-a-0002", alias: "key:tenant-a@v2"}
+
+	// knownKeys are every key a scenario may install; the Provider reports
+	// each by alias and the evidence bundle redacts each.
+	knownKeys = []tenantKey{tenantA, tenantA2, tenantB}
 )
+
+// primaryBinding is k's tenant's "primary" binding at version b1 pointing at
+// the world's Provider.
+func primaryBinding(k tenantKey, providerURL string) ai.Binding {
+	return ai.Binding{
+		TenantID:       k.tenant,
+		BindingID:      "primary",
+		Version:        "b1",
+		Enabled:        true,
+		ProviderID:     ai.ProviderOpenAI,
+		API:            ai.APIOpenAIResponses,
+		Endpoint:       providerURL + "/v1",
+		AuthKind:       ai.AuthAPIKey,
+		AccountScopeID: "acct-" + k.tenant,
+		CredentialRef:  "cred-" + k.tenant,
+		// gpt-legacy-x is allowed but absent from the catalog; gpt-4.1 is in
+		// the catalog but not allowed. Neither may be called.
+		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-legacy-x"},
+	}
+}
+
+// primaryCredential is the active credential snapshot holding k's key at
+// version, referenced by primaryBinding.
+func primaryCredential(k tenantKey, version string) ai.Credential {
+	return ai.Credential{
+		OwnerTenantID:  k.tenant,
+		CredentialID:   "cred-" + k.tenant,
+		Version:        version,
+		AccountScopeID: "acct-" + k.tenant,
+		Active:         true,
+		APIKey:         ai.NewSecret(k.secret),
+	}
+}
 
 // world is one scenario's assembly: a local controlled Provider, a trusted-host
 // double holding each tenant's same-named "primary" binding, and a Client
@@ -41,7 +80,7 @@ func newWorld(t *testing.T, tenants ...tenantKey) *world {
 func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey) *world {
 	t.Helper()
 	aliases := map[string]string{}
-	for _, k := range tenants {
+	for _, k := range knownKeys {
 		aliases[k.secret] = k.alias
 		run.RedactSecret(k.secret, k.alias)
 	}
@@ -50,26 +89,8 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 
 	h := host.New()
 	for _, k := range tenants {
-		h.PutBinding(ai.Binding{
-			TenantID:       k.tenant,
-			BindingID:      "primary",
-			Version:        "b1",
-			ProviderID:     ai.ProviderOpenAI,
-			API:            ai.APIOpenAIResponses,
-			Endpoint:       srv.URL() + "/v1",
-			AuthKind:       ai.AuthAPIKey,
-			AccountScopeID: "acct-" + k.tenant,
-			CredentialRef:  "cred-" + k.tenant,
-			// gpt-legacy-x is allowed but absent from the catalog; gpt-4.1 is in
-			// the catalog but not allowed. Neither may be called.
-			AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-legacy-x"},
-		})
-		h.PutCredential(ai.Credential{
-			OwnerTenantID: k.tenant,
-			CredentialID:  "cred-" + k.tenant,
-			Version:       "v1",
-			APIKey:        ai.NewSecret(k.secret),
-		})
+		h.PutBinding(primaryBinding(k, srv.URL()))
+		h.PutCredential(primaryCredential(k, "v1"))
 	}
 
 	cfg := ai.Config{
@@ -131,4 +152,19 @@ func jsonEqual(a, b []byte) bool {
 		return false
 	}
 	return reflect.DeepEqual(x, y)
+}
+
+// updateBinding rewrites k's tenant's stored "primary" binding.
+func (w *world) updateBinding(k tenantKey, change func(*ai.Binding)) {
+	b := w.host.Binding(k.tenant, "primary")
+	change(&b)
+	w.host.PutBindingAt(k.tenant, "primary", b)
+}
+
+// replaceCredential stores a variant of k's v1 credential (k's key) in place
+// of whatever is stored.
+func (w *world) replaceCredential(k tenantKey, change func(*ai.Credential)) {
+	c := primaryCredential(k, "v1")
+	change(&c)
+	w.host.PutCredentialAt(k.tenant, "cred-"+k.tenant, c)
 }

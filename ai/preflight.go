@@ -1,0 +1,139 @@
+package ai
+
+import (
+	"context"
+	"errors"
+	"net"
+	"net/url"
+	"slices"
+)
+
+// bindingUnresolved is the one refusal for a missing binding and for a record
+// that belongs to another tenant or binding, so existence is not revealed.
+const bindingUnresolved = "binding could not be resolved for this tenant"
+
+// resolveBinding is the first preflight read; with authorizeModel,
+// resolveCredential and checkSnapshot it turns a call's trusted scope and
+// target into the configuration snapshot the call is pinned to, or refuses
+// before any Provider request. Every refusal message is fixed text: resolver
+// errors are classified, never echoed, so secret-backend internals cannot
+// reach messages or errors.
+//
+// resolveBinding reads the binding for (scope.TenantID, bindingID) and checks
+// it is the tenant's, enabled and of a supported auth kind.
+func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID string) (Binding, *Error) {
+	b, err := c.bindings.ResolveBinding(ctx, scope, bindingID)
+	if err != nil {
+		if e := contextError(ctx, PhaseBinding); e != nil {
+			return Binding{}, e
+		}
+		if errors.Is(err, ErrAccessDenied) {
+			return Binding{}, newError(CodeTenantDenied, PhaseBinding, "the caller may not use this binding")
+		}
+		return Binding{}, newError(CodeBindingNotFound, PhaseBinding, bindingUnresolved)
+	}
+	// A record for another tenant or binding is a host fault; refuse it exactly
+	// like a missing binding so its existence is not revealed.
+	if b.TenantID != scope.TenantID || b.BindingID != bindingID {
+		return Binding{}, newError(CodeBindingNotFound, PhaseBinding, bindingUnresolved)
+	}
+	if !b.Enabled {
+		return Binding{}, newError(CodeTenantDenied, PhaseBinding, "binding is disabled")
+	}
+	if b.AuthKind != AuthAPIKey {
+		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding auth kind is not supported")
+	}
+	if !endpointAllowed(b.Endpoint, c.loopback) {
+		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding endpoint must be https (http only for loopback)")
+	}
+	return b, nil
+}
+
+// authorizeModel returns the model if it is both allowed by the binding and
+// present in the catalog for the binding's provider and API.
+func (c *Client) authorizeModel(b Binding, modelID string) (Model, *Error) {
+	if !slices.Contains(b.AllowedModels, modelID) {
+		return Model{}, newError(CodeTenantDenied, PhaseCapability, "model is not allowed by the binding")
+	}
+	m, ok := c.catalog.lookup(b.ProviderID, b.API, modelID)
+	if !ok {
+		return Model{}, newError(CodeInvalidRequest, PhaseCapability, "model is not in the catalog for this provider and API")
+	}
+	return m, nil
+}
+
+// resolveCredential reads the credential the binding version references and
+// checks it is usable.
+func (c *Client) resolveCredential(ctx context.Context, scope CallScope, b Binding) (Credential, *Error) {
+	cred, err := c.credentials.ResolveCredential(ctx, scope, b)
+	if err != nil {
+		if e := contextError(ctx, PhaseCredential); e != nil {
+			return Credential{}, e
+		}
+		switch {
+		case errors.Is(err, ErrSnapshotConflict):
+			return Credential{}, snapshotConflict("configuration changed while the call was resolving it")
+		case errors.Is(err, ErrAccessDenied):
+			return Credential{}, newError(CodeTenantDenied, PhaseCredential, "the caller may not use this credential")
+		}
+		return Credential{}, newError(CodeCredentialUnavailable, PhaseCredential, "credential could not be resolved for this binding")
+	}
+	if !cred.Active {
+		return Credential{}, newError(CodeCredentialUnavailable, PhaseCredential, "credential is not active")
+	}
+	if cred.APIKey.reveal() == "" {
+		return Credential{}, newError(CodeCredentialUnavailable, PhaseCredential, "credential has no API key")
+	}
+	return cred, nil
+}
+
+// checkSnapshot verifies the separately resolved binding and credential form
+// one consistent snapshot: same tenant, same account, the referenced
+// credential, and both versioned. It fails rather than re-resolving (D2,
+// ADR-0003); a consistent new credential version is not a conflict.
+//
+// Whether the credential still matches the binding *version* it was asked
+// about is the CredentialResolver's duty (it returns ErrSnapshotConflict):
+// a credential carries no binding version, so the library can only require
+// both snapshots to be versioned. A foreign-tenant credential is reported as
+// tenant_denied rather than hidden like a foreign binding: the binding was
+// already authorized for this tenant, so nothing about another tenant's
+// records is revealed, and the host fault should be visible.
+func checkSnapshot(scope CallScope, b Binding, cred Credential) *Error {
+	switch {
+	case cred.OwnerTenantID != scope.TenantID:
+		return newError(CodeTenantDenied, PhaseConsistency, "credential does not belong to the calling tenant")
+	case cred.CredentialID != b.CredentialRef:
+		return snapshotConflict("credential is not the one the binding references")
+	case b.AccountScopeID == "" || cred.AccountScopeID != b.AccountScopeID:
+		return snapshotConflict("credential account does not match the binding account")
+	case b.Version == "" || cred.Version == "":
+		return snapshotConflict("binding and credential snapshots must both be versioned")
+	}
+	return nil
+}
+
+func snapshotConflict(msg string) *Error {
+	return newError(CodeCredentialUnavailable, PhaseConsistency,
+		"no consistent configuration snapshot: "+msg+"; retry as a new call")
+}
+
+// endpointAllowed accepts https endpoints, and plain http to loopback hosts
+// only when the Client was test-assembled with AllowLoopbackHTTP.
+func endpointAllowed(endpoint string, allowLoopbackHTTP bool) bool {
+	u, err := url.Parse(endpoint)
+	if err != nil || u.Host == "" {
+		return false
+	}
+	switch u.Scheme {
+	case "https":
+		return true
+	case "http":
+		if !allowLoopbackHTTP {
+			return false
+		}
+		ip := net.ParseIP(u.Hostname())
+		return ip != nil && ip.IsLoopback()
+	}
+	return false
+}

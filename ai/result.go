@@ -1,8 +1,9 @@
 package ai
 
 // CallMetadata is the immutable attribution of one logical call. Provider,
-// API and model are only set once resolved from the tenant's binding; a call
-// that failed earlier reports Resolved=false instead of echoing request values.
+// API, model and account are only set once a consistent, authorized
+// configuration snapshot was established; a call that failed earlier reports
+// Resolved=false instead of echoing request values.
 type CallMetadata struct {
 	TenantID   string     `json:"tenantId"`
 	RequestID  string     `json:"requestId"`
@@ -13,6 +14,8 @@ type CallMetadata struct {
 	ProviderID ProviderID `json:"providerId,omitempty"`
 	API        API        `json:"api,omitempty"`
 	ModelID    string     `json:"modelId,omitempty"`
+	// AccountScopeID is the vendor account serving the call.
+	AccountScopeID string `json:"accountScopeId,omitempty"`
 }
 
 // Result is the outcome of a call: the final assistant message, which exists

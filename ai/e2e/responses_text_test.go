@@ -114,6 +114,8 @@ func checkMetadata(ev *evidence.Case, got ai.CallMetadata, scope ai.CallScope, f
 		ProviderID: ai.ProviderOpenAI,
 		API:        ai.APIOpenAIResponses,
 		ModelID:    f.Model,
+		// Tenant A's binding; see primaryBinding.
+		AccountScopeID: "acct-" + scope.TenantID,
 	}
 	ev.Check("call metadata", got == want, "got %+v\nwant %+v", got, want)
 }

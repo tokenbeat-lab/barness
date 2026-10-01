@@ -2,6 +2,7 @@ package ai
 
 import (
 	"context"
+	"errors"
 	"fmt"
 )
 
@@ -45,9 +46,14 @@ const AuthAPIKey AuthKind = "api_key"
 // Binding is one service configuration a tenant may use, located by
 // (TenantID, BindingID). A binding fixes exactly one API.
 type Binding struct {
-	TenantID       string
-	BindingID      string
-	Version        string
+	TenantID  string
+	BindingID string
+	// Version identifies this configuration snapshot; it is required so the
+	// credential read can be tied to it (ADR-0003).
+	Version string
+	// Enabled must be true for the binding to be used. The zero value refuses,
+	// so a host that forgets to set it fails closed.
+	Enabled        bool
 	ProviderID     ProviderID
 	API            API
 	Endpoint       string // base URL, e.g. https://api.openai.com/v1
@@ -59,13 +65,21 @@ type Binding struct {
 	AllowedModels []string
 }
 
-// Credential is a versioned credential snapshot. Its secret never enters
-// messages, events, results, logs or errors.
+// Credential is a versioned credential snapshot together with its tenant and
+// account ownership. Its secret never enters messages, events, results, logs
+// or errors.
 type Credential struct {
 	OwnerTenantID string
 	CredentialID  string
-	Version       string
-	APIKey        Secret
+	// Version is required; an unversioned snapshot cannot be proven consistent.
+	Version string
+	// AccountScopeID is the vendor account the key belongs to; it must match
+	// the binding's.
+	AccountScopeID string
+	// Active must be true for the credential to be used. The zero value
+	// refuses, so a revoked or unknown state fails closed.
+	Active bool
+	APIKey Secret
 }
 
 // Secret holds secret material. Formatting and JSON encoding never reveal it.
@@ -88,14 +102,35 @@ func (s Secret) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(s.String()))
 // MarshalJSON encodes the redaction marker, never the value.
 func (Secret) MarshalJSON() ([]byte, error) { return []byte(`"[REDACTED]"`), nil }
 
+// Errors a trusted resolver may return to classify a refusal. Any other
+// resolver error is treated as the binding or credential being unavailable;
+// its text is never surfaced, so backend internals cannot leak through it.
+var (
+	// ErrAccessDenied: the scope's actor may not use the binding or credential.
+	// Classified as CodeTenantDenied.
+	ErrAccessDenied = errors.New("ai: access denied")
+	// ErrSnapshotConflict: the credential backend cannot pair the binding
+	// version it was given with a credential consistently, e.g. because the
+	// binding was updated or disabled after it was read. The call fails in
+	// PhaseConsistency without re-resolving (D2, ADR-0003); the host may start
+	// a new logical call with a new RequestID.
+	ErrSnapshotConflict = errors.New("ai: configuration snapshot conflict")
+)
+
 // BindingResolver is implemented by the trusted host. It locates the binding
-// by (scope.TenantID, bindingID) and verifies the scope may use it.
+// by (scope.TenantID, bindingID) and verifies the scope may use it. Every
+// logical call resolves afresh; the library never caches a binding.
 type BindingResolver interface {
 	ResolveBinding(ctx context.Context, scope CallScope, bindingID string) (Binding, error)
 }
 
 // CredentialResolver is implemented by the trusted host. It returns the
-// credential snapshot the binding references. The library does not cache it.
+// credential snapshot the given binding version references. If that binding
+// version is no longer current (updated, disabled) and the backend cannot
+// pair it with a credential consistently, it must return ErrSnapshotConflict
+// rather than today's credential: the library verifies tenant, account,
+// reference and that both snapshots are versioned, but cannot see the
+// backend's current binding version. The library does not cache it.
 type CredentialResolver interface {
 	ResolveCredential(ctx context.Context, scope CallScope, binding Binding) (Credential, error)
 }

@@ -25,6 +25,10 @@ type Reply struct {
 	Chunks [][]byte          `json:"-"`
 	// Script is the concatenated body, kept for the evidence bundle.
 	Script string `json:"script"`
+	// OnReceive, when set, runs after the request is captured and before any
+	// of the reply is written, so a test can change host state while a call is
+	// verifiably in flight.
+	OnReceive func() `json:"-"`
 }
 
 // Request is a redacted capture of what the server received.
@@ -115,6 +119,9 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		http.Error(w, `{"error":{"message":"no scripted reply"}}`, http.StatusTeapot)
 		return
+	}
+	if reply.OnReceive != nil {
+		reply.OnReceive()
 	}
 	for k, v := range reply.Header {
 		w.Header().Set(k, v)

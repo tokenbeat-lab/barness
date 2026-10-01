@@ -31,8 +31,11 @@ const (
 	PhaseBinding    Phase = "binding"
 	PhaseCapability Phase = "capability"
 	PhaseCredential Phase = "credential"
-	PhaseRequest    Phase = "request"
-	PhaseStream     Phase = "stream"
+	// PhaseConsistency is the check that the binding and credential snapshots
+	// agree on tenant, account, reference and version (D2, ADR-0003).
+	PhaseConsistency Phase = "consistency"
+	PhaseRequest     Phase = "request"
+	PhaseStream      Phase = "stream"
 )
 
 // Error is the classified error returned with a failed Result. It never
