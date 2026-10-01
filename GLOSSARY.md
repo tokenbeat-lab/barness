@@ -99,3 +99,7 @@ _Avoid_: 配额、费用预算
 **Request Callback（请求回调）**：
 可信宿主为单次逻辑调用提供的 header 变换、请求体回调与响应元数据回调（Go 中为 `Hooks`），位于执行路径上、可使调用失败，但不能改变绑定授权的认证、目标、模型与原生引用。
 _Avoid_: Observer、生命周期钩子、每调用 transport
+
+**Hosted Tool Allowance（托管工具放行）**：
+绑定上列出的托管工具类型（Go 中为 `Binding.AllowedHostedTools`），表示可信宿主担保该账户的托管资源及工具访问的网络目标归该租户使用；只有列出的类型可以由请求回调声明。
+_Avoid_: 工具白名单、全局工具开关

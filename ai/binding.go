@@ -63,6 +63,13 @@ type Binding struct {
 	// AllowedModels is intersected with the model catalog; only models in both
 	// can be called.
 	AllowedModels []string
+	// AllowedHostedTools are the provider-hosted tool types, as the protocol
+	// names them (e.g. Responses "web_search"), that a trusted payload
+	// callback may declare on calls through this binding. Naming a type is
+	// the host vouching that the account's hosted resources and the network
+	// targets the tool reaches are this tenant's to use (ADR-0005). Empty, the
+	// default, refuses every hosted tool; barness-ai never declares one itself.
+	AllowedHostedTools []string
 }
 
 // Credential is a versioned credential snapshot together with its tenant and

@@ -31,6 +31,11 @@ const (
 	CodeCanceled         Code = "canceled"
 	CodeDeadlineExceeded Code = "deadline_exceeded"
 	CodeResourceLimit    Code = "resource_limit"
+	// CodeCallbackFailed: a trusted host's request callback (Hooks) returned
+	// an error or produced no usable request body. It is the host's own
+	// fault, kept apart from an invalid request so the host can tell the two
+	// apart; a callback's attempt to widen authorization is CodeTenantDenied.
+	CodeCallbackFailed Code = "callback_failed"
 )
 
 // Phase is where in the call an error happened.

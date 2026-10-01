@@ -12,7 +12,7 @@ import (
 //
 // Every callback runs synchronously on the call's path, receives the call's
 // context and its scope explicitly, and must honor the context. A callback
-// error fails the call with CodeInvalidRequest in PhaseRequest, and a context
+// error fails the call with CodeCallbackFailed in PhaseRequest, and a context
 // that ended while it ran fails it as canceled or deadline_exceeded. The
 // callback's error text is never put in the message, so host internals
 // cannot reach it; errors.Is/As on the call's error still reach the

@@ -46,6 +46,11 @@ func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID 
 	if !endpointAllowed(b.Endpoint, c.loopback) {
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding endpoint must be https (http only for loopback)")
 	}
+	for _, typ := range b.AllowedHostedTools {
+		if typ == "" || typ == "function" {
+			return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding hosted tool allowance names an invalid tool type")
+		}
+	}
 	return b, nil
 }
 

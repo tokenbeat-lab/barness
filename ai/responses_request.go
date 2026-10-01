@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"cmp"
 	"encoding/json"
+	"slices"
 	"strconv"
 	"strings"
 	"unicode/utf16"
@@ -335,12 +336,13 @@ var responsesPayloadReferences = []string{"previous_response_id", "conversation"
 
 // authorizeResponsesPayload checks a body a payload callback produced. It
 // must still name the call's authorized model, keep the tenant-scoped cache
-// key and stateless storage, declare only function tools, and carry no
-// vendor-side reference: none of the fields above, and no input item_reference
-// or file_id anywhere in the input. Hosted tools (file search, code
-// interpreter, MCP) are refused because they name vendor resources or other
-// network targets the binding did not authorize.
-func authorizeResponsesPayload(m Model, cacheKey string) func(map[string]any) string {
+// key and stateless storage, declare only function tools and the hosted tool
+// types the binding allows, and carry no vendor-side reference: none of the
+// fields above, and no input item_reference or file_id anywhere in the input.
+// Other hosted tools (file search, code interpreter, MCP) are refused because
+// they name vendor resources or network targets only the binding's allowance
+// can vouch for (ADR-0005).
+func authorizeResponsesPayload(m Model, cacheKey string, hostedTools []string) func(map[string]any) string {
 	return func(body map[string]any) string {
 		if model, _ := body["model"].(string); model != m.ID {
 			return "payload callback may not change the authorized model"
@@ -363,8 +365,10 @@ func authorizeResponsesPayload(m Model, cacheKey string) func(map[string]any) st
 				return "payload callback produced malformed tools"
 			}
 			for _, t := range list {
-				if obj, _ := t.(map[string]any); obj == nil || obj["type"] != "function" {
-					return "payload callback may only declare function tools"
+				obj, _ := t.(map[string]any)
+				typ, _ := obj["type"].(string)
+				if typ != "function" && (typ == "" || !slices.Contains(hostedTools, typ)) {
+					return "payload callback may only declare function tools and the binding's hosted tools"
 				}
 			}
 		}

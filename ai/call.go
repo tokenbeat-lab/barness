@@ -2,6 +2,7 @@ package ai
 
 import (
 	"context"
+	"slices"
 	"time"
 )
 
@@ -118,7 +119,10 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		history:  history,
 		options:  options,
 		cache:    cacheScope{tenant: cl.scope.TenantID, account: binding.AccountScopeID},
-		hooks:    boundHooks{hooks: cl.hooks, scope: cl.scope, model: model},
+		// Copied so a resolver that reuses its slice cannot change the
+		// pinned snapshot.
+		hostedTools: slices.Clone(binding.AllowedHostedTools),
+		hooks:       boundHooks{hooks: cl.hooks, scope: cl.scope, model: model},
 	}
 	// The trusted header transform sees the merged authentication and
 	// request headers before the adapter takes over, and may not change

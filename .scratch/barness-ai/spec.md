@@ -194,7 +194,7 @@ Responses、Chat Completions 是协议简称，对照冻结 pi 的 API 标识分
 - 需要区分未设置、null、零值的字段采用 presence-aware 表达，单独使用 omitempty 不足以表达三者。模型 samplingParams 与调用参数逐键合并、调用值优先；OpenAI-compatible 路径保留最后覆盖已命名请求字段的原语义，其他首期 API 按冻结实现忽略 samplingParams。发送前复核模型及资源授权，不通过采样参数越过认证/网络目标边界。
 - 完整保留已纳入协议的 cacheRetention、metadata、toolChoice 及其他完整选项，不能只因 simple 路径没有同名字段而删掉。cacheRetention 的协议映射、metadata 的发送内容/字段 presence 和不适用协议行为分别按 fixture 验证；不把 TenantID 自动填进厂商 metadata。
 - 可信宿主可提供每调用的 onPayload、onResponse 和 header 变换，与可反序列化的 Request 隔离。transport 只在 Client 构造时装配，不提供每调用覆盖；测试用 loopback 由测试装配注入。固定本次函数和配置引用，显式传入 scope；不依赖全局当前租户，不向云端 JSON 开放执行能力。
-- onPayload 支持观察、原位修改或返回替换对象；“不替换”不撤销原位修改。回调等待完成并遵守 context，失败进入对应阶段错误终态。header 变换及 payload 修改不能绕过绑定的鉴权、目标和最终资源授权。
+- onPayload 支持观察、原位修改或返回替换对象；“不替换”不撤销原位修改。回调等待完成并遵守 context，失败进入对应阶段错误终态。header 变换及 payload 修改不能绕过绑定的鉴权、目标和最终资源授权。payload 修改默认只能声明函数工具；托管工具（如 web_search）须由绑定的 AllowedHostedTools 按类型显式放行，放行不放宽模型、缓存键、存储和厂商侧状态引用的拒绝（维护者决定 2026-10-02，见 ADR-0005）。
 - transformHeaders 在认证头与请求头合并后、分派给协议 adapter 前执行；onPayload 在 adapter 构建原生请求体后执行，二者不是同一个时点。可信变换后的最终认证和目标仍须满足绑定授权。每次调用的 onPayload/onResponse 各为一个可选函数，不引入多处理器注册；Go 必须区分“不替换”和“返回替换对象”，不能用含义不清的 nil 混合两者。
 
 | Adapter | onPayload / onResponse 契约 |
@@ -229,7 +229,7 @@ onResponse 读取 HTTP status/headers 和模型信息，不接收或替换最终
 
 准入在每次尝试前获取许可并在结束/取消时释放；内置策略只覆盖单租户与全进程并发，只保证本进程边界。准入接口参数包含 TenantID 与 AccountScopeID；按厂商账户聚合的准入不内置，由宿主注入实现。宿主可注入分布式准入，但跨实例配额、硬费用预算预约与最终对账由宿主实现。租户与 AccountScopeID 分别用于资源归属和厂商账户聚合，不把 API key 当作账户身份。
 
-错误至少区分 invalid_request、tenant_denied、binding_not_found、credential_unavailable、admission_denied、upstream_auth、rate_limited、upstream_error、transport、protocol、canceled、deadline_exceeded、resource_limit，并保留发生阶段、可安全公开的 HTTP status、厂商 request ID 和 Retry-After。错误分类不替换消息停止原因；基线 errorMessage 涉及秘密时必须脱敏并登记安全差异。
+错误至少区分 invalid_request、tenant_denied、binding_not_found、credential_unavailable、admission_denied、upstream_auth、rate_limited、upstream_error、transport、protocol、canceled、deadline_exceeded、resource_limit、callback_failed（可信宿主的请求回调出错或未产出可用请求体，与 invalid_request 区分，维护者决定 2026-10-02），并保留发生阶段、可安全公开的 HTTP status、厂商 request ID 和 Retry-After。错误分类不替换消息停止原因；基线 errorMessage 涉及秘密时必须脱敏并登记安全差异。
 
 Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished；调用级记录关联 TenantID/RequestID，实际尝试额外关联 AttemptID，预检失败不伪造 HTTP 尝试。记录已解析的 BindingID、AccountScopeID、配置/凭据版本、真实 Provider/API/model、时间、厂商 request ID、错误类别及已知 usage；ActorID/JobID 在提供时保留，无效身份的拒绝事件不能假装属于已授权租户。
 

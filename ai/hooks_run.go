@@ -105,14 +105,14 @@ func (b boundHooks) payload(ctx context.Context, body []byte, authorize func(map
 		final = decision.body
 	}
 	if final == nil {
-		return nil, newError(CodeInvalidRequest, PhaseRequest, "payload callback produced no request body")
+		return nil, newError(CodeCallbackFailed, PhaseRequest, "payload callback produced no request body")
 	}
 	if problem := authorize(final); problem != "" {
 		return nil, newError(CodeTenantDenied, PhaseRequest, problem)
 	}
 	out, err := marshalJS(final)
 	if err != nil {
-		return nil, newError(CodeInvalidRequest, PhaseRequest, "payload callback produced a body that cannot be encoded")
+		return nil, newError(CodeCallbackFailed, PhaseRequest, "payload callback produced a body that cannot be encoded")
 	}
 	return out, nil
 }
@@ -144,7 +144,7 @@ func callbackFailure(ctx context.Context, err error, msg string) *Error {
 		return failure
 	}
 	if err != nil {
-		failure := newError(CodeInvalidRequest, PhaseRequest, msg)
+		failure := newError(CodeCallbackFailed, PhaseRequest, msg)
 		failure.cause = err
 		return failure
 	}

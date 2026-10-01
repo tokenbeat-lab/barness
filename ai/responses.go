@@ -42,7 +42,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	}
 	// As in pi, the payload callback runs once per logical call, outside
 	// any retry of the initial request (ticket 11).
-	body, failure := ac.hooks.payload(ctx, body, authorizeResponsesPayload(ac.model, cacheKey))
+	body, failure := ac.hooks.payload(ctx, body, authorizeResponsesPayload(ac.model, cacheKey, ac.hostedTools))
 	if failure != nil {
 		return failure
 	}

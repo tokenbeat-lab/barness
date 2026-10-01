@@ -30,15 +30,15 @@ func TestTrustedCallbackFailures(t *testing.T) {
 	}{
 		{"headers-error", func(context.CancelFunc) ai.Hooks {
 			return ai.Hooks{TransformHeaders: func(context.Context, ai.CallScope, http.Header) error { return errHostCallback }}
-		}, 0, ai.CodeInvalidRequest, ai.StopReasonError},
+		}, 0, ai.CodeCallbackFailed, ai.StopReasonError},
 		{"payload-error", func(context.CancelFunc) ai.Hooks {
 			return ai.Hooks{OnPayload: func(context.Context, ai.CallScope, *ai.Payload) (ai.PayloadDecision, error) {
 				return ai.KeepPayload(), errHostCallback
 			}}
-		}, 0, ai.CodeInvalidRequest, ai.StopReasonError},
+		}, 0, ai.CodeCallbackFailed, ai.StopReasonError},
 		{"response-error", func(context.CancelFunc) ai.Hooks {
 			return ai.Hooks{OnResponse: func(context.Context, ai.CallScope, ai.ResponseInfo) error { return errHostCallback }}
-		}, 1, ai.CodeInvalidRequest, ai.StopReasonError},
+		}, 1, ai.CodeCallbackFailed, ai.StopReasonError},
 		{"headers-canceled", func(cancel context.CancelFunc) ai.Hooks {
 			return ai.Hooks{TransformHeaders: func(ctx context.Context, _ ai.CallScope, _ http.Header) error {
 				cancel()
@@ -66,13 +66,13 @@ func TestTrustedCallbackFailures(t *testing.T) {
 			return ai.Hooks{OnPayload: func(context.Context, ai.CallScope, *ai.Payload) (ai.PayloadDecision, error) {
 				return ai.ReplacePayload(nil), nil
 			}}
-		}, 0, ai.CodeInvalidRequest, ai.StopReasonError},
+		}, 0, ai.CodeCallbackFailed, ai.StopReasonError},
 		{"payload-not-encodable", func(context.CancelFunc) ai.Hooks {
 			return ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				p.Body["temperature"] = make(chan int)
 				return ai.KeepPayload(), nil
 			}}
-		}, 0, ai.CodeInvalidRequest, ai.StopReasonError},
+		}, 0, ai.CodeCallbackFailed, ai.StopReasonError},
 	}
 	for _, c := range failing {
 		t.Run(c.name, func(t *testing.T) {
@@ -97,7 +97,7 @@ func TestTrustedCallbackFailures(t *testing.T) {
 			}
 			ev.Check("stop reason", res.Message.StopReason == c.stop, "got %q want %q", res.Message.StopReason, c.stop)
 			ev.Check("error message set", res.Message.ErrorMessage != "", "empty")
-			if c.code == ai.CodeInvalidRequest && c.name != "payload-replaced-with-nothing" && c.name != "payload-not-encodable" {
+			if c.code == ai.CodeCallbackFailed && c.name != "payload-replaced-with-nothing" && c.name != "payload-not-encodable" {
 				ev.Check("host error reachable for diagnosis", errors.Is(err, errHostCallback), "err=%v", err)
 			}
 			ev.Check("host error text not surfaced", !strings.Contains(res.Message.ErrorMessage, "10.0.0.7"), "got %q", res.Message.ErrorMessage)

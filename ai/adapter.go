@@ -34,6 +34,8 @@ type adapterCall struct {
 	options  Options // matches the adapter's API; nil means protocol defaults
 	// cache scopes the cache and affinity identifiers the adapter derives.
 	cache cacheScope
+	// hostedTools are the binding's AllowedHostedTools.
+	hostedTools []string
 	// header is the final request header set. A name with no values was
 	// removed by the header transform and must not be sent, not even as an
 	// SDK default.
