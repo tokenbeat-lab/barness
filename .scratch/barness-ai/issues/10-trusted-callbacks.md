@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] transformHeaders 在认证头与请求头合并之后、交给 adapter 之前执行；onPayload 在 adapter 构建原生请求体之后执行
 - [x] onPayload 支持观察、原位修改、返回替换对象；Go 类型明确区分“不替换”与“替换”，不使用含义不清的 nil；“不替换”不撤销原位修改
