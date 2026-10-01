@@ -78,8 +78,8 @@ type ToolResultMessage struct {
 
 func (ToolResultMessage) isMessage() {}
 
-// ToolResultContent is a content block allowed in a ToolResultMessage. Images
-// arrive with ticket 08.
+// ToolResultContent is a content block allowed in a ToolResultMessage: Text
+// or Image.
 type ToolResultContent interface {
 	isToolResultContent()
 }

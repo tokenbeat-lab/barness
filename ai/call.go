@@ -80,11 +80,10 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 
 	// History source: native state is replayed only where its envelope
 	// matches this tenant, the binding's account and the model; the rest is
-	// downgraded, never refused (spec I6).
+	// downgraded, never refused.
+	// The history is converted for the target as pi does (spec I6).
 	origin := replayOrigin{tenant: cl.scope.TenantID, account: binding.AccountScopeID, model: model}
-	request := cl.req
-	var downgrades NativeStateDowngrades
-	request.Messages, downgrades = origin.replayHistory(cl.req.Messages)
+	history, downgrades := origin.prepareTranscript(cl.req, ad.historyRules(model))
 
 	cred, failure := c.resolveCredential(ctx, cl.scope, binding)
 	if failure != nil {
@@ -107,7 +106,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		endpoint: binding.Endpoint,
 		apiKey:   cred.APIKey,
 		model:    model,
-		request:  request,
+		history:  history,
 		options:  options,
 	}, asm)
 }

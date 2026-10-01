@@ -31,7 +31,7 @@ func (responsesAdapter) simpleOptions(_ Model, o SimpleOptions) Options {
 
 func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *Error {
 	opts, _ := ac.options.(ResponsesOptions) // nil means protocol defaults
-	body, err := buildResponsesBody(ac.model, ac.request, opts)
+	body, err := buildResponsesBody(ac.model, ac.history, opts)
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "request could not be encoded")
 	}

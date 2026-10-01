@@ -44,8 +44,9 @@ func primaryBinding(k tenantKey, providerURL string) ai.Binding {
 		AccountScopeID: "acct-" + k.tenant,
 		CredentialRef:  "cred-" + k.tenant,
 		// gpt-legacy-x is allowed but absent from the catalog; gpt-4.1 is in
-		// the catalog but not allowed. Neither may be called.
-		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-legacy-x"},
+		// the catalog but not allowed. Neither may be called. gpt-4 is the
+		// text-only model.
+		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x"},
 	}
 }
 

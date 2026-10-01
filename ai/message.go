@@ -45,6 +45,18 @@ type Thinking struct {
 
 func (Thinking) isAssistantContent() {}
 
+// Image is an image input block, sent to a model that accepts images. Any
+// other target gets pi-ai's placeholder text in its place.
+type Image struct {
+	// Data is the image bytes in standard base64, sent as is.
+	Data string `json:"data"`
+	// MimeType is the image's media type, such as image/png.
+	MimeType string `json:"mimeType"`
+}
+
+func (Image) isUserContent()       {}
+func (Image) isToolResultContent() {}
+
 // UserMessage is user input.
 type UserMessage struct {
 	Content []UserContent `json:"content"`

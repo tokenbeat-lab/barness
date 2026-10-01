@@ -102,7 +102,11 @@ async function main() {
 	const catalog = (await import(entry.models))[entry.catalog];
 	const known = Object.values(catalog).find((m) => m.provider === input.provider && m.id === input.model);
 	if (!known) fail(`model ${input.provider}/${input.model} is not in pi's ${input.api} catalog`);
-	const model = { ...known, baseUrl: input.baseUrl };
+	// modelCompat overrides compat flags of the catalog model, the way a pi
+	// user configures a custom model; it lets a case exercise a flag that
+	// pi's catalog only sets on models barness-ai does not list yet.
+	const compat = input.modelCompat ? { ...known.compat, ...input.modelCompat } : known.compat;
+	const model = { ...known, baseUrl: input.baseUrl, ...(compat ? { compat } : {}) };
 
 	const context = pi.normalizeContext(input.context);
 	// abortAfterEvents > 0 aborts the call, as a caller canceling it would, once

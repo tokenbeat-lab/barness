@@ -1,0 +1,353 @@
+{
+ "case": "E03 OpenAI × Responses history normalization, cross-model downgrade and image input",
+ "source": "Synthetic offline fixture. Each scenario is a host's history in the test host's storage shape (messages tagged by role and blocks by type, system sections as an ordered list, trusted marking messages whose envelope the host vouches for) and the request body frozen pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) sends for it: packages/ai/src/utils/transcript.ts normalizeContext / resolveTranscript / collapseSystemMessages / getCurrentTools, packages/ai/src/api/transform-messages.ts transformMessages (null content, image placeholders, same-/cross-model thinking and text, tool call id normalization, error/aborted turns, synthetic results, held system messages) and packages/ai/src/api/openai-responses-shared.ts convertResponsesMessages / convertToolResultOutput / normalizeToolCallId. Expected bodies were captured from the frozen pi through the differential oracle and checked by hand against those rules (see each scenario's about). modelCompat overrides pi's catalog flags as a custom model does.",
+ "events": [
+  {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_h", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+  {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "msg_h", "type": "message", "status": "in_progress", "role": "assistant", "content": []}},
+  {"type": "response.output_text.delta", "sequence_number": 2, "item_id": "msg_h", "output_index": 0, "content_index": 0, "delta": "Done."},
+  {"type": "response.output_item.done", "sequence_number": 3, "output_index": 0, "item": {"id": "msg_h", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "Done.", "annotations": []}]}},
+  {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_h", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": {"input_tokens": 40, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 2, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 42}}}
+ ],
+ "scenarios": [
+  {
+   "id": "content-null",
+   "about": "null content on user, assistant and tool result messages is an empty array: the user and assistant turns add nothing, the tool result is pi's (no tool output)",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "messages": [
+     {"role": "user", "content": null},
+     {"role": "user", "content": [{"type": "text", "text": "Hello"}]},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_a|fc_a", "name": "get_weather", "arguments": {"city": "Bern"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4o-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000},
+     {"role": "toolResult", "toolCallId": "call_a|fc_a", "toolName": "get_weather", "content": null, "isError": false},
+     {"role": "assistant", "content": null, "api": "openai-responses", "provider": "openai", "model": "gpt-4o-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "stop", "timestamp": 1790000000000},
+     {"role": "user", "content": [{"type": "text", "text": "Thanks"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {"crossModel": 1},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "user", "content": [{"type": "input_text", "text": "Hello"}]},
+      {"type": "function_call", "call_id": "call_a", "name": "get_weather", "arguments": "{\"city\":\"Bern\"}"},
+      {"type": "function_call_output", "call_id": "call_a", "output": "(no tool output)"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Thanks"}]}
+     ],
+     "stream": true,
+     "store": false
+    }
+   }
+  },
+  {
+   "id": "thinking-same-model",
+   "about": "trusted same-model history keeps redacted and signed (even empty) thinking, drops other blank thinking and keeps the text's item id and phase",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Plan it"}]},
+     {"role": "assistant", "content": [{"type": "thinking", "thinking": "", "thinkingSignature": "{\"type\":\"reasoning\",\"id\":\"rs_r\",\"summary\":[],\"encrypted_content\":\"enc-r\"}", "redacted": true}, {"type": "thinking", "thinking": "", "thinkingSignature": "{\"type\":\"reasoning\",\"id\":\"rs_s\",\"summary\":[],\"encrypted_content\":\"enc-s\"}"}, {"type": "thinking", "thinking": " \n", "thinkingSignature": "{\"type\":\"reasoning\",\"id\":\"rs_w\",\"summary\":[]}"}, {"type": "thinking", "thinking": "   "}, {"type": "thinking", "thinking": "Visible plan"}, {"type": "text", "text": "Here is the plan.", "textSignature": "{\"v\":1,\"id\":\"msg_p\",\"phase\":\"final_answer\"}"}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "stop", "timestamp": 1790000000000, "trusted": true},
+     {"role": "user", "content": [{"type": "text", "text": "Go on"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "user", "content": [{"type": "input_text", "text": "Plan it"}]},
+      {"type": "reasoning", "id": "rs_r", "summary": [], "encrypted_content": "enc-r"},
+      {"type": "reasoning", "id": "rs_s", "summary": [], "encrypted_content": "enc-s"},
+      {"type": "reasoning", "id": "rs_w", "summary": []},
+      {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "Here is the plan.", "annotations": []}], "status": "completed", "id": "msg_p", "phase": "final_answer"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Go on"}]}
+     ],
+     "stream": true,
+     "store": false
+    }
+   }
+  },
+  {
+   "id": "thinking-cross-model",
+   "about": "another model's and another provider's thinking: visible reasoning becomes text, redacted and blank reasoning is dropped, text keeps only its text",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Plan it"}]},
+     {"role": "assistant", "content": [{"type": "thinking", "thinking": "", "thinkingSignature": "{\"type\":\"reasoning\",\"id\":\"rs_r\",\"summary\":[],\"encrypted_content\":\"enc-r\"}", "redacted": true}, {"type": "thinking", "thinking": "", "thinkingSignature": "{\"type\":\"reasoning\",\"id\":\"rs_s\",\"summary\":[],\"encrypted_content\":\"enc-s\"}"}, {"type": "thinking", "thinking": " \n", "thinkingSignature": "{\"type\":\"reasoning\",\"id\":\"rs_w\",\"summary\":[]}"}, {"type": "thinking", "thinking": "   "}, {"type": "thinking", "thinking": "Visible plan"}, {"type": "text", "text": "Here is the plan.", "textSignature": "{\"v\":1,\"id\":\"msg_p\",\"phase\":\"final_answer\"}"}], "api": "openai-responses", "provider": "openai", "model": "gpt-4o-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "stop", "timestamp": 1790000000000},
+     {"role": "user", "content": [{"type": "text", "text": "Go on"}]},
+     {"role": "assistant", "content": [{"type": "thinking", "thinking": "Claude thought", "thinkingSignature": "sig-anthropic-opaque"}, {"type": "thinking", "thinking": "", "thinkingSignature": "EqQBredacted", "redacted": true}, {"type": "text", "text": "Claude says hi"}], "api": "anthropic-messages", "provider": "anthropic", "model": "claude-sonnet-4-5", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "stop", "timestamp": 1790000000000},
+     {"role": "user", "content": [{"type": "text", "text": "Next"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {"crossModel": 2},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "user", "content": [{"type": "input_text", "text": "Plan it"}]},
+      {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "Visible plan", "annotations": []}], "status": "completed", "id": "msg_pi_1"},
+      {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "Here is the plan.", "annotations": []}], "status": "completed", "id": "msg_pi_1_1"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Go on"}]},
+      {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "Claude thought", "annotations": []}], "status": "completed", "id": "msg_pi_3"},
+      {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "Claude says hi", "annotations": []}], "status": "completed", "id": "msg_pi_3_1"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Next"}]}
+     ],
+     "stream": true,
+     "store": false
+    }
+   }
+  },
+  {
+   "id": "tool-ids",
+   "about": "tool call ids of other providers, APIs and models are normalized for Responses and their results follow",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "Use tools.",
+    "tools": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}, {"name": "get_time", "description": "Current time in a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Use tools"}]},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "toolu_01.bad id!", "name": "get_weather", "arguments": {"city": "Oslo"}}], "api": "anthropic-messages", "provider": "anthropic", "model": "claude-sonnet-4-5", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000},
+     {"role": "toolResult", "toolCallId": "toolu_01.bad id!", "toolName": "get_weather", "content": [{"type": "text", "text": "5°C"}], "isError": false},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call😀x|item:Z/1", "name": "get_time", "arguments": {"city": "Oslo"}}], "api": "openai-completions", "provider": "openai", "model": "gpt-4o", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000},
+     {"role": "toolResult", "toolCallId": "call😀x|item:Z/1", "toolName": "get_time", "content": [{"type": "text", "text": "12:00"}], "isError": false},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa....zzzz|fc_x.y", "name": "get_weather", "arguments": {"city": "Lima"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4o-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000},
+     {"role": "toolResult", "toolCallId": "call_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa....zzzz|fc_x.y", "toolName": "get_weather", "content": [{"type": "text", "text": "20°C"}], "isError": false},
+     {"role": "user", "content": [{"type": "text", "text": "Summarize"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {"crossModel": 2},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "system", "content": "Use tools."},
+      {"role": "user", "content": [{"type": "input_text", "text": "Use tools"}]},
+      {"type": "function_call", "call_id": "toolu_01_bad_id", "name": "get_weather", "arguments": "{\"city\":\"Oslo\"}"},
+      {"type": "function_call_output", "call_id": "toolu_01_bad_id", "output": "5°C"},
+      {"type": "function_call", "id": "fc_adez8tsysrs9", "call_id": "call__x", "name": "get_time", "arguments": "{\"city\":\"Oslo\"}"},
+      {"type": "function_call_output", "call_id": "call__x", "output": "12:00"},
+      {"type": "function_call", "call_id": "call_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "name": "get_weather", "arguments": "{\"city\":\"Lima\"}"},
+      {"type": "function_call_output", "call_id": "call_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "output": "20°C"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Summarize"}]}
+     ],
+     "stream": true,
+     "store": false,
+     "tools": [{"type": "function", "name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}, "strict": false}, {"type": "function", "name": "get_time", "description": "Current time in a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}, "strict": false}]
+    }
+   }
+  },
+  {
+   "id": "missing-results",
+   "about": "unanswered tool calls get a synthetic No result provided error result after the answered ones; a system message folds into the leading instruction",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}, {"name": "get_time", "description": "Current time in a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Weather and time?"}]},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_1|fc_1", "name": "get_weather", "arguments": {"city": "Bern"}}, {"type": "toolCall", "id": "call_2|fc_2", "name": "get_time", "arguments": {"city": "Bern"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000, "trusted": true},
+     {"role": "toolResult", "toolCallId": "call_2|fc_2", "toolName": "get_time", "content": [{"type": "text", "text": "12:00"}], "isError": false},
+     {"role": "system", "content": "Answer in French."},
+     {"role": "user", "content": [{"type": "text", "text": "And?"}]},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_3|fc_3", "name": "get_weather", "arguments": {"city": "Genf"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000, "trusted": true}
+    ]
+   },
+   "expect": {
+    "downgrades": {},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "system", "content": "You are terse.\n\nAnswer in French."},
+      {"role": "user", "content": [{"type": "input_text", "text": "Weather and time?"}]},
+      {"type": "function_call", "id": "fc_1", "call_id": "call_1", "name": "get_weather", "arguments": "{\"city\":\"Bern\"}"},
+      {"type": "function_call", "id": "fc_2", "call_id": "call_2", "name": "get_time", "arguments": "{\"city\":\"Bern\"}"},
+      {"type": "function_call_output", "call_id": "call_2", "output": "12:00"},
+      {"type": "function_call_output", "call_id": "call_1", "output": "No result provided"},
+      {"role": "user", "content": [{"type": "input_text", "text": "And?"}]},
+      {"type": "function_call", "id": "fc_3", "call_id": "call_3", "name": "get_weather", "arguments": "{\"city\":\"Genf\"}"},
+      {"type": "function_call_output", "call_id": "call_3", "output": "No result provided"}
+     ],
+     "stream": true,
+     "store": false,
+     "tools": [{"type": "function", "name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}, "strict": false}, {"type": "function", "name": "get_time", "description": "Current time in a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}, "strict": false}]
+    }
+   }
+  },
+  {
+   "id": "system-mid-convo",
+   "about": "a model taking system messages mid-conversation: the leading message is the full prompt (array-index section names first), a system message between a tool call and its results waits until the results, synthetic ones included, counts towards the msg_pi_<n> index of unsigned text, and later changes are framed updates",
+   "model": "gpt-4.1-mini",
+   "modelCompat": {"supportsStrictMode": true, "supportsMidConvoSystemMessages": true},
+   "context": {
+    "messages": [
+     {"role": "system", "content": "You are terse.", "sections": [{"name": "style", "text": "<style>long</style>"}, {"name": "7", "text": "<n>7</n>"}], "toolsAdded": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}, {"name": "get_time", "description": "Current time in a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}]},
+     {"role": "user", "content": [{"type": "text", "text": "Weather and time?"}]},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_1|fc_1", "name": "get_weather", "arguments": {"city": "Bern"}}, {"type": "toolCall", "id": "call_2|fc_2", "name": "get_time", "arguments": {"city": "Bern"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000, "trusted": true},
+     {"role": "system", "content": "Answer in French."},
+     {"role": "toolResult", "toolCallId": "call_2|fc_2", "toolName": "get_time", "content": [{"type": "text", "text": "12:00"}], "isError": false},
+     {"role": "user", "content": [{"type": "text", "text": "And?"}]},
+     {"role": "assistant", "content": [{"type": "text", "text": "Bien."}], "api": "openai-responses", "provider": "openai", "model": "gpt-4o-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "stop", "timestamp": 1790000000000},
+     {"role": "system", "content": "", "sections": [{"name": "style", "text": "<style>short</style>"}, {"name": "7", "removed": true}], "toolsRemoved": ["get_time"]},
+     {"role": "system", "content": ""},
+     {"role": "user", "content": [{"type": "text", "text": "Go"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "system", "content": "You are terse.\n\n<n>7</n>\n\n<style>long</style>"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Weather and time?"}]},
+      {"type": "function_call", "id": "fc_1", "call_id": "call_1", "name": "get_weather", "arguments": "{\"city\":\"Bern\"}"},
+      {"type": "function_call", "id": "fc_2", "call_id": "call_2", "name": "get_time", "arguments": "{\"city\":\"Bern\"}"},
+      {"type": "function_call_output", "call_id": "call_2", "output": "12:00"},
+      {"type": "function_call_output", "call_id": "call_1", "output": "No result provided"},
+      {"role": "system", "content": "Answer in French."},
+      {"role": "user", "content": [{"type": "input_text", "text": "And?"}]},
+      {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "Bien.", "annotations": []}], "status": "completed", "id": "msg_pi_6"},
+      {"role": "system", "content": "Removed system prompt section \"7\".\n\nUpdated system prompt section \"style\":\n\n<style>short</style>"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Go"}]}
+     ],
+     "stream": true,
+     "store": false,
+     "tools": [{"type": "function", "name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}, "strict": false}]
+    }
+   }
+  },
+  {
+   "id": "system-tools-collapse",
+   "about": "system messages and tool changes replay in input order into one leading instruction and the current tool set",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "Base.",
+    "tools": [{"name": "a", "description": "A", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}, {"name": "b", "description": "B", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}, {"name": "c", "description": "C", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Hi"}]},
+     {"role": "system", "content": "Also X.", "sections": [{"name": "b", "text": "<b>1</b>"}, {"name": "a", "text": "<a>1</a>"}, {"name": "10", "text": "<n>10</n>"}, {"name": "2", "text": "<n>2</n>"}], "toolsRemoved": ["a"], "toolsAdded": [{"name": "d", "description": "D", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}]},
+     {"role": "assistant", "content": [{"type": "text", "text": "ok"}], "api": "openai-responses", "provider": "openai", "model": "gpt-4o-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "stop", "timestamp": 1790000000000},
+     {"role": "system", "content": "", "sections": [{"name": "a", "removed": true}, {"name": "b", "text": "<b>2</b>"}], "toolsRemoved": ["b"], "toolsAdded": [{"name": "b", "description": "B changed", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}, {"name": "c", "description": "C changed", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}]},
+     {"role": "user", "content": [{"type": "text", "text": "Again"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "system", "content": "Base.\n\nAlso X.\n\n<n>2</n>\n\n<n>10</n>\n\n<b>2</b>"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Hi"}]},
+      {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}], "status": "completed", "id": "msg_pi_1"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Again"}]}
+     ],
+     "stream": true,
+     "store": false,
+     "tools": [{"type": "function", "name": "c", "description": "C changed", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}, "strict": false}, {"type": "function", "name": "d", "description": "D", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}, "strict": false}, {"type": "function", "name": "b", "description": "B changed", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}, "strict": false}]
+    }
+   }
+  },
+  {
+   "id": "error-aborted-skip",
+   "about": "error and aborted assistant turns are skipped: their tool calls get no synthetic results and their (untrusted) native state is not counted, while the trusted turn after them replays natively",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Try"}]},
+     {"role": "assistant", "content": [{"type": "thinking", "thinking": "half", "thinkingSignature": "{\"type\":\"reasoning\",\"id\":\"rs_e\",\"summary\":[]}"}, {"type": "toolCall", "id": "call_e|fc_e", "name": "get_weather", "arguments": {"city": "Ba"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "error", "timestamp": 1790000000000, "errorMessage": "boom"},
+     {"role": "assistant", "content": [{"type": "text", "text": "partial", "textSignature": "{\"v\":1,\"id\":\"msg_ab\"}"}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "aborted", "timestamp": 1790000000000, "errorMessage": "Request was aborted"},
+     {"role": "user", "content": [{"type": "text", "text": "Try again"}]},
+     {"role": "assistant", "content": [{"type": "text", "text": "Done", "textSignature": "{\"v\":1,\"id\":\"msg_ok\"}"}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "stop", "timestamp": 1790000000000, "trusted": true},
+     {"role": "user", "content": [{"type": "text", "text": "Thanks"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "user", "content": [{"type": "input_text", "text": "Try"}]},
+      {"role": "user", "content": [{"type": "input_text", "text": "Try again"}]},
+      {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "Done", "annotations": []}], "status": "completed", "id": "msg_ok"},
+      {"role": "user", "content": [{"type": "input_text", "text": "Thanks"}]}
+     ],
+     "stream": true,
+     "store": false
+    }
+   }
+  },
+  {
+   "id": "images-vision",
+   "about": "a model with image input gets user images and tool result images",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "tools": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Compare these"}, {"type": "image", "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==", "mimeType": "image/png"}, {"type": "image", "data": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8=", "mimeType": "image/jpeg"}]},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_i|fc_i", "name": "get_weather", "arguments": {"city": "Rome"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000, "trusted": true},
+     {"role": "toolResult", "toolCallId": "call_i|fc_i", "toolName": "get_weather", "content": [{"type": "text", "text": "Captured"}, {"type": "image", "data": "UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAQAcJaQAA3AA/v3AgAA=", "mimeType": "image/webp"}], "isError": false},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_j|fc_j", "name": "get_weather", "arguments": {"city": "Nice"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000, "trusted": true},
+     {"role": "toolResult", "toolCallId": "call_j|fc_j", "toolName": "get_weather", "content": [{"type": "image", "data": "R0lGODlhAQABAAAAACw=", "mimeType": "image/gif"}], "isError": false},
+     {"role": "user", "content": [{"type": "image", "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==", "mimeType": "image/png"}]},
+     {"role": "user", "content": [{"type": "text", "text": "(image omitted: model does not support images)"}, {"type": "image", "data": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8=", "mimeType": "image/jpeg"}]},
+     {"role": "user", "content": [{"type": "image", "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==", "mimeType": "image/png"}, {"type": "text", "text": "between"}, {"type": "image", "data": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8=", "mimeType": "image/jpeg"}, {"type": "image", "data": "R0lGODlhAQABAAAAACw=", "mimeType": "image/gif"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {"role": "user", "content": [{"type": "input_text", "text": "Compare these"}, {"type": "input_image", "detail": "auto", "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="}, {"type": "input_image", "detail": "auto", "image_url": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8="}]},
+      {"type": "function_call", "id": "fc_i", "call_id": "call_i", "name": "get_weather", "arguments": "{\"city\":\"Rome\"}"},
+      {"type": "function_call_output", "call_id": "call_i", "output": [{"type": "input_text", "text": "Captured"}, {"type": "input_image", "detail": "auto", "image_url": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAQAcJaQAA3AA/v3AgAA="}]},
+      {"type": "function_call", "id": "fc_j", "call_id": "call_j", "name": "get_weather", "arguments": "{\"city\":\"Nice\"}"},
+      {"type": "function_call_output", "call_id": "call_j", "output": [{"type": "input_image", "detail": "auto", "image_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="}]},
+      {"role": "user", "content": [{"type": "input_image", "detail": "auto", "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="}]},
+      {"role": "user", "content": [{"type": "input_text", "text": "(image omitted: model does not support images)"}, {"type": "input_image", "detail": "auto", "image_url": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8="}]},
+      {"role": "user", "content": [{"type": "input_image", "detail": "auto", "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="}, {"type": "input_text", "text": "between"}, {"type": "input_image", "detail": "auto", "image_url": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8="}, {"type": "input_image", "detail": "auto", "image_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="}]}
+     ],
+     "stream": true,
+     "store": false,
+     "tools": [{"type": "function", "name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}, "strict": false}]
+    }
+   }
+  },
+  {
+   "id": "images-placeholder",
+   "about": "a text-only model gets pi's placeholders, one per run of images",
+   "model": "gpt-4",
+   "context": {
+    "tools": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Compare these"}, {"type": "image", "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==", "mimeType": "image/png"}, {"type": "image", "data": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8=", "mimeType": "image/jpeg"}]},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_i|fc_i", "name": "get_weather", "arguments": {"city": "Rome"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000, "trusted": true},
+     {"role": "toolResult", "toolCallId": "call_i|fc_i", "toolName": "get_weather", "content": [{"type": "text", "text": "Captured"}, {"type": "image", "data": "UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAQAcJaQAA3AA/v3AgAA=", "mimeType": "image/webp"}], "isError": false},
+     {"role": "assistant", "content": [{"type": "toolCall", "id": "call_j|fc_j", "name": "get_weather", "arguments": {"city": "Nice"}}], "api": "openai-responses", "provider": "openai", "model": "gpt-4", "usage": {"input": 10, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 15}, "stopReason": "toolUse", "timestamp": 1790000000000, "trusted": true},
+     {"role": "toolResult", "toolCallId": "call_j|fc_j", "toolName": "get_weather", "content": [{"type": "image", "data": "R0lGODlhAQABAAAAACw=", "mimeType": "image/gif"}], "isError": false},
+     {"role": "user", "content": [{"type": "image", "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==", "mimeType": "image/png"}]},
+     {"role": "user", "content": [{"type": "text", "text": "(image omitted: model does not support images)"}, {"type": "image", "data": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8=", "mimeType": "image/jpeg"}]},
+     {"role": "user", "content": [{"type": "image", "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==", "mimeType": "image/png"}, {"type": "text", "text": "between"}, {"type": "image", "data": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP8=", "mimeType": "image/jpeg"}, {"type": "image", "data": "R0lGODlhAQABAAAAACw=", "mimeType": "image/gif"}]}
+    ]
+   },
+   "expect": {
+    "downgrades": {},
+    "body": {
+     "model": "gpt-4",
+     "input": [
+      {"role": "user", "content": [{"type": "input_text", "text": "Compare these"}, {"type": "input_text", "text": "(image omitted: model does not support images)"}]},
+      {"type": "function_call", "id": "fc_i", "call_id": "call_i", "name": "get_weather", "arguments": "{\"city\":\"Rome\"}"},
+      {"type": "function_call_output", "call_id": "call_i", "output": "Captured\n(tool image omitted: model does not support images)"},
+      {"type": "function_call", "id": "fc_j", "call_id": "call_j", "name": "get_weather", "arguments": "{\"city\":\"Nice\"}"},
+      {"type": "function_call_output", "call_id": "call_j", "output": "(tool image omitted: model does not support images)"},
+      {"role": "user", "content": [{"type": "input_text", "text": "(image omitted: model does not support images)"}]},
+      {"role": "user", "content": [{"type": "input_text", "text": "(image omitted: model does not support images)"}]},
+      {"role": "user", "content": [{"type": "input_text", "text": "(image omitted: model does not support images)"}, {"type": "input_text", "text": "between"}, {"type": "input_text", "text": "(image omitted: model does not support images)"}]}
+     ],
+     "stream": true,
+     "store": false,
+     "tools": [{"type": "function", "name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}, "strict": false}]
+    }
+   }
+  }
+ ]
+}

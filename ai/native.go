@@ -104,25 +104,45 @@ func (o replayOrigin) envelope() NativeStateEnvelope {
 	return NativeStateEnvelope{TenantID: o.tenant, AccountScopeID: o.account, ProviderID: o.model.Provider, API: o.model.API, ModelID: o.model.ID}
 }
 
+// downgradeReason is why a message's native state is not replayed natively.
+type downgradeReason int
+
+const (
+	noDowngrade downgradeReason = iota
+	downgradeNoEnvelope
+	downgradeAccountMismatch
+	downgradeCrossModel
+)
+
+// add counts one downgraded message.
+func (d *NativeStateDowngrades) add(r downgradeReason) {
+	switch r {
+	case downgradeNoEnvelope:
+		d.NoEnvelope++
+	case downgradeAccountMismatch:
+		d.AccountMismatch++
+	case downgradeCrossModel:
+		d.CrossModel++
+	}
+}
+
 // nativeReplay decides whether m's native state may be replayed to the
 // call's target. The message's own fields decide same-model as in pi; native
 // replay additionally needs a trusted envelope for the same tenant, account
-// and model. Otherwise it reports which counter the downgrade belongs to.
-// Credential versions are deliberately not compared: rotating the key of the
-// same account keeps the state valid.
-func (o replayOrigin) nativeReplay(m AssistantMessage, count *NativeStateDowngrades) bool {
+// and model. Otherwise it reports why the message is downgraded. Credential
+// versions are deliberately not compared: rotating the key of the same
+// account keeps the state valid.
+func (o replayOrigin) nativeReplay(m AssistantMessage) downgradeReason {
 	env, trusted := m.NativeState.Envelope()
 	switch {
 	case !o.isTarget(m.Provider, m.API, m.Model):
-		count.CrossModel++
+		return downgradeCrossModel
 	case !trusted || env.TenantID != o.tenant:
-		count.NoEnvelope++
+		return downgradeNoEnvelope
 	case !o.isTarget(env.ProviderID, env.API, env.ModelID):
-		count.CrossModel++
+		return downgradeCrossModel
 	case env.AccountScopeID != o.account:
-		count.AccountMismatch++
-	default:
-		return true
+		return downgradeAccountMismatch
 	}
-	return false
+	return noDowngrade
 }

@@ -7,6 +7,7 @@
 **Status:** ready-for-agent
 
 - [ ] 使用 Google GenAI Go SDK（研究锁定 v1.71.0 为起点，纳入时重新核实）；先核查必需字段能否经公开扩展或原始响应无损保留，否则该组合改用直接 HTTP，并跑同一组场景
+- [ ] ToolCall 增加区分缺失/null/空值的 thoughtSignature；跨模型回放按 pi 原 truthy 条件删除非空值、不合并缺失/null/空值（自 08 移交，见 `replay.go` replayContent）
 - [ ] 区分 thought 与 thoughtSignature；回放保留签名；未知必需字段走原始通道，不先丢字段再声称差分一致
 - [ ] 无 finishReason 的 EOF 为错误；各结束原因映射到 StopReason
 - [ ] function call/result 往返；工具结果图片路由；支持图片与占位降级分别覆盖

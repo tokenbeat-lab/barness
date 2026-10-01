@@ -11,18 +11,20 @@ import (
 type adapter interface {
 	// simpleOptions maps protocol-neutral options onto this protocol for model.
 	simpleOptions(m Model, o SimpleOptions) Options
+	// historyRules are this protocol's inputs to the history transform for m.
+	historyRules(m Model) historyRules
 	stream(ctx context.Context, call adapterCall, out *assembler) *Error
 }
 
 // adapterCall is everything one call's adapter may use: an immutable snapshot
-// of the resolved binding, credential and request. Nothing in it is shared
-// mutable tenant state.
+// of the resolved binding, credential and the history prepared for the
+// model. Nothing in it is shared mutable tenant state.
 type adapterCall struct {
 	http     *http.Client
 	endpoint string
 	apiKey   Secret
 	model    Model
-	request  Request
+	history  transcript
 	options  Options // matches the adapter's API; nil means protocol defaults
 }
 

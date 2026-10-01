@@ -44,6 +44,18 @@ func TestPiDifferential(t *testing.T) {
 			o := openOracle(t)
 			differential(t, ev, o, ledger, "stream", toolPidiffScenario(t, "tool-call-function", "stream"))
 		})
+		// E03 history normalization, downgrade and images (TestHistoryNormalization).
+		hf, hraw := loadHistoryFixture(t)
+		for _, sc := range hf.Scenarios {
+			for _, entry := range []string{"stream", "streamSimple"} {
+				t.Run("history/"+sc.ID+"/"+entry, func(t *testing.T) {
+					ev := run.Case(t, "PIDIFF-P01-E03-history-"+sc.ID+"-"+entry)
+					ev.ReplayEnv(pioracle.EnableEnv + "=1")
+					o := openOracle(t)
+					differential(t, ev, o, ledger, entry, hf.pidiff(t, hraw, sc))
+				})
+			}
+		}
 		// E02 failure terminals reuse the offline scenarios. Failure handling
 		// does not depend on the entry point's option mapping, so they run on
 		// the full entry only.
@@ -89,6 +101,9 @@ type pidiffScenario struct {
 	full      ai.Options
 	simple    ai.SimpleOptions
 	piOptions map[string]any
+	// modelCompat replaces the model's compat flags on both sides, as a
+	// custom model does; nil keeps the catalogs'.
+	modelCompat *ai.ModelCompat
 }
 
 // loadPidiffScenario reuses the offline E2E fixtures: P01 plain text
@@ -163,7 +178,7 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	target := ai.Target{BindingID: "primary", ModelID: sc.model}
 
 	// barness-ai through the public Client.
-	w := newWorld(t, tenantA)
+	w := newWorldWith(t, withModelCompat(sc.model, sc.modelCompat), tenantA)
 	if sc.unreachable {
 		w.updateBinding(tenantA, func(b *ai.Binding) { b.Endpoint = deadEndpoint() })
 	} else {
@@ -186,7 +201,12 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	} else {
 		srv.Enqueue(sc.reply)
 	}
+	var compat json.RawMessage
+	if sc.modelCompat != nil {
+		compat = mustMarshal(t, sc.modelCompat)
+	}
 	piRun, err := o.Run(ctxFor(t), pioracle.Case{
+		ModelCompat:      compat,
 		API:              string(ai.APIOpenAIResponses),
 		Provider:         string(ai.ProviderOpenAI),
 		Model:            sc.model,
@@ -281,54 +301,6 @@ func observeRequests(ev *evidence.Case, name string, srv *provider.Server, obs *
 		obs.Request = pioracle.Request{Method: r.Method, Path: r.Path, Query: r.Query, Auth: r.KeyAlias, Headers: r.Header, Body: r.Body}
 	}
 	return len(reqs)
-}
-
-// piContext is the pi Context for the same logical input barness receives.
-// User and tool-result messages carry pi's required timestamp; it never
-// reaches the wire. An assistant message is replayed in pi's message shape.
-func piContext(t *testing.T, req ai.Request) json.RawMessage {
-	t.Helper()
-	texts := func(blocks []any) []map[string]any {
-		content := []map[string]any{}
-		for _, c := range blocks {
-			text, ok := c.(ai.Text)
-			if !ok {
-				t.Fatalf("piContext: unsupported content %T", c)
-			}
-			content = append(content, map[string]any{"type": "text", "text": text.Text})
-		}
-		return content
-	}
-	messages := []map[string]any{}
-	for _, m := range req.Messages {
-		switch m := m.(type) {
-		case ai.UserMessage:
-			messages = append(messages, map[string]any{"role": "user", "content": texts(anySlice(m.Content)), "timestamp": 0})
-		case ai.AssistantMessage:
-			messages = append(messages, piMessage(t, m))
-		case ai.ToolResultMessage:
-			messages = append(messages, map[string]any{"role": "toolResult", "toolCallId": m.ToolCallID, "toolName": m.ToolName,
-				"content": texts(anySlice(m.Content)), "isError": m.IsError, "timestamp": 0})
-		default:
-			t.Fatalf("piContext: unsupported message %T", m)
-		}
-	}
-	ctx := map[string]any{"messages": messages}
-	if req.SystemPrompt != "" {
-		ctx["systemPrompt"] = req.SystemPrompt
-	}
-	if len(req.Tools) > 0 {
-		ctx["tools"] = req.Tools
-	}
-	return mustMarshal(t, ctx)
-}
-
-func anySlice[T any](in []T) []any {
-	out := make([]any, len(in))
-	for i, v := range in {
-		out[i] = v
-	}
-	return out
 }
 
 // piOptions encodes pi stream options, or nothing when there are none.

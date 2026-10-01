@@ -94,6 +94,9 @@ type Case struct {
 	Entry    string          `json:"entry"`
 	Context  json.RawMessage `json:"context"`
 	Options  json.RawMessage `json:"options,omitempty"`
+	// ModelCompat overrides compat flags of pi's catalog model, as a pi user
+	// configures a custom model. Empty keeps the catalog's flags.
+	ModelCompat json.RawMessage `json:"modelCompat,omitempty"`
 	// AbortAfterEvents > 0 aborts the call through its signal once that many
 	// events were received.
 	AbortAfterEvents int `json:"abortAfterEvents,omitempty"`

@@ -9,43 +9,52 @@ import "strings"
 type replayedAssistant struct {
 	AssistantMessage
 	sameModel bool
+	// downgrade is why native state was not replayed natively, or
+	// noDowngrade. It is counted only if the message is replayed at all.
+	downgrade downgradeReason
 }
 
-// replayHistory prepares the host's history for the target. It ports the
-// thinking and text rules of pi-ai's transformMessages, with one barness-ai
-// addition: a message carrying native state counts as same-model only when
-// nativeReplay vouches for it, and is otherwise downgraded exactly as pi
-// downgrades another model's history (spec I6). A message without native
-// state has nothing to vouch for and follows pi's field comparison alone.
-// The caller's messages are never modified.
-//
-// The rest of pi's history transform — tool call ID normalization, synthetic
-// results for unanswered calls, skipping error/aborted turns, image
-// placeholders — is ticket 08's. Known defect until then: an error/aborted
-// turn, which pi skips, is replayed and may add to the downgrade counts.
-func (o replayOrigin) replayHistory(msgs []Message) ([]Message, NativeStateDowngrades) {
-	var count NativeStateDowngrades
-	out := make([]Message, len(msgs))
-	for i, m := range msgs {
-		a, ok := m.(AssistantMessage)
-		if !ok {
-			out[i] = m
-			continue
-		}
-		same := o.isTarget(a.Provider, a.API, a.Model)
-		if carriesNativeState(a) {
-			same = o.nativeReplay(a, &count)
-		}
-		a.Content = replayContent(a.Content, same)
-		out[i] = replayedAssistant{AssistantMessage: a, sameModel: same}
+// replayAssistant applies the per-message half of pi-ai's transformMessages
+// to one history assistant message, with one barness-ai addition: a message
+// carrying native state counts as same-model only when nativeReplay vouches
+// for it, and is otherwise downgraded exactly as pi downgrades another
+// model's history (spec I6). A message without native state has nothing to
+// vouch for and follows pi's field comparison alone. renamed records each
+// tool call id the target's rules rewrote, for the results that answer it.
+func (o replayOrigin) replayAssistant(a AssistantMessage, rules historyRules, renamed map[string]string) replayedAssistant {
+	same := o.isTarget(a.Provider, a.API, a.Model)
+	reason := noDowngrade
+	if carriesNativeState(a) {
+		reason = o.nativeReplay(a)
+		same = reason == noDowngrade
 	}
-	return out, count
+	source := a
+	a.Content = replayContent(a.Content, same)
+	if !same && rules.normalizeToolCallID != nil {
+		for i, block := range a.Content {
+			call, ok := block.(ToolCall)
+			if !ok {
+				continue
+			}
+			if id := rules.normalizeToolCallID(call.ID, source); id != call.ID {
+				renamed[call.ID] = id
+				call.ID = id
+				a.Content[i] = call
+			}
+		}
+	}
+	return replayedAssistant{AssistantMessage: a, sameModel: same, downgrade: reason}
 }
 
 // replayContent converts one message's blocks into a new slice: same-model
 // keeps redacted and signed thinking (even with no visible text) and drops
 // other blank thinking; cross-model turns visible thinking into plain text,
 // drops redacted and blank thinking, and strips text of its signature.
+//
+// pi also deletes a truthy thoughtSignature from another model's tool calls.
+// No ToolCall field carries one yet: the Gemini adapter (ticket 19) adds it
+// together with that rule, which must keep pi's missing/null/empty
+// distinction.
 func replayContent(content []AssistantContent, sameModel bool) []AssistantContent {
 	out := make([]AssistantContent, 0, len(content))
 	for _, block := range content {

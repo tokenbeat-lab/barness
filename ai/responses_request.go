@@ -30,13 +30,23 @@ type responsesInstruction struct {
 }
 
 type responsesUserMessage struct {
-	Role    string               `json:"role"`
-	Content []responsesInputText `json:"content"`
+	Role    string `json:"role"`
+	Content []any  `json:"content"`
 }
 
 type responsesInputText struct {
 	Type string `json:"type"`
 	Text string `json:"text"`
+}
+
+type responsesInputImage struct {
+	Type     string `json:"type"`
+	Detail   string `json:"detail"`
+	ImageURL string `json:"image_url"`
+}
+
+func newResponsesInputImage(img Image) responsesInputImage {
+	return responsesInputImage{Type: "input_image", Detail: "auto", ImageURL: "data:" + img.MimeType + ";base64," + img.Data}
 }
 
 // responsesOutputMessage replays an assistant text block.
@@ -67,7 +77,9 @@ type responsesFunctionCall struct {
 type responsesFunctionCallOutput struct {
 	Type   string `json:"type"`
 	CallID string `json:"call_id"`
-	Output string `json:"output"`
+	// Output is the result text, or input_text and input_image items when
+	// the result holds images the model can see.
+	Output any `json:"output"`
 }
 
 type responsesTool struct {
@@ -80,11 +92,11 @@ type responsesTool struct {
 	Strict *bool `json:"strict,omitempty"`
 }
 
-// buildResponsesBody encodes the request for model. Only tool_choice of the
-// options is implemented (ticket 09 brings the rest); with no options pi sends
-// no prompt-cache fields because the default cache retention is "short"
-// without a session id.
-func buildResponsesBody(model Model, req Request, opts ResponsesOptions) ([]byte, error) {
+// buildResponsesBody encodes the prepared history for model. Only tool_choice
+// of the options is implemented (ticket 09 brings the rest); with no options
+// pi sends no prompt-cache fields because the default cache retention is
+// "short" without a session id.
+func buildResponsesBody(model Model, history transcript, opts ResponsesOptions) ([]byte, error) {
 	body := responsesBody{Model: model.ID, Input: []any{}, Stream: true, Store: false}
 
 	// pi: reasoning models (that support it) take instructions as "developer".
@@ -92,21 +104,37 @@ func buildResponsesBody(model Model, req Request, opts ResponsesOptions) ([]byte
 	if model.Reasoning {
 		role = "developer"
 	}
-	if req.SystemPrompt != "" {
-		body.Input = append(body.Input, responsesInstruction{Role: role, Content: req.SystemPrompt})
-	}
+	vision := model.acceptsImages()
 
-	// msgIndex counts the messages that produced input items, as pi's does;
-	// it names assistant text replayed without a signature.
+	// msgIndex counts the messages after a leading system message, except
+	// user and assistant messages that produced no items, as pi's does; it
+	// names assistant text replayed without a signature.
 	msgIndex := 0
-	for _, m := range req.Messages {
+	for i, m := range history.messages {
 		var items []any
 		switch m := m.(type) {
+		case SystemMessage:
+			// A leading message is the complete prompt; a later one (only
+			// kept for a model taking them mid-conversation) is an update.
+			text := m.updateText()
+			if i == 0 {
+				text = m.promptText()
+			}
+			if text != "" {
+				body.Input = append(body.Input, responsesInstruction{Role: role, Content: text})
+			}
+			if i > 0 {
+				msgIndex++
+			}
+			continue
 		case UserMessage:
-			content := make([]responsesInputText, 0, len(m.Content))
+			content := make([]any, 0, len(m.Content))
 			for _, c := range m.Content {
-				if t, ok := c.(Text); ok {
-					content = append(content, responsesInputText{Type: "input_text", Text: t.Text})
+				switch c := c.(type) {
+				case Text:
+					content = append(content, responsesInputText{Type: "input_text", Text: c.Text})
+				case Image:
+					content = append(content, newResponsesInputImage(c))
 				}
 			}
 			if len(content) > 0 {
@@ -118,7 +146,7 @@ func buildResponsesBody(model Model, req Request, opts ResponsesOptions) ([]byte
 				return nil, err
 			}
 		case ToolResultMessage:
-			items = append(items, responsesToolResult(m))
+			items = append(items, responsesToolResult(m, vision))
 		}
 		if len(items) == 0 {
 			continue
@@ -127,7 +155,7 @@ func buildResponsesBody(model Model, req Request, opts ResponsesOptions) ([]byte
 		msgIndex++
 	}
 
-	for _, t := range req.Tools {
+	for _, t := range history.tools {
 		tool := responsesTool{Type: "function", Name: t.Name, Description: t.Description, Parameters: t.Parameters}
 		if model.Compat.SupportsStrictMode {
 			tool.Strict = new(bool)
@@ -144,10 +172,9 @@ func buildResponsesBody(model Model, req Request, opts ResponsesOptions) ([]byte
 	return marshalJS(body)
 }
 
-// responsesAssistantItems replays a previous turn prepared by replayHistory:
-// a signed thinking block as its reasoning item, text as output messages and
-// tool calls as function_call items. Cross-provider tool ID normalization is
-// ticket 08's.
+// responsesAssistantItems replays a previous turn prepared by
+// prepareTranscript: a signed thinking block as its reasoning item, text as
+// output messages and tool calls as function_call items.
 func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]any, error) {
 	sameProviderAPI := m.Provider == model.Provider && m.API == model.API
 	// A same provider/API message whose native state was downgraded is
@@ -206,22 +233,43 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 	return items, nil
 }
 
-// responsesToolResult is a function_call_output: the result's text blocks
-// joined by newlines, or pi's placeholder when there are none. Image results
-// arrive with ticket 08.
-func responsesToolResult(m ToolResultMessage) responsesFunctionCallOutput {
+// responsesToolResult is a function_call_output (pi convertToolResultOutput).
+// Without images, or for a model without image input, the output is the text
+// blocks joined by newlines, else "(see attached image)" or "(no tool
+// output)". With images the model can see, it is the joined text as one
+// input_text item, if any, followed by every image.
+func responsesToolResult(m ToolResultMessage, vision bool) responsesFunctionCallOutput {
 	var texts []string
+	var images []Image
 	for _, c := range m.Content {
-		if t, ok := c.(Text); ok {
-			texts = append(texts, t.Text)
+		switch c := c.(type) {
+		case Text:
+			texts = append(texts, c.Text)
+		case Image:
+			images = append(images, c)
 		}
 	}
-	output := strings.Join(texts, "\n")
-	if output == "" {
-		output = "(no tool output)"
-	}
+	text := strings.Join(texts, "\n")
 	callID, _, _ := strings.Cut(m.ToolCallID, "|")
-	return responsesFunctionCallOutput{Type: "function_call_output", CallID: callID, Output: output}
+	out := responsesFunctionCallOutput{Type: "function_call_output", CallID: callID}
+	switch {
+	case len(images) > 0 && vision:
+		var items []any
+		if text != "" {
+			items = append(items, responsesInputText{Type: "input_text", Text: text})
+		}
+		for _, img := range images {
+			items = append(items, newResponsesInputImage(img))
+		}
+		out.Output = items
+	case text != "":
+		out.Output = text
+	case len(images) > 0:
+		out.Output = "(see attached image)"
+	default:
+		out.Output = "(no tool output)"
+	}
+	return out
 }
 
 // parseTextSignature reads pi-ai's TextSignatureV1 ({"v":1,"id":…,"phase":…});

@@ -1,5 +1,7 @@
 package ai
 
+import "slices"
+
 // Modality is an input kind a model accepts.
 type Modality string
 
@@ -26,7 +28,16 @@ type Model struct {
 type ModelCompat struct {
 	// SupportsStrictMode: Responses function tools carry a "strict" field.
 	SupportsStrictMode bool `json:"supportsStrictMode,omitempty"`
+	// SupportsMidConvoSystemMessages: later system messages are sent in place
+	// as instruction updates instead of folding into the leading one. No
+	// built-in model sets it yet; pi sets it only on reasoning models, which
+	// arrive with ticket 09.
+	SupportsMidConvoSystemMessages bool `json:"supportsMidConvoSystemMessages,omitempty"`
 }
+
+// acceptsImages reports whether the model takes image input; any other model
+// gets pi-ai's placeholder text instead of images.
+func (m Model) acceptsImages() bool { return slices.Contains(m.Input, ModalityImage) }
 
 // Catalog is a versioned model catalog. It is never updated online.
 type Catalog struct {
@@ -39,16 +50,19 @@ type Catalog struct {
 // Source: the frozen pi-ai 0.87.1 model data (providers/data/openai.json,
 // sha256 3c52c858…2835) from the differential oracle's rebuilt copy, see
 // internal/testkit/pioracle/node/PROVENANCE.md. Every listed field was
-// re-checked against it when the oracle landed (compat when tools landed). Only
-// non-reasoning OpenAI × Responses text models are listed until reasoning
-// mapping (ticket 09) and pricing (ticket 15) land, so nothing here promises
-// behavior the adapter does not yet implement.
+// re-checked against it when the oracle landed (compat when tools landed,
+// gpt-4 when image placeholders landed). Only non-reasoning OpenAI ×
+// Responses models are listed until reasoning mapping (ticket 09) and pricing
+// (ticket 15) land, so nothing here promises behavior the adapter does not yet
+// implement. gpt-4 is the text-only model: images reach it as placeholders.
 func BuiltinCatalog() Catalog {
+	textOnly := func() []Modality { return []Modality{ModalityText} }
 	textAndImage := func() []Modality { return []Modality{ModalityText, ModalityImage} }
 	strict := ModelCompat{SupportsStrictMode: true}
 	return Catalog{
-		Version: "2026-10-01.2",
+		Version: "2026-10-01.3",
 		Models: []Model{
+			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4", Name: "GPT-4", Input: textOnly(), ContextWindow: 8192, MaxTokens: 8192, Compat: strict},
 			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4.1", Name: "GPT-4.1", Input: textAndImage(), ContextWindow: 1047576, MaxTokens: 32768, Compat: strict},
 			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4.1-mini", Name: "GPT-4.1 mini", Input: textAndImage(), ContextWindow: 1047576, MaxTokens: 32768, Compat: strict},
 			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4o-mini", Name: "GPT-4o mini", Input: textAndImage(), ContextWindow: 128000, MaxTokens: 16384, Compat: strict},
