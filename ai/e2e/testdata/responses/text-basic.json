@@ -1,0 +1,42 @@
+{
+  "case": "P01 OpenAI × Responses plain-text generation",
+  "source": "Synthetic offline fixture. Event shapes follow the OpenAI Responses streaming API as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/openai-responses-shared.ts processResponsesStream; the expected request follows buildParams/convertResponsesMessages in openai-responses.ts for a non-reasoning model with no options (cacheRetention defaults to short with no sessionId, so no prompt_cache_* fields).",
+  "model": "gpt-4.1-mini",
+  "systemPrompt": "You are terse.",
+  "user": "Say hello.",
+  "events": [
+    {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_001", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+    {"type": "response.in_progress", "sequence_number": 1, "response": {"id": "resp_001", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+    {"type": "response.output_item.added", "sequence_number": 2, "output_index": 0, "item": {"id": "msg_001", "type": "message", "status": "in_progress", "role": "assistant", "content": []}},
+    {"type": "response.content_part.added", "sequence_number": 3, "item_id": "msg_001", "output_index": 0, "content_index": 0, "part": {"type": "output_text", "text": "", "annotations": []}},
+    {"type": "response.output_text.delta", "sequence_number": 4, "item_id": "msg_001", "output_index": 0, "content_index": 0, "delta": "Hello"},
+    {"type": "response.output_text.delta", "sequence_number": 5, "item_id": "msg_001", "output_index": 0, "content_index": 0, "delta": ", "},
+    {"type": "response.output_text.delta", "sequence_number": 6, "item_id": "msg_001", "output_index": 0, "content_index": 0, "delta": "world!"},
+    {"type": "response.output_text.done", "sequence_number": 7, "item_id": "msg_001", "output_index": 0, "content_index": 0, "text": "Hello, world!"},
+    {"type": "response.content_part.done", "sequence_number": 8, "item_id": "msg_001", "output_index": 0, "content_index": 0, "part": {"type": "output_text", "text": "Hello, world!", "annotations": []}},
+    {"type": "response.output_item.done", "sequence_number": 9, "output_index": 0, "item": {"id": "msg_001", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "Hello, world!", "annotations": []}]}},
+    {"type": "response.completed", "sequence_number": 10, "response": {"id": "resp_001", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_001", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "Hello, world!", "annotations": []}]}], "usage": {"input_tokens": 20, "input_tokens_details": {"cached_tokens": 4}, "output_tokens": 5, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 25}}}
+  ],
+  "expect": {
+    "request": {
+      "method": "POST",
+      "path": "/v1/responses",
+      "query": "",
+      "body": {
+        "model": "gpt-4.1-mini",
+        "input": [
+          {"role": "system", "content": "You are terse."},
+          {"role": "user", "content": [{"type": "input_text", "text": "Say hello."}]}
+        ],
+        "stream": true,
+        "store": false
+      }
+    },
+    "deltas": ["Hello", ", ", "world!"],
+    "text": "Hello, world!",
+    "textSignature": "{\"v\":1,\"id\":\"msg_001\"}",
+    "responseId": "resp_001",
+    "stopReason": "stop",
+    "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25}
+  }
+}
