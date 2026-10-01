@@ -1,2 +1,5 @@
 # Offline E2E evidence bundles (ai/internal/testkit/evidence)
 /.evidence/
+
+# Frozen pi oracle dependencies (rebuild: npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node)
+/ai/internal/testkit/pioracle/node/node_modules/

@@ -28,9 +28,10 @@ type Catalog struct {
 
 // BuiltinCatalog returns a fresh copy of the built-in catalog.
 //
-// Source: pi-ai published model data (dist/providers/data/openai.json, package
-// 0.85.1, the newest generated data available when this catalog was cut; the
-// frozen 0.87.1 checkout lacks generated data, see spec Further Notes). Only
+// Source: the frozen pi-ai 0.87.1 model data (providers/data/openai.json,
+// sha256 3c52c858…2835) from the differential oracle's rebuilt copy, see
+// internal/testkit/pioracle/node/PROVENANCE.md. Every listed field was
+// re-checked against it when the oracle landed. Only
 // non-reasoning OpenAI × Responses text models are listed until reasoning
 // mapping (ticket 09) and pricing (ticket 15) land, so nothing here promises
 // behavior the adapter does not yet implement.

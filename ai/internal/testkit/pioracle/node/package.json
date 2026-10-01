@@ -1,0 +1,15 @@
+{
+  "name": "barness-pi-oracle",
+  "private": true,
+  "description": "Frozen pi-ai 0.87.1 runner for the barness-ai differential oracle. See PROVENANCE.md.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "dependencies": {
+    "@earendil-works/pi-ai": "0.87.1"
+  },
+  "overrides": {
+    "@earendil-works/pi-telemetry": "0.87.1"
+  }
+}

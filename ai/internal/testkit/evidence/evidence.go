@@ -164,12 +164,24 @@ type Case struct {
 	hashes     map[string]string
 	assertions []assertion
 	status     string
+	replayEnv  string
 }
 
 type assertion struct {
 	Name   string `json:"name"`
 	Pass   bool   `json:"pass"`
 	Detail string `json:"detail,omitempty"`
+}
+
+// ID is the case identifier.
+func (c *Case) ID() string { return c.id }
+
+// ReplayEnv prefixes the replay command with environment assignments the
+// scenario needs to run at all, e.g. an opt-in switch.
+func (c *Case) ReplayEnv(assignments string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.replayEnv = assignments
 }
 
 // T is the case's test.
@@ -212,8 +224,13 @@ func (c *Case) Check(name string, ok bool, detailFormat string, args ...any) boo
 func (c *Case) finish() {
 	c.mu.Lock()
 	status := "PASS"
-	if c.t.Failed() {
+	switch {
+	case c.t.Failed():
 		status = "FAIL"
+	case c.t.Skipped():
+		// Not executed (e.g. an opt-in suite that was not requested); never
+		// reported as a pass.
+		status = "NOT_RUN"
 	}
 	c.status = status
 	report := map[string]any{
@@ -236,7 +253,11 @@ func (c *Case) replay() string {
 	for i, p := range parts {
 		parts[i] = "^" + regexp.QuoteMeta(p) + "$"
 	}
-	return fmt.Sprintf("go test %s -count=1 -run '%s'", c.run.pkg, strings.Join(parts, "/"))
+	cmd := fmt.Sprintf("go test %s -count=1 -run '%s'", c.run.pkg, strings.Join(parts, "/"))
+	if c.replayEnv != "" {
+		cmd = c.replayEnv + " " + cmd
+	}
+	return cmd
 }
 
 // ModuleVersion returns the version go.mod pins for module path. Test binaries
