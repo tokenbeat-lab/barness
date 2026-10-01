@@ -17,8 +17,9 @@ type adapter interface {
 	// headers are the authentication and protocol request headers for the
 	// call, merged; the header transform runs over them before stream.
 	headers(call adapterCall) http.Header
-	// stream sends call.header exactly and runs call.hooks' payload and
-	// response callbacks at this protocol's points.
+	// stream sends call.header exactly, sends the initial request through
+	// call.initial, and runs call.hooks' payload callback before it and the
+	// response callback once after it succeeded.
 	stream(ctx context.Context, call adapterCall, out *assembler) *Error
 }
 
@@ -41,6 +42,9 @@ type adapterCall struct {
 	// SDK default.
 	header http.Header
 	hooks  boundHooks
+	// initial sends the initial request under the pinned retry policy; the
+	// adapter retries nothing else.
+	initial *initialRequest
 }
 
 // registry is the explicit adapter table selected by Binding.API. It is built

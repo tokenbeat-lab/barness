@@ -51,6 +51,9 @@ func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID 
 			return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding hosted tool allowance names an invalid tool type")
 		}
 	}
+	if problem := b.Retry.validate(); problem != "" {
+		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, problem)
+	}
 	return b, nil
 }
 

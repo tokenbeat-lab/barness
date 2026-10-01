@@ -293,11 +293,12 @@
       "cases": [
         "PIDIFF-P01-E02-disconnect-mid-stream-stream",
         "PIDIFF-P01-E02-disconnect-after-terminal-stream",
-        "PIDIFF-P01-E02-tool-disconnect-mid-arguments-stream"
+        "PIDIFF-P01-E02-tool-disconnect-mid-arguments-stream",
+        "PIDIFF-P01-E05-stream-cut-not-replayed-stream"
       ],
       "classification": "extension",
       "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body. That is runtime text, not pi logic. barness reports the fixed text 'Connection lost while reading the OpenAI Responses stream'. StopReason error, the kept content, usage and rawStopReason match; the Code (transport) and Phase (stream) are asserted by the offline E2E.",
-      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*"
+      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*; retry.json stream-cut-not-replayed (11)"
     },
     {
       "protocol": "openai-responses",
@@ -306,11 +307,12 @@
       "cases": [
         "PIDIFF-P01-E02-disconnect-mid-stream-stream",
         "PIDIFF-P01-E02-disconnect-after-terminal-stream",
-        "PIDIFF-P01-E02-tool-disconnect-mid-arguments-stream"
+        "PIDIFF-P01-E02-tool-disconnect-mid-arguments-stream",
+        "PIDIFF-P01-E05-stream-cut-not-replayed-stream"
       ],
       "classification": "extension",
       "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body. That is runtime text, not pi logic. barness reports the fixed text 'Connection lost while reading the OpenAI Responses stream'. StopReason error, the kept content, usage and rawStopReason match; the Code (transport) and Phase (stream) are asserted by the offline E2E.",
-      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*"
+      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*; retry.json stream-cut-not-replayed (11)"
     },
     {
       "protocol": "openai-responses",

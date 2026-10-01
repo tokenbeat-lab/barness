@@ -110,7 +110,9 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	// Admission for the attempt (ticket 13) goes here.
 
 	// From here on the call is pinned to this snapshot: later updates or
-	// revocations affect only new logical calls.
+	// revocations affect only new logical calls, and every retry of the
+	// initial request reuses it.
+	initial := &initialRequest{policy: binding.Retry.pinned(), clock: c.clock, requestID: cl.scope.RequestID}
 	ac := adapterCall{
 		http:     c.http,
 		endpoint: binding.Endpoint,
@@ -123,6 +125,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		// pinned snapshot.
 		hostedTools: slices.Clone(binding.AllowedHostedTools),
 		hooks:       boundHooks{hooks: cl.hooks, scope: cl.scope, model: model},
+		initial:     initial,
 	}
 	// The trusted header transform sees the merged authentication and
 	// request headers before the adapter takes over, and may not change
@@ -130,5 +133,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	if ac.header, failure = ac.hooks.headers(ctx, ad.headers(ac)); failure != nil {
 		return failure
 	}
-	return ad.stream(ctx, ac, asm)
+	failure = ad.stream(ctx, ac, asm)
+	meta.Attempts = initial.attempts
+	return failure
 }

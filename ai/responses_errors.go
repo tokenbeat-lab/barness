@@ -12,18 +12,19 @@ import (
 	"strings"
 	"unicode/utf16"
 
+	"github.com/openai/openai-go/v3/option"
 	"github.com/openai/openai-go/v3/packages/respjson"
 	"github.com/openai/openai-go/v3/packages/ssestream"
+
+	"github.com/tokenbeat-lab/barness/ai/internal/clock"
 )
 
 // Error texts barness-ai shares with pi-ai's Responses path, so a caller sees
 // the same errorMessage for the same failure.
 const (
-	// openai-node's APIUserAbortError / APIConnectionTimeoutError /
-	// APIConnectionError: the request was interrupted before a response.
-	msgRequestAborted  = "Request was aborted."
-	msgRequestTimedOut = "Request timed out."
-	msgConnection      = "Connection error."
+	// openai-node's APIConnectionError: no response arrived. An interrupted
+	// request is classified by requestInterrupted.
+	msgConnection = "Connection error."
 	// pi's explicit check after a stream that reached its terminal.
 	msgAbortedAfterTerminal = "Request was aborted"
 	// pi's check for a stream without a terminal event. A stream interrupted
@@ -47,37 +48,54 @@ const maxErrorBodyChars = 4000
 type responsesFailures struct {
 	provider ProviderID
 	apiKey   Secret
+	clock    *clock.Clock // reads a retry-after date; nil is the system clock
 }
 
-// request classifies a failure before the stream started: an interruption,
-// a non-2xx response, or a connection that never produced one.
-func (f responsesFailures) request(ctx context.Context, err error, res *http.Response) *Error {
+// request classifies an attempt at the initial request that failed before a
+// response was obtained: an interruption, a non-2xx response, or a
+// connection that never produced one.
+func (f responsesFailures) request(ctx context.Context, err error, res *http.Response) attemptOutcome {
 	if ctx.Err() != nil {
-		msg := msgRequestAborted
-		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
-			msg = msgRequestTimedOut
-		}
-		return interrupted(ctx, PhaseRequest, msg)
+		return attemptOutcome{failure: requestInterrupted(ctx)}
 	}
 	if res != nil && res.StatusCode >= 300 {
 		return f.status(res)
 	}
-	return newError(CodeTransport, PhaseRequest, msgConnection)
+	var conn *connectionFailure
+	return attemptOutcome{failure: newError(CodeTransport, PhaseRequest, msgConnection), connection: errors.As(err, &conn)}
+}
+
+// connectionFailure marks an error of the HTTP client itself, so the request
+// got no response at all: the only error without a status the retry rules
+// retry. Errors the SDK raises before sending are never marked.
+type connectionFailure struct{ err error }
+
+func (e *connectionFailure) Error() string { return e.err.Error() }
+func (e *connectionFailure) Unwrap() error { return e.err }
+
+// markConnectionFailures is SDK middleware around the HTTP client's Do.
+func markConnectionFailures(req *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+	res, err := next(req)
+	if err != nil && res == nil {
+		return nil, &connectionFailure{err: err}
+	}
+	return res, err
 }
 
 // status classifies a non-2xx response. The SDK has already read the body of
 // an error status and left a copy in res.Body; a redirect's body is unread.
-func (f responsesFailures) status(res *http.Response) *Error {
+func (f responsesFailures) status(res *http.Response) attemptOutcome {
 	// Unbounded for now: the SDK has already read an error body whole, so this
 	// adds no allocation, but a redirect's body is read here and a hostile
 	// upstream can make either large. Ticket 12 bounds both by
 	// MaxErrorBodyBytes; remove this note then.
 	body, _ := io.ReadAll(res.Body)
-	e := newError(codeForStatus(res.StatusCode), PhaseRequest, f.redact(describeHTTPError(f.prefix(), res.StatusCode, body)))
+	msg, sdkMsg := describeHTTPError(f.prefix(), res.StatusCode, body)
+	e := newError(codeForStatus(res.StatusCode), PhaseRequest, f.redact(msg))
 	e.HTTPStatus = res.StatusCode
 	e.ProviderRequestID = res.Header.Get("x-request-id")
-	e.RetryAfter = retryAfter(res.Header)
-	return e
+	e.RetryAfter = retryAfter(res.Header, f.clock.Now())
+	return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: e.ProviderRequestID, failure: e, sdkMessage: f.redact(sdkMsg)}
 }
 
 // stream classifies an error that ended the SSE stream early.
@@ -130,10 +148,10 @@ func (f responsesFailures) redact(text string) string {
 }
 
 // describeHTTPError ports how pi-ai describes a non-2xx response: openai-node
-// builds the APIError message from the body's "error" field (or the raw text
-// of a non-JSON body), and pi's formatProviderError shows a non-empty error
-// object as the body instead.
-func describeHTTPError(prefix string, status int, body []byte) string {
+// builds the APIError message (sdk) from the body's "error" field (or the
+// raw text of a non-JSON body), and pi's formatProviderError shows a
+// non-empty error object as the body instead (msg).
+func describeHTTPError(prefix string, status int, body []byte) (msg, sdk string) {
 	var parsed any
 	isJSON := json.Unmarshal(body, &parsed) == nil
 	var errRaw json.RawMessage
@@ -144,20 +162,25 @@ func describeHTTPError(prefix string, status int, body []byte) string {
 		_ = json.Unmarshal(body, &fields)
 		errRaw = fields["error"]
 	}
-	if obj, ok := errVal.(map[string]any); ok && len(obj) > 0 {
-		return fmt.Sprintf("%s (%d): %s", prefix, status, truncateUTF16(compactJSON(errRaw), maxErrorBodyChars))
-	}
-	var msg string
+	// openai-node's APIError.makeMessage.
+	obj, isObject := errVal.(map[string]any)
+	var text string
 	switch {
+	case isObject:
+		text = apiErrorText(errRaw)
 	case jsTruthy(errVal):
-		msg = compactJSON(errRaw)
+		text = compactJSON(errRaw)
 	case !isJSON || !jsTruthy(parsed):
-		msg = string(body)
+		text = string(body)
 	}
-	if msg == "" {
-		return fmt.Sprintf("%s (%d): %d status code (no body)", prefix, status, status)
+	sdk = fmt.Sprintf("%d %s", status, text)
+	if text == "" {
+		sdk = fmt.Sprintf("%d status code (no body)", status)
 	}
-	return fmt.Sprintf("%s (%d): %d %s", prefix, status, status, msg)
+	if len(obj) > 0 {
+		return fmt.Sprintf("%s (%d): %s", prefix, status, truncateUTF16(compactJSON(errRaw), maxErrorBodyChars)), sdk
+	}
+	return fmt.Sprintf("%s (%d): %s", prefix, status, sdk), sdk
 }
 
 // apiErrorText is openai-node's APIError message for an error object without

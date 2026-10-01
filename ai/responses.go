@@ -41,44 +41,55 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		return newError(CodeInvalidRequest, PhaseRequest, "request could not be encoded")
 	}
 	// As in pi, the payload callback runs once per logical call, outside
-	// any retry of the initial request (ticket 11).
+	// any retry of the initial request.
 	body, failure := ac.hooks.payload(ctx, body, authorizeResponsesPayload(ac.model, cacheKey, ac.hostedTools))
 	if failure != nil {
 		return failure
 	}
-	var res *http.Response
 	reqOpts := []option.RequestOption{
 		option.WithHTTPClient(ac.http),
 		option.WithBaseURL(ac.endpoint),
-		// Retries are barness-ai's decision (default 0, ticket 11), never the SDK's.
+		// Retries are barness-ai's (ac.initial), never the SDK's.
 		option.WithMaxRetries(0),
 		option.WithRequestBody("application/json", body),
-		option.WithResponseInto(&res),
+		option.WithMiddleware(markConnectionFailures),
 	}
 	// Authentication travels in ac.header, so the SDK's own API key setting
 	// stays empty and adds no second Authorization.
 	reqOpts = append(reqOpts, headerOptions(ac.header)...)
 	svc := responses.NewResponseService(reqOpts...)
-	failures := responsesFailures{provider: ac.model.Provider, apiKey: ac.apiKey}
-	// Close releases the response body on every path; the SDK has already
-	// closed the body of an error status.
-	stream := svc.NewStreaming(ctx, responses.ResponseNewParams{})
+	failures := responsesFailures{provider: ac.model.Provider, apiKey: ac.apiKey, clock: ac.initial.clock}
+	var stream *ssestream.Stream[responses.ResponseStreamEventUnion]
+	var res *http.Response
+	failure = ac.initial.send(ctx, func(ctx context.Context) attemptOutcome {
+		stream = svc.NewStreaming(ctx, responses.ResponseNewParams{}, option.WithResponseInto(&res))
+		if err := stream.Err(); err != nil {
+			// The SDK has already closed the body of an error status.
+			_ = stream.Close()
+			return failures.request(ctx, err, res)
+		}
+		if res.StatusCode >= 300 {
+			o := failures.status(res)
+			_ = stream.Close()
+			return o
+		}
+		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get("x-request-id")}
+	})
+	if failure != nil {
+		return failure
+	}
+	// Close releases the response body on every later path.
 	defer stream.Close()
-	if err := stream.Err(); err != nil {
-		return failures.request(ctx, err, res)
-	}
-	if res.StatusCode >= 300 {
-		return failures.status(res)
-	}
+	requestID := res.Header.Get("x-request-id")
 	if failure := ac.hooks.response(ctx, res); failure != nil {
-		failure.ProviderRequestID = res.Header.Get("x-request-id")
+		failure.ProviderRequestID = requestID
 		return failure
 	}
 
 	out.start()
 	failure = readResponsesStream(ctx, stream, responsesParser{out: out, failures: failures, slots: map[int64]responsesSlot{}, reasoning: map[string]int{}})
 	if failure != nil {
-		failure.ProviderRequestID = res.Header.Get("x-request-id")
+		failure.ProviderRequestID = requestID
 	}
 	return failure
 }

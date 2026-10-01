@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -70,9 +69,8 @@ type Error struct {
 	// x-request-id response header), when a response carried one.
 	ProviderRequestID string
 	// RetryAfter is the delay the provider asked for, from retry-after-ms or
-	// a retry-after number of seconds; 0 when it asked for none. A
-	// retry-after HTTP date is not converted here: that needs the replaceable
-	// clock the retry policy introduces (ticket 11).
+	// retry-after (seconds or an HTTP date); 0 when it asked for none or for
+	// a time already past.
 	RetryAfter time.Duration
 	// cause is a trusted host callback's own error, kept for the host's
 	// diagnosis through Unwrap; it never enters Message.
@@ -141,14 +139,9 @@ func codeForStatus(status int) Code {
 	}
 }
 
-// retryAfter reads the delay a provider asked for: retry-after-ms first, then
-// a retry-after number of seconds, as the frozen retry rules order them.
-func retryAfter(h http.Header) time.Duration {
-	if ms, err := strconv.ParseFloat(h.Get("retry-after-ms"), 64); err == nil && ms >= 0 {
-		return time.Duration(ms * float64(time.Millisecond))
-	}
-	if s, err := strconv.ParseFloat(h.Get("retry-after"), 64); err == nil && s >= 0 {
-		return time.Duration(s * float64(time.Second))
-	}
-	return 0
+// retryAfter reads the delay a provider asked for, as the retry rules read
+// it (serverDelayMs), at now.
+func retryAfter(h http.Header, now time.Time) time.Duration {
+	ms, _ := serverDelayMs(h, now)
+	return msDuration(ms)
 }

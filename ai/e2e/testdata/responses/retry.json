@@ -1,0 +1,196 @@
+{
+  "case": "E05 explicit retry of the initial request on OpenAI × Responses",
+  "source": "Synthetic offline fixture. The logical input and the successful reply are text-basic.json's. Retry decisions, delays and the refused-delay message follow pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) utils/provider-retry.ts as called by api/openai-responses.ts; HTTP error bodies follow the OpenAI API error object. The clock is fake: it starts at now, every jitter draw is jitter, and sleeps return at once.",
+  "now": "2026-10-02T00:00:00Z",
+  "jitter": 0.4,
+  "scenarios": [
+    {
+      "id": "default-no-retry",
+      "note": "maxRetries defaults to 0: a retryable 503 is sent once, and the SDK adds no retry of its own.",
+      "replies": [{"status": 503, "body": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "upstream_error", "phase": "request", "httpStatus": 503,
+        "errorMessage": "OpenAI API error (503): {\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}",
+        "attempts": [{"httpStatus": 503, "code": "upstream_error"}]}
+    },
+    {
+      "id": "default-retry-after-date",
+      "pidiffSkip": "pi reads the date against its real clock; the reported delay is a barness extension anyway.",
+      "note": "Without retries the provider's requested delay is still reported; an HTTP date is converted with the clock.",
+      "replies": [{"status": 429, "header": {"retry-after": "Fri, 02 Oct 2026 00:00:05 GMT"}, "body": "{\"error\":{\"message\":\"Rate limit reached\",\"type\":\"requests\",\"code\":\"rate_limit_exceeded\"}}"}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "rate_limited", "phase": "request", "httpStatus": 429, "retryAfterMs": 5000,
+        "errorMessage": "OpenAI API error (429): {\"message\":\"Rate limit reached\",\"type\":\"requests\",\"code\":\"rate_limit_exceeded\"}",
+        "attempts": [{"httpStatus": 429, "code": "rate_limited"}]}
+    },
+    {
+      "id": "backoff-then-success",
+      "note": "Exponential backoff from 500ms, doubled per retry, lowered by jitter×25%.",
+      "retry": {"maxRetries": 3},
+      "replies": [{"status": 503, "body": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"},
+        {"status": 500, "body": "{\"error\":{\"message\":\"Internal error\",\"type\":\"server_error\",\"code\":null}}"},
+        {"ok": true}],
+      "expect": {"requests": 3, "sleepsMs": [450, 900], "stopReason": "stop", "responses": 1,
+        "attempts": [{"httpStatus": 503, "code": "upstream_error", "retryDelayMs": 450}, {"httpStatus": 500, "code": "upstream_error", "retryDelayMs": 900}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "retries-exhausted",
+      "note": "After maxRetries the last attempt's failure ends the call.",
+      "retry": {"maxRetries": 2},
+      "replies": [{"status": 500, "body": "{\"error\":{\"message\":\"Internal error\",\"type\":\"server_error\",\"code\":null}}"},
+        {"status": 502, "body": "Bad gateway"},
+        {"status": 503, "header": {"x-request-id": "req_503last"}, "body": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"}],
+      "expect": {"requests": 3, "sleepsMs": [450, 900], "stopReason": "error", "code": "upstream_error", "phase": "request", "httpStatus": 503, "providerRequestId": "req_503last",
+        "errorMessage": "OpenAI API error (503): {\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}",
+        "attempts": [{"httpStatus": 500, "code": "upstream_error", "retryDelayMs": 450}, {"httpStatus": 502, "code": "upstream_error", "retryDelayMs": 900}, {"httpStatus": 503, "code": "upstream_error", "providerRequestId": "req_503last"}]}
+    },
+    {
+      "id": "should-retry-false",
+      "note": "x-should-retry: false wins over a retryable status.",
+      "retry": {"maxRetries": 2},
+      "replies": [{"status": 503, "header": {"x-should-retry": "false"}, "body": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "upstream_error", "phase": "request", "httpStatus": 503,
+        "errorMessage": "OpenAI API error (503): {\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}",
+        "attempts": [{"httpStatus": 503, "code": "upstream_error"}]}
+    },
+    {
+      "id": "should-retry-true",
+      "note": "x-should-retry: true wins over a status that is not retried.",
+      "retry": {"maxRetries": 1},
+      "replies": [{"status": 400, "header": {"x-should-retry": "true"}, "body": "{\"error\":{\"message\":\"Try again\",\"type\":\"invalid_request_error\",\"code\":null}}"}, {"ok": true}],
+      "expect": {"requests": 2, "sleepsMs": [450], "stopReason": "stop", "responses": 1,
+        "attempts": [{"httpStatus": 400, "code": "invalid_request", "retryDelayMs": 450}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "retryable-statuses",
+      "note": "408, 409 and 429 are retried like 5xx.",
+      "retry": {"maxRetries": 3},
+      "replies": [{"status": 408, "body": "{\"error\":{\"message\":\"Request timeout\"}}"},
+        {"status": 409, "body": "{\"error\":{\"message\":\"Conflict\"}}"},
+        {"status": 429, "body": "{\"error\":{\"message\":\"Rate limit reached\",\"type\":\"requests\",\"code\":\"rate_limit_exceeded\"}}"},
+        {"ok": true}],
+      "expect": {"requests": 4, "sleepsMs": [450, 900, 1800], "stopReason": "stop", "responses": 1,
+        "attempts": [{"httpStatus": 408, "code": "upstream_error", "retryDelayMs": 450}, {"httpStatus": 409, "code": "upstream_error", "retryDelayMs": 900}, {"httpStatus": 429, "code": "rate_limited", "retryDelayMs": 1800}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "auth-401-not-retried",
+      "note": "401 is not retried, and never with another key.",
+      "retry": {"maxRetries": 2},
+      "replies": [{"status": 401, "body": "{\"error\":{\"message\":\"Invalid key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}}"}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "upstream_auth", "phase": "request", "httpStatus": 401,
+        "errorMessage": "OpenAI API error (401): {\"message\":\"Invalid key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}",
+        "attempts": [{"httpStatus": 401, "code": "upstream_auth"}]}
+    },
+    {
+      "id": "auth-403-not-retried",
+      "retry": {"maxRetries": 2},
+      "replies": [{"status": 403, "body": "{\"error\":{\"message\":\"Forbidden\",\"type\":\"invalid_request_error\",\"code\":null}}"}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "upstream_auth", "phase": "request", "httpStatus": 403,
+        "errorMessage": "OpenAI API error (403): {\"message\":\"Forbidden\",\"type\":\"invalid_request_error\",\"code\":null}",
+        "attempts": [{"httpStatus": 403, "code": "upstream_auth"}]}
+    },
+    {
+      "id": "bad-request-not-retried",
+      "retry": {"maxRetries": 2},
+      "replies": [{"status": 400, "body": "{\"error\":{\"message\":\"Bad input\",\"type\":\"invalid_request_error\",\"code\":null}}"}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "invalid_request", "phase": "request", "httpStatus": 400,
+        "errorMessage": "OpenAI API error (400): {\"message\":\"Bad input\",\"type\":\"invalid_request_error\",\"code\":null}",
+        "attempts": [{"httpStatus": 400, "code": "invalid_request"}]}
+    },
+    {
+      "id": "retry-after-ms-first",
+      "note": "retry-after-ms is taken before retry-after.",
+      "retry": {"maxRetries": 1},
+      "replies": [{"status": 429, "header": {"retry-after-ms": "1500", "retry-after": "9"}, "body": "{\"error\":{\"message\":\"Rate limit reached\"}}"}, {"ok": true}],
+      "expect": {"requests": 2, "sleepsMs": [1500], "stopReason": "stop", "responses": 1,
+        "attempts": [{"httpStatus": 429, "code": "rate_limited", "retryDelayMs": 1500}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "retry-after-seconds",
+      "retry": {"maxRetries": 1},
+      "replies": [{"status": 503, "header": {"retry-after": "3"}, "body": "{\"error\":{\"message\":\"busy\"}}"}, {"ok": true}],
+      "expect": {"requests": 2, "sleepsMs": [3000], "stopReason": "stop", "responses": 1,
+        "attempts": [{"httpStatus": 503, "code": "upstream_error", "retryDelayMs": 3000}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "retry-after-date",
+      "pidiffSkip": "pi would wait until the fixture's date on its real clock.",
+      "note": "An HTTP date is measured from the clock's now.",
+      "retry": {"maxRetries": 1},
+      "replies": [{"status": 503, "header": {"retry-after": "Fri, 02 Oct 2026 00:00:05 GMT"}, "body": "{\"error\":{\"message\":\"busy\"}}"}, {"ok": true}],
+      "expect": {"requests": 2, "sleepsMs": [5000], "stopReason": "stop", "responses": 1,
+        "attempts": [{"httpStatus": 503, "code": "upstream_error", "retryDelayMs": 5000}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "retry-after-unparseable",
+      "note": "pi: neither a number nor a date gives NaN, which waits no time rather than backing off.",
+      "retry": {"maxRetries": 1},
+      "replies": [{"status": 503, "header": {"retry-after": "soon"}, "body": "{\"error\":{\"message\":\"busy\"}}"}, {"ok": true}],
+      "expect": {"requests": 2, "sleepsMs": [0], "stopReason": "stop", "responses": 1,
+        "attempts": [{"httpStatus": 503, "code": "upstream_error"}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "delay-above-default-cap",
+      "note": "A requested delay above maxRetryDelayMs (60s by default) fails at once with pi's message.",
+      "retry": {"maxRetries": 1},
+      "replies": [{"status": 429, "header": {"retry-after": "120"}, "body": "{\"error\":{\"message\":\"Rate limit reached\",\"type\":\"requests\",\"code\":\"rate_limit_exceeded\"}}"}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "rate_limited", "phase": "request", "httpStatus": 429, "retryAfterMs": 120000,
+        "errorMessage": "Server requested 120s retry delay (max: 60s). 429 Rate limit reached",
+        "attempts": [{"httpStatus": 429, "code": "rate_limited"}]}
+    },
+    {
+      "id": "delay-above-custom-cap",
+      "retry": {"maxRetries": 1, "maxRetryDelayMs": 1000},
+      "replies": [{"status": 429, "header": {"retry-after-ms": "1500"}, "body": "{\"error\":{\"message\":\"Rate limit reached\"}}"}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "rate_limited", "phase": "request", "httpStatus": 429, "retryAfterMs": 1500,
+        "errorMessage": "Server requested 2s retry delay (max: 1s). 429 Rate limit reached",
+        "attempts": [{"httpStatus": 429, "code": "rate_limited"}]}
+    },
+    {
+      "id": "delay-cap-disabled",
+      "pidiffSkip": "pi would really wait 120s.",
+      "note": "maxRetryDelayMs 0 removes only the cap; the call's deadline still bounds the wait.",
+      "retry": {"maxRetries": 1, "maxRetryDelayMs": 0},
+      "replies": [{"status": 429, "header": {"retry-after": "120"}, "body": "{\"error\":{\"message\":\"Rate limit reached\"}}"}, {"ok": true}],
+      "expect": {"requests": 2, "sleepsMs": [120000], "stopReason": "stop", "responses": 1,
+        "attempts": [{"httpStatus": 429, "code": "rate_limited", "retryDelayMs": 120000}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "connection-failure-retried",
+      "note": "A connection that fails before any response has no status, the baseline's network-error shape, and is retried.",
+      "retry": {"maxRetries": 1},
+      "replies": [{"drop": true}, {"ok": true}],
+      "expect": {"requests": 2, "sleepsMs": [450], "stopReason": "stop", "responses": 1,
+        "attempts": [{"code": "transport", "retryDelayMs": 450}, {"httpStatus": 200}]}
+    },
+    {
+      "id": "connection-failure-default",
+      "replies": [{"drop": true}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "transport", "phase": "request",
+        "errorMessage": "Connection error.",
+        "attempts": [{"code": "transport"}]}
+    },
+    {
+      "id": "stream-cut-not-replayed",
+      "note": "Once the initial response arrived the stream is never replayed: a cut stream ends the call with what was received.",
+      "retry": {"maxRetries": 3},
+      "replies": [{"status": 200, "end": "abort", "events": [
+        {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_011", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+        {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "msg_011", "type": "message", "status": "in_progress", "role": "assistant", "content": []}},
+        {"type": "response.output_text.delta", "sequence_number": 2, "item_id": "msg_011", "output_index": 0, "content_index": 0, "delta": "Hello"}]}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "transport", "phase": "stream", "responses": 1,
+        "errorMessage": "Connection lost while reading the OpenAI Responses stream",
+        "content": ["text:Hello"], "responseId": "resp_011",
+        "attempts": [{"httpStatus": 200}]}
+    },
+    {
+      "id": "stream-error-not-replayed",
+      "retry": {"maxRetries": 3},
+      "replies": [{"status": 200, "events": [
+        {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_012", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+        {"type": "error", "sequence_number": 1, "code": "server_error", "message": "The server had an error", "param": null}]}],
+      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "upstream_error", "phase": "stream", "responses": 1,
+        "errorMessage": "Error Code server_error: The server had an error",
+        "content": [], "responseId": "resp_012",
+        "attempts": [{"httpStatus": 200}]}
+    }
+  ]
+}

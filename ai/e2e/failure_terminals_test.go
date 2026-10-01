@@ -55,7 +55,9 @@ func TestFailureTerminals(t *testing.T) {
 				ev := run.Case(t, "P01-E02-cancel-during-request-"+e.name)
 				ctx, cancel := context.WithCancel(ctxFor(t))
 				o := callWhileProviderHolds(t, ev, e, ctx, cancel)
-				checkInterrupted(ev, o, ai.StopReasonAborted, ai.CodeCanceled, ai.PhaseRequest, "Request was aborted.")
+				// pi's provider-retry wrapper replaces the SDK's abort error
+				// with its own, whether or not retries are configured.
+				checkInterrupted(ev, o, ai.StopReasonAborted, ai.CodeCanceled, ai.PhaseRequest, "Request aborted")
 			})
 		}
 	})

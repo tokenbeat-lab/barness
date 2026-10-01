@@ -118,7 +118,12 @@ func checkMetadata(ev *evidence.Case, got ai.CallMetadata, scope ai.CallScope, f
 		// Tenant A's binding; see primaryBinding.
 		AccountScopeID: "acct-" + scope.TenantID,
 	}
-	ev.Check("call metadata", got == want, "got %+v\nwant %+v", got, want)
+	// One successful attempt, recorded under the call's RequestID (E05).
+	attempts := got.Attempts
+	ev.Check("one attempt that obtained the initial response", len(attempts) == 1 && attempts[0].HTTPStatus == 200 &&
+		attempts[0].Code == "" && strings.HasPrefix(attempts[0].AttemptID, scope.RequestID), "attempts=%+v", attempts)
+	got.Attempts = nil
+	ev.Check("call metadata", reflect.DeepEqual(got, want), "got %+v\nwant %+v", got, want)
 }
 
 // checkStreamedText consumes s fully and asserts the event sequence, the

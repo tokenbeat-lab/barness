@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/tokenbeat-lab/barness/ai/internal/clock"
 	"github.com/tokenbeat-lab/barness/ai/internal/probe"
 )
 
@@ -43,6 +44,11 @@ type Config struct {
 	// resource gauges through it. Its type is internal, so hosts cannot
 	// construct one and leave it nil.
 	Probe *probe.Probe
+	// Clock is for barness-ai's own acceptance tests, which replace the time
+	// and jitter source of retry backoff with a fake one. Its type is
+	// internal, so hosts cannot construct one and leave it nil, the system
+	// clock.
+	Clock *clock.Clock
 }
 
 // Client is the single trusted entry point for credential-dependent provider
@@ -59,6 +65,7 @@ type Client struct {
 	http        *http.Client
 	loopback    bool
 	probe       *probe.Probe // nil outside acceptance tests
+	clock       *clock.Clock // nil is the system clock
 }
 
 // NewClient validates cfg and builds a Client.
@@ -85,5 +92,6 @@ func NewClient(cfg Config) (*Client, error) {
 		http:        newHTTPClient(cfg.Transport),
 		loopback:    cfg.AllowLoopbackHTTP,
 		probe:       cfg.Probe,
+		clock:       cfg.Clock,
 	}, nil
 }

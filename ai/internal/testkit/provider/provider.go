@@ -48,6 +48,10 @@ const (
 	// EndHold keeps the connection open, sending nothing more, until the
 	// client goes away or the server is closed.
 	EndHold End = "hold"
+	// EndDrop cuts the connection after reading the request and before
+	// writing any response, so the client sees a connection failure with no
+	// HTTP status. Status, headers and chunks are ignored.
+	EndDrop End = "drop"
 )
 
 // Request is a redacted capture of what the server received.
@@ -146,6 +150,10 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 	}
 	if reply.OnReceive != nil {
 		reply.OnReceive()
+	}
+	if reply.End == EndDrop {
+		// net/http drops the connection; nothing has been written yet.
+		panic(http.ErrAbortHandler)
 	}
 	for k, v := range reply.Header {
 		w.Header().Set(k, v)

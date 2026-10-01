@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/clock"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
@@ -79,6 +80,21 @@ func TestPiDifferential(t *testing.T) {
 				differential(t, ev, o, ledger, "stream", failurePidiffScenario(t, f, raw, sc))
 			})
 		}
+		// E05 explicit retry (TestExplicitRetry): with the same retry settings
+		// both sides send the same attempts and end the same way.
+		rf, rraw := loadRetryFixture(t)
+		text, _ := loadTextFixture(t, "text-basic.json")
+		for _, sc := range rf.Scenarios {
+			if sc.PidiffSkip != "" {
+				continue
+			}
+			t.Run("retry/"+sc.ID, func(t *testing.T) {
+				ev := run.Case(t, "PIDIFF-P01-E05-"+sc.ID+"-stream")
+				ev.ReplayEnv(pioracle.EnableEnv + "=1")
+				o := openOracle(t)
+				differential(t, ev, o, ledger, "stream", retryPidiffScenario(t, rf, rraw, text, sc))
+			})
+		}
 		// Tool calls cut off by truncation or a failed stream (06).
 		tf, traw := loadToolFixture(t)
 		for _, sc := range tf.Truncated {
@@ -100,6 +116,12 @@ type pidiffScenario struct {
 	model   string
 	req     ai.Request
 	reply   provider.Reply
+	// replies, when set, script several attempts in place of reply.
+	replies []provider.Reply
+	// retry is barness's binding retry policy; piOptions carry pi's. clock
+	// replaces barness's backoff clock; pi waits for real.
+	retry ai.RetryPolicy
+	clock *clock.Clock
 	// unreachable points both sides at an endpoint nothing listens on.
 	unreachable bool
 	// abortAfter > 0 makes both callers abort once they received that many
@@ -159,6 +181,15 @@ func failurePidiffScenario(t *testing.T, f failureFixture, raw []byte, sc failur
 	return p
 }
 
+// replyScripts concatenates the scripted bodies of every attempt.
+func replyScripts(replies []provider.Reply) string {
+	var b strings.Builder
+	for _, r := range replies {
+		b.WriteString(r.Script)
+	}
+	return b.String()
+}
+
 func openOracle(t *testing.T) *pioracle.Oracle {
 	t.Helper()
 	if !pioracle.Enabled() {
@@ -188,16 +219,22 @@ func loadLedger(t *testing.T) pioracle.Ledger {
 // differential runs one scenario on both sides and judges the difference.
 func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pioracle.Ledger, entry string, sc pidiffScenario) {
 	ev.Fixture(sc.fixture, sc.raw)
-	ev.Record("response-script", sc.reply)
+	replies := sc.replies
+	if replies == nil {
+		replies = []provider.Reply{sc.reply}
+	}
+	ev.Record("response-script", replies)
 	req := sc.req
 	target := ai.Target{BindingID: "primary", ModelID: sc.model}
 
 	// barness-ai through the public Client.
-	w := newWorldWith(t, withModelPatch(sc.model, sc.modelCompat, sc.modelPatch), tenantA)
+	patch := withModelPatch(sc.model, sc.modelCompat, sc.modelPatch)
+	w := newWorldWith(t, func(c *ai.Config) { patch(c); c.Clock = sc.clock }, tenantA)
+	w.updateBinding(tenantA, func(b *ai.Binding) { b.Retry = sc.retry })
 	if sc.unreachable {
 		w.updateBinding(tenantA, func(b *ai.Binding) { b.Endpoint = deadEndpoint() })
 	} else {
-		w.provider.Enqueue(sc.reply)
+		w.provider.Enqueue(replies...)
 	}
 	var s *ai.Stream
 	if entry == "stream" {
@@ -214,7 +251,7 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	if sc.unreachable {
 		baseURL = deadEndpoint()
 	} else {
-		srv.Enqueue(sc.reply)
+		srv.Enqueue(replies...)
 	}
 	var compat json.RawMessage
 	if sc.modelCompat != nil {
@@ -263,7 +300,7 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 		ModelCatalogHash: hashJSON(ai.BuiltinCatalog()),
 		PiRequest:        mustMarshal(t, pi.Request),
 		BarnessRequest:   mustMarshal(t, barness.Request),
-		Frames:           []byte(sc.reply.Script),
+		Frames:           []byte(replyScripts(replies)),
 	})
 	ev.Record("pidiff", rec)
 
@@ -311,13 +348,15 @@ func piObservation(ev *evidence.Case, srv *provider.Server, r pioracle.Run) (pio
 	return obs, observeRequests(ev, "pi-requests", srv, &obs)
 }
 
-// observeRequests records what srv received and, when it was exactly one
-// inference request, sets it as obs's request. It returns the request count.
+// observeRequests records what srv received and sets the last inference
+// request, the one whose response the result came from, as obs's request.
+// The attempts before it are compared by count; TestExplicitRetry checks
+// they send the same request. It returns the request count.
 func observeRequests(ev *evidence.Case, name string, srv *provider.Server, obs *pioracle.Observation) int {
 	reqs := srv.Requests()
 	ev.Record(name, reqs)
-	if len(reqs) == 1 {
-		r := reqs[0]
+	if len(reqs) > 0 {
+		r := reqs[len(reqs)-1]
 		obs.Request = pioracle.Request{Method: r.Method, Path: r.Path, Query: r.Query, Auth: r.KeyAlias, Headers: r.Header, Body: r.Body}
 	}
 	return len(reqs)
