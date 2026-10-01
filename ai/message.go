@@ -1,8 +1,8 @@
 package ai
 
-// Message is one entry of the transcript a host passes for a call. The set of
-// message kinds is closed; it grows as protocol support lands (assistant and
-// tool-result history arrive with tickets 06–08).
+// Message is one entry of the transcript a host passes for a call:
+// UserMessage, AssistantMessage (a previous turn's result) or
+// ToolResultMessage. The set of message kinds is closed.
 type Message interface {
 	isMessage()
 }
@@ -61,6 +61,9 @@ const (
 	StopReasonPending StopReason = "pending"
 	StopReasonStop    StopReason = "stop"
 	StopReasonLength  StopReason = "length"
+	// StopReasonToolUse: the turn completed normally and holds tool calls the
+	// host may validate and execute (see ValidateToolCall).
+	StopReasonToolUse StopReason = "toolUse"
 	StopReasonError   StopReason = "error"
 	StopReasonAborted StopReason = "aborted"
 )
@@ -98,6 +101,10 @@ type AssistantMessage struct {
 	// Result, failures included — carries the same value.
 	Timestamp int64 `json:"timestamp"`
 }
+
+// An AssistantMessage is also history: a previous turn's Result.Message
+// replayed in a later call.
+func (AssistantMessage) isMessage() {}
 
 // clone copies the message so the copy shares no mutable storage with m.
 // Content blocks are immutable values; a block type holding references (a

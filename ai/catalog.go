@@ -10,14 +10,22 @@ const (
 
 // Model is secret-free, versioned model metadata located by (Provider, API, ID).
 type Model struct {
-	Provider      ProviderID `json:"provider"`
-	API           API        `json:"api"`
-	ID            string     `json:"id"`
-	Name          string     `json:"name"`
-	Reasoning     bool       `json:"reasoning"`
-	Input         []Modality `json:"input"`
-	ContextWindow int        `json:"contextWindow"`
-	MaxTokens     int        `json:"maxTokens"`
+	Provider      ProviderID  `json:"provider"`
+	API           API         `json:"api"`
+	ID            string      `json:"id"`
+	Name          string      `json:"name"`
+	Reasoning     bool        `json:"reasoning"`
+	Input         []Modality  `json:"input"`
+	ContextWindow int         `json:"contextWindow"`
+	MaxTokens     int         `json:"maxTokens"`
+	Compat        ModelCompat `json:"compat,omitzero"`
+}
+
+// ModelCompat holds the protocol compatibility flags of pi-ai's model data
+// that barness-ai implements. An absent flag has pi's default.
+type ModelCompat struct {
+	// SupportsStrictMode: Responses function tools carry a "strict" field.
+	SupportsStrictMode bool `json:"supportsStrictMode,omitempty"`
 }
 
 // Catalog is a versioned model catalog. It is never updated online.
@@ -31,18 +39,19 @@ type Catalog struct {
 // Source: the frozen pi-ai 0.87.1 model data (providers/data/openai.json,
 // sha256 3c52c858…2835) from the differential oracle's rebuilt copy, see
 // internal/testkit/pioracle/node/PROVENANCE.md. Every listed field was
-// re-checked against it when the oracle landed. Only
+// re-checked against it when the oracle landed (compat when tools landed). Only
 // non-reasoning OpenAI × Responses text models are listed until reasoning
 // mapping (ticket 09) and pricing (ticket 15) land, so nothing here promises
 // behavior the adapter does not yet implement.
 func BuiltinCatalog() Catalog {
 	textAndImage := func() []Modality { return []Modality{ModalityText, ModalityImage} }
+	strict := ModelCompat{SupportsStrictMode: true}
 	return Catalog{
-		Version: "2026-10-01.1",
+		Version: "2026-10-01.2",
 		Models: []Model{
-			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4.1", Name: "GPT-4.1", Input: textAndImage(), ContextWindow: 1047576, MaxTokens: 32768},
-			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4.1-mini", Name: "GPT-4.1 mini", Input: textAndImage(), ContextWindow: 1047576, MaxTokens: 32768},
-			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4o-mini", Name: "GPT-4o mini", Input: textAndImage(), ContextWindow: 128000, MaxTokens: 16384},
+			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4.1", Name: "GPT-4.1", Input: textAndImage(), ContextWindow: 1047576, MaxTokens: 32768, Compat: strict},
+			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4.1-mini", Name: "GPT-4.1 mini", Input: textAndImage(), ContextWindow: 1047576, MaxTokens: 32768, Compat: strict},
+			{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: "gpt-4o-mini", Name: "GPT-4o mini", Input: textAndImage(), ContextWindow: 128000, MaxTokens: 16384, Compat: strict},
 		},
 	}
 }

@@ -27,16 +27,23 @@ import (
 func TestPiDifferential(t *testing.T) {
 	ledger := loadLedger(t)
 	t.Run(string(ai.APIOpenAIResponses), func(t *testing.T) {
-		for _, scenario := range []string{"text", "interleaved"} {
+		for _, scenario := range []string{"text", "interleaved", "tool-call", "tool-results"} {
 			for _, entry := range []string{"stream", "streamSimple"} {
 				t.Run(scenario+"/"+entry, func(t *testing.T) {
 					ev := run.Case(t, "PIDIFF-P01-E01-"+scenario+"-"+entry)
 					ev.ReplayEnv(pioracle.EnableEnv + "=1")
 					o := openOracle(t)
-					differential(t, ev, o, ledger, entry, loadPidiffScenario(t, scenario))
+					differential(t, ev, o, ledger, entry, loadPidiffScenario(t, scenario, entry))
 				})
 			}
 		}
+		// tool_choice's object form, on the full entry that offers it.
+		t.Run("tool-call-function/stream", func(t *testing.T) {
+			ev := run.Case(t, "PIDIFF-P01-E03-tool-call-function-stream")
+			ev.ReplayEnv(pioracle.EnableEnv + "=1")
+			o := openOracle(t)
+			differential(t, ev, o, ledger, "stream", toolPidiffScenario(t, "tool-call-function", "stream"))
+		})
 		// E02 failure terminals reuse the offline scenarios. Failure handling
 		// does not depend on the entry point's option mapping, so they run on
 		// the full entry only.
@@ -47,6 +54,17 @@ func TestPiDifferential(t *testing.T) {
 				ev.ReplayEnv(pioracle.EnableEnv + "=1")
 				o := openOracle(t)
 				differential(t, ev, o, ledger, "stream", failurePidiffScenario(t, f, raw, sc))
+			})
+		}
+		// Tool calls cut off by truncation or a failed stream (06).
+		tf, traw := loadToolFixture(t)
+		for _, sc := range tf.Truncated {
+			t.Run("tool/"+sc.ID, func(t *testing.T) {
+				ev := run.Case(t, "PIDIFF-P01-E02-tool-"+sc.ID+"-stream")
+				ev.ReplayEnv(pioracle.EnableEnv + "=1")
+				o := openOracle(t)
+				differential(t, ev, o, ledger, "stream", pidiffScenario{fixture: "tool-round-trip.json", raw: traw, model: tf.Model,
+					req: tf.request(), reply: tf.reply(t, sc.Events, provider.FramingLF, sc.End), requests: 1})
 			})
 		}
 	})
@@ -66,11 +84,17 @@ type pidiffScenario struct {
 	abortAfter int
 	// requests is how many inference requests each side must send.
 	requests int
+	// full and simple are barness's options for the stream and streamSimple
+	// entries; piOptions are the same options in pi's shape.
+	full      ai.Options
+	simple    ai.SimpleOptions
+	piOptions map[string]any
 }
 
 // loadPidiffScenario reuses the offline E2E fixtures: P01 plain text
-// (TestResponsesText) and E01 interleaved blocks (TestStreamLifecycle).
-func loadPidiffScenario(t *testing.T, name string) pidiffScenario {
+// (TestResponsesText), E01 interleaved blocks (TestStreamLifecycle) and both
+// rounds of the tool round trip (TestToolRoundTrip).
+func loadPidiffScenario(t *testing.T, name, entry string) pidiffScenario {
 	t.Helper()
 	switch name {
 	case "text":
@@ -81,6 +105,8 @@ func loadPidiffScenario(t *testing.T, name string) pidiffScenario {
 		f, raw := loadLifecycleFixture(t)
 		return pidiffScenario{fixture: "interleaved-blocks.json", raw: raw, model: f.Model, req: lifecycleRequest(f),
 			reply: sseEvents(t, f.Events, provider.FramingLF), requests: 1}
+	case "tool-call", "tool-results":
+		return toolPidiffScenario(t, name, entry)
 	}
 	t.Fatalf("unknown pidiff scenario %q", name)
 	return pidiffScenario{}
@@ -142,9 +168,9 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	}
 	var s *ai.Stream
 	if entry == "stream" {
-		s = w.client.Stream(ctxFor(t), textScope("req-pidiff-"+entry), target, req, nil)
+		s = w.client.Stream(ctxFor(t), textScope("req-pidiff-"+entry), target, req, sc.full)
 	} else {
-		s = w.client.StreamSimple(ctxFor(t), textScope("req-pidiff-"+entry), target, req, ai.SimpleOptions{})
+		s = w.client.StreamSimple(ctxFor(t), textScope("req-pidiff-"+entry), target, req, sc.simple)
 	}
 	barness, barnessReqs := barnessObservation(t, ev, w, s, sc.abortAfter)
 
@@ -165,6 +191,7 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 		APIKey:           tenantA.secret,
 		Entry:            entry,
 		Context:          piContext(t, req),
+		Options:          piOptions(t, sc.piOptions),
 		AbortAfterEvents: sc.abortAfter,
 	})
 	if !ev.Check("pi runner completed", err == nil, "%v", err) {
@@ -254,30 +281,59 @@ func observeRequests(ev *evidence.Case, name string, srv *provider.Server, obs *
 }
 
 // piContext is the pi Context for the same logical input barness receives.
-// User messages carry pi's required timestamp; it never reaches the wire.
+// User and tool-result messages carry pi's required timestamp; it never
+// reaches the wire. An assistant message is replayed in pi's message shape.
 func piContext(t *testing.T, req ai.Request) json.RawMessage {
 	t.Helper()
-	messages := []map[string]any{}
-	for _, m := range req.Messages {
-		um, ok := m.(ai.UserMessage)
-		if !ok {
-			t.Fatalf("piContext: unsupported message %T", m)
-		}
+	texts := func(blocks []any) []map[string]any {
 		content := []map[string]any{}
-		for _, c := range um.Content {
+		for _, c := range blocks {
 			text, ok := c.(ai.Text)
 			if !ok {
-				t.Fatalf("piContext: unsupported user content %T", c)
+				t.Fatalf("piContext: unsupported content %T", c)
 			}
 			content = append(content, map[string]any{"type": "text", "text": text.Text})
 		}
-		messages = append(messages, map[string]any{"role": "user", "content": content, "timestamp": 0})
+		return content
+	}
+	messages := []map[string]any{}
+	for _, m := range req.Messages {
+		switch m := m.(type) {
+		case ai.UserMessage:
+			messages = append(messages, map[string]any{"role": "user", "content": texts(anySlice(m.Content)), "timestamp": 0})
+		case ai.AssistantMessage:
+			messages = append(messages, piMessage(t, m))
+		case ai.ToolResultMessage:
+			messages = append(messages, map[string]any{"role": "toolResult", "toolCallId": m.ToolCallID, "toolName": m.ToolName,
+				"content": texts(anySlice(m.Content)), "isError": m.IsError, "timestamp": 0})
+		default:
+			t.Fatalf("piContext: unsupported message %T", m)
+		}
 	}
 	ctx := map[string]any{"messages": messages}
 	if req.SystemPrompt != "" {
 		ctx["systemPrompt"] = req.SystemPrompt
 	}
+	if len(req.Tools) > 0 {
+		ctx["tools"] = req.Tools
+	}
 	return mustMarshal(t, ctx)
+}
+
+func anySlice[T any](in []T) []any {
+	out := make([]any, len(in))
+	for i, v := range in {
+		out[i] = v
+	}
+	return out
+}
+
+// piOptions encodes pi stream options, or nothing when there are none.
+func piOptions(t *testing.T, opts map[string]any) json.RawMessage {
+	if opts == nil {
+		return nil
+	}
+	return mustMarshal(t, opts)
 }
 
 // piEvent is a barness event in pi-ai's event shape, taken when the consumer
@@ -309,6 +365,12 @@ func piEvent(t *testing.T, e ai.Event) map[string]any {
 		return block("thinking_delta", e.ContentIndex, e.Partial, "delta", e.Delta)
 	case ai.ThinkingEndEvent:
 		return block("thinking_end", e.ContentIndex, e.Partial, "content", e.Content)
+	case ai.ToolCallStartEvent:
+		return block("toolcall_start", e.ContentIndex, e.Partial)
+	case ai.ToolCallDeltaEvent:
+		return block("toolcall_delta", e.ContentIndex, e.Partial, "delta", e.Delta)
+	case ai.ToolCallEndEvent:
+		return block("toolcall_end", e.ContentIndex, e.Partial, "toolCall", piBlock(t, e.ToolCall))
 	case ai.DoneEvent:
 		return map[string]any{"type": "done", "reason": e.Reason, "message": piMessage(t, e.Message)}
 	case ai.ErrorEvent:
@@ -327,19 +389,27 @@ func piMessage(t *testing.T, m ai.AssistantMessage) map[string]any {
 	out["role"] = "assistant"
 	content := make([]any, 0, len(m.Content))
 	for _, c := range m.Content {
-		block := jsonObject(t, c)
-		switch c.(type) {
-		case ai.Text:
-			block["type"] = "text"
-		case ai.Thinking:
-			block["type"] = "thinking"
-		default:
-			block["type"] = fmt.Sprintf("barness-unmapped:%T", c)
-		}
-		content = append(content, block)
+		content = append(content, piBlock(t, c))
 	}
 	out["content"] = content
 	return out
+}
+
+// piBlock is a content block in pi's shape: barness's fields plus pi's type
+// discriminator.
+func piBlock(t *testing.T, c ai.AssistantContent) map[string]any {
+	block := jsonObject(t, c)
+	switch c.(type) {
+	case ai.Text:
+		block["type"] = "text"
+	case ai.Thinking:
+		block["type"] = "thinking"
+	case ai.ToolCall:
+		block["type"] = "toolCall"
+	default:
+		block["type"] = fmt.Sprintf("barness-unmapped:%T", c)
+	}
+	return block
 }
 
 // jsonObject is v's JSON serialization as a generic object.

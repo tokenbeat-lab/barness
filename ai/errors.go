@@ -37,6 +37,8 @@ const (
 type Phase string
 
 const (
+	// PhaseScope is the first check of a call: its scope and the structure of
+	// its request (for example, tool declarations), before anything resolves.
 	PhaseScope      Phase = "scope"
 	PhaseBinding    Phase = "binding"
 	PhaseCapability Phase = "capability"

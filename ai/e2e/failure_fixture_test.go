@@ -120,7 +120,8 @@ func (f failureFixture) wantEvents(sc failureScenario) []string {
 	return append(out, sc.Expect.Events...)
 }
 
-// contentSummary renders blocks as "kind:text" plus "|signature" when signed.
+// contentSummary renders blocks as "kind:text" plus "|signature" when signed;
+// a tool call as "toolCall:<id> <name> <arguments> raw=<raw arguments>".
 func contentSummary(content []ai.AssistantContent) []string {
 	out := []string{}
 	for _, c := range content {
@@ -136,6 +137,8 @@ func contentSummary(content []ai.AssistantContent) []string {
 			if c.Signature != "" {
 				s += "|" + c.Signature
 			}
+		case ai.ToolCall:
+			s = fmt.Sprintf("toolCall:%s %s %s raw=%s", c.ID, c.Name, c.Arguments, c.RawArguments)
 		default:
 			s = fmt.Sprintf("unexpected:%T", c)
 		}

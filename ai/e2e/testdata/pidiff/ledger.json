@@ -284,7 +284,8 @@
       "kind": "changed",
       "cases": [
         "PIDIFF-P01-E02-disconnect-mid-stream-stream",
-        "PIDIFF-P01-E02-disconnect-after-terminal-stream"
+        "PIDIFF-P01-E02-disconnect-after-terminal-stream",
+        "PIDIFF-P01-E02-tool-disconnect-mid-arguments-stream"
       ],
       "classification": "extension",
       "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body. That is runtime text, not pi logic. barness reports the fixed text 'Connection lost while reading the OpenAI Responses stream'. StopReason error, the kept content, usage and rawStopReason match; the Code (transport) and Phase (stream) are asserted by the offline E2E.",
@@ -296,11 +297,68 @@
       "kind": "changed",
       "cases": [
         "PIDIFF-P01-E02-disconnect-mid-stream-stream",
-        "PIDIFF-P01-E02-disconnect-after-terminal-stream"
+        "PIDIFF-P01-E02-disconnect-after-terminal-stream",
+        "PIDIFF-P01-E02-tool-disconnect-mid-arguments-stream"
       ],
       "classification": "extension",
       "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body. That is runtime text, not pi logic. barness reports the fixed text 'Connection lost while reading the OpenAI Responses stream'. StopReason error, the kept content, usage and rawStopReason match; the Code (transport) and Phase (stream) are asserted by the offline E2E.",
       "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].partial.content[*].partialJson",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量): barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent rather than from the display parse. pi keeps the same text only as its transient `partialJson` scratch buffer while a call streams: deleted at output_item.done and on error, but left on an unclosed call of a length-truncated message. Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].message.content[*].partialJson",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量): barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent rather than from the display parse. pi keeps the same text only as its transient `partialJson` scratch buffer while a call streams: deleted at output_item.done and on error, but left on an unclosed call of a length-truncated message. Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "result.content[*].partialJson",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量): barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent rather than from the display parse. pi keeps the same text only as its transient `partialJson` scratch buffer while a call streams: deleted at output_item.done and on error, but left on an unclosed call of a length-truncated message. Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].toolCall.rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量): barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent rather than from the display parse. pi keeps the same text only as its transient `partialJson` scratch buffer while a call streams: deleted at output_item.done and on error, but left on an unclosed call of a length-truncated message. Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].message.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量): barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent rather than from the display parse. pi keeps the same text only as its transient `partialJson` scratch buffer while a call streams: deleted at output_item.done and on error, but left on an unclosed call of a length-truncated message. Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].error.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量): barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent rather than from the display parse. pi keeps the same text only as its transient `partialJson` scratch buffer while a call streams: deleted at output_item.done and on error, but left on an unclosed call of a length-truncated message. Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "result.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量): barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent rather than from the display parse. pi keeps the same text only as its transient `partialJson` scratch buffer while a call streams: deleted at output_item.done and on error, but left on an unclosed call of a length-truncated message. Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06"
     }
   ]
 }

@@ -1,0 +1,161 @@
+{
+  "case": "P01 OpenAI × Responses tool round trip: tool call → host executes → next logical call with tool results → final text; plus tool calls cut off by truncation or a failed stream",
+  "source": "Synthetic offline fixture. Event shapes follow the OpenAI Responses streaming API for function calls (response.output_item.added/done with type function_call, response.function_call_arguments.delta/done) as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/openai-responses-shared.ts processResponsesStream. Expected requests follow buildParams (tools via convertResponsesTools; strict:false because the pi catalog marks these models supportsStrictMode; tool_choice passed through) and convertResponsesMessages (function_call items from toolCall blocks with arguments JSON.stringify'd, function_call_output from toolResult text joined by newlines). The get_time call's last fragment arrives only in function_call_arguments.done, which pi turns into a final delta.",
+  "model": "gpt-4.1-mini",
+  "systemPrompt": "You are a weather assistant.",
+  "user": "What is the weather and local time in Zürich?",
+  "tools": [
+    {"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}, "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}}, "required": ["city"], "additionalProperties": false}},
+    {"name": "get_time", "description": "Local time in an IANA time zone", "parameters": {"type": "object", "properties": {"tz": {"type": "string"}}, "required": ["tz"], "additionalProperties": false}}
+  ],
+  "toolChoice": {"full": "required", "simple": "auto"},
+  "round1": {
+    "events": [
+      {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_t1", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+      {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "fc_w1", "type": "function_call", "status": "in_progress", "arguments": "", "call_id": "call_w1", "name": "get_weather"}},
+      {"type": "response.function_call_arguments.delta", "sequence_number": 2, "item_id": "fc_w1", "output_index": 0, "delta": "{\"ci"},
+      {"type": "response.function_call_arguments.delta", "sequence_number": 3, "item_id": "fc_w1", "output_index": 0, "delta": "ty\":\"Zü"},
+      {"type": "response.function_call_arguments.delta", "sequence_number": 4, "item_id": "fc_w1", "output_index": 0, "delta": "rich\",\"un"},
+      {"type": "response.function_call_arguments.delta", "sequence_number": 5, "item_id": "fc_w1", "output_index": 0, "delta": "it\":\"celsius\"}"},
+      {"type": "response.function_call_arguments.done", "sequence_number": 6, "item_id": "fc_w1", "output_index": 0, "name": "get_weather", "arguments": "{\"city\":\"Zürich\",\"unit\":\"celsius\"}"},
+      {"type": "response.output_item.done", "sequence_number": 7, "output_index": 0, "item": {"id": "fc_w1", "type": "function_call", "status": "completed", "arguments": "{\"city\":\"Zürich\",\"unit\":\"celsius\"}", "call_id": "call_w1", "name": "get_weather"}},
+      {"type": "response.output_item.added", "sequence_number": 8, "output_index": 1, "item": {"id": "fc_t1", "type": "function_call", "status": "in_progress", "arguments": "", "call_id": "call_t1", "name": "get_time"}},
+      {"type": "response.function_call_arguments.delta", "sequence_number": 9, "item_id": "fc_t1", "output_index": 1, "delta": "{\"tz\":\"Eur"},
+      {"type": "response.function_call_arguments.done", "sequence_number": 10, "item_id": "fc_t1", "output_index": 1, "name": "get_time", "arguments": "{\"tz\":\"Europe/Zurich\"}"},
+      {"type": "response.output_item.done", "sequence_number": 11, "output_index": 1, "item": {"id": "fc_t1", "type": "function_call", "status": "completed", "arguments": "{\"tz\":\"Europe/Zurich\"}", "call_id": "call_t1", "name": "get_time"}},
+      {"type": "response.completed", "sequence_number": 12, "response": {"id": "resp_t1", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "fc_w1", "type": "function_call", "status": "completed", "arguments": "{\"city\":\"Zürich\",\"unit\":\"celsius\"}", "call_id": "call_w1", "name": "get_weather"}, {"id": "fc_t1", "type": "function_call", "status": "completed", "arguments": "{\"tz\":\"Europe/Zurich\"}", "call_id": "call_t1", "name": "get_time"}], "usage": {"input_tokens": 120, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 40, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 160}}}
+    ],
+    "expect": {
+      "body": {
+        "model": "gpt-4.1-mini",
+        "input": [
+          {"role": "system", "content": "You are a weather assistant."},
+          {"role": "user", "content": [{"type": "input_text", "text": "What is the weather and local time in Zürich?"}]}
+        ],
+        "stream": true,
+        "store": false,
+        "tools": [
+          {"type": "function", "name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}, "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}}, "required": ["city"], "additionalProperties": false}, "strict": false},
+          {"type": "function", "name": "get_time", "description": "Local time in an IANA time zone", "parameters": {"type": "object", "properties": {"tz": {"type": "string"}}, "required": ["tz"], "additionalProperties": false}, "strict": false}
+        ]
+      },
+      "events": [
+        "start",
+        "toolcall_start#0",
+        "toolcall_delta#0:{\"ci",
+        "toolcall_delta#0:ty\":\"Zü",
+        "toolcall_delta#0:rich\",\"un",
+        "toolcall_delta#0:it\":\"celsius\"}",
+        "toolcall_end#0:call_w1|fc_w1 get_weather {\"city\":\"Zürich\",\"unit\":\"celsius\"}",
+        "toolcall_start#1",
+        "toolcall_delta#1:{\"tz\":\"Eur",
+        "toolcall_delta#1:ope/Zurich\"}",
+        "toolcall_end#1:call_t1|fc_t1 get_time {\"tz\":\"Europe/Zurich\"}",
+        "done:toolUse"
+      ],
+      "content": [
+        "toolCall:call_w1|fc_w1 get_weather {\"city\":\"Zürich\",\"unit\":\"celsius\"} raw={\"city\":\"Zürich\",\"unit\":\"celsius\"}",
+        "toolCall:call_t1|fc_t1 get_time {\"tz\":\"Europe/Zurich\"} raw={\"tz\":\"Europe/Zurich\"}"
+      ],
+      "responseId": "resp_t1",
+      "stopReason": "toolUse",
+      "usage": {"input": 120, "output": 40, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 160}
+    }
+  },
+  "toolResults": {
+    "get_weather": "18°C, clear",
+    "get_time": "14:05"
+  },
+  "round2": {
+    "events": [
+      {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_t2", "object": "response", "created_at": 1790000001, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+      {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "msg_t2", "type": "message", "status": "in_progress", "role": "assistant", "content": []}},
+      {"type": "response.output_text.delta", "sequence_number": 2, "item_id": "msg_t2", "output_index": 0, "content_index": 0, "delta": "It is 18°C and clear in Zürich; "},
+      {"type": "response.output_text.delta", "sequence_number": 3, "item_id": "msg_t2", "output_index": 0, "content_index": 0, "delta": "local time 14:05."},
+      {"type": "response.output_item.done", "sequence_number": 4, "output_index": 0, "item": {"id": "msg_t2", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "It is 18°C and clear in Zürich; local time 14:05.", "annotations": []}]}},
+      {"type": "response.completed", "sequence_number": 5, "response": {"id": "resp_t2", "object": "response", "created_at": 1790000001, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_t2", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "It is 18°C and clear in Zürich; local time 14:05.", "annotations": []}]}], "usage": {"input_tokens": 190, "input_tokens_details": {"cached_tokens": 64}, "output_tokens": 16, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 206}}}
+    ],
+    "expect": {
+      "body": {
+        "model": "gpt-4.1-mini",
+        "input": [
+          {"role": "system", "content": "You are a weather assistant."},
+          {"role": "user", "content": [{"type": "input_text", "text": "What is the weather and local time in Zürich?"}]},
+          {"type": "function_call", "id": "fc_w1", "call_id": "call_w1", "name": "get_weather", "arguments": "{\"city\":\"Zürich\",\"unit\":\"celsius\"}"},
+          {"type": "function_call", "id": "fc_t1", "call_id": "call_t1", "name": "get_time", "arguments": "{\"tz\":\"Europe/Zurich\"}"},
+          {"type": "function_call_output", "call_id": "call_w1", "output": "18°C, clear"},
+          {"type": "function_call_output", "call_id": "call_t1", "output": "14:05"}
+        ],
+        "stream": true,
+        "store": false,
+        "tools": [
+          {"type": "function", "name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}, "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}}, "required": ["city"], "additionalProperties": false}, "strict": false},
+          {"type": "function", "name": "get_time", "description": "Local time in an IANA time zone", "parameters": {"type": "object", "properties": {"tz": {"type": "string"}}, "required": ["tz"], "additionalProperties": false}, "strict": false}
+        ]
+      },
+      "events": [
+        "start",
+        "text_start#0",
+        "text_delta#0:It is 18°C and clear in Zürich; ",
+        "text_delta#0:local time 14:05.",
+        "text_end#0:It is 18°C and clear in Zürich; local time 14:05.",
+        "done:stop"
+      ],
+      "content": [
+        "text:It is 18°C and clear in Zürich; local time 14:05.|{\"v\":1,\"id\":\"msg_t2\"}"
+      ],
+      "responseId": "resp_t2",
+      "stopReason": "stop",
+      "usage": {"input": 126, "output": 16, "cacheRead": 64, "cacheWrite": 0, "totalTokens": 206}
+    }
+  },
+  "truncated": [
+    {
+      "id": "length-mid-arguments",
+      "note": "The output limit cuts the call off mid-arguments: no output_item.done, so no toolcall_end. The display parse completes the fragment; the message is a length truncation and the call is not executable.",
+      "events": [
+        {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_t3", "object": "response", "created_at": 1790000002, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+        {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "fc_w3", "type": "function_call", "status": "in_progress", "arguments": "", "call_id": "call_w3", "name": "get_weather"}},
+        {"type": "response.function_call_arguments.delta", "sequence_number": 2, "item_id": "fc_w3", "output_index": 0, "delta": "{\"city\":\"Zü"},
+        {"type": "response.incomplete", "sequence_number": 3, "response": {"id": "resp_t3", "object": "response", "created_at": 1790000002, "status": "incomplete", "incomplete_details": {"reason": "max_output_tokens"}, "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": {"input_tokens": 120, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 5, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 125}}}
+      ],
+      "expect": {
+        "stopReason": "length",
+        "events": ["start", "toolcall_start#0", "toolcall_delta#0:{\"city\":\"Zü", "done:length"],
+        "content": ["toolCall:call_w3|fc_w3 get_weather {\"city\":\"Zü\"} raw={\"city\":\"Zü"]
+      }
+    },
+    {
+      "id": "length-complete-arguments",
+      "note": "The call itself finished before the output limit hit; the turn is still a truncation, so the call is not executable however complete it looks.",
+      "events": [
+        {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_t4", "object": "response", "created_at": 1790000003, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+        {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "fc_w4", "type": "function_call", "status": "in_progress", "arguments": "", "call_id": "call_w4", "name": "get_weather"}},
+        {"type": "response.function_call_arguments.delta", "sequence_number": 2, "item_id": "fc_w4", "output_index": 0, "delta": "{\"city\":\"Zürich\"}"},
+        {"type": "response.output_item.done", "sequence_number": 3, "output_index": 0, "item": {"id": "fc_w4", "type": "function_call", "status": "completed", "arguments": "{\"city\":\"Zürich\"}", "call_id": "call_w4", "name": "get_weather"}},
+        {"type": "response.incomplete", "sequence_number": 4, "response": {"id": "resp_t4", "object": "response", "created_at": 1790000003, "status": "incomplete", "incomplete_details": {"reason": "max_output_tokens"}, "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": {"input_tokens": 120, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 9, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 129}}}
+      ],
+      "expect": {
+        "stopReason": "length",
+        "events": ["start", "toolcall_start#0", "toolcall_delta#0:{\"city\":\"Zürich\"}", "toolcall_end#0:call_w4|fc_w4 get_weather {\"city\":\"Zürich\"}", "done:length"],
+        "content": ["toolCall:call_w4|fc_w4 get_weather {\"city\":\"Zürich\"} raw={\"city\":\"Zürich\"}"]
+      }
+    },
+    {
+      "id": "disconnect-mid-arguments",
+      "note": "The connection drops mid-arguments: an error terminal keeping the partial call, which is not executable.",
+      "end": "abort",
+      "events": [
+        {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_t5", "object": "response", "created_at": 1790000004, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+        {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "fc_w5", "type": "function_call", "status": "in_progress", "arguments": "", "call_id": "call_w5", "name": "get_weather"}},
+        {"type": "response.function_call_arguments.delta", "sequence_number": 2, "item_id": "fc_w5", "output_index": 0, "delta": "{\"city\":\"Zürich\",\"unit\":\"cel"}
+      ],
+      "expect": {
+        "stopReason": "error",
+        "code": "transport",
+        "events": ["start", "toolcall_start#0", "toolcall_delta#0:{\"city\":\"Zürich\",\"unit\":\"cel", "error:error"],
+        "content": ["toolCall:call_w5|fc_w5 get_weather {\"city\":\"Zürich\",\"unit\":\"cel\"} raw={\"city\":\"Zürich\",\"unit\":\"cel"]
+      }
+    }
+  ]
+}

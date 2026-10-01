@@ -11,6 +11,9 @@ const (
 	EventThinkingStart EventType = "thinking_start"
 	EventThinkingDelta EventType = "thinking_delta"
 	EventThinkingEnd   EventType = "thinking_end"
+	EventToolCallStart EventType = "toolcall_start"
+	EventToolCallDelta EventType = "toolcall_delta"
+	EventToolCallEnd   EventType = "toolcall_end"
 	EventDone          EventType = "done"
 	EventError         EventType = "error"
 )
@@ -77,6 +80,31 @@ type ThinkingEndEvent struct {
 	Partial      *PartialView
 }
 
+// ToolCallStartEvent opens tool call block ContentIndex. The call's ID and
+// name are in the view's block from the start.
+type ToolCallStartEvent struct {
+	ContentIndex int
+	Partial      *PartialView
+}
+
+// ToolCallDeltaEvent appends Delta, a raw fragment of the argument JSON as the
+// provider sent it, to tool call block ContentIndex. Fragments may split JSON
+// tokens and UTF-8 text anywhere a JSON string allows.
+type ToolCallDeltaEvent struct {
+	ContentIndex int
+	Delta        string
+	Partial      *PartialView
+}
+
+// ToolCallEndEvent closes tool call block ContentIndex with the final call. A
+// closed call is still not executable: only ValidateToolCall on the finished
+// message decides that.
+type ToolCallEndEvent struct {
+	ContentIndex int
+	ToolCall     ToolCall
+	Partial      *PartialView
+}
+
 // DoneEvent is the successful terminal event; Message equals Result's message.
 type DoneEvent struct {
 	Reason  StopReason
@@ -98,5 +126,8 @@ func (TextEndEvent) Type() EventType       { return EventTextEnd }
 func (ThinkingStartEvent) Type() EventType { return EventThinkingStart }
 func (ThinkingDeltaEvent) Type() EventType { return EventThinkingDelta }
 func (ThinkingEndEvent) Type() EventType   { return EventThinkingEnd }
+func (ToolCallStartEvent) Type() EventType { return EventToolCallStart }
+func (ToolCallDeltaEvent) Type() EventType { return EventToolCallDelta }
+func (ToolCallEndEvent) Type() EventType   { return EventToolCallEnd }
 func (DoneEvent) Type() EventType          { return EventDone }
 func (ErrorEvent) Type() EventType         { return EventError }

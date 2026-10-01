@@ -1,5 +1,10 @@
 package ai
 
+import (
+	"cmp"
+	"slices"
+)
+
 // assembler is the single production and merge process behind every entry
 // point. Adapters report normalized protocol progress to it; it maintains the
 // assistant message in the call's PartialView and publishes events. Stream
@@ -103,6 +108,52 @@ func (a *assembler) thinkingText(i int) (text string) {
 func (a *assembler) thinkingEnd(i int, thinking, signature string) {
 	a.view.update(func(m *AssistantMessage) { m.Content[i] = Thinking{Thinking: thinking, Signature: signature} })
 	a.publish(ThinkingEndEvent{ContentIndex: i, Content: thinking, Partial: a.view})
+}
+
+// toolCallStart opens a tool call block. As in pi, its arguments start as {}
+// whatever raw text the provider announced with the item.
+func (a *assembler) toolCallStart(id, name, raw string) int {
+	i := a.open(ToolCall{ID: id, Name: name, Arguments: "{}", RawArguments: raw})
+	a.publish(ToolCallStartEvent{ContentIndex: i, Partial: a.view})
+	return i
+}
+
+// toolCallArguments replaces block i's raw argument text and its display parse.
+func (a *assembler) toolCallArguments(i int, raw string) {
+	args := displayArguments(raw)
+	a.view.update(func(m *AssistantMessage) {
+		c := m.Content[i].(ToolCall)
+		c.RawArguments, c.Arguments = raw, args
+		m.Content[i] = c
+	})
+}
+
+// toolCallDelta sets block i's raw argument text to raw, which ends with
+// delta, and publishes the fragment.
+func (a *assembler) toolCallDelta(i int, delta, raw string) {
+	a.toolCallArguments(i, raw)
+	a.publish(ToolCallDeltaEvent{ContentIndex: i, Delta: delta, Partial: a.view})
+}
+
+// toolCallEnd closes block i with the provider's final raw arguments; an
+// empty text means no arguments, which pi parses as {}.
+func (a *assembler) toolCallEnd(i int, raw string) {
+	args := displayArguments(cmp.Or(raw, "{}"))
+	var call ToolCall
+	a.view.update(func(m *AssistantMessage) {
+		call = m.Content[i].(ToolCall)
+		call.RawArguments, call.Arguments = raw, args
+		m.Content[i] = call
+	})
+	a.publish(ToolCallEndEvent{ContentIndex: i, ToolCall: call, Partial: a.view})
+}
+
+// hasToolCall reports whether the message holds a tool call block.
+func (a *assembler) hasToolCall() (found bool) {
+	a.view.read(func(m *AssistantMessage) {
+		found = slices.ContainsFunc(m.Content, func(c AssistantContent) bool { _, ok := c.(ToolCall); return ok })
+	})
+	return found
 }
 
 // finish settles the message, publishes the single terminal event and returns

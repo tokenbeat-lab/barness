@@ -175,6 +175,12 @@ func eventSummary(events []ai.Event) []string {
 			out = append(out, fmt.Sprintf("thinking_delta#%d:%s", e.ContentIndex, e.Delta))
 		case ai.ThinkingEndEvent:
 			out = append(out, fmt.Sprintf("thinking_end#%d:%s", e.ContentIndex, e.Content))
+		case ai.ToolCallStartEvent:
+			out = append(out, fmt.Sprintf("toolcall_start#%d", e.ContentIndex))
+		case ai.ToolCallDeltaEvent:
+			out = append(out, fmt.Sprintf("toolcall_delta#%d:%s", e.ContentIndex, e.Delta))
+		case ai.ToolCallEndEvent:
+			out = append(out, fmt.Sprintf("toolcall_end#%d:%s %s %s", e.ContentIndex, e.ToolCall.ID, e.ToolCall.Name, e.ToolCall.Arguments))
 		case ai.DoneEvent:
 			out = append(out, "done:"+string(e.Reason))
 		case ai.ErrorEvent:

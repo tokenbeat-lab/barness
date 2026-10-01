@@ -14,7 +14,7 @@
 - [x] 取消阶段语义保留基线：lazy setup 期间取消形成 error，进入 adapter 后形成 aborted；附加分类区分 canceled 与 deadline_exceeded
 - [x] Close 未完成时取消本次设置或 I/O，已完成时不改写结果；所有路径关闭响应体并释放等待者，不依赖再次 Next
 - [x] 流中断保留部分内容、usage 与 errorMessage；涉及秘密的 errorMessage 脱敏并登记差异
-- [ ] 未完成的工具参数不被标记为可执行：工具调用尚未解析（function_call 被忽略），由 06 的“截断（length / error）中的工具调用不能通过助手得到可执行结论”验收
+- [x] 未完成的工具参数不被标记为可执行：工具调用尚未解析（function_call 被忽略），由 06 的“截断（length / error）中的工具调用不能通过助手得到可执行结论”验收
 - [x] 适用用例接入 02 的 pi 差分，无待处理差异
 
 ## Comments
@@ -36,3 +36,5 @@
 - Approved by maintainer 2026-10-01: the new public code `upstream_error` (provider-reported failures: HTTP 5xx/408/409, in-stream error, response.failed, non-length incomplete). Added to the spec §9 code list.
 - Kept for pi parity (maintainer accepted 2026-10-01): a `response.failed` response's usage is not taken over. This matches pi (differential-equal), though spec §8's wording "保留…usage" could be read otherwise. An HTTP-date `retry-after` reports `RetryAfter` 0 until ticket 11's clock lands.
 - Accepted as is: the small test-helper duplication (close-after-N in the differential vs. `drainClosingAfter`; the differential needs per-event projection at receipt).
+
+**2026-10-01 — tool box accepted by 06**: `ValidateToolCall` refuses every call of a message not ending `toolUse`; `TestToolCallTruncation` covers length mid-arguments, length with complete arguments, and a disconnect mid-arguments on all four entries.

@@ -2,7 +2,11 @@ module github.com/tokenbeat-lab/barness
 
 go 1.26.2
 
-require github.com/openai/openai-go/v3 v3.66.0
+require (
+	github.com/openai/openai-go/v3 v3.66.0
+	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3
+	golang.org/x/text v0.41.0
+)
 
 require (
 	github.com/coder/websocket v1.8.15 // indirect

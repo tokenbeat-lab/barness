@@ -46,7 +46,10 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	if cl.scope.TenantID == "" || cl.scope.RequestID == "" {
 		return newError(CodeInvalidRequest, PhaseScope, "call scope requires TenantID and RequestID")
 	}
-	// Request structure and size checks (ticket 12) go here.
+	if problem := cl.req.validate(); problem != "" {
+		return newError(CodeInvalidRequest, PhaseScope, problem)
+	}
+	// Request size checks (ticket 12) go here.
 
 	binding, failure := c.resolveBinding(ctx, cl.scope, cl.target.BindingID)
 	if failure != nil {
@@ -62,9 +65,17 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	}
 	options := cl.full
 	if cl.simple != nil {
+		if problem := cl.simple.validate(); problem != "" {
+			return newError(CodeInvalidRequest, PhaseCapability, problem)
+		}
 		options = ad.simpleOptions(model, *cl.simple)
-	} else if options != nil && options.api() != binding.API {
-		return newError(CodeInvalidRequest, PhaseCapability, "options do not match the binding API")
+	} else if options != nil {
+		if options.api() != binding.API {
+			return newError(CodeInvalidRequest, PhaseCapability, "options do not match the binding API")
+		}
+		if problem := options.validate(); problem != "" {
+			return newError(CodeInvalidRequest, PhaseCapability, problem)
+		}
 	}
 
 	cred, failure := c.resolveCredential(ctx, cl.scope, binding)
