@@ -150,3 +150,16 @@ func TestCompareDiffCarriesBothValues(t *testing.T) {
 		t.Errorf("values pi=%s barness=%s", diffs[0].Pi, diffs[0].Barness)
 	}
 }
+
+func TestCompareObservationsWithoutRequest(t *testing.T) {
+	// A call refused before any request (connection refused) has no capture
+	// on either side; that is agreement, not a decode failure.
+	none := obs(`{}`)
+	none.Request = Request{}
+	expectDiffs(t, none, none)
+	// One side sending a request the other did not is still a difference.
+	paths := diffPaths(t, obs(`{}`), none)
+	if len(paths) == 0 {
+		t.Error("a request on one side only was not reported")
+	}
+}

@@ -44,6 +44,11 @@ func (a *assembler) stop(reason StopReason) {
 	a.view.update(func(m *AssistantMessage) { m.StopReason = reason })
 }
 
+// rawStopReason records the provider's own terminal status.
+func (a *assembler) rawStopReason(raw string) {
+	a.view.update(func(m *AssistantMessage) { m.RawStopReason = raw })
+}
+
 // open appends a new block and returns its content index, which never changes
 // however other blocks interleave.
 func (a *assembler) open(block AssistantContent) (i int) {

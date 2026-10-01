@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
+	"slices"
 	"strings"
 )
 
@@ -26,9 +27,12 @@ const (
 // Decision is one reviewed difference in the ledger. Path is a diff path in
 // which "[*]" matches any array index; it also covers everything below it.
 type Decision struct {
-	Protocol       string         `json:"protocol"`
-	Path           string         `json:"path"`
-	Kind           DiffKind       `json:"kind,omitempty"`
+	Protocol string   `json:"protocol"`
+	Path     string   `json:"path"`
+	Kind     DiffKind `json:"kind,omitempty"`
+	// Cases, when set, limits the decision to these case IDs, so a difference
+	// approved for one scenario stays pending everywhere else.
+	Cases          []string       `json:"cases,omitempty"`
 	Classification Classification `json:"classification"`
 	// Decision is the handling decision and its reason.
 	Decision string `json:"decision"`
@@ -96,6 +100,9 @@ func (d Decision) validate() error {
 	case d.Ref == "":
 		return fmt.Errorf("ref is required")
 	}
+	if slices.Contains(d.Cases, "") {
+		return fmt.Errorf("cases must not contain an empty case id")
+	}
 	switch d.Classification {
 	case Fixed, Extension, Pending:
 	default:
@@ -112,14 +119,14 @@ func (d Decision) validate() error {
 	return nil
 }
 
-// Classify explains each diff with the first matching decision for protocol.
-// A diff without a decision is pending ("unreviewed"); a diff matching a
-// Fixed decision is a regression and also pending.
-func (l Ledger) Classify(protocol string, diffs []Diff) Verdict {
+// Classify explains each diff of case caseID with the first matching decision
+// for protocol. A diff without a decision is pending ("unreviewed"); a diff
+// matching a Fixed decision is a regression and also pending.
+func (l Ledger) Classify(protocol, caseID string, diffs []Diff) Verdict {
 	v := Verdict{Findings: make([]Finding, 0, len(diffs))}
 	for _, diff := range diffs {
 		f := Finding{Diff: diff, Classification: Pending, Decision: "unreviewed: no ledger decision"}
-		if d, ok := l.lookup(protocol, diff); ok {
+		if d, ok := l.lookup(protocol, caseID, diff); ok {
 			f.Classification, f.Decision, f.Ref = d.Classification, d.Decision, d.Ref
 			if d.Classification == Fixed {
 				f.Classification = Pending
@@ -135,9 +142,10 @@ func (l Ledger) Classify(protocol string, diffs []Diff) Verdict {
 	return v
 }
 
-func (l Ledger) lookup(protocol string, diff Diff) (Decision, bool) {
+func (l Ledger) lookup(protocol, caseID string, diff Diff) (Decision, bool) {
 	for _, d := range l.decisions {
-		if d.Protocol == protocol && (d.Kind == "" || d.Kind == diff.Kind) && d.match.MatchString(diff.Path) {
+		if d.Protocol == protocol && (d.Kind == "" || d.Kind == diff.Kind) &&
+			(len(d.Cases) == 0 || slices.Contains(d.Cases, caseID)) && d.match.MatchString(diff.Path) {
 			return d, true
 		}
 	}

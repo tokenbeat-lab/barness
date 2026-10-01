@@ -105,13 +105,19 @@ async function main() {
 	const model = { ...known, baseUrl: input.baseUrl };
 
 	const context = pi.normalizeContext(input.context);
-	const options = { ...(input.options ?? {}), apiKey: input.apiKey, env: {} };
+	// abortAfterEvents > 0 aborts the call, as a caller canceling it would, once
+	// that many events were received.
+	const controller = new AbortController();
+	const options = { ...(input.options ?? {}), apiKey: input.apiKey, env: {}, signal: controller.signal };
 	if (input.entry !== "stream" && input.entry !== "streamSimple") fail(`unsupported entry ${input.entry}`);
 	const run = input.entry === "streamSimple" ? api.streamSimple : api.stream;
 
 	const events = [];
 	const stream = run(model, context, options);
-	for await (const event of stream) events.push(JSON.parse(JSON.stringify(event)));
+	for await (const event of stream) {
+		events.push(JSON.parse(JSON.stringify(event)));
+		if (events.length === input.abortAfterEvents) controller.abort();
+	}
 	const result = JSON.parse(JSON.stringify(await stream.result()));
 
 	process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, events, result }));

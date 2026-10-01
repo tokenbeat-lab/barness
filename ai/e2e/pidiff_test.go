@@ -37,6 +37,18 @@ func TestPiDifferential(t *testing.T) {
 				})
 			}
 		}
+		// E02 failure terminals reuse the offline scenarios. Failure handling
+		// does not depend on the entry point's option mapping, so they run on
+		// the full entry only.
+		f, raw := loadFailureFixture(t)
+		for _, sc := range f.Scenarios {
+			t.Run("failure/"+sc.ID, func(t *testing.T) {
+				ev := run.Case(t, "PIDIFF-P01-E02-"+sc.ID+"-stream")
+				ev.ReplayEnv(pioracle.EnableEnv + "=1")
+				o := openOracle(t)
+				differential(t, ev, o, ledger, "stream", failurePidiffScenario(t, f, raw, sc))
+			})
+		}
 	})
 }
 
@@ -45,8 +57,15 @@ type pidiffScenario struct {
 	fixture string
 	raw     []byte
 	model   string
-	events  []json.RawMessage
 	req     ai.Request
+	reply   provider.Reply
+	// unreachable points both sides at an endpoint nothing listens on.
+	unreachable bool
+	// abortAfter > 0 makes both callers abort once they received that many
+	// events.
+	abortAfter int
+	// requests is how many inference requests each side must send.
+	requests int
 }
 
 // loadPidiffScenario reuses the offline E2E fixtures: P01 plain text
@@ -56,13 +75,29 @@ func loadPidiffScenario(t *testing.T, name string) pidiffScenario {
 	switch name {
 	case "text":
 		f, raw := loadTextFixture(t, "text-basic.json")
-		return pidiffScenario{"text-basic.json", raw, f.Model, f.Events, textRequest(f)}
+		return pidiffScenario{fixture: "text-basic.json", raw: raw, model: f.Model, req: textRequest(f),
+			reply: sseEvents(t, f.Events, provider.FramingLF), requests: 1}
 	case "interleaved":
 		f, raw := loadLifecycleFixture(t)
-		return pidiffScenario{"interleaved-blocks.json", raw, f.Model, f.Events, lifecycleRequest(f)}
+		return pidiffScenario{fixture: "interleaved-blocks.json", raw: raw, model: f.Model, req: lifecycleRequest(f),
+			reply: sseEvents(t, f.Events, provider.FramingLF), requests: 1}
 	}
 	t.Fatalf("unknown pidiff scenario %q", name)
 	return pidiffScenario{}
+}
+
+// failurePidiffScenario is E02 scenario sc of TestFailureTerminals.
+func failurePidiffScenario(t *testing.T, f failureFixture, raw []byte, sc failureScenario) pidiffScenario {
+	t.Helper()
+	p := pidiffScenario{fixture: "failures.json", raw: raw, model: f.Model, req: f.request(),
+		unreachable: sc.Unreachable, abortAfter: sc.CancelAfterEvents, requests: 1}
+	if sc.Expect.Requests != nil {
+		p.requests = *sc.Expect.Requests
+	}
+	if !sc.Unreachable {
+		p.reply = f.reply(t, sc)
+	}
+	return p
 }
 
 func openOracle(t *testing.T) *pioracle.Oracle {
@@ -94,40 +129,50 @@ func loadLedger(t *testing.T) pioracle.Ledger {
 // differential runs one scenario on both sides and judges the difference.
 func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pioracle.Ledger, entry string, sc pidiffScenario) {
 	ev.Fixture(sc.fixture, sc.raw)
-	reply := sseEvents(t, sc.events, provider.FramingLF)
-	ev.Record("response-script", reply)
+	ev.Record("response-script", sc.reply)
 	req := sc.req
 	target := ai.Target{BindingID: "primary", ModelID: sc.model}
 
 	// barness-ai through the public Client.
 	w := newWorld(t, tenantA)
-	w.provider.Enqueue(reply)
+	if sc.unreachable {
+		w.updateBinding(tenantA, func(b *ai.Binding) { b.Endpoint = deadEndpoint() })
+	} else {
+		w.provider.Enqueue(sc.reply)
+	}
 	var s *ai.Stream
 	if entry == "stream" {
 		s = w.client.Stream(ctxFor(t), textScope("req-pidiff-"+entry), target, req, nil)
 	} else {
 		s = w.client.StreamSimple(ctxFor(t), textScope("req-pidiff-"+entry), target, req, ai.SimpleOptions{})
 	}
-	barness, barnessReq := barnessObservation(t, ev, w, s)
+	barness, barnessReqs := barnessObservation(t, ev, w, s, sc.abortAfter)
 
 	// Frozen pi-ai against its own local controlled Provider with the same script.
 	srv := provider.New(map[string]string{tenantA.secret: tenantA.alias})
 	defer srv.Close()
-	srv.Enqueue(reply)
+	baseURL := srv.URL() + "/v1"
+	if sc.unreachable {
+		baseURL = deadEndpoint()
+	} else {
+		srv.Enqueue(sc.reply)
+	}
 	piRun, err := o.Run(ctxFor(t), pioracle.Case{
-		API:      string(ai.APIOpenAIResponses),
-		Provider: string(ai.ProviderOpenAI),
-		Model:    sc.model,
-		BaseURL:  srv.URL() + "/v1",
-		APIKey:   tenantA.secret,
-		Entry:    entry,
-		Context:  piContext(t, req),
+		API:              string(ai.APIOpenAIResponses),
+		Provider:         string(ai.ProviderOpenAI),
+		Model:            sc.model,
+		BaseURL:          baseURL,
+		APIKey:           tenantA.secret,
+		Entry:            entry,
+		Context:          piContext(t, req),
+		AbortAfterEvents: sc.abortAfter,
 	})
 	if !ev.Check("pi runner completed", err == nil, "%v", err) {
 		return
 	}
-	pi, piReq := piObservation(ev, srv, piRun)
-	if !ev.Check("each side sent exactly one inference request", piReq != nil && barnessReq != nil, "pi=%v barness=%v", piReq != nil, barnessReq != nil) {
+	pi, piReqs := piObservation(ev, srv, piRun)
+	if !ev.Check("each side sent the expected inference requests", piReqs == sc.requests && barnessReqs == sc.requests,
+		"pi=%d barness=%d want %d", piReqs, barnessReqs, sc.requests) {
 		return
 	}
 	ev.Record("pi-observation", pi)
@@ -138,7 +183,7 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 		return
 	}
 	protocol := string(ai.APIOpenAIResponses)
-	verdict := ledger.Classify(protocol, diffs)
+	verdict := ledger.Classify(protocol, ev.ID(), diffs)
 	rec := o.Record(ev.ID(), protocol, verdict, pioracle.Sides{
 		BarnessVersions: map[string]string{
 			"go":        runtime.Version(),
@@ -146,9 +191,9 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 		},
 		NodeVersion:      piRun.Node,
 		ModelCatalogHash: hashJSON(ai.BuiltinCatalog()),
-		PiRequest:        mustMarshal(t, piReq),
-		BarnessRequest:   mustMarshal(t, barnessReq),
-		Frames:           []byte(reply.Script),
+		PiRequest:        mustMarshal(t, pi.Request),
+		BarnessRequest:   mustMarshal(t, barness.Request),
+		Frames:           []byte(sc.reply.Script),
 	})
 	ev.Record("pidiff", rec)
 
@@ -164,41 +209,48 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 // barnessObservation consumes s and projects barness-ai's public results onto
 // pi-ai's JSON shape (see piEvent/piMessage). A failed call is still an
 // observation: its error message and stop reason are compared like any result.
-func barnessObservation(t *testing.T, ev *evidence.Case, w *world, s *ai.Stream) (pioracle.Observation, *provider.Request) {
+// With abortAfter > 0 another goroutine Closes s once that many events were
+// read, as the pi runner aborts its signal. It returns the observation and the
+// number of inference requests the provider received.
+func barnessObservation(t *testing.T, ev *evidence.Case, w *world, s *ai.Stream, abortAfter int) (pioracle.Observation, int) {
 	t.Helper()
 	defer s.Close()
 	var obs pioracle.Observation
 	var events []ai.Event
+	closed := make(chan struct{})
 	for s.Next() {
 		events = append(events, s.Event())
 		obs.Events = append(obs.Events, mustMarshal(t, piEvent(t, s.Event())))
+		if len(events) == abortAfter {
+			go func() { _ = s.Close(); close(closed) }()
+		}
+	}
+	if abortAfter > 0 && len(events) >= abortAfter {
+		<-closed
 	}
 	res, err := s.Result()
 	ev.Record("barness-events", eventsJSON(events))
 	ev.Record("barness-result", map[string]any{"result": res, "error": errString(err)})
 	obs.Result = mustMarshal(t, piMessage(t, res.Message))
-	req := onlyRequest(ev, "barness-requests", w.provider, &obs)
-	return obs, req
+	return obs, observeRequests(ev, "barness-requests", w.provider, &obs)
 }
 
-func piObservation(ev *evidence.Case, srv *provider.Server, r pioracle.Run) (pioracle.Observation, *provider.Request) {
+func piObservation(ev *evidence.Case, srv *provider.Server, r pioracle.Run) (pioracle.Observation, int) {
 	ev.Record("pi-run", r)
 	obs := pioracle.Observation{Events: r.Events, Result: r.Result}
-	req := onlyRequest(ev, "pi-requests", srv, &obs)
-	return obs, req
+	return obs, observeRequests(ev, "pi-requests", srv, &obs)
 }
 
-// onlyRequest records what srv received and, when it was exactly one
-// inference request, sets it as obs's request.
-func onlyRequest(ev *evidence.Case, name string, srv *provider.Server, obs *pioracle.Observation) *provider.Request {
+// observeRequests records what srv received and, when it was exactly one
+// inference request, sets it as obs's request. It returns the request count.
+func observeRequests(ev *evidence.Case, name string, srv *provider.Server, obs *pioracle.Observation) int {
 	reqs := srv.Requests()
 	ev.Record(name, reqs)
-	if len(reqs) != 1 {
-		return nil
+	if len(reqs) == 1 {
+		r := reqs[0]
+		obs.Request = pioracle.Request{Method: r.Method, Path: r.Path, Query: r.Query, Auth: r.KeyAlias, Headers: r.Header, Body: r.Body}
 	}
-	r := reqs[0]
-	obs.Request = pioracle.Request{Method: r.Method, Path: r.Path, Query: r.Query, Auth: r.KeyAlias, Headers: r.Header, Body: r.Body}
-	return &r
+	return len(reqs)
 }
 
 // piContext is the pi Context for the same logical input barness receives.

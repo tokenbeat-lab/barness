@@ -1,0 +1,196 @@
+{
+  "case": "E02 / P01 failure terminals, truncation and cancellation on OpenAI × Responses",
+  "source": "Synthetic offline fixture. HTTP error bodies follow the OpenAI API error object; stream events follow the OpenAI Responses streaming API (error, response.failed, response.incomplete) as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) processResponsesStream and the openai-responses.ts catch block. Expected errorMessage values are pi's output for the same script, except where a scenario's note says why barness differs (see ai/e2e/testdata/pidiff/ledger.json).",
+  "model": "gpt-4.1-mini",
+  "systemPrompt": "You are terse.",
+  "user": "Say hello.",
+  "partial": [
+    {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_002", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+    {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "msg_002", "type": "message", "status": "in_progress", "role": "assistant", "content": []}},
+    {"type": "response.content_part.added", "sequence_number": 2, "item_id": "msg_002", "output_index": 0, "content_index": 0, "part": {"type": "output_text", "text": "", "annotations": []}},
+    {"type": "response.output_text.delta", "sequence_number": 3, "item_id": "msg_002", "output_index": 0, "content_index": 0, "delta": "Hello"},
+    {"type": "response.output_text.delta", "sequence_number": 4, "item_id": "msg_002", "output_index": 0, "content_index": 0, "delta": ", "}
+  ],
+  "partialEvents": ["start", "text_start#0", "text_delta#0:Hello", "text_delta#0:, "],
+  "scenarios": [
+    {
+      "id": "http-401",
+      "note": "pi echoes the vendor's masked key; barness redacts key-like tokens from provider error text (spec I9).",
+      "reply": {"status": 401, "header": {"Content-Type": "application/json", "x-request-id": "req_401abc"},
+        "body": "{\"error\":{\"message\":\"Incorrect API key provided: sk-test-****0001. You can find your API key at https://platform.openai.com/account/api-keys.\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_api_key\"}}"},
+      "expect": {"stopReason": "error", "code": "upstream_auth", "phase": "request", "httpStatus": 401, "providerRequestId": "req_401abc",
+        "errorMessage": "OpenAI API error (401): {\"message\":\"Incorrect API key provided: [REDACTED]. You can find your API key at https://platform.openai.com/account/api-keys.\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_api_key\"}",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "http-403-key-echo",
+      "note": "A gateway echoing the full key: pi passes it through; barness redacts it (spec I9).",
+      "reply": {"status": 403, "header": {"Content-Type": "application/json", "x-request-id": "req_403abc"},
+        "body": "{\"error\":{\"message\":\"Gateway rejected key sk-test-tenant-a-0001 for this project\",\"type\":\"permission_error\",\"param\":null,\"code\":\"forbidden\"}}"},
+      "expect": {"stopReason": "error", "code": "upstream_auth", "phase": "request", "httpStatus": 403, "providerRequestId": "req_403abc",
+        "errorMessage": "OpenAI API error (403): {\"message\":\"Gateway rejected key [REDACTED] for this project\",\"type\":\"permission_error\",\"param\":null,\"code\":\"forbidden\"}",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "http-429-retry-after",
+      "reply": {"status": 429, "header": {"Content-Type": "application/json", "x-request-id": "req_429abc", "retry-after": "7"},
+        "body": "{\"error\":{\"message\":\"Rate limit reached for requests on task-runner and disk-sync\",\"type\":\"requests\",\"param\":null,\"code\":\"rate_limit_exceeded\"}}"},
+      "expect": {"stopReason": "error", "code": "rate_limited", "phase": "request", "httpStatus": 429, "providerRequestId": "req_429abc", "retryAfterMs": 7000,
+        "errorMessage": "OpenAI API error (429): {\"message\":\"Rate limit reached for requests on task-runner and disk-sync\",\"type\":\"requests\",\"param\":null,\"code\":\"rate_limit_exceeded\"}",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "http-503-retry-after-ms",
+      "note": "retry-after-ms takes precedence over retry-after, as in the frozen retry rules.",
+      "reply": {"status": 503, "header": {"Content-Type": "application/json", "x-request-id": "req_503abc", "retry-after-ms": "1500", "retry-after": "9"},
+        "body": "{\"error\":{\"message\":\"The engine is currently overloaded, please try again later\",\"type\":\"server_error\",\"param\":null,\"code\":null}}"},
+      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "request", "httpStatus": 503, "providerRequestId": "req_503abc", "retryAfterMs": 1500,
+        "errorMessage": "OpenAI API error (503): {\"message\":\"The engine is currently overloaded, please try again later\",\"type\":\"server_error\",\"param\":null,\"code\":null}",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "http-500-no-error-object",
+      "reply": {"status": 500, "header": {"Content-Type": "application/json"}, "body": "{\"detail\":\"internal failure\"}"},
+      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "request", "httpStatus": 500,
+        "errorMessage": "OpenAI API error (500): 500 status code (no body)",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "http-502-html",
+      "reply": {"status": 502, "header": {"Content-Type": "text/html"}, "body": "<html><body>Bad gateway</body></html>"},
+      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "request", "httpStatus": 502,
+        "errorMessage": "OpenAI API error (502): 502 <html><body>Bad gateway</body></html>",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "http-400",
+      "reply": {"status": 400, "header": {"Content-Type": "application/json", "x-request-id": "req_400abc"},
+        "body": "{\"error\":{\"message\":\"Invalid value for 'input': expected an array.\",\"type\":\"invalid_request_error\",\"param\":\"input\",\"code\":\"invalid_value\"}}"},
+      "expect": {"stopReason": "error", "code": "invalid_request", "phase": "request", "httpStatus": 400, "providerRequestId": "req_400abc",
+        "errorMessage": "OpenAI API error (400): {\"message\":\"Invalid value for 'input': expected an array.\",\"type\":\"invalid_request_error\",\"param\":\"input\",\"code\":\"invalid_value\"}",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "http-409",
+      "note": "A transient provider conflict, which the baseline retries: upstream_error, not invalid_request.",
+      "reply": {"status": 409, "header": {"Content-Type": "application/json", "x-request-id": "req_409abc"},
+        "body": "{\"error\":{\"message\":\"The request conflicted with another request; please retry.\",\"type\":\"conflict_error\",\"param\":null,\"code\":null}}"},
+      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "request", "httpStatus": 409, "providerRequestId": "req_409abc",
+        "errorMessage": "OpenAI API error (409): {\"message\":\"The request conflicted with another request; please retry.\",\"type\":\"conflict_error\",\"param\":null,\"code\":null}",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "connection-refused",
+      "unreachable": true,
+      "expect": {"stopReason": "error", "code": "transport", "phase": "request", "requests": 0,
+        "errorMessage": "Connection error.",
+        "events": ["error:error"]}
+    },
+    {
+      "id": "stream-error-event",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream", "x-request-id": "req_stream_err"},
+        "events": [{"type": "error", "sequence_number": 5, "code": "server_error", "message": "The server had an error while processing your request.", "param": null}]},
+      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "stream", "providerRequestId": "req_stream_err", "partial": true,
+        "errorMessage": "Error Code server_error: The server had an error while processing your request.",
+        "content": ["text:Hello, "], "responseId": "resp_002", "events": ["error:error"]}
+    },
+    {
+      "id": "gateway-error-object",
+      "note": "An OpenAI-compatible gateway reporting a failure as a frame with a top-level error object.",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"},
+        "events": [{"type": "error", "error": {"message": "Upstream overloaded", "type": "server_error", "code": "overloaded"}}]},
+      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "stream", "partial": true,
+        "errorMessage": "Upstream overloaded",
+        "content": ["text:Hello, "], "responseId": "resp_002", "events": ["error:error"]}
+    },
+    {
+      "id": "response-failed",
+      "note": "As in pi, the failed response's usage is not taken over; rawStopReason is its status.",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"},
+        "events": [{"type": "response.failed", "sequence_number": 5, "response": {"id": "resp_002", "object": "response", "created_at": 1790000000, "status": "failed", "error": {"code": "server_error", "message": "The model failed to generate a response."}, "incomplete_details": null, "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": {"input_tokens": 20, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 2, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 22}}}]},
+      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "stream", "partial": true, "rawStopReason": "failed",
+        "errorMessage": "server_error: The model failed to generate a response.",
+        "content": ["text:Hello, "], "responseId": "resp_002", "events": ["error:error"]}
+    },
+    {
+      "id": "incomplete-length",
+      "note": "Normal truncation: a successful length terminal, not an error.",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"},
+        "events": [
+          {"type": "response.output_item.done", "sequence_number": 5, "output_index": 0, "item": {"id": "msg_002", "type": "message", "status": "incomplete", "role": "assistant", "content": [{"type": "output_text", "text": "Hello, ", "annotations": []}]}},
+          {"type": "response.incomplete", "sequence_number": 6, "response": {"id": "resp_002", "object": "response", "created_at": 1790000000, "status": "incomplete", "incomplete_details": {"reason": "max_output_tokens"}, "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": {"input_tokens": 20, "input_tokens_details": {"cached_tokens": 4}, "output_tokens": 2, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 22}}}
+        ]},
+      "expect": {"stopReason": "length", "partial": true, "rawStopReason": "incomplete.max_output_tokens",
+        "content": ["text:Hello, |{\"v\":1,\"id\":\"msg_002\"}"], "responseId": "resp_002",
+        "usage": {"input": 16, "output": 2, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 22},
+        "events": ["text_end#0:Hello, ", "done:length"]}
+    },
+    {
+      "id": "incomplete-content-filter",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"},
+        "events": [{"type": "response.incomplete", "sequence_number": 5, "response": {"id": "resp_002", "object": "response", "created_at": 1790000000, "status": "incomplete", "incomplete_details": {"reason": "content_filter"}, "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": {"input_tokens": 20, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 2, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 22}}}]},
+      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "stream", "partial": true, "rawStopReason": "incomplete.content_filter",
+        "errorMessage": "Response incomplete: content_filter",
+        "content": ["text:Hello, "], "responseId": "resp_002",
+        "usage": {"input": 20, "output": 2, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 22},
+        "events": ["error:error"]}
+    },
+    {
+      "id": "unknown-status",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"},
+        "events": [{"type": "response.completed", "sequence_number": 5, "response": {"id": "resp_002", "object": "response", "created_at": 1790000000, "status": "paused", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": {"input_tokens": 20, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 2, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 22}}}]},
+      "expect": {"stopReason": "error", "code": "protocol", "phase": "stream", "partial": true, "rawStopReason": "paused",
+        "errorMessage": "Unhandled stop reason: paused",
+        "content": ["text:Hello, "], "responseId": "resp_002",
+        "usage": {"input": 20, "output": 2, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 22},
+        "events": ["error:error"]}
+    },
+    {
+      "id": "half-json",
+      "note": "pi reports the JavaScript runtime's JSON.parse text, which barness cannot reproduce; barness uses its own fixed text.",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"},
+        "tail": "event: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"sequence_number\":5,\"item_id\":\"msg_002\",\"output_index\":0,\"content_index\":0,\"delta\":\"wor\n\n"},
+      "expect": {"stopReason": "error", "code": "protocol", "phase": "stream", "partial": true,
+        "errorMessage": "OpenAI Responses stream event is not valid JSON",
+        "content": ["text:Hello, "], "responseId": "resp_002", "events": ["error:error"]}
+    },
+    {
+      "id": "eof-without-terminal",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"}},
+      "expect": {"stopReason": "error", "code": "protocol", "phase": "stream", "partial": true,
+        "errorMessage": "OpenAI Responses stream ended before a terminal response event",
+        "content": ["text:Hello, "], "responseId": "resp_002", "events": ["error:error"]}
+    },
+    {
+      "id": "disconnect-mid-stream",
+      "note": "pi reports the Node.js fetch runtime's text (\"terminated\"); barness uses its own fixed text.",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"}, "end": "abort"},
+      "expect": {"stopReason": "error", "code": "transport", "phase": "stream", "partial": true,
+        "errorMessage": "Connection lost while reading the OpenAI Responses stream",
+        "content": ["text:Hello, "], "responseId": "resp_002", "events": ["error:error"]}
+    },
+    {
+      "id": "disconnect-after-terminal",
+      "note": "The terminal arrived, so content and usage are complete, but the stream did not end cleanly.",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"}, "end": "abort",
+        "events": [
+          {"type": "response.output_item.done", "sequence_number": 5, "output_index": 0, "item": {"id": "msg_002", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "Hello, ", "annotations": []}]}},
+          {"type": "response.completed", "sequence_number": 6, "response": {"id": "resp_002", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": {"input_tokens": 20, "input_tokens_details": {"cached_tokens": 4}, "output_tokens": 2, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 22}}}
+        ]},
+      "expect": {"stopReason": "error", "code": "transport", "phase": "stream", "partial": true, "rawStopReason": "completed",
+        "errorMessage": "Connection lost while reading the OpenAI Responses stream",
+        "content": ["text:Hello, |{\"v\":1,\"id\":\"msg_002\"}"], "responseId": "resp_002",
+        "usage": {"input": 16, "output": 2, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 22},
+        "events": ["text_end#0:Hello, ", "error:error"]}
+    },
+    {
+      "id": "cancel-after-first-frames",
+      "note": "The caller cancels once it has read every event the provider sent; the provider keeps the stream open. Stream entry points only.",
+      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream"}, "end": "hold"},
+      "cancelAfterEvents": 4,
+      "expect": {"stopReason": "aborted", "code": "canceled", "phase": "stream", "partial": true,
+        "errorMessage": "OpenAI Responses stream ended before a terminal response event",
+        "content": ["text:Hello, "], "responseId": "resp_002", "events": ["error:aborted"]}
+    }
+  ]
+}

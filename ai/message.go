@@ -82,13 +82,17 @@ type AssistantMessage struct {
 	Content []AssistantContent `json:"content"`
 	// API, Provider and Model identify what actually served the call; they are
 	// empty when the call failed before the binding and model were resolved.
-	API          API        `json:"api"`
-	Provider     ProviderID `json:"provider"`
-	Model        string     `json:"model"`
-	ResponseID   string     `json:"responseId,omitempty"`
-	Usage        Usage      `json:"usage"`
-	StopReason   StopReason `json:"stopReason"`
-	ErrorMessage string     `json:"errorMessage,omitempty"`
+	API        API        `json:"api"`
+	Provider   ProviderID `json:"provider"`
+	Model      string     `json:"model"`
+	ResponseID string     `json:"responseId,omitempty"`
+	Usage      Usage      `json:"usage"`
+	StopReason StopReason `json:"stopReason"`
+	// RawStopReason is the provider's own terminal status as pi-ai reports
+	// it (Responses: response.status, plus ".<reason>" for an incomplete
+	// response with a reason). Empty when no terminal status was received.
+	RawStopReason string `json:"rawStopReason,omitempty"`
+	ErrorMessage  string `json:"errorMessage,omitempty"`
 	// Timestamp is when the call started producing this message, in Unix
 	// milliseconds as in pi-ai. Every message of a call — terminal event,
 	// Result, failures included — carries the same value.

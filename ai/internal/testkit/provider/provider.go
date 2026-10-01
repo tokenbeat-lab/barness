@@ -29,7 +29,26 @@ type Reply struct {
 	// of the reply is written, so a test can change host state while a call is
 	// verifiably in flight.
 	OnReceive func() `json:"-"`
+	// End is how the reply ends once every chunk is written.
+	End End `json:"end,omitempty"`
+	// OnHold, when set, runs once an EndHold reply has written its chunks and
+	// starts holding the connection open.
+	OnHold func() `json:"-"`
 }
+
+// End selects how a reply ends after its chunks.
+type End string
+
+const (
+	// EndClose finishes the body normally (the zero value).
+	EndClose End = ""
+	// EndAbort cuts the connection without terminating the chunked body, as
+	// a crashed upstream or a dropped network path does.
+	EndAbort End = "abort"
+	// EndHold keeps the connection open, sending nothing more, until the
+	// client goes away or the server is closed.
+	EndHold End = "hold"
+)
 
 // Request is a redacted capture of what the server received.
 type Request struct {
@@ -45,8 +64,10 @@ type Request struct {
 
 // Server is a scripted loopback Provider.
 type Server struct {
-	srv     *httptest.Server
-	aliases map[string]string
+	srv       *httptest.Server
+	aliases   map[string]string
+	closing   chan struct{} // closed by Close; releases held replies
+	closeOnce sync.Once
 
 	mu       sync.Mutex
 	replies  []Reply
@@ -56,7 +77,7 @@ type Server struct {
 // New starts a server. aliases maps each test key the server may receive to
 // the alias reported in captures; real key material never leaves the server.
 func New(aliases map[string]string) *Server {
-	s := &Server{aliases: aliases}
+	s := &Server{aliases: aliases, closing: make(chan struct{})}
 	s.srv = httptest.NewServer(http.HandlerFunc(s.handle))
 	return s
 }
@@ -64,8 +85,11 @@ func New(aliases map[string]string) *Server {
 // URL is the server base URL (http://127.0.0.1:port).
 func (s *Server) URL() string { return s.srv.URL }
 
-// Close stops the server.
-func (s *Server) Close() { s.srv.Close() }
+// Close releases held replies and stops the server.
+func (s *Server) Close() {
+	s.closeOnce.Do(func() { close(s.closing) })
+	s.srv.Close()
+}
 
 // Enqueue appends replies served to subsequent requests in order.
 func (s *Server) Enqueue(replies ...Reply) {
@@ -134,6 +158,19 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		}
 		if flusher != nil {
 			flusher.Flush()
+		}
+	}
+	switch reply.End {
+	case EndAbort:
+		// net/http drops the connection without the terminating chunk.
+		panic(http.ErrAbortHandler)
+	case EndHold:
+		if reply.OnHold != nil {
+			reply.OnHold()
+		}
+		select {
+		case <-r.Context().Done():
+		case <-s.closing:
 		}
 	}
 }

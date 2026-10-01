@@ -122,6 +122,22 @@
     },
     {
       "protocol": "openai-responses",
+      "path": "events[*].partial.rawStopReason",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. Both sides serialize it when the consumer receives the event; pi's single-threaded runner happens to reach every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold the terminal's raw stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract (one shared view, never behind the event being read, synchronized snapshots, settles on the final message) is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].partial.errorMessage",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. Both sides serialize it when the consumer receives the event; pi's single-threaded runner happens to reach every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold the failed terminal's error message. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract (one shared view, never behind the event being read, synchronized snapshots, settles on the final message) is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-responses",
       "path": "events[*].partial.responseId",
       "kind": "only_barness",
       "classification": "extension",
@@ -140,16 +156,16 @@
       "protocol": "openai-responses",
       "path": "result.rawStopReason",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "pi keeps the provider's raw terminal status (Responses: response.status) beside the mapped StopReason; barness does not carry it yet.",
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-01 (issue 05): AssistantMessage.RawStopReason carries the provider's terminal status as pi reports it (response.status, plus '.<reason>' for an incomplete response with a reason; the status of a failed response). Was: barness did not carry it.",
       "ref": "issues/05"
     },
     {
       "protocol": "openai-responses",
       "path": "events[*].message.rawStopReason",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Same as result.rawStopReason, on the terminal event's message.",
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-01 (issue 05): AssistantMessage.RawStopReason carries the provider's terminal status as pi reports it (response.status, plus '.<reason>' for an incomplete response with a reason; the status of a failed response). Was: barness did not carry it.",
       "ref": "issues/05"
     },
     {
@@ -170,6 +186,14 @@
     },
     {
       "protocol": "openai-responses",
+      "path": "events[*].error.usage.cost",
+      "kind": "only_pi",
+      "classification": "pending",
+      "decision": "Same as result.usage.cost, on the error event's message.",
+      "ref": "issues/15"
+    },
+    {
+      "protocol": "openai-responses",
       "path": "result.usage.reasoning",
       "kind": "only_pi",
       "classification": "pending",
@@ -182,6 +206,14 @@
       "kind": "only_pi",
       "classification": "pending",
       "decision": "Same as result.usage.reasoning, on the terminal event's message.",
+      "ref": "issues/15"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].error.usage.reasoning",
+      "kind": "only_pi",
+      "classification": "pending",
+      "decision": "Same as result.usage.reasoning, on the error event's message.",
       "ref": "issues/15"
     },
     {
@@ -199,6 +231,76 @@
       "classification": "pending",
       "decision": "Derived from the request body; differs only while request.body differs (currently max_output_tokens on the simple entry).",
       "ref": "issues/09"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P01-E02-http-401-stream",
+        "PIDIFF-P01-E02-http-403-key-echo-stream"
+      ],
+      "classification": "extension",
+      "decision": "Security difference (spec I9: 基线 errorMessage 涉及秘密时必须脱敏并登记安全差异). pi copies the provider's error object into errorMessage verbatim, including a masked key ('sk-test-****0001') or, from a gateway, the full key. barness keeps pi's text but replaces the call's key and any 'sk-…' key-shaped token with [REDACTED]. Asserted by the offline E2E TestFailureTerminals (http-401, http-403-key-echo).",
+      "ref": "spec I9; issues/05; ai/responses_errors.go redact"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P01-E02-http-401-stream",
+        "PIDIFF-P01-E02-http-403-key-echo-stream"
+      ],
+      "classification": "extension",
+      "decision": "Security difference (spec I9: 基线 errorMessage 涉及秘密时必须脱敏并登记安全差异). pi copies the provider's error object into errorMessage verbatim, including a masked key ('sk-test-****0001') or, from a gateway, the full key. barness keeps pi's text but replaces the call's key and any 'sk-…' key-shaped token with [REDACTED]. Asserted by the offline E2E TestFailureTerminals (http-401, http-403-key-echo).",
+      "ref": "spec I9; issues/05; ai/responses_errors.go redact"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P01-E02-half-json-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports the JavaScript runtime's JSON.parse message ('Unterminated string in JSON at position 124 (line 1 column 125)'), which depends on V8 and cannot be reproduced in Go. barness reports the fixed text 'OpenAI Responses stream event is not valid JSON'. StopReason error, content, usage and events match; the Code (protocol) and Phase (stream) are asserted by the offline E2E.",
+      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json half-json"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P01-E02-half-json-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports the JavaScript runtime's JSON.parse message ('Unterminated string in JSON at position 124 (line 1 column 125)'), which depends on V8 and cannot be reproduced in Go. barness reports the fixed text 'OpenAI Responses stream event is not valid JSON'. StopReason error, content, usage and events match; the Code (protocol) and Phase (stream) are asserted by the offline E2E.",
+      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json half-json"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P01-E02-disconnect-mid-stream-stream",
+        "PIDIFF-P01-E02-disconnect-after-terminal-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body. That is runtime text, not pi logic. barness reports the fixed text 'Connection lost while reading the OpenAI Responses stream'. StopReason error, the kept content, usage and rawStopReason match; the Code (transport) and Phase (stream) are asserted by the offline E2E.",
+      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P01-E02-disconnect-mid-stream-stream",
+        "PIDIFF-P01-E02-disconnect-after-terminal-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body. That is runtime text, not pi logic. barness reports the fixed text 'Connection lost while reading the OpenAI Responses stream'. StopReason error, the kept content, usage and rawStopReason match; the Code (transport) and Phase (stream) are asserted by the offline E2E.",
+      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*"
     }
   ]
 }

@@ -83,7 +83,8 @@ func Open() (*Oracle, error) {
 }
 
 // Case is one runner invocation. Context is a pi Context (systemPrompt,
-// messages, tools); Options are pi stream options without credentials.
+// messages, tools); Options are pi stream options without credentials or
+// signal.
 type Case struct {
 	API      string          `json:"api"`
 	Provider string          `json:"provider"`
@@ -93,6 +94,9 @@ type Case struct {
 	Entry    string          `json:"entry"`
 	Context  json.RawMessage `json:"context"`
 	Options  json.RawMessage `json:"options,omitempty"`
+	// AbortAfterEvents > 0 aborts the call through its signal once that many
+	// events were received.
+	AbortAfterEvents int `json:"abortAfterEvents,omitempty"`
 }
 
 // Run is what pi observed for a case.

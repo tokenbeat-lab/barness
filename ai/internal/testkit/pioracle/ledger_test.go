@@ -10,16 +10,41 @@ const testLedger = `{"decisions": [
   {"protocol": "openai-responses", "path": "request.headers.User-Agent", "classification": "extension", "decision": "Go SDK identifies itself", "ref": "spec §8"},
   {"protocol": "openai-responses", "path": "events[*].partial", "kind": "only_pi", "classification": "pending", "decision": "PartialView lands with ticket 04", "ref": "issues/04"},
   {"protocol": "openai-responses", "path": "result.stopReason", "classification": "fixed", "decision": "stop mapping fixed", "ref": "commit abc"},
-  {"protocol": "anthropic-messages", "path": "result.timestamp", "classification": "extension", "decision": "other protocol", "ref": "x"}
+  {"protocol": "anthropic-messages", "path": "result.timestamp", "classification": "extension", "decision": "other protocol", "ref": "x"},
+  {"protocol": "openai-responses", "path": "result.errorMessage", "kind": "changed", "cases": ["CASE-401", "CASE-403"], "classification": "extension", "decision": "redacted", "ref": "spec I9"}
 ]}`
 
 func classify(t *testing.T, diffs ...Diff) Verdict {
+	t.Helper()
+	return classifyCase(t, "CASE-OTHER", diffs...)
+}
+
+func classifyCase(t *testing.T, caseID string, diffs ...Diff) Verdict {
 	t.Helper()
 	l, err := ParseLedger([]byte(testLedger))
 	if err != nil {
 		t.Fatal(err)
 	}
-	return l.Classify("openai-responses", diffs)
+	return l.Classify("openai-responses", caseID, diffs)
+}
+
+func TestCaseScopedDecisionAppliesOnlyToItsCases(t *testing.T) {
+	diff := Diff{Path: "result.errorMessage", Kind: Changed}
+	for _, id := range []string{"CASE-401", "CASE-403"} {
+		if v := classifyCase(t, id, diff); !v.Pass || v.Findings[0].Ref != "spec I9" {
+			t.Errorf("%s: scoped decision not applied: %+v", id, v)
+		}
+	}
+	if v := classifyCase(t, "CASE-429", diff); v.Pass || v.Findings[0].Ref != "" {
+		t.Errorf("scoped decision applied outside its cases: %+v", v)
+	}
+}
+
+func TestCaseScopedDecisionRejectsEmptyCaseIDs(t *testing.T) {
+	_, err := ParseLedger([]byte(`{"decisions": [{"protocol": "p", "path": "result.x", "cases": [""], "classification": "extension", "decision": "d", "ref": "r"}]}`))
+	if err == nil {
+		t.Error("an empty case id was accepted")
+	}
 }
 
 func TestUnledgeredDiffIsPendingAndFailsTheGate(t *testing.T) {

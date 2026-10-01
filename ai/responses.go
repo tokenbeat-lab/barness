@@ -5,13 +5,11 @@ import (
 	"cmp"
 	"context"
 	"encoding/json"
-	"errors"
-	"fmt"
 	"net/http"
 	"strings"
 
-	"github.com/openai/openai-go/v3"
 	"github.com/openai/openai-go/v3/option"
+	"github.com/openai/openai-go/v3/packages/ssestream"
 	"github.com/openai/openai-go/v3/responses"
 )
 
@@ -30,6 +28,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "request could not be encoded")
 	}
+	var res *http.Response
 	svc := responses.NewResponseService(
 		option.WithHTTPClient(ac.http),
 		option.WithBaseURL(ac.endpoint),
@@ -38,70 +37,68 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		option.WithMaxRetries(0),
 		option.WithHeader("User-Agent", userAgent),
 		option.WithRequestBody("application/json", body),
+		option.WithResponseInto(&res),
 	)
+	failures := responsesFailures{provider: ac.model.Provider, apiKey: ac.apiKey}
+	// Close releases the response body on every path; the SDK has already
+	// closed the body of an error status.
 	stream := svc.NewStreaming(ctx, responses.ResponseNewParams{})
 	defer stream.Close()
 	if err := stream.Err(); err != nil {
-		return classifyResponsesError(ctx, err, PhaseRequest)
+		return failures.request(ctx, err, res)
+	}
+	if res.StatusCode >= 300 {
+		return failures.status(res)
 	}
 
 	out.start()
-	p := responsesParser{out: out, slots: map[int64]responsesSlot{}}
+	failure := readResponsesStream(ctx, stream, responsesParser{out: out, failures: failures, slots: map[int64]responsesSlot{}})
+	if failure != nil {
+		failure.ProviderRequestID = res.Header.Get("x-request-id")
+	}
+	return failure
+}
+
+// readResponsesStream feeds the stream to p until a protocol terminal, a
+// failure or the end of the body. As in pi, only a terminal response event is
+// success: the SDK ends quietly at EOF, and when the call is interrupted.
+func readResponsesStream(ctx context.Context, stream *ssestream.Stream[responses.ResponseStreamEventUnion], p responsesParser) *Error {
 	for stream.Next() {
 		if failure := p.handle(stream.Current()); failure != nil {
 			return failure
 		}
 	}
+	if ctx.Err() != nil {
+		msg := msgNoTerminal
+		if p.terminal {
+			msg = msgAbortedAfterTerminal
+		}
+		return interrupted(ctx, PhaseStream, msg)
+	}
 	if err := stream.Err(); err != nil {
-		return classifyResponsesError(ctx, err, PhaseStream)
+		return p.failures.stream(err)
 	}
-	if e := contextError(ctx, PhaseStream); e != nil {
-		return e
+	if p.failure != nil {
+		return p.failure
 	}
-	// The SDK ends quietly at EOF; only a protocol terminal event is success.
 	if !p.terminal {
-		return newError(CodeProtocol, PhaseStream, "OpenAI Responses stream ended before a terminal response event")
-	}
-	if p.failure != "" {
-		return newError(CodeProtocol, PhaseStream, p.failure)
+		return newError(CodeProtocol, PhaseStream, msgNoTerminal)
 	}
 	return nil
 }
 
-// classifyResponsesError maps an SDK/transport error to a classified Error.
-func classifyResponsesError(ctx context.Context, err error, phase Phase) *Error {
-	if e := contextError(ctx, phase); e != nil {
-		return e
-	}
-	var apiErr *openai.Error
-	if errors.As(err, &apiErr) {
-		code := CodeProtocol
-		switch apiErr.StatusCode {
-		case http.StatusUnauthorized, http.StatusForbidden:
-			code = CodeUpstreamAuth
-		case http.StatusTooManyRequests:
-			code = CodeRateLimited
-		}
-		e := newError(code, phase, fmt.Sprintf("OpenAI API error: %d %s", apiErr.StatusCode, http.StatusText(apiErr.StatusCode)))
-		e.HTTPStatus = apiErr.StatusCode
-		return e
-	}
-	if phase == PhaseStream {
-		return newError(CodeProtocol, phase, "OpenAI API error: "+err.Error())
-	}
-	return newError(CodeTransport, phase, "OpenAI API error: "+err.Error())
-}
-
 // responsesParser normalizes Responses stream events into assembler calls. It
-// ports the text and reasoning paths of pi-ai's processResponsesStream; tool
-// items arrive with ticket 06, and the error/response.failed terminals with
-// ticket 05 (until then such a stream fails as having no terminal event).
-// Unknown events are ignored.
+// ports the text, reasoning and terminal paths of pi-ai's
+// processResponsesStream; tool items arrive with ticket 06. Unknown events are
+// ignored.
 type responsesParser struct {
 	out      *assembler
+	failures responsesFailures
 	slots    map[int64]responsesSlot // output_index → open block
 	terminal bool
-	failure  string // set when the terminal status is a failure
+	// failure is a terminal status that maps to an error. As in pi, the stream
+	// is still read to its end; the failure is reported afterwards.
+	failure *Error
 }
 
 // responsesSlot is the open content block an output item streams into.
@@ -154,9 +151,27 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 	case "response.output_item.done":
 		p.itemDone(ev.OutputIndex, ev.Item)
 	case "response.completed", "response.incomplete":
-		p.finalize(ev.Response)
+		return p.finalize(ev.Response)
+	case "error":
+		return p.failures.upstream("Error Code " + jsText(ev.JSON.Code, ev.Code) + ": " + jsText(ev.JSON.Message, ev.Message))
+	case "response.failed":
+		return p.failed(ev.Response)
 	}
 	return nil
+}
+
+// failed ends the call at a response.failed terminal with pi's message. As in
+// pi, the failed response's usage and id are not taken over.
+func (p *responsesParser) failed(r responses.Response) *Error {
+	p.terminal = true
+	p.out.rawStopReason(string(r.Status))
+	switch {
+	case r.JSON.Error.Valid():
+		return p.failures.upstream(cmp.Or(string(r.Error.Code), "unknown") + ": " + cmp.Or(r.Error.Message, "no message"))
+	case r.IncompleteDetails.Reason != "":
+		return p.failures.upstream("incomplete: " + string(r.IncompleteDetails.Reason))
+	}
+	return p.failures.upstream("Unknown error (no error details in response)")
 }
 
 // itemDone closes the item's block with the item's authoritative content. As
@@ -199,7 +214,9 @@ func (p *responsesParser) itemDone(outputIndex int64, item responses.ResponseOut
 	}
 }
 
-func (p *responsesParser) finalize(r responses.Response) {
+// finalize records a completed or incomplete response. A status pi cannot map
+// fails at once; a status that maps to an error fails once the stream ends.
+func (p *responsesParser) finalize(r responses.Response) *Error {
 	p.terminal = true
 	if r.ID != "" {
 		p.out.responseID(r.ID)
@@ -216,32 +233,43 @@ func (p *responsesParser) finalize(r responses.Response) {
 			TotalTokens: u.TotalTokens,
 		})
 	}
-	stop, msg := mapResponsesStatus(string(r.Status), string(r.IncompleteDetails.Reason))
-	if stop == StopReasonError {
-		// pi-ai: throw new Error(output.errorMessage || "An unknown error occurred").
-		p.failure = cmp.Or(msg, "An unknown error occurred")
-		return
+	status, reason := string(r.Status), string(r.IncompleteDetails.Reason)
+	raw := status
+	if reason != "" {
+		raw += "." + reason
 	}
-	p.out.stop(stop)
+	p.out.rawStopReason(raw)
+	stop, msg, known := mapResponsesStatus(status, reason)
+	switch {
+	case !known:
+		return newError(CodeProtocol, PhaseStream, msg)
+	case stop == StopReasonError:
+		// pi-ai: throw new Error(output.errorMessage || "An unknown error occurred").
+		p.failure = p.failures.upstream(cmp.Or(msg, "An unknown error occurred"))
+	default:
+		p.out.stop(stop)
+	}
+	return nil
 }
 
-// mapResponsesStatus ports pi-ai's mapStopReason.
-func mapResponsesStatus(status, incompleteReason string) (StopReason, string) {
+// mapResponsesStatus ports pi-ai's mapStopReason; known is false for a
+// status pi throws on.
+func mapResponsesStatus(status, incompleteReason string) (stop StopReason, msg string, known bool) {
 	switch status {
 	case "", "completed", "in_progress", "queued":
-		return StopReasonStop, ""
+		return StopReasonStop, "", true
 	case "incomplete":
 		if incompleteReason == "max_output_tokens" {
-			return StopReasonLength, ""
+			return StopReasonLength, "", true
 		}
 		if incompleteReason != "" {
-			return StopReasonError, "Response incomplete: " + incompleteReason
+			return StopReasonError, "Response incomplete: " + incompleteReason, true
 		}
-		return StopReasonError, "Response incomplete without a provider reason"
+		return StopReasonError, "Response incomplete without a provider reason", true
 	case "failed", "cancelled":
-		return StopReasonError, ""
+		return StopReasonError, "", true
 	default:
-		return StopReasonError, "Unhandled stop reason: " + status
+		return StopReasonError, "Unhandled stop reason: " + status, false
 	}
 }
 

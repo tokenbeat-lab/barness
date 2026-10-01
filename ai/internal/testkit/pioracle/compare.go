@@ -87,15 +87,21 @@ type section struct {
 }
 
 func sections(o Observation) ([]section, error) {
-	body, err := decode(o.Request.Body)
-	if err != nil {
-		return nil, fmt.Errorf("request body: %w", err)
+	// No body means no request was captured (the call never reached the
+	// Provider); a captured request always has one.
+	var body any
+	if len(o.Request.Body) > 0 {
+		var err error
+		if body, err = decode(o.Request.Body); err != nil {
+			return nil, fmt.Errorf("request body: %w", err)
+		}
 	}
 	headers := map[string]any{}
 	for k, v := range o.Request.Headers {
 		headers[k] = v
 	}
 	events := make([]any, len(o.Events))
+	var err error
 	for i, raw := range o.Events {
 		if events[i], err = decode(raw); err != nil {
 			return nil, fmt.Errorf("event %d: %w", i, err)
