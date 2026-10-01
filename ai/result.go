@@ -16,6 +16,9 @@ type CallMetadata struct {
 	ModelID    string     `json:"modelId,omitempty"`
 	// AccountScopeID is the vendor account serving the call.
 	AccountScopeID string `json:"accountScopeId,omitempty"`
+	// NativeStateDowngrades counts history messages whose native state was
+	// downgraded instead of replayed, by reason. Set once resolved.
+	NativeStateDowngrades NativeStateDowngrades `json:"nativeStateDowngrades,omitzero"`
 }
 
 // Result is the outcome of a call: the final assistant message, which exists

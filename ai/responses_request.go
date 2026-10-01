@@ -112,7 +112,7 @@ func buildResponsesBody(model Model, req Request, opts ResponsesOptions) ([]byte
 			if len(content) > 0 {
 				items = append(items, responsesUserMessage{Role: "user", Content: content})
 			}
-		case AssistantMessage:
+		case replayedAssistant:
 			var err error
 			if items, err = responsesAssistantItems(model, m, msgIndex); err != nil {
 				return nil, err
@@ -144,18 +144,31 @@ func buildResponsesBody(model Model, req Request, opts ResponsesOptions) ([]byte
 	return marshalJS(body)
 }
 
-// responsesAssistantItems replays a previous turn: text as output messages and
-// tool calls as function_call items. The generic history transform (tool ID
-// normalization across models, synthetic missing results, skipping failed
-// turns) is ticket 08's; replaying reasoning state needs ticket 07's trusted
-// native-state envelope, so thinking blocks are not sent until then.
-func responsesAssistantItems(model Model, m AssistantMessage, msgIndex int) ([]any, error) {
+// responsesAssistantItems replays a previous turn prepared by replayHistory:
+// a signed thinking block as its reasoning item, text as output messages and
+// tool calls as function_call items. Cross-provider tool ID normalization is
+// ticket 08's.
+func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]any, error) {
 	sameProviderAPI := m.Provider == model.Provider && m.API == model.API
-	differentModel := sameProviderAPI && m.Model != model.ID
+	// A same provider/API message whose native state was downgraded is
+	// replayed as pi replays another model's.
+	differentModel := sameProviderAPI && !m.sameModel
 	var items []any
 	textIndex := 0
 	for _, block := range m.Content {
 		switch b := block.(type) {
+		case Thinking:
+			if b.Signature == "" {
+				continue
+			}
+			// pi sends JSON.parse(thinkingSignature). Only same-model state
+			// under a trusted envelope gets here, so a signature that is not
+			// JSON is a host fault: invalid_request, never a silent drop.
+			item, err := parseJSON(b.Signature)
+			if err != nil {
+				return nil, err
+			}
+			items = append(items, json.RawMessage(stringifyJSON(item)))
 		case Text:
 			id, phase := parseTextSignature(b.Signature)
 			switch {

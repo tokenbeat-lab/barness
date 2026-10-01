@@ -33,9 +33,14 @@ func (Text) isAssistantContent() {}
 type Thinking struct {
 	Thinking string `json:"thinking"`
 	// Signature is opaque provider replay state for the block (for Responses,
-	// the reasoning item JSON as in pi). Replaying it is ticket 07's native
-	// state contract; until then it is only reported.
+	// the reasoning item as pi's JSON.stringify, encrypted content included).
+	// It is native state: replayed only to the same model under a trusted
+	// envelope (see TrustedNativeState).
 	Signature string `json:"thinkingSignature,omitempty"`
+	// Redacted marks thinking the provider withheld; its opaque payload is in
+	// Signature. Like pi, same-model replay keeps it and any other target
+	// drops it, whatever its visible text.
+	Redacted bool `json:"redacted,omitempty"`
 }
 
 func (Thinking) isAssistantContent() {}
@@ -100,6 +105,11 @@ type AssistantMessage struct {
 	// milliseconds as in pi-ai. Every message of a call — terminal event,
 	// Result, failures included — carries the same value.
 	Timestamp int64 `json:"timestamp"`
+	// NativeState vouches for the provenance of the message's native state.
+	// barness-ai sets it on every message of a call that resolved its
+	// binding; a message decoded from storage has the zero, untrusted value
+	// until the host calls TrustNativeState. It is never serialized.
+	NativeState TrustedNativeState `json:"-"`
 }
 
 // An AssistantMessage is also history: a previous turn's Result.Message

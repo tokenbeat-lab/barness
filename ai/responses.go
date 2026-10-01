@@ -1,10 +1,8 @@
 package ai
 
 import (
-	"bytes"
 	"cmp"
 	"context"
-	"encoding/json"
 	"net/http"
 	"strings"
 
@@ -61,7 +59,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	}
 
 	out.start()
-	failure := readResponsesStream(ctx, stream, responsesParser{out: out, failures: failures, slots: map[int64]responsesSlot{}})
+	failure := readResponsesStream(ctx, stream, responsesParser{out: out, failures: failures, slots: map[int64]responsesSlot{}, reasoning: map[string]int{}})
 	if failure != nil {
 		failure.ProviderRequestID = res.Header.Get("x-request-id")
 	}
@@ -105,7 +103,10 @@ type responsesParser struct {
 	out      *assembler
 	failures responsesFailures
 	slots    map[int64]responsesSlot // output_index → open block
-	terminal bool
+	// reasoning maps a finished reasoning item's id to its thinking block,
+	// for the terminal response's encrypted content backfill.
+	reasoning map[string]int
+	terminal  bool
 	// failure is a terminal status that maps to an error. As in pi, the stream
 	// is still read to its end; the failure is reported afterwards.
 	failure *Error
@@ -262,6 +263,7 @@ func (p *responsesParser) itemDone(outputIndex int64, item responses.ResponseOut
 		}
 		thinking := cmp.Or(strings.Join(summary, "\n\n"), strings.Join(content, "\n\n"), p.out.thinkingText(i))
 		p.out.thinkingEnd(i, thinking, reasoningSignature(item.RawJSON()))
+		p.reasoning[item.ID] = i
 	case "function_call":
 		p.out.toolCallEnd(i, cmp.Or(item.Arguments.OfString, s.raw))
 	}
@@ -271,6 +273,7 @@ func (p *responsesParser) itemDone(outputIndex int64, item responses.ResponseOut
 // fails at once; a status that maps to an error fails once the stream ends.
 func (p *responsesParser) finalize(r responses.Response) *Error {
 	p.terminal = true
+	p.backfillReasoning(r.Output)
 	if r.ID != "" {
 		p.out.responseID(r.ID)
 	}
@@ -330,16 +333,54 @@ func mapResponsesStatus(status, incompleteReason string) (stop StopReason, msg s
 }
 
 // reasoningSignature is pi's thinkingSignature for a Responses reasoning item:
-// JSON.stringify of the item as received. The raw item JSON keeps the wire's
-// key order; compacting removes the framing's whitespace. Escapes and number
-// spellings stay as sent, where JSON.stringify would normalize them — exact
-// replay encoding is ticket 07's native state contract.
+// JSON.stringify of the item as received, so key order, escapes and number
+// spellings are JavaScript's and same-model replay sends exactly what pi
+// sends.
 func reasoningSignature(raw string) string {
-	var buf bytes.Buffer
-	if err := json.Compact(&buf, []byte(raw)); err != nil {
-		return raw
+	item, err := parseJSON(raw)
+	if err != nil {
+		return raw // the SDK decoded it, so it is JSON; kept as is otherwise
 	}
-	return buf.String()
+	return stringifyJSON(item)
+}
+
+// backfillReasoning ports pi's backfillReasoningSignatures: some services
+// omit a reasoning item's encrypted_content from output_item.done and send it
+// only in the terminal response's output. It is added to the finished block's
+// signature unless that already holds a truthy one, in place when the key is
+// present and at the end otherwise, so stateless (store:false) replay keeps
+// the encrypted reasoning.
+func (p *responsesParser) backfillReasoning(output []responses.ResponseOutputItemUnion) {
+	for _, item := range output {
+		if item.Type != "reasoning" {
+			continue
+		}
+		encrypted, err := parseJSON(item.JSON.EncryptedContent.Raw())
+		i, ok := p.reasoning[item.ID]
+		if err != nil || !jsTruthy(encrypted) || !ok {
+			continue
+		}
+		if sig, ok := withEncryptedContent(p.out.thinkingSignature(i), encrypted); ok {
+			p.out.setThinkingSignature(i, sig)
+		}
+	}
+}
+
+// withEncryptedContent is pi's {...storedItem, encrypted_content}: the stored
+// reasoning item with encrypted set, in place when the key exists. ok is
+// false when the signature is empty, not an object, or already holds a
+// truthy encrypted_content.
+func withEncryptedContent(signature string, encrypted any) (string, bool) {
+	stored, err := parseJSON(signature)
+	obj, isObject := stored.(*jsonObject)
+	if signature == "" || err != nil || !isObject {
+		return "", false
+	}
+	if current, _ := obj.get("encrypted_content"); jsTruthy(current) {
+		return "", false
+	}
+	obj.set("encrypted_content", encrypted)
+	return stringifyJSON(obj), true
 }
 
 // encodeTextSignature produces pi-ai's TextSignatureV1 JSON: {"v":1,"id":…[,"phase":…]}.

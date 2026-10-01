@@ -27,7 +27,7 @@ import (
 func TestPiDifferential(t *testing.T) {
 	ledger := loadLedger(t)
 	t.Run(string(ai.APIOpenAIResponses), func(t *testing.T) {
-		for _, scenario := range []string{"text", "interleaved", "tool-call", "tool-results"} {
+		for _, scenario := range []string{"text", "interleaved", "tool-call", "tool-results", "reasoning-call", "reasoning-replay", "reasoning-cross-model"} {
 			for _, entry := range []string{"stream", "streamSimple"} {
 				t.Run(scenario+"/"+entry, func(t *testing.T) {
 					ev := run.Case(t, "PIDIFF-P01-E01-"+scenario+"-"+entry)
@@ -92,8 +92,9 @@ type pidiffScenario struct {
 }
 
 // loadPidiffScenario reuses the offline E2E fixtures: P01 plain text
-// (TestResponsesText), E01 interleaved blocks (TestStreamLifecycle) and both
-// rounds of the tool round trip (TestToolRoundTrip).
+// (TestResponsesText), E01 interleaved blocks (TestStreamLifecycle), both
+// rounds of the tool round trip (TestToolRoundTrip) and of the reasoning
+// replay (TestNativeStateReplay).
 func loadPidiffScenario(t *testing.T, name, entry string) pidiffScenario {
 	t.Helper()
 	switch name {
@@ -107,6 +108,8 @@ func loadPidiffScenario(t *testing.T, name, entry string) pidiffScenario {
 			reply: sseEvents(t, f.Events, provider.FramingLF), requests: 1}
 	case "tool-call", "tool-results":
 		return toolPidiffScenario(t, name, entry)
+	case "reasoning-call", "reasoning-replay", "reasoning-cross-model":
+		return nativePidiffScenario(t, name)
 	}
 	t.Fatalf("unknown pidiff scenario %q", name)
 	return pidiffScenario{}

@@ -28,9 +28,14 @@ func (a *assembler) publish(e Event) {
 	}
 }
 
-// identify records what actually serves the call, once resolved.
-func (a *assembler) identify(api API, provider ProviderID, model string) {
-	a.view.update(func(m *AssistantMessage) { m.API, m.Provider, m.Model = api, provider, model })
+// identify records what actually serves the call, once resolved. The
+// message's native state is vouched for with the same provenance: it was
+// produced here, for this tenant, account and model.
+func (a *assembler) identify(origin NativeStateEnvelope) {
+	a.view.update(func(m *AssistantMessage) {
+		m.API, m.Provider, m.Model = origin.API, origin.ProviderID, origin.ModelID
+		m.NativeState = TrustedNativeState{env: origin}
+	})
 }
 
 func (a *assembler) start() { a.publish(StartEvent{Partial: a.view}) }
@@ -108,6 +113,22 @@ func (a *assembler) thinkingText(i int) (text string) {
 func (a *assembler) thinkingEnd(i int, thinking, signature string) {
 	a.view.update(func(m *AssistantMessage) { m.Content[i] = Thinking{Thinking: thinking, Signature: signature} })
 	a.publish(ThinkingEndEvent{ContentIndex: i, Content: thinking, Partial: a.view})
+}
+
+// thinkingSignature is ended block i's signature.
+func (a *assembler) thinkingSignature(i int) (sig string) {
+	a.view.read(func(m *AssistantMessage) { sig = m.Content[i].(Thinking).Signature })
+	return sig
+}
+
+// setThinkingSignature replaces ended block i's signature without an event,
+// as pi updates a signature it learns only at the terminal response.
+func (a *assembler) setThinkingSignature(i int, sig string) {
+	a.view.update(func(m *AssistantMessage) {
+		t := m.Content[i].(Thinking)
+		t.Signature = sig
+		m.Content[i] = t
+	})
 }
 
 // toolCallStart opens a tool call block. As in pi, its arguments start as {}

@@ -78,6 +78,14 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		}
 	}
 
+	// History source: native state is replayed only where its envelope
+	// matches this tenant, the binding's account and the model; the rest is
+	// downgraded, never refused (spec I6).
+	origin := replayOrigin{tenant: cl.scope.TenantID, account: binding.AccountScopeID, model: model}
+	request := cl.req
+	var downgrades NativeStateDowngrades
+	request.Messages, downgrades = origin.replayHistory(cl.req.Messages)
+
 	cred, failure := c.resolveCredential(ctx, cl.scope, binding)
 	if failure != nil {
 		return failure
@@ -87,7 +95,8 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	}
 	meta.Resolved, meta.ProviderID, meta.API, meta.ModelID = true, binding.ProviderID, binding.API, model.ID
 	meta.AccountScopeID = binding.AccountScopeID
-	asm.identify(binding.API, binding.ProviderID, model.ID)
+	meta.NativeStateDowngrades = downgrades
+	asm.identify(origin.envelope())
 
 	// Admission for the attempt (ticket 13) goes here.
 
@@ -98,7 +107,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		endpoint: binding.Endpoint,
 		apiKey:   cred.APIKey,
 		model:    model,
-		request:  cl.req,
+		request:  request,
 		options:  options,
 	}, asm)
 }
