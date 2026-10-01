@@ -7,7 +7,7 @@
 **Status:** ready-for-agent
 
 - [x] Responses reasoning 在同模型回放中完整保留适用的加密内容/签名与 redacted 状态
-- [x] 原生状态封套记录 TenantID、AccountScopeID、Provider/API/Model；可信值只能经 Go 构造入口获得，JSON 反序列化（含 `trusted=true`、自报 TenantID、签名字段）无法得到
+- [x] 原生状态封套记录 TenantID、AccountScopeID、Provider/API/Model；可信值只能经 Go 构造入口（或本进程库产出的消息）获得，JSON 反序列化（含 `trusted=true`、自报 TenantID、签名字段）无法得到
 - [x] 库只核对封套来源与当前 scope、binding 匹配；同账户换 key 不因凭据版本不同而丢弃状态
 - [x] 无可信封套、或同 Provider/API/model 但 AccountScopeID 不一致时，按跨模型规则降级且不返回 invalid_request
 - [x] 降级计数与原因（无封套 / 账户不匹配 / 跨模型）写入 Result 调用元数据（Observer 部分见 14），不进入 pi 兼容消息、不参与 pi 差分
@@ -38,3 +38,8 @@
 - Left to later tickets:
   - Observer emission of the downgrade counts (14).
   - Cross-model tool ID normalization, synthetic missing results and skipping error/aborted turns (08). Until 08 lands, a downgraded error turn is still replayed and counted. The fixture's ids are unchanged by pi's normalization.
+
+**2026-10-01 — maintainer decisions** (raised by the code review; spec §6, E03 and the acceptance line amended):
+
+- Accepted: messages barness-ai produces carry trusted provenance in-process, so a Result passed straight into the next call replays natively. Restored messages still need `TrustNativeState`. This adds a second trust source next to the constructor named by the spec.
+- Accepted: a tool call's provider item id (`call|fc_…`) is native state. Without a trusted envelope it is dropped, while the call id that links the tool result is kept, and the message counts as a downgrade.

@@ -182,7 +182,7 @@ Responses、Chat Completions 是协议简称，对照冻结 pi 的 API 标识分
 
 普通历史的租户归属由宿主在读取时鉴权，库无法也不尝试判断任意文本的来源；库只校验原生状态封套。已授权同租户跨模型/跨 Provider 的历史自动降级，不要求调用方先删状态，也不因源 binding/账户不同而整体拒绝；仅对转换后仍发送的账户专有引用检查适用性。
 
-原生状态连同来源归属（TenantID、AccountScopeID、Provider/API/Model）保留在原生状态封套中。可信性由宿主担保，库不负责密封：宿主按自己的存储完成鉴权和完整性校验后，调用一个不能从 JSON 反序列化得到的 Go 构造入口（如 `TrustNativeState(scope, envelope)`）取得可信值；库只核对来源字段与当前 scope 和 binding 是否匹配。云端请求中的签名、密文、TenantID 或 `trusted=true` 不能自行获得这种权限。同账户换 key 不应仅因凭据版本不同就丢弃有效状态。
+原生状态连同来源归属（TenantID、AccountScopeID、Provider/API/Model）保留在原生状态封套中。可信性由宿主担保，库不负责密封：宿主按自己的存储完成鉴权和完整性校验后，调用一个不能从 JSON 反序列化得到的 Go 构造入口（如 `TrustNativeState(scope, envelope)`）取得可信值；库只核对来源字段与当前 scope 和 binding 是否匹配。云端请求中的签名、密文、TenantID 或 `trusted=true` 不能自行获得这种权限。库在本进程内产出的消息自带可信来源（已解析的租户、账户与模型），宿主直接传入下一次调用时按同模型回放；经持久化读回的消息必须重新经该构造入口担保（维护者决定 2026-10-01，见 ADR-0001）。原生状态包括推理签名/密文、redacted 块、文本消息条目 ID 和工具调用的厂商条目 ID（如 Responses 的 `fc_` ID）；未经担保时工具调用去掉厂商条目 ID 但保留调用关联（维护者决定 2026-10-01）。同账户换 key 不应仅因凭据版本不同就丢弃有效状态。
 
 没有可信封套、或同 Provider/API/model 但 AccountScopeID 不一致的原生状态，按上表跨模型规则降级，调用照常进行，不返回 invalid_request。降级计数及原因（无封套、账户不匹配、跨模型）写入 Result 调用元数据和 Observer，不进入 pi 兼容消息，也不参与 pi 差分。
 
@@ -281,7 +281,7 @@ Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished；
 | --- | --- | --- |
 | E01 调用生命周期 | full/simple、Stream/Complete、阻塞解析器、块交错、Result 不调用 Next、Result 与消费并行、live partial、安全快照和唯一终态 | 解析阻塞时已获得 Stream 且可 Close；有序事件、稳定最终消息、成功时 Result/Complete 的 error 与 Err() 均为 nil、Complete 无事件积压、输入不改写 |
 | E02 失败与截断 | start 前设置失败、401/429/5xx、流内错误、半个 JSON、异常 EOF、正常 length、取消及 deadline | StopReason/Code/Phase 匹配，保留部分消息/usage；error/aborted 时 Complete/Result 返回非 nil error 且 Result 完整，Err() 与之相同；无终态 EOF 不成功，截断工具不被执行 |
-| E03 历史与工具 | 同模型空文本签名、redacted、跨模型/Provider 降级、图片占位、工具 ID/缺结果、system/tools 重放、错误历史过滤、部分 JSON/修复/schema | 实际 wire 字段、内容顺序、调用结果关联与 pi 一致；仅经 TrustNativeState 且来源匹配的原生状态按同模型回放，无封套/账户不匹配时降级且调用成功，降级计数与原因出现在 Result 元数据与 Observer |
+| E03 历史与工具 | 同模型空文本签名、redacted、跨模型/Provider 降级、图片占位、工具 ID/缺结果、system/tools 重放、错误历史过滤、部分 JSON/修复/schema | 实际 wire 字段、内容顺序、调用结果关联与 pi 一致；仅经 TrustNativeState（或本进程库产出）且来源匹配的原生状态按同模型回放，无封套/账户不匹配时降级且调用成功，降级计数与原因出现在 Result 元数据与 Observer |
 | E04 选项与回调 | 未设置/null/零值、全部 reasoning 等级、映射与预算边界、maxTokens、samplingParams、cacheRetention、metadata、工具选择、回调修改/替换/失败 | 非 OpenAI-compatible 路径忽略 samplingParams；header 合并后且 adapter 前变换；重试外 payload 次数；start 前 response 时点；Anthropic stream/Gemini 差异；回调跨租户不串用 |
 | E05 重试 | 默认 0、显式次数、x-should-retry、可重试错误、Retry-After 秒/日期/ms、过大延迟、退避取消、开始流后断开 | 次数/延迟可重复，SDK 不额外重试，快照固定，不在流中重放，每次尝试独立记录 |
 | E06 租户并发 | 同 Client/transport 的 A/B 同名配置交错，A 鉴权失败/取消/超时，B 正常 | 捕获 key/endpoint 和结果归属，无串流/串配置/串费用，不从其他租户或环境兜底 |
