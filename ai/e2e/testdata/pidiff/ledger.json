@@ -76,17 +76,17 @@
       "protocol": "openai-responses",
       "path": "result.timestamp",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "pi stamps every assistant message with creation time (ms). barness AssistantMessage has no timestamp and the spec does not decide one.",
-      "ref": "issues/02 Comments: open decisions"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-01 (maintainer decision): AssistantMessage.Timestamp carries the call's creation time in Unix ms, as in pi; mapped one-to-one by the comparator. Was: barness had no timestamp.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01"
     },
     {
       "protocol": "openai-responses",
       "path": "events[*].message.timestamp",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Same as result.timestamp, on the terminal event's message.",
-      "ref": "issues/02 Comments: open decisions"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-01 (maintainer decision): AssistantMessage.Timestamp carries the call's creation time in Unix ms, as in pi; mapped one-to-one by the comparator. Was: barness had no timestamp.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01"
     },
     {
       "protocol": "openai-responses",

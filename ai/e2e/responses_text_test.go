@@ -20,7 +20,12 @@ func TestResponsesText(t *testing.T) {
 		t.Run(e.name, func(t *testing.T) {
 			ev, w, f := startTextCase(t, "P01-E01-text-"+e.name, provider.FramingLF)
 			scope := textScope("req-" + e.name)
+			before := time.Now().UnixMilli()
 			res := e.invoke(ev, w, f, scope)
+			after := time.Now().UnixMilli()
+			ev.Check("message timestamp is the call's creation time in Unix ms",
+				res.Message.Timestamp >= before && res.Message.Timestamp <= after,
+				"got %d, want within [%d, %d]", res.Message.Timestamp, before, after)
 			checkMetadata(ev, res.Metadata, scope, f)
 			checkTextRequest(ev, w, f, tenantA)
 		})

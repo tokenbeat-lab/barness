@@ -75,6 +75,10 @@ type AssistantMessage struct {
 	Usage        Usage      `json:"usage"`
 	StopReason   StopReason `json:"stopReason"`
 	ErrorMessage string     `json:"errorMessage,omitempty"`
+	// Timestamp is when the call started producing this message, in Unix
+	// milliseconds as in pi-ai. Every message of a call — terminal event,
+	// Result, failures included — carries the same value.
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (m AssistantMessage) clone() AssistantMessage {

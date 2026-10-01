@@ -115,4 +115,5 @@ func checkFailed(ev *evidence.Case, res ai.Result, err error) {
 	ev.Check("error is a classified *ai.Error", errors.As(err, &aiErr), "err=%v", err)
 	ev.Check("message ends with StopReason error", res.Message.StopReason == ai.StopReasonError, "got %q", res.Message.StopReason)
 	ev.Check("message carries errorMessage", res.Message.ErrorMessage != "", "empty")
+	ev.Check("failed message still carries its timestamp", res.Message.Timestamp > 0, "got %d", res.Message.Timestamp)
 }

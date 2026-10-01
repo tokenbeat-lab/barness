@@ -33,12 +33,12 @@
 - pending → 05: `rawStopReason`
 - pending → 09: `max_output_tokens` from simple-entry maxTokens defaulting (+ Content-Length)
 - pending → 15: `usage.cost`, `usage.reasoning`
-- pending, **open decisions** (no spec clause; maintainer to decide):
-  2. `timestamp`: pi stamps every assistant message (ms). Should barness `AssistantMessage` carry one?
-  4. Gate wiring: spec §6 puts the affected differential in the regular gate, but it needs Node.js, so it is opt-in today (ADR-0004, status proposed). It needs to be enabled in CI once a CI exists, and a policy is needed for the period until pending items reach zero.
+- open decisions: all resolved, see the maintainer decisions below
 
 **2026-10-01 — maintainer decisions**
 
 - The HTTP-stack and OpenAI SDK fingerprint headers (Accept-Encoding, Accept-Language, Sec-Fetch-Mode, Connection, X-Stainless-Lang/Package-Version/Runtime/Runtime-Version) are approved as extensions.
 - User-Agent: barness sends its own `barness-ai`, with no host OS details. It is set in the Responses adapter and asserted by the offline P01 text E2E. The difference from pi's UA is an approved extension.
-- Still open: `timestamp` and gate wiring (above).
+- `timestamp`: added. `AssistantMessage.Timestamp` is the call's creation time in Unix ms, the same on the terminal event and the Result, failures included. It is asserted by the offline E2E; the ledger entries are now `fixed` and guard against regression.
+- Gate wiring: the differential stays opt-in (`BARNESS_AI_PIDIFF=1`) for now; ADR-0004 is accepted with this decision. It moves into the regular gate when CI is set up.
+- No open decisions remain. Pending differences are tracked by tickets 04/05/09/15.
