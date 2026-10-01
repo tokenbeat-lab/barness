@@ -4,7 +4,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] 建立 barness-ai Go module（包标识为合法 Go 标识符），公共领域类型与 SDK 类型在 adapter 边界独立转换，SDK 类型不出现在公开 API
 - [x] Client 构造必须传入资源策略；策略缺失、必需容量/时限为零或负数、字段关系非法时构造失败（D1 / ADR-0002 的构造校验部分；限额执行见 12、13）

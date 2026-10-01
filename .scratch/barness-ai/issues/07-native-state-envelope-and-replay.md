@@ -4,7 +4,7 @@
 
 **Blocked by:** 06
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] Responses reasoning 在同模型回放中完整保留适用的加密内容/签名与 redacted 状态
 - [x] 原生状态封套记录 TenantID、AccountScopeID、Provider/API/Model；可信值只能经 Go 构造入口（或本进程库产出的消息）获得，JSON 反序列化（含 `trusted=true`、自报 TenantID、签名字段）无法得到

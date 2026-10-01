@@ -4,7 +4,7 @@
 
 **Blocked by:** 04
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] Request 支持 Tools 声明；流产生 toolcall start/delta/end，保留原始 JSON 与增量，参数分片跨帧时正确拼接
 - [x] 部分解析结果只用于展示，类型上与“完整且已校验参数”可区分；模块从不执行工具

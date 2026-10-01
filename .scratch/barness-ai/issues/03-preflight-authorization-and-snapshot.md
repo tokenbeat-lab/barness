@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] 调用顺序按 spec I3：scope/结构/大小检查 → 绑定解析 → 能力/选项/历史来源检查 → 凭据解析 → 租户/账户/引用/版本一致性校验 → 准入 → 发送（结构/大小检查归 12、准入归 13，已在 `execute` 标出位置）
 - [x] 缺 TenantID 或 RequestID、binding 不存在或不属于该租户、调用主体无权、模型不在 AllowedModels ∩ 目录、binding 禁用、缺 key、秘密后端故障：均以错误 assistant 消息结束，Code 分别可用 errors.Is/As 区分（invalid_request / tenant_denied / binding_not_found / credential_unavailable 等），本地 Provider 收到零推理请求

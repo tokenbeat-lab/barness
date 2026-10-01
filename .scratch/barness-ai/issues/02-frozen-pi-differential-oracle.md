@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] 在 barness 自身可重建的位置建立冻结 pi 的独立副本：补齐 `src/providers/data` 生成数据与依赖，记录来源、哈希与重建步骤；不修改原研究目录，CI 不依赖开发者本机研究仓库
 - [x] pi 侧运行器只连接本地受控 Provider，不读取环境 key、不访问线上服务；不执行整套 pi 测试

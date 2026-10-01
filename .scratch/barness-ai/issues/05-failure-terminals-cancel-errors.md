@@ -4,7 +4,7 @@
 
 **Blocked by:** 04
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] start 前设置失败可直接 error 事件；建立 HTTP 失败产生错误 assistant 消息
 - [x] 401/403 → upstream_auth、429 → rate_limited、5xx、transport、protocol 各自分类；保留可安全公开的 HTTP status、厂商 request ID、Retry-After；401/403 不触发换 key 或身份兜底

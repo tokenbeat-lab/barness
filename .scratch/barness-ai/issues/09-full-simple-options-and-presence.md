@@ -4,7 +4,7 @@
 
 **Blocked by:** 01, 02
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] full 入口校验选项与绑定协议匹配，不建立按厂商名索引的选项命名空间
 - [x] simple 支持 minimal/low/medium/high/xhigh/max、thinkingBudgets、toolChoice 与公共参数；`off` 不加入 simple 输入枚举

@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] 解析器被屏障阻塞时，调用者已拿到 Stream 且可 Close，Close 使后台过程结束并释放资源
 - [x] text/thinking 块交错时块索引稳定；成功增量不先于 start；完整消费的流恰有一个终结事件
