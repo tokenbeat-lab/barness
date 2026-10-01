@@ -239,5 +239,8 @@ func checkTextRequest(ev *evidence.Case, w *world, f textFixture, key tenantKey)
 	ev.Check("path", r.Path == want.Path, "got %q", r.Path)
 	ev.Check("query", r.Query == want.Query, "got %q", r.Query)
 	ev.Check("tenant key used", r.KeyAlias == key.alias, "got %q want %q", r.KeyAlias, key.alias)
+	// barness-ai identifies itself, without host OS details (maintainer
+	// decision 2026-10-01, ledger request.headers.User-Agent).
+	ev.Check("user agent", r.Header["User-Agent"] == "barness-ai", "got %q", r.Header["User-Agent"])
 	ev.Check("request body", jsonEqual(r.Body, want.Body), "got %s\nwant %s", r.Body, want.Body)
 }

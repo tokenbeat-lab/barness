@@ -34,6 +34,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		option.WithAPIKey(ac.apiKey.reveal()),
 		// Retries are barness-ai's decision (default 0, ticket 11), never the SDK's.
 		option.WithMaxRetries(0),
+		option.WithHeader("User-Agent", userAgent),
 		option.WithRequestBody("application/json", body),
 	)
 	stream := svc.NewStreaming(ctx, responses.ResponseNewParams{})

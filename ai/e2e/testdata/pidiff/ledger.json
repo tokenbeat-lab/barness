@@ -3,73 +3,74 @@
     {
       "protocol": "openai-responses",
       "path": "request.headers.Accept-Encoding",
-      "classification": "pending",
-      "decision": "Proposed extension, awaiting approval: HTTP stack default (Node undici sends 'gzip, deflate', Go net/http sends 'gzip'). The spec assigns HTTP and stream decoding to the Go SDK; response decoding is transparent to the protocol.",
-      "ref": "issues/02 Comments: open decisions (proposed under spec Implementation Decisions §5 SDK 与传输边界)",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: HTTP stack default (Node undici sends 'gzip, deflate', Go net/http sends 'gzip'). The spec assigns HTTP and stream decoding to the Go SDK; response decoding is transparent to the protocol.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界",
       "kind": "changed"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.Accept-Language",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Proposed extension, awaiting approval: Node fetch (undici) default header; not set by pi or the OpenAI protocol. The Go HTTP stack does not send it.",
-      "ref": "issues/02 Comments: open decisions (proposed under spec Implementation Decisions §5 SDK 与传输边界)"
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: Node fetch (undici) default header; not set by pi or the OpenAI protocol. The Go HTTP stack does not send it.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.Sec-Fetch-Mode",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Proposed extension, awaiting approval: Node fetch (undici) default header; not set by pi or the OpenAI protocol. The Go HTTP stack does not send it.",
-      "ref": "issues/02 Comments: open decisions (proposed under spec Implementation Decisions §5 SDK 与传输边界)"
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: Node fetch (undici) default header; not set by pi or the OpenAI protocol. The Go HTTP stack does not send it.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.Connection",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Proposed extension, awaiting approval: Hop-by-hop connection management of Node's HTTP/1.1 client; Go keeps connections alive without the header.",
-      "ref": "issues/02 Comments: open decisions (proposed under spec Implementation Decisions §5 SDK 与传输边界)"
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: Hop-by-hop connection management of Node's HTTP/1.1 client; Go keeps connections alive without the header.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.X-Stainless-Lang",
-      "classification": "pending",
-      "decision": "Proposed extension, awaiting approval: OpenAI SDK runtime fingerprint: js vs go follows from the spec's choice of the OpenAI Go SDK.",
-      "ref": "issues/02 Comments: open decisions (proposed under spec Implementation Decisions §5 SDK 与传输边界)",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: OpenAI SDK runtime fingerprint: js vs go follows from the spec's choice of the OpenAI Go SDK.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界",
       "kind": "changed"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.X-Stainless-Package-Version",
-      "classification": "pending",
-      "decision": "Proposed extension, awaiting approval: OpenAI SDK runtime fingerprint: openai (npm) 6.40.0 vs openai-go v3.66.0, both pinned.",
-      "ref": "issues/02 Comments: open decisions (proposed under spec Implementation Decisions §5 SDK 与传输边界)",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: OpenAI SDK runtime fingerprint: openai (npm) 6.40.0 vs openai-go v3.66.0, both pinned.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界",
       "kind": "changed"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.X-Stainless-Runtime",
-      "classification": "pending",
-      "decision": "Proposed extension, awaiting approval: OpenAI SDK runtime fingerprint: node vs go.",
-      "ref": "issues/02 Comments: open decisions (proposed under spec Implementation Decisions §5 SDK 与传输边界)",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: OpenAI SDK runtime fingerprint: node vs go.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界",
       "kind": "changed"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.X-Stainless-Runtime-Version",
-      "classification": "pending",
-      "decision": "Proposed extension, awaiting approval: OpenAI SDK runtime fingerprint: Node.js vs Go toolchain version.",
-      "ref": "issues/02 Comments: open decisions (proposed under spec Implementation Decisions §5 SDK 与传输边界)",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: OpenAI SDK runtime fingerprint: Node.js vs Go toolchain version.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界",
       "kind": "changed"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.User-Agent",
-      "classification": "pending",
-      "decision": "pi deliberately sends its own 'pi (<os> <release>; <arch>)' User-Agent; barness sends the openai-go default. Undecided whether barness adopts its own User-Agent, and whether exposing host OS release is acceptable in multi-tenant cloud use.",
-      "ref": "issues/02 Comments: open decisions"
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-01: barness sends its own 'barness-ai' User-Agent instead of pi's 'pi (<os> <release>; <arch>)', without host OS details. Asserted by the offline E2E (P01 text).",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01",
+      "kind": "changed"
     },
     {
       "protocol": "openai-responses",

@@ -34,7 +34,11 @@
 - pending → 09: `max_output_tokens` from simple-entry maxTokens defaulting (+ Content-Length)
 - pending → 15: `usage.cost`, `usage.reasoning`
 - pending, **open decisions** (no spec clause; maintainer to decide):
-  1. `User-Agent`: pi sends `pi (<os> <release>; <arch>)`; barness sends the openai-go default. Adopt a barness UA, match pi, or approve as an extension? Also: is exposing the host OS release acceptable in cloud use?
   2. `timestamp`: pi stamps every assistant message (ms). Should barness `AssistantMessage` carry one?
-  3. HTTP-stack and OpenAI SDK fingerprint headers (Accept-Encoding, Accept-Language, Sec-Fetch-Mode, Connection, X-Stainless-Lang/Package-Version/Runtime/Runtime-Version). They are proposed as extensions under spec Implementation Decisions §5 (the Go SDK owns HTTP), but no approval exists yet, so they are pending until a maintainer approves them.
   4. Gate wiring: spec §6 puts the affected differential in the regular gate, but it needs Node.js, so it is opt-in today (ADR-0004, status proposed). It needs to be enabled in CI once a CI exists, and a policy is needed for the period until pending items reach zero.
+
+**2026-10-01 — maintainer decisions**
+
+- The HTTP-stack and OpenAI SDK fingerprint headers (Accept-Encoding, Accept-Language, Sec-Fetch-Mode, Connection, X-Stainless-Lang/Package-Version/Runtime/Runtime-Version) are approved as extensions.
+- User-Agent: barness sends its own `barness-ai`, with no host OS details. It is set in the Responses adapter and asserted by the offline P01 text E2E. The difference from pi's UA is an approved extension.
+- Still open: `timestamp` and gate wiring (above).
