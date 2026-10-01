@@ -4,7 +4,7 @@
 
 **Blocked by:** 05
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] 默认 maxRetries=0；SDK 自身不产生额外重试（服务端计数证明）
 - [x] 判定顺序：x-should-retry 优先，再按基线网络错误形状及 408/409/429/5xx；不把任意 Go error 当可重试；401/403 不重试也不换身份
@@ -19,7 +19,7 @@
 
 **2026-10-02 — implemented** (E2E `ai/e2e/retry_test.go`, fixture `testdata/responses/retry.json`: 21 scenarios on all four entries, plus repeatability, cancellation and deadline during backoff, a K1→K2 rotation between attempts, and invalid policies; differential `PIDIFF-P01-E05-*`, 18 cases).
 
-- Configuration: `Binding.Retry` (`RetryPolicy{MaxRetries, MaxRetryDelay *time.Duration}`), not a request option. This is a proposed design (ADR-0006, `status: proposed`) that needs maintainer confirmation; the ticket only says "运维人员显式配置". The zero value never retries; a nil MaxRetryDelay means 60s and 0 lifts the cap, with the wait still bounded by the context. Negative values fail in PhaseBinding as invalid_request.
+- Configuration: `Binding.Retry` (`RetryPolicy{MaxRetries, MaxRetryDelay *time.Duration}`), not a request option. Accepted by the maintainer on 2026-10-02 (ADR-0006). The zero value never retries; a nil MaxRetryDelay means 60s and 0 lifts the cap, with the wait still bounded by the context. Negative values fail in PhaseBinding as invalid_request.
 - Core: `ai/retry.go` ports pi's `provider-retry` (decision order, delay sources, the "Server requested Ns retry delay (max: Ms). <SDK message>" refusal, and NaN → no wait). Adapters call `adapterCall.initial.send` at their initial-request point only. A connection failure is retryable only when the SDK middleware marked an HTTP client error; other Go errors are not.
 - Attempts: `CallMetadata.Attempts`, with AttemptID `RequestID#n`, status, vendor request id, code and planned delay. Observer events remain ticket 14's.
 - Clock: internal `ai/internal/clock` (`Config.Clock`, which hosts cannot construct), so no case sleeps for real. `Error.RetryAfter` now converts an HTTP-date retry-after, the item ticket 05 had deferred.

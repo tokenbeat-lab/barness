@@ -215,7 +215,7 @@ onResponse 读取 HTTP status/headers 和模型信息，不接收或替换最终
 - 设置/租户/凭据失败与建立 HTTP 失败均产生错误 assistant 消息；流中断或协议错误保留部分内容、usage 和 errorMessage。正常 length 仍是明确截断终态，不等于完整工具参数；缺协议结束标志的 EOF 是错误。
 - 成功终结的 done 携完整消息，Result 返回相同最终消息且 Err 为 nil；流中协议/Provider 失败产生 error 与 StopReason=error，Result/Complete 同时返回非 nil 的分类 error 且 Result 仍完整。调用方既不读事件也不等结果时必须 Close 或取消 context；宿主下游断开及发送失败均取消本次生成。
 - Close 幂等；未完成时取消本次设置或 I/O，已完成时不改写结果。阶段行为保留基线：lazy setup 捕获的取消形成 error，进入 adapter 后按对应路径形成 aborted；附加错误分类描述取消/截止时间。所有路径都释放响应体、准入许可和等待者，不依赖再次 Next。
-- 重试由运维人员在服务绑定上配置（`Binding.Retry`），不是请求选项（工单 11 提议，待维护者确认，见 ADR-0006）。默认 maxRetries=0。显式重试优先按 x-should-retry 判断，再按基线网络错误形状及 408/409/429/5xx 判定；不能把所有 Go error 视为可重试。401/403 不触发换 key 或其他身份兜底。
+- 重试由运维人员在服务绑定上配置（`Binding.Retry`），不是请求选项（维护者决定 2026-10-02，见 ADR-0006）。默认 maxRetries=0。显式重试优先按 x-should-retry 判断，再按基线网络错误形状及 408/409/429/5xx 判定；不能把所有 Go error 视为可重试。401/403 不触发换 key 或其他身份兜底。
 - 延迟依次采用 retry-after-ms、retry-after 秒数/日期、指数退避；基础从 500ms 起、封顶 8s、最多下浮 25%。maxRetryDelayMs 默认 60 秒，设 0 只关闭该项等待上限，仍受整个调用截止时间约束；退避可取消。
 - 仅在各 adapter 的初始请求位置重试，流开始后不自动重放。所有尝试固定租户、绑定版本、凭据和账户；每次分别观测。请求到达厂商但响应丢失时，重试可能重复产生费用。
 
