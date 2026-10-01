@@ -34,6 +34,9 @@ type Reply struct {
 	// OnHold, when set, runs once an EndHold reply has written its chunks and
 	// starts holding the connection open.
 	OnHold func() `json:"-"`
+	// AfterChunk, when set, runs after chunk i was written and flushed, so a
+	// test can pause the reply until its client reached a known state.
+	AfterChunk func(i int) `json:"-"`
 }
 
 // End selects how a reply ends after its chunks.
@@ -160,12 +163,15 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(reply.Status)
 	flusher, _ := w.(http.Flusher)
-	for _, chunk := range reply.Chunks {
+	for i, chunk := range reply.Chunks {
 		if _, err := w.Write(chunk); err != nil {
 			return
 		}
 		if flusher != nil {
 			flusher.Flush()
+		}
+		if reply.AfterChunk != nil {
+			reply.AfterChunk(i)
 		}
 	}
 	switch reply.End {

@@ -133,8 +133,17 @@ type attemptOutcome struct {
 	sdkMessage string
 }
 
-// retryable ports pi's isRetryableProviderError.
+// retryable ports pi's isRetryableProviderError. A failure at a resource
+// limit is barness's own terminal and never retried, whatever the status:
+// the policy promises the call ends at resource_limit once a limit is
+// reached (spec I9), and a provider sending oversized error bodies is
+// likely to send them again, so retrying only multiplies the reads. This
+// is a recorded extension (pi retries a 429/5xx whatever its body; ledger
+// PIDIFF-P01-E08-error-body-over-limit, issues/12).
 func (o attemptOutcome) retryable() bool {
+	if o.failure != nil && o.failure.Code == CodeResourceLimit {
+		return false
+	}
 	if o.status == 0 {
 		return o.connection
 	}

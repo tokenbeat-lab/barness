@@ -95,6 +95,17 @@ func TestPiDifferential(t *testing.T) {
 				differential(t, ev, o, ledger, "stream", retryPidiffScenario(t, rf, rraw, text, sc))
 			})
 		}
+		// E08 byte limits (TestByteLimits): at its boundary each limit changes
+		// nothing pi would do; above it barness ends at resource_limit, an
+		// extension registered in the ledger.
+		for _, c := range limitPidiffScenarios(t) {
+			t.Run("limits/"+c.id, func(t *testing.T) {
+				ev := run.Case(t, "PIDIFF-P01-E08-"+c.id+"-stream")
+				ev.ReplayEnv(pioracle.EnableEnv + "=1")
+				o := openOracle(t)
+				differential(t, ev, o, ledger, "stream", c.sc)
+			})
+		}
 		// Tool calls cut off by truncation or a failed stream (06).
 		tf, traw := loadToolFixture(t)
 		for _, sc := range tf.Truncated {
@@ -141,6 +152,8 @@ type pidiffScenario struct {
 	// keeps the catalogs'.
 	modelCompat *ai.ModelCompat
 	modelPatch  json.RawMessage
+	// policy changes barness's resource policy; pi has none.
+	policy func(*ai.ResourcePolicy)
 }
 
 // loadPidiffScenario reuses the offline E2E fixtures: P01 plain text
@@ -229,7 +242,13 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 
 	// barness-ai through the public Client.
 	patch := withModelPatch(sc.model, sc.modelCompat, sc.modelPatch)
-	w := newWorldWith(t, func(c *ai.Config) { patch(c); c.Clock = sc.clock }, tenantA)
+	w := newWorldWith(t, func(c *ai.Config) {
+		patch(c)
+		c.Clock = sc.clock
+		if sc.policy != nil {
+			sc.policy(c.Policy)
+		}
+	}, tenantA)
 	w.updateBinding(tenantA, func(b *ai.Binding) { b.Retry = sc.retry })
 	if sc.unreachable {
 		w.updateBinding(tenantA, func(b *ai.Binding) { b.Endpoint = deadEndpoint() })

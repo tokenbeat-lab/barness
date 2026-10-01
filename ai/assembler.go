@@ -10,22 +10,56 @@ import (
 // assistant message in the call's PartialView and publishes events. Stream
 // gives it a sink; Complete gives it none, so no event is ever queued for a
 // caller that will not read it.
+//
+// It also holds the call's resource-limit failure: the first limit reached
+// while merging (a tool call's argument JSON) or publishing (the Stream's
+// event queue) is latched, publishing stops, and the adapter must end the
+// call at its next check of failure. The message keeps everything received
+// up to that point, including the content whose event did not fit.
 type assembler struct {
 	view *PartialView
-	emit func(Event) // nil for Complete
+	// emit queues a non-terminal or terminal event for the Stream's consumer
+	// and reports a non-terminal one that did not fit; nil for Complete.
+	emit     func(Event) *Error
+	toolJSON int64 // the policy's MaxToolJSONBytes
+	limited  *Error
 }
 
-func newAssembler(timestamp int64, emit func(Event)) *assembler {
+func newAssembler(timestamp int64, emit func(Event) *Error, toolJSON int64) *assembler {
 	return &assembler{
-		view: newPartialView(AssistantMessage{StopReason: StopReasonPending, Timestamp: timestamp}),
-		emit: emit,
+		view:     newPartialView(AssistantMessage{StopReason: StopReasonPending, Timestamp: timestamp}),
+		emit:     emit,
+		toolJSON: toolJSON,
 	}
 }
 
 func (a *assembler) publish(e Event) {
-	if a.emit != nil {
-		a.emit(e)
+	if a.emit == nil || a.limited != nil {
+		return
 	}
+	a.fail(a.emit(e))
+}
+
+// fail latches the first resource-limit failure.
+func (a *assembler) fail(f *Error) {
+	if a.limited == nil {
+		a.limited = f
+	}
+}
+
+// failure is the latched resource-limit failure, or nil. An adapter checks it
+// after each unit of protocol progress and ends the call with it.
+func (a *assembler) failure() *Error { return a.limited }
+
+// fitsToolJSON reports whether a tool call's argument JSON of size bytes is
+// within the policy, latching the failure when it is not. Adapters ask before
+// they grow their own copy of the text.
+func (a *assembler) fitsToolJSON(size int) bool {
+	if int64(size) <= a.toolJSON {
+		return true
+	}
+	a.fail(limitFailure(PhaseStream, "MaxToolJSONBytes", a.toolJSON))
+	return false
 }
 
 // identify records what actually serves the call, once resolved. The
@@ -134,6 +168,9 @@ func (a *assembler) setThinkingSignature(i int, sig string) {
 // toolCallStart opens a tool call block. As in pi, its arguments start as {}
 // whatever raw text the provider announced with the item.
 func (a *assembler) toolCallStart(id, name, raw string) int {
+	if !a.fitsToolJSON(len(raw)) {
+		raw = ""
+	}
 	i := a.open(ToolCall{ID: id, Name: name, Arguments: "{}", RawArguments: raw})
 	a.publish(ToolCallStartEvent{ContentIndex: i, Partial: a.view})
 	return i
@@ -141,6 +178,13 @@ func (a *assembler) toolCallStart(id, name, raw string) int {
 
 // toolCallArguments replaces block i's raw argument text and its display parse.
 func (a *assembler) toolCallArguments(i int, raw string) {
+	if a.fitsToolJSON(len(raw)) {
+		a.replaceToolCallArguments(i, raw)
+	}
+}
+
+// replaceToolCallArguments sets block i's raw text, already within the limit.
+func (a *assembler) replaceToolCallArguments(i int, raw string) {
 	args := displayArguments(raw)
 	a.view.update(func(m *AssistantMessage) {
 		c := m.Content[i].(ToolCall)
@@ -152,13 +196,19 @@ func (a *assembler) toolCallArguments(i int, raw string) {
 // toolCallDelta sets block i's raw argument text to raw, which ends with
 // delta, and publishes the fragment.
 func (a *assembler) toolCallDelta(i int, delta, raw string) {
-	a.toolCallArguments(i, raw)
+	if !a.fitsToolJSON(len(raw)) {
+		return
+	}
+	a.replaceToolCallArguments(i, raw)
 	a.publish(ToolCallDeltaEvent{ContentIndex: i, Delta: delta, Partial: a.view})
 }
 
 // toolCallEnd closes block i with the provider's final raw arguments; an
 // empty text means no arguments, which pi parses as {}.
 func (a *assembler) toolCallEnd(i int, raw string) {
+	if !a.fitsToolJSON(len(raw)) {
+		return
+	}
 	args := displayArguments(cmp.Or(raw, "{}"))
 	var call ToolCall
 	a.view.update(func(m *AssistantMessage) {
@@ -179,8 +229,13 @@ func (a *assembler) hasToolCall() (found bool) {
 
 // finish settles the message, publishes the single terminal event and returns
 // the call's result. A nil failure means the adapter reached a successful
-// protocol terminal. After finish the view never changes again.
+// protocol terminal. A latched resource-limit failure came first and wins
+// over whatever the adapter returned. The terminal always fits the event
+// queue, which reserves its place. After finish the view never changes again.
 func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
+	if a.limited != nil {
+		failure = a.limited
+	}
 	var final AssistantMessage
 	a.view.update(func(m *AssistantMessage) {
 		if failure != nil {
@@ -193,11 +248,16 @@ func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
 		final = m.clone()
 	})
 	res := Result{Message: final, Metadata: meta}
+	var terminal Event = ErrorEvent{Reason: final.StopReason, Message: final.clone(), Err: failure}
 	if failure == nil {
-		a.publish(DoneEvent{Reason: final.StopReason, Message: final.clone()})
+		terminal = DoneEvent{Reason: final.StopReason, Message: final.clone()}
+	}
+	if a.emit != nil {
+		a.emit(terminal)
+	}
+	if failure == nil {
 		return res, nil
 	}
-	a.publish(ErrorEvent{Reason: final.StopReason, Message: final.clone(), Err: failure})
 	return res, failure
 }
 

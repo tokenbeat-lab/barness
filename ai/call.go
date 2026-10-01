@@ -28,10 +28,12 @@ func newCall(scope CallScope, target Target, req Request, full Options, simple *
 	return call{scope: scope, target: target, req: req.clone(), full: full, simple: simple, hooks: hooks}
 }
 
-// run executes a call to its terminal and returns the result. emit receives
+// run executes a call to its terminal and returns the result. emit queues
 // every event when the caller streams; it is nil for Complete.
-func (c *Client) run(ctx context.Context, cl call, emit func(Event)) (Result, error) {
-	asm := newAssembler(time.Now().UnixMilli(), emit)
+func (c *Client) run(ctx context.Context, cl call, emit func(Event) *Error) (Result, error) {
+	c.probe.CallStarted()
+	defer c.probe.CallEnded()
+	asm := newAssembler(time.Now().UnixMilli(), emit, c.policy.byteLimits().toolJSON)
 	meta := CallMetadata{
 		TenantID:  cl.scope.TenantID,
 		RequestID: cl.scope.RequestID,
@@ -46,8 +48,8 @@ func (c *Client) run(ctx context.Context, cl call, emit func(Event)) (Result, er
 // execute follows spec I3's order: scope → binding → capability/options →
 // credential → snapshot consistency → send. Every step before send fails
 // without contacting the provider, and identity is only reported resolved
-// once the snapshot is consistent. Request structure/size checks (ticket 12)
-// and admission (ticket 13) slot in where marked.
+// once the snapshot is consistent. Admission (ticket 13) slots in where
+// marked.
 func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *assembler) *Error {
 	if cl.scope.TenantID == "" || cl.scope.RequestID == "" {
 		return newError(CodeInvalidRequest, PhaseScope, "call scope requires TenantID and RequestID")
@@ -55,7 +57,10 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	if problem := cl.req.validate(); problem != "" {
 		return newError(CodeInvalidRequest, PhaseScope, problem)
 	}
-	// Request size checks (ticket 12) go here.
+	limits := c.policy.byteLimits()
+	if failure := limits.checkImages(cl.req); failure != nil {
+		return failure
+	}
 
 	binding, failure := c.resolveBinding(ctx, cl.scope, cl.target.BindingID)
 	if failure != nil {
@@ -126,6 +131,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		hostedTools: slices.Clone(binding.AllowedHostedTools),
 		hooks:       boundHooks{hooks: cl.hooks, scope: cl.scope, model: model},
 		initial:     initial,
+		limits:      limits,
 	}
 	// The trusted header transform sees the merged authentication and
 	// request headers before the adapter takes over, and may not change

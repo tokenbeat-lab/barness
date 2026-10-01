@@ -46,6 +46,9 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	if failure != nil {
 		return failure
 	}
+	if failure := ac.limits.checkRequestBody(body); failure != nil {
+		return failure
+	}
 	reqOpts := []option.RequestOption{
 		option.WithHTTPClient(ac.http),
 		option.WithBaseURL(ac.endpoint),
@@ -53,6 +56,11 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		option.WithMaxRetries(0),
 		option.WithRequestBody("application/json", body),
 		option.WithMiddleware(markConnectionFailures),
+		// Every response body is read through the policy's limits, the
+		// SDK's own reads of an error body included. The SDK's SSE decoder
+		// also refuses a line over 32 MiB on its own; a MaxFrameBytes above
+		// that cannot be reached and ends as a lost connection instead.
+		option.WithMiddleware(limitBodies(ac.limits)),
 	}
 	// Authentication travels in ac.header, so the SDK's own API key setting
 	// stays empty and adds no second Authorization.
@@ -117,6 +125,9 @@ func headerOptions(header http.Header) []option.RequestOption {
 func readResponsesStream(ctx context.Context, stream *ssestream.Stream[responses.ResponseStreamEventUnion], p responsesParser) *Error {
 	for stream.Next() {
 		if failure := p.handle(stream.Current()); failure != nil {
+			return failure
+		}
+		if failure := p.out.failure(); failure != nil {
 			return failure
 		}
 	}
@@ -194,7 +205,7 @@ func (p *responsesParser) open(outputIndex int64, item responses.ResponseOutputI
 // argumentsDelta appends a function call's argument fragment.
 func (p *responsesParser) argumentsDelta(outputIndex int64, delta string) {
 	s, ok := p.slots[outputIndex]
-	if !ok || s.kind != "function_call" {
+	if !ok || s.kind != "function_call" || !p.out.fitsToolJSON(len(s.raw)+len(delta)) {
 		return
 	}
 	s.raw += delta

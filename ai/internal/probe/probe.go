@@ -6,11 +6,12 @@ package probe
 
 import "sync/atomic"
 
-// Probe counts one Client's queued stream events. A nil *Probe is valid and
-// records nothing.
+// Probe counts one Client's queued stream events and running calls. A nil
+// *Probe is valid and records nothing.
 type Probe struct {
 	queued atomic.Int64
 	peak   atomic.Int64
+	active atomic.Int64
 }
 
 // New returns a zeroed probe.
@@ -43,3 +44,21 @@ func (p *Probe) QueuedEvents() int64 { return p.queued.Load() }
 
 // PeakQueuedEvents is the highest QueuedEvents seen so far.
 func (p *Probe) PeakQueuedEvents() int64 { return p.peak.Load() }
+
+// CallStarted records a call's production process starting.
+func (p *Probe) CallStarted() {
+	if p != nil {
+		p.active.Add(1)
+	}
+}
+
+// CallEnded records a call's production process having released what it
+// held and settled its result.
+func (p *Probe) CallEnded() {
+	if p != nil {
+		p.active.Add(-1)
+	}
+}
+
+// ActiveCalls is the number of calls whose production process is running.
+func (p *Probe) ActiveCalls() int64 { return p.active.Load() }

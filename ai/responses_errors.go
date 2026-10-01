@@ -58,6 +58,11 @@ func (f responsesFailures) request(ctx context.Context, err error, res *http.Res
 	if ctx.Err() != nil {
 		return attemptOutcome{failure: requestInterrupted(ctx)}
 	}
+	// The SDK reads an error body itself and fails with the limit's error.
+	var limit *limitExceeded
+	if errors.As(err, &limit) && res != nil {
+		return f.limited(res, limit)
+	}
 	if res != nil && res.StatusCode >= 300 {
 		return f.status(res)
 	}
@@ -73,6 +78,16 @@ type connectionFailure struct{ err error }
 func (e *connectionFailure) Error() string { return e.err.Error() }
 func (e *connectionFailure) Unwrap() error { return e.err }
 
+// limitBodies is SDK middleware that puts each response body behind the
+// call's byte limits before the SDK or the adapter reads it.
+func limitBodies(l byteLimits) option.Middleware {
+	return func(req *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+		res, err := next(req)
+		l.limitBody(res)
+		return res, err
+	}
+}
+
 // markConnectionFailures is SDK middleware around the HTTP client's Do.
 func markConnectionFailures(req *http.Request, next option.MiddlewareNext) (*http.Response, error) {
 	res, err := next(req)
@@ -84,12 +99,13 @@ func markConnectionFailures(req *http.Request, next option.MiddlewareNext) (*htt
 
 // status classifies a non-2xx response. The SDK has already read the body of
 // an error status and left a copy in res.Body; a redirect's body is unread.
+// Either was read through the MaxErrorBodyBytes limit (limitBodies).
 func (f responsesFailures) status(res *http.Response) attemptOutcome {
-	// Unbounded for now: the SDK has already read an error body whole, so this
-	// adds no allocation, but a redirect's body is read here and a hostile
-	// upstream can make either large. Ticket 12 bounds both by
-	// MaxErrorBodyBytes; remove this note then.
-	body, _ := io.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
+	var limit *limitExceeded
+	if errors.As(err, &limit) {
+		return f.limited(res, limit)
+	}
 	msg, sdkMsg := describeHTTPError(f.prefix(), res.StatusCode, body)
 	e := newError(codeForStatus(res.StatusCode), PhaseRequest, f.redact(msg))
 	e.HTTPStatus = res.StatusCode
@@ -98,12 +114,26 @@ func (f responsesFailures) status(res *http.Response) attemptOutcome {
 	return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: e.ProviderRequestID, failure: e, sdkMessage: f.redact(sdkMsg)}
 }
 
+// limited is a non-2xx response whose body exceeded MaxErrorBodyBytes. It
+// keeps what the headers tell, but the body is not described, and the
+// attempt is never retried (see attemptOutcome.retryable).
+func (f responsesFailures) limited(res *http.Response, limit *limitExceeded) attemptOutcome {
+	e := limit.failure(PhaseRequest)
+	e.HTTPStatus = res.StatusCode
+	e.ProviderRequestID = res.Header.Get("x-request-id")
+	e.RetryAfter = retryAfter(res.Header, f.clock.Now())
+	return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: e.ProviderRequestID, failure: e}
+}
+
 // stream classifies an error that ended the SSE stream early.
 func (f responsesFailures) stream(err error) *Error {
 	var streamErr *ssestream.StreamError
 	var syntaxErr *json.SyntaxError
 	var typeErr *json.UnmarshalTypeError
+	var limit *limitExceeded
 	switch {
+	case errors.As(err, &limit):
+		return limit.failure(PhaseStream)
 	case errors.As(err, &streamErr):
 		// The SDK stops at any frame with a top-level "error"; openai-node
 		// raises it as an APIError built from that object.

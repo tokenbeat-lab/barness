@@ -19,7 +19,10 @@ type adapter interface {
 	headers(call adapterCall) http.Header
 	// stream sends call.header exactly, sends the initial request through
 	// call.initial, and runs call.hooks' payload callback before it and the
-	// response callback once after it succeeded.
+	// response callback once after it succeeded. It enforces call.limits: the
+	// final body against the request limit before sending, every response
+	// body through limitBody while reading, and it ends the call with
+	// out.failure() as soon as that is set.
 	stream(ctx context.Context, call adapterCall, out *assembler) *Error
 }
 
@@ -45,6 +48,8 @@ type adapterCall struct {
 	// initial sends the initial request under the pinned retry policy; the
 	// adapter retries nothing else.
 	initial *initialRequest
+	// limits are the policy's byte limits; the adapter has none of its own.
+	limits byteLimits
 }
 
 // registry is the explicit adapter table selected by Binding.API. It is built

@@ -55,8 +55,8 @@ type Config struct {
 // operations. Its configuration is read-only after construction and it is
 // safe for concurrent use.
 type Client struct {
-	// policy is validated at construction (D1); its limits are enforced by the
-	// byte/queue (ticket 12) and admission/timeout (ticket 13) work.
+	// policy is validated at construction (D1). Its byte and event queue
+	// limits are enforced per call; admission and time limits are ticket 13's.
 	policy      ResourcePolicy
 	bindings    BindingResolver
 	credentials CredentialResolver

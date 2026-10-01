@@ -52,6 +52,9 @@ const (
 	PhaseConsistency Phase = "consistency"
 	PhaseRequest     Phase = "request"
 	PhaseStream      Phase = "stream"
+	// PhaseEventQueue is a Stream's event queue: its consumer fell behind the
+	// policy's MaxQueuedEvents or MaxQueuedEventBytes.
+	PhaseEventQueue Phase = "event_queue"
 )
 
 // Error is the classified error returned with a failed Result. It never

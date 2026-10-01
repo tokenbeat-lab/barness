@@ -8,16 +8,37 @@ import "time"
 //
 // The policy is not a protocol option and cannot be changed by a Request.
 type ResourcePolicy struct {
-	// Byte limits, checked while reading or decoding rather than after.
-	MaxRequestBytes   int64 // whole encoded request body
-	MaxImageBytes     int64 // a single image; must not exceed MaxRequestBytes
-	MaxFrameBytes     int64 // a single SSE frame
-	MaxToolJSONBytes  int64 // one tool call's argument JSON; must not exceed MaxOutputBytes
-	MaxErrorBodyBytes int64 // a provider error body read for diagnosis
-	MaxOutputBytes    int64 // all assistant output of one call
+	// Byte limits, enforced while encoding, reading or merging rather than
+	// after. Reaching one ends the call with StopReason error and a
+	// CodeResourceLimit *Error; a limit is never retried around.
+	//
+	// MaxRequestBytes bounds the final encoded request body (after the
+	// payload callback), refused in PhaseRequest before it is sent.
+	MaxRequestBytes int64
+	// MaxImageBytes bounds a single image of the request history, counted as
+	// the image's own bytes rather than its base64 text, refused in
+	// PhaseScope before anything resolves. It must not exceed MaxRequestBytes.
+	MaxImageBytes int64
+	// MaxFrameBytes bounds a single SSE frame: an event's lines through the
+	// blank line that ends it. Some protocols repeat the whole response in
+	// their terminal frame (OpenAI Responses does), so it must then hold the
+	// largest response the host accepts.
+	MaxFrameBytes int64
+	// MaxToolJSONBytes bounds one tool call's argument JSON as it grows. It
+	// must not exceed MaxOutputBytes.
+	MaxToolJSONBytes int64
+	// MaxErrorBodyBytes bounds a provider's non-2xx body read for diagnosis.
+	MaxErrorBodyBytes int64
+	// MaxOutputBytes bounds the provider's streamed response body of one
+	// call, as read after transport decoding. Every frame counts, so it bounds
+	// everything the call reads and may keep, not only the message's text.
+	MaxOutputBytes int64
 
-	// Event queue bounds for Stream consumers. Overflow ends the call with a
-	// resource_limit error; Complete never queues events.
+	// Event queue bounds for Stream consumers: how many events wait unread,
+	// and how many bytes of text they carry (deltas, block contents, tool
+	// call fields). The terminal event's place is reserved and never counts.
+	// Overflow ends the call with a resource_limit error in PhaseEventQueue;
+	// the producer is never blocked. Complete never queues events.
 	MaxQueuedEvents     int
 	MaxQueuedEventBytes int64
 

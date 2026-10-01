@@ -4,9 +4,10 @@ import "context"
 
 // Complete runs one generation turn with full protocol options and returns
 // only the final result. It shares Stream's production and merge process but
-// queues no events. The error is nil on success and the classified *Error
-// when the message ends with StopReason error or aborted; the Result is
-// complete in both cases.
+// queues no events, so it is the entry point for callers that only need the
+// final message: the event queue limits do not apply to it. The error is nil
+// on success and the classified *Error when the message ends with StopReason
+// error or aborted; the Result is complete in both cases.
 func (c *Client) Complete(ctx context.Context, scope CallScope, target Target, req Request, opts Options) (Result, error) {
 	return c.run(ctx, newCall(scope, target, req, opts, nil, Hooks{}), nil)
 }
