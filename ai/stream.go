@@ -34,12 +34,12 @@ type Stream struct {
 
 // Stream starts one generation turn with full protocol options.
 func (c *Client) Stream(ctx context.Context, scope CallScope, target Target, req Request, opts Options) *Stream {
-	return c.startStream(ctx, newCall(scope, target, req, opts, nil))
+	return c.startStream(ctx, newCall(scope, target, req, opts, nil, Hooks{}))
 }
 
 // StreamSimple is Stream with protocol-neutral options mapped per model.
 func (c *Client) StreamSimple(ctx context.Context, scope CallScope, target Target, req Request, opts SimpleOptions) *Stream {
-	return c.startStream(ctx, newCall(scope, target, req, nil, &opts))
+	return c.startStream(ctx, newCall(scope, target, req, nil, &opts, Hooks{}))
 }
 
 func (c *Client) startStream(ctx context.Context, cl call) *Stream {

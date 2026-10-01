@@ -325,3 +325,77 @@ func marshalJS(v any) ([]byte, error) {
 	}
 	return bytes.TrimSuffix(buf.Bytes(), []byte("\n")), nil
 }
+
+// responsesPayloadReferences are request fields that point at, or create,
+// state stored on the vendor account (an earlier response, a conversation, a
+// stored prompt, a background response). The account may be shared by
+// several tenants and the library cannot tell whose state a reference
+// names, so a payload callback may not add them; barness-ai never sends them.
+var responsesPayloadReferences = []string{"previous_response_id", "conversation", "prompt", "background"}
+
+// authorizeResponsesPayload checks a body a payload callback produced. It
+// must still name the call's authorized model, keep the tenant-scoped cache
+// key and stateless storage, declare only function tools, and carry no
+// vendor-side reference: none of the fields above, and no input item_reference
+// or file_id anywhere in the input. Hosted tools (file search, code
+// interpreter, MCP) are refused because they name vendor resources or other
+// network targets the binding did not authorize.
+func authorizeResponsesPayload(m Model, cacheKey string) func(map[string]any) string {
+	return func(body map[string]any) string {
+		if model, _ := body["model"].(string); model != m.ID {
+			return "payload callback may not change the authorized model"
+		}
+		key, hasKey := body["prompt_cache_key"]
+		if (cacheKey == "" && hasKey) || (cacheKey != "" && key != cacheKey) {
+			return "payload callback may not change the prompt cache key"
+		}
+		if store, ok := body["store"]; ok && store != false {
+			return "payload callback may not store the response on the vendor"
+		}
+		for _, field := range responsesPayloadReferences {
+			if _, ok := body[field]; ok {
+				return "payload callback may not reference vendor-side state (" + field + ")"
+			}
+		}
+		if tools, ok := body["tools"]; ok {
+			list, _ := tools.([]any)
+			if list == nil && tools != nil {
+				return "payload callback produced malformed tools"
+			}
+			for _, t := range list {
+				if obj, _ := t.(map[string]any); obj == nil || obj["type"] != "function" {
+					return "payload callback may only declare function tools"
+				}
+			}
+		}
+		if field := vendorReference(body["input"]); field != "" {
+			return "payload callback may not reference vendor-side state (" + field + ")"
+		}
+		return ""
+	}
+}
+
+// vendorReference finds an item_reference or a file_id anywhere in v.
+func vendorReference(v any) string {
+	switch v := v.(type) {
+	case []any:
+		for _, e := range v {
+			if field := vendorReference(e); field != "" {
+				return field
+			}
+		}
+	case map[string]any:
+		if v["type"] == "item_reference" {
+			return "item_reference"
+		}
+		if _, ok := v["file_id"]; ok {
+			return "file_id"
+		}
+		for _, e := range v {
+			if field := vendorReference(e); field != "" {
+				return field
+			}
+		}
+	}
+	return ""
+}

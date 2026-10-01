@@ -8,10 +8,10 @@ import "context"
 // when the message ends with StopReason error or aborted; the Result is
 // complete in both cases.
 func (c *Client) Complete(ctx context.Context, scope CallScope, target Target, req Request, opts Options) (Result, error) {
-	return c.run(ctx, newCall(scope, target, req, opts, nil), nil)
+	return c.run(ctx, newCall(scope, target, req, opts, nil, Hooks{}), nil)
 }
 
 // CompleteSimple is Complete with protocol-neutral options mapped per model.
 func (c *Client) CompleteSimple(ctx context.Context, scope CallScope, target Target, req Request, opts SimpleOptions) (Result, error) {
-	return c.run(ctx, newCall(scope, target, req, nil, &opts), nil)
+	return c.run(ctx, newCall(scope, target, req, nil, &opts, Hooks{}), nil)
 }

@@ -14,6 +14,11 @@ type adapter interface {
 	simpleOptions(m Model, o SimpleOptions) Options
 	// historyRules are this protocol's inputs to the history transform for m.
 	historyRules(m Model) historyRules
+	// headers are the authentication and protocol request headers for the
+	// call, merged; the header transform runs over them before stream.
+	headers(call adapterCall) http.Header
+	// stream sends call.header exactly and runs call.hooks' payload and
+	// response callbacks at this protocol's points.
 	stream(ctx context.Context, call adapterCall, out *assembler) *Error
 }
 
@@ -29,6 +34,11 @@ type adapterCall struct {
 	options  Options // matches the adapter's API; nil means protocol defaults
 	// cache scopes the cache and affinity identifiers the adapter derives.
 	cache cacheScope
+	// header is the final request header set. A name with no values was
+	// removed by the header transform and must not be sent, not even as an
+	// SDK default.
+	header http.Header
+	hooks  boundHooks
 }
 
 // registry is the explicit adapter table selected by Binding.API. It is built

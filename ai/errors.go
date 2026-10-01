@@ -69,7 +69,14 @@ type Error struct {
 	// retry-after HTTP date is not converted here: that needs the replaceable
 	// clock the retry policy introduces (ticket 11).
 	RetryAfter time.Duration
+	// cause is a trusted host callback's own error, kept for the host's
+	// diagnosis through Unwrap; it never enters Message.
+	cause error
 }
+
+// Unwrap returns the trusted host callback error that caused this failure,
+// or nil.
+func (e *Error) Unwrap() error { return e.cause }
 
 func (e *Error) Error() string {
 	return "ai: " + string(e.Code) + " (" + string(e.Phase) + "): " + e.Message

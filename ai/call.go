@@ -12,9 +12,11 @@ type call struct {
 	req    Request
 	full   Options        // full entry points; may be nil
 	simple *SimpleOptions // simple entry points; nil for full
+	// hooks are the trusted host's callbacks, pinned when the call starts.
+	hooks Hooks
 }
 
-func newCall(scope CallScope, target Target, req Request, full Options, simple *SimpleOptions) call {
+func newCall(scope CallScope, target Target, req Request, full Options, simple *SimpleOptions, hooks Hooks) call {
 	if simple != nil {
 		s := simple.clone()
 		simple = &s
@@ -22,7 +24,7 @@ func newCall(scope CallScope, target Target, req Request, full Options, simple *
 	if full != nil {
 		full = full.clone()
 	}
-	return call{scope: scope, target: target, req: req.clone(), full: full, simple: simple}
+	return call{scope: scope, target: target, req: req.clone(), full: full, simple: simple, hooks: hooks}
 }
 
 // run executes a call to its terminal and returns the result. emit receives
@@ -108,7 +110,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 
 	// From here on the call is pinned to this snapshot: later updates or
 	// revocations affect only new logical calls.
-	return ad.stream(ctx, adapterCall{
+	ac := adapterCall{
 		http:     c.http,
 		endpoint: binding.Endpoint,
 		apiKey:   cred.APIKey,
@@ -116,5 +118,13 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		history:  history,
 		options:  options,
 		cache:    cacheScope{tenant: cl.scope.TenantID, account: binding.AccountScopeID},
-	}, asm)
+		hooks:    boundHooks{hooks: cl.hooks, scope: cl.scope, model: model},
+	}
+	// The trusted header transform sees the merged authentication and
+	// request headers before the adapter takes over, and may not change
+	// what the binding authorized.
+	if ac.header, failure = ac.hooks.headers(ctx, ad.headers(ac)); failure != nil {
+		return failure
+	}
+	return ad.stream(ctx, ac, asm)
 }
