@@ -16,8 +16,11 @@ type call struct {
 
 func newCall(scope CallScope, target Target, req Request, full Options, simple *SimpleOptions) call {
 	if simple != nil {
-		s := *simple
+		s := simple.clone()
 		simple = &s
+	}
+	if full != nil {
+		full = full.clone()
 	}
 	return call{scope: scope, target: target, req: req.clone(), full: full, simple: simple}
 }
@@ -63,13 +66,17 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	if failure != nil {
 		return failure
 	}
+	// Simple options are mapped for the model first; either way the
+	// protocol options are then checked, which also holds samplingParams
+	// merged from the model to the call's boundary.
 	options := cl.full
 	if cl.simple != nil {
 		if problem := cl.simple.validate(); problem != "" {
 			return newError(CodeInvalidRequest, PhaseCapability, problem)
 		}
-		options = ad.simpleOptions(model, *cl.simple)
-	} else if options != nil {
+		options = ad.simpleOptions(model, cl.simple.resolve(model, cl.req))
+	}
+	if options != nil {
 		if options.api() != binding.API {
 			return newError(CodeInvalidRequest, PhaseCapability, "options do not match the binding API")
 		}
@@ -108,5 +115,6 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		model:    model,
 		history:  history,
 		options:  options,
+		cache:    cacheScope{tenant: cl.scope.TenantID, account: binding.AccountScopeID},
 	}, asm)
 }

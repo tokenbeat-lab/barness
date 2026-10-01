@@ -45,8 +45,8 @@ func primaryBinding(k tenantKey, providerURL string) ai.Binding {
 		CredentialRef:  "cred-" + k.tenant,
 		// gpt-legacy-x is allowed but absent from the catalog; gpt-4.1 is in
 		// the catalog but not allowed. Neither may be called. gpt-4 is the
-		// text-only model.
-		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x"},
+		// text-only model; the gpt-5 family are reasoning models.
+		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x", "gpt-5", "gpt-5.1", "gpt-5.2", "gpt-5-pro"},
 	}
 }
 
@@ -112,11 +112,13 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 
 // textFixture is testdata/responses/text-*.json.
 type textFixture struct {
-	Model        string            `json:"model"`
-	SystemPrompt string            `json:"systemPrompt"`
-	User         string            `json:"user"`
-	Events       []json.RawMessage `json:"events"`
-	Expect       struct {
+	Model        string `json:"model"`
+	SystemPrompt string `json:"systemPrompt"`
+	User         string `json:"user"`
+	// SimpleMaxOutputTokens is pi's simple-entry max_output_tokens.
+	SimpleMaxOutputTokens int               `json:"simpleMaxOutputTokens"`
+	Events                []json.RawMessage `json:"events"`
+	Expect                struct {
 		Request struct {
 			Method string          `json:"method"`
 			Path   string          `json:"path"`
@@ -153,6 +155,21 @@ func jsonEqual(a, b []byte) bool {
 		return false
 	}
 	return reflect.DeepEqual(x, y)
+}
+
+// entryBody is the body pi sends on an entry given the body it sends on the
+// full entry without options: the simple entry adds its output budget
+// (buildBaseOptions: the model's maximum clamped to the context window), which
+// each fixture records as pi's simpleMaxOutputTokens.
+func entryBody(t *testing.T, body json.RawMessage, simple bool, simpleMaxOutputTokens int) []byte {
+	t.Helper()
+	if !simple {
+		return body
+	}
+	var fields map[string]json.RawMessage
+	mustUnmarshal(t, body, &fields)
+	fields["max_output_tokens"] = mustMarshal(t, simpleMaxOutputTokens)
+	return mustMarshal(t, fields)
 }
 
 // updateBinding rewrites k's tenant's stored "primary" binding.

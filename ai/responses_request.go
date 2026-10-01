@@ -15,12 +15,20 @@ import (
 // SSE decoding. Shapes follow pi-ai 0.87.1 openai-responses.ts buildParams and
 // openai-responses-shared.ts convertResponsesMessages / convertResponsesTools.
 type responsesBody struct {
-	Model      string          `json:"model"`
-	Input      []any           `json:"input"`
-	Stream     bool            `json:"stream"`
-	Store      bool            `json:"store"`
-	Tools      []responsesTool `json:"tools,omitempty"`
-	ToolChoice any             `json:"tool_choice,omitempty"`
+	Model                string                        `json:"model"`
+	Input                []any                         `json:"input"`
+	Stream               bool                          `json:"stream"`
+	PromptCacheKey       string                        `json:"prompt_cache_key,omitempty"`
+	PromptCacheRetention string                        `json:"prompt_cache_retention,omitempty"`
+	PromptCacheOptions   *responsesPromptCacheOptions  `json:"prompt_cache_options,omitempty"`
+	Store                bool                          `json:"store"`
+	MaxOutputTokens      int                           `json:"max_output_tokens,omitempty"`
+	Temperature          Nullable[float64]             `json:"temperature,omitzero"`
+	ServiceTier          Nullable[string]              `json:"service_tier,omitzero"`
+	Tools                []responsesTool               `json:"tools,omitempty"`
+	ToolChoice           Nullable[ResponsesToolChoice] `json:"tool_choice,omitzero"`
+	Reasoning            *responsesReasoning           `json:"reasoning,omitempty"`
+	Include              []string                      `json:"include,omitempty"`
 }
 
 // responsesInstruction is a system or developer instruction item.
@@ -92,11 +100,10 @@ type responsesTool struct {
 	Strict *bool `json:"strict,omitempty"`
 }
 
-// buildResponsesBody encodes the prepared history for model. Only tool_choice
-// of the options is implemented (ticket 09 brings the rest); with no options
-// pi sends no prompt-cache fields because the default cache retention is
-// "short" without a session id.
-func buildResponsesBody(model Model, history transcript, opts ResponsesOptions) ([]byte, error) {
+// buildResponsesBody encodes the prepared history and options for model, as
+// pi's buildParams does, samplingParams last. cacheKey is the derived prompt
+// cache key, "" for none.
+func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, cacheKey string) ([]byte, error) {
 	body := responsesBody{Model: model.ID, Input: []any{}, Stream: true, Store: false}
 
 	// pi: reasoning models (that support it) take instructions as "developer".
@@ -162,14 +169,12 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions) 
 		}
 		body.Tools = append(body.Tools, tool)
 	}
-	if c := opts.ToolChoice; c != nil {
-		if c.Function != "" {
-			body.ToolChoice = map[string]string{"type": "function", "name": c.Function}
-		} else {
-			body.ToolChoice = c.Mode
-		}
+	opts.encode(&body, model, cacheKey)
+	out, err := marshalJS(body)
+	if err != nil {
+		return nil, err
 	}
-	return marshalJS(body)
+	return applySamplingParams(out, opts.SamplingParams)
 }
 
 // responsesAssistantItems replays a previous turn prepared by

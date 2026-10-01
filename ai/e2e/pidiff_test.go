@@ -56,6 +56,17 @@ func TestPiDifferential(t *testing.T) {
 				})
 			}
 		}
+		// E04 full and simple options, reasoning mapping and presence
+		// (TestOptions); each scenario runs on the entry its options belong to.
+		of, oraw := loadOptionsFixture(t)
+		for _, sc := range of.Scenarios {
+			t.Run("options/"+sc.ID+"/"+sc.Entry, func(t *testing.T) {
+				ev := run.Case(t, "PIDIFF-P01-E04-options-"+sc.ID+"-"+sc.Entry)
+				ev.ReplayEnv(pioracle.EnableEnv + "=1")
+				o := openOracle(t)
+				differential(t, ev, o, ledger, sc.Entry, of.pidiff(t, oraw, sc))
+			})
+		}
 		// E02 failure terminals reuse the offline scenarios. Failure handling
 		// does not depend on the entry point's option mapping, so they run on
 		// the full entry only.
@@ -101,9 +112,13 @@ type pidiffScenario struct {
 	full      ai.Options
 	simple    ai.SimpleOptions
 	piOptions map[string]any
-	// modelCompat replaces the model's compat flags on both sides, as a
-	// custom model does; nil keeps the catalogs'.
+	// piOptionsRaw, when set, are pi's options as JSON in place of piOptions.
+	piOptionsRaw json.RawMessage
+	// modelCompat replaces the model's compat flags and modelPatch other
+	// top-level model fields on both sides, as a custom model does; nil
+	// keeps the catalogs'.
 	modelCompat *ai.ModelCompat
+	modelPatch  json.RawMessage
 }
 
 // loadPidiffScenario reuses the offline E2E fixtures: P01 plain text
@@ -178,7 +193,7 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	target := ai.Target{BindingID: "primary", ModelID: sc.model}
 
 	// barness-ai through the public Client.
-	w := newWorldWith(t, withModelCompat(sc.model, sc.modelCompat), tenantA)
+	w := newWorldWith(t, withModelPatch(sc.model, sc.modelCompat, sc.modelPatch), tenantA)
 	if sc.unreachable {
 		w.updateBinding(tenantA, func(b *ai.Binding) { b.Endpoint = deadEndpoint() })
 	} else {
@@ -205,8 +220,13 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	if sc.modelCompat != nil {
 		compat = mustMarshal(t, sc.modelCompat)
 	}
+	options := piOptions(t, sc.piOptions)
+	if sc.piOptionsRaw != nil {
+		options = sc.piOptionsRaw
+	}
 	piRun, err := o.Run(ctxFor(t), pioracle.Case{
 		ModelCompat:      compat,
+		ModelPatch:       sc.modelPatch,
 		API:              string(ai.APIOpenAIResponses),
 		Provider:         string(ai.ProviderOpenAI),
 		Model:            sc.model,
@@ -214,7 +234,7 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 		APIKey:           tenantA.secret,
 		Entry:            entry,
 		Context:          piContext(t, req),
-		Options:          piOptions(t, sc.piOptions),
+		Options:          options,
 		AbortAfterEvents: sc.abortAfter,
 	})
 	if !ev.Check("pi runner completed", err == nil, "%v", err) {

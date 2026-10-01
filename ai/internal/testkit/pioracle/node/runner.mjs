@@ -88,10 +88,23 @@ function packageInfo() {
 	return { version: pkg.version, modelDataSha256: hash.digest("hex") };
 }
 
+// thinkingBudgets evaluates pi's shared thinking budget rules
+// (api/simple-options adjustMaxTokensForThinking) for each case. These rules
+// have no Responses wire effect, so they are compared directly.
+async function thinkingBudgets(cases) {
+	const { adjustMaxTokensForThinking } = await import("@earendil-works/pi-ai/api/simple-options");
+	return cases.map((c) => adjustMaxTokensForThinking(c.baseMaxTokens ?? undefined, c.modelMaxTokens, c.level, c.budgets));
+}
+
 async function main() {
 	refuseLeakyEnv();
 	installLoopbackGuard();
 	const input = await readStdin();
+	if (input.entry === "thinkingBudgets") {
+		const results = await thinkingBudgets(input.cases);
+		process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, results }));
+		return;
+	}
 	const entry = APIS[input.api];
 	if (!entry) fail(`unsupported api ${JSON.stringify(input.api)}`);
 	if (!input.baseUrl || !isLoopbackHost(new URL(input.baseUrl).hostname)) fail("baseUrl must be a loopback URL");
@@ -105,8 +118,10 @@ async function main() {
 	// modelCompat overrides compat flags of the catalog model, the way a pi
 	// user configures a custom model; it lets a case exercise a flag that
 	// pi's catalog only sets on models barness-ai does not list yet.
+	// modelPatch replaces other top-level model fields (thinkingLevelMap,
+	// samplingParams, contextWindow, ...) the same way.
 	const compat = input.modelCompat ? { ...known.compat, ...input.modelCompat } : known.compat;
-	const model = { ...known, baseUrl: input.baseUrl, ...(compat ? { compat } : {}) };
+	const model = { ...known, ...(input.modelPatch ?? {}), baseUrl: input.baseUrl, ...(compat ? { compat } : {}) };
 
 	const context = pi.normalizeContext(input.context);
 	// abortAfterEvents > 0 aborts the call, as a caller canceling it would, once

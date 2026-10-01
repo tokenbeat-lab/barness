@@ -2,6 +2,7 @@
   "case": "P01 OpenAI × Responses plain-text generation",
   "source": "Synthetic offline fixture. Event shapes follow the OpenAI Responses streaming API as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/openai-responses-shared.ts processResponsesStream; the expected request follows buildParams/convertResponsesMessages in openai-responses.ts for a non-reasoning model with no options (cacheRetention defaults to short with no sessionId, so no prompt_cache_* fields).",
   "model": "gpt-4.1-mini",
+  "simpleMaxOutputTokens": 32768,
   "systemPrompt": "You are terse.",
   "user": "Say hello.",
   "events": [

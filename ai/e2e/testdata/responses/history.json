@@ -13,6 +13,7 @@
    "id": "content-null",
    "about": "null content on user, assistant and tool result messages is an empty array: the user and assistant turns add nothing, the tool result is pi's (no tool output)",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "context": {
     "messages": [
      {"role": "user", "content": null},
@@ -42,6 +43,7 @@
    "id": "thinking-same-model",
    "about": "trusted same-model history keeps redacted and signed (even empty) thinking, drops other blank thinking and keeps the text's item id and phase",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "context": {
     "messages": [
      {"role": "user", "content": [{"type": "text", "text": "Plan it"}]},
@@ -70,6 +72,7 @@
    "id": "thinking-cross-model",
    "about": "another model's and another provider's thinking: visible reasoning becomes text, redacted and blank reasoning is dropped, text keeps only its text",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "context": {
     "messages": [
      {"role": "user", "content": [{"type": "text", "text": "Plan it"}]},
@@ -101,6 +104,7 @@
    "id": "tool-ids",
    "about": "tool call ids of other providers, APIs and models are normalized for Responses and their results follow",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "context": {
     "systemPrompt": "Use tools.",
     "tools": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}, {"name": "get_time", "description": "Current time in a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}],
@@ -140,6 +144,7 @@
    "id": "missing-results",
    "about": "unanswered tool calls get a synthetic No result provided error result after the answered ones; a system message folds into the leading instruction",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "context": {
     "systemPrompt": "You are terse.",
     "tools": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}, {"name": "get_time", "description": "Current time in a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}],
@@ -177,6 +182,7 @@
    "id": "system-mid-convo",
    "about": "a model taking system messages mid-conversation: the leading message is the full prompt (array-index section names first), a system message between a tool call and its results waits until the results, synthetic ones included, counts towards the msg_pi_<n> index of unsigned text, and later changes are framed updates",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "modelCompat": {"supportsStrictMode": true, "supportsMidConvoSystemMessages": true},
    "context": {
     "messages": [
@@ -219,6 +225,7 @@
    "id": "system-tools-collapse",
    "about": "system messages and tool changes replay in input order into one leading instruction and the current tool set",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "context": {
     "systemPrompt": "Base.",
     "tools": [{"name": "a", "description": "A", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}, {"name": "b", "description": "B", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}, {"name": "c", "description": "C", "parameters": {"type": "object", "properties": {}, "additionalProperties": false}}],
@@ -250,6 +257,7 @@
    "id": "error-aborted-skip",
    "about": "error and aborted assistant turns are skipped: their tool calls get no synthetic results and their (untrusted) native state is not counted, while the trusted turn after them replays natively",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "context": {
     "messages": [
      {"role": "user", "content": [{"type": "text", "text": "Try"}]},
@@ -279,6 +287,7 @@
    "id": "images-vision",
    "about": "a model with image input gets user images and tool result images",
    "model": "gpt-4.1-mini",
+   "simpleMaxOutputTokens": 32768,
    "context": {
     "tools": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}],
     "messages": [
@@ -316,6 +325,7 @@
    "id": "images-placeholder",
    "about": "a text-only model gets pi's placeholders, one per run of images",
    "model": "gpt-4",
+   "simpleMaxOutputTokens": 16,
    "context": {
     "tools": [{"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"], "additionalProperties": false}}],
     "messages": [

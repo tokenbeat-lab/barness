@@ -20,6 +20,8 @@ type historyScenario struct {
 	ID    string `json:"id"`
 	About string `json:"about"`
 	Model string `json:"model"`
+	// SimpleMaxOutputTokens is pi's simple-entry max_output_tokens.
+	SimpleMaxOutputTokens int `json:"simpleMaxOutputTokens"`
 	// ModelCompat replaces the catalog model's compat flags on both sides.
 	ModelCompat *ai.ModelCompat `json:"modelCompat"`
 	Context     struct {
@@ -65,23 +67,8 @@ func (sc historyScenario) request(t *testing.T, k tenantKey) ai.Request {
 }
 
 // configure gives the scenario's model its compat flags.
-func (sc historyScenario) configure(cfg *ai.Config) { withModelCompat(sc.Model, sc.ModelCompat)(cfg) }
-
-// withModelCompat gives model the compat flags, as a host's own catalog
-// would; nil keeps the built-in catalog.
-func withModelCompat(model string, compat *ai.ModelCompat) func(*ai.Config) {
-	return func(cfg *ai.Config) {
-		if compat == nil {
-			return
-		}
-		catalog := ai.BuiltinCatalog()
-		for i := range catalog.Models {
-			if catalog.Models[i].ID == model {
-				catalog.Models[i].Compat = *compat
-			}
-		}
-		cfg.Catalog = &catalog
-	}
+func (sc historyScenario) configure(cfg *ai.Config) {
+	withModelPatch(sc.Model, sc.ModelCompat, nil)(cfg)
 }
 
 func decodeStoredMessage(t *testing.T, raw json.RawMessage, k tenantKey) ai.Message {

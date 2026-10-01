@@ -17,11 +17,13 @@ import (
 
 // lifecycleFixture is testdata/responses/interleaved-blocks.json.
 type lifecycleFixture struct {
-	Model        string            `json:"model"`
-	SystemPrompt string            `json:"systemPrompt"`
-	User         string            `json:"user"`
-	Events       []json.RawMessage `json:"events"`
-	Expect       struct {
+	Model string `json:"model"`
+	// SimpleMaxOutputTokens is pi's simple-entry max_output_tokens.
+	SimpleMaxOutputTokens int               `json:"simpleMaxOutputTokens"`
+	SystemPrompt          string            `json:"systemPrompt"`
+	User                  string            `json:"user"`
+	Events                []json.RawMessage `json:"events"`
+	Expect                struct {
 		Request struct {
 			Method string          `json:"method"`
 			Path   string          `json:"path"`
@@ -183,7 +185,9 @@ func checkLifecycleMessage(ev *evidence.Case, f lifecycleFixture, m ai.Assistant
 	}
 }
 
-func checkLifecycleRequest(ev *evidence.Case, w *world, f lifecycleFixture) {
+// checkLifecycleRequest asserts the request of a call without options on the
+// full or simple entry.
+func checkLifecycleRequest(ev *evidence.Case, w *world, f lifecycleFixture, simple bool) {
 	reqs := w.provider.Requests()
 	ev.Record("requests", reqs)
 	if !ev.Check("exactly one inference request", len(reqs) == 1, "got %d", len(reqs)) {
@@ -192,7 +196,8 @@ func checkLifecycleRequest(ev *evidence.Case, w *world, f lifecycleFixture) {
 	r := reqs[0]
 	ev.Check("method and path", r.Method == f.Expect.Request.Method && r.Path == f.Expect.Request.Path, "got %s %s", r.Method, r.Path)
 	ev.Check("tenant key used", r.KeyAlias == tenantA.alias, "got %q", r.KeyAlias)
-	ev.Check("request body", jsonEqual(r.Body, f.Expect.Request.Body), "got %s\nwant %s", r.Body, f.Expect.Request.Body)
+	body := entryBody(ev.T(), f.Expect.Request.Body, simple, f.SimpleMaxOutputTokens)
+	ev.Check("request body", jsonEqual(r.Body, body), "got %s\nwant %s", r.Body, body)
 }
 
 // checkGrowingSnapshot reports why snap is not a state the interleaved call

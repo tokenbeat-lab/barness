@@ -92,19 +92,10 @@ func ToolResultText(call ToolCall, text string, isError bool) ToolResultMessage 
 }
 
 // ToolChoice is the protocol-neutral tool selection of SimpleOptions, as in
-// pi-ai. The zero value leaves the choice to the provider.
+// pi-ai.
 type ToolChoice string
 
 const (
 	ToolChoiceAuto ToolChoice = "auto"
 	ToolChoiceNone ToolChoice = "none"
 )
-
-// ResponsesToolChoice is the Responses tool_choice. Exactly one of Mode and
-// Function is set.
-type ResponsesToolChoice struct {
-	// Mode is "auto", "none" or "required".
-	Mode string
-	// Function forces a call of the named function.
-	Function string
-}

@@ -1,0 +1,685 @@
+{
+ "case": "E04 OpenAI × Responses full and simple options, reasoning mapping and field presence",
+ "source": "Synthetic offline fixture. Each scenario's options are given in pi-ai's own option shape (the same JSON is decoded into barness-ai's ResponsesOptions or SimpleOptions and passed to pi). Expected bodies were captured from frozen pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) through the differential runner and checked by hand against packages/ai/src/api/openai-responses.ts buildParams / streamSimple / getPromptCacheRetention / getPromptCacheOptions, api/simple-options.ts buildBaseOptions / clampMaxTokensToContext, models.ts getSupportedThinkingLevels / clampThinkingLevel and utils/estimate.ts estimateContextTokens. The one intended difference: barness sends a prompt cache key derived from tenant, account and session (\"$derivedCacheKey\", spec §9 缓存/亲和标识) where pi sends the raw sessionId, also in the session_id and x-client-request-id headers (expect.affinity). modelPatch and modelCompat override pi's catalog model as a custom model does.",
+ "events": [
+  {"type":"response.created","sequence_number":0,"response":{"id":"resp_o","object":"response","created_at":1790000000,"status":"in_progress","model":"m","output":[],"usage":null}},
+  {"type":"response.output_item.added","sequence_number":1,"output_index":0,"item":{"id":"msg_o","type":"message","status":"in_progress","role":"assistant","content":[]}},
+  {"type":"response.output_text.delta","sequence_number":2,"item_id":"msg_o","output_index":0,"content_index":0,"delta":"Done."},
+  {"type":"response.output_item.done","sequence_number":3,"output_index":0,"item":{"id":"msg_o","type":"message","status":"completed","role":"assistant","content":[{"type":"output_text","text":"Done.","annotations":[]}]}},
+  {"type":"response.completed","sequence_number":4,"response":{"id":"resp_o","object":"response","created_at":1790000000,"status":"completed","model":"m","output":[],"usage":{"input_tokens":40,"input_tokens_details":{"cached_tokens":0},"output_tokens":2,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":42}}}
+ ],
+ "context": {
+  "systemPrompt": "You are terse.",
+  "tools": [{"name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]}}],
+  "messages": [{"role":"user","content":[{"type":"text","text":"Weather in Bern? 🌦"}]}]
+ },
+ "scenarios": [
+  {
+   "id": "full-unset",
+   "about": "no options: protocol defaults, no reasoning, no max_output_tokens, no prompt-cache fields",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-unset-off-mapped",
+   "about": "reasoning model whose thinkingLevelMap.off is \"none\": with no effort pi sends reasoning.effort none",
+   "entry": "stream",
+   "model": "gpt-5.1",
+   "options": {},
+   "expect": {
+    "body": {"model":"gpt-5.1","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"none"}},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-unset-off-null",
+   "about": "reasoning model whose thinkingLevelMap.off is null (cannot disable reasoning): no reasoning field",
+   "entry": "stream",
+   "model": "gpt-5",
+   "options": {},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-unset-no-map",
+   "about": "custom reasoning model without level mappings: off is unset, so effort falls back to \"none\"",
+   "entry": "stream",
+   "model": "gpt-5",
+   "modelPatch": {"thinkingLevelMap":{}},
+   "options": {},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"none"}},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-effort-summary",
+   "about": "effort and summary are sent with the encrypted reasoning include",
+   "entry": "stream",
+   "model": "gpt-5.1",
+   "options": {"reasoningEffort":"high","reasoningSummary":"detailed"},
+   "expect": {
+    "body": {"model":"gpt-5.1","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"high","summary":"detailed"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-effort-unmapped",
+   "about": "full effort is not clamped: a level mapped to null falls through to the level itself (thinkingLevelMap[x] ?? x)",
+   "entry": "stream",
+   "model": "gpt-5",
+   "options": {"reasoningEffort":"xhigh"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"xhigh","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-effort-remapped",
+   "about": "a level the model remaps is sent as the mapped value",
+   "entry": "stream",
+   "model": "gpt-5",
+   "modelPatch": {"thinkingLevelMap":{"off":null,"minimal":"minimal","low":"minimal","medium":"medium","high":"high","xhigh":null,"max":null}},
+   "options": {"reasoningEffort":"low"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"minimal","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-summary-only",
+   "about": "a summary without an effort asks for medium effort",
+   "entry": "stream",
+   "model": "gpt-5",
+   "options": {"reasoningSummary":"concise"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"medium","summary":"concise"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-summary-null",
+   "about": "a null summary is unset: the model's off mapping applies",
+   "entry": "stream",
+   "model": "gpt-5.1",
+   "options": {"reasoningSummary":null},
+   "expect": {
+    "body": {"model":"gpt-5.1","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"none"}},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-effort-non-reasoning",
+   "about": "reasoning options are ignored for a model without reasoning",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"reasoningEffort":"high","reasoningSummary":"auto"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-presence-null",
+   "about": "explicit null: temperature, service_tier and tool_choice are sent as null; a null maxTokens sends nothing",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"temperature":null,"maxTokens":null,"serviceTier":null,"toolChoice":null},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"temperature":null,"service_tier":null,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"tool_choice":null},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-presence-zero",
+   "about": "zero values: temperature 0 and an empty service_tier are sent; maxTokens 0 sends nothing",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"temperature":0,"maxTokens":0,"serviceTier":""},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"temperature":0,"service_tier":"","tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-values",
+   "about": "set values are sent under their wire names",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"temperature":0.7,"maxTokens":1000,"serviceTier":"flex","toolChoice":"required"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":1000,"temperature":0.7,"service_tier":"flex","tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"tool_choice":"required"},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-max-tokens-floor",
+   "about": "max_output_tokens is raised to the Responses minimum of 16",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"maxTokens":5},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":16,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-tool-choice-function",
+   "about": "tool_choice forcing one function",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"toolChoice":{"type":"function","name":"get_weather"}},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"tool_choice":{"type":"function","name":"get_weather"}},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-tool-choice-allowed",
+   "about": "tool_choice restricting the allowed functions",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"toolChoice":{"type":"allowed_tools","mode":"required","tools":[{"type":"function","name":"get_weather"}]}},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"tool_choice":{"type":"allowed_tools","mode":"required","tools":[{"type":"function","name":"get_weather"}]}},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-sampling-override",
+   "about": "samplingParams are applied last and override named fields, nulls included; the full entry does not merge the model's samplingParams",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "modelPatch": {"samplingParams":{"frequency_penalty":0.5}},
+   "options": {"temperature":0.7,"maxTokens":1000,"samplingParams":{"temperature":0.2,"max_output_tokens":50,"top_p":0.9,"top_logprobs":null}},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":50,"temperature":0.2,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"top_p":0.9,"top_logprobs":null},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-cache-session",
+   "about": "a session id gives a prompt cache key and the session affinity headers (derived per tenant and account on barness)",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"sessionId":"session-1"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"prompt_cache_key":"$derivedCacheKey","store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": true
+   }
+  },
+  {
+   "id": "full-cache-long",
+   "about": "long retention asks for 24h",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"sessionId":"session-1","cacheRetention":"long"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"prompt_cache_key":"$derivedCacheKey","prompt_cache_retention":"24h","store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": true
+   }
+  },
+  {
+   "id": "full-cache-long-no-session",
+   "about": "long retention without a session: retention only, no key or headers",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"cacheRetention":"long"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"prompt_cache_retention":"24h","store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-cache-none",
+   "about": "no retention: no cache key and no affinity headers",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "options": {"sessionId":"session-1","cacheRetention":"none"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-cache-long-unsupported",
+   "about": "a model without long retention gets no prompt_cache_retention",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "modelCompat": {"supportsStrictMode":true,"supportsLongCacheRetention":false},
+   "options": {"sessionId":"session-1","cacheRetention":"long"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"prompt_cache_key":"$derivedCacheKey","store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": true
+   }
+  },
+  {
+   "id": "full-cache-explicit-none",
+   "about": "explicit prompt cache mode: none becomes prompt_cache_options.mode explicit",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "modelCompat": {"supportsStrictMode":true,"supportsExplicitPromptCacheMode":true},
+   "options": {"sessionId":"session-1","cacheRetention":"none"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"prompt_cache_options":{"mode":"explicit"},"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "full-cache-explicit-long",
+   "about": "explicit prompt cache mode: long becomes prompt_cache_options.ttl 30m instead of prompt_cache_retention",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "modelCompat": {"supportsStrictMode":true,"supportsExplicitPromptCacheMode":true},
+   "options": {"sessionId":"session-1","cacheRetention":"long"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"prompt_cache_key":"$derivedCacheKey","prompt_cache_options":{"ttl":"30m"},"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": true
+   }
+  },
+  {
+   "id": "full-cache-explicit-short",
+   "about": "explicit prompt cache mode with the default retention: cache key only",
+   "entry": "stream",
+   "model": "gpt-4.1-mini",
+   "modelCompat": {"supportsStrictMode":true,"supportsExplicitPromptCacheMode":true},
+   "options": {"sessionId":"session-1"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"prompt_cache_key":"$derivedCacheKey","store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": true
+   }
+  },
+  {
+   "id": "simple-unset",
+   "about": "simple entry defaults maxTokens to the model's",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-unset-reasoning",
+   "about": "no reasoning level: the model's off mapping",
+   "entry": "streamSimple",
+   "model": "gpt-5.1",
+   "options": {},
+   "expect": {
+    "body": {"model":"gpt-5.1","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"none"}},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-level-minimal",
+   "about": "supported level",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "options": {"reasoning":"minimal"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"minimal","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-level-low",
+   "about": "supported level",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "options": {"reasoning":"low"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"low","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-level-medium",
+   "about": "supported level",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "options": {"reasoning":"medium"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"medium","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-level-high",
+   "about": "supported level",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "options": {"reasoning":"high"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"high","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-level-xhigh",
+   "about": "unsupported xhigh clamps down to high",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "options": {"reasoning":"xhigh"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"high","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-level-max",
+   "about": "unsupported max clamps down to high",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "options": {"reasoning":"max"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"high","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-minimal-clamped-up",
+   "about": "minimal disabled by the model clamps up to low",
+   "entry": "streamSimple",
+   "model": "gpt-5.1",
+   "options": {"reasoning":"minimal"},
+   "expect": {
+    "body": {"model":"gpt-5.1","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"low","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-xhigh-supported",
+   "about": "xhigh is supported when mapped",
+   "entry": "streamSimple",
+   "model": "gpt-5.2",
+   "options": {"reasoning":"xhigh"},
+   "expect": {
+    "body": {"model":"gpt-5.2","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"xhigh","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-max-clamped-down",
+   "about": "max clamps down to the highest supported level",
+   "entry": "streamSimple",
+   "model": "gpt-5.2",
+   "options": {"reasoning":"max"},
+   "expect": {
+    "body": {"model":"gpt-5.2","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"xhigh","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-only-high",
+   "about": "a model supporting only high clamps minimal up to it",
+   "entry": "streamSimple",
+   "model": "gpt-5-pro",
+   "options": {"reasoning":"minimal"},
+   "expect": {
+    "body": {"model":"gpt-5-pro","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"high","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-max-supported",
+   "about": "max is supported when mapped",
+   "entry": "streamSimple",
+   "model": "gpt-5.2",
+   "modelPatch": {"thinkingLevelMap":{"off":"none","minimal":null,"low":"low","medium":"medium","high":"high","xhigh":"xhigh","max":"max"}},
+   "options": {"reasoning":"max"},
+   "expect": {
+    "body": {"model":"gpt-5.2","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"max","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-remapped",
+   "about": "a supported level is sent as its mapped value",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "modelPatch": {"thinkingLevelMap":{"off":null,"minimal":"minimal","low":"minimal","medium":"medium","high":"high","xhigh":null,"max":null}},
+   "options": {"reasoning":"low"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"minimal","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-non-reasoning",
+   "about": "a model without reasoning clamps every level to off: nothing is sent",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"reasoning":"high"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-no-map",
+   "about": "without mappings xhigh and max are unsupported and the base levels are; xhigh clamps to high",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "modelPatch": {"thinkingLevelMap":{}},
+   "options": {"reasoning":"xhigh"},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"high","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-max-tokens-value",
+   "about": "caller maxTokens under the context limit",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"maxTokens":1000},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":1000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-max-tokens-zero",
+   "about": "maxTokens 0 is kept (not the model default) and then sends nothing",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"maxTokens":0},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-max-tokens-null",
+   "about": "null maxTokens takes the model default like unset",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"maxTokens":null},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-max-tokens-floor",
+   "about": "the Responses minimum of 16 applies after the context clamp",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"maxTokens":5},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":16,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-context-clamp",
+   "about": "an 8192-token context leaves contextWindow - estimate - 4096 for output; the estimate counts the system prompt, the tool JSON and UTF-16 text length",
+   "entry": "streamSimple",
+   "model": "gpt-4",
+   "options": {},
+   "expect": {
+    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":4047,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-context-clamp-usage",
+   "about": "the last successful assistant usage replaces the estimate of everything before it; later messages are estimated, an image as 4800 characters",
+   "entry": "streamSimple",
+   "model": "gpt-4",
+   "options": {"maxTokens":4000},
+   "messages": [
+    {"role":"user","content":[{"type":"text","text":"Weather in Bern?"}]},
+    {"role":"assistant","content":[{"type":"text","text":"Sunny."}],"api":"openai-responses","provider":"openai","model":"gpt-4","usage":{"input":1500,"output":500,"cacheRead":0,"cacheWrite":0,"totalTokens":2000},"stopReason":"stop","timestamp":1790000000000},
+    {"role":"user","content":[{"type":"text","text":"And tomorrow? Please include the wind speed, humidity and a short outlook."},{"type":"image","data":"iVBORw0KGgo=","mimeType":"image/png"}]}
+   ],
+   "expect": {
+    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern?"}]},{"type":"message","role":"assistant","content":[{"type":"output_text","text":"Sunny.","annotations":[]}],"status":"completed","id":"msg_pi_1"},{"role":"user","content":[{"type":"input_text","text":"And tomorrow? Please include the wind speed, humidity and a short outlook."},{"type":"input_text","text":"(image omitted: model does not support images)"}]}],"stream":true,"store":false,"max_output_tokens":877,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-context-clamp-floor",
+   "about": "no room left: the clamp keeps at least 1 token, then the Responses minimum of 16 applies; a zero totalTokens sums the usage parts",
+   "entry": "streamSimple",
+   "model": "gpt-4",
+   "options": {},
+   "messages": [
+    {"role":"user","content":[{"type":"text","text":"Weather in Bern?"}]},
+    {"role":"assistant","content":[{"type":"text","text":"Sunny."}],"api":"openai-responses","provider":"openai","model":"gpt-4","usage":{"input":7000,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0},"stopReason":"stop","timestamp":1790000000000},
+    {"role":"user","content":[{"type":"text","text":"And tomorrow?"}]}
+   ],
+   "expect": {
+    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern?"}]},{"type":"message","role":"assistant","content":[{"type":"output_text","text":"Sunny.","annotations":[]}],"status":"completed","id":"msg_pi_1"},{"role":"user","content":[{"type":"input_text","text":"And tomorrow?"}]}],"stream":true,"store":false,"max_output_tokens":16,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-context-skip-failed",
+   "about": "a failed turn's usage is not used and every message is estimated: thinking, text and tool call (name plus argument JSON) of the failed turn, and a later system message with its sections and removed tools",
+   "entry": "streamSimple",
+   "model": "gpt-4",
+   "options": {},
+   "messages": [
+    {"role":"user","content":[{"type":"text","text":"Weather in Bern?"}]},
+    {"role":"assistant","content":[{"type":"thinking","thinking":"Look it up."},{"type":"text","text":"Checking."},{"type":"toolCall","id":"call_1|fc_1","name":"get_weather","arguments":{"city":"Bern"}}],"api":"openai-responses","provider":"openai","model":"gpt-4","usage":{"input":3000,"output":10,"cacheRead":0,"cacheWrite":0,"totalTokens":3010},"stopReason":"error","errorMessage":"boom","timestamp":1790000000000},
+    {"role":"system","content":"Be brief.","sections":[{"name":"style","text":"plain"}],"toolsRemoved":["get_weather"]},
+    {"role":"user","content":[{"type":"text","text":"Again?"}]}
+   ],
+   "expect": {
+    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse.\n\nBe brief.\n\nplain"},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern?"}]},{"role":"user","content":[{"type":"input_text","text":"Again?"}]}],"stream":true,"store":false,"max_output_tokens":4024},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-no-context-window",
+   "about": "without a context window the estimate is skipped and maxTokens is at least 1, then the Responses minimum of 16 applies",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "modelPatch": {"contextWindow":0},
+   "options": {"maxTokens":0},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":16,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-no-context-window-default",
+   "about": "without a context window the model default is sent unclamped",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "modelPatch": {"contextWindow":0},
+   "options": {},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-sampling-merge",
+   "about": "call samplingParams override the model's key by key; the merged set overrides the named temperature",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "modelPatch": {"samplingParams":{"top_p":0.5,"temperature":0.1}},
+   "options": {"temperature":0.7,"samplingParams":{"top_p":0.9}},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"temperature":0.1,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"top_p":0.9},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-presence-null",
+   "about": "explicit null temperature and toolChoice are sent as null",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"temperature":null,"toolChoice":null},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"temperature":null,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"tool_choice":null},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-presence-zero",
+   "about": "temperature 0 is sent",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"temperature":0},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"temperature":0,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-tool-choice-none",
+   "about": "simple tool choice none",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"toolChoice":"none"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"tool_choice":"none"},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-metadata-ignored",
+   "about": "Responses does not send metadata; the tenant is never added to it",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"metadata":{"user_id":"user-1"}},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":32768,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-thinking-budgets-ignored",
+   "about": "thinking budgets are for token-budget protocols; Responses sends the effort only",
+   "entry": "streamSimple",
+   "model": "gpt-5",
+   "options": {"reasoning":"medium","thinkingBudgets":{"medium":4000}},
+   "expect": {
+    "body": {"model":"gpt-5","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":128000,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"reasoning":{"effort":"medium","summary":"auto"},"include":["reasoning.encrypted_content"]},
+    "affinity": false
+   }
+  },
+  {
+   "id": "simple-cache-long",
+   "about": "cache retention and session through the simple entry",
+   "entry": "streamSimple",
+   "model": "gpt-4.1-mini",
+   "options": {"sessionId":"session-1","cacheRetention":"long"},
+   "expect": {
+    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"prompt_cache_key":"$derivedCacheKey","prompt_cache_retention":"24h","store":false,"max_output_tokens":32768,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "affinity": true
+   }
+  }
+ ]
+}

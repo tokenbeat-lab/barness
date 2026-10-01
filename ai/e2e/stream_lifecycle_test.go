@@ -63,7 +63,7 @@ func TestStreamLifecycle(t *testing.T) {
 				t.Run(name, func(t *testing.T) {
 					ev, w, f := startLifecycleCase(t, "E01-interleaved-blocks-"+name, framing)
 					res := within(ev, "call finishes", func() ai.Result { return e.invoke(ev, w, f, textScope("req-interleaved-"+name)) })
-					checkLifecycleRequest(ev, w, f)
+					checkLifecycleRequest(ev, w, f, strings.Contains(e.name, "simple"))
 					checkLifecycleMessage(ev, f, res.Message)
 				})
 			}
@@ -159,7 +159,7 @@ func TestStreamLifecycle(t *testing.T) {
 				ev.Check("Result error is nil", r.err == nil, "got %v", r.err)
 				ev.Check("Err stays nil until Next returns false", s.Err() == nil, "got %v", s.Err())
 				checkLifecycleMessage(ev, f, r.res.Message)
-				checkLifecycleRequest(ev, w, f)
+				checkLifecycleRequest(ev, w, f, strings.Contains(e.name, "simple"))
 			})
 		}
 	})
@@ -271,7 +271,7 @@ func TestStreamLifecycle(t *testing.T) {
 				req.Messages = append(req.Messages, ai.UserText("appended after hand-over"))
 				hold.Release()
 				res := waitValue(ev, "call finishes", got)
-				checkLifecycleRequest(ev, w, f)
+				checkLifecycleRequest(ev, w, f, strings.Contains(e.name, "simple"))
 				checkLifecycleMessage(ev, f, res.Message)
 			})
 		}

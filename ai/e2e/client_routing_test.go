@@ -95,7 +95,7 @@ func TestClientRouting(t *testing.T) {
 		ev.Record("result", res)
 		ev.Check("call still resolves the model it was built with", err == nil, "err=%v", err)
 		checkFinalMessage(ev, f, res.Message)
-		checkTextRequest(ev, w, f, tenantA)
+		checkTextRequest(ev, w, f, tenantA, false)
 	})
 
 }

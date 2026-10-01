@@ -13,14 +13,16 @@ import (
 
 // nativeFixture is testdata/responses/native-state.json.
 type nativeFixture struct {
-	Model        string      `json:"model"`
-	OtherModel   string      `json:"otherModel"`
-	SystemPrompt string      `json:"systemPrompt"`
-	User         string      `json:"user"`
-	Tools        []ai.Tool   `json:"tools"`
-	ToolResult   string      `json:"toolResult"`
-	Redacted     ai.Thinking `json:"redacted"`
-	Round1       struct {
+	Model string `json:"model"`
+	// SimpleMaxOutputTokens is pi's simple-entry max_output_tokens.
+	SimpleMaxOutputTokens int         `json:"simpleMaxOutputTokens"`
+	OtherModel            string      `json:"otherModel"`
+	SystemPrompt          string      `json:"systemPrompt"`
+	User                  string      `json:"user"`
+	Tools                 []ai.Tool   `json:"tools"`
+	ToolResult            string      `json:"toolResult"`
+	Redacted              ai.Thinking `json:"redacted"`
+	Round1                struct {
 		Events []json.RawMessage `json:"events"`
 		Expect struct {
 			StopReason ai.StopReason `json:"stopReason"`

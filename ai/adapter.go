@@ -9,7 +9,8 @@ import (
 // to the assembler. It must reach a protocol terminal (setting the message's
 // StopReason) or return the classified failure.
 type adapter interface {
-	// simpleOptions maps protocol-neutral options onto this protocol for model.
+	// simpleOptions maps protocol-neutral options, already resolved for m
+	// (SimpleOptions.resolve), onto this protocol.
 	simpleOptions(m Model, o SimpleOptions) Options
 	// historyRules are this protocol's inputs to the history transform for m.
 	historyRules(m Model) historyRules
@@ -26,6 +27,8 @@ type adapterCall struct {
 	model    Model
 	history  transcript
 	options  Options // matches the adapter's API; nil means protocol defaults
+	// cache scopes the cache and affinity identifiers the adapter derives.
+	cache cacheScope
 }
 
 // registry is the explicit adapter table selected by Binding.API. It is built

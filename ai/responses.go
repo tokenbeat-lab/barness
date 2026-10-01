@@ -19,24 +19,15 @@ import (
 // authenticated client outlives the call.
 type responsesAdapter struct{}
 
-// simpleOptions maps the protocol-neutral options; pi passes toolChoice
-// through unchanged.
-func (responsesAdapter) simpleOptions(_ Model, o SimpleOptions) Options {
-	var full ResponsesOptions
-	if o.ToolChoice != "" {
-		full.ToolChoice = &ResponsesToolChoice{Mode: string(o.ToolChoice)}
-	}
-	return full
-}
-
 func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *Error {
 	opts, _ := ac.options.(ResponsesOptions) // nil means protocol defaults
-	body, err := buildResponsesBody(ac.model, ac.history, opts)
+	cacheKey := opts.cacheKey(ac.cache)
+	body, err := buildResponsesBody(ac.model, ac.history, opts, cacheKey)
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "request could not be encoded")
 	}
 	var res *http.Response
-	svc := responses.NewResponseService(
+	reqOpts := []option.RequestOption{
 		option.WithHTTPClient(ac.http),
 		option.WithBaseURL(ac.endpoint),
 		option.WithAPIKey(ac.apiKey.reveal()),
@@ -45,7 +36,12 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		option.WithHeader("User-Agent", userAgent),
 		option.WithRequestBody("application/json", body),
 		option.WithResponseInto(&res),
-	)
+	}
+	if cacheKey != "" {
+		// pi's OpenAI session affinity headers, carrying the derived key.
+		reqOpts = append(reqOpts, option.WithHeader("session_id", cacheKey), option.WithHeader("x-client-request-id", cacheKey))
+	}
+	svc := responses.NewResponseService(reqOpts...)
 	failures := responsesFailures{provider: ac.model.Provider, apiKey: ac.apiKey}
 	// Close releases the response body on every path; the SDK has already
 	// closed the body of an error status.

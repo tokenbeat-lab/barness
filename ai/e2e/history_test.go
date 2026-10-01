@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -56,7 +57,7 @@ func TestHistoryNormalization(t *testing.T) {
 				if !ev.Check("one inference request", len(reqs) == 1, "got %d", len(reqs)) {
 					return
 				}
-				ev.Check("wire body is pi's", jsonEqual(reqs[0].Body, sc.Expect.Body), "got %s", reqs[0].Body)
+				ev.Check("wire body is pi's", jsonEqual(reqs[0].Body, entryBody(t, sc.Expect.Body, strings.Contains(e.name, "simple"), sc.SimpleMaxOutputTokens)), "got %s", reqs[0].Body)
 				ev.Check("downgrade counts", o.result.Metadata.NativeStateDowngrades == sc.Expect.Downgrades,
 					"got %+v want %+v", o.result.Metadata.NativeStateDowngrades, sc.Expect.Downgrades)
 				after := mustMarshal(t, req)

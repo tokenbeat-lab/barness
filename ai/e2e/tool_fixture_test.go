@@ -13,11 +13,13 @@ import (
 
 // toolFixture is testdata/responses/tool-round-trip.json.
 type toolFixture struct {
-	Model        string    `json:"model"`
-	SystemPrompt string    `json:"systemPrompt"`
-	User         string    `json:"user"`
-	Tools        []ai.Tool `json:"tools"`
-	ToolChoice   struct {
+	Model string `json:"model"`
+	// SimpleMaxOutputTokens is pi's simple-entry max_output_tokens.
+	SimpleMaxOutputTokens int       `json:"simpleMaxOutputTokens"`
+	SystemPrompt          string    `json:"systemPrompt"`
+	User                  string    `json:"user"`
+	Tools                 []ai.Tool `json:"tools"`
+	ToolChoice            struct {
 		Full   string `json:"full"`
 		Simple string `json:"simple"`
 	} `json:"toolChoice"`
@@ -107,8 +109,8 @@ func (e toolEntry) invoke(ctx context.Context, w *world, f toolFixture, scope ai
 	full := ai.ResponsesOptions{}
 	simple := ai.SimpleOptions{}
 	if force {
-		full.ToolChoice = &ai.ResponsesToolChoice{Mode: f.ToolChoice.Full}
-		simple.ToolChoice = ai.ToolChoice(f.ToolChoice.Simple)
+		full.ToolChoice = ai.Value(ai.ResponsesToolChoice{Mode: f.ToolChoice.Full})
+		simple.ToolChoice = ai.Value(ai.ToolChoice(f.ToolChoice.Simple))
 	}
 	switch {
 	case e.stream && e.simple:
@@ -178,13 +180,13 @@ func toolPidiffScenario(t *testing.T, name, entry string) pidiffScenario {
 	sc.reply = f.reply(t, f.Round1.Events, provider.FramingLF, "")
 	switch {
 	case name == "tool-call-function":
-		sc.full = ai.ResponsesOptions{ToolChoice: &ai.ResponsesToolChoice{Function: "get_weather"}}
+		sc.full = ai.ResponsesOptions{ToolChoice: ai.Value(ai.ResponsesToolChoice{Function: "get_weather"})}
 		sc.piOptions = map[string]any{"toolChoice": map[string]any{"type": "function", "name": "get_weather"}}
 	case entry == "stream":
-		sc.full = ai.ResponsesOptions{ToolChoice: &ai.ResponsesToolChoice{Mode: f.ToolChoice.Full}}
+		sc.full = ai.ResponsesOptions{ToolChoice: ai.Value(ai.ResponsesToolChoice{Mode: f.ToolChoice.Full})}
 		sc.piOptions = map[string]any{"toolChoice": f.ToolChoice.Full}
 	default:
-		sc.simple = ai.SimpleOptions{ToolChoice: ai.ToolChoice(f.ToolChoice.Simple)}
+		sc.simple = ai.SimpleOptions{ToolChoice: ai.Value(ai.ToolChoice(f.ToolChoice.Simple))}
 		sc.piOptions = map[string]any{"toolChoice": f.ToolChoice.Simple}
 	}
 	return sc

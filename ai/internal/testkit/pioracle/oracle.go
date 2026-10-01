@@ -97,6 +97,10 @@ type Case struct {
 	// ModelCompat overrides compat flags of pi's catalog model, as a pi user
 	// configures a custom model. Empty keeps the catalog's flags.
 	ModelCompat json.RawMessage `json:"modelCompat,omitempty"`
+	// ModelPatch replaces other top-level fields of pi's catalog model
+	// (thinkingLevelMap, samplingParams, contextWindow, ...), as a pi user's
+	// custom model does. Empty keeps the catalog's.
+	ModelPatch json.RawMessage `json:"modelPatch,omitempty"`
 	// AbortAfterEvents > 0 aborts the call through its signal once that many
 	// events were received.
 	AbortAfterEvents int `json:"abortAfterEvents,omitempty"`
@@ -141,6 +145,55 @@ func (o *Oracle) Run(ctx context.Context, c Case) (Run, error) {
 			out.Pi.Version, out.Pi.ModelDataSHA256, o.prov.PiVersion, o.prov.ModelDataSHA256)
 	}
 	return out, nil
+}
+
+// BudgetCase is one input of pi's adjustMaxTokensForThinking. A nil
+// BaseMaxTokens is pi's undefined (no caller cap); Budgets are pi's
+// thinkingBudgets as JSON, empty for none.
+type BudgetCase struct {
+	BaseMaxTokens  *int            `json:"baseMaxTokens"`
+	ModelMaxTokens int             `json:"modelMaxTokens"`
+	Level          string          `json:"level"`
+	Budgets        json.RawMessage `json:"budgets,omitempty"`
+}
+
+// BudgetResult is pi's answer for a BudgetCase.
+type BudgetResult struct {
+	MaxTokens      int `json:"maxTokens"`
+	ThinkingBudget int `json:"thinkingBudget"`
+}
+
+// ThinkingBudgets evaluates pi's shared thinking budget rules for each case.
+// They have no wire effect on the protocols in the oracle yet, so they are
+// compared directly rather than through a request.
+func (o *Oracle) ThinkingBudgets(ctx context.Context, cases []BudgetCase) ([]BudgetResult, error) {
+	input, err := json.Marshal(map[string]any{"entry": "thinkingBudgets", "cases": cases})
+	if err != nil {
+		return nil, err
+	}
+	cmd := exec.CommandContext(ctx, o.node, "runner.mjs")
+	cmd.Dir = o.dir
+	cmd.Env = []string{}
+	cmd.Stdin = bytes.NewReader(input)
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout, cmd.Stderr = &stdout, &stderr
+	if err := cmd.Run(); err != nil {
+		return nil, fmt.Errorf("pioracle: runner failed: %w: %s", err, strings.TrimSpace(stderr.String()))
+	}
+	var out struct {
+		Pi struct {
+			Version         string `json:"version"`
+			ModelDataSHA256 string `json:"modelDataSha256"`
+		} `json:"pi"`
+		Results []BudgetResult `json:"results"`
+	}
+	if err := json.Unmarshal(stdout.Bytes(), &out); err != nil {
+		return nil, fmt.Errorf("pioracle: runner output: %w", err)
+	}
+	if out.Pi.Version != o.prov.PiVersion || out.Pi.ModelDataSHA256 != o.prov.ModelDataSHA256 {
+		return nil, fmt.Errorf("pioracle: installed pi-ai %s does not match provenance %s", out.Pi.Version, o.prov.PiVersion)
+	}
+	return out.Results, nil
 }
 
 func lockedVersions(lockfile string, names ...string) (map[string]string, error) {

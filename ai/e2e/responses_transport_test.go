@@ -74,7 +74,7 @@ func TestResponsesTransport(t *testing.T) {
 		ev.Record("result", res)
 		ev.Check("call succeeds", err == nil, "err=%v", err)
 		ev.Check("environment base URL not used", len(decoy.Requests()) == 0, "decoy got %d", len(decoy.Requests()))
-		checkTextRequest(ev, w, f, tenantA)
+		checkTextRequest(ev, w, f, tenantA, false)
 		if reqs := w.provider.Requests(); len(reqs) == 1 {
 			for _, h := range []string{"Openai-Organization", "Openai-Project", "X-Env-Leak"} {
 				_, leaked := reqs[0].Header[h]

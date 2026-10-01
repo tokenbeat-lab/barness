@@ -34,7 +34,7 @@ func TestToolRoundTrip(t *testing.T) {
 			checkToolRound(ev, "round 1", f.Round1, o1)
 			reqs := w.provider.Requests()
 			if ev.Check("round 1 sent one request", len(reqs) == 1, "got %d", len(reqs)) {
-				ev.Check("round 1 body: tools and tool_choice", jsonEqual(reqs[0].Body, withToolChoice(t, f.Round1.Expect.Body, e.toolChoice(f))),
+				ev.Check("round 1 body: tools and tool_choice", jsonEqual(reqs[0].Body, entryBody(t, withToolChoice(t, f.Round1.Expect.Body, e.toolChoice(f)), e.simple, f.SimpleMaxOutputTokens)),
 					"got %s", reqs[0].Body)
 			}
 
@@ -62,7 +62,7 @@ func TestToolRoundTrip(t *testing.T) {
 			checkToolRound(ev, "round 2", f.Round2, o2)
 			reqs = w.provider.Requests()
 			if ev.Check("two requests in all", len(reqs) == 2, "got %d", len(reqs)) {
-				ev.Check("round 2 body: replayed calls and results", jsonEqual(reqs[1].Body, f.Round2.Expect.Body), "got %s", reqs[1].Body)
+				ev.Check("round 2 body: replayed calls and results", jsonEqual(reqs[1].Body, entryBody(t, f.Round2.Expect.Body, e.simple, f.SimpleMaxOutputTokens)), "got %s", reqs[1].Body)
 				ev.Check("both rounds use the tenant's key", reqs[0].KeyAlias == tenantA.alias && reqs[1].KeyAlias == tenantA.alias,
 					"got %q %q", reqs[0].KeyAlias, reqs[1].KeyAlias)
 			}
@@ -95,7 +95,7 @@ func TestToolRoundTrip(t *testing.T) {
 		ev.Fixture("tool-round-trip.json", raw)
 		w := newWorld(t, tenantA)
 		enqueue(ev, w, f.reply(t, f.Round1.Events, provider.FramingLF, ""))
-		opts := ai.ResponsesOptions{ToolChoice: &ai.ResponsesToolChoice{Function: "get_weather"}}
+		opts := ai.ResponsesOptions{ToolChoice: ai.Value(ai.ResponsesToolChoice{Function: "get_weather"})}
 		o := within(ev, "call ends", func() outcome {
 			return drain(w.client.Stream(ctxFor(t), textScope("req-tools-function"), f.target(), f.request(), opts))
 		})

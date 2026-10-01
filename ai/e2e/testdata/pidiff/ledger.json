@@ -220,17 +220,25 @@
       "protocol": "openai-responses",
       "path": "request.body.max_output_tokens",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "pi's simple entry defaults maxTokens from the model (buildBaseOptions), so streamSimple sends max_output_tokens=32768 for gpt-4.1-mini; barness SimpleOptions mapping is not implemented.",
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-01 (issue 09): the simple entry resolves maxTokens as pi's buildBaseOptions (unset or null takes the model maximum, clamped to contextWindow minus the estimated input minus 4096, at least 1) and Responses sends it raised to 16. Was: barness sent no max_output_tokens on the simple entry.",
       "ref": "issues/09"
     },
     {
       "protocol": "openai-responses",
       "path": "request.headers.Content-Length",
       "kind": "changed",
-      "classification": "pending",
-      "decision": "Derived from the request body; differs only while request.body differs (currently max_output_tokens on the simple entry).",
-      "ref": "issues/09"
+      "classification": "extension",
+      "decision": "Derived from the request body. In these cases the body differs only by the derived prompt cache key (64 characters where pi sends the raw session id); see request.body.prompt_cache_key. Any other Content-Length difference stays pending.",
+      "ref": "spec §9; issues/09",
+      "cases": [
+        "PIDIFF-P01-E04-options-full-cache-session-stream",
+        "PIDIFF-P01-E04-options-full-cache-long-stream",
+        "PIDIFF-P01-E04-options-full-cache-long-unsupported-stream",
+        "PIDIFF-P01-E04-options-full-cache-explicit-long-stream",
+        "PIDIFF-P01-E04-options-full-cache-explicit-short-stream",
+        "PIDIFF-P01-E04-options-simple-cache-long-streamSimple"
+      ]
     },
     {
       "protocol": "openai-responses",
@@ -359,6 +367,30 @@
       "classification": "extension",
       "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量): barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent rather than from the display parse. pi keeps the same text only as its transient `partialJson` scratch buffer while a call streams: deleted at output_item.done and on error, but left on an unclosed call of a length-truncated message. Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
       "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.body.prompt_cache_key",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec §9: 模块构造的缓存/亲和标识按租户和账户作用域派生，不直接传裸 session ID 或 TenantID). pi sends the caller's sessionId as is; barness sends a key derived from tenant, vendor account and session (SHA-256, 64 hex characters), under the same conditions (a session id and retention other than none). Asserted by the offline E2E TestOptions (key shape, headers carry the same key) and TestCacheKeyScope (stable per tenant, account and session; differs across tenants and accounts; never the raw id).",
+      "ref": "spec §9; issues/09; ai/options.go cacheScope"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.headers.Session_id",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec §9: 模块构造的缓存/亲和标识按租户和账户作用域派生，不直接传裸 session ID 或 TenantID). pi sends the caller's sessionId as is; barness sends a key derived from tenant, vendor account and session (SHA-256, 64 hex characters), under the same conditions (a session id and retention other than none). Asserted by the offline E2E TestOptions (key shape, headers carry the same key) and TestCacheKeyScope (stable per tenant, account and session; differs across tenants and accounts; never the raw id).",
+      "ref": "spec §9; issues/09; ai/options.go cacheScope"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.headers.X-Client-Request-Id",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec §9: 模块构造的缓存/亲和标识按租户和账户作用域派生，不直接传裸 session ID 或 TenantID). pi sends the caller's sessionId as is; barness sends a key derived from tenant, vendor account and session (SHA-256, 64 hex characters), under the same conditions (a session id and retention other than none). Asserted by the offline E2E TestOptions (key shape, headers carry the same key) and TestCacheKeyScope (stable per tenant, account and session; differs across tenants and accounts; never the raw id).",
+      "ref": "spec §9; issues/09; ai/options.go cacheScope"
     }
   ]
 }

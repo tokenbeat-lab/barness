@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
@@ -27,7 +28,7 @@ func TestResponsesText(t *testing.T) {
 				res.Message.Timestamp >= before && res.Message.Timestamp <= after,
 				"got %d, want within [%d, %d]", res.Message.Timestamp, before, after)
 			checkMetadata(ev, res.Metadata, scope, f)
-			checkTextRequest(ev, w, f, tenantA)
+			checkTextRequest(ev, w, f, tenantA, strings.Contains(e.name, "simple"))
 		})
 	}
 
@@ -39,7 +40,7 @@ func TestResponsesText(t *testing.T) {
 			s := w.client.Stream(ctxFor(t), scope, textTarget(f), textRequest(f), nil)
 			res := checkStreamedText(ev, f, s)
 			checkMetadata(ev, res.Metadata, scope, f)
-			checkTextRequest(ev, w, f, tenantA)
+			checkTextRequest(ev, w, f, tenantA, false)
 		})
 	}
 
@@ -245,8 +246,9 @@ func checkFinalMessage(ev *evidence.Case, f textFixture, m ai.AssistantMessage) 
 	ev.Check("text signature", ok && text.Signature == f.Expect.TextSignature, "got %q", text.Signature)
 }
 
-// checkTextRequest asserts the single inference request the provider received.
-func checkTextRequest(ev *evidence.Case, w *world, f textFixture, key tenantKey) {
+// checkTextRequest asserts the single inference request the provider received
+// from a call without options on the full (simple false) or simple entry.
+func checkTextRequest(ev *evidence.Case, w *world, f textFixture, key tenantKey, simple bool) {
 	reqs := w.provider.Requests()
 	ev.Record("requests", reqs)
 	if !ev.Check("exactly one inference request", len(reqs) == 1, "got %d", len(reqs)) {
@@ -261,5 +263,6 @@ func checkTextRequest(ev *evidence.Case, w *world, f textFixture, key tenantKey)
 	// barness-ai identifies itself, without host OS details (maintainer
 	// decision 2026-10-01, ledger request.headers.User-Agent).
 	ev.Check("user agent", r.Header["User-Agent"] == "barness-ai", "got %q", r.Header["User-Agent"])
-	ev.Check("request body", jsonEqual(r.Body, want.Body), "got %s\nwant %s", r.Body, want.Body)
+	body := entryBody(ev.T(), want.Body, simple, f.SimpleMaxOutputTokens)
+	ev.Check("request body", jsonEqual(r.Body, body), "got %s\nwant %s", r.Body, body)
 }

@@ -47,54 +47,6 @@ func (r Request) clone() Request {
 	return out
 }
 
-// Options are the complete, protocol-specific options for the full entry
-// points (Stream, Complete). Each implementation belongs to exactly one API
-// and must match the binding's API. A nil Options means protocol defaults.
-type Options interface {
-	api() API
-	// validate reports why the options are unusable, or "".
-	validate() string
-}
-
-// ResponsesOptions are the full options for the OpenAI Responses protocol.
-// The remaining fields arrive with ticket 09; the type already fixes the seam
-// so the full entry points cannot be called with another protocol's options.
-type ResponsesOptions struct {
-	// ToolChoice is tool_choice; nil leaves it to the provider.
-	ToolChoice *ResponsesToolChoice
-}
-
-func (ResponsesOptions) api() API { return APIOpenAIResponses }
-
-func (o ResponsesOptions) validate() string {
-	c := o.ToolChoice
-	switch {
-	case c == nil:
-		return ""
-	case c.Function != "" && c.Mode != "":
-		return "tool choice sets both a mode and a function"
-	case c.Function != "" || c.Mode == "auto" || c.Mode == "none" || c.Mode == "required":
-		return ""
-	}
-	return "tool choice mode must be auto, none or required"
-}
-
-// SimpleOptions are the protocol-neutral options for StreamSimple and
-// CompleteSimple, mapped per model onto the binding's protocol. The remaining
-// fields arrive with ticket 09.
-type SimpleOptions struct {
-	// ToolChoice selects auto or no tool use; empty leaves it to the provider.
-	ToolChoice ToolChoice
-}
-
-func (o SimpleOptions) validate() string {
-	switch o.ToolChoice {
-	case "", ToolChoiceAuto, ToolChoiceNone:
-		return ""
-	}
-	return "tool choice must be auto or none"
-}
-
 // validate checks the request's structure: every tool needs a unique name and
 // a JSON object schema, as the wire protocols require; every message and
 // block must be set; a system message's changes must be expressible in pi-ai's

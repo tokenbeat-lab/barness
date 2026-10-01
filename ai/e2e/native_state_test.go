@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -151,7 +152,7 @@ func TestNativeStateReplay(t *testing.T) {
 					"got %+v want %+v", o.result.Metadata.NativeStateDowngrades, sc.want)
 				reqs := w.provider.Requests()
 				last := reqs[len(reqs)-1]
-				ev.Check("round 2 wire body", jsonEqual(last.Body, sc.body), "got %s", last.Body)
+				ev.Check("round 2 wire body", jsonEqual(last.Body, entryBody(t, sc.body, strings.Contains(e.name, "simple"), f.SimpleMaxOutputTokens)), "got %s", last.Body)
 				ev.Check("round 2 uses the calling tenant's current key", last.KeyAlias == k.alias, "got %q want %q", last.KeyAlias, k.alias)
 				ev.Check("the caller's history is unchanged", string(persist(t, req.Messages[1].(ai.AssistantMessage))) == string(before), "")
 				ev.Check("downgrade counts stay out of the pi-compatible message", !jsonHasKey(t, mustMarshal(t, m), "nativeStateDowngrades"), "")
