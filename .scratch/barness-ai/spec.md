@@ -229,7 +229,7 @@ onResponse 读取 HTTP status/headers 和模型信息，不接收或替换最终
 
 准入在每次尝试前获取许可并在结束/取消时释放；内置策略只覆盖单租户与全进程并发，只保证本进程边界。准入接口参数包含 TenantID 与 AccountScopeID；按厂商账户聚合的准入不内置，由宿主注入实现。宿主可注入分布式准入，但跨实例配额、硬费用预算预约与最终对账由宿主实现。租户与 AccountScopeID 分别用于资源归属和厂商账户聚合，不把 API key 当作账户身份。
 
-错误至少区分 invalid_request、tenant_denied、binding_not_found、credential_unavailable、admission_denied、upstream_auth、rate_limited、transport、protocol、canceled、deadline_exceeded、resource_limit，并保留发生阶段、可安全公开的 HTTP status、厂商 request ID 和 Retry-After。错误分类不替换消息停止原因；基线 errorMessage 涉及秘密时必须脱敏并登记安全差异。
+错误至少区分 invalid_request、tenant_denied、binding_not_found、credential_unavailable、admission_denied、upstream_auth、rate_limited、upstream_error、transport、protocol、canceled、deadline_exceeded、resource_limit，并保留发生阶段、可安全公开的 HTTP status、厂商 request ID 和 Retry-After。错误分类不替换消息停止原因；基线 errorMessage 涉及秘密时必须脱敏并登记安全差异。
 
 Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished；调用级记录关联 TenantID/RequestID，实际尝试额外关联 AttemptID，预检失败不伪造 HTTP 尝试。记录已解析的 BindingID、AccountScopeID、配置/凭据版本、真实 Provider/API/model、时间、厂商 request ID、错误类别及已知 usage；ActorID/JobID 在提供时保留，无效身份的拒绝事件不能假装属于已授权租户。
 

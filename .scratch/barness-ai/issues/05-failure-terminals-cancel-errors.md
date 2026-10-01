@@ -33,6 +33,6 @@
 **2026-10-01 — review follow-up** (two-axis code review):
 
 - Fixed: the redaction pattern lacked a word boundary and mangled words like `task-runner`. It is now `\bsk-…`, guarded by the 429 scenario, whose text matches pi exactly. 408/409 are `upstream_error` (the baseline retries them), with an `http-409` scenario. The canceled/deadline choice is one helper (`interrupted`) shared by setup and adapter. `statusCode` is renamed `codeForStatus`, and the unbounded error-body read now states its risk and removal condition.
-- Open, needs maintainer confirmation: the new public code `upstream_error`. The spec list is "至少", but this is a new stable classification.
+- Approved by maintainer 2026-10-01: the new public code `upstream_error` (provider-reported failures: HTTP 5xx/408/409, in-stream error, response.failed, non-length incomplete). Added to the spec §9 code list.
 - Kept for pi parity: a `response.failed` response's usage is not taken over. This matches pi (differential-equal), though spec §8's wording "保留…usage" could be read otherwise. An HTTP-date `retry-after` reports `RetryAfter` 0 until ticket 11's clock lands.
 - Accepted as is: the small test-helper duplication (close-after-N in the differential vs. `drainClosingAfter`; the differential needs per-event projection at receipt).
