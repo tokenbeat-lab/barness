@@ -45,8 +45,8 @@ func TestResponsesText(t *testing.T) {
 
 	t.Run("stream-returns-before-resolution", func(t *testing.T) {
 		ev, w, f := startTextCase(t, "P01-E01-stream-returns-before-resolution", provider.FramingLF)
-		release := w.host.HoldBindings()
-		defer release()
+		hold := w.host.HoldBindings()
+		defer hold.Release()
 		scope := textScope("req-stream-early")
 
 		returned := make(chan *ai.Stream, 1)
@@ -61,7 +61,7 @@ func TestResponsesText(t *testing.T) {
 			return
 		}
 		ev.Check("no provider request before resolution", len(w.provider.Requests()) == 0, "got %d", len(w.provider.Requests()))
-		release()
+		hold.Release()
 		checkStreamedText(ev, f, s)
 	})
 }
@@ -169,6 +169,12 @@ func eventSummary(events []ai.Event) []string {
 			out = append(out, fmt.Sprintf("text_delta#%d:%s", e.ContentIndex, e.Delta))
 		case ai.TextEndEvent:
 			out = append(out, fmt.Sprintf("text_end#%d:%s", e.ContentIndex, e.Content))
+		case ai.ThinkingStartEvent:
+			out = append(out, fmt.Sprintf("thinking_start#%d", e.ContentIndex))
+		case ai.ThinkingDeltaEvent:
+			out = append(out, fmt.Sprintf("thinking_delta#%d:%s", e.ContentIndex, e.Delta))
+		case ai.ThinkingEndEvent:
+			out = append(out, fmt.Sprintf("thinking_end#%d:%s", e.ContentIndex, e.Content))
 		case ai.DoneEvent:
 			out = append(out, "done:"+string(e.Reason))
 		case ai.ErrorEvent:

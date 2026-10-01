@@ -2,11 +2,19 @@ package ai
 
 // assembler is the single production and merge process behind every entry
 // point. Adapters report normalized protocol progress to it; it maintains the
-// assistant message and publishes events. Stream gives it a sink; Complete
-// gives it none, so no event is ever queued for a caller that will not read it.
+// assistant message in the call's PartialView and publishes events. Stream
+// gives it a sink; Complete gives it none, so no event is ever queued for a
+// caller that will not read it.
 type assembler struct {
-	msg  AssistantMessage
+	view *PartialView
 	emit func(Event) // nil for Complete
+}
+
+func newAssembler(timestamp int64, emit func(Event)) *assembler {
+	return &assembler{
+		view: newPartialView(AssistantMessage{StopReason: StopReasonPending, Timestamp: timestamp}),
+		emit: emit,
+	}
 }
 
 func (a *assembler) publish(e Event) {
@@ -17,53 +25,102 @@ func (a *assembler) publish(e Event) {
 
 // identify records what actually serves the call, once resolved.
 func (a *assembler) identify(api API, provider ProviderID, model string) {
-	a.msg.API, a.msg.Provider, a.msg.Model = api, provider, model
+	a.view.update(func(m *AssistantMessage) { m.API, m.Provider, m.Model = api, provider, model })
 }
 
-func (a *assembler) start() { a.publish(StartEvent{}) }
+func (a *assembler) start() { a.publish(StartEvent{Partial: a.view}) }
 
-func (a *assembler) responseID(id string) { a.msg.ResponseID = id }
+func (a *assembler) responseID(id string) {
+	a.view.update(func(m *AssistantMessage) { m.ResponseID = id })
+}
 
-func (a *assembler) usage(u Usage) { a.msg.Usage = u }
+func (a *assembler) usage(u Usage) {
+	a.view.update(func(m *AssistantMessage) { m.Usage = u })
+}
 
 // stop records a successful protocol terminal's stop reason. Failed
 // terminals are returned by the adapter as an *Error instead.
-func (a *assembler) stop(reason StopReason) { a.msg.StopReason = reason }
+func (a *assembler) stop(reason StopReason) {
+	a.view.update(func(m *AssistantMessage) { m.StopReason = reason })
+}
+
+// open appends a new block and returns its content index, which never changes
+// however other blocks interleave.
+func (a *assembler) open(block AssistantContent) (i int) {
+	a.view.update(func(m *AssistantMessage) {
+		m.Content = append(m.Content, block)
+		i = len(m.Content) - 1
+	})
+	return i
+}
 
 func (a *assembler) textStart() int {
-	a.msg.Content = append(a.msg.Content, Text{})
-	i := len(a.msg.Content) - 1
-	a.publish(TextStartEvent{ContentIndex: i})
+	i := a.open(Text{})
+	a.publish(TextStartEvent{ContentIndex: i, Partial: a.view})
 	return i
 }
 
 func (a *assembler) textDelta(i int, delta string) {
-	t := a.msg.Content[i].(Text)
-	t.Text += delta
-	a.msg.Content[i] = t
-	a.publish(TextDeltaEvent{ContentIndex: i, Delta: delta})
+	a.view.update(func(m *AssistantMessage) {
+		t := m.Content[i].(Text)
+		t.Text += delta
+		m.Content[i] = t
+	})
+	a.publish(TextDeltaEvent{ContentIndex: i, Delta: delta, Partial: a.view})
 }
 
 func (a *assembler) textEnd(i int, text, signature string) {
-	a.msg.Content[i] = Text{Text: text, Signature: signature}
-	a.publish(TextEndEvent{ContentIndex: i, Content: text})
+	a.view.update(func(m *AssistantMessage) { m.Content[i] = Text{Text: text, Signature: signature} })
+	a.publish(TextEndEvent{ContentIndex: i, Content: text, Partial: a.view})
 }
 
-// finish publishes the single terminal event and returns the call's result.
-// A nil failure means the adapter reached a successful protocol terminal.
+func (a *assembler) thinkingStart() int {
+	i := a.open(Thinking{})
+	a.publish(ThinkingStartEvent{ContentIndex: i, Partial: a.view})
+	return i
+}
+
+func (a *assembler) thinkingDelta(i int, delta string) {
+	a.view.update(func(m *AssistantMessage) {
+		t := m.Content[i].(Thinking)
+		t.Thinking += delta
+		m.Content[i] = t
+	})
+	a.publish(ThinkingDeltaEvent{ContentIndex: i, Delta: delta, Partial: a.view})
+}
+
+// thinkingText is the thinking streamed into block i so far.
+func (a *assembler) thinkingText(i int) (text string) {
+	a.view.read(func(m *AssistantMessage) { text = m.Content[i].(Thinking).Thinking })
+	return text
+}
+
+func (a *assembler) thinkingEnd(i int, thinking, signature string) {
+	a.view.update(func(m *AssistantMessage) { m.Content[i] = Thinking{Thinking: thinking, Signature: signature} })
+	a.publish(ThinkingEndEvent{ContentIndex: i, Content: thinking, Partial: a.view})
+}
+
+// finish settles the message, publishes the single terminal event and returns
+// the call's result. A nil failure means the adapter reached a successful
+// protocol terminal. After finish the view never changes again.
 func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
+	var final AssistantMessage
+	a.view.update(func(m *AssistantMessage) {
+		if failure != nil {
+			m.StopReason = StopReasonError
+			if failure.aborts() {
+				m.StopReason = StopReasonAborted
+			}
+			m.ErrorMessage = failure.Message
+		}
+		final = m.clone()
+	})
+	res := Result{Message: final, Metadata: meta}
 	if failure == nil {
-		res := Result{Message: a.msg.clone(), Metadata: meta}
-		a.publish(DoneEvent{Reason: a.msg.StopReason, Message: a.msg.clone()})
+		a.publish(DoneEvent{Reason: final.StopReason, Message: final.clone()})
 		return res, nil
 	}
-	a.msg.StopReason = StopReasonError
-	if failure.aborts() {
-		a.msg.StopReason = StopReasonAborted
-	}
-	a.msg.ErrorMessage = failure.Message
-	res := Result{Message: a.msg.clone(), Metadata: meta}
-	a.publish(ErrorEvent{Reason: a.msg.StopReason, Message: a.msg.clone(), Err: failure})
+	a.publish(ErrorEvent{Reason: final.StopReason, Message: final.clone(), Err: failure})
 	return res, failure
 }
 

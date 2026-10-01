@@ -27,15 +27,42 @@ import (
 func TestPiDifferential(t *testing.T) {
 	ledger := loadLedger(t)
 	t.Run(string(ai.APIOpenAIResponses), func(t *testing.T) {
-		for _, entry := range []string{"stream", "streamSimple"} {
-			t.Run(entry, func(t *testing.T) {
-				ev := run.Case(t, "PIDIFF-P01-E01-text-"+entry)
-				ev.ReplayEnv(pioracle.EnableEnv + "=1")
-				o := openOracle(t)
-				differentialText(t, ev, o, ledger, entry)
-			})
+		for _, scenario := range []string{"text", "interleaved"} {
+			for _, entry := range []string{"stream", "streamSimple"} {
+				t.Run(scenario+"/"+entry, func(t *testing.T) {
+					ev := run.Case(t, "PIDIFF-P01-E01-"+scenario+"-"+entry)
+					ev.ReplayEnv(pioracle.EnableEnv + "=1")
+					o := openOracle(t)
+					differential(t, ev, o, ledger, entry, loadPidiffScenario(t, scenario))
+				})
+			}
 		}
 	})
+}
+
+// pidiffScenario is one E2E scenario's logical input and response script.
+type pidiffScenario struct {
+	fixture string
+	raw     []byte
+	model   string
+	events  []json.RawMessage
+	req     ai.Request
+}
+
+// loadPidiffScenario reuses the offline E2E fixtures: P01 plain text
+// (TestResponsesText) and E01 interleaved blocks (TestStreamLifecycle).
+func loadPidiffScenario(t *testing.T, name string) pidiffScenario {
+	t.Helper()
+	switch name {
+	case "text":
+		f, raw := loadTextFixture(t, "text-basic.json")
+		return pidiffScenario{"text-basic.json", raw, f.Model, f.Events, textRequest(f)}
+	case "interleaved":
+		f, raw := loadLifecycleFixture(t)
+		return pidiffScenario{"interleaved-blocks.json", raw, f.Model, f.Events, lifecycleRequest(f)}
+	}
+	t.Fatalf("unknown pidiff scenario %q", name)
+	return pidiffScenario{}
 }
 
 func openOracle(t *testing.T) *pioracle.Oracle {
@@ -64,23 +91,22 @@ func loadLedger(t *testing.T) pioracle.Ledger {
 	return l
 }
 
-// differentialText runs the P01 plain-text scenario (text-basic.json, as in
-// TestResponsesText) on both sides and judges the difference.
-func differentialText(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pioracle.Ledger, entry string) {
-	f, raw := loadTextFixture(t, "text-basic.json")
-	ev.Fixture("fixture.json", raw)
-	reply := sseReply(t, f, provider.FramingLF)
+// differential runs one scenario on both sides and judges the difference.
+func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pioracle.Ledger, entry string, sc pidiffScenario) {
+	ev.Fixture(sc.fixture, sc.raw)
+	reply := sseEvents(t, sc.events, provider.FramingLF)
 	ev.Record("response-script", reply)
-	req := textRequest(f)
+	req := sc.req
+	target := ai.Target{BindingID: "primary", ModelID: sc.model}
 
 	// barness-ai through the public Client.
 	w := newWorld(t, tenantA)
 	w.provider.Enqueue(reply)
 	var s *ai.Stream
 	if entry == "stream" {
-		s = w.client.Stream(ctxFor(t), textScope("req-pidiff-"+entry), textTarget(f), req, nil)
+		s = w.client.Stream(ctxFor(t), textScope("req-pidiff-"+entry), target, req, nil)
 	} else {
-		s = w.client.StreamSimple(ctxFor(t), textScope("req-pidiff-"+entry), textTarget(f), req, ai.SimpleOptions{})
+		s = w.client.StreamSimple(ctxFor(t), textScope("req-pidiff-"+entry), target, req, ai.SimpleOptions{})
 	}
 	barness, barnessReq := barnessObservation(t, ev, w, s)
 
@@ -91,7 +117,7 @@ func differentialText(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledge
 	piRun, err := o.Run(ctxFor(t), pioracle.Case{
 		API:      string(ai.APIOpenAIResponses),
 		Provider: string(ai.ProviderOpenAI),
-		Model:    f.Model,
+		Model:    sc.model,
 		BaseURL:  srv.URL() + "/v1",
 		APIKey:   tenantA.secret,
 		Entry:    entry,
@@ -127,9 +153,9 @@ func differentialText(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledge
 	ev.Record("pidiff", rec)
 
 	var pending []string
-	for _, f := range verdict.Findings {
-		if f.Classification == pioracle.Pending {
-			pending = append(pending, fmt.Sprintf("%s %s (%s)", f.Kind, f.Path, f.Decision))
+	for _, finding := range verdict.Findings {
+		if finding.Classification == pioracle.Pending {
+			pending = append(pending, fmt.Sprintf("%s %s (%s)", finding.Kind, finding.Path, finding.Decision))
 		}
 	}
 	ev.Check("differential gate: no pending differences", verdict.Pass, "%d pending:\n  %s", len(pending), strings.Join(pending, "\n  "))
@@ -202,20 +228,35 @@ func piContext(t *testing.T, req ai.Request) json.RawMessage {
 	return mustMarshal(t, ctx)
 }
 
-// piEvent is a barness event in pi-ai's event shape. Barness-only extensions
-// (ErrorEvent.Err with Code/Phase) are not part of the pi golden (spec §5) and
-// are asserted by the offline E2E instead. An event kind without a mapping
-// shows up as a difference rather than being dropped.
+// piEvent is a barness event in pi-ai's event shape, taken when the consumer
+// receives it. Like the pi runner, which serializes each event as received, the
+// live partial becomes a snapshot of the view at that moment. Barness-only
+// extensions (ErrorEvent.Err with Code/Phase) are not part of the pi golden
+// (spec §5) and are asserted by the offline E2E instead. An event kind without
+// a mapping shows up as a difference rather than being dropped.
 func piEvent(t *testing.T, e ai.Event) map[string]any {
+	block := func(typ string, index int, partial *ai.PartialView, fields ...any) map[string]any {
+		out := map[string]any{"type": typ, "contentIndex": index, "partial": piMessage(t, partial.Snapshot())}
+		for i := 0; i < len(fields); i += 2 {
+			out[fields[i].(string)] = fields[i+1]
+		}
+		return out
+	}
 	switch e := e.(type) {
 	case ai.StartEvent:
-		return map[string]any{"type": "start"}
+		return map[string]any{"type": "start", "partial": piMessage(t, e.Partial.Snapshot())}
 	case ai.TextStartEvent:
-		return map[string]any{"type": "text_start", "contentIndex": e.ContentIndex}
+		return block("text_start", e.ContentIndex, e.Partial)
 	case ai.TextDeltaEvent:
-		return map[string]any{"type": "text_delta", "contentIndex": e.ContentIndex, "delta": e.Delta}
+		return block("text_delta", e.ContentIndex, e.Partial, "delta", e.Delta)
 	case ai.TextEndEvent:
-		return map[string]any{"type": "text_end", "contentIndex": e.ContentIndex, "content": e.Content}
+		return block("text_end", e.ContentIndex, e.Partial, "content", e.Content)
+	case ai.ThinkingStartEvent:
+		return block("thinking_start", e.ContentIndex, e.Partial)
+	case ai.ThinkingDeltaEvent:
+		return block("thinking_delta", e.ContentIndex, e.Partial, "delta", e.Delta)
+	case ai.ThinkingEndEvent:
+		return block("thinking_end", e.ContentIndex, e.Partial, "content", e.Content)
 	case ai.DoneEvent:
 		return map[string]any{"type": "done", "reason": e.Reason, "message": piMessage(t, e.Message)}
 	case ai.ErrorEvent:
@@ -238,6 +279,8 @@ func piMessage(t *testing.T, m ai.AssistantMessage) map[string]any {
 		switch c.(type) {
 		case ai.Text:
 			block["type"] = "text"
+		case ai.Thinking:
+			block["type"] = "thinking"
 		default:
 			block["type"] = fmt.Sprintf("barness-unmapped:%T", c)
 		}

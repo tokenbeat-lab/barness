@@ -98,19 +98,6 @@ func TestClientRouting(t *testing.T) {
 		checkTextRequest(ev, w, f, tenantA)
 	})
 
-	t.Run("request-copied-on-receipt", func(t *testing.T) {
-		ev, w, f := startHardeningCase(t, "P01-E01-request-copied-on-receipt")
-		enqueue(ev, w, sseReply(t, f, provider.FramingLF))
-		release := w.host.HoldBindings()
-		req := textRequest(f)
-		s := w.client.Stream(ctxFor(t), textScope("req-copy"), textTarget(f), req, nil)
-		// Mutate the caller's request while the call is still resolving.
-		req.Messages[0].(ai.UserMessage).Content[0] = ai.Text{Text: "mutated after hand-over"}
-		req.Messages[0] = ai.UserText("replaced after hand-over")
-		release()
-		checkStreamedText(ev, f, s)
-		checkTextRequest(ev, w, f, tenantA)
-	})
 }
 
 func textOf(m ai.AssistantMessage) string {

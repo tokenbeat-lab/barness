@@ -3,6 +3,8 @@ package ai
 import (
 	"errors"
 	"net/http"
+
+	"github.com/tokenbeat-lab/barness/ai/internal/probe"
 )
 
 // ErrInvalidConfig matches every Client construction error.
@@ -37,6 +39,10 @@ type Config struct {
 	// plain-http loopback endpoint such as a local controlled Provider. Without
 	// it every binding endpoint must be https (spec I3).
 	AllowLoopbackHTTP bool
+	// Probe is for barness-ai's own acceptance tests, which observe internal
+	// resource gauges through it. Its type is internal, so hosts cannot
+	// construct one and leave it nil.
+	Probe *probe.Probe
 }
 
 // Client is the single trusted entry point for credential-dependent provider
@@ -52,6 +58,7 @@ type Client struct {
 	adapters    map[API]adapter
 	http        *http.Client
 	loopback    bool
+	probe       *probe.Probe // nil outside acceptance tests
 }
 
 // NewClient validates cfg and builds a Client.
@@ -77,5 +84,6 @@ func NewClient(cfg Config) (*Client, error) {
 		adapters:    registry(),
 		http:        newHTTPClient(cfg.Transport),
 		loopback:    cfg.AllowLoopbackHTTP,
+		probe:       cfg.Probe,
 	}, nil
 }

@@ -38,7 +38,7 @@ type Host struct {
 	bindings    map[bindingKey]ai.Binding
 	credentials map[credentialKey]ai.Credential
 	actors      map[bindingKey][]string
-	gate        chan struct{}
+	hold        *Hold
 	credFailure error
 	beforeCred  func()
 	reads       map[string]*Reads
@@ -130,15 +130,28 @@ func (h *Host) ReadsFor(requestID string) Reads {
 	return Reads{}
 }
 
-// HoldBindings makes ResolveBinding block until the returned release func is
-// called (or the call's context ends), standing in for a slow host backend.
-func (h *Host) HoldBindings() (release func()) {
-	gate := make(chan struct{})
+// Hold is a barrier on binding resolution, standing in for a slow host
+// backend: every ResolveBinding blocks until Release (or the call's context
+// ends).
+type Hold struct {
+	gate, entered      chan struct{}
+	release, enterOnce sync.Once
+}
+
+// Entered is closed once a call is blocked in ResolveBinding, so a test knows
+// the call is verifiably mid-resolution without sleeping.
+func (h *Hold) Entered() <-chan struct{} { return h.entered }
+
+// Release unblocks every held and future resolution. It is idempotent.
+func (h *Hold) Release() { h.release.Do(func() { close(h.gate) }) }
+
+// HoldBindings installs a Hold on ResolveBinding.
+func (h *Host) HoldBindings() *Hold {
+	hold := &Hold{gate: make(chan struct{}), entered: make(chan struct{})}
 	h.mu.Lock()
-	h.gate = gate
+	h.hold = hold
 	h.mu.Unlock()
-	var once sync.Once
-	return func() { once.Do(func() { close(gate) }) }
+	return hold
 }
 
 func (h *Host) countLocked(requestID string) *Reads {
@@ -154,11 +167,12 @@ func (h *Host) countLocked(requestID string) *Reads {
 func (h *Host) ResolveBinding(ctx context.Context, scope ai.CallScope, bindingID string) (ai.Binding, error) {
 	h.mu.Lock()
 	h.countLocked(scope.RequestID).Bindings++
-	gate := h.gate
+	hold := h.hold
 	h.mu.Unlock()
-	if gate != nil {
+	if hold != nil {
+		hold.enterOnce.Do(func() { close(hold.entered) })
 		select {
-		case <-gate:
+		case <-hold.gate:
 		case <-ctx.Done():
 			return ai.Binding{}, ctx.Err()
 		}

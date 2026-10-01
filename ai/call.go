@@ -25,7 +25,7 @@ func newCall(scope CallScope, target Target, req Request, full Options, simple *
 // run executes a call to its terminal and returns the result. emit receives
 // every event when the caller streams; it is nil for Complete.
 func (c *Client) run(ctx context.Context, cl call, emit func(Event)) (Result, error) {
-	asm := &assembler{msg: AssistantMessage{Timestamp: time.Now().UnixMilli()}, emit: emit}
+	asm := newAssembler(time.Now().UnixMilli(), emit)
 	meta := CallMetadata{
 		TenantID:  cl.scope.TenantID,
 		RequestID: cl.scope.RequestID,

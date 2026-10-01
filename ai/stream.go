@@ -3,6 +3,8 @@ package ai
 import (
 	"context"
 	"sync"
+
+	"github.com/tokenbeat-lab/barness/ai/internal/probe"
 )
 
 // Stream is one call's event stream. It is returned before any resolution or
@@ -16,6 +18,7 @@ import (
 // that only need the final message should use Complete, which queues nothing.
 type Stream struct {
 	cancel context.CancelFunc
+	probe  *probe.Probe
 	done   chan struct{} // closed once result and err are final
 	wake   chan struct{} // capacity 1; signals the consumer
 
@@ -41,7 +44,7 @@ func (c *Client) StreamSimple(ctx context.Context, scope CallScope, target Targe
 
 func (c *Client) startStream(ctx context.Context, cl call) *Stream {
 	ctx, cancel := context.WithCancel(ctx)
-	s := &Stream{cancel: cancel, done: make(chan struct{}), wake: make(chan struct{}, 1)}
+	s := &Stream{cancel: cancel, probe: c.probe, done: make(chan struct{}), wake: make(chan struct{}, 1)}
 	go func() {
 		defer cancel()
 		res, err := c.run(ctx, cl, s.push)
@@ -58,6 +61,7 @@ func (s *Stream) push(e Event) {
 	s.mu.Lock()
 	s.queue = append(s.queue, e)
 	s.mu.Unlock()
+	s.probe.Enqueued()
 	s.signal()
 }
 
@@ -78,6 +82,7 @@ func (s *Stream) Next() bool {
 			s.queue[0] = nil
 			s.queue = s.queue[1:]
 			s.mu.Unlock()
+			s.probe.Dequeued()
 			return true
 		}
 		if s.finished {

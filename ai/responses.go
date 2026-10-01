@@ -1,8 +1,10 @@
 package ai
 
 import (
+	"bytes"
 	"cmp"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -44,7 +46,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	}
 
 	out.start()
-	p := responsesParser{out: out, textSlots: map[int64]int{}}
+	p := responsesParser{out: out, slots: map[int64]responsesSlot{}}
 	for stream.Next() {
 		if failure := p.handle(stream.Current()); failure != nil {
 			return failure
@@ -91,15 +93,43 @@ func classifyResponsesError(ctx context.Context, err error, phase Phase) *Error 
 }
 
 // responsesParser normalizes Responses stream events into assembler calls. It
-// ports the text path of pi-ai's processResponsesStream; reasoning and tool
-// items arrive with later tickets, and the error/response.failed terminals with
+// ports the text and reasoning paths of pi-ai's processResponsesStream; tool
+// items arrive with ticket 06, and the error/response.failed terminals with
 // ticket 05 (until then such a stream fails as having no terminal event).
 // Unknown events are ignored.
 type responsesParser struct {
-	out       *assembler
-	textSlots map[int64]int // output_index → content index of an open text block
-	terminal  bool
-	failure   string // set when the terminal status is a failure
+	out      *assembler
+	slots    map[int64]responsesSlot // output_index → open block
+	terminal bool
+	failure  string // set when the terminal status is a failure
+}
+
+// responsesSlot is the open content block an output item streams into.
+type responsesSlot struct {
+	kind  string // the item type: "message" or "reasoning"
+	index int    // content index in the assistant message
+}
+
+// slot returns the open block for outputIndex if it has the given kind.
+func (p *responsesParser) slot(outputIndex int64, kind string) (int, bool) {
+	s, ok := p.slots[outputIndex]
+	return s.index, ok && s.kind == kind
+}
+
+// open starts a block for a message or reasoning item; other items are not
+// handled yet.
+func (p *responsesParser) open(outputIndex int64, kind string) (int, bool) {
+	var i int
+	switch kind {
+	case "message":
+		i = p.out.textStart()
+	case "reasoning":
+		i = p.out.thinkingStart()
+	default:
+		return 0, false
+	}
+	p.slots[outputIndex] = responsesSlot{kind: kind, index: i}
+	return i, true
 }
 
 func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
@@ -107,35 +137,66 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 	case "response.created":
 		p.out.responseID(ev.Response.ID)
 	case "response.output_item.added":
-		if ev.Item.Type == "message" {
-			p.textSlots[ev.OutputIndex] = p.out.textStart()
+		p.open(ev.OutputIndex, ev.Item.Type)
+	case "response.reasoning_summary_text.delta", "response.reasoning_text.delta":
+		if i, ok := p.slot(ev.OutputIndex, "reasoning"); ok {
+			p.out.thinkingDelta(i, ev.Delta)
+		}
+	case "response.reasoning_summary_part.done":
+		// pi separates summary parts with a blank line.
+		if i, ok := p.slot(ev.OutputIndex, "reasoning"); ok {
+			p.out.thinkingDelta(i, "\n\n")
 		}
 	case "response.output_text.delta", "response.refusal.delta":
-		if i, ok := p.textSlots[ev.OutputIndex]; ok {
+		if i, ok := p.slot(ev.OutputIndex, "message"); ok {
 			p.out.textDelta(i, ev.Delta)
 		}
 	case "response.output_item.done":
-		if ev.Item.Type != "message" {
-			return nil
+		p.itemDone(ev.OutputIndex, ev.Item)
+	case "response.completed", "response.incomplete":
+		p.finalize(ev.Response)
+	}
+	return nil
+}
+
+// itemDone closes the item's block with the item's authoritative content. As
+// pi's getOrCreateSlot, it opens the block first when the item was never
+// announced, and ignores the item when its output index holds a block of
+// another kind.
+func (p *responsesParser) itemDone(outputIndex int64, item responses.ResponseOutputItemUnion) {
+	var i int
+	if s, ok := p.slots[outputIndex]; ok {
+		if s.kind != item.Type {
+			return
 		}
-		i, ok := p.textSlots[ev.OutputIndex]
-		if !ok {
-			i = p.out.textStart()
-		}
+		i = s.index
+	} else if i, ok = p.open(outputIndex, item.Type); !ok {
+		return
+	}
+	delete(p.slots, outputIndex)
+	switch item.Type {
+	case "message":
 		var text strings.Builder
-		for _, c := range ev.Item.Content {
+		for _, c := range item.Content {
 			if c.Type == "output_text" {
 				text.WriteString(c.Text)
 			} else {
 				text.WriteString(c.Refusal)
 			}
 		}
-		p.out.textEnd(i, text.String(), encodeTextSignature(ev.Item.ID, string(ev.Item.Phase)))
-		delete(p.textSlots, ev.OutputIndex)
-	case "response.completed", "response.incomplete":
-		p.finalize(ev.Response)
+		p.out.textEnd(i, text.String(), encodeTextSignature(item.ID, string(item.Phase)))
+	case "reasoning":
+		summary := make([]string, len(item.Summary))
+		for j, s := range item.Summary {
+			summary[j] = s.Text
+		}
+		content := make([]string, len(item.Content))
+		for j, c := range item.Content {
+			content[j] = c.Text
+		}
+		thinking := cmp.Or(strings.Join(summary, "\n\n"), strings.Join(content, "\n\n"), p.out.thinkingText(i))
+		p.out.thinkingEnd(i, thinking, reasoningSignature(item.RawJSON()))
 	}
-	return nil
 }
 
 func (p *responsesParser) finalize(r responses.Response) {
@@ -182,6 +243,19 @@ func mapResponsesStatus(status, incompleteReason string) (StopReason, string) {
 	default:
 		return StopReasonError, "Unhandled stop reason: " + status
 	}
+}
+
+// reasoningSignature is pi's thinkingSignature for a Responses reasoning item:
+// JSON.stringify of the item as received. The raw item JSON keeps the wire's
+// key order; compacting removes the framing's whitespace. Escapes and number
+// spellings stay as sent, where JSON.stringify would normalize them — exact
+// replay encoding is ticket 07's native state contract.
+func reasoningSignature(raw string) string {
+	var buf bytes.Buffer
+	if err := json.Compact(&buf, []byte(raw)); err != nil {
+		return raw
+	}
+	return buf.String()
 }
 
 // encodeTextSignature produces pi-ai's TextSignatureV1 JSON: {"v":1,"id":…[,"phase":…]}.

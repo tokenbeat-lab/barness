@@ -29,6 +29,17 @@ type Text struct {
 func (Text) isUserContent()      {}
 func (Text) isAssistantContent() {}
 
+// Thinking is a reasoning content block of an assistant message.
+type Thinking struct {
+	Thinking string `json:"thinking"`
+	// Signature is opaque provider replay state for the block (for Responses,
+	// the reasoning item JSON as in pi). Replaying it is ticket 07's native
+	// state contract; until then it is only reported.
+	Signature string `json:"thinkingSignature,omitempty"`
+}
+
+func (Thinking) isAssistantContent() {}
+
 // UserMessage is user input.
 type UserMessage struct {
 	Content []UserContent `json:"content"`
@@ -45,6 +56,9 @@ func UserText(text string) UserMessage {
 type StopReason string
 
 const (
+	// StopReasonPending is the stop reason of a message still being produced,
+	// as seen through a PartialView. A finished message never carries it.
+	StopReasonPending StopReason = "pending"
 	StopReasonStop    StopReason = "stop"
 	StopReasonLength  StopReason = "length"
 	StopReasonError   StopReason = "error"
@@ -81,6 +95,9 @@ type AssistantMessage struct {
 	Timestamp int64 `json:"timestamp"`
 }
 
+// clone copies the message so the copy shares no mutable storage with m.
+// Content blocks are immutable values; a block type holding references (a
+// slice or map) must be deep-copied here.
 func (m AssistantMessage) clone() AssistantMessage {
 	m.Content = append([]AssistantContent(nil), m.Content...)
 	return m

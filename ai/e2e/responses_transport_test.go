@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
 	"testing"
@@ -101,7 +102,13 @@ func enqueue(ev *evidence.Case, w *world, replies ...provider.Reply) {
 
 func sseReply(t *testing.T, f textFixture, framing provider.Framing) provider.Reply {
 	t.Helper()
-	chunks, err := provider.EncodeSSE(f.Events, framing)
+	return sseEvents(t, f.Events, framing)
+}
+
+// sseEvents scripts a 200 SSE reply carrying events in the given framing.
+func sseEvents(t *testing.T, events []json.RawMessage, framing provider.Framing) provider.Reply {
+	t.Helper()
+	chunks, err := provider.EncodeSSE(events, framing)
 	if err != nil {
 		t.Fatal(err)
 	}

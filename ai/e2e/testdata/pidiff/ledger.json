@@ -90,11 +90,51 @@
     },
     {
       "protocol": "openai-responses",
-      "path": "events[*].partial",
+      "path": "events[*].partial.content",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. Both sides serialize it when the consumer receives the event; pi's single-threaded runner happens to reach every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks and block ends (including their signatures). Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract (one shared view, never behind the event being read, synchronized snapshots, settles on the final message) is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].partial.content",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. Both sides serialize it when the consumer receives the event; pi's single-threaded runner happens to reach every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks and block ends (including their signatures). Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract (one shared view, never behind the event being read, synchronized snapshots, settles on the final message) is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].partial.usage",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. Both sides serialize it when the consumer receives the event; pi's single-threaded runner happens to reach every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later usage from the terminal response. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract (one shared view, never behind the event being read, synchronized snapshots, settles on the final message) is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].partial.stopReason",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. Both sides serialize it when the consumer receives the event; pi's single-threaded runner happens to reach every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later stop reason than \"pending\". Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract (one shared view, never behind the event being read, synchronized snapshots, settles on the final message) is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].partial.responseId",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. Both sides serialize it when the consumer receives the event; pi's single-threaded runner happens to reach every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later response id. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract (one shared view, never behind the event being read, synchronized snapshots, settles on the final message) is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "events[*].partial.usage.cost",
       "kind": "only_pi",
       "classification": "pending",
-      "decision": "pi events carry the live partial message; barness events do not yet expose PartialView snapshots.",
-      "ref": "issues/04"
+      "decision": "Same as result.usage.cost, on the live partial.",
+      "ref": "issues/15"
     },
     {
       "protocol": "openai-responses",
