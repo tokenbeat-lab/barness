@@ -138,8 +138,8 @@ type attemptOutcome struct {
 // the policy promises the call ends at resource_limit once a limit is
 // reached (spec I9), and a provider sending oversized error bodies is
 // likely to send them again, so retrying only multiplies the reads. This
-// is a recorded extension (pi retries a 429/5xx whatever its body; ledger
-// PIDIFF-P01-E08-error-body-over-limit, issues/12).
+// is a recorded extension (ADR-0007; pi retries a 429/5xx whatever its
+// body; ledger PIDIFF-P01-E08-error-body-over-limit).
 func (o attemptOutcome) retryable() bool {
 	if o.failure != nil && o.failure.Code == CodeResourceLimit {
 		return false

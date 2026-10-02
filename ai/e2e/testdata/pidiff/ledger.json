@@ -10,7 +10,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -22,7 +22,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -35,7 +35,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -48,7 +48,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -61,7 +61,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -74,7 +74,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -87,7 +87,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -100,7 +100,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -111,7 +111,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -122,7 +122,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -133,7 +133,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -144,7 +144,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -155,7 +155,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -166,7 +166,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -177,7 +177,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -188,7 +188,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -199,7 +199,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -210,7 +210,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits. For the tool JSON limit the call ends at the argument delta that would pass the limit, so pi's later events and the rest of the tool calls are absent on the barness side.",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -221,7 +221,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi reads a provider error body whole. With the body one byte over MaxErrorBodyBytes, barness stops reading at the limit and reports a resource_limit error (phase request) whose errorMessage names the limit instead of describing the body; StopReason, HTTP status, request id and retry-after are kept, and the attempt is not retried. At the boundary the case matches pi (PIDIFF-P01-E08-error-body-at-limit-stream).",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",
@@ -232,7 +232,7 @@
       ],
       "classification": "extension",
       "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi reads a provider error body whole. With the body one byte over MaxErrorBodyBytes, barness stops reading at the limit and reports a resource_limit error (phase request) whose errorMessage names the limit instead of describing the body; StopReason, HTTP status, request id and retry-after are kept, and the attempt is not retried. At the boundary the case matches pi (PIDIFF-P01-E08-error-body-at-limit-stream).",
-      "ref": "spec I9; ADR-0002; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
     },
     {
       "protocol": "openai-responses",

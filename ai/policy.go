@@ -31,7 +31,8 @@ type ResourcePolicy struct {
 	MaxErrorBodyBytes int64
 	// MaxOutputBytes bounds the provider's streamed response body of one
 	// call, as read after transport decoding. Every frame counts, so it bounds
-	// everything the call reads and may keep, not only the message's text.
+	// everything the call reads and may keep, not only the message's text
+	// (ADR-0007).
 	MaxOutputBytes int64
 
 	// Event queue bounds for Stream consumers: how many events wait unread,
