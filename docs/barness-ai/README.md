@@ -38,9 +38,9 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 
 ### 当前状态（2026-10-02）
 
-门禁**通过**（`.evidence/barness-ai-release/gate4`，九道门禁全部 PASS）：离线 2374 个用例、差分 432 个用例（无待处理）、`-race`、vet、六组合 live、8 个证据包审计零发现、全部追溯条目、目录快照。六组合的真实冒烟用账户别名 `prod-*` 的账户运行（spec 要求独立低权限测试账户，本次由维护者决定使用生产 key）。
+门禁**通过**（2026-10-03 最近一次为 `.evidence/barness-ai-release/gate6`，DeepSeek 两组合在工单 33 的改动后重跑了真实冒烟；九道门禁全部 PASS）：离线 2374 个用例、差分 432 个用例（无待处理）、`-race`、vet、六组合 live、8 个证据包审计零发现、全部追溯条目、目录快照。六组合的真实冒烟用账户别名 `prod-*` 的账户运行（spec 要求独立低权限测试账户，本次由维护者决定使用生产 key）。
 
-运行中出现过两次一次性失败，均已处理：Gemini 差分 `usage-replaced` 在全量负载下 live partial 的序列化时机不同（已登记为 live partial 扩展的另一方向，见差异登记）；本地压力场景一次有两个调用在本机回环连接上出现 transport 错误，单独与全量重跑均未复现，压力场景现记录底层网络错误以便再现时诊断。
+运行中出现过两次一次性失败，均已处理：Gemini 差分用例在全量负载下 live partial 的序列化时机不同（pi 的视图领先；已为 Gemini 与 Chat Completions 登记 live partial 扩展的这一方向，见差异登记）；本地压力场景一次有两个调用在本机回环连接上出现 transport 错误，单独与全量重跑均未复现，压力场景现记录底层网络错误以便再现时诊断。
 
 ## 资源策略示例与数值依据
 

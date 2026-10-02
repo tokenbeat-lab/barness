@@ -10,8 +10,8 @@
 | --- | --- | --- | --- |
 | openai-responses（P01） | 57 | 12 | 0 |
 | anthropic-messages（P02） | 38 | 0 | 0 |
-| google-generative-ai（P03） | 31 | 0 | 0 |
-| openai-completions（P04、P06） | 37 | 0 | 0 |
+| google-generative-ai（P03） | 32 | 0 | 0 |
+| openai-completions（P04、P06） | 39 | 0 | 0 |
 
 “已修复”条目只记录曾出现并已修复的差异；同一差异再次出现即为回归，按待处理计。扩展路径（`routes`）：DeepSeek × Responses。
 

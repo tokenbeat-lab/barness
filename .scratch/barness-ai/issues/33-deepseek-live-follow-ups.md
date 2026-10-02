@@ -28,3 +28,12 @@
 - **401 fixtures (P05, P06).** These now use the live body. They expect `providerRequestId` from `x-ds-trace-id`. P05's 401 no longer exercises key-echo redaction, because DeepSeek masks the key itself; P01's key-echo cases still cover the redaction.
 - **Live.** `auth-refused` and its helper are removed. The largest combination now makes 13 calls. The support matrix's DeepSeek rows keep their past `auth-refused` capability until the next merge, which never removes capabilities; it is a PASS and does not affect the gate.
 - **Verified.** `go test ./...`, the pi differential and the DeepSeek E2E all pass. This changes DeepSeek adapter code (request id and usage reporting), so spec §6 asks for the two DeepSeek combinations to be rerun live.
+
+**2026-10-03 — live rerun; the gate passes.** Both DeepSeek combinations were rerun live on 4359da4. deepseek-responses: 8 PASS. deepseek-chat: 11 PASS. Both bundles audited clean.
+- Request ids are now read directly. Before, the suite fell back to listing `x-ds-trace-id=…`.
+- Usage is no longer partial with thinking off.
+
+The reports are merged into the matrix. The release gate passes all nine gates (`.evidence/barness-ai-release/gate6`).
+
+Gate run 5 hit another live-partial timing case, `PIDIFF-P03-length-truncated-tool-stream` (pi's view ahead with `rawStopReason`). The ledger now covers that whole direction for the two protocols where one chunk carries both parts and terminal data, Gemini and Chat Completions: `partial.rawStopReason` and `partial.usage.reasoning` `only_pi`.
+

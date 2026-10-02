@@ -1140,6 +1140,14 @@
     },
     {
       "protocol": "google-generative-ai",
+      "path": "events[*].partial.rawStopReason",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "The same live-partial decision as events[*].partial (pi's types.ts contract: partial is the shared live response-so-far), where pi's view is the one ahead: one Gemini chunk can carry parts and terminal data together; both sides apply the finish reason and usage after the parts, but pi's single-threaded runner serializes the block events only after the whole chunk ran, so its view already holds the raw stop reason and usage, while barness's concurrent consumer can read the event first. Barness's view is never behind the event being read. Seen under full-suite load in release gate runs 3 and 5 (PIDIFF-P03-usage-replaced-stream, PIDIFF-P03-length-truncated-tool-stream).",
+      "ref": "spec I8; ADR-0001; ADR-0017; issues/24"
+    },
+    {
+      "protocol": "google-generative-ai",
       "path": "events[*].toolCall.rawArguments",
       "kind": "only_barness",
       "classification": "extension",
@@ -1490,6 +1498,22 @@
       "classification": "extension",
       "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. pi records an error finish_reason's message on its output as the chunk arrives and closes every block only after the stream, so the partial of a block end already holds the errorMessage; barness puts the message on the message only at the terminal (the error event and the Result, which are compared strictly and match). Same live-view decision as events[*].partial.",
       "ref": "spec I8 累计部分响应; issues/04; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.rawStopReason",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "The same live-partial decision as events[*].partial (pi's types.ts contract: partial is the shared live response-so-far), where pi's view is the one ahead: one Chat Completions chunk (the finish chunk carries content, finish_reason and usage together) can carry parts and terminal data together; both sides apply the finish reason and usage after the parts, but pi's single-threaded runner serializes the block events only after the whole chunk ran, so its view already holds the raw stop reason and usage, while barness's concurrent consumer can read the event first. Barness's view is never behind the event being read. Seen under full-suite load in release gate runs 3 and 5 (PIDIFF-P03-usage-replaced-stream, PIDIFF-P03-length-truncated-tool-stream).",
+      "ref": "spec I8; ADR-0001; ADR-0017; issues/24"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.usage.reasoning",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "The same live-partial decision as events[*].partial (pi's types.ts contract: partial is the shared live response-so-far), where pi's view is the one ahead: one Chat Completions chunk (the finish chunk carries content, finish_reason and usage together) can carry parts and terminal data together; both sides apply the finish reason and usage after the parts, but pi's single-threaded runner serializes the block events only after the whole chunk ran, so its view already holds the raw stop reason and usage, while barness's concurrent consumer can read the event first. Barness's view is never behind the event being read. Seen under full-suite load in release gate runs 3 and 5 (PIDIFF-P03-usage-replaced-stream, PIDIFF-P03-length-truncated-tool-stream).",
+      "ref": "spec I8; ADR-0001; ADR-0017; issues/24"
     },
     {
       "protocol": "openai-completions",
