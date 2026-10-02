@@ -59,3 +59,7 @@
 - 内存峰值。
 
 “等待后仍超时”的比例高，说明 `MaxAdmissionWaiters` 或 `AdmissionWait` 设大了。示例配置的数值与说明以这组数据为依据，并随证据包一起保存。
+
+## Comments
+
+**2026-10-02 — from issue 17 (maintainer decision):** call identifiers are globally unique (ADR-0001): the host example must mint RequestIDs that never repeat across tenants or calls, and an injected admission/Observer may key on RequestID or AttemptID alone. BindingID and CredentialID stay unique per tenant only.

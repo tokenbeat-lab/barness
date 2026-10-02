@@ -12,7 +12,9 @@ import (
 type CallScope struct {
 	TenantID string
 	// RequestID identifies one public logical call; internal retries reuse it
-	// and a new call must use a new one. It is not a deduplication key.
+	// and a new call must use a new one. It is globally unique: no two
+	// logical calls share one, whatever their tenants. The host guarantees
+	// this; the library cannot check it. It is not a deduplication key.
 	RequestID string
 	ActorID   string // optional authorized user or service principal
 	JobID     string // optional host job correlation

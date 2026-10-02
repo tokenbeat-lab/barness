@@ -72,7 +72,7 @@ func (p RetryPolicy) maxDelay() time.Duration {
 // that failed before sending anything has none.
 type Attempt struct {
 	// AttemptID identifies the attempt; it is the call's RequestID with the
-	// attempt's ordinal, so it is unique wherever the RequestID is.
+	// attempt's ordinal, so it is globally unique as the RequestID is.
 	AttemptID string `json:"attemptId"`
 	// HTTPStatus is the response status; 0 when no response arrived.
 	HTTPStatus int `json:"httpStatus,omitempty"`

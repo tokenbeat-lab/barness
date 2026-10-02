@@ -17,7 +17,7 @@
 
 **2026-10-02 — implemented** (E2E `ai/e2e/isolation_test.go`, `isolation_fixture_test.go`, fixture `testdata/isolation/interleave.json`; 56 cases `E06-<protocol>-<scenario>-<entry>` plus `E06-no-environment-fallback`).
 
-- **Setup:** one Client and one transport (body tracker, probe, host admission, Observer, fake backoff clock). Tenants A and B use the same binding names (`primary`, `claude`), the same model, the same RequestID and, on every entry that takes one, the same session id; Anthropic's full options have no session field. Each tenant's binding points at its own path on the shared Provider, so the captured path shows the endpoint. The Provider gained `EnqueueAt(pathPrefix, …)`, which serves each tenant its own script whatever the arrival order. The environment is polluted for the whole test (`polluteEnvironment`).
+- **Setup:** one Client and one transport (body tracker, probe, host admission, Observer, fake backoff clock). Tenants A and B use the same binding names (`primary`, `claude`), the same model and, on every entry that takes one, the same session id; Anthropic's full options have no session field. Each tenant's binding points at its own path on the shared Provider, so the captured path shows the endpoint. The Provider gained `EnqueueAt(pathPrefix, …)`, which serves each tenant its own script whatever the arrival order. The environment is polluted for the whole test (`polluteEnvironment`).
 - **Barriers, no sleeps or probabilistic collisions:**
   - `both-succeed`: the Provider writes A's and B's frames in lockstep (A:0 B:0 A:1 …).
   - Every other scenario: B is held just after its first text frame until A's call has ended. In that window A is refused with a 401 (`a-unauthorized`), canceled while streaming (`a-canceled`) or as its response comes back from the shared transport (`a-canceled-on-arrival`), timed out by its own `timeoutMs` (`a-timed-out`), retried after a 429 (`a-retried`), or has no credential (`a-credential-missing`).
@@ -38,3 +38,10 @@
   - attempt records keeping process-wide attribution;
   - the deliveredBody close removed.
 - **Race:** `go test -race -count=30 -run TestTenantIsolation ./ai/e2e` is clean. The full suite passes with `-race`, and the pi differential (`BARNESS_AI_PIDIFF=1`) passes.
+
+**2026-10-02 — maintainer decisions.**
+
+- **Call identifiers are globally unique.** RequestID, and the AttemptID derived from it, never repeat across tenants or calls. The host guarantees this and the library cannot check it, so an injected admission or Observer may key on either alone. Configuration identifiers (BindingID, CredentialID) stay unique per tenant, as same-named bindings require. This is recorded in ADR-0001, GLOSSARY (Logical Call) and the docs of `CallScope.RequestID`, `Attempt.AttemptID` and `AdmissionRequest.AttemptID`, and noted on issue 18 for the host example. E06 now gives each tenant its own RequestID; previously both shared one.
+- **`deliveredBody` needs no ADR.** It works around SDK defects and is not an architecture decision; the code comment plus issue 29 is enough to track it.
+- **`a-timed-out` keeps a real ~100 ms timer.** The interleaving is still forced by barriers: B is held until A ends. The wait is the timeout under test, not a sleep for ordering. Protocol timeouts stay off the fake clock (ADR-0008).
+

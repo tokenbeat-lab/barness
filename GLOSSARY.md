@@ -53,7 +53,7 @@ _Avoid_: 全局 key、当前 Provider key
 _Avoid_: 请求中自报的租户身份
 
 **Logical Call（逻辑调用）**：
-宿主向 barness-ai 发起的一次模型生成调用，包含该调用内部获准进行的网络尝试。
+宿主向 barness-ai 发起的一次模型生成调用，包含该调用内部获准进行的网络尝试。它由全局唯一的 RequestID 标识，其尝试由同样全局唯一的 AttemptID（`RequestID#序号`）标识；服务绑定、凭据等配置标识只在租户内唯一，不同租户可以同名。
 _Avoid_: Agent run、作业、HTTP 尝试
 
 **Generation Turn（生成轮次）**：

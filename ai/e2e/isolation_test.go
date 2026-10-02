@@ -110,10 +110,10 @@ var isolationScenarios = []isolationScenario{
 }
 
 // TestTenantIsolation is E06 (spec T03, T05, T06, T08; User Stories 5, 30):
-// tenants A and B call same-named bindings and the same model with the same
-// RequestID and, on every entry that takes one, the same session id
-// (Anthropic's full options have none), on one Client and one transport,
-// each binding pointing at its tenant's own endpoint. Provider and
+// tenants A and B call same-named bindings and the same model with, on
+// every entry that takes one, the same session id (Anthropic's full options
+// have none), on one Client and one transport, each binding pointing at its
+// tenant's own endpoint. Provider and
 // transport barriers force the calls to interleave: frame by frame when
 // both succeed, or with B held mid-stream across the whole of A's call
 // while A is refused (401), canceled (while streaming, or as its response
@@ -152,8 +152,9 @@ func TestTenantIsolation(t *testing.T) {
 }
 
 func runIsolation(t *testing.T, ev *evidence.Case, f isolationFixture, p isolationProtocol, sc isolationScenario, e isolationEntry) {
+	// RequestIDs are globally unique (ADR-0001), so each tenant has its own.
 	requestID := "req-e06-" + sc.name + "-" + e.name
-	scopeA, scopeB := scopeFor(tenantA, requestID), scopeFor(tenantB, requestID)
+	scopeA, scopeB := scopeFor(tenantA, requestID+"-a"), scopeFor(tenantB, requestID+"-b")
 
 	// Each tenant alone, on a Client of its own, is the reference.
 	soloB, soloBSent := runSolo(t, p, e, tenantB, scopeB, nil, []provider.Reply{p.success(t, tenantB)}, 0)

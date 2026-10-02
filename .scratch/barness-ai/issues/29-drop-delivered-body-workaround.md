@@ -2,9 +2,9 @@
 
 **What to build:** 删除 `ai/sdk_middleware.go` 的 `deliveredBody`/`closeOnce` 及其在 `ai/responses.go`、`ai/anthropic.go` 的接线，前提是两家 SDK 自己会关闭“调用方 context 结束时恰好到达”的响应体。
 
-**Blocked by:** —
+**Blocked by:** 上游 SDK 修复（openai-go、anthropic-sdk-go 在调用方 ctx 结束分支关闭响应体）
 
-**Status:** needs-triage
+**Status:** ready-for-agent
 
 **Context:** 工单 17 的 E06 场景 `a-canceled-on-arrival` 发现：openai-go v3.66.0 与 anthropic-sdk-go v1.75.0 的 `internal/requestconfig` 在 `handler(req)` 返回响应后，若调用方 context 已结束，直接 `return ctx.Err()`，既不交回响应（`WithResponseInto` 未赋值）也不关闭响应体，宿主 transport 为该响应持有的资源因此不被释放。barness 以 SDK 中间件记录交付的响应体，并在失败尝试上关闭（关闭一次语义）。
 
@@ -14,3 +14,7 @@
 
 - [ ] 核实两家 SDK 的新版本已在 caller ctx 结束分支关闭响应体
 - [ ] 删除 `deliveredBody`、`closeOnce` 与接线，E06 `a-canceled-on-arrival` 在 `-race` 下重复通过
+
+## Comments
+
+**2026-10-02 — maintainer decision:** 不写 ADR；代码注释与本工单足以追踪。待升级到修复该路径的 SDK 版本时执行，在那之前保留兜底。

@@ -37,8 +37,9 @@ type AdmissionRequest struct {
 	// AccountScopeID is the vendor account the attempt is billed to; several
 	// tenants and keys may share one. It is never an API key.
 	AccountScopeID string
-	// AttemptID identifies the attempt (see Attempt.AttemptID), so a
-	// distributed admission can correlate or deduplicate its leases.
+	// AttemptID identifies the attempt (see Attempt.AttemptID). It is
+	// globally unique, so a distributed admission can key, correlate or
+	// deduplicate its leases on it alone.
 	AttemptID string
 }
 
