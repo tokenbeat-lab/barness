@@ -1,11 +1,11 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-02
 ---
 
 # barness-ai 真实 API 冒烟：每组合一进程、四值结果与只由本组合报告合并的支持矩阵
 
-工单 23 交付发布前、SDK/模型升级后执行的真实官方 API 冒烟（spec Testing Decisions §2、§5）。spec 规定了双开关、六组合、场景、四值结果、记录项与支持矩阵字段，但没有规定入口形态、key 如何"仅注入对应 Provider×API 的测试进程"、重试预算、各组合用哪个模型证明哪些能力，以及矩阵放在哪里、如何更新。本 ADR 记录实现时的做法，待维护者确认。
+工单 23 交付发布前、SDK/模型升级后执行的真实官方 API 冒烟（spec Testing Decisions §2、§5）。spec 规定了双开关、六组合、场景、四值结果、记录项与支持矩阵字段，但没有规定入口形态、key 如何"仅注入对应 Provider×API 的测试进程"、重试预算、各组合用哪个模型证明哪些能力，以及矩阵放在哪里、如何更新。本 ADR 记录实现时的做法，维护者于 2026-10-02 确认（见文末）。
 
 ## 决策一：入口与 key 隔离
 
@@ -49,9 +49,12 @@ Client 按宿主方式装配：一个租户、一个指向厂商真实 endpoint 
 - 仓库尚无 CI；"每组合一进程、secret store 只向本组合进程注入 key"由进程侧检查与 `ai/live/doc.go` 的运行说明承担，CI 作业接入时照此配置。
 - 冒烟默认模型或目录变化时，更新 `ai/live/combos_test.go` 并重跑受影响组合。
 
-## 待维护者确认
+## 维护者决定（2026-10-02）
 
-1. 入口与 key 隔离（决策一），含"出现其他组合 key 即 FAIL"与"账户别名必填"。
-2. 默认模型、各组合强制/自动工具选择，以及 OpenAI × Chat 推理回放记为 UNSUPPORTED（决策二）。
-3. DeepSeek 两组合以固定伪造 key 发一次 401 请求记录错误体（决策二 `auth-refused`）。
-4. 重试与预算数值（决策三）与矩阵位置及合并规则（决策五）。
+1. 决策一：采纳。一个进程只跑一个组合，key 只从本组合变量读取；进程中出现其他组合的 key、或有 key 而缺账户/区域别名，整组以 config 失败，报告不合并。本地手动运行同样只设一把 key。
+2. 决策二（模型与场景）：采纳。默认模型 gpt-5-mini、claude-haiku-4-5、gemini-2.5-flash、deepseek-flash（DeepSeek Chat 的等级检查用 deepseek-v4-pro）固定在套件中，不提供运行时覆盖；首次真实运行前由维护者核对这些型号在测试账户中可用、花费可接受，需要换型号时改 `ai/live/combos_test.go`。各组合的强制/自动工具选择按决策二。
+3. 决策二（OpenAI × Chat）：采纳。该组合的推理回放记为 UNSUPPORTED：协议不返回可回放的推理内容，OpenAI 的推理回放由 Responses 组合证明。
+4. 决策二（`auth-refused`）：采纳，附条件。仅两个 DeepSeek 组合以固定伪造 key 各发一次 401 请求，其他组合不加。DeepSeek 的 401 错误体与请求 id 头经真实运行确认、P05/P06 fixture 据此修正后，删除该场景，此后不再向厂商发送故障请求。
+5. 决策三：采纳。每进程 24 次逻辑调用、每场景最多重试 1 次（5 s 递增退避）、每次输出上限 4096 token。若真实运行中厂商偶发故障造成的误报 FAIL 过多，可把每场景重试提高到 2 次；不再放宽，spec 禁止无界重跑。
+6. 决策五：采纳。矩阵位置 `ai/live/support-matrix.json` 与合并规则不变。
+7. SDK 自带的宿主信息请求头（Consequences，工单 31）：去除。与 `userAgent` 不携带宿主 OS、版本与架构的决定（2026-10-01）一致，在 adapter 构建请求处统一删除 openai-go 与 anthropic-sdk-go 发送的 `X-Stainless-*` 宿主信息头，离线 E2E 断言服务端收不到；与 pi 的差异登记为差分账本扩展。实施归工单 31。

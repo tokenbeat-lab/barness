@@ -316,7 +316,7 @@ Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished；
 
 重试、异常 EOF、资源上限和恶意跨租户输入只在本地受控服务确定性注入，不向真实厂商发送大量故障请求。真实测试每次记录模型、SDK 版本、厂商 request ID、耗时和错误类别；厂商临时故障标记 FAIL/环境故障并在既定预算内重试确认，不把失败改成 skip，也不无界重跑。
 
-结果统一为 PASS/FAIL/NOT_RUN/UNSUPPORTED；缺 key 为 NOT_RUN，厂商故障为 FAIL/环境故障，不能自动改成跳过。支持矩阵保存 Provider、协议、模型、SDK、测试账户/区域别名、能力与最后通过时间。其他协议或旧 SDK 探针通过不能代替目标组合通过。
+结果统一为 PASS/FAIL/NOT_RUN/UNSUPPORTED；缺 key 为 NOT_RUN，厂商故障为 FAIL/环境故障，不能自动改成跳过。支持矩阵保存 Provider、协议、模型、SDK、测试账户/区域别名、能力与最后通过时间。其他协议或旧 SDK 探针通过不能代替目标组合通过。冒烟以 `live` build tag 加 `BARNESS_AI_LIVE=1` 运行，一个进程只跑一个组合、只持有该组合的 key；支持矩阵为 `ai/live/support-matrix.json`，只经合并本组合报告更新，报告覆盖全部应有场景且均为 PASS 或 UNSUPPORTED 时才记为完整通过（维护者决定 2026-10-02，见 ADR-0016）。
 
 ### 6. 证据产物与门禁
 
