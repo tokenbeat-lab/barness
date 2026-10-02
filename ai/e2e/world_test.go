@@ -153,6 +153,25 @@ func primaryBinding(k tenantKey, providerURL string) ai.Binding {
 	}
 }
 
+// chatBinding is k's tenant's "chat" binding at version b1: OpenAI Chat
+// Completions at the world's Provider, on the same OpenAI account and
+// credential as "primary" — two bindings for one account's two protocols.
+func chatBinding(k tenantKey, providerURL string) ai.Binding {
+	return ai.Binding{
+		TenantID:       k.tenant,
+		BindingID:      "chat",
+		Version:        "b1",
+		Enabled:        true,
+		ProviderID:     ai.ProviderOpenAI,
+		API:            ai.APIOpenAICompletions,
+		Endpoint:       providerURL + "/v1",
+		AuthKind:       ai.AuthAPIKey,
+		AccountScopeID: "acct-" + k.tenant,
+		CredentialRef:  "cred-" + k.tenant,
+		AllowedModels:  builtinModelIDs(ai.APIOpenAICompletions),
+	}
+}
+
 // primaryCredential is the active credential snapshot holding k's key at
 // version, referenced by primaryBinding.
 func primaryCredential(k tenantKey, version string) ai.Credential {
@@ -168,7 +187,8 @@ func primaryCredential(k tenantKey, version string) ai.Credential {
 
 // world is one scenario's assembly: a local controlled Provider, a trusted-host
 // double holding each tenant's same-named "primary" (Responses), "claude"
-// (Anthropic Messages) and "gemini" (Gemini Developer API) bindings, and a
+// (Anthropic Messages), "gemini" (Gemini Developer API) and "chat" (OpenAI
+// Chat Completions) bindings, and a
 // Client built with the loopback-only transport.
 type world struct {
 	provider *provider.Server
@@ -200,6 +220,7 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 		h.PutCredential(anthropicCredential(k))
 		h.PutBinding(geminiBinding(k, srv.URL()))
 		h.PutCredential(geminiCredential(k))
+		h.PutBinding(chatBinding(k, srv.URL()))
 	}
 
 	cfg := ai.Config{

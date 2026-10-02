@@ -1242,6 +1242,317 @@
       "classification": "extension",
       "decision": "Derived from the request body, which differs only by the downgraded native state; see request.body.contents[1].parts for this case.",
       "ref": "spec I6; ADR-0001; issues/19"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.Accept-Encoding",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): HTTP stack default (Node undici sends 'gzip, deflate', Go net/http sends 'gzip'). The spec assigns HTTP and stream decoding to the Go SDK; response decoding is transparent to the protocol.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.Accept-Language",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): Node fetch (undici) default header; not set by pi or the OpenAI protocol. The Go HTTP stack does not send it.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.Sec-Fetch-Mode",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): Node fetch (undici) default header; not set by pi or the OpenAI protocol. The Go HTTP stack does not send it.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.Connection",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): Hop-by-hop connection management of Node's HTTP/1.1 client; Go keeps connections alive without the header.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.X-Stainless-Lang",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): OpenAI SDK runtime fingerprint: js vs go follows from the spec's choice of the OpenAI Go SDK.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.X-Stainless-Package-Version",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): OpenAI SDK runtime fingerprint: openai (npm) 6.40.0 vs openai-go v3.66.0, both pinned.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.X-Stainless-Runtime",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): OpenAI SDK runtime fingerprint: node vs go.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.X-Stainless-Runtime-Version",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): OpenAI SDK runtime fingerprint: Node.js vs Go toolchain version.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.User-Agent",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): barness sends its own 'barness-ai' User-Agent instead of pi's 'pi (<os> <release>; <arch>)', without host OS details. Asserted by the offline E2E (P01 text).",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.content",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.content",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.content",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.usage",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.usage.reasoning",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.stopReason",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.rawStopReason",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.errorMessage",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.responseId",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.responseModel",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses, anthropic-messages and google-generative-ai events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, the block ends pi emits after the stream, the reasoning details signature, usage from later chunks, the response id and model and the finish reason; pi's view also carries its streaming scratch fields (partialArgs, streamIndex) on open tool calls, which it deletes before the call ends. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].toolCall.rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for the other protocols: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi keeps the concatenated fragments only as its partialArgs scratch field and deletes it when the call ends. Ids, names, parsed arguments, deltas and end events match; only the raw text is added.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].message.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for the other protocols: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi keeps the concatenated fragments only as its partialArgs scratch field and deletes it when the call ends. Ids, names, parsed arguments, deltas and end events match; only the raw text is added.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].error.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for the other protocols: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi keeps the concatenated fragments only as its partialArgs scratch field and deletes it when the call ends. Ids, names, parsed arguments, deltas and end events match; only the raw text is added.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "result.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for the other protocols: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi keeps the concatenated fragments only as its partialArgs scratch field and deletes it when the call ends. Ids, names, parsed arguments, deltas and end events match; only the raw text is added.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].partial.errorMessage",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. pi records an error finish_reason's message on its output as the chunk arrives and closes every block only after the stream, so the partial of a block end already holds the errorMessage; barness puts the message on the message only at the terminal (the error event and the Result, which are compared strictly and match). Same live-view decision as events[*].partial.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-half-json-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports JavaScript's JSON.parse message for a data event that is not JSON ('Unterminated string in JSON at position 55 (line 1 column 56)'), thrown by openai-node's Stream: V8 runtime text that Go cannot reproduce, as for openai-responses. barness reports the fixed text 'OpenAI Chat Completions stream event is not valid JSON' (CodeProtocol, phase stream); stop reason, content and the absence of block ends match.",
+      "ref": "spec Testing Decisions §5; issues/05; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-half-json-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports JavaScript's JSON.parse message for a data event that is not JSON ('Unterminated string in JSON at position 55 (line 1 column 56)'), thrown by openai-node's Stream: V8 runtime text that Go cannot reproduce, as for openai-responses. barness reports the fixed text 'OpenAI Chat Completions stream event is not valid JSON' (CodeProtocol, phase stream); stop reason, content and the absence of block ends match.",
+      "ref": "spec Testing Decisions §5; issues/05; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-connection-cut-stream",
+        "PIDIFF-P04-reasoning-details-cut-stream",
+        "PIDIFF-P04-no-replay-after-start-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body: runtime text, not pi logic, as for the other protocols. barness reports the fixed text 'Connection lost while reading the OpenAI Chat Completions stream' (CodeTransport, phase stream); stop reason, content (the streamed reasoning details kept as the signature included) and the absence of block ends match.",
+      "ref": "spec Testing Decisions §5; issues/05; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-connection-cut-stream",
+        "PIDIFF-P04-reasoning-details-cut-stream",
+        "PIDIFF-P04-no-replay-after-start-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body: runtime text, not pi logic, as for the other protocols. barness reports the fixed text 'Connection lost while reading the OpenAI Chat Completions stream' (CodeTransport, phase stream); stop reason, content (the streamed reasoning details kept as the signature included) and the absence of block ends match.",
+      "ref": "spec Testing Decisions §5; issues/05; issues/20; ADR-0013"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-in-band-error-key-echo-stream",
+        "PIDIFF-P04-http-401-key-echo-stream"
+      ],
+      "classification": "extension",
+      "decision": "Security difference (spec I9: 基线 errorMessage 涉及秘密时必须脱敏并登记安全差异), as for the other protocols: pi copies the provider's error text into errorMessage verbatim, including the call's key (or its masked form) the provider echoed; barness replaces the key and anything key-shaped with [REDACTED] and keeps the rest of the text.",
+      "ref": "spec I9; ADR-0009; issues/14; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-in-band-error-key-echo-stream",
+        "PIDIFF-P04-http-401-key-echo-stream"
+      ],
+      "classification": "extension",
+      "decision": "Security difference (spec I9: 基线 errorMessage 涉及秘密时必须脱敏并登记安全差异), as for the other protocols: pi copies the provider's error text into errorMessage verbatim, including the call's key (or its masked form) the provider echoed; barness replaces the key and anything key-shaped with [REDACTED] and keeps the rest of the text.",
+      "ref": "spec I9; ADR-0009; issues/14; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.body.messages[2].content",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-untrusted-native-state-stream"
+      ],
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec I6, ADR-0001: native state is replayed only under a trusted envelope; without one it is downgraded by the cross-model rules and the call goes ahead). pi has no envelope and replays the same model's reasoning under its reasoning_content field; barness, given the history without the host vouching for it, turns the visible reasoning into text (joined into the content string before the turn's text) and sends no reasoning field; the downgrade is counted in the Result metadata and the Observer.",
+      "ref": "spec I6; ADR-0001; issues/07; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.body.messages[2].reasoning_content",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P04-untrusted-native-state-stream"
+      ],
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec I6, ADR-0001: native state is replayed only under a trusted envelope; without one it is downgraded by the cross-model rules and the call goes ahead). pi has no envelope and replays the same model's reasoning under its reasoning_content field; barness, given the history without the host vouching for it, turns the visible reasoning into text (joined into the content string before the turn's text) and sends no reasoning field; the downgrade is counted in the Result metadata and the Observer.",
+      "ref": "spec I6; ADR-0001; issues/07; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.body.prompt_cache_key",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-cache-session-long-stream",
+        "PIDIFF-P04-simple-cache-long-streamSimple"
+      ],
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec §9: 模块构造的缓存/亲和标识按租户和账户作用域派生，不直接传裸 session ID 或 TenantID), as for openai-responses: pi sends the caller's sessionId as prompt_cache_key; barness sends a key derived from the tenant, the vendor account and the session id (64 hex characters). Whether a key is sent at all, and the retention, match pi.",
+      "ref": "spec §9; issues/09; issues/20"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.Content-Length",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P04-cache-session-long-stream",
+        "PIDIFF-P04-simple-cache-long-streamSimple",
+        "PIDIFF-P04-untrusted-native-state-stream"
+      ],
+      "classification": "extension",
+      "decision": "Derived from the request body, which differs only by the derived prompt cache key (cache cases) or the downgraded native state (the untrusted history case); see request.body.prompt_cache_key and request.body.messages[2] for these cases.",
+      "ref": "spec §9; spec I6; issues/20"
     }
   ]
 }

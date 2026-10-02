@@ -34,6 +34,9 @@ func TestPiDifferential(t *testing.T) {
 	t.Run(string(ai.APIGoogleGenerativeAI), func(t *testing.T) {
 		scenarioPiDifferential(t, ledger, geminiProtocol, "P03", geminiFixtureFiles)
 	})
+	t.Run(string(ai.APIOpenAICompletions), func(t *testing.T) {
+		scenarioPiDifferential(t, ledger, chatProtocol, "P04", chatFixtureFiles)
+	})
 	t.Run(string(ai.APIOpenAIResponses), func(t *testing.T) {
 		for _, scenario := range []string{"text", "interleaved", "tool-call", "tool-results", "reasoning-call", "reasoning-replay", "reasoning-cross-model"} {
 			for _, entry := range []string{"stream", "streamSimple"} {
@@ -375,6 +378,9 @@ func pidiffProtocolOf(api ai.API) pidiffProtocol {
 		// pi's Anthropic baseUrl has no /v1; the SDK adds /v1/messages.
 		return pidiffProtocol{api: api, provider: ai.ProviderAnthropic, binding: "claude", key: anthropicA,
 			endpoint: func(v1 string) string { return strings.TrimSuffix(v1, "/v1") }}
+	case ai.APIOpenAICompletions:
+		return pidiffProtocol{api: api, provider: ai.ProviderOpenAI, binding: "chat", key: tenantA,
+			endpoint: func(v1 string) string { return v1 }}
 	case ai.APIGoogleGenerativeAI:
 		// pi's Google baseUrl carries the API version, as the binding's does.
 		return pidiffProtocol{api: api, provider: ai.ProviderGoogle, binding: "gemini", key: googleA,

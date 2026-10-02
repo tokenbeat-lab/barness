@@ -181,6 +181,8 @@ func localPath(p isolationProtocol) string {
 		return "/local/v1/messages"
 	case p.gemini():
 		return "/local/v1beta/models/" + p.Model + ":streamGenerateContent"
+	case p.chat():
+		return "/local/v1/chat/completions"
 	}
 	return "/local/v1/responses"
 }

@@ -13,3 +13,5 @@
 ## Comments
 
 **2026-10-02 — opened from the issue 19 code review.** Gemini is the second protocol on the scenario-fixture format; its fixtures, E01–E05/E11 harness, entries and text helpers were made protocol-parametric there (`scenario_fixture_test.go`, `scenario_entries_test.go`, `scenario_pidiff_test.go`), but these four suites were written per protocol on the shared helpers because each case embeds protocol data and several cases deliberately differ (ADR-0012 决策三、四). The copies are ~70% parallel; this issue removes them.
+
+**2026-10-02 — Chat Completions joins (issue 20).** `ai/e2e/chat_{limits,admission,callbacks,observe}_test.go` are a third copy, parallel to the Anthropic suites (Chat shares the Stainless retry/timeout rules and runs onResponse); the merge should cover P04 too, with Chat's differences (long retention for a cache key off OpenAI's endpoint, blocks closed before an aborted terminal) as protocol fields.

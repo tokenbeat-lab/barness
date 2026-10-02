@@ -212,6 +212,22 @@ func (a *assembler) toolCallStart(id, name, raw string) int {
 	return i
 }
 
+// fillToolCallIdentity gives block i the id and name a later delta
+// carried, where the call still has none, without an event: Chat
+// Completions may name a call after opening it.
+func (a *assembler) fillToolCallIdentity(i int, id, name string) {
+	a.view.update(func(m *AssistantMessage) {
+		c := m.Content[i].(ToolCall)
+		if c.ID == "" {
+			c.ID = id
+		}
+		if c.Name == "" {
+			c.Name = name
+		}
+		m.Content[i] = c
+	})
+}
+
 // setToolCallSignature sets block i's thought signature without an event;
 // a Gemini call arrives with it.
 func (a *assembler) setToolCallSignature(i int, sig string) {

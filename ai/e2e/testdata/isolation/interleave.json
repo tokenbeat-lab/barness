@@ -1,6 +1,6 @@
 {
  "case": "E06 tenant concurrency isolation",
- "source": "Synthetic offline fixture. Each tenant's reply carries its own marker (ALPHA for tenant A, BRAVO for tenant B), ids and usage, so any content, id or usage reaching the other tenant's call is detectable. Event shapes are those of testdata/responses/text-basic.json, the text scenario of testdata/anthropic/text.json and the text scenario of testdata/gemini/text.json; error bodies are those of the failures fixtures with the marker added.",
+ "source": "Synthetic offline fixture. Each tenant's reply carries its own marker (ALPHA for tenant A, BRAVO for tenant B), ids and usage, so any content, id or usage reaching the other tenant's call is detectable. Event shapes are those of testdata/responses/text-basic.json, the text scenarios of testdata/anthropic/text.json, testdata/gemini/text.json and testdata/chat/text.json; error bodies are those of the failures fixtures with the marker added.",
  "markers": {
   "tenant-a": [
    "ALPHA",
@@ -705,6 +705,289 @@
       },
       "body": "{\"error\":{\"code\":429,\"message\":\"BRAVO rate limited\",\"status\":\"RESOURCE_EXHAUSTED\"}}"
      }
+    }
+   }
+  },
+  {
+   "id": "chat",
+   "bindingId": "chat",
+   "model": "gpt-4.1-mini",
+   "systemPrompt": "You are terse.",
+   "user": "Say hello.",
+   "tenants": {
+    "tenant-a": {
+     "events": [
+      {
+       "id": "chatcmpl-resp_alpha",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "role": "assistant",
+          "content": "",
+          "refusal": null
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_alpha",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "ALPHA "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_alpha",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "answer "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_alpha",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "for "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_alpha",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "the first tenant."
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_alpha",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {},
+         "logprobs": null,
+         "finish_reason": "stop"
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_alpha",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [],
+       "usage": {
+        "prompt_tokens": 31,
+        "completion_tokens": 7,
+        "total_tokens": 38,
+        "prompt_tokens_details": {
+         "cached_tokens": 0,
+         "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+         "reasoning_tokens": 0,
+         "audio_tokens": 0,
+         "accepted_prediction_tokens": 0,
+         "rejected_prediction_tokens": 0
+        }
+       }
+      },
+      "[DONE]"
+     ],
+     "unauthorized": {
+      "status": 401,
+      "header": {
+       "Content-Type": "application/json",
+       "x-request-id": "req_alpha_401"
+      },
+      "body": "{\"error\":{\"message\":\"Incorrect API key provided: ALPHA.\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_api_key\"}}"
+     },
+     "throttled": {
+      "status": 429,
+      "header": {
+       "Content-Type": "application/json",
+       "x-request-id": "req_alpha_429"
+      },
+      "body": "{\"error\":{\"message\":\"Rate limit reached for ALPHA.\",\"type\":\"requests\",\"param\":null,\"code\":\"rate_limit_exceeded\"}}"
+     }
+    },
+    "tenant-b": {
+     "events": [
+      {
+       "id": "chatcmpl-resp_bravo",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "role": "assistant",
+          "content": "",
+          "refusal": null
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_bravo",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "BRAVO "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_bravo",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "answer "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_bravo",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "for "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_bravo",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "the second tenant."
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_bravo",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {},
+         "logprobs": null,
+         "finish_reason": "stop"
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "chatcmpl-resp_bravo",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "gpt-4.1-mini-2025-04-14",
+       "choices": [],
+       "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 8,
+        "total_tokens": 32,
+        "prompt_tokens_details": {
+         "cached_tokens": 4,
+         "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+         "reasoning_tokens": 0,
+         "audio_tokens": 0,
+         "accepted_prediction_tokens": 0,
+         "rejected_prediction_tokens": 0
+        }
+       }
+      },
+      "[DONE]"
+     ]
     }
    }
   }

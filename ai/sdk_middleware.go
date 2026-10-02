@@ -43,6 +43,26 @@ func announceTimeout(d time.Duration) func(*http.Request, roundTrip) (*http.Resp
 	}
 }
 
+// keepRemoved is SDK middleware that keeps the headers the header transform
+// removed (names without values in header) off the wire. The SDKs' header
+// deletion drops the name from the request, which lets net/http put its own
+// default back in its place (Go-http-client/1.1 for User-Agent); present
+// without values, a name is neither written nor defaulted.
+func keepRemoved(header http.Header) func(*http.Request, roundTrip) (*http.Response, error) {
+	var removed []string
+	for name, values := range header {
+		if len(values) == 0 {
+			removed = append(removed, name)
+		}
+	}
+	return func(req *http.Request, next roundTrip) (*http.Response, error) {
+		for _, name := range removed {
+			req.Header[name] = nil
+		}
+		return next(req)
+	}
+}
+
 // limitBodies is SDK middleware that puts each response body behind the
 // call's byte limits before the SDK or the adapter reads it.
 func (l byteLimits) limitBodies(req *http.Request, next roundTrip) (*http.Response, error) {

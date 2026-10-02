@@ -1,0 +1,2520 @@
+{
+ "case": "P04/E03 OpenAI × Chat Completions history conversion, reasoning replay, tool results and images",
+ "source": "Synthetic offline fixture. Chunk shapes follow OpenAI's streamed Chat Completions (stream_options.include_usage) as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/openai-completions.ts through openai-node 6.40.0 (Stream.fromSSEResponse). Expected requests follow pi's buildParams and convertMessages for the standard OpenAI compat; the models are pi's OpenAI data on the openai-completions API (ADR-0013). Costs are pi's calculateCost at the frozen prices of the model used.",
+ "scenarios": [
+  {
+   "id": "tool-round-trip",
+   "about": "A same-model turn answered by the host: the reasoning goes back under the field it streamed in, the text as the content string, the call with its parsed arguments, the result as a tool message; instructions go to a reasoning model as developer.",
+   "model": "gpt-5-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up x."
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-5-mini",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "Let me think. Still sure.",
+        "thinkingSignature": "reasoning_content"
+       },
+       {
+        "type": "text",
+        "text": "Checking."
+       },
+       {
+        "type": "toolCall",
+        "id": "call_1",
+        "name": "lookup",
+        "arguments": {
+         "q": "x",
+         "n": 2
+        }
+       }
+      ]
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_1",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "42"
+       }
+      ],
+      "isError": false
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-5-mini",
+      "messages": [
+       {
+        "role": "developer",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Look up x."
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": "Checking.",
+        "reasoning_content": "Let me think. Still sure.",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"x\",\"n\":2}"
+          }
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "42",
+        "tool_call_id": "call_1"
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": [
+       {
+        "type": "function",
+        "function": {
+         "name": "lookup",
+         "description": "Look something up.",
+         "parameters": {
+          "type": "object",
+          "properties": {
+           "q": {
+            "type": "string"
+           },
+           "n": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "q"
+          ]
+         },
+         "strict": false
+        }
+       }
+      ]
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-5-mini-2025-08-07",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 1.4999999999999999e-05,
+      "output": 9.999999999999999e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 2.4999999999999998e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "reasoning-details-replay",
+   "about": "Same-model reasoning_details are sent back as they were streamed instead of the reasoning field; blank text is dropped.",
+   "model": "gpt-5-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi."
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-5-mini",
+      "stopReason": "stop",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "Step one.",
+        "thinkingSignature": "[{\"type\":\"reasoning.text\",\"text\":\"Step one.\",\"format\":\"openai-responses-v1\",\"index\":0,\"signature\":\"sig-1\",\"id\":\"rs_1\"},{\"type\":\"reasoning.encrypted\",\"data\":\"ZW5jcnlwdGVk\",\"id\":\"rs_2\",\"format\":\"openai-responses-v1\",\"index\":1}]"
+       },
+       {
+        "type": "text",
+        "text": "  "
+       },
+       {
+        "type": "text",
+        "text": "Done."
+       }
+      ]
+     },
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Again."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-5-mini",
+      "messages": [
+       {
+        "role": "developer",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi."
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": "Done.",
+        "reasoning_details": [
+         {
+          "type": "reasoning.text",
+          "text": "Step one.",
+          "format": "openai-responses-v1",
+          "index": 0,
+          "signature": "sig-1",
+          "id": "rs_1"
+         },
+         {
+          "type": "reasoning.encrypted",
+          "data": "ZW5jcnlwdGVk",
+          "id": "rs_2",
+          "format": "openai-responses-v1",
+          "index": 1
+         }
+        ]
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Again."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-5-mini-2025-08-07",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 1.4999999999999999e-05,
+      "output": 9.999999999999999e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 2.4999999999999998e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "legacy-reasoning-details",
+   "about": "Older history kept encrypted reasoning on tool calls' thought signatures: it goes back as reasoning_details.",
+   "model": "gpt-5-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up x."
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-5-mini",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "toolCall",
+        "id": "call_1",
+        "name": "lookup",
+        "arguments": {
+         "q": "x"
+        },
+        "thoughtSignature": "{\"type\":\"reasoning.encrypted\",\"id\":\"rs_7\",\"data\":\"bGVnYWN5\",\"format\":\"openai-responses-v1\"}"
+       }
+      ]
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_1",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "42"
+       }
+      ],
+      "isError": false
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-5-mini",
+      "messages": [
+       {
+        "role": "developer",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Look up x."
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"x\"}"
+          }
+         }
+        ],
+        "reasoning_details": [
+         {
+          "type": "reasoning.encrypted",
+          "id": "rs_7",
+          "data": "bGVnYWN5",
+          "format": "openai-responses-v1"
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "42",
+        "tool_call_id": "call_1"
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": [
+       {
+        "type": "function",
+        "function": {
+         "name": "lookup",
+         "description": "Look something up.",
+         "parameters": {
+          "type": "object",
+          "properties": {
+           "q": {
+            "type": "string"
+           },
+           "n": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "q"
+          ]
+         },
+         "strict": false
+        }
+       }
+      ]
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-5-mini-2025-08-07",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 1.4999999999999999e-05,
+      "output": 9.999999999999999e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 2.4999999999999998e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "untrusted-native-state",
+   "about": "The round trip's history restored without the host vouching for it: the thinking replays as plain text (joined into the content) and no reasoning field is sent; the downgrade is counted.",
+   "model": "gpt-5-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up x."
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-5-mini",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "Let me think. Still sure.",
+        "thinkingSignature": "reasoning_content"
+       },
+       {
+        "type": "text",
+        "text": "Checking."
+       },
+       {
+        "type": "toolCall",
+        "id": "call_1",
+        "name": "lookup",
+        "arguments": {
+         "q": "x",
+         "n": 2
+        }
+       }
+      ]
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_1",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "42"
+       }
+      ],
+      "isError": false
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "downgrades": {
+     "noEnvelope": 1
+    },
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-5-mini",
+      "messages": [
+       {
+        "role": "developer",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Look up x."
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": "Let me think. Still sure.Checking.",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"x\",\"n\":2}"
+          }
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "42",
+        "tool_call_id": "call_1"
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": [
+       {
+        "type": "function",
+        "function": {
+         "name": "lookup",
+         "description": "Look something up.",
+         "parameters": {
+          "type": "object",
+          "properties": {
+           "q": {
+            "type": "string"
+           },
+           "n": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "q"
+          ]
+         },
+         "strict": false
+        }
+       }
+      ]
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-5-mini-2025-08-07",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 1.4999999999999999e-05,
+      "output": 9.999999999999999e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 2.4999999999999998e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "cross-provider",
+   "about": "A Responses turn replayed to Chat: visible reasoning becomes text, signatures go, the id 'call_1|fc_1' becomes 'call_1_fc_1' and its result follows; a long Anthropic id is cut to 40 characters for OpenAI.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up x."
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-responses",
+      "provider": "openai",
+      "model": "gpt-5-mini",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "Reasoned.",
+        "thinkingSignature": "{\"type\":\"reasoning\",\"id\":\"rs_1\",\"summary\":[]}"
+       },
+       {
+        "type": "text",
+        "text": "Checking.",
+        "textSignature": "{\"v\":1,\"id\":\"msg_1\"}"
+       },
+       {
+        "type": "toolCall",
+        "id": "call_1|fc_1",
+        "name": "lookup",
+        "arguments": {
+         "q": "x"
+        }
+       }
+      ]
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_1|fc_1",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "42"
+       }
+      ],
+      "isError": false
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "anthropic-messages",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "toolCall",
+        "id": "toolu_01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghij",
+        "name": "lookup",
+        "arguments": {
+         "q": "y"
+        }
+       }
+      ]
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "toolu_01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghij",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "43"
+       }
+      ],
+      "isError": false
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "downgrades": {
+     "crossModel": 1
+    },
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Look up x."
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": "Reasoned.Checking.",
+        "tool_calls": [
+         {
+          "id": "call_1_fc_1",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"x\"}"
+          }
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "42",
+        "tool_call_id": "call_1_fc_1"
+       },
+       {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+         {
+          "id": "toolu_01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"y\"}"
+          }
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "43",
+        "tool_call_id": "toolu_01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef"
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": [
+       {
+        "type": "function",
+        "function": {
+         "name": "lookup",
+         "description": "Look something up.",
+         "parameters": {
+          "type": "object",
+          "properties": {
+           "q": {
+            "type": "string"
+           },
+           "n": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "q"
+          ]
+         },
+         "strict": false
+        }
+       }
+      ]
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 2.4e-05,
+      "output": 8.000000000000001e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 3.2000000000000005e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "long-responses-id",
+   "about": "A Responses call id whose item id makes it longer than 40 characters is shortened with a hash, so calls sharing a call id stay distinct.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up x."
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-responses",
+      "provider": "openai",
+      "model": "gpt-5",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "toolCall",
+        "id": "call_abc|fc_0123456789abcdef0123456789abcdef0123",
+        "name": "lookup",
+        "arguments": {
+         "q": "x"
+        }
+       },
+       {
+        "type": "toolCall",
+        "id": "call_abc|fc_fedcba9876543210fedcba9876543210fedc",
+        "name": "lookup",
+        "arguments": {
+         "q": "z"
+        }
+       }
+      ]
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_abc|fc_0123456789abcdef0123456789abcdef0123",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "1"
+       }
+      ],
+      "isError": false
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_abc|fc_fedcba9876543210fedcba9876543210fedc",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "2"
+       }
+      ],
+      "isError": false
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "downgrades": {
+     "crossModel": 1
+    },
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Look up x."
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+         {
+          "id": "call_abc_15in1d81",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"x\"}"
+          }
+         },
+         {
+          "id": "call_abc_1gdgrd8e",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"z\"}"
+          }
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "1",
+        "tool_call_id": "call_abc_15in1d81"
+       },
+       {
+        "role": "tool",
+        "content": "2",
+        "tool_call_id": "call_abc_1gdgrd8e"
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": [
+       {
+        "type": "function",
+        "function": {
+         "name": "lookup",
+         "description": "Look something up.",
+         "parameters": {
+          "type": "object",
+          "properties": {
+           "q": {
+            "type": "string"
+           },
+           "n": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "q"
+          ]
+         },
+         "strict": false
+        }
+       }
+      ]
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 2.4e-05,
+      "output": 8.000000000000001e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 3.2000000000000005e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "images",
+   "about": "A model taking images: the user image as an image_url data URL; a run of tool results goes out as tool messages ('(see attached image)' for an image-only one), then their images in one user message.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "What is this?"
+       },
+       {
+        "type": "image",
+        "data": "aW1hZ2U=",
+        "mimeType": "image/png"
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "toolCall",
+        "id": "call_1",
+        "name": "lookup",
+        "arguments": {
+         "q": "a"
+        }
+       },
+       {
+        "type": "toolCall",
+        "id": "call_2",
+        "name": "lookup",
+        "arguments": {
+         "q": "b"
+        }
+       }
+      ]
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_1",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "image",
+        "data": "aW1hZ2U=",
+        "mimeType": "image/png"
+       }
+      ],
+      "isError": false
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_2",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "two"
+       },
+       {
+        "type": "image",
+        "data": "aW1hZ2Uy",
+        "mimeType": "image/jpeg"
+       }
+      ],
+      "isError": false
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "What is this?"
+         },
+         {
+          "type": "image_url",
+          "image_url": {
+           "url": "data:image/png;base64,aW1hZ2U="
+          }
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"a\"}"
+          }
+         },
+         {
+          "id": "call_2",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"b\"}"
+          }
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "(see attached image)",
+        "tool_call_id": "call_1"
+       },
+       {
+        "role": "tool",
+        "content": "two",
+        "tool_call_id": "call_2"
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Attached image(s) from tool result:"
+         },
+         {
+          "type": "image_url",
+          "image_url": {
+           "url": "data:image/png;base64,aW1hZ2U="
+          }
+         },
+         {
+          "type": "image_url",
+          "image_url": {
+           "url": "data:image/jpeg;base64,aW1hZ2Uy"
+          }
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": [
+       {
+        "type": "function",
+        "function": {
+         "name": "lookup",
+         "description": "Look something up.",
+         "parameters": {
+          "type": "object",
+          "properties": {
+           "q": {
+            "type": "string"
+           },
+           "n": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "q"
+          ]
+         },
+         "strict": false
+        }
+       }
+      ]
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 2.4e-05,
+      "output": 8.000000000000001e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 3.2000000000000005e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "image-placeholders",
+   "about": "The same images to a text-only model (gpt-4): pi's placeholders replace them and no image message follows the results.",
+   "model": "gpt-4",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "What is this?"
+       },
+       {
+        "type": "image",
+        "data": "aW1hZ2U=",
+        "mimeType": "image/png"
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-4",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "toolCall",
+        "id": "call_1",
+        "name": "lookup",
+        "arguments": {
+         "q": "a"
+        }
+       },
+       {
+        "type": "toolCall",
+        "id": "call_2",
+        "name": "lookup",
+        "arguments": {
+         "q": "b"
+        }
+       }
+      ]
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_1",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "image",
+        "data": "aW1hZ2U=",
+        "mimeType": "image/png"
+       }
+      ],
+      "isError": false
+     },
+     {
+      "role": "toolResult",
+      "toolCallId": "call_2",
+      "toolName": "lookup",
+      "content": [
+       {
+        "type": "text",
+        "text": "two"
+       },
+       {
+        "type": "image",
+        "data": "aW1hZ2Uy",
+        "mimeType": "image/jpeg"
+       }
+      ],
+      "isError": false
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4-0613",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4-0613",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4-0613",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4-0613",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "What is this?"
+         },
+         {
+          "type": "text",
+          "text": "(image omitted: model does not support images)"
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"a\"}"
+          }
+         },
+         {
+          "id": "call_2",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"b\"}"
+          }
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "(tool image omitted: model does not support images)",
+        "tool_call_id": "call_1"
+       },
+       {
+        "role": "tool",
+        "content": "two\n(tool image omitted: model does not support images)",
+        "tool_call_id": "call_2"
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": [
+       {
+        "type": "function",
+        "function": {
+         "name": "lookup",
+         "description": "Look something up.",
+         "parameters": {
+          "type": "object",
+          "properties": {
+           "q": {
+            "type": "string"
+           },
+           "n": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "q"
+          ]
+         },
+         "strict": false
+        }
+       }
+      ]
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4-0613",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 0.0018,
+      "output": 0.00030000000000000003,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0.0021
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "missing-result-error-turn",
+   "about": "An errored turn is skipped; a call left unanswered gets pi's synthetic 'No result provided' result before the next user turn; an empty assistant turn is skipped; a history with tool calls but no declared tools sends an empty tool list.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "First."
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "stopReason": "error",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "text",
+        "text": "Partial"
+       }
+      ],
+      "errorMessage": "boom"
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "stopReason": "toolUse",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "toolCall",
+        "id": "call_9",
+        "name": "lookup",
+        "arguments": {}
+       }
+      ]
+     },
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Never mind."
+       },
+       {
+        "type": "text",
+        "text": ""
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "trusted": true,
+      "api": "openai-completions",
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "stopReason": "stop",
+      "timestamp": 1,
+      "content": [
+       {
+        "type": "text",
+        "text": "   "
+       }
+      ]
+     },
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hello?"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "It is 42."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 5,
+      "total_tokens": 65,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "It is 42.",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:It is 42.",
+     "text_end#0:It is 42.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "First."
+         }
+        ]
+       },
+       {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+         {
+          "id": "call_9",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{}"
+          }
+         }
+        ]
+       },
+       {
+        "role": "tool",
+        "content": "No result provided",
+        "tool_call_id": "call_9"
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Never mind."
+         }
+        ]
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hello?"
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": []
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 5,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 65,
+     "cost": {
+      "input": 2.4e-05,
+      "output": 8.000000000000001e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 3.2000000000000005e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  }
+ ]
+}

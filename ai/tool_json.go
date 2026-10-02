@@ -184,10 +184,15 @@ func writeJSON(b *strings.Builder, v any) {
 		b.WriteByte(']')
 	case *jsonObject:
 		b.WriteByte('{')
-		for i, k := range v.ordered() {
-			if i > 0 {
+		first := true
+		for _, k := range v.ordered() {
+			if v.values[k] == jsUndefined {
+				continue
+			}
+			if !first {
 				b.WriteByte(',')
 			}
+			first = false
 			writeJSString(b, k)
 			b.WriteByte(':')
 			writeJSON(b, v.values[k])
@@ -195,6 +200,13 @@ func writeJSON(b *strings.Builder, v any) {
 		b.WriteByte('}')
 	}
 }
+
+// jsUndefined is a property JavaScript code assigned undefined: it holds its
+// place in the key order, so a later value keeps that position, but
+// JSON.stringify leaves it out. JSON.parse never produces it.
+var jsUndefined any = jsUndefinedValue{}
+
+type jsUndefinedValue struct{}
 
 // writeJSNumber formats like JavaScript's Number#toString in JSON.stringify:
 // non-finite numbers are null and -0 is 0. encoding/json already formats

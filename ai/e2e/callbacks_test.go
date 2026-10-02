@@ -182,6 +182,7 @@ func TestTrustedCallbacks(t *testing.T) {
 		hooks := ai.Hooks{
 			TransformHeaders: func(_ context.Context, _ ai.CallScope, h http.Header) error {
 				h.Set("X-Host-Trace", "trace-2")
+				h.Del("User-Agent")
 				return nil
 			},
 			OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
@@ -196,6 +197,8 @@ func TestTrustedCallbacks(t *testing.T) {
 		reqs := w.provider.Requests()
 		ev.Record("requests", reqs)
 		if ev.Check("exactly one request", len(reqs) == 1, "got %d", len(reqs)) {
+			_, ua := reqs[0].Header["User-Agent"]
+			ev.Check("a removed header is not sent, not even the SDK's default", !ua, "got %q", reqs[0].Header["User-Agent"])
 			var body map[string]any
 			mustUnmarshal(t, reqs[0].Body, &body)
 			key, _ := body["prompt_cache_key"].(string)

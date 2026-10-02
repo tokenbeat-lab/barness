@@ -147,10 +147,7 @@ const responsesMinOutputTokens = 16
 // does before samplingParams.
 func (o ResponsesOptions) encode(body *responsesBody, m Model, cacheKey string) {
 	retention := cmp.Or(o.CacheRetention, CacheRetentionShort)
-	longRetention := true
-	if v, ok := m.Compat.SupportsLongCacheRetention.Get(); ok {
-		longRetention = v
-	}
+	longRetention := m.supportsLongCacheRetention()
 	explicit := m.Compat.SupportsExplicitPromptCacheMode
 	body.PromptCacheKey = cacheKey
 	switch {

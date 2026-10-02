@@ -36,6 +36,15 @@ const APIS = {
 		models: "@earendil-works/pi-ai/providers/google.models",
 		catalog: "GOOGLE_MODELS",
 	},
+	// pi's data lists OpenAI's models for Responses only; a pi user reaches
+	// them over Chat Completions as a custom model with the API swapped,
+	// which is what barness-ai's catalog lists (ADR-0013).
+	"openai-completions": {
+		api: "@earendil-works/pi-ai/api/openai-completions",
+		models: "@earendil-works/pi-ai/providers/openai.models",
+		catalog: "OPENAI_MODELS",
+		catalogApi: "openai-responses",
+	},
 };
 
 function fail(message) {
@@ -119,7 +128,7 @@ async function costs(input) {
 	const known = [];
 	for (const [api, entry] of Object.entries(APIS)) {
 		const catalog = (await import(entry.models))[entry.catalog];
-		known.push(...Object.values(catalog).filter((m) => m.api === api));
+		known.push(...Object.values(catalog).filter((m) => m.api === (entry.catalogApi ?? api)));
 	}
 	const models = {};
 	for (const id of input.models ?? []) {
@@ -151,7 +160,9 @@ async function main() {
 	const pi = await import("@earendil-works/pi-ai");
 	const api = await import(entry.api);
 	const catalog = (await import(entry.models))[entry.catalog];
-	const known = Object.values(catalog).find((m) => m.provider === input.provider && m.id === input.model);
+	const catalogApi = entry.catalogApi ?? input.api;
+	const listed = Object.values(catalog).find((m) => m.provider === input.provider && m.id === input.model && m.api === catalogApi);
+	const known = listed && { ...listed, api: input.api };
 	if (!known) fail(`model ${input.provider}/${input.model} is not in pi's ${input.api} catalog`);
 	// modelCompat overrides compat flags of the catalog model, the way a pi
 	// user configures a custom model; it lets a case exercise a flag that
@@ -159,7 +170,8 @@ async function main() {
 	// modelPatch replaces other top-level model fields (thinkingLevelMap,
 	// samplingParams, contextWindow, ...) the same way.
 	const compat = input.modelCompat ? { ...known.compat, ...input.modelCompat } : known.compat;
-	const model = { ...known, ...(input.modelPatch ?? {}), baseUrl: input.baseUrl, ...(compat ? { compat } : {}) };
+	// A patched compat replaces the catalog's whole, as for every other field.
+	const model = { ...known, ...(compat ? { compat } : {}), ...(input.modelPatch ?? {}), baseUrl: input.baseUrl };
 
 	const context = pi.normalizeContext(input.context);
 	// abortAfterEvents > 0 aborts the call, as a caller canceling it would, once

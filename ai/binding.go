@@ -50,6 +50,9 @@ const (
 	// APIGoogleGenerativeAI is the Gemini Developer API's generateContent
 	// protocol (pi-ai's google-generative-ai), not Vertex AI.
 	APIGoogleGenerativeAI API = "google-generative-ai"
+	// APIOpenAICompletions is the OpenAI Chat Completions protocol
+	// (pi-ai's openai-completions).
+	APIOpenAICompletions API = "openai-completions"
 )
 
 // AuthKind is how a binding authenticates. The first phase supports API keys only.
@@ -72,8 +75,8 @@ type Binding struct {
 	ProviderID ProviderID
 	API        API
 	// Endpoint is the protocol's base URL, as pi-ai's model baseUrl: e.g.
-	// https://api.openai.com/v1 for Responses, https://api.anthropic.com for
-	// Anthropic Messages.
+	// https://api.openai.com/v1 for Responses and Chat Completions,
+	// https://api.anthropic.com for Anthropic Messages.
 	Endpoint       string
 	AuthKind       AuthKind
 	AccountScopeID string

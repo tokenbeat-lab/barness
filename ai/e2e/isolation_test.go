@@ -89,7 +89,7 @@ var isolationScenarios = []isolationScenario{
 	{
 		name: "a-retried", aAttempts: 2,
 		arrange: func(iw isolationWorld) {
-			for _, id := range []string{"primary", "claude", "gemini"} {
+			for _, id := range []string{"primary", "claude", "gemini", "chat"} {
 				b := iw.host.Binding(tenantA.tenant, id)
 				b.Retry = ai.RetryPolicy{MaxRetries: 1}
 				iw.host.PutBinding(b)
@@ -124,9 +124,10 @@ var isolationScenarios = []isolationScenario{
 // both succeed, or with B held mid-stream across the whole of A's call
 // while A is refused (401), canceled (while streaming, or as its response
 // arrives), timed out by its own timeoutMs, retried or left without a
-// credential. On Responses, Anthropic Messages and the Gemini Developer API
-// (which has no timeoutMs to time A out with), through every entry
-// point:
+// credential. On Responses, Anthropic Messages, the Gemini Developer API
+// (which has no timeoutMs to time A out with) and Chat Completions (whose
+// cache key needs long retention off OpenAI's own endpoint), through every
+// entry point:
 //
 //   - each endpoint receives only its tenant's key, exactly what that
 //     tenant sends running alone;
@@ -289,7 +290,8 @@ func runSolo(t *testing.T, p isolationProtocol, e isolationEntry, k tenantKey, s
 // checkWire asserts which requests reached the Provider: each tenant's at
 // its own endpoint path with its own key, as many as its call attempts,
 // and none anywhere else. On Responses, the session id both tenants pass
-// yields a different cache key and affinity header for each.
+// yields a different cache key and affinity header for each; on Chat, which
+// sends no affinity header, a different cache key.
 func checkWire(ev *evidence.Case, iw isolationWorld, p isolationProtocol, sc isolationScenario) {
 	a, b := iw.requestsAt(tenantA), iw.requestsAt(tenantB)
 	all := iw.provider.Requests()
@@ -311,6 +313,9 @@ func checkWire(ev *evidence.Case, iw isolationWorld, p isolationProtocol, sc iso
 	keyA, keyB := promptCacheKey(ev, a[0]), promptCacheKey(ev, b[0])
 	ev.Check("the shared session id yields each tenant its own cache key", keyA != "" && keyB != "" && keyA != keyB,
 		"A %q B %q", keyA, keyB)
+	if p.chat() {
+		return
+	}
 	ev.Check("the shared session id yields each tenant its own affinity header",
 		a[0].Header["Session_id"] != "" && a[0].Header["Session_id"] != b[0].Header["Session_id"],
 		"A %q B %q", a[0].Header["Session_id"], b[0].Header["Session_id"])

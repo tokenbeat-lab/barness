@@ -62,6 +62,15 @@ type ModelCompat struct {
 	SupportsTemperature Nullable[bool] `json:"supportsTemperature,omitzero"`
 }
 
+// supportsLongCacheRetention is the model's compat flag; unset or null is
+// true, as in pi.
+func (m Model) supportsLongCacheRetention() bool {
+	if v, ok := m.Compat.SupportsLongCacheRetention.Get(); ok {
+		return v
+	}
+	return true
+}
+
 // acceptsImages reports whether the model takes image input; any other model
 // gets pi-ai's placeholder text instead of images.
 func (m Model) acceptsImages() bool { return slices.Contains(m.Input, ModalityImage) }
@@ -98,11 +107,32 @@ type Catalog struct {
 // constrained-sampling tools, which cannot be declared here, so they are not
 // carried. gpt-4 and o3-mini are the text-only models: images reach them as
 // placeholders; every Anthropic and Google model takes images.
+//
+// pi's data lists OpenAI's models for Responses only; the OpenAI Chat
+// Completions models are the same entries on that API (see
+// builtinOpenAIChatModels), as a pi user configures a custom model.
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-02.3",
-		Models:  slices.Concat(builtinOpenAIModels(), builtinAnthropicModels(), builtinGoogleModels()),
+		Version: "2026-10-02.4",
+		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
+			builtinGoogleModels()),
 	}
+}
+
+// builtinOpenAIChatModels are the listed OpenAI models that Chat Completions
+// also serves, with pi's OpenAI data on the openai-completions API
+// (ADR-0013): every field, compat included, as for Responses. The pro
+// models answer only on Responses, so they are left out.
+func builtinOpenAIChatModels() []Model {
+	var out []Model
+	for _, m := range builtinOpenAIModels() {
+		if m.ID == "gpt-5-pro" || m.ID == "gpt-5.5-pro" {
+			continue
+		}
+		m.API = APIOpenAICompletions
+		out = append(out, m)
+	}
+	return out
 }
 
 func builtinOpenAIModels() []Model {

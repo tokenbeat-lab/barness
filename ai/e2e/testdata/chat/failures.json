@@ -1,0 +1,2574 @@
+{
+ "case": "P04/E02 OpenAI × Chat Completions failure and truncation terminals",
+ "source": "Synthetic offline fixture. Chunk shapes follow OpenAI's streamed Chat Completions (stream_options.include_usage) as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/openai-completions.ts through openai-node 6.40.0 (Stream.fromSSEResponse). Expected requests follow pi's buildParams and convertMessages for the standard OpenAI compat; the models are pi's OpenAI data on the openai-completions API (ADR-0013). Costs are pi's calculateCost at the frozen prices of the model used.",
+ "scenarios": [
+  {
+   "id": "no-finish-reason",
+   "about": "The stream ends ([DONE] and EOF) without a finish_reason: the open block still ends, then the call fails; text and usage are kept.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hel"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 12,
+      "completion_tokens": 1,
+      "total_tokens": 13,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "code": "protocol",
+    "content": [
+     {
+      "text": "Hel",
+      "type": "text"
+     }
+    ],
+    "errorMessage": "Stream ended without finish_reason",
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "text_end#0:Hel",
+     "error:error"
+    ],
+    "phase": "stream",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 12,
+     "output": 1,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 13,
+     "cost": {
+      "input": 4.800000000000001e-06,
+      "output": 1.6000000000000001e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 6.4000000000000006e-06
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "finish-without-done",
+   "about": "A finish_reason is the terminal: a body that ends without data: [DONE] after it still succeeds.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 12,
+      "completion_tokens": 4,
+      "total_tokens": 16,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    }
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 12,
+     "output": 4,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 16,
+     "cost": {
+      "input": 4.800000000000001e-06,
+      "output": 6.4000000000000006e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 1.1200000000000001e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "content-filter",
+   "about": "An error finish_reason is recorded and fails the call once the stream ended, after the open block ended; the usage stays.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hel"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "content_filter"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 12,
+      "completion_tokens": 1,
+      "total_tokens": 13,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "code": "upstream_error",
+    "content": [
+     {
+      "text": "Hel",
+      "type": "text"
+     }
+    ],
+    "errorMessage": "Provider finish_reason: content_filter",
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "text_end#0:Hel",
+     "error:error"
+    ],
+    "phase": "stream",
+    "rawStopReason": "content_filter",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 12,
+     "output": 1,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 13,
+     "cost": {
+      "input": 4.800000000000001e-06,
+      "output": 1.6000000000000001e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 6.4000000000000006e-06
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "unknown-finish-reason",
+   "about": "A finish_reason pi does not know is an error too, reported with the provider's word.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hel"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "weird_reason"
+      }
+     ],
+     "usage": null
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "code": "upstream_error",
+    "content": [
+     {
+      "text": "Hel",
+      "type": "text"
+     }
+    ],
+    "errorMessage": "Provider finish_reason: weird_reason",
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "text_end#0:Hel",
+     "error:error"
+    ],
+    "phase": "stream",
+    "rawStopReason": "weird_reason",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "length",
+   "about": "length is a successful truncation terminal.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, wor"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "length"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 12,
+      "completion_tokens": 3,
+      "total_tokens": 15,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, wor",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, wor",
+     "text_end#0:Hello, wor",
+     "done:length"
+    ],
+    "rawStopReason": "length",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "length",
+    "usage": {
+     "input": 12,
+     "output": 3,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 15,
+     "cost": {
+      "input": 4.800000000000001e-06,
+      "output": 4.800000000000001e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 9.600000000000001e-06
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "length-truncated-tool",
+   "about": "A tool call cut off by length stays length, never toolUse, and its arguments are incomplete, so the host does not execute it.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up x."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "tool_calls": [
+         {
+          "index": 0,
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "lookup",
+           "arguments": "{\"q\":\"x\",\"n"
+          }
+         }
+        ]
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "length"
+      }
+     ],
+     "usage": null
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "arguments": {
+       "q": "x"
+      },
+      "id": "call_1",
+      "name": "lookup",
+      "rawArguments": "{\"q\":\"x\",\"n",
+      "type": "toolCall"
+     }
+    ],
+    "events": [
+     "start",
+     "toolcall_start#0",
+     "toolcall_delta#0:{\"q\":\"x\",\"n",
+     "toolcall_end#0:call_1 lookup {\"q\":\"x\"}",
+     "done:length"
+    ],
+    "rawStopReason": "length",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Look up x."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false,
+      "tools": [
+       {
+        "type": "function",
+        "function": {
+         "name": "lookup",
+         "description": "Look something up.",
+         "parameters": {
+          "type": "object",
+          "properties": {
+           "q": {
+            "type": "string"
+           },
+           "n": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "q"
+          ]
+         },
+         "strict": false
+        }
+       }
+      ]
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "length",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "half-json",
+   "about": "A data event that is not one JSON document fails the stream; the open block never ends.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "sse": "data: {\"id\":\"chatcmpl-001\",\"object\":\"chat.completion.chunk\",\"created\":1760000000,\"model\":\"gpt-4.1-mini-2025-04-14\",\"system_fingerprint\":\"fp_test\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-001\",\"object\":\"chat.completion.chunk\",\"created\":1760000000,\"model\":\"gpt-4.1-mini-2025-04-14\",\"system_fingerprint\":\"fp_test\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hel\"},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-001\",\"choices\":[{\"delta\":{\"content\":\"lo\n\n"
+    }
+   ],
+   "expect": {
+    "code": "protocol",
+    "content": [
+     {
+      "text": "Hel",
+      "type": "text"
+     }
+    ],
+    "errorMessage": "OpenAI Chat Completions stream event is not valid JSON",
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "error:error"
+    ],
+    "phase": "stream",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "in-band-error",
+   "about": "A chunk with an error object after the stream started: openai-node's APIError message, the open block never ends.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hel"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "error": {
+      "message": "The server had an error while processing your request.",
+      "type": "server_error",
+      "param": null,
+      "code": null
+     }
+    }
+   ],
+   "expect": {
+    "code": "upstream_error",
+    "content": [
+     {
+      "text": "Hel",
+      "type": "text"
+     }
+    ],
+    "errorMessage": "The server had an error while processing your request.",
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "error:error"
+    ],
+    "phase": "stream",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "in-band-error-key-echo",
+   "about": "An in-band error echoing the call's key: the message keeps the text but not the key (a recorded security difference).",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "error": {
+      "message": "Incorrect API key provided: sk-test-tenant-a-0001.",
+      "type": "invalid_request_error",
+      "code": "invalid_api_key"
+     }
+    }
+   ],
+   "expect": {
+    "code": "upstream_error",
+    "content": [],
+    "errorMessage": "Incorrect API key provided: [REDACTED].",
+    "events": [
+     "start",
+     "error:error"
+    ],
+    "phase": "stream",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "in-band-error-raw-metadata",
+   "about": "OpenRouter's upstream provider error in metadata.raw follows the message on its own line.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "error": {
+      "message": "Provider returned error",
+      "code": 502,
+      "metadata": {
+       "raw": "upstream exploded",
+       "provider_name": "Example"
+      }
+     }
+    }
+   ],
+   "expect": {
+    "code": "upstream_error",
+    "content": [],
+    "errorMessage": "Provider returned error\nupstream exploded",
+    "events": [
+     "start",
+     "error:error"
+    ],
+    "phase": "stream",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "in-band-error-null",
+   "about": "An error field that is null is not an error: the chunk is read as usual.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null,
+     "error": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 12,
+      "completion_tokens": 4,
+      "total_tokens": 16,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 12,
+     "output": 4,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 16,
+     "cost": {
+      "input": 4.800000000000001e-06,
+      "output": 6.4000000000000006e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 1.1200000000000001e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "non-object-chunks",
+   "about": "Chunks that are not objects, or have no choices, carry nothing pi reads; the stream goes on.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    5,
+    "text",
+    [
+     1,
+     2
+    ],
+    {
+     "id": "other"
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 12,
+      "completion_tokens": 4,
+      "total_tokens": 16,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 12,
+     "output": 4,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 16,
+     "cost": {
+      "input": 4.800000000000001e-06,
+      "output": 6.4000000000000006e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 1.1200000000000001e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "http-400",
+   "about": "A JSON error object the SDK's message does not quote is shown as '<status>: <object>'; a 400 is not retried.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 400,
+     "body": "{\"error\":{\"message\":\"Invalid value for 'temperature'.\",\"type\":\"invalid_request_error\",\"param\":\"temperature\",\"code\":null}}"
+    }
+   ],
+   "maxRetries": 2,
+   "expect": {
+    "code": "invalid_request",
+    "content": [],
+    "errorMessage": "400: {\"message\":\"Invalid value for 'temperature'.\",\"type\":\"invalid_request_error\",\"param\":\"temperature\",\"code\":null}",
+    "events": [
+     "error:error"
+    ],
+    "httpStatus": 400,
+    "phase": "request",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "http-401-key-echo",
+   "about": "A provider echoing a masked key: the message keeps the body but not the key (a recorded security difference).",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 401,
+     "body": "{\"error\":{\"message\":\"Incorrect API key provided: sk-test-****0001. You can find your API key at https://platform.openai.com/account/api-keys.\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_api_key\"}}"
+    }
+   ],
+   "expect": {
+    "code": "upstream_auth",
+    "content": [],
+    "errorMessage": "401: {\"message\":\"Incorrect API key provided: [REDACTED]. You can find your API key at https://platform.openai.com/account/api-keys.\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_api_key\"}",
+    "events": [
+     "error:error"
+    ],
+    "httpStatus": 401,
+    "phase": "request",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "http-429-text",
+   "about": "A body that is not JSON is the SDK's '<status> <text>'.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 429,
+     "header": {
+      "Content-Type": "text/plain"
+     },
+     "body": "Rate limit reached."
+    }
+   ],
+   "expect": {
+    "code": "rate_limited",
+    "content": [],
+    "errorMessage": "429 Rate limit reached.",
+    "events": [
+     "error:error"
+    ],
+    "httpStatus": 429,
+    "phase": "request",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "http-500-no-error",
+   "about": "A JSON body without an error field gives the SDK's no-body text.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 500,
+     "body": "{\"detail\":\"boom\"}"
+    }
+   ],
+   "expect": {
+    "code": "upstream_error",
+    "content": [],
+    "errorMessage": "500 status code (no body)",
+    "events": [
+     "error:error"
+    ],
+    "httpStatus": 500,
+    "phase": "request",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "http-502-raw-metadata",
+   "about": "OpenRouter's raw upstream error follows an HTTP error's message.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 502,
+     "body": "{\"error\":{\"message\":\"Provider returned error\",\"code\":502,\"metadata\":{\"raw\":\"upstream exploded\"}}}"
+    }
+   ],
+   "expect": {
+    "code": "upstream_error",
+    "content": [],
+    "errorMessage": "502: {\"message\":\"Provider returned error\",\"code\":502,\"metadata\":{\"raw\":\"upstream exploded\"}}",
+    "events": [
+     "error:error"
+    ],
+    "httpStatus": 502,
+    "phase": "request",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "connection-cut",
+   "about": "The connection drops mid-stream: what arrived is kept and the call fails without ending the block.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hel"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    }
+   ],
+   "end": "abort",
+   "expect": {
+    "code": "transport",
+    "content": [
+     {
+      "text": "Hel",
+      "type": "text"
+     }
+    ],
+    "errorMessage": "Connection lost while reading the OpenAI Chat Completions stream",
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "error:error"
+    ],
+    "phase": "stream",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "reasoning-details-cut",
+   "about": "A cut stream still keeps the streamed reasoning_details as the thinking block's signature, without an end event.",
+   "model": "gpt-5-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "reasoning_details": [
+         {
+          "type": "reasoning.encrypted",
+          "data": "b3BhcXVl",
+          "id": "rs_9",
+          "format": "openai-responses-v1",
+          "index": 0
+         }
+        ]
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "reasoning": "Partial"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    }
+   ],
+   "end": "abort",
+   "expect": {
+    "code": "transport",
+    "content": [
+     {
+      "thinking": "Partial",
+      "thinkingSignature": "[{\"type\":\"reasoning.encrypted\",\"data\":\"b3BhcXVl\",\"id\":\"rs_9\",\"format\":\"openai-responses-v1\",\"index\":0}]",
+      "type": "thinking"
+     }
+    ],
+    "errorMessage": "Connection lost while reading the OpenAI Chat Completions stream",
+    "events": [
+     "start",
+     "thinking_start#0",
+     "thinking_delta#0:Partial",
+     "error:error"
+    ],
+    "phase": "stream",
+    "request": {
+     "body": {
+      "model": "gpt-5-mini",
+      "messages": [
+       {
+        "role": "developer",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-5-mini-2025-08-07",
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "canceled-mid-stream",
+   "about": "The caller cancels while the provider holds the stream open: openai-node ends the stream quietly, the open block ends, then the call is aborted.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hel"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    }
+   ],
+   "end": "hold",
+   "cancelAfterEvents": 3,
+   "expect": {
+    "code": "canceled",
+    "content": [
+     {
+      "text": "Hel",
+      "type": "text"
+     }
+    ],
+    "errorMessage": "Request was aborted",
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "text_end#0:Hel",
+     "error:aborted"
+    ],
+    "phase": "stream",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "aborted",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "no-response",
+   "about": "The connection drops before any response: the SDK's connection error.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "end": "drop"
+    }
+   ],
+   "expect": {
+    "code": "transport",
+    "content": [],
+    "errorMessage": "Connection error.",
+    "events": [
+     "error:error"
+    ],
+    "phase": "request",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "stopReason": "error",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  }
+ ]
+}

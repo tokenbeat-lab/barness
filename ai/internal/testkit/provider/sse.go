@@ -112,12 +112,36 @@ var DataFramings = []Framing{FramingLF, FramingCRLF, FramingBytewise, FramingHea
 // comments, the unknown-event framing named events a data-only client
 // skips.
 func EncodeDataSSE(events []json.RawMessage, framing Framing) ([][]byte, error) {
-	eol := "\n"
-	switch framing {
-	case FramingCRLF:
-		eol = "\r\n"
-	case FramingMultiline:
+	if framing == FramingMultiline {
 		return nil, fmt.Errorf("sse: data-only streams have no %s framing", framing)
+	}
+	return encodeDataEvents(events, framing, func(ev json.RawMessage) []string { return []string{compact(ev)} })
+}
+
+// ChatDone is how a script writes OpenAI's end-of-stream marker among Chat
+// Completions chunks: the JSON string "[DONE]".
+const ChatDone = `"[DONE]"`
+
+// EncodeChatSSE lays out Chat Completions chunks like EncodeDataSSE, with
+// ChatDone sent as the bare "data: [DONE]" and a multi-line framing, since
+// OpenAI's decoders join an event's data lines.
+func EncodeChatSSE(events []json.RawMessage, framing Framing) ([][]byte, error) {
+	return encodeDataEvents(events, framing, func(ev json.RawMessage) []string {
+		switch {
+		case string(bytes.TrimSpace(ev)) == ChatDone:
+			return []string{"[DONE]"}
+		case framing == FramingMultiline:
+			return indentedLines(ev)
+		}
+		return []string{compact(ev)}
+	})
+}
+
+// encodeDataEvents writes each event's data lines as one unnamed event.
+func encodeDataEvents(events []json.RawMessage, framing Framing, data func(json.RawMessage) []string) ([][]byte, error) {
+	eol := "\n"
+	if framing == FramingCRLF {
+		eol = "\r\n"
 	}
 	var chunks [][]byte
 	for i, ev := range events {
@@ -127,7 +151,12 @@ func EncodeDataSSE(events []json.RawMessage, framing Framing) ([][]byte, error) 
 		case FramingUnknownEvent:
 			chunks = append(chunks, []byte(fmt.Sprintf("event: barness_unknown"+eol+`data: {"barnessUnknown":%d}`+eol+eol, i)))
 		}
-		chunks = append(chunks, []byte("data: "+compact(ev)+eol+eol))
+		var b bytes.Buffer
+		for _, line := range data(ev) {
+			b.WriteString("data: " + line + eol)
+		}
+		b.WriteString(eol)
+		chunks = append(chunks, b.Bytes())
 	}
 	if framing == FramingBytewise {
 		var split [][]byte

@@ -49,37 +49,8 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	if failure := ac.limits.checkRequestBody(body); failure != nil {
 		return failure
 	}
-	reqOpts := []option.RequestOption{
-		option.WithHTTPClient(ac.http),
-		option.WithBaseURL(ac.endpoint),
-		// Retries are barness-ai's (ac.initial), never the SDK's.
-		option.WithMaxRetries(0),
-		option.WithRequestBody("application/json", body),
-		option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
-			return markConnectionFailures(r, next)
-		}),
-		// Every response body is read through the policy's limits, the
-		// SDK's own reads of an error body included. The SDK's SSE decoder
-		// also refuses a line over 32 MiB on its own; a MaxFrameBytes above
-		// that cannot be reached and ends as a lost connection instead.
-		option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
-			return ac.limits.limitBodies(r, next)
-		}),
-	}
-	if opts.TimeoutMs > 0 {
-		// openai-node announces only an explicit timeoutMs.
-		announce := announceTimeout(opts.requestTimeout())
-		reqOpts = append(reqOpts, option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
-			return announce(r, next)
-		}))
-	}
 	var delivered deliveredBody
-	reqOpts = append(reqOpts, option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
-		return delivered.keep(r, next)
-	}))
-	// Authentication travels in ac.header, so the SDK's own API key setting
-	// stays empty and adds no second Authorization.
-	reqOpts = append(reqOpts, headerOptions(ac.header)...)
+	reqOpts := openAIRequestOptions(ac, body, opts.TimeoutMs, opts.requestTimeout(), &delivered)
 	svc := responses.NewResponseService(reqOpts...)
 	failures := newResponsesFailures(ac.model.Provider, ac.apiKey, ac.initial.clock)
 	ctx = withProtocolTimeout(ctx, opts.requestTimeout())
@@ -101,14 +72,14 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 			_ = stream.Close()
 			return o
 		}
-		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get("x-request-id")}
+		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get(openAIRequestIDHeader)}
 	})
 	if failure != nil {
 		return failure
 	}
 	// Close releases the response body on every later path.
 	defer stream.Close()
-	requestID := res.Header.Get("x-request-id")
+	requestID := res.Header.Get(openAIRequestIDHeader)
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
 		return failure
@@ -121,23 +92,6 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		failure.ProviderRequestID = requestID
 	}
 	return failure
-}
-
-// headerOptions sends header exactly: each name with its values in order,
-// and a name with no values suppressed.
-func headerOptions(header http.Header) []option.RequestOption {
-	var opts []option.RequestOption
-	for name, values := range header {
-		if len(values) == 0 {
-			opts = append(opts, option.WithHeaderDel(name))
-			continue
-		}
-		opts = append(opts, option.WithHeader(name, values[0]))
-		for _, v := range values[1:] {
-			opts = append(opts, option.WithHeaderAdd(name, v))
-		}
-	}
-	return opts
 }
 
 // readResponsesStream feeds the stream to p until a protocol terminal, a

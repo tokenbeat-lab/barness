@@ -192,10 +192,13 @@ func TestAnthropicCallbacks(t *testing.T) {
 		ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-header-transform", plain, raw)
 		hooks := ai.Hooks{TransformHeaders: func(_ context.Context, _ ai.CallScope, h http.Header) error {
 			h.Set("Anthropic-Beta", "x-beta, x-beta,")
+			h.Del("User-Agent")
 			return nil
 		}}
 		_, err := w.client.WithHooks(hooks).Complete(ctxFor(t), textScope("req-cb-headers"), plain.target(), plain.request(t), nil)
 		ev.Check("call succeeds", err == nil, "err=%v", err)
+		_, ua := lastRequest(ev, w).Header["User-Agent"]
+		ev.Check("a removed header is not sent, not even the SDK's default", !ua, "got %q", lastRequest(ev, w).Header["User-Agent"])
 		ev.Check("a configured anthropic-beta replaces the features, normalized as pi does",
 			lastRequest(ev, w).Header["Anthropic-Beta"] == "x-beta", "got %q", lastRequest(ev, w).Header["Anthropic-Beta"])
 	})

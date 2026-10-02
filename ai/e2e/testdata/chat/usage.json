@@ -1,0 +1,1735 @@
+{
+ "case": "P04/E11 OpenAI × Chat Completions usage, cost and reporting completeness",
+ "source": "Synthetic offline fixture. Chunk shapes follow OpenAI's streamed Chat Completions (stream_options.include_usage) as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/openai-completions.ts through openai-node 6.40.0 (Stream.fromSSEResponse). Expected requests follow pi's buildParams and convertMessages for the standard OpenAI compat; the models are pi's OpenAI data on the openai-completions API (ADR-0013). Costs are pi's calculateCost at the frozen prices of the model used.",
+ "scenarios": [
+  {
+   "id": "usage-final-chunk",
+   "about": "The usage chunk comes after the finish chunk and before [DONE]; it is not missed and is complete.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 20,
+      "total_tokens": 120,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 100,
+     "output": 20,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 120,
+     "cost": {
+      "input": 4e-05,
+      "output": 3.2000000000000005e-05,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 7.200000000000002e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-cached-reasoning",
+   "about": "Cached prompt tokens are cache reads outside input; reasoning tokens stay inside output as its subset; the total is pi's sum of the parts, not the provider's.",
+   "model": "gpt-5-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-mini-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 1000,
+      "completion_tokens": 300,
+      "total_tokens": 9999,
+      "prompt_tokens_details": {
+       "cached_tokens": 600,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 120,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-5-mini",
+      "messages": [
+       {
+        "role": "developer",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-5-mini-2025-08-07",
+    "stopReason": "stop",
+    "usage": {
+     "input": 400,
+     "output": 300,
+     "cacheRead": 600,
+     "cacheWrite": 0,
+     "reasoning": 120,
+     "totalTokens": 1300,
+     "cost": {
+      "input": 9.999999999999999e-05,
+      "output": 0.0006,
+      "cacheRead": 1.5000000000000002e-05,
+      "cacheWrite": 0,
+      "total": 0.0007149999999999999
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-replaced",
+   "about": "Each usage replaces the previous one whole.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 20,
+      "total_tokens": 120,
+      "prompt_tokens_details": {
+       "cached_tokens": 50,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 25,
+      "total_tokens": 125,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 100,
+     "output": 25,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 125,
+     "cost": {
+      "input": 4e-05,
+      "output": 4e-05,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 8e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-partial",
+   "about": "Usage without the details reads them as 0 and is partial.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 20,
+      "total_tokens": 120
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 100,
+     "output": 20,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 120,
+     "cost": {
+      "input": 4e-05,
+      "output": 3.2000000000000005e-05,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 7.200000000000002e-05
+     }
+    },
+    "usageReporting": "partial"
+   }
+  },
+  {
+   "id": "usage-null-counts",
+   "about": "Null counts read as 0; the usage is partial.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": null,
+      "completion_tokens": 20,
+      "total_tokens": null,
+      "prompt_tokens_details": {
+       "cached_tokens": null
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 0,
+     "output": 20,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 20,
+     "cost": {
+      "input": 0,
+      "output": 3.2000000000000005e-05,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 3.2000000000000005e-05
+     }
+    },
+    "usageReporting": "partial"
+   }
+  },
+  {
+   "id": "usage-unreported",
+   "about": "Every chunk's usage is null: the usage stays zero and unreported, never free.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+     }
+    },
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "usage-deepseek-cache-hit",
+   "about": "DeepSeek's prompt_cache_hit_tokens counts as cache reads when the OpenAI field is missing.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 20,
+      "total_tokens": 120,
+      "prompt_cache_hit_tokens": 40,
+      "prompt_cache_miss_tokens": 60,
+      "completion_tokens_details": {
+       "reasoning_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 20,
+     "cacheRead": 40,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 120,
+     "cost": {
+      "input": 2.4e-05,
+      "output": 3.2000000000000005e-05,
+      "cacheRead": 4.000000000000001e-06,
+      "cacheWrite": 0,
+      "total": 6.000000000000001e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-cache-write",
+   "about": "An OpenRouter cache_write_tokens is counted apart from reads and input.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 20,
+      "total_tokens": 120,
+      "prompt_tokens_details": {
+       "cached_tokens": 30,
+       "cache_write_tokens": 10
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 60,
+     "output": 20,
+     "cacheRead": 30,
+     "cacheWrite": 10,
+     "reasoning": 0,
+     "totalTokens": 120,
+     "cost": {
+      "input": 2.4e-05,
+      "output": 3.2000000000000005e-05,
+      "cacheRead": 3e-06,
+      "cacheWrite": 0,
+      "total": 5.9000000000000004e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-in-choice",
+   "about": "A provider reporting usage in the choice instead of the chunk (Moonshot) is read there.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "finish_reason": "stop",
+       "usage": {
+        "prompt_tokens": 100,
+        "completion_tokens": 20,
+        "total_tokens": 120,
+        "prompt_tokens_details": {
+         "cached_tokens": 0,
+         "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+         "reasoning_tokens": 0,
+         "audio_tokens": 0,
+         "accepted_prediction_tokens": 0,
+         "rejected_prediction_tokens": 0
+        }
+       }
+      }
+     ]
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "stop",
+    "usage": {
+     "input": 100,
+     "output": 20,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 120,
+     "cost": {
+      "input": 4e-05,
+      "output": 3.2000000000000005e-05,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 7.200000000000002e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-on-error-finish",
+   "about": "An error finish_reason keeps the reported usage on the failed message.",
+   "model": "gpt-4.1-mini",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "content_filter"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-4.1-mini-2025-04-14",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 2,
+      "total_tokens": 102,
+      "prompt_tokens_details": {
+       "cached_tokens": 0,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "code": "upstream_error",
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "errorMessage": "Provider finish_reason: content_filter",
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "error:error"
+    ],
+    "phase": "stream",
+    "rawStopReason": "content_filter",
+    "request": {
+     "body": {
+      "model": "gpt-4.1-mini",
+      "messages": [
+       {
+        "role": "system",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-4.1-mini-2025-04-14",
+    "stopReason": "error",
+    "usage": {
+     "input": 100,
+     "output": 2,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 102,
+     "cost": {
+      "input": 4e-05,
+      "output": 3.2000000000000003e-06,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 4.3200000000000007e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-gpt-5-pricing",
+   "about": "Pricing at another model's rates (gpt-5).",
+   "model": "gpt-5",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello, world!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {},
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "chatcmpl-001",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "gpt-5-2025-08-07",
+     "system_fingerprint": "fp_test",
+     "choices": [],
+     "usage": {
+      "prompt_tokens": 2000,
+      "completion_tokens": 500,
+      "total_tokens": 2500,
+      "prompt_tokens_details": {
+       "cached_tokens": 1000,
+       "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 200,
+       "audio_tokens": 0,
+       "accepted_prediction_tokens": 0,
+       "rejected_prediction_tokens": 0
+      }
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello, world!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "model": "gpt-5",
+      "messages": [
+       {
+        "role": "developer",
+        "content": "You are terse."
+       },
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Say hello."
+         }
+        ]
+       }
+      ],
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "store": false
+     },
+     "path": "/v1/chat/completions"
+    },
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-5-2025-08-07",
+    "stopReason": "stop",
+    "usage": {
+     "input": 1000,
+     "output": 500,
+     "cacheRead": 1000,
+     "cacheWrite": 0,
+     "reasoning": 200,
+     "totalTokens": 2500,
+     "cost": {
+      "input": 0.00125,
+      "output": 0.005,
+      "cacheRead": 0.000125,
+      "cacheWrite": 0,
+      "total": 0.0063750000000000005
+     }
+    },
+    "usageReporting": "complete"
+   }
+  }
+ ]
+}

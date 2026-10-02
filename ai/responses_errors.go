@@ -43,7 +43,7 @@ func newResponsesFailures(provider ProviderID, apiKey Secret, c *clock.Clock) re
 	if provider == ProviderOpenAI {
 		prefix = "OpenAI API error"
 	}
-	return responsesFailures{httpFailures{apiKey: apiKey, clock: c, requestIDHeader: "x-request-id",
+	return responsesFailures{httpFailures{apiKey: apiKey, clock: c, requestIDHeader: openAIRequestIDHeader,
 		describe: func(res *http.Response, body []byte) (string, string) {
 			return describeHTTPError(prefix, res.StatusCode, body)
 		}}}

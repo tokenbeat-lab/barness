@@ -20,6 +20,11 @@ type historyRules struct {
 type transcript struct {
 	messages []Message
 	tools    []Tool
+	// toolHistory reports whether the request's own history, before any
+	// turn was dropped or answered, holds a tool call or result (pi's
+	// hasToolHistory, which Chat Completions asks of the untransformed
+	// messages).
+	toolHistory bool
 }
 
 // The placeholders pi-ai puts in place of images for a model without image
@@ -69,7 +74,25 @@ func (o replayOrigin) prepareTranscript(req Request, rules historyRules) (transc
 		}
 	}
 	out, downgrades := settleTurns(converted)
-	return transcript{messages: out, tools: tools}, downgrades
+	return transcript{messages: out, tools: tools, toolHistory: hasToolHistory(msgs)}, downgrades
+}
+
+// hasToolHistory reports whether msgs hold a tool result or an assistant
+// message with a tool call.
+func hasToolHistory(msgs []Message) bool {
+	for _, m := range msgs {
+		switch m := m.(type) {
+		case ToolResultMessage:
+			return true
+		case AssistantMessage:
+			for _, block := range m.Content {
+				if _, ok := block.(ToolCall); ok {
+					return true
+				}
+			}
+		}
+	}
+	return false
 }
 
 // settleTurns is the second pass of pi's transformMessages. It drops

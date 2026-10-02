@@ -25,6 +25,14 @@ func piContext(t *testing.T, req ai.Request) json.RawMessage {
 			if m.Content == nil {
 				pm["content"] = nil
 			}
+			// The generic projection sorts object keys; a tool call's
+			// arguments keep the key order pi's JSON.stringify replays.
+			for i, c := range m.Content {
+				if call, ok := c.(ai.ToolCall); ok {
+					args, _ := call.Arguments.MarshalJSON()
+					pm["content"].([]any)[i].(map[string]any)["arguments"] = json.RawMessage(args)
+				}
+			}
 			messages = append(messages, pm)
 		case ai.ToolResultMessage:
 			messages = append(messages, map[string]any{"role": "toolResult", "toolCallId": m.ToolCallID, "toolName": m.ToolName,

@@ -77,6 +77,8 @@ func (p isolationProtocol) anthropic() bool { return p.BindingID == "claude" }
 
 func (p isolationProtocol) gemini() bool { return p.BindingID == "gemini" }
 
+func (p isolationProtocol) chat() bool { return p.BindingID == "chat" }
+
 // protocolTimeout reports whether p's protocol has a request timeout of its
 // own (timeoutMs); pi's Google path has none.
 func (p isolationProtocol) protocolTimeout() bool { return !p.gemini() }
@@ -118,6 +120,8 @@ func (p isolationProtocol) path(k tenantKey) string {
 		return tenantPrefix(k) + "/v1/messages"
 	case p.gemini():
 		return tenantPrefix(k) + "/v1beta/models/" + p.Model + ":streamGenerateContent"
+	case p.chat():
+		return tenantPrefix(k) + "/v1/chat/completions"
 	}
 	return tenantPrefix(k) + "/v1/responses"
 }
@@ -127,8 +131,11 @@ func (p isolationProtocol) script(k tenantKey) isolationScript { return p.Tenant
 // success is k's tenant's successful reply, one SSE frame per chunk.
 func (p isolationProtocol) success(t *testing.T, k tenantKey) provider.Reply {
 	t.Helper()
-	if p.gemini() {
+	switch {
+	case p.gemini():
 		return dataEvents(t, p.script(k).Events, provider.FramingLF)
+	case p.chat():
+		return chatEvents(t, p.script(k).Events, provider.FramingLF)
 	}
 	return sseEvents(t, p.script(k).Events, provider.FramingLF)
 }
@@ -206,7 +213,7 @@ func newIsolationWorld(t *testing.T, configure ...func(*ai.Config)) isolationWor
 		c.Clock = clock.NewFake(time.Unix(1790000000, 0), 0)
 	}}, configure...)...)
 	for _, k := range []tenantKey{tenantA, tenantB} {
-		for id, suffix := range map[string]string{"primary": "/v1", "claude": "", "gemini": "/v1beta"} {
+		for id, suffix := range map[string]string{"primary": "/v1", "claude": "", "gemini": "/v1beta", "chat": "/v1"} {
 			b := aw.host.Binding(k.tenant, id)
 			b.Endpoint = aw.provider.URL() + tenantPrefix(k) + suffix
 			aw.host.PutBinding(b)
@@ -245,8 +252,20 @@ func fullOptions(p isolationProtocol, timeoutMs int) ai.Options {
 		return ai.AnthropicOptions{TimeoutMs: timeoutMs}
 	case p.gemini():
 		return ai.GeminiOptions{}
+	case p.chat():
+		// Chat sends a cache key off OpenAI's own endpoint only with long
+		// retention.
+		return ai.ChatOptions{SessionID: sharedSession, CacheRetention: ai.CacheRetentionLong, TimeoutMs: timeoutMs}
 	}
 	return ai.ResponsesOptions{SessionID: sharedSession, TimeoutMs: timeoutMs}
+}
+
+func simpleOptions(p isolationProtocol, timeoutMs int) ai.SimpleOptions {
+	o := ai.SimpleOptions{SessionID: sharedSession, TimeoutMs: timeoutMs}
+	if p.chat() {
+		o.CacheRetention = ai.CacheRetentionLong
+	}
+	return o
 }
 
 var isolationEntries = []isolationEntry{
@@ -254,14 +273,14 @@ var isolationEntries = []isolationEntry{
 		return drain(w.client.Stream(ctx, scope, p.target(), p.request(), fullOptions(p, ms)))
 	}},
 	{"stream-simple", func(ctx context.Context, w *world, p isolationProtocol, scope ai.CallScope, ms int) outcome {
-		return drain(w.client.StreamSimple(ctx, scope, p.target(), p.request(), ai.SimpleOptions{SessionID: sharedSession, TimeoutMs: ms}))
+		return drain(w.client.StreamSimple(ctx, scope, p.target(), p.request(), simpleOptions(p, ms)))
 	}},
 	{"complete-full", func(ctx context.Context, w *world, p isolationProtocol, scope ai.CallScope, ms int) outcome {
 		res, err := w.client.Complete(ctx, scope, p.target(), p.request(), fullOptions(p, ms))
 		return outcome{result: res, err: err}
 	}},
 	{"complete-simple", func(ctx context.Context, w *world, p isolationProtocol, scope ai.CallScope, ms int) outcome {
-		res, err := w.client.CompleteSimple(ctx, scope, p.target(), p.request(), ai.SimpleOptions{SessionID: sharedSession, TimeoutMs: ms})
+		res, err := w.client.CompleteSimple(ctx, scope, p.target(), p.request(), simpleOptions(p, ms))
 		return outcome{result: res, err: err}
 	}},
 }

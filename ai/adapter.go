@@ -60,5 +60,6 @@ func registry() map[API]adapter {
 		APIOpenAIResponses:    responsesAdapter{},
 		APIAnthropicMessages:  anthropicAdapter{},
 		APIGoogleGenerativeAI: geminiAdapter{},
+		APIOpenAICompletions:  chatAdapter{},
 	}
 }

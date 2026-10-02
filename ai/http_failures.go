@@ -136,6 +136,27 @@ func jsTruthy(v any) bool {
 	return true
 }
 
+// rawString is a raw JSON value as a Go string when it is one.
+func rawString(raw json.RawMessage) (string, bool) {
+	var s string
+	if len(raw) == 0 || raw[0] != '"' || json.Unmarshal(raw, &s) != nil {
+		return "", false
+	}
+	return s, true
+}
+
+// rawTruthy is JavaScript truthiness of a raw JSON value; absent is falsy.
+func rawTruthy(raw json.RawMessage) bool {
+	if len(raw) == 0 {
+		return false
+	}
+	var v any
+	if json.Unmarshal(raw, &v) != nil {
+		return false
+	}
+	return jsTruthy(v)
+}
+
 // compactJSON approximates JSON.stringify of a value received as JSON: key
 // order and content are kept, whitespace removed. Escapes and number
 // spellings stay as sent, where JSON.stringify would normalize them.
