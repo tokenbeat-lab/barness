@@ -1100,6 +1100,14 @@
     },
     {
       "protocol": "google-generative-ai",
+      "path": "events[*].partial.usage.reasoning",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "The same live-partial decision as events[*].partial (pi's types.ts contract: partial is the shared live response-so-far), in the other direction: pi and barness both apply a chunk's usageMetadata after its parts (google-shared.ts; gemini_stream.go handle), but pi's single-threaded runner serializes text_start only after the rest of that chunk ran, so its view already holds the chunk's usage (reasoning 0), while barness's consumer can read the event before the producer applies it and sees the usage without reasoning. Barness's view is not behind the event being read. Seen once under full-suite load (release gate run 3, PIDIFF-P03-usage-replaced-stream events[1]); 30 isolated runs matched pi.",
+      "ref": "spec I8; ADR-0001; ADR-0017; issues/24"
+    },
+    {
+      "protocol": "google-generative-ai",
       "path": "events[*].partial.stopReason",
       "kind": "changed",
       "classification": "extension",

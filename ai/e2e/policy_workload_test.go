@@ -64,6 +64,33 @@ type pressureWorld struct {
 	probe    *probe.Probe
 	bodies   *provider.BodyTracker
 	tenants  []tenantKey
+	failures *roundTripFailures
+}
+
+// roundTripFailures records the network error of every failed round trip.
+// barness-ai classifies such an attempt as transport without exposing the
+// underlying error, so a pressure run that meets one keeps it here for
+// diagnosis (seen once under full-suite load, release gate run 3).
+type roundTripFailures struct {
+	next http.RoundTripper
+	mu   sync.Mutex
+	errs []string
+}
+
+func (f *roundTripFailures) RoundTrip(req *http.Request) (*http.Response, error) {
+	res, err := f.next.RoundTrip(req)
+	if err != nil {
+		f.mu.Lock()
+		f.errs = append(f.errs, err.Error())
+		f.mu.Unlock()
+	}
+	return res, err
+}
+
+func (f *roundTripFailures) list() []string {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return slices.Clone(f.errs)
 }
 
 func newPressureWorld(t *testing.T, policy ai.ResourcePolicy, n int) pressureWorld {
@@ -82,12 +109,13 @@ func newPressureWorld(t *testing.T, policy ai.ResourcePolicy, n int) pressureWor
 		tenants = append(tenants, k)
 	}
 	bodies := provider.TrackBodies(provider.LoopbackTransport())
+	failures := &roundTripFailures{next: bodies}
 	p := probe.New()
-	client, err := ai.NewClient(ai.Config{Policy: &policy, Bindings: h, Credentials: h, Transport: bodies, Probe: p, AllowLoopbackHTTP: true})
+	client, err := ai.NewClient(ai.Config{Policy: &policy, Bindings: h, Credentials: h, Transport: failures, Probe: p, AllowLoopbackHTTP: true})
 	if err != nil {
 		t.Fatalf("NewClient with the example policy: %v", err)
 	}
-	return pressureWorld{provider: srv, client: client, probe: p, bodies: bodies, tenants: tenants}
+	return pressureWorld{provider: srv, client: client, probe: p, bodies: bodies, tenants: tenants, failures: failures}
 }
 
 // pressureRequest is a design request: HistoryBytes of prior text in 16 KiB

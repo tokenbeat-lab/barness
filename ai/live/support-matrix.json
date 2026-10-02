@@ -4,32 +4,431 @@
     {
       "combo": "openai-responses",
       "provider": "openai",
-      "api": "openai-responses"
+      "api": "openai-responses",
+      "model": "gpt-5-mini",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+      "accountAlias": "prod-openai",
+      "lastRunAt": "2026-10-02T13:58:28.24896Z",
+      "allPassedAt": "2026-10-02T13:58:28.24896Z",
+      "capabilities": [
+        {
+          "id": "text-stream",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T13:58:28.24896Z",
+          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+        },
+        {
+          "id": "text-complete",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T13:58:28.24896Z",
+          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "tool call by forced choice",
+          "lastRunAt": "2026-10-02T13:58:28.24896Z",
+          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "canceled after thinking_start",
+          "lastRunAt": "2026-10-02T13:58:28.24896Z",
+          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+        },
+        {
+          "id": "reasoning-history",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "returned thinking text, thinking signature, encrypted reasoning",
+          "lastRunAt": "2026-10-02T13:58:28.24896Z",
+          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+        },
+        {
+          "id": "image",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "answer mentions red: false",
+          "lastRunAt": "2026-10-02T13:58:28.24896Z",
+          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+        }
+      ]
     },
     {
       "combo": "anthropic-messages",
       "provider": "anthropic",
-      "api": "anthropic-messages"
+      "api": "anthropic-messages",
+      "model": "claude-haiku-4-5",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "accountAlias": "prod-anthropic",
+      "lastRunAt": "2026-10-02T13:58:59.466022Z",
+      "allPassedAt": "2026-10-02T13:58:59.466022Z",
+      "capabilities": [
+        {
+          "id": "text-stream",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T13:58:59.466022Z",
+          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+        },
+        {
+          "id": "text-complete",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T13:58:59.466022Z",
+          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "note": "tool call by forced choice",
+          "lastRunAt": "2026-10-02T13:58:59.466022Z",
+          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-02T13:58:59.466022Z",
+          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+        },
+        {
+          "id": "reasoning-history",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "note": "returned thinking text, thinking signature",
+          "lastRunAt": "2026-10-02T13:58:59.466022Z",
+          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+        },
+        {
+          "id": "image",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "lastRunAt": "2026-10-02T13:58:59.466022Z",
+          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+        }
+      ]
     },
     {
       "combo": "google-gemini",
       "provider": "google",
-      "api": "google-generative-ai"
+      "api": "google-generative-ai",
+      "model": "gemini-3.8-flash",
+      "sdk": "direct HTTP (ADR-0012)",
+      "accountAlias": "prod-google",
+      "lastRunAt": "2026-10-02T14:06:46.527788Z",
+      "allPassedAt": "2026-10-02T14:06:46.527788Z",
+      "capabilities": [
+        {
+          "id": "text-stream",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T14:06:46.527788Z",
+          "lastPassedAt": "2026-10-02T14:06:46.527788Z"
+        },
+        {
+          "id": "text-complete",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T14:06:46.527788Z",
+          "lastPassedAt": "2026-10-02T14:06:46.527788Z"
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "note": "tool call by forced choice",
+          "lastRunAt": "2026-10-02T14:06:46.527788Z",
+          "lastPassedAt": "2026-10-02T14:06:46.527788Z"
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-02T14:06:46.527788Z",
+          "lastPassedAt": "2026-10-02T14:06:46.527788Z"
+        },
+        {
+          "id": "reasoning-history",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "note": "returned tool call thought signature",
+          "lastRunAt": "2026-10-02T14:06:46.527788Z",
+          "lastPassedAt": "2026-10-02T14:06:46.527788Z"
+        },
+        {
+          "id": "image",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "lastRunAt": "2026-10-02T14:06:46.527788Z",
+          "lastPassedAt": "2026-10-02T14:06:46.527788Z"
+        }
+      ]
     },
     {
       "combo": "openai-chat",
       "provider": "openai",
-      "api": "openai-completions"
+      "api": "openai-completions",
+      "model": "gpt-5-mini",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+      "accountAlias": "prod-openai",
+      "lastRunAt": "2026-10-02T13:58:43.204095Z",
+      "allPassedAt": "2026-10-02T13:58:43.204095Z",
+      "capabilities": [
+        {
+          "id": "text-stream",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T13:58:43.204095Z",
+          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+        },
+        {
+          "id": "text-complete",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T13:58:43.204095Z",
+          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "tool call by forced choice",
+          "lastRunAt": "2026-10-02T13:58:43.204095Z",
+          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-02T13:58:43.204095Z",
+          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+        },
+        {
+          "id": "reasoning-history",
+          "model": "gpt-5-mini",
+          "outcome": "UNSUPPORTED",
+          "note": "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage",
+          "lastRunAt": "2026-10-02T13:58:43.204095Z"
+        },
+        {
+          "id": "image",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "answer mentions red: false",
+          "lastRunAt": "2026-10-02T13:58:43.204095Z",
+          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+        },
+        {
+          "id": "usage-position",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "usage in a separate chunk 1 after the finish_reason chunk",
+          "lastRunAt": "2026-10-02T13:58:43.204095Z",
+          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+        }
+      ]
     },
     {
       "combo": "deepseek-responses",
       "provider": "deepseek",
-      "api": "openai-responses"
+      "api": "openai-responses",
+      "model": "deepseek-flash",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+      "accountAlias": "prod-deepseek",
+      "lastRunAt": "2026-10-02T13:59:12.854068Z",
+      "allPassedAt": "2026-10-02T13:59:12.854068Z",
+      "capabilities": [
+        {
+          "id": "text-stream",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        },
+        {
+          "id": "text-complete",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "tool call by automatic choice with a directive prompt",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        },
+        {
+          "id": "reasoning-history",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "returned thinking text, thinking signature, encrypted reasoning, text signature",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        },
+        {
+          "id": "image",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        },
+        {
+          "id": "reasoning-level-high",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "accepted; stop stop, 22 output tokens of which 20 reasoning",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        },
+        {
+          "id": "reasoning-level-max",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "accepted; stop stop, 20 output tokens of which 18 reasoning",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        },
+        {
+          "id": "auth-refused",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "error body keys error{code,message,param,type}; id-like response headers [eo-log-uuid x-ds-trace-id]",
+          "lastRunAt": "2026-10-02T13:59:12.854068Z",
+          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+        }
+      ]
     },
     {
       "combo": "deepseek-chat",
       "provider": "deepseek",
-      "api": "openai-completions"
+      "api": "openai-completions",
+      "model": "deepseek-flash",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+      "accountAlias": "prod-deepseek",
+      "lastRunAt": "2026-10-02T13:59:24.82005Z",
+      "allPassedAt": "2026-10-02T13:59:24.82005Z",
+      "capabilities": [
+        {
+          "id": "text-stream",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "stream: usage reporting partial",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "text-complete",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "complete: usage reporting partial",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "tool call by forced choice; call: usage reporting partial; answer: usage reporting partial",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "reasoning-history",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "returned thinking text, thinking signature",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "image",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "image: usage reporting partial; answer mentions red: true",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "usage-position",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "stream: usage reporting partial; usage in the finish_reason chunk",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "forced-tool-with-thinking",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "refused with HTTP 400 as ADR-0015 决策三 expects: 400: {\"message\":\"Thinking mode does not support this tool_choice (request_id: 32ad7011-a6c1-4272-bf02-4ab05fd1f32f)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "prompt-cache-long-retention",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "cache: usage reporting partial; accepted; cache read 0 tokens",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "reasoning-level-high",
+          "model": "deepseek-v4-pro",
+          "outcome": "PASS",
+          "note": "accepted; stop stop, 25 output tokens of which 23 reasoning",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "reasoning-level-max",
+          "model": "deepseek-v4-pro",
+          "outcome": "PASS",
+          "note": "accepted; stop stop, 34 output tokens of which 32 reasoning",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        },
+        {
+          "id": "auth-refused",
+          "model": "deepseek-flash",
+          "outcome": "PASS",
+          "note": "error body keys error{code,message,param,type}; id-like response headers [eo-log-uuid x-ds-trace-id]",
+          "lastRunAt": "2026-10-02T13:59:24.82005Z",
+          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        }
+      ]
     }
   ]
 }

@@ -38,7 +38,9 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 
 ### 当前状态（2026-10-02）
 
-门禁**未通过**，原因只有 live：六个组合尚未执行真实冒烟（本环境没有测试账户 key，spec 禁止使用开发者默认账号），支持矩阵六行均为 NOT_RUN，追溯条目 V6-live 为 NOT_RUN。离线（含压力场景）、差分、race、vet、脱敏审计、追溯（其余 40 条）与快照全部通过；最近一次结果见工单 24 的评论。维护者用各组合的 CI secret 运行冒烟（`ai/live/doc.go`）、合并报告并提交矩阵后重跑门禁，并以 `-live` 交上 live 证据包接受审计。
+门禁**通过**（`.evidence/barness-ai-release/gate4`，九道门禁全部 PASS）：离线 2374 个用例、差分 432 个用例（无待处理）、`-race`、vet、六组合 live、8 个证据包审计零发现、全部追溯条目、目录快照。六组合的真实冒烟用账户别名 `prod-*` 的账户运行（spec 要求独立低权限测试账户，本次由维护者决定使用生产 key）。
+
+运行中出现过两次一次性失败，均已处理：Gemini 差分 `usage-replaced` 在全量负载下 live partial 的序列化时机不同（已登记为 live partial 扩展的另一方向，见差异登记）；本地压力场景一次有两个调用在本机回环连接上出现 transport 错误，单独与全量重跑均未复现，压力场景现记录底层网络错误以便再现时诊断。
 
 ## 资源策略示例与数值依据
 
@@ -64,11 +66,13 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 
 | 组合 | 协议 | 状态 |
 | --- | --- | --- |
-| openai-responses | OpenAI × Responses（P01） | NOT_RUN |
-| anthropic-messages | Anthropic × Messages（P02） | NOT_RUN |
-| google-gemini | Google × Gemini Developer API（P03） | NOT_RUN |
-| openai-chat | OpenAI × Chat Completions（P04） | NOT_RUN |
-| deepseek-responses | DeepSeek × Responses（P05，扩展路径） | NOT_RUN |
-| deepseek-chat | DeepSeek × Chat Completions（P06） | NOT_RUN |
+| openai-responses | OpenAI × Responses（P01），gpt-5-mini | PASS |
+| anthropic-messages | Anthropic × Messages（P02），claude-haiku-4-5 | PASS |
+| google-gemini | Google × Gemini Developer API（P03），gemini-3.8-flash | PASS |
+| openai-chat | OpenAI × Chat Completions（P04），gpt-5-mini | PASS（reasoning-history UNSUPPORTED：该协议不返回可回放的推理） |
+| deepseek-responses | DeepSeek × Responses（P05，扩展路径），deepseek-flash | PASS |
+| deepseek-chat | DeepSeek × Chat Completions（P06），deepseek-flash / deepseek-v4-pro | PASS |
+
+最后完整通过时间均为 2026-10-02，详见矩阵文件。
 
 在矩阵对应行完整通过之前，不得宣称该组合受支持（spec I10）。

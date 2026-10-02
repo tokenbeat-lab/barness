@@ -285,6 +285,9 @@ func runStalledConsumer(t *testing.T, ev *evidence.Case, policy ai.ResourcePolic
 }
 
 func checkPressureReleased(ev *evidence.Case, pw pressureWorld) {
+	if errs := pw.failures.list(); len(errs) > 0 {
+		ev.Record("transport-errors", errs)
+	}
 	eventually(ev, "every call ended", func() bool { return pw.probe.ActiveCalls() == 0 })
 	ev.Check("no permit is held", pw.probe.Permits() == 0, "%d held", pw.probe.Permits())
 	ev.Check("every response body is closed", pw.bodies.Open() == 0, "%d open", pw.bodies.Open())

@@ -10,7 +10,7 @@
 - [x] 对离线与 live 证据包、日志、观测、错误做脱敏审计，无 key、Authorization、非合成正文泄漏
 - [x] 交付公共契约、错误分类与装配说明、支持矩阵、模型/价格快照、fixture、差异登记（含 D1/D2 与 DeepSeek Responses 扩展）
 - [x] 用例报告可追溯：研究 T/C 条目 → E/P 场景 → 实际证据；追溯表中的“已映射”不被填为 PASS
-- [ ] 门禁全部通过：`go test ./...`、`-race`、`go vet`、全部 P0、无待处理差分、六组合 live PASS（或明确 UNSUPPORTED 的能力）
+- [x] 门禁全部通过：`go test ./...`、`-race`、`go vet`、全部 P0、无待处理差分、六组合 live PASS（或明确 UNSUPPORTED 的能力）
 - [x] 报告分别列出离线、差分与 live 结果
 
 ## Comments
@@ -78,3 +78,10 @@
   2. Merge their reports into the matrix.
   3. Rerun the gate with `-live <bundle>` for each combination.
   4. Confirm ADR-0017: the gate's composition, the opt-in pressure scenario and the 75% headroom rule, the three policy value changes before issue 32, the audit rules, and the traceability map.
+
+**2026-10-02 — live run; the gate passes.** After the six real-API runs (see issue 23), the release gate passes all nine gates (`.evidence/barness-ai-release/gate4`, commit c976dc6 plus this change). That covers offline (2374 cases), the differential (432 cases, nothing pending), race, vet, live (6/6), the audit (8 bundles, 0 findings), all traceability items and the snapshot. Status stays ready-for-human until ADR-0017 is confirmed.
+
+Run 3 hit two one-off failures. Neither recurred: run 4 passed, and so did the isolated reruns.
+
+- **`PIDIFF-P03-usage-replaced-stream`.** Under full-suite load, pi's live partial at `events[1]` held the chunk's usage and barness's did not yet. Both apply usage after the chunk's parts, but pi serializes each event only after the whole chunk has run. This is the approved live-partial category in the other direction, so the Gemini ledger gains the `only_pi` entry for `partial.usage.reasoning`. 30 isolated runs matched pi.
+- **`E08-policy-pressure-local-design-load`.** Two calls failed with `transport` on loopback before any response arrived. This did not reproduce in 5 isolated runs or in a full run. TIME_WAIT peaked near 1.9K of 16K ports, which rules out port exhaustion. barness does not expose the underlying error, so the pressure world now records every failed round trip's network error (`transport-errors.json`) for diagnosis if it recurs.

@@ -58,3 +58,7 @@ Client 按宿主方式装配：一个租户、一个指向厂商真实 endpoint 
 5. 决策三：采纳。每进程 24 次逻辑调用、每场景最多重试 1 次（5 s 递增退避）、每次输出上限 4096 token。若真实运行中厂商偶发故障造成的误报 FAIL 过多，可把每场景重试提高到 2 次；不再放宽，spec 禁止无界重跑。
 6. 决策五：采纳。矩阵位置 `ai/live/support-matrix.json` 与合并规则不变。
 7. SDK 自带的宿主信息请求头（Consequences，工单 31）：去除。与 `userAgent` 不携带宿主 OS、版本与架构的决定（2026-10-01）一致，在 adapter 构建请求处统一删除 openai-go 与 anthropic-sdk-go 发送的 `X-Stainless-*` 宿主信息头，离线 E2E 断言服务端收不到；与 pi 的差异登记为差分账本扩展。实施归工单 31。
+
+## 首次真实运行后的型号调整（2026-10-02）
+
+首次运行时 Google 对 `gemini-2.5-flash` 返回 404：“no longer available to new users”，建议改用 `gemini-3.8-flash`。按决策二“需要换型号时改 `ai/live/combos_test.go`”，Gemini 组合的默认模型改为目录中的 `gemini-3.8-flash`（Gemini 3：level 推理、调用 id 与签名回放、嵌套的工具结果图片），价格为每百万 token 输入 0.75、输出 3.75 美元。其余默认模型首次运行可用。

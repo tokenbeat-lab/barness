@@ -100,7 +100,7 @@ var combos = []combo{
 	},
 	{
 		name: "google-gemini", spec: "P03", provider: ai.ProviderGoogle, api: ai.APIGoogleGenerativeAI,
-		endpoint: "https://generativelanguage.googleapis.com/v1beta", sdk: directHTTP, model: "gemini-2.5-flash",
+		endpoint: "https://generativelanguage.googleapis.com/v1beta", sdk: directHTTP, model: "gemini-3.8-flash",
 		full: func(maxTokens int, choice toolChoice) ai.Options {
 			o := ai.GeminiOptions{MaxTokens: ai.Value(maxTokens), Thinking: ai.Value(ai.GeminiThinking{Enabled: false})}
 			switch choice {

@@ -4,7 +4,7 @@
 
 **Blocked by:** 19, 20, 21, 22
 
-**Status:** ready-for-human
+**Status:** resolved
 
 - [x] live 测试需独立 build tag（或显式命令入口）加 `BARNESS_AI_LIVE=1` 双开关；真实 key 仅由 CI secret store 注入到对应 Provider×API 的测试进程，不读开发者默认账号或进程环境回退
 - [x] 每个组合执行：短文本 Stream 与 Complete、模型工具调用 → 测试宿主结果 → 下一次生成、首帧后取消，以及受支持模型的推理/签名历史与图片
@@ -30,3 +30,19 @@
 - **For the maintainer:** run each combination with its CI secret, merge the bundles, and commit the matrix; then apply ADR-0014/0015's conditional decisions to what the smoke observed (forced choice with thinking, prompt cache fields, usage position, high/max levels, error bodies and request id headers, P05/P06 fixture shapes from the captures). Confirm ADR-0016's open points. Side finding: openai-go sends `X-Stainless-Os`/`X-Stainless-Arch` headers, contrary to the intent stated on `userAgent` (`ai/transport.go`); not changed here, tracked as issue 31.
 
 **2026-10-02 — maintainer decisions** (ADR-0016 accepted): entry and per-combination key isolation as implemented, including the config failures; the fixed default models (to be checked for availability and cost on the test accounts before the first real run); OpenAI × Chat reasoning replay UNSUPPORTED; `auth-refused` on the two DeepSeek combinations only, to be removed once the 401 body and request id header are confirmed and the P05/P06 fixtures corrected; budget as implemented (retries may go to 2 per scenario if vendor flakiness causes false FAILs, no further); matrix location and merge rules unchanged. The SDK host headers are to be removed (issue 31, now ready-for-agent). Status stays ready-for-human until the maintainer runs the six combinations and commits the merged matrix.
+
+**2026-10-02 — first real run (from issue 24).** The maintainer ran all six combinations with production keys from a local `.env`, one process per combination, keys never shown to the agent; account aliases `prod-openai`, `prod-anthropic`, `prod-google`, `prod-deepseek`. The six reports are merged into `ai/live/support-matrix.json`; every combination fully passed (OpenAI × Chat `reasoning-history` UNSUPPORTED as designed). The live bundles audited clean, and the release gate passes (`.evidence/barness-ai-release/gate4`).
+
+- **Model change.** Google returned 404 for `gemini-2.5-flash` ("no longer available to new users"). As decision two allows, the Gemini default became `gemini-3.8-flash` (recorded in ADR-0016).
+- **Observed DeepSeek behaviour** (the open points of ADR-0014/0015):
+  - Thinking with a forced tool choice is refused with 400 ("Thinking mode does not support this tool_choice"), so no refusal before sending is needed.
+  - The prompt cache fields with long retention are accepted.
+  - Chat usage arrives in the `finish_reason` chunk.
+  - `high` and `max` are accepted on deepseek-flash (both protocols) and on deepseek-v4-pro.
+  - The 401 body is `error{code,message,param,type}`.
+  - There is no `x-request-id`; the id-like headers are `x-ds-trace-id` and `eo-log-uuid`.
+  - With thinking off, Chat usage has no `completion_tokens_details`, so its reporting is `partial`.
+- **Follow-ups, not done here.** Each needs its own ticket:
+  1. Correct the P05/P06 fixtures to the observed shapes (ADR-0014/0015 decision three), and remove `auth-refused` as already decided.
+  2. Decide whether DeepSeek's `x-ds-trace-id` becomes `ProviderRequestID`.
+  3. Decide whether a missing reasoning count makes DeepSeek Chat usage `partial` (compare ADR-0010's rule for Responses' `cache_write_tokens`).

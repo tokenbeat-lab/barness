@@ -3,3 +3,6 @@
 
 # Frozen pi oracle dependencies (rebuild: npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node)
 /ai/internal/testkit/pioracle/node/node_modules/
+
+# Local secrets (live smoke keys); never committed
+/.env

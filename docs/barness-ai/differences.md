@@ -10,7 +10,7 @@
 | --- | --- | --- | --- |
 | openai-responses（P01） | 57 | 12 | 0 |
 | anthropic-messages（P02） | 38 | 0 | 0 |
-| google-generative-ai（P03） | 30 | 0 | 0 |
+| google-generative-ai（P03） | 31 | 0 | 0 |
 | openai-completions（P04、P06） | 37 | 0 | 0 |
 
 “已修复”条目只记录曾出现并已修复的差异；同一差异再次出现即为回归，按待处理计。扩展路径（`routes`）：DeepSeek × Responses。
@@ -34,7 +34,7 @@ DeepSeek × Chat Completions（P06）是 pi 自身的路由，全部场景进入
 | --- | --- | --- |
 | HTTP 栈默认头 | Accept-Encoding、Accept-Language、Connection 等 Node undici 与 Go net/http 的默认值不同；不属于 pi 或协议逻辑 | 维护者决定 2026-10-01（各协议同） |
 | SDK 运行时指纹与宿主描述头 | barness 发送自己的 `User-Agent: barness-ai`；不发送 SDK 描述宿主 OS、架构与运行时版本的 `X-Stainless-*` 头（pi 的 SDK 发送） | 维护者决定 2026-10-01/02；工单 31；ADR-0016 决定 7 |
-| live partial | pi 的 `partial` 是共享的持续更新视图；barness 以受同步保护的 `PartialView` 提供快照，事件中的 partial 比较按此投影 | spec I8；pi types.ts |
+| live partial | pi 的 `partial` 是共享的持续更新视图；barness 以受同步保护的 `PartialView` 提供快照，事件中的 partial 比较按此投影。两边序列化 partial 的时机不同（pi 单线程处理完整个 chunk 后才序列化事件），所以 barness 的视图可能领先或落后于 pi 在同一事件上的视图，但不会落后于正在读取的事件 | spec I8；pi types.ts；工单 24（Gemini usage 方向） |
 | 工具参数原始 JSON | barness 在每个工具调用上保留 Provider 原始参数文本（`RawArguments`） | spec I6 |
 | 错误文本脱敏（安全差异） | pi 原样复制 Provider 错误体；barness 脱敏其中 key 形态的文本 | spec I9；ADR-0009 |
 | 运行时错误文本 | pi 报告 JavaScript `JSON.parse` 与 undici `terminated`/AbortError 文本；barness 报告对应的 Go 文本 | 各协议账本条目 |
@@ -56,4 +56,4 @@ DeepSeek × Chat Completions（P06）是 pi 自身的路由，全部场景进入
 | 流式工具参数解析成本 | 每个 delta 全量重解析（与 pi 同），CPU 随参数大小平方增长；示例策略据此收紧 `MaxToolJSONBytes` | 工单 32 |
 | 未纳入目录的模型 | 需要中途工具变更、托管推理强度或服务端备用模型的 Anthropic 模型，以及需要 additional_tools/tool search 的 OpenAI 模型不列入内置目录 | 工单 26–28；ADR-0011 |
 | SDK 响应体兜底 | SDK 在调用方 context 结束时不关闭恰好到达的响应体，barness 以中间件兜底关闭 | 工单 29 |
-| 真实冒烟待确认项 | DeepSeek 两协议的错误体形状、request id 头、high/max 推理等级、thinking 与强制工具选择、提示缓存字段，待六组合真实冒烟确认后修正 fixture | 工单 23；ADR-0014/0015/0016 |
+| 真实冒烟确认的 DeepSeek 行为（2026-10-02） | thinking 加强制工具选择被 400 拒绝；提示缓存字段被接受；Chat 的 usage 在 finish_reason chunk 内；high/max 推理等级被接受；错误体为 `error{code,message,param,type}`；没有 `x-request-id`，厂商 id 头为 `x-ds-trace-id`（barness 尚不读取，`ProviderRequestID` 为空）；thinking 关闭时不返回 `completion_tokens_details`，Chat 用量因此标为部分上报。P05/P06 fixture 按观察到的形状修正、删除 `auth-refused` 场景，以及后两项的处置，待后续工单 | 工单 23；ADR-0014/0015/0016 |
