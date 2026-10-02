@@ -135,3 +135,11 @@ _Avoid_: 模型 compat、"兼容 OpenAI"
 **Extension Route（扩展接入路径）**：
 冻结 pi 没有路由的 Provider × 协议组合（首期为 DeepSeek × Responses），以自身协议 fixture 和真实冒烟证明，登记在差分账本中，不计为 pi 差分通过。
 _Avoid_: 差分通过、pi 已覆盖
+
+**Live Smoke（真实冒烟）**：
+同一 Client 以低权限测试账户连接厂商真实官方 API 的发布证据（Go 中为带 `live` build tag 的 `ai/live`，另需 `BARNESS_AI_LIVE=1`）；一个进程只跑一个 Provider × 协议组合、只持有该组合的 key，结果只有 PASS、FAIL、NOT_RUN、UNSUPPORTED 四种，厂商故障在预算内重试后为 FAIL，不改成跳过。
+_Avoid_: 集成测试、跳过、SDK 探针
+
+**Support Matrix（支持矩阵）**：
+每个首期 Provider × 协议组合的真实冒烟状态（Go 中为 `ai/live/support-matrix.json`）：模型、SDK、测试账户/区域别名、各能力的结果与最后通过时间；只由该组合自己的冒烟报告合并更新，共享 adapter 的通过不连带标记其他组合。
+_Avoid_: 兼容列表、"兼容 OpenAI"

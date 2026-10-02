@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "rows": [
+    {
+      "combo": "openai-responses",
+      "provider": "openai",
+      "api": "openai-responses"
+    },
+    {
+      "combo": "anthropic-messages",
+      "provider": "anthropic",
+      "api": "anthropic-messages"
+    },
+    {
+      "combo": "google-gemini",
+      "provider": "google",
+      "api": "google-generative-ai"
+    },
+    {
+      "combo": "openai-chat",
+      "provider": "openai",
+      "api": "openai-completions"
+    },
+    {
+      "combo": "deepseek-responses",
+      "provider": "deepseek",
+      "api": "openai-responses"
+    },
+    {
+      "combo": "deepseek-chat",
+      "provider": "deepseek",
+      "api": "openai-completions"
+    }
+  ]
+}

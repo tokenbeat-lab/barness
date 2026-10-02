@@ -43,8 +43,9 @@ type Run struct {
 	secrets   map[string]string
 }
 
-// NewRun creates the bundle directory. pkg is the Go package path used in
-// replay commands, e.g. "./ai/e2e".
+// NewRun creates the bundle directory. pkg is the go test package argument
+// used in replay commands, with any build flags the package needs, e.g.
+// "./ai/e2e" or "-tags live ./ai/live".
 func NewRun(pkg string) (*Run, error) {
 	started := time.Now().UTC()
 	runID := started.Format("20060102T150405.000000000Z")
@@ -98,6 +99,12 @@ func (r *Run) Case(t *testing.T, id string) *Case {
 	return c
 }
 
+// Record stores a bundle-level artifact as <name>.json next to the manifest,
+// redacted like every other artifact.
+func (r *Run) Record(name string, v any) error {
+	return r.writeJSON(filepath.Join(r.dir, name+".json"), v)
+}
+
 // Finish writes manifest.json. It reports the bundle location on stderr so a
 // maintainer can find it from CI logs.
 func (r *Run) Finish() error {
@@ -122,7 +129,7 @@ func (r *Run) Finish() error {
 		"finished_at": time.Now().UTC().Format(time.RFC3339Nano),
 		"go_version":  runtime.Version(),
 		"platform":    runtime.GOOS + "/" + runtime.GOARCH,
-		"git_commit":  gitCommit(),
+		"git_commit":  GitCommit(),
 		"versions":    r.versions,
 		"cases":       cases,
 	}
@@ -165,6 +172,9 @@ type Case struct {
 	assertions []assertion
 	status     string
 	replayEnv  string
+	// unsupported is why the scenario's capability does not exist for its
+	// target; set, a test that did not fail reports UNSUPPORTED.
+	unsupported string
 }
 
 type assertion struct {
@@ -182,6 +192,16 @@ func (c *Case) ReplayEnv(assignments string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.replayEnv = assignments
+}
+
+// Unsupported records that the scenario's capability does not exist for its
+// target, e.g. a protocol that returns no reasoning to replay. A case that
+// does not otherwise fail then reports UNSUPPORTED instead of PASS; it is
+// neither a skip nor a pass.
+func (c *Case) Unsupported(reason string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.unsupported = reason
 }
 
 // T is the case's test.
@@ -231,6 +251,8 @@ func (c *Case) finish() {
 		// Not executed (e.g. an opt-in suite that was not requested); never
 		// reported as a pass.
 		status = "NOT_RUN"
+	case c.unsupported != "":
+		status = "UNSUPPORTED"
 	}
 	c.status = status
 	report := map[string]any{
@@ -239,6 +261,9 @@ func (c *Case) finish() {
 		"status":     status,
 		"assertions": c.assertions,
 		"replay":     c.replay(),
+	}
+	if c.unsupported != "" {
+		report["unsupported"] = c.unsupported
 	}
 	c.mu.Unlock()
 	if err := c.run.writeJSON(filepath.Join(c.dir, "assertions.json"), report); err != nil {
@@ -297,7 +322,8 @@ func repoRoot() (string, error) {
 	}
 }
 
-func gitCommit() string {
+// GitCommit is the checked-out commit, or "unknown".
+func GitCommit() string {
 	out, err := exec.Command("git", "rev-parse", "HEAD").Output()
 	if err != nil {
 		return "unknown"
