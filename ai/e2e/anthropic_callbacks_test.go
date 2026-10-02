@@ -193,6 +193,9 @@ func TestAnthropicCallbacks(t *testing.T) {
 		hooks := ai.Hooks{TransformHeaders: func(_ context.Context, _ ai.CallScope, h http.Header) error {
 			h.Set("Anthropic-Beta", "x-beta, x-beta,")
 			h.Del("User-Agent")
+			// Even a host's transform cannot describe the shared host to
+			// the vendor (issue 31).
+			h.Set("X-Stainless-Arch", "host-chosen")
 			return nil
 		}}
 		_, err := w.client.WithHooks(hooks).Complete(ctxFor(t), textScope("req-cb-headers"), plain.target(), plain.request(t), nil)
@@ -201,6 +204,11 @@ func TestAnthropicCallbacks(t *testing.T) {
 		ev.Check("a removed header is not sent, not even the SDK's default", !ua, "got %q", lastRequest(ev, w).Header["User-Agent"])
 		ev.Check("a configured anthropic-beta replaces the features, normalized as pi does",
 			lastRequest(ev, w).Header["Anthropic-Beta"] == "x-beta", "got %q", lastRequest(ev, w).Header["Anthropic-Beta"])
+		r := lastRequest(ev, w)
+		_, arch := r.Header["X-Stainless-Arch"]
+		_, osSent := r.Header["X-Stainless-Os"]
+		ev.Check("no host description sent, not even one the transform set", !arch && !osSent,
+			"arch %q, os sent %t", r.Header["X-Stainless-Arch"], osSent)
 	})
 
 	t.Run("header-transform-cannot-change-the-key", func(t *testing.T) {

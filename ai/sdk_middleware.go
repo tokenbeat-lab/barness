@@ -63,6 +63,25 @@ func keepRemoved(header http.Header) func(*http.Request, roundTrip) (*http.Respo
 	}
 }
 
+// hostHeaders are the Stainless SDKs' default headers that describe the
+// machine rather than the SDK: its OS, architecture and Go version. In
+// multi-tenant cloud use they would describe the shared host to every
+// vendor account, as userAgent avoids, so barness-ai never sends them,
+// whoever set them (maintainer decision 2026-10-02, ADR-0016 决定 7; pi
+// sends them, ledger extension). The SDK's language, runtime name, package
+// version, retry count and timeout stay.
+var hostHeaders = []string{"X-Stainless-Os", "X-Stainless-Arch", "X-Stainless-Runtime-Version"}
+
+// withoutHostDescription is SDK middleware that removes hostHeaders. It
+// must be the last middleware, so it sees every header the SDK and the
+// call's options set.
+func withoutHostDescription(req *http.Request, next roundTrip) (*http.Response, error) {
+	for _, name := range hostHeaders {
+		req.Header.Del(name)
+	}
+	return next(req)
+}
+
 // limitBodies is SDK middleware that puts each response body behind the
 // call's byte limits before the SDK or the adapter reads it.
 func (l byteLimits) limitBodies(req *http.Request, next roundTrip) (*http.Response, error) {

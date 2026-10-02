@@ -137,6 +137,8 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	keep := keepRemoved(header)
 	reqOpts = append(reqOpts, option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
 		return keep(r, next)
+	}), option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+		return withoutHostDescription(r, next)
 	}))
 	svc := anthropic.NewBetaMessageService(reqOpts...)
 	failures := httpFailures{apiKey: ac.apiKey, clock: ac.initial.clock, requestIDHeader: anthropicRequestIDHeader, describe: anthropicHTTPError}

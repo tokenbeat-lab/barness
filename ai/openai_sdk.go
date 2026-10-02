@@ -14,8 +14,9 @@ const openAIRequestIDHeader = "x-request-id"
 // (Responses, Chat Completions) send their own body with: the Client's
 // HTTP client and the binding's endpoint, no SDK retries, the policy's
 // byte limits on every response body, openai-node's timeout announcement
-// for an explicit timeoutMs, the call's exact headers, and delivered
-// remembering the body of a response the SDK may drop.
+// for an explicit timeoutMs, the call's exact headers without the SDK's host
+// description, and delivered remembering the body of a response the SDK may
+// drop.
 func openAIRequestOptions(ac adapterCall, body []byte, timeoutMs int, timeout time.Duration, delivered *deliveredBody) []option.RequestOption {
 	reqOpts := []option.RequestOption{
 		option.WithHTTPClient(ac.http),
@@ -50,6 +51,8 @@ func openAIRequestOptions(ac adapterCall, body []byte, timeoutMs int, timeout ti
 	keep := keepRemoved(ac.header)
 	return append(reqOpts, option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
 		return keep(r, next)
+	}), option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+		return withoutHostDescription(r, next)
 	}))
 }
 

@@ -183,6 +183,9 @@ func TestTrustedCallbacks(t *testing.T) {
 			TransformHeaders: func(_ context.Context, _ ai.CallScope, h http.Header) error {
 				h.Set("X-Host-Trace", "trace-2")
 				h.Del("User-Agent")
+				// Even a host's transform cannot describe the shared host
+				// to the vendor (issue 31).
+				h.Set("X-Stainless-Arch", "host-chosen")
 				return nil
 			},
 			OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
@@ -205,6 +208,10 @@ func TestTrustedCallbacks(t *testing.T) {
 			ev.Check("derived cache key sent in body and headers", key != "" && reqs[0].Header["Session_id"] == key && reqs[0].Header["X-Client-Request-Id"] == key,
 				"body=%q headers=%q/%q", key, reqs[0].Header["Session_id"], reqs[0].Header["X-Client-Request-Id"])
 			ev.Check("transformed header sent", reqs[0].Header["X-Host-Trace"] == "trace-2", "got %q", reqs[0].Header["X-Host-Trace"])
+			_, arch := reqs[0].Header["X-Stainless-Arch"]
+			_, osSent := reqs[0].Header["X-Stainless-Os"]
+			ev.Check("no host description sent, not even one the transform set", !arch && !osSent,
+				"arch %q, os sent %t", reqs[0].Header["X-Stainless-Arch"], osSent)
 		}
 	})
 

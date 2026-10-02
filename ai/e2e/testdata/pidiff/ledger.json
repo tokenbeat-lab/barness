@@ -305,11 +305,27 @@
     },
     {
       "protocol": "openai-responses",
-      "path": "request.headers.X-Stainless-Runtime-Version",
+      "path": "request.headers.X-Stainless-Os",
+      "kind": "only_pi",
       "classification": "extension",
-      "decision": "Approved by maintainer 2026-10-01: OpenAI SDK runtime fingerprint: Node.js vs Go toolchain version.",
-      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界",
-      "kind": "changed"
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (openai-node 6.40.0) describes the host's operating system; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.headers.X-Stainless-Arch",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (openai-node 6.40.0) describes the host's CPU architecture; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.headers.X-Stainless-Runtime-Version",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (openai-node 6.40.0) describes the host's Node.js version; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
     },
     {
       "protocol": "openai-responses",
@@ -709,11 +725,27 @@
     },
     {
       "protocol": "anthropic-messages",
-      "path": "request.headers.X-Stainless-Runtime-Version",
-      "kind": "changed",
+      "path": "request.headers.X-Stainless-Os",
+      "kind": "only_pi",
       "classification": "extension",
-      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: Anthropic SDK runtime fingerprint, Node.js vs Go toolchain version; follows from the spec's choice of the Anthropic Go SDK.",
-      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (the Anthropic TypeScript SDK) describes the host's operating system; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.X-Stainless-Arch",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (the Anthropic TypeScript SDK) describes the host's CPU architecture; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.X-Stainless-Runtime-Version",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (the Anthropic TypeScript SDK) describes the host's Node.js version; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
     },
     {
       "protocol": "anthropic-messages",
@@ -1301,11 +1333,27 @@
     },
     {
       "protocol": "openai-completions",
-      "path": "request.headers.X-Stainless-Runtime-Version",
-      "kind": "changed",
+      "path": "request.headers.X-Stainless-Os",
+      "kind": "only_pi",
       "classification": "extension",
-      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Chat Completions path, which sends through the same SDKs (openai-node 6.40.0 for pi, openai-go v3.66.0 for barness): OpenAI SDK runtime fingerprint: Node.js vs Go toolchain version.",
-      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/20; ADR-0013"
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (openai-node 6.40.0) describes the host's operating system; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.X-Stainless-Arch",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (openai-node 6.40.0) describes the host's CPU architecture; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
+    },
+    {
+      "protocol": "openai-completions",
+      "path": "request.headers.X-Stainless-Runtime-Version",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Approved by maintainer 2026-10-02: pi's SDK (openai-node 6.40.0) describes the host's Node.js version; barness removes the SDK's host description so the shared host is not described to any vendor account, as its User-Agent already avoids. Asserted by the offline E2E (E06 checkWire on every protocol; P01/P02 header transform).",
+      "ref": "issues/31; ADR-0016 维护者决定 7 (2026-10-02)"
     },
     {
       "protocol": "openai-completions",

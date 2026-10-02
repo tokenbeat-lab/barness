@@ -9,7 +9,8 @@ import (
 // architecture details: in multi-tenant cloud use they would describe the
 // shared host to every vendor account (maintainer decision 2026-10-01; pi's
 // own "pi (<os> <release>; <arch>)" is an approved difference in the pi
-// differential ledger).
+// differential ledger). The SDKs' own host description headers are removed
+// for the same reason (hostHeaders).
 const userAgent = "barness-ai"
 
 // newHTTPClient builds the one HTTP client shared by all calls of a Client.

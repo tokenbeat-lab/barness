@@ -309,6 +309,20 @@ func checkWire(ev *evidence.Case, iw isolationWorld, p isolationProtocol, sc iso
 				r.KeyAlias == p.key(c.k).alias && r.Path == p.path(c.k), "got %s with %q", r.Path, r.KeyAlias)
 		}
 	}
+	// The shared host is not described to any vendor account: the SDKs'
+	// OS, architecture and Go version headers stay off the wire (maintainer
+	// decision 2026-10-02, ADR-0016 决定 7; issue 31). The names are listed
+	// here on purpose rather than taken from the library: the test states
+	// the requirement independently.
+	for _, r := range all {
+		var sent []string
+		for _, name := range []string{"X-Stainless-Os", "X-Stainless-Arch", "X-Stainless-Runtime-Version"} {
+			if v, ok := r.Header[name]; ok {
+				sent = append(sent, name+": "+v)
+			}
+		}
+		ev.Check("no host description sent", len(sent) == 0, "got %v", sent)
+	}
 	if p.anthropic() || p.gemini() || len(a) == 0 {
 		return
 	}
