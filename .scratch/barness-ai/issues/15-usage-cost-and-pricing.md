@@ -4,7 +4,7 @@
 
 **Blocked by:** 01, 02
 
-**Status:** ready-for-human
+**Status:** resolved
 
 - [x] Usage 保留 input/output/cacheRead/cacheWrite/totalTokens/cost、可选 cacheWrite1h/reasoning、初始化零值与 adapter 更新规则；reasoning 为 output 子集，不重复加入总量
 - [x] 移植冻结 pi 的阶梯价格、缓存读写、1h 写入与 adapter 专用调整；模型目录与价格快照带版本与哈希
@@ -61,3 +61,10 @@
   2. a failed response's usage is recorded on its attempt;
   3. the price snapshot sits on the call metadata, not on each attempt.
 - **Deferred:** an E2E for one-hour cache writes comes with the Anthropic adapter (issue 16). The matching isolated cases can then go.
+
+**2026-10-02 — maintainer decisions; ADR-0010 accepted.**
+
+- **Missing counts:** count as 0; a missing `cache_write_tokens` still allows `complete` (as implemented).
+- **Failed responses:** their usage is dropped as in pi. The attempt is now `unreported` with zero usage instead of carrying the priced usage. `failed-usage-zero` and `failed-usage-reported` in `usage.json` now expect `unreported`. Recording the usage later is tracked as issue 25.
+- **Price snapshot:** stays on the call metadata (as implemented).
+- Offline suite and the full differential (`BARNESS_AI_PIDIFF=1`) pass with 0 pending.

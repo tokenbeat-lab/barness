@@ -29,8 +29,9 @@ import (
 //	   input alone, or is ignored above it
 //	U7 the service tier adjustment uses the request over the response's
 //	   tier, misses flex/priority, or is not reflected in the total
-//	U8 a failed response's usage reaches the message (pi keeps it zero), or
-//	   is not recorded on its attempt, so the failure reads as free
+//	U8 a failed response's usage reaches the message or its attempt (pi
+//	   drops it), or the attempt reads as a complete report rather than
+//	   unreported, so the failure looks free
 //	U9 a retried call sums its attempts into the message usage, or a
 //	   failed attempt borrows the successful one's usage
 //	U10 the attempt records reach the Observer without the usage reporting,

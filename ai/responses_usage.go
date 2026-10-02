@@ -39,7 +39,7 @@ func (p responsesUsage) of(r responses.Response) (u Usage, reporting UsageReport
 // object has always defined is present: input, output and total tokens,
 // cached tokens and reasoning tokens. cache_write_tokens joined the schema
 // later and many responses lack it, so its absence reads as no cache writes
-// rather than a partial report (ADR-0010).
+// rather than a partial report (maintainer decision 2026-10-02, ADR-0010).
 func responsesUsageReporting(u responses.ResponseUsage) UsageReporting {
 	if u.JSON.InputTokens.Valid() && u.JSON.OutputTokens.Valid() && u.JSON.TotalTokens.Valid() &&
 		u.JSON.InputTokensDetails.Valid() && u.InputTokensDetails.JSON.CachedTokens.Valid() &&

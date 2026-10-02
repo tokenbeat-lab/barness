@@ -87,10 +87,10 @@ type Attempt struct {
 	RetryDelay time.Duration `json:"retryDelay,omitempty"`
 	// UsageReporting is how completely the provider reported this
 	// attempt's usage; an attempt that never obtained a response is
-	// unreported. Usage is what it reported, priced: for the streamed
-	// attempt it equals the message's Usage, except that a response the
-	// provider ended as failed keeps its usage here only (pi leaves the
-	// message's zero).
+	// unreported, and so, as in pi, is one whose response the provider
+	// ended as failed, whatever usage it carried (issue 25). Usage is what
+	// it reported, priced: for the streamed attempt it equals the
+	// message's Usage.
 	UsageReporting UsageReporting `json:"usageReporting"`
 	Usage          Usage          `json:"usage"`
 }

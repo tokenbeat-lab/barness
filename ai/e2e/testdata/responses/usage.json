@@ -245,7 +245,7 @@
     },
     {
       "id": "failed-usage-zero",
-      "note": "response.failed reporting zero usage: the attempt is complete with zero cost, the message usage stays pi's zero value without reasoning.",
+      "note": "response.failed reporting zero usage: as in pi the usage is dropped, so the message usage stays zero without reasoning and the attempt is unreported, not a complete zero report.",
       "replies": [
         {"terminal": {"type": "response.failed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "failed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0, "input_tokens_details": {"cached_tokens": 0}, "output_tokens_details": {"reasoning_tokens": 0}}, "error": {"code": "server_error", "message": "The model failed"}}}}
       ],
@@ -254,13 +254,13 @@
         "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
         "code": "upstream_error",
         "attempts": [
-          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "reasoning": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
         ]
       }
     },
     {
       "id": "failed-usage-reported",
-      "note": "pi does not take over a failed response's usage, so the message usage is zero; the attempt still records what the provider reported, priced, so the failed request does not read as free.",
+      "note": "pi drops a failed response's usage, so the message usage is zero and the attempt is unreported: the provider's numbers are not recorded (keeping them on the attempt is issue 25), but the failure does not read as a free complete report.",
       "replies": [
         {"terminal": {"type": "response.failed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "failed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}, "error": {"code": "server_error", "message": "The model failed"}}}}
       ],
@@ -269,7 +269,7 @@
         "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
         "code": "upstream_error",
         "attempts": [
-          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}}}
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
         ]
       }
     },

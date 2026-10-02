@@ -276,13 +276,11 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 }
 
 // failed ends the call at a response.failed terminal with pi's message. As in
-// pi, the failed response's usage and id are not taken over by the message;
-// the usage is still recorded on its attempt, so a failure the provider
-// billed does not read as free.
+// pi, the failed response's usage and id are not taken over, so its attempt
+// stays unreported even when the response carried usage (maintainer
+// decision 2026-10-02, ADR-0010; keeping it is issue 25).
 func (p *responsesParser) failed(r responses.Response) *Error {
 	p.terminal = true
-	u, reporting, _ := p.usage.of(r)
-	p.attempt.usage(reporting, u)
 	p.out.rawStopReason(string(r.Status))
 	switch {
 	case r.JSON.Error.Valid():

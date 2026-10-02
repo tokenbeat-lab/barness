@@ -44,8 +44,9 @@ type UsageReporting string
 
 const (
 	// UsageUnreported: the attempt reported no usage — it failed before a
-	// response, its stream ended without one, or the field was missing or
-	// null. Its Usage is zero, which says nothing about what it consumed.
+	// response, its stream ended without one, the field was missing or
+	// null, or the response was a failure whose usage pi does not take
+	// over. Its Usage is zero, which says nothing about what it consumed.
 	UsageUnreported UsageReporting = "unreported"
 	// UsagePartial: usage was reported without some of the counts the
 	// protocol defines; the missing ones read as 0, so the cost may be off.
