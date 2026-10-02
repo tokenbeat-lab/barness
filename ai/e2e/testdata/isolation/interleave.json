@@ -1321,6 +1321,281 @@
      ]
     }
    }
+  },
+  {
+   "id": "deepseek-chat",
+   "bindingId": "deepseek-chat",
+   "model": "deepseek-flash",
+   "systemPrompt": "You are terse.",
+   "user": "Say hello.",
+   "tenants": {
+    "tenant-a": {
+     "events": [
+      {
+       "id": "resp_alpha-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "role": "assistant",
+          "content": ""
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_alpha-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "ALPHA "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_alpha-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "answer "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_alpha-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "for "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_alpha-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "the first tenant."
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_alpha-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": ""
+         },
+         "logprobs": null,
+         "finish_reason": "stop"
+        }
+       ],
+       "usage": {
+        "prompt_tokens": 31,
+        "completion_tokens": 7,
+        "total_tokens": 38,
+        "prompt_tokens_details": {
+         "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+         "reasoning_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 31
+       }
+      },
+      "[DONE]"
+     ],
+     "unauthorized": {
+      "status": 401,
+      "header": {
+       "Content-Type": "application/json"
+      },
+      "body": "{\"error\":{\"message\":\"Authentication Fails for ALPHA.\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+     },
+     "throttled": {
+      "status": 429,
+      "header": {
+       "Content-Type": "application/json"
+      },
+      "body": "{\"error\":{\"message\":\"Rate limit reached for ALPHA.\",\"type\":\"rate_limit_error\",\"param\":null,\"code\":\"rate_limit_exceeded\"}}"
+     }
+    },
+    "tenant-b": {
+     "events": [
+      {
+       "id": "resp_bravo-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "role": "assistant",
+          "content": ""
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_bravo-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "BRAVO "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_bravo-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "answer "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_bravo-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "for "
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_bravo-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": "the second tenant."
+         },
+         "logprobs": null,
+         "finish_reason": null
+        }
+       ],
+       "usage": null
+      },
+      {
+       "id": "resp_bravo-ds-chat",
+       "object": "chat.completion.chunk",
+       "created": 1790000000,
+       "model": "deepseek-flash",
+       "system_fingerprint": "fp_ds_test",
+       "choices": [
+        {
+         "index": 0,
+         "delta": {
+          "content": ""
+         },
+         "logprobs": null,
+         "finish_reason": "stop"
+        }
+       ],
+       "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 8,
+        "total_tokens": 32,
+        "prompt_tokens_details": {
+         "cached_tokens": 4
+        },
+        "completion_tokens_details": {
+         "reasoning_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 4,
+        "prompt_cache_miss_tokens": 20
+       }
+      },
+      "[DONE]"
+     ]
+    }
+   }
   }
  ]
 }

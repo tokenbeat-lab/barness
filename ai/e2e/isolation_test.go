@@ -58,7 +58,7 @@ var isolationScenarios = []isolationScenario{
 			// Gemini sends no vendor request id header, nor do the DeepSeek
 			// scripts (DeepSeek does not document one).
 			requestID := "req_alpha_401"
-			if p.gemini() || p.deepseek() {
+			if p.gemini() || p.deepseek() || p.deepseekChat() {
 				requestID = ""
 			}
 			var e *ai.Error
@@ -90,7 +90,7 @@ var isolationScenarios = []isolationScenario{
 	{
 		name: "a-retried", aAttempts: 2,
 		arrange: func(iw isolationWorld) {
-			for _, id := range []string{"primary", "claude", "gemini", "chat", "deepseek"} {
+			for _, id := range []string{"primary", "claude", "gemini", "chat", "deepseek", "deepseek-chat"} {
 				b := iw.host.Binding(tenantA.tenant, id)
 				b.Retry = ai.RetryPolicy{MaxRetries: 1}
 				iw.host.PutBinding(b)
@@ -325,7 +325,8 @@ func checkWire(ev *evidence.Case, iw isolationWorld, p isolationProtocol, sc iso
 	keyA, keyB := promptCacheKey(ev, a[0]), promptCacheKey(ev, b[0])
 	ev.Check("the shared session id yields each tenant its own cache key", keyA != "" && keyB != "" && keyA != keyB,
 		"A %q B %q", keyA, keyB)
-	if p.chat() {
+	if p.chat() || p.deepseekChat() {
+		// pi's Chat path sends no session affinity header to either vendor.
 		return
 	}
 	ev.Check("the shared session id yields each tenant its own affinity header",

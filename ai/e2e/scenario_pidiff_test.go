@@ -39,7 +39,7 @@ func (sc fixtureScenario) pidiff(t *testing.T, file string, raw []byte) pidiffSc
 	if sc.MaxRetries > 0 {
 		options["maxRetries"] = mustMarshal(t, sc.MaxRetries)
 	}
-	p := pidiffScenario{api: sc.proto.api, fixture: file, raw: raw, model: sc.Model, req: sc.request(t),
+	p := pidiffScenario{api: sc.proto.api, provider: sc.proto.provider, fixture: file, raw: raw, model: sc.Model, req: sc.request(t),
 		replies: sc.replies(t), abortAfter: sc.CancelAfterEvents, requests: max(sc.Expect.Requests, 1),
 		piOptionsRaw: mustMarshal(t, options), modelPatch: sc.ModelPatch, retry: ai.RetryPolicy{MaxRetries: sc.MaxRetries}}
 	if sc.entry() == "streamSimple" {

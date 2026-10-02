@@ -37,6 +37,10 @@ func TestPiDifferential(t *testing.T) {
 	t.Run(string(ai.APIOpenAICompletions), func(t *testing.T) {
 		scenarioPiDifferential(t, ledger, chatProtocol, "P04", chatFixtureFiles)
 	})
+	// DeepSeek's own pi route: the same protocol under DeepSeek's compat.
+	t.Run(string(ai.ProviderDeepSeek)+"/"+string(ai.APIOpenAICompletions), func(t *testing.T) {
+		scenarioPiDifferential(t, ledger, deepseekChatProtocol, "P06", deepseekChatFixtureFiles)
+	})
 	t.Run(string(ai.APIOpenAIResponses), func(t *testing.T) {
 		for _, scenario := range []string{"text", "interleaved", "tool-call", "tool-results", "reasoning-call", "reasoning-replay", "reasoning-cross-model"} {
 			for _, entry := range []string{"stream", "streamSimple"} {
@@ -146,12 +150,14 @@ func TestPiDifferential(t *testing.T) {
 // pidiffScenario is one E2E scenario's logical input and response script.
 type pidiffScenario struct {
 	// api is the protocol both sides call; empty is OpenAI Responses.
-	api     ai.API
-	fixture string
-	raw     []byte
-	model   string
-	req     ai.Request
-	reply   provider.Reply
+	// provider is the vendor serving it; empty is the protocol's default.
+	api      ai.API
+	provider ai.ProviderID
+	fixture  string
+	raw      []byte
+	model    string
+	req      ai.Request
+	reply    provider.Reply
 	// replies, when set, script several attempts in place of reply.
 	replies []provider.Reply
 	// retry is barness's binding retry policy; piOptions carry pi's. clock
@@ -263,7 +269,7 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	}
 	ev.Record("response-script", replies)
 	req := sc.req
-	p := pidiffProtocolOf(sc.api)
+	p := pidiffProtocolOf(sc.provider, sc.api)
 	target := ai.Target{BindingID: p.binding, ModelID: sc.model}
 
 	// barness-ai through the public Client.
@@ -372,7 +378,12 @@ type pidiffProtocol struct {
 	endpoint func(v1 string) string
 }
 
-func pidiffProtocolOf(api ai.API) pidiffProtocol {
+func pidiffProtocolOf(vendor ai.ProviderID, api ai.API) pidiffProtocol {
+	if vendor == ai.ProviderDeepSeek && api == ai.APIOpenAICompletions {
+		// DeepSeek's base URL is its root, without a version path.
+		return pidiffProtocol{api: api, provider: vendor, binding: "deepseek-chat", key: deepseekA,
+			endpoint: func(v1 string) string { return strings.TrimSuffix(v1, "/v1") }}
+	}
 	switch api {
 	case ai.APIAnthropicMessages:
 		// pi's Anthropic baseUrl has no /v1; the SDK adds /v1/messages.

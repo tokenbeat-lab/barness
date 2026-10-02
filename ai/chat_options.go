@@ -18,8 +18,8 @@ import (
 type ChatOptions struct {
 	// Temperature is sent as temperature, null included.
 	Temperature Nullable[float64] `json:"temperature,omitzero"`
-	// MaxTokens is sent as max_completion_tokens; unset, null and 0 send
-	// nothing.
+	// MaxTokens is sent as max_completion_tokens (max_tokens to DeepSeek);
+	// unset, null and 0 send nothing.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
 	// SamplingParams are applied over the request body after every named
 	// field, so a key here overrides it (pi-ai parity). Unlike the simple
@@ -36,7 +36,9 @@ type ChatOptions struct {
 	SessionID string `json:"sessionId,omitempty"`
 	// ReasoningEffort is sent as reasoning_effort through the model's level
 	// map, unclamped; a model without reasoning ignores it. Empty sends the
-	// model's "off" mapping when that is a value.
+	// model's "off" mapping when that is a value. To DeepSeek it also sends
+	// thinking enabled, and empty sends thinking disabled unless the model
+	// maps off to null.
 	ReasoningEffort ThinkingLevel `json:"reasoningEffort,omitempty"`
 	// ToolChoice is sent as tool_choice; unset and null send nothing.
 	ToolChoice Nullable[ChatToolChoice] `json:"toolChoice,omitzero"`
@@ -125,22 +127,36 @@ func (o ChatOptions) cacheKey(scope cacheScope, endpoint string, m Model) string
 }
 
 // encode sets the option fields of body for model m, as pi's buildParams
-// does before samplingParams, for the standard OpenAI compat: completion
-// tokens, a stored-completion opt-out, the developer role for reasoning
-// models and reasoning_effort.
-func (o ChatOptions) encode(body *chatBody, m Model, cacheKey string) {
+// does before samplingParams, for the provider's compat: the output budget,
+// the tool choice and the reasoning switch of its thinking format.
+func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey string) {
 	body.PromptCacheKey = cacheKey
 	if o.CacheRetention == CacheRetentionLong && m.supportsLongCacheRetention() {
 		body.PromptCacheRetention = "24h"
 	}
 	if n, ok := o.MaxTokens.Get(); ok && n != 0 {
-		body.MaxCompletionTokens = n
+		if compat.maxTokens {
+			body.MaxTokens = n
+		} else {
+			body.MaxCompletionTokens = n
+		}
 	}
 	body.Temperature = o.Temperature
 	if c, ok := o.ToolChoice.Get(); ok {
 		body.ToolChoice = &c
 	}
 	if !m.Reasoning {
+		return
+	}
+	if compat.deepseekThinking {
+		// No effort switches thinking off unless the model's level map
+		// says off is unsupported (null); off is never an effort here.
+		if o.ReasoningEffort != "" {
+			body.Thinking = &chatThinking{Type: "enabled"}
+			body.ReasoningEffort = m.ThinkingLevelMap.wireValue(o.ReasoningEffort)
+		} else if !m.ThinkingLevelMap.Off.IsNull() {
+			body.Thinking = &chatThinking{Type: "disabled"}
+		}
 		return
 	}
 	if o.ReasoningEffort != "" {

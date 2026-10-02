@@ -4,16 +4,29 @@
 
 **Blocked by:** 20
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] reasoning_content 增量归一，以及带工具调用/结果的 assistant 回放
-- [ ] [DONE] 前 usage 不遗漏
-- [ ] 不混用 Responses 配置；同账户双协议 binding 用例证明 Provider/API/model 与 AccountScopeID 正确
-- [ ] thinking 模式下不支持强制 tool_choice=required：强制工具用例在关闭 thinking 时运行，thinking + 工具自动选择与推理历史回放另跑，二者不互相证明
-- [ ] 复用 E01–E09、E11 适用用例全部通过；适用部分接入 pi 差分无待处理差异
+- [x] reasoning_content 增量归一，以及带工具调用/结果的 assistant 回放
+- [x] [DONE] 前 usage 不遗漏
+- [x] 不混用 Responses 配置；同账户双协议 binding 用例证明 Provider/API/model 与 AccountScopeID 正确
+- [x] thinking 模式下不支持强制 tool_choice=required：强制工具用例在关闭 thinking 时运行，thinking + 工具自动选择与推理历史回放另跑，二者不互相证明
+- [x] 复用 E01–E09、E11 适用用例全部通过；适用部分接入 pi 差分无待处理差异
 
 ## Comments
 
 **2026-10-02 — handover from issue 20.** The Chat adapter implements only the standard OpenAI compat (ADR-0013 决策三). pi's `detectCompat` gives DeepSeek (provider `deepseek` or a `deepseek.com` base URL) `max_tokens` instead of `max_completion_tokens`, no `store`, no developer role, `thinkingFormat: "deepseek"` (`thinking: {type: enabled|disabled}` plus `reasoning_effort`) and `requiresReasoningContentOnAssistantMessages` (an empty `reasoning_content` on every replayed assistant message of a reasoning model); none of these exists yet. Usage already reads `prompt_cache_hit_tokens`, and `reasoning_content` streaming and replay are in place.
 
 **2026-10-02 — from issue 21.** The test world now has DeepSeek keys (`deepseekA`/`deepseekB`), a `deepseek` Responses binding on `acct-<tenant>-deepseek` with credential `cred-<tenant>-deepseek`, and `ProviderDeepSeek`. The dual-protocol case (one account, two bindings, same credential) belongs here: a DeepSeek Chat binding can reference `cred-<tenant>-deepseek`. `deepseek-flash` exists in the catalog on `openai-responses` only; its Chat entry (and deepseek-v4-pro) comes from pi's `deepseek.json` as is.
+
+**2026-10-02 — implemented** (compat `ai/chat_compat.go`, request changes in `chat_request.go`/`chat_options.go`, catalog in `catalog.go`; E2E `ai/e2e/deepseek_chat_test.go`, `deepseek_chat_routing_test.go`, `deepseek_limits_test.go` with fixtures `testdata/deepseek-chat/{text,failures,history,options,usage,retry}.json` and a `deepseek-chat` protocol in `testdata/isolation/interleave.json`; decisions in ADR-0015, status proposed).
+
+- **Compat (ADR-0015 决策一):** `chatCompatOf(provider)` ports pi's detected DeepSeek compat — no `store`, no developer role (instructions stay `system`), `max_tokens`, `thinking: {type: enabled|disabled}` with `reasoning_effort` only beside an enabled one (disabled unless the level map's off is null), and `reasoning_content` on every replayed assistant message of a reasoning model (empty when the turn has none). Keyed by provider like ADR-0014's Responses capabilities; OpenAI's Chat requests are unchanged.
+- **Catalog (决策二):** `2026-10-02.6` adds `deepseek-flash` (text + image) and `deepseek-v4-pro` (text only, mid-conversation system messages) on `openai-completions` from pi's `deepseek.json`; the Responses `deepseek-flash` entry stays its own literal, so either protocol's entry can change alone.
+- **Dual protocol:** the test world has a `deepseek-chat` binding on `acct-<tenant>-deepseek` referencing `cred-<tenant>-deepseek`, the Responses binding's credential. `P06-E10-dual-protocol-one-account` runs both bindings concurrently on one Client: each result and event names DeepSeek, its own API and binding and the shared account; both requests carry the same key alias on their own paths (`/responses`, `/chat/completions`); neither request carries the other protocol's fields; a host catalog change to the Chat entry's level map leaves the Responses entry alone. `P06-E07-*` refuse a Chat-only model on the Responses binding, an OpenAI model on the DeepSeek Chat binding and a DeepSeek model on the OpenAI Chat binding before any request.
+- **Thinking and tool choice (决策三):** the forced choice runs with thinking off (`text.json` `forced-tool-thinking-off`, `options.json` `tool-choice-function`); thinking + automatic tools (`reasoning-tool-auto`, `simple-tool-choice`), the thinking tool round trip (`history.json` `tool-round-trip`, also live as `P06-E03-live-tool-round-trip` through `ValidateToolCall`) and reasoning history replay run separately; thinking + `required` is sent as pi sends it and DeepSeek's refusal is reported as `invalid_request` without retry (`failures.json` `thinking-forced-tool-refused`).
+- **Usage:** in the finish chunk (DeepSeek's shape) and in a separate chunk after it, both before `[DONE]`, never missed; `prompt_cache_hit_tokens` with and without `prompt_tokens_details`, reasoning tokens, partial and unreported, priced at both models' rates.
+- **Coverage (offline):** P06-E01 6 scenarios (text full/simple × Stream/Result/Complete), E02 10 (no finish_reason, length, content_filter, insufficient_system_resource, cut and canceled reasoning, the refused combination, 401/402/503), E03 9 (round trip, required empty reasoning_content, thinking + text replay, untrusted, OpenAI Chat and DeepSeek Responses turns, images, placeholders, mid-conversation system), E04 19, E11 8, E05 3; E08 request body, frame and output bounds; E06 isolation for every scenario and entry (long retention derives each tenant its own cache key, no affinity header), E10 envelope and local/host example suites with the `deepseek-chat` protocol.
+- **Differential (决策五):** P06 is a frozen pi route, not an extension: all 55 scenarios run as `PIDIFF-P06-*` (the runner now finds DeepSeek's own `openai-completions` data; the harness picks binding and base URL by provider × API). The full run has **0 pending**; the P04 ledger decisions for the connection-cut runtime text, the derived cache key and the untrusted downgrade now name the P06 cases, plus one new entry: the downgraded turn carries DeepSeek's empty `reasoning_content` where pi replays the reasoning. `go test ./...`, `go test -race ./ai/...`, `go vet ./...` and `BARNESS_AI_PIDIFF=1` pass.
+- **Not covered here:** E09 has no P06 case of its own: as for P05, the observer and admission records are asserted through the E06 isolation suite only (the Chat adapter's own E09 suite is P04's `chat_observe_test.go`). The real-API smoke (issue 23, items listed there): the refusal text of thinking + required, the prompt cache fields, the usage position, error bodies and request id header. 402 is classified as a generic 4xx (`invalid_request`).
+- **Open for the maintainer:** ADR-0015 "待维护者确认" — compat by provider, the catalog entries, sending thinking + required rather than refusing it, and sending the derived prompt cache key with long retention as pi does.
+

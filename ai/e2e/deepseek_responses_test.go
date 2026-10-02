@@ -34,36 +34,37 @@ var deepseekResponsesFixtureFiles = []string{"text.json", "failures.json", "hist
 // reasoning_text and a reasoning tool call; the text scenarios also run
 // through Result without Next and through Complete.
 func TestDeepSeekResponsesText(t *testing.T) {
-	runDeepSeekScenarios(t, "text.json", "E01", func(sc fixtureScenario) bool { return sc.ID == "text" || sc.ID == "text-simple" })
+	runProtocolScenarios(t, deepseekResponsesProtocol, "P05", "text.json", "E01", func(sc fixtureScenario) bool { return sc.ID == "text" || sc.ID == "text-simple" })
 }
 
 // TestDeepSeekResponsesFailures is P05/E02: incomplete, failed, missing
 // terminal, HTTP refusals and cancellation.
 func TestDeepSeekResponsesFailures(t *testing.T) {
-	runDeepSeekScenarios(t, "failures.json", "E02", func(sc fixtureScenario) bool { return sc.CancelAfterEvents == 0 })
+	runProtocolScenarios(t, deepseekResponsesProtocol, "P05", "failures.json", "E02", func(sc fixtureScenario) bool { return sc.CancelAfterEvents == 0 })
 }
 
 // TestDeepSeekResponsesHistory is P05/E03: stateless full-history replay,
 // reasoning and tool round trips, other providers' state and images.
 func TestDeepSeekResponsesHistory(t *testing.T) {
-	runDeepSeekScenarios(t, "history.json", "E03", nil)
+	runProtocolScenarios(t, deepseekResponsesProtocol, "P05", "history.json", "E03", nil)
 }
 
 // TestDeepSeekResponsesUsage is P05/E11: cache reads, reasoning, partial
 // and unreported usage, priced at DeepSeek's rates.
 func TestDeepSeekResponsesUsage(t *testing.T) {
-	runDeepSeekScenarios(t, "usage.json", "E11", nil)
+	runProtocolScenarios(t, deepseekResponsesProtocol, "P05", "usage.json", "E11", nil)
 }
 
 // TestDeepSeekResponsesRetry is P05/E05 under the binding's retry policy.
 func TestDeepSeekResponsesRetry(t *testing.T) {
-	runDeepSeekScenarios(t, "retry.json", "E05", nil)
+	runProtocolScenarios(t, deepseekResponsesProtocol, "P05", "retry.json", "E05", nil)
 }
 
-// runDeepSeekScenarios streams every scenario of file; those more selects
-// also run through Result without Next and through Complete.
-func runDeepSeekScenarios(t *testing.T, file, e string, more func(fixtureScenario) bool) {
-	f, raw := loadFixture(t, deepseekResponsesProtocol, file)
+// runProtocolScenarios streams every scenario of proto's file as case
+// "<p>-<e>-<scenario>-<mode>"; those more selects also run through Result
+// without Next and through Complete.
+func runProtocolScenarios(t *testing.T, proto *fixtureProtocol, p, file, e string, more func(fixtureScenario) bool) {
+	f, raw := loadFixture(t, proto, file)
 	for _, sc := range f.Scenarios {
 		modes := []callMode{modeStream}
 		if more != nil && more(sc) {
@@ -71,7 +72,7 @@ func runDeepSeekScenarios(t *testing.T, file, e string, more func(fixtureScenari
 		}
 		for _, mode := range modes {
 			t.Run(sc.ID+"/"+string(mode), func(t *testing.T) {
-				ev := run.Case(t, "P05-"+e+"-"+sc.ID+"-"+string(mode))
+				ev := run.Case(t, p+"-"+e+"-"+sc.ID+"-"+string(mode))
 				runScenario(t, ev, sc, raw, mode)
 			})
 		}
@@ -84,7 +85,7 @@ func runDeepSeekScenarios(t *testing.T, file, e string, more func(fixtureScenari
 // does not serve, or that would point at server-side state, is refused
 // before any request.
 func TestDeepSeekResponsesUnsupported(t *testing.T) {
-	runDeepSeekScenarios(t, "unsupported.json", "E04", nil)
+	runProtocolScenarios(t, deepseekResponsesProtocol, "P05", "unsupported.json", "E04", nil)
 
 	f, raw := loadFixture(t, deepseekResponsesProtocol, "text.json")
 	text := scenarioByID(t, f, "text")

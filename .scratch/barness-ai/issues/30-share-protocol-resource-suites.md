@@ -17,3 +17,5 @@
 **2026-10-02 — Chat Completions joins (issue 20).** `ai/e2e/chat_{limits,admission,callbacks,observe}_test.go` are a third copy, parallel to the Anthropic suites (Chat shares the Stainless retry/timeout rules and runs onResponse); the merge should cover P04 too, with Chat's differences (long retention for a cache key off OpenAI's endpoint, blocks closed before an aborted terminal) as protocol fields.
 
 **2026-10-02 — DeepSeek Responses (issue 21).** `ai/e2e/deepseek_limits_test.go` runs only the request body, frame and output bounds on P05 (the rest is the shared Responses adapter's); a parametric suite should cover P05 with them.
+
+**2026-10-02 — DeepSeek Chat (issue 22).** `deepseek_limits_test.go` now runs the same three bounds on P05 and P06 through `deepseekByteLimits`; the tool JSON and error body bounds of P06 are the shared Chat adapter's (P04's `chat_limits_test.go`).

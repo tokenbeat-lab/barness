@@ -23,9 +23,9 @@ import (
 // OPENAI_ORG_ID, OPENAI_PROJECT_ID and OPENAI_CUSTOM_HEADERS; a service is
 // built per call from explicit options only.
 //
-// It speaks the standard OpenAI compat of pi's openai-completions: pi
-// detects other vendors' quirks by provider and base URL, and no other
-// vendor's Chat models are served here yet.
+// It speaks pi's openai-completions compat for the binding's provider
+// (chatCompatOf): the standard OpenAI compat, or DeepSeek's. pi detects
+// other vendors' quirks too; their Chat models are not served here.
 type chatAdapter struct{}
 
 // headers are the bearer authentication and barness-ai's User-Agent; pi

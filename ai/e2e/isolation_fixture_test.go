@@ -73,98 +73,6 @@ func loadIsolationFixture(t *testing.T) (isolationFixture, []byte) {
 	return f, raw
 }
 
-func (p isolationProtocol) anthropic() bool { return p.BindingID == "claude" }
-
-func (p isolationProtocol) gemini() bool { return p.BindingID == "gemini" }
-
-func (p isolationProtocol) chat() bool { return p.BindingID == "chat" }
-
-// deepseek is DeepSeek on the Responses protocol: the Responses adapter
-// with DeepSeek's binding, key, account, endpoint and capabilities.
-func (p isolationProtocol) deepseek() bool { return p.BindingID == "deepseek" }
-
-// protocolTimeout reports whether p's protocol has a request timeout of its
-// own (timeoutMs); pi's Google path has none.
-func (p isolationProtocol) protocolTimeout() bool { return !p.gemini() }
-
-func (p isolationProtocol) target() ai.Target {
-	return ai.Target{BindingID: p.BindingID, ModelID: p.Model}
-}
-
-func (p isolationProtocol) request() ai.Request {
-	return ai.Request{SystemPrompt: p.SystemPrompt, Messages: []ai.Message{ai.UserText(p.User)}}
-}
-
-// key is the key k's tenant holds for p's binding.
-func (p isolationProtocol) key(k tenantKey) tenantKey {
-	switch {
-	case p.anthropic():
-		return anthropicKey(k)
-	case p.gemini():
-		return googleKey(k)
-	case p.deepseek():
-		return deepseekKey(k)
-	}
-	return k
-}
-
-// account is the vendor account of k's tenant's binding for p.
-func (p isolationProtocol) account(k tenantKey) string {
-	switch {
-	case p.anthropic():
-		return "acct-" + k.tenant + "-anthropic"
-	case p.gemini():
-		return "acct-" + k.tenant + "-google"
-	case p.deepseek():
-		return "acct-" + k.tenant + "-deepseek"
-	}
-	return "acct-" + k.tenant
-}
-
-// path is where k's tenant's endpoint receives p's inference requests.
-func (p isolationProtocol) path(k tenantKey) string {
-	switch {
-	case p.anthropic():
-		return tenantPrefix(k) + "/v1/messages"
-	case p.gemini():
-		return tenantPrefix(k) + "/v1beta/models/" + p.Model + ":streamGenerateContent"
-	case p.chat():
-		return tenantPrefix(k) + "/v1/chat/completions"
-	case p.deepseek():
-		return tenantPrefix(k) + "/responses"
-	}
-	return tenantPrefix(k) + "/v1/responses"
-}
-
-func (p isolationProtocol) script(k tenantKey) isolationScript { return p.Tenants[k.tenant] }
-
-// success is k's tenant's successful reply, one SSE frame per chunk.
-func (p isolationProtocol) success(t *testing.T, k tenantKey) provider.Reply {
-	t.Helper()
-	switch {
-	case p.gemini():
-		return dataEvents(t, p.script(k).Events, provider.FramingLF)
-	case p.chat():
-		return chatEvents(t, p.script(k).Events, provider.FramingLF)
-	}
-	return sseEvents(t, p.script(k).Events, provider.FramingLF)
-}
-
-// firstMarkedChunk is the index of the first chunk of k's success reply
-// carrying k's text marker: once it is written, k's call holds content of
-// its own in flight.
-func (p isolationProtocol) firstMarkedChunk(t *testing.T, f isolationFixture, k tenantKey) int {
-	t.Helper()
-	marker := f.Markers[k.tenant][0]
-	for i, c := range p.success(t, k).Chunks {
-		if strings.Contains(string(c), marker) {
-			return i
-		}
-	}
-	t.Fatalf("%s: no chunk of %s carries %q", p.ID, k.tenant, marker)
-	return 0
-}
-
 // tenantPrefix is the path under which k's tenant's endpoints live on the
 // shared Provider, so each request's path shows which tenant's endpoint it
 // was sent to.
@@ -223,7 +131,7 @@ func newIsolationWorld(t *testing.T, configure ...func(*ai.Config)) isolationWor
 		c.Clock = clock.NewFake(time.Unix(1790000000, 0), 0)
 	}}, configure...)...)
 	for _, k := range []tenantKey{tenantA, tenantB} {
-		for id, suffix := range map[string]string{"primary": "/v1", "claude": "", "gemini": "/v1beta", "chat": "/v1", "deepseek": ""} {
+		for id, suffix := range map[string]string{"primary": "/v1", "claude": "", "gemini": "/v1beta", "chat": "/v1", "deepseek": "", "deepseek-chat": ""} {
 			b := aw.host.Binding(k.tenant, id)
 			b.Endpoint = aw.provider.URL() + tenantPrefix(k) + suffix
 			aw.host.PutBinding(b)
@@ -262,7 +170,7 @@ func fullOptions(p isolationProtocol, timeoutMs int) ai.Options {
 		return ai.AnthropicOptions{TimeoutMs: timeoutMs}
 	case p.gemini():
 		return ai.GeminiOptions{}
-	case p.chat():
+	case p.chat(), p.deepseekChat():
 		// Chat sends a cache key off OpenAI's own endpoint only with long
 		// retention.
 		return ai.ChatOptions{SessionID: sharedSession, CacheRetention: ai.CacheRetentionLong, TimeoutMs: timeoutMs}
@@ -272,7 +180,7 @@ func fullOptions(p isolationProtocol, timeoutMs int) ai.Options {
 
 func simpleOptions(p isolationProtocol, timeoutMs int) ai.SimpleOptions {
 	o := ai.SimpleOptions{SessionID: sharedSession, TimeoutMs: timeoutMs}
-	if p.chat() {
+	if p.chat() || p.deepseekChat() {
 		o.CacheRetention = ai.CacheRetentionLong
 	}
 	return o

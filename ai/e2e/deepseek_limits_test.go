@@ -16,7 +16,21 @@ import (
 // calls; the tool JSON and error body bounds are the shared adapter's,
 // asserted on P01 by TestByteLimits.
 func TestDeepSeekResponsesByteLimits(t *testing.T) {
-	a := loadScenarioText(t, deepseekResponsesProtocol)
+	deepseekByteLimits(t, deepseekResponsesProtocol, "P05", ai.ResponsesOptions{})
+}
+
+// TestDeepSeekChatByteLimits is P06/E08: the same bounds on DeepSeek's
+// Chat calls, whose request body DeepSeek's compat shapes; the tool JSON
+// and error body bounds are the shared Chat adapter's, asserted on P04 by
+// TestChatByteLimits.
+func TestDeepSeekChatByteLimits(t *testing.T) {
+	deepseekByteLimits(t, deepseekChatProtocol, "P06", ai.ChatOptions{})
+}
+
+// deepseekByteLimits runs the request body, frame and output boundaries on
+// proto's text scenario as cases "<p>-E08-…".
+func deepseekByteLimits(t *testing.T, proto *fixtureProtocol, p string, full ai.Options) {
+	a := loadScenarioText(t, proto)
 	chunks := a.chunks(t)
 	largestFrame, streamBytes := largestAndTotal(chunks)
 	script := func(ev *evidence.Case, lw limitWorld) {
@@ -34,7 +48,7 @@ func TestDeepSeekResponsesByteLimits(t *testing.T) {
 		ev.Check("no attempt recorded", len(o.result.Metadata.Attempts) == 0, "got %+v", o.result.Metadata.Attempts)
 	}
 	boundaryOn := func(bc boundary) boundary {
-		bc.entries, bc.casePrefix = scenarioEntries(ai.ResponsesOptions{}), "P05-E08"
+		bc.entries, bc.casePrefix = scenarioEntries(full), p+"-E08"
 		bc.target, bc.request, bc.script = a.target(), a.request(t), scripted
 		return bc
 	}
@@ -45,7 +59,7 @@ func TestDeepSeekResponsesByteLimits(t *testing.T) {
 			size: func(t *testing.T, e outcomeEntry) int64 {
 				w := newWorld(t, tenantA)
 				w.provider.Enqueue(a.reply(t))
-				if o := e.invoke(ctxFor(t), w, textScope("req-p05-measure-"+e.name), a.target(), a.request(t)); o.err != nil {
+				if o := e.invoke(ctxFor(t), w, textScope("req-"+p+"-measure-"+e.name), a.target(), a.request(t)); o.err != nil {
 					t.Fatalf("measuring call failed: %v", o.err)
 				}
 				return int64(len(w.provider.Requests()[0].Body))

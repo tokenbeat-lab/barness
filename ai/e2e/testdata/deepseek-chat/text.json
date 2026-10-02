@@ -1,0 +1,1376 @@
+{
+ "case": "P06/E01 DeepSeek × Chat Completions text, reasoning_content and tool calls with and without thinking",
+ "source": "Synthetic offline fixture. Chunk shapes follow DeepSeek's streamed Chat Completions (https://api-docs.deepseek.com/api/create-chat-completion/ and the thinking mode guide https://api-docs.deepseek.com/guides/thinking_mode/, read 2026-10-02: reasoning_content deltas, usage with prompt_cache_hit_tokens/prompt_cache_miss_tokens and completion_tokens_details.reasoning_tokens, finish_reason stop/length/content_filter/tool_calls/insufficient_system_resource, data: [DONE]) as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/openai-completions.ts through openai-node 6.40.0. Expected requests follow pi's buildParams and convertMessages for DeepSeek's detected compat (no store, no developer role, max_tokens, thinkingFormat deepseek, reasoning_content on assistant messages); the models are pi's deepseek.json openai-completions entries (ADR-0015). Error bodies follow DeepSeek's documented error codes (https://api-docs.deepseek.com/quick_start/error_codes) in OpenAI's error object shape; their texts are illustrative. Costs are pi's calculateCost at the frozen prices of the model used.",
+ "scenarios": [
+  {
+   "id": "text",
+   "about": "Plain text on the full entry without a reasoning level: thinking is switched off (deepseek-flash's level map has no off entry), no store, no developer role; the usage arrives in the finish chunk, as DeepSeek sends it, and the chunk's model is the response model.",
+   "model": "deepseek-flash",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": ""
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": ", world"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": ""
+       },
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": {
+      "prompt_tokens": 12,
+      "completion_tokens": 4,
+      "total_tokens": 16,
+      "prompt_tokens_details": {
+       "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 12
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello",
+     "text_delta#0:, world",
+     "text_delta#0:!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "absentHeaders": [
+      "Session_id",
+      "X-Client-Request-Id",
+      "X-Session-Affinity",
+      "X-Stainless-Timeout"
+     ],
+     "body": {
+      "messages": [
+       {
+        "content": "You are terse.",
+        "role": "system"
+       },
+       {
+        "content": [
+         {
+          "text": "Say hello.",
+          "type": "text"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "model": "deepseek-flash",
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "thinking": {
+       "type": "disabled"
+      }
+     },
+     "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+     },
+     "path": "/chat/completions"
+    },
+    "responseId": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+    "stopReason": "stop",
+    "usage": {
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "cost": {
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "input": 3.6e-06,
+      "output": 4.8e-06,
+      "total": 8.4e-06
+     },
+     "input": 12,
+     "output": 4,
+     "reasoning": 0,
+     "totalTokens": 16
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "text-simple",
+   "about": "Plain text on the simple entry: its output budget goes out as max_tokens and thinking is off.",
+   "model": "deepseek-flash",
+   "entry": "streamSimple",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": ""
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": ", world"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "!"
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": ""
+       },
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": {
+      "prompt_tokens": 12,
+      "completion_tokens": 4,
+      "total_tokens": 16,
+      "prompt_tokens_details": {
+       "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 12
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "text": "Hello, world!",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello",
+     "text_delta#0:, world",
+     "text_delta#0:!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "max_tokens": 384000,
+      "messages": [
+       {
+        "content": "You are terse.",
+        "role": "system"
+       },
+       {
+        "content": [
+         {
+          "text": "Say hello.",
+          "type": "text"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "model": "deepseek-flash",
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "thinking": {
+       "type": "disabled"
+      }
+     },
+     "path": "/chat/completions"
+    },
+    "responseId": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+    "stopReason": "stop",
+    "usage": {
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "cost": {
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "input": 3.6e-06,
+      "output": 4.8e-06,
+      "total": 8.4e-06
+     },
+     "input": 12,
+     "output": 4,
+     "reasoning": 0,
+     "totalTokens": 16
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "reasoning",
+   "about": "reasoningEffort high switches thinking on with reasoning_effort high; reasoning_content deltas form one thinking block signed reasoning_content, then the text block; reasoning tokens stay inside output.",
+   "model": "deepseek-flash",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "What is 17 plus 19?"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoningEffort": "high"
+   },
+   "events": [
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": null,
+        "reasoning_content": ""
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": null,
+        "reasoning_content": "The user asks "
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": null,
+        "reasoning_content": "17 + 19 = 36."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "36",
+        "reasoning_content": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": ".",
+        "reasoning_content": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "",
+        "reasoning_content": null
+       },
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": {
+      "prompt_tokens": 14,
+      "completion_tokens": 30,
+      "total_tokens": 44,
+      "prompt_tokens_details": {
+       "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 22
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 14
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "thinking": "The user asks 17 + 19 = 36.",
+      "thinkingSignature": "reasoning_content",
+      "type": "thinking"
+     },
+     {
+      "text": "36.",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "thinking_start#0",
+     "thinking_delta#0:The user asks ",
+     "thinking_delta#0:17 + 19 = 36.",
+     "text_start#1",
+     "text_delta#1:36",
+     "text_delta#1:.",
+     "thinking_end#0:The user asks 17 + 19 = 36.",
+     "text_end#1:36.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "messages": [
+       {
+        "content": "You are terse.",
+        "role": "system"
+       },
+       {
+        "content": [
+         {
+          "text": "What is 17 plus 19?",
+          "type": "text"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "model": "deepseek-flash",
+      "reasoning_effort": "high",
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "thinking": {
+       "type": "enabled"
+      }
+     },
+     "path": "/chat/completions"
+    },
+    "responseId": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+    "stopReason": "stop",
+    "usage": {
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "cost": {
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "input": 4.2e-06,
+      "output": 3.6e-05,
+      "total": 4.02e-05
+     },
+     "input": 14,
+     "output": 30,
+     "reasoning": 22,
+     "totalTokens": 44
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "reasoning-simple",
+   "about": "A simple level DeepSeek does not map (medium) clamps to the model's next supported level, high.",
+   "model": "deepseek-flash",
+   "entry": "streamSimple",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "What is 17 plus 19?"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "medium"
+   },
+   "events": [
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": null,
+        "reasoning_content": ""
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": null,
+        "reasoning_content": "17 + 19 = 36."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "36.",
+        "reasoning_content": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "",
+        "reasoning_content": null
+       },
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": {
+      "prompt_tokens": 14,
+      "completion_tokens": 30,
+      "total_tokens": 44,
+      "prompt_tokens_details": {
+       "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 22
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 14
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "thinking": "17 + 19 = 36.",
+      "thinkingSignature": "reasoning_content",
+      "type": "thinking"
+     },
+     {
+      "text": "36.",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "thinking_start#0",
+     "thinking_delta#0:17 + 19 = 36.",
+     "text_start#1",
+     "text_delta#1:36.",
+     "thinking_end#0:17 + 19 = 36.",
+     "text_end#1:36.",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "max_tokens": 384000,
+      "messages": [
+       {
+        "content": "You are terse.",
+        "role": "system"
+       },
+       {
+        "content": [
+         {
+          "text": "What is 17 plus 19?",
+          "type": "text"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "model": "deepseek-flash",
+      "reasoning_effort": "high",
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "thinking": {
+       "type": "enabled"
+      }
+     },
+     "path": "/chat/completions"
+    },
+    "responseId": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+    "stopReason": "stop",
+    "usage": {
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "cost": {
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "input": 4.2e-06,
+      "output": 3.6e-05,
+      "total": 4.02e-05
+     },
+     "input": 14,
+     "output": 30,
+     "reasoning": 22,
+     "totalTokens": 44
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "reasoning-tool-auto",
+   "about": "Thinking with tools and the automatic tool choice: reasoning_content, then a tool call in fragments, ends as toolUse. This is the thinking + tools combination; it does not prove a forced choice.",
+   "model": "deepseek-flash",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "add",
+      "description": "Add two integers.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "a": {
+         "type": "integer"
+        },
+        "b": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "a",
+        "b"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Use add for 17 and 19."
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoningEffort": "high",
+    "toolChoice": "auto"
+   },
+   "events": [
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": null,
+        "reasoning_content": ""
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": null,
+        "reasoning_content": "I should call add."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "tool_calls": [
+         {
+          "index": 0,
+          "id": "call_00_ds1",
+          "type": "function",
+          "function": {
+           "name": "add",
+           "arguments": ""
+          }
+         }
+        ]
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "tool_calls": [
+         {
+          "index": 0,
+          "function": {
+           "arguments": "{\"a\":"
+          }
+         }
+        ]
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "tool_calls": [
+         {
+          "index": 0,
+          "function": {
+           "arguments": "17,\"b\":19}"
+          }
+         }
+        ]
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": null
+       },
+       "logprobs": null,
+       "finish_reason": "tool_calls"
+      }
+     ],
+     "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 28,
+      "total_tokens": 68,
+      "prompt_tokens_details": {
+       "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 12
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 40
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "thinking": "I should call add.",
+      "thinkingSignature": "reasoning_content",
+      "type": "thinking"
+     },
+     {
+      "arguments": {
+       "a": 17,
+       "b": 19
+      },
+      "id": "call_00_ds1",
+      "name": "add",
+      "rawArguments": "{\"a\":17,\"b\":19}",
+      "type": "toolCall"
+     }
+    ],
+    "events": [
+     "start",
+     "thinking_start#0",
+     "thinking_delta#0:I should call add.",
+     "toolcall_start#1",
+     "toolcall_delta#1:",
+     "toolcall_delta#1:{\"a\":",
+     "toolcall_delta#1:17,\"b\":19}",
+     "thinking_end#0:I should call add.",
+     "toolcall_end#1:call_00_ds1 add {\"a\":17,\"b\":19}",
+     "done:toolUse"
+    ],
+    "rawStopReason": "tool_calls",
+    "request": {
+     "body": {
+      "messages": [
+       {
+        "content": "You are terse.",
+        "role": "system"
+       },
+       {
+        "content": [
+         {
+          "text": "Use add for 17 and 19.",
+          "type": "text"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "model": "deepseek-flash",
+      "reasoning_effort": "high",
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "thinking": {
+       "type": "enabled"
+      },
+      "tool_choice": "auto",
+      "tools": [
+       {
+        "function": {
+         "description": "Add two integers.",
+         "name": "add",
+         "parameters": {
+          "properties": {
+           "a": {
+            "type": "integer"
+           },
+           "b": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "a",
+           "b"
+          ],
+          "type": "object"
+         },
+         "strict": false
+        },
+        "type": "function"
+       }
+      ]
+     },
+     "path": "/chat/completions"
+    },
+    "responseId": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+    "stopReason": "toolUse",
+    "usage": {
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "cost": {
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "input": 1.2e-05,
+      "output": 3.36e-05,
+      "total": 4.56e-05
+     },
+     "input": 40,
+     "output": 28,
+     "reasoning": 12,
+     "totalTokens": 68
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "forced-tool-thinking-off",
+   "about": "A forced tool choice (required) runs with thinking off — DeepSeek's thinking mode does not take a forced choice — and returns the call without reasoning.",
+   "model": "deepseek-flash",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "tools": [
+     {
+      "name": "add",
+      "description": "Add two integers.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "a": {
+         "type": "integer"
+        },
+        "b": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "a",
+        "b"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Use add for 17 and 19."
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "toolChoice": "required"
+   },
+   "events": [
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": ""
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "tool_calls": [
+         {
+          "index": 0,
+          "id": "call_00_ds2",
+          "type": "function",
+          "function": {
+           "name": "add",
+           "arguments": ""
+          }
+         }
+        ]
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "tool_calls": [
+         {
+          "index": 0,
+          "function": {
+           "arguments": "{\"a\":17,"
+          }
+         }
+        ]
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "tool_calls": [
+         {
+          "index": 0,
+          "function": {
+           "arguments": "\"b\":19}"
+          }
+         }
+        ]
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": null
+       },
+       "logprobs": null,
+       "finish_reason": "tool_calls"
+      }
+     ],
+     "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 18,
+      "total_tokens": 58,
+      "prompt_tokens_details": {
+       "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+       "reasoning_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 40
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "arguments": {
+       "a": 17,
+       "b": 19
+      },
+      "id": "call_00_ds2",
+      "name": "add",
+      "rawArguments": "{\"a\":17,\"b\":19}",
+      "type": "toolCall"
+     }
+    ],
+    "events": [
+     "start",
+     "toolcall_start#0",
+     "toolcall_delta#0:",
+     "toolcall_delta#0:{\"a\":17,",
+     "toolcall_delta#0:\"b\":19}",
+     "toolcall_end#0:call_00_ds2 add {\"a\":17,\"b\":19}",
+     "done:toolUse"
+    ],
+    "rawStopReason": "tool_calls",
+    "request": {
+     "body": {
+      "messages": [
+       {
+        "content": "You are terse.",
+        "role": "system"
+       },
+       {
+        "content": [
+         {
+          "text": "Use add for 17 and 19.",
+          "type": "text"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "model": "deepseek-flash",
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "thinking": {
+       "type": "disabled"
+      },
+      "tool_choice": "required",
+      "tools": [
+       {
+        "function": {
+         "description": "Add two integers.",
+         "name": "add",
+         "parameters": {
+          "properties": {
+           "a": {
+            "type": "integer"
+           },
+           "b": {
+            "type": "integer"
+           }
+          },
+          "required": [
+           "a",
+           "b"
+          ],
+          "type": "object"
+         },
+         "strict": false
+        },
+        "type": "function"
+       }
+      ]
+     },
+     "path": "/chat/completions"
+    },
+    "responseId": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+    "stopReason": "toolUse",
+    "usage": {
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "cost": {
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "input": 1.2e-05,
+      "output": 2.16e-05,
+      "total": 3.3600000000000004e-05
+     },
+     "input": 40,
+     "output": 18,
+     "reasoning": 0,
+     "totalTokens": 58
+    },
+    "usageReporting": "complete"
+   }
+  }
+ ]
+}

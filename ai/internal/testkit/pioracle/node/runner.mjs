@@ -19,33 +19,46 @@ import { fileURLToPath } from "node:url";
 
 const LEAKY_ENV = /(API_KEY|_TOKEN|_SECRET|BASE_URL|ENDPOINT|PROXY)$/i;
 
-// One case per API. A table entry is added when that protocol joins the oracle.
+// One case per API. A table entry is added when that protocol joins the
+// oracle; each catalog is a provider's model data whose entries on
+// catalogApi (default: the case's API) the case may name.
 const APIS = {
 	"openai-responses": {
 		api: "@earendil-works/pi-ai/api/openai-responses",
-		models: "@earendil-works/pi-ai/providers/openai.models",
-		catalog: "OPENAI_MODELS",
+		catalogs: [{ models: "@earendil-works/pi-ai/providers/openai.models", catalog: "OPENAI_MODELS" }],
 	},
 	"anthropic-messages": {
 		api: "@earendil-works/pi-ai/api/anthropic-messages",
-		models: "@earendil-works/pi-ai/providers/anthropic.models",
-		catalog: "ANTHROPIC_MODELS",
+		catalogs: [{ models: "@earendil-works/pi-ai/providers/anthropic.models", catalog: "ANTHROPIC_MODELS" }],
 	},
 	"google-generative-ai": {
 		api: "@earendil-works/pi-ai/api/google-generative-ai",
-		models: "@earendil-works/pi-ai/providers/google.models",
-		catalog: "GOOGLE_MODELS",
+		catalogs: [{ models: "@earendil-works/pi-ai/providers/google.models", catalog: "GOOGLE_MODELS" }],
 	},
 	// pi's data lists OpenAI's models for Responses only; a pi user reaches
 	// them over Chat Completions as a custom model with the API swapped,
-	// which is what barness-ai's catalog lists (ADR-0013).
+	// which is what barness-ai's catalog lists (ADR-0013). DeepSeek's data
+	// is pi's own Chat route, used as is (ADR-0015).
 	"openai-completions": {
 		api: "@earendil-works/pi-ai/api/openai-completions",
-		models: "@earendil-works/pi-ai/providers/openai.models",
-		catalog: "OPENAI_MODELS",
-		catalogApi: "openai-responses",
+		catalogs: [
+			{ models: "@earendil-works/pi-ai/providers/openai.models", catalog: "OPENAI_MODELS", catalogApi: "openai-responses" },
+			{ models: "@earendil-works/pi-ai/providers/deepseek.models", catalog: "DEEPSEEK_MODELS" },
+		],
 	},
 };
+
+// catalogModels lists the models entry's catalogs serve on api, each with
+// its API set to api.
+async function catalogModels(api, entry) {
+	const out = [];
+	for (const c of entry.catalogs) {
+		const catalog = (await import(c.models))[c.catalog];
+		const listed = Object.values(catalog).filter((m) => m.api === (c.catalogApi ?? api));
+		out.push(...listed.map((m) => ({ ...m, api })));
+	}
+	return out;
+}
 
 function fail(message) {
 	process.stderr.write(`pi-oracle runner: ${message}\n`);
@@ -127,8 +140,7 @@ async function costs(input) {
 	});
 	const known = [];
 	for (const [api, entry] of Object.entries(APIS)) {
-		const catalog = (await import(entry.models))[entry.catalog];
-		known.push(...Object.values(catalog).filter((m) => m.api === (entry.catalogApi ?? api)));
+		known.push(...(await catalogModels(api, entry)));
 	}
 	const models = {};
 	for (const id of input.models ?? []) {
@@ -159,10 +171,7 @@ async function main() {
 
 	const pi = await import("@earendil-works/pi-ai");
 	const api = await import(entry.api);
-	const catalog = (await import(entry.models))[entry.catalog];
-	const catalogApi = entry.catalogApi ?? input.api;
-	const listed = Object.values(catalog).find((m) => m.provider === input.provider && m.id === input.model && m.api === catalogApi);
-	const known = listed && { ...listed, api: input.api };
+	const known = (await catalogModels(input.api, entry)).find((m) => m.provider === input.provider && m.id === input.model);
 	if (!known) fail(`model ${input.provider}/${input.model} is not in pi's ${input.api} catalog`);
 	// modelCompat overrides compat flags of the catalog model, the way a pi
 	// user configures a custom model; it lets a case exercise a flag that

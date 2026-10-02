@@ -69,11 +69,11 @@ func googleKey(k tenantKey) tenantKey {
 }
 
 // builtinModelIDs are the built-in models of api, all allowed on its
-// binding.
-func builtinModelIDs(api ai.API) []string {
+// binding; with a provider, only that provider's.
+func builtinModelIDs(api ai.API, provider ...ai.ProviderID) []string {
 	var ids []string
 	for _, m := range ai.BuiltinCatalog().Models {
-		if m.API == api {
+		if m.API == api && (len(provider) == 0 || m.Provider == provider[0]) {
 			ids = append(ids, m.ID)
 		}
 	}
@@ -165,8 +165,29 @@ func deepseekBinding(k tenantKey, providerURL string) ai.Binding {
 	}
 }
 
+// deepseekChatBinding is k's tenant's "deepseek-chat" binding at version
+// b1: DeepSeek through Chat Completions at the world's Provider root, on the
+// same DeepSeek account and credential as "deepseek" — two bindings for one
+// account's two protocols, each with its own model configuration.
+// gpt-4.1-mini is allowed but absent from DeepSeek's catalog.
+func deepseekChatBinding(k tenantKey, providerURL string) ai.Binding {
+	return ai.Binding{
+		TenantID:       k.tenant,
+		BindingID:      "deepseek-chat",
+		Version:        "b1",
+		Enabled:        true,
+		ProviderID:     ai.ProviderDeepSeek,
+		API:            ai.APIOpenAICompletions,
+		Endpoint:       providerURL,
+		AuthKind:       ai.AuthAPIKey,
+		AccountScopeID: "acct-" + k.tenant + "-deepseek",
+		CredentialRef:  "cred-" + k.tenant + "-deepseek",
+		AllowedModels:  append(builtinModelIDs(ai.APIOpenAICompletions, ai.ProviderDeepSeek), "gpt-4.1-mini"),
+	}
+}
+
 // deepseekCredential is the active credential snapshot holding k's
-// DeepSeek key, referenced by deepseekBinding.
+// DeepSeek key, referenced by deepseekBinding and deepseekChatBinding.
 func deepseekCredential(k tenantKey) ai.Credential {
 	return ai.Credential{
 		OwnerTenantID:  k.tenant,
@@ -215,7 +236,7 @@ func chatBinding(k tenantKey, providerURL string) ai.Binding {
 		AuthKind:       ai.AuthAPIKey,
 		AccountScopeID: "acct-" + k.tenant,
 		CredentialRef:  "cred-" + k.tenant,
-		AllowedModels:  builtinModelIDs(ai.APIOpenAICompletions),
+		AllowedModels:  builtinModelIDs(ai.APIOpenAICompletions, ai.ProviderOpenAI),
 	}
 }
 
@@ -235,7 +256,8 @@ func primaryCredential(k tenantKey, version string) ai.Credential {
 // world is one scenario's assembly: a local controlled Provider, a trusted-host
 // double holding each tenant's same-named "primary" (Responses), "claude"
 // (Anthropic Messages), "gemini" (Gemini Developer API), "chat" (OpenAI
-// Chat Completions) and "deepseek" (DeepSeek Responses) bindings, and a
+// Chat Completions), "deepseek" (DeepSeek Responses) and "deepseek-chat"
+// (DeepSeek Chat Completions) bindings, and a
 // Client built with the loopback-only transport.
 type world struct {
 	provider *provider.Server
@@ -269,6 +291,7 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 		h.PutCredential(geminiCredential(k))
 		h.PutBinding(chatBinding(k, srv.URL()))
 		h.PutBinding(deepseekBinding(k, srv.URL()))
+		h.PutBinding(deepseekChatBinding(k, srv.URL()))
 		h.PutCredential(deepseekCredential(k))
 	}
 

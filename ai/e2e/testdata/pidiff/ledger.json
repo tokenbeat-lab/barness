@@ -1464,7 +1464,9 @@
       "cases": [
         "PIDIFF-P04-connection-cut-stream",
         "PIDIFF-P04-reasoning-details-cut-stream",
-        "PIDIFF-P04-no-replay-after-start-stream"
+        "PIDIFF-P04-no-replay-after-start-stream",
+        "PIDIFF-P06-reasoning-cut-stream",
+        "PIDIFF-P06-no-replay-after-start-stream"
       ],
       "classification": "extension",
       "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body: runtime text, not pi logic, as for the other protocols. barness reports the fixed text 'Connection lost while reading the OpenAI Chat Completions stream' (CodeTransport, phase stream); stop reason, content (the streamed reasoning details kept as the signature included) and the absence of block ends match.",
@@ -1477,7 +1479,9 @@
       "cases": [
         "PIDIFF-P04-connection-cut-stream",
         "PIDIFF-P04-reasoning-details-cut-stream",
-        "PIDIFF-P04-no-replay-after-start-stream"
+        "PIDIFF-P04-no-replay-after-start-stream",
+        "PIDIFF-P06-reasoning-cut-stream",
+        "PIDIFF-P06-no-replay-after-start-stream"
       ],
       "classification": "extension",
       "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body: runtime text, not pi logic, as for the other protocols. barness reports the fixed text 'Connection lost while reading the OpenAI Chat Completions stream' (CodeTransport, phase stream); stop reason, content (the streamed reasoning details kept as the signature included) and the absence of block ends match.",
@@ -1512,7 +1516,8 @@
       "path": "request.body.messages[2].content",
       "kind": "changed",
       "cases": [
-        "PIDIFF-P04-untrusted-native-state-stream"
+        "PIDIFF-P04-untrusted-native-state-stream",
+        "PIDIFF-P06-untrusted-native-state-stream"
       ],
       "classification": "extension",
       "decision": "Spec-defined extension (spec I6, ADR-0001: native state is replayed only under a trusted envelope; without one it is downgraded by the cross-model rules and the call goes ahead). pi has no envelope and replays the same model's reasoning under its reasoning_content field; barness, given the history without the host vouching for it, turns the visible reasoning into text (joined into the content string before the turn's text) and sends no reasoning field; the downgrade is counted in the Result metadata and the Observer.",
@@ -1531,11 +1536,23 @@
     },
     {
       "protocol": "openai-completions",
+      "path": "request.body.messages[2].reasoning_content",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P06-untrusted-native-state-stream"
+      ],
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec I6, ADR-0001), the same decision as PIDIFF-P04-untrusted-native-state under DeepSeek's compat: native state is replayed only under a trusted envelope; without one the turn is downgraded by the cross-model rules, so its thinking goes back as plain text in the content and no reasoning field is replayed. DeepSeek's compat (pi's requiresReasoningContentOnAssistantMessages) then gives the downgraded turn the empty reasoning_content every assistant message of a reasoning model carries, where pi, which trusts any history, replays the streamed reasoning. Asserted offline by testdata/deepseek-chat/history.json untrusted-native-state.",
+      "ref": "spec I6; ADR-0001; ADR-0015; issues/22; ai/e2e/testdata/deepseek-chat/history.json"
+    },
+    {
+      "protocol": "openai-completions",
       "path": "request.body.prompt_cache_key",
       "kind": "changed",
       "cases": [
         "PIDIFF-P04-cache-session-long-stream",
-        "PIDIFF-P04-simple-cache-long-streamSimple"
+        "PIDIFF-P04-simple-cache-long-streamSimple",
+        "PIDIFF-P06-cache-session-long-stream"
       ],
       "classification": "extension",
       "decision": "Spec-defined extension (spec §9: 模块构造的缓存/亲和标识按租户和账户作用域派生，不直接传裸 session ID 或 TenantID), as for openai-responses: pi sends the caller's sessionId as prompt_cache_key; barness sends a key derived from the tenant, the vendor account and the session id (64 hex characters). Whether a key is sent at all, and the retention, match pi.",
@@ -1548,7 +1565,9 @@
       "cases": [
         "PIDIFF-P04-cache-session-long-stream",
         "PIDIFF-P04-simple-cache-long-streamSimple",
-        "PIDIFF-P04-untrusted-native-state-stream"
+        "PIDIFF-P04-untrusted-native-state-stream",
+        "PIDIFF-P06-cache-session-long-stream",
+        "PIDIFF-P06-untrusted-native-state-stream"
       ],
       "classification": "extension",
       "decision": "Derived from the request body, which differs only by the derived prompt cache key (cache cases) or the downgraded native state (the untrusted history case); see request.body.prompt_cache_key and request.body.messages[2] for these cases.",

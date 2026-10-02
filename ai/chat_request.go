@@ -12,8 +12,8 @@ import (
 // itself, so the exact request — field presence included — is decided here
 // rather than by the SDK's typed params, which carry none of pi's
 // non-standard reasoning fields. Shapes follow pi-ai 0.87.1
-// openai-completions.ts buildParams and convertMessages for the standard
-// OpenAI compat (ADR-0013).
+// openai-completions.ts buildParams and convertMessages for the provider's
+// compat (ADR-0013, ADR-0015).
 type chatBody struct {
 	Model                string            `json:"model"`
 	Messages             []any             `json:"messages"`
@@ -21,12 +21,21 @@ type chatBody struct {
 	PromptCacheKey       string            `json:"prompt_cache_key,omitempty"`
 	PromptCacheRetention string            `json:"prompt_cache_retention,omitempty"`
 	StreamOptions        chatStreamOptions `json:"stream_options"`
-	Store                bool              `json:"store"`
-	MaxCompletionTokens  int               `json:"max_completion_tokens,omitempty"`
-	Temperature          Nullable[float64] `json:"temperature,omitzero"`
-	Tools                *[]chatTool       `json:"tools,omitempty"`
-	ToolChoice           *ChatToolChoice   `json:"tool_choice,omitempty"`
-	ReasoningEffort      string            `json:"reasoning_effort,omitempty"`
+	// Store is nil (omitted) for providers that take no store field.
+	Store               *bool             `json:"store,omitempty"`
+	MaxTokens           int               `json:"max_tokens,omitempty"`
+	MaxCompletionTokens int               `json:"max_completion_tokens,omitempty"`
+	Temperature         Nullable[float64] `json:"temperature,omitzero"`
+	Tools               *[]chatTool       `json:"tools,omitempty"`
+	ToolChoice          *ChatToolChoice   `json:"tool_choice,omitempty"`
+	Thinking            *chatThinking     `json:"thinking,omitempty"`
+	ReasoningEffort     string            `json:"reasoning_effort,omitempty"`
+}
+
+// chatThinking switches DeepSeek's thinking mode: type is "enabled" or
+// "disabled".
+type chatThinking struct {
+	Type string `json:"type"`
 }
 
 // chatStreamOptions asks for the usage chunk at the end of the stream.
@@ -114,12 +123,16 @@ const chatToolImagesIntro = "Attached image(s) from tool result:"
 // buildParams does, samplingParams last. cacheKey is the derived prompt
 // cache key, "" for none.
 func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey string) ([]byte, error) {
-	messages, err := chatMessages(model, history)
+	compat := chatCompatOf(model.Provider)
+	messages, err := chatMessages(model, compat, history)
 	if err != nil {
 		return nil, err
 	}
 	body := chatBody{Model: model.ID, Messages: messages, Stream: true,
-		StreamOptions: chatStreamOptions{IncludeUsage: true}, Store: false}
+		StreamOptions: chatStreamOptions{IncludeUsage: true}}
+	if compat.store {
+		body.Store = new(bool)
+	}
 	switch {
 	case len(history.tools) > 0:
 		tools := make([]chatTool, len(history.tools))
@@ -135,7 +148,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 		// results, which some proxies require.
 		body.Tools = &[]chatTool{}
 	}
-	opts.encode(&body, model, cacheKey)
+	opts.encode(&body, model, compat, cacheKey)
 	out, err := marshalJS(body)
 	if err != nil {
 		return nil, err
@@ -144,10 +157,11 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 }
 
 // chatMessages ports pi's convertMessages for the prepared history.
-// Instructions go out as "developer" to a reasoning model, else "system".
-func chatMessages(model Model, history transcript) ([]any, error) {
+// Instructions go out as "developer" to a reasoning model when the provider
+// takes that role, else "system".
+func chatMessages(model Model, compat chatCompat, history transcript) ([]any, error) {
 	role := "system"
-	if model.Reasoning {
+	if model.Reasoning && compat.developerRole {
 		role = "developer"
 	}
 	vision := model.acceptsImages()
@@ -181,7 +195,7 @@ func chatMessages(model Model, history transcript) ([]any, error) {
 				out = append(out, chatUserMessage{Role: "user", Content: content})
 			}
 		case replayedAssistant:
-			msg, ok, err := chatAssistant(m)
+			msg, ok, err := chatAssistant(m, model, compat)
 			if err != nil {
 				return nil, err
 			}
@@ -245,9 +259,11 @@ var chatReasoningFields = []string{"reasoning_content", "reasoning", "reasoning_
 // non-blank text becomes the content string; reasoning goes back as the
 // provider's reasoning_details when a thinking block (or, in older history,
 // a tool call) holds them, else as the reasoning field its thinking came
-// from; tool calls as function calls with their parsed arguments. A turn
-// with neither content nor tool calls is skipped.
-func chatAssistant(m replayedAssistant) (chatAssistantMessage, bool, error) {
+// from; tool calls as function calls with their parsed arguments. When the
+// compat requires it of a reasoning model, every turn carries
+// reasoning_content, empty when no reasoning went back in it. A turn with
+// neither content nor tool calls is skipped.
+func chatAssistant(m replayedAssistant, model Model, compat chatCompat) (chatAssistantMessage, bool, error) {
 	msg := chatAssistantMessage{Role: "assistant"}
 	var text strings.Builder
 	var thinking []Thinking
@@ -306,6 +322,9 @@ func chatAssistant(m replayedAssistant) (chatAssistantMessage, bool, error) {
 			Function: chatCallFunction{Name: c.Name, Arguments: stringifyJSON(args)}})
 	}
 	msg.ReasoningDetails = details
+	if model.Reasoning && compat.reasoningContentOnAssistant && msg.ReasoningContent == nil {
+		msg.ReasoningContent = new(string)
+	}
 	return msg, msg.Content != nil || len(msg.ToolCalls) > 0, nil
 }
 

@@ -210,7 +210,9 @@ func testForgedHistory(t *testing.T, p isolationProtocol, raw []byte) {
 // block (text.json "block-start-content"); on Gemini, text with a thought
 // signature (text.json "signature-on-empty-text"); on Chat, thinking signed
 // with reasoning details (text.json "reasoning-details-only"); on DeepSeek
-// Responses, a reasoning item (deepseek-responses/text.json "reasoning").
+// Responses, a reasoning item (deepseek-responses/text.json "reasoning");
+// on DeepSeek Chat, thinking signed reasoning_content
+// (deepseek-chat/text.json "reasoning").
 func nativeReply(t *testing.T, p isolationProtocol) provider.Reply {
 	t.Helper()
 	switch {
@@ -225,6 +227,9 @@ func nativeReply(t *testing.T, p isolationProtocol) provider.Reply {
 		return scenarioByID(t, f, "reasoning-details-only").replies(t)[0]
 	case p.deepseek():
 		f, _ := loadFixture(t, deepseekResponsesProtocol, "text.json")
+		return scenarioByID(t, f, "reasoning").replies(t)[0]
+	case p.deepseekChat():
+		f, _ := loadFixture(t, deepseekChatProtocol, "text.json")
 		return scenarioByID(t, f, "reasoning").replies(t)[0]
 	}
 	return p.success(t, tenantA)

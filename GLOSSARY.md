@@ -129,7 +129,7 @@ _Avoid_: 请求回调、日志、指标
 _Avoid_: 工具白名单、全局工具开关
 
 **Provider Capabilities（Provider 协议能力）**：
-某 Provider 在一种协议上实际提供的服务端能力（如 Responses 的存储声明、加密推理、提示缓存、服务等级），按 Provider 而非模型确定；请求构建只从对方提供的能力派生字段，不因共享协议 adapter 而沿用另一 Provider 的字段。
+某 Provider 在一种协议上实际提供的服务端能力与请求形状（如 Responses 的存储声明、加密推理、提示缓存、服务等级；Chat Completions 的 store、developer 角色、输出预算字段、thinking 开关与 assistant 消息上的 reasoning_content），按 Provider 而非模型确定；请求构建只从对方提供的能力派生字段，不因共享协议 adapter 而沿用另一 Provider 的字段。
 _Avoid_: 模型 compat、"兼容 OpenAI"
 
 **Extension Route（扩展接入路径）**：

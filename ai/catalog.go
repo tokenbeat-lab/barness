@@ -42,10 +42,10 @@ type ModelCompat struct {
 	// SupportsStrictMode: Responses function tools carry a "strict" field.
 	SupportsStrictMode bool `json:"supportsStrictMode,omitempty"`
 	// SupportsMidConvoSystemMessages: later system messages are sent in place
-	// as instruction updates instead of folding into the leading one. No
-	// built-in model sets it yet: pi sets it only on models that also send
-	// added tools as additional_tools items, which barness-ai does not
-	// implement, so those models are not listed.
+	// as instruction updates instead of folding into the leading one. pi
+	// sets it on OpenAI models that also send added tools as
+	// additional_tools items, which barness-ai does not implement, so those
+	// are not listed; deepseek-v4-pro sets it without added tool support.
 	SupportsMidConvoSystemMessages bool `json:"supportsMidConvoSystemMessages,omitempty"`
 	// SupportsLongCacheRetention: long cache retention is requested
 	// (Responses: a 24h retention; Anthropic: a 1h cache_control ttl). Unset
@@ -112,26 +112,54 @@ type Catalog struct {
 // pi's data lists OpenAI's models for Responses only; the OpenAI Chat
 // Completions models are the same entries on that API (see
 // builtinOpenAIChatModels), as a pi user configures a custom model.
-// DeepSeek's Responses model is pi's DeepSeek data on the Responses API, a
-// route pi itself does not have (see builtinDeepSeekResponsesModels).
+// DeepSeek's Chat models are pi's DeepSeek data as is (see
+// builtinDeepSeekChatModels); its Responses model is the same data on the
+// Responses API, a route pi itself does not have (see
+// builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-02.5",
+		Version: "2026-10-02.6",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
-			builtinGoogleModels(), builtinDeepSeekResponsesModels()),
+			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels()),
 	}
+}
+
+// builtinDeepSeekChatModels are pi's deepseek.json models, both served on
+// openai-completions, pi's own DeepSeek route (ADR-0015). Of pi's compat
+// only the flags ModelCompat carries are kept; the rest (no store, no
+// developer role, max_tokens, the deepseek thinking format and
+// reasoning_content on assistant turns) is DeepSeek's Chat compat, which
+// the adapter derives from the provider exactly as pi's detectCompat does
+// (chatCompatOf). Neither level map has an off entry, so a call without a
+// reasoning level switches thinking off. deepseek-v4-pro takes text only and
+// sends later system messages in place (it does not anchor added tools, so
+// pi sends no additional tool declarations for it on this protocol).
+func builtinDeepSeekChatModels() []Model {
+	model := func(id, name string, input []Modality, levels ThinkingLevelMap, cost CostRates) Model {
+		return Model{Provider: ProviderDeepSeek, API: APIOpenAICompletions, ID: id, Name: name, Reasoning: true,
+			Input: input, ContextWindow: 1000000, MaxTokens: 384000, ThinkingLevelMap: levels,
+			Compat: ModelCompat{SupportsStrictMode: true}, Cost: ModelCost{CostRates: cost}}
+	}
+	flash := model("deepseek-flash", "DeepSeek V4.1 Flash", []Modality{ModalityText, ModalityImage},
+		ThinkingLevelMap{Minimal: Null[string](), Low: Value("low"), Medium: Null[string](), High: Value("high"), Max: Value("max")},
+		CostRates{Input: 0.3, Output: 1.2, CacheRead: 0.006})
+	pro := model("deepseek-v4-pro", "DeepSeek V4 Pro", []Modality{ModalityText},
+		ThinkingLevelMap{Minimal: Null[string](), Low: Null[string](), Medium: Null[string](), High: Value("high"), Max: Value("max")},
+		CostRates{Input: 1.32, Output: 3.96, CacheRead: 0.044})
+	pro.Compat.SupportsMidConvoSystemMessages = true
+	return []Model{flash, pro}
 }
 
 // builtinDeepSeekResponsesModels are the DeepSeek models its Responses API
 // serves: deepseek-flash only, per DeepSeek's Responses guide (read
 // 2026-10-02). The entry is pi's deepseek.json deepseek-flash data — name,
 // reasoning, level map, input, prices, context and output limits — on the
-// openai-responses API (ADR-0014). pi's compat for it describes Chat
-// Completions (store, developer role, max_tokens, thinking format); of it
-// only supportsStrictMode carries over, since Responses function tools
-// take strict the same way, which the research probes sent live. The
-// level map is the Chat one: DeepSeek documents Responses effort without
-// its values, and only none and low were sent live.
+// openai-responses API (ADR-0014). Of pi's compat only supportsStrictMode
+// carries over, since Responses function tools take strict the same way,
+// which the research probes sent live. The level map is the Chat one:
+// DeepSeek documents Responses effort without its values, and only none and
+// low were sent live. It is its own literal, not derived from the Chat
+// entry: each protocol's model configuration changes on its own (spec I4).
 func builtinDeepSeekResponsesModels() []Model {
 	return []Model{{
 		Provider: ProviderDeepSeek, API: APIOpenAIResponses, ID: "deepseek-flash", Name: "DeepSeek V4.1 Flash",
