@@ -12,3 +12,7 @@
 - [ ] 结果仅为 PASS / FAIL / NOT_RUN / UNSUPPORTED：缺 key 为 NOT_RUN，厂商故障为 FAIL/环境故障并在既定预算内重试确认，不改成 skip
 - [ ] 每次记录模型、SDK 版本、厂商 request ID、耗时、错误类别；输出先脱敏
 - [ ] 支持矩阵保存 Provider、协议、模型、SDK、测试账户/区域别名、能力与最后通过时间；共享 adapter 不连带标记通过
+
+## Comments
+
+**2026-10-02 — from issue 21.** P05's offline fixtures infer from OpenAI's Responses schema what DeepSeek's guide leaves out; the DeepSeek Responses smoke should confirm: reasoning.effort `high` and `max` (from pi's Chat level map; only `none`/`low` were sent live), the reasoning item (`content[{type: reasoning_text}]`) and function call item id shapes, the error body shape and whether a vendor request id header exists (ADR-0014 Consequences).

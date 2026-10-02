@@ -42,9 +42,33 @@ type Decision struct {
 	match *regexp.Regexp
 }
 
+// Route is a Provider × API that frozen pi does not route, registered as an
+// extension: its behavior is proven by its own protocol fixtures and never
+// counted as a differential pass (spec Testing Decisions §5). The ledger
+// holds the registration so every exception to the differential is in one
+// reviewed place.
+type Route struct {
+	Provider       string         `json:"provider"`
+	API            string         `json:"api"`
+	Classification Classification `json:"classification"`
+	Decision       string         `json:"decision"`
+	Ref            string         `json:"ref"`
+}
+
 // Ledger is the maintained set of decisions, versioned with the fixtures.
 type Ledger struct {
 	decisions []Decision
+	routes    []Route
+}
+
+// Route returns the registration of provider × api, if it is one.
+func (l Ledger) Route(provider, api string) (Route, bool) {
+	for _, r := range l.routes {
+		if r.Provider == provider && r.API == api {
+			return r, true
+		}
+	}
+	return Route{}, false
 }
 
 // Finding is a diff with its classification and handling decision.
@@ -73,6 +97,7 @@ var containerPrefix = regexp.MustCompile(`^(request\.headers\.[^.\[]+|request\.b
 func ParseLedger(data []byte) (Ledger, error) {
 	var file struct {
 		Decisions []Decision `json:"decisions"`
+		Routes    []Route    `json:"routes"`
 	}
 	dec := json.NewDecoder(bytes.NewReader(data))
 	dec.DisallowUnknownFields()
@@ -88,7 +113,19 @@ func ParseLedger(data []byte) (Ledger, error) {
 		pattern = strings.ReplaceAll(pattern, `\[\*\]`, `\[\d+\]`)
 		d.match = regexp.MustCompile(`^` + pattern + `($|[.\[])`)
 	}
-	return Ledger{decisions: file.Decisions}, nil
+	for i, r := range file.Routes {
+		switch {
+		case r.Provider == "" || r.API == "":
+			return Ledger{}, fmt.Errorf("ledger route %d: provider and api are required", i)
+		case r.Classification != Extension:
+			// A route outside pi can only be an approved extension; anything
+			// else would need a frozen pi route to compare against.
+			return Ledger{}, fmt.Errorf("ledger route %d (%s %s): classification must be %q", i, r.Provider, r.API, Extension)
+		case r.Decision == "" || r.Ref == "":
+			return Ledger{}, fmt.Errorf("ledger route %d (%s %s): decision and ref are required", i, r.Provider, r.API)
+		}
+	}
+	return Ledger{decisions: file.Decisions, routes: file.Routes}, nil
 }
 
 func (d Decision) validate() error {

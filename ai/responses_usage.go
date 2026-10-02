@@ -6,6 +6,9 @@ import "github.com/openai/openai-go/v3/responses"
 // usage, with the model's rates and the service tier the call requested.
 type responsesUsage struct {
 	model Model
+	// pricesByTier: the provider serves service tiers, so a tier prices
+	// the usage.
+	pricesByTier bool
 	// requestedTier is ResponsesOptions.ServiceTier; unset or null when the
 	// call requested none.
 	requestedTier Nullable[string]
@@ -52,6 +55,9 @@ func responsesUsageReporting(u responses.ResponseUsage) UsageReporting {
 // tier is pi's `response.service_tier ?? options.serviceTier`: the tier the
 // provider says served the response, else the one the call requested.
 func (p responsesUsage) tier(r responses.Response) string {
+	if !p.pricesByTier {
+		return ""
+	}
 	if r.JSON.ServiceTier.Valid() {
 		return string(r.ServiceTier)
 	}

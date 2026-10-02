@@ -37,6 +37,10 @@ const (
 	ProviderAnthropic ProviderID = "anthropic"
 	// ProviderGoogle is Google, through the Gemini Developer API.
 	ProviderGoogle ProviderID = "google"
+	// ProviderDeepSeek is DeepSeek. Its Responses binding shares the
+	// Responses protocol with OpenAI but not OpenAI's server-side features
+	// (ADR-0014).
+	ProviderDeepSeek ProviderID = "deepseek"
 )
 
 // API identifies a wire protocol. Values match the frozen pi-ai API names.
@@ -76,7 +80,8 @@ type Binding struct {
 	API        API
 	// Endpoint is the protocol's base URL, as pi-ai's model baseUrl: e.g.
 	// https://api.openai.com/v1 for Responses and Chat Completions,
-	// https://api.anthropic.com for Anthropic Messages.
+	// https://api.anthropic.com for Anthropic Messages,
+	// https://api.deepseek.com for DeepSeek's Responses.
 	Endpoint       string
 	AuthKind       AuthKind
 	AccountScopeID string

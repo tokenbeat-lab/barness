@@ -34,10 +34,23 @@ var (
 	googleA = tenantKey{tenant: "tenant-a", secret: "AIzaSyTestTenantA0001geminiKey000000000", alias: "key:tenant-a-google@v1"}
 	googleB = tenantKey{tenant: "tenant-b", secret: "AIzaSyTestTenantB0001geminiKey000000000", alias: "key:tenant-b-google@v1"}
 
+	// deepseekA and deepseekB are each tenant's DeepSeek key, on its own
+	// DeepSeek account.
+	deepseekA = tenantKey{tenant: "tenant-a", secret: "sk-test-deepseek-tenant-a-0001", alias: "key:tenant-a-deepseek@v1"}
+	deepseekB = tenantKey{tenant: "tenant-b", secret: "sk-test-deepseek-tenant-b-0001", alias: "key:tenant-b-deepseek@v1"}
+
 	// knownKeys are every key a scenario may install; the Provider reports
 	// each by alias and the evidence bundle redacts each.
-	knownKeys = []tenantKey{tenantA, tenantA2, tenantB, anthropicA, anthropicB, googleA, googleB}
+	knownKeys = []tenantKey{tenantA, tenantA2, tenantB, anthropicA, anthropicB, googleA, googleB, deepseekA, deepseekB}
 )
+
+// deepseekKey is tenant k's DeepSeek key.
+func deepseekKey(k tenantKey) tenantKey {
+	if k.tenant == deepseekB.tenant {
+		return deepseekB
+	}
+	return deepseekA
+}
 
 // anthropicKey is tenant k's Anthropic key.
 func anthropicKey(k tenantKey) tenantKey {
@@ -131,6 +144,40 @@ func anthropicCredential(k tenantKey) ai.Credential {
 	}
 }
 
+// deepseekBinding is k's tenant's "deepseek" binding at version b1:
+// DeepSeek through the Responses protocol at the world's Provider (its root,
+// as DeepSeek's base URL https://api.deepseek.com has no version path), on
+// the tenant's DeepSeek account. gpt-4.1-mini is allowed but is OpenAI's
+// model, absent from DeepSeek's catalog: it may not be called here.
+func deepseekBinding(k tenantKey, providerURL string) ai.Binding {
+	return ai.Binding{
+		TenantID:       k.tenant,
+		BindingID:      "deepseek",
+		Version:        "b1",
+		Enabled:        true,
+		ProviderID:     ai.ProviderDeepSeek,
+		API:            ai.APIOpenAIResponses,
+		Endpoint:       providerURL,
+		AuthKind:       ai.AuthAPIKey,
+		AccountScopeID: "acct-" + k.tenant + "-deepseek",
+		CredentialRef:  "cred-" + k.tenant + "-deepseek",
+		AllowedModels:  []string{"deepseek-flash", "gpt-4.1-mini"},
+	}
+}
+
+// deepseekCredential is the active credential snapshot holding k's
+// DeepSeek key, referenced by deepseekBinding.
+func deepseekCredential(k tenantKey) ai.Credential {
+	return ai.Credential{
+		OwnerTenantID:  k.tenant,
+		CredentialID:   "cred-" + k.tenant + "-deepseek",
+		Version:        "v1",
+		AccountScopeID: "acct-" + k.tenant + "-deepseek",
+		Active:         true,
+		APIKey:         ai.NewSecret(deepseekKey(k).secret),
+	}
+}
+
 // primaryBinding is k's tenant's "primary" binding at version b1 pointing at
 // the world's Provider.
 func primaryBinding(k tenantKey, providerURL string) ai.Binding {
@@ -187,8 +234,8 @@ func primaryCredential(k tenantKey, version string) ai.Credential {
 
 // world is one scenario's assembly: a local controlled Provider, a trusted-host
 // double holding each tenant's same-named "primary" (Responses), "claude"
-// (Anthropic Messages), "gemini" (Gemini Developer API) and "chat" (OpenAI
-// Chat Completions) bindings, and a
+// (Anthropic Messages), "gemini" (Gemini Developer API), "chat" (OpenAI
+// Chat Completions) and "deepseek" (DeepSeek Responses) bindings, and a
 // Client built with the loopback-only transport.
 type world struct {
 	provider *provider.Server
@@ -221,6 +268,8 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 		h.PutBinding(geminiBinding(k, srv.URL()))
 		h.PutCredential(geminiCredential(k))
 		h.PutBinding(chatBinding(k, srv.URL()))
+		h.PutBinding(deepseekBinding(k, srv.URL()))
+		h.PutCredential(deepseekCredential(k))
 	}
 
 	cfg := ai.Config{

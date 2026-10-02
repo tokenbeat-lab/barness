@@ -121,9 +121,10 @@ func (responsesAdapter) simpleOptions(m Model, o SimpleOptions, _ []Message) Opt
 }
 
 // cacheKey is the prompt cache key to send, "" for none: a session id
-// gives one unless retention is none.
-func (o ResponsesOptions) cacheKey(scope cacheScope) string {
-	if o.SessionID == "" || o.CacheRetention == CacheRetentionNone {
+// gives one unless retention is none or the provider serves no prompt
+// cache.
+func (o ResponsesOptions) cacheKey(scope cacheScope, caps responsesCapabilities) string {
+	if o.SessionID == "" || o.CacheRetention == CacheRetentionNone || !caps.promptCache {
 		return ""
 	}
 	return scope.key(o.SessionID)
@@ -144,13 +145,15 @@ type responsesPromptCacheOptions struct {
 const responsesMinOutputTokens = 16
 
 // encode sets the option fields of body for model m, as pi's buildParams
-// does before samplingParams.
-func (o ResponsesOptions) encode(body *responsesBody, m Model, cacheKey string) {
+// does before samplingParams, leaving out what the provider does not serve.
+func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCapabilities, cacheKey string) {
 	retention := cmp.Or(o.CacheRetention, CacheRetentionShort)
 	longRetention := m.supportsLongCacheRetention()
 	explicit := m.Compat.SupportsExplicitPromptCacheMode
 	body.PromptCacheKey = cacheKey
 	switch {
+	case !caps.promptCache:
+		// No retention fields either: the provider has no prompt cache.
 	case retention == CacheRetentionLong && longRetention && !explicit:
 		body.PromptCacheRetention = "24h"
 	case explicit && retention == CacheRetentionNone:
@@ -163,7 +166,10 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, cacheKey string) 
 		body.MaxOutputTokens = max(n, responsesMinOutputTokens)
 	}
 	body.Temperature = o.Temperature
-	body.ServiceTier = o.ServiceTier
+	if caps.serviceTier {
+		// Without the capability a requested tier was refused before (unsupportedOption).
+		body.ServiceTier = o.ServiceTier
+	}
 	body.ToolChoice = o.ToolChoice
 
 	if !m.Reasoning {
@@ -176,7 +182,9 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, cacheKey string) 
 			effort = m.ThinkingLevelMap.wireValue(o.ReasoningEffort)
 		}
 		body.Reasoning = &responsesReasoning{Effort: effort, Summary: cmp.Or(o.ReasoningSummary, "auto")}
-		body.Include = []string{"reasoning.encrypted_content"}
+		if caps.encryptedReasoning {
+			body.Include = []string{"reasoning.encrypted_content"}
+		}
 	case !m.ThinkingLevelMap.Off.IsNull():
 		// pi's `thinkingLevelMap?.off ?? "none"`: only an unset entry
 		// falls back.

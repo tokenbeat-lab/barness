@@ -88,7 +88,8 @@ type Catalog struct {
 //
 // Source: the frozen pi-ai 0.87.1 model data (providers/data/openai.json,
 // sha256 3c52c858…2835, providers/data/anthropic.json, sha256
-// 474a010c…4e75, and providers/data/google.json, sha256 328822707e…708c)
+// 474a010c…4e75, providers/data/google.json, sha256 328822707e…708c, and
+// providers/data/deepseek.json, sha256 549a7ddb…4d0d)
 // from the differential oracle's rebuilt copy, see
 // internal/testkit/pioracle/node/PROVENANCE.md. Every listed field was
 // re-checked against it when the oracle landed (compat when tools landed,
@@ -111,12 +112,35 @@ type Catalog struct {
 // pi's data lists OpenAI's models for Responses only; the OpenAI Chat
 // Completions models are the same entries on that API (see
 // builtinOpenAIChatModels), as a pi user configures a custom model.
+// DeepSeek's Responses model is pi's DeepSeek data on the Responses API, a
+// route pi itself does not have (see builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-02.4",
+		Version: "2026-10-02.5",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
-			builtinGoogleModels()),
+			builtinGoogleModels(), builtinDeepSeekResponsesModels()),
 	}
+}
+
+// builtinDeepSeekResponsesModels are the DeepSeek models its Responses API
+// serves: deepseek-flash only, per DeepSeek's Responses guide (read
+// 2026-10-02). The entry is pi's deepseek.json deepseek-flash data — name,
+// reasoning, level map, input, prices, context and output limits — on the
+// openai-responses API (ADR-0014). pi's compat for it describes Chat
+// Completions (store, developer role, max_tokens, thinking format); of it
+// only supportsStrictMode carries over, since Responses function tools
+// take strict the same way, which the research probes sent live. The
+// level map is the Chat one: DeepSeek documents Responses effort without
+// its values, and only none and low were sent live.
+func builtinDeepSeekResponsesModels() []Model {
+	return []Model{{
+		Provider: ProviderDeepSeek, API: APIOpenAIResponses, ID: "deepseek-flash", Name: "DeepSeek V4.1 Flash",
+		Reasoning: true, Input: []Modality{ModalityText, ModalityImage}, ContextWindow: 1000000, MaxTokens: 384000,
+		ThinkingLevelMap: ThinkingLevelMap{Minimal: Null[string](), Low: Value("low"), Medium: Null[string](),
+			High: Value("high"), Max: Value("max")},
+		Compat: ModelCompat{SupportsStrictMode: true},
+		Cost:   ModelCost{CostRates: CostRates{Input: 0.3, Output: 1.2, CacheRead: 0.006}},
+	}}
 }
 
 // builtinOpenAIChatModels are the listed OpenAI models that Chat Completions

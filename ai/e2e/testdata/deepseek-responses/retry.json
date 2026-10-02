@@ -1,0 +1,244 @@
+{
+  "case": "P05/E05 DeepSeek × Responses retry",
+  "source": "Offline fixture for DeepSeek × Responses (P05), an access path outside the frozen pi-ai routes (pi 0.87.1 routes DeepSeek through openai-completions only): registered as an extension, never counted as a pi differential pass. Event and item shapes follow DeepSeek's official Responses guide (https://api-docs.deepseek.com/guides/responses_api/, read 2026-10-02): base URL https://api.deepseek.com, model deepseek-flash, events response.created/in_progress, output_item.added/done, content_part.added/done, reasoning_text.delta/done, output_text.delta/done, function_call_arguments.delta/done, completed/incomplete/failed with monotonically increasing sequence_number; response objects carry store:false, previous_response_id:null and parallel_tool_calls:true; usage reports input_tokens with cached_tokens and output_tokens with reasoning_tokens; previous_response_id, conversation, store, include, prompt_cache_key, prompt_cache_retention, service_tier and stream_options are silently ignored. Where the guide names an event or item without its fields, the fields are OpenAI's Responses schema, which the guide declares compatibility with (reasoning items carry content[{type:reasoning_text}]). The research probes (harness .scratch/pi-ai-go/sdk-validation, live_tool_cancel_test.go) confirmed reasoning_text events, reasoning.effort none/low, forced function calls and full input history against the real service. Ids, texts, error bodies and usage are synthetic. Model data is pi's deepseek.json deepseek-flash entry on the openai-responses API (ADR-0014); costs are its prices.",
+  "scenarios": [
+    {
+      "id": "retry-429",
+      "about": "A 429 with Retry-After under a one-retry policy: the second attempt succeeds and both attempts are recorded.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "replies": [
+        {
+          "status": 429,
+          "header": {
+            "Retry-After": "1"
+          },
+          "body": "{\"error\":{\"message\":\"Rate limit reached.\",\"type\":\"rate_limit_error\",\"param\":null,\"code\":\"rate_limit_exceeded\"}}"
+        },
+        {
+          "events": [
+            {
+              "type": "response.created",
+              "response": {
+                "id": "resp_ds_text",
+                "object": "response",
+                "created_at": 1790000000,
+                "status": "in_progress",
+                "model": "deepseek-flash",
+                "output": [],
+                "store": false,
+                "previous_response_id": null,
+                "parallel_tool_calls": true,
+                "usage": null
+              },
+              "sequence_number": 0
+            },
+            {
+              "type": "response.in_progress",
+              "response": {
+                "id": "resp_ds_text",
+                "object": "response",
+                "created_at": 1790000000,
+                "status": "in_progress",
+                "model": "deepseek-flash",
+                "output": [],
+                "store": false,
+                "previous_response_id": null,
+                "parallel_tool_calls": true,
+                "usage": null
+              },
+              "sequence_number": 1
+            },
+            {
+              "type": "response.output_item.added",
+              "output_index": 0,
+              "item": {
+                "id": "msg_ds_1",
+                "type": "message",
+                "status": "in_progress",
+                "role": "assistant",
+                "content": []
+              },
+              "sequence_number": 2
+            },
+            {
+              "type": "response.content_part.added",
+              "item_id": "msg_ds_1",
+              "output_index": 0,
+              "content_index": 0,
+              "part": {
+                "type": "output_text",
+                "text": "",
+                "annotations": []
+              },
+              "sequence_number": 3
+            },
+            {
+              "type": "response.output_text.delta",
+              "item_id": "msg_ds_1",
+              "output_index": 0,
+              "content_index": 0,
+              "delta": "Hello, world!",
+              "sequence_number": 4
+            },
+            {
+              "type": "response.output_text.done",
+              "item_id": "msg_ds_1",
+              "output_index": 0,
+              "content_index": 0,
+              "text": "Hello, world!",
+              "sequence_number": 5
+            },
+            {
+              "type": "response.content_part.done",
+              "item_id": "msg_ds_1",
+              "output_index": 0,
+              "content_index": 0,
+              "part": {
+                "type": "output_text",
+                "text": "Hello, world!",
+                "annotations": []
+              },
+              "sequence_number": 6
+            },
+            {
+              "type": "response.output_item.done",
+              "output_index": 0,
+              "item": {
+                "id": "msg_ds_1",
+                "type": "message",
+                "status": "completed",
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "text": "Hello, world!",
+                    "annotations": []
+                  }
+                ]
+              },
+              "sequence_number": 7
+            },
+            {
+              "type": "response.completed",
+              "response": {
+                "id": "resp_ds_text",
+                "object": "response",
+                "created_at": 1790000000,
+                "status": "completed",
+                "model": "deepseek-flash",
+                "output": [
+                  {
+                    "id": "msg_ds_1",
+                    "type": "message",
+                    "status": "completed",
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "output_text",
+                        "text": "Hello, world!",
+                        "annotations": []
+                      }
+                    ]
+                  }
+                ],
+                "store": false,
+                "previous_response_id": null,
+                "parallel_tool_calls": true,
+                "usage": {
+                  "input_tokens": 12,
+                  "input_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "output_tokens": 4,
+                  "output_tokens_details": {
+                    "reasoning_tokens": 0
+                  },
+                  "total_tokens": 16
+                }
+              },
+              "sequence_number": 8
+            }
+          ]
+        }
+      ],
+      "maxRetries": 1,
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "requests": 2,
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "responseId": "resp_ds_text",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hello, world!",
+            "textSignature": "{\"v\":1,\"id\":\"msg_ds_1\"}"
+          }
+        ],
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 3.6e-06,
+            "output": 4.8e-06,
+            "cacheRead": 0.0,
+            "cacheWrite": 0.0,
+            "total": 8.4e-06
+          }
+        },
+        "usageReporting": "complete"
+      }
+    }
+  ]
+}

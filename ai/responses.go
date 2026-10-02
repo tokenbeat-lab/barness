@@ -26,7 +26,7 @@ func (responsesAdapter) headers(ac adapterCall) http.Header {
 	h.Set("Authorization", "Bearer "+ac.apiKey.reveal())
 	h.Set("User-Agent", userAgent)
 	opts, _ := ac.options.(ResponsesOptions) // nil means protocol defaults
-	if key := opts.cacheKey(ac.cache); key != "" {
+	if key := opts.cacheKey(ac.cache, responsesCapabilitiesOf(ac.model.Provider)); key != "" {
 		h.Set("session_id", key)
 		h.Set("x-client-request-id", key)
 	}
@@ -35,8 +35,12 @@ func (responsesAdapter) headers(ac adapterCall) http.Header {
 
 func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *Error {
 	opts, _ := ac.options.(ResponsesOptions) // nil means protocol defaults
-	cacheKey := opts.cacheKey(ac.cache)
-	body, err := buildResponsesBody(ac.model, ac.history, opts, cacheKey)
+	caps := responsesCapabilitiesOf(ac.model.Provider)
+	if problem := caps.unsupportedOption(opts); problem != "" {
+		return newError(CodeInvalidRequest, PhaseRequest, problem)
+	}
+	cacheKey := opts.cacheKey(ac.cache, caps)
+	body, err := buildResponsesBody(ac.model, ac.history, opts, caps, cacheKey)
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "request could not be encoded")
 	}
@@ -87,7 +91,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 
 	out.start()
 	failure = readResponsesStream(ctx, stream, responsesParser{out: out, failures: failures, slots: map[int64]responsesSlot{}, reasoning: map[string]int{},
-		usage: responsesUsage{model: ac.model, requestedTier: opts.ServiceTier}, attempt: ac.initial})
+		usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
 	}
@@ -216,6 +220,8 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 		p.out.responseID(ev.Response.ID)
 	case "response.output_item.added":
 		p.open(ev.OutputIndex, ev.Item)
+	// response.reasoning_text.done (DeepSeek) repeats the streamed text;
+	// as in pi, the reasoning item's output_item.done closes the block.
 	case "response.reasoning_summary_text.delta", "response.reasoning_text.delta":
 		if i, ok := p.slot(ev.OutputIndex, "reasoning"); ok {
 			p.out.thinkingDelta(i, ev.Delta)

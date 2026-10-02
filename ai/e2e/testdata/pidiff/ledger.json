@@ -1554,5 +1554,14 @@
       "decision": "Derived from the request body, which differs only by the derived prompt cache key (cache cases) or the downgraded native state (the untrusted history case); see request.body.prompt_cache_key and request.body.messages[2] for these cases.",
       "ref": "spec §9; spec I6; issues/20"
     }
+  ],
+  "routes": [
+    {
+      "provider": "deepseek",
+      "api": "openai-responses",
+      "classification": "extension",
+      "decision": "DeepSeek × Responses (P05) is an access path outside the frozen pi routes: pi 0.87.1 routes DeepSeek only through openai-completions (providers/deepseek.ts). It reuses barness's Responses adapter with DeepSeek's own capabilities (no store, include, prompt cache or service tier; full input history) and is proven by the official-protocol fixtures in ai/e2e/testdata/deepseek-responses, run offline by TestDeepSeekResponses*; none of them runs as a differential case and none counts as a differential pass. Its live evidence is issue 23's smoke.",
+      "ref": "spec I4, Testing Decisions §5; ADR-0014; issues/21; ai/e2e/deepseek_responses_test.go, deepseek_routing_test.go"
+    }
   ]
 }

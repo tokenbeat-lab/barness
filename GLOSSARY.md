@@ -127,3 +127,11 @@ _Avoid_: 请求回调、日志、指标
 **Hosted Tool Allowance（托管工具放行）**：
 绑定上列出的托管工具类型（Go 中为 `Binding.AllowedHostedTools`），表示可信宿主担保该账户的托管资源及工具访问的网络目标归该租户使用；只有列出的类型可以由请求回调声明。
 _Avoid_: 工具白名单、全局工具开关
+
+**Provider Capabilities（Provider 协议能力）**：
+某 Provider 在一种协议上实际提供的服务端能力（如 Responses 的存储声明、加密推理、提示缓存、服务等级），按 Provider 而非模型确定；请求构建只从对方提供的能力派生字段，不因共享协议 adapter 而沿用另一 Provider 的字段。
+_Avoid_: 模型 compat、"兼容 OpenAI"
+
+**Extension Route（扩展接入路径）**：
+冻结 pi 没有路由的 Provider × 协议组合（首期为 DeepSeek × Responses），以自身协议 fixture 和真实冒烟证明，登记在差分账本中，不计为 pi 差分通过。
+_Avoid_: 差分通过、pi 已覆盖

@@ -168,7 +168,7 @@ func localConfig(p isolationProtocol, providerURL string) localassembly.Config {
 	switch {
 	case p.gemini():
 		b.Endpoint += "/v1beta"
-	case !p.anthropic():
+	case !p.anthropic() && !p.deepseek():
 		b.Endpoint += "/v1"
 	}
 	return localassembly.Config{TenantID: "local", Binding: b,
@@ -183,6 +183,8 @@ func localPath(p isolationProtocol) string {
 		return "/local/v1beta/models/" + p.Model + ":streamGenerateContent"
 	case p.chat():
 		return "/local/v1/chat/completions"
+	case p.deepseek():
+		return "/local/responses"
 	}
 	return "/local/v1/responses"
 }

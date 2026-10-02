@@ -15,3 +15,5 @@
 ## Comments
 
 **2026-10-02 — handover from issue 20.** The Chat adapter implements only the standard OpenAI compat (ADR-0013 决策三). pi's `detectCompat` gives DeepSeek (provider `deepseek` or a `deepseek.com` base URL) `max_tokens` instead of `max_completion_tokens`, no `store`, no developer role, `thinkingFormat: "deepseek"` (`thinking: {type: enabled|disabled}` plus `reasoning_effort`) and `requiresReasoningContentOnAssistantMessages` (an empty `reasoning_content` on every replayed assistant message of a reasoning model); none of these exists yet. Usage already reads `prompt_cache_hit_tokens`, and `reasoning_content` streaming and replay are in place.
+
+**2026-10-02 — from issue 21.** The test world now has DeepSeek keys (`deepseekA`/`deepseekB`), a `deepseek` Responses binding on `acct-<tenant>-deepseek` with credential `cred-<tenant>-deepseek`, and `ProviderDeepSeek`. The dual-protocol case (one account, two bindings, same credential) belongs here: a DeepSeek Chat binding can reference `cred-<tenant>-deepseek`. `deepseek-flash` exists in the catalog on `openai-responses` only; its Chat entry (and deepseek-v4-pro) comes from pi's `deepseek.json` as is.

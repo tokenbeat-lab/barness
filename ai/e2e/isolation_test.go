@@ -55,9 +55,10 @@ var isolationScenarios = []isolationScenario{
 		},
 		checkA: func(ev *evidence.Case, p isolationProtocol, o outcome) {
 			checkAEnded(ev, o, ai.StopReasonError, ai.CodeUpstreamAuth, ai.PhaseRequest)
-			// Gemini sends no vendor request id header.
+			// Gemini sends no vendor request id header, nor do the DeepSeek
+			// scripts (DeepSeek does not document one).
 			requestID := "req_alpha_401"
-			if p.gemini() {
+			if p.gemini() || p.deepseek() {
 				requestID = ""
 			}
 			var e *ai.Error
@@ -89,7 +90,7 @@ var isolationScenarios = []isolationScenario{
 	{
 		name: "a-retried", aAttempts: 2,
 		arrange: func(iw isolationWorld) {
-			for _, id := range []string{"primary", "claude", "gemini", "chat"} {
+			for _, id := range []string{"primary", "claude", "gemini", "chat", "deepseek"} {
 				b := iw.host.Binding(tenantA.tenant, id)
 				b.Retry = ai.RetryPolicy{MaxRetries: 1}
 				iw.host.PutBinding(b)
@@ -107,6 +108,7 @@ var isolationScenarios = []isolationScenario{
 			iw.host.DeleteCredential(tenantA.tenant, "cred-"+tenantA.tenant)
 			iw.host.DeleteCredential(tenantA.tenant, "cred-"+tenantA.tenant+"-anthropic")
 			iw.host.DeleteCredential(tenantA.tenant, "cred-"+tenantA.tenant+"-google")
+			iw.host.DeleteCredential(tenantA.tenant, "cred-"+tenantA.tenant+"-deepseek")
 		},
 		checkA: func(ev *evidence.Case, _ isolationProtocol, o outcome) {
 			checkRejected(ev, o, ai.CodeCredentialUnavailable, ai.PhaseCredential)
@@ -125,9 +127,9 @@ var isolationScenarios = []isolationScenario{
 // while A is refused (401), canceled (while streaming, or as its response
 // arrives), timed out by its own timeoutMs, retried or left without a
 // credential. On Responses, Anthropic Messages, the Gemini Developer API
-// (which has no timeoutMs to time A out with) and Chat Completions (whose
-// cache key needs long retention off OpenAI's own endpoint), through every
-// entry point:
+// (which has no timeoutMs to time A out with), Chat Completions (whose
+// cache key needs long retention off OpenAI's own endpoint) and DeepSeek
+// Responses (which derives no cache key at all), through every entry point:
 //
 //   - each endpoint receives only its tenant's key, exactly what that
 //     tenant sends running alone;
@@ -308,6 +310,16 @@ func checkWire(ev *evidence.Case, iw isolationWorld, p isolationProtocol, sc iso
 		}
 	}
 	if p.anthropic() || p.gemini() || len(a) == 0 {
+		return
+	}
+	if p.deepseek() {
+		// DeepSeek serves no prompt cache key or session affinity, so the
+		// shared session id derives nothing for either tenant.
+		for _, r := range append(a, b...) {
+			_, affinity := r.Header["Session_id"]
+			ev.Check("no cache key or affinity derived for DeepSeek", promptCacheKey(ev, r) == "" && !affinity,
+				"body %s", r.Body)
+		}
 		return
 	}
 	keyA, keyB := promptCacheKey(ev, a[0]), promptCacheKey(ev, b[0])

@@ -1,0 +1,1313 @@
+{
+  "case": "P05/E02 DeepSeek × Responses failure and truncation terminals",
+  "source": "Offline fixture for DeepSeek × Responses (P05), an access path outside the frozen pi-ai routes (pi 0.87.1 routes DeepSeek through openai-completions only): registered as an extension, never counted as a pi differential pass. Event and item shapes follow DeepSeek's official Responses guide (https://api-docs.deepseek.com/guides/responses_api/, read 2026-10-02): base URL https://api.deepseek.com, model deepseek-flash, events response.created/in_progress, output_item.added/done, content_part.added/done, reasoning_text.delta/done, output_text.delta/done, function_call_arguments.delta/done, completed/incomplete/failed with monotonically increasing sequence_number; response objects carry store:false, previous_response_id:null and parallel_tool_calls:true; usage reports input_tokens with cached_tokens and output_tokens with reasoning_tokens; previous_response_id, conversation, store, include, prompt_cache_key, prompt_cache_retention, service_tier and stream_options are silently ignored. Where the guide names an event or item without its fields, the fields are OpenAI's Responses schema, which the guide declares compatibility with (reasoning items carry content[{type:reasoning_text}]). The research probes (harness .scratch/pi-ai-go/sdk-validation, live_tool_cancel_test.go) confirmed reasoning_text events, reasoning.effort none/low, forced function calls and full input history against the real service. Ids, texts, error bodies and usage are synthetic. Model data is pi's deepseek.json deepseek-flash entry on the openai-responses API (ADR-0014); costs are its prices.",
+  "scenarios": [
+    {
+      "id": "incomplete-max-output-tokens",
+      "about": "response.incomplete for max_output_tokens is the length terminal; the open text block keeps what arrived.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "response.created",
+          "response": {
+            "id": "resp_ds_len",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 0
+        },
+        {
+          "type": "response.in_progress",
+          "response": {
+            "id": "resp_ds_len",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 1
+        },
+        {
+          "type": "response.output_item.added",
+          "output_index": 0,
+          "item": {
+            "id": "msg_ds_l",
+            "type": "message",
+            "status": "in_progress",
+            "role": "assistant",
+            "content": []
+          },
+          "sequence_number": 2
+        },
+        {
+          "type": "response.content_part.added",
+          "item_id": "msg_ds_l",
+          "output_index": 0,
+          "content_index": 0,
+          "part": {
+            "type": "output_text",
+            "text": "",
+            "annotations": []
+          },
+          "sequence_number": 3
+        },
+        {
+          "type": "response.output_text.delta",
+          "item_id": "msg_ds_l",
+          "output_index": 0,
+          "content_index": 0,
+          "delta": "Hel",
+          "sequence_number": 4
+        },
+        {
+          "type": "response.incomplete",
+          "response": {
+            "id": "resp_ds_len",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "incomplete",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": {
+              "input_tokens": 12,
+              "input_tokens_details": {
+                "cached_tokens": 0
+              },
+              "output_tokens": 1,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 13
+            },
+            "incomplete_details": {
+              "reason": "max_output_tokens"
+            }
+          },
+          "sequence_number": 5
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "start",
+          "text_start#0",
+          "text_delta#0:Hel",
+          "done:length"
+        ],
+        "stopReason": "length",
+        "rawStopReason": "incomplete.max_output_tokens",
+        "responseId": "resp_ds_len",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hel"
+          }
+        ],
+        "usage": {
+          "input": 12,
+          "output": 1,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 13,
+          "cost": {
+            "input": 3.6e-06,
+            "output": 1.2e-06,
+            "cacheRead": 0.0,
+            "cacheWrite": 0.0,
+            "total": 4.8e-06
+          }
+        },
+        "usageReporting": "complete"
+      }
+    },
+    {
+      "id": "incomplete-during-reasoning",
+      "about": "Truncated while reasoning: the thinking received so far is kept, unsigned.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "response.created",
+          "response": {
+            "id": "resp_ds_rlen",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 0
+        },
+        {
+          "type": "response.in_progress",
+          "response": {
+            "id": "resp_ds_rlen",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 1
+        },
+        {
+          "type": "response.output_item.added",
+          "output_index": 0,
+          "item": {
+            "id": "rs_ds_l",
+            "type": "reasoning",
+            "summary": [],
+            "content": [],
+            "status": "in_progress"
+          },
+          "sequence_number": 2
+        },
+        {
+          "type": "response.reasoning_text.delta",
+          "item_id": "rs_ds_l",
+          "output_index": 0,
+          "content_index": 0,
+          "delta": "Thinking ",
+          "sequence_number": 3
+        },
+        {
+          "type": "response.reasoning_text.delta",
+          "item_id": "rs_ds_l",
+          "output_index": 0,
+          "content_index": 0,
+          "delta": "hard",
+          "sequence_number": 4
+        },
+        {
+          "type": "response.incomplete",
+          "response": {
+            "id": "resp_ds_rlen",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "incomplete",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": {
+              "input_tokens": 12,
+              "input_tokens_details": {
+                "cached_tokens": 0
+              },
+              "output_tokens": 2,
+              "output_tokens_details": {
+                "reasoning_tokens": 2
+              },
+              "total_tokens": 14
+            },
+            "incomplete_details": {
+              "reason": "max_output_tokens"
+            }
+          },
+          "sequence_number": 5
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "start",
+          "thinking_start#0",
+          "thinking_delta#0:Thinking ",
+          "thinking_delta#0:hard",
+          "done:length"
+        ],
+        "stopReason": "length",
+        "rawStopReason": "incomplete.max_output_tokens",
+        "responseId": "resp_ds_rlen",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "Thinking hard"
+          }
+        ],
+        "usage": {
+          "input": 12,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 2,
+          "totalTokens": 14,
+          "cost": {
+            "input": 3.6e-06,
+            "output": 2.4e-06,
+            "cacheRead": 0.0,
+            "cacheWrite": 0.0,
+            "total": 6e-06
+          }
+        },
+        "usageReporting": "complete"
+      }
+    },
+    {
+      "id": "incomplete-other-reason",
+      "about": "response.incomplete for another reason fails the call with pi's text once the stream ended, keeping content and usage.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "response.created",
+          "response": {
+            "id": "resp_ds_cf",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 0
+        },
+        {
+          "type": "response.in_progress",
+          "response": {
+            "id": "resp_ds_cf",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 1
+        },
+        {
+          "type": "response.output_item.added",
+          "output_index": 0,
+          "item": {
+            "id": "msg_ds_cf",
+            "type": "message",
+            "status": "in_progress",
+            "role": "assistant",
+            "content": []
+          },
+          "sequence_number": 2
+        },
+        {
+          "type": "response.content_part.added",
+          "item_id": "msg_ds_cf",
+          "output_index": 0,
+          "content_index": 0,
+          "part": {
+            "type": "output_text",
+            "text": "",
+            "annotations": []
+          },
+          "sequence_number": 3
+        },
+        {
+          "type": "response.output_text.delta",
+          "item_id": "msg_ds_cf",
+          "output_index": 0,
+          "content_index": 0,
+          "delta": "Hel",
+          "sequence_number": 4
+        },
+        {
+          "type": "response.incomplete",
+          "response": {
+            "id": "resp_ds_cf",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "incomplete",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": {
+              "input_tokens": 12,
+              "input_tokens_details": {
+                "cached_tokens": 0
+              },
+              "output_tokens": 1,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 13
+            },
+            "incomplete_details": {
+              "reason": "content_filter"
+            }
+          },
+          "sequence_number": 5
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "start",
+          "text_start#0",
+          "text_delta#0:Hel",
+          "error:error"
+        ],
+        "stopReason": "error",
+        "rawStopReason": "incomplete.content_filter",
+        "errorMessage": "Response incomplete: content_filter",
+        "code": "upstream_error",
+        "phase": "stream",
+        "responseId": "resp_ds_cf",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hel"
+          }
+        ],
+        "usage": {
+          "input": 12,
+          "output": 1,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 13,
+          "cost": {
+            "input": 3.6e-06,
+            "output": 1.2e-06,
+            "cacheRead": 0.0,
+            "cacheWrite": 0.0,
+            "total": 4.8e-06
+          }
+        },
+        "usageReporting": "complete"
+      }
+    },
+    {
+      "id": "failed-with-error",
+      "about": "response.failed ends the call with the response's error code and message; as in pi its usage is not taken over.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "response.created",
+          "response": {
+            "id": "resp_ds_fail",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 0
+        },
+        {
+          "type": "response.in_progress",
+          "response": {
+            "id": "resp_ds_fail",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 1
+        },
+        {
+          "type": "response.output_item.added",
+          "output_index": 0,
+          "item": {
+            "id": "msg_ds_f",
+            "type": "message",
+            "status": "in_progress",
+            "role": "assistant",
+            "content": []
+          },
+          "sequence_number": 2
+        },
+        {
+          "type": "response.content_part.added",
+          "item_id": "msg_ds_f",
+          "output_index": 0,
+          "content_index": 0,
+          "part": {
+            "type": "output_text",
+            "text": "",
+            "annotations": []
+          },
+          "sequence_number": 3
+        },
+        {
+          "type": "response.output_text.delta",
+          "item_id": "msg_ds_f",
+          "output_index": 0,
+          "content_index": 0,
+          "delta": "Hel",
+          "sequence_number": 4
+        },
+        {
+          "type": "response.failed",
+          "response": {
+            "id": "resp_ds_fail",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "failed",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null,
+            "error": {
+              "code": "server_error",
+              "message": "The server had an error while processing your request."
+            }
+          },
+          "sequence_number": 5
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "start",
+          "text_start#0",
+          "text_delta#0:Hel",
+          "error:error"
+        ],
+        "stopReason": "error",
+        "rawStopReason": "failed",
+        "errorMessage": "server_error: The server had an error while processing your request.",
+        "code": "upstream_error",
+        "phase": "stream",
+        "responseId": "resp_ds_fail",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hel"
+          }
+        ],
+        "usageReporting": "unreported"
+      }
+    },
+    {
+      "id": "failed-without-details",
+      "about": "response.failed with neither error nor incomplete details.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "response.created",
+          "response": {
+            "id": "resp_ds_fail2",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 0
+        },
+        {
+          "type": "response.in_progress",
+          "response": {
+            "id": "resp_ds_fail2",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 1
+        },
+        {
+          "type": "response.failed",
+          "response": {
+            "id": "resp_ds_fail2",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "failed",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 2
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "start",
+          "error:error"
+        ],
+        "stopReason": "error",
+        "rawStopReason": "failed",
+        "errorMessage": "Unknown error (no error details in response)",
+        "code": "upstream_error",
+        "phase": "stream",
+        "responseId": "resp_ds_fail2",
+        "content": [],
+        "usageReporting": "unreported"
+      }
+    },
+    {
+      "id": "no-terminal",
+      "about": "The body ends without completed, incomplete or failed: a protocol failure, never success.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "response.created",
+          "response": {
+            "id": "resp_ds_cut",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 0
+        },
+        {
+          "type": "response.in_progress",
+          "response": {
+            "id": "resp_ds_cut",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 1
+        },
+        {
+          "type": "response.output_item.added",
+          "output_index": 0,
+          "item": {
+            "id": "msg_ds_c",
+            "type": "message",
+            "status": "in_progress",
+            "role": "assistant",
+            "content": []
+          },
+          "sequence_number": 2
+        },
+        {
+          "type": "response.content_part.added",
+          "item_id": "msg_ds_c",
+          "output_index": 0,
+          "content_index": 0,
+          "part": {
+            "type": "output_text",
+            "text": "",
+            "annotations": []
+          },
+          "sequence_number": 3
+        },
+        {
+          "type": "response.output_text.delta",
+          "item_id": "msg_ds_c",
+          "output_index": 0,
+          "content_index": 0,
+          "delta": "Hel",
+          "sequence_number": 4
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "start",
+          "text_start#0",
+          "text_delta#0:Hel",
+          "error:error"
+        ],
+        "stopReason": "error",
+        "errorMessage": "OpenAI Responses stream ended before a terminal response event",
+        "code": "protocol",
+        "phase": "stream",
+        "responseId": "resp_ds_cut",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hel"
+          }
+        ],
+        "usageReporting": "unreported"
+      }
+    },
+    {
+      "id": "http-400-context",
+      "about": "A request over the context window is refused with 400 before any event.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "replies": [
+        {
+          "status": 400,
+          "body": "{\"error\":{\"message\":\"This model's maximum context length is 1000000 tokens.\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "error:error"
+        ],
+        "stopReason": "error",
+        "errorMessage": "deepseek API error (400): {\"message\":\"This model's maximum context length is 1000000 tokens.\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
+        "code": "invalid_request",
+        "phase": "request",
+        "httpStatus": 400,
+        "content": [],
+        "usageReporting": "unreported"
+      }
+    },
+    {
+      "id": "http-401",
+      "about": "An invalid key: the vendor message echoes the key, which is redacted.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "replies": [
+        {
+          "status": 401,
+          "body": "{\"error\":{\"message\":\"Authentication Fails, Your api key: sk-test-deepseek-tenant-a-0001 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "error:error"
+        ],
+        "stopReason": "error",
+        "errorMessage": "deepseek API error (401): {\"message\":\"Authentication Fails, Your api key: [REDACTED] is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
+        "code": "upstream_auth",
+        "phase": "request",
+        "httpStatus": 401,
+        "content": [],
+        "usageReporting": "unreported"
+      }
+    },
+    {
+      "id": "http-429",
+      "about": "Rate limited without a retry policy: one attempt.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "replies": [
+        {
+          "status": 429,
+          "body": "{\"error\":{\"message\":\"Rate limit reached.\",\"type\":\"rate_limit_error\",\"param\":null,\"code\":\"rate_limit_exceeded\"}}"
+        }
+      ],
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "events": [
+          "error:error"
+        ],
+        "stopReason": "error",
+        "errorMessage": "deepseek API error (429): {\"message\":\"Rate limit reached.\",\"type\":\"rate_limit_error\",\"param\":null,\"code\":\"rate_limit_exceeded\"}",
+        "code": "rate_limited",
+        "phase": "request",
+        "httpStatus": 429,
+        "content": [],
+        "usageReporting": "unreported"
+      }
+    },
+    {
+      "id": "canceled-mid-stream",
+      "about": "The caller closes the stream after the first text delta while the provider holds it: canceled and aborted with the Responses adapter's text for a stream without a terminal (as P01), the text received kept.",
+      "model": "deepseek-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "response.created",
+          "response": {
+            "id": "resp_ds_cancel",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 0
+        },
+        {
+          "type": "response.in_progress",
+          "response": {
+            "id": "resp_ds_cancel",
+            "object": "response",
+            "created_at": 1790000000,
+            "status": "in_progress",
+            "model": "deepseek-flash",
+            "output": [],
+            "store": false,
+            "previous_response_id": null,
+            "parallel_tool_calls": true,
+            "usage": null
+          },
+          "sequence_number": 1
+        },
+        {
+          "type": "response.output_item.added",
+          "output_index": 0,
+          "item": {
+            "id": "msg_ds_x",
+            "type": "message",
+            "status": "in_progress",
+            "role": "assistant",
+            "content": []
+          },
+          "sequence_number": 2
+        },
+        {
+          "type": "response.content_part.added",
+          "item_id": "msg_ds_x",
+          "output_index": 0,
+          "content_index": 0,
+          "part": {
+            "type": "output_text",
+            "text": "",
+            "annotations": []
+          },
+          "sequence_number": 3
+        },
+        {
+          "type": "response.output_text.delta",
+          "item_id": "msg_ds_x",
+          "output_index": 0,
+          "content_index": 0,
+          "delta": "Hel",
+          "sequence_number": 4
+        }
+      ],
+      "end": "hold",
+      "cancelAfterEvents": 3,
+      "pidiffSkip": "DeepSeek × Responses is outside the frozen pi routes (P05 extension, ADR-0014)",
+      "expect": {
+        "request": {
+          "path": "/responses",
+          "body": {
+            "model": "deepseek-flash",
+            "input": [
+              {
+                "role": "developer",
+                "content": "You are terse."
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "input_text",
+                    "text": "Say hello."
+                  }
+                ]
+              }
+            ],
+            "stream": true,
+            "reasoning": {
+              "effort": "none"
+            }
+          },
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Session_id",
+            "X-Client-Request-Id"
+          ]
+        },
+        "stopReason": "aborted",
+        "errorMessage": "OpenAI Responses stream ended before a terminal response event",
+        "code": "canceled",
+        "phase": "stream",
+        "responseId": "resp_ds_cancel",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hel"
+          }
+        ],
+        "usageReporting": "unreported"
+      }
+    }
+  ]
+}

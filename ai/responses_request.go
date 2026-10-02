@@ -22,7 +22,7 @@ type responsesBody struct {
 	PromptCacheKey       string                        `json:"prompt_cache_key,omitempty"`
 	PromptCacheRetention string                        `json:"prompt_cache_retention,omitempty"`
 	PromptCacheOptions   *responsesPromptCacheOptions  `json:"prompt_cache_options,omitempty"`
-	Store                bool                          `json:"store"`
+	Store                *bool                         `json:"store,omitempty"`
 	MaxOutputTokens      int                           `json:"max_output_tokens,omitempty"`
 	Temperature          Nullable[float64]             `json:"temperature,omitzero"`
 	ServiceTier          Nullable[string]              `json:"service_tier,omitzero"`
@@ -102,10 +102,14 @@ type responsesTool struct {
 }
 
 // buildResponsesBody encodes the prepared history and options for model, as
-// pi's buildParams does, samplingParams last. cacheKey is the derived prompt
-// cache key, "" for none.
-func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, cacheKey string) ([]byte, error) {
-	body := responsesBody{Model: model.ID, Input: []any{}, Stream: true, Store: false}
+// pi's buildParams does, samplingParams last; caps leaves out what the
+// provider does not serve. cacheKey is the derived prompt cache key, "" for
+// none.
+func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, caps responsesCapabilities, cacheKey string) ([]byte, error) {
+	body := responsesBody{Model: model.ID, Input: []any{}, Stream: true}
+	if caps.store {
+		body.Store = new(bool)
+	}
 
 	// pi: reasoning models (that support it) take instructions as "developer".
 	role := "system"
@@ -170,7 +174,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 		}
 		body.Tools = append(body.Tools, tool)
 	}
-	opts.encode(&body, model, cacheKey)
+	opts.encode(&body, model, caps, cacheKey)
 	out, err := marshalJS(body)
 	if err != nil {
 		return nil, err

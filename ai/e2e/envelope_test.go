@@ -112,7 +112,7 @@ func envelopesJSON(envs []ai.EventEnvelope) []map[string]any {
 }
 
 // protocolCase is p's protocol case prefix: P01 Responses, P02 Anthropic,
-// P03 Gemini, P04 Chat Completions.
+// P03 Gemini, P04 Chat Completions, P05 DeepSeek Responses.
 func protocolCase(p isolationProtocol) string {
 	switch {
 	case p.anthropic():
@@ -121,6 +121,8 @@ func protocolCase(p isolationProtocol) string {
 		return "P03"
 	case p.chat():
 		return "P04"
+	case p.deepseek():
+		return "P05"
 	}
 	return "P01"
 }
@@ -131,6 +133,8 @@ func (p isolationProtocol) provider() ai.ProviderID {
 		return ai.ProviderAnthropic
 	case p.gemini():
 		return ai.ProviderGoogle
+	case p.deepseek():
+		return ai.ProviderDeepSeek
 	}
 	return ai.ProviderOpenAI
 }

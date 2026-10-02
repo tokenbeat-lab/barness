@@ -1,6 +1,6 @@
 {
  "case": "E06 tenant concurrency isolation",
- "source": "Synthetic offline fixture. Each tenant's reply carries its own marker (ALPHA for tenant A, BRAVO for tenant B), ids and usage, so any content, id or usage reaching the other tenant's call is detectable. Event shapes are those of testdata/responses/text-basic.json, the text scenarios of testdata/anthropic/text.json, testdata/gemini/text.json and testdata/chat/text.json; error bodies are those of the failures fixtures with the marker added.",
+ "source": "Synthetic offline fixture. Each tenant's reply carries its own marker (ALPHA for tenant A, BRAVO for tenant B), ids and usage, so any content, id or usage reaching the other tenant's call is detectable. Event shapes are those of testdata/responses/text-basic.json, the text scenarios of testdata/anthropic/text.json, testdata/gemini/text.json and testdata/chat/text.json; error bodies are those of the failures fixtures with the marker added; the DeepSeek Responses scripts are the Responses ones on deepseek-flash with DeepSeek's fixed response fields (store:false, previous_response_id:null, parallel_tool_calls:true), its error body shape and no x-request-id header (testdata/deepseek-responses).",
  "markers": {
   "tenant-a": [
    "ALPHA",
@@ -987,6 +987,337 @@
        }
       },
       "[DONE]"
+     ]
+    }
+   }
+  },
+  {
+   "id": "deepseek-responses",
+   "bindingId": "deepseek",
+   "model": "deepseek-flash",
+   "systemPrompt": "You are terse.",
+   "user": "Say hello.",
+   "tenants": {
+    "tenant-a": {
+     "events": [
+      {
+       "type": "response.created",
+       "response": {
+        "id": "resp_alpha",
+        "object": "response",
+        "created_at": 1790000000,
+        "status": "in_progress",
+        "model": "deepseek-flash",
+        "output": [],
+        "usage": null,
+        "store": false,
+        "previous_response_id": null,
+        "parallel_tool_calls": true
+       },
+       "sequence_number": 0
+      },
+      {
+       "type": "response.output_item.added",
+       "output_index": 0,
+       "item": {
+        "id": "msg_alpha",
+        "type": "message",
+        "status": "in_progress",
+        "role": "assistant",
+        "content": []
+       },
+       "sequence_number": 1
+      },
+      {
+       "type": "response.content_part.added",
+       "item_id": "msg_alpha",
+       "output_index": 0,
+       "content_index": 0,
+       "part": {
+        "type": "output_text",
+        "text": "",
+        "annotations": []
+       },
+       "sequence_number": 2
+      },
+      {
+       "type": "response.output_text.delta",
+       "item_id": "msg_alpha",
+       "output_index": 0,
+       "content_index": 0,
+       "delta": "ALPHA ",
+       "sequence_number": 3
+      },
+      {
+       "type": "response.output_text.delta",
+       "item_id": "msg_alpha",
+       "output_index": 0,
+       "content_index": 0,
+       "delta": "answer ",
+       "sequence_number": 4
+      },
+      {
+       "type": "response.output_text.delta",
+       "item_id": "msg_alpha",
+       "output_index": 0,
+       "content_index": 0,
+       "delta": "for ",
+       "sequence_number": 5
+      },
+      {
+       "type": "response.output_text.delta",
+       "item_id": "msg_alpha",
+       "output_index": 0,
+       "content_index": 0,
+       "delta": "the first tenant.",
+       "sequence_number": 6
+      },
+      {
+       "type": "response.output_text.done",
+       "item_id": "msg_alpha",
+       "output_index": 0,
+       "content_index": 0,
+       "text": "ALPHA answer for the first tenant.",
+       "sequence_number": 7
+      },
+      {
+       "type": "response.content_part.done",
+       "item_id": "msg_alpha",
+       "output_index": 0,
+       "content_index": 0,
+       "part": {
+        "type": "output_text",
+        "text": "ALPHA answer for the first tenant.",
+        "annotations": []
+       },
+       "sequence_number": 8
+      },
+      {
+       "type": "response.output_item.done",
+       "output_index": 0,
+       "item": {
+        "id": "msg_alpha",
+        "type": "message",
+        "status": "completed",
+        "role": "assistant",
+        "content": [
+         {
+          "type": "output_text",
+          "text": "ALPHA answer for the first tenant.",
+          "annotations": []
+         }
+        ]
+       },
+       "sequence_number": 9
+      },
+      {
+       "type": "response.completed",
+       "response": {
+        "id": "resp_alpha",
+        "object": "response",
+        "created_at": 1790000000,
+        "status": "completed",
+        "model": "deepseek-flash",
+        "output": [
+         {
+          "id": "msg_alpha",
+          "type": "message",
+          "status": "completed",
+          "role": "assistant",
+          "content": [
+           {
+            "type": "output_text",
+            "text": "ALPHA answer for the first tenant.",
+            "annotations": []
+           }
+          ]
+         }
+        ],
+        "usage": {
+         "input_tokens": 31,
+         "input_tokens_details": {
+          "cached_tokens": 0
+         },
+         "output_tokens": 7,
+         "output_tokens_details": {
+          "reasoning_tokens": 0
+         },
+         "total_tokens": 38
+        },
+        "store": false,
+        "previous_response_id": null,
+        "parallel_tool_calls": true
+       },
+       "sequence_number": 10
+      }
+     ],
+     "unauthorized": {
+      "status": 401,
+      "header": {
+       "Content-Type": "application/json"
+      },
+      "body": "{\"error\":{\"message\":\"Authentication Fails, Your api key: ALPHA is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+     },
+     "throttled": {
+      "status": 429,
+      "header": {
+       "Content-Type": "application/json"
+      },
+      "body": "{\"error\":{\"message\":\"Rate limit reached for ALPHA.\",\"type\":\"requests\",\"param\":null,\"code\":\"rate_limit_exceeded\"}}"
+     }
+    },
+    "tenant-b": {
+     "events": [
+      {
+       "type": "response.created",
+       "response": {
+        "id": "resp_bravo",
+        "object": "response",
+        "created_at": 1790000000,
+        "status": "in_progress",
+        "model": "deepseek-flash",
+        "output": [],
+        "usage": null,
+        "store": false,
+        "previous_response_id": null,
+        "parallel_tool_calls": true
+       },
+       "sequence_number": 0
+      },
+      {
+       "type": "response.output_item.added",
+       "output_index": 0,
+       "item": {
+        "id": "msg_bravo",
+        "type": "message",
+        "status": "in_progress",
+        "role": "assistant",
+        "content": []
+       },
+       "sequence_number": 1
+      },
+      {
+       "type": "response.content_part.added",
+       "item_id": "msg_bravo",
+       "output_index": 0,
+       "content_index": 0,
+       "part": {
+        "type": "output_text",
+        "text": "",
+        "annotations": []
+       },
+       "sequence_number": 2
+      },
+      {
+       "type": "response.output_text.delta",
+       "item_id": "msg_bravo",
+       "output_index": 0,
+       "content_index": 0,
+       "delta": "BRAVO ",
+       "sequence_number": 3
+      },
+      {
+       "type": "response.output_text.delta",
+       "item_id": "msg_bravo",
+       "output_index": 0,
+       "content_index": 0,
+       "delta": "answer ",
+       "sequence_number": 4
+      },
+      {
+       "type": "response.output_text.delta",
+       "item_id": "msg_bravo",
+       "output_index": 0,
+       "content_index": 0,
+       "delta": "for ",
+       "sequence_number": 5
+      },
+      {
+       "type": "response.output_text.delta",
+       "item_id": "msg_bravo",
+       "output_index": 0,
+       "content_index": 0,
+       "delta": "the second tenant.",
+       "sequence_number": 6
+      },
+      {
+       "type": "response.output_text.done",
+       "item_id": "msg_bravo",
+       "output_index": 0,
+       "content_index": 0,
+       "text": "BRAVO answer for the second tenant.",
+       "sequence_number": 7
+      },
+      {
+       "type": "response.content_part.done",
+       "item_id": "msg_bravo",
+       "output_index": 0,
+       "content_index": 0,
+       "part": {
+        "type": "output_text",
+        "text": "BRAVO answer for the second tenant.",
+        "annotations": []
+       },
+       "sequence_number": 8
+      },
+      {
+       "type": "response.output_item.done",
+       "output_index": 0,
+       "item": {
+        "id": "msg_bravo",
+        "type": "message",
+        "status": "completed",
+        "role": "assistant",
+        "content": [
+         {
+          "type": "output_text",
+          "text": "BRAVO answer for the second tenant.",
+          "annotations": []
+         }
+        ]
+       },
+       "sequence_number": 9
+      },
+      {
+       "type": "response.completed",
+       "response": {
+        "id": "resp_bravo",
+        "object": "response",
+        "created_at": 1790000000,
+        "status": "completed",
+        "model": "deepseek-flash",
+        "output": [
+         {
+          "id": "msg_bravo",
+          "type": "message",
+          "status": "completed",
+          "role": "assistant",
+          "content": [
+           {
+            "type": "output_text",
+            "text": "BRAVO answer for the second tenant.",
+            "annotations": []
+           }
+          ]
+         }
+        ],
+        "usage": {
+         "input_tokens": 20,
+         "input_tokens_details": {
+          "cached_tokens": 4
+         },
+         "output_tokens": 5,
+         "output_tokens_details": {
+          "reasoning_tokens": 0
+         },
+         "total_tokens": 25
+        },
+        "store": false,
+        "previous_response_id": null,
+        "parallel_tool_calls": true
+       },
+       "sequence_number": 10
+      }
      ]
     }
    }

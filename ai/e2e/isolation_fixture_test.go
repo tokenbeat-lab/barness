@@ -79,6 +79,10 @@ func (p isolationProtocol) gemini() bool { return p.BindingID == "gemini" }
 
 func (p isolationProtocol) chat() bool { return p.BindingID == "chat" }
 
+// deepseek is DeepSeek on the Responses protocol: the Responses adapter
+// with DeepSeek's binding, key, account, endpoint and capabilities.
+func (p isolationProtocol) deepseek() bool { return p.BindingID == "deepseek" }
+
 // protocolTimeout reports whether p's protocol has a request timeout of its
 // own (timeoutMs); pi's Google path has none.
 func (p isolationProtocol) protocolTimeout() bool { return !p.gemini() }
@@ -98,6 +102,8 @@ func (p isolationProtocol) key(k tenantKey) tenantKey {
 		return anthropicKey(k)
 	case p.gemini():
 		return googleKey(k)
+	case p.deepseek():
+		return deepseekKey(k)
 	}
 	return k
 }
@@ -109,6 +115,8 @@ func (p isolationProtocol) account(k tenantKey) string {
 		return "acct-" + k.tenant + "-anthropic"
 	case p.gemini():
 		return "acct-" + k.tenant + "-google"
+	case p.deepseek():
+		return "acct-" + k.tenant + "-deepseek"
 	}
 	return "acct-" + k.tenant
 }
@@ -122,6 +130,8 @@ func (p isolationProtocol) path(k tenantKey) string {
 		return tenantPrefix(k) + "/v1beta/models/" + p.Model + ":streamGenerateContent"
 	case p.chat():
 		return tenantPrefix(k) + "/v1/chat/completions"
+	case p.deepseek():
+		return tenantPrefix(k) + "/responses"
 	}
 	return tenantPrefix(k) + "/v1/responses"
 }
@@ -213,7 +223,7 @@ func newIsolationWorld(t *testing.T, configure ...func(*ai.Config)) isolationWor
 		c.Clock = clock.NewFake(time.Unix(1790000000, 0), 0)
 	}}, configure...)...)
 	for _, k := range []tenantKey{tenantA, tenantB} {
-		for id, suffix := range map[string]string{"primary": "/v1", "claude": "", "gemini": "/v1beta", "chat": "/v1"} {
+		for id, suffix := range map[string]string{"primary": "/v1", "claude": "", "gemini": "/v1beta", "chat": "/v1", "deepseek": ""} {
 			b := aw.host.Binding(k.tenant, id)
 			b.Endpoint = aw.provider.URL() + tenantPrefix(k) + suffix
 			aw.host.PutBinding(b)
