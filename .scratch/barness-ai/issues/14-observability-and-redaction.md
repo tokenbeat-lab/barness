@@ -4,7 +4,7 @@
 
 **Blocked by:** 11
 
-**Status:** ready-for-human
+**Status:** resolved
 
 - [x] 事件 CallStarted / AttemptStarted / AttemptFinished / CallFinished；调用级关联 TenantID/RequestID，尝试级另含 AttemptID 与厂商 request ID
 - [x] 记录已解析的 BindingID、AccountScopeID、配置/凭据版本、真实 Provider/API/model、时间、错误类别、已知 usage；ActorID/JobID 提供时保留
@@ -39,3 +39,9 @@
   - a provider-echoed prompt stays in ErrorMessage per pi (only key-shaped text is redacted), which needs approval as a security difference or a change;
   - record times use the system clock.
 - **Deferred:** telling unknown usage from zero is issue 15's (records carry the message's Usage as is).
+
+**2026-10-02 — maintainer decisions; ADR-0009 accepted.**
+
+- **Refused calls:** keep the scope's TenantID with `Resolved=false`. Usage, success rates and attribution count resolved records only; the `Observer` doc says so.
+- **Provider-echoed content in ErrorMessage:** kept as pi does (only key-shaped text redacted). This is an approved security difference, recorded in spec I9 and ADR-0009 decision 5. The `Error` doc tells hosts that error text is tenant content, not for shared logs, and to log Observer records instead.
+- **Record times:** stay on the system clock, as message timestamps do (ADR-0009 decision 6).

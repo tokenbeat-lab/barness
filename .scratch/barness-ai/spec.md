@@ -231,9 +231,9 @@ onResponse 读取 HTTP status/headers 和模型信息，不接收或替换最终
 
 错误至少区分 invalid_request、tenant_denied、binding_not_found、credential_unavailable、admission_denied、upstream_auth、rate_limited、upstream_error、transport、protocol、canceled、deadline_exceeded、resource_limit、callback_failed（可信宿主的请求回调出错或未产出可用请求体，与 invalid_request 区分，维护者决定 2026-10-02），并保留发生阶段、可安全公开的 HTTP status、厂商 request ID 和 Retry-After。错误分类不替换消息停止原因；基线 errorMessage 涉及秘密时必须脱敏并登记安全差异。
 
-Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished；调用级记录关联 TenantID/RequestID，实际尝试额外关联 AttemptID，预检失败不伪造 HTTP 尝试。记录已解析的 BindingID、AccountScopeID、配置/凭据版本、真实 Provider/API/model、时间、厂商 request ID、错误类别及已知 usage；ActorID/JobID 在提供时保留，无效身份的拒绝事件不能假装属于已授权租户。
+Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished；调用级记录关联 TenantID/RequestID，实际尝试额外关联 AttemptID，预检失败不伪造 HTTP 尝试。记录已解析的 BindingID、AccountScopeID、配置/凭据版本、真实 Provider/API/model、时间、厂商 request ID、错误类别及已知 usage；ActorID/JobID 在提供时保留，无效身份的拒绝事件不能假装属于已授权租户。预检被拒的调用仍记录可信 scope 中的 TenantID，但标为未解析（`Resolved=false`），不出现账户、模型与版本；用量与成功率统计只取已解析记录（维护者决定 2026-10-02，见 ADR-0009）。
 
-观测异步、容量有界，拥塞和失败不改变模型结果，丢失计数可查询；它不保证持久账本或 exactly-once。key、Authorization、正文、工具内容、原生密文不进入默认日志/观测/错误，授权结果仍完整保留原生状态。受控调试采集由宿主显式启用并限制租户访问；原始 TenantID 不自动进入厂商 payload，也不默认成为无限增长的全局指标标签。
+观测异步、容量有界，拥塞和失败不改变模型结果，丢失计数可查询；它不保证持久账本或 exactly-once。key、Authorization、正文、工具内容、原生密文不进入默认日志/观测/错误，授权结果仍完整保留原生状态。例外：Provider 错误体按 pi 原样进入 ErrorMessage 与 `Error.Message`（只脱敏 key 形态的文本），其中 Provider 回显的正文随之保留；该错误只返回给发起调用的租户，属于租户内容，宿主不得写入共享日志，需记录时使用 Observer。此为批准的安全差异（维护者决定 2026-10-02，见 ADR-0009）。受控调试采集由宿主显式启用并限制租户访问；原始 TenantID 不自动进入厂商 payload，也不默认成为无限增长的全局指标标签。
 
 首期无应用结果缓存和厂商服务端会话依赖。保留协议 prompt cache 配置；模块构造的缓存/亲和标识按租户和账户作用域派生，不直接传裸 session ID 或 TenantID。厂商侧缓存隔离仍取决于账户/项目和厂商规则。
 

@@ -1,11 +1,11 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-02
 ---
 
 # barness-ai Observer 异步有界投递，记录只含标识与分类
 
-spec §9 要求 Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished，失败不改变生成，且 key、正文、工具内容与原生密文不进入观测。spec 没有规定投递方式、拥塞时的处理、Observer 的失败形态，以及哪些字段算作“可观测”。工单 14 实现时定下以下几点，待维护者确认。
+spec §9 要求 Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished，失败不改变生成，且 key、正文、工具内容与原生密文不进入观测。spec 没有规定投递方式、拥塞时的处理、Observer 的失败形态，以及哪些字段算作“可观测”。工单 14 实现时定下以下几点，维护者于 2026-10-02 确认（含下文决策四至六）。
 
 ## 决策一：每个 Client 一个有界队列，按需启动单个投递 goroutine，满则丢弃并计数
 
@@ -44,8 +44,34 @@ spec §9 要求 Observer 记录 CallStarted、AttemptStarted、AttemptFinished�
 
 - TenantID、RequestID 等为无界取值，Observer 文档提示宿主默认不要用作指标标签；库本身不产生指标，也不写日志。
 
-## 待维护者确认
+## 决策四：预检被拒的调用保留可信 TenantID，以 `Resolved=false` 区分
 
-1. **被拒身份的租户归属。** 预检被拒（含 actor 被拒、绑定不属于该租户）的调用，记录仍携带可信 scope 中的 TenantID，但 `Resolved=false`，且不出现账户、模型和版本。宿主若按 TenantID 汇总，被拒调用会计入该租户名下。备选方案是被拒调用不填 TenantID，或另设“声称的租户”字段。
-2. **Provider 回显正文进入 ErrorMessage。** 按 pi 兼容规则，HTTP 错误的 ErrorMessage 会引用 Provider 的错误体，库只脱敏 key 形态的文本；Provider 回显的提示词会留在 ErrorMessage 与 `Error.Message` 中（E2E `P01-E09-redaction` 的 `echoed-error-message` 有记录），但不进入观测与日志。spec 要求正文不进入错误，因此这里需要决定：登记为批准的安全差异，还是改为不引用错误体（与 pi 不一致）。
-3. **记录时间使用系统时钟。** 与消息时间戳一致，不使用重试的替换时钟；在假时钟场景下，记录的 Duration 与 `RetryDelay` 不对应。
+预检被拒（actor 被拒、绑定不属于该租户等）的调用，记录仍携带可信 scope 中的 TenantID，但 `Resolved=false`，不出现账户、Provider、模型与版本。scope 没有 TenantID 时记录中也为空。
+
+### Considered Options
+
+- 被拒调用不填 TenantID，或另设"声称的租户"字段：彻底避免误归属，但运维看不到"某租户被拒了多少次"这一安全信号。
+- 保留 TenantID（采用，维护者 2026-10-02）：TenantID 是可信宿主的判断而非请求内容，拒绝原因在 actor 或绑定，不在租户；`Resolved=false` 已表明未获授权。
+
+### Consequences
+
+- 宿主统计用量、成功率与资源归属时只取 `Resolved=true` 的记录（`Observation` 文档已写明）。
+
+## 决策五：Provider 回显的正文留在 ErrorMessage，登记为批准的安全差异
+
+HTTP 错误的 ErrorMessage 与 `Error.Message` 按 pi 原样引用 Provider 错误体，只脱敏 key 形态的文本，所以 Provider 回显的提示词会保留在其中（E2E `P01-E09-redaction` 的 `echoed-error-message` 有记录）；它不进入观测，库也不写日志。spec I9 的“正文不进入错误”对此作出例外。
+
+### Considered Options
+
+- 不引用错误体：最安全，但开发者只剩笼统分类，排查困难，且与 pi 不一致。
+- 消息保留原文、`err.Error()` 只含分类：堵住"顺手打日志"，但 `Error()` 文本与现有契约不同。
+- 原样保留（采用，维护者 2026-10-02）：错误只返回给发起调用的租户，内容本属于该租户，不构成跨租户泄露；Observer 提供保证干净的日志渠道。
+
+### Consequences
+
+- `ErrorMessage`、`Error.Message` 与 `err.Error()` 属于租户内容，宿主不得写入共享日志；需要记录时使用 Observer 记录（`Error` 文档已写明）。
+- 若日后出现宿主误记日志的事故证据，可改为上一条折中方案。
+
+## 决策六：记录时间使用系统时钟
+
+`Observation.Time` 与 `Duration` 使用系统时钟，与消息时间戳一致；重试的可替换时钟只覆盖重试所读的时间、抖动与退避等待（见 `internal/clock`）。在假时钟测试中，记录时长与 `Attempt.RetryDelay` 不对应；生产环境二者都是真实时间。维护者 2026-10-02 确认。

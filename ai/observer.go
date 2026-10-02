@@ -25,7 +25,12 @@ import (
 // provider.
 //
 // TenantID, RequestID, ActorID and JobID are unbounded; a host should not
-// use them as metric labels by default.
+// use them as metric labels by default. A call refused before its snapshot
+// was consistent still carries the scope's TenantID but stays unresolved
+// (CallMetadata.Resolved false); usage, success rates and resource
+// attribution should count resolved records only (ADR-0009).
+//
+// Unlike error text (see Error), records are safe for shared logs.
 type Observer interface {
 	Observe(Observation) error
 }
@@ -51,7 +56,8 @@ const (
 // copy.
 type Observation struct {
 	Kind ObservationKind `json:"kind"`
-	Time time.Time       `json:"time"`
+	// Time is the system clock's, as message timestamps are.
+	Time time.Time `json:"time"`
 	// Call attributes the record. At CallStarted it holds the trusted scope
 	// and the requested BindingID, with Resolved false; afterwards it is
 	// the call's resolved attribution, which stays unresolved, naming no

@@ -64,6 +64,13 @@ const (
 // carries secrets or secret-backend internals. Its Message is the message's
 // ErrorMessage; Code and Phase classify it without replacing the message's
 // StopReason.
+//
+// As in pi, Message quotes a provider's error body with only key-shaped
+// text redacted, so it may repeat request content the provider echoed. It
+// goes back only to the calling tenant and is that tenant's content: a host
+// must not write Message, Error() or ErrorMessage to shared logs, and
+// should log Observer records instead (an approved security difference,
+// ADR-0009).
 type Error struct {
 	Code    Code
 	Phase   Phase
