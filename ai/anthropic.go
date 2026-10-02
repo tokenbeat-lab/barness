@@ -109,6 +109,7 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 
 	// pi announces the SDK's request timeout, its 10 minute default included.
 	announce := announceTimeout(opts.requestTimeout())
+	var delivered deliveredBody
 	reqOpts := []option.RequestOption{
 		option.WithHTTPClient(ac.http),
 		option.WithBaseURL(ac.endpoint),
@@ -126,6 +127,9 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
 			return announce(r, next)
 		}),
+		option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+			return delivered.keep(r, next)
+		}),
 	}
 	// Authentication travels in header, so the SDK's own API key setting
 	// stays empty and adds no second credential.
@@ -139,8 +143,10 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		// The request body is ours; the empty params are replaced by it.
 		stream := svc.NewStreaming(ctx, anthropic.BetaMessageNewParams{}, option.WithResponseInto(&res))
 		if err := stream.Err(); err != nil {
+			// res is nil when the SDK dropped the response as ctx ended.
 			o := failures.request(ctx, err, res)
 			closeBody(res)
+			delivered.close()
 			return o
 		}
 		if res.StatusCode >= 300 {

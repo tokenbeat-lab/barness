@@ -73,6 +73,10 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 			return announce(r, next)
 		}))
 	}
+	var delivered deliveredBody
+	reqOpts = append(reqOpts, option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+		return delivered.keep(r, next)
+	}))
 	// Authentication travels in ac.header, so the SDK's own API key setting
 	// stays empty and adds no second Authorization.
 	reqOpts = append(reqOpts, headerOptions(ac.header)...)
@@ -82,11 +86,15 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	var stream *ssestream.Stream[responses.ResponseStreamEventUnion]
 	var res *http.Response
 	failure = ac.initial.send(ctx, func(ctx context.Context) attemptOutcome {
+		res = nil
 		stream = svc.NewStreaming(ctx, responses.ResponseNewParams{}, option.WithResponseInto(&res))
 		if err := stream.Err(); err != nil {
-			// The SDK has already closed the body of an error status.
+			// The SDK has already closed the body of an error status, but
+			// not of a response it dropped as ctx ended.
 			_ = stream.Close()
-			return failures.request(ctx, err, res)
+			o := failures.request(ctx, err, res)
+			delivered.close()
+			return o
 		}
 		if res.StatusCode >= 300 {
 			o := failures.status(res)

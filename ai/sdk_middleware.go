@@ -1,8 +1,10 @@
 package ai
 
 import (
+	"io"
 	"net/http"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -47,6 +49,52 @@ func (l byteLimits) limitBodies(req *http.Request, next roundTrip) (*http.Respon
 	res, err := next(req)
 	l.limitBody(res)
 	return res, err
+}
+
+// deliveredBody is SDK middleware that remembers the body of the response the
+// HTTP client delivered to an attempt, so the attempt can close it when the
+// SDK fails without handing that response back. The Stainless SDKs do so when
+// the caller's context ends as the response arrives: their request loop
+// returns the context's error before giving the response to the caller or
+// closing it (internal/requestconfig in anthropic-sdk-go v1.75.0 and openai-go
+// v3.66.0), which would leave the body, and whatever the host's transport
+// holds for it, open. The body closes once, whoever closes it first. Adapters
+// register it last, so it sits next to the HTTP client, under limitBodies.
+// E06's a-canceled-on-arrival scenarios catch the leak; once both SDKs
+// close the response themselves there, this can go (issue 29).
+type deliveredBody struct{ body io.Closer }
+
+func (d *deliveredBody) keep(req *http.Request, next roundTrip) (*http.Response, error) {
+	d.body = nil
+	res, err := next(req)
+	if res != nil && res.Body != nil {
+		b := &closeOnce{ReadCloser: res.Body}
+		res.Body, d.body = b, b
+	}
+	return res, err
+}
+
+// close closes the body delivered to a failed attempt, if any. The SDK or
+// the adapter may already have closed it, in either order: closeOnce makes
+// that harmless.
+func (d *deliveredBody) close() {
+	if d.body != nil {
+		_ = d.body.Close()
+		d.body = nil
+	}
+}
+
+// closeOnce is a body whose Close closes the body under it the first time
+// only (io.Closer leaves a second Close undefined).
+type closeOnce struct {
+	io.ReadCloser
+	once sync.Once
+	err  error
+}
+
+func (b *closeOnce) Close() error {
+	b.once.Do(func() { b.err = b.ReadCloser.Close() })
+	return b.err
 }
 
 // closeBody closes a response's body, if there is one.

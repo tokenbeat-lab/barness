@@ -84,6 +84,7 @@ type Server struct {
 
 	mu       sync.Mutex
 	replies  []Reply
+	routes   map[string][]Reply // by path prefix; see EnqueueAt
 	requests []Request
 }
 
@@ -109,6 +110,20 @@ func (s *Server) Enqueue(replies ...Reply) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.replies = append(s.replies, replies...)
+}
+
+// EnqueueAt appends replies served, in order, to subsequent requests whose
+// path starts with pathPrefix, whatever order requests to other prefixes
+// arrive in. It lets concurrent callers configured with different endpoints
+// on this one server each get their own script. A request matching no
+// prefix takes from the Enqueue queue. Prefixes must not overlap.
+func (s *Server) EnqueueAt(pathPrefix string, replies ...Reply) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.routes == nil {
+		s.routes = map[string][]Reply{}
+	}
+	s.routes[pathPrefix] = append(s.routes[pathPrefix], replies...)
 }
 
 // Requests returns the captures so far.
@@ -145,12 +160,7 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 
 	s.mu.Lock()
 	s.requests = append(s.requests, capture)
-	var reply Reply
-	ok := len(s.replies) > 0
-	if ok {
-		reply = s.replies[0]
-		s.replies = s.replies[1:]
-	}
+	reply, ok := s.nextReplyLocked(r.URL.Path)
 	s.mu.Unlock()
 
 	if !ok {
@@ -194,6 +204,32 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		}
 		s.hold(r)
 	}
+}
+
+// nextReplyLocked takes the reply for a request to path: from the EnqueueAt
+// prefix of path, else from the Enqueue queue.
+func (s *Server) nextReplyLocked(path string) (Reply, bool) {
+	route, matched := "", false
+	for prefix := range s.routes {
+		if strings.HasPrefix(path, prefix) {
+			route, matched = prefix, true
+			break
+		}
+	}
+	if matched {
+		q := s.routes[route]
+		if len(q) == 0 {
+			return Reply{}, false
+		}
+		s.routes[route] = q[1:]
+		return q[0], true
+	}
+	if len(s.replies) == 0 {
+		return Reply{}, false
+	}
+	reply := s.replies[0]
+	s.replies = s.replies[1:]
+	return reply, true
 }
 
 // hold blocks until the client goes away or the server is closed.
