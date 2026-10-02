@@ -23,6 +23,8 @@ import (
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
 )
 
 // DirEnv overrides where bundles are written. By default bundles go to
@@ -138,6 +140,32 @@ func (r *Run) Finish() error {
 	}
 	fmt.Fprintf(os.Stderr, "barness-ai evidence bundle: %s\n", r.dir)
 	return nil
+}
+
+// Audit runs the redaction audit over the finished bundle (spec Testing
+// Decisions §6): every registered secret, the auditing environment's own
+// credentials, home directory and host name, and the built-in key,
+// credential header, observation and response header rules. It records the
+// findings, which never repeat a value, as audit.json and returns them; a
+// run with findings must fail. Call it after Finish.
+func (r *Run) Audit() ([]audit.Finding, error) {
+	r.secretsMu.Lock()
+	forbidden := audit.Environment()
+	for secret, alias := range r.secrets {
+		forbidden = append(forbidden, audit.Forbidden{Value: secret, Label: "the secret aliased " + alias})
+	}
+	r.secretsMu.Unlock()
+	findings, err := audit.Bundle(r.dir, forbidden)
+	if err != nil {
+		return nil, err
+	}
+	if findings == nil {
+		findings = []audit.Finding{}
+	}
+	if err := r.Record("audit", map[string]any{"findings": findings}); err != nil {
+		return nil, err
+	}
+	return findings, nil
 }
 
 func (r *Run) writeJSON(path string, v any) error {

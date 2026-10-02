@@ -143,3 +143,15 @@ _Avoid_: 集成测试、跳过、SDK 探针
 **Support Matrix（支持矩阵）**：
 每个首期 Provider × 协议组合的真实冒烟状态（Go 中为 `ai/live/support-matrix.json`）：模型、SDK、测试账户/区域别名、各能力的结果与最后通过时间；只由该组合自己的冒烟报告合并更新，共享 adapter 的通过不连带标记其他组合。
 _Avoid_: 兼容列表、"兼容 OpenAI"
+
+**Design Load（设计负载）**：
+资源策略示例在注释中声明所针对的负载（并发、请求与图片大小、单轮输出或工具参数大小）；压力场景（`E08-policy-pressure-*`）按它运行，记录每项限额的用量占比（headroom）与内存，作为该策略数值的依据。设计负载跑通不表示数值是通用默认值。
+_Avoid_: 默认配置、基准测试
+
+**Redaction Audit（脱敏审计）**：
+对已写出的证据包（离线、live、race）逐文件检查：已注册秘密与审计进程环境中的凭据、主目录、主机名，厂商 key 形状，凭据请求头与 URL key 参数，Observer 记录中的非元数据字段，live 响应头白名单；发现即令运行失败，结论只给文件、规则与位置，不复述被发现的值。
+_Avoid_: 日志过滤、事后清理
+
+**Release Gate（发布门禁）**：
+发布前对 barness-ai 的一次判定（`go run ./ai/release/cmd/releasegate`）：`go vet`、离线 E2E（含 pi 差分与压力场景）、`-race`、全部 P0、无待处理差分、六组合真实冒烟完整通过（或明确 UNSUPPORTED）、脱敏审计、研究条目追溯与目录快照，全部通过才可发布；报告分别列出离线、差分与 live 结果。追溯条目只由证据判定，仅"已映射"的条目为 NO_EVIDENCE，不记为 PASS。
+_Avoid_: CI 绿灯、发布流程

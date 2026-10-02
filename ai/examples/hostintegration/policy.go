@@ -34,12 +34,32 @@ import (
 // are kept with the evidence bundle (pressure.json); re-run the scenario
 // with your own concurrency, wait and typical duration before changing
 // these values.
+//
+// The byte, queue and concurrency values were checked by the design-load
+// scenarios E08-policy-pressure-cloud-interactive-* (ai/e2e, opt-in with
+// BARNESS_AI_PRESSURE=1, run by the release gate): all 32 permits busy
+// across 8 tenants, each call sending a 2 MiB history with two 1 MiB images
+// (a 4.9 MB body) and streaming a 64K-token turn or a 64 KiB tool call
+// through Responses, the protocol whose terminal frames repeat the whole
+// response. Every turn completed; the largest frame used 13% of
+// MaxFrameBytes, a turn's body 44% of MaxOutputBytes, the request 58% of
+// MaxRequestBytes, and the reachable heap grew by 0.7–1.1 GiB (two
+// runs), within the assumed 2 GiB and including the test provider's own
+// 150 MiB copy of the requests. barness-ai holds about two copies of a request body while its
+// attempt runs (measured: 10 MB per 4.9 MB body). A stream whose consumer
+// stopped reading ended with resource_limit at MaxQueuedEvents, about 2.7
+// minutes of backlog at 100 tokens per second. The headroom of each byte,
+// queue and concurrency limit the load exercises is kept as
+// policy-pressure.json; MaxErrorBodyBytes and the time limits are not
+// pressure values and rest on the reasoning beside them. Re-run the
+// scenario with your own load before changing these values.
 func CloudInteractivePolicy() *ai.ResourcePolicy {
 	return &ai.ResourcePolicy{
 		// 8 MiB per request body: long agent histories with a few images.
-		// Bodies are held while attempts run, so the worst case is
-		// (MaxConcurrentProcess + MaxAdmissionWaiters) × 8 MiB ≈ 288 MiB.
-		// Lower it before raising concurrency on a small instance.
+		// About two copies of each body are held while its attempt runs or
+		// waits, so the worst case is 2 × (MaxConcurrentProcess +
+		// MaxAdmissionWaiters) × 8 MiB ≈ 576 MiB. Lower it before raising
+		// concurrency on a small instance.
 		MaxRequestBytes: 8 << 20,
 		// 4 MiB per image (image bytes, not base64): screenshots and photos
 		// a browser client uploads after its own downscaling.
@@ -49,14 +69,20 @@ func CloudInteractivePolicy() *ai.ResourcePolicy {
 		// 64K output tokens (about 256 KB of text). Raise it with your
 		// models' output limits.
 		MaxFrameBytes: 2 << 20,
-		// 512 KiB of argument JSON per tool call: more than any interactive
-		// tool call needs; a larger one is a runaway generation.
-		MaxToolJSONBytes: 512 << 10,
+		// 128 KiB of argument JSON per tool call: more than an interactive
+		// tool call needs; a larger one is a runaway generation. Streamed
+		// arguments are re-parsed on every delta, as pi does, so their CPU
+		// cost grows with the square of their size: the pressure scenario
+		// measured one call at 0.4 s for 64 KiB, 1.6 s for 128 KiB and 23 s
+		// for 512 KiB, the previous value (issue 32 tracks parsing them
+		// incrementally). Raise it only after that is fixed.
+		MaxToolJSONBytes: 128 << 10,
 		// 32 KiB: provider error bodies are short JSON.
 		MaxErrorBodyBytes: 32 << 10,
-		// 32 MiB of streamed body per call: tens of thousands of delta
-		// frames of 100–300 bytes each. 32 calls at the limit are 1 GiB,
-		// the bulk of the assumed budget.
+		// 32 MiB of streamed body per call: a 64K-token turn streams about
+		// 15 MB (frames of about 220 bytes per token, plus the terminal
+		// frames repeating the text), 44% of this. The streamed body is
+		// read, not kept: what a call keeps is its message.
 		MaxOutputBytes: 32 << 20,
 		// 16384 events / 4 MiB of unread text per stream: a browser on a
 		// slow link falls minutes behind before the turn ends with
@@ -107,6 +133,13 @@ func CloudBatchPolicy() *ai.ResourcePolicy {
 	// Jobs run under the queue's own concurrency; per tenant, let one
 	// tenant's backlog use more of an instance dedicated to jobs.
 	p.MaxConcurrentPerTenant = 16
+	// Long generations are expected: a 128K-token turn streams about 29 MB
+	// through Responses, 88% of the interactive 32 MiB, too close for
+	// reasoning summaries and envelope variation. The streamed body is not
+	// kept, so doubling it costs little memory (E08-policy-pressure-
+	// cloud-batch-design-load: 44% used, reachable heap +0.9–1.2 GiB with all 32 permits
+	// busy).
+	p.MaxOutputBytes = 64 << 20
 	// Long generations are expected; nobody reads events interactively.
 	p.CallTimeout = 30 * time.Minute
 	p.ReadIdleTimeout = 5 * time.Minute

@@ -71,6 +71,22 @@ func (l Ledger) Route(provider, api string) (Route, bool) {
 	return Route{}, false
 }
 
+// Routes returns the registered extension routes.
+func (l Ledger) Routes() []Route { return slices.Clone(l.routes) }
+
+// Count returns how many decisions carry classification c. The release gate
+// requires no Pending decision: a pending entry is a known, unresolved
+// difference, which blocks its protocol's release (spec Testing Decisions §5).
+func (l Ledger) Count(c Classification) int {
+	n := 0
+	for _, d := range l.decisions {
+		if d.Classification == c {
+			n++
+		}
+	}
+	return n
+}
+
 // Finding is a diff with its classification and handling decision.
 type Finding struct {
 	Diff

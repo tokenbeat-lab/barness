@@ -3,13 +3,10 @@
 package live
 
 import (
-	"bytes"
 	"context"
 	"errors"
 	"fmt"
-	"io/fs"
 	"os"
-	"path/filepath"
 	"sync"
 	"testing"
 	"time"
@@ -74,8 +71,15 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		code = 1
 	}
-	if err := auditBundle(run.Dir(), cfg.key); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+	// The redaction audit forbids the key (registered above) and every
+	// credential-looking variable of this process, the key's included.
+	if findings, err := run.Audit(); err != nil || len(findings) > 0 {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "live: redaction audit:", err)
+		}
+		for _, f := range findings {
+			fmt.Fprintf(os.Stderr, "live: redaction audit: %s [%s] %s\n", f.File, f.Rule, f.Detail)
+		}
 		code = 1
 	}
 	os.Exit(code)
@@ -96,27 +100,6 @@ func report(catalogHash string) supportmatrix.Report {
 		GitCommit: evidence.GitCommit(), CatalogVersion: catalog.Version, CatalogHash: catalogHash,
 		StartedAt: started, FinishedAt: time.Now().UTC(), Budget: budget, Expected: expected, Scenarios: results,
 	}
-}
-
-// auditBundle fails the run if the key reached any evidence file (spec §6:
-// live output is redacted first). Writes already replace it; this proves it.
-func auditBundle(dir, key string) error {
-	if key == "" {
-		return nil
-	}
-	return filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
-		if err != nil || d.IsDir() {
-			return err
-		}
-		data, err := os.ReadFile(path)
-		if err != nil {
-			return err
-		}
-		if bytes.Contains(data, []byte(key)) {
-			return fmt.Errorf("live: redaction audit: the key appears in %s", path)
-		}
-		return nil
-	})
 }
 
 // TestLive runs every combination's scenarios. Only the combination this

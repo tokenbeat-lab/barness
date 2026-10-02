@@ -19,6 +19,22 @@ import (
 // minutes, and a terminal or editor that reads events as they arrive. Memory
 // is the developer's own, so limits are generous and exist to stop a
 // misbehaving provider or a stuck consumer, not to share capacity.
+//
+// The byte, queue and concurrency values were checked by the design-load
+// scenarios E08-policy-pressure-local-* (ai/e2e, opt-in with
+// BARNESS_AI_PRESSURE=1, run by the release gate): all 8 permits busy, each
+// call sending a 4 MiB history with three 2 MiB screenshots (a 12.6 MB body)
+// and streaming a 128K-token turn or a 128 KiB tool call through Responses.
+// Every turn completed; the largest frame used 13% of MaxFrameBytes, a
+// turn's body 44% of MaxOutputBytes, the request 38% of MaxRequestBytes,
+// and the reachable heap grew by 0.4–0.5 GiB (two runs; the test provider's own 100 MiB
+// copy of the requests included), within the 1 GiB a developer machine is
+// assumed to spare. A stream whose consumer stopped reading ended with
+// resource_limit at MaxQueuedEvents, about 11 minutes of backlog at 100
+// tokens per second. The headroom of each byte, queue and concurrency limit
+// the load exercises is kept as policy-pressure.json; MaxErrorBodyBytes and
+// the time limits are not pressure values and rest on the reasoning beside
+// them.
 func LocalPolicy() *ai.ResourcePolicy {
 	return &ai.ResourcePolicy{
 		// 32 MiB: a long history (a 1M-token context is roughly 4 MB of
@@ -36,9 +52,14 @@ func LocalPolicy() *ai.ResourcePolicy {
 		// reasoning items and JSON escaping can multiply that. Raise it if
 		// long turns end with resource_limit in the stream phase.
 		MaxFrameBytes: 4 << 20,
-		// 1 MiB of argument JSON per tool call: a tool that writes a large
-		// file in one call fits; a model output limit is far below it.
-		MaxToolJSONBytes: 1 << 20,
+		// 256 KiB of argument JSON per tool call: a tool writing a file of a
+		// few thousand lines in one call fits. The bound is CPU, not memory:
+		// streamed arguments are re-parsed on every delta, as pi does, so
+		// the cost grows with the square of their size. The pressure
+		// scenario measured one call at 1.6 s for 128 KiB, 6 s for 256 KiB
+		// and 23 s for 512 KiB (issue 32 tracks parsing them
+		// incrementally); raise this only after that is fixed.
+		MaxToolJSONBytes: 256 << 10,
 		// 64 KiB: provider error bodies are short JSON; this only guards
 		// against a proxy returning a large HTML page.
 		MaxErrorBodyBytes: 64 << 10,

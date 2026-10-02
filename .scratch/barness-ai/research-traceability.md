@@ -4,6 +4,8 @@
 
 来源缩写：S = [原需求研究](/Users/cyber/RestoX/harness/.scratch/pi-ai-go/spec.md)，D = [原技术设计](/Users/cyber/RestoX/harness/.scratch/pi-ai-go/design.md)，V = [原 E2E 计划](/Users/cyber/RestoX/harness/.scratch/pi-ai-go/e2e-test-plan.md)。冻结版本和三个文件的 SHA-256 见 spec 的 Further Notes；源文件保持只读。旧名称仅存在于历史来源链接中。
 
+实施后的可计算映射见 [`ai/release/traceability.json`](../../ai/release/traceability.json)：发布门禁（ADR-0017）按实际证据计算每个条目的状态，只有映射没有证据的条目为 NO_EVIDENCE；本表仍只表示文档覆盖。
+
 本表中的 I1–I10 指 spec 的 Implementation Decisions 第 1–10 节；E01–E11、P01–P06 指 Testing Decisions 的横向场景和协议专项。实施用例应以 E/P 标识关联原 T/C 条目，运行报告还必须指向实际请求、事件、结果与断言证据。
 
 ## 1. 范围与原需求验收

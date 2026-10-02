@@ -47,7 +47,7 @@ type chatParser struct {
 	// carries, the latest registration winning.
 	byIndex map[float64]int
 	byID    map[string]int
-	details        chatDetails // streamed reasoning_details, nil before any
+	details chatDetails // streamed reasoning_details, nil before any
 	// responseID and responseModel were taken from a chunk: pi keeps the
 	// first truthy ones.
 	responseID, responseModel bool

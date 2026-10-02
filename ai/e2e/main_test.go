@@ -40,7 +40,24 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		code = 1
 	}
+	if !auditPassed(run) {
+		code = 1
+	}
 	os.Exit(code)
+}
+
+// auditPassed runs the redaction audit over the finished bundle and reports
+// every finding (spec Testing Decisions §6).
+func auditPassed(run *evidence.Run) bool {
+	findings, err := run.Audit()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "redaction audit:", err)
+		return false
+	}
+	for _, f := range findings {
+		fmt.Fprintf(os.Stderr, "redaction audit: %s [%s] %s\n", f.File, f.Rule, f.Detail)
+	}
+	return len(findings) == 0
 }
 
 // validPolicy is a finite policy comfortably above what the offline fixtures

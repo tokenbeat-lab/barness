@@ -4,11 +4,11 @@
 
 **Blocked by:** 07
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] content 缺失或 null 归一为空数组
 - [x] 同模型 thinking：保留 redacted；带签名的空文本 thinking 保留；其他空白删除，非空保留
-- [ ] 跨模型 thinking：非空可见推理转 text，redacted 与空白丢弃；text 只保留文本；按原 truthy 条件删除非空 thoughtSignature，不合并缺失/null/空值（部分完成：thinking/text 已实现；thoughtSignature 移交 19，见 Comments）
+- [x] 跨模型 thinking：非空可见推理转 text，redacted 与空白丢弃；text 只保留文本；按原 truthy 条件删除非空 thoughtSignature，不合并缺失/null/空值（thinking/text 于本票实现；thoughtSignature 由 19 完成，见 Comments）
 - [x] 按目标规范化工具 ID 并同步 toolResult 关联；缺少工具结果按基线顺序补 `No result provided` 的 isError 结果，调用与结果之间的 system 消息按原规则延后
 - [x] error/aborted assistant 轮次按基线跳过；SystemPrompt 归一到初始 system 消息；system 与工具声明变化按输入顺序重放
 - [x] 支持图片的模型发送 user 图片与工具结果图片；不支持时生成对应占位文本并按基线合并连续占位——两条路径分别有用例
@@ -49,3 +49,5 @@
 - The request rejections (nil message/block, non-`image/<subtype>` type, duplicate or contradictory sections, tool checks in system messages) are barness extensions pi lacks; documented above.
 - `MaxImageBytes` is not enforced yet (ticket 12).
 - An untrusted same-model message is normalized as cross-model, tool ids included. The spec requires this; 07's no-envelope E2E covers the body.
+
+**2026-10-02 — closed from issue 24.** The thoughtSignature criterion handed to 19 is done there (19's checked criterion "ToolCall 增加区分缺失/null/空值的 thoughtSignature…", Gemini E03 cases); the release gate's traceability item C03 (all E03 cases, P01–P06) passes. Status set to resolved.
