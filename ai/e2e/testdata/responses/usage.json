@@ -1,0 +1,375 @@
+{
+  "case": "E11 usage, cost and price version (P01 OpenAI × Responses)",
+  "source": "Synthetic offline fixture. Usage conversion follows pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) openai-responses-shared.ts finalizeResponse, cost follows models.ts calculateCost and openai-responses.ts applyServiceTierPricing; prices are the frozen providers/data/openai.json. Expected costs were computed with that frozen copy and are checked against it by the pi differential.",
+  "catalog": {"version": "2026-10-02.1", "hash": "sha256:8c8dda76f8c6b6c4b7cba17811a6d7273043b73d7e2e9f3d00d33f200dd98b2d"},
+  "model": "gpt-4.1-mini",
+  "prefix": [
+    {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
+    {"type": "response.output_item.added", "sequence_number": 1, "output_index": 0, "item": {"id": "msg_u", "type": "message", "status": "in_progress", "role": "assistant", "content": []}},
+    {"type": "response.output_text.delta", "sequence_number": 2, "item_id": "msg_u", "output_index": 0, "content_index": 0, "delta": "ok"},
+    {"type": "response.output_item.done", "sequence_number": 3, "output_index": 0, "item": {"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}}
+  ],
+  "scenarios": [
+    {
+      "id": "success-usage-missing",
+      "note": "A completed response without a usage field: the message usage stays pi's zero value (no reasoning) and the attempt is unreported, not free.",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}]}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "success-usage-null",
+      "note": "usage: null reads as not reported, like a missing field.",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": null}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "success-usage-zero",
+      "note": "Every count reported as 0: the provider said zero, so the attempt is complete with zero cost; pi adds reasoning: 0.",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0, "input_tokens_details": {"cached_tokens": 0}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "reasoning": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "reasoning": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "success-usage-partial",
+      "note": "Counts without input_tokens_details/output_tokens_details: pi reads the missing ones as 0, and the attempt is partial because cache and reasoning splits are unknown.",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 20, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 8.000000000000001e-06, "output": 8.000000000000001e-06, "cacheRead": 0, "cacheWrite": 0, "total": 1.6000000000000003e-05}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "partial", "usage": {"input": 20, "output": 5, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 8.000000000000001e-06, "output": 8.000000000000001e-06, "cacheRead": 0, "cacheWrite": 0, "total": 1.6000000000000003e-05}}}
+        ]
+      }
+    },
+    {
+      "id": "success-usage-reported",
+      "note": "Cached tokens are subtracted from input and priced at the cache-read rate.",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}}}
+        ]
+      }
+    },
+    {
+      "id": "reasoning-is-output-subset",
+      "note": "gpt-5-mini: reasoning_tokens is part of output_tokens; it is reported but neither priced again nor added to totalTokens, which is the provider's total. cache_write_tokens is subtracted from input.",
+      "model": "gpt-5-mini",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 1200, "output_tokens": 300, "total_tokens": 1500, "input_tokens_details": {"cached_tokens": 200, "cache_write_tokens": 100}, "output_tokens_details": {"reasoning_tokens": 120}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 900, "output": 300, "cacheRead": 200, "cacheWrite": 100, "totalTokens": 1500, "reasoning": 120, "cost": {"input": 0.000225, "output": 0.0006, "cacheRead": 5e-06, "cacheWrite": 0, "total": 0.00083}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 900, "output": 300, "cacheRead": 200, "cacheWrite": 100, "totalTokens": 1500, "reasoning": 120, "cost": {"input": 0.000225, "output": 0.0006, "cacheRead": 5e-06, "cacheWrite": 0, "total": 0.00083}}}
+        ]
+      }
+    },
+    {
+      "id": "cache-write-priced",
+      "note": "A host catalog pricing cache writes (OpenAI's own data prices them at 0): cache_write_tokens are priced at the model's cacheWrite rate.",
+      "modelPatch": {"cost": {"input": 0.4, "output": 1.6, "cacheRead": 0.1, "cacheWrite": 0.5}},
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 1000, "output_tokens": 50, "total_tokens": 1050, "input_tokens_details": {"cached_tokens": 100, "cache_write_tokens": 300}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 600, "output": 50, "cacheRead": 100, "cacheWrite": 300, "totalTokens": 1050, "reasoning": 0, "cost": {"input": 0.00024000000000000003, "output": 8e-05, "cacheRead": 1e-05, "cacheWrite": 0.00015, "total": 0.00048000000000000007}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 600, "output": 50, "cacheRead": 100, "cacheWrite": 300, "totalTokens": 1050, "reasoning": 0, "cost": {"input": 0.00024000000000000003, "output": 8e-05, "cacheRead": 1e-05, "cacheWrite": 0.00015, "total": 0.00048000000000000007}}}
+        ]
+      }
+    },
+    {
+      "id": "tier-above-threshold",
+      "note": "gpt-5.5-pro: more than 272000 input-side tokens use the tier's rates.",
+      "model": "gpt-5.5-pro",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 272001, "output_tokens": 10, "total_tokens": 272011, "input_tokens_details": {"cached_tokens": 0}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 272001, "output": 10, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 272011, "reasoning": 0, "cost": {"input": 16.32006, "output": 0.0027, "cacheRead": 0, "cacheWrite": 0, "total": 16.322760000000002}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 272001, "output": 10, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 272011, "reasoning": 0, "cost": {"input": 16.32006, "output": 0.0027, "cacheRead": 0, "cacheWrite": 0, "total": 16.322760000000002}}}
+        ]
+      }
+    },
+    {
+      "id": "tier-at-threshold",
+      "note": "Exactly 272000 input-side tokens keep the base rates: the tier applies strictly above its threshold.",
+      "model": "gpt-5.5-pro",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 272000, "output_tokens": 10, "total_tokens": 272010, "input_tokens_details": {"cached_tokens": 0}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 272000, "output": 10, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 272010, "reasoning": 0, "cost": {"input": 8.16, "output": 0.0018000000000000002, "cacheRead": 0, "cacheWrite": 0, "total": 8.1618}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 272000, "output": 10, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 272010, "reasoning": 0, "cost": {"input": 8.16, "output": 0.0018000000000000002, "cacheRead": 0, "cacheWrite": 0, "total": 8.1618}}}
+        ]
+      }
+    },
+    {
+      "id": "tier-counts-cached-input",
+      "note": "The tier threshold counts input, cache reads and cache writes together.",
+      "model": "gpt-5.5-pro",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 272001, "output_tokens": 10, "total_tokens": 272011, "input_tokens_details": {"cached_tokens": 1000}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 271001, "output": 10, "cacheRead": 1000, "cacheWrite": 0, "totalTokens": 272011, "reasoning": 0, "cost": {"input": 16.26006, "output": 0.0027, "cacheRead": 0, "cacheWrite": 0, "total": 16.26276}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 271001, "output": 10, "cacheRead": 1000, "cacheWrite": 0, "totalTokens": 272011, "reasoning": 0, "cost": {"input": 16.26006, "output": 0.0027, "cacheRead": 0, "cacheWrite": 0, "total": 16.26276}}}
+        ]
+      }
+    },
+    {
+      "id": "service-tier-priority",
+      "note": "The response's service_tier priority doubles every cost component (pi's Responses pricing adjustment).",
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}, "service_tier": "priority"}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 1.2800000000000001e-05, "output": 1.6000000000000003e-05, "cacheRead": 8.000000000000001e-07, "cacheWrite": 0, "total": 2.96e-05}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 1.2800000000000001e-05, "output": 1.6000000000000003e-05, "cacheRead": 8.000000000000001e-07, "cacheWrite": 0, "total": 2.96e-05}}}
+        ]
+      }
+    },
+    {
+      "id": "service-tier-flex-option",
+      "note": "Without a service_tier in the response, the requested serviceTier flex halves the cost.",
+      "options": {"serviceTier": "flex"},
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 3.2000000000000003e-06, "output": 4.000000000000001e-06, "cacheRead": 2.0000000000000002e-07, "cacheWrite": 0, "total": 7.4e-06}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 3.2000000000000003e-06, "output": 4.000000000000001e-06, "cacheRead": 2.0000000000000002e-07, "cacheWrite": 0, "total": 7.4e-06}}}
+        ]
+      }
+    },
+    {
+      "id": "service-tier-response-wins",
+      "note": "The response's service_tier default overrides the requested priority: no adjustment.",
+      "options": {"serviceTier": "priority"},
+      "replies": [
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}, "service_tier": "default"}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}}}
+        ]
+      }
+    },
+    {
+      "id": "incomplete-with-usage",
+      "note": "A response cut at max_output_tokens ends as length and keeps its usage and cost.",
+      "replies": [
+        {"terminal": {"type": "response.incomplete", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "incomplete", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}, "incomplete_details": {"reason": "max_output_tokens"}}}}
+      ],
+      "expect": {
+        "stopReason": "length",
+        "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}},
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}}}
+        ]
+      }
+    },
+    {
+      "id": "failed-usage-missing",
+      "note": "response.failed without usage: as in pi the message usage is zero; the attempt is unreported.",
+      "replies": [
+        {"terminal": {"type": "response.failed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "failed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "error": {"code": "server_error", "message": "The model failed"}}}}
+      ],
+      "expect": {
+        "stopReason": "error",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "code": "upstream_error",
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "failed-usage-null",
+      "note": "response.failed with usage: null.",
+      "replies": [
+        {"terminal": {"type": "response.failed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "failed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": null, "error": {"code": "server_error", "message": "The model failed"}}}}
+      ],
+      "expect": {
+        "stopReason": "error",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "code": "upstream_error",
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "failed-usage-zero",
+      "note": "response.failed reporting zero usage: the attempt is complete with zero cost, the message usage stays pi's zero value without reasoning.",
+      "replies": [
+        {"terminal": {"type": "response.failed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "failed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0, "input_tokens_details": {"cached_tokens": 0}, "output_tokens_details": {"reasoning_tokens": 0}}, "error": {"code": "server_error", "message": "The model failed"}}}}
+      ],
+      "expect": {
+        "stopReason": "error",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "code": "upstream_error",
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "reasoning": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "failed-usage-reported",
+      "note": "pi does not take over a failed response's usage, so the message usage is zero; the attempt still records what the provider reported, priced, so the failed request does not read as free.",
+      "replies": [
+        {"terminal": {"type": "response.failed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "failed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}, "error": {"code": "server_error", "message": "The model failed"}}}}
+      ],
+      "expect": {
+        "stopReason": "error",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "code": "upstream_error",
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}}}
+        ]
+      }
+    },
+    {
+      "id": "http-error",
+      "note": "An HTTP 500 carries no usage: the attempt is unreported.",
+      "replies": [
+        {"status": 500, "body": "{\"error\":{\"message\":\"Internal error\",\"type\":\"server_error\",\"code\":null}}"}
+      ],
+      "expect": {
+        "stopReason": "error",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "code": "upstream_error",
+        "attempts": [
+          {"httpStatus": 500, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}, "code": "upstream_error"}
+        ]
+      }
+    },
+    {
+      "id": "stream-cut",
+      "note": "The connection drops before the terminal response: nothing was reported, the attempt is unreported.",
+      "replies": [
+        {"end": "abort"}
+      ],
+      "expect": {
+        "stopReason": "error",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "code": "transport",
+        "attempts": [
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "retry-usage-missing",
+      "note": "A 503 then a completed response (usage missing): the failed attempt is unreported, the second records its own usage, and the message usage is the second attempt's alone, never a sum.",
+      "retry": {"maxRetries": 1},
+      "replies": [
+        {"status": 503, "header": {"retry-after-ms": "0"}, "body": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"},
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}]}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "attempts": [
+          {"httpStatus": 503, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}, "code": "upstream_error"},
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "retry-usage-null",
+      "note": "A 503 then a completed response (usage null): the failed attempt is unreported, the second records its own usage, and the message usage is the second attempt's alone, never a sum.",
+      "retry": {"maxRetries": 1},
+      "replies": [
+        {"status": 503, "header": {"retry-after-ms": "0"}, "body": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"},
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": null}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "attempts": [
+          {"httpStatus": 503, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}, "code": "upstream_error"},
+          {"httpStatus": 200, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "retry-usage-zero",
+      "note": "A 503 then a completed response (usage zero): the failed attempt is unreported, the second records its own usage, and the message usage is the second attempt's alone, never a sum.",
+      "retry": {"maxRetries": 1},
+      "replies": [
+        {"status": 503, "header": {"retry-after-ms": "0"}, "body": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"},
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0, "input_tokens_details": {"cached_tokens": 0}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "reasoning": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}},
+        "attempts": [
+          {"httpStatus": 503, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}, "code": "upstream_error"},
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "reasoning": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}}
+        ]
+      }
+    },
+    {
+      "id": "retry-usage-reported",
+      "note": "A 503 then a completed response (usage reported): the failed attempt is unreported, the second records its own usage, and the message usage is the second attempt's alone, never a sum.",
+      "retry": {"maxRetries": 1},
+      "replies": [
+        {"status": 503, "header": {"retry-after-ms": "0"}, "body": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"},
+        {"terminal": {"type": "response.completed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "completed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}}}}
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}},
+        "attempts": [
+          {"httpStatus": 503, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}, "code": "upstream_error"},
+          {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}}}
+        ]
+      }
+    }
+  ]
+}

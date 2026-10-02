@@ -22,11 +22,18 @@ type CallMetadata struct {
 	// snapshot the call was pinned to. Set once resolved.
 	BindingVersion    string `json:"bindingVersion,omitempty"`
 	CredentialVersion string `json:"credentialVersion,omitempty"`
+	// CatalogVersion and CatalogHash identify the model catalog and price
+	// snapshot the call's costs were estimated with (Catalog.Version and
+	// Catalog.Hash). Set once resolved.
+	CatalogVersion string `json:"catalogVersion,omitempty"`
+	CatalogHash    string `json:"catalogHash,omitempty"`
 	// NativeStateDowngrades counts history messages whose native state was
 	// downgraded instead of replayed, by reason. Set once resolved.
 	NativeStateDowngrades NativeStateDowngrades `json:"nativeStateDowngrades,omitzero"`
 	// Attempts are the HTTP requests the call sent, in order; retries of the
-	// initial request add one each. Empty when nothing was sent.
+	// initial request add one each. Empty when nothing was sent. Each
+	// records its own usage: the message's Usage is the streamed attempt's
+	// as pi reports it, never a sum over attempts.
 	Attempts []Attempt `json:"attempts,omitempty"`
 }
 

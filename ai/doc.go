@@ -40,4 +40,13 @@
 // blocks or changes a call, and Client.ObserverStats counts what was
 // dropped or failed. Records hold no key, content, tool arguments, native
 // state or error text, and barness-ai writes no logs of its own.
+//
+// # Usage and cost
+//
+// A message's Usage keeps pi-ai's numbers, including an estimated Cost from
+// the catalog's prices (Model.Cost); a zero Usage never means free. Whether
+// and how completely the provider reported usage is recorded per attempt
+// (Attempt.UsageReporting and Attempt.Usage), and CallMetadata names the
+// catalog version and hash the cost was estimated with. Costs are
+// estimates, not billing.
 package ai

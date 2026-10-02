@@ -85,16 +85,6 @@ const (
 	StopReasonAborted StopReason = "aborted"
 )
 
-// Usage is provider-reported token usage converted to pi-ai's shape. Zero
-// values do not imply the call was free or that usage was reported.
-type Usage struct {
-	Input       int64 `json:"input"`
-	Output      int64 `json:"output"`
-	CacheRead   int64 `json:"cacheRead"`
-	CacheWrite  int64 `json:"cacheWrite"`
-	TotalTokens int64 `json:"totalTokens"`
-}
-
 // AssistantMessage is the final (or partial) result of one generation turn.
 // Failed calls still produce one, carrying StopReason error/aborted and
 // ErrorMessage.

@@ -96,10 +96,34 @@ async function thinkingBudgets(cases) {
 	return cases.map((c) => adjustMaxTokensForThinking(c.baseMaxTokens ?? undefined, c.modelMaxTokens, c.level, c.budgets));
 }
 
+// costs evaluates pi's calculateCost for each case, and reports the cost
+// entry of each requested model of pi's OpenAI Responses catalog. One-hour
+// cache writes and multiple tiers have no Responses wire path, so the rule
+// is compared directly.
+async function costs(input) {
+	const { calculateCost } = await import("@earendil-works/pi-ai");
+	const { OPENAI_MODELS } = await import("@earendil-works/pi-ai/providers/openai.models");
+	const results = input.cases.map((c) => {
+		const usage = { ...c.usage, cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, total: 0 } };
+		return calculateCost({ cost: c.cost }, usage);
+	});
+	const models = {};
+	for (const id of input.models ?? []) {
+		const m = Object.values(OPENAI_MODELS).find((m) => m.api === "openai-responses" && m.id === id);
+		models[id] = m ? m.cost : null;
+	}
+	return { results, models };
+}
+
 async function main() {
 	refuseLeakyEnv();
 	installLoopbackGuard();
 	const input = await readStdin();
+	if (input.entry === "costs") {
+		const out = await costs(input);
+		process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, ...out }));
+		return;
+	}
 	if (input.entry === "thinkingBudgets") {
 		const results = await thinkingBudgets(input.cases);
 		process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, results }));

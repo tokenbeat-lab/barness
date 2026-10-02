@@ -5,9 +5,6 @@
 package e2e
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
-	"encoding/json"
 	"fmt"
 	"os"
 	"testing"
@@ -19,6 +16,9 @@ import (
 
 var run *evidence.Run
 
+// builtinCatalogHash is the built-in catalog's hash, computed once.
+var builtinCatalogHash string
+
 func TestMain(m *testing.M) {
 	var err error
 	run, err = evidence.NewRun("./ai/e2e")
@@ -29,7 +29,11 @@ func TestMain(m *testing.M) {
 	run.SetVersion("openai-go", evidence.ModuleVersion("github.com/openai/openai-go/v3"))
 	catalog := ai.BuiltinCatalog()
 	run.SetVersion("model_catalog_version", catalog.Version)
-	run.SetVersion("model_catalog_hash", hashJSON(catalog))
+	if builtinCatalogHash, err = catalog.Hash(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	run.SetVersion("model_catalog_hash", builtinCatalogHash)
 	code := m.Run()
 	if err := run.Finish(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -59,13 +63,4 @@ func validPolicy() *ai.ResourcePolicy {
 		ResponseHeaderTimeout:  10 * time.Second,
 		ReadIdleTimeout:        10 * time.Second,
 	}
-}
-
-func hashJSON(v any) string {
-	data, err := json.Marshal(v)
-	if err != nil {
-		panic(err)
-	}
-	sum := sha256.Sum256(data)
-	return hex.EncodeToString(sum[:])
 }

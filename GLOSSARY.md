@@ -96,6 +96,14 @@ _Avoid_: 厂商账单、应付金额
 依据模型价格版本和已知用量计算的估算金额，不等同于厂商最终账单。
 _Avoid_: 实际扣费、确定费用
 
+**Usage Reporting（用量完整性）**：
+一次请求尝试的用量由 Provider 报告到什么程度：未上报、部分上报或完整上报（Go 中为 `Attempt.UsageReporting`）。它与兼容消息的 Usage 分开记录，使零值用量与未上报可以区分。
+_Avoid_: 用量为零、免费
+
+**Price Snapshot（价格快照）**：
+估算成本所依据的模型目录及其价格，以目录版本和内容哈希标识（Go 中为 `CallMetadata.CatalogVersion`/`CatalogHash`）；内容变化必须换新版本。
+_Avoid_: 实时价格、账单价格
+
 **Admission（准入）**：
 一次请求尝试发往 Provider 前取得的有限并发许可，作用于本进程或由宿主注入的范围。
 _Avoid_: 配额、费用预算

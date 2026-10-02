@@ -1,6 +1,8 @@
 package ai
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"slices"
 )
@@ -30,6 +32,8 @@ type Model struct {
 	// entry merges a call's over them key by key.
 	SamplingParams map[string]json.RawMessage `json:"samplingParams,omitempty"`
 	Compat         ModelCompat                `json:"compat,omitzero"`
+	// Cost is the model's price, which estimates every call's Usage.Cost.
+	Cost ModelCost `json:"cost"`
 }
 
 // ModelCompat holds the protocol compatibility flags of pi-ai's model data
@@ -55,7 +59,10 @@ type ModelCompat struct {
 // gets pi-ai's placeholder text instead of images.
 func (m Model) acceptsImages() bool { return slices.Contains(m.Input, ModalityImage) }
 
-// Catalog is a versioned model catalog. It is never updated online.
+// Catalog is a versioned model catalog and price snapshot. It is never
+// updated online. Version names a content: a catalog whose models or prices
+// change gets a new Version, and Hash tells two contents apart even when a
+// host reuses one.
 type Catalog struct {
 	Version string  `json:"version"`
 	Models  []Model `json:"models"`
@@ -68,10 +75,10 @@ type Catalog struct {
 // internal/testkit/pioracle/node/PROVENANCE.md. Every listed field was
 // re-checked against it when the oracle landed (compat when tools landed,
 // gpt-4 when image placeholders landed, the reasoning models and their level
-// maps when reasoning mapping landed). Pricing arrives with ticket 15.
-// Models whose compat needs behavior barness-ai does not implement
-// (additional_tools, tool search) are not listed, so nothing here promises
-// behavior the adapter does not have. pi's supportsOpenAIGrammarTools only
+// maps when reasoning mapping landed, prices and gpt-5.5-pro when cost
+// estimation landed). Models whose compat needs behavior barness-ai does
+// not implement (additional_tools, tool search) are not listed, so nothing
+// here promises behavior the adapter does not have. pi's supportsOpenAIGrammarTools only
 // affects grammar-constrained tools, which cannot be declared here, so it is
 // not carried. gpt-4 and o3-mini are the text-only models: images reach them
 // as placeholders.
@@ -79,30 +86,41 @@ func BuiltinCatalog() Catalog {
 	textOnly := func() []Modality { return []Modality{ModalityText} }
 	textAndImage := func() []Modality { return []Modality{ModalityText, ModalityImage} }
 	strict := ModelCompat{SupportsStrictMode: true}
-	model := func(id, name string, input []Modality, contextWindow, maxTokens int) Model {
+	model := func(id, name string, input []Modality, contextWindow, maxTokens int, cost ModelCost) Model {
 		return Model{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: id, Name: name, Input: input,
-			ContextWindow: contextWindow, MaxTokens: maxTokens, Compat: strict}
+			ContextWindow: contextWindow, MaxTokens: maxTokens, Compat: strict, Cost: cost}
+	}
+	// price is pi's cost entry without tiers; OpenAI's data prices no
+	// cache writes.
+	price := func(input, output, cacheRead float64) ModelCost {
+		return ModelCost{CostRates: CostRates{Input: input, Output: output, CacheRead: cacheRead}}
 	}
 	reasoning := func(m Model, levels ThinkingLevelMap) Model {
 		m.Reasoning, m.ThinkingLevelMap = true, levels
 		return m
 	}
 	return Catalog{
-		Version: "2026-10-01.4",
+		Version: "2026-10-02.1",
 		Models: []Model{
-			model("gpt-4", "GPT-4", textOnly(), 8192, 8192),
-			model("gpt-4.1", "GPT-4.1", textAndImage(), 1047576, 32768),
-			model("gpt-4.1-mini", "GPT-4.1 mini", textAndImage(), 1047576, 32768),
-			model("gpt-4o-mini", "GPT-4o mini", textAndImage(), 128000, 16384),
-			reasoning(model("gpt-5", "GPT-5", textAndImage(), 400000, 128000), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("gpt-5-mini", "GPT-5 Mini", textAndImage(), 400000, 128000), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("gpt-5-nano", "GPT-5 Nano", textAndImage(), 400000, 128000), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("gpt-5-pro", "GPT-5 Pro", textAndImage(), 400000, 128000), levelMap("", ThinkingHigh)),
-			reasoning(model("gpt-5.1", "GPT-5.1", textAndImage(), 400000, 128000), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("gpt-5.2", "GPT-5.2", textAndImage(), 400000, 128000), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
-			reasoning(model("o3", "o3", textAndImage(), 200000, 100000), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("o3-mini", "o3-mini", textOnly(), 200000, 100000), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("o4-mini", "o4-mini", textAndImage(), 200000, 100000), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
+			model("gpt-4", "GPT-4", textOnly(), 8192, 8192, price(30, 60, 0)),
+			model("gpt-4.1", "GPT-4.1", textAndImage(), 1047576, 32768, price(2, 8, 0.5)),
+			model("gpt-4.1-mini", "GPT-4.1 mini", textAndImage(), 1047576, 32768, price(0.4, 1.6, 0.1)),
+			model("gpt-4o-mini", "GPT-4o mini", textAndImage(), 128000, 16384, price(0.15, 0.6, 0.075)),
+			reasoning(model("gpt-5", "GPT-5", textAndImage(), 400000, 128000, price(1.25, 10, 0.125)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
+			reasoning(model("gpt-5-mini", "GPT-5 Mini", textAndImage(), 400000, 128000, price(0.25, 2, 0.025)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
+			reasoning(model("gpt-5-nano", "GPT-5 Nano", textAndImage(), 400000, 128000, price(0.05, 0.4, 0.005)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
+			reasoning(model("gpt-5-pro", "GPT-5 Pro", textAndImage(), 400000, 128000, price(15, 120, 0)), levelMap("", ThinkingHigh)),
+			reasoning(model("gpt-5.1", "GPT-5.1", textAndImage(), 400000, 128000, price(1.25, 10, 0.125)), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh)),
+			reasoning(model("gpt-5.2", "GPT-5.2", textAndImage(), 400000, 128000, price(1.75, 14, 0.175)), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
+			// The one listed model with tiered prices: the others pi tiers
+			// need additional_tools or tool search.
+			reasoning(model("gpt-5.5-pro", "GPT-5.5 Pro", textAndImage(), 1050000, 128000,
+				ModelCost{CostRates: CostRates{Input: 30, Output: 180},
+					Tiers: []CostTier{{InputTokensAbove: 272000, CostRates: CostRates{Input: 60, Output: 270}}}}),
+				levelMap("", ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
+			reasoning(model("o3", "o3", textAndImage(), 200000, 100000, price(2, 8, 0.5)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
+			reasoning(model("o3-mini", "o3-mini", textOnly(), 200000, 100000, price(1.1, 4.4, 0.55)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
+			reasoning(model("o4-mini", "o4-mini", textAndImage(), 200000, 100000, price(1.1, 4.4, 0.275)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
 		},
 	}
 }
@@ -130,9 +148,36 @@ func (c Catalog) clone() Catalog {
 	for i, m := range c.Models {
 		m.Input = append([]Modality(nil), m.Input...)
 		m.SamplingParams = cloneJSONValues(m.SamplingParams)
+		m.Cost.Tiers = slices.Clone(m.Cost.Tiers)
 		out.Models[i] = m
 	}
 	return out
+}
+
+// Hash is "sha256:" and the hex SHA-256 of c's JSON encoding, which is
+// deterministic. CallMetadata.CatalogHash carries it. It fails for a
+// catalog NewClient would refuse: a non-finite price cannot be encoded.
+func (c Catalog) Hash() (string, error) {
+	if err := c.validate(); err != nil {
+		return "", err
+	}
+	data, err := json.Marshal(c)
+	if err != nil {
+		return "", err
+	}
+	sum := sha256.Sum256(data)
+	return "sha256:" + hex.EncodeToString(sum[:]), nil
+}
+
+// validate refuses a catalog whose prices could not yield a finite,
+// non-negative cost.
+func (c Catalog) validate() error {
+	for _, m := range c.Models {
+		if problem := m.Cost.problem(); problem != "" {
+			return &ConfigError{Field: "Catalog", Problem: "model " + m.ID + ": " + problem}
+		}
+	}
+	return nil
 }
 
 func (c Catalog) lookup(provider ProviderID, api API, id string) (Model, bool) {

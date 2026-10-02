@@ -45,8 +45,9 @@ func primaryBinding(k tenantKey, providerURL string) ai.Binding {
 		CredentialRef:  "cred-" + k.tenant,
 		// gpt-legacy-x is allowed but absent from the catalog; gpt-4.1 is in
 		// the catalog but not allowed. Neither may be called. gpt-4 is the
-		// text-only model; the gpt-5 family are reasoning models.
-		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x", "gpt-5", "gpt-5.1", "gpt-5.2", "gpt-5-pro"},
+		// text-only model; the gpt-5 family are reasoning models, gpt-5.5-pro
+		// the one with tiered prices.
+		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x", "gpt-5", "gpt-5-mini", "gpt-5.1", "gpt-5.2", "gpt-5-pro", "gpt-5.5-pro"},
 	}
 }
 

@@ -167,33 +167,70 @@ type BudgetResult struct {
 // They have no wire effect on the protocols in the oracle yet, so they are
 // compared directly rather than through a request.
 func (o *Oracle) ThinkingBudgets(ctx context.Context, cases []BudgetCase) ([]BudgetResult, error) {
-	input, err := json.Marshal(map[string]any{"entry": "thinkingBudgets", "cases": cases})
+	var out struct {
+		Results []BudgetResult `json:"results"`
+	}
+	err := o.direct(ctx, map[string]any{"entry": "thinkingBudgets", "cases": cases}, &out)
+	return out.Results, err
+}
+
+// CostCase is one input of pi's calculateCost: a model's cost entry and a
+// usage without cost, both as pi-shaped JSON.
+type CostCase struct {
+	Cost  json.RawMessage `json:"cost"`
+	Usage json.RawMessage `json:"usage"`
+}
+
+// CostResults are pi's cost objects, one per CostCase, and the cost entry
+// of each requested model of pi's OpenAI Responses catalog (null when pi
+// does not list it).
+type CostResults struct {
+	Results []json.RawMessage          `json:"results"`
+	Models  map[string]json.RawMessage `json:"models"`
+}
+
+// Costs evaluates pi's calculateCost for each case and reports the frozen
+// prices of models. One-hour cache writes and several tiers have no
+// Responses wire path yet, so the rule is compared directly.
+func (o *Oracle) Costs(ctx context.Context, cases []CostCase, models []string) (CostResults, error) {
+	var out CostResults
+	err := o.direct(ctx, map[string]any{"entry": "costs", "cases": cases, "models": models}, &out)
+	return out, err
+}
+
+// direct runs one of the runner's direct entries, which evaluate a pi rule
+// without a provider, and decodes its output into out. Like Run, it uses an
+// empty environment and refuses a copy that does not match the provenance.
+func (o *Oracle) direct(ctx context.Context, input, out any) error {
+	data, err := json.Marshal(input)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	cmd := exec.CommandContext(ctx, o.node, "runner.mjs")
 	cmd.Dir = o.dir
 	cmd.Env = []string{}
-	cmd.Stdin = bytes.NewReader(input)
+	cmd.Stdin = bytes.NewReader(data)
 	var stdout, stderr bytes.Buffer
 	cmd.Stdout, cmd.Stderr = &stdout, &stderr
 	if err := cmd.Run(); err != nil {
-		return nil, fmt.Errorf("pioracle: runner failed: %w: %s", err, strings.TrimSpace(stderr.String()))
+		return fmt.Errorf("pioracle: runner failed: %w: %s", err, strings.TrimSpace(stderr.String()))
 	}
-	var out struct {
+	var header struct {
 		Pi struct {
 			Version         string `json:"version"`
 			ModelDataSHA256 string `json:"modelDataSha256"`
 		} `json:"pi"`
-		Results []BudgetResult `json:"results"`
 	}
-	if err := json.Unmarshal(stdout.Bytes(), &out); err != nil {
-		return nil, fmt.Errorf("pioracle: runner output: %w", err)
+	if err := json.Unmarshal(stdout.Bytes(), &header); err != nil {
+		return fmt.Errorf("pioracle: runner output: %w", err)
 	}
-	if out.Pi.Version != o.prov.PiVersion || out.Pi.ModelDataSHA256 != o.prov.ModelDataSHA256 {
-		return nil, fmt.Errorf("pioracle: installed pi-ai %s does not match provenance %s", out.Pi.Version, o.prov.PiVersion)
+	if header.Pi.Version != o.prov.PiVersion || header.Pi.ModelDataSHA256 != o.prov.ModelDataSHA256 {
+		return fmt.Errorf("pioracle: installed pi-ai %s does not match provenance %s", header.Pi.Version, o.prov.PiVersion)
 	}
-	return out.Results, nil
+	if err := json.Unmarshal(stdout.Bytes(), out); err != nil {
+		return fmt.Errorf("pioracle: runner output: %w", err)
+	}
+	return nil
 }
 
 func lockedVersions(lockfile string, names ...string) (map[string]string, error) {

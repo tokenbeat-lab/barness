@@ -122,7 +122,7 @@
         ]},
       "expect": {"stopReason": "length", "partial": true, "rawStopReason": "incomplete.max_output_tokens",
         "content": ["text:Hello, |{\"v\":1,\"id\":\"msg_002\"}"], "responseId": "resp_002",
-        "usage": {"input": 16, "output": 2, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 22},
+        "usage": {"input": 16, "output": 2, "cacheRead": 4, "cacheWrite": 0, "reasoning": 0, "totalTokens": 22, "cost": {"input": 0.0000064000000000000006, "output": 0.0000032000000000000003, "cacheRead": 4.0000000000000003e-7, "cacheWrite": 0, "total": 0.00001}},
         "events": ["text_end#0:Hello, ", "done:length"]}
     },
     {
@@ -132,7 +132,7 @@
       "expect": {"stopReason": "error", "code": "upstream_error", "phase": "stream", "partial": true, "rawStopReason": "incomplete.content_filter",
         "errorMessage": "Response incomplete: content_filter",
         "content": ["text:Hello, "], "responseId": "resp_002",
-        "usage": {"input": 20, "output": 2, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 22},
+        "usage": {"input": 20, "output": 2, "cacheRead": 0, "cacheWrite": 0, "reasoning": 0, "totalTokens": 22, "cost": {"input": 0.000008000000000000001, "output": 0.0000032000000000000003, "cacheRead": 0, "cacheWrite": 0, "total": 0.000011200000000000001}},
         "events": ["error:error"]}
     },
     {
@@ -142,7 +142,7 @@
       "expect": {"stopReason": "error", "code": "protocol", "phase": "stream", "partial": true, "rawStopReason": "paused",
         "errorMessage": "Unhandled stop reason: paused",
         "content": ["text:Hello, "], "responseId": "resp_002",
-        "usage": {"input": 20, "output": 2, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 22},
+        "usage": {"input": 20, "output": 2, "cacheRead": 0, "cacheWrite": 0, "reasoning": 0, "totalTokens": 22, "cost": {"input": 0.000008000000000000001, "output": 0.0000032000000000000003, "cacheRead": 0, "cacheWrite": 0, "total": 0.000011200000000000001}},
         "events": ["error:error"]}
     },
     {
@@ -180,7 +180,7 @@
       "expect": {"stopReason": "error", "code": "transport", "phase": "stream", "partial": true, "rawStopReason": "completed",
         "errorMessage": "Connection lost while reading the OpenAI Responses stream",
         "content": ["text:Hello, |{\"v\":1,\"id\":\"msg_002\"}"], "responseId": "resp_002",
-        "usage": {"input": 16, "output": 2, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 22},
+        "usage": {"input": 16, "output": 2, "cacheRead": 4, "cacheWrite": 0, "reasoning": 0, "totalTokens": 22, "cost": {"input": 0.0000064000000000000006, "output": 0.0000032000000000000003, "cacheRead": 4.0000000000000003e-7, "cacheWrite": 0, "total": 0.00001}},
         "events": ["text_end#0:Hello, ", "error:error"]}
     },
     {

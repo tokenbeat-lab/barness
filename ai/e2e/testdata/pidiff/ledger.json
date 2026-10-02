@@ -104,6 +104,19 @@
     },
     {
       "protocol": "openai-responses",
+      "path": "result.usage.reasoning",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P01-E08-frame-over-limit-stream",
+        "PIDIFF-P01-E08-output-over-limit-stream",
+        "PIDIFF-P01-E08-tool-json-over-limit-stream"
+      ],
+      "classification": "extension",
+      "decision": "Resource-limit extension (spec I9, D1/ADR-0002): pi has no byte limits and reads the stream to its terminal. With the scenario one byte over MaxFrameBytes, MaxOutputBytes or MaxToolJSONBytes, barness stops reading at the limit and ends the call with StopReason error and a resource_limit error (phase stream): its terminal event is error instead of done, the result has an errorMessage, no rawStopReason, and only the usage and content received before the limit. At the boundary the same cases match pi (PIDIFF-P01-E08-*-at-limit-stream). Asserted on all four entries by the offline E2E TestByteLimits.",
+      "ref": "spec I9; ADR-0002; ADR-0007; issues/12; ai/e2e/byte_limits_test.go TestByteLimits"
+    },
+    {
+      "protocol": "openai-responses",
       "path": "events[*].contentIndex",
       "kind": "only_pi",
       "cases": [
@@ -380,11 +393,19 @@
     },
     {
       "protocol": "openai-responses",
+      "path": "events[*].partial.usage.reasoning",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot. Both sides serialize it when the consumer receives the event; pi's single-threaded runner happens to reach every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold the terminal usage, whose reasoning count pi adds only once usage was reported (issue 15). Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract (one shared view, never behind the event being read, synchronized snapshots, settles on the final message) is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; ai/e2e/stream_lifecycle_test.go; issues/15"
+    },
+    {
+      "protocol": "openai-responses",
       "path": "events[*].partial.usage.cost",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Same as result.usage.cost, on the live partial.",
-      "ref": "issues/15"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-02 (issue 15): same as result.usage.cost, on the live partial.",
+      "ref": "issues/15; ai/e2e/usage_test.go TestUsageAndCost"
     },
     {
       "protocol": "openai-responses",
@@ -406,49 +427,49 @@
       "protocol": "openai-responses",
       "path": "result.usage.cost",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Cost estimation from the frozen catalog pricing is not implemented.",
-      "ref": "issues/15"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-02 (issue 15): Usage.Cost is pi's calculateCost over the catalog's frozen prices (tiers, cache reads/writes, one-hour writes) with the Responses service-tier adjustment, computed at the completed/incomplete terminal as in pi; zero otherwise. Was: barness had no cost.",
+      "ref": "issues/15; ai/e2e/usage_test.go TestUsageAndCost"
     },
     {
       "protocol": "openai-responses",
       "path": "events[*].message.usage.cost",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Same as result.usage.cost, on the terminal event's message.",
-      "ref": "issues/15"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-02 (issue 15): same as result.usage.cost, on the terminal event's message.",
+      "ref": "issues/15; ai/e2e/usage_test.go TestUsageAndCost"
     },
     {
       "protocol": "openai-responses",
       "path": "events[*].error.usage.cost",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Same as result.usage.cost, on the error event's message.",
-      "ref": "issues/15"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-02 (issue 15): same as result.usage.cost, on the error event's message.",
+      "ref": "issues/15; ai/e2e/usage_test.go TestUsageAndCost"
     },
     {
       "protocol": "openai-responses",
       "path": "result.usage.reasoning",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "pi reports reasoning tokens (output subset) in Usage; barness Usage lacks the field.",
-      "ref": "issues/15"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-02 (issue 15): Usage.Reasoning carries output_tokens_details.reasoning_tokens (0 when absent) whenever the response reported usage, as pi; it stays unset otherwise. Was: barness had no field.",
+      "ref": "issues/15; ai/e2e/usage_test.go TestUsageAndCost"
     },
     {
       "protocol": "openai-responses",
       "path": "events[*].message.usage.reasoning",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Same as result.usage.reasoning, on the terminal event's message.",
-      "ref": "issues/15"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-02 (issue 15): same as result.usage.reasoning, on the terminal event's message.",
+      "ref": "issues/15; ai/e2e/usage_test.go TestUsageAndCost"
     },
     {
       "protocol": "openai-responses",
       "path": "events[*].error.usage.reasoning",
       "kind": "only_pi",
-      "classification": "pending",
-      "decision": "Same as result.usage.reasoning, on the error event's message.",
-      "ref": "issues/15"
+      "classification": "fixed",
+      "decision": "Fixed 2026-10-02 (issue 15): same as result.usage.reasoning, on the error event's message.",
+      "ref": "issues/15; ai/e2e/usage_test.go TestUsageAndCost"
     },
     {
       "protocol": "openai-responses",
@@ -528,11 +549,12 @@
         "PIDIFF-P01-E02-disconnect-mid-stream-stream",
         "PIDIFF-P01-E02-disconnect-after-terminal-stream",
         "PIDIFF-P01-E02-tool-disconnect-mid-arguments-stream",
-        "PIDIFF-P01-E05-stream-cut-not-replayed-stream"
+        "PIDIFF-P01-E05-stream-cut-not-replayed-stream",
+        "PIDIFF-P01-E11-stream-cut-stream"
       ],
       "classification": "extension",
       "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body. That is runtime text, not pi logic. barness reports the fixed text 'Connection lost while reading the OpenAI Responses stream'. StopReason error, the kept content, usage and rawStopReason match; the Code (transport) and Phase (stream) are asserted by the offline E2E.",
-      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*; retry.json stream-cut-not-replayed (11)"
+      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*; retry.json stream-cut-not-replayed (11); usage.json stream-cut (15)"
     },
     {
       "protocol": "openai-responses",
@@ -542,11 +564,12 @@
         "PIDIFF-P01-E02-disconnect-mid-stream-stream",
         "PIDIFF-P01-E02-disconnect-after-terminal-stream",
         "PIDIFF-P01-E02-tool-disconnect-mid-arguments-stream",
-        "PIDIFF-P01-E05-stream-cut-not-replayed-stream"
+        "PIDIFF-P01-E05-stream-cut-not-replayed-stream",
+        "PIDIFF-P01-E11-stream-cut-stream"
       ],
       "classification": "extension",
       "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body. That is runtime text, not pi logic. barness reports the fixed text 'Connection lost while reading the OpenAI Responses stream'. StopReason error, the kept content, usage and rawStopReason match; the Code (transport) and Phase (stream) are asserted by the offline E2E.",
-      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*; retry.json stream-cut-not-replayed (11)"
+      "ref": "spec E02; issues/05; ai/e2e/testdata/responses/failures.json disconnect-*; retry.json stream-cut-not-replayed (11); usage.json stream-cut (15)"
     },
     {
       "protocol": "openai-responses",

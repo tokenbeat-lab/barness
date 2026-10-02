@@ -119,6 +119,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	meta.Resolved, meta.ProviderID, meta.API, meta.ModelID = true, binding.ProviderID, binding.API, model.ID
 	meta.AccountScopeID = binding.AccountScopeID
 	meta.BindingVersion, meta.CredentialVersion = binding.Version, cred.Version
+	meta.CatalogVersion, meta.CatalogHash = c.catalog.Version, c.catalogHash
 	meta.NativeStateDowngrades = downgrades
 	asm.identify(origin.envelope())
 

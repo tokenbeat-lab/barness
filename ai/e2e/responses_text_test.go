@@ -120,11 +120,17 @@ func checkMetadata(ev *evidence.Case, got ai.CallMetadata, scope ai.CallScope, f
 		// The snapshot primaryBinding and primaryCredential pin.
 		BindingVersion:    "b1",
 		CredentialVersion: "v1",
+		// Priced with the built-in catalog (E11).
+		CatalogVersion: ai.BuiltinCatalog().Version,
+		CatalogHash:    builtinCatalogHash,
 	}
-	// One successful attempt, recorded under the call's RequestID (E05).
+	// One successful attempt, recorded under the call's RequestID (E05),
+	// with the usage it reported in full (E11).
 	attempts := got.Attempts
 	ev.Check("one attempt that obtained the initial response", len(attempts) == 1 && attempts[0].HTTPStatus == 200 &&
 		attempts[0].Code == "" && strings.HasPrefix(attempts[0].AttemptID, scope.RequestID), "attempts=%+v", attempts)
+	ev.Check("the attempt records its complete usage", len(attempts) == 1 && attempts[0].UsageReporting == ai.UsageComplete &&
+		attempts[0].Usage == f.Expect.Usage, "attempts=%+v", attempts)
 	got.Attempts = nil
 	ev.Check("call metadata", reflect.DeepEqual(got, want), "got %+v\nwant %+v", got, want)
 }

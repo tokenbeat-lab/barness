@@ -73,9 +73,10 @@ type Observation struct {
 	// whole call's. It is encoded in nanoseconds.
 	Duration time.Duration `json:"duration,omitempty"`
 	// StopReason, Error and Usage are set at CallFinished only. Error is
-	// nil when the call succeeded; Usage is the message's token usage, zero
-	// when the provider reported none (telling unknown from zero is issue
-	// 15's).
+	// nil when the call succeeded; Usage is the message's, pi's numbers,
+	// zero when the provider reported none. Whether it reported, and what
+	// each attempt consumed, is in the attempt records' UsageReporting and
+	// Usage.
 	StopReason StopReason     `json:"stopReason,omitempty"`
 	Error      *ObservedError `json:"error,omitempty"`
 	Usage      Usage          `json:"usage,omitzero"`

@@ -85,6 +85,14 @@ type Attempt struct {
 	// RetryDelay is the wait planned before the next attempt; 0 when no
 	// retry followed. It is encoded in nanoseconds.
 	RetryDelay time.Duration `json:"retryDelay,omitempty"`
+	// UsageReporting is how completely the provider reported this
+	// attempt's usage; an attempt that never obtained a response is
+	// unreported. Usage is what it reported, priced: for the streamed
+	// attempt it equals the message's Usage, except that a response the
+	// provider ended as failed keeps its usage here only (pi leaves the
+	// message's zero).
+	UsageReporting UsageReporting `json:"usageReporting"`
+	Usage          Usage          `json:"usage"`
 }
 
 // Texts for a call interrupted while its initial request is in flight or
@@ -185,6 +193,7 @@ func (r *initialRequest) send(ctx context.Context, attempt func(context.Context)
 			AttemptID:         attemptID,
 			HTTPStatus:        out.status,
 			ProviderRequestID: out.providerRequestID,
+			UsageReporting:    UsageUnreported,
 		}
 		if out.failure == nil {
 			r.release, r.attemptStarted = release, started
@@ -218,6 +227,13 @@ func (r *initialRequest) send(ctx context.Context, attempt func(context.Context)
 func (r *initialRequest) failed(rec Attempt, started time.Time) {
 	r.attempts = append(r.attempts, rec)
 	r.observe.finished(rec, started)
+}
+
+// usage records what the provider reported for the attempt whose stream the
+// call reads. Adapters call it only after send succeeded.
+func (r *initialRequest) usage(reporting UsageReporting, u Usage) {
+	a := &r.attempts[len(r.attempts)-1]
+	a.UsageReporting, a.Usage = reporting, u
 }
 
 // done ends the attempt whose stream the call read, if any: it reports it

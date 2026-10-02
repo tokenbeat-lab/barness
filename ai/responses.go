@@ -99,7 +99,8 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	}
 
 	out.start()
-	failure = readResponsesStream(ctx, stream, responsesParser{out: out, failures: failures, slots: map[int64]responsesSlot{}, reasoning: map[string]int{}})
+	failure = readResponsesStream(ctx, stream, responsesParser{out: out, failures: failures, slots: map[int64]responsesSlot{}, reasoning: map[string]int{},
+		usage: responsesUsage{model: ac.model, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
 	}
@@ -170,6 +171,10 @@ type responsesParser struct {
 	// failure is a terminal status that maps to an error. As in pi, the stream
 	// is still read to its end; the failure is reported afterwards.
 	failure *Error
+	usage   responsesUsage
+	// attempt records the usage the terminal response reported for the
+	// attempt being read.
+	attempt *initialRequest
 }
 
 // responsesSlot is the open content block an output item streams into.
@@ -271,9 +276,13 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 }
 
 // failed ends the call at a response.failed terminal with pi's message. As in
-// pi, the failed response's usage and id are not taken over.
+// pi, the failed response's usage and id are not taken over by the message;
+// the usage is still recorded on its attempt, so a failure the provider
+// billed does not read as free.
 func (p *responsesParser) failed(r responses.Response) *Error {
 	p.terminal = true
+	u, reporting, _ := p.usage.of(r)
+	p.attempt.usage(reporting, u)
 	p.out.rawStopReason(string(r.Status))
 	switch {
 	case r.JSON.Error.Valid():
@@ -337,18 +346,11 @@ func (p *responsesParser) finalize(r responses.Response) *Error {
 	if r.ID != "" {
 		p.out.responseID(r.ID)
 	}
-	if r.JSON.Usage.Valid() {
-		u := r.Usage
-		cached, cacheWrite := u.InputTokensDetails.CachedTokens, u.InputTokensDetails.CacheWriteTokens
-		// OpenAI counts cached and cache-write tokens inside input_tokens.
-		p.out.usage(Usage{
-			Input:       max(0, u.InputTokens-cached-cacheWrite),
-			Output:      u.OutputTokens,
-			CacheRead:   cached,
-			CacheWrite:  cacheWrite,
-			TotalTokens: u.TotalTokens,
-		})
+	u, reporting, ok := p.usage.of(r)
+	if ok {
+		p.out.usage(u)
 	}
+	p.attempt.usage(reporting, u)
 	status, reason := string(r.Status), string(r.IncompleteDetails.Reason)
 	raw := status
 	if reason != "" {
