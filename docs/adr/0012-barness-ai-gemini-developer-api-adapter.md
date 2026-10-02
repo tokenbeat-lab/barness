@@ -1,11 +1,11 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-02
 ---
 
 # barness-ai Gemini Developer API adapter：直接 HTTP、按 @google/genai 解码，回调看到 REST 请求体
 
-工单 19 接入 Google × Gemini Developer API（P03）。spec I5 默认由 Google GenAI Go SDK（研究锁定 v1.71.0）承担 HTTP 与流解码，但要求先核查必需字段能否经公开扩展或原始响应无损保留，否则该组合改用直接 HTTP；spec I7 要求保留 onPayload、不调用 onResponse，且拒绝非默认 fetch 的基线行为不被悄悄改写。spec 没有规定回调看到的请求体形状、Google 路径的重试与超时、Gemini 的"用量完整"含义，以及哪些 pi 模型可以列入目录。本 ADR 记录实现时定下的做法，待维护者确认（见文末）。
+工单 19 接入 Google × Gemini Developer API（P03）。spec I5 默认由 Google GenAI Go SDK（研究锁定 v1.71.0）承担 HTTP 与流解码，但要求先核查必需字段能否经公开扩展或原始响应无损保留，否则该组合改用直接 HTTP；spec I7 要求保留 onPayload、不调用 onResponse，且拒绝非默认 fetch 的基线行为不被悄悄改写。spec 没有规定回调看到的请求体形状、Google 路径的重试与超时、Gemini 的"用量完整"含义，以及哪些 pi 模型可以列入目录。本 ADR 记录实现时定下的做法，维护者于 2026-10-02 确认（见文末）。
 
 ## 决策一：不用 Go SDK，直接 HTTP
 
@@ -29,7 +29,7 @@ date: 2026-10-02
 
 - 不发送 pi 的 Google SDK 运行时指纹 `x-goog-api-client`，也不发送 undici 默认的 `Accept: */*`（差分账本登记）。
 - 被头变换删除的头保持"存在但无值"，net/http 既不写出它，也不补上自己的 `Go-http-client/1.1`。
-- spec §5 写的是 Google GenAI SDK 承担 Gemini 的 HTTP 与流解码；这里按其例外条款整体改为直接 HTTP。经维护者确认后同步 spec §5（与 ADR-0011 对 Anthropic 的处理相同）。
+- spec §5 写的是 Google GenAI SDK 承担 Gemini 的 HTTP 与流解码；这里按其例外条款整体改为直接 HTTP，已经维护者确认并同步到 spec §5（与 ADR-0011 对 Anthropic 的处理相同）。
 
 ## 决策二：流按 @google/genai 2.21.0 的 processStreamResponse 解码
 
@@ -80,12 +80,12 @@ Gemini 2 不发送调用 id。pi 为缺 id 或与已有 id 重复的调用生成
 
 `GeminiOptions` 对应 pi 的 `GoogleOptions`，去掉传输、凭据、头、回调、重试与 fetch：`Temperature`、`MaxTokens`（null 与未设置一样不发送，SDK 丢弃 null 配置字段；0 照发）、`ToolChoice`（auto/none/any，仅在声明了工具时发送）、`Thinking`（`Enabled`、`BudgetTokens`、`Level`）。`Level` 一旦出现（null 也算）就走等级分支，null 时既不发等级也不发预算；`BudgetTokens` 为 null 时按 pi 原样发送 `null`。pi 会静默丢弃不认识的等级，barness 拒绝（invalid_request）；预算允许 -1（动态）。pi 的 Google 路径忽略的 cacheRetention、sessionId、metadata、timeoutMs、samplingParams 没有字段，simple 入口的同名字段同样不产生请求字段。simple 入口遇到模型等级映射到非 Gemini 等级时，pi 在 `streamSimple` 中同步抛错，barness 以 invalid_request（能力阶段）结束。
 
-## 待维护者确认
+## 维护者决定（2026-10-02）
 
-1. 决策一：Gemini 整体直接 HTTP（spec §5 措辞的例外），确认后同步 spec §5。
-2. 决策三：Google 路径不重试无响应的尝试（含策略时限到期），不看 `x-should-retry` 与 `retry-after`；没有协议 timeoutMs。
-3. 决策四：onPayload 看到 REST 请求体而非 pi 的 SDK 参数；授权拒绝的字段与种类。
-4. 决策六：完整性的三个计数。
-5. 决策八：不列入的五个模型。
+1. 决策一：采纳。Google × Gemini Developer API 整体直接 HTTP，spec §5 已同步。
+2. 决策三：采纳。Google 路径只按 HTTP 状态重试，不看 `x-should-retry` 与 `retry-after`，不重试无响应的尝试（含策略时限到期）；没有协议 timeoutMs。
+3. 决策四：采纳。onPayload 看到 REST 请求体；拒绝 `cachedContent`、`mcpServers`、`fileSearch` 与 `fileData`，其他托管工具种类须由 binding 的 `AllowedHostedTools` 放行。spec §7 已同步。
+4. 决策六：按现有实现（`promptTokenCount`、`candidatesTokenCount`、`totalTokenCount` 定义完整性）。
+5. 决策八：不列入的五个模型维持不列入。
 
 差分中只在 Gemini 出现的差异（`x-goog-api-client` 与 `Accept` 头、运行时错误文本、未担保原生状态降级）登记在 `ai/e2e/testdata/pidiff/ledger.json`。
