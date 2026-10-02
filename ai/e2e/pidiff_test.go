@@ -28,7 +28,12 @@ import (
 // Without it the cases are recorded NOT_RUN, never PASS.
 func TestPiDifferential(t *testing.T) {
 	ledger := loadLedger(t)
-	t.Run(string(ai.APIAnthropicMessages), func(t *testing.T) { anthropicPiDifferential(t, ledger) })
+	t.Run(string(ai.APIAnthropicMessages), func(t *testing.T) {
+		scenarioPiDifferential(t, ledger, anthropicProtocol, "P02", anthropicFixtureFiles)
+	})
+	t.Run(string(ai.APIGoogleGenerativeAI), func(t *testing.T) {
+		scenarioPiDifferential(t, ledger, geminiProtocol, "P03", geminiFixtureFiles)
+	})
 	t.Run(string(ai.APIOpenAIResponses), func(t *testing.T) {
 		for _, scenario := range []string{"text", "interleaved", "tool-call", "tool-results", "reasoning-call", "reasoning-replay", "reasoning-cross-model"} {
 			for _, entry := range []string{"stream", "streamSimple"} {
@@ -365,10 +370,15 @@ type pidiffProtocol struct {
 }
 
 func pidiffProtocolOf(api ai.API) pidiffProtocol {
-	if api == ai.APIAnthropicMessages {
+	switch api {
+	case ai.APIAnthropicMessages:
 		// pi's Anthropic baseUrl has no /v1; the SDK adds /v1/messages.
 		return pidiffProtocol{api: api, provider: ai.ProviderAnthropic, binding: "claude", key: anthropicA,
 			endpoint: func(v1 string) string { return strings.TrimSuffix(v1, "/v1") }}
+	case ai.APIGoogleGenerativeAI:
+		// pi's Google baseUrl carries the API version, as the binding's does.
+		return pidiffProtocol{api: api, provider: ai.ProviderGoogle, binding: "gemini", key: googleA,
+			endpoint: func(v1 string) string { return strings.TrimSuffix(v1, "/v1") + "/v1beta" }}
 	}
 	return pidiffProtocol{api: ai.APIOpenAIResponses, provider: ai.ProviderOpenAI, binding: "primary", key: tenantA,
 		endpoint: func(v1 string) string { return v1 }}

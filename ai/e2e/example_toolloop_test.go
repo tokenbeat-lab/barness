@@ -46,12 +46,12 @@ func TestToolLoopExample(t *testing.T) {
 
 	t.Run("anthropic", func(t *testing.T) {
 		ev := run.Case(t, "P02-E10-example-tool-loop")
-		tf, traw := loadAnthropicFixture(t, "text.json")
-		hf, hraw := loadAnthropicFixture(t, "history.json")
+		tf, traw := loadFixture(t, anthropicProtocol, "text.json")
+		hf, hraw := loadFixture(t, anthropicProtocol, "history.json")
 		ev.Fixture("text.json", traw)
 		ev.Fixture("history.json", hraw)
-		first, answer := anthropicScenarioByID(t, tf, "interleaved"), anthropicScenarioByID(t, hf, "tool-round-trip")
-		w := anthropicWorld(t, first)
+		first, answer := scenarioByID(t, tf, "interleaved"), scenarioByID(t, hf, "tool-round-trip")
+		w := scenarioWorld(t, first)
 		enqueue(ev, w, first.replies(t)...)
 		enqueue(ev, w, answer.replies(t)...)
 		ran := &toolRuns{}

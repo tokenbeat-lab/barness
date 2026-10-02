@@ -46,7 +46,8 @@
 // the vendor account. At capacity an attempt is refused or waits a bounded,
 // cancelable time. A call ends at the earliest of the host's deadline, the
 // policy's CallTimeout and, per attempt, the connect, response header, read
-// idle and protocol (timeoutMs) limits, as CodeDeadlineExceeded. Closing a
+// idle and protocol (timeoutMs) limits, as CodeDeadlineExceeded; the Gemini
+// Developer API has no protocol timeout, as in pi (ADR-0012). Closing a
 // Stream or canceling its context ends the call's I/O and returns its
 // permits; nothing depends on reading further events.
 //

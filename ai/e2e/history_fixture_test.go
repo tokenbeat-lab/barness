@@ -119,10 +119,13 @@ func decodeStoredMessage(t *testing.T, raw json.RawMessage, k tenantKey) ai.Mess
 		}
 		if head.Trusted {
 			// The host vouches with the account of the binding that served
-			// the message: the tenant's OpenAI or Anthropic account.
+			// the message: the tenant's OpenAI, Anthropic or Google account.
 			account := primaryCredential(k, "v1").AccountScopeID
-			if m.Provider == ai.ProviderAnthropic {
+			switch m.Provider {
+			case ai.ProviderAnthropic:
 				account = anthropicCredential(k).AccountScopeID
+			case ai.ProviderGoogle:
+				account = geminiCredential(k).AccountScopeID
 			}
 			env := ai.NativeStateEnvelope{TenantID: k.tenant, AccountScopeID: account,
 				ProviderID: m.Provider, API: m.API, ModelID: m.Model}

@@ -235,7 +235,8 @@ func takeBetas(body []byte) ([]byte, string, *Error) {
 // anthropicHTTPError is the Anthropic TypeScript SDK's APIError message for
 // a non-2xx response, which pi reports as is: the status and the parsed
 // body's message, else the body as JSON, else its text.
-func anthropicHTTPError(status int, body []byte) (msg, sdk string) {
+func anthropicHTTPError(res *http.Response, body []byte) (msg, sdk string) {
+	status := res.StatusCode
 	var parsed any
 	var text string
 	if json.Unmarshal(body, &parsed) == nil && jsTruthy(parsed) {

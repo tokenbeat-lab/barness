@@ -60,6 +60,17 @@ type Diff struct {
 // join this list explicitly when a case first produces one client-side.
 var timePaths = regexp.MustCompile(`^(result|events\[\d+\]\.(message|error|partial))\.timestamp$`)
 
+// toolCallIDPaths are the tool call ids of a message or a toolcall_end
+// event. pi generates one client-side for a Gemini call that arrives
+// without an id, "<name>_<epoch ms>_<counter>" (google-generative-ai), and
+// barness generates the same form. Only values of that form are mapped,
+// one-to-one in first-appearance order like times; an id the provider sent
+// is compared as is.
+var (
+	toolCallIDPaths = regexp.MustCompile(`^((result|events\[\d+\]\.(message|error|partial))\.content\[\d+\]|events\[\d+\]\.toolCall)\.id$`)
+	generatedID     = regexp.MustCompile(`_\d{13}_\d+$`)
+)
+
 // Compare reports every difference between pi's and barness's observations in
 // a fixed order: request (method, path, query, auth, headers, body), events,
 // result. Only JSON object keys are put in semantic order; arrays and events
@@ -121,9 +132,9 @@ func sections(o Observation) ([]section, error) {
 		{"events", events},
 		{"result", result},
 	}
-	times := map[string]int{}
+	g := generated{times: map[string]int{}, ids: map[string]int{}}
 	for i := range out {
-		out[i].value = mapTimes(out[i].path, out[i].value, times)
+		out[i].value = g.mapValues(out[i].path, out[i].value)
 	}
 	return out, nil
 }
@@ -149,25 +160,46 @@ func (t timeToken) MarshalJSON() ([]byte, error) {
 	return json.Marshal(fmt.Sprintf("<time#%d>", int(t)))
 }
 
-func mapTimes(path string, v any, seen map[string]int) any {
+// idToken is a mapped generated tool call id, distinct like timeToken.
+type idToken int
+
+func (t idToken) MarshalJSON() ([]byte, error) {
+	return json.Marshal(fmt.Sprintf("<generated-id#%d>", int(t)))
+}
+
+// generated maps an observation's generated values to ordinal tokens:
+// times (timePaths) and generated tool call ids (toolCallIDPaths).
+type generated struct {
+	times, ids map[string]int
+}
+
+func (g generated) mapValues(path string, v any) any {
 	switch v := v.(type) {
 	case map[string]any:
 		for _, k := range sortedKeys(v) {
-			v[k] = mapTimes(path+"."+k, v[k], seen)
+			v[k] = g.mapValues(path+"."+k, v[k])
 		}
 	case []any:
 		for i := range v {
-			v[i] = mapTimes(fmt.Sprintf("%s[%d]", path, i), v[i], seen)
+			v[i] = g.mapValues(fmt.Sprintf("%s[%d]", path, i), v[i])
 		}
 	case json.Number:
 		if !timePaths.MatchString(path) {
 			return v
 		}
 		key := canonicalNumber(v)
-		if _, ok := seen[key]; !ok {
-			seen[key] = len(seen) + 1
+		if _, ok := g.times[key]; !ok {
+			g.times[key] = len(g.times) + 1
 		}
-		return timeToken(seen[key])
+		return timeToken(g.times[key])
+	case string:
+		if !toolCallIDPaths.MatchString(path) || !generatedID.MatchString(v) {
+			return v
+		}
+		if _, ok := g.ids[v]; !ok {
+			g.ids[v] = len(g.ids) + 1
+		}
+		return idToken(g.ids[v])
 	}
 	return v
 }

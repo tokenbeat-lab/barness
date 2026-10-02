@@ -67,9 +67,10 @@ type Request struct {
 	Method string `json:"method"`
 	Path   string `json:"path"`
 	Query  string `json:"query"`
-	// KeyAlias is the alias of the key received, as a bearer token or an
-	// x-api-key header (Anthropic); "<none>" when absent and "<unknown>" when
-	// the key is not one the test registered.
+	// KeyAlias is the alias of the key received, as a bearer token, an
+	// x-api-key header (Anthropic) or an x-goog-api-key header (Gemini);
+	// "<none>" when absent and "<unknown>" when the key is not one the test
+	// registered.
 	KeyAlias string            `json:"key_alias"`
 	Header   map[string]string `json:"header"`
 	Body     json.RawMessage   `json:"body"`
@@ -241,12 +242,15 @@ func (s *Server) hold(r *http.Request) {
 }
 
 // requestKeyAlias is the alias of the request's credential: its bearer
-// token, else its x-api-key.
+// token, else its x-api-key, else its x-goog-api-key.
 func (s *Server) requestKeyAlias(h http.Header) string {
 	if key, ok := strings.CutPrefix(h.Get("Authorization"), "Bearer "); ok && key != "" {
 		return s.alias(key)
 	}
 	if key := h.Get("X-Api-Key"); key != "" {
+		return s.alias(key)
+	}
+	if key := h.Get("X-Goog-Api-Key"); key != "" {
 		return s.alias(key)
 	}
 	return "<none>"
@@ -280,7 +284,7 @@ func (s *Server) redactHeaders(h http.Header) map[string]string {
 		switch {
 		case strings.EqualFold(k, "Authorization"):
 			v = "Bearer " + s.keyAlias(v)
-		case strings.EqualFold(k, "X-Api-Key"):
+		case strings.EqualFold(k, "X-Api-Key"), strings.EqualFold(k, "X-Goog-Api-Key"):
 			v = s.alias(v)
 		}
 		out[k] = v

@@ -13,11 +13,11 @@ import (
 // initial request (testdata/anthropic/retry.json).
 func TestAnthropicUsageAndRetry(t *testing.T) {
 	for _, file := range []string{"usage.json", "retry.json"} {
-		f, raw := loadAnthropicFixture(t, file)
+		f, raw := loadFixture(t, anthropicProtocol, file)
 		for _, sc := range f.Scenarios {
 			t.Run(sc.ID, func(t *testing.T) {
 				ev := run.Case(t, "P02-"+sc.ID)
-				runAnthropic(t, ev, sc, raw, modeStream)
+				runScenario(t, ev, sc, raw, modeStream)
 			})
 		}
 	}
@@ -26,11 +26,11 @@ func TestAnthropicUsageAndRetry(t *testing.T) {
 	// the streamed one its usage; the payload callback ran once, outside the
 	// retry, and the SDK retried nothing on its own.
 	t.Run("attempts-and-payload-once", func(t *testing.T) {
-		f, raw := loadAnthropicFixture(t, "retry.json")
-		sc := anthropicScenarioByID(t, f, "retry-429-then-success")
+		f, raw := loadFixture(t, anthropicProtocol, "retry.json")
+		sc := scenarioByID(t, f, "retry-429-then-success")
 		ev := run.Case(t, "P02-E05-attempts-and-payload-once")
 		ev.Fixture("fixture.json", raw)
-		w := anthropicWorld(t, sc)
+		w := scenarioWorld(t, sc)
 		enqueue(ev, w, sc.replies(t)...)
 		payloads := 0
 		hooks := ai.Hooks{OnPayload: func(context.Context, ai.CallScope, *ai.Payload) (ai.PayloadDecision, error) {

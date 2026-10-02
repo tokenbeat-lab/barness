@@ -53,10 +53,15 @@ var isolationScenarios = []isolationScenario{
 		aReplies: func(_ *testing.T, _ isolationFixture, p isolationProtocol) []provider.Reply {
 			return []provider.Reply{p.script(tenantA).Unauthorized.reply()}
 		},
-		checkA: func(ev *evidence.Case, _ isolationProtocol, o outcome) {
+		checkA: func(ev *evidence.Case, p isolationProtocol, o outcome) {
 			checkAEnded(ev, o, ai.StopReasonError, ai.CodeUpstreamAuth, ai.PhaseRequest)
+			// Gemini sends no vendor request id header.
+			requestID := "req_alpha_401"
+			if p.gemini() {
+				requestID = ""
+			}
 			var e *ai.Error
-			ev.Check("A's error is its own provider's 401", errors.As(o.err, &e) && e.HTTPStatus == 401 && e.ProviderRequestID == "req_alpha_401",
+			ev.Check("A's error is its own provider's 401", errors.As(o.err, &e) && e.HTTPStatus == 401 && e.ProviderRequestID == requestID,
 				"got %+v", e)
 		},
 	},
@@ -84,7 +89,7 @@ var isolationScenarios = []isolationScenario{
 	{
 		name: "a-retried", aAttempts: 2,
 		arrange: func(iw isolationWorld) {
-			for _, id := range []string{"primary", "claude"} {
+			for _, id := range []string{"primary", "claude", "gemini"} {
 				b := iw.host.Binding(tenantA.tenant, id)
 				b.Retry = ai.RetryPolicy{MaxRetries: 1}
 				iw.host.PutBinding(b)
@@ -101,6 +106,7 @@ var isolationScenarios = []isolationScenario{
 		arrange: func(iw isolationWorld) {
 			iw.host.DeleteCredential(tenantA.tenant, "cred-"+tenantA.tenant)
 			iw.host.DeleteCredential(tenantA.tenant, "cred-"+tenantA.tenant+"-anthropic")
+			iw.host.DeleteCredential(tenantA.tenant, "cred-"+tenantA.tenant+"-google")
 		},
 		checkA: func(ev *evidence.Case, _ isolationProtocol, o outcome) {
 			checkRejected(ev, o, ai.CodeCredentialUnavailable, ai.PhaseCredential)
@@ -111,14 +117,15 @@ var isolationScenarios = []isolationScenario{
 
 // TestTenantIsolation is E06 (spec T03, T05, T06, T08; User Stories 5, 30):
 // tenants A and B call same-named bindings and the same model with, on
-// every entry that takes one, the same session id (Anthropic's full options
-// have none), on one Client and one transport, each binding pointing at its
+// every entry that takes one, the same session id (Anthropic's and Gemini's
+// full options have none), on one Client and one transport, each binding pointing at its
 // tenant's own endpoint. Provider and
 // transport barriers force the calls to interleave: frame by frame when
 // both succeed, or with B held mid-stream across the whole of A's call
 // while A is refused (401), canceled (while streaming, or as its response
 // arrives), timed out by its own timeoutMs, retried or left without a
-// credential. On Responses and Anthropic Messages, through every entry
+// credential. On Responses, Anthropic Messages and the Gemini Developer API
+// (which has no timeoutMs to time A out with), through every entry
 // point:
 //
 //   - each endpoint receives only its tenant's key, exactly what that
@@ -137,6 +144,12 @@ func TestTenantIsolation(t *testing.T) {
 	f, raw := loadIsolationFixture(t)
 	for _, p := range f.Protocols {
 		for _, sc := range isolationScenarios {
+			if sc.aTimeoutMs != 0 && !p.protocolTimeout() {
+				// A's own timeoutMs cannot end A's call on a protocol
+				// without one (TestGeminiTimeouts asserts it bounds
+				// nothing there).
+				continue
+			}
 			for _, e := range isolationEntries {
 				t.Run(p.ID+"/"+sc.name+"/"+e.name, func(t *testing.T) {
 					ev := run.Case(t, "E06-"+p.ID+"-"+sc.name+"-"+e.name)
@@ -292,7 +305,7 @@ func checkWire(ev *evidence.Case, iw isolationWorld, p isolationProtocol, sc iso
 				r.KeyAlias == p.key(c.k).alias && r.Path == p.path(c.k), "got %s with %q", r.Path, r.KeyAlias)
 		}
 	}
-	if p.anthropic() || len(a) == 0 {
+	if p.anthropic() || p.gemini() || len(a) == 0 {
 		return
 	}
 	keyA, keyB := promptCacheKey(ev, a[0]), promptCacheKey(ev, b[0])

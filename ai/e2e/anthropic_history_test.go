@@ -12,22 +12,22 @@ import (
 // round trip in which the host validates the model's call, executes it and
 // passes the first call's message straight into the second call.
 func TestAnthropicHistory(t *testing.T) {
-	f, raw := loadAnthropicFixture(t, "history.json")
+	f, raw := loadFixture(t, anthropicProtocol, "history.json")
 	for _, sc := range f.Scenarios {
 		t.Run(sc.ID, func(t *testing.T) {
 			ev := run.Case(t, "P02-E03-"+sc.ID)
-			runAnthropic(t, ev, sc, raw, modeStream)
+			runScenario(t, ev, sc, raw, modeStream)
 		})
 	}
 
 	t.Run("live-tool-round-trip", func(t *testing.T) {
 		ev := run.Case(t, "P02-E03-live-tool-round-trip")
-		tf, traw := loadAnthropicFixture(t, "text.json")
-		first := anthropicScenarioByID(t, tf, "interleaved")
-		answer := anthropicScenarioByID(t, f, "tool-round-trip")
+		tf, traw := loadFixture(t, anthropicProtocol, "text.json")
+		first := scenarioByID(t, tf, "interleaved")
+		answer := scenarioByID(t, f, "tool-round-trip")
 		ev.Fixture("text.json", traw)
 		ev.Fixture("history.json", raw)
-		w := anthropicWorld(t, first)
+		w := scenarioWorld(t, first)
 		enqueue(ev, w, first.replies(t)...)
 		enqueue(ev, w, answer.replies(t)...)
 

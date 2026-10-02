@@ -165,7 +165,10 @@ func localProvider(t *testing.T) *provider.Server {
 func localConfig(p isolationProtocol, providerURL string) localassembly.Config {
 	b := ai.Binding{BindingID: p.BindingID, ProviderID: p.provider(), API: p.api(), Endpoint: providerURL + "/local",
 		AccountScopeID: "acct-local", AllowedModels: []string{p.Model}}
-	if !p.anthropic() {
+	switch {
+	case p.gemini():
+		b.Endpoint += "/v1beta"
+	case !p.anthropic():
 		b.Endpoint += "/v1"
 	}
 	return localassembly.Config{TenantID: "local", Binding: b,
@@ -173,8 +176,11 @@ func localConfig(p isolationProtocol, providerURL string) localassembly.Config {
 }
 
 func localPath(p isolationProtocol) string {
-	if p.anthropic() {
+	switch {
+	case p.anthropic():
 		return "/local/v1/messages"
+	case p.gemini():
+		return "/local/v1beta/models/" + p.Model + ":streamGenerateContent"
 	}
 	return "/local/v1/responses"
 }

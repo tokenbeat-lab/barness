@@ -35,6 +35,8 @@ const (
 	ProviderOpenAI ProviderID = "openai"
 	// ProviderAnthropic is Anthropic.
 	ProviderAnthropic ProviderID = "anthropic"
+	// ProviderGoogle is Google, through the Gemini Developer API.
+	ProviderGoogle ProviderID = "google"
 )
 
 // API identifies a wire protocol. Values match the frozen pi-ai API names.
@@ -45,6 +47,9 @@ const (
 	APIOpenAIResponses API = "openai-responses"
 	// APIAnthropicMessages is the Anthropic Messages protocol.
 	APIAnthropicMessages API = "anthropic-messages"
+	// APIGoogleGenerativeAI is the Gemini Developer API's generateContent
+	// protocol (pi-ai's google-generative-ai), not Vertex AI.
+	APIGoogleGenerativeAI API = "google-generative-ai"
 )
 
 // AuthKind is how a binding authenticates. The first phase supports API keys only.

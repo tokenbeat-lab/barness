@@ -29,9 +29,14 @@ var (
 	anthropicA = tenantKey{tenant: "tenant-a", secret: "sk-ant-test-tenant-a-0001", alias: "key:tenant-a-anthropic@v1"}
 	anthropicB = tenantKey{tenant: "tenant-b", secret: "sk-ant-test-tenant-b-0001", alias: "key:tenant-b-anthropic@v1"}
 
+	// googleA and googleB are each tenant's Gemini Developer API key, on
+	// its own Google project, shaped like a real Google API key.
+	googleA = tenantKey{tenant: "tenant-a", secret: "AIzaSyTestTenantA0001geminiKey000000000", alias: "key:tenant-a-google@v1"}
+	googleB = tenantKey{tenant: "tenant-b", secret: "AIzaSyTestTenantB0001geminiKey000000000", alias: "key:tenant-b-google@v1"}
+
 	// knownKeys are every key a scenario may install; the Provider reports
 	// each by alias and the evidence bundle redacts each.
-	knownKeys = []tenantKey{tenantA, tenantA2, tenantB, anthropicA, anthropicB}
+	knownKeys = []tenantKey{tenantA, tenantA2, tenantB, anthropicA, anthropicB, googleA, googleB}
 )
 
 // anthropicKey is tenant k's Anthropic key.
@@ -42,12 +47,20 @@ func anthropicKey(k tenantKey) tenantKey {
 	return anthropicA
 }
 
-// anthropicModelIDs are the built-in Anthropic models, all allowed on the
-// "claude" binding.
-func anthropicModelIDs() []string {
+// googleKey is tenant k's Gemini key.
+func googleKey(k tenantKey) tenantKey {
+	if k.tenant == googleB.tenant {
+		return googleB
+	}
+	return googleA
+}
+
+// builtinModelIDs are the built-in models of api, all allowed on its
+// binding.
+func builtinModelIDs(api ai.API) []string {
 	var ids []string
 	for _, m := range ai.BuiltinCatalog().Models {
-		if m.API == ai.APIAnthropicMessages {
+		if m.API == api {
 			ids = append(ids, m.ID)
 		}
 	}
@@ -68,7 +81,39 @@ func anthropicBinding(k tenantKey, providerURL string) ai.Binding {
 		AuthKind:       ai.AuthAPIKey,
 		AccountScopeID: "acct-" + k.tenant + "-anthropic",
 		CredentialRef:  "cred-" + k.tenant + "-anthropic",
-		AllowedModels:  anthropicModelIDs(),
+		AllowedModels:  builtinModelIDs(ai.APIAnthropicMessages),
+	}
+}
+
+// geminiBinding is k's tenant's "gemini" binding at version b1: the Gemini
+// Developer API at the world's Provider (its version path, as the vendor's
+// base URL carries it), on the tenant's Google project.
+func geminiBinding(k tenantKey, providerURL string) ai.Binding {
+	return ai.Binding{
+		TenantID:       k.tenant,
+		BindingID:      "gemini",
+		Version:        "b1",
+		Enabled:        true,
+		ProviderID:     ai.ProviderGoogle,
+		API:            ai.APIGoogleGenerativeAI,
+		Endpoint:       providerURL + "/v1beta",
+		AuthKind:       ai.AuthAPIKey,
+		AccountScopeID: "acct-" + k.tenant + "-google",
+		CredentialRef:  "cred-" + k.tenant + "-google",
+		AllowedModels:  builtinModelIDs(ai.APIGoogleGenerativeAI),
+	}
+}
+
+// geminiCredential is the active credential snapshot holding k's Gemini
+// key, referenced by geminiBinding.
+func geminiCredential(k tenantKey) ai.Credential {
+	return ai.Credential{
+		OwnerTenantID:  k.tenant,
+		CredentialID:   "cred-" + k.tenant + "-google",
+		Version:        "v1",
+		AccountScopeID: "acct-" + k.tenant + "-google",
+		Active:         true,
+		APIKey:         ai.NewSecret(googleKey(k).secret),
 	}
 }
 
@@ -122,9 +167,9 @@ func primaryCredential(k tenantKey, version string) ai.Credential {
 }
 
 // world is one scenario's assembly: a local controlled Provider, a trusted-host
-// double holding each tenant's same-named "primary" (Responses) and "claude"
-// (Anthropic Messages) bindings, and a Client built with the loopback-only
-// transport.
+// double holding each tenant's same-named "primary" (Responses), "claude"
+// (Anthropic Messages) and "gemini" (Gemini Developer API) bindings, and a
+// Client built with the loopback-only transport.
 type world struct {
 	provider *provider.Server
 	host     *host.Host
@@ -153,6 +198,8 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 		h.PutCredential(primaryCredential(k, "v1"))
 		h.PutBinding(anthropicBinding(k, srv.URL()))
 		h.PutCredential(anthropicCredential(k))
+		h.PutBinding(geminiBinding(k, srv.URL()))
+		h.PutCredential(geminiCredential(k))
 	}
 
 	cfg := ai.Config{

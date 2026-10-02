@@ -31,6 +31,11 @@ const APIS = {
 		models: "@earendil-works/pi-ai/providers/anthropic.models",
 		catalog: "ANTHROPIC_MODELS",
 	},
+	"google-generative-ai": {
+		api: "@earendil-works/pi-ai/api/google-generative-ai",
+		models: "@earendil-works/pi-ai/providers/google.models",
+		catalog: "GOOGLE_MODELS",
+	},
 };
 
 function fail(message) {

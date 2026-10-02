@@ -36,6 +36,12 @@ type ToolCall struct {
 	// concatenated deltas while streaming, the provider's final text once the
 	// call ended. It may be incomplete. Empty when the provider sent none.
 	RawArguments string `json:"rawArguments,omitempty"`
+	// ThoughtSignature is Gemini's opaque reasoning state attached to the
+	// call (pi-ai's toolCall.thoughtSignature). Like every native signature
+	// it is replayed only to the same model under a trusted envelope. Unset,
+	// null and "" stay distinct through storage, as in pi: another model's
+	// history only loses a non-empty signature.
+	ThoughtSignature Nullable[string] `json:"thoughtSignature,omitzero"`
 }
 
 func (ToolCall) isAssistantContent() {}

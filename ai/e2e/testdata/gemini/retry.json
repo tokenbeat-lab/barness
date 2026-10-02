@@ -1,0 +1,324 @@
+{
+ "case": "P03/E05 Google × Gemini Developer API explicit retry of the initial request",
+ "source": "Synthetic offline fixture. Retry follows pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) google-shared retryGoogleRequest over utils/provider-retry retryProviderRequest: only the Google SDK's ApiError (an HTTP status) is retryable, by status (408, 409, 429, 5xx); its headers are not visible (error.headers is undefined), so x-should-retry and requested delays are ignored and the backoff is exponential; a request without a response is not retried. The binding's retry policy is pi's maxRetries.",
+ "scenarios": [
+  {
+   "id": "retry-429-then-success",
+   "about": "A 429 is retried once; the second attempt streams.",
+   "model": "gemini-2.5-flash",
+   "maxRetries": 1,
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 429,
+     "body": "{\"error\":{\"code\":429,\"message\":\"Resource has been exhausted.\",\"status\":\"RESOURCE_EXHAUSTED\"}}"
+    },
+    {
+     "events": [
+      {
+       "candidates": [
+        {
+         "index": 0,
+         "content": {
+          "parts": [
+           {
+            "text": "Hello"
+           }
+          ],
+          "role": "model"
+         },
+         "finishReason": "STOP"
+        }
+       ],
+       "usageMetadata": {
+        "promptTokenCount": 3,
+        "candidatesTokenCount": 1,
+        "totalTokenCount": 4
+       }
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "requests": 2,
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello"
+     }
+    ],
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "retry-ignores-retry-after",
+   "about": "pi's Google retry sees no response headers: a retry-after above the 60s cap neither refuses nor delays the retry, which backs off as usual.",
+   "model": "gemini-2.5-flash",
+   "maxRetries": 1,
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 503,
+     "header": {
+      "Retry-After": "120"
+     },
+     "body": "{\"error\":{\"code\":503,\"message\":\"The model is overloaded.\",\"status\":\"UNAVAILABLE\"}}"
+    },
+    {
+     "events": [
+      {
+       "candidates": [
+        {
+         "index": 0,
+         "content": {
+          "parts": [
+           {
+            "text": "Hello"
+           }
+          ],
+          "role": "model"
+         },
+         "finishReason": "STOP"
+        }
+       ],
+       "usageMetadata": {
+        "promptTokenCount": 3,
+        "candidatesTokenCount": 1,
+        "totalTokenCount": 4
+       }
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "requests": 2,
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello"
+     }
+    ],
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "retry-ignores-x-should-retry",
+   "about": "Nor does it see x-should-retry: a 500 marked not retryable is retried by its status.",
+   "model": "gemini-2.5-flash",
+   "maxRetries": 1,
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 500,
+     "header": {
+      "X-Should-Retry": "false"
+     },
+     "body": "{\"error\":{\"code\":500,\"message\":\"Internal error.\",\"status\":\"INTERNAL\"}}"
+    },
+    {
+     "events": [
+      {
+       "candidates": [
+        {
+         "index": 0,
+         "content": {
+          "parts": [
+           {
+            "text": "Hello"
+           }
+          ],
+          "role": "model"
+         },
+         "finishReason": "STOP"
+        }
+       ],
+       "usageMetadata": {
+        "promptTokenCount": 3,
+        "candidatesTokenCount": 1,
+        "totalTokenCount": 4
+       }
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "requests": 2,
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello"
+     }
+    ],
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "no-retry-400",
+   "about": "A 400 is not retryable.",
+   "model": "gemini-2.5-flash",
+   "maxRetries": 2,
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 400,
+     "body": "{\"error\":{\"code\":400,\"message\":\"Bad request.\",\"status\":\"INVALID_ARGUMENT\"}}"
+    }
+   ],
+   "expect": {
+    "requests": 1,
+    "stopReason": "error",
+    "errorMessage": "{\"error\":{\"code\":400,\"message\":\"Bad request.\",\"status\":\"INVALID_ARGUMENT\"}}",
+    "code": "invalid_request",
+    "phase": "request",
+    "httpStatus": 400,
+    "content": []
+   }
+  },
+  {
+   "id": "retry-exhausted",
+   "about": "Retries end with the last attempt's failure.",
+   "model": "gemini-2.5-flash",
+   "maxRetries": 1,
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 500,
+     "body": "{\"error\":{\"code\":500,\"message\":\"first\",\"status\":\"INTERNAL\"}}"
+    },
+    {
+     "status": 503,
+     "body": "{\"error\":{\"code\":503,\"message\":\"second\",\"status\":\"UNAVAILABLE\"}}"
+    }
+   ],
+   "expect": {
+    "requests": 2,
+    "stopReason": "error",
+    "errorMessage": "{\"error\":{\"code\":503,\"message\":\"second\",\"status\":\"UNAVAILABLE\"}}",
+    "code": "upstream_error",
+    "phase": "request",
+    "httpStatus": 503,
+    "content": []
+   }
+  },
+  {
+   "id": "no-replay-after-start",
+   "about": "A stream that started is never replayed, whatever the retry budget.",
+   "model": "gemini-2.5-flash",
+   "maxRetries": 2,
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "events": [
+      {
+       "candidates": [
+        {
+         "index": 0,
+         "content": {
+          "parts": [
+           {
+            "text": "Hel"
+           }
+          ],
+          "role": "model"
+         }
+        }
+       ]
+      }
+     ],
+     "end": "abort"
+    }
+   ],
+   "expect": {
+    "requests": 1,
+    "stopReason": "error",
+    "errorMessage": "Connection lost while reading the Gemini stream",
+    "code": "transport",
+    "phase": "stream",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hel"
+     }
+    ]
+   }
+  }
+ ]
+}

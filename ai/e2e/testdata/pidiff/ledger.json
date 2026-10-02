@@ -969,6 +969,279 @@
       "classification": "extension",
       "decision": "Derived from the request body, which differs only by the downgraded native state; see request.body.messages[1].content for this case.",
       "ref": "spec I6; ADR-0001; issues/07; issues/16; ai/e2e/anthropic_history_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.headers.Accept-Encoding",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Gemini path: HTTP stack default (Node undici sends 'gzip, deflate', Go net/http sends 'gzip'); response decoding is transparent to the protocol.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/19; ADR-0012"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.headers.Accept-Language",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Gemini path: Node fetch (undici) default header; not set by pi or the Gemini protocol. The Go HTTP stack does not send it.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/19; ADR-0012"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.headers.Sec-Fetch-Mode",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Gemini path: Node fetch (undici) default header; not set by pi or the Gemini protocol. The Go HTTP stack does not send it.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/19; ADR-0012"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.headers.Connection",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Gemini path: hop-by-hop connection management of Node's HTTP/1.1 client; Go keeps connections alive without the header.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/19; ADR-0012"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.headers.Accept",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Node fetch (undici) default 'Accept: */*': the Google SDK sets no Accept header, so pi sends undici's. barness speaks HTTP directly on this path (ADR-0012) and the Gemini protocol needs no Accept header, so it sends none; the response is the same SSE body either way.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/19; ADR-0012"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.headers.User-Agent",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Gemini path: barness sends its own 'barness-ai' User-Agent instead of pi's 'pi (<os> <release>; <arch>)' (which pi sets over the Google SDK's), without host OS details. Asserted by the offline E2E (TestGeminiText).",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/19; ADR-0012; ai/e2e/gemini_text_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.headers.X-Goog-Api-Client",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Google SDK runtime fingerprint ('google-genai-sdk/2.21.0 gl-node/<node version>'), the counterpart of the Stainless X-Stainless-* headers on the other paths. barness uses no Google SDK on this path (ADR-0012: direct HTTP, spec I5) and does not claim to be one; the offline E2E asserts the header is absent (TestGeminiText).",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/19; ADR-0012; ai/e2e/gemini_text_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.content",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.content",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.content",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.usage",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.usage.reasoning",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.stopReason",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.rawStopReason",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.errorMessage",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].partial.responseId",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses and anthropic-messages events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later parts, blocks, block ends, thought signatures of later parts, the arguments of a call that arrived whole, usage from later chunks, the response id and the finish reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/19; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].toolCall.rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses and anthropic-messages: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. A Gemini function call arrives whole with its args object; pi keeps only the parsed object. Ids, names, parsed arguments, the delta (pi's JSON.stringify of the args) and end events match; only the raw text is added.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/19"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].message.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses and anthropic-messages: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. A Gemini function call arrives whole with its args object; pi keeps only the parsed object. Ids, names, parsed arguments, the delta (pi's JSON.stringify of the args) and end events match; only the raw text is added.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/19"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].error.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses and anthropic-messages: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. A Gemini function call arrives whole with its args object; pi keeps only the parsed object. Ids, names, parsed arguments, the delta (pi's JSON.stringify of the args) and end events match; only the raw text is added.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/19"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "result.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses and anthropic-messages: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. A Gemini function call arrives whole with its args object; pi keeps only the parsed object. Ids, names, parsed arguments, the delta (pi's JSON.stringify of the args) and end events match; only the raw text is added.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/19"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-http-403-key-echo-stream",
+        "PIDIFF-P03-in-band-error-key-echo-stream"
+      ],
+      "classification": "extension",
+      "decision": "Security difference (spec I9: 基线 errorMessage 涉及秘密时必须脱敏并登记安全差异), as for openai-responses and anthropic-messages: pi copies the Google SDK's error text, the response body, into errorMessage verbatim, including the call's key the provider echoed; barness replaces the key and key-shaped text (sk-…, sk-ant-…, Google's AIza…) with [REDACTED]. The rest of the body, the stop reason and the event sequence match.",
+      "ref": "spec I9; ADR-0009; issues/19; ai/http_failures.go redact; ai/e2e/gemini_failures_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-http-403-key-echo-stream",
+        "PIDIFF-P03-in-band-error-key-echo-stream"
+      ],
+      "classification": "extension",
+      "decision": "Security difference (spec I9: 基线 errorMessage 涉及秘密时必须脱敏并登记安全差异), as for openai-responses and anthropic-messages: pi copies the Google SDK's error text, the response body, into errorMessage verbatim, including the call's key the provider echoed; barness replaces the key and key-shaped text (sk-…, sk-ant-…, Google's AIza…) with [REDACTED]. The rest of the body, the stop reason and the event sequence match.",
+      "ref": "spec I9; ADR-0009; issues/19; ai/http_failures.go redact; ai/e2e/gemini_failures_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-half-json-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports JavaScript's JSON.parse message for a data event that is not JSON ('Unterminated string in JSON at position 47 (line 1 column 48)'), thrown by the Google SDK's chunk.json(): V8 runtime text that Go cannot reproduce. barness reports the fixed text 'Could not parse Gemini stream chunk: invalid JSON' (CodeProtocol, PhaseStream) and never repeats the frame, which may hold content. Stop reason, the content received before and the event sequence match.",
+      "ref": "issues/19; ai/gemini_stream.go msgGeminiInvalidJSON; ai/e2e/gemini_failures_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-half-json-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports JavaScript's JSON.parse message for a data event that is not JSON ('Unterminated string in JSON at position 47 (line 1 column 48)'), thrown by the Google SDK's chunk.json(): V8 runtime text that Go cannot reproduce. barness reports the fixed text 'Could not parse Gemini stream chunk: invalid JSON' (CodeProtocol, PhaseStream) and never repeats the frame, which may hold content. Stop reason, the content received before and the event sequence match.",
+      "ref": "issues/19; ai/gemini_stream.go msgGeminiInvalidJSON; ai/e2e/gemini_failures_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-connection-cut-stream",
+        "PIDIFF-P03-no-replay-after-start-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body: runtime text, not pi logic, as for openai-responses and anthropic-messages. barness reports the fixed text 'Connection lost while reading the Gemini stream' (CodeTransport, PhaseStream). StopReason and the content received before the cut match.",
+      "ref": "issues/19; ai/gemini_stream.go msgGeminiConnectionLost; ai/e2e/gemini_failures_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-connection-cut-stream",
+        "PIDIFF-P03-no-replay-after-start-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body: runtime text, not pi logic, as for openai-responses and anthropic-messages. barness reports the fixed text 'Connection lost while reading the Gemini stream' (CodeTransport, PhaseStream). StopReason and the content received before the cut match.",
+      "ref": "issues/19; ai/gemini_stream.go msgGeminiConnectionLost; ai/e2e/gemini_failures_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-canceled-mid-stream-stream"
+      ],
+      "classification": "extension",
+      "decision": "When the abort lands while the Google SDK awaits the next body chunk, the fetch reader rejects with the DOM AbortError's default text 'This operation was aborted' (runtime text); when pi's loop observes the aborted signal itself it reports its own 'Request was aborted'. barness always reports pi's own text, as on the Anthropic path. StopReason aborted and the content received before match.",
+      "ref": "issues/19; ai/gemini_stream.go msgGeminiAborted; ai/e2e/gemini_failures_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-canceled-mid-stream-stream"
+      ],
+      "classification": "extension",
+      "decision": "When the abort lands while the Google SDK awaits the next body chunk, the fetch reader rejects with the DOM AbortError's default text 'This operation was aborted' (runtime text); when pi's loop observes the aborted signal itself it reports its own 'Request was aborted'. barness always reports pi's own text, as on the Anthropic path. StopReason aborted and the content received before match.",
+      "ref": "issues/19; ai/gemini_stream.go msgGeminiAborted; ai/e2e/gemini_failures_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.body.contents[1].parts",
+      "cases": [
+        "PIDIFF-P03-untrusted-native-state-stream"
+      ],
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec I6, ADR-0001: native state is replayed only under a trusted envelope; without one it is downgraded by the cross-model rules and the call goes ahead). pi has no envelope and replays the same model's thought signatures (thought parts, signed text, signed function calls) from any history; barness replays them only when the host vouched for the history with TrustNativeState, and here it did not: the thinking replays as plain text and no signature is sent. The downgrade is counted in CallMetadata (noEnvelope 1), asserted by TestGeminiHistory.",
+      "ref": "spec I6; ADR-0001; issues/07; issues/19; ai/e2e/gemini_history_test.go"
+    },
+    {
+      "protocol": "google-generative-ai",
+      "path": "request.headers.Content-Length",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P03-untrusted-native-state-stream"
+      ],
+      "classification": "extension",
+      "decision": "Derived from the request body, which differs only by the downgraded native state; see request.body.contents[1].parts for this case.",
+      "ref": "spec I6; ADR-0001; issues/19"
     }
   ]
 }

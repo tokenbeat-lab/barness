@@ -128,7 +128,7 @@ func (p *anthropicParser) read(ctx context.Context, dec *sseDecoder) *Error {
 		return interrupted(ctx, PhaseStream, msgAnthropicAborted)
 	}
 	if dec.err != nil {
-		return anthropicStreamFailure(dec.err)
+		return bodyReadFailure(dec.err, msgAnthropicConnectionLost)
 	}
 	switch {
 	case p.started && !p.stopped:
@@ -139,19 +139,6 @@ func (p *anthropicParser) read(ctx context.Context, dec *sseDecoder) *Error {
 		return p.failures.upstream(p.stopMessage)
 	}
 	return nil
-}
-
-// anthropicStreamFailure classifies an error that ended the body early.
-func anthropicStreamFailure(err error) *Error {
-	var limit *limitExceeded
-	var expired *timeLimitExpired
-	switch {
-	case errors.As(err, &limit):
-		return limit.failure(PhaseStream)
-	case errors.As(err, &expired):
-		return expired.failure(PhaseStream)
-	}
-	return newError(CodeTransport, PhaseStream, msgAnthropicConnectionLost)
 }
 
 func (p *anthropicParser) handle(ev sseEvent) *Error {

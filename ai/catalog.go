@@ -78,27 +78,30 @@ type Catalog struct {
 // BuiltinCatalog returns a fresh copy of the built-in catalog.
 //
 // Source: the frozen pi-ai 0.87.1 model data (providers/data/openai.json,
-// sha256 3c52c858…2835, and providers/data/anthropic.json, sha256
-// 474a010c…4e75) from the differential oracle's rebuilt copy, see
+// sha256 3c52c858…2835, providers/data/anthropic.json, sha256
+// 474a010c…4e75, and providers/data/google.json, sha256 328822707e…708c)
+// from the differential oracle's rebuilt copy, see
 // internal/testkit/pioracle/node/PROVENANCE.md. Every listed field was
 // re-checked against it when the oracle landed (compat when tools landed,
 // gpt-4 when image placeholders landed, the reasoning models and their level
 // maps when reasoning mapping landed, prices and gpt-5.5-pro when cost
-// estimation landed, the Anthropic models when the Messages adapter landed).
+// estimation landed, the Anthropic models when the Messages adapter landed,
+// the Google models when the Gemini adapter landed).
 // Models whose compat needs behavior barness-ai does not implement are not
 // listed, so nothing here promises behavior the adapter does not have:
 // OpenAI models with additional_tools or tool search, and Anthropic models
 // with native mid-conversation tool changes, managed mid-conversation
 // effort or server-side fallback models (claude-fable-5, claude-fable-5-1,
-// claude-opus-4-8, claude-opus-5, claude-opus-5-5). pi's
+// claude-opus-4-8, claude-opus-5, claude-opus-5-5), and Google models that
+// generateContent alone cannot serve (see builtinGoogleModels). pi's
 // supportsOpenAIGrammarTools and Anthropic supportsStrictTools only affect
 // constrained-sampling tools, which cannot be declared here, so they are not
 // carried. gpt-4 and o3-mini are the text-only models: images reach them as
-// placeholders; every Anthropic model takes images.
+// placeholders; every Anthropic and Google model takes images.
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-02.2",
-		Models:  append(builtinOpenAIModels(), builtinAnthropicModels()...),
+		Version: "2026-10-02.3",
+		Models:  slices.Concat(builtinOpenAIModels(), builtinAnthropicModels(), builtinGoogleModels()),
 	}
 }
 
@@ -171,6 +174,66 @@ func builtinAnthropicModels() []Model {
 		model("claude-sonnet-4-5-20250929", "Claude Sonnet 4.5", 1000000, 64000, 3, 15, 0.3, 3.75),
 		adaptive(model("claude-sonnet-4-6", "Claude Sonnet 4.6", 1000000, 128000, 3, 15, 0.3, 3.75), maxOnly()),
 		adaptive(model("claude-sonnet-5", "Claude Sonnet 5", 1000000, 128000, 2, 10, 0.2, 2.5), xhighAndMax()),
+	}
+}
+
+// builtinGoogleModels are pi's google-generative-ai models that barness-ai
+// can serve. All are reasoning models taking text and images, without
+// tiered prices or cache writes. Gemini 2.5 models have no level map (they
+// take a thinking budget); the others steer thinking by level. Left out are
+// the models generateContent alone cannot serve (ADR-0012): the Deep
+// Research agents (deep-research-preview-04-2026,
+// deep-research-max-preview-04-2026), which run through the Interactions
+// API; gemini-2.5-computer-use-preview-10-2025, which needs the hosted
+// computer use tool; gemini-3.1-flash-live-preview, a Live API model; and
+// gemini-3.1-flash-lite-image, whose image output the adapter drops.
+func builtinGoogleModels() []Model {
+	model := func(id, name string, contextWindow, maxTokens int, input, output, cacheRead float64) Model {
+		return Model{Provider: ProviderGoogle, API: APIGoogleGenerativeAI, ID: id, Name: name, Reasoning: true,
+			Input: []Modality{ModalityText, ModalityImage}, ContextWindow: contextWindow, MaxTokens: maxTokens,
+			Cost: ModelCost{CostRates: CostRates{Input: input, Output: output, CacheRead: cacheRead}}}
+	}
+	// levels is a Gemini 3 level map as pi's data writes it: off, xhigh
+	// and max null, the four Gemini levels mapped to themselves unless
+	// listed as unsupported.
+	levels := func(m Model, unsupported ...ThinkingLevel) Model {
+		entry := func(l ThinkingLevel) Nullable[string] {
+			if slices.Contains(unsupported, l) {
+				return Null[string]()
+			}
+			return Value(string(l))
+		}
+		m.ThinkingLevelMap = ThinkingLevelMap{Off: Null[string](), Minimal: entry(ThinkingMinimal), Low: entry(ThinkingLow),
+			Medium: entry(ThinkingMedium), High: entry(ThinkingHigh), XHigh: Null[string](), Max: Null[string]()}
+		return m
+	}
+	// gemma is a Gemma 4 model: free, its level map pi's uppercase one
+	// without xhigh and max entries.
+	gemma := func(id, name string) Model {
+		m := model(id, name, 262144, 32768, 0, 0, 0)
+		m.ThinkingLevelMap = ThinkingLevelMap{Off: Null[string](), Minimal: Value("MINIMAL"), Low: Null[string](),
+			Medium: Null[string](), High: Value("HIGH")}
+		return m
+	}
+	const window, output = 1048576, 65536
+	return []Model{
+		model("gemini-2.5-flash", "Gemini 2.5 Flash", window, output, 0.3, 2.5, 0.03),
+		model("gemini-2.5-flash-lite", "Gemini 2.5 Flash-Lite", window, output, 0.1, 0.4, 0.01),
+		model("gemini-2.5-pro", "Gemini 2.5 Pro", window, output, 1.25, 10, 0.125),
+		levels(model("gemini-3-flash-preview", "Gemini 3 Flash Preview", window, output, 0.5, 3, 0.05)),
+		levels(model("gemini-3.1-flash-lite", "Gemini 3.1 Flash Lite", window, output, 0.25, 1.5, 0.025)),
+		levels(model("gemini-3.1-flash-lite-preview", "Gemini 3.1 Flash Lite Preview", window, output, 0.25, 1.5, 0.025)),
+		levels(model("gemini-3.1-pro-preview", "Gemini 3.1 Pro Preview", window, output, 2, 12, 0.2), ThinkingMinimal),
+		levels(model("gemini-3.1-pro-preview-customtools", "Gemini 3.1 Pro Preview Custom Tools", window, output, 2, 12, 0.2), ThinkingMinimal),
+		levels(model("gemini-3.5-flash", "Gemini 3.5 Flash", window, output, 1.5, 9, 0.15)),
+		levels(model("gemini-3.5-flash-lite", "Gemini 3.5 Flash Lite", window, output, 0.3, 2.5, 0.03)),
+		levels(model("gemini-3.6-flash", "Gemini 3.6 Flash", window, output, 0.75, 3.75, 0.075)),
+		levels(model("gemini-3.7-flash", "Gemini 3.7 Flash", window, output, 0.75, 3.75, 0.075), ThinkingMinimal),
+		levels(model("gemini-3.8-flash", "Gemini 3.8 Flash", window, output, 0.75, 3.75, 0.075), ThinkingMinimal),
+		levels(model("gemini-flash-latest", "Gemini Flash Latest", window, output, 1.5, 9, 0.15)),
+		levels(model("gemini-flash-lite-latest", "Gemini Flash-Lite Latest", window, output, 0.25, 1.5, 0.025)),
+		gemma("gemma-4-26b-a4b-it", "Gemma 4 26B A4B IT"),
+		gemma("gemma-4-31b-it", "Gemma 4 31B IT"),
 	}
 }
 

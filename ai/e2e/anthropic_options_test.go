@@ -6,11 +6,11 @@ import "testing"
 // reasoning mapping (adaptive effort, token budgets), field presence, cache
 // retention and samplingParams being ignored (testdata/anthropic/options.json).
 func TestAnthropicOptions(t *testing.T) {
-	f, raw := loadAnthropicFixture(t, "options.json")
+	f, raw := loadFixture(t, anthropicProtocol, "options.json")
 	for _, sc := range f.Scenarios {
 		t.Run(sc.ID, func(t *testing.T) {
 			ev := run.Case(t, "P02-E04-"+sc.ID)
-			runAnthropic(t, ev, sc, raw, modeStream)
+			runScenario(t, ev, sc, raw, modeStream)
 		})
 	}
 }

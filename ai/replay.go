@@ -52,12 +52,9 @@ func (o replayOrigin) replayAssistant(a AssistantMessage, rules historyRules, re
 // replayContent converts one message's blocks into a new slice: same-model
 // keeps redacted and signed thinking (even with no visible text) and drops
 // other blank thinking; cross-model turns visible thinking into plain text,
-// drops redacted and blank thinking, and strips text of its signature.
-//
-// pi also deletes a truthy thoughtSignature from another model's tool calls.
-// No ToolCall field carries one yet: the Gemini adapter (ticket 19) adds it
-// together with that rule, which must keep pi's missing/null/empty
-// distinction.
+// drops redacted and blank thinking, strips text of its signature and
+// removes a tool call's non-empty thought signature. As pi tests the
+// signature for truthiness, a null or "" one is kept as it is.
 func replayContent(content []AssistantContent, sameModel bool) []AssistantContent {
 	out := make([]AssistantContent, 0, len(content))
 	for _, block := range content {
@@ -81,6 +78,11 @@ func replayContent(content []AssistantContent, sameModel bool) []AssistantConten
 				b = Text{Text: b.Text}
 			}
 			out = append(out, b)
+		case ToolCall:
+			if sig, _ := b.ThoughtSignature.Get(); !sameModel && sig != "" {
+				b.ThoughtSignature = Nullable[string]{}
+			}
+			out = append(out, b)
 		default:
 			out = append(out, block)
 		}
@@ -90,7 +92,8 @@ func replayContent(content []AssistantContent, sameModel bool) []AssistantConten
 
 // carriesNativeState reports whether m holds provider state bound to the
 // account and model that produced it: a reasoning signature or redacted
-// block, a text item id, or a tool call's provider item id.
+// block, a text signature or item id, or a tool call's provider item id or
+// thought signature.
 func carriesNativeState(m AssistantMessage) bool {
 	for _, block := range m.Content {
 		switch b := block.(type) {
@@ -104,6 +107,9 @@ func carriesNativeState(m AssistantMessage) bool {
 			}
 		case ToolCall:
 			if _, item, _ := strings.Cut(b.ID, "|"); item != "" {
+				return true
+			}
+			if sig, _ := b.ThoughtSignature.Get(); sig != "" {
 				return true
 			}
 		}

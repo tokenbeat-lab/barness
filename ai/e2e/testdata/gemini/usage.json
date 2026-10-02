@@ -1,0 +1,395 @@
+{
+ "case": "P03/E11 Google × Gemini Developer API usage, cache reads, thinking tokens, completeness and cost",
+ "source": "Synthetic offline fixture. Usage follows pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) google-generative-ai.ts: each usageMetadata replaces the usage (input = prompt - cached, output = candidates + thoughts, cacheRead = cached, reasoning = thoughts, totalTokens = Gemini's total) and calculateCost prices it at the frozen model data's rates. Completeness is barness's (ADR-0012).",
+ "scenarios": [
+  {
+   "id": "usage-cached-thinking",
+   "about": "Cached prompt tokens are cache reads outside input; thinking tokens are output and reported again as the reasoning subset; the total is Gemini's.",
+   "model": "gemini-2.5-pro",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "index": 0,
+       "content": {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "model"
+       }
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 1000,
+      "totalTokenCount": 1000
+     }
+    },
+    {
+     "candidates": [
+      {
+       "index": 0,
+       "content": {
+        "parts": [
+         {
+          "text": "!"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP"
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 1000,
+      "cachedContentTokenCount": 400,
+      "candidatesTokenCount": 50,
+      "thoughtsTokenCount": 30,
+      "totalTokenCount": 1080
+     }
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "usage": {
+     "input": 600,
+     "output": 80,
+     "cacheRead": 400,
+     "cacheWrite": 0,
+     "reasoning": 30,
+     "totalTokens": 1080,
+     "cost": {
+      "input": 0.00075,
+      "output": 0.0008,
+      "cacheRead": 4.9999999999999996e-05,
+      "cacheWrite": 0,
+      "total": 0.0016
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-replaced",
+   "about": "Each usageMetadata replaces the usage whole: a cached count reported early and not again is gone.",
+   "model": "gemini-2.5-pro",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "index": 0,
+       "content": {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "model"
+       }
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 100,
+      "cachedContentTokenCount": 50,
+      "totalTokenCount": 100
+     }
+    },
+    {
+     "candidates": [
+      {
+       "index": 0,
+       "content": {
+        "parts": [
+         {
+          "text": "!"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP"
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 100,
+      "candidatesTokenCount": 10,
+      "totalTokenCount": 110
+     }
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "usage": {
+     "input": 100,
+     "output": 10,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 110,
+     "cost": {
+      "input": 0.000125,
+      "output": 0.0001,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0.000225
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-partial",
+   "about": "Usage without the candidates count reads it as 0 and is partial.",
+   "model": "gemini-2.5-pro",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "index": 0,
+       "content": {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP"
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 20,
+      "totalTokenCount": 25
+     }
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "usage": {
+     "input": 20,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 25,
+     "cost": {
+      "input": 2.5e-05,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 2.5e-05
+     }
+    },
+    "usageReporting": "partial"
+   }
+  },
+  {
+   "id": "usage-null-counts",
+   "about": "Null counts read as 0; the usage is partial.",
+   "model": "gemini-2.5-pro",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "index": 0,
+       "content": {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP"
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 20,
+      "candidatesTokenCount": null,
+      "thoughtsTokenCount": null,
+      "totalTokenCount": null
+     }
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "usage": {
+     "input": 20,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 0,
+     "cost": {
+      "input": 2.5e-05,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 2.5e-05
+     }
+    },
+    "usageReporting": "partial"
+   }
+  },
+  {
+   "id": "usage-unreported",
+   "about": "No usageMetadata at all: the usage stays zero and unreported, never free.",
+   "model": "gemini-2.5-pro",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "index": 0,
+       "content": {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP"
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "usage": {},
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "usage-flash-lite",
+   "about": "Pricing at another model's rates (gemini-2.5-flash-lite).",
+   "model": "gemini-2.5-flash-lite",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "index": 0,
+       "content": {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP"
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 123456,
+      "cachedContentTokenCount": 23456,
+      "candidatesTokenCount": 7890,
+      "totalTokenCount": 131346
+     }
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "usage": {
+     "input": 100000,
+     "output": 7890,
+     "cacheRead": 23456,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 131346,
+     "cost": {
+      "input": 0.01,
+      "output": 0.0031560000000000004,
+      "cacheRead": 0.00023456,
+      "cacheWrite": 0,
+      "total": 0.013390560000000001
+     }
+    },
+    "usageReporting": "complete"
+   }
+  }
+ ]
+}

@@ -207,14 +207,19 @@ func testForgedHistory(t *testing.T, p isolationProtocol, raw []byte) {
 
 // nativeReply is a first turn whose message carries native state for p:
 // Responses' text keeps its output item id; on Anthropic, a signed thinking
-// block (text.json "block-start-content").
+// block (text.json "block-start-content"); on Gemini, text with a thought
+// signature (text.json "signature-on-empty-text").
 func nativeReply(t *testing.T, p isolationProtocol) provider.Reply {
 	t.Helper()
-	if !p.anthropic() {
-		return p.success(t, tenantA)
+	switch {
+	case p.anthropic():
+		f, _ := loadFixture(t, anthropicProtocol, "text.json")
+		return scenarioByID(t, f, "block-start-content").replies(t)[0]
+	case p.gemini():
+		f, _ := loadFixture(t, geminiProtocol, "text.json")
+		return scenarioByID(t, f, "signature-on-empty-text").replies(t)[0]
 	}
-	f, _ := loadAnthropicFixture(t, "text.json")
-	return anthropicScenarioByID(t, f, "block-start-content").replies(t)[0]
+	return p.success(t, tenantA)
 }
 
 // hostWorld is the host example on an isolation world: tenants A and B on

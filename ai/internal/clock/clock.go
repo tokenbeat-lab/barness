@@ -4,8 +4,10 @@
 // one; hosts leave ai.Config.Clock nil and get the system clock.
 //
 // It is deliberately the smallest control point: what the retry rules read
-// (the current time for a retry-after date, a jitter draw) and the backoff
-// wait itself. Message timestamps and protocol timeouts do not use it.
+// (the current time for a retry-after date, a jitter draw), the backoff wait
+// itself, and the time in the tool call ids the Gemini adapter generates as
+// pi does (spec Testing Decisions §3: time and generated ids are
+// replaceable). Message timestamps and protocol timeouts do not use it.
 package clock
 
 import (

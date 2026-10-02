@@ -1,0 +1,755 @@
+{
+ "case": "P03/E01 Google × Gemini Developer API text generation, thought and function call parts, and stream parsing",
+ "source": "Synthetic offline fixture. Chunk shapes follow the Gemini Developer API's streamGenerateContent (alt=sse) as consumed by pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/google-generative-ai.ts through @google/genai 2.21.0 (processStreamResponse, generateContentResponseFromMldev). Expected requests follow pi's buildParams and google-shared convertMessages/convertTools as the SDK's generateContentParametersToMldev sends them: generationConfig always present, the system prompt as systemInstruction with role user. Costs are pi's calculateCost at the frozen prices of the model used.",
+ "scenarios": [
+  {
+   "id": "text",
+   "about": "Plain text on the full entry: three text parts form one block, the first non-empty responseId is kept, each usageMetadata replaces the usage.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Hello"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 12,
+      "totalTokenCount": 12
+     },
+     "modelVersion": "gemini-2.5-flash",
+     "responseId": "resp-text-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": ", world"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 12,
+      "totalTokenCount": 12
+     },
+     "modelVersion": "gemini-2.5-flash",
+     "responseId": "resp-text-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "!"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 12,
+      "candidatesTokenCount": 4,
+      "totalTokenCount": 16
+     },
+     "modelVersion": "gemini-2.5-flash",
+     "responseId": "resp-text-001"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "headers": {
+      "User-Agent": "barness-ai",
+      "Content-Type": "application/json"
+     },
+     "absentHeaders": [
+      "Authorization",
+      "X-Api-Key",
+      "X-Goog-Api-Client"
+     ],
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Say hello."
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "systemInstruction": {
+       "parts": [
+        {
+         "text": "You are terse."
+        }
+       ],
+       "role": "user"
+      },
+      "generationConfig": {}
+     }
+    },
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello",
+     "text_delta#0:, world",
+     "text_delta#0:!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "responseId": "resp-text-001",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello, world!"
+     }
+    ],
+    "usage": {
+     "input": 12,
+     "output": 4,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 16,
+     "cost": {
+      "input": 3.6e-06,
+      "output": 1e-05,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 1.36e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "text-simple",
+   "about": "The same turn on the simple entry: the output budget is the model's maximum clamped to the context window, and without a reasoning level thinking is disabled with a zero budget (a budget model).",
+   "model": "gemini-2.5-flash",
+   "entry": "streamSimple",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Hello"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 12,
+      "totalTokenCount": 12
+     },
+     "modelVersion": "gemini-2.5-flash",
+     "responseId": "resp-text-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": ", world"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 12,
+      "totalTokenCount": 12
+     },
+     "modelVersion": "gemini-2.5-flash",
+     "responseId": "resp-text-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "!"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 12,
+      "candidatesTokenCount": 4,
+      "totalTokenCount": 16
+     },
+     "modelVersion": "gemini-2.5-flash",
+     "responseId": "resp-text-001"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Say hello."
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "systemInstruction": {
+       "parts": [
+        {
+         "text": "You are terse."
+        }
+       ],
+       "role": "user"
+      },
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "thinkingBudget": 0
+       }
+      }
+     }
+    },
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hello",
+     "text_delta#0:, world",
+     "text_delta#0:!",
+     "text_end#0:Hello, world!",
+     "done:stop"
+    ],
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "responseId": "resp-text-001",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello, world!"
+     }
+    ],
+    "usage": {
+     "input": 12,
+     "output": 4,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "reasoning": 0,
+     "totalTokens": 16,
+     "cost": {
+      "input": 3.6e-06,
+      "output": 1e-05,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 1.36e-05
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "interleaved",
+   "about": "Thought parts, text and a function call: thought=true makes thinking (not the signature), a signature on a later part of a block is kept, the call arrives whole with its own signature and turns stop into toolUse. Gemini 3 sends call ids.",
+   "model": "gemini-3-flash-preview",
+   "context": {
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "n": {
+         "type": "integer"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up x."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Let me think",
+          "thought": true
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "responseId": "resp-mix-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": " about it.",
+          "thought": true,
+          "thoughtSignature": "c2lnLXRoaW5r"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "responseId": "resp-mix-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Checking"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "responseId": "resp-mix-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": ".",
+          "thoughtSignature": "c2lnLXRleHQ="
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "responseId": "resp-mix-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "functionCall": {
+           "id": "call_1",
+           "name": "lookup",
+           "args": {
+            "q": "x",
+            "n": 2
+           }
+          },
+          "thoughtSignature": "c2lnLWNhbGw="
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 20,
+      "candidatesTokenCount": 10,
+      "thoughtsTokenCount": 5,
+      "totalTokenCount": 35
+     },
+     "responseId": "resp-mix-001"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3-flash-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Look up x."
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "tools": [
+       {
+        "functionDeclarations": [
+         {
+          "name": "lookup",
+          "description": "Look something up.",
+          "parametersJsonSchema": {
+           "type": "object",
+           "properties": {
+            "q": {
+             "type": "string"
+            },
+            "n": {
+             "type": "integer"
+            }
+           },
+           "required": [
+            "q"
+           ]
+          }
+         }
+        ]
+       }
+      ],
+      "generationConfig": {}
+     }
+    },
+    "events": [
+     "start",
+     "thinking_start#0",
+     "thinking_delta#0:Let me think",
+     "thinking_delta#0: about it.",
+     "thinking_end#0:Let me think about it.",
+     "text_start#1",
+     "text_delta#1:Checking",
+     "text_delta#1:.",
+     "text_end#1:Checking.",
+     "toolcall_start#2",
+     "toolcall_delta#2:{\"q\":\"x\",\"n\":2}",
+     "toolcall_end#2:call_1 lookup {\"q\":\"x\",\"n\":2}",
+     "done:toolUse"
+    ],
+    "stopReason": "toolUse",
+    "rawStopReason": "STOP",
+    "responseId": "resp-mix-001",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "Let me think about it.",
+      "thinkingSignature": "c2lnLXRoaW5r"
+     },
+     {
+      "type": "text",
+      "text": "Checking.",
+      "textSignature": "c2lnLXRleHQ="
+     },
+     {
+      "type": "toolCall",
+      "id": "call_1",
+      "name": "lookup",
+      "arguments": {
+       "q": "x",
+       "n": 2
+      },
+      "rawArguments": "{\"q\":\"x\",\"n\":2}",
+      "thoughtSignature": "c2lnLWNhbGw="
+     }
+    ],
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "function-call-ids-generated",
+   "about": "Gemini 2.5 sends calls without ids: each gets pi's generated <name>_<epoch ms>_<n>, as does a call repeating an id already in the message; a call without args has {} arguments.",
+   "model": "gemini-2.5-flash",
+   "now": 1790000000000,
+   "context": {
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up a and b."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "functionCall": {
+           "name": "lookup",
+           "args": {
+            "q": "a"
+           }
+          }
+         },
+         {
+          "functionCall": {
+           "id": "dup",
+           "name": "lookup",
+           "args": {
+            "q": "b"
+           }
+          }
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ]
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "functionCall": {
+           "id": "dup",
+           "name": "lookup"
+          }
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 9,
+      "candidatesTokenCount": 6,
+      "totalTokenCount": 15
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse"
+    },
+    "events": [
+     "start",
+     "toolcall_start#0",
+     "toolcall_delta#0:{\"q\":\"a\"}",
+     "toolcall_end#0:lookup_1790000000000_1 lookup {\"q\":\"a\"}",
+     "toolcall_start#1",
+     "toolcall_delta#1:{\"q\":\"b\"}",
+     "toolcall_end#1:dup lookup {\"q\":\"b\"}",
+     "toolcall_start#2",
+     "toolcall_delta#2:{}",
+     "toolcall_end#2:lookup_1790000000000_2 lookup {}",
+     "done:toolUse"
+    ],
+    "stopReason": "toolUse",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "toolCall",
+      "id": "lookup_1790000000000_1",
+      "name": "lookup",
+      "arguments": {
+       "q": "a"
+      },
+      "rawArguments": "{\"q\":\"a\"}"
+     },
+     {
+      "type": "toolCall",
+      "id": "dup",
+      "name": "lookup",
+      "arguments": {
+       "q": "b"
+      },
+      "rawArguments": "{\"q\":\"b\"}"
+     },
+     {
+      "type": "toolCall",
+      "id": "lookup_1790000000000_2",
+      "name": "lookup",
+      "arguments": {}
+     }
+    ],
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "signature-on-empty-text",
+   "about": "Gemini may put the signature of a text block on a final part whose text is empty: the part still belongs to the block and its signature is kept.",
+   "model": "gemini-3-flash-preview",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Done?"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Done."
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "responseId": "resp-sig-001"
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "",
+          "thoughtSignature": "c2lnLWVuZA=="
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 3,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 5
+     },
+     "responseId": "resp-sig-001"
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Done.",
+     "text_delta#0:",
+     "text_end#0:Done.",
+     "done:stop"
+    ],
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "responseId": "resp-sig-001",
+    "content": [
+     {
+      "type": "text",
+      "text": "Done.",
+      "textSignature": "c2lnLWVuZA=="
+     }
+    ],
+    "usageReporting": "complete"
+   }
+  }
+ ]
+}

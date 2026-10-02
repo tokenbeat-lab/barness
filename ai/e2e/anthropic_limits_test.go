@@ -15,85 +15,8 @@ import (
 )
 
 // anthropicEntries are the four public entry points on the "claude"
-// binding, reporting whatever happens. The full entries pass Anthropic
-// options (outcomeEntries' complete-full passes Responses options, which the
-// binding refuses).
-var anthropicEntries = []outcomeEntry{
-	{"stream-full", func(ctx context.Context, w *world, scope ai.CallScope, target ai.Target, req ai.Request) outcome {
-		return drain(w.client.Stream(ctx, scope, target, req, nil))
-	}},
-	{"stream-simple", func(ctx context.Context, w *world, scope ai.CallScope, target ai.Target, req ai.Request) outcome {
-		return drain(w.client.StreamSimple(ctx, scope, target, req, ai.SimpleOptions{}))
-	}},
-	{"complete-full", func(ctx context.Context, w *world, scope ai.CallScope, target ai.Target, req ai.Request) outcome {
-		res, err := w.client.Complete(ctx, scope, target, req, ai.AnthropicOptions{})
-		return outcome{result: res, err: err}
-	}},
-	{"complete-simple", func(ctx context.Context, w *world, scope ai.CallScope, target ai.Target, req ai.Request) outcome {
-		res, err := w.client.CompleteSimple(ctx, scope, target, req, ai.SimpleOptions{})
-		return outcome{result: res, err: err}
-	}},
-}
-
-// anthropicText is text.json's "text" scenario: the plain text turn the
-// Anthropic resource scenarios run, with its fixture bytes.
-type anthropicText struct {
-	sc  anthropicScenario
-	raw []byte
-}
-
-func loadAnthropicText(t *testing.T) anthropicText {
-	t.Helper()
-	f, raw := loadAnthropicFixture(t, "text.json")
-	return anthropicText{sc: anthropicScenarioByID(t, f, "text"), raw: raw}
-}
-
-func (a anthropicText) target() ai.Target { return a.sc.target() }
-
-func (a anthropicText) request(t *testing.T) ai.Request { return a.sc.request(t) }
-
-// chunks lays the scenario out one SSE frame per chunk.
-func (a anthropicText) chunks(t *testing.T) [][]byte { return lfChunks(t, a.sc.Events) }
-
-func (a anthropicText) reply(t *testing.T) provider.Reply { return a.sc.replies(t)[0] }
-
-// text is the final text the scenario produces.
-func (a anthropicText) text() string { return "Hello, world!" }
-
-// firstDelta is the index of the first chunk carrying a text delta.
-func (a anthropicText) firstDelta(t *testing.T) int {
-	t.Helper()
-	for i, c := range a.chunks(t) {
-		if strings.Contains(string(c), `"text_delta"`) {
-			return i
-		}
-	}
-	t.Fatal("no text delta in text.json \"text\"")
-	return 0
-}
-
-// checkAnthropicTextSucceeded asserts a call ended exactly as the text
-// scenario expects.
-func checkAnthropicTextSucceeded(ev *evidence.Case, a anthropicText, o outcome) {
-	m := o.result.Message
-	ev.Check("call succeeds", o.err == nil, "err=%v", o.err)
-	ev.Check("stop reason", m.StopReason == ai.StopReasonStop, "got %q", m.StopReason)
-	ev.Check("message identity", m.API == ai.APIAnthropicMessages && m.Provider == ai.ProviderAnthropic && m.Model == a.sc.Model,
-		"api=%q provider=%q model=%q", m.API, m.Provider, m.Model)
-	ev.Check("text", textOf(m) == a.text(), "got %q", textOf(m))
-	ev.Check("usage", m.Usage == *a.sc.Expect.Usage, "got %+v", m.Usage)
-	if o.streamed {
-		got := eventSummary(o.events)
-		ev.Check("stream ends with done", len(got) > 0 && got[len(got)-1] == "done:stop", "got %q", got)
-	}
-}
-
-// updateClaude rewrites k's tenant's stored "claude" binding.
-func (w *world) updateClaude(k tenantKey, change func(*ai.Binding)) {
-	b := w.host.Binding(k.tenant, "claude")
-	change(&b)
-	w.host.PutBindingAt(k.tenant, "claude", b)
-}
+// binding, the full ones with Anthropic options.
+var anthropicEntries = scenarioEntries(ai.AnthropicOptions{})
 
 // TestAnthropicByteLimits is TestByteLimits on Anthropic Messages (P02/E08,
 // spec I9, ADR-0002, ADR-0007): the request body, SSE frame (LF and CRLF),
@@ -102,7 +25,7 @@ func (w *world) updateClaude(k tenantKey, change func(*ai.Binding)) {
 // barness itself (ADR-0011), so the frame and output bounds are checked on
 // its decoder here.
 func TestAnthropicByteLimits(t *testing.T) {
-	a := loadAnthropicText(t)
+	a := loadScenarioText(t, anthropicProtocol)
 	chunks := a.chunks(t)
 	largestFrame, streamBytes := largestAndTotal(chunks)
 	script := func(framed [][]byte) func(*testing.T, *evidence.Case, limitWorld, bool) {
@@ -111,7 +34,7 @@ func TestAnthropicByteLimits(t *testing.T) {
 			enqueue(ev, lw.world, provider.SSE(framed))
 		}
 	}
-	within := func(ev *evidence.Case, _ limitWorld, o outcome) { checkAnthropicTextSucceeded(ev, a, o) }
+	within := func(ev *evidence.Case, _ limitWorld, o outcome) { checkScenarioTextSucceeded(ev, a, o) }
 	keepsReceived := func(ev *evidence.Case, _ limitWorld, o outcome) {
 		got := textOf(o.result.Message)
 		ev.Check("message keeps the text received before the limit", strings.HasPrefix(a.text(), got), "got %q", got)
@@ -166,8 +89,8 @@ func TestAnthropicByteLimits(t *testing.T) {
 		}))
 	})
 
-	tf, traw := loadAnthropicFixture(t, "text.json")
-	tool := anthropicScenarioByID(t, tf, "interleaved")
+	tf, traw := loadFixture(t, anthropicProtocol, "text.json")
+	tool := scenarioByID(t, tf, "interleaved")
 	const toolArgs = `{"q":"x"}` // the call's argument JSON, from two input_json_delta fragments
 	t.Run("tool-json", func(t *testing.T) {
 		runBoundary(t, boundaryOn(boundary{
@@ -193,8 +116,8 @@ func TestAnthropicByteLimits(t *testing.T) {
 		}))
 	})
 
-	ff, fraw := loadAnthropicFixture(t, "failures.json")
-	limited := anthropicScenarioByID(t, ff, "http-429")
+	ff, fraw := loadFixture(t, anthropicProtocol, "failures.json")
+	limited := scenarioByID(t, ff, "http-429")
 	limitedBody := limited.Replies[0].Body
 	t.Run("error-body", func(t *testing.T) {
 		runBoundary(t, boundaryOn(boundary{
@@ -203,7 +126,7 @@ func TestAnthropicByteLimits(t *testing.T) {
 				ev.Fixture("failures.json", fraw)
 				if over {
 					// A limited error body ends the call; it is never retried.
-					lw.updateClaude(tenantA, func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: 2} })
+					lw.updateBindingOf(tenantA, "claude", func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: 2} })
 				}
 				r := limited.replies(t)[0]
 				enqueue(ev, lw.world, r, r, r)

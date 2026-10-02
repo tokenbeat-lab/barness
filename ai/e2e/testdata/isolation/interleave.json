@@ -1,6 +1,6 @@
 {
  "case": "E06 tenant concurrency isolation",
- "source": "Synthetic offline fixture. Each tenant's reply carries its own marker (ALPHA for tenant A, BRAVO for tenant B), ids and usage, so any content, id or usage reaching the other tenant's call is detectable. Event shapes are those of testdata/responses/text-basic.json and the text scenario of testdata/anthropic/text.json; error bodies are those of the failures fixtures with the marker added.",
+ "source": "Synthetic offline fixture. Each tenant's reply carries its own marker (ALPHA for tenant A, BRAVO for tenant B), ids and usage, so any content, id or usage reaching the other tenant's call is detectable. Event shapes are those of testdata/responses/text-basic.json, the text scenario of testdata/anthropic/text.json and the text scenario of testdata/gemini/text.json; error bodies are those of the failures fixtures with the marker added.",
  "markers": {
   "tenant-a": [
    "ALPHA",
@@ -519,6 +519,192 @@
        "type": "message_stop"
       }
      ]
+    }
+   }
+  },
+  {
+   "id": "gemini",
+   "bindingId": "gemini",
+   "model": "gemini-2.5-flash",
+   "systemPrompt": "You are terse.",
+   "user": "Say hello.",
+   "tenants": {
+    "tenant-a": {
+     "events": [
+      {
+       "candidates": [
+        {
+         "content": {
+          "parts": [
+           {
+            "text": "ALPHA "
+           }
+          ],
+          "role": "model"
+         },
+         "index": 0
+        }
+       ],
+       "responseId": "resp_alpha"
+      },
+      {
+       "candidates": [
+        {
+         "content": {
+          "parts": [
+           {
+            "text": "answer "
+           }
+          ],
+          "role": "model"
+         },
+         "index": 0
+        }
+       ],
+       "responseId": "resp_alpha"
+      },
+      {
+       "candidates": [
+        {
+         "content": {
+          "parts": [
+           {
+            "text": "for "
+           }
+          ],
+          "role": "model"
+         },
+         "index": 0
+        }
+       ],
+       "responseId": "resp_alpha"
+      },
+      {
+       "candidates": [
+        {
+         "content": {
+          "parts": [
+           {
+            "text": "the first tenant."
+           }
+          ],
+          "role": "model"
+         },
+         "index": 0,
+         "finishReason": "STOP"
+        }
+       ],
+       "usageMetadata": {
+        "promptTokenCount": 31,
+        "candidatesTokenCount": 7,
+        "totalTokenCount": 38
+       },
+       "responseId": "resp_alpha"
+      }
+     ],
+     "unauthorized": {
+      "status": 401,
+      "header": {
+       "Content-Type": "application/json"
+      },
+      "body": "{\"error\":{\"code\":401,\"message\":\"Request had invalid authentication credentials ALPHA.\",\"status\":\"UNAUTHENTICATED\"}}"
+     },
+     "throttled": {
+      "status": 429,
+      "header": {
+       "Content-Type": "application/json"
+      },
+      "body": "{\"error\":{\"code\":429,\"message\":\"ALPHA rate limited\",\"status\":\"RESOURCE_EXHAUSTED\"}}"
+     }
+    },
+    "tenant-b": {
+     "events": [
+      {
+       "candidates": [
+        {
+         "content": {
+          "parts": [
+           {
+            "text": "BRAVO "
+           }
+          ],
+          "role": "model"
+         },
+         "index": 0
+        }
+       ],
+       "responseId": "resp_bravo"
+      },
+      {
+       "candidates": [
+        {
+         "content": {
+          "parts": [
+           {
+            "text": "answer "
+           }
+          ],
+          "role": "model"
+         },
+         "index": 0
+        }
+       ],
+       "responseId": "resp_bravo"
+      },
+      {
+       "candidates": [
+        {
+         "content": {
+          "parts": [
+           {
+            "text": "for "
+           }
+          ],
+          "role": "model"
+         },
+         "index": 0
+        }
+       ],
+       "responseId": "resp_bravo"
+      },
+      {
+       "candidates": [
+        {
+         "content": {
+          "parts": [
+           {
+            "text": "the second tenant."
+           }
+          ],
+          "role": "model"
+         },
+         "index": 0,
+         "finishReason": "STOP"
+        }
+       ],
+       "usageMetadata": {
+        "promptTokenCount": 24,
+        "cachedContentTokenCount": 4,
+        "candidatesTokenCount": 8,
+        "totalTokenCount": 32
+       },
+       "responseId": "resp_bravo"
+      }
+     ],
+     "unauthorized": {
+      "status": 401,
+      "header": {
+       "Content-Type": "application/json"
+      },
+      "body": "{\"error\":{\"code\":401,\"message\":\"Request had invalid authentication credentials BRAVO.\",\"status\":\"UNAUTHENTICATED\"}}"
+     },
+     "throttled": {
+      "status": 429,
+      "header": {
+       "Content-Type": "application/json"
+      },
+      "body": "{\"error\":{\"code\":429,\"message\":\"BRAVO rate limited\",\"status\":\"RESOURCE_EXHAUSTED\"}}"
+     }
     }
    }
   }

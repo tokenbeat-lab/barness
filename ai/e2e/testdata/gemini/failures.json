@@ -1,0 +1,744 @@
+{
+ "case": "P03/E02 Google × Gemini Developer API failure and truncation terminals",
+ "source": "Synthetic offline fixture. Terminals follow pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) google-generative-ai.ts (finish reason required, error finish reasons fail after the stream with 'Provider stopped with', unknown ones throw at once) and google-shared mapStopReason; decoding and HTTP failures follow @google/genai 2.21.0 processStreamResponse ('Incomplete JSON segment at the end', the in-band error object) and throwErrorIfNotOK (JSON error bodies as sent, other bodies wrapped with status and status text). HTTP error bodies follow the Gemini API's google.rpc.Status shape.",
+ "scenarios": [
+  {
+   "id": "no-finish-reason",
+   "about": "The body ends without a finish reason: the open block still ends, then the call fails; the text and usage received are kept.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Hel"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 4,
+      "totalTokenCount": 4
+     },
+     "responseId": "resp-cut-001"
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "text_end#0:Hel",
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "Google stream ended without a finish reason",
+    "code": "protocol",
+    "phase": "stream",
+    "responseId": "resp-cut-001",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hel"
+     }
+    ],
+    "usageReporting": "partial"
+   }
+  },
+  {
+   "id": "safety",
+   "about": "An error finish reason is recorded and fails the call once the stream ended.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Hel"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ]
+    },
+    {
+     "candidates": [
+      {
+       "finishReason": "SAFETY",
+       "index": 0,
+       "safetyRatings": [
+        {
+         "category": "HARM_CATEGORY_HARASSMENT",
+         "probability": "HIGH",
+         "blocked": true
+        }
+       ]
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 4,
+      "candidatesTokenCount": 1,
+      "totalTokenCount": 5
+     }
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "text_end#0:Hel",
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "Provider stopped with: SAFETY",
+    "code": "upstream_error",
+    "phase": "stream",
+    "rawStopReason": "SAFETY",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hel"
+     }
+    ],
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "unknown-finish-reason",
+   "about": "A finish reason the frozen SDK does not know fails at once, before the open block ends.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Hel"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ]
+    },
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "lo"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "MISSING_THOUGHT_SIGNATURE",
+       "index": 0
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "text_delta#0:lo",
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "Unhandled stop reason: MISSING_THOUGHT_SIGNATURE",
+    "code": "protocol",
+    "phase": "stream",
+    "rawStopReason": "MISSING_THOUGHT_SIGNATURE",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello"
+     }
+    ]
+   }
+  },
+  {
+   "id": "max-tokens",
+   "about": "MAX_TOKENS is a successful truncation terminal: length.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Hel"
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "MAX_TOKENS",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 4,
+      "candidatesTokenCount": 1,
+      "totalTokenCount": 5
+     }
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "text_end#0:Hel",
+     "done:length"
+    ],
+    "stopReason": "length",
+    "rawStopReason": "MAX_TOKENS",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hel"
+     }
+    ],
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "length-truncated-tool",
+   "about": "A function call ended by MAX_TOKENS stays length, never toolUse, so the host does not execute it.",
+   "model": "gemini-2.5-flash",
+   "now": 1790000000000,
+   "context": {
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Look up x."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "functionCall": {
+           "name": "lookup",
+           "args": {
+            "q": "x"
+           }
+          }
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "MAX_TOKENS",
+       "index": 0
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "toolcall_start#0",
+     "toolcall_delta#0:{\"q\":\"x\"}",
+     "toolcall_end#0:lookup_1790000000000_1 lookup {\"q\":\"x\"}",
+     "done:length"
+    ],
+    "stopReason": "length",
+    "rawStopReason": "MAX_TOKENS"
+   }
+  },
+  {
+   "id": "incomplete-segment",
+   "about": "The body ends inside an event (no blank line after the last data): the SDK's failure, raised before the stream's end handling, so the open block never ends.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "sse": "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"Hel\"}],\"role\":\"model\"},\"index\":0}]}\n\ndata: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"lo\"}],\"role\":\"model\"},\"finishReason\":\"STOP\",\"index\":0}]}"
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "Incomplete JSON segment at the end",
+    "code": "protocol",
+    "phase": "stream",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hel"
+     }
+    ]
+   }
+  },
+  {
+   "id": "half-json",
+   "about": "A data event that is not one JSON document fails the stream.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "sse": "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"Hel\"}],\"role\":\"model\"},\"index\":0}]}\n\ndata: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"lo\n\n"
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "Could not parse Gemini stream chunk: invalid JSON",
+    "code": "protocol",
+    "phase": "stream",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hel"
+     }
+    ]
+   }
+  },
+  {
+   "id": "in-band-error",
+   "about": "A 200 response whose body is a JSON error object with an HTTP error code: the SDK's ApiError text, after start.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "sse": "{\"error\":{\"code\":503,\"message\":\"The model is overloaded.\",\"status\":\"UNAVAILABLE\"}}\n\n"
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "got status: UNAVAILABLE. {\"error\":{\"code\":503,\"message\":\"The model is overloaded.\",\"status\":\"UNAVAILABLE\"}}",
+    "code": "upstream_error",
+    "phase": "stream",
+    "content": []
+   }
+  },
+  {
+   "id": "in-band-error-key-echo",
+   "about": "An in-band error object echoing the call's key: the stream failure keeps the object but not the key (a recorded security difference).",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "sse": "{\"error\":{\"code\":403,\"message\":\"API key AIzaSyTestTenantA0001geminiKey000000000 is not authorized.\",\"status\":\"PERMISSION_DENIED\"}}\n\n"
+    }
+   ],
+   "expect": {
+    "events": [
+     "start",
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "got status: PERMISSION_DENIED. {\"error\":{\"code\":403,\"message\":\"API key [REDACTED] is not authorized.\",\"status\":\"PERMISSION_DENIED\"}}",
+    "code": "upstream_error",
+    "phase": "stream",
+    "content": []
+   }
+  },
+  {
+   "id": "http-400",
+   "about": "A JSON error body is the message as the SDK stringifies it; a 400 is not retried.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 400,
+     "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Invalid JSON payload received.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n"
+    }
+   ],
+   "expect": {
+    "events": [
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "{\"error\":{\"code\":400,\"message\":\"Invalid JSON payload received.\",\"status\":\"INVALID_ARGUMENT\"}}",
+    "code": "invalid_request",
+    "phase": "request",
+    "httpStatus": 400,
+    "content": []
+   }
+  },
+  {
+   "id": "http-429",
+   "about": "A body that is not JSON is wrapped in an error object with the status and its text.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 429,
+     "header": {
+      "Content-Type": "text/plain"
+     },
+     "body": "Resource has been exhausted."
+    }
+   ],
+   "expect": {
+    "events": [
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "{\"error\":{\"message\":\"Resource has been exhausted.\",\"code\":429,\"status\":\"Too Many Requests\"}}",
+    "code": "rate_limited",
+    "phase": "request",
+    "httpStatus": 429,
+    "content": []
+   }
+  },
+  {
+   "id": "http-403-key-echo",
+   "about": "A provider echoing the call's key: the message keeps the body but not the key (a recorded security difference).",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "status": 403,
+     "body": "{\"error\":{\"code\":403,\"message\":\"API key AIzaSyTestTenantA0001geminiKey000000000 is not authorized.\",\"status\":\"PERMISSION_DENIED\"}}"
+    }
+   ],
+   "expect": {
+    "events": [
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "{\"error\":{\"code\":403,\"message\":\"API key [REDACTED] is not authorized.\",\"status\":\"PERMISSION_DENIED\"}}",
+    "code": "upstream_auth",
+    "phase": "request",
+    "httpStatus": 403,
+    "content": []
+   }
+  },
+  {
+   "id": "connection-cut",
+   "about": "The connection drops mid-stream: what arrived is kept and the call fails.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Hel"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ]
+    }
+   ],
+   "end": "abort",
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "Connection lost while reading the Gemini stream",
+    "code": "transport",
+    "phase": "stream",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hel"
+     }
+    ]
+   }
+  },
+  {
+   "id": "canceled-mid-stream",
+   "about": "The caller cancels while the provider holds the stream open: aborted, keeping what arrived.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "Hel"
+         }
+        ],
+        "role": "model"
+       },
+       "index": 0
+      }
+     ]
+    }
+   ],
+   "end": "hold",
+   "cancelAfterEvents": 3,
+   "expect": {
+    "events": [
+     "start",
+     "text_start#0",
+     "text_delta#0:Hel",
+     "error:aborted"
+    ],
+    "stopReason": "aborted",
+    "errorMessage": "Request was aborted",
+    "code": "canceled",
+    "phase": "stream",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hel"
+     }
+    ]
+   }
+  },
+  {
+   "id": "no-response",
+   "about": "The connection drops before any response: fetch's failure, which pi's Google retry never retries.",
+   "model": "gemini-2.5-flash",
+   "maxRetries": 2,
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "replies": [
+    {
+     "end": "drop"
+    }
+   ],
+   "expect": {
+    "events": [
+     "error:error"
+    ],
+    "stopReason": "error",
+    "errorMessage": "fetch failed",
+    "code": "transport",
+    "phase": "request",
+    "content": []
+   }
+  }
+ ]
+}

@@ -12,30 +12,30 @@ import (
 // through Result without ever calling Next and through Complete, on the full
 // and the simple entry, and every SSE framing decodes to the same result.
 func TestAnthropicText(t *testing.T) {
-	f, raw := loadAnthropicFixture(t, "text.json")
+	f, raw := loadFixture(t, anthropicProtocol, "text.json")
 	for _, sc := range f.Scenarios {
-		modes := []anthropicMode{modeStream}
+		modes := []callMode{modeStream}
 		if sc.ID == "text" || sc.ID == "text-simple" {
 			modes = append(modes, modeResult, modeComplete)
 		}
 		for _, mode := range modes {
 			t.Run(sc.ID+"/"+string(mode), func(t *testing.T) {
 				ev := run.Case(t, "P02-E01-"+sc.ID+"-"+string(mode))
-				runAnthropic(t, ev, sc, raw, mode)
+				runScenario(t, ev, sc, raw, mode)
 			})
 		}
 	}
 	for _, framing := range provider.Framings {
 		t.Run("text/framing-"+string(framing), func(t *testing.T) {
 			ev := run.Case(t, "P02-E01-text-framing-"+string(framing))
-			sc := anthropicScenarioByID(t, f, "text")
+			sc := scenarioByID(t, f, "text")
 			sc.framing = framing
-			runAnthropic(t, ev, sc, raw, modeStream)
+			runScenario(t, ev, sc, raw, modeStream)
 		})
 	}
 }
 
-func anthropicScenarioByID(t *testing.T, f anthropicFixture, id string) anthropicScenario {
+func scenarioByID(t *testing.T, f scenarioFixture, id string) fixtureScenario {
 	t.Helper()
 	for _, sc := range f.Scenarios {
 		if sc.ID == id {
@@ -43,5 +43,5 @@ func anthropicScenarioByID(t *testing.T, f anthropicFixture, id string) anthropi
 		}
 	}
 	t.Fatalf("no scenario %q", id)
-	return anthropicScenario{}
+	return fixtureScenario{}
 }

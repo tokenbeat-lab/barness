@@ -57,7 +57,8 @@ type adapterCall struct {
 // once per Client and never modified afterwards.
 func registry() map[API]adapter {
 	return map[API]adapter{
-		APIOpenAIResponses:   responsesAdapter{},
-		APIAnthropicMessages: anthropicAdapter{},
+		APIOpenAIResponses:    responsesAdapter{},
+		APIAnthropicMessages:  anthropicAdapter{},
+		APIGoogleGenerativeAI: geminiAdapter{},
 	}
 }

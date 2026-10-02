@@ -7,9 +7,10 @@
 //
 //   - The program, not barness-ai, reads the key, from the environment
 //     variable or secret file it names (KeySource). barness-ai and the
-//     provider SDKs never read OPENAI_API_KEY, ANTHROPIC_API_KEY, endpoint
-//     variables or credential files themselves, and nothing falls back to
-//     them when the named source is missing: assembly fails instead.
+//     provider SDKs never read OPENAI_API_KEY, ANTHROPIC_API_KEY,
+//     GOOGLE_API_KEY, GEMINI_API_KEY, endpoint variables or credential files
+//     themselves, and nothing falls back to them when the named source is
+//     missing: assembly fails instead.
 //   - The program declares the binding the key belongs to: provider,
 //     protocol, endpoint, account and the models it may call.
 //   - The program supplies a finite resource policy (LocalPolicy).

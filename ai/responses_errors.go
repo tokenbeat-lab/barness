@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 	"unicode/utf16"
 
 	"github.com/openai/openai-go/v3/packages/respjson"
@@ -43,7 +44,9 @@ func newResponsesFailures(provider ProviderID, apiKey Secret, c *clock.Clock) re
 		prefix = "OpenAI API error"
 	}
 	return responsesFailures{httpFailures{apiKey: apiKey, clock: c, requestIDHeader: "x-request-id",
-		describe: func(status int, body []byte) (string, string) { return describeHTTPError(prefix, status, body) }}}
+		describe: func(res *http.Response, body []byte) (string, string) {
+			return describeHTTPError(prefix, res.StatusCode, body)
+		}}}
 }
 
 // stream classifies an error that ended the SSE stream early.

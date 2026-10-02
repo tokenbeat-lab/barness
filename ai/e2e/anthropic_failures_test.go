@@ -15,16 +15,16 @@ import (
 // Complete and Err agree on; the stream's terminals also run through Result
 // without Next and through Complete.
 func TestAnthropicFailures(t *testing.T) {
-	f, raw := loadAnthropicFixture(t, "failures.json")
+	f, raw := loadFixture(t, anthropicProtocol, "failures.json")
 	for _, sc := range f.Scenarios {
-		modes := []anthropicMode{modeStream}
+		modes := []callMode{modeStream}
 		if sc.CancelAfterEvents == 0 {
 			modes = append(modes, modeResult, modeComplete)
 		}
 		for _, mode := range modes {
 			t.Run(sc.ID+"/"+string(mode), func(t *testing.T) {
 				ev := run.Case(t, "P02-E02-"+sc.ID+"-"+string(mode))
-				_, o := runAnthropic(t, ev, sc, raw, mode)
+				_, o := runScenario(t, ev, sc, raw, mode)
 				if sc.ID == "length-truncated-tool" {
 					_, err := ai.ValidateToolCall(o.result.Message, 0, sc.Context.Tools)
 					ev.Check("a truncated tool call is not executable", err != nil, "ValidateToolCall accepted it")
@@ -37,9 +37,9 @@ func TestAnthropicFailures(t *testing.T) {
 	// the call as deadline_exceeded, keeping what arrived.
 	t.Run("deadline-mid-stream", func(t *testing.T) {
 		ev := run.Case(t, "P02-E02-deadline-mid-stream")
-		sc := anthropicScenarioByID(t, f, "canceled-mid-stream")
+		sc := scenarioByID(t, f, "canceled-mid-stream")
 		ev.Fixture("fixture.json", raw)
-		w := anthropicWorld(t, sc)
+		w := scenarioWorld(t, sc)
 		enqueue(ev, w, sc.replies(t)...)
 		ctx, cancel := context.WithTimeout(context.Background(), 300*time.Millisecond)
 		defer cancel()

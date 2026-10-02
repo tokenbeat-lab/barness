@@ -29,10 +29,13 @@ type httpFailures struct {
 	clock  *clock.Clock // reads a retry-after date; nil is the system clock
 	// requestIDHeader names the vendor's request id response header.
 	requestIDHeader string
-	// describe is the protocol's text for a non-2xx response with body: msg
-	// for the message, sdk for the SDK's own error text, which pi quotes when
-	// it refuses a requested retry delay.
-	describe func(status int, body []byte) (msg, sdk string)
+	// describe is the protocol's text for a non-2xx response res, whose body
+	// was read: msg for the message, sdk for the SDK's own error text, which
+	// pi quotes when it refuses a requested retry delay.
+	describe func(res *http.Response, body []byte) (msg, sdk string)
+	// noResponse is the protocol's text for a request that got no response
+	// at all; empty is the Stainless SDKs' msgConnection.
+	noResponse string
 }
 
 // request classifies an attempt at the initial request that failed before a
@@ -61,7 +64,11 @@ func (f httpFailures) request(ctx context.Context, err error, res *http.Response
 		return f.status(res)
 	}
 	var conn *connectionFailure
-	return attemptOutcome{failure: newError(CodeTransport, PhaseRequest, msgConnection), connection: errors.As(err, &conn)}
+	msg := msgConnection
+	if f.noResponse != "" {
+		msg = f.noResponse
+	}
+	return attemptOutcome{failure: newError(CodeTransport, PhaseRequest, msg), connection: errors.As(err, &conn)}
 }
 
 // status classifies a non-2xx response. The SDK has already read the body of
@@ -79,7 +86,7 @@ func (f httpFailures) status(res *http.Response) attemptOutcome {
 	case errors.As(err, &expired):
 		return f.unread(res, expired.failure(PhaseRequest))
 	}
-	msg, sdkMsg := f.describe(res.StatusCode, body)
+	msg, sdkMsg := f.describe(res, body)
 	e := newError(codeForStatus(res.StatusCode), PhaseRequest, f.redact(msg))
 	o := f.unread(res, e)
 	o.sdkMessage = f.redact(sdkMsg)
@@ -101,10 +108,10 @@ func (f httpFailures) upstream(msg string) *Error {
 }
 
 // keyLike matches OpenAI- and Anthropic-style API keys ("sk-…", "sk-ant-…"),
-// masked ones included ("sk-proj-****abcd"): vendors echo them in auth
-// errors. The word boundary keeps ordinary words such as "task-runner"
-// intact.
-var keyLike = regexp.MustCompile(`\bsk-[A-Za-z0-9_*\-]{3,}`)
+// masked ones included ("sk-proj-****abcd"), and Google API keys ("AIza" and
+// 35 more characters): vendors echo them in auth errors. The word boundary
+// keeps ordinary words such as "task-runner" intact.
+var keyLike = regexp.MustCompile(`\bsk-[A-Za-z0-9_*\-]{3,}|\bAIza[A-Za-z0-9_\-]{35}`)
 
 // redact removes the call's key and anything key-shaped from provider text.
 // pi passes such text through; this is a recorded security difference (spec
@@ -138,4 +145,19 @@ func compactJSON(raw json.RawMessage) string {
 		return string(raw)
 	}
 	return buf.String()
+}
+
+// bodyReadFailure classifies an error that ended a streamed response body
+// early: a byte or time limit of the policy, else the connection was lost,
+// which lost describes in the protocol's words.
+func bodyReadFailure(err error, lost string) *Error {
+	var limit *limitExceeded
+	var expired *timeLimitExpired
+	switch {
+	case errors.As(err, &limit):
+		return limit.failure(PhaseStream)
+	case errors.As(err, &expired):
+		return expired.failure(PhaseStream)
+	}
+	return newError(CodeTransport, PhaseStream, lost)
 }

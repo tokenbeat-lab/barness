@@ -75,6 +75,12 @@ func loadIsolationFixture(t *testing.T) (isolationFixture, []byte) {
 
 func (p isolationProtocol) anthropic() bool { return p.BindingID == "claude" }
 
+func (p isolationProtocol) gemini() bool { return p.BindingID == "gemini" }
+
+// protocolTimeout reports whether p's protocol has a request timeout of its
+// own (timeoutMs); pi's Google path has none.
+func (p isolationProtocol) protocolTimeout() bool { return !p.gemini() }
+
 func (p isolationProtocol) target() ai.Target {
 	return ai.Target{BindingID: p.BindingID, ModelID: p.Model}
 }
@@ -85,24 +91,33 @@ func (p isolationProtocol) request() ai.Request {
 
 // key is the key k's tenant holds for p's binding.
 func (p isolationProtocol) key(k tenantKey) tenantKey {
-	if p.anthropic() {
+	switch {
+	case p.anthropic():
 		return anthropicKey(k)
+	case p.gemini():
+		return googleKey(k)
 	}
 	return k
 }
 
 // account is the vendor account of k's tenant's binding for p.
 func (p isolationProtocol) account(k tenantKey) string {
-	if p.anthropic() {
+	switch {
+	case p.anthropic():
 		return "acct-" + k.tenant + "-anthropic"
+	case p.gemini():
+		return "acct-" + k.tenant + "-google"
 	}
 	return "acct-" + k.tenant
 }
 
 // path is where k's tenant's endpoint receives p's inference requests.
 func (p isolationProtocol) path(k tenantKey) string {
-	if p.anthropic() {
+	switch {
+	case p.anthropic():
 		return tenantPrefix(k) + "/v1/messages"
+	case p.gemini():
+		return tenantPrefix(k) + "/v1beta/models/" + p.Model + ":streamGenerateContent"
 	}
 	return tenantPrefix(k) + "/v1/responses"
 }
@@ -112,6 +127,9 @@ func (p isolationProtocol) script(k tenantKey) isolationScript { return p.Tenant
 // success is k's tenant's successful reply, one SSE frame per chunk.
 func (p isolationProtocol) success(t *testing.T, k tenantKey) provider.Reply {
 	t.Helper()
+	if p.gemini() {
+		return dataEvents(t, p.script(k).Events, provider.FramingLF)
+	}
 	return sseEvents(t, p.script(k).Events, provider.FramingLF)
 }
 
@@ -188,7 +206,7 @@ func newIsolationWorld(t *testing.T, configure ...func(*ai.Config)) isolationWor
 		c.Clock = clock.NewFake(time.Unix(1790000000, 0), 0)
 	}}, configure...)...)
 	for _, k := range []tenantKey{tenantA, tenantB} {
-		for id, suffix := range map[string]string{"primary": "/v1", "claude": ""} {
+		for id, suffix := range map[string]string{"primary": "/v1", "claude": "", "gemini": "/v1beta"} {
 			b := aw.host.Binding(k.tenant, id)
 			b.Endpoint = aw.provider.URL() + tenantPrefix(k) + suffix
 			aw.host.PutBinding(b)
@@ -222,8 +240,11 @@ type isolationEntry struct {
 }
 
 func fullOptions(p isolationProtocol, timeoutMs int) ai.Options {
-	if p.anthropic() {
+	switch {
+	case p.anthropic():
 		return ai.AnthropicOptions{TimeoutMs: timeoutMs}
+	case p.gemini():
+		return ai.GeminiOptions{}
 	}
 	return ai.ResponsesOptions{SessionID: sharedSession, TimeoutMs: timeoutMs}
 }

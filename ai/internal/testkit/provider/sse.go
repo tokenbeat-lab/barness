@@ -100,3 +100,43 @@ func splitLines(s string) []string {
 	}
 	return append(out, s[start:])
 }
+
+// DataFramings are the framings EncodeDataSSE supports, in a stable order.
+// A data-only stream has no multi-line form: Gemini's decoder takes the
+// whole rest of an event after "data:" as one JSON document.
+var DataFramings = []Framing{FramingLF, FramingCRLF, FramingBytewise, FramingHeartbeat, FramingUnknownEvent}
+
+// EncodeDataSSE lays out events (any JSON values) as an SSE stream of
+// unnamed data events, one per chunk, as Gemini streams generateContent:
+// "data: <json>" and a blank line. The heartbeat framing interleaves
+// comments, the unknown-event framing named events a data-only client
+// skips.
+func EncodeDataSSE(events []json.RawMessage, framing Framing) ([][]byte, error) {
+	eol := "\n"
+	switch framing {
+	case FramingCRLF:
+		eol = "\r\n"
+	case FramingMultiline:
+		return nil, fmt.Errorf("sse: data-only streams have no %s framing", framing)
+	}
+	var chunks [][]byte
+	for i, ev := range events {
+		switch framing {
+		case FramingHeartbeat:
+			chunks = append(chunks, []byte(": keep-alive"+eol+eol))
+		case FramingUnknownEvent:
+			chunks = append(chunks, []byte(fmt.Sprintf("event: barness_unknown"+eol+`data: {"barnessUnknown":%d}`+eol+eol, i)))
+		}
+		chunks = append(chunks, []byte("data: "+compact(ev)+eol+eol))
+	}
+	if framing == FramingBytewise {
+		var split [][]byte
+		for _, c := range chunks {
+			for _, b := range c {
+				split = append(split, []byte{b})
+			}
+		}
+		chunks = split
+	}
+	return chunks, nil
+}

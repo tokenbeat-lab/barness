@@ -4,14 +4,28 @@
 
 **Blocked by:** 18
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] 使用 Google GenAI Go SDK（研究锁定 v1.71.0 为起点，纳入时重新核实）；先核查必需字段能否经公开扩展或原始响应无损保留，否则该组合改用直接 HTTP，并跑同一组场景
-- [ ] ToolCall 增加区分缺失/null/空值的 thoughtSignature；跨模型回放按 pi 原 truthy 条件删除非空值、不合并缺失/null/空值（自 08 移交，见 `replay.go` replayContent）
-- [ ] 区分 thought 与 thoughtSignature；回放保留签名；未知必需字段走原始通道，不先丢字段再声称差分一致
-- [ ] 无 finishReason 的 EOF 为错误；各结束原因映射到 StopReason
-- [ ] function call/result 往返；工具结果图片路由；支持图片与占位降级分别覆盖
-- [ ] Google level/budget reasoning 映射；忽略 samplingParams
-- [ ] 保留 onPayload；不调用 onResponse；拒绝非默认 fetch 的基线行为不被悄悄改写（新增支持须登记扩展）
-- [ ] usage 与成本；不以 Vertex 用例替代 Developer API
-- [ ] 复用 E01–E09、E11 适用用例全部通过；pi 差分无待处理差异
+- [x] 使用 Google GenAI Go SDK（研究锁定 v1.71.0 为起点，纳入时重新核实）；先核查必需字段能否经公开扩展或原始响应无损保留，否则该组合改用直接 HTTP，并跑同一组场景
+- [x] ToolCall 增加区分缺失/null/空值的 thoughtSignature；跨模型回放按 pi 原 truthy 条件删除非空值、不合并缺失/null/空值（自 08 移交，见 `replay.go` replayContent）
+- [x] 区分 thought 与 thoughtSignature；回放保留签名；未知必需字段走原始通道，不先丢字段再声称差分一致
+- [x] 无 finishReason 的 EOF 为错误；各结束原因映射到 StopReason
+- [x] function call/result 往返；工具结果图片路由；支持图片与占位降级分别覆盖
+- [x] Google level/budget reasoning 映射；忽略 samplingParams
+- [x] 保留 onPayload；不调用 onResponse；拒绝非默认 fetch 的基线行为不被悄悄改写（新增支持须登记扩展）
+- [x] usage 与成本；不以 Vertex 用例替代 Developer API
+- [x] 复用 E01–E09、E11 适用用例全部通过；pi 差分无待处理差异
+
+## Comments
+
+**2026-10-02 — implemented** (adapter `ai/gemini.go`, `gemini_options.go`, `gemini_request.go`, `gemini_payload.go`, `gemini_sse.go`, `gemini_stream.go`; E2E `ai/e2e/gemini_*_test.go` with fixtures `testdata/gemini/{text,failures,history,options,usage,retry}.json` and a Gemini protocol in `testdata/isolation/interleave.json`; decisions in ADR-0012, status proposed).
+
+- **API:** `ProviderGoogle`, `APIGoogleGenerativeAI`, `GeminiOptions` (+ `GeminiToolChoice`, `GeminiThinking`, `GeminiThinkingLevel`), `ToolCall.ThoughtSignature` (`Nullable[string]`: unset, null, "" and a value stay distinct). Built-in catalog `2026-10-02.3` adds 17 Google models, checked field by field against pi's `google.json` (ADR-0012 决策八 lists the five left out).
+- **SDK:** none. The Google GenAI Go SDK v1.71.0 was checked first: it decodes `thoughtSignature` into bytes (a non-base64 signature fails the whole chunk), `functionCall.args` into a map (key order lost, so pi's `JSON.stringify(args)` delta cannot be reproduced), exposes no raw response, fails on SSE comment lines, and its `NewClient` reads `GOOGLE_API_KEY`/`GEMINI_API_KEY`/`GOOGLE_GEMINI_BASE_URL`/`GOOGLE_GENAI_USE_VERTEXAI`. Per spec I5's exception the combination speaks HTTP directly through the Client's shared transport; the stream is decoded as @google/genai 2.21.0 (pi's SDK) decodes it (ADR-0012 决策一、二).
+- **Behavior as pi:** finish reason required (`Google stream ended without a finish reason`), error finish reasons fail after the stream, unknown ones at once; thought vs thoughtSignature (only `thought: true` is thinking; signatures retained per block, on text, thinking and calls); replay echoes a signature only to the same model and only when it is well-formed base64, keeps signed empty text; call ids only for Gemini 3 (normalized cross-model), consecutive function responses in one user turn, tool result images nested for Gemini 3 and in a separate turn for Gemini 2, placeholders for text-only models; level/budget reasoning (`usesGoogleThinkingLevel`, `getGoogleBudget`, disabled config); samplingParams, cacheRetention, sessionId, metadata and timeoutMs ignored; onPayload kept, onResponse never run; retry only by HTTP status, headers unseen, no retry without a response; usage replaced per chunk with cached tokens as cache reads and thoughts as the reasoning subset.
+- **Shared code:** the Anthropic scenario harness became protocol-parametric (`scenario_fixture_test.go`, `scenario_entries_test.go`, `scenario_pidiff_test.go`; `fixtureProtocol` per protocol), so P02 and P03 run the same E01–E09/E11 suites; `httpFailures.describe` now receives the response (Gemini's text needs Content-Type and the status text) and `bodyReadFailure` is shared. Key redaction also covers Google API keys (`AIza…`). The differential maps pi's client-generated tool call ids (`<name>_<epoch ms>_<n>`) like timestamps; barness generates the same form from the Client clock, whose role is extended to that.
+- **Bug fixed on the way:** a header removed by the trusted header transform was replaced by net/http's `Go-http-client/1.1` User-Agent on the Gemini path; removed names now stay present without values. (The Responses and Anthropic paths remove such headers through their SDKs' `WithHeaderDel`; whether net/http then adds its default there was not examined here.)
+- **Coverage (offline):** full/simple × Stream/Complete and Result without Next on text and every failure terminal; all data-event framings (LF, CRLF, bytewise, heartbeat, named events); thought, signed text and signed calls; generated ids; signature on an empty final part; incomplete segment, invalid JSON, in-band error object, JSON and text HTTP errors, key echo, connection cut, cancel, deadline, no response; history and a live tool round trip echoing every signature; untrusted and cross-provider downgrade; images, Gemini 2 image turns and placeholders; 34 option scenarios (presence, tool calling modes, levels, budgets, clamping, Gemma's uppercase map, ignored options); usage (cached, thinking, replaced, partial, null, unreported) and costs; retry by status ignoring `retry-after`/`x-should-retry`, no replay after start; callbacks (order, REST body, replace/in-place, authorization refusals on both entries, allowed hosted tool, failure, header transform and guarded key), no environment fallback; E06 isolation, E07 preflight, E08 byte/queue limits, held oversize, timeouts (no timeoutMs, header timeout not retried), admission and release; E09 observability and redaction; E10 envelope and host examples now also run on Gemini.
+- **Differential:** 75 cases `PIDIFF-P03-*` reuse the same fixtures; the full run (`BARNESS_AI_PIDIFF=1 go test ./ai/...`, all protocols) has **0 pending**. New `google-generative-ai` ledger entries mirror the approved runtime-header, live-partial and rawArguments decisions, plus `x-goog-api-client`/`Accept` (pi's SDK fingerprint and undici default) and case-scoped ones for the key echo, V8/undici/DOM runtime texts and the untrusted-envelope downgrade.
+- **Code review (2026-10-02):** in-stream error texts (the in-band error object, "Provider stopped with") now go through key redaction like the other protocols (new scenario `in-band-error-key-echo`); a generated id for a call without a name starts with "undefined", as pi interpolates it; the decoder reuses its read buffer; ADR-0012 now records that constrained-sampling (strict) tools cannot be declared, so `VALIDATED` is never sent. The four E06–E09 suites parallel to Anthropic's are tracked for sharing in issue 30. pi's negative input when only cached tokens are reported is kept (pi computes `(prompt || 0) - (cached || 0)` too).
+- **Open for the maintainer:** ADR-0012 "待维护者确认": direct HTTP for the whole combination (spec §5 to sync), the Google retry/timeout rules, onPayload seeing the REST body and the refused fields, usage completeness, the five models left out.

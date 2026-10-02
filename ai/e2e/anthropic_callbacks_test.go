@@ -18,13 +18,13 @@ import (
 // the betas parameter a payload callback may change, the authorization a
 // callback cannot widen, and the header transform's guarded credential.
 func TestAnthropicCallbacks(t *testing.T) {
-	text, raw := loadAnthropicFixture(t, "text.json")
-	plain := anthropicScenarioByID(t, text, "text")
-	options, oraw := loadAnthropicFixture(t, "options.json")
-	budget := anthropicScenarioByID(t, options, "simple-budget-reasoning")
+	text, raw := loadFixture(t, anthropicProtocol, "text.json")
+	plain := scenarioByID(t, text, "text")
+	options, oraw := loadFixture(t, anthropicProtocol, "options.json")
+	budget := scenarioByID(t, options, "simple-budget-reasoning")
 
 	t.Run("order-and-inputs", func(t *testing.T) {
-		ev, w := startAnthropicCallbackCase(t, "P02-E04-callbacks-order-and-inputs", plain, raw)
+		ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-order-and-inputs", plain, raw)
 		var log callLog
 		var seenHeader http.Header
 		var seenPayload ai.Payload
@@ -67,7 +67,7 @@ func TestAnthropicCallbacks(t *testing.T) {
 	})
 
 	t.Run("replaced-payload-still-streams", func(t *testing.T) {
-		ev, w := startAnthropicCallbackCase(t, "P02-E04-callbacks-replaced-payload-still-streams", plain, raw)
+		ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-replaced-payload-still-streams", plain, raw)
 		calls := 0
 		hooks := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 			calls++
@@ -91,7 +91,7 @@ func TestAnthropicCallbacks(t *testing.T) {
 	})
 
 	t.Run("payload-sees-betas", func(t *testing.T) {
-		ev, w := startAnthropicCallbackCase(t, "P02-E04-callbacks-payload-sees-betas", budget, oraw)
+		ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-payload-sees-betas", budget, oraw)
 		var betas any
 		hooks := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 			betas = p.Body["betas"]
@@ -135,7 +135,7 @@ func TestAnthropicCallbacks(t *testing.T) {
 		for _, simple := range []bool{false, true} {
 			entry := map[bool]string{false: "full", true: "simple"}[simple]
 			t.Run("cannot-widen-"+c.name+"/"+entry, func(t *testing.T) {
-				ev, w := startAnthropicCallbackCase(t, "P02-E04-callbacks-cannot-widen-"+c.name+"-"+entry, plain, raw)
+				ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-cannot-widen-"+c.name+"-"+entry, plain, raw)
 				hooks := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 					c.change(p.Body)
 					return ai.KeepPayload(), nil
@@ -156,7 +156,7 @@ func TestAnthropicCallbacks(t *testing.T) {
 	}
 
 	t.Run("hosted-tool-the-binding-allows", func(t *testing.T) {
-		ev, w := startAnthropicCallbackCase(t, "P02-E04-callbacks-hosted-tool-the-binding-allows", plain, raw)
+		ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-hosted-tool-the-binding-allows", plain, raw)
 		b := w.host.Binding(tenantA.tenant, "claude")
 		b.AllowedHostedTools = []string{"web_search_20250305"}
 		w.host.PutBindingAt(tenantA.tenant, "claude", b)
@@ -172,7 +172,7 @@ func TestAnthropicCallbacks(t *testing.T) {
 	})
 
 	t.Run("response-callback-failure-before-start", func(t *testing.T) {
-		ev, w := startAnthropicCallbackCase(t, "P02-E04-callbacks-response-callback-failure-before-start", plain, raw)
+		ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-response-callback-failure-before-start", plain, raw)
 		hostErr := errors.New("host rejected the response")
 		hooks := ai.Hooks{OnResponse: func(context.Context, ai.CallScope, ai.ResponseInfo) error { return hostErr }}
 		s := w.client.WithHooks(hooks).Stream(ctxFor(t), textScope("req-cb-response"), plain.target(), plain.request(t), nil)
@@ -189,7 +189,7 @@ func TestAnthropicCallbacks(t *testing.T) {
 	})
 
 	t.Run("header-transform", func(t *testing.T) {
-		ev, w := startAnthropicCallbackCase(t, "P02-E04-callbacks-header-transform", plain, raw)
+		ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-header-transform", plain, raw)
 		hooks := ai.Hooks{TransformHeaders: func(_ context.Context, _ ai.CallScope, h http.Header) error {
 			h.Set("Anthropic-Beta", "x-beta, x-beta,")
 			return nil
@@ -201,7 +201,7 @@ func TestAnthropicCallbacks(t *testing.T) {
 	})
 
 	t.Run("header-transform-cannot-change-the-key", func(t *testing.T) {
-		ev, w := startAnthropicCallbackCase(t, "P02-E04-callbacks-header-transform-cannot-change-the-key", plain, raw)
+		ev, w := startScenarioCallbackCase(t, "P02-E04-callbacks-header-transform-cannot-change-the-key", plain, raw)
 		hooks := ai.Hooks{TransformHeaders: func(_ context.Context, _ ai.CallScope, h http.Header) error {
 			h.Set("X-Api-Key", anthropicB.secret)
 			return nil
@@ -212,11 +212,11 @@ func TestAnthropicCallbacks(t *testing.T) {
 	})
 }
 
-func startAnthropicCallbackCase(t *testing.T, id string, sc anthropicScenario, raw []byte) (*evidence.Case, *world) {
+func startScenarioCallbackCase(t *testing.T, id string, sc fixtureScenario, raw []byte) (*evidence.Case, *world) {
 	t.Helper()
 	ev := run.Case(t, id)
 	ev.Fixture("fixture.json", raw)
-	w := anthropicWorld(t, sc)
+	w := scenarioWorld(t, sc)
 	enqueue(ev, w, sc.replies(t)...)
 	return ev, w
 }
@@ -236,13 +236,13 @@ func lastRequest(ev *evidence.Case, w *world) provider.Request {
 // (key, auth token, base URL, profile, custom headers) points at a decoy,
 // and the call still uses only the binding's endpoint and the tenant's key.
 func TestAnthropicNoEnvironmentFallback(t *testing.T) {
-	f, raw := loadAnthropicFixture(t, "text.json")
-	sc := anthropicScenarioByID(t, f, "text")
+	f, raw := loadFixture(t, anthropicProtocol, "text.json")
+	sc := scenarioByID(t, f, "text")
 	ev := run.Case(t, "P02-H1-no-environment-fallback")
 	decoy := polluteEnvironment(t)
 	t.Setenv("ANTHROPIC_PROFILE", "env-leak")
 	t.Setenv("ANTHROPIC_CUSTOM_HEADERS", "X-Env-Leak: 1")
-	w, o := runAnthropic(t, ev, sc, raw, modeComplete)
+	w, o := runScenario(t, ev, sc, raw, modeComplete)
 	ev.Check("call succeeds", o.err == nil, "err=%v", o.err)
 	ev.Check("environment endpoint not used", len(decoy.Requests()) == 0, "decoy got %d", len(decoy.Requests()))
 	_, leaked := lastRequest(ev, w).Header["X-Env-Leak"]

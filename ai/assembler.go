@@ -135,6 +135,16 @@ func (a *assembler) textContent(i int) (text string) {
 	return text
 }
 
+// setTextSignature replaces block i's signature without an event, as pi
+// updates a Gemini thought signature arriving on a later part of the block.
+func (a *assembler) setTextSignature(i int, sig string) {
+	a.view.update(func(m *AssistantMessage) {
+		t := m.Content[i].(Text)
+		t.Signature = sig
+		m.Content[i] = t
+	})
+}
+
 func (a *assembler) textEnd(i int, text, signature string) {
 	a.view.update(func(m *AssistantMessage) { m.Content[i] = Text{Text: text, Signature: signature} })
 	a.publish(TextEndEvent{ContentIndex: i, Content: text, Partial: a.view})
@@ -200,6 +210,16 @@ func (a *assembler) toolCallStart(id, name, raw string) int {
 	i := a.open(ToolCall{ID: id, Name: name, Arguments: "{}", RawArguments: raw})
 	a.publish(ToolCallStartEvent{ContentIndex: i, Partial: a.view})
 	return i
+}
+
+// setToolCallSignature sets block i's thought signature without an event;
+// a Gemini call arrives with it.
+func (a *assembler) setToolCallSignature(i int, sig string) {
+	a.view.update(func(m *AssistantMessage) {
+		c := m.Content[i].(ToolCall)
+		c.ThoughtSignature = Value(sig)
+		m.Content[i] = c
+	})
 }
 
 // toolCallArguments replaces block i's raw argument text and its display parse.

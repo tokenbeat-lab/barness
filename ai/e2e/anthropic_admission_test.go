@@ -8,7 +8,6 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/clock"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/host"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
@@ -17,28 +16,13 @@ import (
 // out by its context once the stream started.
 const anthropicAborted = "Request was aborted"
 
-// holdAnthropic starts a Stream for k on the claude binding whose attempt
-// keeps its permit: the provider sends the first frames through the first
-// text delta and holds the connection. It returns once the provider holds.
-func holdAnthropic(t *testing.T, ev *evidence.Case, aw admissionWorld, a anthropicText, ctx context.Context, k tenantKey, requestID string) *ai.Stream {
-	t.Helper()
-	held := make(chan struct{})
-	r := heldReply(200, "text/event-stream", joinChunks(a.chunks(t)[:a.firstDelta(t)+1]))
-	r.OnHold = func() { close(held) }
-	aw.provider.Enqueue(r)
-	s := aw.client.Stream(ctx, scopeFor(k, requestID), a.target(), a.request(t), nil)
-	t.Cleanup(func() { _ = s.Close() })
-	waitFor(ev, "provider holds "+requestID, held)
-	return s
-}
-
 // TestAnthropicTimeouts is TestTimeouts on Anthropic Messages (P02/E08):
 // response header, read idle, the protocol's timeoutMs, the call time limit
 // and the host's deadline each end the call as deadline_exceeded, a header
 // timeout is retried under the binding's retry policy, and every path
 // releases what it held.
 func TestAnthropicTimeouts(t *testing.T) {
-	a := loadAnthropicText(t)
+	a := loadScenarioText(t, anthropicProtocol)
 	call := func(aw admissionWorld, ctx context.Context, e outcomeEntry, requestID string) outcome {
 		return e.invoke(ctx, aw.world, scopeFor(tenantA, requestID), a.target(), a.request(t))
 	}
@@ -97,10 +81,10 @@ func TestAnthropicTimeouts(t *testing.T) {
 				aw := newAdmissionWorld(t, func(p *ai.ResourcePolicy) { p.ResponseHeaderTimeout = short }, nil, func(c *ai.Config) {
 					c.Clock = clock.NewFake(time.Unix(1790000000, 0), 0)
 				})
-				aw.updateClaude(tenantA, func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: 1} })
+				aw.updateBindingOf(tenantA, "claude", func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: 1} })
 				enqueue(ev, aw.world, provider.Reply{End: provider.EndSilent}, a.reply(t))
 				o := timedCall(ev, long, func() outcome { return call(aw, ctxFor(t), e, "req-retried-"+e.name) })
-				checkAnthropicTextSucceeded(ev, a, o)
+				checkScenarioTextSucceeded(ev, a, o)
 				at := o.result.Metadata.Attempts
 				ev.Check("the timed-out attempt and its retry are recorded", len(at) == 2 && at[0].Code == ai.CodeDeadlineExceeded && at[0].HTTPStatus == 0 && at[1].Code == "",
 					"attempts=%+v", at)
@@ -187,7 +171,7 @@ func anthropicTimeoutEntries(ms int) []outcomeEntry {
 // attempt with the tenant and the Anthropic account, preflight failures
 // never ask it, and Close and cancel release everything.
 func TestAnthropicAdmission(t *testing.T) {
-	a := loadAnthropicText(t)
+	a := loadScenarioText(t, anthropicProtocol)
 	call := func(aw admissionWorld, ctx context.Context, e outcomeEntry, k tenantKey, requestID string) outcome {
 		return e.invoke(ctx, aw.world, scopeFor(k, requestID), a.target(), a.request(t))
 	}
@@ -197,7 +181,7 @@ func TestAnthropicAdmission(t *testing.T) {
 		aw := newAdmissionWorld(t, func(p *ai.ResourcePolicy) {
 			p.MaxConcurrentPerTenant, p.MaxConcurrentProcess, p.AdmissionWait = 1, 4, 0
 		}, nil)
-		held := holdAnthropic(t, ev, aw, a, ctxFor(t), tenantA, "req-hold-a")
+		held := holdScenario(t, ev, aw, a, ctxFor(t), tenantA, "req-hold-a")
 		ev.Check("the streaming attempt holds its permit", aw.probe.Permits() == 1, "got %d", aw.probe.Permits())
 		for _, e := range anthropicEntries {
 			o := within(ev, "tenant A's call ends", func() outcome { return call(aw, ctxFor(t), e, tenantA, "req-a-over-"+e.name) })
@@ -206,7 +190,7 @@ func TestAnthropicAdmission(t *testing.T) {
 		}
 		aw.provider.Enqueue(a.reply(t))
 		o := within(ev, "tenant B's call ends", func() outcome { return call(aw, ctxFor(t), anthropicEntries[2], tenantB, "req-b") })
-		checkAnthropicTextSucceeded(ev, a, o)
+		checkScenarioTextSucceeded(ev, a, o)
 		_ = held.Close()
 		checkAdmissionReleased(ev, aw)
 	})
@@ -216,7 +200,7 @@ func TestAnthropicAdmission(t *testing.T) {
 			t.Run(e.name, func(t *testing.T) {
 				ev := run.Case(t, "P02-E08-admission-wait-admitted-"+e.name)
 				aw := newAdmissionWorld(t, func(p *ai.ResourcePolicy) { p.MaxConcurrentPerTenant, p.AdmissionWait = 1, 3*time.Second }, nil)
-				held := holdAnthropic(t, ev, aw, a, ctxFor(t), tenantA, "req-hold")
+				held := holdScenario(t, ev, aw, a, ctxFor(t), tenantA, "req-hold")
 				aw.provider.Enqueue(a.reply(t))
 				done := make(chan outcome, 1)
 				go func() { done <- call(aw, ctxFor(t), e, tenantA, "req-waiting") }()
@@ -225,7 +209,7 @@ func TestAnthropicAdmission(t *testing.T) {
 				_ = held.Close()
 				o := waitValue(ev, "the waiting call ends", done)
 				o.record(ev)
-				checkAnthropicTextSucceeded(ev, a, o)
+				checkScenarioTextSucceeded(ev, a, o)
 				checkAdmissionReleased(ev, aw)
 			})
 		}
@@ -237,14 +221,14 @@ func TestAnthropicAdmission(t *testing.T) {
 				ev := run.Case(t, "P02-E08-admission-host-per-attempt-"+e.name)
 				admission := host.NewAdmission()
 				aw := newAdmissionWorld(t, nil, admission, func(c *ai.Config) { c.Clock = clock.NewFake(time.Unix(1790000000, 0), 0) })
-				aw.updateClaude(tenantA, func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: 1} })
+				aw.updateBindingOf(tenantA, "claude", func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: 1} })
 				overloaded := provider.Reply{Status: 529, Header: map[string]string{"Content-Type": "application/json"},
 					Chunks: [][]byte{[]byte(`{"type":"error","error":{"type":"overloaded_error","message":"Overloaded"}}`)}}
 				aw.provider.Enqueue(overloaded, a.reply(t))
 				id := "req-host-" + e.name
 				o := within(ev, "call ends", func() outcome { return call(aw, ctxFor(t), e, tenantA, id) })
 				o.record(ev)
-				checkAnthropicTextSucceeded(ev, a, o)
+				checkScenarioTextSucceeded(ev, a, o)
 				got := admission.Requests()
 				ev.Record("admission_requests", got)
 				want := []ai.AdmissionRequest{
@@ -295,11 +279,11 @@ func TestAnthropicAdmission(t *testing.T) {
 			p.MaxConcurrentPerTenant, p.MaxConcurrentProcess, p.AdmissionWait = 2, 3, 3*time.Second
 		}, admission)
 		closed := []*ai.Stream{
-			holdAnthropic(t, ev, aw, a, ctxFor(t), tenantA, "req-hold-a1"),
-			holdAnthropic(t, ev, aw, a, ctxFor(t), tenantA, "req-hold-a2"),
+			holdScenario(t, ev, aw, a, ctxFor(t), tenantA, "req-hold-a1"),
+			holdScenario(t, ev, aw, a, ctxFor(t), tenantA, "req-hold-a2"),
 		}
 		ctxB, cancelB := context.WithCancel(ctxFor(t))
-		canceled := holdAnthropic(t, ev, aw, a, ctxB, tenantB, "req-hold-b1")
+		canceled := holdScenario(t, ev, aw, a, ctxB, tenantB, "req-hold-b1")
 		const waiting = 3
 		for range waiting {
 			aw.provider.Enqueue(a.reply(t))
@@ -326,7 +310,7 @@ func TestAnthropicAdmission(t *testing.T) {
 			checkInterrupted(ev, outcome{result: r.res, err: r.err}, ai.StopReasonAborted, ai.CodeCanceled, ai.PhaseStream, anthropicAborted)
 		}
 		for range waiting {
-			checkAnthropicTextSucceeded(ev, a, waitValue(ev, "waiting call ends", results))
+			checkScenarioTextSucceeded(ev, a, waitValue(ev, "waiting call ends", results))
 		}
 		checkAdmissionReleased(ev, aw)
 	})

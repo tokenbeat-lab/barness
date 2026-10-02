@@ -21,8 +21,8 @@ import (
 // the call/attempt lifecycle attributed to the trusted scope and the
 // resolved Anthropic snapshot, with no attempt invented.
 func TestAnthropicObservability(t *testing.T) {
-	a := loadAnthropicText(t)
-	rf, rraw := loadAnthropicFixture(t, "retry.json")
+	a := loadScenarioText(t, anthropicProtocol)
+	rf, rraw := loadFixture(t, anthropicProtocol, "retry.json")
 
 	t.Run("success", func(t *testing.T) {
 		for _, e := range anthropicEntries {
@@ -35,7 +35,7 @@ func TestAnthropicObservability(t *testing.T) {
 				scope := textScope("req-p02-e09-ok-" + e.name)
 				o := e.invoke(ctxFor(t), w, scope, a.target(), a.request(t))
 				o.record(ev)
-				checkAnthropicTextSucceeded(ev, a, o)
+				checkScenarioTextSucceeded(ev, a, o)
 				checkCallRecords(ev, rec.awaitCall(ev, scope.RequestID), scope, "claude", o, 1)
 				m := o.result.Metadata
 				ev.Check("resolved Anthropic snapshot is attributed", m.Resolved && m.AccountScopeID == "acct-tenant-a-anthropic" &&
@@ -66,11 +66,11 @@ func TestAnthropicObservability(t *testing.T) {
 
 	t.Run("retry", func(t *testing.T) {
 		ev := run.Case(t, "P02-E09-observe-retry")
-		sc := anthropicScenarioByID(t, rf, "retry-429-then-success")
+		sc := scenarioByID(t, rf, "retry-429-then-success")
 		ev.Fixture("retry.json", rraw)
 		rec := newRecorder()
 		w := observedWorld(t, rec, func(c *ai.Config) { c.Clock = clock.NewFake(time.Unix(1790000000, 0), 0) }, tenantA)
-		w.updateClaude(tenantA, func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: sc.MaxRetries} })
+		w.updateBindingOf(tenantA, "claude", func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: sc.MaxRetries} })
 		enqueue(ev, w, sc.replies(t)...)
 		scope := textScope("req-p02-e09-retry")
 		res, err := w.client.Complete(ctxFor(t), scope, sc.target(), sc.request(t), ai.AnthropicOptions{})
@@ -124,9 +124,9 @@ func TestAnthropicObservability(t *testing.T) {
 // error text, and the raw TenantID never reaches the provider.
 func TestAnthropicObservabilityRedaction(t *testing.T) {
 	ev := run.Case(t, "P02-E09-redaction")
-	tf, traw := loadAnthropicFixture(t, "text.json")
+	tf, traw := loadFixture(t, anthropicProtocol, "text.json")
 	ev.Fixture("text.json", traw)
-	sc := anthropicScenarioByID(t, tf, "interleaved")
+	sc := scenarioByID(t, tf, "interleaved")
 	logs := captureLogs(t)
 	rec := newRecorder()
 	w := observedWorld(t, rec, nil, tenantA)
@@ -170,7 +170,7 @@ func TestAnthropicObservabilityRedaction(t *testing.T) {
 // each refusal ends before any inference request through the full and simple
 // entries, with an unresolved identity.
 func TestAnthropicPreflightRejections(t *testing.T) {
-	a := loadAnthropicText(t)
+	a := loadScenarioText(t, anthropicProtocol)
 	cases := []struct {
 		id      string
 		code    ai.Code
@@ -195,7 +195,7 @@ func TestAnthropicPreflightRejections(t *testing.T) {
 		{id: "actor-not-permitted", code: ai.CodeTenantDenied, phase: ai.PhaseBinding,
 			arrange: func(w *world) { w.host.RestrictActors(tenantA.tenant, "claude", "actor-admin") }},
 		{id: "binding-disabled", code: ai.CodeTenantDenied, phase: ai.PhaseBinding,
-			arrange: func(w *world) { w.updateClaude(tenantA, func(b *ai.Binding) { b.Enabled = false }) }},
+			arrange: func(w *world) { w.updateBindingOf(tenantA, "claude", func(b *ai.Binding) { b.Enabled = false }) }},
 		{id: "credential-missing", code: ai.CodeCredentialUnavailable, phase: ai.PhaseCredential,
 			arrange: func(w *world) { w.host.DeleteCredential(tenantA.tenant, "cred-tenant-a-anthropic") }},
 		{id: "credential-revoked", code: ai.CodeCredentialUnavailable, phase: ai.PhaseCredential,

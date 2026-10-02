@@ -31,11 +31,13 @@ type Hooks struct {
 	// OnPayload runs once per logical call after the adapter built the
 	// native request body, outside any retry of the initial request. It may
 	// observe the body, change payload.Body in place, or return a
-	// replacement (see PayloadDecision).
+	// replacement (see PayloadDecision). For the Gemini Developer API the
+	// body is the REST request body, not pi-ai's SDK parameters (ADR-0012).
 	OnPayload func(ctx context.Context, scope CallScope, payload *Payload) (PayloadDecision, error)
 	// OnResponse runs once, after the initial response was received
 	// successfully and before the start event. It reads HTTP metadata only;
-	// it never sees or replaces the final message.
+	// it never sees or replaces the final message. As in pi-ai, the Gemini
+	// Developer API never runs it.
 	OnResponse func(ctx context.Context, scope CallScope, response ResponseInfo) error
 }
 
