@@ -648,7 +648,7 @@
   },
   {
    "id": "usage-without-reasoning-details",
-   "about": "Usage without completion_tokens_details reads reasoning as 0 and is partial.",
+   "about": "Thinking off: usage without completion_tokens_details reads reasoning as 0, and is complete, since a call without thinking has no reasoning count to report (DeepSeek omits the details then, observed live 2026-10-02; issue 33).",
    "model": "deepseek-flash",
    "context": {
     "systemPrompt": "You are terse.",
@@ -790,6 +790,188 @@
      "output": 1,
      "reasoning": 0,
      "totalTokens": 13
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "usage-thinking-without-reasoning-details",
+   "about": "Thinking on: usage without completion_tokens_details reads reasoning as 0 and stays partial, since the reasoning count this call should report is missing (issue 33).",
+   "model": "deepseek-flash",
+   "context": {
+    "systemPrompt": "You are terse.",
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Say hello."
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoningEffort": "high"
+   },
+   "events": [
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "role": "assistant",
+        "content": null,
+        "reasoning_content": ""
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": null,
+        "reasoning_content": "Hmm."
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "Hello",
+        "reasoning_content": null
+       },
+       "logprobs": null,
+       "finish_reason": null
+      }
+     ],
+     "usage": null
+    },
+    {
+     "id": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+     "object": "chat.completion.chunk",
+     "created": 1760000000,
+     "model": "deepseek-flash",
+     "system_fingerprint": "fp_ds_test",
+     "choices": [
+      {
+       "index": 0,
+       "delta": {
+        "content": "",
+        "reasoning_content": null
+       },
+       "logprobs": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "usage": {
+      "prompt_tokens": 1000,
+      "completion_tokens": 300,
+      "total_tokens": 1300,
+      "prompt_tokens_details": {
+       "cached_tokens": 800
+      },
+      "prompt_cache_hit_tokens": 800,
+      "prompt_cache_miss_tokens": 200
+     }
+    },
+    "[DONE]"
+   ],
+   "expect": {
+    "content": [
+     {
+      "thinking": "Hmm.",
+      "thinkingSignature": "reasoning_content",
+      "type": "thinking"
+     },
+     {
+      "text": "Hello",
+      "type": "text"
+     }
+    ],
+    "events": [
+     "start",
+     "thinking_start#0",
+     "thinking_delta#0:Hmm.",
+     "text_start#1",
+     "text_delta#1:Hello",
+     "thinking_end#0:Hmm.",
+     "text_end#1:Hello",
+     "done:stop"
+    ],
+    "rawStopReason": "stop",
+    "request": {
+     "body": {
+      "messages": [
+       {
+        "content": "You are terse.",
+        "role": "system"
+       },
+       {
+        "content": [
+         {
+          "text": "Say hello.",
+          "type": "text"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "model": "deepseek-flash",
+      "reasoning_effort": "high",
+      "stream": true,
+      "stream_options": {
+       "include_usage": true
+      },
+      "thinking": {
+       "type": "enabled"
+      }
+     },
+     "path": "/chat/completions"
+    },
+    "responseId": "0d6c1a2e-7f3b-4c5d-9e8f-1a2b3c4d5e6f",
+    "stopReason": "stop",
+    "usage": {
+     "cacheRead": 800,
+     "cacheWrite": 0,
+     "cost": {
+      "cacheRead": 4.8e-06,
+      "cacheWrite": 0,
+      "input": 5.9999999999999995e-05,
+      "output": 0.00035999999999999997,
+      "total": 0.00042479999999999997
+     },
+     "input": 200,
+     "output": 300,
+     "reasoning": 0,
+     "totalTokens": 1300
     },
     "usageReporting": "partial"
    }

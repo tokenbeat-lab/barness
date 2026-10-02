@@ -160,7 +160,7 @@ func TestDeepSeekResponsesToolRoundTrip(t *testing.T) {
 		return
 	}
 	call, err := ai.ValidateToolCall(res.Message, 1, req.Tools)
-	if !ev.Check("the host validates the call", err == nil && call.ID() == "call_ds_1|fc_ds_1", "err=%v", err) {
+	if !ev.Check("the host validates the call", err == nil && call.ID() == "call_00_812d49155c195ed2bbff5a8c|ab57cf25-3350-542c-9ad9-2be6a32f56d0", "err=%v", err) {
 		return
 	}
 	var args struct{ A, B int }

@@ -52,3 +52,7 @@ DeepSeek 的 Responses 指南（https://api-docs.deepseek.com/guides/responses_a
 2. 决策二：采纳。显式 `ServiceTier` 在 DeepSeek 上以 `invalid_request` 拒绝；session id 与缓存保留期静默不派生；`reasoningSummary` 照发。
 3. 决策三：采纳，附条件。`deepseek-flash` 取 pi 的 Chat 数据换为 `openai-responses`；level map 中未经 Responses 实测的 `high`/`max` 由工单 23 的真实冒烟确认，不被接受的级别改为 null 并换新目录版本。
 4. 决策四：采纳。差分账本的 `routes` 是扩展接入路径的登记处。
+
+## 真实冒烟后的处理（2026-10-03，工单 33）
+
+首次真实冒烟确认 high、max 推理等级被接受（决策三的条件未触发，目录不变）。P05 fixture 按实测形状修正：UUID 形式的 id、`call_00_…` 调用 id、推理条目带 `encrypted_content`、消息条目带 `phase`、401 错误体只显示 key 后四位并附 request_id。厂商请求 id 取 `x-ds-trace-id`（DeepSeek 不发送 `x-request-id`）。`auth-refused` 场景已删除。

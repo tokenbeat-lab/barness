@@ -195,63 +195,6 @@ func levelValue(m ai.ThinkingLevelMap, l ai.ThinkingLevel) (string, bool) {
 	return string(l), true
 }
 
-// authRefused sends one request with an invalid key to record DeepSeek's
-// 401 body and whether it returns a request id header (issues 21, 22). The
-// key is a fixed fake, never a secret.
-var authRefused = scenario{id: "auth-refused", run: func(s *session) {
-	if !s.spend() {
-		return
-	}
-	client, err := newClient(s.env.combo, "sk-barness-live-smoke-invalid-key", s.env.rec)
-	if err != nil {
-		s.check("client", false, "%v", err)
-		return
-	}
-	req := ai.Request{Messages: []ai.Message{ai.UserText(shortPrompt)}}
-	res, err := client.CompleteSimple(s.ctx, newScope(), s.target(), req, s.quiet(16))
-	ex := s.observe("refused", res, err)
-	var e *ai.Error
-	if errors.As(err, &e) && slices.Contains(retryableCodes, e.Code) {
-		s.fault = e
-		return
-	}
-	s.check("refused as upstream_auth with HTTP 401", errors.As(err, &e) && e.Code == ai.CodeUpstreamAuth && e.HTTPStatus == 401,
-		"error %v", err)
-	if len(ex) == 0 {
-		return
-	}
-	last := ex[len(ex)-1]
-	var ids []string
-	for _, name := range last.ResponseHeaderNames {
-		if strings.Contains(name, "id") {
-			ids = append(ids, name)
-		}
-	}
-	s.note("error body keys %s; id-like response headers %v", bodyShape(last.ResponseBody), ids)
-}}
-
-// bodyShape lists a JSON error body's keys, one level into objects.
-func bodyShape(body string) string {
-	var top map[string]any
-	if json.Unmarshal([]byte(body), &top) != nil {
-		return "(not a JSON object)"
-	}
-	var parts []string
-	for k, v := range top {
-		if inner, ok := v.(map[string]any); ok {
-			var keys []string
-			for ik := range inner {
-				keys = append(keys, ik)
-			}
-			slices.Sort(keys)
-			k += "{" + strings.Join(keys, ",") + "}"
-		}
-		parts = append(parts, k)
-	}
-	slices.Sort(parts)
-	return strings.Join(parts, ",")
-}
-
 // requestBody is the last captured request body as JSON.
 func requestBody(ex []exchange) map[string]any {
 	if len(ex) == 0 {

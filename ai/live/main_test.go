@@ -18,7 +18,7 @@ import (
 )
 
 // Budget of one live process (spec §2, §5: bounded tokens and calls). A
-// normal run of the largest combination makes 14 logical calls; the rest
+// normal run of the largest combination makes 13 logical calls; the rest
 // leaves room for one retry of each scenario that meets a vendor fault.
 const (
 	maxCalls          = 24

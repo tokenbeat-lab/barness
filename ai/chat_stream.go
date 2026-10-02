@@ -65,9 +65,9 @@ type chatCall struct {
 	indexed bool
 }
 
-func newChatParser(out *assembler, model Model, failures chatFailures, attempt *initialRequest) *chatParser {
+func newChatParser(out *assembler, model Model, usage chatUsage, failures chatFailures, attempt *initialRequest) *chatParser {
 	return &chatParser{out: out, model: model, failures: failures, attempt: attempt, text: -1, thinking: -1,
-		byIndex: map[float64]int{}, byID: map[string]int{}, usage: chatUsage{model: model}}
+		byIndex: map[float64]int{}, byID: map[string]int{}, usage: usage}
 }
 
 // read feeds the SSE events of dec to the parser until the body ends, and

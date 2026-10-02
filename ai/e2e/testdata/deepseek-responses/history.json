@@ -277,7 +277,7 @@
     },
     {
       "id": "tool-round-trip",
-      "about": "Same-model tool round trip: the reasoning item goes back verbatim (DeepSeek merges its reasoning_text into the assistant turn), then the function call with its item id and the host's result; native state is not downgraded.",
+      "about": "Same-model tool round trip: the reasoning item goes back verbatim (DeepSeek merges its reasoning_text into the assistant turn), then the function call with its item id and the host's result; native state is not downgraded. DeepSeek's item ids are UUIDs (observed live 2026-10-02), so, by pi's rule that a replayed function_call keeps only an fc_ item id, the call goes back without one; DeepSeek accepted that live.",
       "model": "deepseek-flash",
       "context": {
         "systemPrompt": "You are terse.",
@@ -303,11 +303,11 @@
               {
                 "type": "thinking",
                 "thinking": "Use add.",
-                "thinkingSignature": "{\"id\":\"rs_ds_3\",\"type\":\"reasoning\",\"summary\":[],\"content\":[{\"type\":\"reasoning_text\",\"text\":\"Use add.\"}],\"status\":\"completed\"}"
+                "thinkingSignature": "{\"id\":\"d6e27efa-e57a-532d-b74c-4fe6ef5510dd\",\"type\":\"reasoning\",\"summary\":[],\"content\":[{\"type\":\"reasoning_text\",\"text\":\"Use add.\"}],\"status\":\"completed\",\"encrypted_content\":\"2d747a9b-8df4-577c-8fb1-6519704acc65-0\"}"
               },
               {
                 "type": "toolCall",
-                "id": "call_ds_1|fc_ds_1",
+                "id": "call_00_812d49155c195ed2bbff5a8c|ab57cf25-3350-542c-9ad9-2be6a32f56d0",
                 "name": "add",
                 "arguments": {
                   "a": 17,
@@ -318,7 +318,7 @@
           },
           {
             "role": "toolResult",
-            "toolCallId": "call_ds_1|fc_ds_1",
+            "toolCallId": "call_00_812d49155c195ed2bbff5a8c|ab57cf25-3350-542c-9ad9-2be6a32f56d0",
             "toolName": "add",
             "content": [
               {
@@ -355,7 +355,7 @@
         {
           "type": "response.created",
           "response": {
-            "id": "resp_ds_h2",
+            "id": "561b2b4d-b39f-513b-b656-684e1c064fbe",
             "object": "response",
             "created_at": 1790000000,
             "status": "in_progress",
@@ -371,7 +371,7 @@
         {
           "type": "response.in_progress",
           "response": {
-            "id": "resp_ds_h2",
+            "id": "561b2b4d-b39f-513b-b656-684e1c064fbe",
             "object": "response",
             "created_at": 1790000000,
             "status": "in_progress",
@@ -388,17 +388,18 @@
           "type": "response.output_item.added",
           "output_index": 0,
           "item": {
-            "id": "msg_ds_h2",
+            "id": "52759e65-9872-5a33-840f-ddd09c33bdbf",
             "type": "message",
             "status": "in_progress",
             "role": "assistant",
-            "content": []
+            "content": [],
+            "phase": "commentary"
           },
           "sequence_number": 2
         },
         {
           "type": "response.content_part.added",
-          "item_id": "msg_ds_h2",
+          "item_id": "52759e65-9872-5a33-840f-ddd09c33bdbf",
           "output_index": 0,
           "content_index": 0,
           "part": {
@@ -410,7 +411,7 @@
         },
         {
           "type": "response.output_text.delta",
-          "item_id": "msg_ds_h2",
+          "item_id": "52759e65-9872-5a33-840f-ddd09c33bdbf",
           "output_index": 0,
           "content_index": 0,
           "delta": "36.",
@@ -418,7 +419,7 @@
         },
         {
           "type": "response.output_text.done",
-          "item_id": "msg_ds_h2",
+          "item_id": "52759e65-9872-5a33-840f-ddd09c33bdbf",
           "output_index": 0,
           "content_index": 0,
           "text": "36.",
@@ -426,7 +427,7 @@
         },
         {
           "type": "response.content_part.done",
-          "item_id": "msg_ds_h2",
+          "item_id": "52759e65-9872-5a33-840f-ddd09c33bdbf",
           "output_index": 0,
           "content_index": 0,
           "part": {
@@ -440,7 +441,7 @@
           "type": "response.output_item.done",
           "output_index": 0,
           "item": {
-            "id": "msg_ds_h2",
+            "id": "52759e65-9872-5a33-840f-ddd09c33bdbf",
             "type": "message",
             "status": "completed",
             "role": "assistant",
@@ -450,21 +451,22 @@
                 "text": "36.",
                 "annotations": []
               }
-            ]
+            ],
+            "phase": "commentary"
           },
           "sequence_number": 7
         },
         {
           "type": "response.completed",
           "response": {
-            "id": "resp_ds_h2",
+            "id": "561b2b4d-b39f-513b-b656-684e1c064fbe",
             "object": "response",
             "created_at": 1790000000,
             "status": "completed",
             "model": "deepseek-flash",
             "output": [
               {
-                "id": "msg_ds_h2",
+                "id": "52759e65-9872-5a33-840f-ddd09c33bdbf",
                 "type": "message",
                 "status": "completed",
                 "role": "assistant",
@@ -474,7 +476,8 @@
                     "text": "36.",
                     "annotations": []
                   }
-                ]
+                ],
+                "phase": "commentary"
               }
             ],
             "store": false,
@@ -516,7 +519,7 @@
                 ]
               },
               {
-                "id": "rs_ds_3",
+                "id": "d6e27efa-e57a-532d-b74c-4fe6ef5510dd",
                 "type": "reasoning",
                 "summary": [],
                 "content": [
@@ -525,18 +528,18 @@
                     "text": "Use add."
                   }
                 ],
-                "status": "completed"
+                "status": "completed",
+                "encrypted_content": "2d747a9b-8df4-577c-8fb1-6519704acc65-0"
               },
               {
                 "type": "function_call",
-                "id": "fc_ds_1",
-                "call_id": "call_ds_1",
+                "call_id": "call_00_812d49155c195ed2bbff5a8c",
                 "name": "add",
                 "arguments": "{\"a\":17,\"b\":19}"
               },
               {
                 "type": "function_call_output",
-                "call_id": "call_ds_1",
+                "call_id": "call_00_812d49155c195ed2bbff5a8c",
                 "output": "36"
               }
             ],
@@ -579,12 +582,12 @@
         },
         "stopReason": "stop",
         "rawStopReason": "completed",
-        "responseId": "resp_ds_h2",
+        "responseId": "561b2b4d-b39f-513b-b656-684e1c064fbe",
         "content": [
           {
             "type": "text",
             "text": "36.",
-            "textSignature": "{\"v\":1,\"id\":\"msg_ds_h2\"}"
+            "textSignature": "{\"v\":1,\"id\":\"52759e65-9872-5a33-840f-ddd09c33bdbf\",\"phase\":\"commentary\"}"
           }
         ],
         "usage": {

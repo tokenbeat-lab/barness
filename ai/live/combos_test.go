@@ -127,8 +127,7 @@ var combos = []combo{
 		name: "deepseek-responses", spec: "P05", provider: ai.ProviderDeepSeek, api: ai.APIOpenAIResponses,
 		endpoint: "https://api.deepseek.com", sdk: openAISDK, model: "deepseek-flash",
 		full: responsesOptions(""), reasoning: ai.ThinkingLow,
-		extra: []scenario{reasoningLevel("deepseek-flash", ai.ThinkingHigh), reasoningLevel("deepseek-flash", ai.ThinkingMax),
-			authRefused},
+		extra: []scenario{reasoningLevel("deepseek-flash", ai.ThinkingHigh), reasoningLevel("deepseek-flash", ai.ThinkingMax)},
 	},
 	{
 		// DeepSeek's Chat: no level switches thinking off, so the forced
@@ -138,7 +137,6 @@ var combos = []combo{
 		endpoint: "https://api.deepseek.com", sdk: openAISDK, model: "deepseek-flash",
 		full: chatOptions(""), forcesTool: true, reasoning: ai.ThinkingLow,
 		extra: []scenario{chatUsagePosition, forcedToolWithThinking, promptCacheLongRetention,
-			reasoningLevel("deepseek-v4-pro", ai.ThinkingHigh), reasoningLevel("deepseek-v4-pro", ai.ThinkingMax),
-			authRefused},
+			reasoningLevel("deepseek-v4-pro", ai.ThinkingHigh), reasoningLevel("deepseek-v4-pro", ai.ThinkingMax)},
 	},
 }

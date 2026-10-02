@@ -62,3 +62,5 @@ Client 按宿主方式装配：一个租户、一个指向厂商真实 endpoint 
 ## 首次真实运行后的型号调整（2026-10-02）
 
 首次运行时 Google 对 `gemini-2.5-flash` 返回 404：“no longer available to new users”，建议改用 `gemini-3.8-flash`。按决策二“需要换型号时改 `ai/live/combos_test.go`”，Gemini 组合的默认模型改为目录中的 `gemini-3.8-flash`（Gemini 3：level 推理、调用 id 与签名回放、嵌套的工具结果图片），价格为每百万 token 输入 0.75、输出 3.75 美元。其余默认模型首次运行可用。
+
+`auth-refused` 场景按维护者决定于 2026-10-03 删除（401 错误体与请求 id 头已确认，工单 33）；支持矩阵中 DeepSeek 两行保留该能力的历史记录，合并规则不删除能力。

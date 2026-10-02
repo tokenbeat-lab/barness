@@ -57,7 +57,7 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	var delivered deliveredBody
 	reqOpts := openAIRequestOptions(ac, body, opts.TimeoutMs, opts.requestTimeout(), &delivered)
 	svc := openai.NewChatCompletionService(reqOpts...)
-	failures := newChatFailures(ac.apiKey, ac.initial)
+	failures := newChatFailures(ac.model.Provider, ac.apiKey, ac.initial)
 	ctx = withProtocolTimeout(ctx, opts.requestTimeout())
 	var stream *ssestream.Stream[openai.ChatCompletionChunk]
 	var res *http.Response
@@ -78,7 +78,7 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 			_ = stream.Close()
 			return o
 		}
-		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get(openAIRequestIDHeader)}
+		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get(requestIDHeaderOf(ac.model.Provider))}
 	})
 	if failure != nil {
 		return failure
@@ -86,14 +86,15 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	// Close releases the response body on every later path. The typed
 	// stream is never read: the adapter decodes the same body itself.
 	defer stream.Close()
-	requestID := res.Header.Get(openAIRequestIDHeader)
+	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
 		return failure
 	}
 
 	out.start()
-	p := newChatParser(out, ac.model, failures, ac.initial)
+	usage := chatUsage{model: ac.model, reasoningExpected: opts.reasoningExpected(ac.model, chatCompatOf(ac.model.Provider))}
+	p := newChatParser(out, ac.model, usage, failures, ac.initial)
 	failure = p.read(ctx, ssestream.NewDecoder(res))
 	if failure != nil {
 		failure.ProviderRequestID = requestID
@@ -106,8 +107,8 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 // no "API error" prefix, plus errors the provider reports in the stream.
 type chatFailures struct{ httpFailures }
 
-func newChatFailures(apiKey Secret, initial *initialRequest) chatFailures {
-	return chatFailures{httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: openAIRequestIDHeader, describe: chatHTTPError}}
+func newChatFailures(provider ProviderID, apiKey Secret, initial *initialRequest) chatFailures {
+	return chatFailures{httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: requestIDHeaderOf(provider), describe: chatHTTPError}}
 }
 
 // inBand is a chunk's truthy error field: openai-node raises it as an

@@ -76,14 +76,14 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 			_ = stream.Close()
 			return o
 		}
-		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get(openAIRequestIDHeader)}
+		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get(requestIDHeaderOf(ac.model.Provider))}
 	})
 	if failure != nil {
 		return failure
 	}
 	// Close releases the response body on every later path.
 	defer stream.Close()
-	requestID := res.Header.Get(openAIRequestIDHeader)
+	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
 		return failure

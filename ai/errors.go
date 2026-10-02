@@ -78,8 +78,9 @@ type Error struct {
 	// HTTPStatus is the provider's response status; 0 when no HTTP response
 	// was received.
 	HTTPStatus int
-	// ProviderRequestID is the vendor's own request id (for OpenAI the
-	// x-request-id response header), when a response carried one.
+	// ProviderRequestID is the vendor's own request id (OpenAI's
+	// x-request-id, DeepSeek's x-ds-trace-id, Anthropic's request-id
+	// response header), when a response carried one.
 	ProviderRequestID string
 	// RetryAfter is the delay the provider asked for, from retry-after-ms or
 	// retry-after (seconds or an HTTP date); 0 when it asked for none or for

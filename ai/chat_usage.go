@@ -3,8 +3,15 @@ package ai
 import "encoding/json"
 
 // chatUsage converts, classifies and prices one call's Chat Completions
-// usage with the model's rates.
-type chatUsage struct{ model Model }
+// usage with the model's rates. reasoningExpected is whether the call asked
+// for reasoning: only then is a missing reasoning count a gap in the report.
+// DeepSeek omits completion_tokens_details when thinking is off (observed
+// live 2026-10-02), and a call without thinking has no reasoning to count,
+// so its usage stays complete (maintainer decision 2026-10-03, issue 33).
+type chatUsage struct {
+	model             Model
+	reasoningExpected bool
+}
 
 // chatUsageCounts are the counts pi's parseChunkUsage reads; each stays raw
 // so a missing or null count can be told from a reported one.
@@ -60,7 +67,7 @@ func (c chatUsage) of(raw json.RawMessage) (Usage, UsageReporting) {
 	u.TotalTokens = u.Input + u.Output + u.CacheRead + u.CacheWrite
 	u.Cost = c.model.Cost.estimate(u)
 	reporting := UsagePartial
-	if promptReported && outputReported && cacheReported && reasoningReported {
+	if promptReported && outputReported && cacheReported && (reasoningReported || !c.reasoningExpected) {
 		reporting = UsageComplete
 	}
 	return u, reporting

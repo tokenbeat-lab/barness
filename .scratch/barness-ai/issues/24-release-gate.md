@@ -4,7 +4,7 @@
 
 **Blocked by:** 12, 13, 23
 
-**Status:** ready-for-human
+**Status:** resolved
 
 - [x] 正式资源策略示例在可重复压力场景下跑通，记录各数值依据（部署策略，不构成 pi 兼容承诺）
 - [x] 对离线与 live 证据包、日志、观测、错误做脱敏审计，无 key、Authorization、非合成正文泄漏
@@ -85,3 +85,5 @@ Run 3 hit two one-off failures. Neither recurred: run 4 passed, and so did the i
 
 - **`PIDIFF-P03-usage-replaced-stream`.** Under full-suite load, pi's live partial at `events[1]` held the chunk's usage and barness's did not yet. Both apply usage after the chunk's parts, but pi serializes each event only after the whole chunk has run. This is the approved live-partial category in the other direction, so the Gemini ledger gains the `only_pi` entry for `partial.usage.reasoning`. 30 isolated runs matched pi.
 - **`E08-policy-pressure-local-design-load`.** Two calls failed with `transport` on loopback before any response arrived. This did not reproduce in 5 isolated runs or in a full run. TIME_WAIT peaked near 1.9K of 16K ports, which rules out port exhaustion. barness does not expose the underlying error, so the pressure world now records every failed round trip's network error (`transport-errors.json`) for diagnosis if it recurs.
+
+**2026-10-03 — maintainer decisions; ADR-0017 accepted.** All five open points accepted as implemented: the gate's composition, including the live SDK-version check and the live-bundle audit requirement; the opt-in pressure scenario with the 75% headroom rule; the three policy value changes; the audit rules; the traceability map and the catalog snapshot. The `MaxToolJSONBytes` tightening is temporary until issue 32. The DeepSeek follow-ups from the live run go to issue 33.

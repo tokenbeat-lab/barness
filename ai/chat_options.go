@@ -166,6 +166,21 @@ func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey
 	}
 }
 
+// reasoningExpected is whether a call with these options asks model m for
+// reasoning, so its usage should count reasoning tokens: a reasoning model,
+// unless DeepSeek's thinking switch turns thinking off. A payload callback
+// that switches thinking on itself is not seen here; such a call's missing
+// count reads as complete.
+func (o ChatOptions) reasoningExpected(m Model, compat chatCompat) bool {
+	if !m.Reasoning {
+		return false
+	}
+	if compat.deepseekThinking {
+		return o.ReasoningEffort != "" || m.ThinkingLevelMap.Off.IsNull()
+	}
+	return true
+}
+
 // ChatToolChoice is the Chat Completions tool_choice. Exactly one form is
 // set. Its JSON is the wire value: a mode string,
 // {"type":"function","function":{"name":…}} or

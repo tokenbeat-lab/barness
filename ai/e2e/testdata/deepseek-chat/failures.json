@@ -1015,7 +1015,7 @@
   },
   {
    "id": "http-401",
-   "about": "Authentication failure: DeepSeek's message shows only a masked key suffix.",
+   "about": "Authentication failure, in the shape DeepSeek returned live (2026-10-02): the message shows only the key's last four characters and ends with DeepSeek's request id; the vendor request id is the x-ds-trace-id response header (issue 33).",
    "model": "deepseek-flash",
    "context": {
     "systemPrompt": "You are terse.",
@@ -1034,13 +1034,17 @@
    "replies": [
     {
      "status": 401,
-     "body": "{\"error\":{\"message\":\"Authentication Fails, Your api key: ****0001 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+     "body": "{\"error\":{\"message\":\"Authentication Fails, Your api key: ****0001 is invalid (request_id: 5b1e7c2a-0f3d-4e8b-9a61-2c4d8e0f7a13)\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}",
+     "header": {
+      "x-ds-trace-id": "3f9c2b7e8d1a4c6f9e0b5a7d2c4e6f81",
+      "eo-log-uuid": "12093847561029384756"
+     }
     }
    ],
    "expect": {
     "code": "upstream_auth",
     "content": [],
-    "errorMessage": "401: {\"message\":\"Authentication Fails, Your api key: ****0001 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
+    "errorMessage": "401: {\"message\":\"Authentication Fails, Your api key: ****0001 is invalid (request_id: 5b1e7c2a-0f3d-4e8b-9a61-2c4d8e0f7a13)\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
     "events": [
      "error:error"
     ],
@@ -1089,7 +1093,8 @@
      "output": 0,
      "totalTokens": 0
     },
-    "usageReporting": "unreported"
+    "usageReporting": "unreported",
+    "providerRequestId": "3f9c2b7e8d1a4c6f9e0b5a7d2c4e6f81"
    }
   },
   {

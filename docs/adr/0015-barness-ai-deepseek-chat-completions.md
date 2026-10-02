@@ -56,3 +56,7 @@ P06 不登记为扩展路由（ledger `routes` 中没有 DeepSeek × openai-comp
 2. 决策二：采纳。目录列入 `deepseek-flash` 与 `deepseek-v4-pro`（含 v4-pro 的 mid-conversation system），版本 `2026-10-02.6`；v4-pro 的 `high`/`max` 由工单 23 的真实冒烟确认。
 3. 决策三：采纳，附条件。thinking + 强制工具选择照发，由 DeepSeek 拒绝；若工单 23 的冒烟显示 DeepSeek 静默忽略强制选择，改为发送前以 `invalid_request` 拒绝并更新本 ADR 与 P06 fixture。
 4. 决策四：采纳，附条件。long 保留期下照 pi 发送派生的 `prompt_cache_key` 与 `24h` 保留期；若工单 23 的冒烟显示 DeepSeek 拒绝这两个字段，改为不发送，并在差分账本登记为扩展。
+
+## 真实冒烟后的处理（2026-10-03，工单 33）
+
+首次真实冒烟确认：thinking 与强制工具选择被 400 拒绝（决策三维持照发、由厂商拒绝）；long 保留期的提示缓存字段被接受（决策四维持）；usage 在 finish_reason chunk 内；deepseek-v4-pro 的 high/max 被接受。关闭思考时 DeepSeek 不返回 `completion_tokens_details`，维护者决定此时用量为完整上报，开启思考时缺失仍为部分上报。P06 的 401 fixture 按实测形状修正，厂商请求 id 取 `x-ds-trace-id`，`auth-refused` 场景已删除。

@@ -46,3 +46,5 @@
   1. Correct the P05/P06 fixtures to the observed shapes (ADR-0014/0015 decision three), and remove `auth-refused` as already decided.
   2. Decide whether DeepSeek's `x-ds-trace-id` becomes `ProviderRequestID`.
   3. Decide whether a missing reasoning count makes DeepSeek Chat usage `partial` (compare ADR-0010's rule for Responses' `cache_write_tokens`).
+
+**2026-10-03 — follow-ups 1–3 done in issue 33** (fixtures corrected, `auth-refused` removed, `x-ds-trace-id` read as `ProviderRequestID`, thinking-off usage complete).

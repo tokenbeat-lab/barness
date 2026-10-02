@@ -7,8 +7,18 @@ import (
 	"github.com/openai/openai-go/v3/option"
 )
 
-// openAIRequestIDHeader is where OpenAI returns its request id.
-const openAIRequestIDHeader = "x-request-id"
+// requestIDHeaderOf is the response header where provider p returns its
+// own request id on the OpenAI protocols: OpenAI's x-request-id, or
+// DeepSeek's x-ds-trace-id (DeepSeek sends no x-request-id; observed live
+// 2026-10-02, maintainer decision 2026-10-03, issue 33). It is keyed by the
+// provider like responsesCapabilitiesOf and chatCompatOf. Error.
+// ProviderRequestID is a barness-ai extension; pi reads no such header.
+func requestIDHeaderOf(p ProviderID) string {
+	if p == ProviderDeepSeek {
+		return "x-ds-trace-id"
+	}
+	return "x-request-id"
+}
 
 // openAIRequestOptions are the OpenAI Go SDK options both OpenAI protocols
 // (Responses, Chat Completions) send their own body with: the Client's
