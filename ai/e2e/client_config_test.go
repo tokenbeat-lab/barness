@@ -38,6 +38,7 @@ func TestClientConstruction(t *testing.T) {
 		{"zero-queued-event-bytes", "Policy.MaxQueuedEventBytes", func(c *ai.Config) { c.Policy.MaxQueuedEventBytes = 0 }},
 		{"zero-tenant-concurrency", "Policy.MaxConcurrentPerTenant", func(c *ai.Config) { c.Policy.MaxConcurrentPerTenant = 0 }},
 		{"zero-process-concurrency", "Policy.MaxConcurrentProcess", func(c *ai.Config) { c.Policy.MaxConcurrentProcess = 0 }},
+		{"zero-admission-waiters", "Policy.MaxAdmissionWaiters", func(c *ai.Config) { c.Policy.MaxAdmissionWaiters = 0 }},
 		{"zero-call-timeout", "Policy.CallTimeout", func(c *ai.Config) { c.Policy.CallTimeout = 0 }},
 		{"zero-connect-timeout", "Policy.ConnectTimeout", func(c *ai.Config) { c.Policy.ConnectTimeout = 0 }},
 		{"zero-response-header-timeout", "Policy.ResponseHeaderTimeout", func(c *ai.Config) { c.Policy.ResponseHeaderTimeout = 0 }},
@@ -47,6 +48,7 @@ func TestClientConstruction(t *testing.T) {
 		{"negative-output-bytes", "Policy.MaxOutputBytes", func(c *ai.Config) { c.Policy.MaxOutputBytes = -1 }},
 		{"negative-queued-events", "Policy.MaxQueuedEvents", func(c *ai.Config) { c.Policy.MaxQueuedEvents = -1 }},
 		{"negative-process-concurrency", "Policy.MaxConcurrentProcess", func(c *ai.Config) { c.Policy.MaxConcurrentProcess = -1 }},
+		{"negative-admission-waiters", "Policy.MaxAdmissionWaiters", func(c *ai.Config) { c.Policy.MaxAdmissionWaiters = -1 }},
 		{"negative-call-timeout", "Policy.CallTimeout", func(c *ai.Config) { c.Policy.CallTimeout = -time.Second }},
 		{"negative-admission-wait", "Policy.AdmissionWait", func(c *ai.Config) { c.Policy.AdmissionWait = -time.Millisecond }},
 

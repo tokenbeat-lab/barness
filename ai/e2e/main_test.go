@@ -52,6 +52,7 @@ func validPolicy() *ai.ResourcePolicy {
 		MaxQueuedEventBytes:    1 << 20,
 		MaxConcurrentPerTenant: 8,
 		MaxConcurrentProcess:   32,
+		MaxAdmissionWaiters:    64,
 		AdmissionWait:          time.Second,
 		CallTimeout:            30 * time.Second,
 		ConnectTimeout:         5 * time.Second,

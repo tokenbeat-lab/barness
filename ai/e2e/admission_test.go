@@ -110,6 +110,33 @@ func TestAdmission(t *testing.T) {
 		}
 	})
 
+	t.Run("waiters-capped", func(t *testing.T) {
+		// Once MaxAdmissionWaiters attempts wait, the next is refused at
+		// once rather than queued; the waiter already queued is still served.
+		for _, e := range outcomeEntries {
+			t.Run(e.name, func(t *testing.T) {
+				ev := run.Case(t, "E08-admission-waiters-capped-"+e.name)
+				aw := newAdmissionWorld(t, func(p *ai.ResourcePolicy) {
+					p.MaxConcurrentPerTenant, p.AdmissionWait, p.MaxAdmissionWaiters = 1, 3*time.Second, 1
+				}, nil)
+				held := aw.hold(t, ev, ctxFor(t), tenantA, "req-hold")
+				aw.provider.Enqueue(sseReply(t, aw.text, provider.FramingLF))
+				done := make(chan outcome, 1)
+				go func() { done <- aw.call(ctxFor(t), e, tenantA, "req-waiting") }()
+				eventually(ev, "the first extra call waits", func() bool { return aw.probe.AdmissionWaiters() == 1 })
+				start := time.Now()
+				o := within(ev, "the call over the waiter cap ends", func() outcome { return aw.call(ctxFor(t), e, tenantA, "req-over-cap") })
+				o.record(ev)
+				checkAdmissionDenied(ev, o, "MaxAdmissionWaiters")
+				ev.Check("it is refused at once, not after AdmissionWait", time.Since(start) < time.Second, "took %s", time.Since(start))
+				_ = held.Close()
+				waiting := waitValue(ev, "the queued call ends", done)
+				checkTextSucceeded(ev, aw.text, waiting)
+				checkAdmissionReleased(ev, aw)
+			})
+		}
+	})
+
 	t.Run("wait-interrupted", func(t *testing.T) {
 		for _, e := range outcomeEntries {
 			for _, how := range []struct {

@@ -103,14 +103,13 @@ func admissionInterrupted(ctx context.Context) *Error {
 // limiter is the built-in admission: at most perTenant permits per tenant
 // and process permits in all, held by attempts of this Client's process
 // only. At capacity an attempt waits up to wait for a permit, or is refused
-// at once when wait is 0. Waiters are served first come first served among
-// those a freed permit fits, so a tenant at its own limit never holds back
-// another tenant's waiters; there is no queue beyond the attempts waiting,
-// each for a bounded time.
+// at once when wait is 0 or maxWaiters attempts already wait. Waiters are
+// served first come first served among those a freed permit fits, so a
+// tenant at its own limit never holds back another tenant's waiters.
 type limiter struct {
-	perTenant, process int
-	wait               time.Duration
-	probe              *probe.Probe
+	perTenant, process, maxWaiters int
+	wait                           time.Duration
+	probe                          *probe.Probe
 
 	mu      sync.Mutex
 	held    map[string]int // permits per tenant; a tenant holding none is absent
@@ -126,7 +125,7 @@ type waiter struct {
 }
 
 func newLimiter(p *ResourcePolicy, pr *probe.Probe) *limiter {
-	return &limiter{perTenant: p.MaxConcurrentPerTenant, process: p.MaxConcurrentProcess, wait: p.AdmissionWait,
+	return &limiter{perTenant: p.MaxConcurrentPerTenant, process: p.MaxConcurrentProcess, maxWaiters: p.MaxAdmissionWaiters, wait: p.AdmissionWait,
 		probe: pr, held: map[string]int{}}
 }
 
@@ -142,6 +141,11 @@ func (l *limiter) acquire(ctx context.Context, tenant string) (func(), *Error) {
 		failure := l.deniedLocked(tenant)
 		l.mu.Unlock()
 		return nil, failure
+	}
+	if len(l.waiters) >= l.maxWaiters {
+		l.mu.Unlock()
+		return nil, newError(CodeAdmissionDenied, PhaseAdmission,
+			"admission queue full: the resource policy's MaxAdmissionWaiters ("+strconv.Itoa(l.maxWaiters)+")")
 	}
 	w := &waiter{tenant: tenant, granted: make(chan struct{})}
 	l.waiters = append(l.waiters, w)

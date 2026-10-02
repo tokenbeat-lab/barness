@@ -54,9 +54,13 @@ type ResourcePolicy struct {
 
 	// AdmissionWait bounds how long an attempt waits for a built-in permit
 	// before it is refused with CodeAdmissionDenied. Zero is valid and means
-	// "reject immediately when at capacity". There is no admission queue
-	// beyond the attempts waiting, each for at most this long.
+	// "reject immediately when at capacity".
 	AdmissionWait time.Duration
+	// MaxAdmissionWaiters bounds how many attempts of this process wait for
+	// a built-in permit at once; an attempt that would wait beyond it is
+	// refused at once with CodeAdmissionDenied. Together with AdmissionWait
+	// it keeps the admission queue finite in length and in time.
+	MaxAdmissionWaiters int
 
 	// CallTimeout bounds a whole logical call, resolution included, as its
 	// context's deadline; the host's own deadline ends it earlier. Every
@@ -95,6 +99,7 @@ func (p *ResourcePolicy) validate() error {
 		{"MaxQueuedEventBytes", p.MaxQueuedEventBytes},
 		{"MaxConcurrentPerTenant", int64(p.MaxConcurrentPerTenant)},
 		{"MaxConcurrentProcess", int64(p.MaxConcurrentProcess)},
+		{"MaxAdmissionWaiters", int64(p.MaxAdmissionWaiters)},
 		{"CallTimeout", int64(p.CallTimeout)},
 		{"ConnectTimeout", int64(p.ConnectTimeout)},
 		{"ResponseHeaderTimeout", int64(p.ResponseHeaderTimeout)},
