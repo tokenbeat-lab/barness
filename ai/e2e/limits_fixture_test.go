@@ -101,6 +101,10 @@ type boundary struct {
 	request ai.Request
 	within  func(ev *evidence.Case, lw limitWorld, o outcome)
 	over    func(ev *evidence.Case, lw limitWorld, o outcome)
+	// entries are the entry points to run; nil is outcomeEntries.
+	entries []outcomeEntry
+	// casePrefix prefixes the case id; empty is "E08".
+	casePrefix string
 }
 
 func runBoundary(t *testing.T, bc boundary) {
@@ -110,9 +114,16 @@ func runBoundary(t *testing.T, bc boundary) {
 		if over {
 			name = "over-limit"
 		}
-		for _, e := range outcomeEntries {
+		entries, prefix := bc.entries, bc.casePrefix
+		if entries == nil {
+			entries = outcomeEntries
+		}
+		if prefix == "" {
+			prefix = "E08"
+		}
+		for _, e := range entries {
 			t.Run(name+"/"+e.name, func(t *testing.T) {
-				ev := run.Case(t, "E08-"+bc.id+"-"+name+"-"+e.name)
+				ev := run.Case(t, prefix+"-"+bc.id+"-"+name+"-"+e.name)
 				size := bc.size(t, e)
 				limit := size
 				if over {

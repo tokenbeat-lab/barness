@@ -30,7 +30,7 @@ func newCall(scope CallScope, target Target, req Request, full Options, simple *
 
 // run executes a call to its terminal and returns the result. emit queues
 // every event when the caller streams; it is nil for Complete.
-func (c *Client) run(ctx context.Context, cl call, emit func(Event) *Error) (Result, error) {
+func (c *Client) run(ctx context.Context, cl call, emit func(EventEnvelope) *Error) (Result, error) {
 	c.probe.CallStarted()
 	defer c.probe.CallEnded()
 	// The policy's CallTimeout bounds the whole call, setup included; the
@@ -38,14 +38,14 @@ func (c *Client) run(ctx context.Context, cl call, emit func(Event) *Error) (Res
 	ctx, cancel := context.WithTimeout(ctx, c.policy.CallTimeout)
 	defer cancel()
 	started := time.Now()
-	asm := newAssembler(started.UnixMilli(), emit, c.policy.byteLimits().toolJSON)
-	meta := CallMetadata{
+	meta := CallMetadata{CallAttribution: CallAttribution{
 		TenantID:  cl.scope.TenantID,
 		RequestID: cl.scope.RequestID,
 		ActorID:   cl.scope.ActorID,
 		JobID:     cl.scope.JobID,
 		BindingID: cl.target.BindingID,
-	}
+	}}
+	asm := newAssembler(started.UnixMilli(), meta.CallAttribution, emit, c.policy.byteLimits().toolJSON)
 	c.observations.callStarted(meta)
 	failure := c.execute(ctx, cl, &meta, asm)
 	res, err := asm.finish(meta, failure)
@@ -121,7 +121,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	meta.BindingVersion, meta.CredentialVersion = binding.Version, cred.Version
 	meta.CatalogVersion, meta.CatalogHash = c.catalog.Version, c.catalogHash
 	meta.NativeStateDowngrades = downgrades
-	asm.identify(origin.envelope())
+	asm.identify(origin.envelope(), meta.CallAttribution)
 
 	// From here on the call is pinned to this snapshot: later updates or
 	// revocations affect only new logical calls, and every retry of the

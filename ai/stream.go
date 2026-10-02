@@ -10,7 +10,7 @@ import (
 // Stream is one call's event stream. It is returned before any resolution or
 // I/O happens; a background producer does that work and publishes events.
 //
-// Next and Event are for a single consumer. Result may be awaited
+// Next, Event and Envelope are for a single consumer. Result may be awaited
 // independently of, or in parallel with, event consumption and never requires
 // Next. Close may be called concurrently and repeatedly.
 //
@@ -32,14 +32,14 @@ type Stream struct {
 	maxBytes  int64
 
 	mu       sync.Mutex
-	queue    []Event
+	queue    []EventEnvelope
 	bytes    int64 // eventBytes of the queued non-terminal events
 	finished bool  // the producer published its terminal event
 	drained  bool  // Next returned false
 	result   Result
 	err      error
 
-	cur Event // consumer-owned
+	cur EventEnvelope // consumer-owned
 }
 
 // Stream starts one generation turn with full protocol options.
@@ -71,10 +71,10 @@ func (c *Client) startStream(ctx context.Context, cl call) *Stream {
 // push queues e without ever blocking. A non-terminal event that would take
 // the queue past its bounds is not queued and the overflow is returned; the
 // terminal is always queued.
-func (s *Stream) push(e Event) *Error {
-	size := eventBytes(e)
+func (s *Stream) push(e EventEnvelope) *Error {
+	size := eventBytes(e.Event)
 	s.mu.Lock()
-	if !isTerminal(e) {
+	if !isTerminal(e.Event) {
 		switch {
 		case len(s.queue) >= s.maxEvents:
 			s.mu.Unlock()
@@ -137,17 +137,17 @@ func (s *Stream) Next() bool {
 		s.mu.Lock()
 		if len(s.queue) > 0 {
 			s.cur = s.queue[0]
-			s.queue[0] = nil
+			s.queue[0] = EventEnvelope{}
 			s.queue = s.queue[1:]
-			if !isTerminal(s.cur) {
-				s.bytes -= eventBytes(s.cur)
+			if !isTerminal(s.cur.Event) {
+				s.bytes -= eventBytes(s.cur.Event)
 			}
 			s.mu.Unlock()
 			s.probe.Dequeued()
 			return true
 		}
 		if s.finished {
-			s.cur, s.drained = nil, true
+			s.cur, s.drained = EventEnvelope{}, true
 			s.mu.Unlock()
 			return false
 		}
@@ -157,7 +157,12 @@ func (s *Stream) Next() bool {
 }
 
 // Event returns the event Next advanced to.
-func (s *Stream) Event() Event { return s.cur }
+func (s *Stream) Event() Event { return s.cur.Event }
+
+// Envelope returns the event Next advanced to together with its call's
+// attribution as it stood when the event was published, for a host that
+// merges several streams (see EventEnvelope).
+func (s *Stream) Envelope() EventEnvelope { return s.cur }
 
 // Err follows bufio.Scanner: nil until Next has returned false, then the same
 // error Result returns (nil on success).

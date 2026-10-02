@@ -33,6 +33,21 @@ type Event interface {
 	Type() EventType
 }
 
+// EventEnvelope is one stream event together with the attribution of the
+// call that produced it, so a host merging several streams routes every event
+// by its own immutable reference instead of by arrival order or a "current
+// tenant" (spec I2). Call is the attribution as it stood when the event was
+// published: every event of a resolved call names what serves it, and an
+// error terminal of a call refused before resolution reports Resolved=false.
+// The terminal's Call equals the Result's Metadata.CallAttribution.
+//
+// The envelope is a barness extension; the events themselves are pi's. Which
+// of its fields reach the host's own clients is the host's decision.
+type EventEnvelope struct {
+	Call  CallAttribution
+	Event Event
+}
+
 // StartEvent opens a stream.
 type StartEvent struct {
 	Partial *PartialView

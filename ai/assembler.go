@@ -18,16 +18,20 @@ import (
 // up to that point, including the content whose event did not fit.
 type assembler struct {
 	view *PartialView
+	// call is the attribution every published event is enveloped with; it
+	// is replaced, never changed, once the call resolved.
+	call CallAttribution
 	// emit queues a non-terminal or terminal event for the Stream's consumer
 	// and reports a non-terminal one that did not fit; nil for Complete.
-	emit     func(Event) *Error
+	emit     func(EventEnvelope) *Error
 	toolJSON int64 // the policy's MaxToolJSONBytes
 	limited  *Error
 }
 
-func newAssembler(timestamp int64, emit func(Event) *Error, toolJSON int64) *assembler {
+func newAssembler(timestamp int64, call CallAttribution, emit func(EventEnvelope) *Error, toolJSON int64) *assembler {
 	return &assembler{
 		view:     newPartialView(AssistantMessage{StopReason: StopReasonPending, Timestamp: timestamp}),
+		call:     call,
 		emit:     emit,
 		toolJSON: toolJSON,
 	}
@@ -37,7 +41,7 @@ func (a *assembler) publish(e Event) {
 	if a.emit == nil || a.limited != nil {
 		return
 	}
-	a.fail(a.emit(e))
+	a.fail(a.emit(EventEnvelope{Call: a.call, Event: e}))
 }
 
 // fail latches the first resource-limit failure.
@@ -62,10 +66,11 @@ func (a *assembler) fitsToolJSON(size int) bool {
 	return false
 }
 
-// identify records what actually serves the call, once resolved. The
-// message's native state is vouched for with the same provenance: it was
-// produced here, for this tenant, account and model.
-func (a *assembler) identify(origin NativeStateEnvelope) {
+// identify records what actually serves the call, once resolved: later
+// events carry call, and the message's native state is vouched for with the
+// same provenance: it was produced here, for this tenant, account and model.
+func (a *assembler) identify(origin NativeStateEnvelope, call CallAttribution) {
+	a.call = call
 	a.view.update(func(m *AssistantMessage) {
 		m.API, m.Provider, m.Model = origin.API, origin.ProviderID, origin.ModelID
 		m.NativeState = TrustedNativeState{env: origin}
@@ -280,7 +285,7 @@ func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
 		terminal = DoneEvent{Reason: final.StopReason, Message: final.clone()}
 	}
 	if a.emit != nil {
-		a.emit(terminal)
+		a.emit(EventEnvelope{Call: meta.CallAttribution, Event: terminal})
 	}
 	if failure == nil {
 		return res, nil

@@ -11,6 +11,26 @@
 // outgrows the event queue (ResourcePolicy.MaxQueuedEvents and
 // MaxQueuedEventBytes). Complete queues nothing.
 //
+// # Attribution
+//
+// Every Result carries its call's immutable CallAttribution (in
+// CallMetadata): the trusted scope, the binding named and, once resolved,
+// the provider, API, model and account that actually served the call. Every
+// stream event is published with the attribution as it stood then
+// (Stream.Envelope returns both as an EventEnvelope), so a host merging
+// several streams routes each event by its own attribution, never by
+// arrival order. A call refused before resolution reports Resolved=false.
+//
+// # Host responsibilities
+//
+// The host authenticates callers and builds each CallScope from that, never
+// from request content; it reads history by tenant and session and vouches
+// for stored native state with TrustNativeState; it executes tools and
+// starts every next turn as a new logical call with a new, globally unique
+// RequestID; it cancels a call's context, or closes its Stream, when the
+// downstream goes away. ai/examples holds minimal local, cloud host and tool
+// round trip examples, each run as an offline E2E.
+//
 // # Resource policy
 //
 // Every Client is built with an explicit, finite ResourcePolicy (ADR-0002);

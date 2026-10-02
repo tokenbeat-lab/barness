@@ -2,11 +2,13 @@ package ai
 
 import "slices"
 
-// CallMetadata is the immutable attribution of one logical call. Provider,
-// API, model and account are only set once a consistent, authorized
-// configuration snapshot was established; a call that failed earlier reports
-// Resolved=false instead of echoing request values.
-type CallMetadata struct {
+// CallAttribution is who and what one logical call belongs to: the trusted
+// scope, the binding it named and, once resolved, what actually serves it.
+// Provider, API, model and account are only set once a consistent,
+// authorized configuration snapshot was established; a call that failed
+// earlier reports Resolved=false instead of echoing request values. It holds
+// values only, so a copy never changes.
+type CallAttribution struct {
 	TenantID   string     `json:"tenantId"`
 	RequestID  string     `json:"requestId"`
 	ActorID    string     `json:"actorId,omitempty"`
@@ -18,6 +20,12 @@ type CallMetadata struct {
 	ModelID    string     `json:"modelId,omitempty"`
 	// AccountScopeID is the vendor account serving the call.
 	AccountScopeID string `json:"accountScopeId,omitempty"`
+}
+
+// CallMetadata is the immutable attribution of one logical call together
+// with its configuration snapshot, downgrades and attempts.
+type CallMetadata struct {
+	CallAttribution
 	// BindingVersion and CredentialVersion identify the configuration
 	// snapshot the call was pinned to. Set once resolved.
 	BindingVersion    string `json:"bindingVersion,omitempty"`

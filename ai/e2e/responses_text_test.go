@@ -106,17 +106,19 @@ func checkCompleted(ev *evidence.Case, f textFixture, res ai.Result, err error) 
 // checkMetadata asserts the immutable call attribution on the Result.
 func checkMetadata(ev *evidence.Case, got ai.CallMetadata, scope ai.CallScope, f textFixture) {
 	want := ai.CallMetadata{
-		TenantID:   scope.TenantID,
-		RequestID:  scope.RequestID,
-		ActorID:    scope.ActorID,
-		JobID:      scope.JobID,
-		BindingID:  "primary",
-		Resolved:   true,
-		ProviderID: ai.ProviderOpenAI,
-		API:        ai.APIOpenAIResponses,
-		ModelID:    f.Model,
-		// Tenant A's binding; see primaryBinding.
-		AccountScopeID: "acct-" + scope.TenantID,
+		CallAttribution: ai.CallAttribution{
+			TenantID:   scope.TenantID,
+			RequestID:  scope.RequestID,
+			ActorID:    scope.ActorID,
+			JobID:      scope.JobID,
+			BindingID:  "primary",
+			Resolved:   true,
+			ProviderID: ai.ProviderOpenAI,
+			API:        ai.APIOpenAIResponses,
+			ModelID:    f.Model,
+			// Tenant A's binding; see primaryBinding.
+			AccountScopeID: "acct-" + scope.TenantID,
+		},
 		// The snapshot primaryBinding and primaryCredential pin.
 		BindingVersion:    "b1",
 		CredentialVersion: "v1",

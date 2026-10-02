@@ -175,17 +175,18 @@ func (a *arrivals) onArrival(hook func(*http.Request)) {
 	a.hook = hook
 }
 
-func newIsolationWorld(t *testing.T) isolationWorld {
+// configure adjusts the Client config last, e.g. to replace the policy.
+func newIsolationWorld(t *testing.T, configure ...func(*ai.Config)) isolationWorld {
 	t.Helper()
 	rec := newRecorder()
 	arr := &arrivals{}
-	aw := newAdmissionWorld(t, nil, host.NewAdmission(), func(c *ai.Config) {
+	aw := newAdmissionWorld(t, nil, host.NewAdmission(), append([]func(*ai.Config){func(c *ai.Config) {
 		arr.next = c.Transport
 		c.Transport = arr
 		c.Observer = rec
 		c.Policy.MaxQueuedObservations = 256
 		c.Clock = clock.NewFake(time.Unix(1790000000, 0), 0)
-	})
+	}}, configure...)...)
 	for _, k := range []tenantKey{tenantA, tenantB} {
 		for id, suffix := range map[string]string{"primary": "/v1", "claude": ""} {
 			b := aw.host.Binding(k.tenant, id)
