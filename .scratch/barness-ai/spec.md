@@ -143,7 +143,7 @@ Responses、Chat Completions 是协议简称，对照冻结 pi 的 API 标识分
 
 新 Provider 完全符合已有协议时增加配置和验收场景；存在实际差异时在对应 adapter 内集中处理，不复制整套生命周期。支持声明按 Provider×API×模型能力发布；“兼容 OpenAI”不等于所有兼容服务已验收。DeepSeek 的专有字段和不支持能力根据冻结研究对应的官方 fixture 单独验证，不能仅替换地址就声称具备全部 Responses 能力。
 
-冻结研究记录的 DeepSeek Responses 配置使用 `https://api.deepseek.com`，不支持 `previous_response_id`、`conversation`、`store`，推理流使用 `response.reasoning_text.delta/done`。请求构建不得自动沿用 OpenAI 的服务端续接或存储字段；历史通过完整输入回放，Provider 能力配置不将这些字段列为支持项。厂商能力是研究时点快照，升级时通过 P05 更新配置和差异记录。能力按 Provider 而非模型确定：DeepSeek 不发送 `store`、`include`、提示缓存字段与亲和头，显式请求服务等级在发送前拒绝；该组合在差分账本的 `routes` 中登记为扩展接入路径（维护者决定 2026-10-02，见 ADR-0014）。
+冻结研究记录的 DeepSeek Responses 配置使用 `https://api.deepseek.com`，不支持 `previous_response_id`、`conversation`、`store`，推理流使用 `response.reasoning_text.delta/done`。请求构建不得自动沿用 OpenAI 的服务端续接或存储字段；历史通过完整输入回放，Provider 能力配置不将这些字段列为支持项。厂商能力是研究时点快照，升级时通过 P05 更新配置和差异记录。能力按 Provider 而非模型确定：DeepSeek 不发送 `store`、`include`、提示缓存字段与亲和头，显式请求服务等级在发送前拒绝；该组合在差分账本的 `routes` 中登记为扩展接入路径（维护者决定 2026-10-02，见 ADR-0014）。DeepSeek Chat 复用 Chat adapter，请求形状同样按 Provider 确定，照 pi 的 DeepSeek compat：不发送 `store`、不用 `developer` 角色、输出预算为 `max_tokens`、以 `thinking` 开关推理并只在开启时发送 `reasoning_effort`、推理模型的每条回放 assistant 消息带 `reasoning_content`；thinking 与强制工具选择的组合照发、由厂商拒绝，long 保留期照 pi 发送派生缓存键，二者以真实冒烟为准修订；该组合是冻结 pi 路由，全部场景进入差分（维护者决定 2026-10-02，见 ADR-0015）。
 
 ### 5. SDK 与传输边界
 

@@ -1,11 +1,11 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-02
 ---
 
 # barness-ai DeepSeek × Chat Completions：复用 Chat adapter，按 Provider 移植 pi 的 DeepSeek compat，作为冻结 pi 路由进入差分
 
-工单 22 接入 DeepSeek × Chat Completions（P06）。spec I4 要求它复用 Chat adapter，与 DeepSeek Responses 使用不同 BindingID、可经授权引用同一账户凭据，模型配置保持协议维度独立；spec P06 要求 reasoning_content 增量与带工具调用/结果的 assistant 回放、`[DONE]` 前 usage 不遗漏、不混用 Responses 配置，thinking 与工具选择的限制单独验收。ADR-0013 决策三只实现了标准 OpenAI compat，把 DeepSeek 的 compat 留给本工单。spec 没有规定这些 compat 放在哪里、目录取哪些模型、thinking 模式下的强制工具选择如何对待，以及 DeepSeek 的提示缓存字段。本 ADR 记录实现时的做法，待维护者确认（见文末）。
+工单 22 接入 DeepSeek × Chat Completions（P06）。spec I4 要求它复用 Chat adapter，与 DeepSeek Responses 使用不同 BindingID、可经授权引用同一账户凭据，模型配置保持协议维度独立；spec P06 要求 reasoning_content 增量与带工具调用/结果的 assistant 回放、`[DONE]` 前 usage 不遗漏、不混用 Responses 配置，thinking 与工具选择的限制单独验收。ADR-0013 决策三只实现了标准 OpenAI compat，把 DeepSeek 的 compat 留给本工单。spec 没有规定这些 compat 放在哪里、目录取哪些模型、thinking 模式下的强制工具选择如何对待，以及 DeepSeek 的提示缓存字段。本 ADR 记录实现时的做法，维护者于 2026-10-02 确认（见文末）。
 
 ## 背景：pi 的 DeepSeek 路由
 
@@ -50,9 +50,9 @@ P06 不登记为扩展路由（ledger `routes` 中没有 DeepSeek × openai-comp
 - DeepSeek 的错误体（401 的掩码 key 后缀、402 余额不足、503 过载）按其错误码文档以 OpenAI 错误对象形状编写，文本示意；402 按通用 4xx 归为 `invalid_request`。usage 同时覆盖在 finish chunk 内与其后独立 chunk 两种位置；实际位置、错误体与是否有厂商请求 id 头由工单 23 的冒烟确认。
 - 中途断流的错误文本仍写 "OpenAI Chat Completions"（协议名），与 P04 一致。
 
-## 待维护者确认
+## 维护者决定（2026-10-02）
 
-1. 决策一：DeepSeek 的 Chat compat 按 Provider 派生（`chatCompatOf`），不进入模型 compat。
-2. 决策二：目录列入 `deepseek-flash` 与 `deepseek-v4-pro`（含 v4-pro 的 mid-conversation system），版本 `2026-10-02.6`。
-3. 决策三：thinking + 强制工具选择照发，由 DeepSeek 拒绝；冒烟若显示静默忽略则改为发送前拒绝。
-4. 决策四：long 保留期下向 DeepSeek 发送派生的 `prompt_cache_key` 与 `24h` 保留期（pi 一致），还是登记差分扩展不发送。
+1. 决策一：采纳。DeepSeek 的 Chat compat 按 Provider 派生（`chatCompatOf`），不进入模型 compat。
+2. 决策二：采纳。目录列入 `deepseek-flash` 与 `deepseek-v4-pro`（含 v4-pro 的 mid-conversation system），版本 `2026-10-02.6`；v4-pro 的 `high`/`max` 由工单 23 的真实冒烟确认。
+3. 决策三：采纳，附条件。thinking + 强制工具选择照发，由 DeepSeek 拒绝；若工单 23 的冒烟显示 DeepSeek 静默忽略强制选择，改为发送前以 `invalid_request` 拒绝并更新本 ADR 与 P06 fixture。
+4. 决策四：采纳，附条件。long 保留期下照 pi 发送派生的 `prompt_cache_key` 与 `24h` 保留期；若工单 23 的冒烟显示 DeepSeek 拒绝这两个字段，改为不发送，并在差分账本登记为扩展。
