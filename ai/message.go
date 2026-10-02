@@ -96,8 +96,11 @@ type AssistantMessage struct {
 	Provider   ProviderID `json:"provider"`
 	Model      string     `json:"model"`
 	ResponseID string     `json:"responseId,omitempty"`
-	Usage      Usage      `json:"usage"`
-	StopReason StopReason `json:"stopReason"`
+	// ResponseModel is the model the provider reports having served the call
+	// when it differs from Model (Anthropic Messages, as pi-ai records it).
+	ResponseModel string     `json:"responseModel,omitempty"`
+	Usage         Usage      `json:"usage"`
+	StopReason    StopReason `json:"stopReason"`
 	// RawStopReason is the provider's own terminal status as pi-ai reports
 	// it (Responses: response.status, plus ".<reason>" for an incomplete
 	// response with a reason). Empty when no terminal status was received.

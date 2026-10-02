@@ -55,21 +55,29 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		// Retries are barness-ai's (ac.initial), never the SDK's.
 		option.WithMaxRetries(0),
 		option.WithRequestBody("application/json", body),
-		option.WithMiddleware(markConnectionFailures),
+		option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+			return markConnectionFailures(r, next)
+		}),
 		// Every response body is read through the policy's limits, the
 		// SDK's own reads of an error body included. The SDK's SSE decoder
 		// also refuses a line over 32 MiB on its own; a MaxFrameBytes above
 		// that cannot be reached and ends as a lost connection instead.
-		option.WithMiddleware(limitBodies(ac.limits)),
+		option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+			return ac.limits.limitBodies(r, next)
+		}),
 	}
 	if opts.TimeoutMs > 0 {
-		reqOpts = append(reqOpts, option.WithMiddleware(announceTimeout(opts.TimeoutMs)))
+		// openai-node announces only an explicit timeoutMs.
+		announce := announceTimeout(opts.requestTimeout())
+		reqOpts = append(reqOpts, option.WithMiddleware(func(r *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+			return announce(r, next)
+		}))
 	}
 	// Authentication travels in ac.header, so the SDK's own API key setting
 	// stays empty and adds no second Authorization.
 	reqOpts = append(reqOpts, headerOptions(ac.header)...)
 	svc := responses.NewResponseService(reqOpts...)
-	failures := responsesFailures{provider: ac.model.Provider, apiKey: ac.apiKey, clock: ac.initial.clock}
+	failures := newResponsesFailures(ac.model.Provider, ac.apiKey, ac.initial.clock)
 	ctx = withProtocolTimeout(ctx, opts.requestTimeout())
 	var stream *ssestream.Stream[responses.ResponseStreamEventUnion]
 	var res *http.Response
@@ -196,9 +204,9 @@ func (p *responsesParser) open(outputIndex int64, item responses.ResponseOutputI
 	s := responsesSlot{kind: item.Type}
 	switch item.Type {
 	case "message":
-		s.index = p.out.textStart()
+		s.index = p.out.textStart(Text{})
 	case "reasoning":
-		s.index = p.out.thinkingStart()
+		s.index = p.out.thinkingStart(Thinking{})
 	case "function_call":
 		// pi's tool call id joins the call id the result must answer with
 		// the item id same-model replay needs.

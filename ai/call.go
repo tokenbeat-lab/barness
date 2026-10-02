@@ -91,7 +91,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		if problem := cl.simple.validate(); problem != "" {
 			return newError(CodeInvalidRequest, PhaseCapability, problem)
 		}
-		options = ad.simpleOptions(model, cl.simple.resolve(model, cl.req))
+		options = ad.simpleOptions(model, cl.simple.resolve(model, cl.req), normalizeTranscript(cl.req))
 	}
 	if options != nil {
 		if options.api() != binding.API {

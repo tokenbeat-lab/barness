@@ -1,9 +1,6 @@
 package ai
 
-import (
-	"strings"
-	"unicode/utf16"
-)
+import "strings"
 
 // responsesToolCallProviders are the target providers whose Responses tool
 // call ids keep pi-ai's "<call_id>|<item id>" form (pi
@@ -45,22 +42,8 @@ func responsesToolCallID(target Model, id string, source AssistantMessage) strin
 	return callID + "|" + itemID
 }
 
-// normalizeIDPart replaces every character outside [A-Za-z0-9_-] with "_",
-// keeps at most 64 characters and trims trailing underscores. Like pi's
-// regular expression it works on UTF-16 code units, so a character outside
-// the Basic Multilingual Plane becomes two underscores.
+// normalizeIDPart is sanitizeToolCallID with trailing underscores trimmed,
+// as pi's Responses normalization does.
 func normalizeIDPart(part string) string {
-	var b strings.Builder
-	for _, r := range part {
-		switch {
-		case r >= 'a' && r <= 'z', r >= 'A' && r <= 'Z', r >= '0' && r <= '9', r == '_', r == '-':
-			b.WriteRune(r)
-		case utf16.RuneLen(r) == 2:
-			b.WriteString("__")
-		default:
-			b.WriteByte('_')
-		}
-	}
-	s := b.String()
-	return strings.TrimRight(s[:min(len(s), 64)], "_")
+	return strings.TrimRight(sanitizeToolCallID(part), "_")
 }

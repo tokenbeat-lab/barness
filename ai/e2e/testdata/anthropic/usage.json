@@ -1,0 +1,195 @@
+{
+ "case": "P02/E11 Anthropic × Messages usage, cache and cost",
+ "source": "Synthetic offline fixture. Usage follows pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/anthropic-messages.ts (message_start sets input/output/cacheRead/cacheWrite with || 0 and cacheWrite1h from cache_creation.ephemeral_1h_input_tokens; message_delta replaces non-null counts and sets reasoning from output_tokens_details.thinking_tokens; totalTokens is the sum) and packages/ai/src/models.ts calculateCost at the frozen prices (claude-sonnet-4-5: 3/15/0.3/3.75, claude-haiku-4-5: 1/5/0.1/1.25 per million). Expected costs were computed by frozen pi's own calculateCost. Usage reporting completeness is barness metadata (ADR-0010, ADR-0011).",
+ "scenarios": [
+  {
+   "id": "cache-read-write-1h",
+   "about": "Cache reads and writes, one-hour writes priced at twice the input rate, and thinking tokens as the reasoning subset of output (not priced again); the total is computed from the parts.",
+   "model": "claude-sonnet-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_cache",
+      "usage": {
+       "input_tokens": 100,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 2000,
+       "cache_creation_input_tokens": 3000,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 1000,
+        "ephemeral_1h_input_tokens": 2000
+       }
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Done."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 50,
+      "output_tokens_details": {
+       "thinking_tokens": 20
+      }
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_cache",
+    "content": [
+     {
+      "type": "text",
+      "text": "Done."
+     }
+    ],
+    "usage": {
+     "input": 100,
+     "output": 50,
+     "cacheRead": 2000,
+     "cacheWrite": 3000,
+     "cacheWrite1h": 2000,
+     "reasoning": 20,
+     "totalTokens": 5150,
+     "cost": {
+      "input": 0.00030000000000000003,
+      "output": 0.00075,
+      "cacheRead": 0.0006,
+      "cacheWrite": 0.01575,
+      "total": 0.0174
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "partial-usage",
+   "about": "message_start reports only input tokens (missing counts read as 0, as pi's || 0); message_delta replaces what it reports and leaves a null count alone. Cache counts were never reported, so the attempt's usage is partial (barness metadata; the numbers are pi's).",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_partial",
+      "usage": {
+       "input_tokens": 10
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Done."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "input_tokens": 12,
+      "output_tokens": 3,
+      "cache_read_input_tokens": null
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_partial",
+    "content": [
+     {
+      "type": "text",
+      "text": "Done."
+     }
+    ],
+    "usage": {
+     "input": 12,
+     "output": 3,
+     "cacheRead": 0,
+     "cacheWrite": 0,
+     "cacheWrite1h": 0,
+     "totalTokens": 15,
+     "cost": {
+      "input": 1.2e-05,
+      "output": 1.5000000000000002e-05,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 2.7000000000000002e-05
+     }
+    },
+    "usageReporting": "partial"
+   }
+  }
+ ]
+}

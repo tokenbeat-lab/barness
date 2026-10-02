@@ -1,18 +1,11 @@
 package ai
 
 import (
-	"bytes"
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
-	"net/http"
-	"regexp"
-	"strings"
 	"unicode/utf16"
 
-	"github.com/openai/openai-go/v3/option"
 	"github.com/openai/openai-go/v3/packages/respjson"
 	"github.com/openai/openai-go/v3/packages/ssestream"
 
@@ -22,9 +15,6 @@ import (
 // Error texts barness-ai shares with pi-ai's Responses path, so a caller sees
 // the same errorMessage for the same failure.
 const (
-	// openai-node's APIConnectionError: no response arrived. An interrupted
-	// request is classified by requestInterrupted.
-	msgConnection = "Connection error."
 	// pi's explicit check after a stream that reached its terminal.
 	msgAbortedAfterTerminal = "Request was aborted"
 	// pi's check for a stream without a terminal event. A stream interrupted
@@ -43,105 +33,17 @@ const (
 // maxErrorBodyChars is pi's MAX_PROVIDER_ERROR_BODY_CHARS (UTF-16 units).
 const maxErrorBodyChars = 4000
 
-// responsesFailures classifies one call's failures. Every text that came from
-// the provider passes through redact before it reaches a message or error.
-type responsesFailures struct {
-	provider ProviderID
-	apiKey   Secret
-	clock    *clock.Clock // reads a retry-after date; nil is the system clock
-}
+// responsesFailures classifies one Responses call's failures: the shared
+// initial-request classification, plus the protocol's stream errors.
+type responsesFailures struct{ httpFailures }
 
-// request classifies an attempt at the initial request that failed before a
-// response was obtained: an interruption, a non-2xx response, or a
-// connection that never produced one.
-func (f responsesFailures) request(ctx context.Context, err error, res *http.Response) attemptOutcome {
-	if ctx.Err() != nil {
-		return attemptOutcome{failure: requestInterrupted(ctx)}
+func newResponsesFailures(provider ProviderID, apiKey Secret, c *clock.Clock) responsesFailures {
+	prefix := string(provider) + " API error"
+	if provider == ProviderOpenAI {
+		prefix = "OpenAI API error"
 	}
-	// The SDK reads an error body itself and fails with the limit's error.
-	var limit *limitExceeded
-	if errors.As(err, &limit) && res != nil {
-		return f.limited(res, limit)
-	}
-	// An attempt that ran out of time before its response is, as openai-node's
-	// APIConnectionTimeoutError, a connection failure the retry rules retry.
-	var expired *timeLimitExpired
-	if errors.As(err, &expired) {
-		if res != nil {
-			// The error body stalled: what the headers tell is kept.
-			return f.unread(res, expired.failure(PhaseRequest))
-		}
-		return attemptOutcome{failure: expired.failure(PhaseRequest), connection: true}
-	}
-	if res != nil && res.StatusCode >= 300 {
-		return f.status(res)
-	}
-	var conn *connectionFailure
-	return attemptOutcome{failure: newError(CodeTransport, PhaseRequest, msgConnection), connection: errors.As(err, &conn)}
-}
-
-// connectionFailure marks an error of the HTTP client itself, so the request
-// got no response at all: the only error without a status the retry rules
-// retry. Errors the SDK raises before sending are never marked.
-type connectionFailure struct{ err error }
-
-func (e *connectionFailure) Error() string { return e.err.Error() }
-func (e *connectionFailure) Unwrap() error { return e.err }
-
-// limitBodies is SDK middleware that puts each response body behind the
-// call's byte limits before the SDK or the adapter reads it.
-func limitBodies(l byteLimits) option.Middleware {
-	return func(req *http.Request, next option.MiddlewareNext) (*http.Response, error) {
-		res, err := next(req)
-		l.limitBody(res)
-		return res, err
-	}
-}
-
-// markConnectionFailures is SDK middleware around the HTTP client's Do.
-func markConnectionFailures(req *http.Request, next option.MiddlewareNext) (*http.Response, error) {
-	res, err := next(req)
-	if err != nil && res == nil {
-		return nil, &connectionFailure{err: err}
-	}
-	return res, err
-}
-
-// status classifies a non-2xx response. The SDK has already read the body of
-// an error status and left a copy in res.Body; a redirect's body is unread.
-// Either was read through the MaxErrorBodyBytes limit (limitBodies).
-func (f responsesFailures) status(res *http.Response) attemptOutcome {
-	body, err := io.ReadAll(res.Body)
-	var limit *limitExceeded
-	var expired *timeLimitExpired
-	switch {
-	case errors.As(err, &limit):
-		return f.limited(res, limit)
-	case errors.As(err, &expired):
-		return f.unread(res, expired.failure(PhaseRequest))
-	}
-	msg, sdkMsg := describeHTTPError(f.prefix(), res.StatusCode, body)
-	e := newError(codeForStatus(res.StatusCode), PhaseRequest, f.redact(msg))
-	e.HTTPStatus = res.StatusCode
-	e.ProviderRequestID = res.Header.Get("x-request-id")
-	e.RetryAfter = retryAfter(res.Header, f.clock.Now())
-	return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: e.ProviderRequestID, failure: e, sdkMessage: f.redact(sdkMsg)}
-}
-
-// limited is a non-2xx response whose body exceeded MaxErrorBodyBytes. It
-// keeps what the headers tell, but the body is not described, and the
-// attempt is never retried (see attemptOutcome.retryable).
-func (f responsesFailures) limited(res *http.Response, limit *limitExceeded) attemptOutcome {
-	return f.unread(res, limit.failure(PhaseRequest))
-}
-
-// unread is a non-2xx response whose body could not be read for e's
-// reason. It keeps what the headers tell.
-func (f responsesFailures) unread(res *http.Response, e *Error) attemptOutcome {
-	e.HTTPStatus = res.StatusCode
-	e.ProviderRequestID = res.Header.Get("x-request-id")
-	e.RetryAfter = retryAfter(res.Header, f.clock.Now())
-	return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: e.ProviderRequestID, failure: e}
+	return responsesFailures{httpFailures{apiKey: apiKey, clock: c, requestIDHeader: "x-request-id",
+		describe: func(status int, body []byte) (string, string) { return describeHTTPError(prefix, status, body) }}}
 }
 
 // stream classifies an error that ended the SSE stream early.
@@ -171,32 +73,6 @@ func (f responsesFailures) stream(err error) *Error {
 	default:
 		return newError(CodeTransport, PhaseStream, msgConnectionLost)
 	}
-}
-
-// upstream is a failure the provider reported inside the stream.
-func (f responsesFailures) upstream(msg string) *Error {
-	return newError(CodeUpstreamError, PhaseStream, f.redact(msg))
-}
-
-// prefix is pi's provider label in HTTP error messages.
-func (f responsesFailures) prefix() string {
-	if f.provider == ProviderOpenAI {
-		return "OpenAI API error"
-	}
-	return string(f.provider) + " API error"
-}
-
-// keyLike matches OpenAI-style API keys, masked ones included
-// ("sk-proj-****abcd"): vendors echo them in auth errors. The word boundary
-// keeps ordinary words such as "task-runner" intact.
-var keyLike = regexp.MustCompile(`\bsk-[A-Za-z0-9_*\-]{3,}`)
-
-// redact removes the call's key and anything key-shaped from provider text.
-// pi passes such text through; this is a recorded security difference (spec
-// I9: secrets never reach messages or errors).
-func (f responsesFailures) redact(text string) string {
-	text = strings.ReplaceAll(text, f.apiKey.reveal(), "[REDACTED]")
-	return keyLike.ReplaceAllString(text, "[REDACTED]")
 }
 
 // describeHTTPError ports how pi-ai describes a non-2xx response: openai-node
@@ -262,32 +138,6 @@ func jsText(field respjson.Field, value string) string {
 	default: // null, or a value of another JSON type
 		return raw
 	}
-}
-
-// jsTruthy is JavaScript truthiness for a decoded JSON value.
-func jsTruthy(v any) bool {
-	switch v := v.(type) {
-	case nil:
-		return false
-	case bool:
-		return v
-	case float64:
-		return v != 0
-	case string:
-		return v != ""
-	}
-	return true
-}
-
-// compactJSON approximates JSON.stringify of a value received as JSON: key
-// order and content are kept, whitespace removed. Escapes and number
-// spellings stay as sent, where JSON.stringify would normalize them.
-func compactJSON(raw json.RawMessage) string {
-	var buf bytes.Buffer
-	if json.Compact(&buf, raw) != nil {
-		return string(raw)
-	}
-	return buf.String()
 }
 
 // truncateUTF16 is pi's truncateErrorText, which counts JavaScript string

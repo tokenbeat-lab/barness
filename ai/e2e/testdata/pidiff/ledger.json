@@ -650,6 +650,325 @@
       "classification": "extension",
       "decision": "Spec-defined extension (spec §9: 模块构造的缓存/亲和标识按租户和账户作用域派生，不直接传裸 session ID 或 TenantID). pi sends the caller's sessionId as is; barness sends a key derived from tenant, vendor account and session (SHA-256, 64 hex characters), under the same conditions (a session id and retention other than none). Asserted by the offline E2E TestOptions (key shape, headers carry the same key) and TestCacheKeyScope (stable per tenant, account and session; differs across tenants and accounts; never the raw id).",
       "ref": "spec §9; issues/09; ai/options.go cacheScope"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Accept-Encoding",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: HTTP stack default (Node undici sends 'gzip, deflate', Go net/http sends 'gzip'); response decoding is transparent to the protocol.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Accept-Language",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: Node fetch (undici) default header; not set by pi or the Anthropic protocol. The Go HTTP stack does not send it.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Sec-Fetch-Mode",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: Node fetch (undici) default header; not set by pi or the Anthropic protocol. The Go HTTP stack does not send it.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Connection",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: hop-by-hop connection management of Node's HTTP/1.1 client; Go keeps connections alive without the header.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.X-Stainless-Lang",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: Anthropic SDK runtime fingerprint, js vs go; follows from the spec's choice of the Anthropic Go SDK.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.X-Stainless-Package-Version",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: Anthropic SDK runtime fingerprint, @anthropic-ai/sdk 0.124.0 (pi's pinned SDK) vs anthropic-sdk-go v1.75.0; follows from the spec's choice of the Anthropic Go SDK.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.X-Stainless-Runtime",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: Anthropic SDK runtime fingerprint, node vs go; follows from the spec's choice of the Anthropic Go SDK.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.X-Stainless-Runtime-Version",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: Anthropic SDK runtime fingerprint, Node.js vs Go toolchain version; follows from the spec's choice of the Anthropic Go SDK.",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.User-Agent",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "Same as the approved openai-responses decision (maintainer 2026-10-01), on the Anthropic path: barness sends its own 'barness-ai' User-Agent instead of pi's 'pi (<os> <release>; <arch>)', without host OS details. Asserted by the offline E2E (TestAnthropicText).",
+      "ref": "issues/02 Comments: maintainer decisions 2026-10-01; spec Implementation Decisions §5 SDK 与传输边界; issues/16; ai/e2e/anthropic_text_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.content",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.content",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.usage",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.usage.cacheWrite1h",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.usage.reasoning",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.stopReason",
+      "kind": "changed",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.rawStopReason",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.errorMessage",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.responseId",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.responseModel",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "pi's own contract (types.ts AssistantMessageEvent) makes partial the shared live response-so-far, not an event-time snapshot; the same decision as openai-responses events[*].partial. Both sides serialize it when the consumer receives the event; pi's single-threaded runner reaches every event before producing the next, while barness's producer runs concurrently with the consumer without backpressure (spec I8/I9), so its view may already hold later deltas, blocks, block ends, signature deltas, usage from message_start/message_delta, the response id and model, and the stop reason. Event-own fields (contentIndex, delta, end content), the terminal message and the Result are compared strictly; the live-view contract is asserted by the E01 offline E2E TestStreamLifecycle. A partial missing on barness or differing in identity fields stays pending.",
+      "ref": "spec I8 累计部分响应; issues/04; issues/16; ai/e2e/stream_lifecycle_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.content[*].index",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "pi's Anthropic stream keeps the stream block index on each content block as a scratch field while the block is open (deleted at content_block_stop and on error), and it shows in a live partial serialized while the block streams. barness keeps that mapping inside the adapter: it is protocol state, not message content. Content indices, deltas, end events and the final message match.",
+      "ref": "issues/16; ai/anthropic_stream.go anthropicParser"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.content[*].partialJson",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi's Anthropic stream keeps the same text only as its transient `partialJson` scratch buffer while a call streams (deleted at content_block_stop and on error). Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].toolCall.rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi's Anthropic stream keeps the same text only as its transient `partialJson` scratch buffer while a call streams (deleted at content_block_stop and on error). Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].message.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi's Anthropic stream keeps the same text only as its transient `partialJson` scratch buffer while a call streams (deleted at content_block_stop and on error). Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].error.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi's Anthropic stream keeps the same text only as its transient `partialJson` scratch buffer while a call streams (deleted at content_block_stop and on error). Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "result.content[*].rawArguments",
+      "kind": "only_barness",
+      "classification": "extension",
+      "decision": "Spec Implementation Decisions §6 (工具参数保留原始 JSON 与增量), as for openai-responses: barness keeps the provider's raw argument JSON on every tool call as `rawArguments`, persisted with the message, so ValidateToolCall judges completeness from what the provider actually sent. pi's Anthropic stream keeps the same text only as its transient `partialJson` scratch buffer while a call streams (deleted at content_block_stop and on error). Ids, names, parsed arguments, deltas and end events match; only where the raw text lives differs.",
+      "ref": "spec Implementation Decisions §6 消息、历史与工具语义; issues/06; issues/16"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].partial.content[*].thinkingSignature",
+      "kind": "only_pi",
+      "classification": "extension",
+      "decision": "pi's Anthropic stream opens a thinking block with thinkingSignature \"\" (content_block.signature ?? \"\") and grows it through signature_delta; barness's Thinking.Signature omits the empty string (the field is shared with Responses, where pi writes no signature until the block ends). Both mean unsigned and replay identically (pi's convertMessages treats a blank signature as missing). Only the live partial is excused: a final message whose signature differs stays pending, so a lost signature cannot hide here.",
+      "ref": "issues/16; ai/message.go Thinking.Signature"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-http-403-key-echo-stream"
+      ],
+      "classification": "extension",
+      "decision": "Security difference (spec I9: 基线 errorMessage 涉及秘密时必须脱敏并登记安全差异), as for openai-responses PIDIFF-P01-E02-http-403-key-echo: pi copies the provider's error body into errorMessage verbatim, including the call's key a gateway echoed; barness replaces the key and key-shaped text (sk-…, sk-ant-…) with [REDACTED] and keeps the rest of pi's message. Asserted by the offline E2E TestAnthropicFailures.",
+      "ref": "spec I9; ADR-0009; issues/16; ai/http_failures.go redact; ai/e2e/anthropic_failures_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-http-403-key-echo-stream"
+      ],
+      "classification": "extension",
+      "decision": "Security difference (spec I9: 基线 errorMessage 涉及秘密时必须脱敏并登记安全差异), as for openai-responses PIDIFF-P01-E02-http-403-key-echo: pi copies the provider's error body into errorMessage verbatim, including the call's key a gateway echoed; barness replaces the key and key-shaped text (sk-…, sk-ant-…) with [REDACTED] and keeps the rest of pi's message. Asserted by the offline E2E TestAnthropicFailures.",
+      "ref": "spec I9; ADR-0009; issues/16; ai/http_failures.go redact; ai/e2e/anthropic_failures_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-half-json-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports 'Could not parse Anthropic SSE event <name>: <JSON.parse message>; data=<frame data>; raw=<frame lines>'. The JSON.parse message is V8's ('Unterminated string in JSON at position 79 …') and cannot be reproduced in Go, and the frame copy may repeat content, so barness reports pi's prefix with the fixed reason 'invalid JSON' and no frame copy. StopReason, phase and the content received before the frame match. Asserted by TestAnthropicFailures.",
+      "ref": "issues/16; ai/anthropic.go msgAnthropicInvalidJSON; ai/e2e/anthropic_failures_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-half-json-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports 'Could not parse Anthropic SSE event <name>: <JSON.parse message>; data=<frame data>; raw=<frame lines>'. The JSON.parse message is V8's ('Unterminated string in JSON at position 79 …') and cannot be reproduced in Go, and the frame copy may repeat content, so barness reports pi's prefix with the fixed reason 'invalid JSON' and no frame copy. StopReason, phase and the content received before the frame match. Asserted by TestAnthropicFailures.",
+      "ref": "issues/16; ai/anthropic.go msgAnthropicInvalidJSON; ai/e2e/anthropic_failures_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-connection-cut-stream",
+        "PIDIFF-P02-no-replay-after-start-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body: runtime text, not pi logic, as for openai-responses. barness reports the fixed text 'Connection lost while reading the Anthropic Messages stream' (CodeTransport, PhaseStream). StopReason and the content received before the cut match. Asserted by TestAnthropicFailures.",
+      "ref": "issues/16; ai/anthropic.go msgAnthropicConnectionLost; ai/e2e/anthropic_failures_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-connection-cut-stream",
+        "PIDIFF-P02-no-replay-after-start-stream"
+      ],
+      "classification": "extension",
+      "decision": "pi reports Node.js fetch (undici)'s 'terminated' for a connection cut mid-body: runtime text, not pi logic, as for openai-responses. barness reports the fixed text 'Connection lost while reading the Anthropic Messages stream' (CodeTransport, PhaseStream). StopReason and the content received before the cut match. Asserted by TestAnthropicFailures.",
+      "ref": "issues/16; ai/anthropic.go msgAnthropicConnectionLost; ai/e2e/anthropic_failures_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "result.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-canceled-mid-stream-stream"
+      ],
+      "classification": "extension",
+      "decision": "When the abort lands while pi awaits the next body chunk, the fetch reader rejects with the DOM AbortError's default text 'This operation was aborted' (runtime text); when pi's loop observes the aborted signal itself it reports its own 'Request was aborted'. barness always reports pi's own text. StopReason aborted and the content received before the abort match. Asserted by TestAnthropicFailures (canceled-mid-stream, deadline-mid-stream).",
+      "ref": "issues/16; ai/anthropic.go msgAnthropicAborted; ai/e2e/anthropic_failures_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "events[*].error.errorMessage",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-canceled-mid-stream-stream"
+      ],
+      "classification": "extension",
+      "decision": "When the abort lands while pi awaits the next body chunk, the fetch reader rejects with the DOM AbortError's default text 'This operation was aborted' (runtime text); when pi's loop observes the aborted signal itself it reports its own 'Request was aborted'. barness always reports pi's own text. StopReason aborted and the content received before the abort match. Asserted by TestAnthropicFailures (canceled-mid-stream, deadline-mid-stream).",
+      "ref": "issues/16; ai/anthropic.go msgAnthropicAborted; ai/e2e/anthropic_failures_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.body.messages[1].content",
+      "cases": [
+        "PIDIFF-P02-untrusted-native-state-stream"
+      ],
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec I6, ADR-0001: native state is replayed only under a trusted envelope; without one it is downgraded by the cross-model rules and the call goes ahead). pi has no envelope and replays same-model signed and redacted thinking from any history; barness replays it only when the host vouched for the message (TrustNativeState) or barness produced it in-process. Restored without that, the blank signed thinking and the redacted block are dropped and the turn keeps its text, and Result metadata counts one noEnvelope downgrade (barness-only, not part of the pi message). The trusted replay of the same history matches pi exactly (PIDIFF-P02-signed-empty-and-redacted-stream). Asserted by the offline E2E TestAnthropicHistory.",
+      "ref": "spec I6; ADR-0001; issues/07; issues/16; ai/e2e/anthropic_history_test.go"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Content-Length",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-untrusted-native-state-stream"
+      ],
+      "classification": "extension",
+      "decision": "Derived from the request body, which differs only by the downgraded native state; see request.body.messages[1].content for this case.",
+      "ref": "spec I6; ADR-0001; issues/07; issues/16; ai/e2e/anthropic_history_test.go"
     }
   ]
 }

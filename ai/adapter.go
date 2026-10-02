@@ -10,8 +10,9 @@ import (
 // StopReason) or return the classified failure.
 type adapter interface {
 	// simpleOptions maps protocol-neutral options, already resolved for m
-	// (SimpleOptions.resolve), onto this protocol.
-	simpleOptions(m Model, o SimpleOptions) Options
+	// (SimpleOptions.resolve), onto this protocol. history is the request's
+	// normalized transcript, for protocols that size the output budget again.
+	simpleOptions(m Model, o SimpleOptions, history []Message) Options
 	// historyRules are this protocol's inputs to the history transform for m.
 	historyRules(m Model) historyRules
 	// headers are the authentication and protocol request headers for the
@@ -56,6 +57,7 @@ type adapterCall struct {
 // once per Client and never modified afterwards.
 func registry() map[API]adapter {
 	return map[API]adapter{
-		APIOpenAIResponses: responsesAdapter{},
+		APIOpenAIResponses:   responsesAdapter{},
+		APIAnthropicMessages: anthropicAdapter{},
 	}
 }

@@ -55,8 +55,8 @@ func (f historyFixture) reply(t *testing.T) provider.Reply {
 // request restores the scenario's history the way the test host restores
 // stored records for tenant k: messages are decoded into barness-ai's types,
 // and a message marked trusted gets the envelope the host vouches for after
-// its own storage checks (tenant k, k's primary account, the message's own
-// provider, API and model).
+// its own storage checks (tenant k, k's account at the message's provider,
+// the message's own provider, API and model).
 func (sc historyScenario) request(t *testing.T, k tenantKey) ai.Request {
 	t.Helper()
 	req := ai.Request{SystemPrompt: sc.Context.SystemPrompt, Tools: sc.Context.Tools}
@@ -118,7 +118,13 @@ func decodeStoredMessage(t *testing.T, raw json.RawMessage, k tenantKey) ai.Mess
 			m.Content = append(m.Content, decodeStoredBlock(t, b).(ai.AssistantContent))
 		}
 		if head.Trusted {
-			env := ai.NativeStateEnvelope{TenantID: k.tenant, AccountScopeID: primaryCredential(k, "v1").AccountScopeID,
+			// The host vouches with the account of the binding that served
+			// the message: the tenant's OpenAI or Anthropic account.
+			account := primaryCredential(k, "v1").AccountScopeID
+			if m.Provider == ai.ProviderAnthropic {
+				account = anthropicCredential(k).AccountScopeID
+			}
+			env := ai.NativeStateEnvelope{TenantID: k.tenant, AccountScopeID: account,
 				ProviderID: m.Provider, API: m.API, ModelID: m.Model}
 			trusted, err := ai.TrustNativeState(ai.CallScope{TenantID: k.tenant, RequestID: "req-history-restore"}, env)
 			if err != nil {

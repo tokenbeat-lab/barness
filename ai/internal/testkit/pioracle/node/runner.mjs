@@ -26,6 +26,11 @@ const APIS = {
 		models: "@earendil-works/pi-ai/providers/openai.models",
 		catalog: "OPENAI_MODELS",
 	},
+	"anthropic-messages": {
+		api: "@earendil-works/pi-ai/api/anthropic-messages",
+		models: "@earendil-works/pi-ai/providers/anthropic.models",
+		catalog: "ANTHROPIC_MODELS",
+	},
 };
 
 function fail(message) {
@@ -97,19 +102,23 @@ async function thinkingBudgets(cases) {
 }
 
 // costs evaluates pi's calculateCost for each case, and reports the cost
-// entry of each requested model of pi's OpenAI Responses catalog. One-hour
-// cache writes and multiple tiers have no Responses wire path, so the rule
-// is compared directly.
+// entry of each requested model, looked up by id in the catalog of every API
+// in the oracle. Multiple tiers have no wire path in the oracle's protocols,
+// so the rule is compared directly.
 async function costs(input) {
 	const { calculateCost } = await import("@earendil-works/pi-ai");
-	const { OPENAI_MODELS } = await import("@earendil-works/pi-ai/providers/openai.models");
 	const results = input.cases.map((c) => {
 		const usage = { ...c.usage, cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, total: 0 } };
 		return calculateCost({ cost: c.cost }, usage);
 	});
+	const known = [];
+	for (const [api, entry] of Object.entries(APIS)) {
+		const catalog = (await import(entry.models))[entry.catalog];
+		known.push(...Object.values(catalog).filter((m) => m.api === api));
+	}
 	const models = {};
 	for (const id of input.models ?? []) {
-		const m = Object.values(OPENAI_MODELS).find((m) => m.api === "openai-responses" && m.id === id);
+		const m = known.find((m) => m.id === id);
 		models[id] = m ? m.cost : null;
 	}
 	return { results, models };

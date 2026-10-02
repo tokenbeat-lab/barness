@@ -75,7 +75,7 @@ func Open() (*Oracle, error) {
 	}
 	// The pi-side packages a case exercises; another protocol's SDK joins
 	// when that protocol joins the oracle.
-	sdks, err := lockedVersions(filepath.Join(dir, "package-lock.json"), "@earendil-works/pi-ai", "openai")
+	sdks, err := lockedVersions(filepath.Join(dir, "package-lock.json"), "@earendil-works/pi-ai", "openai", "@anthropic-ai/sdk")
 	if err != nil {
 		return nil, err
 	}
@@ -182,16 +182,16 @@ type CostCase struct {
 }
 
 // CostResults are pi's cost objects, one per CostCase, and the cost entry
-// of each requested model of pi's OpenAI Responses catalog (null when pi
-// does not list it).
+// of each requested model in pi's catalogs of the oracle's APIs (null when
+// pi does not list it).
 type CostResults struct {
 	Results []json.RawMessage          `json:"results"`
 	Models  map[string]json.RawMessage `json:"models"`
 }
 
 // Costs evaluates pi's calculateCost for each case and reports the frozen
-// prices of models. One-hour cache writes and several tiers have no
-// Responses wire path yet, so the rule is compared directly.
+// prices of models. Several tiers have no wire path in the oracle's
+// protocols yet, so the rule is compared directly.
 func (o *Oracle) Costs(ctx context.Context, cases []CostCase, models []string) (CostResults, error) {
 	var out CostResults
 	err := o.direct(ctx, map[string]any{"entry": "costs", "cases": cases, "models": models}, &out)

@@ -5,12 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"maps"
-	"net/http"
 	"slices"
-	"strconv"
 	"time"
-
-	"github.com/openai/openai-go/v3/option"
 )
 
 // ResponsesOptions are the full options for the OpenAI Responses protocol
@@ -104,23 +100,11 @@ func (o ResponsesOptions) validate() string {
 	return checkReservedKeys(o.SamplingParams, responsesReservedSampling)
 }
 
-// announceTimeout is SDK middleware that announces an explicit timeoutMs as
-// openai-node does, in whole seconds truncated (so "0" below one second).
-// openai-go would announce only its own request timeout, which also bounds
-// the body; the timeout itself is enforced by watchedTransport.
-func announceTimeout(ms int) option.Middleware {
-	seconds := strconv.Itoa(ms / 1000)
-	return func(req *http.Request, next option.MiddlewareNext) (*http.Response, error) {
-		req.Header.Set("X-Stainless-Timeout", seconds)
-		return next(req)
-	}
-}
-
 // simpleOptions is pi's openai-responses streamSimple: the resolved simple
 // options pass through, the tool choice becomes a mode, and the reasoning
 // level is clamped to the model; off sends no effort. Metadata and thinking
 // budgets have no Responses field.
-func (responsesAdapter) simpleOptions(m Model, o SimpleOptions) Options {
+func (responsesAdapter) simpleOptions(m Model, o SimpleOptions, _ []Message) Options {
 	full := ResponsesOptions{Temperature: o.Temperature, MaxTokens: o.MaxTokens, SamplingParams: o.SamplingParams,
 		CacheRetention: o.CacheRetention, SessionID: o.SessionID, TimeoutMs: o.TimeoutMs}
 	if o.ToolChoice.IsNull() {

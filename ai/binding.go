@@ -28,14 +28,22 @@ type Target struct {
 // ProviderID identifies the real service operator, independent of protocol.
 type ProviderID string
 
-// ProviderOpenAI is OpenAI.
-const ProviderOpenAI ProviderID = "openai"
+const (
+	// ProviderOpenAI is OpenAI.
+	ProviderOpenAI ProviderID = "openai"
+	// ProviderAnthropic is Anthropic.
+	ProviderAnthropic ProviderID = "anthropic"
+)
 
 // API identifies a wire protocol. Values match the frozen pi-ai API names.
 type API string
 
-// APIOpenAIResponses is the OpenAI Responses protocol.
-const APIOpenAIResponses API = "openai-responses"
+const (
+	// APIOpenAIResponses is the OpenAI Responses protocol.
+	APIOpenAIResponses API = "openai-responses"
+	// APIAnthropicMessages is the Anthropic Messages protocol.
+	APIAnthropicMessages API = "anthropic-messages"
+)
 
 // AuthKind is how a binding authenticates. The first phase supports API keys only.
 type AuthKind string
@@ -53,10 +61,13 @@ type Binding struct {
 	Version string
 	// Enabled must be true for the binding to be used. The zero value refuses,
 	// so a host that forgets to set it fails closed.
-	Enabled        bool
-	ProviderID     ProviderID
-	API            API
-	Endpoint       string // base URL, e.g. https://api.openai.com/v1
+	Enabled    bool
+	ProviderID ProviderID
+	API        API
+	// Endpoint is the protocol's base URL, as pi-ai's model baseUrl: e.g.
+	// https://api.openai.com/v1 for Responses, https://api.anthropic.com for
+	// Anthropic Messages.
+	Endpoint       string
 	AuthKind       AuthKind
 	AccountScopeID string
 	CredentialRef  string

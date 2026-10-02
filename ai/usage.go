@@ -103,9 +103,10 @@ func (r CostRates) list() []float64 { return []float64{r.Input, r.Output, r.Cach
 // estimate ports pi-ai's calculateCost: u's cost at c's rates.
 //
 // The arithmetic keeps pi's operation order, and every product is rounded on
-// its own (the float64 conversions), so the result is the same IEEE value as
-// JavaScript's: Go may otherwise fuse a multiply and an add, which rounds
-// once and can differ in the last bit.
+// its own (the float64 conversions around each product, not only its
+// operands), so the result is the same IEEE value as JavaScript's: Go may
+// otherwise fuse a multiply and a later add, even across statements, which
+// rounds once and can differ in the last bit.
 func (c ModelCost) estimate(u Usage) UsageCost {
 	rates := c.CostRates
 	inputTokens := u.Input + u.CacheRead + u.CacheWrite
@@ -119,9 +120,9 @@ func (c ModelCost) estimate(u Usage) UsageCost {
 	long, _ := u.CacheWrite1h.Get()
 	short := u.CacheWrite - long
 	var cost UsageCost
-	cost.Input = float64(rates.Input/1e6) * float64(u.Input)
-	cost.Output = float64(rates.Output/1e6) * float64(u.Output)
-	cost.CacheRead = float64(rates.CacheRead/1e6) * float64(u.CacheRead)
+	cost.Input = float64(float64(rates.Input/1e6) * float64(u.Input))
+	cost.Output = float64(float64(rates.Output/1e6) * float64(u.Output))
+	cost.CacheRead = float64(float64(rates.CacheRead/1e6) * float64(u.CacheRead))
 	cost.CacheWrite = (float64(rates.CacheWrite*float64(short)) + float64(float64(rates.Input*2)*float64(long))) / 1e6
 	cost.Total = cost.Input + cost.Output + cost.CacheRead + cost.CacheWrite
 	return cost

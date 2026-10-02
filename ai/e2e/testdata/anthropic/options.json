@@ -1,0 +1,1319 @@
+{
+ "case": "P02/E04 Anthropic × Messages full and simple options, reasoning mapping and presence",
+ "source": "Synthetic offline fixture. Expected requests follow pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/anthropic-messages.ts streamSimple (no reasoning: thinking disabled; forceAdaptiveThinking: mapThinkingLevelToEffort; otherwise adjustMaxTokensForThinking, clampMaxTokensToContext and the 1024-token answer room), buildParams (max_tokens, temperature only without thinking and with supportsTemperature, thinking enabled/adaptive/disabled, output_config, metadata.user_id, tool_choice, getCacheControl) and getBetaFeatures (interleaved thinking for budget-based thinking), and packages/ai/src/api/simple-options.ts buildBaseOptions (samplingParams are merged but Anthropic never sends them). The SDK announces the request timeout as X-Stainless-Timeout in whole seconds.",
+ "scenarios": [
+  {
+   "id": "simple-budget-reasoning",
+   "about": "A budget-based model on the simple entry: the level's default budget (medium 8192) is added to the output budget up to the model's maximum, thinking is enabled with pi's summarized display, and the interleaved-thinking beta is requested.",
+   "model": "claude-haiku-4-5",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "medium"
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "headers": {
+      "Anthropic-Beta": "interleaved-thinking-2025-05-14"
+     },
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "thinking": {
+       "type": "enabled",
+       "budget_tokens": 8192,
+       "display": "summarized"
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-budget-custom",
+   "about": "A caller cap and a custom budget: max_tokens is the cap plus the budget (1000+4000), the budget leaves 1024 tokens for the answer (3976), and the temperature is dropped because thinking is enabled.",
+   "model": "claude-haiku-4-5",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "high",
+    "maxTokens": 1000,
+    "thinkingBudgets": {
+     "high": 4000
+    },
+    "temperature": 0.5
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "headers": {
+      "Anthropic-Beta": "interleaved-thinking-2025-05-14"
+     },
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 5000,
+      "stream": true,
+      "thinking": {
+       "type": "enabled",
+       "budget_tokens": 3976,
+       "display": "summarized"
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-adaptive-unmapped",
+   "about": "An adaptive model maps a level its level map does not name by pi's defaults (xhigh is high): adaptive thinking with an output_config effort and no beta.",
+   "model": "claude-sonnet-4-6",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "xhigh"
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "absentHeaders": [
+      "Anthropic-Beta"
+     ],
+     "body": {
+      "model": "claude-sonnet-4-6",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 128000,
+      "stream": true,
+      "thinking": {
+       "type": "adaptive",
+       "display": "summarized"
+      },
+      "output_config": {
+       "effort": "high"
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-adaptive-mapped",
+   "about": "A level the model's level map names is sent as mapped (max).",
+   "model": "claude-sonnet-4-6",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "max"
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-sonnet-4-6",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 128000,
+      "stream": true,
+      "thinking": {
+       "type": "adaptive",
+       "display": "summarized"
+      },
+      "output_config": {
+       "effort": "max"
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-adaptive-minimal",
+   "about": "minimal is low on an adaptive model, unclamped as in pi.",
+   "model": "claude-opus-4-6",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "minimal"
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-opus-4-6",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 128000,
+      "stream": true,
+      "thinking": {
+       "type": "adaptive",
+       "display": "summarized"
+      },
+      "output_config": {
+       "effort": "low"
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-sampling-ignored",
+   "about": "Anthropic is not an OpenAI-compatible path: the model's and the call's samplingParams are ignored; temperature, metadata.user_id (only it) and the tool choice mode are sent.",
+   "model": "claude-haiku-4-5",
+   "entry": "streamSimple",
+   "modelPatch": {
+    "samplingParams": {
+     "top_k": 5
+    }
+   },
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ],
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ]
+   },
+   "options": {
+    "samplingParams": {
+     "top_p": 0.9
+    },
+    "temperature": 0.2,
+    "metadata": {
+     "user_id": "u-1",
+     "other": "x"
+    },
+    "toolChoice": "auto"
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "temperature": 0.2,
+      "tools": [
+       {
+        "name": "lookup",
+        "description": "Look something up.",
+        "eager_input_streaming": true,
+        "input_schema": {
+         "type": "object",
+         "properties": {
+          "q": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "q"
+         ]
+        },
+        "cache_control": {
+         "type": "ephemeral"
+        }
+       }
+      ],
+      "thinking": {
+       "type": "disabled"
+      },
+      "metadata": {
+       "user_id": "u-1"
+      },
+      "tool_choice": {
+       "type": "auto"
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "full-presence-and-long-cache",
+   "about": "Full options: max_tokens as given, an explicit null temperature is sent as null (thinking is off), thinkingEnabled false sends thinking disabled, a forced tool choice and metadata.user_id are sent, and long retention marks every breakpoint with a one-hour ttl.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ],
+    "systemPrompt": "Be brief.",
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "q"
+       ]
+      }
+     }
+    ]
+   },
+   "options": {
+    "maxTokens": 2048,
+    "temperature": null,
+    "toolChoice": {
+     "type": "tool",
+     "name": "lookup"
+    },
+    "metadata": {
+     "user_id": "u-2"
+    },
+    "cacheRetention": "long",
+    "thinkingEnabled": false
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral",
+           "ttl": "1h"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 2048,
+      "stream": true,
+      "system": [
+       {
+        "type": "text",
+        "text": "Be brief.",
+        "cache_control": {
+         "type": "ephemeral",
+         "ttl": "1h"
+        }
+       }
+      ],
+      "temperature": null,
+      "tools": [
+       {
+        "name": "lookup",
+        "description": "Look something up.",
+        "eager_input_streaming": true,
+        "input_schema": {
+         "type": "object",
+         "properties": {
+          "q": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "q"
+         ]
+        },
+        "cache_control": {
+         "type": "ephemeral",
+         "ttl": "1h"
+        }
+       }
+      ],
+      "thinking": {
+       "type": "disabled"
+      },
+      "metadata": {
+       "user_id": "u-2"
+      },
+      "tool_choice": {
+       "type": "tool",
+       "name": "lookup"
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "full-budget-thinking",
+   "about": "Full options on a budget-based model: a zero budget is pi's 1024, the omitted display is sent, and interleavedThinking false requests no beta.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinkingEnabled": true,
+    "thinkingBudgetTokens": 0,
+    "interleavedThinking": false,
+    "thinkingDisplay": "omitted"
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "absentHeaders": [
+      "Anthropic-Beta"
+     ],
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "thinking": {
+       "type": "enabled",
+       "budget_tokens": 1024,
+       "display": "omitted"
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "cache-none",
+   "about": "Retention none sends no cache_control anywhere.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ],
+    "systemPrompt": "Be brief."
+   },
+   "options": {
+    "cacheRetention": "none"
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi"
+         }
+        ]
+       }
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "system": [
+       {
+        "type": "text",
+        "text": "Be brief."
+       }
+      ]
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "temperature-unsupported",
+   "about": "A model whose compat says it takes no temperature (claude-opus-4-7) gets none, whatever the options say.",
+   "model": "claude-opus-4-7",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "temperature": 0.7
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-opus-4-7",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 128000,
+      "stream": true
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  },
+  {
+   "id": "timeout-announced",
+   "about": "An explicit timeoutMs is announced in whole seconds, truncated, as the SDK's request timeout.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "timeoutMs": 2500
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_o",
+      "usage": {
+       "input_tokens": 10,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 0,
+       "cache_creation_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Hello."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 2
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "headers": {
+      "X-Stainless-Timeout": "2"
+     },
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {
+        "role": "user",
+        "content": [
+         {
+          "type": "text",
+          "text": "Hi",
+          "cache_control": {
+           "type": "ephemeral"
+          }
+         }
+        ]
+       }
+      ],
+      "max_tokens": 64000,
+      "stream": true
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_o",
+    "content": [
+     {
+      "type": "text",
+      "text": "Hello."
+     }
+    ]
+   }
+  }
+ ]
+}

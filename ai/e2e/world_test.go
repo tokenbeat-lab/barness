@@ -24,10 +24,67 @@ var (
 	// tenantA2 is tenant A's key after rotating K1→K2; same credential, new version.
 	tenantA2 = tenantKey{tenant: "tenant-a", secret: "sk-test-tenant-a-0002", alias: "key:tenant-a@v2"}
 
+	// anthropicA and anthropicB are each tenant's Anthropic key, on its own
+	// vendor account.
+	anthropicA = tenantKey{tenant: "tenant-a", secret: "sk-ant-test-tenant-a-0001", alias: "key:tenant-a-anthropic@v1"}
+	anthropicB = tenantKey{tenant: "tenant-b", secret: "sk-ant-test-tenant-b-0001", alias: "key:tenant-b-anthropic@v1"}
+
 	// knownKeys are every key a scenario may install; the Provider reports
 	// each by alias and the evidence bundle redacts each.
-	knownKeys = []tenantKey{tenantA, tenantA2, tenantB}
+	knownKeys = []tenantKey{tenantA, tenantA2, tenantB, anthropicA, anthropicB}
 )
+
+// anthropicKey is tenant k's Anthropic key.
+func anthropicKey(k tenantKey) tenantKey {
+	if k.tenant == anthropicB.tenant {
+		return anthropicB
+	}
+	return anthropicA
+}
+
+// anthropicModelIDs are the built-in Anthropic models, all allowed on the
+// "claude" binding.
+func anthropicModelIDs() []string {
+	var ids []string
+	for _, m := range ai.BuiltinCatalog().Models {
+		if m.API == ai.APIAnthropicMessages {
+			ids = append(ids, m.ID)
+		}
+	}
+	return ids
+}
+
+// anthropicBinding is k's tenant's "claude" binding at version b1: Anthropic
+// Messages at the world's Provider, on the tenant's Anthropic account.
+func anthropicBinding(k tenantKey, providerURL string) ai.Binding {
+	return ai.Binding{
+		TenantID:       k.tenant,
+		BindingID:      "claude",
+		Version:        "b1",
+		Enabled:        true,
+		ProviderID:     ai.ProviderAnthropic,
+		API:            ai.APIAnthropicMessages,
+		Endpoint:       providerURL,
+		AuthKind:       ai.AuthAPIKey,
+		AccountScopeID: "acct-" + k.tenant + "-anthropic",
+		CredentialRef:  "cred-" + k.tenant + "-anthropic",
+		AllowedModels:  anthropicModelIDs(),
+	}
+}
+
+// anthropicCredential is the active credential snapshot holding k's
+// Anthropic key, referenced by anthropicBinding.
+func anthropicCredential(k tenantKey) ai.Credential {
+	key := anthropicKey(k)
+	return ai.Credential{
+		OwnerTenantID:  k.tenant,
+		CredentialID:   "cred-" + k.tenant + "-anthropic",
+		Version:        "v1",
+		AccountScopeID: "acct-" + k.tenant + "-anthropic",
+		Active:         true,
+		APIKey:         ai.NewSecret(key.secret),
+	}
+}
 
 // primaryBinding is k's tenant's "primary" binding at version b1 pointing at
 // the world's Provider.
@@ -65,8 +122,9 @@ func primaryCredential(k tenantKey, version string) ai.Credential {
 }
 
 // world is one scenario's assembly: a local controlled Provider, a trusted-host
-// double holding each tenant's same-named "primary" binding, and a Client
-// built with the loopback-only transport.
+// double holding each tenant's same-named "primary" (Responses) and "claude"
+// (Anthropic Messages) bindings, and a Client built with the loopback-only
+// transport.
 type world struct {
 	provider *provider.Server
 	host     *host.Host
@@ -93,6 +151,8 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 	for _, k := range tenants {
 		h.PutBinding(primaryBinding(k, srv.URL()))
 		h.PutCredential(primaryCredential(k, "v1"))
+		h.PutBinding(anthropicBinding(k, srv.URL()))
+		h.PutCredential(anthropicCredential(k))
 	}
 
 	cfg := ai.Config{

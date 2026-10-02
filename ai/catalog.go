@@ -47,12 +47,19 @@ type ModelCompat struct {
 	// added tools as additional_tools items, which barness-ai does not
 	// implement, so those models are not listed.
 	SupportsMidConvoSystemMessages bool `json:"supportsMidConvoSystemMessages,omitempty"`
-	// SupportsLongCacheRetention: long cache retention is requested. Unset
+	// SupportsLongCacheRetention: long cache retention is requested
+	// (Responses: a 24h retention; Anthropic: a 1h cache_control ttl). Unset
 	// or null means true, as in pi.
 	SupportsLongCacheRetention Nullable[bool] `json:"supportsLongCacheRetention,omitzero"`
 	// SupportsExplicitPromptCacheMode: cache retention is sent as
 	// prompt_cache_options instead of prompt_cache_retention.
 	SupportsExplicitPromptCacheMode bool `json:"supportsExplicitPromptCacheMode,omitempty"`
+	// ForceAdaptiveThinking: Anthropic thinking is adaptive, steered by an
+	// effort level instead of a token budget.
+	ForceAdaptiveThinking bool `json:"forceAdaptiveThinking,omitempty"`
+	// SupportsTemperature: Anthropic accepts a temperature. Unset or null
+	// means true, as in pi.
+	SupportsTemperature Nullable[bool] `json:"supportsTemperature,omitzero"`
 }
 
 // acceptsImages reports whether the model takes image input; any other model
@@ -71,18 +78,31 @@ type Catalog struct {
 // BuiltinCatalog returns a fresh copy of the built-in catalog.
 //
 // Source: the frozen pi-ai 0.87.1 model data (providers/data/openai.json,
-// sha256 3c52c858…2835) from the differential oracle's rebuilt copy, see
+// sha256 3c52c858…2835, and providers/data/anthropic.json, sha256
+// 474a010c…4e75) from the differential oracle's rebuilt copy, see
 // internal/testkit/pioracle/node/PROVENANCE.md. Every listed field was
 // re-checked against it when the oracle landed (compat when tools landed,
 // gpt-4 when image placeholders landed, the reasoning models and their level
 // maps when reasoning mapping landed, prices and gpt-5.5-pro when cost
-// estimation landed). Models whose compat needs behavior barness-ai does
-// not implement (additional_tools, tool search) are not listed, so nothing
-// here promises behavior the adapter does not have. pi's supportsOpenAIGrammarTools only
-// affects grammar-constrained tools, which cannot be declared here, so it is
-// not carried. gpt-4 and o3-mini are the text-only models: images reach them
-// as placeholders.
+// estimation landed, the Anthropic models when the Messages adapter landed).
+// Models whose compat needs behavior barness-ai does not implement are not
+// listed, so nothing here promises behavior the adapter does not have:
+// OpenAI models with additional_tools or tool search, and Anthropic models
+// with native mid-conversation tool changes, managed mid-conversation
+// effort or server-side fallback models (claude-fable-5, claude-fable-5-1,
+// claude-opus-4-8, claude-opus-5, claude-opus-5-5). pi's
+// supportsOpenAIGrammarTools and Anthropic supportsStrictTools only affect
+// constrained-sampling tools, which cannot be declared here, so they are not
+// carried. gpt-4 and o3-mini are the text-only models: images reach them as
+// placeholders; every Anthropic model takes images.
 func BuiltinCatalog() Catalog {
+	return Catalog{
+		Version: "2026-10-02.2",
+		Models:  append(builtinOpenAIModels(), builtinAnthropicModels()...),
+	}
+}
+
+func builtinOpenAIModels() []Model {
 	textOnly := func() []Modality { return []Modality{ModalityText} }
 	textAndImage := func() []Modality { return []Modality{ModalityText, ModalityImage} }
 	strict := ModelCompat{SupportsStrictMode: true}
@@ -99,29 +119,58 @@ func BuiltinCatalog() Catalog {
 		m.Reasoning, m.ThinkingLevelMap = true, levels
 		return m
 	}
-	return Catalog{
-		Version: "2026-10-02.1",
-		Models: []Model{
-			model("gpt-4", "GPT-4", textOnly(), 8192, 8192, price(30, 60, 0)),
-			model("gpt-4.1", "GPT-4.1", textAndImage(), 1047576, 32768, price(2, 8, 0.5)),
-			model("gpt-4.1-mini", "GPT-4.1 mini", textAndImage(), 1047576, 32768, price(0.4, 1.6, 0.1)),
-			model("gpt-4o-mini", "GPT-4o mini", textAndImage(), 128000, 16384, price(0.15, 0.6, 0.075)),
-			reasoning(model("gpt-5", "GPT-5", textAndImage(), 400000, 128000, price(1.25, 10, 0.125)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("gpt-5-mini", "GPT-5 Mini", textAndImage(), 400000, 128000, price(0.25, 2, 0.025)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("gpt-5-nano", "GPT-5 Nano", textAndImage(), 400000, 128000, price(0.05, 0.4, 0.005)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("gpt-5-pro", "GPT-5 Pro", textAndImage(), 400000, 128000, price(15, 120, 0)), levelMap("", ThinkingHigh)),
-			reasoning(model("gpt-5.1", "GPT-5.1", textAndImage(), 400000, 128000, price(1.25, 10, 0.125)), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("gpt-5.2", "GPT-5.2", textAndImage(), 400000, 128000, price(1.75, 14, 0.175)), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
-			// The one listed model with tiered prices: the others pi tiers
-			// need additional_tools or tool search.
-			reasoning(model("gpt-5.5-pro", "GPT-5.5 Pro", textAndImage(), 1050000, 128000,
-				ModelCost{CostRates: CostRates{Input: 30, Output: 180},
-					Tiers: []CostTier{{InputTokensAbove: 272000, CostRates: CostRates{Input: 60, Output: 270}}}}),
-				levelMap("", ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
-			reasoning(model("o3", "o3", textAndImage(), 200000, 100000, price(2, 8, 0.5)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("o3-mini", "o3-mini", textOnly(), 200000, 100000, price(1.1, 4.4, 0.55)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
-			reasoning(model("o4-mini", "o4-mini", textAndImage(), 200000, 100000, price(1.1, 4.4, 0.275)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
-		},
+	return []Model{
+		model("gpt-4", "GPT-4", textOnly(), 8192, 8192, price(30, 60, 0)),
+		model("gpt-4.1", "GPT-4.1", textAndImage(), 1047576, 32768, price(2, 8, 0.5)),
+		model("gpt-4.1-mini", "GPT-4.1 mini", textAndImage(), 1047576, 32768, price(0.4, 1.6, 0.1)),
+		model("gpt-4o-mini", "GPT-4o mini", textAndImage(), 128000, 16384, price(0.15, 0.6, 0.075)),
+		reasoning(model("gpt-5", "GPT-5", textAndImage(), 400000, 128000, price(1.25, 10, 0.125)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
+		reasoning(model("gpt-5-mini", "GPT-5 Mini", textAndImage(), 400000, 128000, price(0.25, 2, 0.025)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
+		reasoning(model("gpt-5-nano", "GPT-5 Nano", textAndImage(), 400000, 128000, price(0.05, 0.4, 0.005)), levelMap("", ThinkingMinimal, ThinkingLow, ThinkingMedium, ThinkingHigh)),
+		reasoning(model("gpt-5-pro", "GPT-5 Pro", textAndImage(), 400000, 128000, price(15, 120, 0)), levelMap("", ThinkingHigh)),
+		reasoning(model("gpt-5.1", "GPT-5.1", textAndImage(), 400000, 128000, price(1.25, 10, 0.125)), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh)),
+		reasoning(model("gpt-5.2", "GPT-5.2", textAndImage(), 400000, 128000, price(1.75, 14, 0.175)), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
+		// The one listed model with tiered prices: the others pi tiers
+		// need additional_tools or tool search.
+		reasoning(model("gpt-5.5-pro", "GPT-5.5 Pro", textAndImage(), 1050000, 128000,
+			ModelCost{CostRates: CostRates{Input: 30, Output: 180},
+				Tiers: []CostTier{{InputTokensAbove: 272000, CostRates: CostRates{Input: 60, Output: 270}}}}),
+			levelMap("", ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
+		reasoning(model("o3", "o3", textAndImage(), 200000, 100000, price(2, 8, 0.5)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
+		reasoning(model("o3-mini", "o3-mini", textOnly(), 200000, 100000, price(1.1, 4.4, 0.55)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
+		reasoning(model("o4-mini", "o4-mini", textAndImage(), 200000, 100000, price(1.1, 4.4, 0.275)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
+	}
+}
+
+// builtinAnthropicModels are pi's Anthropic Messages models that barness-ai
+// can serve. All are reasoning models taking text and images. A level map
+// lists only the entries pi's data sets; the others stay unset.
+func builtinAnthropicModels() []Model {
+	model := func(id, name string, contextWindow, maxTokens int, input, output, cacheRead, cacheWrite float64) Model {
+		return Model{Provider: ProviderAnthropic, API: APIAnthropicMessages, ID: id, Name: name, Reasoning: true,
+			Input: []Modality{ModalityText, ModalityImage}, ContextWindow: contextWindow, MaxTokens: maxTokens,
+			Cost: ModelCost{CostRates: CostRates{Input: input, Output: output, CacheRead: cacheRead, CacheWrite: cacheWrite}}}
+	}
+	// adaptive marks a model with adaptive thinking and its level map.
+	adaptive := func(m Model, levels ThinkingLevelMap) Model {
+		m.Compat.ForceAdaptiveThinking, m.ThinkingLevelMap = true, levels
+		return m
+	}
+	maxOnly := func() ThinkingLevelMap { return ThinkingLevelMap{Max: Value("max")} }
+	xhighAndMax := func() ThinkingLevelMap { return ThinkingLevelMap{XHigh: Value("xhigh"), Max: Value("max")} }
+	opus47 := adaptive(model("claude-opus-4-7", "Claude Opus 4.7", 1000000, 128000, 5, 25, 0.5, 6.25), xhighAndMax())
+	opus47.Compat.SupportsTemperature = Value(false)
+	return []Model{
+		model("claude-haiku-4-5", "Claude Haiku 4.5 (latest)", 200000, 64000, 1, 5, 0.1, 1.25),
+		model("claude-haiku-4-5-20251001", "Claude Haiku 4.5", 200000, 64000, 1, 5, 0.1, 1.25),
+		model("claude-opus-4-5", "Claude Opus 4.5 (latest)", 200000, 64000, 5, 25, 0.5, 6.25),
+		model("claude-opus-4-5-20251101", "Claude Opus 4.5", 200000, 64000, 5, 25, 0.5, 6.25),
+		adaptive(model("claude-opus-4-6", "Claude Opus 4.6", 1000000, 128000, 5, 25, 0.5, 6.25), maxOnly()),
+		opus47,
+		model("claude-sonnet-4-5", "Claude Sonnet 4.5 (latest)", 1000000, 64000, 3, 15, 0.3, 3.75),
+		model("claude-sonnet-4-5-20250929", "Claude Sonnet 4.5", 1000000, 64000, 3, 15, 0.3, 3.75),
+		adaptive(model("claude-sonnet-4-6", "Claude Sonnet 4.6", 1000000, 128000, 3, 15, 0.3, 3.75), maxOnly()),
+		adaptive(model("claude-sonnet-5", "Claude Sonnet 5", 1000000, 128000, 2, 10, 0.2, 2.5), xhighAndMax()),
 	}
 }
 

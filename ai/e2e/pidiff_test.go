@@ -28,6 +28,7 @@ import (
 // Without it the cases are recorded NOT_RUN, never PASS.
 func TestPiDifferential(t *testing.T) {
 	ledger := loadLedger(t)
+	t.Run(string(ai.APIAnthropicMessages), func(t *testing.T) { anthropicPiDifferential(t, ledger) })
 	t.Run(string(ai.APIOpenAIResponses), func(t *testing.T) {
 		for _, scenario := range []string{"text", "interleaved", "tool-call", "tool-results", "reasoning-call", "reasoning-replay", "reasoning-cross-model"} {
 			for _, entry := range []string{"stream", "streamSimple"} {
@@ -136,6 +137,8 @@ func TestPiDifferential(t *testing.T) {
 
 // pidiffScenario is one E2E scenario's logical input and response script.
 type pidiffScenario struct {
+	// api is the protocol both sides call; empty is OpenAI Responses.
+	api     ai.API
 	fixture string
 	raw     []byte
 	model   string
@@ -252,7 +255,8 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	}
 	ev.Record("response-script", replies)
 	req := sc.req
-	target := ai.Target{BindingID: "primary", ModelID: sc.model}
+	p := pidiffProtocolOf(sc.api)
+	target := ai.Target{BindingID: p.binding, ModelID: sc.model}
 
 	// barness-ai through the public Client.
 	patch := withModelPatch(sc.model, sc.modelCompat, sc.modelPatch)
@@ -263,12 +267,14 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 			sc.policy(c.Policy)
 		}
 	}, tenantA)
-	w.updateBinding(tenantA, func(b *ai.Binding) { b.Retry = sc.retry })
+	binding := w.host.Binding(tenantA.tenant, p.binding)
+	binding.Retry = sc.retry
 	if sc.unreachable {
-		w.updateBinding(tenantA, func(b *ai.Binding) { b.Endpoint = deadEndpoint() })
+		binding.Endpoint = p.endpoint(deadEndpoint())
 	} else {
 		w.provider.Enqueue(replies...)
 	}
+	w.host.PutBindingAt(tenantA.tenant, p.binding, binding)
 	var s *ai.Stream
 	if entry == "stream" {
 		s = w.client.Stream(ctxFor(t), textScope("req-pidiff-"+entry), target, req, sc.full)
@@ -278,11 +284,11 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	barness, barnessReqs := barnessObservation(t, ev, w, s, sc.abortAfter)
 
 	// Frozen pi-ai against its own local controlled Provider with the same script.
-	srv := provider.New(map[string]string{tenantA.secret: tenantA.alias})
+	srv := provider.New(map[string]string{p.key.secret: p.key.alias})
 	defer srv.Close()
-	baseURL := srv.URL() + "/v1"
+	baseURL := p.endpoint(srv.URL() + "/v1")
 	if sc.unreachable {
-		baseURL = deadEndpoint()
+		baseURL = p.endpoint(deadEndpoint())
 	} else {
 		srv.Enqueue(replies...)
 	}
@@ -297,11 +303,11 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	piRun, err := o.Run(ctxFor(t), pioracle.Case{
 		ModelCompat:      compat,
 		ModelPatch:       sc.modelPatch,
-		API:              string(ai.APIOpenAIResponses),
-		Provider:         string(ai.ProviderOpenAI),
+		API:              string(p.api),
+		Provider:         string(p.provider),
 		Model:            sc.model,
 		BaseURL:          baseURL,
-		APIKey:           tenantA.secret,
+		APIKey:           p.key.secret,
 		Entry:            entry,
 		Context:          piContext(t, req),
 		Options:          options,
@@ -322,12 +328,13 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	if !ev.Check("observations compare", err == nil, "%v", err) {
 		return
 	}
-	protocol := string(ai.APIOpenAIResponses)
+	protocol := string(p.api)
 	verdict := ledger.Classify(protocol, ev.ID(), diffs)
 	rec := o.Record(ev.ID(), protocol, verdict, pioracle.Sides{
 		BarnessVersions: map[string]string{
-			"go":        runtime.Version(),
-			"openai-go": evidence.ModuleVersion("github.com/openai/openai-go/v3"),
+			"go":               runtime.Version(),
+			"openai-go":        evidence.ModuleVersion("github.com/openai/openai-go/v3"),
+			"anthropic-sdk-go": evidence.ModuleVersion("github.com/anthropics/anthropic-sdk-go"),
 		},
 		NodeVersion:      piRun.Node,
 		ModelCatalogHash: builtinCatalogHash,
@@ -344,6 +351,27 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 		}
 	}
 	ev.Check("differential gate: no pending differences", verdict.Pass, "%d pending:\n  %s", len(pending), strings.Join(pending, "\n  "))
+}
+
+// pidiffProtocol is how both sides reach one protocol: the world's binding,
+// the tenant's key for it, and its base URL given the OpenAI-style "<server>/v1".
+type pidiffProtocol struct {
+	api      ai.API
+	provider ai.ProviderID
+	binding  string
+	key      tenantKey
+	// endpoint maps "<server>/v1" to the protocol's base URL.
+	endpoint func(v1 string) string
+}
+
+func pidiffProtocolOf(api ai.API) pidiffProtocol {
+	if api == ai.APIAnthropicMessages {
+		// pi's Anthropic baseUrl has no /v1; the SDK adds /v1/messages.
+		return pidiffProtocol{api: api, provider: ai.ProviderAnthropic, binding: "claude", key: anthropicA,
+			endpoint: func(v1 string) string { return strings.TrimSuffix(v1, "/v1") }}
+	}
+	return pidiffProtocol{api: ai.APIOpenAIResponses, provider: ai.ProviderOpenAI, binding: "primary", key: tenantA,
+		endpoint: func(v1 string) string { return v1 }}
 }
 
 // barnessObservation consumes s and projects barness-ai's public results onto

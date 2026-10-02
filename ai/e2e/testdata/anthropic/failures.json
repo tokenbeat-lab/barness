@@ -1,0 +1,318 @@
+{
+ "case": "P02/E02 Anthropic × Messages failure and truncation terminals",
+ "source": "Synthetic offline fixture. Terminals follow pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/anthropic-messages.ts: an HTTP error is the Anthropic TypeScript SDK's APIError message ('<status> <body message, else the body as JSON, else its text>', @anthropic-ai/sdk core/error.js makeMessage); an SSE error event throws its data; message_start without message_stop, a missing stop reason, an unhandled stop reason and a mid-output fallback throw pi's own texts; refusal and sensitive map to error with pi's messages (pi tests: preserves refusal stop details, preserves sensitive stop reasons); max_tokens is the length terminal. Texts pi takes from Node.js (JSON.parse, undici's 'terminated') are barness's fixed texts, recorded in the pi ledger.",
+ "scenarios": [
+  {
+   "id": "http-401",
+   "about": "The provider refuses the key: upstream_auth before the stream starts, the SDK's message with the body as JSON, the vendor request id kept.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "replies": [{"status": 401, "header": {"request-id": "req_401"}, "body": "{\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"}}"}],
+   "expect": {
+    "events": ["error:error"],
+    "stopReason": "error",
+    "errorMessage": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"}}",
+    "code": "upstream_auth",
+    "phase": "request",
+    "httpStatus": 401,
+    "providerRequestId": "req_401",
+    "content": [],
+    "usageReporting": "unreported"
+   }
+  },
+  {
+   "id": "http-403-key-echo",
+   "about": "A gateway echoes the key in its error body: barness redacts it, a recorded security difference (spec I9).",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "replies": [{"status": 403, "body": "{\"type\":\"error\",\"error\":{\"type\":\"permission_error\",\"message\":\"key sk-ant-test-tenant-a-0001 may not use this model\"}}"}],
+   "expect": {
+    "events": ["error:error"],
+    "stopReason": "error",
+    "errorMessage": "403 {\"type\":\"error\",\"error\":{\"type\":\"permission_error\",\"message\":\"key [REDACTED] may not use this model\"}}",
+    "code": "upstream_auth",
+    "phase": "request",
+    "httpStatus": 403,
+    "content": []
+   }
+  },
+  {
+   "id": "http-429",
+   "about": "Rate limited without retries configured: one request, rate_limited, the requested delay reported.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "replies": [{"status": 429, "header": {"retry-after": "7"}, "body": "{\"type\":\"error\",\"error\":{\"type\":\"rate_limit_error\",\"message\":\"Number of request tokens has exceeded your per-minute rate limit\"}}"}],
+   "expect": {
+    "events": ["error:error"],
+    "stopReason": "error",
+    "errorMessage": "429 {\"type\":\"error\",\"error\":{\"type\":\"rate_limit_error\",\"message\":\"Number of request tokens has exceeded your per-minute rate limit\"}}",
+    "code": "rate_limited",
+    "phase": "request",
+    "httpStatus": 429,
+    "content": []
+   }
+  },
+  {
+   "id": "http-529-overloaded",
+   "about": "Anthropic's overloaded status is a provider failure.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "replies": [{"status": 529, "body": "{\"type\":\"error\",\"error\":{\"type\":\"overloaded_error\",\"message\":\"Overloaded\"}}"}],
+   "expect": {
+    "events": ["error:error"],
+    "stopReason": "error",
+    "errorMessage": "529 {\"type\":\"error\",\"error\":{\"type\":\"overloaded_error\",\"message\":\"Overloaded\"}}",
+    "code": "upstream_error",
+    "phase": "request",
+    "httpStatus": 529,
+    "content": []
+   }
+  },
+  {
+   "id": "http-500-text",
+   "about": "A non-JSON error body is quoted as text.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "replies": [{"status": 500, "body": "upstream exploded"}],
+   "expect": {
+    "events": ["error:error"],
+    "stopReason": "error",
+    "errorMessage": "500 upstream exploded",
+    "code": "upstream_error",
+    "phase": "request",
+    "httpStatus": 500,
+    "content": []
+   }
+  },
+  {
+   "id": "sse-error-event",
+   "about": "An error event mid-stream fails the call with its data as the message; the text received so far and the usage from message_start are kept, the open block is not ended.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_err", "type": "message", "role": "assistant", "model": "claude-haiku-4-5", "content": [], "usage": {"input_tokens": 20, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Hel"}},
+    {"type": "error", "error": {"type": "overloaded_error", "message": "Overloaded"}}
+   ],
+   "expect": {
+    "events": ["start", "text_start#0", "text_delta#0:Hel", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "{\"type\":\"error\",\"error\":{\"type\":\"overloaded_error\",\"message\":\"Overloaded\"}}",
+    "code": "upstream_error",
+    "phase": "stream",
+    "responseId": "msg_err",
+    "content": [{"type": "text", "text": "Hel"}],
+    "usage": {"input": 20, "output": 1, "cacheRead": 0, "cacheWrite": 0, "cacheWrite1h": 0, "totalTokens": 21, "cost": {"input": 0.000019999999999999998, "output": 0.000005, "cacheRead": 0, "cacheWrite": 0, "total": 0.000024999999999999998}},
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "half-json",
+   "about": "A frame cut off mid-JSON cannot be repaired: protocol error, the content so far kept.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "replies": [{"sse": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"id\":\"msg_half\",\"usage\":{\"input_tokens\":20,\"output_tokens\":1,\"cache_read_input_tokens\":0,\"cache_creation_input_tokens\":0}}}\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"Hel\"}}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"lo\n\n"}],
+   "expect": {
+    "events": ["start", "text_start#0", "text_delta#0:Hel", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "Could not parse Anthropic SSE event content_block_delta: invalid JSON",
+    "code": "protocol",
+    "phase": "stream",
+    "responseId": "msg_half",
+    "content": [{"type": "text", "text": "Hel"}]
+   }
+  },
+  {
+   "id": "eof-before-message-stop",
+   "about": "The body ends after the stop reason but before message_stop: an error, the stop reason and content kept.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_eof", "usage": {"input_tokens": 20, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Hello"}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 2}}
+   ],
+   "expect": {
+    "events": ["start", "text_start#0", "text_delta#0:Hello", "text_end#0:Hello", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "Anthropic stream ended before message_stop",
+    "code": "protocol",
+    "phase": "stream",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_eof",
+    "content": [{"type": "text", "text": "Hello"}]
+   }
+  },
+  {
+   "id": "no-stop-reason",
+   "about": "message_stop arrives without any stop reason: pi's 'ended without a stop reason'.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_nostop", "usage": {"input_tokens": 20, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "events": ["start", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "Anthropic stream ended without a stop reason",
+    "code": "protocol",
+    "phase": "stream",
+    "responseId": "msg_nostop",
+    "content": []
+   }
+  },
+  {
+   "id": "connection-cut",
+   "about": "The connection drops mid-body: transport error, content kept.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_cut", "usage": {"input_tokens": 20, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Hel"}}
+   ],
+   "end": "abort",
+   "expect": {
+    "events": ["start", "text_start#0", "text_delta#0:Hel", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "Connection lost while reading the Anthropic Messages stream",
+    "code": "transport",
+    "phase": "stream",
+    "responseId": "msg_cut",
+    "content": [{"type": "text", "text": "Hel"}]
+   }
+  },
+  {
+   "id": "length-truncated-tool",
+   "about": "max_tokens ends the turn as a length terminal, successfully, with the tool call's truncated arguments as received; the call is not executable.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up ab."}]}], "tools": [{"name": "lookup", "description": "Look something up.", "parameters": {"type": "object", "properties": {"q": {"type": "string"}}, "required": ["q"]}}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_len", "usage": {"input_tokens": 30, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "tool_use", "id": "toolu_len", "name": "lookup", "input": {}}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "input_json_delta", "partial_json": "{\"q\":\"ab"}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "max_tokens"}, "usage": {"output_tokens": 8}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "events": ["start", "toolcall_start#0", "toolcall_delta#0:{\"q\":\"ab", "toolcall_end#0:toolu_len lookup {\"q\":\"ab\"}", "done:length"],
+    "stopReason": "length",
+    "rawStopReason": "max_tokens",
+    "responseId": "msg_len",
+    "content": [{"type": "toolCall", "id": "toolu_len", "name": "lookup", "arguments": {"q": "ab"}, "rawArguments": "{\"q\":\"ab"}]
+   }
+  },
+  {
+   "id": "refusal",
+   "about": "A refusal is an error carrying the provider's explanation.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "blocked request"}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_refusal", "usage": {"input_tokens": 412, "output_tokens": 0, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "message_delta", "delta": {"stop_reason": "refusal", "stop_details": {"type": "refusal", "category": "cyber", "explanation": "This request was blocked under the usage policy."}}, "usage": {"output_tokens": 0}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "events": ["start", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "This request was blocked under the usage policy.",
+    "code": "upstream_error",
+    "phase": "stream",
+    "rawStopReason": "refusal",
+    "responseId": "msg_refusal",
+    "content": []
+   }
+  },
+  {
+   "id": "sensitive",
+   "about": "A sensitive stop is an error with pi's descriptive message.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "blocked request"}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_sensitive", "usage": {"input_tokens": 12, "output_tokens": 0, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "message_delta", "delta": {"stop_reason": "sensitive"}, "usage": {"output_tokens": 0}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "events": ["start", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "Provider stopped with: sensitive",
+    "code": "upstream_error",
+    "phase": "stream",
+    "rawStopReason": "sensitive",
+    "responseId": "msg_sensitive",
+    "content": []
+   }
+  },
+  {
+   "id": "unknown-stop-reason",
+   "about": "A stop reason pi does not know fails at once; the raw stop reason is kept.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_unknown", "usage": {"input_tokens": 12, "output_tokens": 0, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "message_delta", "delta": {"stop_reason": "brand_new_reason"}, "usage": {"output_tokens": 0}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "events": ["start", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "Unhandled stop reason: brand_new_reason",
+    "code": "protocol",
+    "phase": "stream",
+    "rawStopReason": "brand_new_reason",
+    "responseId": "msg_unknown",
+    "content": []
+   }
+  },
+  {
+   "id": "fallback-after-output",
+   "about": "A model fallback after output began cannot be served: protocol error, the output so far kept (pi test: fails safely when Anthropic falls back after output begins).",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_fallback", "usage": {"input_tokens": 12, "output_tokens": 0, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Hi"}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "content_block_start", "index": 1, "content_block": {"type": "fallback"}}
+   ],
+   "expect": {
+    "events": ["start", "text_start#0", "text_delta#0:Hi", "text_end#0:Hi", "error:error"],
+    "stopReason": "error",
+    "errorMessage": "Anthropic performed an unsupported mid-output model fallback",
+    "code": "protocol",
+    "phase": "stream",
+    "responseId": "msg_fallback",
+    "content": [{"type": "text", "text": "Hi"}]
+   }
+  },
+  {
+   "id": "canceled-mid-stream",
+   "about": "The caller cancels after three events while the provider holds the stream open: aborted, the content so far kept.",
+   "model": "claude-haiku-4-5",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Say hello."}]}]},
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_cancel", "usage": {"input_tokens": 20, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Hel"}}
+   ],
+   "end": "hold",
+   "cancelAfterEvents": 3,
+   "expect": {
+    "events": ["start", "text_start#0", "text_delta#0:Hel", "error:aborted"],
+    "stopReason": "aborted",
+    "errorMessage": "Request was aborted",
+    "code": "canceled",
+    "phase": "stream",
+    "responseId": "msg_cancel",
+    "content": [{"type": "text", "text": "Hel"}]
+   }
+  }
+ ]
+}

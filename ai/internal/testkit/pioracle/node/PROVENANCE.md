@@ -17,6 +17,7 @@ research checkout, and CI does not need it.
 | Generated model data | `dist/providers/data/`, `.manifest.json` `generatedAt` 2026-09-22T19:31:44.346Z, `structureHash` `c6acf0a1…0095` |
 | Model data hash | `373fa856ca2590733b90f0b6177c932dffeec4370bdd50835087b91ab2a18d13` (see below) |
 | `openai.json` sha256 | `3c52c8587e7e4a1829ed98ec6e0e3d7bbb2baf47e8618556ed1e95a9c0362835` |
+| `anthropic.json` sha256 | `474a010cd96c759d60419a6ba745747d9a87f172276dc85b7568da9d072b4e75` |
 
 `provenance.json` holds the values the Go side checks on every run: the runner
 reports the installed version and model data hash, and `pioracle.Run` refuses

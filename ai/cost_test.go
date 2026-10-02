@@ -12,9 +12,10 @@ import (
 )
 
 // TestCostEstimate checks the cost rule ported from pi-ai's calculateCost
-// (spec I10) on the inputs no Responses E2E can produce: one-hour cache
-// writes (only Anthropic reports them) and catalogs with several tiers.
-// TestUsageAndCost covers the rest end to end. This is the one isolated
+// (spec I10) on the inputs no E2E can produce: catalogs with several tiers,
+// with and without one-hour cache writes. TestUsageAndCost (Responses) and
+// TestAnthropicUsageAndRetry (one-hour writes, P02) cover the rest end to
+// end. This is the one isolated
 // test; with BARNESS_AI_PIDIFF=1 every case is also checked bit for bit
 // against frozen pi-ai's own calculateCost, and the built-in catalog's
 // prices against pi's frozen model data.
@@ -49,10 +50,6 @@ func TestCostEstimate(t *testing.T) {
 			UsageCost{Input: 0.003, Output: 0.003, CacheRead: 0.0012, Total: 0.0072}},
 		{"short-cache-write", base, Usage{Input: 10, CacheWrite: 2000},
 			UsageCost{Input: 0.00003, CacheWrite: 0.0075, Total: 0.00753}},
-		{"one-hour-cache-write", base, Usage{Input: 10, CacheWrite: 2000, CacheWrite1h: Value[int64](2000)},
-			UsageCost{Input: 0.00003, CacheWrite: 0.012, Total: 0.01203}},
-		{"mixed-cache-write", base, Usage{CacheWrite: 3000, CacheWrite1h: Value[int64](1000)},
-			UsageCost{CacheWrite: 0.0135, Total: 0.0135}},
 		{"reasoning-not-priced-again", base, Usage{Output: 100, Reasoning: Value[int64](60)},
 			UsageCost{Output: 0.0015, Total: 0.0015}},
 		{"below-tiers", tiered, Usage{Input: 200000, Output: 10},

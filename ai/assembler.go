@@ -74,6 +74,10 @@ func (a *assembler) identify(origin NativeStateEnvelope) {
 
 func (a *assembler) start() { a.publish(StartEvent{Partial: a.view}) }
 
+func (a *assembler) responseModel(model string) {
+	a.view.update(func(m *AssistantMessage) { m.ResponseModel = model })
+}
+
 func (a *assembler) responseID(id string) {
 	a.view.update(func(m *AssistantMessage) { m.ResponseID = id })
 }
@@ -103,8 +107,10 @@ func (a *assembler) open(block AssistantContent) (i int) {
 	return i
 }
 
-func (a *assembler) textStart() int {
-	i := a.open(Text{})
+// textStart opens a text block holding what the provider announced with it
+// (usually nothing).
+func (a *assembler) textStart(initial Text) int {
+	i := a.open(initial)
 	a.publish(TextStartEvent{ContentIndex: i, Partial: a.view})
 	return i
 }
@@ -118,13 +124,21 @@ func (a *assembler) textDelta(i int, delta string) {
 	a.publish(TextDeltaEvent{ContentIndex: i, Delta: delta, Partial: a.view})
 }
 
+// textContent is the text streamed into block i so far.
+func (a *assembler) textContent(i int) (text string) {
+	a.view.read(func(m *AssistantMessage) { text = m.Content[i].(Text).Text })
+	return text
+}
+
 func (a *assembler) textEnd(i int, text, signature string) {
 	a.view.update(func(m *AssistantMessage) { m.Content[i] = Text{Text: text, Signature: signature} })
 	a.publish(TextEndEvent{ContentIndex: i, Content: text, Partial: a.view})
 }
 
-func (a *assembler) thinkingStart() int {
-	i := a.open(Thinking{})
+// thinkingStart opens a thinking block holding what the provider announced
+// with it: initial text and signature, or a redacted block's payload.
+func (a *assembler) thinkingStart(initial Thinking) int {
+	i := a.open(initial)
 	a.publish(ThinkingStartEvent{ContentIndex: i, Partial: a.view})
 	return i
 }
@@ -144,19 +158,26 @@ func (a *assembler) thinkingText(i int) (text string) {
 	return text
 }
 
+// thinkingEnd closes block i with its final text and signature; a redacted
+// block stays redacted.
 func (a *assembler) thinkingEnd(i int, thinking, signature string) {
-	a.view.update(func(m *AssistantMessage) { m.Content[i] = Thinking{Thinking: thinking, Signature: signature} })
+	a.view.update(func(m *AssistantMessage) {
+		t := m.Content[i].(Thinking)
+		t.Thinking, t.Signature = thinking, signature
+		m.Content[i] = t
+	})
 	a.publish(ThinkingEndEvent{ContentIndex: i, Content: thinking, Partial: a.view})
 }
 
-// thinkingSignature is ended block i's signature.
+// thinkingSignature is block i's signature so far.
 func (a *assembler) thinkingSignature(i int) (sig string) {
 	a.view.read(func(m *AssistantMessage) { sig = m.Content[i].(Thinking).Signature })
 	return sig
 }
 
-// setThinkingSignature replaces ended block i's signature without an event,
-// as pi updates a signature it learns only at the terminal response.
+// setThinkingSignature replaces block i's signature without an event, as pi
+// updates a signature it learns only at the terminal response (Responses)
+// or from signature deltas (Anthropic).
 func (a *assembler) setThinkingSignature(i int, sig string) {
 	a.view.update(func(m *AssistantMessage) {
 		t := m.Content[i].(Thinking)
@@ -217,6 +238,12 @@ func (a *assembler) toolCallEnd(i int, raw string) {
 		m.Content[i] = call
 	})
 	a.publish(ToolCallEndEvent{ContentIndex: i, ToolCall: call, Partial: a.view})
+}
+
+// blockCount is the number of content blocks opened so far.
+func (a *assembler) blockCount() (n int) {
+	a.view.read(func(m *AssistantMessage) { n = len(m.Content) })
+	return n
 }
 
 // hasToolCall reports whether the message holds a tool call block.

@@ -27,6 +27,7 @@ func TestMain(m *testing.M) {
 		os.Exit(1)
 	}
 	run.SetVersion("openai-go", evidence.ModuleVersion("github.com/openai/openai-go/v3"))
+	run.SetVersion("anthropic-sdk-go", evidence.ModuleVersion("github.com/anthropics/anthropic-sdk-go"))
 	catalog := ai.BuiltinCatalog()
 	run.SetVersion("model_catalog_version", catalog.Version)
 	if builtinCatalogHash, err = catalog.Hash(); err != nil {

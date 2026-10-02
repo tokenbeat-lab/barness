@@ -67,8 +67,9 @@ type Request struct {
 	Method string `json:"method"`
 	Path   string `json:"path"`
 	Query  string `json:"query"`
-	// KeyAlias is the alias of the bearer key received; "<none>" when absent and
-	// "<unknown>" when the key is not one the test registered.
+	// KeyAlias is the alias of the key received, as a bearer token or an
+	// x-api-key header (Anthropic); "<none>" when absent and "<unknown>" when
+	// the key is not one the test registered.
 	KeyAlias string            `json:"key_alias"`
 	Header   map[string]string `json:"header"`
 	Body     json.RawMessage   `json:"body"`
@@ -137,7 +138,7 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		Method:   r.Method,
 		Path:     r.URL.Path,
 		Query:    r.URL.RawQuery,
-		KeyAlias: s.keyAlias(r.Header.Get("Authorization")),
+		KeyAlias: s.requestKeyAlias(r.Header),
 		Header:   s.redactHeaders(r.Header),
 		Body:     rawJSON(body),
 	}
@@ -203,11 +204,27 @@ func (s *Server) hold(r *http.Request) {
 	}
 }
 
+// requestKeyAlias is the alias of the request's credential: its bearer
+// token, else its x-api-key.
+func (s *Server) requestKeyAlias(h http.Header) string {
+	if key, ok := strings.CutPrefix(h.Get("Authorization"), "Bearer "); ok && key != "" {
+		return s.alias(key)
+	}
+	if key := h.Get("X-Api-Key"); key != "" {
+		return s.alias(key)
+	}
+	return "<none>"
+}
+
 func (s *Server) keyAlias(authorization string) string {
 	key, ok := strings.CutPrefix(authorization, "Bearer ")
 	if !ok || key == "" {
 		return "<none>"
 	}
+	return s.alias(key)
+}
+
+func (s *Server) alias(key string) string {
 	if alias, ok := s.aliases[key]; ok {
 		return alias
 	}
@@ -224,8 +241,11 @@ func (s *Server) redactHeaders(h http.Header) map[string]string {
 	sort.Strings(keys)
 	for _, k := range keys {
 		v := strings.Join(h.Values(k), ", ")
-		if strings.EqualFold(k, "Authorization") {
+		switch {
+		case strings.EqualFold(k, "Authorization"):
 			v = "Bearer " + s.keyAlias(v)
+		case strings.EqualFold(k, "X-Api-Key"):
+			v = s.alias(v)
 		}
 		out[k] = v
 	}

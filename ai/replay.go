@@ -1,6 +1,9 @@
 package ai
 
-import "strings"
+import (
+	"strings"
+	"unicode/utf16"
+)
 
 // replayedAssistant is a history assistant message prepared for the call's
 // target: its content already follows pi's same-model or cross-model rules,
@@ -67,7 +70,7 @@ func replayContent(content []AssistantContent, sameModel bool) []AssistantConten
 				}
 			case sameModel && b.Signature != "":
 				out = append(out, b)
-			case strings.TrimFunc(b.Thinking, isJSSpace) == "":
+			case isBlank(b.Thinking):
 			case sameModel:
 				out = append(out, b)
 			default:
@@ -106,4 +109,28 @@ func carriesNativeState(m AssistantMessage) bool {
 		}
 	}
 	return false
+}
+
+// isBlank is JavaScript's `s.trim().length === 0`.
+func isBlank(s string) bool { return strings.TrimFunc(s, isJSSpace) == "" }
+
+// sanitizeToolCallID is pi-ai's Anthropic normalizeToolCallId for a call
+// replayed by the cross-model rules, which Responses also builds on: every character outside [A-Za-z0-9_-]
+// becomes "_" and at most 64 are kept. Like pi's regular expression it works
+// on UTF-16 code units, so a character outside the Basic Multilingual Plane
+// becomes two underscores.
+func sanitizeToolCallID(id string) string {
+	var b strings.Builder
+	for _, r := range id {
+		switch {
+		case r >= 'a' && r <= 'z', r >= 'A' && r <= 'Z', r >= '0' && r <= '9', r == '_', r == '-':
+			b.WriteRune(r)
+		case utf16.RuneLen(r) == 2:
+			b.WriteString("__")
+		default:
+			b.WriteByte('_')
+		}
+	}
+	s := b.String()
+	return s[:min(len(s), 64)]
 }
