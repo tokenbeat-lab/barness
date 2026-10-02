@@ -122,3 +122,8 @@
 - **For maintainer confirmation:**
   - The `CallAttribution` / `EventEnvelope` API shape, and whether `AccountScopeID` belongs in the per-event attribution. The spec requires at least Tenant/Request/Binding/Provider/API/Model; the account is included as well.
   - Whether the examples' numbers are acceptable as deployment starting points, LocalPolicy's waiters = 8 in particular.
+
+**2026-10-02 — maintainer decisions.**
+
+- **Per-event attribution keeps the account.** `CallAttribution` includes `AccountScopeID` in addition to what spec I2 requires. The value is already in the Result metadata and the Observer records; the event envelope carries the same value. Whether it reaches the host's own clients is the host's decision, as the `EventEnvelope` doc says.
+- **`LocalPolicy` keeps 8 admission waiters.** This is deliberately above the rule of thumb of 2, following the "本地单用户" row. The burst scenario's cost (2 of 8 waiters admitted, 6 refused after waiting 5 s) is accepted and recorded in the policy comment.
