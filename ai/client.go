@@ -45,6 +45,10 @@ type Config struct {
 	// the built-in limits alone. It is where per-account or distributed
 	// admission plugs in.
 	Admission Admission
+	// Observer receives the Client's call and attempt records asynchronously
+	// (see Observer); nil records nothing. It requires a positive
+	// ResourcePolicy.MaxQueuedObservations.
+	Observer Observer
 	// AllowLoopbackHTTP is for test assembly only: it lets bindings target a
 	// plain-http loopback endpoint such as a local controlled Provider. Without
 	// it every binding endpoint must be https (spec I3).
@@ -74,8 +78,10 @@ type Client struct {
 	adapters    map[API]adapter
 	http        *http.Client
 	loopback    bool
-	probe       *probe.Probe // nil outside acceptance tests
-	clock       *clock.Clock // nil is the system clock
+	// observations is nil without an Observer.
+	observations *observations
+	probe        *probe.Probe // nil outside acceptance tests
+	clock        *clock.Clock // nil is the system clock
 }
 
 // NewClient validates cfg and builds a Client.
@@ -89,20 +95,24 @@ func NewClient(cfg Config) (*Client, error) {
 	if cfg.Credentials == nil {
 		return nil, &ConfigError{Field: "Credentials", Problem: "a credential resolver is required"}
 	}
+	if cfg.Observer != nil && cfg.Policy.MaxQueuedObservations == 0 {
+		return nil, policyError("MaxQueuedObservations", "must be positive when an Observer is configured")
+	}
 	catalog := BuiltinCatalog()
 	if cfg.Catalog != nil {
 		catalog = cfg.Catalog.clone()
 	}
 	return &Client{
-		policy:      *cfg.Policy,
-		bindings:    cfg.Bindings,
-		credentials: cfg.Credentials,
-		catalog:     catalog,
-		adapters:    registry(),
-		admission:   admitter{local: newLimiter(cfg.Policy, cfg.Probe), host: cfg.Admission},
-		http:        newHTTPClient(cfg.Transport, cfg.Policy),
-		loopback:    cfg.AllowLoopbackHTTP,
-		probe:       cfg.Probe,
-		clock:       cfg.Clock,
+		policy:       *cfg.Policy,
+		bindings:     cfg.Bindings,
+		credentials:  cfg.Credentials,
+		catalog:      catalog,
+		adapters:     registry(),
+		admission:    admitter{local: newLimiter(cfg.Policy, cfg.Probe), host: cfg.Admission},
+		http:         newHTTPClient(cfg.Transport, cfg.Policy),
+		loopback:     cfg.AllowLoopbackHTTP,
+		observations: newObservations(cfg.Observer, cfg.Policy.MaxQueuedObservations),
+		probe:        cfg.Probe,
+		clock:        cfg.Clock,
 	}, nil
 }

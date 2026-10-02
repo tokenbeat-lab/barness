@@ -117,6 +117,9 @@ func checkMetadata(ev *evidence.Case, got ai.CallMetadata, scope ai.CallScope, f
 		ModelID:    f.Model,
 		// Tenant A's binding; see primaryBinding.
 		AccountScopeID: "acct-" + scope.TenantID,
+		// The snapshot primaryBinding and primaryCredential pin.
+		BindingVersion:    "b1",
+		CredentialVersion: "v1",
 	}
 	// One successful attempt, recorded under the call's RequestID (E05).
 	attempts := got.Attempts

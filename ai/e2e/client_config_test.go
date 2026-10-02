@@ -51,6 +51,9 @@ func TestClientConstruction(t *testing.T) {
 		{"negative-admission-waiters", "Policy.MaxAdmissionWaiters", func(c *ai.Config) { c.Policy.MaxAdmissionWaiters = -1 }},
 		{"negative-call-timeout", "Policy.CallTimeout", func(c *ai.Config) { c.Policy.CallTimeout = -time.Second }},
 		{"negative-admission-wait", "Policy.AdmissionWait", func(c *ai.Config) { c.Policy.AdmissionWait = -time.Millisecond }},
+		{"negative-queued-observations", "Policy.MaxQueuedObservations", func(c *ai.Config) { c.Policy.MaxQueuedObservations = -1 }},
+		// An Observer needs a bounded queue; without one 0 is valid.
+		{"observer-without-queue", "Policy.MaxQueuedObservations", func(c *ai.Config) { c.Observer = newRecorder() }},
 
 		// Field relationships.
 		{"image-exceeds-request", "Policy.MaxImageBytes", func(c *ai.Config) { c.Policy.MaxImageBytes = c.Policy.MaxRequestBytes + 1 }},

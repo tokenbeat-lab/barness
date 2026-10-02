@@ -62,6 +62,12 @@ type ResourcePolicy struct {
 	// it keeps the admission queue finite in length and in time.
 	MaxAdmissionWaiters int
 
+	// MaxQueuedObservations bounds how many Observer records wait for
+	// delivery; a record beyond it is dropped and counted
+	// (Client.ObserverStats), never waited for. It must be positive when
+	// Config.Observer is set and is unused otherwise, where 0 is valid.
+	MaxQueuedObservations int
+
 	// CallTimeout bounds a whole logical call, resolution included, as its
 	// context's deadline; the host's own deadline ends it earlier. Every
 	// other duration must fit within it.
@@ -112,6 +118,9 @@ func (p *ResourcePolicy) validate() error {
 	}
 	if p.AdmissionWait < 0 {
 		return policyError("AdmissionWait", "must not be negative")
+	}
+	if p.MaxQueuedObservations < 0 {
+		return policyError("MaxQueuedObservations", "must not be negative")
 	}
 	switch {
 	case p.MaxImageBytes > p.MaxRequestBytes:

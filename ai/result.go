@@ -18,6 +18,10 @@ type CallMetadata struct {
 	ModelID    string     `json:"modelId,omitempty"`
 	// AccountScopeID is the vendor account serving the call.
 	AccountScopeID string `json:"accountScopeId,omitempty"`
+	// BindingVersion and CredentialVersion identify the configuration
+	// snapshot the call was pinned to. Set once resolved.
+	BindingVersion    string `json:"bindingVersion,omitempty"`
+	CredentialVersion string `json:"credentialVersion,omitempty"`
 	// NativeStateDowngrades counts history messages whose native state was
 	// downgraded instead of replayed, by reason. Set once resolved.
 	NativeStateDowngrades NativeStateDowngrades `json:"nativeStateDowngrades,omitzero"`

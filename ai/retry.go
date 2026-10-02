@@ -114,9 +114,13 @@ type initialRequest struct {
 	// admit obtains the permit an attempt runs under.
 	admit    func(ctx context.Context, attemptID string) (release func(), failure *Error)
 	attempts []Attempt
+	// observe reports each attempt to the Client's Observer, if any.
+	observe attemptRecorder
 	// release returns the permit of the attempt that obtained the initial
 	// response; the stream it opened runs under it until done.
 	release func()
+	// attemptStarted is when that attempt started, for its record.
+	attemptStarted time.Time
 }
 
 // attemptOutcome is how one attempt at the initial request ended, as the
@@ -175,6 +179,7 @@ func (r *initialRequest) send(ctx context.Context, attempt func(context.Context)
 		if failure != nil {
 			return failure
 		}
+		started := r.observe.started(attemptID)
 		out := attempt(ctx)
 		rec := Attempt{
 			AttemptID:         attemptID,
@@ -182,7 +187,7 @@ func (r *initialRequest) send(ctx context.Context, attempt func(context.Context)
 			ProviderRequestID: out.providerRequestID,
 		}
 		if out.failure == nil {
-			r.release = release
+			r.release, r.attemptStarted = release, started
 			r.attempts = append(r.attempts, rec)
 			return nil
 		}
@@ -194,12 +199,12 @@ func (r *initialRequest) send(ctx context.Context, attempt func(context.Context)
 		}
 		rec.Code = out.failure.Code
 		if ctx.Err() != nil || retryIndex >= r.policy.MaxRetries || !out.retryable() {
-			r.attempts = append(r.attempts, rec)
+			r.failed(rec, started)
 			return out.failure
 		}
 		delay, refused := r.delay(out, retryIndex)
 		rec.RetryDelay = delay
-		r.attempts = append(r.attempts, rec)
+		r.failed(rec, started)
 		if refused != nil {
 			return refused
 		}
@@ -209,10 +214,17 @@ func (r *initialRequest) send(ctx context.Context, attempt func(context.Context)
 	}
 }
 
-// done returns the permit of the attempt whose stream the call read, if
-// any.
+// failed records an attempt that did not obtain the initial response.
+func (r *initialRequest) failed(rec Attempt, started time.Time) {
+	r.attempts = append(r.attempts, rec)
+	r.observe.finished(rec, started)
+}
+
+// done ends the attempt whose stream the call read, if any: it reports it
+// finished and returns its permit. The adapter has closed the stream.
 func (r *initialRequest) done() {
 	if r.release != nil {
+		r.observe.finished(r.attempts[len(r.attempts)-1], r.attemptStarted)
 		r.release()
 		r.release = nil
 	}

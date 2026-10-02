@@ -29,4 +29,15 @@
 // idle and protocol (timeoutMs) limits, as CodeDeadlineExceeded. Closing a
 // Stream or canceling its context ends the call's I/O and returns its
 // permits; nothing depends on reading further events.
+//
+// # Observability
+//
+// A host that sets Config.Observer receives a record when each call starts
+// and finishes and when each attempt starts and finishes, attributed to the
+// trusted scope and the resolved configuration snapshot. Records are
+// delivered asynchronously through a queue bounded by
+// ResourcePolicy.MaxQueuedObservations; a slow or failing Observer never
+// blocks or changes a call, and Client.ObserverStats counts what was
+// dropped or failed. Records hold no key, content, tool arguments, native
+// state or error text, and barness-ai writes no logs of its own.
 package ai

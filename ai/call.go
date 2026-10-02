@@ -37,7 +37,8 @@ func (c *Client) run(ctx context.Context, cl call, emit func(Event) *Error) (Res
 	// host's own deadline ends it earlier if it comes first.
 	ctx, cancel := context.WithTimeout(ctx, c.policy.CallTimeout)
 	defer cancel()
-	asm := newAssembler(time.Now().UnixMilli(), emit, c.policy.byteLimits().toolJSON)
+	started := time.Now()
+	asm := newAssembler(started.UnixMilli(), emit, c.policy.byteLimits().toolJSON)
 	meta := CallMetadata{
 		TenantID:  cl.scope.TenantID,
 		RequestID: cl.scope.RequestID,
@@ -45,8 +46,11 @@ func (c *Client) run(ctx context.Context, cl call, emit func(Event) *Error) (Res
 		JobID:     cl.scope.JobID,
 		BindingID: cl.target.BindingID,
 	}
+	c.observations.callStarted(meta)
 	failure := c.execute(ctx, cl, &meta, asm)
-	return asm.finish(meta, failure)
+	res, err := asm.finish(meta, failure)
+	c.observations.callFinished(res, err, started)
+	return res, err
 }
 
 // execute follows spec I3's order: scope → binding → capability/options →
@@ -114,6 +118,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	}
 	meta.Resolved, meta.ProviderID, meta.API, meta.ModelID = true, binding.ProviderID, binding.API, model.ID
 	meta.AccountScopeID = binding.AccountScopeID
+	meta.BindingVersion, meta.CredentialVersion = binding.Version, cred.Version
 	meta.NativeStateDowngrades = downgrades
 	asm.identify(origin.envelope())
 
@@ -121,6 +126,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	// revocations affect only new logical calls, and every retry of the
 	// initial request reuses it, each attempt under its own permit.
 	initial := &initialRequest{policy: binding.Retry.pinned(), clock: c.clock, requestID: cl.scope.RequestID,
+		observe: c.observations.attempts(*meta),
 		admit: func(ctx context.Context, attemptID string) (func(), *Error) {
 			return c.admission.admit(ctx, AdmissionRequest{TenantID: cl.scope.TenantID, AccountScopeID: binding.AccountScopeID, AttemptID: attemptID})
 		}}
