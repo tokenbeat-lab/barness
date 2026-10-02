@@ -1,11 +1,11 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-02
 ---
 
 # barness-ai DeepSeek × Responses：复用 Responses adapter，按 Provider 区分协议能力，登记为差分外扩展
 
-工单 21 接入 DeepSeek × Responses（P05）。spec I4 要求它复用 Responses adapter，但 Provider 身份、能力配置、endpoint 与 key 和 OpenAI 完全独立；请求不得自动沿用 OpenAI 的服务端续接或存储字段，历史通过完整输入回放；它属于冻结 pi 路由之外的扩展，以官方协议 fixture 证明，不计为 pi 差分通过。spec 没有规定能力配置放在哪里、模型数据从哪里来、调用者显式请求不受支持的能力时怎么办，以及"登记为扩展"落在哪里。本 ADR 记录实现时的做法，待维护者确认（见文末）。
+工单 21 接入 DeepSeek × Responses（P05）。spec I4 要求它复用 Responses adapter，但 Provider 身份、能力配置、endpoint 与 key 和 OpenAI 完全独立；请求不得自动沿用 OpenAI 的服务端续接或存储字段，历史通过完整输入回放；它属于冻结 pi 路由之外的扩展，以官方协议 fixture 证明，不计为 pi 差分通过。spec 没有规定能力配置放在哪里、模型数据从哪里来、调用者显式请求不受支持的能力时怎么办，以及"登记为扩展"落在哪里。本 ADR 记录实现时的做法，维护者于 2026-10-02 确认（见文末）。
 
 ## 背景：DeepSeek 文档与研究证据
 
@@ -46,9 +46,9 @@ DeepSeek 的 Responses 指南（https://api-docs.deepseek.com/guides/responses_a
 - DeepSeek 的 reasoning 条目、函数调用条目 id 与错误体形状是按 OpenAI schema 的合理推断；真实服务若不同，以工单 23 的冒烟结果修正 fixture 与本 ADR。
 - 中途关闭流的错误文本仍写着 "OpenAI Responses"（协议名，而非 Provider），与 P01 一致。
 
-## 待维护者确认
+## 维护者决定（2026-10-02）
 
-1. 决策一：协议能力按 Provider 区分（而非模型 compat），DeepSeek 不发送 `store`、`include`、提示缓存字段与亲和头。
-2. 决策二：显式 `ServiceTier` 在 DeepSeek 上拒绝；session id/缓存保留期静默不派生；`reasoningSummary` 照发。
-3. 决策三：`deepseek-flash` 取 pi 的 Chat 数据换 API，level map 未经 Responses 实测的 `high`/`max` 留待冒烟确认。
-4. 决策四：差分账本的 `routes` 作为扩展接入路径的登记处。
+1. 决策一：采纳。协议能力按 Provider 区分而非放在模型 compat 中；DeepSeek 不发送 `store`、`include`、提示缓存字段与亲和头。
+2. 决策二：采纳。显式 `ServiceTier` 在 DeepSeek 上以 `invalid_request` 拒绝；session id 与缓存保留期静默不派生；`reasoningSummary` 照发。
+3. 决策三：采纳，附条件。`deepseek-flash` 取 pi 的 Chat 数据换为 `openai-responses`；level map 中未经 Responses 实测的 `high`/`max` 由工单 23 的真实冒烟确认，不被接受的级别改为 null 并换新目录版本。
+4. 决策四：采纳。差分账本的 `routes` 是扩展接入路径的登记处。

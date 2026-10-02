@@ -15,4 +15,4 @@
 
 ## Comments
 
-**2026-10-02 — from issue 21.** P05's offline fixtures infer from OpenAI's Responses schema what DeepSeek's guide leaves out; the DeepSeek Responses smoke should confirm: reasoning.effort `high` and `max` (from pi's Chat level map; only `none`/`low` were sent live), the reasoning item (`content[{type: reasoning_text}]`) and function call item id shapes, the error body shape and whether a vendor request id header exists (ADR-0014 Consequences).
+**2026-10-02 — from issue 21.** P05's offline fixtures infer from OpenAI's Responses schema what DeepSeek's guide leaves out; the DeepSeek Responses smoke should confirm: reasoning.effort `high` and `max` (from pi's Chat level map; only `none`/`low` were sent live), the reasoning item (`content[{type: reasoning_text}]`) and function call item id shapes, the error body shape and whether a vendor request id header exists (ADR-0014 Consequences). Maintainer decision 2026-10-02 (ADR-0014 决策三): a level the service refuses becomes null in `builtinDeepSeekResponsesModels` under a new catalog version, and the P05 fixtures are corrected to the observed shapes.
