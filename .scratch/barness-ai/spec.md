@@ -147,7 +147,7 @@ Responses、Chat Completions 是协议简称，对照冻结 pi 的 API 标识分
 
 ### 5. SDK 与传输边界
 
-- 按既有选型研究，首期默认使用 OpenAI Go SDK 承担 Responses/Chat、Anthropic Go SDK 承担 Messages、Google GenAI Go SDK 承担 Gemini 的 HTTP 与流解码；统一语义仍由 barness-ai 负责例外：Anthropic Messages 的 SSE 由 adapter 按冻结 pi 自己的解码器解码，SDK 只承担 HTTP 与错误体读取，因 SDK 的两种解码方式均与 pi 的可观察行为不同（维护者决定 2026-10-02，见 ADR-0011）；Google × Gemini Developer API 整体直接 HTTP，流按冻结 pi 所用的 @google/genai 解码方式解码，因 Google GenAI Go SDK 无法无损保留 thoughtSignature 与 functionCall.args、不提供原始响应且会读取环境 key 与 endpoint（维护者决定 2026-10-02，见 ADR-0012）。
+- 按既有选型研究，首期默认使用 OpenAI Go SDK 承担 Responses/Chat、Anthropic Go SDK 承担 Messages、Google GenAI Go SDK 承担 Gemini 的 HTTP 与流解码；统一语义仍由 barness-ai 负责例外：Anthropic Messages 的 SSE 由 adapter 按冻结 pi 自己的解码器解码，SDK 只承担 HTTP 与错误体读取，因 SDK 的两种解码方式均与 pi 的可观察行为不同（维护者决定 2026-10-02，见 ADR-0011）；Google × Gemini Developer API 整体直接 HTTP，流按冻结 pi 所用的 @google/genai 解码方式解码，因 Google GenAI Go SDK 无法无损保留 thoughtSignature 与 functionCall.args、不提供原始响应且会读取环境 key 与 endpoint（维护者决定 2026-10-02，见 ADR-0012）；OpenAI × Chat Completions 由 SDK 发送请求并切分 SSE 事件，事件内容由 adapter 按冻结 pi 所用的 openai-node 读取方式解读，因 SDK 的类型化流遇到 `[DONE]` 即停止读取、把 null 的 error 字段与非对象 chunk 当作失败，且不承载 pi 读取的推理字段与工具调用索引的缺失（维护者决定 2026-10-02，见 ADR-0013）。
 - 研究记录的候选锁定版本是 OpenAI `v3.66.0`、Anthropic `v1.75.0`、Google GenAI `v1.71.0`，作为实施起点而非当前最新版声明。纳入依赖或升级时重新验证目标行为，不直接继承旧探针的通过状态。
 - 保留原研究 H1–H5 的含义：H1 为调用级凭据/endpoint/header 隔离；H2 为字段 presence、签名、工具和 pi 行为差分；H3 为协议终态与部分消息；H4 为 pi 等价重试；H5 为读取/分配前的资源限制。请求回调时序、取消和资源释放亦为强制契约，不由 SDK 默认行为代替。
 - 先核查 SDK 的公开扩展、原始 JSON 与受控 transport 能否满足缺口；确实无法满足时，仅为受影响 Provider×API 采用直接 HTTP。直接实现也通过同一组场景；多个协议出现已证明的系统性阻碍后才重议统一直连。

@@ -1,11 +1,11 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-02
 ---
 
 # barness-ai OpenAI Chat Completions adapter：SDK 发送、按 openai-node 读取 chunk，标准 OpenAI compat
 
-工单 20 接入 OpenAI × Chat Completions（P04）。spec I5 由 OpenAI Go SDK（v3.66.0）承担 Chat 的 HTTP 与流解码，并要求核查 WithJSONSet、ExtraFields、ExtraBody、受控 RoundTripper 的实际可用性，显式配置 pi 默认字段并以实际请求验证；spec P04 要求以协议终态判定成功、结束信号前不遗漏流末 usage。spec 没有规定 SDK 的流解码在哪一层停下、Chat 的内置模型从哪里来、pi 按厂商探测的 compat 如何对待、Chat 的"用量完整"含义，以及回调可声明的 Chat 专有字段。本 ADR 记录实现时定下的做法，待维护者确认（见文末）。
+工单 20 接入 OpenAI × Chat Completions（P04）。spec I5 由 OpenAI Go SDK（v3.66.0）承担 Chat 的 HTTP 与流解码，并要求核查 WithJSONSet、ExtraFields、ExtraBody、受控 RoundTripper 的实际可用性，显式配置 pi 默认字段并以实际请求验证；spec P04 要求以协议终态判定成功、结束信号前不遗漏流末 usage。spec 没有规定 SDK 的流解码在哪一层停下、Chat 的内置模型从哪里来、pi 按厂商探测的 compat 如何对待、Chat 的"用量完整"含义，以及回调可声明的 Chat 专有字段。本 ADR 记录实现时定下的做法，维护者于 2026-10-02 确认（见文末）。
 
 ## 决策一：SDK 发送请求并切分 SSE，chunk 由 adapter 按 openai-node 读取
 
@@ -55,12 +55,12 @@ pi 的 Chat 路径报告错误时不加 "API error" 前缀：SDK 消息没有引
 
 自定义（grammar）工具调用只由 barness 无法声明的工具产生，与 Responses 一样被跳过；pi 会为它建块。pi 在出现两个 finish_reason 且先错后成功时把旧的 errorMessage 留在成功消息上，barness 只在失败终态写 errorMessage——真实服务每个 choice 只发一个 finish_reason，未纳入差分。畸形 chunk 中只读取 JSON 类型合 pi 用法的值：非字符串的 chunk id、工具调用 id 与参数被忽略（pi 的 `||=` 与字符串拼接会接受任何真值），`function` 不是对象的工具调用条目被跳过（pi 仍会为它建块）；同样不纳入差分。
 
-## 待维护者确认
+## 维护者决定（2026-10-02）
 
-1. 决策一：SDK 发送与 SSE 切分、adapter 按 openai-node 读取 chunk（细化 spec §5"OpenAI Go SDK 承担 Responses/Chat 的 HTTP 与流解码"的字面含义，需同步 spec §5）；SDK 强制 `stream: true`。
-2. 决策二：Chat 内置模型取 pi OpenAI 数据换 API、去掉两个 pro 模型。
-3. 决策三：只实现标准 OpenAI compat，其余厂商探测留待各自工单。
-4. 决策五：Chat 用量完整性的四项判定。
-5. 决策六：`web_search_options` 以字段名作为托管工具类型，`file_id` 与已存音频引用一律拒绝。
+1. 决策一：采纳。SDK 承担 Chat 的请求发送与 SSE 事件切分，chunk 由 adapter 按 openai-node 读取；SDK 强制 `stream: true`。spec §5 已同步。
+2. 决策二：采纳。Chat 内置模型取 pi 的 OpenAI 数据换为 `openai-completions`，不列入 gpt-5-pro 与 gpt-5.5-pro。
+3. 决策三：采纳。只实现标准 OpenAI compat，其余厂商探测留待各自工单（DeepSeek 见工单 22）。
+4. 决策五：采纳。`prompt_tokens`、`completion_tokens`、任一缓存读取字段与 `reasoning_tokens` 定义完整性。
+5. 决策六：采纳。`web_search_options` 以字段名作为托管工具类型，须由 binding 的 `AllowedHostedTools` 放行；`file_id` 与已存音频引用一律拒绝。
 
 差分中只在 Chat 出现的差异（运行时错误文本、未担保原生状态降级、派生缓存键）登记在 `ai/e2e/testdata/pidiff/ledger.json`。
