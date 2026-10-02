@@ -33,6 +33,10 @@ func newCall(scope CallScope, target Target, req Request, full Options, simple *
 func (c *Client) run(ctx context.Context, cl call, emit func(Event) *Error) (Result, error) {
 	c.probe.CallStarted()
 	defer c.probe.CallEnded()
+	// The policy's CallTimeout bounds the whole call, setup included; the
+	// host's own deadline ends it earlier if it comes first.
+	ctx, cancel := context.WithTimeout(ctx, c.policy.CallTimeout)
+	defer cancel()
 	asm := newAssembler(time.Now().UnixMilli(), emit, c.policy.byteLimits().toolJSON)
 	meta := CallMetadata{
 		TenantID:  cl.scope.TenantID,
@@ -46,10 +50,11 @@ func (c *Client) run(ctx context.Context, cl call, emit func(Event) *Error) (Res
 }
 
 // execute follows spec I3's order: scope → binding → capability/options →
-// credential → snapshot consistency → send. Every step before send fails
-// without contacting the provider, and identity is only reported resolved
-// once the snapshot is consistent. Admission (ticket 13) slots in where
-// marked.
+// credential → snapshot consistency → admission → send. Every step before
+// send fails without contacting the provider, and identity is only reported
+// resolved once the snapshot is consistent. Admission is per attempt, so it
+// happens inside the adapter's send of the initial request (initialRequest),
+// once the request body is built.
 func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *assembler) *Error {
 	if cl.scope.TenantID == "" || cl.scope.RequestID == "" {
 		return newError(CodeInvalidRequest, PhaseScope, "call scope requires TenantID and RequestID")
@@ -112,12 +117,16 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	meta.NativeStateDowngrades = downgrades
 	asm.identify(origin.envelope())
 
-	// Admission for the attempt (ticket 13) goes here.
-
 	// From here on the call is pinned to this snapshot: later updates or
 	// revocations affect only new logical calls, and every retry of the
-	// initial request reuses it.
-	initial := &initialRequest{policy: binding.Retry.pinned(), clock: c.clock, requestID: cl.scope.RequestID}
+	// initial request reuses it, each attempt under its own permit.
+	initial := &initialRequest{policy: binding.Retry.pinned(), clock: c.clock, requestID: cl.scope.RequestID,
+		admit: func(ctx context.Context, attemptID string) (func(), *Error) {
+			return c.admission.admit(ctx, AdmissionRequest{TenantID: cl.scope.TenantID, AccountScopeID: binding.AccountScopeID, AttemptID: attemptID})
+		}}
+	// The permit of the attempt whose stream the adapter read is held until
+	// the adapter returned, which closed that stream.
+	defer initial.done()
 	ac := adapterCall{
 		http:     c.http,
 		endpoint: binding.Endpoint,

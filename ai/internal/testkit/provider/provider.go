@@ -55,6 +55,11 @@ const (
 	// writing any response, so the client sees a connection failure with no
 	// HTTP status. Status, headers and chunks are ignored.
 	EndDrop End = "drop"
+	// EndSilent reads the request and then holds the connection open
+	// without writing any response, not even headers, until the client goes
+	// away or the server is closed: an upstream that accepted the request
+	// and stalls. Status, headers and chunks are ignored.
+	EndSilent End = "silent"
 )
 
 // Request is a redacted capture of what the server received.
@@ -158,6 +163,10 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		// net/http drops the connection; nothing has been written yet.
 		panic(http.ErrAbortHandler)
 	}
+	if reply.End == EndSilent {
+		s.hold(r)
+		return
+	}
 	for k, v := range reply.Header {
 		w.Header().Set(k, v)
 	}
@@ -182,10 +191,15 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		if reply.OnHold != nil {
 			reply.OnHold()
 		}
-		select {
-		case <-r.Context().Done():
-		case <-s.closing:
-		}
+		s.hold(r)
+	}
+}
+
+// hold blocks until the client goes away or the server is closed.
+func (s *Server) hold(r *http.Request) {
+	select {
+	case <-r.Context().Done():
+	case <-s.closing:
 	}
 }
 

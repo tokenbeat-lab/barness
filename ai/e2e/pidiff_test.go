@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"cmp"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -97,13 +98,15 @@ func TestPiDifferential(t *testing.T) {
 		}
 		// E08 byte limits (TestByteLimits): at its boundary each limit changes
 		// nothing pi would do; above it barness ends at resource_limit, an
-		// extension registered in the ledger.
-		for _, c := range limitPidiffScenarios(t) {
-			t.Run("limits/"+c.id, func(t *testing.T) {
-				ev := run.Case(t, "PIDIFF-P01-E08-"+c.id+"-stream")
+		// extension registered in the ledger. The protocol's timeoutMs
+		// (TestTimeouts) ends and retries an attempt as pi does.
+		for _, c := range append(limitPidiffScenarios(t), timeoutPidiffScenarios(t)...) {
+			entry := cmp.Or(c.entry, "stream")
+			t.Run("limits/"+c.id+"/"+entry, func(t *testing.T) {
+				ev := run.Case(t, "PIDIFF-P01-E08-"+c.id+"-"+entry)
 				ev.ReplayEnv(pioracle.EnableEnv + "=1")
 				o := openOracle(t)
-				differential(t, ev, o, ledger, "stream", c.sc)
+				differential(t, ev, o, ledger, entry, c.sc)
 			})
 		}
 		// Tool calls cut off by truncation or a failed stream (06).

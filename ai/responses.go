@@ -62,11 +62,15 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		// that cannot be reached and ends as a lost connection instead.
 		option.WithMiddleware(limitBodies(ac.limits)),
 	}
+	if opts.TimeoutMs > 0 {
+		reqOpts = append(reqOpts, option.WithMiddleware(announceTimeout(opts.TimeoutMs)))
+	}
 	// Authentication travels in ac.header, so the SDK's own API key setting
 	// stays empty and adds no second Authorization.
 	reqOpts = append(reqOpts, headerOptions(ac.header)...)
 	svc := responses.NewResponseService(reqOpts...)
 	failures := responsesFailures{provider: ac.model.Provider, apiKey: ac.apiKey, clock: ac.initial.clock}
+	ctx = withProtocolTimeout(ctx, opts.requestTimeout())
 	var stream *ssestream.Stream[responses.ResponseStreamEventUnion]
 	var res *http.Response
 	failure = ac.initial.send(ctx, func(ctx context.Context) attemptOutcome {

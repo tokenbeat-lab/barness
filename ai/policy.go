@@ -43,19 +43,35 @@ type ResourcePolicy struct {
 	MaxQueuedEvents     int
 	MaxQueuedEventBytes int64
 
-	// In-process concurrency; MaxConcurrentPerTenant must not exceed MaxConcurrentProcess.
+	// Built-in admission: how many attempts may run at once per tenant and
+	// in this process, each attempt (retries included) holding a permit
+	// until it failed or the stream it opened was closed. It only bounds
+	// this process; per-account or distributed admission is the host's
+	// (Config.Admission). MaxConcurrentPerTenant must not exceed
+	// MaxConcurrentProcess.
 	MaxConcurrentPerTenant int
 	MaxConcurrentProcess   int
 
-	// AdmissionWait bounds how long an attempt waits for a concurrency permit.
-	// Zero is valid and means "reject immediately when at capacity".
+	// AdmissionWait bounds how long an attempt waits for a built-in permit
+	// before it is refused with CodeAdmissionDenied. Zero is valid and means
+	// "reject immediately when at capacity". There is no admission queue
+	// beyond the attempts waiting, each for at most this long.
 	AdmissionWait time.Duration
 
-	// CallTimeout bounds a whole logical call; every other duration must fit within it.
-	CallTimeout           time.Duration
-	ConnectTimeout        time.Duration
+	// CallTimeout bounds a whole logical call, resolution included, as its
+	// context's deadline; the host's own deadline ends it earlier. Every
+	// other duration must fit within it.
+	CallTimeout time.Duration
+	// ConnectTimeout bounds each attempt until the transport has a
+	// connection (see Config.Transport).
+	ConnectTimeout time.Duration
+	// ResponseHeaderTimeout bounds each attempt until its response headers
+	// arrived, connecting included; a protocol request timeout (timeoutMs)
+	// applies instead when it is earlier.
 	ResponseHeaderTimeout time.Duration
-	// ReadIdleTimeout bounds the wait for the next upstream byte only.
+	// ReadIdleTimeout bounds each wait for the next upstream bytes only;
+	// time the call spends between reads does not count. A downstream
+	// consumer's deadline is the host's.
 	ReadIdleTimeout time.Duration
 }
 

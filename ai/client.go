@@ -35,7 +35,16 @@ type Config struct {
 	// Transport is the only way to customize networking and is fixed for the
 	// Client's lifetime; there is no per-call override. Nil selects a transport
 	// that ignores proxy environment variables. Tests inject a loopback-only one.
+	// The policy's ConnectTimeout ends when the transport reports a
+	// connection through net/http/httptrace (GotConn), as *http.Transport
+	// does; with a transport that never reports one, it bounds the wait for
+	// the response headers instead.
 	Transport http.RoundTripper
+	// Admission is the trusted host's admission, consulted for every attempt
+	// after the built-in per-tenant and process limits granted one; nil uses
+	// the built-in limits alone. It is where per-account or distributed
+	// admission plugs in.
+	Admission Admission
 	// AllowLoopbackHTTP is for test assembly only: it lets bindings target a
 	// plain-http loopback endpoint such as a local controlled Provider. Without
 	// it every binding endpoint must be https (spec I3).
@@ -55,9 +64,10 @@ type Config struct {
 // operations. Its configuration is read-only after construction and it is
 // safe for concurrent use.
 type Client struct {
-	// policy is validated at construction (D1). Its byte and event queue
-	// limits are enforced per call; admission and time limits are ticket 13's.
-	policy      ResourcePolicy
+	// policy is validated at construction (D1) and enforced per call.
+	policy ResourcePolicy
+	// admission is shared by all calls, so its limits hold across them.
+	admission   admitter
 	bindings    BindingResolver
 	credentials CredentialResolver
 	catalog     Catalog
@@ -89,7 +99,8 @@ func NewClient(cfg Config) (*Client, error) {
 		credentials: cfg.Credentials,
 		catalog:     catalog,
 		adapters:    registry(),
-		http:        newHTTPClient(cfg.Transport),
+		admission:   admitter{local: newLimiter(cfg.Policy, cfg.Probe), host: cfg.Admission},
+		http:        newHTTPClient(cfg.Transport, cfg.Policy),
 		loopback:    cfg.AllowLoopbackHTTP,
 		probe:       cfg.Probe,
 		clock:       cfg.Clock,

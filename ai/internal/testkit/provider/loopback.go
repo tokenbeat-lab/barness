@@ -29,3 +29,16 @@ func LoopbackTransport() *http.Transport {
 		MaxIdleConnsPerHost: 16,
 	}
 }
+
+// StalledDialTransport is a transport whose connection attempts never
+// complete: every dial waits until the request's context ends, as a dial to
+// an upstream that drops SYNs does. Nothing is ever sent.
+func StalledDialTransport() *http.Transport {
+	return &http.Transport{
+		Proxy: nil,
+		DialContext: func(ctx context.Context, _, _ string) (net.Conn, error) {
+			<-ctx.Done()
+			return nil, ctx.Err()
+		},
+	}
+}

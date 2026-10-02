@@ -58,6 +58,10 @@ type SimpleOptions struct {
 	// Metadata is sent by protocols with a metadata field, as those protocols
 	// define; Responses does not send it. The library never adds the tenant.
 	Metadata map[string]json.RawMessage `json:"metadata,omitempty"`
+	// TimeoutMs is the protocol's request timeout for each attempt, passed on
+	// as the protocol defines it; 0 keeps the protocol's default. The policy's
+	// limits apply when they are earlier. It must not be negative.
+	TimeoutMs int `json:"timeoutMs,omitempty"`
 }
 
 func (o SimpleOptions) clone() SimpleOptions {
@@ -80,7 +84,7 @@ func (o SimpleOptions) validate() string {
 	if problem := validateJSONValues("metadata", o.Metadata); problem != "" {
 		return problem
 	}
-	return validateCommon(o.Temperature, o.MaxTokens, o.CacheRetention, o.SamplingParams)
+	return validateCommon(o.Temperature, o.MaxTokens, o.CacheRetention, o.SamplingParams, o.TimeoutMs)
 }
 
 // resolve is pi's buildBaseOptions for model m and the request: the model's
@@ -113,9 +117,12 @@ const (
 )
 
 // validateCommon checks the options every protocol shares.
-func validateCommon(temperature Nullable[float64], maxTokens Nullable[int], retention CacheRetention, sampling map[string]json.RawMessage) string {
+func validateCommon(temperature Nullable[float64], maxTokens Nullable[int], retention CacheRetention, sampling map[string]json.RawMessage, timeoutMs int) string {
 	if t, ok := temperature.Get(); ok && (math.IsNaN(t) || math.IsInf(t, 0)) {
 		return "temperature must be a finite number"
+	}
+	if timeoutMs < 0 {
+		return "timeoutMs must not be negative"
 	}
 	if n, ok := maxTokens.Get(); ok && n < 0 {
 		return "maxTokens must not be negative"

@@ -4,14 +4,18 @@ import (
 	"bytes"
 	"encoding/base64"
 	"testing"
+	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/clock"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
 type limitPidiffCase struct {
 	id string
 	sc pidiffScenario
+	// entry is the entry point both sides use; empty is "stream".
+	entry string
 }
 
 // limitPidiffScenarios are TestByteLimits' scenarios on the full stream
@@ -52,15 +56,36 @@ func limitPidiffScenarios(t *testing.T) []limitPidiffCase {
 	}}
 
 	return []limitPidiffCase{
-		{"request-body-at-limit", textScenario(setRequestBytes, int(sentBodySize(t, outcomeEntries[0], text, textRaw)))},
-		{"image-at-limit", imageScenario},
-		{"frame-at-limit", textScenario(setFrameBytes, largestFrame)},
-		{"frame-over-limit", textScenario(setFrameBytes, largestFrame-1)},
-		{"output-at-limit", textScenario(setOutputBytes, streamBytes)},
-		{"output-over-limit", textScenario(setOutputBytes, streamBytes-1)},
-		{"tool-json-at-limit", toolScenario(arguments)},
-		{"tool-json-over-limit", toolScenario(arguments - 1)},
-		{"error-body-at-limit", errorBodyScenario(len(rateLimited.Reply.Body))},
-		{"error-body-over-limit", errorBodyScenario(len(rateLimited.Reply.Body) - 1)},
+		{id: "request-body-at-limit", sc: textScenario(setRequestBytes, int(sentBodySize(t, outcomeEntries[0], text, textRaw)))},
+		{id: "image-at-limit", sc: imageScenario},
+		{id: "frame-at-limit", sc: textScenario(setFrameBytes, largestFrame)},
+		{id: "frame-over-limit", sc: textScenario(setFrameBytes, largestFrame-1)},
+		{id: "output-at-limit", sc: textScenario(setOutputBytes, streamBytes)},
+		{id: "output-over-limit", sc: textScenario(setOutputBytes, streamBytes-1)},
+		{id: "tool-json-at-limit", sc: toolScenario(arguments)},
+		{id: "tool-json-over-limit", sc: toolScenario(arguments - 1)},
+		{id: "error-body-at-limit", sc: errorBodyScenario(len(rateLimited.Reply.Body))},
+		{id: "error-body-over-limit", sc: errorBodyScenario(len(rateLimited.Reply.Body) - 1)},
 	}
+}
+
+// timeoutPidiffScenarios are TestTimeouts' protocol timeout scenarios: an
+// upstream that never answers ends at timeoutMs with pi's error terminal on
+// both entries, and a timed-out attempt is retried as pi retries it. The
+// policy's own limits are far later, so only timeoutMs acts.
+func timeoutPidiffScenarios(t *testing.T) []limitPidiffCase {
+	t.Helper()
+	text, textRaw := loadTextFixture(t, "text-basic.json")
+	const ms = 200
+	silent := provider.Reply{End: provider.EndSilent}
+	timedOut := func(entry string) limitPidiffCase {
+		return limitPidiffCase{id: "protocol-timeout", entry: entry, sc: pidiffScenario{fixture: "text-basic.json", raw: textRaw,
+			model: text.Model, req: textRequest(text), reply: silent, requests: 1,
+			full: ai.ResponsesOptions{TimeoutMs: ms}, simple: ai.SimpleOptions{TimeoutMs: ms}, piOptions: map[string]any{"timeoutMs": ms}}}
+	}
+	retried := pidiffScenario{fixture: "text-basic.json", raw: textRaw, model: text.Model, req: textRequest(text),
+		replies: []provider.Reply{silent, sseReply(t, text, provider.FramingLF)}, requests: 2,
+		retry: ai.RetryPolicy{MaxRetries: 1}, clock: clock.NewFake(time.Unix(1790000000, 0), 0),
+		full: ai.ResponsesOptions{TimeoutMs: ms}, piOptions: map[string]any{"timeoutMs": ms, "maxRetries": 1}}
+	return []limitPidiffCase{timedOut("stream"), timedOut("streamSimple"), {id: "protocol-timeout-retried", sc: retried}}
 }

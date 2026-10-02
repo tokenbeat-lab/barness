@@ -21,4 +21,4 @@ date: 2026-10-01
 - 该决策不改变 maxRetries=0 的有效含义，也不取消 maxRetryDelayMs=0 在原协议策略中“关闭该单项上限”的含义；整次调用仍受有限总截止时间控制。
 - 如果以后有可重复压力数据支持通用配置，可通过后续 ADR 提供版本化有限默认配置；保留覆盖与合法性校验，同步验证升级影响和旧配置回退。首期不提供无界模式。
 
-总输出的计量方式及超限终态与重试的关系见 [ADR-0007](0007-barness-ai-output-bytes-and-limit-terminal.md)。行为和证据分别见 [spec 的资源契约](../../.scratch/barness-ai/spec.md#9-资源准入错误与观测) 与 E08。当前仅记录设计决策，没有完成运行时压力验证。
+总输出的计量方式及超限终态与重试的关系见 [ADR-0007](0007-barness-ai-output-bytes-and-limit-terminal.md)。准入与各阶段时限的执行位置及终态分类见 [ADR-0008](0008-barness-ai-admission-and-time-limits.md)。行为和证据分别见 [spec 的资源契约](../../.scratch/barness-ai/spec.md#9-资源准入错误与观测) 与 E08。当前仅记录设计决策，没有完成运行时压力验证。

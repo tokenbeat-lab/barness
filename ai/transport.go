@@ -16,7 +16,8 @@ const userAgent = "barness-ai"
 // It carries no tenant state: no cookie jar, no default credentials, and it
 // never follows redirects, so a credential-bearing request cannot be replayed
 // to another origin. Authentication is attached per attempt by the adapter.
-func newHTTPClient(rt http.RoundTripper) *http.Client {
+// Every round trip is bounded by the policy's attempt time limits.
+func newHTTPClient(rt http.RoundTripper, p *ResourcePolicy) *http.Client {
 	if rt == nil {
 		t := http.DefaultTransport.(*http.Transport).Clone()
 		// The default transport reads HTTP(S)_PROXY from the environment; the
@@ -25,7 +26,7 @@ func newHTTPClient(rt http.RoundTripper) *http.Client {
 		rt = t
 	}
 	return &http.Client{
-		Transport: rt,
+		Transport: &watchedTransport{next: rt, connect: p.ConnectTimeout, header: p.ResponseHeaderTimeout, readIdle: p.ReadIdleTimeout},
 		Jar:       nil,
 		CheckRedirect: func(*http.Request, []*http.Request) error {
 			return http.ErrUseLastResponse

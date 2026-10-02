@@ -50,8 +50,11 @@ const (
 	// PhaseConsistency is the check that the binding and credential snapshots
 	// agree on tenant, account, reference and version (D2, ADR-0003).
 	PhaseConsistency Phase = "consistency"
-	PhaseRequest     Phase = "request"
-	PhaseStream      Phase = "stream"
+	// PhaseAdmission is an attempt obtaining its concurrency permit, from
+	// the built-in limits or the host's Admission, before it is sent.
+	PhaseAdmission Phase = "admission"
+	PhaseRequest   Phase = "request"
+	PhaseStream    Phase = "stream"
 	// PhaseEventQueue is a Stream's event queue: its consumer fell behind the
 	// policy's MaxQueuedEvents or MaxQueuedEventBytes.
 	PhaseEventQueue Phase = "event_queue"
@@ -75,13 +78,17 @@ type Error struct {
 	// retry-after (seconds or an HTTP date); 0 when it asked for none or for
 	// a time already past.
 	RetryAfter time.Duration
-	// cause is a trusted host callback's own error, kept for the host's
-	// diagnosis through Unwrap; it never enters Message.
+	// cause is a trusted host callback's or admission's own error, kept for
+	// the host's diagnosis through Unwrap; it never enters Message.
 	cause error
+	// attemptTimeout marks a deadline_exceeded set by one attempt's own time
+	// limit (see timeLimitExpired) rather than by the call's context: as
+	// pi's SDK request timeout, it ends the message as error, not aborted.
+	attemptTimeout bool
 }
 
-// Unwrap returns the trusted host callback error that caused this failure,
-// or nil.
+// Unwrap returns the trusted host callback or admission error that caused
+// this failure, or nil.
 func (e *Error) Unwrap() error { return e.cause }
 
 func (e *Error) Error() string {

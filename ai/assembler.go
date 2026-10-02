@@ -263,8 +263,10 @@ func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
 
 // aborts reports whether a failure ends the message as aborted rather than
 // error. As in pi-ai, cancellation observed once the adapter is talking to the
-// provider aborts; cancellation during setup is an error.
+// provider aborts (waiting for admission is part of that, inside the retry of
+// the initial request); cancellation during setup is an error. An attempt's
+// own time limit is pi's SDK timeout, an error.
 func (e *Error) aborts() bool {
-	return (e.Code == CodeCanceled || e.Code == CodeDeadlineExceeded) &&
-		(e.Phase == PhaseRequest || e.Phase == PhaseStream)
+	return (e.Code == CodeCanceled || e.Code == CodeDeadlineExceeded) && !e.attemptTimeout &&
+		(e.Phase == PhaseAdmission || e.Phase == PhaseRequest || e.Phase == PhaseStream)
 }

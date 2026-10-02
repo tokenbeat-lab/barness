@@ -5,7 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"maps"
+	"net/http"
 	"slices"
+	"strconv"
+	"time"
+
+	"github.com/openai/openai-go/v3/option"
 )
 
 // ResponsesOptions are the full options for the OpenAI Responses protocol
@@ -41,6 +46,23 @@ type ResponsesOptions struct {
 	ServiceTier Nullable[string] `json:"serviceTier,omitzero"`
 	// ToolChoice is sent as tool_choice, null included.
 	ToolChoice Nullable[ResponsesToolChoice] `json:"toolChoice,omitzero"`
+	// TimeoutMs bounds each attempt until its response headers arrived, as
+	// openai-node's request timeout; 0 is its default of 10 minutes. The
+	// policy's ResponseHeaderTimeout applies when it is earlier. It must not
+	// be negative.
+	TimeoutMs int `json:"timeoutMs,omitempty"`
+}
+
+// responsesDefaultTimeout is openai-node's DEFAULT_TIMEOUT, which pi leaves
+// in place unless timeoutMs is set.
+const responsesDefaultTimeout = 10 * time.Minute
+
+// requestTimeout is the protocol's request timeout for each attempt.
+func (o ResponsesOptions) requestTimeout() time.Duration {
+	if o.TimeoutMs > 0 {
+		return time.Duration(o.TimeoutMs) * time.Millisecond
+	}
+	return responsesDefaultTimeout
 }
 
 func (ResponsesOptions) api() API { return APIOpenAIResponses }
@@ -76,10 +98,22 @@ func (o ResponsesOptions) validate() string {
 			return problem
 		}
 	}
-	if problem := validateCommon(o.Temperature, o.MaxTokens, o.CacheRetention, o.SamplingParams); problem != "" {
+	if problem := validateCommon(o.Temperature, o.MaxTokens, o.CacheRetention, o.SamplingParams, o.TimeoutMs); problem != "" {
 		return problem
 	}
 	return checkReservedKeys(o.SamplingParams, responsesReservedSampling)
+}
+
+// announceTimeout is SDK middleware that announces an explicit timeoutMs as
+// openai-node does, in whole seconds truncated (so "0" below one second).
+// openai-go would announce only its own request timeout, which also bounds
+// the body; the timeout itself is enforced by watchedTransport.
+func announceTimeout(ms int) option.Middleware {
+	seconds := strconv.Itoa(ms / 1000)
+	return func(req *http.Request, next option.MiddlewareNext) (*http.Response, error) {
+		req.Header.Set("X-Stainless-Timeout", seconds)
+		return next(req)
+	}
 }
 
 // simpleOptions is pi's openai-responses streamSimple: the resolved simple
@@ -88,7 +122,7 @@ func (o ResponsesOptions) validate() string {
 // budgets have no Responses field.
 func (responsesAdapter) simpleOptions(m Model, o SimpleOptions) Options {
 	full := ResponsesOptions{Temperature: o.Temperature, MaxTokens: o.MaxTokens, SamplingParams: o.SamplingParams,
-		CacheRetention: o.CacheRetention, SessionID: o.SessionID}
+		CacheRetention: o.CacheRetention, SessionID: o.SessionID, TimeoutMs: o.TimeoutMs}
 	if o.ToolChoice.IsNull() {
 		full.ToolChoice = Null[ResponsesToolChoice]()
 	} else if c, ok := o.ToolChoice.Get(); ok {

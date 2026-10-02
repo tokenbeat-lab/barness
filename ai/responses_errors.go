@@ -63,6 +63,16 @@ func (f responsesFailures) request(ctx context.Context, err error, res *http.Res
 	if errors.As(err, &limit) && res != nil {
 		return f.limited(res, limit)
 	}
+	// An attempt that ran out of time before its response is, as openai-node's
+	// APIConnectionTimeoutError, a connection failure the retry rules retry.
+	var expired *timeLimitExpired
+	if errors.As(err, &expired) {
+		if res != nil {
+			// The error body stalled: what the headers tell is kept.
+			return f.unread(res, expired.failure(PhaseRequest))
+		}
+		return attemptOutcome{failure: expired.failure(PhaseRequest), connection: true}
+	}
 	if res != nil && res.StatusCode >= 300 {
 		return f.status(res)
 	}
@@ -103,8 +113,12 @@ func markConnectionFailures(req *http.Request, next option.MiddlewareNext) (*htt
 func (f responsesFailures) status(res *http.Response) attemptOutcome {
 	body, err := io.ReadAll(res.Body)
 	var limit *limitExceeded
-	if errors.As(err, &limit) {
+	var expired *timeLimitExpired
+	switch {
+	case errors.As(err, &limit):
 		return f.limited(res, limit)
+	case errors.As(err, &expired):
+		return f.unread(res, expired.failure(PhaseRequest))
 	}
 	msg, sdkMsg := describeHTTPError(f.prefix(), res.StatusCode, body)
 	e := newError(codeForStatus(res.StatusCode), PhaseRequest, f.redact(msg))
@@ -118,7 +132,12 @@ func (f responsesFailures) status(res *http.Response) attemptOutcome {
 // keeps what the headers tell, but the body is not described, and the
 // attempt is never retried (see attemptOutcome.retryable).
 func (f responsesFailures) limited(res *http.Response, limit *limitExceeded) attemptOutcome {
-	e := limit.failure(PhaseRequest)
+	return f.unread(res, limit.failure(PhaseRequest))
+}
+
+// unread is a non-2xx response whose body could not be read for e's
+// reason. It keeps what the headers tell.
+func (f responsesFailures) unread(res *http.Response, e *Error) attemptOutcome {
 	e.HTTPStatus = res.StatusCode
 	e.ProviderRequestID = res.Header.Get("x-request-id")
 	e.RetryAfter = retryAfter(res.Header, f.clock.Now())
@@ -131,9 +150,12 @@ func (f responsesFailures) stream(err error) *Error {
 	var syntaxErr *json.SyntaxError
 	var typeErr *json.UnmarshalTypeError
 	var limit *limitExceeded
+	var expired *timeLimitExpired
 	switch {
 	case errors.As(err, &limit):
 		return limit.failure(PhaseStream)
+	case errors.As(err, &expired):
+		return expired.failure(PhaseStream)
 	case errors.As(err, &streamErr):
 		// The SDK stops at any frame with a top-level "error"; openai-node
 		// raises it as an APIError built from that object.

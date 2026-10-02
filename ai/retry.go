@@ -111,7 +111,12 @@ type initialRequest struct {
 	policy    RetryPolicy
 	clock     *clock.Clock // nil is the system clock
 	requestID string
-	attempts  []Attempt
+	// admit obtains the permit an attempt runs under.
+	admit    func(ctx context.Context, attemptID string) (release func(), failure *Error)
+	attempts []Attempt
+	// release returns the permit of the attempt that obtained the initial
+	// response; the stream it opened runs under it until done.
+	release func()
 }
 
 // attemptOutcome is how one attempt at the initial request ended, as the
@@ -159,19 +164,29 @@ func (o attemptOutcome) retryable() bool {
 
 // send runs attempt until one obtains the initial response, the policy
 // allows no further retry, or ctx ends; it ports pi's retryProviderRequest.
-// The adapter keeps what a successful attempt opened.
+// Each attempt first obtains its own permit; an attempt that admission
+// refuses is not sent and not recorded, and ends the call. A failed
+// attempt's permit is returned before any backoff. The adapter keeps what a
+// successful attempt opened, and done returns its permit.
 func (r *initialRequest) send(ctx context.Context, attempt func(context.Context) attemptOutcome) *Error {
 	for retryIndex := 0; ; retryIndex++ {
+		attemptID := r.requestID + "#" + strconv.Itoa(retryIndex+1)
+		release, failure := r.admit(ctx, attemptID)
+		if failure != nil {
+			return failure
+		}
 		out := attempt(ctx)
 		rec := Attempt{
-			AttemptID:         r.requestID + "#" + strconv.Itoa(retryIndex+1),
+			AttemptID:         attemptID,
 			HTTPStatus:        out.status,
 			ProviderRequestID: out.providerRequestID,
 		}
 		if out.failure == nil {
+			r.release = release
 			r.attempts = append(r.attempts, rec)
 			return nil
 		}
+		release()
 		// As pi, an ended call is an interruption whatever the attempt got,
 		// even an HTTP error that arrived as it ended.
 		if ctx.Err() != nil {
@@ -191,6 +206,15 @@ func (r *initialRequest) send(ctx context.Context, attempt func(context.Context)
 		if r.clock.Sleep(ctx, delay) != nil {
 			return requestInterrupted(ctx)
 		}
+	}
+}
+
+// done returns the permit of the attempt whose stream the call read, if
+// any.
+func (r *initialRequest) done() {
+	if r.release != nil {
+		r.release()
+		r.release = nil
 	}
 }
 

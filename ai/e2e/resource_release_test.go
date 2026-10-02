@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
@@ -84,6 +85,12 @@ func TestResourceRelease(t *testing.T) {
 		limited[ai.PhaseRequest] == rounds, "got %v", limited)
 	checkReleased(ev, lw)
 
+	checkGoroutinesSettle(ev, baseline)
+}
+
+// checkGoroutinesSettle asserts the process's goroutines return to a bound
+// independent of the number of calls (spec Testing Decisions §3).
+func checkGoroutinesSettle(ev *evidence.Case, baseline int) {
 	deadline := time.Now().Add(waitDeadline)
 	now := runtime.NumGoroutine()
 	for now > baseline+goroutineSlack && time.Now().Before(deadline) {
