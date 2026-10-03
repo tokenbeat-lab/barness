@@ -18,3 +18,10 @@
 ## Comments
 
 **2026-10-02 — maintainer decision:** 不写 ADR；代码注释与本工单足以追踪。待升级到修复该路径的 SDK 版本时执行，在那之前保留兜底。
+
+**2026-10-03 — agent verification (precondition not met, workaround kept):** 核查了两家 SDK 当前最新版本的 `internal/requestconfig`，调用方 ctx 结束分支仍不关闭响应体，兜底不能删除：
+
+- openai-go v3.71.1（`requestconfig.go:684-695`）：`handler(req)` 返回后仅在 `err != nil` 时关闭请求体；`ctx.Err() != nil` 直接 `return ctx.Err()`，`res.Body` 未关闭——与 v3.66.0 相同。
+- anthropic-sdk-go v1.78.0（`requestconfig.go:569-581`）：新增了 `bufferBody`（读完并关闭原 body），但只在 `endsCall && cfg.readsBody(res)` 时执行；`readsBody` 对 2xx 且 `ResponseBodyInto` 为 `**http.Response` 时返回 false。barness 的流式调用正是 `option.WithResponseInto(&res)`（`ai/anthropic.go:155`），且需重试的响应也不走该分支，随后 `callerCtx.Err()` 分支直接返回，`res.Body` 仍未关闭。仅“每次尝试超时”分支调用了 `closeBody(res)`。
+
+下次复查：上游任一版本在 caller-ctx 分支对 `res` 调用关闭后，再执行本工单。
