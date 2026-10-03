@@ -76,8 +76,8 @@ func toolChanges(model string) scenario {
 		s.check("changed: the system message is sent", sentStrings(ex)[change.Content], "request %s", truncate(fmt.Sprint(body), 600))
 		sent := lastRequestBody(ex)
 		leaked := slices.DeleteFunc(slices.Clone(optionalFeatureMarkers), func(m string) bool { return !strings.Contains(sent, m) })
-		if len(ex) > 0 && ex[len(ex)-1].RequestHeaders["Anthropic-Beta"] != "" {
-			leaked = append(leaked, "Anthropic-Beta: "+ex[len(ex)-1].RequestHeaders["Anthropic-Beta"])
+		if len(ex) > 0 && ex[len(ex)-1].RequestHeaders["anthropic-beta"] != "" {
+			leaked = append(leaked, "Anthropic-Beta: "+ex[len(ex)-1].RequestHeaders["anthropic-beta"])
 		}
 		s.check("changed: no optional feature sent", len(leaked) == 0, "sent %q", leaked)
 		if !s.ok("changed", err) {

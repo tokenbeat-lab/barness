@@ -73,4 +73,4 @@ pi 模型数据中的 `compat` 开关分两类：
 
 ## 实现（工单 27，2026-10-03）
 
-托管强度按 ADR-0019 实现后，claude-fable-5-1、claude-opus-5、claude-opus-5-5 列入目录 `2026-10-03.2`，携带 `SupportsMidConvoEffort`、`SupportsMidConvoSystemMessages`、adaptive 与 level map，opus-5、opus-5-5 另带 `SupportsTemperature=false`。可选特性 `supportsMidConvoToolChanges` 仍不携带。它在差分中的扩展登记按决策四处理，限于工单 27 带工具的用例。真实冒烟场景 `effort-changes-<model>` 待运行。
+托管强度按 ADR-0019 实现后，claude-fable-5-1、claude-opus-5、claude-opus-5-5 列入目录 `2026-10-03.2`，携带 `SupportsMidConvoEffort`、`SupportsMidConvoSystemMessages`、adaptive 与 level map，opus-5、opus-5-5 另带 `SupportsTemperature=false`。可选特性 `supportsMidConvoToolChanges` 仍不携带。它在差分中的扩展登记按决策四处理，限于工单 27 带工具的用例。真实冒烟（2026-10-03）通过：厂商接受了三款模型对话中途从 high 到 low 的强度变更，详见 ADR-0019。

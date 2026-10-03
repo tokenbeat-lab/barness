@@ -47,4 +47,12 @@ spec I6 只让可信封套下的原生状态按同模型回放，例如推理签
 
 - claude-fable-5-1、claude-opus-5、claude-opus-5-5 列入内置目录 `2026-10-03.2`。字段由 `TestCatalogInclusion/builtin-models-are-pi's` 与冻结 pi 的数据逐字段比较，`SupportsMidConvoEffort` 也在比较范围内。
 - 宿主存储 assistant 消息时应保留 `providerThinkingLevel`。缺失时与 pi 的旧消息一样不插入标记，请求仍然有效。
-- 离线 E2E 是 `TestManagedEffort`（`ai/e2e/testdata/anthropic/managed-effort.json`），场景全部进入 P02 差分。真实冒烟场景 `effort-changes-<model>` 在 anthropic-messages 组合中，等维护者用真实 key 运行。厂商拒绝强度变更时，从目录中撤下该模型，结论记入本 ADR 与支持矩阵。
+- 离线 E2E 是 `TestManagedEffort`（`ai/e2e/testdata/anthropic/managed-effort.json`），场景全部进入 P02 差分。真实冒烟场景 `effort-changes-<model>` 在 anthropic-messages 组合中。厂商拒绝强度变更时，从目录中撤下该模型，结论记入本 ADR 与支持矩阵。
+
+## 真实冒烟（2026-10-03，账户 prod-anthropic）
+
+anthropic-messages 组合的 11 个场景全部通过，共 20 次调用，没有环境重试。
+
+- `effort-changes-<model>` 在 claude-fable-5-1、claude-opus-5、claude-opus-5-5 上都通过。第一轮以 high 运行并返回签名 thinking；第二轮回放第一轮，换成 low。两轮都是 HTTP 200，请求头带两个 beta，第二轮请求中的强度标记依次为 `high,low`，消息分别记录 high 与 low。厂商接受了对话中途的强度变更，三款模型留在目录中。
+- 首次运行时，冒烟检查按 `Anthropic-Beta` 读取录制的请求头，但录制器以小写保存头名，所以 beta 检查读到的总是空值。三款模型实际都发送了两个 beta。工单 34 的 `tool-changes-*` 用同样的写法检查"不发送 beta"，那项检查因此一直是空检查。两处都已改为 `anthropic-beta`，重跑后 opus-4-8 与 fable-5 确实没有发送 beta。
+- 报告已合并进支持矩阵。

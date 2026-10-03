@@ -24,7 +24,8 @@ func effortChanges(model string) scenario {
 		res, err := s.env.client.Complete(s.ctx, newScope(), s.target(), req, opts)
 		ex := s.observe("high", res, err)
 		if len(ex) > 0 {
-			betas := ex[len(ex)-1].RequestHeaders["Anthropic-Beta"]
+			// The recorder keys request headers in lower case.
+			betas := ex[len(ex)-1].RequestHeaders["anthropic-beta"]
 			s.check("high: managed-effort betas sent", strings.Contains(betas, "mid-conversation-output-config-2026-07-01") &&
 				strings.Contains(betas, "thinking-binding-controls-2026-08-01"), "Anthropic-Beta %q", betas)
 		}

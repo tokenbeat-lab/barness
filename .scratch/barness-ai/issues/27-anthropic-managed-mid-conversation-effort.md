@@ -4,7 +4,7 @@
 
 **Blocked by:** 16
 
-**Status:** ready-for-human
+**Status:** resolved
 
 **Context:** 基线为 pi-ai 0.87.1 `anthropic-messages.ts`：`stream` 中 `providerThinkingLevel`、`buildParams` 的 managed effort 分支、`insertThinkingLevelMessages`、`convertMessages` 的 `assistantLevels`、`getBetaFeatures`。三款模型同时开启了工单 26 的工具变更开关。按 ADR-0018 那是可选特性，不阻塞本工单：26 未完成时按 pi 的回退发送当前工具列表，差异按工单 34 的方式登记为扩展。
 
@@ -50,3 +50,9 @@
   - Left as judgement calls, because the code mirrors pi's structure: the `SupportsMidConvoEffort` checks are spread over betas, the body and the level, and the levels are an index map between `anthropicMessages` and `withThinkingLevels`.
   - Known limit: as in issue 34, the catalog lists the models before the live smoke confirms them.
   - The `level.valid()` check is the only gate before a host-supplied level goes on the wire. Keep it.
+
+**2026-10-03 — live smoke passed.** anthropic-messages was run live (alias prod-anthropic, catalog 2026-10-03.2). All 11 scenarios passed in 20 calls with no environment retries.
+- **Effort changes.** `effort-changes-*` passed on claude-fable-5-1, claude-opus-5 and claude-opus-5-5. Both turns got HTTP 200, both betas were sent, the second request's markers were `high,low`, and the messages recorded high and low. No model leaves the catalog.
+- **Test fix.** The first run failed only the beta check. The recorder keys request headers in lower case, so reading `Anthropic-Beta` always gave "". The same lookup made issue 34's "no Anthropic-Beta" check in `tool-changes-*` vacuous. Both now read `anthropic-beta`. The rerun confirms that opus-4-8 and fable-5 send no beta.
+- **Records.** The report is merged into the support matrix, and the result is recorded in ADR-0019 and ADR-0018.
+- **Release gate.** All nine gates pass with the six combinations' latest live bundles, the new anthropic-messages one included, and audit clean (`.evidence/barness-ai-release/gate9`).

@@ -82,70 +82,94 @@
       "model": "claude-haiku-4-5",
       "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
       "accountAlias": "prod-anthropic",
-      "lastRunAt": "2026-10-03T10:07:04.960275Z",
-      "allPassedAt": "2026-10-03T10:07:04.960275Z",
+      "lastRunAt": "2026-10-03T11:08:09.353124Z",
+      "allPassedAt": "2026-10-03T11:08:09.353124Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-03T10:07:04.960275Z",
-          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         },
         {
           "id": "text-complete",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-03T10:07:04.960275Z",
-          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         },
         {
           "id": "tool-round-trip",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-03T10:07:04.960275Z",
-          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
           "note": "canceled after text_start",
-          "lastRunAt": "2026-10-03T10:07:04.960275Z",
-          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         },
         {
           "id": "reasoning-history",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
           "note": "returned thinking text, thinking signature",
-          "lastRunAt": "2026-10-03T10:07:04.960275Z",
-          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         },
         {
           "id": "image",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
           "note": "answer mentions red: true",
-          "lastRunAt": "2026-10-03T10:07:04.960275Z",
-          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         },
         {
           "id": "tool-changes-claude-opus-4-8",
           "model": "claude-opus-4-8",
           "outcome": "PASS",
           "note": "called convert_temperature after the change and answered",
-          "lastRunAt": "2026-10-03T10:07:04.960275Z",
-          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         },
         {
           "id": "tool-changes-claude-fable-5",
           "model": "claude-fable-5",
           "outcome": "PASS",
           "note": "called convert_temperature after the change and answered",
-          "lastRunAt": "2026-10-03T10:07:04.960275Z",
-          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
+        },
+        {
+          "id": "effort-changes-claude-fable-5-1",
+          "model": "claude-fable-5-1",
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
+        },
+        {
+          "id": "effort-changes-claude-opus-5",
+          "model": "claude-opus-5",
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
+        },
+        {
+          "id": "effort-changes-claude-opus-5-5",
+          "model": "claude-opus-5-5",
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-03T11:08:09.353124Z",
+          "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         }
       ]
     },
