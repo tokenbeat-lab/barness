@@ -2,9 +2,7 @@ package e2e
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
-	"fmt"
 	"reflect"
 	"strings"
 	"testing"
@@ -14,18 +12,20 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
-// anthropicEntries are the four public entry points on the "claude"
-// binding, the full ones with Anthropic options.
-var anthropicEntries = scenarioEntries(ai.AnthropicOptions{})
+// TestProtocolByteLimits is TestByteLimits on each scenario protocol
+// (P02–P06/E08, spec I9, ADR-0002, ADR-0007): the request body, SSE frame
+// (LF and CRLF), streamed output, tool call argument JSON and error body at
+// their boundary and at limit+1 on every entry point. Each adapter decodes
+// its stream itself (ADR-0011, ADR-0012, ADR-0013; Chat through barness's
+// body wrapper, below the SDK's own 32 MiB line limit), so the frame and
+// output bounds are checked on its decoder here. DeepSeek runs only the
+// bounds its capabilities and replies shape (sharedAdapter).
+func TestProtocolByteLimits(t *testing.T) {
+	forEachSuite(t, append(protocolSuites, deepseekResponsesSuite, deepseekChatSuite), testProtocolByteLimits)
+}
 
-// TestAnthropicByteLimits is TestByteLimits on Anthropic Messages (P02/E08,
-// spec I9, ADR-0002, ADR-0007): the request body, SSE frame (LF and CRLF),
-// streamed output, tool call argument JSON and error body at their boundary
-// and at limit+1 on every entry point. Anthropic's event stream is decoded by
-// barness itself (ADR-0011), so the frame and output bounds are checked on
-// its decoder here.
-func TestAnthropicByteLimits(t *testing.T) {
-	a := loadScenarioText(t, anthropicProtocol)
+func testProtocolByteLimits(t *testing.T, s *protocolSuite) {
+	a := loadScenarioText(t, s.proto)
 	chunks := a.chunks(t)
 	largestFrame, streamBytes := largestAndTotal(chunks)
 	script := func(framed [][]byte) func(*testing.T, *evidence.Case, limitWorld, bool) {
@@ -44,7 +44,7 @@ func TestAnthropicByteLimits(t *testing.T) {
 		ev.Check("no attempt recorded", len(o.result.Metadata.Attempts) == 0, "got %+v", o.result.Metadata.Attempts)
 	}
 	boundaryOn := func(bc boundary) boundary {
-		bc.entries, bc.casePrefix = anthropicEntries, "P02-E08"
+		bc.entries, bc.casePrefix = s.entries(), s.caseID("E08")
 		return bc
 	}
 
@@ -54,7 +54,7 @@ func TestAnthropicByteLimits(t *testing.T) {
 			size: func(t *testing.T, e outcomeEntry) int64 {
 				w := newWorld(t, tenantA)
 				w.provider.Enqueue(a.reply(t))
-				if o := e.invoke(ctxFor(t), w, textScope("req-p02-measure-"+e.name), a.target(), a.request(t)); o.err != nil {
+				if o := e.invoke(ctxFor(t), w, textScope(s.requestID("measure-"+e.name)), a.target(), a.request(t)); o.err != nil {
 					t.Fatalf("measuring call failed: %v", o.err)
 				}
 				return int64(len(w.provider.Requests()[0].Body))
@@ -70,10 +70,18 @@ func TestAnthropicByteLimits(t *testing.T) {
 		}))
 	})
 
-	crlf, err := provider.EncodeSSE(a.sc.Events, provider.FramingCRLF)
-	if err != nil {
-		t.Fatal(err)
+	t.Run("output", func(t *testing.T) {
+		runBoundary(t, boundaryOn(boundary{
+			id: "output", field: "MaxOutputBytes", phase: ai.PhaseStream, set: setOutputBytes, size: fixedSize(streamBytes),
+			script: script(chunks), target: a.target(), request: a.request(t), within: within, over: keepsReceived,
+		}))
+	})
+
+	if s.sharedAdapter {
+		return
 	}
+
+	crlf := s.proto.sse(t, a.sc.Events, provider.FramingCRLF).Chunks
 	largestCRLF, _ := largestAndTotal(crlf)
 	t.Run("frame-crlf", func(t *testing.T) {
 		runBoundary(t, boundaryOn(boundary{
@@ -82,19 +90,11 @@ func TestAnthropicByteLimits(t *testing.T) {
 		}))
 	})
 
-	t.Run("output", func(t *testing.T) {
-		runBoundary(t, boundaryOn(boundary{
-			id: "output", field: "MaxOutputBytes", phase: ai.PhaseStream, set: setOutputBytes, size: fixedSize(streamBytes),
-			script: script(chunks), target: a.target(), request: a.request(t), within: within, over: keepsReceived,
-		}))
-	})
-
-	tf, traw := loadFixture(t, anthropicProtocol, "text.json")
+	tf, traw := loadFixture(t, s.proto, "text.json")
 	tool := scenarioByID(t, tf, "interleaved")
-	const toolArgs = `{"q":"x"}` // the call's argument JSON, from two input_json_delta fragments
 	t.Run("tool-json", func(t *testing.T) {
 		runBoundary(t, boundaryOn(boundary{
-			id: "tool-json", field: "MaxToolJSONBytes", phase: ai.PhaseStream, set: setToolJSONBytes, size: fixedSize(len(toolArgs)),
+			id: "tool-json", field: "MaxToolJSONBytes", phase: ai.PhaseStream, set: setToolJSONBytes, size: fixedSize(len(s.toolArgs)),
 			script: func(t *testing.T, ev *evidence.Case, lw limitWorld, _ bool) {
 				ev.Fixture("text.json", traw)
 				enqueue(ev, lw.world, tool.replies(t)...)
@@ -104,20 +104,20 @@ func TestAnthropicByteLimits(t *testing.T) {
 				m := o.result.Message
 				ev.Check("call succeeds with the tool call", o.err == nil && m.StopReason == ai.StopReasonToolUse, "err=%v stop=%q", o.err, m.StopReason)
 				call, ok := m.Content[len(m.Content)-1].(ai.ToolCall)
-				ev.Check("the call holds its arguments", ok && call.RawArguments == toolArgs, "got %+v", m.Content)
+				ev.Check("the call holds its arguments", ok && call.RawArguments == s.toolArgs, "got %+v", m.Content)
 			},
 			over: func(ev *evidence.Case, _ limitWorld, o outcome) {
 				for _, c := range o.result.Message.Content {
 					if call, ok := c.(ai.ToolCall); ok {
-						ev.Check("no call holds more argument JSON than the limit", len(call.RawArguments) < len(toolArgs), "call holds %q", call.RawArguments)
+						ev.Check("no call holds more argument JSON than the limit", len(call.RawArguments) < len(s.toolArgs), "call holds %q", call.RawArguments)
 					}
 				}
 			},
 		}))
 	})
 
-	ff, fraw := loadFixture(t, anthropicProtocol, "failures.json")
-	limited := scenarioByID(t, ff, "http-429")
+	ff, fraw := loadFixture(t, s.proto, "failures.json")
+	limited := scenarioByID(t, ff, s.limited)
 	limitedBody := limited.Replies[0].Body
 	t.Run("error-body", func(t *testing.T) {
 		runBoundary(t, boundaryOn(boundary{
@@ -126,7 +126,7 @@ func TestAnthropicByteLimits(t *testing.T) {
 				ev.Fixture("failures.json", fraw)
 				if over {
 					// A limited error body ends the call; it is never retried.
-					lw.updateBindingOf(tenantA, "claude", func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: 2} })
+					lw.updateBindingOf(tenantA, s.proto.binding, func(b *ai.Binding) { b.Retry = ai.RetryPolicy{MaxRetries: 2} })
 				}
 				r := limited.replies(t)[0]
 				enqueue(ev, lw.world, r, r, r)
@@ -146,16 +146,14 @@ func TestAnthropicByteLimits(t *testing.T) {
 		}))
 	})
 
-	t.Run("held", func(t *testing.T) { testAnthropicHeldOversize(t) })
+	t.Run("held", func(t *testing.T) { testProtocolHeldOversize(t, s, a) })
 }
 
-// testAnthropicHeldOversize: an Anthropic provider exceeds a limit and then
-// holds the connection without finishing; the call ends in time because the
-// limit is checked while reading.
-func testAnthropicHeldOversize(t *testing.T) {
-	start := `{"type":"message_start","message":{"id":"msg_held","model":"claude-haiku-4-5","usage":{"input_tokens":5,"output_tokens":1}}}`
-	startFrame := "event: message_start\ndata: " + start + "\n\n"
-	pings := strings.Repeat("event: ping\ndata: {\"type\":\"ping\"}\n\n", 80)
+// testProtocolHeldOversize: a provider exceeds a limit and then holds the
+// connection without finishing; the call ends in time because the limit is
+// checked while reading.
+func testProtocolHeldOversize(t *testing.T, s *protocolSuite, a scenarioText) {
+	h := s.held
 	cases := []struct {
 		id, field string
 		phase     ai.Phase
@@ -163,21 +161,21 @@ func testAnthropicHeldOversize(t *testing.T) {
 		reply     provider.Reply
 	}{
 		{"frame", "MaxFrameBytes", ai.PhaseStream, func(p *ai.ResourcePolicy) { setFrameBytes(p, 1024) },
-			heldReply(200, "text/event-stream", startFrame, "event: content_block_delta\ndata: "+strings.Repeat("x", 1100))},
+			heldReply(200, "text/event-stream", h.start, h.frameOpen+strings.Repeat("x", 1100))},
 		{"output", "MaxOutputBytes", ai.PhaseStream, func(p *ai.ResourcePolicy) { setOutputBytes(p, 2048) },
-			heldReply(200, "text/event-stream", startFrame, pings)},
+			heldReply(200, "text/event-stream", h.start, h.filler)},
 		{"error-body", "MaxErrorBodyBytes", ai.PhaseRequest, func(p *ai.ResourcePolicy) { setErrorBodyBytes(p, 1024) },
-			heldReply(500, "application/json", `{"type":"error","error":{"type":"api_error","message":"`+strings.Repeat("e", 1100))},
+			heldReply(500, "application/json", h.errorOpen+strings.Repeat("e", 1100))},
 	}
 	for _, c := range cases {
-		for _, e := range anthropicEntries {
+		for _, e := range s.entries() {
 			t.Run(c.id+"/"+e.name, func(t *testing.T) {
-				ev := run.Case(t, "P02-E08-held-"+c.id+"-"+e.name)
+				ev := run.Case(t, s.caseID("E08-held-"+c.id+"-"+e.name))
 				lw := newLimitWorld(t, c.set)
 				enqueue(ev, lw.world, c.reply)
-				target := ai.Target{BindingID: "claude", ModelID: "claude-haiku-4-5"}
 				o := within(ev, "call ends while the provider still holds the connection", func() outcome {
-					return e.invoke(ctxFor(t), lw.world, textScope("req-p02-held-"+c.id+"-"+e.name), target, ai.Request{Messages: []ai.Message{ai.UserText("hi")}})
+					return e.invoke(ctxFor(t), lw.world, textScope(s.requestID("held-"+c.id+"-"+e.name)), a.target(),
+						ai.Request{Messages: []ai.Message{ai.UserText("hi")}})
 				})
 				o.record(ev)
 				checkLimited(ev, o, c.phase, c.field)
@@ -187,44 +185,25 @@ func testAnthropicHeldOversize(t *testing.T) {
 	}
 }
 
-// anthropicLongOutput is a generated Anthropic stream of one text block in
-// n deltas of 9 bytes each, and the deltas.
-func anthropicLongOutput(t *testing.T, n int) ([]json.RawMessage, []string) {
-	t.Helper()
-	var deltas []string
-	events := []json.RawMessage{
-		json.RawMessage(`{"type":"message_start","message":{"id":"msg_long","type":"message","role":"assistant","model":"claude-haiku-4-5","content":[],"usage":{"input_tokens":10,"output_tokens":1,"cache_read_input_tokens":0,"cache_creation_input_tokens":0}}}`),
-		json.RawMessage(`{"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}}`),
-	}
-	for i := range n {
-		d := fmt.Sprintf("part-%03d ", i)
-		deltas = append(deltas, d)
-		events = append(events, mustMarshal(t, map[string]any{"type": "content_block_delta", "index": 0,
-			"delta": map[string]any{"type": "text_delta", "text": d}}))
-	}
-	events = append(events,
-		json.RawMessage(`{"type":"content_block_stop","index":0}`),
-		json.RawMessage(`{"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null},"usage":{"output_tokens":200}}`),
-		json.RawMessage(`{"type":"message_stop"}`),
-	)
-	return events, deltas
+// TestProtocolEventQueueLimits is TestEventQueueLimits on each scenario
+// protocol (P02–P04/E08): a Stream nobody reads is bounded by
+// MaxQueuedEvents and MaxQueuedEventBytes, ends as resource_limit in the
+// event_queue phase keeping its queued events in order, and Complete under
+// the same policy finishes.
+func TestProtocolEventQueueLimits(t *testing.T) {
+	forEachSuite(t, protocolSuites, testProtocolEventQueueLimits)
 }
 
-// TestAnthropicEventQueueLimits is TestEventQueueLimits on Anthropic
-// Messages (P02/E08): a Stream nobody reads is bounded by MaxQueuedEvents
-// and MaxQueuedEventBytes, ends as resource_limit in the event_queue phase
-// keeping its queued events in order, and Complete under the same policy
-// finishes.
-func TestAnthropicEventQueueLimits(t *testing.T) {
-	events, deltas := anthropicLongOutput(t, longOutputDeltas)
+func testProtocolEventQueueLimits(t *testing.T, s *protocolSuite) {
+	reply, deltas := s.longOutput(t, longOutputDeltas)
 	full := longOutputEvents(deltas)
 	queued := int64(len(full) - 1)
 	eventBytes := int64(2 * 9 * len(deltas))
-	target := ai.Target{BindingID: "claude", ModelID: "claude-haiku-4-5"}
+	target := loadScenarioText(t, s.proto).target()
 	req := ai.Request{Messages: []ai.Message{ai.UserText("Write a long answer.")}}
 	starts := []streamEntry{
 		{"stream-full", func(ctx context.Context, w *world, scope ai.CallScope, target ai.Target, req ai.Request) *ai.Stream {
-			return w.client.Stream(ctx, scope, target, req, ai.AnthropicOptions{})
+			return w.client.Stream(ctx, scope, target, req, s.options)
 		}},
 		streamEntries[1],
 	}
@@ -242,12 +221,12 @@ func TestAnthropicEventQueueLimits(t *testing.T) {
 	for _, c := range cases {
 		for _, e := range starts {
 			t.Run(c.id+"/result-only-"+e.name, func(t *testing.T) {
-				ev := run.Case(t, "P02-E08-queue-"+c.id+"-result-only-"+e.name)
+				ev := run.Case(t, s.caseID("E08-queue-"+c.id+"-result-only-"+e.name))
 				lw := newLimitWorld(t, c.set)
-				enqueue(ev, lw.world, sseEvents(t, events, provider.FramingLF))
-				s := e.start(ctxFor(t), lw.world, textScope("req-p02-queue-"+c.id+"-"+e.name), target, req)
-				r := resultWithin(ev, "Result returns while no event is read", s)
-				o := within(ev, "queued events drain after the call ended", func() outcome { return drain(s) })
+				enqueue(ev, lw.world, reply)
+				st := e.start(ctxFor(t), lw.world, textScope(s.requestID("queue-"+c.id+"-"+e.name)), target, req)
+				r := resultWithin(ev, "Result returns while no event is read", st)
+				o := within(ev, "queued events drain after the call ended", func() outcome { return drain(st) })
 				o.record(ev)
 				got := eventSummary(o.events)
 				ev.Check("Result and the drained stream agree", r.err == o.err && reflect.DeepEqual(r.res, o.result), "Result=%v drained=%v", r.err, o.err)
@@ -277,11 +256,11 @@ func TestAnthropicEventQueueLimits(t *testing.T) {
 			continue
 		}
 		t.Run(c.id+"/complete", func(t *testing.T) {
-			ev := run.Case(t, "P02-E08-queue-"+c.id+"-complete")
+			ev := run.Case(t, s.caseID("E08-queue-"+c.id+"-complete"))
 			lw := newLimitWorld(t, c.set)
-			enqueue(ev, lw.world, sseEvents(t, events, provider.FramingLF))
+			enqueue(ev, lw.world, reply)
 			r := within(ev, "Complete returns", func() callResult {
-				res, err := lw.client.Complete(ctxFor(t), textScope("req-p02-queue-complete-"+c.id), target, req, ai.AnthropicOptions{})
+				res, err := lw.client.Complete(ctxFor(t), textScope(s.requestID("queue-complete-"+c.id)), target, req, s.options)
 				return callResult{res, err}
 			})
 			ev.Record("result", r.res)

@@ -59,15 +59,14 @@ func TestResponsesTransport(t *testing.T) {
 
 	t.Run("no-environment-fallback", func(t *testing.T) {
 		ev, w, f := startHardeningCase(t, "P01-H1-no-environment-fallback")
-		decoy := provider.New(map[string]string{"sk-env-leak": "key:environment"})
+		decoy := provider.New(map[string]string{environmentKey.secret: environmentKey.alias})
 		defer decoy.Close()
 		// Everything the OpenAI SDK's default client options would read.
-		t.Setenv("OPENAI_API_KEY", "sk-env-leak")
+		t.Setenv("OPENAI_API_KEY", environmentKey.secret)
 		t.Setenv("OPENAI_BASE_URL", decoy.URL()+"/v1")
 		t.Setenv("OPENAI_ORG_ID", "org-env-leak")
 		t.Setenv("OPENAI_PROJECT_ID", "proj-env-leak")
 		t.Setenv("OPENAI_CUSTOM_HEADERS", "X-Env-Leak: 1")
-		run.RedactSecret("sk-env-leak", "key:environment")
 		enqueue(ev, w, sseReply(t, f, provider.FramingLF))
 
 		res, err := w.client.Complete(ctxFor(t), textScope("req-env"), textTarget(f), textRequest(f), nil)

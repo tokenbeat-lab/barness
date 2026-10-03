@@ -264,7 +264,7 @@ func checkNoSecrets(ev *evidence.Case, o outcome) {
 		return
 	}
 	text := string(surface) + errString(o.err) + errString(o.streamErr)
-	secrets := []string{backendLeak, "hvs.BACKEND-INTERNAL", "sk-env-leak"}
+	secrets := []string{backendLeak, "hvs.BACKEND-INTERNAL", environmentKey.secret}
 	for _, k := range knownKeys {
 		secrets = append(secrets, k.secret)
 	}
@@ -273,15 +273,19 @@ func checkNoSecrets(ev *evidence.Case, o outcome) {
 	}
 }
 
+// environmentKey is the key polluteEnvironment plants in the environment.
+// checkNoSecrets looks for it in every outcome, so TestMain registers it
+// with the evidence run before any case is written.
+var environmentKey = tenantKey{secret: "sk-env-leak", alias: "key:environment"}
+
 // polluteEnvironment sets every key, endpoint and proxy variable a vendor SDK
 // or Go's HTTP stack could fall back to, all pointing at a decoy Provider.
 func polluteEnvironment(t *testing.T) *provider.Server {
 	t.Helper()
-	decoy := provider.New(map[string]string{"sk-env-leak": "key:environment"})
+	decoy := provider.New(map[string]string{environmentKey.secret: environmentKey.alias})
 	t.Cleanup(decoy.Close)
-	run.RedactSecret("sk-env-leak", "key:environment")
 	for _, k := range []string{"OPENAI_API_KEY", "ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "GOOGLE_API_KEY", "GEMINI_API_KEY"} {
-		t.Setenv(k, "sk-env-leak")
+		t.Setenv(k, environmentKey.secret)
 	}
 	for _, k := range []string{"OPENAI_BASE_URL", "ANTHROPIC_BASE_URL", "GOOGLE_GEMINI_BASE_URL"} {
 		t.Setenv(k, decoy.URL()+"/v1")

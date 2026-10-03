@@ -4,11 +4,11 @@
 
 **Blocked by:** 19
 
-**Status:** needs-triage
+**Status:** resolved
 
-- [ ] `ai/e2e/anthropic_{limits,admission,callbacks,observe}_test.go` 与 `ai/e2e/gemini_{limits,admission,callbacks,observe}_test.go` 合并为按 `fixtureProtocol` 运行的套件，用例 ID 前缀（P02/P03）保持不变
-- [ ] 协议差异（Gemini 无 timeoutMs、头超时不重试、不调用 onResponse、REST 回调体与拒绝字段）作为协议描述的显式字段或协议专属子用例，而非复制整套
-- [ ] 合并前后用例集合与证据包 case ID 一致；pi 差分不受影响
+- [x] `ai/e2e/anthropic_{limits,admission,callbacks,observe}_test.go` 与 `ai/e2e/gemini_{limits,admission,callbacks,observe}_test.go` 合并为按 `fixtureProtocol` 运行的套件，用例 ID 前缀（P02/P03）保持不变
+- [x] 协议差异（Gemini 无 timeoutMs、头超时不重试、不调用 onResponse、REST 回调体与拒绝字段）作为协议描述的显式字段或协议专属子用例，而非复制整套
+- [x] 合并前后用例集合与证据包 case ID 一致；pi 差分不受影响
 
 ## Comments
 
@@ -19,3 +19,8 @@
 **2026-10-02 — DeepSeek Responses (issue 21).** `ai/e2e/deepseek_limits_test.go` runs only the request body, frame and output bounds on P05 (the rest is the shared Responses adapter's); a parametric suite should cover P05 with them.
 
 **2026-10-02 — DeepSeek Chat (issue 22).** `deepseek_limits_test.go` now runs the same three bounds on P05 and P06 through `deepseekByteLimits`; the tool JSON and error body bounds of P06 are the shared Chat adapter's (P04's `chat_limits_test.go`).
+
+**2026-10-04 — implemented.** One `protocolSuite` per protocol (`{anthropic,gemini,chat,deepseek}_suite_test.go`) holds only data and differences; `protocol_{limits,admission,callbacks,observe}_test.go` run `TestProtocol{ByteLimits,EventQueueLimits,Timeouts,Admission,Callbacks,NoEnvironmentFallback,Observability,ObservabilityRedaction,PreflightRejections,ResourceRelease}` per protocol (subtest = fixture dir). The 13 per-protocol files are deleted.
+- **Differences as fields:** `timeoutOptions == nil` (Gemini has no timeoutMs: `timeout-ms-bounds-nothing` instead of the timeoutMs cases), `headerTimeoutRetried`, `callbacks.onResponse` (`response-callback-failure-before-start` vs `-error-ignored`), `keyHeader`, the REST/native replacement in `callbacks.replaced`, `rejections` (models, invalid options), `env`; DeepSeek P05/P06 run only the request body, frame and output bounds (`sharedAdapter`). Protocol-only cases: Anthropic's `payload-sees-betas` and beta/Stainless header checks (`callbacks.more`, `headerTransform`). Chat's long cache retention and closed-blocks-before-abort live in its options/failure fixtures, not these suites, so they need no field here.
+- **Case set:** evidence before 563 IDs, after 564, all PASS; the one addition is `P02-E04-callbacks-payload-callback-failure` — the generic payload-callback failure case Gemini and Chat had, which Anthropic lacked for no protocol reason. Some unified checks got stronger (echoed key `[REDACTED]` on P02/P03, replaced payload's path on all, the added `X-Request-Tag` on P02). Test function names changed; case IDs did not. `BARNESS_AI_PIDIFF=1 TestPiDifferential` passes, 0 skipped.
+- **Latent ordering bug fixed:** `sk-env-leak` was registered with the evidence run only inside `polluteEnvironment`, while `checkNoSecrets` writes it into every case's passing details; it worked only because `anthropic_callbacks_test.go` sorted before `byte_limits_test.go`. It is now `environmentKey`, registered in `TestMain`.

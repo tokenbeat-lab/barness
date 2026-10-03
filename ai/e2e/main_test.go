@@ -26,6 +26,7 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+	run.RedactSecret(environmentKey.secret, environmentKey.alias)
 	run.SetVersion("openai-go", evidence.ModuleVersion("github.com/openai/openai-go/v3"))
 	run.SetVersion("anthropic-sdk-go", evidence.ModuleVersion("github.com/anthropics/anthropic-sdk-go"))
 	catalog := ai.BuiltinCatalog()
