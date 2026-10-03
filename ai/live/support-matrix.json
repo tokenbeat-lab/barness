@@ -8,54 +8,70 @@
       "model": "gpt-5-mini",
       "sdk": "github.com/openai/openai-go/v3 v3.66.0",
       "accountAlias": "prod-openai",
-      "lastRunAt": "2026-10-02T13:58:28.24896Z",
-      "allPassedAt": "2026-10-02T13:58:28.24896Z",
+      "lastRunAt": "2026-10-03T10:07:27.343059Z",
+      "allPassedAt": "2026-10-03T10:07:27.343059Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "gpt-5-mini",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-02T13:58:28.24896Z",
-          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+          "lastRunAt": "2026-10-03T10:07:27.343059Z",
+          "lastPassedAt": "2026-10-03T10:07:27.343059Z"
         },
         {
           "id": "text-complete",
           "model": "gpt-5-mini",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-02T13:58:28.24896Z",
-          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+          "lastRunAt": "2026-10-03T10:07:27.343059Z",
+          "lastPassedAt": "2026-10-03T10:07:27.343059Z"
         },
         {
           "id": "tool-round-trip",
           "model": "gpt-5-mini",
           "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-02T13:58:28.24896Z",
-          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+          "lastRunAt": "2026-10-03T10:07:27.343059Z",
+          "lastPassedAt": "2026-10-03T10:07:27.343059Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "gpt-5-mini",
           "outcome": "PASS",
           "note": "canceled after thinking_start",
-          "lastRunAt": "2026-10-02T13:58:28.24896Z",
-          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+          "lastRunAt": "2026-10-03T10:07:27.343059Z",
+          "lastPassedAt": "2026-10-03T10:07:27.343059Z"
         },
         {
           "id": "reasoning-history",
           "model": "gpt-5-mini",
           "outcome": "PASS",
           "note": "returned thinking text, thinking signature, encrypted reasoning",
-          "lastRunAt": "2026-10-02T13:58:28.24896Z",
-          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+          "lastRunAt": "2026-10-03T10:07:27.343059Z",
+          "lastPassedAt": "2026-10-03T10:07:27.343059Z"
         },
         {
           "id": "image",
           "model": "gpt-5-mini",
           "outcome": "PASS",
-          "note": "answer mentions red: false",
-          "lastRunAt": "2026-10-02T13:58:28.24896Z",
-          "lastPassedAt": "2026-10-02T13:58:28.24896Z"
+          "note": "answer mentions red: true",
+          "lastRunAt": "2026-10-03T10:07:27.343059Z",
+          "lastPassedAt": "2026-10-03T10:07:27.343059Z"
+        },
+        {
+          "id": "tool-changes-gpt-5.4",
+          "model": "gpt-5.4",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-03T10:07:27.343059Z",
+          "lastPassedAt": "2026-10-03T10:07:27.343059Z"
+        },
+        {
+          "id": "tool-changes-gpt-6-sol",
+          "model": "gpt-6-sol",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-03T10:07:27.343059Z",
+          "lastPassedAt": "2026-10-03T10:07:27.343059Z"
         }
       ]
     },
@@ -66,54 +82,70 @@
       "model": "claude-haiku-4-5",
       "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
       "accountAlias": "prod-anthropic",
-      "lastRunAt": "2026-10-02T13:58:59.466022Z",
-      "allPassedAt": "2026-10-02T13:58:59.466022Z",
+      "lastRunAt": "2026-10-03T10:07:04.960275Z",
+      "allPassedAt": "2026-10-03T10:07:04.960275Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-02T13:58:59.466022Z",
-          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+          "lastRunAt": "2026-10-03T10:07:04.960275Z",
+          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
         },
         {
           "id": "text-complete",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-02T13:58:59.466022Z",
-          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+          "lastRunAt": "2026-10-03T10:07:04.960275Z",
+          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
         },
         {
           "id": "tool-round-trip",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-02T13:58:59.466022Z",
-          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+          "lastRunAt": "2026-10-03T10:07:04.960275Z",
+          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
           "note": "canceled after text_start",
-          "lastRunAt": "2026-10-02T13:58:59.466022Z",
-          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+          "lastRunAt": "2026-10-03T10:07:04.960275Z",
+          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
         },
         {
           "id": "reasoning-history",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
           "note": "returned thinking text, thinking signature",
-          "lastRunAt": "2026-10-02T13:58:59.466022Z",
-          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+          "lastRunAt": "2026-10-03T10:07:04.960275Z",
+          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
         },
         {
           "id": "image",
           "model": "claude-haiku-4-5",
           "outcome": "PASS",
           "note": "answer mentions red: true",
-          "lastRunAt": "2026-10-02T13:58:59.466022Z",
-          "lastPassedAt": "2026-10-02T13:58:59.466022Z"
+          "lastRunAt": "2026-10-03T10:07:04.960275Z",
+          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+        },
+        {
+          "id": "tool-changes-claude-opus-4-8",
+          "model": "claude-opus-4-8",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-03T10:07:04.960275Z",
+          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
+        },
+        {
+          "id": "tool-changes-claude-fable-5",
+          "model": "claude-fable-5",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-03T10:07:04.960275Z",
+          "lastPassedAt": "2026-10-03T10:07:04.960275Z"
         }
       ]
     },
@@ -182,61 +214,85 @@
       "model": "gpt-5-mini",
       "sdk": "github.com/openai/openai-go/v3 v3.66.0",
       "accountAlias": "prod-openai",
-      "lastRunAt": "2026-10-02T13:58:43.204095Z",
-      "allPassedAt": "2026-10-02T13:58:43.204095Z",
+      "lastRunAt": "2026-10-03T10:07:47.694566Z",
+      "allPassedAt": "2026-10-03T10:07:47.694566Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "gpt-5-mini",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-02T13:58:43.204095Z",
-          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
         },
         {
           "id": "text-complete",
           "model": "gpt-5-mini",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-02T13:58:43.204095Z",
-          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
         },
         {
           "id": "tool-round-trip",
           "model": "gpt-5-mini",
           "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-02T13:58:43.204095Z",
-          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "gpt-5-mini",
           "outcome": "PASS",
           "note": "canceled after text_start",
-          "lastRunAt": "2026-10-02T13:58:43.204095Z",
-          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
         },
         {
           "id": "reasoning-history",
           "model": "gpt-5-mini",
           "outcome": "UNSUPPORTED",
           "note": "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage",
-          "lastRunAt": "2026-10-02T13:58:43.204095Z"
+          "lastRunAt": "2026-10-03T10:07:47.694566Z"
         },
         {
           "id": "image",
           "model": "gpt-5-mini",
           "outcome": "PASS",
           "note": "answer mentions red: false",
-          "lastRunAt": "2026-10-02T13:58:43.204095Z",
-          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
         },
         {
           "id": "usage-position",
           "model": "gpt-5-mini",
           "outcome": "PASS",
           "note": "usage in a separate chunk 1 after the finish_reason chunk",
-          "lastRunAt": "2026-10-02T13:58:43.204095Z",
-          "lastPassedAt": "2026-10-02T13:58:43.204095Z"
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
+        },
+        {
+          "id": "tool-changes-gpt-5.4",
+          "model": "gpt-5.4",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
+        },
+        {
+          "id": "tool-changes-gpt-6-sol",
+          "model": "gpt-6-sol",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
+        },
+        {
+          "id": "pro-model-unavailable",
+          "model": "gpt-5.4-pro",
+          "outcome": "PASS",
+          "note": "refused with HTTP 404 (invalid_request): 404: {\"message\":\"This is not a chat model and thus not supported in the v1/chat/completions endpoint. Did you mean to use v1/completions?\",\"type\":\"invalid_request_error\",\"param\":\"model\",\"code\":null}",
+          "lastRunAt": "2026-10-03T10:07:47.694566Z",
+          "lastPassedAt": "2026-10-03T10:07:47.694566Z"
         }
       ]
     },

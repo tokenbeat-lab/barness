@@ -4,7 +4,7 @@
 
 **Blocked by:** 16, 20
 
-**Status:** ready-for-human
+**Status:** resolved
 
 **Context:** 基线为 pi-ai 0.87.1 的 `anthropic.json`、`openai.json`（哈希见 `ai/catalog.go` 的 `BuiltinCatalog` 注释）。不需要改 adapter：`supportsMidConvoToolChanges` 关闭时 pi 发送当前工具列表（`buildParams`）；`allowedFallbackModels` 不发送时请求有效；`supportsAdditionalTools`/`supportsToolSearch` 关闭时 pi 同样发送当前工具列表（`resolveTranscriptTools`）。barness 现有路径与这些回退一致。只携带 `ModelCompat` 已有的字段，其余开关（`supportsMidConvoToolChanges`、`allowedFallbackModels`、`supportsAdditionalTools`、`supportsToolSearch`、`supportsOpenAIGrammarTools`、`supportsStrictTools`）不携带，由工单 26、28 或以后的工单引入。托管强度模型（claude-fable-5-1、claude-opus-5、claude-opus-5-5）不在本工单，见工单 27。
 
@@ -14,7 +14,7 @@
 - [x] 目录版本升级，`ai/release/catalog-snapshot.json` 与 pin 同步
 - [x] 删除 `BuiltinCatalog` 注释与 `ModelCompat.SupportsMidConvoSystemMessages` 注释中"compat 需要未实现行为的模型不列入"的表述，改述 ADR-0018 的标准；`docs/barness-ai/differences.md` §6"未纳入目录的模型"一行改为"未实现的可选特性"（中途工具变更、服务端备用模型、additional_tools/tool search），指向工单 26、28 与 ADR-0018，托管强度模型指向工单 27
 - [x] 离线 E2E 与 pi 差分：每个新增 Anthropic 模型覆盖无工具、带工具、中途增删工具、fable-5 的普通调用；OpenAI 每族至少一个模型覆盖带工具与中途 system/工具变更。pi 多出的占位工具与 tool-changes beta、`fallbacks` 与 server-side-fallback beta、`additional_tools`/`tool_search_*` 条目按 ADR-0018 决策四登记为 `extension`，`cases` 限于这些用例；无待处理差异
-- [ ] 真实冒烟（工单 23 的工具）：claude-opus-4-8 与 claude-fable-5 各跑带工具的多轮与中途工具变更；至少一个 gpt-5.4/5.5 与一个 gpt-5.6/gpt-6 模型跑 Responses 与 Chat 两组合；gpt-5.4-pro 在 Chat 上不可用的假设一并确认。厂商拒绝任何一项时，该模型不列入，结论记入 ADR-0018 与支持矩阵
+- [x] 真实冒烟（工单 23 的工具）：claude-opus-4-8 与 claude-fable-5 各跑带工具的多轮与中途工具变更；至少一个 gpt-5.4/5.5 与一个 gpt-5.6/gpt-6 模型跑 Responses 与 Chat 两组合；gpt-5.4-pro 在 Chat 上不可用的假设一并确认。厂商拒绝任何一项时，该模型不列入，结论记入 ADR-0018 与支持矩阵
 
 ## Comments
 
@@ -54,3 +54,9 @@
   - The first live turn relies on automatic tool choice.
 
   The catalog lists the models before the live smoke has confirmed them. ADR-0018 决策三 takes a model out again if a vendor refuses it.
+
+**2026-10-03 — live smoke passed.** anthropic-messages, openai-responses and openai-chat were run live on 5bb12f4 (aliases prod-anthropic and prod-openai). Each made 14 calls with no environment retries, and every scenario passed. openai-chat's reasoning-history stays UNSUPPORTED, as before.
+- **Tool changes.** `tool-changes-*` passed on claude-opus-4-8 and claude-fable-5, and on gpt-5.4 and gpt-6-sol over both Responses and Chat. In every run the vendor accepted the changed request and the model called the added tool. The suite found no optional-feature marker, body or header, on the wire.
+- **Pro model on Chat.** `pro-model-unavailable`: OpenAI refused gpt-5.4-pro on Chat with HTTP 404 ("This is not a chat model and thus not supported in the v1/chat/completions endpoint"). This confirms the exclusion.
+- **Result.** No model leaves the catalog. The reports are merged into the support matrix, and the result is recorded in ADR-0018.
+- **Release gate.** All nine gates pass with the six combinations' latest live bundles audited clean (`.evidence/barness-ai-release/gate8`).

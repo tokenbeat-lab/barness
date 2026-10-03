@@ -66,4 +66,7 @@ pi 模型数据中的 `compat` 开关分两类：
 - Chat 的排除规则从硬编码两个 ID 改为按 pi 数据中的模型 ID 判定：ID 以 `-pro` 结尾的 OpenAI 模型只在 Responses 上提供（gpt-5-pro、gpt-5.4-pro、gpt-5.5-pro）。
 - 全部内置模型的名称、reasoning、输入、上下文、输出上限、level map、所携带的 compat 与价格，由 `TestCatalogInclusion/builtin-models-are-pi's` 在差分开启时与冻结 pi 的模型数据逐字段比较（runner 的 `models` 入口），不再靠人工核对。
 - 差分新增 9 条 `extension` 登记（Anthropic 5 条、Responses 4 条），`cases` 限于 `catalog.json` 中带工具或 fable-5 的用例。Chat 与不涉及可选特性的用例与 pi 一致。
-- 真实冒烟场景已加入 `ai/live`（三个组合各两款模型的 `tool-changes-*`，以及 Chat 上的 `pro-model-unavailable`），尚待维护者用测试账户运行。厂商拒绝任何一项时，按决策三撤出对应模型，结论记入本节。
+- 真实冒烟（2026-10-03，提交 5bb12f4，账户 prod-anthropic、prod-openai）：三个组合全部通过，没有环境重试。
+  - `tool-changes-*` 在 claude-opus-4-8、claude-fable-5 上通过，gpt-5.4、gpt-6-sol 在 Responses 和 Chat 上都通过。流程是：多轮工具调用，中途移除 get_time、加入 convert_temperature，模型调用新加入的工具后作答。厂商接受了不带可选特性的请求：当前工具列表、原地的 system 消息，没有占位工具、beta、`fallbacks` 或 `additional_tools`。
+  - gpt-5.4-pro 在 Chat 上被拒绝，HTTP 404 "This is not a chat model and thus not supported in the v1/chat/completions endpoint"，确认了决策三的排除。
+  - 已列入的模型都留在目录中，结果已合并进支持矩阵。
