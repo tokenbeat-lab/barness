@@ -1,0 +1,61 @@
+---
+status: accepted
+date: 2026-10-03
+---
+
+# barness-ai 内置目录的列入标准：遵守模型硬约束即可列入，可选协议特性不阻塞
+
+ADR-0011 决策五、ADR-0013 决策二沿用工单 16 实现时定下的目录原则："compat 需要 barness 未实现行为的模型不列入"（`ai/catalog.go` 的 `BuiltinCatalog` 注释）。这条原则把 pi `compat` 中两类性质不同的开关混为一谈，结果是：Messages 与 Responses 协议本身能服务的模型，因为某项可选的 beta 优化未实现而整个不在目录中。维护者于 2026-10-03 决定按本 ADR 的标准重新划定。
+
+## 决策一：按开关性质区分硬约束与可选特性
+
+pi 模型数据中的 `compat` 开关分两类：
+
+- **硬约束**：不遵守时请求会被厂商拒绝，或在可达场景中失败。例如 `supportsTemperature: false`、`forceAdaptiveThinking`、level map 中为 null 的等级。目录必须携带它们，adapter 必须遵守。
+- **可选特性**：开启后是协议层的额外能力，通常靠 beta 实现；不开启时 pi 自己也有完整的回退路径，请求仍然有效，只失去缓存、可用性等方面的收益。
+
+判断依据是冻结 pi 的实现：如果 pi 在开关关闭或条件不满足时会改用另一种合法的请求形状，该开关就是可选特性。
+
+**列入标准**：模型所在的 Provider × API 已经实现，adapter 能遵守该模型的全部硬约束，就列入内置目录。可选特性未实现时，目录照常列入该模型，按 pi 中该特性关闭时的行为发送请求。
+
+协议确实服务不了的模型仍不列入，例如 ADR-0012 决策八排除的 Interactions API、Live API、图片输出模型，以及只在 Responses 上提供的 pro 模型不进 Chat 目录（ADR-0013 决策二）。它们本来就符合本标准，不受影响。
+
+## 决策二：现有被排除开关的归类
+
+| 开关 | 协议 | 归类 | 依据（pi-ai 0.87.1） |
+| --- | --- | --- | --- |
+| `supportsMidConvoToolChanges` | Anthropic | 可选特性 | `buildParams` 在开关关闭、没有初始工具或存在同名工具重定义时，改发 `getCurrentTools` 的当前工具列表，不带 beta；barness 现有 adapter 就是这条路径 |
+| `allowedFallbackModels` | Anthropic | 可选特性 | 不发送 `fallbacks` 时请求有效，只是主模型不可用时不会自动切换；工单 28 的授权过滤也可能把列表滤空 |
+| `supportsAdditionalTools`、`supportsToolSearch` | Responses | 可选特性 | `resolveTranscriptTools` 在两者都关闭或存在非追加的工具变更时，改发当前工具列表，不锚定追加的工具 |
+| `supportsMidConvoEffort` | Anthropic | **硬约束** | `buildParams` 对这类模型恒用 adaptive thinking 并带 `block_binding: {prefix_mismatch_behavior: drop_block}`，pi 注释说明：这样做是为了让前缀不匹配时丢弃 thinking 块，"instead of surfacing as persistent 400 responses"；同时从不发送 temperature（claude-fable-5-1 的数据没有 `supportsTemperature: false`，靠这一分支避免发送） |
+
+`supportsMidConvoEffort` 的失败场景是可达的：barness 每次调用独立，host 可以在同一会话的不同轮次使用不同 effort 或 thinking 设置。所以开启它的 claude-fable-5-1、claude-opus-5、claude-opus-5-5 仍要等工单 27 实现后才能列入。
+
+## 决策三：本次纳入的模型
+
+- Anthropic × Messages：claude-opus-4-8、claude-fable-5。两者的硬约束（adaptive thinking、opus-4-8 的 `supportsTemperature: false`、level map）都已被现有 `ModelCompat` 覆盖。
+- OpenAI × Responses：gpt-5.4、gpt-5.4-mini、gpt-5.4-pro、gpt-5.5、gpt-5.6-luna、gpt-5.6-sol、gpt-5.6-terra、gpt-6-astra、gpt-6-luna、gpt-6-sol。`supportsMidConvoSystemMessages` 与 `supportsExplicitPromptCacheMode` 已实现，阶梯价格已实现（ADR-0010）。
+- OpenAI × Chat Completions：上一行中除 gpt-5.4-pro 以外的模型，沿用 ADR-0013 决策二"pro 模型只在 Responses 上提供"的规则。
+
+实现、差分登记与真实冒烟见工单 34。
+
+## 决策四：未实现的可选特性在差分中登记为扩展
+
+差分运行器按 pi 自己的模型数据生成请求，所以 pi 对上述模型会发出 barness 不发的内容（占位工具与 tool-changes beta、`fallbacks` 与 server-side-fallback beta、`additional_tools`/`tool_search_*` 条目）。这些差异按本 ADR 登记为 `extension`，`cases` 只限于覆盖这些模型的用例，避免对其他场景放宽。可选特性以后实现时，删除对应登记。
+
+## Considered Options
+
+- 维持原原则，等工单 26–28 全部完成再列入：可选优化成了列入门槛，Provider 的协议本来能服务的模型被长期挡在目录外。
+- 把所有开关都视为可选，五个 Anthropic 模型全部列入：`supportsMidConvoEffort` 关系到可达的 400 失败，列入就等于在目录里承诺了做不到的行为。
+- 按开关性质区分（采用）。
+
+## Consequences
+
+- 目录的含义从"adapter 实现了 pi 对该模型的全部行为"变为"adapter 能为该模型构造有效请求"。可选特性是否实现，由 `docs/barness-ai/differences.md` 与差分账本说明，不再由模型是否在目录中来表达。
+- 工单 26、28 改为不阻塞列入的优化工单；工单 27 仍是三款托管强度模型的列入条件，且不再依赖 26。
+- 新模型以后按本标准判定：硬约束能用现有 `ModelCompat` 表达时，只需加一条数据；出现新的硬约束时才需要改 adapter。
+- pi OpenAI 数据中另有 17 个模型（gpt-4o 系列、gpt-4-turbo、gpt-4.1-nano、o1、o1-pro、o3-pro、gpt-5.x-chat-latest、gpt-5.2-pro、gpt-5.3-codex 系列、gpt-5.4-nano、gpt-realtime-2.1）从未按任何原则评估过，只是早期没有选入。它们是否列入需按本标准逐个核对硬约束，不在本 ADR 范围内。
+
+## 取代关系
+
+取代 ADR-0011 决策五中"不列入需要原生中途工具变更、托管中途 effort 或服务端回退模型的模型"一句，以及维护者决定第 5 条中的工单依赖顺序；该决策中已列入的模型与 `ModelCompat` 字段不变。ADR-0012 决策八、ADR-0013 决策二维持不变。

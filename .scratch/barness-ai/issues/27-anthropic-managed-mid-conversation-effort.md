@@ -1,12 +1,12 @@
 # 27: Anthropic 托管推理强度（claude-fable-5-1、claude-opus-5、claude-opus-5-5）
 
-**What to build:** 支持每轮推理强度可变的 Anthropic 模型（pi compat `supportsMidConvoEffort`）：记录每条 assistant 消息当时的强度，回放历史时按 pi 插入强度标记，使对话中途调强度不破坏 thinking 绑定；完成后把三款模型列入内置目录（ADR-0011 决策五，维护者决定 2026-10-02）。
+**What to build:** 支持每轮推理强度可变的 Anthropic 模型（pi compat `supportsMidConvoEffort`）：记录每条 assistant 消息当时的强度，回放历史时按 pi 插入强度标记，使对话中途调强度不破坏 thinking 绑定；完成后把三款模型列入内置目录。按 ADR-0018 托管强度是硬约束（pi 恒用 adaptive thinking 加 `drop_block`，以免前缀不匹配时持续 400，并且从不发送 temperature），所以本工单仍是这三款模型的列入条件。
 
-**Blocked by:** 26
+**Blocked by:** 16
 
 **Status:** ready-for-agent
 
-**Context:** 基线为 pi-ai 0.87.1 `anthropic-messages.ts`：`stream` 中 `providerThinkingLevel`、`buildParams` 的 managed effort 分支、`insertThinkingLevelMessages`、`convertMessages` 的 `assistantLevels`、`getBetaFeatures`。三款模型同时开启了工单 26 的工具变更开关，所以排在 26 之后。
+**Context:** 基线为 pi-ai 0.87.1 `anthropic-messages.ts`：`stream` 中 `providerThinkingLevel`、`buildParams` 的 managed effort 分支、`insertThinkingLevelMessages`、`convertMessages` 的 `assistantLevels`、`getBetaFeatures`。三款模型同时开启了工单 26 的工具变更开关。按 ADR-0018 那是可选特性，不阻塞本工单：26 未完成时按 pi 的回退发送当前工具列表，差异按工单 34 的方式登记为扩展。
 
 - [ ] `ModelCompat.SupportsMidConvoEffort`；`AssistantMessage` 增加 pi 的 `providerThinkingLevel`（本轮强度：`effort` 选项，缺省 high），随消息序列化与回放
 - [ ] 请求：thinking 恒为 `{type: adaptive, display, block_binding: {prefix_mismatch_behavior: drop_block}}`，`output_config: {effort: "high"}`；每条同 Provider 的 Anthropic 历史 assistant 消息前插入 `{role: system, content: [], output_config: {effort: <其强度>}}`，末尾插入本轮强度；不发送 temperature

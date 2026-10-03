@@ -49,6 +49,8 @@ pi 在 `message_start` 取初始用量，之后每个 `message_delta` 替换其�
 
 列入 pi 数据中的 claude-haiku-4-5(-20251001)、claude-opus-4-5(-20251101)、claude-opus-4-6、claude-opus-4-7、claude-sonnet-4-5(-20250929)、claude-sonnet-4-6、claude-sonnet-5，目录升为 `2026-10-02.2`。`ModelCompat` 增加 `ForceAdaptiveThinking` 与 `SupportsTemperature`（未设置或 null 为 true，与 pi 一致）。不列入需要原生中途工具变更、托管中途 effort 或服务端回退模型的 claude-fable-5、claude-fable-5-1、claude-opus-4-8、claude-opus-5、claude-opus-5-5；`supportsStrictTools` 只影响 barness 无法声明的约束采样工具，不携带。
 
+> 已被 ADR-0018 部分取代（2026-10-03）：列入标准改为"遵守模型硬约束即可列入"。claude-opus-4-8 与 claude-fable-5 由工单 34 列入；托管强度是硬约束，claude-fable-5-1、claude-opus-5、claude-opus-5-5 仍等工单 27。
+
 ## 决策六：选项形状
 
 `AnthropicOptions` 对应 pi 的 `AnthropicOptions`，去掉传输、凭据、头、回调、重试与注入 client。pi 的 `sessionId` 只用于 Anthropic 官方 API 不接受的会话亲和头，`samplingParams` 在该协议被忽略（spec I7），两者都没有字段；simple 入口的同名字段同样不产生请求字段。`thinkingEnabled`、`interleavedThinking` 用 `Nullable` 区分未设置、false 与 true，null 与未设置相同（pi 的 `?.`/`??` 语义）。`X-Stainless-Timeout` 与 pi 一样总是声明（默认 600 秒），而 Responses 只在显式 timeoutMs 时声明，这是两个 TypeScript SDK 在 pi 中的实际差别。
@@ -59,6 +61,6 @@ pi 在 `message_start` 取初始用量，之后每个 `message_delta` 替换其�
 2. 成功终态与 pi 一致：`message_start` 之后才要求 `message_stop`。
 3. 决策二：信任可信回调，不设 beta 白名单。
 4. 决策三：按现有实现（四个计数定义完整性，缺少 `message.usage` 时按 0 计并标为未上报）。
-5. 决策五：不列入的五个模型按所需能力拆为三张工单，依次纳入：工单 26（原生中途工具变更，claude-opus-4-8）、工单 27（托管推理强度，claude-fable-5-1/opus-5/opus-5-5，依赖 26）、工单 28（服务端备用模型，claude-fable-5，依赖 26）。备用模型只发送 binding 同样允许的那些（spec §4 授权交集）。
+5. 决策五：不列入的五个模型按所需能力拆为三张工单，依次纳入：工单 26（原生中途工具变更，claude-opus-4-8）、工单 27（托管推理强度，claude-fable-5-1/opus-5/opus-5-5，依赖 26）、工单 28（服务端备用模型，claude-fable-5，依赖 26）。备用模型只发送 binding 同样允许的那些（spec §4 授权交集）。工单依赖顺序已被 ADR-0018 取代。
 
 差分中只在 Anthropic 出现的差异（运行时错误文本、pi 流中块的 `index` 暂存字段、未担保原生状态降级）登记在 `ai/e2e/testdata/pidiff/ledger.json`。
