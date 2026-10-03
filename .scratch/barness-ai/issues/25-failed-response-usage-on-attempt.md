@@ -4,10 +4,14 @@
 
 **Blocked by:** 15
 
-**Status:** needs-triage
+**Status:** wontfix
 
 **Context:** 工单 15 的初稿已实现过这一行为（`responsesParser.failed` 调用 `responsesUsage.of` 并记到尝试上），维护者于 2026-10-02 决定首期先与 pi 一致丢弃，见 ADR-0010 决策三。恢复时需同步修改 `ai/e2e/testdata/responses/usage.json` 中 `failed-usage-zero`、`failed-usage-reported` 的预期，以及 ADR-0010 决策三的 Consequences。
 
 - [ ] Responses `response.failed` 的用量记在尝试上并计价，消息 Usage 仍为 pi 的零值
 - [ ] 后续协议（Anthropic、Gemini、Chat Completions）的失败终态同样处理
 - [ ] 差分仍无待处理差异；尝试上的用量作为扩展单独断言
+
+## Comments
+
+- 2026-10-03 维护者：作废，保持现有逻辑——`response.failed` 携带的用量与 pi 一样丢弃，尝试标为 `unreported`（ADR-0010 决策三）。

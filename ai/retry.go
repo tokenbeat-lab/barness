@@ -88,7 +88,7 @@ type Attempt struct {
 	// UsageReporting is how completely the provider reported this
 	// attempt's usage; an attempt that never obtained a response is
 	// unreported, and so, as in pi, is one whose response the provider
-	// ended as failed, whatever usage it carried (issue 25). Usage is what
+	// ended as failed, whatever usage it carried (ADR-0010). Usage is what
 	// it reported, priced: for the streamed attempt it equals the
 	// message's Usage.
 	UsageReporting UsageReporting `json:"usageReporting"`

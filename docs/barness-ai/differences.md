@@ -51,7 +51,7 @@ DeepSeek × Chat Completions（P06）是 pi 自身的路由，全部场景进入
 | 项目 | 内容 | 依据 / 跟踪 |
 | --- | --- | --- |
 | `timeoutMs: 0` | barness 视为未设置；pi 会立即超时 | ADR-0008 维护者决定 |
-| 失败响应携带的用量 | 与 pi 一样丢弃，尝试标为未上报 | ADR-0010 决策三；工单 25 |
+| 失败响应携带的用量 | 与 pi 一样丢弃，尝试标为未上报 | ADR-0010 决策三 |
 | Gemini 回调 | 回调看到 REST 请求体而非 pi 的 SDK 参数；不调用 onResponse（与 pi 同） | ADR-0012 |
 | 流式工具参数解析成本 | 每个 delta 全量重解析（与 pi 同），CPU 随参数大小平方增长；示例策略据此收紧 `MaxToolJSONBytes` | 工单 32 |
 | 未纳入目录的模型 | 需要中途工具变更、托管推理强度或服务端备用模型的 Anthropic 模型，以及需要 additional_tools/tool search 的 OpenAI 模型不列入内置目录 | 工单 26–28；ADR-0011 |

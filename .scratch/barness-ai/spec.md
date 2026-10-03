@@ -243,7 +243,7 @@ Observer 记录 CallStarted、AttemptStarted、AttemptFinished、CallFinished；
 
 - Usage 保留 input/output/cacheRead/cacheWrite/totalTokens/cost、可选 cacheWrite1h/reasoning、初始化零值与 adapter 更新规则；reasoning 是 output 子集，不能重复加入总量。
 - 成本移植冻结 pi 的阶梯价格、缓存读写、1h 写入及 adapter 专用调整，记录价格版本；金额为估算，不是账单承诺。
-- Result/观测元数据另行区分未上报、部分上报、完整上报，不修改兼容消息的原数字字段。每次尝试分别记录；不能将全部尝试合计反写为 pi 最终消息 Usage，也不能从零值推断失败请求免费。缺失的计数按 0 计，Responses 缺 `cache_write_tokens` 不影响完整上报；`response.failed` 携带的用量首期与 pi 一样丢弃、尝试标为未上报（后续见工单 25）；价格版本以目录版本与哈希标在调用元数据上（维护者决定 2026-10-02，见 ADR-0010）。
+- Result/观测元数据另行区分未上报、部分上报、完整上报，不修改兼容消息的原数字字段。每次尝试分别记录；不能将全部尝试合计反写为 pi 最终消息 Usage，也不能从零值推断失败请求免费。缺失的计数按 0 计，Responses 缺 `cache_write_tokens` 不影响完整上报；`response.failed` 携带的用量与 pi 一样丢弃、尝试标为未上报（工单 25 已作废，见 ADR-0010 决策三）；价格版本以目录版本与哈希标在调用元数据上（维护者决定 2026-10-02，见 ADR-0010）。
 - 交付完整公共契约、错误和装配说明、支持矩阵、模型/价格快照、fixture、差异登记及最小示例。协议组合只有在适用验收通过后才可宣称支持；尚未完成的其他组合不能因共享 adapter 被标记通过。
 - 实施顺序为：冻结基线与失败场景 → 先建验收装置 → 调用内核及 Responses/Anthropic → Gemini/Chat/DeepSeek → 宿主接入示例、资源/隔离验收与发布冒烟。每批新增代码前先定义对应行为和故障用例。
 

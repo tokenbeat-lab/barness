@@ -260,7 +260,7 @@
     },
     {
       "id": "failed-usage-reported",
-      "note": "pi drops a failed response's usage, so the message usage is zero and the attempt is unreported: the provider's numbers are not recorded (keeping them on the attempt is issue 25), but the failure does not read as a free complete report.",
+      "note": "pi drops a failed response's usage, so the message usage is zero and the attempt is unreported: the provider's numbers are not recorded (ADR-0010), but the failure does not read as a free complete report.",
       "replies": [
         {"terminal": {"type": "response.failed", "sequence_number": 4, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "failed", "model": "gpt-4.1-mini-2025-04-14", "output": [{"id": "msg_u", "type": "message", "status": "completed", "role": "assistant", "content": [{"type": "output_text", "text": "ok", "annotations": []}]}], "usage": {"input_tokens": 20, "output_tokens": 5, "total_tokens": 25, "input_tokens_details": {"cached_tokens": 4}, "output_tokens_details": {"reasoning_tokens": 0}}, "error": {"code": "server_error", "message": "The model failed"}}}}
       ],

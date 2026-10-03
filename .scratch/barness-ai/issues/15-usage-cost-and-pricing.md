@@ -65,6 +65,6 @@
 **2026-10-02 — maintainer decisions; ADR-0010 accepted.**
 
 - **Missing counts:** count as 0; a missing `cache_write_tokens` still allows `complete` (as implemented).
-- **Failed responses:** their usage is dropped as in pi. The attempt is now `unreported` with zero usage instead of carrying the priced usage. `failed-usage-zero` and `failed-usage-reported` in `usage.json` now expect `unreported`. Recording the usage later is tracked as issue 25.
+- **Failed responses:** their usage is dropped as in pi. The attempt is now `unreported` with zero usage instead of carrying the priced usage. `failed-usage-zero` and `failed-usage-reported` in `usage.json` now expect `unreported`. Recording the usage later was issue 25, closed as wontfix on 2026-10-03.
 - **Price snapshot:** stays on the call metadata (as implemented).
 - Offline suite and the full differential (`BARNESS_AI_PIDIFF=1`) pass with 0 pending.
