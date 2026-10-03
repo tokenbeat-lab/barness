@@ -11,8 +11,8 @@ import (
 // itself, so the exact request — field presence included — is decided here
 // rather than by the SDK's typed params. Shapes follow pi-ai 0.87.1
 // anthropic-messages.ts buildParams, convertMessages, convertContentBlocks
-// and convertTools for an API key (pi's OAuth, Copilot, managed-effort,
-// fallback and native tool-change paths are out of scope).
+// and convertTools for an API key, managed effort included (pi's OAuth,
+// Copilot, fallback and native tool-change paths are out of scope).
 type anthropicBody struct {
 	Model     string             `json:"model"`
 	Messages  []anthropicMessage `json:"messages"`
@@ -34,6 +34,10 @@ type anthropicBody struct {
 type anthropicMessage struct {
 	Role    string `json:"role"`
 	Content []any  `json:"content"`
+	// OutputConfig is only on a managed-effort model's empty system
+	// message naming the effort of the turn that follows it, or of the
+	// call when it trails the conversation.
+	OutputConfig *anthropicOutputConfig `json:"output_config,omitempty"`
 }
 
 type anthropicCacheControl struct {
@@ -105,9 +109,10 @@ type anthropicTool struct {
 }
 
 type anthropicThinking struct {
-	Type         string `json:"type"`
-	BudgetTokens int    `json:"budget_tokens,omitempty"`
-	Display      string `json:"display,omitempty"`
+	Type         string                 `json:"type"`
+	BudgetTokens int                    `json:"budget_tokens,omitempty"`
+	Display      string                 `json:"display,omitempty"`
+	BlockBinding *anthropicBlockBinding `json:"block_binding,omitempty"`
 }
 
 type anthropicOutputConfig struct {
@@ -122,18 +127,23 @@ type anthropicMetadata struct {
 const anthropicInterleavedThinkingBeta = "interleaved-thinking-2025-05-14"
 
 // anthropicBetas ports pi's getBetaFeatures for the paths barness-ai
-// serves: only a budget-based reasoning model with thinking enabled asks for
-// interleaved thinking. (Fine-grained tool streaming is for models without
-// eager input streaming, which every Anthropic model supports in pi's data.)
-// A beta the trusted header transform configures replaces this list, as pi's
-// configured anthropic-beta header does.
+// serves: a budget-based reasoning model with thinking enabled asks for
+// interleaved thinking, and a managed-effort model for per-turn output
+// config and thinking binding controls. (Fine-grained tool streaming is for
+// models without eager input streaming, which every Anthropic model
+// supports in pi's data.) A beta the trusted header transform configures
+// replaces this list, as pi's configured anthropic-beta header does.
 func anthropicBetas(m Model, o AnthropicOptions) []string {
+	var betas []string
 	enabled, _ := o.ThinkingEnabled.Get()
 	interleaved, set := o.InterleavedThinking.Get()
 	if m.Reasoning && enabled && (interleaved || !set) && !m.Compat.ForceAdaptiveThinking {
-		return []string{anthropicInterleavedThinkingBeta}
+		betas = append(betas, anthropicInterleavedThinkingBeta)
 	}
-	return nil
+	if m.Compat.SupportsMidConvoEffort {
+		betas = append(betas, anthropicMidConvoOutputConfigBeta, anthropicThinkingBindingControlBeta)
+	}
+	return betas
 }
 
 // normalizeBetas is pi's reading of a configured anthropic-beta value: the
@@ -185,9 +195,18 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 			msgs = msgs[1:]
 		}
 	}
+	managed := model.Compat.SupportsMidConvoEffort
+	var managedProvider ProviderID
+	if managed {
+		managedProvider = model.Provider
+	}
+	var levels map[int]AnthropicEffort
 	var err error
-	if body.Messages, err = anthropicMessages(msgs, cc); err != nil {
+	if body.Messages, levels, err = anthropicMessages(msgs, cc, managedProvider); err != nil {
 		return nil, err
+	}
+	if managed {
+		body.Messages = withThinkingLevels(body.Messages, levels, anthropicThinkingLevel(model, opts))
 	}
 
 	enabled, _ := opts.ThinkingEnabled.Get()
@@ -195,7 +214,7 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 	if v, ok := model.Compat.SupportsTemperature.Get(); ok {
 		supportsTemperature = v
 	}
-	if !enabled && supportsTemperature {
+	if !enabled && !managed && supportsTemperature {
 		body.Temperature = opts.Temperature
 	}
 
@@ -210,8 +229,17 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 		body.Tools = append(body.Tools, tool)
 	}
 
-	if model.Reasoning {
-		display := cmp.Or(opts.ThinkingDisplay, "summarized")
+	display := cmp.Or(opts.ThinkingDisplay, "summarized")
+	switch {
+	case managed:
+		// Whatever the thinking options, so that thinking bound to a
+		// prefix the effort change no longer matches is dropped instead of
+		// refused on every later turn. The turn's own effort is the
+		// trailing system message's; the request-level one stays high.
+		body.Thinking = &anthropicThinking{Type: "adaptive", Display: display,
+			BlockBinding: &anthropicBlockBinding{PrefixMismatchBehavior: "drop_block"}}
+		body.OutputConfig = &anthropicOutputConfig{Effort: AnthropicEffortHigh}
+	case model.Reasoning:
 		switch {
 		case enabled && model.Compat.ForceAdaptiveThinking:
 			body.Thinking = &anthropicThinking{Type: "adaptive", Display: display}
@@ -242,8 +270,15 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 // taking them mid-conversation) waits until the next assistant turn, since a
 // tool_result must directly follow its tool_use. The last user or system
 // message's last block carries the cache marker.
-func anthropicMessages(msgs []Message, cc *anthropicCacheControl) ([]anthropicMessage, error) {
+//
+// For a managed-effort model, managedProvider is its provider and levels
+// holds, by index in the result, the effort each replayed Anthropic
+// Messages turn of that provider recorded, whatever its model and however
+// its native state was replayed: the effort is not native state (ADR-0019).
+// A level that is not an Anthropic effort is ignored, as pi ignores it.
+func anthropicMessages(msgs []Message, cc *anthropicCacheControl, managedProvider ProviderID) ([]anthropicMessage, map[int]AnthropicEffort, error) {
 	out := []anthropicMessage{}
+	levels := map[int]AnthropicEffort{}
 	var pending []anthropicMessage
 	flush := func() {
 		out = append(out, pending...)
@@ -274,11 +309,16 @@ func anthropicMessages(msgs []Message, cc *anthropicCacheControl) ([]anthropicMe
 			flush()
 			blocks, err := anthropicAssistantBlocks(m)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
-			if len(blocks) > 0 {
-				out = append(out, anthropicMessage{Role: "assistant", Content: blocks})
+			if len(blocks) == 0 {
+				continue
 			}
+			level := AnthropicEffort(m.ProviderThinkingLevel)
+			if managedProvider != "" && m.API == APIAnthropicMessages && m.Provider == managedProvider && level.valid() {
+				levels[len(out)] = level
+			}
+			out = append(out, anthropicMessage{Role: "assistant", Content: blocks})
 		case ToolResultMessage:
 			// Consecutive results travel in one user message.
 			var results []any
@@ -300,7 +340,7 @@ func anthropicMessages(msgs []Message, cc *anthropicCacheControl) ([]anthropicMe
 			last.Content[len(last.Content)-1] = withCacheControl(last.Content[len(last.Content)-1], cc)
 		}
 	}
-	return out, nil
+	return out, levels, nil
 }
 
 // withCacheControl marks a block that can carry a cache breakpoint.

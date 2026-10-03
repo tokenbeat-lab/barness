@@ -1,0 +1,1771 @@
+{
+  "case": "P02 Anthropic × Messages managed mid-conversation effort (claude-fable-5-1, claude-opus-5, claude-opus-5-5)",
+  "source": "Synthetic offline fixture (issue 27). Expected requests follow pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/anthropic-messages.ts stream (providerThinkingLevel), buildParams' managed-effort branch, convertMessages' assistantLevels, insertThinkingLevelMessages and getBetaFeatures for an API key with the models' frozen anthropic.json data, except for native mid-conversation tool changes (ADR-0018 决策四). Checked against frozen pi by the differential.",
+  "scenarios": [
+    {
+      "id": "fable-5-1-first-turn",
+      "model": "claude-fable-5-1",
+      "about": "First turn, no effort option: thinking is always adaptive with pi's drop_block binding, the request-level effort is high, and one trailing system message carries the turn's effort, the default high. fable-5-1's data does not set supportsTemperature false, yet the managed-effort branch never sends a temperature. The cache marker stays on the user turn, before the trailing marker. The result records providerThinkingLevel high.",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "temperature": 0.5
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_m",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "Hmm."
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "sig-r"
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "query": "beta=true",
+          "headers": {
+            "Anthropic-Beta": "mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01"
+          },
+          "body": {
+            "model": "claude-fable-5-1",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Say hello.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "high"
+                }
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "thinking": {
+              "type": "adaptive",
+              "display": "summarized",
+              "block_binding": {
+                "prefix_mismatch_behavior": "drop_block"
+              }
+            },
+            "output_config": {
+              "effort": "high"
+            }
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_m",
+        "providerThinkingLevel": "high",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "Hmm.",
+            "thinkingSignature": "sig-r"
+          },
+          {
+            "type": "text",
+            "text": "Done."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opus-5-history-levels",
+      "model": "claude-opus-5",
+      "about": "Several turns run at different efforts: each replayed assistant turn of the same provider is preceded by a system message with the effort it ran at (max, medium), and the call's own effort (low) trails. A legacy turn without a level and one with a value that is not an Anthropic effort get no marker. thinkingEnabled false does not switch thinking off on a managed model; thinkingDisplay omitted is kept.",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Plan a trip."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-5",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Thinking hard.",
+                "thinkingSignature": "sig-a"
+              },
+              {
+                "type": "text",
+                "text": "Paris."
+              }
+            ],
+            "providerThinkingLevel": "max"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Cheaper?"
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-5",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "Lyon."
+              }
+            ],
+            "providerThinkingLevel": "medium"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Even cheaper?"
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-5",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "Dijon."
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Why?"
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-5",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "Because."
+              }
+            ],
+            "providerThinkingLevel": "turbo"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Anything else?"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "effort": "low",
+        "thinkingEnabled": false,
+        "thinkingDisplay": "omitted"
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_m",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "Hmm."
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "sig-r"
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "query": "beta=true",
+          "headers": {
+            "Anthropic-Beta": "mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01"
+          },
+          "body": {
+            "model": "claude-opus-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Plan a trip."
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "max"
+                }
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "thinking",
+                    "thinking": "Thinking hard.",
+                    "signature": "sig-a"
+                  },
+                  {
+                    "type": "text",
+                    "text": "Paris."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Cheaper?"
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "medium"
+                }
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Lyon."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Even cheaper?"
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Dijon."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Why?"
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Because."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Anything else?",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "low"
+                }
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "thinking": {
+              "type": "adaptive",
+              "display": "omitted",
+              "block_binding": {
+                "prefix_mismatch_behavior": "drop_block"
+              }
+            },
+            "output_config": {
+              "effort": "high"
+            }
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_m",
+        "providerThinkingLevel": "low",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "Hmm.",
+            "thinkingSignature": "sig-r"
+          },
+          {
+            "type": "text",
+            "text": "Done."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opus-5-5-cross-model-history",
+      "model": "claude-opus-5-5",
+      "about": "History from other models: a claude-fable-5-1 turn (same provider and API) keeps its effort marker while its signed thinking is downgraded to text (cross-model); a gpt-5.4 turn on Responses gets no marker; an opus-5-5 turn restored without a trusted envelope is downgraded (no envelope) and still keeps its marker, since the effort is not native state (ADR-0019).",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hi."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-fable-5-1",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Deep.",
+                "thinkingSignature": "sig-f"
+              },
+              {
+                "type": "text",
+                "text": "Hello."
+              }
+            ],
+            "providerThinkingLevel": "xhigh"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Again."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "api": "openai-responses",
+            "provider": "openai",
+            "model": "gpt-5.4",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "Hey."
+              }
+            ],
+            "providerThinkingLevel": "high"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Once more."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-5-5",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Mull.",
+                "thinkingSignature": "sig-o"
+              },
+              {
+                "type": "text",
+                "text": "Hi again."
+              }
+            ],
+            "providerThinkingLevel": "max"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Last."
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "effort": "medium"
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_m",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "Hmm."
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "sig-r"
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "query": "beta=true",
+          "headers": {
+            "Anthropic-Beta": "mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01"
+          },
+          "body": {
+            "model": "claude-opus-5-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Hi."
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "xhigh"
+                }
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Deep."
+                  },
+                  {
+                    "type": "text",
+                    "text": "Hello."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Again."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Hey."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Once more."
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "max"
+                }
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Mull."
+                  },
+                  {
+                    "type": "text",
+                    "text": "Hi again."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Last.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "medium"
+                }
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "thinking": {
+              "type": "adaptive",
+              "display": "summarized",
+              "block_binding": {
+                "prefix_mismatch_behavior": "drop_block"
+              }
+            },
+            "output_config": {
+              "effort": "high"
+            }
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_m",
+        "providerThinkingLevel": "medium",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "Hmm.",
+            "thinkingSignature": "sig-r"
+          },
+          {
+            "type": "text",
+            "text": "Done."
+          }
+        ],
+        "downgrades": {
+          "noEnvelope": 1,
+          "crossModel": 1
+        }
+      }
+    },
+    {
+      "id": "opus-5-tool-loop",
+      "model": "claude-opus-5",
+      "about": "Mid tool loop: the tool_use turn ran at high and gets its marker, the tool_result follows it directly, and the call's effort (xhigh) trails after the results. pi's native tool changes (placeholder tool, tool-changes beta) are an optional feature barness does not implement (ADR-0018 决策四, issue 26).",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "tools": [
+          {
+            "name": "lookup",
+            "description": "Look something up.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "q"
+              ]
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Look up x."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-5",
+            "stopReason": "toolUse",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "toolCall",
+                "id": "toolu_01",
+                "name": "lookup",
+                "arguments": {
+                  "q": "x"
+                }
+              }
+            ],
+            "providerThinkingLevel": "high"
+          },
+          {
+            "role": "toolResult",
+            "toolCallId": "toolu_01",
+            "toolName": "lookup",
+            "content": [
+              {
+                "type": "text",
+                "text": "42"
+              }
+            ],
+            "isError": false
+          }
+        ]
+      },
+      "options": {
+        "effort": "xhigh"
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_m",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "Hmm."
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "sig-r"
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "query": "beta=true",
+          "headers": {
+            "Anthropic-Beta": "mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01"
+          },
+          "body": {
+            "model": "claude-opus-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Look up x."
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "high"
+                }
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "tool_use",
+                    "id": "toolu_01",
+                    "name": "lookup",
+                    "input": {
+                      "q": "x"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "tool_result",
+                    "tool_use_id": "toolu_01",
+                    "content": "42",
+                    "is_error": false,
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "xhigh"
+                }
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "thinking": {
+              "type": "adaptive",
+              "display": "summarized",
+              "block_binding": {
+                "prefix_mismatch_behavior": "drop_block"
+              }
+            },
+            "output_config": {
+              "effort": "high"
+            },
+            "tools": [
+              {
+                "name": "lookup",
+                "description": "Look something up.",
+                "eager_input_streaming": true,
+                "input_schema": {
+                  "type": "object",
+                  "properties": {
+                    "q": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "q"
+                  ]
+                },
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ]
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_m",
+        "providerThinkingLevel": "xhigh",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "Hmm.",
+            "thinkingSignature": "sig-r"
+          },
+          {
+            "type": "text",
+            "text": "Done."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opus-5-5-simple-minimal",
+      "model": "claude-opus-5-5",
+      "entry": "streamSimple",
+      "about": "Simple entry at minimal, which opus-5-5's level map marks null: pi's adaptive mapping gives low (a null entry is not a mapped value), which trails and is recorded; the request-level effort stays high.",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reasoning": "minimal"
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_m",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "Hmm."
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "sig-r"
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "query": "beta=true",
+          "headers": {
+            "Anthropic-Beta": "mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01"
+          },
+          "body": {
+            "model": "claude-opus-5-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Say hello.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "low"
+                }
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "thinking": {
+              "type": "adaptive",
+              "display": "summarized",
+              "block_binding": {
+                "prefix_mismatch_behavior": "drop_block"
+              }
+            },
+            "output_config": {
+              "effort": "high"
+            }
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_m",
+        "providerThinkingLevel": "low",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "Hmm.",
+            "thinkingSignature": "sig-r"
+          },
+          {
+            "type": "text",
+            "text": "Done."
+          }
+        ]
+      }
+    },
+    {
+      "id": "fable-5-1-simple-unset",
+      "model": "claude-fable-5-1",
+      "entry": "streamSimple",
+      "about": "Simple entry without a level: pi switches thinking off for an unmanaged model, but a managed one keeps adaptive thinking at the default effort high; the simple temperature is not sent.",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "temperature": 0.2
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_m",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "Hmm."
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "sig-r"
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "query": "beta=true",
+          "headers": {
+            "Anthropic-Beta": "mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01"
+          },
+          "body": {
+            "model": "claude-fable-5-1",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Say hello.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "high"
+                }
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "thinking": {
+              "type": "adaptive",
+              "display": "summarized",
+              "block_binding": {
+                "prefix_mismatch_behavior": "drop_block"
+              }
+            },
+            "output_config": {
+              "effort": "high"
+            }
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_m",
+        "providerThinkingLevel": "high",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "Hmm.",
+            "thinkingSignature": "sig-r"
+          },
+          {
+            "type": "text",
+            "text": "Done."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opus-5-simple-xhigh-history",
+      "model": "claude-opus-5",
+      "entry": "streamSimple",
+      "about": "Simple entry at xhigh after a turn that ran at low: the history marker is low, the trailing one the level's mapped effort xhigh.",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Quick one."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-5",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "Sure."
+              }
+            ],
+            "providerThinkingLevel": "low"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Now think hard."
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reasoning": "xhigh"
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_m",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "Hmm."
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "sig-r"
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "query": "beta=true",
+          "headers": {
+            "Anthropic-Beta": "mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01"
+          },
+          "body": {
+            "model": "claude-opus-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Quick one."
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "low"
+                }
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Sure."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Now think hard.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "xhigh"
+                }
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "thinking": {
+              "type": "adaptive",
+              "display": "summarized",
+              "block_binding": {
+                "prefix_mismatch_behavior": "drop_block"
+              }
+            },
+            "output_config": {
+              "effort": "high"
+            }
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_m",
+        "providerThinkingLevel": "xhigh",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "Hmm.",
+            "thinkingSignature": "sig-r"
+          },
+          {
+            "type": "text",
+            "text": "Done."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opus-5-refused",
+      "model": "claude-opus-5",
+      "about": "A refused request still records the turn's effort on the failed message, as pi sets providerThinkingLevel when the call starts.",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "effort": "max"
+      },
+      "replies": [
+        {
+          "status": 400,
+          "header": {
+            "request-id": "req_400"
+          },
+          "body": "{\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"bad\"}}"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "query": "beta=true",
+          "headers": {
+            "Anthropic-Beta": "mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01"
+          },
+          "body": {
+            "model": "claude-opus-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Say hello.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [],
+                "output_config": {
+                  "effort": "max"
+                }
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "thinking": {
+              "type": "adaptive",
+              "display": "summarized",
+              "block_binding": {
+                "prefix_mismatch_behavior": "drop_block"
+              }
+            },
+            "output_config": {
+              "effort": "high"
+            }
+          }
+        },
+        "events": [
+          "error:error"
+        ],
+        "stopReason": "error",
+        "errorMessage": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"bad\"}}",
+        "code": "invalid_request",
+        "phase": "request",
+        "httpStatus": 400,
+        "providerRequestId": "req_400",
+        "content": [],
+        "usageReporting": "unreported",
+        "providerThinkingLevel": "max"
+      }
+    }
+  ]
+}

@@ -133,6 +133,9 @@ type fixtureExpect struct {
 	Usage          *ai.Usage                 `json:"usage"`
 	UsageReporting ai.UsageReporting         `json:"usageReporting"`
 	Downgrades     *ai.NativeStateDowngrades `json:"downgrades"`
+	// ProviderThinkingLevel is the effort the message records (Anthropic
+	// managed effort); empty for every other model.
+	ProviderThinkingLevel string `json:"providerThinkingLevel"`
 }
 
 func loadFixture(t *testing.T, proto *fixtureProtocol, name string) (scenarioFixture, []byte) {
@@ -381,6 +384,8 @@ func checkScenario(ev *evidence.Case, w *world, sc fixtureScenario, mode callMod
 	ev.Check("raw stop reason", m.RawStopReason == x.RawStopReason, "got %q want %q", m.RawStopReason, x.RawStopReason)
 	ev.Check("response id", m.ResponseID == x.ResponseID, "got %q want %q", m.ResponseID, x.ResponseID)
 	ev.Check("response model", m.ResponseModel == x.ResponseModel, "got %q want %q", m.ResponseModel, x.ResponseModel)
+	ev.Check("provider thinking level", m.ProviderThinkingLevel == x.ProviderThinkingLevel,
+		"got %q want %q", m.ProviderThinkingLevel, x.ProviderThinkingLevel)
 	if x.Content != nil {
 		got := []any{}
 		for _, c := range m.Content {

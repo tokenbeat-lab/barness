@@ -49,7 +49,7 @@ pi 在 `message_start` 取初始用量，之后每个 `message_delta` 替换其�
 
 列入 pi 数据中的 claude-haiku-4-5(-20251001)、claude-opus-4-5(-20251101)、claude-opus-4-6、claude-opus-4-7、claude-sonnet-4-5(-20250929)、claude-sonnet-4-6、claude-sonnet-5，目录升为 `2026-10-02.2`。`ModelCompat` 增加 `ForceAdaptiveThinking` 与 `SupportsTemperature`（未设置或 null 为 true，与 pi 一致）。不列入需要原生中途工具变更、托管中途 effort 或服务端回退模型的 claude-fable-5、claude-fable-5-1、claude-opus-4-8、claude-opus-5、claude-opus-5-5；`supportsStrictTools` 只影响 barness 无法声明的约束采样工具，不携带。
 
-> 已被 ADR-0018 部分取代（2026-10-03）：列入标准改为"遵守模型硬约束即可列入"。claude-opus-4-8 与 claude-fable-5 由工单 34 列入；托管强度是硬约束，claude-fable-5-1、claude-opus-5、claude-opus-5-5 仍等工单 27。
+> 已被 ADR-0018 部分取代（2026-10-03）：列入标准改为"遵守模型硬约束即可列入"。claude-opus-4-8 与 claude-fable-5 由工单 34 列入；托管强度是硬约束，claude-fable-5-1、claude-opus-5、claude-opus-5-5 已由工单 27 按 ADR-0019 实现后列入。
 
 ## 决策六：选项形状
 

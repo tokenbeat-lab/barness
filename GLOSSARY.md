@@ -84,6 +84,10 @@ _Avoid_: 普通推理文本、跨账户通用状态
 随原生续接状态一起保存的来源信息，记录其租户、厂商账户作用域和模型；只有经宿主担保后才构成可信回放依据。
 _Avoid_: 签名、凭证、可信标记
 
+**Managed Effort（托管推理强度）**：
+厂商在对话内逐轮管理推理强度的模型能力（Go 中为 `ModelCompat.SupportsMidConvoEffort`）。每条 assistant 消息记录本轮强度（`ProviderThinkingLevel`），回放时向厂商说明每轮是以什么强度生成的，因此宿主可以在对话中途改变强度。本轮强度不是原生续接状态，回放时不需要封套（ADR-0019）。
+_Avoid_: 请求级 effort、推理预算
+
 **Call Attribution（调用归属）**：
 一次逻辑调用不可变的归属：可信作用域中的租户、RequestID 与可选的调用主体和作业，所请求的服务绑定，以及解析成功后实际服务调用的 Provider、协议、模型与厂商账户（Go 中为 `CallAttribution`，内嵌于 `CallMetadata`）。解析前失败的调用标为未解析，不回显请求中的模型。
 _Avoid_: 请求自报身份、当前租户

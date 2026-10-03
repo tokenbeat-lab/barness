@@ -113,7 +113,8 @@ func decodeStoredMessage(t *testing.T, raw json.RawMessage, k tenantKey) ai.Mess
 		}
 		mustUnmarshal(t, raw, &errorMessage)
 		m := ai.AssistantMessage{API: s.API, Provider: s.Provider, Model: s.Model, Usage: s.Usage,
-			StopReason: s.StopReason, Timestamp: s.Timestamp, ErrorMessage: errorMessage.ErrorMessage}
+			StopReason: s.StopReason, Timestamp: s.Timestamp, ErrorMessage: errorMessage.ErrorMessage,
+			ProviderThinkingLevel: s.ProviderThinkingLevel}
 		for _, b := range blocks {
 			m.Content = append(m.Content, decodeStoredBlock(t, b).(ai.AssistantContent))
 		}

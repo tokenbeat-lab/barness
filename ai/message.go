@@ -98,9 +98,18 @@ type AssistantMessage struct {
 	ResponseID string     `json:"responseId,omitempty"`
 	// ResponseModel is the model the provider reports having served the call
 	// when it differs from Model (Anthropic Messages, as pi-ai records it).
-	ResponseModel string     `json:"responseModel,omitempty"`
-	Usage         Usage      `json:"usage"`
-	StopReason    StopReason `json:"stopReason"`
+	ResponseModel string `json:"responseModel,omitempty"`
+	// ProviderThinkingLevel is the provider-native effort the call ran at,
+	// recorded as pi-ai does for a model whose effort may change between
+	// turns (Anthropic: Model.Compat.SupportsMidConvoEffort, the effort
+	// option or high). Replaying the message tells that provider which
+	// effort produced it. It is not native state: a host-supplied value
+	// only describes the host's own turn, and a value that is not one of
+	// the provider's efforts is ignored (ADR-0019). Empty for every other
+	// model.
+	ProviderThinkingLevel string     `json:"providerThinkingLevel,omitempty"`
+	Usage                 Usage      `json:"usage"`
+	StopReason            StopReason `json:"stopReason"`
 	// RawStopReason is the provider's own terminal status as pi-ai reports
 	// it (Responses: response.status, plus ".<reason>" for an incomplete
 	// response with a reason). Empty when no terminal status was received.

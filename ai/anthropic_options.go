@@ -14,7 +14,8 @@ import (
 // ignored by this protocol (spec I7), so neither.
 type AnthropicOptions struct {
 	// Temperature is sent as temperature, null included, unless thinking is
-	// enabled or the model does not support it (Model.Compat).
+	// enabled or the model does not support it or manages its effort
+	// (Model.Compat).
 	Temperature Nullable[float64] `json:"temperature,omitzero"`
 	// MaxTokens is sent as max_tokens, 0 included; unset or null sends the
 	// model's maximum.
@@ -29,12 +30,15 @@ type AnthropicOptions struct {
 	// ThinkingEnabled true enables thinking on a reasoning model (adaptive
 	// or budget-based, per Model.Compat.ForceAdaptiveThinking); false sends
 	// thinking disabled unless the model's level map marks off unsupported.
-	// Unset or null sends no thinking field.
+	// Unset or null sends no thinking field. A managed-effort model ignores
+	// it: its thinking is always adaptive.
 	ThinkingEnabled Nullable[bool] `json:"thinkingEnabled,omitzero"`
 	// ThinkingBudgetTokens is a budget-based model's budget_tokens; 0 is
 	// 1024.
 	ThinkingBudgetTokens int `json:"thinkingBudgetTokens,omitempty"`
 	// Effort is an adaptive model's output_config effort; empty sends none.
+	// A managed-effort model (Model.Compat.SupportsMidConvoEffort) runs the
+	// turn at it, empty being high, and records it on the message.
 	Effort AnthropicEffort `json:"effort,omitempty"`
 	// ThinkingDisplay is "summarized" (the default) or "omitted".
 	ThinkingDisplay string `json:"thinkingDisplay,omitempty"`
@@ -79,10 +83,18 @@ func (o AnthropicOptions) clone() Options {
 	return o
 }
 
+// valid reports whether e is one of the Anthropic efforts (pi's
+// isAnthropicEffort).
+func (e AnthropicEffort) valid() bool {
+	switch e {
+	case AnthropicEffortLow, AnthropicEffortMedium, AnthropicEffortHigh, AnthropicEffortXHigh, AnthropicEffortMax:
+		return true
+	}
+	return false
+}
+
 func (o AnthropicOptions) validate() string {
-	switch o.Effort {
-	case "", AnthropicEffortLow, AnthropicEffortMedium, AnthropicEffortHigh, AnthropicEffortXHigh, AnthropicEffortMax:
-	default:
+	if o.Effort != "" && !o.Effort.valid() {
 		return "effort must be low, medium, high, xhigh or max"
 	}
 	switch o.ThinkingDisplay {

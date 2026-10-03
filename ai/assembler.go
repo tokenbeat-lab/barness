@@ -83,6 +83,10 @@ func (a *assembler) responseModel(model string) {
 	a.view.update(func(m *AssistantMessage) { m.ResponseModel = model })
 }
 
+func (a *assembler) providerThinkingLevel(level string) {
+	a.view.update(func(m *AssistantMessage) { m.ProviderThinkingLevel = level })
+}
+
 func (a *assembler) responseID(id string) {
 	a.view.update(func(m *AssistantMessage) { m.ResponseID = id })
 }

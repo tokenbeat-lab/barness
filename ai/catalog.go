@@ -63,6 +63,14 @@ type ModelCompat struct {
 	// SupportsTemperature: Anthropic accepts a temperature. Unset or null
 	// means true, as in pi.
 	SupportsTemperature Nullable[bool] `json:"supportsTemperature,omitzero"`
+	// SupportsMidConvoEffort: Anthropic manages the effort per turn. Thinking
+	// is always adaptive with prefix-mismatched thinking dropped instead of
+	// refused, no temperature is sent, every message records the turn's
+	// effort (AssistantMessage.ProviderThinkingLevel) and the replayed
+	// conversation names the effort of each turn (ADR-0019). It is a hard
+	// constraint: without it a host changing the effort between turns gets
+	// persistent 400 responses (ADR-0018).
+	SupportsMidConvoEffort bool `json:"supportsMidConvoEffort,omitempty"`
 }
 
 // supportsLongCacheRetention is the model's compat flag; unset or null is
@@ -101,7 +109,8 @@ type Catalog struct {
 // estimation landed, the Anthropic models when the Messages adapter landed,
 // the Google models when the Gemini adapter landed).
 // (ADR-0018 listed the models below whose compat only turns on optional
-// features, when issue 34 landed.)
+// features, when issue 34 landed, and the Anthropic models with managed
+// mid-conversation effort when issue 27 implemented it.)
 //
 // A model is listed when its Provider × API is implemented and the adapter
 // keeps all of its hard constraints, the compat flags without which the
@@ -114,10 +123,8 @@ type Catalog struct {
 // supportsAdditionalTools, supportsToolSearch) are not carried. pi's
 // supportsOpenAIGrammarTools and Anthropic supportsStrictTools only affect
 // constrained-sampling tools, which cannot be declared here, so they are not
-// carried either. Not listed: Anthropic models with managed
-// mid-conversation effort, a hard constraint not implemented yet
-// (claude-fable-5-1, claude-opus-5, claude-opus-5-5; issue 27), and Google
-// models that generateContent alone cannot serve (see builtinGoogleModels).
+// carried either. Not listed: Google models that generateContent alone
+// cannot serve (see builtinGoogleModels).
 // gpt-4 and o3-mini are the text-only models: images reach them as
 // placeholders; every Anthropic and Google model takes images.
 //
@@ -130,7 +137,7 @@ type Catalog struct {
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-03.1",
+		Version: "2026-10-03.2",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
 			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels()),
 	}
@@ -302,11 +309,26 @@ func builtinAnthropicModels() []Model {
 	opus48 := adaptive(model("claude-opus-4-8", "Claude Opus 4.8", 1000000, 128000, 5, 25, 0.5, 6.25), xhighAndMax())
 	opus48.Compat.SupportsTemperature = Value(false)
 	opus48.Compat.SupportsMidConvoSystemMessages = true
-	fable5 := adaptive(model("claude-fable-5", "Claude Fable 5", 1000000, 128000, 10, 50, 1, 12.5),
-		ThinkingLevelMap{Off: Null[string](), XHigh: Value("xhigh"), Max: Value("max")})
+	// offNull is the level map of the Claude 5 models whose off is null.
+	offNull := ThinkingLevelMap{Off: Null[string](), XHigh: Value("xhigh"), Max: Value("max")}
+	fable5 := adaptive(model("claude-fable-5", "Claude Fable 5", 1000000, 128000, 10, 50, 1, 12.5), offNull)
 	fable5.Compat.SupportsMidConvoSystemMessages = true
+	// managed marks a model with managed mid-conversation effort, which pi's
+	// data pairs with mid-conversation system messages.
+	managed := func(m Model) Model {
+		m.Compat.SupportsMidConvoEffort, m.Compat.SupportsMidConvoSystemMessages = true, true
+		return m
+	}
+	fable51 := managed(adaptive(model("claude-fable-5-1", "Claude Fable 5.1", 1000000, 128000, 10, 50, 0.25, 12.5), offNull))
+	opus5 := managed(adaptive(model("claude-opus-5", "Claude Opus 5", 1000000, 128000, 5, 25, 0.5, 6.25), offNull))
+	opus5.Compat.SupportsTemperature = Value(false)
+	opus55 := managed(adaptive(model("claude-opus-5-5", "Claude Opus 5.5", 1000000, 128000, 4, 20, 0.2, 5),
+		ThinkingLevelMap{Off: Null[string](), Minimal: Null[string](), Low: Value("low"), Medium: Value("medium"),
+			High: Value("high"), XHigh: Value("xhigh"), Max: Value("max")}))
+	opus55.Compat.SupportsTemperature = Value(false)
 	return []Model{
 		fable5,
+		fable51,
 		model("claude-haiku-4-5", "Claude Haiku 4.5 (latest)", 200000, 64000, 1, 5, 0.1, 1.25),
 		model("claude-haiku-4-5-20251001", "Claude Haiku 4.5", 200000, 64000, 1, 5, 0.1, 1.25),
 		model("claude-opus-4-5", "Claude Opus 4.5 (latest)", 200000, 64000, 5, 25, 0.5, 6.25),
@@ -314,6 +336,8 @@ func builtinAnthropicModels() []Model {
 		adaptive(model("claude-opus-4-6", "Claude Opus 4.6", 1000000, 128000, 5, 25, 0.5, 6.25), maxOnly()),
 		opus47,
 		opus48,
+		opus5,
+		opus55,
 		model("claude-sonnet-4-5", "Claude Sonnet 4.5 (latest)", 1000000, 64000, 3, 15, 0.3, 3.75),
 		model("claude-sonnet-4-5-20250929", "Claude Sonnet 4.5", 1000000, 64000, 3, 15, 0.3, 3.75),
 		adaptive(model("claude-sonnet-4-6", "Claude Sonnet 4.6", 1000000, 128000, 3, 15, 0.3, 3.75), maxOnly()),

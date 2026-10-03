@@ -100,7 +100,8 @@ var combos = []combo{
 			return o
 		},
 		forcesTool: true, reasoning: ai.ThinkingLow,
-		extra: []scenario{toolChanges("claude-opus-4-8"), toolChanges("claude-fable-5")},
+		extra: []scenario{toolChanges("claude-opus-4-8"), toolChanges("claude-fable-5"),
+			effortChanges("claude-fable-5-1"), effortChanges("claude-opus-5"), effortChanges("claude-opus-5-5")},
 	},
 	{
 		name: "google-gemini", spec: "P03", provider: ai.ProviderGoogle, api: ai.APIGoogleGenerativeAI,

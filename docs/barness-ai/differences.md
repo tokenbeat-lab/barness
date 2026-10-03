@@ -9,7 +9,7 @@
 | 协议 | 扩展 | 已修复 | 待处理 |
 | --- | --- | --- | --- |
 | openai-responses（P01） | 61 | 12 | 0 |
-| anthropic-messages（P02） | 43 | 0 | 0 |
+| anthropic-messages（P02） | 48 | 0 | 0 |
 | google-generative-ai（P03） | 32 | 0 | 0 |
 | openai-completions（P04、P06） | 39 | 0 | 0 |
 
@@ -54,7 +54,7 @@ DeepSeek × Chat Completions（P06）是 pi 自身的路由，全部场景进入
 | 失败响应携带的用量 | 与 pi 一样丢弃，尝试标为未上报 | ADR-0010 决策三 |
 | Gemini 回调 | 回调看到 REST 请求体而非 pi 的 SDK 参数；不调用 onResponse（与 pi 同） | ADR-0012 |
 | 流式工具参数解析成本 | 每个 delta 全量重解析（与 pi 同），CPU 随参数大小平方增长；示例策略据此收紧 `MaxToolJSONBytes` | 工单 32 |
-| 未实现的可选特性 | 中途工具变更（Anthropic 原生 tool changes）、服务端备用模型（`fallbacks`）、OpenAI 的 additional_tools/tool search 未实现；开启它们的模型（claude-opus-4-8、claude-fable-5 与 gpt-5.4 起的十个 OpenAI 模型）照常列入目录，按 pi 中特性关闭时的行为发送当前工具列表、不发 `fallbacks`，pi 多出的占位工具、beta、`fallbacks` 与 `additional_tools` 条目登记为限于工单 34 用例的扩展 | 工单 26、28；ADR-0018 |
-| 未纳入目录的模型 | 托管中途推理强度是硬约束，尚未实现，claude-fable-5-1、claude-opus-5、claude-opus-5-5 不列入 | 工单 27；ADR-0018 |
+| 未实现的可选特性 | 中途工具变更（Anthropic 原生 tool changes）、服务端备用模型（`fallbacks`）、OpenAI 的 additional_tools/tool search 未实现；开启它们的模型（claude-opus-4-8、claude-fable-5、托管强度的 claude-fable-5-1/opus-5/opus-5-5 与 gpt-5.4 起的十个 OpenAI 模型）照常列入目录，按 pi 中特性关闭时的行为发送当前工具列表、不发 `fallbacks`，pi 多出的占位工具、beta、`fallbacks` 与 `additional_tools` 条目登记为限于工单 34、27 用例的扩展 | 工单 26、28；ADR-0018 |
+| 托管推理强度 | 与 pi 一致：每条消息记录本轮强度（`providerThinkingLevel`），按 Provider 回放强度标记；它不是原生状态，不需要可信封套，降级的同 Provider 消息仍保留标记 | 工单 27；ADR-0019 |
 | SDK 响应体兜底 | SDK 在调用方 context 结束时不关闭恰好到达的响应体，barness 以中间件兜底关闭 | 工单 29 |
 | 真实冒烟确认的 DeepSeek 行为（2026-10-02） | thinking 加强制工具选择被 400 拒绝；提示缓存字段被接受；Chat 的 usage 在 finish_reason chunk 内；high/max 推理等级被接受；错误体为 `error{code,message,param,type}`，key 只显示后四位；厂商请求 id 取 `x-ds-trace-id`（DeepSeek 不发送 `x-request-id`）；关闭思考时缺推理计数视为完整上报。P05/P06 fixture 已按实测形状修正 | 工单 23、33；ADR-0014/0015/0016 |

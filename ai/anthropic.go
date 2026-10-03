@@ -72,6 +72,11 @@ func (anthropicAdapter) headers(ac adapterCall) http.Header {
 
 func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *Error {
 	opts, _ := ac.options.(AnthropicOptions) // nil means protocol defaults
+	// As pi, recorded before anything can fail, so a failed message of a
+	// managed-effort model carries it too.
+	if level := anthropicThinkingLevel(ac.model, opts); level != "" {
+		out.providerThinkingLevel(string(level))
+	}
 	header := ac.header.Clone()
 	betas := normalizeBetas(header.Values("Anthropic-Beta"))
 	// As in pi, a payload callback sees the beta features as the betas

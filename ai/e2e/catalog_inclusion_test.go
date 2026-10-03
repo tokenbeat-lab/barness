@@ -49,8 +49,9 @@ var catalogInclusionProtocols = []struct {
 //
 //	L1 a listed model is missing, or listed on a protocol that cannot
 //	   serve it (gpt-5.4-pro on Chat Completions)
-//	L2 a model ADR-0018 still excludes is listed (managed mid-conversation
-//	   effort: claude-fable-5-1, claude-opus-5, claude-opus-5-5)
+//	L2 (managed mid-conversation effort, the hard constraint ADR-0018 kept
+//	   claude-fable-5-1, claude-opus-5 and claude-opus-5-5 out for, is
+//	   TestManagedEffort's)
 //	L3 a field differs from pi's frozen data: name, limits, level map,
 //	   carried compat or prices (checked against pi with BARNESS_AI_PIDIFF=1)
 //	L4 a hard constraint is not kept: a temperature reaches
@@ -68,9 +69,6 @@ func TestCatalogInclusion(t *testing.T) {
 		anthropic := builtinModelIDs(ai.APIAnthropicMessages, ai.ProviderAnthropic)
 		for _, id := range []string{"claude-opus-4-8", "claude-fable-5"} {
 			ev.Check(id+" on Messages", slices.Contains(anthropic, id), "listed %q", anthropic)
-		}
-		for _, id := range []string{"claude-fable-5-1", "claude-opus-5", "claude-opus-5-5"} {
-			ev.Check(id+" still unlisted (managed effort, issue 27)", !slices.Contains(anthropic, id), "listed %q", anthropic)
 		}
 		responses := builtinModelIDs(ai.APIOpenAIResponses, ai.ProviderOpenAI)
 		chat := builtinModelIDs(ai.APIOpenAICompletions, ai.ProviderOpenAI)

@@ -115,9 +115,12 @@ type storedMessage struct {
 	Provider   ai.ProviderID `json:"provider"`
 	Model      string        `json:"model"`
 	ResponseID string        `json:"responseId,omitempty"`
-	Usage      ai.Usage      `json:"usage"`
-	StopReason ai.StopReason `json:"stopReason"`
-	Timestamp  int64         `json:"timestamp"`
+	// ProviderThinkingLevel is the effort an Anthropic managed-effort turn
+	// ran at.
+	ProviderThinkingLevel string        `json:"providerThinkingLevel,omitempty"`
+	Usage                 ai.Usage      `json:"usage"`
+	StopReason            ai.StopReason `json:"stopReason"`
+	Timestamp             int64         `json:"timestamp"`
 }
 
 // storedBlock is a content block with its kind; Data is the block's own JSON.

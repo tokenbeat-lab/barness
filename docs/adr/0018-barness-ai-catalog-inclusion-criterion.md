@@ -70,3 +70,7 @@ pi 模型数据中的 `compat` 开关分两类：
   - `tool-changes-*` 在 claude-opus-4-8、claude-fable-5 上通过，gpt-5.4、gpt-6-sol 在 Responses 和 Chat 上都通过。流程是：多轮工具调用，中途移除 get_time、加入 convert_temperature，模型调用新加入的工具后作答。厂商接受了不带可选特性的请求：当前工具列表、原地的 system 消息，没有占位工具、beta、`fallbacks` 或 `additional_tools`。
   - gpt-5.4-pro 在 Chat 上被拒绝，HTTP 404 "This is not a chat model and thus not supported in the v1/chat/completions endpoint"，确认了决策三的排除。
   - 已列入的模型都留在目录中，结果已合并进支持矩阵。
+
+## 实现（工单 27，2026-10-03）
+
+托管强度按 ADR-0019 实现后，claude-fable-5-1、claude-opus-5、claude-opus-5-5 列入目录 `2026-10-03.2`，携带 `SupportsMidConvoEffort`、`SupportsMidConvoSystemMessages`、adaptive 与 level map，opus-5、opus-5-5 另带 `SupportsTemperature=false`。可选特性 `supportsMidConvoToolChanges` 仍不携带。它在差分中的扩展登记按决策四处理，限于工单 27 带工具的用例。真实冒烟场景 `effort-changes-<model>` 待运行。

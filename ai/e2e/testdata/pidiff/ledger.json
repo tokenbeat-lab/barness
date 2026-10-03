@@ -1003,6 +1003,27 @@
       "ref": "spec I6; ADR-0001; issues/07; issues/16; ai/e2e/anthropic_history_test.go"
     },
     {
+      "protocol": "anthropic-messages",
+      "path": "request.body.messages[7].content",
+      "cases": [
+        "PIDIFF-P02-opus-5-5-cross-model-history-stream"
+      ],
+      "classification": "extension",
+      "decision": "Spec-defined extension (spec I6, ADR-0001), as for PIDIFF-P02-untrusted-native-state-stream: the claude-opus-5-5 turn is restored without a trusted envelope, so barness replays its signed thinking as text by the cross-model rules (one noEnvelope downgrade) where pi, which has no envelope, replays it signed. The effort marker before the turn is the same on both sides: providerThinkingLevel is not native state (ADR-0019).",
+      "ref": "spec I6; ADR-0001; ADR-0019; issues/27; ai/e2e/managed_effort_test.go TestManagedEffort"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Content-Length",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-opus-5-5-cross-model-history-stream"
+      ],
+      "classification": "extension",
+      "decision": "Derived from the request body, which differs only by the downgraded native state; see request.body.messages[7].content for this case.",
+      "ref": "spec I6; ADR-0001; ADR-0019; issues/27; ai/e2e/managed_effort_test.go TestManagedEffort"
+    },
+    {
       "protocol": "google-generative-ai",
       "path": "request.headers.Accept-Encoding",
       "kind": "changed",
@@ -1723,6 +1744,39 @@
       "classification": "extension",
       "decision": "Optional feature not implemented (ADR-0018): server-side fallback models. claude-fable-5 lists allowedFallbackModels, which pi sends as fallbacks with the server-side-fallback-2026-07-01 beta; barness sends none, so the vendor does not switch models when fable-5 is unavailable. Remove when issue 28 implements the feature.",
       "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Anthropic-Beta",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-opus-5-tool-loop-stream"
+      ],
+      "classification": "extension",
+      "decision": "Optional feature not implemented (ADR-0018): native mid-conversation tool changes. Both sides send the managed-effort betas (mid-conversation-output-config-2026-07-01, thinking-binding-controls-2026-08-01); claude-opus-5 also sets supportsMidConvoToolChanges, so with initial tools pi adds mid-conversation-tool-changes-2026-07-01. See request.body.tools[1]. Remove when issue 26 implements the feature.",
+      "ref": "ADR-0018 决策四; issues/26; issues/27; ai/e2e/managed_effort_test.go TestManagedEffort"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Content-Length",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-opus-5-tool-loop-stream"
+      ],
+      "classification": "extension",
+      "decision": "Derived from the request body, which differs only by pi's deferred placeholder tool; see request.body.tools[1] for this case.",
+      "ref": "ADR-0018 决策四; issues/26; issues/27; ai/e2e/managed_effort_test.go TestManagedEffort"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.body.tools[1]",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P02-opus-5-tool-loop-stream"
+      ],
+      "classification": "extension",
+      "decision": "Optional feature not implemented (ADR-0018): native mid-conversation tool changes. With initial tools and no redefinition pi's buildParams declares its deferred placeholder tool __pi_deferred_placeholder__ after them; barness sends the current tool list, as pi does with the feature off (getCurrentTools). Remove when issue 26 implements the feature.",
+      "ref": "ADR-0018 决策四; issues/26; issues/27; ai/e2e/managed_effort_test.go TestManagedEffort"
     },
     {
       "protocol": "openai-responses",

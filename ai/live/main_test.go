@@ -18,9 +18,9 @@ import (
 )
 
 // Budget of one live process (spec §2, §5: bounded tokens and calls). A
-// normal run of the largest combination (openai-chat) makes up to 16
-// logical calls; the rest leaves room for one retry of each scenario that
-// meets a vendor fault.
+// normal run of the largest combination (anthropic-messages) makes up to 20
+// logical calls; the rest leaves room for a retry of the scenarios that
+// meet a vendor fault.
 const (
 	maxCalls          = 32
 	maxRetries        = 1

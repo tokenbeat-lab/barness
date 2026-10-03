@@ -12,5 +12,5 @@
 - [ ] 启用时：初始工具照常声明并在最后一个上加 cache_control，随后声明 pi 的 `__pi_deferred_placeholder__`（`defer_loading: true`），再声明之后加入的工具（`defer_loading: true`、无 cache_control）；中途 system 消息带 `tool_removal`/`tool_addition` 块（`tool_reference` 名称），与文本一起延后到下一条 assistant 之前；最后一条 system 消息的末块（含 tool_addition/removal）可带 cache 标记
 - [ ] 请求头加 `mid-conversation-tool-changes-2026-07-01` beta；未启用时（有重定义或无初始工具）照旧发送当前工具列表
 - [ ] payload 授权放行 adapter 自己声明的 `defer_loading` 工具，不放宽托管工具与厂商侧引用的拒绝（ADR-0005）
-- [ ] `ModelCompat` 携带该开关，已列入模型中 pi 数据开启它的条目同步设置（目录版本与 pin 同步升级）；删除工单 34 为其登记的 tool-changes 差分扩展
+- [ ] `ModelCompat` 携带该开关，已列入模型中 pi 数据开启它的条目同步设置（目录版本与 pin 同步升级）；删除工单 34 与工单 27（`opus-5-tool-loop`）为其登记的 tool-changes 差分扩展
 - [ ] 离线 E2E：无工具、工具不变、中途加/删工具、重定义回退、与图片/工具结果混排；pi 差分无待处理差异
