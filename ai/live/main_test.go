@@ -18,10 +18,11 @@ import (
 )
 
 // Budget of one live process (spec §2, §5: bounded tokens and calls). A
-// normal run of the largest combination makes 13 logical calls; the rest
-// leaves room for one retry of each scenario that meets a vendor fault.
+// normal run of the largest combination (openai-chat) makes up to 16
+// logical calls; the rest leaves room for one retry of each scenario that
+// meets a vendor fault.
 const (
-	maxCalls          = 24
+	maxCalls          = 32
 	maxRetries        = 1
 	maxOutputTokens   = 4096
 	retryBackoff      = 5 * time.Second
@@ -140,16 +141,18 @@ const liveTenant = "live-smoke"
 func newLiveEnv(t *testing.T, c *combo, key string) *liveEnv {
 	t.Helper()
 	rec := newRecorder()
-	client, err := newClient(c, key, rec)
+	client, err := newClient(c, key, rec, catalog)
 	if err != nil {
 		t.Fatalf("live: assembling the Client: %v", err)
 	}
 	return &liveEnv{combo: c, client: client, rec: rec}
 }
 
-func newClient(c *combo, key string, rec *recorder) (*ai.Client, error) {
+// newClient assembles the Client on cat, allowing every model cat lists for
+// the combination.
+func newClient(c *combo, key string, rec *recorder, cat ai.Catalog) (*ai.Client, error) {
 	var models []string
-	for _, m := range catalog.Models {
+	for _, m := range cat.Models {
 		if m.Provider == c.provider && m.API == c.api {
 			models = append(models, m.ID)
 		}
@@ -161,7 +164,7 @@ func newClient(c *combo, key string, rec *recorder) (*ai.Client, error) {
 		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "live-key", Version: "live",
 			BindingVersion: "live", AccountScopeID: "live-" + c.name, Active: true, APIKey: ai.NewSecret(key)},
 	}
-	return ai.NewClient(ai.Config{Policy: livePolicy(), Bindings: res, Credentials: res, Transport: rec})
+	return ai.NewClient(ai.Config{Policy: livePolicy(), Bindings: res, Credentials: res, Transport: rec, Catalog: &cat})
 }
 
 // livePolicy bounds a smoke process: short turns, one call at a time.

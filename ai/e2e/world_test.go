@@ -216,8 +216,10 @@ func primaryBinding(k tenantKey, providerURL string) ai.Binding {
 		// gpt-legacy-x is allowed but absent from the catalog; gpt-4.1 is in
 		// the catalog but not allowed. Neither may be called. gpt-4 is the
 		// text-only model; the gpt-5 family are reasoning models, gpt-5.5-pro
-		// the one with tiered prices.
-		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x", "gpt-5", "gpt-5-mini", "gpt-5.1", "gpt-5.2", "gpt-5-pro", "gpt-5.5-pro"},
+		// one with tiered prices; gpt-5.4, gpt-5.4-pro, gpt-6-sol and
+		// gpt-6-astra are the ones ADR-0018 listed that catalog.json calls.
+		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x", "gpt-5", "gpt-5-mini", "gpt-5.1", "gpt-5.2", "gpt-5-pro", "gpt-5.5-pro",
+			"gpt-5.4", "gpt-5.4-pro", "gpt-6-sol", "gpt-6-astra"},
 	}
 }
 

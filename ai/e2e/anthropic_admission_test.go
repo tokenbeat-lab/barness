@@ -257,7 +257,7 @@ func TestAnthropicAdmission(t *testing.T) {
 				phase  ai.Phase
 			}{
 				{"no-request-id", ai.CallScope{TenantID: tenantA.tenant}, a.target(), ai.CodeInvalidRequest, ai.PhaseScope},
-				{"model-not-allowed", scopeFor(tenantA, "req-model"), ai.Target{BindingID: "claude", ModelID: "claude-fable-5"}, ai.CodeTenantDenied, ai.PhaseCapability},
+				{"model-not-allowed", scopeFor(tenantA, "req-model"), ai.Target{BindingID: "claude", ModelID: "claude-legacy-x"}, ai.CodeTenantDenied, ai.PhaseCapability},
 				{"credential-missing", scopeFor(tenantB, "req-cred"), a.target(), ai.CodeCredentialUnavailable, ai.PhaseCredential},
 			} {
 				o := within(ev, c.name+" ends", func() outcome { return e.invoke(ctxFor(t), aw.world, c.scope, c.target, a.request(t)) })

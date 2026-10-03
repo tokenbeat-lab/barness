@@ -189,7 +189,7 @@ func TestAnthropicPreflightRejections(t *testing.T) {
 			}},
 		}},
 		{id: "model-not-allowed-by-binding", code: ai.CodeTenantDenied, phase: ai.PhaseCapability,
-			target: ai.Target{BindingID: "claude", ModelID: "claude-fable-5"}},
+			target: ai.Target{BindingID: "claude", ModelID: "claude-legacy-x"}},
 		{id: "model-of-another-api", code: ai.CodeTenantDenied, phase: ai.PhaseCapability,
 			target: ai.Target{BindingID: "claude", ModelID: "gpt-4.1-mini"}},
 		{id: "actor-not-permitted", code: ai.CodeTenantDenied, phase: ai.PhaseBinding,

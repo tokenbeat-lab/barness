@@ -59,7 +59,7 @@ func TestAnthropicFailures(t *testing.T) {
 	t.Run("setup-failure-before-start", func(t *testing.T) {
 		ev := run.Case(t, "P02-E02-setup-failure-before-start")
 		w := newWorld(t, tenantA)
-		s := w.client.Stream(ctxFor(t), textScope("req-setup"), ai.Target{BindingID: "claude", ModelID: "claude-fable-5"},
+		s := w.client.Stream(ctxFor(t), textScope("req-setup"), ai.Target{BindingID: "claude", ModelID: "claude-legacy-x"},
 			ai.Request{Messages: []ai.Message{ai.UserText("hi")}}, nil)
 		var events []ai.Event
 		for s.Next() {

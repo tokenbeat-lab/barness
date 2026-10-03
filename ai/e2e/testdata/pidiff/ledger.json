@@ -1652,6 +1652,124 @@
       "classification": "extension",
       "decision": "Derived from the request body, which differs only by the derived prompt cache key (cache cases) or the downgraded native state (the untrusted history case); see request.body.prompt_cache_key and request.body.messages[2] for these cases.",
       "ref": "spec §9; spec I6; issues/20"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Anthropic-Beta",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P02-fable-5-simple-unset-streamSimple",
+        "PIDIFF-P02-fable-5-text-stream",
+        "PIDIFF-P02-fable-5-tool-changes-stream",
+        "PIDIFF-P02-fable-5-tools-stream",
+        "PIDIFF-P02-opus-4-8-tool-changes-stream",
+        "PIDIFF-P02-opus-4-8-tools-stream"
+      ],
+      "classification": "extension",
+      "decision": "Optional features not implemented (ADR-0018): pi's betas for native tool changes (mid-conversation-tool-changes-2026-07-01, the tool cases) and fable-5's fallback models (server-side-fallback-2026-07-01). barness sends neither feature, so it declares no beta. See request.body.tools and request.body.fallbacks for these cases.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.headers.Content-Length",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P02-fable-5-simple-unset-streamSimple",
+        "PIDIFF-P02-fable-5-text-stream",
+        "PIDIFF-P02-fable-5-tool-changes-stream",
+        "PIDIFF-P02-fable-5-tools-stream",
+        "PIDIFF-P02-opus-4-8-tool-changes-stream",
+        "PIDIFF-P02-opus-4-8-tools-stream"
+      ],
+      "classification": "extension",
+      "decision": "Derived from the request body, which differs only by the optional features ADR-0018 leaves out; see request.body.tools, request.body.messages[3].content and request.body.fallbacks for these cases.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.body.tools",
+      "cases": [
+        "PIDIFF-P02-opus-4-8-tools-stream",
+        "PIDIFF-P02-opus-4-8-tool-changes-stream",
+        "PIDIFF-P02-fable-5-tools-stream",
+        "PIDIFF-P02-fable-5-tool-changes-stream"
+      ],
+      "classification": "extension",
+      "decision": "Optional feature not implemented (ADR-0018): native mid-conversation tool changes. claude-opus-4-8 and claude-fable-5 set supportsMidConvoToolChanges, so with initial tools and no redefinition pi's buildParams keeps the initial tools active, declares its deferred placeholder tool __pi_deferred_placeholder__ and every later tool with defer_loading, and names each change in tool_removal/tool_addition blocks of the system message. barness sends the tools current after the last change, as pi does with the feature off (getCurrentTools); the request is valid either way. Remove when issue 26 implements the feature.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.body.messages[3].content",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P02-opus-4-8-tool-changes-stream",
+        "PIDIFF-P02-fable-5-tool-changes-stream"
+      ],
+      "classification": "extension",
+      "decision": "Optional feature not implemented (ADR-0018): native mid-conversation tool changes. claude-opus-4-8 and claude-fable-5 set supportsMidConvoToolChanges, so with initial tools and no redefinition pi's buildParams keeps the initial tools active, declares its deferred placeholder tool __pi_deferred_placeholder__ and every later tool with defer_loading, and names each change in tool_removal/tool_addition blocks of the system message. barness sends the tools current after the last change, as pi does with the feature off (getCurrentTools); the request is valid either way. Remove when issue 26 implements the feature.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "anthropic-messages",
+      "path": "request.body.fallbacks",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P02-fable-5-text-stream",
+        "PIDIFF-P02-fable-5-tools-stream",
+        "PIDIFF-P02-fable-5-tool-changes-stream",
+        "PIDIFF-P02-fable-5-simple-unset-streamSimple"
+      ],
+      "classification": "extension",
+      "decision": "Optional feature not implemented (ADR-0018): server-side fallback models. claude-fable-5 lists allowedFallbackModels, which pi sends as fallbacks with the server-side-fallback-2026-07-01 beta; barness sends none, so the vendor does not switch models when fable-5 is unavailable. Remove when issue 28 implements the feature.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.headers.Content-Length",
+      "kind": "changed",
+      "cases": [
+        "PIDIFF-P01-gpt-5.4-tool-additions-stream",
+        "PIDIFF-P01-gpt-6-sol-tool-additions-stream"
+      ],
+      "classification": "extension",
+      "decision": "Derived from the request body, which differs only by pi's additional_tools anchoring; see request.body.input[4] and request.body.tools for these cases.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.body.input[4]",
+      "cases": [
+        "PIDIFF-P01-gpt-5.4-tool-additions-stream",
+        "PIDIFF-P01-gpt-6-sol-tool-additions-stream"
+      ],
+      "classification": "extension",
+      "decision": "Optional feature not implemented (ADR-0018): additional_tools/tool search. gpt-5.4 and gpt-6-sol set supportsAdditionalTools and supportsToolSearch, so for a tool change that only adds tools pi's resolveTranscriptTools keeps the initial tools in tools and anchors convert in place, as an additional_tools item ahead of the system message (input[4]), which moves the system message to input[5]. barness sends the current tools in tools, as pi does with both features off or after a removal (the tool-removal cases match pi). Remove when the feature is implemented.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.body.input[5]",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P01-gpt-5.4-tool-additions-stream",
+        "PIDIFF-P01-gpt-6-sol-tool-additions-stream"
+      ],
+      "classification": "extension",
+      "decision": "Optional feature not implemented (ADR-0018): additional_tools/tool search. gpt-5.4 and gpt-6-sol set supportsAdditionalTools and supportsToolSearch, so for a tool change that only adds tools pi's resolveTranscriptTools keeps the initial tools in tools and anchors convert in place, as an additional_tools item ahead of the system message (input[4]), which moves the system message to input[5]. barness sends the current tools in tools, as pi does with both features off or after a removal (the tool-removal cases match pi). Remove when the feature is implemented.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "openai-responses",
+      "path": "request.body.tools[1]",
+      "kind": "only_barness",
+      "cases": [
+        "PIDIFF-P01-gpt-5.4-tool-additions-stream",
+        "PIDIFF-P01-gpt-6-sol-tool-additions-stream"
+      ],
+      "classification": "extension",
+      "decision": "Optional feature not implemented (ADR-0018): additional_tools/tool search. gpt-5.4 and gpt-6-sol set supportsAdditionalTools and supportsToolSearch, so for a tool change that only adds tools pi's resolveTranscriptTools keeps the initial tools in tools and anchors convert in place, as an additional_tools item ahead of the system message (input[4]), which moves the system message to input[5]. barness sends the current tools in tools, as pi does with both features off or after a removal (the tool-removal cases match pi). Remove when the feature is implemented.",
+      "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
     }
   ],
   "routes": [

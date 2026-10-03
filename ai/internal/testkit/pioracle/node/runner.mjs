@@ -150,10 +150,28 @@ async function costs(input) {
 	return { results, models };
 }
 
+// models reports pi's model entry for each requested provider, api and id
+// (null when pi does not list it), with the api as the oracle routes it, so
+// the built-in catalog can be checked field by field against pi's data.
+async function models(input) {
+	const results = [];
+	for (const key of input.models) {
+		const entry = APIS[key.api];
+		const known = entry ? await catalogModels(key.api, entry) : [];
+		results.push(known.find((m) => m.provider === key.provider && m.id === key.id) ?? null);
+	}
+	return results;
+}
+
 async function main() {
 	refuseLeakyEnv();
 	installLoopbackGuard();
 	const input = await readStdin();
+	if (input.entry === "models") {
+		const results = await models(input);
+		process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, results }));
+		return;
+	}
 	if (input.entry === "costs") {
 		const out = await costs(input);
 		process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, ...out }));

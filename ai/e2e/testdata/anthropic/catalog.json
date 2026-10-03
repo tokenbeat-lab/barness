@@ -1,0 +1,1473 @@
+{
+  "case": "P02 Anthropic × Messages models listed by ADR-0018 (claude-opus-4-8, claude-fable-5)",
+  "source": "Synthetic offline fixture (issue 34). Expected requests follow pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) packages/ai/src/api/anthropic-messages.ts buildParams/convertMessages for an API key with the models' frozen anthropic.json data, except for the optional features barness does not implement (native mid-conversation tool changes, server-side fallback models), which follow pi's path with them off; the differences are ledger extensions (ADR-0018 决策四). Checked against frozen pi by the differential.",
+  "scenarios": [
+    {
+      "id": "opus-4-8-text",
+      "model": "claude-opus-4-8",
+      "about": "No tools: the system prompt and the user turn, max_tokens the model's 128000. Its compat takes no temperature (supportsTemperature false), so the option's temperature is not sent.",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_c",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Hello."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "options": {
+        "temperature": 0.7
+      },
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "body": {
+            "model": "claude-opus-4-8",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Say hello.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ]
+          },
+          "query": "beta=true",
+          "absentHeaders": [
+            "Anthropic-Beta"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_c"
+      }
+    },
+    {
+      "id": "opus-4-8-tools",
+      "model": "claude-opus-4-8",
+      "about": "A tool round trip: the initial tools are the current ones and travel as the request's tools. pi, with native tool changes on, also declares its deferred placeholder tool and the tool-changes beta; barness sends the current list as pi does with the feature off (ADR-0018).",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "tools": [
+          {
+            "name": "lookup",
+            "description": "Look something up.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "q"
+              ]
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Look up x."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-4-8",
+            "stopReason": "toolUse",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "Checking."
+              },
+              {
+                "type": "toolCall",
+                "id": "toolu_01",
+                "name": "lookup",
+                "arguments": {
+                  "q": "x"
+                }
+              }
+            ]
+          },
+          {
+            "role": "toolResult",
+            "toolCallId": "toolu_01",
+            "toolName": "lookup",
+            "content": [
+              {
+                "type": "text",
+                "text": "42"
+              }
+            ],
+            "isError": false
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_c",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "It is 42."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "body": {
+            "model": "claude-opus-4-8",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Look up x."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Checking."
+                  },
+                  {
+                    "type": "tool_use",
+                    "id": "toolu_01",
+                    "name": "lookup",
+                    "input": {
+                      "q": "x"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "tool_result",
+                    "tool_use_id": "toolu_01",
+                    "content": "42",
+                    "is_error": false,
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "tools": [
+              {
+                "name": "lookup",
+                "description": "Look something up.",
+                "eager_input_streaming": true,
+                "input_schema": {
+                  "type": "object",
+                  "properties": {
+                    "q": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "q"
+                  ]
+                },
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ]
+          },
+          "query": "beta=true",
+          "absentHeaders": [
+            "Anthropic-Beta"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_c",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 5e-05,
+            "output": 5e-05,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0001
+          }
+        },
+        "usageReporting": "complete"
+      }
+    },
+    {
+      "id": "opus-4-8-tool-changes",
+      "model": "claude-opus-4-8",
+      "about": "A later system message removes clock and adds convert: it goes in place (supportsMidConvoSystemMessages), held until the next assistant turn, and the request declares the tools current after it (lookup, convert). pi, with native tool changes on, keeps the initial tools declared, defers convert and names the changes in tool_removal/tool_addition blocks; barness sends the current list as pi does with the feature off (ADR-0018).",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "tools": [
+          {
+            "name": "lookup",
+            "description": "Look something up.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "q"
+              ]
+            }
+          },
+          {
+            "name": "clock",
+            "description": "Current time in a city.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ]
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Look up x."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-4-8",
+            "stopReason": "toolUse",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "toolCall",
+                "id": "toolu_01",
+                "name": "lookup",
+                "arguments": {
+                  "q": "x"
+                }
+              }
+            ]
+          },
+          {
+            "role": "toolResult",
+            "toolCallId": "toolu_01",
+            "toolName": "lookup",
+            "content": [
+              {
+                "type": "text",
+                "text": "42"
+              }
+            ],
+            "isError": false
+          },
+          {
+            "role": "system",
+            "content": "Use convert for conversions.",
+            "toolsRemoved": [
+              "clock"
+            ],
+            "toolsAdded": [
+              {
+                "name": "convert",
+                "description": "Convert a value.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-opus-4-8",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "It is 42."
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Convert it."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_c",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "body": {
+            "model": "claude-opus-4-8",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Look up x."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "tool_use",
+                    "id": "toolu_01",
+                    "name": "lookup",
+                    "input": {
+                      "q": "x"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "tool_result",
+                    "tool_use_id": "toolu_01",
+                    "content": "42",
+                    "is_error": false
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Use convert for conversions."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "It is 42."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Convert it.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "tools": [
+              {
+                "name": "lookup",
+                "description": "Look something up.",
+                "eager_input_streaming": true,
+                "input_schema": {
+                  "type": "object",
+                  "properties": {
+                    "q": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "q"
+                  ]
+                }
+              },
+              {
+                "name": "convert",
+                "description": "Convert a value.",
+                "eager_input_streaming": true,
+                "input_schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ]
+          },
+          "query": "beta=true",
+          "absentHeaders": [
+            "Anthropic-Beta"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_c"
+      }
+    },
+    {
+      "id": "fable-5-text",
+      "model": "claude-fable-5",
+      "about": "No tools: the system prompt and the user turn, max_tokens the model's 128000. pi also sends its allowedFallbackModels as fallbacks with the server-side-fallback beta; barness does not (optional feature, ADR-0018).",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_c",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Hello."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "body": {
+            "model": "claude-fable-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Say hello.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ]
+          },
+          "query": "beta=true",
+          "absentHeaders": [
+            "Anthropic-Beta"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_c"
+      }
+    },
+    {
+      "id": "fable-5-tools",
+      "model": "claude-fable-5",
+      "about": "A tool round trip: the initial tools are the current ones and travel as the request's tools. pi, with native tool changes on, also declares its deferred placeholder tool and the tool-changes beta; barness sends the current list as pi does with the feature off (ADR-0018).",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "tools": [
+          {
+            "name": "lookup",
+            "description": "Look something up.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "q"
+              ]
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Look up x."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-fable-5",
+            "stopReason": "toolUse",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "Checking."
+              },
+              {
+                "type": "toolCall",
+                "id": "toolu_01",
+                "name": "lookup",
+                "arguments": {
+                  "q": "x"
+                }
+              }
+            ]
+          },
+          {
+            "role": "toolResult",
+            "toolCallId": "toolu_01",
+            "toolName": "lookup",
+            "content": [
+              {
+                "type": "text",
+                "text": "42"
+              }
+            ],
+            "isError": false
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_c",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "It is 42."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "body": {
+            "model": "claude-fable-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Look up x."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Checking."
+                  },
+                  {
+                    "type": "tool_use",
+                    "id": "toolu_01",
+                    "name": "lookup",
+                    "input": {
+                      "q": "x"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "tool_result",
+                    "tool_use_id": "toolu_01",
+                    "content": "42",
+                    "is_error": false,
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "tools": [
+              {
+                "name": "lookup",
+                "description": "Look something up.",
+                "eager_input_streaming": true,
+                "input_schema": {
+                  "type": "object",
+                  "properties": {
+                    "q": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "q"
+                  ]
+                },
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ]
+          },
+          "query": "beta=true",
+          "absentHeaders": [
+            "Anthropic-Beta"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_c",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.0001,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0002
+          }
+        },
+        "usageReporting": "complete"
+      }
+    },
+    {
+      "id": "fable-5-tool-changes",
+      "model": "claude-fable-5",
+      "about": "A later system message removes clock and adds convert: it goes in place (supportsMidConvoSystemMessages), held until the next assistant turn, and the request declares the tools current after it (lookup, convert). pi, with native tool changes on, keeps the initial tools declared, defers convert and names the changes in tool_removal/tool_addition blocks; barness sends the current list as pi does with the feature off (ADR-0018).",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "tools": [
+          {
+            "name": "lookup",
+            "description": "Look something up.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "q"
+              ]
+            }
+          },
+          {
+            "name": "clock",
+            "description": "Current time in a city.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ]
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Look up x."
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-fable-5",
+            "stopReason": "toolUse",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "toolCall",
+                "id": "toolu_01",
+                "name": "lookup",
+                "arguments": {
+                  "q": "x"
+                }
+              }
+            ]
+          },
+          {
+            "role": "toolResult",
+            "toolCallId": "toolu_01",
+            "toolName": "lookup",
+            "content": [
+              {
+                "type": "text",
+                "text": "42"
+              }
+            ],
+            "isError": false
+          },
+          {
+            "role": "system",
+            "content": "Use convert for conversions.",
+            "toolsRemoved": [
+              "clock"
+            ],
+            "toolsAdded": [
+              {
+                "name": "convert",
+                "description": "Convert a value.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "trusted": true,
+            "api": "anthropic-messages",
+            "provider": "anthropic",
+            "model": "claude-fable-5",
+            "stopReason": "stop",
+            "timestamp": 1,
+            "content": [
+              {
+                "type": "text",
+                "text": "It is 42."
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Convert it."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_c",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Done."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "body": {
+            "model": "claude-fable-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Look up x."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "tool_use",
+                    "id": "toolu_01",
+                    "name": "lookup",
+                    "input": {
+                      "q": "x"
+                    }
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "tool_result",
+                    "tool_use_id": "toolu_01",
+                    "content": "42",
+                    "is_error": false
+                  }
+                ]
+              },
+              {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Use convert for conversions."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "It is 42."
+                  }
+                ]
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Convert it.",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "system": [
+              {
+                "type": "text",
+                "text": "You are terse.",
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ],
+            "tools": [
+              {
+                "name": "lookup",
+                "description": "Look something up.",
+                "eager_input_streaming": true,
+                "input_schema": {
+                  "type": "object",
+                  "properties": {
+                    "q": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "q"
+                  ]
+                }
+              },
+              {
+                "name": "convert",
+                "description": "Convert a value.",
+                "eager_input_streaming": true,
+                "input_schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "cache_control": {
+                  "type": "ephemeral"
+                }
+              }
+            ]
+          },
+          "query": "beta=true",
+          "absentHeaders": [
+            "Anthropic-Beta"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_c"
+      }
+    },
+    {
+      "id": "opus-4-8-simple-xhigh",
+      "model": "claude-opus-4-8",
+      "entry": "streamSimple",
+      "about": "Adaptive thinking: a level the model's level map names (xhigh) is sent as its effort.",
+      "context": {
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hi"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reasoning": "xhigh"
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_c",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Hello."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "body": {
+            "model": "claude-opus-4-8",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Hi",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true,
+            "thinking": {
+              "type": "adaptive",
+              "display": "summarized"
+            },
+            "output_config": {
+              "effort": "xhigh"
+            }
+          },
+          "query": "beta=true",
+          "absentHeaders": [
+            "Anthropic-Beta"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_c"
+      }
+    },
+    {
+      "id": "fable-5-simple-unset",
+      "model": "claude-fable-5",
+      "entry": "streamSimple",
+      "about": "No reasoning level on a model whose level map has off null: thinking cannot be switched off, so none is sent.",
+      "context": {
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hi"
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "message_start",
+          "message": {
+            "id": "msg_c",
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0
+            }
+          }
+        },
+        {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Hello."
+          }
+        },
+        {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn"
+          },
+          "usage": {
+            "output_tokens": 2
+          }
+        },
+        {
+          "type": "message_stop"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1/messages",
+          "body": {
+            "model": "claude-fable-5",
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Hi",
+                    "cache_control": {
+                      "type": "ephemeral"
+                    }
+                  }
+                ]
+              }
+            ],
+            "max_tokens": 128000,
+            "stream": true
+          },
+          "query": "beta=true",
+          "absentHeaders": [
+            "Anthropic-Beta"
+          ]
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "responseId": "msg_c"
+      }
+    }
+  ]
+}

@@ -59,3 +59,11 @@ pi 模型数据中的 `compat` 开关分两类：
 ## 取代关系
 
 取代 ADR-0011 决策五中"不列入需要原生中途工具变更、托管中途 effort 或服务端回退模型的模型"一句，以及维护者决定第 5 条中的工单依赖顺序；该决策中已列入的模型与 `ModelCompat` 字段不变。ADR-0012 决策八、ADR-0013 决策二维持不变。
+
+## 实现（工单 34，2026-10-03）
+
+- 目录升为 `2026-10-03.1`，列入决策三的 12 个模型（Responses 10 个、Messages 2 个），Chat 上另有 9 个条目。新增的 compat 只有已有的 `SupportsMidConvoSystemMessages`、`SupportsExplicitPromptCacheMode`（gpt-5.6/gpt-6 系列）与 opus-4-8 的 `SupportsTemperature=false`；`ModelCompat` 没有新字段。
+- Chat 的排除规则从硬编码两个 ID 改为按 pi 数据中的模型 ID 判定：ID 以 `-pro` 结尾的 OpenAI 模型只在 Responses 上提供（gpt-5-pro、gpt-5.4-pro、gpt-5.5-pro）。
+- 全部内置模型的名称、reasoning、输入、上下文、输出上限、level map、所携带的 compat 与价格，由 `TestCatalogInclusion/builtin-models-are-pi's` 在差分开启时与冻结 pi 的模型数据逐字段比较（runner 的 `models` 入口），不再靠人工核对。
+- 差分新增 9 条 `extension` 登记（Anthropic 5 条、Responses 4 条），`cases` 限于 `catalog.json` 中带工具或 fable-5 的用例。Chat 与不涉及可选特性的用例与 pi 一致。
+- 真实冒烟场景已加入 `ai/live`（三个组合各两款模型的 `tool-changes-*`，以及 Chat 上的 `pro-model-unavailable`），尚待维护者用测试账户运行。厂商拒绝任何一项时，按决策三撤出对应模型，结论记入本节。

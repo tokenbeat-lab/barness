@@ -133,6 +133,9 @@ func TestPiDifferential(t *testing.T) {
 				differential(t, ev, o, ledger, "stream", usagePidiffScenario(t, uf, uraw, text, sc))
 			})
 		}
+		// The models ADR-0018 lists (TestCatalogInclusion), in the shared
+		// scenario format.
+		scenarioPiDifferential(t, ledger, responsesProtocol, "P01", []string{"catalog.json"})
 		// Tool calls cut off by truncation or a failed stream (06).
 		tf, traw := loadToolFixture(t)
 		for _, sc := range tf.Truncated {

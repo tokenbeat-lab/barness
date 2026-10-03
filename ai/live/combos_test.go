@@ -82,6 +82,9 @@ var combos = []combo{
 		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5-mini",
 		quiet: ai.ThinkingMinimal, full: responsesOptions(ai.ThinkingMinimal), forcesTool: true,
 		reasoning: ai.ThinkingLow,
+		// ADR-0018's models: one of gpt-5.4/5.5 and one of gpt-5.6/gpt-6,
+		// the same two on openai-chat.
+		extra: []scenario{toolChanges("gpt-5.4"), toolChanges("gpt-6-sol")},
 	},
 	{
 		name: "anthropic-messages", spec: "P02", provider: ai.ProviderAnthropic, api: ai.APIAnthropicMessages,
@@ -97,6 +100,7 @@ var combos = []combo{
 			return o
 		},
 		forcesTool: true, reasoning: ai.ThinkingLow,
+		extra: []scenario{toolChanges("claude-opus-4-8"), toolChanges("claude-fable-5")},
 	},
 	{
 		name: "google-gemini", spec: "P03", provider: ai.ProviderGoogle, api: ai.APIGoogleGenerativeAI,
@@ -118,7 +122,7 @@ var combos = []combo{
 		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5-mini",
 		quiet: ai.ThinkingMinimal, full: chatOptions(ai.ThinkingMinimal), forcesTool: true,
 		noReplay: "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage",
-		extra:    []scenario{chatUsagePosition},
+		extra:    []scenario{chatUsagePosition, toolChanges("gpt-5.4"), toolChanges("gpt-6-sol"), chatProUnavailable},
 	},
 	{
 		// DeepSeek's Responses: no level sends effort "none" (its map has

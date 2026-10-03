@@ -197,12 +197,17 @@ func levelValue(m ai.ThinkingLevelMap, l ai.ThinkingLevel) (string, bool) {
 
 // requestBody is the last captured request body as JSON.
 func requestBody(ex []exchange) map[string]any {
-	if len(ex) == 0 {
-		return nil
-	}
 	var v map[string]any
-	_ = json.Unmarshal([]byte(ex[len(ex)-1].RequestBody), &v)
+	_ = json.Unmarshal([]byte(lastRequestBody(ex)), &v)
 	return v
+}
+
+// lastRequestBody is the last captured request body, or "".
+func lastRequestBody(ex []exchange) string {
+	if len(ex) == 0 {
+		return ""
+	}
+	return ex[len(ex)-1].RequestBody
 }
 
 // jsonAt is the string at path in v, or "".

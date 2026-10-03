@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"slices"
+	"strings"
 )
 
 // Modality is an input kind a model accepts.
@@ -42,10 +43,12 @@ type ModelCompat struct {
 	// SupportsStrictMode: Responses function tools carry a "strict" field.
 	SupportsStrictMode bool `json:"supportsStrictMode,omitempty"`
 	// SupportsMidConvoSystemMessages: later system messages are sent in place
-	// as instruction updates instead of folding into the leading one. pi
-	// sets it on OpenAI models that also send added tools as
-	// additional_tools items, which barness-ai does not implement, so those
-	// are not listed; deepseek-v4-pro sets it without added tool support.
+	// as instruction updates instead of folding into the leading one; the
+	// request still declares the tools current after the last change. pi
+	// pairs it with optional ways to declare tool changes in place (OpenAI's
+	// additional_tools and tool search, Anthropic's native tool changes),
+	// which barness-ai does not implement: it sends the current tool list,
+	// as pi does with them off (ADR-0018).
 	SupportsMidConvoSystemMessages bool `json:"supportsMidConvoSystemMessages,omitempty"`
 	// SupportsLongCacheRetention: long cache retention is requested
 	// (Responses: a 24h retention; Anthropic: a 1h cache_control ttl). Unset
@@ -97,16 +100,25 @@ type Catalog struct {
 // maps when reasoning mapping landed, prices and gpt-5.5-pro when cost
 // estimation landed, the Anthropic models when the Messages adapter landed,
 // the Google models when the Gemini adapter landed).
-// Models whose compat needs behavior barness-ai does not implement are not
-// listed, so nothing here promises behavior the adapter does not have:
-// OpenAI models with additional_tools or tool search, and Anthropic models
-// with native mid-conversation tool changes, managed mid-conversation
-// effort or server-side fallback models (claude-fable-5, claude-fable-5-1,
-// claude-opus-4-8, claude-opus-5, claude-opus-5-5), and Google models that
-// generateContent alone cannot serve (see builtinGoogleModels). pi's
+// (ADR-0018 listed the models below whose compat only turns on optional
+// features, when issue 34 landed.)
+//
+// A model is listed when its Provider × API is implemented and the adapter
+// keeps all of its hard constraints, the compat flags without which the
+// vendor rejects a reachable request (ADR-0018). Optional features barness-ai
+// does not implement do not keep a model out: it is served as pi serves it
+// with the feature off, and the difference is a ledger extension. Those are
+// Anthropic's native mid-conversation tool changes and server-side fallback
+// models, and OpenAI's additional_tools and tool search, so their flags
+// (supportsMidConvoToolChanges, allowedFallbackModels,
+// supportsAdditionalTools, supportsToolSearch) are not carried. pi's
 // supportsOpenAIGrammarTools and Anthropic supportsStrictTools only affect
 // constrained-sampling tools, which cannot be declared here, so they are not
-// carried. gpt-4 and o3-mini are the text-only models: images reach them as
+// carried either. Not listed: Anthropic models with managed
+// mid-conversation effort, a hard constraint not implemented yet
+// (claude-fable-5-1, claude-opus-5, claude-opus-5-5; issue 27), and Google
+// models that generateContent alone cannot serve (see builtinGoogleModels).
+// gpt-4 and o3-mini are the text-only models: images reach them as
 // placeholders; every Anthropic and Google model takes images.
 //
 // pi's data lists OpenAI's models for Responses only; the OpenAI Chat
@@ -118,7 +130,7 @@ type Catalog struct {
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-02.6",
+		Version: "2026-10-03.1",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
 			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels()),
 	}
@@ -174,11 +186,12 @@ func builtinDeepSeekResponsesModels() []Model {
 // builtinOpenAIChatModels are the listed OpenAI models that Chat Completions
 // also serves, with pi's OpenAI data on the openai-completions API
 // (ADR-0013): every field, compat included, as for Responses. The pro
-// models answer only on Responses, so they are left out.
+// models, whose id in pi's data ends in "-pro", answer only on Responses,
+// so they are left out.
 func builtinOpenAIChatModels() []Model {
 	var out []Model
 	for _, m := range builtinOpenAIModels() {
-		if m.ID == "gpt-5-pro" || m.ID == "gpt-5.5-pro" {
+		if strings.HasSuffix(m.ID, "-pro") {
 			continue
 		}
 		m.API = APIOpenAICompletions
@@ -195,14 +208,35 @@ func builtinOpenAIModels() []Model {
 		return Model{Provider: ProviderOpenAI, API: APIOpenAIResponses, ID: id, Name: name, Input: input,
 			ContextWindow: contextWindow, MaxTokens: maxTokens, Compat: strict, Cost: cost}
 	}
-	// price is pi's cost entry without tiers; OpenAI's data prices no
-	// cache writes.
+	// price is pi's cost entry without tiers or cache writes.
 	price := func(input, output, cacheRead float64) ModelCost {
 		return ModelCost{CostRates: CostRates{Input: input, Output: output, CacheRead: cacheRead}}
+	}
+	// tiered is pi's cost entry with its one tier, which starts above
+	// 272000 input-side tokens on every tiered OpenAI model.
+	tiered := func(base, above CostRates) ModelCost {
+		return ModelCost{CostRates: base, Tiers: []CostTier{{InputTokensAbove: 272000, CostRates: above}}}
 	}
 	reasoning := func(m Model, levels ThinkingLevelMap) Model {
 		m.Reasoning, m.ThinkingLevelMap = true, levels
 		return m
+	}
+	// midConvo marks a model taking system messages mid-conversation.
+	midConvo := func(m Model) Model {
+		m.Compat.SupportsMidConvoSystemMessages = true
+		return m
+	}
+	// gpt56 is a GPT-5.6 or GPT-6 model: every level but minimal, off
+	// mapped to off ("" for null), cache retention sent as
+	// prompt_cache_options.
+	gpt56 := func(id, name, off string, cost ModelCost) Model {
+		m := midConvo(reasoning(model(id, name, textAndImage(), 272000, 128000, cost),
+			levelMap(off, ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh, ThinkingMax)))
+		m.Compat.SupportsExplicitPromptCacheMode = true
+		return m
+	}
+	upToXHigh := func() ThinkingLevelMap {
+		return levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh)
 	}
 	return []Model{
 		model("gpt-4", "GPT-4", textOnly(), 8192, 8192, price(30, 60, 0)),
@@ -215,12 +249,29 @@ func builtinOpenAIModels() []Model {
 		reasoning(model("gpt-5-pro", "GPT-5 Pro", textAndImage(), 400000, 128000, price(15, 120, 0)), levelMap("", ThinkingHigh)),
 		reasoning(model("gpt-5.1", "GPT-5.1", textAndImage(), 400000, 128000, price(1.25, 10, 0.125)), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh)),
 		reasoning(model("gpt-5.2", "GPT-5.2", textAndImage(), 400000, 128000, price(1.75, 14, 0.175)), levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
-		// The one listed model with tiered prices: the others pi tiers
-		// need additional_tools or tool search.
+		midConvo(reasoning(model("gpt-5.4", "GPT-5.4", textAndImage(), 272000, 128000,
+			tiered(CostRates{Input: 2.5, Output: 15, CacheRead: 0.25}, CostRates{Input: 5, Output: 22.5, CacheRead: 0.5})), upToXHigh())),
+		midConvo(reasoning(model("gpt-5.4-mini", "GPT-5.4 mini", textAndImage(), 400000, 128000, price(0.75, 4.5, 0.075)), upToXHigh())),
+		midConvo(reasoning(model("gpt-5.4-pro", "GPT-5.4 Pro", textAndImage(), 1050000, 128000,
+			tiered(CostRates{Input: 30, Output: 180}, CostRates{Input: 60, Output: 270})),
+			levelMap("", ThinkingMedium, ThinkingHigh, ThinkingXHigh))),
+		midConvo(reasoning(model("gpt-5.5", "GPT-5.5", textAndImage(), 272000, 128000,
+			tiered(CostRates{Input: 5, Output: 30, CacheRead: 0.5}, CostRates{Input: 10, Output: 45, CacheRead: 1})), upToXHigh())),
 		reasoning(model("gpt-5.5-pro", "GPT-5.5 Pro", textAndImage(), 1050000, 128000,
-			ModelCost{CostRates: CostRates{Input: 30, Output: 180},
-				Tiers: []CostTier{{InputTokensAbove: 272000, CostRates: CostRates{Input: 60, Output: 270}}}}),
+			tiered(CostRates{Input: 30, Output: 180}, CostRates{Input: 60, Output: 270})),
 			levelMap("", ThinkingMedium, ThinkingHigh, ThinkingXHigh)),
+		gpt56("gpt-5.6-luna", "GPT-5.6 Luna", "none", tiered(CostRates{Input: 0.2, Output: 1.2, CacheRead: 0.02, CacheWrite: 0.25},
+			CostRates{Input: 0.4, Output: 1.8, CacheRead: 0.04, CacheWrite: 0.5})),
+		gpt56("gpt-5.6-sol", "GPT-5.6 Sol", "none", tiered(CostRates{Input: 4, Output: 20, CacheRead: 0.4, CacheWrite: 5},
+			CostRates{Input: 8, Output: 30, CacheRead: 0.8, CacheWrite: 10})),
+		gpt56("gpt-5.6-terra", "GPT-5.6 Terra", "none", tiered(CostRates{Input: 2, Output: 12, CacheRead: 0.2, CacheWrite: 2.5},
+			CostRates{Input: 4, Output: 18, CacheRead: 0.4, CacheWrite: 5})),
+		gpt56("gpt-6-astra", "GPT-6 Astra", "", tiered(CostRates{Input: 10, Output: 50, CacheRead: 1, CacheWrite: 12.5},
+			CostRates{Input: 20, Output: 75, CacheRead: 2, CacheWrite: 25})),
+		gpt56("gpt-6-luna", "GPT-6 Luna", "none", tiered(CostRates{Input: 0.1, Output: 0.5, CacheRead: 0.01, CacheWrite: 0.125},
+			CostRates{Input: 0.2, Output: 0.75, CacheRead: 0.02, CacheWrite: 0.25})),
+		gpt56("gpt-6-sol", "GPT-6 Sol", "none", tiered(CostRates{Input: 2, Output: 10, CacheRead: 0.2, CacheWrite: 2.5},
+			CostRates{Input: 4, Output: 15, CacheRead: 0.4, CacheWrite: 5})),
 		reasoning(model("o3", "o3", textAndImage(), 200000, 100000, price(2, 8, 0.5)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
 		reasoning(model("o3-mini", "o3-mini", textOnly(), 200000, 100000, price(1.1, 4.4, 0.55)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
 		reasoning(model("o4-mini", "o4-mini", textAndImage(), 200000, 100000, price(1.1, 4.4, 0.275)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
@@ -230,6 +281,9 @@ func builtinOpenAIModels() []Model {
 // builtinAnthropicModels are pi's Anthropic Messages models that barness-ai
 // can serve. All are reasoning models taking text and images. A level map
 // lists only the entries pi's data sets; the others stay unset.
+// claude-opus-4-8 and claude-fable-5 take system messages mid-conversation;
+// their native tool changes and fable-5's fallback models are optional
+// features barness-ai does not implement (ADR-0018).
 func builtinAnthropicModels() []Model {
 	model := func(id, name string, contextWindow, maxTokens int, input, output, cacheRead, cacheWrite float64) Model {
 		return Model{Provider: ProviderAnthropic, API: APIAnthropicMessages, ID: id, Name: name, Reasoning: true,
@@ -245,13 +299,21 @@ func builtinAnthropicModels() []Model {
 	xhighAndMax := func() ThinkingLevelMap { return ThinkingLevelMap{XHigh: Value("xhigh"), Max: Value("max")} }
 	opus47 := adaptive(model("claude-opus-4-7", "Claude Opus 4.7", 1000000, 128000, 5, 25, 0.5, 6.25), xhighAndMax())
 	opus47.Compat.SupportsTemperature = Value(false)
+	opus48 := adaptive(model("claude-opus-4-8", "Claude Opus 4.8", 1000000, 128000, 5, 25, 0.5, 6.25), xhighAndMax())
+	opus48.Compat.SupportsTemperature = Value(false)
+	opus48.Compat.SupportsMidConvoSystemMessages = true
+	fable5 := adaptive(model("claude-fable-5", "Claude Fable 5", 1000000, 128000, 10, 50, 1, 12.5),
+		ThinkingLevelMap{Off: Null[string](), XHigh: Value("xhigh"), Max: Value("max")})
+	fable5.Compat.SupportsMidConvoSystemMessages = true
 	return []Model{
+		fable5,
 		model("claude-haiku-4-5", "Claude Haiku 4.5 (latest)", 200000, 64000, 1, 5, 0.1, 1.25),
 		model("claude-haiku-4-5-20251001", "Claude Haiku 4.5", 200000, 64000, 1, 5, 0.1, 1.25),
 		model("claude-opus-4-5", "Claude Opus 4.5 (latest)", 200000, 64000, 5, 25, 0.5, 6.25),
 		model("claude-opus-4-5-20251101", "Claude Opus 4.5", 200000, 64000, 5, 25, 0.5, 6.25),
 		adaptive(model("claude-opus-4-6", "Claude Opus 4.6", 1000000, 128000, 5, 25, 0.5, 6.25), maxOnly()),
 		opus47,
+		opus48,
 		model("claude-sonnet-4-5", "Claude Sonnet 4.5 (latest)", 1000000, 64000, 3, 15, 0.3, 3.75),
 		model("claude-sonnet-4-5-20250929", "Claude Sonnet 4.5", 1000000, 64000, 3, 15, 0.3, 3.75),
 		adaptive(model("claude-sonnet-4-6", "Claude Sonnet 4.6", 1000000, 128000, 3, 15, 0.3, 3.75), maxOnly()),

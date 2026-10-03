@@ -198,6 +198,23 @@ func (o *Oracle) Costs(ctx context.Context, cases []CostCase, models []string) (
 	return out, err
 }
 
+// ModelKey locates a model in pi's catalogs as the oracle routes them.
+type ModelKey struct {
+	Provider string `json:"provider"`
+	API      string `json:"api"`
+	ID       string `json:"id"`
+}
+
+// Models reports pi's frozen model entry for each key, null when pi does not
+// list it, so a catalog can be checked field by field against pi's data.
+func (o *Oracle) Models(ctx context.Context, keys []ModelKey) ([]json.RawMessage, error) {
+	var out struct {
+		Results []json.RawMessage `json:"results"`
+	}
+	err := o.direct(ctx, map[string]any{"entry": "models", "models": keys}, &out)
+	return out.Results, err
+}
+
 // direct runs one of the runner's direct entries, which evaluate a pi rule
 // without a provider, and decodes its output into out. Like Run, it uses an
 // empty environment and refuses a copy that does not match the provenance.

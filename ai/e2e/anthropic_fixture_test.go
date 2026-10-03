@@ -25,4 +25,4 @@ var anthropicProtocol = &fixtureProtocol{
 
 // anthropicFixtureFiles are the P02 fixtures under testdata/anthropic; the
 // differential runs every scenario in them that does not opt out.
-var anthropicFixtureFiles = []string{"text.json", "failures.json", "history.json", "options.json", "usage.json", "retry.json"}
+var anthropicFixtureFiles = []string{"text.json", "failures.json", "history.json", "options.json", "usage.json", "retry.json", "catalog.json"}
