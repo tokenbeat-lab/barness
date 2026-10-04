@@ -155,7 +155,8 @@ type responsesParser struct {
 type responsesSlot struct {
 	kind  string // the item type: "message", "reasoning" or "function_call"
 	index int    // content index in the assistant message
-	raw   string // a function call's argument JSON received so far (pi's partialJson)
+	// raw is a function call's argument JSON received so far (pi's partialJson).
+	raw *argumentText
 }
 
 // slot returns the open block for outputIndex if it has the given kind.
@@ -176,8 +177,8 @@ func (p *responsesParser) open(outputIndex int64, item responses.ResponseOutputI
 	case "function_call":
 		// pi's tool call id joins the call id the result must answer with
 		// the item id same-model replay needs.
-		s.raw = item.Arguments.OfString
-		s.index = p.out.toolCallStart(item.CallID+"|"+item.ID, item.Name, s.raw)
+		s.raw = newArgumentText(item.Arguments.OfString)
+		s.index = p.out.toolCallStart(item.CallID+"|"+item.ID, item.Name, s.raw.String())
 	default:
 		return 0, false
 	}
@@ -188,12 +189,10 @@ func (p *responsesParser) open(outputIndex int64, item responses.ResponseOutputI
 // argumentsDelta appends a function call's argument fragment.
 func (p *responsesParser) argumentsDelta(outputIndex int64, delta string) {
 	s, ok := p.slots[outputIndex]
-	if !ok || s.kind != "function_call" || !p.out.fitsToolJSON(len(s.raw)+len(delta)) {
+	if !ok || s.kind != "function_call" || !p.out.fitsToolJSON(s.raw.Len()+len(delta)) {
 		return
 	}
-	s.raw += delta
-	p.slots[outputIndex] = s
-	p.out.toolCallDelta(s.index, delta, s.raw)
+	p.out.toolCallDelta(s.index, delta, s.raw.append(delta))
 }
 
 // argumentsDone takes the provider's complete argument text. As in pi, the
@@ -204,8 +203,8 @@ func (p *responsesParser) argumentsDone(outputIndex int64, arguments string) {
 	if !ok || s.kind != "function_call" {
 		return
 	}
-	previous := s.raw
-	s.raw = arguments
+	previous := s.raw.String()
+	s.raw = newArgumentText(arguments)
 	p.slots[outputIndex] = s
 	if rest, extends := strings.CutPrefix(arguments, previous); extends && rest != "" {
 		p.out.toolCallDelta(s.index, rest, arguments)
@@ -308,7 +307,7 @@ func (p *responsesParser) itemDone(outputIndex int64, item responses.ResponseOut
 		p.out.thinkingEnd(i, thinking, reasoningSignature(item.RawJSON()))
 		p.reasoning[item.ID] = i
 	case "function_call":
-		p.out.toolCallEnd(i, cmp.Or(item.Arguments.OfString, s.raw))
+		p.out.toolCallEnd(i, cmp.Or(item.Arguments.OfString, s.raw.String()))
 	}
 }
 

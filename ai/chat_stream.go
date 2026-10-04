@@ -61,7 +61,7 @@ type chatParser struct {
 // (pi's partialArgs) and whether it was given a stream index yet.
 type chatCall struct {
 	block   int
-	raw     string
+	raw     *argumentText
 	indexed bool
 }
 
@@ -323,7 +323,7 @@ func (p *chatParser) toolCalls(raw json.RawMessage) {
 		k := p.findCall(indexed, index, id)
 		if k < 0 {
 			k = len(p.calls)
-			p.calls = append(p.calls, chatCall{block: p.out.toolCallStart(id, name, "")})
+			p.calls = append(p.calls, chatCall{block: p.out.toolCallStart(id, name, ""), raw: newArgumentText("")})
 		}
 		call := &p.calls[k]
 		if indexed && !call.indexed {
@@ -334,11 +334,10 @@ func (p *chatParser) toolCalls(raw json.RawMessage) {
 			p.byID[id] = k
 		}
 		p.out.fillToolCallIdentity(call.block, id, name)
-		if args != "" && !p.out.fitsToolJSON(len(call.raw)+len(args)) {
+		if args != "" && !p.out.fitsToolJSON(call.raw.Len()+len(args)) {
 			return
 		}
-		call.raw += args
-		p.out.toolCallDelta(call.block, args, call.raw)
+		p.out.toolCallDelta(call.block, args, call.raw.append(args))
 	}
 }
 
@@ -371,7 +370,7 @@ func (p *chatParser) closeBlocks() {
 		default:
 			for _, c := range p.calls {
 				if c.block == i {
-					p.out.toolCallEnd(i, c.raw)
+					p.out.toolCallEnd(i, c.raw.String())
 				}
 			}
 		}

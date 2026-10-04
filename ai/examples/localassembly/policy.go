@@ -52,14 +52,14 @@ func LocalPolicy() *ai.ResourcePolicy {
 		// reasoning items and JSON escaping can multiply that. Raise it if
 		// long turns end with resource_limit in the stream phase.
 		MaxFrameBytes: 4 << 20,
-		// 256 KiB of argument JSON per tool call: a tool writing a file of a
-		// few thousand lines in one call fits. The bound is CPU, not memory:
-		// streamed arguments are re-parsed on every delta, as pi does, so
-		// the cost grows with the square of their size. The pressure
-		// scenario measured one call at 1.6 s for 128 KiB, 6 s for 256 KiB
-		// and 23 s for 512 KiB (issue 32 tracks parsing them
-		// incrementally); raise this only after that is fixed.
-		MaxToolJSONBytes: 256 << 10,
+		// 1 MiB of argument JSON per tool call: a tool writing a file of
+		// tens of thousands of lines in one call fits. The bound is memory:
+		// a call holds its text about four times (the growing buffer, the
+		// final copy and its parsed form), 4 MiB, 32 MiB over all 8 permits.
+		// CPU stays linear in the size: the pressure scenario streams one
+		// call in 64-byte deltas at about 50 ms for 512 KiB and 0.2 s for
+		// 2 MiB (tool-arguments-scaling, issue 32).
+		MaxToolJSONBytes: 1 << 20,
 		// 64 KiB: provider error bodies are short JSON; this only guards
 		// against a proxy returning a large HTML page.
 		MaxErrorBodyBytes: 64 << 10,

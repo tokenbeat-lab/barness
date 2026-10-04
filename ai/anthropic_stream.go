@@ -101,7 +101,7 @@ type anthropicParser struct {
 	// addresses the older block until it stops.
 	open map[int64][]anthropicSlot
 	// raw is each tool call's argument JSON received so far (pi's partialJson).
-	raw     map[int]string
+	raw     map[int]*argumentText
 	usage   anthropicUsage
 	attempt *initialRequest
 	started bool // message_start was received
@@ -209,8 +209,9 @@ func (p *anthropicParser) blockStart(e anthropicEvent) *Error {
 	case "tool_use":
 		slot = anthropicSlot{index: p.out.toolCallStart(b.ID, b.Name, ""), kind: blockToolCall}
 		if p.raw == nil {
-			p.raw = map[int]string{}
+			p.raw = map[int]*argumentText{}
 		}
+		p.raw[slot.index] = newArgumentText("")
 	default:
 		return nil
 	}
@@ -240,12 +241,11 @@ func (p *anthropicParser) blockDelta(e anthropicEvent) {
 		}
 	case "input_json_delta":
 		if i, ok := p.slot(e.Index, blockToolCall); ok {
-			raw := p.raw[i] + d.PartialJSON
-			if !p.out.fitsToolJSON(len(raw)) {
+			raw := p.raw[i]
+			if !p.out.fitsToolJSON(raw.Len() + len(d.PartialJSON)) {
 				return
 			}
-			p.raw[i] = raw
-			p.out.toolCallDelta(i, d.PartialJSON, raw)
+			p.out.toolCallDelta(i, d.PartialJSON, raw.append(d.PartialJSON))
 		}
 	case "signature_delta":
 		// The signature grows without an event, as in pi.
@@ -271,7 +271,7 @@ func (p *anthropicParser) blockStop(index int64) {
 	case blockThinking:
 		p.out.thinkingEnd(s.index, p.out.thinkingText(s.index), p.out.thinkingSignature(s.index))
 	case blockToolCall:
-		p.out.toolCallEnd(s.index, p.raw[s.index])
+		p.out.toolCallEnd(s.index, p.raw[s.index].String())
 	}
 }
 

@@ -50,13 +50,13 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 
 | 策略 | 设计负载 | 帧 | 单轮输出 | 请求 | 图片 | 工具 JSON | 可达堆增长 / 预算 | 停止读取后的积压 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| LocalPolicy | 8 并发；4 MiB 历史 + 3×2 MiB 截图；128K token 或 128 KiB 工具调用 | 13% | 44% | 38% | 40% | 50% | 0.4–0.5 / 1 GiB | 约 11 分钟（65536 事件，100 token/s） |
-| CloudInteractivePolicy | 8 租户 × 4 = 32 并发；2 MiB 历史 + 2×1 MiB 图片；64K token 或 64 KiB 工具调用 | 13% | 44% | 58% | 25% | 50% | 0.7–1.1 / 2 GiB | 约 2.7 分钟（16384 事件） |
-| CloudBatchPolicy | 2 租户 × 16 = 32 并发；同上请求；128K token 或 64 KiB 工具调用 | 25% | 44% | 58% | 25% | 50% | 0.9–1.2 / 2 GiB | 约 2.7 分钟 |
+| LocalPolicy | 8 并发；4 MiB 历史 + 3×2 MiB 截图；128K token 或 512 KiB 工具调用 | 13% | 44% | 38% | 40% | 50% | 0.4–0.5 / 1 GiB | 约 11 分钟（65536 事件，100 token/s） |
+| CloudInteractivePolicy | 8 租户 × 4 = 32 并发；2 MiB 历史 + 2×1 MiB 图片；64K token 或 256 KiB 工具调用 | 13% | 44% | 58% | 25% | 50% | 0.7–1.1 / 2 GiB | 约 2.7 分钟（16384 事件） |
+| CloudBatchPolicy | 2 租户 × 16 = 32 并发；同上请求；128K token 或 256 KiB 工具调用 | 25% | 44% | 58% | 25% | 50% | 0.9–1.2 / 2 GiB | 约 2.7 分钟 |
 
 压力场景据实修正了三处示例数值，原因写在注释中：
 
-- `MaxToolJSONBytes` 云端 512 KiB → 128 KiB、本地 1 MiB → 256 KiB：流式工具参数在每个 delta 上全量重解析（与 pi 相同），单调用 128 KiB 耗时 1.6 s、512 KiB 耗时 23 s，CPU 随大小平方增长。工单 32 跟踪增量解析，修复后可放宽。
+- `MaxToolJSONBytes` 曾因流式工具参数在每个 delta 上全量重解析（与 pi 相同，512 KiB 单调用 23 s）收紧为云端 128 KiB、本地 256 KiB；工单 32 改为读取视图时才解析后已恢复为云端 512 KiB、本地 1 MiB，数值按内存预算确定。`E08-policy-pressure-tool-arguments-scaling` 测得单调用耗时与参数大小线性（512 KiB 约 50 ms、2 MiB 约 0.2 s）。
 - `CloudBatchPolicy.MaxOutputBytes` 32 MiB → 64 MiB：128K token 单轮经 Responses 约 29 MB，占原值 88%，不足以容纳推理摘要与帧信封差异；流式响应体只读不留，加倍几乎不增内存。
 - 云端注释原称请求体最坏占用 `(并发 + 等待者) × 8 MiB`；实测一次尝试期间约持有请求体的两份副本，已改为两倍。
 

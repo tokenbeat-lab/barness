@@ -53,7 +53,7 @@ DeepSeek × Chat Completions（P06）是 pi 自身的路由，全部场景进入
 | `timeoutMs: 0` | barness 视为未设置；pi 会立即超时 | ADR-0008 维护者决定 |
 | 失败响应携带的用量 | 与 pi 一样丢弃，尝试标为未上报 | ADR-0010 决策三 |
 | Gemini 回调 | 回调看到 REST 请求体而非 pi 的 SDK 参数；不调用 onResponse（与 pi 同） | ADR-0012 |
-| 流式工具参数解析成本 | 每个 delta 全量重解析（与 pi 同），CPU 随参数大小平方增长；示例策略据此收紧 `MaxToolJSONBytes` | 工单 32 |
+| 流式工具参数解析时机 | pi 在每个 delta 上全量重解析；barness 在读取 PartialView 时才按当时的原始文本解析，读到的参数与 pi 相同，不读取的消费者不付解析成本（每个 delta 都读取则与 pi 成本相同） | 工单 32；ADR-0017 后续 |
 | 未实现的可选特性 | 中途工具变更（Anthropic 原生 tool changes）、服务端备用模型（`fallbacks`）、OpenAI 的 additional_tools/tool search 未实现；开启它们的模型（claude-opus-4-8、claude-fable-5、托管强度的 claude-fable-5-1/opus-5/opus-5-5 与 gpt-5.4 起的十个 OpenAI 模型）照常列入目录，按 pi 中特性关闭时的行为发送当前工具列表、不发 `fallbacks`，pi 多出的占位工具、beta、`fallbacks` 与 `additional_tools` 条目登记为限于工单 34、27 用例的扩展 | 工单 26、28；ADR-0018 |
 | 托管推理强度 | 与 pi 一致：每条消息记录本轮强度（`providerThinkingLevel`），按 Provider 回放强度标记；它不是原生状态，不需要可信封套，降级的同 Provider 消息仍保留标记 | 工单 27；ADR-0019 |
 | SDK 响应体兜底 | SDK 在调用方 context 结束时不关闭恰好到达的响应体，barness 以中间件兜底关闭 | 工单 29 |

@@ -63,16 +63,16 @@ func TestPolicyPressure(t *testing.T) {
 		heapBudget uint64
 	}{
 		{"local", localassembly.LocalPolicy(), designLoad{
-			Basis:   "LocalPolicy: one session plus parallel sub-agents (all 8 permits), long history (4 MiB) with three screenshots, a 128K-token turn, a tool writing a 128 KiB file",
-			Tenants: 1, Calls: 8, OutputTokens: 128 << 10, HistoryBytes: 4 << 20, Images: 3, ImageBytes: 2 << 20, ToolJSONBytes: 128 << 10,
+			Basis:   "LocalPolicy: one session plus parallel sub-agents (all 8 permits), long history (4 MiB) with three screenshots, a 128K-token turn, a tool writing a 512 KiB file",
+			Tenants: 1, Calls: 8, OutputTokens: 128 << 10, HistoryBytes: 4 << 20, Images: 3, ImageBytes: 2 << 20, ToolJSONBytes: 512 << 10,
 		}, 1 << 30},
 		{"cloud-interactive", hostintegration.CloudInteractivePolicy(), designLoad{
-			Basis:   "CloudInteractivePolicy: 8 tenants at their limit of 4 (all 32 permits), agent histories (2 MiB) with two downscaled images, the 64K-token upper bound of an interactive turn",
-			Tenants: 8, Calls: 32, OutputTokens: 64 << 10, HistoryBytes: 2 << 20, Images: 2, ImageBytes: 1 << 20, ToolJSONBytes: 64 << 10,
+			Basis:   "CloudInteractivePolicy: 8 tenants at their limit of 4 (all 32 permits), agent histories (2 MiB) with two downscaled images, the 64K-token upper bound of an interactive turn or a 256 KiB tool call",
+			Tenants: 8, Calls: 32, OutputTokens: 64 << 10, HistoryBytes: 2 << 20, Images: 2, ImageBytes: 1 << 20, ToolJSONBytes: 256 << 10,
 		}, 2 << 30},
 		{"cloud-batch", hostintegration.CloudBatchPolicy(), designLoad{
-			Basis:   "CloudBatchPolicy: 2 tenants at their limit of 16 (all 32 permits), agent histories (2 MiB) with two images, long 128K-token generations",
-			Tenants: 2, Calls: 32, OutputTokens: 128 << 10, HistoryBytes: 2 << 20, Images: 2, ImageBytes: 1 << 20, ToolJSONBytes: 64 << 10,
+			Basis:   "CloudBatchPolicy: 2 tenants at their limit of 16 (all 32 permits), agent histories (2 MiB) with two images, long 128K-token generations or 256 KiB tool calls",
+			Tenants: 2, Calls: 32, OutputTokens: 128 << 10, HistoryBytes: 2 << 20, Images: 2, ImageBytes: 1 << 20, ToolJSONBytes: 256 << 10,
 		}, 2 << 30},
 	}
 	for _, p := range policies {
@@ -138,12 +138,28 @@ func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l 
 	textFrames, toolFrames := pressureText(t, l.OutputTokens), pressureToolCall(t, l.ToolJSONBytes)
 	textChunks, toolChunks := coalesce(textFrames, 64), coalesce(toolFrames, 64)
 	isTool := func(i int) bool { return i%4 == 0 }
-	for i := range l.Calls {
-		if isTool(i) {
-			pw.provider.Enqueue(pressureReply(toolChunks))
-		} else {
-			pw.provider.Enqueue(pressureReply(textChunks))
+	// Every reply waits until every call's request has arrived, so all
+	// permits are held at once however fast a turn streams: a tool call
+	// streams in milliseconds and would otherwise end before the last call
+	// is admitted. The wait is bounded so a lost request fails the checks
+	// below instead of hanging the run.
+	var arrived sync.WaitGroup
+	arrived.Add(l.Calls)
+	allArrived := doneWhen(arrived.Wait)
+	barrier := func() {
+		arrived.Done()
+		select {
+		case <-allArrived:
+		case <-time.After(pressureDeadline):
 		}
+	}
+	for i := range l.Calls {
+		reply := pressureReply(textChunks)
+		if isTool(i) {
+			reply = pressureReply(toolChunks)
+		}
+		reply.OnReceive = barrier
+		pw.provider.Enqueue(reply)
 	}
 	req := pressureRequest(l)
 	ctx, cancel := context.WithTimeout(context.Background(), pressureDeadline)

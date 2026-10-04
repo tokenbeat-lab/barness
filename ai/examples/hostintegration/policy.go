@@ -69,14 +69,14 @@ func CloudInteractivePolicy() *ai.ResourcePolicy {
 		// 64K output tokens (about 256 KB of text). Raise it with your
 		// models' output limits.
 		MaxFrameBytes: 2 << 20,
-		// 128 KiB of argument JSON per tool call: more than an interactive
-		// tool call needs; a larger one is a runaway generation. Streamed
-		// arguments are re-parsed on every delta, as pi does, so their CPU
-		// cost grows with the square of their size: the pressure scenario
-		// measured one call at 0.4 s for 64 KiB, 1.6 s for 128 KiB and 23 s
-		// for 512 KiB, the previous value (issue 32 tracks parsing them
-		// incrementally). Raise it only after that is fixed.
-		MaxToolJSONBytes: 128 << 10,
+		// 512 KiB of argument JSON per tool call: more than an interactive
+		// tool call needs; a larger one is a runaway generation. The bound
+		// is memory: a call holds its text about four times (the growing
+		// buffer, the final copy and its parsed form), 2 MiB, 64 MiB over
+		// all 32 permits. CPU stays linear in the size: the pressure
+		// scenario streams one call in 64-byte deltas at about 50 ms for
+		// 512 KiB and 0.2 s for 2 MiB (tool-arguments-scaling, issue 32).
+		MaxToolJSONBytes: 512 << 10,
 		// 32 KiB: provider error bodies are short JSON.
 		MaxErrorBodyBytes: 32 << 10,
 		// 32 MiB of streamed body per call: a 64K-token turn streams about

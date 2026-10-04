@@ -3,6 +3,7 @@ package ai
 import (
 	"cmp"
 	"slices"
+	"strings"
 )
 
 // assembler is the single production and merge process behind every entry
@@ -242,21 +243,12 @@ func (a *assembler) setToolCallSignature(i int, sig string) {
 	})
 }
 
-// toolCallArguments replaces block i's raw argument text and its display parse.
+// toolCallArguments replaces block i's raw argument text; the view parses
+// it for display when read.
 func (a *assembler) toolCallArguments(i int, raw string) {
 	if a.fitsToolJSON(len(raw)) {
-		a.replaceToolCallArguments(i, raw)
+		a.view.streamToolArguments(i, raw)
 	}
-}
-
-// replaceToolCallArguments sets block i's raw text, already within the limit.
-func (a *assembler) replaceToolCallArguments(i int, raw string) {
-	args := displayArguments(raw)
-	a.view.update(func(m *AssistantMessage) {
-		c := m.Content[i].(ToolCall)
-		c.RawArguments, c.Arguments = raw, args
-		m.Content[i] = c
-	})
 }
 
 // toolCallDelta sets block i's raw argument text to raw, which ends with
@@ -265,7 +257,7 @@ func (a *assembler) toolCallDelta(i int, delta, raw string) {
 	if !a.fitsToolJSON(len(raw)) {
 		return
 	}
-	a.replaceToolCallArguments(i, raw)
+	a.view.streamToolArguments(i, raw)
 	a.publish(ToolCallDeltaEvent{ContentIndex: i, Delta: delta, Partial: a.view})
 }
 
@@ -275,13 +267,10 @@ func (a *assembler) toolCallEnd(i int, raw string) {
 	if !a.fitsToolJSON(len(raw)) {
 		return
 	}
-	args := displayArguments(cmp.Or(raw, "{}"))
-	var call ToolCall
-	a.view.update(func(m *AssistantMessage) {
-		call = m.Content[i].(ToolCall)
-		call.RawArguments, call.Arguments = raw, args
-		m.Content[i] = call
-	})
+	// The clone drops the spare capacity of the adapter's argumentText,
+	// which the message would otherwise keep for as long as it is held.
+	raw = strings.Clone(raw)
+	call := a.view.endToolArguments(i, raw, displayArguments(cmp.Or(raw, "{}")))
 	a.publish(ToolCallEndEvent{ContentIndex: i, ToolCall: call, Partial: a.view})
 }
 
@@ -308,7 +297,6 @@ func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
 	if a.limited != nil {
 		failure = a.limited
 	}
-	var final AssistantMessage
 	a.view.update(func(m *AssistantMessage) {
 		if failure != nil {
 			m.StopReason = StopReasonError
@@ -317,8 +305,19 @@ func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
 			}
 			m.ErrorMessage = failure.Message
 		}
-		final = m.clone()
+		// A call cut off before its end still shares its adapter's
+		// argumentText; the clone drops the buffer's spare capacity, as
+		// toolCallEnd does for an ended call.
+		for i, c := range m.Content {
+			if call, ok := c.(ToolCall); ok {
+				call.RawArguments = strings.Clone(call.RawArguments)
+				m.Content[i] = call
+			}
+		}
 	})
+	// Nothing changes the message any more, so the snapshot is the final
+	// message, a cut-off call's arguments parsed as pi left them.
+	final := a.view.Snapshot()
 	res := Result{Message: final, Metadata: meta}
 	var terminal Event = ErrorEvent{Reason: final.StopReason, Message: final.clone(), Err: failure}
 	if failure == nil {
