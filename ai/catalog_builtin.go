@@ -95,6 +95,10 @@ func builtinOpenAIModels() []Model {
 		m.Compat.SupportsMidConvoSystemMessages = true
 		return m
 	}
+	explicitCache := func(m Model) Model {
+		m.Compat.SupportsExplicitPromptCacheMode = true
+		return m
+	}
 	// gpt56 is a GPT-5.6 or GPT-6 model: every level but minimal, off
 	// mapped to off ("" for null), cache retention sent as
 	// prompt_cache_options.
@@ -139,6 +143,14 @@ func builtinOpenAIModels() []Model {
 			CostRates{Input: 20, Output: 75, CacheRead: 2, CacheWrite: 25})),
 		gpt56("gpt-6-luna", "GPT-6 Luna", "none", tiered(CostRates{Input: 0.1, Output: 0.5, CacheRead: 0.01, CacheWrite: 0.125},
 			CostRates{Input: 0.2, Output: 0.75, CacheRead: 0.02, CacheWrite: 0.25})),
+		gpt56("gpt-6.1-sol", "GPT-6.1 Sol", "", tiered(CostRates{Input: 2, Output: 10, CacheRead: 0.1, CacheWrite: 2.5},
+			CostRates{Input: 4, Output: 15, CacheRead: 0.2, CacheWrite: 5})),
+		explicitCache(reasoning(model("gpt-daybreak-blue-latest", "Daybreak Blue", textAndImage(), 1050000, 128000,
+			ModelCost{CostRates: CostRates{Input: 4, Output: 20, CacheRead: 0.4, CacheWrite: 5}}),
+			levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh, ThinkingMax))),
+		explicitCache(reasoning(model("gpt-daybreak-red-latest", "Daybreak Red", textAndImage(), 400000, 128000,
+			ModelCost{CostRates: CostRates{Input: 12.5, Output: 75, CacheRead: 1.25, CacheWrite: 15.625}}),
+			levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh, ThinkingMax))),
 		gpt56("gpt-6-sol", "GPT-6 Sol", "none", tiered(CostRates{Input: 2, Output: 10, CacheRead: 0.2, CacheWrite: 2.5},
 			CostRates{Input: 4, Output: 15, CacheRead: 0.4, CacheWrite: 5})),
 		reasoning(model("o3", "o3", textAndImage(), 200000, 100000, price(2, 8, 0.5)), levelMap("", ThinkingLow, ThinkingMedium, ThinkingHigh)),
@@ -188,6 +200,10 @@ func builtinAnthropicModels() []Model {
 		ThinkingLevelMap{Off: Null[string](), Minimal: Null[string](), Low: Value("low"), Medium: Value("medium"),
 			High: Value("high"), XHigh: Value("xhigh"), Max: Value("max")}))
 	opus55.Compat.SupportsTemperature = Value(false)
+	sonnet55 := managed(adaptive(model("claude-sonnet-5-5", "Claude Sonnet 5.5", 1000000, 128000, 2, 10, 0.2, 2.5),
+		ThinkingLevelMap{Off: Null[string](), Minimal: Null[string](), Low: Value("low"), Medium: Value("medium"),
+			High: Value("high"), XHigh: Value("xhigh"), Max: Value("max")}))
+	sonnet55.Compat.SupportsTemperature = Value(false)
 	return []Model{
 		fable5,
 		fable51,
@@ -200,6 +216,7 @@ func builtinAnthropicModels() []Model {
 		opus48,
 		opus5,
 		opus55,
+		sonnet55,
 		model("claude-sonnet-4-5", "Claude Sonnet 4.5 (latest)", 1000000, 64000, 3, 15, 0.3, 3.75),
 		model("claude-sonnet-4-5-20250929", "Claude Sonnet 4.5", 1000000, 64000, 3, 15, 0.3, 3.75),
 		adaptive(model("claude-sonnet-4-6", "Claude Sonnet 4.6", 1000000, 128000, 3, 15, 0.3, 3.75), maxOnly()),

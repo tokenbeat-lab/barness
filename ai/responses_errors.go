@@ -5,10 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strings"
 	"unicode/utf16"
 
 	"github.com/openai/openai-go/v3/packages/respjson"
-	"github.com/openai/openai-go/v3/packages/ssestream"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/clock"
 )
@@ -51,7 +51,6 @@ func newResponsesFailures(provider ProviderID, apiKey Secret, c *clock.Clock) re
 
 // stream classifies an error that ended the SSE stream early.
 func (f responsesFailures) stream(err error) *Error {
-	var streamErr *ssestream.StreamError
 	var syntaxErr *json.SyntaxError
 	var typeErr *json.UnmarshalTypeError
 	var limit *limitExceeded
@@ -61,14 +60,6 @@ func (f responsesFailures) stream(err error) *Error {
 		return limit.failure(PhaseStream)
 	case errors.As(err, &expired):
 		return expired.failure(PhaseStream)
-	case errors.As(err, &streamErr):
-		// The SDK stops at any frame with a top-level "error"; openai-node
-		// raises it as an APIError built from that object.
-		var frame struct {
-			Error json.RawMessage `json:"error"`
-		}
-		_ = json.Unmarshal(streamErr.Event.Data, &frame)
-		return newError(CodeUpstreamError, PhaseStream, f.redact(apiErrorText(frame.Error)))
 	case errors.As(err, &syntaxErr):
 		return newError(CodeProtocol, PhaseStream, msgInvalidJSON)
 	case errors.As(err, &typeErr):
@@ -79,20 +70,15 @@ func (f responsesFailures) stream(err error) *Error {
 }
 
 // describeHTTPError ports how pi-ai describes a non-2xx response: openai-node
-// builds the APIError message (sdk) from the body's "error" field (or the
-// raw text of a non-JSON body), and pi's formatProviderError shows a
-// non-empty error object as the body instead (msg).
+// builds the APIError message (sdk) from its normalized error body (or the
+// raw text of a non-JSON body). pi shows a non-empty error object only when
+// the SDK message does not already carry it.
 func describeHTTPError(prefix string, status int, body []byte) (msg, sdk string) {
 	var parsed any
 	isJSON := json.Unmarshal(body, &parsed) == nil
-	var errRaw json.RawMessage
+	errRaw := openAIHTTPErrorBody(body)
 	var errVal any
-	if obj, ok := parsed.(map[string]any); ok {
-		errVal = obj["error"]
-		var fields map[string]json.RawMessage
-		_ = json.Unmarshal(body, &fields)
-		errRaw = fields["error"]
-	}
+	_ = json.Unmarshal(errRaw, &errVal)
 	// openai-node's APIError.makeMessage.
 	obj, isObject := errVal.(map[string]any)
 	var text string
@@ -109,14 +95,60 @@ func describeHTTPError(prefix string, status int, body []byte) (msg, sdk string)
 		sdk = fmt.Sprintf("%d status code (no body)", status)
 	}
 	if len(obj) > 0 {
-		return fmt.Sprintf("%s (%d): %s", prefix, status, truncateUTF16(compactJSON(errRaw), maxErrorBodyChars)), sdk
+		shown := truncateUTF16(compactJSON(errRaw), maxErrorBodyChars)
+		if !strings.Contains(sdk, shown) {
+			return fmt.Sprintf("%s (%d): %s", prefix, status, shown), sdk
+		}
 	}
 	return fmt.Sprintf("%s (%d): %s", prefix, status, sdk), sdk
+}
+
+// openAIHTTPErrorBody is openai-node 7.19.0's makeStatusError normalization:
+// an object/array with missing or null error becomes the SDK's error body.
+// Keep the raw JSON so pi's property order and truncation remain unchanged.
+func openAIHTTPErrorBody(body []byte) json.RawMessage {
+	var value any
+	if json.Unmarshal(body, &value) != nil {
+		return nil
+	}
+	switch obj := value.(type) {
+	case map[string]any:
+		if obj["error"] == nil {
+			return body
+		}
+		var fields map[string]json.RawMessage
+		_ = json.Unmarshal(body, &fields)
+		return fields["error"]
+	case []any:
+		return body
+	default:
+		return nil
+	}
+}
+
+// openAIStreamError applies the Node SDK's SSE rule before either adapter:
+// named error uses data.error ?? data; other frames fail on truthy error.
+// Callers validate JSON first so malformed error frames stay protocol errors.
+func openAIStreamError(eventType string, data []byte) (json.RawMessage, bool) {
+	var frame struct {
+		Error json.RawMessage `json:"error"`
+	}
+	_ = json.Unmarshal(data, &frame)
+	if eventType == "error" {
+		if len(frame.Error) == 0 || string(frame.Error) == "null" {
+			return data, true
+		}
+		return frame.Error, true
+	}
+	return frame.Error, rawTruthy(frame.Error)
 }
 
 // apiErrorText is openai-node's APIError message for an error object without
 // an HTTP status: its message, else the object as JSON.
 func apiErrorText(raw json.RawMessage) string {
+	if !rawTruthy(raw) {
+		return "(no status code or body)"
+	}
 	var e struct {
 		Message any `json:"message"`
 	}

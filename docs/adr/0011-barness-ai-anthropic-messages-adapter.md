@@ -33,7 +33,7 @@ date: 2026-10-02
 
 ## 决策三：Anthropic 的用量在 message_start 与每个 message_delta 时记入消息与尝试
 
-pi 在 `message_start` 取初始用量，之后每个 `message_delta` 替换其报告的非 null 计数并重算总量与成本，所以中断的流仍保留已报告的输入用量。barness 在每次更新后同时写入消息 Usage 与当前尝试的 `Attempt.Usage`，保持 ADR-0010 的"消息用量等于读取流那次尝试的用量"。
+pi 在 `message_start` 取初始用量，之后每个 `message_delta` 替换其报告的非 null 计数并重算总量与成本，所以中断的流仍保留已报告的输入用量。pi 1.0.0 的增量若报告 `cache_creation.ephemeral_1h_input_tokens`，覆盖已有 `cacheWrite1h`（含 0），不累加；缺明细或 null 时保留已有值。完整性规则不变。barness 在每次更新后同时写入消息 Usage 与当前尝试的 `Attempt.Usage`，保持 ADR-0010 的"消息用量等于读取流那次尝试的用量"。
 
 完整性：`input_tokens`、`output_tokens`、`cache_read_input_tokens`、`cache_creation_input_tokens` 都至少报告过一次（0 也算）为 `complete`；收到过 usage 但缺其中之一为 `partial`；从未收到 usage 为 `unreported`。`cache_creation.ephemeral_1h_input_tokens` 与 `output_tokens_details.thinking_tokens` 是较晚加入的明细，缺失读作没有，不影响 `complete`（与 ADR-0010 对 `cache_write_tokens` 的处理一致）。
 

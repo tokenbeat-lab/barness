@@ -194,13 +194,70 @@
   },
   {
    "id": "full-sampling-override",
-   "about": "samplingParams are applied last and override named fields, nulls included; the full entry does not merge the model's samplingParams",
+   "about": "0.87.1: full entry ignores model defaults → 1.0.0: named fields, model defaults, call values merged once; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses.ts",
    "entry": "stream",
    "model": "gpt-4.1-mini",
-   "modelPatch": {"samplingParams":{"frequency_penalty":0.5}},
-   "options": {"temperature":0.7,"maxTokens":1000,"samplingParams":{"temperature":0.2,"max_output_tokens":50,"top_p":0.9,"top_logprobs":null}},
+   "modelPatch": {
+    "samplingParams": {
+     "frequency_penalty": 0.5,
+     "top_p": 0.1
+    }
+   },
+   "options": {
+    "temperature": 0.7,
+    "maxTokens": 1000,
+    "samplingParams": {
+     "temperature": 0.2,
+     "max_output_tokens": 50,
+     "top_p": 0.9,
+     "top_logprobs": null
+    }
+   },
    "expect": {
-    "body": {"model":"gpt-4.1-mini","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":50,"temperature":0.2,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}],"top_p":0.9,"top_logprobs":null},
+    "body": {
+     "model": "gpt-4.1-mini",
+     "input": [
+      {
+       "role": "system",
+       "content": "You are terse."
+      },
+      {
+       "role": "user",
+       "content": [
+        {
+         "type": "input_text",
+         "text": "Weather in Bern? 🌦"
+        }
+       ]
+      }
+     ],
+     "stream": true,
+     "store": false,
+     "max_output_tokens": 50,
+     "temperature": 0.2,
+     "tools": [
+      {
+       "type": "function",
+       "name": "get_weather",
+       "description": "Get the weather for a city.",
+       "parameters": {
+        "type": "object",
+        "properties": {
+         "city": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "city"
+        ]
+       },
+       "strict": false
+      }
+     ],
+     "top_p": 0.9,
+     "top_logprobs": null,
+     "frequency_penalty": 0.5
+    },
     "affinity": false
    }
   },

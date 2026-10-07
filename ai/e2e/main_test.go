@@ -27,6 +27,11 @@ func TestMain(m *testing.M) {
 		os.Exit(1)
 	}
 	run.RedactSecret(environmentKey.secret, environmentKey.alias)
+	// Register fixture keys before any case writes its shared fixture. A
+	// filtered replay can record the fixture before constructing its world.
+	for _, k := range knownKeys {
+		run.RedactSecret(k.secret, k.alias)
+	}
 	run.SetVersion("openai-go", evidence.ModuleVersion("github.com/openai/openai-go/v3"))
 	run.SetVersion("anthropic-sdk-go", evidence.ModuleVersion("github.com/anthropics/anthropic-sdk-go"))
 	catalog := ai.BuiltinCatalog()

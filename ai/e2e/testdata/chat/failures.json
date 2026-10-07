@@ -1950,81 +1950,81 @@
    }
   },
   {
-   "id": "http-500-no-error",
-   "about": "A JSON body without an error field gives the SDK's no-body text.",
-   "model": "gpt-4.1-mini",
-   "context": {
-    "systemPrompt": "You are terse.",
-    "messages": [
-     {
-      "role": "user",
-      "content": [
-       {
-        "type": "text",
-        "text": "Say hello."
-       }
-      ]
-     }
-    ]
-   },
-   "replies": [
-    {
-     "status": 500,
-     "body": "{\"detail\":\"boom\"}"
-    }
-   ],
-   "expect": {
-    "code": "upstream_error",
-    "content": [],
-    "errorMessage": "500 status code (no body)",
-    "events": [
-     "error:error"
-    ],
-    "httpStatus": 500,
-    "phase": "request",
-    "request": {
-     "body": {
-      "model": "gpt-4.1-mini",
+    "id": "http-500-no-error",
+    "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter.",
+    "model": "gpt-4.1-mini",
+    "context": {
+      "systemPrompt": "You are terse.",
       "messages": [
-       {
-        "role": "system",
-        "content": "You are terse."
-       },
-       {
-        "role": "user",
-        "content": [
-         {
-          "type": "text",
-          "text": "Say hello."
-         }
-        ]
-       }
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Say hello."
+            }
+          ]
+        }
+      ]
+    },
+    "replies": [
+      {
+        "status": 500,
+        "body": "{\"detail\":\"boom\"}"
+      }
+    ],
+    "expect": {
+      "code": "upstream_error",
+      "content": [],
+      "errorMessage": "500 {\"detail\":\"boom\"}",
+      "events": [
+        "error:error"
       ],
-      "stream": true,
-      "stream_options": {
-       "include_usage": true
+      "httpStatus": 500,
+      "phase": "request",
+      "request": {
+        "body": {
+          "model": "gpt-4.1-mini",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are terse."
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Say hello."
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "store": false
+        },
+        "path": "/v1/chat/completions"
       },
-      "store": false
-     },
-     "path": "/v1/chat/completions"
-    },
-    "stopReason": "error",
-    "usage": {
-     "input": 0,
-     "output": 0,
-     "cacheRead": 0,
-     "cacheWrite": 0,
-     "totalTokens": 0,
-     "cost": {
-      "input": 0,
-      "output": 0,
-      "cacheRead": 0,
-      "cacheWrite": 0,
-      "total": 0
-     }
-    },
-    "usageReporting": "unreported"
-   }
+      "stopReason": "error",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      },
+      "usageReporting": "unreported"
+    }
   },
   {
    "id": "http-502-raw-metadata",

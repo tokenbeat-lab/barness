@@ -111,7 +111,7 @@ func newChatFailures(provider ProviderID, apiKey Secret, initial *initialRequest
 	return chatFailures{httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: requestIDHeaderOf(provider), describe: chatHTTPError}}
 }
 
-// inBand is a chunk's truthy error field: openai-node raises it as an
+// inBand is a named error event or a chunk's truthy error: openai-node raises
 // APIError without a status, whose message pi reports, followed by
 // OpenRouter's raw provider metadata when the message lacks it.
 func (f chatFailures) inBand(raw json.RawMessage) *Error {
@@ -125,9 +125,7 @@ func (f chatFailures) inBand(raw json.RawMessage) *Error {
 func chatHTTPError(res *http.Response, body []byte) (msg, sdk string) {
 	_, sdk = describeHTTPError("", res.StatusCode, body)
 	msg = sdk
-	var fields map[string]json.RawMessage
-	_ = json.Unmarshal(body, &fields)
-	errRaw := fields["error"]
+	errRaw := openAIHTTPErrorBody(body)
 	var obj map[string]any
 	if json.Unmarshal(errRaw, &obj) == nil && len(obj) > 0 {
 		if shown := truncateUTF16(compactJSON(errRaw), maxErrorBodyChars); !strings.Contains(sdk, shown) {

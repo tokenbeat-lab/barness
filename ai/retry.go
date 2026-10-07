@@ -265,11 +265,11 @@ func (r *initialRequest) delay(out attemptOutcome, retryIndex int) (time.Duratio
 
 // serverDelayMs is the delay a provider asked for, in milliseconds:
 // retry-after-ms, else retry-after as seconds or an HTTP date. ok is false
-// when it asked for none. As in pi, a retry-after that is neither yields NaN,
-// which waits no time; a number is read as JavaScript's parseFloat reads it.
+// when neither header yields a finite delay, so the caller backs off. Numbers
+// are read as JavaScript's parseFloat reads them, in pi's header order.
 func serverDelayMs(h http.Header, now time.Time) (ms float64, ok bool) {
 	if v := h.Get("retry-after-ms"); v != "" {
-		if ms := jsParseFloat(v); !math.IsNaN(ms) {
+		if ms := jsParseFloat(v); !math.IsNaN(ms) && !math.IsInf(ms, 0) {
 			return ms, true
 		}
 	}
@@ -278,17 +278,21 @@ func serverDelayMs(h http.Header, now time.Time) (ms float64, ok bool) {
 		return 0, false
 	}
 	if s := jsParseFloat(v); !math.IsNaN(s) {
-		return s * 1000, true
+		ms := s * 1000
+		if !math.IsInf(ms, 0) {
+			return ms, true
+		}
+		return 0, false
 	}
 	if t, ok := parseHTTPDate(v); ok {
 		return durationMs(t.Sub(now)), true
 	}
-	return math.NaN(), true
+	return 0, false
 }
 
 // parseHTTPDate reads the date forms retry-after uses (RFC 9110 and its
 // obsolete forms). JavaScript's Date.parse accepts more free-form dates,
-// which pi then waits for; such text waits no time here (see serverDelayMs
+// which pi then waits for; such text uses backoff here (see serverDelayMs
 // and ADR-0006). Forms starting with digits, such as ISO 8601, never reach
 // this: parseFloat reads their year as seconds, in pi as here.
 func parseHTTPDate(v string) (time.Time, bool) {

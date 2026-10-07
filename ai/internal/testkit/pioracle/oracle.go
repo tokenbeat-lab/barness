@@ -5,9 +5,9 @@
 // received and what each side emitted, and a maintained Ledger classifies
 // each one. Any pending finding fails the protocol's differential gate.
 //
-// The frozen pi copy lives in node/ (see node/PROVENANCE.md): pi-ai 0.87.1
+// The frozen pi copy lives in node/ (see node/PROVENANCE.md): pi-ai 1.0.0
 // pinned by lockfile, verified byte-identical to a source build of commit
-// 898ab804 with its generated model data. It is rebuilt with `npm ci`; it never
+// a13d35a742c6 with its generated model data. It is rebuilt with `npm ci`; it never
 // depends on a developer's research checkout.
 package pioracle
 

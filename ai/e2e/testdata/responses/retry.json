@@ -121,11 +121,40 @@
     },
     {
       "id": "retry-after-unparseable",
-      "note": "pi: neither a number nor a date gives NaN, which waits no time rather than backing off.",
-      "retry": {"maxRetries": 1},
-      "replies": [{"status": 503, "header": {"retry-after": "soon"}, "body": "{\"error\":{\"message\":\"busy\"}}"}, {"ok": true}],
-      "expect": {"requests": 2, "sleepsMs": [0], "stopReason": "stop", "responses": 1,
-        "attempts": [{"httpStatus": 503, "code": "upstream_error"}, {"httpStatus": 200}]}
+      "note": "0.87.1: invalid Retry-After waits 0ms → 1.0.0: finite headers only, otherwise 450ms backoff at jitter=0.4; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/utils/provider-retry.ts",
+      "retry": {
+        "maxRetries": 1
+      },
+      "replies": [
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "soon"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "ok": true
+        }
+      ],
+      "expect": {
+        "requests": 2,
+        "sleepsMs": [
+          450
+        ],
+        "stopReason": "stop",
+        "responses": 1,
+        "attempts": [
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 450
+          },
+          {
+            "httpStatus": 200
+          }
+        ]
+      }
     },
     {
       "id": "delay-above-default-cap",
@@ -183,14 +212,380 @@
     },
     {
       "id": "stream-error-not-replayed",
-      "retry": {"maxRetries": 3},
-      "replies": [{"status": 200, "events": [
-        {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_012", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
-        {"type": "error", "sequence_number": 1, "code": "server_error", "message": "The server had an error", "param": null}]}],
-      "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "upstream_error", "phase": "stream", "responses": 1,
-        "errorMessage": "Error Code server_error: The server had an error",
-        "content": [], "responseId": "resp_012",
-        "attempts": [{"httpStatus": 200}]}
+      "retry": {
+        "maxRetries": 3
+      },
+      "replies": [
+        {
+          "status": 200,
+          "events": [
+            {
+              "type": "response.created",
+              "sequence_number": 0,
+              "response": {
+                "id": "resp_012",
+                "object": "response",
+                "created_at": 1790000000,
+                "status": "in_progress",
+                "model": "gpt-4.1-mini-2025-04-14",
+                "output": [],
+                "usage": null
+              }
+            },
+            {
+              "type": "error",
+              "sequence_number": 1,
+              "code": "server_error",
+              "message": "The server had an error",
+              "param": null
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "sleepsMs": [],
+        "stopReason": "error",
+        "code": "upstream_error",
+        "phase": "stream",
+        "responses": 1,
+        "errorMessage": "The server had an error",
+        "content": [],
+        "responseId": "resp_012",
+        "attempts": [
+          {
+            "httpStatus": 200
+          }
+        ]
+      },
+      "note": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter."
+    },
+    {
+      "id": "retry-after-ms-infinity",
+      "note": "0.87.1: invalid Retry-After waits 0ms → 1.0.0: finite headers only, otherwise 450ms backoff at jitter=0.4; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/utils/provider-retry.ts; subsequent finite header wins in header order.",
+      "retry": {
+        "maxRetries": 1
+      },
+      "replies": [
+        {
+          "status": 503,
+          "header": {
+            "retry-after-ms": "Infinity",
+            "retry-after": "2"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "ok": true
+        }
+      ],
+      "expect": {
+        "requests": 2,
+        "sleepsMs": [
+          2000
+        ],
+        "stopReason": "stop",
+        "responses": 1,
+        "attempts": [
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 2000
+          },
+          {
+            "httpStatus": 200
+          }
+        ]
+      }
+    },
+    {
+      "id": "retry-after-infinity",
+      "note": "0.87.1: invalid Retry-After waits 0ms → 1.0.0: finite headers only, otherwise 450ms backoff at jitter=0.4; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/utils/provider-retry.ts; subsequent finite header wins in header order.",
+      "retry": {
+        "maxRetries": 1
+      },
+      "replies": [
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "Infinity"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "ok": true
+        }
+      ],
+      "expect": {
+        "requests": 2,
+        "sleepsMs": [
+          450
+        ],
+        "stopReason": "stop",
+        "responses": 1,
+        "attempts": [
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 450
+          },
+          {
+            "httpStatus": 200
+          }
+        ]
+      }
+    },
+    {
+      "id": "retry-after-negative-infinity",
+      "note": "0.87.1: invalid Retry-After waits 0ms → 1.0.0: finite headers only, otherwise 450ms backoff at jitter=0.4; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/utils/provider-retry.ts; subsequent finite header wins in header order.",
+      "retry": {
+        "maxRetries": 1
+      },
+      "replies": [
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "-Infinity"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "ok": true
+        }
+      ],
+      "expect": {
+        "requests": 2,
+        "sleepsMs": [
+          450
+        ],
+        "stopReason": "stop",
+        "responses": 1,
+        "attempts": [
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 450
+          },
+          {
+            "httpStatus": 200
+          }
+        ]
+      }
+    },
+    {
+      "id": "retry-after-ms-unparseable",
+      "note": "0.87.1: invalid Retry-After waits 0ms → 1.0.0: finite headers only, otherwise 450ms backoff at jitter=0.4; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/utils/provider-retry.ts; subsequent finite header wins in header order.",
+      "retry": {
+        "maxRetries": 1
+      },
+      "replies": [
+        {
+          "status": 503,
+          "header": {
+            "retry-after-ms": "soon",
+            "retry-after": "2"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "ok": true
+        }
+      ],
+      "expect": {
+        "requests": 2,
+        "sleepsMs": [
+          2000
+        ],
+        "stopReason": "stop",
+        "responses": 1,
+        "attempts": [
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 2000
+          },
+          {
+            "httpStatus": 200
+          }
+        ]
+      }
+    },
+    {
+      "id": "retry-after-both-invalid",
+      "note": "0.87.1: invalid Retry-After waits 0ms → 1.0.0: finite headers only, otherwise 450ms backoff at jitter=0.4; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/utils/provider-retry.ts; subsequent finite header wins in header order.",
+      "retry": {
+        "maxRetries": 1
+      },
+      "replies": [
+        {
+          "status": 503,
+          "header": {
+            "retry-after-ms": "Infinity",
+            "retry-after": "soon"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "ok": true
+        }
+      ],
+      "expect": {
+        "requests": 2,
+        "sleepsMs": [
+          450
+        ],
+        "stopReason": "stop",
+        "responses": 1,
+        "attempts": [
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 450
+          },
+          {
+            "httpStatus": 200
+          }
+        ]
+      }
+    },
+    {
+      "id": "retry-after-overflow",
+      "note": "0.87.1: invalid Retry-After waits 0ms → 1.0.0: finite headers only, otherwise 450ms backoff at jitter=0.4; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/utils/provider-retry.ts; subsequent finite header wins in header order.",
+      "retry": {
+        "maxRetries": 1
+      },
+      "replies": [
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "1e309"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "ok": true
+        }
+      ],
+      "expect": {
+        "requests": 2,
+        "sleepsMs": [
+          450
+        ],
+        "stopReason": "stop",
+        "responses": 1,
+        "attempts": [
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 450
+          },
+          {
+            "httpStatus": 200
+          }
+        ]
+      }
+    },
+    {
+      "id": "invalid-header-backoff-ceiling",
+      "note": "0.87.1: invalid Retry-After waits 0ms → 1.0.0: finite headers only, otherwise 450ms backoff at jitter=0.4; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/utils/provider-retry.ts",
+      "retry": {
+        "maxRetries": 6
+      },
+      "replies": [
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "soon"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "soon"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "soon"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "soon"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "soon"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "status": 503,
+          "header": {
+            "retry-after": "soon"
+          },
+          "body": "{\"error\":{\"message\":\"busy\"}}"
+        },
+        {
+          "ok": true
+        }
+      ],
+      "expect": {
+        "requests": 7,
+        "sleepsMs": [
+          450,
+          900,
+          1800,
+          3600,
+          7200,
+          7200
+        ],
+        "stopReason": "stop",
+        "responses": 1,
+        "attempts": [
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 450
+          },
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 900
+          },
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 1800
+          },
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 3600
+          },
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 7200
+          },
+          {
+            "httpStatus": 503,
+            "code": "upstream_error",
+            "retryDelayMs": 7200
+          },
+          {
+            "httpStatus": 200
+          }
+        ]
+      }
     }
   ]
 }

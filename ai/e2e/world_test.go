@@ -219,7 +219,7 @@ func primaryBinding(k tenantKey, providerURL string) ai.Binding {
 		// one with tiered prices; gpt-5.4, gpt-5.4-pro, gpt-6-sol and
 		// gpt-6-astra are the ones ADR-0018 listed that catalog.json calls.
 		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x", "gpt-5", "gpt-5-mini", "gpt-5.1", "gpt-5.2", "gpt-5-pro", "gpt-5.5-pro",
-			"gpt-5.4", "gpt-5.4-pro", "gpt-6-sol", "gpt-6-astra"},
+			"gpt-5.4", "gpt-5.4-pro", "gpt-6-sol", "gpt-6-astra", "gpt-5.5", "gpt-6.1-sol", "gpt-daybreak-blue-latest", "gpt-daybreak-red-latest"},
 	}
 }
 
@@ -278,7 +278,6 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 	aliases := map[string]string{}
 	for _, k := range knownKeys {
 		aliases[k.secret] = k.alias
-		run.RedactSecret(k.secret, k.alias)
 	}
 	srv := provider.New(aliases)
 	t.Cleanup(srv.Close)

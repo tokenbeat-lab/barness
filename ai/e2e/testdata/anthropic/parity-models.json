@@ -1,0 +1,26 @@
+{
+ "case": "1.0.0 newly included chat models",
+ "source": "Frozen v1.0.0 providers/data/anthropic.json; ADR-0018 and ADR-0019",
+ "scenarios": [
+  {
+   "id": "claude-sonnet-5-5-stream",
+   "about": "0.87.1: unlisted \u2192 1.0.0: new chat model. ADR-0018: existing level maps, explicit cache mode or ADR-0019 managed adaptive effort satisfy hard constraints. No tools exercises the existing optional-feature fallback without changing extension cases.",
+   "model": "claude-sonnet-5-5",
+   "entry": "stream",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Hi"}]}]},
+   "options": {"temperature": 0.7},
+   "events": [{"type": "message_start", "message": {"id": "msg_new", "model": "claude-sonnet-5-5", "usage": {"input_tokens": 0, "output_tokens": 0, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}}, {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 0}}, {"type": "message_stop"}],
+   "expect": {"stopReason": "stop", "rawStopReason": "end_turn", "responseId": "msg_new", "providerThinkingLevel": "high", "usageReporting": "complete"}
+  },
+  {
+   "id": "claude-sonnet-5-5-streamSimple",
+   "about": "0.87.1: unlisted \u2192 1.0.0: new chat model. ADR-0018: existing level maps, explicit cache mode or ADR-0019 managed adaptive effort satisfy hard constraints. No tools exercises the existing optional-feature fallback without changing extension cases.",
+   "model": "claude-sonnet-5-5",
+   "entry": "streamSimple",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Hi"}]}]},
+   "options": {"temperature": 0.7, "reasoning": "minimal"},
+   "events": [{"type": "message_start", "message": {"id": "msg_new", "model": "claude-sonnet-5-5", "usage": {"input_tokens": 0, "output_tokens": 0, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}}, {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 0}}, {"type": "message_stop"}],
+   "expect": {"stopReason": "stop", "rawStopReason": "end_turn", "responseId": "msg_new", "providerThinkingLevel": "low", "usageReporting": "complete"}
+  }
+ ]
+}

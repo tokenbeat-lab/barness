@@ -1,0 +1,384 @@
+{
+  "case": "pi 1.0.0 OpenAI SDK error normalization",
+  "source": "Frozen openai 7.19.0 src/client.ts makeStatusError, core/streaming.ts; pi utils/error-body.ts. Fixtures intentionally duplicated per protocol because each error display boundary evolves independently.",
+  "scenarios": [
+    {
+      "id": "sdk-http-null-error-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{\"error\":null,\"detail\":\"busy\"}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 {\"error\":null,\"detail\":\"busy\"}"}
+    },
+    {
+      "id": "sdk-http-root-message-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{\"message\":\"gateway unavailable\"}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): {\"message\":\"gateway unavailable\"}"}
+    },
+    {
+      "id": "sdk-http-empty-object-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 {}"}
+    },
+    {
+      "id": "sdk-http-array-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"[\"busy\"]"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 [\"busy\"]"}
+    },
+    {
+      "id": "sdk-http-nested-object-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{\"error\":{\"detail\":\"busy\"}}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 {\"detail\":\"busy\"}"}
+    },
+    {
+      "id": "sdk-http-false-error-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{\"error\":false}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 status code (no body)"}
+    },
+    {
+      "id": "sdk-sse-named-error-type-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"type\":\"error\",\"code\":\"server_error\",\"message\":\"busy\"}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"busy"}
+    },
+    {
+      "id": "sdk-sse-unnamed-error-type-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"data: {\"type\":\"error\",\"code\":\"server_error\",\"message\":\"busy\"}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"Error Code server_error: busy"}
+    },
+    {
+      "id": "sdk-sse-named-error-no-type-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"message\":\"busy\"}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"busy"}
+    },
+    {
+      "id": "sdk-sse-named-nested-error-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"error\":{\"message\":\"nested busy\"}}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"nested busy"}
+    },
+    {
+      "id": "sdk-sse-named-null-error-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"error\":null,\"message\":\"root busy\"}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"root busy"}
+    },
+    {
+      "id": "sdk-sse-named-false-error-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"error\":false}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"(no status code or body)"}
+    },
+    {
+      "id": "sdk-sse-unnamed-null-error-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"data: {\"error\":null}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"stop","rawStopReason":"completed","responseId":"resp_error_parity"}
+    },
+    {
+      "id": "sdk-sse-unnamed-false-error-stream",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"data: {\"error\":false}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"stop","rawStopReason":"completed","responseId":"resp_error_parity"}
+    },
+    {
+      "id": "sdk-http-null-error-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{\"error\":null,\"detail\":\"busy\"}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 {\"error\":null,\"detail\":\"busy\"}"}
+    },
+    {
+      "id": "sdk-http-root-message-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{\"message\":\"gateway unavailable\"}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): {\"message\":\"gateway unavailable\"}"}
+    },
+    {
+      "id": "sdk-http-empty-object-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 {}"}
+    },
+    {
+      "id": "sdk-http-array-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"[\"busy\"]"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 [\"busy\"]"}
+    },
+    {
+      "id": "sdk-http-nested-object-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{\"error\":{\"detail\":\"busy\"}}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 {\"detail\":\"busy\"}"}
+    },
+    {
+      "id": "sdk-http-false-error-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Expected literal from frozen SDK makeStatusError + pi normalize/formatProviderError.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":500,"header":{"Content-Type":"application/json"},"body":"{\"error\":false}"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"request","httpStatus":500,"errorMessage":"OpenAI API error (500): 500 status code (no body)"}
+    },
+    {
+      "id": "sdk-sse-named-error-type-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"type\":\"error\",\"code\":\"server_error\",\"message\":\"busy\"}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"busy"}
+    },
+    {
+      "id": "sdk-sse-unnamed-error-type-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"data: {\"type\":\"error\",\"code\":\"server_error\",\"message\":\"busy\"}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"Error Code server_error: busy"}
+    },
+    {
+      "id": "sdk-sse-named-error-no-type-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"message\":\"busy\"}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"busy"}
+    },
+    {
+      "id": "sdk-sse-named-nested-error-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"error\":{\"message\":\"nested busy\"}}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"nested busy"}
+    },
+    {
+      "id": "sdk-sse-named-null-error-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"error\":null,\"message\":\"root busy\"}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"root busy"}
+    },
+    {
+      "id": "sdk-sse-named-false-error-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: {\"error\":false}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"(no status code or body)"}
+    },
+    {
+      "id": "sdk-sse-unnamed-null-error-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"data: {\"error\":null}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"stop","rawStopReason":"completed","responseId":"resp_error_parity"}
+    },
+    {
+      "id": "sdk-sse-unnamed-false-error-streamSimple",
+      "about": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter. Unnamed type:error still reaches the Responses adapter; null/false error on unnamed frames is ignored.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"data: {\"error\":false}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"stop","rawStopReason":"completed","responseId":"resp_error_parity"}
+    },
+    {
+      "id": "sdk-sse-named-string-stream",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: \"busy\"\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"\"busy\""}
+    },
+    {
+      "id": "sdk-sse-named-array-stream",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: [\"busy\"]\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"[\"busy\"]"}
+    },
+    {
+      "id": "sdk-sse-named-false-data-stream",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: false\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"(no status code or body)"}
+    },
+    {
+      "id": "sdk-sse-named-null-data-stream",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: null\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"(no status code or body)"}
+    },
+    {
+      "id": "sdk-sse-named-number-stream",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: 7\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"7"}
+    },
+    {
+      "id": "sdk-sse-named-string-streamSimple",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: \"busy\"\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"\"busy\""}
+    },
+    {
+      "id": "sdk-sse-named-array-streamSimple",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: [\"busy\"]\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"[\"busy\"]"}
+    },
+    {
+      "id": "sdk-sse-named-false-data-streamSimple",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: false\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"(no status code or body)"}
+    },
+    {
+      "id": "sdk-sse-named-null-data-streamSimple",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: null\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"(no status code or body)"}
+    },
+    {
+      "id": "sdk-sse-named-number-streamSimple",
+      "about": "Review regression: named event:error must throw before object DTO decoding for every JSON type. Expected from frozen openai 7.19.0 APIError(undefined, data?.error ?? data), SDK core/streaming.ts; maintainer approved sync 2026-10-08.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: error\ndata: 7\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"upstream_error","phase":"stream","errorMessage":"7"}
+    },
+    {
+      "id": "sdk-sse-thread-terminal-is-ignored-stream",
+      "about": "Raw decoder regression control: SDK wraps thread.* events, which chat adapters ignore. Preserve this behavior when intercepting named error before typed decoding; frozen openai 7.19.0 core/streaming.ts.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: thread.fixture\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"protocol","phase":"stream","errorMessage":"OpenAI Responses stream ended before a terminal response event"}
+    },
+    {
+      "id": "sdk-sse-thread-error-is-ignored-stream",
+      "about": "Raw decoder regression control: SDK wraps thread.* events, which chat adapters ignore. Preserve this behavior when intercepting named error before typed decoding; frozen openai 7.19.0 core/streaming.ts.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: thread.fixture\ndata: {\"error\":{\"message\":\"busy\"}}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"stop","rawStopReason":"completed","responseId":"resp_error_parity"}
+    },
+    {
+      "id": "sdk-sse-thread-terminal-is-ignored-streamSimple",
+      "about": "Raw decoder regression control: SDK wraps thread.* events, which chat adapters ignore. Preserve this behavior when intercepting named error before typed decoding; frozen openai 7.19.0 core/streaming.ts.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: thread.fixture\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"error","code":"protocol","phase":"stream","errorMessage":"OpenAI Responses stream ended before a terminal response event"}
+    },
+    {
+      "id": "sdk-sse-thread-error-is-ignored-streamSimple",
+      "about": "Raw decoder regression control: SDK wraps thread.* events, which chat adapters ignore. Preserve this behavior when intercepting named error before typed decoding; frozen openai 7.19.0 core/streaming.ts.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages":[{"role":"user","content":[{"type":"text","text":"Hi"}]}]},
+      "replies": [{"status":200,"header":{"Content-Type":"text/event-stream"},"sse":"event: thread.fixture\ndata: {\"error\":{\"message\":\"busy\"}}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_error_parity\",\"status\":\"completed\",\"output\":[]}}\n\n"}],
+      "expect": {"stopReason":"stop","rawStopReason":"completed","responseId":"resp_error_parity"}
+    }
+  ]
+}

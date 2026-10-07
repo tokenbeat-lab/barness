@@ -50,10 +50,24 @@
     },
     {
       "id": "http-500-no-error-object",
-      "reply": {"status": 500, "header": {"Content-Type": "application/json"}, "body": "{\"detail\":\"internal failure\"}"},
-      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "request", "httpStatus": 500,
-        "errorMessage": "OpenAI API error (500): 500 status code (no body)",
-        "events": ["error:error"]}
+      "reply": {
+        "status": 500,
+        "header": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"detail\":\"internal failure\"}"
+      },
+      "expect": {
+        "stopReason": "error",
+        "code": "upstream_error",
+        "phase": "request",
+        "httpStatus": 500,
+        "errorMessage": "OpenAI API error (500): 500 {\"detail\":\"internal failure\"}",
+        "events": [
+          "error:error"
+        ]
+      },
+      "note": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter."
     },
     {
       "id": "http-502-html",
@@ -88,11 +102,38 @@
     },
     {
       "id": "stream-error-event",
-      "reply": {"status": 200, "header": {"Content-Type": "text/event-stream", "x-request-id": "req_stream_err"},
-        "events": [{"type": "error", "sequence_number": 5, "code": "server_error", "message": "The server had an error while processing your request.", "param": null}]},
-      "expect": {"stopReason": "error", "code": "upstream_error", "phase": "stream", "providerRequestId": "req_stream_err", "partial": true,
-        "errorMessage": "Error Code server_error: The server had an error while processing your request.",
-        "content": ["text:Hello, "], "responseId": "resp_002", "events": ["error:error"]}
+      "reply": {
+        "status": 200,
+        "header": {
+          "Content-Type": "text/event-stream",
+          "x-request-id": "req_stream_err"
+        },
+        "events": [
+          {
+            "type": "error",
+            "sequence_number": 5,
+            "code": "server_error",
+            "message": "The server had an error while processing your request.",
+            "param": null
+          }
+        ]
+      },
+      "expect": {
+        "stopReason": "error",
+        "code": "upstream_error",
+        "phase": "stream",
+        "providerRequestId": "req_stream_err",
+        "partial": true,
+        "errorMessage": "The server had an error while processing your request.",
+        "content": [
+          "text:Hello, "
+        ],
+        "responseId": "resp_002",
+        "events": [
+          "error:error"
+        ]
+      },
+      "note": "Maintainer approved 2026-10-08: sync OpenAI Node SDK 7.19.0 / pi 1.0.0. Previously error-less HTTP objects lost their body; SDK now wraps missing/null error, and named SSE event:error now throws APIError(data.error ?? data) before the adapter."
     },
     {
       "id": "gateway-error-object",

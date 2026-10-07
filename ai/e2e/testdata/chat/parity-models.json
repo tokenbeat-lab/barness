@@ -1,0 +1,66 @@
+{
+ "case": "1.0.0 newly included chat models",
+ "source": "Frozen v1.0.0 providers/data/openai.json; ADR-0018 and ADR-0019",
+ "scenarios": [
+  {
+   "id": "gpt-6.1-sol-stream",
+   "about": "0.87.1: unlisted \u2192 1.0.0: new chat model. ADR-0018: existing level maps, explicit cache mode or ADR-0019 managed adaptive effort satisfy hard constraints. No tools exercises the existing optional-feature fallback without changing extension cases.",
+   "model": "gpt-6.1-sol",
+   "entry": "stream",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Hi"}]}]},
+   "options": {"temperature": 0.7},
+   "events": [{"id": "chat_new", "object": "chat.completion.chunk", "model": "gpt-6.1-sol", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]}, "[DONE]"],
+   "expect": {"stopReason": "stop", "rawStopReason": "stop", "responseId": "chat_new"}
+  },
+  {
+   "id": "gpt-6.1-sol-streamSimple",
+   "about": "0.87.1: unlisted \u2192 1.0.0: new chat model. ADR-0018: existing level maps, explicit cache mode or ADR-0019 managed adaptive effort satisfy hard constraints. No tools exercises the existing optional-feature fallback without changing extension cases.",
+   "model": "gpt-6.1-sol",
+   "entry": "streamSimple",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Hi"}]}]},
+   "options": {"temperature": 0.7, "reasoning": "minimal"},
+   "events": [{"id": "chat_new", "object": "chat.completion.chunk", "model": "gpt-6.1-sol", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]}, "[DONE]"],
+   "expect": {"stopReason": "stop", "rawStopReason": "stop", "responseId": "chat_new"}
+  },
+  {
+   "id": "gpt-daybreak-blue-latest-stream",
+   "about": "0.87.1: unlisted \u2192 1.0.0: new chat model. ADR-0018: existing level maps, explicit cache mode or ADR-0019 managed adaptive effort satisfy hard constraints. No tools exercises the existing optional-feature fallback without changing extension cases.",
+   "model": "gpt-daybreak-blue-latest",
+   "entry": "stream",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Hi"}]}]},
+   "options": {"temperature": 0.7},
+   "events": [{"id": "chat_new", "object": "chat.completion.chunk", "model": "gpt-daybreak-blue-latest", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]}, "[DONE]"],
+   "expect": {"stopReason": "stop", "rawStopReason": "stop", "responseId": "chat_new"}
+  },
+  {
+   "id": "gpt-daybreak-blue-latest-streamSimple",
+   "about": "0.87.1: unlisted \u2192 1.0.0: new chat model. ADR-0018: existing level maps, explicit cache mode or ADR-0019 managed adaptive effort satisfy hard constraints. No tools exercises the existing optional-feature fallback without changing extension cases.",
+   "model": "gpt-daybreak-blue-latest",
+   "entry": "streamSimple",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Hi"}]}]},
+   "options": {"temperature": 0.7, "reasoning": "minimal"},
+   "events": [{"id": "chat_new", "object": "chat.completion.chunk", "model": "gpt-daybreak-blue-latest", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]}, "[DONE]"],
+   "expect": {"stopReason": "stop", "rawStopReason": "stop", "responseId": "chat_new"}
+  },
+  {
+   "id": "gpt-daybreak-red-latest-stream",
+   "about": "0.87.1: unlisted \u2192 1.0.0: new chat model. ADR-0018: existing level maps, explicit cache mode or ADR-0019 managed adaptive effort satisfy hard constraints. No tools exercises the existing optional-feature fallback without changing extension cases.",
+   "model": "gpt-daybreak-red-latest",
+   "entry": "stream",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Hi"}]}]},
+   "options": {"temperature": 0.7},
+   "events": [{"id": "chat_new", "object": "chat.completion.chunk", "model": "gpt-daybreak-red-latest", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]}, "[DONE]"],
+   "expect": {"stopReason": "stop", "rawStopReason": "stop", "responseId": "chat_new"}
+  },
+  {
+   "id": "gpt-daybreak-red-latest-streamSimple",
+   "about": "0.87.1: unlisted \u2192 1.0.0: new chat model. ADR-0018: existing level maps, explicit cache mode or ADR-0019 managed adaptive effort satisfy hard constraints. No tools exercises the existing optional-feature fallback without changing extension cases.",
+   "model": "gpt-daybreak-red-latest",
+   "entry": "streamSimple",
+   "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Hi"}]}]},
+   "options": {"temperature": 0.7, "reasoning": "minimal"},
+   "events": [{"id": "chat_new", "object": "chat.completion.chunk", "model": "gpt-daybreak-red-latest", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]}, "[DONE]"],
+   "expect": {"stopReason": "stop", "rawStopReason": "stop", "responseId": "chat_new"}
+  }
+ ]
+}

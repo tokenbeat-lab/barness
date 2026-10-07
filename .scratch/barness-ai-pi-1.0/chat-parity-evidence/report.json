@@ -1,0 +1,130 @@
+{
+  "status": "PASS",
+  "baseline": {
+    "pi_package": "@earendil-works/pi-ai",
+    "pi_version": "1.0.0",
+    "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+    "npm_git_head": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+    "tarball_integrity": "sha512-3/W1vdDaVtpeMd23ElvJC12HLA5yS/BGqqcXF+0SK082dN7cbgNcCwguTBRBC258Ke8SzSvUW1B75iAf8w8IxA==",
+    "model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e"
+  },
+  "base_commit": "b4039628714c1ff69ce7cc6dcd5faa941f2fa7fe",
+  "catalog": "sha256:aca96483d9a9ffa7fdae0eed11daa28f05535353e2124b4709382bb7613bd513",
+  "maintainer_decision": {
+    "date": "2026-10-08",
+    "message": "按建议同步",
+    "action": "sync both extra error classes to pi 1.0.0; add only fixed ledger decisions"
+  },
+  "checks": {
+    "vet": "PASS",
+    "vet_live": "PASS",
+    "node_refusal_cases": {
+      "pass": 2,
+      "fail": 0
+    },
+    "catalog_snapshot_byte_comparison": "PASS",
+    "existing_extension_decisions_unchanged": 180,
+    "full_suite": {
+      "bundle": ".evidence/barness-ai/20261007T223425.434379000Z",
+      "manifest_sha256": "423014b2682c573ce3c4c6ec442e77d25dd6400db075a984ac6a5c0e039b259d",
+      "cases": 3345,
+      "statuses": {
+        "PASS": 3345
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:aca96483d9a9ffa7fdae0eed11daa28f05535353e2124b4709382bb7613bd513",
+        "model_catalog_version": "2026-10-08.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "race": {
+      "bundle": ".evidence/barness-ai/20261007T223427.313505000Z",
+      "manifest_sha256": "be6a765f62713a05a9c44fb6a8bd8531190fe024b130d433d7ad668823483f36",
+      "cases": 3345,
+      "statuses": {
+        "PASS": 2726,
+        "NOT_RUN": 619
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:aca96483d9a9ffa7fdae0eed11daa28f05535353e2124b4709382bb7613bd513",
+        "model_catalog_version": "2026-10-08.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "differential": {
+      "cases": 611,
+      "pass": 611,
+      "fail": 0,
+      "pending": 0
+    },
+    "policy_pressure": {
+      "pass": 7,
+      "fail": 0
+    },
+    "pressure_isolated_confirmation": {
+      "bundle": ".evidence/barness-ai/20261007T223848.582684000Z",
+      "manifest_sha256": "931d27b5c3db6e2db80c170f5a6aacf62f0cfda986f9eb09b91b9bf1fd83a905",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:aca96483d9a9ffa7fdae0eed11daa28f05535353e2124b4709382bb7613bd513",
+        "model_catalog_version": "2026-10-08.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "reviews": {
+      "standards": "No remaining actionable findings; scalar named errors fixed and re-reviewed",
+      "spec": "No remaining findings; index identity and scalar named errors fixed and re-reviewed"
+    }
+  },
+  "red_evidence": {
+    "output_index_matrix": {
+      "bundle": ".evidence/barness-ai/20261007T220307.768577000Z",
+      "pass": 12,
+      "fail": 24
+    },
+    "sdk_error_normalization": {
+      "bundle": ".evidence/barness-ai/20261007T222457.957697000Z",
+      "cases": 112,
+      "pass": 36,
+      "fail": 76
+    },
+    "named_scalar_errors": {
+      "bundle": ".evidence/barness-ai/20261007T223051.094670000Z",
+      "cases": 40,
+      "pass": 24,
+      "fail": 16
+    },
+    "thread_wrapper_control": {
+      "bundle": ".evidence/barness-ai/20261007T223324.121393000Z",
+      "cases": 16,
+      "pass": 8,
+      "fail": 8
+    },
+    "filtered_replay_audit": {
+      "bundle": ".evidence/barness-ai/20261007T222700.850503000Z",
+      "failure": "synthetic fixture key recorded before world registration; bootstrap registration fixed; original exact replay passed"
+    }
+  },
+  "intermediate_pressure_failure": {
+    "bundle": ".evidence/barness-ai/20261007T222931.857887000Z",
+    "case": "E08-policy-pressure-cloud-interactive-design-load",
+    "failure": "one loopback stream ended as transport error",
+    "final_full_case": "PASS",
+    "isolated_confirmation": "PASS",
+    "note": "Not reproduced in final full suite or isolated replay. No thresholds, limits or retry policy weakened."
+  },
+  "not_run": {
+    "race_opt_in_cases": 619,
+    "live": "NOT_RUN; issue 03 changes the offline chat baseline"
+  },
+  "commit_policy": "one green migration commit on current branch after all checks; no intermediate baseline commit"
+}

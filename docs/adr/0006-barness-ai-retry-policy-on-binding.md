@@ -16,12 +16,12 @@ pi 把 `maxRetries`、`maxRetryDelayMs` 放在每次调用的 StreamOptions 里�
 ## Consequences
 
 - 零值即 pi 的默认值：`MaxRetries` 为 0，不重试；`MaxRetryDelay` 为 nil 时上限 60 秒，显式设为 0 只取消这一项上限，等待仍受调用的 context 截止时间约束（ADR-0002）。负数是宿主配置错误，调用在 PhaseBinding 以 `invalid_request` 失败，不发出请求。
-- 判定和延迟逐条移植 pi 的 `provider-retry`：x-should-retry 优先；没有响应的连接失败，以及 408/409/429/5xx 才重试；延迟依次取 retry-after-ms、retry-after（秒数或 HTTP 日期）、带抖动的指数退避。SDK 自身的重试始终关闭。只在各 adapter 的初始请求处重试，流开始后从不重放；onPayload 每个逻辑调用执行一次，onResponse 只在取得初始响应后执行一次。
+- 判定和延迟逐条移植 pi 的 `provider-retry`：x-should-retry 优先；没有响应的连接失败，以及 408/409/429/5xx 才重试；延迟依次取有限的 retry-after-ms、有限的 retry-after（秒数或 HTTP 日期）、带抖动的指数退避。无法解析、Infinity、-Infinity 或溢出值继续检查后续头，均无有限值时退避（pi 1.0.0）：基数 0.5 秒、上限 8 秒、减去 0–25% 抖动。SDK 自身的重试始终关闭。只在各 adapter 的初始请求处重试，流开始后从不重放；onPayload 每个逻辑调用执行一次，onResponse 只在取得初始响应后执行一次。
 - “没有响应的连接失败”只认 HTTP 客户端发送失败的错误（Responses adapter 用 SDK middleware 标记），不把任意 Go error 当作可重试。
 - 每次尝试记录在 `CallMetadata.Attempts`，AttemptID 为 `RequestID#序号`。Observer（工单 14）以同样的粒度上报尝试。
 - 时钟与抖动源是内部类型 `internal/clock.Clock`，仅供验收测试替换（`Config.Clock`），宿主无法构造。
 - pi 的 retry 包装在请求被取消时总是抛出自己的 AbortError，所以初始请求阶段取消的 errorMessage 为 `Request aborted`，与是否配置重试无关；barness 随之修正了工单 05 采用的 SDK 文本 `Request was aborted.`。截止时间到期仍用 `Request timed out.`，这是 barness 的扩展（pi 没有调用截止时间）。
-- 已知的两处细微差异，均不进入 pi 差分场景：一是 `MaxRetryDelay` 为 0 时，超过 2^31-1 毫秒（约 24.8 天）的请求延迟在 pi 中被 Node 的 setTimeout 当作立即触发，barness 则按规范一直等到调用截止时间；二是 `retry-after` 日期只按 HTTP 日期格式（RFC 9110）解析，JavaScript `Date.parse` 能接受的其他自由格式日期在 barness 中按无法解析处理，立即重试。
+- 已知的两处细微差异，均不进入 pi 差分场景：一是 `MaxRetryDelay` 为 0 时，超过 2^31-1 毫秒（约 24.8 天）的请求延迟在 pi 中被 Node 的 setTimeout 当作立即触发，barness 则按规范一直等到调用截止时间；二是 `retry-after` 日期只按 HTTP 日期格式（RFC 9110）解析，JavaScript `Date.parse` 能接受的其他自由格式日期在 barness 中按无法解析处理，采用带抖动的指数退避。
 - 初始请求在 context 结束时，无论该次尝试拿到什么（包括同时到达的 HTTP 错误），都按中断分类，与 pi 先检查 signal 的顺序一致。
 - pi 差分中重试场景两侧使用相同设置：barness 用绑定，pi 用调用选项。这是配置位置的差异，不是行为差异，所以不登记差分条目。
 

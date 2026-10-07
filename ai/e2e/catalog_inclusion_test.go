@@ -67,13 +67,13 @@ func TestCatalogInclusion(t *testing.T) {
 		ev := run.Case(t, "E03-catalog-inclusion-listed")
 		ev.Record("catalog", ai.BuiltinCatalog())
 		anthropic := builtinModelIDs(ai.APIAnthropicMessages, ai.ProviderAnthropic)
-		for _, id := range []string{"claude-opus-4-8", "claude-fable-5"} {
+		for _, id := range []string{"claude-opus-4-8", "claude-fable-5", "claude-sonnet-5-5"} {
 			ev.Check(id+" on Messages", slices.Contains(anthropic, id), "listed %q", anthropic)
 		}
 		responses := builtinModelIDs(ai.APIOpenAIResponses, ai.ProviderOpenAI)
 		chat := builtinModelIDs(ai.APIOpenAICompletions, ai.ProviderOpenAI)
 		for _, id := range []string{"gpt-5.4", "gpt-5.4-mini", "gpt-5.4-pro", "gpt-5.5", "gpt-5.6-luna", "gpt-5.6-sol",
-			"gpt-5.6-terra", "gpt-6-astra", "gpt-6-luna", "gpt-6-sol"} {
+			"gpt-5.6-terra", "gpt-6-astra", "gpt-6-luna", "gpt-6-sol", "gpt-6.1-sol", "gpt-daybreak-blue-latest", "gpt-daybreak-red-latest"} {
 			ev.Check(id+" on Responses", slices.Contains(responses, id), "listed %q", responses)
 			pro := id == "gpt-5.4-pro"
 			ev.Check(id+" on Chat unless a pro model", slices.Contains(chat, id) != pro, "listed %q", chat)

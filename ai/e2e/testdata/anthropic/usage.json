@@ -190,6 +190,527 @@
     },
     "usageReporting": "partial"
    }
+  },
+  {
+   "id": "delta-cache-1h",
+   "about": "0.87.1: delta ignores 1h detail → 1.0.0: overwrite when present (including zero), retain when missing; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/anthropic-messages.ts",
+   "model": "claude-sonnet-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_cache",
+      "usage": {
+       "input_tokens": 100,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 2000,
+       "cache_creation_input_tokens": 3000,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 1000,
+        "ephemeral_1h_input_tokens": 0
+       }
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Done."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 50,
+      "output_tokens_details": {
+       "thinking_tokens": 20
+      },
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 2000
+      }
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_cache",
+    "content": [
+     {
+      "type": "text",
+      "text": "Done."
+     }
+    ],
+    "usage": {
+     "input": 100,
+     "output": 50,
+     "cacheRead": 2000,
+     "cacheWrite": 3000,
+     "cacheWrite1h": 2000,
+     "reasoning": 20,
+     "totalTokens": 5150,
+     "cost": {
+      "input": 0.00030000000000000003,
+      "output": 0.00075,
+      "cacheRead": 0.0006,
+      "cacheWrite": 0.01575,
+      "total": 0.0174
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "delta-cache-1h-replaces",
+   "about": "0.87.1: delta ignores 1h detail → 1.0.0: overwrite when present (including zero), retain when missing; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/anthropic-messages.ts",
+   "model": "claude-sonnet-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_cache",
+      "usage": {
+       "input_tokens": 100,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 2000,
+       "cache_creation_input_tokens": 3000,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 1000,
+        "ephemeral_1h_input_tokens": 2000
+       }
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Done."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 50,
+      "output_tokens_details": {
+       "thinking_tokens": 20
+      },
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 2000
+      }
+     }
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 50,
+      "output_tokens_details": {
+       "thinking_tokens": 20
+      },
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 1000
+      }
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_cache",
+    "content": [
+     {
+      "type": "text",
+      "text": "Done."
+     }
+    ],
+    "usage": {
+     "input": 100,
+     "output": 50,
+     "cacheRead": 2000,
+     "cacheWrite": 3000,
+     "cacheWrite1h": 1000,
+     "reasoning": 20,
+     "totalTokens": 5150,
+     "cost": {
+      "input": 0.00030000000000000003,
+      "output": 0.00075,
+      "cacheRead": 0.0006,
+      "cacheWrite": 0.0135,
+      "total": 0.01515
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "delta-cache-1h-missing",
+   "about": "0.87.1: delta ignores 1h detail → 1.0.0: overwrite when present (including zero), retain when missing; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/anthropic-messages.ts",
+   "model": "claude-sonnet-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_cache",
+      "usage": {
+       "input_tokens": 100,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 2000,
+       "cache_creation_input_tokens": 3000,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 1000,
+        "ephemeral_1h_input_tokens": 2000
+       }
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Done."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 50,
+      "output_tokens_details": {
+       "thinking_tokens": 20
+      }
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_cache",
+    "content": [
+     {
+      "type": "text",
+      "text": "Done."
+     }
+    ],
+    "usage": {
+     "input": 100,
+     "output": 50,
+     "cacheRead": 2000,
+     "cacheWrite": 3000,
+     "cacheWrite1h": 2000,
+     "reasoning": 20,
+     "totalTokens": 5150,
+     "cost": {
+      "input": 0.00030000000000000003,
+      "output": 0.00075,
+      "cacheRead": 0.0006,
+      "cacheWrite": 0.01575,
+      "total": 0.0174
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "delta-cache-1h-zero",
+   "about": "0.87.1: delta ignores 1h detail → 1.0.0: overwrite when present (including zero), retain when missing; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/anthropic-messages.ts",
+   "model": "claude-sonnet-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_cache",
+      "usage": {
+       "input_tokens": 100,
+       "output_tokens": 1,
+       "cache_read_input_tokens": 2000,
+       "cache_creation_input_tokens": 3000,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 1000,
+        "ephemeral_1h_input_tokens": 2000
+       }
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Done."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 50,
+      "output_tokens_details": {
+       "thinking_tokens": 20
+      },
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0
+      }
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_cache",
+    "content": [
+     {
+      "type": "text",
+      "text": "Done."
+     }
+    ],
+    "usage": {
+     "input": 100,
+     "output": 50,
+     "cacheRead": 2000,
+     "cacheWrite": 3000,
+     "cacheWrite1h": 0,
+     "reasoning": 20,
+     "totalTokens": 5150,
+     "cost": {
+      "input": 0.00030000000000000003,
+      "output": 0.00075,
+      "cacheRead": 0.0006,
+      "cacheWrite": 0.01125,
+      "total": 0.0129
+     }
+    },
+    "usageReporting": "complete"
+   }
+  },
+  {
+   "id": "delta-cache-1h-partial",
+   "about": "0.87.1: delta ignores 1h detail → 1.0.0: overwrite when present (including zero), retain when missing; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/anthropic-messages.ts",
+   "model": "claude-sonnet-4-5",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "type": "message_start",
+     "message": {
+      "id": "msg_cache",
+      "usage": {
+       "output_tokens": 1,
+       "cache_read_input_tokens": 2000,
+       "cache_creation_input_tokens": 3000,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 1000,
+        "ephemeral_1h_input_tokens": 0
+       }
+      }
+     }
+    },
+    {
+     "type": "content_block_start",
+     "index": 0,
+     "content_block": {
+      "type": "text",
+      "text": ""
+     }
+    },
+    {
+     "type": "content_block_delta",
+     "index": 0,
+     "delta": {
+      "type": "text_delta",
+      "text": "Done."
+     }
+    },
+    {
+     "type": "content_block_stop",
+     "index": 0
+    },
+    {
+     "type": "message_delta",
+     "delta": {
+      "stop_reason": "end_turn"
+     },
+     "usage": {
+      "output_tokens": 50,
+      "output_tokens_details": {
+       "thinking_tokens": 20
+      },
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 2000
+      }
+     }
+    },
+    {
+     "type": "message_stop"
+    }
+   ],
+   "expect": {
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_cache",
+    "content": [
+     {
+      "type": "text",
+      "text": "Done."
+     }
+    ],
+    "usage": {
+     "input": 0,
+     "output": 50,
+     "cacheRead": 2000,
+     "cacheWrite": 3000,
+     "cacheWrite1h": 2000,
+     "reasoning": 20,
+     "totalTokens": 5050,
+     "cost": {
+      "input": 0,
+      "output": 0.00075,
+      "cacheRead": 0.0006,
+      "cacheWrite": 0.01575,
+      "total": 0.0171
+     }
+    },
+    "usageReporting": "partial"
+   }
   }
  ]
 }

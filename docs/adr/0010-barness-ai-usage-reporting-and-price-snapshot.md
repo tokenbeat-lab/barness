@@ -57,7 +57,7 @@ pi 不接收失败响应的 usage，消息 Usage 保持零值。与 pi 一致：
 
 ## 决策五：成本规则逐位移植，1h 写入以隔离测试对照 pi
 
-`calculateCost` 的运算顺序原样保留，每个乘积单独舍入（Go 允许把乘加融合为 FMA，可能与 JavaScript 末位不同）。Responses 的 service tier 调整按 pi：`response.service_tier ?? options.serviceTier`，flex ×0.5、priority ×2（gpt-5.5 为 ×2.5）；与 pi 一样依据调用选项而非 onPayload 改写后的请求体。
+`calculateCost` 的运算顺序原样保留，每个乘积单独舍入（Go 允许把乘加融合为 FMA，可能与 JavaScript 末位不同）。Responses 的 service tier 调整按 pi：`response.service_tier ?? options.serviceTier`，flex ×0.5、priority 与 fast ×2（gpt-5.5 为 ×2.5）；与 pi 一样依据调用选项而非 onPayload 改写后的请求体。
 
 Responses 从不报告 1h 缓存写入，也没有多档 tiers 的模型，这两条规则由 `TestCostEstimate` 直接对照冻结 pi 的 `calculateCost`（`BARNESS_AI_PIDIFF=1`），同一测试还核对内置价格与 pi 模型数据一致。Anthropic adapter（工单 16）接入后应由 E2E 覆盖 1h 写入，届时这一隔离测试中对应用例可删除。
 

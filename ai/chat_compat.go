@@ -32,7 +32,7 @@ type chatCompat struct {
 	reasoningContentOnAssistant bool
 }
 
-// chatCompatOf is p's profile, as pi 0.87.1 detects it: DeepSeek is a
+// chatCompatOf is p's profile, as pi 1.0.0 detects it: DeepSeek is a
 // non-standard vendor (no store, no developer role, max_tokens) with its
 // own thinking format that requires reasoning_content on assistant turns;
 // every other provider gets the standard OpenAI compat (ADR-0013).

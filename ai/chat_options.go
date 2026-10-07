@@ -21,11 +21,9 @@ type ChatOptions struct {
 	// MaxTokens is sent as max_completion_tokens (max_tokens to DeepSeek);
 	// unset, null and 0 send nothing.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
-	// SamplingParams are applied over the request body after every named
-	// field, so a key here overrides it (pi-ai parity). Unlike the simple
-	// entry, the model's own samplingParams are not merged in. Keys that
-	// would change the model, history, tools, stored state or the cache key
-	// are refused.
+	// SamplingParams override named request fields and model defaults, on
+	// both full and simple entries (pi-ai parity). Keys that change the
+	// model, history, tools, stored state or cache key are refused.
 	SamplingParams map[string]json.RawMessage `json:"samplingParams,omitempty"`
 	// CacheRetention decides when a prompt cache key is sent; "long" asks a
 	// model that supports it for a 24h retention. Empty is "short".

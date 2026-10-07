@@ -1,0 +1,322 @@
+{
+  "case": "P01 baseline 1.0 unfinished tools",
+  "source": "https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+  "scenarios": [
+    {
+      "id": "tool-missing-done-stream",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-missing-done-streamSimple",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-overwritten-stream",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_2", "type": "function_call", "call_id": "call_2", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.output_item.done", "output_index": 0, "item": {"id": "fc_2", "type": "function_call", "call_id": "call_2", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-overwritten-streamSimple",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_2", "type": "function_call", "call_id": "call_2", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.output_item.done", "output_index": 0, "item": {"id": "fc_2", "type": "function_call", "call_id": "call_2", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-missing-index-stream",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-missing-index-streamSimple",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-arguments-done-only-stream",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.function_call_arguments.done", "output_index": 0, "arguments": "{}"},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-arguments-done-only-streamSimple",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.function_call_arguments.done", "output_index": 0, "arguments": "{}"},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-complete-stream",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.output_item.done", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-complete-streamSimple",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.output_item.done", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}
+      ],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-done-after-terminal-stream",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}},
+        {"type": "response.output_item.done", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}
+      ],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-done-after-terminal-streamSimple",
+      "about": "0.87.1: terminal accepts unfinished tool blocks → 1.0.0: after terminal/EOF checks every content block for output_item.done; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [
+        {"type": "response.output_item.added", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}},
+        {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}},
+        {"type": "response.output_item.done", "output_index": 0, "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}
+      ],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-index-missing-to-missing-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-index-missing-to-missing-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-index-missing-to-null-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-missing-to-null-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-missing-to-zero-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-missing-to-zero-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-null-to-missing-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-null-to-missing-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-null-to-null-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-index-null-to-null-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-index-null-to-zero-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-null-to-zero-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-zero-to-missing-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-zero-to-missing-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-zero-to-null-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-zero-to-null-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": null}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "error", "rawStopReason": "completed", "responseId": "resp_parity", "code": "protocol", "phase": "stream", "errorMessage": "OpenAI Responses stream completed with an unfinished tool call: lookup (call_1|fc_1)"}
+    },
+    {
+      "id": "tool-index-zero-to-zero-stream",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "stream",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    },
+    {
+      "id": "tool-index-zero-to-zero-streamSimple",
+      "about": "pi 1.0.0 distinguishes missing, null and numeric output_index keys. A done on another key leaves the original content block unfinished; matching keys complete it. Frozen api/openai-responses-shared.ts getOrCreateSlot / processResponsesStream.",
+      "entry": "streamSimple",
+      "model": "gpt-4.1-mini",
+      "context": {"messages": [{"role": "user", "content": [{"type": "text", "text": "Look up x."}]}]},
+      "events": [{"type": "response.output_item.added", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.output_item.done", "item": {"id": "fc_1", "type": "function_call", "call_id": "call_1", "name": "lookup", "arguments": "{}"}, "output_index": 0}, {"type": "response.completed", "response": {"id": "resp_parity", "status": "completed", "output": []}}],
+      "expect": {"stopReason": "toolUse", "rawStopReason": "completed", "responseId": "resp_parity"}
+    }
+  ]
+}

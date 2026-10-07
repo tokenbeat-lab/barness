@@ -37,9 +37,8 @@ import (
 //	   usage of the last successful turn, failed turns, system sections and
 //	   removed tools), loses the 4096 safety margin or the no-context-window
 //	   exception, or the 16-token Responses minimum
-//	O6 samplingParams are not applied last, lose nulls, or the full entry
-//	   merges the model's samplingParams; on the simple entry the call does
-//	   not win per key
+//	O6 samplingParams lose nulls or are not applied in the same order on
+//	   full and simple entries: named fields, model defaults, call overrides
 //	O7 cache retention maps wrongly for a compat; the raw session id is sent;
 //	   affinity headers appear without a key, or a key without them
 //	O8 Responses sends metadata, or the tenant ends up in the request
@@ -259,8 +258,5 @@ func TestOptionRejects(t *testing.T) {
 	for id, opts := range simple {
 		reject(t, "simple-"+id, func(*ai.Config) {}, invokeSimple(opts))
 	}
-	// The model's own samplingParams are held to the same boundary when the
-	// simple entry merges them.
-	reject(t, "simple-model-sampling-model", withModelPatch("gpt-4.1-mini", nil, json.RawMessage(`{"samplingParams":{"model":"gpt-4"}}`)),
-		invokeSimple(ai.SimpleOptions{}))
+	// Model defaults are refused at Client construction (TestModelSamplingRejects).
 }

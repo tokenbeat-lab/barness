@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"cmp"
+	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -9,6 +10,7 @@ import (
 	"runtime"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/clock"
@@ -59,6 +61,7 @@ func TestPiDifferential(t *testing.T) {
 			o := openOracle(t)
 			differential(t, ev, o, ledger, "stream", toolPidiffScenario(t, "tool-call-function", "stream"))
 		})
+		scenarioPiDifferential(t, ledger, responsesProtocol, "P01", []string{"parity.json", "parity-models.json", "parity-errors.json"})
 		// E03 history normalization, downgrade and images (TestHistoryNormalization).
 		hf, hraw := loadHistoryFixture(t)
 		for _, sc := range hf.Scenarios {
@@ -317,7 +320,10 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	if sc.piOptionsRaw != nil {
 		options = sc.piOptionsRaw
 	}
-	piRun, err := o.Run(ctxFor(t), pioracle.Case{
+	// The six-retry ceiling fixture needs up to 23.5s on pi's real clock.
+	piCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	piRun, err := o.Run(piCtx, pioracle.Case{
 		ModelCompat:      compat,
 		ModelPatch:       sc.modelPatch,
 		API:              string(p.api),

@@ -81,7 +81,8 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	if failure != nil {
 		return failure
 	}
-	// Close releases the response body on every later path.
+	// Close releases the response body on every later path. The typed
+	// stream stays unread; the raw SDK decoder preserves SSE event names.
 	defer stream.Close()
 	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
@@ -90,43 +91,12 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	}
 
 	out.start()
-	failure = readResponsesStream(ctx, stream, responsesParser{out: out, failures: failures, slots: map[int64]responsesSlot{}, reasoning: map[string]int{},
+	failure = readResponsesStream(ctx, ssestream.NewDecoder(res), responsesParser{out: out, failures: failures, slots: map[responsesIndex]responsesSlot{}, reasoning: map[string]int{},
 		usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
 	}
 	return failure
-}
-
-// readResponsesStream feeds the stream to p until a protocol terminal, a
-// failure or the end of the body. As in pi, only a terminal response event is
-// success: the SDK ends quietly at EOF, and when the call is interrupted.
-func readResponsesStream(ctx context.Context, stream *ssestream.Stream[responses.ResponseStreamEventUnion], p responsesParser) *Error {
-	for stream.Next() {
-		if failure := p.handle(stream.Current()); failure != nil {
-			return failure
-		}
-		if failure := p.out.failure(); failure != nil {
-			return failure
-		}
-	}
-	if ctx.Err() != nil {
-		msg := msgNoTerminal
-		if p.terminal {
-			msg = msgAbortedAfterTerminal
-		}
-		return interrupted(ctx, PhaseStream, msg)
-	}
-	if err := stream.Err(); err != nil {
-		return p.failures.stream(err)
-	}
-	if p.failure != nil {
-		return p.failure
-	}
-	if !p.terminal {
-		return newError(CodeProtocol, PhaseStream, msgNoTerminal)
-	}
-	return nil
 }
 
 // responsesParser normalizes Responses stream events into assembler calls. It
@@ -135,13 +105,15 @@ func readResponsesStream(ctx context.Context, stream *ssestream.Stream[responses
 // (grammar) tool calls and tool namespaces, which only tools barness-ai does
 // not declare produce.
 type responsesParser struct {
-	out      *assembler
-	failures responsesFailures
-	slots    map[int64]responsesSlot // output_index → open block
+	out        *assembler
+	failures   responsesFailures
+	slots      map[responsesIndex]responsesSlot // output_index → open block
+	unfinished map[int]responsesToolRef         // content index → call lacking item.done
 	// reasoning maps a finished reasoning item's id to its thinking block,
 	// for the terminal response's encrypted content backfill.
 	reasoning map[string]int
 	terminal  bool
+	stop      StopReason
 	// failure is a terminal status that maps to an error. As in pi, the stream
 	// is still read to its end; the failure is reported afterwards.
 	failure *Error
@@ -149,6 +121,27 @@ type responsesParser struct {
 	// attempt records the usage the terminal response reported for the
 	// attempt being read.
 	attempt *initialRequest
+}
+
+type responsesToolRef struct{ name, id string }
+
+// responsesIndex preserves pi's Map key distinction between undefined, null
+// and a numeric index. The SDK's int64 alone collapses all three to zero and
+// lets a done on another key incorrectly complete an unfinished tool block.
+type responsesIndex struct {
+	kind  string
+	value int64
+}
+
+func outputIndexOf(ev responses.ResponseStreamEventUnion) responsesIndex {
+	switch ev.JSON.OutputIndex.Raw() {
+	case "":
+		return responsesIndex{kind: "missing"}
+	case "null":
+		return responsesIndex{kind: "null"}
+	default:
+		return responsesIndex{kind: "number", value: ev.OutputIndex}
+	}
 }
 
 // responsesSlot is the open content block an output item streams into.
@@ -160,14 +153,14 @@ type responsesSlot struct {
 }
 
 // slot returns the open block for outputIndex if it has the given kind.
-func (p *responsesParser) slot(outputIndex int64, kind string) (int, bool) {
+func (p *responsesParser) slot(outputIndex responsesIndex, kind string) (int, bool) {
 	s, ok := p.slots[outputIndex]
 	return s.index, ok && s.kind == kind
 }
 
 // open starts a block for a message, reasoning or function call item; other
 // items are not handled.
-func (p *responsesParser) open(outputIndex int64, item responses.ResponseOutputItemUnion) (int, bool) {
+func (p *responsesParser) open(outputIndex responsesIndex, item responses.ResponseOutputItemUnion) (int, bool) {
 	s := responsesSlot{kind: item.Type}
 	switch item.Type {
 	case "message":
@@ -179,6 +172,10 @@ func (p *responsesParser) open(outputIndex int64, item responses.ResponseOutputI
 		// the item id same-model replay needs.
 		s.raw = newArgumentText(item.Arguments.OfString)
 		s.index = p.out.toolCallStart(item.CallID+"|"+item.ID, item.Name, s.raw.String())
+		if p.unfinished == nil {
+			p.unfinished = make(map[int]responsesToolRef)
+		}
+		p.unfinished[s.index] = responsesToolRef{name: item.Name, id: item.CallID + "|" + item.ID}
 	default:
 		return 0, false
 	}
@@ -187,7 +184,7 @@ func (p *responsesParser) open(outputIndex int64, item responses.ResponseOutputI
 }
 
 // argumentsDelta appends a function call's argument fragment.
-func (p *responsesParser) argumentsDelta(outputIndex int64, delta string) {
+func (p *responsesParser) argumentsDelta(outputIndex responsesIndex, delta string) {
 	s, ok := p.slots[outputIndex]
 	if !ok || s.kind != "function_call" || !p.out.fitsToolJSON(s.raw.Len()+len(delta)) {
 		return
@@ -198,7 +195,7 @@ func (p *responsesParser) argumentsDelta(outputIndex int64, delta string) {
 // argumentsDone takes the provider's complete argument text. As in pi, the
 // part beyond what was streamed is published as a final delta; a text that
 // does not extend it replaces it silently.
-func (p *responsesParser) argumentsDone(outputIndex int64, arguments string) {
+func (p *responsesParser) argumentsDone(outputIndex responsesIndex, arguments string) {
 	s, ok := p.slots[outputIndex]
 	if !ok || s.kind != "function_call" {
 		return
@@ -214,32 +211,33 @@ func (p *responsesParser) argumentsDone(outputIndex int64, arguments string) {
 }
 
 func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
+	index := outputIndexOf(ev)
 	switch ev.Type {
 	case "response.created":
 		p.out.responseID(ev.Response.ID)
 	case "response.output_item.added":
-		p.open(ev.OutputIndex, ev.Item)
+		p.open(index, ev.Item)
 	// response.reasoning_text.done (DeepSeek) repeats the streamed text;
 	// as in pi, the reasoning item's output_item.done closes the block.
 	case "response.reasoning_summary_text.delta", "response.reasoning_text.delta":
-		if i, ok := p.slot(ev.OutputIndex, "reasoning"); ok {
+		if i, ok := p.slot(index, "reasoning"); ok {
 			p.out.thinkingDelta(i, ev.Delta)
 		}
 	case "response.reasoning_summary_part.done":
 		// pi separates summary parts with a blank line.
-		if i, ok := p.slot(ev.OutputIndex, "reasoning"); ok {
+		if i, ok := p.slot(index, "reasoning"); ok {
 			p.out.thinkingDelta(i, "\n\n")
 		}
 	case "response.output_text.delta", "response.refusal.delta":
-		if i, ok := p.slot(ev.OutputIndex, "message"); ok {
+		if i, ok := p.slot(index, "message"); ok {
 			p.out.textDelta(i, ev.Delta)
 		}
 	case "response.function_call_arguments.delta":
-		p.argumentsDelta(ev.OutputIndex, ev.Delta)
+		p.argumentsDelta(index, ev.Delta)
 	case "response.function_call_arguments.done":
-		p.argumentsDone(ev.OutputIndex, ev.Arguments)
+		p.argumentsDone(index, ev.Arguments)
 	case "response.output_item.done":
-		p.itemDone(ev.OutputIndex, ev.Item)
+		p.itemDone(index, ev.Item)
 	case "response.completed", "response.incomplete":
 		return p.finalize(ev.Response)
 	case "error":
@@ -270,7 +268,7 @@ func (p *responsesParser) failed(r responses.Response) *Error {
 // pi's getOrCreateSlot, it opens the block first when the item was never
 // announced, and ignores the item when its output index holds a block of
 // another kind.
-func (p *responsesParser) itemDone(outputIndex int64, item responses.ResponseOutputItemUnion) {
+func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.ResponseOutputItemUnion) {
 	s, ok := p.slots[outputIndex]
 	if ok && s.kind != item.Type {
 		return
@@ -308,6 +306,7 @@ func (p *responsesParser) itemDone(outputIndex int64, item responses.ResponseOut
 		p.reasoning[item.ID] = i
 	case "function_call":
 		p.out.toolCallEnd(i, cmp.Or(item.Arguments.OfString, s.raw.String()))
+		delete(p.unfinished, i)
 	}
 }
 
@@ -331,6 +330,7 @@ func (p *responsesParser) finalize(r responses.Response) *Error {
 	}
 	p.out.rawStopReason(raw)
 	stop, msg, known := mapResponsesStatus(status, reason)
+	p.stop = stop
 	switch {
 	case !known:
 		return newError(CodeProtocol, PhaseStream, msg)
@@ -339,6 +339,7 @@ func (p *responsesParser) finalize(r responses.Response) *Error {
 		p.failure = p.failures.upstream(cmp.Or(msg, "An unknown error occurred"))
 	case stop == StopReasonStop && p.out.hasToolCall():
 		// pi: a normally completed turn holding tool calls is tool use.
+		p.stop = StopReasonToolUse
 		p.out.stop(StopReasonToolUse)
 	default:
 		p.out.stop(stop)

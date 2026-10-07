@@ -18,11 +18,9 @@ type ResponsesOptions struct {
 	// MaxTokens is sent as max_output_tokens, raised to the protocol's
 	// minimum of 16. Unset, null and 0 send nothing.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
-	// SamplingParams are applied over the request body after every named
-	// field, so a key here overrides it (pi-ai parity). Unlike the simple
-	// entry, the model's own samplingParams are not merged in. Keys that
-	// would change the model, history, tools, server-side state or the
-	// cache key are refused.
+	// SamplingParams override named request fields and model defaults, on
+	// both full and simple entries (pi-ai parity). Keys that change the
+	// model, history, tools, stored state or cache key are refused.
 	SamplingParams map[string]json.RawMessage `json:"samplingParams,omitempty"`
 	// CacheRetention maps onto the prompt cache fields the model supports;
 	// empty is "short".
@@ -200,8 +198,12 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 // replacing a named field of the same name (pi's Object.assign after
 // buildParams). Keys are applied in sorted order; the body's own key order
 // is kept and new keys are appended.
-func applySamplingParams(body []byte, params map[string]json.RawMessage) ([]byte, error) {
-	if len(params) == 0 {
+func applySamplingParams(body []byte, sources ...map[string]json.RawMessage) ([]byte, error) {
+	count := 0
+	for _, params := range sources {
+		count += len(params)
+	}
+	if count == 0 {
 		return body, nil
 	}
 	v, err := parseJSON(string(body))
@@ -209,12 +211,14 @@ func applySamplingParams(body []byte, params map[string]json.RawMessage) ([]byte
 		return nil, err
 	}
 	obj := v.(*jsonObject)
-	for _, k := range slices.Sorted(maps.Keys(params)) {
-		value, err := parseJSON(string(params[k]))
-		if err != nil {
-			return nil, err
+	for _, params := range sources {
+		for _, k := range slices.Sorted(maps.Keys(params)) {
+			value, err := parseJSON(string(params[k]))
+			if err != nil {
+				return nil, err
+			}
+			obj.set(k, value)
 		}
-		obj.set(k, value)
 	}
 	return []byte(stringifyJSON(obj)), nil
 }

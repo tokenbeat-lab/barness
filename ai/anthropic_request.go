@@ -9,7 +9,7 @@ import (
 
 // Anthropic Messages wire DTOs. The adapter owns these and marshals them
 // itself, so the exact request — field presence included — is decided here
-// rather than by the SDK's typed params. Shapes follow pi-ai 0.87.1
+// rather than by the SDK's typed params. Shapes follow pi-ai 1.0.0
 // anthropic-messages.ts buildParams, convertMessages, convertContentBlocks
 // and convertTools for an API key, managed effort included (pi's OAuth,
 // Copilot, fallback and native tool-change paths are out of scope).

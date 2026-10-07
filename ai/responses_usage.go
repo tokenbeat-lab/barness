@@ -71,7 +71,7 @@ func serviceTierMultiplier(m Model, tier string) float64 {
 	switch tier {
 	case "flex":
 		return 0.5
-	case "priority":
+	case "priority", "fast":
 		if m.ID == "gpt-5.5" {
 			return 2.5
 		}

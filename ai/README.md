@@ -5,7 +5,7 @@ English | [简体中文](README.zh-CN.md)
 `github.com/tokenbeat-lab/barness/ai` is barness's model protocol module: one
 trusted, concurrency-safe `Client` that runs **one generation turn** against a
 model provider for **many tenants**. It is a Go port of
-[pi-ai](https://github.com/earendil-works/pi) (frozen baseline `0.87.1`) with
+[pi-ai](https://github.com/earendil-works/pi) (frozen baseline `1.0.0`) with
 tenant isolation, explicit resource limits and observability added on top.
 
 This README is for two audiences:
@@ -269,7 +269,7 @@ testing).
    credential files or default endpoints. Endpoints must be https except with
    `AllowLoopbackHTTP` (tests only).
 7. **pi parity is the default.** Observable behavior matches frozen pi-ai
-   `0.87.1`. Any intentional difference must be recorded in
+   `1.0.0`. Any intentional difference must be recorded in
    [`e2e/testdata/pidiff/ledger.json`](e2e/testdata/pidiff/ledger.json) and
    [differences.md](../docs/barness-ai/differences.md); a `pending` entry
    blocks release.

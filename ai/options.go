@@ -87,18 +87,10 @@ func (o SimpleOptions) validate() string {
 	return validateCommon(o.Temperature, o.MaxTokens, o.CacheRetention, o.SamplingParams, o.TimeoutMs)
 }
 
-// resolve is pi's buildBaseOptions for model m and the request: the model's
-// samplingParams under the call's, and MaxTokens resolved to the clamped
-// output budget. The result feeds the adapter's simple mapping.
+// resolve is pi's buildBaseOptions for model m and the request: MaxTokens
+// resolved to the clamped output budget. Sampling defaults are applied once
+// by the OpenAI-compatible request builders, on full and simple entries.
 func (o SimpleOptions) resolve(m Model, req Request) SimpleOptions {
-	if m.SamplingParams != nil || o.SamplingParams != nil {
-		merged := maps.Clone(m.SamplingParams)
-		if merged == nil {
-			merged = map[string]json.RawMessage{}
-		}
-		maps.Copy(merged, o.SamplingParams)
-		o.SamplingParams = merged
-	}
 	maxTokens := m.MaxTokens
 	if v, ok := o.MaxTokens.Get(); ok {
 		maxTokens = v

@@ -11,7 +11,7 @@ import (
 // Chat Completions wire DTOs. The adapter owns these and marshals them
 // itself, so the exact request — field presence included — is decided here
 // rather than by the SDK's typed params, which carry none of pi's
-// non-standard reasoning fields. Shapes follow pi-ai 0.87.1
+// non-standard reasoning fields. Shapes follow pi-ai 1.0.0
 // openai-completions.ts buildParams and convertMessages for the provider's
 // compat (ADR-0013, ADR-0015).
 type chatBody struct {
@@ -153,7 +153,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	if err != nil {
 		return nil, err
 	}
-	return applySamplingParams(out, opts.SamplingParams)
+	return applySamplingParams(out, model.SamplingParams, opts.SamplingParams)
 }
 
 // chatMessages ports pi's convertMessages for the prepared history.

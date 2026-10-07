@@ -21,7 +21,7 @@ barness 需要在本地程序和云端 Agent 环境中使用多种 LLM Provider�
 
 首期采用既有研究建议的范围：OpenAI Responses、Anthropic Messages、Gemini Developer API、OpenAI Chat Completions 四类协议，验收 OpenAI Responses/Chat、Anthropic Messages、Gemini Developer API、DeepSeek Responses/Chat 六个 Provider×协议组合。保留图片输入，使用直接厂商 API key；其他官方云 API、网关和生成模态按后续独立范围处理。
 
-兼容基线冻结为 pi-ai `0.87.1`、commit `898ab804050730e9dcefb4443875d5a932aa6a32`。对齐已纳入范围的可观察行为；租户授权、可信配置、Go 并发访问和显式资源限制作为单独扩展验收。既有研究中的 SDK 探针仅作为选型证据，不能证明 barness-ai 已通过验收。
+兼容基线冻结为 pi-ai `1.0.0`、commit `a13d35a742c6ef8462812a28fbe1d8c8b7431c32`。对齐已纳入范围的可观察行为；租户授权、可信配置、Go 并发访问和显式资源限制作为单独扩展验收。既有研究中的 SDK 探针仅作为选型证据，不能证明 barness-ai 已通过验收。
 
 ## User Stories
 

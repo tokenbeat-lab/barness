@@ -54,7 +54,7 @@ async function catalogModels(api, entry) {
 	const out = [];
 	for (const c of entry.catalogs) {
 		const catalog = (await import(c.models))[c.catalog];
-		const listed = Object.values(catalog).filter((m) => m.api === (c.catalogApi ?? api));
+		const listed = Object.values(catalog).filter((m) => m.type === "chat" && m.api === (c.catalogApi ?? api));
 		out.push(...listed.map((m) => ({ ...m, api })));
 	}
 	return out;
@@ -120,6 +120,16 @@ function packageInfo() {
 	return { version: pkg.version, modelDataSha256: hash.digest("hex") };
 }
 
+// Refuse a stale or altered installation before any provider code runs.
+// The Go caller checks the same identity on returned records as well.
+function verifiedPackageInfo() {
+	const provenance = JSON.parse(readFileSync(new URL("./provenance.json", import.meta.url), "utf8"));
+	const info = packageInfo();
+	if (info.version !== provenance.pi_version) fail("version mismatch");
+	if (info.modelDataSha256 !== provenance.model_data_sha256) fail("model data hash mismatch");
+	return info;
+}
+
 // thinkingBudgets evaluates pi's shared thinking budget rules
 // (api/simple-options adjustMaxTokensForThinking) for each case. These rules
 // have no Responses wire effect, so they are compared directly.
@@ -166,6 +176,7 @@ async function models(input) {
 async function main() {
 	refuseLeakyEnv();
 	installLoopbackGuard();
+	verifiedPackageInfo();
 	const input = await readStdin();
 	if (input.entry === "models") {
 		const results = await models(input);

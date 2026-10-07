@@ -13,20 +13,11 @@ type Catalog struct {
 
 // BuiltinCatalog returns a fresh copy of the built-in catalog.
 //
-// Source: the frozen pi-ai 0.87.1 model data (providers/data/openai.json,
-// sha256 3c52c858…2835, providers/data/anthropic.json, sha256
-// 474a010c…4e75, providers/data/google.json, sha256 328822707e…708c, and
-// providers/data/deepseek.json, sha256 549a7ddb…4d0d)
-// from the differential oracle's rebuilt copy, see
-// internal/testkit/pioracle/node/PROVENANCE.md. Every listed field was
-// re-checked against it when the oracle landed (compat when tools landed,
-// gpt-4 when image placeholders landed, the reasoning models and their level
-// maps when reasoning mapping landed, prices and gpt-5.5-pro when cost
-// estimation landed, the Anthropic models when the Messages adapter landed,
-// the Google models when the Gemini adapter landed).
-// (ADR-0018 listed the models below whose compat only turns on optional
-// features, when issue 34 landed, and the Anthropic models with managed
-// mid-conversation effort when issue 27 implemented it.)
+// Source: frozen pi-ai 1.0.0 providers/data/{openai,anthropic,google,deepseek}.json.
+// Per-file hashes and the complete model-data hash are pinned in
+// internal/testkit/pioracle/node/PROVENANCE.md. Included fields are checked
+// against that data by TestCatalogInclusion, including the 1.0 additions
+// evaluated under ADR-0018 and the managed effort implemented in ADR-0019.
 //
 // A model is listed when its Provider × API is implemented and the adapter
 // keeps all of its hard constraints, the compat flags without which the
@@ -53,7 +44,7 @@ type Catalog struct {
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-03.2",
+		Version: "2026-10-08.1",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
 			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels()),
 	}

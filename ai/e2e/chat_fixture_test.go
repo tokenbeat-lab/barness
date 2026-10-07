@@ -27,7 +27,7 @@ var chatProtocol = &fixtureProtocol{
 
 // chatFixtureFiles are the P04 fixtures under testdata/chat; the
 // differential runs every scenario in them that does not opt out.
-var chatFixtureFiles = []string{"text.json", "failures.json", "history.json", "options.json", "usage.json", "retry.json", "catalog.json"}
+var chatFixtureFiles = []string{"text.json", "failures.json", "history.json", "options.json", "usage.json", "retry.json", "catalog.json", "parity-models.json", "parity-errors.json"}
 
 // chatEvents lays scripted chunks out as an SSE reply of unnamed data
 // events; the JSON string "[DONE]" is the bare end marker.

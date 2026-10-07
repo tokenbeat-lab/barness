@@ -1,88 +1,63 @@
-# Frozen pi-ai copy for the differential oracle
+# Frozen pi-ai 1.0.0 differential oracle
 
-This directory is barness's own, rebuildable copy of the compatibility
-baseline: pi-ai `0.87.1`, commit `898ab804050730e9dcefb4443875d5a932aa6a32`
-(spec "Solution" and Testing Decisions §2). It does not read or modify the
-research checkout, and CI does not need it.
+The only running compatibility baseline is `@earendil-works/pi-ai@1.0.0`,
+[pi tag v1.0.0](https://github.com/earendil-works/pi/tree/v1.0.0), commit
+`a13d35a742c6ef8462812a28fbe1d8c8b7431c32`. No research checkout or online
+model generation participates in installation or runtime.
 
-## What is pinned
-
-| Item | Value |
+| Input | Pinned value |
 | --- | --- |
-| Package | `@earendil-works/pi-ai@0.87.1` (exact, `package.json`) |
-| Tarball integrity | `sha512-X/3PfQBnnoeVdO9Cv8zHghUMglzlgNZYGNzoPnbRoGnHl3Rw3TlA2UKSUB7BRHUOxMryHXYa8dnjWZlbRheDZA==` |
-| npm `gitHead` | `f07218c4d4bbc12bef056a7058c3dd49dfe41abe` |
-| `@earendil-works/pi-telemetry` | `0.87.1` (override; `^0.87.1` upstream) |
-| All transitive packages | `package-lock.json` (versions + integrity) |
-| Generated model data | `dist/providers/data/`, `.manifest.json` `generatedAt` 2026-09-22T19:31:44.346Z, `structureHash` `c6acf0a1…0095` |
-| Model data hash | `373fa856ca2590733b90f0b6177c932dffeec4370bdd50835087b91ab2a18d13` (see below) |
-| `openai.json` sha256 | `3c52c8587e7e4a1829ed98ec6e0e3d7bbb2baf47e8618556ed1e95a9c0362835` |
-| `anthropic.json` sha256 | `474a010cd96c759d60419a6ba745747d9a87f172276dc85b7568da9d072b4e75` |
-| `google.json` sha256 | `328822707e554d5977974d4b24695c2878aad48e5ca527c1efb0284141ff708c` |
-| `@google/genai` (pi's Google SDK) | `2.21.0` (`package-lock.json`) |
+| ai and telemetry | `1.0.0`, exact dependencies; telemetry override also `1.0.0` |
+| ai npm gitHead / tag commit | `a13d35a742c6ef8462812a28fbe1d8c8b7431c32` (identical) |
+| ai tarball integrity | `sha512-3/W1vdDaVtpeMd23ElvJC12HLA5yS/BGqqcXF+0SK082dN7cbgNcCwguTBRBC258Ke8SzSvUW1B75iAf8w8IxA==` |
+| telemetry tarball integrity | `sha512-WjNBj5TYIiPZFQEz2WlULcDwPLaKwIlmsKjVeYM+LJSbnSp38kWsHUJysIDGnu23IcLbKoPtywsvYfUJCeZePA==` |
+| Transitive dependency versions and integrity | `package-lock.json`; same resolved package inputs as issue 02 |
+| Model schema / generatedAt | `6` / `2026-10-01T18:57:11.882Z` |
+| Model structureHash | `235f2f320916ab6b0d7193e0bf66ec7983e9bc05abeddd7264923fb1e7eaf76e` |
+| Complete model-data SHA-256 | `8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e` |
+| openai.json SHA-256 | `87faafcdd168c9b6fdaef521137834a207437daf0d71641fd0a2f3dddf4d1ecb` |
+| anthropic.json SHA-256 | `3ff00b68990382e42626ebd1b65dcc28ae3cad9e6faa8920331ba92f067f1b3a` |
+| google.json SHA-256 | `c0f5a633e5e5a5044432db3e537f4bc674d4de18df09325c6349547fcc13cabe` |
+| deepseek.json SHA-256 | `10a296fb3e898f7715c80890c8af0af4f5fd58f22dbcd6612fdc5d762157ccdc` |
+| Node SDKs | OpenAI `7.19.0`, Anthropic `0.124.0`, Google GenAI `2.21.0` |
 
-`provenance.json` holds the values the Go side checks on every run: the runner
-reports the installed version and model data hash, and `pioracle.Run` refuses
-a copy that does not match. The model data hash is SHA-256 over the lines
-`<sha256(file)>  <name>\n` for every file in `dist/providers/data`, sorted by
-name, `.manifest.json` included.
+The model hash is SHA-256 over `<sha256(file)>  <name>\n` for all 43 files
+in `dist/providers/data`, sorted by filename, including `.manifest.json`.
+[model-data.sha256](model-data.sha256) pins every file. The runner checks version
+and hash before importing any provider. Go also checks returned identity on
+every entry. `runner.test.mjs` proves both mismatch refusals.
 
-## Why the npm release is the frozen commit
+## Release equivalence
 
-The frozen commit is not the published one, so the equivalence was checked
-on 2026-10-01:
+Issue 02's [reproducible proof](../../../../../.scratch/barness-ai-pi-1.0/release-verification/README.md)
+ran in two independent clean temporary environments on 2026-10-08:
 
-1. `git diff --name-only f07218c4 898ab804` shows that within `packages/ai`
-   and `packages/telemetry` only `CHANGELOG.md` changed. The 4 commits in
-   between touch `packages/durable`, root scripts and other changelogs.
-2. A clean clone checked out at `898ab804`, `npm ci --ignore-scripts`, had the
-   tarball's `dist/providers/data/` copied into the missing
-   `packages/ai/src/providers/data/`. `npm run check:model-data` printed
-   "Generated model data is valid." Then chord, tui and telemetry were built,
-   followed by `packages/ai` `npm run build:offline`.
-3. `diff -r` of the resulting `packages/ai/dist` against the tarball's `dist`
-   found 0 differences across 770 files, and the same held for
-   `packages/telemetry/dist`.
+1. Resolve tag and both npm gitHeads; all equal the target commit above.
+2. Verify tarball integrity and install with `npm ci --ignore-scripts` using
+   the fixed release and source locks. Copy only the released model data into
+   the frozen source; never run `generate-models` or `hydrate:model-data`.
+3. Build chord, tui, telemetry, then ai `build:offline`. Compare complete
+   filename sets and bytes, including hidden files, JS, declarations and maps.
+4. All **811 ai** and **24 telemetry** dist files match, **0 differences**.
+   Wrong versions, gitHeads, missing/altered data, output differences, unlocked
+   dependencies and invalid integrity are rejected; redaction audit is clean.
 
-So this copy is exactly the frozen source plus the generated data that was
-published with it. Commit `898ab804` cannot regenerate the data itself:
-`generate-models` fetches live catalogs, and the result would drift.
+The oracle lock retains exactly that proof's resolved dependency graph; only
+its root package name and Node engine declaration describe this runner.
+The proof's source/dist hash lists remain in issue 02's evidence directory.
 
-## Rebuild
+## Rebuild and verify
 
 ```sh
 npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node
+node --test ai/internal/testkit/pioracle/node/runner.test.mjs
+BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1
 ```
 
-This needs npm registry access once. Running the oracle needs no network.
-Install scripts are skipped because the runner needs none (no native
-addons are loaded).
-
-To re-verify the equivalence, repeat steps 1–3 against a fresh clone of
-`github.com/earendil-works/pi`.
-
-## Run
-
-```sh
-BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run TestPiDifferential
-```
-
-`runner.mjs` executes one case per Node.js process. Isolation is enforced at
-three levels:
-
-- The Go side starts the process with an empty environment, and the runner
-  exits if any credential, endpoint or proxy variable is present.
-- Before pi loads, every socket connect is restricted to loopback. A
-  non-loopback target throws inside `net.Socket#connect` before any byte is
-  sent. This was checked by pointing a copy at `https://api.openai.com`.
-- The API key comes only from the case, and pi's provider-env lookup
-  receives an explicit empty map.
-
-pi's own test suite is never run.
-
-## Updating
-
-Changing the pinned version means changing the compatibility baseline. Update
-the spec first, then repeat the equivalence check for the new commit and
-update `provenance.json` and this file. Run the differential last and record
-any new differences in `ai/e2e/testdata/pidiff/ledger.json`.
+Installation needs registry access once; runtime only uses a local controlled
+Provider. The Go child environment is empty; the runner refuses credential,
+endpoint and proxy variables, restricts all TCP sockets to loopback and rejects
+IPC. Keys come only from synthetic cases. Chat catalogs explicitly require
+`type: "chat"`; image/classifier exports cannot enter a chat call. The oracle
+never runs upstream tests. Changing the baseline requires a spec update,
+release equivalence proof, new provenance and a full zero-pending differential.

@@ -1,7 +1,10 @@
 {
   "case": "E11 usage, cost and price version (P01 OpenAI × Responses)",
   "source": "Synthetic offline fixture. Usage conversion follows pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) openai-responses-shared.ts finalizeResponse, cost follows models.ts calculateCost and openai-responses.ts applyServiceTierPricing; prices are the frozen providers/data/openai.json. Expected costs were computed with that frozen copy and are checked against it by the pi differential.",
-  "catalog": {"version": "2026-10-03.2", "hash": "sha256:13553fe428d710dab86563bdb865f44554b88e8637a83b206c922701a3c9aca4"},
+  "catalog": {
+    "version": "2026-10-08.1",
+    "hash": "sha256:aca96483d9a9ffa7fdae0eed11daa28f05535353e2124b4709382bb7613bd513"
+  },
   "model": "gpt-4.1-mini",
   "prefix": [
     {"type": "response.created", "sequence_number": 0, "response": {"id": "resp_u", "object": "response", "created_at": 1790000000, "status": "in_progress", "model": "gpt-4.1-mini-2025-04-14", "output": [], "usage": null}},
@@ -369,6 +372,535 @@
           {"httpStatus": 503, "usageReporting": "unreported", "usage": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0, "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}, "code": "upstream_error"},
           {"httpStatus": 200, "usageReporting": "complete", "usage": {"input": 16, "output": 5, "cacheRead": 4, "cacheWrite": 0, "totalTokens": 25, "reasoning": 0, "cost": {"input": 6.4000000000000006e-06, "output": 8.000000000000001e-06, "cacheRead": 4.0000000000000003e-07, "cacheWrite": 0, "total": 1.48e-05}}}
         ]
+      }
+    },
+    {
+      "id": "priority-response-fast",
+      "note": "0.87.1: fast costs ×1 → 1.0.0: priority/fast ×2 (gpt-5.5 ×2.5), response then option; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses.ts",
+      "replies": [
+        {
+          "terminal": {
+            "type": "response.completed",
+            "sequence_number": 4,
+            "response": {
+              "id": "resp_u",
+              "object": "response",
+              "created_at": 1790000000,
+              "status": "completed",
+              "model": "gpt-4.1-mini-2025-04-14",
+              "output": [
+                {
+                  "id": "msg_u",
+                  "type": "message",
+                  "status": "completed",
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "output_text",
+                      "text": "ok",
+                      "annotations": []
+                    }
+                  ]
+                }
+              ],
+              "usage": {
+                "input_tokens": 20,
+                "output_tokens": 5,
+                "total_tokens": 25,
+                "input_tokens_details": {
+                  "cached_tokens": 4
+                },
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                }
+              },
+              "service_tier": "fast"
+            }
+          }
+        }
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {
+          "input": 16,
+          "output": 5,
+          "cacheRead": 4,
+          "cacheWrite": 0,
+          "totalTokens": 25,
+          "reasoning": 0,
+          "cost": {
+            "input": 1.2800000000000001e-05,
+            "output": 1.6000000000000003e-05,
+            "cacheRead": 8.000000000000001e-07,
+            "cacheWrite": 0,
+            "total": 2.96e-05
+          }
+        },
+        "attempts": [
+          {
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 16,
+              "output": 5,
+              "cacheRead": 4,
+              "cacheWrite": 0,
+              "totalTokens": 25,
+              "reasoning": 0,
+              "cost": {
+                "input": 1.2800000000000001e-05,
+                "output": 1.6000000000000003e-05,
+                "cacheRead": 8.000000000000001e-07,
+                "cacheWrite": 0,
+                "total": 2.96e-05
+              }
+            }
+          }
+        ]
+      },
+      "options": {
+        "serviceTier": "priority"
+      }
+    },
+    {
+      "id": "fast-response-fast",
+      "note": "0.87.1: fast costs ×1 → 1.0.0: priority/fast ×2 (gpt-5.5 ×2.5), response then option; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses.ts",
+      "replies": [
+        {
+          "terminal": {
+            "type": "response.completed",
+            "sequence_number": 4,
+            "response": {
+              "id": "resp_u",
+              "object": "response",
+              "created_at": 1790000000,
+              "status": "completed",
+              "model": "gpt-4.1-mini-2025-04-14",
+              "output": [
+                {
+                  "id": "msg_u",
+                  "type": "message",
+                  "status": "completed",
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "output_text",
+                      "text": "ok",
+                      "annotations": []
+                    }
+                  ]
+                }
+              ],
+              "usage": {
+                "input_tokens": 20,
+                "output_tokens": 5,
+                "total_tokens": 25,
+                "input_tokens_details": {
+                  "cached_tokens": 4
+                },
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                }
+              },
+              "service_tier": "fast"
+            }
+          }
+        }
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {
+          "input": 16,
+          "output": 5,
+          "cacheRead": 4,
+          "cacheWrite": 0,
+          "totalTokens": 25,
+          "reasoning": 0,
+          "cost": {
+            "input": 1.2800000000000001e-05,
+            "output": 1.6000000000000003e-05,
+            "cacheRead": 8.000000000000001e-07,
+            "cacheWrite": 0,
+            "total": 2.96e-05
+          }
+        },
+        "attempts": [
+          {
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 16,
+              "output": 5,
+              "cacheRead": 4,
+              "cacheWrite": 0,
+              "totalTokens": 25,
+              "reasoning": 0,
+              "cost": {
+                "input": 1.2800000000000001e-05,
+                "output": 1.6000000000000003e-05,
+                "cacheRead": 8.000000000000001e-07,
+                "cacheWrite": 0,
+                "total": 2.96e-05
+              }
+            }
+          }
+        ]
+      },
+      "options": {
+        "serviceTier": "fast"
+      }
+    },
+    {
+      "id": "fast-option-missing-response",
+      "note": "0.87.1: fast costs ×1 → 1.0.0: priority/fast ×2 (gpt-5.5 ×2.5), response then option; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses.ts",
+      "replies": [
+        {
+          "terminal": {
+            "type": "response.completed",
+            "sequence_number": 4,
+            "response": {
+              "id": "resp_u",
+              "object": "response",
+              "created_at": 1790000000,
+              "status": "completed",
+              "model": "gpt-4.1-mini-2025-04-14",
+              "output": [
+                {
+                  "id": "msg_u",
+                  "type": "message",
+                  "status": "completed",
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "output_text",
+                      "text": "ok",
+                      "annotations": []
+                    }
+                  ]
+                }
+              ],
+              "usage": {
+                "input_tokens": 20,
+                "output_tokens": 5,
+                "total_tokens": 25,
+                "input_tokens_details": {
+                  "cached_tokens": 4
+                },
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                }
+              }
+            }
+          }
+        }
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {
+          "input": 16,
+          "output": 5,
+          "cacheRead": 4,
+          "cacheWrite": 0,
+          "totalTokens": 25,
+          "reasoning": 0,
+          "cost": {
+            "input": 1.2800000000000001e-05,
+            "output": 1.6000000000000003e-05,
+            "cacheRead": 8.000000000000001e-07,
+            "cacheWrite": 0,
+            "total": 2.96e-05
+          }
+        },
+        "attempts": [
+          {
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 16,
+              "output": 5,
+              "cacheRead": 4,
+              "cacheWrite": 0,
+              "totalTokens": 25,
+              "reasoning": 0,
+              "cost": {
+                "input": 1.2800000000000001e-05,
+                "output": 1.6000000000000003e-05,
+                "cacheRead": 8.000000000000001e-07,
+                "cacheWrite": 0,
+                "total": 2.96e-05
+              }
+            }
+          }
+        ]
+      },
+      "options": {
+        "serviceTier": "fast"
+      }
+    },
+    {
+      "id": "gpt55-priority",
+      "note": "0.87.1: fast costs ×1 → 1.0.0: priority/fast ×2 (gpt-5.5 ×2.5), response then option; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses.ts",
+      "replies": [
+        {
+          "terminal": {
+            "type": "response.completed",
+            "sequence_number": 4,
+            "response": {
+              "id": "resp_u",
+              "object": "response",
+              "created_at": 1790000000,
+              "status": "completed",
+              "model": "gpt-4.1-mini-2025-04-14",
+              "output": [
+                {
+                  "id": "msg_u",
+                  "type": "message",
+                  "status": "completed",
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "output_text",
+                      "text": "ok",
+                      "annotations": []
+                    }
+                  ]
+                }
+              ],
+              "usage": {
+                "input_tokens": 20,
+                "output_tokens": 5,
+                "total_tokens": 25,
+                "input_tokens_details": {
+                  "cached_tokens": 4
+                },
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                }
+              },
+              "service_tier": "priority"
+            }
+          }
+        }
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {
+          "input": 16,
+          "output": 5,
+          "cacheRead": 4,
+          "cacheWrite": 0,
+          "totalTokens": 25,
+          "reasoning": 0,
+          "cost": {
+            "input": 0.0002,
+            "output": 0.000375,
+            "cacheRead": 4.9999999999999996e-06,
+            "cacheWrite": 0,
+            "total": 0.00058
+          }
+        },
+        "attempts": [
+          {
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 16,
+              "output": 5,
+              "cacheRead": 4,
+              "cacheWrite": 0,
+              "totalTokens": 25,
+              "reasoning": 0,
+              "cost": {
+                "input": 0.0002,
+                "output": 0.000375,
+                "cacheRead": 4.9999999999999996e-06,
+                "cacheWrite": 0,
+                "total": 0.00058
+              }
+            }
+          }
+        ]
+      },
+      "options": {
+        "serviceTier": "priority"
+      },
+      "model": "gpt-5.5"
+    },
+    {
+      "id": "gpt55-fast",
+      "note": "0.87.1: fast costs ×1 → 1.0.0: priority/fast ×2 (gpt-5.5 ×2.5), response then option; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses.ts",
+      "replies": [
+        {
+          "terminal": {
+            "type": "response.completed",
+            "sequence_number": 4,
+            "response": {
+              "id": "resp_u",
+              "object": "response",
+              "created_at": 1790000000,
+              "status": "completed",
+              "model": "gpt-4.1-mini-2025-04-14",
+              "output": [
+                {
+                  "id": "msg_u",
+                  "type": "message",
+                  "status": "completed",
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "output_text",
+                      "text": "ok",
+                      "annotations": []
+                    }
+                  ]
+                }
+              ],
+              "usage": {
+                "input_tokens": 20,
+                "output_tokens": 5,
+                "total_tokens": 25,
+                "input_tokens_details": {
+                  "cached_tokens": 4
+                },
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                }
+              },
+              "service_tier": "fast"
+            }
+          }
+        }
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {
+          "input": 16,
+          "output": 5,
+          "cacheRead": 4,
+          "cacheWrite": 0,
+          "totalTokens": 25,
+          "reasoning": 0,
+          "cost": {
+            "input": 0.0002,
+            "output": 0.000375,
+            "cacheRead": 4.9999999999999996e-06,
+            "cacheWrite": 0,
+            "total": 0.00058
+          }
+        },
+        "attempts": [
+          {
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 16,
+              "output": 5,
+              "cacheRead": 4,
+              "cacheWrite": 0,
+              "totalTokens": 25,
+              "reasoning": 0,
+              "cost": {
+                "input": 0.0002,
+                "output": 0.000375,
+                "cacheRead": 4.9999999999999996e-06,
+                "cacheWrite": 0,
+                "total": 0.00058
+              }
+            }
+          }
+        ]
+      },
+      "options": {
+        "serviceTier": "fast"
+      },
+      "model": "gpt-5.5"
+    },
+    {
+      "id": "fast-request-flex-response",
+      "note": "1.0.0 response flex wins over requested fast; https://github.com/earendil-works/pi/blob/v1.0.0/packages/ai/src/api/openai-responses-shared.ts",
+      "replies": [
+        {
+          "terminal": {
+            "type": "response.completed",
+            "sequence_number": 4,
+            "response": {
+              "id": "resp_u",
+              "object": "response",
+              "created_at": 1790000000,
+              "status": "completed",
+              "model": "gpt-4.1-mini-2025-04-14",
+              "output": [
+                {
+                  "id": "msg_u",
+                  "type": "message",
+                  "status": "completed",
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "output_text",
+                      "text": "ok",
+                      "annotations": []
+                    }
+                  ]
+                }
+              ],
+              "usage": {
+                "input_tokens": 20,
+                "output_tokens": 5,
+                "total_tokens": 25,
+                "input_tokens_details": {
+                  "cached_tokens": 4
+                },
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                }
+              },
+              "service_tier": "flex"
+            }
+          }
+        }
+      ],
+      "expect": {
+        "stopReason": "stop",
+        "usage": {
+          "input": 16,
+          "output": 5,
+          "cacheRead": 4,
+          "cacheWrite": 0,
+          "totalTokens": 25,
+          "reasoning": 0,
+          "cost": {
+            "input": 3.2000000000000003e-06,
+            "output": 4.000000000000001e-06,
+            "cacheRead": 2.0000000000000002e-07,
+            "cacheWrite": 0.0,
+            "total": 7.4e-06
+          }
+        },
+        "attempts": [
+          {
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 16,
+              "output": 5,
+              "cacheRead": 4,
+              "cacheWrite": 0,
+              "totalTokens": 25,
+              "reasoning": 0,
+              "cost": {
+                "input": 3.2000000000000003e-06,
+                "output": 4.000000000000001e-06,
+                "cacheRead": 2.0000000000000002e-07,
+                "cacheWrite": 0.0,
+                "total": 7.4e-06
+              }
+            }
+          }
+        ]
+      },
+      "options": {
+        "serviceTier": "fast"
       }
     }
   ]

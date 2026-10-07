@@ -40,6 +40,22 @@ func (c Catalog) validate() error {
 		if problem := m.Cost.problem(); problem != "" {
 			return &ConfigError{Field: "Catalog", Problem: "model " + m.ID + ": " + problem}
 		}
+		var reserved []string
+		switch m.API {
+		case APIOpenAIResponses:
+			reserved = responsesReservedSampling
+		case APIOpenAICompletions:
+			reserved = chatReservedSampling
+		default:
+			continue // These protocols do not apply samplingParams.
+		}
+		problem := validateJSONValues("samplingParams", m.SamplingParams)
+		if problem == "" {
+			problem = checkReservedKeys(m.SamplingParams, reserved)
+		}
+		if problem != "" {
+			return &ConfigError{Field: "Catalog", Problem: "model " + m.ID + ": " + problem}
+		}
 	}
 	return nil
 }

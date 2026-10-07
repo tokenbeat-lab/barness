@@ -13,7 +13,7 @@ import (
 // Responses wire DTOs. The adapter owns these and marshals them itself, so the
 // exact request — field presence included — is decided here rather than by
 // the SDK's typed params. The SDK only carries the bytes, authentication and
-// SSE decoding. Shapes follow pi-ai 0.87.1 openai-responses.ts buildParams and
+// SSE decoding. Shapes follow pi-ai 1.0.0 openai-responses.ts buildParams and
 // openai-responses-shared.ts convertResponsesMessages / convertResponsesTools.
 type responsesBody struct {
 	Model                string                        `json:"model"`
@@ -179,7 +179,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 	if err != nil {
 		return nil, err
 	}
-	return applySamplingParams(out, opts.SamplingParams)
+	return applySamplingParams(out, model.SamplingParams, opts.SamplingParams)
 }
 
 // responsesAssistantItems replays a previous turn prepared by

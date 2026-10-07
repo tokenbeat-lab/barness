@@ -358,6 +358,11 @@ func (a *anthropicUsage) delta(w *anthropicWireUsage) {
 	if w != nil {
 		a.reported = true
 		a.take(w)
+		// Gateway deltas may supply or correct the TTL breakdown. This is
+		// an authoritative count, not an additional cache write (pi 1.0).
+		if w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
+			a.u.CacheWrite1h = Value(*w.CacheDetails.Ephemeral1h)
+		}
 		// Anthropic reports reasoning tokens as a subset of output tokens.
 		if w.OutputDetails != nil && w.OutputDetails.ThinkingTokens != nil {
 			a.u.Reasoning = Value(*w.OutputDetails.ThinkingTokens)

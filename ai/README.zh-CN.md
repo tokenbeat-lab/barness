@@ -4,7 +4,7 @@
 
 `github.com/tokenbeat-lab/barness/ai` 是 barness 的模型协议模块：一个可信、并发安全的
 `Client`，为**多个租户**向模型服务发起**一次生成轮次**。它是
-[pi-ai](https://github.com/earendil-works/pi)（冻结基线 `0.87.1`）的 Go 复刻，并在其上增加了租户隔离、显式资源限额与可观测性。
+[pi-ai](https://github.com/earendil-works/pi)（冻结基线 `1.0.0`）的 Go 复刻，并在其上增加了租户隔离、显式资源限额与可观测性。
 
 本文面向两类读者：
 
@@ -194,7 +194,7 @@ case errors.As(err, &e):
 4. **只重试初始请求**，由 `Binding.Retry` 决定。不重试资源限额失败或已开始的流；不允许 SDK 自行重试。
 5. **秘密不外泄。** `Secret` 不得进入消息、事件、错误、观测记录、证据包或日志。barness-ai 不写日志。
 6. **没有环境隐式配置。** 不读取 Provider 环境变量、代理环境变量、凭据文件或默认 endpoint。endpoint 必须为 https，`AllowLoopbackHTTP`（仅测试）除外。
-7. **默认与 pi 一致。** 可观察行为与冻结的 pi-ai `0.87.1` 一致。任何有意差异都必须登记到 [`e2e/testdata/pidiff/ledger.json`](e2e/testdata/pidiff/ledger.json) 与 [differences.md](../docs/barness-ai/differences.md)；`pending` 条目会阻断发布。
+7. **默认与 pi 一致。** 可观察行为与冻结的 pi-ai `1.0.0` 一致。任何有意差异都必须登记到 [`e2e/testdata/pidiff/ledger.json`](e2e/testdata/pidiff/ledger.json) 与 [differences.md](../docs/barness-ai/differences.md)；`pending` 条目会阻断发布。
 8. **能力按 Provider 确定，而非按协议。** 共享 adapter 不得发送其他 Provider 的字段（如 DeepSeek × Responses 不发送 `store`/`include`/缓存字段）。请求字段从该 Provider 的能力派生。
 9. **Observer 从不影响调用；回调可以使调用失败，但不能放宽**鉴权、目标、模型、原生引用或托管工具（ADR-0005）。
 10. **工具参数不可执行**，直到对已结束的消息调用 `ValidateToolCall` 通过。

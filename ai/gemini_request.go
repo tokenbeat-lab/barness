@@ -11,7 +11,7 @@ import (
 // Gemini Developer API wire DTOs: the REST body of
 // models/{model}:streamGenerateContent. The adapter marshals them itself, so
 // the exact request — field presence included — is decided here. Shapes
-// follow what pi-ai 0.87.1 sends through @google/genai 2.21.0: pi's
+// follow what pi-ai 1.0.0 sends through @google/genai 2.21.0: pi's
 // google-generative-ai buildParams and google-shared convertMessages and
 // convertTools build the SDK's parameters, and the SDK's
 // generateContentParametersToMldev turns them into this body (system

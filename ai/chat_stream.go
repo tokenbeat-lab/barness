@@ -73,7 +73,7 @@ func newChatParser(out *assembler, model Model, usage chatUsage, failures chatFa
 // read feeds the SSE events of dec to the parser until the body ends, and
 // settles the turn as pi does. Like openai-node it stops at data starting
 // with "[DONE]" but reads the body to its end, parses every other event,
-// named or not, and fails at a chunk with a truthy error field.
+// named or not, and fails at a named error or a truthy error field.
 func (p *chatParser) read(ctx context.Context, dec ssestream.Decoder) *Error {
 	done := false
 	for dec.Next() {
@@ -134,7 +134,6 @@ func (p *chatParser) settle() *Error {
 // chatChunk is the part of a chunk pi reads. Fields stay raw: pi tests
 // them by JavaScript type and truthiness.
 type chatChunk struct {
-	Error   json.RawMessage `json:"error"`
 	ID      json.RawMessage `json:"id"`
 	Model   json.RawMessage `json:"model"`
 	Usage   json.RawMessage `json:"usage"`
@@ -172,19 +171,19 @@ func (p *chatParser) event(eventType string, data []byte) *Error {
 	if !json.Valid(data) {
 		return newError(CodeProtocol, PhaseStream, msgChatInvalidJSON)
 	}
-	var c chatChunk
-	if json.Unmarshal(data, &c) != nil {
-		// Not an object: pi skips it.
-		return nil
-	}
 	// openai-node fails at any chunk with a truthy error, but passes the
 	// events of OpenAI's Assistants stream (named thread.*) on wrapped,
 	// where pi finds nothing to read.
 	if strings.HasPrefix(eventType, "thread.") {
 		return nil
 	}
-	if rawTruthy(c.Error) {
-		return p.failures.inBand(c.Error)
+	if raw, reported := openAIStreamError(eventType, data); reported {
+		return p.failures.inBand(raw)
+	}
+	var c chatChunk
+	if json.Unmarshal(data, &c) != nil {
+		// Non-error data that is not an object: pi skips it.
+		return nil
 	}
 	return p.chunk(c)
 }

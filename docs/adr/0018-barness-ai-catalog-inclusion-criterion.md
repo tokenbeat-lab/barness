@@ -74,3 +74,20 @@ pi 模型数据中的 `compat` 开关分两类：
 ## 实现（工单 27，2026-10-03）
 
 托管强度按 ADR-0019 实现后，claude-fable-5-1、claude-opus-5、claude-opus-5-5 列入目录 `2026-10-03.2`，携带 `SupportsMidConvoEffort`、`SupportsMidConvoSystemMessages`、adaptive 与 level map，opus-5、opus-5-5 另带 `SupportsTemperature=false`。可选特性 `supportsMidConvoToolChanges` 仍不携带。它在差分中的扩展登记按决策四处理，限于工单 27 带工具的用例。真实冒烟（2026-10-03）通过：厂商接受了三款模型对话中途从 high 到 low 的强度变更，详见 ADR-0019。
+
+## 1.0.0 基线迁移（工单 03，2026-10-08）
+
+原有目录的已携带字段与 1.0.0 数据完全相同；模型数据文件哈希因 schema 6、
+非聊天类型与新增型号变化。目录升为 `2026-10-08.1`，新增四种聊天型号：
+
+| 型号 | 硬约束与现有实现 | 未实现可选特性的处理 |
+| --- | --- | --- |
+| gpt-6.1-sol（Responses / Chat） | 完整 level map、上下文预算、阶梯价格；原有中途 system 与显式缓存模式 | grammar 无声明入口；additional_tools / tool search 关闭时用当前工具列表 |
+| gpt-daybreak-blue-latest、gpt-daybreak-red-latest（Responses / Chat） | 完整 level map、显式缓存模式；只加数据，无新 adapter 分支 | grammar 无声明入口 |
+| claude-sonnet-5-5（Messages） | ADR-0019 已实现托管 adaptive effort、block_binding、逐轮强度；忽略 temperature；minimal 被 clamp 为 low | 不启用原生工具变更 beta，使用当前工具列表 |
+
+上述 fallback 是已有批准的领域规则。未扩大差分账本中任何 extension 的 cases；
+新增型号的 full/simple 无工具控制场景与全部内建型号字段参加 1.0.0 差分。
+本次不追补 0.87.1 时未评估的 17 个 OpenAI 型号（前文 Consequences），也不把
+非聊天类型、Interactions、Live 或需要托管 computer use 的 Google 型号放进聊天目录。
+新增支持不改变 Binding 白名单，宿主仍需逐个授权。
