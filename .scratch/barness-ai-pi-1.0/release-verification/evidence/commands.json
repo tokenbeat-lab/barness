@@ -1,0 +1,125 @@
+[
+  {
+    "stage": "npm-version",
+    "command": [
+      "npm",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "install-release-ignore-scripts",
+    "command": [
+      "npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "clone-frozen-tag",
+    "command": [
+      "git",
+      "clone",
+      "--depth",
+      "1",
+      "--branch",
+      "v1.0.0",
+      "--single-branch",
+      "https://github.com/earendil-works/pi.git",
+      "source"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "frozen-source",
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "install-source-ignore-scripts",
+    "command": [
+      "npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "build-chord",
+    "command": [
+      "npm",
+      "run",
+      "build",
+      "--workspace=@earendil-works/chord"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "build-pi-tui",
+    "command": [
+      "npm",
+      "run",
+      "build",
+      "--workspace=@earendil-works/pi-tui"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "build-pi-telemetry",
+    "command": [
+      "npm",
+      "run",
+      "build",
+      "--workspace=@earendil-works/pi-telemetry"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "build-ai-offline",
+    "command": [
+      "npm",
+      "run",
+      "build:offline",
+      "--workspace=@earendil-works/pi-ai"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "check-release-equivalence",
+    "command": [
+      "node",
+      "<inputs>/check.mjs",
+      "<workspace>",
+      "<evidence>"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "check-failure-rejections",
+    "command": [
+      "node",
+      "<inputs>/failures.mjs",
+      "<workspace>",
+      "<evidence>/failure-checks.json"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "check-boundary-faults",
+    "command": [
+      "node",
+      "<inputs>/faults.mjs",
+      "<evidence>/boundary-checks.json"
+    ],
+    "exit_code": 0
+  }
+]

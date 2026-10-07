@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "wrong-version",
+      "expected_failure": "version",
+      "status": "PASS"
+    },
+    {
+      "name": "unexplained-git-head",
+      "expected_failure": "source-identity",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-model-data",
+      "expected_failure": "model-data",
+      "status": "PASS"
+    },
+    {
+      "name": "changed-model-data",
+      "expected_failure": "model-data",
+      "status": "PASS"
+    },
+    {
+      "name": "different-ai-build",
+      "expected_failure": "build-equivalence",
+      "status": "PASS"
+    },
+    {
+      "name": "different-telemetry-build",
+      "expected_failure": "build-equivalence",
+      "status": "PASS"
+    },
+    {
+      "name": "unlocked-dependency",
+      "expected_failure": "dependency-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "changed-tarball",
+      "expected_failure": "tarball-integrity",
+      "status": "PASS"
+    },
+    {
+      "name": "audit-secret",
+      "expected_failure": "redaction-audit",
+      "status": "PASS"
+    }
+  ]
+}

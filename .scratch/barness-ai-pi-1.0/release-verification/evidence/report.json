@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "scope": "release-artifact-equivalence",
+  "barness_1_0_differential": "NOT_RUN",
+  "source": {
+    "tag": "v1.0.0",
+    "target_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+    "checked_out_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+    "tag_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+    "changed_ai_telemetry_files": [],
+    "explanation": "Both npm gitHeads, the tag and the target commit are identical."
+  },
+  "dependencies": {
+    "release_lock_sha256": "d7cf8bf81f0292b7980d4b101eccf190d3513e9214e281824196fa2c7eca413a",
+    "source_lock_sha256": "d5ca36c6b5af93e5d5ef79deedae8efff575adf6ae080bd2093ff29bb7c5664b",
+    "release_packages": 85,
+    "source_packages": 385,
+    "source_optional_not_installed": 78,
+    "source_extraneous_not_installed": 4
+  },
+  "model_data": {
+    "files": 43,
+    "sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+    "schema_version": 6,
+    "generated_at": "2026-10-01T18:57:11.882Z",
+    "structure_hash": "235f2f320916ab6b0d7193e0bf66ec7983e9bc05abeddd7264923fb1e7eaf76e",
+    "origin": "published dist/providers/data; no generation"
+  },
+  "comparisons": [
+    {
+      "package": "ai",
+      "scope": "entire dist tree including hidden files, declarations, maps and model data",
+      "published_files": 811,
+      "rebuilt_files": 811,
+      "compared_files": 811,
+      "differences": 0,
+      "different_files": []
+    },
+    {
+      "package": "telemetry",
+      "scope": "entire dist tree including hidden files, declarations, maps and model data",
+      "published_files": 24,
+      "rebuilt_files": 24,
+      "compared_files": 24,
+      "differences": 0,
+      "different_files": []
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "barness-pi-release-verification",
+  "private": true,
+  "description": "Issue 02 disposable installation inputs; not an oracle or runner",
+  "type": "module",
+  "dependencies": {
+    "@earendil-works/pi-ai": "1.0.0",
+    "@earendil-works/pi-telemetry": "1.0.0"
+  },
+  "overrides": {
+    "@earendil-works/pi-telemetry": "1.0.0"
+  }
+}

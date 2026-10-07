@@ -1,0 +1,13 @@
+{
+  "scope": "pi-ai-1.0.0-release-equivalence",
+  "installs_ignore_scripts": true,
+  "builds": [
+    "chord",
+    "tui",
+    "telemetry",
+    "ai:build:offline"
+  ],
+  "model_generation": "NOT_RUN",
+  "workspace": "temporary, removed after verification",
+  "replay": "node .scratch/barness-ai-pi-1.0/release-verification/run.mjs <new-evidence-directory>"
+}
