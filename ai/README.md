@@ -294,7 +294,8 @@ prefix). Unexported types do not leak across these groups by convention.
 | Resolution & security | `preflight.go`, `policy.go`, `admission.go`, `limits.go`, `timeouts.go`, `retry.go`, `transport.go` |
 | History & native state | `transcript.go`, `history.go`, `replay.go`, `native.go`, `cache_key.go` |
 | Tools | `tool.go`, `tool_validate.go`, `tool_coerce.go`, `tool_json.go`, `argument_text.go` |
-| Catalog, usage, cost | `catalog.go`, `usage.go`, `estimate.go`, `anthropic_effort.go` |
+| Catalog | `catalog.go` (catalog and lookup), `catalog_models.go` (model metadata), `catalog_builtin.go` (built-in data), `catalog_snapshot.go` (copy, hash and price validation) |
+| Usage, cost | `usage.go`, `estimate.go`, `anthropic_effort.go` |
 | Hooks & observability | `hooks.go`, `hooks_run.go`, `observer.go` |
 | Adapter contract | `adapter.go` (`adapter` interface + `registry()` keyed by `API`) |
 | OpenAI Responses | `responses*.go`, `openai_sdk.go` |
@@ -316,7 +317,7 @@ Other directories:
 
 ### Common changes
 
-- **Add a model:** add it to the matching `builtin*Models()` in `catalog.go`
+- **Add a model:** add it to the matching `builtin*Models()` in `catalog_builtin.go`
   following the inclusion criterion (ADR-0018), then regenerate the catalog
   snapshot with `go run ./ai/release/cmd/releasegate -write-snapshot` and
   review the diff.
