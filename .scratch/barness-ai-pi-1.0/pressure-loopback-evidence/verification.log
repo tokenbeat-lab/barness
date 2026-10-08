@@ -1,0 +1,134 @@
+{
+  "verified": [
+    {
+      "archive": "history/read-interruption.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "FAIL": 1
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "history/write-buffer-interruption.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "FAIL": 1
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "history/retention.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 13,
+        "FAIL": 1
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "retention-replay.tar.gz",
+      "bundles": 2,
+      "statuses": {
+        "PASS": 26,
+        "FAIL": 2
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "history/isolated-after-retention.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 100
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "history/fresh-before-write.tar.gz",
+      "bundles": 10,
+      "statuses": {
+        "PASS": 10
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "history/full-before-write.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 4454
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 349
+    },
+    {
+      "archive": "history/race-before-write.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 4454
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 349
+    },
+    {
+      "archive": "diagnostic-regressions.tar.gz",
+      "bundles": 10,
+      "statuses": {
+        "PASS": 6,
+        "FAIL": 3
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "write-regressions.tar.gz",
+      "bundles": 2,
+      "statuses": {
+        "PASS": 10,
+        "FAIL": 4
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "isolated-final.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 100
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "fresh-final.tar.gz",
+      "bundles": 10,
+      "statuses": {
+        "PASS": 10
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 0
+    },
+    {
+      "archive": "full-final.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 4461
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 349
+    },
+    {
+      "archive": "race-final.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 4461
+      },
+      "audit": "PASS",
+      "redactedFixtureCopies": 349
+    }
+  ]
+}

@@ -13,6 +13,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -39,10 +40,19 @@ type Run struct {
 
 	mu       sync.Mutex
 	versions map[string]string
-	cases    []*Case
+	cases    []finishedCase
 
 	secretsMu sync.Mutex
 	secrets   map[string]string
+}
+
+// A Run keeps immutable evidence summaries, not testing.T handles. Those
+// handles retain cleanup closures (and large Provider captures) even after
+// cleanup on Go 1.26; retaining them made issue 18's repeated design load grow
+// by about 166 MiB per round. Active Cases belong only to their running test.
+type finishedCase struct {
+	id, test, dir, status, replay string
+	hashes                        map[string]string
 }
 
 // NewRun creates the bundle directory. pkg is the go test package argument
@@ -94,9 +104,6 @@ func (r *Run) Case(t *testing.T, id string) *Case {
 	if err := os.MkdirAll(c.dir, 0o755); err != nil {
 		t.Fatalf("evidence: %v", err)
 	}
-	r.mu.Lock()
-	r.cases = append(r.cases, c)
-	r.mu.Unlock()
 	t.Cleanup(c.finish)
 	return c
 }
@@ -107,8 +114,8 @@ func (r *Run) Record(name string, v any) error {
 	return r.writeJSON(filepath.Join(r.dir, name+".json"), v)
 }
 
-// Finish writes manifest.json. It reports the bundle location on stderr so a
-// maintainer can find it from CI logs.
+// Finish writes manifest.json after all cases' cleanup has run. It reports the
+// bundle location on stderr so a maintainer can find it from CI logs.
 func (r *Run) Finish() error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
@@ -120,10 +127,10 @@ func (r *Run) Finish() error {
 		}
 		cases = append(cases, map[string]any{
 			"id":        c.id,
-			"test":      c.t.Name(),
+			"test":      c.test,
 			"status":    c.status,
 			"dir":       c.id,
-			"replay":    c.replay(),
+			"replay":    c.replay,
 			"fixtures":  c.hashes,
 			"artifacts": artifacts,
 		})
@@ -203,7 +210,6 @@ type Case struct {
 	mu         sync.Mutex
 	hashes     map[string]string
 	assertions []assertion
-	status     string
 	replayEnv  string
 	replayRun  string
 	// unsupported is why the scenario's capability does not exist for its
@@ -296,7 +302,7 @@ func (c *Case) finish() {
 	case c.unsupported != "":
 		status = "UNSUPPORTED"
 	}
-	c.status = status
+	finished := finishedCase{id: c.id, test: c.t.Name(), dir: c.dir, status: status, replay: c.replay(), hashes: maps.Clone(c.hashes)}
 	report := map[string]any{
 		"case_id":    c.id,
 		"test":       c.t.Name(),
@@ -311,6 +317,9 @@ func (c *Case) finish() {
 	if err := c.run.writeJSON(filepath.Join(c.dir, "assertions.json"), report); err != nil {
 		c.t.Errorf("evidence: %v", err)
 	}
+	c.run.mu.Lock()
+	c.run.cases = append(c.run.cases, finished)
+	c.run.mu.Unlock()
 }
 
 // replay is the single-scenario replay command. Every subtest level is

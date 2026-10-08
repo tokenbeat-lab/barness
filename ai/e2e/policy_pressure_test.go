@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -14,6 +15,7 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/examples/hostintegration"
 	"github.com/tokenbeat-lab/barness/ai/examples/localassembly"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
 // pressureEnv opts in to TestPolicyPressure: a design load streams millions
@@ -66,10 +68,7 @@ func TestPolicyPressure(t *testing.T) {
 			Basis:   "LocalPolicy: one session plus parallel sub-agents (all 8 permits), long history (4 MiB) with three screenshots, a 128K-token turn, a tool writing a 512 KiB file",
 			Tenants: 1, Calls: 8, OutputTokens: 128 << 10, HistoryBytes: 4 << 20, Images: 3, ImageBytes: 2 << 20, ToolJSONBytes: 512 << 10,
 		}, 1 << 30},
-		{"cloud-interactive", hostintegration.CloudInteractivePolicy(), designLoad{
-			Basis:   "CloudInteractivePolicy: 8 tenants at their limit of 4 (all 32 permits), agent histories (2 MiB) with two downscaled images, the 64K-token upper bound of an interactive turn or a 256 KiB tool call",
-			Tenants: 8, Calls: 32, OutputTokens: 64 << 10, HistoryBytes: 2 << 20, Images: 2, ImageBytes: 1 << 20, ToolJSONBytes: 256 << 10,
-		}, 2 << 30},
+		{"cloud-interactive", hostintegration.CloudInteractivePolicy(), cloudInteractiveDesignLoad(), 2 << 30},
 		{"cloud-batch", hostintegration.CloudBatchPolicy(), designLoad{
 			Basis:   "CloudBatchPolicy: 2 tenants at their limit of 16 (all 32 permits), agent histories (2 MiB) with two images, long 128K-token generations or 256 KiB tool calls",
 			Tenants: 2, Calls: 32, OutputTokens: 128 << 10, HistoryBytes: 2 << 20, Images: 2, ImageBytes: 1 << 20, ToolJSONBytes: 256 << 10,
@@ -88,6 +87,13 @@ func TestPolicyPressure(t *testing.T) {
 			ev.Record("policy-pressure", r)
 			t.Logf("%s stalled: %+v", p.name, r)
 		})
+	}
+}
+
+func cloudInteractiveDesignLoad() designLoad {
+	return designLoad{
+		Basis:   "CloudInteractivePolicy: 8 tenants at their limit of 4 (all 32 permits), agent histories (2 MiB) with two downscaled images, the 64K-token upper bound of an interactive turn or a 256 KiB tool call",
+		Tenants: 8, Calls: 32, OutputTokens: 64 << 10, HistoryBytes: 2 << 20, Images: 2, ImageBytes: 1 << 20, ToolJSONBytes: 256 << 10,
 	}
 }
 
@@ -135,6 +141,8 @@ type designReport struct {
 func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l designLoad, heapBudget uint64) designReport {
 	t.Helper()
 	pw := newPressureWorld(t, policy, l.Tenants)
+	ctx, cancel := context.WithTimeout(context.Background(), pressureDeadline)
+	defer cancel()
 	textFrames, toolFrames := pressureText(t, l.OutputTokens), pressureToolCall(t, l.ToolJSONBytes)
 	textChunks, toolChunks := coalesce(textFrames, 64), coalesce(toolFrames, 64)
 	isTool := func(i int) bool { return i%4 == 0 }
@@ -143,14 +151,23 @@ func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l 
 	// streams in milliseconds and would otherwise end before the last call
 	// is admitted. The wait is bounded so a lost request fails the checks
 	// below instead of hanging the run.
-	var arrived sync.WaitGroup
-	arrived.Add(l.Calls)
-	allArrived := doneWhen(arrived.Wait)
+	var arrived atomic.Int64
+	// Wait for fixture handlers as well as Clients before recording lifecycle
+	// evidence: a failed Client can return while a server write is unwinding.
+	type completion struct {
+		index   int
+		outcome provider.ReplyOutcome
+	}
+	served := make(chan completion, l.Calls)
+	outcomes := make([]provider.ReplyOutcome, l.Calls)
+	allArrived := make(chan struct{})
 	barrier := func() {
-		arrived.Done()
+		if arrived.Add(1) == int64(l.Calls) {
+			close(allArrived)
+		}
 		select {
 		case <-allArrived:
-		case <-time.After(pressureDeadline):
+		case <-ctx.Done():
 		}
 	}
 	for i := range l.Calls {
@@ -159,11 +176,12 @@ func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l 
 			reply = pressureReply(toolChunks)
 		}
 		reply.OnReceive = barrier
+		reply.OnFinish = func(o provider.ReplyOutcome) {
+			served <- completion{i, o}
+		}
 		pw.provider.Enqueue(reply)
 	}
 	req := pressureRequest(l)
-	ctx, cancel := context.WithTimeout(context.Background(), pressureDeadline)
-	defer cancel()
 
 	// A run that times out fails at once: canceling ends every stream, and
 	// the sampler stops, before the test returns.
@@ -176,12 +194,13 @@ func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l 
 		events int
 	}
 	results := make([]ended, l.Calls)
+	client := pw.client.WithHooks(pressureDiagnosticHooks())
 	var wg sync.WaitGroup
 	defer wg.Wait()
 	defer cancel()
 	for i := range l.Calls {
 		k := pw.tenants[i%l.Tenants]
-		s := pw.client.Stream(ctx, scopeFor(k, fmt.Sprintf("req-pressure-%d", i)), ai.Target{BindingID: "primary", ModelID: pressureModel}, req, nil)
+		s := client.Stream(ctx, scopeFor(k, fmt.Sprintf("%s-call-%02d", ev.ID(), i)), ai.Target{BindingID: "primary", ModelID: pressureModel}, req, nil)
 		wg.Go(func() {
 			defer s.Close()
 			n := 0
@@ -193,6 +212,24 @@ func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l 
 		})
 	}
 	waitForWithin(ev, "every design-load call ends", pressureDeadline, doneWhen(wg.Wait))
+	// Only received requests have a handler. A lost request must not leave a
+	// WaitGroup waiter behind, and cancellation releases an incomplete barrier.
+	received := len(pw.provider.Requests())
+	if received != l.Calls {
+		cancel()
+	}
+	finishTimer := time.NewTimer(pressureDeadline)
+	defer finishTimer.Stop()
+	for range received {
+		select {
+		case c := <-served:
+			outcomes[c.index] = c.outcome
+		case <-finishTimer.C:
+			ev.Check("every fixture handler ends", false, "fixture did not finish")
+			t.FailNow()
+		}
+	}
+	ev.Record("provider-outcomes", outcomes)
 	elapsed := time.Since(started)
 	use := heap.finish()
 	peakPermits := heap.peakGauge.Load()

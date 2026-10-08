@@ -1,0 +1,114 @@
+{
+  "issue": 18,
+  "observedInterruptionCause": "fixture TCP Write ENOBUFS truncates HTTP stream",
+  "historicalIssue17PerCallCause": "NOT_RECORDED",
+  "sourceParentCommit": "a6c163af07663fed878de3ca4f18e75eeac2bc2a",
+  "archives": [
+    {
+      "file": "history/read-interruption.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    },
+    {
+      "file": "history/write-buffer-interruption.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    },
+    {
+      "file": "history/retention.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 13,
+        "FAIL": 1
+      }
+    },
+    {
+      "file": "retention-replay.tar.gz",
+      "bundles": 2,
+      "statuses": {
+        "PASS": 26,
+        "FAIL": 2
+      }
+    },
+    {
+      "file": "history/isolated-after-retention.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 100
+      }
+    },
+    {
+      "file": "history/fresh-before-write.tar.gz",
+      "bundles": 10,
+      "statuses": {
+        "PASS": 10
+      }
+    },
+    {
+      "file": "history/full-before-write.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 4454
+      }
+    },
+    {
+      "file": "history/race-before-write.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 4454
+      }
+    },
+    {
+      "file": "diagnostic-regressions.tar.gz",
+      "bundles": 10,
+      "statuses": {
+        "PASS": 6,
+        "FAIL": 3
+      }
+    },
+    {
+      "file": "write-regressions.tar.gz",
+      "bundles": 2,
+      "statuses": {
+        "PASS": 10,
+        "FAIL": 4
+      }
+    },
+    {
+      "file": "isolated-final.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 100
+      },
+      "currentSource": true
+    },
+    {
+      "file": "fresh-final.tar.gz",
+      "bundles": 10,
+      "statuses": {
+        "PASS": 10
+      },
+      "currentSource": true
+    },
+    {
+      "file": "full-final.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 4461
+      },
+      "currentSource": true
+    },
+    {
+      "file": "race-final.tar.gz",
+      "bundles": 1,
+      "statuses": {
+        "PASS": 4461
+      },
+      "currentSource": true
+    }
+  ]
+}

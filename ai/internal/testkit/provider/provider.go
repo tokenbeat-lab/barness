@@ -9,6 +9,7 @@ package provider
 import (
 	"encoding/json"
 	"io"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"sort"
@@ -37,6 +38,20 @@ type Reply struct {
 	// AfterChunk, when set, runs after chunk i was written and flushed, so a
 	// test can pause the reply until its client reached a known state.
 	AfterChunk func(i int) `json:"-"`
+	// OnFinish observes handler completion, including failed writes. Raw errors
+	// are intended only for audited synthetic E2E evidence.
+	OnFinish func(ReplyOutcome) `json:"-"`
+}
+
+// ReplyOutcome distinguishes an interrupted fixture from a completed script.
+type ReplyOutcome struct {
+	RequestID        string `json:"requestId,omitempty"`
+	End              End    `json:"end"`
+	WrittenBytes     int64  `json:"writtenBytes"`
+	Chunks           int    `json:"chunks"`
+	WriteError       string `json:"writeError,omitempty"`
+	ContextError     string `json:"contextError,omitempty"`
+	WriteBufferWaits int64  `json:"writeBufferWaits,omitempty"`
 }
 
 // End selects how a reply ends after its chunks.
@@ -92,8 +107,21 @@ type Server struct {
 // New starts a server. aliases maps each test key the server may receive to
 // the alias reported in captures; real key material never leaves the server.
 func New(aliases map[string]string) *Server {
+	return NewWithListener(aliases, nil)
+}
+
+// NewWithListener owns listener; nil uses httptest's loopback listener. It
+// permits socket-fault scripts while the public Client's HTTP stack stays real.
+func NewWithListener(aliases map[string]string, listener net.Listener) *Server {
 	s := &Server{aliases: aliases, closing: make(chan struct{})}
-	s.srv = httptest.NewServer(http.HandlerFunc(s.handle))
+	s.srv = httptest.NewUnstartedServer(http.HandlerFunc(s.handle))
+	if listener != nil {
+		_ = s.srv.Listener.Close()
+		s.srv.Listener = listener
+	}
+	s.srv.Listener = writeBufferListener{s.srv.Listener}
+	s.srv.Config.ConnContext = writeBufferContext
+	s.srv.Start()
 	return s
 }
 
@@ -168,6 +196,17 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":{"message":"no scripted reply"}}`, http.StatusTeapot)
 		return
 	}
+	outcome := ReplyOutcome{End: reply.End, RequestID: r.Header.Get("X-Barness-Test-Call")}
+	waitsBefore := writeBufferWaits(r.Context())
+	if reply.OnFinish != nil {
+		defer func() {
+			outcome.WriteBufferWaits = writeBufferWaits(r.Context()) - waitsBefore
+			if err := r.Context().Err(); err != nil {
+				outcome.ContextError = err.Error()
+			}
+			reply.OnFinish(outcome)
+		}()
+	}
 	if reply.OnReceive != nil {
 		reply.OnReceive()
 	}
@@ -185,12 +224,19 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(reply.Status)
 	flusher, _ := w.(http.Flusher)
 	for i, chunk := range reply.Chunks {
-		if _, err := w.Write(chunk); err != nil {
+		n, err := w.Write(chunk)
+		outcome.WrittenBytes += int64(n)
+		if err != nil {
+			outcome.WriteError = err.Error()
 			return
 		}
 		if flusher != nil {
-			flusher.Flush()
+			if err := http.NewResponseController(w).Flush(); err != nil {
+				outcome.WriteError = err.Error()
+				return
+			}
 		}
+		outcome.Chunks++
 		if reply.AfterChunk != nil {
 			reply.AfterChunk(i)
 		}
