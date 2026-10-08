@@ -66,10 +66,16 @@ type AuthKind string
 const AuthAPIKey AuthKind = "api_key"
 
 // Binding is one service configuration a tenant may use, located by
-// (TenantID, BindingID). A binding fixes exactly one API.
+// (TenantID, BindingID). A binding fixes one Provider, API and Operation.
 type Binding struct {
 	TenantID  string
 	BindingID string
+	// Operation is the one model operation this binding allows. The zero
+	// value means chat for existing hosts: their bindings could only have
+	// authorized chat, so this deliberate public-contract exception to
+	// fail-closed zero values does not widen authorization. Unknown nonempty
+	// values are refused. Enabled and Credential.Active still fail closed.
+	Operation Operation
 	// Version identifies this configuration snapshot; it is required so the
 	// credential read can be tied to it (ADR-0003).
 	Version string

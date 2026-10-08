@@ -1,0 +1,114 @@
+{
+  "note": "Synthetic host-owned three-operation catalog captured by public E2E; does not declare vendor routes supported.",
+  "hash": "sha256:2237139f344d087d3b3f88c11174594ee3b84a31a0fdbc87cde7cfba18cda5eb",
+  "catalog": {
+    "version": "host-operations-04",
+    "models": [
+      {
+        "provider": "openai",
+        "api": "openai-responses",
+        "id": "gpt-4.1-mini",
+        "name": "Host chat",
+        "reasoning": false,
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 1047576,
+        "maxTokens": 32768,
+        "samplingParams": {
+          "top_p": 0.5
+        },
+        "cost": {
+          "input": 0.4,
+          "output": 1.6,
+          "cacheRead": 0.1,
+          "cacheWrite": 0,
+          "tiers": [
+            {
+              "inputTokensAbove": 100,
+              "input": 2,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          ]
+        }
+      }
+    ],
+    "imageModels": [
+      {
+        "provider": "openai",
+        "api": "openai-responses",
+        "id": "gpt-4.1-mini",
+        "name": "Host image",
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text",
+          "image"
+        ],
+        "capabilities": {
+          "maxReferenceImages": 2,
+          "maxOutputImages": 1,
+          "sizes": [
+            "auto"
+          ],
+          "imageSizes": [
+            "1K"
+          ],
+          "aspectRatios": [
+            "1:1"
+          ],
+          "mask": true,
+          "inputFidelity": [
+            "high"
+          ]
+        },
+        "pricing": {
+          "inputText": 1,
+          "inputImage": 2,
+          "outputText": 3,
+          "outputImage": 4,
+          "source": "synthetic fixture; 2026-10-08"
+        }
+      }
+    ],
+    "classifierModels": [
+      {
+        "provider": "openai",
+        "api": "openai-responses",
+        "id": "gpt-4.1-mini",
+        "name": "Host classifier",
+        "contextWindow": 32768,
+        "capabilities": {
+          "kinds": [
+            "choice",
+            "score",
+            "bool"
+          ],
+          "maxChoices": 255,
+          "minScoreLevels": 2,
+          "maxScoreLevels": 10
+        },
+        "cost": {
+          "input": 1,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "tiers": [
+            {
+              "inputTokensAbove": 100,
+              "input": 2,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

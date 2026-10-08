@@ -75,7 +75,7 @@ func TestHostIntegrationStreams(t *testing.T) {
 			res   callResult
 		}{{tenantA, responses, scopeA, resA}, {tenantB, anthropic, scopeB, resB}} {
 			route := routes[c.scope.RequestID]
-			want := ai.CallAttribution{TenantID: c.k.tenant, RequestID: c.scope.RequestID, ActorID: c.scope.ActorID, BindingID: c.p.BindingID,
+			want := ai.CallAttribution{Operation: ai.OperationChat, TenantID: c.k.tenant, RequestID: c.scope.RequestID, ActorID: c.scope.ActorID, BindingID: c.p.BindingID,
 				Resolved: true, ProviderID: c.p.provider(), API: c.p.api(), ModelID: c.p.Model, AccountScopeID: c.p.account(c.k)}
 			ev.Check(c.k.tenant+"'s call succeeds", c.res.err == nil, "err=%v", c.res.err)
 			checkEnvelopes(ev, route, c.res.res, want)

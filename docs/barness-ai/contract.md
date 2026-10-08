@@ -11,13 +11,28 @@
 | `Policy *ResourcePolicy` | 是 | 显式有限资源策略（D1，ADR-0002）。缺失、任一容量/时限为零或负数、字段关系非法时构造失败（`*ConfigError`）。没有内置默认值，也没有“关闭限额”模式。 |
 | `Bindings BindingResolver` | 是 | 宿主按 `(TenantID, BindingID)` 解析授权绑定。 |
 | `Credentials CredentialResolver` | 是 | 宿主按绑定解析凭据快照；秘密值以 `ai.Secret` 传入，不进入任何输出。 |
-| `Catalog *Catalog` | 否 | 默认 `BuiltinCatalog()`（快照见 [catalog-snapshot.json](../../ai/release/catalog-snapshot.json)）；价格必须有限且非负。 |
+| `Catalog *Catalog` | 否 | 默认 `BuiltinCatalog()`（快照见 [catalog-snapshot.json](../../ai/release/catalog-snapshot.json)）；三类型号分别存放，完整身份不得重复，能力与模态须自洽，价格有限且非负，图像声明的每个模态须有费率。 |
 | `Transport http.RoundTripper` | 否 | 构造时固定，没有每调用覆盖。nil 选择不读代理环境变量的 transport；无 CookieJar，不跟随重定向。 |
 | `Admission Admission` | 否 | 宿主注入的准入（按厂商账户聚合、分布式配额），在内置的单租户/全进程并发限制之后对每次尝试调用，参数含 TenantID、AccountScopeID、AttemptID。 |
 | `Observer Observer` | 否 | 异步、有界（`MaxQueuedObservations`）的调用/尝试记录；需要正的 `MaxQueuedObservations`。 |
 | `AllowLoopbackHTTP` | — | 仅测试装配使用，允许绑定指向回环 http。生产必须为 false，所有 endpoint 为 https。 |
 
 资源策略示例（每个数值附适用负载、依据与调整说明，并由压力场景验证）：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`hostintegration.CloudBatchPolicy`。压力数据见 [README](README.md#资源策略示例与数值依据)。
+
+`Model` 保持原字段与聊天含义；新增 `ImageModel`（输入/输出模态、图片能力、`ImagePricing`）和
+`ClassifierModel`（上下文窗口、问题类型/容量、`ModelCost`），身份为 `(Operation, Provider, API, ID)`。
+同一 ID 可跨操作、Provider 或协议并存；重复完整身份以 `ConfigError{Field: "Catalog"}` 拒绝。
+图像输出须包含 image；参考图、mask 与 input fidelity 须有相应输入能力。分类支持 choice、score、bool；
+choice 的选项上限至少 2，score 的级数最少 2 且上下界有序，不支持的问题类型不得声明非零容量。
+图像每个已声明输入/输出模态须有费率值（显式 0 合法，unset/null 缺失），缓存费率可选。
+Responses/Chat 型号默认 samplingParams 同样不能覆盖保留字段。
+
+`Client.Catalog()` 返回构造时固定的完整目录副本。`Catalog.Lookup`/`ModelsOf` 只查聊天；
+`LookupImage`/`ImageModelsOf`、`LookupClassifier`/`ClassifierModelsOf` 分别强类型查询另两类，
+参数按 Provider、API（查找另含 ID）限定，列表保持目录顺序。所有返回值、切片、map、原始 JSON、
+能力与阶梯价格均独立复制。配置在构造交接期间不得并发修改。发现目录无需读取绑定或凭据，
+也不授予调用权限；内置目录目前只列已有验收的聊天路线，新操作入口由后续工单交付。
+三类型号与全部价格都参加目录 Hash；内容改变应升 Version，宿主即使重用版本也会得到不同哈希（ADR-0010/0020）。
 
 ## 2. 调用
 
@@ -32,13 +47,19 @@ hc := client.WithHooks(hooks)                              // 可信回调，同
 | 输入 | 契约 |
 | --- | --- |
 | `CallScope` | `TenantID`、`RequestID` 必填，由可信宿主从认证结果建立，不得取自请求内容；`ActorID`、`JobID` 可选。RequestID 全局唯一（`examples/requestid`），一次逻辑调用一个，内部重试沿用，再次调用必须换新。 |
-| `Target` | `BindingID` 与 `ModelID`；协议、endpoint、账户与凭据由授权绑定确定。可调用的模型是目录与 `Binding.AllowedModels` 的交集。 |
+| `Target` | `BindingID` 与 `ModelID`；操作、Provider、协议、endpoint、账户与凭据由授权绑定确定。可调用的型号是该操作/Provider/协议下的目录与 `Binding.AllowedModels` 的交集。 |
 | `Request` | 本次 `Messages`、可选 `SystemPrompt`（归一为初始 system 消息）与 `Tools`。调用在接收时复制输入，之后修改源数据不影响在途调用；交接期间不得并发修改。 |
 | 完整选项 | 必须与绑定的协议匹配：`ResponsesOptions`、`AnthropicOptions`、`GeminiOptions`、`ChatOptions`；需要区分未设置/null/零值的字段使用 `Nullable[T]`。 |
 | `SimpleOptions` | reasoning（minimal…max）、thinking budgets、toolChoice、maxTokens、cacheRetention 等公共参数，按模型能力映射。 |
 | `Hooks` | `TransformHeaders`（认证头合并后、adapter 前）、`OnPayload`（adapter 构建请求体后、重试之外，一次）、`OnResponse`（初始响应成功后、start 前；Gemini 不调用）。回调失败为 `callback_failed`；回调不能放宽鉴权、目标、模型或托管工具（ADR-0005）。 |
 
 宿主不得在普通生成请求中提交 key、凭据引用、endpoint、Authorization、代理或可执行函数；这些只来自可信装配。
+
+`Operation` 只取 `chat`、`image`、`classifier`。一份 `Binding` 固定一种操作；`Binding.Operation`
+零值规范化为 chat，是兼容旧宿主的公共契约例外：旧绑定仅有聊天权限，默认 chat 不扩大授权。
+`Enabled` 和 `Credential.Active` 仍以零值拒绝。未知非空操作为 `invalid_request/binding`；
+四个聊天入口（含 WithHooks）期望 chat，操作不匹配为 `tenant_denied/capability`。
+核对操作后才查聊天目录与白名单，最后读取凭据并核对版本快照；操作拒绝没有凭据读取、Provider 请求或 Attempt。
 
 ## 3. 输出
 
@@ -52,14 +73,18 @@ hc := client.WithHooks(hooks)                              // 可信回调，同
 | 工具 | `ToolCall` 保留原始参数 JSON（`RawArguments`）与展示用部分解析（`Arguments`，不可执行）；`ValidateToolCall` 校验完整参数后才交宿主执行；`RepairToolJSON` 显式修复；`ToolResultText` 构造结果。工具执行与下一轮调用属于宿主。 |
 | 用量与成本 | `Usage` 保持 pi 的数字（含按目录价格估算的 `Cost`，非账单）；每次尝试的 `UsageReporting`（未上报/部分/完整）另行记录，零值不表示免费。 |
 
+`CallAttribution.Operation` 从入口开始即为 chat，包含 CallStarted、预检失败和事件信封；
+Provider、API、ModelID、AccountScopeID 与绑定/凭据/目录版本仍只在一致快照解析成功后填写。
+operation 是经审阅的 Observer 固定枚举元数据，已加入脱敏审计白名单。
+
 ## 4. 错误分类
 
 `*ai.Error` 保留消息终态与 `ErrorMessage`（`Error.Message`），并提供稳定的 `Code`/`Phase`；`errors.Is(err, &ai.Error{Code: ai.CodeRateLimited})` 按分类匹配（Phase 为空时不比较 Phase），`errors.As` 取得 `HTTPStatus`、`ProviderRequestID`、`RetryAfter`。宿主回调或准入自身的错误只经 `Unwrap` 可见，不进入 Message。
 
 | Code | 含义 | 常见 Phase | 是否到达 Provider |
 | --- | --- | --- | --- |
-| `invalid_request` | 请求结构、选项或历史非法；模型不在目录或不属于绑定的协议；不支持的 AuthKind | scope、binding、capability | 否 |
-| `tenant_denied` | 绑定禁用、调用主体无权、模型未获绑定授权、凭据访问被拒、回调试图放宽授权 | binding、capability、credential、request | 否 |
+| `invalid_request` | 请求结构、选项或历史非法；型号不在对应操作目录或不属于绑定的协议；不支持的 AuthKind 或未知 Operation | scope、binding、capability | 否 |
+| `tenant_denied` | 绑定禁用、调用主体无权、入口操作与绑定不匹配、型号未获绑定授权、凭据访问被拒、回调试图放宽授权 | binding、capability、credential、request | 否 |
 | `binding_not_found` | 绑定不存在，或属于其他租户 | binding | 否 |
 | `credential_unavailable` | 缺 key 或空 key、凭据撤销、秘密后端故障；两次解析间配置快照不一致（D2，不内部重解析） | credential、consistency | 否 |
 | `admission_denied` | 内置并发限制或宿主准入拒绝，或等待超时/超过等待者上限 | admission | 否 |

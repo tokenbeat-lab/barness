@@ -5,7 +5,7 @@ import (
 	"slices"
 )
 
-// Modality is an input kind a model accepts.
+// Modality is an input or output kind a model declares.
 type Modality string
 
 const (
@@ -13,7 +13,7 @@ const (
 	ModalityImage Modality = "image"
 )
 
-// Model is secret-free, versioned model metadata located by (Provider, API, ID).
+// Model is secret-free chat metadata located by (chat, Provider, API, ID).
 type Model struct {
 	Provider      ProviderID `json:"provider"`
 	API           API        `json:"api"`
@@ -26,8 +26,8 @@ type Model struct {
 	// ThinkingLevelMap maps a reasoning model's levels to provider values
 	// and marks unsupported ones.
 	ThinkingLevelMap ThinkingLevelMap `json:"thinkingLevelMap,omitzero"`
-	// SamplingParams are the model's default sampling parameters; the simple
-	// entry merges a call's over them key by key.
+	// SamplingParams are the model's default sampling parameters; full and
+	// simple chat entries apply call-level values over them key by key.
 	SamplingParams map[string]json.RawMessage `json:"samplingParams,omitempty"`
 	Compat         ModelCompat                `json:"compat,omitzero"`
 	// Cost is the model's price, which estimates every call's Usage.Cost.

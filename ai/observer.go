@@ -40,7 +40,7 @@ type ObservationKind string
 
 const (
 	// ObservationCallStarted: a logical call was received, before anything
-	// was resolved. Its Call holds the scope and the requested binding only.
+	// was resolved. Its Call holds the scope, requested binding and operation.
 	ObservationCallStarted ObservationKind = "call_started"
 	// ObservationAttemptStarted: an attempt obtained its admission permit
 	// and is about to be sent. A call refused before that has none.
@@ -59,7 +59,7 @@ type Observation struct {
 	// Time is the system clock's, as message timestamps are.
 	Time time.Time `json:"time"`
 	// Call attributes the record. At CallStarted it holds the trusted scope
-	// and the requested BindingID, with Resolved false; afterwards it is
+	// and the requested BindingID and entry Operation, with Resolved false; afterwards it is
 	// the call's resolved attribution, which stays unresolved, naming no
 	// account, provider, API or model, for a call refused before its
 	// snapshot was consistent. Attempts are only set at CallFinished.

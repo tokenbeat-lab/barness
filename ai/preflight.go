@@ -43,6 +43,13 @@ func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID 
 	if b.AuthKind != AuthAPIKey {
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding auth kind is not supported")
 	}
+	switch b.Operation {
+	case "":
+		b.Operation = OperationChat
+	case OperationChat, OperationImage, OperationClassifier:
+	default:
+		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding operation is not supported")
+	}
 	if !endpointAllowed(b.Endpoint, c.loopback) {
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding endpoint must be https (http only for loopback)")
 	}
@@ -63,11 +70,11 @@ func (c *Client) authorizeModel(b Binding, modelID string) (Model, *Error) {
 	if !slices.Contains(b.AllowedModels, modelID) {
 		return Model{}, newError(CodeTenantDenied, PhaseCapability, "model is not allowed by the binding")
 	}
-	m, ok := c.catalog.lookup(b.ProviderID, b.API, modelID)
+	i, ok := c.modelIndex[modelKey{b.Operation, b.ProviderID, b.API, modelID}]
 	if !ok {
 		return Model{}, newError(CodeInvalidRequest, PhaseCapability, "model is not in the catalog for this provider and API")
 	}
-	return m, nil
+	return c.catalog.Models[i].clone(), nil
 }
 
 // resolveCredential reads the credential the binding version references and

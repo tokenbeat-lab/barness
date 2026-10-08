@@ -1,0 +1,123 @@
+{
+  "status": "PASS",
+  "date": "2026-10-08",
+  "issue": "04-operation-catalog-and-authorization",
+  "base_commit": "f99ced9bbf0c14254acf0a50d158b86bf72419f8",
+  "branch": "main",
+  "catalog": {
+    "version": "2026-10-08.2",
+    "hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea"
+  },
+  "checks": {
+    "vet": "PASS",
+    "vet_live": "PASS",
+    "full_suite": {
+      "bundle": ".evidence/barness-ai/20261008T002019.417780000Z",
+      "manifest_sha256": "81d4b70e96fe756445697cf2411e03f7a1d52b387399fe9f95564d7798d86d7b",
+      "cases": 3435,
+      "statuses": {
+        "PASS": 3435
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "race": {
+      "bundle": ".evidence/barness-ai/20261008T002355.441040000Z",
+      "manifest_sha256": "bc67231dc8ce7404b4b84ef184d1e7ce120214c621ad852d245d87c05f22b0f8",
+      "cases": 3435,
+      "statuses": {
+        "PASS": 2816,
+        "NOT_RUN": 619
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "differential": {
+      "cases": 611,
+      "pass": 611,
+      "pending": 0,
+      "fail": 0
+    },
+    "policy_pressure": {
+      "pass": 7,
+      "fail": 0
+    },
+    "operation_catalog_and_authorization": {
+      "pass": 90,
+      "fail": 0
+    },
+    "catalog_snapshot_byte_comparison": "PASS",
+    "evidence_summary_redaction_audit": "PASS"
+  },
+  "reviews": {
+    "diff_command": "git diff --cached f99ced9bbf0c14254acf0a50d158b86bf72419f8",
+    "reviewed_diff_sha256": "4d2cd9c5dc37bbac70175bc0f8293c447275be5f8d1b4e7a6885df0f0b14d93d",
+    "standards": {
+      "hard_violations": 0,
+      "optional_suggestions": 1,
+      "suggestion": "Possible Primitive Obsession: classifier Kinds strings could use a kind type; retained the explicitly approved []string design with constructor validation."
+    },
+    "spec": {
+      "findings": 0
+    }
+  },
+  "red_evidence": {
+    "operation_authorization": {
+      "bundle": ".evidence/barness-ai/20261008T001459.473386000Z",
+      "manifest_sha256": "9392d71bc9a466587dbe106397c68c531130fc4ba07cc6f541c78f624cf113ae",
+      "cases": 20,
+      "statuses": {
+        "FAIL": 20
+      },
+      "audit_findings": 56,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:aca96483d9a9ffa7fdae0eed11daa28f05535353e2124b4709382bb7613bd513",
+        "model_catalog_version": "2026-10-08.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "catalog_validation": {
+      "bundle": ".evidence/barness-ai/20261008T001611.188868000Z",
+      "manifest_sha256": "b840577d01baf17b3dc06e23ff6a4714cccd0ff38ba0330b011944ba3c2fb3c6",
+      "cases": 51,
+      "statuses": {
+        "PASS": 2,
+        "FAIL": 49
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:aca96483d9a9ffa7fdae0eed11daa28f05535353e2124b4709382bb7613bd513",
+        "model_catalog_version": "2026-10-08.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "notes": [
+      "Public declarations were first absent and compilation failed.",
+      "Operation runtime red evidence had 20 failed scenarios; 56 expected operation-field audit findings preceded whitelist review.",
+      "Catalog runtime red evidence had 2 PASS and 49 FAIL before validation; subsequent failure also caught clone dropping new collections.",
+      "Discovery methods were first absent and compilation failed before typed query implementation."
+    ]
+  },
+  "not_run": {
+    "live": "No live calls; no new vendor routes or builtin non-chat models declared supported."
+  },
+  "replay": [
+    "go vet ./...",
+    "go vet -tags live ./ai/...",
+    "go test ./ai/e2e -count=1 -run \"^(TestChatOperationAuthorization|TestOperation.*)$\"",
+    "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test ./... -count=1",
+    "go test -race ./... -count=1"
+  ]
+}

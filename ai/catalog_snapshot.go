@@ -8,14 +8,42 @@ import (
 )
 
 func (c Catalog) clone() Catalog {
-	out := Catalog{Version: c.Version, Models: make([]Model, len(c.Models))}
-	for i, m := range c.Models {
-		m.Input = append([]Modality(nil), m.Input...)
-		m.SamplingParams = cloneJSONValues(m.SamplingParams)
-		m.Cost.Tiers = slices.Clone(m.Cost.Tiers)
-		out.Models[i] = m
+	out := c
+	out.Models = slices.Clone(c.Models)
+	for i := range out.Models {
+		out.Models[i] = out.Models[i].clone()
+	}
+	out.ImageModels = slices.Clone(c.ImageModels)
+	for i := range out.ImageModels {
+		out.ImageModels[i] = out.ImageModels[i].clone()
+	}
+	out.ClassifierModels = slices.Clone(c.ClassifierModels)
+	for i := range out.ClassifierModels {
+		out.ClassifierModels[i] = out.ClassifierModels[i].clone()
 	}
 	return out
+}
+
+func (m Model) clone() Model {
+	m.Input = slices.Clone(m.Input)
+	m.SamplingParams = cloneJSONValues(m.SamplingParams)
+	m.Cost.Tiers = slices.Clone(m.Cost.Tiers)
+	return m
+}
+
+func (m ImageModel) clone() ImageModel {
+	m.Input, m.Output = slices.Clone(m.Input), slices.Clone(m.Output)
+	m.Capabilities.Sizes = slices.Clone(m.Capabilities.Sizes)
+	m.Capabilities.ImageSizes = slices.Clone(m.Capabilities.ImageSizes)
+	m.Capabilities.AspectRatios = slices.Clone(m.Capabilities.AspectRatios)
+	m.Capabilities.InputFidelity = slices.Clone(m.Capabilities.InputFidelity)
+	return m
+}
+
+func (m ClassifierModel) clone() ClassifierModel {
+	m.Capabilities.Kinds = slices.Clone(m.Capabilities.Kinds)
+	m.Cost.Tiers = slices.Clone(m.Cost.Tiers)
+	return m
 }
 
 // Hash is "sha256:" and the hex SHA-256 of c's JSON encoding, which is
@@ -31,31 +59,4 @@ func (c Catalog) Hash() (string, error) {
 	}
 	sum := sha256.Sum256(data)
 	return "sha256:" + hex.EncodeToString(sum[:]), nil
-}
-
-// validate refuses a catalog whose prices could not yield a finite,
-// non-negative cost.
-func (c Catalog) validate() error {
-	for _, m := range c.Models {
-		if problem := m.Cost.problem(); problem != "" {
-			return &ConfigError{Field: "Catalog", Problem: "model " + m.ID + ": " + problem}
-		}
-		var reserved []string
-		switch m.API {
-		case APIOpenAIResponses:
-			reserved = responsesReservedSampling
-		case APIOpenAICompletions:
-			reserved = chatReservedSampling
-		default:
-			continue // These protocols do not apply samplingParams.
-		}
-		problem := validateJSONValues("samplingParams", m.SamplingParams)
-		if problem == "" {
-			problem = checkReservedKeys(m.SamplingParams, reserved)
-		}
-		if problem != "" {
-			return &ConfigError{Field: "Catalog", Problem: "model " + m.ID + ": " + problem}
-		}
-	}
-	return nil
 }

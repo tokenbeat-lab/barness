@@ -122,8 +122,8 @@ func checkCallRecords(ev *evidence.Case, obs []ai.Observation, scope ai.CallScop
 		ev.Check("records are in time order", !obs[i].Time.Before(obs[i-1].Time), "record %d at %s before %s", i, obs[i].Time, obs[i-1].Time)
 	}
 	started := obs[0].Call
-	want := ai.CallMetadata{CallAttribution: ai.CallAttribution{TenantID: scope.TenantID, RequestID: scope.RequestID, ActorID: scope.ActorID, JobID: scope.JobID, BindingID: bindingID}}
-	ev.Check("call_started holds the scope and requested binding only", reflect.DeepEqual(started, want), "got %+v want %+v", started, want)
+	want := ai.CallMetadata{CallAttribution: ai.CallAttribution{TenantID: scope.TenantID, RequestID: scope.RequestID, ActorID: scope.ActorID, JobID: scope.JobID, BindingID: bindingID, Operation: ai.OperationChat}}
+	ev.Check("call_started holds the scope, requested binding and entry operation", reflect.DeepEqual(started, want), "got %+v want %+v", started, want)
 
 	res := o.result
 	resolved := res.Metadata

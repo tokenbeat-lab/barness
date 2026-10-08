@@ -7,8 +7,10 @@ import "slices"
 // change gets a new Version, and Hash tells two contents apart even when a
 // host reuses one.
 type Catalog struct {
-	Version string  `json:"version"`
-	Models  []Model `json:"models"`
+	Version          string            `json:"version"`
+	Models           []Model           `json:"models"`
+	ImageModels      []ImageModel      `json:"imageModels,omitempty"`
+	ClassifierModels []ClassifierModel `json:"classifierModels,omitempty"`
 }
 
 // BuiltinCatalog returns a fresh copy of the built-in catalog.
@@ -44,17 +46,8 @@ type Catalog struct {
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-08.1",
+		Version: "2026-10-08.2",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
 			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels()),
 	}
-}
-
-func (c Catalog) lookup(provider ProviderID, api API, id string) (Model, bool) {
-	for _, m := range c.Models {
-		if m.Provider == provider && m.API == api && m.ID == id {
-			return m, true
-		}
-	}
-	return Model{}, false
 }

@@ -44,6 +44,7 @@ func (c *Client) run(ctx context.Context, cl call, emit func(EventEnvelope) *Err
 		ActorID:   cl.scope.ActorID,
 		JobID:     cl.scope.JobID,
 		BindingID: cl.target.BindingID,
+		Operation: OperationChat,
 	}}
 	asm := newAssembler(started.UnixMilli(), meta.CallAttribution, emit, c.policy.byteLimits().toolJSON)
 	c.observations.callStarted(meta)
@@ -74,6 +75,9 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	binding, failure := c.resolveBinding(ctx, cl.scope, cl.target.BindingID)
 	if failure != nil {
 		return failure
+	}
+	if binding.Operation != OperationChat {
+		return newError(CodeTenantDenied, PhaseCapability, "binding does not allow this operation")
 	}
 	ad, ok := c.adapters[binding.API]
 	if !ok {

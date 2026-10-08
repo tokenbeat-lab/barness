@@ -107,6 +107,7 @@ func checkCompleted(ev *evidence.Case, f textFixture, res ai.Result, err error) 
 func checkMetadata(ev *evidence.Case, got ai.CallMetadata, scope ai.CallScope, f textFixture) {
 	want := ai.CallMetadata{
 		CallAttribution: ai.CallAttribution{
+			Operation:  ai.OperationChat,
 			TenantID:   scope.TenantID,
 			RequestID:  scope.RequestID,
 			ActorID:    scope.ActorID,

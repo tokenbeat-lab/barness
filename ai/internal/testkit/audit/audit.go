@@ -257,6 +257,8 @@ func redactedQuery(v string) bool {
 var observationFields = map[string]bool{
 	"kind": true, "time": true, "call": true, "attempt": true, "duration": true, "stopReason": true, "error": true, "usage": true,
 	"tenantId": true, "requestId": true, "actorId": true, "jobId": true, "bindingId": true, "resolved": true,
+	// Set by the entry to a fixed Operation constant, never request content.
+	"operation":  true,
 	"providerId": true, "api": true, "modelId": true, "accountScopeId": true, "bindingVersion": true,
 	"credentialVersion": true, "catalogVersion": true, "catalogHash": true, "attempts": true, "nativeStateDowngrades": true,
 	"noEnvelope": true, "accountMismatch": true, "crossModel": true,

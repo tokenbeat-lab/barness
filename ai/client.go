@@ -30,8 +30,9 @@ type Config struct {
 	// Bindings and Credentials are the trusted host's resolvers; both required.
 	Bindings    BindingResolver
 	Credentials CredentialResolver
-	// Catalog defaults to BuiltinCatalog when nil. Its prices must be
-	// finite and non-negative.
+	// Catalog defaults to BuiltinCatalog when nil. All operation identities
+	// must be unique, capabilities consistent and prices finite/non-negative;
+	// declared image modalities require explicit rates. Nested data is copied.
 	Catalog *Catalog
 	// Transport is the only way to customize networking and is fixed for the
 	// Client's lifetime; there is no per-call override. Nil selects a transport
@@ -76,6 +77,7 @@ type Client struct {
 	bindings    BindingResolver
 	credentials CredentialResolver
 	catalog     Catalog
+	modelIndex  map[modelKey]int
 	catalogHash string
 	adapters    map[API]adapter
 	http        *http.Client
@@ -113,6 +115,7 @@ func NewClient(cfg Config) (*Client, error) {
 		bindings:     cfg.Bindings,
 		credentials:  cfg.Credentials,
 		catalog:      catalog,
+		modelIndex:   catalog.index(),
 		catalogHash:  catalogHash,
 		adapters:     registry(),
 		admission:    admitter{local: newLimiter(cfg.Policy, cfg.Probe), host: cfg.Admission},

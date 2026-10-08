@@ -39,7 +39,7 @@ func TestEventEnvelope(t *testing.T) {
 				scope := textScope("req-e10-envelope-" + p.ID + "-" + e.name)
 				envs, res, err := drainEnvelopes(ev, e.start(ctxFor(t), w, p, scope))
 				ev.Check("call succeeds", err == nil, "err=%v", err)
-				want := ai.CallAttribution{TenantID: tenantA.tenant, RequestID: scope.RequestID, ActorID: scope.ActorID, JobID: scope.JobID,
+				want := ai.CallAttribution{Operation: ai.OperationChat, TenantID: tenantA.tenant, RequestID: scope.RequestID, ActorID: scope.ActorID, JobID: scope.JobID,
 					BindingID: p.BindingID, Resolved: true, ProviderID: p.provider(), API: p.api(), ModelID: p.Model, AccountScopeID: p.account(tenantA)}
 				checkEnvelopes(ev, envs, res, want)
 			})
@@ -52,7 +52,7 @@ func TestEventEnvelope(t *testing.T) {
 				scope := textScope("req-e10-envelope-401-" + p.ID + "-" + e.name)
 				envs, res, err := drainEnvelopes(ev, e.start(ctxFor(t), w, p, scope))
 				ev.Check("call fails upstream", err != nil, "err=%v", err)
-				want := ai.CallAttribution{TenantID: tenantA.tenant, RequestID: scope.RequestID, ActorID: scope.ActorID, JobID: scope.JobID,
+				want := ai.CallAttribution{Operation: ai.OperationChat, TenantID: tenantA.tenant, RequestID: scope.RequestID, ActorID: scope.ActorID, JobID: scope.JobID,
 					BindingID: p.BindingID, Resolved: true, ProviderID: p.provider(), API: p.api(), ModelID: p.Model, AccountScopeID: p.account(tenantA)}
 				checkEnvelopes(ev, envs, res, want)
 			})
@@ -67,7 +67,7 @@ func TestEventEnvelope(t *testing.T) {
 				envs, res, err := drainEnvelopes(ev, e.start(ctxFor(t), w, p, scope))
 				ev.Check("call is refused", err != nil, "err=%v", err)
 				ev.Check("no inference request sent", len(w.provider.Requests()) == 0, "got %d", len(w.provider.Requests()))
-				want := ai.CallAttribution{TenantID: tenantB.tenant, RequestID: scope.RequestID, BindingID: p.BindingID}
+				want := ai.CallAttribution{Operation: ai.OperationChat, TenantID: tenantB.tenant, RequestID: scope.RequestID, BindingID: p.BindingID}
 				checkEnvelopes(ev, envs, res, want)
 			})
 		}

@@ -9,11 +9,13 @@ import "slices"
 // earlier reports Resolved=false instead of echoing request values. It holds
 // values only, so a copy never changes.
 type CallAttribution struct {
-	TenantID   string     `json:"tenantId"`
-	RequestID  string     `json:"requestId"`
-	ActorID    string     `json:"actorId,omitempty"`
-	JobID      string     `json:"jobId,omitempty"`
-	BindingID  string     `json:"bindingId"`
+	TenantID  string `json:"tenantId"`
+	RequestID string `json:"requestId"`
+	ActorID   string `json:"actorId,omitempty"`
+	JobID     string `json:"jobId,omitempty"`
+	BindingID string `json:"bindingId"`
+	// Operation is set by the public entry even before resolving the binding.
+	Operation  Operation  `json:"operation"`
 	Resolved   bool       `json:"resolved"`
 	ProviderID ProviderID `json:"providerId,omitempty"`
 	API        API        `json:"api,omitempty"`

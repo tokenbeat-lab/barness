@@ -349,7 +349,7 @@ func (s *forgeableStore) records(t *testing.T, tenant, session string) []string 
 // checkHostTurn asserts every envelope sent downstream is attributed to k's
 // resolved call, as its Result is.
 func checkHostTurn(ev *evidence.Case, p isolationProtocol, k tenantKey, res ai.Result, sink *collectSink) {
-	want := ai.CallAttribution{TenantID: k.tenant, RequestID: res.Metadata.RequestID, ActorID: "user-of-" + k.tenant,
+	want := ai.CallAttribution{Operation: ai.OperationChat, TenantID: k.tenant, RequestID: res.Metadata.RequestID, ActorID: "user-of-" + k.tenant,
 		BindingID: p.BindingID, Resolved: true, ProviderID: p.provider(), API: p.api(), ModelID: p.Model, AccountScopeID: p.account(k)}
 	ev.Check("the RequestID is minted by the host", strings.HasPrefix(res.Metadata.RequestID, "req-"), "got %q", res.Metadata.RequestID)
 	checkEnvelopes(ev, sink.all(), res, want)
