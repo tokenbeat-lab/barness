@@ -1,0 +1,28 @@
+BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -json ./... -count=1
+Exit: 0
+Started: 2026-10-08T09:47:56.627367+08:00
+Finished: 2026-10-08T09:56:19.314211+08:00
+Package outcomes:
+SKIP github.com/tokenbeat-lab/barness/ai/examples/hostintegration (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/examples/localassembly (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/examples/requestid (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/examples/toolloop (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/clock (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/probe (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/testkit/host (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/testkit/provider (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/live (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate (0s)
+PASS github.com/tokenbeat-lab/barness/ai (2.141s)
+PASS github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle (2.188s)
+PASS github.com/tokenbeat-lab/barness/ai/internal/testkit/audit (2.592s)
+PASS github.com/tokenbeat-lab/barness/ai/internal/testkit/release (3.074s)
+PASS github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix (3.411s)
+PASS github.com/tokenbeat-lab/barness/ai/e2e (502.106s)
+Test outcomes: {"PASS": 3977}
+Evidence bundles:
+.evidence/barness-ai/20261008T014758.030452000Z
+Scope: pre-review implementation; final revised implementation is verified by release-full-race.log.

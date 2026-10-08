@@ -1,0 +1,1868 @@
+{
+  "source_bundle": ".evidence/barness-ai/20261008T015659.765652000Z",
+  "source_manifest_sha256": "877af7a11fc953cdd4a145b3250e45b0b298e591c69dc2089fbd993596199d6b",
+  "cases": [
+    {
+      "dir": "P07-D1-question",
+      "fixtures": {},
+      "id": "P07-D1-question",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierPolicyAndSnapshots$/^question$'",
+      "status": "PASS",
+      "test": "TestClassifierPolicyAndSnapshots/question"
+    },
+    {
+      "dir": "P07-D1-questions",
+      "fixtures": {},
+      "id": "P07-D1-questions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierPolicyAndSnapshots$/^questions$'",
+      "status": "PASS",
+      "test": "TestClassifierPolicyAndSnapshots/questions"
+    },
+    {
+      "dir": "P07-D1-state",
+      "fixtures": {},
+      "id": "P07-D1-state",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierPolicyAndSnapshots$/^state$'",
+      "status": "PASS",
+      "test": "TestClassifierPolicyAndSnapshots/state"
+    },
+    {
+      "dir": "P07-E01-bool-no-criteria",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-bool-no-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-bool-no-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-bool-no-criteria"
+    },
+    {
+      "dir": "P07-E01-bool-no-criteria-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E01-bool-no-criteria-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E01-bool-no-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E01-bool-no-criteria"
+    },
+    {
+      "dir": "P07-E01-choice-parity-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E01-choice-parity-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E01-choice-parity$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E01-choice-parity"
+    },
+    {
+      "dir": "P07-E01-mixed",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-mixed",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-mixed$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-mixed"
+    },
+    {
+      "dir": "P07-E01-mixed-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E01-mixed-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E01-mixed$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E01-mixed"
+    },
+    {
+      "dir": "P07-E01-native-array",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-native-array",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-native-array$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-native-array"
+    },
+    {
+      "dir": "P07-E01-native-object",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-native-object",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-native-object$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-native-object"
+    },
+    {
+      "dir": "P07-E01-native-string",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-native-string",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-native-string$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-native-string"
+    },
+    {
+      "dir": "P07-E01-score-basic",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-score-basic",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-score-basic$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-score-basic"
+    },
+    {
+      "dir": "P07-E01-score-basic-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E01-score-basic-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E01-score-basic$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E01-score-basic"
+    },
+    {
+      "dir": "P07-E01-score-no-legend",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-score-no-legend",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-score-no-legend$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-score-no-legend"
+    },
+    {
+      "dir": "P07-E01-score-no-legend-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E01-score-no-legend-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E01-score-no-legend$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E01-score-no-legend"
+    },
+    {
+      "dir": "P07-E01-score-ten-levels",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-score-ten-levels",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-score-ten-levels$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-score-ten-levels"
+    },
+    {
+      "dir": "P07-E01-score-ten-levels-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E01-score-ten-levels-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E01-score-ten-levels$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E01-score-ten-levels"
+    },
+    {
+      "dir": "P07-E01-score-two-levels",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E01-score-two-levels",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E01-score-two-levels$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E01-score-two-levels"
+    },
+    {
+      "dir": "P07-E01-score-two-levels-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E01-score-two-levels-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E01-score-two-levels$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E01-score-two-levels"
+    },
+    {
+      "dir": "P07-E02-bool-above-one",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-bool-above-one",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-bool-above-one$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-bool-above-one"
+    },
+    {
+      "dir": "P07-E02-bool-extra-field",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-bool-extra-field",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-bool-extra-field$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-bool-extra-field"
+    },
+    {
+      "dir": "P07-E02-bool-missing",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-bool-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-bool-missing$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-bool-missing"
+    },
+    {
+      "dir": "P07-E02-bool-negative",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-bool-negative",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-bool-negative$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-bool-negative"
+    },
+    {
+      "dir": "P07-E02-bool-negative-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E02-bool-negative-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E02-bool-negative$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E02-bool-negative"
+    },
+    {
+      "dir": "P07-E02-bool-null",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-bool-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-bool-null$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-bool-null"
+    },
+    {
+      "dir": "P07-E02-bool-overflow",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-bool-overflow",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-bool-overflow$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-bool-overflow"
+    },
+    {
+      "dir": "P07-E02-duplicate-answer",
+      "fixtures": {},
+      "id": "P07-E02-duplicate-answer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^duplicate-answer$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/duplicate-answer"
+    },
+    {
+      "dir": "P07-E02-duplicate-envelope",
+      "fixtures": {},
+      "id": "P07-E02-duplicate-envelope",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^duplicate-envelope$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/duplicate-envelope"
+    },
+    {
+      "dir": "P07-E02-duplicate-field",
+      "fixtures": {},
+      "id": "P07-E02-duplicate-field",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^duplicate-field$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/duplicate-field"
+    },
+    {
+      "dir": "P07-E02-duplicate-model",
+      "fixtures": {},
+      "id": "P07-E02-duplicate-model",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^duplicate-model$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/duplicate-model"
+    },
+    {
+      "dir": "P07-E02-duplicate-probability",
+      "fixtures": {},
+      "id": "P07-E02-duplicate-probability",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^duplicate-probability$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/duplicate-probability"
+    },
+    {
+      "dir": "P07-E02-duplicate-token-count",
+      "fixtures": {},
+      "id": "P07-E02-duplicate-token-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^duplicate-token-count$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/duplicate-token-count"
+    },
+    {
+      "dir": "P07-E02-duplicate-usage",
+      "fixtures": {},
+      "id": "P07-E02-duplicate-usage",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^duplicate-usage$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/duplicate-usage"
+    },
+    {
+      "dir": "P07-E02-exact-fields-bool-case-alias",
+      "fixtures": {},
+      "id": "P07-E02-exact-fields-bool-case-alias",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactAnswerFields$/^bool-case-alias$'",
+      "status": "PASS",
+      "test": "TestClassifierExactAnswerFields/bool-case-alias"
+    },
+    {
+      "dir": "P07-E02-exact-fields-bool-case-collision",
+      "fixtures": {},
+      "id": "P07-E02-exact-fields-bool-case-collision",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactAnswerFields$/^bool-case-collision$'",
+      "status": "PASS",
+      "test": "TestClassifierExactAnswerFields/bool-case-collision"
+    },
+    {
+      "dir": "P07-E02-exact-fields-choice-case-collision",
+      "fixtures": {},
+      "id": "P07-E02-exact-fields-choice-case-collision",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactAnswerFields$/^choice-case-collision$'",
+      "status": "PASS",
+      "test": "TestClassifierExactAnswerFields/choice-case-collision"
+    },
+    {
+      "dir": "P07-E02-exact-fields-confidence-case-collision",
+      "fixtures": {},
+      "id": "P07-E02-exact-fields-confidence-case-collision",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactAnswerFields$/^confidence-case-collision$'",
+      "status": "PASS",
+      "test": "TestClassifierExactAnswerFields/confidence-case-collision"
+    },
+    {
+      "dir": "P07-E02-exact-fields-score-case-collision",
+      "fixtures": {},
+      "id": "P07-E02-exact-fields-score-case-collision",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactAnswerFields$/^score-case-collision$'",
+      "status": "PASS",
+      "test": "TestClassifierExactAnswerFields/score-case-collision"
+    },
+    {
+      "dir": "P07-E02-exact-fields-type-case-collision",
+      "fixtures": {},
+      "id": "P07-E02-exact-fields-type-case-collision",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactAnswerFields$/^type-case-collision$'",
+      "status": "PASS",
+      "test": "TestClassifierExactAnswerFields/type-case-collision"
+    },
+    {
+      "dir": "P07-E02-exact-fields-usage-case-alias",
+      "fixtures": {},
+      "id": "P07-E02-exact-fields-usage-case-alias",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactAnswerFields$/^usage-case-alias$'",
+      "status": "PASS",
+      "test": "TestClassifierExactAnswerFields/usage-case-alias"
+    },
+    {
+      "dir": "P07-E02-extra-answer",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-extra-answer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-extra-answer$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-extra-answer"
+    },
+    {
+      "dir": "P07-E02-malformed-answers",
+      "fixtures": {},
+      "id": "P07-E02-malformed-answers",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^malformed-answers$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/malformed-answers"
+    },
+    {
+      "dir": "P07-E02-malformed-usage",
+      "fixtures": {},
+      "id": "P07-E02-malformed-usage",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^malformed-usage$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/malformed-usage"
+    },
+    {
+      "dir": "P07-E02-missing-score",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-missing-score",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-missing-score$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-missing-score"
+    },
+    {
+      "dir": "P07-E02-native-legend-array-order",
+      "fixtures": {},
+      "id": "P07-E02-native-legend-array-order",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierNativeLegend$/^array-order$'",
+      "status": "PASS",
+      "test": "TestClassifierNativeLegend/array-order"
+    },
+    {
+      "dir": "P07-E02-native-legend-equivalent-exponent",
+      "fixtures": {},
+      "id": "P07-E02-native-legend-equivalent-exponent",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierNativeLegend$/^equivalent-exponent$'",
+      "status": "PASS",
+      "test": "TestClassifierNativeLegend/equivalent-exponent"
+    },
+    {
+      "dir": "P07-E02-native-legend-exact-large-integer",
+      "fixtures": {},
+      "id": "P07-E02-native-legend-exact-large-integer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierNativeLegend$/^exact-large-integer$'",
+      "status": "PASS",
+      "test": "TestClassifierNativeLegend/exact-large-integer"
+    },
+    {
+      "dir": "P07-E02-native-legend-huge-exponent",
+      "fixtures": {},
+      "id": "P07-E02-native-legend-huge-exponent",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierNativeLegend$/^huge-exponent$'",
+      "status": "PASS",
+      "test": "TestClassifierNativeLegend/huge-exponent"
+    },
+    {
+      "dir": "P07-E02-native-legend-huge-exponent-mismatch",
+      "fixtures": {},
+      "id": "P07-E02-native-legend-huge-exponent-mismatch",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierNativeLegend$/^huge-exponent-mismatch$'",
+      "status": "PASS",
+      "test": "TestClassifierNativeLegend/huge-exponent-mismatch"
+    },
+    {
+      "dir": "P07-E02-native-legend-negative-zero",
+      "fixtures": {},
+      "id": "P07-E02-native-legend-negative-zero",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierNativeLegend$/^negative-zero$'",
+      "status": "PASS",
+      "test": "TestClassifierNativeLegend/negative-zero"
+    },
+    {
+      "dir": "P07-E02-native-legend-object-order",
+      "fixtures": {},
+      "id": "P07-E02-native-legend-object-order",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierNativeLegend$/^object-order$'",
+      "status": "PASS",
+      "test": "TestClassifierNativeLegend/object-order"
+    },
+    {
+      "dir": "P07-E02-native-legend-rounded-large-integer",
+      "fixtures": {},
+      "id": "P07-E02-native-legend-rounded-large-integer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierNativeLegend$/^rounded-large-integer$'",
+      "status": "PASS",
+      "test": "TestClassifierNativeLegend/rounded-large-integer"
+    },
+    {
+      "dir": "P07-E02-one-choice",
+      "fixtures": {},
+      "id": "P07-E02-one-choice",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^one-choice$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/one-choice"
+    },
+    {
+      "dir": "P07-E02-overflow-probability",
+      "fixtures": {},
+      "id": "P07-E02-overflow-probability",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^overflow-probability$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/overflow-probability"
+    },
+    {
+      "dir": "P07-E02-question-limit-after-callback",
+      "fixtures": {},
+      "id": "P07-E02-question-limit-after-callback",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^question-limit-after-callback$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/question-limit-after-callback"
+    },
+    {
+      "dir": "P07-E02-score-above-range",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-above-range",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-above-range$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-above-range"
+    },
+    {
+      "dir": "P07-E02-score-confidence-above-one",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-confidence-above-one",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-confidence-above-one$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-confidence-above-one"
+    },
+    {
+      "dir": "P07-E02-score-confidence-missing",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-confidence-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-confidence-missing$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-confidence-missing"
+    },
+    {
+      "dir": "P07-E02-score-confidence-negative",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-confidence-negative",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-confidence-negative$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-confidence-negative"
+    },
+    {
+      "dir": "P07-E02-score-confidence-null",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-confidence-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-confidence-null$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-confidence-null"
+    },
+    {
+      "dir": "P07-E02-score-distribution-null",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-distribution-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-distribution-null$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-distribution-null"
+    },
+    {
+      "dir": "P07-E02-score-duplicate-legend",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-duplicate-legend",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-duplicate-legend$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-duplicate-legend"
+    },
+    {
+      "dir": "P07-E02-score-duplicate-probability",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-duplicate-probability",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-duplicate-probability$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-duplicate-probability"
+    },
+    {
+      "dir": "P07-E02-score-expectation",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-expectation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-expectation$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-expectation"
+    },
+    {
+      "dir": "P07-E02-score-expectation-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E02-score-expectation-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E02-score-expectation$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E02-score-expectation"
+    },
+    {
+      "dir": "P07-E02-score-extra-field",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-extra-field",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-extra-field$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-extra-field"
+    },
+    {
+      "dir": "P07-E02-score-legend-extra",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-legend-extra",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-legend-extra$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-legend-extra"
+    },
+    {
+      "dir": "P07-E02-score-legend-missing",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-legend-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-legend-missing$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-legend-missing"
+    },
+    {
+      "dir": "P07-E02-score-legend-null",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-legend-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-legend-null$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-legend-null"
+    },
+    {
+      "dir": "P07-E02-score-legend-without-distribution",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-legend-without-distribution",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-legend-without-distribution$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-legend-without-distribution"
+    },
+    {
+      "dir": "P07-E02-score-legend-wrong",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-legend-wrong",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-legend-wrong$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-legend-wrong"
+    },
+    {
+      "dir": "P07-E02-score-legend-wrong-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E02-score-legend-wrong-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E02-score-legend-wrong$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E02-score-legend-wrong"
+    },
+    {
+      "dir": "P07-E02-score-missing",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-missing$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-missing"
+    },
+    {
+      "dir": "P07-E02-score-negative",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-negative",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-negative$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-negative"
+    },
+    {
+      "dir": "P07-E02-score-null",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-null$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-null"
+    },
+    {
+      "dir": "P07-E02-score-overflow",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-overflow",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-overflow$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-overflow"
+    },
+    {
+      "dir": "P07-E02-score-probability-above-one",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-probability-above-one",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-probability-above-one$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-probability-above-one"
+    },
+    {
+      "dir": "P07-E02-score-probability-extra",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-probability-extra",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-probability-extra$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-probability-extra"
+    },
+    {
+      "dir": "P07-E02-score-probability-key-alias",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-probability-key-alias",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-probability-key-alias$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-probability-key-alias"
+    },
+    {
+      "dir": "P07-E02-score-probability-missing",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-probability-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-probability-missing$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-probability-missing"
+    },
+    {
+      "dir": "P07-E02-score-probability-negative",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-probability-negative",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-probability-negative$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-probability-negative"
+    },
+    {
+      "dir": "P07-E02-score-probability-null",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-probability-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-probability-null$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-probability-null"
+    },
+    {
+      "dir": "P07-E02-score-probability-overflow",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-probability-overflow",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-probability-overflow$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-probability-overflow"
+    },
+    {
+      "dir": "P07-E02-score-probability-sum",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-score-probability-sum",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-score-probability-sum$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-score-probability-sum"
+    },
+    {
+      "dir": "P07-E02-state-limit-after-callback",
+      "fixtures": {},
+      "id": "P07-E02-state-limit-after-callback",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^state-limit-after-callback$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/state-limit-after-callback"
+    },
+    {
+      "dir": "P07-E02-tie",
+      "fixtures": {},
+      "id": "P07-E02-tie",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^tie$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/tie"
+    },
+    {
+      "dir": "P07-E02-unknown-field-after-callback",
+      "fixtures": {},
+      "id": "P07-E02-unknown-field-after-callback",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierStrictEnvelope$/^unknown-field-after-callback$'",
+      "status": "PASS",
+      "test": "TestClassifierStrictEnvelope/unknown-field-after-callback"
+    },
+    {
+      "dir": "P07-E02-wrong-bool-type",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-wrong-bool-type",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-wrong-bool-type$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-wrong-bool-type"
+    },
+    {
+      "dir": "P07-E02-wrong-score-type",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E02-wrong-score-type",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedFixtures$/^E02-wrong-score-type$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedFixtures/E02-wrong-score-type"
+    },
+    {
+      "dir": "P07-E04-bad-question",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-E04-bad-question",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierHooksAndRetry$/^bad-question$'",
+      "status": "PASS",
+      "test": "TestClassifierHooksAndRetry/bad-question"
+    },
+    {
+      "dir": "P07-E04-exact-request-case-criteria",
+      "fixtures": {},
+      "id": "P07-E04-exact-request-case-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactRequestFields$/^callback-case-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierExactRequestFields/callback-case-criteria"
+    },
+    {
+      "dir": "P07-E04-exact-request-case-score",
+      "fixtures": {},
+      "id": "P07-E04-exact-request-case-score",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactRequestFields$/^callback-case-score$'",
+      "status": "PASS",
+      "test": "TestClassifierExactRequestFields/callback-case-score"
+    },
+    {
+      "dir": "P07-E04-exact-request-null-criteria",
+      "fixtures": {},
+      "id": "P07-E04-exact-request-null-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactRequestFields$/^callback-null-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierExactRequestFields/callback-null-criteria"
+    },
+    {
+      "dir": "P07-E04-extra-authority",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-E04-extra-authority",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierHooksAndRetry$/^extra-authority$'",
+      "status": "PASS",
+      "test": "TestClassifierHooksAndRetry/extra-authority"
+    },
+    {
+      "dir": "P07-E04-final-questions",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-E04-final-questions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierHooksAndRetry$/^final-questions$'",
+      "status": "PASS",
+      "test": "TestClassifierHooksAndRetry/final-questions"
+    },
+    {
+      "dir": "P07-E04-header-widen",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-E04-header-widen",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierHooksAndRetry$/^header-widen$'",
+      "status": "PASS",
+      "test": "TestClassifierHooksAndRetry/header-widen"
+    },
+    {
+      "dir": "P07-E04-mixed-bool-capability",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-bool-capability",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^bool-capability$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/bool-capability"
+    },
+    {
+      "dir": "P07-E04-mixed-count-limit",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-count-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^count-limit$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/count-limit"
+    },
+    {
+      "dir": "P07-E04-mixed-final-kind-mismatch",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-final-kind-mismatch",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^final-kind-mismatch$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/final-kind-mismatch"
+    },
+    {
+      "dir": "P07-E04-mixed-final-legend-mismatch",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-final-legend-mismatch",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^final-legend-mismatch$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/final-legend-mismatch"
+    },
+    {
+      "dir": "P07-E04-mixed-final-questions",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-final-questions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^final-questions$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/final-questions"
+    },
+    {
+      "dir": "P07-E04-mixed-model-widen",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-model-widen",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^model-widen$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/model-widen"
+    },
+    {
+      "dir": "P07-E04-mixed-numeric-precision",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-numeric-precision",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^numeric-precision$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/numeric-precision"
+    },
+    {
+      "dir": "P07-E04-mixed-question-limit",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-question-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^question-limit$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/question-limit"
+    },
+    {
+      "dir": "P07-E04-mixed-score-capability",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-score-capability",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^score-capability$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/score-capability"
+    },
+    {
+      "dir": "P07-E04-mixed-state-limit",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-state-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^state-limit$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/state-limit"
+    },
+    {
+      "dir": "P07-E04-mixed-unencodable",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-unencodable",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^unencodable$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/unencodable"
+    },
+    {
+      "dir": "P07-E04-mixed-wrong-shape",
+      "fixtures": {
+        "fixture.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6"
+      },
+      "id": "P07-E04-mixed-wrong-shape",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^wrong-shape$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedCallbacks/wrong-shape"
+    },
+    {
+      "dir": "P07-E04-model-widen",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-E04-model-widen",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierHooksAndRetry$/^model-widen$'",
+      "status": "PASS",
+      "test": "TestClassifierHooksAndRetry/model-widen"
+    },
+    {
+      "dir": "P07-E04-response-failure",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-E04-response-failure",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierHooksAndRetry$/^response-failure$'",
+      "status": "PASS",
+      "test": "TestClassifierHooksAndRetry/response-failure"
+    },
+    {
+      "dir": "P07-E04-retry",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-E04-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierHooksAndRetry$/^retry$'",
+      "status": "PASS",
+      "test": "TestClassifierHooksAndRetry/retry"
+    },
+    {
+      "dir": "P07-E05-mixed-retry-parity",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "P07-E05-mixed-retry-parity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierParityFixtures$/^E05-mixed-retry$'",
+      "status": "PASS",
+      "test": "TestClassifierParityFixtures/E05-mixed-retry"
+    },
+    {
+      "dir": "P07-E07-callback-oversized-request",
+      "fixtures": {},
+      "id": "P07-E07-callback-oversized-request",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^callback-oversized-request$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/callback-oversized-request"
+    },
+    {
+      "dir": "P07-E07-closed-json-bool-array-criteria",
+      "fixtures": {},
+      "id": "P07-E07-closed-json-bool-array-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierClosedQuestionJSON$/^bool-array-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierClosedQuestionJSON/bool-array-criteria"
+    },
+    {
+      "dir": "P07-E07-closed-json-bool-extra-criteria",
+      "fixtures": {},
+      "id": "P07-E07-closed-json-bool-extra-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierClosedQuestionJSON$/^bool-extra-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierClosedQuestionJSON/bool-extra-criteria"
+    },
+    {
+      "dir": "P07-E07-closed-json-choice-array-criteria",
+      "fixtures": {},
+      "id": "P07-E07-closed-json-choice-array-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierClosedQuestionJSON$/^choice-array-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierClosedQuestionJSON/choice-array-criteria"
+    },
+    {
+      "dir": "P07-E07-closed-json-native-noul",
+      "fixtures": {},
+      "id": "P07-E07-closed-json-native-noul",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierClosedQuestionJSON$/^native-noul$'",
+      "status": "PASS",
+      "test": "TestClassifierClosedQuestionJSON/native-noul"
+    },
+    {
+      "dir": "P07-E07-closed-json-score-extra-field",
+      "fixtures": {},
+      "id": "P07-E07-closed-json-score-extra-field",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierClosedQuestionJSON$/^score-extra-field$'",
+      "status": "PASS",
+      "test": "TestClassifierClosedQuestionJSON/score-extra-field"
+    },
+    {
+      "dir": "P07-E07-closed-json-score-object-criteria",
+      "fixtures": {},
+      "id": "P07-E07-closed-json-score-object-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierClosedQuestionJSON$/^score-object-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierClosedQuestionJSON/score-object-criteria"
+    },
+    {
+      "dir": "P07-E07-closed-json-unknown",
+      "fixtures": {},
+      "id": "P07-E07-closed-json-unknown",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierClosedQuestionJSON$/^unknown$'",
+      "status": "PASS",
+      "test": "TestClassifierClosedQuestionJSON/unknown"
+    },
+    {
+      "dir": "P07-E07-copies",
+      "fixtures": {},
+      "id": "P07-E07-copies",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierPolicyAndSnapshots$/^copies$'",
+      "status": "PASS",
+      "test": "TestClassifierPolicyAndSnapshots/copies"
+    },
+    {
+      "dir": "P07-E07-exact-request-bool-case-criteria",
+      "fixtures": {},
+      "id": "P07-E07-exact-request-bool-case-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactRequestFields$/^bool-case-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierExactRequestFields/bool-case-criteria"
+    },
+    {
+      "dir": "P07-E07-exact-request-bool-null-criteria",
+      "fixtures": {},
+      "id": "P07-E07-exact-request-bool-null-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactRequestFields$/^bool-null-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierExactRequestFields/bool-null-criteria"
+    },
+    {
+      "dir": "P07-E07-exact-request-choice-case-instructions",
+      "fixtures": {},
+      "id": "P07-E07-exact-request-choice-case-instructions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactRequestFields$/^choice-case-instructions$'",
+      "status": "PASS",
+      "test": "TestClassifierExactRequestFields/choice-case-instructions"
+    },
+    {
+      "dir": "P07-E07-exact-request-score-case-type",
+      "fixtures": {},
+      "id": "P07-E07-exact-request-score-case-type",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExactRequestFields$/^score-case-type$'",
+      "status": "PASS",
+      "test": "TestClassifierExactRequestFields/score-case-type"
+    },
+    {
+      "dir": "P07-E07-foreign-tenant",
+      "fixtures": {},
+      "id": "P07-E07-foreign-tenant",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^foreign-tenant$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/foreign-tenant"
+    },
+    {
+      "dir": "P07-E07-missing-request",
+      "fixtures": {},
+      "id": "P07-E07-missing-request",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^missing-request$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/missing-request"
+    },
+    {
+      "dir": "P07-E07-missing-tenant",
+      "fixtures": {},
+      "id": "P07-E07-missing-tenant",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^missing-tenant$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/missing-tenant"
+    },
+    {
+      "dir": "P07-E07-mixed-bool-large-criterion",
+      "fixtures": {},
+      "id": "P07-E07-mixed-bool-large-criterion",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^bool-large-criterion$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/bool-large-criterion"
+    },
+    {
+      "dir": "P07-E07-mixed-bool-missing-true",
+      "fixtures": {},
+      "id": "P07-E07-mixed-bool-missing-true",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^bool-missing-true$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/bool-missing-true"
+    },
+    {
+      "dir": "P07-E07-mixed-bool-null-false",
+      "fixtures": {},
+      "id": "P07-E07-mixed-bool-null-false",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^bool-null-false$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/bool-null-false"
+    },
+    {
+      "dir": "P07-E07-mixed-duplicate-description",
+      "fixtures": {},
+      "id": "P07-E07-mixed-duplicate-description",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^duplicate-description$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/duplicate-description"
+    },
+    {
+      "dir": "P07-E07-mixed-duplicate-state",
+      "fixtures": {},
+      "id": "P07-E07-mixed-duplicate-state",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^duplicate-state$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/duplicate-state"
+    },
+    {
+      "dir": "P07-E07-mixed-empty-array-instructions",
+      "fixtures": {},
+      "id": "P07-E07-mixed-empty-array-instructions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^empty-array-instructions$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/empty-array-instructions"
+    },
+    {
+      "dir": "P07-E07-mixed-empty-object-instructions",
+      "fixtures": {},
+      "id": "P07-E07-mixed-empty-object-instructions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^empty-object-instructions$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/empty-object-instructions"
+    },
+    {
+      "dir": "P07-E07-mixed-scalar-instructions",
+      "fixtures": {},
+      "id": "P07-E07-mixed-scalar-instructions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^scalar-instructions$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/scalar-instructions"
+    },
+    {
+      "dir": "P07-E07-mixed-score-eleven-levels",
+      "fixtures": {},
+      "id": "P07-E07-mixed-score-eleven-levels",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^score-eleven-levels$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/score-eleven-levels"
+    },
+    {
+      "dir": "P07-E07-mixed-score-large-level",
+      "fixtures": {},
+      "id": "P07-E07-mixed-score-large-level",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^score-large-level$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/score-large-level"
+    },
+    {
+      "dir": "P07-E07-mixed-score-null-level",
+      "fixtures": {},
+      "id": "P07-E07-mixed-score-null-level",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^score-null-level$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/score-null-level"
+    },
+    {
+      "dir": "P07-E07-mixed-score-number-level",
+      "fixtures": {},
+      "id": "P07-E07-mixed-score-number-level",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^score-number-level$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/score-number-level"
+    },
+    {
+      "dir": "P07-E07-mixed-score-one-level",
+      "fixtures": {},
+      "id": "P07-E07-mixed-score-one-level",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^score-one-level$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/score-one-level"
+    },
+    {
+      "dir": "P07-E07-mixed-score-pointer",
+      "fixtures": {},
+      "id": "P07-E07-mixed-score-pointer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedRequestRefusals$/^score-pointer$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedRequestRefusals/score-pointer"
+    },
+    {
+      "dir": "P07-E07-mixed-snapshots",
+      "fixtures": {},
+      "id": "P07-E07-mixed-snapshots",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedSnapshots$'",
+      "status": "PASS",
+      "test": "TestClassifierMixedSnapshots"
+    },
+    {
+      "dir": "P07-E07-not-allowed",
+      "fixtures": {},
+      "id": "P07-E07-not-allowed",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^not-allowed$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/not-allowed"
+    },
+    {
+      "dir": "P07-E07-not-in-catalog",
+      "fixtures": {},
+      "id": "P07-E07-not-in-catalog",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^not-in-catalog$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/not-in-catalog"
+    },
+    {
+      "dir": "P07-E07-oversized-input-key",
+      "fixtures": {},
+      "id": "P07-E07-oversized-input-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^oversized-input-key$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/oversized-input-key"
+    },
+    {
+      "dir": "P07-E07-request-256-choices",
+      "fixtures": {},
+      "id": "P07-E07-request-256-choices",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^256-choices$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/256-choices"
+    },
+    {
+      "dir": "P07-E07-request-count-limit",
+      "fixtures": {},
+      "id": "P07-E07-request-count-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^count-limit$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/count-limit"
+    },
+    {
+      "dir": "P07-E07-request-empty-instructions",
+      "fixtures": {},
+      "id": "P07-E07-request-empty-instructions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^empty-instructions$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/empty-instructions"
+    },
+    {
+      "dir": "P07-E07-request-empty-key",
+      "fixtures": {},
+      "id": "P07-E07-request-empty-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^empty-key$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/empty-key"
+    },
+    {
+      "dir": "P07-E07-request-invalid-criterion",
+      "fixtures": {},
+      "id": "P07-E07-request-invalid-criterion",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^invalid-criterion$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/invalid-criterion"
+    },
+    {
+      "dir": "P07-E07-request-invalid-state",
+      "fixtures": {},
+      "id": "P07-E07-request-invalid-state",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^invalid-state$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/invalid-state"
+    },
+    {
+      "dir": "P07-E07-request-nil-question",
+      "fixtures": {},
+      "id": "P07-E07-request-nil-question",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^nil-question$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/nil-question"
+    },
+    {
+      "dir": "P07-E07-request-no-criteria",
+      "fixtures": {},
+      "id": "P07-E07-request-no-criteria",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^no-criteria$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/no-criteria"
+    },
+    {
+      "dir": "P07-E07-request-no-questions",
+      "fixtures": {},
+      "id": "P07-E07-request-no-questions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^no-questions$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/no-questions"
+    },
+    {
+      "dir": "P07-E07-request-question-limit",
+      "fixtures": {},
+      "id": "P07-E07-request-question-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^question-limit$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/question-limit"
+    },
+    {
+      "dir": "P07-E07-request-state-limit",
+      "fixtures": {},
+      "id": "P07-E07-request-state-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierRequestRefusals$/^state-limit$'",
+      "status": "PASS",
+      "test": "TestClassifierRequestRefusals/state-limit"
+    },
+    {
+      "dir": "P07-E07-unsupported-kind",
+      "fixtures": {},
+      "id": "P07-E07-unsupported-kind",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^unsupported-kind$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/unsupported-kind"
+    },
+    {
+      "dir": "P07-E07-wrong-protocol",
+      "fixtures": {},
+      "id": "P07-E07-wrong-protocol",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierModelAndScopeRefusals$/^wrong-protocol$'",
+      "status": "PASS",
+      "test": "TestClassifierModelAndScopeRefusals/wrong-protocol"
+    },
+    {
+      "dir": "P07-E08-above-frame",
+      "fixtures": {},
+      "id": "P07-E08-above-frame",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierBodyLimitsAndRelease$/^above-frame$'",
+      "status": "PASS",
+      "test": "TestClassifierBodyLimitsAndRelease/above-frame"
+    },
+    {
+      "dir": "P07-E08-bad-json",
+      "fixtures": {},
+      "id": "P07-E08-bad-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierBodyLimitsAndRelease$/^bad-json$'",
+      "status": "PASS",
+      "test": "TestClassifierBodyLimitsAndRelease/bad-json"
+    },
+    {
+      "dir": "P07-E08-callback-panic",
+      "fixtures": {},
+      "id": "P07-E08-callback-panic",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierCallbackPanicRelease$'",
+      "status": "PASS",
+      "test": "TestClassifierCallbackPanicRelease"
+    },
+    {
+      "dir": "P07-E08-canceled",
+      "fixtures": {},
+      "id": "P07-E08-canceled",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierBodyLimitsAndRelease$/^canceled$'",
+      "status": "PASS",
+      "test": "TestClassifierBodyLimitsAndRelease/canceled"
+    },
+    {
+      "dir": "P07-E08-error-limit",
+      "fixtures": {},
+      "id": "P07-E08-error-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierBodyLimitsAndRelease$/^error-limit$'",
+      "status": "PASS",
+      "test": "TestClassifierBodyLimitsAndRelease/error-limit"
+    },
+    {
+      "dir": "P07-E08-output-limit",
+      "fixtures": {},
+      "id": "P07-E08-output-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierBodyLimitsAndRelease$/^output-limit$'",
+      "status": "PASS",
+      "test": "TestClassifierBodyLimitsAndRelease/output-limit"
+    },
+    {
+      "dir": "P07-E08-read-abort",
+      "fixtures": {},
+      "id": "P07-E08-read-abort",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierBodyLimitsAndRelease$/^read-abort$'",
+      "status": "PASS",
+      "test": "TestClassifierBodyLimitsAndRelease/read-abort"
+    },
+    {
+      "dir": "P07-E08-read-idle",
+      "fixtures": {},
+      "id": "P07-E08-read-idle",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierBodyLimitsAndRelease$/^read-idle$'",
+      "status": "PASS",
+      "test": "TestClassifierBodyLimitsAndRelease/read-idle"
+    },
+    {
+      "dir": "P07-E09-observe",
+      "fixtures": {},
+      "id": "P07-E09-observe",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierObservations$'",
+      "status": "PASS",
+      "test": "TestClassifierObservations"
+    },
+    {
+      "dir": "P07-E11-extensions-registered",
+      "fixtures": {},
+      "id": "P07-E11-extensions-registered",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierExtensionsRegistered$'",
+      "status": "PASS",
+      "test": "TestClassifierExtensionsRegistered"
+    },
+    {
+      "dir": "P07-choice",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-choice",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^choice$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/choice"
+    },
+    {
+      "dir": "P07-confidence-null",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-confidence-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^confidence-null$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/confidence-null"
+    },
+    {
+      "dir": "P07-confidence-range",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-confidence-range",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^confidence-range$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/confidence-range"
+    },
+    {
+      "dir": "P07-disabled-policy",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-disabled-policy",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^disabled-policy$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/disabled-policy"
+    },
+    {
+      "dir": "P07-extra-answer",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-extra-answer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^extra-answer$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/extra-answer"
+    },
+    {
+      "dir": "P07-extra-key",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-extra-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^extra-key$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/extra-key"
+    },
+    {
+      "dir": "P07-http-401",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-http-401",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^http-401$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/http-401"
+    },
+    {
+      "dir": "P07-http-403",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-http-403",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^http-403$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/http-403"
+    },
+    {
+      "dir": "P07-http-422",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-http-422",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^http-422$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/http-422"
+    },
+    {
+      "dir": "P07-http-429",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-http-429",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^http-429$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/http-429"
+    },
+    {
+      "dir": "P07-http-529",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-http-529",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^http-529$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/http-529"
+    },
+    {
+      "dir": "P07-missing-answer",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-missing-answer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^missing-answer$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/missing-answer"
+    },
+    {
+      "dir": "P07-missing-key",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-missing-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^missing-key$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/missing-key"
+    },
+    {
+      "dir": "P07-negative",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-negative",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^negative$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/negative"
+    },
+    {
+      "dir": "P07-no-confidence",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-no-confidence",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^no-confidence$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/no-confidence"
+    },
+    {
+      "dir": "P07-no-usage",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-no-usage",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^no-usage$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/no-usage"
+    },
+    {
+      "dir": "P07-not-highest",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-not-highest",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^not-highest$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/not-highest"
+    },
+    {
+      "dir": "P07-operation-mismatch",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-operation-mismatch",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^operation-mismatch$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/operation-mismatch"
+    },
+    {
+      "dir": "P07-options-mismatch",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-options-mismatch",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^options-mismatch$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/options-mismatch"
+    },
+    {
+      "dir": "P07-partial-usage",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-partial-usage",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^partial-usage$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/partial-usage"
+    },
+    {
+      "dir": "P07-probability-null",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-probability-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^probability-null$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/probability-null"
+    },
+    {
+      "dir": "P07-sum",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-sum",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^sum$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/sum"
+    },
+    {
+      "dir": "P07-unknown-choice",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-unknown-choice",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^unknown-choice$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/unknown-choice"
+    },
+    {
+      "dir": "P07-wrong-type",
+      "fixtures": {
+        "fixture.json": "063d37eb84db52f4cbbce6649118ffd0027003664af41b851b1097e58221205d"
+      },
+      "id": "P07-wrong-type",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierChoiceFixtures$/^wrong-type$'",
+      "status": "PASS",
+      "test": "TestClassifierChoiceFixtures/wrong-type"
+    },
+    {
+      "dir": "PIDIFF-P07-E01-bool-no-criteria-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E01-bool-no-criteria-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E01-bool-no-criteria$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E01-bool-no-criteria/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E01-choice-parity-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E01-choice-parity-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E01-choice-parity$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E01-choice-parity/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E01-mixed-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E01-mixed-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E01-mixed$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E01-mixed/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E01-score-basic-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E01-score-basic-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E01-score-basic$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E01-score-basic/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E01-score-no-legend-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E01-score-no-legend-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E01-score-no-legend$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E01-score-no-legend/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E01-score-ten-levels-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E01-score-ten-levels-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E01-score-ten-levels$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E01-score-ten-levels/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E01-score-two-levels-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E01-score-two-levels-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E01-score-two-levels$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E01-score-two-levels/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E02-bool-negative-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E02-bool-negative-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E02-bool-negative$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E02-bool-negative/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E02-score-expectation-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E02-score-expectation-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E02-score-expectation$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E02-score-expectation/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E02-score-legend-wrong-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E02-score-legend-wrong-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E02-score-legend-wrong$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E02-score-legend-wrong/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E05-mixed-retry-classify",
+      "fixtures": {
+        "fixture.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4"
+      },
+      "id": "PIDIFF-P07-E05-mixed-retry-classify",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestPiDifferential$/^typesafe-system-one$/^E05-mixed-retry$/^classify$'",
+      "status": "PASS",
+      "test": "TestPiDifferential/typesafe-system-one/E05-mixed-retry/classify"
+    },
+    {
+      "dir": "PIDIFF-P07-E11-catalog",
+      "fixtures": {},
+      "id": "PIDIFF-P07-E11-catalog",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestClassifierCatalogParity$'",
+      "status": "PASS",
+      "test": "TestClassifierCatalogParity"
+    }
+  ]
+}

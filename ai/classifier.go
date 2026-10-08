@@ -13,44 +13,6 @@ type ClassifierRequest struct {
 	Questions map[string]ClassifierQuestion `json:"questions"`
 }
 
-// ClassifierQuestion is a typed question. The first delivered kind is choice.
-type ClassifierQuestion interface{ classifierQuestion() }
-
-// ChoiceQuestion asks for one option. Instructions and criteria descriptions
-// are JSON strings in this slice; a null criterion needs no extra description.
-type ChoiceQuestion struct {
-	Instructions json.RawMessage            `json:"instructions"`
-	Criteria     map[string]json.RawMessage `json:"criteria"`
-}
-
-func (ChoiceQuestion) classifierQuestion() {}
-
-func (q ChoiceQuestion) MarshalJSON() ([]byte, error) {
-	type question ChoiceQuestion
-	return json.Marshal(struct {
-		Type string `json:"type"`
-		question
-	}{"choice", question(q)})
-}
-
-// ClassifierAnswer is a validated answer to a requested question.
-type ClassifierAnswer interface{ classifierAnswer() }
-
-type ChoiceAnswer struct {
-	Choice        string             `json:"choice"`
-	Probabilities map[string]float64 `json:"probabilities"`
-	Confidence    float64            `json:"confidence"`
-}
-
-func (ChoiceAnswer) classifierAnswer() {}
-func (a ChoiceAnswer) MarshalJSON() ([]byte, error) {
-	type answer ChoiceAnswer
-	return json.Marshal(struct {
-		Type string `json:"type"`
-		answer
-	}{"choice", answer(a)})
-}
-
 // ClassifierResult exists on both success and failure. Answers are published
 // together only after validation; failure retains usage and call metadata.
 type ClassifierResult struct {
@@ -115,9 +77,23 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 func (r ClassifierRequest) clone() ClassifierRequest {
 	out := ClassifierRequest{State: slices.Clone(r.State), Questions: make(map[string]ClassifierQuestion, len(r.Questions))}
 	for key, q := range r.Questions {
-		if q, ok := q.(ChoiceQuestion); ok {
+		switch q := q.(type) {
+		case ChoiceQuestion:
 			q.Instructions = slices.Clone(q.Instructions)
 			q.Criteria = cloneJSONValues(q.Criteria)
+			out.Questions[key] = q
+		case ScoreQuestion:
+			q.Instructions = slices.Clone(q.Instructions)
+			q.Criteria = slices.Clone(q.Criteria)
+			for i, v := range q.Criteria {
+				q.Criteria[i] = slices.Clone(v)
+			}
+			out.Questions[key] = q
+		case BoolQuestion:
+			q.Instructions = slices.Clone(q.Instructions)
+			if q.Criteria != nil {
+				q.Criteria = &BoolCriteria{True: slices.Clone(q.Criteria.True), False: slices.Clone(q.Criteria.False)}
+			}
 			out.Questions[key] = q
 		}
 	}

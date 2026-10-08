@@ -1,0 +1,28 @@
+go test -race -json ./... -count=1
+Exit: 0
+Started: 2026-10-08T09:54:50.088597+08:00
+Finished: 2026-10-08T09:58:10.751342+08:00
+Package outcomes:
+SKIP github.com/tokenbeat-lab/barness/ai/examples/hostintegration (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/examples/localassembly (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/examples/requestid (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/examples/toolloop (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/clock (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/probe (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/testkit/host (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/internal/testkit/provider (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/live (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix (0s)
+SKIP github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate (0s)
+PASS github.com/tokenbeat-lab/barness/ai (1.9060000000000001s)
+PASS github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle (2.203s)
+PASS github.com/tokenbeat-lab/barness/ai/internal/testkit/release (2.785s)
+PASS github.com/tokenbeat-lab/barness/ai/internal/testkit/audit (3.128s)
+PASS github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix (3.474s)
+PASS github.com/tokenbeat-lab/barness/ai/e2e (200.04s)
+Test outcomes: {"PASS": 3361, "SKIP": 632}
+Evidence bundles:
+.evidence/barness-ai/20261008T015451.558621000Z
+Scope: optional differential and pressure scenarios remain NOT_RUN; enabled in release-full-race.log.

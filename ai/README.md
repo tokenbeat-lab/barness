@@ -364,6 +364,18 @@ evidence the release gate can trace (`release/traceability.json`).
 | [docs/barness-ai/contract.md](../docs/barness-ai/contract.md) | Public contract, full error table, assembly notes |
 | [docs/barness-ai/differences.md](../docs/barness-ai/differences.md) | Every difference from pi-ai and its disposition |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | Release deliverables, gate status, policy measurements |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0019 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0021 |
 | [GLOSSARY.md](../GLOSSARY.md) | Domain terms (Tenant, Binding, Logical Call, Native State, …) |
 | `go doc -all ./ai` | Package and type documentation |
+
+### TypeSafe classification
+
+`Client.Classify` and `HookedClient.Classify` submit a state and a named set of
+`ChoiceQuestion`, `ScoreQuestion` and `BoolQuestion` values in one unary call.
+Enable the finite `ResourcePolicy.Classifier` and a classifier binding plus a
+host classifier catalog. Native JSON descriptions and numbers retain precision;
+score levels stay ordered and bool answers give the probability of yes.
+All final answers are validated together, with usage retained on failure.
+See [the classifier contract](../docs/barness-ai/contract.md) and
+[ADR-0021](../docs/adr/0021-barness-ai-typesafe-unary-classification.md).
+Built-in TypeSafe models/pricing and live support remain gated by issue 08.

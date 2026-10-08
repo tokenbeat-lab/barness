@@ -12,6 +12,7 @@
 | anthropic-messages（P02） | 48 | 4 | 0 |
 | google-generative-ai（P03） | 32 | 0 | 0 |
 | openai-completions（P04、P06） | 39 | 7 | 0 |
+| typesafe-system-one（P07） | 25 | 0 | 0 |
 
 “已修复”条目只记录曾出现并已修复的差异；同一差异再次出现即为回归，按待处理计。扩展路径（`routes`）：DeepSeek × Responses。
 
@@ -80,3 +81,23 @@ HTTP 对象／数组缺少或含 null error 时保留完整错误体；具名 SS
 在协议解码前抛错，覆盖对象和非对象 JSON。未具名 type:error 保留 Responses 的 Error Code 文本；
 未具名 null/false error 不误报。来源、前后文本与最终验证见工单 03 的 chat-parity-evidence，
 处理边界见 ADR-0004，新增登记均为 fixed。
+
+## TypeSafe 混合问题与 1.0.0 差分（工单 06）
+
+P07 是 pi 自身的 classifier 路由，进入必需差分。对象 state、字符串 instructions/choice criteria
+以及基本 choice/score/bool 答案同场景比较；每个请求尝试保持固定 jev-1.13.0，pi 的 maxRetries 与 Binding 一致。
+以下扩展按具体字段与用例登记，依据 [ADR-0021](../adr/0021-barness-ai-typesafe-unary-classification.md)：
+
+| 扩展 | 边界与证据 |
+| --- | --- |
+| typesafe-native-json-input | string/array state、object/array instructions/criteria、choice null、JSON 原始数值精度；mixed native fixture 单独断言，不能算 pi 差分通过 |
+| typesafe-score-details | score 完整分布及原生 JSON 图例保留、按最终等级校验；pi 仅给 score/confidence，差分投影明确移除这两个字段 |
+| typesafe-strict-answers | 完整键集、概率范围/和、期望与图例一致性，任一失败整体清空答案并保留用量；三项真实差分用例证明 pi 接受而 barness 拒绝 |
+| typesafe-versioned-model | pi jev-latest 通过 modelPatch 固定到本次 jev-1.13.0；目录别名单独登记，不把 ResponseModel 当授权 ID |
+| typesafe-input-pricing | pi 直连 Jev 费率为零；barness 按宿主快照只计输入，差分双方显式移除 usage.cost。官方内建价格及 live 目录仍待工单 08 |
+| transport metadata | Node fetch 与 Go net/http 的 Accept、Accept-Encoding、Accept-Language、Connection、Sec-Fetch-Mode、User-Agent 六个字段逐项登记，限定 P07 差分用例 |
+
+classifier 目录逐字段比较 pi 拥有的共同字段，固定 ID 与价格的扩展明确登记；
+baseUrl 归属 Binding，pi 的 input=[text] 对应分类隐含模态，两者显式断言并按字段登记，目录比较也产出 pidiff.json。
+未知 pi 目录字段会失败，没有整个目录、请求或结果的豁免。证据及复现见
+[工单 06 验证记录](../../.scratch/barness-ai-pi-1.0/typesafe-mixed-evidence/README.md)。

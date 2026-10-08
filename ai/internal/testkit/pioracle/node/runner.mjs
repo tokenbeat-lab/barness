@@ -23,6 +23,10 @@ const LEAKY_ENV = /(API_KEY|_TOKEN|_SECRET|BASE_URL|ENDPOINT|PROXY)$/i;
 // oracle; each catalog is a provider's model data whose entries on
 // catalogApi (default: the case's API) the case may name.
 const APIS = {
+	"typesafe-system-one": {
+		api: "@earendil-works/pi-ai/api/typesafe-system-one",
+		catalogs: [{ models: "@earendil-works/pi-ai/providers/typesafe.models", catalog: "TYPESAFE_CLASSIFIER_MODELS", type: "classifier" }],
+	},
 	"openai-responses": {
 		api: "@earendil-works/pi-ai/api/openai-responses",
 		catalogs: [{ models: "@earendil-works/pi-ai/providers/openai.models", catalog: "OPENAI_MODELS" }],
@@ -54,7 +58,7 @@ async function catalogModels(api, entry) {
 	const out = [];
 	for (const c of entry.catalogs) {
 		const catalog = (await import(c.models))[c.catalog];
-		const listed = Object.values(catalog).filter((m) => m.type === "chat" && m.api === (c.catalogApi ?? api));
+		const listed = Object.values(catalog).filter((m) => m.type === (c.type ?? "chat") && m.api === (c.catalogApi ?? api));
 		out.push(...listed.map((m) => ({ ...m, api })));
 	}
 	return out;
@@ -211,11 +215,18 @@ async function main() {
 	// A patched compat replaces the catalog's whole, as for every other field.
 	const model = { ...known, ...(compat ? { compat } : {}), ...(input.modelPatch ?? {}), baseUrl: input.baseUrl };
 
-	const context = pi.normalizeContext(input.context);
+	const context = input.entry === "classify" ? input.context : pi.normalizeContext(input.context);
 	// abortAfterEvents > 0 aborts the call, as a caller canceling it would, once
 	// that many events were received.
 	const controller = new AbortController();
 	const options = { ...(input.options ?? {}), apiKey: input.apiKey, env: {}, signal: controller.signal };
+	if (input.entry === "classify") {
+		if (model.type !== "classifier" || typeof api.classify !== "function") fail("classify requires a classifier model and API");
+		if (!Number.isInteger(options.maxRetries) || options.maxRetries < 0) fail("classify requires an explicit nonnegative maxRetries");
+		const result = await api.classify(model, context, options);
+		process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, events: [], result }));
+		return;
+	}
 	if (input.entry !== "stream" && input.entry !== "streamSimple") fail(`unsupported entry ${input.entry}`);
 	const run = input.entry === "streamSimple" ? api.streamSimple : api.stream;
 

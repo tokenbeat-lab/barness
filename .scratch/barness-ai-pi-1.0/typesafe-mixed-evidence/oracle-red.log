@@ -1,0 +1,28 @@
+--- FAIL: TestPiDifferential (0.37s)
+    --- FAIL: TestPiDifferential/typesafe-system-one (0.37s)
+        --- FAIL: TestPiDifferential/typesafe-system-one/E01-choice-parity/classify (0.06s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E01-choice-parity-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E01-mixed/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E01-mixed-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E01-score-basic/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E01-score-basic-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E01-bool-no-criteria/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E01-bool-no-criteria-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E01-score-two-levels/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E01-score-two-levels-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E01-score-ten-levels/classify (0.04s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E01-score-ten-levels-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E01-score-no-legend/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E01-score-no-legend-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E02-bool-negative/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E02-bool-negative-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E02-score-expectation/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E02-score-expectation-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E02-score-legend-wrong/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E02-score-legend-wrong-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+        --- FAIL: TestPiDifferential/typesafe-system-one/E05-mixed-retry/classify (0.03s)
+            classifier_pidiff_test.go:34: [PIDIFF-P07-E05-mixed-retry-classify] classifier oracle completed: pioracle: runner failed: exit status 2: pi-oracle runner: unsupported api "typesafe-system-one"
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261008T014253.156870000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.332s
+FAIL

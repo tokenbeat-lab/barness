@@ -66,7 +66,7 @@ hc := client.WithHooks(hooks)                              // 可信回调，同
 四个聊天入口（含 WithHooks）期望 chat，操作不匹配为 `tenant_denied/capability`。
 核对操作后才查聊天目录与白名单，最后读取凭据并核对版本快照；操作拒绝没有凭据读取、Provider 请求或 Attempt。
 
-### 同步分类（工单 05 已交付部分）
+### 同步分类（工单 05–06）
 
 Client 与 HookedClient 的 Classify 接收 ClassifierRequest 和既有封闭 Options；nil 或空 TypeSafeOptions
 表示协议默认，错协议选项在 capability 拒绝，SimpleOptions 不能传入。Binding 必须固定为
@@ -74,11 +74,20 @@ classifier × typesafe × typesafe-system-one；按独立分类目录与白名�
 
 ResourcePolicy.Classifier 为 nil 时以 invalid_request/scope 返回完整失败结果。启用时 MaxQuestions、
 MaxStateBytes、MaxQuestionBytes 均须为正且在构造时独立复制。状态为 JSON string/object/array；
-Questions 至少一项、键非空，每项为 ChoiceQuestion，Instructions 为非空 JSON string，
-Criteria 是 1–255 个 JSON string/null 描述。接收时先检查已知长度再复制，交接期间不得并发修改源值。
-请求 JSON 的问题 type 为 choice；未知类型/字段组合在反序列化边界拒绝。
+Questions 至少一项、键非空，封闭为 ChoiceQuestion、ScoreQuestion、BoolQuestion。
+Instructions 是非空 JSON string/object/array；单选 Criteria 为 1–255 个 JSON string/object/array/null 描述，
+评分 Criteria 为 2–10 个有序 JSON string/object/array 描述，下标即分值。
+是非可省略 Criteria，提供时 True/False 均须为 JSON string/object/array；null 不充当说明。
+JSON 数字保留原始精度。接收时先检查已知长度再复制，交接期间不得并发修改源值。
+公共请求 JSON 的 type 为 choice/score/bool；native wire 将 bool 转为 noul，反序列化拒绝未知类型和字段组合。
+状态/说明的重复 JSON 键拒绝；对象的嵌套值允许任意合法 JSON。
 
-一次调用提交完整状态和问题集合。结果的 Answers 为 map[string]ClassifierAnswer，单选值为 ChoiceAnswer。
+一次调用提交完整状态和问题集合。Answers 是 map[string]ClassifierAnswer，值为 ChoiceAnswer、ScoreAnswer、BoolAnswer。
+BoolAnswer.Probability 是“是”的概率，不设阈值。ScoreAnswer.Score 是期望值，Confidence 在 0–1；
+可选 Probabilities 是 map[int]float64，Legend 是 map[int]json.RawMessage，保留字符串/对象/数组图例。
+Score 必须在 0..级数−1，分布若提供必须覆盖每级、总和在 1±1e-6，期望与 Score 的绝对差不超过 1e-6。
+图例若提供必须伴随分布、键集相同，且逐项与最终请求的等级描述按精确 JSON 数值相等；对象键序不影响相等，数组顺序有意义。
+可选字段省略可接受，显式 null 或部分分布/图例拒绝。
 每个最终请求问题恰有一个同类型答案，无额外键；分布选项集必须相同、概率和 confidence 有限且在 0–1，
 总和在 1±1e-6，choice 属于最高概率项（允许并列）。任何答案失败时以 protocol/response 结束，
 Answers 整体为空，已上报 Usage 和 Metadata 保留。重复响应字段、答案键或概率键拒绝，不归一化分布。
@@ -98,7 +107,8 @@ usage 的 input_tokens/output_tokens 均存在为 complete，缺项为 partial�
 TypeSafe 只按目录输入费率估价，输出为零；本次合成目录费率不代表厂商价格。
 实际版本型号只放 ResponseModel Nullable[string]，授权 ModelID 不变，
 x-typesafe-request-id 放 Attempt.ProviderRequestID。Observer 只记录操作、归属、尝试、分类及用量。
-score/bool、结构化问题、真实型号/价格和 live 支持声明由工单 06–08 验收；禁用绑定或子策略即可停用新调用。
+真实内建型号/价格及 live 支持声明由工单 08 验收；禁用绑定或子策略即可停用新调用。
+不在本地计算分类 token 容量，厂商上下文超限的 422 保持 invalid_request/request 分类。
 
 ## 3. 输出
 

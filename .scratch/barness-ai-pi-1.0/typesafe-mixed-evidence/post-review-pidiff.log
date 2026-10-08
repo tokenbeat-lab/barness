@@ -1,0 +1,9 @@
+BARNESS_AI_PIDIFF=1 go test -race -json ./ai/e2e -run '^TestPiDifferential$/^typesafe-system-one$' -count=1
+Exit: 0
+Started: 2026-10-08T09:54:51.467105+08:00
+Finished: 2026-10-08T09:54:56.603351+08:00
+Package outcomes:
+PASS github.com/tokenbeat-lab/barness/ai/e2e (5.136s)
+Test outcomes: {"PASS": 13}
+Evidence bundles:
+.evidence/barness-ai/20261008T015453.648200000Z

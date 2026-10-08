@@ -1,0 +1,193 @@
+{
+  "command": "go run ./ai/release/cmd/releasegate -bundle .evidence/barness-ai/20261008T015659.765652000Z -out .evidence/barness-ai-issue06-gate",
+  "exit_code": 1,
+  "overall_release_pass": false,
+  "source_bundle": ".evidence/barness-ai/20261008T015659.765652000Z",
+  "scope": "Evaluation-only mode leaves command gates NOT_RUN; no real live bundle is supplied. Issue 06 required data gates all pass. The full race/vet commands are independently recorded in report.json and verification logs.",
+  "gates": [
+    {
+      "id": "go-test",
+      "name": "go test ./... (offline, differential on)",
+      "pass": false,
+      "problems": [
+        "go-test: not run"
+      ]
+    },
+    {
+      "id": "go-test-race",
+      "name": "go test -race ./...",
+      "pass": false,
+      "problems": [
+        "go-test-race: not run"
+      ]
+    },
+    {
+      "id": "go-vet",
+      "name": "go vet ./... (with and without the live tag)",
+      "pass": false,
+      "problems": [
+        "go-vet: not run",
+        "go-vet-live: not run"
+      ]
+    },
+    {
+      "id": "p0-offline",
+      "name": "every offline P0 case passes",
+      "pass": true
+    },
+    {
+      "id": "differential",
+      "name": "frozen pi differential: no pending difference",
+      "pass": true
+    },
+    {
+      "id": "live",
+      "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+      "pass": false,
+      "problems": [
+        "openai-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "anthropic-messages: no live evidence bundle of this combination was audited (pass it with -live)",
+        "google-gemini: no live evidence bundle of this combination was audited (pass it with -live)",
+        "openai-chat: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-chat: no live evidence bundle of this combination was audited (pass it with -live)"
+      ]
+    },
+    {
+      "id": "redaction-audit",
+      "name": "redaction audit: no key, Authorization or real content in any bundle",
+      "pass": true
+    },
+    {
+      "id": "traceability",
+      "name": "traceability: research item → scenario → evidence",
+      "pass": true
+    },
+    {
+      "id": "snapshots",
+      "name": "checked-in snapshots match the code",
+      "pass": true
+    }
+  ],
+  "offline": {
+    "pass": 3018,
+    "fail": 0,
+    "notRun": 0,
+    "unsupported": 0
+  },
+  "differential": {
+    "pass": 623,
+    "fail": 0,
+    "notRun": 0,
+    "unsupported": 0,
+    "pending": 0
+  },
+  "issue06_traceability": [
+    {
+      "id": "V4-typesafe-mixed",
+      "source": "issue 06 / spec TypeSafe / ADR-0021",
+      "requirement": "Three closed kinds, ordered scores, bool/noul, native JSON precision and strict final-question answers",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 104,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 10,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E01-bool-no-criteria",
+        "P07-E01-bool-no-criteria-parity",
+        "P07-E01-mixed",
+        "P07-E01-mixed-parity",
+        "P07-E01-native-array",
+        "P07-E01-native-object"
+      ]
+    },
+    {
+      "id": "H2-typesafe-parity",
+      "source": "issue 06 / design 9.2–9.3 / ADR-0021",
+      "requirement": "Frozen 1.0.0 classifier request/basic answer differential with explicit projection and scoped extension decisions",
+      "scenarios": [
+        "P07",
+        "PIDIFF"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 12,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify"
+      ]
+    },
+    {
+      "id": "T04-typesafe-final",
+      "source": "issue 06 / ADR-0021",
+      "requirement": "Final callback questions frozen, original inputs independent, authority unchanged, invalid payloads refused",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 13,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E04-mixed-bool-capability",
+        "P07-E04-mixed-count-limit",
+        "P07-E04-mixed-final-kind-mismatch",
+        "P07-E04-mixed-final-legend-mismatch",
+        "P07-E04-mixed-final-questions",
+        "P07-E04-mixed-model-widen"
+      ]
+    }
+  ]
+}

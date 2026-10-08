@@ -17,10 +17,7 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 	if failure != nil {
 		return failure
 	}
-	body, err := json.Marshal(struct {
-		Model string `json:"model"`
-		ClassifierRequest
-	}{model.ID, req})
+	body, err := encodeTypeSafeRequest(model.ID, req)
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "classifier request could not be encoded")
 	}
@@ -101,6 +98,34 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 	return failure
 }
 
+// The public bool discriminator never leaks onto the native wire. Conversion
+// is explicit in both directions and keeps raw numeric descriptions intact.
+func encodeTypeSafeRequest(model string, req ClassifierRequest) ([]byte, error) {
+	questions := make(map[string]json.RawMessage, len(req.Questions))
+	for key, q := range req.Questions {
+		var raw []byte
+		var err error
+		if boolean, ok := q.(BoolQuestion); ok {
+			raw, err = json.Marshal(struct {
+				Type         string          `json:"type"`
+				Instructions json.RawMessage `json:"instructions"`
+				Criteria     *BoolCriteria   `json:"criteria,omitempty"`
+			}{"noul", boolean.Instructions, boolean.Criteria})
+		} else {
+			raw, err = json.Marshal(q)
+		}
+		if err != nil {
+			return nil, err
+		}
+		questions[key] = raw
+	}
+	return json.Marshal(struct {
+		Model     string                     `json:"model"`
+		State     json.RawMessage            `json:"state"`
+		Questions map[string]json.RawMessage `json:"questions"`
+	}{model, req.State, questions})
+}
+
 func decodeTypeSafeRequest(body []byte, model *string, req *ClassifierRequest) error {
 	var wire struct {
 		Model     string          `json:"model"`
@@ -110,16 +135,15 @@ func decodeTypeSafeRequest(body []byte, model *string, req *ClassifierRequest) e
 	if err := decodeClassifierJSON(body, &wire); err != nil {
 		return err
 	}
-	raw, err := json.Marshal(struct {
-		State     json.RawMessage `json:"state"`
-		Questions json.RawMessage `json:"questions"`
-	}{wire.State, wire.Questions})
+	var questions map[string]json.RawMessage
+	if err := decodeClassifierJSON(wire.Questions, &questions); err != nil {
+		return err
+	}
+	decoded, err := decodeClassifierQuestions(questions, true)
 	if err != nil {
 		return err
 	}
-	if err := json.Unmarshal(raw, req); err != nil {
-		return err
-	}
+	*req = ClassifierRequest{State: wire.State, Questions: decoded}
 	*model = wire.Model
 	return nil
 }

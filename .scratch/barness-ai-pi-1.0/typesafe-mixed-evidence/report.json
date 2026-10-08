@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "date": "2026-10-08",
+  "issue": "06-typesafe-mixed-questions-and-parity",
+  "base_commit": "0a3ba58bdaccc32fb1925203134c35c397183161",
+  "branch": "main",
+  "tested_commit": "6d435aa63850a440d87dc6013bfb4990f93809ba",
+  "code_and_fixtures_sha256": "9a80daf9eca4c8b473f80fb354588e6ecc7e641cf179d1ad49c99e84c8b0a198",
+  "code_and_fixtures_files": {
+    "ai/classifier.go": "3815bee12c2a8323334d63d41b589e6ee7cac7473e9aaa54f0c8f8a33a002bdc",
+    "ai/classifier_answers.go": "92f3a587adac1eec88e02ab8e9d8d1ef0976f83f16056e2ea5bf57988b40520d",
+    "ai/classifier_json.go": "e4218b15bb42d08c88f2155436b3098c592ca4946012ee69ad0f07e059539b71",
+    "ai/classifier_policy.go": "1b755845fa6886c5278df96f799239d1f33dbd5cc9a0f3b07d2ce4baf3596f84",
+    "ai/classifier_questions.go": "365f4df089de641837646491706a54010d1bef345a5739e412bb6f0d88c95365",
+    "ai/e2e/classifier_extensions_test.go": "35475573953fddbc753a47bc2ae04c2325638bdaa05bbd70ab3bbf6ab7915b81",
+    "ai/e2e/classifier_field_names_test.go": "84c257639c4db4956c6774448d0970394ae93abdc3ae6dc3b94dc45d018b358b",
+    "ai/e2e/classifier_fixture_test.go": "884a98e0a0a9aa3b099317fdb3b01822a96b76fd47657035a463b02ab0d338b9",
+    "ai/e2e/classifier_legend_test.go": "34486d73e565afc312c0a0ed99302ba715594e68c36d8a1c3d5765a9354570a9",
+    "ai/e2e/classifier_mixed_test.go": "fcf6d69a1b37bf1f9f7d5b7d1f0ebcd6f2e6dcbf0324ac108a45881a355432f5",
+    "ai/e2e/classifier_pidiff_test.go": "dcf93b249bc5b678c4f41c3636a932cb6235a987bc03e9fef78fdf2b46e8f9a7",
+    "ai/e2e/pidiff_test.go": "80633956a4cae6281bb789d32c9d0719976fa345772765b7b4b1ca3e190950e6",
+    "ai/e2e/scenario_fixture_test.go": "ce88f6f817cf1c2db641554c3ca54111c788b91f6db8700eeff17c5621442691",
+    "ai/e2e/testdata/pidiff/ledger.json": "685805544ac854af74fcc7c31203b853b51aefdcabfb7745d5349b5360de96e0",
+    "ai/e2e/testdata/typesafe/mixed.json": "8438ccc7e43b670ae8628d4f3f225e3c22b6b7d52679236abc303e04f0b7eed6",
+    "ai/e2e/testdata/typesafe/parity.json": "c89c7126768df931def7adce655f66f0ec2ee7da8510afaa53bc14c6e1bdb1d4",
+    "ai/internal/testkit/audit/audit.go": "e94e180cbac0bf703886dac1f47a615ef1d1acd06a167d210d1086459674ceb6",
+    "ai/internal/testkit/pioracle/node/runner.mjs": "988cb3c79d2ee2a9839a5e4382042377047445cd1c7184c8ca71f55da983f9a6",
+    "ai/release/traceability.json": "82b49faaa1f1276511395892f620e1dba2e9701382bd345193ae94c7678c7eb5",
+    "ai/typesafe.go": "1e27212b6fec9fc9ab98e7b365bf88764f541a9154a920ba8bac6649bb6714e8",
+    "ai/typesafe_answers.go": "6954c88754a17700ec1c4e17acc36ae03ea872259a39431b6c36eb0655eae185",
+    "ai/typesafe_response.go": "ef8c6a3c4710b72ae34dea334b63fb7b1cdb64500a02f784725f3d98f6e1034e"
+  },
+  "checks": {
+    "vet": "go vet ./...: PASS",
+    "vet_live": "go vet -tags live ./ai/...: PASS",
+    "frozen_node_runner": "node --test ai/internal/testkit/pioracle/node/runner.test.mjs: PASS (2 tests)",
+    "full_race_with_differential_and_pressure": {
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -json ./... -count=1",
+      "exit_code": 0,
+      "bundle": ".evidence/barness-ai/20261008T015659.765652000Z",
+      "manifest_sha256": "877af7a11fc953cdd4a145b3250e45b0b298e591c69dc2089fbd993596199d6b",
+      "cases": 3641,
+      "statuses": {
+        "PASS": 3641
+      },
+      "P07": {
+        "PASS": 205
+      },
+      "differential": {
+        "PASS": 623
+      },
+      "TypeSafe_differential": {
+        "PASS": 12,
+        "pending": 0
+      },
+      "pressure": {
+        "PASS": 11
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      },
+      "pi": {
+        "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+        "pi_version": "1.0.0",
+        "sdk_versions": {
+          "@anthropic-ai/sdk": "0.124.0",
+          "@earendil-works/pi-ai": "1.0.0",
+          "go": "go1.26.2",
+          "node": "v24.15.0",
+          "openai": "7.19.0"
+        },
+        "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e"
+      },
+      "log": "release-full-race.log",
+      "case_index": "p07-cases.json",
+      "typesafe_differential_records": "p07-differential.json"
+    },
+    "required_release_data_gates": {
+      "p0-offline": "PASS",
+      "differential": "PASS",
+      "redaction-audit": "PASS",
+      "traceability": "PASS",
+      "snapshots": "PASS"
+    },
+    "release_gate_evaluation": "release-evaluation.json",
+    "builtin_catalog_snapshot": "byte-identical",
+    "builtin_catalog_sha256": "1411315fc3c38fba6d499c0957f757eaff8e120a24004d1753ec586e7556a041",
+    "issue06_traceability": {
+      "V4-typesafe-mixed": "PASS",
+      "H2-typesafe-parity": "PASS",
+      "T04-typesafe-final": "PASS"
+    },
+    "diff_check": "PASS",
+    "changed_source_file_limit": "all <= 500 lines"
+  },
+  "review": {
+    "standards": {
+      "initial_findings": 2,
+      "resolved_findings": 2,
+      "unresolved_findings": 0,
+      "status": "PASS",
+      "report": "review.md"
+    },
+    "spec": {
+      "initial_findings": 0,
+      "resolved_findings": 0,
+      "unresolved_findings": 0,
+      "status": "PASS",
+      "report": "review.md"
+    }
+  },
+  "scope_notes": [
+    "The final opt-in full race run covers the current implementation, exact-field/null repairs and catalog verdict/ledger additions. Final amendment only closes the issue and adds documentation/evidence.",
+    "The evaluation-only release invocation exits 1 because command records and real live bundles are absent; offline P0, differential, redaction, traceability and snapshot gates all pass. This is not a full release/live claim.",
+    "All classifier catalog entries, responses and rates in fixtures are synthetic. Built-in model inclusion, official input pricing and live API verification belong to issue 08.",
+    "Raw JSONL outputs remain in ignored local .evidence with hashes in rawlog-index.json; compact logs are committed. Optional scenarios in final-full-race.log remain NOT_RUN and are verified by the final opt-in run."
+  ]
+}

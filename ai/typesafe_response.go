@@ -41,7 +41,18 @@ func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialR
 		if !ok {
 			return classifierProtocolFailure()
 		}
-		answer, failure := decodeChoiceAnswer(raw, question.(ChoiceQuestion))
+		var answer ClassifierAnswer
+		var failure *Error
+		switch q := question.(type) {
+		case ChoiceQuestion:
+			answer, failure = decodeChoiceAnswer(raw, q)
+		case ScoreQuestion:
+			answer, failure = decodeScoreAnswer(raw, q)
+		case BoolQuestion:
+			answer, failure = decodeBoolAnswer(raw)
+		default:
+			return classifierProtocolFailure()
+		}
 		if failure != nil {
 			return failure
 		}

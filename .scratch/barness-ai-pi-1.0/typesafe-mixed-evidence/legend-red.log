@@ -1,0 +1,11 @@
+--- FAIL: TestClassifierNativeLegend (0.01s)
+    --- FAIL: TestClassifierNativeLegend/huge-exponent (0.00s)
+        classifier_legend_test.go:60: [P07-E02-native-legend-huge-exponent] equivalent native rubric accepted: got ai: protocol (response): invalid classifier response
+    --- FAIL: TestClassifierNativeLegend/negative-zero (0.00s)
+        classifier_legend_test.go:60: [P07-E02-native-legend-negative-zero] equivalent native rubric accepted: got ai: protocol (response): invalid classifier response
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261008T014450.667725000Z
+redaction audit: P07-E02-native-legend-huge-exponent-mismatch/requests.json [unparseable] not JSON (invalid): JSON rules not applied
+redaction audit: P07-E02-native-legend-huge-exponent/requests.json [unparseable] not JSON (invalid): JSON rules not applied
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.945s
+FAIL

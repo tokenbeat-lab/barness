@@ -1,0 +1,32 @@
+{
+  "logs": [
+    {
+      "path": ".evidence/barness-ai-issue06-logs/full-race.jsonl",
+      "sha256": "4bca88d3ee2c2d73ba11f9dc902bda81fc3e1cf618c5fef9720075f778a2f89c",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -json ./... -count=1",
+      "exit_code": 0,
+      "summary": "full-race.log"
+    },
+    {
+      "path": ".evidence/barness-ai-issue06-logs/final-full-race.jsonl",
+      "sha256": "89496c022fc51e739b2595acc75fd64988b3e7ab2a3b353cae096398a65f2fd0",
+      "command": "go test -race -json ./... -count=1",
+      "exit_code": 0,
+      "summary": "final-full-race.log"
+    },
+    {
+      "path": ".evidence/barness-ai-issue06-logs/post-review-pidiff.jsonl",
+      "sha256": "9d8a6680664d214eaa67c192c436bdaac6297e5731766af547ec9c3419168308",
+      "command": "BARNESS_AI_PIDIFF=1 go test -race -json ./ai/e2e -run '^TestPiDifferential$/^typesafe-system-one$' -count=1",
+      "exit_code": 0,
+      "summary": "post-review-pidiff.log"
+    },
+    {
+      "path": ".evidence/barness-ai-issue06-logs/release-full-race.jsonl",
+      "sha256": "e8c07c7db21d7d40312e0a7fa9506e002ed5886d1eef1dcadeabac3a99edf457",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -json ./... -count=1",
+      "exit_code": 0,
+      "summary": "release-full-race.log"
+    }
+  ]
+}

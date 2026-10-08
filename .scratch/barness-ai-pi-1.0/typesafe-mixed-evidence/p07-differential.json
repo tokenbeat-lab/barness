@@ -1,0 +1,1142 @@
+{
+  "source_bundle": ".evidence/barness-ai/20261008T015659.765652000Z",
+  "records": [
+    {
+      "case_id": "PIDIFF-P07-E01-bool-no-criteria-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "4920db1adecb38767f17f1c332beac5f85a68d780cd9a80a030a0f76559f50e1",
+        "pi": "4246bd8801d480705cc146fc04a0273d2414542c5dfba76ebbeee3c69feee90a"
+      },
+      "frame_sha256": "fd3f5c52509b03b1377acc0cbeaed07921728a591adaf1670cc6164cbd50c062",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E01-choice-parity-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "3ca706ee221eb8bb10ebc86aadecf8eafdc613af423b83555f88ad2c7e1a550a",
+        "pi": "bf42a16dd6ae76c5fabbc123fac25b2438f9b20a56b69b215328026e4ffe1f51"
+      },
+      "frame_sha256": "a442311cf5e2f1c81c264d828a39577b61dcbb47145436922d7e73a77ce2c834",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E01-mixed-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "4f66ed113bdb4b0e0bd354117dd131bb3093ce131d6fa0b76de7d16ac2a3f374",
+        "pi": "4879210e92403183e543cbf660af105670cebff3f2bf91408661b52b1413c26d"
+      },
+      "frame_sha256": "fd3f5c52509b03b1377acc0cbeaed07921728a591adaf1670cc6164cbd50c062",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E01-score-basic-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "4f66ed113bdb4b0e0bd354117dd131bb3093ce131d6fa0b76de7d16ac2a3f374",
+        "pi": "4879210e92403183e543cbf660af105670cebff3f2bf91408661b52b1413c26d"
+      },
+      "frame_sha256": "9fdd4b61e54fcfeb25041139cfeaca85f0ce1e1849888887a5d20fcbaa3ed6a3",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E01-score-no-legend-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "4f66ed113bdb4b0e0bd354117dd131bb3093ce131d6fa0b76de7d16ac2a3f374",
+        "pi": "4879210e92403183e543cbf660af105670cebff3f2bf91408661b52b1413c26d"
+      },
+      "frame_sha256": "c2fa08ebc88550391a73768efe356fe0f083f4edf58fad9a70eb16ea974a9e5a",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E01-score-ten-levels-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "e367d3a621c3a4dbc4964dd911ba9f4b2141bc2945685223acc680cfeeb05be4",
+        "pi": "6ecce73538231223bf181bea161894e04211cd3bb9e1f9710ece1af0bc037836"
+      },
+      "frame_sha256": "edcdfb759d9a3864956c334e1e1e70afbfe5f48bbb512d21d683dc0a4516baad",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E01-score-two-levels-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "5ef286df00850ee1717a24d1c67944f6b2b19801f9070d7aa8b17f7e6d7e543f",
+        "pi": "e3350409ffa3a2657aeac7e55f686dee594fcbf178776a61f7a25129e1611a4e"
+      },
+      "frame_sha256": "48387ef8a3a89ba77dae1508501978a8eeb7dfcd35c1c01ba5581d9e28a7233b",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E02-bool-negative-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "4f66ed113bdb4b0e0bd354117dd131bb3093ce131d6fa0b76de7d16ac2a3f374",
+        "pi": "4879210e92403183e543cbf660af105670cebff3f2bf91408661b52b1413c26d"
+      },
+      "frame_sha256": "6d73603664e0485ae4f66cc5a7e71179961bb3ddc0cf2a7b5ce582fe6fd66273",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.anger",
+          "kind": "only_pi",
+          "pi": {
+            "confidence": 0.7,
+            "score": 1.05,
+            "type": "score"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.intent",
+          "kind": "only_pi",
+          "pi": {
+            "choice": "track",
+            "confidence": 0.82,
+            "probabilities": {
+              "refund": 0.1,
+              "track": 0.9
+            },
+            "type": "choice"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.urgent",
+          "kind": "only_pi",
+          "pi": {
+            "probability": -0.01,
+            "type": "bool"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.errorMessage",
+          "kind": "only_barness",
+          "barness": "invalid classifier response",
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: bounded generic diagnostic for invalid answers.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.stopReason",
+          "kind": "changed",
+          "pi": "stop",
+          "barness": "error",
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: invalid score expectation, legend or bool range is a response protocol failure.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E02-score-expectation-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "4f66ed113bdb4b0e0bd354117dd131bb3093ce131d6fa0b76de7d16ac2a3f374",
+        "pi": "4879210e92403183e543cbf660af105670cebff3f2bf91408661b52b1413c26d"
+      },
+      "frame_sha256": "b395e9d710efe7f89f15848d3f5ace4e955608d88433220784ad61009dab5d34",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.anger",
+          "kind": "only_pi",
+          "pi": {
+            "confidence": 0.7,
+            "score": 1.5,
+            "type": "score"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.intent",
+          "kind": "only_pi",
+          "pi": {
+            "choice": "track",
+            "confidence": 0.82,
+            "probabilities": {
+              "refund": 0.1,
+              "track": 0.9
+            },
+            "type": "choice"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.urgent",
+          "kind": "only_pi",
+          "pi": {
+            "probability": 0.95,
+            "type": "bool"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.errorMessage",
+          "kind": "only_barness",
+          "barness": "invalid classifier response",
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: bounded generic diagnostic for invalid answers.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.stopReason",
+          "kind": "changed",
+          "pi": "stop",
+          "barness": "error",
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: invalid score expectation, legend or bool range is a response protocol failure.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E02-score-legend-wrong-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "4f66ed113bdb4b0e0bd354117dd131bb3093ce131d6fa0b76de7d16ac2a3f374",
+        "pi": "4879210e92403183e543cbf660af105670cebff3f2bf91408661b52b1413c26d"
+      },
+      "frame_sha256": "29340cf06a2b725751f0131439b1be533b721761684641a73f84ceb859c6baf2",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.anger",
+          "kind": "only_pi",
+          "pi": {
+            "confidence": 0.7,
+            "score": 1.05,
+            "type": "score"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.intent",
+          "kind": "only_pi",
+          "pi": {
+            "choice": "track",
+            "confidence": 0.82,
+            "probabilities": {
+              "refund": 0.1,
+              "track": 0.9
+            },
+            "type": "choice"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.answers.urgent",
+          "kind": "only_pi",
+          "pi": {
+            "probability": 0.95,
+            "type": "bool"
+          },
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.errorMessage",
+          "kind": "only_barness",
+          "barness": "invalid classifier response",
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: bounded generic diagnostic for invalid answers.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.stopReason",
+          "kind": "changed",
+          "pi": "stop",
+          "barness": "error",
+          "classification": "extension",
+          "decision": "typesafe-strict-answers: invalid score expectation, legend or bool range is a response protocol failure.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E05-mixed-retry-classify",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "node": "v24.15.0",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "4f66ed113bdb4b0e0bd354117dd131bb3093ce131d6fa0b76de7d16ac2a3f374",
+        "pi": "4879210e92403183e543cbf660af105670cebff3f2bf91408661b52b1413c26d"
+      },
+      "frame_sha256": "1df64ad8d6352e5f3525b04366f77a41b7c146ad02f8a3813404bdc24b01c18c",
+      "first_diff": {
+        "path": "request.headers.Accept",
+        "kind": "only_pi",
+        "pi": "*/*"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "request.headers.Accept",
+          "kind": "only_pi",
+          "pi": "*/*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Encoding",
+          "kind": "changed",
+          "pi": "gzip, deflate",
+          "barness": "gzip",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Accept-Language",
+          "kind": "only_pi",
+          "pi": "*",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Connection",
+          "kind": "only_pi",
+          "pi": "keep-alive",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.Sec-Fetch-Mode",
+          "kind": "only_pi",
+          "pi": "cors",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "request.headers.User-Agent",
+          "kind": "changed",
+          "pi": "node",
+          "barness": "barness-ai",
+          "classification": "extension",
+          "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    },
+    {
+      "case_id": "PIDIFF-P07-E11-catalog",
+      "protocol": "typesafe-system-one",
+      "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+      "pi_version": "1.0.0",
+      "sdk_versions": {
+        "@anthropic-ai/sdk": "0.124.0",
+        "@earendil-works/pi-ai": "1.0.0",
+        "go": "go1.26.2",
+        "openai": "7.19.0"
+      },
+      "model_catalog_hash": "sha256:87c712bb620194541dbc358056a5d96e481e442480c03304adcf97a150c328b9",
+      "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e",
+      "request_sha256": {
+        "barness": "9696da6384e58201b5210eca3aca5c3c8bced8127c19ac7d4d2135fb30e0c0a6",
+        "pi": "9696da6384e58201b5210eca3aca5c3c8bced8127c19ac7d4d2135fb30e0c0a6"
+      },
+      "frame_sha256": "4de49fa210546f65801f58b91f776044ff851865ad4765c6814114f0c5aadaa1",
+      "first_diff": {
+        "path": "result.baseUrl",
+        "kind": "only_pi",
+        "pi": "https://api.typesafe.ai/v1/"
+      },
+      "first_pending": null,
+      "first_event_index": null,
+      "findings": [
+        {
+          "path": "result.baseUrl",
+          "kind": "only_pi",
+          "pi": "https://api.typesafe.ai/v1/",
+          "classification": "extension",
+          "decision": "typesafe-catalog-boundary: pi catalog endpoint belongs to host Binding configuration rather than ClassifierModel. Exact pi value is separately asserted; unknown catalogue fields fail.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.cost.input",
+          "kind": "changed",
+          "pi": 0,
+          "barness": 1,
+          "classification": "extension",
+          "decision": "typesafe-input-pricing: classifier catalog cost is a host snapshot, not pi zero cost. Official builtin catalog/pricing is gated by issue 08.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.id",
+          "kind": "changed",
+          "pi": "jev-latest",
+          "barness": "jev-1.13.0",
+          "classification": "extension",
+          "decision": "typesafe-versioned-model: classifier catalog uses fixed jev-1.13.0 instead of pi moving jev-latest alias. Shared identity fields and contextWindow are compared individually.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        },
+        {
+          "path": "result.input",
+          "kind": "only_pi",
+          "pi": [
+            "text"
+          ],
+          "classification": "extension",
+          "decision": "typesafe-catalog-boundary: pi catalog input=[text] is the classifier implicit modality, without a chat input configuration. Exact pi value is separately asserted; unknown catalogue fields fail.",
+          "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+        }
+      ],
+      "pending": 0,
+      "pass": true,
+      "gate": "PASS"
+    }
+  ]
+}

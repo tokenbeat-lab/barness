@@ -30,6 +30,7 @@ import (
 // Without it the cases are recorded NOT_RUN, never PASS.
 func TestPiDifferential(t *testing.T) {
 	ledger := loadLedger(t)
+	t.Run(string(ai.APITypeSafeSystemOne), func(t *testing.T) { classifierPiDifferential(t, ledger) })
 	t.Run(string(ai.APIAnthropicMessages), func(t *testing.T) {
 		scenarioPiDifferential(t, ledger, anthropicProtocol, "P02", anthropicFixtureFiles)
 	})

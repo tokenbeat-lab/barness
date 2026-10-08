@@ -138,7 +138,15 @@ func File(name string, data []byte, forbidden []Forbidden) []Finding {
 	}
 	if strings.HasSuffix(name, ".json") {
 		var v any
-		if err := json.Unmarshal(data, &v); err != nil {
+		// Native classifier descriptions preserve arbitrary JSON numbers;
+		// audit their structure without rounding or overflowing float64.
+		d := json.NewDecoder(bytes.NewReader(data))
+		d.UseNumber()
+		err := d.Decode(&v)
+		if err == nil && !json.Valid(data) {
+			err = errors.New("invalid JSON document")
+		}
+		if err != nil {
 			a.add(RuleUnparseable, "not JSON (%s): JSON rules not applied", errorKind(err))
 		} else {
 			a.walk(v, "$", strings.HasPrefix(filepath.Base(name), "observations"))

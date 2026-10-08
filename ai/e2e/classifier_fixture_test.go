@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"errors"
+	"strings"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -14,7 +15,7 @@ var classifierProtocol = &fixtureProtocol{dir: "typesafe", binding: "classifier"
 // belong to issue 08, so this suite makes no built-in support claim.
 func configureClassifier(c *ai.Config) {
 	cat := ai.BuiltinCatalog()
-	cat.ClassifierModels = []ai.ClassifierModel{{Provider: ai.ProviderTypeSafe, API: ai.APITypeSafeSystemOne, ID: "host-jev", Name: "Synthetic choice classifier", ContextWindow: 64000, Capabilities: ai.ClassifierCapabilities{Kinds: []ai.ClassifierQuestionKind{ai.ClassifierQuestionChoice}, MaxChoices: 255}, Cost: ai.ModelCost{CostRates: ai.CostRates{Input: 1}}}}
+	cat.ClassifierModels = []ai.ClassifierModel{{Provider: ai.ProviderTypeSafe, API: ai.APITypeSafeSystemOne, ID: "host-jev", Name: "Synthetic classifier", ContextWindow: 64000, Capabilities: ai.ClassifierCapabilities{Kinds: []ai.ClassifierQuestionKind{ai.ClassifierQuestionChoice, ai.ClassifierQuestionScore, ai.ClassifierQuestionBool}, MaxChoices: 255, MinScoreLevels: 2, MaxScoreLevels: 10}, Cost: ai.ModelCost{CostRates: ai.CostRates{Input: 1}}}}
 	c.Catalog = &cat
 	c.Policy.Classifier = &ai.ClassifierPolicy{MaxQuestions: 8, MaxStateBytes: 4096, MaxQuestionBytes: 4096}
 }
@@ -54,6 +55,11 @@ func checkClassifierScenario(ev *evidence.Case, w *world, sc fixtureScenario, re
 		r := reqs[len(reqs)-1]
 		ev.Check("request path and tenant key", r.Method == "POST" && r.Path == x.Request.Path && r.KeyAlias == tenantA.alias, "got %+v", r)
 		ev.Check("request JSON", jsonEqual(r.Body, x.Request.Body), "got %s", r.Body)
+		for _, number := range []string{"9007199254740993", "12345678901234567890"} {
+			if count := strings.Count(string(x.Request.Body), number); count > 0 {
+				ev.Check("native numeric precision "+number, strings.Count(string(r.Body), number) == count, "got %s", r.Body)
+			}
+		}
 	}
 	ev.Check("terminal", string(res.StopReason) == x.StopReason, "got %q", res.StopReason)
 	if x.Code != "" {
@@ -70,6 +76,14 @@ func checkClassifierScenario(ev *evidence.Case, w *world, sc fixtureScenario, re
 		ev.Check("typed answers", jsonEqual(mustMarshal(ev.T(), res.Answers), x.Answers), "got %+v", res.Answers)
 		a, ok := res.Answers["intent"].(ai.ChoiceAnswer)
 		ev.Check("answer Go type", ok && a.Choice == "track", "got %T", res.Answers["intent"])
+		if _, requested := classifierInput(ev.T(), sc).Questions["anger"]; requested {
+			_, ok := res.Answers["anger"].(ai.ScoreAnswer)
+			ev.Check("score Go type", ok, "got %T", res.Answers["anger"])
+		}
+		if _, requested := classifierInput(ev.T(), sc).Questions["urgent"]; requested {
+			_, ok := res.Answers["urgent"].(ai.BoolAnswer)
+			ev.Check("bool Go type", ok, "got %T", res.Answers["urgent"])
+		}
 	} else {
 		ev.Check("failed answers empty", len(res.Answers) == 0, "got %+v", res.Answers)
 	}
@@ -97,5 +111,22 @@ func TestClassifierChoiceFixtures(t *testing.T) {
 	f, raw := loadFixture(t, classifierProtocol, "choice.json")
 	for _, sc := range f.Scenarios {
 		t.Run(sc.ID, func(t *testing.T) { ev := run.Case(t, "P07-"+sc.ID); runScenario(t, ev, sc, raw, modeComplete) })
+	}
+}
+
+func TestClassifierMixedFixtures(t *testing.T) {
+	f, raw := loadFixture(t, classifierProtocol, "mixed.json")
+	for _, sc := range f.Scenarios {
+		t.Run(sc.ID, func(t *testing.T) { ev := run.Case(t, "P07-"+sc.ID); runScenario(t, ev, sc, raw, modeComplete) })
+	}
+}
+
+func TestClassifierParityFixtures(t *testing.T) {
+	f, raw := loadFixture(t, classifierProtocol, "parity.json")
+	for _, sc := range f.Scenarios {
+		t.Run(sc.ID, func(t *testing.T) {
+			ev := run.Case(t, "P07-"+sc.ID+"-parity")
+			runScenario(t, ev, sc, raw, modeComplete)
+		})
 	}
 }

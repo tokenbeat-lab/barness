@@ -245,6 +245,10 @@ func scenarioWorld(t *testing.T, sc fixtureScenario) *world {
 	w := newWorldWith(t, func(c *ai.Config) {
 		if sc.entry() == "classify" {
 			configureClassifier(c)
+			c.Catalog.ClassifierModels[0].ID = sc.Model
+			if sc.Model == "jev-1.13.0" {
+				c.Catalog.ClassifierModels[0].Name = "Jev"
+			}
 			if sc.DisableClassifier {
 				c.Policy.Classifier = nil
 			}
@@ -257,6 +261,7 @@ func scenarioWorld(t *testing.T, sc fixtureScenario) *world {
 	}, tenantA)
 	if sc.entry() == "classify" {
 		installClassifierBinding(w, tenantA)
+		w.updateBindingOf(tenantA, "classifier", func(b *ai.Binding) { b.AllowedModels = []string{sc.Model} })
 		if sc.BindingOperation != "" {
 			w.updateBindingOf(tenantA, "classifier", func(b *ai.Binding) { b.Operation = sc.BindingOperation })
 		}

@@ -2550,6 +2550,387 @@
       "classification": "extension",
       "decision": "Optional feature not implemented (ADR-0018): additional_tools/tool search. gpt-5.4 and gpt-6-sol set supportsAdditionalTools and supportsToolSearch, so for a tool change that only adds tools pi's resolveTranscriptTools keeps the initial tools in tools and anchors convert in place, as an additional_tools item ahead of the system message (input[4]), which moves the system message to input[5]. barness sends the current tools in tools, as pi does with both features off or after a removal (the tool-removal cases match pi). Remove when the feature is implemented.",
       "ref": "ADR-0018 决策四; issues/34; ai/e2e/catalog_inclusion_test.go TestCatalogInclusion"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.headers.Accept",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_pi"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.headers.Accept-Encoding",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "changed"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.headers.Accept-Language",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_pi"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.headers.Connection",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_pi"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.headers.Sec-Fetch-Mode",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_pi"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.headers.User-Agent",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "Node fetch and Go net/http transport defaults differ for this named header; authentication, content type, target and every body field remain compared. ADR-0021 transport metadata.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "changed"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.answers.anger",
+      "cases": [
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_pi"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.answers.intent",
+      "cases": [
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_pi"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.answers.urgent",
+      "cases": [
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-strict-answers: pi publishes these answers even when score expectation, legend or bool range is invalid; barness atomically clears all answers and retains usage.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_pi"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.stopReason",
+      "cases": [
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-strict-answers: invalid score expectation, legend or bool range is a response protocol failure.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "changed"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.errorMessage",
+      "cases": [
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-strict-answers: bounded generic diagnostic for invalid answers.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_barness"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.body.state",
+      "cases": [
+        "P07-E01-native-string",
+        "P07-E01-native-array",
+        "P07-E01-native-object"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-native-json-input: string/array state and exact JSON numbers beyond JS precision; oracle covers only the pi object-state subset.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.body.questions.intent.instructions",
+      "cases": [
+        "P07-E01-native-string",
+        "P07-E01-native-array",
+        "P07-E01-native-object"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-native-json-input: nonempty object/array instructions preserve raw JSON precision, beyond pi string instructions.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.body.questions.intent.criteria",
+      "cases": [
+        "P07-E01-native-string",
+        "P07-E01-native-array",
+        "P07-E01-native-object"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-native-json-input: structured descriptions and choice null, beyond pi string descriptions.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.body.questions.anger.instructions",
+      "cases": [
+        "P07-E01-native-string",
+        "P07-E01-native-array",
+        "P07-E01-native-object"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-native-json-input: nonempty object/array instructions preserve raw JSON precision, beyond pi string instructions.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.body.questions.anger.criteria",
+      "cases": [
+        "P07-E01-native-string",
+        "P07-E01-native-array",
+        "P07-E01-native-object"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-native-json-input: structured descriptions and choice null, beyond pi string descriptions.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.body.questions.urgent.criteria",
+      "cases": [
+        "P07-E01-native-string",
+        "P07-E01-native-array",
+        "P07-E01-native-object"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-native-json-input: structured true/false descriptions preserve raw JSON precision.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.answers.anger.probabilities",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-score-details: explicit pi projection removes only this score field; offline E2E retains and validates exact levels, distribution and native JSON rubric.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_barness"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.answers.anger.legend",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-score-details: explicit pi projection removes only this score field; offline E2E retains and validates exact levels, distribution and native JSON rubric.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md",
+      "kind": "only_barness"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "request.body.model",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-versioned-model: pi jev-latest is explicitly modelPatched to jev-1.13.0 on every attempt; alias ID is excluded from barness catalog inclusion.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.id",
+      "cases": [
+        "PIDIFF-P07-E11-catalog"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-versioned-model: classifier catalog uses fixed jev-1.13.0 instead of pi moving jev-latest alias. Shared identity fields and contextWindow are compared individually.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.usage.cost",
+      "cases": [
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-score-two-levels-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E02-bool-negative-classify",
+        "PIDIFF-P07-E02-score-expectation-classify",
+        "PIDIFF-P07-E02-score-legend-wrong-classify",
+        "PIDIFF-P07-E05-mixed-retry-classify"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-input-pricing: official input-only pricing differs from pi zero pricing; cost is explicitly excluded on both sides. Issue 08 supplies the live-backed builtin rate; issue 06 uses a synthetic host rate.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.cost",
+      "cases": [
+        "PIDIFF-P07-E11-catalog"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-input-pricing: classifier catalog cost is a host snapshot, not pi zero cost. Official builtin catalog/pricing is gated by issue 08.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.baseUrl",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P07-E11-catalog"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-catalog-boundary: pi catalog endpoint belongs to host Binding configuration rather than ClassifierModel. Exact pi value is separately asserted; unknown catalogue fields fail.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
+    },
+    {
+      "protocol": "typesafe-system-one",
+      "path": "result.input",
+      "kind": "only_pi",
+      "cases": [
+        "PIDIFF-P07-E11-catalog"
+      ],
+      "classification": "extension",
+      "decision": "typesafe-catalog-boundary: pi catalog input=[text] is the classifier implicit modality, without a chat input configuration. Exact pi value is separately asserted; unknown catalogue fields fail.",
+      "ref": "docs/adr/0021-barness-ai-typesafe-unary-classification.md; .scratch/barness-ai-pi-1.0/issues/06-typesafe-mixed-questions-and-parity.md"
     }
   ],
   "routes": [

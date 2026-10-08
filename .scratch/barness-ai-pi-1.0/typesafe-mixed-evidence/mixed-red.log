@@ -1,0 +1,1596 @@
+--- FAIL: TestClassifierMixedFixtures (0.06s)
+    --- FAIL: TestClassifierMixedFixtures/E01-mixed (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: unsupported classifier question type
+    --- FAIL: TestClassifierMixedFixtures/E01-native-string (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": "Ticket",
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": {
+                          "task": "Choose",
+                          "id": 9007199254740993
+                        },
+                        "criteria": {
+                          "refund": null,
+                          "track": [
+                            "Track",
+                            {
+                              "id": 9007199254740993
+                            }
+                          ]
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": [
+                          "Rate",
+                          {
+                            "precise": 9007199254740993
+                          }
+                        ],
+                        "criteria": [
+                          {
+                            "level": 0
+                          },
+                          [
+                            "Unhappy"
+                          ],
+                          {
+                            "level": 2
+                          }
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": {
+                            "reason": "Immediate"
+                          },
+                          "false": [
+                            "Can wait"
+                          ]
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E01-native-array (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": [
+                      "Ticket",
+                      {
+                        "id": 9007199254740993
+                      }
+                    ],
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": {
+                          "task": "Choose",
+                          "id": 9007199254740993
+                        },
+                        "criteria": {
+                          "refund": null,
+                          "track": [
+                            "Track",
+                            {
+                              "id": 9007199254740993
+                            }
+                          ]
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": [
+                          "Rate",
+                          {
+                            "precise": 9007199254740993
+                          }
+                        ],
+                        "criteria": [
+                          {
+                            "level": 0
+                          },
+                          [
+                            "Unhappy"
+                          ],
+                          {
+                            "level": 2
+                          }
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": {
+                            "reason": "Immediate"
+                          },
+                          "false": [
+                            "Can wait"
+                          ]
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E01-native-object (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "id": 9007199254740993,
+                      "decimal": 12345678901234567890
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": {
+                          "task": "Choose",
+                          "id": 9007199254740993
+                        },
+                        "criteria": {
+                          "refund": null,
+                          "track": [
+                            "Track",
+                            {
+                              "id": 9007199254740993
+                            }
+                          ]
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": [
+                          "Rate",
+                          {
+                            "precise": 9007199254740993
+                          }
+                        ],
+                        "criteria": [
+                          {
+                            "level": 0
+                          },
+                          [
+                            "Unhappy"
+                          ],
+                          {
+                            "level": 2
+                          }
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": {
+                            "reason": "Immediate"
+                          },
+                          "false": [
+                            "Can wait"
+                          ]
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E01-score-basic (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E01-bool-no-criteria (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?"
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E01-score-two-levels (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "0",
+                          "1"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E01-score-ten-levels (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "0",
+                          "1",
+                          "2",
+                          "3",
+                          "4",
+                          "5",
+                          "6",
+                          "7",
+                          "8",
+                          "9"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: unsupported classifier question type
+    --- FAIL: TestClassifierMixedFixtures/E01-score-no-legend (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: unsupported classifier question type
+    --- FAIL: TestClassifierMixedFixtures/E02-missing-score (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-extra-answer (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-wrong-score-type (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-wrong-bool-type (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: unsupported classifier question type
+    --- FAIL: TestClassifierMixedFixtures/E02-bool-negative (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-bool-above-one (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-bool-null (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-bool-missing (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-bool-extra-field (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-negative (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-above-range (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-null (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-missing (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-confidence-negative (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-confidence-above-one (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-confidence-null (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-confidence-missing (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-probability-negative (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-probability-above-one (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-probability-null (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-probability-missing (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-probability-extra (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-probability-key-alias (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-probability-sum (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-expectation (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-distribution-null (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-legend-missing (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-legend-extra (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-legend-wrong (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-legend-null (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-legend-without-distribution (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-extra-field (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-bool-overflow (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-overflow (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-probability-overflow (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-duplicate-probability (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+    --- FAIL: TestClassifierMixedFixtures/E02-score-duplicate-legend (0.00s)
+        classifier_fixture_test.go:106: decode {
+                    "state": {
+                      "ticket": "track order"
+                    },
+                    "questions": {
+                      "intent": {
+                        "type": "choice",
+                        "instructions": "Choose intent",
+                        "criteria": {
+                          "refund": "Refund",
+                          "track": "Tracking"
+                        }
+                      },
+                      "anger": {
+                        "type": "score",
+                        "instructions": "Rate anger",
+                        "criteria": [
+                          "Calm",
+                          "Unhappy",
+                          "Angry"
+                        ]
+                      },
+                      "urgent": {
+                        "type": "bool",
+                        "instructions": "Is it urgent?",
+                        "criteria": {
+                          "true": "Immediate",
+                          "false": "Can wait"
+                        }
+                      }
+                    }
+                  }: json: cannot unmarshal array into Go struct field .criteria of type map[string]json.RawMessage
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261008T013817.972921000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.387s
+FAIL
