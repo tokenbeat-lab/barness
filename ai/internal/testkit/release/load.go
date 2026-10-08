@@ -135,10 +135,6 @@ func AuditBundle(dir string, forbidden []audit.Forbidden) AuditResult {
 	a.Findings = safeAuditFindings(findings, forbidden)
 	if live, err := supportmatrix.LoadReport(filepath.Join(dir, supportmatrix.ReportFile)); err == nil {
 		a.Live = &live
-		if err := verifyLiveManifest(dir, live); err != nil {
-			a.Err = err.Error()
-			return a
-		}
 	}
 	var recorded struct {
 		Findings *[]audit.Finding `json:"findings"`
@@ -154,8 +150,16 @@ func AuditBundle(dir string, forbidden []audit.Forbidden) AuditResult {
 			a.Findings = append(a.Findings, f)
 		}
 	}
+	if len(a.Findings) != 0 {
+		a.Err = "evidence bundle failed redaction audit"
+		return a
+	}
 	if a.Live != nil && a.Err == "" && len(a.Findings) == 0 {
 		r := a.Live
+		if err := verifyLiveManifest(dir, *r); err != nil {
+			a.Err = "live artifact integrity verification failed"
+			return a
+		}
 		if (supportmatrix.Row{Combo: r.Combo, Operation: r.Operation, Provider: r.Provider, API: r.API}).ValidIdentity() {
 			a.Combo = r.Combo
 		}
@@ -168,6 +172,12 @@ func AuditBundle(dir string, forbidden []audit.Forbidden) AuditResult {
 func safeAuditFindings(findings []audit.Finding, forbidden []audit.Forbidden) []audit.Finding {
 	out := make([]audit.Finding, 0, len(findings))
 	for _, f := range findings {
+		switch f.Rule {
+		case audit.RuleSecret, audit.RuleKeyShaped, audit.RuleCredentialHeader, audit.RuleBearer, audit.RuleCredentialQuery,
+			audit.RuleObservationField, audit.RuleResponseHeader, audit.RuleEnvironment, audit.RuleUnparseable:
+		default:
+			f.Rule, f.Detail = audit.RuleUnparseable, "recorded audit contains an invalid rule"
+		}
 		if len(audit.File("audit-diagnostic.txt", []byte(f.File+"\n"+f.Detail), forbidden)) != 0 {
 			f.File = "artifact-sha256:" + pioracle.SHA256([]byte(f.File))
 			f.Detail = "artifact content rejected by redaction audit"

@@ -19,7 +19,7 @@ args.out = args.out.resolve()
 root = Path(__file__).resolve().parents[3]
 key_name = {'openai': 'OPENAI_KEY', 'anthropic': 'ANTHROPIC_KEY', 'google': 'GEMINI_KEY', 'deepseek': 'DEEPSEEK_KEY', 'typesafe': 'TYPESAFE_KEY'}[args.combo.split('-')[0]]
 key = ''
-if args.live:
+if args.live and (root / '.env').is_file():
     # Stream only to the selected name; do not load a dictionary of vendor keys.
     with (root / '.env').open() as source:
         for line in source:

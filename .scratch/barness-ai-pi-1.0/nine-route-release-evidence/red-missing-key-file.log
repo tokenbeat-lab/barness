@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_missing_key_file_still_produces_no_key_evidence (__main__.ReleaseRunner.test_missing_key_file_still_produces_no_key_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "[REPO]/.scratch/barness-ai-pi-1.0/nine-route-release-evidence/test-run-release.py", line 29, in test_missing_key_file_still_produces_no_key_evidence
+    self.assertEqual(child.returncode, 0, 'missing key file aborted the no-key harness')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : missing key file aborted the no-key harness
+
+----------------------------------------------------------------------
+Ran 1 test in 0.037s
+
+FAILED (failures=1)

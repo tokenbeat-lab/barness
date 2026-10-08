@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import shutil
 import tempfile
 import unittest
 
@@ -12,6 +13,22 @@ RUNNER = Path(__file__).with_name('run-release.py')
 
 
 class ReleaseRunner(unittest.TestCase):
+    def test_missing_key_file_still_produces_no_key_evidence(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / '.evidence') as base:
+            root = Path(base)
+            scripts = root / '.scratch/feature/evidence'
+            scripts.mkdir(parents=True)
+            script = scripts / 'run-live.py'
+            shutil.copyfile(RUNNER.with_name('run-live.py'), script)
+            binary = root / 'controlled'
+            binary.write_text("#!/usr/bin/env python3\nimport os\nfrom pathlib import Path\np=Path(os.environ['BARNESS_AI_EVIDENCE_DIR'])/'controlled'\np.mkdir(parents=True)\n(p/'live-report.json').write_text('{}')\n")
+            binary.chmod(0o755)
+            (root / 'ai/live').mkdir(parents=True)
+            out = root / 'result'
+            child = subprocess.run(['python3', str(script), '--live', '--combo', 'openai-responses', '--binary', str(binary), '--out', str(out), '--alias', 'controlled@offline'], cwd=root, capture_output=True)
+            self.assertEqual(child.returncode, 0, 'missing key file aborted the no-key harness')
+            self.assertFalse(json.loads((out / 'command.json').read_text())['keyPresent'])
+
     def test_absolute_output_is_isolated_and_portable(self):
         with tempfile.TemporaryDirectory(dir=ROOT / '.evidence') as base:
             base = Path(base)

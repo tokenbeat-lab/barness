@@ -25,6 +25,18 @@ func TestRejectedIdentifiersAreNeverRepublished(t *testing.T) {
 			t.Fatal("rejected combo republished")
 		}
 	})
+	t.Run("recorded-audit-rule", func(t *testing.T) {
+		dir := t.TempDir()
+		writeArtifact(t, dir, "manifest.json", map[string]any{"cases": []any{}})
+		writeArtifact(t, dir, "audit.json", map[string]any{"findings": []audit.Finding{{File: "fixture.json", Rule: audit.Rule(secret), Detail: "invalid"}}})
+		raw, err := json.Marshal(AuditBundle(dir, nil))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if bytes.Contains(raw, []byte(secret)) {
+			t.Fatal("rejected audit rule republished")
+		}
+	})
 	for _, field := range []string{"case-id", "artifact-name"} {
 		t.Run(field, func(t *testing.T) {
 			dir := t.TempDir()
