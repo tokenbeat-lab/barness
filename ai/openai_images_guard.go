@@ -68,18 +68,27 @@ func (p *ResourcePolicy) checkFinalImageCount(n int, mask bool, caps ImageCapabi
 	return nil
 }
 
-func (p *ResourcePolicy) checkInlineURL(url string) *Error {
+func (p *ResourcePolicy) checkInlineURLSize(url string) *Error {
 	if len(url) > openAIInlineURLLimit {
 		return limitFailure(PhaseRequest, "OpenAI.MaxInlineImageURLCharacters", openAIInlineURLLimit)
+	}
+	if img, ok := parseOpenAIImageURL(url); ok {
+		return p.checkInlineImageSize(img.Data, img.MimeType, PhaseRequest)
+	}
+	return nil
+}
+
+func (p *ResourcePolicy) checkInlineURL(url string) *Error {
+	if failure := p.checkInlineURLSize(url); failure != nil {
+		return failure
 	}
 	if !strings.HasPrefix(url, "data:") {
 		return imageAuthorityFailure()
 	}
-	img, ok := parseOpenAIImageURL(url)
-	if !ok {
+	if _, ok := parseOpenAIImageURL(url); !ok {
 		return imageInputFailure(PhaseRequest, "input image must be an inline base64 data URL")
 	}
-	return p.checkInlineImageSize(img.Data, img.MimeType, PhaseRequest)
+	return nil
 }
 
 func (p *ResourcePolicy) checkOpenAIImagesFinal(ctx context.Context, wire openAIImagesRequest, caps ImageCapabilities, editing bool) *Error {

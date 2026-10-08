@@ -14,12 +14,12 @@ import (
 func TestOpenAIImagesEditingKnownSize(t *testing.T) {
 	large := "data:image/png;base64," + strings.Repeat("A", 8<<20)
 	raw := json.RawMessage(`[{"image_url":"` + large + `"}]`)
-	for _, name := range []string{"images", "mask", "raw", "many", "typed-url", "raw-many", "pointer-url", "pointer-slice", "struct", "large-budget-raw", "large-budget-mask", "escaped-raw", "embedded", "shadowed"} {
+	for _, name := range []string{"images", "mask", "raw", "many", "typed-url", "raw-many", "pointer-url", "pointer-slice", "struct", "large-budget-raw", "large-budget-mask", "escaped-raw", "embedded", "shadowed", "text-key"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P08-E08-edit-allocation-"+name)
 			sc := editScenario(t)
 			w := scenarioWorld(t, sc)
-			if name == "typed-url" || name == "pointer-url" || name == "struct" || name == "embedded" || name == "shadowed" || strings.HasPrefix(name, "large-budget-") || name == "escaped-raw" {
+			if name == "typed-url" || name == "pointer-url" || name == "struct" || name == "embedded" || name == "shadowed" || name == "text-key" || strings.HasPrefix(name, "large-budget-") || name == "escaped-raw" {
 				w = newWorldWith(t, func(c *ai.Config) {
 					configureImages(c)
 					c.Policy.MaxRequestBytes = 64 << 20
@@ -57,6 +57,8 @@ func TestOpenAIImagesEditingKnownSize(t *testing.T) {
 					p.Body["images"] = []struct {
 						URL *string `json:"image_url"`
 					}{{&large}}
+				case "text-key":
+					p.Body["images"] = []map[imageURLKey]string{{{}: large}}
 				case "embedded":
 					p.Body["images"] = []wrappedInlineImage{{inlineImageFields{large}}}
 				case "shadowed":

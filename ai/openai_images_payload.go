@@ -11,31 +11,39 @@ import (
 	"github.com/buger/jsonparser"
 )
 
-func imagePayloadValue(v reflect.Value) reflect.Value {
-	for v.IsValid() {
+// Struct fields are not traversed by the generic request size estimate.
+// Bound their pointer/interface expansion too, including cyclic host values.
+func imagePayloadValue(v reflect.Value) (reflect.Value, *Error) {
+	for depth := 0; v.IsValid(); depth++ {
+		if depth > maxJSONDepth {
+			return reflect.Value{}, limitFailure(PhaseRequest, "MaxJSONDepth", maxJSONDepth)
+		}
 		if v.Kind() == reflect.Interface {
 			if v.IsNil() {
-				return reflect.Value{}
+				return reflect.Value{}, nil
 			}
 			v = v.Elem()
 			continue
 		}
 		if v.Kind() != reflect.Pointer {
-			return v
+			return v, nil
 		}
 		if v.IsNil() {
-			return reflect.Value{}
+			return reflect.Value{}, nil
 		}
 		if v.Type().Elem() != reflect.TypeFor[json.RawMessage]() && usesCustomJSON(v) {
-			return v
+			return v, nil
 		}
 		v = v.Elem()
 	}
-	return v
+	return v, nil
 }
 
 func (p *ResourcePolicy) checkImageReferencePayload(value reflect.Value, mask bool, caps ImageCapabilities) *Error {
-	v := imagePayloadValue(value)
+	v, failure := imagePayloadValue(value)
+	if failure != nil {
+		return failure
+	}
 	if !v.IsValid() {
 		return imageAuthorityFailure()
 	}
@@ -63,7 +71,10 @@ func (p *ResourcePolicy) checkImageReferencePayload(value reflect.Value, mask bo
 }
 
 func (p *ResourcePolicy) checkInlineImagePayload(value reflect.Value) *Error {
-	v := imagePayloadValue(value)
+	v, failure := imagePayloadValue(value)
+	if failure != nil {
+		return failure
+	}
 	if !v.IsValid() {
 		return imageInputFailure(PhaseRequest, "inline image must be an object")
 	}
@@ -80,7 +91,10 @@ func (p *ResourcePolicy) checkInlineImagePayload(value reflect.Value) *Error {
 		if key != "image_url" {
 			return imageInputFailure(PhaseRequest, "unsupported inline image field")
 		}
-		field := imagePayloadValue(value)
+		field, failure := imagePayloadValue(value)
+		if failure != nil {
+			return failure
+		}
 		if field.IsValid() && !usesCustomJSON(field) && field.Kind() == reflect.String {
 			return p.checkInlineURL(field.String())
 		}
@@ -90,6 +104,20 @@ func (p *ResourcePolicy) checkInlineImagePayload(value reflect.Value) *Error {
 	case reflect.Map:
 		if v.Type().Key().Kind() != reflect.String {
 			if v.Type().Key().Implements(reflect.TypeFor[encoding.TextMarshaler]()) {
+				// Key encoding is deferred, but ordinary URL values still have
+				// known lengths. Do not execute a host key marshaler twice.
+				fields := v.MapRange()
+				for fields.Next() {
+					field, failure := imagePayloadValue(fields.Value())
+					if failure != nil {
+						return failure
+					}
+					if field.IsValid() && !usesCustomJSON(field) && field.Kind() == reflect.String {
+						if failure := p.checkInlineURLSize(field.String()); failure != nil {
+							return failure
+						}
+					}
+				}
 				return nil
 			}
 			return imageInputFailure(PhaseRequest, "inline image requires string keys")

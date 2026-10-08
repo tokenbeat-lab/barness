@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"context"
+	"errors"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -67,6 +68,41 @@ func TestOpenAIImagesEditingCustomEncoding(t *testing.T) {
 			ev.Record("error", errString(err))
 			ev.Record("requests", w.provider.Requests())
 			ev.Check("custom representation uses frozen JSON", err == nil && len(w.provider.Requests()) == 1, "got %v", err)
+		})
+	}
+}
+
+func TestOpenAIImagesEditingBoundedPointers(t *testing.T) {
+	for _, name := range []string{"cycle", "deep", "mask-cycle", "mask-deep"} {
+		t.Run(name, func(t *testing.T) {
+			ev := run.Case(t, "P08-E04-edit-bounded-"+name)
+			sc := editScenario(t)
+			w := scenarioWorld(t, sc)
+			var field any
+			if name == "cycle" || name == "mask-cycle" {
+				field = &field
+			} else {
+				field = "data:image/png;base64," + imagesInput(t, sc).ReferenceImages[0].Data
+				for i := 0; i < 10001; i++ {
+					previous := field
+					field = &previous
+				}
+			}
+			h := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
+				image := struct {
+					URL any `json:"image_url"`
+				}{field}
+				if name == "mask-cycle" || name == "mask-deep" {
+					p.Body["mask"] = image
+				} else {
+					p.Body["images"] = []any{image}
+				}
+				return ai.KeepPayload(), nil
+			}}
+			res, err := w.client.WithHooks(h).GenerateImages(ctxFor(t), textScope("req-edit-bounded-"+name), sc.target(), imagesInput(t, sc), nil)
+			ev.Record("result", res)
+			ev.Record("error", errString(err))
+			ev.Check("pointer expansion is bounded before serialization", errors.Is(err, &ai.Error{Code: ai.CodeResourceLimit, Phase: ai.PhaseRequest}) && len(w.provider.Requests()) == 0, "got %v", err)
 		})
 	}
 }

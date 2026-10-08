@@ -1,0 +1,27 @@
+{
+  "status": "FAIL",
+  "cases": [
+    {
+      "command": "go test ./ai/e2e -run 'TestOpenAIImagesEditingKnownSize/text-key' -count=1",
+      "failingTests": [
+        "TestOpenAIImagesEditingKnownSize/text-key"
+      ],
+      "maxObservedAllocationBytes": 100720912
+    },
+    {
+      "command": "go test ./ai/e2e -run 'TestOpenAIImagesEditingBoundedPointers' -count=1 -timeout=3s",
+      "failingTests": [
+        "TestOpenAIImagesEditingBoundedPointers/cycle"
+      ],
+      "failure": "test timeout at 3s; pointer/interface expansion does not terminate"
+    },
+    {
+      "command": "go test ./ai/e2e -run 'TestOpenAIImagesEditingBoundedPointers/(deep|mask-deep)$' -count=1 -timeout=15s",
+      "failingTests": [
+        "TestOpenAIImagesEditingBoundedPointers/deep",
+        "TestOpenAIImagesEditingBoundedPointers/mask-deep"
+      ],
+      "failure": "over-depth field reaches Provider before rejection"
+    }
+  ]
+}
