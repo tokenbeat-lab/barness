@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"context"
+	"encoding/json"
 	"runtime"
 	"strings"
 	"testing"
@@ -17,12 +18,22 @@ func TestUnaryCallbackAllocationBound(t *testing.T) {
 	numbers := make([]int, 2<<20)
 	emptyStrings := make([]string, 2<<20)
 	stringKeys := map[unaryShortText]string{unaryShortText(large): "ok"}
-	for _, name := range []string{"state", "nested-state", "question", "extra-request-field", "numbers", "empty-strings", "string-key"} {
+	rawValues := []json.RawMessage{json.RawMessage(`"` + large + `"`)}
+	questionValues := []ai.ChoiceQuestion{{Instructions: rawValues[0], Criteria: map[string]json.RawMessage{"a": json.RawMessage(`null`), "b": json.RawMessage(`null`)}}}
+	for _, name := range []string{"state", "nested-state", "question", "extra-request-field", "numbers", "empty-strings", "string-key", "raw-element", "question-element", "raw-pointer", "question-pointer"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P07-E08-unary-callback-allocation-"+name)
 			u := newUnaryWorld(t, nil)
 			hooks := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				switch name {
+				case "raw-pointer":
+					p.Body["state"] = &rawValues[0]
+				case "question-pointer":
+					p.Body["state"] = &questionValues[0]
+				case "question-element":
+					p.Body["state"] = questionValues
+				case "raw-element":
+					p.Body["state"] = rawValues
 				case "string-key":
 					p.Body["state"] = stringKeys
 				case "numbers":

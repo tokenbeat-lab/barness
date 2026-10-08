@@ -23,11 +23,13 @@ retry-red 还保留一处测试预期路径写错（实际沿用绑定 /v1），
 复审的 [encoding-red.log](encoding-red.log) 另复现数字/空字符串数组造成 54–73 MiB 分配；
 [encoding-semantics-red.log](encoding-semantics-red.log) 复现匿名字段冲突、TextMarshaler 和自定义问题编码被误拒。
 [string-key-red.log](string-key-red.log) 验证字符串 map key 不采用 TextMarshaler，超大原始键须提前拒绝。
-[encoding-green.log](encoding-green.log) 中全部 14 项通过。encoding-red 的早期 text-key 预期曾误把
+[encoding-green.log](encoding-green.log) 中全部 18 项通过。encoding-red 的早期 text-key 预期曾误把
 字符串 key 视作 TextMarshaler 输出，最终改用结构体 key，按标准库实际语义验收。
 [pointer-encoding-red.log](pointer-encoding-red.log) 先复现切片/数组元素的指针接收者编码被误拒，
-对应 green 验证保持标准库语义。该复审发现出现于首次全量运行期间，已主动终止旧代码的运行
-（interrupted-full-race.log 的 terminated），修复后再运行最终全量。
+对应 green 验证保持标准库语义。这两轮复审发现出现于全量运行期间，已主动终止旧代码的运行
+（interrupted-full-race*.log 的 terminated）。[raw-element-red.log](raw-element-red.log) 与
+[known-pointer-red.log](known-pointer-red.log) 先复现已知 RawMessage/封闭问题被编码回退跳过，
+最终实现先计已知长度，再处理未知编码；修复并经两轴复核后运行最终全量。
 自定义 marshaler 执行属于宿主，不能预知其输出，其结果仍先通过字节预算。
 没有新增单元测试或生产测试接口。
 

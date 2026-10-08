@@ -1,0 +1,13 @@
+--- FAIL: TestUnaryCallbackAllocationBound (0.07s)
+    --- FAIL: TestUnaryCallbackAllocationBound/raw-element (0.03s)
+        unary_fixture_test.go:62: [P07-E08-unary-callback-allocation-raw-element] code-only match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_fixture_test.go:63: [P07-E08-unary-callback-allocation-raw-element] phase match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_allocation_test.go:63: [P07-E08-unary-callback-allocation-raw-element] known oversized input refused before copies: allocated 16824320 bytes for a known oversized host value
+    --- FAIL: TestUnaryCallbackAllocationBound/question-element (0.04s)
+        unary_fixture_test.go:62: [P07-E08-unary-callback-allocation-question-element] code-only match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_fixture_test.go:63: [P07-E08-unary-callback-allocation-question-element] phase match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_allocation_test.go:63: [P07-E08-unary-callback-allocation-question-element] known oversized input refused before copies: allocated 25214912 bytes for a known oversized host value
+FAIL
+barness-ai evidence bundle: <repo>/.evidence/barness-ai/20261008T024325.689075000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.608s
+FAIL

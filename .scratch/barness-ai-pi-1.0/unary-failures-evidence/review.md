@@ -16,7 +16,10 @@ JSON/Text 编码交给标准编码器和最终精确预算；普通 JSON 值仍�
 字符串 map key 的特殊标准库语义另由 string-key-red.log 先复现并修复。
 第三轮另发现一项 P2：可取地址的切片/数组元素可能采用指针接收者 JSON/Text 编码，
 只检查值方法集会误拒小编码。pointer-encoding-red.log 先复现三类场景，修复后
-encoding-green.log 共 14 项通过。最终复核报告在本文件后续记录。
+encoding-green.log 共 18 项通过。第四轮发现第三项 P2：指针方法回退先于已知
+RawMessage/封闭问题检查，可跳过已知长度。raw-element-red.log 先复现切片中的已知值，
+known-pointer-red.log 补充直接指针；修复后已知类型优先、嵌套和指针均计原始长度。
+最终复核报告在本文件后续记录。
 
 ## Spec
 
@@ -31,6 +34,9 @@ byte budgets, resource release and tenant isolation, observation attribution, an
    最终 MaxRequestBytes 检查移至独立问题解码前。allocation-red/green.log 先复现后修复。
 2. 数字和空字符串数组未计非零最低尺寸，可造成 54–73 MiB 库内分配才拒绝。
    已计标量、容器标点和字符串 key 的编码下界。encoding-red/green.log 先复现后修复。
+
+第三项 P2：指针方法回退跳过已知 RawMessage 长度；与 Standards 同时报告，
+由 raw-element-red.log / known-pointer-red.log 的公共分配断言复现，已修复优先级。
 
 最终复核还确认自定义编码、匿名字段冲突和字符串 key 的标准库语义已得到回归覆盖。
 宿主自定义编码自身的执行仍由宿主负责，结果在转换/发送前检查最终字节预算；ADR-0002

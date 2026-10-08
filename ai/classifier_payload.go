@@ -63,19 +63,22 @@ func classifierPayloadSize(value any, limit int64) (int64, bool) {
 			}
 			return walk(v.Elem(), depth+1)
 		}
-		// encoding/json also uses pointer-receiver methods on addressable
-		// values, such as elements of a borrowed slice or pointed-to array.
-		if v.Kind() != reflect.Pointer && v.CanAddr() && v.Addr().CanInterface() {
-			switch v.Addr().Interface().(type) {
-			case json.Marshaler, encoding.TextMarshaler:
-				return take(1)
-			}
-		}
 		if v.CanInterface() {
 			switch x := v.Interface().(type) {
 			case json.RawMessage:
 				return take(int64(len(x)))
+			case *json.RawMessage:
+				if x == nil {
+					return take(4)
+				}
+				return take(int64(len(*x)))
 			case ClassifierQuestion:
+				if v.Kind() == reflect.Pointer {
+					if v.IsNil() {
+						return take(4)
+					}
+					return walk(v.Elem(), depth+1)
+				}
 				n, ok := classifierQuestionSize(x, limit-size)
 				return ok && take(n)
 			case json.Number:
@@ -83,6 +86,14 @@ func classifierPayloadSize(value any, limit int64) (int64, bool) {
 			case json.Marshaler:
 				return take(1)
 			case encoding.TextMarshaler:
+				return take(1)
+			}
+		}
+		// Known raw/question sizes above must precede this fallback. The JSON
+		// encoder also uses pointer methods on addressable slice/array elements.
+		if v.Kind() != reflect.Pointer && v.CanAddr() && v.Addr().CanInterface() {
+			switch v.Addr().Interface().(type) {
+			case json.Marshaler, encoding.TextMarshaler:
 				return take(1)
 			}
 		}
