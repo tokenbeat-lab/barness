@@ -96,7 +96,7 @@ func (p *ResourcePolicy) checkGoogleInputPayload(input any, caps ImageCapabiliti
 		if usesCustomJSON(part) {
 			continue
 		}
-		if part.Kind() == reflect.Map {
+		if i > 0 && part.Kind() == reflect.Map {
 			fields := part.MapRange()
 			for fields.Next() {
 				// Custom map keys execute only during freezing. Their ordinary

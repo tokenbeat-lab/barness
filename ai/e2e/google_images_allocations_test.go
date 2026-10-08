@@ -137,5 +137,5 @@ type googleDataWrapper struct {
 type googleDataKey int
 
 func (k googleDataKey) MarshalText() ([]byte, error) {
-	return []byte([]string{"type", "mime_type", "data"}[k]), nil
+	return []byte([]string{"type", "mime_type", "data", "text"}[k]), nil
 }

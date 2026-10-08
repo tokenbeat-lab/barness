@@ -153,11 +153,18 @@ func TestGoogleImagesEditingSnapshot(t *testing.T) {
 }
 
 func TestGoogleImagesEditingTypedInput(t *testing.T) {
-	for _, name := range []string{"promoted", "byte-data", "custom-key", "omitempty", "pointer-marshaler", "custom-zero", "pointer-zero"} {
+	for _, name := range []string{"promoted", "byte-data", "custom-key", "omitempty", "pointer-marshaler", "custom-zero", "pointer-zero", "prompt-custom-key"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P09-E04-edit-typed-"+name)
 			sc := googleEditScenario(t)
 			req := imagesInput(t, sc)
+			if name == "prompt-custom-key" {
+				req.Prompt = strings.Repeat("A", 256)
+				var body map[string]any
+				mustUnmarshal(t, sc.Expect.Request.Body, &body)
+				body["input"].([]any)[0].(map[string]any)["text"] = req.Prompt
+				sc.Expect.Request.Body = mustMarshal(t, body)
+			}
 			budget := int64(len(mustMarshal(t, sc.Expect.Request.Body)))
 			w := newWorldWith(t, func(c *ai.Config) {
 				configureGoogleImages(c)
@@ -169,6 +176,8 @@ func TestGoogleImagesEditingTypedInput(t *testing.T) {
 			h := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				input := p.Body["input"].([]any)
 				switch name {
+				case "prompt-custom-key":
+					input[0] = map[googleDataKey]string{0: "text", 3: req.Prompt}
 				case "promoted":
 					input[1] = googleDataWrapper{googleDataFields{first.Data}, "image", first.MimeType}
 				case "byte-data":
