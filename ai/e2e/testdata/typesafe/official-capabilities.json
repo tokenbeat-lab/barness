@@ -1,0 +1,51 @@
+{
+  "sources": [
+    {
+      "url": "https://docs.typesafe.ai/models.md",
+      "retrieved": "2026-10-08",
+      "sha256": "15351adaab85874b5f1a942fc2fdf3c7b3ecadcc936d580793d734855a0038f3"
+    },
+    {
+      "url": "https://docs.typesafe.ai/api.md",
+      "retrieved": "2026-10-08",
+      "sha256": "6b760275f89341fe15cff80c28aacae94d7d0c0c99afcd987ec0bca680b5713a"
+    },
+    {
+      "url": "https://api.typesafe.ai/openapi.json",
+      "retrieved": "2026-10-08",
+      "sha256": "a191f8a7df6bd6fedced8120dd0fd106f88575d1d1c8360d08900a6c7c0360d5"
+    }
+  ],
+  "endpoint": "https://api.typesafe.ai/v1/systemone",
+  "statePlusLongestQuestionTokens": 32000,
+  "contextTokens": 64000,
+  "inputDollarsPerMillionTokens": 0.042,
+  "outputDollarsPerMillionTokens": 0,
+  "excludedAliases": [
+    "jev-latest",
+    "jev-preview"
+  ],
+  "model": {
+    "provider": "typesafe",
+    "api": "typesafe-system-one",
+    "id": "jev-1.13.0",
+    "name": "Jev",
+    "contextWindow": 64000,
+    "capabilities": {
+      "kinds": [
+        "choice",
+        "score",
+        "bool"
+      ],
+      "maxChoices": 255,
+      "minScoreLevels": 2,
+      "maxScoreLevels": 10
+    },
+    "cost": {
+      "input": 0.042,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0
+    }
+  }
+}

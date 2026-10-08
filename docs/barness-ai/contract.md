@@ -111,15 +111,16 @@ unary 成功体只按 MaxOutputBytes 读取，不受 SSE MaxFrameBytes 限制；
 errors.Is/As 保留可信宿主原因；其他成功体读取/解码/校验失败为 PhaseResponse。
 
 usage 的 input_tokens/output_tokens 均存在为 complete，缺项为 partial，无 usage 为 unreported。
-TypeSafe 只按目录输入费率估价，输出为零；本次合成目录费率不代表厂商价格。
+TypeSafe 只按目录输入费率估价，输出为零；内置 jev-1.13.0 的官方输入费率为 $0.042/百万 token（2026-10-08）。
 实际版本型号只放 ResponseModel Nullable[string]，授权 ModelID 不变，
 x-typesafe-request-id 放 Attempt.ProviderRequestID。Observer 只记录操作、归属、尝试、分类及用量。
 AttemptStarted 的 UsageReporting 为 unreported，AttemptFinished 与 CallFinished 的尝试记录
 使用同一 unreported/partial/complete 轴。PhaseResponse 在 errors.Is 的 Code 匹配中与其他阶段相同：
 Phase 为空匹配该 Code，Phase 非空同时匹配阶段。离线生命周期与资源证据见
 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
-真实内建型号/价格及 live 支持声明由工单 08 验收；禁用绑定或子策略即可停用新调用。
-不在本地计算分类 token 容量，厂商上下文超限的 422 保持 invalid_request/request 分类。
+内置目录 2026-10-08.3 仅列固定 jev-1.13.0，自己的真实冒烟已合并；禁用绑定或子策略即可停用新调用。
+不在本地计算分类 token 容量，真实上下文 guard 为 400 max_tokens_exceeded，保持 invalid_request/request；422 线上形状未确认。
+评分有界两位小数舍入与完整报告契约见 ADR-0021/0016；其他概率与图例规则保持。
 
 ## 3. 输出
 

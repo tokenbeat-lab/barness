@@ -4,6 +4,7 @@ package live
 
 import (
 	"bytes"
+	"github.com/tokenbeat-lab/barness/ai"
 	"io"
 	"net/http"
 	"regexp"
@@ -45,14 +46,16 @@ type exchange struct {
 type recorder struct {
 	next http.RoundTripper
 
-	mu        sync.Mutex
-	exchanges []*exchange
+	mu           sync.Mutex
+	exchanges    []*exchange
+	observations []ai.Observation
+	observed     chan struct{}
 }
 
 func newRecorder() *recorder {
 	t := http.DefaultTransport.(*http.Transport).Clone()
 	t.Proxy = nil
-	return &recorder{next: t}
+	return &recorder{next: t, observed: make(chan struct{}, 1)}
 }
 
 // take returns the exchanges recorded since the last take.
@@ -186,4 +189,41 @@ func redactURL(req *http.Request) string {
 		u.RawQuery = q.Encode()
 	}
 	return u.String()
+}
+
+// Observe stores only the public metadata record. Its JSON is independently
+// audited with the existing Observer field allowlist.
+func (r *recorder) Observe(o ai.Observation) error {
+	r.mu.Lock()
+	r.observations = append(r.observations, o)
+	r.mu.Unlock()
+	select {
+	case r.observed <- struct{}{}:
+	default:
+	}
+	return nil
+}
+func (r *recorder) observationsOf(id string) []ai.Observation {
+	timer := time.NewTimer(2 * time.Second)
+	defer timer.Stop()
+	for {
+		r.mu.Lock()
+		var out []ai.Observation
+		finished := false
+		for _, o := range r.observations {
+			if o.Call.RequestID == id {
+				out = append(out, o)
+				finished = finished || o.Kind == ai.ObservationCallFinished
+			}
+		}
+		r.mu.Unlock()
+		if finished {
+			return out
+		}
+		select {
+		case <-r.observed:
+		case <-timer.C:
+			return out
+		}
+	}
 }

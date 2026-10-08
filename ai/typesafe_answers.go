@@ -51,7 +51,7 @@ func decodeScoreAnswer(raw json.RawMessage, q ScoreQuestion) (ScoreAnswer, *Erro
 			sum += *p
 			expected += float64(i) * *p
 		}
-		if math.Abs(sum-1) > 1e-6 || math.Abs(expected-a.Score) > 1e-6 {
+		if math.Abs(sum-1) > 1e-6 || (math.Abs(expected-a.Score) > 1e-6 && !typeSafeRoundedScoreConsistent(a.Score, a.Probabilities)) {
 			return ScoreAnswer{}, classifierProtocolFailure()
 		}
 	}

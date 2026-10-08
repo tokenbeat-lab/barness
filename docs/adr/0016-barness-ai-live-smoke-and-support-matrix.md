@@ -64,3 +64,24 @@ Client 按宿主方式装配：一个租户、一个指向厂商真实 endpoint 
 首次运行时 Google 对 `gemini-2.5-flash` 返回 404：“no longer available to new users”，建议改用 `gemini-3.8-flash`。按决策二“需要换型号时改 `ai/live/combos_test.go`”，Gemini 组合的默认模型改为目录中的 `gemini-3.8-flash`（Gemini 3：level 推理、调用 id 与签名回放、嵌套的工具结果图片），价格为每百万 token 输入 0.75、输出 3.75 美元。其余默认模型首次运行可用。
 
 `auth-refused` 场景按维护者决定于 2026-10-03 删除（401 错误体与请求 id 头已确认，工单 33）；支持矩阵中 DeepSeek 两行保留该能力的历史记录，合并规则不删除能力。
+
+## 工单 08：分类组合与报告 schema 2（2026-10-08）
+
+新增 classifier × typesafe × typesafe-system-one 独立进程；固定官方 endpoint 与
+jev-1.13.0，双开关与本组合凭据变量不变。报告和矩阵的 schema 升为 2，增加
+operation；六个历史行一次性注明 chat，保留其历史时间与能力，不伪造新执行。
+旧 schema 报告拒绝，没有运行时兼容分支。固定组合身份独立校验，报告与矩阵同时错也不能通过。
+分类完整集合是 mixed-questions / single-choice / context-422；只能使用固定型号，
+必交能力不能降为 UNSUPPORTED。按调用、问题、提交状态字节预留预算：6 次、10 个、
+每次 131072 字节；每场景最多 1 次环境重试。记录实际 HTTP 尝试、各场景问题和请求 ID。
+
+context-422 是有界形状核验：40,000 个合成词经公共 Client，本地结构和字节校验通过，
+厂商实际返回 HTTP 400，detail.error_type=max_tokens_exceeded，分类 invalid_request/request。
+仅此明确上下文形状可说明探针完成；备注必须写 422 UNCONFIRMED，不声称观察到 422。
+任意其他 400 失败；不扩大输入、绕过入口或改发空问题。此项修正实施设计的 422 假设，
+按工单“无法预算内确认时明确未确认”处理。空问题由离线公共入口拒绝、零网络请求证明。
+
+本次账户别名 local-typesafe@region-unreported 来自用户提供的 .env Key；
+账户区域与权限级别未核实，不据此宣称该账户符合低权限要求。runner 只提取 TYPESAFE_KEY，
+不 source 整份 .env；子进程只注入本组合 Key 和运行所需环境。Key 不写报告或命令行。
+最终状态只能由自己的脱敏报告合并；NOT_RUN 保留有效历史，拒绝批次不部分写入。

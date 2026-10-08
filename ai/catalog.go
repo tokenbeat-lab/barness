@@ -15,6 +15,9 @@ type Catalog struct {
 
 // BuiltinCatalog returns a fresh copy of the built-in catalog.
 //
+// TypeSafe classifier facts: https://docs.typesafe.ai/models and /api,
+// read 2026-10-08; own live evidence and fixed version inclusion: ADR-0021.
+//
 // Source: frozen pi-ai 1.0.0 providers/data/{openai,anthropic,google,deepseek}.json.
 // Per-file hashes and the complete model-data hash are pinned in
 // internal/testkit/pioracle/node/PROVENANCE.md. Included fields are checked
@@ -46,8 +49,9 @@ type Catalog struct {
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-08.2",
+		Version: "2026-10-08.3",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
 			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels()),
+		ClassifierModels: builtinTypeSafeModels(),
 	}
 }

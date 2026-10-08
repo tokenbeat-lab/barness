@@ -14,12 +14,13 @@ import (
 type combo struct {
 	name string
 	// spec is the spec's protocol scenario, P01–P06, prefixing case IDs.
-	spec     string
-	provider ai.ProviderID
-	api      ai.API
-	endpoint string
-	sdk      func() string
-	model    string
+	spec      string
+	operation ai.Operation
+	provider  ai.ProviderID
+	api       ai.API
+	endpoint  string
+	sdk       func() string
+	model     string
 	// quiet is the simple reasoning level of the scenarios that are not
 	// about reasoning: the model's lowest, so the output budget goes to the
 	// answer rather than to thinking.
@@ -78,7 +79,7 @@ func chatOptions(effort ai.ThinkingLevel) func(int, toolChoice) ai.Options {
 
 var combos = []combo{
 	{
-		name: "openai-responses", spec: "P01", provider: ai.ProviderOpenAI, api: ai.APIOpenAIResponses,
+		operation: ai.OperationChat, name: "openai-responses", spec: "P01", provider: ai.ProviderOpenAI, api: ai.APIOpenAIResponses,
 		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5-mini",
 		quiet: ai.ThinkingMinimal, full: responsesOptions(ai.ThinkingMinimal), forcesTool: true,
 		reasoning: ai.ThinkingLow,
@@ -87,7 +88,7 @@ var combos = []combo{
 		extra: []scenario{toolChanges("gpt-5.4"), toolChanges("gpt-6-sol")},
 	},
 	{
-		name: "anthropic-messages", spec: "P02", provider: ai.ProviderAnthropic, api: ai.APIAnthropicMessages,
+		operation: ai.OperationChat, name: "anthropic-messages", spec: "P02", provider: ai.ProviderAnthropic, api: ai.APIAnthropicMessages,
 		endpoint: "https://api.anthropic.com", sdk: anthropicSDK, model: "claude-haiku-4-5",
 		full: func(maxTokens int, choice toolChoice) ai.Options {
 			o := ai.AnthropicOptions{MaxTokens: ai.Value(maxTokens)}
@@ -104,7 +105,7 @@ var combos = []combo{
 			effortChanges("claude-fable-5-1"), effortChanges("claude-opus-5"), effortChanges("claude-opus-5-5")},
 	},
 	{
-		name: "google-gemini", spec: "P03", provider: ai.ProviderGoogle, api: ai.APIGoogleGenerativeAI,
+		operation: ai.OperationChat, name: "google-gemini", spec: "P03", provider: ai.ProviderGoogle, api: ai.APIGoogleGenerativeAI,
 		endpoint: "https://generativelanguage.googleapis.com/v1beta", sdk: directHTTP, model: "gemini-3.8-flash",
 		full: func(maxTokens int, choice toolChoice) ai.Options {
 			o := ai.GeminiOptions{MaxTokens: ai.Value(maxTokens), Thinking: ai.Value(ai.GeminiThinking{Enabled: false})}
@@ -119,7 +120,7 @@ var combos = []combo{
 		forcesTool: true, reasoning: ai.ThinkingLow,
 	},
 	{
-		name: "openai-chat", spec: "P04", provider: ai.ProviderOpenAI, api: ai.APIOpenAICompletions,
+		operation: ai.OperationChat, name: "openai-chat", spec: "P04", provider: ai.ProviderOpenAI, api: ai.APIOpenAICompletions,
 		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5-mini",
 		quiet: ai.ThinkingMinimal, full: chatOptions(ai.ThinkingMinimal), forcesTool: true,
 		noReplay: "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage",
@@ -129,7 +130,7 @@ var combos = []combo{
 		// DeepSeek's Responses: no level sends effort "none" (its map has
 		// no off entry). The forced choice is not part of P05's smoke, so
 		// the round trip uses automatic choice.
-		name: "deepseek-responses", spec: "P05", provider: ai.ProviderDeepSeek, api: ai.APIOpenAIResponses,
+		operation: ai.OperationChat, name: "deepseek-responses", spec: "P05", provider: ai.ProviderDeepSeek, api: ai.APIOpenAIResponses,
 		endpoint: "https://api.deepseek.com", sdk: openAISDK, model: "deepseek-flash",
 		full: responsesOptions(""), reasoning: ai.ThinkingLow,
 		extra: []scenario{reasoningLevel("deepseek-flash", ai.ThinkingHigh), reasoningLevel("deepseek-flash", ai.ThinkingMax)},
@@ -138,10 +139,15 @@ var combos = []combo{
 		// DeepSeek's Chat: no level switches thinking off, so the forced
 		// tool runs with thinking off (spec P06); thinking with tools,
 		// forced and automatic, runs in its own scenarios.
-		name: "deepseek-chat", spec: "P06", provider: ai.ProviderDeepSeek, api: ai.APIOpenAICompletions,
+		operation: ai.OperationChat, name: "deepseek-chat", spec: "P06", provider: ai.ProviderDeepSeek, api: ai.APIOpenAICompletions,
 		endpoint: "https://api.deepseek.com", sdk: openAISDK, model: "deepseek-flash",
 		full: chatOptions(""), forcesTool: true, reasoning: ai.ThinkingLow,
 		extra: []scenario{chatUsagePosition, forcedToolWithThinking, promptCacheLongRetention,
 			reasoningLevel("deepseek-v4-pro", ai.ThinkingHigh), reasoningLevel("deepseek-v4-pro", ai.ThinkingMax)},
+	},
+	{
+		operation: ai.OperationClassifier, name: "typesafe-classifier", spec: "P07", provider: ai.ProviderTypeSafe,
+		api: ai.APITypeSafeSystemOne, endpoint: "https://api.typesafe.ai/v1", model: "jev-1.13.0",
+		sdk: func() string { return "direct HTTP (ADR-0021; typesafe-system-one v1)" },
 	},
 }

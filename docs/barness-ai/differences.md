@@ -94,10 +94,15 @@ P07 是 pi 自身的 classifier 路由，进入必需差分。对象 state、字
 | typesafe-score-details | score 完整分布及原生 JSON 图例保留、按最终等级校验；pi 仅给 score/confidence，差分投影明确移除这两个字段 |
 | typesafe-strict-answers | 完整键集、概率范围/和、期望与图例一致性，任一失败整体清空答案并保留用量；三项真实差分用例证明 pi 接受而 barness 拒绝 |
 | typesafe-versioned-model | pi jev-latest 通过 modelPatch 固定到本次 jev-1.13.0；目录别名单独登记，不把 ResponseModel 当授权 ID |
-| typesafe-input-pricing | pi 直连 Jev 费率为零；barness 按宿主快照只计输入，差分双方显式移除 usage.cost。官方内建价格及 live 目录仍待工单 08 |
+| typesafe-input-pricing | pi 直连 Jev 费率为零；barness 按宿主快照只计输入，差分双方显式移除 usage.cost。工单 08 已以官方事实和本路线真实证据纳入固定版本，输入每百万 token $0.042、输出免费 |
 | transport metadata | Node fetch 与 Go net/http 的 Accept、Accept-Encoding、Accept-Language、Connection、Sec-Fetch-Mode、User-Agent 六个字段逐项登记，限定 P07 差分用例 |
 
 classifier 目录逐字段比较 pi 拥有的共同字段，固定 ID 与价格的扩展明确登记；
 baseUrl 归属 Binding，pi 的 input=[text] 对应分类隐含模态，两者显式断言并按字段登记，目录比较也产出 pidiff.json。
 未知 pi 目录字段会失败，没有整个目录、请求或结果的豁免。证据及复现见
 [工单 06 验证记录](../../.scratch/barness-ai-pi-1.0/typesafe-mixed-evidence/README.md)。
+
+
+工单 08 的真实 score 证据说明期望需要有界两位小数舍入（ADR-0021），
+概率和仍是 1±1e-6，保留原值；未放宽差分的删除字段或判定账本。
+真实 400 max_tokens_exceeded 已固定为自身协议回放 fixture；422 不由该 400 冒充确认。

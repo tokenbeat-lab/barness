@@ -93,7 +93,7 @@ func passedAt() *time.Time {
 func goodInputs(t *testing.T) Inputs {
 	t.Helper()
 	row := func(combo, provider, api string) supportmatrix.Row {
-		return supportmatrix.Row{Combo: combo, Provider: provider, API: api, Model: "m", SDK: "sdk", AccountAlias: "ci@x",
+		return supportmatrix.Row{Combo: combo, Operation: "chat", Provider: provider, API: api, Model: "m", SDK: "sdk", AccountAlias: "ci@x",
 			LastRunAt: passedAt(), AllPassedAt: passedAt(), Capabilities: []supportmatrix.Capability{
 				{ID: "text-stream", Model: "m", Outcome: supportmatrix.Pass, LastRunAt: passedAt(), LastPassedAt: passedAt()},
 				{ID: "image", Model: "m", Outcome: supportmatrix.Unsupported, Note: "model takes no images", LastRunAt: passedAt()},
@@ -115,7 +115,7 @@ func goodInputs(t *testing.T) Inputs {
 			{ID: "PIDIFF-P01-E01-text-stream", Status: Pass},
 		}, Diffs: []DiffCase{{ID: "PIDIFF-P01-E01-text-stream", Status: Pass, Pending: 0}}},
 		Ledger: Ledger{Extension: 3, Fixed: 1, Routes: []Route{{Provider: "deepseek", API: "openai-responses"}}},
-		Matrix: supportmatrix.Matrix{Schema: 1, Rows: []supportmatrix.Row{
+		Matrix: supportmatrix.Matrix{Schema: supportmatrix.SchemaVersion, Rows: []supportmatrix.Row{
 			row("openai-responses", "openai", "openai-responses"), row("deepseek-responses", "deepseek", "openai-responses"),
 		}},
 		Trace:     mustTrace(t, testTrace),
@@ -386,5 +386,23 @@ func TestMarkdown(t *testing.T) { // 18
 	}
 	if strings.Index(md, "## Offline") > strings.Index(md, "## Differential") || strings.Index(md, "## Differential") > strings.Index(md, "## Live") {
 		t.Error("sections out of order")
+	}
+}
+
+// Missing/mismatched operation or an old matrix must never reuse a prior pass.
+func TestLiveIdentity(t *testing.T) {
+	for _, name := range []string{"wrong-operation", "missing-operation", "old-schema"} {
+		t.Run(name, func(t *testing.T) {
+			in := goodInputs(t)
+			switch name {
+			case "wrong-operation":
+				in.Matrix.Rows[0].Operation = "classifier"
+			case "missing-operation":
+				in.Matrix.Rows[0].Operation = ""
+			case "old-schema":
+				in.Matrix.Schema = 1
+			}
+			expectFail(t, Evaluate(in), GateLive, "identity")
+		})
 	}
 }

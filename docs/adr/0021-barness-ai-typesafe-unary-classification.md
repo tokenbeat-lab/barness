@@ -82,3 +82,25 @@ P07 离线、差分和扩展记录进入 P0/需求追溯，详见
 覆盖同名小写字段。封闭协议记录在解码前按精确 JSON tag 验证字段；问题名、选项名及原生说明对象
 仍保留自己的任意键。bool 的省略 criteria 与显式 null 分开解码，只有省略表示无额外说明。
 公开入口的 case-alias / case-collision 与 callback-null-criteria 先红后绿复现并验证。
+
+## 工单 08：真实 wire 与有界舍入（2026-10-08）
+
+[官方型号页](https://docs.typesafe.ai/models)、[API](https://docs.typesafe.ai/api) 与
+[OpenAPI](https://api.typesafe.ai/openapi.json) 重新抓取并记录日期和 SHA-256。
+线上确认 true/false criteria、版本化 model、x-typesafe-request-id、两计数完整 usage；
+上下文 guard 为 400 max_tokens_exceeded，usage 缺失；422 真实形状仍未确认（ADR-0016）。
+首批目录与自己的混合/单选/有界错误探针证据见[工单 08](../../.scratch/barness-ai-pi-1.0/typesafe-live-evidence/README.md)。
+
+一份官方 200 wire 的 score=1.32，probabilities=.01/.67/.32，其加权期望为 1.31。
+原 1e-6 期望校验拒绝了真实响应；公共离线回放先失败，再修正。
+这是依据线上两位小数的有界兼容推断，厂商文档没有承诺舍入算法。
+概率和仍要求 1±1e-6，单项/键集/图例/range 规则不变，不归一化原值。
+只有 score 和所有概率均在 .01 网格上时，允许每项 ±.005（并裁入 0–1）
+对应一个总和为 1 的潜在分布，其期望区间必须与 score±.005 相交；
+按剩余质量向低/高等级分配求极值。高精度值维持原 1e-6；超出区间整体拒绝。
+潜在风险是厂商真实精度可能并非独立舍入；更多精度的有效反例出现时重开
+[工单 08](../../.scratch/barness-ai-pi-1.0/issues/08-typesafe-live-and-catalog.md)，
+以该路线的真实证据调整，不能扩大为任意差异容差。移除条件是厂商提供一致高精度值。
+
+回滚：禁用 classifier Binding 或 ClassifierPolicy 停止新调用；恢复旧目录快照时
+显式移除型号授权。schema 2 矩阵按 Git 回滚整体数据，拒绝把旧报告再合并进新 schema。

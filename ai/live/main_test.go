@@ -47,6 +47,9 @@ func TestMain(m *testing.M) {
 		os.Exit(1)
 	}
 	cfg = loadConfig()
+	if cfg.combo != nil && cfg.combo.operation == ai.OperationClassifier {
+		budget = classifierBudget()
+	}
 	if cfg.key != "" {
 		run.RedactSecret(cfg.key, "[LIVE-KEY:"+cfg.combo.name+"]")
 	}
@@ -96,7 +99,7 @@ func report(catalogHash string) supportmatrix.Report {
 		expected = append(expected, sc.id)
 	}
 	return supportmatrix.Report{
-		Schema: supportmatrix.SchemaVersion, Combo: c.name, Provider: string(c.provider), API: string(c.api),
+		Schema: supportmatrix.SchemaVersion, Combo: c.name, Operation: string(c.operation), Provider: string(c.provider), API: string(c.api),
 		Endpoint: c.endpoint, Model: c.model, SDK: c.sdk(), AccountAlias: cfg.alias,
 		GitCommit: evidence.GitCommit(), CatalogVersion: catalog.Version, CatalogHash: catalogHash,
 		StartedAt: started, FinishedAt: time.Now().UTC(), Budget: budget, Expected: expected, Scenarios: results,
@@ -157,21 +160,28 @@ func newClient(c *combo, key string, rec *recorder, cat ai.Catalog) (*ai.Client,
 			models = append(models, m.ID)
 		}
 	}
+	for _, m := range cat.ClassifierModels {
+		if c.operation == ai.OperationClassifier && m.Provider == c.provider && m.API == c.api {
+			models = append(models, m.ID)
+		}
+	}
 	res := &resolver{
 		binding: ai.Binding{TenantID: liveTenant, BindingID: c.name, Version: "live", Enabled: true,
-			ProviderID: c.provider, API: c.api, Endpoint: c.endpoint, AuthKind: ai.AuthAPIKey,
+			Operation: c.operation, ProviderID: c.provider, API: c.api, Endpoint: c.endpoint, AuthKind: ai.AuthAPIKey,
 			AccountScopeID: "live-" + c.name, CredentialRef: "live-key", AllowedModels: models},
 		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "live-key", Version: "live",
 			BindingVersion: "live", AccountScopeID: "live-" + c.name, Active: true, APIKey: ai.NewSecret(key)},
 	}
-	return ai.NewClient(ai.Config{Policy: livePolicy(), Bindings: res, Credentials: res, Transport: rec, Catalog: &cat})
+	return ai.NewClient(ai.Config{Policy: livePolicy(), Bindings: res, Credentials: res, Transport: rec, Observer: rec, Catalog: &cat})
 }
 
 // livePolicy bounds a smoke process: short turns, one call at a time.
 // Test values, not deployment guidance.
 func livePolicy() *ai.ResourcePolicy {
 	return &ai.ResourcePolicy{
-		MaxRequestBytes: 1 << 20, MaxImageBytes: 1 << 19, MaxFrameBytes: 1 << 20, MaxToolJSONBytes: 1 << 16,
+		Classifier:            &ai.ClassifierPolicy{MaxQuestions: 3, MaxStateBytes: 131072, MaxQuestionBytes: 16384},
+		MaxQueuedObservations: 128,
+		MaxRequestBytes:       1 << 20, MaxImageBytes: 1 << 19, MaxFrameBytes: 1 << 20, MaxToolJSONBytes: 1 << 16,
 		MaxErrorBodyBytes: 1 << 16, MaxOutputBytes: 8 << 20, MaxQueuedEvents: 1 << 14, MaxQueuedEventBytes: 8 << 20,
 		MaxConcurrentPerTenant: 2, MaxConcurrentProcess: 2, MaxAdmissionWaiters: 2, AdmissionWait: time.Second,
 		CallTimeout: 3 * time.Minute, ConnectTimeout: 15 * time.Second,

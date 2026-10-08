@@ -195,6 +195,7 @@ type LiveSection struct {
 // LiveRow is one required combination.
 type LiveRow struct {
 	Combo        string     `json:"combo"`
+	Operation    string     `json:"operation"`
 	Provider     string     `json:"provider,omitempty"`
 	API          string     `json:"api,omitempty"`
 	Model        string     `json:"model,omitempty"`
@@ -389,7 +390,7 @@ func live(in Inputs) (LiveSection, Gate) {
 			continue
 		}
 		m := in.Matrix.Rows[i]
-		row := LiveRow{Combo: combo, Provider: m.Provider, API: m.API, Model: m.Model, SDK: m.SDK, AccountAlias: m.AccountAlias,
+		row := LiveRow{Combo: combo, Operation: m.Operation, Provider: m.Provider, API: m.API, Model: m.Model, SDK: m.SDK, AccountAlias: m.AccountAlias,
 			LastRunAt: m.LastRunAt, AllPassedAt: m.AllPassedAt}
 		for _, c := range m.Capabilities {
 			switch c.Outcome {
@@ -401,6 +402,9 @@ func live(in Inputs) (LiveSection, Gate) {
 			}
 		}
 		switch {
+		case in.Matrix.Schema != supportmatrix.SchemaVersion || !m.ValidIdentity():
+			row.Status = Fail
+			g.Problems = append(g.Problems, combo+": invalid schema or route identity")
 		case len(row.Failing) > 0:
 			row.Status = Fail
 			g.Problems = append(g.Problems, combo+": failing now: "+strings.Join(row.Failing, ", "))

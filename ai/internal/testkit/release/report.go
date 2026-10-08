@@ -51,9 +51,9 @@ func (r Report) Markdown() string {
 	listing(&b, "Not passing", r.Differential.Failing)
 
 	b.WriteString("\n## Live\n\nFrom the support matrix (ai/live/support-matrix.json).\n\n")
-	b.WriteString("| Combination | Status | Model | SDK | Account | Last complete pass | Unsupported | Failing |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n")
+	b.WriteString("| Combination | Operation | Status | Model | SDK | Account | Last complete pass | Unsupported | Failing |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n")
 	for _, row := range r.Live.Rows {
-		fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s | %s | %s |\n", row.Combo, row.Status, dash(row.Model), dash(row.SDK),
+		fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s | %s | %s | %s |\n", row.Combo, row.Operation, row.Status, dash(row.Model), dash(row.SDK),
 			dash(row.AccountAlias), when(row.AllPassedAt), cell(row.Unsupported, 4), cell(row.Failing, 4))
 	}
 

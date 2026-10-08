@@ -31,6 +31,8 @@ import (
 //     caller's matrix.
 // 14. A run narrowed to some scenarios marks the row all-passed: the report
 //     does not say which scenarios the combination has.
+// 16. A report with a missing or wrong operation crosses the route boundary.
+// 17. An old report is accepted after schema migration.
 // 15. A misconfigured process (FAIL with category config) overwrites real
 //     results and moves the row's last run forward.
 
@@ -42,8 +44,8 @@ var (
 
 func baseMatrix() Matrix {
 	return Matrix{Schema: SchemaVersion, Rows: []Row{
-		{Combo: "openai-responses", Provider: "openai", API: "openai-responses"},
-		{Combo: "deepseek-responses", Provider: "deepseek", API: "openai-responses",
+		{Combo: "openai-responses", Operation: "chat", Provider: "openai", API: "openai-responses"},
+		{Combo: "deepseek-responses", Operation: "chat", Provider: "deepseek", API: "openai-responses",
 			LastRunAt: &t0, Model: "deepseek-flash", SDK: "openai-go v0", AccountAlias: "old",
 			Capabilities: []Capability{{ID: "text-stream", Model: "deepseek-flash", Outcome: Pass, LastRunAt: &t0, LastPassedAt: &t0}}},
 	}}
@@ -54,7 +56,7 @@ func report(combo, provider, api string, at time.Time, scenarios ...ScenarioResu
 	for i, s := range scenarios {
 		expected[i] = s.ID
 	}
-	return Report{Schema: SchemaVersion, Combo: combo, Provider: provider, API: api, Model: "m", SDK: "sdk v1",
+	return Report{Schema: SchemaVersion, Combo: combo, Operation: "chat", Provider: provider, API: api, Model: "m", SDK: "sdk v1",
 		AccountAlias: "ci@region", StartedAt: at.Add(-time.Minute), FinishedAt: at, Expected: expected, Scenarios: scenarios}
 }
 
@@ -68,6 +70,21 @@ func TestMergeRefusals(t *testing.T) {
 		{"1 unknown combination", report("mistral-chat", "mistral", "openai-completions", t1, pass("text-stream"))},
 		{"2 provider differs from the row", report("deepseek-responses", "openai", "openai-responses", t1, pass("text-stream"))},
 		{"2 API differs from the row", report("deepseek-responses", "deepseek", "openai-completions", t1, pass("text-stream"))},
+		{"16 wrong operation", func() Report {
+			r := report("openai-responses", "openai", "openai-responses", t1, pass("text-stream"))
+			r.Operation = "classifier"
+			return r
+		}()},
+		{"16 missing operation", func() Report {
+			r := report("openai-responses", "openai", "openai-responses", t1, pass("text-stream"))
+			r.Operation = ""
+			return r
+		}()},
+		{"17 old report", func() Report {
+			r := report("openai-responses", "openai", "openai-responses", t1, pass("text-stream"))
+			r.Schema = 1
+			return r
+		}()},
 		{"3 schema", func() Report {
 			r := report("openai-responses", "openai", "openai-responses", t1, pass("text-stream"))
 			r.Schema = SchemaVersion + 1

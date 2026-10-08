@@ -29,7 +29,7 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 | go-test / go-test-race / go-vet | 命令成功；未执行即失败 |
 | p0-offline | 离线证据包每个用例 PASS（或明确 UNSUPPORTED），E01–E11、P01–P06、D1、D2 与压力场景各至少一个 PASS |
 | differential | 差分用例全部 PASS、无待处理发现且记录含 spec 要求的字段，账本无 `pending` 决定，P01–P04、P06 各有差分用例，DeepSeek × Responses 登记为扩展路径 |
-| live | 六个组合在支持矩阵中完整通过（每个场景 PASS 或带说明的 UNSUPPORTED）、当前无失败能力、最后一次完整通过所用 SDK 版本与 go.mod 一致，且该组合的 live 证据包经 `-live` 交付审计；adapter 改动无法从矩阵判断，需维护者重跑受影响组合 |
+| live | 当前七个组合在支持矩阵中完整通过（每个场景 PASS 或带说明的 UNSUPPORTED）、当前无失败能力、最后一次完整通过所用 SDK 版本与 go.mod 一致，且该组合的 live 证据包经 `-live` 交付审计；adapter 改动无法从矩阵判断，需维护者重跑受影响组合 |
 | redaction-audit | 离线、race 与 `-live` 给出的证据包零发现，且每个包运行结束时记录的 `audit.json`（含该次运行注册的测试秘密）同样零发现。“非合成数据”以审计进程环境中的凭据值、主目录、主机名与 key 形状为可检查的判据（ADR-0017 决策四），不逐字判定 live 响应正文 |
 | traceability | 每个研究条目由实际证据判定为 PASS；只有映射没有证据的条目为 NO_EVIDENCE |
 | snapshots | 目录快照与代码一致（变更后用 `-write-snapshot` 重新生成并审阅差异） |
@@ -64,15 +64,17 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 
 ## 支持矩阵
 
-| 组合 | 协议 | 状态 |
-| --- | --- | --- |
-| openai-responses | OpenAI × Responses（P01），gpt-5-mini | PASS |
-| anthropic-messages | Anthropic × Messages（P02），claude-haiku-4-5 | PASS |
-| google-gemini | Google × Gemini Developer API（P03），gemini-3.8-flash | PASS |
-| openai-chat | OpenAI × Chat Completions（P04），gpt-5-mini | PASS（reasoning-history UNSUPPORTED：该协议不返回可回放的推理） |
-| deepseek-responses | DeepSeek × Responses（P05，扩展路径），deepseek-flash | PASS |
-| deepseek-chat | DeepSeek × Chat Completions（P06），deepseek-flash / deepseek-v4-pro | PASS |
+| 组合 | 操作 | 协议 | 状态 |
+| --- | --- | --- | --- |
+| openai-responses | chat | OpenAI × Responses（P01），gpt-5-mini | PASS |
+| anthropic-messages | chat | Anthropic × Messages（P02），claude-haiku-4-5 | PASS |
+| google-gemini | chat | Google × Gemini Developer API（P03），gemini-3.8-flash | PASS |
+| openai-chat | chat | OpenAI × Chat Completions（P04），gpt-5-mini | PASS（reasoning-history UNSUPPORTED：该协议不返回可回放的推理） |
+| deepseek-responses | chat | DeepSeek × Responses（P05，扩展路径），deepseek-flash | PASS |
+| deepseek-chat | chat | DeepSeek × Chat Completions（P06），deepseek-flash / deepseek-v4-pro | PASS |
 
-最后完整通过时间均为 2026-10-02，详见矩阵文件。
+| typesafe-classifier | classifier | TypeSafe × System One（P07），jev-1.13.0 | PASS（有界上下文探针返回 400；422 形状未确认） |
+
+各路线自己的最后完整通过时间见矩阵文件；TypeSafe 为 2026-10-08，聊天保留既有历史，未据此重标。
 
 在矩阵对应行完整通过之前，不得宣称该组合受支持（spec I10）。

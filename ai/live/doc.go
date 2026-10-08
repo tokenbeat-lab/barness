@@ -6,7 +6,7 @@
 //
 // Its tests are behind two switches, so `go test ./...` never reaches the
 // network: the build tag live and BARNESS_AI_LIVE=1. One process runs one
-// Provider × API combination and holds only that combination's key:
+// Operation × Provider × API combination and holds only that combination's key:
 //
 //	BARNESS_AI_LIVE=1 \
 //	BARNESS_AI_LIVE_COMBO=deepseek-chat \
@@ -16,8 +16,12 @@
 //
 // Combinations (BARNESS_AI_LIVE_COMBO, key variable suffix):
 // openai-responses, openai-chat, anthropic-messages, google-gemini,
-// deepseek-responses, deepseek-chat; the key variable is
+// deepseek-responses, deepseek-chat, typesafe-classifier; the key variable is
 // BARNESS_AI_LIVE_KEY_ followed by the name in upper case with "-" as "_".
+// TypeSafe uses fixed jev-1.13.0; at most 6 calls / 10 questions and 131072
+// state bytes per call. Its public Client context probe reports the actual
+// guard (observed 400 max_tokens_exceeded); 422 is explicitly unconfirmed.
+// Local dotenv injection and current evidence are described in issue 08.
 // Each combination's models are fixed in the suite (combos_test.go), chosen
 // to have every capability the combination promises.
 //

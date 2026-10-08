@@ -75,3 +75,11 @@ Answers 为空。input_tokens/output_tokens 均存在且非 null 为 complete，
 输出成本为 0。授权 ModelID 保持不变，ResponseModel 单独保存厂商版本。真实价格来源与内置型号待工单 08 验收。
 
 详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。
+
+## 工单 08：TypeSafe 官方价格快照（2026-10-08）
+
+[官方型号页](https://docs.typesafe.ai/models) 仍列 jev-1.13.0：每百万输入 token
+$0.042，输出免费。纳入目录 2026-10-08.3 并重建完整 hash/snapshot。
+真实成功响应上报两个 token 计数，complete；上下文拒绝未给 usage，unreported，
+零值不是零消耗。保留这两种真实 fixture，公共 Client 离线回放核对计价与缺失语义。
+来源抓取日期/哈希、wire 与最终审计见[工单 08 证据](../../.scratch/barness-ai-pi-1.0/typesafe-live-evidence/README.md)。

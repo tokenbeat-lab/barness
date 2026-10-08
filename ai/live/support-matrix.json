@@ -1,8 +1,9 @@
 {
-  "schema": 1,
+  "schema": 2,
   "rows": [
     {
       "combo": "openai-responses",
+      "operation": "chat",
       "provider": "openai",
       "api": "openai-responses",
       "model": "gpt-5-mini",
@@ -77,6 +78,7 @@
     },
     {
       "combo": "anthropic-messages",
+      "operation": "chat",
       "provider": "anthropic",
       "api": "anthropic-messages",
       "model": "claude-haiku-4-5",
@@ -175,6 +177,7 @@
     },
     {
       "combo": "google-gemini",
+      "operation": "chat",
       "provider": "google",
       "api": "google-generative-ai",
       "model": "gemini-3.8-flash",
@@ -233,6 +236,7 @@
     },
     {
       "combo": "openai-chat",
+      "operation": "chat",
       "provider": "openai",
       "api": "openai-completions",
       "model": "gpt-5-mini",
@@ -322,6 +326,7 @@
     },
     {
       "combo": "deepseek-responses",
+      "operation": "chat",
       "provider": "deepseek",
       "api": "openai-responses",
       "model": "deepseek-flash",
@@ -404,6 +409,7 @@
     },
     {
       "combo": "deepseek-chat",
+      "operation": "chat",
       "provider": "deepseek",
       "api": "openai-completions",
       "model": "deepseek-flash",
@@ -505,6 +511,43 @@
           "note": "error body keys error{code,message,param,type}; id-like response headers [eo-log-uuid x-ds-trace-id]",
           "lastRunAt": "2026-10-02T13:59:24.82005Z",
           "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+        }
+      ]
+    },
+    {
+      "combo": "typesafe-classifier",
+      "operation": "classifier",
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "model": "jev-1.13.0",
+      "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+      "accountAlias": "local-typesafe@region-unreported",
+      "lastRunAt": "2026-10-08T03:13:35.668455Z",
+      "allPassedAt": "2026-10-08T03:13:35.668455Z",
+      "capabilities": [
+        {
+          "id": "mixed-questions",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 2.22044605e-16 (Client validates bounded hundredth rounding)",
+          "lastRunAt": "2026-10-08T03:13:35.668455Z",
+          "lastPassedAt": "2026-10-08T03:13:35.668455Z"
+        },
+        {
+          "id": "single-choice",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0",
+          "lastRunAt": "2026-10-08T03:13:35.668455Z",
+          "lastPassedAt": "2026-10-08T03:13:35.668455Z"
+        },
+        {
+          "id": "context-422",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported",
+          "lastRunAt": "2026-10-08T03:13:35.668455Z",
+          "lastPassedAt": "2026-10-08T03:13:35.668455Z"
         }
       ]
     }

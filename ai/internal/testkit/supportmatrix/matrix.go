@@ -18,7 +18,7 @@ import (
 
 // SchemaVersion is the report and matrix layout this package reads and
 // writes.
-const SchemaVersion = 1
+const SchemaVersion = 2
 
 // Outcome is a live scenario's result. There are exactly four; a vendor
 // fault is a Fail, never a skip.
@@ -44,10 +44,11 @@ type Report struct {
 	Schema int `json:"schema"`
 	// Combo names the combination, e.g. "deepseek-chat"; Provider and API
 	// are its pi-ai identifiers and must match the matrix row.
-	Combo    string `json:"combo"`
-	Provider string `json:"provider"`
-	API      string `json:"api"`
-	Endpoint string `json:"endpoint"`
+	Combo     string `json:"combo"`
+	Operation string `json:"operation"`
+	Provider  string `json:"provider"`
+	API       string `json:"api"`
+	Endpoint  string `json:"endpoint"`
 	// Model is the combination's default model; a scenario may name another.
 	Model string `json:"model"`
 	// SDK is the module and version serving the protocol, or "direct HTTP".
@@ -70,13 +71,18 @@ type Report struct {
 
 // Budget bounds one live process's spend.
 type Budget struct {
-	MaxCalls           int `json:"maxCalls"`
-	MaxRetries         int `json:"maxRetriesPerScenario"`
-	MaxOutputTokens    int `json:"maxOutputTokensPerCall"`
-	CallsUsed          int `json:"callsUsed"`
-	OutputTokensUsed   int `json:"outputTokensUsed"`
-	InputTokensUsed    int `json:"inputTokensUsed"`
-	EnvironmentRetries int `json:"environmentRetries"`
+	MaxCalls            int `json:"maxCalls"`
+	MaxQuestions        int `json:"maxQuestions,omitempty"`
+	QuestionsUsed       int `json:"questionsUsed,omitempty"`
+	HTTPAttempts        int `json:"httpAttempts"`
+	MaxStateBytes       int `json:"maxStateBytesPerCall,omitempty"`
+	StateBytesSubmitted int `json:"stateBytesSubmitted,omitempty"`
+	MaxRetries          int `json:"maxRetriesPerScenario"`
+	MaxOutputTokens     int `json:"maxOutputTokensPerCall"`
+	CallsUsed           int `json:"callsUsed"`
+	OutputTokensUsed    int `json:"outputTokensUsed"`
+	InputTokensUsed     int `json:"inputTokensUsed"`
+	EnvironmentRetries  int `json:"environmentRetries"`
 }
 
 // ScenarioResult is one scenario of a report.
@@ -94,6 +100,8 @@ type ScenarioResult struct {
 	Environment        bool     `json:"environment,omitempty"`
 	DurationMS         int64    `json:"durationMs"`
 	Calls              int      `json:"calls"`
+	Attempts           int      `json:"attempts"`
+	Questions          int      `json:"questions,omitempty"`
 	Retries            int      `json:"retries,omitempty"`
 	ProviderRequestIDs []string `json:"providerRequestIds,omitempty"`
 	// Note records what was observed beyond pass/fail, and is required for
@@ -122,6 +130,7 @@ type Matrix struct {
 // Row is one combination's support state.
 type Row struct {
 	Combo        string `json:"combo"`
+	Operation    string `json:"operation"`
 	Provider     string `json:"provider"`
 	API          string `json:"api"`
 	Model        string `json:"model,omitempty"`
@@ -209,8 +218,11 @@ func check(m Matrix, r Report) (int, error) {
 		return 0, refuse("combination %q is not in the matrix", r.Combo)
 	}
 	row := m.Rows[idx]
-	if row.Provider != r.Provider || row.API != r.API {
-		return 0, refuse("combination %q is %s × %s, the report says %s × %s", r.Combo, row.Provider, row.API, r.Provider, r.API)
+	if !row.ValidIdentity() {
+		return 0, refuse("matrix row %q has an inconsistent route identity", row.Combo)
+	}
+	if r.Operation == "" || row.Operation != r.Operation || row.Provider != r.Provider || row.API != r.API {
+		return 0, refuse("combination %q is %s × %s × %s, the report says %s × %s × %s", r.Combo, row.Operation, row.Provider, row.API, r.Operation, r.Provider, r.API)
 	}
 	if r.FinishedAt.IsZero() {
 		return 0, refuse("report has no finish time")
@@ -240,6 +252,9 @@ func check(m Matrix, r Report) (int, error) {
 			return 0, refuse("unsupported scenario %q gives no reason", s.ID)
 		}
 		seen[s.ID] = true
+	}
+	if err := checkClassifier(r); err != nil {
+		return 0, err
 	}
 	return idx, nil
 }

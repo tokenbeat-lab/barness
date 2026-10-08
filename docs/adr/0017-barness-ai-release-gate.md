@@ -78,3 +78,15 @@ live 门禁对每个组合要求：矩阵中有完整通过、当前无失败能
 ## 后续（2026-10-04，工单 32）
 
 决策三中 `MaxToolJSONBytes` 的收紧已撤销：云端 128 KiB → 512 KiB，本地 256 KiB → 1 MiB（即原值）。两处平方成本都已消除：`PartialView` 不再在每个 delta 上解析工具参数，而是在被读取（Snapshot、序列化、终态）时按当时的原始文本解析并缓存到下一个 delta，读到的值与 pi 在该时刻持有的相同（差分无新增差异）；适配器累计原始文本时不再 `raw += delta` 整段复制。新增 `E08-policy-pressure-tool-arguments-scaling` 以 64 字节 delta 流式传入 128 KiB、512 KiB、2 MiB 的单个工具调用，要求最大与最小尺寸的每字节耗时之比不超过 3（平方增长时为 16），实测约 1.0（12 ms、48 ms、192 ms）。压力场景的设计负载相应改为本地 512 KiB、云端 256 KiB 工具调用（用量 50%）。工具调用现在数十毫秒即结束，可能在最后一个调用被准入前释放许可（一次运行测得峰值 31/32），因此设计负载的每个回复都等到全部请求到达后才开始流式返回，“并发占满”不再依赖时序。仍按 pi 成本的情形：消费者在每个 delta 后都读取视图时，每次读取都完整解析一次参数。
+
+## 工单 08：操作身份与分类发布输入（2026-10-08）
+
+当前 liveCombos 增至七条，新增 TypeSafe classifier。live 门禁和输出报告携带
+operation；schema 或 operation/provider/API 与固定组合身份不一致时拒绝复用历史通过。
+六条聊天历史只迁移 schema/operation 元数据，不据 TypeSafe 的通过更新其他行。
+本工单只交付 TypeSafe 当前路线的 live 证据；旧六条尚未在 1.0 升级后重新跑过，
+不能把本次专项验收称作整个版本发布通过。后续图像路线仍由其工单分别验收。
+
+审计复核：operation 是入口常量；providerRequestId 是厂商 ID 元数据；
+x-typesafe-request-id 属于现有 request-id 响应头白名单。无需扩大白名单到正文；
+真实 observations 文件与错误响应一起经过逐文件审计，禁止 state/questions/answers/错误正文进入 Observer。

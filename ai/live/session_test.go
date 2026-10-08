@@ -26,6 +26,9 @@ type scenario struct {
 }
 
 func scenariosOf(c *combo) []scenario {
+	if c.operation == ai.OperationClassifier {
+		return classifierScenarios()
+	}
 	return append([]scenario{textStream, textComplete, toolRoundTrip, cancelAfterFirstFrame, reasoningHistory, imageInput},
 		c.extra...)
 }
@@ -45,12 +48,15 @@ type session struct {
 	// before any assertion; the harness retries it.
 	fault *ai.Error
 	// category classifies a failed attempt (supportmatrix.ScenarioResult).
-	category    string
-	unsupported string
-	notes       []string
-	requestIDs  []string
-	calls       int
-	attempt     int
+	category      string
+	unsupported   string
+	notes         []string
+	requestIDs    []string
+	calls         int
+	questions     int
+	httpAttempts  int
+	lastExchanges []exchange
+	attempt       int
 }
 
 func runScenario(t *testing.T, cs *evidence.Case, c *combo, selected bool, env *liveEnv, sc scenario) {
@@ -77,6 +83,8 @@ func runScenario(t *testing.T, cs *evidence.Case, c *combo, selected bool, env *
 		sc.run(s)
 		cancel()
 		res.Calls += s.calls
+		res.Questions += s.questions
+		res.Attempts += s.httpAttempts
 		res.ProviderRequestIDs = append(res.ProviderRequestIDs, s.requestIDs...)
 		// A fault after a failed assertion is not retried: the assertion
 		// already decided the scenario.
@@ -184,6 +192,8 @@ func (s *session) observe(label string, res ai.Result, err error) []exchange {
 		}
 	}
 	mu.Lock()
+	budget.HTTPAttempts += len(ex)
+	s.httpAttempts += len(ex)
 	budget.InputTokensUsed += int(res.Message.Usage.Input + res.Message.Usage.CacheRead + res.Message.Usage.CacheWrite)
 	budget.OutputTokensUsed += int(res.Message.Usage.Output)
 	mu.Unlock()
