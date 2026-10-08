@@ -1,0 +1,28 @@
+=== RUN   TestLive
+=== RUN   TestLive/anthropic-messages
+=== RUN   TestLive/anthropic-messages/text-stream
+=== RUN   TestLive/anthropic-messages/text-complete
+=== RUN   TestLive/anthropic-messages/tool-round-trip
+=== RUN   TestLive/anthropic-messages/cancel-after-first-frame
+=== RUN   TestLive/anthropic-messages/reasoning-history
+=== RUN   TestLive/anthropic-messages/image
+=== RUN   TestLive/anthropic-messages/tool-changes-claude-opus-4-8
+=== RUN   TestLive/anthropic-messages/tool-changes-claude-fable-5
+=== RUN   TestLive/anthropic-messages/effort-changes-claude-fable-5-1
+=== RUN   TestLive/anthropic-messages/effort-changes-claude-opus-5
+=== RUN   TestLive/anthropic-messages/effort-changes-claude-opus-5-5
+--- PASS: TestLive (32.25s)
+    --- PASS: TestLive/anthropic-messages (32.25s)
+        --- PASS: TestLive/anthropic-messages/text-stream (1.53s)
+        --- PASS: TestLive/anthropic-messages/text-complete (0.76s)
+        --- PASS: TestLive/anthropic-messages/tool-round-trip (1.36s)
+        --- PASS: TestLive/anthropic-messages/cancel-after-first-frame (0.67s)
+        --- PASS: TestLive/anthropic-messages/reasoning-history (3.02s)
+        --- PASS: TestLive/anthropic-messages/image (0.57s)
+        --- PASS: TestLive/anthropic-messages/tool-changes-claude-opus-4-8 (4.58s)
+        --- PASS: TestLive/anthropic-messages/tool-changes-claude-fable-5 (7.60s)
+        --- PASS: TestLive/anthropic-messages/effort-changes-claude-fable-5-1 (2.69s)
+        --- PASS: TestLive/anthropic-messages/effort-changes-claude-opus-5 (6.60s)
+        --- PASS: TestLive/anthropic-messages/effort-changes-claude-opus-5-5 (2.87s)
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/issue17-accepted/live/anthropic-messages/20261008T114520.752643000Z

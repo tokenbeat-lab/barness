@@ -26,6 +26,13 @@ for name, digest in read(FOLDER / 'sha256.json').items():
     assert sha(FOLDER / name) == digest, 'delivery artifact changed: '+name
 manifest = read(FOLDER / 'manifest.json')
 verification = read(FOLDER / 'verification.json')
+live = {a['role']: a for a in manifest['archives'] if a['role'] not in ('offline', 'race', 'chinese-effect')}
+covered = []
+for build in verification['liveHarnesses']:
+    assert len(build['sha256']) == 64 and build['combos']
+    assert all(live[c]['commit'] == build['commit'] for c in build['combos'])
+    covered.extend(build['combos'])
+assert sorted(covered) == sorted(live), 'live harness provenance incomplete or duplicated'
 report = read(FOLDER / 'release-report.json')
 assert report['commit'] == manifest['git_commit'] == verification['testedCommit']
 assert report['pass'] and all(g['pass'] for g in report['gates'])
@@ -36,7 +43,13 @@ assert report['differential']['pending'] == verification['differentialPending'] 
 assert all(t['status'] == 'PASS' for t in report['traceability'])
 assert all(not a['findings'] and not a.get('error') for a in report['audits'])
 assert not verification['standardsRemaining'] and not verification['specRemaining']
-for name, digest in read(FOLDER / 'source-hashes.json').items():
+sources = read(FOLDER / 'source-hashes.json')
+# Repeat the inventory check at consumption time: generation-time validation
+# cannot detect a source file added before these Go tools are recompiled.
+excluded = {'ai/README.md', 'ai/README.zh-CN.md', 'ai/live/support-matrix.json'}
+current = set(subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', 'ai', 'go.mod', 'go.sum'], cwd=ROOT, text=True).splitlines()) - excluded
+assert current == set(sources), 'current source inventory differs from tested source'
+for name, digest in sources.items():
     assert sha(ROOT / name) == digest, 'current source differs from tested source: '+name
     committed = subprocess.check_output(['git', 'show', report['commit']+':'+name], cwd=ROOT)
     assert hashlib.sha256(committed).hexdigest() == digest, 'recorded source commit mismatch'
@@ -82,6 +95,22 @@ with tempfile.TemporaryDirectory(prefix='barness-release-verify-') as work:
     commands = {'go-test', 'go-test-race', 'go-vet'}
     assert run.returncode == 1 and not recomputed['pass']
     assert all(g['pass'] == (g['id'] not in commands) for g in recomputed['gates']), 'artifact gate replay mismatch'
+    for h in manifest.get('history', []):
+        assert sha(FOLDER / h['archive']) == h['sha256'] and h['failedCases']
+        with tarfile.open(FOLDER / h['archive'], 'r:gz') as tar:
+            for member in tar.getmembers():
+                path = Path(member.name)
+                assert not path.is_absolute() and '..' not in path.parts and (member.isdir() or member.isfile())
+                assert member.uid == member.gid == 0 and not member.uname and not member.gname
+            tar.extractall(work, filter='data')
+        failed = work / h['bundle']
+        m = read(failed / 'manifest.json')
+        assert [c['id'] for c in m['cases'] if c['status']=='FAIL'] == h['failedCases']
+        for c in m['cases']:
+            for name, digest in c['artifacts'].items():
+                assert Path(name).name == name and sha(failed / c['dir'] / name) == digest
+        assert not read(failed / 'audit.json')['findings']
+        subprocess.run(['go', 'run', './ai/internal/testkit/audit/cmd/auditbundle', str(failed)], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
 
 print('verified 12 complete bundles; 10 recorded gates PASS; 9 live routes PASS; zero pending')
 print('fresh run: python3 '+str(FOLDER.relative_to(ROOT) / 'run-release.py')+' --live --out .evidence/<fresh-run>')

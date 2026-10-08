@@ -1,0 +1,22 @@
+=== RUN   TestLive
+=== RUN   TestLive/deepseek-responses
+=== RUN   TestLive/deepseek-responses/text-stream
+=== RUN   TestLive/deepseek-responses/text-complete
+=== RUN   TestLive/deepseek-responses/tool-round-trip
+=== RUN   TestLive/deepseek-responses/cancel-after-first-frame
+=== RUN   TestLive/deepseek-responses/reasoning-history
+=== RUN   TestLive/deepseek-responses/image
+=== RUN   TestLive/deepseek-responses/reasoning-level-high
+=== RUN   TestLive/deepseek-responses/reasoning-level-max
+--- PASS: TestLive (7.64s)
+    --- PASS: TestLive/deepseek-responses (7.64s)
+        --- PASS: TestLive/deepseek-responses/text-stream (0.61s)
+        --- PASS: TestLive/deepseek-responses/text-complete (0.81s)
+        --- PASS: TestLive/deepseek-responses/tool-round-trip (1.35s)
+        --- PASS: TestLive/deepseek-responses/cancel-after-first-frame (0.36s)
+        --- PASS: TestLive/deepseek-responses/reasoning-history (2.18s)
+        --- PASS: TestLive/deepseek-responses/image (0.61s)
+        --- PASS: TestLive/deepseek-responses/reasoning-level-high (1.09s)
+        --- PASS: TestLive/deepseek-responses/reasoning-level-max (0.63s)
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/issue17-deepseek/live/deepseek-responses/20261008T121716.706063000Z

@@ -12,7 +12,7 @@ barness-ai 是 barness 连接多种 LLM Provider 的协议中间件（Go 包 `gi
 | 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |
 | 最小示例 | `ai/examples/localassembly`、`hostintegration`、`toolloop`、`requestid` |
 | 研究条目追溯 | [`ai/release/traceability.json`](../../ai/release/traceability.json)（研究 T/C/H/V/S 条目 → E/P/D 场景 → 证据用例） |
-| 决策 | [ADR-0001…0017](../adr/)；门禁本身见 ADR-0017 |
+| 决策 | [ADR-0001…0024](../adr/)；门禁本身见 ADR-0017 |
 
 ## 发布门禁
 
@@ -37,7 +37,18 @@ go run ./ai/release/cmd/releasegate -evaluation <独立中文效果包> [-live <
 
 报告 `release-report.md`/`.json` 分别列出离线、差分与 live 结果，并附追溯表、审计结论、命令耗时；证据包另含目录快照、账本、支持矩阵、追溯表与 fixture 索引的副本。`-bundle <dir>` 只评估已有离线证据包（命令门禁记为未执行）。
 
-### 当前状态（2026-10-02）
+### 当前九组合结论（2026-10-08）
+
+工单 17 的完整门禁十项全部 PASS，受测提交 `0dca06c`：普通与 race 各 4,448 个
+用例（离线 3,825、pi 1.0.0 差分 623，pending 0），两种 vet、九组合自身真实证据、
+76 条需求追溯、正式目录/价格快照、混合设计负载与独立中文效果完整性均通过；
+十二个完整包逐包审计零发现。[可重放完整证据与核验](../../.scratch/barness-ai-pi-1.0/nine-route-release-evidence/README.md)
+保留原始请求/响应、消费结果、Observer、图片、资源读数和完整文件哈希。
+一次较早压力读取中断的失败包单独保留，当前完整重跑通过；原因仍未确认，
+由 [工单 18](../../.scratch/barness-ai-pi-1.0/issues/18-pressure-loopback-interruption.md) 追踪。
+没有调整负载或预算，中文合成任务的 24/24 结果不作为生产准确率保证。
+
+### 历史状态（2026-10-02/03）
 
 门禁**通过**（2026-10-03 最近一次为 `.evidence/barness-ai-release/gate6`，DeepSeek 两组合在工单 33 的改动后重跑了真实冒烟；九道门禁全部 PASS）：离线 2374 个用例、差分 432 个用例（无待处理）、`-race`、vet、六组合 live、8 个证据包审计零发现、全部追溯条目、目录快照。六组合的真实冒烟用账户别名 `prod-*` 的账户运行（spec 要求独立低权限测试账户，本次由维护者决定使用生产 key）。
 
@@ -90,7 +101,11 @@ OpenAI image、Google image 和 TypeSafe；chat 为 128 KiB 历史/16 KiB 输出
 | deepseek-responses | chat | DeepSeek × Responses（P05，扩展路径），deepseek-flash | PASS |
 | deepseek-chat | chat | DeepSeek × Chat Completions（P06），deepseek-flash / deepseek-v4-pro | PASS |
 | typesafe-classifier | classifier | TypeSafe × System One（P07），jev-1.13.0 | PASS（有界上下文探针返回 400；422 形状未确认） |
+| openai-images | image | OpenAI × Images（P08），gpt-image-2.5-sunburst-2026-09-08 | PASS（生成、JSON 编辑与 mask） |
+| google-interactions-image | image | Google × Interactions v1beta（P09），gemini-nano-banana-2.1 | PASS（生成与参考编辑，一参考/一输出、1K/1:1） |
 
-各路线自己的最后完整通过时间见矩阵文件；TypeSafe 为 2026-10-08，聊天保留既有历史，未据此重标。
+2026-10-08 九组合均以自己的独立真实进程重跑并合并完整报告，具体能力、型号与时间见矩阵。
+账户别名为 `local-*@region-permissions-unconfirmed`，如实保留本次未确认的区域与权限属性。
+完整捕获、消费结果、Observer、图像校验及独立中文效果见 [九组合发布证据](../../.scratch/barness-ai-pi-1.0/nine-route-release-evidence/README.md)。
 
 在矩阵对应行完整通过之前，不得宣称该组合受支持（spec I10）。

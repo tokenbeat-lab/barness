@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "package": "issue17-nine-route-release-delivery",
+  "git_commit": "0dca06c003c7d30a43c44aef6bf961ec6f5e2dbe",
+  "archives": [
+    {
+      "role": "offline",
+      "archive": "offline.tar.gz",
+      "bundle": ".evidence/issue17-verified/gate/offline/20261008T121808.170688000Z",
+      "sha256": "a08c190e8311148c1ddd2ff0f5a7e002e2e8dd853a87c5efe5d5ec559adf3f87",
+      "manifestSHA256": "bab0fd0c9039700c4f30e91867276b4039a0729850c25715f432f160da8e2cab",
+      "commit": "0dca06c003c7d30a43c44aef6bf961ec6f5e2dbe",
+      "cases": 4448
+    },
+    {
+      "role": "openai-responses",
+      "archive": "openai-responses.tar.gz",
+      "bundle": ".evidence/issue17-accepted/live/openai-responses/20261008T114502.049552000Z",
+      "sha256": "33fc72ecbbc3d0d4963327f6ddba118921e87d84d9d95dc06a4052564371e37e",
+      "manifestSHA256": "48a4baa42f37884416bc6ab01283f49cbfd2cc2635bcbb3731e225fc1e161f98",
+      "commit": "8a9bdd15fcc9577601d579096021620bfc2e0cd8",
+      "cases": 8
+    },
+    {
+      "role": "anthropic-messages",
+      "archive": "anthropic-messages.tar.gz",
+      "bundle": ".evidence/issue17-accepted/live/anthropic-messages/20261008T114520.752643000Z",
+      "sha256": "abdbd93ee4c9f1724786bf7463caf4a503eb335a7b1ae8402453e848c9a46730",
+      "manifestSHA256": "e2cf8ceb15e2039c5d790c1e21677f3ac1e234f8c30029d7017888863dabb213",
+      "commit": "8a9bdd15fcc9577601d579096021620bfc2e0cd8",
+      "cases": 11
+    },
+    {
+      "role": "google-gemini",
+      "archive": "google-gemini.tar.gz",
+      "bundle": ".evidence/issue17-accepted/live/google-gemini/20261008T114553.158448000Z",
+      "sha256": "00443973b22ca4d3099b2d90b3261f684a9723f54e15c2320d33c3769dd1f66e",
+      "manifestSHA256": "02c28a2f3d72d38a6a82c12435b09b1d431efde6f2ee9b52de3ba8db400475cf",
+      "commit": "8a9bdd15fcc9577601d579096021620bfc2e0cd8",
+      "cases": 6
+    },
+    {
+      "role": "openai-chat",
+      "archive": "openai-chat.tar.gz",
+      "bundle": ".evidence/issue17-accepted/live/openai-chat/20261008T114610.040757000Z",
+      "sha256": "9df87bfda5d9a605fd07475fb4cf896abddb5fd61d6a52816fc10177a7835fef",
+      "manifestSHA256": "b953613e72f303d4c0d19f08666ccd716654c1a53d388b08791baf965f6b0f52",
+      "commit": "8a9bdd15fcc9577601d579096021620bfc2e0cd8",
+      "cases": 10
+    },
+    {
+      "role": "deepseek-responses",
+      "archive": "deepseek-responses.tar.gz",
+      "bundle": ".evidence/issue17-deepseek/live/deepseek-responses/20261008T121716.706063000Z",
+      "sha256": "01d706ac606d87a24549a8812fa503a844bda1807a5f4721f945c2525aa732ef",
+      "manifestSHA256": "9d9584e64ae2b217db87ddfd921e531de0fb90f3cac0d663b980674176bfdbe7",
+      "commit": "db8e642038aaf5470f337ba30eedb069f4afe96e",
+      "cases": 8
+    },
+    {
+      "role": "deepseek-chat",
+      "archive": "deepseek-chat.tar.gz",
+      "bundle": ".evidence/issue17-deepseek/live/deepseek-chat/20261008T121725.151802000Z",
+      "sha256": "ad2be42a3d133e3eff9314b475ee8ab162f8cbeeddfe89c70697ff66021db95e",
+      "manifestSHA256": "4e501f803978bace3bbb9edf9d83b92fedb03ef260239b351b56271767537b5c",
+      "commit": "db8e642038aaf5470f337ba30eedb069f4afe96e",
+      "cases": 11
+    },
+    {
+      "role": "typesafe-classifier",
+      "archive": "typesafe-classifier.tar.gz",
+      "bundle": ".evidence/issue17-accepted/live/typesafe-classifier/20261008T114646.924202000Z",
+      "sha256": "732fe457742c9d9b0864f84d677b850a144debbe04520c5d059fac01a05f86a5",
+      "manifestSHA256": "384956a0f4b283294179e37f3542aa9e69659d6c3036dba0ebde22f38bad7f87",
+      "commit": "8a9bdd15fcc9577601d579096021620bfc2e0cd8",
+      "cases": 3
+    },
+    {
+      "role": "openai-images",
+      "archive": "openai-images.tar.gz",
+      "bundle": ".evidence/issue17-accepted/live/openai-images/20261008T114648.716988000Z",
+      "sha256": "a4034ca0014a9b0b51e225fa8aa0e9460a35d16f0834638bfc582f0f9fbf4d80",
+      "manifestSHA256": "1833ec65684c22c16b65d3208a3f205277578af7b0b82eb368cde4babab7eaea",
+      "commit": "8a9bdd15fcc9577601d579096021620bfc2e0cd8",
+      "cases": 3
+    },
+    {
+      "role": "google-interactions-image",
+      "archive": "google-interactions-image.tar.gz",
+      "bundle": ".evidence/issue17-accepted/live/google-interactions-image/20261008T114723.613366000Z",
+      "sha256": "0a31f1dde7467d02dd48ee1f65ef41d440d82f241bb0ecc466b49d3e14845ba4",
+      "manifestSHA256": "c3d3460f4c9f132e63ed480aaddd950464a637fe9e731e8f6f5f6b04b33289a8",
+      "commit": "8a9bdd15fcc9577601d579096021620bfc2e0cd8",
+      "cases": 2
+    },
+    {
+      "role": "race",
+      "archive": "race.tar.gz",
+      "bundle": ".evidence/issue17-verified/gate/race/20261008T122150.688580000Z",
+      "sha256": "ce3a410d6c4dd0602ae76c51bca6083cb4af288a2838b64c8092f89e2188458e",
+      "manifestSHA256": "dc874060c349a74d6997340eff9f7f985c49203770dbe3c37c87c8f494ee0645",
+      "commit": "0dca06c003c7d30a43c44aef6bf961ec6f5e2dbe",
+      "cases": 4448
+    },
+    {
+      "role": "chinese-effect",
+      "archive": "chinese-effect.tar.gz",
+      "bundle": ".scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/live",
+      "sha256": "c1709374d6ae8b3b2ecaa1a914d1010ce518bee8bbea6751cfa71c3962681b9e",
+      "manifestSHA256": "73039a0422f471ef4fd9c0cef66dc37b73878ccb951bf18f75e659b7fa4ca200",
+      "commit": "a12c037356751301f292f770188bd44bb629dabf",
+      "cases": 0
+    }
+  ],
+  "history": [
+    {
+      "archive": "history/1/offline.tar.gz",
+      "sha256": "5f83d26a215ec0e036ad62183342e9425fb029767370d3023e9abbdc7c61b097",
+      "bundle": ".evidence/issue17-release/gate/offline/20261008T115544.123392000Z",
+      "originalReportSHA256": "ec1c2dc0ffb822325755eb525174b4884e90ab8855c9644a2afe59b132fed75e",
+      "failedCases": [
+        "E08-policy-pressure-cloud-interactive-design-load"
+      ]
+    }
+  ]
+}

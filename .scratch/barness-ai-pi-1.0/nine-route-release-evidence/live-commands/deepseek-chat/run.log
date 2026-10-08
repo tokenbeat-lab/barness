@@ -1,0 +1,28 @@
+=== RUN   TestLive
+=== RUN   TestLive/deepseek-chat
+=== RUN   TestLive/deepseek-chat/text-stream
+=== RUN   TestLive/deepseek-chat/text-complete
+=== RUN   TestLive/deepseek-chat/tool-round-trip
+=== RUN   TestLive/deepseek-chat/cancel-after-first-frame
+=== RUN   TestLive/deepseek-chat/reasoning-history
+=== RUN   TestLive/deepseek-chat/image
+=== RUN   TestLive/deepseek-chat/usage-position
+=== RUN   TestLive/deepseek-chat/forced-tool-with-thinking
+=== RUN   TestLive/deepseek-chat/prompt-cache-long-retention
+=== RUN   TestLive/deepseek-chat/reasoning-level-high
+=== RUN   TestLive/deepseek-chat/reasoning-level-max
+--- PASS: TestLive (7.82s)
+    --- PASS: TestLive/deepseek-chat (7.82s)
+        --- PASS: TestLive/deepseek-chat/text-stream (0.72s)
+        --- PASS: TestLive/deepseek-chat/text-complete (0.44s)
+        --- PASS: TestLive/deepseek-chat/tool-round-trip (0.94s)
+        --- PASS: TestLive/deepseek-chat/cancel-after-first-frame (0.31s)
+        --- PASS: TestLive/deepseek-chat/reasoning-history (1.49s)
+        --- PASS: TestLive/deepseek-chat/image (0.51s)
+        --- PASS: TestLive/deepseek-chat/usage-position (0.54s)
+        --- PASS: TestLive/deepseek-chat/forced-tool-with-thinking (0.07s)
+        --- PASS: TestLive/deepseek-chat/prompt-cache-long-retention (0.58s)
+        --- PASS: TestLive/deepseek-chat/reasoning-level-high (1.25s)
+        --- PASS: TestLive/deepseek-chat/reasoning-level-max (0.99s)
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/issue17-deepseek/live/deepseek-chat/20261008T121725.151802000Z

@@ -1,0 +1,65 @@
+{
+  "load": {
+    "basis": "CloudInteractivePolicy: 8 tenants at their limit of 4 (all 32 permits), agent histories (2 MiB) with two downscaled images, the 64K-token upper bound of an interactive turn or a 256 KiB tool call",
+    "tenants": 8,
+    "calls": 32,
+    "outputTokens": 65536,
+    "historyBytes": 2097152,
+    "images": 2,
+    "imageBytes": 1048576,
+    "toolJsonBytes": 262144
+  },
+  "headroom": {
+    "MaxConcurrentPerTenant": {
+      "design": 4,
+      "limit": 4,
+      "ratio": 1
+    },
+    "MaxConcurrentProcess": {
+      "design": 32,
+      "limit": 32,
+      "ratio": 1
+    },
+    "MaxFrameBytes": {
+      "design": 262658,
+      "limit": 2097152,
+      "ratio": 0.1252450942993164
+    },
+    "MaxImageBytes": {
+      "design": 1048576,
+      "limit": 4194304,
+      "ratio": 0.25
+    },
+    "MaxOutputBytes": {
+      "design": 14670763,
+      "limit": 33554432,
+      "ratio": 0.43722280859947205
+    },
+    "MaxQueuedEvents (all streams)": {
+      "design": 18517,
+      "limit": 524288,
+      "ratio": 0.03531837463378906
+    },
+    "MaxRequestBytes": {
+      "design": 4901647,
+      "limit": 8388608,
+      "ratio": 0.5843218564987183
+    },
+    "MaxToolJSONBytes": {
+      "design": 262144,
+      "limit": 524288,
+      "ratio": 0.5
+    }
+  },
+  "peakPermits": 32,
+  "heapBudget": 2147483648,
+  "heap": {
+    "baselineLive": 40375896,
+    "peakLive": 899352448,
+    "baselineInuse": 42811392,
+    "peakInuse": 1274683392
+  },
+  "providerCapturedRequestBytes": 156852704,
+  "duration": "5.89s",
+  "processedTokensPerSecond": 356047
+}

@@ -3,7 +3,7 @@
 English | [简体中文](README.zh-CN.md)
 
 `github.com/tokenbeat-lab/barness/ai` is barness's model protocol module: one
-trusted, concurrency-safe `Client` that runs **one generation turn** against a
+trusted, concurrency-safe `Client` that runs **one model operation** against a
 model provider for **many tenants**. It is a Go port of
 [pi-ai](https://github.com/earendil-works/pi) (frozen baseline `1.0.0`) with
 tenant isolation, explicit resource limits and observability added on top.
@@ -17,7 +17,7 @@ This README is for two audiences:
   [For coding agents](#for-coding-agents)).
 
 Authoritative sources, in order of precedence: the spec
-(`.scratch/barness-ai/spec.md`), the [ADRs](../docs/adr/), and the package
+([1.0 upgrade spec](../.scratch/barness-ai-pi-1.0/spec.md) and its base spec), the [ADRs](../docs/adr/), and the package
 documentation (`go doc ./ai`). This README summarizes them and never relaxes
 them. Terms are defined in [GLOSSARY.md](../GLOSSARY.md).
 
@@ -30,6 +30,7 @@ them. Terms are defined in [GLOSSARY.md](../GLOSSARY.md).
 | Enforce a finite `ResourcePolicy` (bytes, queues, concurrency, time) | Choose the policy values for its workload |
 | Replay provider native state (signatures, encrypted reasoning) only where its provenance matches | Vouch for stored native state with `TrustNativeState` |
 | Report tool calls, validate their arguments on request | Execute tools and start every next turn as a new logical call |
+| Generate native images or return validated classifier answers in a unary response | Explicitly enable an operation binding, catalog model and finite child policy |
 | Classify errors, estimate cost, emit observations | Map errors to its own API (e.g. `admission_denied` → HTTP 429) |
 
 Non-goals: no agent loop, no built-in memory or history trimming, no tool
@@ -38,14 +39,17 @@ variables, no default resource limits.
 
 ## Supported combinations
 
-| Provider × API | `ProviderID` / `API` | Live smoke |
-| --- | --- | --- |
-| OpenAI × Responses | `openai` / `openai-responses` | PASS |
-| Anthropic × Messages | `anthropic` / `anthropic-messages` | PASS |
-| Google × Gemini Developer API | `google` / `google-generative-ai` | PASS |
-| OpenAI × Chat Completions | `openai` / `openai-completions` | PASS (no replayable reasoning by protocol) |
-| DeepSeek × Responses (extension route, not in pi) | `deepseek` / `openai-responses` | PASS |
-| DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
+| Operation | Provider × API | `ProviderID` / `API` | Live smoke |
+| --- | --- | --- | --- |
+| chat | OpenAI × Responses | `openai` / `openai-responses` | PASS |
+| chat | Anthropic × Messages | `anthropic` / `anthropic-messages` | PASS |
+| chat | Google × Gemini Developer API | `google` / `google-generative-ai` | PASS |
+| chat | OpenAI × Chat Completions | `openai` / `openai-completions` | PASS (no replayable reasoning by protocol) |
+| chat | DeepSeek × Responses (extension route, not in pi) | `deepseek` / `openai-responses` | PASS |
+| chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
+| classifier | TypeSafe × System One, jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS |
+| image | OpenAI × Images, gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS (generation, JSON edit and mask) |
+| image | Google × Interactions, gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS (generation and reference edit) |
 
 The source of truth is [`live/support-matrix.json`](live/support-matrix.json).
 A combination may be called supported only when its own row has fully passed;
@@ -375,7 +379,7 @@ evidence the release gate can trace (`release/traceability.json`).
 | [docs/barness-ai/contract.md](../docs/barness-ai/contract.md) | Public contract, full error table, assembly notes |
 | [docs/barness-ai/differences.md](../docs/barness-ai/differences.md) | Every difference from pi-ai and its disposition |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | Release deliverables, gate status, policy measurements |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0021 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0024 |
 | [GLOSSARY.md](../GLOSSARY.md) | Domain terms (Tenant, Binding, Logical Call, Native State, …) |
 | `go doc -all ./ai` | Package and type documentation |
 
@@ -389,4 +393,16 @@ score levels stay ordered and bool answers give the probability of yes.
 All final answers are validated together, with usage retained on failure.
 See [the classifier contract](../docs/barness-ai/contract.md) and
 [ADR-0021](../docs/adr/0021-barness-ai-typesafe-unary-classification.md).
-Built-in TypeSafe models/pricing and live support remain gated by issue 08.
+The built-in catalog includes jev-1.13.0 and versioned official pricing.
+Independent Chinese evaluation scored 24/24 synthetic support requests correctly;
+its fixed task and limits are recorded in the [evaluation evidence](../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/README.md).
+
+### Native image operations
+
+`Client.GenerateImages` and `HookedClient.GenerateImages` use operation-specific
+bindings and `ResourcePolicy.Image`. The built-in OpenAI model supports the
+verified JSON generation/edit pipeline; the Google model uses synchronous
+v1beta Interactions with one inline reference/output at 1K and 1:1.
+Each route can be disabled independently. Already-sent attempts retain usage.
+See the [image contract](../docs/barness-ai/contract.md) and
+[complete release evidence](../.scratch/barness-ai-pi-1.0/nine-route-release-evidence/README.md).

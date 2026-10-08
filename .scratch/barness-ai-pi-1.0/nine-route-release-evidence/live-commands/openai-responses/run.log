@@ -1,0 +1,22 @@
+=== RUN   TestLive
+=== RUN   TestLive/openai-responses
+=== RUN   TestLive/openai-responses/text-stream
+=== RUN   TestLive/openai-responses/text-complete
+=== RUN   TestLive/openai-responses/tool-round-trip
+=== RUN   TestLive/openai-responses/cancel-after-first-frame
+=== RUN   TestLive/openai-responses/reasoning-history
+=== RUN   TestLive/openai-responses/image
+=== RUN   TestLive/openai-responses/tool-changes-gpt-5.4
+=== RUN   TestLive/openai-responses/tool-changes-gpt-6-sol
+--- PASS: TestLive (18.55s)
+    --- PASS: TestLive/openai-responses (18.55s)
+        --- PASS: TestLive/openai-responses/text-stream (1.90s)
+        --- PASS: TestLive/openai-responses/text-complete (0.93s)
+        --- PASS: TestLive/openai-responses/tool-round-trip (2.03s)
+        --- PASS: TestLive/openai-responses/cancel-after-first-frame (1.03s)
+        --- PASS: TestLive/openai-responses/reasoning-history (3.62s)
+        --- PASS: TestLive/openai-responses/image (0.93s)
+        --- PASS: TestLive/openai-responses/tool-changes-gpt-5.4 (3.62s)
+        --- PASS: TestLive/openai-responses/tool-changes-gpt-6-sol (4.51s)
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/issue17-accepted/live/openai-responses/20261008T114502.049552000Z

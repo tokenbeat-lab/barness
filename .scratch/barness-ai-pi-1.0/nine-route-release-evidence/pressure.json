@@ -1,0 +1,208 @@
+[
+  {
+    "id": "E08-mixed-pressure-cloud-design-load",
+    "status": "PASS",
+    "report": {
+      "callsPerSecond": 119.42051315412473,
+      "captureBoundCalls": 8,
+      "clientUnaryBytesAtEOF": 5593856,
+      "duration": "66.990166ms",
+      "headroom": {
+        "Classifier.MaxQuestionBytes": {
+          "design": 4033,
+          "limit": 8192,
+          "ratio": 0.4923095703125
+        },
+        "Classifier.MaxQuestions": {
+          "design": 8,
+          "limit": 16,
+          "ratio": 0.5
+        },
+        "Classifier.MaxStateBytes": {
+          "design": 131072,
+          "limit": 262144,
+          "ratio": 0.5
+        },
+        "Image.MaxInputImages": {
+          "design": 3,
+          "limit": 4,
+          "ratio": 0.75
+        },
+        "Image.MaxOutputImageBytes": {
+          "design": 524288,
+          "limit": 1048576,
+          "ratio": 0.5
+        },
+        "Image.MaxOutputImages": {
+          "design": 2,
+          "limit": 4,
+          "ratio": 0.5
+        },
+        "Image.MaxTotalOutputImageBytes": {
+          "design": 1048576,
+          "limit": 2097152,
+          "ratio": 0.5
+        },
+        "MaxFrameBytes (chat only)": {
+          "design": 16895,
+          "limit": 262144,
+          "ratio": 0.06444931030273438
+        },
+        "MaxImageBytes": {
+          "design": 262144,
+          "limit": 1048576,
+          "ratio": 0.25
+        },
+        "MaxOutputBytes": {
+          "design": 1398372,
+          "limit": 8388608,
+          "ratio": 0.16669893264770508
+        },
+        "MaxRequestBytes": {
+          "design": 1048780,
+          "limit": 4194304,
+          "ratio": 0.2500486373901367
+        }
+      },
+      "heap": {
+        "baselineLive": 73515312,
+        "peakLive": 96586232,
+        "baselineInuse": 91185152,
+        "peakInuse": 182616064
+      },
+      "heapBudget": 536870912,
+      "heapGrowth": 23070920,
+      "inputImageBase64Bytes": 349528,
+      "load": {
+        "calls": 8,
+        "tenants": 2,
+        "historyBytes": 131072,
+        "chatOutputBytes": 16384,
+        "references": 2,
+        "inputImageBytes": 262144,
+        "maskBytes": 262144,
+        "outputImages": 2,
+        "outputImageBytes": 524288,
+        "stateBytes": 131072,
+        "questions": 8,
+        "instructionBytes": 4000
+      },
+      "outputImageBase64Bytes": 699052,
+      "peakPermits": 8,
+      "providerCapturedRequestBytes": 4085398,
+      "providerSharedResponseScriptBytes": 3711026,
+      "totalAllocDuringCalls": 284447056
+    },
+    "resources": {
+      "bodies": 0,
+      "calls": 0,
+      "events": 0,
+      "hostPermits": 0,
+      "permits": 0,
+      "waiters": 0
+    }
+  },
+  {
+    "id": "E08-mixed-pressure-local-design-load",
+    "status": "PASS",
+    "report": {
+      "callsPerSecond": 67.95396967978814,
+      "captureBoundCalls": 4,
+      "clientUnaryBytesAtEOF": 2796928,
+      "duration": "58.863375ms",
+      "headroom": {
+        "Classifier.MaxQuestionBytes": {
+          "design": 4033,
+          "limit": 8192,
+          "ratio": 0.4923095703125
+        },
+        "Classifier.MaxQuestions": {
+          "design": 8,
+          "limit": 16,
+          "ratio": 0.5
+        },
+        "Classifier.MaxStateBytes": {
+          "design": 131072,
+          "limit": 262144,
+          "ratio": 0.5
+        },
+        "Image.MaxInputImages": {
+          "design": 3,
+          "limit": 4,
+          "ratio": 0.75
+        },
+        "Image.MaxOutputImageBytes": {
+          "design": 524288,
+          "limit": 1048576,
+          "ratio": 0.5
+        },
+        "Image.MaxOutputImages": {
+          "design": 2,
+          "limit": 4,
+          "ratio": 0.5
+        },
+        "Image.MaxTotalOutputImageBytes": {
+          "design": 1048576,
+          "limit": 2097152,
+          "ratio": 0.5
+        },
+        "MaxFrameBytes (chat only)": {
+          "design": 16895,
+          "limit": 262144,
+          "ratio": 0.06444931030273438
+        },
+        "MaxImageBytes": {
+          "design": 262144,
+          "limit": 1048576,
+          "ratio": 0.25
+        },
+        "MaxOutputBytes": {
+          "design": 1398372,
+          "limit": 8388608,
+          "ratio": 0.16669893264770508
+        },
+        "MaxRequestBytes": {
+          "design": 1048780,
+          "limit": 4194304,
+          "ratio": 0.2500486373901367
+        }
+      },
+      "heap": {
+        "baselineLive": 68474360,
+        "peakLive": 78253672,
+        "baselineInuse": 86278144,
+        "peakInuse": 151691264
+      },
+      "heapBudget": 268435456,
+      "heapGrowth": 9779312,
+      "inputImageBase64Bytes": 349528,
+      "load": {
+        "calls": 4,
+        "tenants": 1,
+        "historyBytes": 131072,
+        "chatOutputBytes": 16384,
+        "references": 2,
+        "inputImageBytes": 262144,
+        "maskBytes": 262144,
+        "outputImages": 2,
+        "outputImageBytes": 524288,
+        "stateBytes": 131072,
+        "questions": 8,
+        "instructionBytes": 4000
+      },
+      "outputImageBase64Bytes": 699052,
+      "peakPermits": 4,
+      "providerCapturedRequestBytes": 2042699,
+      "providerSharedResponseScriptBytes": 3711026,
+      "totalAllocDuringCalls": 142147200
+    },
+    "resources": {
+      "bodies": 0,
+      "calls": 0,
+      "events": 0,
+      "hostPermits": 0,
+      "permits": 0,
+      "waiters": 0
+    }
+  }
+]

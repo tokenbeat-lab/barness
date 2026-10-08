@@ -3,7 +3,7 @@
 [English](README.md) | 简体中文
 
 `github.com/tokenbeat-lab/barness/ai` 是 barness 的模型协议模块：一个可信、并发安全的
-`Client`，为**多个租户**向模型服务发起**一次生成轮次**。它是
+`Client`，为**多个租户**向模型服务发起**一次模型操作**。它是
 [pi-ai](https://github.com/earendil-works/pi)（冻结基线 `1.0.0`）的 Go 复刻，并在其上增加了租户隔离、显式资源限额与可观测性。
 
 本文面向两类读者：
@@ -12,7 +12,7 @@
 - **Coding agent**：修改本模块前需要先掌握不变量、目录结构、约定与测试命令（见
   [写给 coding agent](#写给-coding-agent)）。
 
-权威来源的优先级依次为：spec（`.scratch/barness-ai/spec.md`）、[ADR](../docs/adr/)、包文档（`go doc ./ai`）。本文只做归纳，不放宽其中任何一条。术语定义见 [GLOSSARY.md](../GLOSSARY.md)。
+权威来源的优先级依次为：[1.0 升级 spec](../.scratch/barness-ai-pi-1.0/spec.md) 及其基础 spec、[ADR](../docs/adr/)、包文档（`go doc ./ai`）。本文只做归纳，不放宽其中任何一条。术语定义见 [GLOSSARY.md](../GLOSSARY.md)。
 
 ## 职责边界
 
@@ -23,20 +23,24 @@
 | 执行有限的 `ResourcePolicy`（字节、队列、并发、时限） | 按自身负载选择策略数值 |
 | 仅在来源匹配时回放 Provider 原生状态（签名、加密推理） | 用 `TrustNativeState` 为持久化的原生状态担保 |
 | 报告工具调用，按需校验参数 | 执行工具，并把每个下一轮作为新的逻辑调用发起 |
+| 以 unary 响应生成原生图像或返回完整校验的分类答案 | 显式启用操作绑定、目录型号与有限子策略 |
 | 错误分类、成本估算、发出观测记录 | 把错误映射到自己的 API（如 `admission_denied` → HTTP 429） |
 
 不做的事：没有 Agent loop，没有内置记忆或历史裁剪，不执行工具，不写日志，不读取 `OPENAI_API_KEY` 之类的环境变量，没有默认资源限额。
 
 ## 支持的组合
 
-| Provider × 协议 | `ProviderID` / `API` | 真实冒烟 |
-| --- | --- | --- |
-| OpenAI × Responses | `openai` / `openai-responses` | PASS |
-| Anthropic × Messages | `anthropic` / `anthropic-messages` | PASS |
-| Google × Gemini Developer API | `google` / `google-generative-ai` | PASS |
-| OpenAI × Chat Completions | `openai` / `openai-completions` | PASS（协议本身不返回可回放的推理） |
-| DeepSeek × Responses（扩展路径，pi 无此路由） | `deepseek` / `openai-responses` | PASS |
-| DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
+| 操作 | Provider × 协议 | `ProviderID` / `API` | 真实冒烟 |
+| --- | --- | --- | --- |
+| chat | OpenAI × Responses | `openai` / `openai-responses` | PASS |
+| chat | Anthropic × Messages | `anthropic` / `anthropic-messages` | PASS |
+| chat | Google × Gemini Developer API | `google` / `google-generative-ai` | PASS |
+| chat | OpenAI × Chat Completions | `openai` / `openai-completions` | PASS（协议本身不返回可回放的推理） |
+| chat | DeepSeek × Responses（扩展路径，pi 无此路由） | `deepseek` / `openai-responses` | PASS |
+| chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
+| classifier | TypeSafe × System One，jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS |
+| image | OpenAI × Images，gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS（生成、JSON 编辑与 mask） |
+| image | Google × Interactions，gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS（生成与参考编辑） |
 
 以 [`live/support-matrix.json`](live/support-matrix.json) 为准。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的模型是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 的交集。
 

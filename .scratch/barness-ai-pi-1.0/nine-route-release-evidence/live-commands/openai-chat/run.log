@@ -1,0 +1,26 @@
+=== RUN   TestLive
+=== RUN   TestLive/openai-chat
+=== RUN   TestLive/openai-chat/text-stream
+=== RUN   TestLive/openai-chat/text-complete
+=== RUN   TestLive/openai-chat/tool-round-trip
+=== RUN   TestLive/openai-chat/cancel-after-first-frame
+=== RUN   TestLive/openai-chat/reasoning-history
+=== RUN   TestLive/openai-chat/image
+=== RUN   TestLive/openai-chat/usage-position
+=== RUN   TestLive/openai-chat/tool-changes-gpt-5.4
+=== RUN   TestLive/openai-chat/tool-changes-gpt-6-sol
+=== RUN   TestLive/openai-chat/pro-model-unavailable
+--- PASS: TestLive (16.59s)
+    --- PASS: TestLive/openai-chat (16.59s)
+        --- PASS: TestLive/openai-chat/text-stream (2.59s)
+        --- PASS: TestLive/openai-chat/text-complete (0.94s)
+        --- PASS: TestLive/openai-chat/tool-round-trip (2.13s)
+        --- PASS: TestLive/openai-chat/cancel-after-first-frame (0.86s)
+        --- PASS: TestLive/openai-chat/reasoning-history (0.00s)
+        --- PASS: TestLive/openai-chat/image (0.79s)
+        --- PASS: TestLive/openai-chat/usage-position (1.16s)
+        --- PASS: TestLive/openai-chat/tool-changes-gpt-5.4 (4.15s)
+        --- PASS: TestLive/openai-chat/tool-changes-gpt-6-sol (3.34s)
+        --- PASS: TestLive/openai-chat/pro-model-unavailable (0.62s)
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/issue17-accepted/live/openai-chat/20261008T114610.040757000Z

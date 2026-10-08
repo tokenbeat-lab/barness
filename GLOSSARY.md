@@ -5,7 +5,7 @@ barness 面向本地与云端的 Agent 使用场景；barness-ai 是其中连接
 ## Language
 
 **barness-ai（模型协议模块）**：
-barness 中统一模型调用、消息、流事件与结果语义的基础模块，负责一次生成轮次与目标模型服务之间的协议转换。
+barness 中统一模型调用、消息、流事件与结果语义的基础模块，负责一次模型操作与目标模型服务之间的协议转换。
 _Avoid_: 独立 Agent 平台、模型托管服务、推理网关
 
 **云端（场景）**：
@@ -69,7 +69,7 @@ _Avoid_: 全局 key、当前 Provider key
 _Avoid_: 请求中自报的租户身份
 
 **Logical Call（逻辑调用）**：
-宿主向 barness-ai 发起的一次模型生成调用，包含该调用内部获准进行的网络尝试。它由全局唯一的 RequestID 标识，其尝试由同样全局唯一的 AttemptID（`RequestID#序号`）标识；服务绑定、凭据等配置标识只在租户内唯一，不同租户可以同名。
+宿主向 barness-ai 发起的一次模型操作调用，包含该调用内部获准进行的网络尝试。它由全局唯一的 RequestID 标识，其尝试由同样全局唯一的 AttemptID（`RequestID#序号`）标识；服务绑定、凭据等配置标识只在租户内唯一，不同租户可以同名。
 _Avoid_: Agent run、作业、HTTP 尝试
 
 **Generation Turn（生成轮次）**：

@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "go",
+    "run",
+    "./ai/release/cmd/releasegate",
+    "-out",
+    ".evidence/issue17-verified/gate",
+    "-evaluation",
+    ".scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/live",
+    "-live",
+    ".evidence/issue17-accepted/live/openai-responses/20261008T114502.049552000Z",
+    "-live",
+    ".evidence/issue17-accepted/live/anthropic-messages/20261008T114520.752643000Z",
+    "-live",
+    ".evidence/issue17-accepted/live/google-gemini/20261008T114553.158448000Z",
+    "-live",
+    ".evidence/issue17-accepted/live/openai-chat/20261008T114610.040757000Z",
+    "-live",
+    ".evidence/issue17-deepseek/live/deepseek-responses/20261008T121716.706063000Z",
+    "-live",
+    ".evidence/issue17-deepseek/live/deepseek-chat/20261008T121725.151802000Z",
+    "-live",
+    ".evidence/issue17-accepted/live/typesafe-classifier/20261008T114646.924202000Z",
+    "-live",
+    ".evidence/issue17-accepted/live/openai-images/20261008T114648.716988000Z",
+    "-live",
+    ".evidence/issue17-accepted/live/google-interactions-image/20261008T114723.613366000Z"
+  ]
+}

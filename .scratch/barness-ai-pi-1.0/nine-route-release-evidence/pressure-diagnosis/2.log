@@ -1,0 +1,8 @@
+=== RUN   TestPolicyPressure
+=== RUN   TestPolicyPressure/cloud-interactive/design-load
+    policy_pressure_test.go:83: cloud-interactive: {Load:{Basis:CloudInteractivePolicy: 8 tenants at their limit of 4 (all 32 permits), agent histories (2 MiB) with two downscaled images, the 64K-token upper bound of an interactive turn or a 256 KiB tool call Tenants:8 Calls:32 OutputTokens:65536 HistoryBytes:2097152 Images:2 ImageBytes:1048576 ToolJSONBytes:262144} Headroom:map[MaxConcurrentPerTenant:{Design:4 Limit:4 Ratio:1} MaxConcurrentProcess:{Design:32 Limit:32 Ratio:1} MaxFrameBytes:{Design:262658 Limit:2097152 Ratio:0.1252450942993164} MaxImageBytes:{Design:1048576 Limit:4194304 Ratio:0.25} MaxOutputBytes:{Design:14670763 Limit:33554432 Ratio:0.43722280859947205} MaxQueuedEvents (all streams):{Design:17453 Limit:524288 Ratio:0.03328895568847656} MaxRequestBytes:{Design:4901647 Limit:8388608 Ratio:0.5843218564987183} MaxToolJSONBytes:{Design:262144 Limit:524288 Ratio:0.5}] PeakPermits:32 HeapBudget:2147483648 Heap:{BaselineLive:40371040 PeakLive:626027872 BaselineInuse:42663936 PeakInuse:1343873024} ProviderCaptured:156852704 Duration:5.954s TokensPerSecond:352220}
+--- PASS: TestPolicyPressure (6.12s)
+    --- PASS: TestPolicyPressure/cloud-interactive/design-load (6.12s)
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/issue17-pressure-diagnosis/2/20261008T120033.604973000Z
+ok  	github.com/tokenbeat-lab/barness/ai/e2e	6.623s

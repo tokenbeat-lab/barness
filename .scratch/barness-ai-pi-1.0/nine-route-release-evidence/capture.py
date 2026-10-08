@@ -35,6 +35,7 @@ def anonymous_header(info):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('run', type=Path)
+parser.add_argument('--history', type=Path, action='append', default=[], help='completed failed gate whose full offline bundle must be preserved')
 args = parser.parse_args()
 base = args.run.resolve()
 gate = base / 'gate'
@@ -52,7 +53,10 @@ for p in gate.iterdir():
 for name in ('gate.log', 'gate-command.json', 'gate-exit.json', 'smoke-commands.json'):
     shutil.copyfile(base / name, DEST / name)
 for source, name in (('.evidence/issue17-live-race-final.log', 'live-harness-race.log'),
-                     ('.evidence/issue17-node-final.log', 'oracle-node.log')):
+                     ('.evidence/issue17-node-final.log', 'oracle-node.log'),
+                     ('.evidence/issue17-gate-regression-final.log', 'gate-regression-race.log'),
+                     ('.evidence/issue17-runner-final.log', 'runner-process.log'),
+                     ('.evidence/issue17-optimized-python.log', 'optimized-refusal.log')):
     raw = (ROOT / source).read_text()
     (DEST / name).write_text(raw.replace(str(ROOT), '[REPO]').replace(str(Path.home()), '[HOME]'))
 
@@ -109,9 +113,38 @@ for n in numbers:
     adrs.append({'path': str(path.relative_to(ROOT)), 'sha256': sha(path), 'revisions': revisions})
 write('adr-review.json', adrs)
 
-write('manifest.json', {'schema': 1, 'package': 'issue17-nine-route-release-delivery', 'git_commit': report['commit'], 'archives': archives})
-write('verification.json', {'testedCommit': report['commit'], 'liveHarnessCommit': next(a['commit'] for a in archives if a['role']=='openai-responses'),
-                           'liveHarnessSHA256': sha(base / '.tools/live.test'),
+history = []
+for n, previous in enumerate(args.history, 1):
+    previous = previous.resolve()
+    failure = read(previous / 'gate/release-report.json')
+    assert not failure['pass'] and read(previous / 'gate-exit.json')['exitCode'] != 0
+    saved = DEST / 'history' / str(n)
+    saved.mkdir(parents=True, exist_ok=True)
+    for source in (previous / 'gate/release-report.json', previous / 'gate/release-report.md', previous / 'gate.log', previous / 'gate-exit.json'):
+        # Failed command tails may include go test's absolute evidence path.
+        # Preserve verdict/context and record the original hash, redact paths.
+        raw = source.read_bytes().replace(str(ROOT).encode(), b'[REPO]').replace(str(Path.home()).encode(), b'[HOME]')
+        (saved / source.name).write_bytes(raw)
+    bundle = ROOT / failure['bundle']
+    archive = saved / 'offline.tar.gz'
+    with tarfile.open(archive, 'w:gz', compresslevel=6) as tar:
+        tar.add(bundle, arcname=failure['bundle'], filter=anonymous_header)
+    history.append({'archive': str(archive.relative_to(DEST)), 'sha256': sha(archive), 'bundle': failure['bundle'],
+                    'originalReportSHA256': sha(previous / 'gate/release-report.json'),
+                    'failedCases': [c['id'] for c in read(bundle / 'manifest.json')['cases'] if c['status']=='FAIL']})
+write('manifest.json', {'schema': 1, 'package': 'issue17-nine-route-release-delivery', 'git_commit': report['commit'], 'archives': archives, 'history': history})
+live = {a['role']: a for a in archives if a['role'] not in ('offline', 'race', 'chinese-effect')}
+# Reconfirmed combinations can have a later harness revision. Do not attribute
+# earlier own reports to the latest executable or collapse their provenance.
+builds = read(base / 'live-harnesses.json') if (base / 'live-harnesses.json').is_file() else [
+    {'commit': next(iter(live.values()))['commit'], 'binary': '.tools/live.test', 'combos': sorted(live)}]
+harnesses, covered = [], []
+for build in builds:
+    assert build['combos'] and all(live[c]['commit'] == build['commit'] for c in build['combos'])
+    covered.extend(build['combos'])
+    harnesses.append({'commit': build['commit'], 'sha256': sha(base / build['binary']), 'combos': build['combos']})
+assert sorted(covered) == sorted(live), 'live harness provenance incomplete or duplicated'
+write('verification.json', {'testedCommit': report['commit'], 'liveHarnesses': harnesses,
                            'gateCount': len(report['gates']), 'traceItems': len(report['traceability']),
                            'offlineCases': len(manifest['cases']), 'differentialPending': report['differential']['pending'],
                            'standardsRemaining': 0, 'specRemaining': 0})

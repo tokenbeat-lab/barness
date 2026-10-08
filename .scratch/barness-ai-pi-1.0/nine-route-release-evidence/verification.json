@@ -1,0 +1,32 @@
+{
+  "testedCommit": "0dca06c003c7d30a43c44aef6bf961ec6f5e2dbe",
+  "liveHarnesses": [
+    {
+      "commit": "8a9bdd15fcc9577601d579096021620bfc2e0cd8",
+      "sha256": "8cd48bf1f5d4170462b8fa134239f14e7a3d37038200994214804a93ac3a4574",
+      "combos": [
+        "openai-responses",
+        "anthropic-messages",
+        "google-gemini",
+        "openai-chat",
+        "typesafe-classifier",
+        "openai-images",
+        "google-interactions-image"
+      ]
+    },
+    {
+      "commit": "db8e642038aaf5470f337ba30eedb069f4afe96e",
+      "sha256": "f94d1f06453387269d63944340f1146cf127093bf67c4e4d54fad734a9226a11",
+      "combos": [
+        "deepseek-responses",
+        "deepseek-chat"
+      ]
+    }
+  ],
+  "gateCount": 10,
+  "traceItems": 76,
+  "offlineCases": 4448,
+  "differentialPending": 0,
+  "standardsRemaining": 0,
+  "specRemaining": 0
+}

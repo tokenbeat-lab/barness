@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "artifacts": {
+        "assertions.json": "298207af1184fb3b71cd8fb38a28a3f462bb00ed6bbbf36b18b048040526e0e9",
+        "policy-pressure.json": "9196479e6271a2ace4ac2c3fd2bd4a726826ad373a211193dc1b406d3885cc01"
+      },
+      "dir": "E08-policy-pressure-cloud-interactive-design-load",
+      "fixtures": {},
+      "id": "E08-policy-pressure-cloud-interactive-design-load",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPolicyPressure$/^cloud-interactive$/^design-load$'",
+      "status": "PASS",
+      "test": "TestPolicyPressure/cloud-interactive/design-load"
+    }
+  ],
+  "finished_at": "2026-10-08T12:00:25.524082Z",
+  "git_commit": "3cf700732ac2849a8482636f06e6907a1ffa6d30",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "./ai/e2e",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-08T12:00:19.272812Z",
+  "versions": {
+    "anthropic-sdk-go": "v1.75.0",
+    "model_catalog_hash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "model_catalog_version": "2026-10-08.5",
+    "openai-go": "v3.66.0"
+  }
+}

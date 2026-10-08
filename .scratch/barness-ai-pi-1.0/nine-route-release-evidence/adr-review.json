@@ -1,0 +1,173 @@
+[
+  {
+    "path": "docs/adr/0001-barness-ai-protocol-boundary.md",
+    "sha256": "8fb4f2e577a01a2e4b29b97e4b8084b683d72f517d60068be7e11652f0cc2208",
+    "revisions": [
+      "## 模型操作扩展（工单 04，2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0002-barness-ai-resource-policy.md",
+    "sha256": "2c2ae0ec1a0b2e630e4408a605aa330a7a18cee155bd4353b2040a4f1b839189",
+    "revisions": [
+      "## 工单 05 已交付扩展（2026-10-08）",
+      "## 工单 07：回调输入的已知尺寸先行（2026-10-08）",
+      "## 工单 09：原生图像生成（2026-10-08）",
+      "## 工单 15：混合操作负载（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0004-barness-ai-frozen-pi-oracle.md",
+    "sha256": "567bd5db13cff15363a298356f6bf9eaa9faf908d4720da9029db5b58b914084",
+    "revisions": [
+      "## 1.0.0 的 SDK 错误边界（2026-10-08，工单 03）"
+    ]
+  },
+  {
+    "path": "docs/adr/0005-barness-ai-payload-hosted-tools.md",
+    "sha256": "f545a842379081c66d9aefa894e5fd12dd32556115e6813cbbb63d97967427e6",
+    "revisions": [
+      "## 工单 05 已交付扩展（2026-10-08）",
+      "## 工单 09：原生图像生成（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0006-barness-ai-retry-policy-on-binding.md",
+    "sha256": "b6a4198b714aa6289edd5168da06bb6240e9f5ab4077babf43af2951cc31b0f3",
+    "revisions": [
+      "## 工单 07：unary 初始请求的重试证据（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0007-barness-ai-output-bytes-and-limit-terminal.md",
+    "sha256": "15a0d12e7426c3a82bfd06d6f858fcd64d94a2af9b5dcd58b6fd740198607930",
+    "revisions": [
+      "## 工单 05 已交付扩展（2026-10-08）",
+      "## 工单 07：含边界字节的读取验收（2026-10-08）",
+      "## 工单 09：原生图像生成（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0008-barness-ai-admission-and-time-limits.md",
+    "sha256": "1c8c360e75b71ba7d7e4a31c426d8df9ffb09c8a09c94da57649b760780fd3a0",
+    "revisions": [
+      "## 工单 05 已交付扩展（2026-10-08）",
+      "## 工单 07：unary 生命周期验收（2026-10-08）",
+      "## 工单 09：原生图像生成（2026-10-08）",
+      "## 工单 15：混合准入（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0009-barness-ai-observer-delivery.md",
+    "sha256": "c62e5b88e1e2544e96725dd46a5ad614d8c52c3eabad9f51237ffc61cbe038c7",
+    "revisions": [
+      "## 工单 05 已交付扩展（2026-10-08）",
+      "## 工单 07：尝试的用量完整性轴（2026-10-08）",
+      "## 工单 09：原生图像生成（2026-10-08）",
+      "## 工单 15：混合 Observer（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0010-barness-ai-usage-reporting-and-price-snapshot.md",
+    "sha256": "b4d3784d731fb63f8e54a64a80c255edd7b091d5d025d856db974e6ea62d5108",
+    "revisions": [
+      "## 工单 05 已交付扩展（2026-10-08）",
+      "## 工单 08：TypeSafe 官方价格快照（2026-10-08）",
+      "## 工单 09：原生图像生成（2026-10-08）",
+      "## 工单 12：Interactions 模态与思考（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0011-barness-ai-anthropic-messages-adapter.md",
+    "sha256": "b70598faa79f1f2cabf2b042041f3ebba2054655237f7b6b2df8bdb89f5feff8",
+    "revisions": []
+  },
+  {
+    "path": "docs/adr/0012-barness-ai-gemini-developer-api-adapter.md",
+    "sha256": "f709f4bc7cbc4f981a3018572a3ccacbeba0a39da88f945925399063c7244d96",
+    "revisions": [
+      "## 工单 12：图像操作并行接入（2026-10-08）",
+      "## 工单 14：Google 图像真实证据（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0014-barness-ai-deepseek-responses.md",
+    "sha256": "9a1f777e626925ac3f483bd3fb1bf7941db5888715c0157f99d9b510c8bc6e21",
+    "revisions": [
+      "## 真实冒烟后的处理（2026-10-03，工单 33）",
+      "## 工单 09：原生图像生成（2026-10-08）",
+      "## 工单 12：Google 原生图像扩展（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0016-barness-ai-live-smoke-and-support-matrix.md",
+    "sha256": "2bc3aa6914dfd1b390d65d617513386ae12507c48fcd71eda5dfdb2174f1e2a5",
+    "revisions": [
+      "## 工单 17：当前能力集合（2026-10-08）",
+      "## 工单 08：分类组合与报告 schema 2（2026-10-08）",
+      "## 工单 11：P08 原生 OpenAI Images（2026-10-08）",
+      "## 工单 14：Google 图像真实证据（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0017-barness-ai-release-gate.md",
+    "sha256": "2efa6e437aa6025e79fcac9d9b01620726ea752b7ec3d74cd0700d2c5d2ed440",
+    "revisions": [
+      "## 后续（2026-10-04，工单 32）",
+      "## 工单 08：操作身份与分类发布输入（2026-10-08）",
+      "## 工单 14：Google 图像真实证据（2026-10-08）",
+      "## 工单 15：混合设计负载证据（2026-10-08）",
+      "## 工单 17：完整九组合证据合同（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0018-barness-ai-catalog-inclusion-criterion.md",
+    "sha256": "c7126a292c62f3838d1a717bce8a5cb779930421b016d34c2dbdf9271b25b709",
+    "revisions": [
+      "## 实现（工单 34，2026-10-03）",
+      "## 实现（工单 27，2026-10-03）",
+      "## 1.0.0 基线迁移（工单 03，2026-10-08）",
+      "## 多类型目录（工单 04，2026-10-08）",
+      "## 工单 08：首个内置分类型号（2026-10-08）",
+      "## 工单 09：原生图像生成（2026-10-08）",
+      "## 工单 11：首个内置图像型号（2026-10-08）",
+      "## 工单 12：Google 图像生成协议（2026-10-08）",
+      "## 工单 14：Google 图像真实证据（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0020-barness-ai-model-operations-and-binding-authorization.md",
+    "sha256": "39ec7b24196f2bb1cbc5341606c00c39c429ec76c88356df6037a42e16a9e2bf",
+    "revisions": [
+      "## 分类问题类型补充（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0021-barness-ai-typesafe-unary-classification.md",
+    "sha256": "424eedff95c283f6c321cc639105986954b0258d0df032d72cb822fac9dc3f48",
+    "revisions": [
+      "## 混合问题与差分（工单 06，2026-10-08）",
+      "## 工单 08：真实 wire 与有界舍入（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0022-barness-ai-openai-images-unary.md",
+    "sha256": "85920af8058f065fd53c4ad6a94e87762abcedb721aefa294002e694ef6cf3d1",
+    "revisions": [
+      "## 工单 11：自身 JSON 编辑真实接受性与目录（2026-10-08）",
+      "## 工单 12：Google Interactions 生成（2026-10-08）",
+      "## 工单 13：同一入口的有序参考图编辑与完整守卫（2026-10-08）",
+      "## 工单 14 请求固定项修订（2026-10-08）"
+    ]
+  },
+  {
+    "path": "docs/adr/0023-barness-ai-google-images-live.md",
+    "sha256": "3b31a297fd44ff8e5e3d89124c54d3887be1fdbbdcacb8072ab18cdbfbb04550",
+    "revisions": []
+  },
+  {
+    "path": "docs/adr/0024-barness-ai-chinese-classification-evaluation.md",
+    "sha256": "6c7f952ac643d7c5beb3222cf2170f5c27e9f5b0fb6d470ccc2e0160a8b8b156",
+    "revisions": []
+  }
+]
