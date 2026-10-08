@@ -24,6 +24,10 @@
 同一 ID 可跨操作、Provider 或协议并存；重复完整身份以 `ConfigError{Field: "Catalog"}` 拒绝。
 图像输出须包含 image；参考图、mask 与 input fidelity 须有相应输入能力。分类支持 choice、score、bool；
 choice 的选项上限至少 2，score 的级数最少 2 且上下界有序，不支持的问题类型不得声明非零容量。
+`ClassifierCapabilities.Kinds` 使用 `[]ClassifierQuestionKind`，对应常量为
+`ClassifierQuestionChoice`、`ClassifierQuestionScore`、`ClassifierQuestionBool`。
+已有 Go 宿主的 `[]string` 构造须改为此类型；从动态字符串逐项转换后仍需目录构造校验。
+JSON 继续编码为 `"choice"`、`"score"`、`"bool"`，未知或空类型仍在 NewClient 边界拒绝。
 图像每个已声明输入/输出模态须有费率值（显式 0 合法，unset/null 缺失），缓存费率可选。
 Responses/Chat 型号默认 samplingParams 同样不能覆盖保留字段。
 

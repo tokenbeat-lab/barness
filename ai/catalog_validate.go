@@ -131,9 +131,9 @@ func (m ClassifierModel) problem() string {
 	if len(caps.Kinds) == 0 {
 		return "classifier must support at least one question kind"
 	}
-	seen := make(map[string]bool)
+	seen := make(map[ClassifierQuestionKind]bool)
 	for _, kind := range caps.Kinds {
-		if kind != "choice" && kind != "score" && kind != "bool" {
+		if kind != ClassifierQuestionChoice && kind != ClassifierQuestionScore && kind != ClassifierQuestionBool {
 			return "classifier question kind is not supported"
 		}
 		if seen[kind] {
@@ -141,10 +141,10 @@ func (m ClassifierModel) problem() string {
 		}
 		seen[kind] = true
 	}
-	if (seen["choice"] && caps.MaxChoices < 2) || (!seen["choice"] && caps.MaxChoices != 0) {
+	if (seen[ClassifierQuestionChoice] && caps.MaxChoices < 2) || (!seen[ClassifierQuestionChoice] && caps.MaxChoices != 0) {
 		return "classifier choice limit does not match its question kinds"
 	}
-	if seen["score"] {
+	if seen[ClassifierQuestionScore] {
 		if caps.MinScoreLevels < 2 || caps.MaxScoreLevels < caps.MinScoreLevels {
 			return "classifier score level range is invalid"
 		}

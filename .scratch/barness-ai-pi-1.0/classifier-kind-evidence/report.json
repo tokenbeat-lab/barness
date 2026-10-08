@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "date": "2026-10-08",
+  "base_commit": "0c10651361424272dad1a0d1643bcad382bef2c9",
+  "branch": "main",
+  "maintainer_decision": "请按建议优化",
+  "public_type": "ClassifierCapabilities.Kinds []ClassifierQuestionKind",
+  "constants": [
+    "ClassifierQuestionChoice",
+    "ClassifierQuestionScore",
+    "ClassifierQuestionBool"
+  ],
+  "checks": {
+    "vet": "PASS",
+    "vet_live": "PASS",
+    "targeted_e2e": {
+      "bundle": ".evidence/barness-ai/20261008T004557.704349000Z",
+      "manifest_sha256": "1d94c7c04f6a39176d7dc17c845156464ca6f25c4472b645dd7e96e035307db5",
+      "cases": 60,
+      "statuses": {
+        "PASS": 60
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "full_suite": {
+      "bundle": ".evidence/barness-ai/20261008T004625.306359000Z",
+      "manifest_sha256": "e018064b3969d7a5f84531e02b84f35bdfa0becd8e19f945817275163443467a",
+      "cases": 3436,
+      "statuses": {
+        "PASS": 2817,
+        "NOT_RUN": 619
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "targeted_race": {
+      "bundle": ".evidence/barness-ai/20261008T004753.917458000Z",
+      "manifest_sha256": "c92deaa39cf6ed478abaae19a8fc526c2101c5e9f7358b8ae997bf96fa5ddf0a",
+      "cases": 91,
+      "statuses": {
+        "PASS": 91
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "builtin_catalog_snapshot_byte_comparison": "PASS",
+    "host_catalog_content_and_hash_unchanged": "PASS",
+    "evidence_redaction_audit": "PASS"
+  },
+  "catalog": {
+    "version": "2026-10-08.2",
+    "hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+    "host_catalog_hash": "sha256:2237139f344d087d3b3f88c11174594ee3b84a31a0fdbc87cde7cfba18cda5eb"
+  },
+  "reviews": {
+    "diff_command": "git diff --cached 0c10651361424272dad1a0d1643bcad382bef2c9",
+    "reviewed_diff_sha256": "c967afb1de12c5896b41aec06657842d995aca4c4bb557d91ee0c409c01db969",
+    "standards": {
+      "hard_violations": 0,
+      "optional_suggestions": 0
+    },
+    "spec": {
+      "findings": 0
+    }
+  },
+  "red_evidence": {
+    "compile_exit_code": 1,
+    "file": "compile-red.log",
+    "reason": "Public tests first used the missing named question-kind type and constants before implementation."
+  },
+  "not_run": [
+    "Opt-in pi differential and pressure cases (619 including the model-data comparison); previously passed in issue 04, no JSON/catalog content changed.",
+    "Live probes."
+  ],
+  "replay": [
+    "go vet ./...",
+    "go vet -tags live ./ai/...",
+    "go test ./ai/e2e -count=1 -run \"^(TestOperationCatalogValidation|TestOperationCatalogDiscovery|TestOperationCatalogHash)$\"",
+    "go test ./... -count=1",
+    "go test -race ./ai/e2e -count=1 -run \"^(TestChatOperationAuthorization|TestOperation.*)$\""
+  ]
+}

@@ -25,6 +25,13 @@ func TestOperationCatalogDiscovery(t *testing.T) {
 	classifier, classifierOK := got.LookupClassifier(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-4.1-mini")
 	ev.Check("same ID resolves separately in all three operations", chatOK && imageOK && classifierOK &&
 		chat.Name == "Host chat" && image.Name == "Host image" && classifier.Name == "Host classifier", "found=%v/%v/%v", chatOK, imageOK, classifierOK)
+	// A named string kind must retain the public JSON and catalog hash. The
+	// expected encoding is the existing contract, independent of constants.
+	wantCaps := []byte(`{"kinds":["choice","score","bool"],"maxChoices":255,"minScoreLevels":2,"maxScoreLevels":10}`)
+	ev.Check("typed question kinds preserve the capability JSON", jsonEqual(mustMarshal(t, classifier.Capabilities), wantCaps), "got %+v", classifier.Capabilities)
+	var decoded ai.Catalog
+	mustUnmarshal(t, mustMarshal(t, want), &decoded)
+	ev.Check("catalog JSON round trip preserves typed question kinds and hash", reflect.DeepEqual(decoded, want) && catalogHash(t, decoded) == hash, "decoded=%+v", decoded)
 	queries := ai.Catalog{Version: got.Version,
 		Models:           got.ModelsOf(ai.ProviderOpenAI, ai.APIOpenAIResponses),
 		ImageModels:      got.ImageModelsOf(ai.ProviderOpenAI, ai.APIOpenAIResponses),
@@ -81,7 +88,7 @@ func mutateOperationCatalog(c *ai.Catalog) {
 	image.Capabilities.AspectRatios[0], image.Capabilities.InputFidelity[0] = "mutated", "mutated"
 	image.Pricing.InputText = ai.Value(99.0)
 	classifier := &c.ClassifierModels[0]
-	classifier.ID, classifier.Capabilities.Kinds[0] = "mutated-classifier", "bool"
+	classifier.ID, classifier.Capabilities.Kinds[0] = "mutated-classifier", ai.ClassifierQuestionBool
 	classifier.Cost.Tiers[0].Input = 99
 }
 

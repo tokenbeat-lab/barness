@@ -52,12 +52,23 @@ type ClassifierModel struct {
 	Cost          ModelCost              `json:"cost"`
 }
 
+// ClassifierQuestionKind is a classifier's supported question category.
+// Its JSON encoding remains a string. Values from host configuration still
+// require catalog validation; an empty or unknown kind is refused by NewClient.
+type ClassifierQuestionKind string
+
+const (
+	ClassifierQuestionChoice ClassifierQuestionKind = "choice"
+	ClassifierQuestionScore  ClassifierQuestionKind = "score"
+	ClassifierQuestionBool   ClassifierQuestionKind = "bool"
+)
+
 // ClassifierCapabilities names supported question kinds (choice, score,
 // bool). Choice requires MaxChoices >= 2; score requires an inclusive level
 // range with minimum >= 2. Limits for unsupported kinds must be zero.
 type ClassifierCapabilities struct {
-	Kinds          []string `json:"kinds"`
-	MaxChoices     int      `json:"maxChoices"`
-	MinScoreLevels int      `json:"minScoreLevels"`
-	MaxScoreLevels int      `json:"maxScoreLevels"`
+	Kinds          []ClassifierQuestionKind `json:"kinds"`
+	MaxChoices     int                      `json:"maxChoices"`
+	MinScoreLevels int                      `json:"minScoreLevels"`
+	MaxScoreLevels int                      `json:"maxScoreLevels"`
 }

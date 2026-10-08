@@ -28,3 +28,8 @@
 的非阻断类型建议；Spec 无发现。Classify/GenerateImages 的反向跨入口拒绝留在其实际可用切片验收。
 
 详细证据、先红后绿记录、三类宿主快照与重放命令见 [验证记录](../operation-catalog-evidence/README.md)。
+
+2026-10-08 后续维护者决定：用户要求“请按建议优化”。分类能力的 Kinds 改用
+`[]ClassifierQuestionKind` 与三个常量，替换校验中的裸字符串；修订公共契约与 ADR-0020。
+保留字符串 JSON 及目录内容哈希，未知值与零值仍在目录构造边界拒绝，不增加兼容 shim。
+后续验证与审查见 [类型优化记录](../classifier-kind-evidence/README.md)；前轮证据保留为历史记录。

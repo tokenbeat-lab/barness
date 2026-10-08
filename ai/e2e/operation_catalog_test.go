@@ -32,7 +32,7 @@ func operationCatalog() ai.Catalog {
 		}},
 		ClassifierModels: []ai.ClassifierModel{{
 			Provider: ai.ProviderOpenAI, API: ai.APIOpenAIResponses, ID: "gpt-4.1-mini", Name: "Host classifier", ContextWindow: 32768,
-			Capabilities: ai.ClassifierCapabilities{Kinds: []string{"choice", "score", "bool"}, MaxChoices: 255, MinScoreLevels: 2, MaxScoreLevels: 10},
+			Capabilities: ai.ClassifierCapabilities{Kinds: []ai.ClassifierQuestionKind{ai.ClassifierQuestionChoice, ai.ClassifierQuestionScore, ai.ClassifierQuestionBool}, MaxChoices: 255, MinScoreLevels: 2, MaxScoreLevels: 10},
 			Cost:         ai.ModelCost{CostRates: ai.CostRates{Input: 1}, Tiers: []ai.CostTier{{InputTokensAbove: 100, CostRates: ai.CostRates{Input: 2}}}},
 		}},
 	}
@@ -56,17 +56,20 @@ func TestOperationCatalogValidation(t *testing.T) {
 		"image-zero-output-limit":              func(c *ai.Catalog) { c.ImageModels[0].Capabilities.MaxOutputImages = 0 },
 		"image-mask-without-references":        func(c *ai.Catalog) { c.ImageModels[0].Capabilities.MaxReferenceImages = 0 },
 		"classifier-no-kinds":                  func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.Kinds = nil },
-		"classifier-unknown-kind":              func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.Kinds[0] = "noul" },
+		"classifier-unknown-kind":              func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.Kinds[0] = ai.ClassifierQuestionKind("noul") },
+		"classifier-empty-kind":                func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.Kinds[0] = ai.ClassifierQuestionKind("") },
 		"classifier-duplicate-kind": func(c *ai.Catalog) {
-			c.ClassifierModels[0].Capabilities.Kinds = append(c.ClassifierModels[0].Capabilities.Kinds, "bool")
+			c.ClassifierModels[0].Capabilities.Kinds = append(c.ClassifierModels[0].Capabilities.Kinds, ai.ClassifierQuestionBool)
 		},
-		"classifier-choice-limit":       func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.MaxChoices = 1 },
-		"classifier-score-min":          func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.MinScoreLevels = 1 },
-		"classifier-score-range":        func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.MaxScoreLevels = 1 },
-		"classifier-range-without-kind": func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.Kinds = []string{"bool"} },
-		"classifier-zero-context":       func(c *ai.Catalog) { c.ClassifierModels[0].ContextWindow = 0 },
-		"classifier-negative-price":     func(c *ai.Catalog) { c.ClassifierModels[0].Cost.Input = -1 },
-		"classifier-nonfinite-tier":     func(c *ai.Catalog) { c.ClassifierModels[0].Cost.Tiers[0].Output = math.Inf(1) },
+		"classifier-choice-limit": func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.MaxChoices = 1 },
+		"classifier-score-min":    func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.MinScoreLevels = 1 },
+		"classifier-score-range":  func(c *ai.Catalog) { c.ClassifierModels[0].Capabilities.MaxScoreLevels = 1 },
+		"classifier-range-without-kind": func(c *ai.Catalog) {
+			c.ClassifierModels[0].Capabilities.Kinds = []ai.ClassifierQuestionKind{ai.ClassifierQuestionBool}
+		},
+		"classifier-zero-context":   func(c *ai.Catalog) { c.ClassifierModels[0].ContextWindow = 0 },
+		"classifier-negative-price": func(c *ai.Catalog) { c.ClassifierModels[0].Cost.Input = -1 },
+		"classifier-nonfinite-tier": func(c *ai.Catalog) { c.ClassifierModels[0].Cost.Tiers[0].Output = math.Inf(1) },
 	}
 	for _, field := range []string{"inputText", "inputImage", "outputText", "outputImage", "cacheReadText", "cacheReadImage"} {
 		for _, value := range []struct {
