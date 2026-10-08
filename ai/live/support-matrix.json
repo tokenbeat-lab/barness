@@ -332,78 +332,70 @@
       "model": "deepseek-flash",
       "sdk": "github.com/openai/openai-go/v3 v3.66.0",
       "accountAlias": "local-deepseek@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-08T11:46:33.385995Z",
-      "allPassedAt": "2026-10-08T11:46:33.385995Z",
+      "lastRunAt": "2026-10-08T12:17:24.373375Z",
+      "allPassedAt": "2026-10-08T12:17:24.373375Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-08T11:46:33.385995Z",
-          "lastPassedAt": "2026-10-08T11:46:33.385995Z"
+          "lastRunAt": "2026-10-08T12:17:24.373375Z",
+          "lastPassedAt": "2026-10-08T12:17:24.373375Z"
         },
         {
           "id": "text-complete",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-08T11:46:33.385995Z",
-          "lastPassedAt": "2026-10-08T11:46:33.385995Z"
+          "lastRunAt": "2026-10-08T12:17:24.373375Z",
+          "lastPassedAt": "2026-10-08T12:17:24.373375Z"
         },
         {
           "id": "tool-round-trip",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "tool call by automatic choice with a directive prompt",
-          "lastRunAt": "2026-10-08T11:46:33.385995Z",
-          "lastPassedAt": "2026-10-08T11:46:33.385995Z"
+          "lastRunAt": "2026-10-08T12:17:24.373375Z",
+          "lastPassedAt": "2026-10-08T12:17:24.373375Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "canceled after text_start",
-          "lastRunAt": "2026-10-08T11:46:33.385995Z",
-          "lastPassedAt": "2026-10-08T11:46:33.385995Z"
+          "lastRunAt": "2026-10-08T12:17:24.373375Z",
+          "lastPassedAt": "2026-10-08T12:17:24.373375Z"
         },
         {
           "id": "reasoning-history",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "note": "returned thinking text, thinking signature, encrypted reasoning",
-          "lastRunAt": "2026-10-08T11:46:33.385995Z",
-          "lastPassedAt": "2026-10-08T11:46:33.385995Z"
+          "note": "returned thinking text, thinking signature, encrypted reasoning, text signature",
+          "lastRunAt": "2026-10-08T12:17:24.373375Z",
+          "lastPassedAt": "2026-10-08T12:17:24.373375Z"
         },
         {
           "id": "image",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "answer mentions red: true",
-          "lastRunAt": "2026-10-08T11:46:33.385995Z",
-          "lastPassedAt": "2026-10-08T11:46:33.385995Z"
+          "lastRunAt": "2026-10-08T12:17:24.373375Z",
+          "lastPassedAt": "2026-10-08T12:17:24.373375Z"
         },
         {
           "id": "reasoning-level-high",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "accepted; stop stop, 20 output tokens of which 18 reasoning",
-          "lastRunAt": "2026-10-08T11:46:33.385995Z",
-          "lastPassedAt": "2026-10-08T11:46:33.385995Z"
+          "lastRunAt": "2026-10-08T12:17:24.373375Z",
+          "lastPassedAt": "2026-10-08T12:17:24.373375Z"
         },
         {
           "id": "reasoning-level-max",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "note": "accepted; stop stop, 20 output tokens of which 18 reasoning",
-          "lastRunAt": "2026-10-08T11:46:33.385995Z",
-          "lastPassedAt": "2026-10-08T11:46:33.385995Z"
-        },
-        {
-          "id": "auth-refused",
-          "model": "deepseek-flash",
-          "outcome": "PASS",
-          "note": "error body keys error{code,message,param,type}; id-like response headers [eo-log-uuid x-ds-trace-id]",
-          "lastRunAt": "2026-10-02T13:59:12.854068Z",
-          "lastPassedAt": "2026-10-02T13:59:12.854068Z"
+          "note": "accepted; stop stop, 25 output tokens of which 23 reasoning",
+          "lastRunAt": "2026-10-08T12:17:24.373375Z",
+          "lastPassedAt": "2026-10-08T12:17:24.373375Z"
         }
       ]
     },
@@ -415,102 +407,94 @@
       "model": "deepseek-flash",
       "sdk": "github.com/openai/openai-go/v3 v3.66.0",
       "accountAlias": "local-deepseek@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-08T11:46:46.798347Z",
-      "allPassedAt": "2026-10-08T11:46:46.798347Z",
+      "lastRunAt": "2026-10-08T12:17:32.992906Z",
+      "allPassedAt": "2026-10-08T12:17:32.992906Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "text-complete",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "tool-round-trip",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "canceled after text_start",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "reasoning-history",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "returned thinking text, thinking signature",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "image",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "answer mentions red: true",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "usage-position",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "usage in the finish_reason chunk",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "forced-tool-with-thinking",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "note": "refused with HTTP 400 as ADR-0015 决策三 expects: 400: {\"message\":\"Thinking mode does not support this tool_choice (request_id: cf28cdee-bc00-4230-8aff-1c8f3d14b244)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "note": "refused with HTTP 400 as ADR-0015 决策三 expects: 400: {\"message\":\"Thinking mode does not support this tool_choice (request_id: 6427f5b6-4bbd-4e56-b39c-c4654530b16a)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "prompt-cache-long-retention",
           "model": "deepseek-flash",
           "outcome": "PASS",
           "note": "accepted; cache read 0 tokens",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "reasoning-level-high",
           "model": "deepseek-v4-pro",
           "outcome": "PASS",
-          "note": "accepted; stop stop, 45 output tokens of which 43 reasoning",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
+          "note": "accepted; stop stop, 27 output tokens of which 25 reasoning",
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         },
         {
           "id": "reasoning-level-max",
           "model": "deepseek-v4-pro",
           "outcome": "PASS",
-          "note": "accepted; stop stop, 35 output tokens of which 33 reasoning",
-          "lastRunAt": "2026-10-08T11:46:46.798347Z",
-          "lastPassedAt": "2026-10-08T11:46:46.798347Z"
-        },
-        {
-          "id": "auth-refused",
-          "model": "deepseek-flash",
-          "outcome": "PASS",
-          "note": "error body keys error{code,message,param,type}; id-like response headers [eo-log-uuid x-ds-trace-id]",
-          "lastRunAt": "2026-10-02T13:59:24.82005Z",
-          "lastPassedAt": "2026-10-02T13:59:24.82005Z"
+          "note": "accepted; stop stop, 23 output tokens of which 21 reasoning",
+          "lastRunAt": "2026-10-08T12:17:32.992906Z",
+          "lastPassedAt": "2026-10-08T12:17:32.992906Z"
         }
       ]
     },
