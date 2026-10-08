@@ -5,7 +5,7 @@ import "github.com/tokenbeat-lab/barness/ai"
 // MixedPolicy enables chat, image and classifier for a local program with
 // 256 MiB available for model buffers. E08-mixed-pressure-local-design-load
 // (BARNESS_AI_PRESSURE=1) measures four simultaneous calls: one chat with
-// 128 KiB history/32 KiB output, OpenAI and Google edits each with two
+// 128 KiB history/16 KiB output, OpenAI and Google edits each with two
 // 256 KiB references (OpenAI also a 256 KiB mask), two 512 KiB output
 // images per edit, and a classifier with 128 KiB state/eight 4 KiB questions.
 // Images expand by 4/3 in base64; unary JSON and every image are read and

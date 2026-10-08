@@ -20,7 +20,7 @@ func TestMixedConcurrentIsolation(t *testing.T) {
 	results := make([]mixedOutcome, 8)
 	for n, k := range []tenantKey{tenantA, tenantB} {
 		for i, r := range mixedRoutes {
-			reply := r.reply(t)
+			reply := r.tenantReply(t, k)
 			upstream := "up-" + k.tenant + "-" + r.id
 			if reply.Header == nil {
 				reply.Header = map[string]string{}
@@ -43,6 +43,25 @@ func TestMixedConcurrentIsolation(t *testing.T) {
 			o.recordResult(ev, o.metadata.RequestID+"-result")
 			ev.Check("complete four-dimensional identity", o.err == nil && o.metadata.Resolved && o.metadata.TenantID == k.tenant && o.metadata.Operation == r.op && o.metadata.ProviderID == r.provider && o.metadata.API == r.api && o.metadata.ModelID == mixedModel && o.metadata.AccountScopeID == r.binding(k, "").AccountScopeID, "got %+v / %v", o.metadata, o.err)
 			ev.Check("own attempt response and resolver snapshot", len(o.metadata.Attempts) == 1 && o.metadata.Attempts[0].ProviderRequestID == "up-"+k.tenant+"-"+r.id && w.host.ReadsFor(o.metadata.RequestID).Credentials == 1, "got %+v", o.metadata)
+			inputTokens := int64(31)
+			if k.tenant == tenantB.tenant {
+				inputTokens = 47
+			}
+			ev.Check("own independent result and attempt usage", o.usage.Input == inputTokens && len(o.metadata.Attempts) == 1 && o.metadata.Attempts[0].Usage.Input == inputTokens, "got %+v", o.usage)
+			if r.op == ai.OperationChat {
+				ev.Check("own chat body", len(o.chat.Message.Content) == 1 && o.chat.Message.Content[0].(ai.Text).Text == "mixed-output-"+k.tenant, "got %+v", o.chat.Message.Content)
+			}
+			if r.op == ai.OperationImage {
+				ev.Check("own image bytes", len(o.images.Content) == 1 && o.images.Content[0].(ai.ImageOutputImage).Data == mixedTenantImage(k), "wrong image for %s", k.tenant)
+			}
+			if r.op == ai.OperationClassifier {
+				choice := "track"
+				if k.tenant == tenantB.tenant {
+					choice = "refund"
+				}
+				a, ok := o.classifier.Answers["intent"].(ai.ChoiceAnswer)
+				ev.Check("own classifier answer", ok && a.Choice == choice, "got %+v", a)
+			}
 			w.record(ev, o)
 		}
 	}
@@ -55,6 +74,7 @@ func TestMixedConcurrentIsolation(t *testing.T) {
 			k = tenantB
 		}
 		ev.Check("key never crosses tenants", req.KeyAlias == k.alias, "path=%s key=%s", req.Path, req.KeyAlias)
+		ev.Check("tenant-specific request body", strings.Contains(string(req.Body), k.tenant), "missing request marker")
 		var body map[string]any
 		mustUnmarshal(t, req.Body, &body)
 		ev.Check("same model id stays within operation", body["model"] == mixedModel, "got %v", body["model"])

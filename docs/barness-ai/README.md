@@ -64,14 +64,16 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 
 工单 15 新增独立混合策略及 `E08-mixed-pressure-{local,cloud}-design-load`：本地 4 并发、
 云端 2 租户 × 4 = 8 并发，缓冲内存预算分别为 256/512 MiB。每租户同时运行 chat、
-OpenAI image、Google image 和 TypeSafe；chat 为 128 KiB 历史/32 KiB 输出，图像调用各有
+OpenAI image、Google image 和 TypeSafe；chat 为 128 KiB 历史/16 KiB 输出，图像调用各有
 两张 256 KiB 参考图，OpenAI 另有 256 KiB mask，各输出两张 512 KiB 图片；classifier 为
 128 KiB state 与八个约 4 KiB 问题。每张图片 base64 膨胀为 4/3，合法 unary 响应整体
 大于 SSE 帧限额；请求 4 MiB、响应 8 MiB、单输入/输出图 1 MiB、总输出图 2 MiB。
 
 证据记录 GC 可达堆增长、峰值许可、Provider 请求副本/共享响应脚本、吞吐与每项限额
 占比；占比须 <=75%，可达增长须在预算内。脚本生成在测量基线前，两个强制 GC 分别
-覆盖已读 body 等 EOF 和全部结果保留的阶段，连续采样覆盖编码/解析期间；这些数字
+覆盖客户端 Body.Read 已交回全部字节但等待 EOF 和全部结果保留的阶段。live 堆只表示已捕获
+的存活增长下界；另将调用期 TotalAlloc 累计分配作为保守上界纳入相同预算，包含 GC
+采样间的全部暂存副本及测试/Observer 分配，避免漏掉解析峰值；这些数字
 是合成协议负载依据，不涵盖厂商像素计算。大 body/result 不额外复制进证据，保留生成
 参数、尺寸和哈希供重放。已有 `BARNESS_AI_PRESSURE=1` 显式开关/门禁启用，未开为 NOT_RUN。
 可重复报告见 [混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。

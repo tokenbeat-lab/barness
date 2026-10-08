@@ -36,7 +36,7 @@ type mixedLoad struct {
 }
 
 func mixedDesign(calls, tenants int) mixedLoad {
-	return mixedLoad{Calls: calls, Tenants: tenants, HistoryBytes: 128 << 10, ChatOutputBytes: 32 << 10,
+	return mixedLoad{Calls: calls, Tenants: tenants, HistoryBytes: 128 << 10, ChatOutputBytes: 16 << 10,
 		References: 2, InputImageBytes: 256 << 10, MaskBytes: 256 << 10, OutputImages: 2, OutputImageBytes: 512 << 10,
 		StateBytes: 128 << 10, Questions: 8, InstructionBytes: 4000}
 }
@@ -106,7 +106,15 @@ func TestMixedPressure(t *testing.T) {
 		t.Run(p.name, func(t *testing.T) {
 			ev := pressureCase(t, "E08-mixed-pressure-"+p.name+"-design-load")
 			l := mixedDesign(p.policy.MaxConcurrentProcess, p.tenants)
-			w := newMixedWorld(t, func(c *ai.Config) { c.Policy = p.policy }, tenantA)
+			var arrivals, ends sync.WaitGroup
+			arrivals.Add(l.Calls)
+			ends.Add(3 * p.tenants)
+			allArrived, allEnds := doneWhen(arrivals.Wait), doneWhen(ends.Wait)
+			release := make(chan struct{})
+			var releaseOnce sync.Once
+			defer releaseOnce.Do(func() { close(release) })
+			eof := &mixedEOFTransport{ended: ends.Done, release: release}
+			w := newMixedWorld(t, func(c *ai.Config) { c.Policy = p.policy; eof.next = c.Transport; c.Transport = eof }, tenantA)
 			if p.tenants == 2 {
 				w.install(tenantB)
 			}
@@ -126,15 +134,8 @@ func TestMixedPressure(t *testing.T) {
 					scripts += int64(len(ch))
 				}
 			}
-			// Every request is received before replies start. Every last chunk
-			// is read before EOF/parse completes, making both memory peaks reachable.
-			var arrivals, ends sync.WaitGroup
-			arrivals.Add(l.Calls)
-			ends.Add(l.Calls)
-			allArrived, allEnds := doneWhen(arrivals.Wait), doneWhen(ends.Wait)
-			release := make(chan struct{})
-			var releaseOnce sync.Once
-			defer releaseOnce.Do(func() { close(release) })
+			// Every request arrives before replies start. The client transport
+			// holds each complete unary body at EOF; chat waits in OnResponse.
 			for _, k := range []tenantKey{tenantA, tenantB}[:p.tenants] {
 				for _, r := range mixedRoutes {
 					reply := replies[r.id]
@@ -143,13 +144,6 @@ func TestMixedPressure(t *testing.T) {
 						select {
 						case <-allArrived:
 						case <-release:
-						}
-					}
-					last := len(reply.Chunks) - 1
-					reply.AfterChunk = func(i int) {
-						if i == last {
-							ends.Done()
-							<-release
 						}
 					}
 					w.provider.EnqueueAt(r.prefix(k), reply)
@@ -164,6 +158,8 @@ func TestMixedPressure(t *testing.T) {
 			defer wg.Wait()
 			defer cancel()
 			defer releaseOnce.Do(func() { close(release) })
+			var allocationStart runtime.MemStats
+			runtime.ReadMemStats(&allocationStart)
 			started := time.Now()
 			for n, k := range []tenantKey{tenantA, tenantB}[:p.tenants] {
 				for i, r := range mixedRoutes {
@@ -173,7 +169,15 @@ func TestMixedPressure(t *testing.T) {
 						o := mixedOutcome{}
 						switch r.op {
 						case ai.OperationChat:
-							res, err := w.client.Complete(ctx, scope, target, chatReq, nil)
+							hooked := w.client.WithHooks(ai.Hooks{OnResponse: func(ctx context.Context, _ ai.CallScope, _ ai.ResponseInfo) error {
+								select {
+								case <-release:
+									return nil
+								case <-ctx.Done():
+									return ctx.Err()
+								}
+							}})
+							res, err := hooked.Complete(ctx, scope, target, chatReq, nil)
 							o = mixedOutcome{metadata: res.Metadata, chat: res, usage: res.Message.Usage, err: err}
 						case ai.OperationClassifier:
 							res, err := w.client.Classify(ctx, scope, target, classifierReq, nil)
@@ -191,6 +195,13 @@ func TestMixedPressure(t *testing.T) {
 				}
 			}
 			waitForWithin(ev, "all design responses waiting before EOF", pressureDeadline, allEnds)
+			var expectedRead int64
+			for _, r := range mixedRoutes[1:] {
+				for _, ch := range replies[r.id].Chunks {
+					expectedRead += int64(len(ch)) * int64(p.tenants)
+				}
+			}
+			ev.Check("client received every unary response byte before EOF", eof.read.Load() == expectedRead, "read %d want %d", eof.read.Load(), expectedRead)
 			ev.Check("all mixed permits held through complete body", w.gauges.Permits() == int64(l.Calls), "held %d", w.gauges.Permits())
 			runtime.GC() // record the reachable request/body peak, not only garbage
 			heap.peakLive.Store(max(heap.peakLive.Load(), liveHeap()))
@@ -198,6 +209,9 @@ func TestMixedPressure(t *testing.T) {
 			releaseOnce.Do(func() { close(release) })
 			waitForWithin(ev, "all design calls end", pressureDeadline, doneWhen(wg.Wait))
 			elapsed := time.Since(started)
+			var allocationEnd runtime.MemStats
+			runtime.ReadMemStats(&allocationEnd)
+			allocated := allocationEnd.TotalAlloc - allocationStart.TotalAlloc
 			// Keep full validated outputs alive for one GC to count publication.
 			runtime.GC()
 			heap.peakLive.Store(max(heap.peakLive.Load(), liveHeap()))
@@ -244,7 +258,12 @@ func TestMixedPressure(t *testing.T) {
 			}
 			ev.Check("unary legal JSON exceeds SSE frame budget", int64(len(replies["openai-image"].Chunks[0])) > p.policy.MaxFrameBytes, "image response too small")
 			ev.Check("reachable growth within explicit memory budget", use.LiveGrowth() <= p.budget, "growth %d budget %d", use.LiveGrowth(), p.budget)
-			ev.Record("mixed-pressure", map[string]any{"load": l, "headroom": rooms, "heap": use, "heapGrowth": use.LiveGrowth(), "heapBudget": p.budget, "peakPermits": heap.peakGauge.Load(), "providerCapturedRequestBytes": captured, "providerSharedResponseScriptBytes": scripts, "inputImageBase64Bytes": len(ref.Data), "outputImageBase64Bytes": base64.StdEncoding.EncodedLen(l.OutputImageBytes), "duration": elapsed.String(), "callsPerSecond": float64(l.Calls) / elapsed.Seconds(), "captureBoundCalls": l.Calls})
+			// TotalAlloc is a deliberately conservative upper bound on new
+			// reachable bytes at any instant: it includes every temporary copy
+			// even if created and freed between GC samples, plus test/observer
+			// allocations. LiveGrowth is the GC-measured lower bound only.
+			ev.Check("all allocations bound even unsampled parsing peaks", allocated <= p.budget, "allocated %d budget %d", allocated, p.budget)
+			ev.Record("mixed-pressure", map[string]any{"load": l, "headroom": rooms, "heap": use, "heapGrowth": use.LiveGrowth(), "heapBudget": p.budget, "totalAllocDuringCalls": allocated, "clientUnaryBytesAtEOF": eof.read.Load(), "peakPermits": heap.peakGauge.Load(), "providerCapturedRequestBytes": captured, "providerSharedResponseScriptBytes": scripts, "inputImageBase64Bytes": len(ref.Data), "outputImageBase64Bytes": base64.StdEncoding.EncodedLen(l.OutputImageBytes), "duration": elapsed.String(), "callsPerSecond": float64(l.Calls) / elapsed.Seconds(), "captureBoundCalls": l.Calls})
 			w.released(ev)
 		})
 	}

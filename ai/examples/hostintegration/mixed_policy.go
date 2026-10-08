@@ -5,7 +5,7 @@ import "github.com/tokenbeat-lab/barness/ai"
 // CloudMixedPolicy reserves 512 MiB for model buffers in one instance.
 // E08-mixed-pressure-cloud-design-load (BARNESS_AI_PRESSURE=1) measures
 // eight simultaneous calls across two tenants, four per tenant: chat
-// (128 KiB history/32 KiB output), OpenAI and Google edits (two 256 KiB
+// (128 KiB history/16 KiB output), OpenAI and Google edits (two 256 KiB
 // references, OpenAI also a 256 KiB mask, two 512 KiB outputs each), and
 // classification (128 KiB state/eight 4 KiB questions). Unlike streamed
 // chat, image base64 expands by 4/3 and complete unary JSON/output checks

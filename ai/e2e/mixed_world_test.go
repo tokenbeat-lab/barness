@@ -130,13 +130,19 @@ func (r mixedRoute) invokeHooked(ctx context.Context, c *ai.Client, scope ai.Cal
 	h := c.WithHooks(hooks)
 	switch r.op {
 	case ai.OperationChat:
-		res, err := h.Complete(ctx, scope, target, ai.Request{Messages: []ai.Message{ai.UserText("synthetic mixed chat")}}, nil)
+		res, err := h.Complete(ctx, scope, target, ai.Request{Messages: []ai.Message{ai.UserText("synthetic mixed chat " + scope.TenantID)}}, nil)
 		return mixedOutcome{metadata: res.Metadata, usage: res.Message.Usage, err: err, chat: res}
 	case ai.OperationImage:
-		res, err := h.GenerateImages(ctx, scope, target, ai.ImagesRequest{Prompt: "synthetic mixed image"}, nil)
+		res, err := h.GenerateImages(ctx, scope, target, ai.ImagesRequest{Prompt: "synthetic mixed image " + scope.TenantID}, nil)
 		return mixedOutcome{metadata: res.Metadata, usage: res.Usage, err: err, images: res}
 	default:
-		res, err := h.Classify(ctx, scope, target, mixedClassifierInput(), nil)
+		input := mixedClassifierInput()
+		state, err := json.Marshal(map[string]string{"ticket": "synthetic", "owner": scope.TenantID})
+		if err != nil {
+			return mixedOutcome{err: err}
+		}
+		input.State = state
+		res, err := h.Classify(ctx, scope, target, input, nil)
 		return mixedOutcome{metadata: res.Metadata, usage: res.Usage, err: err, classifier: res}
 	}
 }
@@ -171,11 +177,45 @@ func (w *mixedWorld) record(ev *evidence.Case, o mixedOutcome) {
 	ev.Record(id+"-error", errString(o.err))
 	obs := w.rec.awaitCall(ev, id)
 	ev.Record("observations-"+id, obs)
+	base := o.metadata
+	base.Attempts = nil
+	starts, finishes := 0, 0
+	attemptStarts, attemptFinishes := map[string]int{}, map[string]int{}
 	for _, v := range obs {
 		ev.Check("observation keeps tenant, operation and binding", v.Call.TenantID == o.metadata.TenantID && v.Call.Operation == o.metadata.Operation && v.Call.BindingID == o.metadata.BindingID, "got %+v", v.Call)
-		if v.Kind == ai.ObservationCallFinished {
+		switch v.Kind {
+		case ai.ObservationCallStarted:
+			starts++
+			want := ai.CallMetadata{CallAttribution: ai.CallAttribution{TenantID: o.metadata.TenantID, RequestID: id, ActorID: o.metadata.ActorID, JobID: o.metadata.JobID, BindingID: o.metadata.BindingID, Operation: o.metadata.Operation}}
+			ev.Check("unresolved entry attribution", reflect.DeepEqual(v.Call, want), "got %+v", v.Call)
+		case ai.ObservationCallFinished:
+			finishes++
 			ev.Check("observed immutable metadata and usage", reflect.DeepEqual(v.Call, o.metadata) && reflect.DeepEqual(v.Usage, o.usage), "got %+v", v)
+		default:
+			ev.Check("attempt record has complete snapshot", reflect.DeepEqual(v.Call, base) && v.Attempt != nil, "got %+v", v.Call)
+			if v.Attempt == nil {
+				continue
+			}
+			if v.Kind == ai.ObservationAttemptStarted {
+				attemptStarts[v.Attempt.AttemptID]++
+			} else {
+				attemptFinishes[v.Attempt.AttemptID]++
+			}
+			if v.Kind == ai.ObservationAttemptFinished {
+				found := false
+				for _, a := range o.metadata.Attempts {
+					if a.AttemptID == v.Attempt.AttemptID {
+						found = true
+						ev.Check("attempt Observer usage matches own result attempt", reflect.DeepEqual(*v.Attempt, a), "got %+v", v.Attempt)
+					}
+				}
+				ev.Check("no unrelated observed attempt", found, "got %s", v.Attempt.AttemptID)
+			}
 		}
+	}
+	ev.Check("one logical call and no invented attempts", starts == 1 && finishes == 1 && len(attemptStarts) == len(o.metadata.Attempts) && len(attemptFinishes) == len(o.metadata.Attempts), "starts=%d finishes=%d", starts, finishes)
+	for _, a := range o.metadata.Attempts {
+		ev.Check("each own attempt observed exactly once", attemptStarts[a.AttemptID] == 1 && attemptFinishes[a.AttemptID] == 1, "attempt %s", a.AttemptID)
 	}
 }
 
