@@ -19,6 +19,9 @@
 
 资源策略示例（每个数值附适用负载、依据与调整说明，并由压力场景验证）：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`hostintegration.CloudBatchPolicy`。压力数据见 [README](README.md#资源策略示例与数值依据)。
 
+混合操作另用 `localassembly.MixedPolicy` / `hostintegration.CloudMixedPolicy`，分别限制为
+4 / 8 并发并显式启用有限 Image/Classifier 子策略。聊天策略不隐式启用新操作。
+
 `Model` 保持原字段与聊天含义；新增 `ImageModel`（输入/输出模态、图片能力、`ImagePricing`）和
 `ClassifierModel`（上下文窗口、问题类型/容量、`ModelCost`），身份为 `(Operation, Provider, API, ID)`。
 同一 ID 可跨操作、Provider 或协议并存；重复完整身份以 `ConfigError{Field: "Catalog"}` 拒绝。
@@ -173,6 +176,12 @@ Phase 取值：`scope`、`binding`、`capability`、`credential`、`consistency`
 
 本地程序显式选择一个秘密来源（指定的环境变量或秘密文件，二者只能择一），读取后以单租户、单绑定装配；核心与 SDK 都不读 `OPENAI_API_KEY` 等环境变量或 endpoint。资源策略用 `LocalPolicy` 或按其注释调整。
 
+混合操作用 `OpenOperations(OperationsConfig)`，必须提供策略；每个 Binding 独立声明操作、
+型号白名单和 Enabled，Keys 按 CredentialRef 指定唯一秘密来源。同 Provider、同账户的
+chat/image Binding 可共享引用；跨账户或 Provider 共享被拒。装配冻结切片和重试延迟，
+调用使用 `Operations.Scope()` 和显式 `ai.Target`，返回独立的 Result/ImagesResult/ClassifierResult。
+此本地 resolver 不可变；更换配置/秘密需重新装配，不承诺运行中撤销。
+
 ### 云端宿主（`ai/examples/hostintegration`）
 
 1. 认证结果 → `CallScope`（新 RequestID、ActorID）；拒绝自报 TenantID、他人会话与未认证调用者。
@@ -182,6 +191,11 @@ Phase 取值：`scope`、`binding`、`capability`、`credential`、`consistency`
 5. 需要按厂商账户或跨实例配额时注入 `Admission`；需要记录时注入 `Observer` 并定期读 `ObserverStats` 的丢弃计数。
 6. 重试在绑定上配置（`Binding.Retry`，默认不重试，ADR-0006）。
 7. 下游断开或发送失败时取消该调用的 context 或 Close 其 Stream，只结束本次生成。
+
+混合实例选择 `CloudMixedPolicy`；`Host.GenerateImages` 与 `Host.Classify` 从 Principal 建立
+scope，先拒绝错误租户声明和空 target，再传递请求 context 与类型化输入。业务置信阈值、
+转人工和路由由宿主决定；共享日志使用 Observer，禁止直接写 ErrorMessage。
+禁用对应新操作 Binding 只拒绝新的逻辑调用，不承诺撤回已发请求，其尝试消耗仍保留。
 
 ### 工具往返（`ai/examples/toolloop`）
 

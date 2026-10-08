@@ -204,6 +204,17 @@ Annotated, pressure-tested starting points:
 comments; measurements are in
 [docs/barness-ai/README.md](../docs/barness-ai/README.md).
 
+For concurrent chat, image and classifier calls on one Client, choose
+`localassembly.MixedPolicy()` or `hostintegration.CloudMixedPolicy()`.
+They explicitly enable finite subpolicies at 4/8 concurrent attempts, sized
+for complete unary JSON and base64 buffers. `OpenOperations` assembles
+independent bindings and named key sources; same-Provider/account chat and
+image bindings may share a CredentialRef. Cloud `Host.GenerateImages` and
+`Host.Classify` build scope from Principal and preserve downstream cancellation.
+The host handles typed results/errors, confidence thresholds and human review.
+Run `BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^TestMixed' -count=1`
+for the design load; without the flag pressure cases are NOT_RUN.
+
 ### Observability, usage and cost
 
 `Config.Observer` receives `call_started`, `attempt_started`,

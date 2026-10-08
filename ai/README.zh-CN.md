@@ -162,6 +162,18 @@ case errors.As(err, &e):
 
 经压力验证、带注释的起点：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`hostintegration.CloudBatchPolicy`。每个数值的依据写在源码注释中，实测数据见 [docs/barness-ai/README.md](../docs/barness-ai/README.md)。
 
+共用一个 Client 调用聊天、图像和分类时，使用独立的 `localassembly.MixedPolicy()` 或
+`hostintegration.CloudMixedPolicy()`。它们显式启用有限子策略，按整体 JSON/base64 的
+实测成本限制为 4/8 并发；原聊天容量不构成图像默认值。本地 `OpenOperations` 为每个
+操作配置独立 Binding，Keys 按 CredentialRef 装配，同 Provider/账户允许共享引用。
+云端 `Host.GenerateImages` / `Host.Classify` 从 Principal 校验身份并传递取消 context。
+宿主处理类型化结果与错误、业务置信阈值和转人工；记录使用 Observer。重放命令：
+
+```sh
+BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^TestMixed' -count=1
+go test -race ./ai/e2e -run '^TestMixed' -count=1
+```
+
 ### 可观测性、用量与成本
 
 `Config.Observer` 通过有界队列异步接收 `call_started`、`attempt_started`、`attempt_finished`、`call_finished`；慢的 Observer 不会阻塞调用，丢弃计入 `Client.ObserverStats()`。记录中不含 key、正文、工具参数或错误文本（ADR-0009）。`Usage` 保持 pi 的数字；`Usage.Cost` 是按目录价格的估算，不是账单。用量是否上报记录在 `Attempt.UsageReporting`——零值 `Usage` 从不表示免费（ADR-0010）。

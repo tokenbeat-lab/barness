@@ -33,3 +33,16 @@ CredentialResolver 接收另一份独立副本。不能把复制延迟到凭据�
 不能继续读取下一项配置。绑定/凭据阶段保留原分类和未解析归属，不发 Attempt。
 先红后绿证据：TestUnaryResolutionInterruption、TestUnaryBindingPolicySnapshot，见
 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
+
+## 工单 15：三操作共用 Client（2026-10-08）
+
+E07-mixed-snapshot 对 chat、OpenAI image、Google image、TypeSafe 分别验证操作/Provider/
+端点/账户/凭据引用的前置更新竞争：冲突只读一次绑定和凭据，无 Provider 请求；已发送
+调用的重试固定原绑定、key、目录及重试策略，新调用才采用新快照，撤销只拒绝新调用。
+各操作同名 Binding/同型号 ID 依然按租户与四维型号身份授权；同一 Provider/账户下
+不同操作 Binding 合法共享凭据引用。构造输入的目录/子策略、调用输入/选项的可变
+结构独立复制。不可变本地 OpenOperations 明确要求重新装配以更换配置/凭据；云端
+仍由宿主 resolver 更新。停用 TypeSafe/OpenAI image/Google image 不承诺撤回已发送请求，
+保留原尝试消耗，其他操作可继续使用。未引入跨路线 fallback 或双路径兼容实现。
+
+[混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。

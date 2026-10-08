@@ -94,3 +94,16 @@ x-typesafe-request-id 属于现有 request-id 响应头白名单。无需扩大�
 ## 工单 14：Google 图像真实证据（2026-10-08）
 
 追溯增加工单 14 的真实图像/目录/省略 delivery 条目，liveCombos 纳入第九组合 google-interactions-image。该路线的离线回放证明归一化，真实支持另需自己的已审计 live bundle；不能把回放或共享 adapter 当作 live PASS。此工单不宣称九组合全发布门禁通过（后续工单 17）。
+
+## 工单 15：混合设计负载证据（2026-10-08）
+
+PRESSURE 正则纳入 E08-mixed-pressure-{local,cloud}-design-load，沿用已有显式
+BARNESS_AI_PRESSURE=1/门禁开关；未执行为 NOT_RUN。字节上限用量 <=75%，本地/云端
+混合缓冲预算 256/512 MiB，并发分别占满 4/8。每租户混合 chat、两个 image 协议和
+classifier；base64 4/3、整体 JSON 与全部输出校验均实测。GC 可达堆包含 Provider
+保存的每请求副本；共享响应脚本和宿主生成输入在测量基线前建立并单独报告。响应
+已读但等 EOF、结果完整保留时强制 GC，期间连续采样；报告含吞吐、限额用量、
+headroom 和资源归零。大 body/result 不复制进证据，保存生成参数/长度/哈希。
+这是一份合成协议与宿主隔离验收，不替代九路线各自的 live 或工单 17 整版发布判定。
+
+[混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。

@@ -9,7 +9,7 @@ barness-ai 是 barness 连接多种 LLM Provider 的协议中间件（Go 包 `gi
 | 支持矩阵 | [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)（只经 `go run ./ai/live/cmd/supportmatrix` 合并冒烟报告更新） |
 | 模型/价格快照 | [`ai/release/catalog-snapshot.json`](../../ai/release/catalog-snapshot.json)（内置目录及其哈希；门禁核对它与代码一致） |
 | Fixture | [`ai/e2e/testdata/`](../../ai/e2e/testdata/)；每次门禁在发布证据包中写出 `fixtures.json`（路径、大小、SHA-256） |
-| 资源策略示例 | `ai/examples/localassembly.LocalPolicy`、`ai/examples/hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy` |
+| 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |
 | 最小示例 | `ai/examples/localassembly`、`hostintegration`、`toolloop`、`requestid` |
 | 研究条目追溯 | [`ai/release/traceability.json`](../../ai/release/traceability.json)（研究 T/C/H/V/S 条目 → E/P/D 场景 → 证据用例） |
 | 决策 | [ADR-0001…0017](../adr/)；门禁本身见 ADR-0017 |
@@ -61,6 +61,20 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 - 云端注释原称请求体最坏占用 `(并发 + 等待者) × 8 MiB`；实测一次尝试期间约持有请求体的两份副本，已改为两倍。
 
 另测得处理吞吐：16–30 万 token/s（全部并发合计），远高于厂商生成速度。
+
+工单 15 新增独立混合策略及 `E08-mixed-pressure-{local,cloud}-design-load`：本地 4 并发、
+云端 2 租户 × 4 = 8 并发，缓冲内存预算分别为 256/512 MiB。每租户同时运行 chat、
+OpenAI image、Google image 和 TypeSafe；chat 为 128 KiB 历史/32 KiB 输出，图像调用各有
+两张 256 KiB 参考图，OpenAI 另有 256 KiB mask，各输出两张 512 KiB 图片；classifier 为
+128 KiB state 与八个约 4 KiB 问题。每张图片 base64 膨胀为 4/3，合法 unary 响应整体
+大于 SSE 帧限额；请求 4 MiB、响应 8 MiB、单输入/输出图 1 MiB、总输出图 2 MiB。
+
+证据记录 GC 可达堆增长、峰值许可、Provider 请求副本/共享响应脚本、吞吐与每项限额
+占比；占比须 <=75%，可达增长须在预算内。脚本生成在测量基线前，两个强制 GC 分别
+覆盖已读 body 等 EOF 和全部结果保留的阶段，连续采样覆盖编码/解析期间；这些数字
+是合成协议负载依据，不涵盖厂商像素计算。大 body/result 不额外复制进证据，保留生成
+参数、尺寸和哈希供重放。已有 `BARNESS_AI_PRESSURE=1` 显式开关/门禁启用，未开为 NOT_RUN。
+可重复报告见 [混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。
 
 ## 支持矩阵
 

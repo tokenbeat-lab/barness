@@ -89,3 +89,14 @@ TestUnaryAdmissionWaitIsolation 证明取消等待调用只回收自己的等待
 GenerateImages 复用共同 unary 发送与绑定重试、逐次准入及取消/时限；许可持有到图片解析结束和 body 关闭，回调 panic 解栈也释放。P08 E08 记录 body/call/permit/waiter/event 全部归零。
 
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## 工单 15：混合准入（2026-10-08）
+
+所有操作共用租户/进程许可和等待者上限，不按入口各自开池。E08-mixed-admission
+以不同操作占有者/等待者验证租户上限、进程上限、人数和等待时限；取消等待者不
+归还占有者许可，有剩余进程容量时其他租户仍可用。unary 完整 JSON 读到 EOF、
+解析并全部校验后才结束尝试；已读完整 body 但 Provider 未关闭时仍持有许可。
+E08-mixed 另验证各入口取消/截止/HTTP 失败只回收自己资源，后续调用可重获许可。
+混合策略的 4/8 并发与两个等待位针对声明的图像负载，跨实例/账户限额仍由宿主注入。
+
+[混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。

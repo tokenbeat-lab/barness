@@ -59,3 +59,14 @@ TestUnaryCallbackAllocationBound 先复现：宿主已有 8 MiB 状态或问题�
 Image 子策略显式启用 GenerateImages，四项容量均为正，单张输出 ≤ 总输出图片字节 ≤ MaxOutputBytes；NewClient 深复制。已知输入和回调 map 尺寸在复制/编码前检查，旧聊天配置保持有效。
 
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## 工单 15：混合操作负载（2026-10-08）
+
+新增独立 MixedPolicy/CloudMixedPolicy，显式启用有限 Image/Classifier 子策略；旧聊天策略继续
+只授权聊天容量。以 E08-mixed-pressure 本地 4/云端 8 并发测量整体 JSON/base64、多图
+原子校验，缓冲预算为 256/512 MiB。参考图和 mask 各 256 KiB、输出每图 512 KiB 两张，
+分类 state 128 KiB/八个约 4 KiB 问题；字节限额均留至少 25% 余量。全部具体上限、请求
+副本和 GC 可达堆见源码注释与压力报告；扩大尺寸/并发必须先按新的设计负载复测。
+合法图像 JSON 不受聊天 SSE 帧上限，已知超大输入在复制前拒绝，输出超限整组为空。
+
+[混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。

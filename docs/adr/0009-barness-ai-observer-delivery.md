@@ -99,3 +99,13 @@ Classify 结果。观测不包含分类状态、问题、答案、认证头或�
 图像操作记录 image；可选模态 token 分项是审计允许的元数据。结果、尝试与异步 Observer 各自拥有用量副本，不共享可变分项。提示、base64、revised prompt 和错误正文不进入观测。
 
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## 工单 15：混合 Observer（2026-10-08）
+
+同一个 Observer 接收三种入口的批准身份、版本、尝试和用量元数据，按调用不可变快照
+归属。E09-mixed-observer 在慢、拥塞、返回错误和 panic 下同时运行四条协议路线及
+一次模型失败，模型成功/失败保持，丢弃/失败由既有 ObserverStats 识别。未增加正文
+白名单：提示、base64、状态、问题、答案、概率/置信度和 Provider 错误正文均不得进入
+观测。每次写出后的 evidence audit 复核所有 observations 文件。
+
+[混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。

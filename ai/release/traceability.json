@@ -24,7 +24,7 @@
     "D1": "^D1-",
     "D2": "(^|-)E07-(snapshot-|reject-[a-z-]*-between-reads|reject-host-reports-snapshot-conflict)",
     "H1": "(^|-)H1-",
-    "PRESSURE": "^E08-(policy-pressure|admission-burst-pressure)-",
+    "PRESSURE": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-",
     "PIDIFF": "^PIDIFF-"
   },
   "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "P09", "D1", "D2", "PRESSURE"],
@@ -34,6 +34,11 @@
   },
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier", "openai-images", "google-interactions-image"],
   "items": [
+	{"id":"T03-mixed-operation-isolation","source":"issue 15 / ADR-0001/0003/0020","requirement":"Concurrent chat/image/classifier with same-named tenant bindings and model IDs, legal same-account credential sharing, preflight operation/options refusals, fixed retry snapshots and independent route disabling","scenarios":["E07"],"cases":"mixed-(same-named|preflight|snapshot|binding-disabled)"},
+	{"id":"C08-mixed-lifecycle","source":"issue 15 / ADR-0008","requirement":"Mixed cancellation/deadlines/failures and tenant/process/waiter/time caps release only own resources; complete body and validation remain under admission","scenarios":["E08"],"cases":"mixed-(cancel|deadline|http-failure|admission|image-budget)"},
+	{"id":"C09-mixed-observer","source":"issue 15 / ADR-0009","requirement":"Mixed attributed metadata and usage only; slow/congested/error/panic Observer cannot change model success or failure and statistics identify loss","scenarios":["E09"],"cases":"mixed-observer"},
+	{"id":"H5-mixed-design-load","source":"issue 15 / ADR-0002/0017","requirement":"Explicit image/classifier policies with measured whole JSON/base64, atomic limits, reachable heap budgets, Provider copies, throughput and at most 75% byte-limit use; opt-in NOT_RUN","scenarios":["PRESSURE","E08"],"cases":"mixed-(pressure|image-budget)"},
+	{"id":"C10-mixed-hosts","source":"issue 15 / ADR-0001/0003","requirement":"Local and cloud public examples with independent bindings, legal shared credentials, authenticated identity, cancellation, typed results and host-owned confidence/routing","scenarios":["E10"],"cases":"mixed-(host|local-guard|policy)"},
     {"id":"V6-google-images-live","source":"issue 14 / ADR-0016/0023","requirement":"Own fixed Nano Banana 2.1 on official v1beta; required generation/reference editing, four-call/image 1K budget, complete synchronous inline evidence, honest absent identity, atomic own-report matrix merge; separate live gate requires its own audited bundle","scenarios":["P09"],"cases":"live-replay|live-matrix-cli"},
     {"id":"H2-google-images-catalog","source":"issue 14 / ADR-0010/0018/0023","requirement":"Own live before builtin inclusion; verified counts/1K/1:1, dated modality rates; image-only output detail excludes text thought, Output contains Reasoning, native TotalTokens retained, nullable partial/unreported without invented missing text/cache or per-image pricing","scenarios":["P09"],"cases":"live-replay|live-catalog"},
     {"id":"C04-google-images-delivery-omission","source":"issue 14 / maintainer-approved ADR-0023","requirement":"Always omit refused delivery field, forbid callback insertion, still reject URI/continuation/non-completed output without protocol/version/model fallback","scenarios":["P09"],"cases":"format-(inline|uri)|live-replay"},
