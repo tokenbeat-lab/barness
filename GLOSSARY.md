@@ -157,11 +157,11 @@ _Avoid_: 模型 compat、"兼容 OpenAI"
 _Avoid_: 差分通过、pi 已覆盖
 
 **Live Smoke（真实冒烟）**：
-同一 Client 以低权限测试账户连接厂商真实官方 API 的发布证据（Go 中为带 `live` build tag 的 `ai/live`，另需 `BARNESS_AI_LIVE=1`）；一个进程只跑一个 Provider × 协议组合、只持有该组合的 key，结果只有 PASS、FAIL、NOT_RUN、UNSUPPORTED 四种，厂商故障在预算内重试后为 FAIL，不改成跳过。
+同一 Client 以低权限测试账户连接厂商真实官方 API 的发布证据（Go 中为带 `live` build tag 的 `ai/live`，另需 `BARNESS_AI_LIVE=1`）；一个进程只跑一个操作 × Provider × 协议组合、只持有该组合的 key，结果只有 PASS、FAIL、NOT_RUN、UNSUPPORTED 四种，厂商故障在预算内重试后为 FAIL，不改成跳过。
 _Avoid_: 集成测试、跳过、SDK 探针
 
 **Support Matrix（支持矩阵）**：
-每个首期 Provider × 协议组合的真实冒烟状态（Go 中为 `ai/live/support-matrix.json`）：模型、SDK、测试账户/区域别名、各能力的结果与最后通过时间；只由该组合自己的冒烟报告合并更新，共享 adapter 的通过不连带标记其他组合。
+每个首期操作 × Provider × 协议组合的真实冒烟状态（Go 中为 `ai/live/support-matrix.json`）：模型、SDK、测试账户/区域别名、各能力的结果与最后通过时间；只由该组合自己的冒烟报告合并更新，共享 adapter 的通过不连带标记其他组合。
 _Avoid_: 兼容列表、"兼容 OpenAI"
 
 **Design Load（设计负载）**：
@@ -173,5 +173,5 @@ _Avoid_: 默认配置、基准测试
 _Avoid_: 日志过滤、事后清理
 
 **Release Gate（发布门禁）**：
-发布前对 barness-ai 的一次判定（`go run ./ai/release/cmd/releasegate`）：`go vet`、离线 E2E（含 pi 差分与压力场景）、`-race`、全部 P0、无待处理差分、六组合真实冒烟完整通过（或明确 UNSUPPORTED）、脱敏审计、研究条目追溯与目录快照，全部通过才可发布；报告分别列出离线、差分与 live 结果。追溯条目只由证据判定，仅"已映射"的条目为 NO_EVIDENCE，不记为 PASS。
+发布前对 barness-ai 的一次判定（`go run ./ai/release/cmd/releasegate`）：`go vet`、离线 E2E（含 pi 差分与压力场景）、`-race`、全部 P0、无待处理差分、当前七组合真实冒烟完整通过（或明确 UNSUPPORTED）、脱敏审计、研究条目追溯与目录快照，全部通过才可发布；报告分别列出离线、差分与 live 结果。追溯条目只由证据判定，仅"已映射"的条目为 NO_EVIDENCE，不记为 PASS。
 _Avoid_: CI 绿灯、发布流程

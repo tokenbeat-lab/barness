@@ -32,7 +32,7 @@
   },
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier"],
   "items": [
-    {"id":"V6-typesafe-live","source":"issue 08 / ADR-0016/0021","requirement":"Own fixed classifier live process, question budget, official wire replay and explicit unconfirmed 422 shape; live gate requires the own audited bundle","scenarios":["P07","LIVE"],"cases":"live-wire|builtin-official|live-score|LIVE-P07-"},
+    {"id":"V6-typesafe-live","source":"issue 08 / ADR-0016/0021","requirement":"Official fixed classifier wire replay and explicit unconfirmed 422 shape; the separate live gate requires this route's own audited bundle","scenarios":["P07"],"cases":"live-wire|builtin-official|live-score"},
     {"id":"H2-typesafe-catalog","source":"issue 08 / ADR-0010/0018","requirement":"Only jev-1.13.0 with official capabilities, input rate 0.042 and free output; versioned hash snapshot","scenarios":["P07"],"cases":"builtin-official|live-wire"},
     {"id":"C08-unary-lifecycle","source":"issue 07 / design 7.5–7.6 / ADR-0003/0006/0008","requirement":"Unary cancellation, deadlines, transport timeouts, independent admission, frozen retries and subsequent permit acquisition","scenarios":["P07"],"cases":"unary-(before|resolve|host-admission|timeout|backoff|admission|status|frozen|binding-policy)"},
     {"id":"H5-unary-budgets","source":"issue 07 / design 8 / ADR-0007/0008","requirement":"Inclusive unary output and error budgets, one overflow byte, no replay, body and lease release after parsing","scenarios":["P07"],"cases":"unary-(budget|callback-allocation)"},

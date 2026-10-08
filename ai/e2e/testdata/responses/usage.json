@@ -2,8 +2,8 @@
   "case": "E11 usage, cost and price version (P01 OpenAI × Responses)",
   "source": "Synthetic offline fixture. Usage conversion follows pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) openai-responses-shared.ts finalizeResponse, cost follows models.ts calculateCost and openai-responses.ts applyServiceTierPricing; prices are the frozen providers/data/openai.json. Expected costs were computed with that frozen copy and are checked against it by the pi differential.",
   "catalog": {
-    "version": "2026-10-08.2",
-    "hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea"
+    "version": "2026-10-08.3",
+    "hash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063"
   },
   "model": "gpt-4.1-mini",
   "prefix": [
