@@ -40,3 +40,17 @@ catalog snapshot. Final full-suite and follow-up review results are appended bel
 
 Initial findings: Standards 1 documented + 2 judgement calls; Spec 1 documented.
 Both documented findings concern reproducibility and are corrected.
+
+## Follow-up review at 53b12e8
+
+Standards: PASS, no actionable documented violations or remaining smell findings.
+The reviewer verified the emitted full-combination replay, transparency guard,
+shared expected-set validation, optional mask rejection semantics and capture
+limits; the targeted live-tag race regression passed.
+
+Spec: PASS, no remaining missing/incorrect requirements or scope creep. The
+reviewer independently checked the replay regression and preserved image-first
+prerequisite, usage/cost/accounting evidence and conservative catalog scope.
+
+Remaining findings: Standards 0; Spec 0. Full-suite evidence is recorded separately
+without changing either review axis.

@@ -1,0 +1,281 @@
+{
+  "status": "PASS",
+  "bundleId": "20261008T073009.099075000Z",
+  "commit": "53b12e8fe4356f89ea20b7284c5e028ca597c3cb",
+  "counts": {
+    "PASS": 4007
+  },
+  "imageCases": 267,
+  "differentialCases": 623,
+  "pressureCases": 11,
+  "auditFindings": 0,
+  "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1",
+  "commandExitCode": 0,
+  "selectedImageCases": [
+    {
+      "dir": "P08-E01-live-replay-generation",
+      "fixtures": {
+        "live-contract.json": "269cd6e407e8867dd7ce45d1f9e2a57c742392928506c52244cd49eae36bbd7a"
+      },
+      "id": "P08-E01-live-replay-generation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesLiveWireReplay$/^generation$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesLiveWireReplay/generation",
+      "assertions": {
+        "assertions": [
+          {
+            "name": "live response accepted offline",
+            "pass": true,
+            "detail": "err=<nil>"
+          },
+          {
+            "name": "complete native request and original route",
+            "pass": true,
+            "detail": "native request mismatch"
+          },
+          {
+            "name": "complete raster, MIME, dimensions and captured checksum",
+            "pass": true,
+            "detail": "invalid recorded image"
+          },
+          {
+            "name": "actual modality usage and known-only prices preserved",
+            "pass": true,
+            "detail": "got {Input:17 Output:439 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0xc003982700 TotalTokens:456 Cost:{Input:8.5e-05 Output:0.013170000000000001 CacheRead:0 CacheWrite:0 Total:0.013255000000000001}}"
+          },
+          {
+            "name": "current catalog snapshot attributed",
+            "pass": true,
+            "detail": "wrong snapshot"
+          }
+        ],
+        "case_id": "P08-E01-live-replay-generation",
+        "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesLiveWireReplay$/^generation$'",
+        "status": "PASS",
+        "test": "TestOpenAIImagesLiveWireReplay/generation"
+      },
+      "artifacts": [
+        {
+          "path": "P08-E01-live-replay-generation/assertions.json",
+          "bytes": 1124,
+          "sha256": "87b55479bc83d40b3bc1da17b2b9e10e94114be1e61011a058ecc93f898df697"
+        },
+        {
+          "path": "P08-E01-live-replay-generation/live-contract.json",
+          "bytes": 1267330,
+          "sha256": "269cd6e407e8867dd7ce45d1f9e2a57c742392928506c52244cd49eae36bbd7a"
+        },
+        {
+          "path": "P08-E01-live-replay-generation/requests.json",
+          "bytes": 583,
+          "sha256": "0e51ff3deca458f8abca108d263facab09370d4e11a86734e15e147c9a1b8147"
+        },
+        {
+          "path": "P08-E01-live-replay-generation/response-script.json",
+          "bytes": 66402,
+          "sha256": "d0f8d614180e01c3cd8a2a924f58540bdac3bc7c44dc9615fac8a41db37dbaaa"
+        },
+        {
+          "path": "P08-E01-live-replay-generation/result.json",
+          "bytes": 67341,
+          "sha256": "0bd665c7197923915150125d7c7c484304a89023f8f3771e4fb13f8f60ca6503"
+        }
+      ]
+    },
+    {
+      "dir": "P08-E01-live-replay-json-edit",
+      "fixtures": {
+        "live-contract.json": "269cd6e407e8867dd7ce45d1f9e2a57c742392928506c52244cd49eae36bbd7a"
+      },
+      "id": "P08-E01-live-replay-json-edit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesLiveWireReplay$/^json-edit$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesLiveWireReplay/json-edit",
+      "assertions": {
+        "assertions": [
+          {
+            "name": "live response accepted offline",
+            "pass": true,
+            "detail": "err=<nil>"
+          },
+          {
+            "name": "complete native request and original route",
+            "pass": true,
+            "detail": "native request mismatch"
+          },
+          {
+            "name": "complete raster, MIME, dimensions and captured checksum",
+            "pass": true,
+            "detail": "invalid recorded image"
+          },
+          {
+            "name": "actual modality usage and known-only prices preserved",
+            "pass": true,
+            "detail": "got {Input:287 Output:196 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0xc003982000 TotalTokens:483 Cost:{Input:0.002203 Output:0.00588 CacheRead:0 CacheWrite:0 Total:0.008083}}"
+          },
+          {
+            "name": "current catalog snapshot attributed",
+            "pass": true,
+            "detail": "wrong snapshot"
+          }
+        ],
+        "case_id": "P08-E01-live-replay-json-edit",
+        "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesLiveWireReplay$/^json-edit$'",
+        "status": "PASS",
+        "test": "TestOpenAIImagesLiveWireReplay/json-edit"
+      },
+      "artifacts": [
+        {
+          "path": "P08-E01-live-replay-json-edit/assertions.json",
+          "bytes": 1098,
+          "sha256": "65cdb4e1039c671e6d2c7c4c59e8c390050278551d68ba08fa8612191959b6ce"
+        },
+        {
+          "path": "P08-E01-live-replay-json-edit/live-contract.json",
+          "bytes": 1267330,
+          "sha256": "269cd6e407e8867dd7ce45d1f9e2a57c742392928506c52244cd49eae36bbd7a"
+        },
+        {
+          "path": "P08-E01-live-replay-json-edit/requests.json",
+          "bytes": 1743,
+          "sha256": "1ae0e8fdefdaa4dd8b4375132aa76201106e4a2281caa4981e922647432ba822"
+        },
+        {
+          "path": "P08-E01-live-replay-json-edit/response-script.json",
+          "bytes": 1011079,
+          "sha256": "dd308b9d00b6b870ab576e65d23dafbed689ed5dcb64ca58099ee32e999f069c"
+        },
+        {
+          "path": "P08-E01-live-replay-json-edit/result.json",
+          "bytes": 1012182,
+          "sha256": "9bc06539bab4dec5c3a00f31f4db3cb81790b812bc11d169844055a8760733b4"
+        }
+      ]
+    },
+    {
+      "dir": "P08-E01-live-replay-mask-edit",
+      "fixtures": {
+        "live-contract.json": "269cd6e407e8867dd7ce45d1f9e2a57c742392928506c52244cd49eae36bbd7a"
+      },
+      "id": "P08-E01-live-replay-mask-edit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesLiveWireReplay$/^mask-edit$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesLiveWireReplay/mask-edit",
+      "assertions": {
+        "assertions": [
+          {
+            "name": "live response accepted offline",
+            "pass": true,
+            "detail": "err=<nil>"
+          },
+          {
+            "name": "complete native request and original route",
+            "pass": true,
+            "detail": "native request mismatch"
+          },
+          {
+            "name": "complete raster, MIME, dimensions and captured checksum",
+            "pass": true,
+            "detail": "invalid recorded image"
+          },
+          {
+            "name": "actual modality usage and known-only prices preserved",
+            "pass": true,
+            "detail": "got {Input:289 Output:196 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0xc003786040 TotalTokens:485 Cost:{Input:0.002213 Output:0.00588 CacheRead:0 CacheWrite:0 Total:0.008093}}"
+          },
+          {
+            "name": "current catalog snapshot attributed",
+            "pass": true,
+            "detail": "wrong snapshot"
+          }
+        ],
+        "case_id": "P08-E01-live-replay-mask-edit",
+        "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesLiveWireReplay$/^mask-edit$'",
+        "status": "PASS",
+        "test": "TestOpenAIImagesLiveWireReplay/mask-edit"
+      },
+      "artifacts": [
+        {
+          "path": "P08-E01-live-replay-mask-edit/assertions.json",
+          "bytes": 1098,
+          "sha256": "ed2201511706ac55c5699259a68bccc48d2b6654e08a2ffea9f51d6f185cb2c4"
+        },
+        {
+          "path": "P08-E01-live-replay-mask-edit/live-contract.json",
+          "bytes": 1267330,
+          "sha256": "269cd6e407e8867dd7ce45d1f9e2a57c742392928506c52244cd49eae36bbd7a"
+        },
+        {
+          "path": "P08-E01-live-replay-mask-edit/requests.json",
+          "bytes": 3047,
+          "sha256": "343790c2154b2bf3e19caaeef3fe52a81616fb70aeef783c9cc7fc0a68ceb8d5"
+        },
+        {
+          "path": "P08-E01-live-replay-mask-edit/response-script.json",
+          "bytes": 182419,
+          "sha256": "9d824965236fda9b41a0a284c72b663cf6610833f837717aad886bd49f053a77"
+        },
+        {
+          "path": "P08-E01-live-replay-mask-edit/result.json",
+          "bytes": 183307,
+          "sha256": "6fa93c4c9594d2f8a4e3491e456171b6540c3c337e7db59a8aea434695d4215c"
+        }
+      ]
+    },
+    {
+      "dir": "P08-E03-live-catalog-inclusion",
+      "fixtures": {
+        "official.json": "4d62f3bbbedfafe07529a0ccf0a90094a0993ec5ea35d3b15d736fcf5a6ef5ab"
+      },
+      "id": "P08-E03-live-catalog-inclusion",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesBuiltinCatalog$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesBuiltinCatalog",
+      "assertions": {
+        "assertions": [
+          {
+            "name": "fixed model equals sourced verified capability and price snapshot",
+            "pass": true,
+            "detail": "got {Provider:openai API:openai-images ID:gpt-image-2.5-sunburst-2026-09-08 Name:GPT Image 2.5 Sunburst (2026-09-08) Input:[text image] Output:[image] Capabilities:{MaxReferenceImages:1 MaxOutputImages:1 Sizes:[1024x1024] CustomSizes:<nil> Qualities:[low medium] ImageSizes:[] AspectRatios:[] Mask:true TransparentBackground:true InputFidelity:[]} Pricing:{InputText:{state:2 value:5} InputImage:{state:2 value:8} OutputText:{state:2 value:0} OutputImage:{state:2 value:30} CacheReadText:{state:0 value:0} CacheReadImage:{state:0 value:0} Source:https://developers.openai.com/api/docs/guides/image-generation; https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst; retrieved 2026-10-08}}"
+          },
+          {
+            "name": "dated source and new version",
+            "pass": true,
+            "detail": "version=2026-10-08.4"
+          },
+          {
+            "name": "moving alias not included",
+            "pass": true,
+            "detail": "alias listed"
+          },
+          {
+            "name": "no cached or derived per-image billing",
+            "pass": true,
+            "detail": "unconfirmed configuration"
+          }
+        ],
+        "case_id": "P08-E03-live-catalog-inclusion",
+        "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesBuiltinCatalog$'",
+        "status": "PASS",
+        "test": "TestOpenAIImagesBuiltinCatalog"
+      },
+      "artifacts": [
+        {
+          "path": "P08-E03-live-catalog-inclusion/assertions.json",
+          "bytes": 1412,
+          "sha256": "d866350a172ae595453648f34288a3759f5852b9f709cabbd8f7e104b8132be7"
+        },
+        {
+          "path": "P08-E03-live-catalog-inclusion/catalog.json",
+          "bytes": 59618,
+          "sha256": "d265e04a9a129918795f5aa156b6e507457126e2545217f12363b0b5cb29752b"
+        },
+        {
+          "path": "P08-E03-live-catalog-inclusion/official.json",
+          "bytes": 2032,
+          "sha256": "4d62f3bbbedfafe07529a0ccf0a90094a0993ec5ea35d3b15d736fcf5a6ef5ab"
+        }
+      ]
+    }
+  ]
+}

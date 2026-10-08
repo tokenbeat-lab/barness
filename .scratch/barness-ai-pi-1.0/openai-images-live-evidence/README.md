@@ -47,8 +47,27 @@ Sunburst 的 input_fidelity 值未明确、未实测，所以要求省略，不�
 正式 CI 按 ai/live/doc.go 直接注入 BARNESS_AI_LIVE_KEY_OPENAI_IMAGES，不从文件加载。
 新的真实报告须经审计后再合并，verify.py 固定核对本次原始证据。
 
-验证进展：live、目标 E2E、TypeSafe 共享格式回归、目标 race 和 go vet -tags live 已通过。
-全量 race（pi 差分与压力开关启用）和双轴 review 的最终结论在完成后追加。
+最终验证：全量 `BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1`
+退出 0，4007 个 E2E 全 PASS（含 623 个 pi 差分、11 个压力场景和 267 个 P08 场景），
+无数据竞争；普通及 live 标签 go vet、目标 live 标签 race 均通过。见
+[全量摘要和四个目录/回放断言](full-evidence.json)、[全量 manifest](full-bundle-manifest.json)、
+[全量审计零发现](full-bundle-audit.json)、full-race.log 和 vet-results.json。
+完整离线捕获留在本地 `full/20261008T073009.099075000Z`（体积大，git 忽略）；
+提交的断言、fixture/artifact 哈希和 replay 命令可在新 checkout 重复验证。
+
+首次全量仅旧 responses/usage.json 的目录哈希 pin 失败，保留 full-pin-failure.*
+及零发现审计；更新 pin 后完整重跑全量，不以单测通过替代这次全量验收。
+双轴复审：Standards 0、Spec 0 未解决发现。
+
+[发布追溯核对](release-evaluation/release-report.json) 以现有完整包评估；
+P08 live 行、V6/H2 图片追溯、全部离线 P0、pi 差分、快照和审计均 PASS。
+该 `-bundle` 模式不运行 command gates，且只提供本工单 live 包，其余七条路由
+未在这次评估传入包，因此全局 release-report 整体为 FAIL、命令预期退出 1。
+这份范围核对不宣称 issue 17 的九路发布门禁已经完成。
+
+manifest.json 保存本证据目录已提交产物的字节数和 SHA-256（排除自身、audit.json
+和派生 verification.json）；audit.json 对可提交产物再审计，含 `.env` 所有凭据的
+已知值检查，零发现。大型 full/ 的每次运行已单独完成审计。
 
 代码审查修正：保存的逐场景 replay 原先只选 generation/mask，无法满足同进程编辑
 前置条件。现使用完整 OpenAI Images 组合；此次只更正 manifest/assertions 的 replay

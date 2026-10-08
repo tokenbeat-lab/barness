@@ -1,0 +1,12 @@
+[
+  {
+    "command": "go vet ./...",
+    "exitCode": 0,
+    "status": "PASS"
+  },
+  {
+    "command": "go vet -tags live ./...",
+    "exitCode": 0,
+    "status": "PASS"
+  }
+]

@@ -77,6 +77,26 @@ with tempfile.TemporaryDirectory() as temporary:
     snapshot = Path(temporary) / 'snapshot.json'
     subprocess.run(['go', 'run', './ai/release/cmd/releasegate', '-write-snapshot', '-snapshot', str(snapshot)], cwd=root, check=True, capture_output=True)
     assert snapshot.read_bytes() == (root / 'ai/release/catalog-snapshot.json').read_bytes()
+# Verify the committed bundle inventory and final offline acceptance summaries.
+# Complete raw offline captures stay locally under the ignored full/ directory;
+# committed assertions, fixture hashes and replay commands remain portable.
+artifact_manifest = base / 'manifest.json'
+if artifact_manifest.exists():
+    inventory = read(artifact_manifest)
+    assert inventory['issue'] == 11
+    for artifact in inventory['artifacts']:
+        path = base / artifact['path']
+        data = path.read_bytes()
+        assert len(data) == artifact['bytes'], artifact['path']
+        assert hashlib.sha256(data).hexdigest() == artifact['sha256'], artifact['path']
+    full = read(base / 'full-evidence.json')
+    assert full['status'] == 'PASS' and full['counts'] == {'PASS': 4007}
+    assert full['auditFindings'] == 0 and full['commandExitCode'] == 0
+    assert full['differentialCases'] == 623 and full['pressureCases'] == 11
+    assert all(c['status'] == 'PASS' for c in full['selectedImageCases'])
+    assert all(a['pass'] for c in full['selectedImageCases'] for a in c['assertions']['assertions'])
+    assert read(base / 'audit.json')['findings'] == []
+
 summary = dict(status='PASS', liveCases=3, calls=3, images=3, retries=0, estimatedUSD=round(cost, 6), rasterChecksums=True, atomicMerge=True, otherRowsUnchanged=True, catalogSnapshotCurrent=True)
 (base / 'verification.json').write_text(json.dumps(summary, indent=2) + '\n')
 print(json.dumps(summary))
