@@ -1,0 +1,698 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "819",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "订单扣了两次钱，请退回多收的一笔。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "822",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "钱已付清，但电子发票一直没有开出来。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "828",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "退款申请通过了，款项还没到账，麻烦查询。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "828",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "不是物流的问题，我只想问为什么付款失败。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "831",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "商品已经收到，我要把发票抬头改成公司名称。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "837",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "登录和页面都正常，结算时却提示银行卡扣款失败。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "825",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "点击保存按钮后程序就闪退，内容也丢了。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "822",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "报表页面一直转圈，刷新后仍然打不开。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "831",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "升级以后搜索功能失效，输入关键词没有反应。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "831",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "能正常登录，但下载文件时总提示服务器异常。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "828",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "不涉及付款，设置页面点哪个按钮都没反应。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "834",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "物流状态看得到，只是应用的通知开关无法保存。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "831",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "包裹三天没有更新物流，能查一下到哪里了吗？",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "822",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "页面显示已签收，可我根本没收到快递。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "819",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "订单付款成功了，请问什么时候发货？",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "828",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "快递员去了旧地址，能帮我更改配送地址吗？",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "822",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "不用退款，我只是想催一下迟到的包裹。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "840",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "发票已经收到了，商品却还没有寄出，请查发货进度。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "816",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "忘记登录密码了，请帮我找回账号。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "822",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "换了手机号，原账号收不到登录验证码。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "831",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "账号被锁住，无法进入个人中心，想申请解锁。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "822",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "旧邮箱停用了，怎样更换账号绑定邮箱？",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "828",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "不是程序闪退，是密码错误导致我无法登录。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "852",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "付款记录不用查询，我现在只需要恢复被停用账号的访问权限。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  }
+]

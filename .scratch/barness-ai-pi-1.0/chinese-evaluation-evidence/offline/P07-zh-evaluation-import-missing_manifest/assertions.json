@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "file import refuses incomplete evidence",
+      "pass": true,
+      "detail": "accepted missing_manifest"
+    },
+    {
+      "name": "safe diagnostic retained",
+      "pass": true,
+      "detail": "lost stage context"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-import-missing_manifest",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^missing_manifest$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationImportedEvidence/missing_manifest"
+}

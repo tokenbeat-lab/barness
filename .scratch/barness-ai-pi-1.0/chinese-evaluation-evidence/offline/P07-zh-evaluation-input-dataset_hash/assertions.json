@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input never sends",
+      "pass": true,
+      "detail": "guard accepted dataset_hash"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-input-dataset_hash",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^dataset_hash$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationInputGuards/dataset_hash"
+}

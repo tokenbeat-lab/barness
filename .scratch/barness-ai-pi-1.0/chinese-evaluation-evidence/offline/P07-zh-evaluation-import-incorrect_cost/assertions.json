@@ -1,0 +1,23 @@
+{
+  "assertions": [
+    {
+      "name": "coherent report tamper rejected",
+      "pass": true,
+      "detail": "accepted incorrect_cost"
+    },
+    {
+      "name": "file import refuses incomplete evidence",
+      "pass": true,
+      "detail": "accepted incorrect_cost"
+    },
+    {
+      "name": "safe diagnostic retained",
+      "pass": true,
+      "detail": "lost stage context"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-import-incorrect_cost",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^incorrect_cost$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationImportedEvidence/incorrect_cost"
+}

@@ -1,0 +1,298 @@
+[
+  {
+    "dir": "P07-zh-evaluation-budget",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-budget",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^budget$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/budget"
+  },
+  {
+    "dir": "P07-zh-evaluation-cancel",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-cancel",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^cancel$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/cancel"
+  },
+  {
+    "dir": "P07-zh-evaluation-command-disabled",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-command-disabled",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationCommand$/^disabled$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationCommand/disabled"
+  },
+  {
+    "dir": "P07-zh-evaluation-command-foreign_credential",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-command-foreign_credential",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationCommand$/^foreign_credential$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationCommand/foreign_credential"
+  },
+  {
+    "dir": "P07-zh-evaluation-command-missing_key",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-command-missing_key",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationCommand$/^missing_key$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationCommand/missing_key"
+  },
+  {
+    "dir": "P07-zh-evaluation-command-verify_incomplete",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-command-verify_incomplete",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationCommand$/^verify_incomplete$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationCommand/verify_incomplete"
+  },
+  {
+    "dir": "P07-zh-evaluation-command-verify_observer",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-command-verify_observer",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationCommand$/^verify_observer$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationCommand/verify_observer"
+  },
+  {
+    "dir": "P07-zh-evaluation-fixed-workflow",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-fixed-workflow",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFixedWorkflow$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFixedWorkflow"
+  },
+  {
+    "dir": "P07-zh-evaluation-http_failure",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-http_failure",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^http_failure$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/http_failure"
+  },
+  {
+    "dir": "P07-zh-evaluation-import-attempt_id",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-import-attempt_id",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^attempt_id$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationImportedEvidence/attempt_id"
+  },
+  {
+    "dir": "P07-zh-evaluation-import-http_status",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-import-http_status",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^http_status$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationImportedEvidence/http_status"
+  },
+  {
+    "dir": "P07-zh-evaluation-import-incomplete_observer",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-import-incomplete_observer",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^incomplete_observer$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationImportedEvidence/incomplete_observer"
+  },
+  {
+    "dir": "P07-zh-evaluation-import-incorrect_cost",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-import-incorrect_cost",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^incorrect_cost$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationImportedEvidence/incorrect_cost"
+  },
+  {
+    "dir": "P07-zh-evaluation-import-missing_manifest",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-import-missing_manifest",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^missing_manifest$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationImportedEvidence/missing_manifest"
+  },
+  {
+    "dir": "P07-zh-evaluation-import-missing_observer",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-import-missing_observer",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^missing_observer$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationImportedEvidence/missing_observer"
+  },
+  {
+    "dir": "P07-zh-evaluation-import-negative_tokens",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-import-negative_tokens",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^negative_tokens$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationImportedEvidence/negative_tokens"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-catalog_hash",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-catalog_hash",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^catalog_hash$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/catalog_hash"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-catalog_version",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-catalog_version",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^catalog_version$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/catalog_version"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-dataset_hash",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-dataset_hash",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^dataset_hash$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/dataset_hash"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-dataset_version",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-dataset_version",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^dataset_version$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/dataset_version"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-duplicate_key",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-duplicate_key",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^duplicate_key$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/duplicate_key"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-duplicate_sample",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-duplicate_sample",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^duplicate_sample$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/duplicate_sample"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-missing_label",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-missing_label",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^missing_label$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/missing_label"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-model_version",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-model_version",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^model_version$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/model_version"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-no_basis",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-no_basis",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^no_basis$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/no_basis"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-question_key",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-question_key",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^question_key$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/question_key"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-retry_budget",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-retry_budget",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^retry_budget$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/retry_budget"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-unknown_label",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-unknown_label",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^unknown_label$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/unknown_label"
+  },
+  {
+    "dir": "P07-zh-evaluation-input-wrong_distribution",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-input-wrong_distribution",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^wrong_distribution$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationInputGuards/wrong_distribution"
+  },
+  {
+    "dir": "P07-zh-evaluation-missing_answer",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-missing_answer",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^missing_answer$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/missing_answer"
+  },
+  {
+    "dir": "P07-zh-evaluation-not-run-and-artifact",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-not-run-and-artifact",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationNotRunAndArtifactGuards$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationNotRunAndArtifactGuards"
+  },
+  {
+    "dir": "P07-zh-evaluation-pre-cancelled",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-pre-cancelled",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationPreCancelled$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationPreCancelled"
+  },
+  {
+    "dir": "P07-zh-evaluation-protocol",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-protocol",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^protocol$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/protocol"
+  },
+  {
+    "dir": "P07-zh-evaluation-response_drift",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-response_drift",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^response_drift$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/response_drift"
+  },
+  {
+    "dir": "P07-zh-evaluation-usage_absent",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-usage_absent",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^usage_absent$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/usage_absent"
+  },
+  {
+    "dir": "P07-zh-evaluation-usage_partial",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-usage_partial",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^usage_partial$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/usage_partial"
+  },
+  {
+    "dir": "P07-zh-evaluation-wrong_key",
+    "fixtures": {},
+    "id": "P07-zh-evaluation-wrong_key",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFailures$/^wrong_key$'",
+    "status": "PASS",
+    "test": "TestChineseEvaluationFailures/wrong_key"
+  }
+]

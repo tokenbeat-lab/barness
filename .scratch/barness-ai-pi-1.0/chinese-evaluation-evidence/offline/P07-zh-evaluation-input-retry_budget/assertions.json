@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input never sends",
+      "pass": true,
+      "detail": "guard accepted retry_budget"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-input-retry_budget",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^retry_budget$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationInputGuards/retry_budget"
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "command": "go vet ./...",
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "command": "go vet -tags live ./ai/...",
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "command": "go run ./ai/examples/chineseeval/cmd/chineseeval -verify initial live",
+    "exit": 0,
+    "output": "COMPLETE: artifact completeness and audit verified; evidence kind live\n"
+  }
+]

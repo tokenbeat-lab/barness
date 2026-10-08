@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "cancel before execution has no score",
+      "pass": true,
+      "detail": "got {Total:24 Scored:0 Correct:0 Failed:0 Unexecuted:24 Accuracy:<nil> ScoredAccuracy:<nil> Confusion:map[account:map[not_run:6] billing:map[not_run:6] delivery:map[not_run:6] technical:map[not_run:6]] StatusCounts:map[not_run:24] ConfidenceBins:[{Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>}] TopProbabilityBins:[{Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>}] ConfidenceECE:<nil> TopProbabilityECE:<nil> Brier:<nil> ErrorIDs:[billing-01 billing-02 billing-03 billing-04 billing-05 billing-06 technical-01 technical-02 technical-03 technical-04 technical-05 technical-06 delivery-01 delivery-02 delivery-03 delivery-04 delivery-05 delivery-06 account-01 account-02 account-03 account-04 account-05 account-06]}"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-pre-cancelled",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationPreCancelled$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationPreCancelled"
+}

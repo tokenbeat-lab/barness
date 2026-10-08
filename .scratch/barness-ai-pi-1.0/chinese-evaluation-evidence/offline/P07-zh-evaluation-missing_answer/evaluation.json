@@ -1,0 +1,685 @@
+{
+  "schema": 1,
+  "kind": "fixture",
+  "status": "FAIL",
+  "audit": "PENDING",
+  "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+  "configHash": "sha256:b1221db7e03eca79d3f9b338d36c2ab7df72ea7cc310afbaffc42e09b716bf43",
+  "dataset": {
+    "version": "zh-support-v1",
+    "source": "synthetic",
+    "scope": "简体中文在线商店支持请求：仅限四类明确请求目标；不包含闲聊、其他语言或无法判定的请求。",
+    "annotationPolicy": "由维护者编写的合成任务真值。依据用户最后明确请求的处理目标，而非被否定或作为背景的主题。支付/发票归 billing；登录/账号访问归 account；其余软件故障归 technical；物流配送归 delivery。每条只有一个明确目标；多目标及不确定输入不在本任务范围。不是生产用户总体的人工标注真值。",
+    "count": 24,
+    "distribution": {
+      "account": 6,
+      "billing": 6,
+      "delivery": 6,
+      "technical": 6
+    },
+    "labels": {
+      "account": "登录、密码、账号绑定或账号访问问题。",
+      "billing": "付款、重复扣款、退款或发票问题。",
+      "delivery": "包裹、发货、物流进度、签收或配送问题。",
+      "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+    },
+    "samples": [
+      {
+        "id": "billing-01",
+        "text": "订单扣了两次钱，请退回多收的一笔。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-02",
+        "text": "钱已付清，但电子发票一直没有开出来。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-03",
+        "text": "退款申请通过了，款项还没到账，麻烦查询。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-04",
+        "text": "不是物流的问题，我只想问为什么付款失败。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-05",
+        "text": "商品已经收到，我要把发票抬头改成公司名称。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-06",
+        "text": "登录和页面都正常，结算时却提示银行卡扣款失败。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "technical-01",
+        "text": "点击保存按钮后程序就闪退，内容也丢了。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-02",
+        "text": "报表页面一直转圈，刷新后仍然打不开。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-03",
+        "text": "升级以后搜索功能失效，输入关键词没有反应。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-04",
+        "text": "能正常登录，但下载文件时总提示服务器异常。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-05",
+        "text": "不涉及付款，设置页面点哪个按钮都没反应。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-06",
+        "text": "物流状态看得到，只是应用的通知开关无法保存。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "delivery-01",
+        "text": "包裹三天没有更新物流，能查一下到哪里了吗？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-02",
+        "text": "页面显示已签收，可我根本没收到快递。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-03",
+        "text": "订单付款成功了，请问什么时候发货？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-04",
+        "text": "快递员去了旧地址，能帮我更改配送地址吗？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-05",
+        "text": "不用退款，我只是想催一下迟到的包裹。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-06",
+        "text": "发票已经收到了，商品却还没有寄出，请查发货进度。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "account-01",
+        "text": "忘记登录密码了，请帮我找回账号。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-02",
+        "text": "换了手机号，原账号收不到登录验证码。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-03",
+        "text": "账号被锁住，无法进入个人中心，想申请解锁。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-04",
+        "text": "旧邮箱停用了，怎样更换账号绑定邮箱？",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-05",
+        "text": "不是程序闪退，是密码错误导致我无法登录。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-06",
+        "text": "付款记录不用查询，我现在只需要恢复被停用账号的访问权限。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      }
+    ]
+  },
+  "config": {
+    "version": "zh-eval-jev-v1",
+    "datasetVersion": "zh-support-v1",
+    "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+    "model": "jev-1.13.0",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "questionKey": "intent",
+    "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+    "maxCalls": 1,
+    "maxQuestions": 1,
+    "maxAttempts": 1,
+    "maxRetries": 0,
+    "timeoutSeconds": 180,
+    "callTimeoutSeconds": 15
+  },
+  "accountAlias": "synthetic@loopback",
+  "startedAt": "2026-10-08T11:01:03.873088Z",
+  "finishedAt": "2026-10-08T11:01:03.874445Z",
+  "samples": [
+    {
+      "id": "billing-01",
+      "status": "failed",
+      "responseModel": "jev-1.13.0",
+      "code": "protocol",
+      "phase": "response",
+      "metadata": {
+        "tenantId": "tenant-a",
+        "requestId": "req-e8fb4242d8e6ae5137f52c65c20382a5",
+        "actorId": "actor-7",
+        "jobId": "job-42",
+        "bindingId": "zh-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "acct-tenant-a",
+        "bindingVersion": "b1",
+        "credentialVersion": "v1",
+        "catalogVersion": "2026-10-08.5",
+        "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+        "attempts": [
+          {
+            "attemptId": "req-e8fb4242d8e6ae5137f52c65c20382a5#1",
+            "httpStatus": 200,
+            "providerRequestId": "synthetic-zh-evaluation",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 100,
+              "output": 10,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 110,
+              "cost": {
+                "input": 0.0000042000000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.0000042000000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "billing-02",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "billing-03",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "billing-04",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "billing-05",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "billing-06",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "technical-01",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "technical-02",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "technical-03",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "technical-04",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "technical-05",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "technical-06",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "delivery-01",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "delivery-02",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "delivery-03",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "delivery-04",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "delivery-05",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "delivery-06",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "account-01",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "account-02",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "account-03",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "account-04",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "account-05",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    },
+    {
+      "id": "account-06",
+      "status": "budget_exhausted",
+      "metadata": {
+        "tenantId": "",
+        "requestId": "",
+        "bindingId": "",
+        "operation": "",
+        "resolved": false
+      }
+    }
+  ],
+  "budget": {
+    "calls": 1,
+    "questions": 1,
+    "attempts": 1,
+    "retries": 0,
+    "inputTokens": 100,
+    "outputTokens": 10,
+    "knownCostUSD": 0.0000042000000000000004,
+    "unreported": 0,
+    "partial": 0
+  },
+  "metrics": {
+    "total": 24,
+    "scored": 0,
+    "correct": 0,
+    "failed": 1,
+    "unexecuted": 23,
+    "accuracy": 0,
+    "scoredAccuracy": null,
+    "confusion": {
+      "account": {
+        "budget_exhausted": 6
+      },
+      "billing": {
+        "budget_exhausted": 5,
+        "failed": 1
+      },
+      "delivery": {
+        "budget_exhausted": 6
+      },
+      "technical": {
+        "budget_exhausted": 6
+      }
+    },
+    "statusCounts": {
+      "budget_exhausted": 23,
+      "failed": 1
+    },
+    "confidenceBins": [
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      }
+    ],
+    "topProbabilityBins": [
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      }
+    ],
+    "confidenceECE": null,
+    "topProbabilityECE": null,
+    "brier": null,
+    "errorIDs": [
+      "billing-01",
+      "billing-02",
+      "billing-03",
+      "billing-04",
+      "billing-05",
+      "billing-06",
+      "technical-01",
+      "technical-02",
+      "technical-03",
+      "technical-04",
+      "technical-05",
+      "technical-06",
+      "delivery-01",
+      "delivery-02",
+      "delivery-03",
+      "delivery-04",
+      "delivery-05",
+      "delivery-06",
+      "account-01",
+      "account-02",
+      "account-03",
+      "account-04",
+      "account-05",
+      "account-06"
+    ]
+  }
+}

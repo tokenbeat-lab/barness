@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "file import refuses incomplete evidence",
+      "pass": false,
+      "detail": "accepted incomplete_observer"
+    },
+    {
+      "name": "safe diagnostic retained",
+      "pass": false,
+      "detail": "lost stage context"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-import-incomplete_observer",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^incomplete_observer$'",
+  "status": "FAIL",
+  "test": "TestChineseEvaluationImportedEvidence/incomplete_observer"
+}

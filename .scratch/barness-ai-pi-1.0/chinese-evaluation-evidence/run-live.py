@@ -7,11 +7,15 @@ import shlex
 import signal
 import subprocess
 import tempfile
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--live', action='store_true', help='enable paid real evaluation')
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[3]
+log_base = root / '.evidence/barness-ai/issue16-evaluation-logs'
+log_base.mkdir(parents=True, exist_ok=True)
+log = log_base / (str(time.time_ns()) + ('-live.log' if args.live else '-not-run.log'))
 key = ''
 if args.live:
     for line in (root / '.env').read_text().splitlines():
@@ -38,8 +42,8 @@ with tempfile.TemporaryDirectory(prefix='barness-zh-eval-') as build_dir:
     build = subprocess.run(['go', 'build', '-o', binary, './ai/examples/chineseeval/cmd/chineseeval'], cwd=root, env=env, capture_output=True)
     if build.returncode:
         diagnostics = (build.stdout + build.stderr).replace(str(root).encode(), b'[REPO]').replace(str(Path.home()).encode(), b'[HOME]')
-        (root / '.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/build-failure.log').write_bytes(diagnostics)
-        raise SystemExit('FAIL: evaluation stage=host_build; sanitized diagnostics in build-failure.log')
+        log.write_bytes(diagnostics)
+        raise SystemExit('FAIL: evaluation stage=host_build; sanitized diagnostics in .evidence/barness-ai/issue16-evaluation-logs')
     child = subprocess.Popen([binary] + command, cwd=root, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     def cancel(signum, _frame):
         child.send_signal(signum)
@@ -48,10 +52,9 @@ with tempfile.TemporaryDirectory(prefix='barness-zh-eval-') as build_dir:
     output, _ = child.communicate()
     if key:
         output = output.replace(key.encode(), b'[EVALUATION-KEY]')
-    # Logs name evidence relative to the repo; they contain no home-directory
+    # Fresh logs never overwrite the frozen delivery evidence. They contain no home-directory
     # paths and can themselves be audited with the delivery bundle.
     output = output.replace(str(root).encode(), b'[REPO]')
-    log = root / '.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence' / ('live.log' if args.live else 'not-run.log')
     log.write_bytes(output)
     print(output.decode(), end='')
     raise SystemExit(child.returncode)

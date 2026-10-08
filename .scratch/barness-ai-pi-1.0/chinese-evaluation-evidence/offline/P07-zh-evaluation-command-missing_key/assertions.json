@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "disabled or absent credential NOT_RUN",
+      "pass": true,
+      "detail": "command=<nil> parse=<nil>"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-command-missing_key",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationCommand$/^missing_key$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationCommand/missing_key"
+}

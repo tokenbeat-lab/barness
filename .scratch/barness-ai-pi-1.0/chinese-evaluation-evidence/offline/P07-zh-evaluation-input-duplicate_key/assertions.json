@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input never sends",
+      "pass": true,
+      "detail": "guard accepted duplicate_key"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-input-duplicate_key",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^duplicate_key$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationInputGuards/duplicate_key"
+}

@@ -6,7 +6,7 @@
 接缝验证输入漂移、缺答/错键、协议/HTTP 错误、缺用量、预算、取消、NOT_RUN、报告不完整及审计。
 没有新增库内测试探针或 Provider 模拟接口。
 
-[真实报告](live/evaluation-report.json) 于 2026-10-08 18:51:11–18:51:18（北京时间）
+[真实报告](live/evaluation-report.json) 于 2026-10-08 19:00:33–19:00:41（北京时间）
 独立执行，24/24 条正确，四类各 6/6。全部 24 条 scored，0 失败、0 未执行；
 24 次调用/问题/尝试、0 重试，输入 12843、输出 1080 token，全部完整上报，
 按目录 2026-10-08.5 输入 $0.042/百万 token、输出零计价，估算成本 $0.000539406。
@@ -36,10 +36,35 @@ ECE 都是 0.000416667，多类 Brier 0.00000833333。空段为 null。
 
 最后一条会真实消耗已授权账户预算；每次保存新包，生成不确定性允许答案不同。
 固定数据集在首次联网之前已经编写和冻结，任务与哈希保留在报告，未以真实预测反改标签。
-真实运行提交指向任务开始基线（源码当时在工作区），交付 manifest 另固定实现源码哈希。
+首次真实运行基于任务开始基线和当时工作区；最终真实宿主由提交 a12c037 构建，
+其 manifest 保留该提交。交付 manifest 另固定最终实现源码哈希。
 首次文件回放发现答案视图 `type` 字段的严格解码不兼容；先加序列化 E2E 红断言，
 独立转换视图后绿并成功核验原真实包，没有丢弃结果或为此追加付费调用。
 
 两轴 [code-review](review.md) 的四项 P2 均以新 E2E 红断言复现后修正；
 导入报告验证非负用量/固定价格/尝试身份，并核对 manifest 与完整的 Observer 生命周期。
 首次调用前取消为 NOT_RUN/null，命令错误保留安全阶段标识。原真实包通过修正后的核验。
+
+[运行历史](historical-runs.json) 保留首次与修正后两份真实证据（live-initial/ 与 live/）；
+两次都 24/24 正确，共 48 次调用/尝试、0 重试，输入 25686、输出 2160 token，
+估算成本共 $0.001078812。结果相同是本次观察，不作为生成确定性要求。
+
+[red-history.json](red-history.json) 指向实际红断言（副本保存在 red/），
+包括共享视图污染、重复 JSON 字段、序列化回放以及审查发现的报告边界。
+这些历史失败单列，完整测试通过只由最终全套报告判定。
+
+业务结果可先阅读 [结果表](results.md)，各指标与样本可追溯到同一真实 JSON 报告。
+
+启动器后续重放的日志与新证据只写入 .evidence/barness-ai/issue16-evaluation-*，
+不会覆盖本交付包的冻结产物；未启用的重放已验证零请求。
+
+最终 `BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1`
+退出码 0，543.51 秒、4924 项测试 PASS；[全套执行报告](full-suite.json)、
+[完整包 manifest](full-bundle-manifest.json) 和 [完整包审计](full-bundle-audit.json) 保留结论，
+审计零发现。[37 个新增流程案例](offline-cases.json) 的可移植断言与实际结果在 offline/；
+原始完整包和 JSON 测试日志保留在本地 .evidence/issue16-full/，可按完整命令重放。
+两种 vet 均通过，结果保存在 [checks.json](checks.json)。
+
+无需凭据或联网即可校验所有交付/源码哈希、两次真实产物、NOT_RUN、全套结果与矩阵隔离：
+
+    python3 .scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/verify.py

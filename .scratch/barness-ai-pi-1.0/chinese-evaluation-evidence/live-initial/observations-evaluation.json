@@ -1,0 +1,3578 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:11.979142+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-6361deca74a74c0211b69bf5a1976412",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:11.979344+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-6361deca74a74c0211b69bf5a1976412",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-6361deca74a74c0211b69bf5a1976412#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:12.796237+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-6361deca74a74c0211b69bf5a1976412",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-6361deca74a74c0211b69bf5a1976412#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b237c837782a7d8d527b72eebb4",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 532,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 577,
+        "cost": {
+          "input": 0.000022344,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022344
+        }
+      }
+    },
+    "duration": 816890833
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:12.796246+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-6361deca74a74c0211b69bf5a1976412",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-6361deca74a74c0211b69bf5a1976412#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b237c837782a7d8d527b72eebb4",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 532,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 577,
+            "cost": {
+              "input": 0.000022344,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022344
+            }
+          }
+        }
+      ]
+    },
+    "duration": 817102959,
+    "stopReason": "stop",
+    "usage": {
+      "input": 532,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 577,
+      "cost": {
+        "input": 0.000022344,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022344
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:12.796282+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5416bd155d8f3b67e0c3c73ddd4d4639",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:12.796468+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5416bd155d8f3b67e0c3c73ddd4d4639",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-5416bd155d8f3b67e0c3c73ddd4d4639#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:13.115308+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5416bd155d8f3b67e0c3c73ddd4d4639",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-5416bd155d8f3b67e0c3c73ddd4d4639#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b237d8e7858ab07967bd7b4df29",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 533,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 578,
+        "cost": {
+          "input": 0.000022386000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022386000000000002
+        }
+      }
+    },
+    "duration": 318839833
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:13.115317+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5416bd155d8f3b67e0c3c73ddd4d4639",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-5416bd155d8f3b67e0c3c73ddd4d4639#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b237d8e7858ab07967bd7b4df29",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 533,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 578,
+            "cost": {
+              "input": 0.000022386000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022386000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 319034958,
+    "stopReason": "stop",
+    "usage": {
+      "input": 533,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 578,
+      "cost": {
+        "input": 0.000022386000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022386000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:13.115336+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-39ef4f44b388e4acd955df40a59a1102",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:13.115473+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-39ef4f44b388e4acd955df40a59a1102",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-39ef4f44b388e4acd955df40a59a1102#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:13.366383+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-39ef4f44b388e4acd955df40a59a1102",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-39ef4f44b388e4acd955df40a59a1102#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b237ecd73d5af6a46e9f512bcea",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 535,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 580,
+        "cost": {
+          "input": 0.000022470000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022470000000000003
+        }
+      }
+    },
+    "duration": 250909708
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:13.366392+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-39ef4f44b388e4acd955df40a59a1102",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-39ef4f44b388e4acd955df40a59a1102#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b237ecd73d5af6a46e9f512bcea",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 535,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 580,
+            "cost": {
+              "input": 0.000022470000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022470000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 251055042,
+    "stopReason": "stop",
+    "usage": {
+      "input": 535,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 580,
+      "cost": {
+        "input": 0.000022470000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022470000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:13.366416+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-2f6b4c3c853e866d7090e5447bbcb0c8",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:13.366577+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-2f6b4c3c853e866d7090e5447bbcb0c8",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-2f6b4c3c853e866d7090e5447bbcb0c8#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:13.589056+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-2f6b4c3c853e866d7090e5447bbcb0c8",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-2f6b4c3c853e866d7090e5447bbcb0c8#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b237fc87416bdbaf6719ad2beec",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 535,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 580,
+        "cost": {
+          "input": 0.000022470000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022470000000000003
+        }
+      }
+    },
+    "duration": 222478125
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:13.589068+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-2f6b4c3c853e866d7090e5447bbcb0c8",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-2f6b4c3c853e866d7090e5447bbcb0c8#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b237fc87416bdbaf6719ad2beec",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 535,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 580,
+            "cost": {
+              "input": 0.000022470000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022470000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 222651791,
+    "stopReason": "stop",
+    "usage": {
+      "input": 535,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 580,
+      "cost": {
+        "input": 0.000022470000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022470000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:13.589106+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-8490ef4ab68f1b7fa5bb234971d15068",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:13.589326+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-8490ef4ab68f1b7fa5bb234971d15068",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-8490ef4ab68f1b7fa5bb234971d15068#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:13.826011+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-8490ef4ab68f1b7fa5bb234971d15068",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-8490ef4ab68f1b7fa5bb234971d15068#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b2380a97a1b8f70a5f8c69a47e4",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 537,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 582,
+        "cost": {
+          "input": 0.000022554000000000005,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022554000000000005
+        }
+      }
+    },
+    "duration": 236684292
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:13.826023+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-8490ef4ab68f1b7fa5bb234971d15068",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-8490ef4ab68f1b7fa5bb234971d15068#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b2380a97a1b8f70a5f8c69a47e4",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 537,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 582,
+            "cost": {
+              "input": 0.000022554000000000005,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022554000000000005
+            }
+          }
+        }
+      ]
+    },
+    "duration": 236916875,
+    "stopReason": "stop",
+    "usage": {
+      "input": 537,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 582,
+      "cost": {
+        "input": 0.000022554000000000005,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022554000000000005
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:13.826053+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-eebbc9b367dc2931738781ec8300ae31",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:13.826297+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-eebbc9b367dc2931738781ec8300ae31",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-eebbc9b367dc2931738781ec8300ae31#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:14.067112+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-eebbc9b367dc2931738781ec8300ae31",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-eebbc9b367dc2931738781ec8300ae31#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b23819e7c5dadd36bcc00e4eb63",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 538,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 583,
+        "cost": {
+          "input": 0.000022596000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022596000000000002
+        }
+      }
+    },
+    "duration": 240814750
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:14.067123+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-eebbc9b367dc2931738781ec8300ae31",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-eebbc9b367dc2931738781ec8300ae31#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b23819e7c5dadd36bcc00e4eb63",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 538,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 583,
+            "cost": {
+              "input": 0.000022596000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022596000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 241070167,
+    "stopReason": "stop",
+    "usage": {
+      "input": 538,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 583,
+      "cost": {
+        "input": 0.000022596000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022596000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:14.067137+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-ce1b36c25e408c6db59c3c041a59b008",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:14.067239+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-ce1b36c25e408c6db59c3c041a59b008",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-ce1b36c25e408c6db59c3c041a59b008#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:14.302494+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-ce1b36c25e408c6db59c3c041a59b008",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-ce1b36c25e408c6db59c3c041a59b008#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b2382887a5d83cd1f677bbde229",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 535,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 580,
+        "cost": {
+          "input": 0.000022470000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022470000000000003
+        }
+      }
+    },
+    "duration": 235254084
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:14.302504+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-ce1b36c25e408c6db59c3c041a59b008",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-ce1b36c25e408c6db59c3c041a59b008#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b2382887a5d83cd1f677bbde229",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 535,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 580,
+            "cost": {
+              "input": 0.000022470000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022470000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 235366417,
+    "stopReason": "stop",
+    "usage": {
+      "input": 535,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 580,
+      "cost": {
+        "input": 0.000022470000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022470000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:14.302536+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-a46f2f7da3dd16a2863114be62852944",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:14.302965+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-a46f2f7da3dd16a2863114be62852944",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-a46f2f7da3dd16a2863114be62852944#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:14.534968+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-a46f2f7da3dd16a2863114be62852944",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-a46f2f7da3dd16a2863114be62852944#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238372715e933a7ccae1e328c1",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 533,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 578,
+        "cost": {
+          "input": 0.000022386000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022386000000000002
+        }
+      }
+    },
+    "duration": 232002959
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:14.534978+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-a46f2f7da3dd16a2863114be62852944",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-a46f2f7da3dd16a2863114be62852944#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238372715e933a7ccae1e328c1",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 533,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 578,
+            "cost": {
+              "input": 0.000022386000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022386000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 232441791,
+    "stopReason": "stop",
+    "usage": {
+      "input": 533,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 578,
+      "cost": {
+        "input": 0.000022386000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022386000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:14.534998+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5c9cb58140163ad526cfc59a32103667",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:14.535194+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5c9cb58140163ad526cfc59a32103667",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-5c9cb58140163ad526cfc59a32103667#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:14.774108+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5c9cb58140163ad526cfc59a32103667",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-5c9cb58140163ad526cfc59a32103667#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238459719791200f25d7f87690",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 536,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 581,
+        "cost": {
+          "input": 0.000022512000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022512000000000004
+        }
+      }
+    },
+    "duration": 238913084
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:14.774116+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5c9cb58140163ad526cfc59a32103667",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-5c9cb58140163ad526cfc59a32103667#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238459719791200f25d7f87690",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 536,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 581,
+            "cost": {
+              "input": 0.000022512000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022512000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 239117625,
+    "stopReason": "stop",
+    "usage": {
+      "input": 536,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 581,
+      "cost": {
+        "input": 0.000022512000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022512000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:14.774145+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:14.774326+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:14.988386+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b23854d74efa32fd19676c33c91",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 536,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 581,
+        "cost": {
+          "input": 0.000022512000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022512000000000004
+        }
+      }
+    },
+    "duration": 214059334
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:14.988402+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b23854d74efa32fd19676c33c91",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 536,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 581,
+            "cost": {
+              "input": 0.000022512000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022512000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 214257541,
+    "stopReason": "stop",
+    "usage": {
+      "input": 536,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 581,
+      "cost": {
+        "input": 0.000022512000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022512000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:14.988449+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-881232e46357d8490ac96352449394a5",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:14.988759+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-881232e46357d8490ac96352449394a5",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-881232e46357d8490ac96352449394a5#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:15.208384+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-881232e46357d8490ac96352449394a5",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-881232e46357d8490ac96352449394a5#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238621720196679e0439561866",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 535,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 580,
+        "cost": {
+          "input": 0.000022470000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022470000000000003
+        }
+      }
+    },
+    "duration": 219624458
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:15.208423+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-881232e46357d8490ac96352449394a5",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-881232e46357d8490ac96352449394a5#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238621720196679e0439561866",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 535,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 580,
+            "cost": {
+              "input": 0.000022470000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022470000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 219974250,
+    "stopReason": "stop",
+    "usage": {
+      "input": 535,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 580,
+      "cost": {
+        "input": 0.000022470000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022470000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:15.208526+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-17dcaf4fbff3c011dff25f3715af52ef",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:15.208902+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-17dcaf4fbff3c011dff25f3715af52ef",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-17dcaf4fbff3c011dff25f3715af52ef#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:15.459664+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-17dcaf4fbff3c011dff25f3715af52ef",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-17dcaf4fbff3c011dff25f3715af52ef#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b2386fd78ad90250e61a253f0a8",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 537,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 582,
+        "cost": {
+          "input": 0.000022554000000000005,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022554000000000005
+        }
+      }
+    },
+    "duration": 250761500
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:15.459679+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-17dcaf4fbff3c011dff25f3715af52ef",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-17dcaf4fbff3c011dff25f3715af52ef#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b2386fd78ad90250e61a253f0a8",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 537,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 582,
+            "cost": {
+              "input": 0.000022554000000000005,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022554000000000005
+            }
+          }
+        }
+      ]
+    },
+    "duration": 251153417,
+    "stopReason": "stop",
+    "usage": {
+      "input": 537,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 582,
+      "cost": {
+        "input": 0.000022554000000000005,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022554000000000005
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:15.459728+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4078dd5b2276752e0b2c3dc33be7e93a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:15.460079+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4078dd5b2276752e0b2c3dc33be7e93a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-4078dd5b2276752e0b2c3dc33be7e93a#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:15.730661+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4078dd5b2276752e0b2c3dc33be7e93a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-4078dd5b2276752e0b2c3dc33be7e93a#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b2387f771f0ae9c66d4c9845f47",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 537,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 582,
+        "cost": {
+          "input": 0.000022554000000000005,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022554000000000005
+        }
+      }
+    },
+    "duration": 270581041
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:15.730674+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4078dd5b2276752e0b2c3dc33be7e93a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-4078dd5b2276752e0b2c3dc33be7e93a#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b2387f771f0ae9c66d4c9845f47",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 537,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 582,
+            "cost": {
+              "input": 0.000022554000000000005,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022554000000000005
+            }
+          }
+        }
+      ]
+    },
+    "duration": 270946291,
+    "stopReason": "stop",
+    "usage": {
+      "input": 537,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 582,
+      "cost": {
+        "input": 0.000022554000000000005,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022554000000000005
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:15.730718+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-0d72f87485b31ce6dc0494b8824d5472",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:15.731034+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-0d72f87485b31ce6dc0494b8824d5472",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-0d72f87485b31ce6dc0494b8824d5472#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:16.009279+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-0d72f87485b31ce6dc0494b8824d5472",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-0d72f87485b31ce6dc0494b8824d5472#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b2389067d0b8e742d9d5f01864f",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 533,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 578,
+        "cost": {
+          "input": 0.000022386000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022386000000000002
+        }
+      }
+    },
+    "duration": 278244083
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:16.009296+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-0d72f87485b31ce6dc0494b8824d5472",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-0d72f87485b31ce6dc0494b8824d5472#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b2389067d0b8e742d9d5f01864f",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 533,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 578,
+            "cost": {
+              "input": 0.000022386000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022386000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 278578166,
+    "stopReason": "stop",
+    "usage": {
+      "input": 533,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 578,
+      "cost": {
+        "input": 0.000022386000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022386000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:16.009365+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5670ac9666661da1b5f533ae4a86d531",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:16.009729+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5670ac9666661da1b5f533ae4a86d531",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-5670ac9666661da1b5f533ae4a86d531#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:16.232208+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5670ac9666661da1b5f533ae4a86d531",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-5670ac9666661da1b5f533ae4a86d531#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238a1b7f698ead036279fb3c08",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 532,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 577,
+        "cost": {
+          "input": 0.000022344,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022344
+        }
+      }
+    },
+    "duration": 222478667
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:16.232221+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5670ac9666661da1b5f533ae4a86d531",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-5670ac9666661da1b5f533ae4a86d531#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238a1b7f698ead036279fb3c08",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 532,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 577,
+            "cost": {
+              "input": 0.000022344,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022344
+            }
+          }
+        }
+      ]
+    },
+    "duration": 222856708,
+    "stopReason": "stop",
+    "usage": {
+      "input": 532,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 577,
+      "cost": {
+        "input": 0.000022344,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022344
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:16.232268+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-88bd10c4acfa38015657136641dd9f0a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:16.232582+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-88bd10c4acfa38015657136641dd9f0a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-88bd10c4acfa38015657136641dd9f0a#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:16.483111+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-88bd10c4acfa38015657136641dd9f0a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-88bd10c4acfa38015657136641dd9f0a#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238b0079898c4eae7cd57349cf",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 535,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 580,
+        "cost": {
+          "input": 0.000022470000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022470000000000003
+        }
+      }
+    },
+    "duration": 250527959
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:16.48312+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-88bd10c4acfa38015657136641dd9f0a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-88bd10c4acfa38015657136641dd9f0a#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238b0079898c4eae7cd57349cf",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 535,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 580,
+            "cost": {
+              "input": 0.000022470000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022470000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 250852375,
+    "stopReason": "stop",
+    "usage": {
+      "input": 535,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 580,
+      "cost": {
+        "input": 0.000022470000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022470000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:16.483152+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-196a585dd0a5ce63efeadfcebafa9e85",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:16.483424+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-196a585dd0a5ce63efeadfcebafa9e85",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-196a585dd0a5ce63efeadfcebafa9e85#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:16.710533+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-196a585dd0a5ce63efeadfcebafa9e85",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-196a585dd0a5ce63efeadfcebafa9e85#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238bf677258a34c6c5ab55a546",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 534,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 579,
+        "cost": {
+          "input": 0.000022428000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022428000000000003
+        }
+      }
+    },
+    "duration": 227108209
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:16.710549+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-196a585dd0a5ce63efeadfcebafa9e85",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-196a585dd0a5ce63efeadfcebafa9e85#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238bf677258a34c6c5ab55a546",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 534,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 579,
+            "cost": {
+              "input": 0.000022428000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022428000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 227398333,
+    "stopReason": "stop",
+    "usage": {
+      "input": 534,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 579,
+      "cost": {
+        "input": 0.000022428000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022428000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:16.710619+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-adcf4432ad1ca074732a2720608c36e7",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:16.710846+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-adcf4432ad1ca074732a2720608c36e7",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-adcf4432ad1ca074732a2720608c36e7#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:16.932478+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-adcf4432ad1ca074732a2720608c36e7",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-adcf4432ad1ca074732a2720608c36e7#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238cda74a38cb870d139a58efb",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 539,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 584,
+        "cost": {
+          "input": 0.000022638000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022638000000000002
+        }
+      }
+    },
+    "duration": 221631625
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:16.932493+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-adcf4432ad1ca074732a2720608c36e7",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-adcf4432ad1ca074732a2720608c36e7#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238cda74a38cb870d139a58efb",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 539,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 584,
+            "cost": {
+              "input": 0.000022638000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022638000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 221874209,
+    "stopReason": "stop",
+    "usage": {
+      "input": 539,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 584,
+      "cost": {
+        "input": 0.000022638000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022638000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:16.932558+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e979bfc1f96e294b810f188e842a67f8",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:16.93288+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e979bfc1f96e294b810f188e842a67f8",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-e979bfc1f96e294b810f188e842a67f8#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:17.161102+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e979bfc1f96e294b810f188e842a67f8",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-e979bfc1f96e294b810f188e842a67f8#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238db87a9a96bc0d8eeaa7022c",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 531,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 576,
+        "cost": {
+          "input": 0.000022302000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022302000000000004
+        }
+      }
+    },
+    "duration": 228221208
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:17.161115+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e979bfc1f96e294b810f188e842a67f8",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-e979bfc1f96e294b810f188e842a67f8#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238db87a9a96bc0d8eeaa7022c",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 531,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 576,
+            "cost": {
+              "input": 0.000022302000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022302000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 228556542,
+    "stopReason": "stop",
+    "usage": {
+      "input": 531,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 576,
+      "cost": {
+        "input": 0.000022302000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022302000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:17.161179+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-934293f1f5003dbbfdcd0e4db23c4c83",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:17.161492+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-934293f1f5003dbbfdcd0e4db23c4c83",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-934293f1f5003dbbfdcd0e4db23c4c83#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:17.404973+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-934293f1f5003dbbfdcd0e4db23c4c83",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-934293f1f5003dbbfdcd0e4db23c4c83#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238e9d7084a8108e9e978fca9f",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 533,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 578,
+        "cost": {
+          "input": 0.000022386000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022386000000000002
+        }
+      }
+    },
+    "duration": 243479958
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:17.404984+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-934293f1f5003dbbfdcd0e4db23c4c83",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-934293f1f5003dbbfdcd0e4db23c4c83#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238e9d7084a8108e9e978fca9f",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 533,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 578,
+            "cost": {
+              "input": 0.000022386000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022386000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 243804833,
+    "stopReason": "stop",
+    "usage": {
+      "input": 533,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 578,
+      "cost": {
+        "input": 0.000022386000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022386000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:17.405015+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-f0809c07866e26f41fa2519c93573eaa",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:17.405153+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-f0809c07866e26f41fa2519c93573eaa",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-f0809c07866e26f41fa2519c93573eaa#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:17.64663+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-f0809c07866e26f41fa2519c93573eaa",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-f0809c07866e26f41fa2519c93573eaa#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b238f9179d1bd43ba5053983ece",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 536,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 581,
+        "cost": {
+          "input": 0.000022512000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022512000000000004
+        }
+      }
+    },
+    "duration": 241476959
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:17.646647+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-f0809c07866e26f41fa2519c93573eaa",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-f0809c07866e26f41fa2519c93573eaa#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b238f9179d1bd43ba5053983ece",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 536,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 581,
+            "cost": {
+              "input": 0.000022512000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022512000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 241632208,
+    "stopReason": "stop",
+    "usage": {
+      "input": 536,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 581,
+      "cost": {
+        "input": 0.000022512000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022512000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:17.646685+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-fdff8f3cad5163b95001713177da041c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:17.646916+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-fdff8f3cad5163b95001713177da041c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-fdff8f3cad5163b95001713177da041c#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:17.879092+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-fdff8f3cad5163b95001713177da041c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-fdff8f3cad5163b95001713177da041c#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b2390827972b271e95cc7275542",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 533,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 578,
+        "cost": {
+          "input": 0.000022386000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022386000000000002
+        }
+      }
+    },
+    "duration": 232175500
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:17.879101+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-fdff8f3cad5163b95001713177da041c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-fdff8f3cad5163b95001713177da041c#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b2390827972b271e95cc7275542",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 533,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 578,
+            "cost": {
+              "input": 0.000022386000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022386000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 232417292,
+    "stopReason": "stop",
+    "usage": {
+      "input": 533,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 578,
+      "cost": {
+        "input": 0.000022386000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022386000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:17.879133+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-42ff9bd61c2039a5018ca5c651170d6d",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:17.879341+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-42ff9bd61c2039a5018ca5c651170d6d",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-42ff9bd61c2039a5018ca5c651170d6d#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:18.104526+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-42ff9bd61c2039a5018ca5c651170d6d",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-42ff9bd61c2039a5018ca5c651170d6d#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b23916a733d88815537b69ca544",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 535,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 580,
+        "cost": {
+          "input": 0.000022470000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022470000000000003
+        }
+      }
+    },
+    "duration": 225185084
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:18.104538+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-42ff9bd61c2039a5018ca5c651170d6d",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-42ff9bd61c2039a5018ca5c651170d6d#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b23916a733d88815537b69ca544",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 535,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 580,
+            "cost": {
+              "input": 0.000022470000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022470000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 225405667,
+    "stopReason": "stop",
+    "usage": {
+      "input": 535,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 580,
+      "cost": {
+        "input": 0.000022470000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022470000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T18:51:18.104597+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T18:51:18.105652+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T18:51:18.35738+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
+    },
+    "attempt": {
+      "attemptId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a11b2392577386a473c1e37cc838e5",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 543,
+        "output": 45,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 588,
+        "cost": {
+          "input": 0.000022806,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000022806
+        }
+      }
+    },
+    "duration": 251727375
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T18:51:18.357403+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "evaluation-typesafe",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "attempts": [
+        {
+          "attemptId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a11b2392577386a473c1e37cc838e5",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 543,
+            "output": 45,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 588,
+            "cost": {
+              "input": 0.000022806,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000022806
+            }
+          }
+        }
+      ]
+    },
+    "duration": 252805792,
+    "stopReason": "stop",
+    "usage": {
+      "input": 543,
+      "output": 45,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 588,
+      "cost": {
+        "input": 0.000022806,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000022806
+      }
+    }
+  }
+]

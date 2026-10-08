@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input never sends",
+      "pass": true,
+      "detail": "guard accepted missing_label"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-input-missing_label",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^missing_label$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationInputGuards/missing_label"
+}

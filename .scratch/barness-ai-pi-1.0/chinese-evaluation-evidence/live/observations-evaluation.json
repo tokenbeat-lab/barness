@@ -1,10 +1,10 @@
 [
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:11.979142+08:00",
+    "time": "2026-10-08T19:00:33.246546+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-6361deca74a74c0211b69bf5a1976412",
+      "requestId": "req-15ed0943a0be2239f86ad3ee6dbfb4e2",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -13,10 +13,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:11.979344+08:00",
+    "time": "2026-10-08T19:00:33.246746+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-6361deca74a74c0211b69bf5a1976412",
+      "requestId": "req-15ed0943a0be2239f86ad3ee6dbfb4e2",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -31,7 +31,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-6361deca74a74c0211b69bf5a1976412#1",
+      "attemptId": "req-15ed0943a0be2239f86ad3ee6dbfb4e2#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -51,10 +51,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:12.796237+08:00",
+    "time": "2026-10-08T19:00:34.059259+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-6361deca74a74c0211b69bf5a1976412",
+      "requestId": "req-15ed0943a0be2239f86ad3ee6dbfb4e2",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -69,9 +69,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-6361deca74a74c0211b69bf5a1976412#1",
+      "attemptId": "req-15ed0943a0be2239f86ad3ee6dbfb4e2#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b237c837782a7d8d527b72eebb4",
+      "providerRequestId": "req_01a11b2c0d0a73369bb7cd6822755993",
       "usageReporting": "complete",
       "usage": {
         "input": 532,
@@ -88,14 +88,14 @@
         }
       }
     },
-    "duration": 816890833
+    "duration": 812511083
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:12.796246+08:00",
+    "time": "2026-10-08T19:00:34.059269+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-6361deca74a74c0211b69bf5a1976412",
+      "requestId": "req-15ed0943a0be2239f86ad3ee6dbfb4e2",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -110,9 +110,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-6361deca74a74c0211b69bf5a1976412#1",
+          "attemptId": "req-15ed0943a0be2239f86ad3ee6dbfb4e2#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b237c837782a7d8d527b72eebb4",
+          "providerRequestId": "req_01a11b2c0d0a73369bb7cd6822755993",
           "usageReporting": "complete",
           "usage": {
             "input": 532,
@@ -131,7 +131,7 @@
         }
       ]
     },
-    "duration": 817102959,
+    "duration": 812721334,
     "stopReason": "stop",
     "usage": {
       "input": 532,
@@ -150,10 +150,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:12.796282+08:00",
+    "time": "2026-10-08T19:00:34.059298+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5416bd155d8f3b67e0c3c73ddd4d4639",
+      "requestId": "req-7ade6260c73a7a094a86967b1e0926c9",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -162,10 +162,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:12.796468+08:00",
+    "time": "2026-10-08T19:00:34.059502+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5416bd155d8f3b67e0c3c73ddd4d4639",
+      "requestId": "req-7ade6260c73a7a094a86967b1e0926c9",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -180,7 +180,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-5416bd155d8f3b67e0c3c73ddd4d4639#1",
+      "attemptId": "req-7ade6260c73a7a094a86967b1e0926c9#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -200,10 +200,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:13.115308+08:00",
+    "time": "2026-10-08T19:00:34.539475+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5416bd155d8f3b67e0c3c73ddd4d4639",
+      "requestId": "req-7ade6260c73a7a094a86967b1e0926c9",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -218,9 +218,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-5416bd155d8f3b67e0c3c73ddd4d4639#1",
+      "attemptId": "req-7ade6260c73a7a094a86967b1e0926c9#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b237d8e7858ab07967bd7b4df29",
+      "providerRequestId": "req_01a11b2c0e0571618241027b1cfea888",
       "usageReporting": "complete",
       "usage": {
         "input": 533,
@@ -237,14 +237,14 @@
         }
       }
     },
-    "duration": 318839833
+    "duration": 479971542
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:13.115317+08:00",
+    "time": "2026-10-08T19:00:34.539481+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5416bd155d8f3b67e0c3c73ddd4d4639",
+      "requestId": "req-7ade6260c73a7a094a86967b1e0926c9",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -259,9 +259,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-5416bd155d8f3b67e0c3c73ddd4d4639#1",
+          "attemptId": "req-7ade6260c73a7a094a86967b1e0926c9#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b237d8e7858ab07967bd7b4df29",
+          "providerRequestId": "req_01a11b2c0e0571618241027b1cfea888",
           "usageReporting": "complete",
           "usage": {
             "input": 533,
@@ -280,7 +280,7 @@
         }
       ]
     },
-    "duration": 319034958,
+    "duration": 480183000,
     "stopReason": "stop",
     "usage": {
       "input": 533,
@@ -299,10 +299,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:13.115336+08:00",
+    "time": "2026-10-08T19:00:34.539504+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-39ef4f44b388e4acd955df40a59a1102",
+      "requestId": "req-33aa1917e27e66163d948c40d1aedadd",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -311,10 +311,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:13.115473+08:00",
+    "time": "2026-10-08T19:00:34.539668+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-39ef4f44b388e4acd955df40a59a1102",
+      "requestId": "req-33aa1917e27e66163d948c40d1aedadd",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -329,7 +329,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-39ef4f44b388e4acd955df40a59a1102#1",
+      "attemptId": "req-33aa1917e27e66163d948c40d1aedadd#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -349,10 +349,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:13.366383+08:00",
+    "time": "2026-10-08T19:00:34.904139+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-39ef4f44b388e4acd955df40a59a1102",
+      "requestId": "req-33aa1917e27e66163d948c40d1aedadd",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -367,9 +367,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-39ef4f44b388e4acd955df40a59a1102#1",
+      "attemptId": "req-33aa1917e27e66163d948c40d1aedadd#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b237ecd73d5af6a46e9f512bcea",
+      "providerRequestId": "req_01a11b2c0fe27920b48e2ee9d5d58d48",
       "usageReporting": "complete",
       "usage": {
         "input": 535,
@@ -386,14 +386,14 @@
         }
       }
     },
-    "duration": 250909708
+    "duration": 364470291
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:13.366392+08:00",
+    "time": "2026-10-08T19:00:34.904145+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-39ef4f44b388e4acd955df40a59a1102",
+      "requestId": "req-33aa1917e27e66163d948c40d1aedadd",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -408,9 +408,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-39ef4f44b388e4acd955df40a59a1102#1",
+          "attemptId": "req-33aa1917e27e66163d948c40d1aedadd#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b237ecd73d5af6a46e9f512bcea",
+          "providerRequestId": "req_01a11b2c0fe27920b48e2ee9d5d58d48",
           "usageReporting": "complete",
           "usage": {
             "input": 535,
@@ -429,7 +429,7 @@
         }
       ]
     },
-    "duration": 251055042,
+    "duration": 364640583,
     "stopReason": "stop",
     "usage": {
       "input": 535,
@@ -448,10 +448,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:13.366416+08:00",
+    "time": "2026-10-08T19:00:34.904161+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-2f6b4c3c853e866d7090e5447bbcb0c8",
+      "requestId": "req-23551663f56eca31611162ab20ddf714",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -460,10 +460,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:13.366577+08:00",
+    "time": "2026-10-08T19:00:34.904326+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-2f6b4c3c853e866d7090e5447bbcb0c8",
+      "requestId": "req-23551663f56eca31611162ab20ddf714",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -478,7 +478,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-2f6b4c3c853e866d7090e5447bbcb0c8#1",
+      "attemptId": "req-23551663f56eca31611162ab20ddf714#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -498,10 +498,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:13.589056+08:00",
+    "time": "2026-10-08T19:00:35.147135+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-2f6b4c3c853e866d7090e5447bbcb0c8",
+      "requestId": "req-23551663f56eca31611162ab20ddf714",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -516,9 +516,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-2f6b4c3c853e866d7090e5447bbcb0c8#1",
+      "attemptId": "req-23551663f56eca31611162ab20ddf714#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b237fc87416bdbaf6719ad2beec",
+      "providerRequestId": "req_01a11b2c1153781e8566a0694d74d6f9",
       "usageReporting": "complete",
       "usage": {
         "input": 535,
@@ -535,14 +535,14 @@
         }
       }
     },
-    "duration": 222478125
+    "duration": 242808833
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:13.589068+08:00",
+    "time": "2026-10-08T19:00:35.147145+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-2f6b4c3c853e866d7090e5447bbcb0c8",
+      "requestId": "req-23551663f56eca31611162ab20ddf714",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -557,9 +557,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-2f6b4c3c853e866d7090e5447bbcb0c8#1",
+          "attemptId": "req-23551663f56eca31611162ab20ddf714#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b237fc87416bdbaf6719ad2beec",
+          "providerRequestId": "req_01a11b2c1153781e8566a0694d74d6f9",
           "usageReporting": "complete",
           "usage": {
             "input": 535,
@@ -578,7 +578,7 @@
         }
       ]
     },
-    "duration": 222651791,
+    "duration": 242983666,
     "stopReason": "stop",
     "usage": {
       "input": 535,
@@ -597,10 +597,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:13.589106+08:00",
+    "time": "2026-10-08T19:00:35.147178+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-8490ef4ab68f1b7fa5bb234971d15068",
+      "requestId": "req-835434868012aa05bb31b34d52ac6faa",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -609,10 +609,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:13.589326+08:00",
+    "time": "2026-10-08T19:00:35.147369+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-8490ef4ab68f1b7fa5bb234971d15068",
+      "requestId": "req-835434868012aa05bb31b34d52ac6faa",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -627,7 +627,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-8490ef4ab68f1b7fa5bb234971d15068#1",
+      "attemptId": "req-835434868012aa05bb31b34d52ac6faa#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -647,10 +647,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:13.826011+08:00",
+    "time": "2026-10-08T19:00:35.384028+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-8490ef4ab68f1b7fa5bb234971d15068",
+      "requestId": "req-835434868012aa05bb31b34d52ac6faa",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -665,9 +665,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-8490ef4ab68f1b7fa5bb234971d15068#1",
+      "attemptId": "req-835434868012aa05bb31b34d52ac6faa#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b2380a97a1b8f70a5f8c69a47e4",
+      "providerRequestId": "req_01a11b2c12407cfdb37467b9ae7fc42a",
       "usageReporting": "complete",
       "usage": {
         "input": 537,
@@ -684,14 +684,14 @@
         }
       }
     },
-    "duration": 236684292
+    "duration": 236658958
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:13.826023+08:00",
+    "time": "2026-10-08T19:00:35.384036+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-8490ef4ab68f1b7fa5bb234971d15068",
+      "requestId": "req-835434868012aa05bb31b34d52ac6faa",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -706,9 +706,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-8490ef4ab68f1b7fa5bb234971d15068#1",
+          "attemptId": "req-835434868012aa05bb31b34d52ac6faa#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b2380a97a1b8f70a5f8c69a47e4",
+          "providerRequestId": "req_01a11b2c12407cfdb37467b9ae7fc42a",
           "usageReporting": "complete",
           "usage": {
             "input": 537,
@@ -727,7 +727,7 @@
         }
       ]
     },
-    "duration": 236916875,
+    "duration": 236858041,
     "stopReason": "stop",
     "usage": {
       "input": 537,
@@ -746,10 +746,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:13.826053+08:00",
+    "time": "2026-10-08T19:00:35.384059+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-eebbc9b367dc2931738781ec8300ae31",
+      "requestId": "req-c5ff7fb084d682329fdba97e5bba3e54",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -758,10 +758,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:13.826297+08:00",
+    "time": "2026-10-08T19:00:35.384265+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-eebbc9b367dc2931738781ec8300ae31",
+      "requestId": "req-c5ff7fb084d682329fdba97e5bba3e54",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -776,7 +776,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-eebbc9b367dc2931738781ec8300ae31#1",
+      "attemptId": "req-c5ff7fb084d682329fdba97e5bba3e54#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -796,10 +796,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:14.067112+08:00",
+    "time": "2026-10-08T19:00:35.614982+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-eebbc9b367dc2931738781ec8300ae31",
+      "requestId": "req-c5ff7fb084d682329fdba97e5bba3e54",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -814,9 +814,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-eebbc9b367dc2931738781ec8300ae31#1",
+      "attemptId": "req-c5ff7fb084d682329fdba97e5bba3e54#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b23819e7c5dadd36bcc00e4eb63",
+      "providerRequestId": "req_01a11b2c132e7eb9981d24f8c5dc8615",
       "usageReporting": "complete",
       "usage": {
         "input": 538,
@@ -833,14 +833,14 @@
         }
       }
     },
-    "duration": 240814750
+    "duration": 230716917
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:14.067123+08:00",
+    "time": "2026-10-08T19:00:35.61499+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-eebbc9b367dc2931738781ec8300ae31",
+      "requestId": "req-c5ff7fb084d682329fdba97e5bba3e54",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -855,9 +855,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-eebbc9b367dc2931738781ec8300ae31#1",
+          "attemptId": "req-c5ff7fb084d682329fdba97e5bba3e54#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b23819e7c5dadd36bcc00e4eb63",
+          "providerRequestId": "req_01a11b2c132e7eb9981d24f8c5dc8615",
           "usageReporting": "complete",
           "usage": {
             "input": 538,
@@ -876,7 +876,7 @@
         }
       ]
     },
-    "duration": 241070167,
+    "duration": 230931458,
     "stopReason": "stop",
     "usage": {
       "input": 538,
@@ -895,10 +895,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:14.067137+08:00",
+    "time": "2026-10-08T19:00:35.615016+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-ce1b36c25e408c6db59c3c041a59b008",
+      "requestId": "req-632b2e5ed39be95a817254084a1c0613",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -907,10 +907,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:14.067239+08:00",
+    "time": "2026-10-08T19:00:35.615185+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-ce1b36c25e408c6db59c3c041a59b008",
+      "requestId": "req-632b2e5ed39be95a817254084a1c0613",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -925,7 +925,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-ce1b36c25e408c6db59c3c041a59b008#1",
+      "attemptId": "req-632b2e5ed39be95a817254084a1c0613#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -945,10 +945,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:14.302494+08:00",
+    "time": "2026-10-08T19:00:35.846906+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-ce1b36c25e408c6db59c3c041a59b008",
+      "requestId": "req-632b2e5ed39be95a817254084a1c0613",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -963,9 +963,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-ce1b36c25e408c6db59c3c041a59b008#1",
+      "attemptId": "req-632b2e5ed39be95a817254084a1c0613#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b2382887a5d83cd1f677bbde229",
+      "providerRequestId": "req_01a11b2c14137d79a8adc77203d3033e",
       "usageReporting": "complete",
       "usage": {
         "input": 535,
@@ -982,14 +982,14 @@
         }
       }
     },
-    "duration": 235254084
+    "duration": 231720042
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:14.302504+08:00",
+    "time": "2026-10-08T19:00:35.846916+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-ce1b36c25e408c6db59c3c041a59b008",
+      "requestId": "req-632b2e5ed39be95a817254084a1c0613",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1004,9 +1004,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-ce1b36c25e408c6db59c3c041a59b008#1",
+          "attemptId": "req-632b2e5ed39be95a817254084a1c0613#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b2382887a5d83cd1f677bbde229",
+          "providerRequestId": "req_01a11b2c14137d79a8adc77203d3033e",
           "usageReporting": "complete",
           "usage": {
             "input": 535,
@@ -1025,7 +1025,7 @@
         }
       ]
     },
-    "duration": 235366417,
+    "duration": 231900875,
     "stopReason": "stop",
     "usage": {
       "input": 535,
@@ -1044,10 +1044,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:14.302536+08:00",
+    "time": "2026-10-08T19:00:35.846949+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-a46f2f7da3dd16a2863114be62852944",
+      "requestId": "req-442afaaf1d4a3d5c1ca234b51d817b0f",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1056,10 +1056,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:14.302965+08:00",
+    "time": "2026-10-08T19:00:35.847127+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-a46f2f7da3dd16a2863114be62852944",
+      "requestId": "req-442afaaf1d4a3d5c1ca234b51d817b0f",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1074,7 +1074,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-a46f2f7da3dd16a2863114be62852944#1",
+      "attemptId": "req-442afaaf1d4a3d5c1ca234b51d817b0f#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -1094,10 +1094,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:14.534968+08:00",
+    "time": "2026-10-08T19:00:36.078317+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-a46f2f7da3dd16a2863114be62852944",
+      "requestId": "req-442afaaf1d4a3d5c1ca234b51d817b0f",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1112,9 +1112,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-a46f2f7da3dd16a2863114be62852944#1",
+      "attemptId": "req-442afaaf1d4a3d5c1ca234b51d817b0f#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238372715e933a7ccae1e328c1",
+      "providerRequestId": "req_01a11b2c14fb75b0823e724e214dc4bb",
       "usageReporting": "complete",
       "usage": {
         "input": 533,
@@ -1131,14 +1131,14 @@
         }
       }
     },
-    "duration": 232002959
+    "duration": 231189167
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:14.534978+08:00",
+    "time": "2026-10-08T19:00:36.078328+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-a46f2f7da3dd16a2863114be62852944",
+      "requestId": "req-442afaaf1d4a3d5c1ca234b51d817b0f",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1153,9 +1153,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-a46f2f7da3dd16a2863114be62852944#1",
+          "attemptId": "req-442afaaf1d4a3d5c1ca234b51d817b0f#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238372715e933a7ccae1e328c1",
+          "providerRequestId": "req_01a11b2c14fb75b0823e724e214dc4bb",
           "usageReporting": "complete",
           "usage": {
             "input": 533,
@@ -1174,7 +1174,7 @@
         }
       ]
     },
-    "duration": 232441791,
+    "duration": 231378833,
     "stopReason": "stop",
     "usage": {
       "input": 533,
@@ -1193,10 +1193,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:14.534998+08:00",
+    "time": "2026-10-08T19:00:36.078356+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5c9cb58140163ad526cfc59a32103667",
+      "requestId": "req-d506835f6f43d3d58caedeb074370261",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1205,10 +1205,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:14.535194+08:00",
+    "time": "2026-10-08T19:00:36.078514+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5c9cb58140163ad526cfc59a32103667",
+      "requestId": "req-d506835f6f43d3d58caedeb074370261",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1223,7 +1223,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-5c9cb58140163ad526cfc59a32103667#1",
+      "attemptId": "req-d506835f6f43d3d58caedeb074370261#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -1243,10 +1243,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:14.774108+08:00",
+    "time": "2026-10-08T19:00:36.535893+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5c9cb58140163ad526cfc59a32103667",
+      "requestId": "req-d506835f6f43d3d58caedeb074370261",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1261,9 +1261,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-5c9cb58140163ad526cfc59a32103667#1",
+      "attemptId": "req-d506835f6f43d3d58caedeb074370261#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238459719791200f25d7f87690",
+      "providerRequestId": "req_01a11b2c15e57fa1b796ecaf57193287",
       "usageReporting": "complete",
       "usage": {
         "input": 536,
@@ -1280,14 +1280,14 @@
         }
       }
     },
-    "duration": 238913084
+    "duration": 457378167
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:14.774116+08:00",
+    "time": "2026-10-08T19:00:36.535914+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5c9cb58140163ad526cfc59a32103667",
+      "requestId": "req-d506835f6f43d3d58caedeb074370261",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1302,9 +1302,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-5c9cb58140163ad526cfc59a32103667#1",
+          "attemptId": "req-d506835f6f43d3d58caedeb074370261#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238459719791200f25d7f87690",
+          "providerRequestId": "req_01a11b2c15e57fa1b796ecaf57193287",
           "usageReporting": "complete",
           "usage": {
             "input": 536,
@@ -1323,7 +1323,7 @@
         }
       ]
     },
-    "duration": 239117625,
+    "duration": 457557500,
     "stopReason": "stop",
     "usage": {
       "input": 536,
@@ -1342,10 +1342,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:14.774145+08:00",
+    "time": "2026-10-08T19:00:36.535986+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f",
+      "requestId": "req-44fa96144ce55a4d963c22f85577fa36",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1354,10 +1354,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:14.774326+08:00",
+    "time": "2026-10-08T19:00:36.536329+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f",
+      "requestId": "req-44fa96144ce55a4d963c22f85577fa36",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1372,7 +1372,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f#1",
+      "attemptId": "req-44fa96144ce55a4d963c22f85577fa36#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -1392,10 +1392,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:14.988386+08:00",
+    "time": "2026-10-08T19:00:36.809909+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f",
+      "requestId": "req-44fa96144ce55a4d963c22f85577fa36",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1410,9 +1410,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f#1",
+      "attemptId": "req-44fa96144ce55a4d963c22f85577fa36#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b23854d74efa32fd19676c33c91",
+      "providerRequestId": "req_01a11b2c17af7b4b82670c9ed803af4b",
       "usageReporting": "complete",
       "usage": {
         "input": 536,
@@ -1429,14 +1429,14 @@
         }
       }
     },
-    "duration": 214059334
+    "duration": 273579166
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:14.988402+08:00",
+    "time": "2026-10-08T19:00:36.809923+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f",
+      "requestId": "req-44fa96144ce55a4d963c22f85577fa36",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1451,9 +1451,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-0f9e72a2f660a9fee4c2773b4cf6ea3f#1",
+          "attemptId": "req-44fa96144ce55a4d963c22f85577fa36#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b23854d74efa32fd19676c33c91",
+          "providerRequestId": "req_01a11b2c17af7b4b82670c9ed803af4b",
           "usageReporting": "complete",
           "usage": {
             "input": 536,
@@ -1472,7 +1472,7 @@
         }
       ]
     },
-    "duration": 214257541,
+    "duration": 273937625,
     "stopReason": "stop",
     "usage": {
       "input": 536,
@@ -1491,10 +1491,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:14.988449+08:00",
+    "time": "2026-10-08T19:00:36.809968+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-881232e46357d8490ac96352449394a5",
+      "requestId": "req-b0a9affa9ea2f4486815f557fb3ca956",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1503,10 +1503,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:14.988759+08:00",
+    "time": "2026-10-08T19:00:36.810473+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-881232e46357d8490ac96352449394a5",
+      "requestId": "req-b0a9affa9ea2f4486815f557fb3ca956",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1521,7 +1521,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-881232e46357d8490ac96352449394a5#1",
+      "attemptId": "req-b0a9affa9ea2f4486815f557fb3ca956#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -1541,10 +1541,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:15.208384+08:00",
+    "time": "2026-10-08T19:00:37.042621+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-881232e46357d8490ac96352449394a5",
+      "requestId": "req-b0a9affa9ea2f4486815f557fb3ca956",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1559,9 +1559,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-881232e46357d8490ac96352449394a5#1",
+      "attemptId": "req-b0a9affa9ea2f4486815f557fb3ca956#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238621720196679e0439561866",
+      "providerRequestId": "req_01a11b2c18c17b6cbbfcad152aa018db",
       "usageReporting": "complete",
       "usage": {
         "input": 535,
@@ -1578,14 +1578,14 @@
         }
       }
     },
-    "duration": 219624458
+    "duration": 232147792
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:15.208423+08:00",
+    "time": "2026-10-08T19:00:37.042628+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-881232e46357d8490ac96352449394a5",
+      "requestId": "req-b0a9affa9ea2f4486815f557fb3ca956",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1600,9 +1600,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-881232e46357d8490ac96352449394a5#1",
+          "attemptId": "req-b0a9affa9ea2f4486815f557fb3ca956#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238621720196679e0439561866",
+          "providerRequestId": "req_01a11b2c18c17b6cbbfcad152aa018db",
           "usageReporting": "complete",
           "usage": {
             "input": 535,
@@ -1621,7 +1621,7 @@
         }
       ]
     },
-    "duration": 219974250,
+    "duration": 232659750,
     "stopReason": "stop",
     "usage": {
       "input": 535,
@@ -1640,10 +1640,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:15.208526+08:00",
+    "time": "2026-10-08T19:00:37.042656+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-17dcaf4fbff3c011dff25f3715af52ef",
+      "requestId": "req-322186690678422c1b328bbcb3bf8433",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1652,10 +1652,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:15.208902+08:00",
+    "time": "2026-10-08T19:00:37.042775+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-17dcaf4fbff3c011dff25f3715af52ef",
+      "requestId": "req-322186690678422c1b328bbcb3bf8433",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1670,7 +1670,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-17dcaf4fbff3c011dff25f3715af52ef#1",
+      "attemptId": "req-322186690678422c1b328bbcb3bf8433#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -1690,10 +1690,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:15.459664+08:00",
+    "time": "2026-10-08T19:00:37.306574+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-17dcaf4fbff3c011dff25f3715af52ef",
+      "requestId": "req-322186690678422c1b328bbcb3bf8433",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1708,9 +1708,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-17dcaf4fbff3c011dff25f3715af52ef#1",
+      "attemptId": "req-322186690678422c1b328bbcb3bf8433#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b2386fd78ad90250e61a253f0a8",
+      "providerRequestId": "req_01a11b2c19ab7917bc86532626339d4f",
       "usageReporting": "complete",
       "usage": {
         "input": 537,
@@ -1727,14 +1727,14 @@
         }
       }
     },
-    "duration": 250761500
+    "duration": 263798209
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:15.459679+08:00",
+    "time": "2026-10-08T19:00:37.30659+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-17dcaf4fbff3c011dff25f3715af52ef",
+      "requestId": "req-322186690678422c1b328bbcb3bf8433",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1749,9 +1749,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-17dcaf4fbff3c011dff25f3715af52ef#1",
+          "attemptId": "req-322186690678422c1b328bbcb3bf8433#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b2386fd78ad90250e61a253f0a8",
+          "providerRequestId": "req_01a11b2c19ab7917bc86532626339d4f",
           "usageReporting": "complete",
           "usage": {
             "input": 537,
@@ -1770,7 +1770,7 @@
         }
       ]
     },
-    "duration": 251153417,
+    "duration": 263933792,
     "stopReason": "stop",
     "usage": {
       "input": 537,
@@ -1789,10 +1789,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:15.459728+08:00",
+    "time": "2026-10-08T19:00:37.306645+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-4078dd5b2276752e0b2c3dc33be7e93a",
+      "requestId": "req-add8ed7a48f57f4ca907bf5a87cec755",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1801,10 +1801,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:15.460079+08:00",
+    "time": "2026-10-08T19:00:37.307065+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-4078dd5b2276752e0b2c3dc33be7e93a",
+      "requestId": "req-add8ed7a48f57f4ca907bf5a87cec755",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1819,7 +1819,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-4078dd5b2276752e0b2c3dc33be7e93a#1",
+      "attemptId": "req-add8ed7a48f57f4ca907bf5a87cec755#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -1839,10 +1839,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:15.730661+08:00",
+    "time": "2026-10-08T19:00:37.573409+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-4078dd5b2276752e0b2c3dc33be7e93a",
+      "requestId": "req-add8ed7a48f57f4ca907bf5a87cec755",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1857,9 +1857,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-4078dd5b2276752e0b2c3dc33be7e93a#1",
+      "attemptId": "req-add8ed7a48f57f4ca907bf5a87cec755#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b2387f771f0ae9c66d4c9845f47",
+      "providerRequestId": "req_01a11b2c1aae7de39665f186d86b1186",
       "usageReporting": "complete",
       "usage": {
         "input": 537,
@@ -1876,14 +1876,14 @@
         }
       }
     },
-    "duration": 270581041
+    "duration": 266343041
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:15.730674+08:00",
+    "time": "2026-10-08T19:00:37.57342+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-4078dd5b2276752e0b2c3dc33be7e93a",
+      "requestId": "req-add8ed7a48f57f4ca907bf5a87cec755",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1898,9 +1898,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-4078dd5b2276752e0b2c3dc33be7e93a#1",
+          "attemptId": "req-add8ed7a48f57f4ca907bf5a87cec755#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b2387f771f0ae9c66d4c9845f47",
+          "providerRequestId": "req_01a11b2c1aae7de39665f186d86b1186",
           "usageReporting": "complete",
           "usage": {
             "input": 537,
@@ -1919,7 +1919,7 @@
         }
       ]
     },
-    "duration": 270946291,
+    "duration": 266775083,
     "stopReason": "stop",
     "usage": {
       "input": 537,
@@ -1938,10 +1938,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:15.730718+08:00",
+    "time": "2026-10-08T19:00:37.573451+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-0d72f87485b31ce6dc0494b8824d5472",
+      "requestId": "req-8a55fe475048a3e3e5827bebd098106e",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1950,10 +1950,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:15.731034+08:00",
+    "time": "2026-10-08T19:00:37.573637+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-0d72f87485b31ce6dc0494b8824d5472",
+      "requestId": "req-8a55fe475048a3e3e5827bebd098106e",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -1968,7 +1968,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-0d72f87485b31ce6dc0494b8824d5472#1",
+      "attemptId": "req-8a55fe475048a3e3e5827bebd098106e#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -1988,10 +1988,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:16.009279+08:00",
+    "time": "2026-10-08T19:00:37.801137+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-0d72f87485b31ce6dc0494b8824d5472",
+      "requestId": "req-8a55fe475048a3e3e5827bebd098106e",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2006,9 +2006,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-0d72f87485b31ce6dc0494b8824d5472#1",
+      "attemptId": "req-8a55fe475048a3e3e5827bebd098106e#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b2389067d0b8e742d9d5f01864f",
+      "providerRequestId": "req_01a11b2c1bba7e04bd79e1ffb434a8b6",
       "usageReporting": "complete",
       "usage": {
         "input": 533,
@@ -2025,14 +2025,14 @@
         }
       }
     },
-    "duration": 278244083
+    "duration": 227498792
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:16.009296+08:00",
+    "time": "2026-10-08T19:00:37.801149+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-0d72f87485b31ce6dc0494b8824d5472",
+      "requestId": "req-8a55fe475048a3e3e5827bebd098106e",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2047,9 +2047,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-0d72f87485b31ce6dc0494b8824d5472#1",
+          "attemptId": "req-8a55fe475048a3e3e5827bebd098106e#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b2389067d0b8e742d9d5f01864f",
+          "providerRequestId": "req_01a11b2c1bba7e04bd79e1ffb434a8b6",
           "usageReporting": "complete",
           "usage": {
             "input": 533,
@@ -2068,7 +2068,7 @@
         }
       ]
     },
-    "duration": 278578166,
+    "duration": 227698125,
     "stopReason": "stop",
     "usage": {
       "input": 533,
@@ -2087,10 +2087,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:16.009365+08:00",
+    "time": "2026-10-08T19:00:37.801196+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5670ac9666661da1b5f533ae4a86d531",
+      "requestId": "req-abebb0075f4d65052110b8de07facd88",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2099,10 +2099,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:16.009729+08:00",
+    "time": "2026-10-08T19:00:37.801404+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5670ac9666661da1b5f533ae4a86d531",
+      "requestId": "req-abebb0075f4d65052110b8de07facd88",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2117,7 +2117,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-5670ac9666661da1b5f533ae4a86d531#1",
+      "attemptId": "req-abebb0075f4d65052110b8de07facd88#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -2137,10 +2137,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:16.232208+08:00",
+    "time": "2026-10-08T19:00:38.074995+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5670ac9666661da1b5f533ae4a86d531",
+      "requestId": "req-abebb0075f4d65052110b8de07facd88",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2155,9 +2155,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-5670ac9666661da1b5f533ae4a86d531#1",
+      "attemptId": "req-abebb0075f4d65052110b8de07facd88#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238a1b7f698ead036279fb3c08",
+      "providerRequestId": "req_01a11b2c1c9e728a82d7871924163a6f",
       "usageReporting": "complete",
       "usage": {
         "input": 532,
@@ -2174,14 +2174,14 @@
         }
       }
     },
-    "duration": 222478667
+    "duration": 273590084
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:16.232221+08:00",
+    "time": "2026-10-08T19:00:38.075007+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-5670ac9666661da1b5f533ae4a86d531",
+      "requestId": "req-abebb0075f4d65052110b8de07facd88",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2196,9 +2196,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-5670ac9666661da1b5f533ae4a86d531#1",
+          "attemptId": "req-abebb0075f4d65052110b8de07facd88#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238a1b7f698ead036279fb3c08",
+          "providerRequestId": "req_01a11b2c1c9e728a82d7871924163a6f",
           "usageReporting": "complete",
           "usage": {
             "input": 532,
@@ -2217,7 +2217,7 @@
         }
       ]
     },
-    "duration": 222856708,
+    "duration": 273817625,
     "stopReason": "stop",
     "usage": {
       "input": 532,
@@ -2236,10 +2236,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:16.232268+08:00",
+    "time": "2026-10-08T19:00:38.075042+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-88bd10c4acfa38015657136641dd9f0a",
+      "requestId": "req-0547f991c6aff14bfe3a6c815edc0024",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2248,10 +2248,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:16.232582+08:00",
+    "time": "2026-10-08T19:00:38.075213+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-88bd10c4acfa38015657136641dd9f0a",
+      "requestId": "req-0547f991c6aff14bfe3a6c815edc0024",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2266,7 +2266,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-88bd10c4acfa38015657136641dd9f0a#1",
+      "attemptId": "req-0547f991c6aff14bfe3a6c815edc0024#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -2286,10 +2286,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:16.483111+08:00",
+    "time": "2026-10-08T19:00:38.317909+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-88bd10c4acfa38015657136641dd9f0a",
+      "requestId": "req-0547f991c6aff14bfe3a6c815edc0024",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2304,9 +2304,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-88bd10c4acfa38015657136641dd9f0a#1",
+      "attemptId": "req-0547f991c6aff14bfe3a6c815edc0024#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238b0079898c4eae7cd57349cf",
+      "providerRequestId": "req_01a11b2c1daf7790963f571452b0901a",
       "usageReporting": "complete",
       "usage": {
         "input": 535,
@@ -2323,14 +2323,14 @@
         }
       }
     },
-    "duration": 250527959
+    "duration": 242694750
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:16.48312+08:00",
+    "time": "2026-10-08T19:00:38.317923+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-88bd10c4acfa38015657136641dd9f0a",
+      "requestId": "req-0547f991c6aff14bfe3a6c815edc0024",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2345,9 +2345,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-88bd10c4acfa38015657136641dd9f0a#1",
+          "attemptId": "req-0547f991c6aff14bfe3a6c815edc0024#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238b0079898c4eae7cd57349cf",
+          "providerRequestId": "req_01a11b2c1daf7790963f571452b0901a",
           "usageReporting": "complete",
           "usage": {
             "input": 535,
@@ -2366,7 +2366,7 @@
         }
       ]
     },
-    "duration": 250852375,
+    "duration": 242880750,
     "stopReason": "stop",
     "usage": {
       "input": 535,
@@ -2385,10 +2385,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:16.483152+08:00",
+    "time": "2026-10-08T19:00:38.317977+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-196a585dd0a5ce63efeadfcebafa9e85",
+      "requestId": "req-51df895c6c123893dfed0782e232043a",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2397,10 +2397,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:16.483424+08:00",
+    "time": "2026-10-08T19:00:38.318226+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-196a585dd0a5ce63efeadfcebafa9e85",
+      "requestId": "req-51df895c6c123893dfed0782e232043a",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2415,7 +2415,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-196a585dd0a5ce63efeadfcebafa9e85#1",
+      "attemptId": "req-51df895c6c123893dfed0782e232043a#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -2435,10 +2435,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:16.710533+08:00",
+    "time": "2026-10-08T19:00:38.628334+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-196a585dd0a5ce63efeadfcebafa9e85",
+      "requestId": "req-51df895c6c123893dfed0782e232043a",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2453,9 +2453,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-196a585dd0a5ce63efeadfcebafa9e85#1",
+      "attemptId": "req-51df895c6c123893dfed0782e232043a#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238bf677258a34c6c5ab55a546",
+      "providerRequestId": "req_01a11b2c1ea27758b57faebdb2f028bf",
       "usageReporting": "complete",
       "usage": {
         "input": 534,
@@ -2472,14 +2472,14 @@
         }
       }
     },
-    "duration": 227108209
+    "duration": 310106916
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:16.710549+08:00",
+    "time": "2026-10-08T19:00:38.628349+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-196a585dd0a5ce63efeadfcebafa9e85",
+      "requestId": "req-51df895c6c123893dfed0782e232043a",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2494,9 +2494,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-196a585dd0a5ce63efeadfcebafa9e85#1",
+          "attemptId": "req-51df895c6c123893dfed0782e232043a#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238bf677258a34c6c5ab55a546",
+          "providerRequestId": "req_01a11b2c1ea27758b57faebdb2f028bf",
           "usageReporting": "complete",
           "usage": {
             "input": 534,
@@ -2515,7 +2515,7 @@
         }
       ]
     },
-    "duration": 227398333,
+    "duration": 310371208,
     "stopReason": "stop",
     "usage": {
       "input": 534,
@@ -2534,10 +2534,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:16.710619+08:00",
+    "time": "2026-10-08T19:00:38.628395+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-adcf4432ad1ca074732a2720608c36e7",
+      "requestId": "req-12f2e55afa3570fb800dde133d376328",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2546,10 +2546,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:16.710846+08:00",
+    "time": "2026-10-08T19:00:38.628718+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-adcf4432ad1ca074732a2720608c36e7",
+      "requestId": "req-12f2e55afa3570fb800dde133d376328",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2564,7 +2564,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-adcf4432ad1ca074732a2720608c36e7#1",
+      "attemptId": "req-12f2e55afa3570fb800dde133d376328#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -2584,10 +2584,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:16.932478+08:00",
+    "time": "2026-10-08T19:00:39.138186+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-adcf4432ad1ca074732a2720608c36e7",
+      "requestId": "req-12f2e55afa3570fb800dde133d376328",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2602,9 +2602,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-adcf4432ad1ca074732a2720608c36e7#1",
+      "attemptId": "req-12f2e55afa3570fb800dde133d376328#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238cda74a38cb870d139a58efb",
+      "providerRequestId": "req_01a11b2c1fec7ab9be7db964243e5c04",
       "usageReporting": "complete",
       "usage": {
         "input": 539,
@@ -2621,14 +2621,14 @@
         }
       }
     },
-    "duration": 221631625
+    "duration": 509466500
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:16.932493+08:00",
+    "time": "2026-10-08T19:00:39.1382+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-adcf4432ad1ca074732a2720608c36e7",
+      "requestId": "req-12f2e55afa3570fb800dde133d376328",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2643,9 +2643,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-adcf4432ad1ca074732a2720608c36e7#1",
+          "attemptId": "req-12f2e55afa3570fb800dde133d376328#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238cda74a38cb870d139a58efb",
+          "providerRequestId": "req_01a11b2c1fec7ab9be7db964243e5c04",
           "usageReporting": "complete",
           "usage": {
             "input": 539,
@@ -2664,7 +2664,7 @@
         }
       ]
     },
-    "duration": 221874209,
+    "duration": 509804875,
     "stopReason": "stop",
     "usage": {
       "input": 539,
@@ -2683,10 +2683,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:16.932558+08:00",
+    "time": "2026-10-08T19:00:39.138238+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-e979bfc1f96e294b810f188e842a67f8",
+      "requestId": "req-923350d01321ece732de63c0e6c94e19",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2695,10 +2695,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:16.93288+08:00",
+    "time": "2026-10-08T19:00:39.138455+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-e979bfc1f96e294b810f188e842a67f8",
+      "requestId": "req-923350d01321ece732de63c0e6c94e19",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2713,7 +2713,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-e979bfc1f96e294b810f188e842a67f8#1",
+      "attemptId": "req-923350d01321ece732de63c0e6c94e19#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -2733,10 +2733,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:17.161102+08:00",
+    "time": "2026-10-08T19:00:39.388807+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-e979bfc1f96e294b810f188e842a67f8",
+      "requestId": "req-923350d01321ece732de63c0e6c94e19",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2751,9 +2751,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-e979bfc1f96e294b810f188e842a67f8#1",
+      "attemptId": "req-923350d01321ece732de63c0e6c94e19#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238db87a9a96bc0d8eeaa7022c",
+      "providerRequestId": "req_01a11b2c21d47dacaf3e901d0330eb11",
       "usageReporting": "complete",
       "usage": {
         "input": 531,
@@ -2770,14 +2770,14 @@
         }
       }
     },
-    "duration": 228221208
+    "duration": 250350750
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:17.161115+08:00",
+    "time": "2026-10-08T19:00:39.388812+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-e979bfc1f96e294b810f188e842a67f8",
+      "requestId": "req-923350d01321ece732de63c0e6c94e19",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2792,9 +2792,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-e979bfc1f96e294b810f188e842a67f8#1",
+          "attemptId": "req-923350d01321ece732de63c0e6c94e19#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238db87a9a96bc0d8eeaa7022c",
+          "providerRequestId": "req_01a11b2c21d47dacaf3e901d0330eb11",
           "usageReporting": "complete",
           "usage": {
             "input": 531,
@@ -2813,7 +2813,7 @@
         }
       ]
     },
-    "duration": 228556542,
+    "duration": 250574583,
     "stopReason": "stop",
     "usage": {
       "input": 531,
@@ -2832,10 +2832,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:17.161179+08:00",
+    "time": "2026-10-08T19:00:39.388829+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-934293f1f5003dbbfdcd0e4db23c4c83",
+      "requestId": "req-56005a1e63dbf5975a38a04b5557d3af",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2844,10 +2844,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:17.161492+08:00",
+    "time": "2026-10-08T19:00:39.388932+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-934293f1f5003dbbfdcd0e4db23c4c83",
+      "requestId": "req-56005a1e63dbf5975a38a04b5557d3af",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2862,7 +2862,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-934293f1f5003dbbfdcd0e4db23c4c83#1",
+      "attemptId": "req-56005a1e63dbf5975a38a04b5557d3af#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -2882,10 +2882,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:17.404973+08:00",
+    "time": "2026-10-08T19:00:39.825561+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-934293f1f5003dbbfdcd0e4db23c4c83",
+      "requestId": "req-56005a1e63dbf5975a38a04b5557d3af",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2900,9 +2900,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-934293f1f5003dbbfdcd0e4db23c4c83#1",
+      "attemptId": "req-56005a1e63dbf5975a38a04b5557d3af#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238e9d7084a8108e9e978fca9f",
+      "providerRequestId": "req_01a11b2c22e474b894bbff0b351da866",
       "usageReporting": "complete",
       "usage": {
         "input": 533,
@@ -2919,14 +2919,14 @@
         }
       }
     },
-    "duration": 243479958
+    "duration": 436628208
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:17.404984+08:00",
+    "time": "2026-10-08T19:00:39.82557+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-934293f1f5003dbbfdcd0e4db23c4c83",
+      "requestId": "req-56005a1e63dbf5975a38a04b5557d3af",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2941,9 +2941,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-934293f1f5003dbbfdcd0e4db23c4c83#1",
+          "attemptId": "req-56005a1e63dbf5975a38a04b5557d3af#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238e9d7084a8108e9e978fca9f",
+          "providerRequestId": "req_01a11b2c22e474b894bbff0b351da866",
           "usageReporting": "complete",
           "usage": {
             "input": 533,
@@ -2962,7 +2962,7 @@
         }
       ]
     },
-    "duration": 243804833,
+    "duration": 436740167,
     "stopReason": "stop",
     "usage": {
       "input": 533,
@@ -2981,10 +2981,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:17.405015+08:00",
+    "time": "2026-10-08T19:00:39.825593+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-f0809c07866e26f41fa2519c93573eaa",
+      "requestId": "req-3b0bea6c22dcf57cae1aed965010439b",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -2993,10 +2993,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:17.405153+08:00",
+    "time": "2026-10-08T19:00:39.82579+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-f0809c07866e26f41fa2519c93573eaa",
+      "requestId": "req-3b0bea6c22dcf57cae1aed965010439b",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3011,7 +3011,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-f0809c07866e26f41fa2519c93573eaa#1",
+      "attemptId": "req-3b0bea6c22dcf57cae1aed965010439b#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -3031,10 +3031,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:17.64663+08:00",
+    "time": "2026-10-08T19:00:40.242486+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-f0809c07866e26f41fa2519c93573eaa",
+      "requestId": "req-3b0bea6c22dcf57cae1aed965010439b",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3049,9 +3049,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-f0809c07866e26f41fa2519c93573eaa#1",
+      "attemptId": "req-3b0bea6c22dcf57cae1aed965010439b#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b238f9179d1bd43ba5053983ece",
+      "providerRequestId": "req_01a11b2c24877c81b2d29c97bc37485c",
       "usageReporting": "complete",
       "usage": {
         "input": 536,
@@ -3068,14 +3068,14 @@
         }
       }
     },
-    "duration": 241476959
+    "duration": 416695458
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:17.646647+08:00",
+    "time": "2026-10-08T19:00:40.242496+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-f0809c07866e26f41fa2519c93573eaa",
+      "requestId": "req-3b0bea6c22dcf57cae1aed965010439b",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3090,9 +3090,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-f0809c07866e26f41fa2519c93573eaa#1",
+          "attemptId": "req-3b0bea6c22dcf57cae1aed965010439b#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b238f9179d1bd43ba5053983ece",
+          "providerRequestId": "req_01a11b2c24877c81b2d29c97bc37485c",
           "usageReporting": "complete",
           "usage": {
             "input": 536,
@@ -3111,7 +3111,7 @@
         }
       ]
     },
-    "duration": 241632208,
+    "duration": 416902625,
     "stopReason": "stop",
     "usage": {
       "input": 536,
@@ -3130,10 +3130,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:17.646685+08:00",
+    "time": "2026-10-08T19:00:40.242526+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-fdff8f3cad5163b95001713177da041c",
+      "requestId": "req-a7036879059d5252898aaa0312b12e13",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3142,10 +3142,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:17.646916+08:00",
+    "time": "2026-10-08T19:00:40.243367+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-fdff8f3cad5163b95001713177da041c",
+      "requestId": "req-a7036879059d5252898aaa0312b12e13",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3160,7 +3160,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-fdff8f3cad5163b95001713177da041c#1",
+      "attemptId": "req-a7036879059d5252898aaa0312b12e13#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -3180,10 +3180,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:17.879092+08:00",
+    "time": "2026-10-08T19:00:40.481459+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-fdff8f3cad5163b95001713177da041c",
+      "requestId": "req-a7036879059d5252898aaa0312b12e13",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3198,9 +3198,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-fdff8f3cad5163b95001713177da041c#1",
+      "attemptId": "req-a7036879059d5252898aaa0312b12e13#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b2390827972b271e95cc7275542",
+      "providerRequestId": "req_01a11b2c262777a7967a3a8558cae76e",
       "usageReporting": "complete",
       "usage": {
         "input": 533,
@@ -3217,14 +3217,14 @@
         }
       }
     },
-    "duration": 232175500
+    "duration": 238091583
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:17.879101+08:00",
+    "time": "2026-10-08T19:00:40.481472+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-fdff8f3cad5163b95001713177da041c",
+      "requestId": "req-a7036879059d5252898aaa0312b12e13",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3239,9 +3239,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-fdff8f3cad5163b95001713177da041c#1",
+          "attemptId": "req-a7036879059d5252898aaa0312b12e13#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b2390827972b271e95cc7275542",
+          "providerRequestId": "req_01a11b2c262777a7967a3a8558cae76e",
           "usageReporting": "complete",
           "usage": {
             "input": 533,
@@ -3260,7 +3260,7 @@
         }
       ]
     },
-    "duration": 232417292,
+    "duration": 238946083,
     "stopReason": "stop",
     "usage": {
       "input": 533,
@@ -3279,10 +3279,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:17.879133+08:00",
+    "time": "2026-10-08T19:00:40.481508+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-42ff9bd61c2039a5018ca5c651170d6d",
+      "requestId": "req-a2a058f3d820023bf572bc51923aa579",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3291,10 +3291,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:17.879341+08:00",
+    "time": "2026-10-08T19:00:40.481805+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-42ff9bd61c2039a5018ca5c651170d6d",
+      "requestId": "req-a2a058f3d820023bf572bc51923aa579",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3309,7 +3309,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-42ff9bd61c2039a5018ca5c651170d6d#1",
+      "attemptId": "req-a2a058f3d820023bf572bc51923aa579#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -3329,10 +3329,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:18.104526+08:00",
+    "time": "2026-10-08T19:00:40.907626+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-42ff9bd61c2039a5018ca5c651170d6d",
+      "requestId": "req-a2a058f3d820023bf572bc51923aa579",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3347,9 +3347,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-42ff9bd61c2039a5018ca5c651170d6d#1",
+      "attemptId": "req-a2a058f3d820023bf572bc51923aa579#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b23916a733d88815537b69ca544",
+      "providerRequestId": "req_01a11b2c271c754384ddbee5352b999a",
       "usageReporting": "complete",
       "usage": {
         "input": 535,
@@ -3366,14 +3366,14 @@
         }
       }
     },
-    "duration": 225185084
+    "duration": 425820167
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:18.104538+08:00",
+    "time": "2026-10-08T19:00:40.907641+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-42ff9bd61c2039a5018ca5c651170d6d",
+      "requestId": "req-a2a058f3d820023bf572bc51923aa579",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3388,9 +3388,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-42ff9bd61c2039a5018ca5c651170d6d#1",
+          "attemptId": "req-a2a058f3d820023bf572bc51923aa579#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b23916a733d88815537b69ca544",
+          "providerRequestId": "req_01a11b2c271c754384ddbee5352b999a",
           "usageReporting": "complete",
           "usage": {
             "input": 535,
@@ -3409,7 +3409,7 @@
         }
       ]
     },
-    "duration": 225405667,
+    "duration": 426132291,
     "stopReason": "stop",
     "usage": {
       "input": 535,
@@ -3428,10 +3428,10 @@
   },
   {
     "kind": "call_started",
-    "time": "2026-10-08T18:51:18.104597+08:00",
+    "time": "2026-10-08T19:00:40.907685+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b",
+      "requestId": "req-d2509d802ec25b5fbe3ecde63307dd51",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3440,10 +3440,10 @@
   },
   {
     "kind": "attempt_started",
-    "time": "2026-10-08T18:51:18.105652+08:00",
+    "time": "2026-10-08T19:00:40.907989+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b",
+      "requestId": "req-d2509d802ec25b5fbe3ecde63307dd51",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3458,7 +3458,7 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b#1",
+      "attemptId": "req-d2509d802ec25b5fbe3ecde63307dd51#1",
       "usageReporting": "unreported",
       "usage": {
         "input": 0,
@@ -3478,10 +3478,10 @@
   },
   {
     "kind": "attempt_finished",
-    "time": "2026-10-08T18:51:18.35738+08:00",
+    "time": "2026-10-08T19:00:41.262577+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b",
+      "requestId": "req-d2509d802ec25b5fbe3ecde63307dd51",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3496,9 +3496,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406"
     },
     "attempt": {
-      "attemptId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b#1",
+      "attemptId": "req-d2509d802ec25b5fbe3ecde63307dd51#1",
       "httpStatus": 200,
-      "providerRequestId": "req_01a11b2392577386a473c1e37cc838e5",
+      "providerRequestId": "req_01a11b2c28c37894930459c11acb6fd3",
       "usageReporting": "complete",
       "usage": {
         "input": 543,
@@ -3515,14 +3515,14 @@
         }
       }
     },
-    "duration": 251727375
+    "duration": 354587500
   },
   {
     "kind": "call_finished",
-    "time": "2026-10-08T18:51:18.357403+08:00",
+    "time": "2026-10-08T19:00:41.262598+08:00",
     "call": {
       "tenantId": "chinese-evaluation",
-      "requestId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b",
+      "requestId": "req-d2509d802ec25b5fbe3ecde63307dd51",
       "jobId": "chinese-evaluation",
       "bindingId": "typesafe-chinese-evaluation",
       "operation": "classifier",
@@ -3537,9 +3537,9 @@
       "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
       "attempts": [
         {
-          "attemptId": "req-4b4d49d2bd412ecdca2887d8e4f01b4b#1",
+          "attemptId": "req-d2509d802ec25b5fbe3ecde63307dd51#1",
           "httpStatus": 200,
-          "providerRequestId": "req_01a11b2392577386a473c1e37cc838e5",
+          "providerRequestId": "req_01a11b2c28c37894930459c11acb6fd3",
           "usageReporting": "complete",
           "usage": {
             "input": 543,
@@ -3558,7 +3558,7 @@
         }
       ]
     },
-    "duration": 252805792,
+    "duration": 354912208,
     "stopReason": "stop",
     "usage": {
       "input": 543,

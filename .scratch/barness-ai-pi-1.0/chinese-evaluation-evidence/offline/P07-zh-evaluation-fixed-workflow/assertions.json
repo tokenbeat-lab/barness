@@ -1,0 +1,48 @@
+{
+  "assertions": [
+    {
+      "name": "complete fixture never live",
+      "pass": true,
+      "detail": "got COMPLETE"
+    },
+    {
+      "name": "all labels stay in denominator",
+      "pass": true,
+      "detail": "got {Total:24 Scored:24 Correct:20 Failed:0 Unexecuted:0 Accuracy:0xc0013f2778 ScoredAccuracy:0xc0013f2788 Confusion:map[account:map[account:5 billing:1] billing:map[billing:5 technical:1] delivery:map[account:1 delivery:5] technical:map[delivery:1 technical:5]] StatusCounts:map[answered:24] ConfidenceBins:[{Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:24 Correct:20 Mean:0xc0013f2798 Accuracy:0xc0013f27a8} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>}] TopProbabilityBins:[{Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:24 Correct:20 Mean:0xc0013f27c8 Accuracy:0xc0013f27d8} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>}] ConfidenceECE:0xc0013f27b8 TopProbabilityECE:0xc0013f27e8 Brier:0xc0013f27f8 ErrorIDs:[billing-06 technical-06 delivery-06 account-06]}"
+    },
+    {
+      "name": "per-label errors",
+      "pass": true,
+      "detail": "got map[account:map[account:5 billing:1] billing:map[billing:5 technical:1] delivery:map[account:1 delivery:5] technical:map[delivery:1 technical:5]]"
+    },
+    {
+      "name": "calibration uses actual confidence",
+      "pass": true,
+      "detail": "got [{Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>} {Count:24 Correct:20 Mean:0xc0013f2798 Accuracy:0xc0013f27a8} {Count:0 Correct:0 Mean:<nil> Accuracy:<nil>}]"
+    },
+    {
+      "name": "attempts priced independently",
+      "pass": true,
+      "detail": "got {Calls:24 Questions:24 Attempts:24 Retries:0 InputTokens:2400 OutputTokens:240 KnownCostUSD:0.00010079999999999996 Unreported:0 Partial:0}"
+    },
+    {
+      "name": "complete artifact verifies",
+      "pass": true,
+      "detail": "invalid report"
+    },
+    {
+      "name": "serialized complete artifact replays",
+      "pass": true,
+      "detail": "report roundtrip failed"
+    },
+    {
+      "name": "incomplete artifact rejected",
+      "pass": true,
+      "detail": "missing sample accepted"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-fixed-workflow",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationFixedWorkflow$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationFixedWorkflow"
+}

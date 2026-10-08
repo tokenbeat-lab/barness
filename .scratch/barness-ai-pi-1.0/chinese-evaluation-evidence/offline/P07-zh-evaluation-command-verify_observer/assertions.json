@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "disabled or absent credential NOT_RUN",
+      "pass": true,
+      "detail": "command=<nil> parse=<nil>"
+    },
+    {
+      "name": "file boundary rejects incomplete report",
+      "pass": true,
+      "detail": "accepted missing sample"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-command-verify_observer",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationCommand$/^verify_observer$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationCommand/verify_observer"
+}

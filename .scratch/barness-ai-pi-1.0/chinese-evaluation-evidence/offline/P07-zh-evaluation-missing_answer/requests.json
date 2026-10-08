@@ -1,0 +1,31 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "819",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "jev-1.13.0",
+      "state": "订单扣了两次钱，请退回多收的一笔。",
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+          "criteria": {
+            "account": "登录、密码、账号绑定或账号访问问题。",
+            "billing": "付款、重复扣款、退款或发票问题。",
+            "delivery": "包裹、发货、物流进度、签收或配送问题。",
+            "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+          }
+        }
+      }
+    }
+  }
+]

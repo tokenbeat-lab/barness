@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input never sends",
+      "pass": true,
+      "detail": "guard accepted unknown_label"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-input-unknown_label",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^unknown_label$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationInputGuards/unknown_label"
+}

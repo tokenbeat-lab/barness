@@ -27,3 +27,14 @@
 核对 manifest 的版本/日期/提交和每一次 CallStarted/CallFinished、AttemptStarted/AttemptFinished；
 命令输出固定 stage 诊断，启动器保存脱敏构建诊断；首次调用前取消保留原因并 NOT_RUN/null。
 实际原包通过新核验，没有追加或舍弃真实调用。修正 E2E 37 个案例全部 PASS。
+
+## 复审
+
+Standards：修正提交 26c7147 无遗留可操作发现；四项 E2E 重现已覆盖。
+可选状态类型建议按单一任务克制实现保留现状。
+
+Spec：无遗留发现；首次调用前取消现为 NOT_RUN/null，版本、用量及独立证据满足工单。
+
+两轴结果：Standards 0 遗留硬违规；Spec 0 遗留。
+后续 a12c037 使命令在宣告完成前执行相同的完整包核验；最终真实复核 COMPLETE，
+输入/配置/Observer/manifest 与逐文件审计均通过。

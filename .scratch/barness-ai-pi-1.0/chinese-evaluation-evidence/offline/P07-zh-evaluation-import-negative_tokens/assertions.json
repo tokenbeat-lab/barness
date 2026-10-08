@@ -1,0 +1,23 @@
+{
+  "assertions": [
+    {
+      "name": "coherent report tamper rejected",
+      "pass": true,
+      "detail": "accepted negative_tokens"
+    },
+    {
+      "name": "file import refuses incomplete evidence",
+      "pass": true,
+      "detail": "accepted negative_tokens"
+    },
+    {
+      "name": "safe diagnostic retained",
+      "pass": true,
+      "detail": "lost stage context"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-import-negative_tokens",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationImportedEvidence$/^negative_tokens$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationImportedEvidence/negative_tokens"
+}

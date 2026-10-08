@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "mixed credentials refused",
+      "pass": true,
+      "detail": "accepted credentials"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-command-foreign_credential",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationCommand$/^foreign_credential$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationCommand/foreign_credential"
+}

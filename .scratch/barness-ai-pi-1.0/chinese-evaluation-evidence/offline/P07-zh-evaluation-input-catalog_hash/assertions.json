@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input never sends",
+      "pass": true,
+      "detail": "guard accepted catalog_hash"
+    }
+  ],
+  "case_id": "P07-zh-evaluation-input-catalog_hash",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChineseEvaluationInputGuards$/^catalog_hash$'",
+  "status": "PASS",
+  "test": "TestChineseEvaluationInputGuards/catalog_hash"
+}
