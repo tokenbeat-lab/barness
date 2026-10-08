@@ -52,15 +52,8 @@ func TestMain(m *testing.M) {
 	}
 	if cfg.combo != nil && cfg.combo.operation == ai.OperationImage {
 		budget = imagesBudget()
-		if cfg.combo.api == ai.APIGoogleInteractions {
-			catalog, err = loadGoogleImageProbeCatalog()
-		} else {
-			catalog, err = loadImageProbeCatalog()
-		}
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
-		}
+		// Both routes passed their candidate probes and are now published.
+		// Release smoke must use the actual versioned catalog and prices.
 	}
 	if cfg.key != "" {
 		run.RedactSecret(cfg.key, "[LIVE-KEY:"+cfg.combo.name+"]")

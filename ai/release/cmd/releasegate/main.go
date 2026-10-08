@@ -20,6 +20,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -50,6 +51,7 @@ func main() {
 	ledgerPath := flag.String("ledger", "ai/e2e/testdata/pidiff/ledger.json", "difference ledger")
 	snapshotPath := flag.String("snapshot", "ai/release/catalog-snapshot.json", "checked-in catalog snapshot")
 	writeSnapshot := flag.Bool("write-snapshot", false, "regenerate the catalog snapshot and exit")
+	evaluation := flag.String("evaluation", "", "independent complete Chinese evaluation bundle (no live calls are made by the gate)")
 	var live multi
 	flag.Var(&live, "live", "a live evidence bundle to audit (repeatable)")
 	flag.Parse()
@@ -90,6 +92,14 @@ func main() {
 	}
 	in := release.Inputs{Ledger: ledger, Matrix: matrix, Trace: trace, Modules: modules,
 		Snapshots: []release.Snapshot{release.CheckSnapshot("catalog", *snapshotPath, snapshot)}}
+	var catalog struct {
+		Hash    string
+		Catalog struct{ Version string }
+	}
+	if err := json.Unmarshal(snapshot, &catalog); err != nil {
+		fail(err)
+	}
+	in.CatalogVersion, in.CatalogHash = catalog.Catalog.Version, catalog.Hash
 	audited := live
 	var missing []release.AuditResult
 	if *bundle == "" {
@@ -98,7 +108,7 @@ func main() {
 			run(release.CmdVet, nil, "go", "vet", "./..."),
 			run(release.CmdVetLive, nil, "go", "vet", "-tags", "live", "./..."),
 			run(release.CmdTest, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(offlineBase)}, "go", "test", "-count=1", "./..."),
-			run(release.CmdRace, []string{evidenceDir(raceBase)}, "go", "test", "-race", "-count=1", "./..."),
+			run(release.CmdRace, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(raceBase)}, "go", "test", "-race", "-count=1", "./..."),
 		}
 		if *bundle, err = release.FindBundle(offlineBase); err != nil {
 			fail(err)
@@ -115,10 +125,15 @@ func main() {
 		fail(err)
 	}
 	forbidden := audit.Environment()
+	if *evaluation != "" {
+		audited = append(audited, *evaluation)
+	}
 	for _, dir := range append([]string{*bundle}, audited...) {
+		in.RequiredAudits = append(in.RequiredAudits, dir)
 		in.Audits = append(in.Audits, release.AuditBundle(dir, forbidden))
 	}
 	in.Audits = append(in.Audits, missing...)
+	in.Evidence = append(release.DesignLoadEvidence(in.Offline), release.ChineseEffectEvidence(*evaluation))
 
 	report := release.Evaluate(in)
 	fixtures, err := release.Fixtures(".", "ai/e2e/testdata")

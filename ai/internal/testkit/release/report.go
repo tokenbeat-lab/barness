@@ -65,6 +65,10 @@ func (r Report) Markdown() string {
 	}
 
 	b.WriteString("\n## Redaction audit\n\n")
+	b.WriteString("\n## Design load and business effect\n\nProtocol smoke and business accuracy are separate evidence. COMPLETE verifies the fixed evaluation, with no accuracy threshold.\n\n")
+	for _, e := range r.Evidence {
+		fmt.Fprintf(&b, "- %s: %s; `%s`; %s\n", e.Name, e.Status, e.Bundle, e.Detail)
+	}
 	for _, a := range r.Audits {
 		state := fmt.Sprintf("%d finding(s)", len(a.Findings))
 		if a.Err != "" {

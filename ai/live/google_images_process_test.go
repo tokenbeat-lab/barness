@@ -57,6 +57,11 @@ func TestGoogleImagesHarnessProcess(t *testing.T) {
 			}
 			cs := run.Case(t, "P09-live-process-"+name)
 			cs.Record("report", report)
+			hash, err := ai.BuiltinCatalog().Hash()
+			if err != nil {
+				t.Fatal(err)
+			}
+			cs.Check("included smoke uses published catalog and prices", report.CatalogVersion == ai.BuiltinCatalog().Version && report.CatalogHash == hash, "live still used a candidate catalog")
 			matrix := supportmatrix.Matrix{Schema: 2, Rows: []supportmatrix.Row{{Combo: "google-interactions-image", Operation: "image", Provider: "google", API: "google-interactions"}}}
 			merged, err := supportmatrix.Merge(matrix, report)
 			refuses := name == "foreign-key" || name == "narrowed"

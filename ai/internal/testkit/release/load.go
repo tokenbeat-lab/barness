@@ -15,6 +15,7 @@ import (
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
 // OfflinePackage is the package argument the offline E2E bundle records.
@@ -38,8 +39,12 @@ func LoadBundle(dir string) (Bundle, error) {
 	if m.Package != OfflinePackage {
 		return Bundle{}, fmt.Errorf("release: %s is a bundle of %q, not the offline E2E (%s)", dir, m.Package, OfflinePackage)
 	}
-	b := Bundle{Dir: dir, Commit: m.GitCommit}
+	b := Bundle{Dir: dir, Commit: m.GitCommit, caseDirs: map[string]string{}}
 	for _, c := range m.Cases {
+		if c.ID == "" || c.Dir == "" || filepath.IsAbs(c.Dir) || filepath.Clean(c.Dir) != c.Dir || strings.HasPrefix(c.Dir, "..") || b.caseDirs[c.ID] != "" {
+			return Bundle{}, fmt.Errorf("release: invalid or duplicate evidence case directory")
+		}
+		b.caseDirs[c.ID] = filepath.Join(dir, c.Dir)
 		b.Cases = append(b.Cases, Case{ID: c.ID, Status: c.Status})
 		if kindOf(c.ID) != kindDifferential || c.Status == NotRun {
 			continue
@@ -62,6 +67,7 @@ func LoadBundle(dir string) (Bundle, error) {
 				d.Missing = append(d.Missing, field)
 			}
 		}
+		d.Missing = append(d.Missing, differentialRecordProblems(c.ID, v)...)
 		b.Diffs = append(b.Diffs, d)
 	}
 	return b, nil
@@ -70,7 +76,7 @@ func LoadBundle(dir string) (Bundle, error) {
 // diffRecordFields are the fields spec Testing Decisions §6 requires of every
 // differential record (the first differing position is first_diff, null
 // when nothing differs, so it is not required to be set).
-var diffRecordFields = []string{"case_id", "pi_commit", "sdk_versions", "model_catalog_hash", "request_sha256", "frame_sha256", "findings"}
+var diffRecordFields = []string{"case_id", "pi_commit", "pi_version", "pi_model_data_sha256", "sdk_versions", "model_catalog_hash", "request_sha256", "frame_sha256", "findings", "pass", "gate"}
 
 // FindBundle returns the single offline E2E bundle below base, where a
 // `go test ./...` run with BARNESS_AI_EVIDENCE_DIR=base wrote it.
@@ -106,11 +112,12 @@ func AuditBundle(dir string, forbidden []audit.Forbidden) AuditResult {
 		return a
 	}
 	a.Findings = findings
-	var live struct {
-		Combo string `json:"combo"`
-	}
-	if readJSON(filepath.Join(dir, "live-report.json"), &live) == nil {
-		a.Combo = live.Combo
+	if live, err := supportmatrix.LoadReport(filepath.Join(dir, supportmatrix.ReportFile)); err == nil {
+		a.Combo, a.Live = live.Combo, &live
+		if err := verifyLiveManifest(dir, live); err != nil {
+			a.Err = err.Error()
+			return a
+		}
 	}
 	var recorded struct {
 		Findings *[]audit.Finding `json:"findings"`

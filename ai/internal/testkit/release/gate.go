@@ -54,6 +54,7 @@ const (
 	GateAudit        GateID = "redaction-audit"
 	GateTrace        GateID = "traceability"
 	GateSnapshots    GateID = "snapshots"
+	GateEvidence     GateID = "required-artifacts"
 )
 
 // Case is one evidence case as the bundle manifest records it.
@@ -74,10 +75,11 @@ type DiffCase struct {
 
 // Bundle is an offline evidence bundle.
 type Bundle struct {
-	Dir    string     `json:"dir"`
-	Commit string     `json:"commit"`
-	Cases  []Case     `json:"-"`
-	Diffs  []DiffCase `json:"-"`
+	Dir      string     `json:"dir"`
+	Commit   string     `json:"commit"`
+	Cases    []Case     `json:"-"`
+	Diffs    []DiffCase `json:"-"`
+	caseDirs map[string]string
 }
 
 // Command is one gate command's result.
@@ -109,9 +111,10 @@ type AuditResult struct {
 	Bundle string `json:"bundle"`
 	// Combo is the live combination of a live bundle (its
 	// live-report.json); empty for offline and race bundles.
-	Combo    string          `json:"combo,omitempty"`
-	Findings []audit.Finding `json:"findings"`
-	Err      string          `json:"error,omitempty"`
+	Combo    string                `json:"combo,omitempty"`
+	Findings []audit.Finding       `json:"findings"`
+	Err      string                `json:"error,omitempty"`
+	Live     *supportmatrix.Report `json:"live,omitempty"`
 }
 
 // Snapshot is whether a checked-in snapshot matches the code.
@@ -132,7 +135,19 @@ type Inputs struct {
 	Snapshots []Snapshot
 	// Modules are the module versions go.mod pins now; a live pass made
 	// with another SDK version is stale.
-	Modules map[string]string
+	Modules        map[string]string
+	CatalogVersion string
+	CatalogHash    string
+	RequiredAudits []string
+	Evidence       []EvidenceCheck
+}
+
+// EvidenceCheck is a verified artifact, not an asserted status from a mapping.
+type EvidenceCheck struct {
+	Name   string `json:"name"`
+	Bundle string `json:"bundle"`
+	Status Status `json:"status"`
+	Detail string `json:"detail,omitempty"`
 }
 
 // Gate is one gate's outcome.
@@ -222,6 +237,7 @@ type Report struct {
 	Trace        []TraceResult       `json:"traceability"`
 	Audits       []AuditResult       `json:"audits"`
 	Snapshots    []Snapshot          `json:"snapshots"`
+	Evidence     []EvidenceCheck     `json:"evidence"`
 }
 
 type caseKind int
@@ -244,7 +260,7 @@ func kindOf(id string) caseKind {
 
 // Evaluate decides the release.
 func Evaluate(in Inputs) Report {
-	r := Report{Commit: in.Offline.Commit, Bundle: in.Offline.Dir, Commands: in.Commands, Audits: in.Audits, Snapshots: in.Snapshots}
+	r := Report{Commit: in.Offline.Commit, Bundle: in.Offline.Dir, Commands: in.Commands, Audits: in.Audits, Snapshots: in.Snapshots, Evidence: in.Evidence}
 	r.Gates = append(r.Gates,
 		commandGate(in, GateTest, "go test ./... (offline, differential on)", CmdTest),
 		commandGate(in, GateRace, "go test -race ./...", CmdRace),
@@ -267,6 +283,7 @@ func Evaluate(in Inputs) Report {
 	}
 	r.Gates = append(r.Gates, settle(g))
 	r.Gates = append(r.Gates, snapshotGate(in))
+	r.Gates = append(r.Gates, evidenceGate(in))
 	r.Pass = !slices.ContainsFunc(r.Gates, func(g Gate) bool { return !g.Pass })
 	return r
 }
@@ -341,6 +358,9 @@ func differential(in Inputs) (DifferentialSection, Gate) {
 			g.Problems = append(g.Problems, "case "+c.ID+": no differential verdict (pidiff.json)")
 		default:
 			d := in.Offline.Diffs[i]
+			if d.Status != Pass || d.Pending < 0 {
+				g.Problems = append(g.Problems, "case "+c.ID+": invalid differential verdict")
+			}
 			if d.Pending > 0 {
 				s.Pending += d.Pending
 				g.Problems = append(g.Problems, fmt.Sprintf("case %s: %d pending finding(s)", c.ID, d.Pending))
@@ -379,72 +399,15 @@ func differential(in Inputs) (DifferentialSection, Gate) {
 	return s, settle(g)
 }
 
-func live(in Inputs) (LiveSection, Gate) {
-	var s LiveSection
-	g := Gate{ID: GateLive, Name: "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)"}
-	for _, combo := range in.Trace.LiveCombos {
-		i := slices.IndexFunc(in.Matrix.Rows, func(r supportmatrix.Row) bool { return r.Combo == combo })
-		if i < 0 {
-			s.Rows = append(s.Rows, LiveRow{Combo: combo, Status: NotRun})
-			g.Problems = append(g.Problems, combo+": missing from the support matrix")
-			continue
-		}
-		m := in.Matrix.Rows[i]
-		row := LiveRow{Combo: combo, Operation: m.Operation, Provider: m.Provider, API: m.API, Model: m.Model, SDK: m.SDK, AccountAlias: m.AccountAlias,
-			LastRunAt: m.LastRunAt, AllPassedAt: m.AllPassedAt}
-		for _, c := range m.Capabilities {
-			switch c.Outcome {
-			case supportmatrix.Unsupported:
-				row.Unsupported = append(row.Unsupported, c.ID+": "+c.Note)
-			case supportmatrix.Pass:
-			default:
-				row.Failing = append(row.Failing, fmt.Sprintf("%s=%s %s", c.ID, c.Outcome, c.ErrorCategory))
-			}
-		}
-		switch {
-		case in.Matrix.Schema != supportmatrix.SchemaVersion || !m.ValidIdentity():
-			row.Status = Fail
-			g.Problems = append(g.Problems, combo+": invalid schema or route identity")
-		case len(row.Failing) > 0:
-			row.Status = Fail
-			g.Problems = append(g.Problems, combo+": failing now: "+strings.Join(row.Failing, ", "))
-		case m.AllPassedAt == nil:
-			row.Status = NotRun
-			g.Problems = append(g.Problems, combo+": never fully passed (no complete live run merged)")
-		case staleSDK(m.SDK, in.Modules) != "":
-			row.Status = NotRun
-			g.Problems = append(g.Problems, combo+": "+staleSDK(m.SDK, in.Modules))
-		case !slices.ContainsFunc(in.Audits, func(a AuditResult) bool { return a.Combo == combo }):
-			row.Status = Pass
-			g.Problems = append(g.Problems, combo+": no live evidence bundle of this combination was audited (pass it with -live)")
-		default:
-			row.Status = Pass
-		}
-		s.Rows = append(s.Rows, row)
-	}
-	return s, settle(g)
-}
-
-// staleSDK explains why a live pass made with sdk ("<module> <version>
-// ...", as the live suite records it) no longer covers the code, or returns
-// "". A pass through direct HTTP names no module and is never stale here;
-// adapter changes are not detectable from the matrix and need a rerun by
-// the maintainer (spec Testing Decisions §6).
-func staleSDK(sdk string, modules map[string]string) string {
-	fields := strings.Fields(sdk)
-	if len(fields) < 2 || !strings.Contains(fields[0], "/") {
-		return ""
-	}
-	if now, ok := modules[fields[0]]; ok && now != fields[1] {
-		return fmt.Sprintf("last complete pass used %s %s, go.mod now pins %s; rerun the live smoke", fields[0], fields[1], now)
-	}
-	return ""
-}
-
 func auditGate(in Inputs) Gate {
 	g := Gate{ID: GateAudit, Name: "redaction audit: no key, Authorization or real content in any bundle"}
 	if !slices.ContainsFunc(in.Audits, func(a AuditResult) bool { return a.Bundle == in.Offline.Dir }) {
 		g.Problems = append(g.Problems, "the offline bundle was not audited")
+	}
+	for _, dir := range in.RequiredAudits {
+		if !slices.ContainsFunc(in.Audits, func(a AuditResult) bool { return a.Bundle == dir }) {
+			g.Problems = append(g.Problems, dir+": required evidence package was not audited")
+		}
 	}
 	for _, a := range in.Audits {
 		if a.Err != "" {
@@ -452,6 +415,25 @@ func auditGate(in Inputs) Gate {
 		}
 		for _, f := range a.Findings {
 			g.Problems = append(g.Problems, fmt.Sprintf("%s: %s [%s] %s", a.Bundle, f.File, f.Rule, f.Detail))
+		}
+	}
+	return settle(g)
+}
+
+func evidenceGate(in Inputs) Gate {
+	g := Gate{ID: GateEvidence, Name: "mixed image design loads and independent Chinese business evaluation"}
+	for _, name := range []string{"mixed-pressure-local", "mixed-pressure-cloud", "chinese-effect"} {
+		i := slices.IndexFunc(in.Evidence, func(e EvidenceCheck) bool { return e.Name == name })
+		if i < 0 {
+			g.Problems = append(g.Problems, name+": NOT_RUN (required report missing)")
+			continue
+		}
+		e := in.Evidence[i]
+		if e.Status != Pass {
+			g.Problems = append(g.Problems, name+": "+string(e.Status)+" "+e.Detail)
+		}
+		if e.Bundle == "" || !slices.ContainsFunc(in.Audits, func(a AuditResult) bool { return a.Bundle == e.Bundle && a.Err == "" && len(a.Findings) == 0 }) {
+			g.Problems = append(g.Problems, name+": evidence package lacks a clean audit")
 		}
 	}
 	return settle(g)

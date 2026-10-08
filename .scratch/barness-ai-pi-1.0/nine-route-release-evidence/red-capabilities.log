@@ -1,0 +1,12 @@
+--- FAIL: TestLiveCannotDeleteCapabilities (0.00s)
+    nine_routes_test.go:14: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+--- FAIL: TestLiveRequiredUnaryCannotBeUnsupported (0.00s)
+    --- FAIL: TestLiveRequiredUnaryCannotBeUnsupported/typesafe-classifier (0.00s)
+        nine_routes_test.go:30: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveRequiredUnaryCannotBeUnsupported/openai-images (0.00s)
+        nine_routes_test.go:30: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveRequiredUnaryCannotBeUnsupported/google-interactions-image (0.00s)
+        nine_routes_test.go:30: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	0.958s
+FAIL

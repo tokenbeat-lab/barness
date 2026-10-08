@@ -93,13 +93,19 @@ func passedAt() *time.Time {
 func goodInputs(t *testing.T) Inputs {
 	t.Helper()
 	row := func(combo, provider, api string) supportmatrix.Row {
-		return supportmatrix.Row{Combo: combo, Operation: "chat", Provider: provider, API: api, Model: "m", SDK: "sdk", AccountAlias: "ci@x",
+		r := supportmatrix.Row{Combo: combo, Operation: "chat", Provider: provider, API: api, Model: "m", SDK: "sdk", AccountAlias: "ci@x",
 			LastRunAt: passedAt(), AllPassedAt: passedAt(), Capabilities: []supportmatrix.Capability{
 				{ID: "text-stream", Model: "m", Outcome: supportmatrix.Pass, LastRunAt: passedAt(), LastPassedAt: passedAt()},
 				{ID: "image", Model: "m", Outcome: supportmatrix.Unsupported, Note: "model takes no images", LastRunAt: passedAt()},
 			}}
+		for _, id := range expectedCapabilities(combo) {
+			if id != "text-stream" && id != "image" {
+				r.Capabilities = append(r.Capabilities, supportmatrix.Capability{ID: id, Model: "m", Outcome: supportmatrix.Pass, LastRunAt: passedAt(), LastPassedAt: passedAt()})
+			}
+		}
+		return r
 	}
-	return Inputs{
+	in := Inputs{
 		Commands: []Command{
 			{ID: CmdTest, Line: "go test ./...", Passed: true},
 			{ID: CmdRace, Line: "go test -race ./...", Passed: true},
@@ -123,6 +129,17 @@ func goodInputs(t *testing.T) Inputs {
 		Modules:   map[string]string{"github.com/openai/openai-go/v3": "v3.66.0"},
 		Snapshots: []Snapshot{{Name: "catalog", Current: true}},
 	}
+	in.CatalogVersion, in.CatalogHash = "test-v1", "sha256:test"
+	for i, row := range in.Matrix.Rows {
+		r := supportmatrix.Report{Schema: supportmatrix.SchemaVersion, Combo: row.Combo, Operation: row.Operation, Provider: row.Provider, API: row.API, Model: row.Model, SDK: row.SDK, AccountAlias: row.AccountAlias, GitCommit: "test-commit", CatalogVersion: in.CatalogVersion, CatalogHash: in.CatalogHash, StartedAt: passedAt().Add(-time.Minute), FinishedAt: *passedAt(), Expected: expectedCapabilities(row.Combo)}
+		for _, c := range row.Capabilities {
+			r.Scenarios = append(r.Scenarios, supportmatrix.ScenarioResult{ID: c.ID, Model: c.Model, Outcome: c.Outcome, Note: c.Note, CaseID: "LIVE-" + row.Combo + "-" + c.ID})
+		}
+		in.Audits[i+1].Live = &r
+	}
+	in.Evidence = []EvidenceCheck{{Name: "mixed-pressure-local", Bundle: "/b", Status: Pass}, {Name: "mixed-pressure-cloud", Bundle: "/b", Status: Pass}, {Name: "chinese-effect", Bundle: "/effect", Status: Pass}}
+	in.Audits = append(in.Audits, AuditResult{Bundle: "/effect"})
+	return in
 }
 
 func gate(t *testing.T, r Report, id GateID) Gate {
@@ -265,6 +282,7 @@ func TestLiveStaleOrUnaudited(t *testing.T) { // 19, 20
 
 	in = goodInputs(t)
 	in.Matrix.Rows[0].SDK = "github.com/openai/openai-go/v3 v3.66.0 (note)"
+	in.Audits[1].Live.SDK = in.Matrix.Rows[0].SDK
 	if r := Evaluate(in); !gate(t, r, GateLive).Pass {
 		t.Fatalf("current SDK refused: %v", gate(t, r, GateLive).Problems)
 	}

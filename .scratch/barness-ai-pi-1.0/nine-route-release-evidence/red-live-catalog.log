@@ -1,0 +1,10 @@
+--- FAIL: TestGoogleImagesHarnessProcess (0.04s)
+    --- FAIL: TestGoogleImagesHarnessProcess/no-key (0.04s)
+        google_images_process_test.go:62: [P09-live-process-no-key] included smoke uses published catalog and prices: live still used a candidate catalog
+--- FAIL: TestImagesHarnessProcess (0.03s)
+    --- FAIL: TestImagesHarnessProcess/narrowed (0.03s)
+        images_process_test.go:57: [P08-live-harness-process-narrowed] included smoke uses published catalog and prices: live still used a candidate catalog
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261008T112042.832997000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	0.596s
+FAIL

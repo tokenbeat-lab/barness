@@ -1,0 +1,24 @@
+--- FAIL: TestLiveEvidenceMustMatchCurrentRun (0.00s)
+    --- FAIL: TestLiveEvidenceMustMatchCurrentRun/no-report (0.00s)
+        nine_routes_test.go:41: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveEvidenceMustMatchCurrentRun/old-run (0.00s)
+        nine_routes_test.go:41: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveEvidenceMustMatchCurrentRun/catalog-version (0.00s)
+        nine_routes_test.go:41: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveEvidenceMustMatchCurrentRun/catalog-hash (0.00s)
+        nine_routes_test.go:41: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveEvidenceMustMatchCurrentRun/wrong-route (0.00s)
+        nine_routes_test.go:41: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveEvidenceMustMatchCurrentRun/missing-scenario (0.00s)
+        nine_routes_test.go:41: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveEvidenceMustMatchCurrentRun/not-run (0.00s)
+        nine_routes_test.go:41: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveEvidenceMustMatchCurrentRun/different-model (0.00s)
+        nine_routes_test.go:41: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+--- FAIL: TestEveryEvidencePackageMustBeAudited (0.00s)
+    nine_routes_test.go:49: gate redaction-audit passed (overall true): {ID:redaction-audit Name:redaction audit: no key, Authorization or real content in any bundle Pass:true Problems:[]}
+--- FAIL: TestCannotOmitPressureOrBusinessEvidence (0.00s)
+    nine_routes_test.go:56: missing pressure/effect reports passed release
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	0.890s
+FAIL
