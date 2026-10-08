@@ -1,0 +1,269 @@
+{
+  "catalog_snapshot_current": true,
+  "differential_pass": true,
+  "differential_pending": 0,
+  "extension_routes": [
+    {
+      "provider": "google",
+      "api": "google-interactions"
+    },
+    {
+      "provider": "deepseek",
+      "api": "openai-responses"
+    },
+    {
+      "provider": "openai",
+      "api": "openai-images"
+    }
+  ],
+  "items": [
+    {
+      "id": "V4-google-images-editing",
+      "source": "issue 13 / design 8.1, 12.3–12.9 / ADR-0022",
+      "requirement": "Same public GenerateImages operation, prompt then ordered inline reference images, independent input snapshots, all output steps, atomic failures retaining usage and no replay",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 148,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-edit-ordered",
+        "P09-E02-audio-edit-replay",
+        "P09-E02-bad-base64-edit-replay",
+        "P09-E02-bad-content-edit-replay",
+        "P09-E02-continuation-edit-replay",
+        "P09-E02-empty-continuation-edit-replay"
+      ]
+    },
+    {
+      "id": "H5-google-images-input-budgets",
+      "source": "issue 13 / ADR-0002/0022",
+      "requirement": "Host/model/14 reference intersection; per-image bytes and final decimal 20 MB or smaller host budget including encoding overhead, checked before copies and again after callbacks",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 29,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E07-edit-budget-decimal-protocol-bytes",
+        "P09-E07-edit-budget-encoding-overhead",
+        "P09-E07-edit-budget-exact-request-bytes",
+        "P09-E07-edit-budget-fourteen-accepted",
+        "P09-E07-edit-budget-host-count",
+        "P09-E07-edit-budget-image-bytes"
+      ]
+    },
+    {
+      "id": "C04-google-images-edit-final",
+      "source": "issue 13 / design 13 / ADR-0022",
+      "requirement": "Every forbidden field/fixed-field deletion refused on editing; final input MIME/base64/count/bytes and model options revalidated, no foreign identity/URI/mask or interleaving",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 109,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E02-audio-edit-replay",
+        "P09-E02-bad-base64-edit-replay",
+        "P09-E02-bad-content-edit-replay",
+        "P09-E02-continuation-edit-replay",
+        "P09-E02-empty-continuation-edit-replay",
+        "P09-E02-empty-steps-edit-replay"
+      ]
+    },
+    {
+      "id": "V4-google-images-generation",
+      "source": "issue 12 / ADR-0012/0022",
+      "requirement": "Native v1beta synchronous stateless inline generation, ordered model_output collection, real terminal mapping, atomic images and extension registration without premature live claims",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 268,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-edit-ordered",
+        "P09-E01-generation",
+        "P09-E01-interleaved",
+        "P09-E01-no-response-model",
+        "P09-E01-options",
+        "P09-E02-audio"
+      ]
+    },
+    {
+      "id": "C04-google-images-final",
+      "source": "issue 12–13 / design 12–13 / ADR-0022",
+      "requirement": "Final callback model/fixed fields/schema/20 MB guard, protocol options, no continuation/external resources, ordered final inline references",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 132,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E04-allowed-options",
+        "P09-E04-bad-input",
+        "P09-E04-delete-delivery",
+        "P09-E04-delete-format",
+        "P09-E04-delete-model",
+        "P09-E04-delete-store"
+      ]
+    },
+    {
+      "id": "H5-google-images-budgets",
+      "source": "issue 12 / ADR-0002/0007/0008/0022",
+      "requirement": "Total JSON/image budgets, admission held through complete validation, cancellation/read timeout, body/permit release and no 2xx replay",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 58,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E08-edit-allocation-byte-data",
+        "P09-E08-edit-allocation-custom-key",
+        "P09-E08-edit-allocation-escaped-raw",
+        "P09-E08-edit-allocation-host-count",
+        "P09-E08-edit-allocation-model-count",
+        "P09-E08-edit-allocation-ordinary"
+      ]
+    },
+    {
+      "id": "T09-google-images-modalities",
+      "source": "issue 12 / ADR-0009/0010/0022",
+      "requirement": "Shared complete/partial/unreported axis, 7/42/22/49 normalization, explicit thought inclusion pricing, sourced fixtures and independent metadata-only modality audit",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 31,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E09-modality-audit",
+        "P09-E11-duplicate-modality",
+        "P09-E11-duplicate-modality-edit-replay",
+        "P09-E11-missing-input_tokens_by_modality",
+        "P09-E11-missing-input_tokens_by_modality-edit-replay",
+        "P09-E11-missing-output_tokens_by_modality"
+      ]
+    }
+  ],
+  "p0_offline_pass": true,
+  "scope": "Issue 13 offline trace only; bundle evaluation intentionally does not rerun commands or perform live release gates. Full race and vet execution is recorded separately in verification.json.",
+  "tested_commit": "b1ac4da6da3db8cb57183201062c0ec31de330bc"
+}

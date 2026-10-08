@@ -1,0 +1,2499 @@
+{
+  "finished_at": "2026-10-08T08:55:13.716994Z",
+  "git_commit": "b1ac4da6da3db8cb57183201062c0ec31de330bc",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "./ai/e2e",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-08T08:50:01.307006Z",
+  "versions": {
+    "anthropic-sdk-go": "v1.75.0",
+    "model_catalog_hash": "sha256:37b8e6e2bc17576040fdc16c3774908c3e09fc5e1fbe8af7219b6e406ed2ce93",
+    "model_catalog_version": "2026-10-08.4",
+    "openai-go": "v3.66.0"
+  },
+  "cases": [
+    {
+      "dir": "P09-E01-edit-ordered",
+      "fixtures": {
+        "fixture.json": "3615edd11cf0340457cda3ef354cbde0d671ce8ab7bcbe1a5a8bf6bca3ac2e70"
+      },
+      "id": "P09-E01-edit-ordered",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E01-edit-ordered$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E01-edit-ordered"
+    },
+    {
+      "dir": "P09-E01-generation",
+      "fixtures": {
+        "fixture.json": "7f0490a20618ae45623cff8cf97f951c1888abb837ecf9f6b67593ac52dba632"
+      },
+      "id": "P09-E01-generation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E01-generation$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E01-generation"
+    },
+    {
+      "dir": "P09-E01-interleaved",
+      "fixtures": {
+        "fixture.json": "7f0490a20618ae45623cff8cf97f951c1888abb837ecf9f6b67593ac52dba632"
+      },
+      "id": "P09-E01-interleaved",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E01-interleaved$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E01-interleaved"
+    },
+    {
+      "dir": "P09-E01-no-response-model",
+      "fixtures": {
+        "fixture.json": "7f0490a20618ae45623cff8cf97f951c1888abb837ecf9f6b67593ac52dba632"
+      },
+      "id": "P09-E01-no-response-model",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E01-no-response-model$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E01-no-response-model"
+    },
+    {
+      "dir": "P09-E01-options",
+      "fixtures": {
+        "fixture.json": "7f0490a20618ae45623cff8cf97f951c1888abb837ecf9f6b67593ac52dba632"
+      },
+      "id": "P09-E01-options",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E01-options$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E01-options"
+    },
+    {
+      "dir": "P09-E02-audio",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-audio",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-audio$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-audio"
+    },
+    {
+      "dir": "P09-E02-audio-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-audio-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-audio-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-audio-edit-replay"
+    },
+    {
+      "dir": "P09-E02-bad-base64",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-bad-base64",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-bad-base64$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-bad-base64"
+    },
+    {
+      "dir": "P09-E02-bad-base64-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-bad-base64-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-bad-base64-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-bad-base64-edit-replay"
+    },
+    {
+      "dir": "P09-E02-bad-content",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-bad-content",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-bad-content$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-bad-content"
+    },
+    {
+      "dir": "P09-E02-bad-content-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-bad-content-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-bad-content-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-bad-content-edit-replay"
+    },
+    {
+      "dir": "P09-E02-continuation",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-continuation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-continuation$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-continuation"
+    },
+    {
+      "dir": "P09-E02-continuation-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-continuation-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-continuation-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-continuation-edit-replay"
+    },
+    {
+      "dir": "P09-E02-empty-continuation",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-empty-continuation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-empty-continuation$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-empty-continuation"
+    },
+    {
+      "dir": "P09-E02-empty-continuation-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-empty-continuation-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-empty-continuation-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-empty-continuation-edit-replay"
+    },
+    {
+      "dir": "P09-E02-empty-steps",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-empty-steps",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-empty-steps$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-empty-steps"
+    },
+    {
+      "dir": "P09-E02-empty-steps-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-empty-steps-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-empty-steps-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-empty-steps-edit-replay"
+    },
+    {
+      "dir": "P09-E02-inline-and-uri",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-inline-and-uri",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-inline-and-uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-inline-and-uri"
+    },
+    {
+      "dir": "P09-E02-inline-and-uri-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-inline-and-uri-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-inline-and-uri-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-inline-and-uri-edit-replay"
+    },
+    {
+      "dir": "P09-E02-invalid-second",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-invalid-second",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-invalid-second$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-invalid-second"
+    },
+    {
+      "dir": "P09-E02-invalid-second-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-invalid-second-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-invalid-second-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-invalid-second-edit-replay"
+    },
+    {
+      "dir": "P09-E02-missing-step-type",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-missing-step-type",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-missing-step-type$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-missing-step-type"
+    },
+    {
+      "dir": "P09-E02-missing-step-type-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-missing-step-type-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-missing-step-type-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-missing-step-type-edit-replay"
+    },
+    {
+      "dir": "P09-E02-null-block",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-null-block",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-null-block$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-null-block"
+    },
+    {
+      "dir": "P09-E02-null-block-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-null-block-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-null-block-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-null-block-edit-replay"
+    },
+    {
+      "dir": "P09-E02-numeric-step-type",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-numeric-step-type",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-numeric-step-type$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-numeric-step-type"
+    },
+    {
+      "dir": "P09-E02-numeric-step-type-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-numeric-step-type-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-numeric-step-type-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-numeric-step-type-edit-replay"
+    },
+    {
+      "dir": "P09-E02-safety",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-safety",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-safety$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-safety"
+    },
+    {
+      "dir": "P09-E02-safety-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-safety-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-safety-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-safety-edit-replay"
+    },
+    {
+      "dir": "P09-E02-status-cancelled",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-status-cancelled",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-cancelled$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-cancelled"
+    },
+    {
+      "dir": "P09-E02-status-cancelled-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-status-cancelled-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-cancelled-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-cancelled-edit-replay"
+    },
+    {
+      "dir": "P09-E02-status-failed",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-status-failed",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-failed$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-failed"
+    },
+    {
+      "dir": "P09-E02-status-failed-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-status-failed-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-failed-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-failed-edit-replay"
+    },
+    {
+      "dir": "P09-E02-status-in_progress",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-status-in_progress",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-in_progress$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-in_progress"
+    },
+    {
+      "dir": "P09-E02-status-in_progress-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-status-in_progress-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-in_progress-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-in_progress-edit-replay"
+    },
+    {
+      "dir": "P09-E02-status-incomplete",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-status-incomplete",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-incomplete$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-incomplete"
+    },
+    {
+      "dir": "P09-E02-status-incomplete-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-status-incomplete-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-incomplete-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-incomplete-edit-replay"
+    },
+    {
+      "dir": "P09-E02-status-requires_action",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-status-requires_action",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-requires_action$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-requires_action"
+    },
+    {
+      "dir": "P09-E02-status-requires_action-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-status-requires_action-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-requires_action-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-requires_action-edit-replay"
+    },
+    {
+      "dir": "P09-E02-status-unknown",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-status-unknown",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-unknown$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-unknown"
+    },
+    {
+      "dir": "P09-E02-status-unknown-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-status-unknown-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-status-unknown-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-status-unknown-edit-replay"
+    },
+    {
+      "dir": "P09-E02-text-only",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-text-only",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-text-only$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-text-only"
+    },
+    {
+      "dir": "P09-E02-text-only-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-text-only-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-text-only-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-text-only-edit-replay"
+    },
+    {
+      "dir": "P09-E02-uri-only",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-uri-only",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-uri-only$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-uri-only"
+    },
+    {
+      "dir": "P09-E02-uri-only-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-uri-only-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-uri-only-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-uri-only-edit-replay"
+    },
+    {
+      "dir": "P09-E02-wrong-mime",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E02-wrong-mime",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-wrong-mime$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-wrong-mime"
+    },
+    {
+      "dir": "P09-E02-wrong-mime-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E02-wrong-mime-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E02-wrong-mime-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E02-wrong-mime-edit-replay"
+    },
+    {
+      "dir": "P09-E04-allowed-options",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-allowed-options",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^allowed-options$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/allowed-options"
+    },
+    {
+      "dir": "P09-E04-bad-input",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-bad-input",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^bad-input$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/bad-input"
+    },
+    {
+      "dir": "P09-E04-delete-delivery",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-delete-delivery",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^delete-delivery$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/delete-delivery"
+    },
+    {
+      "dir": "P09-E04-delete-format",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-delete-format",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^delete-format$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/delete-format"
+    },
+    {
+      "dir": "P09-E04-delete-model",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-delete-model",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^delete-model$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/delete-model"
+    },
+    {
+      "dir": "P09-E04-delete-store",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-delete-store",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^delete-store$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/delete-store"
+    },
+    {
+      "dir": "P09-E04-delete-type",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-delete-type",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^delete-type$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/delete-type"
+    },
+    {
+      "dir": "P09-E04-edit-bad-base64",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-bad-base64",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^bad-base64$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/bad-base64"
+    },
+    {
+      "dir": "P09-E04-edit-bad-mime",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-bad-mime",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^bad-mime$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/bad-mime"
+    },
+    {
+      "dir": "P09-E04-edit-guard-allowed-options",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-allowed-options",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-allowed-options$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-allowed-options"
+    },
+    {
+      "dir": "P09-E04-edit-guard-bad-input",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-bad-input",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-bad-input$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-bad-input"
+    },
+    {
+      "dir": "P09-E04-edit-guard-delete-delivery",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-delete-delivery",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-delete-delivery$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-delete-delivery"
+    },
+    {
+      "dir": "P09-E04-edit-guard-delete-format",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-delete-format",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-delete-format$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-delete-format"
+    },
+    {
+      "dir": "P09-E04-edit-guard-delete-model",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-delete-model",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-delete-model$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-delete-model"
+    },
+    {
+      "dir": "P09-E04-edit-guard-delete-store",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-delete-store",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-delete-store$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-delete-store"
+    },
+    {
+      "dir": "P09-E04-edit-guard-delete-type",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-delete-type",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-delete-type$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-delete-type"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-agent",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-agent",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-agent$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-agent"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-background",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-background",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-background$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-background"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-continuation_token",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-continuation_token",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-continuation_token$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-continuation_token"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-endpoint",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-endpoint",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-endpoint$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-endpoint"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-environment",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-environment",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-environment$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-environment"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-generation_config",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-generation_config",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-generation_config$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-generation_config"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-labels",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-labels",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-labels$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-labels"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-operation",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-operation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-operation$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-operation"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-previous_interaction_id",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-previous_interaction_id",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-previous_interaction_id$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-previous_interaction_id"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-response_modalities",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-response_modalities",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-response_modalities$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-response_modalities"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-safety_settings",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-safety_settings",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-safety_settings$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-safety_settings"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-service_tier",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-service_tier",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-service_tier$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-service_tier"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-stream",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-stream",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-stream$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-stream"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-tools",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-tools",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-tools$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-tools"
+    },
+    {
+      "dir": "P09-E04-edit-guard-field-webhook_config",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-field-webhook_config",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-field-webhook_config$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-field-webhook_config"
+    },
+    {
+      "dir": "P09-E04-edit-guard-format-extra",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-format-extra",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-format-extra$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-format-extra"
+    },
+    {
+      "dir": "P09-E04-edit-guard-format-text",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-format-text",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-format-text$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-format-text"
+    },
+    {
+      "dir": "P09-E04-edit-guard-format-uri",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-format-uri",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-format-uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-format-uri"
+    },
+    {
+      "dir": "P09-E04-edit-guard-input-reference",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-input-reference",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-input-reference$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-input-reference"
+    },
+    {
+      "dir": "P09-E04-edit-guard-input-uri",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-input-uri",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-input-uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-input-uri"
+    },
+    {
+      "dir": "P09-E04-edit-guard-invalid-aspect",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-invalid-aspect",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-invalid-aspect$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-invalid-aspect"
+    },
+    {
+      "dir": "P09-E04-edit-guard-invalid-size",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-invalid-size",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-invalid-size$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-invalid-size"
+    },
+    {
+      "dir": "P09-E04-edit-guard-model",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-model",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-model$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-model"
+    },
+    {
+      "dir": "P09-E04-edit-guard-store",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-store",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-store$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-store"
+    },
+    {
+      "dir": "P09-E04-edit-guard-store-null",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-store-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-store-null$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-store-null"
+    },
+    {
+      "dir": "P09-E04-edit-guard-unknown",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-edit-guard-unknown",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^edit-guard-unknown$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/edit-guard-unknown"
+    },
+    {
+      "dir": "P09-E04-edit-insert",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-insert",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^insert$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/insert"
+    },
+    {
+      "dir": "P09-E04-edit-interleaved",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-interleaved",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^interleaved$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/interleaved"
+    },
+    {
+      "dir": "P09-E04-edit-mask",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-mask",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^mask$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/mask"
+    },
+    {
+      "dir": "P09-E04-edit-mismatch",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-mismatch",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^mismatch$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/mismatch"
+    },
+    {
+      "dir": "P09-E04-edit-missing-mime",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-missing-mime",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^missing-mime$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/missing-mime"
+    },
+    {
+      "dir": "P09-E04-edit-protocol-count",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-protocol-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^protocol-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/protocol-count"
+    },
+    {
+      "dir": "P09-E04-edit-typed-byte-data",
+      "fixtures": {},
+      "id": "P09-E04-edit-typed-byte-data",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^byte-data$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingTypedInput/byte-data"
+    },
+    {
+      "dir": "P09-E04-edit-typed-custom-key",
+      "fixtures": {},
+      "id": "P09-E04-edit-typed-custom-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^custom-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingTypedInput/custom-key"
+    },
+    {
+      "dir": "P09-E04-edit-typed-custom-zero",
+      "fixtures": {},
+      "id": "P09-E04-edit-typed-custom-zero",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^custom-zero$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingTypedInput/custom-zero"
+    },
+    {
+      "dir": "P09-E04-edit-typed-omitempty",
+      "fixtures": {},
+      "id": "P09-E04-edit-typed-omitempty",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^omitempty$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingTypedInput/omitempty"
+    },
+    {
+      "dir": "P09-E04-edit-typed-pointer-marshaler",
+      "fixtures": {},
+      "id": "P09-E04-edit-typed-pointer-marshaler",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^pointer-marshaler$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingTypedInput/pointer-marshaler"
+    },
+    {
+      "dir": "P09-E04-edit-typed-pointer-zero",
+      "fixtures": {},
+      "id": "P09-E04-edit-typed-pointer-zero",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^pointer-zero$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingTypedInput/pointer-zero"
+    },
+    {
+      "dir": "P09-E04-edit-typed-promoted",
+      "fixtures": {},
+      "id": "P09-E04-edit-typed-promoted",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^promoted$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingTypedInput/promoted"
+    },
+    {
+      "dir": "P09-E04-edit-typed-prompt-custom-key",
+      "fixtures": {},
+      "id": "P09-E04-edit-typed-prompt-custom-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^prompt-custom-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingTypedInput/prompt-custom-key"
+    },
+    {
+      "dir": "P09-E04-edit-uri",
+      "fixtures": {
+        "editing-callbacks.json": "52fe53f3938db14d585e4ea3e2acc5ac98aa3d65fba5554f44a271174ccac0d6"
+      },
+      "id": "P09-E04-edit-uri",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbacks/uri"
+    },
+    {
+      "dir": "P09-E04-field-agent",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-agent",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-agent$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-agent"
+    },
+    {
+      "dir": "P09-E04-field-background",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-background",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-background$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-background"
+    },
+    {
+      "dir": "P09-E04-field-continuation_token",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-continuation_token",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-continuation_token$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-continuation_token"
+    },
+    {
+      "dir": "P09-E04-field-endpoint",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-endpoint",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-endpoint$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-endpoint"
+    },
+    {
+      "dir": "P09-E04-field-environment",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-environment",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-environment$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-environment"
+    },
+    {
+      "dir": "P09-E04-field-generation_config",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-generation_config",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-generation_config$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-generation_config"
+    },
+    {
+      "dir": "P09-E04-field-labels",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-labels",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-labels$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-labels"
+    },
+    {
+      "dir": "P09-E04-field-operation",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-operation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-operation$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-operation"
+    },
+    {
+      "dir": "P09-E04-field-previous_interaction_id",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-previous_interaction_id",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-previous_interaction_id$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-previous_interaction_id"
+    },
+    {
+      "dir": "P09-E04-field-response_modalities",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-response_modalities",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-response_modalities$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-response_modalities"
+    },
+    {
+      "dir": "P09-E04-field-safety_settings",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-safety_settings",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-safety_settings$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-safety_settings"
+    },
+    {
+      "dir": "P09-E04-field-service_tier",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-service_tier",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-service_tier$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-service_tier"
+    },
+    {
+      "dir": "P09-E04-field-stream",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-stream",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-stream$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-stream"
+    },
+    {
+      "dir": "P09-E04-field-tools",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-tools",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-tools$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-tools"
+    },
+    {
+      "dir": "P09-E04-field-webhook_config",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-field-webhook_config",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^field-webhook_config$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/field-webhook_config"
+    },
+    {
+      "dir": "P09-E04-final-duplicate-format",
+      "fixtures": {},
+      "id": "P09-E04-final-duplicate-format",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesRawFinalGuards$/^duplicate-format$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesRawFinalGuards/duplicate-format"
+    },
+    {
+      "dir": "P09-E04-final-duplicate-input",
+      "fixtures": {},
+      "id": "P09-E04-final-duplicate-input",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesRawFinalGuards$/^duplicate-input$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesRawFinalGuards/duplicate-input"
+    },
+    {
+      "dir": "P09-E04-final-encoded-large-input",
+      "fixtures": {},
+      "id": "P09-E04-final-encoded-large-input",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesRawFinalGuards$/^encoded-large-input$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesRawFinalGuards/encoded-large-input"
+    },
+    {
+      "dir": "P09-E04-final-known-large-input",
+      "fixtures": {},
+      "id": "P09-E04-final-known-large-input",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesRawFinalGuards$/^known-large-input$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesRawFinalGuards/known-large-input"
+    },
+    {
+      "dir": "P09-E04-final-protocol-request-limit",
+      "fixtures": {},
+      "id": "P09-E04-final-protocol-request-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesRawFinalGuards$/^protocol-request-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesRawFinalGuards/protocol-request-limit"
+    },
+    {
+      "dir": "P09-E04-final-raw-options",
+      "fixtures": {},
+      "id": "P09-E04-final-raw-options",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesRawFinalGuards$/^raw-options$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesRawFinalGuards/raw-options"
+    },
+    {
+      "dir": "P09-E04-final-raw-uri",
+      "fixtures": {},
+      "id": "P09-E04-final-raw-uri",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesRawFinalGuards$/^raw-uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesRawFinalGuards/raw-uri"
+    },
+    {
+      "dir": "P09-E04-format-extra",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-format-extra",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^format-extra$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/format-extra"
+    },
+    {
+      "dir": "P09-E04-format-text",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-format-text",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^format-text$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/format-text"
+    },
+    {
+      "dir": "P09-E04-format-uri",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-format-uri",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^format-uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/format-uri"
+    },
+    {
+      "dir": "P09-E04-input-reference",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-input-reference",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^input-reference$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/input-reference"
+    },
+    {
+      "dir": "P09-E04-input-uri",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-input-uri",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^input-uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/input-uri"
+    },
+    {
+      "dir": "P09-E04-invalid-aspect",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-invalid-aspect",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^invalid-aspect$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/invalid-aspect"
+    },
+    {
+      "dir": "P09-E04-invalid-size",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-invalid-size",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^invalid-size$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/invalid-size"
+    },
+    {
+      "dir": "P09-E04-model",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-model",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^model$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/model"
+    },
+    {
+      "dir": "P09-E04-store",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-store",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^store$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/store"
+    },
+    {
+      "dir": "P09-E04-store-null",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-store-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^store-null$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/store-null"
+    },
+    {
+      "dir": "P09-E04-unknown",
+      "fixtures": {
+        "callbacks.json": "90b4205099a3aebd3b8301f78b1d6e17f559435099a86faaab1c799d6f5a5d43"
+      },
+      "id": "P09-E04-unknown",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^unknown$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCallbackFixtures/unknown"
+    },
+    {
+      "dir": "P09-E07-capability-disabled-policy",
+      "fixtures": {},
+      "id": "P09-E07-capability-disabled-policy",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^disabled-policy$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/disabled-policy"
+    },
+    {
+      "dir": "P09-E07-capability-entry-snapshot",
+      "fixtures": {},
+      "id": "P09-E07-capability-entry-snapshot",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^entry-snapshot$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/entry-snapshot"
+    },
+    {
+      "dir": "P09-E07-capability-foreign-options",
+      "fixtures": {},
+      "id": "P09-E07-capability-foreign-options",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^foreign-options$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/foreign-options"
+    },
+    {
+      "dir": "P09-E07-capability-header-key",
+      "fixtures": {},
+      "id": "P09-E07-capability-header-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^header-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/header-key"
+    },
+    {
+      "dir": "P09-E07-capability-openai-with-google-options",
+      "fixtures": {},
+      "id": "P09-E07-capability-openai-with-google-options",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^openai-with-google-options$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/openai-with-google-options"
+    },
+    {
+      "dir": "P09-E07-capability-prefixed-model",
+      "fixtures": {},
+      "id": "P09-E07-capability-prefixed-model",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^prefixed-model$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/prefixed-model"
+    },
+    {
+      "dir": "P09-E07-capability-query-key",
+      "fixtures": {},
+      "id": "P09-E07-capability-query-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^query-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/query-key"
+    },
+    {
+      "dir": "P09-E07-capability-typed-nil",
+      "fixtures": {},
+      "id": "P09-E07-capability-typed-nil",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^typed-nil$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/typed-nil"
+    },
+    {
+      "dir": "P09-E07-capability-v1",
+      "fixtures": {},
+      "id": "P09-E07-capability-v1",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^v1$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/v1"
+    },
+    {
+      "dir": "P09-E07-capability-wrong-operation",
+      "fixtures": {},
+      "id": "P09-E07-capability-wrong-operation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^wrong-operation$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/wrong-operation"
+    },
+    {
+      "dir": "P09-E07-capability-wrong-provider",
+      "fixtures": {},
+      "id": "P09-E07-capability-wrong-provider",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCapabilities$/^wrong-provider$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesCapabilities/wrong-provider"
+    },
+    {
+      "dir": "P09-E07-edit-bad-base64",
+      "fixtures": {
+        "fixture.json": "6c865769310002c4c77b53a75d144305687144d19ae4dffa98b70d58be53361b"
+      },
+      "id": "P09-E07-edit-bad-base64",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-edit-bad-base64$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-edit-bad-base64"
+    },
+    {
+      "dir": "P09-E07-edit-budget-decimal-protocol-bytes",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-decimal-protocol-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^decimal-protocol-bytes$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/decimal-protocol-bytes"
+    },
+    {
+      "dir": "P09-E07-edit-budget-encoding-overhead",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-encoding-overhead",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^encoding-overhead$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/encoding-overhead"
+    },
+    {
+      "dir": "P09-E07-edit-budget-exact-request-bytes",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-exact-request-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^exact-request-bytes$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/exact-request-bytes"
+    },
+    {
+      "dir": "P09-E07-edit-budget-fourteen-accepted",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-fourteen-accepted",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^fourteen-accepted$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/fourteen-accepted"
+    },
+    {
+      "dir": "P09-E07-edit-budget-host-count",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-host-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^host-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/host-count"
+    },
+    {
+      "dir": "P09-E07-edit-budget-image-bytes",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-image-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^image-bytes$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/image-bytes"
+    },
+    {
+      "dir": "P09-E07-edit-budget-model-count",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-model-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^model-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/model-count"
+    },
+    {
+      "dir": "P09-E07-edit-budget-one-byte-over-request",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-one-byte-over-request",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^one-byte-over-request$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/one-byte-over-request"
+    },
+    {
+      "dir": "P09-E07-edit-budget-protocol-bytes",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-protocol-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^protocol-bytes$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/protocol-bytes"
+    },
+    {
+      "dir": "P09-E07-edit-budget-protocol-count",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-protocol-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^protocol-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/protocol-count"
+    },
+    {
+      "dir": "P09-E07-edit-budget-request-bytes",
+      "fixtures": {},
+      "id": "P09-E07-edit-budget-request-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^request-bytes$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingBudgets/request-bytes"
+    },
+    {
+      "dir": "P09-E07-edit-empty-image",
+      "fixtures": {
+        "fixture.json": "6c865769310002c4c77b53a75d144305687144d19ae4dffa98b70d58be53361b"
+      },
+      "id": "P09-E07-edit-empty-image",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-edit-empty-image$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-edit-empty-image"
+    },
+    {
+      "dir": "P09-E07-edit-external",
+      "fixtures": {
+        "fixture.json": "6c865769310002c4c77b53a75d144305687144d19ae4dffa98b70d58be53361b"
+      },
+      "id": "P09-E07-edit-external",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-edit-external$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-edit-external"
+    },
+    {
+      "dir": "P09-E07-edit-mime",
+      "fixtures": {
+        "fixture.json": "6c865769310002c4c77b53a75d144305687144d19ae4dffa98b70d58be53361b"
+      },
+      "id": "P09-E07-edit-mime",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-edit-mime$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-edit-mime"
+    },
+    {
+      "dir": "P09-E07-edit-mime-mismatch",
+      "fixtures": {
+        "fixture.json": "6c865769310002c4c77b53a75d144305687144d19ae4dffa98b70d58be53361b"
+      },
+      "id": "P09-E07-edit-mime-mismatch",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-edit-mime-mismatch$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-edit-mime-mismatch"
+    },
+    {
+      "dir": "P09-E07-edit-model-count",
+      "fixtures": {
+        "fixture.json": "6c865769310002c4c77b53a75d144305687144d19ae4dffa98b70d58be53361b"
+      },
+      "id": "P09-E07-edit-model-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-edit-model-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-edit-model-count"
+    },
+    {
+      "dir": "P09-E07-edit-protocol-count",
+      "fixtures": {
+        "fixture.json": "6c865769310002c4c77b53a75d144305687144d19ae4dffa98b70d58be53361b"
+      },
+      "id": "P09-E07-edit-protocol-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-edit-protocol-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-edit-protocol-count"
+    },
+    {
+      "dir": "P09-E07-edit-snapshot",
+      "fixtures": {},
+      "id": "P09-E07-edit-snapshot",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingSnapshot$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingSnapshot"
+    },
+    {
+      "dir": "P09-E07-option-aspect",
+      "fixtures": {
+        "fixture.json": "e6bf893a3d3c193d5ee8a6e04f19db75a1db5f4ef1d64c774c2816e3f3a9c4f8"
+      },
+      "id": "P09-E07-option-aspect",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-option-aspect$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-option-aspect"
+    },
+    {
+      "dir": "P09-E07-option-aspect-edit-replay",
+      "fixtures": {
+        "fixture.json": "5807638aa0217b0d3c8434a2db81b85b93290f6fad65e540bdf7b3d7e0b33e8a"
+      },
+      "id": "P09-E07-option-aspect-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-option-aspect-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-option-aspect-edit-replay"
+    },
+    {
+      "dir": "P09-E07-option-null-aspect",
+      "fixtures": {
+        "fixture.json": "e6bf893a3d3c193d5ee8a6e04f19db75a1db5f4ef1d64c774c2816e3f3a9c4f8"
+      },
+      "id": "P09-E07-option-null-aspect",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-option-null-aspect$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-option-null-aspect"
+    },
+    {
+      "dir": "P09-E07-option-null-aspect-edit-replay",
+      "fixtures": {
+        "fixture.json": "5807638aa0217b0d3c8434a2db81b85b93290f6fad65e540bdf7b3d7e0b33e8a"
+      },
+      "id": "P09-E07-option-null-aspect-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-option-null-aspect-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-option-null-aspect-edit-replay"
+    },
+    {
+      "dir": "P09-E07-option-null-size",
+      "fixtures": {
+        "fixture.json": "e6bf893a3d3c193d5ee8a6e04f19db75a1db5f4ef1d64c774c2816e3f3a9c4f8"
+      },
+      "id": "P09-E07-option-null-size",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-option-null-size$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-option-null-size"
+    },
+    {
+      "dir": "P09-E07-option-null-size-edit-replay",
+      "fixtures": {
+        "fixture.json": "5807638aa0217b0d3c8434a2db81b85b93290f6fad65e540bdf7b3d7e0b33e8a"
+      },
+      "id": "P09-E07-option-null-size-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-option-null-size-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-option-null-size-edit-replay"
+    },
+    {
+      "dir": "P09-E07-option-size",
+      "fixtures": {
+        "fixture.json": "e6bf893a3d3c193d5ee8a6e04f19db75a1db5f4ef1d64c774c2816e3f3a9c4f8"
+      },
+      "id": "P09-E07-option-size",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-option-size$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-option-size"
+    },
+    {
+      "dir": "P09-E07-option-size-edit-replay",
+      "fixtures": {
+        "fixture.json": "5807638aa0217b0d3c8434a2db81b85b93290f6fad65e540bdf7b3d7e0b33e8a"
+      },
+      "id": "P09-E07-option-size-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-option-size-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-option-size-edit-replay"
+    },
+    {
+      "dir": "P09-E07-usage-before-malformed-steps",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E07-usage-before-malformed-steps",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-usage-before-malformed-steps$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-usage-before-malformed-steps"
+    },
+    {
+      "dir": "P09-E07-usage-before-malformed-steps-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E07-usage-before-malformed-steps-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-usage-before-malformed-steps-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-usage-before-malformed-steps-edit-replay"
+    },
+    {
+      "dir": "P09-E07-usage-before-trailing-json",
+      "fixtures": {
+        "fixture.json": "b992b221093fdd0d9fdc60e6d073c83fb2e657037391242955978daafd1052c9"
+      },
+      "id": "P09-E07-usage-before-trailing-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-usage-before-trailing-json$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-usage-before-trailing-json"
+    },
+    {
+      "dir": "P09-E07-usage-before-trailing-json-edit-replay",
+      "fixtures": {
+        "fixture.json": "f26729d0d8b07eb9abefacc097a12b949c9385033910805e86b807102801d0e6"
+      },
+      "id": "P09-E07-usage-before-trailing-json-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E07-usage-before-trailing-json-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E07-usage-before-trailing-json-edit-replay"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-byte-data",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-byte-data",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^byte-data$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/byte-data"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-custom-key",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-custom-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^custom-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/custom-key"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-escaped-raw",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-escaped-raw",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^escaped-raw$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/escaped-raw"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-host-count",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-host-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^host-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/host-count"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-model-count",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-model-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^model-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/model-count"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-ordinary",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-ordinary",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^ordinary$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/ordinary"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-pointer",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-pointer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^pointer$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/pointer"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-promoted",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-promoted",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^promoted$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/promoted"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-protocol-bytes",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-protocol-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^protocol-bytes$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/protocol-bytes"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-protocol-count",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-protocol-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^protocol-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/protocol-count"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-raw",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-raw",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^raw$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/raw"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-raw-count",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-raw-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^raw-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/raw-count"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-raw-data",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-raw-data",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^raw-data$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/raw-data"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-raw-struct-total",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-raw-struct-total",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^raw-struct-total$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/raw-struct-total"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-struct",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-struct",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^struct$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/struct"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-struct-overhead",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-struct-overhead",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^struct-overhead$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/struct-overhead"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-struct-total",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-struct-total",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^struct-total$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/struct-total"
+    },
+    {
+      "dir": "P09-E08-edit-allocation-typed",
+      "fixtures": {},
+      "id": "P09-E08-edit-allocation-typed",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^typed$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesEditingCallbackBudgets/typed"
+    },
+    {
+      "dir": "P09-E08-resources-above-frame",
+      "fixtures": {},
+      "id": "P09-E08-resources-above-frame",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^above-frame$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/above-frame"
+    },
+    {
+      "dir": "P09-E08-resources-bad-json",
+      "fixtures": {},
+      "id": "P09-E08-resources-bad-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^bad-json$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/bad-json"
+    },
+    {
+      "dir": "P09-E08-resources-canceled",
+      "fixtures": {},
+      "id": "P09-E08-resources-canceled",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^canceled$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/canceled"
+    },
+    {
+      "dir": "P09-E08-resources-count-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-count-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^count-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/count-limit"
+    },
+    {
+      "dir": "P09-E08-resources-duplicate-block",
+      "fixtures": {},
+      "id": "P09-E08-resources-duplicate-block",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^duplicate-block$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/duplicate-block"
+    },
+    {
+      "dir": "P09-E08-resources-duplicate-status",
+      "fixtures": {},
+      "id": "P09-E08-resources-duplicate-status",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^duplicate-status$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/duplicate-status"
+    },
+    {
+      "dir": "P09-E08-resources-duplicate-steps",
+      "fixtures": {},
+      "id": "P09-E08-resources-duplicate-steps",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^duplicate-steps$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/duplicate-steps"
+    },
+    {
+      "dir": "P09-E08-resources-duplicate-usage",
+      "fixtures": {},
+      "id": "P09-E08-resources-duplicate-usage",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^duplicate-usage$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/duplicate-usage"
+    },
+    {
+      "dir": "P09-E08-resources-edit-above-frame",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-above-frame",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-above-frame$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-above-frame"
+    },
+    {
+      "dir": "P09-E08-resources-edit-bad-json",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-bad-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-bad-json$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-bad-json"
+    },
+    {
+      "dir": "P09-E08-resources-edit-canceled",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-canceled",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-canceled$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-canceled"
+    },
+    {
+      "dir": "P09-E08-resources-edit-count-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-count-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-count-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-count-limit"
+    },
+    {
+      "dir": "P09-E08-resources-edit-duplicate-block",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-duplicate-block",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-duplicate-block$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-duplicate-block"
+    },
+    {
+      "dir": "P09-E08-resources-edit-duplicate-status",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-duplicate-status",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-duplicate-status$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-duplicate-status"
+    },
+    {
+      "dir": "P09-E08-resources-edit-duplicate-steps",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-duplicate-steps",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-duplicate-steps$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-duplicate-steps"
+    },
+    {
+      "dir": "P09-E08-resources-edit-duplicate-usage",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-duplicate-usage",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-duplicate-usage$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-duplicate-usage"
+    },
+    {
+      "dir": "P09-E08-resources-edit-error-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-error-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-error-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-error-limit"
+    },
+    {
+      "dir": "P09-E08-resources-edit-image-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-image-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-image-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-image-limit"
+    },
+    {
+      "dir": "P09-E08-resources-edit-model-count-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-model-count-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-model-count-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-model-count-limit"
+    },
+    {
+      "dir": "P09-E08-resources-edit-no-retry",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-no-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-no-retry$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-no-retry"
+    },
+    {
+      "dir": "P09-E08-resources-edit-output-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-output-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-output-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-output-limit"
+    },
+    {
+      "dir": "P09-E08-resources-edit-read-abort",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-read-abort",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-read-abort$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-read-abort"
+    },
+    {
+      "dir": "P09-E08-resources-edit-read-idle",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-read-idle",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-read-idle$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-read-idle"
+    },
+    {
+      "dir": "P09-E08-resources-edit-response-error",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-response-error",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-response-error$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-response-error"
+    },
+    {
+      "dir": "P09-E08-resources-edit-response-panic",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-response-panic",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-response-panic$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-response-panic"
+    },
+    {
+      "dir": "P09-E08-resources-edit-retry",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-retry$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-retry"
+    },
+    {
+      "dir": "P09-E08-resources-edit-total-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-total-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-total-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-total-limit"
+    },
+    {
+      "dir": "P09-E08-resources-edit-trailing-json",
+      "fixtures": {},
+      "id": "P09-E08-resources-edit-trailing-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^edit-trailing-json$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/edit-trailing-json"
+    },
+    {
+      "dir": "P09-E08-resources-error-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-error-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^error-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/error-limit"
+    },
+    {
+      "dir": "P09-E08-resources-image-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-image-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^image-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/image-limit"
+    },
+    {
+      "dir": "P09-E08-resources-model-count-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-model-count-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^model-count-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/model-count-limit"
+    },
+    {
+      "dir": "P09-E08-resources-no-retry",
+      "fixtures": {},
+      "id": "P09-E08-resources-no-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^no-retry$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/no-retry"
+    },
+    {
+      "dir": "P09-E08-resources-output-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-output-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^output-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/output-limit"
+    },
+    {
+      "dir": "P09-E08-resources-read-abort",
+      "fixtures": {},
+      "id": "P09-E08-resources-read-abort",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^read-abort$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/read-abort"
+    },
+    {
+      "dir": "P09-E08-resources-read-idle",
+      "fixtures": {},
+      "id": "P09-E08-resources-read-idle",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^read-idle$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/read-idle"
+    },
+    {
+      "dir": "P09-E08-resources-response-error",
+      "fixtures": {},
+      "id": "P09-E08-resources-response-error",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^response-error$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/response-error"
+    },
+    {
+      "dir": "P09-E08-resources-response-panic",
+      "fixtures": {},
+      "id": "P09-E08-resources-response-panic",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^response-panic$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/response-panic"
+    },
+    {
+      "dir": "P09-E08-resources-retry",
+      "fixtures": {},
+      "id": "P09-E08-resources-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^retry$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/retry"
+    },
+    {
+      "dir": "P09-E08-resources-total-limit",
+      "fixtures": {},
+      "id": "P09-E08-resources-total-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^total-limit$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/total-limit"
+    },
+    {
+      "dir": "P09-E08-resources-trailing-json",
+      "fixtures": {},
+      "id": "P09-E08-resources-trailing-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesResources$/^trailing-json$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesResources/trailing-json"
+    },
+    {
+      "dir": "P09-E09-modality-audit",
+      "fixtures": {},
+      "id": "P09-E09-modality-audit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesUsageObserver$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesUsageObserver"
+    },
+    {
+      "dir": "P09-E11-duplicate-modality",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-duplicate-modality",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-duplicate-modality$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-duplicate-modality"
+    },
+    {
+      "dir": "P09-E11-duplicate-modality-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-duplicate-modality-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-duplicate-modality-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-duplicate-modality-edit-replay"
+    },
+    {
+      "dir": "P09-E11-missing-input_tokens_by_modality",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-missing-input_tokens_by_modality",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-input_tokens_by_modality$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-input_tokens_by_modality"
+    },
+    {
+      "dir": "P09-E11-missing-input_tokens_by_modality-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-missing-input_tokens_by_modality-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-input_tokens_by_modality-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-input_tokens_by_modality-edit-replay"
+    },
+    {
+      "dir": "P09-E11-missing-output_tokens_by_modality",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-missing-output_tokens_by_modality",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-output_tokens_by_modality$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-output_tokens_by_modality"
+    },
+    {
+      "dir": "P09-E11-missing-output_tokens_by_modality-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-missing-output_tokens_by_modality-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-output_tokens_by_modality-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-output_tokens_by_modality-edit-replay"
+    },
+    {
+      "dir": "P09-E11-missing-total_input_tokens",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-missing-total_input_tokens",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-total_input_tokens$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-total_input_tokens"
+    },
+    {
+      "dir": "P09-E11-missing-total_input_tokens-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-missing-total_input_tokens-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-total_input_tokens-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-total_input_tokens-edit-replay"
+    },
+    {
+      "dir": "P09-E11-missing-total_output_tokens",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-missing-total_output_tokens",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-total_output_tokens$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-total_output_tokens"
+    },
+    {
+      "dir": "P09-E11-missing-total_output_tokens-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-missing-total_output_tokens-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-total_output_tokens-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-total_output_tokens-edit-replay"
+    },
+    {
+      "dir": "P09-E11-missing-total_thought_tokens",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-missing-total_thought_tokens",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-total_thought_tokens$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-total_thought_tokens"
+    },
+    {
+      "dir": "P09-E11-missing-total_thought_tokens-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-missing-total_thought_tokens-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-total_thought_tokens-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-total_thought_tokens-edit-replay"
+    },
+    {
+      "dir": "P09-E11-missing-total_tokens",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-missing-total_tokens",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-total_tokens$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-total_tokens"
+    },
+    {
+      "dir": "P09-E11-missing-total_tokens-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-missing-total_tokens-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-missing-total_tokens-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-missing-total_tokens-edit-replay"
+    },
+    {
+      "dir": "P09-E11-native-catalog-exemption",
+      "fixtures": {},
+      "id": "P09-E11-native-catalog-exemption",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesExtensionRegistration$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesExtensionRegistration"
+    },
+    {
+      "dir": "P09-E11-negative",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-negative",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-negative$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-negative"
+    },
+    {
+      "dir": "P09-E11-negative-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-negative-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-negative-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-negative-edit-replay"
+    },
+    {
+      "dir": "P09-E11-null",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-null$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-null"
+    },
+    {
+      "dir": "P09-E11-null-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-null-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-null-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-null-edit-replay"
+    },
+    {
+      "dir": "P09-E11-overflow",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-overflow",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-overflow$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-overflow"
+    },
+    {
+      "dir": "P09-E11-overflow-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-overflow-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-overflow-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-overflow-edit-replay"
+    },
+    {
+      "dir": "P09-E11-thinking-price-explicit-free",
+      "fixtures": {},
+      "id": "P09-E11-thinking-price-explicit-free",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesThinkingPriceRequired$/^explicit-free$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesThinkingPriceRequired/explicit-free"
+    },
+    {
+      "dir": "P09-E11-thinking-price-null",
+      "fixtures": {},
+      "id": "P09-E11-thinking-price-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesThinkingPriceRequired$/^null$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesThinkingPriceRequired/null"
+    },
+    {
+      "dir": "P09-E11-thinking-price-unset",
+      "fixtures": {},
+      "id": "P09-E11-thinking-price-unset",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesThinkingPriceRequired$/^unset$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesThinkingPriceRequired/unset"
+    },
+    {
+      "dir": "P09-E11-thought-included",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-thought-included",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-thought-included$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-thought-included"
+    },
+    {
+      "dir": "P09-E11-thought-included-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-thought-included-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-thought-included-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-thought-included-edit-replay"
+    },
+    {
+      "dir": "P09-E11-thought-included-missing-thought-total",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-thought-included-missing-thought-total",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-thought-included-missing-thought-total$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-thought-included-missing-thought-total"
+    },
+    {
+      "dir": "P09-E11-thought-included-missing-thought-total-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-thought-included-missing-thought-total-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-thought-included-missing-thought-total-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-thought-included-missing-thought-total-edit-replay"
+    },
+    {
+      "dir": "P09-E11-unreported",
+      "fixtures": {
+        "fixture.json": "8f085f9c4dd9f6c44a7c18b056be65a0168954fc137d03346e09b78f7f2f2f6b"
+      },
+      "id": "P09-E11-unreported",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-unreported$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-unreported"
+    },
+    {
+      "dir": "P09-E11-unreported-edit-replay",
+      "fixtures": {
+        "fixture.json": "bf474d8039bc3f01bba1ef2edd81484d7ad5638579b72a83f2212fabeedcf690"
+      },
+      "id": "P09-E11-unreported-edit-replay",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E11-unreported-edit-replay$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesFixtures/E11-unreported-edit-replay"
+    }
+  ],
+  "source_bundle": ".evidence/barness-ai/20261008T085001.307006000Z",
+  "source_manifest_sha256": "5a2285d2f8caac5b9d67009cc86a9929ee9038704a36a2ce2cfb663a8ced54fa",
+  "source_passing_cases": 4276,
+  "scope": "P09 offline Google Interactions image generation and ordered reference editing"
+}

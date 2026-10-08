@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "issue": "13-google-reference-images-and-guards",
+  "date": "2026-10-08",
+  "base_commit": "52ce4feaa6001fc06895cffd7bf94eb6dcd82986",
+  "tested_commit": "b1ac4da6da3db8cb57183201062c0ec31de330bc",
+  "bundle": ".evidence/barness-ai/20261008T085001.307006000Z",
+  "manifest_sha256": "5a2285d2f8caac5b9d67009cc86a9929ee9038704a36a2ce2cfb663a8ced54fa",
+  "commands": [
+    {
+      "command": "go vet ./...",
+      "exit_code": 0
+    },
+    {
+      "command": "go vet -tags live ./...",
+      "exit_code": 0
+    },
+    {
+      "command": "go test ./ai/e2e -run '^TestGoogleImages|^TestOpenAIImagesEditingKnownSize|^TestUnaryCallback(AllocationBound|EncodingSemantics|ByteElementEncoding)' -count=1",
+      "exit_code": 0
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1",
+      "exit_code": 0
+    }
+  ],
+  "passing_cases": 4276,
+  "failed_cases": 0,
+  "google_cases": 268,
+  "openai_image_cases": 267,
+  "differential_cases": 623,
+  "pressure_cases": 11,
+  "resource_cases": 40,
+  "all_recorded_gauges_zero": true,
+  "run_audit_findings": 0,
+  "review": {
+    "base_commit": "52ce4feaa6001fc06895cffd7bf94eb6dcd82986",
+    "reviewed_commit": "b1ac4da6da3db8cb57183201062c0ec31de330bc",
+    "diff_command": "git diff 52ce4feaa6001fc06895cffd7bf94eb6dcd82986...HEAD",
+    "standards_findings": 7,
+    "standards_fixed": 7,
+    "standards_remaining": 0,
+    "spec_findings": 4,
+    "spec_fixed": 4,
+    "spec_remaining": 0,
+    "counting": "Concrete findings across review rounds; Standards includes a separately reported residual pointer-IsZero case.",
+    "standards_final": "Final review at b1ac4da: all 7 concrete findings fixed; 0 actionable standards violations or code smells remain.",
+    "spec_final": "Final review at b1ac4da: all 4 findings fixed; 0 actionable contract gaps, incorrect implementations or scope expansions remain.",
+    "fix_commits": [
+      "1270eae",
+      "a343a91",
+      "701f254",
+      "b1ac4da"
+    ],
+    "public_red_green_cases": "red.json; all final assertions and replay commands are in google-cases.json. The shared byte-element acceptance proof remains in the original full bundle.",
+    "report": "review.md"
+  },
+  "versions": {
+    "anthropic-sdk-go": "v1.75.0",
+    "model_catalog_hash": "sha256:37b8e6e2bc17576040fdc16c3774908c3e09fc5e1fbe8af7219b6e406ed2ce93",
+    "model_catalog_version": "2026-10-08.4",
+    "openai-go": "v3.66.0"
+  },
+  "go_version": "go1.26.2",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-08T08:50:01.307006Z",
+  "finished_at": "2026-10-08T08:55:13.716994Z",
+  "live_acceptance": "Issue 14; host catalog fixture only. Generation/reference editing and guards are proven offline."
+}

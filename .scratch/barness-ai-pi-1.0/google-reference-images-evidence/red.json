@@ -1,0 +1,1345 @@
+{
+  "cases": [
+    {
+      "id": "P09-E01-edit-ordered",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T082120.076350000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "request count",
+              "pass": false,
+              "detail": "got 0 want 1"
+            },
+            {
+              "name": "terminal",
+              "pass": false,
+              "detail": "got error"
+            },
+            {
+              "name": "success",
+              "pass": false,
+              "detail": "got ai: invalid_request (capability): Google image reference inputs require the reference-image route"
+            },
+            {
+              "name": "ordered independent output blocks",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "diagnostic response identity",
+              "pass": false,
+              "detail": "got {Content:[] ResponseID:{state:0 value:} ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error ErrorMessage:Google image reference inputs require the reference-image route Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-E01-edit-ordered ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}"
+            },
+            {
+              "name": "usage retained and modality priced",
+              "pass": false,
+              "detail": "got {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want {Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x6629e0d13200 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}"
+            },
+            {
+              "name": "image attribution",
+              "pass": true,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-E01-edit-ordered ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "attempt count",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "unresolved preflight",
+              "pass": true,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-E01-edit-ordered ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "no credential access",
+              "pass": true,
+              "detail": "got {Bindings:1 Credentials:0}"
+            }
+          ],
+          "case_id": "P09-E01-edit-ordered",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesFixtures$/^E01-edit-ordered$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesFixtures/E01-edit-ordered"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "Google image reference inputs require the reference-image route",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-E01-edit-ordered",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": false
+          }
+        },
+        "error.json": "ai: invalid_request (capability): Google image reference inputs require the reference-image route"
+      }
+    },
+    {
+      "id": "P09-E07-edit-budget-protocol-bytes",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T082353.167092000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "budgets fail before credentials and network",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's Google.MaxInlineRequestBytes (20971520) reads={Bindings:1 Credentials:1}"
+            },
+            {
+              "name": "known input rejected before encoded copies",
+              "pass": false,
+              "detail": "allocated 100305096"
+            }
+          ],
+          "case_id": "P09-E07-edit-budget-protocol-bytes",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^protocol-bytes$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingBudgets/protocol-bytes"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's Google.MaxInlineRequestBytes (20971520)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-edit-budget-protocol-bytes",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's Google.MaxInlineRequestBytes (20971520)",
+        "allocated-bytes.json": 100305096
+      }
+    },
+    {
+      "id": "P09-E08-edit-allocation-ordinary",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T082353.167092000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "known callback budget before serialization",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288) allocated=125912928"
+            }
+          ],
+          "case_id": "P09-E08-edit-allocation-ordinary",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^ordinary$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingCallbackBudgets/ordinary"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxImageBytes (524288)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-allocation-ordinary",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288)",
+        "allocated-bytes.json": 125912928
+      }
+    },
+    {
+      "id": "P09-E08-edit-allocation-raw",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T082353.167092000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "known callback budget before serialization",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288) allocated=117498384"
+            }
+          ],
+          "case_id": "P09-E08-edit-allocation-raw",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^raw$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingCallbackBudgets/raw"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxImageBytes (524288)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-allocation-raw",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288)",
+        "allocated-bytes.json": 117498384
+      }
+    },
+    {
+      "id": "P09-E07-edit-budget-decimal-protocol-bytes",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T082647.281903000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "budgets fail before credentials and network",
+              "pass": false,
+              "detail": "got <nil> reads={Bindings:1 Credentials:1}"
+            },
+            {
+              "name": "known input rejected before encoded copies",
+              "pass": false,
+              "detail": "allocated 323597696"
+            }
+          ],
+          "case_id": "P09-E07-edit-budget-decimal-protocol-bytes",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingBudgets$/^decimal-protocol-bytes$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingBudgets/decimal-protocol-bytes"
+        },
+        "result.json": {
+          "content": [
+            {
+              "type": "text",
+              "text": "前"
+            },
+            {
+              "type": "image",
+              "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+              "mimeType": "image/png"
+            },
+            {
+              "type": "text",
+              "text": "中"
+            },
+            {
+              "type": "image",
+              "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+              "mimeType": "image/png"
+            },
+            {
+              "type": "text",
+              "text": "后"
+            }
+          ],
+          "responseId": "interaction-fixture",
+          "responseModel": "reported-image-model",
+          "usage": {
+            "input": 7,
+            "output": 42,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 22,
+            "modalities": {
+              "inputText": 7,
+              "inputImage": 0,
+              "outputText": 0,
+              "outputImage": 20
+            },
+            "totalTokens": 49,
+            "cost": {
+              "input": 1.4e-05,
+              "output": 0.00018800000000000002,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000202
+            }
+          },
+          "stopReason": "stop",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-edit-budget-decimal-protocol-bytes",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72",
+            "attempts": [
+              {
+                "attemptId": "req-google-edit-budget-decimal-protocol-bytes#1",
+                "httpStatus": 200,
+                "providerRequestId": "req-images",
+                "usageReporting": "complete",
+                "usage": {
+                  "input": 7,
+                  "output": 42,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "reasoning": 22,
+                  "modalities": {
+                    "inputText": 7,
+                    "inputImage": 0,
+                    "outputText": 0,
+                    "outputImage": 20
+                  },
+                  "totalTokens": 49,
+                  "cost": {
+                    "input": 1.4e-05,
+                    "output": 0.00018800000000000002,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "total": 0.000202
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "error.json": "",
+        "allocated-bytes.json": 323597696
+      }
+    },
+    {
+      "id": "P09-E08-edit-allocation-struct-total",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T082647.281903000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "known callback budget before serialization",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's Google.MaxInlineRequestBytes (20971520) allocated=109175336"
+            }
+          ],
+          "case_id": "P09-E08-edit-allocation-struct-total",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^struct-total$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingCallbackBudgets/struct-total"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's Google.MaxInlineRequestBytes (20971520)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-allocation-struct-total",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's Google.MaxInlineRequestBytes (20971520)",
+        "allocated-bytes.json": 109175336
+      }
+    },
+    {
+      "id": "P09-E08-edit-allocation-byte-data",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T083554.474896000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "known callback budget before serialization",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288) allocated=145461200"
+            }
+          ],
+          "case_id": "P09-E08-edit-allocation-byte-data",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^byte-data$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingCallbackBudgets/byte-data"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxImageBytes (524288)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-allocation-byte-data",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288)",
+        "allocated-bytes.json": 145461200
+      }
+    },
+    {
+      "id": "P09-E08-edit-allocation-custom-key",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T083554.474896000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "known callback budget before serialization",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288) allocated=125895640"
+            }
+          ],
+          "case_id": "P09-E08-edit-allocation-custom-key",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^custom-key$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingCallbackBudgets/custom-key"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxImageBytes (524288)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-allocation-custom-key",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288)",
+        "allocated-bytes.json": 125895640
+      }
+    },
+    {
+      "id": "P09-E08-edit-allocation-promoted",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T083554.474896000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "known callback budget before serialization",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288) allocated=125903576"
+            }
+          ],
+          "case_id": "P09-E08-edit-allocation-promoted",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^promoted$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingCallbackBudgets/promoted"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxImageBytes (524288)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-allocation-promoted",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (524288)",
+        "allocated-bytes.json": 125903576
+      }
+    },
+    {
+      "id": "P09-E08-edit-allocation-struct-overhead",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T083554.474896000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "known callback budget before serialization",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (16800000) allocated=60603480"
+            }
+          ],
+          "case_id": "P09-E08-edit-allocation-struct-overhead",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^struct-overhead$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingCallbackBudgets/struct-overhead"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxRequestBytes (16800000)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-allocation-struct-overhead",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (16800000)",
+        "allocated-bytes.json": 60603480
+      }
+    },
+    {
+      "id": "P09-E04-edit-typed-omitempty",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T083814.827121000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "request count",
+              "pass": false,
+              "detail": "got 0 want 1"
+            },
+            {
+              "name": "terminal",
+              "pass": false,
+              "detail": "got error"
+            },
+            {
+              "name": "success",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (444)"
+            },
+            {
+              "name": "ordered independent output blocks",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "diagnostic response identity",
+              "pass": false,
+              "detail": "got {Content:[] ResponseID:{state:0 value:} ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error ErrorMessage:exceeded the resource policy's MaxRequestBytes (444) Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-omitempty ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}"
+            },
+            {
+              "name": "usage retained and modality priced",
+              "pass": false,
+              "detail": "got {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want {Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x773cf2bb6700 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}"
+            },
+            {
+              "name": "image attribution",
+              "pass": true,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-omitempty ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "attempt count",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "unresolved preflight",
+              "pass": false,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-omitempty ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "no credential access",
+              "pass": true,
+              "detail": "got {Bindings:0 Credentials:0}"
+            }
+          ],
+          "case_id": "P09-E04-edit-typed-omitempty",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^omitempty$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingTypedInput/omitempty"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxRequestBytes (444)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-typed-omitempty",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (444)"
+      }
+    },
+    {
+      "id": "P09-E04-edit-typed-custom-zero",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T084213.968121000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "request count",
+              "pass": false,
+              "detail": "got 0 want 1"
+            },
+            {
+              "name": "terminal",
+              "pass": false,
+              "detail": "got error"
+            },
+            {
+              "name": "success",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (444)"
+            },
+            {
+              "name": "ordered independent output blocks",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "diagnostic response identity",
+              "pass": false,
+              "detail": "got {Content:[] ResponseID:{state:0 value:} ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error ErrorMessage:exceeded the resource policy's MaxRequestBytes (444) Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-custom-zero ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}"
+            },
+            {
+              "name": "usage retained and modality priced",
+              "pass": false,
+              "detail": "got {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want {Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x16e8deebe6c0 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}"
+            },
+            {
+              "name": "image attribution",
+              "pass": true,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-custom-zero ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "attempt count",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "unresolved preflight",
+              "pass": false,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-custom-zero ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "no credential access",
+              "pass": true,
+              "detail": "got {Bindings:0 Credentials:0}"
+            }
+          ],
+          "case_id": "P09-E04-edit-typed-custom-zero",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^custom-zero$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingTypedInput/custom-zero"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxRequestBytes (444)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-typed-custom-zero",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (444)"
+      }
+    },
+    {
+      "id": "P09-E04-edit-typed-pointer-marshaler",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T084213.968121000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "request count",
+              "pass": false,
+              "detail": "got 0 want 1"
+            },
+            {
+              "name": "terminal",
+              "pass": false,
+              "detail": "got error"
+            },
+            {
+              "name": "success",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (444)"
+            },
+            {
+              "name": "ordered independent output blocks",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "diagnostic response identity",
+              "pass": false,
+              "detail": "got {Content:[] ResponseID:{state:0 value:} ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error ErrorMessage:exceeded the resource policy's MaxRequestBytes (444) Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-pointer-marshaler ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}"
+            },
+            {
+              "name": "usage retained and modality priced",
+              "pass": false,
+              "detail": "got {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want {Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x16e8deebe280 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}"
+            },
+            {
+              "name": "image attribution",
+              "pass": true,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-pointer-marshaler ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "attempt count",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "unresolved preflight",
+              "pass": false,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-pointer-marshaler ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "no credential access",
+              "pass": true,
+              "detail": "got {Bindings:0 Credentials:0}"
+            }
+          ],
+          "case_id": "P09-E04-edit-typed-pointer-marshaler",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^pointer-marshaler$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingTypedInput/pointer-marshaler"
+        },
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxRequestBytes (444)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-typed-pointer-marshaler",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (444)"
+      }
+    },
+    {
+      "id": "P07-E04-unary-callback-custom-byte-element",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T084325.428051000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "exact-cap custom byte array accepted",
+              "pass": false,
+              "detail": "got ai: callback_failed (request): payload callback exceeded classifier input limits"
+            },
+            {
+              "name": "released hostPermits",
+              "pass": true,
+              "detail": "got 0"
+            },
+            {
+              "name": "released bodies",
+              "pass": true,
+              "detail": "got 0"
+            },
+            {
+              "name": "released calls",
+              "pass": true,
+              "detail": "got 0"
+            },
+            {
+              "name": "released permits",
+              "pass": true,
+              "detail": "got 0"
+            },
+            {
+              "name": "released waiters",
+              "pass": true,
+              "detail": "got 0"
+            },
+            {
+              "name": "released events",
+              "pass": true,
+              "detail": "got 0"
+            }
+          ],
+          "case_id": "P07-E04-unary-callback-custom-byte-element",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackByteElementEncoding$'",
+          "status": "FAIL",
+          "test": "TestUnaryCallbackByteElementEncoding"
+        },
+        "result.json": {
+          "answers": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "payload callback exceeded classifier input limits",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-custom-byte-element",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "classifier",
+            "operation": "classifier",
+            "resolved": true,
+            "providerId": "typesafe",
+            "api": "typesafe-system-one",
+            "modelId": "host-jev",
+            "accountScopeId": "acct-tenant-a",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ccd2f53948ec24cbc21bb4e96c7f105b94400314cb954fa26f56796419ce57d9"
+          }
+        },
+        "error.json": "ai: callback_failed (request): payload callback exceeded classifier input limits"
+      }
+    },
+    {
+      "id": "P09-E04-edit-typed-pointer-zero",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T084545.804135000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "request count",
+              "pass": false,
+              "detail": "got 0 want 1"
+            },
+            {
+              "name": "terminal",
+              "pass": false,
+              "detail": "got error"
+            },
+            {
+              "name": "success",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (444)"
+            },
+            {
+              "name": "ordered independent output blocks",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "diagnostic response identity",
+              "pass": false,
+              "detail": "got {Content:[] ResponseID:{state:0 value:} ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error ErrorMessage:exceeded the resource policy's MaxRequestBytes (444) Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-pointer-zero ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}"
+            },
+            {
+              "name": "usage retained and modality priced",
+              "pass": false,
+              "detail": "got {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want {Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x3bace2a180c0 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}"
+            },
+            {
+              "name": "image attribution",
+              "pass": true,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-pointer-zero ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "attempt count",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "unresolved preflight",
+              "pass": false,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-pointer-zero ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "no credential access",
+              "pass": true,
+              "detail": "got {Bindings:0 Credentials:0}"
+            }
+          ],
+          "case_id": "P09-E04-edit-typed-pointer-zero",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^pointer-zero$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingTypedInput/pointer-zero"
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (444)",
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxRequestBytes (444)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-typed-pointer-zero",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        }
+      }
+    },
+    {
+      "id": "P09-E08-edit-allocation-raw-struct-total",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T084545.804135000Z",
+      "records": {
+        "allocated-bytes.json": 83976648,
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "known callback budget before serialization",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's Google.MaxInlineRequestBytes (20000000) allocated=83976648"
+            }
+          ],
+          "case_id": "P09-E08-edit-allocation-raw-struct-total",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbackBudgets$/^raw-struct-total$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingCallbackBudgets/raw-struct-total"
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's Google.MaxInlineRequestBytes (20000000)",
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's Google.MaxInlineRequestBytes (20000000)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-allocation-raw-struct-total",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        }
+      }
+    },
+    {
+      "id": "P09-E04-edit-typed-prompt-custom-key",
+      "status": "FAIL",
+      "source_bundle": ".evidence/barness-ai/20261008T084902.218117000Z",
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "request count",
+              "pass": false,
+              "detail": "got 0 want 1"
+            },
+            {
+              "name": "terminal",
+              "pass": false,
+              "detail": "got error"
+            },
+            {
+              "name": "success",
+              "pass": false,
+              "detail": "got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (100)"
+            },
+            {
+              "name": "ordered independent output blocks",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "diagnostic response identity",
+              "pass": false,
+              "detail": "got {Content:[] ResponseID:{state:0 value:} ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error ErrorMessage:exceeded the resource policy's MaxImageBytes (100) Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-prompt-custom-key ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}"
+            },
+            {
+              "name": "usage retained and modality priced",
+              "pass": false,
+              "detail": "got {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want {Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x79454b390040 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}"
+            },
+            {
+              "name": "image attribution",
+              "pass": true,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-prompt-custom-key ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "attempt count",
+              "pass": false,
+              "detail": "got []"
+            },
+            {
+              "name": "unresolved preflight",
+              "pass": false,
+              "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-typed-prompt-custom-key ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.4 CatalogHash:sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+            },
+            {
+              "name": "no credential access",
+              "pass": true,
+              "detail": "got {Bindings:0 Credentials:0}"
+            }
+          ],
+          "case_id": "P09-E04-edit-typed-prompt-custom-key",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingTypedInput$/^prompt-custom-key$'",
+          "status": "FAIL",
+          "test": "TestGoogleImagesEditingTypedInput/prompt-custom-key"
+        },
+        "error.json": "ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (100)",
+        "result.json": {
+          "content": null,
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "stopReason": "error",
+          "errorMessage": "exceeded the resource policy's MaxImageBytes (100)",
+          "metadata": {
+            "tenantId": "tenant-a",
+            "requestId": "req-google-typed-prompt-custom-key",
+            "actorId": "actor-7",
+            "jobId": "job-42",
+            "bindingId": "images",
+            "operation": "image",
+            "resolved": true,
+            "providerId": "google",
+            "api": "google-interactions",
+            "modelId": "host-google-image",
+            "accountScopeId": "acct-tenant-a-google",
+            "bindingVersion": "b1",
+            "credentialVersion": "v1",
+            "catalogVersion": "2026-10-08.4",
+            "catalogHash": "sha256:ac255ffc0ad07131e1c60f04bf0c2343cacf85dabf93572b1576e797fe7efd72"
+          }
+        }
+      }
+    }
+  ]
+}
