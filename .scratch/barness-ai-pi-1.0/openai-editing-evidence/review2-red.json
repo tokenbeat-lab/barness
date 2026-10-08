@@ -1,0 +1,10 @@
+{
+  "command": "go test ./ai/e2e -run 'TestOpenAIImagesEditing(KnownSize|CustomEncoding)' -count=1",
+  "status": "FAIL",
+  "failingTests": [
+    "TestOpenAIImagesEditingKnownSize/embedded",
+    "TestOpenAIImagesEditingCustomEncoding/text-key",
+    "TestOpenAIImagesEditingKnownSize/shadowed"
+  ],
+  "maxObservedAllocationBytes": 100729312
+}

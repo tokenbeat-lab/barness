@@ -25,8 +25,21 @@ func (*pointerEncodedImageReference) MarshalJSON() ([]byte, error) {
 	return []byte(callbackInlineImage), nil
 }
 
+type imageURLKey struct{}
+
+func (imageURLKey) MarshalText() ([]byte, error) { return []byte("image_url"), nil }
+
+type inlineImageFields struct {
+	URL string `json:"image_url"`
+}
+type wrappedInlineImage struct{ inlineImageFields }
+type shadowedInlineImage struct {
+	inlineImageFields
+	URL string `json:"unrelated,omitempty"`
+}
+
 func TestOpenAIImagesEditingCustomEncoding(t *testing.T) {
-	for _, name := range []string{"slice", "map", "pointer-element"} {
+	for _, name := range []string{"slice", "map", "pointer-element", "text-key", "embedded", "shadowed"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P08-E04-edit-custom-"+name)
 			sc := editScenario(t)
@@ -40,6 +53,12 @@ func TestOpenAIImagesEditingCustomEncoding(t *testing.T) {
 					p.Body["images"] = []any{customImageReference{"backing": true}}
 				case "pointer-element":
 					p.Body["images"] = []pointerEncodedImageReference{{"backing"}}
+				case "text-key":
+					p.Body["images"] = []map[imageURLKey]string{{{}: "data:image/png;base64," + imagesInput(t, sc).ReferenceImages[0].Data}}
+				case "embedded":
+					p.Body["images"] = []wrappedInlineImage{{inlineImageFields{"data:image/png;base64," + imagesInput(t, sc).ReferenceImages[0].Data}}}
+				case "shadowed":
+					p.Body["images"] = []shadowedInlineImage{{inlineImageFields: inlineImageFields{"data:image/png;base64," + imagesInput(t, sc).ReferenceImages[0].Data}}}
 				}
 				return ai.KeepPayload(), nil
 			}}

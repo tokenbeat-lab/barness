@@ -2,6 +2,7 @@ package ai
 
 import (
 	"bytes"
+	"encoding"
 	"encoding/json"
 	"reflect"
 	"strconv"
@@ -88,6 +89,9 @@ func (p *ResourcePolicy) checkInlineImagePayload(value reflect.Value) *Error {
 	switch v.Kind() {
 	case reflect.Map:
 		if v.Type().Key().Kind() != reflect.String {
+			if v.Type().Key().Implements(reflect.TypeFor[encoding.TextMarshaler]()) {
+				return nil
+			}
 			return imageInputFailure(PhaseRequest, "inline image requires string keys")
 		}
 		fields := v.MapRange()
@@ -97,24 +101,66 @@ func (p *ResourcePolicy) checkInlineImagePayload(value reflect.Value) *Error {
 			}
 		}
 	case reflect.Struct:
-		// Only direct exported schema fields can be predicted here; embedded
-		// or custom representations are left to the final JSON schema guard.
-		for i := 0; i < v.NumField(); i++ {
-			field := v.Type().Field(i)
-			if field.PkgPath != "" || field.Anonymous {
-				continue
-			}
-			key, _, _ := strings.Cut(field.Tag.Get("json"), ",")
-			if key == "image_url" {
-				if failure := checkField(key, v.Field(i)); failure != nil {
-					return failure
-				}
-			}
+		field, failure := inlineStructURL(v)
+		if failure != nil {
+			return failure
+		}
+		if field.IsValid() {
+			return checkField("image_url", field)
 		}
 	default:
 		return imageInputFailure(PhaseRequest, "inline image must be an object")
 	}
 	return nil
+}
+
+func inlineStructURL(v reflect.Value) (reflect.Value, *Error) {
+	// JSON selects promoted fields by their JSON name, independently of Go
+	// name shadowing. Prefer the shallowest tagged resource field; equal-depth
+	// duplicates cannot encode an unambiguous image_url.
+	var index []int
+	duplicate := false
+	visiting := map[reflect.Type]bool{}
+	var walk func(reflect.Type, []int)
+	walk = func(t reflect.Type, path []int) {
+		if visiting[t] {
+			return
+		}
+		visiting[t] = true
+		defer delete(visiting, t)
+		for i := 0; i < t.NumField(); i++ {
+			field := t.Field(i)
+			key, _, _ := strings.Cut(field.Tag.Get("json"), ",")
+			next := append(append([]int(nil), path...), i)
+			if field.PkgPath == "" && key == "image_url" {
+				if index == nil || len(next) < len(index) {
+					index = next
+					duplicate = false
+				} else if len(next) == len(index) {
+					duplicate = true
+				}
+			}
+			embedded := field.Type
+			if embedded.Kind() == reflect.Pointer {
+				embedded = embedded.Elem()
+			}
+			if field.Anonymous && key == "" && embedded.Kind() == reflect.Struct {
+				walk(embedded, next)
+			}
+		}
+	}
+	walk(v.Type(), nil)
+	if duplicate {
+		return reflect.Value{}, imageInputFailure(PhaseRequest, "ambiguous inline image fields")
+	}
+	if index == nil {
+		return reflect.Value{}, nil
+	}
+	field, err := v.FieldByIndexErr(index)
+	if err != nil {
+		return reflect.Value{}, nil
+	} // A nil anonymous pointer is omitted by encoding/json.
+	return field, nil
 }
 
 func (p *ResourcePolicy) checkRawImageReferences(raw json.RawMessage, mask bool, caps ImageCapabilities) *Error {
