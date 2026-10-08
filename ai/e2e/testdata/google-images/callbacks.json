@@ -207,7 +207,7 @@
           }
         ]
       },
-      "code": "tenant_denied",
+      "code": "callback_failed",
       "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
     },
     {
@@ -278,6 +278,26 @@
     {
       "id": "delete-model",
       "delete": "model",
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "delete-type",
+      "set": {
+        "response_format": {
+          "delivery": "inline"
+        }
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "delete-delivery",
+      "set": {
+        "response_format": {
+          "type": "image"
+        }
+      },
       "code": "tenant_denied",
       "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
     }

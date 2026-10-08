@@ -11,7 +11,7 @@ import (
 )
 
 func TestGoogleImagesCapabilities(t *testing.T) {
-	for _, name := range []string{"foreign-options", "typed-nil", "openai-with-google-options", "wrong-operation", "wrong-provider", "v1", "query-key", "prefixed-model", "disabled-policy", "reference-input", "entry-snapshot", "header-key"} {
+	for _, name := range []string{"foreign-options", "typed-nil", "openai-with-google-options", "wrong-operation", "wrong-provider", "v1", "query-key", "prefixed-model", "disabled-policy", "entry-snapshot", "header-key"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P09-E07-capability-"+name)
 			sc := firstGoogleImagesScenario(t)
@@ -59,16 +59,6 @@ func TestGoogleImagesCapabilities(t *testing.T) {
 				target.ModelID = "host-image"
 			}
 			req := imagesInput(t, sc)
-			if name == "reference-input" {
-				req.ReferenceImages = []ai.Image{{MimeType: "image/png"}}
-			}
-			// Use the existing accepted image fixture as reference bytes; this route
-			// still refuses references before credential access until issue 13.
-			if name == "reference-input" {
-				var content []ai.ImageOutputImage
-				mustUnmarshal(t, sc.Expect.Content, &content)
-				req.ReferenceImages[0].Data = content[0].Data
-			}
 			var opts ai.ImageOptions = &options
 			if name == "foreign-options" {
 				opts = ai.OpenAIImagesOptions{}

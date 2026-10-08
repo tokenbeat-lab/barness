@@ -15,7 +15,7 @@ func configureGoogleImages(c *ai.Config) {
 	m := &c.Catalog.ImageModels[0]
 	m.Provider, m.API, m.ID, m.Name = ai.ProviderGoogle, googleImagesProtocol.api, "host-google-image", "Synthetic Google image model"
 	m.Output = []ai.Modality{ai.ModalityText, ai.ModalityImage}
-	m.Capabilities = ai.ImageCapabilities{MaxOutputImages: 4, AspectRatios: []string{"1:1", "16:9"}, ImageSizes: []string{"1K", "2K", "4K"}}
+	m.Capabilities = ai.ImageCapabilities{MaxReferenceImages: 14, MaxOutputImages: 4, AspectRatios: []string{"1:1", "16:9"}, ImageSizes: []string{"1K", "2K", "4K"}}
 	m.Pricing.OutputText = ai.Value(4.0)
 }
 func installGoogleImagesBinding(w *world, k tenantKey) {
@@ -30,7 +30,7 @@ func firstGoogleImagesScenario(t *testing.T) fixtureScenario {
 	return f.Scenarios[0]
 }
 func TestGoogleImagesFixtures(t *testing.T) {
-	for _, name := range []string{"generation.json", "failures.json", "options.json", "usage.json"} {
+	for _, name := range []string{"generation.json", "failures.json", "options.json", "usage.json", "editing.json", "editing-invalid-input.json", "editing-failures.json", "editing-usage.json", "editing-options.json"} {
 		f, raw := loadFixture(t, googleImagesProtocol, name)
 		for _, sc := range f.Scenarios {
 			t.Run(sc.ID, func(t *testing.T) {

@@ -125,12 +125,15 @@ image × openai × openai-images 是独立扩展路线 P08。冻结 pi 1.0.0 路
 捕获上限，live-contract fixture 明确记录以公共结果恢复图片和 usage 的归一化；
 原始截断标志、实际结果、图片校验与审计均保留在本组合证据包。
 
-## 原生 Google Interactions 图像（工单 12）
+## 原生 Google Interactions 图像（工单 12–13）
 
 image × google × google-interactions 是独立扩展 P09，固定 v1beta、store=false、同步与
 内联交付。冻结 pi 1.0.0 没有这条原生路由；所有 fixture 显式 pidiffSkip，routes 与原生
 目录豁免有公共离线断言，不计为 pi 差分通过。提示加参考图的收敛接口未扩成交错输入，
-本切片仅无参考图生成，参考图在工单 13 实现。全部 model_output 的文本/图片保序且原子
+工单 13 接入有序参考图编辑，公共输入不支持 mask；这项输入收敛与协议可表达的交错输入
+差异作为本扩展路径的一部分登记。内联格式沿用公共图像严格 png/jpeg/webp 校验，协议列出的
+其他格式尚未开放；将来增加格式需独立文件头验证和 fixture。参考图数量受宿主、型号与 14 张
+协议上限交集约束；总请求包含编码开销，≤min(MaxRequestBytes, 20,000,000)。全部 model_output 的文本/图片保序且原子
 发布；真实终态、响应诊断 ID/型号和原生续接分开。
 
 Google 的思考加到 Output，但是否已经包含在模态输出明细中用完整总量关系判断，

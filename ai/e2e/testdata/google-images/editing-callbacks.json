@@ -1,0 +1,221 @@
+{
+  "source": "Issue 13 final inline edit failure fixtures; each public call starts with references.",
+  "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022).",
+  "cases": [
+    {
+      "id": "insert",
+      "input": [
+        {
+          "type": "text",
+          "text": "edited prompt"
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAC0lEQVR4nGNggAIAAAkAAftSuKkAAAAASUVORK5CYII="
+        }
+      ],
+      "code": ""
+    },
+    {
+      "id": "bad-mime",
+      "input": [
+        {
+          "type": "text",
+          "text": "edited prompt"
+        },
+        {
+          "type": "image",
+          "mime_type": "text/plain",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        }
+      ],
+      "code": "callback_failed"
+    },
+    {
+      "id": "mismatch",
+      "input": [
+        {
+          "type": "text",
+          "text": "edited prompt"
+        },
+        {
+          "type": "image",
+          "mime_type": "image/jpeg",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        }
+      ],
+      "code": "callback_failed"
+    },
+    {
+      "id": "bad-base64",
+      "input": [
+        {
+          "type": "text",
+          "text": "edited prompt"
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "!!!!"
+        }
+      ],
+      "code": "callback_failed"
+    },
+    {
+      "id": "protocol-count",
+      "input": [
+        {
+          "type": "text",
+          "text": "edited prompt"
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        }
+      ],
+      "code": "resource_limit"
+    },
+    {
+      "id": "interleaved",
+      "input": [
+        {
+          "type": "text",
+          "text": "p"
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "text",
+          "text": "tail"
+        }
+      ],
+      "code": "callback_failed"
+    },
+    {
+      "id": "uri",
+      "input": [
+        {
+          "type": "text",
+          "text": "p"
+        },
+        {
+          "type": "image",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+          "mime_type": "image/png",
+          "uri": "https://example.invalid/x"
+        }
+      ],
+      "code": "tenant_denied"
+    },
+    {
+      "id": "mask",
+      "input": [
+        {
+          "type": "text",
+          "text": "p"
+        },
+        {
+          "type": "image",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+          "mime_type": "image/png",
+          "mask": true
+        }
+      ],
+      "code": "tenant_denied"
+    },
+    {
+      "id": "missing-mime",
+      "input": [
+        {
+          "type": "text",
+          "text": "p"
+        },
+        {
+          "type": "image",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        }
+      ],
+      "code": "callback_failed"
+    }
+  ]
+}

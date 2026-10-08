@@ -1,0 +1,306 @@
+{
+  "case": "P09",
+  "source": "Issue 13 preflight failure fixtures, public GenerateImages seam.",
+  "scenarios": [
+    {
+      "id": "E07-edit-mime",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "mimeType": "text/plain",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+          }
+        ]
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"text\", \"text\": \"前\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"type\": \"thought\", \"content\": [{\"type\": \"text\", \"text\": \"hidden\"}]}, {\"content\": [{\"type\": \"text\", \"text\": \"中\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"text\", \"text\": \"后\"}], \"type\": \"model_output\"}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-mime-mismatch",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "mimeType": "image/jpeg",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+          }
+        ]
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"text\", \"text\": \"前\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"type\": \"thought\", \"content\": [{\"type\": \"text\", \"text\": \"hidden\"}]}, {\"content\": [{\"type\": \"text\", \"text\": \"中\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"text\", \"text\": \"后\"}], \"type\": \"model_output\"}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-bad-base64",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "mimeType": "image/png",
+            "data": "!!!!"
+          }
+        ]
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"text\", \"text\": \"前\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"type\": \"thought\", \"content\": [{\"type\": \"text\", \"text\": \"hidden\"}]}, {\"content\": [{\"type\": \"text\", \"text\": \"中\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"text\", \"text\": \"后\"}], \"type\": \"model_output\"}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-empty-image",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "mimeType": "image/png",
+            "data": ""
+          }
+        ]
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"text\", \"text\": \"前\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"type\": \"thought\", \"content\": [{\"type\": \"text\", \"text\": \"hidden\"}]}, {\"content\": [{\"type\": \"text\", \"text\": \"中\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"text\", \"text\": \"后\"}], \"type\": \"model_output\"}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-external",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "mimeType": "image/png",
+            "data": "https://example.invalid/image.png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"text\", \"text\": \"前\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"type\": \"thought\", \"content\": [{\"type\": \"text\", \"text\": \"hidden\"}]}, {\"content\": [{\"type\": \"text\", \"text\": \"中\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"text\", \"text\": \"后\"}], \"type\": \"model_output\"}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-model-count",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"text\", \"text\": \"前\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"type\": \"thought\", \"content\": [{\"type\": \"text\", \"text\": \"hidden\"}]}, {\"content\": [{\"type\": \"text\", \"text\": \"中\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"text\", \"text\": \"后\"}], \"type\": \"model_output\"}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "resource_limit",
+        "phase": "capability"
+      },
+      "modelPatch": {
+        "capabilities": {
+          "maxReferenceImages": 1,
+          "maxOutputImages": 4,
+          "aspectRatios": [
+            "1:1",
+            "16:9"
+          ],
+          "imageSizes": [
+            "1K",
+            "2K",
+            "4K"
+          ]
+        }
+      }
+    },
+    {
+      "id": "E07-edit-protocol-count",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"text\", \"text\": \"前\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"type\": \"thought\", \"content\": [{\"type\": \"text\", \"text\": \"hidden\"}]}, {\"content\": [{\"type\": \"text\", \"text\": \"中\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"text\", \"text\": \"后\"}], \"type\": \"model_output\"}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "resource_limit",
+        "phase": "capability"
+      },
+      "modelPatch": {
+        "capabilities": {
+          "maxReferenceImages": 16,
+          "maxOutputImages": 4,
+          "aspectRatios": [
+            "1:1",
+            "16:9"
+          ],
+          "imageSizes": [
+            "1K",
+            "2K",
+            "4K"
+          ]
+        }
+      }
+    }
+  ]
+}

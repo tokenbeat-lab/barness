@@ -231,20 +231,28 @@ ResponseModel 不填，不保留 revised prompt。Observer 只含元数据。
 
 完整行为、SDK 直连理由与后续 live 边界见 [ADR-0022](../adr/0022-barness-ai-openai-images-unary.md)。
 
-### Google Interactions 图像（工单 12）
+### Google Interactions 图像生成与参考图编辑（工单 12–13）
 
 绑定为 image × google × google-interactions，Endpoint 为带 `/v1beta` 的基址；
 仅 POST `/interactions`，型号为裸 ID，认证仅用 X-Goog-Api-Key。GoogleImagesOptions
 只有 AspectRatio 与 ImageSize（Nullable）；nil 用默认，null/其他协议选项拒绝，值须在
 型号的 AspectRatios/ImageSizes 中。宿主自带目录须明确 OutputText 费率（显式 0 合法），
 因为只请求图像也可能消耗文本思考。内置 Google 图像型号及 live 支持由工单 14 确认。
-当前仅生成，参考图入口在 capability 阶段拒绝，回调不能追加参考图（工单 13）。
+ImagesRequest 为 prompt 文本在前、ReferenceImages 按原顺序在后，同一 `/interactions` 入口
+提交内联 base64 与 MIME；入口 slice 在 resolver 前独立复制，字符串不可变。公共输入不提供
+交错文本/图片与 mask，这一收敛登记为扩展。参考图数量 ≤min(MaxInputImages,
+MaxReferenceImages, 14)，每张受 MaxImageBytes 和已有严格 png/jpeg/webp 文件头校验约束。
+首批 Nano Banana 2.1 的官方能力为最多 10 个物体加 4 个角色；目录只记录总数，不推断图片
+语义。型号允许 1K/2K/4K 时 512 拒绝；尺寸与宽高比始终按最终请求的授权型号验证。
 
 请求固定 store=false、单个 image response_format、delivery=inline，以省略 background/stream
 实现同步调用。回调后独立解码、重新校验固定项、允许字段、型号能力及最终大小；
 续接、Agent、工具、环境、webhook、续读令牌、服务等级与网址资源为 tenant_denied，
-无效/重复 schema 为 callback_failed；全局 MaxRequestBytes 与 Google 20 MiB 取小值。
-已知容器先限长，冻结后再按实际 JSON 字节计量。提示沿用公共图像的 1–32000 字符边界。
+无效/重复 schema 为 callback_failed；全局 MaxRequestBytes 与 Google 20 MB（20,000,000 字节） 取小值。
+入口先以已校验 base64 长度和小型 JSON 信封估算准确编码字节，超限时不读凭据、不复制大图。
+回调可在授权能力内添加/扩大参考图；普通容器、指针、带类型值与 raw JSON 在编码前重新检查
+数量与单图大小，raw 转义用固定缓冲计长。自定义 marshaler 按既有资源契约交给编码器，
+冻结后以实际 JSON 字节重验全部输入、单图与总量。提示沿用公共图像的 1–32000 字符边界。
 
 仅 completed 发布内容，遍历全部 model_output 的 text/image 并保留出现顺序；不承诺精确张数。
 failed/cancelled 为 upstream_error/response，其他状态或 continuation_token 为 protocol/response。

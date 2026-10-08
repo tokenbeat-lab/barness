@@ -26,24 +26,30 @@ func (c *Client) executeGoogleImages(ctx context.Context, r *callRuntime, model 
 	if problem := options.check(model.Capabilities); problem != "" {
 		return newError(CodeInvalidRequest, PhaseCapability, problem)
 	}
-	if len(req.ReferenceImages) > 0 {
-		return newError(CodeInvalidRequest, PhaseCapability, "Google image reference inputs require the reference-image route")
+	if failure := c.policy.checkGoogleImageCount(len(req.ReferenceImages), model.Capabilities, PhaseCapability); failure != nil {
+		return failure
+	}
+	wire := googleImagesRequest{Model: model.ID, Store: false, Input: []googleImageInput{{Type: "text", Text: req.Prompt}}, Format: googleImageFormat{Type: "image", Delivery: "inline", AspectRatio: options.AspectRatio, ImageSize: options.ImageSize}}
+	for _, img := range req.ReferenceImages {
+		wire.Input = append(wire.Input, googleImageInput{Type: "image", MimeType: img.MimeType, Data: img.Data})
+	}
+	if failure := c.policy.checkGoogleImagesEncoding(wire); failure != nil {
+		return failure
 	}
 	cred, failure := r.pin(ctx, model.ID, hooks)
 	if failure != nil {
 		return failure
 	}
-	return c.generateGoogleImages(ctx, r, cred, model, req, options, out)
+	return c.generateGoogleImages(ctx, r, cred, model, wire, out)
 }
 
 // Interactions stays on the Client's sole HTTP path. Unlike generateContent
 // chat, this synchronous image operation has a response metadata callback.
-func (c *Client) generateGoogleImages(ctx context.Context, r *callRuntime, cred Credential, model ImageModel, req ImagesRequest, opts GoogleImagesOptions, out *ImagesResult) *Error {
+func (c *Client) generateGoogleImages(ctx context.Context, r *callRuntime, cred Credential, model ImageModel, wire googleImagesRequest, out *ImagesResult) *Error {
 	header, failure := r.hooks.headers(ctx, http.Header{"X-Goog-Api-Key": {cred.APIKey.reveal()}, "Content-Type": {"application/json"}, "User-Agent": {userAgent}})
 	if failure != nil {
 		return failure
 	}
-	wire := googleImagesRequest{Model: model.ID, Store: false, Input: []googleImageInput{{Type: "text", Text: req.Prompt}}, Format: googleImageFormat{Type: "image", Delivery: "inline", AspectRatio: opts.AspectRatio, ImageSize: opts.ImageSize}}
 	body, err := json.Marshal(wire)
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "Google image request could not be encoded")
@@ -51,7 +57,9 @@ func (c *Client) generateGoogleImages(ctx context.Context, r *callRuntime, cred 
 	if failure := c.policy.checkGoogleImagesBody(body); failure != nil {
 		return failure
 	}
-	body, failure = r.hooks.payload(ctx, body, c.policy.checkGoogleImagesPayload)
+	body, failure = r.hooks.payload(ctx, body, func(payload map[string]any) *Error {
+		return c.policy.checkGoogleImagesPayload(payload, model.Capabilities)
+	})
 	if failure != nil {
 		return failure
 	}
@@ -62,7 +70,10 @@ func (c *Client) generateGoogleImages(ctx context.Context, r *callRuntime, cred 
 	if failure != nil {
 		return failure
 	}
-	if failure := c.policy.checkImageInput(ctx, ImagesRequest{Prompt: final.Input[0].Text}, nil, PhaseRequest); failure != nil {
+	if failure := c.policy.checkGoogleImageCount(len(final.Input)-1, model.Capabilities, PhaseRequest); failure != nil {
+		return failure
+	}
+	if failure := c.policy.checkImageInput(ctx, final.imagesInput(), nil, PhaseRequest); failure != nil {
 		return failure
 	}
 	failures := httpFailures{apiKey: cred.APIKey, clock: c.clock, requestIDHeader: "x-request-id", describe: geminiHTTPError}

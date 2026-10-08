@@ -136,8 +136,8 @@ v1 的型号/前缀差异不通过自动回退隐藏，将来切换须独立评�
 复用已交付 unary HTTP 生命周期，不引入读取环境/自建客户端的 SDK，不复制重试、准入或
 传输设施；仅协议 DTO、最终守卫、响应步骤解析与用量映射独立。Endpoint 必须为 v1beta
 基址，不允许 query/fragment/userinfo，API key 仅在 x-goog-api-key。GoogleImagesOptions
-为 AspectRatio/ImageSize，按型号列表校验；参考图由工单 13 交付，当前入口与回调均拒绝。
-最终 JSON 同时受宿主与 20 MiB 限额约束；固定项被改/删除、续接或外部资源为 tenant_denied，
+为 AspectRatio/ImageSize，按型号列表校验；工单 12 交付时入口与回调均拒绝参考图，工单 13 在同一入口扩展（见下）。
+最终 JSON 同时受宿主与 20 MB 限额约束（工单 13 明确为十进制字节）；固定项被改/删除、续接或外部资源为 tenant_denied，
 未知/重复/无效 schema 为 callback_failed。回调一次，重试复用最终 body。
 
 响应按步骤与内容块增量解析，不收集整份正文/整步 JSON。忽略非输出步骤内容；所有
@@ -158,3 +158,32 @@ Google Input 保留总输入（CacheRead 为另记的诊断总量），不套聊
 P09 所有 fixture 显式 pidiffSkip，routes/P0/trace 及目录豁免共同登记，不算 pi 差分通过。
 Observer 沿用模态计数白名单且有 P09 独立审计证据。许可持有到响应关闭和完整验证结束，
 2xx 后失败不重放。此切片只开放宿主自带目录，未增加内置型号或真实支持声明。
+
+## 工单 13：同一入口的有序参考图编辑与完整守卫（2026-10-08）
+
+公开 ImagesRequest 继续为 prompt 加有序 ReferenceImages，而非任意厂商 Content/Step。
+[官方图像指南](https://ai.google.dev/gemini-api/docs/image-generation) 支持交错输入，公开契约
+有意收敛为一段提示加图片，避免厂商协议模型进入领域边界；不模拟 OpenAI mask，不增加
+厂商存储、工具、外部资源或额外执行方式。这项差异随 P09 原生扩展在 ledger/differences 登记；
+将来真实需要交错输入或额外 MIME 时单独评审类型与验证 fixture，而不增兼容路径。
+
+v1beta input 先 `{type:text,text:prompt}`，再按原顺序发送 `{type:image,mime_type,data}`。
+沿用公共 Image 的严格 base64、png/jpeg/webp MIME/文件头验证与独立 slice 快照；字符串
+在 Go 中不可变，无需复制大图字符串。协议参考图硬上限为 14，取宿主 MaxInputImages、
+型号 MaxReferenceImages 与协议交集。指南保留首批 Nano Banana 2.1 最多 10 个物体与 4 个
+角色的说明；总数校验不尝试分类参考图语义。首批分辨率 1K/2K/4K，不以其他型号的 512
+扩张能力，最终尺寸和比例依授权目录而非型号名判断。
+
+工单 13 将总请求上限明确为 **20 MB = 20,000,000 字节**；工单 12 的 20 MiB 实现已收紧。
+提示、MIME、全部 base64 和 JSON 开销都计入。入口仅编码剥去图片数据的小型信封，按合法
+base64 无转义的长度补回准确字节；超过协议或更小宿主预算时在凭据读取前拒绝。已知
+回调 map/slice/指针/带类型容器/raw JSON 先检查数量、单图、总量；raw base64 转义用固定
+缓冲计长，无比例副本。自定义 marshaler 的表示无法预知，按 ADR-0002 在冻结后校验。
+回调可在同一模型授权内添加参考图；其后独立解码最终字节、重验提示、MIME/base64、
+单图、数量、大小及比例，不重新读旧选项。无效体为 callback_failed、越权为 tenant_denied、
+容量超限为 resource_limit；固定项删除/放宽、每个拒绝字段和 URI 均有独立 E2E 证据。
+
+生成与编辑共享响应解析、完整有序输出、原子失败、保留用量、逐次准入与释放语义。
+重复场景同时验证两种输入，2xx 后从不重放；输出数量只是上限，不承诺精确 N 或补发请求。
+P09 新追溯项覆盖编辑、输入预算与回调最终输入；离线证据包含版本、回放 fixture、脱敏
+观测、资源归零和既有路线回归。真实型号/能力、价格与此组合 live 仍由工单 14 验收。

@@ -28,54 +28,63 @@ func TestGoogleImagesCallbackFixtures(t *testing.T) {
 		} `json:"cases"`
 	}
 	mustUnmarshal(t, raw, &f)
-	for _, sc := range f.Cases {
-		t.Run(sc.ID, func(t *testing.T) {
-			ev := run.Case(t, "P09-E04-"+sc.ID)
-			ev.Fixture("callbacks.json", raw)
-			ev.Check("explicit native differential skip", f.PidiffSkip != "", "missing native skip")
-			input := firstGoogleImagesScenario(t)
-			w := scenarioWorld(t, input)
-			enqueue(ev, w, input.replies(t)...)
-			headers, payloads, responses := 0, 0, 0
-			h := ai.Hooks{
-				TransformHeaders: func(_ context.Context, scope ai.CallScope, header http.Header) error {
-					headers++
-					ev.Check("pinned Google auth redacted", scope.Operation == ai.OperationImage && header.Get("X-Goog-Api-Key") == "[REDACTED]" && header.Get("Authorization") == "", "got %+v", scope)
-					return nil
-				},
-				OnPayload: func(_ context.Context, scope ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
-					payloads++
-					ev.Check("Google image identity", scope.Operation == ai.OperationImage && p.Operation == ai.OperationImage && p.API == googleImagesProtocol.api && p.ModelID == input.Model, "got %+v", p)
-					for k, v := range sc.Set {
-						p.Body[k] = v
-					}
-					if sc.Delete != "" {
-						delete(p.Body, sc.Delete)
-					}
-					return ai.KeepPayload(), nil
-				},
-				OnResponse: func(_ context.Context, _ ai.CallScope, r ai.ResponseInfo) error {
-					responses++
-					ev.Check("authorized identity, independent of response model", r.Operation == ai.OperationImage && r.ModelID == input.Model && r.API == googleImagesProtocol.api && r.Status == 200, "got %+v", r)
-					return nil
-				},
+	for _, editing := range []bool{false, true} {
+		for _, sc := range f.Cases {
+			name := sc.ID
+			if editing {
+				name = "edit-guard-" + name
 			}
-			res, err := w.client.WithHooks(h).GenerateImages(ctxFor(t), textScope("req-google-hook-"+sc.ID), input.target(), imagesInput(t, input), nil)
-			ev.Record("result", res)
-			ev.Record("requests", w.provider.Requests())
-			ev.Record("error", errString(err))
-			ev.Check("callbacks once", headers == 1 && payloads == 1, "got %d/%d", headers, payloads)
-			if sc.Code == "" {
-				ev.Check("allowed changes sent", err == nil && responses == 1 && len(w.provider.Requests()) == 1, "got %v", err)
-				if reqs := w.provider.Requests(); len(reqs) == 1 {
-					var body map[string]json.RawMessage
-					mustUnmarshal(t, reqs[0].Body, &body)
-					ev.Check("final options preserved", jsonEqual(body["response_format"], mustMarshal(t, sc.Set["response_format"])), "got %s", body["response_format"])
+			t.Run(name, func(t *testing.T) {
+				ev := run.Case(t, "P09-E04-"+name)
+				ev.Fixture("callbacks.json", raw)
+				ev.Check("explicit native differential skip", f.PidiffSkip != "", "missing native skip")
+				input := firstGoogleImagesScenario(t)
+				if editing {
+					input = googleEditScenario(t)
 				}
-			} else {
-				ev.Check("reject before network", errors.Is(err, &ai.Error{Code: sc.Code, Phase: ai.PhaseRequest}) && responses == 0 && len(w.provider.Requests()) == 0 && len(res.Content) == 0, "got %v", err)
-			}
-		})
+				w := scenarioWorld(t, input)
+				enqueue(ev, w, input.replies(t)...)
+				headers, payloads, responses := 0, 0, 0
+				h := ai.Hooks{
+					TransformHeaders: func(_ context.Context, scope ai.CallScope, header http.Header) error {
+						headers++
+						ev.Check("pinned Google auth redacted", scope.Operation == ai.OperationImage && header.Get("X-Goog-Api-Key") == "[REDACTED]" && header.Get("Authorization") == "", "got %+v", scope)
+						return nil
+					},
+					OnPayload: func(_ context.Context, scope ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
+						payloads++
+						ev.Check("Google image identity", scope.Operation == ai.OperationImage && p.Operation == ai.OperationImage && p.API == googleImagesProtocol.api && p.ModelID == input.Model, "got %+v", p)
+						for k, v := range sc.Set {
+							p.Body[k] = v
+						}
+						if sc.Delete != "" {
+							delete(p.Body, sc.Delete)
+						}
+						return ai.KeepPayload(), nil
+					},
+					OnResponse: func(_ context.Context, _ ai.CallScope, r ai.ResponseInfo) error {
+						responses++
+						ev.Check("authorized identity, independent of response model", r.Operation == ai.OperationImage && r.ModelID == input.Model && r.API == googleImagesProtocol.api && r.Status == 200, "got %+v", r)
+						return nil
+					},
+				}
+				res, err := w.client.WithHooks(h).GenerateImages(ctxFor(t), textScope("req-google-hook-"+name), input.target(), imagesInput(t, input), nil)
+				ev.Record("result", res)
+				ev.Record("requests", w.provider.Requests())
+				ev.Record("error", errString(err))
+				ev.Check("callbacks once", headers == 1 && payloads == 1, "got %d/%d", headers, payloads)
+				if sc.Code == "" {
+					ev.Check("allowed changes sent", err == nil && responses == 1 && len(w.provider.Requests()) == 1, "got %v", err)
+					if reqs := w.provider.Requests(); len(reqs) == 1 {
+						var body map[string]json.RawMessage
+						mustUnmarshal(t, reqs[0].Body, &body)
+						ev.Check("final options preserved", jsonEqual(body["response_format"], mustMarshal(t, sc.Set["response_format"])), "got %s", body["response_format"])
+					}
+				} else {
+					ev.Check("reject before network", errors.Is(err, &ai.Error{Code: sc.Code, Phase: ai.PhaseRequest}) && responses == 0 && len(w.provider.Requests()) == 0 && len(res.Content) == 0, "got %v", err)
+				}
+			})
+		}
 	}
 }
 

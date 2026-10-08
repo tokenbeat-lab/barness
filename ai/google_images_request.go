@@ -7,7 +7,8 @@ import (
 	"strings"
 )
 
-const googleImagesRequestLimit int64 = 20 * 1024 * 1024
+const googleImagesRequestLimit int64 = 20_000_000
+const googleImagesReferenceLimit = 14
 
 type googleImagesRequest struct {
 	Model  string             `json:"model"`
@@ -16,8 +17,10 @@ type googleImagesRequest struct {
 	Format googleImageFormat  `json:"response_format"`
 }
 type googleImageInput struct {
-	Type string `json:"type"`
-	Text string `json:"text"`
+	Type     string `json:"type"`
+	Text     string `json:"text,omitempty"`
+	MimeType string `json:"mime_type,omitempty"`
+	Data     string `json:"data,omitempty"`
 }
 type googleImageFormat struct {
 	Type        string           `json:"type"`
@@ -39,7 +42,7 @@ func googleImagesTargetProblem(endpoint, id string) string {
 
 // Check known host-container sizes before encoding; custom encodings are
 // checked again after freezing, just like the other unary protocols.
-func (p *ResourcePolicy) checkGoogleImagesPayload(body map[string]any) *Error {
+func (p *ResourcePolicy) checkGoogleImagesPayload(body map[string]any, caps ImageCapabilities) *Error {
 	for key := range body {
 		if failure := googleImagesField(key, []string{"model", "store", "input", "response_format"}); failure != nil {
 			return failure
@@ -51,14 +54,14 @@ func (p *ResourcePolicy) checkGoogleImagesPayload(body map[string]any) *Error {
 	if _, ok := jsonPayloadSize(body, googleImagesRequestLimit); !ok {
 		return limitFailure(PhaseRequest, "Google.MaxInlineRequestBytes", googleImagesRequestLimit)
 	}
-	return nil
+	return p.checkGoogleInputPayload(body["input"], caps)
 }
 
 func googleImagesField(key string, allowed []string) *Error {
 	if slices.Contains(allowed, key) {
 		return nil
 	}
-	if slices.Contains([]string{"previous_interaction_id", "background", "agent", "agent_config", "tools", "environment", "webhook_config", "continuation_token", "service_tier", "stream", "generation_config", "response_modalities", "labels", "safety_settings", "endpoint", "operation", "uri", "url", "file_id", "data"}, key) {
+	if slices.Contains([]string{"previous_interaction_id", "background", "agent", "agent_config", "tools", "environment", "webhook_config", "continuation_token", "service_tier", "stream", "generation_config", "response_modalities", "labels", "safety_settings", "endpoint", "operation", "uri", "url", "file_id", "mask"}, key) {
 		return googleImageAuthorityFailure()
 	}
 	return imageInputFailure(PhaseRequest, "unsupported Google image request field")
@@ -114,28 +117,58 @@ func decodeGoogleImagesRequest(body []byte, model ImageModel) (googleImagesReque
 	if len(raw) == 0 || raw[0] != '[' || json.Unmarshal(raw, &input) != nil || len(input) == 0 {
 		return wire, imageInputFailure(PhaseRequest, "Google image input must contain a prompt")
 	}
-	// Reference images have a separate authorization/validation path in issue
-	// 13. This generation-only route must not let callbacks introduce that path.
-	if len(input) != 1 {
-		return wire, googleImageAuthorityFailure()
-	}
-	part, duplicate, err := unaryJSONEnvelope(input[0])
-	if err != nil || duplicate {
-		return wire, imageInputFailure(PhaseRequest, "invalid Google image input")
-	}
-	for key := range part {
-		if failure := googleImagesField(key, []string{"type", "text"}); failure != nil {
-			return wire, failure
+	for i, raw := range input {
+		part, duplicate, err := unaryJSONEnvelope(raw)
+		if err != nil || duplicate {
+			return wire, imageInputFailure(PhaseRequest, "invalid Google image input")
 		}
+		allowed := []string{"type", "text"}
+		if i > 0 {
+			allowed = []string{"type", "mime_type", "data"}
+		}
+		for key := range part {
+			if failure := googleImagesField(key, allowed); failure != nil {
+				return wire, failure
+			}
+		}
+		kind, ok := rawString(part["type"])
+		if !ok || (i == 0 && kind != "text") || (i > 0 && kind != "image") {
+			return wire, imageInputFailure(PhaseRequest, "Google image input requires prompt then inline images")
+		}
+		value := googleImageInput{Type: kind}
+		if i == 0 {
+			value.Text, ok = rawString(part["text"])
+		} else {
+			value.MimeType, ok = rawString(part["mime_type"])
+			if ok {
+				value.Data, ok = rawString(part["data"])
+			}
+		}
+		if !ok {
+			return wire, imageInputFailure(PhaseRequest, "invalid Google image input fields")
+		}
+		wire.Input = append(wire.Input, value)
 	}
-	kind, _ = rawString(part["type"])
-	if kind != "text" {
-		return wire, googleImageAuthorityFailure()
-	}
-	text, ok := rawString(part["text"])
-	if !ok {
-		return wire, imageInputFailure(PhaseRequest, "Google image prompt must be text")
-	}
-	wire.Input = []googleImageInput{{Type: "text", Text: text}}
 	return wire, nil
+}
+
+func (w googleImagesRequest) imagesInput() ImagesRequest {
+	req := ImagesRequest{Prompt: w.Input[0].Text}
+	for _, part := range w.Input[1:] {
+		req.ReferenceImages = append(req.ReferenceImages, Image{Data: part.Data, MimeType: part.MimeType})
+	}
+	return req
+}
+
+func (p *ResourcePolicy) checkGoogleImageCount(count int, caps ImageCapabilities, phase Phase) *Error {
+	if count > p.Image.MaxInputImages {
+		return limitFailure(phase, "Image.MaxInputImages", int64(p.Image.MaxInputImages))
+	}
+	if count > caps.MaxReferenceImages {
+		return limitFailure(phase, "ImageModel.MaxReferenceImages", int64(caps.MaxReferenceImages))
+	}
+	if count > googleImagesReferenceLimit {
+		return limitFailure(phase, "Google.MaxReferenceImages", googleImagesReferenceLimit)
+	}
+	return nil
 }
