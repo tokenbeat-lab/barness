@@ -1,0 +1,186 @@
+{
+  "pass": false,
+  "commit": "2e86ea2d4472b23a459cf2688c7499d1ed77d139",
+  "bundle": ".evidence/barness-ai/issue10-final/20261008T064250.334556000Z",
+  "gates": [
+    {
+      "id": "go-test",
+      "name": "go test ./... (offline, differential on)",
+      "pass": false,
+      "problems": [
+        "go-test: not run"
+      ]
+    },
+    {
+      "id": "go-test-race",
+      "name": "go test -race ./...",
+      "pass": false,
+      "problems": [
+        "go-test-race: not run"
+      ]
+    },
+    {
+      "id": "go-vet",
+      "name": "go vet ./... (with and without the live tag)",
+      "pass": false,
+      "problems": [
+        "go-vet: not run",
+        "go-vet-live: not run"
+      ]
+    },
+    {
+      "id": "p0-offline",
+      "name": "every offline P0 case passes",
+      "pass": true
+    },
+    {
+      "id": "differential",
+      "name": "frozen pi differential: no pending difference",
+      "pass": true
+    },
+    {
+      "id": "live",
+      "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+      "pass": false,
+      "problems": [
+        "openai-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "anthropic-messages: no live evidence bundle of this combination was audited (pass it with -live)",
+        "google-gemini: no live evidence bundle of this combination was audited (pass it with -live)",
+        "openai-chat: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-chat: no live evidence bundle of this combination was audited (pass it with -live)",
+        "typesafe-classifier: no live evidence bundle of this combination was audited (pass it with -live)"
+      ]
+    },
+    {
+      "id": "redaction-audit",
+      "name": "redaction audit: no key, Authorization or real content in any bundle",
+      "pass": true
+    },
+    {
+      "id": "traceability",
+      "name": "traceability: research item → scenario → evidence",
+      "pass": true
+    },
+    {
+      "id": "snapshots",
+      "name": "checked-in snapshots match the code",
+      "pass": true
+    }
+  ],
+  "snapshots": [
+    {
+      "name": "catalog",
+      "current": true
+    }
+  ],
+  "evaluation_only": true,
+  "note": "Existing-bundle evaluation does not import command or live inputs; their missing-input gates are separate from the recorded successful test and vet commands.",
+  "issue10_traceability": [
+    {
+      "id": "V4-openai-images-editing",
+      "source": "issue 10 / ADR-0022",
+      "requirement": "Fixed generation/edit endpoint, ordered inline JSON references and mask, sourced dimensions and model fidelity, atomic output and shared unary lifecycle",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 132,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E01-edit-mask",
+        "P08-E01-edit-multiple",
+        "P08-E01-edit-omit-fidelity",
+        "P08-E01-edit-ordered",
+        "P08-E01-edit-webp-mask",
+        "P08-E04-edit-bad-response"
+      ]
+    },
+    {
+      "id": "H5-image-input-budgets",
+      "source": "issue 10 / design 8.1 / ADR-0022",
+      "requirement": "Reference and mask host/model/protocol count and byte budgets, known lengths before copy or encoding, callback allocation bounds",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 33,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E04-edit-host-count",
+        "P08-E04-edit-image-bytes",
+        "P08-E04-edit-mask-bytes",
+        "P08-E04-edit-mask-count",
+        "P08-E04-edit-model-count",
+        "P08-E04-edit-protocol-count"
+      ]
+    },
+    {
+      "id": "C04-image-edit-final",
+      "source": "issue 10 / spec image callbacks / ADR-0022",
+      "requirement": "Final JSON edit schema, no foreign resource/operation/model, final MIME/count and mask validation, single response callback and lease/body release",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 58,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E04-edit-bad-response",
+        "P08-E04-edit-bounded-cycle",
+        "P08-E04-edit-bounded-deep",
+        "P08-E04-edit-bounded-mask-cycle",
+        "P08-E04-edit-bounded-mask-deep",
+        "P08-E04-edit-compression"
+      ]
+    }
+  ]
+}

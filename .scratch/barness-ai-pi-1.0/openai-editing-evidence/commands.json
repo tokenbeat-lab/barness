@@ -1,0 +1,40 @@
+[
+  {
+    "command": "go test ./ai/e2e -run TestOpenAIImages -count=1",
+    "exit_code": 0
+  },
+  {
+    "command": "go vet ./...",
+    "exit_code": 0
+  },
+  {
+    "command": "go vet -tags live ./...",
+    "exit_code": 0
+  },
+  {
+    "command": "git diff <base>...HEAD --check",
+    "exit_code": 0
+  },
+  {
+    "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 BARNESS_AI_EVIDENCE_DIR=\"$PWD/.evidence/barness-ai/issue10-final\" go test -race ./... -count=1",
+    "exit_code": 0,
+    "tested_commit": "2e86ea2d4472b23a459cf2688c7499d1ed77d139"
+  },
+  {
+    "command": "go run ./ai/internal/testkit/audit/cmd/auditbundle .evidence/barness-ai/issue10-final/20261008T064250.334556000Z",
+    "exit_code": 0
+  },
+  {
+    "command": "go run ./ai/release/cmd/releasegate -bundle <source-bundle> -out .evidence/barness-ai/issue10-final/release",
+    "exit_code": 1,
+    "note": "Existing-bundle evaluation does not import command or live inputs; their missing-input gates are separate from the recorded successful test and vet commands."
+  },
+  {
+    "command": "python3 .scratch/barness-ai-pi-1.0/openai-editing-evidence/verify.py",
+    "exit_code": 0
+  },
+  {
+    "command": "go run ./ai/internal/testkit/audit/cmd/auditbundle .scratch/barness-ai-pi-1.0/openai-editing-evidence",
+    "exit_code": 0
+  }
+]
