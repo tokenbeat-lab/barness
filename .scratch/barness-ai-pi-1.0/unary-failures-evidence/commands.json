@@ -1,0 +1,18 @@
+{
+  "base_commit": "4f90386fa4c879dddfa3013cce778c44de873acc",
+  "commands": [
+    {
+      "command": "go vet ./...",
+      "exit_code": 0
+    },
+    {
+      "command": "go vet -tags live ./ai/...",
+      "exit_code": 0
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run '^Test(Unary|Classifier)' -count=1",
+      "exit_code": 0,
+      "log": "targeted-race.log"
+    }
+  ]
+}

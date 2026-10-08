@@ -1,0 +1,9 @@
+--- FAIL: TestUnaryCallbackAllocationBound (0.02s)
+    --- FAIL: TestUnaryCallbackAllocationBound/string-key (0.01s)
+        unary_fixture_test.go:62: [P07-E08-unary-callback-allocation-string-key] code-only match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_fixture_test.go:63: [P07-E08-unary-callback-allocation-string-key] phase match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_allocation_test.go:56: [P07-E08-unary-callback-allocation-string-key] known oversized input refused before copies: allocated 25222920 bytes for a known oversized host value
+FAIL
+barness-ai evidence bundle: <repo>/.evidence/barness-ai/20261008T023719.997649000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.971s
+FAIL

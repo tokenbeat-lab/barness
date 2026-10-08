@@ -1,9 +1,9 @@
 package ai
 
 import (
+	"encoding"
 	"encoding/json"
 	"reflect"
-	"strings"
 )
 
 // Check borrowed callback values before encoding or converting them into
@@ -17,7 +17,9 @@ func (p *ClassifierPolicy) checkPayload(body map[string]any, requestLimit int64)
 		return invalid()
 	}
 	questions := reflect.ValueOf(body["questions"])
-	if questions.IsValid() && questions.Kind() == reflect.Map {
+	_, jsonEncoding := body["questions"].(json.Marshaler)
+	_, textEncoding := body["questions"].(encoding.TextMarshaler)
+	if !jsonEncoding && !textEncoding && questions.IsValid() && questions.Kind() == reflect.Map {
 		if questions.Len() > p.MaxQuestions {
 			return invalid()
 		}
@@ -71,22 +73,48 @@ func classifierPayloadSize(value any, limit int64) (int64, bool) {
 			case json.Number:
 				return take(int64(len(x)))
 			case json.Marshaler:
-				return true
+				return take(1)
+			case encoding.TextMarshaler:
+				return take(1)
 			}
 		}
 		switch v.Kind() {
 		case reflect.String:
-			return take(int64(v.Len()))
+			return take(2) && take(int64(v.Len()))
+		case reflect.Bool:
+			return take(4)
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+			reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
+			reflect.Float32, reflect.Float64:
+			return take(1)
 		case reflect.Map:
+			if !take(2) || !take(int64(max(0, v.Len()-1))) {
+				return false
+			}
 			entries := v.MapRange()
 			for entries.Next() {
-				if !walk(entries.Key(), depth+1) || !walk(entries.Value(), depth+1) {
+				key := entries.Key()
+				// encoding/json uses string map keys directly, even when their
+				// named type implements TextMarshaler.
+				keyFits := false
+				if key.Kind() == reflect.String {
+					keyFits = take(2) && take(int64(key.Len()))
+				} else {
+					keyFits = walk(key, depth+1)
+				}
+				if !keyFits || !take(1) || !walk(entries.Value(), depth+1) {
 					return false
 				}
 			}
 		case reflect.Slice, reflect.Array:
+			if !take(2) {
+				return false
+			}
 			if v.Type().Elem().Kind() == reflect.Uint8 {
 				return take(int64(v.Len()))
+			}
+			if !take(int64(max(0, v.Len()-1))) {
+				return false
 			}
 			for i := 0; i < v.Len(); i++ {
 				if !walk(v.Index(i), depth+1) {
@@ -97,23 +125,10 @@ func classifierPayloadSize(value any, limit int64) (int64, bool) {
 			if !v.IsNil() {
 				return walk(v.Elem(), depth+1)
 			}
-		case reflect.Struct:
-			typ := v.Type()
-			for i := 0; i < v.NumField(); i++ {
-				field := typ.Field(i)
-				tag := field.Tag.Get("json")
-				if field.PkgPath != "" || tag == "-" {
-					continue
-				}
-				if (strings.Contains(tag, ",omitempty") || strings.Contains(tag, ",omitzero")) && v.Field(i).IsZero() {
-					continue
-				}
-				// Field names can be omitted by promotion; counting only their values
-				// stays a lower bound regardless of encoding/json's field selection.
-				if !walk(v.Field(i), depth+1) {
-					return false
-				}
-			}
+		default:
+			// Struct field selection and custom encodings belong to the JSON
+			// encoder. Guessing their shape can reject valid small payloads.
+			return take(1)
 		}
 		return true
 	}

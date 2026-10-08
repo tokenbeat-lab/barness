@@ -14,12 +14,21 @@ import (
 // generous allocation ceiling rather than an internal function or call order.
 func TestUnaryCallbackAllocationBound(t *testing.T) {
 	large := strings.Repeat("x", 8<<20)
-	for _, name := range []string{"state", "nested-state", "question", "extra-request-field"} {
+	numbers := make([]int, 2<<20)
+	emptyStrings := make([]string, 2<<20)
+	stringKeys := map[unaryShortText]string{unaryShortText(large): "ok"}
+	for _, name := range []string{"state", "nested-state", "question", "extra-request-field", "numbers", "empty-strings", "string-key"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P07-E08-unary-callback-allocation-"+name)
 			u := newUnaryWorld(t, nil)
 			hooks := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				switch name {
+				case "string-key":
+					p.Body["state"] = stringKeys
+				case "numbers":
+					p.Body["state"] = numbers
+				case "empty-strings":
+					p.Body["state"] = emptyStrings
 				case "state":
 					p.Body["state"] = large
 				case "nested-state":
@@ -44,7 +53,7 @@ func TestUnaryCallbackAllocationBound(t *testing.T) {
 				code = ai.CodeResourceLimit
 			}
 			checkUnaryFailure(ev, res, err, code, ai.PhaseRequest, ai.StopReasonError)
-			ev.Check("known oversized input refused before copies", allocated < 4<<20, "allocated %d bytes for an 8 MiB host value", allocated)
+			ev.Check("known oversized input refused before copies", allocated < 4<<20, "allocated %d bytes for a known oversized host value", allocated)
 			ev.Check("no admission or HTTP", len(u.adm.Requests()) == 0 && len(u.provider.Requests()) == 0, "sent %d", len(u.provider.Requests()))
 			u.records(ev, res, err)
 			u.released(ev)

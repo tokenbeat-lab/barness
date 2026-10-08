@@ -20,6 +20,11 @@
 retry-red 还保留一处测试预期路径写错（实际沿用绑定 /v1），该预期已改正；生产重试修复
 仅针对实际连接失败。[allocation-red.log](allocation-red.log) 复现一个 8 MiB 宿主值造成 75–294 MiB 库内分配；
 [allocation-green.log](allocation-green.log) 验证提前拒绝、公共调用分配小于宽松的 4 MiB 上界。
+复审的 [encoding-red.log](encoding-red.log) 另复现数字/空字符串数组造成 54–73 MiB 分配；
+[encoding-semantics-red.log](encoding-semantics-red.log) 复现匿名字段冲突、TextMarshaler 和自定义问题编码被误拒。
+[string-key-red.log](string-key-red.log) 验证字符串 map key 不采用 TextMarshaler，超大原始键须提前拒绝。
+[encoding-green.log](encoding-green.log) 中全部 11 项通过。encoding-red 的早期 text-key 预期曾误把
+字符串 key 视作 TextMarshaler 输出，最终改用结构体 key，按标准库实际语义验收。
 自定义 marshaler 执行属于宿主，不能预知其输出，其结果仍先通过字节预算。
 没有新增单元测试或生产测试接口。
 

@@ -1,0 +1,20 @@
+--- FAIL: TestUnaryCallbackAllocationBound (0.17s)
+    --- FAIL: TestUnaryCallbackAllocationBound/numbers (0.08s)
+        unary_fixture_test.go:62: [P07-E08-unary-callback-allocation-numbers] code-only match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_fixture_test.go:63: [P07-E08-unary-callback-allocation-numbers] phase match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_allocation_test.go:53: [P07-E08-unary-callback-allocation-numbers] known oversized input refused before copies: allocated 54429656 bytes for a known oversized host value
+    --- FAIL: TestUnaryCallbackAllocationBound/empty-strings (0.08s)
+        unary_fixture_test.go:62: [P07-E08-unary-callback-allocation-empty-strings] code-only match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_fixture_test.go:63: [P07-E08-unary-callback-allocation-empty-strings] phase match: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        unary_allocation_test.go:53: [P07-E08-unary-callback-allocation-empty-strings] known oversized input refused before copies: allocated 73434112 bytes for a known oversized host value
+--- FAIL: TestUnaryCallbackEncodingSemantics (0.01s)
+    --- FAIL: TestUnaryCallbackEncodingSemantics/text-value (0.00s)
+        unary_encoding_test.go:58: [P07-E04-unary-callback-encoding-text-value] final encoded small JSON remains valid: got ai: callback_failed (request): payload callback exceeded classifier input limits
+    --- FAIL: TestUnaryCallbackEncodingSemantics/text-key (0.00s)
+        unary_encoding_test.go:58: [P07-E04-unary-callback-encoding-text-key] final encoded small JSON remains valid: got ai: callback_failed (request): payload callback exceeded classifier input limits
+    --- FAIL: TestUnaryCallbackEncodingSemantics/questions-marshaler (0.00s)
+        unary_encoding_test.go:58: [P07-E04-unary-callback-encoding-questions-marshaler] final encoded small JSON remains valid: got ai: callback_failed (request): payload callback exceeded classifier input limits
+FAIL
+barness-ai evidence bundle: <repo>/.evidence/barness-ai/20261008T023211.454051000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.146s
+FAIL
