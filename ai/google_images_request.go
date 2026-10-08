@@ -54,7 +54,22 @@ func (p *ResourcePolicy) checkGoogleImagesPayload(body map[string]any, caps Imag
 	if _, ok := jsonPayloadSize(body, googleImagesRequestLimit); !ok {
 		return limitFailure(PhaseRequest, "Google.MaxInlineRequestBytes", googleImagesRequestLimit)
 	}
-	return p.checkGoogleInputPayload(body["input"], caps)
+	head := make(map[string]any, len(body))
+	for key, value := range body {
+		if key != "input" {
+			head[key] = value
+		}
+	}
+	remaining := min(p.MaxRequestBytes, googleImagesRequestLimit)
+	size, ok := jsonPayloadSize(head, remaining)
+	if !ok {
+		return p.takeGoogleInputBytes(remaining+1, &remaining)
+	}
+	// The header includes its braces; inserting input adds a key and comma.
+	if failure := p.takeGoogleInputBytes(size+int64(len(`,"input":`)), &remaining); failure != nil {
+		return failure
+	}
+	return p.checkGoogleInputPayload(body["input"], caps, &remaining)
 }
 
 func googleImagesField(key string, allowed []string) *Error {
@@ -72,7 +87,7 @@ func googleImageAuthorityFailure() *Error {
 
 // Decode the final independent bytes, including raw JSON and custom values.
 // Presence and duplicates matter: false/null do not authorize forbidden fields.
-func decodeGoogleImagesRequest(body []byte, model ImageModel) (googleImagesRequest, *Error) {
+func decodeGoogleImagesRequest(body []byte, model ImageModel, policy *ResourcePolicy) (googleImagesRequest, *Error) {
 	wire := googleImagesRequest{}
 	fields, duplicate, err := unaryJSONEnvelope(body)
 	if err != nil || duplicate {
@@ -114,6 +129,10 @@ func decodeGoogleImagesRequest(body []byte, model ImageModel) (googleImagesReque
 	}
 	var input []json.RawMessage
 	raw := fields["input"]
+	remaining := min(policy.MaxRequestBytes, googleImagesRequestLimit)
+	if failure := policy.checkGoogleInputPayload(raw, model.Capabilities, &remaining); failure != nil {
+		return wire, failure
+	}
 	if len(raw) == 0 || raw[0] != '[' || json.Unmarshal(raw, &input) != nil || len(input) == 0 {
 		return wire, imageInputFailure(PhaseRequest, "Google image input must contain a prompt")
 	}

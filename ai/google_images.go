@@ -66,7 +66,7 @@ func (c *Client) generateGoogleImages(ctx context.Context, r *callRuntime, cred 
 	if failure := c.policy.checkGoogleImagesBody(body); failure != nil {
 		return failure
 	}
-	final, failure := decodeGoogleImagesRequest(body, model)
+	final, failure := decodeGoogleImagesRequest(body, model, &c.policy)
 	if failure != nil {
 		return failure
 	}

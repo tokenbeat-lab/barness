@@ -5,7 +5,6 @@ import (
 	"reflect"
 	"slices"
 	"strconv"
-	"strings"
 
 	"github.com/buger/jsonparser"
 )
@@ -36,8 +35,7 @@ func (p *ResourcePolicy) checkGoogleImagesEncoding(wire googleImagesRequest) *Er
 
 // Known host containers and raw JSON are bounded before hooks freeze them.
 // Custom marshalers are checked on their final bytes, without running twice.
-func (p *ResourcePolicy) checkGoogleInputPayload(input any, caps ImageCapabilities) *Error {
-	remaining := min(p.MaxRequestBytes, googleImagesRequestLimit)
+func (p *ResourcePolicy) checkGoogleInputPayload(input any, caps ImageCapabilities, remaining *int64) *Error {
 	v, failure := imagePayloadValue(reflect.ValueOf(input))
 	if failure != nil || !v.IsValid() {
 		return failure // Final schema check rejects missing/null input.
@@ -47,11 +45,14 @@ func (p *ResourcePolicy) checkGoogleInputPayload(input any, caps ImageCapabiliti
 		if _, _, _, err := jsonparser.Get(raw, "["+strconv.Itoa(limit+1)+"]"); err == nil {
 			return p.checkGoogleImageCount(limit+1, caps, PhaseRequest)
 		}
+		if failure := p.takeGoogleInputBytes(int64(len(raw)), remaining); failure != nil {
+			return failure
+		}
 		var problem *Error
 		index := 0
 		_, err := jsonparser.ArrayEach(raw, func(part []byte, kind jsonparser.ValueType, _ int, err error) {
 			if problem == nil && err == nil && kind == jsonparser.Object {
-				problem = p.checkRawGoogleInput(part, index, &remaining)
+				problem = p.checkRawGoogleInput(part, index)
 			}
 			index++
 		})
@@ -69,16 +70,25 @@ func (p *ResourcePolicy) checkGoogleInputPayload(input any, caps ImageCapabiliti
 	if failure := p.checkGoogleImageCount(max(0, v.Len()-1), caps, PhaseRequest); failure != nil {
 		return failure
 	}
+	if failure := p.takeGoogleInputBytes(2+int64(max(0, v.Len()-1)), remaining); failure != nil {
+		return failure
+	}
 	for i := 0; i < v.Len(); i++ {
 		part, failure := imagePayloadValue(v.Index(i))
 		if failure != nil {
 			return failure
 		}
 		if !part.IsValid() {
+			if failure := p.takeGoogleInputBytes(4, remaining); failure != nil {
+				return failure
+			}
 			continue
 		}
 		if raw, ok := part.Interface().(json.RawMessage); ok {
-			if failure := p.checkRawGoogleInput(raw, i, &remaining); failure != nil {
+			if failure := p.takeGoogleInputBytes(int64(len(raw)), remaining); failure != nil {
+				return failure
+			}
+			if failure := p.checkRawGoogleInput(raw, i); failure != nil {
 				return failure
 			}
 			continue
@@ -86,34 +96,61 @@ func (p *ResourcePolicy) checkGoogleInputPayload(input any, caps ImageCapabiliti
 		if usesCustomJSON(part) {
 			continue
 		}
-		if part.Kind() == reflect.Map && part.Type().Key().Kind() == reflect.String {
+		if part.Kind() == reflect.Map {
 			fields := part.MapRange()
 			for fields.Next() {
-				if fields.Key().String() == "data" {
-					if failure := p.checkGoogleDataPayload(fields.Value(), &remaining); failure != nil {
+				// Custom map keys execute only during freezing. Their ordinary
+				// values still have known image sizes; do not call key methods twice.
+				if part.Type().Key().Kind() != reflect.String || fields.Key().String() == "data" {
+					if failure := p.checkGoogleDataPayload(fields.Value()); failure != nil {
 						return failure
 					}
 				}
 			}
 		}
 		if part.Kind() == reflect.Struct {
-			// Ordinary tagged data fields have known sizes. Promoted/custom
-			// encodings still undergo the independent final schema validation.
-			for j := 0; j < part.NumField(); j++ {
-				field := part.Type().Field(j)
-				key, _, _ := strings.Cut(field.Tag.Get("json"), ",")
-				if field.PkgPath == "" && key == "data" {
-					if failure := p.checkGoogleDataPayload(part.Field(j), &remaining); failure != nil {
+			// The supported input schema has four known fields. Use the same
+			// promoted-field selection as inline OpenAI resources, then size
+			// every selected field including prompt escapes and JSON overhead.
+			size, count := int64(2), 0
+			for _, key := range []string{"type", "text", "mime_type", "data"} {
+				field, failure := imageStructField(part, key)
+				if failure != nil {
+					return failure
+				}
+				if !field.IsValid() {
+					continue
+				}
+				if key == "data" {
+					if failure := p.checkGoogleDataPayload(field); failure != nil {
 						return failure
 					}
 				}
+				n, ok := jsonPayloadSize(field.Interface(), *remaining)
+				if !ok {
+					return p.takeGoogleInputBytes(*remaining+1, remaining)
+				}
+				size += jsonStringBytes(key) + 1 + n
+				count++
 			}
+			size += int64(max(0, count-1))
+			if failure := p.takeGoogleInputBytes(size, remaining); failure != nil {
+				return failure
+			}
+			continue
+		}
+		size, ok := jsonPayloadSize(part.Interface(), *remaining)
+		if !ok {
+			return p.takeGoogleInputBytes(*remaining+1, remaining)
+		}
+		if failure := p.takeGoogleInputBytes(size, remaining); failure != nil {
+			return failure
 		}
 	}
 	return nil
 }
 
-func (p *ResourcePolicy) checkGoogleDataPayload(value reflect.Value, remaining *int64) *Error {
+func (p *ResourcePolicy) checkGoogleDataPayload(value reflect.Value) *Error {
 	v, failure := imagePayloadValue(value)
 	if failure != nil || !v.IsValid() {
 		return failure
@@ -126,18 +163,21 @@ func (p *ResourcePolicy) checkGoogleDataPayload(value reflect.Value, remaining *
 		if failure := p.checkRawGoogleData(data); failure != nil {
 			return failure
 		}
-		return p.takeGoogleInputBytes(int64(len(data)), remaining)
+		return nil
 	}
 	if !usesCustomJSON(v) && v.Kind() == reflect.String {
 		if base64Size(v.String()) > p.MaxImageBytes {
 			return limitFailure(PhaseRequest, "MaxImageBytes", p.MaxImageBytes)
 		}
-		return p.takeGoogleInputBytes(int64(v.Len()), remaining)
+		return nil
+	}
+	if !usesCustomJSON(v) && v.Kind() == reflect.Slice && v.Type().Elem().Kind() == reflect.Uint8 && int64(v.Len()) > p.MaxImageBytes {
+		return limitFailure(PhaseRequest, "MaxImageBytes", p.MaxImageBytes)
 	}
 	return nil
 }
 
-func (p *ResourcePolicy) checkRawGoogleInput(raw []byte, index int, remaining *int64) *Error {
+func (p *ResourcePolicy) checkRawGoogleInput(raw []byte, index int) *Error {
 	allowed := []string{"type", "text"}
 	if index > 0 {
 		allowed = []string{"type", "mime_type", "data"}
@@ -150,7 +190,7 @@ func (p *ResourcePolicy) checkRawGoogleInput(raw []byte, index int, remaining *i
 			if failure := p.checkRawGoogleData(value); failure != nil {
 				return failure
 			}
-			return p.takeGoogleInputBytes(int64(len(value)), remaining)
+			return nil
 		}
 		return nil
 	})

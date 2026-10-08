@@ -4,6 +4,7 @@ import (
 	"encoding"
 	"encoding/json"
 	"reflect"
+	"unicode/utf8"
 )
 
 // A conservative size from ordinary JSON values, without encoding strings,
@@ -62,8 +63,11 @@ func jsonPayloadSize(value any, limit int64) (int64, bool) {
 		}
 		switch v.Kind() {
 		case reflect.String:
-			return take(2) && take(int64(v.Len()))
+			return take(jsonStringBytes(v.String()))
 		case reflect.Bool:
+			if !v.Bool() {
+				return take(5)
+			}
 			return take(4)
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
 			reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
@@ -80,7 +84,7 @@ func jsonPayloadSize(value any, limit int64) (int64, bool) {
 				// named type implements TextMarshaler.
 				keyFits := false
 				if key.Kind() == reflect.String {
-					keyFits = take(2) && take(int64(key.Len()))
+					keyFits = take(jsonStringBytes(key.String()))
 				} else {
 					keyFits = walk(key, depth+1)
 				}
@@ -92,8 +96,8 @@ func jsonPayloadSize(value any, limit int64) (int64, bool) {
 			if !take(2) {
 				return false
 			}
-			if v.Type().Elem().Kind() == reflect.Uint8 {
-				return take(int64(v.Len()))
+			if v.Kind() == reflect.Slice && v.Type().Elem().Kind() == reflect.Uint8 {
+				return take(4 * ((int64(v.Len()) + 2) / 3))
 			}
 			if !take(int64(max(0, v.Len()-1))) {
 				return false
@@ -131,4 +135,34 @@ func usesCustomJSON(v reflect.Value) bool {
 		return false
 	}
 	return custom(v) || (v.Kind() != reflect.Pointer && v.CanAddr() && custom(v.Addr()))
+}
+
+// JSON's mandatory string escapes, without an encoded copy. All callers of
+// this estimate freeze callbacks with marshalJS (HTML escaping disabled).
+func jsonStringBytes(s string) int64 {
+	n := int64(len(s)) + 2
+	for i := 0; i < len(s); {
+		b := s[i]
+		if b >= utf8.RuneSelf {
+			r, size := utf8.DecodeRuneInString(s[i:])
+			if r == utf8.RuneError && size == 1 {
+				n += 5
+			}
+			if r == '\u2028' || r == '\u2029' {
+				n += 3
+			}
+			i += size
+			continue
+		}
+		i++
+		switch b {
+		case '"', '\\', '\b', '\f', '\n', '\r', '\t':
+			n++
+		default:
+			if b < 0x20 {
+				n += 5
+			}
+		}
+	}
+	return n
 }

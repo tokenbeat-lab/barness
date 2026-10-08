@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"runtime"
@@ -13,9 +14,11 @@ import (
 
 func TestGoogleImagesEditingCallbackBudgets(t *testing.T) {
 	large := strings.Repeat("A", 8<<20)
+	byteData := append([]byte("\x89PNG\r\n\x1a\n"), make([]byte, 8<<20)...)
+	nearData := base64.StdEncoding.EncodeToString(byteData[:6<<20])
 	raw := json.RawMessage(`[{"type":"text","text":"p"},{"type":"image","mime_type":"image/png","data":"` + large + `"}]`)
 	escaped := json.RawMessage(`[{"type":"text","text":"p"},{"type":"image","mime_type":"image/png","data":"` + strings.Repeat(`\u0041`, 1<<20) + `"}]`)
-	for _, name := range []string{"ordinary", "typed", "pointer", "struct", "raw", "escaped-raw", "raw-data", "host-count", "model-count", "protocol-count", "raw-count", "protocol-bytes", "struct-total"} {
+	for _, name := range []string{"ordinary", "typed", "pointer", "struct", "raw", "escaped-raw", "raw-data", "host-count", "model-count", "protocol-count", "raw-count", "protocol-bytes", "struct-total", "promoted", "byte-data", "custom-key", "struct-overhead"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P09-E08-edit-allocation-"+name)
 			sc := googleEditScenario(t)
@@ -29,6 +32,8 @@ func TestGoogleImagesEditingCallbackBudgets(t *testing.T) {
 					c.Catalog.ImageModels[0].Capabilities.MaxReferenceImages = 1
 				case "protocol-count", "raw-count":
 					c.Catalog.ImageModels[0].Capabilities.MaxReferenceImages = 16
+				case "struct-overhead":
+					c.Policy.MaxRequestBytes, c.Policy.MaxImageBytes = 16_800_000, 8<<20
 				case "protocol-bytes", "struct-total":
 					c.Policy.MaxImageBytes = 8 << 20
 				}
@@ -58,6 +63,17 @@ func TestGoogleImagesEditingCallbackBudgets(t *testing.T) {
 					p.Body["input"] = escaped
 				case "raw-data":
 					p.Body["input"] = []any{input[0], map[string]any{"type": "image", "mime_type": "image/png", "data": valueRaw}}
+				case "promoted":
+					p.Body["input"] = []any{input[0], googleDataWrapper{googleDataFields{large}, "image", "image/png"}}
+				case "byte-data":
+					p.Body["input"] = []any{input[0], map[string]any{"type": "image", "mime_type": "image/png", "data": byteData}}
+				case "custom-key":
+					p.Body["input"] = []any{input[0], map[googleDataKey]string{0: "image", 1: "image/png", 2: large}}
+				case "struct-overhead":
+					p.Body["input"] = []any{struct {
+						Type string `json:"type"`
+						Text string `json:"text"`
+					}{"text", strings.Repeat("\x00", 30000)}, googleDataWrapper{googleDataFields{nearData}, "image", "image/png"}, googleDataWrapper{googleDataFields{nearData}, "image", "image/png"}}
 				case "raw-count":
 					p.Body["input"] = countRaw
 				case "host-count", "model-count", "protocol-count":
@@ -98,4 +114,18 @@ func TestGoogleImagesEditingCallbackBudgets(t *testing.T) {
 			ev.Check("known callback budget before serialization", errors.Is(err, &ai.Error{Code: ai.CodeResourceLimit, Phase: ai.PhaseRequest}) && after.TotalAlloc-before.TotalAlloc < 4<<20 && len(w.provider.Requests()) == 0, "got %v allocated=%d", err, after.TotalAlloc-before.TotalAlloc)
 		})
 	}
+}
+
+type googleDataFields struct {
+	Data string `json:"data"`
+}
+type googleDataWrapper struct {
+	googleDataFields
+	Type string `json:"type"`
+	Mime string `json:"mime_type"`
+}
+type googleDataKey int
+
+func (k googleDataKey) MarshalText() ([]byte, error) {
+	return []byte([]string{"type", "mime_type", "data"}[k]), nil
 }

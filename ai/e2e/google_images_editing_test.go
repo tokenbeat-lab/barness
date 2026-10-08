@@ -151,3 +151,46 @@ func TestGoogleImagesEditingSnapshot(t *testing.T) {
 	checkImagesScenario(ev, w, sc, res, err)
 	ev.Check("caller mutation occurred", req.ReferenceImages[0].Data == "caller mutation", "mutation missing")
 }
+
+func TestGoogleImagesEditingTypedInput(t *testing.T) {
+	for _, name := range []string{"promoted", "byte-data", "custom-key", "omitempty"} {
+		t.Run(name, func(t *testing.T) {
+			ev := run.Case(t, "P09-E04-edit-typed-"+name)
+			sc := googleEditScenario(t)
+			req := imagesInput(t, sc)
+			budget := int64(len(mustMarshal(t, sc.Expect.Request.Body)))
+			w := newWorldWith(t, func(c *ai.Config) {
+				configureGoogleImages(c)
+				c.Policy.MaxRequestBytes, c.Policy.MaxImageBytes = budget, 100
+			}, tenantA)
+			installGoogleImagesBinding(w, tenantA)
+			enqueue(ev, w, sc.replies(t)...)
+			first := req.ReferenceImages[0]
+			h := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
+				input := p.Body["input"].([]any)
+				switch name {
+				case "promoted":
+					input[1] = googleDataWrapper{googleDataFields{first.Data}, "image", first.MimeType}
+				case "byte-data":
+					data, err := base64.StdEncoding.DecodeString(first.Data)
+					if err != nil {
+						return ai.KeepPayload(), err
+					}
+					input[1] = map[string]any{"type": "image", "mime_type": first.MimeType, "data": data}
+				case "custom-key":
+					input[1] = map[googleDataKey]string{0: "image", 1: first.MimeType, 2: first.Data}
+				case "omitempty":
+					input[1] = struct {
+						Type string `json:"type"`
+						Text string `json:"text,omitempty"`
+						Mime string `json:"mime_type"`
+						Data string `json:"data"`
+					}{Type: "image", Mime: first.MimeType, Data: first.Data}
+				}
+				return ai.KeepPayload(), nil
+			}}
+			res, err := w.client.WithHooks(h).GenerateImages(ctxFor(t), textScope("req-google-typed-"+name), sc.target(), req, nil)
+			checkImagesScenario(ev, w, sc, res, err)
+		})
+	}
+}
