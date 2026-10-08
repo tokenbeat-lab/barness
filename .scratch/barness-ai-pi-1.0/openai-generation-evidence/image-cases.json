@@ -1,0 +1,2371 @@
+{
+  "source_manifest_sha256": "0c3ad7a00ec001815ea71f27e78b9815d0ebd2c94a597cc6ab27c9b2a4adb135",
+  "cases": [
+    {
+      "dir": "P08-D1-policy-image",
+      "fixtures": {},
+      "id": "P08-D1-policy-image",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesPolicySnapshot$/^image$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesPolicySnapshot/image",
+      "artifacts": {
+        "assertions.json": "4150b1877fb76f5a07e352f2776f15dde32194f2072968ac04d18d8abe9d17f3",
+        "error.json": "b1862af6cc996cf945703d847232d9a808136b49aea04c01bffad4dda58bf0c0"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-D1-policy-image-over-total",
+      "fixtures": {},
+      "id": "P08-D1-policy-image-over-total",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesPolicySnapshot$/^image-over-total$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesPolicySnapshot/image-over-total",
+      "artifacts": {
+        "assertions.json": "b9ea3ea62a64cba3891016945b1c3b3d56d5df9208772485ab95c1890f19f88c",
+        "error.json": "51d07c1f7e896f791c35fb3cc3f2504786f941781daa9135a0a8fd1c5284807e"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-D1-policy-input",
+      "fixtures": {},
+      "id": "P08-D1-policy-input",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesPolicySnapshot$/^input$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesPolicySnapshot/input",
+      "artifacts": {
+        "assertions.json": "9262fed1bd8e3b93fca10773f7aa2d6ade331a1badb4de803c1e93e18b1786f4",
+        "error.json": "6bf3d22e852d75e1c47e42ab854cbaf2be54769bbbb53c3b8737bd64dc5bb4f5"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-D1-policy-output",
+      "fixtures": {},
+      "id": "P08-D1-policy-output",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesPolicySnapshot$/^output$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesPolicySnapshot/output",
+      "artifacts": {
+        "assertions.json": "8da478b4eced4e0e95b093a4c8a91782b0322ab92e8c7b1ece99958e9f726660",
+        "error.json": "56ac95b6d283b67e5bf66129d8051631ca9cdf2a128163271af239cbdd0b04bf"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-D1-policy-total",
+      "fixtures": {},
+      "id": "P08-D1-policy-total",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesPolicySnapshot$/^total$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesPolicySnapshot/total",
+      "artifacts": {
+        "assertions.json": "0a57a64505bf48547e62309f48294fe641339ed9780c3ab4bb7b0d1062d2513c",
+        "error.json": "0cbe7238aee590e78210da34df3bf358571641652185901890d1490296654849"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-D1-policy-total-over-output",
+      "fixtures": {},
+      "id": "P08-D1-policy-total-over-output",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesPolicySnapshot$/^total-over-output$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesPolicySnapshot/total-over-output",
+      "artifacts": {
+        "assertions.json": "5972d3740633bb4ee17692b4f1ffe4074e67a8b9c8c8de76780b3dd53f464e7f",
+        "error.json": "538fafa2158522667c5f6e3f88b9379a6876c061f442339f849cf49ae17e1268"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E01-generation",
+      "fixtures": {
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962"
+      },
+      "id": "P08-E01-generation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E01-generation$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E01-generation",
+      "artifacts": {
+        "assertions.json": "acc74f61d05500208df47dcfc19620061c5931b867b22aab7a2403a155b74a4a",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "b0560335e7cc4df5cb6113554b449b8fc6fff330d17eda5b5b2b84dc97a5f374"
+      },
+      "assertion_count": 12,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E01-multiple",
+      "fixtures": {
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962"
+      },
+      "id": "P08-E01-multiple",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E01-multiple$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E01-multiple",
+      "artifacts": {
+        "assertions.json": "66b142f44741dd24c771ea22fe920ed9245c313b091bfdfb3de5e51069158c87",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962",
+        "requests.json": "0594c73a373866a4516ef245c92eabe1f8ec69cdd1439e97a1e78b0759c57ac5",
+        "response-script.json": "84f596995c89831b520817e3caa98b2258a2e6acccbcec4fee5e29ac7a654381",
+        "result.json": "6e07cf3919df969fa8f8dfdd30bf040d8b2bc92a4bf4836ea5178194e1b6531c"
+      },
+      "assertion_count": 12,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-bad-base64",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-bad-base64",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-bad-base64$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-bad-base64",
+      "artifacts": {
+        "assertions.json": "68880cca93d00e34906009181515d43e64e747571a87536c7c20363eff61e1bc",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "0594c73a373866a4516ef245c92eabe1f8ec69cdd1439e97a1e78b0759c57ac5",
+        "response-script.json": "c80d88309b045525f3de71f80760cf89450f715fe4c1b8ee68733be300428c14",
+        "result.json": "29badf1d66e867e9baa01e0948ce4537379dfa5a2f67ecd0804ddd92b93a3c4c"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-bad-header",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-bad-header",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-bad-header$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-bad-header",
+      "artifacts": {
+        "assertions.json": "28073f0497e95045c6c95fe6931bab1310dba1e28e597d01ba2c5d066cc70d9e",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "16b1da0ddcff435e6306350b360582d1d6a3a3149d2e18dd5f85bf7bf795e244",
+        "result.json": "dcc9c072049a9d119dc1473be56149bef708681ad149e71db50f745f95fab747"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-empty-image",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-empty-image",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-empty-image$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-empty-image",
+      "artifacts": {
+        "assertions.json": "704b51841c9214a623d16527ab5bd9e8134a5db749670f743b78f170e4583887",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "7582f15fc91bc1372f18fe2d94a4b5852721acfdc7d0605c0ef8e5b16bd79b43",
+        "result.json": "6329cb97ff045d582e0520de9ba5f729d805570b5b14f3d800a80244da3413a3"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-entry-duplicate-b64",
+      "fixtures": {},
+      "id": "P08-E02-entry-duplicate-b64",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^duplicate-b64$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesInvalidEntriesKeepUsage/duplicate-b64",
+      "artifacts": {
+        "assertions.json": "373937e0fc6bf5263e68c51280e5c7c62d0cc1af169032f3c93fedfef50b8744",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "6b9303ded1fd4c1921ca7daa379539260cc36743744b4f765875f0ef82692ddb",
+        "result.json": "1b9af4c9c5faa8c9eeb963bfcc149c8bc22f5feaeeeec9e0456454a4ea918aea"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E02-entry-empty-mime",
+      "fixtures": {},
+      "id": "P08-E02-entry-empty-mime",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^empty-mime$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesInvalidEntriesKeepUsage/empty-mime",
+      "artifacts": {
+        "assertions.json": "a802c4f703b072a8cebf424158c171537757e84c48b939462c5da4f44c276d47",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "286a3cd092fceba987c03b126c3824f94aa5ce55fa174b74070998503a45dbd8",
+        "result.json": "9fe868f349b44b5c80c3b8cf8014749f798424899d790e5370daa8eb94ce1215"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E02-entry-many-empty",
+      "fixtures": {},
+      "id": "P08-E02-entry-many-empty",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^many-empty$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesInvalidEntriesKeepUsage/many-empty",
+      "artifacts": {
+        "assertions.json": "a56604a5c7338b63a8bf6aad9429423bec40a9a8f4e3517db555bf10a36e5979",
+        "error.json": "b1a6e20f60fb4dd6b4033c3e0c61ab689fbaf4674069acff830be7f8db3677a7",
+        "response-script.json": "911e98cd5a43c47a159acc81b800514f162605a2fec9a018b95ac1ef940e1f74",
+        "result.json": "90f72fd2a57db7823994e0702b26636ba6f3903d5dc868c2a8a3a38c10dc3681"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E02-entry-null",
+      "fixtures": {},
+      "id": "P08-E02-entry-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^null$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesInvalidEntriesKeepUsage/null",
+      "artifacts": {
+        "assertions.json": "8203c700e72b1686ac0ef26136bf1b33c908d6e14d20b794957cc6a6aa084730",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "1adae5b1b1c5d32d21c2f8ecc5dfd40b05d2dcbd985286d485fde03329f89ec6",
+        "result.json": "425740f40543b2d13ebff88b8d1780a2e8fc4ea626b2a9cdb9fe7a2b8bf6d973"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E02-entry-null-mime",
+      "fixtures": {},
+      "id": "P08-E02-entry-null-mime",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^null-mime$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesInvalidEntriesKeepUsage/null-mime",
+      "artifacts": {
+        "assertions.json": "fceccad2429f53a96a8c2b97c8080f52d8f6587d8486b6cb681e749c86c305c0",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "7ff2f82242d5db2d515cac42260d13ffd73cced333edf6af40472ab534477b8f",
+        "result.json": "551da1a8561fca14c67a5087d66f553b8d67fa1293c77e30b4b8c7b44a77b534"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E02-entry-numeric",
+      "fixtures": {},
+      "id": "P08-E02-entry-numeric",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^numeric$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesInvalidEntriesKeepUsage/numeric",
+      "artifacts": {
+        "assertions.json": "9b17df7c0543920a2329fed6ebf3a704d00caf374e209eb6e965ecb5160eda61",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "b1f8c29e16b99971bf2d6982e93247665006860759d8900960bd23365b5c8d5f",
+        "result.json": "ab3559b0f0d9712d28e47e1c029494c7545722c30af71cd89f0369be63a333cc"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E02-entry-wrong-data",
+      "fixtures": {},
+      "id": "P08-E02-entry-wrong-data",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^wrong-data$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesInvalidEntriesKeepUsage/wrong-data",
+      "artifacts": {
+        "assertions.json": "581845343d0ddd5747b80e1f5824092de5d738337ebc76a344a988a373235f7a",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "fac1d5a7ec8e637b48908937fa78076e3d2689f690ff477dc5ad038fb31266f1",
+        "result.json": "2e40108618845ec09f606dfbf5d37695009625fc9cf68dd641ff1ba08cbf6f2d"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E02-entry-wrong-mime",
+      "fixtures": {},
+      "id": "P08-E02-entry-wrong-mime",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^wrong-mime$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesInvalidEntriesKeepUsage/wrong-mime",
+      "artifacts": {
+        "assertions.json": "0f2ae24624c7cee8a970fb927acb068e19a4d99ec44a2b8c097b983f92fdbe81",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "8003b5f1b978255cb8bdeb57a8f44ac86c4957d66c66fe73647292df10678465",
+        "result.json": "51e815ad13da9d661db8d540769fb5da23cb1cfffc036736055931859fce290e"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E02-http-refusal",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-http-refusal",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-http-refusal$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-http-refusal",
+      "artifacts": {
+        "assertions.json": "8ac7f1fbbfb52419ffd4e8ef58cdc64f33b227ab2a3c7dddd2cb70c0db24a3f4",
+        "error.json": "9a3b865cab903d242759307ee4334b68d0952abb1d70bccff5af752cf07723f3",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "41157b10c8a28c7fa3f2a9c0859082866ff8dee0fe970358d81a6943ab64b33e",
+        "result.json": "4c6c3675c5dcafd67597ce22920e67b90937e11af3e7c2b32d5fdbc5393d3077"
+      },
+      "assertion_count": 13,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-mime-mismatch",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-mime-mismatch",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-mime-mismatch$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-mime-mismatch",
+      "artifacts": {
+        "assertions.json": "f79b2348f280579b053e8ceec34035e6ed5be0e49fca4e429c39d29487fef75f",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "5fa32068526e20bfc094179ab20adf142b209d99618e718822322dd5c21236ab",
+        "result.json": "80589bc2862b89cce4288016ebd9479c198e104f11f811e2be9c0bf0d308eb1b"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-newline-base64",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-newline-base64",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-newline-base64$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-newline-base64",
+      "artifacts": {
+        "assertions.json": "ebe7ad67d807270205d3ec814012c927dd37d76dc989935941637dc9dcb686b7",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "f8efd491b14a4d89bae75236bee8110a45af8292045d8a4f9d6d3c6d1bd3413a",
+        "result.json": "27b7be37e15a2b89aa695deca43e6373f2930e7dbbc6ad27c65ca74ec71d58a2"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-no-images",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-no-images",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-no-images$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-no-images",
+      "artifacts": {
+        "assertions.json": "eca73f8ebdab80f207def1492888fe16bdbcafbd4c500a0aede8a18b61046faf",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "606226df7e2b52ad813a43c7d75c3cc6e907eda8022d16744a351c30563921a3",
+        "result.json": "be0d2cdd6cc5a093903f405d96dbff5377864b78f9e00c907226d5a0a21d5591"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-noncanonical-base64",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-noncanonical-base64",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-noncanonical-base64$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-noncanonical-base64",
+      "artifacts": {
+        "assertions.json": "e372b3684626f78ea38c7d650f4fe4faeaebb6a49044a0d7ee18221d1b6f64fb",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "77e76414779df4d2e6e31941b50b08c6180d3640e5c101973f05f179a89a9e1b",
+        "result.json": "505aab25a97a5b9105aae5e4f461ac969de4498cff05fc6e82df0b7eb52330d6"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-refused",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-refused",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-refused$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-refused",
+      "artifacts": {
+        "assertions.json": "c5aace0cbf719ad60f563fc81b004cfac63c0175522d0928c8035bfdab900b62",
+        "error.json": "da36a6dfe7f6d18569fdb427879e0b86acdf6978bd1b35e9df8c2932da77b365",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "bb381d2ccfddd06755b29bd75d363ba95c3a77dd300f30c876755ee27e47693f",
+        "result.json": "a5c5702f3cc17ed2da42d6fa9080e412e91704650542212be467e6756331d925"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-unknown-format",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-unknown-format",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-unknown-format$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-unknown-format",
+      "artifacts": {
+        "assertions.json": "dc56329a5a725d17e07ae82e276e29d964b7c4394b8cd7ebdf6cfdad6e3aca61",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "329d3b77de4c531fce2f8ccbf47fcec984bbde5b95103ad50e6044b29607c6b2",
+        "result.json": "0c25bd43baceafbb8b1fc9f7b4050a5ef306a813d4ab708429711feca34985b0"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E02-url-only",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E02-url-only",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E02-url-only$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E02-url-only",
+      "artifacts": {
+        "assertions.json": "12ad23645d4b702427a3ee4979d84e17ef3320aa87081de8d79d4ec62900e522",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "a169458d81ebe81b0dab4ae4f0ad7a0fde8f2030188d9811999b7a18ceac543e",
+        "result.json": "68791c9a925ae1a5d75017272cf4868344cae07d6ed82830538be056fb78f815"
+      },
+      "assertion_count": 14,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E04-all-options",
+      "fixtures": {
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962"
+      },
+      "id": "P08-E04-all-options",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E04-all-options$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E04-all-options",
+      "artifacts": {
+        "assertions.json": "98ed04e854c2a49e4b1ce510a51c69c62f75db8225b369192ee1b9969da6719f",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962",
+        "requests.json": "a06c32ab61dfe4e2f7492776e7cce3402adc4fd2c13cd5ca014cb6537982ed3e",
+        "response-script.json": "79c763b07d8c2eaaab8f7cebaa85c28874840dd3058e3d061a545525efe1116b",
+        "result.json": "83a3d83f25d86df1be70f84b6d14c6dc7b47f5e006ec2786d8ecec3b5d22b67f"
+      },
+      "assertion_count": 12,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E04-hooks-bad-number",
+      "fixtures": {},
+      "id": "P08-E04-hooks-bad-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^bad-number$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/bad-number",
+      "artifacts": {
+        "assertions.json": "d705c4d7ad45997fe18097b0621ad1e38f6db2a42cb34634b9a4b7bc4045be80",
+        "error.json": "597fc479f0628b852f2b1a5d778181842e4b80b9e764da0958bf0138b566d87b",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "8b7bb64e49dc8ffefb6d75226c18024823f3caf1aa05fefdd5dca3fc26754b9b"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-callback-error",
+      "fixtures": {},
+      "id": "P08-E04-hooks-callback-error",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^callback-error$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/callback-error",
+      "artifacts": {
+        "assertions.json": "37a53dee75337b088bd4001a889b8e9dcac44bdeac4639257b5bddfa819b1395",
+        "error.json": "272c6d6ab99a2b501c4fbf89da12312b9dc352f4dce6417e3345727c1705fd5e",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "a399f8886e512672a28c73e6ecc0b5047ed1c3e9b1af943ac4bd7c4294bbc676"
+      },
+      "assertion_count": 6,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-default-no-retry",
+      "fixtures": {},
+      "id": "P08-E04-hooks-default-no-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^default-no-retry$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/default-no-retry",
+      "artifacts": {
+        "assertions.json": "e4dcb6458ccd0918b3d6537ba4899bba038434f04942f5f82d592afa555192cc",
+        "error.json": "d6caad515b245b0078ca1c8bbc180aaf6f54634385f8e5b9f92918406be57765",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "9041c210d65467c39e5e32e271db57d23a3d9a827d4ecf7ed46ebe238113a055"
+      },
+      "assertion_count": 4,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E04-hooks-field-endpoint",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-endpoint",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-endpoint$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-endpoint",
+      "artifacts": {
+        "assertions.json": "0d3ae519f57efd9e2f9044e5f08746e65e26fb11fef8bea3243e055b9ba03459",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "4753e5605f3f2b3a6e0e89b55190f64db6da430620692607496b6336b7e259bf"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-file_id",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-file_id",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-file_id$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-file_id",
+      "artifacts": {
+        "assertions.json": "0baf02c8b4c4a9b4aac87baf1dc1b1847f24d4ac8535bd9a75db3a1fdd0749d0",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "8df450a8c5e3c4ff804b087d8f21b75fff4bb573691be52b0e45b6c119522502"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-image",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-image",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-image$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-image",
+      "artifacts": {
+        "assertions.json": "606d565e90f1a972d9ef63b1fceb6e88424a0d833fa088a105724a29db5cd5cc",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "24a54526db40fdbedeaad8882e5d741c6fb6fc46f656bb32427d350a40e5e02e"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-image_url",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-image_url",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-image_url$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-image_url",
+      "artifacts": {
+        "assertions.json": "cf6a84caff2353d6a97d536724fd895102fbedacd8e9ff082236ade3730da788",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "735e37feaeecf20da153c47e8b02e041958446a003fd2d53aef44095d1d21764"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-images",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-images",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-images$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-images",
+      "artifacts": {
+        "assertions.json": "f615f7beadaf070458e81d2ddef7d4a0c621e8a62dd405fccc8295871ae0fa22",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "a08791db841a7a335118f212a9082cb67be39f8f18444fa8c9e070eeb09a96e5"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-input_fidelity",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-input_fidelity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-input_fidelity$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-input_fidelity",
+      "artifacts": {
+        "assertions.json": "6d31e1bf026dbde35de4eb69a937c28255d967bc630b1aa799bb3a2fc9654160",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "28fa204e34950207010e41ab4c2fac2d4576f3418b0d8ee25e8b99b44fb457db"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-mask",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-mask",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-mask$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-mask",
+      "artifacts": {
+        "assertions.json": "699f046eacd24eb67527ee2e0432993555be2cf06075b3f8f67aed6efa0a0396",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "8698a7e8b1367989142f4f51dd5d6cfbdedd259c73824fd6ac6d500dac1d4cb0"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-operation",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-operation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-operation$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-operation",
+      "artifacts": {
+        "assertions.json": "473e7c8e3f2c5adb2e25ff0d4c04580e3f1a7e84f56f7063544ef9b125751b63",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "d0f0354eb4eae67b28b48d9436149cd29d211d51a17bf61192504ec8546673a9"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-partial_images",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-partial_images",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-partial_images$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-partial_images",
+      "artifacts": {
+        "assertions.json": "a9d19bb13fac7e1d091c28b1981662d726d4f70a6b8ccfa965473304f0e6c2a7",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "e6c46a50bcd01ae40a520994f4e691bfef6287e9a56e829960ac8438216e7273"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-previous_response_id",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-previous_response_id",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-previous_response_id$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-previous_response_id",
+      "artifacts": {
+        "assertions.json": "eb9dadd294dfa312d108b229269826d6cf81b4103551ae40c56596b953262304",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "6ec1a36adc142a1dc3e8532a05a1edf78e22b67761cf026bf233630b2ab14541"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-response_format",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-response_format",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-response_format$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-response_format",
+      "artifacts": {
+        "assertions.json": "b3b9f270f79c8391313ca71fd57d5d4bc6d035d93af5d09f283a28f29ea4b6af",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "6581da946aff19df8cd91fb561f6e48f92a58f6d0b36c61008260f63395bcef1"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-store",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-store",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-store$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-store",
+      "artifacts": {
+        "assertions.json": "4c9e6d8e9623ad920b2def11bc51e39fe0af8cc23de07161db32fc61b56e6222",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "6fc8b06816b2c959abe8972cb8aa83357d8eb7de099cf95a3d4dfa4bff49c178"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-stream",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-stream",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-stream$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-stream",
+      "artifacts": {
+        "assertions.json": "39c5477628122c4baf2185f8c7e230ac03cf94889544eef808fa047e52dd705c",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "3071f48687d4281df798da1e3560e4af44e98e4a0cea58dedc8af4f6ecbb6350"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-tools",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-tools",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-tools$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-tools",
+      "artifacts": {
+        "assertions.json": "d9a4b3334231c88b7a6f49f8a97d3cc3a2d45a5f10e848ca4cae87c4cd1e23e1",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "28196db6b1e5c9705f8ce5b4ba3170f25312ed464cbb7bb921673a40777aad02"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-unknown",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-unknown",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-unknown$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-unknown",
+      "artifacts": {
+        "assertions.json": "193aebd63061c4060483275f71cfa072bcc79050baf4aa50d0ea242de9126eca",
+        "error.json": "6864e86b79d5cd02008485bc9524569a5d36f0a7fe411a7a3a73a40c90338743",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "28f458209a40dcaaea5ed1b7af3a9bc501bd0a16941ca44a77830cab2d578270"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-field-user",
+      "fixtures": {},
+      "id": "P08-E04-hooks-field-user",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-user$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/field-user",
+      "artifacts": {
+        "assertions.json": "b202d3e41e16d7c92e51c795d552c7376ce0bfcba5737c36e55668fddee3d881",
+        "error.json": "bcdebbe293a09cf9b5bfed1c904419578f673e966506d499556a14301136667c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "52d9ba93748ad897add61ce9540e8729ce7585e1de2151925901a8ec6a2e2fdb"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-final-format",
+      "fixtures": {},
+      "id": "P08-E04-hooks-final-format",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^final-format$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/final-format",
+      "artifacts": {
+        "assertions.json": "62b46432e7bb0f49e0f5daff214169d435ab729734f548b0534dccd2a79d9f11",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "requests.json": "808474a7a0b5bf517b6bfa3a2567a7e2c0c488cf95104d25261168f29bc50278",
+        "response-script.json": "29e947dd2593b39f7418178d49c992400523e7dff03da2537fd00ba345db1052",
+        "result.json": "3183e6672c54bffe1595596edf70afaef54816a29b74dc5186233e6eea275d99"
+      },
+      "assertion_count": 6,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E04-hooks-final-n",
+      "fixtures": {},
+      "id": "P08-E04-hooks-final-n",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^final-n$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/final-n",
+      "artifacts": {
+        "assertions.json": "d1e0c8c2536b0856035dd92ae74d99b385a317108fe77a04c38237d9f9c99897",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "requests.json": "0cbaf2d7c414ef7d268d608e08ad325ef87fbc61ac5357e3f92eb8e0331d2aa9",
+        "response-script.json": "9d530793a0897facb9b2e669d1e2d69faaed2cc03271701d01e60e97a07e01ce",
+        "result.json": "f4c88cc54e28f759e4b44b9ae15730a7f2a67cc26fefce91173795065053d24b"
+      },
+      "assertion_count": 6,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E04-hooks-header",
+      "fixtures": {},
+      "id": "P08-E04-hooks-header",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^header$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/header",
+      "artifacts": {
+        "assertions.json": "c6373d4641944f2dac8a49190d70b2979ce35834377dc49ff352171fc0917733",
+        "error.json": "b8ccbdaabf01736db4fa58b67cbfb0877b656c7c015f8b775d3166b757e321a0",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "c5c7e96a38f1acd5672e1763f9e5021fb933869fd886f8e0070cd4461fb3bf29"
+      },
+      "assertion_count": 4,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-huge-prompt",
+      "fixtures": {},
+      "id": "P08-E04-hooks-huge-prompt",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^huge-prompt$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/huge-prompt",
+      "artifacts": {
+        "assertions.json": "c70ee95e7350e40c5cc981269123f3ab5cfde8b22f9a356dd7306a2070948016",
+        "error.json": "c5be9dab4a30721b81d785a5e1c5d15999f5ec8989a07d70a4119d7356003833",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "aadaae91040304fc2f9ddc79ded92b8bb1fa3130d0c96f619dd412e054964627"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-invalid-n",
+      "fixtures": {},
+      "id": "P08-E04-hooks-invalid-n",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^invalid-n$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/invalid-n",
+      "artifacts": {
+        "assertions.json": "1fc59bef8d0cce99f944aa327bd48281804ffaf0e3d598266688e1642bc8ffe1",
+        "error.json": "05769e44b433a85c0f181f61944588a25cd02f94cfe6938fd97a348e610736fd",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "cb16123152771f59bc528576bf6e4b5d05add3df3c3864ae977b4766ad564447"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-long-prompt",
+      "fixtures": {},
+      "id": "P08-E04-hooks-long-prompt",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^long-prompt$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/long-prompt",
+      "artifacts": {
+        "assertions.json": "cdb3b0bab7cfb5d361a516294c15bc7260f4a0564a40d25a8ab39574545afd1a",
+        "error.json": "48885bb83c9c90347519194ccbe2e2990e194f87d25b73a108fddf4a3af7dcb4",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "05f32010d88bc3d2e48e886f491fc461d70c802994c99ad02838d98097de521c"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-model",
+      "fixtures": {},
+      "id": "P08-E04-hooks-model",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^model$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/model",
+      "artifacts": {
+        "assertions.json": "73647197543fa11ddfacbda4de445cb0db6a52d9b0ec7ee3d154ff93fb990e59",
+        "error.json": "95139a3cc021abcfa30a7def65cc972c96fb8370ffc4ec308717ea9bb5740839",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "1e7db9ec79ad74b901d28b519887dde7c1ef8acac9fbffa8333df3a6df840b7b"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-nil-body",
+      "fixtures": {},
+      "id": "P08-E04-hooks-nil-body",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^nil-body$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/nil-body",
+      "artifacts": {
+        "assertions.json": "00978c2cb801493c30e9a5c7c8b2011e20d032434ab583f3f0364784a7c0b764",
+        "error.json": "4aa6c4661d41825c191f7099ede3337ac36511faef5b54f940ee0389026f206c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "0b8876a072c19a5b7db92c10cd97da21df8fe42783d3fc696546ebd394102c9d"
+      },
+      "assertion_count": 5,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E04-hooks-response-error",
+      "fixtures": {},
+      "id": "P08-E04-hooks-response-error",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^response-error$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/response-error",
+      "artifacts": {
+        "assertions.json": "1236e0bbead4ab109beb78c91f3d22e88468ce60481d29d1cbaafdc55be68ef9",
+        "error.json": "27e96a16d59f94d3d860d3c2ab2c3c2cd7b0c47711eb6a648db1acd85cc209b0",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "6af00d7664e079b2bdf82c3cfc19522e5a02c15282a1a01061d382c48a390355"
+      },
+      "assertion_count": 6,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E04-hooks-response-format",
+      "fixtures": {},
+      "id": "P08-E04-hooks-response-format",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^response-format$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/response-format",
+      "artifacts": {
+        "assertions.json": "3a77a9db045abacf1aec1a84b36ba91b42c7cbc9f22b70986493def4953b3d27",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "requests.json": "808474a7a0b5bf517b6bfa3a2567a7e2c0c488cf95104d25261168f29bc50278",
+        "response-script.json": "dbddc97c92ee8668a78b2830f96502c9ad69a762dda7f3f5ce98dc9aa536b42d",
+        "result.json": "75f76ef5fcf1aa58b5880033d29171db834fa94e085ac4d77788e2f42cd497ff"
+      },
+      "assertion_count": 6,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E04-hooks-retry",
+      "fixtures": {},
+      "id": "P08-E04-hooks-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^retry$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesHooks/retry",
+      "artifacts": {
+        "assertions.json": "bf64d9a3614b23f23981f71401b438bc21cd78b44c485b9ab111fc9985db163f",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "requests.json": "7ea2dc94be2dff0335d32076b0d1715b9d3161f7830c2cfc13c1f71249247d2a",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "a520d9dab7c8261459d4c624071ad7c45c94f37a222709a7cb213731bc62a1a4"
+      },
+      "assertion_count": 6,
+      "failed_assertions": 0,
+      "request_count": 2
+    },
+    {
+      "dir": "P08-E07-background",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-background",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-background$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-background",
+      "artifacts": {
+        "assertions.json": "8fc2ee7b5f982c90e7746982877272d242f539bdf09bddb9276618d0fe683ff0",
+        "error.json": "38034e2e05c03ddef3d0647f118b9cc463d1175a1640b14ba6e9ca5f7be3d24e",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "8305b04208550eb5fd05742e140bb527ff75d8cc3a158b9c424aeba221a8213a"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-closed-types",
+      "fixtures": {},
+      "id": "P08-E07-closed-types",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^closed-options-and-output$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/closed-options-and-output",
+      "artifacts": {
+        "assertions.json": "f5685e3e6e6ac3e47a7c55a0331d568a3c4661872b159845b03d82e687effe37"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-compression-above",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-compression-above",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-compression-above$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-compression-above",
+      "artifacts": {
+        "assertions.json": "345c38d9bf75256fe8fd7357a123301776e1836a86cdfe44c336190a0d25666d",
+        "error.json": "88fb5772997176c480e72e6bf42f7fb02bc29d4b20172d6d6447112f2aae8b08",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "c496a8bcc790183a87cff8fac37bbec66a49fc04ba6900d8b1078bf7a972ed40"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-compression-negative",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-compression-negative",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-compression-negative$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-compression-negative",
+      "artifacts": {
+        "assertions.json": "bf237f9110a6630e2e64b5982b2647c8b3bc9fd3faaf7ccaf6086d508e008ddc",
+        "error.json": "88fb5772997176c480e72e6bf42f7fb02bc29d4b20172d6d6447112f2aae8b08",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "28e733a9036c745f0dce134b1fe7c6bd02c94850a7dae6e7901eef5b52dc2ddd"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-compression-png",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-compression-png",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-compression-png$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-compression-png",
+      "artifacts": {
+        "assertions.json": "b359075d306c619a1d92d2bfa3e6b9ba7c944addbffc6972a81570432c88a6f3",
+        "error.json": "bb0b82fd939aaa2fdef12a4871bcef866d1df0bf86ef5d2246798754dd91788e",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "9588bf9b096ca26c9f99e943d82c420badfd813fde64e20b710d17dd8a88e990"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-disabled",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-disabled",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-disabled$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-disabled",
+      "artifacts": {
+        "assertions.json": "8268d63914dbc6b215cf880b015613c765129cbdc8d8ea42fa90e28d6e3d6c09",
+        "error.json": "3ca07962beba4f9dc07835014ca2a52a556271ea23bb9520a5b77c2419bf1c5c",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "3e36b9d68dcef9bacd43a48ca2e608f50c10a290d0436c5c5d8744bc6de5ef91"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-empty-prompt",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-empty-prompt",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-empty-prompt$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-empty-prompt",
+      "artifacts": {
+        "assertions.json": "1c4901960e21362085fb9ac14cac26797a772f2e094e85318380082df9767c48",
+        "error.json": "1dbd26f9555b7c48b6bf8333731d12b1421a9d16d476212816239b50d4677aff",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "3113171fd9564e886a871c6afebc35679a49cdd5dedc7c5153eb2210ca7597ee"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-entry-options-snapshot",
+      "fixtures": {},
+      "id": "P08-E07-entry-options-snapshot",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEntryOptionsSnapshot$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesEntryOptionsSnapshot",
+      "artifacts": {
+        "assertions.json": "63d06648e6a0d2429c91a2a7b315af097caf540573137accdcc1b2c12cff4cbf",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "requests.json": "27bac7405a52cbfa1271dda2841a029d26fc87ebf0e974f77c771a12a458d8fa",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "82fbcdb35b3193dcdcb468bc78cb9807db31b371a5d6b4b15d1b39c1e1043535"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E07-format",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-format",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-format$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-format",
+      "artifacts": {
+        "assertions.json": "61d2a728847b8b45e664c2d84f33267dc7597b6c28110d35c5583dab975d354c",
+        "error.json": "e9b51913fda9894e111e0533a7c91b53b8992945c683e562d549a94d111aa5a6",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "b0d8cd7d1a10c1a93648ebb41c240f4e7e155c0931786b038fce76fcbb84528e"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-input-bad-custom-size",
+      "fixtures": {},
+      "id": "P08-E07-input-bad-custom-size",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^bad-custom-size$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/bad-custom-size",
+      "artifacts": {
+        "assertions.json": "a753e25a405819d92ae29c6c72b6ff50a9c79bc78de43454c219573962878c2b",
+        "error.json": "d4e7c0e1a8b105b0e4b398a3d856ee5d68baa2e4f7e09551c7bd328bb737f4f5",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "f749f5eae98936afc2e239b597f9666c94d145b4a06b9c4f3e9105d0a1d031a2"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-compression-zero",
+      "fixtures": {},
+      "id": "P08-E07-input-compression-zero",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^compression-zero$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/compression-zero",
+      "artifacts": {
+        "assertions.json": "87d23fdd91530e18608d182b23b29e7d996a5a83061eb829893ed94a78fe9e24",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "response-script.json": "dbddc97c92ee8668a78b2830f96502c9ad69a762dda7f3f5ce98dc9aa536b42d",
+        "result.json": "21a72f174964f2198952f16c77f0f79d02bc48d637d0e59651d154d3ec2cc88f"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-custom-size",
+      "fixtures": {},
+      "id": "P08-E07-input-custom-size",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^custom-size$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/custom-size",
+      "artifacts": {
+        "assertions.json": "1b90a50e88b0d1f5a4b4a657c0840b02834292f6d95c36f99158baeb9a6baf20",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "2f51df632c312bc2d5ef554cca543e41efaaef17b8514f10794dbc6ba0e3f68c"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-input-bytes",
+      "fixtures": {},
+      "id": "P08-E07-input-input-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^input-bytes$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/input-bytes",
+      "artifacts": {
+        "assertions.json": "87b1c4206f071a96a33880b608a4ebb6d56b5ce202f6755230ba6d8f073cca81",
+        "error.json": "bd2b2648ba862b42aa40592a878d8bebb0f79a457351919275762c345a0d77c7",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "7d247b2c892ef7568408756d8fb4cf2cbfcf1dd8a30813a3d006debdb8fb2f72"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-input-count",
+      "fixtures": {},
+      "id": "P08-E07-input-input-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^input-count$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/input-count",
+      "artifacts": {
+        "assertions.json": "add31f7202bfa37432589c68595a42d08a14686e11be31abdca088e27a820682",
+        "error.json": "01f96774072209254999273fb02e4568642ee5438ad1f9a1993d2b2edcd5c986",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "4f16f339fbc31964bc9c2faa83800d1fa7c03fdc145b4ea6ae04137ef3f1db90"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-invalid-utf8",
+      "fixtures": {},
+      "id": "P08-E07-input-invalid-utf8",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^invalid-utf8$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/invalid-utf8",
+      "artifacts": {
+        "assertions.json": "2583e0e9f0c72ac5db4bfd2b6a58f5f57d874cbe5355ee84284c47e9bc21a68b",
+        "error.json": "1dbd26f9555b7c48b6bf8333731d12b1421a9d16d476212816239b50d4677aff",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "4dc4219044e3f0e8be997146cc704db093ffce742aa5c8ee4499e138959d9648"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-long-prompt",
+      "fixtures": {},
+      "id": "P08-E07-input-long-prompt",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^long-prompt$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/long-prompt",
+      "artifacts": {
+        "assertions.json": "a7d6a3b0d3a0d3f0856cf45f58afdbe285d883916a49d6c62ba0ec170154fc16",
+        "error.json": "1dbd26f9555b7c48b6bf8333731d12b1421a9d16d476212816239b50d4677aff",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "5ea9260094f2809d2380af8f4c24e46fab9dd4d601407704f9041d46beccffb0"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-max-prompt",
+      "fixtures": {},
+      "id": "P08-E07-input-max-prompt",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^max-prompt$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/max-prompt",
+      "artifacts": {
+        "assertions.json": "37187b931ac8405f7ed9f77220c5ced0fdb396014863b6cc96d2f880e33f5edd",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "701ae99aa9bf693ea394cfd71607c34a1923af1848ab4de4cae2f238ca544489"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-model-quantity",
+      "fixtures": {},
+      "id": "P08-E07-input-model-quantity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^model-quantity$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/model-quantity",
+      "artifacts": {
+        "assertions.json": "faf2890c3b6f1a3abb209fdf5159cd4bdb9155294b12df43fd627a6462b85bd7",
+        "error.json": "84b8c8d925bf5ca3c782699c60ffaf638359e99ba057a0e6552526568f3b2c39",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "666c88e7ba9cd923e2f8a8a2d2cb5c38993f15f2eab1943c42f4dffc5a0b9ccc"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-policy-quantity",
+      "fixtures": {},
+      "id": "P08-E07-input-policy-quantity",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^policy-quantity$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/policy-quantity",
+      "artifacts": {
+        "assertions.json": "16450dd520c9665ea99ed9ea6e117cda3824fcaab4419e2ea24adb24f227f91f",
+        "error.json": "84b8c8d925bf5ca3c782699c60ffaf638359e99ba057a0e6552526568f3b2c39",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "0b3e518cf441ee5f1262047c7d3d58679a9db60e1b210e0e2d41df31bfd24e02"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-request-budget",
+      "fixtures": {},
+      "id": "P08-E07-input-request-budget",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^request-budget$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/request-budget",
+      "artifacts": {
+        "assertions.json": "5d62583cb5916fd1678470dc9bb62bbff4ca843efda91f86d9fe6c46b1d50c40",
+        "error.json": "bf57f0c16771337b359e9ea9550bb0bee330653949a71f76f6a0e8b736e02f56",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "58c3a36d4ef6046046cd377bbf1bd4e1a6958461a39702cac6ad2a021d0e3d7d"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-typed-nil-options",
+      "fixtures": {},
+      "id": "P08-E07-input-typed-nil-options",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^typed-nil-options$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/typed-nil-options",
+      "artifacts": {
+        "assertions.json": "06a8a2759dfc9021f59312137ddc3fee50b603f4b304db3e11c7194f2e958136",
+        "error.json": "96fe7dd8de91f3a235eb03bb4be4b5e69f700aa246d0fe7a627e51b2b42560fd",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "d424e8fa7342945740b9ad3e474b85f929df160f00dbd0e77bd8e75e9151ccc0"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-input-unsupported-transparency",
+      "fixtures": {},
+      "id": "P08-E07-input-unsupported-transparency",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^unsupported-transparency$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesOptionsAndInput/unsupported-transparency",
+      "artifacts": {
+        "assertions.json": "853929bfa00f986b79e8de4c20a3076e85e2c529b0be84432a2707fad69557ad",
+        "error.json": "8a68629267bd2ab8351063b8abcf65890293171961a4ec5a0eb3f258223c9d1c",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "e50752212bd28b13a8f579043ae4bdea03c53ccf7c123e3d008c7d5d5156d5fb"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-moderation",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-moderation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-moderation$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-moderation",
+      "artifacts": {
+        "assertions.json": "b964dbe9f04e0e5883453832f6be18f374d9ff8450b89121a89b0163002ec31e",
+        "error.json": "74fac65f8fa094f6af054588732eba5080075104105c1d6d4032d9ace5a92641",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "aad0dd6ab7ddf921792b924da51daa4d51816aa7c07e09d46720cba56be512f7"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-n-eleven",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-n-eleven",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-n-eleven$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-n-eleven",
+      "artifacts": {
+        "assertions.json": "47bd481512f1a3b96724dac95458210efc06dc1090ac6abc3ea4b950dd451c79",
+        "error.json": "22ae6526d1257d90c350ef79672210a78284e59cb52366bd3cdd2fef46ecded2",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "ded72bd3ca80cee35005de34f2e933c8836eea0978f86711bbc38b6514bb4408"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-n-zero",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-n-zero",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-n-zero$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-n-zero",
+      "artifacts": {
+        "assertions.json": "43984cf32f5949574c32afab6a6f628df97db1dd2362002986b2a1f624f0c6c1",
+        "error.json": "22ae6526d1257d90c350ef79672210a78284e59cb52366bd3cdd2fef46ecded2",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "6eb2b0787b359bbf76a9655531cdee9af367413f9fe9a2a2e83c7a1bd074459e"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-null-option",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-null-option",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-null-option$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-null-option",
+      "artifacts": {
+        "assertions.json": "04d8c7ccea99ceaa16c32ed4ae639dc3943dd648848d75b1637c1f6b1f949f49",
+        "error.json": "0da2847d1624e4a5f800d9d77180a47072c08535354a073f2d6928ec79dd729e",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "d7c2c35ce8ee1efc80fd282b61724d2106d84b77e5c3c7a9019a27150f4ed506"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-policy-copies",
+      "fixtures": {},
+      "id": "P08-E07-policy-copies",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesPolicySnapshot$/^copies$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesPolicySnapshot/copies",
+      "artifacts": {
+        "assertions.json": "5537708da90d532ac4461105153b5cc736b16e3236eb7b06c9322eeb2afcf4cb",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "f82513adb4ac0f3783e3d0255e9fab7d7d8257ee8db80efc5f4db8fa7a0c36a6"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E07-quality",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-quality",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-quality$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-quality",
+      "artifacts": {
+        "assertions.json": "7b14ccc900d85a72f09052eea156a60bc9e4ba832f6fbc85148ba4e9491a791c",
+        "error.json": "fb66315dcf25be397fdec31f9e8e632f6686e0354949f3b002717fab59b915dc",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "8e21047c931f326380ccf275149abf6d6c12639cf198b122e2a3254f92e439c6"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-references",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-references",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-references$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-references",
+      "artifacts": {
+        "assertions.json": "f7f641e66aa2970d01f5096821e42353fa9d2dc20222b17596e5a46cf76ca7fb",
+        "error.json": "4bb207e7efca2deee7581e91c2f61be3985edb8eb3ab628db8a1fae0ca250f37",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "a98880aa5592836352e8a02baf88204cf8fe0068bb78648cc02f2216a8535b09"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-size",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-size",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-size$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-size",
+      "artifacts": {
+        "assertions.json": "fc824d26e71951c5ad12bedb8f933ac05670c586d36761251683cbeee84d245f",
+        "error.json": "d4e7c0e1a8b105b0e4b398a3d856ee5d68baa2e4f7e09551c7bd328bb737f4f5",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "179bc30037ff676349599df6948481557f9e1210b898f9f2e53c86473300abc7"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-transparent-jpeg",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-transparent-jpeg",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-transparent-jpeg$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-transparent-jpeg",
+      "artifacts": {
+        "assertions.json": "29e0fd8e9b8ee943d8d1ec8a08741ddb3cfe48d7fe0bbd99189371362a20cae4",
+        "error.json": "2b6ed6a3611f47a34003e1794d0127cfddb8befa22c87656c94f5627731cfd46",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "c48c632a2ac75cf5a2c0ff766ddbd842ef5c975357030c6f82a86cff8c57ff7e"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-wrong-api",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-wrong-api",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-wrong-api$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-wrong-api",
+      "artifacts": {
+        "assertions.json": "b925363f042c496086e042f2c288319e561746dfd27091c5cafdf58f988d318c",
+        "error.json": "07d5ef8beaf4f44a193ecb1e16b7889161d05162b1b119d45d8cc40801aa4e48",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "042719bc5bb37b7b8c28db92b81efda5f433e36a30f66abeb70a5caf0a562c36"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-wrong-operation",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-wrong-operation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-wrong-operation$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-wrong-operation",
+      "artifacts": {
+        "assertions.json": "376cdc989d6417c26d5ded6717f40e670dc52b6622284a1ca443145d8bbc00cd",
+        "error.json": "360823f44bd566a59853b35dc3718a61b4fc705a2241d4c12667432dcc1cf05a",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "203d23f696e1e04947c76a9452b50984be63d030a36bc08fc70faf1819c7f407"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E07-wrong-provider",
+      "fixtures": {
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104"
+      },
+      "id": "P08-E07-wrong-provider",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E07-wrong-provider$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E07-wrong-provider",
+      "artifacts": {
+        "assertions.json": "01d130484470dd778d6f196593c95ed3a4edad135b5b9f9e880a95ba79fd36c3",
+        "error.json": "bc540869251f6e0276bdf81357905147054ce1c51d294ee35ec4015f2c2d0a80",
+        "fixture.json": "50f17e872771ecee285855983129cc11e4044346089c9a8b787536a214a06104",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "101f9b37d473be68a17f4a650a907b2bd9436be774ef26496fd75d6c9e277294"
+      },
+      "assertion_count": 11,
+      "failed_assertions": 0,
+      "request_count": 0
+    },
+    {
+      "dir": "P08-E08-callback-allocation-nested",
+      "fixtures": {},
+      "id": "P08-E08-callback-allocation-nested",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesKnownCallbackSize$/^nested$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesKnownCallbackSize/nested",
+      "artifacts": {
+        "allocated-bytes.json": "58535bcae067bb4d274882744ab54aee21e67c498400ec2677393c46800df674",
+        "assertions.json": "a46ef06842538620ecc039d879b65b3c420ec4b64e09f99220a77c8622270c9f",
+        "result.json": "f6c69cb466b81eedf8d24f6695964eb6b89eb3da211494f27d5934a98414a6f1"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E08-callback-allocation-raw",
+      "fixtures": {},
+      "id": "P08-E08-callback-allocation-raw",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesKnownCallbackSize$/^raw$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesKnownCallbackSize/raw",
+      "artifacts": {
+        "allocated-bytes.json": "c182e121ffd239a31c071904ccb32cfac9e3e9ecf2286984907fa47675cefc67",
+        "assertions.json": "5613985410ff97584cbd0668a4070c6266e5841485911cb63b87190c043adb0c",
+        "result.json": "216bafc6f027da2d71a80d8ea38d441a4a023031ad0ac5834b928b2dbc7feabe"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E08-callback-allocation-raw-pointer",
+      "fixtures": {},
+      "id": "P08-E08-callback-allocation-raw-pointer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesKnownCallbackSize$/^raw-pointer$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesKnownCallbackSize/raw-pointer",
+      "artifacts": {
+        "allocated-bytes.json": "9952650dbb26a7c5275a61397a9cd29c9fc3db27e50b0de551eade37bf153839",
+        "assertions.json": "cbbc4322bb62a8ae61b4c86c88132610cb1484eaa553b1b5d93dd12a3a2bc6c9",
+        "result.json": "d3b5e7942f2b18dfb2e13f14e787a04d9f70812cb7d5be46c35b80264686a890"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E08-callback-allocation-string",
+      "fixtures": {},
+      "id": "P08-E08-callback-allocation-string",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesKnownCallbackSize$/^string$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesKnownCallbackSize/string",
+      "artifacts": {
+        "allocated-bytes.json": "72649807fcac51592858f24fea7dd4955b26f0d308de088b414a50cf860809eb",
+        "assertions.json": "df8c8c10646ab50345713a44e5bde2c10562438bdfc29b7e7576dbef3a5718a4",
+        "result.json": "0fbeb53eedb8bf1d690fd8412d77d15567dab84fc90bf24a83ffc8395a508b78"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E08-image-boundary-above",
+      "fixtures": {},
+      "id": "P08-E08-image-boundary-above",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesDecodedBudgetBoundary$/^above$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesDecodedBudgetBoundary/above",
+      "artifacts": {
+        "assertions.json": "244b1bb34098e1d3e792500fa042f1d7a7c8dac1617e4376fc6647612c560216",
+        "response-script.json": "ff7c2d9dffee457556ceca2bce1d2ed7a5edd5bd91a43837ed597a121e64c68c",
+        "result.json": "551f3149a4ef0ce4fc3b1713e863eb83f38f3b2683b6fa1f8e0980004725ced1"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E08-image-boundary-at",
+      "fixtures": {},
+      "id": "P08-E08-image-boundary-at",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesDecodedBudgetBoundary$/^at$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesDecodedBudgetBoundary/at",
+      "artifacts": {
+        "assertions.json": "8a56800b3f85c04e6d1243a3895c3896ada5bb095860d5a31d853c269a3ffcd9",
+        "response-script.json": "b3578313bbe4f8df580fedb87a25931f648ae4b38ef72082635a887628ba4de8",
+        "result.json": "a554532c7df3e7cbddf31396c51a29996a46129daa23bd3bcd378afc6e6055bd"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E08-resources-above-frame",
+      "fixtures": {},
+      "id": "P08-E08-resources-above-frame",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^above-frame$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/above-frame",
+      "artifacts": {
+        "assertions.json": "586e234370d19036a3e1ae05b21d89929197c3bab2f6e46b813c4efaf43722db",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "d14ffb6a5f0237b1199a12a19dedf673e48921eb495405319031ec2cfa82ef25"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-bad-json",
+      "fixtures": {},
+      "id": "P08-E08-resources-bad-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^bad-json$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/bad-json",
+      "artifacts": {
+        "assertions.json": "f198110c5f5c527ec6b1de7e8aeccaf3bc29eabfc12c82eb58b39d795206a989",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "6766dc3c2421886a66ad98efd7b436708240a4368e30f5edd98424afc28d9040",
+        "result.json": "1cbbbecc5019287d097a3581a57ba8823af024098dc71fd503221faa4758333d"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-canceled",
+      "fixtures": {},
+      "id": "P08-E08-resources-canceled",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^canceled$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/canceled",
+      "artifacts": {
+        "assertions.json": "cb5ea04c96d785a54996c748ed63c7d51c5e656d5f8633daee36f166fd832373",
+        "error.json": "29dc27b04e947511a916cb0acd153b8e5618103757b81582a3ef22b95a9fefc8",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "7dafaac82df04bd8f4d3b06853e9e77df0106cd1d5ac8716e67916e52550f2c3",
+        "result.json": "c03d6e9cc921543c9205d876b09b4e39cef747867293860f7f9b51669ba83f74"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-count-limit",
+      "fixtures": {},
+      "id": "P08-E08-resources-count-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^count-limit$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/count-limit",
+      "artifacts": {
+        "assertions.json": "751cfc95bacb521454671404fae580f932fe951052332a648c38b67828b81271",
+        "error.json": "fbec57c026e59e260cd9768fc5b514475c7a0a732ff0186fe5addea45311766a",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "9d530793a0897facb9b2e669d1e2d69faaed2cc03271701d01e60e97a07e01ce",
+        "result.json": "bd8d928c7e87f609241494f8f32727894ca7f648c460a2412df54a2a6cda42c7"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-duplicate-data",
+      "fixtures": {},
+      "id": "P08-E08-resources-duplicate-data",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^duplicate-data$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/duplicate-data",
+      "artifacts": {
+        "assertions.json": "aa31e5506c7bc802b8483345866e80ac7196142c4eba4427f07213910e46448b",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "4aa691bda68c0c25cb4ccd7b55d9c410ef9dbac124ae624c12feea6da06762b5",
+        "result.json": "f0e2e24c18749ccc460f0ff53bfe9498e04501dab458927de7084fc499b950a5"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-duplicate-usage",
+      "fixtures": {},
+      "id": "P08-E08-resources-duplicate-usage",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^duplicate-usage$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/duplicate-usage",
+      "artifacts": {
+        "assertions.json": "020f3eeb82882e9aa27cf1c1c1001f9b78b10e3e1dc9884218b6410c6f5624a9",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "f48fdc2e23eb9b89258f0d84bf3f0db2429d75374a9cb0abc4386590384b6318",
+        "result.json": "89b40ae74964f9236280b2f8f3f4e894a16cc5db1c6fd493c837e3cbe64e3f13"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-error-limit",
+      "fixtures": {},
+      "id": "P08-E08-resources-error-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^error-limit$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/error-limit",
+      "artifacts": {
+        "assertions.json": "894114470501263a31e96c524e5ad00cc4d3821ba23571b29c100b1c8016b860",
+        "error.json": "d3884c7765eecb2e7f8e88dbb5555ded3896987c6b11dfa74dd9cd6218e5fe09",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "8109ad64fc4ee4140657ac2087707a8c016a0c3d6aa662d467bb9cc6be14496b",
+        "result.json": "73fb6aa44ce293769dd66ea760562cb6e09ed7221e5e1df2846c80cf5fabba2b"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-image-limit",
+      "fixtures": {},
+      "id": "P08-E08-resources-image-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^image-limit$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/image-limit",
+      "artifacts": {
+        "assertions.json": "6c724ae661eb77a8b1a5ff168934e37f8f68f127c59230533c45e53d7e2c3628",
+        "error.json": "78a047d7c1645d9dfd52d9b48850cf84835f2116b57d9769d07613d52e9e569d",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "c05c1a4a899d1d8c4fc0a20304935e90eefb2c0d093d6e6ddad2a4d0de86c4cd"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-missing-requested-image",
+      "fixtures": {},
+      "id": "P08-E08-resources-missing-requested-image",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^missing-requested-image$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/missing-requested-image",
+      "artifacts": {
+        "assertions.json": "cfd7760f39d9c7a330a38d1492e70d6f5b1cec888c4c4916a5fb675134f62a85",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "requests.json": "0594c73a373866a4516ef245c92eabe1f8ec69cdd1439e97a1e78b0759c57ac5",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "b1f6d38c08e70c2c5e54ee8c7824665b7c4dc16a1635e99129e98a7c07b824f4"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-model-count-limit",
+      "fixtures": {},
+      "id": "P08-E08-resources-model-count-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^model-count-limit$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/model-count-limit",
+      "artifacts": {
+        "assertions.json": "ecbac089a5ce8fb63fe31c1a561ab065ba21381fae9088592c8a68a2f3e77362",
+        "error.json": "fbec57c026e59e260cd9768fc5b514475c7a0a732ff0186fe5addea45311766a",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "9d530793a0897facb9b2e669d1e2d69faaed2cc03271701d01e60e97a07e01ce",
+        "result.json": "90271abdc33e07cfa7d3fedb33b6801a1f13be85d4334da014800f398b17d6f1"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-output-limit",
+      "fixtures": {},
+      "id": "P08-E08-resources-output-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^output-limit$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/output-limit",
+      "artifacts": {
+        "assertions.json": "bb36ea36f41cbaac0662ef0945123cf730b5fe94ccc293657f9d92f356ff8055",
+        "error.json": "d4bd76ce96b518946319e83bfc4d3f63cc666f3b49589d80d82cd2b503bc54bf",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "e28fed185b43f10a853b8bcfd40ce639fd9aa719676545404b16b3065158294f",
+        "result.json": "8f590fba1355970d965a0cbde0e617fe1bc12f7e3cc6844817437335ac1a1127"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-read-abort",
+      "fixtures": {},
+      "id": "P08-E08-resources-read-abort",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^read-abort$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/read-abort",
+      "artifacts": {
+        "assertions.json": "663f447a29f90f2370b9b35c7d78ee7a576fa09fede47f4c61e015ed92f71dcf",
+        "error.json": "15a6928909a521edfc18c43713c4d8dbca64d39cf7f9ddd5252bf9513d3945b6",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "54a2f0c6c2e623b17564fb9ea8b9764077ac48e45a8619cf01c558ce047bb196",
+        "result.json": "866a77a5c48d69293aaff045c92b48476e8fa94eb31a0d103b4d5c825b29c315"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-read-idle",
+      "fixtures": {},
+      "id": "P08-E08-resources-read-idle",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^read-idle$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/read-idle",
+      "artifacts": {
+        "assertions.json": "d9e822136a856f44c8bab23ea47f8a94947512bcd973aeb6c9a901297b7f6f76",
+        "error.json": "bbafcecd5ad12ec7fa14928f72e7c4bf2c4e2a268b6ee2ab890104b9f2ef220d",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "7dafaac82df04bd8f4d3b06853e9e77df0106cd1d5ac8716e67916e52550f2c3",
+        "result.json": "1ab16d9a2057a58f3274ab8cdcecdffbc5472af7526a7057a768db4f28952e20"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-response-panic",
+      "fixtures": {},
+      "id": "P08-E08-resources-response-panic",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^response-panic$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/response-panic",
+      "artifacts": {
+        "assertions.json": "729521a33fc8e05fecc67317519c6a48abfdb8ea5d193e36ac13c7b07e92fa1f",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee",
+        "result.json": "501582d9733b1fb654df59a5345ccd6b1c4caaa78d1ce7c8366f728c999cbb3a"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-total-limit",
+      "fixtures": {},
+      "id": "P08-E08-resources-total-limit",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^total-limit$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/total-limit",
+      "artifacts": {
+        "assertions.json": "07ab2640d7172b8ba856eb6a0b883c7c33a460344212fc2a8e095d666548ab59",
+        "error.json": "8576987d7487e06742df6918d034ac4e9d967ad49e11dc718fd72b26c0295330",
+        "requests.json": "0594c73a373866a4516ef245c92eabe1f8ec69cdd1439e97a1e78b0759c57ac5",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "9d530793a0897facb9b2e669d1e2d69faaed2cc03271701d01e60e97a07e01ce",
+        "result.json": "aae8a08acae58d536fd061911fed99d95bbe2569fa144d2450b1a8ca56c2795a"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E08-resources-trailing-json",
+      "fixtures": {},
+      "id": "P08-E08-resources-trailing-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesResources$/^trailing-json$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesResources/trailing-json",
+      "artifacts": {
+        "assertions.json": "fc901340cdd3432f2d24483271c340b520d3b955d56f4a260d1e5e411cf58f4b",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "resources.json": "c18c51c70f6813a256641034f53976905c08c407b1e6627bac09ea30d65a0fef",
+        "response-script.json": "76dda0c4866dcb681ada0a1430d8831f1ea7d5f47c4d272751780a0718328326",
+        "result.json": "8ac8a581add00c9b6dbc8299b1dcca90b486a33c269a8015f4ecc1eacfb4d071"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E09-observer-isolation",
+      "fixtures": {},
+      "id": "P08-E09-observer-isolation",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesObserverIsolation$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesObserverIsolation",
+      "artifacts": {
+        "assertions.json": "e38f11a242c873164aad46ab55512a4c8db52c64692320d1effa6982e2fab292",
+        "observations-req-observer-image.json": "4a60e26a831b3d434d3af28ea119a5c2dd448e64d15e5a700456965b81339817",
+        "observations.json": "4a60e26a831b3d434d3af28ea119a5c2dd448e64d15e5a700456965b81339817",
+        "response-script.json": "e548c1df039fc60983c84c4fa0bc108edcdff656d274ec7db79084e1132eaaee"
+      },
+      "assertion_count": 7,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-cache-price-image",
+      "fixtures": {},
+      "id": "P08-E11-cache-price-image",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesCachePricingRefused$/^image$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesCachePricingRefused/image",
+      "artifacts": {
+        "assertions.json": "b23f1522c5e29af63d5a92a965b6ac52ae1a7e319252d3fadae8274882fe6426",
+        "error.json": "643be454b4aae737871c88e9c78ff866154a587d06770e95e7123d2b54b79769"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-cache-price-null",
+      "fixtures": {},
+      "id": "P08-E11-cache-price-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesCachePricingRefused$/^null$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesCachePricingRefused/null",
+      "artifacts": {
+        "assertions.json": "811ed849ff7be6c90e26af8097e387ea9c58f8836988813e98439ab421ac3f97",
+        "error.json": "643be454b4aae737871c88e9c78ff866154a587d06770e95e7123d2b54b79769"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-cache-price-text",
+      "fixtures": {},
+      "id": "P08-E11-cache-price-text",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesCachePricingRefused$/^text$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesCachePricingRefused/text",
+      "artifacts": {
+        "assertions.json": "fff228e59ed9f40f7871370d15736cd1bb5bdd3f55c0d9a3d50eb2f66649fd76",
+        "error.json": "643be454b4aae737871c88e9c78ff866154a587d06770e95e7123d2b54b79769"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-extensions-registered",
+      "fixtures": {},
+      "id": "P08-E11-extensions-registered",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesExtensionsRegistered$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesExtensionsRegistered",
+      "artifacts": {
+        "assertions.json": "ba2dec93fe7f3b676664d1506aa0cedf1e7ab5ac4d5505df1a24a5d087ce0199",
+        "catalog.json": "ac7f7d4b49e5b6d2403a657852b637f8984287f8e95ca6049c92ea487315e934",
+        "route.json": "558fbba0f2d53666338f3e8ff7c595dc60277cc7d4872886dd418020e684d81e"
+      },
+      "assertion_count": 37,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-native-catalog-exemption",
+      "fixtures": {},
+      "id": "P08-E11-native-catalog-exemption",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestCatalogNativeImageExemptions$'",
+      "status": "PASS",
+      "test": "TestCatalogNativeImageExemptions",
+      "artifacts": {
+        "assertions.json": "3b93e99b852efca5ad25e55ff6533f758f0edba42891509a4d484096c43b178e",
+        "image-models.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-partial",
+      "fixtures": {
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962"
+      },
+      "id": "P08-E11-partial",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E11-partial$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E11-partial",
+      "artifacts": {
+        "assertions.json": "dc435d4f3adc92640007c7e95d71bdc6e5cdf708cd321d4badb0a9f648a41a91",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "1932b189bcd4a5c6086bd28d657dff24baa1654fa84a090b705840d67bc70415",
+        "result.json": "36ea4a7a92ca9e469b9dcd3ef36b1244d2464aa2a9878432d76a27b5f32ec7c4"
+      },
+      "assertion_count": 12,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E11-unreported",
+      "fixtures": {
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962"
+      },
+      "id": "P08-E11-unreported",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E11-unreported$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E11-unreported",
+      "artifacts": {
+        "assertions.json": "8666fcac754525b6942e10cff23e162f63264993f00c8ef8089a06095295acce",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "4fc4293aa83c5fdc783f0fbea73a3b154bbf1f4f95620b14bcd7d6d649603685",
+        "result.json": "30b47940adce33e842def5eb2f699b0754ee8b80f42fe0eb8b5472ff00ac0e02"
+      },
+      "assertion_count": 12,
+      "failed_assertions": 0,
+      "request_count": 1
+    },
+    {
+      "dir": "P08-E11-usage-fractional",
+      "fixtures": {},
+      "id": "P08-E11-usage-fractional",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^fractional$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/fractional",
+      "artifacts": {
+        "assertions.json": "e09df22308d842d30d546f141b1285e63e442468408ee07f38c0cea8ecc57fc5",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "596e2cc881ef1ed855f92603cc6143bce7e36e1bfbb150ef5897c469a0ebc8b8",
+        "result.json": "f98900fa07c429864ec1d9ea70d6f207271350a463e607e0a803a4171594c229"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-usage-malformed-details",
+      "fixtures": {},
+      "id": "P08-E11-usage-malformed-details",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^malformed-details$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/malformed-details",
+      "artifacts": {
+        "assertions.json": "fa9ad681b3b40e34e4b58ead4f499267841518bd52da167cd29b2cbbc9d5c0ba",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "7db2f1958728e0f4910c6832b575229c6271e03e7174c6e62847fdf9cf6bc74f",
+        "result.json": "0350d850ad8005c1d9cf20020c9b56dd49559d98aa49200b6dbbc72bcfec54f7"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-usage-missing-input-detail",
+      "fixtures": {},
+      "id": "P08-E11-usage-missing-input-detail",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^missing-input-detail$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/missing-input-detail",
+      "artifacts": {
+        "assertions.json": "646f82c27288f573075ddd46516277dd96054307243a86afbe3f08e17a21226b",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "response-script.json": "2ecc401b213dfa189e0df3159990e0146c387bd9401d32d6c690e3dd66c2be0a",
+        "result.json": "e806a9c9a0686356c1009917c17bf6e7807125fed6dd56c659b81ab73f416313"
+      },
+      "assertion_count": 2,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-usage-missing-total",
+      "fixtures": {},
+      "id": "P08-E11-usage-missing-total",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^missing-total$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/missing-total",
+      "artifacts": {
+        "assertions.json": "ba2e5d96ce5083c21d4fa0071b5e74aac955f0ae3d11277bd22417b0ddb99866",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "response-script.json": "d33fc10acfc714cdfb53fb51bf0d829f3d203e2b649d6af74ec58e27aae7f875",
+        "result.json": "1b3b5ce2d6796ec54f22ee2296426c982e98c82e305393608a6a18afddd00b84"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-usage-negative",
+      "fixtures": {},
+      "id": "P08-E11-usage-negative",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^negative$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/negative",
+      "artifacts": {
+        "assertions.json": "8381027fd7a2155533f148731952850036d0b84e0672b5b4dd6a2f2470573954",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "e5e298d25737b49b6d51e7b87b86c2cbb8b8582bf97d48e836b21341b459e03b",
+        "result.json": "0c16a2a1e8d47a6af6da848f659e19d7eef57594f71fc0035c926d4e2c2ab94c"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-usage-null-total",
+      "fixtures": {},
+      "id": "P08-E11-usage-null-total",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^null-total$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/null-total",
+      "artifacts": {
+        "assertions.json": "5f702100618a5b0082824fdfd0941d53f76dd346455eb1c7e961b6a296bd4e70",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "response-script.json": "860cd1b657decd78d495e3584b794ea759efa05570ef3bd5c063a7cc3bd3015d",
+        "result.json": "f2c5f44b5ee893a94d4cb73bfd49e8b557c68f705b04d2d58f50e838863a6097"
+      },
+      "assertion_count": 3,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-usage-overflow",
+      "fixtures": {},
+      "id": "P08-E11-usage-overflow",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^overflow$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/overflow",
+      "artifacts": {
+        "assertions.json": "7d78d20b8574c38ffad6ab697704fe16758b839aa9b7d076733fea932cbcce43",
+        "error.json": "aa2fd64c898abec1d9e38a360628949d4055e15d401cb03aa648c458907b6cbc",
+        "response-script.json": "66f72af0493cc5aa110bed311cac24a0006f929899f2a76c646a7a6b4615e5c4",
+        "result.json": "81f1273f8fa990b9160b771b9d8fad650245a3a04fae175001c2a86292683a1b"
+      },
+      "assertion_count": 1,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-usage-unknown-detail",
+      "fixtures": {},
+      "id": "P08-E11-usage-unknown-detail",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^unknown-detail$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/unknown-detail",
+      "artifacts": {
+        "assertions.json": "dd7704be0d2a96c3e61f3b9344c23e5fd5a2e75ab027dcc8ace213b1e4c6bcb9",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "response-script.json": "113a9c27614b13edb4627f0962c9e1fead4cee39ede40262bc3f75f6025c9325",
+        "result.json": "c156632bcba1c0ee15135f5b38560f5c32cf8e82b3944ab9e25695b0d27cb6a4"
+      },
+      "assertion_count": 2,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-usage-unreported-null",
+      "fixtures": {},
+      "id": "P08-E11-usage-unreported-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesUsageValidation$/^unreported-null$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesUsageValidation/unreported-null",
+      "artifacts": {
+        "assertions.json": "c10af3350074144a25875f956f5df76508999dbf04e7c88ba0551c11e1e2cf17",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "response-script.json": "c3179baad6dd67bc193e040a35b982a232ff1c7dc29c6c4c2a7617155965b831",
+        "result.json": "413f7f090db15f4e98301b527700ecfcb237e29893d788454fb55078946e0367"
+      },
+      "assertion_count": 2,
+      "failed_assertions": 0
+    },
+    {
+      "dir": "P08-E11-zero",
+      "fixtures": {
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962"
+      },
+      "id": "P08-E11-zero",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesFixtures$/^E11-zero$'",
+      "status": "PASS",
+      "test": "TestOpenAIImagesFixtures/E11-zero",
+      "artifacts": {
+        "assertions.json": "2f93d03f519dd098ee9532764117fe12a62125b0d053001d28d0f69224ef23f7",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "fixture.json": "d74a7baf15c51e752c4b560b1a93fe3a7cf62d495f8090f08466ad086a49b962",
+        "requests.json": "4c6b9b7c0f23b73674674965ff781a0ec7ba3aaceb6b99a8bf956cb957448523",
+        "response-script.json": "225d20b0eee82925a0b4d9aec46d64558ad077233cf73055f250fbe4fe79db78",
+        "result.json": "6a6c5754fcbacdb91381301f954837bc16fa5cfc6a760ac0396013ab67781689"
+      },
+      "assertion_count": 12,
+      "failed_assertions": 0,
+      "request_count": 1
+    }
+  ]
+}

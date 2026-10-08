@@ -1,0 +1,319 @@
+{
+  "note": "Public E2E before the two review fixes; the final matching cases pass.",
+  "cases": {
+    "P08-E02-entry-null-mime": {
+      "error": "",
+      "result": {
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ],
+        "usage": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 10,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "totalTokens": 30,
+          "cost": {
+            "input": 1.9999999999999998e-05,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00012
+          }
+        },
+        "stopReason": "stop",
+        "metadata": {
+          "tenantId": "tenant-a",
+          "requestId": "req-entry-null-mime",
+          "actorId": "actor-7",
+          "jobId": "job-42",
+          "bindingId": "images",
+          "operation": "image",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-images",
+          "modelId": "host-image",
+          "accountScopeId": "acct-tenant-a",
+          "bindingVersion": "b1",
+          "credentialVersion": "v1",
+          "catalogVersion": "2026-10-08.3",
+          "catalogHash": "sha256:7c3fddf2540f223bd51dac7626e0634eb5f00a35f35245e19fcf25e966e9f926",
+          "attempts": [
+            {
+              "attemptId": "req-entry-null-mime#1",
+              "httpStatus": 200,
+              "usageReporting": "complete",
+              "usage": {
+                "input": 10,
+                "output": 20,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "modalities": {
+                  "inputText": 10,
+                  "inputImage": 0,
+                  "outputText": 0,
+                  "outputImage": 20
+                },
+                "totalTokens": 30,
+                "cost": {
+                  "input": 1.9999999999999998e-05,
+                  "output": 0.0001,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.00012
+                }
+              }
+            }
+          ]
+        }
+      },
+      "response-script": [
+        {
+          "status": 200,
+          "header": {
+            "Content-Type": "application/json"
+          },
+          "script": "{\"data\":[{\"b64_json\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\",\"mime_type\":null,\"revised_prompt\":\"not retained\"}],\"usage\":{\"input_tokens\":10,\"output_tokens\":20,\"total_tokens\":30,\"input_tokens_details\":{\"text_tokens\":10,\"image_tokens\":0},\"output_tokens_details\":{\"text_tokens\":0,\"image_tokens\":20}}}"
+        }
+      ],
+      "assertions": {
+        "assertions": [
+          {
+            "name": "usage survives invalid entries",
+            "pass": false,
+            "detail": "got <nil> {Content:[{Data:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII= MimeType:image/png}] ResponseID:{state:0 value:} ResponseModel:{state:0 value:} Usage:{Input:10 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x69344b386280 TotalTokens:30 Cost:{Input:1.9999999999999998e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.00012}} StopReason:stop ErrorMessage: Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-entry-null-mime ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:host-image AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.3 CatalogHash:sha256:7c3fddf2540f223bd51dac7626e0634eb5f00a35f35245e19fcf25e966e9f926 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-entry-null-mime#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:10 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x69344b386300 TotalTokens:30 Cost:{Input:1.9999999999999998e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.00012}}}]}}"
+          }
+        ],
+        "case_id": "P08-E02-entry-null-mime",
+        "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^null-mime$'",
+        "status": "FAIL",
+        "test": "TestOpenAIImagesInvalidEntriesKeepUsage/null-mime"
+      }
+    },
+    "P08-E02-entry-empty-mime": {
+      "error": "",
+      "result": {
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ],
+        "usage": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 10,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "totalTokens": 30,
+          "cost": {
+            "input": 1.9999999999999998e-05,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00012
+          }
+        },
+        "stopReason": "stop",
+        "metadata": {
+          "tenantId": "tenant-a",
+          "requestId": "req-entry-empty-mime",
+          "actorId": "actor-7",
+          "jobId": "job-42",
+          "bindingId": "images",
+          "operation": "image",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-images",
+          "modelId": "host-image",
+          "accountScopeId": "acct-tenant-a",
+          "bindingVersion": "b1",
+          "credentialVersion": "v1",
+          "catalogVersion": "2026-10-08.3",
+          "catalogHash": "sha256:7c3fddf2540f223bd51dac7626e0634eb5f00a35f35245e19fcf25e966e9f926",
+          "attempts": [
+            {
+              "attemptId": "req-entry-empty-mime#1",
+              "httpStatus": 200,
+              "usageReporting": "complete",
+              "usage": {
+                "input": 10,
+                "output": 20,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "modalities": {
+                  "inputText": 10,
+                  "inputImage": 0,
+                  "outputText": 0,
+                  "outputImage": 20
+                },
+                "totalTokens": 30,
+                "cost": {
+                  "input": 1.9999999999999998e-05,
+                  "output": 0.0001,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.00012
+                }
+              }
+            }
+          ]
+        }
+      },
+      "response-script": [
+        {
+          "status": 200,
+          "header": {
+            "Content-Type": "application/json"
+          },
+          "script": "{\"data\":[{\"b64_json\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\",\"mime_type\":\"\",\"revised_prompt\":\"not retained\"}],\"usage\":{\"input_tokens\":10,\"output_tokens\":20,\"total_tokens\":30,\"input_tokens_details\":{\"text_tokens\":10,\"image_tokens\":0},\"output_tokens_details\":{\"text_tokens\":0,\"image_tokens\":20}}}"
+        }
+      ],
+      "assertions": {
+        "assertions": [
+          {
+            "name": "usage survives invalid entries",
+            "pass": false,
+            "detail": "got <nil> {Content:[{Data:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII= MimeType:image/png}] ResponseID:{state:0 value:} ResponseModel:{state:0 value:} Usage:{Input:10 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x69344b79a000 TotalTokens:30 Cost:{Input:1.9999999999999998e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.00012}} StopReason:stop ErrorMessage: Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-entry-empty-mime ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:host-image AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.3 CatalogHash:sha256:7c3fddf2540f223bd51dac7626e0634eb5f00a35f35245e19fcf25e966e9f926 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-entry-empty-mime#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:10 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x69344b79a080 TotalTokens:30 Cost:{Input:1.9999999999999998e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.00012}}}]}}"
+          }
+        ],
+        "case_id": "P08-E02-entry-empty-mime",
+        "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesInvalidEntriesKeepUsage$/^empty-mime$'",
+        "status": "FAIL",
+        "test": "TestOpenAIImagesInvalidEntriesKeepUsage/empty-mime"
+      }
+    },
+    "P08-E07-entry-options-snapshot": {
+      "error": "ai: protocol (response): invalid OpenAI Images response",
+      "result": {
+        "content": null,
+        "usage": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 10,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "totalTokens": 30,
+          "cost": {
+            "input": 1.9999999999999998e-05,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00012
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "invalid OpenAI Images response",
+        "metadata": {
+          "tenantId": "tenant-a",
+          "requestId": "req-entry-options-snapshot",
+          "actorId": "actor-7",
+          "jobId": "job-42",
+          "bindingId": "images",
+          "operation": "image",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-images",
+          "modelId": "host-image",
+          "accountScopeId": "acct-tenant-a",
+          "bindingVersion": "b1",
+          "credentialVersion": "v1",
+          "catalogVersion": "2026-10-08.3",
+          "catalogHash": "sha256:7c3fddf2540f223bd51dac7626e0634eb5f00a35f35245e19fcf25e966e9f926",
+          "attempts": [
+            {
+              "attemptId": "req-entry-options-snapshot#1",
+              "httpStatus": 200,
+              "providerRequestId": "req-images",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 10,
+                "output": 20,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "modalities": {
+                  "inputText": 10,
+                  "inputImage": 0,
+                  "outputText": 0,
+                  "outputImage": 20
+                },
+                "totalTokens": 30,
+                "cost": {
+                  "input": 1.9999999999999998e-05,
+                  "output": 0.0001,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.00012
+                }
+              }
+            }
+          ]
+        }
+      },
+      "response-script": [
+        {
+          "status": 200,
+          "header": {
+            "Content-Type": "application/json",
+            "x-request-id": "req-images"
+          },
+          "script": "{\"data\": [{\"b64_json\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\", \"revised_prompt\": \"not retained\"}], \"usage\": {\"input_tokens\": 10, \"output_tokens\": 20, \"total_tokens\": 30, \"input_tokens_details\": {\"text_tokens\": 10, \"image_tokens\": 0}, \"output_tokens_details\": {\"text_tokens\": 0, \"image_tokens\": 20}}}"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/images/generations",
+          "query": "",
+          "key_alias": "key:tenant-a@v1",
+          "header": {
+            "Accept-Encoding": "gzip",
+            "Authorization": "Bearer key:tenant-a@v1",
+            "Content-Length": "64",
+            "Content-Type": "application/json",
+            "User-Agent": "barness-ai"
+          },
+          "body": {
+            "model": "host-image",
+            "prompt": "一张餐厅露台照片",
+            "n": 2
+          }
+        }
+      ],
+      "assertions": {
+        "assertions": [
+          {
+            "name": "entry options independently frozen",
+            "pass": false,
+            "detail": "got ai: protocol (response): invalid OpenAI Images response request=2"
+          }
+        ],
+        "case_id": "P08-E07-entry-options-snapshot",
+        "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEntryOptionsSnapshot$'",
+        "status": "FAIL",
+        "test": "TestOpenAIImagesEntryOptionsSnapshot"
+      }
+    }
+  }
+}

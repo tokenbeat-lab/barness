@@ -1,0 +1,27 @@
+[
+  {
+    "command": "go vet ./...",
+    "exit_code": 0
+  },
+  {
+    "command": "go vet -tags live ./ai/...",
+    "exit_code": 0
+  },
+  {
+    "command": "go test ./ai/e2e -run '^Test(OpenAIImages|CatalogNativeImage|Unary|Classifier)' -count=1",
+    "exit_code": 0
+  },
+  {
+    "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 BARNESS_AI_EVIDENCE_DIR=\"$PWD/.evidence/barness-ai/issue09-final\" go test -race ./... -count=1",
+    "exit_code": 0
+  },
+  {
+    "command": "go run ./ai/release/cmd/releasegate -bundle <source-bundle> -out .evidence/barness-ai/issue09-final/release",
+    "exit_code": 1,
+    "note": "Evaluation only: command/live inputs absent. Offline/differential/audit/trace/snapshot data gates are checked separately."
+  },
+  {
+    "command": "go run ./ai/internal/testkit/audit/cmd/auditbundle .scratch/barness-ai-pi-1.0/openai-generation-evidence",
+    "exit_code": 0
+  }
+]
