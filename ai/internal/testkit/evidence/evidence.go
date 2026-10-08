@@ -200,6 +200,7 @@ type Case struct {
 	assertions []assertion
 	status     string
 	replayEnv  string
+	replayRun  string
 	// unsupported is why the scenario's capability does not exist for its
 	// target; set, a test that did not fail reports UNSUPPORTED.
 	unsupported string
@@ -220,6 +221,14 @@ func (c *Case) ReplayEnv(assignments string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.replayEnv = assignments
+}
+
+// ReplayRun selects a complete pipeline when a case requires earlier cases in
+// the same process. It changes only the replay command, never what was executed.
+func (c *Case) ReplayRun(pattern string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.replayRun = pattern
 }
 
 // Unsupported records that the scenario's capability does not exist for its
@@ -306,7 +315,12 @@ func (c *Case) replay() string {
 	for i, p := range parts {
 		parts[i] = "^" + regexp.QuoteMeta(p) + "$"
 	}
-	cmd := fmt.Sprintf("go test %s -count=1 -run '%s'", c.run.pkg, strings.Join(parts, "/"))
+	pattern := strings.Join(parts, "/")
+	if c.replayRun != "" {
+		pattern = c.replayRun
+	}
+	quoted := "'" + strings.ReplaceAll(pattern, "'", "'\"'\"'") + "'"
+	cmd := fmt.Sprintf("go test %s -count=1 -run %s", c.run.pkg, quoted)
 	if c.replayEnv != "" {
 		cmd = c.replayEnv + " " + cmd
 	}

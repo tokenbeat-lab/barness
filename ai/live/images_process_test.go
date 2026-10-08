@@ -14,6 +14,7 @@ import (
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -129,7 +130,7 @@ func TestImagesHarnessFailureChild(t *testing.T) {
 				}
 				res, err := s.generateImage(original, req, opts)
 				if s.ok(original, err) {
-					s.imageTurn(res, "png")
+					s.imageTurn(res, opts)
 				}
 			}
 			runScenario(t, cs, c, true, env, sc)
@@ -143,4 +144,31 @@ func imageRequestForProcess(id string, ref ai.Image) ai.ImagesRequest {
 		req.ReferenceImages = []ai.Image{ref}
 	}
 	return req
+}
+
+func TestImagesHarnessReplay(t *testing.T) {
+	artifact, err := evidence.NewRun("-tags live ./ai/live")
+	if err != nil {
+		t.Fatal(err)
+	}
+	c := &combos[slices.IndexFunc(combos, func(c combo) bool { return c.name == "openai-images" })]
+	t.Run("dependent-case", func(t *testing.T) { cs := artifact.Case(t, "P08-replay-selection"); setLiveReplay(cs, c) })
+	if err := artifact.Finish(); err != nil {
+		t.Fatal(err)
+	}
+	data, err := os.ReadFile(filepath.Join(artifact.Dir(), "manifest.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var manifest struct {
+		Cases []struct {
+			Replay string `json:"replay"`
+		} `json:"cases"`
+	}
+	if err := json.Unmarshal(data, &manifest); err != nil {
+		t.Fatal(err)
+	}
+	if len(manifest.Cases) != 1 || !strings.Contains(manifest.Cases[0].Replay, "-run '^TestLive$/^openai-images$'") {
+		t.Fatal("image replay must run its required pipeline in one process")
+	}
 }

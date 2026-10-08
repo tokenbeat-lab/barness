@@ -275,3 +275,17 @@ func clone(m Matrix) Matrix {
 	}
 	return out
 }
+
+// Only the shared set validation lives here. Each operation retains its own
+// route, fixed model, counters and optional-capability semantics.
+func checkExpected(r Report, expected []string) error {
+	if len(r.Expected) != len(expected) {
+		return refuse("%s report lacks its complete capability set", r.Combo)
+	}
+	for _, id := range expected {
+		if !slices.Contains(r.Expected, id) {
+			return refuse("%s report lacks %q", r.Combo, id)
+		}
+	}
+	return nil
+}

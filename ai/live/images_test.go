@@ -96,7 +96,7 @@ func (s *session) generateImage(label string, req ai.ImagesRequest, opts ai.Open
 		}
 	}
 	format, _ := opts.OutputFormat.Get()
-	verification, validationErr := verifyImages(res, format)
+	verification, validationErr := verifyImages(res, opts)
 	reporting := string(ai.UsageUnreported)
 	if len(res.Metadata.Attempts) > 0 {
 		reporting = string(res.Metadata.Attempts[len(res.Metadata.Attempts)-1].UsageReporting)
@@ -173,15 +173,17 @@ func imagesScenarios() []scenario {
 	return []scenario{
 		{id: "json-edit", run: func(s *session) {
 			ref, _ := smokeImageInputs(s.t)
-			res, err := s.generateImage("json-edit", ai.ImagesRequest{Prompt: "Change the blue square to a green square. Keep the simple white background.", ReferenceImages: []ai.Image{ref}}, imageSmokeOptions("png", "low"))
+			opts := imageSmokeOptions("png", "low")
+			res, err := s.generateImage("json-edit", ai.ImagesRequest{Prompt: "Change the blue square to a green square. Keep the simple white background.", ReferenceImages: []ai.Image{ref}}, opts)
 			if s.ok("JSON edit", err) {
-				s.imageTurn(res, "png")
+				s.imageTurn(res, opts)
 			}
 		}},
 		{id: "generation", run: func(s *session) {
-			res, err := s.generateImage("generation", ai.ImagesRequest{Prompt: "A simple red circle centered on a plain white background."}, imageSmokeOptions("jpeg", "medium"))
+			opts := imageSmokeOptions("jpeg", "medium")
+			res, err := s.generateImage("generation", ai.ImagesRequest{Prompt: "A simple red circle centered on a plain white background."}, opts)
 			if s.ok("generation", err) {
-				s.imageTurn(res, "jpeg")
+				s.imageTurn(res, opts)
 			}
 		}},
 		{id: "mask-edit", run: func(s *session) {
@@ -195,19 +197,20 @@ func imagesScenarios() []scenario {
 				return
 			}
 			if s.ok("mask edit", err) {
-				s.imageTurn(res, "webp")
+				s.imageTurn(res, opts)
 			}
 		}},
 	}
 }
 
-func (s *session) imageTurn(res ai.ImagesResult, format string) {
+func (s *session) imageTurn(res ai.ImagesResult, opts ai.OpenAIImagesOptions) {
+	format, _ := opts.OutputFormat.Get()
 	c := s.env.combo
 	m := res.Metadata
 	s.check("image terminal and attribution", res.StopReason == ai.StopReasonStop && m.Resolved && m.Operation == ai.OperationImage && m.ProviderID == c.provider && m.API == c.api && m.ModelID == s.model, "wrong image attribution")
 	s.check("one successful HTTP attempt", len(m.Attempts) == 1 && m.Attempts[0].HTTPStatus == 200 && m.Attempts[0].ProviderRequestID != "", "missing HTTP acceptance")
 	s.check("no invented image response identity", res.ResponseID.IsZero() && res.ResponseModel.IsZero(), "invented response identity")
-	_, err := verifyImages(res, format)
+	_, err := verifyImages(res, opts)
 	s.check("readable image, format, size and count", err == nil, "%v", err)
 	if len(m.Attempts) == 1 {
 		s.note("%s: %s output, 1024x1024; usage %s; known-only cost %.8f USD", format, format, m.Attempts[0].UsageReporting, res.Usage.Cost.Total)
@@ -230,8 +233,15 @@ func explicitMaskRefusal(err error, ex []exchange) bool {
 	if json.Unmarshal([]byte(ex[0].ResponseBody), &body) != nil {
 		return false
 	}
+
 	message := strings.ToLower(body.Error.Message)
-	return (body.Error.Param == "mask" || strings.Contains(message, "mask")) && (strings.Contains(message, "not supported") || strings.Contains(message, "unsupported"))
+	// A bad mask format/size is a failed input, not lack of model mask support.
+	for _, marker := range []string{"mask is not supported", "masks are not supported", "mask is unsupported", "mask parameter is not supported", "does not support masks", "does not support mask.", "unsupported parameter: mask", "unsupported parameter: 'mask'", "parameter 'mask' is not supported"} {
+		if strings.Contains(message, marker) {
+			return true
+		}
+	}
+	return false
 }
 
 // Synthetic geometric input and PNG alpha mask; no external data or downloads.

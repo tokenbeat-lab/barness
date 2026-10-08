@@ -32,7 +32,7 @@
     }
   ],
   "case_id": "LIVE-P08-generation",
-  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-images go test -tags live ./ai/live -count=1 -run '^TestLive$/^openai-images$/^generation$'",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-images go test -tags live ./ai/live -count=1 -run '^TestLive$/^openai-images$'",
   "status": "PASS",
   "test": "TestLive/openai-images/generation"
 }

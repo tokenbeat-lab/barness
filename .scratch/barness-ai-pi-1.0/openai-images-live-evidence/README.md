@@ -49,3 +49,9 @@ Sunburst 的 input_fidelity 值未明确、未实测，所以要求省略，不�
 
 验证进展：live、目标 E2E、TypeSafe 共享格式回归、目标 race 和 go vet -tags live 已通过。
 全量 race（pi 差分与压力开关启用）和双轴 review 的最终结论在完成后追加。
+
+代码审查修正：保存的逐场景 replay 原先只选 generation/mask，无法满足同进程编辑
+前置条件。现使用完整 OpenAI Images 组合；此次只更正 manifest/assertions 的 replay
+元数据，没有改变真实结果或调用消耗。新增 emitted-manifest 回归。透明输出完整解码后
+还须有透明像素；不透明受控响应不能确认透明能力。mask 格式/尺寸错误不能伪装为厂商
+不支持 mask。详见 [双轴审查](review.md)、transparency-red.log 和 mask-refusal-red.log。

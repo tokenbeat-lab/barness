@@ -1,0 +1,26 @@
+ok  	github.com/tokenbeat-lab/barness/ai	2.357s
+--- FAIL: TestUsageAndCost (0.60s)
+    --- FAIL: TestUsageAndCost/builtin-catalog-pinned (0.01s)
+        usage_test.go:90: [P01-E11-builtin-catalog-pinned] built-in catalog version: got "2026-10-08.4" want "2026-10-08.3"
+        usage_test.go:91: [P01-E11-builtin-catalog-pinned] built-in catalog content is the pinned one (bump Version, then the pin, on any change): got sha256:37b8e6e2bc17576040fdc16c3774908c3e09fc5e1fbe8af7219b6e406ed2ce93 want sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063
+FAIL
+barness-ai evidence bundle: [REPO]/.scratch/barness-ai-pi-1.0/openai-images-live-evidence/full/20261008T071928.554304000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	503.385s
+?   	github.com/tokenbeat-lab/barness/ai/examples/hostintegration	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/localassembly	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/requestid	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/toolloop	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/clock	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/probe	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit	4.089s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/host	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle	3.698s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/provider	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	3.359s
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	4.449s
+?   	github.com/tokenbeat-lab/barness/ai/live	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate	[no test files]
+FAIL

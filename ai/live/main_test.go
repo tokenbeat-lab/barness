@@ -130,7 +130,7 @@ func TestLive(t *testing.T) {
 			for _, sc := range scenariosOf(c) {
 				t.Run(sc.id, func(t *testing.T) {
 					cs := run.Case(t, "LIVE-"+c.spec+"-"+sc.id)
-					cs.ReplayEnv(envLive + "=1 " + envCombo + "=" + c.name)
+					setLiveReplay(cs, c)
 					runScenario(t, cs, c, selected, env, sc)
 				})
 			}
@@ -226,4 +226,11 @@ func (r *resolver) ResolveCredential(_ context.Context, scope ai.CallScope, b ai
 
 func newScope() ai.CallScope {
 	return ai.CallScope{TenantID: liveTenant, RequestID: requestid.New(), JobID: "live-smoke"}
+}
+
+func setLiveReplay(cs *evidence.Case, c *combo) {
+	cs.ReplayEnv(envLive + "=1 " + envCombo + "=" + c.name)
+	if c.operation == ai.OperationImage {
+		cs.ReplayRun("^TestLive$/^openai-images$")
+	}
 }

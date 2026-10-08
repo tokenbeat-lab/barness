@@ -1,0 +1,19 @@
+{
+  "bundleId": "20261008T071928.554304000Z",
+  "counts": {
+    "PASS": 4006,
+    "FAIL": 1
+  },
+  "failures": [
+    {
+      "dir": "P01-E11-builtin-catalog-pinned",
+      "fixtures": {
+        "usage.json": "3243420a2564cb5fd9668c22d335647cc135916cb44ea491bb6125dd2915bcf0"
+      },
+      "id": "P01-E11-builtin-catalog-pinned",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUsageAndCost$/^builtin-catalog-pinned$'",
+      "status": "FAIL",
+      "test": "TestUsageAndCost/builtin-catalog-pinned"
+    }
+  ]
+}

@@ -22,6 +22,8 @@ assert report['budget']['callsUsed'] == report['budget']['imagesUsed'] == report
 assert report['budget']['environmentRetries'] == 0
 assert read(bundle / 'audit.json')['findings'] == []
 cost = 0.0
+for case in read(bundle / "manifest.json")["cases"]:
+    assert "-run '^TestLive$/^openai-images$'" in case["replay"]
 for sc in report['scenarios']:
     assert sc['outcome'] == 'PASS'
     directory = bundle / sc['caseId']

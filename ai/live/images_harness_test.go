@@ -54,7 +54,7 @@ func testPNG(t *testing.T, width, height int) string {
 }
 
 func TestImagesHarnessWire(t *testing.T) {
-	for _, name := range []string{"success", "usage-absent", "usage-partial", "json-refused", "mask-refused", "invalid-image", "wrong-size"} {
+	for _, name := range []string{"success", "usage-absent", "usage-partial", "json-refused", "mask-refused", "mask-format-refused", "mask-size-refused", "invalid-image", "wrong-size", "transparent-opaque"} {
 		t.Run(name, func(t *testing.T) {
 			before := budget
 			defer func() { budget = before }()
@@ -72,11 +72,17 @@ func TestImagesHarnessWire(t *testing.T) {
 				cs.Check("undocumented fidelity omitted", !fidelity, "input_fidelity sent")
 				w.Header().Set("x-request-id", "req-controlled-image")
 				w.Header().Set("Content-Type", "application/json")
-				if name == "json-refused" || name == "mask-refused" {
+				if name == "json-refused" || strings.HasPrefix(name, "mask-") && strings.HasSuffix(name, "refused") {
 					w.WriteHeader(400)
 					message := "JSON edit input rejected"
 					if name == "mask-refused" {
 						message = "mask is not supported by this model"
+					}
+					if name == "mask-format-refused" {
+						message = "unsupported mask image format"
+					}
+					if name == "mask-size-refused" {
+						message = "mask size is not supported"
 					}
 					json.NewEncoder(w).Encode(map[string]any{"error": map[string]any{"message": message, "type": "invalid_request_error"}})
 					return
@@ -122,13 +128,16 @@ func TestImagesHarnessWire(t *testing.T) {
 			s := &session{t: t, ctx: context.Background(), cs: cs, env: &liveEnv{combo: c, client: client, rec: rec}, model: c.model, attempt: 1}
 			req := ai.ImagesRequest{Prompt: "Change the blue square to green.", ReferenceImages: []ai.Image{{Data: testPNG(t, 256, 256), MimeType: "image/png"}}}
 			opts := imageSmokeOptions("png", "low")
+			if name == "transparent-opaque" {
+				opts.Background = ai.Value("transparent")
+			}
 			if name == "mask-refused" {
 				mask := req.ReferenceImages[0]
 				opts.Mask = &mask
 			}
 			res, err := s.generateImage("controlled", req, opts)
 			cs.Check("count sent and reserved", count == 1 && budget.HTTPAttempts == 1 && budget.ImagesUsed == 1 && budget.CallsUsed == 1 && s.images == 1, "lost request consumption")
-			if name == "json-refused" || name == "mask-refused" {
+			if name == "json-refused" || strings.HasPrefix(name, "mask-") && strings.HasSuffix(name, "refused") {
 				cs.Check("only optional explicit mask refusal", explicitMaskRefusal(err, s.lastExchanges) == (name == "mask-refused"), "wrong optional classification")
 				return
 			}
@@ -137,7 +146,11 @@ func TestImagesHarnessWire(t *testing.T) {
 				return
 			}
 			cs.Check("call succeeds", err == nil, "err=%v", err)
-			_, validation := verifyImages(res, "png")
+			if name == "transparent-opaque" {
+				cs.Check("opaque output cannot confirm transparency", s.imageCalls[0].Verified == 0, "opaque raster was verified as transparent")
+				return
+			}
+			_, validation := verifyImages(res, imageSmokeOptions("png", "low"))
 			cs.Check("dimension guard", (validation == nil) == (name != "wrong-size"), "wrong raster acceptance: %v", validation)
 			reporting := ai.UsageComplete
 			if name == "usage-absent" {

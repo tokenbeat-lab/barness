@@ -31,14 +31,11 @@ func checkImages(r Report) error {
 		return refuse("image report does not name the fixed official route and model")
 	}
 	expected := ImagesExpected()
-	if len(r.Expected) != len(expected) {
-		return refuse("image report lacks its complete capability set")
+
+	if err := checkExpected(r, expected); err != nil {
+		return err
 	}
-	for _, id := range expected {
-		if !slices.Contains(r.Expected, id) {
-			return refuse("image report lacks %q", id)
-		}
-	}
+
 	if slices.ContainsFunc(r.Scenarios, func(s ScenarioResult) bool { return s.Outcome != NotRun }) && (strings.TrimSpace(r.AccountAlias) == "" || strings.TrimSpace(r.SDK) == "") {
 		return refuse("image report lacks account/region alias or implementation provenance")
 	}

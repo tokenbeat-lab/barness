@@ -1,0 +1,9 @@
+--- FAIL: TestImagesHarnessWire (0.01s)
+    --- FAIL: TestImagesHarnessWire/mask-format-refused (0.01s)
+        images_harness_test.go:141: [P08-live-harness-mask-format-refused] only optional explicit mask refusal: wrong optional classification
+    --- FAIL: TestImagesHarnessWire/mask-size-refused (0.00s)
+        images_harness_test.go:141: [P08-live-harness-mask-size-refused] only optional explicit mask refusal: wrong optional classification
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai/20261008T072832.720326000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	1.142s
+FAIL

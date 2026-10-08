@@ -20,14 +20,11 @@ func checkClassifier(r Report) error {
 		return refuse("classifier report does not name the fixed official route and model")
 	}
 	expected := ClassifierExpected()
-	if len(r.Expected) != len(expected) {
-		return refuse("classifier report lacks its complete capability set")
+
+	if err := checkExpected(r, expected); err != nil {
+		return err
 	}
-	for _, id := range expected {
-		if !slices.Contains(r.Expected, id) {
-			return refuse("classifier report lacks %q", id)
-		}
-	}
+
 	b := r.Budget
 	if b.MaxCalls != 6 || b.MaxRetries != 1 || b.MaxQuestions != 10 || b.MaxStateBytes != 131072 ||
 		b.CallsUsed < 0 || b.CallsUsed > b.MaxCalls || b.QuestionsUsed < 0 || b.QuestionsUsed > b.MaxQuestions ||
