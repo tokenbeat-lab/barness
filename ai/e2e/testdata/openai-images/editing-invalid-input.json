@@ -1,0 +1,160 @@
+{
+  "case": "P08",
+  "source": "Issue 10 / ADR-0022; synthetic fixtures, no live acceptance claim",
+  "scenarios": [
+    {
+      "id": "E07-edit-invalid-base64",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "!!!!",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-noncanonical",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "Zh==",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-newline",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=\n",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-remote",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "https://example.invalid/image.png",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-file-id",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "file-fixture",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-path",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "/fixture/image.png",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    },
+    {
+      "id": "E07-edit-provider-reference",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片",
+        "referenceImages": [
+          {
+            "data": "gs://fixture/image.png",
+            "mimeType": "image/png"
+          }
+        ]
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [],
+      "expect": {
+        "requests": 0,
+        "stopReason": "error",
+        "code": "invalid_request",
+        "phase": "scope"
+      }
+    }
+  ]
+}

@@ -98,7 +98,7 @@ func checkImagesScenario(ev *evidence.Case, w *world, sc fixtureScenario, res ai
 }
 
 func TestOpenAIImagesFixtures(t *testing.T) {
-	for _, name := range []string{"generation.json", "failures.json", "editing.json"} {
+	for _, name := range []string{"generation.json", "failures.json", "editing.json", "editing-invalid-input.json"} {
 		f, raw := loadFixture(t, imagesProtocol, name)
 		for _, sc := range f.Scenarios {
 			t.Run(sc.ID, func(t *testing.T) { ev := run.Case(t, "P08-"+sc.ID); runScenario(t, ev, sc, raw, modeComplete) })
