@@ -1,0 +1,57 @@
+{
+  "tested_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+  "commands": [
+    {
+      "command": "go build ./...",
+      "exit_code": 0,
+      "tested_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "ending_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "log": ".evidence/issue15-final/recorded-checks/build.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "go vet ./...",
+      "exit_code": 0,
+      "tested_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "ending_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "log": ".evidence/issue15-final/recorded-checks/vet.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "go vet -tags live ./...",
+      "exit_code": 0,
+      "tested_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "ending_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "log": ".evidence/issue15-final/recorded-checks/vet-live.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "BARNESS_AI_PRESSURE=1 go test -race ./ai/e2e -run '^TestMixed' -count=1",
+      "exit_code": 0,
+      "tested_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "ending_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "log": ".evidence/issue15-final/recorded-checks/mixed-race.log",
+      "log_sha256": "439794e7f888fe9ee1599f3dcacdd83b57155ae5ceca118789995a0928e4315f",
+      "evidence_bundle": ".evidence/issue15-final/recorded-checks/mixed-race-bundles/20261008T103602.331520000Z"
+    },
+    {
+      "command": "go test ./ai/e2e -run '^TestMixedPressure$' -count=1",
+      "exit_code": 0,
+      "tested_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "ending_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "log": ".evidence/issue15-final/recorded-checks/not-run.log",
+      "log_sha256": "5c1d2c347cd174624d4166f8967f1a2e8c79411c2ee8d570114e69a2720db5f5",
+      "evidence_bundle": ".evidence/issue15-final/recorded-checks/not-run-bundles/20261008T103612.910696000Z"
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1",
+      "exit_code": 0,
+      "tested_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "ending_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+      "log": ".evidence/issue15-final/full-final-race.log",
+      "log_sha256": "6659370f39daa60c65d4da5e6b2e56d29107f10ed45bf51d54414d9278840c21",
+      "evidence_bundle": ".evidence/issue15-final/full-final/20261008T102659.735457000Z",
+      "capture": "Completed exec_command session 24451; actual tool exit_code"
+    }
+  ]
+}

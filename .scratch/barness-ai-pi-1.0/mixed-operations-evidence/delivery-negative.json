@@ -1,0 +1,69 @@
+{
+  "before": [
+    {
+      "case": "failed-command-and-missing-log",
+      "expected": "reject",
+      "actual_exit_code": 0,
+      "output": "captured 103 mixed cases; 103 full-run PASS cases\n",
+      "detected_gap": true
+    },
+    {
+      "case": "missing-command-log",
+      "expected": "reject",
+      "actual_exit_code": 0,
+      "output": "captured 103 mixed cases; 103 full-run PASS cases\n",
+      "detected_gap": true
+    },
+    {
+      "case": "stale-manifest-commit",
+      "expected": "reject",
+      "actual_exit_code": 0,
+      "output": "captured 103 mixed cases; 103 full-run PASS cases\n",
+      "detected_gap": true
+    },
+    {
+      "case": "source-not-at-tested-commit",
+      "expected": "reject",
+      "actual_exit_code": 0,
+      "output": "captured 103 mixed cases; 103 full-run PASS cases\n",
+      "detected_gap": true
+    }
+  ],
+  "after": [
+    {
+      "case": "failed-command-and-missing-log",
+      "expected": "reject",
+      "actual_exit_code": 1,
+      "output": "failed command or inconsistent tested commit\n",
+      "pass": true
+    },
+    {
+      "case": "missing-command-log",
+      "expected": "reject",
+      "actual_exit_code": 1,
+      "output": "missing or changed command log\n",
+      "pass": true
+    },
+    {
+      "case": "stale-manifest-commit",
+      "expected": "reject",
+      "actual_exit_code": 1,
+      "output": "manifest differs from tested code commit\n",
+      "pass": true
+    },
+    {
+      "case": "default-pressure-bundle-mismatch",
+      "expected": "reject",
+      "actual_exit_code": 1,
+      "output": "pressure did not default to NOT_RUN\n",
+      "pass": true
+    },
+    {
+      "case": "source-not-at-tested-commit",
+      "expected": "reject",
+      "actual_exit_code": 1,
+      "output": "source differs from tested commit: ai/e2e/mixed_isolation_test.go\n",
+      "pass": true
+    }
+  ]
+}

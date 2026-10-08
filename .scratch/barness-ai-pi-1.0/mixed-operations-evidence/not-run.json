@@ -1,0 +1,40 @@
+{
+  "bundle": ".evidence/issue15-final/recorded-checks/not-run-bundles/20261008T103612.910696000Z",
+  "manifest_sha256": "f1870460bc39d420f7d3b19b3ddb2bb0cb52669c7fa52817318e3966f0e090eb",
+  "manifest": {
+    "cases": [
+      {
+        "dir": "E08-mixed-pressure-cloud-design-load",
+        "fixtures": {},
+        "id": "E08-mixed-pressure-cloud-design-load",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMixedPressure$/^cloud$'",
+        "status": "NOT_RUN",
+        "test": "TestMixedPressure/cloud"
+      },
+      {
+        "dir": "E08-mixed-pressure-local-design-load",
+        "fixtures": {},
+        "id": "E08-mixed-pressure-local-design-load",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMixedPressure$/^local$'",
+        "status": "NOT_RUN",
+        "test": "TestMixedPressure/local"
+      }
+    ],
+    "finished_at": "2026-10-08T10:36:12.911974Z",
+    "git_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+    "go_version": "go1.26.2",
+    "module": "barness-ai",
+    "package": "./ai/e2e",
+    "platform": "darwin/arm64",
+    "started_at": "2026-10-08T10:36:12.910696Z",
+    "versions": {
+      "anthropic-sdk-go": "v1.75.0",
+      "model_catalog_hash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+      "model_catalog_version": "2026-10-08.5",
+      "openai-go": "v3.66.0"
+    }
+  },
+  "audit": {
+    "findings": []
+  }
+}

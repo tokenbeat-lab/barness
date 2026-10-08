@@ -30,7 +30,8 @@
 - 同一个 Client 配置四条真实协议路线（chat、OpenAI image、Google image、TypeSafe），
   使用按租户/Binding 路由的 Provider 脚本；公共 E2E 逐项留证。
 - 压力由已有 BARNESS_AI_PRESSURE=1 启用，默认 NOT_RUN；生成参数与长度/哈希代替大正文证据。
-  GC 可达堆、Provider 捕获副本、完整 JSON/base64、吞吐和逐项用量占比均记录。
+  客户端 Body.Read 在交付所有响应字节后暂停 EOF，记录完整 body 和已发布结果的 GC 可达堆；
+  调用期 TotalAlloc 保守覆盖采样间暂存副本，Provider 捕获副本、JSON/base64、吞吐与用量占比均记录。
   字节限额占比 <=75%，并发按设计占满，明确本地 256 MiB/云端 512 MiB 混合缓冲预算。
 - 修订 ADR-0002/0003/0008/0009/0017、示例说明与 T/C/H 追溯，保留审计、race 和完整回归证据。
 
@@ -38,3 +39,12 @@
 
 每切片运行定向 E2E/Go 编译；最后 go vet（含 live）、开启差分/压力的完整测试，
 混合操作 -race；执行 code-review 的 Standards/Spec 两轴并修复发现后提交当前 main。
+
+## 实测收敛
+
+审查前仅 GC live 指标不足以覆盖短命副本；新增调用期 TotalAlloc 上界后，32 KiB chat
+输出触发 284/567 MiB 总分配红灯，超过 256/512 MiB 预算。保持图片输入/输出和 4/8
+并发，将 chat 输出设计负载降为 16 KiB；新边界、每项限额余量和最终实测见
+[证据包](mixed-operations-evidence/README.md)。独立租户请求/正文/图像/答案/用量及
+全部 Observer 快照断言已补齐，实现审查 Standards 1 项、Spec 2 项已修复；交付脚本审查再补齐真实命令记录、
+源码提交与默认开关 run 关联，累计 Standards 3 项、Spec 5 项全部修复并独立复核。

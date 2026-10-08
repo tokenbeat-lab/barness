@@ -1,0 +1,312 @@
+{
+  "tested_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+  "items": [
+    {
+      "id": "T03-mixed-operation-isolation",
+      "source": "issue 15 / ADR-0001/0003/0020",
+      "requirement": "Concurrent chat/image/classifier with same-named tenant bindings and model IDs, legal same-account credential sharing, preflight operation/options refusals, fixed retry snapshots and independent route disabling",
+      "scenarios": [
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 49,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E07-mixed-binding-disabled-classifier",
+        "E07-mixed-binding-disabled-google-image",
+        "E07-mixed-binding-disabled-openai-image",
+        "E07-mixed-preflight-chat-unknown-operation",
+        "E07-mixed-preflight-chat-wrong-entry",
+        "E07-mixed-preflight-chat-wrong-options"
+      ]
+    },
+    {
+      "id": "C08-mixed-lifecycle",
+      "source": "issue 15 / ADR-0008",
+      "requirement": "Mixed cancellation/deadlines/failures and tenant/process/waiter/time caps release only own resources; complete body and validation remain under admission",
+      "scenarios": [
+        "E08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 38,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E08-mixed-admission-chat-process-cancel",
+        "E08-mixed-admission-chat-tenant-cancel",
+        "E08-mixed-admission-chat-wait-timeout",
+        "E08-mixed-admission-classifier-process-cancel",
+        "E08-mixed-admission-classifier-tenant-cancel",
+        "E08-mixed-admission-classifier-wait-timeout"
+      ]
+    },
+    {
+      "id": "C09-mixed-observer",
+      "source": "issue 15 / ADR-0009",
+      "requirement": "Mixed attributed metadata and usage only; slow/congested/error/panic Observer cannot change model success or failure and statistics identify loss",
+      "scenarios": [
+        "E09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 4,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E09-mixed-observer-congested",
+        "E09-mixed-observer-error",
+        "E09-mixed-observer-panic",
+        "E09-mixed-observer-slow"
+      ]
+    },
+    {
+      "id": "H5-mixed-design-load",
+      "source": "issue 15 / ADR-0002/0017",
+      "requirement": "Explicit image/classifier policies with measured whole JSON/base64, atomic limits, reachable heap budgets, Provider copies, throughput and at most 75% byte-limit use; opt-in NOT_RUN",
+      "scenarios": [
+        "PRESSURE",
+        "E08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 16,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E08-mixed-image-budget-google-image-above-frame",
+        "E08-mixed-image-budget-google-image-count",
+        "E08-mixed-image-budget-google-image-input-image",
+        "E08-mixed-image-budget-google-image-request",
+        "E08-mixed-image-budget-google-image-response",
+        "E08-mixed-image-budget-google-image-single-image"
+      ]
+    },
+    {
+      "id": "C10-mixed-hosts",
+      "source": "issue 15 / ADR-0001/0003",
+      "requirement": "Local and cloud public examples with independent bindings, legal shared credentials, authenticated identity, cancellation, typed results and host-owned confidence/routing",
+      "scenarios": [
+        "E10"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 11,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E10-mixed-host-cloud",
+        "E10-mixed-host-local",
+        "E10-mixed-local-guard-disabled",
+        "E10-mixed-local-guard-duplicate-binding",
+        "E10-mixed-local-guard-foreign-tenant",
+        "E10-mixed-local-guard-missing-key"
+      ]
+    }
+  ],
+  "full_gates": [
+    {
+      "id": "go-test",
+      "name": "go test ./... (offline, differential on)",
+      "pass": false,
+      "problems": [
+        "go-test: not run"
+      ]
+    },
+    {
+      "id": "go-test-race",
+      "name": "go test -race ./...",
+      "pass": false,
+      "problems": [
+        "go-test-race: not run"
+      ]
+    },
+    {
+      "id": "go-vet",
+      "name": "go vet ./... (with and without the live tag)",
+      "pass": false,
+      "problems": [
+        "go-vet: not run",
+        "go-vet-live: not run"
+      ]
+    },
+    {
+      "id": "p0-offline",
+      "name": "every offline P0 case passes",
+      "pass": true
+    },
+    {
+      "id": "differential",
+      "name": "frozen pi differential: no pending difference",
+      "pass": true
+    },
+    {
+      "id": "live",
+      "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+      "pass": false,
+      "problems": [
+        "openai-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "anthropic-messages: no live evidence bundle of this combination was audited (pass it with -live)",
+        "google-gemini: no live evidence bundle of this combination was audited (pass it with -live)",
+        "openai-chat: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-chat: no live evidence bundle of this combination was audited (pass it with -live)",
+        "typesafe-classifier: no live evidence bundle of this combination was audited (pass it with -live)",
+        "openai-images: no live evidence bundle of this combination was audited (pass it with -live)",
+        "google-interactions-image: no live evidence bundle of this combination was audited (pass it with -live)"
+      ]
+    },
+    {
+      "id": "redaction-audit",
+      "name": "redaction audit: no key, Authorization or real content in any bundle",
+      "pass": true
+    },
+    {
+      "id": "traceability",
+      "name": "traceability: research item → scenario → evidence",
+      "pass": true
+    },
+    {
+      "id": "snapshots",
+      "name": "checked-in snapshots match the code",
+      "pass": true
+    }
+  ],
+  "differential": {
+    "pass": 623,
+    "fail": 0,
+    "notRun": 0,
+    "unsupported": 0,
+    "pending": 0,
+    "byScenario": {
+      "P01": {
+        "pass": 271,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P02": {
+        "pass": 68,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P03": {
+        "pass": 75,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P04": {
+        "pass": 141,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P06": {
+        "pass": 56,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P07": {
+        "pass": 12,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      }
+    },
+    "ledger": {
+      "fixed": 36,
+      "extension": 205,
+      "pending": 0,
+      "routes": [
+        {
+          "provider": "google",
+          "api": "google-interactions"
+        },
+        {
+          "provider": "deepseek",
+          "api": "openai-responses"
+        },
+        {
+          "provider": "openai",
+          "api": "openai-images"
+        }
+      ]
+    }
+  },
+  "scope": "Existing-bundle evaluation; command gates are NOT_RUN there and live bundle gates belong to issue 17. Actual local command results are in verification.json."
+}

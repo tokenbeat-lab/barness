@@ -1,0 +1,17 @@
+{
+  "base_commit": "211ab89d8a60e1741efb8d25e39c39d20aa6b520",
+  "reviewed_commit": "817595c6f0e27e3f88830f1c2f3cc07300706afe",
+  "diff_command": "git diff 211ab89d8a60e1741efb8d25e39c39d20aa6b520...HEAD",
+  "standards_findings": 3,
+  "standards_fixed": 3,
+  "standards_remaining": 0,
+  "spec_findings": 5,
+  "spec_fixed": 5,
+  "spec_remaining": 0,
+  "fix_commit": "817595c",
+  "standards_final": "0 项剩余。客户端测量屏障、实际命令退出码与必需日志、提交/源码/bundle 关联、默认 NOT_RUN 关联全部修复；代理运行 verify，103 混合与 4411 全量场景、源/交付/日志/原 artifact 哈希通过。",
+  "spec_final": "0 项剩余。租户结果与全部观测归属、暂存峰值、命令与日志、提交源哈希、默认 NOT_RUN 关联全部修复；代理运行 verify，五类错误证据被拒绝。",
+  "report": "review.md",
+  "delivery_review": "Working tree artifact scripts and docs; code remains at 817595c. Evidence-script fixes are bound by delivery hashes.",
+  "counting": "Concrete findings across rounds, including default NOT_RUN bundle association residual."
+}
