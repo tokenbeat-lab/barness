@@ -29,43 +29,22 @@ func (p *ResourcePolicy) checkOpenAIImagesPayload(body map[string]any, model Ima
 		}
 		return imageInputFailure(PhaseRequest, "payload callback added an unsupported image field")
 	}
-	if editing {
-		v, exists := body["images"]
-		if !exists || v == nil {
-			return imageAuthorityFailure()
-		}
-		// Count known slices before encoding/decoding; raw JSON is sized by
-		// its bytes and validated again after the independent freeze.
-		value := reflect.ValueOf(v)
-		if (value.Kind() == reflect.Slice || value.Kind() == reflect.Array) && value.Type().Elem().Kind() != reflect.Uint8 {
-			n := value.Len()
-			if n == 0 {
-				return imageAuthorityFailure()
-			}
-			if failure := p.checkFinalImageCount(n, body["mask"] != nil, model.Capabilities); failure != nil {
-				return failure
-			}
-		}
+	if editing && body["images"] == nil {
+		return imageAuthorityFailure()
 	}
 	if _, ok := jsonPayloadSize(body, p.MaxRequestBytes); !ok {
 		return limitFailure(PhaseRequest, "MaxRequestBytes", p.MaxRequestBytes)
 	}
-	if raw, ok := body["images"].(json.RawMessage); ok {
-		if failure := p.checkRawImageReferences(raw, body["mask"] != nil, model.Capabilities); failure != nil {
+	if editing {
+		if failure := p.checkImageReferencePayload(reflect.ValueOf(body["images"]), body["mask"] != nil, model.Capabilities); failure != nil {
 			return failure
-		}
-	} else if images := reflect.ValueOf(body["images"]); images.IsValid() && (images.Kind() == reflect.Slice || images.Kind() == reflect.Array) && images.Type().Elem().Kind() != reflect.Uint8 {
-		for i := 0; i < images.Len(); i++ {
-			if failure := p.checkInlineImagePayload(images.Index(i).Interface()); failure != nil {
-				return failure
-			}
 		}
 	}
 	if mask, exists := body["mask"]; exists {
 		if mask == nil {
 			return imageInputFailure(PhaseRequest, "image mask must be an inline image object")
 		}
-		if failure := p.checkInlineImagePayload(mask); failure != nil {
+		if failure := p.checkInlineImagePayload(reflect.ValueOf(mask)); failure != nil {
 			return failure
 		}
 	}
@@ -87,64 +66,6 @@ func (p *ResourcePolicy) checkFinalImageCount(n int, mask bool, caps ImageCapabi
 		return limitFailure(PhaseRequest, "Image.MaxInputImages", int64(p.Image.MaxInputImages))
 	}
 	return nil
-}
-
-func (p *ResourcePolicy) checkInlineImagePayload(entry any) *Error {
-	m := reflect.ValueOf(entry)
-	if !m.IsValid() || m.Kind() != reflect.Map || m.Type().Key().Kind() != reflect.String {
-		return nil
-	} // Custom encodings are checked after freezing.
-	fields := m.MapRange()
-	for fields.Next() {
-		key := fields.Key().String()
-		if key == "file_id" {
-			return imageAuthorityFailure()
-		}
-		if key != "image_url" {
-			return imageInputFailure(PhaseRequest, "unsupported inline image field")
-		}
-		value := fields.Value()
-		if value.Kind() == reflect.Interface && !value.IsNil() {
-			value = value.Elem()
-		}
-		if value.Kind() == reflect.String {
-			if failure := p.checkInlineURL(value.String()); failure != nil {
-				return failure
-			}
-		}
-	}
-	return nil
-}
-
-// Raw callback arrays are walked one entry at a time and stop at the first
-// excess reference; never allocate a slice proportional to attacker input.
-func (p *ResourcePolicy) checkRawImageReferences(raw json.RawMessage, mask bool, caps ImageCapabilities) *Error {
-	d := json.NewDecoder(bytes.NewReader(raw))
-	start, err := d.Token()
-	if err != nil || start != json.Delim('[') {
-		return imageInputFailure(PhaseRequest, "images must be an array")
-	}
-	n := 0
-	for d.More() {
-		n++
-		if failure := p.checkFinalImageCount(n, mask, caps); failure != nil {
-			return failure
-		}
-		var ref openAIInlineImage
-		if err := d.Decode(&ref); err != nil {
-			if failure, ok := err.(*Error); ok {
-				return failure
-			}
-			return imageInputFailure(PhaseRequest, "invalid inline image reference")
-		}
-		if failure := p.checkInlineURL(ref.ImageURL); failure != nil {
-			return failure
-		}
-	}
-	if n == 0 {
-		return imageAuthorityFailure()
-	}
-	return nil // The full decoder verifies termination after freezing.
 }
 
 func (p *ResourcePolicy) checkInlineURL(url string) *Error {

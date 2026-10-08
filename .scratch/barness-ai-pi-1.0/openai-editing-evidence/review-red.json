@@ -1,0 +1,17 @@
+{
+  "command": "go test ./ai/e2e -run 'TestOpenAIImagesEditing(KnownSize|CustomEncoding)' -count=1",
+  "status": "FAIL",
+  "failingTests": [
+    "TestOpenAIImagesEditingKnownSize (0.47s)",
+    "TestOpenAIImagesEditingKnownSize/pointer-url (0.08s)",
+    "TestOpenAIImagesEditingKnownSize/pointer-slice (0.01s)",
+    "TestOpenAIImagesEditingKnownSize/struct (0.07s)",
+    "TestOpenAIImagesEditingKnownSize/large-budget-raw (0.09s)",
+    "TestOpenAIImagesEditingKnownSize/large-budget-mask (0.11s)",
+    "TestOpenAIImagesEditingKnownSize/escaped-raw (0.05s)",
+    "TestOpenAIImagesEditingCustomEncoding (0.00s)",
+    "TestOpenAIImagesEditingCustomEncoding/slice (0.00s)",
+    "TestOpenAIImagesEditingCustomEncoding/map (0.00s)"
+  ],
+  "maxObservedAllocationBytes": 100717096
+}

@@ -53,19 +53,12 @@ func jsonPayloadSize(value any, limit int64) (int64, bool) {
 				return ok && take(n)
 			case json.Number:
 				return take(int64(len(x)))
-			case json.Marshaler:
-				return take(1)
-			case encoding.TextMarshaler:
-				return take(1)
 			}
 		}
 		// Known raw/question sizes above must precede this fallback. The JSON
 		// encoder also uses pointer methods on addressable slice/array elements.
-		if v.Kind() != reflect.Pointer && v.CanAddr() && v.Addr().CanInterface() {
-			switch v.Addr().Interface().(type) {
-			case json.Marshaler, encoding.TextMarshaler:
-				return take(1)
-			}
+		if usesCustomJSON(v) {
+			return take(1)
 		}
 		switch v.Kind() {
 		case reflect.String:
@@ -123,4 +116,19 @@ func jsonPayloadSize(value any, limit int64) (int64, bool) {
 	}
 	ok := walk(reflect.ValueOf(value), 0)
 	return size, ok
+}
+
+// Both request sizing and image preflight must honor the encoder's method
+// selection, including pointer methods on addressable slice elements.
+func usesCustomJSON(v reflect.Value) bool {
+	custom := func(value reflect.Value) bool {
+		if value.CanInterface() {
+			switch value.Interface().(type) {
+			case json.Marshaler, encoding.TextMarshaler:
+				return true
+			}
+		}
+		return false
+	}
+	return custom(v) || (v.Kind() != reflect.Pointer && v.CanAddr() && custom(v.Addr()))
 }

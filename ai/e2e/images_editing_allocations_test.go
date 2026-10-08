@@ -14,21 +14,27 @@ import (
 func TestOpenAIImagesEditingKnownSize(t *testing.T) {
 	large := "data:image/png;base64," + strings.Repeat("A", 8<<20)
 	raw := json.RawMessage(`[{"image_url":"` + large + `"}]`)
-	for _, name := range []string{"images", "mask", "raw", "many", "typed-url", "raw-many"} {
+	for _, name := range []string{"images", "mask", "raw", "many", "typed-url", "raw-many", "pointer-url", "pointer-slice", "struct", "large-budget-raw", "large-budget-mask", "escaped-raw"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P08-E08-edit-allocation-"+name)
 			sc := editScenario(t)
 			w := scenarioWorld(t, sc)
-			if name == "typed-url" {
+			if name == "typed-url" || name == "pointer-url" || name == "struct" || strings.HasPrefix(name, "large-budget-") || name == "escaped-raw" {
 				w = newWorldWith(t, func(c *ai.Config) {
 					configureImages(c)
-					c.Policy.MaxRequestBytes, c.Policy.MaxImageBytes = 64<<20, 32<<20
+					c.Policy.MaxRequestBytes = 64 << 20
+					if name == "typed-url" {
+						c.Policy.MaxImageBytes = 32 << 20
+					}
 				}, tenantA)
 				installImagesBinding(w, tenantA)
 			}
 			typed := []map[string]string{{"image_url": "data:image/png;base64," + strings.Repeat("A", 20971520)}}
 			smallURL := "data:image/png;base64," + imagesInput(t, sc).ReferenceImages[0].Data
 			manyRaw := json.RawMessage(`[` + strings.Repeat(`{"image_url":"`+smallURL+`"},`, 1000) + `{"image_url":"` + smallURL + `"}]`)
+			maskRaw := json.RawMessage(`{"image_url":"` + large + `"}`)
+			escapedRaw := json.RawMessage(`[{"image_url":"data:image/png;base64,` + strings.Repeat(`\u0041`, 1<<20) + `"}]`)
+			many := make([]any, 100000)
 			h := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				switch name {
 				case "images":
@@ -43,6 +49,20 @@ func TestOpenAIImagesEditingKnownSize(t *testing.T) {
 					p.Body["images"] = typed
 				case "raw-many":
 					p.Body["images"] = manyRaw
+				case "pointer-url":
+					p.Body["images"] = []map[string]*string{{"image_url": &large}}
+				case "pointer-slice":
+					p.Body["images"] = &many
+				case "struct":
+					p.Body["images"] = []struct {
+						URL *string `json:"image_url"`
+					}{{&large}}
+				case "large-budget-raw":
+					p.Body["images"] = &raw
+				case "large-budget-mask":
+					p.Body["mask"] = maskRaw
+				case "escaped-raw":
+					p.Body["images"] = escapedRaw
 				}
 				return ai.KeepPayload(), nil
 			}}

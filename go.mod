@@ -4,6 +4,7 @@ go 1.26.2
 
 require (
 	github.com/anthropics/anthropic-sdk-go v1.75.0
+	github.com/buger/jsonparser v1.1.2
 	github.com/openai/openai-go/v3 v3.66.0
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3
 	golang.org/x/image v0.45.0
@@ -12,7 +13,6 @@ require (
 
 require (
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
-	github.com/buger/jsonparser v1.1.2 // indirect
 	github.com/coder/websocket v1.8.15 // indirect
 	github.com/invopop/jsonschema v0.14.0 // indirect
 	github.com/pb33f/ordered-map/v2 v2.3.1 // indirect

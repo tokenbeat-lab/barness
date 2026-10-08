@@ -49,7 +49,11 @@ base64 且文件头符合 png/jpeg/webp MIME；有序 slice 和 mask 在任何�
 每个完整 URL ≤20971520 字符，参考图 ≤min(16, MaxReferenceImages, MaxInputImages)，mask
 另占宿主 MaxInputImages 与 MaxImageBytes，不占协议的 16 个参考图名额。入口先检查全部
 已知长度、base64 尺寸估算和请求总预算，再复制或遍历 base64；回调普通容器先限数量与
-URL 大小，raw JSON 数组逐条且到上限立即停止，冻结后重复校验。mask 要求参考图、
+URL 大小，包括普通指针、结构体与带类型的容器。raw JSON 使用项目已安装的
+jsonparser v1.1.2 返回字节视图；先探测第一个超额下标，逐条校验资源，转义 URL 用固定
+缓冲计长，仅保留前缀与 padding，不分配完整字符串。自定义 JSON/TextMarshaler 的
+表示不可预测，沿用 ADR-0002 交给编码器并在冻结后重验，不能按底层 slice/map 猜容量。
+mask 要求参考图、
 型号 Mask 能力且与第一张同尺寸。`DecodeConfig` 在 base64 reader 上仅读图片头，不分配
 栅格。标准库提供 png/jpeg；项目已有依赖不提供 WebP 配置解码，采用 Go 官方
 [golang.org/x/image/webp](https://pkg.go.dev/golang.org/x/image/webp) v0.45.0，保持原有 x/text、
