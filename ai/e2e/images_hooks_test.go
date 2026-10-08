@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"net/http"
 	"reflect"
@@ -152,7 +153,7 @@ func TestOpenAIImagesOptionsAndInput(t *testing.T) {
 			w := newWorldWith(t, func(c *ai.Config) {
 				configureImages(c)
 				if name == "custom-size" || name == "bad-custom-size" {
-					c.Catalog.ImageModels[0].Capabilities.CustomSizes = true
+					patchImageModel(t, c, json.RawMessage(`{"capabilities":{"maxReferenceImages":16,"maxOutputImages":10,"customSizes":`+dimensionEvidence+`}}`))
 				}
 				if name == "unsupported-transparency" {
 					c.Catalog.ImageModels[0].Capabilities.TransparentBackground = false

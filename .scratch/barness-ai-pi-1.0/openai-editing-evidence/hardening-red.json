@@ -1,0 +1,12 @@
+{
+  "command": "go test ./ai/e2e -run 'TestOpenAIImagesEditing(Hooks|KnownSize)' -count=1",
+  "status": "FAIL",
+  "failingTests": [
+    "TestOpenAIImagesEditingKnownSize (0.19s)",
+    "TestOpenAIImagesEditingKnownSize/typed-url (0.16s)",
+    "TestOpenAIImagesEditingKnownSize/raw-many (0.00s)",
+    "TestOpenAIImagesEditingHooks (0.04s)",
+    "TestOpenAIImagesEditingHooks/raw-duplicate-url (0.00s)",
+    "TestOpenAIImagesEditingHooks/raw-mask-null (0.00s)"
+  ]
+}

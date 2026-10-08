@@ -72,18 +72,34 @@ func (c *Client) generateImages(ctx context.Context, scope CallScope, target Tar
 	ctx, r := c.beginCall(ctx, scope, target, OperationImage)
 	defer r.close()
 	res := ImagesResult{}
+	options := OpenAIImagesOptions{}
+	switch o := opts.(type) {
+	case OpenAIImagesOptions:
+		options = o
+	case *OpenAIImagesOptions:
+		if o != nil {
+			options = *o
+		}
+	}
 	failure := validateScope(scope)
 	if failure == nil {
 		failure = contextError(ctx, PhaseScope)
 	}
 	if failure == nil {
-		failure = c.policy.checkImageInput(req)
+		failure = c.policy.checkImageInput(ctx, req, options.Mask, PhaseScope)
 	}
 	if failure == nil {
 		req.ReferenceImages = slices.Clone(req.ReferenceImages)
 		// Host resolvers run after this snapshot and cannot change entry options.
-		if options, ok := opts.(*OpenAIImagesOptions); ok && options != nil {
-			opts = *options
+		if opts != nil {
+			switch o := opts.(type) {
+			case OpenAIImagesOptions:
+				opts = o.clone().(OpenAIImagesOptions)
+			case *OpenAIImagesOptions:
+				if o != nil {
+					opts = o.clone().(OpenAIImagesOptions)
+				}
+			}
 		}
 		failure = c.executeImages(ctx, r, target, req, opts, hooks, &res)
 	}
@@ -109,11 +125,6 @@ func (c *Client) executeImages(ctx context.Context, r *callRuntime, target Targe
 		return failure
 	}
 	model := c.catalog.ImageModels[i].clone()
-	// The only implemented image protocol is OpenAI generation. Issue 10
-	// owns JSON editing; references are refused until that path is delivered.
-	if len(req.ReferenceImages) > 0 {
-		return newError(CodeInvalidRequest, PhaseCapability, "reference image editing is not supported")
-	}
 	options := OpenAIImagesOptions{}
 	if opts != nil {
 		switch o := opts.(type) {
@@ -128,8 +139,8 @@ func (c *Client) executeImages(ctx context.Context, r *callRuntime, target Targe
 			return newError(CodeInvalidRequest, PhaseCapability, "options do not match the binding API")
 		}
 	}
-	if problem := options.check(model.Capabilities, c.policy.Image); problem != "" {
-		return newError(CodeInvalidRequest, PhaseCapability, problem)
+	if failure := c.policy.checkImageCapabilities(req, options, model.Capabilities, PhaseCapability); failure != nil {
+		return failure
 	}
 	cred, failure := r.pin(ctx, model.ID, hooks)
 	if failure != nil {

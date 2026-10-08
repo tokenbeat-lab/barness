@@ -19,15 +19,27 @@ type ImageCapabilities struct {
 	MaxReferenceImages int      `json:"maxReferenceImages"`
 	MaxOutputImages    int      `json:"maxOutputImages"`
 	Sizes              []string `json:"sizes,omitempty"`
-	// CustomSizes enables OpenAI's bounded WIDTHxHEIGHT dimensions in
-	// addition to Sizes. Qualities explicitly lists supported quality values.
-	CustomSizes           bool     `json:"customSizes,omitempty"`
-	Qualities             []string `json:"qualities,omitempty"`
-	ImageSizes            []string `json:"imageSizes,omitempty"`
-	AspectRatios          []string `json:"aspectRatios,omitempty"`
-	Mask                  bool     `json:"mask,omitempty"`
-	TransparentBackground bool     `json:"transparentBackground,omitempty"`
-	InputFidelity         []string `json:"inputFidelity,omitempty"`
+	// CustomSizes authorizes WIDTHxHEIGHT using sourced model constraints.
+	// Numeric Sizes also obey these constraints when present.
+	CustomSizes           *ImageSizeConstraints `json:"customSizes,omitempty"`
+	Qualities             []string              `json:"qualities,omitempty"`
+	ImageSizes            []string              `json:"imageSizes,omitempty"`
+	AspectRatios          []string              `json:"aspectRatios,omitempty"`
+	Mask                  bool                  `json:"mask,omitempty"`
+	TransparentBackground bool                  `json:"transparentBackground,omitempty"`
+	InputFidelity         []string              `json:"inputFidelity,omitempty"`
+}
+
+// ImageSizeConstraints describes a model's arbitrary output dimensions.
+// Source records the capability evidence and retrieval date; no adapter
+// infers limits from a model ID. Pixels are width multiplied by height.
+type ImageSizeConstraints struct {
+	EdgeMultiple   int    `json:"edgeMultiple"`
+	MaxAspectRatio int    `json:"maxAspectRatio"`
+	MaxEdge        int    `json:"maxEdge"`
+	MinPixels      int64  `json:"minPixels"`
+	MaxPixels      int64  `json:"maxPixels"`
+	Source         string `json:"source"`
 }
 
 // ImagePricing contains US dollars per million tokens, split by modality.

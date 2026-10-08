@@ -16,7 +16,7 @@ var imagesProtocol = &fixtureProtocol{dir: "openai-images", binding: "images", a
 // inclusion and live evidence are issue 11, independent of these fixtures.
 func configureImages(c *ai.Config) {
 	cat := ai.BuiltinCatalog()
-	cat.ImageModels = []ai.ImageModel{{Provider: ai.ProviderOpenAI, API: ai.APIOpenAIImages, ID: "host-image", Name: "Synthetic image model", Input: []ai.Modality{ai.ModalityText, ai.ModalityImage}, Output: []ai.Modality{ai.ModalityImage}, Capabilities: ai.ImageCapabilities{MaxReferenceImages: 16, MaxOutputImages: 10, Sizes: []string{"auto", "1024x1024", "1536x1024"}, Qualities: []string{"auto", "low", "medium", "high"}, TransparentBackground: true}, Pricing: ai.ImagePricing{InputText: ai.Value(2.0), InputImage: ai.Value(3.0), OutputImage: ai.Value(5.0), Source: "synthetic fixture rates"}}}
+	cat.ImageModels = []ai.ImageModel{{Provider: ai.ProviderOpenAI, API: ai.APIOpenAIImages, ID: "host-image", Name: "Synthetic image model", Input: []ai.Modality{ai.ModalityText, ai.ModalityImage}, Output: []ai.Modality{ai.ModalityImage}, Capabilities: ai.ImageCapabilities{MaxReferenceImages: 16, MaxOutputImages: 10, Sizes: []string{"auto", "1024x1024", "1536x1024"}, Qualities: []string{"auto", "low", "medium", "high"}, TransparentBackground: true, Mask: true, InputFidelity: []string{"high", "low"}}, Pricing: ai.ImagePricing{InputText: ai.Value(2.0), InputImage: ai.Value(3.0), OutputImage: ai.Value(5.0), Source: "synthetic fixture rates"}}}
 	c.Catalog = &cat
 	c.Policy.Image = &ai.ImagePolicy{MaxInputImages: 16, MaxOutputImages: 10, MaxOutputImageBytes: 1024, MaxTotalOutputImageBytes: 4096}
 }
@@ -64,7 +64,7 @@ func checkImagesScenario(ev *evidence.Case, w *world, sc fixtureScenario, res ai
 	ev.Check("request count", len(reqs) == x.Requests, "got %d want %d", len(reqs), x.Requests)
 	if len(reqs) > 0 && x.Request != nil {
 		r := reqs[len(reqs)-1]
-		ev.Check("generation endpoint and tenant credential", r.Method == "POST" && r.Path == x.Request.Path && r.Query == "" && r.KeyAlias == tenantA.alias, "got %+v", r)
+		ev.Check("image endpoint and tenant credential", r.Method == "POST" && r.Path == x.Request.Path && r.Query == "" && r.KeyAlias == tenantA.alias, "got %+v", r)
 		ev.Check("final request JSON", jsonEqual(r.Body, x.Request.Body), "got %s", r.Body)
 	}
 	ev.Check("terminal", string(res.StopReason) == x.StopReason, "got %s", res.StopReason)
@@ -98,7 +98,7 @@ func checkImagesScenario(ev *evidence.Case, w *world, sc fixtureScenario, res ai
 }
 
 func TestOpenAIImagesFixtures(t *testing.T) {
-	for _, name := range []string{"generation.json", "failures.json"} {
+	for _, name := range []string{"generation.json", "failures.json", "editing.json"} {
 		f, raw := loadFixture(t, imagesProtocol, name)
 		for _, sc := range f.Scenarios {
 			t.Run(sc.ID, func(t *testing.T) { ev := run.Case(t, "P08-"+sc.ID); runScenario(t, ev, sc, raw, modeComplete) })

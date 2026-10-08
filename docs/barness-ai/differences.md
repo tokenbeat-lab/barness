@@ -107,12 +107,14 @@ baseUrl 归属 Binding，pi 的 input=[text] 对应分类隐含模态，两者�
 概率和仍是 1±1e-6，保留原值；未放宽差分的删除字段或判定账本。
 真实 400 max_tokens_exceeded 已固定为自身协议回放 fixture；422 不由该 400 冒充确认。
 
-## 原生 OpenAI Images（工单 09）
+## 原生 OpenAI Images（工单 09–10）
 
 image × openai × openai-images 是独立扩展路线 P08。冻结 pi 1.0.0 路由 OpenRouter 图像，
 没有此原生路线；fixture 每项明确 pidiffSkip，routes 账本与离线 E2E 断言登记，不计为 pi
 差分通过。宿主请求收敛为提示加有序参考图，输出为独立封闭的有序文本/图片块；整组校验失败
 清空输出而保留用量。原生图像目录明确豁免聊天型号字段比对，按自己的证据纳入。
 
-本切片仅生成，编辑/mask 由工单 10、实际型号/费率与真实支持声明由工单 11 交付。
+生成与内联 JSON 编辑共用 GenerateImages，参考图按顺序映射，mask 与输入保真度按型号能力
+校验。回调不能改变已选端点/操作；编辑 fixture 和容量/越权失败均为 P08 扩展离线证据。
+实际型号/费率、JSON 编辑接受性与真实支持声明由工单 11 交付；运行时不回退 multipart。
 直连的 SDK 例外、有限资源与模态计价见 [ADR-0022](../adr/0022-barness-ai-openai-images-unary.md)。

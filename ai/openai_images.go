@@ -3,8 +3,8 @@ package ai
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
-	"unicode/utf8"
 )
 
 func (c *Client) generateOpenAIImages(ctx context.Context, r *callRuntime, cred Credential, model ImageModel, req ImagesRequest, opts OpenAIImagesOptions, out *ImagesResult) *Error {
@@ -12,7 +12,21 @@ func (c *Client) generateOpenAIImages(ctx context.Context, r *callRuntime, cred 
 	if failure != nil {
 		return failure
 	}
-	body, err := json.Marshal(openAIImagesRequest{Model: model.ID, Prompt: req.Prompt, N: opts.N, Size: opts.Size, Quality: opts.Quality, Background: opts.Background, OutputFormat: opts.OutputFormat, OutputCompression: opts.OutputCompression, Moderation: opts.Moderation})
+	wire := openAIImagesRequest{Model: model.ID, Prompt: req.Prompt, N: opts.N, Size: opts.Size, Quality: opts.Quality, Background: opts.Background, OutputFormat: opts.OutputFormat, OutputCompression: opts.OutputCompression, Moderation: opts.Moderation, InputFidelity: opts.InputFidelity}
+	editing := len(req.ReferenceImages) > 0
+	path := "/images/generations"
+	if editing {
+		path = "/images/edits"
+		wire.Images = make([]openAIInlineImage, len(req.ReferenceImages))
+		for i, img := range req.ReferenceImages {
+			wire.Images[i] = openAIImageReference(img)
+		}
+	}
+	if opts.Mask != nil {
+		mask := openAIImageReference(*opts.Mask)
+		wire.Mask = Value(mask)
+	}
+	body, err := json.Marshal(wire)
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "image request could not be encoded")
 	}
@@ -20,7 +34,7 @@ func (c *Client) generateOpenAIImages(ctx context.Context, r *callRuntime, cred 
 	if failure := limits.checkRequestBody(body); failure != nil {
 		return failure
 	}
-	body, failure = r.hooks.payload(ctx, body, func(final map[string]any) *Error { return c.policy.checkOpenAIImagesPayload(final, model.ID) })
+	body, failure = r.hooks.payload(ctx, body, func(final map[string]any) *Error { return c.policy.checkOpenAIImagesPayload(final, model, editing) })
 	if failure != nil {
 		return failure
 	}
@@ -31,21 +45,22 @@ func (c *Client) generateOpenAIImages(ctx context.Context, r *callRuntime, cred 
 	// follows the final request rather than the caller's pre-hook options.
 	final, err := decodeOpenAIImagesRequest(body)
 	if err != nil {
+		var failure *Error
+		if errors.As(err, &failure) {
+			return failure
+		}
 		return newError(CodeCallbackFailed, PhaseRequest, "payload callback produced an invalid image request")
 	}
 	if final.Model != model.ID {
 		return newError(CodeTenantDenied, PhaseRequest, "payload callback may not change the authorized model")
 	}
-	if !utf8.ValidString(final.Prompt) || utf8.RuneCountInString(final.Prompt) < 1 || utf8.RuneCountInString(final.Prompt) > 32000 {
-		return newError(CodeCallbackFailed, PhaseRequest, "payload callback produced an invalid image prompt")
-	}
-	if problem := final.options().check(model.Capabilities, c.policy.Image); problem != "" {
-		return newError(CodeCallbackFailed, PhaseRequest, "payload callback produced invalid image options")
+	if failure := c.policy.checkOpenAIImagesFinal(ctx, final, model.Capabilities, editing); failure != nil {
+		return failure
 	}
 	failures := httpFailures{apiKey: cred.APIKey, clock: c.clock, requestIDHeader: requestIDHeaderOf(model.Provider), classifyStatus: openAIImagesHTTPCode, describe: func(res *http.Response, raw []byte) (string, string) {
 		return describeHTTPError("OpenAI Images API error", res.StatusCode, raw)
 	}}
-	response, failure := c.sendUnary(ctx, r, header, body, "/images/generations", failures)
+	response, failure := c.sendUnary(ctx, r, header, body, path, failures)
 	if failure != nil {
 		return failure
 	}

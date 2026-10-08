@@ -35,7 +35,7 @@ Responses/Chat 型号默认 samplingParams 同样不能覆盖保留字段。
 `LookupImage`/`ImageModelsOf`、`LookupClassifier`/`ClassifierModelsOf` 分别强类型查询另两类，
 参数按 Provider、API（查找另含 ID）限定，列表保持目录顺序。所有返回值、切片、map、原始 JSON、
 能力与阶梯价格均独立复制。配置在构造交接期间不得并发修改。发现目录无需读取绑定或凭据，
-也不授予调用权限；内置目录列已有验收的聊天路线和 jev-1.13.0 分类；GenerateImages 已交付宿主目录的生成入口，真实图像型号纳入由工单 11 验收。
+也不授予调用权限；内置目录列已有验收的聊天路线和 jev-1.13.0 分类；GenerateImages 已交付宿主目录的生成与 JSON 编辑入口，真实图像型号纳入由工单 11 验收。
 三类型号与全部价格都参加目录 Hash；内容改变应升 Version，宿主即使重用版本也会得到不同哈希（ADR-0010/0020）。
 
 ## 2. 调用
@@ -188,23 +188,33 @@ Phase 取值：`scope`、`binding`、`capability`、`credential`、`consistency`
 
 协议组合只有在适用验收与真实冒烟通过后才可宣称支持；当前状态见 [README](README.md#支持矩阵) 与 [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)。“兼容 OpenAI”不等于任何兼容服务已验收；共享 adapter 的通过不连带标记其他组合。
 
-## OpenAI 图像生成（工单 09）
+## OpenAI 图像生成与 JSON 编辑（工单 09–10）
 
 Client 与 HookedClient.GenerateImages 接收 ImagesRequest（Prompt、有序 ReferenceImages）和封闭的
-ImageOptions，同步返回 ImagesResult，不产生 delta。当前只实现无参考图生成；编辑与 mask 由
-工单 10 交付。绑定必须为 image × openai × openai-images，并逐个授权目录型号；旧零值聊天
+ImageOptions，同步返回 ImagesResult，不产生 delta。无参考图走 generations，有参考图走 edits，
+仅发送 JSON 内联图片。绑定必须为 image × openai × openai-images，并逐个授权目录型号；旧零值聊天
 绑定不会得到图像权限。SimpleOptions 不能用于此入口。
 
 ResourcePolicy.Image 为 nil 时以 invalid_request/scope 拒绝；ImagePolicy 的 MaxInputImages、
 MaxOutputImages、MaxOutputImageBytes、MaxTotalOutputImageBytes 均须为正，单张 ≤ 总图片字节 ≤
 MaxOutputBytes。策略深复制，旧聊天配置继续有效。请求、响应和 context 同受既有全局预算保护。
 
-OpenAIImagesOptions 仅有 N、Size、Quality、Background、OutputFormat、OutputCompression、Moderation，
-每个可选字段为 Nullable。nil/省略取默认；显式 null 拒绝，压缩零有效。N 在 1–10 及有效输出上限内，
+OpenAIImagesOptions 包含 N、Size、Quality、Background、OutputFormat、OutputCompression、Moderation、
+InputFidelity（Nullable）与 Mask（*Image）。nil/省略取默认；显式 null 拒绝，压缩零有效。N 在 1–10 及有效输出上限内，
 提示 1–32000 Unicode 字符，透明背景限 png/webp，压缩限 jpeg/webp 的 0–100。
-尺寸/质量/透明背景须由 ImageCapabilities 授权；Qualities 空列表须省略质量，CustomSizes 显式
-允许协议有界自定义尺寸。回调后重验最终请求和授权，拒绝 stream、partial_images、response_format、
-user、编辑资源与续接状态。
+参考图有序独立复制，MIME/文件头须为 png/jpeg/webp，base64 严格标准校验；不读取文件、
+下载 URL 或接受 file_id/其他厂商引用。每个 data URL ≤20971520 字符，参考图不超过宿主、
+协议 16 张与型号 MaxReferenceImages 的最小值；mask 占宿主输入张数和 MaxImageBytes，
+要求参考图、Mask 能力且与第一张同尺寸。全部已知长度先检查，再复制/解码。
+尺寸/质量/透明背景/保真度须由 ImageCapabilities 授权；Qualities、InputFidelity 空列表要求
+省略相应选项，保真度仅编辑允许。gpt-image-2 省略，2.5 值由工单 11 确定。
+CustomSizes 是可选 ImageSizeConstraints（替换早期布尔开关），包含正值 EdgeMultiple、
+MaxAspectRatio、MaxEdge、MinPixels、MaxPixels 与来源日期 Source，深复制；所有数字尺寸
+须符合声明的硬约束，显式 Sizes 也不能绕过。nil 仅允许 Sizes 列出的值。
+回调可调整允许的最终编辑字段；端点/操作先选定，不能增图把生成改成编辑、删除必需参考图
+或改变型号。冻结后重做 mask、内联资源、预算与所有选项组合校验；容量失败为 resource_limit，
+外部资源/操作/授权字段为 tenant_denied，未知字段/无效 schema 为 callback_failed。
+拒绝 stream、partial_images、response_format、user 与续接状态；不回退 multipart。
 
 Content 是独立封闭的 ImageOutputText/ImageOutputImage 有序块，图片为 base64 + MimeType。
 响应格式优先，其次冻结请求格式，再取 png；严格验证 base64 与文件头，数量、单张与总量通过后

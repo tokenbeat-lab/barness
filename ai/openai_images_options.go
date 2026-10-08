@@ -6,12 +6,11 @@ import (
 	"slices"
 	"strconv"
 	"strings"
-	"unicode/utf8"
 )
 
-// OpenAIImagesOptions exposes only synchronous generation settings. Model
+// OpenAIImagesOptions exposes synchronous generation and editing settings. Model
 // capabilities authorize sizes/qualities/transparency; resource budgets
-// always come from ImagePolicy. Editing settings belong to issue 10.
+// always come from ImagePolicy. Mask and InputFidelity require references.
 type OpenAIImagesOptions struct {
 	N                 Nullable[int]    `json:"n,omitzero"`
 	Size              Nullable[string] `json:"size,omitzero"`
@@ -20,13 +19,21 @@ type OpenAIImagesOptions struct {
 	OutputFormat      Nullable[string] `json:"outputFormat,omitzero"`
 	OutputCompression Nullable[int]    `json:"outputCompression,omitzero"`
 	Moderation        Nullable[string] `json:"moderation,omitzero"`
+	Mask              *Image           `json:"mask,omitempty"`
+	InputFidelity     Nullable[string] `json:"inputFidelity,omitzero"`
 }
 
-func (OpenAIImagesOptions) imageOptions()    {}
-func (OpenAIImagesOptions) api() API         { return APIOpenAIImages }
-func (o OpenAIImagesOptions) clone() Options { return o }
+func (OpenAIImagesOptions) imageOptions() {}
+func (OpenAIImagesOptions) api() API      { return APIOpenAIImages }
+func (o OpenAIImagesOptions) clone() Options {
+	if o.Mask != nil {
+		mask := *o.Mask
+		o.Mask = &mask
+	}
+	return o
+}
 func (o OpenAIImagesOptions) validate() string {
-	for _, null := range []bool{o.N.IsNull(), o.Size.IsNull(), o.Quality.IsNull(), o.Background.IsNull(), o.OutputFormat.IsNull(), o.OutputCompression.IsNull(), o.Moderation.IsNull()} {
+	for _, null := range []bool{o.N.IsNull(), o.Size.IsNull(), o.Quality.IsNull(), o.Background.IsNull(), o.OutputFormat.IsNull(), o.OutputCompression.IsNull(), o.Moderation.IsNull(), o.InputFidelity.IsNull()} {
 		if null {
 			return "image options must be omitted or contain a value"
 		}
@@ -45,6 +52,9 @@ func (o OpenAIImagesOptions) validate() string {
 	}
 	if m, ok := o.Moderation.Get(); ok && !slices.Contains([]string{"auto", "low"}, m) {
 		return "unsupported image moderation"
+	}
+	if f, ok := o.InputFidelity.Get(); ok && !slices.Contains([]string{"high", "low"}, f) {
+		return "unsupported image input fidelity"
 	}
 	format := o.outputFormat()
 	if b, _ := o.Background.Get(); b == "transparent" && format != "png" && format != "webp" {
@@ -67,14 +77,26 @@ func (o OpenAIImagesOptions) check(c ImageCapabilities, p *ImagePolicy) string {
 	if o.quantity() > min(c.MaxOutputImages, p.MaxOutputImages) {
 		return "image quantity exceeds the effective output limit"
 	}
-	if s, ok := o.Size.Get(); ok && !slices.Contains(c.Sizes, s) && !(c.CustomSizes && openAIImageDimensions(s)) {
-		return "model does not support this image size"
+	if s, ok := o.Size.Get(); ok {
+		if s == "auto" || c.CustomSizes == nil {
+			if !slices.Contains(c.Sizes, s) {
+				return "model does not support this image size"
+			}
+		} else if !c.CustomSizes.allows(s) {
+			return "model does not support this image size"
+		}
 	}
 	if q, ok := o.Quality.Get(); ok && !slices.Contains(c.Qualities, q) {
 		return "model does not support this image quality"
 	}
 	if b, _ := o.Background.Get(); b == "transparent" && !c.TransparentBackground {
 		return "model does not support transparent backgrounds"
+	}
+	if o.Mask != nil && !c.Mask {
+		return "model does not support masks"
+	}
+	if f, ok := o.InputFidelity.Get(); ok && !slices.Contains(c.InputFidelity, f) {
+		return "model does not support this input fidelity"
 	}
 	return ""
 }
@@ -91,9 +113,7 @@ func (o OpenAIImagesOptions) outputFormat() string {
 	return "png"
 }
 
-// These are protocol limits, not model-name inference. A catalog must opt
-// into custom dimensions; ordinary models accept their explicit Sizes only.
-func openAIImageDimensions(size string) bool {
+func (c ImageSizeConstraints) allows(size string) bool {
 	w, h, ok := strings.Cut(size, "x")
 	if !ok {
 		return false
@@ -110,45 +130,43 @@ func openAIImageDimensions(size string) bool {
 	}
 	width, errW := strconv.Atoi(w)
 	height, errH := strconv.Atoi(h)
-	return errW == nil && errH == nil && width > 0 && height > 0 && width <= 3840 && height <= 3840 && min(width, height) <= 2160 && width%16 == 0 && height%16 == 0 && width <= 3*height && height <= 3*width
+	if errW != nil || errH != nil || width < 1 || height < 1 || width > c.MaxEdge || height > c.MaxEdge || width%c.EdgeMultiple != 0 || height%c.EdgeMultiple != 0 {
+		return false
+	}
+	// Division avoids overflow for even unusually large host constraints.
+	w64, h64 := int64(width), int64(height)
+	if w64 > c.MaxPixels/h64 || (max(w64, h64)-1)/min(w64, h64) >= int64(c.MaxAspectRatio) {
+		return false
+	}
+	return w64*h64 >= c.MinPixels
 }
 
 type openAIImagesRequest struct {
-	Model             string           `json:"model"`
-	Prompt            string           `json:"prompt"`
-	N                 Nullable[int]    `json:"n,omitzero"`
-	Size              Nullable[string] `json:"size,omitzero"`
-	Quality           Nullable[string] `json:"quality,omitzero"`
-	Background        Nullable[string] `json:"background,omitzero"`
-	OutputFormat      Nullable[string] `json:"output_format,omitzero"`
-	OutputCompression Nullable[int]    `json:"output_compression,omitzero"`
-	Moderation        Nullable[string] `json:"moderation,omitzero"`
+	Model             string                      `json:"model"`
+	Prompt            string                      `json:"prompt"`
+	N                 Nullable[int]               `json:"n,omitzero"`
+	Size              Nullable[string]            `json:"size,omitzero"`
+	Quality           Nullable[string]            `json:"quality,omitzero"`
+	Background        Nullable[string]            `json:"background,omitzero"`
+	OutputFormat      Nullable[string]            `json:"output_format,omitzero"`
+	OutputCompression Nullable[int]               `json:"output_compression,omitzero"`
+	Moderation        Nullable[string]            `json:"moderation,omitzero"`
+	Images            []openAIInlineImage         `json:"images,omitempty"`
+	Mask              Nullable[openAIInlineImage] `json:"mask,omitzero"`
+	InputFidelity     Nullable[string]            `json:"input_fidelity,omitzero"`
+}
+
+type openAIInlineImage struct {
+	ImageURL string `json:"image_url"`
 }
 
 func (w openAIImagesRequest) options() OpenAIImagesOptions {
-	return OpenAIImagesOptions{N: w.N, Size: w.Size, Quality: w.Quality, Background: w.Background, OutputFormat: w.OutputFormat, OutputCompression: w.OutputCompression, Moderation: w.Moderation}
-}
-
-func (p *ResourcePolicy) checkOpenAIImagesPayload(body map[string]any, model string) *Error {
-	if body["model"] != model {
-		return newError(CodeTenantDenied, PhaseRequest, "payload callback may not change the authorized model")
+	o := OpenAIImagesOptions{N: w.N, Size: w.Size, Quality: w.Quality, Background: w.Background, OutputFormat: w.OutputFormat, OutputCompression: w.OutputCompression, Moderation: w.Moderation, InputFidelity: w.InputFidelity}
+	if ref, ok := w.Mask.Get(); ok {
+		mask, _ := parseOpenAIImageURL(ref.ImageURL)
+		o.Mask = &mask
 	}
-	for key := range body {
-		if slices.Contains([]string{"model", "prompt", "n", "size", "quality", "background", "output_format", "output_compression", "moderation"}, key) {
-			continue
-		}
-		if slices.Contains([]string{"stream", "partial_images", "response_format", "user", "images", "image", "mask", "input_fidelity", "file_id", "image_url", "previous_response_id", "previous_interaction_id", "store", "tools", "endpoint", "operation", "api", "provider", "api_key", "credential", "headers", "background_execution"}, key) {
-			return newError(CodeTenantDenied, PhaseRequest, "payload callback may not add image authority or operation fields")
-		}
-		return newError(CodeCallbackFailed, PhaseRequest, "payload callback added an unsupported image field")
-	}
-	if _, ok := jsonPayloadSize(body, p.MaxRequestBytes); !ok {
-		return limitFailure(PhaseRequest, "MaxRequestBytes", p.MaxRequestBytes)
-	}
-	if prompt, ok := body["prompt"].(string); ok && (!utf8.ValidString(prompt) || utf8.RuneCountInString(prompt) < 1 || utf8.RuneCountInString(prompt) > 32000) {
-		return newError(CodeCallbackFailed, PhaseRequest, "payload callback produced an invalid image prompt")
-	}
-	return nil
+	return o
 }
 
 func decodeOpenAIImagesRequest(body []byte) (openAIImagesRequest, error) {

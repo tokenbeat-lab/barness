@@ -3,6 +3,7 @@ package ai
 import (
 	"math"
 	"slices"
+	"strings"
 )
 
 // modelKey includes the operation: IDs shared by different kinds of models
@@ -98,6 +99,12 @@ func (m ImageModel) problem() string {
 	}
 	if (caps.Mask || len(caps.InputFidelity) > 0) && caps.MaxReferenceImages == 0 {
 		return "mask and input fidelity require reference images"
+	}
+	if caps.CustomSizes != nil {
+		d := caps.CustomSizes
+		if d.EdgeMultiple < 1 || d.MaxAspectRatio < 1 || d.MaxEdge < d.EdgeMultiple || d.MinPixels < 1 || d.MaxPixels < d.MinPixels || strings.TrimSpace(d.Source) == "" {
+			return "custom image sizes require positive, ordered constraints and an evidence source"
+		}
 	}
 	if m.Provider == ProviderOpenAI && m.API == APIOpenAIImages && (!m.Pricing.CacheReadText.IsZero() || !m.Pricing.CacheReadImage.IsZero()) {
 		return "direct OpenAI Images does not support cache-read pricing"

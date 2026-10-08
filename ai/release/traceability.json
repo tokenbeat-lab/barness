@@ -33,6 +33,9 @@
   },
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier"],
   "items": [
+    {"id":"V4-openai-images-editing","source":"issue 10 / ADR-0022","requirement":"Fixed generation/edit endpoint, ordered inline JSON references and mask, sourced dimensions and model fidelity, atomic output and shared unary lifecycle","scenarios":["P08"],"cases":"edit-"},
+    {"id":"H5-image-input-budgets","source":"issue 10 / design 8.1 / ADR-0022","requirement":"Reference and mask host/model/protocol count and byte budgets, known lengths before copy or encoding, callback allocation bounds","scenarios":["P08"],"cases":"edit-(allocation|host-count|model-count|protocol-count|mask-count|mask-bytes|image-bytes|url-length|request-bytes)"},
+    {"id":"C04-image-edit-final","source":"issue 10 / spec image callbacks / ADR-0022","requirement":"Final JSON edit schema, no foreign resource/operation/model, final MIME/count and mask validation, single response callback and lease/body release","scenarios":["P08"],"cases":"E04-edit-"},
     {"id":"V4-openai-images-generation","source":"issue 09 / ADR-0022","requirement":"Native synchronous generation, all-image atomic validation, protocol options, explicit extension registration and no premature live catalog claim","scenarios":["P08"]},
     {"id":"H5-image-budgets","source":"issue 09 / ADR-0002/0007/0008/0022","requirement":"Image subpolicy snapshots, bounded unary JSON, image count/byte limits, cancellation and zero resource gauges, callback size before encoding","scenarios":["P08"],"cases":"E08-|D1-"},
     {"id":"C04-image-final-payload","source":"issue 09 / ADR-0005/0022","requirement":"Final model and allowed generation fields, frozen options/count/MIME, no external resources or continuation, callbacks once outside binding retries","scenarios":["P08"],"cases":"E04-"},

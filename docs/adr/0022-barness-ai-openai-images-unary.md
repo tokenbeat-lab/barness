@@ -5,11 +5,11 @@ date: 2026-10-08
 
 # barness-ai 以有界 unary 直连 OpenAI Images
 
-工单 09 交付 OpenAI × openai-images × image 的同步生成操作。采用 Client 的唯一 HTTP
+工单 09–10 交付 OpenAI × openai-images × image 的同步生成与 JSON 编辑操作。采用 Client 的唯一 HTTP
 客户端和已验证的 unary 生命周期：授权、凭据快照、Binding.Retry、逐次准入、回调、
 用量和终态观测。公开请求为提示加有序参考图；输出使用独立封闭块，整组通过后才发布。
-本切片只生成图片，参考图编辑、mask 与 input fidelity 由工单 10 交付；内置型号、实际
-费率与真实支持声明由工单 11 验收。
+无参考图走 generations，有参考图走 edits；内置型号、实际费率、JSON 编辑接受性与真实
+支持声明由工单 11 验收。
 
 ## 直连的理由与替代方案
 
@@ -39,9 +39,30 @@ ImagePolicy 为 nil 时在 scope 阶段拒绝；四项容量须为正，单张 �
 MaxOutputBytes，构造深复制。旧聊天策略无需新增字段。
 
 生成请求仅允许 model、prompt、n、size、quality、background、output_format、
-output_compression、moderation。提示以 Unicode 字符计 1–32000，数量取 1–10 与
-型号/策略上限的交集。尺寸和质量由目录能力授权；CustomSizes 显式开放协议有界尺寸，
-不按型号名推断。Qualities 是新增的型号能力列表，空列表要求省略质量。
+output_compression、moderation；编辑另允许 images、mask、input_fidelity。提示以 Unicode
+字符计 1–32000，数量取 1–10 与型号/策略上限的交集。参考图使用既有 Image，严格标准
+base64 且文件头符合 png/jpeg/webp MIME；有序 slice 和 mask 在任何宿主 resolver 前独立复制。
+编辑仅发 JSON：images 为有序 `{image_url: data URL}` 数组，mask 为相同资源对象。
+端点在回调前由入口参考图确定；生成不能被回调改为编辑，编辑不能删除全部参考图。
+原始 JSON、带类型的 map/slice 也重验；重复资源字段、显式 null mask、未知字段拒绝。
+
+每个完整 URL ≤20971520 字符，参考图 ≤min(16, MaxReferenceImages, MaxInputImages)，mask
+另占宿主 MaxInputImages 与 MaxImageBytes，不占协议的 16 个参考图名额。入口先检查全部
+已知长度、base64 尺寸估算和请求总预算，再复制或遍历 base64；回调普通容器先限数量与
+URL 大小，raw JSON 数组逐条且到上限立即停止，冻结后重复校验。mask 要求参考图、
+型号 Mask 能力且与第一张同尺寸。`DecodeConfig` 在 base64 reader 上仅读图片头，不分配
+栅格。标准库提供 png/jpeg；项目已有依赖不提供 WebP 配置解码，采用 Go 官方
+[golang.org/x/image/webp](https://pkg.go.dev/golang.org/x/image/webp) v0.45.0，保持原有 x/text、
+x/sync 版本；不自行实现通用图像解码。
+
+尺寸、质量、透明背景和输入保真度由目录能力授权。InputFidelity 的空列表要求省略，且仅
+编辑允许；gpt-image-2 必须省略，2.5 的允许值仍由工单 11 的真实证据确定，不按 ID 猜测。
+CustomSizes 从布尔开关改为可选 ImageSizeConstraints，含 EdgeMultiple、MaxAspectRatio、
+MaxEdge、MinPixels、MaxPixels 与 Source（来源和日期）；所有正值/区间/来源在目录边界
+校验并深复制。numeric Sizes 也不能绕过已声明的约束。未声明 CustomSizes 时只允许 Sizes。
+[官方图像指南](https://developers.openai.com/api/docs/guides/image-generation) 的 GPT image 2
+示例是 16、3、3840、655360、8294400；本切片使用带来源的合成能力，不纳入真实型号。
+Qualities 空列表要求省略质量。生成与编辑都按冻结后的最终请求验证全部组合。
 
 回调前检查已知输入和请求长度；回调后先检查已知 map 长度，再编码、按 MaxRequestBytes
 检查、独立解码并重做选项校验。改型号和引入外部资源、操作或授权字段为 tenant_denied；
@@ -72,4 +93,4 @@ ImagePricing 按文本/图片 token 逐项单独舍入乘积后相加；缺项�
 冻结 pi 1.0.0 只路由 OpenRouter 图像；原生 OpenAI Images 在差分账本 routes 登记为
 扩展，每个 P08 fixture 有显式 pidiffSkip。原生图像目录有显式豁免，不计为聊天型号比对
 或 pi 差分通过。P08、P0 和追溯映射分别登记；离线证据包含版本、目录快照、可回放场景
-和脱敏审计。本工单的合成能力与价格不构成真实型号已支持的证据。
+和脱敏审计。本工单 09–10 的合成能力与价格不构成真实型号已支持的证据。

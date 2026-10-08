@@ -38,6 +38,10 @@ func (m ImageModel) clone() ImageModel {
 	m.Capabilities.ImageSizes = slices.Clone(m.Capabilities.ImageSizes)
 	m.Capabilities.AspectRatios = slices.Clone(m.Capabilities.AspectRatios)
 	m.Capabilities.InputFidelity = slices.Clone(m.Capabilities.InputFidelity)
+	if m.Capabilities.CustomSizes != nil {
+		constraints := *m.Capabilities.CustomSizes
+		m.Capabilities.CustomSizes = &constraints
+	}
 	return m
 }
 
