@@ -1,18 +1,36 @@
 {
   "base_commit": "4f90386fa4c879dddfa3013cce778c44de873acc",
+  "tested_commit": "0f7b005ce0bb68f31e316d4cec1f55396a00e5e8",
   "commands": [
     {
       "command": "go vet ./...",
-      "exit_code": 0
+      "exit_code": 0,
+      "log": "vet.log"
     },
     {
       "command": "go vet -tags live ./ai/...",
+      "exit_code": 0,
+      "log": "vet-live.log"
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run '^Test(Unary|Classifier|Callbacks|ProtocolCallbacks)' -count=1",
+      "exit_code": 0,
+      "log": "final-targeted-race.log"
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 BARNESS_AI_EVIDENCE_DIR=\"$PWD/.evidence/barness-ai/issue07-final\" go test -race ./... -count=1",
+      "exit_code": 0,
+      "log": "full-race.log"
+    },
+    {
+      "command": "go run ./ai/release/cmd/releasegate -write-snapshot -snapshot /tmp/barness07-catalog.json && cmp /tmp/barness07-catalog.json ai/release/catalog-snapshot.json",
       "exit_code": 0
     },
     {
-      "command": "BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run '^Test(Unary|Classifier)' -count=1",
-      "exit_code": 0,
-      "log": "targeted-race.log"
+      "command": "go run ./ai/release/cmd/releasegate -bundle .evidence/barness-ai/issue07-final/20261008T024630.958851000Z -out .evidence/barness-ai-release/issue07-evaluation",
+      "exit_code": 1,
+      "log": "release-evaluation.log",
+      "expected": "Evaluation-only command/live gates have no input; all required data gates PASS."
     }
   ]
 }

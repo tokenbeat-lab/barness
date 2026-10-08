@@ -1,0 +1,2381 @@
+{
+  "source_bundle": ".evidence/barness-ai/issue07-final/20261008T024630.958851000Z",
+  "source_manifest_sha256": "620afe5ace7a7f8a5fdf6d9512051a056869641ea4a62a746c61af6b7110873c",
+  "cases": [
+    {
+      "dir": "P07-D1-unary-negative-MaxQuestionBytes",
+      "fixtures": {},
+      "id": "P07-D1-unary-negative-MaxQuestionBytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^negative-MaxQuestionBytes$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/negative-MaxQuestionBytes",
+      "artifacts_sha256": {
+        "assertions.json": "f7b0f58f6fda3c0be9c109a47c2ce1c243b2bb857a565825cd93ee154d0c1a37",
+        "error.json": "4917bf8b95ed400c6a9c8798ecf17408dd6de60c93c969a27019e61476a6480c"
+      },
+      "assertions_passed": 1
+    },
+    {
+      "dir": "P07-D1-unary-negative-MaxQuestions",
+      "fixtures": {},
+      "id": "P07-D1-unary-negative-MaxQuestions",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^negative-MaxQuestions$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/negative-MaxQuestions",
+      "artifacts_sha256": {
+        "assertions.json": "6fd7e7716ee063dd86677a983c09372f6f0f2124527fb89adb12db192edd4b25",
+        "error.json": "08afe7aa8b8989cc6a7e1f90c408835150d16a68144349ff68573cfc7d424682"
+      },
+      "assertions_passed": 1
+    },
+    {
+      "dir": "P07-D1-unary-negative-MaxStateBytes",
+      "fixtures": {},
+      "id": "P07-D1-unary-negative-MaxStateBytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^negative-MaxStateBytes$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/negative-MaxStateBytes",
+      "artifacts_sha256": {
+        "assertions.json": "a1306e4ffebd09b2bca64b8de74c6ed161e108cad0ea36270f98ba36822e64a3",
+        "error.json": "851cd5797ea512ed6ed2cffb5ae953b9be9a93a311baf5ba88ad30cd43cc2674"
+      },
+      "assertions_passed": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-encoding-pointer-array-element",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-encoding-pointer-array-element",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackEncodingSemantics$/^pointer-array-element$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackEncodingSemantics/pointer-array-element",
+      "artifacts_sha256": {
+        "assertions.json": "376f81746c0dbc2e5ad993ad64d07d4215b021bb9e9099b63318b5779ba6ae69",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "observations-req-encoding-pointer-array-element.json": "3676cee29f1ce717a2195bbdb60d90f2ec9995e15de98830cb8d0e0bc6e86d5a",
+        "requests.json": "3f34a0aac11c22884583d497396e4ff3bc5133e61dc9c8da73ed0aab08dd0a69",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "c12a0241635396d986acb4e6fdc4af1a8d3abb2b093b22eefc9aeddcfdcd16f2"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-encoding-pointer-json-element",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-encoding-pointer-json-element",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackEncodingSemantics$/^pointer-json-element$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackEncodingSemantics/pointer-json-element",
+      "artifacts_sha256": {
+        "assertions.json": "9bd1380db85a9c9a21db5e66a24f00b25975277c4d626513d81ffdd79c343ad6",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "observations-req-encoding-pointer-json-element.json": "869d658d1c4024139b77a3157c3e029cdcc596a34e43ed734d72d21bde8777aa",
+        "requests.json": "3f34a0aac11c22884583d497396e4ff3bc5133e61dc9c8da73ed0aab08dd0a69",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "4ed6b16f9ea240eee25cd2ff943d260c9c32726f8d3abeaae8b08a12fa5ff5fe"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-encoding-pointer-text-element",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-encoding-pointer-text-element",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackEncodingSemantics$/^pointer-text-element$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackEncodingSemantics/pointer-text-element",
+      "artifacts_sha256": {
+        "assertions.json": "b05f86e47956df5b7a4d139bfaec1e3b340cdb5ac1b6212660ac0a1bea89a458",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "observations-req-encoding-pointer-text-element.json": "39451fa1e5f0ae9587bf93ca2c41dfc0be6cf549d852cea8bf9954a880b881fd",
+        "requests.json": "3f34a0aac11c22884583d497396e4ff3bc5133e61dc9c8da73ed0aab08dd0a69",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "b579f02b92b69e691d3cb6c78f59207bbe83ac4bc27c206eb6b222f7d8032ab1"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-encoding-promoted-conflict",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-encoding-promoted-conflict",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackEncodingSemantics$/^promoted-conflict$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackEncodingSemantics/promoted-conflict",
+      "artifacts_sha256": {
+        "assertions.json": "54921bdb3699e8ead8c3484415d1ea2ca1dd5289e2ea4dc260cafc9e2de1c1fe",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "observations-req-encoding-promoted-conflict.json": "14836ca1c3bc823bc2490a918d110f624febbc2b8c67c66c74187913b3bead77",
+        "requests.json": "842282973e566593df0384eb5c3ff1241cc6b77fd9494d8e223a80eadd7674e4",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "7ff904084fd1e82a413a8b20a930f68e8b842b3c79692156daaf56d5bf3827e5"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-encoding-questions-marshaler",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-encoding-questions-marshaler",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackEncodingSemantics$/^questions-marshaler$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackEncodingSemantics/questions-marshaler",
+      "artifacts_sha256": {
+        "assertions.json": "7a62f8a286565c455fe58960464bb4de383b890d64d19d304c4550ef3386a52d",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "observations-req-encoding-questions-marshaler.json": "8e544801548e6627df2a661e06db5ccfe191d333e35d12e07008bfe03ba9666c",
+        "requests.json": "661ce6f20581d624ced4ff174d89466f64027547a9a6b1ff3cf73dfd105be88f",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "fb429fbc708e77155188fc57092ffb1ea6f456db17aa43cef4f1b5b0a6e9adbd"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-encoding-text-key",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-encoding-text-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackEncodingSemantics$/^text-key$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackEncodingSemantics/text-key",
+      "artifacts_sha256": {
+        "assertions.json": "19ee724cb6fda019fcf2127393d1c1559dec9497e4dbe19094e33cf42c77f884",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "observations-req-encoding-text-key.json": "70ba94a1937cfbee97aeee31302a88a97cf4134eb8eef05c7403fcb0ae4d3673",
+        "requests.json": "b20cd966f42b947e5e896761b0c471c3f6fd980ee19fbeae45542e23ed8b78cb",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "f3393dae87d9f754ead4cb6a71005561c10da72d9b9223dbb4b6f0668fc8b382"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-encoding-text-value",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-encoding-text-value",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackEncodingSemantics$/^text-value$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackEncodingSemantics/text-value",
+      "artifacts_sha256": {
+        "assertions.json": "71d714b7a249b72abd7d8371b8a8f09d38f58183d9ad23bfb103faffba081b7e",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "observations-req-encoding-text-value.json": "5836c44762833d00b44751fd1e5319f652e68bea5dfa6cf763e8629f3b64f3d3",
+        "requests.json": "fcd6b19eb0debeef5e2fa0b91502279afc5158c5def6971664e2959553d4eee2",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "94a22975a1d6347d21e967febf427f337b587bb5e2e148f9fe227b7ab91ac257"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-headers-cancel",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-headers-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^headers-cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/headers-cancel",
+      "artifacts_sha256": {
+        "assertions.json": "24ea25f5a56ac926a44070ce23599634e141977f397cedf5225dd333852211eb",
+        "error.json": "1e0d8ebf52ed016b6826096ea51e4b826ab46d433ec7648776de8fa37e1afcc5",
+        "observations-req-callback-headers-cancel.json": "201c928cd4e4721bb20eee3064dd8059e1a12c62570d54a661a2119d09fca25b",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "57051222e912a89b8d948a51f41a7deaf7cada7547caab03cd01badfd6385d5e"
+      },
+      "assertions_passed": 21,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-callback-headers-deadline",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-headers-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^headers-deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/headers-deadline",
+      "artifacts_sha256": {
+        "assertions.json": "a5e8f0bea690c88b1cf2761f0f886a11bd51379d66e9f87a78fdb7f70a7e1cf6",
+        "error.json": "f35f812cdcc8dca3ffdef09aee5f0d62105d98355e7e82e0c0fea699a4c0f8c0",
+        "observations-req-callback-headers-deadline.json": "e43a4f9450e274c6d1bac0eaba08336d1242559d31bbfc713ce6f2021ac16ebd",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "43fb83fe65c68b0c1e3063e24aa6c211f37f4085a4c826d0830d14f59caffe39"
+      },
+      "assertions_passed": 21,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-callback-headers-error",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-headers-error",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^headers-error$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/headers-error",
+      "artifacts_sha256": {
+        "assertions.json": "88e907ee25525401c8553c8572d2a548c0a9a3441ccd3175f6eefcde85229187",
+        "error.json": "0be7dc241941accefb8253123be7cdb2ef9563f9ca7db51ce6f159d66eab9832",
+        "observations-req-callback-headers-error.json": "3b2ca9a4f67d4ffc23d57a488e10fd93aa9b2d578d5a83b7abb01829c66eec75",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "c8b9277219b98d2864fec98e300c11b4d76d2f6e202663a4c394c6577b317e76"
+      },
+      "assertions_passed": 21,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-callback-payload-cancel",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-payload-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^payload-cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/payload-cancel",
+      "artifacts_sha256": {
+        "assertions.json": "298018e5c96340f0b7cf88c4a0f8e116d4680177a95a5ac44809d9aa4d2b0857",
+        "error.json": "1e0d8ebf52ed016b6826096ea51e4b826ab46d433ec7648776de8fa37e1afcc5",
+        "observations-req-callback-payload-cancel.json": "0c5ab418e1bab9c90d9719b3f76af0839f995f13a4d38ef9974eab31fefd9fb7",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "0c134ea0147744561e0135d997b7580a5590bc9958ee6acb6ecf2f3be710cb4a"
+      },
+      "assertions_passed": 21,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-callback-payload-deadline",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-payload-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^payload-deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/payload-deadline",
+      "artifacts_sha256": {
+        "assertions.json": "34e258ab83b778d56d636a4487c4a397434023d004ab6b9dad093600696a4bb8",
+        "error.json": "f35f812cdcc8dca3ffdef09aee5f0d62105d98355e7e82e0c0fea699a4c0f8c0",
+        "observations-req-callback-payload-deadline.json": "c594bc159a4ab822270004e6f36745f5672f17dc08b179059d134b2539d96b4f",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "91baeb9b6489d24543408867b9e5f9cff917410838fdcfcb1eddbb1d617922cf"
+      },
+      "assertions_passed": 21,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-callback-payload-error",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-payload-error",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^payload-error$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/payload-error",
+      "artifacts_sha256": {
+        "assertions.json": "2da6c70b5f756613868a6bbba3a7070ef6430efe6c8b1ef18e6d7860e9f78b90",
+        "error.json": "272c6d6ab99a2b501c4fbf89da12312b9dc352f4dce6417e3345727c1705fd5e",
+        "observations-req-callback-payload-error.json": "82d2a98374856392d8c4ab0b0a4ee0c421924c246612f69d674dc0b7f78dd916",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "a2406ff6992d05ac3dfe30d906244dc67dd2fe099c4b5b1d16a91badda5c4016"
+      },
+      "assertions_passed": 21,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-callback-response-cancel",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-response-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^response-cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/response-cancel",
+      "artifacts_sha256": {
+        "assertions.json": "6df65565b11c18535bd0ef09b36287f551c024fb01eebbdd57c58736a9d9553c",
+        "error.json": "1e0d8ebf52ed016b6826096ea51e4b826ab46d433ec7648776de8fa37e1afcc5",
+        "observations-req-callback-response-cancel.json": "ddb4034d6d25e368550617fa416f521611d39eb6302067aa60f34c59a61ebb5e",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "9efce342f9199df7eced4f3d81856ffb5aebf51735a42fb290fd845a68a93a1d"
+      },
+      "assertions_passed": 26,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-response-deadline",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-response-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^response-deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/response-deadline",
+      "artifacts_sha256": {
+        "assertions.json": "68d1c9872b076550d1ad519f515306f30062afa4e2aa2bb07ccc22d86af84a27",
+        "error.json": "f35f812cdcc8dca3ffdef09aee5f0d62105d98355e7e82e0c0fea699a4c0f8c0",
+        "observations-req-callback-response-deadline.json": "8995901855f2bb0c88d6cc5260792e4d672f9d05120a4402c1bd9650c4e99bda",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "b89656ebfb1ccaf3d08e69e3b03cfa901e3bba3d24e6b9e2bdc25b36d9e887a7"
+      },
+      "assertions_passed": 26,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-callback-response-error",
+      "fixtures": {},
+      "id": "P07-E04-unary-callback-response-error",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^response-error$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackFailures/response-error",
+      "artifacts_sha256": {
+        "assertions.json": "61aafd8e4159b372427685c461ada02c48af9f8452792cd93ccc7774b7a972e5",
+        "error.json": "27e96a16d59f94d3d860d3c2ab2c3c2cd7b0c47711eb6a648db1acd85cc209b0",
+        "observations-req-callback-response-error.json": "9259465456d6284a1e606391405bcc4dd6631e17a6a47b6af8b16db95644ace6",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "dcea1c4c187d1b2d701ffd1939faec4176f130040576c1ec5b870b6e4d1d1acb"
+      },
+      "assertions_passed": 26,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E04-unary-invalid-disabled",
+      "fixtures": {},
+      "id": "P07-E04-unary-invalid-disabled",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^disabled$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/disabled",
+      "artifacts_sha256": {
+        "assertions.json": "bf3e948e1c736ef48411ca1bce31e8e375c620bec8e20910ec5ac020e08298a3",
+        "error.json": "0e3f1a7acd60e22dfcb22033572a976c1151342bf12607aa20aad07f6824adce",
+        "observations-req-invalid-disabled.json": "0ace678c21ffefc99c3e23431276d740c8d9fe43cebfa811fca63596bc3bf349",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "48c8e75e94c8a6285804d40cd6bbff915561c4ae3bf3d3311ebf003d7ca0b12c"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-invalid-nil-body",
+      "fixtures": {},
+      "id": "P07-E04-unary-invalid-nil-body",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^nil-body$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/nil-body",
+      "artifacts_sha256": {
+        "assertions.json": "f34271d41c24866f2ee9fe8aec07912dc29efc0866513890d73e0609bf6c17a4",
+        "error.json": "4aa6c4661d41825c191f7099ede3337ac36511faef5b54f940ee0389026f206c",
+        "observations-req-invalid-nil-body.json": "41ba7639389fd1eee0238c6025b50be2399f896780f66c56dcf41c15c86db141",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "5246e676c0e73b7a401dc014e6bf169b091054ee7784443ec6b0f1585ae69fab"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-invalid-question-bytes",
+      "fixtures": {},
+      "id": "P07-E04-unary-invalid-question-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^question-bytes$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/question-bytes",
+      "artifacts_sha256": {
+        "assertions.json": "f0fe970fceda32db909f02efbbaf24c41cafa32624aa2dac1d422346ccacc5db",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-invalid-question-bytes.json": "04548f6470774a9ae62fc455850931a94b27588edba7b7f29dd3a54a40eba25f",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "fdf141895f0e48d75de41ebe21be3949fa86933b053a7b027c7e3fc1edd9d5fd"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-invalid-question-count",
+      "fixtures": {},
+      "id": "P07-E04-unary-invalid-question-count",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^question-count$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/question-count",
+      "artifacts_sha256": {
+        "assertions.json": "427d8fa62ca14ab1047c17679f9fbebc64ea870776568a0b76d256eb23500255",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-invalid-question-count.json": "a94a25dd25a2d1f6198634b1d53a8875f5066aff2ea508e3522f93d2f4958ae0",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "a14f80f785673471e6134485768e8c7fbea397540620e3ff78fd458c1991b518"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-invalid-state-bytes",
+      "fixtures": {},
+      "id": "P07-E04-unary-invalid-state-bytes",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^state-bytes$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/state-bytes",
+      "artifacts_sha256": {
+        "assertions.json": "9062bac9b36ab9f52a245ad9d0033f534bdb632b6d2d6d9d1b9a515f8223b695",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-invalid-state-bytes.json": "b7ad4df55c12979f56152ff36e6b29af283c3be68d27899a3ed5ccfc61872b27",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "857866cd049e17aeea885202559dd6ee63ce3be659057740530f62497e3f70fe"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E04-unary-invalid-unencodable-body",
+      "fixtures": {},
+      "id": "P07-E04-unary-invalid-unencodable-body",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInvalidCallbackAndPolicy$/^unencodable-body$'",
+      "status": "PASS",
+      "test": "TestUnaryInvalidCallbackAndPolicy/unencodable-body",
+      "artifacts_sha256": {
+        "assertions.json": "39c63ccea03448e574a8844c01df59ff459336600403550a448b9e31d52cc974",
+        "error.json": "c73f02439452f4a3a7e3f8d5865e34891d395120d8d69fd9bdda2bfa68a0a60d",
+        "observations-req-invalid-unencodable-body.json": "4367eb01315d473a43a6d2b43bef1311e3111f7e3dc20b696c94297ce7f16ca1",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "030dcd32ad63f18f6234263402351379967410384a9d8551a1e85e78bfffe8dc"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E05-unary-backoff-cancel",
+      "fixtures": {},
+      "id": "P07-E05-unary-backoff-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryBackoffInterruption$/^cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryBackoffInterruption/cancel",
+      "artifacts_sha256": {
+        "assertions.json": "b9f25bd1c05a65a600f04fb59c83374ca10522bee48186e1e124d887596cdc5d",
+        "error.json": "612e0b27470f5c4a247b450e9a29a205fd53d4d4ddd59b4a3eeaf78a6c308331",
+        "observations-req-backoff-cancel.json": "a12fd2162b5b6488e0b4e6dcc8fcf1f82969082de18e22ed23bdabb2534f5b37",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "a524da4acaa7ded4c4ea46a12fcd4cbdc8c91b4a28b7b5274123e6f2704b48d0",
+        "result.json": "48f1ec99320009b6069f82c69b800c9c509df8c642132b82d8349e2f72d69992"
+      },
+      "assertions_passed": 26,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-backoff-deadline",
+      "fixtures": {},
+      "id": "P07-E05-unary-backoff-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryBackoffInterruption$/^deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryBackoffInterruption/deadline",
+      "artifacts_sha256": {
+        "assertions.json": "a9bdfa6e0dab6fc597a8cc1a60872cda86b4b6ad334557c770dd296c94641f21",
+        "error.json": "03f6d294c0e28c6a8b076ab44bbf0b8b7ca270dce2e349be0448b6b0323cb00e",
+        "observations-req-backoff-deadline.json": "48e89619889fb6d3e41115fe6a6db947bc5adeb234975a1b46c3d67a44a8faa9",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "a524da4acaa7ded4c4ea46a12fcd4cbdc8c91b4a28b7b5274123e6f2704b48d0",
+        "result.json": "98ec56cb39c57cb00761397af9281dc7f8bb8772068dc13080c0b5b3e0c9c0e4"
+      },
+      "assertions_passed": 26,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-frozen-snapshot",
+      "fixtures": {},
+      "id": "P07-E05-unary-frozen-snapshot",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryFrozenRetry$'",
+      "status": "PASS",
+      "test": "TestUnaryFrozenRetry",
+      "artifacts_sha256": {
+        "assertions.json": "18786b03fd47e5821669db56854bf82f0eb1c56fe41d28a03f83d3dd5e65941e",
+        "observations-req-frozen.json": "c0980217fb8ad8f8a48dc0bdfc7c6cd3e015d80eb46525a1ea58f4d8c96b47a3",
+        "requests.json": "2b2626b722d5d10da53b5fff35f75f874a26093b8239be9930bb14f1c69f6b13",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "ec95095cfcfe3697dc8de11ab9b05fae81b4a2ff686e5c27872be475a65ab781",
+        "result.json": "12b6d88e4d64caa1960b30666d4d505fb776602653592a8275550c4d85f5d8c2"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 2
+    },
+    {
+      "dir": "P07-E05-unary-status-0-retries-0",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-0-retries-0",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-0-retries-0$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-0-retries-0",
+      "artifacts_sha256": {
+        "admissions.json": "7c10ca1d9cd8799275679b3ffabae00c3223c1ba3887f8cca8ffdb1b2864e2b6",
+        "assertions.json": "28fb31d3708ec8c1cc81ffc456c8c81880fa53e6dd7bbac723717c65a4481d32",
+        "error.json": "468e0775e60063e12509758d8f22bfd93b311c6c3fb06234176eeeb7b03ef5ef",
+        "observations-req-status-0-retries-0.json": "bfdc4822ed2ee0cd6aa3a252f6c2a4c7bbdff0a7a2f431bf9957212ce93ca11e",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "a56610f84466f318175b2901aed5a52ea692bfab9525539021d04dff9d1efbe1",
+        "result.json": "ebb3d464d5ec8c234c0185694d0930f2f5867f3b9a4a74aef82f674ee2761d6f",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-0-retries-2",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-0-retries-2",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-0-retries-2$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-0-retries-2",
+      "artifacts_sha256": {
+        "admissions.json": "45dd7ead49083e7ca417cb42d69c30fb3fb7e0b02c723bdaa32e479aabfdc47c",
+        "assertions.json": "d626b6a51c1b100e1be1176f8f8438f566117d6f7a02c06efc4221d6494e93ed",
+        "error.json": "468e0775e60063e12509758d8f22bfd93b311c6c3fb06234176eeeb7b03ef5ef",
+        "observations-req-status-0-retries-2.json": "e0101665599d8082a543f0ddb944299c991a6d4a6930217648f88d1adf14228e",
+        "requests.json": "8183967e0b56dd3242abfd99e683b849be5ed3f7bbd50bb99472bf5c0df2a988",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "a56610f84466f318175b2901aed5a52ea692bfab9525539021d04dff9d1efbe1",
+        "result.json": "80135d7bafcbaee2bad150bc2e10f641e493a5e6ccad6c56bf91329b995416b3",
+        "sleeps.json": "77bb3426c28b1b76e71bfa344fac5dbf46041da332ed09b12df6a5b76badf699"
+      },
+      "assertions_passed": 42,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 3
+    },
+    {
+      "dir": "P07-E05-unary-status-401-retries-0",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-401-retries-0",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-401-retries-0$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-401-retries-0",
+      "artifacts_sha256": {
+        "admissions.json": "3e169bb0e3c9ac1afc2f20c8a08ab97e47c40950054490cb507559f170e94c4a",
+        "assertions.json": "1ad741b1a0d6dfb106845993f03d6e89d951b7450b579b3bb2f858f6989d676f",
+        "error.json": "909daa01d897081faeffb5d07530b8124d57b9fef7063c9ba866e9d4d176ce5c",
+        "observations-req-status-401-retries-0.json": "aefe8476c3d336be56be8a8752ae0098952328e8a3a1b0d8773f9b5e61d28f1f",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "45a4bc14aabf9110c40903a728f2a890782d86a383340e5eeaf41ccaafca6723",
+        "result.json": "1c4d54922d4b5bea07dc6a8949b69bebc08b9a697267a774d3da2274dcefc5f5",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-401-retries-2",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-401-retries-2",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-401-retries-2$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-401-retries-2",
+      "artifacts_sha256": {
+        "admissions.json": "335ea69888459e0467df2c99d9fe2ffc8e8e6b3237e0bd79238fad7f36fb8cd7",
+        "assertions.json": "e21ff343607793e69a81e93199ab529719240d0e59f80dfaf441534f6c91b58d",
+        "error.json": "909daa01d897081faeffb5d07530b8124d57b9fef7063c9ba866e9d4d176ce5c",
+        "observations-req-status-401-retries-2.json": "d51a2c8ee6fbfe6ac587972532b89c0048a2cb7c29fd00e47d37c4538a27cb25",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "45a4bc14aabf9110c40903a728f2a890782d86a383340e5eeaf41ccaafca6723",
+        "result.json": "80cde7e45f5a6dfef3de62fd40a50880ff4e1d1298eacb4f4256c734af175030",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-403-retries-0",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-403-retries-0",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-403-retries-0$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-403-retries-0",
+      "artifacts_sha256": {
+        "admissions.json": "27bc5cb0991dc7fd21c7c29d1b69a457f625ce4a16dc2de8657e8f189dd17f84",
+        "assertions.json": "06bf13e1635936b669926096cbc2ed38f176d938d4d2d87a333dbcefb37750eb",
+        "error.json": "4b47ca320dbbece31e277e32cf6e4cbcef0e49b30e426e37ee1f040e96fce9e9",
+        "observations-req-status-403-retries-0.json": "74dba788a736f097d0425d6c6a520c674b645f8b04b4803edd26fe24417edb28",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "31d72961d2d19895b00ae54b025dba140f7c02a994b107fbd17e8436f2558f67",
+        "result.json": "e5bd7a0eb149883a0822b16e86eef24a030c9c30f0363579a0ef8d605c0b72de",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-403-retries-2",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-403-retries-2",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-403-retries-2$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-403-retries-2",
+      "artifacts_sha256": {
+        "admissions.json": "474b632b7bdeb6f5d84ac7eff4d4d44ecd565bcdf8a4ee071481b45bafddae3e",
+        "assertions.json": "9574f037460551934b6d52cd1db7fddcaf01e6de8b59fabb38447d37e8d0983b",
+        "error.json": "4b47ca320dbbece31e277e32cf6e4cbcef0e49b30e426e37ee1f040e96fce9e9",
+        "observations-req-status-403-retries-2.json": "d507cd1139782a30445e269e8ec4dbb4227bae8535cd9bf0111f583f4b46b17a",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "31d72961d2d19895b00ae54b025dba140f7c02a994b107fbd17e8436f2558f67",
+        "result.json": "9c631c7e386b1be42266ccdc359dba4c166c3f1444553ebe64f655576511b22a",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-422-retries-0",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-422-retries-0",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-422-retries-0$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-422-retries-0",
+      "artifacts_sha256": {
+        "admissions.json": "dd5217073b50fae78b2a6d74efa130221eb6e822cb0a4adc3e87496b9c75a161",
+        "assertions.json": "8589d9bdcd2cfb285097e1092f34f218e0e5dc3528e0b968d6ae2f863bab2fde",
+        "error.json": "dfc95b597895ea093c9ac3b7b98e4595cbd5c43a8c2e3846f6847bc5f6e17516",
+        "observations-req-status-422-retries-0.json": "895632e6c95924bb7ae60a5d2176d9c33981eca3216f2a58202f19a715b27695",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "9969af8b0a7479bbaaa95cd812869cc21fdb99f855d407b92104556f0e315b8e",
+        "result.json": "d1467461de0aee853bdf02534267c9622455ad579e387b3beda9dbdb95689484",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-422-retries-2",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-422-retries-2",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-422-retries-2$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-422-retries-2",
+      "artifacts_sha256": {
+        "admissions.json": "e2a7cc4c55bec0fb7079dd1d25b0350129a1ac1c0196ea97be6dfd3c9b6f8e0f",
+        "assertions.json": "dd667621fb09c06dd57ab63b1d37191627d067ea4feb3c7c9962537be4852996",
+        "error.json": "dfc95b597895ea093c9ac3b7b98e4595cbd5c43a8c2e3846f6847bc5f6e17516",
+        "observations-req-status-422-retries-2.json": "703e8e02f5f09eb9872669d1d1c149104f4790c78e040f83b21361ce0dd1e630",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "9969af8b0a7479bbaaa95cd812869cc21fdb99f855d407b92104556f0e315b8e",
+        "result.json": "129ba052ec604716aad10cc3717d5fcd753541fbabe383bfae722eefd743da3e",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-429-retries-0",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-429-retries-0",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-429-retries-0$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-429-retries-0",
+      "artifacts_sha256": {
+        "admissions.json": "d8cbaf4641f9d8e126abbc2c23eab46286ae937620b067ff7183a2bb2e318254",
+        "assertions.json": "e9608ba809cf91d381702e8cb79b37b93040fccfd0b05ec993c714eae5d96ff8",
+        "error.json": "079d2b9113479d6e8bdab48739ca8d99e1c4ea2117d9a7a70619ed670e46f693",
+        "observations-req-status-429-retries-0.json": "e732598c42cecbeb4c737636942a18947c4f5d5bd911b280ed075efb42c67b95",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "d17df3e41b1a6176c990d5bb31f33f53d8738f21c2245dfa98701f47b7b5299c",
+        "result.json": "d46132cd64c2f681bc58ff86ff2f4550bd8ce90dec2f1757dd858eb0d61229f2",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-429-retries-2",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-429-retries-2",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-429-retries-2$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-429-retries-2",
+      "artifacts_sha256": {
+        "admissions.json": "b945d099426be4c204fc17e2c2e7c15ccc9216ed93b8bfc4a01b2083392bd731",
+        "assertions.json": "408c5b24b6fc74c1b5b04f8bb1cc7edfd32dd2b214b33401f38ac50a0ae8bc0b",
+        "error.json": "079d2b9113479d6e8bdab48739ca8d99e1c4ea2117d9a7a70619ed670e46f693",
+        "observations-req-status-429-retries-2.json": "6b80c16bb3602d6b3b883014d46a601a2c30a794fa34c93e3d9b3ecf0d5c2c43",
+        "requests.json": "8183967e0b56dd3242abfd99e683b849be5ed3f7bbd50bb99472bf5c0df2a988",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "d17df3e41b1a6176c990d5bb31f33f53d8738f21c2245dfa98701f47b7b5299c",
+        "result.json": "9c36d4ea13a970991ec421f6cd8cff2df4ae4d6676239fa6710ca4321427b8ae",
+        "sleeps.json": "2aab102537a125b0e63ce3f359c9b079643ac7264c9703ab3d19610dc75bd5c8"
+      },
+      "assertions_passed": 42,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 3
+    },
+    {
+      "dir": "P07-E05-unary-status-529-retries-0",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-529-retries-0",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-529-retries-0$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-529-retries-0",
+      "artifacts_sha256": {
+        "admissions.json": "edc36d0ebccf38cbcdbb0b61dd0b9ea7384a84b9f84d398041276320055b927a",
+        "assertions.json": "0f65faf6ef1abd262eca16d77a616022d9885cc2a5089a20eb604a6324b32fef",
+        "error.json": "7669c58be022dd38ff64be8a4b9f370b356784a7d9410e7f8ce53fef3042bdf5",
+        "observations-req-status-529-retries-0.json": "6c63d517e0f04b91d679dee57c19ab5ac21e562b2558a703e7987e9e115cea2d",
+        "requests.json": "c303b40bd659e350f95dd61f8d94022d37de32b4c050a8193e1e1eff9051b3b6",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "9e58568d174becf042f3e060c7d233fd849271fa3ef2ff44e96647e97e321456",
+        "result.json": "89cd695323c2783002e7ce574692abf41940c78f997f8c7416d97c6c0942da6f",
+        "sleeps.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+      },
+      "assertions_passed": 28,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E05-unary-status-529-retries-2",
+      "fixtures": {},
+      "id": "P07-E05-unary-status-529-retries-2",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryInitialFailures$/^status-529-retries-2$'",
+      "status": "PASS",
+      "test": "TestUnaryInitialFailures/status-529-retries-2",
+      "artifacts_sha256": {
+        "admissions.json": "a308419ca9965362e0cfaa79376232e950dda39215156ea181965e26bb2eca8e",
+        "assertions.json": "276fcb129c36690c950cc76bc845e28c871cff408b0bd53ae7db0e5039084f25",
+        "error.json": "7669c58be022dd38ff64be8a4b9f370b356784a7d9410e7f8ce53fef3042bdf5",
+        "observations-req-status-529-retries-2.json": "dad560b0a8dbf8927878dac772050b6501412528976b651c0fe0b234f9a45c2c",
+        "requests.json": "8183967e0b56dd3242abfd99e683b849be5ed3f7bbd50bb99472bf5c0df2a988",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "9e58568d174becf042f3e060c7d233fd849271fa3ef2ff44e96647e97e321456",
+        "result.json": "580e6bd4e7effca95ea489e555cd0437f0aa4ac86ebf1db3aa9ce925360fb154",
+        "sleeps.json": "2aab102537a125b0e63ce3f359c9b079643ac7264c9703ab3d19610dc75bd5c8"
+      },
+      "assertions_passed": 42,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 3
+    },
+    {
+      "dir": "P07-E06-unary-admission-wait-cancel",
+      "fixtures": {},
+      "id": "P07-E06-unary-admission-wait-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryAdmissionWaitIsolation$/^cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryAdmissionWaitIsolation/cancel",
+      "artifacts_sha256": {
+        "assertions.json": "cb438696cbd90a006e489622a884a3c6c009a856159b464c3ef416c32f17ad70",
+        "error.json": "116459006f8ece3537592f0f49f566380c04d6ffe7f1f5476658ed4bdcd244d5",
+        "observations-req-owner-cancel.json": "7952ec76446ead5545915d0c4d102e7290e30b23027adf0dd69588a2ad5115c3",
+        "observations-req-waiter-cancel.json": "1026e0c80b80f607681a8a4f2a022009946e6291fdb02bc01ff8e7a4ad7bb276",
+        "requests.json": "3fdd7c88bc201f83872b4edaa7312f0c27ba54f2c21c3d5e3d71d38c7f9fdca1",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "3a6eda0727d6daa4cfc57297c64172b391a645c4f276068d572731059e075b04",
+        "result.json": "8d34b5b625a1c7c7e0424a4f10f35ab953b54359a32bb6a19c23368201ec46ce"
+      },
+      "assertions_passed": 41,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 2
+    },
+    {
+      "dir": "P07-E06-unary-admission-wait-deadline",
+      "fixtures": {},
+      "id": "P07-E06-unary-admission-wait-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryAdmissionWaitIsolation$/^deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryAdmissionWaitIsolation/deadline",
+      "artifacts_sha256": {
+        "assertions.json": "ee8ac9da76002eca065577ce2c10799eabad2664d7bc95af6fdfcfae0b5d5373",
+        "error.json": "531b7aef246965ba72246b92835e7e1a2a129542697d40cf834c565788934dc4",
+        "observations-req-owner-deadline.json": "0c3e685059237cb91978f403d93c9057b684d5c22898576fa4bccf899bfa4139",
+        "observations-req-waiter-deadline.json": "8b39cc607fd5c0898bf6633d96895fdd6d59b1f98f14c5dfe3f6b1a6a0d2a6ba",
+        "requests.json": "3fdd7c88bc201f83872b4edaa7312f0c27ba54f2c21c3d5e3d71d38c7f9fdca1",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "3a6eda0727d6daa4cfc57297c64172b391a645c4f276068d572731059e075b04",
+        "result.json": "4ea05900eede7cd1e2a479738fcd82735e50b4f7cc25d049ba54ee0deef11a0c"
+      },
+      "assertions_passed": 41,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 2
+    },
+    {
+      "dir": "P07-E07-unary-binding-policy-snapshot",
+      "fixtures": {},
+      "id": "P07-E07-unary-binding-policy-snapshot",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryBindingPolicySnapshot$'",
+      "status": "PASS",
+      "test": "TestUnaryBindingPolicySnapshot",
+      "artifacts_sha256": {
+        "assertions.json": "d21ef5fe3af618209777f240ff403e8c0216909d51679e4ca583d740697f8917",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "observations-req-policy-snapshot.json": "265d8f6c3db5be17dd71f0ef60db6a94a6918908ec8ae340624bf33bdaee58ff",
+        "requests.json": "61a9d0c28ca1d0b5c7e06a78b9fca0bdceba17254243027135079c5e52f7d39f",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "ec95095cfcfe3697dc8de11ab9b05fae81b4a2ff686e5c27872be475a65ab781",
+        "result.json": "dd1548ce16655adb8dbb63e806bcf809759e7d878eceb32123e670be7d317fbd"
+      },
+      "assertions_passed": 23,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 2
+    },
+    {
+      "dir": "P07-E08-unary-admission-denied-initial",
+      "fixtures": {},
+      "id": "P07-E08-unary-admission-denied-initial",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryRetryAdmissionDenied$/^initial$'",
+      "status": "PASS",
+      "test": "TestUnaryRetryAdmissionDenied/initial",
+      "artifacts_sha256": {
+        "assertions.json": "cd530441bbd0dff791aa812a94675491e1c86540ab9aae66f025786c691c6e04",
+        "error.json": "7f804456eaae109aca42351e6d0833afa365cc361377536ea472bab3c680609c",
+        "observations-req-deny-initial.json": "f5571b2d36fbb394189b230f86af35867fd3b895c4029b58b85501b37a55adaf",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "52cb669fcd91d91787b2e02b177b658093bf78496274f64a12eb175c7f11da9b"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-admission-denied-retry",
+      "fixtures": {},
+      "id": "P07-E08-unary-admission-denied-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryRetryAdmissionDenied$/^retry$'",
+      "status": "PASS",
+      "test": "TestUnaryRetryAdmissionDenied/retry",
+      "artifacts_sha256": {
+        "assertions.json": "4c5dc753e23ed756985f79e649a0755e32278df60a3990aac2b271798cc5076a",
+        "error.json": "7f804456eaae109aca42351e6d0833afa365cc361377536ea472bab3c680609c",
+        "observations-req-deny-retry.json": "4bfe7e1efa112b113c8455d0db9e5aa2470f9a1fb7c386992393f0b0889fac0d",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "5383e1318a34b07a8c8bfeab729653fd6cf927c01f4a2e8a8388e3af2d97daec",
+        "result.json": "30c565b27b1052b7c8143230b39f4e03832d3ca706c06e01efdff42933c5650e"
+      },
+      "assertions_passed": 26,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-before-canceled",
+      "fixtures": {},
+      "id": "P07-E08-unary-before-canceled",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryEndedBeforeStart$/^canceled$'",
+      "status": "PASS",
+      "test": "TestUnaryEndedBeforeStart/canceled",
+      "artifacts_sha256": {
+        "assertions.json": "a8fe0f9c0004f2097f3e62ee97e783d7e6a59e4bc3fddde85e5deebe3fe3632f",
+        "error.json": "3344a219a33adfd741c9af47d5f234329fb5c4aa44e2171ee5cf382407fa550c",
+        "observations-req-before-canceled.json": "62317e71a3eb512fd1226bc9183256a8691603a7ceb7387b6f31d8fa519bbb3a",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "7fbaf8cf12667a4123e44cab64e7193b52b0610d58b55a8d061e1ef08e368d69"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-before-deadline",
+      "fixtures": {},
+      "id": "P07-E08-unary-before-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryEndedBeforeStart$/^deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryEndedBeforeStart/deadline",
+      "artifacts_sha256": {
+        "assertions.json": "7b4751349d9d95df54e0b708af11589a08b2d5c2936dd52e54d900afa064a95a",
+        "error.json": "249093933a7979762d3ae1a857e4be6d887def5714cbc65e55988de2763933b6",
+        "observations-req-before-deadline.json": "6ed965a7341725c6b90dd4c2bcceba091f0def0661446804c6fb366b53a784e8",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "a70a13a4d77c59d71ab890c20f8379643a1d3c6d005b6f2c1ed5c2bad767e855"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-budget-bad-json",
+      "fixtures": {},
+      "id": "P07-E08-unary-budget-bad-json",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryExactBodyBudgets$/^bad-json$'",
+      "status": "PASS",
+      "test": "TestUnaryExactBodyBudgets/bad-json",
+      "artifacts_sha256": {
+        "assertions.json": "098bb1f96f361328e45639b61f1441172b3d59e26bb5a610205e2699cfdf12ae",
+        "body-byte-count.json": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "error.json": "a40ab39cba9a7c380f8ddc9a42f5242ae5d96002ead292dc4f9bd3c07d2a7a02",
+        "observations-req-budget-bad-json.json": "d7560e54f479cf0cb0ea21266632e4ab033aac6b52d4963735e60edd6249894c",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "019b7a2ebcca6a3f83491661341228579b120a97e823b780670eeded08070722"
+      },
+      "assertions_passed": 33,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-budget-error-exact",
+      "fixtures": {},
+      "id": "P07-E08-unary-budget-error-exact",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryExactBodyBudgets$/^error-exact$'",
+      "status": "PASS",
+      "test": "TestUnaryExactBodyBudgets/error-exact",
+      "artifacts_sha256": {
+        "assertions.json": "ffb106a464080104ab17c80057b3e7af7269eb436722d707319897457437c56d",
+        "body-byte-count.json": "2115cdb6bfcfb008eb2bab2bb79347cb064a48e4e7c4115ccbe4469c787bb6c4",
+        "error.json": "1f37052a1d93dff820807742da8262624fff09b07638e7cd71bc080f1e4af250",
+        "observations-req-budget-error-exact.json": "fcb409589943bbd11a828be3f22056a78e5cc9c2f39cdfe350554979a7caca99",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "841ac7300ea68afe5d688a4bfcd8c814422a58a4bb950493d979465dc043fdb1"
+      },
+      "assertions_passed": 33,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-budget-error-over",
+      "fixtures": {},
+      "id": "P07-E08-unary-budget-error-over",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryExactBodyBudgets$/^error-over$'",
+      "status": "PASS",
+      "test": "TestUnaryExactBodyBudgets/error-over",
+      "artifacts_sha256": {
+        "assertions.json": "4398207aea7c3cb7d1f08cc0e5400438aa9dfaeb9d7ded3a7cf1969c3592a82a",
+        "body-byte-count.json": "19b8d5c59e421f037fe563007c7254eb8d98bc221b278c3db3e5fdbbfd52e273",
+        "error.json": "33f78304823cb38782a08b6c4def08f0a33342ed9a0b5b64ee72d1dd65729c6f",
+        "observations-req-budget-error-over.json": "d09f3695a387aaa8b6e1efab0b0124ac2b275e4ab3bea6d354de29ca165da2cb",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "7a6f6a3bd6326496fc19fd4fe557247ab5082a28b9c266d8c92a8ee0115c2ea6"
+      },
+      "assertions_passed": 33,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-budget-invalid-distribution",
+      "fixtures": {},
+      "id": "P07-E08-unary-budget-invalid-distribution",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryExactBodyBudgets$/^invalid-distribution$'",
+      "status": "PASS",
+      "test": "TestUnaryExactBodyBudgets/invalid-distribution",
+      "artifacts_sha256": {
+        "assertions.json": "9c289dbbf8a79130d0831c144a7729e5a96138be8338b1ae04b60f1377466900",
+        "body-byte-count.json": "7ef97be1c7cb2d665b8b9f75ee41270f4f8a38a7fc03a50dac4e0b8c75b03dc5",
+        "error.json": "a40ab39cba9a7c380f8ddc9a42f5242ae5d96002ead292dc4f9bd3c07d2a7a02",
+        "observations-req-budget-invalid-distribution.json": "2e001d9a9dadc646aa38b15e73eb063693477cafa217f1b97534f9ce604c3eb0",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "842e7860108d55e2577c6f4bb34fd5d047a19bdaaf27ef6d3bb7a626e8dbbc3b"
+      },
+      "assertions_passed": 34,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-budget-missing-answer",
+      "fixtures": {},
+      "id": "P07-E08-unary-budget-missing-answer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryExactBodyBudgets$/^missing-answer$'",
+      "status": "PASS",
+      "test": "TestUnaryExactBodyBudgets/missing-answer",
+      "artifacts_sha256": {
+        "assertions.json": "7df272aaf5fa43a02e3ac3ea387469ac7ab562d15b1647bc9716fc2b5c4e6910",
+        "body-byte-count.json": "606b7d0891b4db74edb21c241c302f298bf6ca4a6158deca6b58c15c950ab5f2",
+        "error.json": "a40ab39cba9a7c380f8ddc9a42f5242ae5d96002ead292dc4f9bd3c07d2a7a02",
+        "observations-req-budget-missing-answer.json": "699d579b4f9a1ffdfa19c805483c1fa45d478caa6439f60060bc4e37511a9117",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "d3458fe0930ae4e691004b358afc2387f846c26e504c80b6d94b75b952521cd1"
+      },
+      "assertions_passed": 34,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-budget-output-exact",
+      "fixtures": {},
+      "id": "P07-E08-unary-budget-output-exact",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryExactBodyBudgets$/^output-exact$'",
+      "status": "PASS",
+      "test": "TestUnaryExactBodyBudgets/output-exact",
+      "artifacts_sha256": {
+        "assertions.json": "3c694aa6be8d765c8d3fda8e2ef500a13934694b515784b61c695cd8428fb163",
+        "body-byte-count.json": "4f71bb761ace37c88826cd8cc1c948e1cf5b5d0cd153dc651a6efdb3dfb9f2b1",
+        "observations-req-budget-output-exact.json": "9565647bf06bbd3c2f30a34c1bd0d7e4c06141f4d1eed98804b458d68416a94d",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "4ab5630d5df59de99ef9675eba40d861393b09ef177b85471eb3030d6946ad9a"
+      },
+      "assertions_passed": 29,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-budget-output-over",
+      "fixtures": {},
+      "id": "P07-E08-unary-budget-output-over",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryExactBodyBudgets$/^output-over$'",
+      "status": "PASS",
+      "test": "TestUnaryExactBodyBudgets/output-over",
+      "artifacts_sha256": {
+        "assertions.json": "7a158c6eb18e9e559370cecc66081d76417375507f77c52cedea4119a2f4a076",
+        "body-byte-count.json": "6407f57599ea19aaefd71b13c2771ad25998686a6a2d1b142cfc3060ef008129",
+        "error.json": "ea490da2fce8919dfee8e14c277bee9168656f00cbc2a3c1b69634fda0306ff7",
+        "observations-req-budget-output-over.json": "6aa002cc14ddf0ec54676b8e16a7d9a738897157ca09db104a5f4775d2248bc0",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "bd35041e73cfcd40ee55b071d49fb64945fe4c57b670055df13a50a2fb1f2306"
+      },
+      "assertions_passed": 34,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-budget-read-broken",
+      "fixtures": {},
+      "id": "P07-E08-unary-budget-read-broken",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryExactBodyBudgets$/^read-broken$'",
+      "status": "PASS",
+      "test": "TestUnaryExactBodyBudgets/read-broken",
+      "artifacts_sha256": {
+        "assertions.json": "a6ed728ffa68a26056b7e81fb532d1464ca550709359ae2ada64c83afe8d0d07",
+        "body-byte-count.json": "7ef97be1c7cb2d665b8b9f75ee41270f4f8a38a7fc03a50dac4e0b8c75b03dc5",
+        "error.json": "9c557cbd982142e7a26d8848a229271eed107ed43e1790854074082fa27c59f1",
+        "observations-req-budget-read-broken.json": "a71c1b0a092c5973f310ec787e1c7888dc445c73f3b437845eb26c7590d95842",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "b05dbe540da9d5780288aeba2bfab8d135df0d9365a859bf130e40789bd204af"
+      },
+      "assertions_passed": 33,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-empty-strings",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-empty-strings",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^empty-strings$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/empty-strings",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "7df810d662cf06b2a0fb1988ca253c230d92d7ef0128b6ba0ef69b8d08299ab1",
+        "assertions.json": "cefbd236b3004a376641a7c2764d2a795dc91a654438ba1cf698aed12ebed555",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-empty-strings.json": "03a40a54e1ebd7eb7fc634275708f86eb23bd4229b09868159fc836e039b690b",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "30938b42b8700c3c0c17702d152142047a06503923dd15efea32a57676f5437c"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 23032,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-extra-request-field",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-extra-request-field",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^extra-request-field$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/extra-request-field",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "09112010c8988f4f239230110cba9b0960dd9712e5be64fb4b8cc62faa3d842d",
+        "assertions.json": "c4a44cbf88749ded50686bcb889efa9602692fa3e5cb8839c7ac39f8495140cd",
+        "error.json": "c5be9dab4a30721b81d785a5e1c5d15999f5ec8989a07d70a4119d7356003833",
+        "observations-req-allocation-extra-request-field.json": "397f3d2e93ebf781eee3954cbd7facca2cb1c6ecd439bd0ba7e14b08f9c25c4c",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "2fea5676df23bae18d92e81d695e49b86c22cbcca1a80102eb41ce681869c068"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 23072,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-nested-state",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-nested-state",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^nested-state$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/nested-state",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "582912f78536f7107e025636f2520de96283b71faea4e6c35584bf7bc69a6249",
+        "assertions.json": "28420a431567091caeea84212e15d020308330caa72c450fb691715f51713b75",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-nested-state.json": "a60d89616810d27c6e2380456e8a9a41b4322d0e7aae471e10f3a62784aa3ccc",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "50c67db9a4e1064e0464e734fcf03ceabbafade2edd115413806b68d81cb5c0a"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 24024,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-numbers",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-numbers",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^numbers$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/numbers",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "16b1f868f30c5c154c0d2e144fcd0a45c57fd73452dc6afd9026d7e247dd771e",
+        "assertions.json": "cbe3a392d73e9bb796dd291132c581195589f3c90de4fd0ece38ffa7c4f4b38f",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-numbers.json": "fb58c1d52fb7ad74eeafb0c5075129644998b5300a7abd890d07403b384ec5fb",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "fb0121e89c27dea226d30ba28c76521889629775c958724fcd992ec2ece5ee9b"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 23344,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-question",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-question",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^question$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/question",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "c99b56e7bdd61d233c7066ae91174ba6ff35556759cccda9c283ec15bb98aa4f",
+        "assertions.json": "8b00cd2fce92354ffed15c7fc5a01a8fea2ca7f13c901360c02003b1e0b58e1b",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-question.json": "65a325e841d06bfe305aedaf0b181ef853468a3d779212520765712337a2b163",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "374f159b556d0f440e6092889c76e4270b820c13c445924576b85c4d17df63f2"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 22968,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-question-element",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-question-element",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^question-element$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/question-element",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "8330c5a90162cf9cc26c88829e49d607d8366514bdd23bb41d6165a16ad8b3dd",
+        "assertions.json": "5783f517ed90fe7e784e3b72ea580fbc8ee0bb4aeede14e220e289424185a5cf",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-question-element.json": "1889dcaecf0b083dc3dc0f021fe1efe4b2bd0788f31551c39b2efb2c1c5c3cb4",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "9c976f9c47e0bd466051d94f3d2067a56ece793d560ba84ad398d02593cd6369"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 23480,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-question-pointer",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-question-pointer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^question-pointer$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/question-pointer",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "a0ce6ebeddf6764daaa37128c2e263b394d9b7fc9e8e5f7d734ad8e814c798f3",
+        "assertions.json": "121d1ed6b5d3d216626beeace72f4478ada9fcf9395c6ecf1a35d3b7e71927c4",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-question-pointer.json": "299d4bdd369f36e597197b5fecc9c5e126cdf7d692a46ce34648f139c7036ae6",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "1076238f297dc2fe76345c7b0b47519a6e8b15d1753cdc393e69542bf133f3e1"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 24096,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-raw-element",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-raw-element",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^raw-element$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/raw-element",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "6cd81f9c5a901650170ef7ce0b93daed5ef6e954410e61978abd46d63deba528",
+        "assertions.json": "827d99b421070fe01cf4a140c947f5adbe99dac3d01181defaf4670567028ebf",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-raw-element.json": "f5e2add90931b0e02c8ba4d741413dee809137570dd3208425bb34abffbbf9d2",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "cd7751eed3e28e18690c2b0f964f4141cfa4ff9f8424b4c590d6ca0754d03d0a"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 23440,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-raw-pointer",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-raw-pointer",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^raw-pointer$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/raw-pointer",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "5e721d4264373221667c10553596a2d4b4ebacbeb82de24c7c588a1d96fbfb60",
+        "assertions.json": "5426b3d14fd19425d3a4e2b92746c318dec644b53ff25c3204a634e6d7817d01",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-raw-pointer.json": "bdb3c998dee0b4081528957f02ff321c6ffa5b3c9d8c4d8de0d5e37b5ad9f157",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "2fc15e5b08b220ff20111f2a4ce565815c556612d61d136e9cc4d0bec33734c3"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 23392,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-state",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-state",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^state$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/state",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "27c5a25eefac7baf9c40604cb0dda312399133a4f9f6494c2c51da255c4f8f41",
+        "assertions.json": "08ae886f13ae6d72ea89667c4e365f0e0c948583cd8eba5dc43ada376b8072ef",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-state.json": "140c1a43cd6e3c1b55ac773f31d155e1edeec852a3e8da9cd88ca6082a453473",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "41564a673cc5ebb89ecf5a30f07faf2edf2417d2c1e3dc1a62b93f4a68b44d92"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 22568,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-callback-allocation-string-key",
+      "fixtures": {},
+      "id": "P07-E08-unary-callback-allocation-string-key",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackAllocationBound$/^string-key$'",
+      "status": "PASS",
+      "test": "TestUnaryCallbackAllocationBound/string-key",
+      "artifacts_sha256": {
+        "allocated-bytes.json": "754882670c05233f0329208a53a47860c28fbc2d3074a6027cff99b47c322e94",
+        "assertions.json": "255cc70d676efdfabd30f6ab89d038b5b3431e9cd19d3ddc54e92ed7ed1fae91",
+        "error.json": "017382c0bdb835b333edf40fd67fe01e241d3534656ae239a40792d9bfd83e45",
+        "observations-req-allocation-string-key.json": "005ca98ddfd9c842437bfe79177b26cb8d72bfb96625c8de7dccabd57af1b68a",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "6f3379f5f657167f1821fad30b471cf38ac590dced0be9fc967de99aa2dd1ccc"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "allocated_bytes": 23184,
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-host-admission-cancel",
+      "fixtures": {},
+      "id": "P07-E08-unary-host-admission-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryHostAdmissionInterruption$/^cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryHostAdmissionInterruption/cancel",
+      "artifacts_sha256": {
+        "assertions.json": "11d37b1042938bb9425607b0dd236a83027f4f092253180f68dceb291f51a1fa",
+        "error.json": "116459006f8ece3537592f0f49f566380c04d6ffe7f1f5476658ed4bdcd244d5",
+        "observations-req-host-admission-cancel.json": "287760e6843864ef87f542455935976e51e88477cb47dbf0ba58b99c69737d0a",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "d19e0435da63fe6c40e8b57b0768a9e792c3241485226fd5bc3b6f86c0566dd2"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-host-admission-cancel-late-grant",
+      "fixtures": {},
+      "id": "P07-E08-unary-host-admission-cancel-late-grant",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryHostAdmissionInterruption$/^cancel-late-grant$'",
+      "status": "PASS",
+      "test": "TestUnaryHostAdmissionInterruption/cancel-late-grant",
+      "artifacts_sha256": {
+        "assertions.json": "95d135c402ee7f0cf1dcf7401184e648c89ba105c40dd1a18b8f9db8e34992d7",
+        "error.json": "116459006f8ece3537592f0f49f566380c04d6ffe7f1f5476658ed4bdcd244d5",
+        "observations-req-host-admission-cancel-late-grant.json": "a2928208ad4ab5d91950397ec58ddd6c8448fa2e2a66f3aeee704e2b9a94d0e7",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "e8f1bb2e55fd6c6d6d69ee0802f6ca3d9902574d59d3a00deb4ca6721ba9eb24"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-host-admission-deadline",
+      "fixtures": {},
+      "id": "P07-E08-unary-host-admission-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryHostAdmissionInterruption$/^deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryHostAdmissionInterruption/deadline",
+      "artifacts_sha256": {
+        "assertions.json": "b91468128b32597df812697abdd212054119474b13d3bd126b01097a804c1f04",
+        "error.json": "531b7aef246965ba72246b92835e7e1a2a129542697d40cf834c565788934dc4",
+        "observations-req-host-admission-deadline.json": "e85b0300ebf2a8b0c27229c39bec173875959abc6fdcfe3ca0b8098c734a4a86",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "5e038116685ed229775881b8d23a6df15277bddd793d25a47fed411fb6d5de56"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-host-admission-deadline-late-grant",
+      "fixtures": {},
+      "id": "P07-E08-unary-host-admission-deadline-late-grant",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryHostAdmissionInterruption$/^deadline-late-grant$'",
+      "status": "PASS",
+      "test": "TestUnaryHostAdmissionInterruption/deadline-late-grant",
+      "artifacts_sha256": {
+        "assertions.json": "fa34011341eaacb08c03267c06d22cb1ce06cd5c9a512a149ec888cc5302fde9",
+        "error.json": "531b7aef246965ba72246b92835e7e1a2a129542697d40cf834c565788934dc4",
+        "observations-req-host-admission-deadline-late-grant.json": "9b88cf7a60b8181523396413c84bf57495a52a00c0e907bb6a026c18fb83a741",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "38d861d7f286b786b55e77447f1d489459d1bd230917c06a2b4b31a7d923e149"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-resolve-binding-cancel",
+      "fixtures": {},
+      "id": "P07-E08-unary-resolve-binding-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryResolutionInterruption$/^binding-cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryResolutionInterruption/binding-cancel",
+      "artifacts_sha256": {
+        "assertions.json": "9b6b324bd14ff4bab636d7def692f1411adba044139556d1d3dc58bddfd843f0",
+        "error.json": "4242f477c9a0ca43f673260756cde63fa0e63a6544b2e21b4ee4aeb248693a5f",
+        "observations-req-resolve-binding-cancel.json": "e6308b4106065f8a0c3d66d638dc259c3446ce1e9ecce1e3af584d935fa97ddf",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "3d9d3552514010bc76856e1e99b85b514d6674fc04464ee74a91b8e38b7ec6a2"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-resolve-binding-cancel-resolver-returned-success",
+      "fixtures": {},
+      "id": "P07-E08-unary-resolve-binding-cancel-resolver-returned-success",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryResolutionInterruption$/^binding-cancel-resolver-returned-success$'",
+      "status": "PASS",
+      "test": "TestUnaryResolutionInterruption/binding-cancel-resolver-returned-success",
+      "artifacts_sha256": {
+        "assertions.json": "a6248c67b76f3ae6e6b26729933d85617f387be52d52466a6c99c780ecaa089e",
+        "error.json": "4242f477c9a0ca43f673260756cde63fa0e63a6544b2e21b4ee4aeb248693a5f",
+        "observations-req-resolve-binding-cancel-resolver-returned-success.json": "931d651fc35e014295c5961608b40deeaef0f41faa6d304e1a90b0b1b48611ce",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "86d796cec8a24fdf2c919af352edb6c470621213453edf2f12fb2fe429b5ef32"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-resolve-binding-deadline",
+      "fixtures": {},
+      "id": "P07-E08-unary-resolve-binding-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryResolutionInterruption$/^binding-deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryResolutionInterruption/binding-deadline",
+      "artifacts_sha256": {
+        "assertions.json": "0978f84baffbc2e73099f4388c33599bc87cd4f6e670c16e63f2214efcd97c53",
+        "error.json": "2ecdfdd6f8ded8a73a4fbfacc87bf8d858a4ff322b390a23b4da56db95ef1eff",
+        "observations-req-resolve-binding-deadline.json": "d5a41d210f637c775fe9e91d283b00aff33f7cefee019ec7370cf2e661fe2a53",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "1b608aa2bdbfe0eb5c023511c877b44904358858f229c94b4e4892c258fd2402"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-resolve-binding-deadline-resolver-returned-success",
+      "fixtures": {},
+      "id": "P07-E08-unary-resolve-binding-deadline-resolver-returned-success",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryResolutionInterruption$/^binding-deadline-resolver-returned-success$'",
+      "status": "PASS",
+      "test": "TestUnaryResolutionInterruption/binding-deadline-resolver-returned-success",
+      "artifacts_sha256": {
+        "assertions.json": "cec7ed526a0629c2943d2a6f9f76633d8ddd510889179f69a72d35646136b64d",
+        "error.json": "2ecdfdd6f8ded8a73a4fbfacc87bf8d858a4ff322b390a23b4da56db95ef1eff",
+        "observations-req-resolve-binding-deadline-resolver-returned-success.json": "4733389391efc922c3006a633a9a2eed773fb41fd7866b37f3bcb76da53e2bba",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "d7385621a1bf18c650cbe3983dfc10f2da220a208978cfc748a871a8f043e7da"
+      },
+      "assertions_passed": 20,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-resolve-credential-cancel",
+      "fixtures": {},
+      "id": "P07-E08-unary-resolve-credential-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryResolutionInterruption$/^credential-cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryResolutionInterruption/credential-cancel",
+      "artifacts_sha256": {
+        "assertions.json": "fb48e766d7d675e159d5b1cd76478882fa3292cf08f6ada295dc7a77e21cf5cc",
+        "error.json": "ec7452a6f107fd7bdbbdcbfe97108f2158b28f9beca28f6c0fd92ee32dc6ebd5",
+        "observations-req-resolve-credential-cancel.json": "f93fc84058f3272fba40c31d9a47c9f8b88c5428cbbf85987faa3d248426db7d",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "36f6dd4f17db558bb0c6a814b2aebf8c525172e903cf23403d7c04ad80e4a53c"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-resolve-credential-cancel-resolver-returned-success",
+      "fixtures": {},
+      "id": "P07-E08-unary-resolve-credential-cancel-resolver-returned-success",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryResolutionInterruption$/^credential-cancel-resolver-returned-success$'",
+      "status": "PASS",
+      "test": "TestUnaryResolutionInterruption/credential-cancel-resolver-returned-success",
+      "artifacts_sha256": {
+        "assertions.json": "517a79eaa16e2426cd680bc0a0109f1b508376354dd8dfdcdbc308fb016f05fc",
+        "error.json": "ec7452a6f107fd7bdbbdcbfe97108f2158b28f9beca28f6c0fd92ee32dc6ebd5",
+        "observations-req-resolve-credential-cancel-resolver-returned-success.json": "d74b78619092f3297bb0f05a3b7eaef7c5231bdfe064911d2f48fda692561266",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "fce9cf36911f62f8012d26136d1665b632df38d16a2444974007c0fad8458290"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-resolve-credential-deadline",
+      "fixtures": {},
+      "id": "P07-E08-unary-resolve-credential-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryResolutionInterruption$/^credential-deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryResolutionInterruption/credential-deadline",
+      "artifacts_sha256": {
+        "assertions.json": "deb589b76041ff9eaf12dc88cc0b6d882f99afeb169ec1df2d59a43a61f913ac",
+        "error.json": "5b12fe2e20c555964c9d38e29cda7575f7e381d784661f72df070cb1e64268d8",
+        "observations-req-resolve-credential-deadline.json": "1f6d4493158194acb3c34b57455ca75748004af2187c20db931f5056ab501c67",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "fecff1ae970a974542f92f659e8d510f6660b5786084bd9530a9056027cae66f"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-resolve-credential-deadline-resolver-returned-success",
+      "fixtures": {},
+      "id": "P07-E08-unary-resolve-credential-deadline-resolver-returned-success",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryResolutionInterruption$/^credential-deadline-resolver-returned-success$'",
+      "status": "PASS",
+      "test": "TestUnaryResolutionInterruption/credential-deadline-resolver-returned-success",
+      "artifacts_sha256": {
+        "assertions.json": "44be60dd63841fd61125e555aa4a06035a589fdacf413a009fd29bb002ec8efd",
+        "error.json": "5b12fe2e20c555964c9d38e29cda7575f7e381d784661f72df070cb1e64268d8",
+        "observations-req-resolve-credential-deadline-resolver-returned-success.json": "a1c9e2c35c9c84faa754dc481de685318a32fb2505dd97dc8a35d5bdba0142d2",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "0ae0b4c0b1a559b76933994aff8f7fa4d702e5e109bc9bf6d7982d29acd2ee45"
+      },
+      "assertions_passed": 19,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-timeout-body-call-deadline",
+      "fixtures": {},
+      "id": "P07-E08-unary-timeout-body-call-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryTransportTimeouts$/^body-call-deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryTransportTimeouts/body-call-deadline",
+      "artifacts_sha256": {
+        "assertions.json": "073caa8d939132de5de7162745e9b60fe1b0e409f520fd0e65cdbd49623cf5b9",
+        "error.json": "7f013be6865f764827c887e39e9ac09375ff06147e874e7702c8ad02a358a6c8",
+        "observations-req-timeout-body-call-deadline.json": "88ae5e8ca467570137e739d764627fcea09202ef1aa64a9da42fad60eaa411f0",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "f6f1cdce703bec40b049ed701d0dd54b1f4aef63ee9277197cc117b16b090cc2"
+      },
+      "assertions_passed": 32,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-timeout-body-cancel",
+      "fixtures": {},
+      "id": "P07-E08-unary-timeout-body-cancel",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryTransportTimeouts$/^body-cancel$'",
+      "status": "PASS",
+      "test": "TestUnaryTransportTimeouts/body-cancel",
+      "artifacts_sha256": {
+        "assertions.json": "bb7dbae3f7057a5edc7ad7e8a31d0ad70591ab8467879534d847c6e842075a20",
+        "error.json": "29dc27b04e947511a916cb0acd153b8e5618103757b81582a3ef22b95a9fefc8",
+        "observations-req-timeout-body-cancel.json": "a2159bca0ec399c1b9d7ee5e1a088fefeef58b98ca9f64a531281e5242fd33b7",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "8528b0d6228346f1b444d7fcca0ef5d702e6b6b35f91853aefba179bfdbb6a54"
+      },
+      "assertions_passed": 32,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-timeout-body-host-deadline",
+      "fixtures": {},
+      "id": "P07-E08-unary-timeout-body-host-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryTransportTimeouts$/^body-host-deadline$'",
+      "status": "PASS",
+      "test": "TestUnaryTransportTimeouts/body-host-deadline",
+      "artifacts_sha256": {
+        "assertions.json": "3ead6a1d2cb8e8e7378c251faeb2cff91fa2c312e34d24951aa29d41289d3e30",
+        "error.json": "7f013be6865f764827c887e39e9ac09375ff06147e874e7702c8ad02a358a6c8",
+        "observations-req-timeout-body-host-deadline.json": "5a79d3c8cfc1f1b74199d247a683045707f5c82cc5496319a9692cd064636ff2",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "3a0ac2662a29d0adf2c46581cebbd10288ca32ec202f8b194e00e28be3d3cbab"
+      },
+      "assertions_passed": 32,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-timeout-connect",
+      "fixtures": {},
+      "id": "P07-E08-unary-timeout-connect",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryTransportTimeouts$/^connect$'",
+      "status": "PASS",
+      "test": "TestUnaryTransportTimeouts/connect",
+      "artifacts_sha256": {
+        "assertions.json": "4314561faeede80489e787f7240c3d731d91b681f042e50d144c23ff1dc04929",
+        "error.json": "1fc9ebfb6531c92ba803404d3d4e99dd920d5a35998da28bb517af3e41beb431",
+        "observations-req-timeout-connect.json": "6809507ad7fb4d597b9875fe1fcdc1ba2ff00668c58eb26eff39bcf88a5a2940",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "c8f1a7f04466a7041cc9d965da07f7a57ac0d410f68b4886f28342d302f07a98"
+      },
+      "assertions_passed": 25,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 0
+    },
+    {
+      "dir": "P07-E08-unary-timeout-header",
+      "fixtures": {},
+      "id": "P07-E08-unary-timeout-header",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryTransportTimeouts$/^header$'",
+      "status": "PASS",
+      "test": "TestUnaryTransportTimeouts/header",
+      "artifacts_sha256": {
+        "assertions.json": "48824ba8ac3fd4d95a056a78b1beba499d6bedb283439f57779d71043d30c1cc",
+        "error.json": "f1d250088c0ee01a0c61c3d27f8b110f5903146218adf8f3fb48abc5e18b1e56",
+        "observations-req-timeout-header.json": "2f97483dc24a0d8a199deae5429b26d2209eda8d48e18132d9275211ef004d45",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "f64dfbd00a0446da6c130c81b51a39897534c786f19752c8ed88e44d438002c9"
+      },
+      "assertions_passed": 32,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E08-unary-timeout-header-retry",
+      "fixtures": {},
+      "id": "P07-E08-unary-timeout-header-retry",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryTransportTimeouts$/^header-retry$'",
+      "status": "PASS",
+      "test": "TestUnaryTransportTimeouts/header-retry",
+      "artifacts_sha256": {
+        "assertions.json": "2acc58780d483360d8d123b8a361b676fc481fde6aa109ab1a5edd1dae124bdf",
+        "observations-req-timeout-header-retry.json": "a3b848ad0014644b7bb7c4b96f7dd1c2c2be14abf2532c954d3865d502e6d429",
+        "requests.json": "61a9d0c28ca1d0b5c7e06a78b9fca0bdceba17254243027135079c5e52f7d39f",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600"
+      },
+      "assertions_passed": 31,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 2
+    },
+    {
+      "dir": "P07-E08-unary-timeout-idle",
+      "fixtures": {},
+      "id": "P07-E08-unary-timeout-idle",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryTransportTimeouts$/^idle$'",
+      "status": "PASS",
+      "test": "TestUnaryTransportTimeouts/idle",
+      "artifacts_sha256": {
+        "assertions.json": "41342280ab9872d94c16952c302a50c81b5704c5237a6326d23f0cd63750e6be",
+        "error.json": "bbafcecd5ad12ec7fa14928f72e7c4bf2c4e2a268b6ee2ab890104b9f2ef220d",
+        "observations-req-timeout-idle.json": "28a0ebf534dbe5c3e0936917d0858a6c92763b7c1fc833d654a3cfdd514c38d4",
+        "requests.json": "423b7438d12f37af1e839d1e8d3fb1a1d3b7c5c2713479c47e348d07c5bb9790",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "11ecd46b05cbf6aa8f52f9707c320cd806f26501bf748a241f037cd08bf74552"
+      },
+      "assertions_passed": 32,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E09-unary-observer-congested",
+      "fixtures": {},
+      "id": "P07-E09-unary-observer-congested",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryObserverFailures$/^congested$'",
+      "status": "PASS",
+      "test": "TestUnaryObserverFailures/congested",
+      "artifacts_sha256": {
+        "assertions.json": "755236eb2e40d279a8ae03fb6de57f8e99857ee1ddb59b3858e6ae5a2daaa2b4",
+        "observer-records.json": "63bfe1e12d4e5ce76db87702cf3b5e399d81f634b7533ca3d2d2ceab767d3c02",
+        "observer-stats.json": "6891dc912f080754b202db3954a525e53518d5b084d69de6c2b7ac5168de2270",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "198ebe12f5bd18007f8e2963817c382dd45271e57f38f81df0a2fdfd5487489f"
+      },
+      "assertions_passed": 15,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      }
+    },
+    {
+      "dir": "P07-E09-unary-observer-error",
+      "fixtures": {},
+      "id": "P07-E09-unary-observer-error",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryObserverFailures$/^error$'",
+      "status": "PASS",
+      "test": "TestUnaryObserverFailures/error",
+      "artifacts_sha256": {
+        "assertions.json": "1fddd0b95a2c4b40ad486803e9c55c2e3aea2cac972a6f6ecd4f138ea5b23fc2",
+        "observations-req-observer-error.json": "1f21ed1651e400cb44d8d8609a5e81bcc6796a6bae0fa0eb44f255ccec3f1160",
+        "observer-records.json": "1f21ed1651e400cb44d8d8609a5e81bcc6796a6bae0fa0eb44f255ccec3f1160",
+        "observer-stats.json": "af58bd337ae54aca460e5ddac0e06e4c04ec1794fd6212924772f9eead877714",
+        "requests.json": "08c4f8c925c6b27a0add4b55dc077e8dc02b0c5b67eb0a33fe1819cfb71857a3",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "c6b20c0ea5b8c8154c3cf463faa562d18ebf291e941f76dc30a59a4fb85ce7af"
+      },
+      "assertions_passed": 27,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E09-unary-observer-panic",
+      "fixtures": {},
+      "id": "P07-E09-unary-observer-panic",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryObserverFailures$/^panic$'",
+      "status": "PASS",
+      "test": "TestUnaryObserverFailures/panic",
+      "artifacts_sha256": {
+        "assertions.json": "a1970406b28f661904e0c359c63d8c61bc770af3365273d544fa92394d4de702",
+        "observations-req-observer-panic.json": "985c9434e56beb6aed0277c2d7f3e8a541fbf236aab75977cfd292258203edbb",
+        "observer-records.json": "985c9434e56beb6aed0277c2d7f3e8a541fbf236aab75977cfd292258203edbb",
+        "observer-stats.json": "af58bd337ae54aca460e5ddac0e06e4c04ec1794fd6212924772f9eead877714",
+        "requests.json": "08c4f8c925c6b27a0add4b55dc077e8dc02b0c5b67eb0a33fe1819cfb71857a3",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "b9fe4e52ec3812cba90759e5bb5028cb0c58da974bc74751e64addae13c88d57"
+      },
+      "assertions_passed": 27,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    },
+    {
+      "dir": "P07-E09-unary-observer-slow",
+      "fixtures": {},
+      "id": "P07-E09-unary-observer-slow",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryObserverFailures$/^slow$'",
+      "status": "PASS",
+      "test": "TestUnaryObserverFailures/slow",
+      "artifacts_sha256": {
+        "assertions.json": "847aea482504d8647a65c1408c28481a373b3c3f1cafdc128f782d5869420784",
+        "observations-req-observer-slow.json": "3e5bd7bb27653249b0db77d150f9752b9d29623b610b38dcc378226269d986f8",
+        "observer-records.json": "3e5bd7bb27653249b0db77d150f9752b9d29623b610b38dcc378226269d986f8",
+        "observer-stats.json": "9cb044ac2b50e53044d0756de86f23374fab55fdfaec0bb46bffd8c5f31f602d",
+        "requests.json": "08c4f8c925c6b27a0add4b55dc077e8dc02b0c5b67eb0a33fe1819cfb71857a3",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "response-script.json": "0a95a5809bdfb68232db0835657d11a2f0ff9579be1a19a2b26bd19fec078600",
+        "result.json": "63e992a8be853e312970aa202b7aa9c5560ec54e02b501bcc0f413c49a40fae6"
+      },
+      "assertions_passed": 27,
+      "released_resources": {
+        "bodies": 0,
+        "calls": 0,
+        "events": 0,
+        "hostPermits": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "request_count": 1
+    }
+  ]
+}

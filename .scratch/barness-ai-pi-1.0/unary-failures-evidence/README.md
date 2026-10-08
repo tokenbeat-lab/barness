@@ -33,15 +33,40 @@ retry-red 还保留一处测试预期路径写错（实际沿用绑定 /v1），
 自定义 marshaler 执行属于宿主，不能预知其输出，其结果仍先通过字节预算。
 没有新增单元测试或生产测试接口。
 
-专项 race 和冻结 pi 差分已通过，命令如下。全量 race、门禁数据核验、审查报告和哈希索引
-在最终证据中记录。此工单仅交付离线生命周期，不提供 TypeSafe live 或新增内建型号支持声明。
+最终专项及全量 race 均已通过。3,730 个证据场景全部 PASS：P07（含差分）294 个，
+其中新增 unary 89 个；冻结 pi 差分 623 个，pending 为 0；压力场景 11 个。
+86 个资源记录的 body/call/permit/waiter/event/host permit 读数全部为零，
+11 个超限回调分配场景最高 24,096 字节（验收上界为宽松的 4 MiB）。
+run 与最终交付目录的脱敏审计均为 0 发现；Standards 和 Spec 两轴各三项 P2 已修复，
+最终复审无遗留发现。此工单交付离线生命周期，TypeSafe live 与内建型号支持仍由工单 08 验收。
 
     go test ./ai/e2e -run '^TestUnary' -count=1
     BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run '^Test(Unary|Classifier)' -count=1
     go vet ./...
     go vet -tags live ./ai/...
-    BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1
+    BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 BARNESS_AI_EVIDENCE_DIR="$PWD/.evidence/barness-ai/issue07-final" go test -race ./... -count=1
 
 实际 bundle 位于仓库忽略的 .evidence/barness-ai/；最终 report、manifest 和场景索引提供
 可核验的 SHA-256、脱敏审计与每个场景的独立回放命令。两轴 code-review 基点为
 4f90386fa4c879dddfa3013cce778c44de873acc。
+
+
+最终测试代码为 0f7b005ce0bb68f31e316d4cec1f55396a00e5e8。完整运行耗时约 496 秒，
+实际 bundle 为 .evidence/barness-ai/issue07-final/20261008T024630.958851000Z；
+源码、目录快照和输出证据的 SHA-256 见 [report.json](report.json) 与 [manifest.json](manifest.json)。
+[unary-cases.json](unary-cases.json) 保存每场景回放命令、fixture/输出哈希、请求数量与断言数；
+[unary-resources.json](unary-resources.json) 保存资源读数及分配实测。
+
+在仓库根目录核验提交的证据与当前代码（需要停留在本次代码或其仅修改文档的后继版本）：
+
+    python3 .scratch/barness-ai-pi-1.0/unary-failures-evidence/verify.py
+    go run ./ai/internal/testkit/audit/cmd/auditbundle .scratch/barness-ai-pi-1.0/unary-failures-evidence
+
+发布数据评估见 [release-evaluation.json](release-evaluation.json)：P0 离线、差分、审计、
+追溯和快照均 PASS，工单 07 四项新增追溯全部 PASS。该 -bundle 调用只评估已有证据，
+不导入前述命令记录，也没有传入真实 live bundle，因此整体发布结论为 false、退出码为 1；
+不是本工单离线测试失败。release-before-audit.log 保留一次过早评估：race 进程尚未写出
+审计记录，门禁正确拒绝；最终评估已等待 run 审计完成。构建与 race 的实际成功退出码
+分别记录于 [commands.json](commands.json)，两轴复核见 [review.md](review.md)。
+
+最终提交仅更新工单状态与证据；生产代码及测试自最终完整运行后没有改变。

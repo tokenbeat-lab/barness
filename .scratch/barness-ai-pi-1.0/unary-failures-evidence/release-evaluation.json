@@ -1,0 +1,268 @@
+{
+  "command": "go run ./ai/release/cmd/releasegate -bundle .evidence/barness-ai/issue07-final/20261008T024630.958851000Z -out .evidence/barness-ai-release/issue07-evaluation",
+  "exit_code": 1,
+  "overall_release_pass": false,
+  "source_bundle": ".evidence/barness-ai/issue07-final/20261008T024630.958851000Z",
+  "scope": "Evaluation-only; command gates are not run by this invocation and real live bundles are absent. Actual vet/race commands are recorded separately. No full-release or TypeSafe-live claim.",
+  "gates": [
+    {
+      "id": "go-test",
+      "name": "go test ./... (offline, differential on)",
+      "pass": false,
+      "problems": [
+        "go-test: not run"
+      ]
+    },
+    {
+      "id": "go-test-race",
+      "name": "go test -race ./...",
+      "pass": false,
+      "problems": [
+        "go-test-race: not run"
+      ]
+    },
+    {
+      "id": "go-vet",
+      "name": "go vet ./... (with and without the live tag)",
+      "pass": false,
+      "problems": [
+        "go-vet: not run",
+        "go-vet-live: not run"
+      ]
+    },
+    {
+      "id": "p0-offline",
+      "name": "every offline P0 case passes",
+      "pass": true
+    },
+    {
+      "id": "differential",
+      "name": "frozen pi differential: no pending difference",
+      "pass": true
+    },
+    {
+      "id": "live",
+      "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+      "pass": false,
+      "problems": [
+        "openai-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "anthropic-messages: no live evidence bundle of this combination was audited (pass it with -live)",
+        "google-gemini: no live evidence bundle of this combination was audited (pass it with -live)",
+        "openai-chat: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-chat: no live evidence bundle of this combination was audited (pass it with -live)"
+      ]
+    },
+    {
+      "id": "redaction-audit",
+      "name": "redaction audit: no key, Authorization or real content in any bundle",
+      "pass": true
+    },
+    {
+      "id": "traceability",
+      "name": "traceability: research item → scenario → evidence",
+      "pass": true
+    },
+    {
+      "id": "snapshots",
+      "name": "checked-in snapshots match the code",
+      "pass": true
+    }
+  ],
+  "offline": {
+    "pass": 3107,
+    "fail": 0,
+    "notRun": 0,
+    "unsupported": 0,
+    "scenarios": {
+      "D1": {
+        "pass": 35,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "D2": {
+        "pass": 24,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E01": {
+        "pass": 117,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E02": {
+        "pass": 645,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E03": {
+        "pass": 328,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E04": {
+        "pass": 490,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E05": {
+        "pass": 172,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E06": {
+        "pass": 167,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E07": {
+        "pass": 248,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E08": {
+        "pass": 611,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E09": {
+        "pass": 49,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E10": {
+        "pass": 108,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E11": {
+        "pass": 95,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P01": {
+        "pass": 722,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P02": {
+        "pass": 293,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P03": {
+        "pass": 293,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P04": {
+        "pass": 344,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P05": {
+        "pass": 101,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P06": {
+        "pass": 121,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P07": {
+        "pass": 282,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "PRESSURE": {
+        "pass": 11,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      }
+    }
+  },
+  "differential": {
+    "pass": 623,
+    "fail": 0,
+    "notRun": 0,
+    "unsupported": 0,
+    "pending": 0,
+    "byScenario": {
+      "P01": {
+        "pass": 271,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P02": {
+        "pass": 68,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P03": {
+        "pass": 75,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P04": {
+        "pass": 141,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P06": {
+        "pass": 56,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P07": {
+        "pass": 12,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      }
+    },
+    "ledger": {
+      "fixed": 36,
+      "extension": 205,
+      "pending": 0,
+      "routes": [
+        {
+          "provider": "deepseek",
+          "api": "openai-responses"
+        }
+      ]
+    }
+  },
+  "issue07_traceability": {
+    "C08-unary-lifecycle": "PASS",
+    "H5-unary-budgets": "PASS",
+    "C04-unary-callbacks": "PASS",
+    "T09-unary-observer": "PASS"
+  }
+}

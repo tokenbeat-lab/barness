@@ -41,3 +41,18 @@ byte budgets, resource release and tenant isolation, observation attribution, an
 最终复核还确认自定义编码、匿名字段冲突和字符串 key 的标准库语义已得到回归覆盖。
 宿主自定义编码自身的执行仍由宿主负责，结果在转换/发送前检查最终字节预算；ADR-0002
 记录边界。代理复核时，全量测试和最终证据尚在运行；其结果由 report.json 独立记录。
+
+## 最终复核（0f7b005）
+
+Standards 代理：0 outstanding actionable findings; all 3 earlier P2 findings resolved.
+未知 struct/自定义编码采用最终预算；可取地址元素识别指针方法；已知 RawMessage 与封闭问题
+（含指针）优先计长度。聊天授权边界、绑定副本、context 优先级、重试所有权、用量与释放
+符合 ADR 和 AGENTS.md；nil、可取地址和 Interface 守卫未发现 panic 路径。
+没有可操作的 baseline smell。
+
+Spec 代理：0 remaining actionable findings. 已知 raw/问题的切片和直接指针均提前检查，
+自定义指针 JSON/Text 编码仍有效；独立问题解码前执行最终请求字节预算。
+未发现其他需求缺口、错误行为或超出范围的变更。原有生命周期与 Is/As 覆盖保持完整。
+
+最终未解决发现：Standards 0；Spec 0。两轴各三项 P2 均经失败的公共 E2E 复现后修复。
+全量运行与最终证据为代理复核后独立执行的交付步骤，见 report.json。

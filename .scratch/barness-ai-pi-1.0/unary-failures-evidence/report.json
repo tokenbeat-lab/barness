@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "date": "2026-10-08",
+  "issue": "07-unary-failures-and-release",
+  "base_commit": "4f90386fa4c879dddfa3013cce778c44de873acc",
+  "branch": "main",
+  "tested_commit": "0f7b005ce0bb68f31e316d4cec1f55396a00e5e8",
+  "code_and_fixtures_sha256": "12051b97d068a7ebdd599a81011beeb6b7e75cacd51285f1d51b5ab242556ddc",
+  "code_and_fixtures_files": {
+    "ai/anthropic.go": "c36bea62c89e27555142785d4b16d46ff88a713e905439a2d5e0f8fcccec36ff",
+    "ai/binding.go": "153debac7fb548966103e8491bc0f47d31894fd46d40ab02686cfad64170a04a",
+    "ai/call_runtime.go": "0a2120cf8b2ef9c4443c96dc288923645aad512ea5edc9eb6f74ab4d578aa06a",
+    "ai/chat.go": "e718f6c95dab6c834c15c3c980cf0bf1f08a2cb0ceb89359e499bce95054c2c4",
+    "ai/classifier.go": "e1930821f7b28065cb8c12bc1a59c1cc03ac2d4a9fd2bb7caf3dd91d7f47519e",
+    "ai/classifier_payload.go": "c77f1a1d9afe39a9894943c1a8f3131c4d2122010d1262db98cd249c359e47eb",
+    "ai/e2e/unary_allocation_test.go": "d78e33192dc1f7313d923141ed365996d62ff4932a1fe03db59b9a2d5aef20e6",
+    "ai/e2e/unary_callbacks_test.go": "283eb002bbe90290db2d9dc7bb73c575b79e262e008e45fd388d35738f71a45e",
+    "ai/e2e/unary_context_test.go": "41abd132cd1b4777edfc5df629c88f3c5170d3a7c645db89fa99a13dd3d9e7e8",
+    "ai/e2e/unary_encoding_test.go": "d2ed45f1d87c3db7dc8af21f7ff29c2dc39345e13122c9a1e8804f2fc4615556",
+    "ai/e2e/unary_fixture_test.go": "8fd604e97b58ddb53a6b7163150095e04e7dfcc2b511c3115607807b1ec6e349",
+    "ai/e2e/unary_lifecycle_test.go": "b2f32c2ed0ba23e54cc883057383fab2697046361bceab3cddcd652299ba624c",
+    "ai/e2e/unary_observer_test.go": "a99d7a605d0677074f404a4a75041b3ceb5656a75b9d2f7f28acd008c2455411",
+    "ai/e2e/unary_resources_test.go": "18f9f55f99568f642a1a596c3ef6a3305b458889b994f3beec2d10624d383a2d",
+    "ai/e2e/unary_retry_test.go": "9f8cb1ac8fa05b501e383206c9f21fa76a691b92fd24788764771ebdf2ad07d0",
+    "ai/gemini.go": "7e59389d1ba23076f381cf7ecc3382f0419e398e755cd00ef81e633ba7c5b423",
+    "ai/hooks_run.go": "20286168d4681accfe54830fb600c946f10d128caa2c69750947e8f49aafe269",
+    "ai/observer.go": "b721dc1c2f14fe7043610b3cecbe84868fec5c647ef6639cb4301aabbe7b4a0b",
+    "ai/preflight.go": "6598adcfaa6d090154a468113b150baf69eae562ffc2dc93386b56d45fbd4371",
+    "ai/release/traceability.json": "b3973443774ba125c3ab702565d62c20180ad194265069008516dab8aa2d6dd1",
+    "ai/responses.go": "6c581a94aa76714782f56f9bd1e43eb46e263e967da1f2252ae5aaa2fa7d62ce",
+    "ai/typesafe.go": "49d43d9d639721a93792bcb574a2ca2222fc6486c06457d5d3f05ea6471cc92c"
+  },
+  "checks": {
+    "vet": "PASS",
+    "vet_live": "PASS",
+    "full_race_with_differential_and_pressure": {
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 BARNESS_AI_EVIDENCE_DIR=\"$PWD/.evidence/barness-ai/issue07-final\" go test -race ./... -count=1",
+      "exit_code": 0,
+      "bundle": ".evidence/barness-ai/issue07-final/20261008T024630.958851000Z",
+      "manifest_sha256": "620afe5ace7a7f8a5fdf6d9512051a056869641ea4a62a746c61af6b7110873c",
+      "cases": 3730,
+      "statuses": {
+        "PASS": 3730
+      },
+      "P07": {
+        "PASS": 294
+      },
+      "unary": {
+        "PASS": 89
+      },
+      "differential": {
+        "PASS": 623
+      },
+      "pressure": {
+        "PASS": 11
+      },
+      "pending_differences": 0,
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      },
+      "pi": {
+        "pi_commit": "a13d35a742c6ef8462812a28fbe1d8c8b7431c32",
+        "pi_version": "1.0.0",
+        "sdk_versions": {
+          "@anthropic-ai/sdk": "0.124.0",
+          "@earendil-works/pi-ai": "1.0.0",
+          "go": "go1.26.2",
+          "node": "v24.15.0",
+          "openai": "7.19.0"
+        },
+        "pi_model_data_sha256": "8bd56835b763bb5e5e03ebc6e52fc0c6b2a935a02538a3c83c7b21ce7d4aee1e"
+      },
+      "log": "full-race.log",
+      "case_index": "unary-cases.json"
+    },
+    "resource_case_count": 86,
+    "all_recorded_resources_zero": true,
+    "allocation_case_count": 11,
+    "allocation_max_bytes": 24096,
+    "allocation_ceiling_bytes": 4194304,
+    "required_release_data_gates": {
+      "p0-offline": "PASS",
+      "differential": "PASS",
+      "redaction-audit": "PASS",
+      "traceability": "PASS",
+      "snapshots": "PASS"
+    },
+    "issue07_traceability": {
+      "C08-unary-lifecycle": "PASS",
+      "H5-unary-budgets": "PASS",
+      "C04-unary-callbacks": "PASS",
+      "T09-unary-observer": "PASS"
+    },
+    "builtin_catalog_snapshot": "byte-identical",
+    "builtin_catalog_sha256": "1411315fc3c38fba6d499c0957f757eaff8e120a24004d1753ec586e7556a041",
+    "diff_check": "PASS",
+    "changed_source_file_limit": "all <=500 lines"
+  },
+  "review": {
+    "standards": {
+      "findings": 3,
+      "resolved_findings": 3,
+      "unresolved_findings": 0,
+      "status": "PASS",
+      "report": "review.md"
+    },
+    "spec": {
+      "findings": 3,
+      "resolved_findings": 3,
+      "unresolved_findings": 0,
+      "status": "PASS",
+      "report": "review.md"
+    }
+  },
+  "scope_notes": [
+    "All provider/model/rate/error fixtures are synthetic. TypeSafe live and built-in catalog support belong to issue08.",
+    "Final full suite runs the reviewed production commit; the last commit only packages issue/evidence documentation.",
+    "Two earlier full runs were intentionally interrupted after new review findings; only the final completed run is acceptance evidence.",
+    "The evaluation-only release invocation exits1 because command/live input gates are absent; required offline/differential/audit/trace/snapshot data gates all pass."
+  ]
+}
