@@ -155,6 +155,9 @@ func execute() error {
 	if findings, err = run.Audit(); err != nil || len(findings) != 0 {
 		return errors.New("final audit failed")
 	}
+	if err := verifyBundle(plan, run.Dir()); err != nil {
+		return err
+	}
 	fmt.Println(report.Status + ": independently audited Chinese classification evaluation")
 	stage = "sample_results"
 	if report.Status == "FAIL" {
