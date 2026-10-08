@@ -164,7 +164,7 @@ func (b *capturingBody) flush() {
 		b.rec.mu.Lock()
 		defer b.rec.mu.Unlock()
 		body := b.buf.String()
-		if b.googleImages && !b.e.Truncated {
+		if b.googleImages {
 			body = compactImageCapture(body)
 		}
 		b.e.ResponseBody = redactText(body)
@@ -175,19 +175,20 @@ func (b *capturingBody) flush() {
 // Preserve every native step and usage field while replacing large strings
 // and signed continuation material. Rasters are saved separately after public
 // Client validation; this capture is shape evidence, never a replay response.
+// A partial or malformed body cannot be safely inspected: keep only its length
+// and hash. Request truncation must not bypass response redaction either.
 func compactImageCapture(body string) string {
 	var value any
 	if json.Unmarshal([]byte(body), &value) != nil {
-		return body
+		return elideImageCapture(body)
 	}
 	var walk func(any)
 	walk = func(v any) {
 		switch v := v.(type) {
 		case map[string]any:
 			for key, part := range v {
-				if s, ok := part.(string); ok && (key == "data" || key == "thought_signature" || key == "signature" || len(s) > 4096) {
-					sum := sha256.Sum256([]byte(s))
-					v[key] = "[ELIDED bytes=" + fmt.Sprint(len(s)) + " sha256=" + hex.EncodeToString(sum[:]) + "]"
+				if s, ok := part.(string); ok && (key == "data" || key == "thought_signature" || key == "signature" || key == "continuation_token" || key == "uri" || key == "url" || len(s) > 4096) {
+					v[key] = elideImageCapture(s)
 				} else {
 					walk(part)
 				}
@@ -201,9 +202,14 @@ func compactImageCapture(body string) string {
 	walk(value)
 	data, err := json.Marshal(value)
 	if err != nil {
-		return body
+		return elideImageCapture(body)
 	}
 	return string(data)
+}
+
+func elideImageCapture(value string) string {
+	sum := sha256.Sum256([]byte(value))
+	return "[ELIDED bytes=" + fmt.Sprint(len(value)) + " sha256=" + hex.EncodeToString(sum[:]) + "]"
 }
 
 // credentialHeader names request headers that carry a credential in any

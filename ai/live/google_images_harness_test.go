@@ -113,6 +113,10 @@ func TestGoogleImagesHarnessWire(t *testing.T) {
 			cs.Check("bounded reservation", budget.CallsUsed == 1 && budget.ImagesUsed == 1 && budget.HTTPAttempts == 1, "lost consumption")
 			failed := slices.Contains([]string{"uri", "continuation", "pending", "refused"}, name)
 			cs.Check("protocol errors remain failures", (err != nil) == failed, "err=%v", err)
+			if name == "uri" || name == "continuation" {
+				capture := s.lastExchanges[0].ResponseBody
+				cs.Check("rejected resources stay redacted", !strings.Contains(capture, "https://example.invalid/image.png") && !strings.Contains(capture, `"continue"`), "rejected URI or continuation value retained")
+			}
 			if failed {
 				return
 			}
