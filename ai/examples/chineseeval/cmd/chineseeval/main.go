@@ -22,11 +22,13 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
+var stage = "arguments"
+
 const keyEnv = "BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY"
 
 func main() {
 	if err := execute(); err != nil {
-		fmt.Fprintln(os.Stderr, "FAIL: Chinese evaluation or evidence integrity check")
+		fmt.Fprintln(os.Stderr, "FAIL: Chinese evaluation stage="+stage)
 		os.Exit(1)
 	}
 }
@@ -41,14 +43,17 @@ func execute() error {
 	if flag.NArg() != 0 {
 		return errors.New("unexpected arguments")
 	}
+	stage = "dataset_read"
 	data, err := readBounded(*dataset, 1<<20)
 	if err != nil {
 		return err
 	}
+	stage = "config_read"
 	cfg, err := readBounded(*config, 16384)
 	if err != nil {
 		return err
 	}
+	stage = "task_pins"
 	plan, err := chineseeval.Load(data, cfg, ai.BuiltinCatalog())
 	if err != nil {
 		return err
@@ -56,6 +61,7 @@ func execute() error {
 	if *verify != "" {
 		return verifyBundle(plan, *verify)
 	}
+	stage = "credential_isolation"
 	key := strings.TrimSpace(os.Getenv(keyEnv))
 	if *live && os.Getenv("BARNESS_AI_CHINESE_EVAL") == "1" && foreignCredentials() {
 		return errors.New("evaluation credentials must be isolated")
@@ -65,6 +71,7 @@ func execute() error {
 			return err
 		}
 	}
+	stage = "evidence_directory"
 	run, err := evidence.NewRun("host Chinese evaluation (not support smoke)")
 	if err != nil {
 		return err
@@ -91,11 +98,13 @@ func execute() error {
 		if key == "" {
 			report = plan.NotRun("isolated evaluation credential missing")
 		} else {
+			stage = "account_alias"
 			alias := os.Getenv("BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS")
 			if !regexp.MustCompile(`^[A-Za-z0-9@._-]{1,96}$`).MatchString(alias) {
 				return errors.New("account and region alias required")
 			}
 			observer := newObserver()
+			stage = "client_assembly"
 			client, transport, err := newClient(plan.Config(), key, observer)
 			if err != nil {
 				return err
@@ -108,6 +117,7 @@ func execute() error {
 			if err := run.Record("evaluation-report", report); err != nil {
 				return err
 			}
+			stage = "observer_completion"
 			records, err := observer.finished(report.Budget.Calls)
 			if err != nil {
 				return err
@@ -120,21 +130,25 @@ func execute() error {
 			}
 		}
 	}
+	stage = "report_write"
 	if err := run.Record("evaluation-report", report); err != nil {
 		return err
 	}
 	if err := run.Finish(); err != nil {
 		return err
 	}
+	stage = "redaction_audit"
 	findings, err := run.Audit()
 	if err != nil || len(findings) != 0 {
 		return errors.New("redaction audit failed")
 	}
 	report.Audit = "PASS"
 	// Even FAIL/NOT_RUN need honest, complete accounting; no successful-only score.
+	stage = "report_integrity"
 	if err := plan.Verify(report); err != nil {
 		return err
 	}
+	stage = "report_write"
 	if err := run.Record("evaluation-report", report); err != nil {
 		return err
 	}
@@ -142,6 +156,7 @@ func execute() error {
 		return errors.New("final audit failed")
 	}
 	fmt.Println(report.Status + ": independently audited Chinese classification evaluation")
+	stage = "sample_results"
 	if report.Status == "FAIL" {
 		return errors.New("incomplete evaluation")
 	}
@@ -149,12 +164,14 @@ func execute() error {
 }
 
 func verifyBundle(plan *chineseeval.Plan, dir string) error {
+	stage = "source_hashes"
 	for name, want := range map[string]string{"dataset.json": plan.NotRun("verify").DatasetHash, "config.json": plan.NotRun("verify").ConfigHash} {
 		raw, err := readBounded(filepath.Join(dir, name), 1<<20)
 		if err != nil || chineseeval.Hash(raw) != want {
 			return errors.New("source hash mismatch")
 		}
 	}
+	stage = "report_integrity"
 	raw, err := readBounded(filepath.Join(dir, "evaluation-report.json"), 16<<20)
 	if err != nil {
 		return err
@@ -163,6 +180,22 @@ func verifyBundle(plan *chineseeval.Plan, dir string) error {
 	if err != nil {
 		return err
 	}
+	stage = "provenance_observations"
+	manifestRaw, err := readBounded(filepath.Join(dir, "manifest.json"), 1<<20)
+	if err != nil {
+		return err
+	}
+	var observations []byte
+	if report.Budget.Calls > 0 {
+		observations, err = readBounded(filepath.Join(dir, "observations-evaluation.json"), 1<<20)
+		if err != nil {
+			return err
+		}
+	}
+	if err := plan.VerifyEvidence(report, manifestRaw, observations); err != nil {
+		return err
+	}
+	stage = "redaction_audit"
 	auditRaw, err := readBounded(filepath.Join(dir, "audit.json"), 1<<20)
 	if err != nil {
 		return err

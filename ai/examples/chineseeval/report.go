@@ -135,6 +135,16 @@ func (p *Plan) Run(ctx context.Context, client *ai.Client, scope ai.CallScope, b
 			}
 		}
 	}
+	if r.Budget.Calls == 0 {
+		r.Status = "NOT_RUN"
+		r.Reason = "cancelled before first logical call"
+		for i := range r.Samples {
+			r.Samples[i].Status = "not_run"
+		}
+		r.FinishedAt = time.Now().UTC()
+		r.Metrics = metrics(r)
+		return r
+	}
 	r.Status = "COMPLETE"
 	for _, s := range r.Samples {
 		if s.Status != "answered" {

@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
+	"slices"
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -53,6 +54,7 @@ type Plan struct {
 	config      Config
 	datasetHash string
 	configHash  string
+	price       ai.ModelCost
 }
 
 func Hash(raw []byte) string {
@@ -101,6 +103,8 @@ func Load(data, config []byte, catalog ai.Catalog) (*Plan, error) {
 	for _, m := range catalog.ClassifierModels {
 		if m.ID == c.Model && m.Provider == ai.ProviderTypeSafe && m.API == ai.APITypeSafeSystemOne {
 			found = true
+			p.price = m.Cost
+			p.price.Tiers = slices.Clone(m.Cost.Tiers)
 		}
 	}
 	if !found || c.MaxCalls < 1 || c.MaxCalls > d.Count || c.MaxQuestions < 1 || c.MaxQuestions > d.Count || c.MaxAttempts < 1 || c.MaxAttempts > d.Count || c.MaxRetries != 0 || c.TimeoutSeconds < 1 || c.TimeoutSeconds > 600 || c.CallTimeoutSeconds < 1 || c.CallTimeoutSeconds > 60 {

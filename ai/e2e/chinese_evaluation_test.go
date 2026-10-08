@@ -276,3 +276,72 @@ func TestChineseEvaluationCommand(t *testing.T) {
 		})
 	}
 }
+
+func TestChineseEvaluationPreCancelled(t *testing.T) {
+	ev := run.Case(t, "P07-zh-evaluation-pre-cancelled")
+	p, w := chinesePlan(t), chineseWorld(t)
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	r := p.Run(ctx, w.client, textScope("zh-pre-cancelled"), "zh-evaluation", "fixture", "synthetic@loopback")
+	ev.Record("evaluation", r)
+	ev.Check("cancel before execution has no score", r.Status == "NOT_RUN" && r.Metrics.Accuracy == nil && r.Budget.Calls == 0 && len(w.provider.Requests()) == 0 && r.Reason != "", "got %+v", r.Metrics)
+}
+
+func TestChineseEvaluationImportedEvidence(t *testing.T) {
+	for _, name := range []string{"negative_tokens", "incorrect_cost", "attempt_id", "http_status", "missing_observer", "missing_manifest", "incomplete_observer"} {
+		t.Run(name, func(t *testing.T) {
+			ev := run.Case(t, "P07-zh-evaluation-import-"+name)
+			source := "../../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/live"
+			dir := t.TempDir()
+			entries, err := os.ReadDir(source)
+			if err != nil {
+				t.Fatal(err)
+			}
+			for _, entry := range entries {
+				raw, err := os.ReadFile(filepath.Join(source, entry.Name()))
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(filepath.Join(dir, entry.Name()), raw, 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			path := filepath.Join(dir, "evaluation-report.json")
+			raw, _ := os.ReadFile(path)
+			var report chineseeval.Report
+			json.Unmarshal(raw, &report)
+			switch name {
+			case "negative_tokens":
+				a := &report.Samples[0].Metadata.Attempts[0]
+				report.Budget.InputTokens -= 2 * a.Usage.Input
+				a.Usage.Input = -a.Usage.Input
+			case "incorrect_cost":
+				a := &report.Samples[0].Metadata.Attempts[0]
+				report.Budget.KnownCostUSD += 1
+				a.Usage.Cost.Input += 1
+				a.Usage.Cost.Total += 1
+			case "attempt_id":
+				report.Samples[0].Metadata.Attempts[0].AttemptID = "another-call#1"
+			case "http_status":
+				report.Samples[0].Metadata.Attempts[0].HTTPStatus = 529
+			case "missing_observer":
+				os.Remove(filepath.Join(dir, "observations-evaluation.json"))
+			case "missing_manifest":
+				os.WriteFile(filepath.Join(dir, "manifest.json"), []byte(`{}`), 0600)
+			case "incomplete_observer":
+				os.WriteFile(filepath.Join(dir, "observations-evaluation.json"), []byte(`[]`), 0600)
+			}
+			raw, _ = json.Marshal(report)
+			os.WriteFile(path, raw, 0600)
+			if name == "negative_tokens" || name == "incorrect_cost" || name == "attempt_id" || name == "http_status" {
+				ev.Check("coherent report tamper rejected", chinesePlan(t).Verify(report) != nil, "accepted %s", name)
+			}
+			cmd := exec.CommandContext(ctxFor(t), "go", "run", "./ai/examples/chineseeval/cmd/chineseeval", "-verify", dir)
+			cmd.Dir = "../.."
+			output, err := cmd.CombinedOutput()
+			ev.Record("command", map[string]any{"refused": err != nil, "diagnostic": strings.Contains(string(output), "stage=")})
+			ev.Check("file import refuses incomplete evidence", err != nil, "accepted %s", name)
+			ev.Check("safe diagnostic retained", strings.Contains(string(output), "stage="), "lost stage context")
+		})
+	}
+}

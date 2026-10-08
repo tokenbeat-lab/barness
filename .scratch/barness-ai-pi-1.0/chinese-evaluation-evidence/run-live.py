@@ -37,7 +37,9 @@ with tempfile.TemporaryDirectory(prefix='barness-zh-eval-') as build_dir:
     binary = str(Path(build_dir) / 'chineseeval')
     build = subprocess.run(['go', 'build', '-o', binary, './ai/examples/chineseeval/cmd/chineseeval'], cwd=root, env=env, capture_output=True)
     if build.returncode:
-        raise SystemExit('FAIL: evaluation host build')
+        diagnostics = (build.stdout + build.stderr).replace(str(root).encode(), b'[REPO]').replace(str(Path.home()).encode(), b'[HOME]')
+        (root / '.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/build-failure.log').write_bytes(diagnostics)
+        raise SystemExit('FAIL: evaluation stage=host_build; sanitized diagnostics in build-failure.log')
     child = subprocess.Popen([binary] + command, cwd=root, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     def cancel(signum, _frame):
         child.send_signal(signum)

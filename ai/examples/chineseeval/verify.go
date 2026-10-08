@@ -2,6 +2,8 @@ package chineseeval
 
 import (
 	"errors"
+	"fmt"
+	"github.com/tokenbeat-lab/barness/ai"
 	"math"
 	"reflect"
 )
@@ -42,6 +44,14 @@ func (p *Plan) Verify(r Report) error {
 				return bad
 			}
 			ids[s.Metadata.RequestID] = true
+			if !p.attemptsValid(s) {
+				return bad
+			}
+			for _, a := range s.Metadata.Attempts {
+				if a.Usage.Input > math.MaxInt64-b.InputTokens || a.Usage.Output > math.MaxInt64-b.OutputTokens {
+					return bad
+				}
+			}
 			b.Calls++
 			b.Questions++
 			b.add(s.Metadata)
@@ -69,7 +79,7 @@ func (p *Plan) Verify(r Report) error {
 			notRun = false
 		}
 	}
-	if !reflect.DeepEqual(b, r.Budget) || b.Calls > p.config.MaxCalls || b.Questions > p.config.MaxQuestions || b.Attempts > p.config.MaxAttempts || b.Retries > p.config.MaxRetries {
+	if (r.Status != "NOT_RUN" && b.Calls == 0) || !reflect.DeepEqual(b, r.Budget) || b.Calls > p.config.MaxCalls || b.Questions > p.config.MaxQuestions || b.Attempts > p.config.MaxAttempts || b.Retries > p.config.MaxRetries {
 		return bad
 	}
 	want := "FAIL"
@@ -111,3 +121,47 @@ func (p *Plan) ReadReport(raw []byte) (Report, error) {
 	}
 	return r, p.Verify(r)
 }
+
+// Independent validation at the artifact import boundary protects accounting
+// even when an edited report also changes its aggregate counters coherently.
+func (p *Plan) attemptsValid(s SampleResult) bool {
+	m := s.Metadata
+	if len(m.Attempts) > 1 {
+		return false
+	} // pinned zero-retry task
+	if len(m.Attempts) > 0 && (!p.identity(m) || m.TenantID == "" || m.BindingID == "" || m.AccountScopeID == "" || m.BindingVersion == "" || m.CredentialVersion == "") {
+		return false
+	}
+	for i, a := range m.Attempts {
+		if a.AttemptID != fmt.Sprintf("%s#%d", m.RequestID, i+1) || a.RetryDelay != 0 || a.HTTPStatus < 0 || a.HTTPStatus > 599 {
+			return false
+		}
+		u := a.Usage
+		if a.UsageReporting != ai.UsageComplete && a.UsageReporting != ai.UsagePartial && a.UsageReporting != ai.UsageUnreported {
+			return false
+		}
+		if u.Input < 0 || u.Output < 0 || u.Input > math.MaxInt64-u.Output || u.TotalTokens != u.Input+u.Output || u.CacheRead != 0 || u.CacheWrite != 0 || u.Modalities != nil {
+			return false
+		}
+		rates := p.price.CostRates
+		threshold := int64(-1)
+		for _, t := range p.price.Tiers {
+			if u.Input > t.InputTokensAbove && t.InputTokensAbove > threshold {
+				rates = t.CostRates
+				threshold = t.InputTokensAbove
+			}
+		}
+		cost := float64(rates.Input/1e6) * float64(u.Input)
+		if !finiteNonnegative(u.Cost.Input) || !finiteNonnegative(u.Cost.Total) || math.Abs(u.Cost.Input-cost) > 1e-12 || u.Cost.Total != u.Cost.Input || u.Cost.Output != 0 || u.Cost.CacheRead != 0 || u.Cost.CacheWrite != 0 {
+			return false
+		}
+		if a.UsageReporting == ai.UsageUnreported && u != (ai.Usage{}) {
+			return false
+		}
+		if (s.Status == "answered" || s.Status == "usage_incomplete") && (a.HTTPStatus != 200 || a.Code != "" || a.ProviderRequestID == "") {
+			return false
+		}
+	}
+	return true
+}
+func finiteNonnegative(v float64) bool { return !math.IsNaN(v) && !math.IsInf(v, 0) && v >= 0 }
