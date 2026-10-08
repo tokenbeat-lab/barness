@@ -22,6 +22,14 @@ type unaryTextKey struct{ Source string }
 
 func (unaryTextKey) MarshalText() ([]byte, error) { return []byte("short"), nil }
 
+type unaryPointerText string
+
+func (*unaryPointerText) MarshalText() ([]byte, error) { return []byte("short"), nil }
+
+type unaryPointerJSON string
+
+func (*unaryPointerJSON) MarshalJSON() ([]byte, error) { return []byte(`"short"`), nil }
+
 type unaryQuestionJSON map[string]any
 
 func (unaryQuestionJSON) MarshalJSON() ([]byte, error) {
@@ -30,13 +38,19 @@ func (unaryQuestionJSON) MarshalJSON() ([]byte, error) {
 
 func TestUnaryCallbackEncodingSemantics(t *testing.T) {
 	large := strings.Repeat("x", 8<<20)
-	for _, name := range []string{"promoted-conflict", "text-value", "text-key", "questions-marshaler"} {
+	for _, name := range []string{"promoted-conflict", "text-value", "text-key", "questions-marshaler", "pointer-text-element", "pointer-json-element", "pointer-array-element"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P07-E04-unary-callback-encoding-"+name)
 			u := newUnaryWorld(t, nil)
 			enqueue(ev, u.world, u.sc.replies(t)[0])
 			res, err := u.call(t, ctxFor(t), "req-encoding-"+name, ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				switch name {
+				case "pointer-text-element":
+					p.Body["state"] = []unaryPointerText{unaryPointerText(large)}
+				case "pointer-json-element":
+					p.Body["state"] = []unaryPointerJSON{unaryPointerJSON(large)}
+				case "pointer-array-element":
+					p.Body["state"] = &[1]unaryPointerJSON{unaryPointerJSON(large)}
 				case "promoted-conflict":
 					p.Body["state"] = struct {
 						UnaryHiddenOne

@@ -1,0 +1,11 @@
+--- FAIL: TestUnaryCallbackEncodingSemantics (0.01s)
+    --- FAIL: TestUnaryCallbackEncodingSemantics/pointer-text-element (0.00s)
+        unary_encoding_test.go:76: [P07-E04-unary-callback-encoding-pointer-text-element] final encoded small JSON remains valid: got ai: callback_failed (request): payload callback exceeded classifier input limits
+    --- FAIL: TestUnaryCallbackEncodingSemantics/pointer-json-element (0.00s)
+        unary_encoding_test.go:76: [P07-E04-unary-callback-encoding-pointer-json-element] final encoded small JSON remains valid: got ai: callback_failed (request): payload callback exceeded classifier input limits
+    --- FAIL: TestUnaryCallbackEncodingSemantics/pointer-array-element (0.00s)
+        unary_encoding_test.go:76: [P07-E04-unary-callback-encoding-pointer-array-element] final encoded small JSON remains valid: got ai: callback_failed (request): payload callback exceeded classifier input limits
+FAIL
+barness-ai evidence bundle: <repo>/.evidence/barness-ai/20261008T024038.728240000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.917s
+FAIL

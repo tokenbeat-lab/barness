@@ -63,6 +63,14 @@ func classifierPayloadSize(value any, limit int64) (int64, bool) {
 			}
 			return walk(v.Elem(), depth+1)
 		}
+		// encoding/json also uses pointer-receiver methods on addressable
+		// values, such as elements of a borrowed slice or pointed-to array.
+		if v.Kind() != reflect.Pointer && v.CanAddr() && v.Addr().CanInterface() {
+			switch v.Addr().Interface().(type) {
+			case json.Marshaler, encoding.TextMarshaler:
+				return take(1)
+			}
+		}
 		if v.CanInterface() {
 			switch x := v.Interface().(type) {
 			case json.RawMessage:
