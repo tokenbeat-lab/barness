@@ -1,0 +1,532 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T16:03:06.233474+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-resource-read-abort",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T16:03:06.233588+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-resource-read-abort",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351"
+    },
+    "attempt": {
+      "attemptId": "req-google-resource-read-abort#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T16:03:06.234199+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-resource-read-abort",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351"
+    },
+    "attempt": {
+      "attemptId": "req-google-resource-read-abort#1",
+      "httpStatus": 200,
+      "providerRequestId": "req-images",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 7,
+        "output": 42,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 22,
+        "modalities": {
+          "inputText": 7,
+          "inputImage": 0,
+          "outputText": 0,
+          "outputImage": 20
+        },
+        "totalTokens": 49,
+        "cost": {
+          "input": 1.4e-05,
+          "output": 0.00018800000000000002,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000202
+        }
+      }
+    },
+    "duration": 611500
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T16:03:06.234205+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-resource-read-abort",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351",
+      "attempts": [
+        {
+          "attemptId": "req-google-resource-read-abort#1",
+          "httpStatus": 200,
+          "providerRequestId": "req-images",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 7,
+            "output": 42,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 22,
+            "modalities": {
+              "inputText": 7,
+              "inputImage": 0,
+              "outputText": 0,
+              "outputImage": 20
+            },
+            "totalTokens": 49,
+            "cost": {
+              "input": 1.4e-05,
+              "output": 0.00018800000000000002,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000202
+            }
+          }
+        }
+      ]
+    },
+    "duration": 731875,
+    "stopReason": "error",
+    "error": {
+      "code": "transport",
+      "phase": "response"
+    },
+    "usage": {
+      "input": 7,
+      "output": 42,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 22,
+      "modalities": {
+        "inputText": 7,
+        "inputImage": 0,
+        "outputText": 0,
+        "outputImage": 20
+      },
+      "totalTokens": 49,
+      "cost": {
+        "input": 1.4e-05,
+        "output": 0.00018800000000000002,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000202
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T16:03:06.207859+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-resource-trailing-json",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T16:03:06.207955+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-resource-trailing-json",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351"
+    },
+    "attempt": {
+      "attemptId": "req-google-resource-trailing-json#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T16:03:06.20856+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-resource-trailing-json",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351"
+    },
+    "attempt": {
+      "attemptId": "req-google-resource-trailing-json#1",
+      "httpStatus": 200,
+      "providerRequestId": "req-images",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 7,
+        "output": 42,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 22,
+        "modalities": {
+          "inputText": 7,
+          "inputImage": 0,
+          "outputText": 0,
+          "outputImage": 20
+        },
+        "totalTokens": 49,
+        "cost": {
+          "input": 1.4e-05,
+          "output": 0.00018800000000000002,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000202
+        }
+      }
+    },
+    "duration": 605250
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T16:03:06.208565+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-resource-trailing-json",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351",
+      "attempts": [
+        {
+          "attemptId": "req-google-resource-trailing-json#1",
+          "httpStatus": 200,
+          "providerRequestId": "req-images",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 7,
+            "output": 42,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 22,
+            "modalities": {
+              "inputText": 7,
+              "inputImage": 0,
+              "outputText": 0,
+              "outputImage": 20
+            },
+            "totalTokens": 49,
+            "cost": {
+              "input": 1.4e-05,
+              "output": 0.00018800000000000002,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000202
+            }
+          }
+        }
+      ]
+    },
+    "duration": 707666,
+    "stopReason": "error",
+    "error": {
+      "code": "protocol",
+      "phase": "response"
+    },
+    "usage": {
+      "input": 7,
+      "output": 42,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 22,
+      "modalities": {
+        "inputText": 7,
+        "inputImage": 0,
+        "outputText": 0,
+        "outputImage": 20
+      },
+      "totalTokens": 49,
+      "cost": {
+        "input": 1.4e-05,
+        "output": 0.00018800000000000002,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000202
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T16:03:06.394266+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-observer",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T16:03:06.394369+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-observer",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351"
+    },
+    "attempt": {
+      "attemptId": "req-google-observer#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T16:03:06.39511+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-observer",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351"
+    },
+    "attempt": {
+      "attemptId": "req-google-observer#1",
+      "httpStatus": 200,
+      "providerRequestId": "req-images",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 7,
+        "output": 42,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 22,
+        "modalities": {
+          "inputText": 7,
+          "inputImage": 0,
+          "outputText": 0,
+          "outputImage": 20
+        },
+        "totalTokens": 49,
+        "cost": {
+          "input": 1.4e-05,
+          "output": 0.00018800000000000002,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000202
+        }
+      }
+    },
+    "duration": 741125
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T16:03:06.395118+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-google-observer",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "host-google-image",
+      "accountScopeId": "acct-tenant-a-google",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.4",
+      "catalogHash": "sha256:05688df23ea733c94770df53fb678cba087a0c4630433c5a14cfa4781f3ff351",
+      "attempts": [
+        {
+          "attemptId": "req-google-observer#1",
+          "httpStatus": 200,
+          "providerRequestId": "req-images",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 7,
+            "output": 42,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 22,
+            "modalities": {
+              "inputText": 7,
+              "inputImage": 0,
+              "outputText": 0,
+              "outputImage": 20
+            },
+            "totalTokens": 49,
+            "cost": {
+              "input": 1.4e-05,
+              "output": 0.00018800000000000002,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000202
+            }
+          }
+        }
+      ]
+    },
+    "duration": 851791,
+    "stopReason": "stop",
+    "usage": {
+      "input": 7,
+      "output": 42,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 22,
+      "modalities": {
+        "inputText": 7,
+        "inputImage": 0,
+        "outputText": 0,
+        "outputImage": 20
+      },
+      "totalTokens": 49,
+      "cost": {
+        "input": 1.4e-05,
+        "output": 0.00018800000000000002,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000202
+      }
+    }
+  }
+]

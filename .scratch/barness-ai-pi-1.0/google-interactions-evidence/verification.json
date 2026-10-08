@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "issue": "12-google-interactions-image-generation",
+  "date": "2026-10-08",
+  "base_commit": "d5d69a48abbdabed69d9154f74489e5a58fe3d4d",
+  "tested_commit": "7bfd5d72dcb774614ffecb0302aa6a041183d6ab",
+  "bundle": ".evidence/barness-ai/20261008T080243.953470000Z",
+  "manifest_sha256": "4573aa8170971828149bd2078e71df843bfbd52cdbcdb01fcc53697c4d74526b",
+  "commands": [
+    {
+      "command": "go vet ./...",
+      "exit_code": 0
+    },
+    {
+      "command": "go vet -tags live ./...",
+      "exit_code": 0
+    },
+    {
+      "command": "go test ./ai/e2e -run '^TestGoogleImages' -count=1",
+      "exit_code": 0
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1",
+      "exit_code": 0
+    }
+  ],
+  "passing_cases": 4126,
+  "failed_cases": 0,
+  "google_cases": 119,
+  "openai_image_cases": 267,
+  "differential_cases": 623,
+  "pressure_cases": 11,
+  "resource_cases": 20,
+  "all_recorded_gauges_zero": true,
+  "run_audit_findings": 0,
+  "review": {
+    "standards_found": 1,
+    "standards_remaining": 0,
+    "spec_found": 1,
+    "spec_remaining": 0
+  },
+  "versions": {
+    "anthropic-sdk-go": "v1.75.0",
+    "model_catalog_hash": "sha256:37b8e6e2bc17576040fdc16c3774908c3e09fc5e1fbe8af7219b6e406ed2ce93",
+    "model_catalog_version": "2026-10-08.4",
+    "openai-go": "v3.66.0"
+  },
+  "go_version": "go1.26.2",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-08T08:02:43.95347Z",
+  "finished_at": "2026-10-08T08:07:54.53096Z",
+  "live_acceptance": "Issue 14; host catalog fixture only. Reference inputs are issue 13."
+}

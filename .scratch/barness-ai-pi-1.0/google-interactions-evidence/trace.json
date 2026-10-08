@@ -1,0 +1,164 @@
+{
+  "catalog_snapshot_current": true,
+  "differential_pass": true,
+  "differential_pending": 0,
+  "extension_routes": [
+    {
+      "provider": "google",
+      "api": "google-interactions"
+    },
+    {
+      "provider": "deepseek",
+      "api": "openai-responses"
+    },
+    {
+      "provider": "openai",
+      "api": "openai-images"
+    }
+  ],
+  "items": [
+    {
+      "id": "V4-google-images-generation",
+      "source": "issue 12 / ADR-0012/0022",
+      "requirement": "Native v1beta synchronous stateless inline generation, ordered model_output collection, real terminal mapping, atomic images and extension registration without premature live claims",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 119,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-generation",
+        "P09-E01-interleaved",
+        "P09-E01-no-response-model",
+        "P09-E01-options",
+        "P09-E02-audio",
+        "P09-E02-bad-base64"
+      ]
+    },
+    {
+      "id": "C04-google-images-final",
+      "source": "issue 12 / design 12–13 / ADR-0022",
+      "requirement": "Final callback model/fixed fields/schema/20 MiB guard, protocol options, no continuation/external resources or reference-route widening",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 56,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E04-allowed-options",
+        "P09-E04-bad-input",
+        "P09-E04-delete-format",
+        "P09-E04-delete-model",
+        "P09-E04-delete-store",
+        "P09-E04-field-agent"
+      ]
+    },
+    {
+      "id": "H5-google-images-budgets",
+      "source": "issue 12 / ADR-0002/0007/0008/0022",
+      "requirement": "Total JSON/image budgets, admission held through complete validation, cancellation/read timeout, body/permit release and no 2xx replay",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 20,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E08-resources-above-frame",
+        "P09-E08-resources-bad-json",
+        "P09-E08-resources-canceled",
+        "P09-E08-resources-count-limit",
+        "P09-E08-resources-duplicate-block",
+        "P09-E08-resources-duplicate-status"
+      ]
+    },
+    {
+      "id": "T09-google-images-modalities",
+      "source": "issue 12 / ADR-0009/0010/0022",
+      "requirement": "Shared complete/partial/unreported axis, 7/42/22/49 normalization, explicit thought inclusion pricing, sourced fixtures and independent metadata-only modality audit",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 18,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E09-modality-audit",
+        "P09-E11-duplicate-modality",
+        "P09-E11-missing-input_tokens_by_modality",
+        "P09-E11-missing-output_tokens_by_modality",
+        "P09-E11-missing-total_input_tokens",
+        "P09-E11-missing-total_output_tokens"
+      ]
+    }
+  ],
+  "p0_offline_pass": true,
+  "scope": "Issue 12 offline trace only; command/live release gates are outside this evaluation",
+  "tested_commit": "7bfd5d72dcb774614ffecb0302aa6a041183d6ab"
+}

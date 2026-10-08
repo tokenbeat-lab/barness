@@ -1,0 +1,100 @@
+{
+  "scope": "Pre-implementation unsupported-route red and review regression red, before fixes",
+  "runs": [
+    {
+      "run": ".evidence/barness-ai/20261008T074629.990917000Z",
+      "tested_commit": "d5d69a48abbdabed69d9154f74489e5a58fe3d4d",
+      "cases": [
+        {
+          "id": "P09-E01-generation",
+          "status": "FAIL",
+          "test": "TestGoogleImagesFixtures/E01-generation",
+          "failed_assertions": [
+            "request count",
+            "terminal",
+            "success",
+            "ordered independent output blocks",
+            "diagnostic response identity",
+            "usage retained and modality priced",
+            "attempt count"
+          ]
+        }
+      ]
+    },
+    {
+      "run": ".evidence/barness-ai/20261008T080124.035218000Z",
+      "tested_commit": "7b0043aaf821d710bde6c2d70ec511a8febdb086",
+      "cases": [
+        {
+          "id": "P09-E07-usage-before-malformed-steps",
+          "status": "FAIL",
+          "test": "TestGoogleImagesFixtures/E07-usage-before-malformed-steps",
+          "failed_assertions": [
+            "diagnostic response identity",
+            "usage retained and modality priced",
+            "usage axis agrees"
+          ]
+        },
+        {
+          "id": "P09-E07-usage-before-trailing-json",
+          "status": "FAIL",
+          "test": "TestGoogleImagesFixtures/E07-usage-before-trailing-json",
+          "failed_assertions": [
+            "diagnostic response identity",
+            "usage retained and modality priced",
+            "usage axis agrees"
+          ]
+        },
+        {
+          "id": "P09-E08-resources-read-abort",
+          "status": "FAIL",
+          "test": "TestGoogleImagesResources/read-abort",
+          "failed_assertions": []
+        },
+        {
+          "id": "P09-E08-resources-trailing-json",
+          "status": "FAIL",
+          "test": "TestGoogleImagesResources/trailing-json",
+          "failed_assertions": []
+        },
+        {
+          "id": "P09-E11-thought-included-missing-thought-total",
+          "status": "FAIL",
+          "test": "TestGoogleImagesFixtures/E11-thought-included-missing-thought-total",
+          "failed_assertions": [
+            "terminal",
+            "success",
+            "ordered independent output blocks",
+            "usage retained and modality priced"
+          ]
+        }
+      ]
+    },
+    {
+      "run": ".evidence/barness-ai/20261008T080132.112825000Z",
+      "tested_commit": "7b0043aaf821d710bde6c2d70ec511a8febdb086",
+      "cases": [
+        {
+          "id": "P09-E08-resources-read-abort",
+          "status": "FAIL",
+          "test": "TestGoogleImagesResources/read-abort",
+          "failed_assertions": [
+            "reported usage survives parse/read failure",
+            "attempt retains consumption",
+            "observer retains consumption"
+          ]
+        },
+        {
+          "id": "P09-E08-resources-trailing-json",
+          "status": "FAIL",
+          "test": "TestGoogleImagesResources/trailing-json",
+          "failed_assertions": [
+            "reported usage survives parse/read failure",
+            "attempt retains consumption",
+            "observer retains consumption"
+          ]
+        }
+      ]
+    }
+  ]
+}
