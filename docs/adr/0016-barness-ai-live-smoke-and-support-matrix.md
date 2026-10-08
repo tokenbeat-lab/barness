@@ -113,3 +113,7 @@ Binding.Retry 保持关闭，避免内部尝试绕过预算。mask 也占请求�
 包含原始有界脱敏捕获、公共结果、Observer、图片文件/SHA-256、零发现审计及离线
 反例进程。PNG 响应超 512 KiB 捕获上限，截断明确标记；图片与用量以 Client 完整
 结果保留。其 fixture 归一化明确记录此来源，不能作为另一条 live 接受性证据。
+
+## 工单 14：Google 图像真实证据（2026-10-08）
+
+加入第九组合 image/Google/google-interactions（google-interactions-image），固定 v1beta 与 Nano Banana 2.1。两项必交能力不能 UNSUPPORTED；每进程至多四调用/四图片、1K/1:1，失败与重试计预留。响应可能无 ID/请求 ID 头，只报告实际存在的型号；不能凭共享 Google 聊天通过声明支持。Google 报告必须完整覆盖两项，错身份、旧报告、配置失败、缺形状或预算证据原子拒绝。详见 ADR-0023 与工单 14 交付证据。

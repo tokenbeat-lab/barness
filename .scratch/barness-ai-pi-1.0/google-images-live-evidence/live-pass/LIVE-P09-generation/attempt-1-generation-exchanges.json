@@ -1,0 +1,29 @@
+[
+  {
+    "method": "POST",
+    "url": "https://generativelanguage.googleapis.com/v1beta/interactions",
+    "requestHeaders": {
+      "content-type": "application/json",
+      "user-agent": "barness-ai",
+      "x-goog-api-key": "[REDACTED]"
+    },
+    "requestBody": "{\"model\":\"gemini-nano-banana-2.1\",\"store\":false,\"input\":[{\"type\":\"text\",\"text\":\"Create an original whimsical still-life photograph of three handmade turquoise ceramic bowls, a yellow paper crane, and a small purple pebble on a pale peach tabletop, soft morning light. No text or logos. Return exactly one image.\"}],\"response_format\":{\"type\":\"image\",\"aspect_ratio\":\"1:1\",\"image_size\":\"1K\"}}",
+    "status": 200,
+    "responseHeaderNames": [
+      "alt-svc",
+      "content-type",
+      "date",
+      "server",
+      "server-timing",
+      "vary",
+      "x-content-type-options",
+      "x-frame-options",
+      "x-xss-protection"
+    ],
+    "responseHeaders": {
+      "content-type": "application/json"
+    },
+    "responseBody": "{\"created\":\"2026-10-08T09:16:34Z\",\"model\":\"gemini-nano-banana-2.1\",\"object\":\"interaction\",\"service_tier\":\"standard\",\"status\":\"completed\",\"steps\":[{\"signature\":\"[ELIDED bytes=1938888 sha256=3ee7f4ad852696bc142136b4a0e38e982644ac49e5d52c67a672277a8b63e5f9]\",\"type\":\"thought\"},{\"content\":[{\"data\":\"[ELIDED bytes=816864 sha256=92b734ec29803f12f262baff9ce3da1625ca19571186ef1ad0c0b2dd80e2930d]\",\"mime_type\":\"image/jpeg\",\"type\":\"image\"}],\"type\":\"model_output\"}],\"updated\":\"2026-10-08T09:16:34Z\",\"usage\":{\"input_tokens_by_modality\":[{\"modality\":\"text\",\"tokens\":46}],\"model_invocation_token_counts\":[{\"candidates_tokens_details\":[{\"modality\":\"text\",\"tokens\":299}],\"prompt_tokens_details\":[{\"modality\":\"text\",\"tokens\":574}],\"thoughts_tokens_details\":[{\"modality\":\"text\",\"tokens\":819}]},{\"candidates_tokens_details\":[{\"modality\":\"text\",\"tokens\":28}],\"prompt_tokens_details\":[{\"modality\":\"text\",\"tokens\":1716},{\"modality\":\"image\",\"tokens\":1089}],\"thoughts_tokens_details\":[{\"modality\":\"text\",\"tokens\":51}]}],\"non_grounding_model_invocation_token_counts\":[{\"candidates_tokens_details\":[{\"modality\":\"text\",\"tokens\":299}],\"prompt_tokens_details\":[{\"modality\":\"text\",\"tokens\":574}],\"thoughts_tokens_details\":[{\"modality\":\"text\",\"tokens\":819}]},{\"candidates_tokens_details\":[{\"modality\":\"text\",\"tokens\":28}],\"prompt_tokens_details\":[{\"modality\":\"text\",\"tokens\":1716},{\"modality\":\"image\",\"tokens\":1089}],\"thoughts_tokens_details\":[{\"modality\":\"text\",\"tokens\":51}]}],\"output_tokens_by_modality\":[{\"modality\":\"image\",\"tokens\":1120}],\"raw_prompt_token\":574,\"total_cached_tokens\":0,\"total_input_tokens\":46,\"total_output_tokens\":1435,\"total_thought_tokens\":819,\"total_tokens\":2300,\"total_tool_use_tokens\":0}}",
+    "elapsedMs": 17608
+  }
+]

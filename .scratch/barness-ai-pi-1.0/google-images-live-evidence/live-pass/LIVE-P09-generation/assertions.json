@@ -1,0 +1,58 @@
+{
+  "assertions": [
+    {
+      "name": "fixed official stateless inline request",
+      "pass": true,
+      "detail": "wrong route, authentication or image output configuration"
+    },
+    {
+      "name": "Observer reaches terminal metadata",
+      "pass": true,
+      "detail": "missing terminal observation"
+    },
+    {
+      "name": "image terminal and attribution",
+      "pass": true,
+      "detail": "wrong attribution"
+    },
+    {
+      "name": "readable image, format, dimensions and count",
+      "pass": true,
+      "detail": "<nil>"
+    },
+    {
+      "name": "one HTTP acceptance",
+      "pass": true,
+      "detail": "wrong attempt"
+    },
+    {
+      "name": "observed identity presence preserved",
+      "pass": true,
+      "detail": "identity invented or lost"
+    },
+    {
+      "name": "complete captured terminal and inline evidence",
+      "pass": true,
+      "detail": "incomplete terminal shape"
+    },
+    {
+      "name": "nonzero thought inclusion established",
+      "pass": true,
+      "detail": "cannot prove thought billing from this response"
+    },
+    {
+      "name": "native token totals preserved",
+      "pass": true,
+      "detail": "usage normalization mismatch"
+    },
+    {
+      "name": "sourced modality cost includes thinking once",
+      "pass": true,
+      "detail": "wrong estimated cost"
+    }
+  ],
+  "case_id": "LIVE-P09-generation",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=google-interactions-image go test -tags live ./ai/live -count=1 -run '^TestLive$/^google-interactions-image$'",
+  "status": "PASS",
+  "test": "TestLive/google-interactions-image/generation"
+}

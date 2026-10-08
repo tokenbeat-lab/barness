@@ -90,3 +90,7 @@ operation；schema 或 operation/provider/API 与固定组合身份不一致时�
 审计复核：operation 是入口常量；providerRequestId 是厂商 ID 元数据；
 x-typesafe-request-id 属于现有 request-id 响应头白名单。无需扩大白名单到正文；
 真实 observations 文件与错误响应一起经过逐文件审计，禁止 state/questions/answers/错误正文进入 Observer。
+
+## 工单 14：Google 图像真实证据（2026-10-08）
+
+追溯增加工单 14 的真实图像/目录/省略 delivery 条目，liveCombos 纳入第九组合 google-interactions-image。该路线的离线回放证明归一化，真实支持另需自己的已审计 live bundle；不能把回放或共享 adapter 当作 live PASS。此工单不宣称九组合全发布门禁通过（后续工单 17）。

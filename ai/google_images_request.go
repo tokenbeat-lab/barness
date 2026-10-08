@@ -24,7 +24,6 @@ type googleImageInput struct {
 }
 type googleImageFormat struct {
 	Type        string           `json:"type"`
-	Delivery    string           `json:"delivery"`
 	AspectRatio Nullable[string] `json:"aspect_ratio,omitzero"`
 	ImageSize   Nullable[string] `json:"image_size,omitzero"`
 }
@@ -76,7 +75,7 @@ func googleImagesField(key string, allowed []string) *Error {
 	if slices.Contains(allowed, key) {
 		return nil
 	}
-	if slices.Contains([]string{"previous_interaction_id", "background", "agent", "agent_config", "tools", "environment", "webhook_config", "continuation_token", "service_tier", "stream", "generation_config", "response_modalities", "labels", "safety_settings", "endpoint", "operation", "uri", "url", "file_id", "mask"}, key) {
+	if slices.Contains([]string{"previous_interaction_id", "background", "agent", "agent_config", "tools", "environment", "webhook_config", "continuation_token", "service_tier", "stream", "generation_config", "response_modalities", "labels", "safety_settings", "endpoint", "operation", "uri", "url", "file_id", "mask", "delivery"}, key) {
 		return googleImageAuthorityFailure()
 	}
 	return imageInputFailure(PhaseRequest, "unsupported Google image request field")
@@ -111,13 +110,12 @@ func decodeGoogleImagesRequest(body []byte, model ImageModel, policy *ResourcePo
 		return wire, imageInputFailure(PhaseRequest, "invalid Google image response format")
 	}
 	for key := range format {
-		if failure := googleImagesField(key, []string{"type", "delivery", "aspect_ratio", "image_size"}); failure != nil {
+		if failure := googleImagesField(key, []string{"type", "aspect_ratio", "image_size"}); failure != nil {
 			return wire, failure
 		}
 	}
 	kind, _ := rawString(format["type"])
-	delivery, _ := rawString(format["delivery"])
-	if kind != "image" || delivery != "inline" {
+	if kind != "image" {
 		return wire, googleImageAuthorityFailure()
 	}
 	if json.Unmarshal(fields["response_format"], &wire.Format) != nil {

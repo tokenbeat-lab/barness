@@ -1,0 +1,98 @@
+{
+  "schema": 2,
+  "combo": "google-interactions-image",
+  "operation": "image",
+  "provider": "google",
+  "api": "google-interactions",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+  "model": "gemini-nano-banana-2.1",
+  "sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
+  "accountAlias": "dotenv-gemini@region-unconfirmed",
+  "gitCommit": "2aa71180fc1dbc647b94520abdf1be0c8944ea10",
+  "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+  "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4",
+  "startedAt": "2026-10-08T09:08:54.56062Z",
+  "finishedAt": "2026-10-08T09:08:56.072425Z",
+  "budget": {
+    "maxCalls": 4,
+    "maxImages": 4,
+    "imagesUsed": 2,
+    "maxImageWidth": 1024,
+    "maxImageHeight": 1024,
+    "httpAttempts": 2,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 2,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 0,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "generation",
+    "reference-edit"
+  ],
+  "scenarios": [
+    {
+      "id": "generation",
+      "caseId": "LIVE-P09-generation",
+      "model": "gemini-nano-banana-2.1",
+      "outcome": "FAIL",
+      "errorCategory": "invalid_request",
+      "durationMs": 1115,
+      "calls": 1,
+      "attempts": 1,
+      "images": 1,
+      "imageCalls": [
+        {
+          "path": "/v1beta/interactions",
+          "status": 400,
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 0,
+          "usageReporting": "unreported",
+          "google": {
+            "fixedRequest": true,
+            "inlineImages": 0,
+            "continuation": false,
+            "uri": false,
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "thoughtTokens": 0,
+            "totalTokens": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "reference-edit",
+      "caseId": "LIVE-P09-reference-edit",
+      "model": "gemini-nano-banana-2.1",
+      "outcome": "FAIL",
+      "errorCategory": "invalid_request",
+      "durationMs": 372,
+      "calls": 1,
+      "attempts": 1,
+      "images": 1,
+      "imageCalls": [
+        {
+          "path": "/v1beta/interactions",
+          "status": 400,
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 0,
+          "usageReporting": "unreported",
+          "google": {
+            "fixedRequest": true,
+            "inlineImages": 0,
+            "continuation": false,
+            "uri": false,
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "thoughtTokens": 0,
+            "totalTokens": 0
+          }
+        }
+      ]
+    }
+  ]
+}

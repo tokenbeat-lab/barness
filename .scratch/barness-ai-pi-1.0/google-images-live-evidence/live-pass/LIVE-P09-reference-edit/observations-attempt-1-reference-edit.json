@@ -1,0 +1,167 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T17:16:37.291422+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-04d06d9fe5820160d260d36d044ac204",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T17:16:37.291526+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-04d06d9fe5820160d260d36d044ac204",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "gemini-nano-banana-2.1",
+      "accountScopeId": "live-google-interactions-image",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+      "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4"
+    },
+    "attempt": {
+      "attemptId": "req-04d06d9fe5820160d260d36d044ac204#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T17:16:46.017239+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-04d06d9fe5820160d260d36d044ac204",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "gemini-nano-banana-2.1",
+      "accountScopeId": "live-google-interactions-image",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+      "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4"
+    },
+    "attempt": {
+      "attemptId": "req-04d06d9fe5820160d260d36d044ac204#1",
+      "httpStatus": 200,
+      "usageReporting": "partial",
+      "usage": {
+        "input": 1145,
+        "output": 1251,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 30,
+        "modalities": {
+          "inputText": 25,
+          "inputImage": 1120,
+          "outputImage": 1120
+        },
+        "totalTokens": 2396,
+        "cost": {
+          "input": 0.0017175,
+          "output": 0.033825,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0355425
+        }
+      }
+    },
+    "duration": 8725684917
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T17:16:46.017255+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-04d06d9fe5820160d260d36d044ac204",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "gemini-nano-banana-2.1",
+      "accountScopeId": "live-google-interactions-image",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+      "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4",
+      "attempts": [
+        {
+          "attemptId": "req-04d06d9fe5820160d260d36d044ac204#1",
+          "httpStatus": 200,
+          "usageReporting": "partial",
+          "usage": {
+            "input": 1145,
+            "output": 1251,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 30,
+            "modalities": {
+              "inputText": 25,
+              "inputImage": 1120,
+              "outputImage": 1120
+            },
+            "totalTokens": 2396,
+            "cost": {
+              "input": 0.0017175,
+              "output": 0.033825,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.0355425
+            }
+          }
+        }
+      ]
+    },
+    "duration": 8725806333,
+    "stopReason": "stop",
+    "usage": {
+      "input": 1145,
+      "output": 1251,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 30,
+      "modalities": {
+        "inputText": 25,
+        "inputImage": 1120,
+        "outputImage": 1120
+      },
+      "totalTokens": 2396,
+      "cost": {
+        "input": 0.0017175,
+        "output": 0.033825,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0355425
+      }
+    }
+  }
+]

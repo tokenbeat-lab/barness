@@ -1,0 +1,142 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T17:13:16.588625+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-d9cc0f7e888d3ee841617954ff63ed41",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T17:13:16.588789+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-d9cc0f7e888d3ee841617954ff63ed41",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "gemini-nano-banana-2.1",
+      "accountScopeId": "live-google-interactions-image",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+      "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4"
+    },
+    "attempt": {
+      "attemptId": "req-d9cc0f7e888d3ee841617954ff63ed41#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T17:13:24.997389+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-d9cc0f7e888d3ee841617954ff63ed41",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "gemini-nano-banana-2.1",
+      "accountScopeId": "live-google-interactions-image",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+      "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4"
+    },
+    "attempt": {
+      "attemptId": "req-d9cc0f7e888d3ee841617954ff63ed41#1",
+      "httpStatus": 400,
+      "code": "invalid_request",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    },
+    "duration": 8408573625
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T17:13:24.997423+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-d9cc0f7e888d3ee841617954ff63ed41",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "gemini-nano-banana-2.1",
+      "accountScopeId": "live-google-interactions-image",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+      "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4",
+      "attempts": [
+        {
+          "attemptId": "req-d9cc0f7e888d3ee841617954ff63ed41#1",
+          "httpStatus": 400,
+          "code": "invalid_request",
+          "usageReporting": "unreported",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          }
+        }
+      ]
+    },
+    "duration": 8408786417,
+    "stopReason": "error",
+    "error": {
+      "code": "invalid_request",
+      "phase": "request",
+      "httpStatus": 400
+    }
+  }
+]

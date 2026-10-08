@@ -1,0 +1,29 @@
+{
+  "calls": [
+    {
+      "path": "/v1beta/interactions",
+      "status": 400,
+      "outputFormat": "png",
+      "requested": 1,
+      "verified": 0,
+      "usageReporting": "unreported",
+      "google": {
+        "fixedRequest": true,
+        "inlineImages": 0,
+        "continuation": false,
+        "uri": false,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thoughtTokens": 0,
+        "totalTokens": 0
+      }
+    }
+  ],
+  "error": "expected exactly one output image",
+  "validation": {
+    "bytes": 0,
+    "width": 0,
+    "height": 0,
+    "transparent": false
+  }
+}

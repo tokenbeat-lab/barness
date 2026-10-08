@@ -16,7 +16,7 @@
 //
 // Combinations (BARNESS_AI_LIVE_COMBO, key variable suffix):
 // openai-responses, openai-chat, anthropic-messages, google-gemini,
-// deepseek-responses, deepseek-chat, typesafe-classifier, openai-images; the key variable is
+// deepseek-responses, deepseek-chat, typesafe-classifier, openai-images, google-interactions-image; the key variable is
 // BARNESS_AI_LIVE_KEY_ followed by the name in upper case with "-" as "_".
 // TypeSafe uses fixed jev-1.13.0; at most 6 calls / 10 questions and 131072
 // state bytes per call. Its public Client context probe reports the actual
@@ -31,6 +31,14 @@
 // inclusion and for future revalidation. PNG/JPEG/WebP rasters and checksums are
 // saved independently of bounded wire captures; a truncated capture stays labelled.
 // The explicit local dotenv launcher and verification are in issue 11's evidence.
+// Google images pins gemini-nano-banana-2.1 on official v1beta/interactions.
+// Required generation and one-reference edit use 1K/1:1, with the same four-call
+// and four-image reservation budget. store=false; delivery is deliberately
+// omitted after a real 400 and maintainer-approved ADR-0023. Only completed
+// inline data is accepted. Capture is bounded to 16 MiB before eliding image
+// data/signatures, preserving every output step and trailing usage. Reported
+// identity may be absent; it is never fabricated from attribution. Own local
+// injection and artifacts are in issue 14's google-images-live-evidence.
 // Account privileges and region must be configured by the host: an alias records
 // provenance and does not prove key permissions.
 // Each combination's models are fixed in the suite (combos_test.go), chosen

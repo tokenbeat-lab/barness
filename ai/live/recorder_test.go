@@ -4,6 +4,10 @@ package live
 
 import (
 	"bytes"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
 	"io"
 	"net/http"
@@ -107,7 +111,14 @@ func (r *recorder) RoundTrip(req *http.Request) (*http.Response, error) {
 		}
 	}
 	slices.Sort(e.ResponseHeaderNames)
-	res.Body = &capturingBody{ReadCloser: res.Body, rec: r, e: e, started: started}
+	googleImages := req.URL.Host == "generativelanguage.googleapis.com" && req.URL.Path == "/v1beta/interactions"
+	limit := maxCapturedResponse
+	if googleImages {
+		// The Client's image smoke output budget is 16 MiB. Capture all steps
+		// within that bound, then elide inline data so trailing usage survives.
+		limit = 16 << 20
+	}
+	res.Body = &capturingBody{ReadCloser: res.Body, rec: r, e: e, started: started, limit: limit, googleImages: googleImages}
 	return res, nil
 }
 
@@ -116,17 +127,19 @@ func (r *recorder) RoundTrip(req *http.Request) (*http.Response, error) {
 // exchange it fills are guarded by the recorder's lock.
 type capturingBody struct {
 	io.ReadCloser
-	rec     *recorder
-	e       *exchange
-	started time.Time
-	buf     bytes.Buffer
-	once    sync.Once
+	rec          *recorder
+	e            *exchange
+	started      time.Time
+	buf          bytes.Buffer
+	once         sync.Once
+	limit        int
+	googleImages bool
 }
 
 func (b *capturingBody) Read(p []byte) (int, error) {
 	n, err := b.ReadCloser.Read(p)
 	b.rec.mu.Lock()
-	if room := maxCapturedResponse - b.buf.Len(); room > 0 {
+	if room := b.limit - b.buf.Len(); room > 0 {
 		b.buf.Write(p[:min(n, room)])
 		if n > room {
 			b.e.Truncated = true
@@ -150,9 +163,47 @@ func (b *capturingBody) flush() {
 	b.once.Do(func() {
 		b.rec.mu.Lock()
 		defer b.rec.mu.Unlock()
-		b.e.ResponseBody = redactText(b.buf.String())
+		body := b.buf.String()
+		if b.googleImages && !b.e.Truncated {
+			body = compactImageCapture(body)
+		}
+		b.e.ResponseBody = redactText(body)
 		b.e.ElapsedMS = time.Since(b.started).Milliseconds()
 	})
+}
+
+// Preserve every native step and usage field while replacing large strings
+// and signed continuation material. Rasters are saved separately after public
+// Client validation; this capture is shape evidence, never a replay response.
+func compactImageCapture(body string) string {
+	var value any
+	if json.Unmarshal([]byte(body), &value) != nil {
+		return body
+	}
+	var walk func(any)
+	walk = func(v any) {
+		switch v := v.(type) {
+		case map[string]any:
+			for key, part := range v {
+				if s, ok := part.(string); ok && (key == "data" || key == "thought_signature" || key == "signature" || len(s) > 4096) {
+					sum := sha256.Sum256([]byte(s))
+					v[key] = "[ELIDED bytes=" + fmt.Sprint(len(s)) + " sha256=" + hex.EncodeToString(sum[:]) + "]"
+				} else {
+					walk(part)
+				}
+			}
+		case []any:
+			for _, part := range v {
+				walk(part)
+			}
+		}
+	}
+	walk(value)
+	data, err := json.Marshal(value)
+	if err != nil {
+		return body
+	}
+	return string(data)
 }
 
 // credentialHeader names request headers that carry a credential in any

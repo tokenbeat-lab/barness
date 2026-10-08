@@ -207,7 +207,9 @@ func TestGoogleImagesExtensionRegistration(t *testing.T) {
 		}
 	}
 	for _, m := range ai.BuiltinCatalog().ImageModels {
-		ev.Check("no premature Google builtin", m.API != googleImagesProtocol.api, "live evidence still belongs to issue 14")
+		if m.API == googleImagesProtocol.api {
+			ev.Check("own live-confirmed builtin remains an extension", m.Provider == ai.ProviderGoogle && m.ID == "gemini-nano-banana-2.1", "unverified model listed")
+		}
 	}
 	// This protocol does not become a chat route or acquire native continuation.
 	var encoded map[string]any

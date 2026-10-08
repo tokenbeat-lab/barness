@@ -1,0 +1,60 @@
+{
+  "error": "ai: invalid_request (request): {\"error\":{\"message\":\"Image delivery mode is not supported.\",\"code\":\"invalid_request\"}}",
+  "result": {
+    "content": null,
+    "usage": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 0,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      }
+    },
+    "stopReason": "error",
+    "errorMessage": "{\"error\":{\"message\":\"Image delivery mode is not supported.\",\"code\":\"invalid_request\"}}",
+    "metadata": {
+      "tenantId": "live-smoke",
+      "requestId": "req-7fc3df5ed067ccce9af2f28654e6af6c",
+      "jobId": "live-smoke",
+      "bindingId": "google-interactions-image",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "google",
+      "api": "google-interactions",
+      "modelId": "gemini-nano-banana-2.1",
+      "accountScopeId": "live-google-interactions-image",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+      "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4",
+      "attempts": [
+        {
+          "attemptId": "req-7fc3df5ed067ccce9af2f28654e6af6c#1",
+          "httpStatus": 400,
+          "code": "invalid_request",
+          "usageReporting": "unreported",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          }
+        }
+      ]
+    }
+  }
+}

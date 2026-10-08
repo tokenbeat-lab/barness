@@ -1,0 +1,7 @@
+{
+  "assertions": null,
+  "case_id": "LIVE-P09-reference-edit",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=google-interactions-image go test -tags live ./ai/live -count=1 -run '^TestLive$/^google-interactions-image$'",
+  "status": "NOT_RUN",
+  "test": "TestLive/google-interactions-image/reference-edit"
+}

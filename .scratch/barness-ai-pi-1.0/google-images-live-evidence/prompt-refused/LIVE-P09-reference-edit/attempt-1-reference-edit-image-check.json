@@ -1,0 +1,163 @@
+{
+  "calls": [
+    {
+      "path": "/v1beta/interactions",
+      "status": 200,
+      "outputFormat": "jpeg",
+      "requested": 1,
+      "verified": 1,
+      "width": 1024,
+      "height": 1024,
+      "usageReporting": "partial",
+      "google": {
+        "fixedRequest": true,
+        "responseModel": "gemini-nano-banana-2.1",
+        "status": "completed",
+        "outputTypes": [
+          "image"
+        ],
+        "inlineImages": 1,
+        "continuation": false,
+        "uri": false,
+        "inputTokens": 1145,
+        "outputTokens": 1260,
+        "thoughtTokens": 121,
+        "totalTokens": 2526,
+        "usage": {
+          "input_tokens_by_modality": [
+            {
+              "modality": "image",
+              "tokens": 1120
+            },
+            {
+              "modality": "text",
+              "tokens": 25
+            }
+          ],
+          "model_invocation_token_counts": [
+            {
+              "candidates_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 124
+                }
+              ],
+              "prompt_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 564
+                },
+                {
+                  "modality": "image",
+                  "tokens": 1120
+                }
+              ],
+              "thoughts_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 121
+                }
+              ]
+            },
+            {
+              "candidates_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 28
+                }
+              ],
+              "prompt_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 833
+                },
+                {
+                  "modality": "image",
+                  "tokens": 2178
+                }
+              ],
+              "thoughts_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 66
+                }
+              ]
+            }
+          ],
+          "non_grounding_model_invocation_token_counts": [
+            {
+              "candidates_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 124
+                }
+              ],
+              "prompt_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 564
+                },
+                {
+                  "modality": "image",
+                  "tokens": 1120
+                }
+              ],
+              "thoughts_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 121
+                }
+              ]
+            },
+            {
+              "candidates_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 28
+                }
+              ],
+              "prompt_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 833
+                },
+                {
+                  "modality": "image",
+                  "tokens": 2178
+                }
+              ],
+              "thoughts_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 66
+                }
+              ]
+            }
+          ],
+          "output_tokens_by_modality": [
+            {
+              "modality": "image",
+              "tokens": 1120
+            }
+          ],
+          "raw_prompt_token": 1684,
+          "total_cached_tokens": 0,
+          "total_input_tokens": 1145,
+          "total_output_tokens": 1260,
+          "total_thought_tokens": 121,
+          "total_tokens": 2526,
+          "total_tool_use_tokens": 0
+        }
+      }
+    }
+  ],
+  "error": "",
+  "validation": {
+    "sha256": "f3059a98bbc488d719459457778ee9dafdd7261ea8412ef474dd1fc07611d238",
+    "bytes": 124681,
+    "format": "jpeg",
+    "width": 1024,
+    "height": 1024,
+    "transparent": false
+  }
+}

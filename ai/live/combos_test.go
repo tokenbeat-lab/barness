@@ -78,6 +78,7 @@ func chatOptions(effort ai.ThinkingLevel) func(int, toolChoice) ai.Options {
 }
 
 var combos = []combo{
+	{operation: ai.OperationImage, name: "google-interactions-image", spec: "P09", provider: ai.ProviderGoogle, api: ai.APIGoogleInteractions, endpoint: "https://generativelanguage.googleapis.com/v1beta", model: "gemini-nano-banana-2.1", sdk: func() string { return "direct HTTP (Google Interactions v1beta; ADR-0023)" }},
 	{
 		operation: ai.OperationChat, name: "openai-responses", spec: "P01", provider: ai.ProviderOpenAI, api: ai.APIOpenAIResponses,
 		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5-mini",

@@ -96,3 +96,7 @@ Google × google-interactions × image 使用独立同步 unary 协议，与本 
 generateContent 聊天操作并存。聊天选项、目录、重试语义及不调用 OnResponse 的决定保持不变。
 新路线固定 v1beta、无状态与内联图片，使用共享 Client HTTP；图像型号继续排除出聊天目录。
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## 工单 14：Google 图像真实证据（2026-10-08）
+
+Google 图像首批型号已由工单 14 自己的生成/参考图编辑真实 PASS 纳入 image 目录；不进入聊天目录，generateContent 路线不变。显式 delivery 拒绝及授权修订见 ADR-0023。

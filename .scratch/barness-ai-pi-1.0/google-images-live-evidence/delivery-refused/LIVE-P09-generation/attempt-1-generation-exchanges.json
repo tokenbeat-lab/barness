@@ -1,0 +1,29 @@
+[
+  {
+    "method": "POST",
+    "url": "https://generativelanguage.googleapis.com/v1beta/interactions",
+    "requestHeaders": {
+      "content-type": "application/json",
+      "user-agent": "barness-ai",
+      "x-goog-api-key": "[REDACTED]"
+    },
+    "requestBody": "{\"model\":\"gemini-nano-banana-2.1\",\"store\":false,\"input\":[{\"type\":\"text\",\"text\":\"Generate exactly one image: a simple red circle centered on a plain white background.\"}],\"response_format\":{\"type\":\"image\",\"delivery\":\"inline\",\"aspect_ratio\":\"1:1\",\"image_size\":\"1K\"}}",
+    "status": 400,
+    "responseHeaderNames": [
+      "alt-svc",
+      "content-type",
+      "date",
+      "server",
+      "server-timing",
+      "vary",
+      "x-content-type-options",
+      "x-frame-options",
+      "x-xss-protection"
+    ],
+    "responseHeaders": {
+      "content-type": "application/json; charset=UTF-8"
+    },
+    "responseBody": "{\"error\":{\"code\":\"invalid_request\",\"message\":\"Image delivery mode is not supported.\"}}",
+    "elapsedMs": 1112
+  }
+]

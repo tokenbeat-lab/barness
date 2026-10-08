@@ -1,6 +1,7 @@
 package supportmatrix
 
 import (
+	"encoding/json"
 	"slices"
 	"strings"
 )
@@ -10,15 +11,35 @@ import (
 // public result/attempt records and the report's aggregate token counters.
 // These additive schema-2 fields leave classifier/chat report meanings unchanged.
 type ImageCall struct {
-	Path              string `json:"path"`
-	Status            int    `json:"status"`
-	ProviderRequestID string `json:"providerRequestId,omitempty"`
-	OutputFormat      string `json:"outputFormat"`
-	Requested         int    `json:"requested"`
-	Verified          int    `json:"verified"`
-	Width             int    `json:"width,omitempty"`
-	Height            int    `json:"height,omitempty"`
-	UsageReporting    string `json:"usageReporting"`
+	Path              string               `json:"path"`
+	Status            int                  `json:"status"`
+	ProviderRequestID string               `json:"providerRequestId,omitempty"`
+	OutputFormat      string               `json:"outputFormat"`
+	Requested         int                  `json:"requested"`
+	Verified          int                  `json:"verified"`
+	Width             int                  `json:"width,omitempty"`
+	Height            int                  `json:"height,omitempty"`
+	UsageReporting    string               `json:"usageReporting"`
+	Google            *GoogleImageEvidence `json:"google,omitempty"`
+}
+
+// GoogleImageEvidence records the native terminal and modality shape. Optional
+// identity stays absent when Google omits it; it is never taken from attribution.
+type GoogleImageEvidence struct {
+	FixedRequest        bool            `json:"fixedRequest"`
+	ResponseID          string          `json:"responseId,omitempty"`
+	ResponseModel       string          `json:"responseModel,omitempty"`
+	Status              string          `json:"status,omitempty"`
+	OutputTypes         []string        `json:"outputTypes,omitempty"`
+	InlineImages        int             `json:"inlineImages"`
+	Continuation        bool            `json:"continuation"`
+	URI                 bool            `json:"uri"`
+	InputTokens         int64           `json:"inputTokens"`
+	OutputTokens        int64           `json:"outputTokens"`
+	ThoughtTokens       int64           `json:"thoughtTokens"`
+	TotalTokens         int64           `json:"totalTokens"`
+	ThoughtInModalities *bool           `json:"thoughtInModalities,omitempty"`
+	Usage               json.RawMessage `json:"usage,omitempty"`
 }
 
 func ImagesExpected() []string { return []string{"json-edit", "generation", "mask-edit"} }

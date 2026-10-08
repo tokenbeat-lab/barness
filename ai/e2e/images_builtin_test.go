@@ -33,7 +33,7 @@ func TestOpenAIImagesBuiltinCatalog(t *testing.T) {
 	ev.Record("catalog", cat)
 	model, ok := cat.LookupImage(ai.ProviderOpenAI, ai.APIOpenAIImages, "gpt-image-2.5-sunburst-2026-09-08")
 	ev.Check("fixed model equals sourced verified capability and price snapshot", ok && reflect.DeepEqual(model, facts.Model), "got %+v", model)
-	ev.Check("dated source and new version", facts.Retrieved == "2026-10-08" && cat.Version == "2026-10-08.4", "version=%s", cat.Version)
+	ev.Check("dated source and new version", facts.Retrieved == "2026-10-08" && cat.Version == "2026-10-08.5", "version=%s", cat.Version)
 	_, alias := cat.LookupImage(ai.ProviderOpenAI, ai.APIOpenAIImages, "gpt-image-2.5-sunburst")
 	ev.Check("moving alias not included", !alias, "alias listed")
 	ev.Check("no cached or derived per-image billing", model.Pricing.CacheReadText.IsZero() && model.Pricing.CacheReadImage.IsZero() && len(model.Capabilities.InputFidelity) == 0, "unconfirmed configuration")
@@ -128,7 +128,7 @@ func TestOpenAIImagesLiveWireReplay(t *testing.T) {
 			sum := sha256.Sum256(data)
 			ev.Check("complete raster, MIME, dimensions and captured checksum", err == nil && format == tc.Validation.Format && block.MimeType == "image/"+format && header.Width == 1024 && header.Height == 1024 && decoded.Bounds().Dx() == 1024 && decoded.Bounds().Dy() == 1024 && len(data) == tc.Validation.Bytes && hex.EncodeToString(sum[:]) == tc.Validation.SHA256, "invalid recorded image")
 			ev.Check("actual modality usage and known-only prices preserved", reflect.DeepEqual(res.Usage, tc.Usage) && res.Metadata.Attempts[0].UsageReporting == tc.UsageReporting, "got %+v", res.Usage)
-			ev.Check("current catalog snapshot attributed", res.Metadata.CatalogVersion == "2026-10-08.4" && res.Metadata.CatalogHash == builtinCatalogHash, "wrong snapshot")
+			ev.Check("current catalog snapshot attributed", res.Metadata.CatalogVersion == "2026-10-08.5" && res.Metadata.CatalogHash == builtinCatalogHash, "wrong snapshot")
 		})
 	}
 }

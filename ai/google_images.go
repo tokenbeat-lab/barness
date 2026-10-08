@@ -29,7 +29,7 @@ func (c *Client) executeGoogleImages(ctx context.Context, r *callRuntime, model 
 	if failure := c.policy.checkGoogleImageCount(len(req.ReferenceImages), model.Capabilities, PhaseCapability); failure != nil {
 		return failure
 	}
-	wire := googleImagesRequest{Model: model.ID, Store: false, Input: []googleImageInput{{Type: "text", Text: req.Prompt}}, Format: googleImageFormat{Type: "image", Delivery: "inline", AspectRatio: options.AspectRatio, ImageSize: options.ImageSize}}
+	wire := googleImagesRequest{Model: model.ID, Store: false, Input: []googleImageInput{{Type: "text", Text: req.Prompt}}, Format: googleImageFormat{Type: "image", AspectRatio: options.AspectRatio, ImageSize: options.ImageSize}}
 	for _, img := range req.ReferenceImages {
 		wire.Input = append(wire.Input, googleImageInput{Type: "image", MimeType: img.MimeType, Data: img.Data})
 	}

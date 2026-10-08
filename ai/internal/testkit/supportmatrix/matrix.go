@@ -262,6 +262,9 @@ func check(m Matrix, r Report) (int, error) {
 	if err := checkImages(r); err != nil {
 		return 0, err
 	}
+	if err := checkGoogleImages(r); err != nil {
+		return 0, err
+	}
 	if err := checkClassifier(r); err != nil {
 		return 0, err
 	}

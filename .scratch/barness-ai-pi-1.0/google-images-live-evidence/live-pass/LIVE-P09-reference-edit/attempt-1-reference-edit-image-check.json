@@ -1,0 +1,152 @@
+{
+  "calls": [
+    {
+      "path": "/v1beta/interactions",
+      "status": 200,
+      "outputFormat": "jpeg",
+      "requested": 1,
+      "verified": 1,
+      "width": 1024,
+      "height": 1024,
+      "usageReporting": "partial",
+      "google": {
+        "fixedRequest": true,
+        "responseModel": "gemini-nano-banana-2.1",
+        "status": "completed",
+        "outputTypes": [
+          "image"
+        ],
+        "inlineImages": 1,
+        "continuation": false,
+        "uri": false,
+        "inputTokens": 1145,
+        "outputTokens": 1221,
+        "thoughtTokens": 30,
+        "totalTokens": 2396,
+        "thoughtInModalities": false,
+        "usage": {
+          "input_tokens_by_modality": [
+            {
+              "modality": "image",
+              "tokens": 1120
+            },
+            {
+              "modality": "text",
+              "tokens": 25
+            }
+          ],
+          "model_invocation_token_counts": [
+            {
+              "candidates_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 85
+                }
+              ],
+              "prompt_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 564
+                },
+                {
+                  "modality": "image",
+                  "tokens": 1120
+                }
+              ],
+              "thoughts_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 30
+                }
+              ]
+            },
+            {
+              "candidates_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 28
+                }
+              ],
+              "prompt_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 703
+                },
+                {
+                  "modality": "image",
+                  "tokens": 2178
+                }
+              ]
+            }
+          ],
+          "non_grounding_model_invocation_token_counts": [
+            {
+              "candidates_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 85
+                }
+              ],
+              "prompt_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 564
+                },
+                {
+                  "modality": "image",
+                  "tokens": 1120
+                }
+              ],
+              "thoughts_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 30
+                }
+              ]
+            },
+            {
+              "candidates_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 28
+                }
+              ],
+              "prompt_tokens_details": [
+                {
+                  "modality": "text",
+                  "tokens": 703
+                },
+                {
+                  "modality": "image",
+                  "tokens": 2178
+                }
+              ]
+            }
+          ],
+          "output_tokens_by_modality": [
+            {
+              "modality": "image",
+              "tokens": 1120
+            }
+          ],
+          "raw_prompt_token": 1684,
+          "total_cached_tokens": 0,
+          "total_input_tokens": 1145,
+          "total_output_tokens": 1221,
+          "total_thought_tokens": 30,
+          "total_tokens": 2396,
+          "total_tool_use_tokens": 0
+        }
+      }
+    }
+  ],
+  "error": "",
+  "validation": {
+    "sha256": "fcee0e6e5434b5334a01bbea59cd914c3254cc3fe7fc9b68980a013c56688153",
+    "bytes": 130419,
+    "format": "jpeg",
+    "width": 1024,
+    "height": 1024,
+    "transparent": false
+  }
+}

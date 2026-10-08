@@ -1,0 +1,55 @@
+{
+  "schema": 2,
+  "combo": "google-interactions-image",
+  "operation": "image",
+  "provider": "google",
+  "api": "google-interactions",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+  "model": "gemini-nano-banana-2.1",
+  "sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
+  "accountAlias": "",
+  "gitCommit": "2aa71180fc1dbc647b94520abdf1be0c8944ea10",
+  "catalogVersion": "2026-10-08.5+google-images-probe-2026-10-08",
+  "catalogHash": "sha256:5ea9429e4b5ef1be813c67f4b1f7dcaed5674ed50107101e3f9f356b923f498f",
+  "startedAt": "2026-10-08T09:19:28.075009Z",
+  "finishedAt": "2026-10-08T09:19:28.091798Z",
+  "budget": {
+    "maxCalls": 4,
+    "maxImages": 4,
+    "maxImageWidth": 1024,
+    "maxImageHeight": 1024,
+    "httpAttempts": 0,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 0,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 0,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "generation",
+    "reference-edit"
+  ],
+  "scenarios": [
+    {
+      "id": "generation",
+      "caseId": "LIVE-P09-generation",
+      "model": "gemini-nano-banana-2.1",
+      "outcome": "NOT_RUN",
+      "durationMs": 0,
+      "calls": 0,
+      "attempts": 0,
+      "note": "BARNESS_AI_LIVE_KEY_GOOGLE_INTERACTIONS_IMAGE is not set; without a key the combination is NOT_RUN"
+    },
+    {
+      "id": "reference-edit",
+      "caseId": "LIVE-P09-reference-edit",
+      "model": "gemini-nano-banana-2.1",
+      "outcome": "NOT_RUN",
+      "durationMs": 0,
+      "calls": 0,
+      "attempts": 0,
+      "note": "BARNESS_AI_LIVE_KEY_GOOGLE_INTERACTIONS_IMAGE is not set; without a key the combination is NOT_RUN"
+    }
+  ]
+}

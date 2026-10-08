@@ -19,6 +19,8 @@ func (r Row) ValidIdentity() bool {
 		operation, provider, api = "chat", "deepseek", "openai-completions"
 	case "openai-images":
 		operation, provider, api = "image", "openai", "openai-images"
+	case "google-interactions-image":
+		operation, provider, api = "image", "google", "google-interactions"
 	case "typesafe-classifier":
 		operation, provider, api = "classifier", "typesafe", "typesafe-system-one"
 	default:

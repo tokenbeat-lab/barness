@@ -237,7 +237,8 @@ ResponseModel 不填，不保留 revised prompt。Observer 只含元数据。
 仅 POST `/interactions`，型号为裸 ID，认证仅用 X-Goog-Api-Key。GoogleImagesOptions
 只有 AspectRatio 与 ImageSize（Nullable）；nil 用默认，null/其他协议选项拒绝，值须在
 型号的 AspectRatios/ImageSizes 中。宿主自带目录须明确 OutputText 费率（显式 0 合法），
-因为只请求图像也可能消耗文本思考。内置 Google 图像型号及 live 支持由工单 14 确认。
+因为只请求图像也可能消耗文本思考。工单 14 已以本组合真实生成/参考编辑 PASS 纳入 gemini-nano-banana-2.1，
+目录 2026-10-08.5 仅声明一参考/一输出、1K/1:1；文档化更大能力尚不声明。
 ImagesRequest 为 prompt 文本在前、ReferenceImages 按原顺序在后，同一 `/interactions` 入口
 提交内联 base64 与 MIME；入口 slice 在 resolver 前独立复制，字符串不可变。公共输入不提供
 交错文本/图片与 mask，这一收敛登记为扩展。参考图数量 ≤min(MaxInputImages,
@@ -245,7 +246,8 @@ MaxReferenceImages, 14)，每张受 MaxImageBytes 和已有严格 png/jpeg/webp 
 首批 Nano Banana 2.1 的官方能力为最多 10 个物体加 4 个角色；目录只记录总数，不推断图片
 语义。型号允许 1K/2K/4K 时 512 拒绝；尺寸与宽高比始终按最终请求的授权型号验证。
 
-请求固定 store=false、单个 image response_format、delivery=inline，以省略 background/stream
+请求固定 store=false、单个 image response_format，显式省略 delivery（真实服务拒绝该可选字段，
+维护者批准修订，ADR-0023）；回调不能加入 delivery（inline/uri/null 也拒绝），以省略 background/stream
 实现同步调用。回调后独立解码、重新校验固定项、允许字段、型号能力及最终大小；
 续接、Agent、工具、环境、webhook、续读令牌、服务等级与网址资源为 tenant_denied，
 无效/重复 schema 为 callback_failed；全局 MaxRequestBytes 与 Google 20 MB（20,000,000 字节） 取小值。
@@ -273,3 +275,11 @@ CacheRead 记录厂商 total_cached_tokens，不重复加到总输入/总量，�
 成功响应先调用一次 OnResponse，再读取/解析/完整校验，期间持有准入许可；任何 2xx 后
 失败都不重放。沿用 unary 的初始请求重试、时限、取消和元数据观测。Gemini generateContent
 聊天继续不调用 OnResponse。P09 是原生扩展路线，fixture 不参加 pi 差分。
+
+
+工单 14 的真实 Google 响应省略 id/请求 ID 头，报告 model/completed；ResponseID
+保持 unset。output_tokens_by_modality 只有 image=1120，不含单独报告的文本思考；
+Output 加 thought、Reasoning 为内含分项，TotalTokens 保留厂商值。未报输出文本
+及未报输入图片明细保持 unset，usage 为 partial；成本仅估已知分项，thought 按
+文本输出价计一次，不从内部 model invocation 明细补出未知成本。费率与能力来源
+见 google-images/official.json 及 ADR-0023。

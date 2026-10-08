@@ -26,6 +26,9 @@ type scenario struct {
 }
 
 func scenariosOf(c *combo) []scenario {
+	if c.api == ai.APIGoogleInteractions {
+		return googleImagesScenarios()
+	}
 	if c.operation == ai.OperationImage {
 		return imagesScenarios()
 	}
@@ -80,7 +83,7 @@ func runScenario(t *testing.T, cs *evidence.Case, c *combo, selected bool, env *
 		record(res)
 		return
 	}
-	if c.operation == ai.OperationImage && sc.id != "json-edit" && !jsonEditPassed() {
+	if c.api == ai.APIOpenAIImages && sc.id != "json-edit" && !jsonEditPassed() {
 		res.Outcome, res.Note = supportmatrix.NotRun, "required JSON edit did not pass in this process"
 		record(res)
 		t.Skip("NOT_RUN: " + res.Note)

@@ -1,0 +1,29 @@
+[
+  {
+    "method": "POST",
+    "url": "https://generativelanguage.googleapis.com/v1beta/interactions",
+    "requestHeaders": {
+      "content-type": "application/json",
+      "user-agent": "barness-ai",
+      "x-goog-api-key": "[REDACTED]"
+    },
+    "requestBody": "{\"model\":\"gemini-nano-banana-2.1\",\"store\":false,\"input\":[{\"type\":\"text\",\"text\":\"Edit this reference image: change the blue square to a green square, keeping the white background. Return exactly one image.\"},{\"type\":\"image\",\"mime_type\":\"image/png\",\"data\":\"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAAC3klEQVR4nOzVMRFCURAEQaC+DwLEoBkxBCg5RLzggulWsMnUXjNzg6rH9gDYJADSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApF3bA04939/tCWm/z2t7whEPQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZB2n5ntDbDGA5AmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCk/QMAAP//z3UK/jkLT8sAAAAASUVORK5CYII=\"}],\"response_format\":{\"type\":\"image\",\"delivery\":\"inline\",\"aspect_ratio\":\"1:1\",\"image_size\":\"1K\"}}",
+    "status": 400,
+    "responseHeaderNames": [
+      "alt-svc",
+      "content-type",
+      "date",
+      "server",
+      "server-timing",
+      "vary",
+      "x-content-type-options",
+      "x-frame-options",
+      "x-xss-protection"
+    ],
+    "responseHeaders": {
+      "content-type": "application/json; charset=UTF-8"
+    },
+    "responseBody": "{\"error\":{\"code\":\"invalid_request\",\"message\":\"Image delivery mode is not supported.\"}}",
+    "elapsedMs": 365
+  }
+]

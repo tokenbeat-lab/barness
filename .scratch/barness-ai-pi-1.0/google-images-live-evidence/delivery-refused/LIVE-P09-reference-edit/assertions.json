@@ -1,0 +1,23 @@
+{
+  "assertions": [
+    {
+      "name": "fixed official stateless inline request",
+      "pass": true,
+      "detail": "wrong route, authentication or image output configuration"
+    },
+    {
+      "name": "Observer reaches terminal metadata",
+      "pass": true,
+      "detail": "missing terminal observation"
+    },
+    {
+      "name": "reference edit: call succeeds",
+      "pass": false,
+      "detail": "HTTP 400: ai: invalid_request (request): {\"error\":{\"message\":\"Image delivery mode is not supported.\",\"code\":\"invalid_request\"}}"
+    }
+  ],
+  "case_id": "LIVE-P09-reference-edit",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=google-interactions-image go test -tags live ./ai/live -count=1 -run '^TestLive$/^google-interactions-image$'",
+  "status": "FAIL",
+  "test": "TestLive/google-interactions-image/reference-edit"
+}

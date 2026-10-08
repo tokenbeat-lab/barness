@@ -4,7 +4,10 @@
     "https://ai.google.dev/api/interactions-api",
     "https://ai.google.dev/gemini-api/docs/interactions-overview",
     "https://ai.google.dev/gemini-api/docs/image-generation",
-    "https://ai.google.dev/gemini-api/docs/pricing"
+    "https://ai.google.dev/gemini-api/docs/pricing",
+    "https://ai.google.dev/gemini-api/docs/models/gemini-nano-banana-2.1",
+    "https://ai.google.dev/gemini-api/docs/deprecations",
+    "https://ai.google.dev/gemini-api/docs/image-understanding"
   ],
   "exampleTotals": {
     "input": 7,
@@ -12,6 +15,101 @@
     "thought": 22,
     "total": 49
   },
-  "modalityThoughtRule": "If complete text+image output detail sums to total_output_tokens, thought is excluded; if it sums to total_output_tokens+total_thought_tokens, thought is included. Other/incomplete shapes remain partial and price only known details plus separately reported thinking when exclusion is established. Synthetic variants, not a live schema claim.",
-  "liveConfirmation": "issue 14"
+  "modalityThoughtRule": "Observed gemini-nano-banana-2.1 returns output_tokens_by_modality with only image (1120 tokens at 1K); text thinking is separately reported in total_thought_tokens and excluded from that image breakdown. Missing output text and generation input image detail remain unset/partial. Add reported thought once at the text output rate. Do not sum model_invocation_token_counts or non_grounding_model_invocation_token_counts into billing totals. Complete synthetic text+image variants still establish inclusion by totals.",
+  "liveConfirmation": "PASS: generation and reference-edit; bundle 20261008T091619.605370000Z",
+  "documentedCapabilities": {
+    "status": "stable, released 2026-10-06",
+    "referenceImages": 14,
+    "objectReferences": 10,
+    "characterReferences": 4,
+    "imageSizes": [
+      "1K",
+      "2K",
+      "4K"
+    ],
+    "aspectRatios": [
+      "1:1",
+      "1:4",
+      "1:8",
+      "2:3",
+      "3:2",
+      "3:4",
+      "4:1",
+      "4:3",
+      "4:5",
+      "5:4",
+      "8:1",
+      "9:16",
+      "16:9",
+      "21:9"
+    ],
+    "inputMIME": [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/heic",
+      "image/heif"
+    ],
+    "requestLimitBytes": 20000000
+  },
+  "resolutionTokens": {
+    "source": "pricing page",
+    "1K": 1120,
+    "2K": 1680,
+    "4K": 3780,
+    "conflict": "image-generation table reports 2520 for 4K; no inferred usage or per-image surcharge; smoke only 1K"
+  },
+  "cachePricing": "No applicable cache-read rate documented for this stateless image route; omit rather than infer a chat rate.",
+  "excludedModels": [
+    "gemini-3.1-flash-image",
+    "gemini-2.5-flash-image",
+    "imagen-4"
+  ],
+  "model": {
+    "provider": "google",
+    "api": "google-interactions",
+    "id": "gemini-nano-banana-2.1",
+    "name": "Gemini Nano Banana 2.1",
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text",
+      "image"
+    ],
+    "capabilities": {
+      "maxReferenceImages": 1,
+      "maxOutputImages": 1,
+      "imageSizes": [
+        "1K"
+      ],
+      "aspectRatios": [
+        "1:1"
+      ]
+    },
+    "pricing": {
+      "inputText": 1.5,
+      "inputImage": 1.5,
+      "outputText": 7.5,
+      "outputImage": 30,
+      "source": "https://ai.google.dev/gemini-api/docs/pricing?hl=en; retrieved 2026-10-08"
+    }
+  },
+  "observedIdentity": {
+    "idPresent": false,
+    "modelPresent": true,
+    "requestIdHeaderPresent": false,
+    "terminal": "completed",
+    "outputMIME": "image/jpeg"
+  },
+  "requestDecision": {
+    "delivery": "omitted; explicit inline refused with 400; maintainer approved omission, ADR-0023",
+    "store": false,
+    "response_format": {
+      "type": "image",
+      "aspect_ratio": "1:1",
+      "image_size": "1K"
+    }
+  }
 }

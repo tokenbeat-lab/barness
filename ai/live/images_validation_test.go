@@ -11,6 +11,7 @@ import (
 	_ "golang.org/x/image/webp"
 	"image"
 	_ "image/jpeg"
+	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
 )
@@ -24,6 +25,19 @@ type imageVerification struct {
 	Width       int    `json:"width"`
 	Height      int    `json:"height"`
 	Transparent bool   `json:"transparent"`
+}
+
+func verifyGoogleImages(res ai.ImagesResult) (imageVerification, error) {
+	var images []ai.ImageOutput
+	format := ""
+	for _, block := range res.Content {
+		if img, ok := block.(ai.ImageOutputImage); ok {
+			images = append(images, img)
+			format = strings.TrimPrefix(img.MimeType, "image/")
+		}
+	}
+	res.Content = images
+	return verifyImages(res, imageSmokeOptions(format, ""))
 }
 
 func verifyImages(res ai.ImagesResult, opts ai.OpenAIImagesOptions) (imageVerification, error) {

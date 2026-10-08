@@ -1,0 +1,340 @@
+{
+  "schema": 2,
+  "combo": "google-interactions-image",
+  "operation": "image",
+  "provider": "google",
+  "api": "google-interactions",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+  "model": "gemini-nano-banana-2.1",
+  "sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
+  "accountAlias": "dotenv-gemini@region-unconfirmed",
+  "gitCommit": "2aa71180fc1dbc647b94520abdf1be0c8944ea10",
+  "catalogVersion": "2026-10-08.4+google-images-probe-2026-10-08",
+  "catalogHash": "sha256:ebe3353f14d7c6c09622f61e9c77d3b8518b9b4b8951629af4ac50c3a4f04dc4",
+  "startedAt": "2026-10-08T09:16:19.605284Z",
+  "finishedAt": "2026-10-08T09:16:46.080962Z",
+  "budget": {
+    "maxCalls": 4,
+    "maxImages": 4,
+    "imagesUsed": 2,
+    "maxImageWidth": 1024,
+    "maxImageHeight": 1024,
+    "httpAttempts": 2,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 2,
+    "outputTokensUsed": 3505,
+    "inputTokensUsed": 1191,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "generation",
+    "reference-edit"
+  ],
+  "scenarios": [
+    {
+      "id": "generation",
+      "caseId": "LIVE-P09-generation",
+      "model": "gemini-nano-banana-2.1",
+      "outcome": "PASS",
+      "durationMs": 17681,
+      "calls": 1,
+      "attempts": 1,
+      "images": 1,
+      "imageCalls": [
+        {
+          "path": "/v1beta/interactions",
+          "status": 200,
+          "outputFormat": "jpeg",
+          "requested": 1,
+          "verified": 1,
+          "width": 1024,
+          "height": 1024,
+          "usageReporting": "partial",
+          "google": {
+            "fixedRequest": true,
+            "responseModel": "gemini-nano-banana-2.1",
+            "status": "completed",
+            "outputTypes": [
+              "image"
+            ],
+            "inlineImages": 1,
+            "continuation": false,
+            "uri": false,
+            "inputTokens": 46,
+            "outputTokens": 1435,
+            "thoughtTokens": 819,
+            "totalTokens": 2300,
+            "thoughtInModalities": false,
+            "usage": {
+              "input_tokens_by_modality": [
+                {
+                  "modality": "text",
+                  "tokens": 46
+                }
+              ],
+              "model_invocation_token_counts": [
+                {
+                  "candidates_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 299
+                    }
+                  ],
+                  "prompt_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 574
+                    }
+                  ],
+                  "thoughts_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 819
+                    }
+                  ]
+                },
+                {
+                  "candidates_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 28
+                    }
+                  ],
+                  "prompt_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 1716
+                    },
+                    {
+                      "modality": "image",
+                      "tokens": 1089
+                    }
+                  ],
+                  "thoughts_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 51
+                    }
+                  ]
+                }
+              ],
+              "non_grounding_model_invocation_token_counts": [
+                {
+                  "candidates_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 299
+                    }
+                  ],
+                  "prompt_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 574
+                    }
+                  ],
+                  "thoughts_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 819
+                    }
+                  ]
+                },
+                {
+                  "candidates_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 28
+                    }
+                  ],
+                  "prompt_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 1716
+                    },
+                    {
+                      "modality": "image",
+                      "tokens": 1089
+                    }
+                  ],
+                  "thoughts_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 51
+                    }
+                  ]
+                }
+              ],
+              "output_tokens_by_modality": [
+                {
+                  "modality": "image",
+                  "tokens": 1120
+                }
+              ],
+              "raw_prompt_token": 574,
+              "total_cached_tokens": 0,
+              "total_input_tokens": 46,
+              "total_output_tokens": 1435,
+              "total_thought_tokens": 819,
+              "total_tokens": 2300,
+              "total_tool_use_tokens": 0
+            }
+          }
+        }
+      ],
+      "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03981150 USD"
+    },
+    {
+      "id": "reference-edit",
+      "caseId": "LIVE-P09-reference-edit",
+      "model": "gemini-nano-banana-2.1",
+      "outcome": "PASS",
+      "durationMs": 8776,
+      "calls": 1,
+      "attempts": 1,
+      "images": 1,
+      "imageCalls": [
+        {
+          "path": "/v1beta/interactions",
+          "status": 200,
+          "outputFormat": "jpeg",
+          "requested": 1,
+          "verified": 1,
+          "width": 1024,
+          "height": 1024,
+          "usageReporting": "partial",
+          "google": {
+            "fixedRequest": true,
+            "responseModel": "gemini-nano-banana-2.1",
+            "status": "completed",
+            "outputTypes": [
+              "image"
+            ],
+            "inlineImages": 1,
+            "continuation": false,
+            "uri": false,
+            "inputTokens": 1145,
+            "outputTokens": 1221,
+            "thoughtTokens": 30,
+            "totalTokens": 2396,
+            "thoughtInModalities": false,
+            "usage": {
+              "input_tokens_by_modality": [
+                {
+                  "modality": "image",
+                  "tokens": 1120
+                },
+                {
+                  "modality": "text",
+                  "tokens": 25
+                }
+              ],
+              "model_invocation_token_counts": [
+                {
+                  "candidates_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 85
+                    }
+                  ],
+                  "prompt_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 564
+                    },
+                    {
+                      "modality": "image",
+                      "tokens": 1120
+                    }
+                  ],
+                  "thoughts_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 30
+                    }
+                  ]
+                },
+                {
+                  "candidates_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 28
+                    }
+                  ],
+                  "prompt_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 703
+                    },
+                    {
+                      "modality": "image",
+                      "tokens": 2178
+                    }
+                  ]
+                }
+              ],
+              "non_grounding_model_invocation_token_counts": [
+                {
+                  "candidates_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 85
+                    }
+                  ],
+                  "prompt_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 564
+                    },
+                    {
+                      "modality": "image",
+                      "tokens": 1120
+                    }
+                  ],
+                  "thoughts_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 30
+                    }
+                  ]
+                },
+                {
+                  "candidates_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 28
+                    }
+                  ],
+                  "prompt_tokens_details": [
+                    {
+                      "modality": "text",
+                      "tokens": 703
+                    },
+                    {
+                      "modality": "image",
+                      "tokens": 2178
+                    }
+                  ]
+                }
+              ],
+              "output_tokens_by_modality": [
+                {
+                  "modality": "image",
+                  "tokens": 1120
+                }
+              ],
+              "raw_prompt_token": 1684,
+              "total_cached_tokens": 0,
+              "total_input_tokens": 1145,
+              "total_output_tokens": 1221,
+              "total_thought_tokens": 30,
+              "total_tokens": 2396,
+              "total_tool_use_tokens": 0
+            }
+          }
+        }
+      ],
+      "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03554250 USD"
+    }
+  ]
+}

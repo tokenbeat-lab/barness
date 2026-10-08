@@ -104,9 +104,9 @@ func TestGoogleImagesRawFinalGuards(t *testing.T) {
 			h := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				switch name {
 				case "raw-options":
-					p.Body["response_format"] = json.RawMessage(`{"type":"image","delivery":"inline","image_size":"2K"}`)
+					p.Body["response_format"] = json.RawMessage(`{"type":"image","image_size":"2K"}`)
 				case "duplicate-format":
-					p.Body["response_format"] = json.RawMessage(`{"type":"image","type":"text","delivery":"inline"}`)
+					p.Body["response_format"] = json.RawMessage(`{"type":"image","type":"text"}`)
 				case "duplicate-input":
 					p.Body["input"] = json.RawMessage(`[{"type":"text","text":"x","text":"y"}]`)
 				case "raw-uri":

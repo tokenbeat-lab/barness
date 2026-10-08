@@ -52,7 +52,12 @@ func TestMain(m *testing.M) {
 	}
 	if cfg.combo != nil && cfg.combo.operation == ai.OperationImage {
 		budget = imagesBudget()
-		if catalog, err = loadImageProbeCatalog(); err != nil {
+		if cfg.combo.api == ai.APIGoogleInteractions {
+			catalog, err = loadGoogleImageProbeCatalog()
+		} else {
+			catalog, err = loadImageProbeCatalog()
+		}
+		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
@@ -231,6 +236,6 @@ func newScope() ai.CallScope {
 func setLiveReplay(cs *evidence.Case, c *combo) {
 	cs.ReplayEnv(envLive + "=1 " + envCombo + "=" + c.name)
 	if c.operation == ai.OperationImage {
-		cs.ReplayRun("^TestLive$/^openai-images$")
+		cs.ReplayRun("^TestLive$/^" + c.name + "$")
 	}
 }

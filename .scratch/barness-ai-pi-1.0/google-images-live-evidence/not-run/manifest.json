@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "dir": "LIVE-P09-generation",
+      "fixtures": {},
+      "id": "LIVE-P09-generation",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=google-interactions-image go test -tags live ./ai/live -count=1 -run '^TestLive$/^google-interactions-image$'",
+      "status": "NOT_RUN",
+      "test": "TestLive/google-interactions-image/generation"
+    },
+    {
+      "dir": "LIVE-P09-reference-edit",
+      "fixtures": {},
+      "id": "LIVE-P09-reference-edit",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=google-interactions-image go test -tags live ./ai/live -count=1 -run '^TestLive$/^google-interactions-image$'",
+      "status": "NOT_RUN",
+      "test": "TestLive/google-interactions-image/reference-edit"
+    }
+  ],
+  "finished_at": "2026-10-08T09:19:28.092182Z",
+  "git_commit": "2aa71180fc1dbc647b94520abdf1be0c8944ea10",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "-tags live ./ai/live",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-08T09:19:28.075162Z",
+  "versions": {
+    "live_combo": "google-interactions-image",
+    "live_sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
+    "model_catalog_hash": "sha256:5ea9429e4b5ef1be813c67f4b1f7dcaed5674ed50107101e3f9f356b923f498f",
+    "model_catalog_version": "2026-10-08.5+google-images-probe-2026-10-08"
+  }
+}

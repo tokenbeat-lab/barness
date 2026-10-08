@@ -160,8 +160,7 @@
       "id": "format-text",
       "set": {
         "response_format": {
-          "type": "text",
-          "delivery": "inline"
+          "type": "text"
         }
       },
       "code": "tenant_denied",
@@ -172,7 +171,6 @@
       "set": {
         "response_format": {
           "type": "image",
-          "delivery": "inline",
           "mime_type": "image/png"
         }
       },
@@ -223,7 +221,6 @@
       "set": {
         "response_format": {
           "type": "image",
-          "delivery": "inline",
           "aspect_ratio": "7:1"
         }
       },
@@ -235,7 +232,6 @@
       "set": {
         "response_format": {
           "type": "image",
-          "delivery": "inline",
           "image_size": "512"
         }
       },
@@ -247,7 +243,6 @@
       "set": {
         "response_format": {
           "type": "image",
-          "delivery": "inline",
           "aspect_ratio": "16:9",
           "image_size": "2K"
         }
@@ -284,7 +279,16 @@
     {
       "id": "delete-type",
       "set": {
+        "response_format": {}
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "format-inline",
+      "set": {
         "response_format": {
+          "type": "image",
           "delivery": "inline"
         }
       },
@@ -292,10 +296,11 @@
       "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
     },
     {
-      "id": "delete-delivery",
+      "id": "format-null",
       "set": {
         "response_format": {
-          "type": "image"
+          "type": "image",
+          "delivery": null
         }
       },
       "code": "tenant_denied",
