@@ -96,7 +96,7 @@ func jsonPayloadSize(value any, limit int64) (int64, bool) {
 			if !take(2) {
 				return false
 			}
-			if v.Kind() == reflect.Slice && v.Type().Elem().Kind() == reflect.Uint8 {
+			if byteSliceEncodesBase64(v) {
 				return take(4 * ((int64(v.Len()) + 2) / 3))
 			}
 			if !take(int64(max(0, v.Len()-1))) {
@@ -165,4 +165,14 @@ func jsonStringBytes(s string) int64 {
 		}
 	}
 	return n
+}
+
+// encoding/json selects per-element encoding when the byte element's pointer
+// type provides JSON/Text marshaling. Ordinary byte slices alone use base64.
+func byteSliceEncodesBase64(v reflect.Value) bool {
+	if v.Kind() != reflect.Slice || v.Type().Elem().Kind() != reflect.Uint8 {
+		return false
+	}
+	element := reflect.PointerTo(v.Type().Elem())
+	return !element.Implements(reflect.TypeFor[json.Marshaler]()) && !element.Implements(reflect.TypeFor[encoding.TextMarshaler]())
 }

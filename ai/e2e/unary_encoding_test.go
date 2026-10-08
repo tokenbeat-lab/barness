@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"context"
+	"encoding/json"
 	"strings"
 	"testing"
 
@@ -11,6 +12,34 @@ import (
 type UnaryHiddenOne struct {
 	Hidden string
 }
+
+type unaryEncodedByte uint8
+
+func (*unaryEncodedByte) MarshalJSON() ([]byte, error) { return []byte("0"), nil }
+
+func TestUnaryCallbackByteElementEncoding(t *testing.T) {
+	ev := run.Case(t, "P07-E04-unary-callback-custom-byte-element")
+	u := newUnaryWorld(t, func(c *ai.Config) { c.Policy.Classifier.MaxStateBytes = 3 })
+	enqueue(ev, u.world, u.sc.replies(t)[0])
+	req := classifierInput(t, u.sc)
+	req.State = json.RawMessage("[]")
+	h := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
+		p.Body["state"] = []unaryEncodedByte{255}
+		return ai.KeepPayload(), nil
+	}}
+	res, err := u.client.WithHooks(h).Classify(ctxFor(t), textScope("req-custom-byte-element"), u.sc.target(), req, nil)
+	ev.Record("result", res)
+	ev.Record("error", errString(err))
+	ev.Record("requests", u.provider.Requests())
+	ev.Check("exact-cap custom byte array accepted", err == nil && len(res.Answers) == 1 && len(u.provider.Requests()) == 1, "got %v", err)
+	if requests := u.provider.Requests(); len(requests) == 1 {
+		var body map[string]json.RawMessage
+		mustUnmarshal(t, requests[0].Body, &body)
+		ev.Check("byte element marshaler selected", string(body["state"]) == "[0]", "got %s", body["state"])
+	}
+	u.released(ev)
+}
+
 type UnaryHiddenTwo struct {
 	Hidden string
 }

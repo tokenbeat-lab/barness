@@ -82,8 +82,16 @@ func imageStructField(v reflect.Value, name string) (reflect.Value, *Error) {
 	} // A nil anonymous pointer is omitted by encoding/json.
 	_, options, _ := strings.Cut(v.Type().FieldByIndex(index).Tag.Get("json"), ",")
 	for _, option := range strings.Split(options, ",") {
-		if option == "omitzero" && field.IsZero() {
-			return reflect.Value{}, nil
+		if option == "omitzero" {
+			zeroer := reflect.TypeFor[interface{ IsZero() bool }]()
+			if field.Type().Implements(zeroer) || (field.CanAddr() && field.Addr().Type().Implements(zeroer)) {
+				// Host omission methods execute once in the encoder. Their
+				// unknown field presence belongs to the final byte/schema guard.
+				return reflect.Value{}, nil
+			}
+			if field.IsZero() {
+				return reflect.Value{}, nil
+			}
 		}
 		if option == "omitempty" {
 			empty := false

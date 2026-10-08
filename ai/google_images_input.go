@@ -126,7 +126,12 @@ func (p *ResourcePolicy) checkGoogleInputPayload(input any, caps ImageCapabiliti
 						return failure
 					}
 				}
-				n, ok := jsonPayloadSize(field.Interface(), *remaining)
+				n, ok := int64(1), true
+				// Preserve pointer methods on addressable selected fields. The
+				// encoded size is unknown; do not inspect their backing value.
+				if !usesCustomJSON(field) {
+					n, ok = jsonPayloadSize(field.Interface(), *remaining)
+				}
 				if !ok {
 					return p.takeGoogleInputBytes(*remaining+1, remaining)
 				}
@@ -171,7 +176,7 @@ func (p *ResourcePolicy) checkGoogleDataPayload(value reflect.Value) *Error {
 		}
 		return nil
 	}
-	if !usesCustomJSON(v) && v.Kind() == reflect.Slice && v.Type().Elem().Kind() == reflect.Uint8 && int64(v.Len()) > p.MaxImageBytes {
+	if !usesCustomJSON(v) && byteSliceEncodesBase64(v) && int64(v.Len()) > p.MaxImageBytes {
 		return limitFailure(PhaseRequest, "MaxImageBytes", p.MaxImageBytes)
 	}
 	return nil

@@ -153,7 +153,7 @@ func TestGoogleImagesEditingSnapshot(t *testing.T) {
 }
 
 func TestGoogleImagesEditingTypedInput(t *testing.T) {
-	for _, name := range []string{"promoted", "byte-data", "custom-key", "omitempty"} {
+	for _, name := range []string{"promoted", "byte-data", "custom-key", "omitempty", "pointer-marshaler", "custom-zero"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P09-E04-edit-typed-"+name)
 			sc := googleEditScenario(t)
@@ -179,6 +179,20 @@ func TestGoogleImagesEditingTypedInput(t *testing.T) {
 					input[1] = map[string]any{"type": "image", "mime_type": first.MimeType, "data": data}
 				case "custom-key":
 					input[1] = map[googleDataKey]string{0: "image", 1: first.MimeType, 2: first.Data}
+				case "pointer-marshaler":
+					value := struct {
+						Type string            `json:"type"`
+						Mime string            `json:"mime_type"`
+						Data googleEncodedData `json:"data"`
+					}{"image", first.MimeType, googleEncodedData(strings.Repeat("A", 8<<20))}
+					input[1] = &value
+				case "custom-zero":
+					input[1] = struct {
+						Type string            `json:"type"`
+						Mime string            `json:"mime_type"`
+						Data string            `json:"data"`
+						Text googleOmittedText `json:"text,omitzero"`
+					}{"image", first.MimeType, first.Data, googleOmittedText(strings.Repeat("x", 8192))}
 				case "omitempty":
 					input[1] = struct {
 						Type string `json:"type"`
@@ -194,3 +208,15 @@ func TestGoogleImagesEditingTypedInput(t *testing.T) {
 		})
 	}
 }
+
+// These ordinary host types exercise encoding/json's method selection through
+// the public callback, without calling private encoders or validation helpers.
+type googleEncodedData string
+
+func (*googleEncodedData) MarshalJSON() ([]byte, error) {
+	return []byte(`"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="`), nil
+}
+
+type googleOmittedText string
+
+func (googleOmittedText) IsZero() bool { return true }
