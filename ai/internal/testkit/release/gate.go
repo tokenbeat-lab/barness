@@ -80,6 +80,7 @@ type Bundle struct {
 	Cases    []Case     `json:"-"`
 	Diffs    []DiffCase `json:"-"`
 	caseDirs map[string]string
+	Problems []string `json:"problems,omitempty"`
 }
 
 // Command is one gate command's result.
@@ -114,7 +115,7 @@ type AuditResult struct {
 	Combo    string                `json:"combo,omitempty"`
 	Findings []audit.Finding       `json:"findings"`
 	Err      string                `json:"error,omitempty"`
-	Live     *supportmatrix.Report `json:"live,omitempty"`
+	Live     *supportmatrix.Report `json:"-"`
 }
 
 // Snapshot is whether a checked-in snapshot matches the code.
@@ -274,7 +275,7 @@ func Evaluate(in Inputs) Report {
 	r.Live, g = live(in)
 	r.Gates = append(r.Gates, g)
 	r.Gates = append(r.Gates, auditGate(in))
-	r.Trace = traceItems(in.Trace, in.Offline.Cases, r.Live.Rows)
+	r.Trace = traceItems(in.Trace, in.Offline.Cases, r.Live.Rows, in.Evidence)
 	g = Gate{ID: GateTrace, Name: "traceability: research item → scenario → evidence"}
 	for _, t := range r.Trace {
 		if t.Status != Pass {
@@ -310,6 +311,7 @@ func commandGate(in Inputs, id GateID, name string, cmds ...string) Gate {
 func offline(in Inputs) (OfflineSection, Gate) {
 	s := OfflineSection{Scenarios: map[string]Counts{}}
 	g := Gate{ID: GateP0, Name: "every offline P0 case passes"}
+	g.Problems = append(g.Problems, in.Offline.Problems...)
 	for _, c := range in.Offline.Cases {
 		if kindOf(c.ID) != kindOffline {
 			continue

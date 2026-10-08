@@ -361,7 +361,7 @@ BARNESS_AI_LIVE_ACCOUNT_ALIAS=<alias> BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT=<key> \
 go test -tags live -count=1 ./ai/live
 go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # merge reports into the matrix
 
-go run ./ai/release/cmd/releasegate [-live <bundle-dir>]...   # full release gate
+go run ./ai/release/cmd/releasegate -evaluation <Chinese-evaluation-bundle> [-live <bundle-dir>]...
 ```
 
 Every run writes a redacted evidence bundle under `.evidence/`

@@ -3,6 +3,7 @@ package release
 import (
 	"encoding/base64"
 	"fmt"
+	"io"
 	"math"
 	"os"
 	"path/filepath"
@@ -81,11 +82,11 @@ func ChineseEffectEvidence(dir string) EvidenceCheck {
 	if dir == "" {
 		return e
 	}
-	data, err := os.ReadFile(filepath.Join(dir, "dataset.json"))
+	data, err := readArtifact(filepath.Join(dir, "dataset.json"), 1<<20)
 	if err != nil {
 		return e
 	}
-	config, err := os.ReadFile(filepath.Join(dir, "config.json"))
+	config, err := readArtifact(filepath.Join(dir, "config.json"), 16384)
 	if err != nil {
 		return e
 	}
@@ -95,7 +96,7 @@ func ChineseEffectEvidence(dir string) EvidenceCheck {
 		e.Detail = "dataset/config/catalog drift"
 		return e
 	}
-	raw, err := os.ReadFile(filepath.Join(dir, "evaluation-report.json"))
+	raw, err := readArtifact(filepath.Join(dir, "evaluation-report.json"), 16<<20)
 	if err != nil {
 		e.Detail = "evaluation report missing"
 		return e
@@ -105,12 +106,12 @@ func ChineseEffectEvidence(dir string) EvidenceCheck {
 		e.Detail = "evaluation integrity failed"
 		return e
 	}
-	manifest, err := os.ReadFile(filepath.Join(dir, "manifest.json"))
+	manifest, err := readArtifact(filepath.Join(dir, "manifest.json"), 1<<20)
 	if err != nil {
 		e.Detail = "evaluation manifest missing"
 		return e
 	}
-	observations, err := os.ReadFile(filepath.Join(dir, "observations-evaluation.json"))
+	observations, err := readArtifact(filepath.Join(dir, "observations-evaluation.json"), 1<<20)
 	if err != nil {
 		e.Detail = "evaluation Observer missing"
 		return e
@@ -128,6 +129,23 @@ func ChineseEffectEvidence(dir string) EvidenceCheck {
 		return e
 	}
 	e.Status = Pass
-	e.Detail = fmt.Sprintf("independent synthetic Chinese task %s, %d/%d scored, accuracy %.6f; dataset %s; config %s; no accuracy threshold", r.Dataset.Version, r.Metrics.Scored, r.Dataset.Count, *r.Metrics.Accuracy, r.DatasetHash, r.ConfigHash)
+	e.Detail = fmt.Sprintf("independent synthetic Chinese task, %d/%d scored, accuracy %.6f; dataset %s; config %s; no accuracy threshold", r.Metrics.Scored, r.Dataset.Count, *r.Metrics.Accuracy, r.DatasetHash, r.ConfigHash)
 	return e
+}
+
+// Import budgets apply before allocation, even if a file changes while read.
+func readArtifact(path string, budget int64) ([]byte, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	raw, err := io.ReadAll(io.LimitReader(f, budget+1))
+	if err != nil {
+		return nil, err
+	}
+	if int64(len(raw)) > budget {
+		return nil, fmt.Errorf("release: artifact exceeds import budget")
+	}
+	return raw, nil
 }

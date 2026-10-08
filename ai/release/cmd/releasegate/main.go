@@ -91,7 +91,7 @@ func main() {
 		fail(err)
 	}
 	in := release.Inputs{Ledger: ledger, Matrix: matrix, Trace: trace, Modules: modules,
-		Snapshots: []release.Snapshot{release.CheckSnapshot("catalog", *snapshotPath, snapshot)}}
+		Snapshots: []release.Snapshot{release.CheckSnapshot("catalog", *snapshotPath, snapshot), release.CheckReleasePlan(trace)}}
 	var catalog struct {
 		Hash    string
 		Catalog struct{ Version string }

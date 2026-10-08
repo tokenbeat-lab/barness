@@ -19,20 +19,21 @@ barness-ai 是 barness 连接多种 LLM Provider 的协议中间件（Go 包 `gi
 在仓库根目录执行（需要 Node.js 与 `npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node` 安装的冻结 pi 副本）：
 
 ```sh
-go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
+go run ./ai/release/cmd/releasegate -evaluation <独立中文效果包> [-live <live 证据包目录>]...
 ```
 
-它依次执行 `go vet ./...`（含与不含 `live` tag）、离线 E2E（`BARNESS_AI_PIDIFF=1` 冻结 pi 差分、`BARNESS_AI_PRESSURE=1` 策略压力场景）与 `go test -race ./...`，证据写入 `.evidence/barness-ai-release/<时间>/`；然后判定九道门禁，全部通过才退出 0：
+它依次执行 `go vet ./...`（含与不含 `live` tag）、离线 E2E 与 `go test -race ./...`；两次测试均打开 `BARNESS_AI_PIDIFF=1` 和 `BARNESS_AI_PRESSURE=1`。证据写入 `.evidence/barness-ai-release/<时间>/`；全部门禁通过才退出 0：
 
 | 门禁 | 通过条件 |
 | --- | --- |
 | go-test / go-test-race / go-vet | 命令成功；未执行即失败 |
-| p0-offline | 离线证据包每个用例 PASS（或明确 UNSUPPORTED），E01–E11、P01–P06、D1、D2 与压力场景各至少一个 PASS |
-| differential | 差分用例全部 PASS、无待处理发现且记录含 spec 要求的字段，账本无 `pending` 决定，P01–P04、P06 各有差分用例，DeepSeek × Responses 登记为扩展路径 |
-| live | 当前七个组合在支持矩阵中完整通过（每个场景 PASS 或带说明的 UNSUPPORTED）、当前无失败能力、最后一次完整通过所用 SDK 版本与 go.mod 一致，且该组合的 live 证据包经 `-live` 交付审计；adapter 改动无法从矩阵判断，需维护者重跑受影响组合 |
-| redaction-audit | 离线、race 与 `-live` 给出的证据包零发现，且每个包运行结束时记录的 `audit.json`（含该次运行注册的测试秘密）同样零发现。“非合成数据”以审计进程环境中的凭据值、主目录、主机名与 key 形状为可检查的判据（ADR-0017 决策四），不逐字判定 live 响应正文 |
+| p0-offline | 每个用例 PASS（或明确 UNSUPPORTED），完整 artifacts 哈希清单成立；E01–E11、P01–P09、D1、D2 与压力场景各至少一个 PASS |
+| differential | 全部 PASS、0 pending；固定 pi 1.0.0 的版本/commit/model-data hash、SDK、请求/帧哈希及发现清单有效；P01–P04/P06/P07 有差分，DeepSeek Responses 与两条原生图像有独立扩展登记及 skip |
+| live | 九组合自身报告与矩阵当前完整运行的能力、操作、型号、SDK、时间及正式目录/价格哈希一致，捕获/结果/Observer/图片校验完整；必交分类、生成与编辑不可 UNSUPPORTED |
+| redaction-audit | 离线、race、九条 live 与中文效果包均审计，逐包与运行时 audit.json 零发现；拒绝证据不重新输出敏感字段 |
 | traceability | 每个研究条目由实际证据判定为 PASS；只有映射没有证据的条目为 NO_EVIDENCE |
-| snapshots | 目录快照与代码一致（变更后用 `-write-snapshot` 重新生成并审阅差异） |
+| snapshots | 目录/价格快照与代码一致，固定发布合同不因删追溯或路线而缩减 |
+| required-artifacts | 本地/云端图像混合设计负载报告、并发/内存/75% 限额余量/资源释放有效；独立中文真实 COMPLETE 报告通过完整性核验，不设置准确率阈值 |
 
 报告 `release-report.md`/`.json` 分别列出离线、差分与 live 结果，并附追溯表、审计结论、命令耗时；证据包另含目录快照、账本、支持矩阵、追溯表与 fixture 索引的副本。`-bundle <dir>` 只评估已有离线证据包（命令门禁记为未执行）。
 

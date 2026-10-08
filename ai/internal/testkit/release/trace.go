@@ -12,6 +12,8 @@ import (
 // matrix rather than offline cases.
 const LiveScenario = "LIVE"
 
+const ArtifactScenario = "ARTIFACTS"
+
 // TraceMap links research items to acceptance scenarios and scenarios to
 // evidence case IDs (spec Testing Decisions §6: 需求 → 断言 → 实际证据). It is
 // maintained with the research traceability table; the gate computes each
@@ -74,7 +76,7 @@ func ParseTraceMap(data []byte) (TraceMap, error) {
 	}
 	m.patterns = map[string]*regexp.Regexp{}
 	for id, p := range m.Scenarios {
-		if id == LiveScenario {
+		if id == LiveScenario || id == ArtifactScenario {
 			return TraceMap{}, fmt.Errorf("trace map: scenario %s is reserved for the support matrix", LiveScenario)
 		}
 		re, err := regexp.Compile(p)
@@ -112,7 +114,7 @@ func ParseTraceMap(data []byte) (TraceMap, error) {
 		}
 		seen[it.ID] = true
 		for _, s := range it.Scenarios {
-			if s != LiveScenario && !known(s) {
+			if s != LiveScenario && s != ArtifactScenario && !known(s) {
 				return TraceMap{}, fmt.Errorf("trace map: item %s names undefined scenario %s", it.ID, s)
 			}
 		}
@@ -144,7 +146,8 @@ type TraceResult struct {
 	// Differential counts frozen pi differential cases.
 	Differential Counts `json:"differential"`
 	// Live counts support matrix combinations.
-	Live Counts `json:"live"`
+	Live      Counts `json:"live"`
+	Artifacts Counts `json:"artifacts"`
 	// Evidence lists a few of the matching case IDs (and live
 	// combinations), where the assertions can be read.
 	Evidence []string `json:"evidence"`
@@ -153,7 +156,7 @@ type TraceResult struct {
 // maxEvidence bounds the examples kept per item; the counts cover all.
 const maxEvidence = 6
 
-func traceItems(m TraceMap, cases []Case, live []LiveRow) []TraceResult {
+func traceItems(m TraceMap, cases []Case, live []LiveRow, artifacts []EvidenceCheck) []TraceResult {
 	out := make([]TraceResult, 0, len(m.Items))
 	for _, it := range m.Items {
 		r := TraceResult{ID: it.ID, Source: it.Source, Requirement: it.Requirement, Scenarios: it.Scenarios}
@@ -184,7 +187,18 @@ func traceItems(m TraceMap, cases []Case, live []LiveRow) []TraceResult {
 				r.Live.NotRun++
 			}
 		}
-		all := r.Offline.plus(r.Differential).plus(r.Live)
+		if slices.Contains(it.Scenarios, ArtifactScenario) {
+			for _, e := range artifacts {
+				if it.cases != nil && !it.cases.MatchString(e.Name) {
+					continue
+				}
+				r.Artifacts.add(e.Status)
+				if len(r.Evidence) < maxEvidence*2 {
+					r.Evidence = append(r.Evidence, "artifact:"+e.Name+"="+string(e.Status))
+				}
+			}
+		}
+		all := r.Offline.plus(r.Differential).plus(r.Live).plus(r.Artifacts)
 		switch {
 		case all.Fail > 0:
 			r.Status = Fail

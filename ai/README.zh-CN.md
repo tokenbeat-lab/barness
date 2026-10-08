@@ -266,7 +266,7 @@ BARNESS_AI_LIVE_ACCOUNT_ALIAS=<alias> BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT=<key> \
 go test -tags live -count=1 ./ai/live
 go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # 把冒烟报告合并进支持矩阵
 
-go run ./ai/release/cmd/releasegate [-live <bundle-dir>]...   # 完整发布门禁
+go run ./ai/release/cmd/releasegate -evaluation <独立中文效果包> [-live <bundle-dir>]...
 ```
 
 每次运行都会在 `.evidence/` 下写出脱敏的证据包（可用 `BARNESS_AI_EVIDENCE_DIR` 覆盖）。新行为需要一个 E2E 用例，且其证据能被发布门禁追溯（`release/traceability.json`）。

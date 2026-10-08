@@ -15,6 +15,7 @@ parser.add_argument('--binary', type=Path, required=True, help='go test -c -tags
 parser.add_argument('--out', type=Path, required=True)
 parser.add_argument('--alias', required=True, help='host-confirmed account/region alias, or explicit unconfirmed alias')
 args = parser.parse_args()
+args.out = args.out.resolve()
 root = Path(__file__).resolve().parents[3]
 key_name = {'openai': 'OPENAI_KEY', 'anthropic': 'ANTHROPIC_KEY', 'google': 'GEMINI_KEY', 'deepseek': 'DEEPSEEK_KEY', 'typesafe': 'TYPESAFE_KEY'}[args.combo.split('-')[0]]
 key = ''

@@ -109,3 +109,33 @@ headroom 和资源归零。大 body/result 不复制进证据，保存生成参�
 这是一份合成协议与宿主隔离验收，不替代九路线各自的 live 或工单 17 整版发布判定。
 
 [混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。
+
+## 工单 17：完整九组合证据合同（2026-10-08）
+
+本节取代决策一中“目录哈希依赖维护者重跑”、决策二中“race 不打开压力”的旧约束。
+离线与 race 都打开 pi 差分和压力；两种 vet 保留。收集命令校验独立固定的发布合同：
+九条 live 组合、全部 P0、六个差分子集、三条扩展路线及既有 T/C/H/协议追溯项不得
+通过删除输入映射缩减。Evaluate 继续只消费收集命令的已核验输入，不持有凭据或调用厂商。
+
+live 必须交付与矩阵当前完整运行一致的自身报告：operation/Provider/API、能力集、
+型号、SDK、账户别名、运行时间、正式目录/价格版本与内容哈希逐项一致。必交分类、
+生成、JSON/参考图编辑不可 UNSUPPORTED；仅已有型号与真实拒绝证据支持的可选 mask
+允许不支持。纳入目录后的图像冒烟使用正式目录，候选探针只供受控 harness 验证。
+旧通过或共享 adapter 不能补齐另一行；当前失败阻断发布，缺当前证据为 NOT_RUN。
+
+每个证据用例的 manifest 新增全部已写出 artifacts 的 SHA-256 清单，包含请求/响应、
+结果/Attempt 消耗、Observer、断言、图片和 fixture；不改变 fixtures 的原含义。门禁
+拒绝缺失或修改的文件，并要求有实际调用的 live 场景具备捕获、结果、Observer，图片
+成功另需 raster 校验。旧包没有完整清单时需重跑，不增加内部兼容路径。
+差分记录校验固定 pi 1.0.0、批准 commit 与 model-data hash、SDK、请求/帧哈希、
+发现清单与实际 PASS verdict；扩展仍只有自己的离线证明与显式 skip。
+
+新增 required-artifacts 门禁，直接导入本地/云端 mixed-pressure.json 与资源读数，
+核对 4/8 并发、256/512 MiB 预算、TotalAlloc 上界、base64、全部限额 <=75% 和资源归零。
+中文效果通过 `-evaluation` 导入独立宿主的固定数据集、配置、完整真实报告、manifest
+与 Observer，用现有 chineseeval 校验器验证；不以准确率阈值放行，不把 fixture 或
+协议冒烟当业务效果。离线、race、每条 live 与中文包都列入必审清单。
+
+导入的完整 live 报告只供内部判定，永不序列化到 release-report；拒绝证据不重复
+输出其中的字段值。发布报告分开呈现协议、live、压力和业务效果，审计仅给安全位置。
+交付保留完整可重放包、哈希清单、历史失败与当前结论；缺外部条件时明确阻断工单完成。

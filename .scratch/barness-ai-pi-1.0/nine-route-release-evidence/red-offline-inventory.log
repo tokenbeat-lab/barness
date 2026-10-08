@@ -1,0 +1,14 @@
+--- FAIL: TestLiveCaptureAndObserverCannotBeDeleted (0.34s)
+    --- FAIL: TestLiveCaptureAndObserverCannotBeDeleted/exchanges.json (0.10s)
+        nine_routes_test.go:55: complete captured baseline rejected: live manifest provenance disagrees with report
+    --- FAIL: TestLiveCaptureAndObserverCannotBeDeleted/result.json (0.08s)
+        nine_routes_test.go:55: complete captured baseline rejected: live manifest provenance disagrees with report
+    --- FAIL: TestLiveCaptureAndObserverCannotBeDeleted/image-check.json (0.08s)
+        nine_routes_test.go:55: complete captured baseline rejected: live manifest provenance disagrees with report
+    --- FAIL: TestLiveCaptureAndObserverCannotBeDeleted/observations (0.08s)
+        nine_routes_test.go:55: complete captured baseline rejected: live manifest provenance disagrees with report
+--- FAIL: TestOfflineArtifactsCannotBeDeleted (0.00s)
+    nine_routes_test.go:80: gate p0-offline problems ["scenario E07 has no passing case" "scenario P01 has no passing case" "scenario P05 has no passing case" "scenario D2 has no passing case"] do not mention "artifact"
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	1.217s
+FAIL

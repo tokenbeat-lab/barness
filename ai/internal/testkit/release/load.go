@@ -28,9 +28,10 @@ func LoadBundle(dir string) (Bundle, error) {
 		Package   string `json:"package"`
 		GitCommit string `json:"git_commit"`
 		Cases     []struct {
-			ID     string `json:"id"`
-			Status Status `json:"status"`
-			Dir    string `json:"dir"`
+			ID        string            `json:"id"`
+			Status    Status            `json:"status"`
+			Dir       string            `json:"dir"`
+			Artifacts map[string]string `json:"artifacts"`
 		} `json:"cases"`
 	}
 	if err := readJSON(filepath.Join(dir, "manifest.json"), &m); err != nil {
@@ -45,6 +46,18 @@ func LoadBundle(dir string) (Bundle, error) {
 			return Bundle{}, fmt.Errorf("release: invalid or duplicate evidence case directory")
 		}
 		b.caseDirs[c.ID] = filepath.Join(dir, c.Dir)
+		if len(c.Artifacts) == 0 {
+			b.Problems = append(b.Problems, c.ID+": artifact integrity inventory missing")
+		}
+		for name, hash := range c.Artifacts {
+			if filepath.Base(name) != name {
+				return Bundle{}, fmt.Errorf("release: invalid artifact path")
+			}
+			raw, err := os.ReadFile(filepath.Join(dir, c.Dir, name))
+			if err != nil || pioracle.SHA256(raw) != hash {
+				b.Problems = append(b.Problems, c.ID+": artifact missing or changed: "+name)
+			}
+		}
 		b.Cases = append(b.Cases, Case{ID: c.ID, Status: c.Status})
 		if kindOf(c.ID) != kindDifferential || c.Status == NotRun {
 			continue

@@ -58,17 +58,17 @@ func (r Report) Markdown() string {
 	}
 
 	b.WriteString("\n## Traceability\n\nStatus comes from evidence only; an item that is only mapped is NO_EVIDENCE, never PASS.\n\n")
-	b.WriteString("| Item | Source | Requirement | Scenarios | Status | Offline | Differential | Live | Evidence |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n")
+	b.WriteString("| Item | Source | Requirement | Scenarios | Status | Offline | Differential | Live | Artifacts | Evidence |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n")
 	for _, t := range r.Trace {
-		fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s | %s | %s | %s |\n", t.ID, t.Source, t.Requirement, strings.Join(t.Scenarios, " "),
-			t.Status, short(t.Offline), short(t.Differential), short(t.Live), cell(t.Evidence, 3))
+		fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n", t.ID, t.Source, t.Requirement, strings.Join(t.Scenarios, " "),
+			t.Status, short(t.Offline), short(t.Differential), short(t.Live), short(t.Artifacts), cell(t.Evidence, 3))
 	}
 
-	b.WriteString("\n## Redaction audit\n\n")
 	b.WriteString("\n## Design load and business effect\n\nProtocol smoke and business accuracy are separate evidence. COMPLETE verifies the fixed evaluation, with no accuracy threshold.\n\n")
 	for _, e := range r.Evidence {
 		fmt.Fprintf(&b, "- %s: %s; `%s`; %s\n", e.Name, e.Status, e.Bundle, e.Detail)
 	}
+	b.WriteString("\n## Redaction audit\n\n")
 	for _, a := range r.Audits {
 		state := fmt.Sprintf("%d finding(s)", len(a.Findings))
 		if a.Err != "" {

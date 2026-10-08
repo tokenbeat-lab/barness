@@ -52,6 +52,17 @@ func TestImagesHarnessProcess(t *testing.T) {
 			}
 			cs := run.Case(t, "P08-live-harness-process-"+name)
 			cs.Record("report", report)
+			var manifest struct {
+				Cases []struct{ Artifacts map[string]string }
+			}
+			raw, err := os.ReadFile(filepath.Join(filepath.Dir(paths[0]), "manifest.json"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err := json.Unmarshal(raw, &manifest); err != nil {
+				t.Fatal(err)
+			}
+			cs.Check("recorded artifacts have a complete integrity inventory", len(manifest.Cases) > 0 && len(manifest.Cases[0].Artifacts) > 0, "record inventory missing")
 			hash, err := ai.BuiltinCatalog().Hash()
 			if err != nil {
 				t.Fatal(err)

@@ -34,6 +34,8 @@
   },
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier", "openai-images", "google-interactions-image"],
   "items": [
+    {"id":"C11-ChineseEffect","source":"issue 16 / US87 / ADR-0024","requirement":"Independent fixed synthetic Chinese dataset and real jev-1.13.0 COMPLETE report, full denominators, confusion/calibration and attempts; integrity and audit verified separately from protocol smoke, without an accuracy threshold","scenarios":["ARTIFACTS"],"cases":"^chinese-effect$"},
+    {"id":"H5-design-load-artifacts","source":"issue 15–17 / ADR-0017","requirement":"Actual local and cloud mixed image design-load reports with measured whole JSON/base64, concurrency, allocation upper bounds, all limit ratios <=75% and released resources","scenarios":["ARTIFACTS"],"cases":"^mixed-pressure-(local|cloud)$"},
 	{"id":"T03-mixed-operation-isolation","source":"issue 15 / ADR-0001/0003/0020","requirement":"Concurrent chat/image/classifier with same-named tenant bindings and model IDs, legal same-account credential sharing, preflight operation/options refusals, fixed retry snapshots and independent route disabling","scenarios":["E07"],"cases":"mixed-(same-named|preflight|snapshot|binding-disabled)"},
 	{"id":"C08-mixed-lifecycle","source":"issue 15 / ADR-0008","requirement":"Mixed cancellation/deadlines/failures and tenant/process/waiter/time caps release only own resources; complete body and validation remain under admission","scenarios":["E08"],"cases":"mixed-(cancel|deadline|http-failure|admission|image-budget)"},
 	{"id":"C09-mixed-observer","source":"issue 15 / ADR-0009","requirement":"Mixed attributed metadata and usage only; slow/congested/error/panic Observer cannot change model success or failure and statistics identify loss","scenarios":["E09"],"cases":"mixed-observer"},
@@ -96,7 +98,7 @@
     {"id": "V4-gemini", "source": "research-traceability §4 V§4 Gemini", "requirement": "P03 protocol specifics", "scenarios": ["P03"]},
     {"id": "V4-chat", "source": "research-traceability §4 V§4 OpenAI Chat", "requirement": "P04 protocol specifics", "scenarios": ["P04"]},
     {"id": "V4-deepseek", "source": "research-traceability §4 V§4 DeepSeek", "requirement": "P05/P06: two bindings accepted separately", "scenarios": ["P05", "P06"]},
-    {"id": "V6-live", "source": "research-traceability §4 V§6", "requirement": "Six combinations pass the real-API smoke (PASS or explicit UNSUPPORTED)", "scenarios": ["LIVE"]},
+    {"id": "V6-live", "source": "research-traceability §4 V§6", "requirement": "Nine combinations supply their own current complete audited live smoke; required classification and image generation/editing cannot be UNSUPPORTED", "scenarios": ["LIVE"]},
     {"id": "H1", "source": "research-traceability §5 H1", "requirement": "Per-call credential, endpoint and header isolation", "scenarios": ["H1", "E06", "E07"]},
     {"id": "H2", "source": "research-traceability §5 H2", "requirement": "Field presence, signatures, tools and pi differential", "scenarios": ["PIDIFF", "E03", "E04"]},
     {"id": "H3", "source": "research-traceability §5 H3", "requirement": "Correct terminals and partial messages", "scenarios": ["E01", "E02"]},

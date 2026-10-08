@@ -114,13 +114,18 @@ func (r *Run) Finish() error {
 	defer r.mu.Unlock()
 	cases := make([]map[string]any, 0, len(r.cases))
 	for _, c := range r.cases {
+		artifacts, err := caseArtifacts(c.dir)
+		if err != nil {
+			return err
+		}
 		cases = append(cases, map[string]any{
-			"id":       c.id,
-			"test":     c.t.Name(),
-			"status":   c.status,
-			"dir":      c.id,
-			"replay":   c.replay(),
-			"fixtures": c.hashes,
+			"id":        c.id,
+			"test":      c.t.Name(),
+			"status":    c.status,
+			"dir":       c.id,
+			"replay":    c.replay(),
+			"fixtures":  c.hashes,
+			"artifacts": artifacts,
 		})
 	}
 	sort.Slice(cases, func(i, j int) bool { return cases[i]["id"].(string) < cases[j]["id"].(string) })
