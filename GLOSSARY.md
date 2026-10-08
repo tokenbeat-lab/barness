@@ -175,3 +175,7 @@ _Avoid_: 日志过滤、事后清理
 **Release Gate（发布门禁）**：
 发布前对 barness-ai 的一次判定（`go run ./ai/release/cmd/releasegate`）：`go vet`、离线 E2E（含 pi 差分与压力场景）、`-race`、全部 P0、无待处理差分、当前九组合真实冒烟完整通过（或明确 UNSUPPORTED）、脱敏审计、研究条目追溯与目录快照，全部通过才可发布；报告分别列出离线、差分与 live 结果。追溯条目只由证据判定，仅"已映射"的条目为 NO_EVIDENCE，不记为 PASS。
 _Avoid_: CI 绿灯、发布流程
+
+**Chinese Classification Evaluation（中文分类评估）**：
+宿主针对固定中文标注任务和固定分类型号形成的独立业务效果证据，包含准确率、误判、置信统计、完整样本状态与消耗。其适用范围由标注任务界定，独立于协议兼容与真实冒烟的支持结论。
+_Avoid_: 协议准确率、支持矩阵通过、生产准确率保证
