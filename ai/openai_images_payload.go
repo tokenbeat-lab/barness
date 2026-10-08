@@ -91,14 +91,7 @@ func (p *ResourcePolicy) checkInlineImagePayload(value reflect.Value) *Error {
 		if key != "image_url" {
 			return imageInputFailure(PhaseRequest, "unsupported inline image field")
 		}
-		field, failure := imagePayloadValue(value)
-		if failure != nil {
-			return failure
-		}
-		if field.IsValid() && !usesCustomJSON(field) && field.Kind() == reflect.String {
-			return p.checkInlineURL(field.String())
-		}
-		return nil // Unknown field encodings are validated after freezing.
+		return p.checkImageURLPayload(value, true)
 	}
 	switch v.Kind() {
 	case reflect.Map:
@@ -108,14 +101,8 @@ func (p *ResourcePolicy) checkInlineImagePayload(value reflect.Value) *Error {
 				// known lengths. Do not execute a host key marshaler twice.
 				fields := v.MapRange()
 				for fields.Next() {
-					field, failure := imagePayloadValue(fields.Value())
-					if failure != nil {
+					if failure := p.checkImageURLPayload(fields.Value(), false); failure != nil {
 						return failure
-					}
-					if field.IsValid() && !usesCustomJSON(field) && field.Kind() == reflect.String {
-						if failure := p.checkInlineURLSize(field.String()); failure != nil {
-							return failure
-						}
 					}
 				}
 				return nil
@@ -140,6 +127,35 @@ func (p *ResourcePolicy) checkInlineImagePayload(value reflect.Value) *Error {
 		return imageInputFailure(PhaseRequest, "inline image must be an object")
 	}
 	return nil
+}
+
+// Raw JSON strings have known URL lengths, unlike host-defined marshalers.
+// requireInline validates a known image_url key; custom key names are frozen
+// by the encoder later, but their ordinary values retain capacity checks.
+func (p *ResourcePolicy) checkImageURLPayload(value reflect.Value, requireInline bool) *Error {
+	field, failure := imagePayloadValue(value)
+	if failure != nil {
+		return failure
+	}
+	if !field.IsValid() {
+		return nil
+	}
+	if field.CanInterface() {
+		if raw, ok := field.Interface().(json.RawMessage); ok {
+			url, kind, _, err := jsonparser.Get(raw)
+			if err != nil || kind != jsonparser.String {
+				return imageInputFailure(PhaseRequest, "image_url must be a string")
+			}
+			return p.checkRawInlineURL(url, requireInline)
+		}
+	}
+	if !usesCustomJSON(field) && field.Kind() == reflect.String {
+		if requireInline {
+			return p.checkInlineURL(field.String())
+		}
+		return p.checkInlineURLSize(field.String())
+	}
+	return nil // Unknown field encodings are validated after freezing.
 }
 
 func inlineStructURL(v reflect.Value) (reflect.Value, *Error) {
@@ -244,10 +260,10 @@ func (p *ResourcePolicy) checkRawInlineImage(raw []byte) *Error {
 	if err != nil || url == nil {
 		return imageInputFailure(PhaseRequest, "inline image must be an object")
 	}
-	return p.checkRawInlineURL(url)
+	return p.checkRawInlineURL(url, true)
 }
 
-func (p *ResourcePolicy) checkRawInlineURL(raw []byte) *Error {
+func (p *ResourcePolicy) checkRawInlineURL(raw []byte, requireInline bool) *Error {
 	// Inline URLs contain ASCII MIME/base64. Count decoded characters using
 	// the existing JSON unescaper in a fixed buffer; retain only the prefix
 	// and padding. Even escaped multi-MiB URLs require no proportional copy.
@@ -290,10 +306,16 @@ func (p *ResourcePolicy) checkRawInlineURL(raw []byte) *Error {
 	}
 	header := prefix[:min(n, int64(len(prefix)))]
 	if !bytes.HasPrefix(header, []byte("data:")) {
+		if !requireInline {
+			return nil
+		}
 		return imageAuthorityFailure()
 	}
 	index := bytes.Index(header, []byte(";base64,"))
 	if index < 5 || !isImageMediaType(string(header[5:index])) {
+		if !requireInline {
+			return nil
+		}
 		return imageInputFailure(PhaseRequest, "input image must be an inline base64 data URL")
 	}
 	dataLength := n - int64(index+len(";base64,"))

@@ -1,0 +1,11 @@
+{
+  "command": "go test ./ai/e2e -run 'TestOpenAIImagesEditingKnownSize/raw-.*value' -count=1",
+  "status": "FAIL",
+  "failingTests": [
+    "TestOpenAIImagesEditingKnownSize/raw-value",
+    "TestOpenAIImagesEditingKnownSize/raw-pointer-value",
+    "TestOpenAIImagesEditingKnownSize/raw-struct-value",
+    "TestOpenAIImagesEditingKnownSize/raw-text-key-value"
+  ],
+  "maxObservedAllocationBytes": 92326424
+}

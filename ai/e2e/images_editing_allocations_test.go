@@ -14,12 +14,12 @@ import (
 func TestOpenAIImagesEditingKnownSize(t *testing.T) {
 	large := "data:image/png;base64," + strings.Repeat("A", 8<<20)
 	raw := json.RawMessage(`[{"image_url":"` + large + `"}]`)
-	for _, name := range []string{"images", "mask", "raw", "many", "typed-url", "raw-many", "pointer-url", "pointer-slice", "struct", "large-budget-raw", "large-budget-mask", "escaped-raw", "embedded", "shadowed", "text-key"} {
+	for _, name := range []string{"images", "mask", "raw", "many", "typed-url", "raw-many", "pointer-url", "pointer-slice", "struct", "large-budget-raw", "large-budget-mask", "escaped-raw", "embedded", "shadowed", "text-key", "raw-value", "raw-pointer-value", "raw-struct-value", "raw-text-key-value"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P08-E08-edit-allocation-"+name)
 			sc := editScenario(t)
 			w := scenarioWorld(t, sc)
-			if name == "typed-url" || name == "pointer-url" || name == "struct" || name == "embedded" || name == "shadowed" || name == "text-key" || strings.HasPrefix(name, "large-budget-") || name == "escaped-raw" {
+			if name == "typed-url" || name == "pointer-url" || name == "struct" || name == "embedded" || name == "shadowed" || name == "text-key" || strings.Contains(name, "value") || strings.HasPrefix(name, "large-budget-") || name == "escaped-raw" {
 				w = newWorldWith(t, func(c *ai.Config) {
 					configureImages(c)
 					c.Policy.MaxRequestBytes = 64 << 20
@@ -32,6 +32,7 @@ func TestOpenAIImagesEditingKnownSize(t *testing.T) {
 			typed := []map[string]string{{"image_url": "data:image/png;base64," + strings.Repeat("A", 20971520)}}
 			smallURL := "data:image/png;base64," + imagesInput(t, sc).ReferenceImages[0].Data
 			manyRaw := json.RawMessage(`[` + strings.Repeat(`{"image_url":"`+smallURL+`"},`, 1000) + `{"image_url":"` + smallURL + `"}]`)
+			valueRaw := json.RawMessage(`"` + large + `"`)
 			maskRaw := json.RawMessage(`{"image_url":"` + large + `"}`)
 			escapedRaw := json.RawMessage(`[{"image_url":"data:image/png;base64,` + strings.Repeat(`\u0041`, 1<<20) + `"}]`)
 			many := make([]any, 100000)
@@ -57,6 +58,16 @@ func TestOpenAIImagesEditingKnownSize(t *testing.T) {
 					p.Body["images"] = []struct {
 						URL *string `json:"image_url"`
 					}{{&large}}
+				case "raw-value":
+					p.Body["images"] = []map[string]json.RawMessage{{"image_url": valueRaw}}
+				case "raw-pointer-value":
+					p.Body["images"] = []map[string]*json.RawMessage{{"image_url": &valueRaw}}
+				case "raw-struct-value":
+					p.Body["images"] = []struct {
+						URL json.RawMessage `json:"image_url"`
+					}{{valueRaw}}
+				case "raw-text-key-value":
+					p.Body["images"] = []map[imageURLKey]json.RawMessage{{{}: valueRaw}}
 				case "text-key":
 					p.Body["images"] = []map[imageURLKey]string{{{}: large}}
 				case "embedded":

@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"testing"
 
@@ -40,7 +41,7 @@ type shadowedInlineImage struct {
 }
 
 func TestOpenAIImagesEditingCustomEncoding(t *testing.T) {
-	for _, name := range []string{"slice", "map", "pointer-element", "text-key", "embedded", "shadowed"} {
+	for _, name := range []string{"slice", "map", "pointer-element", "text-key", "embedded", "shadowed", "raw-value", "raw-struct-value", "raw-text-key-value"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P08-E04-edit-custom-"+name)
 			sc := editScenario(t)
@@ -56,6 +57,14 @@ func TestOpenAIImagesEditingCustomEncoding(t *testing.T) {
 					p.Body["images"] = []pointerEncodedImageReference{{"backing"}}
 				case "text-key":
 					p.Body["images"] = []map[imageURLKey]string{{{}: "data:image/png;base64," + imagesInput(t, sc).ReferenceImages[0].Data}}
+				case "raw-value":
+					p.Body["images"] = []map[string]json.RawMessage{{"image_url": json.RawMessage(`"data:image/png;base64,` + imagesInput(t, sc).ReferenceImages[0].Data + `"`)}}
+				case "raw-struct-value":
+					p.Body["images"] = []struct {
+						URL json.RawMessage `json:"image_url"`
+					}{{json.RawMessage(`"data:image/png;base64,` + imagesInput(t, sc).ReferenceImages[0].Data + `"`)}}
+				case "raw-text-key-value":
+					p.Body["images"] = []map[imageURLKey]json.RawMessage{{{}: json.RawMessage(`"data:image/png;base64,` + imagesInput(t, sc).ReferenceImages[0].Data + `"`)}}
 				case "embedded":
 					p.Body["images"] = []wrappedInlineImage{{inlineImageFields{"data:image/png;base64," + imagesInput(t, sc).ReferenceImages[0].Data}}}
 				case "shadowed":
