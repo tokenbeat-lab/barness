@@ -50,7 +50,7 @@ func (geminiAdapter) stream(ctx context.Context, ac adapterCall, out *assembler)
 	}
 	// As in pi, the payload callback runs once per logical call, outside
 	// any retry of the initial request. It sees the REST body (ADR-0012).
-	body, failure = ac.hooks.payload(ctx, body, authorizeGeminiPayload(ac.model, ac.hostedTools))
+	body, failure = ac.hooks.payload(ctx, body, payloadAuthorization(authorizeGeminiPayload(ac.model, ac.hostedTools)))
 	if failure != nil {
 		return failure
 	}

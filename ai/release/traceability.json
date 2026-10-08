@@ -33,7 +33,7 @@
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat"],
   "items": [
     {"id":"C08-unary-lifecycle","source":"issue 07 / design 7.5–7.6 / ADR-0003/0006/0008","requirement":"Unary cancellation, deadlines, transport timeouts, independent admission, frozen retries and subsequent permit acquisition","scenarios":["P07"],"cases":"unary-(before|resolve|host-admission|timeout|backoff|admission|status|frozen|binding-policy)"},
-    {"id":"H5-unary-budgets","source":"issue 07 / design 8 / ADR-0007/0008","requirement":"Inclusive unary output and error budgets, one overflow byte, no replay, body and lease release after parsing","scenarios":["P07"],"cases":"unary-budget"},
+    {"id":"H5-unary-budgets","source":"issue 07 / design 8 / ADR-0007/0008","requirement":"Inclusive unary output and error budgets, one overflow byte, no replay, body and lease release after parsing","scenarios":["P07"],"cases":"unary-(budget|callback-allocation)"},
     {"id":"C04-unary-callbacks","source":"issue 07 / ADR-0006/0008","requirement":"One frozen request callback per logical call, invalid callback rejection and host cause Is/As preserved","scenarios":["P07"],"cases":"unary-(callback|invalid|frozen)"},
     {"id":"T09-unary-observer","source":"issue 07 / ADR-0009","requirement":"Trusted unresolved/resolved attribution, shared usage reporting axis, bounded asynchronous observer faults and redaction","scenarios":["P07"],"cases":"unary-observer"},
     {"id":"V4-typesafe-mixed","source":"issue 06 / spec TypeSafe / ADR-0021","requirement":"Three closed kinds, ordered scores, bool/noul, native JSON precision and strict final-question answers","scenarios":["P07"],"cases":"mixed|native|score|bool|closed"},

@@ -82,10 +82,8 @@ func (b boundHooks) headers(ctx context.Context, merged http.Header) (http.Heade
 }
 
 // payload runs OnPayload over the native body and returns what to send.
-// authorize is the adapter's check that the final body still names only the
-// authorized model and no native reference the library cannot authorize; it
-// returns the refusal or "".
-func (b boundHooks) payload(ctx context.Context, body []byte, authorize func(map[string]any) string) ([]byte, *Error) {
+// validate checks authority and any known input bounds before serialization.
+func (b boundHooks) payload(ctx context.Context, body []byte, validate func(map[string]any) *Error) ([]byte, *Error) {
 	if b.hooks.OnPayload == nil {
 		return body, nil
 	}
@@ -107,14 +105,25 @@ func (b boundHooks) payload(ctx context.Context, body []byte, authorize func(map
 	if final == nil {
 		return nil, newError(CodeCallbackFailed, PhaseRequest, "payload callback produced no request body")
 	}
-	if problem := authorize(final); problem != "" {
-		return nil, newError(CodeTenantDenied, PhaseRequest, problem)
+	if failure := validate(final); failure != nil {
+		return nil, failure
 	}
 	out, err := marshalJS(final)
 	if err != nil {
 		return nil, newError(CodeCallbackFailed, PhaseRequest, "payload callback produced a body that cannot be encoded")
 	}
 	return out, nil
+}
+
+// payloadAuthorization keeps the chat protocols' existing authority guards
+// on the same validation boundary as the classifier's capacity checks.
+func payloadAuthorization(authorize func(map[string]any) string) func(map[string]any) *Error {
+	return func(body map[string]any) *Error {
+		if problem := authorize(body); problem != "" {
+			return newError(CodeTenantDenied, PhaseRequest, problem)
+		}
+		return nil
+	}
 }
 
 // response runs OnResponse with the initial response's metadata.

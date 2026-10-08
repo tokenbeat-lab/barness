@@ -97,6 +97,8 @@ Answers 整体为空，已上报 Usage 和 Metadata 保留。重复响应字段�
 三种可信回调的 CallScope、Payload/ResponseInfo 都带入口确定的 Operation；入口覆盖宿主提交的
 CallScope.Operation，该字段不授予权限。最终请求回调执行一次，回调后重新解码、校验并冻结问题集；
 非法结果或分类容量超限为 callback_failed，改变授权模型、凭据或添加授权字段为 tenant_denied。
+回调普通 JSON 值的可取得尺寸在序列化前检查；最终 MaxRequestBytes 在问题独立解码前检查。
+自定义 JSON marshaler 的宿主代码自行负责执行和分配，其输出仍须先通过整份请求字节预算。
 成功响应之后执行一次只看 HTTP 元数据的响应回调再读取。Gemini 聊天仍不调用响应回调。
 
 unary 成功体只按 MaxOutputBytes 读取，不受 SSE MaxFrameBytes 限制；错误体按 MaxErrorBodyBytes。

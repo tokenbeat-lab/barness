@@ -47,7 +47,7 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	// As in pi, the payload callback runs once per logical call, outside
 	// any retry of the initial request. The SDK's streaming call sets
 	// stream back to true after it, which pi's does not.
-	body, failure := ac.hooks.payload(ctx, body, authorizeChatPayload(ac.model, cacheKey, ac.hostedTools))
+	body, failure := ac.hooks.payload(ctx, body, payloadAuthorization(authorizeChatPayload(ac.model, cacheKey, ac.hostedTools)))
 	if failure != nil {
 		return failure
 	}

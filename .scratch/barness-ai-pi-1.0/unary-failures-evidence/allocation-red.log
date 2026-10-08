@@ -1,0 +1,15 @@
+--- FAIL: TestUnaryCallbackAllocationBound (0.35s)
+    --- FAIL: TestUnaryCallbackAllocationBound/state (0.08s)
+        unary_allocation_test.go:47: [P07-E08-unary-callback-allocation-state] known oversized input refused before copies: allocated 117540408 bytes for an 8 MiB host value
+    --- FAIL: TestUnaryCallbackAllocationBound/nested-state (0.07s)
+        unary_allocation_test.go:47: [P07-E08-unary-callback-allocation-nested-state] known oversized input refused before copies: allocated 117515136 bytes for an 8 MiB host value
+    --- FAIL: TestUnaryCallbackAllocationBound/question (0.17s)
+        unary_allocation_test.go:47: [P07-E08-unary-callback-allocation-question] known oversized input refused before copies: allocated 293698384 bytes for an 8 MiB host value
+    --- FAIL: TestUnaryCallbackAllocationBound/extra-request-field (0.04s)
+        unary_fixture_test.go:62: [P07-E08-unary-callback-allocation-extra-request-field] code-only match: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        unary_fixture_test.go:63: [P07-E08-unary-callback-allocation-extra-request-field] phase match: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        unary_allocation_test.go:47: [P07-E08-unary-callback-allocation-extra-request-field] known oversized input refused before copies: allocated 75555304 bytes for an 8 MiB host value
+FAIL
+barness-ai evidence bundle: <repo>/.evidence/barness-ai/20261008T022725.341986000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.290s
+FAIL

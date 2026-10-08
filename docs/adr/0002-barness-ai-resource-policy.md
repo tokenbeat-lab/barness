@@ -31,3 +31,19 @@ NewClient 深复制子策略，旧聊天策略无需新增字段。Classify 在 
 本工单的合成 fixture 容量不构成新的生产默认配置。
 
 详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。
+
+## 工单 07：回调输入的已知尺寸先行（2026-10-08）
+
+分类回调的最终 map 在序列化前检查可取得的状态、问题数量、问题内容与请求总字节下界。
+普通 JSON 字符串、容器、原始 JSON 和封闭问题值可直接计量，不为检查先复制或编码。
+完整编码后的 MaxRequestBytes 检查位于最终问题解码之前，随后仍执行准确的编码尺寸、
+schema、能力与内容校验。回调持有的原始值不计为库的副本。
+
+可信回调可以提供自定义 Go JSON marshaler；库不能预知这段宿主代码将返回什么，也不能
+限制它自身的执行/分配。其结果仍须通过最终字节预算后才能解码或发送。普通 JSON 值的
+已知长度不需要执行宿主代码，必须提前拒绝。
+
+TestUnaryCallbackAllocationBound 先复现：宿主已有 8 MiB 状态或问题引发约 75–294 MiB
+库内分配才被拒绝；修复后公共调用的分配低于独立设定的宽松 4 MiB 验收上界，且无准入或 HTTP。
+回调错误仍先按原契约保留宿主 cause，context 结束优先；容量检查不改变聊天的授权守卫。
+详见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。

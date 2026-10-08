@@ -93,7 +93,7 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	// As in pi, the payload callback runs once per logical call, outside
 	// any retry of the initial request. pi forces stream back on after a
 	// replacement; the SDK's streaming call always does.
-	body, failure := ac.hooks.payload(ctx, body, authorizeAnthropicPayload(ac.model, ac.hostedTools))
+	body, failure := ac.hooks.payload(ctx, body, payloadAuthorization(authorizeAnthropicPayload(ac.model, ac.hostedTools)))
 	if failure != nil {
 		return failure
 	}

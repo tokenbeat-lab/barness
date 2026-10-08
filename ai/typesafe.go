@@ -21,18 +21,22 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "classifier request could not be encoded")
 	}
-	body, failure = r.hooks.payload(ctx, body, func(final map[string]any) string {
+	limits := c.policy.byteLimits()
+	body, failure = r.hooks.payload(ctx, body, func(final map[string]any) *Error {
 		if final["model"] != model.ID {
-			return "payload callback may not change the authorized model"
+			return newError(CodeTenantDenied, PhaseRequest, "payload callback may not change the authorized model")
 		}
 		for _, key := range []string{"endpoint", "api_key", "headers", "provider", "api", "operation", "tools", "credential"} {
 			if _, ok := final[key]; ok {
-				return "payload callback may not add authority fields"
+				return newError(CodeTenantDenied, PhaseRequest, "payload callback may not add authority fields")
 			}
 		}
-		return ""
+		return c.policy.Classifier.checkPayload(final, limits.request)
 	})
 	if failure != nil {
+		return failure
+	}
+	if failure := limits.checkRequestBody(body); failure != nil {
 		return failure
 	}
 	// Freeze and decode the final payload, independently of the callback's
@@ -49,10 +53,6 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 	}
 	if problem := req.checkCapabilities(model.Capabilities); problem != "" {
 		return newError(CodeCallbackFailed, PhaseRequest, "payload callback exceeded classifier model capabilities")
-	}
-	limits := c.policy.byteLimits()
-	if failure := limits.checkRequestBody(body); failure != nil {
-		return failure
 	}
 	failures := httpFailures{apiKey: cred.APIKey, clock: c.clock, requestIDHeader: "x-typesafe-request-id", describe: typeSafeHTTPError}
 	var res *http.Response
