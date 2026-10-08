@@ -1,6 +1,9 @@
 package supportmatrix
 
-import "slices"
+import (
+	"slices"
+	"strings"
+)
 
 // ClassifierExpected is the complete required smoke for the first fixed
 // classifier release. A report cannot invent a smaller capability set.
@@ -28,7 +31,7 @@ func checkClassifier(r Report) error {
 	b := r.Budget
 	if b.MaxCalls != 6 || b.MaxRetries != 1 || b.MaxQuestions != 10 || b.MaxStateBytes != 131072 ||
 		b.CallsUsed < 0 || b.CallsUsed > b.MaxCalls || b.QuestionsUsed < 0 || b.QuestionsUsed > b.MaxQuestions ||
-		b.HTTPAttempts < 0 || b.HTTPAttempts > b.CallsUsed || b.StateBytesSubmitted < 0 || b.StateBytesSubmitted > b.CallsUsed*b.MaxStateBytes ||
+		b.HTTPAttempts < 0 || b.HTTPAttempts > b.CallsUsed || b.StateBytesSubmitted < 0 || (b.HTTPAttempts > 0 && b.StateBytesSubmitted == 0) || b.StateBytesSubmitted > b.CallsUsed*b.MaxStateBytes ||
 		b.EnvironmentRetries < 0 || b.EnvironmentRetries > len(expected) {
 		return refuse("classifier report has an invalid or exceeded budget")
 	}
@@ -38,7 +41,7 @@ func checkClassifier(r Report) error {
 			return refuse("classifier capability %q lacks its required fixed model", s.ID)
 		}
 		if s.Calls < 0 || s.Attempts < 0 || s.Questions < 0 || s.Retries < 0 || s.Retries > b.MaxRetries || s.Attempts > s.Calls ||
-			(s.Outcome == Pass && (s.Calls == 0 || s.Attempts == 0 || s.Questions == 0 || len(s.ProviderRequestIDs) == 0)) {
+			(s.Outcome == Pass && (s.Calls == 0 || s.Attempts == 0 || s.Questions == 0 || len(s.ProviderRequestIDs) == 0 || slices.ContainsFunc(s.ProviderRequestIDs, func(id string) bool { return strings.TrimSpace(id) == "" }))) {
 			return refuse("classifier capability %q lacks consistent actual call evidence", s.ID)
 		}
 		calls += s.Calls

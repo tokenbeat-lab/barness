@@ -72,7 +72,6 @@ go run ./ai/release/cmd/releasegate [-live <live 证据包目录>]...
 | openai-chat | chat | OpenAI × Chat Completions（P04），gpt-5-mini | PASS（reasoning-history UNSUPPORTED：该协议不返回可回放的推理） |
 | deepseek-responses | chat | DeepSeek × Responses（P05，扩展路径），deepseek-flash | PASS |
 | deepseek-chat | chat | DeepSeek × Chat Completions（P06），deepseek-flash / deepseek-v4-pro | PASS |
-
 | typesafe-classifier | classifier | TypeSafe × System One（P07），jev-1.13.0 | PASS（有界上下文探针返回 400；422 形状未确认） |
 
 各路线自己的最后完整通过时间见矩阵文件；TypeSafe 为 2026-10-08，聊天保留既有历史，未据此重标。

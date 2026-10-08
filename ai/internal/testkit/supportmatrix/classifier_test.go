@@ -25,19 +25,22 @@ func classifierReport() (Matrix, Report) {
 }
 func TestClassifierReportRefusals(t *testing.T) {
 	for name, change := range map[string]func(*Report){
-		"wrong-operation":    func(r *Report) { r.Operation = "chat" },
-		"alias":              func(r *Report) { r.Model = "jev-latest" },
-		"wrong-target":       func(r *Report) { r.Endpoint = "https://proxy.invalid" },
-		"missing-expected":   func(r *Report) { r.Expected = r.Expected[:2] },
-		"duplicate-expected": func(r *Report) { r.Expected = append(r.Expected, r.Expected[0]) },
-		"call-budget":        func(r *Report) { r.Budget.CallsUsed = 7 },
-		"question-budget":    func(r *Report) { r.Budget.QuestionsUsed = 11 },
-		"missing-budget":     func(r *Report) { r.Budget.MaxQuestions = 0 },
-		"actual-counts":      func(r *Report) { r.Budget.HTTPAttempts = 0 },
-		"no-request":         func(r *Report) { r.Scenarios[0].Calls = 0 },
-		"no-vendor-id":       func(r *Report) { r.Scenarios[0].ProviderRequestIDs = nil },
-		"substitute-model":   func(r *Report) { r.Scenarios[0].Model = "jev-preview" },
-		"missing-capability": func(r *Report) { r.Scenarios[0].Outcome = Unsupported; r.Scenarios[0].Note = "not supported" },
+		"wrong-operation":            func(r *Report) { r.Operation = "chat" },
+		"alias":                      func(r *Report) { r.Model = "jev-latest" },
+		"wrong-target":               func(r *Report) { r.Endpoint = "https://proxy.invalid" },
+		"missing-expected":           func(r *Report) { r.Expected = r.Expected[:2] },
+		"duplicate-expected":         func(r *Report) { r.Expected = append(r.Expected, r.Expected[0]) },
+		"call-budget":                func(r *Report) { r.Budget.CallsUsed = 7 },
+		"question-budget":            func(r *Report) { r.Budget.QuestionsUsed = 11 },
+		"missing-budget":             func(r *Report) { r.Budget.MaxQuestions = 0 },
+		"missing-state-byte-counter": func(r *Report) { r.Budget.StateBytesSubmitted = 0 },
+		"blank-vendor-id":            func(r *Report) { r.Scenarios[0].ProviderRequestIDs = []string{""} },
+		"whitespace-vendor-id":       func(r *Report) { r.Scenarios[0].ProviderRequestIDs = []string{"  "} },
+		"actual-counts":              func(r *Report) { r.Budget.HTTPAttempts = 0 },
+		"no-request":                 func(r *Report) { r.Scenarios[0].Calls = 0 },
+		"no-vendor-id":               func(r *Report) { r.Scenarios[0].ProviderRequestIDs = nil },
+		"substitute-model":           func(r *Report) { r.Scenarios[0].Model = "jev-preview" },
+		"missing-capability":         func(r *Report) { r.Scenarios[0].Outcome = Unsupported; r.Scenarios[0].Note = "not supported" },
 	} {
 		t.Run(name, func(t *testing.T) {
 			m, r := classifierReport()
