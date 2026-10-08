@@ -1,0 +1,348 @@
+{
+  "cases": [
+    {
+      "dir": "P08-live-harness-invalid-image",
+      "fixtures": {},
+      "id": "P08-live-harness-invalid-image",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^invalid-image$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/invalid-image"
+    },
+    {
+      "dir": "P08-live-harness-json-refused",
+      "fixtures": {},
+      "id": "P08-live-harness-json-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^json-refused$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/json-refused"
+    },
+    {
+      "dir": "P08-live-harness-mask-format-refused",
+      "fixtures": {},
+      "id": "P08-live-harness-mask-format-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-format-refused$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/mask-format-refused"
+    },
+    {
+      "dir": "P08-live-harness-mask-refused",
+      "fixtures": {},
+      "id": "P08-live-harness-mask-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-refused$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/mask-refused"
+    },
+    {
+      "dir": "P08-live-harness-mask-size-refused",
+      "fixtures": {},
+      "id": "P08-live-harness-mask-size-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-size-refused$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/mask-size-refused"
+    },
+    {
+      "dir": "P08-live-harness-process-edit-refusal",
+      "fixtures": {},
+      "id": "P08-live-harness-process-edit-refusal",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^edit-refusal$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/edit-refusal"
+    },
+    {
+      "dir": "P08-live-harness-process-environment-retry",
+      "fixtures": {},
+      "id": "P08-live-harness-process-environment-retry",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^environment-retry$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/environment-retry"
+    },
+    {
+      "dir": "P08-live-harness-process-exhaustion",
+      "fixtures": {},
+      "id": "P08-live-harness-process-exhaustion",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^exhaustion$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/exhaustion"
+    },
+    {
+      "dir": "P08-live-harness-process-narrowed",
+      "fixtures": {},
+      "id": "P08-live-harness-process-narrowed",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^narrowed$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/narrowed"
+    },
+    {
+      "dir": "P08-live-harness-process-quantity",
+      "fixtures": {},
+      "id": "P08-live-harness-process-quantity",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^quantity$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/quantity"
+    },
+    {
+      "dir": "P08-live-harness-process-resolution",
+      "fixtures": {},
+      "id": "P08-live-harness-process-resolution",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^resolution$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/resolution"
+    },
+    {
+      "dir": "P08-live-harness-success",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P08-live-harness-success",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^success$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/success"
+    },
+    {
+      "dir": "P08-live-harness-transparent-opaque",
+      "fixtures": {},
+      "id": "P08-live-harness-transparent-opaque",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^transparent-opaque$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/transparent-opaque"
+    },
+    {
+      "dir": "P08-live-harness-usage-absent",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P08-live-harness-usage-absent",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^usage-absent$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/usage-absent"
+    },
+    {
+      "dir": "P08-live-harness-usage-partial",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P08-live-harness-usage-partial",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^usage-partial$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/usage-partial"
+    },
+    {
+      "dir": "P08-live-harness-wrong-size",
+      "fixtures": {},
+      "id": "P08-live-harness-wrong-size",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^wrong-size$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/wrong-size"
+    },
+    {
+      "dir": "P09-live-capture-malformed",
+      "fixtures": {},
+      "id": "P09-live-capture-malformed",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^malformed$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessCapture/malformed"
+    },
+    {
+      "dir": "P09-live-capture-read-interrupted",
+      "fixtures": {},
+      "id": "P09-live-capture-read-interrupted",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^read-interrupted$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessCapture/read-interrupted"
+    },
+    {
+      "dir": "P09-live-capture-request-prefix",
+      "fixtures": {},
+      "id": "P09-live-capture-request-prefix",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^request-prefix$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessCapture/request-prefix"
+    },
+    {
+      "dir": "P09-live-capture-response-prefix",
+      "fixtures": {},
+      "id": "P09-live-capture-response-prefix",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^response-prefix$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessCapture/response-prefix"
+    },
+    {
+      "dir": "P09-live-harness-complete",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-complete",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^complete$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/complete"
+    },
+    {
+      "dir": "P09-live-harness-continuation",
+      "fixtures": {},
+      "id": "P09-live-harness-continuation",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^continuation$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/continuation"
+    },
+    {
+      "dir": "P09-live-harness-identity-absent",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-identity-absent",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^identity-absent$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/identity-absent"
+    },
+    {
+      "dir": "P09-live-harness-live-image-only",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-live-image-only",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^live-image-only$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/live-image-only"
+    },
+    {
+      "dir": "P09-live-harness-partial",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-partial",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^partial$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/partial"
+    },
+    {
+      "dir": "P09-live-harness-pending",
+      "fixtures": {},
+      "id": "P09-live-harness-pending",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^pending$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/pending"
+    },
+    {
+      "dir": "P09-live-harness-refused",
+      "fixtures": {},
+      "id": "P09-live-harness-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^refused$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/refused"
+    },
+    {
+      "dir": "P09-live-harness-thought-included",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-thought-included",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^thought-included$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/thought-included"
+    },
+    {
+      "dir": "P09-live-harness-unreported",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-unreported",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^unreported$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/unreported"
+    },
+    {
+      "dir": "P09-live-harness-uri",
+      "fixtures": {},
+      "id": "P09-live-harness-uri",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/uri"
+    },
+    {
+      "dir": "P09-live-harness-wrong-size",
+      "fixtures": {},
+      "id": "P09-live-harness-wrong-size",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^wrong-size$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/wrong-size"
+    },
+    {
+      "dir": "P09-live-process-environment-retry",
+      "fixtures": {},
+      "id": "P09-live-process-environment-retry",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^environment-retry$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/environment-retry"
+    },
+    {
+      "dir": "P09-live-process-exhaustion",
+      "fixtures": {},
+      "id": "P09-live-process-exhaustion",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^exhaustion$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/exhaustion"
+    },
+    {
+      "dir": "P09-live-process-foreign-key",
+      "fixtures": {},
+      "id": "P09-live-process-foreign-key",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^foreign-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/foreign-key"
+    },
+    {
+      "dir": "P09-live-process-narrowed",
+      "fixtures": {},
+      "id": "P09-live-process-narrowed",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^narrowed$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/narrowed"
+    },
+    {
+      "dir": "P09-live-process-no-key",
+      "fixtures": {},
+      "id": "P09-live-process-no-key",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^no-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/no-key"
+    },
+    {
+      "dir": "P09-live-process-reference-count",
+      "fixtures": {},
+      "id": "P09-live-process-reference-count",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^reference-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/reference-count"
+    },
+    {
+      "dir": "P09-live-process-refused",
+      "fixtures": {},
+      "id": "P09-live-process-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^refused$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/refused"
+    },
+    {
+      "dir": "P09-live-process-resolution",
+      "fixtures": {},
+      "id": "P09-live-process-resolution",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^resolution$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/resolution"
+    }
+  ],
+  "finished_at": "2026-10-08T09:35:30.482035Z",
+  "git_commit": "8383d4fecff7b19f1e6a4f1af12d27f3721e7b5f",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "-tags live ./ai/live",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-08T09:34:36.718718Z",
+  "versions": {
+    "model_catalog_hash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "model_catalog_version": "2026-10-08.5"
+  },
+  "source_bundle": ".evidence/barness-ai/20261008T093436.718718000Z",
+  "source_manifest_sha256": "49f1397c0b8b9eff4be13ddb916b85bca0b5c4bcd879f5f9ab139cb33b6122e7",
+  "audit_findings": 0
+}

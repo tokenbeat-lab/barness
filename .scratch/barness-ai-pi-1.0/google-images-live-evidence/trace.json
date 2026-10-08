@@ -1,0 +1,195 @@
+{
+  "scope": "Issue 14 own trace evaluation; -bundle does not rerun command gates and only this Google live bundle was supplied. No claim that the complete nine-combination release gate passes.",
+  "evaluation_command": "go run ./ai/release/cmd/releasegate -bundle .evidence/issue14-complete/20261008T093734.501481000Z -live .evidence/issue14-live/20261008T091619.605370000Z -out .evidence/issue14-trace",
+  "evaluation_exit_code": 1,
+  "evaluation_report_sha256": "1db515980fa8789c9aa06bbebe19960dcd77020f12481d9694f5152965424600",
+  "catalog_snapshot_current": true,
+  "differential_pass": true,
+  "differential_pending": 0,
+  "extension_routes": [
+    {
+      "provider": "google",
+      "api": "google-interactions"
+    },
+    {
+      "provider": "deepseek",
+      "api": "openai-responses"
+    },
+    {
+      "provider": "openai",
+      "api": "openai-images"
+    }
+  ],
+  "items": [
+    {
+      "id": "V6-google-images-live",
+      "source": "issue 14 / ADR-0016/0023",
+      "requirement": "Own fixed Nano Banana 2.1 on official v1beta; required generation/reference editing, four-call/image 1K budget, complete synchronous inline evidence, honest absent identity, atomic own-report matrix merge; separate live gate requires its own audited bundle",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 29,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-live-replay-generation-captured",
+        "P09-E01-live-replay-generation-partial",
+        "P09-E01-live-replay-generation-unreported",
+        "P09-E01-live-replay-reference-edit-captured",
+        "P09-E01-live-replay-reference-edit-partial",
+        "P09-E01-live-replay-reference-edit-unreported"
+      ]
+    },
+    {
+      "id": "H2-google-images-catalog",
+      "source": "issue 14 / ADR-0010/0018/0023",
+      "requirement": "Own live before builtin inclusion; verified counts/1K/1:1, dated modality rates; image-only output detail excludes text thought, Output contains Reasoning, native TotalTokens retained, nullable partial/unreported without invented missing text/cache or per-image pricing",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 7,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-live-replay-generation-captured",
+        "P09-E01-live-replay-generation-partial",
+        "P09-E01-live-replay-generation-unreported",
+        "P09-E01-live-replay-reference-edit-captured",
+        "P09-E01-live-replay-reference-edit-partial",
+        "P09-E01-live-replay-reference-edit-unreported"
+      ]
+    },
+    {
+      "id": "C04-google-images-delivery-omission",
+      "source": "issue 14 / maintainer-approved ADR-0023",
+      "requirement": "Always omit refused delivery field, forbid callback insertion, still reject URI/continuation/non-completed output without protocol/version/model fallback",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 10,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-live-replay-generation-captured",
+        "P09-E01-live-replay-generation-partial",
+        "P09-E01-live-replay-generation-unreported",
+        "P09-E01-live-replay-reference-edit-captured",
+        "P09-E01-live-replay-reference-edit-partial",
+        "P09-E01-live-replay-reference-edit-unreported"
+      ]
+    }
+  ],
+  "own_live_row": {
+    "combo": "google-interactions-image",
+    "operation": "image",
+    "provider": "google",
+    "api": "google-interactions",
+    "model": "gemini-nano-banana-2.1",
+    "sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
+    "accountAlias": "dotenv-gemini@region-unconfirmed",
+    "status": "PASS",
+    "lastRunAt": "2026-10-08T09:16:46.080962Z",
+    "allPassedAt": "2026-10-08T09:16:46.080962Z"
+  },
+  "audits": [
+    {
+      "bundle": ".evidence/issue14-complete/20261008T093734.501481000Z",
+      "findings": null
+    },
+    {
+      "bundle": ".evidence/issue14-live/20261008T091619.605370000Z",
+      "combo": "google-interactions-image",
+      "findings": null
+    }
+  ],
+  "unevaluated_or_outside_scope_gates": [
+    {
+      "id": "go-test",
+      "name": "go test ./... (offline, differential on)",
+      "pass": false,
+      "problems": [
+        "go-test: not run"
+      ]
+    },
+    {
+      "id": "go-test-race",
+      "name": "go test -race ./...",
+      "pass": false,
+      "problems": [
+        "go-test-race: not run"
+      ]
+    },
+    {
+      "id": "go-vet",
+      "name": "go vet ./... (with and without the live tag)",
+      "pass": false,
+      "problems": [
+        "go-vet: not run",
+        "go-vet-live: not run"
+      ]
+    },
+    {
+      "id": "live",
+      "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+      "pass": false,
+      "problems": [
+        "openai-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "anthropic-messages: no live evidence bundle of this combination was audited (pass it with -live)",
+        "google-gemini: no live evidence bundle of this combination was audited (pass it with -live)",
+        "openai-chat: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-responses: no live evidence bundle of this combination was audited (pass it with -live)",
+        "deepseek-chat: no live evidence bundle of this combination was audited (pass it with -live)",
+        "typesafe-classifier: no live evidence bundle of this combination was audited (pass it with -live)",
+        "openai-images: no live evidence bundle of this combination was audited (pass it with -live)"
+      ]
+    }
+  ]
+}

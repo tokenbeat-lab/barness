@@ -1,0 +1,30 @@
+--- FAIL: TestGoogleImagesHarnessCapture (0.41s)
+    --- FAIL: TestGoogleImagesHarnessCapture/request-prefix (0.02s)
+        google_images_capture_test.go:80: [P09-live-capture-request-prefix] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:80: [P09-live-capture-request-prefix] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:82: [P09-live-capture-request-prefix] safe bounded failure evidence: missing bounded diagnostic marker
+    --- FAIL: TestGoogleImagesHarnessCapture/response-prefix (0.37s)
+        google_images_capture_test.go:80: [P09-live-capture-response-prefix] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:80: [P09-live-capture-response-prefix] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:82: [P09-live-capture-response-prefix] safe bounded failure evidence: missing bounded diagnostic marker
+    --- FAIL: TestGoogleImagesHarnessCapture/malformed (0.01s)
+        google_images_capture_test.go:80: [P09-live-capture-malformed] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:80: [P09-live-capture-malformed] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:80: [P09-live-capture-malformed] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:80: [P09-live-capture-malformed] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:82: [P09-live-capture-malformed] safe bounded failure evidence: missing bounded diagnostic marker
+    --- FAIL: TestGoogleImagesHarnessCapture/read-interrupted (0.01s)
+        google_images_capture_test.go:80: [P09-live-capture-read-interrupted] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:80: [P09-live-capture-read-interrupted] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:80: [P09-live-capture-read-interrupted] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:80: [P09-live-capture-read-interrupted] sensitive output omitted: native signed material persisted
+        google_images_capture_test.go:82: [P09-live-capture-read-interrupted] safe bounded failure evidence: missing bounded diagnostic marker
+--- FAIL: TestGoogleImagesHarnessWire (0.03s)
+    --- FAIL: TestGoogleImagesHarnessWire/uri (0.01s)
+        google_images_harness_test.go:118: [P09-live-harness-uri] rejected resources stay redacted: rejected URI or continuation value retained
+    --- FAIL: TestGoogleImagesHarnessWire/continuation (0.01s)
+        google_images_harness_test.go:118: [P09-live-harness-continuation] rejected resources stay redacted: rejected URI or continuation value retained
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai/20261008T093404.749956000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	1.980s
+FAIL

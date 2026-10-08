@@ -1,0 +1,47 @@
+{
+  "source_bundle": ".evidence/issue14-final/20261008T092832.500384000Z",
+  "case": {
+    "dir": "P01-E11-builtin-catalog-pinned",
+    "fixtures": {
+      "usage.json": "ad2862ddf675d16791978b8c3ab0aa198cbe5d51774be7f8a79e7fab416ddb1a"
+    },
+    "id": "P01-E11-builtin-catalog-pinned",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestUsageAndCost$/^builtin-catalog-pinned$'",
+    "status": "FAIL",
+    "test": "TestUsageAndCost/builtin-catalog-pinned"
+  },
+  "assertions": {
+    "assertions": [
+      {
+        "name": "built-in catalog version",
+        "pass": false,
+        "detail": "got \"2026-10-08.5\" want \"2026-10-08.4\""
+      },
+      {
+        "name": "built-in catalog content is the pinned one (bump Version, then the pin, on any change)",
+        "pass": false,
+        "detail": "got sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 want sha256:37b8e6e2bc17576040fdc16c3774908c3e09fc5e1fbe8af7219b6e406ed2ce93"
+      },
+      {
+        "name": "hash is stable",
+        "pass": true,
+        "detail": "differs between copies"
+      },
+      {
+        "name": "a price change changes the hash",
+        "pass": true,
+        "detail": "unchanged"
+      },
+      {
+        "name": "an invalid catalog has no hash",
+        "pass": true,
+        "detail": "err=ai: invalid config Catalog: chat model gpt-4: a price is negative or not finite"
+      }
+    ],
+    "case_id": "P01-E11-builtin-catalog-pinned",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestUsageAndCost$/^builtin-catalog-pinned$'",
+    "status": "FAIL",
+    "test": "TestUsageAndCost/builtin-catalog-pinned"
+  },
+  "reason": "Existing global catalog E2E pin was still 2026-10-08.4 after builtin version increment."
+}

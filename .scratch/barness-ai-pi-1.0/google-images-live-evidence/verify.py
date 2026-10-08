@@ -59,4 +59,22 @@ assert not read(folder / 'audit.json')['findings']
 if (folder / 'offline-summary.json').exists():
     assert read(folder / 'offline-summary.json')['passing_cases'] > 4000
     assert all(c['status'] == 'PASS' for c in read(folder / 'offline-manifest.json')['cases'])
+if (folder / 'live-harness-manifest.json').exists():
+    harness = read(folder / 'live-harness-manifest.json')
+    assert harness['audit_findings'] == 0
+    assert all(c['status'] == 'PASS' for c in harness['cases'])
+    assert {c['id'] for c in harness['cases']} >= {
+        'P09-live-capture-' + name for name in
+        ['request-prefix', 'response-prefix', 'malformed', 'read-interrupted']}
+if (folder / 'verification.json').exists():
+    verification = read(folder / 'verification.json')
+    assert verification['status'] == 'PASS' and verification['failed_cases'] == 0
+    assert verification['run_audit_findings'] == 0 and verification['all_recorded_gauges_zero']
+    assert verification['review']['axes']['Standards']['remaining'] == 0
+    assert verification['review']['axes']['Spec']['remaining'] == 0
+    assert all(c['exit_code'] == 0 for c in verification['commands'])
+    trace = read(folder / 'trace.json')
+    assert trace['catalog_snapshot_current'] and trace['differential_pass']
+    assert trace['own_live_row']['status'] == 'PASS'
+    assert len(trace['items']) == 3 and all(i['status'] == 'PASS' for i in trace['items'])
 print('PASS: issue 14 source/artifact hashes, own live evidence, raster checks and matrix')

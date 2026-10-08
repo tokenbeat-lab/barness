@@ -1,0 +1,35 @@
+{
+  "base_commit": "2aa71180fc1dbc647b94520abdf1be0c8944ea10",
+  "reviewed_commits": [
+    "4251b887625c6ed08b87986eb4db84fca4566e54",
+    "8383d4fecff7b19f1e6a4f1af12d27f3721e7b5f",
+    "867f09628c5854d8bd5789148d9f71c117f74de5"
+  ],
+  "axes": {
+    "Standards": {
+      "findings": 1,
+      "highest_severity": "P2",
+      "fixed": 1,
+      "remaining": 0,
+      "baseline_smells_remaining": 0
+    },
+    "Spec": {
+      "findings": 0,
+      "remaining": 0
+    }
+  },
+  "review_report": "review.md",
+  "paid_calls_during_review": 0,
+  "red_green": {
+    "command": "go test -tags live ./ai/live -run '^TestGoogleImagesHarness(Capture|Wire)$/(request-prefix|response-prefix|malformed|read-interrupted|uri|continuation)$' -count=1",
+    "red_exit_code": 1,
+    "green_exit_code": 0,
+    "red_log": "review-red.log",
+    "green_log": "review-green.log"
+  },
+  "catalog_pin": {
+    "red_assertions": "catalog-pin-red.json",
+    "green_command": "go test ./ai/e2e -run '^TestUsageAndCost$/^builtin-catalog-pinned$' -count=1",
+    "green_exit_code": 0
+  }
+}

@@ -1,0 +1,2583 @@
+{
+  "cases": [
+    {
+      "dir": "P08-live-harness-invalid-image",
+      "fixtures": {},
+      "id": "P08-live-harness-invalid-image",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^invalid-image$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/invalid-image",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "f4e24ce20233b5a22e8ba50078244728b6a9974a6ed40cb4e5b7ad2b5deed6bc",
+        "attempt-1-controlled-result.json": "94e2bae526508d1ced459f92be540f8c2e6a18d860b83f48440a1945b9d361e4",
+        "observations-attempt-1-controlled.json": "9dee6e6392b21f66b770b918b3672846cb6d9034d3eb584476a1823a1c8cfef0",
+        "assertions.json": "f7d87c99e02086c8b606f82e4dea15a848a4d7af55422246075eb9d6c8636ebe",
+        "attempt-1-controlled-image-check.json": "71b005407a66b98c0a8204193bf4faf36c5cc054004e3c44289907a499961f73"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "invalid image clears output but retains usage",
+              "pass": true,
+              "detail": "lost usage"
+            }
+          ],
+          "case_id": "P08-live-harness-invalid-image",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^invalid-image$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/invalid-image"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-json-refused",
+      "fixtures": {},
+      "id": "P08-live-harness-json-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^json-refused$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/json-refused",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "6aabcad265420c730ff5af2a4bf3c63fe653fdf2e0e7b3125a63a97dd2ef1332",
+        "attempt-1-controlled-result.json": "ee7512c0e5daaf9b893887044dea82991d5be2624d9571735e348c9731f31ffa",
+        "observations-attempt-1-controlled.json": "43d119b067cfc732285d1af9c4a00c3d11d50808e5d0dbd53dc9fb1244c01d4f",
+        "assertions.json": "9ce32c05a7765e504b0f7546a31c00d782b05701662186b329e1c105303e1d2b",
+        "attempt-1-controlled-image-check.json": "71b005407a66b98c0a8204193bf4faf36c5cc054004e3c44289907a499961f73"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "only optional explicit mask refusal",
+              "pass": true,
+              "detail": "wrong optional classification"
+            }
+          ],
+          "case_id": "P08-live-harness-json-refused",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^json-refused$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/json-refused"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-mask-format-refused",
+      "fixtures": {},
+      "id": "P08-live-harness-mask-format-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-format-refused$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/mask-format-refused",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "00c9551975233128d302a491214a77c9210c94872d02178be269ca3393c337b0",
+        "attempt-1-controlled-result.json": "d200e95465b733011ca630842f2cb7e27306c4a206eb36a10b434daab582a690",
+        "observations-attempt-1-controlled.json": "afd8dfcfc68549ecd5eb4e7c4b8b99be3cd25f84234569309bc640c8b051a2b2",
+        "assertions.json": "c5f8ec3a0d5da922c01441e93c93694c73a4ddf968914ee748c09a069570a294",
+        "attempt-1-controlled-image-check.json": "71b005407a66b98c0a8204193bf4faf36c5cc054004e3c44289907a499961f73"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "only optional explicit mask refusal",
+              "pass": true,
+              "detail": "wrong optional classification"
+            }
+          ],
+          "case_id": "P08-live-harness-mask-format-refused",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-format-refused$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/mask-format-refused"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-mask-refused",
+      "fixtures": {},
+      "id": "P08-live-harness-mask-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-refused$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/mask-refused",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "e5d014688d1663c352d53f60174c707a63636687baa33af855a6c1adba1406bb",
+        "attempt-1-controlled-result.json": "ade0edcaef65c6260f634d611075220c3a8b4b97e8c39ba8afd5a9db153b4a77",
+        "observations-attempt-1-controlled.json": "da4a4b1751751447cd4fc3007c7f27bdeefd8469e531abc3fc8aaba10cc061dd",
+        "assertions.json": "ed53a7c4167cbfd64c7285f142beab62738bda4430736fd41a1c3e2348b65107",
+        "attempt-1-controlled-image-check.json": "71b005407a66b98c0a8204193bf4faf36c5cc054004e3c44289907a499961f73"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "only optional explicit mask refusal",
+              "pass": true,
+              "detail": "wrong optional classification"
+            }
+          ],
+          "case_id": "P08-live-harness-mask-refused",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-refused$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/mask-refused"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-mask-size-refused",
+      "fixtures": {},
+      "id": "P08-live-harness-mask-size-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-size-refused$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/mask-size-refused",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "69bbf157d806014b9c3bb660b13999fb13c6eacb708dfc544a48187bfb6daaeb",
+        "attempt-1-controlled-result.json": "62defe47e3abfd66f89625c91ddaf63532116a8da0ec9e0dcd2abdf2ef0cc601",
+        "observations-attempt-1-controlled.json": "7617788416cba689d8505391f030622559978e80aad35c290187cf5fb3e5a137",
+        "assertions.json": "6ccc0882d50683f570a146ae94f17a328d091c29f404461794fa9a4e7d0b1cbf",
+        "attempt-1-controlled-image-check.json": "71b005407a66b98c0a8204193bf4faf36c5cc054004e3c44289907a499961f73"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "only optional explicit mask refusal",
+              "pass": true,
+              "detail": "wrong optional classification"
+            }
+          ],
+          "case_id": "P08-live-harness-mask-size-refused",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^mask-size-refused$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/mask-size-refused"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-process-edit-refusal",
+      "fixtures": {},
+      "id": "P08-live-harness-process-edit-refusal",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^edit-refusal$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/edit-refusal",
+      "artifacts": {
+        "report.json": "ca4d16132f5410ab8c9dc985bfd1758cfd5562f6b5055cfe8a1087e3c30575c5",
+        "assertions.json": "fc44b49df6515ef368db17f7b080c1c2e7749cfe6d4eb4039702acc6b197aa68"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "incorrect complete outcome"
+            },
+            {
+              "name": "bounded consumption",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "mandatory edit is FAIL, downstream NOT_RUN",
+              "pass": true,
+              "detail": "refusal concealed"
+            }
+          ],
+          "case_id": "P08-live-harness-process-edit-refusal",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^edit-refusal$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessProcess/edit-refusal"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-process-environment-retry",
+      "fixtures": {},
+      "id": "P08-live-harness-process-environment-retry",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^environment-retry$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/environment-retry",
+      "artifacts": {
+        "report.json": "d38a10e13ddaff5d5daabaf55ee904b08859770e8c8b756a4089bc91c3b5a2a7",
+        "assertions.json": "acf4323f57c1ef6df9e4c1d6494edfe5efe7cc8d2af0b538f6c0523f0fc97906"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "incorrect complete outcome"
+            },
+            {
+              "name": "bounded consumption",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "failed request and retry counted",
+              "pass": true,
+              "detail": "retry consumption lost"
+            }
+          ],
+          "case_id": "P08-live-harness-process-environment-retry",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^environment-retry$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessProcess/environment-retry"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-process-exhaustion",
+      "fixtures": {},
+      "id": "P08-live-harness-process-exhaustion",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^exhaustion$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/exhaustion",
+      "artifacts": {
+        "report.json": "98d85138a665a998068c7367b38db1ab39f4887e04197ce203bbd43e9dc1ff14",
+        "assertions.json": "a016cdb01c2cce3339d2f9d7d0d9928c99f33022e10801bc99307ed2dac48235"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "incorrect complete outcome"
+            },
+            {
+              "name": "bounded consumption",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "budget exhaustion fails",
+              "pass": true,
+              "detail": "exhaustion skipped"
+            }
+          ],
+          "case_id": "P08-live-harness-process-exhaustion",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^exhaustion$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessProcess/exhaustion"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-process-narrowed",
+      "fixtures": {},
+      "id": "P08-live-harness-process-narrowed",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^narrowed$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/narrowed",
+      "artifacts": {
+        "report.json": "ca05474d3139509b826942263a76c9e3369773206729b38ce8a45e36b8a73a40",
+        "assertions.json": "0630be06dd9cf85abf94973f1cecfed1e4b503329af4957ad9e3269cfd089b1f"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "incorrect complete outcome"
+            },
+            {
+              "name": "bounded consumption",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "cannot bypass first JSON edit",
+              "pass": true,
+              "detail": "narrowed run sent a request"
+            }
+          ],
+          "case_id": "P08-live-harness-process-narrowed",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^narrowed$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessProcess/narrowed"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-process-quantity",
+      "fixtures": {},
+      "id": "P08-live-harness-process-quantity",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^quantity$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/quantity",
+      "artifacts": {
+        "report.json": "985090cddb3e6197f667c6e8f8c077f62b3c014394020e3e26c0d1d2fcc0cf23",
+        "assertions.json": "16c192092e2d1a759b49f91da7fb1312d619c96d431ccbbb5d6f03bfb1d3814a"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "incorrect complete outcome"
+            },
+            {
+              "name": "bounded consumption",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "request budget guard sends nothing",
+              "pass": true,
+              "detail": "request escaped smoke limits"
+            }
+          ],
+          "case_id": "P08-live-harness-process-quantity",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^quantity$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessProcess/quantity"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-process-resolution",
+      "fixtures": {},
+      "id": "P08-live-harness-process-resolution",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^resolution$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessProcess/resolution",
+      "artifacts": {
+        "report.json": "57865e8eb0a21ceed67c55329534d647d25c0b19155ff22ebce85bd8afdb0877",
+        "assertions.json": "ebf6e8103e9e23447e73cd2f666ee367e007e5c0b90c45c56e2cadcfd3f52254"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "incorrect complete outcome"
+            },
+            {
+              "name": "bounded consumption",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "request budget guard sends nothing",
+              "pass": true,
+              "detail": "request escaped smoke limits"
+            }
+          ],
+          "case_id": "P08-live-harness-process-resolution",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessProcess$/^resolution$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessProcess/resolution"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-success",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P08-live-harness-success",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^success$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/success",
+      "artifacts": {
+        "image-check.json": "21b2c3e3f236267d1cf057c31b9ecaadea23a37440fc54a4a72250d9235a2b39",
+        "attempt-1-controlled-exchanges.json": "b67e819e6a2c9a31106332af64c3a588afee43ed753d9692d994edc17ead8b34",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "1601221eaf860423347d72d47110b453fe5e279e03c8b48d29bbce73c47b7f23",
+        "observations-attempt-1-controlled.json": "900376d5499b3c104574734ae92f8693d74b040b8dd4ec0e0d2c5238a86c80ab",
+        "assertions.json": "5617aa04ba2c08008170f2df23fac6ce8d98748626ab9e3f241dbaec4526ecf3",
+        "attempt-1-controlled-image-check.json": "113c886e37d7ba583b52df1b2af762e6059e69baf8a19367bb86a12dbbcd194b"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "call succeeds",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "dimension guard",
+              "pass": true,
+              "detail": "wrong raster acceptance: <nil>"
+            },
+            {
+              "name": "usage shape preserved",
+              "pass": true,
+              "detail": "wrong usage reporting"
+            },
+            {
+              "name": "known-only official token pricing",
+              "pass": true,
+              "detail": "cost={Input:0.00020999999999999998 Output:0.00030000000000000003 CacheRead:0 CacheWrite:0 Total:0.00051}"
+            }
+          ],
+          "case_id": "P08-live-harness-success",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^success$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/success"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-transparent-opaque",
+      "fixtures": {},
+      "id": "P08-live-harness-transparent-opaque",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^transparent-opaque$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/transparent-opaque",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "b6a8d00fa3d3dbb479f916bc38d9830faf3a8ba01268bb50f20819af2b799a5a",
+        "attempt-1-controlled-result.json": "839a06e9c32c24c3fa6e7cf36434cff14b9724d49ab7e26b3d0e2d7716a8b65b",
+        "observations-attempt-1-controlled.json": "df2a43db3b1a032476c46a81b468218a24bc7b61252a1ca69a5350ff58da7c5d",
+        "assertions.json": "756e21c46122ee42f15e398a58f0f174f08ec37ab2121202f04a903a53f8587b",
+        "attempt-1-controlled-image-check.json": "073c945cff6b1864ed5f4be05dd942c101717832d25b81d8c583756c3714c5ed"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "call succeeds",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "opaque output cannot confirm transparency",
+              "pass": true,
+              "detail": "opaque raster was verified as transparent"
+            }
+          ],
+          "case_id": "P08-live-harness-transparent-opaque",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^transparent-opaque$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/transparent-opaque"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-usage-absent",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P08-live-harness-usage-absent",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^usage-absent$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/usage-absent",
+      "artifacts": {
+        "image-check.json": "3e100f79d8d9066c39558ba00177fe3cbbf0e036fe4acafa1a524d2863feec92",
+        "attempt-1-controlled-exchanges.json": "a5db2c12107e577c50a4b44e2cbc6c53d1eb0246d08dbabc378de7ad3b2343d8",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "c8ce3eaefb0ad043ce5814c389cbf3fbaced9396a4c1c9fb5f88b6345c71bd2d",
+        "observations-attempt-1-controlled.json": "09dd785343e1acd83102aea7bc19e328b0b4b490e7552743ae23af69fedc6678",
+        "assertions.json": "5db985ef10054974ba1d4c85bb6793ad3d1f94b3b532600ed49d8b487488921e",
+        "attempt-1-controlled-image-check.json": "113c886e37d7ba583b52df1b2af762e6059e69baf8a19367bb86a12dbbcd194b"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "call succeeds",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "dimension guard",
+              "pass": true,
+              "detail": "wrong raster acceptance: <nil>"
+            },
+            {
+              "name": "usage shape preserved",
+              "pass": true,
+              "detail": "wrong usage reporting"
+            },
+            {
+              "name": "known-only official token pricing",
+              "pass": true,
+              "detail": "cost={Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}"
+            }
+          ],
+          "case_id": "P08-live-harness-usage-absent",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^usage-absent$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/usage-absent"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-usage-partial",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P08-live-harness-usage-partial",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^usage-partial$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/usage-partial",
+      "artifacts": {
+        "image-check.json": "c47c336caf3affbca244457818526b61ab3a64a17e85fe02811cda17fa59e9d6",
+        "attempt-1-controlled-exchanges.json": "83fb1172a547e34b9b856a283edbc7760f4dfd990fe28dfbbf2c1e939f05fe84",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "baea45851980a7518f72b2ea73673960dfda03a7ab085298ab98d7379ada3ee0",
+        "observations-attempt-1-controlled.json": "d7d35134bc20020dea4c364cd715938bbbe36bffefc5f1603b6411466c2444a3",
+        "assertions.json": "af68e62febfefa29f6ca3941f6197d9b0f81445874afa1feff9bf906eb205a10",
+        "attempt-1-controlled-image-check.json": "113c886e37d7ba583b52df1b2af762e6059e69baf8a19367bb86a12dbbcd194b"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "call succeeds",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "dimension guard",
+              "pass": true,
+              "detail": "wrong raster acceptance: <nil>"
+            },
+            {
+              "name": "usage shape preserved",
+              "pass": true,
+              "detail": "wrong usage reporting"
+            },
+            {
+              "name": "known-only official token pricing",
+              "pass": true,
+              "detail": "cost={Input:0.00020999999999999998 Output:0 CacheRead:0 CacheWrite:0 Total:0.00020999999999999998}"
+            }
+          ],
+          "case_id": "P08-live-harness-usage-partial",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^usage-partial$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/usage-partial"
+        }
+      }
+    },
+    {
+      "dir": "P08-live-harness-wrong-size",
+      "fixtures": {},
+      "id": "P08-live-harness-wrong-size",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^wrong-size$'",
+      "status": "PASS",
+      "test": "TestImagesHarnessWire/wrong-size",
+      "artifacts": {
+        "image-check.json": "fb86dbab83d4099ea7965b5e3a9617c7bccc9c77e4958ef7c28d60cea1bdea6d",
+        "attempt-1-controlled-exchanges.json": "46ee2aaa842f282a4c9891631b412bf28bd3477facacbe282886c4f6a095f93b",
+        "attempt-1-controlled-result.json": "2c88e8422508db70e8aa0ef48dc7b7c5e1618e6fc98772106f7ff31a897d8abb",
+        "observations-attempt-1-controlled.json": "6238f5fb9d3ba7ca75b171caf72a262e2b74de0292e82257a244b2848db5bed5",
+        "assertions.json": "b1f513acca8b5ddaf215c64a70c0e0f7e90d6a6e6647a9a344759257a5fc0478",
+        "attempt-1-controlled-image-check.json": "6c34210517951cf8b529ec9a3a264ae6ed27a39c7c3f957b0e158211998cc054"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "native JSON edit",
+              "pass": true,
+              "detail": "wrong native request"
+            },
+            {
+              "name": "inline reference",
+              "pass": true,
+              "detail": "missing inline JSON image"
+            },
+            {
+              "name": "undocumented fidelity omitted",
+              "pass": true,
+              "detail": "input_fidelity sent"
+            },
+            {
+              "name": "fixed official JSON image route",
+              "pass": true,
+              "detail": "unexpected image route or protocol"
+            },
+            {
+              "name": "fixed budget and inline JSON payload",
+              "pass": true,
+              "detail": "unexpected or incomplete native request capture"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "count sent and reserved",
+              "pass": true,
+              "detail": "lost request consumption"
+            },
+            {
+              "name": "call succeeds",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "dimension guard",
+              "pass": true,
+              "detail": "wrong raster acceptance: output size must be 1024x1024 within the 1K smoke budget"
+            },
+            {
+              "name": "usage shape preserved",
+              "pass": true,
+              "detail": "wrong usage reporting"
+            },
+            {
+              "name": "known-only official token pricing",
+              "pass": true,
+              "detail": "cost={Input:0.00020999999999999998 Output:0.00030000000000000003 CacheRead:0 CacheWrite:0 Total:0.00051}"
+            }
+          ],
+          "case_id": "P08-live-harness-wrong-size",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestImagesHarnessWire$/^wrong-size$'",
+          "status": "PASS",
+          "test": "TestImagesHarnessWire/wrong-size"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-capture-malformed",
+      "fixtures": {},
+      "id": "P09-live-capture-malformed",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^malformed$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessCapture/malformed",
+      "artifacts": {
+        "result.json": "fe3dd7534cdf61f6d0bf85e6768de1001526f7260c101f220e955aa3d60aea7c",
+        "exchanges.json": "f85d5befd8edb42d27fb0fe069f2d44a7729220ca1a53937a1fab6ab11f3f1a2",
+        "assertions.json": "cd4fdfd992ee89d9ae0a5c148bc5b2b6f8f5572c2a7af4db407069cf1ee77e1c"
+      },
+      "records": {
+        "result.json": {
+          "error": "ai: protocol (response): invalid Google Interactions image response",
+          "result": {
+            "content": null,
+            "usage": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 0,
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0
+              }
+            },
+            "stopReason": "error",
+            "errorMessage": "invalid Google Interactions image response",
+            "metadata": {
+              "tenantId": "live-smoke",
+              "requestId": "req-0bd0ee134f93fea48b82d27669536089",
+              "jobId": "live-smoke",
+              "bindingId": "google-interactions-image",
+              "operation": "image",
+              "resolved": true,
+              "providerId": "google",
+              "api": "google-interactions",
+              "modelId": "gemini-nano-banana-2.1",
+              "accountScopeId": "live-google-interactions-image",
+              "bindingVersion": "live",
+              "credentialVersion": "live",
+              "catalogVersion": "2026-10-08.5+google-images-probe-2026-10-08",
+              "catalogHash": "sha256:5ea9429e4b5ef1be813c67f4b1f7dcaed5674ed50107101e3f9f356b923f498f",
+              "attempts": [
+                {
+                  "attemptId": "req-0bd0ee134f93fea48b82d27669536089#1",
+                  "httpStatus": 200,
+                  "usageReporting": "unreported",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "client preserves response failure",
+              "pass": true,
+              "detail": "err=ai: protocol (response): invalid Google Interactions image response"
+            },
+            {
+              "name": "one isolated capture",
+              "pass": true,
+              "detail": "wrong transport count"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "safe bounded failure evidence",
+              "pass": true,
+              "detail": "missing bounded diagnostic marker"
+            },
+            {
+              "name": "prefix flags remain accurate",
+              "pass": true,
+              "detail": "wrong truncation flag"
+            }
+          ],
+          "case_id": "P09-live-capture-malformed",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^malformed$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessCapture/malformed"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-capture-read-interrupted",
+      "fixtures": {},
+      "id": "P09-live-capture-read-interrupted",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^read-interrupted$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessCapture/read-interrupted",
+      "artifacts": {
+        "result.json": "d236cdb710d8d2c796c9c61c30fc151988ce4facf06bd37fc7ee206584dadaec",
+        "exchanges.json": "de3df3f77b6e65bd40bcf9062efabfe5a0b46945f26fb846d3c84761a9563758",
+        "assertions.json": "eb08a61235d276ec2c35f970aa24e8255adf42f0c0c75f219c98a6f4d09a51b8"
+      },
+      "records": {
+        "result.json": {
+          "error": "ai: transport (response): response body could not be read",
+          "result": {
+            "content": null,
+            "usage": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 0,
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0
+              }
+            },
+            "stopReason": "error",
+            "errorMessage": "response body could not be read",
+            "metadata": {
+              "tenantId": "live-smoke",
+              "requestId": "req-af679febe2a90422c0be6991e15ae6b9",
+              "jobId": "live-smoke",
+              "bindingId": "google-interactions-image",
+              "operation": "image",
+              "resolved": true,
+              "providerId": "google",
+              "api": "google-interactions",
+              "modelId": "gemini-nano-banana-2.1",
+              "accountScopeId": "live-google-interactions-image",
+              "bindingVersion": "live",
+              "credentialVersion": "live",
+              "catalogVersion": "2026-10-08.5+google-images-probe-2026-10-08",
+              "catalogHash": "sha256:5ea9429e4b5ef1be813c67f4b1f7dcaed5674ed50107101e3f9f356b923f498f",
+              "attempts": [
+                {
+                  "attemptId": "req-af679febe2a90422c0be6991e15ae6b9#1",
+                  "httpStatus": 200,
+                  "usageReporting": "unreported",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "client preserves response failure",
+              "pass": true,
+              "detail": "err=ai: transport (response): response body could not be read"
+            },
+            {
+              "name": "one isolated capture",
+              "pass": true,
+              "detail": "wrong transport count"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "safe bounded failure evidence",
+              "pass": true,
+              "detail": "missing bounded diagnostic marker"
+            },
+            {
+              "name": "prefix flags remain accurate",
+              "pass": true,
+              "detail": "wrong truncation flag"
+            }
+          ],
+          "case_id": "P09-live-capture-read-interrupted",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^read-interrupted$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessCapture/read-interrupted"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-capture-request-prefix",
+      "fixtures": {},
+      "id": "P09-live-capture-request-prefix",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^request-prefix$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessCapture/request-prefix",
+      "artifacts": {
+        "result.json": "033722f049807cb072f4e5a76107874367bd4f89168d285b9112562bcfb2a673",
+        "exchanges.json": "5879786da6100174832ab5726001707071eca942a01513bf92b0d749b4fbcb30",
+        "assertions.json": "3c1ba4d9e62fa2f8b739add1b0ad8803f793dedacbe0abb2c8e8fc5291fd90c9"
+      },
+      "records": {
+        "result.json": {
+          "error": "",
+          "result": {
+            "content": [
+              {
+                "type": "image",
+                "data": "iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAIAAADwf7zUAAAUpklEQVR4nOzXMRHAIADAwF4PgchBIrJwAUP+FWTNmGt/AABAw/86AAAAuMcAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDEAAAAQYgAAACDEAAAAQIgBAACAEAMAAAAhBgAAAEIMAAAAhBgAAAAIMQAAABBiAAAAIMQAAABAiAEAAIAQAwAAACEGAAAAQgwAAACEGAAAAAgxAAAAEGIAAAAgxAAAAECIAQAAgBADAAAAIQYAAABCDAAAAIQYAAAACDkBAAD///7TCZObqoDIAAAAAElFTkSuQmCC",
+                "mimeType": "image/png"
+              }
+            ],
+            "responseModel": "gemini-nano-banana-2.1",
+            "usage": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 0,
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0
+              }
+            },
+            "stopReason": "stop",
+            "metadata": {
+              "tenantId": "live-smoke",
+              "requestId": "req-fff904a7486043eafaaeb9101872ea4b",
+              "jobId": "live-smoke",
+              "bindingId": "google-interactions-image",
+              "operation": "image",
+              "resolved": true,
+              "providerId": "google",
+              "api": "google-interactions",
+              "modelId": "gemini-nano-banana-2.1",
+              "accountScopeId": "live-google-interactions-image",
+              "bindingVersion": "live",
+              "credentialVersion": "live",
+              "catalogVersion": "2026-10-08.5+google-images-probe-2026-10-08",
+              "catalogHash": "sha256:5ea9429e4b5ef1be813c67f4b1f7dcaed5674ed50107101e3f9f356b923f498f",
+              "attempts": [
+                {
+                  "attemptId": "req-fff904a7486043eafaaeb9101872ea4b#1",
+                  "httpStatus": 200,
+                  "usageReporting": "unreported",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "client preserves response failure",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "one isolated capture",
+              "pass": true,
+              "detail": "wrong transport count"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "safe bounded failure evidence",
+              "pass": true,
+              "detail": "missing bounded diagnostic marker"
+            },
+            {
+              "name": "prefix flags remain accurate",
+              "pass": true,
+              "detail": "wrong truncation flag"
+            },
+            {
+              "name": "complete response still preserves shape",
+              "pass": true,
+              "detail": "request truncation lost response shape"
+            }
+          ],
+          "case_id": "P09-live-capture-request-prefix",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^request-prefix$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessCapture/request-prefix"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-capture-response-prefix",
+      "fixtures": {},
+      "id": "P09-live-capture-response-prefix",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^response-prefix$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessCapture/response-prefix",
+      "artifacts": {
+        "result.json": "434125b16f80a65c663462da41d9e2e9b6069a1f0c31cb85f3e47cbc5617dea2",
+        "exchanges.json": "3cca8afd0201bfed57bdad0b3f236d3f0b21fc9d81ddc7d04585104b50639069",
+        "assertions.json": "5dec5af4f7448da81ed3793ab3046ed14df65c9afb842c7e3f95fb3cc5a2b43e"
+      },
+      "records": {
+        "result.json": {
+          "error": "ai: resource_limit (response): exceeded the resource policy's MaxOutputBytes (16777216)",
+          "result": {
+            "content": null,
+            "responseModel": "gemini-nano-banana-2.1",
+            "usage": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 0,
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0
+              }
+            },
+            "stopReason": "error",
+            "errorMessage": "exceeded the resource policy's MaxOutputBytes (16777216)",
+            "metadata": {
+              "tenantId": "live-smoke",
+              "requestId": "req-71c2782a5d696f31b9ab77020e5346ff",
+              "jobId": "live-smoke",
+              "bindingId": "google-interactions-image",
+              "operation": "image",
+              "resolved": true,
+              "providerId": "google",
+              "api": "google-interactions",
+              "modelId": "gemini-nano-banana-2.1",
+              "accountScopeId": "live-google-interactions-image",
+              "bindingVersion": "live",
+              "credentialVersion": "live",
+              "catalogVersion": "2026-10-08.5+google-images-probe-2026-10-08",
+              "catalogHash": "sha256:5ea9429e4b5ef1be813c67f4b1f7dcaed5674ed50107101e3f9f356b923f498f",
+              "attempts": [
+                {
+                  "attemptId": "req-71c2782a5d696f31b9ab77020e5346ff#1",
+                  "httpStatus": 200,
+                  "usageReporting": "unreported",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "client preserves response failure",
+              "pass": true,
+              "detail": "err=ai: resource_limit (response): exceeded the resource policy's MaxOutputBytes (16777216)"
+            },
+            {
+              "name": "one isolated capture",
+              "pass": true,
+              "detail": "wrong transport count"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "sensitive output omitted",
+              "pass": true,
+              "detail": "native signed material persisted"
+            },
+            {
+              "name": "safe bounded failure evidence",
+              "pass": true,
+              "detail": "missing bounded diagnostic marker"
+            },
+            {
+              "name": "prefix flags remain accurate",
+              "pass": true,
+              "detail": "wrong truncation flag"
+            }
+          ],
+          "case_id": "P09-live-capture-response-prefix",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessCapture$/^response-prefix$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessCapture/response-prefix"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-complete",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-complete",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^complete$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/complete",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "1ddd166a499513bb7c17cac494600e53d48696423efa8d2c7ecfaf3c887be784",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "af2a95afc9dc19ca357d3996f7edf21a238c0041eb11fb19e10ebfa49f3c8200",
+        "observations-attempt-1-controlled.json": "97951bb33542ecca831e2b1ffcd3a25b5ad4a9d43af90c1209d2419a2b42bbac",
+        "assertions.json": "d5b01b950006d5040ad211976a95d66ce629781d1f380e13784382bda060c114",
+        "attempt-1-controlled-image-check.json": "c2199c3d7a0a52ab797d7a72686d972bcd9a88bde7a9e97dca9e8ea1cde57600"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "readable square raster",
+              "pass": true,
+              "detail": "validation=<nil>"
+            },
+            {
+              "name": "usage reporting",
+              "pass": true,
+              "detail": "wrong reporting"
+            },
+            {
+              "name": "thinking counted once",
+              "pass": true,
+              "detail": "usage={Input:7 Output:1142 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0xc00013c480 TotalTokens:1149 Cost:{Input:1.0500000000000001e-05 Output:0.033764999999999996 CacheRead:0 CacheWrite:0 Total:0.03377549999999999}}"
+            },
+            {
+              "name": "all model output content retained",
+              "pass": true,
+              "detail": "lost ordered blocks"
+            },
+            {
+              "name": "bounded capture retains trailing usage",
+              "pass": true,
+              "detail": "shape evidence lost or unbounded"
+            }
+          ],
+          "case_id": "P09-live-harness-complete",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^complete$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/complete"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-continuation",
+      "fixtures": {},
+      "id": "P09-live-harness-continuation",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^continuation$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/continuation",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "9e65f6da04e58f361e32df03db747fcc2e49d017efe09007e0c6e72dda85c768",
+        "attempt-1-controlled-result.json": "9cb25c0ce28f8fd3043fc6fc270a222cacb74f516a7465b1feef2f59a3d67eda",
+        "observations-attempt-1-controlled.json": "739a34d391121527adae252f8ad5022dabd1065dfac07609e25f22e7c359c66d",
+        "assertions.json": "24f82c799acbf3e0fd3185a921a2a6f6c792f2ca3b99be00999b4fec0c2b1bd9",
+        "attempt-1-controlled-image-check.json": "4db023c1a9ff342fc8f88e90c179ab8188ffa386fc9ea042db3f5d6ba1dfc006"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=ai: protocol (response): invalid Google Interactions image response"
+            },
+            {
+              "name": "rejected resources stay redacted",
+              "pass": true,
+              "detail": "rejected URI or continuation value retained"
+            }
+          ],
+          "case_id": "P09-live-harness-continuation",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^continuation$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/continuation"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-identity-absent",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-identity-absent",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^identity-absent$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/identity-absent",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "904f93875ae0414c993d8d5eb0c996472bfa32b70ed773877d910acaba0b3db1",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "7f82f505c0e1cf2adfe6b590f43ef66fa5f386cf8014861c4693109df4113de5",
+        "observations-attempt-1-controlled.json": "8f25a7d0af688bac34cb4d7c5438bdb4e8f5212c8f91a10589e85c29c0d2ab69",
+        "assertions.json": "a866d92f33a29388350853c290b2971e2bfd42c3f7daee414a3595009d20b307",
+        "attempt-1-controlled-image-check.json": "f011425c3a60bfd4edb81aa36c8d889e1314500b46bf6407f0e6edc6d961375f"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "readable square raster",
+              "pass": true,
+              "detail": "validation=<nil>"
+            },
+            {
+              "name": "usage reporting",
+              "pass": true,
+              "detail": "wrong reporting"
+            },
+            {
+              "name": "thinking counted once",
+              "pass": true,
+              "detail": "usage={Input:7 Output:1142 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0xc00002e880 TotalTokens:1149 Cost:{Input:1.0500000000000001e-05 Output:0.033764999999999996 CacheRead:0 CacheWrite:0 Total:0.03377549999999999}}"
+            },
+            {
+              "name": "all model output content retained",
+              "pass": true,
+              "detail": "lost ordered blocks"
+            },
+            {
+              "name": "bounded capture retains trailing usage",
+              "pass": true,
+              "detail": "shape evidence lost or unbounded"
+            }
+          ],
+          "case_id": "P09-live-harness-identity-absent",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^identity-absent$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/identity-absent"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-live-image-only",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-live-image-only",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^live-image-only$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/live-image-only",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "20400b3835883109840617a151a38789845d6bfcb5cd9ba4196b63d620e1c66f",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "c57c6ed2c97152aae9304a3ced92154ee73e25a6930cc556c6553e8a9b0cd692",
+        "observations-attempt-1-controlled.json": "20e62c05716b8e97454bac9483c1846b623cb10d5080f3811a3d5ef6676faac9",
+        "assertions.json": "92b141e826f69f42e88a532405747d7189fa65117d474c40919e2178648ff1cc",
+        "attempt-1-controlled-image-check.json": "2e9822b898112ade38f0a86dcf05a42834bc08c316c073f681c701bc2cfc2dfb"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "readable square raster",
+              "pass": true,
+              "detail": "validation=<nil>"
+            },
+            {
+              "name": "usage reporting",
+              "pass": true,
+              "detail": "wrong reporting"
+            },
+            {
+              "name": "thinking counted once",
+              "pass": true,
+              "detail": "usage={Input:7 Output:1381 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:121} Modalities:0xc00002e8c0 TotalTokens:1388 Cost:{Input:1.0500000000000001e-05 Output:0.034507499999999997 CacheRead:0 CacheWrite:0 Total:0.03451799999999999}}"
+            },
+            {
+              "name": "image-only shape excludes separately reported text thought",
+              "pass": true,
+              "detail": "thought inclusion not established"
+            },
+            {
+              "name": "all model output content retained",
+              "pass": true,
+              "detail": "lost ordered blocks"
+            },
+            {
+              "name": "bounded capture retains trailing usage",
+              "pass": true,
+              "detail": "shape evidence lost or unbounded"
+            }
+          ],
+          "case_id": "P09-live-harness-live-image-only",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^live-image-only$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/live-image-only"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-partial",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-partial",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^partial$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/partial",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "42fb0c5a28671d168798cf1f2c2f3d31943c9fefa4622cb01b570355a156e716",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "9797d8d700037f93cc87a8f0ca6f254b79ed4988d3a750342f0a68aa2f975d44",
+        "observations-attempt-1-controlled.json": "01dd7b5535f0864e853c6556763990c176566d6e1ce0e1812facd3a79a195fee",
+        "assertions.json": "ef79647c3222f09c9219b5ab9eede6bb86a54641dfc41a78b15d6a8812bcb536",
+        "attempt-1-controlled-image-check.json": "e213487cbd9b56e1c6453fe2e541f0f0c38d944a1020c5a35643dbc99faeeb1a"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "readable square raster",
+              "pass": true,
+              "detail": "validation=<nil>"
+            },
+            {
+              "name": "usage reporting",
+              "pass": true,
+              "detail": "wrong reporting"
+            },
+            {
+              "name": "thinking counted once",
+              "pass": true,
+              "detail": "usage={Input:7 Output:1142 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0xc00002e840 TotalTokens:1149 Cost:{Input:1.0500000000000001e-05 Output:0.000165 CacheRead:0 CacheWrite:0 Total:0.0001755}}"
+            },
+            {
+              "name": "all model output content retained",
+              "pass": true,
+              "detail": "lost ordered blocks"
+            },
+            {
+              "name": "bounded capture retains trailing usage",
+              "pass": true,
+              "detail": "shape evidence lost or unbounded"
+            }
+          ],
+          "case_id": "P09-live-harness-partial",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^partial$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/partial"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-pending",
+      "fixtures": {},
+      "id": "P09-live-harness-pending",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^pending$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/pending",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "af07170bb59ab0f90f3437a350f887fe10e0a1e4c1e83b8752d392ee4bb70afa",
+        "attempt-1-controlled-result.json": "aa5f95c41b15b463dd80003a9f5adef14848dfd773841a9dc7a0476291df6b51",
+        "observations-attempt-1-controlled.json": "ac62844971961ff43cbc0a56baf00e17e62dd24c49c128a61abd2cdf81a7370f",
+        "assertions.json": "8fe61ebe351c8c150923d96730db93d237e4fe6630890676fc270e8bbf7d99b6",
+        "attempt-1-controlled-image-check.json": "de152d1bb5564d47a35d86eb8edd09af788101baff53b3fb0c6b580a977c1f02"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=ai: protocol (response): invalid Google Interactions image response"
+            }
+          ],
+          "case_id": "P09-live-harness-pending",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^pending$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/pending"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-refused",
+      "fixtures": {},
+      "id": "P09-live-harness-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^refused$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/refused",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "4f96aa1cdb81d02c461518a0f9fc646ecbbf4aff8f7e7f52c12ed82c2994478c",
+        "attempt-1-controlled-result.json": "e4cf082dafae48db99ef19d876517931759fd9eedf8a2ec1630528d75c3a46ad",
+        "observations-attempt-1-controlled.json": "1a0954414f4f12767c9a729265238bb2b41496d1a1bf746e7a0d39fd9a495689",
+        "assertions.json": "2aa079a34df635f65705e313e7daaa6001388583879a2249abc3529f219c11d7",
+        "attempt-1-controlled-image-check.json": "80c1ddc98e8d9fb41e4757addac511c23d0f01fe1bb811309d7e5f0f2ef473c0"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=ai: resource_limit (request): exceeded the resource policy's MaxErrorBodyBytes (65536)"
+            }
+          ],
+          "case_id": "P09-live-harness-refused",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^refused$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/refused"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-thought-included",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-thought-included",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^thought-included$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/thought-included",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "383e6cbd673d01861db9658e75eb2e4b254e6291565ed3fee526295f7cf65b3e",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "dc5fd6f6da58955b550dfee01cfbaede2d5df9951b20a230c75b166f6d64dcd0",
+        "observations-attempt-1-controlled.json": "736435ff9d4281443f0d708aa13768cae1b1a5b5bcc35751d7fc39aba40089d3",
+        "assertions.json": "0c077f124c7591a8203432bcbbf6553cd8b0605516e678b4b9c84d07e66c6ff2",
+        "attempt-1-controlled-image-check.json": "34d08158068e2c6c93f2b1f071e2a7db65f67ef856b8586d721140d68dce56ca"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "readable square raster",
+              "pass": true,
+              "detail": "validation=<nil>"
+            },
+            {
+              "name": "usage reporting",
+              "pass": true,
+              "detail": "wrong reporting"
+            },
+            {
+              "name": "thinking counted once",
+              "pass": true,
+              "detail": "usage={Input:7 Output:1142 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0xc00002e7c0 TotalTokens:1149 Cost:{Input:1.0500000000000001e-05 Output:0.033764999999999996 CacheRead:0 CacheWrite:0 Total:0.03377549999999999}}"
+            },
+            {
+              "name": "all model output content retained",
+              "pass": true,
+              "detail": "lost ordered blocks"
+            },
+            {
+              "name": "bounded capture retains trailing usage",
+              "pass": true,
+              "detail": "shape evidence lost or unbounded"
+            }
+          ],
+          "case_id": "P09-live-harness-thought-included",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^thought-included$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/thought-included"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-unreported",
+      "fixtures": {
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7"
+      },
+      "id": "P09-live-harness-unreported",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^unreported$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/unreported",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "830b552c3f3b4690d729c5b2bb4d60279e3a2b1f88dc4ac92bc40f8eb63e155c",
+        "attempt-1-controlled-output.png": "61b200e394fd586c98958ff9974b7059401b14477b69a13db99d2e1d3d0bd0d7",
+        "attempt-1-controlled-result.json": "91beced357750a52bf2d53bdeb05757c098433cd8cca9571d7cec7e72a243046",
+        "observations-attempt-1-controlled.json": "1f03f1826691044ba756b259a5a1b4928bbbb406f2ec1b552dbde0f15114e6d4",
+        "assertions.json": "e035f20cc5df584975123ef19ba32eec17882775aed428ace46a9f74a59ea758",
+        "attempt-1-controlled-image-check.json": "5464fe9022cc4454a3d85d6cf59bdfb1883523be44b47b83c5775e66f224cb39"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "readable square raster",
+              "pass": true,
+              "detail": "validation=<nil>"
+            },
+            {
+              "name": "usage reporting",
+              "pass": true,
+              "detail": "wrong reporting"
+            },
+            {
+              "name": "all model output content retained",
+              "pass": true,
+              "detail": "lost ordered blocks"
+            },
+            {
+              "name": "bounded capture retains trailing usage",
+              "pass": true,
+              "detail": "shape evidence lost or unbounded"
+            }
+          ],
+          "case_id": "P09-live-harness-unreported",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^unreported$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/unreported"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-uri",
+      "fixtures": {},
+      "id": "P09-live-harness-uri",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^uri$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/uri",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "b8f99170abede9e5d35d7be8274cf2ed78a9b26ff5ff4e7625570718193a80c5",
+        "attempt-1-controlled-result.json": "ffa5c396891c389c3e7e70c5213ef0675d895a31e57ad25555fe632c84f3ce41",
+        "observations-attempt-1-controlled.json": "c65e19c95ee059c4226ed3173afeee85ee0edf04ffd9f3256aa877f76081bdaa",
+        "assertions.json": "4d0e03825470417ea4436ba5cad6a498f491059ab13effd22a6eb1bf735f9904",
+        "attempt-1-controlled-image-check.json": "a4f39fa9af881668ab39ef3bff0b5aca51c84931161355641ae8413a22b4afe6"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=ai: protocol (response): invalid Google Interactions image response"
+            },
+            {
+              "name": "rejected resources stay redacted",
+              "pass": true,
+              "detail": "rejected URI or continuation value retained"
+            }
+          ],
+          "case_id": "P09-live-harness-uri",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^uri$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/uri"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-harness-wrong-size",
+      "fixtures": {},
+      "id": "P09-live-harness-wrong-size",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^wrong-size$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessWire/wrong-size",
+      "artifacts": {
+        "attempt-1-controlled-exchanges.json": "42f2565282eef54afd035d6b99088f3ee153cecb0fe957dc0964c31b851889c6",
+        "attempt-1-controlled-result.json": "258d3ba378e8bbc3973dada9cbb7e83b92552c698365ead3daf6b476f7416d0c",
+        "observations-attempt-1-controlled.json": "050bd8633ee2b934f51c835e2b6c6950ee50cacee4375f9d742a4b6134d2a8c4",
+        "assertions.json": "0ec9e481617d68cedd066d7c13953dad034dfd8944894b9e6dd4bfeb2498c63d",
+        "attempt-1-controlled-image-check.json": "1623237cf165bb4aaa15b38ed93bfbf8277e06e4206c1569eaacc868bd2f12d0"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "fixed route and header authentication",
+              "pass": true,
+              "detail": "wrong target or auth"
+            },
+            {
+              "name": "fixed inline 1K output",
+              "pass": true,
+              "detail": "wrong output format"
+            },
+            {
+              "name": "fixed official stateless inline request",
+              "pass": true,
+              "detail": "wrong route, authentication or image output configuration"
+            },
+            {
+              "name": "Observer reaches terminal metadata",
+              "pass": true,
+              "detail": "missing terminal observation"
+            },
+            {
+              "name": "bounded reservation",
+              "pass": true,
+              "detail": "lost consumption"
+            },
+            {
+              "name": "protocol errors remain failures",
+              "pass": true,
+              "detail": "err=<nil>"
+            },
+            {
+              "name": "readable square raster",
+              "pass": true,
+              "detail": "validation=output size must be 1024x1024 within the 1K smoke budget"
+            },
+            {
+              "name": "usage reporting",
+              "pass": true,
+              "detail": "wrong reporting"
+            },
+            {
+              "name": "thinking counted once",
+              "pass": true,
+              "detail": "usage={Input:7 Output:1142 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0xc00013c4c0 TotalTokens:1149 Cost:{Input:1.0500000000000001e-05 Output:0.033764999999999996 CacheRead:0 CacheWrite:0 Total:0.03377549999999999}}"
+            },
+            {
+              "name": "all model output content retained",
+              "pass": true,
+              "detail": "lost ordered blocks"
+            },
+            {
+              "name": "bounded capture retains trailing usage",
+              "pass": true,
+              "detail": "shape evidence lost or unbounded"
+            }
+          ],
+          "case_id": "P09-live-harness-wrong-size",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessWire$/^wrong-size$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessWire/wrong-size"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-process-environment-retry",
+      "fixtures": {},
+      "id": "P09-live-process-environment-retry",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^environment-retry$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/environment-retry",
+      "artifacts": {
+        "report.json": "1a8b5ef80ec0dfb6734a9724894309b56dcbee837cbe512115a84be68905a100",
+        "assertions.json": "fc9102f1b930d962b1d1db02922616cb7938b11fb07f2a9796250e6439a6bbce"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "invalid report never partially merges",
+              "pass": true,
+              "detail": "merge=<nil>"
+            },
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "wrong support outcome"
+            },
+            {
+              "name": "all failures and retries stay within four images",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "retry consumption retained",
+              "pass": true,
+              "detail": "lost retry"
+            }
+          ],
+          "case_id": "P09-live-process-environment-retry",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^environment-retry$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessProcess/environment-retry"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-process-exhaustion",
+      "fixtures": {},
+      "id": "P09-live-process-exhaustion",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^exhaustion$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/exhaustion",
+      "artifacts": {
+        "report.json": "8e016c948b93f6f9c2473c2712db34568c840188c657867b61772bdc45b51369",
+        "assertions.json": "4ab65ffb1c2c36422947bf814594ab5a7596b621514813ca016bf7be5db733bb"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "invalid report never partially merges",
+              "pass": true,
+              "detail": "merge=<nil>"
+            },
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "wrong support outcome"
+            },
+            {
+              "name": "all failures and retries stay within four images",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "exhausted budget is FAIL",
+              "pass": true,
+              "detail": "exhaustion hidden"
+            }
+          ],
+          "case_id": "P09-live-process-exhaustion",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^exhaustion$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessProcess/exhaustion"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-process-foreign-key",
+      "fixtures": {},
+      "id": "P09-live-process-foreign-key",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^foreign-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/foreign-key",
+      "artifacts": {
+        "report.json": "e2f29637f82a9a2c20d5aa373d77135f01ede14cfeb72b8297b47129a17dd927",
+        "assertions.json": "8af5746cdbe15364a6fb8ef606e306c52cd4fbfa1f60fa9374769517ff72bbd0"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "invalid report never partially merges",
+              "pass": true,
+              "detail": "merge=supportmatrix: invalid report: scenario \"generation\" failed on the process's configuration; fix it and run again"
+            },
+            {
+              "name": "all failures and retries stay within four images",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "guard sends nothing",
+              "pass": true,
+              "detail": "request escaped guard"
+            }
+          ],
+          "case_id": "P09-live-process-foreign-key",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^foreign-key$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessProcess/foreign-key"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-process-narrowed",
+      "fixtures": {},
+      "id": "P09-live-process-narrowed",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^narrowed$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/narrowed",
+      "artifacts": {
+        "report.json": "9abcc8c9e7c0d0cc72915c33e2d5bc69080527bf4d07c10a500731242e0e6ac4",
+        "assertions.json": "feeace28e1dd2e0ad2231bab375664b49a4ad3e4cf37d4d52fa4f67727783ba3"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "invalid report never partially merges",
+              "pass": true,
+              "detail": "merge=supportmatrix: invalid report: Google image report must cover every required capability"
+            },
+            {
+              "name": "all failures and retries stay within four images",
+              "pass": true,
+              "detail": "overspent"
+            }
+          ],
+          "case_id": "P09-live-process-narrowed",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^narrowed$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessProcess/narrowed"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-process-no-key",
+      "fixtures": {},
+      "id": "P09-live-process-no-key",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^no-key$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/no-key",
+      "artifacts": {
+        "report.json": "5a8847bf02e11818443d5fd00b3cbcc432566009a3712b70dcd86b42a1fc3152",
+        "assertions.json": "71ce6b09aa555cc7274e5f3df3ae4dc2a6e62dbb5aefdf9bfdfd911bc2906fbe"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "invalid report never partially merges",
+              "pass": true,
+              "detail": "merge=<nil>"
+            },
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "wrong support outcome"
+            },
+            {
+              "name": "all failures and retries stay within four images",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "guard sends nothing",
+              "pass": true,
+              "detail": "request escaped guard"
+            },
+            {
+              "name": "missing credential stays NOT_RUN",
+              "pass": true,
+              "detail": "invented acceptance"
+            }
+          ],
+          "case_id": "P09-live-process-no-key",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^no-key$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessProcess/no-key"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-process-reference-count",
+      "fixtures": {},
+      "id": "P09-live-process-reference-count",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^reference-count$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/reference-count",
+      "artifacts": {
+        "report.json": "cf3b7a6ad6b84a16ced5fbb1678152e65737c6d8fba90a141656ad004bc62faa",
+        "assertions.json": "936002b6824f222781b4e41599ab4944ef78ace637725ab3c547ebe0eb3dd086"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "invalid report never partially merges",
+              "pass": true,
+              "detail": "merge=<nil>"
+            },
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "wrong support outcome"
+            },
+            {
+              "name": "all failures and retries stay within four images",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "guard sends nothing",
+              "pass": true,
+              "detail": "request escaped guard"
+            }
+          ],
+          "case_id": "P09-live-process-reference-count",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^reference-count$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessProcess/reference-count"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-process-refused",
+      "fixtures": {},
+      "id": "P09-live-process-refused",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^refused$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/refused",
+      "artifacts": {
+        "report.json": "5803195792f69e66ed49ba2a57f8e6f94bccae53f7a64e79028620f302c72ed8",
+        "assertions.json": "e7034f667ed0261605c6de875554180dba4c17e0b649304d56cf0c98d2b5eaa9"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "invalid report never partially merges",
+              "pass": true,
+              "detail": "merge=<nil>"
+            },
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "wrong support outcome"
+            },
+            {
+              "name": "all failures and retries stay within four images",
+              "pass": true,
+              "detail": "overspent"
+            }
+          ],
+          "case_id": "P09-live-process-refused",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^refused$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessProcess/refused"
+        }
+      }
+    },
+    {
+      "dir": "P09-live-process-resolution",
+      "fixtures": {},
+      "id": "P09-live-process-resolution",
+      "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^resolution$'",
+      "status": "PASS",
+      "test": "TestGoogleImagesHarnessProcess/resolution",
+      "artifacts": {
+        "report.json": "7f0b5b697f940e50be25f9e613dfeccbb2644743960933a5d77809d279f1d5e5",
+        "assertions.json": "906ccd30f8f73a9541c55b1558b92d2c125ba063dc81225b0d3cf9f1c87cb4b0"
+      },
+      "records": {
+        "assertions.json": {
+          "assertions": [
+            {
+              "name": "invalid report never partially merges",
+              "pass": true,
+              "detail": "merge=<nil>"
+            },
+            {
+              "name": "only complete own success passes",
+              "pass": true,
+              "detail": "wrong support outcome"
+            },
+            {
+              "name": "all failures and retries stay within four images",
+              "pass": true,
+              "detail": "overspent"
+            },
+            {
+              "name": "guard sends nothing",
+              "pass": true,
+              "detail": "request escaped guard"
+            }
+          ],
+          "case_id": "P09-live-process-resolution",
+          "replay": "go test -tags live ./ai/live -count=1 -run '^TestGoogleImagesHarnessProcess$/^resolution$'",
+          "status": "PASS",
+          "test": "TestGoogleImagesHarnessProcess/resolution"
+        }
+      }
+    }
+  ]
+}

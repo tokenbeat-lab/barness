@@ -16,6 +16,10 @@ response_format，1K/1:1，无背景/流式/工具/续接，也无版本、型�
 型号或本地标识伪造。每个 model_output 都遍历；完整有界捕获（16 MiB）保留
 步骤、终态和尾部 usage，图片与签名替换为长度/哈希标记；图片另存且完整解码。
 捕获丢失/截断不能证明成功。结果、请求、Observer 与 audit 均在各原始目录中。
+审查发现的失败正文脱敏退回原文已修复：请求截断不会跳过响应脱敏；无法解析、
+超限或读取中断的正文只保留长度/哈希，短签名、续读令牌和 URI/URL 也清除。
+六个公共 Client 失败路径先 RED 后 GREEN，日志保存为 review-red.log / review-green.log。
+交付日志仅将本机绝对仓库路径替换为 [REPO]，保留原始失败断言。
 
 两份 PASS 的 output_tokens_by_modality 只有 image=1120。文本思考另报，不在
 图片明细内；计入 Output，同时作为 Reasoning 内含分项，TotalTokens 保留厂商值。
@@ -75,7 +79,8 @@ Google 作为原生扩展登记，不计为 pi 差分通过。支持矩阵只由
 思考关系等批次不能部分写。发布门禁新增本组合及独立 audited live bundle 要求，
 本工单不宣称九组合全部发布门禁通过（后续工单 17）。
 
-verification.json、offline-manifest.json、google-cases.json、trace.json 与 review.md
+verification.json、offline-manifest.json、google-cases.json、live-harness-manifest.json、
+live-harness-cases.json、trace.json 与 review.md
 记录本次回归和双轴审查；source-hashes.json / sha256.json 固定源文件和交付内容。
 原始 live 报告的 gitCommit 为启动时 HEAD（实现仍在工作区），不能当作独立已提交
 构建的证明；完整离线/race 回归及 source-hashes 补齐可重复的实现关联。
