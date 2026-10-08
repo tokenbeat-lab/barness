@@ -5,14 +5,13 @@ import (
 	"errors"
 	"net"
 	"net/url"
-	"slices"
 )
 
 // bindingUnresolved is the one refusal for a missing binding and for a record
 // that belongs to another tenant or binding, so existence is not revealed.
 const bindingUnresolved = "binding could not be resolved for this tenant"
 
-// resolveBinding is the first preflight read; with authorizeModel,
+// resolveBinding is the first preflight read; with callRuntime.resolve,
 // resolveCredential and checkSnapshot it turns a call's trusted scope and
 // target into the configuration snapshot the call is pinned to, or refuses
 // before any Provider request. Every refusal message is fixed text: resolver
@@ -62,19 +61,6 @@ func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID 
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, problem)
 	}
 	return b, nil
-}
-
-// authorizeModel returns the model if it is both allowed by the binding and
-// present in the catalog for the binding's provider and API.
-func (c *Client) authorizeModel(b Binding, modelID string) (Model, *Error) {
-	if !slices.Contains(b.AllowedModels, modelID) {
-		return Model{}, newError(CodeTenantDenied, PhaseCapability, "model is not allowed by the binding")
-	}
-	i, ok := c.modelIndex[modelKey{b.Operation, b.ProviderID, b.API, modelID}]
-	if !ok {
-		return Model{}, newError(CodeInvalidRequest, PhaseCapability, "model is not in the catalog for this provider and API")
-	}
-	return c.catalog.Models[i].clone(), nil
 }
 
 // resolveCredential reads the credential the binding version references and

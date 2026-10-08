@@ -39,3 +39,11 @@ ADR-0002 要求宿主为请求、图片、帧、工具 JSON、错误体和总输
 - 流开始后的限额（帧、总输出、工具 JSON、事件队列）本来就不重试（ADR-0006 不重放已开始的流），不受本决策影响。
 
 行为与验收见 [spec §9](../../.scratch/barness-ai/spec.md#9-资源准入错误与观测)、工单 12 与 E08（`TestByteLimits`、`TestEventQueueLimits`、`TestResourceRelease`、`PIDIFF-P01-E08-*`）。
+
+## 工单 05 已交付扩展（2026-10-08）
+
+unary 成功 JSON 仅按 MaxOutputBytes 计量，不经过 SSE 帧上限；非 2xx 仍按每次尝试的
+MaxErrorBodyBytes 限制。总字节 reader 最多探测一个溢出字节，不保留超限内容。成功响应后读取、解码、
+答案校验失败均在 response 阶段结束且不重放；错误体超限仍在 request 阶段结束且不重试。
+
+详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。

@@ -12,9 +12,9 @@ import (
 // The adapter invokes payload and response at its protocol's points; the
 // core invokes headers before dispatching to the adapter.
 type boundHooks struct {
-	hooks Hooks
-	scope CallScope
-	model Model
+	hooks    Hooks
+	scope    CallScope
+	identity CallAttribution
 }
 
 // guardedHeaders are the headers that carry authentication, the target,
@@ -95,7 +95,7 @@ func (b boundHooks) payload(ctx context.Context, body []byte, authorize func(map
 	if err := dec.Decode(&decoded); err != nil {
 		return nil, newError(CodeInvalidRequest, PhaseRequest, "request could not be encoded")
 	}
-	p := &Payload{ProviderID: b.model.Provider, API: b.model.API, ModelID: b.model.ID, Body: decoded}
+	p := &Payload{Operation: b.identity.Operation, ProviderID: b.identity.ProviderID, API: b.identity.API, ModelID: b.identity.ModelID, Body: decoded}
 	decision, err := b.hooks.OnPayload(ctx, b.scope, p)
 	if failure := callbackFailure(ctx, err, "payload callback failed"); failure != nil {
 		return nil, failure
@@ -123,11 +123,12 @@ func (b boundHooks) response(ctx context.Context, res *http.Response) *Error {
 		return nil
 	}
 	info := ResponseInfo{
+		Operation:  b.identity.Operation,
 		Status:     res.StatusCode,
 		Header:     res.Header.Clone(),
-		ProviderID: b.model.Provider,
-		API:        b.model.API,
-		ModelID:    b.model.ID,
+		ProviderID: b.identity.ProviderID,
+		API:        b.identity.API,
+		ModelID:    b.identity.ModelID,
 	}
 	err := b.hooks.OnResponse(ctx, b.scope, info)
 	return callbackFailure(ctx, err, "response callback failed")

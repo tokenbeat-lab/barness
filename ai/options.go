@@ -9,7 +9,7 @@ import (
 )
 
 // Options are the complete, protocol-specific options for the full entry
-// points (Stream, Complete). Each implementation belongs to exactly one API
+// points (Stream, Complete, Classify). Each implementation belongs to exactly one API
 // and must match the binding's API; there is no namespace keyed by vendor
 // name. A nil Options means protocol defaults.
 //

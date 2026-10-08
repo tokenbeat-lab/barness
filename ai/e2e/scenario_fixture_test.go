@@ -55,7 +55,11 @@ type fixtureScenario struct {
 	Model string `json:"model"`
 	// Entry is "stream" (the default) or "streamSimple"; the offline E2E
 	// also runs a stream scenario through Complete.
-	Entry string `json:"entry"`
+	Entry             string          `json:"entry"`
+	Classifier        json.RawMessage `json:"classifier"`
+	DisableClassifier bool            `json:"disableClassifier"`
+	ForeignOptions    bool            `json:"foreignOptions"`
+	BindingOperation  ai.Operation    `json:"bindingOperation"`
 	// ModelPatch replaces top-level fields of the catalog model on both
 	// sides, as a custom model does.
 	ModelPatch json.RawMessage `json:"modelPatch"`
@@ -129,6 +133,7 @@ type fixtureExpect struct {
 	ResponseModel     string `json:"responseModel"`
 	// Content is the final content in pi's block shape (with barness's
 	// rawArguments); null skips it.
+	Answers        json.RawMessage           `json:"answers"`
 	Content        json.RawMessage           `json:"content"`
 	Usage          *ai.Usage                 `json:"usage"`
 	UsageReporting ai.UsageReporting         `json:"usageReporting"`
@@ -238,11 +243,24 @@ func scenarioWorld(t *testing.T, sc fixtureScenario) *world {
 	t.Helper()
 	patch := withModelPatch(sc.Model, nil, sc.ModelPatch)
 	w := newWorldWith(t, func(c *ai.Config) {
-		patch(c)
+		if sc.entry() == "classify" {
+			configureClassifier(c)
+			if sc.DisableClassifier {
+				c.Policy.Classifier = nil
+			}
+		} else {
+			patch(c)
+		}
 		if sc.Now != 0 {
 			c.Clock = clock.NewFake(time.UnixMilli(sc.Now), 0)
 		}
 	}, tenantA)
+	if sc.entry() == "classify" {
+		installClassifierBinding(w, tenantA)
+		if sc.BindingOperation != "" {
+			w.updateBindingOf(tenantA, "classifier", func(b *ai.Binding) { b.Operation = sc.BindingOperation })
+		}
+	}
 	if sc.MaxRetries > 0 {
 		b := w.host.Binding(tenantA.tenant, sc.proto.binding)
 		b.Retry = ai.RetryPolicy{MaxRetries: sc.MaxRetries}
@@ -270,6 +288,10 @@ func runScenario(t *testing.T, ev *evidence.Case, sc fixtureScenario, raw []byte
 	ev.Fixture("fixture.json", raw)
 	w := scenarioWorld(t, sc)
 	enqueue(ev, w, sc.replies(t)...)
+	if sc.entry() == "classify" {
+		invokeClassifierScenario(t, ev, w, sc)
+		return w, outcome{}
+	}
 	o := invokeScenario(t, w, sc, mode, "req-"+sc.ID+"-"+string(mode))
 	o.record(ev)
 	checkScenario(ev, w, sc, mode, o)

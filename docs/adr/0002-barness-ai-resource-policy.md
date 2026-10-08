@@ -22,3 +22,12 @@ date: 2026-10-01
 - 如果以后有可重复压力数据支持通用配置，可通过后续 ADR 提供版本化有限默认配置；保留覆盖与合法性校验，同步验证升级影响和旧配置回退。首期不提供无界模式。
 
 总输出的计量方式及超限终态与重试的关系见 [ADR-0007](0007-barness-ai-output-bytes-and-limit-terminal.md)。准入与各阶段时限的执行位置及终态分类见 [ADR-0008](0008-barness-ai-admission-and-time-limits.md)。行为和证据分别见 [spec 的资源契约](../../.scratch/barness-ai/spec.md#9-资源准入错误与观测) 与 E08。当前仅记录设计决策，没有完成运行时压力验证。
+
+## 工单 05 已交付扩展（2026-10-08）
+
+Classifier 子策略由宿主显式启用，nil 禁用；MaxQuestions、MaxStateBytes、MaxQuestionBytes 均须为正。
+NewClient 深复制子策略，旧聊天策略无需新增字段。Classify 在 scope 阶段拒绝未启用的策略，并在独立复制前
+检查已知输入长度；每个问题计完整 JSON 编码字节，最终请求再受 MaxRequestBytes 限制。分类数值为宿主策略，
+本工单的合成 fixture 容量不构成新的生产默认配置。
+
+详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。

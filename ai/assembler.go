@@ -339,5 +339,5 @@ func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
 // own time limit is pi's SDK timeout, an error.
 func (e *Error) aborts() bool {
 	return (e.Code == CodeCanceled || e.Code == CodeDeadlineExceeded) && !e.attemptTimeout &&
-		(e.Phase == PhaseAdmission || e.Phase == PhaseRequest || e.Phase == PhaseStream)
+		(e.Phase == PhaseAdmission || e.Phase == PhaseRequest || e.Phase == PhaseStream || e.Phase == PhaseResponse)
 }

@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "date": "2026-10-08",
+  "issue": "05-typesafe-choice-unary-call",
+  "base_commit": "10abbd7c90733ed19bc2df627353cb00fd98cf3d",
+  "branch": "main",
+  "checks": {
+    "typecheck": "go test ./... -run ^$: PASS",
+    "vet": "PASS",
+    "vet_live": "PASS",
+    "full_race_with_differential_and_pressure": {
+      "bundle": ".evidence/barness-ai/20261008T011025.136549000Z",
+      "manifest_sha256": "e68c7e9e52289413c9ef0bd108b98166f96f38356854c6970198ef5ec0a67e36",
+      "cases": 3510,
+      "statuses": {
+        "PASS": 3510
+      },
+      "P07": {
+        "PASS": 74
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "post_cleanup_full_race": {
+      "bundle": ".evidence/barness-ai/20261008T011704.936521000Z",
+      "manifest_sha256": "af4519b09d843a839996b4730c9aa23274dee9976e053d213f31ce7250b71e82",
+      "cases": 3511,
+      "statuses": {
+        "PASS": 2892,
+        "NOT_RUN": 619
+      },
+      "P07": {
+        "PASS": 75
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "post_cleanup_targeted_race": {
+      "bundle": ".evidence/barness-ai/20261008T011347.473223000Z",
+      "manifest_sha256": "ca6356bdebf53f0bfe8ff1937f865a02354767ad5033383cbcaab490d1f9f815",
+      "cases": 103,
+      "statuses": {
+        "PASS": 103
+      },
+      "P07": {
+        "PASS": 75
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "actual_body_evidence_race": {
+      "bundle": ".evidence/barness-ai/20261008T011957.579125000Z",
+      "manifest_sha256": "e0a8d1417e1e1311928531b62b0a63f1ff552344573d5a5fe5a052022c371ae6",
+      "cases": 7,
+      "statuses": {
+        "PASS": 7
+      },
+      "P07": {
+        "PASS": 7
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "differential": {
+      "PASS": 611
+    },
+    "pressure": {
+      "PASS": 11
+    },
+    "builtin_catalog_snapshot": "byte-identical",
+    "builtin_catalog_sha256": "1411315fc3c38fba6d499c0957f757eaff8e120a24004d1753ec586e7556a041",
+    "post_review_targeted_race": {
+      "bundle": ".evidence/barness-ai/20261008T012425.002430000Z",
+      "manifest_sha256": "fe0c49a74ad90491bf0fff2b591cd5193be542bf35151e4c8c06966ca4de57d1",
+      "cases": 107,
+      "statuses": {
+        "PASS": 107
+      },
+      "P07": {
+        "PASS": 79
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "final_full_race": {
+      "bundle": ".evidence/barness-ai/20261008T012448.207234000Z",
+      "manifest_sha256": "6bd3ebd6cfdb2f8d387a2781a53e187088a9927e8fb06a047b09c626516294b1",
+      "cases": 3515,
+      "statuses": {
+        "PASS": 2896,
+        "NOT_RUN": 619
+      },
+      "P07": {
+        "PASS": 79
+      },
+      "audit_findings": 0,
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea",
+        "model_catalog_version": "2026-10-08.2",
+        "openai-go": "v3.66.0"
+      }
+    }
+  },
+  "scope_notes": [
+    "Full opt-in race run compiled before the callback-panic cleanup and response-envelope duplicate refinements. Subsequent full race runs and targeted classifier / chat callback / operation authorization race tests cover the revised production paths.",
+    "Full race runs without opt-in variables leave optional cases NOT_RUN. Their independently observed PASS results are in the opt-in full run; statuses were not relabeled.",
+    "Reply.Script records actual generated response bytes for body-limit evidence. The recording correction passed its seven race cases and is included in the final full revision.",
+    "Both review axes identified duplicate outer response / usage fields. Four public-entry E2E cases first failed; the corrected boundary rejects ambiguity and retains independently valid usage. Both reviewers confirmed resolution.",
+    "Host catalog/model/rates are synthetic; live API and vendor catalog inclusion belong to issue 08."
+  ],
+  "review": {
+    "standards": {
+      "initial_findings": 1,
+      "resolved_findings": 1,
+      "unresolved_findings": 0,
+      "status": "PASS",
+      "report": "review.md"
+    },
+    "spec": {
+      "initial_findings": 1,
+      "resolved_findings": 1,
+      "unresolved_findings": 0,
+      "status": "PASS",
+      "report": "review.md"
+    }
+  }
+}

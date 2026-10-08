@@ -1,0 +1,8 @@
+--- FAIL: TestClassifierModelAndScopeRefusals (0.04s)
+    --- FAIL: TestClassifierModelAndScopeRefusals/oversized-input-key (0.04s)
+        classifier_validation_test.go:162: [P07-E07-oversized-input-key] classification: got ai: resource_limit (request): exceeded the resource policy's MaxRequestBytes (1048576)
+        classifier_validation_test.go:165: [P07-E07-oversized-input-key] no credentials read: got {Bindings:1 Credentials:1}
+FAIL
+barness-ai evidence bundle: ./.evidence/barness-ai/20261008T010734.956832000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.570s
+FAIL

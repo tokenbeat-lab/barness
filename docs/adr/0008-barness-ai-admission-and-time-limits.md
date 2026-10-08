@@ -61,3 +61,11 @@ spec §9 要求每次尝试前获取准入许可、内置单租户与全进程�
 - 若宿主注入的传输不通过 httptrace 报告连接，`ConnectTimeout` 会一直计到响应头，此约束写在 `Config.Transport` 文档中。
 
 行为与验收见 [spec §9](../../.scratch/barness-ai/spec.md#9-资源准入错误与观测)、工单 13 与 E08（`TestAdmission`、`TestTimeouts`、`PIDIFF-P01-E08-protocol-timeout-*`）。
+
+## 工单 05 已交付扩展（2026-10-08）
+
+聊天与 Classify 共用调用运行时、唯一 HTTP 客户端和传输时限。unary 许可持有到成功 body 关闭、
+读取与整体校验完成；响应回调只读 HTTP 元数据，在读取前执行一次。调用取消/总时限在 response 阶段形成
+aborted，读空闲等尝试时限仍形成 error；所有失败路径释放 body 与许可。
+
+详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。

@@ -86,7 +86,7 @@ func withoutHostDescription(req *http.Request, next roundTrip) (*http.Response, 
 // call's byte limits before the SDK or the adapter reads it.
 func (l byteLimits) limitBodies(req *http.Request, next roundTrip) (*http.Response, error) {
 	res, err := next(req)
-	l.limitBody(res)
+	l.limitBody(res, bodySSE)
 	return res, err
 }
 

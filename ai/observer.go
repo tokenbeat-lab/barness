@@ -1,7 +1,6 @@
 package ai
 
 import (
-	"errors"
 	"slices"
 	"sync"
 	"sync/atomic"
@@ -206,16 +205,15 @@ func (q *observations) callStarted(meta CallMetadata) {
 // callFinished records a call's terminal: the attribution it resolved, how
 // it ended and the usage it reported. failure is the classified error, nil
 // on success.
-func (q *observations) callFinished(res Result, failure error, started time.Time) {
+func (q *observations) callFinished(meta CallMetadata, out callOutcome, started time.Time) {
 	if q == nil {
 		return
 	}
 	now := time.Now()
-	o := Observation{Kind: ObservationCallFinished, Time: now, Call: res.Metadata, Duration: now.Sub(started),
-		StopReason: res.Message.StopReason, Usage: res.Message.Usage}
+	o := Observation{Kind: ObservationCallFinished, Time: now, Call: meta, Duration: now.Sub(started),
+		StopReason: out.stop, Usage: out.usage}
 	o.Call.Attempts = slices.Clone(o.Call.Attempts)
-	var e *Error
-	if errors.As(failure, &e) {
+	if e := out.failure; e != nil {
 		o.Error = &ObservedError{Code: e.Code, Phase: e.Phase, HTTPStatus: e.HTTPStatus,
 			ProviderRequestID: e.ProviderRequestID, RetryAfter: e.RetryAfter}
 	}

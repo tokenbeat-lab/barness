@@ -8,6 +8,8 @@ import "time"
 //
 // The policy is not a protocol option and cannot be changed by a Request.
 type ResourcePolicy struct {
+	// Classifier explicitly enables Classify; nil keeps it disabled.
+	Classifier *ClassifierPolicy
 	// Byte limits, enforced while encoding, reading or merging rather than
 	// after. Reaching one ends the call with StopReason error and a
 	// CodeResourceLimit *Error; a limit is never retried around.
@@ -29,10 +31,10 @@ type ResourcePolicy struct {
 	MaxToolJSONBytes int64
 	// MaxErrorBodyBytes bounds a provider's non-2xx body read for diagnosis.
 	MaxErrorBodyBytes int64
-	// MaxOutputBytes bounds the provider's streamed response body of one
+	// MaxOutputBytes bounds the provider's successful response body of one
 	// call, as read after transport decoding. Every frame counts, so it bounds
 	// everything the call reads and may keep, not only the message's text
-	// (ADR-0007).
+	// (ADR-0007). Unary JSON uses only this total limit, not MaxFrameBytes.
 	MaxOutputBytes int64
 
 	// Event queue bounds for Stream consumers: how many events wait unread,
@@ -143,7 +145,7 @@ func (p *ResourcePolicy) validate() error {
 			return policyError(d.field, "must not exceed CallTimeout")
 		}
 	}
-	return nil
+	return p.Classifier.validate()
 }
 
 func policyError(field, problem string) error {

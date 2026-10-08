@@ -1,0 +1,1843 @@
+{
+  "case": "P07-choice",
+  "source": "https://docs.typesafe.ai/api; https://api.typesafe.ai/openapi.json; checked 2026-10-08; synthetic model and price; no live claim",
+  "scenarios": [
+    {
+      "id": "choice",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "stop",
+        "responseModel": "jev-versioned",
+        "answers": {
+          "intent": {
+            "type": "choice",
+            "choice": "track",
+            "probabilities": {
+              "refund": 0.1,
+              "track": 0.9
+            },
+            "confidence": 0.82
+          }
+        },
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "missing-answer",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "extra-answer",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82},\"extra\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "wrong-type",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"score\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "unknown-choice",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"other\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "not-highest",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"refund\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "sum",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.8},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "missing-key",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"track\":1},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "extra-key",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9,\"extra\":0},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "negative",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":-0.1,\"track\":1.1},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "confidence-range",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":1.1}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "confidence-null",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":null}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "probability-null",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":null,\"track\":1},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "no-confidence",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9}}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "jev-versioned",
+        "answers": null,
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "totalTokens": 316,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "complete",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "no-usage",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\": \"jev-versioned\", \"answers\": {\"intent\": {\"type\": \"choice\", \"choice\": \"track\", \"probabilities\": {\"refund\": 0.1, \"track\": 0.9}, \"confidence\": 0.82}}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "stop",
+        "responseModel": "jev-versioned",
+        "answers": {
+          "intent": {
+            "type": "choice",
+            "choice": "track",
+            "probabilities": {
+              "refund": 0.1,
+              "track": 0.9
+            },
+            "confidence": 0.82
+          }
+        },
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "unreported",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "partial-usage",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\": \"jev-versioned\", \"answers\": {\"intent\": {\"type\": \"choice\", \"choice\": \"track\", \"probabilities\": {\"refund\": 0.1, \"track\": 0.9}, \"confidence\": 0.82}}, \"usage\": {\"input_tokens\": 296}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "stop",
+        "responseModel": "jev-versioned",
+        "answers": {
+          "intent": {
+            "type": "choice",
+            "choice": "track",
+            "probabilities": {
+              "refund": 0.1,
+              "track": 0.9
+            },
+            "confidence": 0.82
+          }
+        },
+        "usage": {
+          "input": 296,
+          "output": 0,
+          "totalTokens": 296,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        },
+        "usageReporting": "partial",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "http-401",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 401,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"error\":\"synthetic failure\"}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "",
+        "answers": null,
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "unreported",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "upstream_auth",
+        "phase": "request",
+        "httpStatus": 401,
+        "providerRequestId": "req-typesafe"
+      }
+    },
+    {
+      "id": "http-403",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 403,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"error\":\"synthetic failure\"}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "",
+        "answers": null,
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "unreported",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "upstream_auth",
+        "phase": "request",
+        "httpStatus": 403,
+        "providerRequestId": "req-typesafe"
+      }
+    },
+    {
+      "id": "http-422",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 422,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"error\":\"synthetic failure\"}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "",
+        "answers": null,
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "unreported",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "invalid_request",
+        "phase": "request",
+        "httpStatus": 422,
+        "providerRequestId": "req-typesafe"
+      }
+    },
+    {
+      "id": "http-429",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 429,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"error\":\"synthetic failure\"}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "",
+        "answers": null,
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "unreported",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "rate_limited",
+        "phase": "request",
+        "httpStatus": 429,
+        "providerRequestId": "req-typesafe"
+      }
+    },
+    {
+      "id": "http-529",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 529,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"error\":\"synthetic failure\"}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "stopReason": "error",
+        "responseModel": "",
+        "answers": null,
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "unreported",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "upstream_error",
+        "phase": "request",
+        "httpStatus": 529,
+        "providerRequestId": "req-typesafe"
+      }
+    },
+    {
+      "id": "disabled-policy",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": -1,
+        "stopReason": "error",
+        "responseModel": "",
+        "answers": null,
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "invalid_request",
+        "phase": "scope"
+      },
+      "disableClassifier": true
+    },
+    {
+      "id": "operation-mismatch",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": -1,
+        "stopReason": "error",
+        "responseModel": "",
+        "answers": null,
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "tenant_denied",
+        "phase": "capability"
+      },
+      "bindingOperation": "chat"
+    },
+    {
+      "id": "options-mismatch",
+      "about": "typed choice via one unary HTTP call",
+      "model": "host-jev",
+      "entry": "classify",
+      "classifier": {
+        "state": {
+          "ticket": "track order"
+        },
+        "questions": {
+          "intent": {
+            "type": "choice",
+            "instructions": "Choose intent",
+            "criteria": {
+              "refund": "Refund",
+              "track": "Tracking"
+            }
+          }
+        }
+      },
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-typesafe-request-id": "req-typesafe"
+          },
+          "body": "{\"model\":\"jev-versioned\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"track\",\"probabilities\":{\"refund\":0.1,\"track\":0.9},\"confidence\":0.82}},\"usage\":{\"input_tokens\":296,\"output_tokens\":20}}"
+        }
+      ],
+      "expect": {
+        "requests": -1,
+        "stopReason": "error",
+        "responseModel": "",
+        "answers": null,
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "totalTokens": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "",
+        "request": {
+          "path": "/v1/systemone",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "model": "host-jev",
+            "state": {
+              "ticket": "track order"
+            },
+            "questions": {
+              "intent": {
+                "type": "choice",
+                "instructions": "Choose intent",
+                "criteria": {
+                  "refund": "Refund",
+                  "track": "Tracking"
+                }
+              }
+            }
+          }
+        },
+        "code": "invalid_request",
+        "phase": "capability"
+      },
+      "foreignOptions": true
+    }
+  ]
+}

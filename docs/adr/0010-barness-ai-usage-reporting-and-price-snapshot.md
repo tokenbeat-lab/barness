@@ -66,3 +66,12 @@ Responses 从不报告 1h 缓存写入，也没有多档 tiers 的模型，这�
 1. 决策二：采纳；没有的计数（如 `cache_write_tokens`）计为 0，且不影响 `complete`。
 2. 决策三：失败响应的用量与 pi 一样丢弃。（2026-10-03：记录到尝试上的工单 25 作废，保持此行为。）
 3. 决策四：采纳；价格快照放在调用级。
+
+## 工单 05 已交付扩展（2026-10-08）
+
+TypeSafe unary 先登记 usage 再整体校验答案，非法答案的结果与 Attempt 保留已知用量，
+Answers 为空。input_tokens/output_tokens 均存在且非 null 为 complete，缺项为 partial（按 0 计），
+没有 usage 或为 null 时 unreported。TotalTokens 为二者之和，只使用目录输入费率（包括适用阶梯），
+输出成本为 0。授权 ModelID 保持不变，ResponseModel 单独保存厂商版本。真实价格来源与内置型号待工单 08 验收。
+
+详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。

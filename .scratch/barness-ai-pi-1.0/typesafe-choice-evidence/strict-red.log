@@ -1,0 +1,11 @@
+--- FAIL: TestClassifierStrictEnvelope (0.01s)
+    --- FAIL: TestClassifierStrictEnvelope/duplicate-answer (0.00s)
+        classifier_validation_test.go:68: [P07-E02-duplicate-answer] invalid envelope refused atomically: got <nil>
+    --- FAIL: TestClassifierStrictEnvelope/duplicate-probability (0.00s)
+        classifier_validation_test.go:68: [P07-E02-duplicate-probability] invalid envelope refused atomically: got <nil>
+    --- FAIL: TestClassifierStrictEnvelope/duplicate-field (0.00s)
+        classifier_validation_test.go:68: [P07-E02-duplicate-field] invalid envelope refused atomically: got <nil>
+FAIL
+barness-ai evidence bundle: ./.evidence/barness-ai/20261008T010645.134709000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.954s
+FAIL

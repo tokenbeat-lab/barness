@@ -111,7 +111,7 @@ func NewClient(cfg Config) (*Client, error) {
 		return nil, err
 	}
 	return &Client{
-		policy:       *cfg.Policy,
+		policy:       cfg.Policy.clone(),
 		bindings:     cfg.Bindings,
 		credentials:  cfg.Credentials,
 		catalog:      catalog,

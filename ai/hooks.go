@@ -11,7 +11,7 @@ import (
 // of each per call; there is no handler registry.
 //
 // Every callback runs synchronously on the call's path, receives the call's
-// context and its scope explicitly, and must honor the context. A callback
+// context and its scope (including the entry Operation) explicitly, and must honor the context. A callback
 // error fails the call with CodeCallbackFailed in PhaseRequest, and a context
 // that ended while it ran fails it as canceled or deadline_exceeded. The
 // callback's error text is never put in the message, so host internals
@@ -36,13 +36,16 @@ type Hooks struct {
 	OnPayload func(ctx context.Context, scope CallScope, payload *Payload) (PayloadDecision, error)
 	// OnResponse runs once, after the initial response was received
 	// successfully and before the start event. It reads HTTP metadata only;
-	// it never sees or replaces the final message. As in pi-ai, the Gemini
+	// it never sees or replaces the final message or unary result. Unary
+	// protocols run it before reading the successful response body. As in pi-ai, the Gemini
 	// Developer API never runs it.
 	OnResponse func(ctx context.Context, scope CallScope, response ResponseInfo) error
 }
 
 // Payload is the native request body the adapter built, for OnPayload.
 type Payload struct {
+	// Operation is fixed by the public entry.
+	Operation  Operation
 	ProviderID ProviderID
 	API        API
 	ModelID    string
@@ -70,7 +73,9 @@ func ReplacePayload(body map[string]any) PayloadDecision {
 
 // ResponseInfo is the initial HTTP response's metadata, for OnResponse.
 type ResponseInfo struct {
-	Status int
+	// Operation is fixed by the public entry.
+	Operation Operation
+	Status    int
 	// Header is a copy; changing it has no effect.
 	Header     http.Header
 	ProviderID ProviderID

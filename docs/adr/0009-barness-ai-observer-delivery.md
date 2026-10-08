@@ -75,3 +75,11 @@ HTTP 错误的 ErrorMessage 与 `Error.Message` 按 pi 原样引用 Provider 错
 ## 决策六：记录时间使用系统时钟
 
 `Observation.Time` 与 `Duration` 使用系统时钟，与消息时间戳一致；重试的可替换时钟只覆盖重试所读的时间、抖动与退避等待（见 `internal/clock`）。在假时钟测试中，记录时长与 `Attempt.RetryDelay` 不对应；生产环境二者都是真实时间。维护者 2026-10-02 确认。
+
+## 工单 05 已交付扩展（2026-10-08）
+
+Observer 接收与操作无关的终态摘要；Classify 的 CallStarted、尝试与 CallFinished 均记录
+classifier，始终复用原有白名单元数据和 Usage。状态、问题、答案、ResponseModel 和错误正文不进入观测。
+拥塞仍只丢弃并计数，不改变分类结果；P07-E09 验证记录与证据脱敏审计覆盖这一点。
+
+详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。

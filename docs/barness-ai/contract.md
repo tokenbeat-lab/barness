@@ -35,7 +35,7 @@ Responses/Chat 型号默认 samplingParams 同样不能覆盖保留字段。
 `LookupImage`/`ImageModelsOf`、`LookupClassifier`/`ClassifierModelsOf` 分别强类型查询另两类，
 参数按 Provider、API（查找另含 ID）限定，列表保持目录顺序。所有返回值、切片、map、原始 JSON、
 能力与阶梯价格均独立复制。配置在构造交接期间不得并发修改。发现目录无需读取绑定或凭据，
-也不授予调用权限；内置目录目前只列已有验收的聊天路线，新操作入口由后续工单交付。
+也不授予调用权限；内置目录目前只列已有验收的聊天路线，Classify 已交付单选入口，真实分类型号纳入由后续工单验收。
 三类型号与全部价格都参加目录 Hash；内容改变应升 Version，宿主即使重用版本也会得到不同哈希（ADR-0010/0020）。
 
 ## 2. 调用
@@ -45,7 +45,8 @@ s := client.Stream(ctx, scope, target, req, opts)          // 完整协议选项
 s := client.StreamSimple(ctx, scope, target, req, simple)  // 统一选项
 res, err := client.Complete(ctx, scope, target, req, opts)
 res, err := client.CompleteSimple(ctx, scope, target, req, simple)
-hc := client.WithHooks(hooks)                              // 可信回调，同样四个入口
+res, err := client.Classify(ctx, scope, target, classification, nil) // 同步单选
+hc := client.WithHooks(hooks)                              // 可信回调，同样五个入口
 ```
 
 | 输入 | 契约 |
@@ -65,6 +66,40 @@ hc := client.WithHooks(hooks)                              // 可信回调，同
 四个聊天入口（含 WithHooks）期望 chat，操作不匹配为 `tenant_denied/capability`。
 核对操作后才查聊天目录与白名单，最后读取凭据并核对版本快照；操作拒绝没有凭据读取、Provider 请求或 Attempt。
 
+### 同步分类（工单 05 已交付部分）
+
+Client 与 HookedClient 的 Classify 接收 ClassifierRequest 和既有封闭 Options；nil 或空 TypeSafeOptions
+表示协议默认，错协议选项在 capability 拒绝，SimpleOptions 不能传入。Binding 必须固定为
+classifier × typesafe × typesafe-system-one；按独立分类目录与白名单授权后才读取凭据。
+
+ResourcePolicy.Classifier 为 nil 时以 invalid_request/scope 返回完整失败结果。启用时 MaxQuestions、
+MaxStateBytes、MaxQuestionBytes 均须为正且在构造时独立复制。状态为 JSON string/object/array；
+Questions 至少一项、键非空，每项为 ChoiceQuestion，Instructions 为非空 JSON string，
+Criteria 是 1–255 个 JSON string/null 描述。接收时先检查已知长度再复制，交接期间不得并发修改源值。
+请求 JSON 的问题 type 为 choice；未知类型/字段组合在反序列化边界拒绝。
+
+一次调用提交完整状态和问题集合。结果的 Answers 为 map[string]ClassifierAnswer，单选值为 ChoiceAnswer。
+每个最终请求问题恰有一个同类型答案，无额外键；分布选项集必须相同、概率和 confidence 有限且在 0–1，
+总和在 1±1e-6，choice 属于最高概率项（允许并列）。任何答案失败时以 protocol/response 结束，
+Answers 整体为空，已上报 Usage 和 Metadata 保留。重复响应字段、答案键或概率键拒绝，不归一化分布。
+重复 usage 或 token 字段的用量存在歧义，以 unreported 拒绝；其他响应字段错误仍保留明确上报的用量。
+成功 StopReason 为 stop，失败为 error 或 aborted，error 为对应 *ai.Error。
+
+三种可信回调的 CallScope、Payload/ResponseInfo 都带入口确定的 Operation；入口覆盖宿主提交的
+CallScope.Operation，该字段不授予权限。最终请求回调执行一次，回调后重新解码、校验并冻结问题集；
+非法结果或分类容量超限为 callback_failed，改变授权模型、凭据或添加授权字段为 tenant_denied。
+成功响应之后执行一次只看 HTTP 元数据的响应回调再读取。Gemini 聊天仍不调用响应回调。
+
+unary 成功体只按 MaxOutputBytes 读取，不受 SSE MaxFrameBytes 限制；错误体按 MaxErrorBodyBytes。
+读取、解析和答案校验完成前持有准入许可，任一失败关闭 body 并释放。默认不重试；
+绑定显式允许的初始请求重试复用冻结快照，成功响应之后的失败不重放。
+
+usage 的 input_tokens/output_tokens 均存在为 complete，缺项为 partial，无 usage 为 unreported。
+TypeSafe 只按目录输入费率估价，输出为零；本次合成目录费率不代表厂商价格。
+实际版本型号只放 ResponseModel Nullable[string]，授权 ModelID 不变，
+x-typesafe-request-id 放 Attempt.ProviderRequestID。Observer 只记录操作、归属、尝试、分类及用量。
+score/bool、结构化问题、真实型号/价格和 live 支持声明由工单 06–08 验收；禁用绑定或子策略即可停用新调用。
+
 ## 3. 输出
 
 | 输出 | 契约 |
@@ -77,7 +112,7 @@ hc := client.WithHooks(hooks)                              // 可信回调，同
 | 工具 | `ToolCall` 保留原始参数 JSON（`RawArguments`）与展示用部分解析（`Arguments`，不可执行）；`ValidateToolCall` 校验完整参数后才交宿主执行；`RepairToolJSON` 显式修复；`ToolResultText` 构造结果。工具执行与下一轮调用属于宿主。 |
 | 用量与成本 | `Usage` 保持 pi 的数字（含按目录价格估算的 `Cost`，非账单）；每次尝试的 `UsageReporting`（未上报/部分/完整）另行记录，零值不表示免费。 |
 
-`CallAttribution.Operation` 从入口开始即为 chat，包含 CallStarted、预检失败和事件信封；
+`CallAttribution.Operation` 从入口开始即为 chat 或 classifier，包含 CallStarted、预检失败和事件信封；
 Provider、API、ModelID、AccountScopeID 与绑定/凭据/目录版本仍只在一致快照解析成功后填写。
 operation 是经审阅的 Observer 固定枚举元数据，已加入脱敏审计白名单。
 
@@ -95,14 +130,14 @@ operation 是经审阅的 Observer 固定枚举元数据，已加入脱敏审计
 | `upstream_auth` | Provider 拒绝凭据（401/403）；不换 key、不换身份 | request | 是 |
 | `rate_limited` | 429 | request | 是 |
 | `upstream_error` | 5xx/408/409、流内错误、failed 响应、非长度原因的 incomplete | request、stream | 是 |
-| `transport` | 建连失败、连接中断 | request、stream | 可能 |
-| `protocol` | 缺协议终态的 EOF、无法解析的帧、非法事件序列 | stream | 是 |
+| `transport` | 建连失败、连接中断 | request、stream、response | 可能 |
+| `protocol` | 缺协议终态的 EOF、无法解析的帧、非法事件序列或 unary JSON/答案校验失败 | stream、response | 是 |
 | `canceled` | 宿主取消 context 或 Close | 任意 | 视阶段 |
 | `deadline_exceeded` | 宿主 deadline、`CallTimeout`、建连/响应头/读空闲/协议 timeoutMs 中最早者 | 任意 | 视阶段 |
-| `resource_limit` | 请求/图片字节（发送前）、帧/总输出/工具 JSON/错误体（读取中）、事件队列超限；超限的尝试不重试 | scope、request、stream、event_queue | 视限额 |
+| `resource_limit` | 请求/图片字节（发送前）、帧/总输出/工具 JSON/错误体（读取中）、事件队列超限；超限的尝试不重试 | scope、request、stream、response、event_queue | 视限额 |
 | `callback_failed` | 可信宿主回调出错或未产出可用请求体 | request | TransformHeaders/OnPayload 失败时否；OnResponse 在收到初始响应后运行，其失败时请求已到达 |
 
-Phase 取值：`scope`、`binding`、`capability`、`credential`、`consistency`、`admission`、`request`、`stream`、`event_queue`。错误分类不替换 StopReason：设置阶段捕获的取消形成 `error`，进入 adapter 后的取消形成 `aborted`；单次尝试自身的时限到期为 `error`。
+Phase 取值：`scope`、`binding`、`capability`、`credential`、`consistency`、`admission`、`request`、`stream`、`response`、`event_queue`。错误分类不替换 StopReason：设置阶段捕获的取消形成 `error`，进入 adapter 后的取消形成 `aborted`；单次尝试自身的时限到期为 `error`。
 
 `Error.Message` 按 pi 原样引用 Provider 错误体，只脱敏 key 形态的文本，可能复述 Provider 回显的请求内容：它只返回给发起调用的租户，宿主不得写入共享日志，需要记录时使用 Observer 记录（批准的安全差异，ADR-0009）。barness-ai 自身不写日志。
 

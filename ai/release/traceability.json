@@ -18,19 +18,21 @@
     "P04": "^(PIDIFF-)?P04-",
     "P05": "^P05-",
     "P06": "^(PIDIFF-)?P06-",
+    "P07": "^P07-",
     "D1": "^D1-",
     "D2": "(^|-)E07-(snapshot-|reject-[a-z-]*-between-reads|reject-host-reports-snapshot-conflict)",
     "H1": "(^|-)H1-",
     "PRESSURE": "^E08-(policy-pressure|admission-burst-pressure)-",
     "PIDIFF": "^PIDIFF-"
   },
-  "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "D1", "D2", "PRESSURE"],
+  "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "D1", "D2", "PRESSURE"],
   "differential": {
     "required": ["P01", "P02", "P03", "P04", "P06"],
     "routes": [{"scenario": "P05", "provider": "deepseek", "api": "openai-responses"}]
   },
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat"],
   "items": [
+    {"id":"V4-typesafe-choice","source":"issue 05 / design sections 7–10 / ADR-0021","requirement":"TypeSafe choice unary public call, strict final-question answer validation, shared runtime, callbacks, usage, isolation and resource release","scenarios":["P07"]},
     {"id": "T01", "source": "research-traceability §2 T01", "requirement": "Every entry point takes an explicit TenantID; refused calls send nothing", "scenarios": ["E07", "E09", "E10"], "cases": "missing-tenant|no-tenant|without-tenant|missing-request-id|without-request-id"},
     {"id": "T02", "source": "research-traceability §2 T02", "requirement": "Identity comes from the trusted host; forged tenants and history are refused at the host boundary", "scenarios": ["E10"], "cases": "example-host-|library-refuses|native-trust"},
     {"id": "T03", "source": "research-traceability §2 T03", "requirement": "Bindings are located by (tenant, binding) and owned by the tenant", "scenarios": ["E06", "E07"], "cases": "binding|both-succeed"},

@@ -23,3 +23,11 @@ date: 2026-10-02
 - 这是 barness-ai 的租户授权扩展，不属于 pi 兼容行为；pi 差分不覆盖这部分。Anthropic、Chat、Gemini 等 adapter 接入 onPayload 时沿用同一字段，按各自协议的工具类型名称判断。
 
 行为与验收见 [spec §7](../../.scratch/barness-ai/spec.md#7-完整选项统一选项与可信回调) 和 E04（`TestTrustedCallbackHostedTools`）。
+
+## 工单 05 已交付扩展（2026-10-08）
+
+Classify 沿用三种可信回调与 headers → payload → response 顺序，均带入口 Operation。
+TypeSafe 没有托管工具授权：最终 body 只接受模型、状态和问题集合。改变授权模型/认证或添加授权字段为
+tenant_denied；无法解码、非法问题或超出分类容量为 callback_failed。最终问题集合独立冻结，答案按它校验。
+
+详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。

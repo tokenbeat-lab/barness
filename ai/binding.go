@@ -10,7 +10,10 @@ import (
 // TenantID and RequestID are required. The library never derives a scope from
 // request content, the environment or the context.
 type CallScope struct {
-	TenantID string
+	// Operation is set by the entry for resolvers and callbacks, overriding
+	// any supplied value. It conveys context and never grants authority.
+	Operation Operation
+	TenantID  string
 	// RequestID identifies one public logical call; internal retries reuse it
 	// and a new call must use a new one. It is globally unique: no two
 	// logical calls share one, whatever their tenants. The host guarantees
@@ -33,6 +36,8 @@ type ProviderID string
 const (
 	// ProviderOpenAI is OpenAI.
 	ProviderOpenAI ProviderID = "openai"
+	// ProviderTypeSafe is TypeSafe AI.
+	ProviderTypeSafe ProviderID = "typesafe"
 	// ProviderAnthropic is Anthropic.
 	ProviderAnthropic ProviderID = "anthropic"
 	// ProviderGoogle is Google, through the Gemini Developer API.
@@ -49,6 +54,8 @@ type API string
 const (
 	// APIOpenAIResponses is the OpenAI Responses protocol.
 	APIOpenAIResponses API = "openai-responses"
+	// APITypeSafeSystemOne is the unary System One classification protocol.
+	APITypeSafeSystemOne API = "typesafe-system-one"
 	// APIAnthropicMessages is the Anthropic Messages protocol.
 	APIAnthropicMessages API = "anthropic-messages"
 	// APIGoogleGenerativeAI is the Gemini Developer API's generateContent

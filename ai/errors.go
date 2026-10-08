@@ -55,6 +55,8 @@ const (
 	PhaseAdmission Phase = "admission"
 	PhaseRequest   Phase = "request"
 	PhaseStream    Phase = "stream"
+	// PhaseResponse is a unary response read, decode or validation.
+	PhaseResponse Phase = "response"
 	// PhaseEventQueue is a Stream's event queue: its consumer fell behind the
 	// policy's MaxQueuedEvents or MaxQueuedEventBytes.
 	PhaseEventQueue Phase = "event_queue"
@@ -80,7 +82,7 @@ type Error struct {
 	HTTPStatus int
 	// ProviderRequestID is the vendor's own request id (OpenAI's
 	// x-request-id, DeepSeek's x-ds-trace-id, Anthropic's request-id
-	// response header), when a response carried one.
+	// response header, or TypeSafe's x-typesafe-request-id), when a response carried one.
 	ProviderRequestID string
 	// RetryAfter is the delay the provider asked for, from retry-after-ms or
 	// retry-after (seconds or an HTTP date); 0 when it asked for none or for

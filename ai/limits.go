@@ -91,17 +91,29 @@ func base64Size(data string) int64 {
 }
 
 // limitBody bounds res's body while it is read: a successful response's body
-// by the frame and output limits, any other by the error body limit. The SDK
+// by SSE frame/output limits or the unary output limit, any other by the
+// error body limit. The SDK
 // and adapter read it through the wrapper, so nothing is read past a limit.
-func (l byteLimits) limitBody(res *http.Response) {
+type bodyKind int
+
+const (
+	bodySSE bodyKind = iota
+	bodyJSON
+)
+
+func (l byteLimits) limitBody(res *http.Response, kind bodyKind) {
 	if res == nil || res.Body == nil {
 		return
 	}
 	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		res.Body = &streamBody{ReadCloser: res.Body, frameLimit: l.frame, outputLimit: l.output}
+		if kind == bodyJSON {
+			res.Body = &totalBody{ReadCloser: res.Body, limit: l.output, field: "MaxOutputBytes"}
+		} else {
+			res.Body = &streamBody{ReadCloser: res.Body, frameLimit: l.frame, outputLimit: l.output}
+		}
 		return
 	}
-	res.Body = &errorBody{ReadCloser: res.Body, limit: l.errorBody}
+	res.Body = &totalBody{ReadCloser: res.Body, limit: l.errorBody, field: "MaxErrorBodyBytes"}
 }
 
 // streamBody bounds an SSE body: each frame (an event's lines through the
@@ -151,21 +163,25 @@ func (b *streamBody) Read(p []byte) (int, error) {
 	return n, err
 }
 
-// errorBody bounds a non-2xx body read for diagnosis.
-type errorBody struct {
+// totalBody bounds a unary output or non-2xx diagnostic body.
+type totalBody struct {
 	io.ReadCloser
 	limit, read int64
+	field       string
 	err         error
 }
 
-func (b *errorBody) Read(p []byte) (int, error) {
+func (b *totalBody) Read(p []byte) (int, error) {
 	if b.err != nil {
 		return 0, b.err
+	}
+	if remaining := b.limit - b.read; int64(len(p)) > remaining {
+		p = p[:min(int64(len(p)), remaining+1)]
 	}
 	n, err := b.ReadCloser.Read(p)
 	b.read += int64(n)
 	if over := b.read - b.limit; over > 0 {
-		b.err = &limitExceeded{field: "MaxErrorBodyBytes", limit: b.limit}
+		b.err = &limitExceeded{field: b.field, limit: b.limit}
 		return n - int(over), b.err
 	}
 	return n, err

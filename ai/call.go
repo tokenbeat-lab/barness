@@ -3,7 +3,6 @@ package ai
 import (
 	"context"
 	"slices"
-	"time"
 )
 
 // call is one logical call's validated input, copied on receipt.
@@ -31,26 +30,15 @@ func newCall(scope CallScope, target Target, req Request, full Options, simple *
 // run executes a call to its terminal and returns the result. emit queues
 // every event when the caller streams; it is nil for Complete.
 func (c *Client) run(ctx context.Context, cl call, emit func(EventEnvelope) *Error) (Result, error) {
-	c.probe.CallStarted()
-	defer c.probe.CallEnded()
-	// The policy's CallTimeout bounds the whole call, setup included; the
-	// host's own deadline ends it earlier if it comes first.
-	ctx, cancel := context.WithTimeout(ctx, c.policy.CallTimeout)
-	defer cancel()
-	started := time.Now()
-	meta := CallMetadata{CallAttribution: CallAttribution{
-		TenantID:  cl.scope.TenantID,
-		RequestID: cl.scope.RequestID,
-		ActorID:   cl.scope.ActorID,
-		JobID:     cl.scope.JobID,
-		BindingID: cl.target.BindingID,
-		Operation: OperationChat,
-	}}
-	asm := newAssembler(started.UnixMilli(), meta.CallAttribution, emit, c.policy.byteLimits().toolJSON)
-	c.observations.callStarted(meta)
-	failure := c.execute(ctx, cl, &meta, asm)
-	res, err := asm.finish(meta, failure)
-	c.observations.callFinished(res, err, started)
+	ctx, runtime := c.beginCall(ctx, cl.scope, cl.target, OperationChat)
+	defer runtime.close()
+	meta := &runtime.meta
+	asm := newAssembler(runtime.started.UnixMilli(), meta.CallAttribution, emit, c.policy.byteLimits().toolJSON)
+	failure := c.execute(ctx, cl, runtime, asm)
+	res, err := asm.finish(*meta, failure)
+	classified, _ := err.(*Error)
+	runtime.finish(callOutcome{stop: res.Message.StopReason, usage: res.Message.Usage, failure: classified})
+	res.Metadata = runtime.meta
 	return res, err
 }
 
@@ -60,9 +48,10 @@ func (c *Client) run(ctx context.Context, cl call, emit func(EventEnvelope) *Err
 // resolved once the snapshot is consistent. Admission is per attempt, so it
 // happens inside the adapter's send of the initial request (initialRequest),
 // once the request body is built.
-func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *assembler) *Error {
-	if cl.scope.TenantID == "" || cl.scope.RequestID == "" {
-		return newError(CodeInvalidRequest, PhaseScope, "call scope requires TenantID and RequestID")
+func (c *Client) execute(ctx context.Context, cl call, runtime *callRuntime, asm *assembler) *Error {
+	meta := &runtime.meta
+	if failure := validateScope(cl.scope); failure != nil {
+		return failure
 	}
 	if problem := cl.req.validate(); problem != "" {
 		return newError(CodeInvalidRequest, PhaseScope, problem)
@@ -72,21 +61,13 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		return failure
 	}
 
-	binding, failure := c.resolveBinding(ctx, cl.scope, cl.target.BindingID)
+	index, failure := runtime.resolve(ctx, cl.target)
 	if failure != nil {
 		return failure
 	}
-	if binding.Operation != OperationChat {
-		return newError(CodeTenantDenied, PhaseCapability, "binding does not allow this operation")
-	}
-	ad, ok := c.adapters[binding.API]
-	if !ok {
-		return newError(CodeInvalidRequest, PhaseCapability, "binding API is not supported: "+string(binding.API))
-	}
-	model, failure := c.authorizeModel(binding, cl.target.ModelID)
-	if failure != nil {
-		return failure
-	}
+	binding := runtime.binding
+	ad := c.adapters[binding.API]
+	model := c.catalog.Models[index].clone()
 	// Simple options are mapped for the model first; either way the
 	// protocol options are then checked, which also holds samplingParams
 	// merged from the model to the call's boundary.
@@ -97,13 +78,8 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		}
 		options = ad.simpleOptions(model, cl.simple.resolve(model, cl.req), normalizeTranscript(cl.req))
 	}
-	if options != nil {
-		if options.api() != binding.API {
-			return newError(CodeInvalidRequest, PhaseCapability, "options do not match the binding API")
-		}
-		if problem := options.validate(); problem != "" {
-			return newError(CodeInvalidRequest, PhaseCapability, problem)
-		}
+	if failure := validateOptions(options, binding.API); failure != nil {
+		return failure
 	}
 
 	// History source: native state is replayed only where its envelope
@@ -113,31 +89,14 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 	origin := replayOrigin{tenant: cl.scope.TenantID, account: binding.AccountScopeID, model: model}
 	history, downgrades := origin.prepareTranscript(cl.req, ad.historyRules(model))
 
-	cred, failure := c.resolveCredential(ctx, cl.scope, binding)
-	if failure != nil {
-		return failure
-	}
-	if failure := checkSnapshot(cl.scope, binding, cred); failure != nil {
-		return failure
-	}
-	meta.Resolved, meta.ProviderID, meta.API, meta.ModelID = true, binding.ProviderID, binding.API, model.ID
-	meta.AccountScopeID = binding.AccountScopeID
-	meta.BindingVersion, meta.CredentialVersion = binding.Version, cred.Version
-	meta.CatalogVersion, meta.CatalogHash = c.catalog.Version, c.catalogHash
 	meta.NativeStateDowngrades = downgrades
+	cred, failure := runtime.pin(ctx, model.ID, cl.hooks)
+	if failure != nil {
+		meta.NativeStateDowngrades = NativeStateDowngrades{}
+		return failure
+	}
 	asm.identify(origin.envelope(), meta.CallAttribution)
-
-	// From here on the call is pinned to this snapshot: later updates or
-	// revocations affect only new logical calls, and every retry of the
-	// initial request reuses it, each attempt under its own permit.
-	initial := &initialRequest{policy: binding.Retry.pinned(), clock: c.clock, requestID: cl.scope.RequestID,
-		observe: c.observations.attempts(*meta),
-		admit: func(ctx context.Context, attemptID string) (func(), *Error) {
-			return c.admission.admit(ctx, AdmissionRequest{TenantID: cl.scope.TenantID, AccountScopeID: binding.AccountScopeID, AttemptID: attemptID})
-		}}
-	// The permit of the attempt whose stream the adapter read is held until
-	// the adapter returned, which closed that stream.
-	defer initial.done()
+	initial := runtime.initial
 	ac := adapterCall{
 		http:     c.http,
 		endpoint: binding.Endpoint,
@@ -149,7 +108,7 @@ func (c *Client) execute(ctx context.Context, cl call, meta *CallMetadata, asm *
 		// Copied so a resolver that reuses its slice cannot change the
 		// pinned snapshot.
 		hostedTools: slices.Clone(binding.AllowedHostedTools),
-		hooks:       boundHooks{hooks: cl.hooks, scope: cl.scope, model: model},
+		hooks:       runtime.hooks,
 		initial:     initial,
 		limits:      limits,
 	}

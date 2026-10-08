@@ -81,7 +81,7 @@ func (geminiAdapter) stream(ctx context.Context, ac adapterCall, out *assembler)
 			o.connection = false
 			return o
 		}
-		ac.limits.limitBody(r)
+		ac.limits.limitBody(r, bodySSE)
 		if r.StatusCode >= 300 {
 			o := failures.status(r)
 			closeBody(r)
