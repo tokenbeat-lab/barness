@@ -2940,6 +2940,13 @@
       "classification": "extension",
       "decision": "DeepSeek × Responses (P05) is an access path outside the frozen pi routes: pi 0.87.1 routes DeepSeek only through openai-completions (providers/deepseek.ts). It reuses barness's Responses adapter with DeepSeek's own capabilities (no store, include, prompt cache or service tier; full input history) and is proven by the official-protocol fixtures in ai/e2e/testdata/deepseek-responses, run offline by TestDeepSeekResponses*; none of them runs as a differential case and none counts as a differential pass. Its live evidence is issue 23's smoke.",
       "ref": "spec I4, Testing Decisions §5; ADR-0014; issues/21; ai/e2e/deepseek_responses_test.go, deepseek_routing_test.go"
+    },
+    {
+      "provider": "openai",
+      "api": "openai-images",
+      "classification": "extension",
+      "decision": "Native synchronous Images generation (and issue 10 JSON editing) uses an independently bounded unary route; frozen pi 1.0.0 routes OpenRouter images only. P08 fixtures explicitly skip pi differential and are never counted as a differential pass.",
+      "ref": "docs/adr/0022-barness-ai-openai-images-unary.md"
     }
   ]
 }

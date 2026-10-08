@@ -53,3 +53,9 @@ TestUnaryCallbackAllocationBound 先复现：宿主已有 8 MiB 状态或问题�
 库内分配才被拒绝；修复后公共调用的分配低于独立设定的宽松 4 MiB 验收上界，且无准入或 HTTP。
 回调错误仍先按原契约保留宿主 cause，context 结束优先；容量检查不改变聊天的授权守卫。
 详见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
+
+## 工单 09：原生图像生成（2026-10-08）
+
+Image 子策略显式启用 GenerateImages，四项容量均为正，单张输出 ≤ 总输出图片字节 ≤ MaxOutputBytes；NewClient 深复制。已知输入和回调 map 尺寸在复制/编码前检查，旧聊天配置保持有效。
+
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

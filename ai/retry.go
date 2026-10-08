@@ -233,7 +233,7 @@ func (r *initialRequest) failed(rec Attempt, started time.Time) {
 // call reads. Adapters call it only after send succeeded.
 func (r *initialRequest) usage(reporting UsageReporting, u Usage) {
 	a := &r.attempts[len(r.attempts)-1]
-	a.UsageReporting, a.Usage = reporting, u
+	a.UsageReporting, a.Usage = reporting, u.clone()
 }
 
 // done ends the attempt whose stream the call read, if any: it reports it

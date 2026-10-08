@@ -83,3 +83,9 @@ TestUnaryAdmissionWaitIsolation 证明取消等待调用只回收自己的等待
 和其他租户继续执行；注入准入在 context 结束后返回的许可立即归还、不伪造 Attempt。
 读取、整体解析与校验、body 关闭均在尝试许可下完成，后续调用可继续获得许可。
 详见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
+
+## 工单 09：原生图像生成（2026-10-08）
+
+GenerateImages 复用共同 unary 发送与绑定重试、逐次准入及取消/时限；许可持有到图片解析结束和 body 关闭，回调 panic 解栈也释放。P08 E08 记录 body/call/permit/waiter/event 全部归零。
+
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

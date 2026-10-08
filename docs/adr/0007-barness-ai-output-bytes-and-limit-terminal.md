@@ -56,3 +56,9 @@ MaxErrorBodyBytes，恰在上限保留状态分类，超限即使为 529 且绑�
 
 所有这些路径在 body 关闭时仍持有许可；解码/答案校验失败整体清空答案，明确用量保留，
 后续调用能取得许可。证据与回放见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
+
+## 工单 09：原生图像生成（2026-10-08）
+
+OpenAI Images 的成功 JSON 仅受 MaxOutputBytes 限制，不受 MaxFrameBytes 限制。逐条读取且整体发布，数量/单张/总图片字节超限在 response 阶段失败；2xx 后任何失败不重放，用量先登记后校验图片。
+
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

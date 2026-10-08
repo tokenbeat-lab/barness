@@ -1,7 +1,6 @@
 package ai
 
 import (
-	"slices"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -211,8 +210,8 @@ func (q *observations) callFinished(meta CallMetadata, out callOutcome, started 
 	}
 	now := time.Now()
 	o := Observation{Kind: ObservationCallFinished, Time: now, Call: meta, Duration: now.Sub(started),
-		StopReason: out.stop, Usage: out.usage}
-	o.Call.Attempts = slices.Clone(o.Call.Attempts)
+		StopReason: out.stop, Usage: out.usage.clone()}
+	o.Call.Attempts = cloneAttempts(o.Call.Attempts)
 	if e := out.failure; e != nil {
 		o.Error = &ObservedError{Code: e.Code, Phase: e.Phase, HTTPStatus: e.HTTPStatus,
 			ProviderRequestID: e.ProviderRequestID, RetryAfter: e.RetryAfter}
@@ -250,5 +249,6 @@ func (r attemptRecorder) finished(a Attempt, started time.Time) {
 		return
 	}
 	now := time.Now()
+	a.Usage = a.Usage.clone()
 	r.q.publish(Observation{Kind: ObservationAttemptFinished, Time: now, Call: r.call, Attempt: &a, Duration: now.Sub(started)})
 }

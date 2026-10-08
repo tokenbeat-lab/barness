@@ -99,6 +99,9 @@ func (m ImageModel) problem() string {
 	if (caps.Mask || len(caps.InputFidelity) > 0) && caps.MaxReferenceImages == 0 {
 		return "mask and input fidelity require reference images"
 	}
+	if m.Provider == ProviderOpenAI && m.API == APIOpenAIImages && (!m.Pricing.CacheReadText.IsZero() || !m.Pricing.CacheReadImage.IsZero()) {
+		return "direct OpenAI Images does not support cache-read pricing"
+	}
 	return m.Pricing.problem(m.Input, m.Output)
 }
 

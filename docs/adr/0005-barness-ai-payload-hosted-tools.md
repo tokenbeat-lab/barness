@@ -31,3 +31,9 @@ TypeSafe 没有托管工具授权：最终 body 只接受模型、状态和问�
 tenant_denied；无法解码、非法问题或超出分类容量为 callback_failed。最终问题集合独立冻结，答案按它校验。
 
 详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。
+
+## 工单 09：原生图像生成（2026-10-08）
+
+图像生成回调只可改变允许的生成字段，不能改授权型号、端点或操作，也不能加入流、partial images、user、外部资源或续接状态。以最终冻结请求校验数量和格式；无效回调为 callback_failed，扩大授权为 tenant_denied。
+
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

@@ -28,15 +28,6 @@ func (p *ClassifierPolicy) validate() error {
 	}
 	return nil
 }
-func (p *ResourcePolicy) clone() ResourcePolicy {
-	out := *p
-	if p.Classifier != nil {
-		v := *p.Classifier
-		out.Classifier = &v
-	}
-	return out
-}
-
 func (p *ClassifierPolicy) check(req ClassifierRequest) *Error {
 	if p == nil {
 		return newError(CodeInvalidRequest, PhaseScope, "the client policy does not enable classification")

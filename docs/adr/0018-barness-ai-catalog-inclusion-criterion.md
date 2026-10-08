@@ -108,3 +108,9 @@ bool；上下文 64000（另有 state + 最长问题 32000 的厂商约束，Hos
 名称 Jev 保持与冻结 pi 的共同字段一致；固定 ID 和官方输入费率是已登记扩展。
 jev-latest / jev-preview 不列入。公共目录测试与官方来源 fixture 对照，
 自己的真实混合/单选/上下文错误 fixture 经 Client 回放；聊天条目与授权白名单不变。
+
+## 工单 09：原生图像生成（2026-10-08）
+
+原生 OpenAI Images 明确豁免冻结 pi 的聊天目录字段比对，以自己的扩展路线 fixture、能力/费率来源和 live 证据验收。TestCatalogNativeImageExemptions 断言登记。工单 09 仅交付宿主自带目录的生成协议；内置图像型号仍由工单 11 纳入，未提前宣称首批型号已支持。
+
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

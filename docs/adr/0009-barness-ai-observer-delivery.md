@@ -93,3 +93,9 @@ unreported/partial/complete 轴，保持各自独立的公共快照。
 P07 的新 E09 证据覆盖慢、拥塞、错误和 panic；队列故障只改变 ObserverStats，不改变
 Classify 结果。观测不包含分类状态、问题、答案、认证头或正文，调用/尝试记录按可信入口和
 固定快照关联；详见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
+
+## 工单 09：原生图像生成（2026-10-08）
+
+图像操作记录 image；可选模态 token 分项是审计允许的元数据。结果、尝试与异步 Observer 各自拥有用量副本，不共享可变分项。提示、base64、revised prompt 和错误正文不进入观测。
+
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

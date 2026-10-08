@@ -1,17 +1,14 @@
 package ai
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
-	"io"
 	"math"
 )
 
 // Usage is registered before parsing any answer. A syntactically valid
 // envelope with invalid answers retains consumption and response identity.
 func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialRequest, req ClassifierRequest, out *ClassifierResult) *Error {
-	fields, duplicate, err := typeSafeEnvelope(raw)
+	fields, duplicate, err := unaryJSONEnvelope(raw)
 	if err != nil {
 		return classifierProtocolFailure()
 	}
@@ -60,46 +57,6 @@ func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialR
 	}
 	out.Answers = validated
 	return nil
-}
-
-// Duplicate envelope fields are omitted, so ambiguous usage or response
-// identity cannot become authoritative. Unique usage survives answer failures.
-func typeSafeEnvelope(raw []byte) (map[string]json.RawMessage, bool, error) {
-	d := json.NewDecoder(bytes.NewReader(raw))
-	token, err := d.Token()
-	if err != nil || token != json.Delim('{') {
-		return nil, false, fmt.Errorf("invalid classifier envelope")
-	}
-	fields, seen := map[string]json.RawMessage{}, map[string]bool{}
-	duplicate := false
-	for d.More() {
-		token, err := d.Token()
-		if err != nil {
-			return nil, false, err
-		}
-		key, ok := token.(string)
-		if !ok {
-			return nil, false, fmt.Errorf("invalid classifier envelope key")
-		}
-		var value json.RawMessage
-		if err := d.Decode(&value); err != nil {
-			return nil, false, err
-		}
-		if seen[key] {
-			delete(fields, key)
-			duplicate = true
-		} else {
-			fields[key] = value
-		}
-		seen[key] = true
-	}
-	if _, err := d.Token(); err != nil {
-		return nil, false, err
-	}
-	if err := d.Decode(new(any)); err != io.EOF {
-		return nil, false, fmt.Errorf("classifier envelope must contain one value")
-	}
-	return fields, duplicate, nil
 }
 
 func typeSafeUsage(raw json.RawMessage, cost ModelCost) (UsageReporting, Usage, *Error) {

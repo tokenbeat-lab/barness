@@ -55,6 +55,8 @@ type API string
 const (
 	// APIOpenAIResponses is the OpenAI Responses protocol.
 	APIOpenAIResponses API = "openai-responses"
+	// APIOpenAIImages is the native synchronous OpenAI Images protocol.
+	APIOpenAIImages API = "openai-images"
 	// APITypeSafeSystemOne is the unary System One classification protocol.
 	APITypeSafeSystemOne API = "typesafe-system-one"
 	// APIAnthropicMessages is the Anthropic Messages protocol.

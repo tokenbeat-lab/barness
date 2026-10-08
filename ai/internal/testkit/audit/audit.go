@@ -274,6 +274,8 @@ var observationFields = map[string]bool{
 	"retryDelay": true, "usageReporting": true,
 	"input": true, "output": true, "cacheRead": true, "cacheWrite": true, "cacheWrite1h": true, "reasoning": true,
 	"totalTokens": true, "cost": true, "total": true,
+	// Optional image token counts are metadata, never image content.
+	"modalities": true, "inputText": true, "inputImage": true, "outputText": true, "outputImage": true,
 }
 
 // mask shows only a value's shape: its first three characters and length.

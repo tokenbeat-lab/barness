@@ -8,6 +8,8 @@ import "time"
 //
 // The policy is not a protocol option and cannot be changed by a Request.
 type ResourcePolicy struct {
+	// Image explicitly enables GenerateImages; nil keeps it disabled.
+	Image *ImagePolicy
 	// Classifier explicitly enables Classify; nil keeps it disabled.
 	Classifier *ClassifierPolicy
 	// Byte limits, enforced while encoding, reading or merging rather than
@@ -17,7 +19,7 @@ type ResourcePolicy struct {
 	// MaxRequestBytes bounds the final encoded request body (after the
 	// payload callback), refused in PhaseRequest before it is sent.
 	MaxRequestBytes int64
-	// MaxImageBytes bounds a single image of the request history, counted as
+	// MaxImageBytes bounds a single history image, reference image or mask, counted as
 	// the image's own bytes rather than its base64 text, refused in
 	// PhaseScope before anything resolves. It must not exceed MaxRequestBytes.
 	MaxImageBytes int64
@@ -145,9 +147,25 @@ func (p *ResourcePolicy) validate() error {
 			return policyError(d.field, "must not exceed CallTimeout")
 		}
 	}
+	if err := p.Image.validate(p.MaxOutputBytes); err != nil {
+		return err
+	}
 	return p.Classifier.validate()
 }
 
 func policyError(field, problem string) error {
 	return &ConfigError{Field: "Policy." + field, Problem: problem}
+}
+
+func (p *ResourcePolicy) clone() ResourcePolicy {
+	out := *p
+	if p.Image != nil {
+		v := *p.Image
+		out.Image = &v
+	}
+	if p.Classifier != nil {
+		v := *p.Classifier
+		out.Classifier = &v
+	}
+	return out
 }

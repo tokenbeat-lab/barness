@@ -39,7 +39,7 @@ func (c *Client) beginCall(ctx context.Context, scope CallScope, target Target, 
 func (r *callRuntime) finish(out callOutcome) {
 	if r.initial != nil {
 		r.initial.done()
-		r.meta.Attempts = slices.Clone(r.initial.attempts)
+		r.meta.Attempts = cloneAttempts(r.initial.attempts)
 	}
 	r.client.observations.callFinished(r.meta, out, r.started)
 	r.close()
@@ -82,6 +82,8 @@ func (r *callRuntime) resolve(ctx context.Context, target Target) (int, *Error) 
 		_, supported = r.client.adapters[b.API]
 	case OperationClassifier:
 		supported = b.ProviderID == ProviderTypeSafe && b.API == APITypeSafeSystemOne
+	case OperationImage:
+		supported = b.ProviderID == ProviderOpenAI && b.API == APIOpenAIImages
 	}
 	if !supported {
 		return 0, newError(CodeInvalidRequest, PhaseCapability, "binding API is not supported: "+string(b.API))

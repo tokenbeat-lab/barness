@@ -34,6 +34,7 @@ func (m Model) clone() Model {
 func (m ImageModel) clone() ImageModel {
 	m.Input, m.Output = slices.Clone(m.Input), slices.Clone(m.Output)
 	m.Capabilities.Sizes = slices.Clone(m.Capabilities.Sizes)
+	m.Capabilities.Qualities = slices.Clone(m.Capabilities.Qualities)
 	m.Capabilities.ImageSizes = slices.Clone(m.Capabilities.ImageSizes)
 	m.Capabilities.AspectRatios = slices.Clone(m.Capabilities.AspectRatios)
 	m.Capabilities.InputFidelity = slices.Clone(m.Capabilities.InputFidelity)

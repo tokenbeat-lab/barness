@@ -1,0 +1,363 @@
+{
+  "case": "P08",
+  "source": "Issue 09 / ADR-0022; synthetic responses and prices, no live support claim",
+  "scenarios": [
+    {
+      "id": "E01-generation",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"data\": [{\"b64_json\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\", \"revised_prompt\": \"not retained\"}], \"usage\": {\"input_tokens\": 10, \"output_tokens\": 20, \"total_tokens\": 30, \"input_tokens_details\": {\"text_tokens\": 10, \"image_tokens\": 0}, \"output_tokens_details\": {\"text_tokens\": 0, \"image_tokens\": 20}}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1/images/generations",
+          "body": {
+            "model": "host-image",
+            "prompt": "一张餐厅露台照片"
+          }
+        },
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ],
+        "usage": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 30,
+          "modalities": {
+            "inputText": 10,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.9999999999999998e-05,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00012
+          }
+        },
+        "usageReporting": "complete"
+      }
+    },
+    {
+      "id": "E01-multiple",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"data\":[{\"b64_json\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"},{\"b64_json\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}],\"usage\":{\"input_tokens\":10,\"output_tokens\":20,\"total_tokens\":30,\"input_tokens_details\":{\"text_tokens\":10,\"image_tokens\":0},\"output_tokens_details\":{\"text_tokens\":0,\"image_tokens\":20}}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1/images/generations",
+          "body": {
+            "model": "host-image",
+            "prompt": "一张餐厅露台照片",
+            "n": 2
+          }
+        },
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          },
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ],
+        "usage": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 30,
+          "modalities": {
+            "inputText": 10,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.9999999999999998e-05,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00012
+          }
+        },
+        "usageReporting": "complete"
+      },
+      "options": {
+        "n": 2
+      }
+    },
+    {
+      "id": "E04-all-options",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"data\":[{\"b64_json\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}],\"output_format\":\"png\",\"usage\":{\"input_tokens\":10,\"output_tokens\":20,\"total_tokens\":30,\"input_tokens_details\":{\"text_tokens\":10,\"image_tokens\":0},\"output_tokens_details\":{\"text_tokens\":0,\"image_tokens\":20}}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1/images/generations",
+          "body": {
+            "model": "host-image",
+            "prompt": "一张餐厅露台照片",
+            "n": 1,
+            "size": "1024x1024",
+            "quality": "medium",
+            "background": "transparent",
+            "output_format": "png",
+            "moderation": "low"
+          }
+        },
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ],
+        "usage": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 30,
+          "modalities": {
+            "inputText": 10,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.9999999999999998e-05,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00012
+          }
+        },
+        "usageReporting": "complete"
+      },
+      "options": {
+        "n": 1,
+        "size": "1024x1024",
+        "quality": "medium",
+        "background": "transparent",
+        "outputFormat": "png",
+        "moderation": "low"
+      }
+    },
+    {
+      "id": "E11-unreported",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"data\":[{\"b64_json\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1/images/generations",
+          "body": {
+            "model": "host-image",
+            "prompt": "一张餐厅露台照片"
+          }
+        },
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ],
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": "unreported"
+      }
+    },
+    {
+      "id": "E11-partial",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"data\":[{\"b64_json\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}],\"usage\":{\"input_tokens\":10,\"output_tokens\":20,\"total_tokens\":30,\"input_tokens_details\":{\"text_tokens\":10,\"image_tokens\":0}}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1/images/generations",
+          "body": {
+            "model": "host-image",
+            "prompt": "一张餐厅露台照片"
+          }
+        },
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ],
+        "usage": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 30,
+          "modalities": {
+            "inputText": 10,
+            "inputImage": 0
+          },
+          "cost": {
+            "input": 1.9999999999999998e-05,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 1.9999999999999998e-05
+          }
+        },
+        "usageReporting": "partial"
+      }
+    },
+    {
+      "id": "E11-zero",
+      "model": "host-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native OpenAI Images is an extension route: frozen pi only routes openrouter-images (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"data\":[{\"b64_json\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}],\"usage\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"input_tokens_details\":{\"text_tokens\":0,\"image_tokens\":0},\"output_tokens_details\":{\"text_tokens\":0,\"image_tokens\":0}}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1/images/generations",
+          "body": {
+            "model": "host-image",
+            "prompt": "一张餐厅露台照片"
+          }
+        },
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+            "mimeType": "image/png"
+          }
+        ],
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          },
+          "modalities": {
+            "inputText": 0,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 0
+          }
+        },
+        "usageReporting": "complete"
+      }
+    }
+  ]
+}

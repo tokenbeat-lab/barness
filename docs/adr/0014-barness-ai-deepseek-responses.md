@@ -56,3 +56,9 @@ DeepSeek 的 Responses 指南（https://api-docs.deepseek.com/guides/responses_a
 ## 真实冒烟后的处理（2026-10-03，工单 33）
 
 首次真实冒烟确认 high、max 推理等级被接受（决策三的条件未触发，目录不变）。P05 fixture 按实测形状修正：UUID 形式的 id、`call_00_…` 调用 id、推理条目带 `encrypted_content`、消息条目带 `phase`、401 错误体只显示 key 后四位并附 request_id。厂商请求 id 取 `x-ds-trace-id`（DeepSeek 不发送 `x-request-id`）。`auth-refused` 场景已删除。
+
+## 工单 09：原生图像生成（2026-10-08）
+
+差分账本 routes 新登记 OpenAI × openai-images（image）。P08 每个 fixture 显式跳过冻结 pi，独立证明原生 JSON 协议；不伪称 OpenRouter 图像差分或聊天差分通过。
+
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

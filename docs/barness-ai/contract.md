@@ -28,14 +28,14 @@ choice 的选项上限至少 2，score 的级数最少 2 且上下界有序，�
 `ClassifierQuestionChoice`、`ClassifierQuestionScore`、`ClassifierQuestionBool`。
 已有 Go 宿主的 `[]string` 构造须改为此类型；从动态字符串逐项转换后仍需目录构造校验。
 JSON 继续编码为 `"choice"`、`"score"`、`"bool"`，未知或空类型仍在 NewClient 边界拒绝。
-图像每个已声明输入/输出模态须有费率值（显式 0 合法，unset/null 缺失），缓存费率可选。
+图像每个已声明输入/输出模态须有费率值（显式 0 合法，unset/null 缺失），缓存费率按协议声明；直接 OpenAI Images 禁止设置缓存输入费率。
 Responses/Chat 型号默认 samplingParams 同样不能覆盖保留字段。
 
 `Client.Catalog()` 返回构造时固定的完整目录副本。`Catalog.Lookup`/`ModelsOf` 只查聊天；
 `LookupImage`/`ImageModelsOf`、`LookupClassifier`/`ClassifierModelsOf` 分别强类型查询另两类，
 参数按 Provider、API（查找另含 ID）限定，列表保持目录顺序。所有返回值、切片、map、原始 JSON、
 能力与阶梯价格均独立复制。配置在构造交接期间不得并发修改。发现目录无需读取绑定或凭据，
-也不授予调用权限；内置目录目前只列已有验收的聊天路线，Classify 已交付混合问题入口，真实分类型号纳入由后续工单验收。
+也不授予调用权限；内置目录列已有验收的聊天路线和 jev-1.13.0 分类；GenerateImages 已交付宿主目录的生成入口，真实图像型号纳入由工单 11 验收。
 三类型号与全部价格都参加目录 Hash；内容改变应升 Version，宿主即使重用版本也会得到不同哈希（ADR-0010/0020）。
 
 ## 2. 调用
@@ -46,7 +46,8 @@ s := client.StreamSimple(ctx, scope, target, req, simple)  // 统一选项
 res, err := client.Complete(ctx, scope, target, req, opts)
 res, err := client.CompleteSimple(ctx, scope, target, req, simple)
 res, err := client.Classify(ctx, scope, target, classification, nil) // 同步分类
-hc := client.WithHooks(hooks)                              // 可信回调，同样五个入口
+res, err := client.GenerateImages(ctx, scope, target, images, nil) // 同步图像
+hc := client.WithHooks(hooks)                              // 可信回调，同样六个入口
 ```
 
 | 输入 | 契约 |
@@ -186,3 +187,33 @@ Phase 取值：`scope`、`binding`、`capability`、`credential`、`consistency`
 ## 6. 支持声明
 
 协议组合只有在适用验收与真实冒烟通过后才可宣称支持；当前状态见 [README](README.md#支持矩阵) 与 [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)。“兼容 OpenAI”不等于任何兼容服务已验收；共享 adapter 的通过不连带标记其他组合。
+
+## OpenAI 图像生成（工单 09）
+
+Client 与 HookedClient.GenerateImages 接收 ImagesRequest（Prompt、有序 ReferenceImages）和封闭的
+ImageOptions，同步返回 ImagesResult，不产生 delta。当前只实现无参考图生成；编辑与 mask 由
+工单 10 交付。绑定必须为 image × openai × openai-images，并逐个授权目录型号；旧零值聊天
+绑定不会得到图像权限。SimpleOptions 不能用于此入口。
+
+ResourcePolicy.Image 为 nil 时以 invalid_request/scope 拒绝；ImagePolicy 的 MaxInputImages、
+MaxOutputImages、MaxOutputImageBytes、MaxTotalOutputImageBytes 均须为正，单张 ≤ 总图片字节 ≤
+MaxOutputBytes。策略深复制，旧聊天配置继续有效。请求、响应和 context 同受既有全局预算保护。
+
+OpenAIImagesOptions 仅有 N、Size、Quality、Background、OutputFormat、OutputCompression、Moderation，
+每个可选字段为 Nullable。nil/省略取默认；显式 null 拒绝，压缩零有效。N 在 1–10 及有效输出上限内，
+提示 1–32000 Unicode 字符，透明背景限 png/webp，压缩限 jpeg/webp 的 0–100。
+尺寸/质量/透明背景须由 ImageCapabilities 授权；Qualities 空列表须省略质量，CustomSizes 显式
+允许协议有界自定义尺寸。回调后重验最终请求和授权，拒绝 stream、partial_images、response_format、
+user、编辑资源与续接状态。
+
+Content 是独立封闭的 ImageOutputText/ImageOutputImage 有序块，图片为 base64 + MimeType。
+响应格式优先，其次冻结请求格式，再取 png；严格验证 base64 与文件头，数量、单张与总量通过后
+整体发布。失败 Content 为空，先登记的 Usage 与 Metadata 保留；2xx 后失败不重放。
+
+Usage.Modalities 是可选 ModalityUsage，四项 Nullable token 计数区分缺失与零；没有第二个上报状态。
+齐全为 complete，缺总量或任一输入/输出明细为 partial，usage 缺失/null 为 unreported；成本只算
+已知模态，每个乘积单独舍入后相加。直接 Images 不设缓存费率或按张附加价格。模态用量在结果、
+尝试与 Observer 间独立复制；聊天 JSON 不增加字段。x-request-id 为厂商请求 ID，ResponseID、
+ResponseModel 不填，不保留 revised prompt。Observer 只含元数据。
+
+完整行为、SDK 直连理由与后续 live 边界见 [ADR-0022](../adr/0022-barness-ai-openai-images-unary.md)。

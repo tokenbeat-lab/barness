@@ -33,6 +33,9 @@ type httpFailures struct {
 	// was read: msg for the message, sdk for the SDK's own error text, which
 	// pi quotes when it refuses a requested retry delay.
 	describe func(res *http.Response, body []byte) (msg, sdk string)
+	// classifyStatus refines a protocol's explicit refusal codes, if any.
+	// All other statuses keep the shared HTTP classification and retry policy.
+	classifyStatus func(status int, body []byte) Code
 	// noResponse is the protocol's text for a request that got no response
 	// at all; empty is the Stainless SDKs' msgConnection.
 	noResponse string
@@ -87,7 +90,11 @@ func (f httpFailures) status(res *http.Response) attemptOutcome {
 		return f.unread(res, expired.failure(PhaseRequest))
 	}
 	msg, sdkMsg := f.describe(res, body)
-	e := newError(codeForStatus(res.StatusCode), PhaseRequest, f.redact(msg))
+	code := codeForStatus(res.StatusCode)
+	if f.classifyStatus != nil {
+		code = f.classifyStatus(res.StatusCode, body)
+	}
+	e := newError(code, PhaseRequest, f.redact(msg))
 	o := f.unread(res, e)
 	o.sdkMessage = f.redact(sdkMsg)
 	return o

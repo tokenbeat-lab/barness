@@ -16,9 +16,13 @@ type ImageModel struct {
 // ImageCapabilities are model-specific limits and supported image options.
 // Empty option lists mean those options must be omitted.
 type ImageCapabilities struct {
-	MaxReferenceImages    int      `json:"maxReferenceImages"`
-	MaxOutputImages       int      `json:"maxOutputImages"`
-	Sizes                 []string `json:"sizes,omitempty"`
+	MaxReferenceImages int      `json:"maxReferenceImages"`
+	MaxOutputImages    int      `json:"maxOutputImages"`
+	Sizes              []string `json:"sizes,omitempty"`
+	// CustomSizes enables OpenAI's bounded WIDTHxHEIGHT dimensions in
+	// addition to Sizes. Qualities explicitly lists supported quality values.
+	CustomSizes           bool     `json:"customSizes,omitempty"`
+	Qualities             []string `json:"qualities,omitempty"`
 	ImageSizes            []string `json:"imageSizes,omitempty"`
 	AspectRatios          []string `json:"aspectRatios,omitempty"`
 	Mask                  bool     `json:"mask,omitempty"`

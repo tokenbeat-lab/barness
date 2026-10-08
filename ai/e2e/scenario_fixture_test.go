@@ -57,6 +57,10 @@ type fixtureScenario struct {
 	// also runs a stream scenario through Complete.
 	Entry             string          `json:"entry"`
 	Classifier        json.RawMessage `json:"classifier"`
+	Images            json.RawMessage `json:"images"`
+	DisableImage      bool            `json:"disableImage"`
+	BindingAPI        ai.API          `json:"bindingAPI"`
+	BindingProvider   ai.ProviderID   `json:"bindingProvider"`
 	DisableClassifier bool            `json:"disableClassifier"`
 	ForeignOptions    bool            `json:"foreignOptions"`
 	BindingOperation  ai.Operation    `json:"bindingOperation"`
@@ -252,6 +256,14 @@ func scenarioWorld(t *testing.T, sc fixtureScenario) *world {
 			if sc.DisableClassifier {
 				c.Policy.Classifier = nil
 			}
+		} else if sc.entry() == "generateImages" {
+			configureImages(c)
+			if sc.DisableImage {
+				c.Policy.Image = nil
+			}
+			if sc.ModelPatch != nil {
+				patchImageModel(t, c, sc.ModelPatch)
+			}
 		} else {
 			patch(c)
 		}
@@ -265,6 +277,20 @@ func scenarioWorld(t *testing.T, sc fixtureScenario) *world {
 		if sc.BindingOperation != "" {
 			w.updateBindingOf(tenantA, "classifier", func(b *ai.Binding) { b.Operation = sc.BindingOperation })
 		}
+	}
+	if sc.entry() == "generateImages" {
+		installImagesBinding(w, tenantA)
+		w.updateBindingOf(tenantA, "images", func(b *ai.Binding) {
+			if sc.BindingOperation != "" {
+				b.Operation = sc.BindingOperation
+			}
+			if sc.BindingAPI != "" {
+				b.API = sc.BindingAPI
+			}
+			if sc.BindingProvider != "" {
+				b.ProviderID = sc.BindingProvider
+			}
+		})
 	}
 	if sc.MaxRetries > 0 {
 		b := w.host.Binding(tenantA.tenant, sc.proto.binding)
@@ -295,6 +321,10 @@ func runScenario(t *testing.T, ev *evidence.Case, sc fixtureScenario, raw []byte
 	enqueue(ev, w, sc.replies(t)...)
 	if sc.entry() == "classify" {
 		invokeClassifierScenario(t, ev, w, sc)
+		return w, outcome{}
+	}
+	if sc.entry() == "generateImages" {
+		invokeImagesScenario(t, ev, w, sc)
 		return w, outcome{}
 	}
 	o := invokeScenario(t, w, sc, mode, "req-"+sc.ID+"-"+string(mode))

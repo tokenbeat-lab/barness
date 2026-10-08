@@ -19,19 +19,24 @@
     "P05": "^P05-",
     "P06": "^(PIDIFF-)?P06-",
     "P07": "^(PIDIFF-)?P07-",
+    "P08": "^P08-",
     "D1": "^D1-",
     "D2": "(^|-)E07-(snapshot-|reject-[a-z-]*-between-reads|reject-host-reports-snapshot-conflict)",
     "H1": "(^|-)H1-",
     "PRESSURE": "^E08-(policy-pressure|admission-burst-pressure)-",
     "PIDIFF": "^PIDIFF-"
   },
-  "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "D1", "D2", "PRESSURE"],
+  "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "D1", "D2", "PRESSURE"],
   "differential": {
     "required": ["P01", "P02", "P03", "P04", "P06", "P07"],
-    "routes": [{"scenario": "P05", "provider": "deepseek", "api": "openai-responses"}]
+    "routes": [{"scenario": "P05", "provider": "deepseek", "api": "openai-responses"}, {"scenario": "P08", "provider": "openai", "api": "openai-images"}]
   },
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier"],
   "items": [
+    {"id":"V4-openai-images-generation","source":"issue 09 / ADR-0022","requirement":"Native synchronous generation, all-image atomic validation, protocol options, explicit extension registration and no premature live catalog claim","scenarios":["P08"]},
+    {"id":"H5-image-budgets","source":"issue 09 / ADR-0002/0007/0008/0022","requirement":"Image subpolicy snapshots, bounded unary JSON, image count/byte limits, cancellation and zero resource gauges, callback size before encoding","scenarios":["P08"],"cases":"E08-|D1-"},
+    {"id":"C04-image-final-payload","source":"issue 09 / ADR-0005/0022","requirement":"Final model and allowed generation fields, frozen options/count/MIME, no external resources or continuation, callbacks once outside binding retries","scenarios":["P08"],"cases":"E04-"},
+    {"id":"T09-image-usage","source":"issue 09 / ADR-0009/0010/0022","requirement":"One reporting axis, nullable modality tokens, known-only modality prices without cache/per-image billing, metadata-only independent Observer snapshots","scenarios":["P08"],"cases":"E09-|E11-"},
     {"id":"V6-typesafe-live","source":"issue 08 / ADR-0016/0021","requirement":"Official fixed classifier wire replay and explicit unconfirmed 422 shape; the separate live gate requires this route's own audited bundle","scenarios":["P07"],"cases":"live-wire|builtin-official|live-score"},
     {"id":"H2-typesafe-catalog","source":"issue 08 / ADR-0010/0018","requirement":"Only jev-1.13.0 with official capabilities, input rate 0.042 and free output; versioned hash snapshot","scenarios":["P07"],"cases":"builtin-official|live-wire"},
     {"id":"C08-unary-lifecycle","source":"issue 07 / design 7.5–7.6 / ADR-0003/0006/0008","requirement":"Unary cancellation, deadlines, transport timeouts, independent admission, frozen retries and subsequent permit acquisition","scenarios":["P07"],"cases":"unary-(before|resolve|host-admission|timeout|backoff|admission|status|frozen|binding-policy)"},

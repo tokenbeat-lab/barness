@@ -83,3 +83,9 @@ $0.042，输出免费。纳入目录 2026-10-08.3 并重建完整 hash/snapshot�
 真实成功响应上报两个 token 计数，complete；上下文拒绝未给 usage，unreported，
 零值不是零消耗。保留这两种真实 fixture，公共 Client 离线回放核对计价与缺失语义。
 来源抓取日期/哈希、wire 与最终审计见[工单 08 证据](../../.scratch/barness-ai-pi-1.0/typesafe-live-evidence/README.md)。
+
+## 工单 09：原生图像生成（2026-10-08）
+
+Usage 增加可选 Modalities，四个 Nullable 分项保留未报告与零。直接 Images 的三个总量与两组明细齐全为 complete，缺项为 partial；缺 usage 为 unreported。每个模态乘积单独舍入再相加，缺项只算已知部分；直接 Images 禁止缓存费率，不叠加按张派生价。聊天序列化与计价保持原契约。
+
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

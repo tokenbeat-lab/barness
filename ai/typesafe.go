@@ -1,14 +1,10 @@
 package ai
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"io"
 	"net/http"
-	"slices"
-	"strings"
 )
 
 func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Credential, model ClassifierModel, req ClassifierRequest, out *ClassifierResult) *Error {
@@ -55,28 +51,7 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 		return newError(CodeCallbackFailed, PhaseRequest, "payload callback exceeded classifier model capabilities")
 	}
 	failures := httpFailures{apiKey: cred.APIKey, clock: c.clock, requestIDHeader: "x-typesafe-request-id", describe: typeSafeHTTPError}
-	var res *http.Response
-	failure = r.initial.send(ctx, func(ctx context.Context) attemptOutcome {
-		req, err := http.NewRequestWithContext(ctx, http.MethodPost, strings.TrimRight(r.binding.Endpoint, "/")+"/systemone", bytes.NewReader(body))
-		if err != nil {
-			return attemptOutcome{failure: newError(CodeInvalidRequest, PhaseRequest, "request could not be built")}
-		}
-		for key, values := range header {
-			req.Header[key] = slices.Clone(values)
-		}
-		response, err := markConnectionFailures(req, c.http.Do)
-		if err != nil {
-			closeBody(response)
-			return failures.request(ctx, err, response)
-		}
-		limits.limitBody(response, bodyJSON)
-		if response.StatusCode < 200 || response.StatusCode >= 300 {
-			defer closeBody(response)
-			return failures.status(response)
-		}
-		res = response
-		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get("x-typesafe-request-id")}
-	})
+	res, failure := c.sendUnary(ctx, r, header, body, "/systemone", failures)
 	if failure != nil {
 		return failure
 	}
@@ -153,15 +128,4 @@ func typeSafeHTTPError(res *http.Response, body []byte) (string, string) {
 	// Observer records the classification, status and vendor id alone.
 	msg := res.Status + ": " + string(body)
 	return msg, msg
-}
-func unaryReadFailure(err error) *Error {
-	var limit *limitExceeded
-	var expired *timeLimitExpired
-	switch {
-	case errors.As(err, &limit):
-		return limit.failure(PhaseResponse)
-	case errors.As(err, &expired):
-		return expired.failure(PhaseResponse)
-	}
-	return newError(CodeTransport, PhaseResponse, "classifier response body could not be read")
 }

@@ -21,7 +21,11 @@ type Usage struct {
 	// Output and TotalTokens and priced as output, never added again. As in
 	// pi, it is set (possibly 0) whenever the provider reported usage.
 	Reasoning Nullable[int64] `json:"reasoning,omitzero"`
-	// TotalTokens is the provider's own total.
+	// Modalities is set only for image operations. Each count preserves
+	// missing versus zero; it is independently copied across result/observer boundaries.
+	Modalities *ModalityUsage `json:"modalities,omitempty"`
+	// TotalTokens is the provider's total when reported; protocols without
+	// one use the known component sum. Reporting still marks missing totals.
 	TotalTokens int64     `json:"totalTokens"`
 	Cost        UsageCost `json:"cost"`
 }
