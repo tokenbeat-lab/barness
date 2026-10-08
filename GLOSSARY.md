@@ -153,7 +153,7 @@ _Avoid_: 工具白名单、全局工具开关
 _Avoid_: 模型 compat、"兼容 OpenAI"
 
 **Extension Route（扩展接入路径）**：
-冻结 pi 没有路由的 Provider × 协议组合（当前包含 DeepSeek × Responses 和原生 OpenAI × Images），以自身协议 fixture 和真实冒烟证明，登记在差分账本中，不计为 pi 差分通过。
+冻结 pi 没有路由的 Provider × 协议组合（当前包含 DeepSeek × Responses、原生 OpenAI × Images 与 Google × Interactions 图像），以自身协议 fixture 和真实冒烟证明，登记在差分账本中，不计为 pi 差分通过。
 _Avoid_: 差分通过、pi 已覆盖
 
 **Live Smoke（真实冒烟）**：

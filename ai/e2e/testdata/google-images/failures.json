@@ -1,0 +1,1662 @@
+{
+  "case": "P09",
+  "source": "Synthetic protocol fixture, based on https://ai.google.dev/api/interactions-api; retrieved 2026-10-08. Thought modality exclusion/inclusion are explicit test variants, pending own live confirmation in issue 14.",
+  "scenarios": [
+    {
+      "id": "E02-status-failed",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"failed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "upstream_error",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-status-cancelled",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"cancelled\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "upstream_error",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-status-in_progress",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"in_progress\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-status-requires_action",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"requires_action\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-status-incomplete",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"incomplete\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-status-unknown",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"unknown\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-continuation",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}, \"continuation_token\": \"opaque\"}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-empty-continuation",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}, \"continuation_token\": \"\"}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-text-only",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"text\", \"text\": \"only text\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-empty-steps",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-safety",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}, \"errors\": [{\"code\": \"SAFETY\", \"message\": \"blocked fixture\"}]}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "upstream_error",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-uri-only",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": null, \"uri\": \"https://example.invalid/image.png\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-inline-and-uri",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\", \"uri\": \"https://example.invalid/image.png\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-bad-base64",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"bad!\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-wrong-mime",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/jpeg\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-invalid-second",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"bad!\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-audio",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, {\"type\": \"audio\", \"data\": \"abc\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-bad-content",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": {}}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-null-block",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}, null]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-missing-step-type",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"content\": []}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E02-numeric-step-type",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}, {\"type\": 42, \"content\": []}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E07-usage-before-malformed-steps",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]},\"steps\":[{\"type\":\"model_output\",\"content\":["
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    },
+    {
+      "id": "E07-usage-before-trailing-json",
+      "model": "host-google-image",
+      "entry": "generateImages",
+      "images": {
+        "prompt": "一张餐厅露台照片"
+      },
+      "pidiffSkip": "Native Google Interactions image is an extension route; frozen pi has no native route (ADR-0022).",
+      "replies": [
+        {
+          "status": 200,
+          "header": {
+            "x-request-id": "req-images"
+          },
+          "body": "{\"id\": \"interaction-fixture\", \"model\": \"reported-image-model\", \"status\": \"completed\", \"steps\": [{\"type\": \"model_output\", \"content\": [{\"type\": \"image\", \"mime_type\": \"image/png\", \"data\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=\"}]}], \"usage\": {\"total_input_tokens\": 7, \"total_output_tokens\": 20, \"total_thought_tokens\": 22, \"total_tokens\": 49, \"total_cached_tokens\": 0, \"input_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 7}, {\"modality\": \"image\", \"tokens\": 0}], \"output_tokens_by_modality\": [{\"modality\": \"text\", \"tokens\": 0}, {\"modality\": \"image\", \"tokens\": 20}]}} {}"
+        }
+      ],
+      "expect": {
+        "requests": 1,
+        "request": {
+          "path": "/v1beta/interactions",
+          "headers": {
+            "X-Goog-Api-Key": "key:tenant-a-google@v1"
+          },
+          "absentHeaders": [
+            "Authorization"
+          ],
+          "body": {
+            "model": "host-google-image",
+            "store": false,
+            "input": [
+              {
+                "type": "text",
+                "text": "一张餐厅露台照片"
+              }
+            ],
+            "response_format": {
+              "type": "image",
+              "delivery": "inline"
+            }
+          }
+        },
+        "stopReason": "error",
+        "responseId": "interaction-fixture",
+        "responseModel": "reported-image-model",
+        "content": null,
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "reasoning": 22,
+          "totalTokens": 49,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "cost": {
+            "input": 1.4e-05,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        },
+        "usageReporting": "complete",
+        "code": "protocol",
+        "phase": "response"
+      }
+    }
+  ]
+}

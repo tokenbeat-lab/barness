@@ -124,3 +124,16 @@ image × openai × openai-images 是独立扩展路线 P08。冻结 pi 1.0.0 路
 该真实接受性仍为扩展路线证据，不计为 pi 差分通过。原始 PNG 响应超过 512 KiB
 捕获上限，live-contract fixture 明确记录以公共结果恢复图片和 usage 的归一化；
 原始截断标志、实际结果、图片校验与审计均保留在本组合证据包。
+
+## 原生 Google Interactions 图像（工单 12）
+
+image × google × google-interactions 是独立扩展 P09，固定 v1beta、store=false、同步与
+内联交付。冻结 pi 1.0.0 没有这条原生路由；所有 fixture 显式 pidiffSkip，routes 与原生
+目录豁免有公共离线断言，不计为 pi 差分通过。提示加参考图的收敛接口未扩成交错输入，
+本切片仅无参考图生成，参考图在工单 13 实现。全部 model_output 的文本/图片保序且原子
+发布；真实终态、响应诊断 ID/型号和原生续接分开。
+
+Google 的思考加到 Output，但是否已经包含在模态输出明细中用完整总量关系判断，
+避免重复计价；两个变体明确为带来源的合成 fixture。工单 14 确认真实形状、费率与能力
+后才能纳入 Google 内置图像型号或宣称 live 支持。既有 generateContent 聊天行为保持原契约。
+详见 [ADR-0022](../adr/0022-barness-ai-openai-images-unary.md)。

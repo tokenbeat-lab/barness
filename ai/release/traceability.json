@@ -20,19 +20,24 @@
     "P06": "^(PIDIFF-)?P06-",
     "P07": "^(PIDIFF-)?P07-",
     "P08": "^P08-",
+    "P09": "^P09-",
     "D1": "^D1-",
     "D2": "(^|-)E07-(snapshot-|reject-[a-z-]*-between-reads|reject-host-reports-snapshot-conflict)",
     "H1": "(^|-)H1-",
     "PRESSURE": "^E08-(policy-pressure|admission-burst-pressure)-",
     "PIDIFF": "^PIDIFF-"
   },
-  "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "D1", "D2", "PRESSURE"],
+  "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "P09", "D1", "D2", "PRESSURE"],
   "differential": {
     "required": ["P01", "P02", "P03", "P04", "P06", "P07"],
-    "routes": [{"scenario": "P05", "provider": "deepseek", "api": "openai-responses"}, {"scenario": "P08", "provider": "openai", "api": "openai-images"}]
+    "routes": [{"scenario": "P05", "provider": "deepseek", "api": "openai-responses"}, {"scenario": "P08", "provider": "openai", "api": "openai-images"}, {"scenario": "P09", "provider": "google", "api": "google-interactions"}]
   },
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier", "openai-images"],
   "items": [
+    {"id":"V4-google-images-generation","source":"issue 12 / ADR-0012/0022","requirement":"Native v1beta synchronous stateless inline generation, ordered model_output collection, real terminal mapping, atomic images and extension registration without premature live claims","scenarios":["P09"]},
+    {"id":"C04-google-images-final","source":"issue 12 / design 12–13 / ADR-0022","requirement":"Final callback model/fixed fields/schema/20 MiB guard, protocol options, no continuation/external resources or reference-route widening","scenarios":["P09"],"cases":"E04-|E07-"},
+    {"id":"H5-google-images-budgets","source":"issue 12 / ADR-0002/0007/0008/0022","requirement":"Total JSON/image budgets, admission held through complete validation, cancellation/read timeout, body/permit release and no 2xx replay","scenarios":["P09"],"cases":"E08-"},
+    {"id":"T09-google-images-modalities","source":"issue 12 / ADR-0009/0010/0022","requirement":"Shared complete/partial/unreported axis, 7/42/22/49 normalization, explicit thought inclusion pricing, sourced fixtures and independent metadata-only modality audit","scenarios":["P09"],"cases":"E09-|E11-"},
     {"id":"V6-openai-images-live","source":"issue 11 / ADR-0016/0022","requirement":"Own fixed-model edit-first JSON acceptance, generation and optional mask, four-image 1K budget, audited actual consumption and atomic own-route matrix merge; separate live gate requires its own audited bundle","scenarios":["P08"],"cases":"live-replay|live-catalog"},
     {"id":"H2-openai-images-catalog","source":"issue 11 / ADR-0010/0018/0022","requirement":"Fixed date snapshot and verified capabilities, sourced text/image token pricing, no cached/per-image rates, current catalog/price hash and actual usage replay","scenarios":["P08"],"cases":"live-replay|live-catalog"},
     {"id":"V4-openai-images-editing","source":"issue 10 / ADR-0022","requirement":"Fixed generation/edit endpoint, ordered inline JSON references and mask, sourced dimensions and model fidelity, atomic output and shared unary lifecycle","scenarios":["P08"],"cases":"edit-"},

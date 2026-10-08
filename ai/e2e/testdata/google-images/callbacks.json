@@ -1,0 +1,286 @@
+{
+  "source": "Issue 12 fixed synchronous stateless inline authorization boundary; synthetic callback mutations.",
+  "cases": [
+    {
+      "id": "field-previous_interaction_id",
+      "set": {
+        "previous_interaction_id": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-background",
+      "set": {
+        "background": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-agent",
+      "set": {
+        "agent": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-tools",
+      "set": {
+        "tools": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-environment",
+      "set": {
+        "environment": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-webhook_config",
+      "set": {
+        "webhook_config": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-continuation_token",
+      "set": {
+        "continuation_token": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-service_tier",
+      "set": {
+        "service_tier": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-stream",
+      "set": {
+        "stream": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-generation_config",
+      "set": {
+        "generation_config": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-response_modalities",
+      "set": {
+        "response_modalities": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-labels",
+      "set": {
+        "labels": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-safety_settings",
+      "set": {
+        "safety_settings": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-endpoint",
+      "set": {
+        "endpoint": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "field-operation",
+      "set": {
+        "operation": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "model",
+      "set": {
+        "model": "foreign"
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "store",
+      "set": {
+        "store": true
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "store-null",
+      "set": {
+        "store": null
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "format-uri",
+      "set": {
+        "response_format": {
+          "type": "image",
+          "delivery": "uri"
+        }
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "format-text",
+      "set": {
+        "response_format": {
+          "type": "text",
+          "delivery": "inline"
+        }
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "format-extra",
+      "set": {
+        "response_format": {
+          "type": "image",
+          "delivery": "inline",
+          "mime_type": "image/png"
+        }
+      },
+      "code": "callback_failed",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "input-uri",
+      "set": {
+        "input": [
+          {
+            "type": "image",
+            "uri": "https://example.invalid/input.png"
+          }
+        ]
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "input-reference",
+      "set": {
+        "input": [
+          {
+            "type": "text",
+            "text": "fixture"
+          },
+          {
+            "type": "image",
+            "mime_type": "image/png",
+            "data": "abc"
+          }
+        ]
+      },
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "bad-input",
+      "set": {
+        "input": null
+      },
+      "code": "callback_failed",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "invalid-aspect",
+      "set": {
+        "response_format": {
+          "type": "image",
+          "delivery": "inline",
+          "aspect_ratio": "7:1"
+        }
+      },
+      "code": "callback_failed",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "invalid-size",
+      "set": {
+        "response_format": {
+          "type": "image",
+          "delivery": "inline",
+          "image_size": "512"
+        }
+      },
+      "code": "callback_failed",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "allowed-options",
+      "set": {
+        "response_format": {
+          "type": "image",
+          "delivery": "inline",
+          "aspect_ratio": "16:9",
+          "image_size": "2K"
+        }
+      },
+      "code": "",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "unknown",
+      "set": {
+        "unknown": false
+      },
+      "code": "callback_failed",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "delete-store",
+      "delete": "store",
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "delete-format",
+      "delete": "response_format",
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    },
+    {
+      "id": "delete-model",
+      "delete": "model",
+      "code": "tenant_denied",
+      "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+    }
+  ],
+  "pidiffSkip": "Native Google Interactions image extension; no frozen pi route (ADR-0022)."
+}

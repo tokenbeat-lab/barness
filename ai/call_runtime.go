@@ -83,7 +83,7 @@ func (r *callRuntime) resolve(ctx context.Context, target Target) (int, *Error) 
 	case OperationClassifier:
 		supported = b.ProviderID == ProviderTypeSafe && b.API == APITypeSafeSystemOne
 	case OperationImage:
-		supported = b.ProviderID == ProviderOpenAI && b.API == APIOpenAIImages
+		supported = (b.ProviderID == ProviderOpenAI && b.API == APIOpenAIImages) || (b.ProviderID == ProviderGoogle && b.API == APIGoogleInteractions)
 	}
 	if !supported {
 		return 0, newError(CodeInvalidRequest, PhaseCapability, "binding API is not supported: "+string(b.API))

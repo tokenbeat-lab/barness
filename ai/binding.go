@@ -57,6 +57,8 @@ const (
 	APIOpenAIResponses API = "openai-responses"
 	// APIOpenAIImages is the native synchronous OpenAI Images protocol.
 	APIOpenAIImages API = "openai-images"
+	// APIGoogleInteractions is the synchronous v1beta Google image protocol.
+	APIGoogleInteractions API = "google-interactions"
 	// APITypeSafeSystemOne is the unary System One classification protocol.
 	APITypeSafeSystemOne API = "typesafe-system-one"
 	// APIAnthropicMessages is the Anthropic Messages protocol.
@@ -97,7 +99,8 @@ type Binding struct {
 	// Endpoint is the protocol's base URL, as pi-ai's model baseUrl: e.g.
 	// https://api.openai.com/v1 for Responses and Chat Completions,
 	// https://api.anthropic.com for Anthropic Messages,
-	// https://api.deepseek.com for DeepSeek's Responses.
+	// https://api.deepseek.com for DeepSeek's Responses,
+	// https://generativelanguage.googleapis.com/v1beta for Google Interactions.
 	Endpoint       string
 	AuthKind       AuthKind
 	AccountScopeID string

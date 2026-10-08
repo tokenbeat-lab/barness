@@ -53,7 +53,7 @@ func imagesOptions(t *testing.T, raw json.RawMessage) ai.ImageOptions {
 }
 func invokeImagesScenario(t *testing.T, ev *evidence.Case, w *world, sc fixtureScenario) {
 	t.Helper()
-	res, err := w.client.GenerateImages(ctxFor(t), textScope("req-"+sc.ID), sc.target(), imagesInput(t, sc), imagesOptions(t, sc.Options))
+	res, err := w.client.GenerateImages(ctxFor(t), textScope("req-"+sc.ID), sc.target(), imagesInput(t, sc), scenarioImagesOptions(t, sc))
 	checkImagesScenario(ev, w, sc, res, err)
 }
 func checkImagesScenario(ev *evidence.Case, w *world, sc fixtureScenario, res ai.ImagesResult, err error) {
@@ -64,7 +64,14 @@ func checkImagesScenario(ev *evidence.Case, w *world, sc fixtureScenario, res ai
 	ev.Check("request count", len(reqs) == x.Requests, "got %d want %d", len(reqs), x.Requests)
 	if len(reqs) > 0 && x.Request != nil {
 		r := reqs[len(reqs)-1]
-		ev.Check("image endpoint and tenant credential", r.Method == "POST" && r.Path == x.Request.Path && r.Query == "" && r.KeyAlias == tenantA.alias, "got %+v", r)
+		ev.Check("image endpoint and tenant credential", r.Method == "POST" && r.Path == x.Request.Path && r.Query == "" && r.KeyAlias == sc.proto.key(tenantA).alias, "got %+v", r)
+		for k, v := range x.Request.Headers {
+			ev.Check("image header "+k, r.Header[k] == v, "got %q", r.Header[k])
+		}
+		for _, k := range x.Request.AbsentHeaders {
+			_, present := r.Header[k]
+			ev.Check("absent image header "+k, !present, "got %q", r.Header[k])
+		}
 		ev.Check("final request JSON", jsonEqual(r.Body, x.Request.Body), "got %s", r.Body)
 	}
 	ev.Check("terminal", string(res.StopReason) == x.StopReason, "got %s", res.StopReason)
@@ -81,7 +88,13 @@ func checkImagesScenario(ev *evidence.Case, w *world, sc fixtureScenario, res ai
 	if x.Content != nil {
 		ev.Check("ordered independent output blocks", jsonEqual(mustMarshal(ev.T(), res.Content), x.Content), "got %+v", res.Content)
 	}
-	ev.Check("response identity absent", res.ResponseID.IsZero() && res.ResponseModel.IsZero(), "got %+v", res)
+	if sc.proto == googleImagesProtocol {
+		id, _ := res.ResponseID.Get()
+		model, _ := res.ResponseModel.Get()
+		ev.Check("diagnostic response identity", id == x.ResponseID && model == x.ResponseModel, "got %+v", res)
+	} else {
+		ev.Check("response identity absent", res.ResponseID.IsZero() && res.ResponseModel.IsZero(), "got %+v", res)
+	}
 	if x.Usage != nil {
 		ev.Check("usage retained and modality priced", reflect.DeepEqual(res.Usage, *x.Usage), "got %+v want %+v", res.Usage, *x.Usage)
 	}
@@ -104,4 +117,16 @@ func TestOpenAIImagesFixtures(t *testing.T) {
 			t.Run(sc.ID, func(t *testing.T) { ev := run.Case(t, "P08-"+sc.ID); runScenario(t, ev, sc, raw, modeComplete) })
 		}
 	}
+}
+
+func scenarioImagesOptions(t *testing.T, sc fixtureScenario) ai.ImageOptions {
+	if sc.proto == googleImagesProtocol {
+		if sc.Options == nil {
+			return nil
+		}
+		var options ai.GoogleImagesOptions
+		mustUnmarshal(t, sc.Options, &options)
+		return options
+	}
+	return imagesOptions(t, sc.Options)
 }

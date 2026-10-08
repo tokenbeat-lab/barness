@@ -109,6 +109,14 @@ func (m ImageModel) problem() string {
 	if m.Provider == ProviderOpenAI && m.API == APIOpenAIImages && (!m.Pricing.CacheReadText.IsZero() || !m.Pricing.CacheReadImage.IsZero()) {
 		return "direct OpenAI Images does not support cache-read pricing"
 	}
+	// Interactions can charge text thinking even when only images are
+	// requested/declared as output. Require its text rate instead of silently
+	// treating missing pricing as free thinking.
+	if m.Provider == ProviderGoogle && m.API == APIGoogleInteractions {
+		if _, ok := m.Pricing.OutputText.Get(); !ok {
+			return "Google image thinking requires a text output price"
+		}
+	}
 	return m.Pricing.problem(m.Input, m.Output)
 }
 

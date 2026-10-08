@@ -62,3 +62,9 @@ DeepSeek 的 Responses 指南（https://api-docs.deepseek.com/guides/responses_a
 差分账本 routes 新登记 OpenAI × openai-images（image）。P08 每个 fixture 显式跳过冻结 pi，独立证明原生 JSON 协议；不伪称 OpenRouter 图像差分或聊天差分通过。
 
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## 工单 12：Google 原生图像扩展（2026-10-08）
+
+差分账本 routes 新登记 Google × google-interactions（image）。P09 fixture 显式
+pidiffSkip，独立证明自身原生协议，不产生或计为 pi 差分通过。与 OpenAI 图像及 DeepSeek
+Responses 使用同一扩展登记规则，详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

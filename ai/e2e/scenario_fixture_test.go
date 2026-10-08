@@ -258,6 +258,9 @@ func scenarioWorld(t *testing.T, sc fixtureScenario) *world {
 			}
 		} else if sc.entry() == "generateImages" {
 			configureImages(c)
+			if sc.proto == googleImagesProtocol {
+				configureGoogleImages(c)
+			}
 			if sc.DisableImage {
 				c.Policy.Image = nil
 			}
@@ -280,6 +283,9 @@ func scenarioWorld(t *testing.T, sc fixtureScenario) *world {
 	}
 	if sc.entry() == "generateImages" {
 		installImagesBinding(w, tenantA)
+		if sc.proto == googleImagesProtocol {
+			installGoogleImagesBinding(w, tenantA)
+		}
 		w.updateBindingOf(tenantA, "images", func(b *ai.Binding) {
 			if sc.BindingOperation != "" {
 				b.Operation = sc.BindingOperation

@@ -89,3 +89,10 @@ Gemini 2 不发送调用 id。pi 为缺 id 或与已有 id 重复的调用生成
 5. 决策八：不列入的五个模型维持不列入。
 
 差分中只在 Gemini 出现的差异（`x-goog-api-client` 与 `Accept` 头、运行时错误文本、未担保原生状态降级）登记在 `ai/e2e/testdata/pidiff/ledger.json`。
+
+## 工单 12：图像操作并行接入（2026-10-08）
+
+Google × google-interactions × image 使用独立同步 unary 协议，与本 ADR 的
+generateContent 聊天操作并存。聊天选项、目录、重试语义及不调用 OnResponse 的决定保持不变。
+新路线固定 v1beta、无状态与内联图片，使用共享 Client HTTP；图像型号继续排除出聊天目录。
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

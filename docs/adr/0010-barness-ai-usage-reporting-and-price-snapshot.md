@@ -89,3 +89,13 @@ $0.042，输出免费。纳入目录 2026-10-08.3 并重建完整 hash/snapshot�
 Usage 增加可选 Modalities，四个 Nullable 分项保留未报告与零。直接 Images 的三个总量与两组明细齐全为 complete，缺项为 partial；缺 usage 为 unreported。每个模态乘积单独舍入再相加，缺项只算已知部分；直接 Images 禁止缓存费率，不叠加按张派生价。聊天序列化与计价保持原契约。
 
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## 工单 12：Interactions 模态与思考（2026-10-08）
+
+Google 图像沿用 Usage/Attempt 的单一上报轴。Input 保留厂商总输入，Output 加入单列的
+思考，Reasoning 已计入 Output；TotalTokens 优先厂商报告，CacheRead 不重复加到总量。
+四个总量与两组完整 text/image 明细齐全为 complete；缺项 partial，缺 usage unreported。
+原始模态计数独立保存，计价视图依据完整输出和明确判断思考已包含或排除，按文本输出
+费率仅计算一次。未知包含关系只估已知部分并标 partial，不推算缓存模态或按张费用。
+即便请求仅图像，也要求明确文本思考费率。带来源的合成变体由工单 14 的实际形状确认。
+详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。

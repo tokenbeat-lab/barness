@@ -1,0 +1,17 @@
+{
+  "retrieved": "2026-10-08",
+  "sources": [
+    "https://ai.google.dev/api/interactions-api",
+    "https://ai.google.dev/gemini-api/docs/interactions-overview",
+    "https://ai.google.dev/gemini-api/docs/image-generation",
+    "https://ai.google.dev/gemini-api/docs/pricing"
+  ],
+  "exampleTotals": {
+    "input": 7,
+    "output": 20,
+    "thought": 22,
+    "total": 49
+  },
+  "modalityThoughtRule": "If complete text+image output detail sums to total_output_tokens, thought is excluded; if it sums to total_output_tokens+total_thought_tokens, thought is included. Other/incomplete shapes remain partial and price only known details plus separately reported thinking when exclusion is established. Synthetic variants, not a live schema claim.",
+  "liveConfirmation": "issue 14"
+}

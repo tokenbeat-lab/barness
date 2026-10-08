@@ -194,7 +194,7 @@ Phase 取值：`scope`、`binding`、`capability`、`credential`、`consistency`
 ## OpenAI 图像生成与 JSON 编辑（工单 09–10）
 
 Client 与 HookedClient.GenerateImages 接收 ImagesRequest（Prompt、有序 ReferenceImages）和封闭的
-ImageOptions，同步返回 ImagesResult，不产生 delta。无参考图走 generations，有参考图走 edits，
+ImageOptions，同步返回 ImagesResult，不产生 delta。OpenAI 无参考图走 generations，有参考图走 edits，
 仅发送 JSON 内联图片。绑定必须为 image × openai × openai-images，并逐个授权目录型号；旧零值聊天
 绑定不会得到图像权限。SimpleOptions 不能用于此入口。
 
@@ -230,3 +230,38 @@ Usage.Modalities 是可选 ModalityUsage，四项 Nullable token 计数区分缺
 ResponseModel 不填，不保留 revised prompt。Observer 只含元数据。
 
 完整行为、SDK 直连理由与后续 live 边界见 [ADR-0022](../adr/0022-barness-ai-openai-images-unary.md)。
+
+### Google Interactions 图像（工单 12）
+
+绑定为 image × google × google-interactions，Endpoint 为带 `/v1beta` 的基址；
+仅 POST `/interactions`，型号为裸 ID，认证仅用 X-Goog-Api-Key。GoogleImagesOptions
+只有 AspectRatio 与 ImageSize（Nullable）；nil 用默认，null/其他协议选项拒绝，值须在
+型号的 AspectRatios/ImageSizes 中。宿主自带目录须明确 OutputText 费率（显式 0 合法），
+因为只请求图像也可能消耗文本思考。内置 Google 图像型号及 live 支持由工单 14 确认。
+当前仅生成，参考图入口在 capability 阶段拒绝，回调不能追加参考图（工单 13）。
+
+请求固定 store=false、单个 image response_format、delivery=inline，以省略 background/stream
+实现同步调用。回调后独立解码、重新校验固定项、允许字段、型号能力及最终大小；
+续接、Agent、工具、环境、webhook、续读令牌、服务等级与网址资源为 tenant_denied，
+无效/重复 schema 为 callback_failed；全局 MaxRequestBytes 与 Google 20 MiB 取小值。
+已知容器先限长，冻结后再按实际 JSON 字节计量。提示沿用公共图像的 1–32000 字符边界。
+
+仅 completed 发布内容，遍历全部 model_output 的 text/image 并保留出现顺序；不承诺精确张数。
+failed/cancelled 为 upstream_error/response，其他状态或 continuation_token 为 protocol/response。
+无图片为 protocol，有 errors 诊断的无图片为 upstream_error；错误文本固定，不暴露上游正文。
+URI 交付不下载，混合内联与 URI 也拒绝。全部图片通过 MIME、严格 base64、文件头及
+数量/单张/总字节限额后整体发布；失败清空 Content，保留已解析的用量、诊断 ID/型号和元数据。
+ResponseID/ResponseModel 仅在响应报告时填写，授权 ModelID 不变，不保存原生续接状态。
+
+Input 取 total_input_tokens，Output 取 total_output_tokens + total_thought_tokens，Reasoning
+记已计入 Output 的思考量，TotalTokens 优先厂商 total_tokens，缺失才加已知 Input/Output。
+CacheRead 记录厂商 total_cached_tokens，不重复加到总输入/总量，也不猜测缓存模态价格。
+四个总量和两组完整的 text/image 明细为 complete，缺项 partial，缺 usage/null 为 unreported。
+原始模态计数保持不变。输出与思考总量均报告时，完整输出明细和等于 total_output_tokens，计价视图把思考加到文本；
+和等于 Output 时不再加。无文本明细或明确零文本时，只计已知思考；无法判断包含关系时
+保持 partial，仅估已报告模态，不猜缺项。不一致/非法计数为 protocol，已知用量保留。
+真实模态形状仍由工单 14 确认，两个包含规则变体是明确注明来源的合成 fixture。
+
+成功响应先调用一次 OnResponse，再读取/解析/完整校验，期间持有准入许可；任何 2xx 后
+失败都不重放。沿用 unary 的初始请求重试、时限、取消和元数据观测。Gemini generateContent
+聊天继续不调用 OnResponse。P09 是原生扩展路线，fixture 不参加 pi 差分。

@@ -8,7 +8,8 @@ import "math"
 // the call was free or that usage was reported. How completely each attempt
 // reported is in CallMetadata.Attempts (see UsageReporting).
 type Usage struct {
-	// Input excludes the tokens counted in CacheRead and CacheWrite.
+	// Input excludes CacheRead and CacheWrite on chat protocols. Google
+	// Interactions images retain the vendor total input, including cached input.
 	Input      int64 `json:"input"`
 	Output     int64 `json:"output"`
 	CacheRead  int64 `json:"cacheRead"`

@@ -3,7 +3,7 @@ status: accepted
 date: 2026-10-08
 ---
 
-# barness-ai 以有界 unary 直连 OpenAI Images
+# barness-ai 以有界 unary 直连原生图像协议
 
 工单 09–10 交付 OpenAI × openai-images × image 的同步生成与 JSON 编辑操作。采用 Client 的唯一 HTTP
 客户端和已验证的 unary 生命周期：授权、凭据快照、Binding.Retry、逐次准入、回调、
@@ -123,3 +123,38 @@ png/jpeg/webp 分别实测。更大能力只保留官方事实，不构成当前
 相关后续扩充由工单 17 发布门禁与后续型号评估追踪。
 
 [证据、归一化约束与复跑命令](../../.scratch/barness-ai-pi-1.0/openai-images-live-evidence/README.md)。
+
+## 工单 12：Google Interactions 生成（2026-10-08）
+
+选择 Interactions 是按已确认设计建立新图像操作：类型化 response_format 与显式模态用量
+符合边界；默认服务器存储则由固定 store=false、同步、inline 和最终请求字段白名单收敛。
+[官方概览](https://ai.google.dev/gemini-api/docs/interactions-overview) 推荐新项目使用它，
+仍支持 generateContent；图像路线独立，既有聊天不迁移（ADR-0012）。
+[v1beta 参考](https://ai.google.dev/api/interactions-api) 的裸型号 ID 与图像配置是本路线的契约；
+v1 的型号/前缀差异不通过自动回退隐藏，将来切换须独立评审并更新 fixture。
+
+复用已交付 unary HTTP 生命周期，不引入读取环境/自建客户端的 SDK，不复制重试、准入或
+传输设施；仅协议 DTO、最终守卫、响应步骤解析与用量映射独立。Endpoint 必须为 v1beta
+基址，不允许 query/fragment/userinfo，API key 仅在 x-goog-api-key。GoogleImagesOptions
+为 AspectRatio/ImageSize，按型号列表校验；参考图由工单 13 交付，当前入口与回调均拒绝。
+最终 JSON 同时受宿主与 20 MiB 限额约束；固定项被改/删除、续接或外部资源为 tenant_denied，
+未知/重复/无效 schema 为 callback_failed。回调一次，重试复用最终 body。
+
+响应按步骤与内容块增量解析，不收集整份正文/整步 JSON。忽略非输出步骤内容；所有
+model_output 的文本/图片保序，严格验证整组图片后才发布，不承诺精确数量。
+completed 才成功；failed/cancelled 为 upstream_error，非终态/incomplete/续读令牌为 protocol。
+无图但有 errors 诊断为 upstream_error；不下载 URI，内联同时出现 URI 也失败。
+响应 id/型号为独立诊断，不成为续接状态或覆盖授权型号。解析或图片失败仍保留唯一合法用量。
+
+官方示例 7/20/22/49 对应 Input=7、Output=42、Reasoning=22、TotalTokens=49。
+Google Input 保留总输入（CacheRead 为另记的诊断总量），不套聊天的缓存扣除规则。
+四个总量与两组 text/image 明细齐全为 complete；缺项 partial，缺 usage 为 unreported。
+[价格页](https://ai.google.dev/gemini-api/docs/pricing) 将文本与思考按同一输出费率收费，
+因此即使目录声明仅输出 image，也要求显式 OutputText 费率；不能把 missing 当免费。
+原始 Modalities 不改写；输出/思考总量均报告时，计价视图按完整输出明细之和判断思考是否已包含，未包含才加到文本。
+不一致计数拒绝；缺完整关系时只估已知部分并标 partial，不猜缓存模态或按张价格。
+来源 fixture 明确记录两个合成包含变体；真实形状由工单 14 确认并修订来源证据。
+
+P09 所有 fixture 显式 pidiffSkip，routes/P0/trace 及目录豁免共同登记，不算 pi 差分通过。
+Observer 沿用模态计数白名单且有 P09 独立审计证据。许可持有到响应关闭和完整验证结束，
+2xx 后失败不重放。此切片只开放宿主自带目录，未增加内置型号或真实支持声明。
