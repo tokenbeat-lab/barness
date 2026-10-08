@@ -1,0 +1,9 @@
+--- FAIL: TestChatConsumptionEvidence (0.00s)
+    --- FAIL: TestChatConsumptionEvidence/OK (0.00s)
+        chat_evidence_test.go:46: consumed chat has no Observer artifact: open [REPO]/.evidence/barness-ai/20261008T114310.616102000Z/EVIDENCE-chat-OK/observations-attempt-1-controlled.json: no such file or directory
+    --- FAIL: TestChatConsumptionEvidence/Unauthorized (0.00s)
+        chat_evidence_test.go:46: consumed chat has no Observer artifact: open [REPO]/.evidence/barness-ai/20261008T114310.616102000Z/EVIDENCE-chat-Unauthorized/observations-attempt-1-controlled.json: no such file or directory
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai/20261008T114310.616102000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	0.927s
+FAIL

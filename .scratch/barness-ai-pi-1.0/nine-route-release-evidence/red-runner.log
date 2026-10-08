@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_absolute_output_is_isolated_and_portable (__main__.ReleaseRunner.test_absolute_output_is_isolated_and_portable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "[REPO]/.scratch/barness-ai-pi-1.0/nine-route-release-evidence/test-run-release.py", line 43, in test_absolute_output_is_isolated_and_portable
+    self.assertTrue(Path(record.read_text()).is_relative_to(out), 'harness executable shared between invocations')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : harness executable shared between invocations
+
+----------------------------------------------------------------------
+Ran 1 test in 1.300s
+
+FAILED (failures=1)

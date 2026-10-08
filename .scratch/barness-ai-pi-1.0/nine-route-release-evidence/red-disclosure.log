@@ -1,0 +1,10 @@
+--- FAIL: TestRejectedIdentifiersAreNeverRepublished (0.00s)
+    --- FAIL: TestRejectedIdentifiersAreNeverRepublished/live-combo (0.00s)
+        disclosure_test.go:25: rejected combo republished
+    --- FAIL: TestRejectedIdentifiersAreNeverRepublished/case-id (0.00s)
+        disclosure_test.go:41: rejected offline identifier republished
+    --- FAIL: TestRejectedIdentifiersAreNeverRepublished/artifact-name (0.00s)
+        disclosure_test.go:41: rejected offline identifier republished
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	0.879s
+FAIL

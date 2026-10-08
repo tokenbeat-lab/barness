@@ -215,6 +215,9 @@ func (s *session) observe(label string, res ai.Result, err error) []exchange {
 	name := fmt.Sprintf("attempt-%d-%s", s.attempt, label)
 	s.cs.Record(name+"-result", map[string]any{"result": res, "error": errText(err)})
 	s.cs.Record(name+"-exchanges", ex)
+	observations := s.env.rec.observationsOf(res.Metadata.RequestID)
+	s.cs.Record("observations-"+name, observations)
+	s.check("Observer reaches terminal metadata", len(observations) > 0 && observations[len(observations)-1].Kind == ai.ObservationCallFinished, "missing terminal observation")
 	return ex
 }
 

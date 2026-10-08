@@ -42,20 +42,28 @@ func LoadBundle(dir string) (Bundle, error) {
 	}
 	b := Bundle{Dir: dir, Commit: m.GitCommit, caseDirs: map[string]string{}}
 	for _, c := range m.Cases {
+		// Manifest identifiers become report fields. Reject sensitive names
+		// before conversion rather than copy them into a failed release report.
+		if len(audit.File("identifiers.txt", []byte(c.ID+"\n"+c.Dir), audit.Environment())) != 0 {
+			return Bundle{}, fmt.Errorf("release: evidence case identifier failed redaction audit")
+		}
 		if c.ID == "" || c.Dir == "" || filepath.IsAbs(c.Dir) || filepath.Clean(c.Dir) != c.Dir || strings.HasPrefix(c.Dir, "..") || b.caseDirs[c.ID] != "" {
 			return Bundle{}, fmt.Errorf("release: invalid or duplicate evidence case directory")
 		}
 		b.caseDirs[c.ID] = filepath.Join(dir, c.Dir)
 		if len(c.Artifacts) == 0 {
-			b.Problems = append(b.Problems, c.ID+": artifact integrity inventory missing")
+			b.Problems = append(b.Problems, "case artifact integrity inventory missing")
 		}
 		for name, hash := range c.Artifacts {
+			if len(audit.File("identifiers.txt", []byte(name), audit.Environment())) != 0 {
+				return Bundle{}, fmt.Errorf("release: artifact identifier failed redaction audit")
+			}
 			if filepath.Base(name) != name {
 				return Bundle{}, fmt.Errorf("release: invalid artifact path")
 			}
 			raw, err := os.ReadFile(filepath.Join(dir, c.Dir, name))
 			if err != nil || pioracle.SHA256(raw) != hash {
-				b.Problems = append(b.Problems, c.ID+": artifact missing or changed: "+name)
+				b.Problems = append(b.Problems, "case artifact missing or changed")
 			}
 		}
 		b.Cases = append(b.Cases, Case{ID: c.ID, Status: c.Status})
@@ -124,9 +132,9 @@ func AuditBundle(dir string, forbidden []audit.Forbidden) AuditResult {
 		a.Err = err.Error()
 		return a
 	}
-	a.Findings = findings
+	a.Findings = safeAuditFindings(findings, forbidden)
 	if live, err := supportmatrix.LoadReport(filepath.Join(dir, supportmatrix.ReportFile)); err == nil {
-		a.Combo, a.Live = live.Combo, &live
+		a.Live = &live
 		if err := verifyLiveManifest(dir, live); err != nil {
 			a.Err = err.Error()
 			return a
@@ -141,12 +149,32 @@ func AuditBundle(dir string, forbidden []audit.Forbidden) AuditResult {
 	case recorded.Findings == nil:
 		a.Err = "audit.json has no findings list"
 	default:
-		for _, f := range *recorded.Findings {
+		for _, f := range safeAuditFindings(*recorded.Findings, forbidden) {
 			f.Detail = "recorded by the run: " + f.Detail
 			a.Findings = append(a.Findings, f)
 		}
 	}
+	if a.Live != nil && a.Err == "" && len(a.Findings) == 0 {
+		r := a.Live
+		if (supportmatrix.Row{Combo: r.Combo, Operation: r.Operation, Provider: r.Provider, API: r.API}).ValidIdentity() {
+			a.Combo = r.Combo
+		}
+	}
 	return a
+}
+
+// An audit can itself name an unsafe artifact or JSON field. Keep the rule
+// and a stable path digest for diagnosis without republishing that value.
+func safeAuditFindings(findings []audit.Finding, forbidden []audit.Forbidden) []audit.Finding {
+	out := make([]audit.Finding, 0, len(findings))
+	for _, f := range findings {
+		if len(audit.File("audit-diagnostic.txt", []byte(f.File+"\n"+f.Detail), forbidden)) != 0 {
+			f.File = "artifact-sha256:" + pioracle.SHA256([]byte(f.File))
+			f.Detail = "artifact content rejected by redaction audit"
+		}
+		out = append(out, f)
+	}
+	return out
 }
 
 // GoModules returns the module versions go.mod in dir pins.
