@@ -170,7 +170,9 @@ func refuse(format string, args ...any) error {
 
 // Merge folds r into its combination's row and returns the new matrix; m is
 // not changed. A report where nothing ran leaves the matrix as it was, and a
-// scenario that did not run keeps its capability's last state.
+// scenario that did not run keeps its capability's last state. A complete
+// successful report replaces the active capability set; matching capabilities
+// keep their pass history, and archived reports retain removed probes.
 func Merge(m Matrix, r Report) (Matrix, error) {
 	idx, err := check(m, r)
 	if err != nil {
@@ -209,6 +211,9 @@ func Merge(m Matrix, r Report) (Matrix, error) {
 		}
 	}
 	if complete {
+		row.Capabilities = slices.DeleteFunc(row.Capabilities, func(c Capability) bool {
+			return !slices.Contains(r.Expected, c.ID)
+		})
 		row.AllPassedAt = &at
 	}
 	return out, nil
