@@ -118,12 +118,16 @@ func TestBusinessEffectTraceUsesIndependentArtifact(t *testing.T) {
 }
 
 func TestReleasePlanCannotBeReduced(t *testing.T) {
-	for _, name := range []string{"combo", "p0", "differential", "route", "requirement"} {
+	for _, name := range []string{"combo", "p0", "differential", "route", "requirement", "scenario-mapping", "requirement-mapping"} {
 		t.Run(name, func(t *testing.T) {
 			trace, err := LoadTraceMap("../../../release/traceability.json")
 			if err != nil {
 				t.Fatal(err)
 			}
+			if !CheckReleasePlan(trace).Current {
+				t.Fatal("approved release mapping rejected")
+			}
+			trace.Items[0].Requirement = "editorial wording is not part of the evidence contract"
 			switch name {
 			case "combo":
 				trace.LiveCombos = trace.LiveCombos[:8]
@@ -135,6 +139,11 @@ func TestReleasePlanCannotBeReduced(t *testing.T) {
 				trace.Differential.Routes = trace.Differential.Routes[:2]
 			case "requirement":
 				trace.Items = trace.Items[1:]
+			case "scenario-mapping":
+				trace.Scenarios["P07"] = ".*"
+			case "requirement-mapping":
+				trace.Items[0].Scenarios = []string{"P01"}
+				trace.Items[0].Cases = ".*"
 			}
 			if check := CheckReleasePlan(trace); check.Current {
 				t.Fatal("reduced release contract accepted")
