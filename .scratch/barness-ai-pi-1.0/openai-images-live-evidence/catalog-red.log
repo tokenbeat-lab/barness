@@ -1,0 +1,14 @@
+--- FAIL: TestOpenAIImagesBuiltinCatalog (0.00s)
+    images_builtin_test.go:35: [P08-E03-live-catalog-inclusion] fixed model equals sourced verified capability and price snapshot: got {Provider: API: ID: Name: Input:[] Output:[] Capabilities:{MaxReferenceImages:0 MaxOutputImages:0 Sizes:[] CustomSizes:<nil> Qualities:[] ImageSizes:[] AspectRatios:[] Mask:false TransparentBackground:false InputFidelity:[]} Pricing:{InputText:{state:0 value:0} InputImage:{state:0 value:0} OutputText:{state:0 value:0} OutputImage:{state:0 value:0} CacheReadText:{state:0 value:0} CacheReadImage:{state:0 value:0} Source:}}
+    images_builtin_test.go:36: [P08-E03-live-catalog-inclusion] dated source and new version: version=2026-10-08.3
+--- FAIL: TestOpenAIImagesLiveWireReplay (0.05s)
+    --- FAIL: TestOpenAIImagesLiveWireReplay/json-edit (0.02s)
+        images_builtin_test.go:109: [P08-E01-live-replay-json-edit] live response accepted offline: err=ai: invalid_request (capability): model is not in the catalog for this provider and API
+    --- FAIL: TestOpenAIImagesLiveWireReplay/generation (0.01s)
+        images_builtin_test.go:109: [P08-E01-live-replay-generation] live response accepted offline: err=ai: invalid_request (capability): model is not in the catalog for this provider and API
+    --- FAIL: TestOpenAIImagesLiveWireReplay/mask-edit (0.01s)
+        images_builtin_test.go:109: [P08-E01-live-replay-mask-edit] live response accepted offline: err=ai: invalid_request (capability): model is not in the catalog for this provider and API
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai/20261008T071336.127226000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.409s
+FAIL

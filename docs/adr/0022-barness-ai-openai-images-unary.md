@@ -98,3 +98,28 @@ ImagePricing 按文本/图片 token 逐项单独舍入乘积后相加；缺项�
 扩展，每个 P08 fixture 有显式 pidiffSkip。原生图像目录有显式豁免，不计为聊天型号比对
 或 pi 差分通过。P08、P0 和追溯映射分别登记；离线证据包含版本、目录快照、可回放场景
 和脱敏审计。本工单 09–10 的合成能力与价格不构成真实型号已支持的证据。
+
+## 工单 11：自身 JSON 编辑真实接受性与目录（2026-10-08）
+
+[编辑参考](https://developers.openai.com/api/reference/resources/images/methods/edit)、
+[图像指南](https://developers.openai.com/api/docs/guides/image-generation)、
+[型号页](https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst)
+于 2026-10-08 重新核对，固定日期快照、JSON inline images/mask、质量和格式均有来源。
+输入保真度只明确旧型号，Sunburst 不推导允许值，初次实测省略该参数。
+
+首个真实请求是 JSON `/v1/images/edits`，HTTP 200；其后生成和带 mask JSON 编辑
+也 HTTP 200，无 multipart 或协议回退。真实结果记录原生 request ID、usage、图片
+校验与 bounded captures，独立审计零发现。目录 `2026-10-08.4` 纳入固定快照。
+首批能力有意保守：一张参考图与输出，1024×1024，low/medium，mask、透明背景；
+png/jpeg/webp 分别实测。更大能力只保留官方事实，不构成当前支持声明。
+
+标准处理的美元/百万 token 费率为输入文本 5、输入图片 8、输出图片 30；型号只输出
+图片，文本输出不计费，显式 0 保存该事实。直接 Images 无缓存输入费率，不加按张
+派生价格。实测三个请求的 input/output 与四项模态明细齐全，为 complete，估算总额
+0.029431 美元；partial 仅价已知分项、unreported 不代表无消耗，由受控 E2E 保持。
+
+支持矩阵及 release trace 现覆盖 P08，自身报告才可更新；编辑/生成必交，mask 可选
+但须明确厂商证据。宿主探测目录与内置声明分开，编辑尚未实测时不提前纳入。
+相关后续扩充由工单 17 发布门禁与后续型号评估追踪。
+
+[证据、归一化约束与复跑命令](../../.scratch/barness-ai-pi-1.0/openai-images-live-evidence/README.md)。

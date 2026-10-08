@@ -114,3 +114,16 @@ jev-latest / jev-preview 不列入。公共目录测试与官方来源 fixture �
 原生 OpenAI Images 明确豁免冻结 pi 的聊天目录字段比对，以自己的扩展路线 fixture、能力/费率来源和 live 证据验收。TestCatalogNativeImageExemptions 断言登记。工单 09 仅交付宿主自带目录的生成协议；内置图像型号仍由工单 11 纳入，未提前宣称首批型号已支持。
 
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## 工单 11：首个内置图像型号（2026-10-08）
+
+原生 OpenAI Images 的 JSON 编辑是纳入前必须通过的自身 live gate。固定快照
+`gpt-image-2.5-sunburst-2026-09-08` 在本组合的公共 Client 上通过 JSON 编辑、生成、
+mask 后纳入目录 `2026-10-08.4`。仅保留验证的一张参考图/输出、1024×1024、low/medium
+质量、mask 和透明背景；PNG/JPEG/WebP 均实测。官方允许更大数量、分辨率及其他质量，
+本次不扩大声明；未来扩大须以独立来源/本组合证据换目录版本。moving alias 不纳入。
+输入保真度的 Sunburst 允许值仍未明确且未测试，空能力列表要求省略，不误标为
+厂商 UNSUPPORTED。官方分模态费率、抓取日期、完整真实 usage 与可重放 fixture
+验证价格快照；直接 Images API 不含缓存输入费率或按张派生附加费。
+
+详见 ADR-0022 与 [工单 11 证据](../../.scratch/barness-ai-pi-1.0/openai-images-live-evidence/README.md)。

@@ -31,7 +31,7 @@ func TestClassifierBuiltinOfficial(t *testing.T) {
 		_, ok := catalog.LookupClassifier(ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, id)
 		ev.Check("moving alias excluded "+id, !ok, "alias listed")
 	}
-	ev.Check("content revision has its own version", catalog.Version == "2026-10-08.3", "version %s", catalog.Version)
+	ev.Check("content revision has its own version", catalog.Version == "2026-10-08.4", "version %s", catalog.Version)
 	// Mutating returned capabilities cannot change the next host's snapshot.
 	if len(m.Capabilities.Kinds) > 0 {
 		m.Capabilities.Kinds[0] = "invalid"

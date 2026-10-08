@@ -145,6 +145,9 @@ var combos = []combo{
 		extra: []scenario{chatUsagePosition, forcedToolWithThinking, promptCacheLongRetention,
 			reasoningLevel("deepseek-v4-pro", ai.ThinkingHigh), reasoningLevel("deepseek-v4-pro", ai.ThinkingMax)},
 	},
+	{operation: ai.OperationImage, name: "openai-images", spec: "P08", provider: ai.ProviderOpenAI, api: ai.APIOpenAIImages,
+		endpoint: "https://api.openai.com/v1", model: "gpt-image-2.5-sunburst-2026-09-08", sdk: func() string { return "direct HTTP (OpenAI Images JSON; ADR-0022)" },
+	},
 	{
 		operation: ai.OperationClassifier, name: "typesafe-classifier", spec: "P07", provider: ai.ProviderTypeSafe,
 		api: ai.APITypeSafeSystemOne, endpoint: "https://api.typesafe.ai/v1", model: "jev-1.13.0",

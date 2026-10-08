@@ -1,0 +1,169 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T15:10:36.29225+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-974b43846ea03436615f8ca7280c828f",
+      "jobId": "live-smoke",
+      "bindingId": "openai-images",
+      "operation": "image",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T15:10:36.292398+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-974b43846ea03436615f8ca7280c828f",
+      "jobId": "live-smoke",
+      "bindingId": "openai-images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-images",
+      "modelId": "gpt-image-2.5-sunburst-2026-09-08",
+      "accountScopeId": "live-openai-images",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3+openai-images-probe-2026-10-08",
+      "catalogHash": "sha256:5c130b3c48209b956fc01aad2c1cfb6a32166ef47fbb24bcfdf9af5b411c6227"
+    },
+    "attempt": {
+      "attemptId": "req-974b43846ea03436615f8ca7280c828f#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T15:10:46.750048+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-974b43846ea03436615f8ca7280c828f",
+      "jobId": "live-smoke",
+      "bindingId": "openai-images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-images",
+      "modelId": "gpt-image-2.5-sunburst-2026-09-08",
+      "accountScopeId": "live-openai-images",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3+openai-images-probe-2026-10-08",
+      "catalogHash": "sha256:5c130b3c48209b956fc01aad2c1cfb6a32166ef47fbb24bcfdf9af5b411c6227"
+    },
+    "attempt": {
+      "attemptId": "req-974b43846ea03436615f8ca7280c828f#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_92e953482a354fad887ff27ef8e2adb7",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 289,
+        "output": 196,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "modalities": {
+          "inputText": 33,
+          "inputImage": 256,
+          "outputText": 0,
+          "outputImage": 196
+        },
+        "totalTokens": 485,
+        "cost": {
+          "input": 0.002213,
+          "output": 0.00588,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.008093
+        }
+      }
+    },
+    "duration": 10457734666
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T15:10:46.750056+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-974b43846ea03436615f8ca7280c828f",
+      "jobId": "live-smoke",
+      "bindingId": "openai-images",
+      "operation": "image",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-images",
+      "modelId": "gpt-image-2.5-sunburst-2026-09-08",
+      "accountScopeId": "live-openai-images",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3+openai-images-probe-2026-10-08",
+      "catalogHash": "sha256:5c130b3c48209b956fc01aad2c1cfb6a32166ef47fbb24bcfdf9af5b411c6227",
+      "attempts": [
+        {
+          "attemptId": "req-974b43846ea03436615f8ca7280c828f#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_92e953482a354fad887ff27ef8e2adb7",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 289,
+            "output": 196,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "modalities": {
+              "inputText": 33,
+              "inputImage": 256,
+              "outputText": 0,
+              "outputImage": 196
+            },
+            "totalTokens": 485,
+            "cost": {
+              "input": 0.002213,
+              "output": 0.00588,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.008093
+            }
+          }
+        }
+      ]
+    },
+    "duration": 10457892083,
+    "stopReason": "stop",
+    "usage": {
+      "input": 289,
+      "output": 196,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "modalities": {
+        "inputText": 33,
+        "inputImage": 256,
+        "outputText": 0,
+        "outputImage": 196
+      },
+      "totalTokens": 485,
+      "cost": {
+        "input": 0.002213,
+        "output": 0.00588,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.008093
+      }
+    }
+  }
+]

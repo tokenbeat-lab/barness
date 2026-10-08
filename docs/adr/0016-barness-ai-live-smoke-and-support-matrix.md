@@ -85,3 +85,31 @@ context-422 是有界形状核验：40,000 个合成词经公共 Client，本地
 账户区域与权限级别未核实，不据此宣称该账户符合低权限要求。runner 只提取 TYPESAFE_KEY，
 不 source 整份 .env；子进程只注入本组合 Key 和运行所需环境。Key 不写报告或命令行。
 最终状态只能由自己的脱敏报告合并；NOT_RUN 保留有效历史，拒绝批次不部分写入。
+
+## 工单 11：P08 原生 OpenAI Images（2026-10-08）
+
+沿用每组合一进程、双开关、唯一 Client、固定官方 endpoint、组合专用凭据与现有
+报告/脱敏审计/原子矩阵合并，增加 image × openai × openai-images。固定日期快照为
+`gpt-image-2.5-sunburst-2026-09-08`。第一场景必须是内联 JSON 编辑；仅该进程的
+编辑 PASS 才执行生成和 mask，窄化执行也不能绕过。JSON 编辑和生成不得报告
+UNSUPPORTED；mask 只有 HTTP 400 明确表示 mask 不支持时可记 UNSUPPORTED。
+
+独立预算为 4 次公共逻辑调用、4 张请求图片、每次一张、1024×1024；失败请求与
+环境重试先预占调用/图片预算，实际 HTTP 尝试与报告用量逐项累计，耗尽 FAIL。
+Binding.Retry 保持关闭，避免内部尝试绕过预算。mask 也占请求预算。
+报告/矩阵沿用 schema 2，预算增加可选图片计数与分辨率，场景增加可选 ImageCalls
+（路径、状态、请求 ID、格式、读图校验、用量完整性）；旧分类/聊天语义不变。
+合并校验以固定预期能力验证，不能自行缩小/重复预期列表；固定操作、Provider、
+协议、目标和型号都须相符，计数、顺序与实际请求证据完整才写完整通过时间。
+共享 adapter 和其他操作的通过不能给 P08 背书。
+
+2026-10-08 的自身实测三个场景 PASS：PNG JSON 编辑、JPEG 生成、WebP mask 编辑
+（透明背景），均完整解码为 1024×1024。一共 3 次请求、3 张图、0 次重试，usage
+均 complete。账户别名 `dotenv-openai@region-unconfirmed` 记录凭据来自宿主 `.env`；
+权限级别和区域未由 API 响应证明，别名不等于低权限认证。正式 CI 仍须配置专用
+低权限凭据及真实区域别名。子进程只收到 OPENAI Images 的 key，不读取 `.env`。
+
+[真实报告与校验](../../.scratch/barness-ai-pi-1.0/openai-images-live-evidence/README.md)
+包含原始有界脱敏捕获、公共结果、Observer、图片文件/SHA-256、零发现审计及离线
+反例进程。PNG 响应超 512 KiB 捕获上限，截断明确标记；图片与用量以 Client 完整
+结果保留。其 fixture 归一化明确记录此来源，不能作为另一条 live 接受性证据。

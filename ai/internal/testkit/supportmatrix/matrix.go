@@ -72,6 +72,10 @@ type Report struct {
 // Budget bounds one live process's spend.
 type Budget struct {
 	MaxCalls            int `json:"maxCalls"`
+	MaxImages           int `json:"maxImages,omitempty"`
+	ImagesUsed          int `json:"imagesUsed,omitempty"`
+	MaxImageWidth       int `json:"maxImageWidth,omitempty"`
+	MaxImageHeight      int `json:"maxImageHeight,omitempty"`
 	MaxQuestions        int `json:"maxQuestions,omitempty"`
 	QuestionsUsed       int `json:"questionsUsed,omitempty"`
 	HTTPAttempts        int `json:"httpAttempts"`
@@ -97,13 +101,15 @@ type ScenarioResult struct {
 	ErrorCategory string `json:"errorCategory,omitempty"`
 	// Environment marks a Fail as a vendor or environment fault (rate
 	// limit, 5xx, transport, timeout) that persisted through its retries.
-	Environment        bool     `json:"environment,omitempty"`
-	DurationMS         int64    `json:"durationMs"`
-	Calls              int      `json:"calls"`
-	Attempts           int      `json:"attempts"`
-	Questions          int      `json:"questions,omitempty"`
-	Retries            int      `json:"retries,omitempty"`
-	ProviderRequestIDs []string `json:"providerRequestIds,omitempty"`
+	Environment        bool        `json:"environment,omitempty"`
+	DurationMS         int64       `json:"durationMs"`
+	Calls              int         `json:"calls"`
+	Attempts           int         `json:"attempts"`
+	Questions          int         `json:"questions,omitempty"`
+	Images             int         `json:"images,omitempty"`
+	ImageCalls         []ImageCall `json:"imageCalls,omitempty"`
+	Retries            int         `json:"retries,omitempty"`
+	ProviderRequestIDs []string    `json:"providerRequestIds,omitempty"`
 	// Note records what was observed beyond pass/fail, and is required for
 	// Unsupported.
 	Note string `json:"note,omitempty"`
@@ -252,6 +258,9 @@ func check(m Matrix, r Report) (int, error) {
 			return 0, refuse("unsupported scenario %q gives no reason", s.ID)
 		}
 		seen[s.ID] = true
+	}
+	if err := checkImages(r); err != nil {
+		return 0, err
 	}
 	if err := checkClassifier(r); err != nil {
 		return 0, err

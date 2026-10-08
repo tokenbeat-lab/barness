@@ -35,7 +35,10 @@ Responses/Chat 型号默认 samplingParams 同样不能覆盖保留字段。
 `LookupImage`/`ImageModelsOf`、`LookupClassifier`/`ClassifierModelsOf` 分别强类型查询另两类，
 参数按 Provider、API（查找另含 ID）限定，列表保持目录顺序。所有返回值、切片、map、原始 JSON、
 能力与阶梯价格均独立复制。配置在构造交接期间不得并发修改。发现目录无需读取绑定或凭据，
-也不授予调用权限；内置目录列已有验收的聊天路线和 jev-1.13.0 分类；GenerateImages 已交付宿主目录的生成与 JSON 编辑入口，真实图像型号纳入由工单 11 验收。
+也不授予调用权限；内置目录列已有验收的聊天路线、jev-1.13.0 分类和通过自身 JSON 编辑真实门禁的
+`gpt-image-2.5-sunburst-2026-09-08` 图像型号（目录 2026-10-08.4）。图像支持
+一张参考图、一张输出、1024×1024、low/medium 质量、mask、透明背景；PNG/JPEG/WebP
+均有本组合实测。宿主仍须启用 ImagePolicy 并逐个授权型号。
 三类型号与全部价格都参加目录 Hash；内容改变应升 Version，宿主即使重用版本也会得到不同哈希（ADR-0010/0020）。
 
 ## 2. 调用
@@ -207,7 +210,7 @@ InputFidelity（Nullable）与 Mask（*Image）。nil/省略取默认；显式 n
 协议 16 张与型号 MaxReferenceImages 的最小值；mask 占宿主输入张数和 MaxImageBytes，
 要求参考图、Mask 能力且与第一张同尺寸。全部已知长度先检查，再复制/解码。
 尺寸/质量/透明背景/保真度须由 ImageCapabilities 授权；Qualities、InputFidelity 空列表要求
-省略相应选项，保真度仅编辑允许。gpt-image-2 省略，2.5 值由工单 11 确定。
+省略相应选项，保真度仅编辑允许。gpt-image-2 省略；Sunburst 的允许值未被官方文档和本次实测确认，内置型号要求省略。
 CustomSizes 是可选 ImageSizeConstraints（替换早期布尔开关），包含正值 EdgeMultiple、
 MaxAspectRatio、MaxEdge、MinPixels、MaxPixels 与来源日期 Source，深复制；所有数字尺寸
 须符合声明的硬约束，显式 Sizes 也不能绕过。nil 仅允许 Sizes 列出的值。

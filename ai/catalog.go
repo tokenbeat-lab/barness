@@ -15,6 +15,9 @@ type Catalog struct {
 
 // BuiltinCatalog returns a fresh copy of the built-in catalog.
 //
+// OpenAI image facts and own live acceptance: ADR-0022, fixed date snapshot,
+// sourced token rates and conservatively verified capabilities on 2026-10-08.
+//
 // TypeSafe classifier facts: https://docs.typesafe.ai/models and /api,
 // read 2026-10-08; own live evidence and fixed version inclusion: ADR-0021.
 //
@@ -49,9 +52,10 @@ type Catalog struct {
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-08.3",
+		Version: "2026-10-08.4",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
 			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels()),
+		ImageModels:      builtinOpenAIImageModels(),
 		ClassifierModels: builtinTypeSafeModels(),
 	}
 }

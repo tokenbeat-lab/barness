@@ -218,7 +218,8 @@ func TestOpenAIImagesExtensionsRegistered(t *testing.T) {
 		}
 	}
 	ev.Record("catalog", ai.BuiltinCatalog())
-	ev.Check("no premature image support claim", len(ai.BuiltinCatalog().ImageModels) == 0, "builtin images published before issue 11")
+	// Real inclusion is verified independently against sourced facts and this
+	// route's own live response replay by TestOpenAIImagesBuiltinCatalog.
 }
 
 func TestOpenAIImagesUsageValidation(t *testing.T) {

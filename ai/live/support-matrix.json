@@ -550,6 +550,43 @@
           "lastPassedAt": "2026-10-08T03:18:38.150248Z"
         }
       ]
+    },
+    {
+      "combo": "openai-images",
+      "operation": "image",
+      "provider": "openai",
+      "api": "openai-images",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "sdk": "direct HTTP (OpenAI Images JSON; ADR-0022)",
+      "accountAlias": "dotenv-openai@region-unconfirmed",
+      "lastRunAt": "2026-10-08T07:10:46.795103Z",
+      "allPassedAt": "2026-10-08T07:10:46.795103Z",
+      "capabilities": [
+        {
+          "id": "json-edit",
+          "model": "gpt-image-2.5-sunburst-2026-09-08",
+          "outcome": "PASS",
+          "note": "png: png output, 1024x1024; usage complete; known-only cost 0.00808300 USD",
+          "lastRunAt": "2026-10-08T07:10:46.795103Z",
+          "lastPassedAt": "2026-10-08T07:10:46.795103Z"
+        },
+        {
+          "id": "generation",
+          "model": "gpt-image-2.5-sunburst-2026-09-08",
+          "outcome": "PASS",
+          "note": "jpeg: jpeg output, 1024x1024; usage complete; known-only cost 0.01325500 USD",
+          "lastRunAt": "2026-10-08T07:10:46.795103Z",
+          "lastPassedAt": "2026-10-08T07:10:46.795103Z"
+        },
+        {
+          "id": "mask-edit",
+          "model": "gpt-image-2.5-sunburst-2026-09-08",
+          "outcome": "PASS",
+          "note": "webp: webp output, 1024x1024; usage complete; known-only cost 0.00809300 USD",
+          "lastRunAt": "2026-10-08T07:10:46.795103Z",
+          "lastPassedAt": "2026-10-08T07:10:46.795103Z"
+        }
+      ]
     }
   ]
 }

@@ -82,6 +82,7 @@ func (r *recorder) RoundTrip(req *http.Request) (*http.Response, error) {
 		req.Body = io.NopCloser(bytes.NewReader(body))
 		req.GetBody = func() (io.ReadCloser, error) { return io.NopCloser(bytes.NewReader(body)), nil }
 		e.RequestBody = redactText(string(body[:min(len(body), maxCapturedRequest)]))
+		e.Truncated = len(body) > maxCapturedRequest
 	}
 	r.mu.Lock()
 	r.exchanges = append(r.exchanges, e)

@@ -1,0 +1,14 @@
+# github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix [github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix.test]
+ai/internal/testkit/supportmatrix/images_test.go:15:46: unknown field MaxImages in struct literal of type Budget
+ai/internal/testkit/supportmatrix/images_test.go:15:59: unknown field MaxImageWidth in struct literal of type Budget
+ai/internal/testkit/supportmatrix/images_test.go:15:79: unknown field MaxImageHeight in struct literal of type Budget
+ai/internal/testkit/supportmatrix/images_test.go:15:113: unknown field ImagesUsed in struct literal of type Budget
+ai/internal/testkit/supportmatrix/images_test.go:18:35: s.Images undefined (type *ScenarioResult has no field or method Images)
+ai/internal/testkit/supportmatrix/images_test.go:22:5: s.ImageCalls undefined (type *ScenarioResult has no field or method ImageCalls)
+ai/internal/testkit/supportmatrix/images_test.go:22:20: undefined: ImageCall
+ai/internal/testkit/supportmatrix/images_test.go:43:40: r.Budget.ImagesUsed undefined (type Budget has no field or method ImagesUsed)
+ai/internal/testkit/supportmatrix/images_test.go:44:40: r.Budget.MaxImages undefined (type Budget has no field or method MaxImages)
+ai/internal/testkit/supportmatrix/images_test.go:45:47: r.Scenarios[0].ImageCalls undefined (type ScenarioResult has no field or method ImageCalls)
+ai/internal/testkit/supportmatrix/images_test.go:45:47: too many errors
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix [build failed]
+FAIL

@@ -50,6 +50,13 @@ func TestMain(m *testing.M) {
 	if cfg.combo != nil && cfg.combo.operation == ai.OperationClassifier {
 		budget = classifierBudget()
 	}
+	if cfg.combo != nil && cfg.combo.operation == ai.OperationImage {
+		budget = imagesBudget()
+		if catalog, err = loadImageProbeCatalog(); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+	}
 	if cfg.key != "" {
 		run.RedactSecret(cfg.key, "[LIVE-KEY:"+cfg.combo.name+"]")
 	}
@@ -160,6 +167,11 @@ func newClient(c *combo, key string, rec *recorder, cat ai.Catalog) (*ai.Client,
 			models = append(models, m.ID)
 		}
 	}
+	for _, m := range cat.ImageModels {
+		if c.operation == ai.OperationImage && m.Provider == c.provider && m.API == c.api {
+			models = append(models, m.ID)
+		}
+	}
 	for _, m := range cat.ClassifierModels {
 		if c.operation == ai.OperationClassifier && m.Provider == c.provider && m.API == c.api {
 			models = append(models, m.ID)
@@ -179,10 +191,11 @@ func newClient(c *combo, key string, rec *recorder, cat ai.Catalog) (*ai.Client,
 // Test values, not deployment guidance.
 func livePolicy() *ai.ResourcePolicy {
 	return &ai.ResourcePolicy{
+		Image:                 &ai.ImagePolicy{MaxInputImages: 2, MaxOutputImages: 1, MaxOutputImageBytes: 8 << 20, MaxTotalOutputImageBytes: 8 << 20},
 		Classifier:            &ai.ClassifierPolicy{MaxQuestions: 3, MaxStateBytes: 131072, MaxQuestionBytes: 16384},
 		MaxQueuedObservations: 128,
 		MaxRequestBytes:       1 << 20, MaxImageBytes: 1 << 19, MaxFrameBytes: 1 << 20, MaxToolJSONBytes: 1 << 16,
-		MaxErrorBodyBytes: 1 << 16, MaxOutputBytes: 8 << 20, MaxQueuedEvents: 1 << 14, MaxQueuedEventBytes: 8 << 20,
+		MaxErrorBodyBytes: 1 << 16, MaxOutputBytes: 16 << 20, MaxQueuedEvents: 1 << 14, MaxQueuedEventBytes: 8 << 20,
 		MaxConcurrentPerTenant: 2, MaxConcurrentProcess: 2, MaxAdmissionWaiters: 2, AdmissionWait: time.Second,
 		CallTimeout: 3 * time.Minute, ConnectTimeout: 15 * time.Second,
 		ResponseHeaderTimeout: 90 * time.Second, ReadIdleTimeout: 90 * time.Second,

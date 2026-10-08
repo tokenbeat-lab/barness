@@ -26,6 +26,9 @@ type scenario struct {
 }
 
 func scenariosOf(c *combo) []scenario {
+	if c.operation == ai.OperationImage {
+		return imagesScenarios()
+	}
 	if c.operation == ai.OperationClassifier {
 		return classifierScenarios()
 	}
@@ -53,6 +56,8 @@ type session struct {
 	notes         []string
 	requestIDs    []string
 	calls         int
+	images        int
+	imageCalls    []supportmatrix.ImageCall
 	questions     int
 	httpAttempts  int
 	lastExchanges []exchange
@@ -75,6 +80,11 @@ func runScenario(t *testing.T, cs *evidence.Case, c *combo, selected bool, env *
 		record(res)
 		return
 	}
+	if c.operation == ai.OperationImage && sc.id != "json-edit" && !jsonEditPassed() {
+		res.Outcome, res.Note = supportmatrix.NotRun, "required JSON edit did not pass in this process"
+		record(res)
+		t.Skip("NOT_RUN: " + res.Note)
+	}
 	began := time.Now()
 	var s *session
 	for attempt := 1; ; attempt++ {
@@ -83,6 +93,8 @@ func runScenario(t *testing.T, cs *evidence.Case, c *combo, selected bool, env *
 		sc.run(s)
 		cancel()
 		res.Calls += s.calls
+		res.Images += s.images
+		res.ImageCalls = append(res.ImageCalls, s.imageCalls...)
 		res.Questions += s.questions
 		res.Attempts += s.httpAttempts
 		res.ProviderRequestIDs = append(res.ProviderRequestIDs, s.requestIDs...)
@@ -212,6 +224,11 @@ func (s *session) ok(label string, err error) bool {
 		return true
 	}
 	var e *ai.Error
+	if errors.As(err, &e) && s.env.combo.operation == ai.OperationImage && e.HTTPStatus == 400 {
+		s.category = string(e.Code)
+		s.check(label+": call succeeds", false, "HTTP 400: %s", errText(err))
+		return false
+	}
 	if errors.As(err, &e) && (slices.Contains(retryableCodes, e.Code) || e.Code == ai.CodeUpstreamAuth) {
 		s.fault = e
 		return false
@@ -282,4 +299,14 @@ func truncate(s string, n int) string {
 		return s
 	}
 	return s[:n] + "…"
+}
+
+// A narrowed run cannot bypass the required first edit. Results are local to
+// this process, so another combination or an earlier bundle cannot satisfy it.
+func jsonEditPassed() bool {
+	mu.Lock()
+	defer mu.Unlock()
+	return slices.ContainsFunc(results, func(r supportmatrix.ScenarioResult) bool {
+		return r.ID == "json-edit" && r.Outcome == supportmatrix.Pass
+	})
 }

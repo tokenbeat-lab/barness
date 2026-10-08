@@ -1,0 +1,12 @@
+--- FAIL: TestImagesReport (0.00s)
+    --- FAIL: TestImagesReport/blank-alias (0.00s)
+        images_test.go:79: invalid report accepted: <nil>
+    --- FAIL: TestImagesReport/mask-false-note (0.00s)
+        images_test.go:79: invalid report accepted: <nil>
+    --- FAIL: TestImagesReport/blank-sdk (0.00s)
+        images_test.go:79: invalid report accepted: <nil>
+    --- FAIL: TestImagesReport/missing-case (0.00s)
+        images_test.go:79: invalid report accepted: <nil>
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	1.067s
+FAIL

@@ -1,0 +1,47 @@
+{
+  "cases": [
+    {
+      "dir": "LIVE-P08-generation",
+      "fixtures": {
+        "attempt-1-generation-output.jpg": "c2eea677910b6f64af2469959a7ff0ecd5cf4e9c92933fb2527e48dffb81077c"
+      },
+      "id": "LIVE-P08-generation",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-images go test -tags live ./ai/live -count=1 -run '^TestLive$/^openai-images$/^generation$'",
+      "status": "PASS",
+      "test": "TestLive/openai-images/generation"
+    },
+    {
+      "dir": "LIVE-P08-json-edit",
+      "fixtures": {
+        "attempt-1-json-edit-output.png": "67baa07b241770a95066e40233078a49c062daf7af5d70a84e79477947298ce0"
+      },
+      "id": "LIVE-P08-json-edit",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-images go test -tags live ./ai/live -count=1 -run '^TestLive$/^openai-images$/^json-edit$'",
+      "status": "PASS",
+      "test": "TestLive/openai-images/json-edit"
+    },
+    {
+      "dir": "LIVE-P08-mask-edit",
+      "fixtures": {
+        "attempt-1-mask-edit-output.webp": "f965631b587f3ef29247ac307aeb77e6997f4b467fbf7f0aafc6091d4cbf96a9"
+      },
+      "id": "LIVE-P08-mask-edit",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-images go test -tags live ./ai/live -count=1 -run '^TestLive$/^openai-images$/^mask-edit$'",
+      "status": "PASS",
+      "test": "TestLive/openai-images/mask-edit"
+    }
+  ],
+  "finished_at": "2026-10-08T07:10:46.795483Z",
+  "git_commit": "c0b860c80e2175676984d93dbfa32a063be0cb71",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "-tags live ./ai/live",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-08T07:10:13.136836Z",
+  "versions": {
+    "live_combo": "openai-images",
+    "live_sdk": "direct HTTP (OpenAI Images JSON; ADR-0022)",
+    "model_catalog_hash": "sha256:5c130b3c48209b956fc01aad2c1cfb6a32166ef47fbb24bcfdf9af5b411c6227",
+    "model_catalog_version": "2026-10-08.3+openai-images-probe-2026-10-08"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "assertions": [
+    {
+      "name": "fixed official JSON image route",
+      "pass": true,
+      "detail": "unexpected image route or protocol"
+    },
+    {
+      "name": "Observer reaches terminal metadata",
+      "pass": true,
+      "detail": "missing terminal observation"
+    },
+    {
+      "name": "image terminal and attribution",
+      "pass": true,
+      "detail": "wrong image attribution"
+    },
+    {
+      "name": "one successful HTTP attempt",
+      "pass": true,
+      "detail": "missing HTTP acceptance"
+    },
+    {
+      "name": "no invented image response identity",
+      "pass": true,
+      "detail": "invented response identity"
+    },
+    {
+      "name": "readable image, format, size and count",
+      "pass": true,
+      "detail": "<nil>"
+    }
+  ],
+  "case_id": "LIVE-P08-mask-edit",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-images go test -tags live ./ai/live -count=1 -run '^TestLive$/^openai-images$/^mask-edit$'",
+  "status": "PASS",
+  "test": "TestLive/openai-images/mask-edit"
+}

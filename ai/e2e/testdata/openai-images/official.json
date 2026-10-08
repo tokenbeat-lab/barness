@@ -1,0 +1,64 @@
+{
+  "retrieved": "2026-10-08",
+  "sources": {
+    "edit": "https://developers.openai.com/api/reference/resources/images/methods/edit",
+    "generate": "https://developers.openai.com/api/reference/resources/images/methods/generate",
+    "guide": "https://developers.openai.com/api/docs/guides/image-generation",
+    "model": "https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst"
+  },
+  "notes": {
+    "catalog": "Host probe only until own JSON edit live gate passes. Model capabilities conservatively bounded to smoke settings.",
+    "inputFidelity": "Not documented for Sunburst; omit. No unsupported claim inferred from GPT Image 2.",
+    "officialQualities": [
+      "low",
+      "medium",
+      "high",
+      "xhigh",
+      "max",
+      "auto"
+    ],
+    "officialFormats": [
+      "png",
+      "jpeg",
+      "webp"
+    ],
+    "officialReferenceLimit": 16,
+    "officialOutputLimit": 10,
+    "sizes": "Arbitrary WIDTHxHEIGHT supported under documented constraints; first release claims only 1024x1024.",
+    "mask": "Documented JSON mask reference, same dimensions and alpha PNG; live validates acceptance.",
+    "cache": "Direct Images API has no cached-input pricing. No per-image derived price is added."
+  },
+  "model": {
+    "provider": "openai",
+    "api": "openai-images",
+    "id": "gpt-image-2.5-sunburst-2026-09-08",
+    "name": "GPT Image 2.5 Sunburst (2026-09-08)",
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "image"
+    ],
+    "capabilities": {
+      "maxReferenceImages": 1,
+      "maxOutputImages": 1,
+      "sizes": [
+        "1024x1024"
+      ],
+      "qualities": [
+        "low",
+        "medium"
+      ],
+      "mask": true,
+      "transparentBackground": true
+    },
+    "pricing": {
+      "inputText": 5,
+      "inputImage": 8,
+      "outputText": 0,
+      "outputImage": 30,
+      "source": "https://developers.openai.com/api/docs/guides/image-generation; https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst; retrieved 2026-10-08"
+    }
+  }
+}

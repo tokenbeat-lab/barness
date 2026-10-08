@@ -118,3 +118,9 @@ image × openai × openai-images 是独立扩展路线 P08。冻结 pi 1.0.0 路
 校验。回调不能改变已选端点/操作；编辑 fixture 和容量/越权失败均为 P08 扩展离线证据。
 实际型号/费率、JSON 编辑接受性与真实支持声明由工单 11 交付；运行时不回退 multipart。
 直连的 SDK 例外、有限资源与模态计价见 [ADR-0022](../adr/0022-barness-ai-openai-images-unary.md)。
+
+工单 11 的固定 Sunburst 快照已通过本路线 JSON 编辑、生成和 mask 真实冒烟；
+目录 2026-10-08.4 与带来源的 real-response replay 固定其费率和已验证能力。
+该真实接受性仍为扩展路线证据，不计为 pi 差分通过。原始 PNG 响应超过 512 KiB
+捕获上限，live-contract fixture 明确记录以公共结果恢复图片和 usage 的归一化；
+原始截断标志、实际结果、图片校验与审计均保留在本组合证据包。

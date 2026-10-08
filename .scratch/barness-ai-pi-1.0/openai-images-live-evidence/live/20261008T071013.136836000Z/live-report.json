@@ -1,0 +1,118 @@
+{
+  "schema": 2,
+  "combo": "openai-images",
+  "operation": "image",
+  "provider": "openai",
+  "api": "openai-images",
+  "endpoint": "https://api.openai.com/v1",
+  "model": "gpt-image-2.5-sunburst-2026-09-08",
+  "sdk": "direct HTTP (OpenAI Images JSON; ADR-0022)",
+  "accountAlias": "dotenv-openai@region-unconfirmed",
+  "gitCommit": "c0b860c80e2175676984d93dbfa32a063be0cb71",
+  "catalogVersion": "2026-10-08.3+openai-images-probe-2026-10-08",
+  "catalogHash": "sha256:5c130b3c48209b956fc01aad2c1cfb6a32166ef47fbb24bcfdf9af5b411c6227",
+  "startedAt": "2026-10-08T07:10:13.136739Z",
+  "finishedAt": "2026-10-08T07:10:46.795103Z",
+  "budget": {
+    "maxCalls": 4,
+    "maxImages": 4,
+    "imagesUsed": 3,
+    "maxImageWidth": 1024,
+    "maxImageHeight": 1024,
+    "httpAttempts": 3,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 3,
+    "outputTokensUsed": 831,
+    "inputTokensUsed": 593,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "json-edit",
+    "generation",
+    "mask-edit"
+  ],
+  "scenarios": [
+    {
+      "id": "json-edit",
+      "caseId": "LIVE-P08-json-edit",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "outcome": "PASS",
+      "durationMs": 11592,
+      "calls": 1,
+      "attempts": 1,
+      "images": 1,
+      "imageCalls": [
+        {
+          "path": "/v1/images/edits",
+          "status": 200,
+          "providerRequestId": "req_2fa503e4fabb492d8e4eab5261eeaa8e",
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 1,
+          "width": 1024,
+          "height": 1024,
+          "usageReporting": "complete"
+        }
+      ],
+      "providerRequestIds": [
+        "req_2fa503e4fabb492d8e4eab5261eeaa8e"
+      ],
+      "note": "png: png output, 1024x1024; usage complete; known-only cost 0.00808300 USD"
+    },
+    {
+      "id": "generation",
+      "caseId": "LIVE-P08-generation",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "outcome": "PASS",
+      "durationMs": 11557,
+      "calls": 1,
+      "attempts": 1,
+      "images": 1,
+      "imageCalls": [
+        {
+          "path": "/v1/images/generations",
+          "status": 200,
+          "providerRequestId": "req_daed73c0d69f4201afca72d6bcb3f36d",
+          "outputFormat": "jpeg",
+          "requested": 1,
+          "verified": 1,
+          "width": 1024,
+          "height": 1024,
+          "usageReporting": "complete"
+        }
+      ],
+      "providerRequestIds": [
+        "req_daed73c0d69f4201afca72d6bcb3f36d"
+      ],
+      "note": "jpeg: jpeg output, 1024x1024; usage complete; known-only cost 0.01325500 USD"
+    },
+    {
+      "id": "mask-edit",
+      "caseId": "LIVE-P08-mask-edit",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "outcome": "PASS",
+      "durationMs": 10492,
+      "calls": 1,
+      "attempts": 1,
+      "images": 1,
+      "imageCalls": [
+        {
+          "path": "/v1/images/edits",
+          "status": 200,
+          "providerRequestId": "req_92e953482a354fad887ff27ef8e2adb7",
+          "outputFormat": "webp",
+          "requested": 1,
+          "verified": 1,
+          "width": 1024,
+          "height": 1024,
+          "usageReporting": "complete"
+        }
+      ],
+      "providerRequestIds": [
+        "req_92e953482a354fad887ff27ef8e2adb7"
+      ],
+      "note": "webp: webp output, 1024x1024; usage complete; known-only cost 0.00809300 USD"
+    }
+  ]
+}
