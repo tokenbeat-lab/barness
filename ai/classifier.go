@@ -47,6 +47,9 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 	res := ClassifierResult{}
 	failure := validateScope(scope)
 	if failure == nil {
+		failure = contextError(ctx, PhaseScope)
+	}
+	if failure == nil {
 		failure = c.policy.Classifier.check(req)
 	}
 	if failure == nil {

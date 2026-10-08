@@ -21,11 +21,14 @@ const bindingUnresolved = "binding could not be resolved for this tenant"
 // resolveBinding reads the binding for (scope.TenantID, bindingID) and checks
 // it is the tenant's, enabled and of a supported auth kind.
 func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID string) (Binding, *Error) {
+	if failure := contextError(ctx, PhaseBinding); failure != nil {
+		return Binding{}, failure
+	}
 	b, err := c.bindings.ResolveBinding(ctx, scope, bindingID)
+	if failure := contextError(ctx, PhaseBinding); failure != nil {
+		return Binding{}, failure
+	}
 	if err != nil {
-		if e := contextError(ctx, PhaseBinding); e != nil {
-			return Binding{}, e
-		}
 		if errors.Is(err, ErrAccessDenied) {
 			return Binding{}, newError(CodeTenantDenied, PhaseBinding, "the caller may not use this binding")
 		}
@@ -60,17 +63,20 @@ func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID 
 	if problem := b.Retry.validate(); problem != "" {
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, problem)
 	}
-	return b, nil
+	return b.clone(), nil
 }
 
 // resolveCredential reads the credential the binding version references and
 // checks it is usable.
 func (c *Client) resolveCredential(ctx context.Context, scope CallScope, b Binding) (Credential, *Error) {
-	cred, err := c.credentials.ResolveCredential(ctx, scope, b)
+	if failure := contextError(ctx, PhaseCredential); failure != nil {
+		return Credential{}, failure
+	}
+	cred, err := c.credentials.ResolveCredential(ctx, scope, b.clone())
+	if failure := contextError(ctx, PhaseCredential); failure != nil {
+		return Credential{}, failure
+	}
 	if err != nil {
-		if e := contextError(ctx, PhaseCredential); e != nil {
-			return Credential{}, e
-		}
 		switch {
 		case errors.Is(err, ErrSnapshotConflict):
 			return Credential{}, snapshotConflict("configuration changed while the call was resolving it")

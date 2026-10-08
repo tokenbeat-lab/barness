@@ -26,3 +26,14 @@ pi 把 `maxRetries`、`maxRetryDelayMs` 放在每次调用的 StreamOptions 里�
 - pi 差分中重试场景两侧使用相同设置：barness 用绑定，pi 用调用选项。这是配置位置的差异，不是行为差异，所以不登记差分条目。
 
 行为与验收见 [spec §8](../../.scratch/barness-ai/spec.md#8-流终态取消与重试) 和 E05（`TestExplicitRetry`、`PIDIFF-P01-E05-*`）。
+
+## 工单 07：unary 初始请求的重试证据（2026-10-08）
+
+TypeSafe 直连 HTTP 在 Do 边界复用连接失败标记，只有真正发起 HTTP 的失败才进入
+连接重试规则；编码、回调和准入错误不能被当成连接失败。此前没有标记，导致显式配置
+重试时连接错误仍只尝试一次；TestUnaryInitialFailures 先复现后修复。
+
+默认零重试，显式重试仍固定绑定、凭据、目标、目录和最终请求字节；请求头/体回调各一次，
+成功响应回调一次。429/529/连接失败耗尽和 401/403/422 分类有离线证据；退避期间无 body
+或许可，context 结束保留此前 Attempt。成功 HTTP 后的读断、坏 JSON、无效答案、超限、
+回调失败和取消都不重放，详见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。

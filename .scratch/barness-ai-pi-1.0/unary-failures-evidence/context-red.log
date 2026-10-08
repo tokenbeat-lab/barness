@@ -1,0 +1,13 @@
+--- FAIL: TestUnaryEndedBeforeStart (0.01s)
+    --- FAIL: TestUnaryEndedBeforeStart/canceled (0.00s)
+        unary_fixture_test.go:63: [P07-E08-unary-before-canceled] phase match: got ai: canceled (admission): Request aborted
+        unary_fixture_test.go:65: [P07-E08-unary-before-canceled] terminal and empty answers: got {Answers:map[] ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:aborted ErrorMessage:Request aborted Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-before-canceled ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.2 CatalogHash:sha256:ca7260dcac4cec3a8672220a499f40867c9fc9f5b155ab27d5a8e84d3b0c2da7 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}
+        unary_context_test.go:31: [P07-E08-unary-before-canceled] no resolution or HTTP: got {Bindings:1 Credentials:1}
+    --- FAIL: TestUnaryEndedBeforeStart/deadline (0.00s)
+        unary_fixture_test.go:63: [P07-E08-unary-before-deadline] phase match: got ai: deadline_exceeded (admission): Request timed out.
+        unary_fixture_test.go:65: [P07-E08-unary-before-deadline] terminal and empty answers: got {Answers:map[] ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:aborted ErrorMessage:Request timed out. Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-before-deadline ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.2 CatalogHash:sha256:ca7260dcac4cec3a8672220a499f40867c9fc9f5b155ab27d5a8e84d3b0c2da7 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}
+        unary_context_test.go:31: [P07-E08-unary-before-deadline] no resolution or HTTP: got {Bindings:1 Credentials:1}
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/issue07-red/20261008T021550.185111000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.980s
+FAIL

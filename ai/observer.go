@@ -64,7 +64,7 @@ type Observation struct {
 	// snapshot was consistent. Attempts are only set at CallFinished.
 	Call CallMetadata `json:"call"`
 	// Attempt is the attempt an attempt record is about; nil otherwise. At
-	// AttemptStarted only its AttemptID is set; at AttemptFinished it is the
+	// AttemptStarted it has its AttemptID and unreported usage; at AttemptFinished it is the
 	// attempt as recorded in CallMetadata.Attempts.
 	Attempt *Attempt `json:"attempt,omitempty"`
 	// Duration is, at AttemptFinished, the time from AttemptStarted until
@@ -240,7 +240,7 @@ type attemptRecorder struct {
 func (r attemptRecorder) started(attemptID string) time.Time {
 	now := time.Now()
 	if r.q != nil {
-		r.q.publish(Observation{Kind: ObservationAttemptStarted, Time: now, Call: r.call, Attempt: &Attempt{AttemptID: attemptID}})
+		r.q.publish(Observation{Kind: ObservationAttemptStarted, Time: now, Call: r.call, Attempt: &Attempt{AttemptID: attemptID, UsageReporting: UsageUnreported}})
 	}
 	return now
 }

@@ -21,3 +21,15 @@ date: 2026-10-01
 - 若运行证据表明前置失败显著影响可用性，可通过后续 ADR 增加有界重解析；需先定义上述策略并用配置竞争场景验收。内部重构不保留双路径兼容层。
 
 行为与验收见 [spec 的快照契约](../../.scratch/barness-ai/spec.md#3-租户授权服务绑定与配置快照) 和 E07。此决策是本规范对原研究开放选项的收窄，不表示原研究已验证其可用性代价。
+
+## 工单 07：解析边界上的独立快照（2026-10-08）
+
+BindingResolver 交回绑定后，立即复制其型号/托管工具切片和 Retry 的可变延迟值；
+CredentialResolver 接收另一份独立副本。不能把复制延迟到凭据解析完成，否则宿主轮换源配置，
+或凭据后端修改入参，就能改变已经解析的绑定预算。交接期间宿主仍不得并发修改同一源对象。
+此修复共同适用于聊天和 unary，不增加重解析或配置兼容路径。
+
+解析开始前和返回后都检查 context；即使后端成功返回，也不能把已结束的调用标成已解析，
+不能继续读取下一项配置。绑定/凭据阶段保留原分类和未解析归属，不发 Attempt。
+先红后绿证据：TestUnaryResolutionInterruption、TestUnaryBindingPolicySnapshot，见
+[工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。

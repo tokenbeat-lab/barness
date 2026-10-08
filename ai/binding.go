@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"slices"
 )
 
 // CallScope is the trusted identity a host establishes for one logical call.
@@ -112,6 +113,15 @@ type Binding struct {
 	// Retry is the operator's retry policy for calls through this binding;
 	// the zero value never retries. See RetryPolicy.
 	Retry RetryPolicy
+}
+
+// clone owns the mutable parts at the resolver boundary. A credential
+// resolver receives another copy, so it cannot alter the call's snapshot.
+func (b Binding) clone() Binding {
+	b.AllowedModels = slices.Clone(b.AllowedModels)
+	b.AllowedHostedTools = slices.Clone(b.AllowedHostedTools)
+	b.Retry = b.Retry.pinned()
+	return b
 }
 
 // Credential is a versioned credential snapshot together with its tenant and

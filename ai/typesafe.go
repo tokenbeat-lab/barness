@@ -64,7 +64,7 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 		for key, values := range header {
 			req.Header[key] = slices.Clone(values)
 		}
-		response, err := c.http.Do(req)
+		response, err := markConnectionFailures(req, c.http.Do)
 		if err != nil {
 			closeBody(response)
 			return failures.request(ctx, err, response)

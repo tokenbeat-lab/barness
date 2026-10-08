@@ -47,3 +47,12 @@ MaxErrorBodyBytes 限制。总字节 reader 最多探测一个溢出字节，不
 答案校验失败均在 response 阶段结束且不重放；错误体超限仍在 request 阶段结束且不重试。
 
 详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。
+
+## 工单 07：含边界字节的读取验收（2026-10-08）
+
+TestUnaryExactBodyBudgets 在 HTTP body 边界计量实际读取的字节：成功 JSON 大于帧限额、
+恰好 MaxOutputBytes 仍成功；超过总量时最多读取上限加一个探测字节。非 2xx 使用独立的
+MaxErrorBodyBytes，恰在上限保留状态分类，超限即使为 529 且绑定允许重试也只发送一次。
+
+所有这些路径在 body 关闭时仍持有许可；解码/答案校验失败整体清空答案，明确用量保留，
+后续调用能取得许可。证据与回放见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。

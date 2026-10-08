@@ -1,0 +1,7 @@
+--- FAIL: TestUnaryInitialFailures (0.00s)
+    --- FAIL: TestUnaryInitialFailures/status-401-retries-0 (0.00s)
+        unary_fixture_test.go:98: [P07-E05-unary-status-401-retries-0] started attempt is unreported: got &{AttemptID:req-status-401-retries-0#1 HTTPStatus:0 ProviderRequestID: Code: RetryDelay:0s UsageReporting: Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}
+FAIL
+barness-ai evidence bundle: <repo>/.evidence/barness-ai/20261008T022100.137895000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.932s
+FAIL

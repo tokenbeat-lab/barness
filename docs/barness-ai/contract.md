@@ -35,7 +35,7 @@ Responses/Chat 型号默认 samplingParams 同样不能覆盖保留字段。
 `LookupImage`/`ImageModelsOf`、`LookupClassifier`/`ClassifierModelsOf` 分别强类型查询另两类，
 参数按 Provider、API（查找另含 ID）限定，列表保持目录顺序。所有返回值、切片、map、原始 JSON、
 能力与阶梯价格均独立复制。配置在构造交接期间不得并发修改。发现目录无需读取绑定或凭据，
-也不授予调用权限；内置目录目前只列已有验收的聊天路线，Classify 已交付单选入口，真实分类型号纳入由后续工单验收。
+也不授予调用权限；内置目录目前只列已有验收的聊天路线，Classify 已交付混合问题入口，真实分类型号纳入由后续工单验收。
 三类型号与全部价格都参加目录 Hash；内容改变应升 Version，宿主即使重用版本也会得到不同哈希（ADR-0010/0020）。
 
 ## 2. 调用
@@ -45,7 +45,7 @@ s := client.Stream(ctx, scope, target, req, opts)          // 完整协议选项
 s := client.StreamSimple(ctx, scope, target, req, simple)  // 统一选项
 res, err := client.Complete(ctx, scope, target, req, opts)
 res, err := client.CompleteSimple(ctx, scope, target, req, simple)
-res, err := client.Classify(ctx, scope, target, classification, nil) // 同步单选
+res, err := client.Classify(ctx, scope, target, classification, nil) // 同步分类
 hc := client.WithHooks(hooks)                              // 可信回调，同样五个入口
 ```
 
@@ -66,7 +66,7 @@ hc := client.WithHooks(hooks)                              // 可信回调，同
 四个聊天入口（含 WithHooks）期望 chat，操作不匹配为 `tenant_denied/capability`。
 核对操作后才查聊天目录与白名单，最后读取凭据并核对版本快照；操作拒绝没有凭据读取、Provider 请求或 Attempt。
 
-### 同步分类（工单 05–06）
+### 同步分类（工单 05–07）
 
 Client 与 HookedClient 的 Classify 接收 ClassifierRequest 和既有封闭 Options；nil 或空 TypeSafeOptions
 表示协议默认，错协议选项在 capability 拒绝，SimpleOptions 不能传入。Binding 必须固定为
@@ -102,11 +102,20 @@ CallScope.Operation，该字段不授予权限。最终请求回调执行一次�
 unary 成功体只按 MaxOutputBytes 读取，不受 SSE MaxFrameBytes 限制；错误体按 MaxErrorBodyBytes。
 读取、解析和答案校验完成前持有准入许可，任一失败关闭 body 并释放。默认不重试；
 绑定显式允许的初始请求重试复用冻结快照，成功响应之后的失败不重放。
+已结束的 context 在输入复制/配置读取前以 scope/error 拒绝；解析器返回时再次检查 context，
+即使返回成功也在 binding/credential 阶段结束，保持未解析归属。准入等待、退避、读取成功体
+期间的调用取消或总截止时间分别为 admission/request/response + aborted；尝试时限仍为 error。
+连接失败按绑定预算重试；被拒绝的准入不生成 Attempt。响应回调失败仍为 request 阶段，
+errors.Is/As 保留可信宿主原因；其他成功体读取/解码/校验失败为 PhaseResponse。
 
 usage 的 input_tokens/output_tokens 均存在为 complete，缺项为 partial，无 usage 为 unreported。
 TypeSafe 只按目录输入费率估价，输出为零；本次合成目录费率不代表厂商价格。
 实际版本型号只放 ResponseModel Nullable[string]，授权 ModelID 不变，
 x-typesafe-request-id 放 Attempt.ProviderRequestID。Observer 只记录操作、归属、尝试、分类及用量。
+AttemptStarted 的 UsageReporting 为 unreported，AttemptFinished 与 CallFinished 的尝试记录
+使用同一 unreported/partial/complete 轴。PhaseResponse 在 errors.Is 的 Code 匹配中与其他阶段相同：
+Phase 为空匹配该 Code，Phase 非空同时匹配阶段。离线生命周期与资源证据见
+[工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
 真实内建型号/价格及 live 支持声明由工单 08 验收；禁用绑定或子策略即可停用新调用。
 不在本地计算分类 token 容量，厂商上下文超限的 422 保持 invalid_request/request 分类。
 

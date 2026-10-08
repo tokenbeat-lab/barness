@@ -127,7 +127,7 @@ func (r *callRuntime) pin(ctx context.Context, modelID string, hooks Hooks) (Cre
 	m.BindingVersion, m.CredentialVersion = b.Version, cred.Version
 	m.CatalogVersion, m.CatalogHash = c.catalog.Version, c.catalogHash
 	r.hooks = boundHooks{hooks: hooks, scope: r.scope, identity: m.CallAttribution}
-	r.initial = &initialRequest{policy: b.Retry.pinned(), clock: c.clock, requestID: r.scope.RequestID, observe: c.observations.attempts(*m),
+	r.initial = &initialRequest{policy: b.Retry, clock: c.clock, requestID: r.scope.RequestID, observe: c.observations.attempts(*m),
 		admit: func(ctx context.Context, attemptID string) (func(), *Error) {
 			return c.admission.admit(ctx, AdmissionRequest{TenantID: r.scope.TenantID, AccountScopeID: b.AccountScopeID, AttemptID: attemptID})
 		}}

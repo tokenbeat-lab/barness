@@ -1,0 +1,6 @@
+--- FAIL: TestUnaryBindingPolicySnapshot (0.00s)
+    unary_retry_test.go:186: [P07-E07-unary-binding-policy-snapshot] resolved binding policy independently pinned: got ai: rate_limited (request): Server requested 1s retry delay (max: 1s). 429 Too Many Requests: {"error":"limited"} attempts=[{AttemptID:req-policy-snapshot#1 HTTPStatus:429 ProviderRequestID: Code:rate_limited RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}] sleeps=[]
+FAIL
+barness-ai evidence bundle: <repo>/.evidence/barness-ai/20261008T021934.399500000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.541s
+FAIL

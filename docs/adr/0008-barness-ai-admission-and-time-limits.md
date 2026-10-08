@@ -69,3 +69,17 @@ spec §9 要求每次尝试前获取准入许可、内置单租户与全进程�
 aborted，读空闲等尝试时限仍形成 error；所有失败路径释放 body 与许可。
 
 详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。
+
+## 工单 07：unary 生命周期验收（2026-10-08）
+
+Classify 在 scope 验证后、任何可变输入复制或配置读取前检查 context：已取消或已到期的
+调用在 scope 阶段以 error 结束，只保留可信 scope、请求绑定和入口操作。
+解析期间 context 结束（包括后端成功返回）在对应 binding/credential 阶段以 error 结束。
+准入等待/退避/成功体读取期间的调用取消或总截止时间分别在 admission/request/response
+以 aborted 结束；连接、响应头和读空闲尝试时限仍以 error 结束。
+响应回调属于既有 request 回调契约，失败或 context 结束保留该阶段与可信宿主错误链。
+
+TestUnaryAdmissionWaitIsolation 证明取消等待调用只回收自己的等待者，已持有响应的调用
+和其他租户继续执行；注入准入在 context 结束后返回的许可立即归还、不伪造 Attempt。
+读取、整体解析与校验、body 关闭均在尝试许可下完成，后续调用可继续获得许可。
+详见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。

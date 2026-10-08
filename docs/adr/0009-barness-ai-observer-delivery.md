@@ -83,3 +83,13 @@ classifier，始终复用原有白名单元数据和 Usage。状态、问题、�
 拥塞仍只丢弃并计数，不改变分类结果；P07-E09 验证记录与证据脱敏审计覆盖这一点。
 
 详见 [ADR-0021](0021-barness-ai-typesafe-unary-classification.md) 与 P07 离线证据。
+
+## 工单 07：尝试的用量完整性轴（2026-10-08）
+
+AttemptStarted 的 UsageReporting 明确为 unreported：尚未读取厂商用量，不能以空字符串
+引入完整性枚举外的第四种状态。AttemptFinished 与 CallFinished.Attempts 使用相同的
+unreported/partial/complete 轴，保持各自独立的公共快照。
+
+P07 的新 E09 证据覆盖慢、拥塞、错误和 panic；队列故障只改变 ObserverStats，不改变
+Classify 结果。观测不包含分类状态、问题、答案、认证头或正文，调用/尝试记录按可信入口和
+固定快照关联；详见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
