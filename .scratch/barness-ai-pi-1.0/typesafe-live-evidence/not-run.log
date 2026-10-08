@@ -1,0 +1,16 @@
+=== RUN   TestLive
+=== RUN   TestLive/typesafe-classifier
+=== RUN   TestLive/typesafe-classifier/mixed-questions
+    session_test.go:71: NOT_RUN: BARNESS_AI_LIVE_KEY_TYPESAFE_CLASSIFIER is not set; without a key the combination is NOT_RUN
+=== RUN   TestLive/typesafe-classifier/single-choice
+    session_test.go:71: NOT_RUN: BARNESS_AI_LIVE_KEY_TYPESAFE_CLASSIFIER is not set; without a key the combination is NOT_RUN
+=== RUN   TestLive/typesafe-classifier/context-422
+    session_test.go:71: NOT_RUN: BARNESS_AI_LIVE_KEY_TYPESAFE_CLASSIFIER is not set; without a key the combination is NOT_RUN
+--- PASS: TestLive (0.00s)
+    --- PASS: TestLive/typesafe-classifier (0.00s)
+        --- SKIP: TestLive/typesafe-classifier/mixed-questions (0.00s)
+        --- SKIP: TestLive/typesafe-classifier/single-choice (0.00s)
+        --- SKIP: TestLive/typesafe-classifier/context-422 (0.00s)
+PASS
+barness-ai evidence bundle: .evidence/barness-ai/issue08-not-run-final/20261008T032112.366856000Z
+ok  	github.com/tokenbeat-lab/barness/ai/live	0.514s

@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "only bounded hundredth rounding accepted",
+      "pass": true,
+      "detail": "err=ai: protocol (response): invalid classifier response"
+    },
+    {
+      "name": "invalid answer is atomic and preserves known usage",
+      "pass": true,
+      "detail": "usage {Input:390 Output:61 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:451 Cost:{Input:1.6380000000000002e-05 Output:0 CacheRead:0 CacheWrite:0 Total:1.6380000000000002e-05}}"
+    }
+  ],
+  "case_id": "P07-E02-live-score-beyond-rounding",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierLiveScoreRounding$/^beyond-rounding$'",
+  "status": "PASS",
+  "test": "TestClassifierLiveScoreRounding/beyond-rounding"
+}

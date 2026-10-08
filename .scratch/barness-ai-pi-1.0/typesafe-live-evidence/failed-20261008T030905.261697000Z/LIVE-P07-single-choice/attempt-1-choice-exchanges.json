@@ -1,0 +1,29 @@
+[
+  {
+    "method": "POST",
+    "url": "https://api.typesafe.ai/v1/systemone",
+    "requestHeaders": {
+      "authorization": "[REDACTED]",
+      "content-type": "application/json",
+      "user-agent": "barness-ai"
+    },
+    "requestBody": "{\"model\":\"jev-1.13.0\",\"state\":{\"ticket\":\"My payment failed. Please fix my invoice.\"},\"questions\":{\"intent\":{\"type\":\"choice\",\"instructions\":\"Which department handles this ticket?\",\"criteria\":{\"billing\":\"Payments and invoices\",\"technical\":\"Software bugs\"}}}}",
+    "status": 200,
+    "responseHeaderNames": [
+      "alt-svc",
+      "cf-cache-status",
+      "cf-ray",
+      "content-type",
+      "date",
+      "server",
+      "set-cookie",
+      "x-typesafe-request-id"
+    ],
+    "responseHeaders": {
+      "content-type": "application/json",
+      "x-typesafe-request-id": "req_01a1197c692975929fa3fb90cf713d8a"
+    },
+    "responseBody": "{\"model\":\"jev-1.13.0\",\"answers\":{\"intent\":{\"type\":\"choice\",\"choice\":\"billing\",\"confidence\":1.0,\"probabilities\":{\"billing\":1.0,\"technical\":0.0}}},\"usage\":{\"input_tokens\":324,\"output_tokens\":31}}",
+    "elapsedMs": 296
+  }
+]

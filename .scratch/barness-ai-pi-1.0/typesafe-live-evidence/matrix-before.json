@@ -3,7 +3,6 @@
   "rows": [
     {
       "combo": "openai-responses",
-      "operation": "chat",
       "provider": "openai",
       "api": "openai-responses",
       "model": "gpt-5-mini",
@@ -74,11 +73,11 @@
           "lastRunAt": "2026-10-03T10:07:27.343059Z",
           "lastPassedAt": "2026-10-03T10:07:27.343059Z"
         }
-      ]
+      ],
+      "operation": "chat"
     },
     {
       "combo": "anthropic-messages",
-      "operation": "chat",
       "provider": "anthropic",
       "api": "anthropic-messages",
       "model": "claude-haiku-4-5",
@@ -173,11 +172,11 @@
           "lastRunAt": "2026-10-03T11:08:09.353124Z",
           "lastPassedAt": "2026-10-03T11:08:09.353124Z"
         }
-      ]
+      ],
+      "operation": "chat"
     },
     {
       "combo": "google-gemini",
-      "operation": "chat",
       "provider": "google",
       "api": "google-generative-ai",
       "model": "gemini-3.8-flash",
@@ -232,11 +231,11 @@
           "lastRunAt": "2026-10-02T14:06:46.527788Z",
           "lastPassedAt": "2026-10-02T14:06:46.527788Z"
         }
-      ]
+      ],
+      "operation": "chat"
     },
     {
       "combo": "openai-chat",
-      "operation": "chat",
       "provider": "openai",
       "api": "openai-completions",
       "model": "gpt-5-mini",
@@ -322,11 +321,11 @@
           "lastRunAt": "2026-10-03T10:07:47.694566Z",
           "lastPassedAt": "2026-10-03T10:07:47.694566Z"
         }
-      ]
+      ],
+      "operation": "chat"
     },
     {
       "combo": "deepseek-responses",
-      "operation": "chat",
       "provider": "deepseek",
       "api": "openai-responses",
       "model": "deepseek-flash",
@@ -405,11 +404,11 @@
           "lastRunAt": "2026-10-02T13:59:12.854068Z",
           "lastPassedAt": "2026-10-02T13:59:12.854068Z"
         }
-      ]
+      ],
+      "operation": "chat"
     },
     {
       "combo": "deepseek-chat",
-      "operation": "chat",
       "provider": "deepseek",
       "api": "openai-completions",
       "model": "deepseek-flash",
@@ -476,7 +475,7 @@
           "id": "forced-tool-with-thinking",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "note": "refused with HTTP 400 as ADR-0015 决策三 expects: 400: {\"message\":\"Thinking mode does not support this tool_choice (request_id: e0ee6133-e41c-4e13-b16d-6798525c5787)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
+          "note": "refused with HTTP 400 as ADR-0015 \u51b3\u7b56\u4e09 expects: 400: {\"message\":\"Thinking mode does not support this tool_choice (request_id: e0ee6133-e41c-4e13-b16d-6798525c5787)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
           "lastRunAt": "2026-10-02T22:46:33.228634Z",
           "lastPassedAt": "2026-10-02T22:46:33.228634Z"
         },
@@ -512,44 +511,14 @@
           "lastRunAt": "2026-10-02T13:59:24.82005Z",
           "lastPassedAt": "2026-10-02T13:59:24.82005Z"
         }
-      ]
+      ],
+      "operation": "chat"
     },
     {
       "combo": "typesafe-classifier",
       "operation": "classifier",
       "provider": "typesafe",
-      "api": "typesafe-system-one",
-      "model": "jev-1.13.0",
-      "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
-      "accountAlias": "local-typesafe@region-unreported",
-      "lastRunAt": "2026-10-08T03:18:38.150248Z",
-      "allPassedAt": "2026-10-08T03:18:38.150248Z",
-      "capabilities": [
-        {
-          "id": "mixed-questions",
-          "model": "jev-1.13.0",
-          "outcome": "PASS",
-          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 0.01 (Client validates bounded hundredth rounding)",
-          "lastRunAt": "2026-10-08T03:18:38.150248Z",
-          "lastPassedAt": "2026-10-08T03:18:38.150248Z"
-        },
-        {
-          "id": "single-choice",
-          "model": "jev-1.13.0",
-          "outcome": "PASS",
-          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0",
-          "lastRunAt": "2026-10-08T03:18:38.150248Z",
-          "lastPassedAt": "2026-10-08T03:18:38.150248Z"
-        },
-        {
-          "id": "context-422",
-          "model": "jev-1.13.0",
-          "outcome": "PASS",
-          "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported",
-          "lastRunAt": "2026-10-08T03:18:38.150248Z",
-          "lastPassedAt": "2026-10-08T03:18:38.150248Z"
-        }
-      ]
+      "api": "typesafe-system-one"
     }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "Observer reaches terminal metadata",
+      "pass": true,
+      "detail": "missing terminal observation"
+    },
+    {
+      "name": "wire uses fixed official target",
+      "pass": true,
+      "detail": "unexpected or truncated wire capture"
+    },
+    {
+      "name": "Observer reaches terminal metadata",
+      "pass": true,
+      "detail": "missing terminal observation"
+    },
+    {
+      "name": "wire uses fixed official target",
+      "pass": true,
+      "detail": "unexpected or truncated wire capture"
+    },
+    {
+      "name": "mixed: call succeeds",
+      "pass": false,
+      "detail": "ai: protocol (response): invalid classifier response"
+    }
+  ],
+  "case_id": "LIVE-P07-mixed-questions",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=typesafe-classifier go test -tags live ./ai/live -count=1 -run '^TestLive$/^typesafe-classifier$/^mixed-questions$'",
+  "status": "FAIL",
+  "test": "TestLive/typesafe-classifier/mixed-questions"
+}

@@ -1,0 +1,9 @@
+--- FAIL: TestClassifierLiveScoreRounding (0.01s)
+    --- FAIL: TestClassifierLiveScoreRounding/observed-hundredths (0.00s)
+        classifier_builtin_test.go:126: [P07-E02-live-score-observed-hundredths] only bounded hundredth rounding accepted: err=ai: protocol (response): invalid classifier response
+    --- FAIL: TestClassifierLiveScoreRounding/opposite-rounding (0.00s)
+        classifier_builtin_test.go:126: [P07-E02-live-score-opposite-rounding] only bounded hundredth rounding accepted: err=ai: protocol (response): invalid classifier response
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261008T031258.254419000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.162s
+FAIL

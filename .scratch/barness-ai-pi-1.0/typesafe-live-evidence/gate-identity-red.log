@@ -1,0 +1,10 @@
+--- FAIL: TestLiveIdentity (0.00s)
+    --- FAIL: TestLiveIdentity/wrong-operation (0.00s)
+        gate_test.go:405: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveIdentity/missing-operation (0.00s)
+        gate_test.go:405: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+    --- FAIL: TestLiveIdentity/old-schema (0.00s)
+        gate_test.go:405: gate live passed (overall true): {ID:live Name:every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) Pass:true Problems:[]}
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	1.096s
+FAIL

@@ -1,0 +1,87 @@
+{
+  "answers": {
+    "intent": {
+      "type": "choice",
+      "choice": "billing",
+      "probabilities": {
+        "billing": 1,
+        "technical": 0
+      },
+      "confidence": 1
+    },
+    "severity": {
+      "type": "score",
+      "score": 1.32,
+      "confidence": 0.5,
+      "probabilities": {
+        "0": 0.01,
+        "1": 0.67,
+        "2": 0.32
+      },
+      "legend": {
+        "0": "Low",
+        "1": "Medium",
+        "2": "High"
+      }
+    },
+    "urgent": {
+      "type": "bool",
+      "probability": 0.64
+    }
+  },
+  "responseModel": "jev-1.13.0",
+  "usage": {
+    "input": 390,
+    "output": 61,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 451,
+    "cost": {
+      "input": 0.000016380000000000002,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0.000016380000000000002
+    }
+  },
+  "stopReason": "stop",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-live-wire-mixed-questions",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "classifier",
+    "operation": "classifier",
+    "resolved": true,
+    "providerId": "typesafe",
+    "api": "typesafe-system-one",
+    "modelId": "jev-1.13.0",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.3",
+    "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+    "attempts": [
+      {
+        "attemptId": "req-live-wire-mixed-questions#1",
+        "httpStatus": 200,
+        "providerRequestId": "req_01a1197ee409735ca1a3288a4f31b358",
+        "usageReporting": "complete",
+        "usage": {
+          "input": 390,
+          "output": 61,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 451,
+          "cost": {
+            "input": 0.000016380000000000002,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000016380000000000002
+          }
+        }
+      }
+    ]
+  }
+}

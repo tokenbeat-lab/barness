@@ -1,0 +1,61 @@
+{
+  "error": "ai: invalid_request (request): 400 Bad Request: {\"detail\":{\"error_type\":\"max_tokens_exceeded\"}}",
+  "result": {
+    "answers": null,
+    "usage": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 0,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      }
+    },
+    "stopReason": "error",
+    "errorMessage": "400 Bad Request: {\"detail\":{\"error_type\":\"max_tokens_exceeded\"}}",
+    "metadata": {
+      "tenantId": "live-smoke",
+      "requestId": "req-7dc6ba8809f53741306b016157619e3b",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "live-typesafe-classifier",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.2",
+      "catalogHash": "sha256:64c2beb5678e84f8dca618c479a72fe6000c885ba7111a4ff46c25076da23f82",
+      "attempts": [
+        {
+          "attemptId": "req-7dc6ba8809f53741306b016157619e3b#1",
+          "httpStatus": 400,
+          "providerRequestId": "req_01a1197c6bf37ce99a12b4e68e14041d",
+          "code": "invalid_request",
+          "usageReporting": "unreported",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          }
+        }
+      ]
+    }
+  }
+}

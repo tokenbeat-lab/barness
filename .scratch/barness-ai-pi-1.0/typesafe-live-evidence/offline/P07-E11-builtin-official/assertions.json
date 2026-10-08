@@ -1,0 +1,43 @@
+{
+  "assertions": [
+    {
+      "name": "fixed version has official capabilities and rates",
+      "pass": true,
+      "detail": "got {Provider:typesafe API:typesafe-system-one ID:jev-1.13.0 Name:Jev ContextWindow:64000 Capabilities:{Kinds:[choice score bool] MaxChoices:255 MinScoreLevels:2 MaxScoreLevels:10} Cost:{CostRates:{Input:0.042 Output:0 CacheRead:0 CacheWrite:0} Tiers:[]}}"
+    },
+    {
+      "name": "only first fixed classifier included",
+      "pass": true,
+      "detail": "listed 1"
+    },
+    {
+      "name": "moving alias excluded jev-latest",
+      "pass": true,
+      "detail": "alias listed"
+    },
+    {
+      "name": "moving alias excluded jev-preview",
+      "pass": true,
+      "detail": "alias listed"
+    },
+    {
+      "name": "content revision has its own version",
+      "pass": true,
+      "detail": "version 2026-10-08.3"
+    },
+    {
+      "name": "fresh catalog owns its capabilities",
+      "pass": true,
+      "detail": "shared state"
+    },
+    {
+      "name": "official classifier roundtrip",
+      "pass": true,
+      "detail": "roundtrip changed"
+    }
+  ],
+  "case_id": "P07-E11-builtin-official",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierBuiltinOfficial$'",
+  "status": "PASS",
+  "test": "TestClassifierBuiltinOfficial"
+}

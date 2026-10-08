@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "built-in catalog version",
+      "pass": false,
+      "detail": "got \"2026-10-08.3\" want \"2026-10-08.2\""
+    },
+    {
+      "name": "built-in catalog content is the pinned one (bump Version, then the pin, on any change)",
+      "pass": false,
+      "detail": "got sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063 want sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea"
+    },
+    {
+      "name": "hash is stable",
+      "pass": true,
+      "detail": "differs between copies"
+    },
+    {
+      "name": "a price change changes the hash",
+      "pass": true,
+      "detail": "unchanged"
+    },
+    {
+      "name": "an invalid catalog has no hash",
+      "pass": true,
+      "detail": "err=ai: invalid config Catalog: chat model gpt-4: a price is negative or not finite"
+    }
+  ],
+  "case_id": "P01-E11-builtin-catalog-pinned",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestUsageAndCost$/^builtin-catalog-pinned$'",
+  "status": "FAIL",
+  "test": "TestUsageAndCost/builtin-catalog-pinned"
+}

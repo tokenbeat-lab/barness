@@ -1,0 +1,79 @@
+{
+  "schema": 2,
+  "combo": "typesafe-classifier",
+  "operation": "classifier",
+  "provider": "typesafe",
+  "api": "typesafe-system-one",
+  "endpoint": "https://api.typesafe.ai/v1",
+  "model": "jev-1.13.0",
+  "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+  "accountAlias": "local-typesafe@region-unreported",
+  "gitCommit": "00038a78ff3b6cfeded610cfe6aa5891e659fe50",
+  "catalogVersion": "2026-10-08.3",
+  "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+  "startedAt": "2026-10-08T03:18:36.51209Z",
+  "finishedAt": "2026-10-08T03:18:38.150248Z",
+  "budget": {
+    "maxCalls": 6,
+    "maxQuestions": 10,
+    "questionsUsed": 5,
+    "httpAttempts": 3,
+    "maxStateBytesPerCall": 131072,
+    "stateBytesSubmitted": 80110,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 3,
+    "outputTokensUsed": 92,
+    "inputTokensUsed": 714,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "mixed-questions",
+    "single-choice",
+    "context-422"
+  ],
+  "scenarios": [
+    {
+      "id": "mixed-questions",
+      "caseId": "LIVE-P07-mixed-questions",
+      "model": "jev-1.13.0",
+      "outcome": "PASS",
+      "durationMs": 792,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 3,
+      "providerRequestIds": [
+        "req_01a119851fb3790a9a96c2a16348a8d1"
+      ],
+      "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 0.01 (Client validates bounded hundredth rounding)"
+    },
+    {
+      "id": "single-choice",
+      "caseId": "LIVE-P07-single-choice",
+      "model": "jev-1.13.0",
+      "outcome": "PASS",
+      "durationMs": 259,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "providerRequestIds": [
+        "req_01a11985209b7f10ae9dde8f2949cc2e"
+      ],
+      "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"
+    },
+    {
+      "id": "context-422",
+      "caseId": "LIVE-P07-context-422",
+      "model": "jev-1.13.0",
+      "outcome": "PASS",
+      "durationMs": 567,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "providerRequestIds": [
+        "req_01a1198522fc721ba2846b07aa41e433"
+      ],
+      "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported"
+    }
+  ]
+}

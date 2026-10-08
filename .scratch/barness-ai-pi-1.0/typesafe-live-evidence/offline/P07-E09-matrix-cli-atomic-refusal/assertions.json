@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "batch refuses without partial write",
+      "pass": true,
+      "detail": "exit=exit status 1 unchanged=true"
+    }
+  ],
+  "case_id": "P07-E09-matrix-cli-atomic-refusal",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestSupportMatrixCLIAtomic$/^atomic-refusal$'",
+  "status": "PASS",
+  "test": "TestSupportMatrixCLIAtomic/atomic-refusal"
+}

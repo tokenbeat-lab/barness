@@ -1,0 +1,65 @@
+{
+  "schema": 2,
+  "combo": "typesafe-classifier",
+  "operation": "classifier",
+  "provider": "typesafe",
+  "api": "typesafe-system-one",
+  "endpoint": "https://api.typesafe.ai/v1",
+  "model": "jev-1.13.0",
+  "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+  "accountAlias": "",
+  "gitCommit": "fd5495f98e8c42489e8dfca97644b47b504d94b3",
+  "catalogVersion": "2026-10-08.3",
+  "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+  "startedAt": "2026-10-08T03:21:12.366782Z",
+  "finishedAt": "2026-10-08T03:21:12.379893Z",
+  "budget": {
+    "maxCalls": 6,
+    "maxQuestions": 10,
+    "httpAttempts": 0,
+    "maxStateBytesPerCall": 131072,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 0,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 0,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "mixed-questions",
+    "single-choice",
+    "context-422"
+  ],
+  "scenarios": [
+    {
+      "id": "mixed-questions",
+      "caseId": "LIVE-P07-mixed-questions",
+      "model": "jev-1.13.0",
+      "outcome": "NOT_RUN",
+      "durationMs": 0,
+      "calls": 0,
+      "attempts": 0,
+      "note": "BARNESS_AI_LIVE_KEY_TYPESAFE_CLASSIFIER is not set; without a key the combination is NOT_RUN"
+    },
+    {
+      "id": "single-choice",
+      "caseId": "LIVE-P07-single-choice",
+      "model": "jev-1.13.0",
+      "outcome": "NOT_RUN",
+      "durationMs": 0,
+      "calls": 0,
+      "attempts": 0,
+      "note": "BARNESS_AI_LIVE_KEY_TYPESAFE_CLASSIFIER is not set; without a key the combination is NOT_RUN"
+    },
+    {
+      "id": "context-422",
+      "caseId": "LIVE-P07-context-422",
+      "model": "jev-1.13.0",
+      "outcome": "NOT_RUN",
+      "durationMs": 0,
+      "calls": 0,
+      "attempts": 0,
+      "note": "BARNESS_AI_LIVE_KEY_TYPESAFE_CLASSIFIER is not set; without a key the combination is NOT_RUN"
+    }
+  ]
+}

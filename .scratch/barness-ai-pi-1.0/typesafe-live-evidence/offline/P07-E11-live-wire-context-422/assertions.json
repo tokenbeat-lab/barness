@@ -1,0 +1,28 @@
+{
+  "assertions": [
+    {
+      "name": "one authorized classifier attempt",
+      "pass": true,
+      "detail": "attempts [{AttemptID:req-live-wire-context-422#1 HTTPStatus:400 ProviderRequestID:req_01a1197ee73d7c939f7bc12126b8a7c7 Code:invalid_request RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]"
+    },
+    {
+      "name": "captured official status and request ID",
+      "pass": true,
+      "detail": "attempt {AttemptID:req-live-wire-context-422#1 HTTPStatus:400 ProviderRequestID:req_01a1197ee73d7c939f7bc12126b8a7c7 Code:invalid_request RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "real context guard classification",
+      "pass": true,
+      "detail": "err=ai: invalid_request (request): 400 Bad Request: {\n        \"detail\": {\n          \"error_type\": \"max_tokens_exceeded\"\n        }\n      }"
+    },
+    {
+      "name": "missing error usage stays unknown",
+      "pass": true,
+      "detail": "reporting unreported"
+    }
+  ],
+  "case_id": "P07-E11-live-wire-context-422",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierLiveWireReplay$/^context-422$'",
+  "status": "PASS",
+  "test": "TestClassifierLiveWireReplay/context-422"
+}

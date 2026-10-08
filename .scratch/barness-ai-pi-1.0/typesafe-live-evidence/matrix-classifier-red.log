@@ -1,0 +1,14 @@
+# github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix [github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix.test]
+ai/internal/testkit/supportmatrix/classifier_test.go:17:62: unknown field MaxQuestions in struct literal of type Budget
+ai/internal/testkit/supportmatrix/classifier_test.go:17:80: unknown field QuestionsUsed in struct literal of type Budget
+ai/internal/testkit/supportmatrix/classifier_test.go:17:98: unknown field HTTPAttempts in struct literal of type Budget
+ai/internal/testkit/supportmatrix/classifier_test.go:17:115: unknown field MaxStateBytes in struct literal of type Budget
+ai/internal/testkit/supportmatrix/classifier_test.go:17:138: unknown field StateBytesSubmitted in struct literal of type Budget
+ai/internal/testkit/supportmatrix/classifier_test.go:20:23: s.Attempts undefined (type *ScenarioResult has no field or method Attempts)
+ai/internal/testkit/supportmatrix/classifier_test.go:20:35: s.Questions undefined (type *ScenarioResult has no field or method Questions)
+ai/internal/testkit/supportmatrix/classifier_test.go:23:17: r.Scenarios[0].Questions undefined (type ScenarioResult has no field or method Questions)
+ai/internal/testkit/supportmatrix/classifier_test.go:34:52: r.Budget.QuestionsUsed undefined (type Budget has no field or method QuestionsUsed)
+ai/internal/testkit/supportmatrix/classifier_test.go:35:52: r.Budget.MaxQuestions undefined (type Budget has no field or method MaxQuestions)
+ai/internal/testkit/supportmatrix/classifier_test.go:35:52: too many errors
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix [build failed]
+FAIL

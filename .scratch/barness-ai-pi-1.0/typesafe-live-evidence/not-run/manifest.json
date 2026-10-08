@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {
+      "dir": "LIVE-P07-context-422",
+      "fixtures": {},
+      "id": "LIVE-P07-context-422",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=typesafe-classifier go test -tags live ./ai/live -count=1 -run '^TestLive$/^typesafe-classifier$/^context-422$'",
+      "status": "NOT_RUN",
+      "test": "TestLive/typesafe-classifier/context-422"
+    },
+    {
+      "dir": "LIVE-P07-mixed-questions",
+      "fixtures": {},
+      "id": "LIVE-P07-mixed-questions",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=typesafe-classifier go test -tags live ./ai/live -count=1 -run '^TestLive$/^typesafe-classifier$/^mixed-questions$'",
+      "status": "NOT_RUN",
+      "test": "TestLive/typesafe-classifier/mixed-questions"
+    },
+    {
+      "dir": "LIVE-P07-single-choice",
+      "fixtures": {},
+      "id": "LIVE-P07-single-choice",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=typesafe-classifier go test -tags live ./ai/live -count=1 -run '^TestLive$/^typesafe-classifier$/^single-choice$'",
+      "status": "NOT_RUN",
+      "test": "TestLive/typesafe-classifier/single-choice"
+    }
+  ],
+  "finished_at": "2026-10-08T03:21:12.380384Z",
+  "git_commit": "fd5495f98e8c42489e8dfca97644b47b504d94b3",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "-tags live ./ai/live",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-08T03:21:12.366856Z",
+  "versions": {
+    "live_combo": "typesafe-classifier",
+    "live_sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+    "model_catalog_hash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+    "model_catalog_version": "2026-10-08.3"
+  }
+}

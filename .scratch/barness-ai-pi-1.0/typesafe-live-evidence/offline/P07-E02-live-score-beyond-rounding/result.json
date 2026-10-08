@@ -1,0 +1,59 @@
+{
+  "answers": null,
+  "responseModel": "jev-1.13.0",
+  "usage": {
+    "input": 390,
+    "output": 61,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 451,
+    "cost": {
+      "input": 0.000016380000000000002,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0.000016380000000000002
+    }
+  },
+  "stopReason": "error",
+  "errorMessage": "invalid classifier response",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-rounding-beyond-rounding",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "classifier",
+    "operation": "classifier",
+    "resolved": true,
+    "providerId": "typesafe",
+    "api": "typesafe-system-one",
+    "modelId": "jev-1.13.0",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.3",
+    "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+    "attempts": [
+      {
+        "attemptId": "req-rounding-beyond-rounding#1",
+        "httpStatus": 200,
+        "providerRequestId": "test-rounding",
+        "usageReporting": "complete",
+        "usage": {
+          "input": 390,
+          "output": 61,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 451,
+          "cost": {
+            "input": 0.000016380000000000002,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000016380000000000002
+          }
+        }
+      }
+    ]
+  }
+}

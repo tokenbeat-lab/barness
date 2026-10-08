@@ -1,0 +1,14 @@
+[
+  {
+    "method": "POST",
+    "url": "https://api.typesafe.ai/v1/systemone",
+    "requestHeaders": {
+      "authorization": "[REDACTED]",
+      "content-type": "application/json",
+      "user-agent": "barness-ai"
+    },
+    "requestBody": "{\"model\":\"jev-1.13.0\",\"state\":{\"ticket\":\"My payment failed. Please fix my invoice.\"},\"questions\":{\"intent\":{\"type\":\"choice\",\"instructions\":\"Which department handles this ticket?\",\"criteria\":{\"billing\":\"Payments and invoices\",\"technical\":\"Software bugs\"}},\"severity\":{\"type\":\"score\",\"instructions\":\"Rate the urgency\",\"criteria\":[\"Low\",\"Medium\",\"High\"]},\"urgent\":{\"type\":\"noul\",\"instructions\":\"Is an immediate response needed?\",\"criteria\":{\"true\":\"Immediate\",\"false\":\"Can wait\"}}}}",
+    "transportError": "exceeded the resource policy's ConnectTimeout (15s)",
+    "elapsedMs": 15001
+  }
+]

@@ -1,0 +1,139 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T11:11:23.475387+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-4aafb806d12a4aef4d28792892572711",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T11:11:23.475668+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-4aafb806d12a4aef4d28792892572711",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "live-typesafe-classifier",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063"
+    },
+    "attempt": {
+      "attemptId": "req-4aafb806d12a4aef4d28792892572711#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T11:11:38.477339+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-4aafb806d12a4aef4d28792892572711",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "live-typesafe-classifier",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063"
+    },
+    "attempt": {
+      "attemptId": "req-4aafb806d12a4aef4d28792892572711#1",
+      "code": "deadline_exceeded",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    },
+    "duration": 15001433292
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T11:11:38.477362+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-4aafb806d12a4aef4d28792892572711",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "live-typesafe-classifier",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+      "attempts": [
+        {
+          "attemptId": "req-4aafb806d12a4aef4d28792892572711#1",
+          "code": "deadline_exceeded",
+          "usageReporting": "unreported",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          }
+        }
+      ]
+    },
+    "duration": 15001752250,
+    "stopReason": "error",
+    "error": {
+      "code": "deadline_exceeded",
+      "phase": "request"
+    }
+  }
+]

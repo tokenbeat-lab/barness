@@ -1,0 +1,31 @@
+{
+  "schema": 2,
+  "rows": [
+    {
+      "combo": "openai-responses",
+      "operation": "chat",
+      "provider": "openai",
+      "api": "openai-responses",
+      "model": "synthetic",
+      "sdk": "synthetic",
+      "accountAlias": "test@unknown",
+      "lastRunAt": "2026-10-08T03:00:00Z",
+      "allPassedAt": "2026-10-08T03:00:00Z",
+      "capabilities": [
+        {
+          "id": "text-stream",
+          "model": "synthetic",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-08T03:00:00Z",
+          "lastPassedAt": "2026-10-08T03:00:00Z"
+        }
+      ]
+    },
+    {
+      "combo": "deepseek-responses",
+      "operation": "chat",
+      "provider": "deepseek",
+      "api": "openai-responses"
+    }
+  ]
+}

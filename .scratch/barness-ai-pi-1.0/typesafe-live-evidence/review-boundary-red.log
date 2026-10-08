@@ -1,0 +1,10 @@
+--- FAIL: TestClassifierReportRefusals (0.00s)
+    --- FAIL: TestClassifierReportRefusals/missing-state-byte-counter (0.00s)
+        classifier_test.go:51: accepted invalid classifier report: <nil>
+    --- FAIL: TestClassifierReportRefusals/whitespace-vendor-id (0.00s)
+        classifier_test.go:51: accepted invalid classifier report: <nil>
+    --- FAIL: TestClassifierReportRefusals/blank-vendor-id (0.00s)
+        classifier_test.go:51: accepted invalid classifier report: <nil>
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	0.991s
+FAIL

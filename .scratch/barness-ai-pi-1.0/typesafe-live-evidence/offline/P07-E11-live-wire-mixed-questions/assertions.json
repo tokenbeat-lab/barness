@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "one authorized classifier attempt",
+      "pass": true,
+      "detail": "attempts [{AttemptID:req-live-wire-mixed-questions#1 HTTPStatus:200 ProviderRequestID:req_01a1197ee409735ca1a3288a4f31b358 Code: RetryDelay:0s UsageReporting:complete Usage:{Input:390 Output:61 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:451 Cost:{Input:1.6380000000000002e-05 Output:0 CacheRead:0 CacheWrite:0 Total:1.6380000000000002e-05}}}]"
+    },
+    {
+      "name": "captured official status and request ID",
+      "pass": true,
+      "detail": "attempt {AttemptID:req-live-wire-mixed-questions#1 HTTPStatus:200 ProviderRequestID:req_01a1197ee409735ca1a3288a4f31b358 Code: RetryDelay:0s UsageReporting:complete Usage:{Input:390 Output:61 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:451 Cost:{Input:1.6380000000000002e-05 Output:0 CacheRead:0 CacheWrite:0 Total:1.6380000000000002e-05}}}"
+    },
+    {
+      "name": "real success converts complete typed answers",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "real version retained",
+      "pass": true,
+      "detail": "model jev-1.13.0"
+    },
+    {
+      "name": "official input-only estimate",
+      "pass": true,
+      "detail": "usage {Input:390 Output:61 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} TotalTokens:451 Cost:{Input:1.6380000000000002e-05 Output:0 CacheRead:0 CacheWrite:0 Total:1.6380000000000002e-05}}"
+    }
+  ],
+  "case_id": "P07-E11-live-wire-mixed-questions",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierLiveWireReplay$/^mixed-questions$'",
+  "status": "PASS",
+  "test": "TestClassifierLiveWireReplay/mixed-questions"
+}

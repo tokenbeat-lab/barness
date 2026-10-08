@@ -1,0 +1,9 @@
+{
+  "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1",
+  "exitCode": 1,
+  "durationSeconds": 502.292,
+  "sourceCommit": "fd5495f98e8c42489e8dfca97644b47b504d94b3",
+  "bundle": ".evidence/barness-ai/issue08-final/20261008T032044.272100000Z",
+  "failure": "P01-E11-builtin-catalog-pinned: omitted update of existing version/hash pin",
+  "auditFindings": 0
+}

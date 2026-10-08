@@ -1,0 +1,7 @@
+{
+  "assertions": null,
+  "case_id": "LIVE-P07-single-choice",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=typesafe-classifier go test -tags live ./ai/live -count=1 -run '^TestLive$/^typesafe-classifier$/^single-choice$'",
+  "status": "NOT_RUN",
+  "test": "TestLive/typesafe-classifier/single-choice"
+}

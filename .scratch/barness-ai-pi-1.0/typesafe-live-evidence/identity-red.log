@@ -1,0 +1,10 @@
+--- FAIL: TestReportAndMatrixCannotAgreeOnWrongRoute (0.00s)
+    --- FAIL: TestReportAndMatrixCannotAgreeOnWrongRoute/wrong-operation (0.00s)
+        classifier_test.go:95: shared incorrect identity accepted
+    --- FAIL: TestReportAndMatrixCannotAgreeOnWrongRoute/wrong-provider (0.00s)
+        classifier_test.go:95: shared incorrect identity accepted
+    --- FAIL: TestReportAndMatrixCannotAgreeOnWrongRoute/wrong-api (0.00s)
+        classifier_test.go:95: shared incorrect identity accepted
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	0.401s
+FAIL

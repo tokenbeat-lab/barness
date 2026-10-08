@@ -1,0 +1,151 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-08T11:18:36.514773+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-7081f94b604bbe11436b124d6b9ab35f",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-08T11:18:36.515058+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-7081f94b604bbe11436b124d6b9ab35f",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "live-typesafe-classifier",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063"
+    },
+    "attempt": {
+      "attemptId": "req-7081f94b604bbe11436b124d6b9ab35f#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-08T11:18:37.305099+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-7081f94b604bbe11436b124d6b9ab35f",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "live-typesafe-classifier",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063"
+    },
+    "attempt": {
+      "attemptId": "req-7081f94b604bbe11436b124d6b9ab35f#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_01a119851fb3790a9a96c2a16348a8d1",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 390,
+        "output": 61,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 451,
+        "cost": {
+          "input": 0.000016380000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000016380000000000002
+        }
+      }
+    },
+    "duration": 790028250
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-08T11:18:37.305112+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-7081f94b604bbe11436b124d6b9ab35f",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "live-typesafe-classifier",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+      "attempts": [
+        {
+          "attemptId": "req-7081f94b604bbe11436b124d6b9ab35f#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a119851fb3790a9a96c2a16348a8d1",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 390,
+            "output": 61,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 451,
+            "cost": {
+              "input": 0.000016380000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000016380000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 790340417,
+    "stopReason": "stop",
+    "usage": {
+      "input": 390,
+      "output": 61,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 451,
+      "cost": {
+        "input": 0.000016380000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000016380000000000002
+      }
+    }
+  }
+]

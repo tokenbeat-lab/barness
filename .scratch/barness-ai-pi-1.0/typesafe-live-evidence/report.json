@@ -1,0 +1,143 @@
+{
+  "status": "PASS",
+  "issue": "08-typesafe-live-and-catalog",
+  "date": "2026-10-08",
+  "implementationCommits": [
+    "00038a78ff3b6cfeded610cfe6aa5891e659fe50",
+    "fd5495f98e8c42489e8dfca97644b47b504d94b3",
+    "c1209d06be0f1129faa4a38d9332bfb4c4d1b71c"
+  ],
+  "catalog": {
+    "version": "2026-10-08.3",
+    "hash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063"
+  },
+  "officialSources": [
+    {
+      "url": "https://docs.typesafe.ai/models.md",
+      "retrieved": "2026-10-08",
+      "sha256": "15351adaab85874b5f1a942fc2fdf3c7b3ecadcc936d580793d734855a0038f3"
+    },
+    {
+      "url": "https://docs.typesafe.ai/api.md",
+      "retrieved": "2026-10-08",
+      "sha256": "6b760275f89341fe15cff80c28aacae94d7d0c0c99afcd987ec0bca680b5713a"
+    },
+    {
+      "url": "https://api.typesafe.ai/openapi.json",
+      "retrieved": "2026-10-08",
+      "sha256": "a191f8a7df6bd6fedced8120dd0fd106f88575d1d1c8360d08900a6c7c0360d5"
+    }
+  ],
+  "live": {
+    "bundle": "live",
+    "operation": "classifier",
+    "combo": "typesafe-classifier",
+    "outcomes": [
+      "PASS",
+      "PASS",
+      "PASS"
+    ],
+    "budget": {
+      "maxCalls": 6,
+      "maxQuestions": 10,
+      "questionsUsed": 5,
+      "httpAttempts": 3,
+      "maxStateBytesPerCall": 131072,
+      "stateBytesSubmitted": 80110,
+      "maxRetriesPerScenario": 1,
+      "maxOutputTokensPerCall": 0,
+      "callsUsed": 3,
+      "outputTokensUsed": 92,
+      "inputTokensUsed": 714,
+      "environmentRetries": 0
+    },
+    "context422": "UNCONFIRMED: observed HTTP 400 detail.error_type=max_tokens_exceeded",
+    "privilegeAndRegion": "not independently verified; user-supplied key; alias local-typesafe@region-unreported"
+  },
+  "checks": {
+    "full_race_with_differential_and_pressure": {
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race ./... -count=1",
+      "exitCode": 0,
+      "durationSeconds": 498.794,
+      "sourceCommit": "c1209d06be0f1129faa4a38d9332bfb4c4d1b71c",
+      "bundle": ".evidence/barness-ai/issue08-final/20261008T032924.676998000Z",
+      "manifest_sha256": "96f752033b6a8252dc4229dc0564afaa7cc59b0948d2d0b22acab619bb5e1eff",
+      "audit_sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "cases": {
+        "PASS": 3740
+      },
+      "differentialCases": 623,
+      "pressureCases": 11
+    },
+    "live_harness_race": {
+      "command": "go test -tags live -race ./ai/live -run '^TestClassifierHarness' -count=1",
+      "exitCode": 0,
+      "log": "harness-race.log"
+    },
+    "vet": {
+      "exitCode": 0,
+      "log": "vet.log"
+    },
+    "vet_live": {
+      "exitCode": 0,
+      "log": "vet-live.log"
+    },
+    "matrix": {
+      "notRunPreservesBytes": true,
+      "sixChatHistoriesUnchanged": true,
+      "onlyChangedCombo": "typesafe-classifier"
+    },
+    "release_evaluation": {
+      "command": "go run ./ai/release/cmd/releasegate -bundle .evidence/barness-ai/issue08-final/20261008T032924.676998000Z -live .scratch/barness-ai-pi-1.0/typesafe-live-evidence/live -out .evidence/barness-ai-release/issue08-evaluation",
+      "exitCode": 1,
+      "wholeReleasePass": false,
+      "typesafeLiveStatus": "PASS",
+      "typesafeTraceStatus": "PASS",
+      "note": "-bundle only evaluates saved data; command gates are NOT_RUN and other six route audits are absent. This is not a whole-version release pass."
+    }
+  },
+  "code_and_fixtures_files": {
+    "GLOSSARY.md": "f7134d2e1cdd3401249cb422e315b47cba222e5a3afccf39d5867c48cecce0ad",
+    "ai/catalog.go": "b60f5c7637af0e82daf44e8526c1c7b27197619c470b256f63d21ef6918d67e8",
+    "ai/catalog_typesafe.go": "d15492764b0ece4ec821781f980b94de8882f120f545d113bcccc9a27f283533",
+    "ai/e2e/classifier_builtin_test.go": "7fdae07a7a701d6b588c6603c27f658f95513c37bb127b9ab29a6fd659e78e6d",
+    "ai/e2e/support_matrix_cli_test.go": "803ebc19d7a5826f19138198166921533c45c3c15ac0de69ce2a9f8dc1dd3749",
+    "ai/e2e/testdata/responses/usage.json": "3243420a2564cb5fd9668c22d335647cc135916cb44ea491bb6125dd2915bcf0",
+    "ai/e2e/testdata/typesafe/live-contract.json": "d34d8f7c6cbc421873afa07a7bed96b6053d239a2412b2c8ddca9b9339ff0300",
+    "ai/e2e/testdata/typesafe/official-capabilities.json": "1b9ec1aff500e57d162ba659d9684805a92dd37981217e95e873db4ed7638804",
+    "ai/e2e/testdata/typesafe/official-schema.json": "16e2d8b6fdd9b18aa02e61c84e320b206f32f98d6514e303b754c74b80b62d2b",
+    "ai/internal/testkit/release/gate.go": "3b4143037a047e2e55d5ca1372bb2d2143457092610d69c709123d1803ca59c2",
+    "ai/internal/testkit/release/gate_test.go": "aa8d991a10314952cb41d748bf07d9b3a61921b45c5fac99ce72bc1832a7e2d5",
+    "ai/internal/testkit/release/report.go": "297c492c4dad33ced84361f1aa70de75e787a24bfb0f93d30b54229550154cb8",
+    "ai/internal/testkit/supportmatrix/classifier.go": "55023bbc2db576daf14e8ca6164a6559cf3bcc3cb97d2cf491d17cd4610b58d1",
+    "ai/internal/testkit/supportmatrix/classifier_test.go": "82acbff6a990a6307eb76d55276d536597858eff59d86c3462d421a83271e125",
+    "ai/internal/testkit/supportmatrix/identity.go": "450917ef89498943ec975ac88f2c81306acf3fa181c0bc60243bfd19d90d8c9c",
+    "ai/internal/testkit/supportmatrix/matrix.go": "3ba4a3b9cfa2d0fddcd191f547dda3fbe4c98ff4e3baed53e840894efaf8fcbe",
+    "ai/internal/testkit/supportmatrix/merge_test.go": "34ac872abd9d50638dce33b15613d4a20e83028e8ed345ab3f48aff559908bf0",
+    "ai/live/classifier_harness_test.go": "2fec2ff391ddc702190d1ed36f2d918fbf260f05f44b11dbe43749b528666a99",
+    "ai/live/classifier_test.go": "40e5b7965a96f02fe946bf5f92dedaf9d9e608aa8972af179bbf5f13240292bf",
+    "ai/live/combos_test.go": "b2821467265b9042bba242fff1262a87d53afed5e6bc6dc59e6222d8fe08b108",
+    "ai/live/doc.go": "03561f756dc99e0b40dc1a59de9fd64508bcd225a13138d667cd1eac56af36c9",
+    "ai/live/main_test.go": "e141cfe4e0c700d96127b566b1f99aadec1596b1f3f186aa4843c61d3855a712",
+    "ai/live/recorder_test.go": "b01e1764d7f2d4a9f6f9e7e3e0ab158d66b920c84df5203e67bedd4104bd4004",
+    "ai/live/session_test.go": "4acc8310fb9a54c0a3c69e5e62e62993399ae1e3c87ef3da4aef0d8d275d7e7d",
+    "ai/live/support-matrix.json": "24ecd115de68ffe66f9014b29dfc21d95edc0eaf69fdb0088668285825719300",
+    "ai/release/catalog-snapshot.json": "b4d4f35b0db51c0fb170489c75956dfcac3cba238469211aa4a66b51529a9b0c",
+    "ai/release/traceability.json": "e5b9dd510e213f4c681ef20612d41eb50d905e4034070059141d9151b70e87af",
+    "ai/typesafe_answers.go": "e8108ecdbf40c84de10f476eb15baffe930270bb94aab2a0781a31a18c01991a",
+    "ai/typesafe_score_rounding.go": "e773e1666e6c9ca95aaee136f695e15594884a4f8b12b6ddcdaec6e841faad76",
+    "docs/adr/0010-barness-ai-usage-reporting-and-price-snapshot.md": "3dbf2409334b34b6025cd658a2665d129915a3c960c109ae8070c0729a4f2098",
+    "docs/adr/0016-barness-ai-live-smoke-and-support-matrix.md": "918fcb9a62d684983ada974282da8f711cb578b8a0b41a85899eedd6b4d6b1ae",
+    "docs/adr/0017-barness-ai-release-gate.md": "232b8524ac5893acb8a8b0f4e2f9aa549341d68426100c2eca4cc31086224553",
+    "docs/adr/0018-barness-ai-catalog-inclusion-criterion.md": "eec3f7199cd13d4923e436dfcb474c599a1618073837564d4dfb232c3f342ebc",
+    "docs/adr/0021-barness-ai-typesafe-unary-classification.md": "424eedff95c283f6c321cc639105986954b0258d0df032d72cb822fac9dc3f48",
+    "docs/barness-ai/README.md": "bcdcdce9664714ba2c6dca286ca0c3d72b4ea4903c0fb33c219b38414922c754",
+    "docs/barness-ai/contract.md": "b17c3257cad230d5813c8e3bf711b1fa4e6322532625eb85f92763fa64037fcb",
+    "docs/barness-ai/differences.md": "0f90ecc088f13e187d424a2d7e7174551f744d8da9deb21b88173c5a529eb06c"
+  },
+  "offlineSelectedCases": 304,
+  "portableNewCases": 10,
+  "failedFullRun": "full-pin-failure.json",
+  "realRunHistory": "historical-runs.json",
+  "review": "review.md"
+}

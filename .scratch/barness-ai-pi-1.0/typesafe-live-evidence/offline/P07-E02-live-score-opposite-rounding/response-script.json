@@ -1,0 +1,10 @@
+[
+  {
+    "status": 200,
+    "header": {
+      "Content-Type": "application/json",
+      "x-typesafe-request-id": "test-rounding"
+    },
+    "script": "{\"answers\":{\"intent\":{\"choice\":\"billing\",\"confidence\":1,\"probabilities\":{\"billing\":1,\"technical\":0},\"type\":\"choice\"},\"severity\":{\"confidence\":0.5,\"legend\":{\"0\":\"Low\",\"1\":\"Medium\",\"2\":\"High\"},\"probabilities\":{\"0\":0.01,\"1\":0.67,\"2\":0.32},\"score\":1.3,\"type\":\"score\"},\"urgent\":{\"noul\":0.64,\"type\":\"noul\"}},\"model\":\"jev-1.13.0\",\"usage\":{\"input_tokens\":390,\"output_tokens\":61}}"
+  }
+]

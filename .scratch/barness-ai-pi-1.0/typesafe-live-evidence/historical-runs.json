@@ -1,0 +1,333 @@
+{
+  "runs": [
+    {
+      "bundleId": "20261008T030905.261697000Z",
+      "commit": "beda5c1ef835d7de6314596699628e5d6eeb830b",
+      "catalogVersion": "2026-10-08.2",
+      "catalogHash": "sha256:64c2beb5678e84f8dca618c479a72fe6000c885ba7111a4ff46c25076da23f82",
+      "budget": {
+        "maxCalls": 6,
+        "maxQuestions": 10,
+        "questionsUsed": 5,
+        "httpAttempts": 3,
+        "maxStateBytesPerCall": 131072,
+        "stateBytesSubmitted": 80110,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 0,
+        "callsUsed": 3,
+        "outputTokensUsed": 92,
+        "inputTokensUsed": 714,
+        "environmentRetries": 0
+      },
+      "scenarios": [
+        {
+          "id": "mixed-questions",
+          "caseId": "LIVE-P07-mixed-questions",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 759,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 3,
+          "providerRequestIds": [
+            "req_01a1197c67f170f980faefc61b8b0b64"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 2.22044605e-16"
+        },
+        {
+          "id": "single-choice",
+          "caseId": "LIVE-P07-single-choice",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 297,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1197c692975929fa3fb90cf713d8a"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"
+        },
+        {
+          "id": "context-422",
+          "caseId": "LIVE-P07-context-422",
+          "model": "jev-1.13.0",
+          "outcome": "FAIL",
+          "errorCategory": "invalid_request",
+          "durationMs": 683,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1197c6bf37ce99a12b4e68e14041d"
+          ]
+        }
+      ]
+    },
+    {
+      "bundleId": "20261008T031018.391400000Z",
+      "commit": "beda5c1ef835d7de6314596699628e5d6eeb830b",
+      "catalogVersion": "2026-10-08.2",
+      "catalogHash": "sha256:64c2beb5678e84f8dca618c479a72fe6000c885ba7111a4ff46c25076da23f82",
+      "budget": {
+        "maxCalls": 6,
+        "maxQuestions": 10,
+        "questionsUsed": 5,
+        "httpAttempts": 3,
+        "maxStateBytesPerCall": 131072,
+        "stateBytesSubmitted": 80110,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 0,
+        "callsUsed": 3,
+        "outputTokensUsed": 92,
+        "inputTokensUsed": 714,
+        "environmentRetries": 0
+      },
+      "scenarios": [
+        {
+          "id": "mixed-questions",
+          "caseId": "LIVE-P07-mixed-questions",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 891,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 3,
+          "providerRequestIds": [
+            "req_01a1197d85eb77c6826c5a05d6d05056"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 0"
+        },
+        {
+          "id": "single-choice",
+          "caseId": "LIVE-P07-single-choice",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 431,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1197d875573029161e63cdbfa28bc"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"
+        },
+        {
+          "id": "context-422",
+          "caseId": "LIVE-P07-context-422",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 806,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1197d8b08721ab6147d873e05a84d"
+          ],
+          "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported"
+        }
+      ]
+    },
+    {
+      "bundleId": "20261008T031123.472930000Z",
+      "commit": "beda5c1ef835d7de6314596699628e5d6eeb830b",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+      "budget": {
+        "maxCalls": 6,
+        "maxQuestions": 10,
+        "questionsUsed": 8,
+        "httpAttempts": 4,
+        "maxStateBytesPerCall": 131072,
+        "stateBytesSubmitted": 80164,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 0,
+        "callsUsed": 4,
+        "outputTokensUsed": 92,
+        "inputTokensUsed": 714,
+        "environmentRetries": 1
+      },
+      "scenarios": [
+        {
+          "id": "mixed-questions",
+          "caseId": "LIVE-P07-mixed-questions",
+          "model": "jev-1.13.0",
+          "outcome": "FAIL",
+          "errorCategory": "protocol",
+          "durationMs": 25345,
+          "calls": 2,
+          "attempts": 2,
+          "questions": 6,
+          "retries": 1,
+          "providerRequestIds": [
+            "req_01a1197ee409735ca1a3288a4f31b358"
+          ]
+        },
+        {
+          "id": "single-choice",
+          "caseId": "LIVE-P07-single-choice",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 231,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1197ee4f87b75a66a390f26acbb60"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"
+        },
+        {
+          "id": "context-422",
+          "caseId": "LIVE-P07-context-422",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 549,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1197ee73d7c939f7bc12126b8a7c7"
+          ],
+          "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported"
+        }
+      ]
+    },
+    {
+      "bundleId": "20261008T031333.867845000Z",
+      "commit": "beda5c1ef835d7de6314596699628e5d6eeb830b",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+      "budget": {
+        "maxCalls": 6,
+        "maxQuestions": 10,
+        "questionsUsed": 5,
+        "httpAttempts": 3,
+        "maxStateBytesPerCall": 131072,
+        "stateBytesSubmitted": 80110,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 0,
+        "callsUsed": 3,
+        "outputTokensUsed": 92,
+        "inputTokensUsed": 714,
+        "environmentRetries": 0
+      },
+      "scenarios": [
+        {
+          "id": "mixed-questions",
+          "caseId": "LIVE-P07-mixed-questions",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 861,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 3,
+          "providerRequestIds": [
+            "req_01a1198081c671a8b8c80f0308b18d00"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 2.22044605e-16 (Client validates bounded hundredth rounding)"
+        },
+        {
+          "id": "single-choice",
+          "caseId": "LIVE-P07-single-choice",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 287,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1198082be7324814aaad5771b062b"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"
+        },
+        {
+          "id": "context-422",
+          "caseId": "LIVE-P07-context-422",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 622,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1198085777bd8915f8c27efd63967"
+          ],
+          "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported"
+        }
+      ]
+    },
+    {
+      "bundleId": "20261008T031836.512272000Z",
+      "commit": "00038a78ff3b6cfeded610cfe6aa5891e659fe50",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+      "budget": {
+        "maxCalls": 6,
+        "maxQuestions": 10,
+        "questionsUsed": 5,
+        "httpAttempts": 3,
+        "maxStateBytesPerCall": 131072,
+        "stateBytesSubmitted": 80110,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 0,
+        "callsUsed": 3,
+        "outputTokensUsed": 92,
+        "inputTokensUsed": 714,
+        "environmentRetries": 0
+      },
+      "scenarios": [
+        {
+          "id": "mixed-questions",
+          "caseId": "LIVE-P07-mixed-questions",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 792,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 3,
+          "providerRequestIds": [
+            "req_01a119851fb3790a9a96c2a16348a8d1"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 0.01 (Client validates bounded hundredth rounding)"
+        },
+        {
+          "id": "single-choice",
+          "caseId": "LIVE-P07-single-choice",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 259,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a11985209b7f10ae9dde8f2949cc2e"
+          ],
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"
+        },
+        {
+          "id": "context-422",
+          "caseId": "LIVE-P07-context-422",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "durationMs": 567,
+          "calls": 1,
+          "attempts": 1,
+          "questions": 1,
+          "providerRequestIds": [
+            "req_01a1198522fc721ba2846b07aa41e433"
+          ],
+          "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "logicalCalls": 16,
+    "questions": 28,
+    "httpAttempts": 16,
+    "environmentRetries": 1,
+    "reportedInputTokens": 3570,
+    "reportedOutputTokens": 460
+  }
+}

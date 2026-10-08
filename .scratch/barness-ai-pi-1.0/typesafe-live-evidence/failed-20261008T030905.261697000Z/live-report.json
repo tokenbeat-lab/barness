@@ -1,0 +1,79 @@
+{
+  "schema": 2,
+  "combo": "typesafe-classifier",
+  "operation": "classifier",
+  "provider": "typesafe",
+  "api": "typesafe-system-one",
+  "endpoint": "https://api.typesafe.ai/v1",
+  "model": "jev-1.13.0",
+  "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+  "accountAlias": "local-typesafe@region-unreported",
+  "gitCommit": "beda5c1ef835d7de6314596699628e5d6eeb830b",
+  "catalogVersion": "2026-10-08.2",
+  "catalogHash": "sha256:64c2beb5678e84f8dca618c479a72fe6000c885ba7111a4ff46c25076da23f82",
+  "startedAt": "2026-10-08T03:09:05.261633Z",
+  "finishedAt": "2026-10-08T03:09:07.027844Z",
+  "budget": {
+    "maxCalls": 6,
+    "maxQuestions": 10,
+    "questionsUsed": 5,
+    "httpAttempts": 3,
+    "maxStateBytesPerCall": 131072,
+    "stateBytesSubmitted": 80110,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 3,
+    "outputTokensUsed": 92,
+    "inputTokensUsed": 714,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "mixed-questions",
+    "single-choice",
+    "context-422"
+  ],
+  "scenarios": [
+    {
+      "id": "mixed-questions",
+      "caseId": "LIVE-P07-mixed-questions",
+      "model": "jev-1.13.0",
+      "outcome": "PASS",
+      "durationMs": 759,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 3,
+      "providerRequestIds": [
+        "req_01a1197c67f170f980faefc61b8b0b64"
+      ],
+      "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 2.22044605e-16"
+    },
+    {
+      "id": "single-choice",
+      "caseId": "LIVE-P07-single-choice",
+      "model": "jev-1.13.0",
+      "outcome": "PASS",
+      "durationMs": 297,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "providerRequestIds": [
+        "req_01a1197c692975929fa3fb90cf713d8a"
+      ],
+      "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"
+    },
+    {
+      "id": "context-422",
+      "caseId": "LIVE-P07-context-422",
+      "model": "jev-1.13.0",
+      "outcome": "FAIL",
+      "errorCategory": "invalid_request",
+      "durationMs": 683,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "providerRequestIds": [
+        "req_01a1197c6bf37ce99a12b4e68e14041d"
+      ]
+    }
+  ]
+}

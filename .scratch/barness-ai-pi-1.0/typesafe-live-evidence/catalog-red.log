@@ -1,0 +1,9 @@
+--- FAIL: TestClassifierBuiltinOfficial (0.00s)
+    classifier_builtin_test.go:26: [P07-E11-builtin-official] fixed version has official capabilities and rates: got {Provider: API: ID: Name: ContextWindow:0 Capabilities:{Kinds:[] MaxChoices:0 MinScoreLevels:0 MaxScoreLevels:0} Cost:{CostRates:{Input:0 Output:0 CacheRead:0 CacheWrite:0} Tiers:[]}}
+    classifier_builtin_test.go:27: [P07-E11-builtin-official] only first fixed classifier included: listed 0
+    classifier_builtin_test.go:32: [P07-E11-builtin-official] content revision has its own version: version 2026-10-08.2
+    classifier_builtin_test.go:38: [P07-E11-builtin-official] fresh catalog owns its capabilities: shared state
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261008T030935.150662000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.916s
+FAIL

@@ -1,0 +1,89 @@
+{
+  "error": "",
+  "result": {
+    "answers": {
+      "intent": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "billing": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "severity": {
+        "type": "score",
+        "score": 1.37,
+        "confidence": 0.43,
+        "probabilities": {
+          "0": 0.01,
+          "1": 0.62,
+          "2": 0.37
+        },
+        "legend": {
+          "0": "Low",
+          "1": "Medium",
+          "2": "High"
+        }
+      },
+      "urgent": {
+        "type": "bool",
+        "probability": 0.63
+      }
+    },
+    "responseModel": "jev-1.13.0",
+    "usage": {
+      "input": 390,
+      "output": 61,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 451,
+      "cost": {
+        "input": 0.000016380000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000016380000000000002
+      }
+    },
+    "stopReason": "stop",
+    "metadata": {
+      "tenantId": "live-smoke",
+      "requestId": "req-7081f94b604bbe11436b124d6b9ab35f",
+      "jobId": "live-smoke",
+      "bindingId": "typesafe-classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "jev-1.13.0",
+      "accountScopeId": "live-typesafe-classifier",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-08.3",
+      "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+      "attempts": [
+        {
+          "attemptId": "req-7081f94b604bbe11436b124d6b9ab35f#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_01a119851fb3790a9a96c2a16348a8d1",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 390,
+            "output": 61,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 451,
+            "cost": {
+              "input": 0.000016380000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000016380000000000002
+            }
+          }
+        }
+      ]
+    }
+  }
+}

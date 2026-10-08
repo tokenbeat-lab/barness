@@ -1,0 +1,53 @@
+{
+  "assertions": [
+    {
+      "name": "Observer reaches terminal metadata",
+      "pass": true,
+      "detail": "missing terminal observation"
+    },
+    {
+      "name": "wire uses fixed official target",
+      "pass": true,
+      "detail": "unexpected or truncated wire capture"
+    },
+    {
+      "name": "fixed response and authorized identity",
+      "pass": true,
+      "detail": "wrong identity or terminal state"
+    },
+    {
+      "name": "complete questions",
+      "pass": true,
+      "detail": "answers=3 questions=3"
+    },
+    {
+      "name": "one official attempt and vendor ID",
+      "pass": true,
+      "detail": "missing successful attempt or ID"
+    },
+    {
+      "name": "free output and input pricing",
+      "pass": true,
+      "detail": "invalid price"
+    },
+    {
+      "name": "choice distribution tolerance",
+      "pass": true,
+      "detail": "invalid probability sum"
+    },
+    {
+      "name": "score distribution tolerance",
+      "pass": true,
+      "detail": "invalid distribution"
+    },
+    {
+      "name": "typed bool probability",
+      "pass": true,
+      "detail": "invalid bool probability"
+    }
+  ],
+  "case_id": "LIVE-P07-mixed-questions",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=typesafe-classifier go test -tags live ./ai/live -count=1 -run '^TestLive$/^typesafe-classifier$/^mixed-questions$'",
+  "status": "PASS",
+  "test": "TestLive/typesafe-classifier/mixed-questions"
+}

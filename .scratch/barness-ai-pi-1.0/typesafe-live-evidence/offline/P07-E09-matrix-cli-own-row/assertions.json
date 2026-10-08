@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "only report's route updated",
+      "pass": true,
+      "detail": "exit=<nil>"
+    }
+  ],
+  "case_id": "P07-E09-matrix-cli-own-row",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestSupportMatrixCLIAtomic$/^own-row$'",
+  "status": "PASS",
+  "test": "TestSupportMatrixCLIAtomic/own-row"
+}

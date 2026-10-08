@@ -1,0 +1,80 @@
+{
+  "schema": 2,
+  "combo": "typesafe-classifier",
+  "operation": "classifier",
+  "provider": "typesafe",
+  "api": "typesafe-system-one",
+  "endpoint": "https://api.typesafe.ai/v1",
+  "model": "jev-1.13.0",
+  "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+  "accountAlias": "local-typesafe@region-unreported",
+  "gitCommit": "beda5c1ef835d7de6314596699628e5d6eeb830b",
+  "catalogVersion": "2026-10-08.3",
+  "catalogHash": "sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063",
+  "startedAt": "2026-10-08T03:11:23.472819Z",
+  "finishedAt": "2026-10-08T03:11:49.627506Z",
+  "budget": {
+    "maxCalls": 6,
+    "maxQuestions": 10,
+    "questionsUsed": 8,
+    "httpAttempts": 4,
+    "maxStateBytesPerCall": 131072,
+    "stateBytesSubmitted": 80164,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 4,
+    "outputTokensUsed": 92,
+    "inputTokensUsed": 714,
+    "environmentRetries": 1
+  },
+  "expected": [
+    "mixed-questions",
+    "single-choice",
+    "context-422"
+  ],
+  "scenarios": [
+    {
+      "id": "mixed-questions",
+      "caseId": "LIVE-P07-mixed-questions",
+      "model": "jev-1.13.0",
+      "outcome": "FAIL",
+      "errorCategory": "protocol",
+      "durationMs": 25345,
+      "calls": 2,
+      "attempts": 2,
+      "questions": 6,
+      "retries": 1,
+      "providerRequestIds": [
+        "req_01a1197ee409735ca1a3288a4f31b358"
+      ]
+    },
+    {
+      "id": "single-choice",
+      "caseId": "LIVE-P07-single-choice",
+      "model": "jev-1.13.0",
+      "outcome": "PASS",
+      "durationMs": 231,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "providerRequestIds": [
+        "req_01a1197ee4f87b75a66a390f26acbb60"
+      ],
+      "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"
+    },
+    {
+      "id": "context-422",
+      "caseId": "LIVE-P07-context-422",
+      "model": "jev-1.13.0",
+      "outcome": "PASS",
+      "durationMs": 549,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "providerRequestIds": [
+        "req_01a1197ee73d7c939f7bc12126b8a7c7"
+      ],
+      "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported"
+    }
+  ]
+}

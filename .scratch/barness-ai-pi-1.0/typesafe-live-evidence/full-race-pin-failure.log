@@ -1,0 +1,26 @@
+ok  	github.com/tokenbeat-lab/barness/ai	2.353s
+--- FAIL: TestUsageAndCost (0.57s)
+    --- FAIL: TestUsageAndCost/builtin-catalog-pinned (0.01s)
+        usage_test.go:90: [P01-E11-builtin-catalog-pinned] built-in catalog version: got "2026-10-08.3" want "2026-10-08.2"
+        usage_test.go:91: [P01-E11-builtin-catalog-pinned] built-in catalog content is the pinned one (bump Version, then the pin, on any change): got sha256:689f6824de9abb997d2feff1e0868fbc0f2caf3210cb6756ebbff0e377cca063 want sha256:b3570c1bbf646e5e8214b1fbec1a065e86b79052c5f9a6d3c0c7697c52469dea
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/issue08-final/20261008T032044.272100000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	499.825s
+?   	github.com/tokenbeat-lab/barness/ai/examples/hostintegration	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/localassembly	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/requestid	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/toolloop	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/clock	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/probe	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit	2.559s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/host	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle	2.929s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/provider	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	3.443s
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	3.807s
+?   	github.com/tokenbeat-lab/barness/ai/live	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate	[no test files]
+FAIL

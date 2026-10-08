@@ -1,0 +1,144 @@
+# barness-ai release gate: FAIL
+
+Commit `c1209d06be0f1129faa4a38d9332bfb4c4d1b71c`; offline bundle `.evidence/barness-ai/issue08-final/20261008T032924.676998000Z`.
+
+| Gate | Result | Problems |
+| --- | --- | --- |
+| go-test — go test ./... (offline, differential on) | FAIL | go-test: not run |
+| go-test-race — go test -race ./... | FAIL | go-test-race: not run |
+| go-vet — go vet ./... (with and without the live tag) | FAIL | go-vet: not run; go-vet-live: not run |
+| p0-offline — every offline P0 case passes | PASS | — |
+| differential — frozen pi differential: no pending difference | PASS | — |
+| live — every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) | FAIL | openai-responses: no live evidence bundle of this combination was audited (pass it with -live); anthropic-messages: no live evidence bundle of this combination was audited (pass it with -live); google-gemini: no live evidence bundle of this combination was audited (pass it with -live); openai-chat: no live evidence bundle of this combination was audited (pass it with -live); deepseek-responses: no live evidence bundle of this combination was audited (pass it with -live); deepseek-chat: no live evidence bundle of this combination was audited (pass it with -live) |
+| redaction-audit — redaction audit: no key, Authorization or real content in any bundle | PASS | — |
+| traceability — traceability: research item → scenario → evidence | PASS | — |
+| snapshots — checked-in snapshots match the code | PASS | — |
+
+### Commands
+
+| Command | Result | Duration |
+| --- | --- | --- |
+
+## Offline
+
+3117 cases: 3117 PASS, 0 FAIL, 0 NOT_RUN, 0 UNSUPPORTED, differential cases excluded.
+
+| P0 scenario | Pass | Fail | Not run | Unsupported |
+| --- | --- | --- | --- | --- |
+| D1 | 35 | 0 | 0 | 0 |
+| D2 | 24 | 0 | 0 | 0 |
+| E01 | 117 | 0 | 0 | 0 |
+| E02 | 649 | 0 | 0 | 0 |
+| E03 | 328 | 0 | 0 | 0 |
+| E04 | 490 | 0 | 0 | 0 |
+| E05 | 172 | 0 | 0 | 0 |
+| E06 | 167 | 0 | 0 | 0 |
+| E07 | 248 | 0 | 0 | 0 |
+| E08 | 611 | 0 | 0 | 0 |
+| E09 | 51 | 0 | 0 | 0 |
+| E10 | 108 | 0 | 0 | 0 |
+| E11 | 99 | 0 | 0 | 0 |
+| P01 | 722 | 0 | 0 | 0 |
+| P02 | 293 | 0 | 0 | 0 |
+| P03 | 293 | 0 | 0 | 0 |
+| P04 | 344 | 0 | 0 | 0 |
+| P05 | 101 | 0 | 0 | 0 |
+| P06 | 121 | 0 | 0 | 0 |
+| P07 | 292 | 0 | 0 | 0 |
+| PRESSURE | 11 | 0 | 0 | 0 |
+
+## Differential
+
+623 cases: 623 PASS, 0 FAIL, 0 NOT_RUN, 0 UNSUPPORTED against frozen pi; 0 pending finding(s). Ledger: 205 extension, 36 fixed, 0 pending decision(s); extension routes outside pi: deepseek × openai-responses.
+
+| Protocol | Pass | Fail | Not run |
+| --- | --- | --- | --- |
+| P01 | 271 | 0 | 0 |
+| P02 | 68 | 0 | 0 |
+| P03 | 75 | 0 | 0 |
+| P04 | 141 | 0 | 0 |
+| P06 | 56 | 0 | 0 |
+| P07 | 12 | 0 | 0 |
+
+## Live
+
+From the support matrix (ai/live/support-matrix.json).
+
+| Combination | Operation | Status | Model | SDK | Account | Last complete pass | Unsupported | Failing |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| openai-responses | chat | PASS | gpt-5-mini | github.com/openai/openai-go/v3 v3.66.0 | prod-openai | 2026-10-03T10:07:27Z | — | — |
+| anthropic-messages | chat | PASS | claude-haiku-4-5 | github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011) | prod-anthropic | 2026-10-03T11:08:09Z | — | — |
+| google-gemini | chat | PASS | gemini-3.8-flash | direct HTTP (ADR-0012) | prod-google | 2026-10-02T14:06:46Z | — | — |
+| openai-chat | chat | PASS | gpt-5-mini | github.com/openai/openai-go/v3 v3.66.0 | prod-openai | 2026-10-03T10:07:47Z | reasoning-history: OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage | — |
+| deepseek-responses | chat | PASS | deepseek-flash | github.com/openai/openai-go/v3 v3.66.0 | prod-deepseek | 2026-10-02T22:46:23Z | — | — |
+| deepseek-chat | chat | PASS | deepseek-flash | github.com/openai/openai-go/v3 v3.66.0 | prod-deepseek | 2026-10-02T22:46:33Z | — | — |
+| typesafe-classifier | classifier | PASS | jev-1.13.0 | direct HTTP (ADR-0021; typesafe-system-one v1) | local-typesafe@region-unreported | 2026-10-08T03:18:38Z | — | — |
+
+## Traceability
+
+Status comes from evidence only; an item that is only mapped is NO_EVIDENCE, never PASS.
+
+| Item | Source | Requirement | Scenarios | Status | Offline | Differential | Live | Evidence |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| V6-typesafe-live | issue 08 / ADR-0016/0021 | Official fixed classifier wire replay and explicit unconfirmed 422 shape; the separate live gate requires this route's own audited bundle | P07 | PASS | 8/8 | — | — | P07-E02-live-score-beyond-rounding; P07-E02-live-score-higher-precision-mismatch; P07-E02-live-score-observed-hundredths; … 3 more |
+| H2-typesafe-catalog | issue 08 / ADR-0010/0018 | Only jev-1.13.0 with official capabilities, input rate 0.042 and free output; versioned hash snapshot | P07 | PASS | 4/4 | — | — | P07-E11-builtin-official; P07-E11-live-wire-context-422; P07-E11-live-wire-mixed-questions; … 1 more |
+| C08-unary-lifecycle | issue 07 / design 7.5–7.6 / ADR-0003/0006/0008 | Unary cancellation, deadlines, transport timeouts, independent admission, frozen retries and subsequent permit acquisition | P07 | PASS | 41/41 | — | — | P07-E05-unary-backoff-cancel; P07-E05-unary-backoff-deadline; P07-E05-unary-frozen-snapshot; … 3 more |
+| H5-unary-budgets | issue 07 / design 8 / ADR-0007/0008 | Inclusive unary output and error budgets, one overflow byte, no replay, body and lease release after parsing | P07 | PASS | 19/19 | — | — | P07-E08-unary-budget-bad-json; P07-E08-unary-budget-error-exact; P07-E08-unary-budget-error-over; … 3 more |
+| C04-unary-callbacks | issue 07 / ADR-0006/0008 | One frozen request callback per logical call, invalid callback rejection and host cause Is/As preserved | P07 | PASS | 34/34 | — | — | P07-E04-unary-callback-encoding-pointer-array-element; P07-E04-unary-callback-encoding-pointer-json-element; P07-E04-unary-callback-encoding-pointer-text-element; … 3 more |
+| T09-unary-observer | issue 07 / ADR-0009 | Trusted unresolved/resolved attribution, shared usage reporting axis, bounded asynchronous observer faults and redaction | P07 | PASS | 4/4 | — | — | P07-E09-unary-observer-congested; P07-E09-unary-observer-error; P07-E09-unary-observer-panic; … 1 more |
+| V4-typesafe-mixed | issue 06 / spec TypeSafe / ADR-0021 | Three closed kinds, ordered scores, bool/noul, native JSON precision and strict final-question answers | P07 | PASS | 109/109 | 10/10 | — | P07-E01-bool-no-criteria; P07-E01-bool-no-criteria-parity; P07-E01-mixed; … 3 more |
+| H2-typesafe-parity | issue 06 / design 9.2–9.3 / ADR-0021 | Frozen 1.0.0 classifier request/basic answer differential with explicit projection and scoped extension decisions | P07 PIDIFF | PASS | — | 12/12 | — | PIDIFF-P07-E01-bool-no-criteria-classify; PIDIFF-P07-E01-choice-parity-classify; PIDIFF-P07-E01-mixed-classify; … 3 more |
+| T04-typesafe-final | issue 06 / ADR-0021 | Final callback questions frozen, original inputs independent, authority unchanged, invalid payloads refused | P07 | PASS | 13/13 | — | — | P07-E04-mixed-bool-capability; P07-E04-mixed-count-limit; P07-E04-mixed-final-kind-mismatch; … 3 more |
+| V4-typesafe-choice | issue 05 / design sections 7–10 / ADR-0021 | TypeSafe choice unary public call, strict final-question answer validation, shared runtime, callbacks, usage, isolation and resource release | P07 | PASS | 292/292 | 12/12 | — | P07-D1-question; P07-D1-questions; P07-D1-state; … 3 more |
+| T01 | research-traceability §2 T01 | Every entry point takes an explicit TenantID; refused calls send nothing | E07 E09 E10 | PASS | 12/12 | — | — | E07-reject-missing-request-id-complete-full; E07-reject-missing-request-id-complete-simple; E07-reject-missing-request-id-stream-full; … 3 more |
+| T02 | research-traceability §2 T02 | Identity comes from the trusted host; forged tenants and history are refused at the host boundary | E10 | PASS | 42/42 | — | — | E10-example-host-merge; E10-example-host-refuses-claimed-tenant; E10-example-host-refuses-foreign-session; … 3 more |
+| T03 | research-traceability §2 T03 | Bindings are located by (tenant, binding) and owned by the tenant | E06 E07 | PASS | 94/94 | — | — | E06-anthropic-both-succeed-complete-full; E06-anthropic-both-succeed-complete-simple; E06-anthropic-both-succeed-stream-full; … 3 more |
+| T04 | research-traceability §2 T04 | Ordinary requests cannot override credentials or targets | E04 E07 | PASS | 70/70 | — | — | E07-request-surface-carries-no-authority; P01-E04-callbacks-deny-headers-alternate-key-header; P01-E04-callbacks-deny-headers-authorization-added-twice; … 3 more |
+| T05 | research-traceability §2 T05 | No credential fallback (environment, other identity) | E06 E07 H1 | PASS | 75/75 | — | — | E06-anthropic-a-credential-missing-complete-full; E06-anthropic-a-credential-missing-complete-simple; E06-anthropic-a-credential-missing-stream-full; … 3 more |
+| T06 | research-traceability §2 T06 | Each call keeps its configuration snapshot; shared implementation holds no tenant state | E05 E06 E07 | PASS | 156/156 | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| T07 | research-traceability §2 T07 | History, results and native state carry and check their attribution | E03 E10 | PASS | 80/80 | — | — | E10-example-host-merge; E10-example-host-refuses-foreign-session; E10-example-host-refuses-unknown-session; … 3 more |
+| T08 | research-traceability §2 T08 | Cancellation is per call and releases only its own resources | E06 E08 E10 | PASS | 75/75 | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| T09 | research-traceability §2 T09 | Observations attribute tenant, call and attempt and hold no secret | E09 E10 | PASS | 97/97 | — | — | E09-observe-admission-refusal; E09-observe-failing-observer-error; E09-observe-failing-observer-panic; … 3 more |
+| T10 | research-traceability §2 T10 | Updates and revocations take effect for new calls; in-flight calls keep their snapshot | E07 | PASS | 58/58 | — | — | E07-reject-binding-disabled-between-reads-complete-full; E07-reject-binding-disabled-between-reads-complete-simple; E07-reject-binding-disabled-between-reads-stream-full; … 3 more |
+| T11 | research-traceability §2 T11 | Every credential-dependent operation goes through the one authorized path | E07 | PASS | 248/248 | — | — | E07-reject-actor-not-permitted-complete-full; E07-reject-actor-not-permitted-complete-simple; E07-reject-actor-not-permitted-stream-full; … 3 more |
+| T12 | research-traceability §2 T12 | Usage is recorded per attempt and per account; zero is never free | E05 E09 E11 | PASS | 77/77 | 21/21 | — | P01-E05-attempts-keep-the-snapshot; P01-E09-observe-retry; P01-E11-cache-write-priced-complete-full; … 3 more |
+| C01 | research-traceability §4 C01 | Call lifecycle | E01 | PASS | 117/117 | 21/21 | — | E01-close-after-terminal-keeps-result; E01-close-while-resolver-blocked-stream-full; E01-close-while-resolver-blocked-stream-simple; … 3 more |
+| C02 | research-traceability §4 C02 | Failures and truncation | E02 | PASS | 649/649 | 26/26 | — | E02-parity-anthropic-claude-sonnet-5-5-stream-complete; E02-parity-anthropic-claude-sonnet-5-5-stream-stream; E02-parity-anthropic-claude-sonnet-5-5-streamSimple-complete; … 3 more |
+| C03 | research-traceability §4 C03 | History and tools | E03 | PASS | 328/328 | 21/21 | — | E03-catalog-builtin-models-are-pis; E03-catalog-inclusion-listed; E03-managed-effort-listed; … 3 more |
+| C04 | research-traceability §4 C04 | Options and callbacks | E04 | PASS | 490/490 | 58/58 | — | E04-model-sampling-reject-openai-completions-bad-json; E04-model-sampling-reject-openai-completions-model; E04-model-sampling-reject-openai-completions-prompt_cache_key; … 3 more |
+| C05 | research-traceability §4 C05 | Retry | E05 | PASS | 172/172 | 26/26 | — | P01-E05-attempts-keep-the-snapshot; P01-E05-auth-401-not-retried-complete-full; P01-E05-auth-401-not-retried-complete-simple; … 3 more |
+| C06 | research-traceability §4 C06 | Tenant concurrency isolation | E06 | PASS | 167/167 | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| C07 | research-traceability §4 C07 | Authorization and updates | E07 | PASS | 248/248 | — | — | E07-reject-actor-not-permitted-complete-full; E07-reject-actor-not-permitted-complete-simple; E07-reject-actor-not-permitted-stream-full; … 3 more |
+| C08 | research-traceability §4 C08 | Resources and release | E08 | PASS | 611/611 | 13/13 | — | E08-admission-burst-pressure-cloud-batch; E08-admission-burst-pressure-cloud-interactive; E08-admission-burst-pressure-cloud-interactive-waiters-x4; … 3 more |
+| C09 | research-traceability §4 C09 | Observability and secrets | E09 | PASS | 51/51 | — | — | E09-observe-admission-refusal; E09-observe-failing-observer-error; E09-observe-failing-observer-panic; … 3 more |
+| C10 | research-traceability §4 C10 | Routing and host contract | E10 | PASS | 108/108 | — | — | E10-example-host-merge; E10-example-host-refuses-claimed-tenant; E10-example-host-refuses-foreign-session; … 3 more |
+| C11 | research-traceability §4 C11 | Usage and cost | E11 | PASS | 99/99 | 31/31 | — | P01-E11-builtin-catalog-pinned; P01-E11-cache-write-priced-complete-full; P01-E11-cache-write-priced-stream-full; … 3 more |
+| V4-responses | research-traceability §4 V§4 OpenAI Responses | P01 protocol specifics | P01 | PASS | 722/722 | 271/271 | — | P01-E01-config-read-only-after-construction; P01-E01-stream-returns-before-resolution; P01-E01-text-complete-full; … 3 more |
+| V4-anthropic | research-traceability §4 V§4 Anthropic | P02 protocol specifics | P02 | PASS | 293/293 | 68/68 | — | P02-E01-block-start-content-stream; P02-E01-interleaved-stream; P02-E01-repair-and-trailing-events-stream; … 3 more |
+| V4-gemini | research-traceability §4 V§4 Gemini | P03 protocol specifics | P03 | PASS | 293/293 | 75/75 | — | P03-E01-function-call-ids-generated-stream; P03-E01-interleaved-stream; P03-E01-signature-on-empty-text-stream; … 3 more |
+| V4-chat | research-traceability §4 V§4 OpenAI Chat | P04 protocol specifics | P04 | PASS | 344/344 | 141/141 | — | P04-E01-after-done-ignored-stream; P04-E01-interleaved-stream; P04-E01-parallel-tool-calls-stream; … 3 more |
+| V4-deepseek | research-traceability §4 V§4 DeepSeek | P05/P06: two bindings accepted separately | P05 P06 | PASS | 222/222 | 56/56 | — | P05-E01-reasoning-simple-stream; P05-E01-reasoning-stream; P05-E01-reasoning-tool-call-stream; … 3 more |
+| V6-live | research-traceability §4 V§6 | Six combinations pass the real-API smoke (PASS or explicit UNSUPPORTED) | LIVE | PASS | — | — | 7/7 | support-matrix:openai-responses=PASS; support-matrix:anthropic-messages=PASS; support-matrix:google-gemini=PASS; … 4 more |
+| H1 | research-traceability §5 H1 | Per-call credential, endpoint and header isolation | H1 E06 E07 | PASS | 422/422 | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| H2 | research-traceability §5 H2 | Field presence, signatures, tools and pi differential | PIDIFF E03 E04 | PASS | 818/818 | 623/623 | — | E03-catalog-builtin-models-are-pis; E03-catalog-inclusion-listed; E03-managed-effort-listed; … 3 more |
+| H3 | research-traceability §5 H3 | Correct terminals and partial messages | E01 E02 | PASS | 766/766 | 47/47 | — | E01-close-after-terminal-keeps-result; E01-close-while-resolver-blocked-stream-full; E01-close-while-resolver-blocked-stream-simple; … 3 more |
+| H4 | research-traceability §5 H4 | pi-equivalent retry | E05 | PASS | 172/172 | 26/26 | — | P01-E05-attempts-keep-the-snapshot; P01-E05-auth-401-not-retried-complete-full; P01-E05-auth-401-not-retried-complete-simple; … 3 more |
+| H5 | research-traceability §5 H5 | Resource limits before reading or allocating | E08 | PASS | 611/611 | 13/13 | — | E08-admission-burst-pressure-cloud-batch; E08-admission-burst-pressure-cloud-interactive; E08-admission-burst-pressure-cloud-interactive-waiters-x4; … 3 more |
+| D1 | spec D1 / ADR-0002 | Explicit finite resource policy, refused when missing or invalid | D1 E08 | PASS | 646/646 | 13/13 | — | D1-construct-accept-boundaries; D1-construct-reject-admission-wait-exceeds-call; D1-construct-reject-connect-exceeds-call; … 3 more |
+| D1-examples | spec I9 正式示例 / issue 24 | The formal policy examples pass their repeatable pressure scenarios | PRESSURE | PASS | 11/11 | — | — | E08-admission-burst-pressure-cloud-batch; E08-admission-burst-pressure-cloud-interactive; E08-admission-burst-pressure-cloud-interactive-waiters-x4; … 3 more |
+| D2 | spec D2 / ADR-0003 | An inconsistent snapshot fails before sending; no internal re-resolution | D2 | PASS | 24/24 | — | — | E07-reject-binding-disabled-between-reads-complete-full; E07-reject-binding-disabled-between-reads-complete-simple; E07-reject-binding-disabled-between-reads-stream-full; … 3 more |
+| S6-1-3 | research-traceability §1 S§6 验收 1–3 | Protocol capabilities, A/B isolation, zero requests before failure | P01 P02 P03 P04 P05 P06 E06 E07 | PASS | 2195/2195 | 611/611 | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| S6-4-7 | research-traceability §1 S§6 验收 4–7 | Updates/revocation, EOF/errors, limits/release, redaction | E02 E05 E06 E07 E08 E09 | PASS | 1898/1898 | 65/65 | — | E02-parity-anthropic-claude-sonnet-5-5-stream-complete; E02-parity-anthropic-claude-sonnet-5-5-stream-stream; E02-parity-anthropic-claude-sonnet-5-5-streamSimple-complete; … 3 more |
+| S6-8-10 | research-traceability §1 S§6 验收 8–10 | Full differential, simple/full/reasoning/usage, routing | PIDIFF E03 E04 E05 E10 E11 | PASS | 1197/1197 | 623/623 | — | E03-catalog-builtin-models-are-pis; E03-catalog-inclusion-listed; E03-managed-effort-listed; … 3 more |
+
+## Redaction audit
+
+- `.evidence/barness-ai/issue08-final/20261008T032924.676998000Z`: 0 finding(s)
+- `.scratch/barness-ai-pi-1.0/typesafe-live-evidence/live`: 0 finding(s)
+
+## Snapshots
+
+- catalog: current
+
+barness-ai release bundle: .evidence/barness-ai-release/issue08-evaluation
+exit status 1

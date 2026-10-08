@@ -1,0 +1,11 @@
+[
+  {
+    "status": 200,
+    "header": {
+      "Content-Type": "application/json",
+      "content-type": "application/json",
+      "x-typesafe-request-id": "req_01a1197ee409735ca1a3288a4f31b358"
+    },
+    "script": "{\n        \"model\": \"jev-1.13.0\",\n        \"answers\": {\n          \"intent\": {\n            \"type\": \"choice\",\n            \"choice\": \"billing\",\n            \"confidence\": 1.0,\n            \"probabilities\": {\n              \"technical\": 0.0,\n              \"billing\": 1.0\n            }\n          },\n          \"severity\": {\n            \"type\": \"score\",\n            \"score\": 1.32,\n            \"confidence\": 0.5,\n            \"legend\": {\n              \"0\": \"Low\",\n              \"1\": \"Medium\",\n              \"2\": \"High\"\n            },\n            \"probabilities\": {\n              \"0\": 0.01,\n              \"1\": 0.67,\n              \"2\": 0.32\n            }\n          },\n          \"urgent\": {\n            \"type\": \"noul\",\n            \"noul\": 0.64\n          }\n        },\n        \"usage\": {\n          \"input_tokens\": 390,\n          \"output_tokens\": 61\n        }\n      }"
+  }
+]
