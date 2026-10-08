@@ -18,7 +18,7 @@ func TestGoogleImagesEditingCallbackBudgets(t *testing.T) {
 	nearData := base64.StdEncoding.EncodeToString(byteData[:6<<20])
 	raw := json.RawMessage(`[{"type":"text","text":"p"},{"type":"image","mime_type":"image/png","data":"` + large + `"}]`)
 	escaped := json.RawMessage(`[{"type":"text","text":"p"},{"type":"image","mime_type":"image/png","data":"` + strings.Repeat(`\u0041`, 1<<20) + `"}]`)
-	for _, name := range []string{"ordinary", "typed", "pointer", "struct", "raw", "escaped-raw", "raw-data", "host-count", "model-count", "protocol-count", "raw-count", "protocol-bytes", "struct-total", "promoted", "byte-data", "custom-key", "struct-overhead"} {
+	for _, name := range []string{"ordinary", "typed", "pointer", "struct", "raw", "escaped-raw", "raw-data", "host-count", "model-count", "protocol-count", "raw-count", "protocol-bytes", "struct-total", "promoted", "byte-data", "custom-key", "struct-overhead", "raw-struct-total"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P09-E08-edit-allocation-"+name)
 			sc := googleEditScenario(t)
@@ -34,7 +34,7 @@ func TestGoogleImagesEditingCallbackBudgets(t *testing.T) {
 					c.Catalog.ImageModels[0].Capabilities.MaxReferenceImages = 16
 				case "struct-overhead":
 					c.Policy.MaxRequestBytes, c.Policy.MaxImageBytes = 16_800_000, 8<<20
-				case "protocol-bytes", "struct-total":
+				case "protocol-bytes", "struct-total", "raw-struct-total":
 					c.Policy.MaxImageBytes = 8 << 20
 				}
 			}, tenantA)
@@ -84,6 +84,16 @@ func TestGoogleImagesEditingCallbackBudgets(t *testing.T) {
 					}
 					for i := 0; i < count; i++ {
 						parts = append(parts, map[string]any{"type": "image", "mime_type": "image/png", "data": refs[0].Data})
+					}
+					p.Body["input"] = parts
+				case "raw-struct-total":
+					parts := []any{input[0]}
+					for i := 0; i < 3; i++ {
+						parts = append(parts, struct {
+							Type string          `json:"type"`
+							Mime string          `json:"mime_type"`
+							Data json.RawMessage `json:"data"`
+						}{"image", "image/png", valueRaw})
 					}
 					p.Body["input"] = parts
 				case "struct-total":

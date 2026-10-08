@@ -126,12 +126,7 @@ func (p *ResourcePolicy) checkGoogleInputPayload(input any, caps ImageCapabiliti
 						return failure
 					}
 				}
-				n, ok := int64(1), true
-				// Preserve pointer methods on addressable selected fields. The
-				// encoded size is unknown; do not inspect their backing value.
-				if !usesCustomJSON(field) {
-					n, ok = jsonPayloadSize(field.Interface(), *remaining)
-				}
+				n, ok := jsonPayloadValueSize(field, *remaining)
 				if !ok {
 					return p.takeGoogleInputBytes(*remaining+1, remaining)
 				}

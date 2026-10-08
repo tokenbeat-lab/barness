@@ -153,7 +153,7 @@ func TestGoogleImagesEditingSnapshot(t *testing.T) {
 }
 
 func TestGoogleImagesEditingTypedInput(t *testing.T) {
-	for _, name := range []string{"promoted", "byte-data", "custom-key", "omitempty", "pointer-marshaler", "custom-zero"} {
+	for _, name := range []string{"promoted", "byte-data", "custom-key", "omitempty", "pointer-marshaler", "custom-zero", "pointer-zero"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P09-E04-edit-typed-"+name)
 			sc := googleEditScenario(t)
@@ -186,6 +186,13 @@ func TestGoogleImagesEditingTypedInput(t *testing.T) {
 						Data googleEncodedData `json:"data"`
 					}{"image", first.MimeType, googleEncodedData(strings.Repeat("A", 8<<20))}
 					input[1] = &value
+				case "pointer-zero":
+					input[1] = struct {
+						Type string                   `json:"type"`
+						Mime string                   `json:"mime_type"`
+						Data string                   `json:"data"`
+						Text googlePointerOmittedText `json:"text,omitzero"`
+					}{"image", first.MimeType, first.Data, googlePointerOmittedText(strings.Repeat("x", 8192))}
 				case "custom-zero":
 					input[1] = struct {
 						Type string            `json:"type"`
@@ -220,3 +227,7 @@ func (*googleEncodedData) MarshalJSON() ([]byte, error) {
 type googleOmittedText string
 
 func (googleOmittedText) IsZero() bool { return true }
+
+type googlePointerOmittedText string
+
+func (*googlePointerOmittedText) IsZero() bool { return true }

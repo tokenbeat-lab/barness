@@ -84,7 +84,7 @@ func imageStructField(v reflect.Value, name string) (reflect.Value, *Error) {
 	for _, option := range strings.Split(options, ",") {
 		if option == "omitzero" {
 			zeroer := reflect.TypeFor[interface{ IsZero() bool }]()
-			if field.Type().Implements(zeroer) || (field.CanAddr() && field.Addr().Type().Implements(zeroer)) {
+			if field.Type().Implements(zeroer) || reflect.PointerTo(field.Type()).Implements(zeroer) {
 				// Host omission methods execute once in the encoder. Their
 				// unknown field presence belongs to the final byte/schema guard.
 				return reflect.Value{}, nil

@@ -12,6 +12,12 @@ import (
 // the public classifier input boundary. Unknown/custom encodings are checked
 // against the final body limit before decoding; they cannot be predicted here.
 func jsonPayloadSize(value any, limit int64) (int64, bool) {
+	return jsonPayloadValueSize(reflect.ValueOf(value), limit)
+}
+
+// Selected struct fields retain addressability, and therefore the encoder's
+// pointer methods. Known raw values still precede the custom fallback.
+func jsonPayloadValueSize(value reflect.Value, limit int64) (int64, bool) {
 	size := int64(0)
 	take := func(n int64) bool {
 		if n > limit-size {
@@ -118,7 +124,7 @@ func jsonPayloadSize(value any, limit int64) (int64, bool) {
 		}
 		return true
 	}
-	ok := walk(reflect.ValueOf(value), 0)
+	ok := walk(value, 0)
 	return size, ok
 }
 
