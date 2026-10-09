@@ -2,6 +2,8 @@
 
 barness-ai 是 barness 连接多种 LLM Provider 的协议中间件（Go 包 `github.com/tokenbeat-lab/barness/ai`）。本目录汇总发布交付物（spec I10、Testing Decisions §6，工单 24）。
 
+使用方式、三种模型操作、绑定与资源策略见包级 README：[English](../../ai/README.md) / [简体中文](../../ai/README.zh-CN.md)。
+
 | 交付物 | 位置 |
 | --- | --- |
 | 公共契约、错误分类与装配说明 | [contract.md](contract.md) |
@@ -10,7 +12,7 @@ barness-ai 是 barness 连接多种 LLM Provider 的协议中间件（Go 包 `gi
 | 模型/价格快照 | [`ai/release/catalog-snapshot.json`](../../ai/release/catalog-snapshot.json)（内置目录及其哈希；门禁核对它与代码一致） |
 | Fixture | [`ai/e2e/testdata/`](../../ai/e2e/testdata/)；每次门禁在发布证据包中写出 `fixtures.json`（路径、大小、SHA-256） |
 | 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |
-| 最小示例 | `ai/examples/localassembly`、`hostintegration`、`toolloop`、`requestid` |
+| 最小示例 | `ai/examples/localassembly`、`hostintegration`（聊天与混合操作）、`toolloop`、`requestid`；独立中文评估见 [`chineseeval`](../../ai/examples/chineseeval/README.md) |
 | 研究条目追溯 | [`ai/release/traceability.json`](../../ai/release/traceability.json)（研究 T/C/H/V/S 条目 → E/P/D 场景 → 证据用例） |
 | 决策 | [ADR-0001…0024](../adr/)；门禁本身见 ADR-0017 |
 
@@ -44,9 +46,22 @@ go run ./ai/release/cmd/releasegate -evaluation <独立中文效果包> [-live <
 76 条需求追溯、正式目录/价格快照、混合设计负载与独立中文效果完整性均通过；
 十二个完整包逐包审计零发现。[可重放完整证据与核验](../../.scratch/barness-ai-pi-1.0/nine-route-release-evidence/README.md)
 保留原始请求/响应、消费结果、Observer、图片、资源读数和完整文件哈希。
-一次较早压力读取中断的失败包单独保留，当前完整重跑通过；原因仍未确认，
-由 [工单 18](../../.scratch/barness-ai-pi-1.0/issues/18-pressure-loopback-interruption.md) 追踪。
 没有调整负载或预算，中文合成任务的 24/24 结果不作为生产准确率保证。
+
+### 后续压力基础设施修复（2026-10-08）
+
+[工单 18](../../.scratch/barness-ai-pi-1.0/issues/18-pressure-loopback-interruption.md) 已解决，
+交付提交 `2256eaf`。带关联诊断的自然失败将 15 路客户端 `unexpected EOF` 对到测试
+Provider 的 TCP 写入 `ENOBUFS`，确认该轮由回环写缓冲耗尽后截断 HTTP 流引起。
+测试连接现仅续写未发送字节，每次 Write 最多等待 1 秒，其他错误、持续耗尽、关闭或
+取消仍失败；没有重放 HTTP 请求或 AI Attempt。另移除已完成证据对 `testing.T` 的长期
+持有，释放跨轮请求捕获。原压力负载、预算和失败断言保持不变。
+
+先红后绿的连接回归 7 PASS；同进程 100 轮、独立进程 10 轮及完整普通/race 各
+4,461 用例（含 pi 差分 623）通过，两种 vet 通过。14 份归档、43 个 E2E 包的哈希、
+源码匹配及脱敏审计通过，失败历史完整保留，见[压力回环证据与核验](../../.scratch/barness-ai-pi-1.0/pressure-loopback-evidence/README.md)。
+旧工单 17 的九路错误无法逐路追溯具体 errno；此修复没有重新运行真实厂商调用，
+上节九组合发布结论仍对应其原受测提交。
 
 ### 历史状态（2026-10-02/03）
 
