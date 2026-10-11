@@ -325,11 +325,12 @@ func checkNoForeignContent(ev *evidence.Case, k tenantKey, o outcome, markers []
 
 // checkMatchesSolo asserts k's outcome under interleaving is the one k gets
 // running alone on its own Client: same events, message (but for its
-// timestamp), usage and cost, attribution, attempts and error.
+// timestamp and elapsed time), usage and cost, attribution, attempts and error.
 func checkMatchesSolo(ev *evidence.Case, k tenantKey, got, solo outcome) {
 	ev.Check(k.tenant+"'s events equal its run alone", reflect.DeepEqual(eventSummary(got.events), eventSummary(solo.events)),
 		"got %q\nalone %q", eventSummary(got.events), eventSummary(solo.events))
-	gm, sm := got.result.Message, solo.result.Message
+	gm := messageWithoutElapsed(ev, k.tenant+" interleaved", got.result.Message)
+	sm := messageWithoutElapsed(ev, k.tenant+" alone", solo.result.Message)
 	gm.Timestamp, sm.Timestamp = 0, 0
 	ev.Check(k.tenant+"'s message, usage and cost equal its run alone", reflect.DeepEqual(gm, sm), "got %+v\nalone %+v", gm, sm)
 	ev.Check(k.tenant+"'s metadata and attempts equal its run alone", reflect.DeepEqual(got.result.Metadata, solo.result.Metadata),

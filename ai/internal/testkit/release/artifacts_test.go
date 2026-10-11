@@ -86,8 +86,10 @@ func TestDesignLoadReportCannotBeMissingOrIncomplete(t *testing.T) {
 
 func TestChineseEffectNeedsActualCompleteEvidence(t *testing.T) {
 	base := "../../../../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/"
-	if e := ChineseEffectEvidence(base + "live"); e.Status != Pass {
-		t.Fatalf("actual evaluation refused: %+v", e)
+	// This is complete historical evidence for the previous catalog. It must
+	// not certify the current catalog after the pi 1.1.0 migration.
+	if e := ChineseEffectEvidence(base + "live"); e.Status != Fail || e.Detail != "dataset/config/catalog drift" {
+		t.Fatalf("historical catalog evidence was not rejected for drift: %+v", e)
 	}
 	for _, dir := range []string{t.TempDir(), base + "not-run"} {
 		if e := ChineseEffectEvidence(dir); e.Status == Pass {

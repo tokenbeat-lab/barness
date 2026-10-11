@@ -204,7 +204,8 @@ func soloOutcome(t *testing.T, p isolationProtocol, k tenantKey) outcome {
 // attributed to the local tenant, binding and account.
 func checkLocalTurn(ev *evidence.Case, p isolationProtocol, solo outcome, res ai.Result, err error, scope ai.CallScope) {
 	ev.Check("call succeeds", err == nil, "err=%v", err)
-	got, want := res.Message, solo.result.Message
+	got := messageWithoutElapsed(ev, "local", res.Message)
+	want := messageWithoutElapsed(ev, "reference", solo.result.Message)
 	env, trusted := got.NativeState.Envelope()
 	ev.Check("native state vouched for the local tenant and account", trusted && env == ai.NativeStateEnvelope{TenantID: "local",
 		AccountScopeID: "acct-local", ProviderID: p.provider(), API: p.api(), ModelID: p.Model}, "got %+v", env)

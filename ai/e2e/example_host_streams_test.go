@@ -154,7 +154,8 @@ func testDownstreamEnds(t *testing.T, ev *evidence.Case, f isolationFixture, p i
 	// B streamed on untouched and its turn was stored.
 	ev.Check("B's turn succeeds", b.err == nil, "err=%v", b.err)
 	solo := soloOutcome(t, p, tenantB)
-	got, want := b.res.Message, solo.result.Message
+	got := messageWithoutElapsed(ev, "B interleaved", b.res.Message)
+	want := messageWithoutElapsed(ev, "B alone", solo.result.Message)
 	got.Timestamp, want.Timestamp = 0, 0
 	ev.Check("B's message equals its run alone", reflect.DeepEqual(got, want), "got %+v\nalone %+v", got, want)
 	var eventsB []ai.Event

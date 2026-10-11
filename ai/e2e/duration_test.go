@@ -7,8 +7,19 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
+
+// Independent calls have independent elapsed times. Check the terminal value
+// before normalizing only that number for cross-run message comparisons; the
+// field remains present, and the raw outcomes remain in the evidence bundle.
+func messageWithoutElapsed(ev *evidence.Case, label string, m ai.AssistantMessage) ai.AssistantMessage {
+	value, ok := m.DurationMs.Get()
+	ev.Check(label+" has a nonnegative integer duration", ok && value >= 0, "duration=%v", m.DurationMs)
+	m.DurationMs = ai.Value[int64](0)
+	return m
+}
 
 // pi 1.1.0 migration: every terminal (success or setup failure) is timed,
 // including Complete. Pending snapshots may be untimed; zero is a value.
