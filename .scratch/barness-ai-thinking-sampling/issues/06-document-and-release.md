@@ -26,13 +26,13 @@ Updated: 2026-10-11
 
 ## Acceptance criteria
 
-- [ ] 用户文档包含可执行 Host 示例、模型级字段与调用覆盖、合并顺序、七个 canonical key、full/simple 区别、支持/忽略协议及有效 JSON 边界。
-- [ ] 示例使用已支持、已授权模型或受控 Provider；数值标明来源或“合成演示”，不增型号与支持声明。
-- [ ] 正式契约、主 spec、ADR、oracle/provenance、目录/价格快照、ledger、traceability 和固定发布合同一致；只在核验完成后记录 1.1.0 生效。
-- [ ] 每条 R01–R12 与 S/B 场景有实际 artifacts；新增选择器和合同 hash 经审查，原有 P0/六差分子集/三扩展路线/压力/live/效果要求完整保留。
+- [x] 用户文档包含可执行 Host 示例、模型级字段与调用覆盖、合并顺序、七个 canonical key、full/simple 区别、支持/忽略协议及有效 JSON 边界。
+- [x] 示例使用已支持、已授权模型或受控 Provider；数值标明来源或“合成演示”，不增型号与支持声明。
+- [x] 正式契约、主 spec、ADR、oracle/provenance、目录/价格快照、ledger、traceability 和固定发布合同一致；只在核验完成后记录 1.1.0 生效。
+- [x] 每条 R01–R12 与 S/B 场景有实际 artifacts；新增选择器和合同 hash 经审查，原有 P0/六差分子集/三扩展路线/压力/live/效果要求完整保留。
 - [ ] B04：现行完整 releasegate 执行通过，全部九组合 live/evaluation 输入匹配当前正式目录、价格、SDK 和身份，离线与 race 的差分/压力、vet、审计齐备。
-- [ ] 记录整包回滚步骤：实现、目录、oracle lock/provenance、账本和合同恢复匹配的先前版本，Host 同步回退配置；无双写/shim。
-- [ ] 缺外部条件时逐项标 NOT_RUN 并保持发布未完成；只有实际通过的项目写 PASS，不由历史证据或需求映射填结果。
+- [x] 记录整包回滚步骤：实现、目录、oracle lock/provenance、账本和合同恢复匹配的先前版本，Host 同步回退配置；无双写/shim。
+- [x] 缺外部条件时逐项标 NOT_RUN 并保持发布未完成；只有实际通过的项目写 PASS，不由历史证据或需求映射填结果。
 
 ## Verification and closure
 

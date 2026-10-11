@@ -4,7 +4,7 @@ Status: ready-for-agent
 Updated: 2026-10-11
 Type: feature
 
-本文件定义交付契约。基于 `39ab6a5` 的公共采样实现与单一 1.1.0 oracle 来源/差分已完成；完整发布受当前真实 live/effect 外部失败阻断，尚未正式交付。逐项结果见[实际证据](evidence.md)。
+本文件定义交付契约。基于 `39ab6a5` 的公共采样实现与单一 1.1.0 oracle 来源/差分已完成；完整发布验证尚未通过，当前 live/effect 失败及一次未确认原因的压力失败均保留实际状态，尚未正式交付。逐项结果见[实际证据](evidence.md)。
 
 配套：[详细设计](design.md)、[验收矩阵](acceptance.md)、[实施顺序](design.md#8-实施顺序)、[ADR-0025](../../docs/adr/0025-barness-ai-thinking-level-sampling.md)。依据：[研究第 9 节](../pi-1.1.0-thinking-sampling/research.md#9-barness-ai-接入映射与建议尚未实现)。
 
@@ -160,7 +160,7 @@ Client 构造快照、Catalog 的模型查询与枚举、Client 返回目录都�
 
 ## Further Notes
 
-本规范中的 1.1.0 基线迁移、全档位结构校验和 Go 单次请求边界合并是本方案的设计选择；不是此前研究已完成的实现或发布核验。当前正式文档与 ADR-0004 的 1.0.0 事实保持有效，实施完成后才更新其基线说明。
+本规范中的 1.1.0 基线迁移、全档位结构校验和 Go 单次请求边界合并是本方案的设计选择；此前研究不构成实现或发布证据。本次来源与差分核验后已更新候选基线说明，保留 ADR-0004 的历史 1.0.0 事实；正式交付仍须 B01–B04 全部通过。
 
 第一方依据：[pi 的采样 helper](https://github.com/earendil-works/pi/blob/abe508e1b89912adde45528136c3221eb69acdd7/packages/ai/src/api/simple-options.ts#L24-L64)、[能力夹取](https://github.com/earendil-works/pi/blob/abe508e1b89912adde45528136c3221eb69acdd7/packages/ai/src/models.ts#L1222-L1254)、[官方配置文档](https://github.com/earendil-works/pi/blob/abe508e1b89912adde45528136c3221eb69acdd7/packages/coding-agent/docs/models.md#L101-L125)。详细出处与已验证范围见[研究报告](../pi-1.1.0-thinking-sampling/research.md)。
 

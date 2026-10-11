@@ -17,6 +17,10 @@ parser.add_argument('--alias', required=True, help='host-confirmed account/regio
 args = parser.parse_args()
 args.out = args.out.resolve()
 root = Path(__file__).resolve().parents[3]
+if not args.out.is_relative_to(root):
+    raise SystemExit('output must be inside the repository for reproducible relative records')
+if args.out.exists():
+    raise SystemExit('output must be fresh; never overwrite a recorded run')
 key_name = {'openai': 'OPENAI_KEY', 'anthropic': 'ANTHROPIC_KEY', 'google': 'GEMINI_KEY', 'deepseek': 'DEEPSEEK_KEY', 'typesafe': 'TYPESAFE_KEY'}[args.combo.split('-')[0]]
 key = ''
 if args.live and (root / '.env').is_file():

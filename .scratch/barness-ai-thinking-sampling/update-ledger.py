@@ -1,10 +1,12 @@
 """Add finite duration scopes; retain all prior decisions and compare every field."""
-import json
+import argparse,json
 from pathlib import Path
 root=Path('ai/e2e/testdata')
 p=root/'pidiff/ledger.json';d=json.loads(p.read_text())
 d['decisions']=[x for x in d['decisions'] if x.get('ref') not in ['docs/adr/0025-barness-ai-thinking-level-sampling.md#durationms','.scratch/barness-ai-thinking-sampling/release-verification/catalog-changes.json']]
-manifest=Path('.evidence/barness-ai-thinking-sampling/migration/20261011T024344.369361000Z/manifest.json')
+parser=argparse.ArgumentParser()
+parser.add_argument('--migration',type=Path,required=True,help='manifest.json from the full migration-red archive')
+manifest=parser.parse_args().migration
 by={key:set() for key in ['openai-responses','openai-completions','anthropic-messages','google-generative-ai']}
 for c in json.loads(manifest.read_text())['cases']:
  pcase=manifest.parent/c['dir']/'pidiff.json'

@@ -1,6 +1,6 @@
 # 实施与实际证据
 
-2026-10-11，以用户确认的 `39ab6a5` 为起点。公共采样实现和单一 1.1.0 oracle 已完成；整版发布仍待当前完整真实门禁，不能由离线成功关闭工单 06。审查固定点同为 `39ab6a5`。
+2026-10-11，以用户确认的 `39ab6a5` 为起点。公共采样实现和单一 1.1.0 oracle 已完成；完整门禁已执行当前九组合真实输入；整版发布仍受 live/effect 失败阻断，不能由离线成功关闭工单 06。审查固定点同为 `39ab6a5`。
 
 | 验收 | 实际结果与入口 |
 | --- | --- |
@@ -12,7 +12,39 @@
 | S26–S30 / R07/R08 | PASS：TestThinkingSamplingCallbacks / Retry / Concurrent；最终授权/限额拒绝、原地/替换回调、冻结重试字节、取消、发送失败、共享租户与同 ID 独立客户端 |
 | durationMs | PASS：TestChatDuration 四入口成功/失败；每条聊天差分先验证非负整数及唯一终态相等，再对有限数值差异登记用户批准的 extension |
 | R12 Host 示例 | PASS：thinking-sampling.md 完整 Go 代码块提取后 `go test <generated-go-file>` 编译通过，无真实调用 |
-| B04 / R11 | 待完整 gate 完成。当前中文评估 24/24 HTTP 451 失败，前三条 smoke 失败；保存 FAIL，不降低门槛 |
+| B04 / R11 | FAIL：九组合全部实际执行，DeepSeek 两条路线 PASS，其余七组合 FAIL；独立中文评估 24/24 HTTP 451。完整离线命令 PASS，race 及最终审计正在完成；不降低门槛 |
+
+## 当前全套与真实结果
+
+当前受测源码为 `dba212b`；目录版本 `2026-10-11.1`，Hash 为
+`sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a`。
+正式报告、12 个当前完整包及完整历史包见[交付包](release-evidence/README.md)。
+
+| 实际真实组合 | 状态 | 主要结果 |
+| --- | --- | --- |
+| openai-responses | FAIL | transport / deadline / assertion |
+| anthropic-messages | FAIL | HTTP 403，upstream_auth；取消断言未满足 |
+| google-gemini | FAIL | deadline；取消断言未满足 |
+| openai-chat | FAIL | deadline；另 1 项 UNSUPPORTED |
+| deepseek-responses | PASS | 8 项全部通过 |
+| deepseek-chat | PASS | 11 项全部通过 |
+| typesafe-classifier | FAIL | HTTP 451，invalid_request |
+| openai-images | FAIL | 首项 deadline；后 2 项 NOT_RUN |
+| google-interactions-image | FAIL | 两项 deadline |
+| 独立中文效果 | FAIL | 24/24 HTTP 451，0 个可评分样本；审计 PASS |
+
+账户区域与权限均明确为未确认别名，未将 403/451 的根因推定为特定权限或区域。
+真实调用二进制构建于提交前，嵌入 `39ab6a5`、`vcs.modified=true`；实际二进制
+Hash 与 buildInfo 保留在 live-harness.json，没有标为最终提交构建。
+
+三轮完整 gate 的原状态均保留：第一次离线 104 FAIL（旧目录和旧测试断言），race
+主动中断；第二次普通压力自然失败 1 项，race 的 6,125 case 全 PASS，但审计期间
+被 Go 在 11 分钟终止，因此整条 race 命令 FAIL、原审计 NOT_RUN。当前第三轮给
+race 整条命令设置有限 20 分钟窗口，每个场景的截止、32 并发、字节预算不变。
+
+压力历史失败见[工单 07](issues/07-pressure-stream-integrity.md)。两个调用分别出现
+不合法 JSON 与工具参数超限；fixture 的 ENOBUFS 等待只是关联，原因未确认。
+独立十轮同负载复现 10 PASS，未重现，也未作修复声明。
 
 ## 需求与场景追溯
 
@@ -29,9 +61,9 @@
 
 ## 失败历史与可重复命令
 
-实现前的元数据、快照、采样和 duration 红灯分别保留在当前证据归档；新差分最初仅出现耗时差异。首次基线迁移保存完整 622 个既有差分，发现终态缺 duration 和三个上下文预算差异；[逐 case 清点](release-verification/migration-inventory.json)记录处理，当前这些 case 全部零 pending。未改比较规则或删字段。
+实现前的元数据、快照、采样和 duration 红灯分别保留在当前证据归档；新差分最初仅出现耗时差异。首次基线迁移保存完整 622 个既有差分，发现终态缺 duration 和三个上下文预算差异；[逐 case 清点](release-verification/migration-inventory.json)记录处理，当前这些 case 全部零 pending。除用户批准的有限耗时字段差异外，保留完整比较和原字段。
 
-fixture-cases.py 重建 literal 合成矩阵；update-ledger.py 仅更新有限耗时 case 和三个 fixed 预算项。完整 release-evidence 包将保存原始受控请求、帧、终态、断言、Attempt、pidiff、manifest 和审计，不将日志摘要替代原包。
+fixture-cases.py 重建 literal 合成矩阵；update-ledger.py 仅更新有限耗时 case 和三个 fixed 预算项（显式 --migration 指向原始失败 manifest）。完整 release-evidence 包保存原始受控请求、帧、终态、断言、Attempt、pidiff、manifest 和审计，不将日志摘要替代原包。
 
 ```sh
 python3 .scratch/barness-ai-thinking-sampling/fixture-cases.py

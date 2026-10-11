@@ -33,4 +33,4 @@ Responses 与 Chat 均使用 Go SDK 的原始 SSE decoder 保留事件名，在�
 
 唯一运行 oracle 替换为 pi-ai 1.1.0，固定 commit `abe508e1b89912adde45528136c3221eb69acdd7`。npm AI/telemetry 缺 gitHead，provenance 留空；官方 tag SHA、固定 codeload archive 哈希及两个干净重建的 AI 827/827、telemetry 24/24 dist 零差异证明来源，不推断缺失的 npm 字段。43 文件数据哈希 `8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8`，Anthropic Node SDK 为 0.129.0，另两 SDK 保持固定。版本、commit、数据错配均在启动前拒绝。
 
-当前六个完整差分子集 814 条、pending 0，全部既有型号字段核对通过；来源与回放见[核验材料](../../.scratch/barness-ai-thinking-sampling/release-verification/README.md)。历史 1.0.0 记录保持原事实，运行时不保留第二套 oracle。整版正式发布必须通过 ADR-0017 的完整当前 live/effect 合同，当前外部失败阻断生效；不因实现基线已核验而宣布整版交付。
+当前六个完整差分子集 814 条、pending 0，全部既有型号字段核对通过；来源与回放见[核验材料](../../.scratch/barness-ai-thinking-sampling/release-verification/README.md)。历史 1.0.0 记录保持原事实，运行时不保留第二套 oracle。整版正式发布必须通过 ADR-0017 的完整合同；当前 live/effect 未通过，一次压力失败另记未确认原因的缺陷，不因实现基线已核验而宣布整版交付。

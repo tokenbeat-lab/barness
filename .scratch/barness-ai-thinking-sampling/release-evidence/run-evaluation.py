@@ -11,20 +11,22 @@ import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--live', action='store_true', help='enable paid real evaluation')
+parser.add_argument('--out', type=Path, default=Path('.evidence/barness-ai/thinking-sampling-evaluation'))
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[3]
 log_base = root / '.evidence/barness-ai/thinking-sampling-evaluation-logs'
 log_base.mkdir(parents=True, exist_ok=True)
 log = log_base / (str(time.time_ns()) + ('-live.log' if args.live else '-not-run.log'))
 key = ''
-if args.live:
-    for line in (root / '.env').read_text().splitlines():
-        name, sep, value = line.strip().removeprefix('export ').partition('=')
-        if sep and name.strip() == 'TYPESAFE_KEY':
-            parts = shlex.split(value, comments=True)
-            if len(parts) == 1:
-                key = parts[0]
-            break
+if args.live and (root / '.env').is_file():
+    with (root / '.env').open() as source:
+        for line in source:
+            name, sep, value = line.strip().removeprefix('export ').partition('=')
+            if sep and name.strip() == 'TYPESAFE_KEY':
+                parts = shlex.split(value, comments=True)
+                if len(parts) == 1:
+                    key = parts[0]
+                break
 # Only runtime configuration crosses the process boundary. Never source .env
 # or inherit another provider's keys, proxies, tokens or smoke switches.
 env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR', 'GOCACHE', 'GOPATH', 'LANG', 'SSL_CERT_FILE') if k in os.environ}
@@ -34,7 +36,7 @@ if args.live:
                BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY=key,
                BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS='local-typesafe@region-unreported')
     command.append('-live')
-command += ['-out', str(root / '.evidence/barness-ai/thinking-sampling-evaluation')]
+command += ['-out', str(args.out.resolve())]
 # Run a binary so SIGINT/SIGTERM reaches the evaluated host rather than a go
 # wrapper. The host cancels its active call and writes remaining sample states.
 with tempfile.TemporaryDirectory(prefix='barness-zh-eval-') as build_dir:

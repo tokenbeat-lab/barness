@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
 """Nine isolated live processes. Each report is merged only into its own row."""
-import json,os,subprocess
+import argparse,json,os,subprocess
 from pathlib import Path
 root=Path(__file__).resolve().parents[3]
-out=root/'.evidence/barness-ai-thinking-sampling/current-release'
+parser=argparse.ArgumentParser()
+parser.add_argument('--live',action='store_true')
+parser.add_argument('--out',type=Path,required=True)
+parser.add_argument('--binary',type=Path,required=True)
+args=parser.parse_args()
+out=args.out.resolve()
+if not out.is_relative_to(root): raise SystemExit('output must be inside the repository for reproducible relative records')
+if out.exists(): raise SystemExit('output must be fresh')
 out.mkdir(parents=True,exist_ok=True)
 env={k:os.environ[k] for k in ('PATH','HOME','TMPDIR','GOCACHE','GOPATH','LANG','SSL_CERT_FILE') if k in os.environ}
 results=[]
 for combo in ['openai-responses','anthropic-messages','google-gemini','openai-chat','deepseek-responses','deepseek-chat','typesafe-classifier','openai-images','google-interactions-image']:
  directory=out/'live'/combo
- command=['python3',str(Path(__file__).with_name('run-live.py')),'--live','--combo',combo,'--binary',str(root/'.evidence/barness-ai-thinking-sampling/live.test'),'--out',str(directory),'--alias','local-'+combo.split('-')[0]+'@region-permissions-unconfirmed']
+ command=['python3',str(Path(__file__).with_name('run-live.py')),'--combo',combo,'--binary',str(args.binary.resolve()),'--out',str(directory),'--alias','local-'+combo.split('-')[0]+'@region-permissions-unconfirmed']
+ if args.live: command.append('--live')
  r=subprocess.run(command,cwd=root,env=env)
  reports=list(directory.glob('*/live-report.json'))
  merged=None

@@ -129,4 +129,4 @@ OpenAI image、Google image 和 TypeSafe；chat 为 128 KiB 历史/16 KiB 输出
 
 [分档采样配置与 Host 示例](thinking-sampling.md)使用唯一来源核验的 pi 1.1.0 oracle。当前六子集 814 条差分、pending 0，完整正式目录核对通过；采样的公共矩阵、授权、快照、重试和并发已验证。目录版本 2026-10-11.1，包含五处上游价格分层，没有编造采样默认。
 
-当前真实路线与独立中文评估出现外部失败，完整发布保持未通过；[实际候选证据](../../.scratch/barness-ai-thinking-sampling/evidence.md)保留全部新成功/失败结果。此前 2026-10-08 的整版 PASS 仅属于其原受测源码及旧目录 hash，不证明当前版本。
+当前真实路线与独立中文评估未全部通过；一次普通压力失败另记未确认原因的缺陷，完整发布保持未通过；[实际候选证据](../../.scratch/barness-ai-thinking-sampling/evidence.md)保留全部新成功/失败结果。此前 2026-10-08 的整版 PASS 仅属于其原受测源码及旧目录 hash，不证明当前版本。
