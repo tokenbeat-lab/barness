@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"slices"
 	"strings"
+	"time"
 )
 
 // assembler is the single production and merge process behind every entry
@@ -27,14 +28,16 @@ type assembler struct {
 	emit     func(EventEnvelope) *Error
 	toolJSON int64 // the policy's MaxToolJSONBytes
 	limited  *Error
+	started  time.Time
 }
 
-func newAssembler(timestamp int64, call CallAttribution, emit func(EventEnvelope) *Error, toolJSON int64) *assembler {
+func newAssembler(started time.Time, call CallAttribution, emit func(EventEnvelope) *Error, toolJSON int64) *assembler {
 	return &assembler{
-		view:     newPartialView(AssistantMessage{StopReason: StopReasonPending, Timestamp: timestamp}),
+		view:     newPartialView(AssistantMessage{StopReason: StopReasonPending, Timestamp: started.UnixMilli()}),
 		call:     call,
 		emit:     emit,
 		toolJSON: toolJSON,
+		started:  started,
 	}
 }
 
@@ -298,6 +301,7 @@ func (a *assembler) finish(meta CallMetadata, failure *Error) (Result, error) {
 		failure = a.limited
 	}
 	a.view.update(func(m *AssistantMessage) {
+		m.DurationMs = Value(max(int64(0), (time.Since(a.started) + time.Millisecond/2).Milliseconds()))
 		if failure != nil {
 			m.StopReason = StopReasonError
 			if failure.aborts() {

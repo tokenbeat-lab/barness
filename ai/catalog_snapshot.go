@@ -27,6 +27,13 @@ func (c Catalog) clone() Catalog {
 func (m Model) clone() Model {
 	m.Input = slices.Clone(m.Input)
 	m.SamplingParams = cloneJSONValues(m.SamplingParams)
+	if m.SamplingParamsByThinkingLevel != nil {
+		profiles := make(map[ThinkingLevel]map[string]json.RawMessage, len(m.SamplingParamsByThinkingLevel))
+		for level, params := range m.SamplingParamsByThinkingLevel {
+			profiles[level] = cloneJSONValues(params)
+		}
+		m.SamplingParamsByThinkingLevel = profiles
+	}
 	m.Cost.Tiers = slices.Clone(m.Cost.Tiers)
 	return m
 }

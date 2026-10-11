@@ -10,6 +10,7 @@ import test from "node:test";
 const source = dirname(fileURLToPath(import.meta.url));
 for (const [field, value, message] of [
 	["version", "0.0.0", "version mismatch"],
+	["commit", "0".repeat(40), "commit mismatch"],
 	["data", "altered", "model data hash mismatch"],
 ]) {
 	test(field, () => {
@@ -24,6 +25,11 @@ for (const [field, value, message] of [
 				const path = join(installed, "package.json");
 				const p = JSON.parse(readFileSync(path, "utf8"));
 				p.version = value;
+				writeFileSync(path, JSON.stringify(p));
+			} else if (field === "commit") {
+				const path = join(dir, "provenance.json");
+				const p = JSON.parse(readFileSync(path, "utf8"));
+				p.pi_commit = value;
 				writeFileSync(path, JSON.stringify(p));
 			} else {
 				writeFileSync(join(installed, "dist", "providers", "data", "openai.json"), value);

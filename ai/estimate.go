@@ -1,6 +1,9 @@
 package ai
 
-import "unicode/utf16"
+import (
+	"math"
+	"unicode/utf16"
+)
 
 // The simple entry's output budget (pi-ai simple-options.ts and
 // utils/estimate.ts). The estimate only sizes max output tokens; it never
@@ -10,7 +13,7 @@ const (
 	contextSafetyTokens = 4096
 	// estimatedImageChars is what pi counts for one image.
 	estimatedImageChars = 4800
-	charsPerToken       = 4
+	charsPerToken       = 3.5
 )
 
 // clampMaxTokensToContext ports pi's clampMaxTokensToContext: at most what
@@ -29,7 +32,7 @@ func clampMaxTokensToContext(m Model, msgs []Message, maxTokens int) int {
 // transcript (SystemPrompt and Tools folded into a leading system message,
 // nothing else converted). The usage the last successful assistant turn
 // reported stands for everything up to it; later messages are estimated at
-// four characters per token.
+// 3.5 characters per token.
 //
 // pi skips a turn's usage when a message before it has a later timestamp
 // (for example, an inserted compaction summary). Only assistant messages
@@ -136,7 +139,7 @@ func estimateRemovedToolsTokens(names []string) int {
 	return ceilTokens(jsLength(stringifyJSON(list)))
 }
 
-func ceilTokens(chars int) int { return (chars + charsPerToken - 1) / charsPerToken }
+func ceilTokens(chars int) int { return int(math.Ceil(float64(chars) / charsPerToken)) }
 
 // jsLength is JavaScript's String#length: UTF-16 code units.
 func jsLength(s string) int {

@@ -119,6 +119,10 @@ type AssistantMessage struct {
 	// milliseconds as in pi-ai. Every message of a call — terminal event,
 	// Result, failures included — carries the same value.
 	Timestamp int64 `json:"timestamp"`
+	// DurationMs is the non-negative, rounded monotonic time from call start
+	// to settlement, including setup and retries (pi-ai 1.1.0). Pending views
+	// are untimed. It is an elapsed measurement, not provider inference time.
+	DurationMs Nullable[int64] `json:"durationMs,omitzero"`
 	// NativeState vouches for the provenance of the message's native state.
 	// barness-ai sets it on every message of a call that resolved its
 	// binding; a message decoded from storage has the zero, untrusted value

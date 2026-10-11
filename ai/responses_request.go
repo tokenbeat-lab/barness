@@ -179,7 +179,11 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 	if err != nil {
 		return nil, err
 	}
-	return applySamplingParams(out, model.SamplingParams, opts.SamplingParams)
+	level := opts.ReasoningEffort
+	if level == "" && opts.ReasoningSummary != "" {
+		level = ThinkingMedium
+	}
+	return applyModelSamplingParams(out, model, level, opts.SamplingParams)
 }
 
 // responsesAssistantItems replays a previous turn prepared by

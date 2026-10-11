@@ -21,7 +21,7 @@ barness 需要在本地程序和云端 Agent 环境中使用多种 LLM Provider�
 
 首期采用既有研究建议的范围：OpenAI Responses、Anthropic Messages、Gemini Developer API、OpenAI Chat Completions 四类协议，验收 OpenAI Responses/Chat、Anthropic Messages、Gemini Developer API、DeepSeek Responses/Chat 六个 Provider×协议组合。保留图片输入，使用直接厂商 API key；其他官方云 API、网关和生成模态按后续独立范围处理。
 
-兼容基线冻结为 pi-ai `1.0.0`、commit `a13d35a742c6ef8462812a28fbe1d8c8b7431c32`。对齐已纳入范围的可观察行为；租户授权、可信配置、Go 并发访问和显式资源限制作为单独扩展验收。既有研究中的 SDK 探针仅作为选型证据，不能证明 barness-ai 已通过验收。
+当前实现的唯一兼容基线冻结为经发布件等价核验的 pi-ai `1.1.0`、commit `abe508e1b89912adde45528136c3221eb69acdd7`。完整发布尚待当前九组合 live 与独立效果门禁通过，历史 1.0.0 发布结论保留原受测范围。对齐已纳入范围的可观察行为；租户授权、可信配置、Go 并发访问和显式资源限制作为单独扩展验收。既有研究中的 SDK 探针仅作为选型证据，不能证明 barness-ai 已通过验收。
 
 ## User Stories
 
@@ -382,3 +382,7 @@ D1/D2 是 barness-ai 的新增取舍，不是 pi 兼容行为，也不是原研�
 历史选型记录报告三 SDK 锁定版本下 28 个离线顶层测试及 race 通过、四协议简单文本请求 JSON 差分通过，以及六个组合的真实文本、强制工具调用和首帧取消通过；另有 DeepSeek 双协议推理与历史回放。它们只证明探针覆盖的 SDK 能力，不证明 barness-ai 的解析器、公共事件/结果、重试、异常 EOF 或资源策略通过。[选型验证记录](/Users/cyber/RestoX/harness/docs/research/pi-ai-go-sdk-validation.md)
 
 原实现、具体用例和 SDK 测试来源在 [研究追溯表](research-traceability.md) 提供直接链接与迁移边界。Go 接口草图、示例目录树和 TS 语法对照中的实现形式可按本项目调整；已提取的外部行为和 P0 断言不能因形式不同而删除。以后更新基线需明确版本、行为变化、差异处置与回退版本。
+
+## Thinking-level sampling（2026-10-11）
+
+模型级可选 `SamplingParamsByThinkingLevel`、canonical 夹取、一次浅合并及 full/simple 保留边界按[专项规范](../barness-ai-thinking-sampling/spec.md) R01–R12 和 ADR-0025 验收。四个 OpenAI/DeepSeek Responses/Chat 消费，原生 Anthropic/Gemini 忽略；全部 profile 校验、三层快照、Hash 与重试冻结都进入既有公共 E2E。终态新增非负整数 durationMs；两次运行的数值差异获用户批准，不能豁免终态字段缺失。完整发布合同保留原九组合、六差分子集、压力、race 与独立中文效果。

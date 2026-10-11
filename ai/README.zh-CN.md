@@ -4,7 +4,7 @@
 
 `github.com/tokenbeat-lab/barness/ai` 是 barness 的模型协议模块：一个可信、并发安全的
 `Client`，为**多个租户**向模型服务发起**一次模型操作**。它是
-[pi-ai](https://github.com/earendil-works/pi)（冻结基线 `1.0.0`）的 Go 复刻，并在其上增加了租户隔离、显式资源限额与可观测性。
+[pi-ai](https://github.com/earendil-works/pi)（冻结基线 `1.1.0`）的 Go 复刻，并在其上增加了租户隔离、显式资源限额与可观测性。
 
 本文面向两类读者：
 
@@ -280,12 +280,12 @@ go test -race ./ai/e2e -run '^TestMixed' -count=1
 Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 只对输入 token 计价。
 观测包含 `Operation` 与用量，不含提示、图片、分类状态或答案。
 
-### pi-ai 1.0.0 基线的聊天行为
+### pi-ai 1.1.0 基线的聊天行为
 
 - 无法解析或非有限的重试等待时间回退为有界、带抖动的指数退避。
 - Responses 按响应报告的服务等级估价，缺失时取选项：flex 为 0.5 倍，priority/fast 为 2 倍（gpt-5.5 为 2.5 倍）。
 - Anthropic 后续增量中的 1 小时缓存写入明细覆盖此前值。
-- Responses/Chat 只合并一次型号默认 `SamplingParams`，调用级值优先；full/simple 入口一致，授权与状态等保留字段仍受保护。
+- Responses/Chat 按具名 → 通用 → canonical 分档 → 调用 → OnPayload 一次浅合并；[完整 Host 示例与 full/simple 边界](../docs/barness-ai/thinking-sampling.md)；1.1.0 整版发布仍待当前真实门禁。
 - Responses 拒绝未完成的工具调用，包括被重复输出索引覆盖的旧块；宿主仍需在执行前校验工具参数。
 
 ## 云端宿主接入
@@ -316,7 +316,7 @@ Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 
 4. **只重试初始请求**，由 `Binding.Retry` 决定。不重试资源限额失败、已开始的流或 unary 2xx 后的失败；不允许 SDK 自行重试。
 5. **秘密不外泄。** `Secret` 不得进入消息、事件、错误、观测记录、证据包或日志。barness-ai 不写日志。
 6. **没有环境隐式配置。** 不读取 Provider 环境变量、代理环境变量、凭据文件或默认 endpoint。endpoint 必须为 https，`AllowLoopbackHTTP`（仅测试）除外。
-7. **默认与 pi 一致。** 可观察行为与冻结的 pi-ai `1.0.0` 一致。任何有意差异都必须登记到 [`e2e/testdata/pidiff/ledger.json`](e2e/testdata/pidiff/ledger.json) 与 [differences.md](../docs/barness-ai/differences.md)；`pending` 条目会阻断发布。
+7. **默认与 pi 一致。** 可观察行为与冻结的 pi-ai `1.1.0` 一致。任何有意差异都必须登记到 [`e2e/testdata/pidiff/ledger.json`](e2e/testdata/pidiff/ledger.json) 与 [differences.md](../docs/barness-ai/differences.md)；`pending` 条目会阻断发布。
 8. **能力按 Provider 确定，而非按协议。** 共享 adapter 不得发送其他 Provider 的字段（如 DeepSeek × Responses 不发送 `store`/`include`/缓存字段）。请求字段从该 Provider 的能力派生。
 9. **Observer 从不影响调用；回调可以使调用失败，但不能放宽**操作、鉴权、目标、模型、原生引用或托管工具。unary 最终输入必须重新校验（ADR-0005）。
 10. **工具参数不可执行**，直到对已结束的消息调用 `ValidateToolCall` 通过。

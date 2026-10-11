@@ -1,0 +1,137 @@
+[
+  {
+    "provider": "openai",
+    "api": "openai-responses",
+    "id": "gpt-daybreak-blue-latest",
+    "field": "cost",
+    "old": {
+      "input": 4,
+      "output": 20,
+      "cacheRead": 0.4,
+      "cacheWrite": 5
+    },
+    "new": {
+      "input": 4,
+      "output": 20,
+      "cacheRead": 0.4,
+      "cacheWrite": 5,
+      "tiers": [
+        {
+          "inputTokensAbove": 272000,
+          "input": 8,
+          "output": 30,
+          "cacheRead": 0.8,
+          "cacheWrite": 10
+        }
+      ]
+    }
+  },
+  {
+    "provider": "openai",
+    "api": "openai-completions",
+    "id": "gpt-daybreak-blue-latest",
+    "field": "cost",
+    "old": {
+      "input": 4,
+      "output": 20,
+      "cacheRead": 0.4,
+      "cacheWrite": 5
+    },
+    "new": {
+      "input": 4,
+      "output": 20,
+      "cacheRead": 0.4,
+      "cacheWrite": 5,
+      "tiers": [
+        {
+          "inputTokensAbove": 272000,
+          "input": 8,
+          "output": 30,
+          "cacheRead": 0.8,
+          "cacheWrite": 10
+        }
+      ]
+    }
+  },
+  {
+    "provider": "google",
+    "api": "google-generative-ai",
+    "id": "gemini-2.5-pro",
+    "field": "cost",
+    "old": {
+      "input": 1.25,
+      "output": 10,
+      "cacheRead": 0.125,
+      "cacheWrite": 0
+    },
+    "new": {
+      "input": 1.25,
+      "output": 10,
+      "cacheRead": 0.125,
+      "cacheWrite": 0,
+      "tiers": [
+        {
+          "inputTokensAbove": 200000,
+          "input": 2.5,
+          "output": 15,
+          "cacheRead": 0.25,
+          "cacheWrite": 0
+        }
+      ]
+    }
+  },
+  {
+    "provider": "google",
+    "api": "google-generative-ai",
+    "id": "gemini-3.1-pro-preview",
+    "field": "cost",
+    "old": {
+      "input": 2,
+      "output": 12,
+      "cacheRead": 0.2,
+      "cacheWrite": 0
+    },
+    "new": {
+      "input": 2,
+      "output": 12,
+      "cacheRead": 0.2,
+      "cacheWrite": 0,
+      "tiers": [
+        {
+          "inputTokensAbove": 200000,
+          "input": 4,
+          "output": 18,
+          "cacheRead": 0.4,
+          "cacheWrite": 0
+        }
+      ]
+    }
+  },
+  {
+    "provider": "google",
+    "api": "google-generative-ai",
+    "id": "gemini-3.1-pro-preview-customtools",
+    "field": "cost",
+    "old": {
+      "input": 2,
+      "output": 12,
+      "cacheRead": 0.2,
+      "cacheWrite": 0
+    },
+    "new": {
+      "input": 2,
+      "output": 12,
+      "cacheRead": 0.2,
+      "cacheWrite": 0,
+      "tiers": [
+        {
+          "inputTokensAbove": 200000,
+          "input": 4,
+          "output": 18,
+          "cacheRead": 0.4,
+          "cacheWrite": 0
+        }
+      ]
+    }
+  }
+]

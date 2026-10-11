@@ -1,0 +1,36 @@
+[
+  {
+    "stage": "npm-version",
+    "command": [
+      "npm",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "install-release-ignore-scripts",
+    "command": [
+      "npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "clone-frozen-tag",
+    "command": [
+      "git",
+      "clone",
+      "--depth",
+      "1",
+      "--branch",
+      "v1.1.0",
+      "--single-branch",
+      "https://github.com/earendil-works/pi.git",
+      "source"
+    ],
+    "exit_code": 128
+  }
+]

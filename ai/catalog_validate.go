@@ -48,6 +48,9 @@ func (c Catalog) validate() error {
 					problem = checkReservedKeys(m.SamplingParams, reserved)
 				}
 			}
+			if problem == "" {
+				problem = validateThinkingSampling(m.SamplingParamsByThinkingLevel, reserved)
+			}
 		}
 		if err := check(modelKey{OperationChat, m.Provider, m.API, m.ID}, problem); err != nil {
 			return err

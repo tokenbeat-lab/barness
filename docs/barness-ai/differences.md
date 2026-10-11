@@ -1,6 +1,6 @@
 # barness-ai 差异登记
 
-本文登记 barness-ai 相对冻结基线 pi-ai `1.0.0`（commit `a13d35a742c6ef8462812a28fbe1d8c8b7431c32`）的全部可观察差异。spec Testing Decisions §5 只允许三种处置：**已修复**、**本规范定义或后续明确批准的扩展**、**待处理**；待处理阻断对应协议发布。逐条判定的权威记录是差分账本 [`ai/e2e/testdata/pidiff/ledger.json`](../../ai/e2e/testdata/pidiff/ledger.json)（每条带协议、路径、适用用例、处置与依据）；本文按主题归纳它，并补上不经差分比较的租户扩展。
+本文登记 barness-ai 相对当前实现基线 pi-ai `1.1.0`（commit `abe508e1b89912adde45528136c3221eb69acdd7`）的全部可观察差异。spec Testing Decisions §5 只允许三种处置：**已修复**、**本规范定义或后续明确批准的扩展**、**待处理**；待处理阻断对应协议发布。逐条判定的权威记录是差分账本 [`ai/e2e/testdata/pidiff/ledger.json`](../../ai/e2e/testdata/pidiff/ledger.json)（每条带协议、路径、适用用例、处置与依据）；本文按主题归纳它，并补上不经差分比较的租户扩展。
 
 发布门禁（`go run ./ai/release/cmd/releasegate`）读取账本：存在 `pending` 决定、任一差分用例有待处理发现、或扩展路径未登记，差分门禁即失败。
 
@@ -62,7 +62,7 @@ DeepSeek × Chat Completions（P06）是 pi 自身的路由，全部场景进入
 
 ## pi-ai 1.0.0 迁移（工单 03）
 
-唯一 oracle 为 1.0.0，commit `a13d35a742c6ef8462812a28fbe1d8c8b7431c32`；
+该次迁移的唯一 oracle 为 1.0.0，commit `a13d35a742c6ef8462812a28fbe1d8c8b7431c32`；
 发布件等价证明、逐文件数据哈希和安装锁见
 [PROVENANCE](../../ai/internal/testkit/pioracle/node/PROVENANCE.md)。旧安装与运行路径已替换。
 
@@ -140,3 +140,13 @@ Google 的思考加到 Output，但是否已经包含在模态输出明细中用
 避免重复计价；两个变体明确为带来源的合成 fixture。工单 14 确认真实形状、费率与能力
 后才能纳入 Google 内置图像型号或宣称 live 支持。既有 generateContent 聊天行为保持原契约。
 详见 [ADR-0022](../adr/0022-barness-ai-openai-images-unary.md)。
+
+## pi-ai 1.1.0 迁移（2026-10-11）
+
+两个干净环境完整 AI 827 + telemetry 24 dist 文件等价。唯一运行 oracle 已替换为 1.1.0；官方 npm 缺 gitHead，未伪造，固定 tag/archive 身份与字节重建证明来源。当前全部六子集 814 条差分、目录逐字段核对通过，pending 0；完整发布仍受九组合及业务效果门禁约束。旧 1.0.0 记录是历史事实。
+
+已修复：上下文估算改为 ceil(chars/3.5)，三个输出预算差异逐 case 登记 fixed；五处真实价格分层同步；模型分档采样按 R01–R09 实施，公开请求不删字段、不改差分投影。已支持型号没有采样默认，不合成填充。
+
+用户于 2026-10-11 明确批准补齐 durationMs 并允许独立执行耗时的数值差异。账本限定四种聊天 API、有限 case ID，以及 result/terminal/partial 的单一 durationMs 字段。每次差分先断言结果为非负整数、唯一终态值与结果一致；缺失/类型错误/不一致无法由账本放行。非终态 PartialView 字段出现时机沿用既有共享视图契约，仅登记该字段的 presence 差异；最终字段必须存在。没有宽泛 result/event 豁免。
+
+仍成立的既有扩展（SDK 错误文本、共享 PartialView、目录可选能力、隔离/资源限额与扩展路线）完整保留并重新执行。DeepSeek Responses 仍独立断言和显式 skip，不计为 pi 原生差分。1.1.0 上层整轮 retryAssistantCall 的 server_busy 文本等不在本库初始请求重试承诺内，未扩展产品范围。迁移明细及执行证据见[专项索引](../../.scratch/barness-ai-thinking-sampling/evidence.md)。

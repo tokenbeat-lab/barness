@@ -29,7 +29,12 @@ type Model struct {
 	// SamplingParams are the model's default sampling parameters; full and
 	// simple chat entries apply call-level values over them key by key.
 	SamplingParams map[string]json.RawMessage `json:"samplingParams,omitempty"`
-	Compat         ModelCompat                `json:"compat,omitzero"`
+	// SamplingParamsByThinkingLevel overrides general defaults for the
+	// model-supported canonical level, before call SamplingParams. Only
+	// off/minimal/low/medium/high/xhigh/max keys and non-nil objects are valid.
+	// OpenAI/DeepSeek Chat and Responses consume it; native protocols ignore it.
+	SamplingParamsByThinkingLevel map[ThinkingLevel]map[string]json.RawMessage `json:"samplingParamsByThinkingLevel,omitempty"`
+	Compat                        ModelCompat                                  `json:"compat,omitzero"`
 	// Cost is the model's price, which estimates every call's Usage.Cost.
 	Cost ModelCost `json:"cost"`
 }

@@ -146,7 +146,7 @@ func builtinOpenAIModels() []Model {
 		gpt56("gpt-6.1-sol", "GPT-6.1 Sol", "", tiered(CostRates{Input: 2, Output: 10, CacheRead: 0.1, CacheWrite: 2.5},
 			CostRates{Input: 4, Output: 15, CacheRead: 0.2, CacheWrite: 5})),
 		explicitCache(reasoning(model("gpt-daybreak-blue-latest", "Daybreak Blue", textAndImage(), 1050000, 128000,
-			ModelCost{CostRates: CostRates{Input: 4, Output: 20, CacheRead: 0.4, CacheWrite: 5}}),
+			tiered(CostRates{Input: 4, Output: 20, CacheRead: 0.4, CacheWrite: 5}, CostRates{Input: 8, Output: 30, CacheRead: 0.8, CacheWrite: 10})),
 			levelMap("none", ThinkingLow, ThinkingMedium, ThinkingHigh, ThinkingXHigh, ThinkingMax))),
 		explicitCache(reasoning(model("gpt-daybreak-red-latest", "Daybreak Red", textAndImage(), 400000, 128000,
 			ModelCost{CostRates: CostRates{Input: 12.5, Output: 75, CacheRead: 1.25, CacheWrite: 15.625}}),
@@ -262,16 +262,21 @@ func builtinGoogleModels() []Model {
 			Medium: Null[string](), High: Value("HIGH")}
 		return m
 	}
+	// Published 1.1.0 prompt-length tiers apply above 200000 input tokens.
+	tiered := func(m Model, rates CostRates) Model {
+		m.Cost.Tiers = []CostTier{{InputTokensAbove: 200000, CostRates: rates}}
+		return m
+	}
 	const window, output = 1048576, 65536
 	return []Model{
 		model("gemini-2.5-flash", "Gemini 2.5 Flash", window, output, 0.3, 2.5, 0.03),
 		model("gemini-2.5-flash-lite", "Gemini 2.5 Flash-Lite", window, output, 0.1, 0.4, 0.01),
-		model("gemini-2.5-pro", "Gemini 2.5 Pro", window, output, 1.25, 10, 0.125),
+		tiered(model("gemini-2.5-pro", "Gemini 2.5 Pro", window, output, 1.25, 10, 0.125), CostRates{Input: 2.5, Output: 15, CacheRead: 0.25}),
 		levels(model("gemini-3-flash-preview", "Gemini 3 Flash Preview", window, output, 0.5, 3, 0.05)),
 		levels(model("gemini-3.1-flash-lite", "Gemini 3.1 Flash Lite", window, output, 0.25, 1.5, 0.025)),
 		levels(model("gemini-3.1-flash-lite-preview", "Gemini 3.1 Flash Lite Preview", window, output, 0.25, 1.5, 0.025)),
-		levels(model("gemini-3.1-pro-preview", "Gemini 3.1 Pro Preview", window, output, 2, 12, 0.2), ThinkingMinimal),
-		levels(model("gemini-3.1-pro-preview-customtools", "Gemini 3.1 Pro Preview Custom Tools", window, output, 2, 12, 0.2), ThinkingMinimal),
+		tiered(levels(model("gemini-3.1-pro-preview", "Gemini 3.1 Pro Preview", window, output, 2, 12, 0.2), ThinkingMinimal), CostRates{Input: 4, Output: 18, CacheRead: 0.4}),
+		tiered(levels(model("gemini-3.1-pro-preview-customtools", "Gemini 3.1 Pro Preview Custom Tools", window, output, 2, 12, 0.2), ThinkingMinimal), CostRates{Input: 4, Output: 18, CacheRead: 0.4}),
 		levels(model("gemini-3.5-flash", "Gemini 3.5 Flash", window, output, 1.5, 9, 0.15)),
 		levels(model("gemini-3.5-flash-lite", "Gemini 3.5 Flash Lite", window, output, 0.3, 2.5, 0.03)),
 		levels(model("gemini-3.6-flash", "Gemini 3.6 Flash", window, output, 0.75, 3.75, 0.075)),

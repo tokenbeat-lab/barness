@@ -33,7 +33,7 @@ func (c *Client) run(ctx context.Context, cl call, emit func(EventEnvelope) *Err
 	ctx, runtime := c.beginCall(ctx, cl.scope, cl.target, OperationChat)
 	defer runtime.close()
 	meta := &runtime.meta
-	asm := newAssembler(runtime.started.UnixMilli(), meta.CallAttribution, emit, c.policy.byteLimits().toolJSON)
+	asm := newAssembler(runtime.started, meta.CallAttribution, emit, c.policy.byteLimits().toolJSON)
 	failure := c.execute(ctx, cl, runtime, asm)
 	res, err := asm.finish(*meta, failure)
 	classified, _ := err.(*Error)
@@ -69,8 +69,8 @@ func (c *Client) execute(ctx context.Context, cl call, runtime *callRuntime, asm
 	ad := c.adapters[binding.API]
 	model := c.catalog.Models[index].clone()
 	// Simple options are mapped for the model first; either way the
-	// protocol options are then checked, which also holds samplingParams
-	// merged from the model to the call's boundary.
+	// protocol options are checked. Model defaults stay on the model until
+	// the request builder applies all sampling layers once.
 	options := cl.full
 	if cl.simple != nil {
 		if problem := cl.simple.validate(); problem != "" {

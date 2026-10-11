@@ -1,0 +1,78 @@
+{
+  "tag": "v1.1.0",
+  "commit": "abe508e1b89912adde45528136c3221eb69acdd7",
+  "repository": "https://github.com/earendil-works/pi.git",
+  "packages": [
+    {
+      "name": "@earendil-works/pi-ai",
+      "version": "1.1.0",
+      "dist": {
+        "shasum": "7729247848ae3c5481cd66367790472ab4a6e4f3",
+        "tarball": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz",
+        "fileCount": 829,
+        "integrity": "sha512-1T7LAkc/5Bvc0v6w4vAGVdCrli0o/E0pEmYKTnixu95vSFArBjvbhS/G4ZwI0RUePgf0Imcu0VyqlM4EcXxqfw==",
+        "signatures": [
+          {
+            "sig": "MEUCIEwTvhuAOVy2rEqZuMyij6XogF9dHxz5myYIEs+ja1p3AiEAyRv8aLIUZRmin2jSvMRYpVi4X0LQd04s6b8c9HR4CfM=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          },
+          {
+            "sig": "MEUCIQCMdr1uJ0Y8FhmD1fz8AXBSO9+Vc81TkUJuZz0Y3U5RzQIgUER1V/Fbo6V6aIKiuxe7Vyz1GxhDX2RfFssMDZON1L8=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/@earendil-works%2fpi-ai@1.1.0",
+          "provenance": {
+            "predicateType": "https://slsa.dev/provenance/v1"
+          }
+        },
+        "unpackedSize": 4086201
+      },
+      "dependencies": {
+        "openai": "7.19.0",
+        "typebox": "1.3.27",
+        "partial-json": "0.1.7",
+        "@google/genai": "2.21.0",
+        "http-proxy-agent": "9.1.0",
+        "@anthropic-ai/sdk": "0.129.0",
+        "https-proxy-agent": "9.1.0",
+        "@smithy/node-http-handler": "4.12.1",
+        "@earendil-works/pi-telemetry": "^1.1.0",
+        "@aws-sdk/client-bedrock-runtime": "3.1127.0"
+      }
+    },
+    {
+      "name": "@earendil-works/pi-telemetry",
+      "version": "1.1.0",
+      "dist": {
+        "shasum": "4d0dd9aff2a44a3d24541cbb7ce7e7ab6979a56f",
+        "tarball": "https://registry.npmjs.org/@earendil-works/pi-telemetry/-/pi-telemetry-1.1.0.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-8gAK05/2pPozZZz6hCLOi8x2vsqzvsmO9gG92kbvuvTPm0qMHaFlaXX98ndXsrOi5pmzha7vNLguuG4+0Rgxjw==",
+        "signatures": [
+          {
+            "sig": "MEUCICFCNKwOzKAwYHTQyGI0gfNWC3tkppkUlq5L5+DARX8aAiEAvJ7trX5+hbsvRsOaQFaZxKYzRWZXk9jiJYe6Lge03p0=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          },
+          {
+            "sig": "MEYCIQDLEAR4WgHb1Ygg93DExHKrV4+iqgrTQLYzmD3rS6PVnQIhALSBbEu/wb5Pq2UoGOzdO0eJHey+1fFU6GRLEHUmJg39",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/@earendil-works%2fpi-telemetry@1.1.0",
+          "provenance": {
+            "predicateType": "https://slsa.dev/provenance/v1"
+          }
+        },
+        "unpackedSize": 122963
+      }
+    }
+  ],
+  "source_lock_sha256": "4694eb371dcc1ee9812c7bdcdfb01d6ddcf2fb3ef18c2640d0d5a6100e8b9b00",
+  "release_lock_sha256": "5a87b1b8ae7cc1a9a4365ed7dc0a3bc7bfc695c3fc8fde0c9c7a622ed4bfc2f0",
+  "model_data_sha256": "8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8",
+  "source_archive_url": "https://codeload.github.com/earendil-works/pi/tar.gz/abe508e1b89912adde45528136c3221eb69acdd7",
+  "source_archive_sha256": "a3416afa488957e5a666aa9b93e4fee8a71efa75a367405f500635b946582be2"
+}

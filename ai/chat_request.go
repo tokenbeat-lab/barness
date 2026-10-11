@@ -153,7 +153,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	if err != nil {
 		return nil, err
 	}
-	return applySamplingParams(out, model.SamplingParams, opts.SamplingParams)
+	return applyModelSamplingParams(out, model, opts.ReasoningEffort, opts.SamplingParams)
 }
 
 // chatMessages ports pi's convertMessages for the prepared history.

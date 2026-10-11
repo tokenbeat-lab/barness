@@ -113,6 +113,8 @@ async function readStdin() {
 // packageInfo reports the installed pi-ai version and a hash over its generated
 // model data, so the Go side can refuse a copy that drifted from PROVENANCE.md.
 function packageInfo() {
+ const provenance = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "provenance.json"), "utf8"));
+ if (provenance.pi_commit !== "abe508e1b89912adde45528136c3221eb69acdd7") fail("pi commit mismatch");
 	const dist = dirname(fileURLToPath(import.meta.resolve("@earendil-works/pi-ai")));
 	const pkg = JSON.parse(readFileSync(join(dist, "..", "package.json"), "utf8"));
 	const dataDir = join(dist, "providers", "data");

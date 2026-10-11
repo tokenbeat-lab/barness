@@ -30,7 +30,7 @@ go run ./ai/release/cmd/releasegate -evaluation <独立中文效果包> [-live <
 | --- | --- |
 | go-test / go-test-race / go-vet | 命令成功；未执行即失败 |
 | p0-offline | 每个用例 PASS（或明确 UNSUPPORTED），完整 artifacts 哈希清单成立；E01–E11、P01–P09、D1、D2 与压力场景各至少一个 PASS |
-| differential | 全部 PASS、0 pending；固定 pi 1.0.0 的版本/commit/model-data hash、SDK、请求/帧哈希及发现清单有效；P01–P04/P06/P07 有差分，DeepSeek Responses 与两条原生图像有独立扩展登记及 skip |
+| differential | 全部 PASS、0 pending；固定当前唯一 pi 1.1.0 的版本/commit/model-data hash、SDK、请求/帧哈希及发现清单有效；P01–P04/P06/P07 有差分，DeepSeek Responses 与两条原生图像有独立扩展登记及 skip |
 | live | 九组合自身报告与矩阵当前完整运行的能力、操作、型号、SDK、时间及正式目录/价格哈希一致，捕获/结果/Observer/图片校验完整；必交分类、生成与编辑不可 UNSUPPORTED |
 | redaction-audit | 离线、race、九条 live 与中文效果包均审计，逐包与运行时 audit.json 零发现；拒绝证据不重新输出敏感字段 |
 | traceability | 每个研究条目由实际证据判定为 PASS；只有映射没有证据的条目为 NO_EVIDENCE |
@@ -124,3 +124,9 @@ OpenAI image、Google image 和 TypeSafe；chat 为 128 KiB 历史/16 KiB 输出
 完整捕获、消费结果、Observer、图像校验及独立中文效果见 [九组合发布证据](../../.scratch/barness-ai-pi-1.0/nine-route-release-evidence/README.md)。
 
 在矩阵对应行完整通过之前，不得宣称该组合受支持（spec I10）。
+
+## 2026-10-11 采样实施候选
+
+[分档采样配置与 Host 示例](thinking-sampling.md)使用唯一来源核验的 pi 1.1.0 oracle。当前六子集 814 条差分、pending 0，完整正式目录核对通过；采样的公共矩阵、授权、快照、重试和并发已验证。目录版本 2026-10-11.1，包含五处上游价格分层，没有编造采样默认。
+
+当前真实路线与独立中文评估出现外部失败，完整发布保持未通过；[实际候选证据](../../.scratch/barness-ai-thinking-sampling/evidence.md)保留全部新成功/失败结果。此前 2026-10-08 的整版 PASS 仅属于其原受测源码及旧目录 hash，不证明当前版本。

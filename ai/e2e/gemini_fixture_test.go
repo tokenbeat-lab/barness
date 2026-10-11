@@ -26,7 +26,7 @@ var geminiProtocol = &fixtureProtocol{
 
 // geminiFixtureFiles are the P03 fixtures under testdata/gemini; the
 // differential runs every scenario in them that does not opt out.
-var geminiFixtureFiles = []string{"text.json", "failures.json", "history.json", "options.json", "usage.json", "retry.json"}
+var geminiFixtureFiles = []string{"text.json", "failures.json", "history.json", "options.json", "usage.json", "retry.json", "thinking-sampling.json"}
 
 // dataEvents lays scripted chunks out as an SSE reply of unnamed data events.
 func dataEvents(t *testing.T, events []json.RawMessage, framing provider.Framing) provider.Reply {

@@ -28,3 +28,9 @@ date: 2026-10-01
 全量差分发现 OpenAI Node SDK 7.19.0 改变两类错误文本，维护者明确批准同步：HTTP 对象／数组缺少或含 null error 时，SDK 将整个值作为错误体；具名 SSE event:error 在 pi adapter 之前按 data.error ?? data 抛错。后者适用于所有 JSON 类型，不能只改 Responses 的 type:error 分支，也不能先按 Chat chunk 对象解码。
 
 Responses 与 Chat 均使用 Go SDK 的原始 SSE decoder 保留事件名，在协议 DTO 解码前处理 SDK 错误规则；未具名 type:error 继续由 Responses adapter 处理，未具名 null/false error 不作为 SDK 错误。SDK typed stream 只处理初始请求与响应体关闭，避免另造 SSE 解析器或共享可变解析状态。错误文本仍经过已有脱敏、截断与分类边界。所有对齐项登记为 fixed，并以 HTTP 形状、具名／未具名帧及非对象错误帧的公共入口和冻结 pi 差分验证；未增加 extension。
+
+## 1.1.0 实施基线（2026-10-11，ADR-0025）
+
+唯一运行 oracle 替换为 pi-ai 1.1.0，固定 commit `abe508e1b89912adde45528136c3221eb69acdd7`。npm AI/telemetry 缺 gitHead，provenance 留空；官方 tag SHA、固定 codeload archive 哈希及两个干净重建的 AI 827/827、telemetry 24/24 dist 零差异证明来源，不推断缺失的 npm 字段。43 文件数据哈希 `8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8`，Anthropic Node SDK 为 0.129.0，另两 SDK 保持固定。版本、commit、数据错配均在启动前拒绝。
+
+当前六个完整差分子集 814 条、pending 0，全部既有型号字段核对通过；来源与回放见[核验材料](../../.scratch/barness-ai-thinking-sampling/release-verification/README.md)。历史 1.0.0 记录保持原事实，运行时不保留第二套 oracle。整版正式发布必须通过 ADR-0017 的完整当前 live/effect 合同，当前外部失败阻断生效；不因实现基线已核验而宣布整版交付。

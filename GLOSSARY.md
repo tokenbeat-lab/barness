@@ -179,3 +179,11 @@ _Avoid_: CI 绿灯、发布流程
 **Chinese Classification Evaluation（中文分类评估）**：
 宿主针对固定中文标注任务和固定分类型号形成的独立业务效果证据，包含准确率、误判、置信统计、完整样本状态与消耗。其适用范围由标注任务界定，独立于协议兼容与真实冒烟的支持结论。
 _Avoid_: 协议准确率、支持矩阵通过、生产准确率保证
+
+**Canonical Thinking Level（规范思考档位）**：
+跨厂商描述模型思考能力的有序档位 off/minimal/low/medium/high/xhigh/max；它与厂商请求中的 wire 值相互独立，也不代表已测得的实际推理强度。
+_Avoid_: 实际强度、wire 档位
+
+**Sampling Profile（分档采样默认）**：
+模型针对某个 canonical 思考档位声明的一组采样默认值，由该轮调用的有效档位选择；默认值不声明模型能力，也不是任务调参策略。
+_Avoid_: 厂商推荐参数、自动调参、调用级分档

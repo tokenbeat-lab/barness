@@ -1,0 +1,113 @@
+[
+  {
+    "stage": "npm-version",
+    "command": [
+      "npm",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "install-release-ignore-scripts",
+    "command": [
+      "npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "extract-frozen-source",
+    "command": [
+      "tar",
+      "-xzf",
+      "<workspace>/source.tar.gz",
+      "--strip-components=1",
+      "-C",
+      "<workspace>/source"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "install-source-ignore-scripts",
+    "command": [
+      "npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "build-chord",
+    "command": [
+      "npm",
+      "run",
+      "build",
+      "--workspace=@earendil-works/chord"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "build-pi-tui",
+    "command": [
+      "npm",
+      "run",
+      "build",
+      "--workspace=@earendil-works/pi-tui"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "build-pi-telemetry",
+    "command": [
+      "npm",
+      "run",
+      "build",
+      "--workspace=@earendil-works/pi-telemetry"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "build-ai-offline",
+    "command": [
+      "npm",
+      "run",
+      "build:offline",
+      "--workspace=@earendil-works/pi-ai"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "check-release-equivalence",
+    "command": [
+      "node",
+      "<inputs>/check.mjs",
+      "<workspace>",
+      "<inputs>/evidence-c"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "check-failure-rejections",
+    "command": [
+      "node",
+      "<inputs>/failures.mjs",
+      "<workspace>",
+      "<inputs>/evidence-c/failure-checks.json"
+    ],
+    "exit_code": 0
+  },
+  {
+    "stage": "check-boundary-faults",
+    "command": [
+      "node",
+      "<inputs>/faults.mjs",
+      "<inputs>/evidence-c/boundary-checks.json"
+    ],
+    "exit_code": 0
+  }
+]

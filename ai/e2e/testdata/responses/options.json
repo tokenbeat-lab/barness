@@ -583,7 +583,7 @@
    "model": "gpt-4",
    "options": {},
    "expect": {
-    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":4047,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern? 🌦"}]}],"stream":true,"store":false,"max_output_tokens":4040,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
     "affinity": false
    }
   },
@@ -599,7 +599,7 @@
     {"role":"user","content":[{"type":"text","text":"And tomorrow? Please include the wind speed, humidity and a short outlook."},{"type":"image","data":"iVBORw0KGgo=","mimeType":"image/png"}]}
    ],
    "expect": {
-    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern?"}]},{"type":"message","role":"assistant","content":[{"type":"output_text","text":"Sunny.","annotations":[]}],"status":"completed","id":"msg_pi_1"},{"role":"user","content":[{"type":"input_text","text":"And tomorrow? Please include the wind speed, humidity and a short outlook."},{"type":"input_text","text":"(image omitted: model does not support images)"}]}],"stream":true,"store":false,"max_output_tokens":877,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
+    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern?"}]},{"type":"message","role":"assistant","content":[{"type":"output_text","text":"Sunny.","annotations":[]}],"status":"completed","id":"msg_pi_1"},{"role":"user","content":[{"type":"input_text","text":"And tomorrow? Please include the wind speed, humidity and a short outlook."},{"type":"input_text","text":"(image omitted: model does not support images)"}]}],"stream":true,"store":false,"max_output_tokens":703,"tools":[{"type":"function","name":"get_weather","description":"Get the weather for a city.","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]},"strict":false}]},
     "affinity": false
    }
   },
@@ -632,7 +632,7 @@
     {"role":"user","content":[{"type":"text","text":"Again?"}]}
    ],
    "expect": {
-    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse.\n\nBe brief.\n\nplain"},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern?"}]},{"role":"user","content":[{"type":"input_text","text":"Again?"}]}],"stream":true,"store":false,"max_output_tokens":4024},
+    "body": {"model":"gpt-4","input":[{"role":"system","content":"You are terse.\n\nBe brief.\n\nplain"},{"role":"user","content":[{"type":"input_text","text":"Weather in Bern?"}]},{"role":"user","content":[{"type":"input_text","text":"Again?"}]}],"stream":true,"store":false,"max_output_tokens":4013},
     "affinity": false
    }
   },

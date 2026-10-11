@@ -62,7 +62,7 @@ func TestPiDifferential(t *testing.T) {
 			o := openOracle(t)
 			differential(t, ev, o, ledger, "stream", toolPidiffScenario(t, "tool-call-function", "stream"))
 		})
-		scenarioPiDifferential(t, ledger, responsesProtocol, "P01", []string{"parity.json", "parity-models.json", "parity-errors.json"})
+		scenarioPiDifferential(t, ledger, responsesProtocol, "P01", []string{"parity.json", "parity-models.json", "parity-errors.json", "thinking-sampling.json"})
 		// E03 history normalization, downgrade and images (TestHistoryNormalization).
 		hf, hraw := loadHistoryFixture(t)
 		for _, sc := range hf.Scenarios {
@@ -347,6 +347,10 @@ func differential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, ledger pi
 	}
 	ev.Record("pi-observation", pi)
 	ev.Record("barness-observation", barness)
+	// Elapsed values from separate runs differ. Missing/invalid final values
+	// are failures before the ledger can explain any numerical difference.
+	checkObservationDuration(t, ev, "pi", pi)
+	checkObservationDuration(t, ev, "barness", barness)
 
 	diffs, err := pioracle.Compare(pi, barness)
 	if !ev.Check("observations compare", err == nil, "%v", err) {

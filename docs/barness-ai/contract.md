@@ -32,7 +32,7 @@ choice 的选项上限至少 2，score 的级数最少 2 且上下界有序，�
 已有 Go 宿主的 `[]string` 构造须改为此类型；从动态字符串逐项转换后仍需目录构造校验。
 JSON 继续编码为 `"choice"`、`"score"`、`"bool"`，未知或空类型仍在 NewClient 边界拒绝。
 图像每个已声明输入/输出模态须有费率值（显式 0 合法，unset/null 缺失），缓存费率按协议声明；直接 OpenAI Images 禁止设置缓存输入费率。
-Responses/Chat 型号默认 samplingParams 同样不能覆盖保留字段。
+Responses/Chat 型号的通用和分档采样默认逐档拒绝既有保留键。新 map 全部档位须为 canonical key 与非 null 对象，每个值是有效 JSON；空对象和参数 null 有效。原生 Anthropic/Gemini 保存、校验新结构但忽略两个 map。[完整配置、优先级和入口边界](thinking-sampling.md)。
 
 `Client.Catalog()` 返回构造时固定的完整目录副本。`Catalog.Lookup`/`ModelsOf` 只查聊天；
 `LookupImage`/`ImageModelsOf`、`LookupClassifier`/`ClassifierModelsOf` 分别强类型查询另两类，
@@ -297,3 +297,7 @@ Output 加 thought、Reasoning 为内含分项，TotalTokens 保留厂商值。�
 及未报输入图片明细保持 unset，usage 为 partial；成本仅估已知分项，thought 按
 文本输出价计一次，不从内部 model invocation 明细补出未知成本。费率与能力来源
 见 google-images/official.json 及 ADR-0023。
+
+## 1.1.0 实施基线与终态耗时
+
+唯一 oracle 固定 commit `abe508e1b89912adde45528136c3221eb69acdd7`，来源等价与全量差分已核验。每个聊天成功、错误、取消结果及其终态消息都有非负整数 `durationMs`，包含准备、回调与重试，使用单调时间四舍五入到毫秒；未完成的 PartialView 可尚无此字段。完整当前发布未通过前，不把实现基线切换称为整版正式发布。

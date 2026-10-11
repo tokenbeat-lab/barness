@@ -1,0 +1,341 @@
+{
+  "case": "P03/E01 Google × Gemini Developer API text generation, thought and function call parts, and stream parsing",
+  "source": "Synthetic native profile-ignore cases; full payload and result unchanged.",
+  "scenarios": [
+    {
+      "id": "thinking-sampling-S17-native-text",
+      "about": "Plain text on the full entry: three text parts form one block, the first non-empty responseId is kept, each usageMetadata replaces the usage.",
+      "model": "gemini-2.5-flash",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "Hello"
+                  }
+                ],
+                "role": "model"
+              },
+              "index": 0
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 12,
+            "totalTokenCount": 12
+          },
+          "modelVersion": "gemini-2.5-flash",
+          "responseId": "resp-text-001"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": ", world"
+                  }
+                ],
+                "role": "model"
+              },
+              "index": 0
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 12,
+            "totalTokenCount": 12
+          },
+          "modelVersion": "gemini-2.5-flash",
+          "responseId": "resp-text-001"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "!"
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP",
+              "index": 0
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 12,
+            "candidatesTokenCount": 4,
+            "totalTokenCount": 16
+          },
+          "modelVersion": "gemini-2.5-flash",
+          "responseId": "resp-text-001"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+          "query": "alt=sse",
+          "headers": {
+            "User-Agent": "barness-ai",
+            "Content-Type": "application/json"
+          },
+          "absentHeaders": [
+            "Authorization",
+            "X-Api-Key",
+            "X-Goog-Api-Client"
+          ],
+          "body": {
+            "contents": [
+              {
+                "parts": [
+                  {
+                    "text": "Say hello."
+                  }
+                ],
+                "role": "user"
+              }
+            ],
+            "systemInstruction": {
+              "parts": [
+                {
+                  "text": "You are terse."
+                }
+              ],
+              "role": "user"
+            },
+            "generationConfig": {}
+          }
+        },
+        "events": [
+          "start",
+          "text_start#0",
+          "text_delta#0:Hello",
+          "text_delta#0:, world",
+          "text_delta#0:!",
+          "text_end#0:Hello, world!",
+          "done:stop"
+        ],
+        "stopReason": "stop",
+        "rawStopReason": "STOP",
+        "responseId": "resp-text-001",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hello, world!"
+          }
+        ],
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 3.6e-06,
+            "output": 1e-05,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 1.36e-05
+          }
+        },
+        "usageReporting": "complete"
+      },
+      "modelPatch": {
+        "samplingParams": {
+          "model": "unused"
+        },
+        "samplingParamsByThinkingLevel": {
+          "off": {
+            "model": "unused"
+          },
+          "high": {
+            "temperature": false
+          }
+        }
+      }
+    },
+    {
+      "id": "thinking-sampling-S17-native-text-simple",
+      "about": "The same turn on the simple entry: the output budget is the model's maximum clamped to the context window, and without a reasoning level thinking is disabled with a zero budget (a budget model).",
+      "model": "gemini-2.5-flash",
+      "entry": "streamSimple",
+      "context": {
+        "systemPrompt": "You are terse.",
+        "messages": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "Say hello."
+              }
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "Hello"
+                  }
+                ],
+                "role": "model"
+              },
+              "index": 0
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 12,
+            "totalTokenCount": 12
+          },
+          "modelVersion": "gemini-2.5-flash",
+          "responseId": "resp-text-001"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": ", world"
+                  }
+                ],
+                "role": "model"
+              },
+              "index": 0
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 12,
+            "totalTokenCount": 12
+          },
+          "modelVersion": "gemini-2.5-flash",
+          "responseId": "resp-text-001"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "!"
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP",
+              "index": 0
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 12,
+            "candidatesTokenCount": 4,
+            "totalTokenCount": 16
+          },
+          "modelVersion": "gemini-2.5-flash",
+          "responseId": "resp-text-001"
+        }
+      ],
+      "expect": {
+        "request": {
+          "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+          "query": "alt=sse",
+          "body": {
+            "contents": [
+              {
+                "parts": [
+                  {
+                    "text": "Say hello."
+                  }
+                ],
+                "role": "user"
+              }
+            ],
+            "systemInstruction": {
+              "parts": [
+                {
+                  "text": "You are terse."
+                }
+              ],
+              "role": "user"
+            },
+            "generationConfig": {
+              "maxOutputTokens": 65536,
+              "thinkingConfig": {
+                "thinkingBudget": 0
+              }
+            }
+          }
+        },
+        "events": [
+          "start",
+          "text_start#0",
+          "text_delta#0:Hello",
+          "text_delta#0:, world",
+          "text_delta#0:!",
+          "text_end#0:Hello, world!",
+          "done:stop"
+        ],
+        "stopReason": "stop",
+        "rawStopReason": "STOP",
+        "responseId": "resp-text-001",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hello, world!"
+          }
+        ],
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 3.6e-06,
+            "output": 1e-05,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 1.36e-05
+          }
+        },
+        "usageReporting": "complete"
+      },
+      "modelPatch": {
+        "samplingParams": {
+          "model": "unused"
+        },
+        "samplingParamsByThinkingLevel": {
+          "off": {
+            "model": "unused"
+          },
+          "high": {
+            "temperature": false
+          }
+        }
+      }
+    }
+  ]
+}

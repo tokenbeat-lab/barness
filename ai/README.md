@@ -5,7 +5,7 @@ English | [简体中文](README.zh-CN.md)
 `github.com/tokenbeat-lab/barness/ai` is barness's model protocol module: one trusted,
 concurrency-safe `Client` that runs **one model operation** against a model provider for **many
 tenants**. It is a Go port of [pi-ai](https://github.com/earendil-works/pi) (frozen baseline
-`1.0.0`) with tenant isolation, explicit resource limits and observability added on top.
+`1.1.0`) with tenant isolation, explicit resource limits and observability added on top.
 
 This README covers the public API and host responsibilities. Coding agents
 should also read [the invariants, layout and testing guide](#for-coding-agents).
@@ -330,14 +330,14 @@ missing details remain partial or unreported. Google thought tokens count once w
 separately as reasoning. TypeSafe charges only input tokens. Observations include `Operation` and
 usage, never prompts, images, classifier state or answers.
 
-### Chat behavior at the pi-ai 1.0.0 baseline
+### Chat behavior at the pi-ai 1.1.0 baseline
 
 - Unparseable/nonfinite retry delays use bounded exponential backoff with jitter.
 - Responses cost uses the reported service tier, falling back to options: flex
   is 0.5×; priority/fast is 2× (2.5× for gpt-5.5).
 - Anthropic's later 1-hour cache-write detail replaces the earlier value.
-- Responses/Chat merge model `SamplingParams` defaults once, then call overrides;
-  full/simple entries agree and reserved authorization/state fields stay protected.
+- Responses/Chat merge named → general → canonical profile → call → OnPayload once;
+  [complete Host example and full/simple boundaries](../docs/barness-ai/thinking-sampling.md); full release awaits current live gates.
 - Responses rejects unfinished tool calls, including blocks replaced by duplicate
   output indexes. The host must still validate tool arguments before execution.
 
@@ -394,7 +394,7 @@ compatibility shims, E2E-first testing).
    credential files or default endpoints. Endpoints must be https except with
    `AllowLoopbackHTTP` (tests only).
 7. **pi parity is the default.** Observable behavior matches frozen pi-ai
-   `1.0.0`. Any intentional difference must be recorded in
+   `1.1.0`. Any intentional difference must be recorded in
    [`e2e/testdata/pidiff/ledger.json`](e2e/testdata/pidiff/ledger.json) and
    [differences.md](../docs/barness-ai/differences.md); a `pending` entry
    blocks release.

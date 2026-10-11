@@ -4,7 +4,6 @@ import (
 	"cmp"
 	"encoding/json"
 	"errors"
-	"maps"
 	"slices"
 	"time"
 )
@@ -192,35 +191,6 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 		}
 		body.Reasoning = &responsesReasoning{Effort: effort}
 	}
-}
-
-// applySamplingParams sets each sampling parameter on the encoded body,
-// replacing a named field of the same name (pi's Object.assign after
-// buildParams). Keys are applied in sorted order; the body's own key order
-// is kept and new keys are appended.
-func applySamplingParams(body []byte, sources ...map[string]json.RawMessage) ([]byte, error) {
-	count := 0
-	for _, params := range sources {
-		count += len(params)
-	}
-	if count == 0 {
-		return body, nil
-	}
-	v, err := parseJSON(string(body))
-	if err != nil {
-		return nil, err
-	}
-	obj := v.(*jsonObject)
-	for _, params := range sources {
-		for _, k := range slices.Sorted(maps.Keys(params)) {
-			value, err := parseJSON(string(params[k]))
-			if err != nil {
-				return nil, err
-			}
-			obj.set(k, value)
-		}
-	}
-	return []byte(stringifyJSON(obj)), nil
 }
 
 // ResponsesToolChoice is the Responses tool_choice. Exactly one form is set.
