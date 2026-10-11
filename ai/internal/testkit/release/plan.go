@@ -16,7 +16,7 @@ const requiredReleaseItems = `C11-ChineseEffect H5-design-load-artifacts T03-mix
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "54f48a77c1b78117cb7a2a4e06675a3707385e1c4b3cdce8801c6d714d1cbcfc"
+const approvedMappingHash = "1a9a4bc554f7a130773d7c0290abc1d76aede48bbefd80e3a6572e7608d64b44"
 
 // CheckReleasePlan validates the complete nine-route acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified

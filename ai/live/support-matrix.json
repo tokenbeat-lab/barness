@@ -596,23 +596,23 @@
       "model": "gemini-nano-banana-2.1",
       "sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
       "accountAlias": "local-google@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-08T11:47:49.450568Z",
+      "lastRunAt": "2026-10-11T03:08:38.176193Z",
       "allPassedAt": "2026-10-08T11:47:49.450568Z",
       "capabilities": [
         {
           "id": "generation",
           "model": "gemini-nano-banana-2.1",
-          "outcome": "PASS",
-          "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.04043400 USD",
-          "lastRunAt": "2026-10-08T11:47:49.450568Z",
+          "outcome": "FAIL",
+          "errorCategory": "deadline_exceeded",
+          "lastRunAt": "2026-10-11T03:08:38.176193Z",
           "lastPassedAt": "2026-10-08T11:47:49.450568Z"
         },
         {
           "id": "reference-edit",
           "model": "gemini-nano-banana-2.1",
-          "outcome": "PASS",
-          "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03571500 USD",
-          "lastRunAt": "2026-10-08T11:47:49.450568Z",
+          "outcome": "FAIL",
+          "errorCategory": "deadline_exceeded",
+          "lastRunAt": "2026-10-11T03:08:38.176193Z",
           "lastPassedAt": "2026-10-08T11:47:49.450568Z"
         }
       ]
