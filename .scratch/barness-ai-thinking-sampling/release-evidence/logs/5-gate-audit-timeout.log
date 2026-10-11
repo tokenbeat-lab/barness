@@ -1,0 +1,746 @@
+releasegate: go vet ./...
+releasegate: go vet -tags live ./...
+releasegate: BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -count=1 ./...
+ok  	github.com/tokenbeat-lab/barness/ai	0.807s
+--- FAIL: TestPolicyPressure (27.42s)
+    --- FAIL: TestPolicyPressure/cloud-interactive/design-load (5.86s)
+        policy_pressure_test.go:80: [E08-policy-pressure-cloud-interactive-design-load] design-load call completes: call 4: err ai: protocol (stream): OpenAI Responses stream event is not valid JSON, message "OpenAI Responses stream event is not valid JSON"
+        policy_pressure_test.go:80: [E08-policy-pressure-cloud-interactive-design-load] design-load call completes: call 11: err ai: resource_limit (stream): exceeded the resource policy's MaxToolJSONBytes (524288), message "exceeded the resource policy's MaxToolJSONBytes (524288)"
+        policy_pressure_test.go:80: [E08-policy-pressure-cloud-interactive-design-load] every call delivered its turn: 24 text, 6 tool of 32
+        policy_pressure_test.go:82: cloud-interactive: {Load:{Basis:CloudInteractivePolicy: 8 tenants at their limit of 4 (all 32 permits), agent histories (2 MiB) with two downscaled images, the 64K-token upper bound of an interactive turn or a 256 KiB tool call Tenants:8 Calls:32 OutputTokens:65536 HistoryBytes:2097152 Images:2 ImageBytes:1048576 ToolJSONBytes:262144} Headroom:map[MaxConcurrentPerTenant:{Design:4 Limit:4 Ratio:1} MaxConcurrentProcess:{Design:32 Limit:32 Ratio:1} MaxFrameBytes:{Design:262658 Limit:2097152 Ratio:0.1252450942993164} MaxImageBytes:{Design:1048576 Limit:4194304 Ratio:0.25} MaxOutputBytes:{Design:14670763 Limit:33554432 Ratio:0.43722280859947205} MaxQueuedEvents (all streams):{Design:22043 Limit:524288 Ratio:0.04204368591308594} MaxRequestBytes:{Design:4901647 Limit:8388608 Ratio:0.5843218564987183} MaxToolJSONBytes:{Design:262144 Limit:524288 Ratio:0.5}] PeakPermits:32 HeapBudget:2147483648 Heap:{BaselineLive:44537600 PeakLive:654630808 BaselineInuse:48168960 PeakInuse:1253834752} ProviderCaptured:156852704 Duration:5.672s TokensPerSecond:369733}
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T031635.621549000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	269.952s
+?   	github.com/tokenbeat-lab/barness/ai/examples/chineseeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/hostintegration	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/localassembly	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/requestid	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/toolloop	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/clock	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/probe	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit	0.955s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/host	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle	1.738s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/provider	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	3.151s
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	2.117s
+?   	github.com/tokenbeat-lab/barness/ai/live	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate	[no test files]
+FAIL
+releasegate: BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 ./...
+ok  	github.com/tokenbeat-lab/barness/ai	2.128s
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/gate/race/20261011T032107.858599000Z
+SIGQUIT: quit
+PC=0x18a60d50c m=0 sigcode=0
+
+goroutine 0 gp=0x1042fb1e0 m=0 mp=0x1042fc380 [idle]:
+runtime.pthread_cond_wait(0x1042fc8e8, 0x1042fc8a8)
+	/usr/local/go/src/runtime/sys_darwin.go:488 +0x20 fp=0x16d8aecf0 sp=0x16d8aecc0 pc=0x102601a90
+runtime.semasleep(0xffffffffffffffff)
+	/usr/local/go/src/runtime/os_darwin.go:77 +0x80 fp=0x16d8aed50 sp=0x16d8aecf0 pc=0x1025db900
+runtime.notesleep(0x1042fc4d8)
+	/usr/local/go/src/runtime/lock_sema.go:62 +0xac fp=0x16d8aed80 sp=0x16d8aed50 pc=0x1025af35c
+runtime.mPark(...)
+	/usr/local/go/src/runtime/proc.go:1967
+runtime.stopm()
+	/usr/local/go/src/runtime/proc.go:3008 +0x84 fp=0x16d8aedb0 sp=0x16d8aed80 pc=0x1025e5ff4
+runtime.findRunnable()
+	/usr/local/go/src/runtime/proc.go:3796 +0xffc fp=0x16d8aef80 sp=0x16d8aedb0 pc=0x1025e7d7c
+runtime.schedule()
+	/usr/local/go/src/runtime/proc.go:4164 +0x90 fp=0x16d8aefc0 sp=0x16d8aef80 pc=0x1025e90f0
+runtime.park_m(0xc0004b4d20)
+	/usr/local/go/src/runtime/proc.go:4304 +0x244 fp=0x16d8af020 sp=0x16d8aefc0 pc=0x1025e9574
+runtime.mcall()
+	/usr/local/go/src/runtime/asm_arm64.s:339 +0x54 fp=0x16d8af030 sp=0x16d8af020 pc=0x10261d8c4
+
+goroutine 1 gp=0xc0000041e0 m=nil [runnable]:
+runtime.slicecopy(0xc0067fd650?, 0x6?, 0xc0067fd6b0?, 0x6?, 0x8?)
+	/usr/local/go/src/runtime/slice.go:392 +0xdc fp=0xc0008a6a60 sp=0xc0008a6a60 pc=0x1025fa78c
+regexp.(*machine).add(0xc0003f22d0, 0xc0003f2310, 0x7, 0x1458f, {0xc0067fd6b0, 0x6, 0x6}, 0xc0008a7010, 0x0)
+	/usr/local/go/src/regexp/exec.go:368 +0x6a0 fp=0xc0008a6b70 sp=0xc0008a6a60 pc=0x102749330
+regexp.(*machine).add(0xc0003f22d0, 0xc0003f2310, 0x2c, 0x1458f, {0xc0067fd6b0, 0x6, 0x6}, 0xc0008a7010, 0x0)
+	/usr/local/go/src/regexp/exec.go:340 +0x434 fp=0xc0008a6c80 sp=0xc0008a6b70 pc=0x1027490c4
+regexp.(*machine).add(0xc0003f22d0, 0xc0003f2310, 0x6, 0x1458f, {0xc0067fd6b0, 0x6, 0x6}, 0xc0008a7010, 0x0)
+	/usr/local/go/src/regexp/exec.go:355 +0x3b8 fp=0xc0008a6d90 sp=0xc0008a6c80 pc=0x102749048
+regexp.(*machine).add(0xc0003f22d0, 0xc0003f2310, 0x5, 0x1458f, {0xc0067fd6b0, 0x6, 0x6}, 0xc0008a7010, 0xc000418060)
+	/usr/local/go/src/regexp/exec.go:355 +0x3b8 fp=0xc0008a6ea0 sp=0xc0008a6d90 pc=0x102749048
+regexp.(*machine).step(0xc0003f22d0, 0xc0003f22e0, 0xc0003f2310, 0x1458e, 0x1458f, 0x20, 0xc0008a7010)
+	/usr/local/go/src/regexp/exec.go:304 +0x674 fp=0xc0008a6f90 sp=0xc0008a6ea0 pc=0x102748b14
+regexp.(*machine).match(0xc0003f22d0, {0x104252cc0, 0xc0003f2390}, 0x0)
+	/usr/local/go/src/regexp/exec.go:225 +0x460 fp=0xc0008a70a0 sp=0xc0008a6f90 pc=0x102748260
+regexp.(*Regexp).doExecute(0xc0000ca3c0, {0x0, 0x0}, {0x0, 0x0, 0x0}, {0xc001c80000, 0x8ab42}, 0x0, 0x6, ...)
+	/usr/local/go/src/regexp/exec.go:542 +0x414 fp=0xc0008a7180 sp=0xc0008a70a0 pc=0x10274a384
+regexp.(*Regexp).allMatches(0xc0000ca3c0, {0xc001c80000, 0x8ab42}, {0x0, 0x0, 0x0}, 0x8ab43, 0xc0008a7310)
+	/usr/local/go/src/regexp/regexp.go:758 +0x118 fp=0xc0008a72a0 sp=0xc0008a7180 pc=0x102751e38
+regexp.(*Regexp).FindAllStringSubmatchIndex(0xc0000ca3c0, {0xc001c80000, 0x8ab42}, 0xffffffffffffffff)
+	/usr/local/go/src/regexp/regexp.go:1201 +0x90 fp=0xc0008a7330 sp=0xc0008a72a0 pc=0x102753210
+github.com/tokenbeat-lab/barness/ai/internal/testkit/audit.File({0xc000c1ebb8, 0x42}, {0xc001a40000, 0x8ab42, 0x8ab43}, {0xc000243c08, 0x14, 0x1026c9c50?})
+	[REPO]/ai/internal/testkit/audit/audit.go:126 +0x300 fp=0xc0008a7570 sp=0xc0008a7330 pc=0x103128990
+github.com/tokenbeat-lab/barness/ai/internal/testkit/audit.Bundle.func1({0xc000c1eb40, 0xba}, {0x10424ad30, 0xc000e344c0}, {0x0, 0x0})
+	[REPO]/ai/internal/testkit/audit/audit.go:100 +0xe4 fp=0xc0008a7640 sp=0xc0008a7570 pc=0x103128554
+path/filepath.walkDir({0xc000c1eb40, 0xba}, {0x10424ad30, 0xc000e344c0}, 0xc0008a7a30)
+	/usr/local/go/src/path/filepath/path.go:311 +0x60 fp=0xc0008a7710 sp=0xc0008a7640 pc=0x1026c96d0
+path/filepath.walkDir({0xc0006dd3f0, 0xae}, {0x10424ad30, 0xc00119c080}, 0xc0008a7a30)
+	/usr/local/go/src/path/filepath/path.go:333 +0x2d8 fp=0xc0008a77e0 sp=0xc0008a7710 pc=0x1026c9948
+path/filepath.walkDir({0xc0003d2380, 0x77}, {0x10424af28, 0xc0003a6020}, 0xc0008a7a30)
+	/usr/local/go/src/path/filepath/path.go:333 +0x2d8 fp=0xc0008a78b0 sp=0xc0008a77e0 pc=0x1026c9948
+path/filepath.WalkDir({0xc0003d2380, 0x77}, 0xc000845a30)
+	/usr/local/go/src/path/filepath/path.go:401 +0x84 fp=0xc0008a7910 sp=0xc0008a78b0 pc=0x1026c9a74
+github.com/tokenbeat-lab/barness/ai/internal/testkit/audit.Bundle({0xc0003d2380, 0x77}, {0xc000243c08, 0x14, 0x25})
+	[REPO]/ai/internal/testkit/audit/audit.go:88 +0x21c fp=0xc0008a7a70 sp=0xc0008a7910 pc=0x1031281cc
+github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence.(*Run).Audit(0xc0004527e0)
+	[REPO]/ai/internal/testkit/evidence/evidence.go:170 +0x21c fp=0xc0008a7bd0 sp=0xc0008a7a70 pc=0x10312ce8c
+github.com/tokenbeat-lab/barness/ai/e2e.auditPassed(0xc0004527e0)
+	[REPO]/ai/e2e/main_test.go:58 +0x34 fp=0xc0008a7cd0 sp=0xc0008a7bd0 pc=0x103245974
+github.com/tokenbeat-lab/barness/ai/e2e.TestMain(0xc0004485a0)
+	[REPO]/ai/e2e/main_test.go:49 +0x4e4 fp=0xc0008a7e40 sp=0xc0008a7cd0 pc=0x103245904
+main.main()
+	_testmain.go:480 +0x108 fp=0xc0008a7f30 sp=0xc0008a7e40 pc=0x10339d948
+runtime.main()
+	/usr/local/go/src/runtime/proc.go:290 +0x2b4 fp=0xc0008a7fd0 sp=0xc0008a7f30 pc=0x1025e1244
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0008a7fd0 sp=0xc0008a7fd0 pc=0x10261f974
+
+goroutine 17 gp=0xc0000a43c0 m=nil [force gc (idle), 10 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000072790 sp=0xc000072770 pc=0x102617b9c
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:468
+runtime.forcegchelper()
+	/usr/local/go/src/runtime/proc.go:375 +0xb4 fp=0xc0000727d0 sp=0xc000072790 pc=0x1025e1564
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000727d0 sp=0xc0000727d0 pc=0x10261f974
+created by runtime.init.7 in goroutine 1
+	/usr/local/go/src/runtime/proc.go:363 +0x24
+
+goroutine 18 gp=0xc0000a45a0 m=nil [GC sweep wait]:
+runtime.gopark(0x1042f9501?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000088f70 sp=0xc000088f50 pc=0x102617b9c
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:468
+runtime.bgsweep(0xc0000b2000)
+	/usr/local/go/src/runtime/mgcsweep.go:324 +0x178 fp=0xc000088fb0 sp=0xc000088f70 pc=0x1025ca0b8
+runtime.gcenable.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:214 +0x20 fp=0xc000088fd0 sp=0xc000088fb0 pc=0x1025bb500
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000088fd0 sp=0xc000088fd0 pc=0x10261f974
+created by runtime.gcenable in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:214 +0x6c
+
+goroutine 19 gp=0xc0000a4780 m=nil [GC scavenge wait]:
+runtime.gopark(0x10000?, 0xa062cc?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc00008df60 sp=0xc00008df40 pc=0x102617b9c
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:468
+runtime.(*scavengerState).park(0x1042fa540)
+	/usr/local/go/src/runtime/mgcscavenge.go:425 +0x5c fp=0xc00008df90 sp=0xc00008df60 pc=0x1025c7bcc
+runtime.bgscavenge(0xc0000b2000)
+	/usr/local/go/src/runtime/mgcscavenge.go:658 +0xac fp=0xc00008dfb0 sp=0xc00008df90 pc=0x1025c816c
+runtime.gcenable.gowrap2()
+	/usr/local/go/src/runtime/mgc.go:215 +0x20 fp=0xc00008dfd0 sp=0xc00008dfb0 pc=0x1025bb4c0
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc00008dfd0 sp=0xc00008dfd0 pc=0x10261f974
+created by runtime.gcenable in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:215 +0xac
+
+goroutine 20 gp=0xc0000a4960 m=nil [GOMAXPROCS updater (idle), 10 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000072f70 sp=0xc000072f50 pc=0x102617b9c
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:468
+runtime.updateMaxProcsGoroutine()
+	/usr/local/go/src/runtime/proc.go:7095 +0xf4 fp=0xc000072fd0 sp=0xc000072f70 pc=0x1025efec4
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000072fd0 sp=0xc000072fd0 pc=0x10261f974
+created by runtime.defaultGOMAXPROCSUpdateEnable in goroutine 1
+	/usr/local/go/src/runtime/proc.go:7083 +0x48
+
+goroutine 21 gp=0xc0000a4b40 m=nil [finalizer wait, 10 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000104d80 sp=0xc000104d60 pc=0x102617b9c
+runtime.runFinalizers()
+	/usr/local/go/src/runtime/mfinal.go:210 +0x120 fp=0xc000104fd0 sp=0xc000104d80 pc=0x1025ba520
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000104fd0 sp=0xc000104fd0 pc=0x10261f974
+created by runtime.createfing in goroutine 1
+	/usr/local/go/src/runtime/mfinal.go:172 +0x78
+
+goroutine 22 gp=0xc0000a4f00 m=nil [cleanup wait, 10 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000074710 sp=0xc0000746f0 pc=0x102617b9c
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:468
+runtime.(*cleanupQueue).dequeue(0x1042fb020)
+	/usr/local/go/src/runtime/mcleanup.go:522 +0x160 fp=0xc000074750 sp=0xc000074710 pc=0x1025b6a20
+runtime.runCleanups()
+	/usr/local/go/src/runtime/mcleanup.go:718 +0x3c fp=0xc0000747d0 sp=0xc000074750 pc=0x1025b716c
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0000747d0 sp=0xc0000747d0 pc=0x10261f974
+created by runtime.(*cleanupQueue).createGs in goroutine 1
+	/usr/local/go/src/runtime/mcleanup.go:672 +0x108
+
+goroutine 2 gp=0xc0000050e0 m=nil [GC worker (idle), 1 minutes]:
+runtime.gopark(0x62f8a0c9d4baf?, 0x3?, 0x6e?, 0xbf?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000103f20 sp=0xc000103f00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc000103fb0 sp=0xc000103f20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc000103fd0 sp=0xc000103fb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000103fd0 sp=0xc000103fd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 3 gp=0xc0000052c0 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa15779e456?, 0x3?, 0xee?, 0x9?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000102f20 sp=0xc000102f00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc000102fb0 sp=0xc000102f20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc000102fd0 sp=0xc000102fb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000102fd0 sp=0xc000102fd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 4 gp=0xc0000054a0 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157de0e1a?, 0x3?, 0xf1?, 0xb1?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000101f20 sp=0xc000101f00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc000101fb0 sp=0xc000101f20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc000101fd0 sp=0xc000101fb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000101fd0 sp=0xc000101fd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 5 gp=0xc000005680 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157dfd67b?, 0x3?, 0x90?, 0x3a?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000100f20 sp=0xc000100f00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc000100fb0 sp=0xc000100f20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc000100fd0 sp=0xc000100fb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000100fd0 sp=0xc000100fd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 6 gp=0xc000005860 m=nil [GC worker (idle)]:
+runtime.gopark(0x1043243e0?, 0x1?, 0x53?, 0x7?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004b1f20 sp=0xc0004b1f00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004b1fb0 sp=0xc0004b1f20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004b1fd0 sp=0xc0004b1fb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004b1fd0 sp=0xc0004b1fd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 7 gp=0xc000005a40 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa15779b69a?, 0x3?, 0xe4?, 0x50?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004b0f20 sp=0xc0004b0f00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004b0fb0 sp=0xc0004b0f20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004b0fd0 sp=0xc0004b0fb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004b0fd0 sp=0xc0004b0fd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 8 gp=0xc000005c20 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157de0ccd?, 0x1?, 0xa2?, 0xed?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004aff20 sp=0xc0004aff00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004affb0 sp=0xc0004aff20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004affd0 sp=0xc0004affb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004affd0 sp=0xc0004affd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 9 gp=0xc0004b4000 m=nil [GC worker (idle)]:
+runtime.gopark(0x1043243e0?, 0x1?, 0x55?, 0x49?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004aef20 sp=0xc0004aef00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004aefb0 sp=0xc0004aef20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004aefd0 sp=0xc0004aefb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004aefd0 sp=0xc0004aefd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 10 gp=0xc0004b41e0 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157e16a4a?, 0x1?, 0xd8?, 0x59?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004adf20 sp=0xc0004adf00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004adfb0 sp=0xc0004adf20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004adfd0 sp=0xc0004adfb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004adfd0 sp=0xc0004adfd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 11 gp=0xc0004b43c0 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157e17244?, 0x3?, 0x40?, 0x9d?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004acf20 sp=0xc0004acf00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004acfb0 sp=0xc0004acf20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004acfd0 sp=0xc0004acfb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004acfd0 sp=0xc0004acfd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 12 gp=0xc0004b45a0 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157de14c6?, 0x3?, 0x8?, 0xd0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004abf20 sp=0xc0004abf00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004abfb0 sp=0xc0004abf20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004abfd0 sp=0xc0004abfb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004abfd0 sp=0xc0004abfd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 13 gp=0xc0004b4780 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa093b39e58?, 0x1?, 0xb2?, 0xff?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004aaf20 sp=0xc0004aaf00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004aafb0 sp=0xc0004aaf20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004aafd0 sp=0xc0004aafb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004aafd0 sp=0xc0004aafd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 14 gp=0xc0004b4960 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157e15839?, 0x1?, 0xe?, 0x37?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004bdf20 sp=0xc0004bdf00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004bdfb0 sp=0xc0004bdf20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004bdfd0 sp=0xc0004bdfb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004bdfd0 sp=0xc0004bdfd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 15 gp=0xc0004b4b40 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157dfd79f?, 0x1?, 0xba?, 0x57?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004bcf20 sp=0xc0004bcf00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004bcfb0 sp=0xc0004bcf20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004bcfd0 sp=0xc0004bcfb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004bcfd0 sp=0xc0004bcfd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 16 gp=0xc0004b4d20 m=nil [GC worker (idle)]:
+runtime.gopark(0x62fa157dfd775?, 0x3?, 0x47?, 0x2?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc0004bbf20 sp=0xc0004bbf00 pc=0x102617b9c
+runtime.gcBgMarkWorker(0xc00032a8c0)
+	/usr/local/go/src/runtime/mgc.go:1791 +0xe0 fp=0xc0004bbfb0 sp=0xc0004bbf20 pc=0x1025bdf60
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/usr/local/go/src/runtime/mgc.go:1695 +0x20 fp=0xc0004bbfd0 sp=0xc0004bbfb0 pc=0x1025bde60
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc0004bbfd0 sp=0xc0004bbfd0 pc=0x10261f974
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/usr/local/go/src/runtime/mgc.go:1695 +0x134
+
+goroutine 52514 gp=0xc00047cb40 m=nil [chan receive, 5 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc00052b620 sp=0xc00052b600 pc=0x102617b9c
+runtime.chanrecv(0xc0009139d0, 0x0, 0x1)
+	/usr/local/go/src/runtime/chan.go:667 +0x410 fp=0xc00052b6b0 sp=0xc00052b620 pc=0x1025a90b0
+runtime.chanrecv1(0xc000188870?, 0x10261526c?)
+	/usr/local/go/src/runtime/chan.go:509 +0x14 fp=0xc00052b6e0 sp=0xc00052b6b0 pc=0x1025a8c64
+github.com/tokenbeat-lab/barness/ai/e2e.TestTimeouts.func1.1.2.StalledDialTransport.1({0x10424af98, 0xc000188870}, {0xc000ad2738?, 0x10269e660?}, {0xc000ad2788?, 0x10269c530?})
+	[REPO]/ai/internal/testkit/provider/loopback.go:40 +0x40 fp=0xc00052b710 sp=0xc00052b6e0 pc=0x10338f8d0
+net/http.(*Transport).dial(0xc0002ad380, {0x10424af98, 0xc000188870}, {0x103414ad0, 0x3}, {0xc0010cb5b1, 0xf})
+	/usr/local/go/src/net/http/transport.go:1307 +0x94 fp=0xc00052b7d0 sp=0xc00052b710 pc=0x102942da4
+net/http.(*Transport).dialConn(0xc0002ad380, {0x10424af98, 0xc000188870}, {{}, 0x0, {0xc0000f7c40, 0x4}, {0xc0010cb5b1, 0xf}, 0x0}, ...)
+	/usr/local/go/src/net/http/transport.go:1815 +0xa50 fp=0xc00052be60 sp=0xc00052b7d0 pc=0x102946aa0
+net/http.(*Transport).dialConnFor(0xc0002ad380, 0xc000fac9a0)
+	/usr/local/go/src/net/http/transport.go:1648 +0xb4 fp=0xc00052bf50 sp=0xc00052be60 pc=0x102944f64
+net/http.(*Transport).startDialConnForLocked.func1()
+	/usr/local/go/src/net/http/transport.go:1629 +0x38 fp=0xc00052bfd0 sp=0xc00052bf50 pc=0x102944da8
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc00052bfd0 sp=0xc00052bfd0 pc=0x10261f974
+created by net/http.(*Transport).startDialConnForLocked in goroutine 52513
+	/usr/local/go/src/net/http/transport.go:1628 +0x1a8
+
+goroutine 52500 gp=0xc00010da40 m=nil [chan receive, 5 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000e59620 sp=0xc000e59600 pc=0x102617b9c
+runtime.chanrecv(0xc0009131f0, 0x0, 0x1)
+	/usr/local/go/src/runtime/chan.go:667 +0x410 fp=0xc000e596b0 sp=0xc000e59620 pc=0x1025a90b0
+runtime.chanrecv1(0xc000188280?, 0x10261526c?)
+	/usr/local/go/src/runtime/chan.go:509 +0x14 fp=0xc000e596e0 sp=0xc000e596b0 pc=0x1025a8c64
+github.com/tokenbeat-lab/barness/ai/e2e.TestTimeouts.func1.1.2.StalledDialTransport.1({0x10424af98, 0xc000188280}, {0xc000467738?, 0x10269e660?}, {0xc000467788?, 0x10269c530?})
+	[REPO]/ai/internal/testkit/provider/loopback.go:40 +0x40 fp=0xc000e59710 sp=0xc000e596e0 pc=0x10338f8d0
+net/http.(*Transport).dial(0xc00011b520, {0x10424af98, 0xc000188280}, {0x103414ad0, 0x3}, {0xc000fcacf1, 0xf})
+	/usr/local/go/src/net/http/transport.go:1307 +0x94 fp=0xc000e597d0 sp=0xc000e59710 pc=0x102942da4
+net/http.(*Transport).dialConn(0xc00011b520, {0x10424af98, 0xc000188280}, {{}, 0x0, {0xc0000f7f20, 0x4}, {0xc000fcacf1, 0xf}, 0x0}, ...)
+	/usr/local/go/src/net/http/transport.go:1815 +0xa50 fp=0xc000e59e60 sp=0xc000e597d0 pc=0x102946aa0
+net/http.(*Transport).dialConnFor(0xc00011b520, 0xc000fac420)
+	/usr/local/go/src/net/http/transport.go:1648 +0xb4 fp=0xc000e59f50 sp=0xc000e59e60 pc=0x102944f64
+net/http.(*Transport).startDialConnForLocked.func1()
+	/usr/local/go/src/net/http/transport.go:1629 +0x38 fp=0xc000e59fd0 sp=0xc000e59f50 pc=0x102944da8
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000e59fd0 sp=0xc000e59fd0 pc=0x10261f974
+created by net/http.(*Transport).startDialConnForLocked in goroutine 52499
+	/usr/local/go/src/net/http/transport.go:1628 +0x1a8
+
+goroutine 52478 gp=0xc00062dc20 m=nil [chan receive, 5 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000531620 sp=0xc000531600 pc=0x102617b9c
+runtime.chanrecv(0xc000f48cb0, 0x0, 0x1)
+	/usr/local/go/src/runtime/chan.go:667 +0x410 fp=0xc0005316b0 sp=0xc000531620 pc=0x1025a90b0
+runtime.chanrecv1(0xc000a22730?, 0x10261526c?)
+	/usr/local/go/src/runtime/chan.go:509 +0x14 fp=0xc0005316e0 sp=0xc0005316b0 pc=0x1025a8c64
+github.com/tokenbeat-lab/barness/ai/e2e.TestTimeouts.func1.1.2.StalledDialTransport.1({0x10424af98, 0xc000a22730}, {0xc000543738?, 0x10269e660?}, {0xc000543788?, 0x10269c530?})
+	[REPO]/ai/internal/testkit/provider/loopback.go:40 +0x40 fp=0xc000531710 sp=0xc0005316e0 pc=0x10338f8d0
+net/http.(*Transport).dial(0xc00083cb60, {0x10424af98, 0xc000a22730}, {0x103414ad0, 0x3}, {0xc00118b4f1, 0xf})
+	/usr/local/go/src/net/http/transport.go:1307 +0x94 fp=0xc0005317d0 sp=0xc000531710 pc=0x102942da4
+net/http.(*Transport).dialConn(0xc00083cb60, {0x10424af98, 0xc000a22730}, {{}, 0x0, {0xc00083a5e0, 0x4}, {0xc00118b4f1, 0xf}, 0x0}, ...)
+	/usr/local/go/src/net/http/transport.go:1815 +0xa50 fp=0xc000531e60 sp=0xc0005317d0 pc=0x102946aa0
+net/http.(*Transport).dialConnFor(0xc00083cb60, 0xc0000eef20)
+	/usr/local/go/src/net/http/transport.go:1648 +0xb4 fp=0xc000531f50 sp=0xc000531e60 pc=0x102944f64
+net/http.(*Transport).startDialConnForLocked.func1()
+	/usr/local/go/src/net/http/transport.go:1629 +0x38 fp=0xc000531fd0 sp=0xc000531f50 pc=0x102944da8
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000531fd0 sp=0xc000531fd0 pc=0x10261f974
+created by net/http.(*Transport).startDialConnForLocked in goroutine 52477
+	/usr/local/go/src/net/http/transport.go:1628 +0x1a8
+
+goroutine 52531 gp=0xc0007d0b40 m=nil [chan receive, 5 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000843620 sp=0xc000843600 pc=0x102617b9c
+runtime.chanrecv(0xc000f490a0, 0x0, 0x1)
+	/usr/local/go/src/runtime/chan.go:667 +0x410 fp=0xc0008436b0 sp=0xc000843620 pc=0x1025a90b0
+runtime.chanrecv1(0xc000a22aa0?, 0x10261526c?)
+	/usr/local/go/src/runtime/chan.go:509 +0x14 fp=0xc0008436e0 sp=0xc0008436b0 pc=0x1025a8c64
+github.com/tokenbeat-lab/barness/ai/e2e.TestTimeouts.func1.1.2.StalledDialTransport.1({0x10424af98, 0xc000a22aa0}, {0xc000843738?, 0x10269e660?}, {0xc000843788?, 0x10269c530?})
+	[REPO]/ai/internal/testkit/provider/loopback.go:40 +0x40 fp=0xc000843710 sp=0xc0008436e0 pc=0x10338f8d0
+net/http.(*Transport).dial(0xc00083d860, {0x10424af98, 0xc000a22aa0}, {0x103414ad0, 0x3}, {0xc000afd771, 0xf})
+	/usr/local/go/src/net/http/transport.go:1307 +0x94 fp=0xc0008437d0 sp=0xc000843710 pc=0x102942da4
+net/http.(*Transport).dialConn(0xc00083d860, {0x10424af98, 0xc000a22aa0}, {{}, 0x0, {0xc00083a920, 0x4}, {0xc000afd771, 0xf}, 0x0}, ...)
+	/usr/local/go/src/net/http/transport.go:1815 +0xa50 fp=0xc000843e60 sp=0xc0008437d0 pc=0x102946aa0
+net/http.(*Transport).dialConnFor(0xc00083d860, 0xc0000ef8c0)
+	/usr/local/go/src/net/http/transport.go:1648 +0xb4 fp=0xc000843f50 sp=0xc000843e60 pc=0x102944f64
+net/http.(*Transport).startDialConnForLocked.func1()
+	/usr/local/go/src/net/http/transport.go:1629 +0x38 fp=0xc000843fd0 sp=0xc000843f50 pc=0x102944da8
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000843fd0 sp=0xc000843fd0 pc=0x10261f974
+created by net/http.(*Transport).startDialConnForLocked in goroutine 52530
+	/usr/local/go/src/net/http/transport.go:1628 +0x1a8
+
+goroutine 53531 gp=0xc0007d14a0 m=nil [chan receive, 4 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:462 +0xbc fp=0xc000d69620 sp=0xc000d69600 pc=0x102617b9c
+runtime.chanrecv(0xc0034868c0, 0x0, 0x1)
+	/usr/local/go/src/runtime/chan.go:667 +0x410 fp=0xc000d696b0 sp=0xc000d69620 pc=0x1025a90b0
+runtime.chanrecv1(0xc000189400?, 0x10261526c?)
+	/usr/local/go/src/runtime/chan.go:509 +0x14 fp=0xc000d696e0 sp=0xc000d696b0 pc=0x1025a8c64
+github.com/tokenbeat-lab/barness/ai/e2e.TestUnaryTransportTimeouts.func1.1.StalledDialTransport.1({0x10424af98, 0xc000189400}, {0xc000d69738?, 0x10269e660?}, {0xc000d69788?, 0x10269c530?})
+	[REPO]/ai/internal/testkit/provider/loopback.go:40 +0x40 fp=0xc000d69710 sp=0xc000d696e0 pc=0x10338f970
+net/http.(*Transport).dial(0xc00083d1e0, {0x10424af98, 0xc000189400}, {0x103414ad0, 0x3}, {0xc000793ee1, 0xf})
+	/usr/local/go/src/net/http/transport.go:1307 +0x94 fp=0xc000d697d0 sp=0xc000d69710 pc=0x102942da4
+net/http.(*Transport).dialConn(0xc00083d1e0, {0x10424af98, 0xc000189400}, {{}, 0x0, {0xc000ea1d40, 0x4}, {0xc000793ee1, 0xf}, 0x0}, ...)
+	/usr/local/go/src/net/http/transport.go:1815 +0xa50 fp=0xc000d69e60 sp=0xc000d697d0 pc=0x102946aa0
+net/http.(*Transport).dialConnFor(0xc00083d1e0, 0xc0000ef760)
+	/usr/local/go/src/net/http/transport.go:1648 +0xb4 fp=0xc000d69f50 sp=0xc000d69e60 pc=0x102944f64
+net/http.(*Transport).startDialConnForLocked.func1()
+	/usr/local/go/src/net/http/transport.go:1629 +0x38 fp=0xc000d69fd0 sp=0xc000d69f50 pc=0x102944da8
+runtime.goexit({})
+	/usr/local/go/src/runtime/asm_arm64.s:1447 +0x4 fp=0xc000d69fd0 sp=0xc000d69fd0 pc=0x10261f974
+created by net/http.(*Transport).startDialConnForLocked in goroutine 53527
+	/usr/local/go/src/net/http/transport.go:1628 +0x1a8
+
+r0      0x104
+r1      0x0
+r2      0x36f5800
+r3      0x0
+r4      0x0
+r5      0xa0
+r6      0x0
+r7      0x0
+r8      0x16d8aebd8
+r9      0x0
+r10     0x71500
+r11     0x7150000071502
+r12     0x7150000071502
+r13     0x71500
+r14     0x0
+r15     0x7150000071500
+r16     0x131
+r17     0x1f7e0afb8
+r18     0x0
+r19     0x1042fc8a8
+r20     0x1042fc8e8
+r21     0x1f67cdf60
+r22     0x0
+r23     0x0
+r24     0x36f5800
+r25     0x36f5801
+r26     0x36f5900
+r27     0x1042db000
+r28     0x1042fb1e0
+r29     0x16d8aec50
+lr      0x18a64e128
+sp      0x16d8aebc0
+pc      0x18a60d50c
+fault   0x18a60d50c
+*** Test killed with quit: ran too long (11m0s).
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	660.024s
+?   	github.com/tokenbeat-lab/barness/ai/examples/chineseeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/hostintegration	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/localassembly	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/requestid	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/toolloop	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/clock	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/probe	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit	1.993s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/host	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle	2.343s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/provider	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	15.207s
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	3.187s
+?   	github.com/tokenbeat-lab/barness/ai/live	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate	[no test files]
+FAIL
+# barness-ai release gate: FAIL
+
+Commit `3b74fb3eb6e7cb04fe01ea3fe53410a82b3ed03a`; offline bundle `.evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T031635.621549000Z`.
+
+| Gate | Result | Problems |
+| --- | --- | --- |
+| go-test — go test ./... (offline, differential on) | FAIL | go-test: failed (BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -count=1 ./...) |
+| go-test-race — go test -race ./... | FAIL | go-test-race: failed (BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 ./...) |
+| go-vet — go vet ./... (with and without the live tag) | PASS | — |
+| p0-offline — every offline P0 case passes | FAIL | case E08-policy-pressure-cloud-interactive-design-load=FAIL |
+| differential — frozen pi differential: no pending difference | PASS | — |
+| live — every combination fully passed its live smoke (PASS or explicit UNSUPPORTED) | FAIL | openai-responses: failing now: text-stream=FAIL deadline_exceeded, text-complete=FAIL deadline_exceeded, tool-round-trip=FAIL transport, cancel-after-first-frame=FAIL assertion, reasoning-history=FAIL transport, image=FAIL transport, tool-changes-gpt-5.4=FAIL transport, tool-changes-gpt-6-sol=FAIL transport; anthropic-messages: failing now: text-stream=FAIL upstream_auth, text-complete=FAIL upstream_auth, tool-round-trip=FAIL upstream_auth, cancel-after-first-frame=FAIL assertion, reasoning-history=FAIL upstream_auth, image=FAIL upstream_auth, tool-changes-claude-opus-4-8=FAIL upstream_auth, tool-changes-claude-fable-5=FAIL upstream_auth, effort-changes-claude-fable-5-1=FAIL upstream_auth, effort-changes-claude-opus-5=FAIL upstream_auth, effort-changes-claude-opus-5-5=FAIL upstream_auth; google-gemini: failing now: text-stream=FAIL deadline_exceeded, text-complete=FAIL deadline_exceeded, tool-round-trip=FAIL deadline_exceeded, cancel-after-first-frame=FAIL assertion, reasoning-history=FAIL deadline_exceeded, image=FAIL deadline_exceeded; openai-chat: failing now: text-stream=FAIL deadline_exceeded, text-complete=FAIL deadline_exceeded, tool-round-trip=FAIL deadline_exceeded, cancel-after-first-frame=FAIL assertion, image=FAIL deadline_exceeded, usage-position=FAIL deadline_exceeded, tool-changes-gpt-5.4=FAIL deadline_exceeded, tool-changes-gpt-6-sol=FAIL deadline_exceeded, pro-model-unavailable=FAIL deadline_exceeded; typesafe-classifier: failing now: mixed-questions=FAIL invalid_request, single-choice=FAIL invalid_request, context-422=FAIL invalid_request; openai-images: failing now: json-edit=FAIL deadline_exceeded; google-interactions-image: failing now: generation=FAIL deadline_exceeded, reference-edit=FAIL deadline_exceeded |
+| redaction-audit — redaction audit: no key, Authorization or real content in any bundle | FAIL | .evidence/barness-ai-thinking-sampling/current-release/gate/race/20261011T032107.858599000Z: no audit recorded by the run: release: open .evidence/barness-ai-thinking-sampling/current-release/gate/race/20261011T032107.858599000Z/audit.json: no such file or directory |
+| traceability — traceability: research item → scenario → evidence | FAIL | C11-ChineseEffect (issue 16 / US87 / ADR-0024) is FAIL; C08 (research-traceability §4 C08) is FAIL; V6-live (research-traceability §4 V§6) is FAIL; H5 (research-traceability §5 H5) is FAIL; D1 (spec D1 / ADR-0002) is FAIL; D1-examples (spec I9 正式示例 / issue 24) is FAIL; S6-4-7 (research-traceability §1 S§6 验收 4–7) is FAIL; TS-R11 (.scratch/barness-ai-thinking-sampling/spec.md#r11) is FAIL |
+| snapshots — checked-in snapshots match the code | PASS | — |
+| required-artifacts — mixed image design loads and independent Chinese business evaluation | FAIL | chinese-effect: FAIL evaluation is live/FAIL |
+
+### Commands
+
+| Command | Result | Duration |
+| --- | --- | --- |
+| `go vet ./...` | PASS | 0s |
+| `go vet -tags live ./...` | PASS | 0s |
+| `BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -count=1 ./...` | FAIL | 4m31s |
+| `BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 ./...` | FAIL | 11m3s |
+
+## Offline
+
+5310 cases: 5309 PASS, 1 FAIL, 0 NOT_RUN, 0 UNSUPPORTED, differential cases excluded.
+
+| P0 scenario | Pass | Fail | Not run | Unsupported |
+| --- | --- | --- | --- | --- |
+| D1 | 35 | 0 | 0 | 0 |
+| D2 | 24 | 0 | 0 | 0 |
+| E01 | 138 | 0 | 0 | 0 |
+| E02 | 710 | 0 | 0 | 0 |
+| E03 | 871 | 0 | 0 | 0 |
+| E04 | 1528 | 0 | 0 | 0 |
+| E05 | 236 | 0 | 0 | 0 |
+| E06 | 175 | 0 | 0 | 0 |
+| E07 | 421 | 0 | 0 | 0 |
+| E08 | 757 | 1 | 0 | 0 |
+| E09 | 57 | 0 | 0 | 0 |
+| E10 | 119 | 0 | 0 | 0 |
+| E11 | 154 | 0 | 0 | 0 |
+| P01 | 960 | 0 | 0 | 0 |
+| P02 | 293 | 0 | 0 | 0 |
+| P03 | 293 | 0 | 0 | 0 |
+| P04 | 574 | 0 | 0 | 0 |
+| P05 | 339 | 0 | 0 | 0 |
+| P06 | 351 | 0 | 0 | 0 |
+| P07 | 330 | 0 | 0 | 0 |
+| P08 | 267 | 0 | 0 | 0 |
+| P09 | 300 | 0 | 0 | 0 |
+| PRESSURE | 12 | 1 | 0 | 0 |
+
+Not passing:
+
+- E08-policy-pressure-cloud-interactive-design-load=FAIL
+
+## Differential
+
+815 cases: 815 PASS, 0 FAIL, 0 NOT_RUN, 0 UNSUPPORTED against frozen pi; 0 pending finding(s). Ledger: 229 extension, 39 fixed, 0 pending decision(s); extension routes outside pi: google × google-interactions deepseek × openai-responses openai × openai-images.
+
+| Protocol | Pass | Fail | Not run |
+| --- | --- | --- | --- |
+| P01 | 335 | 0 | 0 |
+| P02 | 70 | 0 | 0 |
+| P03 | 77 | 0 | 0 |
+| P04 | 203 | 0 | 0 |
+| P06 | 118 | 0 | 0 |
+| P07 | 12 | 0 | 0 |
+
+## Live
+
+From the support matrix (ai/live/support-matrix.json).
+
+| Combination | Operation | Status | Model | SDK | Account | Last complete pass | Unsupported | Failing |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| openai-responses | chat | FAIL | gpt-5-mini | github.com/openai/openai-go/v3 v3.66.0 | local-openai@region-permissions-unconfirmed | 2026-10-08T11:45:20Z | — | text-stream=FAIL deadline_exceeded; text-complete=FAIL deadline_exceeded; tool-round-trip=FAIL transport; cancel-after-first-frame=FAIL assertion; … 4 more |
+| anthropic-messages | chat | FAIL | claude-haiku-4-5 | github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011) | local-anthropic@region-permissions-unconfirmed | 2026-10-08T11:45:53Z | — | text-stream=FAIL upstream_auth; text-complete=FAIL upstream_auth; tool-round-trip=FAIL upstream_auth; cancel-after-first-frame=FAIL assertion; … 7 more |
+| google-gemini | chat | FAIL | gemini-3.8-flash | direct HTTP (ADR-0012) | local-google@region-permissions-unconfirmed | 2026-10-08T11:46:09Z | — | text-stream=FAIL deadline_exceeded; text-complete=FAIL deadline_exceeded; tool-round-trip=FAIL deadline_exceeded; cancel-after-first-frame=FAIL assertion; … 2 more |
+| openai-chat | chat | FAIL | gpt-5-mini | github.com/openai/openai-go/v3 v3.66.0 | local-openai@region-permissions-unconfirmed | 2026-10-08T11:46:26Z | reasoning-history: OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage | text-stream=FAIL deadline_exceeded; text-complete=FAIL deadline_exceeded; tool-round-trip=FAIL deadline_exceeded; cancel-after-first-frame=FAIL assertion; … 5 more |
+| deepseek-responses | chat | PASS | deepseek-flash | github.com/openai/openai-go/v3 v3.66.0 | local-deepseek@region-permissions-unconfirmed | 2026-10-11T03:06:42Z | — | — |
+| deepseek-chat | chat | PASS | deepseek-flash | github.com/openai/openai-go/v3 v3.66.0 | local-deepseek@region-permissions-unconfirmed | 2026-10-11T03:06:51Z | — | — |
+| typesafe-classifier | classifier | FAIL | jev-1.13.0 | direct HTTP (ADR-0021; typesafe-system-one v1) | local-typesafe@region-permissions-unconfirmed | 2026-10-08T11:46:48Z | — | mixed-questions=FAIL invalid_request; single-choice=FAIL invalid_request; context-422=FAIL invalid_request |
+| openai-images | image | FAIL | gpt-image-2.5-sunburst-2026-09-08 | direct HTTP (OpenAI Images JSON; ADR-0022) | local-openai@region-permissions-unconfirmed | 2026-10-08T11:47:23Z | — | json-edit=FAIL deadline_exceeded |
+| google-interactions-image | image | FAIL | gemini-nano-banana-2.1 | direct HTTP (Google Interactions v1beta; ADR-0023) | local-google@region-permissions-unconfirmed | 2026-10-08T11:47:49Z | — | generation=FAIL deadline_exceeded; reference-edit=FAIL deadline_exceeded |
+
+## Traceability
+
+Status comes from evidence only; an item that is only mapped is NO_EVIDENCE, never PASS.
+
+| Item | Source | Requirement | Scenarios | Status | Offline | Differential | Live | Artifacts | Evidence |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| C11-ChineseEffect | issue 16 / US87 / ADR-0024 | Independent fixed synthetic Chinese dataset and real jev-1.13.0 COMPLETE report, full denominators, confusion/calibration and attempts; integrity and audit verified separately from protocol smoke, without an accuracy threshold | ARTIFACTS | FAIL | — | — | — | 0/1 (1 FAIL) | artifact:chinese-effect=FAIL |
+| H5-design-load-artifacts | issue 15–17 / ADR-0017 | Actual local and cloud mixed image design-load reports with measured whole JSON/base64, concurrency, allocation upper bounds, all limit ratios <=75% and released resources | ARTIFACTS | PASS | — | — | — | 2/2 | artifact:mixed-pressure-local=PASS; artifact:mixed-pressure-cloud=PASS |
+| T03-mixed-operation-isolation | issue 15 / ADR-0001/0003/0020 | Concurrent chat/image/classifier with same-named tenant bindings and model IDs, legal same-account credential sharing, preflight operation/options refusals, fixed retry snapshots and independent route disabling | E07 | PASS | 49/49 | — | — | — | E07-mixed-binding-disabled-classifier; E07-mixed-binding-disabled-google-image; E07-mixed-binding-disabled-openai-image; … 3 more |
+| C08-mixed-lifecycle | issue 15 / ADR-0008 | Mixed cancellation/deadlines/failures and tenant/process/waiter/time caps release only own resources; complete body and validation remain under admission | E08 | PASS | 38/38 | — | — | — | E08-mixed-admission-chat-process-cancel; E08-mixed-admission-chat-tenant-cancel; E08-mixed-admission-chat-wait-timeout; … 3 more |
+| C09-mixed-observer | issue 15 / ADR-0009 | Mixed attributed metadata and usage only; slow/congested/error/panic Observer cannot change model success or failure and statistics identify loss | E09 | PASS | 4/4 | — | — | — | E09-mixed-observer-congested; E09-mixed-observer-error; E09-mixed-observer-panic; … 1 more |
+| H5-mixed-design-load | issue 15 / ADR-0002/0017 | Explicit image/classifier policies with measured whole JSON/base64, atomic limits, reachable heap budgets, Provider copies, throughput and at most 75% byte-limit use; opt-in NOT_RUN | PRESSURE E08 | PASS | 16/16 | — | — | — | E08-mixed-image-budget-google-image-above-frame; E08-mixed-image-budget-google-image-count; E08-mixed-image-budget-google-image-input-image; … 3 more |
+| C10-mixed-hosts | issue 15 / ADR-0001/0003 | Local and cloud public examples with independent bindings, legal shared credentials, authenticated identity, cancellation, typed results and host-owned confidence/routing | E10 | PASS | 11/11 | — | — | — | E10-mixed-host-cloud; E10-mixed-host-local; E10-mixed-local-guard-disabled; … 3 more |
+| V6-google-images-live | issue 14 / ADR-0016/0023 | Own fixed Nano Banana 2.1 on official v1beta; required generation/reference editing, four-call/image 1K budget, complete synchronous inline evidence, honest absent identity, atomic own-report matrix merge; separate live gate requires its own audited bundle | P09 | PASS | 29/29 | — | — | — | P09-E01-live-replay-generation-captured; P09-E01-live-replay-generation-partial; P09-E01-live-replay-generation-unreported; … 3 more |
+| H2-google-images-catalog | issue 14 / ADR-0010/0018/0023 | Own live before builtin inclusion; verified counts/1K/1:1, dated modality rates; image-only output detail excludes text thought, Output contains Reasoning, native TotalTokens retained, nullable partial/unreported without invented missing text/cache or per-image pricing | P09 | PASS | 7/7 | — | — | — | P09-E01-live-replay-generation-captured; P09-E01-live-replay-generation-partial; P09-E01-live-replay-generation-unreported; … 3 more |
+| C04-google-images-delivery-omission | issue 14 / maintainer-approved ADR-0023 | Always omit refused delivery field, forbid callback insertion, still reject URI/continuation/non-completed output without protocol/version/model fallback | P09 | PASS | 10/10 | — | — | — | P09-E01-live-replay-generation-captured; P09-E01-live-replay-generation-partial; P09-E01-live-replay-generation-unreported; … 3 more |
+| V4-google-images-editing | issue 13 / design 8.1, 12.3–12.9 / ADR-0022 | Same public GenerateImages operation, prompt then ordered inline reference images, independent input snapshots, all output steps, atomic failures retaining usage and no replay | P09 | PASS | 152/152 | — | — | — | P09-E01-edit-ordered; P09-E01-live-replay-reference-edit-captured; P09-E01-live-replay-reference-edit-partial; … 3 more |
+| H5-google-images-input-budgets | issue 13 / ADR-0002/0022 | Host/model/14 reference intersection; per-image bytes and final decimal 20 MB or smaller host budget including encoding overhead, checked before copies and again after callbacks | P09 | PASS | 29/29 | — | — | — | P09-E07-edit-budget-decimal-protocol-bytes; P09-E07-edit-budget-encoding-overhead; P09-E07-edit-budget-exact-request-bytes; … 3 more |
+| C04-google-images-edit-final | issue 13 / design 13 / ADR-0022 | Every forbidden field/fixed-field deletion refused on editing; final input MIME/base64/count/bytes and model options revalidated, no foreign identity/URI/mask or interleaving | P09 | PASS | 110/110 | — | — | — | P09-E02-audio-edit-replay; P09-E02-bad-base64-edit-replay; P09-E02-bad-content-edit-replay; … 3 more |
+| V4-google-images-generation | issue 12 / ADR-0012/0022 | Native v1beta synchronous stateless inline generation, ordered model_output collection, real terminal mapping, atomic images and extension registration without premature live claims | P09 | PASS | 300/300 | — | — | — | P09-E01-edit-ordered; P09-E01-generation; P09-E01-interleaved; … 3 more |
+| C04-google-images-final | issue 12–13 / design 12–13 / ADR-0022 | Final callback model/fixed fields/schema/20 MB guard, protocol options, no continuation/external resources, ordered final inline references | P09 | PASS | 134/134 | — | — | — | P09-E04-allowed-options; P09-E04-bad-input; P09-E04-delete-format; … 3 more |
+| H5-google-images-budgets | issue 12 / ADR-0002/0007/0008/0022 | Total JSON/image budgets, admission held through complete validation, cancellation/read timeout, body/permit release and no 2xx replay | P09 | PASS | 58/58 | — | — | — | P09-E08-edit-allocation-byte-data; P09-E08-edit-allocation-custom-key; P09-E08-edit-allocation-escaped-raw; … 3 more |
+| T09-google-images-modalities | issue 12 / ADR-0009/0010/0022 | Shared complete/partial/unreported axis, 7/42/22/49 normalization, explicit thought inclusion pricing, sourced fixtures and independent metadata-only modality audit | P09 | PASS | 31/31 | — | — | — | P09-E09-modality-audit; P09-E11-duplicate-modality; P09-E11-duplicate-modality-edit-replay; … 3 more |
+| V6-openai-images-live | issue 11 / ADR-0016/0022 | Own fixed-model edit-first JSON acceptance, generation and optional mask, four-image 1K budget, audited actual consumption and atomic own-route matrix merge; separate live gate requires its own audited bundle | P08 | PASS | 4/4 | — | — | — | P08-E01-live-replay-generation; P08-E01-live-replay-json-edit; P08-E01-live-replay-mask-edit; … 1 more |
+| H2-openai-images-catalog | issue 11 / ADR-0010/0018/0022 | Fixed date snapshot and verified capabilities, sourced text/image token pricing, no cached/per-image rates, current catalog/price hash and actual usage replay | P08 | PASS | 4/4 | — | — | — | P08-E01-live-replay-generation; P08-E01-live-replay-json-edit; P08-E01-live-replay-mask-edit; … 1 more |
+| V4-openai-images-editing | issue 10 / ADR-0022 | Fixed generation/edit endpoint, ordered inline JSON references and mask, sourced dimensions and model fidelity, atomic output and shared unary lifecycle | P08 | PASS | 132/132 | — | — | — | P08-E01-edit-mask; P08-E01-edit-multiple; P08-E01-edit-omit-fidelity; … 3 more |
+| H5-image-input-budgets | issue 10 / design 8.1 / ADR-0022 | Reference and mask host/model/protocol count and byte budgets, known lengths before copy or encoding, callback allocation bounds | P08 | PASS | 33/33 | — | — | — | P08-E04-edit-host-count; P08-E04-edit-image-bytes; P08-E04-edit-mask-bytes; … 3 more |
+| C04-image-edit-final | issue 10 / spec image callbacks / ADR-0022 | Final JSON edit schema, no foreign resource/operation/model, final MIME/count and mask validation, single response callback and lease/body release | P08 | PASS | 58/58 | — | — | — | P08-E04-edit-bad-response; P08-E04-edit-bounded-cycle; P08-E04-edit-bounded-deep; … 3 more |
+| V4-openai-images-generation | issue 09 / ADR-0022 | Native synchronous generation, all-image atomic validation, protocol options, explicit extension registration and no premature live catalog claim | P08 | PASS | 267/267 | — | — | — | P08-D1-policy-image; P08-D1-policy-image-over-total; P08-D1-policy-input; … 3 more |
+| H5-image-budgets | issue 09 / ADR-0002/0007/0008/0022 | Image subpolicy snapshots, bounded unary JSON, image count/byte limits, cancellation and zero resource gauges, callback size before encoding | P08 | PASS | 47/47 | — | — | — | P08-D1-policy-image; P08-D1-policy-image-over-total; P08-D1-policy-input; … 3 more |
+| C04-image-final-payload | issue 09 / ADR-0005/0022 | Final model and allowed generation fields, frozen options/count/MIME, no external resources or continuation, callbacks once outside binding retries | P08 | PASS | 89/89 | — | — | — | P08-E04-all-options; P08-E04-edit-bad-response; P08-E04-edit-bounded-cycle; … 3 more |
+| T09-image-usage | issue 09 / ADR-0009/0010/0022 | One reporting axis, nullable modality tokens, known-only modality prices without cache/per-image billing, metadata-only independent Observer snapshots | P08 | PASS | 18/18 | — | — | — | P08-E09-observer-isolation; P08-E11-cache-price-image; P08-E11-cache-price-null; … 3 more |
+| V6-typesafe-live | issue 08 / ADR-0016/0021 | Official fixed classifier wire replay and explicit unconfirmed 422 shape; the separate live gate requires this route's own audited bundle | P07 | PASS | 8/8 | — | — | — | P07-E02-live-score-beyond-rounding; P07-E02-live-score-higher-precision-mismatch; P07-E02-live-score-observed-hundredths; … 3 more |
+| H2-typesafe-catalog | issue 08 / ADR-0010/0018 | Only jev-1.13.0 with official capabilities, input rate 0.042 and free output; versioned hash snapshot | P07 | PASS | 4/4 | — | — | — | P07-E11-builtin-official; P07-E11-live-wire-context-422; P07-E11-live-wire-mixed-questions; … 1 more |
+| C08-unary-lifecycle | issue 07 / design 7.5–7.6 / ADR-0003/0006/0008 | Unary cancellation, deadlines, transport timeouts, independent admission, frozen retries and subsequent permit acquisition | P07 | PASS | 41/41 | — | — | — | P07-E05-unary-backoff-cancel; P07-E05-unary-backoff-deadline; P07-E05-unary-frozen-snapshot; … 3 more |
+| H5-unary-budgets | issue 07 / design 8 / ADR-0007/0008 | Inclusive unary output and error budgets, one overflow byte, no replay, body and lease release after parsing | P07 | PASS | 19/19 | — | — | — | P07-E08-unary-budget-bad-json; P07-E08-unary-budget-error-exact; P07-E08-unary-budget-error-over; … 3 more |
+| C04-unary-callbacks | issue 07 / ADR-0006/0008 | One frozen request callback per logical call, invalid callback rejection and host cause Is/As preserved | P07 | PASS | 35/35 | — | — | — | P07-E04-unary-callback-custom-byte-element; P07-E04-unary-callback-encoding-pointer-array-element; P07-E04-unary-callback-encoding-pointer-json-element; … 3 more |
+| T09-unary-observer | issue 07 / ADR-0009 | Trusted unresolved/resolved attribution, shared usage reporting axis, bounded asynchronous observer faults and redaction | P07 | PASS | 4/4 | — | — | — | P07-E09-unary-observer-congested; P07-E09-unary-observer-error; P07-E09-unary-observer-panic; … 1 more |
+| V4-typesafe-mixed | issue 06 / spec TypeSafe / ADR-0021 | Three closed kinds, ordered scores, bool/noul, native JSON precision and strict final-question answers | P07 | PASS | 109/109 | 10/10 | — | — | P07-E01-bool-no-criteria; P07-E01-bool-no-criteria-parity; P07-E01-mixed; … 3 more |
+| H2-typesafe-parity | issue 06 / design 9.2–9.3 / ADR-0021 | Frozen 1.0.0 classifier request/basic answer differential with explicit projection and scoped extension decisions | P07 PIDIFF | PASS | — | 12/12 | — | — | PIDIFF-P07-E01-bool-no-criteria-classify; PIDIFF-P07-E01-choice-parity-classify; PIDIFF-P07-E01-mixed-classify; … 3 more |
+| T04-typesafe-final | issue 06 / ADR-0021 | Final callback questions frozen, original inputs independent, authority unchanged, invalid payloads refused | P07 | PASS | 13/13 | — | — | — | P07-E04-mixed-bool-capability; P07-E04-mixed-count-limit; P07-E04-mixed-final-kind-mismatch; … 3 more |
+| V4-typesafe-choice | issue 05 / design sections 7–10 / ADR-0021 | TypeSafe choice unary public call, strict final-question answer validation, shared runtime, callbacks, usage, isolation and resource release | P07 | PASS | 330/330 | 12/12 | — | — | P07-D1-question; P07-D1-questions; P07-D1-state; … 3 more |
+| T01 | research-traceability §2 T01 | Every entry point takes an explicit TenantID; refused calls send nothing | E07 E09 E10 | PASS | 12/12 | — | — | — | E07-reject-missing-request-id-complete-full; E07-reject-missing-request-id-complete-simple; E07-reject-missing-request-id-stream-full; … 3 more |
+| T02 | research-traceability §2 T02 | Identity comes from the trusted host; forged tenants and history are refused at the host boundary | E10 | PASS | 42/42 | — | — | — | E10-example-host-merge; E10-example-host-refuses-claimed-tenant; E10-example-host-refuses-foreign-session; … 3 more |
+| T03 | research-traceability §2 T03 | Bindings are located by (tenant, binding) and owned by the tenant | E06 E07 | PASS | 98/98 | — | — | — | E06-anthropic-both-succeed-complete-full; E06-anthropic-both-succeed-complete-simple; E06-anthropic-both-succeed-stream-full; … 3 more |
+| T04 | research-traceability §2 T04 | Ordinary requests cannot override credentials or targets | E04 E07 | PASS | 70/70 | — | — | — | E07-request-surface-carries-no-authority; P01-E04-callbacks-deny-headers-alternate-key-header; P01-E04-callbacks-deny-headers-authorization-added-twice; … 3 more |
+| T05 | research-traceability §2 T05 | No credential fallback (environment, other identity) | E06 E07 H1 | PASS | 78/78 | — | — | — | E06-anthropic-a-credential-missing-complete-full; E06-anthropic-a-credential-missing-complete-simple; E06-anthropic-a-credential-missing-stream-full; … 3 more |
+| T06 | research-traceability §2 T06 | Each call keeps its configuration snapshot; shared implementation holds no tenant state | E05 E06 E07 | PASS | 190/190 | — | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| T07 | research-traceability §2 T07 | History, results and native state carry and check their attribution | E03 E10 | PASS | 80/80 | — | — | — | E10-example-host-merge; E10-example-host-refuses-foreign-session; E10-example-host-refuses-unknown-session; … 3 more |
+| T08 | research-traceability §2 T08 | Cancellation is per call and releases only its own resources | E06 E08 E10 | PASS | 79/79 | — | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| T09 | research-traceability §2 T09 | Observations attribute tenant, call and attempt and hold no secret | E09 E10 | PASS | 102/102 | — | — | — | E09-mixed-observer-congested; E09-mixed-observer-error; E09-mixed-observer-panic; … 3 more |
+| T10 | research-traceability §2 T10 | Updates and revocations take effect for new calls; in-flight calls keep their snapshot | E07 | PASS | 97/97 | — | — | — | E07-mixed-binding-disabled-classifier; E07-mixed-binding-disabled-google-image; E07-mixed-binding-disabled-openai-image; … 3 more |
+| T11 | research-traceability §2 T11 | Every credential-dependent operation goes through the one authorized path | E07 | PASS | 421/421 | — | — | — | E07-mixed-binding-disabled-classifier; E07-mixed-binding-disabled-google-image; E07-mixed-binding-disabled-openai-image; … 3 more |
+| T12 | research-traceability §2 T12 | Usage is recorded per attempt and per account; zero is never free | E05 E09 E11 | PASS | 86/86 | 21/21 | — | — | P01-E05-attempts-keep-the-snapshot; P01-E09-observe-retry; P01-E11-cache-write-priced-complete-full; … 3 more |
+| C01 | research-traceability §4 C01 | Call lifecycle | E01 | PASS | 138/138 | 21/21 | — | — | E01-close-after-terminal-keeps-result; E01-close-while-resolver-blocked-stream-full; E01-close-while-resolver-blocked-stream-simple; … 3 more |
+| C02 | research-traceability §4 C02 | Failures and truncation | E02 | PASS | 710/710 | 26/26 | — | — | E02-parity-anthropic-claude-sonnet-5-5-stream-complete; E02-parity-anthropic-claude-sonnet-5-5-stream-stream; E02-parity-anthropic-claude-sonnet-5-5-streamSimple-complete; … 3 more |
+| C03 | research-traceability §4 C03 | History and tools | E03 | PASS | 871/871 | 21/21 | — | — | E03-catalog-builtin-models-are-pis; E03-catalog-inclusion-listed; E03-managed-effort-listed; … 3 more |
+| C04 | research-traceability §4 C04 | Options and callbacks | E04 | PASS | 1528/1528 | 58/58 | — | — | E04-model-sampling-reject-openai-completions-bad-json; E04-model-sampling-reject-openai-completions-model; E04-model-sampling-reject-openai-completions-prompt_cache_key; … 3 more |
+| C05 | research-traceability §4 C05 | Retry | E05 | PASS | 236/236 | 26/26 | — | — | P01-E05-attempts-keep-the-snapshot; P01-E05-auth-401-not-retried-complete-full; P01-E05-auth-401-not-retried-complete-simple; … 3 more |
+| C06 | research-traceability §4 C06 | Tenant concurrency isolation | E06 | PASS | 175/175 | — | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| C07 | research-traceability §4 C07 | Authorization and updates | E07 | PASS | 421/421 | — | — | — | E07-mixed-binding-disabled-classifier; E07-mixed-binding-disabled-google-image; E07-mixed-binding-disabled-openai-image; … 3 more |
+| C08 | research-traceability §4 C08 | Resources and release | E08 | FAIL | 757/758 (1 FAIL) | 13/13 | — | — | E08-admission-burst-pressure-cloud-batch; E08-admission-burst-pressure-cloud-interactive; E08-admission-burst-pressure-cloud-interactive-waiters-x4; … 3 more |
+| C09 | research-traceability §4 C09 | Observability and secrets | E09 | PASS | 57/57 | — | — | — | E09-mixed-observer-congested; E09-mixed-observer-error; E09-mixed-observer-panic; … 3 more |
+| C10 | research-traceability §4 C10 | Routing and host contract | E10 | PASS | 119/119 | — | — | — | E10-example-host-merge; E10-example-host-refuses-claimed-tenant; E10-example-host-refuses-foreign-session; … 3 more |
+| C11 | research-traceability §4 C11 | Usage and cost | E11 | PASS | 154/154 | 31/31 | — | — | E11-chat-duration-complete-full-failure; E11-chat-duration-complete-full-success; E11-chat-duration-complete-simple-failure; … 3 more |
+| V4-responses | research-traceability §4 V§4 OpenAI Responses | P01 protocol specifics | P01 | PASS | 960/960 | 335/335 | — | — | P01-E01-config-read-only-after-construction; P01-E01-stream-returns-before-resolution; P01-E01-text-complete-full; … 3 more |
+| V4-anthropic | research-traceability §4 V§4 Anthropic | P02 protocol specifics | P02 | PASS | 293/293 | 70/70 | — | — | P02-E01-block-start-content-stream; P02-E01-interleaved-stream; P02-E01-repair-and-trailing-events-stream; … 3 more |
+| V4-gemini | research-traceability §4 V§4 Gemini | P03 protocol specifics | P03 | PASS | 293/293 | 77/77 | — | — | P03-E01-function-call-ids-generated-stream; P03-E01-interleaved-stream; P03-E01-signature-on-empty-text-stream; … 3 more |
+| V4-chat | research-traceability §4 V§4 OpenAI Chat | P04 protocol specifics | P04 | PASS | 574/574 | 203/203 | — | — | P04-E01-after-done-ignored-stream; P04-E01-interleaved-stream; P04-E01-parallel-tool-calls-stream; … 3 more |
+| V4-deepseek | research-traceability §4 V§4 DeepSeek | P05/P06: two bindings accepted separately | P05 P06 | PASS | 690/690 | 118/118 | — | — | P05-E01-reasoning-simple-stream; P05-E01-reasoning-stream; P05-E01-reasoning-tool-call-stream; … 3 more |
+| V6-live | research-traceability §4 V§6 | Nine combinations supply their own current complete audited live smoke; required classification and image generation/editing cannot be UNSUPPORTED | LIVE | FAIL | — | — | 2/9 (7 FAIL) | — | support-matrix:openai-responses=FAIL; support-matrix:anthropic-messages=FAIL; support-matrix:google-gemini=FAIL; … 6 more |
+| H1 | research-traceability §5 H1 | Per-call credential, endpoint and header isolation | H1 E06 E07 | PASS | 603/603 | — | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| H2 | research-traceability §5 H2 | Field presence, signatures, tools and pi differential | PIDIFF E03 E04 | PASS | 2399/2399 | 815/815 | — | — | E03-catalog-builtin-models-are-pis; E03-catalog-inclusion-listed; E03-managed-effort-listed; … 3 more |
+| H3 | research-traceability §5 H3 | Correct terminals and partial messages | E01 E02 | PASS | 848/848 | 47/47 | — | — | E01-close-after-terminal-keeps-result; E01-close-while-resolver-blocked-stream-full; E01-close-while-resolver-blocked-stream-simple; … 3 more |
+| H4 | research-traceability §5 H4 | pi-equivalent retry | E05 | PASS | 236/236 | 26/26 | — | — | P01-E05-attempts-keep-the-snapshot; P01-E05-auth-401-not-retried-complete-full; P01-E05-auth-401-not-retried-complete-simple; … 3 more |
+| H5 | research-traceability §5 H5 | Resource limits before reading or allocating | E08 | FAIL | 757/758 (1 FAIL) | 13/13 | — | — | E08-admission-burst-pressure-cloud-batch; E08-admission-burst-pressure-cloud-interactive; E08-admission-burst-pressure-cloud-interactive-waiters-x4; … 3 more |
+| D1 | spec D1 / ADR-0002 | Explicit finite resource policy, refused when missing or invalid | D1 E08 | FAIL | 792/793 (1 FAIL) | 13/13 | — | — | D1-construct-accept-boundaries; D1-construct-reject-admission-wait-exceeds-call; D1-construct-reject-connect-exceeds-call; … 3 more |
+| D1-examples | spec I9 正式示例 / issue 24 | The formal policy examples pass their repeatable pressure scenarios | PRESSURE | FAIL | 12/13 (1 FAIL) | — | — | — | E08-admission-burst-pressure-cloud-batch; E08-admission-burst-pressure-cloud-interactive; E08-admission-burst-pressure-cloud-interactive-waiters-x4; … 3 more |
+| D2 | spec D2 / ADR-0003 | An inconsistent snapshot fails before sending; no internal re-resolution | D2 | PASS | 24/24 | — | — | — | E07-reject-binding-disabled-between-reads-complete-full; E07-reject-binding-disabled-between-reads-complete-simple; E07-reject-binding-disabled-between-reads-stream-full; … 3 more |
+| S6-1-3 | research-traceability §1 S§6 验收 1–3 | Protocol capabilities, A/B isolation, zero requests before failure | P01 P02 P03 P04 P05 P06 E06 E07 | PASS | 3304/3304 | 803/803 | — | — | E06-anthropic-a-canceled-complete-full; E06-anthropic-a-canceled-complete-simple; E06-anthropic-a-canceled-on-arrival-complete-full; … 3 more |
+| S6-4-7 | research-traceability §1 S§6 验收 4–7 | Updates/revocation, EOF/errors, limits/release, redaction | E02 E05 E06 E07 E08 E09 | FAIL | 2356/2357 (1 FAIL) | 65/65 | — | — | E02-parity-anthropic-claude-sonnet-5-5-stream-complete; E02-parity-anthropic-claude-sonnet-5-5-stream-stream; E02-parity-anthropic-claude-sonnet-5-5-streamSimple-complete; … 3 more |
+| S6-8-10 | research-traceability §1 S§6 验收 8–10 | Full differential, simple/full/reasoning/usage, routing | PIDIFF E03 E04 E05 E10 E11 | PASS | 2908/2908 | 815/815 | — | — | E03-catalog-builtin-models-are-pis; E03-catalog-inclusion-listed; E03-managed-effort-listed; … 3 more |
+| TS-R01 | .scratch/barness-ai-thinking-sampling/spec.md#r01 | Model profile metadata, seven canonical keys, optional maps | E03 E04 | PASS | 646/646 | — | — | — | E03-thinking-sampling-config-anthropic-empty-key; E03-thinking-sampling-config-anthropic-empty-map; E03-thinking-sampling-config-anthropic-empty-profile; … 3 more |
+| TS-R02 | .scratch/barness-ai-thinking-sampling/spec.md#r02 | Shared canonical clamp independent of wire; supported, null, extended and nonreasoning matrices | E04 | PASS | 544/544 | — | — | — | P01-E04-thinking-sampling-S02-supported-high-stream-complete; P01-E04-thinking-sampling-S02-supported-high-stream-complete-hooks; P01-E04-thinking-sampling-S02-supported-high-stream-stream; … 3 more |
+| TS-R03 | .scratch/barness-ai-thinking-sampling/spec.md#r03 | Full/simple effort boundaries, summary-only, DeepSeek disabled/enabled | E04 | PASS | 152/152 | — | — | — | P01-E04-thinking-sampling-S06-all-null-stream-complete; P01-E04-thinking-sampling-S06-all-null-stream-stream; P01-E04-thinking-sampling-S06-all-null-streamSimple-complete; … 3 more |
+| TS-R04 | .scratch/barness-ai-thinking-sampling/spec.md#r04 | Named/general/profile/call/hook top-level merge preserves all valid JSON values | E04 | PASS | 296/296 | — | — | — | P01-E04-thinking-sampling-S01-merge-stream-complete; P01-E04-thinking-sampling-S01-merge-stream-complete-hooks; P01-E04-thinking-sampling-S01-merge-stream-stream; … 3 more |
+| TS-R05 | .scratch/barness-ai-thinking-sampling/spec.md#r05 | Four consumers; native maps ignored; extension route explicitly skipped | P01 P02 P03 P04 P05 P06 | PASS | 936/936 | 192/192 | — | — | P01-E03-thinking-sampling-snapshot-call-stream-complete; P01-E03-thinking-sampling-snapshot-call-stream-stream; P01-E03-thinking-sampling-snapshot-call-streamSimple-complete; … 3 more |
+| TS-R06 | .scratch/barness-ai-thinking-sampling/spec.md#r06 | NewClient/Hash validate all levels, keys, JSON and reserved fields safely | E03 | PASS | 521/521 | — | — | — | E03-thinking-sampling-config-anthropic-empty-key; E03-thinking-sampling-config-anthropic-empty-map; E03-thinking-sampling-config-anthropic-empty-profile; … 3 more |
+| TS-R07 | .scratch/barness-ai-thinking-sampling/spec.md#r07 | Callback observes final sampling; no reselection; final authorization/limits maintained | E04 E05 | PASS | 120/120 | — | — | — | P01-E04-thinking-sampling-callback-stream-complete-hosted; P01-E04-thinking-sampling-callback-stream-complete-in-place; P01-E04-thinking-sampling-callback-stream-complete-limit; … 3 more |
+| TS-R08 | .scratch/barness-ai-thinking-sampling/spec.md#r08 | Deep snapshots, tenant/client ownership, cancellation and retry frozen bytes | E03 E05 E06 | PASS | 89/89 | — | — | — | E03-thinking-sampling-snapshots; P01-E03-thinking-sampling-snapshot-call-stream-complete; P01-E03-thinking-sampling-snapshot-call-stream-stream; … 3 more |
+| TS-R09 | .scratch/barness-ai-thinking-sampling/spec.md#r09 | Verified catalog contents, stable nested map hashing and upgraded price snapshot | E03 | PASS | 2/2 | — | — | — | E03-catalog-builtin-models-are-pis; E03-thinking-sampling-snapshots |
+| TS-R10 | .scratch/barness-ai-thinking-sampling/spec.md#r10 | Single 1.1.0 oracle with two source equivalence proofs and zero pending full differential | E03 PIDIFF | PASS | 3/3 | 815/815 | — | — | E03-thinking-sampling-baseline-evidence-b; E03-thinking-sampling-baseline-evidence-c; E03-thinking-sampling-baseline-oracle-guards; … 3 more |
+| TS-R11 | .scratch/barness-ai-thinking-sampling/spec.md#r11 | Current nine-route release contract, independent Chinese effect and design-load artifacts | LIVE ARTIFACTS | FAIL | — | — | 2/9 (7 FAIL) | 2/3 (1 FAIL) | support-matrix:openai-responses=FAIL; support-matrix:anthropic-messages=FAIL; support-matrix:google-gemini=FAIL; … 9 more |
+| TS-R12 | .scratch/barness-ai-thinking-sampling/spec.md#r12 | Complete documented Host configuration and public protocol fixtures | E03 E04 | PASS | 48/48 | — | — | — | P01-E03-thinking-sampling-snapshot-call-stream-complete; P01-E03-thinking-sampling-snapshot-call-stream-stream; P01-E03-thinking-sampling-snapshot-call-streamSimple-complete; … 3 more |
+
+## Design load and business effect
+
+Protocol smoke and business accuracy are separate evidence. COMPLETE verifies the fixed evaluation, with no accuracy threshold.
+
+- mixed-pressure-local: PASS; `.evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T031635.621549000Z`; 4 concurrent calls, heap growth 6060992 / budget 268435456, allocation upper bound 142326920; all headroom <=75%; resources zero
+- mixed-pressure-cloud: PASS; `.evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T031635.621549000Z`; 8 concurrent calls, heap growth 17153160 / budget 536870912, allocation upper bound 283879608; all headroom <=75%; resources zero
+- chinese-effect: FAIL; `.evidence/barness-ai/thinking-sampling-evaluation/20261011T025637.596141000Z`; evaluation is live/FAIL
+
+## Redaction audit
+
+- `.evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T031635.621549000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/openai-responses/20261011T025635.224997000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/anthropic-messages/20261011T025825.606682000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/google-gemini/20261011T025829.170866000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/openai-chat/20261011T030139.432585000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/deepseek-responses/20261011T030634.750435000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/deepseek-chat/20261011T030642.192437000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/typesafe-classifier/20261011T030651.281022000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/openai-images/20261011T030652.876811000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/live/google-interactions-image/20261011T030728.130466000Z`: 0 finding(s)
+- `.evidence/barness-ai-thinking-sampling/current-release/gate/race/20261011T032107.858599000Z`: error: no audit recorded by the run: release: open .evidence/barness-ai-thinking-sampling/current-release/gate/race/20261011T032107.858599000Z/audit.json: no such file or directory
+- `.evidence/barness-ai/thinking-sampling-evaluation/20261011T025637.596141000Z`: 0 finding(s)
+
+## Snapshots
+
+- catalog: current
+- release-plan: current
+
+barness-ai release bundle: .evidence/barness-ai-thinking-sampling/current-release/gate
+exit status 1

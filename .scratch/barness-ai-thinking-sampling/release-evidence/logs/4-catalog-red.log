@@ -1,0 +1,77 @@
+--- FAIL: TestCatalogThinkingSampling (0.01s)
+    --- FAIL: TestCatalogThinkingSampling/responses/unknown (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-responses-unknown] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-responses-unknown] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/responses/uppercase (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-responses-uppercase] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-responses-uppercase] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/responses/empty-key (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-responses-empty-key] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-responses-empty-key] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/responses/nil-profile (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-responses-nil-profile] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-responses-nil-profile] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/chat/unknown (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-chat-unknown] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-chat-unknown] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/chat/uppercase (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-chat-uppercase] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-chat-uppercase] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/chat/empty-key (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-chat-empty-key] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-chat-empty-key] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/chat/nil-profile (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-chat-nil-profile] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-chat-nil-profile] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/deepseek-chat/unknown (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-deepseek-chat-unknown] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-deepseek-chat-unknown] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/deepseek-chat/uppercase (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-deepseek-chat-uppercase] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-deepseek-chat-uppercase] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/deepseek-chat/empty-key (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-deepseek-chat-empty-key] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-deepseek-chat-empty-key] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/deepseek-chat/nil-profile (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-deepseek-chat-nil-profile] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-deepseek-chat-nil-profile] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/deepseek-responses/unknown (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-deepseek-responses-unknown] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-deepseek-responses-unknown] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/deepseek-responses/uppercase (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-deepseek-responses-uppercase] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-deepseek-responses-uppercase] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/deepseek-responses/empty-key (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-deepseek-responses-empty-key] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-deepseek-responses-empty-key] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/deepseek-responses/nil-profile (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-deepseek-responses-nil-profile] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-deepseek-responses-nil-profile] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/anthropic/unknown (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-anthropic-unknown] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-anthropic-unknown] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/anthropic/uppercase (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-anthropic-uppercase] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-anthropic-uppercase] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/anthropic/empty-key (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-anthropic-empty-key] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-anthropic-empty-key] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/anthropic/nil-profile (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-anthropic-nil-profile] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-anthropic-nil-profile] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/gemini/unknown (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-gemini-unknown] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-gemini-unknown] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/gemini/uppercase (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-gemini-uppercase] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-gemini-uppercase] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/gemini/empty-key (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-gemini-empty-key] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-gemini-empty-key] safe configuration location: err=<nil>
+    --- FAIL: TestCatalogThinkingSampling/gemini/nil-profile (0.00s)
+        catalog_thinking_sampling_test.go:40: [E03-thinking-sampling-config-gemini-nil-profile] both boundaries agree: client=<nil> hash=<nil>
+        catalog_thinking_sampling_test.go:42: [E03-thinking-sampling-config-gemini-nil-profile] safe configuration location: err=<nil>
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai/20261011T024211.835134000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.004s
+FAIL

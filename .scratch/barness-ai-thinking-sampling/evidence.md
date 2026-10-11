@@ -6,19 +6,23 @@
 | --- | --- |
 | B01 / R10 | PASS：[两个独立来源等价包](release-verification/README.md)，AI 827 + telemetry 24 dist 零差异，模型 43 文件完整哈希；9 项误输入与 2 项 I/O 失败检查通过 |
 | B02 / R10 | PASS：唯一 oracle exact lock、provenance、version/commit/data 三项启动拒绝；TestThinkingSamplingBaseline 把两份完整 proof 和 guard 执行带入 release E2E |
-| B03 / R05/R10 | PASS：`BARNESS_AI_PIDIFF=1 go test ./ai/e2e -run '^TestPiDifferential$|^TestCatalogInclusion$' -count=1`，814 差分 + 25 目录用例、全部 839 PASS，pending 0 |
+| B03 / R05/R10 | PASS：`BARNESS_AI_PIDIFF=1 go test ./ai/e2e -run '^TestPiDifferential$|^TestCatalogInclusion$' -count=1`，814 聊天/图像差分 + 25 目录用例、全部 839 PASS，pending 0；全套另含 1 条目录差分，共 815 |
 | S01–S17 / R01–R05 | PASS：四条消费者 thinking-sampling.json，四个公共入口及核心 WithHooks；TestNativeThinkingSamplingIgnored 和 native differential 验证忽略 |
 | S18–S25 / R06/R08/R09 | PASS：TestCatalogThinkingSampling、TestThinkingSamplingValidation、TestThinkingSamplingSnapshots、TestThinkingSamplingSnapshotCalls；全部档位校验、三层深拷贝、双 map 顺序 Hash、全部既有目录字段核对 |
 | S26–S30 / R07/R08 | PASS：TestThinkingSamplingCallbacks / Retry / Concurrent；最终授权/限额拒绝、原地/替换回调、冻结重试字节、取消、发送失败、共享租户与同 ID 独立客户端 |
 | durationMs | PASS：TestChatDuration 四入口成功/失败；每条聊天差分先验证非负整数及唯一终态相等，再对有限数值差异登记用户批准的 extension |
 | R12 Host 示例 | PASS：thinking-sampling.md 完整 Go 代码块提取后 `go test <generated-go-file>` 编译通过，无真实调用 |
-| B04 / R11 | FAIL：九组合全部实际执行，DeepSeek 两条路线 PASS，其余七组合 FAIL；独立中文评估 24/24 HTTP 451。完整离线命令 PASS，race 及最终审计正在完成；不降低门槛 |
+| B04 / R11 | FAIL：九组合全部实际执行，DeepSeek 两条路线 PASS，其余七组合 FAIL；独立中文评估 24/24 HTTP 451。完整离线、race、两种 vet 和原包审计均 PASS；不降低门槛 |
 
 ## 当前全套与真实结果
 
 当前受测源码为 `dba212b`；目录版本 `2026-10-11.1`，Hash 为
 `sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a`。
 正式报告、12 个当前完整包及完整历史包见[交付包](release-evidence/README.md)。
+完整离线与 race 各 6,125 case 全 PASS，分别 272.638 秒与 970.760 秒；
+全部六差分子集及目录比较共 815 PASS、pending 0。两种 vet 全 PASS。
+最终十条门禁为 7 PASS、3 FAIL（live、traceability、required-artifacts）；
+十二份输入的审计均零发现。全部实际命令、时长与判定见 release-report.json。
 
 | 实际真实组合 | 状态 | 主要结果 |
 | --- | --- | --- |
@@ -40,7 +44,8 @@ Hash 与 buildInfo 保留在 live-harness.json，没有标为最终提交构建�
 三轮完整 gate 的原状态均保留：第一次离线 104 FAIL（旧目录和旧测试断言），race
 主动中断；第二次普通压力自然失败 1 项，race 的 6,125 case 全 PASS，但审计期间
 被 Go 在 11 分钟终止，因此整条 race 命令 FAIL、原审计 NOT_RUN。当前第三轮给
-race 整条命令设置有限 20 分钟窗口，每个场景的截止、32 并发、字节预算不变。
+race 整条命令设置有限 20 分钟窗口，每个场景的截止、32 并发、字节预算不变；
+第三轮两条完整命令和原审计已全部 PASS，不能因此改写第二轮失败或认定压力根因已修复。
 
 压力历史失败见[工单 07](issues/07-pressure-stream-integrity.md)。两个调用分别出现
 不合法 JSON 与工具参数超限；fixture 的 ENOBUFS 等待只是关联，原因未确认。

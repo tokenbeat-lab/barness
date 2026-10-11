@@ -1,0 +1,46 @@
+=== RUN   TestLive
+=== RUN   TestLive/openai-chat
+=== RUN   TestLive/openai-chat/text-stream
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P04-text-stream] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-chat/text-complete
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P04-text-complete] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-chat/tool-round-trip
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P04-tool-round-trip] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-chat/cancel-after-first-frame
+    scenarios_test.go:147: [LIVE-P04-cancel-after-first-frame] canceled: terminal error event aborted: last event ai.ErrorEvent
+    scenarios_test.go:149: [LIVE-P04-cancel-after-first-frame] canceled: classified canceled: error ai: deadline_exceeded (request): exceeded the resource policy's ConnectTimeout (15s)
+    scenarios_test.go:150: [LIVE-P04-cancel-after-first-frame] canceled: result aborted: stop reason "error"
+    scenarios_test.go:152: [LIVE-P04-cancel-after-first-frame] canceled: events: 1 events
+=== RUN   TestLive/openai-chat/reasoning-history
+=== RUN   TestLive/openai-chat/image
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P04-image] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-chat/usage-position
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P04-usage-position] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-chat/tool-changes-gpt-5.4
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P04-tool-changes-gpt-5.4] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-chat/tool-changes-gpt-6-sol
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P04-tool-changes-gpt-6-sol] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-chat/pro-model-unavailable
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P04-pro-model-unavailable] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+--- FAIL: TestLive (295.05s)
+    --- FAIL: TestLive/openai-chat (295.05s)
+        --- FAIL: TestLive/openai-chat/text-stream (35.01s)
+        --- FAIL: TestLive/openai-chat/text-complete (35.01s)
+        --- FAIL: TestLive/openai-chat/tool-round-trip (35.01s)
+        --- FAIL: TestLive/openai-chat/cancel-after-first-frame (15.00s)
+        --- PASS: TestLive/openai-chat/reasoning-history (0.00s)
+        --- FAIL: TestLive/openai-chat/image (35.01s)
+        --- FAIL: TestLive/openai-chat/usage-position (35.00s)
+        --- FAIL: TestLive/openai-chat/tool-changes-gpt-5.4 (35.01s)
+        --- FAIL: TestLive/openai-chat/tool-changes-gpt-6-sol (35.01s)
+        --- FAIL: TestLive/openai-chat/pro-model-unavailable (35.01s)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/live/openai-chat/20261011T030139.432585000Z

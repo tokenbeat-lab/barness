@@ -1,0 +1,21 @@
+--- FAIL: TestChatDuration (0.15s)
+    --- FAIL: TestChatDuration/stream-full-success (0.02s)
+        duration_test.go:63: [E11-chat-duration-stream-full-success] monotonic duration includes callback: duration=<nil>
+    --- FAIL: TestChatDuration/stream-full-failure (0.02s)
+        duration_test.go:63: [E11-chat-duration-stream-full-failure] monotonic duration includes callback: duration=<nil>
+    --- FAIL: TestChatDuration/stream-simple-success (0.02s)
+        duration_test.go:63: [E11-chat-duration-stream-simple-success] monotonic duration includes callback: duration=<nil>
+    --- FAIL: TestChatDuration/stream-simple-failure (0.02s)
+        duration_test.go:63: [E11-chat-duration-stream-simple-failure] monotonic duration includes callback: duration=<nil>
+    --- FAIL: TestChatDuration/complete-full-success (0.02s)
+        duration_test.go:63: [E11-chat-duration-complete-full-success] monotonic duration includes callback: duration=<nil>
+    --- FAIL: TestChatDuration/complete-full-failure (0.02s)
+        duration_test.go:63: [E11-chat-duration-complete-full-failure] monotonic duration includes callback: duration=<nil>
+    --- FAIL: TestChatDuration/complete-simple-success (0.02s)
+        duration_test.go:63: [E11-chat-duration-complete-simple-success] monotonic duration includes callback: duration=<nil>
+    --- FAIL: TestChatDuration/complete-simple-failure (0.02s)
+        duration_test.go:63: [E11-chat-duration-complete-simple-failure] monotonic duration includes callback: duration=<nil>
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai/20261011T024644.500804000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.119s
+FAIL

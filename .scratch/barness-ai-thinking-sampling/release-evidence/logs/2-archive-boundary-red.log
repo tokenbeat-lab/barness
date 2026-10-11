@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "[REPO]/.scratch/barness-ai-thinking-sampling/release-evidence/verify.py", line 163, in <module>
+    fault_results = faults() if args.fault_tests or args.fault_tests_only else []
+                    ~~~~~~^^
+  File "[REPO]/.scratch/barness-ai-thinking-sampling/release-evidence/verify.py", line 138, in faults
+    raise AssertionError('unsafe extension accepted: ' + kind)
+AssertionError: unsafe extension accepted: pax-metadata

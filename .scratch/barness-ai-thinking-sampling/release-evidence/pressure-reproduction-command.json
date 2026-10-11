@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "go",
+    "test",
+    "./ai/e2e",
+    "-run",
+    "^TestPressureLoopback$",
+    "-count=1",
+    "-timeout=5m"
+  ],
+  "switches": {
+    "BARNESS_AI_PRESSURE": "1",
+    "BARNESS_AI_PRESSURE_LOOPS": "10"
+  },
+  "exitCode": 0,
+  "durationSeconds": 73.498
+}

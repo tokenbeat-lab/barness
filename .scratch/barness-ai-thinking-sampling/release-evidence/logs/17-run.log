@@ -1,0 +1,14 @@
+=== RUN   TestLive
+=== RUN   TestLive/google-interactions-image
+=== RUN   TestLive/google-interactions-image/generation
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P09-generation] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/google-interactions-image/reference-edit
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P09-reference-edit] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+--- FAIL: TestLive (70.02s)
+    --- FAIL: TestLive/google-interactions-image (70.02s)
+        --- FAIL: TestLive/google-interactions-image/generation (35.01s)
+        --- FAIL: TestLive/google-interactions-image/reference-edit (35.02s)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/live/google-interactions-image/20261011T030728.130466000Z

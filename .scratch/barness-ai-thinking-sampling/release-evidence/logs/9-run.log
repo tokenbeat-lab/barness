@@ -1,0 +1,42 @@
+=== RUN   TestLive
+=== RUN   TestLive/anthropic-messages
+=== RUN   TestLive/anthropic-messages/text-stream
+    session_test.go:118: [LIVE-P02-text-stream] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/text-complete
+    session_test.go:118: [LIVE-P02-text-complete] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/tool-round-trip
+    session_test.go:118: [LIVE-P02-tool-round-trip] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/cancel-after-first-frame
+    scenarios_test.go:147: [LIVE-P02-cancel-after-first-frame] canceled: terminal error event aborted: last event ai.ErrorEvent
+    scenarios_test.go:149: [LIVE-P02-cancel-after-first-frame] canceled: classified canceled: error ai: upstream_auth (request): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+    scenarios_test.go:150: [LIVE-P02-cancel-after-first-frame] canceled: result aborted: stop reason "error"
+    scenarios_test.go:152: [LIVE-P02-cancel-after-first-frame] canceled: events: 1 events
+=== RUN   TestLive/anthropic-messages/reasoning-history
+    session_test.go:118: [LIVE-P02-reasoning-history] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/image
+    session_test.go:118: [LIVE-P02-image] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/tool-changes-claude-opus-4-8
+    session_test.go:118: [LIVE-P02-tool-changes-claude-opus-4-8] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/tool-changes-claude-fable-5
+    session_test.go:118: [LIVE-P02-tool-changes-claude-fable-5] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/effort-changes-claude-fable-5-1
+    session_test.go:118: [LIVE-P02-effort-changes-claude-fable-5-1] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/effort-changes-claude-opus-5
+    session_test.go:118: [LIVE-P02-effort-changes-claude-opus-5] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+=== RUN   TestLive/anthropic-messages/effort-changes-claude-opus-5-5
+    session_test.go:118: [LIVE-P02-effort-changes-claude-opus-5-5] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+--- FAIL: TestLive (3.44s)
+    --- FAIL: TestLive/anthropic-messages (3.44s)
+        --- FAIL: TestLive/anthropic-messages/text-stream (0.78s)
+        --- FAIL: TestLive/anthropic-messages/text-complete (0.23s)
+        --- FAIL: TestLive/anthropic-messages/tool-round-trip (0.24s)
+        --- FAIL: TestLive/anthropic-messages/cancel-after-first-frame (0.27s)
+        --- FAIL: TestLive/anthropic-messages/reasoning-history (0.30s)
+        --- FAIL: TestLive/anthropic-messages/image (0.29s)
+        --- FAIL: TestLive/anthropic-messages/tool-changes-claude-opus-4-8 (0.22s)
+        --- FAIL: TestLive/anthropic-messages/tool-changes-claude-fable-5 (0.23s)
+        --- FAIL: TestLive/anthropic-messages/effort-changes-claude-fable-5-1 (0.27s)
+        --- FAIL: TestLive/anthropic-messages/effort-changes-claude-opus-5 (0.30s)
+        --- FAIL: TestLive/anthropic-messages/effort-changes-claude-opus-5-5 (0.29s)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/live/anthropic-messages/20261011T025825.606682000Z

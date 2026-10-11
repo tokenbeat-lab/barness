@@ -140,7 +140,7 @@ binary = ROOT / '.evidence/barness-ai-thinking-sampling/live.test'
 build = subprocess.check_output(['go', 'version', '-m', str(binary)], cwd=ROOT, text=True)
 build = build.replace(str(ROOT), '[REPO]').replace(str(Path.home()), '[HOME]')
 write('live-harness.json', {'sha256': sha(binary), 'buildInfo': build,
-                          'note': 'Built before commits from the implemented working tree: embedded revision 39ab6a5, vcs.modified=true. Later changes are tests, docs and a call.go comment; do not label this binary as built from the final commit.',
+                          'note': 'Built before commits from the implemented working tree: embedded revision 39ab6a5, vcs.modified=true. Later commits migrate tests, release selectors/budgets and docs; the chat runtime differs only in a call.go comment. Do not label this binary as built from the final commit.',
                           'combos': [s['combo'] for s in read(CURRENT / 'smoke-commands.json')]})
 write('manifest.json', {'schema': 1, 'testedCommit': report['commit'], 'archives': archives,
                         'history': history, 'initialRace': 'interrupted; NOT_RUN; included raw files cannot certify race',

@@ -3,6 +3,21 @@
 采样实现已完成；正式发布仍受当前真实调用和独立效果失败阻断。
 所有 PASS、FAIL、UNSUPPORTED、NOT_RUN 保留原状态，不用历史目录证据放行。
 
+受测 commit：`dba212b095338ba61430bca48525d6cf4bf21ab3`。当前最终 gate 退出 1：
+
+| 门禁 | 实际结果 |
+| --- | --- |
+| 完整普通 / race | PASS / PASS，各 6,125 case；272.638 / 970.760 秒 |
+| 两种 vet、P0、差分、快照 | PASS；815 差分（含目录）、pending 0 |
+| 十二份输入脱敏审计 | PASS，零发现 |
+| 九组合 live | FAIL；DeepSeek 两条 PASS，其余七条 FAIL |
+| 独立中文效果 / 必交 artifacts | FAIL；24/24 HTTP 451，0 可评分 |
+| 追溯 | FAIL；依赖 live/effect 的验收未满足 |
+
+因此 B01–B03 已满足，B04 与工单 06 保持开放。历史压力异常原因未确认，
+工单 07 保持开放；当前同负载重跑通过不构成修复证明。
+
+
 `manifest.json` 索引 12 个当前完整包：完整离线、完整 race、九个真实组合、
 独立中文效果。每份 tar.gz 保存全部原始受控请求、帧、事件、结果、断言、
 Attempt、pidiff、fixture、manifest、审计及报告。逐 case 原始字节与 Hash 不变；

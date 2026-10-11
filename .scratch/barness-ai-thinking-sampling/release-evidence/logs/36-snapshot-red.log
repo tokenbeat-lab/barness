@@ -1,0 +1,12 @@
+--- FAIL: TestThinkingSamplingSnapshots (0.01s)
+    thinking_sampling_snapshot_test.go:32: [E03-thinking-sampling-snapshots] construction owns every layer: snapshot differs
+    thinking_sampling_snapshot_test.go:47: [E03-thinking-sampling-snapshots] lookup owns every layer: catalog differs
+    thinking_sampling_snapshot_test.go:49: [E03-thinking-sampling-snapshots] lookup preserves client: client differs
+    thinking_sampling_snapshot_test.go:47: [E03-thinking-sampling-snapshots] list owns every layer: catalog differs
+    thinking_sampling_snapshot_test.go:49: [E03-thinking-sampling-snapshots] list preserves client: client differs
+    thinking_sampling_snapshot_test.go:49: [E03-thinking-sampling-snapshots] client-catalog preserves client: client differs
+    thinking_sampling_snapshot_test.go:52: [E03-thinking-sampling-snapshots] snapshot hash preserved: hash differs
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai/20261011T024512.928546000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.966s
+FAIL

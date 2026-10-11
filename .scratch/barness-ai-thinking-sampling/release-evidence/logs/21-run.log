@@ -1,0 +1,16 @@
+=== RUN   TestLive
+=== RUN   TestLive/openai-images
+=== RUN   TestLive/openai-images/json-edit
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P08-json-edit] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-images/generation
+    session_test.go:89: NOT_RUN: required JSON edit did not pass in this process
+=== RUN   TestLive/openai-images/mask-edit
+    session_test.go:89: NOT_RUN: required JSON edit did not pass in this process
+--- FAIL: TestLive (35.02s)
+    --- FAIL: TestLive/openai-images (35.02s)
+        --- FAIL: TestLive/openai-images/json-edit (35.01s)
+        --- SKIP: TestLive/openai-images/generation (0.00s)
+        --- SKIP: TestLive/openai-images/mask-edit (0.00s)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/live/openai-images/20261011T030652.876811000Z

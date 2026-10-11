@@ -1,0 +1,40 @@
+=== RUN   TestLive
+=== RUN   TestLive/openai-responses
+=== RUN   TestLive/openai-responses/text-stream
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P01-text-stream] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-responses/text-complete
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P01-text-complete] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/openai-responses/tool-round-trip
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P01-tool-round-trip] vendor or environment fault: transport (request, HTTP 0) after 2 attempt(s): Connection error.
+=== RUN   TestLive/openai-responses/cancel-after-first-frame
+    scenarios_test.go:147: [LIVE-P01-cancel-after-first-frame] canceled: terminal error event aborted: last event ai.ErrorEvent
+    scenarios_test.go:149: [LIVE-P01-cancel-after-first-frame] canceled: classified canceled: error ai: transport (request): Connection error.
+    scenarios_test.go:150: [LIVE-P01-cancel-after-first-frame] canceled: result aborted: stop reason "error"
+    scenarios_test.go:152: [LIVE-P01-cancel-after-first-frame] canceled: events: 1 events
+=== RUN   TestLive/openai-responses/reasoning-history
+    session_test.go:112: attempt 1 met a vendor or environment fault (transport); retrying in 5s
+    session_test.go:118: [LIVE-P01-reasoning-history] vendor or environment fault: transport (request, HTTP 0) after 2 attempt(s): Connection error.
+=== RUN   TestLive/openai-responses/image
+    session_test.go:112: attempt 1 met a vendor or environment fault (transport); retrying in 5s
+    session_test.go:118: [LIVE-P01-image] vendor or environment fault: transport (request, HTTP 0) after 2 attempt(s): Connection error.
+=== RUN   TestLive/openai-responses/tool-changes-gpt-5.4
+    session_test.go:112: attempt 1 met a vendor or environment fault (transport); retrying in 5s
+    session_test.go:118: [LIVE-P01-tool-changes-gpt-5.4] vendor or environment fault: transport (request, HTTP 0) after 2 attempt(s): Connection error.
+=== RUN   TestLive/openai-responses/tool-changes-gpt-6-sol
+    session_test.go:112: attempt 1 met a vendor or environment fault (transport); retrying in 5s
+    session_test.go:118: [LIVE-P01-tool-changes-gpt-6-sol] vendor or environment fault: transport (request, HTTP 0) after 2 attempt(s): Connection error.
+--- FAIL: TestLive (110.16s)
+    --- FAIL: TestLive/openai-responses (110.16s)
+        --- FAIL: TestLive/openai-responses/text-stream (35.01s)
+        --- FAIL: TestLive/openai-responses/text-complete (35.01s)
+        --- FAIL: TestLive/openai-responses/tool-round-trip (20.03s)
+        --- FAIL: TestLive/openai-responses/cancel-after-first-frame (0.01s)
+        --- FAIL: TestLive/openai-responses/reasoning-history (5.03s)
+        --- FAIL: TestLive/openai-responses/image (5.02s)
+        --- FAIL: TestLive/openai-responses/tool-changes-gpt-5.4 (5.02s)
+        --- FAIL: TestLive/openai-responses/tool-changes-gpt-6-sol (5.03s)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/live/openai-responses/20261011T025635.224997000Z

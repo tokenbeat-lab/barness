@@ -1,0 +1,15 @@
+=== RUN   TestLive
+=== RUN   TestLive/typesafe-classifier
+=== RUN   TestLive/typesafe-classifier/mixed-questions
+    classifier_test.go:93: [LIVE-P07-mixed-questions] mixed: call succeeds: ai: invalid_request (request): 451 Unavailable For Legal Reasons: {"title":"Typesafe is not available in your region.","status":451}
+=== RUN   TestLive/typesafe-classifier/single-choice
+    classifier_test.go:100: [LIVE-P07-single-choice] choice: call succeeds: ai: invalid_request (request): 451 Unavailable For Legal Reasons: {"title":"Typesafe is not available in your region.","status":451}
+=== RUN   TestLive/typesafe-classifier/context-422
+    classifier_test.go:119: [LIVE-P07-context-422] context-422: call succeeds: ai: invalid_request (request): 451 Unavailable For Legal Reasons: {"title":"Typesafe is not available in your region.","status":451}
+--- FAIL: TestLive (1.47s)
+    --- FAIL: TestLive/typesafe-classifier (1.47s)
+        --- FAIL: TestLive/typesafe-classifier/mixed-questions (0.76s)
+        --- FAIL: TestLive/typesafe-classifier/single-choice (0.23s)
+        --- FAIL: TestLive/typesafe-classifier/context-422 (0.48s)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/live/typesafe-classifier/20261011T030651.281022000Z

@@ -1,0 +1,58 @@
+package main
+
+import (
+    "context"
+    "encoding/json"
+    "fmt"
+
+    "github.com/tokenbeat-lab/barness/ai"
+    "github.com/tokenbeat-lab/barness/ai/examples/localassembly"
+    "github.com/tokenbeat-lab/barness/ai/examples/requestid"
+)
+
+func configuredClient(bindings ai.BindingResolver, credentials ai.CredentialResolver) (*ai.Client, error) {
+    catalog := ai.BuiltinCatalog()
+    for i := range catalog.Models {
+        model := &catalog.Models[i]
+        if model.Provider != ai.ProviderOpenAI || model.API != ai.APIOpenAIResponses || model.ID != "gpt-5" {
+            continue
+        }
+        model.ThinkingLevelMap.Low = ai.Null[string]()
+        model.ThinkingLevelMap.Medium = ai.Null[string]()
+        model.SamplingParams = map[string]json.RawMessage{
+            "temperature": json.RawMessage(`0.5`),
+            "top_p": json.RawMessage(`0.95`),
+        }
+        model.SamplingParamsByThinkingLevel = map[ai.ThinkingLevel]map[string]json.RawMessage{
+            ai.ThinkingLevel("off"): {"temperature": json.RawMessage(`0.7`)},
+            ai.ThinkingHigh: {"temperature": json.RawMessage(`0.2`), "top_k": json.RawMessage(`20`)},
+        }
+    }
+    return ai.NewClient(ai.Config{
+        Catalog: &catalog, Policy: localassembly.LocalPolicy(),
+        Bindings: bindings, Credentials: credentials,
+    })
+}
+
+func demonstrate(ctx context.Context, client *ai.Client, tenantID, bindingID string) error {
+    scope := ai.CallScope{TenantID: tenantID, RequestID: requestid.New()}
+    target := ai.Target{BindingID: bindingID, ModelID: "gpt-5"}
+    req := ai.Request{Messages: []ai.Message{ai.UserText("Give a short answer.")}}
+    full := ai.ResponsesOptions{
+        ReasoningEffort: ai.ThinkingLow,
+        SamplingParams: map[string]json.RawMessage{"temperature": json.RawMessage(`0`)},
+    }
+    // Profile high contributes top_k=20; call temperature=0 wins.
+    // Full wire effort stays low. The Host owns result handling.
+    result, err := client.Complete(ctx, scope, target, req, full)
+    if err != nil { return err }
+    elapsed, _ := result.Message.DurationMs.Get()
+    fmt.Println("durationMs", elapsed)
+    scope.RequestID = requestid.New()
+    // Simple wire effort is high; the selected profile remains high.
+    _, err = client.CompleteSimple(ctx, scope, target, req, ai.SimpleOptions{
+        Reasoning: ai.ThinkingLow,
+        SamplingParams: map[string]json.RawMessage{"temperature": json.RawMessage(`0`)},
+    })
+    return err
+}

@@ -1,0 +1,643 @@
+--- FAIL: TestPiDifferential (17.50s)
+    --- FAIL: TestPiDifferential/anthropic-messages (0.36s)
+        --- FAIL: TestPiDifferential/anthropic-messages/thinking-sampling-S17-native-text/stream (0.23s)
+            pidiff_test.go:381: [PIDIFF-P02-thinking-sampling-S17-native-text-stream] differential gate: no pending differences: 6 pending:
+                  only_barness events[2].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/anthropic-messages/thinking-sampling-S17-native-text-simple/streamSimple (0.12s)
+            pidiff_test.go:381: [PIDIFF-P02-thinking-sampling-S17-native-text-simple-streamSimple] differential gate: no pending differences: 5 pending:
+                  only_barness events[1].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[2].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[4].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+    --- FAIL: TestPiDifferential/google-generative-ai (0.28s)
+        --- FAIL: TestPiDifferential/google-generative-ai/thinking-sampling-S17-native-text/stream (0.15s)
+            pidiff_test.go:381: [PIDIFF-P03-thinking-sampling-S17-native-text-stream] differential gate: no pending differences: 6 pending:
+                  only_barness events[2].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/google-generative-ai/thinking-sampling-S17-native-text-simple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P03-thinking-sampling-S17-native-text-simple-streamSimple] differential gate: no pending differences: 7 pending:
+                  only_barness events[1].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[2].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+    --- FAIL: TestPiDifferential/openai-completions (8.44s)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S01-merge-stream/stream (0.15s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S01-merge-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S01-merge-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S01-merge-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S02-supported-minimal-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S02-supported-minimal-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S02-supported-minimal-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S02-supported-minimal-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S02-supported-low-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S02-supported-low-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S02-supported-low-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S02-supported-low-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S02-supported-medium-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S02-supported-medium-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S02-supported-medium-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S02-supported-medium-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S02-supported-high-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S02-supported-high-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S02-supported-high-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S02-supported-high-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-minimal-low-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-minimal-low-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-minimal-low-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-minimal-low-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-low-high-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-low-high-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-low-high-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-low-high-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-medium-high-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-medium-high-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-medium-high-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-medium-high-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-high-medium-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-high-medium-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-high-medium-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-high-medium-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-medium-low-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-medium-low-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S03-clamp-medium-low-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S03-clamp-medium-low-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S04-canonical-minimal-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S04-canonical-minimal-stream-stream] differential gate: no pending differences: 5 pending:
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S04-canonical-minimal-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S04-canonical-minimal-streamSimple-streamSimple] differential gate: no pending differences: 5 pending:
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S04-canonical-low-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S04-canonical-low-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S04-canonical-low-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S04-canonical-low-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-xhigh-undeclared-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-xhigh-undeclared-stream-stream] differential gate: no pending differences: 5 pending:
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-xhigh-undeclared-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-xhigh-undeclared-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-max-undeclared-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-max-undeclared-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-max-undeclared-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-max-undeclared-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-xhigh-declared-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-xhigh-declared-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-xhigh-declared-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-xhigh-declared-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-max-declared-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-max-declared-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-max-declared-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-max-declared-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-extended-null-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-extended-null-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S05-extended-null-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S05-extended-null-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S06-off-none-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S06-off-none-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S06-off-none-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S06-off-none-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S06-off-null-minimal-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S06-off-null-minimal-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S06-off-null-minimal-streamSimple/streamSimple (0.16s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S06-off-null-minimal-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S06-off-null-low-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S06-off-null-low-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S06-off-null-low-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S06-off-null-low-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S06-all-null-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S06-all-null-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S06-all-null-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S06-all-null-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S07-omitted-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S07-omitted-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S07-omitted-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S07-omitted-streamSimple-streamSimple] differential gate: no pending differences: 5 pending:
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S08-non-reasoning-stream/stream (0.15s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S08-non-reasoning-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S08-non-reasoning-streamSimple/streamSimple (0.17s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S08-non-reasoning-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S12-full-simple-wire-stream/stream (0.19s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S12-full-simple-wire-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S12-full-simple-wire-streamSimple/streamSimple (0.19s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S12-full-simple-wire-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S09-missing-stream/stream (0.19s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S09-missing-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S09-missing-streamSimple/streamSimple (0.15s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S09-missing-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S09-empty-stream/stream (0.15s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S09-empty-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S09-empty-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S09-empty-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S09-no-profiles-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S09-no-profiles-stream-stream] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S09-no-profiles-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S09-no-profiles-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S09-no-maps-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S09-no-maps-stream-stream] differential gate: no pending differences: 5 pending:
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S09-no-maps-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S09-no-maps-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S10-shallow-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S10-shallow-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S10-shallow-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S10-shallow-streamSimple-streamSimple] differential gate: no pending differences: 4 pending:
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S11-null-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S11-null-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S11-null-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S11-null-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S16-reasoning-override-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S16-reasoning-override-stream-stream] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-completions/thinking-sampling-S16-reasoning-override-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P04-thinking-sampling-S16-reasoning-override-streamSimple-streamSimple] differential gate: no pending differences: 3 pending:
+                  changed events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+    --- FAIL: TestPiDifferential/openai-responses (8.43s)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S01-merge-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S01-merge-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S01-merge-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S01-merge-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S02-supported-minimal-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S02-supported-minimal-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S02-supported-minimal-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S02-supported-minimal-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S02-supported-low-stream/stream (0.15s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S02-supported-low-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S02-supported-low-streamSimple/streamSimple (0.15s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S02-supported-low-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S02-supported-medium-stream/stream (0.16s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S02-supported-medium-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S02-supported-medium-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S02-supported-medium-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S02-supported-high-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S02-supported-high-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S02-supported-high-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S02-supported-high-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-minimal-low-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-minimal-low-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-minimal-low-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-minimal-low-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-low-high-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-low-high-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-low-high-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-low-high-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-medium-high-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-medium-high-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-medium-high-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-medium-high-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-high-medium-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-high-medium-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-high-medium-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-high-medium-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-medium-low-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-medium-low-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S03-clamp-medium-low-streamSimple/streamSimple (0.15s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S03-clamp-medium-low-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S04-canonical-minimal-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S04-canonical-minimal-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S04-canonical-minimal-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S04-canonical-minimal-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S04-canonical-low-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S04-canonical-low-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S04-canonical-low-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S04-canonical-low-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-xhigh-undeclared-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-xhigh-undeclared-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-xhigh-undeclared-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-xhigh-undeclared-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-max-undeclared-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-max-undeclared-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-max-undeclared-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-max-undeclared-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-xhigh-declared-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-xhigh-declared-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-xhigh-declared-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-xhigh-declared-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-max-declared-stream/stream (0.12s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-max-declared-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-max-declared-streamSimple/streamSimple (0.12s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-max-declared-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-extended-null-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-extended-null-stream-stream] differential gate: no pending differences: 6 pending:
+                  only_barness events[2].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S05-extended-null-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S05-extended-null-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S06-off-none-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S06-off-none-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S06-off-none-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S06-off-none-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S06-off-null-minimal-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S06-off-null-minimal-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S06-off-null-minimal-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S06-off-null-minimal-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S06-off-null-low-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S06-off-null-low-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S06-off-null-low-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S06-off-null-low-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S06-all-null-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S06-all-null-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S06-all-null-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S06-all-null-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S07-omitted-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S07-omitted-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S07-omitted-streamSimple/streamSimple (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S07-omitted-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S08-non-reasoning-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S08-non-reasoning-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S08-non-reasoning-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S08-non-reasoning-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S12-full-simple-wire-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S12-full-simple-wire-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S12-full-simple-wire-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S12-full-simple-wire-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S09-missing-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S09-missing-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S09-missing-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S09-missing-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S09-empty-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S09-empty-stream-stream] differential gate: no pending differences: 5 pending:
+                  only_barness events[3].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[4].partial.durationMs (unreviewed: no ledger decision)
+                  only_barness events[5].partial.durationMs (unreviewed: no ledger decision)
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S09-empty-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S09-empty-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S09-no-profiles-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S09-no-profiles-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S09-no-profiles-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S09-no-profiles-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S09-no-maps-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S09-no-maps-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S09-no-maps-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S09-no-maps-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S10-shallow-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S10-shallow-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S10-shallow-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S10-shallow-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S11-null-stream/stream (0.14s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S11-null-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S11-null-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S11-null-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S13-summary-medium/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S13-summary-medium-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S13-summary-high/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S13-summary-high-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S16-reasoning-override-stream/stream (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S16-reasoning-override-stream-stream] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+        --- FAIL: TestPiDifferential/openai-responses/thinking-sampling-S16-reasoning-override-streamSimple/streamSimple (0.13s)
+            pidiff_test.go:381: [PIDIFF-P01-thinking-sampling-S16-reasoning-override-streamSimple-streamSimple] differential gate: no pending differences: 2 pending:
+                  changed events[6].message.durationMs (unreviewed: no ledger decision)
+                  changed result.durationMs (unreviewed: no ledger decision)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/new-diff-red/20261011T025545.398060000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	20.407s
+FAIL

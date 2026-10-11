@@ -1,0 +1,32 @@
+=== RUN   TestLive
+=== RUN   TestLive/google-gemini
+=== RUN   TestLive/google-gemini/text-stream
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P03-text-stream] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/google-gemini/text-complete
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P03-text-complete] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/google-gemini/tool-round-trip
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P03-tool-round-trip] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/google-gemini/cancel-after-first-frame
+    scenarios_test.go:147: [LIVE-P03-cancel-after-first-frame] canceled: terminal error event aborted: last event ai.ErrorEvent
+    scenarios_test.go:149: [LIVE-P03-cancel-after-first-frame] canceled: classified canceled: error ai: deadline_exceeded (request): exceeded the resource policy's ConnectTimeout (15s)
+    scenarios_test.go:150: [LIVE-P03-cancel-after-first-frame] canceled: result aborted: stop reason "error"
+    scenarios_test.go:152: [LIVE-P03-cancel-after-first-frame] canceled: events: 1 events
+=== RUN   TestLive/google-gemini/reasoning-history
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P03-reasoning-history] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+=== RUN   TestLive/google-gemini/image
+    session_test.go:112: attempt 1 met a vendor or environment fault (deadline_exceeded); retrying in 5s
+    session_test.go:118: [LIVE-P03-image] vendor or environment fault: deadline_exceeded (request, HTTP 0) after 2 attempt(s): exceeded the resource policy's ConnectTimeout (15s)
+--- FAIL: TestLive (190.04s)
+    --- FAIL: TestLive/google-gemini (190.04s)
+        --- FAIL: TestLive/google-gemini/text-stream (35.01s)
+        --- FAIL: TestLive/google-gemini/text-complete (35.01s)
+        --- FAIL: TestLive/google-gemini/tool-round-trip (35.00s)
+        --- FAIL: TestLive/google-gemini/cancel-after-first-frame (15.00s)
+        --- FAIL: TestLive/google-gemini/reasoning-history (35.01s)
+        --- FAIL: TestLive/google-gemini/image (35.01s)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/current-release/live/google-gemini/20261011T025829.170866000Z

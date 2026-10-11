@@ -45,3 +45,10 @@ Updated: 2026-10-11
 2026-10-11：方案阶段创建，未执行目标 live 或完整发布门禁。
 
 2026-10-11 实施：文档、ADR、目录/价格、traceability 与固定计划已同步，示例编译通过。当前真实中文 24 次均 HTTP 451，smoke 同样外部失败，完整发布未完成；保留 FAIL，未关闭工单或降低门槛。 命令、实际 artifacts、失败历史和未完成项见[专项证据](../evidence.md)与[来源核验](../release-verification/README.md)。
+
+2026-10-11 当前完整候选：受测源码 dba212b；普通与 race 各 6,125 case 全 PASS，
+两种 vet、固定计划、目录快照、全部差分零 pending 和原始审计通过。九组合实际
+执行后 DeepSeek 两条路线 PASS，七组合 FAIL；独立中文效果 24 次 HTTP 451、
+0 可评分，B04 未通过，继续保持工单开放。另保留[压力缺陷 07](07-pressure-stream-integrity.md)
+的历史原失败与未确认根因，重跑通过不视为修复。完整可携证据与原状态重放见
+[发布证据包](../release-evidence/README.md)。

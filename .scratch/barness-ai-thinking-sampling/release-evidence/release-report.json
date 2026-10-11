@@ -1,0 +1,4216 @@
+{
+  "pass": false,
+  "commit": "dba212b095338ba61430bca48525d6cf4bf21ab3",
+  "bundle": ".evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T033346.508376000Z",
+  "gates": [
+    {
+      "id": "go-test",
+      "name": "go test ./... (offline, differential on)",
+      "pass": true
+    },
+    {
+      "id": "go-test-race",
+      "name": "go test -race ./...",
+      "pass": true
+    },
+    {
+      "id": "go-vet",
+      "name": "go vet ./... (with and without the live tag)",
+      "pass": true
+    },
+    {
+      "id": "p0-offline",
+      "name": "every offline P0 case passes",
+      "pass": true
+    },
+    {
+      "id": "differential",
+      "name": "frozen pi differential: no pending difference",
+      "pass": true
+    },
+    {
+      "id": "live",
+      "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+      "pass": false,
+      "problems": [
+        "openai-responses: failing now: text-stream=FAIL deadline_exceeded, text-complete=FAIL deadline_exceeded, tool-round-trip=FAIL transport, cancel-after-first-frame=FAIL assertion, reasoning-history=FAIL transport, image=FAIL transport, tool-changes-gpt-5.4=FAIL transport, tool-changes-gpt-6-sol=FAIL transport",
+        "anthropic-messages: failing now: text-stream=FAIL upstream_auth, text-complete=FAIL upstream_auth, tool-round-trip=FAIL upstream_auth, cancel-after-first-frame=FAIL assertion, reasoning-history=FAIL upstream_auth, image=FAIL upstream_auth, tool-changes-claude-opus-4-8=FAIL upstream_auth, tool-changes-claude-fable-5=FAIL upstream_auth, effort-changes-claude-fable-5-1=FAIL upstream_auth, effort-changes-claude-opus-5=FAIL upstream_auth, effort-changes-claude-opus-5-5=FAIL upstream_auth",
+        "google-gemini: failing now: text-stream=FAIL deadline_exceeded, text-complete=FAIL deadline_exceeded, tool-round-trip=FAIL deadline_exceeded, cancel-after-first-frame=FAIL assertion, reasoning-history=FAIL deadline_exceeded, image=FAIL deadline_exceeded",
+        "openai-chat: failing now: text-stream=FAIL deadline_exceeded, text-complete=FAIL deadline_exceeded, tool-round-trip=FAIL deadline_exceeded, cancel-after-first-frame=FAIL assertion, image=FAIL deadline_exceeded, usage-position=FAIL deadline_exceeded, tool-changes-gpt-5.4=FAIL deadline_exceeded, tool-changes-gpt-6-sol=FAIL deadline_exceeded, pro-model-unavailable=FAIL deadline_exceeded",
+        "typesafe-classifier: failing now: mixed-questions=FAIL invalid_request, single-choice=FAIL invalid_request, context-422=FAIL invalid_request",
+        "openai-images: failing now: json-edit=FAIL deadline_exceeded",
+        "google-interactions-image: failing now: generation=FAIL deadline_exceeded, reference-edit=FAIL deadline_exceeded"
+      ]
+    },
+    {
+      "id": "redaction-audit",
+      "name": "redaction audit: no key, Authorization or real content in any bundle",
+      "pass": true
+    },
+    {
+      "id": "traceability",
+      "name": "traceability: research item → scenario → evidence",
+      "pass": false,
+      "problems": [
+        "C11-ChineseEffect (issue 16 / US87 / ADR-0024) is FAIL",
+        "V6-live (research-traceability §4 V§6) is FAIL",
+        "TS-R11 (.scratch/barness-ai-thinking-sampling/spec.md#r11) is FAIL"
+      ]
+    },
+    {
+      "id": "snapshots",
+      "name": "checked-in snapshots match the code",
+      "pass": true
+    },
+    {
+      "id": "required-artifacts",
+      "name": "mixed image design loads and independent Chinese business evaluation",
+      "pass": false,
+      "problems": [
+        "chinese-effect: FAIL evaluation is live/FAIL"
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "id": "go-vet",
+      "line": "go vet ./...",
+      "passed": true,
+      "duration": 316869166
+    },
+    {
+      "id": "go-vet-live",
+      "line": "go vet -tags live ./...",
+      "passed": true,
+      "duration": 255709791
+    },
+    {
+      "id": "go-test",
+      "line": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -count=1 ./...",
+      "passed": true,
+      "duration": 273457921833
+    },
+    {
+      "id": "go-test-race",
+      "line": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 -timeout=20m ./...",
+      "passed": true,
+      "duration": 972189669458
+    }
+  ],
+  "offline": {
+    "pass": 5310,
+    "fail": 0,
+    "notRun": 0,
+    "unsupported": 0,
+    "scenarios": {
+      "D1": {
+        "pass": 35,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "D2": {
+        "pass": 24,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E01": {
+        "pass": 138,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E02": {
+        "pass": 710,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E03": {
+        "pass": 871,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E04": {
+        "pass": 1528,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E05": {
+        "pass": 236,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E06": {
+        "pass": 175,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E07": {
+        "pass": 421,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E08": {
+        "pass": 758,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E09": {
+        "pass": 57,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E10": {
+        "pass": 119,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "E11": {
+        "pass": 154,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P01": {
+        "pass": 960,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P02": {
+        "pass": 293,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P03": {
+        "pass": 293,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P04": {
+        "pass": 574,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P05": {
+        "pass": 339,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P06": {
+        "pass": 351,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P07": {
+        "pass": 330,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P08": {
+        "pass": 267,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P09": {
+        "pass": 300,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "PRESSURE": {
+        "pass": 13,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      }
+    }
+  },
+  "differential": {
+    "pass": 815,
+    "fail": 0,
+    "notRun": 0,
+    "unsupported": 0,
+    "pending": 0,
+    "byScenario": {
+      "P01": {
+        "pass": 335,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P02": {
+        "pass": 70,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P03": {
+        "pass": 77,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P04": {
+        "pass": 203,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P06": {
+        "pass": 118,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "P07": {
+        "pass": 12,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      }
+    },
+    "ledger": {
+      "fixed": 39,
+      "extension": 229,
+      "pending": 0,
+      "routes": [
+        {
+          "provider": "google",
+          "api": "google-interactions"
+        },
+        {
+          "provider": "deepseek",
+          "api": "openai-responses"
+        },
+        {
+          "provider": "openai",
+          "api": "openai-images"
+        }
+      ]
+    }
+  },
+  "live": {
+    "rows": [
+      {
+        "combo": "openai-responses",
+        "operation": "chat",
+        "provider": "openai",
+        "api": "openai-responses",
+        "model": "gpt-5-mini",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "accountAlias": "local-openai@region-permissions-unconfirmed",
+        "status": "FAIL",
+        "lastRunAt": "2026-10-11T02:58:25.402105Z",
+        "allPassedAt": "2026-10-08T11:45:20.625547Z",
+        "failing": [
+          "text-stream=FAIL deadline_exceeded",
+          "text-complete=FAIL deadline_exceeded",
+          "tool-round-trip=FAIL transport",
+          "cancel-after-first-frame=FAIL assertion",
+          "reasoning-history=FAIL transport",
+          "image=FAIL transport",
+          "tool-changes-gpt-5.4=FAIL transport",
+          "tool-changes-gpt-6-sol=FAIL transport"
+        ]
+      },
+      {
+        "combo": "anthropic-messages",
+        "operation": "chat",
+        "provider": "anthropic",
+        "api": "anthropic-messages",
+        "model": "claude-haiku-4-5",
+        "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+        "accountAlias": "local-anthropic@region-permissions-unconfirmed",
+        "status": "FAIL",
+        "lastRunAt": "2026-10-11T02:58:29.055808Z",
+        "allPassedAt": "2026-10-08T11:45:53.02606Z",
+        "failing": [
+          "text-stream=FAIL upstream_auth",
+          "text-complete=FAIL upstream_auth",
+          "tool-round-trip=FAIL upstream_auth",
+          "cancel-after-first-frame=FAIL assertion",
+          "reasoning-history=FAIL upstream_auth",
+          "image=FAIL upstream_auth",
+          "tool-changes-claude-opus-4-8=FAIL upstream_auth",
+          "tool-changes-claude-fable-5=FAIL upstream_auth",
+          "effort-changes-claude-fable-5-1=FAIL upstream_auth",
+          "effort-changes-claude-opus-5=FAIL upstream_auth",
+          "effort-changes-claude-opus-5-5=FAIL upstream_auth"
+        ]
+      },
+      {
+        "combo": "google-gemini",
+        "operation": "chat",
+        "provider": "google",
+        "api": "google-generative-ai",
+        "model": "gemini-3.8-flash",
+        "sdk": "direct HTTP (ADR-0012)",
+        "accountAlias": "local-google@region-permissions-unconfirmed",
+        "status": "FAIL",
+        "lastRunAt": "2026-10-11T03:01:39.239064Z",
+        "allPassedAt": "2026-10-08T11:46:09.911193Z",
+        "failing": [
+          "text-stream=FAIL deadline_exceeded",
+          "text-complete=FAIL deadline_exceeded",
+          "tool-round-trip=FAIL deadline_exceeded",
+          "cancel-after-first-frame=FAIL assertion",
+          "reasoning-history=FAIL deadline_exceeded",
+          "image=FAIL deadline_exceeded"
+        ]
+      },
+      {
+        "combo": "openai-chat",
+        "operation": "chat",
+        "provider": "openai",
+        "api": "openai-completions",
+        "model": "gpt-5-mini",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "accountAlias": "local-openai@region-permissions-unconfirmed",
+        "status": "FAIL",
+        "lastRunAt": "2026-10-11T03:06:34.497109Z",
+        "allPassedAt": "2026-10-08T11:46:26.657136Z",
+        "unsupported": [
+          "reasoning-history: OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage"
+        ],
+        "failing": [
+          "text-stream=FAIL deadline_exceeded",
+          "text-complete=FAIL deadline_exceeded",
+          "tool-round-trip=FAIL deadline_exceeded",
+          "cancel-after-first-frame=FAIL assertion",
+          "image=FAIL deadline_exceeded",
+          "usage-position=FAIL deadline_exceeded",
+          "tool-changes-gpt-5.4=FAIL deadline_exceeded",
+          "tool-changes-gpt-6-sol=FAIL deadline_exceeded",
+          "pro-model-unavailable=FAIL deadline_exceeded"
+        ]
+      },
+      {
+        "combo": "deepseek-responses",
+        "operation": "chat",
+        "provider": "deepseek",
+        "api": "openai-responses",
+        "model": "deepseek-flash",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "accountAlias": "local-deepseek@region-permissions-unconfirmed",
+        "status": "PASS",
+        "lastRunAt": "2026-10-11T03:06:42.072371Z",
+        "allPassedAt": "2026-10-11T03:06:42.072371Z"
+      },
+      {
+        "combo": "deepseek-chat",
+        "operation": "chat",
+        "provider": "deepseek",
+        "api": "openai-completions",
+        "model": "deepseek-flash",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "accountAlias": "local-deepseek@region-permissions-unconfirmed",
+        "status": "PASS",
+        "lastRunAt": "2026-10-11T03:06:51.153009Z",
+        "allPassedAt": "2026-10-11T03:06:51.153009Z"
+      },
+      {
+        "combo": "typesafe-classifier",
+        "operation": "classifier",
+        "provider": "typesafe",
+        "api": "typesafe-system-one",
+        "model": "jev-1.13.0",
+        "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+        "accountAlias": "local-typesafe@region-permissions-unconfirmed",
+        "status": "FAIL",
+        "lastRunAt": "2026-10-11T03:06:52.765307Z",
+        "allPassedAt": "2026-10-08T11:46:48.605354Z",
+        "failing": [
+          "mixed-questions=FAIL invalid_request",
+          "single-choice=FAIL invalid_request",
+          "context-422=FAIL invalid_request"
+        ]
+      },
+      {
+        "combo": "openai-images",
+        "operation": "image",
+        "provider": "openai",
+        "api": "openai-images",
+        "model": "gpt-image-2.5-sunburst-2026-09-08",
+        "sdk": "direct HTTP (OpenAI Images JSON; ADR-0022)",
+        "accountAlias": "local-openai@region-permissions-unconfirmed",
+        "status": "FAIL",
+        "lastRunAt": "2026-10-11T03:07:27.913248Z",
+        "allPassedAt": "2026-10-08T11:47:23.343992Z",
+        "failing": [
+          "json-edit=FAIL deadline_exceeded"
+        ]
+      },
+      {
+        "combo": "google-interactions-image",
+        "operation": "image",
+        "provider": "google",
+        "api": "google-interactions",
+        "model": "gemini-nano-banana-2.1",
+        "sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
+        "accountAlias": "local-google@region-permissions-unconfirmed",
+        "status": "FAIL",
+        "lastRunAt": "2026-10-11T03:08:38.176193Z",
+        "allPassedAt": "2026-10-08T11:47:49.450568Z",
+        "failing": [
+          "generation=FAIL deadline_exceeded",
+          "reference-edit=FAIL deadline_exceeded"
+        ]
+      }
+    ]
+  },
+  "traceability": [
+    {
+      "id": "C11-ChineseEffect",
+      "source": "issue 16 / US87 / ADR-0024",
+      "requirement": "Independent fixed synthetic Chinese dataset and real jev-1.13.0 COMPLETE report, full denominators, confusion/calibration and attempts; integrity and audit verified separately from protocol smoke, without an accuracy threshold",
+      "scenarios": [
+        "ARTIFACTS"
+      ],
+      "status": "FAIL",
+      "offline": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 1,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "artifact:chinese-effect=FAIL"
+      ]
+    },
+    {
+      "id": "H5-design-load-artifacts",
+      "source": "issue 15–17 / ADR-0017",
+      "requirement": "Actual local and cloud mixed image design-load reports with measured whole JSON/base64, concurrency, allocation upper bounds, all limit ratios <=75% and released resources",
+      "scenarios": [
+        "ARTIFACTS"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 2,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "artifact:mixed-pressure-local=PASS",
+        "artifact:mixed-pressure-cloud=PASS"
+      ]
+    },
+    {
+      "id": "T03-mixed-operation-isolation",
+      "source": "issue 15 / ADR-0001/0003/0020",
+      "requirement": "Concurrent chat/image/classifier with same-named tenant bindings and model IDs, legal same-account credential sharing, preflight operation/options refusals, fixed retry snapshots and independent route disabling",
+      "scenarios": [
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 49,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E07-mixed-binding-disabled-classifier",
+        "E07-mixed-binding-disabled-google-image",
+        "E07-mixed-binding-disabled-openai-image",
+        "E07-mixed-preflight-chat-unknown-operation",
+        "E07-mixed-preflight-chat-wrong-entry",
+        "E07-mixed-preflight-chat-wrong-options"
+      ]
+    },
+    {
+      "id": "C08-mixed-lifecycle",
+      "source": "issue 15 / ADR-0008",
+      "requirement": "Mixed cancellation/deadlines/failures and tenant/process/waiter/time caps release only own resources; complete body and validation remain under admission",
+      "scenarios": [
+        "E08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 38,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E08-mixed-admission-chat-process-cancel",
+        "E08-mixed-admission-chat-tenant-cancel",
+        "E08-mixed-admission-chat-wait-timeout",
+        "E08-mixed-admission-classifier-process-cancel",
+        "E08-mixed-admission-classifier-tenant-cancel",
+        "E08-mixed-admission-classifier-wait-timeout"
+      ]
+    },
+    {
+      "id": "C09-mixed-observer",
+      "source": "issue 15 / ADR-0009",
+      "requirement": "Mixed attributed metadata and usage only; slow/congested/error/panic Observer cannot change model success or failure and statistics identify loss",
+      "scenarios": [
+        "E09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 4,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E09-mixed-observer-congested",
+        "E09-mixed-observer-error",
+        "E09-mixed-observer-panic",
+        "E09-mixed-observer-slow"
+      ]
+    },
+    {
+      "id": "H5-mixed-design-load",
+      "source": "issue 15 / ADR-0002/0017",
+      "requirement": "Explicit image/classifier policies with measured whole JSON/base64, atomic limits, reachable heap budgets, Provider copies, throughput and at most 75% byte-limit use; opt-in NOT_RUN",
+      "scenarios": [
+        "PRESSURE",
+        "E08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 16,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E08-mixed-image-budget-google-image-above-frame",
+        "E08-mixed-image-budget-google-image-count",
+        "E08-mixed-image-budget-google-image-input-image",
+        "E08-mixed-image-budget-google-image-request",
+        "E08-mixed-image-budget-google-image-response",
+        "E08-mixed-image-budget-google-image-single-image"
+      ]
+    },
+    {
+      "id": "C10-mixed-hosts",
+      "source": "issue 15 / ADR-0001/0003",
+      "requirement": "Local and cloud public examples with independent bindings, legal shared credentials, authenticated identity, cancellation, typed results and host-owned confidence/routing",
+      "scenarios": [
+        "E10"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 11,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E10-mixed-host-cloud",
+        "E10-mixed-host-local",
+        "E10-mixed-local-guard-disabled",
+        "E10-mixed-local-guard-duplicate-binding",
+        "E10-mixed-local-guard-foreign-tenant",
+        "E10-mixed-local-guard-missing-key"
+      ]
+    },
+    {
+      "id": "V6-google-images-live",
+      "source": "issue 14 / ADR-0016/0023",
+      "requirement": "Own fixed Nano Banana 2.1 on official v1beta; required generation/reference editing, four-call/image 1K budget, complete synchronous inline evidence, honest absent identity, atomic own-report matrix merge; separate live gate requires its own audited bundle",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 29,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-live-replay-generation-captured",
+        "P09-E01-live-replay-generation-partial",
+        "P09-E01-live-replay-generation-unreported",
+        "P09-E01-live-replay-reference-edit-captured",
+        "P09-E01-live-replay-reference-edit-partial",
+        "P09-E01-live-replay-reference-edit-unreported"
+      ]
+    },
+    {
+      "id": "H2-google-images-catalog",
+      "source": "issue 14 / ADR-0010/0018/0023",
+      "requirement": "Own live before builtin inclusion; verified counts/1K/1:1, dated modality rates; image-only output detail excludes text thought, Output contains Reasoning, native TotalTokens retained, nullable partial/unreported without invented missing text/cache or per-image pricing",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 7,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-live-replay-generation-captured",
+        "P09-E01-live-replay-generation-partial",
+        "P09-E01-live-replay-generation-unreported",
+        "P09-E01-live-replay-reference-edit-captured",
+        "P09-E01-live-replay-reference-edit-partial",
+        "P09-E01-live-replay-reference-edit-unreported"
+      ]
+    },
+    {
+      "id": "C04-google-images-delivery-omission",
+      "source": "issue 14 / maintainer-approved ADR-0023",
+      "requirement": "Always omit refused delivery field, forbid callback insertion, still reject URI/continuation/non-completed output without protocol/version/model fallback",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 10,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-live-replay-generation-captured",
+        "P09-E01-live-replay-generation-partial",
+        "P09-E01-live-replay-generation-unreported",
+        "P09-E01-live-replay-reference-edit-captured",
+        "P09-E01-live-replay-reference-edit-partial",
+        "P09-E01-live-replay-reference-edit-unreported"
+      ]
+    },
+    {
+      "id": "V4-google-images-editing",
+      "source": "issue 13 / design 8.1, 12.3–12.9 / ADR-0022",
+      "requirement": "Same public GenerateImages operation, prompt then ordered inline reference images, independent input snapshots, all output steps, atomic failures retaining usage and no replay",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 152,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-edit-ordered",
+        "P09-E01-live-replay-reference-edit-captured",
+        "P09-E01-live-replay-reference-edit-partial",
+        "P09-E01-live-replay-reference-edit-unreported",
+        "P09-E02-audio-edit-replay",
+        "P09-E02-bad-base64-edit-replay"
+      ]
+    },
+    {
+      "id": "H5-google-images-input-budgets",
+      "source": "issue 13 / ADR-0002/0022",
+      "requirement": "Host/model/14 reference intersection; per-image bytes and final decimal 20 MB or smaller host budget including encoding overhead, checked before copies and again after callbacks",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 29,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E07-edit-budget-decimal-protocol-bytes",
+        "P09-E07-edit-budget-encoding-overhead",
+        "P09-E07-edit-budget-exact-request-bytes",
+        "P09-E07-edit-budget-fourteen-accepted",
+        "P09-E07-edit-budget-host-count",
+        "P09-E07-edit-budget-image-bytes"
+      ]
+    },
+    {
+      "id": "C04-google-images-edit-final",
+      "source": "issue 13 / design 13 / ADR-0022",
+      "requirement": "Every forbidden field/fixed-field deletion refused on editing; final input MIME/base64/count/bytes and model options revalidated, no foreign identity/URI/mask or interleaving",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 110,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E02-audio-edit-replay",
+        "P09-E02-bad-base64-edit-replay",
+        "P09-E02-bad-content-edit-replay",
+        "P09-E02-continuation-edit-replay",
+        "P09-E02-empty-continuation-edit-replay",
+        "P09-E02-empty-steps-edit-replay"
+      ]
+    },
+    {
+      "id": "V4-google-images-generation",
+      "source": "issue 12 / ADR-0012/0022",
+      "requirement": "Native v1beta synchronous stateless inline generation, ordered model_output collection, real terminal mapping, atomic images and extension registration without premature live claims",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 300,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E01-edit-ordered",
+        "P09-E01-generation",
+        "P09-E01-interleaved",
+        "P09-E01-live-replay-generation-captured",
+        "P09-E01-live-replay-generation-partial",
+        "P09-E01-live-replay-generation-unreported"
+      ]
+    },
+    {
+      "id": "C04-google-images-final",
+      "source": "issue 12–13 / design 12–13 / ADR-0022",
+      "requirement": "Final callback model/fixed fields/schema/20 MB guard, protocol options, no continuation/external resources, ordered final inline references",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 134,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E04-allowed-options",
+        "P09-E04-bad-input",
+        "P09-E04-delete-format",
+        "P09-E04-delete-model",
+        "P09-E04-delete-store",
+        "P09-E04-delete-type"
+      ]
+    },
+    {
+      "id": "H5-google-images-budgets",
+      "source": "issue 12 / ADR-0002/0007/0008/0022",
+      "requirement": "Total JSON/image budgets, admission held through complete validation, cancellation/read timeout, body/permit release and no 2xx replay",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 58,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E08-edit-allocation-byte-data",
+        "P09-E08-edit-allocation-custom-key",
+        "P09-E08-edit-allocation-escaped-raw",
+        "P09-E08-edit-allocation-host-count",
+        "P09-E08-edit-allocation-model-count",
+        "P09-E08-edit-allocation-ordinary"
+      ]
+    },
+    {
+      "id": "T09-google-images-modalities",
+      "source": "issue 12 / ADR-0009/0010/0022",
+      "requirement": "Shared complete/partial/unreported axis, 7/42/22/49 normalization, explicit thought inclusion pricing, sourced fixtures and independent metadata-only modality audit",
+      "scenarios": [
+        "P09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 31,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P09-E09-modality-audit",
+        "P09-E11-duplicate-modality",
+        "P09-E11-duplicate-modality-edit-replay",
+        "P09-E11-missing-input_tokens_by_modality",
+        "P09-E11-missing-input_tokens_by_modality-edit-replay",
+        "P09-E11-missing-output_tokens_by_modality"
+      ]
+    },
+    {
+      "id": "V6-openai-images-live",
+      "source": "issue 11 / ADR-0016/0022",
+      "requirement": "Own fixed-model edit-first JSON acceptance, generation and optional mask, four-image 1K budget, audited actual consumption and atomic own-route matrix merge; separate live gate requires its own audited bundle",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 4,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E01-live-replay-generation",
+        "P08-E01-live-replay-json-edit",
+        "P08-E01-live-replay-mask-edit",
+        "P08-E03-live-catalog-inclusion"
+      ]
+    },
+    {
+      "id": "H2-openai-images-catalog",
+      "source": "issue 11 / ADR-0010/0018/0022",
+      "requirement": "Fixed date snapshot and verified capabilities, sourced text/image token pricing, no cached/per-image rates, current catalog/price hash and actual usage replay",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 4,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E01-live-replay-generation",
+        "P08-E01-live-replay-json-edit",
+        "P08-E01-live-replay-mask-edit",
+        "P08-E03-live-catalog-inclusion"
+      ]
+    },
+    {
+      "id": "V4-openai-images-editing",
+      "source": "issue 10 / ADR-0022",
+      "requirement": "Fixed generation/edit endpoint, ordered inline JSON references and mask, sourced dimensions and model fidelity, atomic output and shared unary lifecycle",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 132,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E01-edit-mask",
+        "P08-E01-edit-multiple",
+        "P08-E01-edit-omit-fidelity",
+        "P08-E01-edit-ordered",
+        "P08-E01-edit-webp-mask",
+        "P08-E04-edit-bad-response"
+      ]
+    },
+    {
+      "id": "H5-image-input-budgets",
+      "source": "issue 10 / design 8.1 / ADR-0022",
+      "requirement": "Reference and mask host/model/protocol count and byte budgets, known lengths before copy or encoding, callback allocation bounds",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 33,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E04-edit-host-count",
+        "P08-E04-edit-image-bytes",
+        "P08-E04-edit-mask-bytes",
+        "P08-E04-edit-mask-count",
+        "P08-E04-edit-model-count",
+        "P08-E04-edit-protocol-count"
+      ]
+    },
+    {
+      "id": "C04-image-edit-final",
+      "source": "issue 10 / spec image callbacks / ADR-0022",
+      "requirement": "Final JSON edit schema, no foreign resource/operation/model, final MIME/count and mask validation, single response callback and lease/body release",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 58,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E04-edit-bad-response",
+        "P08-E04-edit-bounded-cycle",
+        "P08-E04-edit-bounded-deep",
+        "P08-E04-edit-bounded-mask-cycle",
+        "P08-E04-edit-bounded-mask-deep",
+        "P08-E04-edit-compression"
+      ]
+    },
+    {
+      "id": "V4-openai-images-generation",
+      "source": "issue 09 / ADR-0022",
+      "requirement": "Native synchronous generation, all-image atomic validation, protocol options, explicit extension registration and no premature live catalog claim",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 267,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-D1-policy-image",
+        "P08-D1-policy-image-over-total",
+        "P08-D1-policy-input",
+        "P08-D1-policy-output",
+        "P08-D1-policy-total",
+        "P08-D1-policy-total-over-output"
+      ]
+    },
+    {
+      "id": "H5-image-budgets",
+      "source": "issue 09 / ADR-0002/0007/0008/0022",
+      "requirement": "Image subpolicy snapshots, bounded unary JSON, image count/byte limits, cancellation and zero resource gauges, callback size before encoding",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 47,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-D1-policy-image",
+        "P08-D1-policy-image-over-total",
+        "P08-D1-policy-input",
+        "P08-D1-policy-output",
+        "P08-D1-policy-total",
+        "P08-D1-policy-total-over-output"
+      ]
+    },
+    {
+      "id": "C04-image-final-payload",
+      "source": "issue 09 / ADR-0005/0022",
+      "requirement": "Final model and allowed generation fields, frozen options/count/MIME, no external resources or continuation, callbacks once outside binding retries",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 89,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E04-all-options",
+        "P08-E04-edit-bad-response",
+        "P08-E04-edit-bounded-cycle",
+        "P08-E04-edit-bounded-deep",
+        "P08-E04-edit-bounded-mask-cycle",
+        "P08-E04-edit-bounded-mask-deep"
+      ]
+    },
+    {
+      "id": "T09-image-usage",
+      "source": "issue 09 / ADR-0009/0010/0022",
+      "requirement": "One reporting axis, nullable modality tokens, known-only modality prices without cache/per-image billing, metadata-only independent Observer snapshots",
+      "scenarios": [
+        "P08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 18,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P08-E09-observer-isolation",
+        "P08-E11-cache-price-image",
+        "P08-E11-cache-price-null",
+        "P08-E11-cache-price-text",
+        "P08-E11-extensions-registered",
+        "P08-E11-native-catalog-exemption"
+      ]
+    },
+    {
+      "id": "V6-typesafe-live",
+      "source": "issue 08 / ADR-0016/0021",
+      "requirement": "Official fixed classifier wire replay and explicit unconfirmed 422 shape; the separate live gate requires this route's own audited bundle",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 8,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E02-live-score-beyond-rounding",
+        "P07-E02-live-score-higher-precision-mismatch",
+        "P07-E02-live-score-observed-hundredths",
+        "P07-E02-live-score-opposite-rounding",
+        "P07-E11-builtin-official",
+        "P07-E11-live-wire-context-422"
+      ]
+    },
+    {
+      "id": "H2-typesafe-catalog",
+      "source": "issue 08 / ADR-0010/0018",
+      "requirement": "Only jev-1.13.0 with official capabilities, input rate 0.042 and free output; versioned hash snapshot",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 4,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E11-builtin-official",
+        "P07-E11-live-wire-context-422",
+        "P07-E11-live-wire-mixed-questions",
+        "P07-E11-live-wire-single-choice"
+      ]
+    },
+    {
+      "id": "C08-unary-lifecycle",
+      "source": "issue 07 / design 7.5–7.6 / ADR-0003/0006/0008",
+      "requirement": "Unary cancellation, deadlines, transport timeouts, independent admission, frozen retries and subsequent permit acquisition",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 41,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E05-unary-backoff-cancel",
+        "P07-E05-unary-backoff-deadline",
+        "P07-E05-unary-frozen-snapshot",
+        "P07-E05-unary-status-0-retries-0",
+        "P07-E05-unary-status-0-retries-2",
+        "P07-E05-unary-status-401-retries-0"
+      ]
+    },
+    {
+      "id": "H5-unary-budgets",
+      "source": "issue 07 / design 8 / ADR-0007/0008",
+      "requirement": "Inclusive unary output and error budgets, one overflow byte, no replay, body and lease release after parsing",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 19,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E08-unary-budget-bad-json",
+        "P07-E08-unary-budget-error-exact",
+        "P07-E08-unary-budget-error-over",
+        "P07-E08-unary-budget-invalid-distribution",
+        "P07-E08-unary-budget-missing-answer",
+        "P07-E08-unary-budget-output-exact"
+      ]
+    },
+    {
+      "id": "C04-unary-callbacks",
+      "source": "issue 07 / ADR-0006/0008",
+      "requirement": "One frozen request callback per logical call, invalid callback rejection and host cause Is/As preserved",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 35,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E04-unary-callback-custom-byte-element",
+        "P07-E04-unary-callback-encoding-pointer-array-element",
+        "P07-E04-unary-callback-encoding-pointer-json-element",
+        "P07-E04-unary-callback-encoding-pointer-text-element",
+        "P07-E04-unary-callback-encoding-promoted-conflict",
+        "P07-E04-unary-callback-encoding-questions-marshaler"
+      ]
+    },
+    {
+      "id": "T09-unary-observer",
+      "source": "issue 07 / ADR-0009",
+      "requirement": "Trusted unresolved/resolved attribution, shared usage reporting axis, bounded asynchronous observer faults and redaction",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 4,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E09-unary-observer-congested",
+        "P07-E09-unary-observer-error",
+        "P07-E09-unary-observer-panic",
+        "P07-E09-unary-observer-slow"
+      ]
+    },
+    {
+      "id": "V4-typesafe-mixed",
+      "source": "issue 06 / spec TypeSafe / ADR-0021",
+      "requirement": "Three closed kinds, ordered scores, bool/noul, native JSON precision and strict final-question answers",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 109,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 10,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E01-bool-no-criteria",
+        "P07-E01-bool-no-criteria-parity",
+        "P07-E01-mixed",
+        "P07-E01-mixed-parity",
+        "P07-E01-native-array",
+        "P07-E01-native-object"
+      ]
+    },
+    {
+      "id": "H2-typesafe-parity",
+      "source": "issue 06 / design 9.2–9.3 / ADR-0021",
+      "requirement": "Frozen 1.0.0 classifier request/basic answer differential with explicit projection and scoped extension decisions",
+      "scenarios": [
+        "P07",
+        "PIDIFF"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 12,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "PIDIFF-P07-E01-bool-no-criteria-classify",
+        "PIDIFF-P07-E01-choice-parity-classify",
+        "PIDIFF-P07-E01-mixed-classify",
+        "PIDIFF-P07-E01-score-basic-classify",
+        "PIDIFF-P07-E01-score-no-legend-classify",
+        "PIDIFF-P07-E01-score-ten-levels-classify"
+      ]
+    },
+    {
+      "id": "T04-typesafe-final",
+      "source": "issue 06 / ADR-0021",
+      "requirement": "Final callback questions frozen, original inputs independent, authority unchanged, invalid payloads refused",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 13,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-E04-mixed-bool-capability",
+        "P07-E04-mixed-count-limit",
+        "P07-E04-mixed-final-kind-mismatch",
+        "P07-E04-mixed-final-legend-mismatch",
+        "P07-E04-mixed-final-questions",
+        "P07-E04-mixed-model-widen"
+      ]
+    },
+    {
+      "id": "V4-typesafe-choice",
+      "source": "issue 05 / design sections 7–10 / ADR-0021",
+      "requirement": "TypeSafe choice unary public call, strict final-question answer validation, shared runtime, callbacks, usage, isolation and resource release",
+      "scenarios": [
+        "P07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 330,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 12,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P07-D1-question",
+        "P07-D1-questions",
+        "P07-D1-state",
+        "P07-D1-unary-negative-MaxQuestionBytes",
+        "P07-D1-unary-negative-MaxQuestions",
+        "P07-D1-unary-negative-MaxStateBytes"
+      ]
+    },
+    {
+      "id": "T01",
+      "source": "research-traceability §2 T01",
+      "requirement": "Every entry point takes an explicit TenantID; refused calls send nothing",
+      "scenarios": [
+        "E07",
+        "E09",
+        "E10"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 12,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E07-reject-missing-request-id-complete-full",
+        "E07-reject-missing-request-id-complete-simple",
+        "E07-reject-missing-request-id-stream-full",
+        "E07-reject-missing-request-id-stream-simple",
+        "E07-reject-missing-tenant-id-complete-full",
+        "E07-reject-missing-tenant-id-complete-simple"
+      ]
+    },
+    {
+      "id": "T02",
+      "source": "research-traceability §2 T02",
+      "requirement": "Identity comes from the trusted host; forged tenants and history are refused at the host boundary",
+      "scenarios": [
+        "E10"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 42,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E10-example-host-merge",
+        "E10-example-host-refuses-claimed-tenant",
+        "E10-example-host-refuses-foreign-session",
+        "E10-example-host-refuses-missing-prompt",
+        "E10-example-host-refuses-unauthenticated",
+        "E10-example-host-refuses-unknown-session"
+      ]
+    },
+    {
+      "id": "T03",
+      "source": "research-traceability §2 T03",
+      "requirement": "Bindings are located by (tenant, binding) and owned by the tenant",
+      "scenarios": [
+        "E06",
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 98,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E06-anthropic-both-succeed-complete-full",
+        "E06-anthropic-both-succeed-complete-simple",
+        "E06-anthropic-both-succeed-stream-full",
+        "E06-anthropic-both-succeed-stream-simple",
+        "E06-chat-both-succeed-complete-full",
+        "E06-chat-both-succeed-complete-simple"
+      ]
+    },
+    {
+      "id": "T04",
+      "source": "research-traceability §2 T04",
+      "requirement": "Ordinary requests cannot override credentials or targets",
+      "scenarios": [
+        "E04",
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 70,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E07-request-surface-carries-no-authority",
+        "P01-E04-callbacks-deny-headers-alternate-key-header",
+        "P01-E04-callbacks-deny-headers-authorization-added-twice",
+        "P01-E04-callbacks-deny-headers-authorization-removed",
+        "P01-E04-callbacks-deny-headers-authorization-rewritten",
+        "P01-E04-callbacks-deny-headers-cache-session-added"
+      ]
+    },
+    {
+      "id": "T05",
+      "source": "research-traceability §2 T05",
+      "requirement": "No credential fallback (environment, other identity)",
+      "scenarios": [
+        "E06",
+        "E07",
+        "H1"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 78,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E06-anthropic-a-credential-missing-complete-full",
+        "E06-anthropic-a-credential-missing-complete-simple",
+        "E06-anthropic-a-credential-missing-stream-full",
+        "E06-anthropic-a-credential-missing-stream-simple",
+        "E06-chat-a-credential-missing-complete-full",
+        "E06-chat-a-credential-missing-complete-simple"
+      ]
+    },
+    {
+      "id": "T06",
+      "source": "research-traceability §2 T06",
+      "requirement": "Each call keeps its configuration snapshot; shared implementation holds no tenant state",
+      "scenarios": [
+        "E05",
+        "E06",
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 190,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E06-anthropic-a-canceled-complete-full",
+        "E06-anthropic-a-canceled-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-complete-full",
+        "E06-anthropic-a-canceled-on-arrival-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-stream-full",
+        "E06-anthropic-a-canceled-on-arrival-stream-simple"
+      ]
+    },
+    {
+      "id": "T07",
+      "source": "research-traceability §2 T07",
+      "requirement": "History, results and native state carry and check their attribution",
+      "scenarios": [
+        "E03",
+        "E10"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 80,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E10-example-host-merge",
+        "E10-example-host-refuses-foreign-session",
+        "E10-example-host-refuses-unknown-session",
+        "E10-library-refuses-native-state-trust",
+        "E10-native-trust-constructor",
+        "P01-E03-native-account-moved-complete-full"
+      ]
+    },
+    {
+      "id": "T08",
+      "source": "research-traceability §2 T08",
+      "requirement": "Cancellation is per call and releases only its own resources",
+      "scenarios": [
+        "E06",
+        "E08",
+        "E10"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 79,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E06-anthropic-a-canceled-complete-full",
+        "E06-anthropic-a-canceled-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-complete-full",
+        "E06-anthropic-a-canceled-on-arrival-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-stream-full",
+        "E06-anthropic-a-canceled-on-arrival-stream-simple"
+      ]
+    },
+    {
+      "id": "T09",
+      "source": "research-traceability §2 T09",
+      "requirement": "Observations attribute tenant, call and attempt and hold no secret",
+      "scenarios": [
+        "E09",
+        "E10"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 102,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E09-mixed-observer-congested",
+        "E09-mixed-observer-error",
+        "E09-mixed-observer-panic",
+        "E09-mixed-observer-slow",
+        "E09-observe-admission-refusal",
+        "E09-observe-failing-observer-error"
+      ]
+    },
+    {
+      "id": "T10",
+      "source": "research-traceability §2 T10",
+      "requirement": "Updates and revocations take effect for new calls; in-flight calls keep their snapshot",
+      "scenarios": [
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 97,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E07-mixed-binding-disabled-classifier",
+        "E07-mixed-binding-disabled-google-image",
+        "E07-mixed-binding-disabled-openai-image",
+        "E07-mixed-snapshot-conflict-chat-account",
+        "E07-mixed-snapshot-conflict-chat-credential",
+        "E07-mixed-snapshot-conflict-chat-endpoint"
+      ]
+    },
+    {
+      "id": "T11",
+      "source": "research-traceability §2 T11",
+      "requirement": "Every credential-dependent operation goes through the one authorized path",
+      "scenarios": [
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 421,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E07-mixed-binding-disabled-classifier",
+        "E07-mixed-binding-disabled-google-image",
+        "E07-mixed-binding-disabled-openai-image",
+        "E07-mixed-preflight-chat-unknown-operation",
+        "E07-mixed-preflight-chat-wrong-entry",
+        "E07-mixed-preflight-chat-wrong-options"
+      ]
+    },
+    {
+      "id": "T12",
+      "source": "research-traceability §2 T12",
+      "requirement": "Usage is recorded per attempt and per account; zero is never free",
+      "scenarios": [
+        "E05",
+        "E09",
+        "E11"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 86,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 21,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E05-attempts-keep-the-snapshot",
+        "P01-E09-observe-retry",
+        "P01-E11-cache-write-priced-complete-full",
+        "P01-E11-cache-write-priced-stream-full",
+        "P01-E11-failed-usage-missing-complete-full",
+        "P01-E11-failed-usage-missing-stream-full"
+      ]
+    },
+    {
+      "id": "C01",
+      "source": "research-traceability §4 C01",
+      "requirement": "Call lifecycle",
+      "scenarios": [
+        "E01"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 138,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 21,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E01-close-after-terminal-keeps-result",
+        "E01-close-while-resolver-blocked-stream-full",
+        "E01-close-while-resolver-blocked-stream-simple",
+        "E01-complete-queues-no-events-complete-full",
+        "E01-complete-queues-no-events-complete-simple",
+        "E01-err-scanner-style"
+      ]
+    },
+    {
+      "id": "C02",
+      "source": "research-traceability §4 C02",
+      "requirement": "Failures and truncation",
+      "scenarios": [
+        "E02"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 710,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 26,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E02-parity-anthropic-claude-sonnet-5-5-stream-complete",
+        "E02-parity-anthropic-claude-sonnet-5-5-stream-stream",
+        "E02-parity-anthropic-claude-sonnet-5-5-streamSimple-complete",
+        "E02-parity-anthropic-claude-sonnet-5-5-streamSimple-stream",
+        "E02-parity-chat-gpt-6.1-sol-stream-complete",
+        "E02-parity-chat-gpt-6.1-sol-stream-stream"
+      ]
+    },
+    {
+      "id": "C03",
+      "source": "research-traceability §4 C03",
+      "requirement": "History and tools",
+      "scenarios": [
+        "E03"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 871,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 21,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E03-catalog-builtin-models-are-pis",
+        "E03-catalog-inclusion-listed",
+        "E03-managed-effort-listed",
+        "E03-operation-allowed--complete-full",
+        "E03-operation-allowed--complete-simple",
+        "E03-operation-allowed--stream-full"
+      ]
+    },
+    {
+      "id": "C04",
+      "source": "research-traceability §4 C04",
+      "requirement": "Options and callbacks",
+      "scenarios": [
+        "E04"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 1528,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 58,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E04-model-sampling-reject-openai-completions-bad-json",
+        "E04-model-sampling-reject-openai-completions-model",
+        "E04-model-sampling-reject-openai-completions-prompt_cache_key",
+        "E04-model-sampling-reject-openai-completions-store",
+        "E04-model-sampling-reject-openai-completions-stream",
+        "E04-model-sampling-reject-openai-completions-tools"
+      ]
+    },
+    {
+      "id": "C05",
+      "source": "research-traceability §4 C05",
+      "requirement": "Retry",
+      "scenarios": [
+        "E05"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 236,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 26,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E05-attempts-keep-the-snapshot",
+        "P01-E05-auth-401-not-retried-complete-full",
+        "P01-E05-auth-401-not-retried-complete-simple",
+        "P01-E05-auth-401-not-retried-stream-full",
+        "P01-E05-auth-401-not-retried-stream-simple",
+        "P01-E05-auth-403-not-retried-complete-full"
+      ]
+    },
+    {
+      "id": "C06",
+      "source": "research-traceability §4 C06",
+      "requirement": "Tenant concurrency isolation",
+      "scenarios": [
+        "E06"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 175,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E06-anthropic-a-canceled-complete-full",
+        "E06-anthropic-a-canceled-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-complete-full",
+        "E06-anthropic-a-canceled-on-arrival-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-stream-full",
+        "E06-anthropic-a-canceled-on-arrival-stream-simple"
+      ]
+    },
+    {
+      "id": "C07",
+      "source": "research-traceability §4 C07",
+      "requirement": "Authorization and updates",
+      "scenarios": [
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 421,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E07-mixed-binding-disabled-classifier",
+        "E07-mixed-binding-disabled-google-image",
+        "E07-mixed-binding-disabled-openai-image",
+        "E07-mixed-preflight-chat-unknown-operation",
+        "E07-mixed-preflight-chat-wrong-entry",
+        "E07-mixed-preflight-chat-wrong-options"
+      ]
+    },
+    {
+      "id": "C08",
+      "source": "research-traceability §4 C08",
+      "requirement": "Resources and release",
+      "scenarios": [
+        "E08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 758,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 13,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E08-admission-burst-pressure-cloud-batch",
+        "E08-admission-burst-pressure-cloud-interactive",
+        "E08-admission-burst-pressure-cloud-interactive-waiters-x4",
+        "E08-admission-burst-pressure-local",
+        "E08-admission-host-denies",
+        "E08-admission-host-per-attempt-complete-full"
+      ]
+    },
+    {
+      "id": "C09",
+      "source": "research-traceability §4 C09",
+      "requirement": "Observability and secrets",
+      "scenarios": [
+        "E09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 57,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E09-mixed-observer-congested",
+        "E09-mixed-observer-error",
+        "E09-mixed-observer-panic",
+        "E09-mixed-observer-slow",
+        "E09-observe-admission-refusal",
+        "E09-observe-failing-observer-error"
+      ]
+    },
+    {
+      "id": "C10",
+      "source": "research-traceability §4 C10",
+      "requirement": "Routing and host contract",
+      "scenarios": [
+        "E10"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 119,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E10-example-host-merge",
+        "E10-example-host-refuses-claimed-tenant",
+        "E10-example-host-refuses-foreign-session",
+        "E10-example-host-refuses-missing-prompt",
+        "E10-example-host-refuses-unauthenticated",
+        "E10-example-host-refuses-unknown-session"
+      ]
+    },
+    {
+      "id": "C11",
+      "source": "research-traceability §4 C11",
+      "requirement": "Usage and cost",
+      "scenarios": [
+        "E11"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 154,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 31,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E11-chat-duration-complete-full-failure",
+        "E11-chat-duration-complete-full-success",
+        "E11-chat-duration-complete-simple-failure",
+        "E11-chat-duration-complete-simple-success",
+        "E11-chat-duration-stream-full-failure",
+        "E11-chat-duration-stream-full-success"
+      ]
+    },
+    {
+      "id": "V4-responses",
+      "source": "research-traceability §4 V§4 OpenAI Responses",
+      "requirement": "P01 protocol specifics",
+      "scenarios": [
+        "P01"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 960,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 335,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E01-config-read-only-after-construction",
+        "P01-E01-stream-returns-before-resolution",
+        "P01-E01-text-complete-full",
+        "P01-E01-text-complete-simple",
+        "P01-E01-text-framing-bytewise",
+        "P01-E01-text-framing-crlf"
+      ]
+    },
+    {
+      "id": "V4-anthropic",
+      "source": "research-traceability §4 V§4 Anthropic",
+      "requirement": "P02 protocol specifics",
+      "scenarios": [
+        "P02"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 293,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 70,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P02-E01-block-start-content-stream",
+        "P02-E01-interleaved-stream",
+        "P02-E01-repair-and-trailing-events-stream",
+        "P02-E01-text-complete",
+        "P02-E01-text-framing-bytewise",
+        "P02-E01-text-framing-crlf"
+      ]
+    },
+    {
+      "id": "V4-gemini",
+      "source": "research-traceability §4 V§4 Gemini",
+      "requirement": "P03 protocol specifics",
+      "scenarios": [
+        "P03"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 293,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 77,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P03-E01-function-call-ids-generated-stream",
+        "P03-E01-interleaved-stream",
+        "P03-E01-signature-on-empty-text-stream",
+        "P03-E01-text-complete",
+        "P03-E01-text-framing-bytewise",
+        "P03-E01-text-framing-crlf"
+      ]
+    },
+    {
+      "id": "V4-chat",
+      "source": "research-traceability §4 V§4 OpenAI Chat",
+      "requirement": "P04 protocol specifics",
+      "scenarios": [
+        "P04"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 574,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 203,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P04-E01-after-done-ignored-stream",
+        "P04-E01-interleaved-stream",
+        "P04-E01-parallel-tool-calls-stream",
+        "P04-E01-reasoning-details-only-stream",
+        "P04-E01-reasoning-details-stream",
+        "P04-E01-text-complete"
+      ]
+    },
+    {
+      "id": "V4-deepseek",
+      "source": "research-traceability §4 V§4 DeepSeek",
+      "requirement": "P05/P06: two bindings accepted separately",
+      "scenarios": [
+        "P05",
+        "P06"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 690,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 118,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P05-E01-reasoning-simple-stream",
+        "P05-E01-reasoning-stream",
+        "P05-E01-reasoning-tool-call-stream",
+        "P05-E01-text-complete",
+        "P05-E01-text-result",
+        "P05-E01-text-simple-complete"
+      ]
+    },
+    {
+      "id": "V6-live",
+      "source": "research-traceability §4 V§6",
+      "requirement": "Nine combinations supply their own current complete audited live smoke; required classification and image generation/editing cannot be UNSUPPORTED",
+      "scenarios": [
+        "LIVE"
+      ],
+      "status": "FAIL",
+      "offline": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 2,
+        "fail": 7,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "support-matrix:openai-responses=FAIL",
+        "support-matrix:anthropic-messages=FAIL",
+        "support-matrix:google-gemini=FAIL",
+        "support-matrix:openai-chat=FAIL",
+        "support-matrix:deepseek-responses=PASS",
+        "support-matrix:deepseek-chat=PASS",
+        "support-matrix:typesafe-classifier=FAIL",
+        "support-matrix:openai-images=FAIL",
+        "support-matrix:google-interactions-image=FAIL"
+      ]
+    },
+    {
+      "id": "H1",
+      "source": "research-traceability §5 H1",
+      "requirement": "Per-call credential, endpoint and header isolation",
+      "scenarios": [
+        "H1",
+        "E06",
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 603,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E06-anthropic-a-canceled-complete-full",
+        "E06-anthropic-a-canceled-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-complete-full",
+        "E06-anthropic-a-canceled-on-arrival-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-stream-full",
+        "E06-anthropic-a-canceled-on-arrival-stream-simple"
+      ]
+    },
+    {
+      "id": "H2",
+      "source": "research-traceability §5 H2",
+      "requirement": "Field presence, signatures, tools and pi differential",
+      "scenarios": [
+        "PIDIFF",
+        "E03",
+        "E04"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 2399,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 815,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E03-catalog-builtin-models-are-pis",
+        "E03-catalog-inclusion-listed",
+        "E03-managed-effort-listed",
+        "E03-operation-allowed--complete-full",
+        "E03-operation-allowed--complete-simple",
+        "E03-operation-allowed--stream-full"
+      ]
+    },
+    {
+      "id": "H3",
+      "source": "research-traceability §5 H3",
+      "requirement": "Correct terminals and partial messages",
+      "scenarios": [
+        "E01",
+        "E02"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 848,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 47,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E01-close-after-terminal-keeps-result",
+        "E01-close-while-resolver-blocked-stream-full",
+        "E01-close-while-resolver-blocked-stream-simple",
+        "E01-complete-queues-no-events-complete-full",
+        "E01-complete-queues-no-events-complete-simple",
+        "E01-err-scanner-style"
+      ]
+    },
+    {
+      "id": "H4",
+      "source": "research-traceability §5 H4",
+      "requirement": "pi-equivalent retry",
+      "scenarios": [
+        "E05"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 236,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 26,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E05-attempts-keep-the-snapshot",
+        "P01-E05-auth-401-not-retried-complete-full",
+        "P01-E05-auth-401-not-retried-complete-simple",
+        "P01-E05-auth-401-not-retried-stream-full",
+        "P01-E05-auth-401-not-retried-stream-simple",
+        "P01-E05-auth-403-not-retried-complete-full"
+      ]
+    },
+    {
+      "id": "H5",
+      "source": "research-traceability §5 H5",
+      "requirement": "Resource limits before reading or allocating",
+      "scenarios": [
+        "E08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 758,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 13,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E08-admission-burst-pressure-cloud-batch",
+        "E08-admission-burst-pressure-cloud-interactive",
+        "E08-admission-burst-pressure-cloud-interactive-waiters-x4",
+        "E08-admission-burst-pressure-local",
+        "E08-admission-host-denies",
+        "E08-admission-host-per-attempt-complete-full"
+      ]
+    },
+    {
+      "id": "D1",
+      "source": "spec D1 / ADR-0002",
+      "requirement": "Explicit finite resource policy, refused when missing or invalid",
+      "scenarios": [
+        "D1",
+        "E08"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 793,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 13,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "D1-construct-accept-boundaries",
+        "D1-construct-reject-admission-wait-exceeds-call",
+        "D1-construct-reject-connect-exceeds-call",
+        "D1-construct-reject-image-exceeds-request",
+        "D1-construct-reject-missing-binding-resolver",
+        "D1-construct-reject-missing-credential-resolver"
+      ]
+    },
+    {
+      "id": "D1-examples",
+      "source": "spec I9 正式示例 / issue 24",
+      "requirement": "The formal policy examples pass their repeatable pressure scenarios",
+      "scenarios": [
+        "PRESSURE"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 13,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E08-admission-burst-pressure-cloud-batch",
+        "E08-admission-burst-pressure-cloud-interactive",
+        "E08-admission-burst-pressure-cloud-interactive-waiters-x4",
+        "E08-admission-burst-pressure-local",
+        "E08-mixed-pressure-cloud-design-load",
+        "E08-mixed-pressure-local-design-load"
+      ]
+    },
+    {
+      "id": "D2",
+      "source": "spec D2 / ADR-0003",
+      "requirement": "An inconsistent snapshot fails before sending; no internal re-resolution",
+      "scenarios": [
+        "D2"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 24,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E07-reject-binding-disabled-between-reads-complete-full",
+        "E07-reject-binding-disabled-between-reads-complete-simple",
+        "E07-reject-binding-disabled-between-reads-stream-full",
+        "E07-reject-binding-disabled-between-reads-stream-simple",
+        "E07-reject-binding-updated-between-reads-complete-full",
+        "E07-reject-binding-updated-between-reads-complete-simple"
+      ]
+    },
+    {
+      "id": "S6-1-3",
+      "source": "research-traceability §1 S§6 验收 1–3",
+      "requirement": "Protocol capabilities, A/B isolation, zero requests before failure",
+      "scenarios": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "E06",
+        "E07"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 3304,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 803,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E06-anthropic-a-canceled-complete-full",
+        "E06-anthropic-a-canceled-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-complete-full",
+        "E06-anthropic-a-canceled-on-arrival-complete-simple",
+        "E06-anthropic-a-canceled-on-arrival-stream-full",
+        "E06-anthropic-a-canceled-on-arrival-stream-simple"
+      ]
+    },
+    {
+      "id": "S6-4-7",
+      "source": "research-traceability §1 S§6 验收 4–7",
+      "requirement": "Updates/revocation, EOF/errors, limits/release, redaction",
+      "scenarios": [
+        "E02",
+        "E05",
+        "E06",
+        "E07",
+        "E08",
+        "E09"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 2357,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 65,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E02-parity-anthropic-claude-sonnet-5-5-stream-complete",
+        "E02-parity-anthropic-claude-sonnet-5-5-stream-stream",
+        "E02-parity-anthropic-claude-sonnet-5-5-streamSimple-complete",
+        "E02-parity-anthropic-claude-sonnet-5-5-streamSimple-stream",
+        "E02-parity-chat-gpt-6.1-sol-stream-complete",
+        "E02-parity-chat-gpt-6.1-sol-stream-stream"
+      ]
+    },
+    {
+      "id": "S6-8-10",
+      "source": "research-traceability §1 S§6 验收 8–10",
+      "requirement": "Full differential, simple/full/reasoning/usage, routing",
+      "scenarios": [
+        "PIDIFF",
+        "E03",
+        "E04",
+        "E05",
+        "E10",
+        "E11"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 2908,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 815,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E03-catalog-builtin-models-are-pis",
+        "E03-catalog-inclusion-listed",
+        "E03-managed-effort-listed",
+        "E03-operation-allowed--complete-full",
+        "E03-operation-allowed--complete-simple",
+        "E03-operation-allowed--stream-full"
+      ]
+    },
+    {
+      "id": "TS-R01",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r01",
+      "requirement": "Model profile metadata, seven canonical keys, optional maps",
+      "scenarios": [
+        "E03",
+        "E04"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 646,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E03-thinking-sampling-config-anthropic-empty-key",
+        "E03-thinking-sampling-config-anthropic-empty-map",
+        "E03-thinking-sampling-config-anthropic-empty-profile",
+        "E03-thinking-sampling-config-anthropic-nil-profile",
+        "E03-thinking-sampling-config-anthropic-null-value",
+        "E03-thinking-sampling-config-anthropic-unknown"
+      ]
+    },
+    {
+      "id": "TS-R02",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r02",
+      "requirement": "Shared canonical clamp independent of wire; supported, null, extended and nonreasoning matrices",
+      "scenarios": [
+        "E04"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 544,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E04-thinking-sampling-S02-supported-high-stream-complete",
+        "P01-E04-thinking-sampling-S02-supported-high-stream-complete-hooks",
+        "P01-E04-thinking-sampling-S02-supported-high-stream-stream",
+        "P01-E04-thinking-sampling-S02-supported-high-stream-stream-hooks",
+        "P01-E04-thinking-sampling-S02-supported-high-streamSimple-complete",
+        "P01-E04-thinking-sampling-S02-supported-high-streamSimple-complete-hooks"
+      ]
+    },
+    {
+      "id": "TS-R03",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r03",
+      "requirement": "Full/simple effort boundaries, summary-only, DeepSeek disabled/enabled",
+      "scenarios": [
+        "E04"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 152,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E04-thinking-sampling-S06-all-null-stream-complete",
+        "P01-E04-thinking-sampling-S06-all-null-stream-stream",
+        "P01-E04-thinking-sampling-S06-all-null-streamSimple-complete",
+        "P01-E04-thinking-sampling-S06-all-null-streamSimple-stream",
+        "P01-E04-thinking-sampling-S06-off-none-stream-complete",
+        "P01-E04-thinking-sampling-S06-off-none-stream-stream"
+      ]
+    },
+    {
+      "id": "TS-R04",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r04",
+      "requirement": "Named/general/profile/call/hook top-level merge preserves all valid JSON values",
+      "scenarios": [
+        "E04"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 296,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E04-thinking-sampling-S01-merge-stream-complete",
+        "P01-E04-thinking-sampling-S01-merge-stream-complete-hooks",
+        "P01-E04-thinking-sampling-S01-merge-stream-stream",
+        "P01-E04-thinking-sampling-S01-merge-stream-stream-hooks",
+        "P01-E04-thinking-sampling-S01-merge-streamSimple-complete",
+        "P01-E04-thinking-sampling-S01-merge-streamSimple-complete-hooks"
+      ]
+    },
+    {
+      "id": "TS-R05",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r05",
+      "requirement": "Four consumers; native maps ignored; extension route explicitly skipped",
+      "scenarios": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 936,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 192,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E03-thinking-sampling-snapshot-call-stream-complete",
+        "P01-E03-thinking-sampling-snapshot-call-stream-stream",
+        "P01-E03-thinking-sampling-snapshot-call-streamSimple-complete",
+        "P01-E03-thinking-sampling-snapshot-call-streamSimple-stream",
+        "P01-E04-thinking-sampling-S01-merge-stream-complete",
+        "P01-E04-thinking-sampling-S01-merge-stream-complete-hooks"
+      ]
+    },
+    {
+      "id": "TS-R06",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r06",
+      "requirement": "NewClient/Hash validate all levels, keys, JSON and reserved fields safely",
+      "scenarios": [
+        "E03"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 521,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E03-thinking-sampling-config-anthropic-empty-key",
+        "E03-thinking-sampling-config-anthropic-empty-map",
+        "E03-thinking-sampling-config-anthropic-empty-profile",
+        "E03-thinking-sampling-config-anthropic-nil-profile",
+        "E03-thinking-sampling-config-anthropic-null-value",
+        "E03-thinking-sampling-config-anthropic-unknown"
+      ]
+    },
+    {
+      "id": "TS-R07",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r07",
+      "requirement": "Callback observes final sampling; no reselection; final authorization/limits maintained",
+      "scenarios": [
+        "E04",
+        "E05"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 120,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E04-thinking-sampling-callback-stream-complete-hosted",
+        "P01-E04-thinking-sampling-callback-stream-complete-in-place",
+        "P01-E04-thinking-sampling-callback-stream-complete-limit",
+        "P01-E04-thinking-sampling-callback-stream-complete-model",
+        "P01-E04-thinking-sampling-callback-stream-complete-replace",
+        "P01-E04-thinking-sampling-callback-stream-stream-hosted"
+      ]
+    },
+    {
+      "id": "TS-R08",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r08",
+      "requirement": "Deep snapshots, tenant/client ownership, cancellation and retry frozen bytes",
+      "scenarios": [
+        "E03",
+        "E05",
+        "E06"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 89,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E03-thinking-sampling-snapshots",
+        "P01-E03-thinking-sampling-snapshot-call-stream-complete",
+        "P01-E03-thinking-sampling-snapshot-call-stream-stream",
+        "P01-E03-thinking-sampling-snapshot-call-streamSimple-complete",
+        "P01-E03-thinking-sampling-snapshot-call-streamSimple-stream",
+        "P01-E05-thinking-sampling-stream-complete-cancel-backoff"
+      ]
+    },
+    {
+      "id": "TS-R09",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r09",
+      "requirement": "Verified catalog contents, stable nested map hashing and upgraded price snapshot",
+      "scenarios": [
+        "E03"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 2,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E03-catalog-builtin-models-are-pis",
+        "E03-thinking-sampling-snapshots"
+      ]
+    },
+    {
+      "id": "TS-R10",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r10",
+      "requirement": "Single 1.1.0 oracle with two source equivalence proofs and zero pending full differential",
+      "scenarios": [
+        "E03",
+        "PIDIFF"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 3,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 815,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "E03-thinking-sampling-baseline-evidence-b",
+        "E03-thinking-sampling-baseline-evidence-c",
+        "E03-thinking-sampling-baseline-oracle-guards",
+        "PIDIFF-P01-E01-interleaved-stream",
+        "PIDIFF-P01-E01-interleaved-streamSimple",
+        "PIDIFF-P01-E01-reasoning-call-stream"
+      ]
+    },
+    {
+      "id": "TS-R11",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r11",
+      "requirement": "Current nine-route release contract, independent Chinese effect and design-load artifacts",
+      "scenarios": [
+        "LIVE",
+        "ARTIFACTS"
+      ],
+      "status": "FAIL",
+      "offline": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 2,
+        "fail": 7,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 2,
+        "fail": 1,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "support-matrix:openai-responses=FAIL",
+        "support-matrix:anthropic-messages=FAIL",
+        "support-matrix:google-gemini=FAIL",
+        "support-matrix:openai-chat=FAIL",
+        "support-matrix:deepseek-responses=PASS",
+        "support-matrix:deepseek-chat=PASS",
+        "support-matrix:typesafe-classifier=FAIL",
+        "support-matrix:openai-images=FAIL",
+        "support-matrix:google-interactions-image=FAIL",
+        "artifact:mixed-pressure-local=PASS",
+        "artifact:mixed-pressure-cloud=PASS",
+        "artifact:chinese-effect=FAIL"
+      ]
+    },
+    {
+      "id": "TS-R12",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r12",
+      "requirement": "Complete documented Host configuration and public protocol fixtures",
+      "scenarios": [
+        "E03",
+        "E04"
+      ],
+      "status": "PASS",
+      "offline": {
+        "pass": 48,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "P01-E03-thinking-sampling-snapshot-call-stream-complete",
+        "P01-E03-thinking-sampling-snapshot-call-stream-stream",
+        "P01-E03-thinking-sampling-snapshot-call-streamSimple-complete",
+        "P01-E03-thinking-sampling-snapshot-call-streamSimple-stream",
+        "P01-E04-thinking-sampling-S01-merge-stream-complete",
+        "P01-E04-thinking-sampling-S01-merge-stream-complete-hooks"
+      ]
+    }
+  ],
+  "audits": [
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T033346.508376000Z",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/openai-responses/20261011T025635.224997000Z",
+      "combo": "openai-responses",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/anthropic-messages/20261011T025825.606682000Z",
+      "combo": "anthropic-messages",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/google-gemini/20261011T025829.170866000Z",
+      "combo": "google-gemini",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/openai-chat/20261011T030139.432585000Z",
+      "combo": "openai-chat",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/deepseek-responses/20261011T030634.750435000Z",
+      "combo": "deepseek-responses",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/deepseek-chat/20261011T030642.192437000Z",
+      "combo": "deepseek-chat",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/typesafe-classifier/20261011T030651.281022000Z",
+      "combo": "typesafe-classifier",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/openai-images/20261011T030652.876811000Z",
+      "combo": "openai-images",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/google-interactions-image/20261011T030728.130466000Z",
+      "combo": "google-interactions-image",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/gate/race/20261011T033821.162487000Z",
+      "findings": []
+    },
+    {
+      "bundle": ".evidence/barness-ai/thinking-sampling-evaluation/20261011T025637.596141000Z",
+      "findings": []
+    }
+  ],
+  "snapshots": [
+    {
+      "name": "catalog",
+      "current": true
+    },
+    {
+      "name": "release-plan",
+      "current": true
+    }
+  ],
+  "evidence": [
+    {
+      "name": "mixed-pressure-local",
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T033346.508376000Z",
+      "status": "PASS",
+      "detail": "4 concurrent calls, heap growth 7473888 / budget 268435456, allocation upper bound 142052464; all headroom <=75%; resources zero"
+    },
+    {
+      "name": "mixed-pressure-cloud",
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/gate/offline/20261011T033346.508376000Z",
+      "status": "PASS",
+      "detail": "8 concurrent calls, heap growth 17154192 / budget 536870912, allocation upper bound 284474208; all headroom <=75%; resources zero"
+    },
+    {
+      "name": "chinese-effect",
+      "bundle": ".evidence/barness-ai/thinking-sampling-evaluation/20261011T025637.596141000Z",
+      "status": "FAIL",
+      "detail": "evaluation is live/FAIL"
+    }
+  ]
+}

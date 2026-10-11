@@ -46,3 +46,8 @@ BARNESS_AI_PRESSURE=1 BARNESS_AI_PRESSURE_LOOPS=10 go test ./ai/e2e \
 `TestPressureLoopback` 共 10 PASS、0 FAIL，执行 71.455 秒，审计零发现。
 本轮没有重现自然失败，不能认定问题已修复或改写失败 gate。
 普通 gate 的单次 FAIL 与完整 race 的同负载 PASS 均保留。
+
+第三轮当前源码 `dba212b` 的完整普通离线命令已 PASS（6,125 case，272.638 秒），
+同一压力场景保持原设计负载并 PASS；完整 race 命令及审计也已 PASS（970.760 秒）。
+此轮只调整 release CLI 的整体 race 时间窗口，没有改流读取、解析或受控 Provider；
+所以本工单仍是未确认原因的缺陷，不能因重跑通过而关闭。

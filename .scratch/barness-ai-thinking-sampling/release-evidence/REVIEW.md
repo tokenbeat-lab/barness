@@ -40,4 +40,6 @@ Both are addressed in the checker: raw tar headers are bounded before the
 standard parser, with public executable red/green faults; every extracted
 archive tree is audited, using a temporary verification manifest when the
 original run never produced one. Original failed/NOT_RUN verdicts remain.
-Follow-up verification and independent review are recorded after execution.
+Independent review of `b9d5df0...77006b4` confirmed both original P2s
+resolved, with 0 new findings; Standards independently ran all 12 negative
+boundaries. Complete archive verification is recorded after execution.

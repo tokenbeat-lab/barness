@@ -1,0 +1,16 @@
+{
+  "sha256": "a14eae5ee5c2c6d06c5b532310a5be37129965dba25bd94a235c1c8e68d45e8f",
+  "buildInfo": "[REPO]/.evidence/barness-ai-thinking-sampling/live.test: go1.26.2\n\tpath\tgithub.com/tokenbeat-lab/barness/ai/live.test\n\tmod\tgithub.com/tokenbeat-lab/barness\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-tags=live\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "note": "Built before commits from the implemented working tree: embedded revision 39ab6a5, vcs.modified=true. Later commits migrate tests, release selectors/budgets and docs; the chat runtime differs only in a call.go comment. Do not label this binary as built from the final commit.",
+  "combos": [
+    "openai-responses",
+    "anthropic-messages",
+    "google-gemini",
+    "openai-chat",
+    "deepseek-responses",
+    "deepseek-chat",
+    "typesafe-classifier",
+    "openai-images",
+    "google-interactions-image"
+  ]
+}
