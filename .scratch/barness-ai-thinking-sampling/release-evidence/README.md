@@ -21,9 +21,11 @@
 `manifest.json` 索引 12 个当前完整包：完整离线、完整 race、九个真实组合、
 独立中文效果。每份 tar.gz 保存全部原始受控请求、帧、事件、结果、断言、
 Attempt、pidiff、fixture、manifest、审计及报告。逐 case 原始字节与 Hash 不变；
-tar 的主机所有者与时间归零，顶层失败命令报告及命令日志中的主机路径脱敏。
+tar 的主机所有者与时间归零，顶层失败命令报告及命令日志中的主机路径脱敏，展示日志去掉空白行的尾空格。
 `source-hashes.json` 固定实际测试源码，`live-harness.json` 如实记录真实调用
-二进制的早期 Git revision 与 `vcs.modified=true`，没有改写报告里的 commit。
+二进制的原 SHA 与不含 VCS 字段的 buildInfo，不能证明构建 commit；manifest 的
+commit 为运行时 checkout HEAD，没有改写成最终构建来源。普通/race 的源码内容
+与 dba212b 的对应由逐文件 Hash 验证。
 
 失败历史另有完整包：两次 catalog 红灯、快照/采样/duration 红灯、首次基线
 迁移、新场景耗时差异、生命周期 fixture 错误，以及第一次全套离线失败、第二次完整 gate 的压力失败和 race 审计超时。
@@ -67,4 +69,5 @@ python3 .scratch/barness-ai-thinking-sampling/update-ledger.py \
 ```
 
 代码与验收两轴的独立审查见 `REVIEW.md`。源代码改动后必须重新运行完整门禁
-和 pack.py；验证器会拒绝使用漂移源码重编工具解释旧证据。
+；验证器会拒绝使用漂移源码重编工具解释旧证据。pack.py 固定本次失败快照的
+输入与历史，是该交付包的重建脚本；后续发布需使用新运行的输入和原判定。

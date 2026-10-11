@@ -285,7 +285,9 @@ with tempfile.TemporaryDirectory(prefix='barness-sampling-verify-') as tmp:
     effect = read(bundles['chinese-effect'] / 'evaluation-report.json')
     assert effect['status'] == 'FAIL' and effect['audit'] == 'PASS' and effect['dataset']['count'] == 24
     evaluation = subprocess.run(['go', 'run', './ai/examples/chineseeval/cmd/chineseeval', '-verify', str(bundles['chinese-effect'])], cwd=ROOT, capture_output=True)
-    assert evaluation.returncode == 1, 'failed evaluation was reported as passed'
+    assert evaluation.returncode == 0, 'evaluation artifact integrity failed'
+    assert evaluation.stdout.startswith(b'FAIL:'), 'failed evaluation outcome was changed'
+    receipt['evaluationArtifactVerification'] = {'exitCode': evaluation.returncode, 'outcome': effect['status']}
     command = ['go', 'run', './ai/release/cmd/releasegate', '-out', str(work / 'replayed'), '-bundle', str(bundles['offline']), '-evaluation', str(bundles['chinese-effect']),
                '-matrix', str(FOLDER / 'support-matrix.json'), '-trace', str(FOLDER / 'traceability.json'), '-ledger', str(FOLDER / 'ledger.json'), '-snapshot', str(FOLDER / 'catalog-snapshot.json')]
     for role, bundle in bundles.items():

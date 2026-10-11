@@ -12,6 +12,7 @@ This checker reads archived public E2E output. It never calls a vendor.
 - A different catalog, oracle, traceability or ledger must not silently reinterpret the recorded result.
 - Nine live combinations and the independent Chinese evaluation must remain distinct and complete; a historical catalog report must not replace a current one.
 - Recorded failing live/effect gates must remain FAIL on artifact replay. Command gates are NOT_RUN on replay and cannot claim fresh execution.
+- Chinese evaluation `-verify` exits zero for a complete, honest FAIL report: integrity success must not be confused with business-result PASS.
 - An interrupted initial gate must retain its failed offline bundle and log; its incomplete race output cannot certify a complete race run.
 - A completed race case suite whose original artifact audit was killed must remain a command FAIL, even if a later independent audit succeeds.
 - Python optimization must not disable integrity assertions.

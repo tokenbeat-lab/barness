@@ -1,6 +1,6 @@
 {
-  "FAILURES.md": "36082786fb94ab689b1108bea29c993e16ecd75ae2723864a3088ee0b95f9b7e",
-  "README.md": "c33ac431a467ffe5d1060754fbc1074a5601b31493c8e75349299c95c5010412",
+  "FAILURES.md": "002b306ec71a10ca3a16bc7d36b478bb546aacb1e1e34e50b762a1ac4ec9fa51",
+  "README.md": "3518d23e93e2da2066be6500b25672a6f2e52d60d60df9a6ff5c496786fede6e",
   "REVIEW.md": "d33ce75826848ed44abe71ab52d513b206783e9f56406e72a3774ea42736baae",
   "anthropic-messages.tar.gz": "b511539b1cbe5d819c0023b201a04ba1c148ebac4cd8ef92b308927ac52a3d05",
   "audit-timeout-gate.tar.gz": "bf4c0e50ae8a6dbbbe62899bba4e1c5ffe4a9cefdf972d0206e001fe29cc29dd",
@@ -14,6 +14,7 @@
   "deepseek-responses.tar.gz": "f1ce228ba7e5d1c5b78f5acf70e769d4bbf0f7109eaf17b67ee4db8c98bffdeb",
   "diagnostic-pressure-10-rounds.tar.gz": "763cbe4f6902977491c80b0fd77019532e55c72cf5c41048e7023d4952d9959a",
   "duration-red.tar.gz": "3603fc778c6afaa85ad8621a171a692244f1f038ef7c7109b471d6f39c3f00d9",
+  "first-verification-failure.json": "18cae06193b617381464506da7c765d54a15bed1a79092ba8842ac7b1f6646ad",
   "fixtures.json": "72bc116ccf60cc6a21f865d88e0f33c1ed7669aa4686fe1d2d0a00db2c7aebc6",
   "gate-audit-timeout-command.json": "e8bbd7e40c241734b6aa54699d6bda9220124eef5283dced3ccef69992171ee9",
   "gate-audit-timeout-exit.json": "01614b0e7bf86220a2287c6fd76f9b3a5c06913c2e0762c9eb3958c397f0bbee",
@@ -29,7 +30,7 @@
   "initial-gate.tar.gz": "5aa95558e31ecfe8440a2958d738fd394b307a589922e6f29e206202803bcd6c",
   "ledger.json": "3a385c129d4013856a74d0e2bf110a6bfb87be5641e96afa26edf0d68c3800d3",
   "lifecycle-fixture-red.tar.gz": "6289c1a1b35dc582e2fd3411e29dc9cfc565ba1a08b0f9225ec7d174733415ca",
-  "live-harness.json": "d1b613484036521f3bad8bf3cc02b4342f286876f9823b1e7216c8067b89c784",
+  "live-harness.json": "80b05b3cd665f79c855c21e8e75bd10c1053384c001c9a9728bd09b40485aea0",
   "logs/0-1791687395790776000-live.log": "a8831a132076319be998a1a92e2b9453917a6cceef5180496c679df0b85ac7a6",
   "logs/1-all-sampling.log": "fb8fc0a132144c038ec3c8ea8b386a1db9fc23307b71f68d5d4cfa5b487b1703",
   "logs/10-merge.log": "fee34d3edc85876a9595a3e08014f19c810a1b381e68f39c3040b24ad7fadf61",
@@ -56,7 +57,7 @@
   "logs/3-baseline-snapshot.log": "3d516cdd0b19b42418a9fdbc17d1041ecc914915b59576f6db37c064a095cc2e",
   "logs/30-migration.log": "0787f347cf2ded225f8527f9b99caadfb024ab0714659bd78a1fbb5627203f59",
   "logs/31-new-diff-red.log": "a566e1b2ae8938f4a6e6f0a43e416610345dd0a583e3379b249e06084893e476",
-  "logs/32-oracle-red.log": "4279b65e564b5a9a4d51da89abe606d15eebc0c89313284c73a75cd9d2caf442",
+  "logs/32-oracle-red.log": "d04f49f7600f7f5917065f931991ec3b9cce57fbbf97f7bf0a48f85e238061ee",
   "logs/33-run.log": "e4c0cf9d38eca91eb6f4c703f2e3b64c44b68f6588547b6f6c735c5c7de284a2",
   "logs/34-sampling-matrix.log": "0716f2857e494f14986512f34ad2acc9129e5e434d754398de52749f8ad002c8",
   "logs/35-sampling-red.log": "3d2e9545c773df0a13de898c42b9ef49dea6203b612ea9465f19bccffff3cd46",
@@ -74,7 +75,7 @@
   "openai-chat.tar.gz": "e3e99acdd5e7bdd8c01361e279d16c6fe25eb1ed3791396c33bc233532a1459e",
   "openai-images.tar.gz": "7e099862684f47899e2bb9ebe7a9d8c316728ec91b96231c4ebe26c846a2074d",
   "openai-responses.tar.gz": "20006905c9f9766a306406614f95f3d252bb5347e17329917b6b6a58a7bf91a8",
-  "pack.py": "2909eacd42a36f053703bd20ee6cafc70525e739d5c62a1c36a2c9c619774278",
+  "pack.py": "11a271f78bb8b770ab635ad626c51c03063f8e78c4197f6e640a3eac012f8639",
   "pressure-reproduction-command.json": "69f78f3d07304bd0192dea670b9e2044338ff552abeb0dec18bf14329d6af0a5",
   "race.tar.gz": "9478aa9581b2b83e264ced63e61f01b9f6342cf031ac20f450380184d71d3799",
   "release-report.json": "6d99d03a37ef9f72552a990e9f6ac574234dd0c645e563a7663e92a7c9dd9c1c",
@@ -92,5 +93,5 @@
   "support-matrix.json": "11216876330c98b307d188cca5e101eb93d46baab2750f93c81248881d858f95",
   "traceability.json": "325fda31b902bd5f6e9af9fdd021c190847894297c32cb06ad33c366a727770c",
   "typesafe-classifier.tar.gz": "a621a3752120d1a9365a4a28fcd41ff3a2740307d803861c07c39130a0ec63c0",
-  "verify.py": "14511967ec992ef0488ed404bb983dce388a7aaccdb328e3b742929451c19a04"
+  "verify.py": "37fdce8dc39de94f1bc959e3daec8d340e788330148e92f605b438985c8c8061"
 }

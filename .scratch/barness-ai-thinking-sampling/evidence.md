@@ -6,7 +6,7 @@
 | --- | --- |
 | B01 / R10 | PASS：[两个独立来源等价包](release-verification/README.md)，AI 827 + telemetry 24 dist 零差异，模型 43 文件完整哈希；9 项误输入与 2 项 I/O 失败检查通过 |
 | B02 / R10 | PASS：唯一 oracle exact lock、provenance、version/commit/data 三项启动拒绝；TestThinkingSamplingBaseline 把两份完整 proof 和 guard 执行带入 release E2E |
-| B03 / R05/R10 | PASS：`BARNESS_AI_PIDIFF=1 go test ./ai/e2e -run '^TestPiDifferential$|^TestCatalogInclusion$' -count=1`，814 聊天/图像差分 + 25 目录用例、全部 839 PASS，pending 0；全套另含 1 条目录差分，共 815 |
+| B03 / R05/R10 | PASS：`BARNESS_AI_PIDIFF=1 go test ./ai/e2e -run '^TestPiDifferential$|^TestCatalogInclusion$' -count=1`，814 协议差分 + 25 目录用例、全部 839 PASS，pending 0；全套另含 1 条目录差分，共 815 |
 | S01–S17 / R01–R05 | PASS：四条消费者 thinking-sampling.json，四个公共入口及核心 WithHooks；TestNativeThinkingSamplingIgnored 和 native differential 验证忽略 |
 | S18–S25 / R06/R08/R09 | PASS：TestCatalogThinkingSampling、TestThinkingSamplingValidation、TestThinkingSamplingSnapshots、TestThinkingSamplingSnapshotCalls；全部档位校验、三层深拷贝、双 map 顺序 Hash、全部既有目录字段核对 |
 | S26–S30 / R07/R08 | PASS：TestThinkingSamplingCallbacks / Retry / Concurrent；最终授权/限额拒绝、原地/替换回调、冻结重试字节、取消、发送失败、共享租户与同 ID 独立客户端 |
@@ -38,8 +38,11 @@
 | 独立中文效果 | FAIL | 24/24 HTTP 451，0 个可评分样本；审计 PASS |
 
 账户区域与权限均明确为未确认别名，未将 403/451 的根因推定为特定权限或区域。
-真实调用二进制构建于提交前，嵌入 `39ab6a5`、`vcs.modified=true`；实际二进制
-Hash 与 buildInfo 保留在 live-harness.json，没有标为最终提交构建。
+真实调用二进制从实施后的未提交工作树构建；保存的 buildInfo 没有 VCS 来源字段，
+不能据此证明构建 commit。manifest 的 git_commit 为运行时 checkout HEAD。
+实际二进制 Hash 与 buildInfo 原样保留在 live-harness.json，没有改写成最终提交构建。
+最终普通/race 所用 ai/go 源码逐文件 Hash 与 dba212b 一致；race manifest 的
+运行时 b9d5df0 也具有相同 ai/go 源码。
 
 三轮完整 gate 的原状态均保留：第一次离线 104 FAIL（旧目录和旧测试断言），race
 主动中断；第二次普通压力自然失败 1 项，race 的 6,125 case 全 PASS，但审计期间

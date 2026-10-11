@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "python3",
+    ".scratch/barness-ai-thinking-sampling/release-evidence/verify.py",
+    "--fault-tests"
+  ],
+  "exitCode": 1,
+  "phase": "evaluation integrity command verdict",
+  "all23ArchiveTreesAudited": "PASS",
+  "observedEvaluationVerifyExit": 0,
+  "observedEvaluationOutcome": "FAIL",
+  "failure": "Checker incorrectly expected nonzero exit for a complete FAIL business report. Existing CLI verifies artifact integrity and exits zero. Outcome was unchanged; checker now asserts both facts separately.",
+  "vendorCalls": 0
+}

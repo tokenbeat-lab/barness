@@ -128,6 +128,9 @@ log_sources += list((ROOT / '.evidence/barness-ai/thinking-sampling-evaluation-l
 log_sources += [ROOT / '.evidence/barness-ai-thinking-sampling/pressure-reproduction/run.log']
 for i, path in enumerate(sorted(log_sources)):
     data = path.read_bytes().replace(str(ROOT).encode(), b'[REPO]').replace(str(Path.home()).encode(), b'[HOME]')
+    # Display logs keep content lines intact; whitespace-only lines carry no
+    # diagnostic data. Original per-case artifacts remain byte-for-byte.
+    data = b'\n'.join(line if line.strip() else b'' for line in data.split(b'\n'))
     (logs / (str(i) + '-' + path.name)).write_bytes(data)
 sources = subprocess.check_output(['git', 'ls-files', 'ai', 'go.mod', 'go.sum'], cwd=ROOT, text=True).splitlines()
 excluded = {'ai/README.md', 'ai/README.zh-CN.md', 'ai/live/support-matrix.json'}
@@ -140,7 +143,7 @@ binary = ROOT / '.evidence/barness-ai-thinking-sampling/live.test'
 build = subprocess.check_output(['go', 'version', '-m', str(binary)], cwd=ROOT, text=True)
 build = build.replace(str(ROOT), '[REPO]').replace(str(Path.home()), '[HOME]')
 write('live-harness.json', {'sha256': sha(binary), 'buildInfo': build,
-                          'note': 'Built before commits from the implemented working tree: embedded revision 39ab6a5, vcs.modified=true. Later commits migrate tests, release selectors/budgets and docs; the chat runtime differs only in a call.go comment. Do not label this binary as built from the final commit.',
+                          'note': 'Observed build used the implemented uncommitted working tree. buildInfo has no VCS provenance; the build commit cannot be inferred. Manifest git_commit records runtime checkout HEAD, not embedded build metadata. Preserve the original SHA and buildInfo without relabeling the binary as built from the final commit.',
                           'combos': [s['combo'] for s in read(CURRENT / 'smoke-commands.json')]})
 write('manifest.json', {'schema': 1, 'testedCommit': report['commit'], 'archives': archives,
                         'history': history, 'initialRace': 'interrupted; NOT_RUN; included raw files cannot certify race',
