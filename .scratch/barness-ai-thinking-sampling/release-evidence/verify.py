@@ -6,6 +6,7 @@ import hashlib
 import io
 import json
 from pathlib import Path
+import re
 import subprocess
 import tarfile
 import tempfile
@@ -39,7 +40,49 @@ def same_hash(path, digest):
     assert sha(path) == digest, 'artifact changed: ' + str(path)
 
 
+def preflight(archive):
+    # Our writer emits regular files, directories and, for long paths, one
+    # PAX path record. Reject all other extension formats before tarfile can
+    # allocate their payloads or follow recursive extended-header chains.
+    total = metadata = headers = consecutive = 0
+    with gzip.open(archive, 'rb') as source:
+        while True:
+            block = source.read(512)
+            if not block:
+                break
+            total += len(block)
+            assert total <= 4 << 30 and len(block) == 512, 'invalid archive framing/budget'
+            if not any(block):
+                for tail in iter(lambda: source.read(1 << 20), b''):
+                    total += len(tail)
+                    assert total <= 4 << 30 and not any(tail), 'invalid archive tail/budget'
+                break
+            info = tarfile.TarInfo.frombuf(block, 'utf-8', 'surrogateescape')
+            headers += 1
+            assert headers <= 300000 and 0 <= info.size <= 256 << 20, 'raw archive budget exceeded'
+            extended = info.type == tarfile.XHDTYPE
+            assert info.type in (tarfile.REGTYPE, tarfile.AREGTYPE, tarfile.DIRTYPE, tarfile.XHDTYPE), 'unsupported raw archive type'
+            consecutive = consecutive + 1 if extended else 0
+            padded = (info.size + 511) // 512 * 512
+            total += padded
+            assert total <= 4 << 30 and consecutive <= 1, 'archive expansion/extension chain exceeded'
+            if extended:
+                metadata += info.size
+                assert info.size <= 64 << 10 and metadata <= 64 << 20, 'archive metadata budget exceeded'
+                payload = source.read(padded)
+                assert len(payload) == padded, 'truncated archive metadata'
+                record = payload[:info.size]
+                assert re.fullmatch(rb'\d+ path=[^\n]*\n', record), 'unsupported PAX record'
+                assert int(record.partition(b' ')[0]) == len(record), 'invalid PAX record length'
+            else:
+                while padded:
+                    chunk = source.read(min(padded, 1 << 20))
+                    assert chunk, 'truncated archive payload'
+                    padded -= len(chunk)
+
+
 def extract(archive, work):
+    preflight(archive)
     # Streaming validation checks each header before skipping its payload;
     # do not load an unbounded member list before applying the budgets.
     with tarfile.open(archive, 'r|gz') as tar:
@@ -77,8 +120,19 @@ def check_bundle(bundle, entry):
         for name, digest in case['artifacts'].items():
             assert relative(name).name == name, 'invalid artifact name'
             assert sha(directory / name) == digest, 'case artifact changed'
-    result = subprocess.run(['go', 'run', './ai/internal/testkit/audit/cmd/auditbundle', str(bundle)], cwd=ROOT, capture_output=True)
-    assert result.returncode == 0, 'fresh artifact audit failed: ' + result.stderr.decode()
+
+
+def audit_archive(directory):
+    marker = directory / 'manifest.json'
+    synthetic = not marker.exists()
+    if synthetic:
+        marker.write_text('{"verificationScope":"whole-archive-tree","originalRunUnchanged":true}\n')
+    try:
+        result = subprocess.run(['go', 'run', './ai/internal/testkit/audit/cmd/auditbundle', str(directory)], cwd=ROOT, capture_output=True)
+        assert result.returncode == 0, 'fresh whole-archive audit failed: ' + result.stderr.decode()
+    finally:
+        if synthetic:
+            marker.unlink()
 
 
 def faults():
@@ -111,6 +165,32 @@ def faults():
             else:
                 raise AssertionError('unsafe fault accepted: ' + kind)
         file = work / 'changed'
+        for kind in ('pax-metadata', 'global-pax', 'pax-chain', 'gnu-longlink'):
+            archive = work / 'metadata.tar.gz'
+            with gzip.open(archive, 'wb') as gz:
+                count = 32 if kind == 'pax-chain' else 1
+                for _ in range(count):
+                    header = tarfile.TarInfo('extension')
+                    header.type = (tarfile.GNUTYPE_LONGLINK if kind == 'gnu-longlink' else
+                                   tarfile.XGLTYPE if kind == 'global-pax' else tarfile.XHDTYPE)
+                    value = b'x' * ((1 << 20) if count == 1 else 8)
+                    if kind == 'gnu-longlink':
+                        payload = value + b'\0'
+                    else:
+                        body = b' path=regular\n' if kind == 'pax-chain' else b' comment=' + value + b'\n'
+                        length = len(body) + 1
+                        while length != len(body) + len(str(length)):
+                            length = len(body) + len(str(length))
+                        payload = str(length).encode() + body
+                    header.size = len(payload)
+                    gz.write(header.tobuf() + payload + bytes((-len(payload)) % 512))
+                gz.write(tarfile.TarInfo('regular').tobuf() + bytes(1024))
+            try:
+                extract(archive, work / 'metadata-unpack')
+            except (AssertionError, tarfile.ReadError):
+                rejected.append(kind)
+            else:
+                raise AssertionError('unsafe extension accepted: ' + kind)
         file.write_text('initial')
         digest = sha(file)
         file.write_text('changed')
@@ -167,7 +247,8 @@ for name, digest in sources.items():
     committed = subprocess.check_output(['git', 'show', report['commit'] + ':' + name], cwd=ROOT)
     assert hashlib.sha256(committed).hexdigest() == digest, 'tested source commit mismatch'
 expected_roles = {'offline', 'race', 'chinese-effect'} | {s['combo'] for s in read(FOLDER / 'smoke-commands.json')}
-assert len(expected_roles) == 12 and {a['role'] for a in manifest['archives']} == expected_roles
+assert len(expected_roles) == len(manifest['archives']) == 12
+assert {a['role'] for a in manifest['archives']} == expected_roles
 host = read(FOLDER / 'host-example-compile.json')
 assert host['exitCode'] == 0
 same_hash(FOLDER / 'host-example.go.txt', host['sourceSHA256'])
@@ -176,6 +257,7 @@ with tempfile.TemporaryDirectory(prefix='barness-sampling-verify-') as tmp:
     work = Path(tmp)
     bundles = {}
     for entry in manifest['archives'] + manifest['history']:
+        print('verifying full archive:', entry['role'], flush=True)
         archive = FOLDER / relative(entry['archive'])
         assert sha(archive) == entry['sha256']
         extract(archive, work)
@@ -185,6 +267,7 @@ with tempfile.TemporaryDirectory(prefix='barness-sampling-verify-') as tmp:
         for additional in entry.get('additionalBundles', []):
             check_bundle(work / relative(additional['bundle']), additional)
             receipt['auditedBundles'].append(entry['role'] + '/historical-race')
+        audit_archive(work / relative(entry['role']))
         if entry in manifest['archives']:
             bundles[entry['role']] = bundle
         if entry['role'] in ('offline', 'race'):

@@ -5,7 +5,8 @@
 
 `manifest.json` 索引 12 个当前完整包：完整离线、完整 race、九个真实组合、
 独立中文效果。每份 tar.gz 保存全部原始受控请求、帧、事件、结果、断言、
-Attempt、pidiff、fixture、manifest、审计及报告；仅 tar 的主机所有者与时间归零。
+Attempt、pidiff、fixture、manifest、审计及报告。逐 case 原始字节与 Hash 不变；
+tar 的主机所有者与时间归零，顶层失败命令报告及命令日志中的主机路径脱敏。
 `source-hashes.json` 固定实际测试源码，`live-harness.json` 如实记录真实调用
 二进制的早期 Git revision 与 `vcs.modified=true`，没有改写报告里的 commit。
 
@@ -22,10 +23,13 @@ Attempt、pidiff、fixture、manifest、审计及报告；仅 tar 的主机所�
 python3 .scratch/barness-ai-thinking-sampling/release-evidence/verify.py --fault-tests
 ```
 
-检查每份完整归档和逐 case artifacts，重新运行审计，再按固定输入重算七个
+检查每份完整归档和逐 case artifacts，重新审计整个归档目录（含没有原 manifest
+的中断 race，临时验证标记不会认证原运行），再按固定输入重算七个
 证据门禁。三项命令门禁在重放中为 NOT_RUN，原始全套执行结果独立保留。
 成功验证打印“recorded release FAIL”，表示证据完整而发布仍未通过。
 `verification.json` 是实际复核收据；`FAILURES.md` 记录先行列出的失败边界。
+解析前检查原始 tar header 的总展开预算，仅接受本打包器产生的文件、目录和
+单个 PAX path 记录；超大 PAX、global-PAX、GNU 扩展及扩展链的拒绝保留红绿证据。
 
 重新生成一套当前结果（下面的 `--live` 会使用 root `.env` 凭据并产生付费调用）：
 

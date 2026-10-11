@@ -4,6 +4,8 @@ This checker reads archived public E2E output. It never calls a vendor.
 
 - A missing or changed archive, report, command record, or source hash must fail verification.
 - An archive path escaping the temporary directory, a symlink/hardlink, duplicate name, or excessive expanded size must be rejected before extraction.
+- PAX/global-PAX/GNU extension payloads and consecutive extension headers must be bounded before tarfile parses them; metadata must not bypass payload limits.
+- Every extracted archive tree must receive a fresh redaction audit, including interrupted runs with no manifest; a synthetic verification manifest must not certify the original run.
 - A missing case, missing artifact, invalid relative artifact name, or altered artifact must fail verification.
 - An audit finding must fail verification even when the recorded test passed; a failed test is allowed only as a recorded failure.
 - Different current sources or source inventory must prevent recompiling gate/audit tools against the recorded evidence.

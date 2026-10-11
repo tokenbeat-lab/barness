@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    ".scratch/barness-ai-thinking-sampling/release-evidence/verify.py",
+    "--fault-tests-only"
+  ],
+  "exitCode": 1,
+  "failure": "unsafe extension accepted: pax-metadata",
+  "stdoutStderr": "Traceback (most recent call last):\n  File \"[REPO]/.scratch/barness-ai-thinking-sampling/release-evidence/verify.py\", line 163, in <module>\n    fault_results = faults() if args.fault_tests or args.fault_tests_only else []\n                    ~~~~~~^^\n  File \"[REPO]/.scratch/barness-ai-thinking-sampling/release-evidence/verify.py\", line 138, in faults\n    raise AssertionError('unsafe extension accepted: ' + kind)\nAssertionError: unsafe extension accepted: pax-metadata\n",
+  "vendorCalls": 0
+}

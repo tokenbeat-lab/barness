@@ -2,6 +2,7 @@
 """Freeze complete bundles, including failures; never change test artifacts."""
 import gzip
 import hashlib
+import io
 import json
 from pathlib import Path
 import shutil
@@ -39,6 +40,7 @@ def bundle_under(base):
 
 
 def pack(role, source, manifest_path=None):
+    print('packing full archive:', role, flush=True)
     target = FOLDER / (role + '.tar.gz')
     with target.open('wb') as raw, gzip.GzipFile(fileobj=raw, mode='wb', mtime=0, filename='') as gz:
         with tarfile.open(fileobj=gz, mode='w') as tar:
@@ -50,13 +52,22 @@ def pack(role, source, manifest_path=None):
                 info.uname = info.gname = ''
                 info.mtime = 0
                 if path.is_file():
-                    with path.open('rb') as content:
-                        tar.addfile(info, content)
+                    if path.parent == source and path.name in ('release-report.json', 'release-report.md'):
+                        # Failed command tails can contain private host paths.
+                        # Redact only these diagnostic reports; case bytes and
+                        # their original artifact hashes stay untouched.
+                        data = redact_paths(path.read_bytes())
+                        info.size = len(data)
+                        tar.addfile(info, io.BytesIO(data))
+                    else:
+                        with path.open('rb') as content:
+                            tar.addfile(info, content)
                 else:
                     tar.addfile(info)
     manifest_path = manifest_path or source / 'manifest.json'
     return {'role': role, 'archive': target.name, 'sha256': sha(target),
             'originalBundle': str(source.relative_to(ROOT)),
+            'diagnosticRedaction': 'Top-level release-report.json/md host paths only; case bytes unchanged.',
             **bundle_record(role, source, manifest_path)}
 
 
@@ -67,6 +78,10 @@ def bundle_record(role, source, manifest_path):
             'manifestSHA256': sha(manifest_path), 'commit': manifest['git_commit'],
             'cases': len(cases), 'statuses': {s: sum(c['status'] == s for c in cases) for s in sorted({c['status'] for c in cases})},
             'failedCases': [c['id'] for c in cases if c['status'] == 'FAIL']}
+
+
+def redact_paths(data):
+    return data.replace(str(ROOT).encode(), b'[REPO]').replace(str(Path.home()).encode(), b'[HOME]')
 
 
 report = read(CURRENT / 'gate/release-report.json')
@@ -101,7 +116,7 @@ for role, name in history_inputs.items():
 history.append(pack('diagnostic-pressure-10-rounds', bundle_under(ROOT / '.evidence/barness-ai-thinking-sampling/pressure-reproduction/bundles')))
 shutil.copyfile(ROOT / '.evidence/barness-ai-thinking-sampling/pressure-reproduction/command.json', FOLDER / 'pressure-reproduction-command.json')
 for name in ['release-report.json', 'release-report.md', 'fixtures.json', 'catalog-snapshot.json', 'support-matrix.json', 'traceability.json', 'ledger.json']:
-    shutil.copyfile(CURRENT / 'gate' / name, FOLDER / name)
+    (FOLDER / name).write_bytes(redact_paths((CURRENT / 'gate' / name).read_bytes()))
 for name in ['gate-command.json', 'gate-exit.json', 'smoke-commands.json', 'gate-initial-command.json', 'gate-initial-exit.json', 'gate-audit-timeout-command.json', 'gate-audit-timeout-exit.json']:
     shutil.copyfile(CURRENT / name, FOLDER / name)
 shutil.copyfile(ROOT / '.evidence/barness-ai-thinking-sampling/host-example.go', FOLDER / 'host-example.go.txt')

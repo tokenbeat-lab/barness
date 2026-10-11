@@ -29,3 +29,15 @@ formal delivery. Failed live/effect evidence is retained as FAIL. The
 supplementary review confirmed the old-catalog test migration preserves
 this gate and the approved elapsed-time scope. The audit timeout adjustment
 keeps B04 unchanged and does not certify old case-only race success.
+
+## Delivery tooling supplementary findings
+
+The `dba212b...b9d5df0` review found one P2 on each axis: Standards found
+that tar extended metadata could allocate before member budgets; Spec found
+that interrupted race raw output was outside fresh bundle auditing.
+
+Both are addressed in the checker: raw tar headers are bounded before the
+standard parser, with public executable red/green faults; every extracted
+archive tree is audited, using a temporary verification manifest when the
+original run never produced one. Original failed/NOT_RUN verdicts remain.
+Follow-up verification and independent review are recorded after execution.

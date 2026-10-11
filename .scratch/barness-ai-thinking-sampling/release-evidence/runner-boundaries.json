@@ -1,0 +1,109 @@
+{
+  "runAt": "2026-10-11T03:42:00.699038+00:00",
+  "vendorCalls": 0,
+  "rejections": [
+    {
+      "argv": [
+        "python3",
+        ".scratch/barness-ai-thinking-sampling/release-evidence/run-release.py",
+        "--out",
+        "/tmp/barness-outside-repo"
+      ],
+      "exitCode": 1,
+      "stderr": "output must be inside the repository for reproducible relative records",
+      "expectedRejection": "output must be inside the repository"
+    },
+    {
+      "argv": [
+        "python3",
+        ".scratch/barness-ai-thinking-sampling/release-evidence/run-smokes.py",
+        "--out",
+        "/tmp/barness-outside-repo",
+        "--binary",
+        "/tmp/absent"
+      ],
+      "exitCode": 1,
+      "stderr": "output must be inside the repository for reproducible relative records",
+      "expectedRejection": "output must be inside the repository"
+    },
+    {
+      "argv": [
+        "python3",
+        ".scratch/barness-ai-thinking-sampling/release-evidence/run-live.py",
+        "--combo",
+        "deepseek-chat",
+        "--alias",
+        "test-unconfirmed",
+        "--out",
+        "/tmp/barness-outside-repo",
+        "--binary",
+        "/tmp/absent"
+      ],
+      "exitCode": 1,
+      "stderr": "output must be inside the repository for reproducible relative records",
+      "expectedRejection": "output must be inside the repository"
+    },
+    {
+      "argv": [
+        "python3",
+        ".scratch/barness-ai-thinking-sampling/release-evidence/run-release.py",
+        "--out",
+        ".evidence/barness-ai-thinking-sampling/current-release"
+      ],
+      "exitCode": 1,
+      "stderr": "output must be fresh; never overwrite a recorded run",
+      "expectedRejection": "output must be fresh"
+    },
+    {
+      "argv": [
+        "python3",
+        ".scratch/barness-ai-thinking-sampling/release-evidence/run-smokes.py",
+        "--out",
+        ".evidence/barness-ai-thinking-sampling/current-release",
+        "--binary",
+        "/tmp/absent"
+      ],
+      "exitCode": 1,
+      "stderr": "output must be fresh",
+      "expectedRejection": "output must be fresh"
+    },
+    {
+      "argv": [
+        "python3",
+        ".scratch/barness-ai-thinking-sampling/release-evidence/run-live.py",
+        "--combo",
+        "deepseek-chat",
+        "--alias",
+        "test-unconfirmed",
+        "--out",
+        ".evidence/barness-ai-thinking-sampling/current-release",
+        "--binary",
+        "/tmp/absent"
+      ],
+      "exitCode": 1,
+      "stderr": "output must be fresh; never overwrite a recorded run",
+      "expectedRejection": "output must be fresh"
+    },
+    {
+      "argv": [
+        "python3",
+        "-O",
+        ".scratch/barness-ai-thinking-sampling/release-evidence/verify.py",
+        "--fault-tests-only"
+      ],
+      "exitCode": 1,
+      "stderr": "optimized Python disables integrity assertions; use normal python3",
+      "expectedRejection": "optimized Python disables integrity assertions"
+    },
+    {
+      "argv": [
+        "python3",
+        "-O",
+        ".scratch/barness-ai-thinking-sampling/release-evidence/pack.py"
+      ],
+      "exitCode": 1,
+      "stderr": "optimized Python disables integrity assertions; use normal python3",
+      "expectedRejection": "optimized Python disables integrity assertions"
+    }
+  ]
+}
