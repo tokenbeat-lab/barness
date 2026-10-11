@@ -43,3 +43,31 @@ original run never produced one. Original failed/NOT_RUN verdicts remain.
 Independent review of `b9d5df0...77006b4` confirmed both original P2s
 resolved, with 0 new findings; Standards independently ran all 12 negative
 boundaries. Complete archive verification is recorded after execution.
+
+## Final evidence review
+
+The `77006b4...3c8af0d` Standards review found a second P2: the binary
+provenance text incorrectly described embedded VCS fields. `dd46182`
+corrects the documentation, live-harness record and packer to state that
+buildInfo has no VCS provenance and manifest commits are runtime checkout
+HEAD. The original binary SHA, buildInfo, manifests and archive bytes stay
+unchanged. The Spec review also corrected the description of 814 protocol
+comparisons; no new implementation defect was found.
+
+Both independent agents reviewed `3c8af0d...dd46182` and confirmed 0 new
+findings. Standards confirmed the provenance P2 resolved; Spec confirmed
+that an evaluation integrity exit of 0 and a business outcome of FAIL are
+checked separately, without lowering B04. The first checker failure is
+retained in first-verification-failure.json.
+
+The final full verification exited 0 after 297.801 seconds. All 23 archive
+trees passed fresh auditing; 24 manifest bundles passed original artifact
+Hash and verdict checks, all 12 negative boundaries were rejected, and all
+seven evidence gates replayed the recorded verdicts. No vendor calls were
+made. Original command results remain separate from the three NOT_RUN
+command gates in replay; the recorded release is still FAIL.
+
+Final unresolved review findings: Standards 0, Spec 0 implementation
+findings. All three delivery-tooling P2s are resolved. B04 remains the one
+unmet formal-delivery condition, and the unconfirmed historical pressure
+failure remains open in issue 07; neither is certified by evidence integrity.

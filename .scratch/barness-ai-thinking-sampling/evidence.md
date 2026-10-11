@@ -23,6 +23,9 @@
 全部六差分子集及目录比较共 815 PASS、pending 0。两种 vet 全 PASS。
 最终十条门禁为 7 PASS、3 FAIL（live、traceability、required-artifacts）；
 十二份输入的审计均零发现。全部实际命令、时长与判定见 release-report.json。
+交付包完整复核退出 0，297.801 秒：23 份完整归档重新审计通过，24 个
+manifest bundle 的原始 artifacts 与判定一致，12 项负面边界均拒绝，七项
+证据门禁重放一致；未产生真实调用，原发布 FAIL 不变。
 
 | 实际真实组合 | 状态 | 主要结果 |
 | --- | --- | --- |

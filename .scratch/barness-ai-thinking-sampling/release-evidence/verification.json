@@ -1,0 +1,102 @@
+{
+  "testedCommit": "dba212b095338ba61430bca48525d6cf4bf21ab3",
+  "recordedRelease": "FAIL",
+  "faultsRejected": [
+    "file:../escape",
+    "file:/absolute",
+    "symlink:link",
+    "hardlink:hard",
+    "duplicate:duplicate",
+    "large:large",
+    "pax-metadata",
+    "global-pax",
+    "pax-chain",
+    "gnu-longlink",
+    "changed file",
+    "missing file"
+  ],
+  "auditedBundles": [
+    "offline",
+    "race",
+    "openai-responses",
+    "anthropic-messages",
+    "google-gemini",
+    "openai-chat",
+    "deepseek-responses",
+    "deepseek-chat",
+    "typesafe-classifier",
+    "openai-images",
+    "google-interactions-image",
+    "chinese-effect",
+    "initial-gate",
+    "audit-timeout-gate",
+    "audit-timeout-gate/historical-race",
+    "migration-red",
+    "new-differential-red",
+    "catalog-red",
+    "catalog-validation-red",
+    "snapshot-red",
+    "sampling-red",
+    "duration-red",
+    "lifecycle-fixture-red",
+    "diagnostic-pressure-10-rounds"
+  ],
+  "evaluationArtifactVerification": {
+    "exitCode": 0,
+    "outcome": "FAIL"
+  },
+  "replayedGates": {
+    "go-test": false,
+    "go-test-race": false,
+    "go-vet": false,
+    "p0-offline": true,
+    "differential": true,
+    "live": false,
+    "redaction-audit": true,
+    "traceability": false,
+    "snapshots": true,
+    "required-artifacts": false
+  },
+  "seconds": 297.801,
+  "execution": {
+    "argv": [
+      "python3",
+      ".scratch/barness-ai-thinking-sampling/release-evidence/verify.py",
+      "--fault-tests"
+    ],
+    "exitCode": 0,
+    "vendorCalls": 0,
+    "archiveTreesAudited": 23
+  },
+  "verifiedInputs": {
+    "sha256Index": "4e91b14ba3eb24af42b2e032c7b151cf8fc62090a1fd525b0f2c4bc1751ca303",
+    "verify.py": "37fdce8dc39de94f1bc959e3daec8d340e788330148e92f605b438985c8c8061",
+    "manifest.json": "1a375e5df84c9ffd14d50766e554065a4481cb16e705248ade1405a901475438",
+    "source-hashes.json": "a622d466c851a30757af73b515c57b3e1b0d3980b9a091b4394a0b5000bd911a"
+  },
+  "postReviewMetadataCheck": {
+    "checkedAtUTC": "2026-10-11T04:08:50.513292+00:00",
+    "changedIndexedFiles": [
+      "README.md",
+      "REVIEW.md"
+    ],
+    "indexedFiles": 95,
+    "sha256Index": "580e6d1a06f618c96a945fe7152fee57024888b12431a020420a9330bcc25c9f",
+    "result": "PASS",
+    "scope": "README and REVIEW completion records only; verifier, manifests, archives and case bytes unchanged."
+  },
+  "finalMetadataReview": {
+    "fixedPoint": "39ab6a5",
+    "Standards": {
+      "openFindings": 0
+    },
+    "Spec": {
+      "implementationFindings": 0,
+      "unmetFormalAcceptance": [
+        "B04"
+      ]
+    },
+    "historicalPressureIssue": "07 remains open; cause unconfirmed",
+    "indexedFilesIndependentlyChecked": 95
+  }
+}

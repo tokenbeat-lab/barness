@@ -45,6 +45,10 @@ python3 .scratch/barness-ai-thinking-sampling/release-evidence/verify.py --fault
 证据门禁。三项命令门禁在重放中为 NOT_RUN，原始全套执行结果独立保留。
 成功验证打印“recorded release FAIL”，表示证据完整而发布仍未通过。
 `verification.json` 是实际复核收据；`FAILURES.md` 记录先行列出的失败边界。
+本次完整复核退出 0，耗时 297.801 秒：23 份归档的整个目录树审计通过，
+24 个 manifest bundle（含历史 race）逐 case Hash 和原判定一致，12 项负面
+边界均拒绝，七个证据门禁重放一致。中文效果完整性检查退出 0、业务结果
+仍为 FAIL；复核没有产生真实调用。
 解析前检查原始 tar header 的总展开预算，仅接受本打包器产生的文件、目录和
 单个 PAX path 记录；超大 PAX、global-PAX、GNU 扩展及扩展链的拒绝保留红绿证据。
 
