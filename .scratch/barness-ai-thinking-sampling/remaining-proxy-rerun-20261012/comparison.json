@@ -1,0 +1,246 @@
+{
+  "scope": "first corresponding request of each historical executed scenario; method, URL, recorded redacted headers and body bytes",
+  "compared": 26,
+  "allIdentical": true,
+  "requests": [
+    {
+      "combo": "openai-responses",
+      "capture": "LIVE-P01-cancel-after-first-frame/attempt-1-canceled-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "dial tcp 31.13.69.245:443: connect: connection refused",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-responses",
+      "capture": "LIVE-P01-image/attempt-1-image-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "dial tcp 31.13.69.245:443: connect: connection refused",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-responses",
+      "capture": "LIVE-P01-reasoning-history/attempt-1-reasoning-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "dial tcp 31.13.69.245:443: connect: connection refused",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-responses",
+      "capture": "LIVE-P01-text-complete/attempt-1-complete-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-responses",
+      "capture": "LIVE-P01-text-stream/attempt-1-stream-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-responses",
+      "capture": "LIVE-P01-tool-changes-gpt-5.4/attempt-1-call-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "dial tcp 31.13.69.245:443: connect: connection refused",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-responses",
+      "capture": "LIVE-P01-tool-changes-gpt-6-sol/attempt-1-call-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "dial tcp 31.13.69.245:443: connect: connection refused",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-responses",
+      "capture": "LIVE-P01-tool-round-trip/attempt-1-call-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-cancel-after-first-frame/attempt-1-canceled-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-image/attempt-1-image-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-pro-model-unavailable/attempt-1-probe-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 404
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-text-complete/attempt-1-complete-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-text-stream/attempt-1-stream-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-tool-changes-gpt-5.4/attempt-1-call-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-tool-changes-gpt-6-sol/attempt-1-call-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-tool-round-trip/attempt-1-call-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-chat",
+      "capture": "LIVE-P04-usage-position/attempt-1-stream-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "google-gemini",
+      "capture": "LIVE-P03-cancel-after-first-frame/attempt-1-canceled-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "google-gemini",
+      "capture": "LIVE-P03-image/attempt-1-image-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "google-gemini",
+      "capture": "LIVE-P03-reasoning-history/attempt-1-reasoning-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "google-gemini",
+      "capture": "LIVE-P03-text-complete/attempt-1-complete-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "google-gemini",
+      "capture": "LIVE-P03-text-stream/attempt-1-stream-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "google-gemini",
+      "capture": "LIVE-P03-tool-round-trip/attempt-1-call-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "openai-images",
+      "capture": "LIVE-P08-json-edit/attempt-1-json-edit-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "google-interactions-image",
+      "capture": "LIVE-P09-generation/attempt-1-generation-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    },
+    {
+      "combo": "google-interactions-image",
+      "capture": "LIVE-P09-reference-edit/attempt-1-reference-edit-exchanges.json",
+      "identical": true,
+      "differentFields": [],
+      "oldStatus": 0,
+      "oldTransportError": "exceeded the resource policy's ConnectTimeout (15s)",
+      "newStatus": 200
+    }
+  ],
+  "newlyExecuted": [
+    "openai-images/generation",
+    "openai-images/mask-edit"
+  ],
+  "historicalBinaryVCS": "Historical manifests report runtime checkout HEAD. They do not prove the binary build source; historical binary buildInfo has no VCS metadata."
+}

@@ -1,0 +1,496 @@
+{
+  "schema": 1,
+  "scope": "Full original smoke for the five remaining failed combinations",
+  "sourceCommit": "cc69d77521a0b3a5153bd33761f0d84ae03c5217",
+  "proxy": "http://127.0.0.1:7890",
+  "overall": {
+    "PASS": 28,
+    "UNSUPPORTED": 1
+  },
+  "results": [
+    {
+      "combo": "openai-responses",
+      "model": "gpt-5-mini",
+      "outcomes": {
+        "PASS": 8
+      },
+      "durationSeconds": 24.123342037200928,
+      "httpStatuses": {
+        "200": 14
+      },
+      "budget": {
+        "maxCalls": 32,
+        "httpAttempts": 14,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 4096,
+        "callsUsed": 14,
+        "outputTokensUsed": 377,
+        "inputTokensUsed": 1493,
+        "environmentRetries": 0
+      },
+      "audit": "PASS",
+      "report": "openai-responses-report.json",
+      "scenarios": [
+        {
+          "id": "text-stream",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "text-complete",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "tool call by forced choice",
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "canceled after thinking_start",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "reasoning-history",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "returned thinking signature, encrypted reasoning",
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "image",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "tool-changes-gpt-5.4",
+          "model": "gpt-5.4",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "calls": 3,
+          "attempts": 3
+        },
+        {
+          "id": "tool-changes-gpt-6-sol",
+          "model": "gpt-6-sol",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "calls": 3,
+          "attempts": 3
+        }
+      ]
+    },
+    {
+      "combo": "openai-chat",
+      "model": "gpt-5-mini",
+      "outcomes": {
+        "PASS": 9,
+        "UNSUPPORTED": 1
+      },
+      "durationSeconds": 15.402426719665527,
+      "httpStatuses": {
+        "404": 1,
+        "200": 13
+      },
+      "budget": {
+        "maxCalls": 32,
+        "httpAttempts": 14,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 4096,
+        "callsUsed": 14,
+        "outputTokensUsed": 267,
+        "inputTokensUsed": 1911,
+        "environmentRetries": 0
+      },
+      "audit": "PASS",
+      "report": "openai-chat-report.json",
+      "scenarios": [
+        {
+          "id": "text-stream",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "text-complete",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "tool call by forced choice",
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "reasoning-history",
+          "model": "gpt-5-mini",
+          "outcome": "UNSUPPORTED",
+          "note": "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage",
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "image",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "answer mentions red: false",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "usage-position",
+          "model": "gpt-5-mini",
+          "outcome": "PASS",
+          "note": "usage in a separate chunk 1 after the finish_reason chunk",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "tool-changes-gpt-5.4",
+          "model": "gpt-5.4",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "calls": 3,
+          "attempts": 3
+        },
+        {
+          "id": "tool-changes-gpt-6-sol",
+          "model": "gpt-6-sol",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "calls": 3,
+          "attempts": 3
+        },
+        {
+          "id": "pro-model-unavailable",
+          "model": "gpt-5.4-pro",
+          "outcome": "PASS",
+          "note": "refused with HTTP 404 (invalid_request): 404: {\"message\":\"This is not a chat model and thus not supported in the v1/chat/completions endpoint. Did you mean to use v1/completions?\",\"type\":\"invalid_request_error\",\"param\":\"model\",\"code\":null}",
+          "calls": 1,
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "combo": "google-gemini",
+      "model": "gemini-3.8-flash",
+      "outcomes": {
+        "PASS": 6
+      },
+      "durationSeconds": 19.636960744857788,
+      "httpStatuses": {
+        "200": 8
+      },
+      "budget": {
+        "maxCalls": 32,
+        "httpAttempts": 8,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 4096,
+        "callsUsed": 8,
+        "outputTokensUsed": 628,
+        "inputTokensUsed": 1531,
+        "environmentRetries": 0
+      },
+      "audit": "PASS",
+      "report": "google-gemini-report.json",
+      "scenarios": [
+        {
+          "id": "text-stream",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "text-complete",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "note": "tool call by forced choice",
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "reasoning-history",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "note": "returned tool call thought signature",
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "image",
+          "model": "gemini-3.8-flash",
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "calls": 1,
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "combo": "openai-images",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "outcomes": {
+        "PASS": 3
+      },
+      "durationSeconds": 31.510198831558228,
+      "httpStatuses": {
+        "200": 3
+      },
+      "budget": {
+        "maxCalls": 4,
+        "maxImages": 4,
+        "imagesUsed": 3,
+        "maxImageWidth": 1024,
+        "maxImageHeight": 1024,
+        "httpAttempts": 3,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 0,
+        "callsUsed": 3,
+        "outputTokensUsed": 831,
+        "inputTokensUsed": 593,
+        "environmentRetries": 0
+      },
+      "audit": "PASS",
+      "report": "openai-images-report.json",
+      "scenarios": [
+        {
+          "id": "json-edit",
+          "model": "gpt-image-2.5-sunburst-2026-09-08",
+          "outcome": "PASS",
+          "note": "png: png output, 1024x1024; usage complete; known-only cost 0.00808300 USD",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "generation",
+          "model": "gpt-image-2.5-sunburst-2026-09-08",
+          "outcome": "PASS",
+          "note": "jpeg: jpeg output, 1024x1024; usage complete; known-only cost 0.01325500 USD",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "mask-edit",
+          "model": "gpt-image-2.5-sunburst-2026-09-08",
+          "outcome": "PASS",
+          "note": "webp: webp output, 1024x1024; usage complete; known-only cost 0.00809300 USD",
+          "calls": 1,
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "combo": "google-interactions-image",
+      "model": "gemini-nano-banana-2.1",
+      "outcomes": {
+        "PASS": 2
+      },
+      "durationSeconds": 23.394614219665527,
+      "httpStatuses": {
+        "200": 2
+      },
+      "budget": {
+        "maxCalls": 4,
+        "maxImages": 4,
+        "imagesUsed": 2,
+        "maxImageWidth": 1024,
+        "maxImageHeight": 1024,
+        "httpAttempts": 2,
+        "maxRetriesPerScenario": 1,
+        "maxOutputTokensPerCall": 0,
+        "callsUsed": 2,
+        "outputTokensUsed": 3202,
+        "inputTokensUsed": 1191,
+        "environmentRetries": 0
+      },
+      "audit": "PASS",
+      "report": "google-interactions-image-report.json",
+      "scenarios": [
+        {
+          "id": "generation",
+          "model": "gemini-nano-banana-2.1",
+          "outcome": "PASS",
+          "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03712650 USD",
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "reference-edit",
+          "model": "gemini-nano-banana-2.1",
+          "outcome": "PASS",
+          "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03571500 USD",
+          "calls": 1,
+          "attempts": 1
+        }
+      ]
+    }
+  ],
+  "historical": [
+    {
+      "combo": "openai-responses",
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/openai-responses/20261011T025635.224997000Z",
+      "reportSHA256": "71bcb12d9ee66d59bdbacbda579746b6dcddec2526cc71eee351602443a552eb",
+      "outcomes": {
+        "FAIL": 8
+      },
+      "errorCategories": {
+        "deadline_exceeded": 2,
+        "transport": 5,
+        "assertion": 1
+      },
+      "unchanged": true
+    },
+    {
+      "combo": "openai-chat",
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/openai-chat/20261011T030139.432585000Z",
+      "reportSHA256": "d37692d5631db223f5f96517368b4589c0d2a36264ed4baaa5ce18af1c63c1c8",
+      "outcomes": {
+        "FAIL": 9,
+        "UNSUPPORTED": 1
+      },
+      "errorCategories": {
+        "deadline_exceeded": 8,
+        "assertion": 1
+      },
+      "unchanged": true
+    },
+    {
+      "combo": "google-gemini",
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/google-gemini/20261011T025829.170866000Z",
+      "reportSHA256": "da364a26e7d69b22a09efb9f74c0536d09a397f7a52bdc5d9d1e2d524372f1c7",
+      "outcomes": {
+        "FAIL": 6
+      },
+      "errorCategories": {
+        "deadline_exceeded": 5,
+        "assertion": 1
+      },
+      "unchanged": true
+    },
+    {
+      "combo": "openai-images",
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/openai-images/20261011T030652.876811000Z",
+      "reportSHA256": "9393baafb2b7199a128e2c9561c88f2577df89600a74ce56ac5eccb2e100c8d7",
+      "outcomes": {
+        "FAIL": 1,
+        "NOT_RUN": 2
+      },
+      "errorCategories": {
+        "deadline_exceeded": 1
+      },
+      "unchanged": true
+    },
+    {
+      "combo": "google-interactions-image",
+      "bundle": ".evidence/barness-ai-thinking-sampling/current-release/live/google-interactions-image/20261011T030728.130466000Z",
+      "reportSHA256": "d812df60b17ae6c59e4727c3d66e2094da862bd53260b57cfbc3d6b0ddc3b99a",
+      "outcomes": {
+        "FAIL": 2
+      },
+      "errorCategories": {
+        "deadline_exceeded": 2
+      },
+      "unchanged": true
+    }
+  ],
+  "requestsUnchanged": true,
+  "sourceFilesUnchanged": 464,
+  "supportMatrixChangedRows": [
+    "openai-responses",
+    "google-gemini",
+    "openai-chat",
+    "openai-images",
+    "google-interactions-image"
+  ],
+  "allNineCurrentCombinationsHaveNoFAILOrNOT_RUN": true,
+  "checks": {
+    "supportmatrixPackage": {
+      "argv": [
+        "go",
+        "test",
+        "./ai/internal/testkit/supportmatrix",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 1.049347162246704,
+      "stdout": "ok  \tgithub.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix\t0.804s\n",
+      "stderr": ""
+    },
+    "archiveIntegrity": "PASS",
+    "freshBundleAudits": "PASS"
+  },
+  "limitations": [
+    "OpenAI Chat reasoning-history remains UNSUPPORTED by the protocol.",
+    "Google Interactions image usage remains partial; cost values are estimates from observed fields.",
+    "This rerun resolves the recorded connection failures for this proxy route. The historical DNS/egress root cause is not established.",
+    "Formal release gates were not rerun; the original 2026-10-11 FAIL release report is preserved."
+  ],
+  "replay": {
+    "build": [
+      "go",
+      "test",
+      "-c",
+      "-tags",
+      "live",
+      "-overlay",
+      ".scratch/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012/overlay.json",
+      "-o",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/proxy.test",
+      "./ai/live"
+    ],
+    "run": "Use the recorded isolated run-live.py argv with freshly chosen binary and output paths; do not overwrite evidence."
+  },
+  "sourceReferences": {
+    "proxyOverlay": "recorder-proxy.go.txt:62",
+    "commonScenarios": "ai/live/scenarios_test.go:46",
+    "runnerAndBudget": "ai/live/main_test.go:26",
+    "OpenAIImageScenarios": "ai/live/images_test.go:172",
+    "GoogleImageScenarios": "ai/live/google_images_test.go:45",
+    "ChatUsage": "ai/live/extras_test.go:22"
+  }
+}

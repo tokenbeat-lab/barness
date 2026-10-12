@@ -1,0 +1,108 @@
+{
+  "schema": 2,
+  "combo": "google-gemini",
+  "operation": "chat",
+  "provider": "google",
+  "api": "google-generative-ai",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+  "model": "gemini-3.8-flash",
+  "sdk": "direct HTTP (ADR-0012)",
+  "accountAlias": "local-google@region-permissions-unconfirmed",
+  "gitCommit": "39ab6a5f4c3e838340b46027e84f19b7a37d9fcf",
+  "catalogVersion": "2026-10-11.1",
+  "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+  "startedAt": "2026-10-11T02:58:29.170835Z",
+  "finishedAt": "2026-10-11T03:01:39.239064Z",
+  "budget": {
+    "maxCalls": 32,
+    "httpAttempts": 11,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 11,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 0,
+    "environmentRetries": 5
+  },
+  "expected": [
+    "text-stream",
+    "text-complete",
+    "tool-round-trip",
+    "cancel-after-first-frame",
+    "reasoning-history",
+    "image"
+  ],
+  "scenarios": [
+    {
+      "id": "text-stream",
+      "caseId": "LIVE-P03-text-stream",
+      "model": "gemini-3.8-flash",
+      "outcome": "FAIL",
+      "errorCategory": "deadline_exceeded",
+      "environment": true,
+      "durationMs": 35008,
+      "calls": 2,
+      "attempts": 2,
+      "retries": 1
+    },
+    {
+      "id": "text-complete",
+      "caseId": "LIVE-P03-text-complete",
+      "model": "gemini-3.8-flash",
+      "outcome": "FAIL",
+      "errorCategory": "deadline_exceeded",
+      "environment": true,
+      "durationMs": 35005,
+      "calls": 2,
+      "attempts": 2,
+      "retries": 1
+    },
+    {
+      "id": "tool-round-trip",
+      "caseId": "LIVE-P03-tool-round-trip",
+      "model": "gemini-3.8-flash",
+      "outcome": "FAIL",
+      "errorCategory": "deadline_exceeded",
+      "environment": true,
+      "durationMs": 35004,
+      "calls": 2,
+      "attempts": 2,
+      "retries": 1,
+      "note": "tool call by forced choice"
+    },
+    {
+      "id": "cancel-after-first-frame",
+      "caseId": "LIVE-P03-cancel-after-first-frame",
+      "model": "gemini-3.8-flash",
+      "outcome": "FAIL",
+      "errorCategory": "assertion",
+      "durationMs": 15002,
+      "calls": 1,
+      "attempts": 1,
+      "note": "canceled after error"
+    },
+    {
+      "id": "reasoning-history",
+      "caseId": "LIVE-P03-reasoning-history",
+      "model": "gemini-3.8-flash",
+      "outcome": "FAIL",
+      "errorCategory": "deadline_exceeded",
+      "environment": true,
+      "durationMs": 35005,
+      "calls": 2,
+      "attempts": 2,
+      "retries": 1
+    },
+    {
+      "id": "image",
+      "caseId": "LIVE-P03-image",
+      "model": "gemini-3.8-flash",
+      "outcome": "FAIL",
+      "errorCategory": "deadline_exceeded",
+      "environment": true,
+      "durationMs": 35006,
+      "calls": 2,
+      "attempts": 2,
+      "retries": 1
+    }
+  ]
+}

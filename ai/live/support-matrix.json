@@ -9,74 +9,70 @@
       "model": "gpt-5-mini",
       "sdk": "github.com/openai/openai-go/v3 v3.66.0",
       "accountAlias": "local-openai@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-11T02:58:25.402105Z",
-      "allPassedAt": "2026-10-08T11:45:20.625547Z",
+      "lastRunAt": "2026-10-12T04:22:15.630595Z",
+      "allPassedAt": "2026-10-12T04:22:15.630595Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T02:58:25.402105Z",
-          "lastPassedAt": "2026-10-08T11:45:20.625547Z"
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T04:22:15.630595Z",
+          "lastPassedAt": "2026-10-12T04:22:15.630595Z"
         },
         {
           "id": "text-complete",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T02:58:25.402105Z",
-          "lastPassedAt": "2026-10-08T11:45:20.625547Z"
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T04:22:15.630595Z",
+          "lastPassedAt": "2026-10-12T04:22:15.630595Z"
         },
         {
           "id": "tool-round-trip",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "transport",
+          "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-11T02:58:25.402105Z",
-          "lastPassedAt": "2026-10-08T11:45:20.625547Z"
+          "lastRunAt": "2026-10-12T04:22:15.630595Z",
+          "lastPassedAt": "2026-10-12T04:22:15.630595Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "assertion",
-          "note": "canceled after error",
-          "lastRunAt": "2026-10-11T02:58:25.402105Z",
-          "lastPassedAt": "2026-10-08T11:45:20.625547Z"
+          "outcome": "PASS",
+          "note": "canceled after thinking_start",
+          "lastRunAt": "2026-10-12T04:22:15.630595Z",
+          "lastPassedAt": "2026-10-12T04:22:15.630595Z"
         },
         {
           "id": "reasoning-history",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "transport",
-          "lastRunAt": "2026-10-11T02:58:25.402105Z",
-          "lastPassedAt": "2026-10-08T11:45:20.625547Z"
+          "outcome": "PASS",
+          "note": "returned thinking signature, encrypted reasoning",
+          "lastRunAt": "2026-10-12T04:22:15.630595Z",
+          "lastPassedAt": "2026-10-12T04:22:15.630595Z"
         },
         {
           "id": "image",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "transport",
-          "lastRunAt": "2026-10-11T02:58:25.402105Z",
-          "lastPassedAt": "2026-10-08T11:45:20.625547Z"
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "lastRunAt": "2026-10-12T04:22:15.630595Z",
+          "lastPassedAt": "2026-10-12T04:22:15.630595Z"
         },
         {
           "id": "tool-changes-gpt-5.4",
           "model": "gpt-5.4",
-          "outcome": "FAIL",
-          "errorCategory": "transport",
-          "lastRunAt": "2026-10-11T02:58:25.402105Z",
-          "lastPassedAt": "2026-10-08T11:45:20.625547Z"
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-12T04:22:15.630595Z",
+          "lastPassedAt": "2026-10-12T04:22:15.630595Z"
         },
         {
           "id": "tool-changes-gpt-6-sol",
           "model": "gpt-6-sol",
-          "outcome": "FAIL",
-          "errorCategory": "transport",
-          "lastRunAt": "2026-10-11T02:58:25.402105Z",
-          "lastPassedAt": "2026-10-08T11:45:20.625547Z"
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-12T04:22:15.630595Z",
+          "lastPassedAt": "2026-10-12T04:22:15.630595Z"
         }
       ]
     },
@@ -187,58 +183,54 @@
       "model": "gemini-3.8-flash",
       "sdk": "direct HTTP (ADR-0012)",
       "accountAlias": "local-google@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-11T03:01:39.239064Z",
-      "allPassedAt": "2026-10-08T11:46:09.911193Z",
+      "lastRunAt": "2026-10-12T04:22:11.165925Z",
+      "allPassedAt": "2026-10-12T04:22:11.165925Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "gemini-3.8-flash",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:01:39.239064Z",
-          "lastPassedAt": "2026-10-08T11:46:09.911193Z"
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T04:22:11.165925Z",
+          "lastPassedAt": "2026-10-12T04:22:11.165925Z"
         },
         {
           "id": "text-complete",
           "model": "gemini-3.8-flash",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:01:39.239064Z",
-          "lastPassedAt": "2026-10-08T11:46:09.911193Z"
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T04:22:11.165925Z",
+          "lastPassedAt": "2026-10-12T04:22:11.165925Z"
         },
         {
           "id": "tool-round-trip",
           "model": "gemini-3.8-flash",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
+          "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-11T03:01:39.239064Z",
-          "lastPassedAt": "2026-10-08T11:46:09.911193Z"
+          "lastRunAt": "2026-10-12T04:22:11.165925Z",
+          "lastPassedAt": "2026-10-12T04:22:11.165925Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "gemini-3.8-flash",
-          "outcome": "FAIL",
-          "errorCategory": "assertion",
-          "note": "canceled after error",
-          "lastRunAt": "2026-10-11T03:01:39.239064Z",
-          "lastPassedAt": "2026-10-08T11:46:09.911193Z"
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-12T04:22:11.165925Z",
+          "lastPassedAt": "2026-10-12T04:22:11.165925Z"
         },
         {
           "id": "reasoning-history",
           "model": "gemini-3.8-flash",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:01:39.239064Z",
-          "lastPassedAt": "2026-10-08T11:46:09.911193Z"
+          "outcome": "PASS",
+          "note": "returned tool call thought signature",
+          "lastRunAt": "2026-10-12T04:22:11.165925Z",
+          "lastPassedAt": "2026-10-12T04:22:11.165925Z"
         },
         {
           "id": "image",
           "model": "gemini-3.8-flash",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:01:39.239064Z",
-          "lastPassedAt": "2026-10-08T11:46:09.911193Z"
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "lastRunAt": "2026-10-12T04:22:11.165925Z",
+          "lastPassedAt": "2026-10-12T04:22:11.165925Z"
         }
       ]
     },
@@ -250,89 +242,85 @@
       "model": "gpt-5-mini",
       "sdk": "github.com/openai/openai-go/v3 v3.66.0",
       "accountAlias": "local-openai@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-11T03:06:34.497109Z",
-      "allPassedAt": "2026-10-08T11:46:26.657136Z",
+      "lastRunAt": "2026-10-12T04:22:31.073095Z",
+      "allPassedAt": "2026-10-12T04:22:31.073095Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "text-complete",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "tool-round-trip",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
+          "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "assertion",
-          "note": "canceled after error",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "reasoning-history",
           "model": "gpt-5-mini",
           "outcome": "UNSUPPORTED",
           "note": "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z"
+          "lastRunAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "image",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "outcome": "PASS",
+          "note": "answer mentions red: false",
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "usage-position",
           "model": "gpt-5-mini",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "outcome": "PASS",
+          "note": "usage in a separate chunk 1 after the finish_reason chunk",
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "tool-changes-gpt-5.4",
           "model": "gpt-5.4",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "tool-changes-gpt-6-sol",
           "model": "gpt-6-sol",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         },
         {
           "id": "pro-model-unavailable",
           "model": "gpt-5.4-pro",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:06:34.497109Z",
-          "lastPassedAt": "2026-10-08T11:46:26.657136Z"
+          "outcome": "PASS",
+          "note": "refused with HTTP 404 (invalid_request): 404: {\"message\":\"This is not a chat model and thus not supported in the v1/chat/completions endpoint. Did you mean to use v1/completions?\",\"type\":\"invalid_request_error\",\"param\":\"model\",\"code\":null}",
+          "lastRunAt": "2026-10-12T04:22:31.073095Z",
+          "lastPassedAt": "2026-10-12T04:22:31.073095Z"
         }
       ]
     },
@@ -555,32 +543,32 @@
       "model": "gpt-image-2.5-sunburst-2026-09-08",
       "sdk": "direct HTTP (OpenAI Images JSON; ADR-0022)",
       "accountAlias": "local-openai@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-11T03:07:27.913248Z",
-      "allPassedAt": "2026-10-08T11:47:23.343992Z",
+      "lastRunAt": "2026-10-12T04:23:02.503602Z",
+      "allPassedAt": "2026-10-12T04:23:02.503602Z",
       "capabilities": [
         {
           "id": "json-edit",
           "model": "gpt-image-2.5-sunburst-2026-09-08",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:07:27.913248Z",
-          "lastPassedAt": "2026-10-08T11:47:23.343992Z"
+          "outcome": "PASS",
+          "note": "png: png output, 1024x1024; usage complete; known-only cost 0.00808300 USD",
+          "lastRunAt": "2026-10-12T04:23:02.503602Z",
+          "lastPassedAt": "2026-10-12T04:23:02.503602Z"
         },
         {
           "id": "generation",
           "model": "gpt-image-2.5-sunburst-2026-09-08",
           "outcome": "PASS",
           "note": "jpeg: jpeg output, 1024x1024; usage complete; known-only cost 0.01325500 USD",
-          "lastRunAt": "2026-10-08T11:47:23.343992Z",
-          "lastPassedAt": "2026-10-08T11:47:23.343992Z"
+          "lastRunAt": "2026-10-12T04:23:02.503602Z",
+          "lastPassedAt": "2026-10-12T04:23:02.503602Z"
         },
         {
           "id": "mask-edit",
           "model": "gpt-image-2.5-sunburst-2026-09-08",
           "outcome": "PASS",
           "note": "webp: webp output, 1024x1024; usage complete; known-only cost 0.00809300 USD",
-          "lastRunAt": "2026-10-08T11:47:23.343992Z",
-          "lastPassedAt": "2026-10-08T11:47:23.343992Z"
+          "lastRunAt": "2026-10-12T04:23:02.503602Z",
+          "lastPassedAt": "2026-10-12T04:23:02.503602Z"
         }
       ]
     },
@@ -592,24 +580,24 @@
       "model": "gemini-nano-banana-2.1",
       "sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
       "accountAlias": "local-google@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-11T03:08:38.176193Z",
-      "allPassedAt": "2026-10-08T11:47:49.450568Z",
+      "lastRunAt": "2026-10-12T04:22:34.487044Z",
+      "allPassedAt": "2026-10-12T04:22:34.487044Z",
       "capabilities": [
         {
           "id": "generation",
           "model": "gemini-nano-banana-2.1",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:08:38.176193Z",
-          "lastPassedAt": "2026-10-08T11:47:49.450568Z"
+          "outcome": "PASS",
+          "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03712650 USD",
+          "lastRunAt": "2026-10-12T04:22:34.487044Z",
+          "lastPassedAt": "2026-10-12T04:22:34.487044Z"
         },
         {
           "id": "reference-edit",
           "model": "gemini-nano-banana-2.1",
-          "outcome": "FAIL",
-          "errorCategory": "deadline_exceeded",
-          "lastRunAt": "2026-10-11T03:08:38.176193Z",
-          "lastPassedAt": "2026-10-08T11:47:49.450568Z"
+          "outcome": "PASS",
+          "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03571500 USD",
+          "lastRunAt": "2026-10-12T04:22:34.487044Z",
+          "lastPassedAt": "2026-10-12T04:22:34.487044Z"
         }
       ]
     }

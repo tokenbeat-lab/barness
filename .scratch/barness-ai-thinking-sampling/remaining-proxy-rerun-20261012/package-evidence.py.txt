@@ -1,0 +1,174 @@
+"""Archive this recorded rerun without changing any raw evidence bytes.
+
+Run from the repo root after all five live processes and the matrix test finish.
+This archival script intentionally rejects overwriting existing archives.
+"""
+from collections import Counter
+from pathlib import Path, PurePosixPath
+import gzip
+import hashlib
+import json
+import shutil
+import subprocess
+import tarfile
+
+pkg = Path('.scratch/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012')
+work = Path('.evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z')
+setup = json.loads((pkg / 'setup.json').read_text())
+archives, verification, summaries, historical = [], [], [], []
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def save(path, value):
+    path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n')
+
+
+def verify_case_hashes(bundle):
+    manifest = json.loads((bundle / 'manifest.json').read_text())
+    checked = 0
+    for case in manifest['cases']:
+        for category in ['artifacts', 'fixtures']:
+            for name, expected in case[category].items():
+                assert digest(bundle / case['dir'] / name) == expected
+                checked += 1
+    return manifest, checked
+
+
+def request_statuses(bundle):
+    statuses = Counter()
+    for path in bundle.glob('LIVE-*/*-exchanges.json'):
+        for exchange in json.loads(path.read_text()):
+            statuses[str(exchange.get('status', 0))] += 1
+    return dict(statuses)
+
+
+for combo in setup['combos']:
+    reports = list((work / 'live' / combo).glob('*/live-report.json'))
+    assert len(reports) == 1
+    bundle = reports[0].parent
+    report = json.loads(reports[0].read_text())
+    command = json.loads((bundle.parent / 'command.json').read_text())
+    assert command['exitCode'] == 0 and command['keyPresent'] and command['liveEnabled']
+    manifest, checked = verify_case_hashes(bundle)
+    assert len(manifest['cases']) == len(report['scenarios'])
+    assert report['expected'] == [s['id'] for s in report['scenarios']]
+    assert json.loads((bundle / 'audit.json').read_text())['findings'] == []
+    before = {str(p.relative_to(bundle)): digest(p) for p in sorted(bundle.rglob('*')) if p.is_file()}
+    assert not any(p.is_symlink() for p in bundle.rglob('*'))
+    archive = pkg / (combo + '.tar.gz')
+    assert not archive.exists(), 'never overwrite a recorded archive'
+    with archive.open('wb') as output:
+        with gzip.GzipFile(fileobj=output, mode='wb', filename='', mtime=0) as gz:
+            with tarfile.open(fileobj=gz, mode='w', format=tarfile.PAX_FORMAT) as tar:
+                for path in [bundle] + sorted(bundle.rglob('*')):
+                    info = tar.gettarinfo(str(path), arcname=str(Path(combo) / path.relative_to(bundle)))
+                    assert info.isdir() or info.isfile()
+                    info.uid = info.gid = 0
+                    info.uname = info.gname = ''
+                    info.mtime = 0
+                    info.mode = 0o755 if info.isdir() else 0o644
+                    if info.isfile():
+                        with path.open('rb') as source:
+                            tar.addfile(info, source)
+                    else:
+                        tar.addfile(info)
+    extraction = work / 'fresh-extract' / combo
+    assert not extraction.exists()
+    extraction.mkdir(parents=True)
+    total, names = 0, set()
+    with tarfile.open(archive, 'r:gz') as tar:
+        members = tar.getmembers()
+        assert len(members) <= 1000
+        for member in members:
+            parts = PurePosixPath(member.name)
+            assert not parts.is_absolute() and '..' not in parts.parts and parts.parts[0] == combo
+            assert member.name not in names and (member.isdir() or member.isfile())
+            assert member.uid == member.gid == member.mtime == 0
+            assert member.size <= 16 << 20
+            total += member.size
+            assert total <= 128 << 20
+            names.add(member.name)
+            target = extraction / member.name
+            if member.isdir():
+                target.mkdir(parents=True, exist_ok=True)
+            else:
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with tar.extractfile(member) as source:
+                    data = source.read(member.size + 1)
+                assert len(data) == member.size
+                target.write_bytes(data)
+    fresh = extraction / combo
+    after = {str(p.relative_to(fresh)): digest(p) for p in sorted(fresh.rglob('*')) if p.is_file()}
+    assert before == after, 'fresh extraction must preserve every raw file byte'
+    _, fresh_checked = verify_case_hashes(fresh)
+    auditor = subprocess.run([str(work / 'auditbundle'), str(fresh)], capture_output=True, text=True)
+    assert auditor.returncode == 0, auditor.stdout + auditor.stderr
+    assert json.loads((fresh / 'audit.json').read_text())['findings'] == []
+    assert before == {str(p.relative_to(bundle)): digest(p) for p in sorted(bundle.rglob('*')) if p.is_file()}
+    statuses = dict(Counter(s['outcome'] for s in report['scenarios']))
+    entry = {'role': combo, 'archive': archive.name, 'sha256': digest(archive),
+             'originalBundle': str(bundle), 'manifestSHA256': digest(bundle / 'manifest.json'),
+             'cases': len(manifest['cases']), 'statuses': statuses, 'rawFileCount': len(before)}
+    archives.append(entry)
+    verification.append({'role': combo, 'archiveSHA256': digest(archive), 'allRawFilesByteIdentical': True,
+                         'caseArtifactAndFixtureHashesChecked': fresh_checked, 'freshAudit': 'PASS'})
+    for src, suffix in [(reports[0], 'report.json'), (bundle.parent / 'command.json', 'command.json'),
+                        (bundle.parent / 'run.log', 'run.log')]:
+        shutil.copyfile(src, pkg / (combo + '-' + suffix))
+    old_reports = list((Path('.evidence/barness-ai-thinking-sampling/current-release/live') / combo).glob('*/live-report.json'))
+    assert len(old_reports) == 1
+    old = json.loads(old_reports[0].read_text())
+    shutil.copyfile(old_reports[0], pkg / (combo + '-historical-report.json'))
+    historical.append({'combo': combo, 'bundle': str(old_reports[0].parent), 'reportSHA256': digest(old_reports[0]),
+                       'outcomes': dict(Counter(s['outcome'] for s in old['scenarios'])),
+                       'errorCategories': dict(Counter(s.get('errorCategory', '') for s in old['scenarios'] if s['outcome'] == 'FAIL')),
+                       'unchanged': True})
+    summaries.append({'combo': combo, 'model': report['model'], 'outcomes': statuses,
+                      'durationSeconds': command['durationSeconds'], 'httpStatuses': request_statuses(bundle),
+                      'budget': report['budget'], 'audit': 'PASS', 'report': combo + '-report.json',
+                      'scenarios': [{k: s[k] for k in ['id', 'model', 'outcome', 'note', 'calls', 'attempts', 'retries'] if k in s}
+                                    for s in report['scenarios']]})
+
+source = json.loads((pkg / 'source-hashes.json').read_text())
+assert len(source) == 464 and all(digest(Path(p)) == h for p, h in source.items())
+comparison = json.loads((pkg / 'comparison.json').read_text())
+assert comparison['compared'] == 26 and comparison['allIdentical']
+before_matrix = json.loads((pkg / 'matrix-before.json').read_text())
+after_matrix = json.loads((pkg / 'matrix-after.json').read_text())
+before_rows = {r['combo']: r for r in before_matrix['rows']}
+after_rows = {r['combo']: r for r in after_matrix['rows']}
+changed = [c for c in before_rows if before_rows[c] != after_rows[c]]
+assert set(changed) == set(setup['combos'])
+test = json.loads((pkg / 'supportmatrix-test.json').read_text())
+assert test['exitCode'] == 0
+for provider in ['openai', 'google']:
+    shutil.copyfile(work / (provider + '-executions.json'), pkg / (provider + '-executions.json'))
+save(pkg / 'manifest.json', {'scope': 'Remaining five explicit-proxy live rerun bundles', 'archives': archives,
+                           'historicalRunsPreserved': True, 'credentials': 'redacted at source; never archived'})
+save(pkg / 'verification.json', {'freshArchiveVerification': verification,
+                               'productionSourceHashesUnchanged': len(source), 'identicalFirstHistoricalRequests': 26,
+                               'matrixChangedRows': changed, 'vendorCallsDuringVerification': 0})
+save(pkg / 'summary.json', {'schema': 1, 'scope': 'Full original smoke for the five remaining failed combinations',
+                         'sourceCommit': setup['sourceCommit'], 'proxy': setup['proxy'],
+                         'overall': dict(Counter(s['outcome'] for c in setup['combos']
+                                                for s in json.loads((pkg / (c + '-report.json')).read_text())['scenarios'])),
+                         'results': summaries, 'historical': historical, 'requestsUnchanged': comparison['allIdentical'],
+                         'sourceFilesUnchanged': len(source), 'supportMatrixChangedRows': changed,
+                         'allNineCurrentCombinationsHaveNoFAILOrNOT_RUN': all(v['outcome'] in ['PASS', 'UNSUPPORTED']
+                                                                           for r in after_matrix['rows'] for v in r['capabilities']),
+                         'checks': {'supportmatrixPackage': test, 'archiveIntegrity': 'PASS', 'freshBundleAudits': 'PASS'},
+                         'limitations': ['OpenAI Chat reasoning-history remains UNSUPPORTED by the protocol.',
+                                         'Google Interactions image usage remains partial; cost values are estimates from observed fields.',
+                                         'This rerun resolves the recorded connection failures for this proxy route. The historical DNS/egress root cause is not established.',
+                                         'Formal release gates were not rerun; the original 2026-10-11 FAIL release report is preserved.'],
+                         'replay': {'build': json.loads((pkg / 'binary-build.json').read_text())['buildArgv'],
+                                    'run': 'Use the recorded isolated run-live.py argv with freshly chosen binary and output paths; do not overwrite evidence.'},
+                         'sourceReferences': {'proxyOverlay': 'recorder-proxy.go.txt:62', 'commonScenarios': 'ai/live/scenarios_test.go:46',
+                                              'runnerAndBudget': 'ai/live/main_test.go:26', 'OpenAIImageScenarios': 'ai/live/images_test.go:172',
+                                              'GoogleImageScenarios': 'ai/live/google_images_test.go:45', 'ChatUsage': 'ai/live/extras_test.go:22'}})
+print(json.dumps({'archives': len(archives), 'rawCases': sum(a['cases'] for a in archives),
+                  'archiveMiB': sum((pkg / a['archive']).stat().st_size for a in archives) / (1 << 20),
+                  'sourceHashesUnchanged': len(source), 'freshBundleAudits': 'PASS'}))

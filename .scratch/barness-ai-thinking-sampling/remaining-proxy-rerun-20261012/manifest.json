@@ -1,0 +1,68 @@
+{
+  "scope": "Remaining five explicit-proxy live rerun bundles",
+  "archives": [
+    {
+      "role": "openai-responses",
+      "archive": "openai-responses.tar.gz",
+      "sha256": "62e83944ddd5ea738ae2584de8c3be97fc2ca70b97e4304c0b80593361079c9f",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-responses/20261012T042152.651874000Z",
+      "manifestSHA256": "ca0e483af08ac7a8a156b7135b033b230c4bd4ef2d0638744c0afca987cb1182",
+      "cases": 8,
+      "statuses": {
+        "PASS": 8
+      },
+      "rawFileCount": 53
+    },
+    {
+      "role": "openai-chat",
+      "archive": "openai-chat.tar.gz",
+      "sha256": "4196f7852d4abab9e824e1ff07778117e8feca2999d5b4392c9c2f3fa01602c3",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-chat/20261012T042215.714829000Z",
+      "manifestSHA256": "37370732e8cd8e98dc5f9650c4e63d2aaa974c0e82f613cf9535d0c1a00acd40",
+      "cases": 10,
+      "statuses": {
+        "PASS": 9,
+        "UNSUPPORTED": 1
+      },
+      "rawFileCount": 55
+    },
+    {
+      "role": "google-gemini",
+      "archive": "google-gemini.tar.gz",
+      "sha256": "2da61ee47163389a0b8e6a1bb668603b1eec05635a5cd58abcd485a95eddbf9a",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/google-gemini/20261012T042152.651875000Z",
+      "manifestSHA256": "f00d77f7e3b8012a5cfdb932b68e88787bb5ece48a02bbc6f07704e76a70c285",
+      "cases": 6,
+      "statuses": {
+        "PASS": 6
+      },
+      "rawFileCount": 33
+    },
+    {
+      "role": "openai-images",
+      "archive": "openai-images.tar.gz",
+      "sha256": "8c4fc7c5b7fc9970f57c67147acc1b99f84a97f5a4a2e47999aaf5857ab83c28",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-images/20261012T042231.153375000Z",
+      "manifestSHA256": "de741cbe45872e43630be691e4bbed0cb7f18fed618bef2516f4742d3cef5b6c",
+      "cases": 3,
+      "statuses": {
+        "PASS": 3
+      },
+      "rawFileCount": 21
+    },
+    {
+      "role": "google-interactions-image",
+      "archive": "google-interactions-image.tar.gz",
+      "sha256": "95ccf892265bdab3675b85ffac76e87f976905c8b6d9a093e09dfcf906739481",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/google-interactions-image/20261012T042211.230082000Z",
+      "manifestSHA256": "c30a922e0103d1b1eee5d9882f8d2f2f115b6acd882c4268d5497f769a03b3e4",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      },
+      "rawFileCount": 15
+    }
+  ],
+  "historicalRunsPreserved": true,
+  "credentials": "redacted at source; never archived"
+}

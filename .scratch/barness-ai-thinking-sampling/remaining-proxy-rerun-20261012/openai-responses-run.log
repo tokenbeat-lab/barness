@@ -1,0 +1,22 @@
+=== RUN   TestLive
+=== RUN   TestLive/openai-responses
+=== RUN   TestLive/openai-responses/text-stream
+=== RUN   TestLive/openai-responses/text-complete
+=== RUN   TestLive/openai-responses/tool-round-trip
+=== RUN   TestLive/openai-responses/cancel-after-first-frame
+=== RUN   TestLive/openai-responses/reasoning-history
+=== RUN   TestLive/openai-responses/image
+=== RUN   TestLive/openai-responses/tool-changes-gpt-5.4
+=== RUN   TestLive/openai-responses/tool-changes-gpt-6-sol
+--- PASS: TestLive (22.96s)
+    --- PASS: TestLive/openai-responses (22.96s)
+        --- PASS: TestLive/openai-responses/text-stream (3.01s)
+        --- PASS: TestLive/openai-responses/text-complete (1.36s)
+        --- PASS: TestLive/openai-responses/tool-round-trip (3.75s)
+        --- PASS: TestLive/openai-responses/cancel-after-first-frame (0.66s)
+        --- PASS: TestLive/openai-responses/reasoning-history (3.50s)
+        --- PASS: TestLive/openai-responses/image (1.20s)
+        --- PASS: TestLive/openai-responses/tool-changes-gpt-5.4 (6.19s)
+        --- PASS: TestLive/openai-responses/tool-changes-gpt-6-sol (3.28s)
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-responses/20261012T042152.651874000Z

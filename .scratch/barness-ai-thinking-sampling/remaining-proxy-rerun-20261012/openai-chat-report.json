@@ -1,0 +1,170 @@
+{
+  "schema": 2,
+  "combo": "openai-chat",
+  "operation": "chat",
+  "provider": "openai",
+  "api": "openai-completions",
+  "endpoint": "https://api.openai.com/v1",
+  "model": "gpt-5-mini",
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "accountAlias": "local-openai@region-permissions-unconfirmed",
+  "gitCommit": "cc69d77521a0b3a5153bd33761f0d84ae03c5217",
+  "catalogVersion": "2026-10-11.1",
+  "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+  "startedAt": "2026-10-12T04:22:15.714801Z",
+  "finishedAt": "2026-10-12T04:22:31.073095Z",
+  "budget": {
+    "maxCalls": 32,
+    "httpAttempts": 14,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 14,
+    "outputTokensUsed": 267,
+    "inputTokensUsed": 1911,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "text-stream",
+    "text-complete",
+    "tool-round-trip",
+    "cancel-after-first-frame",
+    "reasoning-history",
+    "image",
+    "usage-position",
+    "tool-changes-gpt-5.4",
+    "tool-changes-gpt-6-sol",
+    "pro-model-unavailable"
+  ],
+  "scenarios": [
+    {
+      "id": "text-stream",
+      "caseId": "LIVE-P04-text-stream",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 1617,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_147c82afd7e94edd91fdd79c7e1c402e"
+      ]
+    },
+    {
+      "id": "text-complete",
+      "caseId": "LIVE-P04-text-complete",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 910,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_6166a79eb7144d8db534824325cc3b56"
+      ]
+    },
+    {
+      "id": "tool-round-trip",
+      "caseId": "LIVE-P04-tool-round-trip",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 2299,
+      "calls": 2,
+      "attempts": 2,
+      "providerRequestIds": [
+        "req_22554a38d1bc42dcbfddea33924db317",
+        "req_f4beb56a2e9b4298a85e768bd661af36"
+      ],
+      "note": "tool call by forced choice"
+    },
+    {
+      "id": "cancel-after-first-frame",
+      "caseId": "LIVE-P04-cancel-after-first-frame",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 708,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_2bf10528db1d4e0c8b79b2a85344d522"
+      ],
+      "note": "canceled after text_start"
+    },
+    {
+      "id": "reasoning-history",
+      "caseId": "LIVE-P04-reasoning-history",
+      "model": "gpt-5-mini",
+      "outcome": "UNSUPPORTED",
+      "durationMs": 0,
+      "calls": 0,
+      "attempts": 0,
+      "note": "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage"
+    },
+    {
+      "id": "image",
+      "caseId": "LIVE-P04-image",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 1042,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_f6b8c9cfc27c43008f1b7f3994ca0730"
+      ],
+      "note": "answer mentions red: false"
+    },
+    {
+      "id": "usage-position",
+      "caseId": "LIVE-P04-usage-position",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 1242,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_3997481a903c41999fa25d47f3934399"
+      ],
+      "note": "usage in a separate chunk 1 after the finish_reason chunk"
+    },
+    {
+      "id": "tool-changes-gpt-5.4",
+      "caseId": "LIVE-P04-tool-changes-gpt-5.4",
+      "model": "gpt-5.4",
+      "outcome": "PASS",
+      "durationMs": 3632,
+      "calls": 3,
+      "attempts": 3,
+      "providerRequestIds": [
+        "req_5d3eca11507f4d6e9dbecc4f5f75ce37",
+        "req_74516e527cba44549ba1fff5dd00ad63",
+        "req_d4cb5c38bdb643549c32d20af82751bb"
+      ],
+      "note": "called convert_temperature after the change and answered"
+    },
+    {
+      "id": "tool-changes-gpt-6-sol",
+      "caseId": "LIVE-P04-tool-changes-gpt-6-sol",
+      "model": "gpt-6-sol",
+      "outcome": "PASS",
+      "durationMs": 3120,
+      "calls": 3,
+      "attempts": 3,
+      "providerRequestIds": [
+        "req_3a9cfab8bbd84190bfdd45c5511f6863",
+        "req_d818c4dd5b1d402a9388815ea2975422",
+        "req_e3941c08f88045848e7817c51875a5c8"
+      ],
+      "note": "called convert_temperature after the change and answered"
+    },
+    {
+      "id": "pro-model-unavailable",
+      "caseId": "LIVE-P04-pro-model-unavailable",
+      "model": "gpt-5.4-pro",
+      "outcome": "PASS",
+      "durationMs": 753,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_29fae3c5a85b487abe43ff6b20a702f2"
+      ],
+      "note": "refused with HTTP 404 (invalid_request): 404: {\"message\":\"This is not a chat model and thus not supported in the v1/chat/completions endpoint. Did you mean to use v1/completions?\",\"type\":\"invalid_request_error\",\"param\":\"model\",\"code\":null}"
+    }
+  ]
+}

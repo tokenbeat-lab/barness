@@ -1,0 +1,56 @@
+[
+  {
+    "combo": "openai-responses",
+    "argv": [
+      "python3",
+      ".scratch/barness-ai-thinking-sampling/release-evidence/run-live.py",
+      "--combo",
+      "openai-responses",
+      "--live",
+      "--binary",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/proxy.test",
+      "--out",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-responses",
+      "--alias",
+      "local-openai@region-permissions-unconfirmed"
+    ],
+    "exitCode": 0,
+    "runnerOutput": "{\"combo\": \"openai-responses\", \"liveEnabled\": true, \"keyPresent\": true, \"exitCode\": 0, \"durationSeconds\": 24.123342037200928, \"reports\": [\".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-responses/20261012T042152.651874000Z/live-report.json\"]}\n"
+  },
+  {
+    "combo": "openai-chat",
+    "argv": [
+      "python3",
+      ".scratch/barness-ai-thinking-sampling/release-evidence/run-live.py",
+      "--combo",
+      "openai-chat",
+      "--live",
+      "--binary",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/proxy.test",
+      "--out",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-chat",
+      "--alias",
+      "local-openai@region-permissions-unconfirmed"
+    ],
+    "exitCode": 0,
+    "runnerOutput": "{\"combo\": \"openai-chat\", \"liveEnabled\": true, \"keyPresent\": true, \"exitCode\": 0, \"durationSeconds\": 15.402426719665527, \"reports\": [\".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-chat/20261012T042215.714829000Z/live-report.json\"]}\n"
+  },
+  {
+    "combo": "openai-images",
+    "argv": [
+      "python3",
+      ".scratch/barness-ai-thinking-sampling/release-evidence/run-live.py",
+      "--combo",
+      "openai-images",
+      "--live",
+      "--binary",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/proxy.test",
+      "--out",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-images",
+      "--alias",
+      "local-openai@region-permissions-unconfirmed"
+    ],
+    "exitCode": 0,
+    "runnerOutput": "{\"combo\": \"openai-images\", \"liveEnabled\": true, \"keyPresent\": true, \"exitCode\": 0, \"durationSeconds\": 31.510198831558228, \"reports\": [\".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/openai-images/20261012T042231.153375000Z/live-report.json\"]}\n"
+  }
+]

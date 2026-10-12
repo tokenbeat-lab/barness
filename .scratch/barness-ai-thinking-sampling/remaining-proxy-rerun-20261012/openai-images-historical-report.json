@@ -1,0 +1,88 @@
+{
+  "schema": 2,
+  "combo": "openai-images",
+  "operation": "image",
+  "provider": "openai",
+  "api": "openai-images",
+  "endpoint": "https://api.openai.com/v1",
+  "model": "gpt-image-2.5-sunburst-2026-09-08",
+  "sdk": "direct HTTP (OpenAI Images JSON; ADR-0022)",
+  "accountAlias": "local-openai@region-permissions-unconfirmed",
+  "gitCommit": "39ab6a5f4c3e838340b46027e84f19b7a37d9fcf",
+  "catalogVersion": "2026-10-11.1",
+  "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+  "startedAt": "2026-10-11T03:06:52.876781Z",
+  "finishedAt": "2026-10-11T03:07:27.913248Z",
+  "budget": {
+    "maxCalls": 4,
+    "maxImages": 4,
+    "imagesUsed": 2,
+    "maxImageWidth": 1024,
+    "maxImageHeight": 1024,
+    "httpAttempts": 2,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 2,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 0,
+    "environmentRetries": 1
+  },
+  "expected": [
+    "json-edit",
+    "generation",
+    "mask-edit"
+  ],
+  "scenarios": [
+    {
+      "id": "json-edit",
+      "caseId": "LIVE-P08-json-edit",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "outcome": "FAIL",
+      "errorCategory": "deadline_exceeded",
+      "environment": true,
+      "durationMs": 35014,
+      "calls": 2,
+      "attempts": 2,
+      "images": 2,
+      "imageCalls": [
+        {
+          "path": "/v1/images/edits",
+          "status": 0,
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 0,
+          "usageReporting": "unreported"
+        },
+        {
+          "path": "/v1/images/edits",
+          "status": 0,
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 0,
+          "usageReporting": "unreported"
+        }
+      ],
+      "retries": 1
+    },
+    {
+      "id": "generation",
+      "caseId": "LIVE-P08-generation",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "outcome": "NOT_RUN",
+      "durationMs": 0,
+      "calls": 0,
+      "attempts": 0,
+      "note": "required JSON edit did not pass in this process"
+    },
+    {
+      "id": "mask-edit",
+      "caseId": "LIVE-P08-mask-edit",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "outcome": "NOT_RUN",
+      "durationMs": 0,
+      "calls": 0,
+      "attempts": 0,
+      "note": "required JSON edit did not pass in this process"
+    }
+  ]
+}

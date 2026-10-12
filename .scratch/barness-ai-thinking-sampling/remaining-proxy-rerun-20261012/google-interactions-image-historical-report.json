@@ -1,0 +1,138 @@
+{
+  "schema": 2,
+  "combo": "google-interactions-image",
+  "operation": "image",
+  "provider": "google",
+  "api": "google-interactions",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+  "model": "gemini-nano-banana-2.1",
+  "sdk": "direct HTTP (Google Interactions v1beta; ADR-0023)",
+  "accountAlias": "local-google@region-permissions-unconfirmed",
+  "gitCommit": "844abf76190dff1bcf23174c9ba306ccb0269d50",
+  "catalogVersion": "2026-10-11.1",
+  "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+  "startedAt": "2026-10-11T03:07:28.130438Z",
+  "finishedAt": "2026-10-11T03:08:38.176193Z",
+  "budget": {
+    "maxCalls": 4,
+    "maxImages": 4,
+    "imagesUsed": 4,
+    "maxImageWidth": 1024,
+    "maxImageHeight": 1024,
+    "httpAttempts": 4,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 4,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 0,
+    "environmentRetries": 2
+  },
+  "expected": [
+    "generation",
+    "reference-edit"
+  ],
+  "scenarios": [
+    {
+      "id": "generation",
+      "caseId": "LIVE-P09-generation",
+      "model": "gemini-nano-banana-2.1",
+      "outcome": "FAIL",
+      "errorCategory": "deadline_exceeded",
+      "environment": true,
+      "durationMs": 35006,
+      "calls": 2,
+      "attempts": 2,
+      "images": 2,
+      "imageCalls": [
+        {
+          "path": "/v1beta/interactions",
+          "status": 0,
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 0,
+          "usageReporting": "unreported",
+          "google": {
+            "fixedRequest": true,
+            "inlineImages": 0,
+            "continuation": false,
+            "uri": false,
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "thoughtTokens": 0,
+            "totalTokens": 0
+          }
+        },
+        {
+          "path": "/v1beta/interactions",
+          "status": 0,
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 0,
+          "usageReporting": "unreported",
+          "google": {
+            "fixedRequest": true,
+            "inlineImages": 0,
+            "continuation": false,
+            "uri": false,
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "thoughtTokens": 0,
+            "totalTokens": 0
+          }
+        }
+      ],
+      "retries": 1
+    },
+    {
+      "id": "reference-edit",
+      "caseId": "LIVE-P09-reference-edit",
+      "model": "gemini-nano-banana-2.1",
+      "outcome": "FAIL",
+      "errorCategory": "deadline_exceeded",
+      "environment": true,
+      "durationMs": 35016,
+      "calls": 2,
+      "attempts": 2,
+      "images": 2,
+      "imageCalls": [
+        {
+          "path": "/v1beta/interactions",
+          "status": 0,
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 0,
+          "usageReporting": "unreported",
+          "google": {
+            "fixedRequest": true,
+            "inlineImages": 0,
+            "continuation": false,
+            "uri": false,
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "thoughtTokens": 0,
+            "totalTokens": 0
+          }
+        },
+        {
+          "path": "/v1beta/interactions",
+          "status": 0,
+          "outputFormat": "png",
+          "requested": 1,
+          "verified": 0,
+          "usageReporting": "unreported",
+          "google": {
+            "fixedRequest": true,
+            "inlineImages": 0,
+            "continuation": false,
+            "uri": false,
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "thoughtTokens": 0,
+            "totalTokens": 0
+          }
+        }
+      ],
+      "retries": 1
+    }
+  ]
+}

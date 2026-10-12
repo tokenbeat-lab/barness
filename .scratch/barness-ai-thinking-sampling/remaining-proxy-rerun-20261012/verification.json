@@ -1,0 +1,49 @@
+{
+  "freshArchiveVerification": [
+    {
+      "role": "openai-responses",
+      "archiveSHA256": "62e83944ddd5ea738ae2584de8c3be97fc2ca70b97e4304c0b80593361079c9f",
+      "allRawFilesByteIdentical": true,
+      "caseArtifactAndFixtureHashesChecked": 50,
+      "freshAudit": "PASS"
+    },
+    {
+      "role": "openai-chat",
+      "archiveSHA256": "4196f7852d4abab9e824e1ff07778117e8feca2999d5b4392c9c2f3fa01602c3",
+      "allRawFilesByteIdentical": true,
+      "caseArtifactAndFixtureHashesChecked": 52,
+      "freshAudit": "PASS"
+    },
+    {
+      "role": "google-gemini",
+      "archiveSHA256": "2da61ee47163389a0b8e6a1bb668603b1eec05635a5cd58abcd485a95eddbf9a",
+      "allRawFilesByteIdentical": true,
+      "caseArtifactAndFixtureHashesChecked": 30,
+      "freshAudit": "PASS"
+    },
+    {
+      "role": "openai-images",
+      "archiveSHA256": "8c4fc7c5b7fc9970f57c67147acc1b99f84a97f5a4a2e47999aaf5857ab83c28",
+      "allRawFilesByteIdentical": true,
+      "caseArtifactAndFixtureHashesChecked": 21,
+      "freshAudit": "PASS"
+    },
+    {
+      "role": "google-interactions-image",
+      "archiveSHA256": "95ccf892265bdab3675b85ffac76e87f976905c8b6d9a093e09dfcf906739481",
+      "allRawFilesByteIdentical": true,
+      "caseArtifactAndFixtureHashesChecked": 14,
+      "freshAudit": "PASS"
+    }
+  ],
+  "productionSourceHashesUnchanged": 464,
+  "identicalFirstHistoricalRequests": 26,
+  "matrixChangedRows": [
+    "openai-responses",
+    "google-gemini",
+    "openai-chat",
+    "openai-images",
+    "google-interactions-image"
+  ],
+  "vendorCallsDuringVerification": 0
+}

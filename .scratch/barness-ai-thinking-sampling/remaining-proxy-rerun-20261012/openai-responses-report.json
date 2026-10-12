@@ -1,0 +1,146 @@
+{
+  "schema": 2,
+  "combo": "openai-responses",
+  "operation": "chat",
+  "provider": "openai",
+  "api": "openai-responses",
+  "endpoint": "https://api.openai.com/v1",
+  "model": "gpt-5-mini",
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "accountAlias": "local-openai@region-permissions-unconfirmed",
+  "gitCommit": "cc69d77521a0b3a5153bd33761f0d84ae03c5217",
+  "catalogVersion": "2026-10-11.1",
+  "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+  "startedAt": "2026-10-12T04:21:52.651754Z",
+  "finishedAt": "2026-10-12T04:22:15.630595Z",
+  "budget": {
+    "maxCalls": 32,
+    "httpAttempts": 14,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 14,
+    "outputTokensUsed": 377,
+    "inputTokensUsed": 1493,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "text-stream",
+    "text-complete",
+    "tool-round-trip",
+    "cancel-after-first-frame",
+    "reasoning-history",
+    "image",
+    "tool-changes-gpt-5.4",
+    "tool-changes-gpt-6-sol"
+  ],
+  "scenarios": [
+    {
+      "id": "text-stream",
+      "caseId": "LIVE-P01-text-stream",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 3004,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_e7224c7c99c9463d8e668d041257e372"
+      ]
+    },
+    {
+      "id": "text-complete",
+      "caseId": "LIVE-P01-text-complete",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 1362,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_da2a9aacea414c79994b8b3a2b701e59"
+      ]
+    },
+    {
+      "id": "tool-round-trip",
+      "caseId": "LIVE-P01-tool-round-trip",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 3753,
+      "calls": 2,
+      "attempts": 2,
+      "providerRequestIds": [
+        "req_72e1ca9ae5824e3c8487072b07c72f7e",
+        "req_c1b806bd8f174a3fb825c5d102fac08a"
+      ],
+      "note": "tool call by forced choice"
+    },
+    {
+      "id": "cancel-after-first-frame",
+      "caseId": "LIVE-P01-cancel-after-first-frame",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 662,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_dfb45263f5c64dccb865b719225bc3a1"
+      ],
+      "note": "canceled after thinking_start"
+    },
+    {
+      "id": "reasoning-history",
+      "caseId": "LIVE-P01-reasoning-history",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 3497,
+      "calls": 2,
+      "attempts": 2,
+      "providerRequestIds": [
+        "req_dc11d1be82c54f909dbe55fe9c23049b",
+        "req_000062a9bc564c76be384709b5f1b0a2"
+      ],
+      "note": "returned thinking signature, encrypted reasoning"
+    },
+    {
+      "id": "image",
+      "caseId": "LIVE-P01-image",
+      "model": "gpt-5-mini",
+      "outcome": "PASS",
+      "durationMs": 1202,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_05a260dc2e014fcfa0f6e196acb57214"
+      ],
+      "note": "answer mentions red: true"
+    },
+    {
+      "id": "tool-changes-gpt-5.4",
+      "caseId": "LIVE-P01-tool-changes-gpt-5.4",
+      "model": "gpt-5.4",
+      "outcome": "PASS",
+      "durationMs": 6193,
+      "calls": 3,
+      "attempts": 3,
+      "providerRequestIds": [
+        "req_1becafd164fa4fba8cb595eebda8d90d",
+        "req_22cc2fdf3aa743c6aa38aa8ee8f3690a",
+        "req_4620467a7881428c8f130206d85c61b6"
+      ],
+      "note": "called convert_temperature after the change and answered"
+    },
+    {
+      "id": "tool-changes-gpt-6-sol",
+      "caseId": "LIVE-P01-tool-changes-gpt-6-sol",
+      "model": "gpt-6-sol",
+      "outcome": "PASS",
+      "durationMs": 3274,
+      "calls": 3,
+      "attempts": 3,
+      "providerRequestIds": [
+        "req_ec004de04c4c40ada4ce0ac860629e56",
+        "req_7a2faef10876445e80e7f8ac10d88614",
+        "req_fe20e2366444427699be6693112484ef"
+      ],
+      "note": "called convert_temperature after the change and answered"
+    }
+  ]
+}

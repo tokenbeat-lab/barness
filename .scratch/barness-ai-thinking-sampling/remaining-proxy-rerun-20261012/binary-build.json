@@ -1,0 +1,18 @@
+{
+  "route": "explicit proxy",
+  "binarySHA256": "6586acc4ed05f73565f0cde82a835e1bb87b48708db1816a882e172dc16a495e",
+  "buildInfo": ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/proxy.test: go1.26.2\n\tpath\tgithub.com/tokenbeat-lab/barness/ai/live.test\n\tmod\tgithub.com/tokenbeat-lab/barness\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-tags=live\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "buildArgv": [
+    "go",
+    "test",
+    "-c",
+    "-tags",
+    "live",
+    "-overlay",
+    ".scratch/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012/overlay.json",
+    "-o",
+    ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/proxy.test",
+    "./ai/live"
+  ],
+  "buildSource": "464 explicitly hashed unchanged repository files plus the recorded recorder overlay; runtime gitCommit is checkout metadata, not binary build proof"
+}

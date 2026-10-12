@@ -1,0 +1,94 @@
+{
+  "schema": 2,
+  "combo": "google-gemini",
+  "operation": "chat",
+  "provider": "google",
+  "api": "google-generative-ai",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+  "model": "gemini-3.8-flash",
+  "sdk": "direct HTTP (ADR-0012)",
+  "accountAlias": "local-google@region-permissions-unconfirmed",
+  "gitCommit": "cc69d77521a0b3a5153bd33761f0d84ae03c5217",
+  "catalogVersion": "2026-10-11.1",
+  "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+  "startedAt": "2026-10-12T04:21:52.651754Z",
+  "finishedAt": "2026-10-12T04:22:11.165925Z",
+  "budget": {
+    "maxCalls": 32,
+    "httpAttempts": 8,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 8,
+    "outputTokensUsed": 628,
+    "inputTokensUsed": 1531,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "text-stream",
+    "text-complete",
+    "tool-round-trip",
+    "cancel-after-first-frame",
+    "reasoning-history",
+    "image"
+  ],
+  "scenarios": [
+    {
+      "id": "text-stream",
+      "caseId": "LIVE-P03-text-stream",
+      "model": "gemini-3.8-flash",
+      "outcome": "PASS",
+      "durationMs": 4230,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "text-complete",
+      "caseId": "LIVE-P03-text-complete",
+      "model": "gemini-3.8-flash",
+      "outcome": "PASS",
+      "durationMs": 2907,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "tool-round-trip",
+      "caseId": "LIVE-P03-tool-round-trip",
+      "model": "gemini-3.8-flash",
+      "outcome": "PASS",
+      "durationMs": 2691,
+      "calls": 2,
+      "attempts": 2,
+      "note": "tool call by forced choice"
+    },
+    {
+      "id": "cancel-after-first-frame",
+      "caseId": "LIVE-P03-cancel-after-first-frame",
+      "model": "gemini-3.8-flash",
+      "outcome": "PASS",
+      "durationMs": 2113,
+      "calls": 1,
+      "attempts": 1,
+      "note": "canceled after text_start"
+    },
+    {
+      "id": "reasoning-history",
+      "caseId": "LIVE-P03-reasoning-history",
+      "model": "gemini-3.8-flash",
+      "outcome": "PASS",
+      "durationMs": 4047,
+      "calls": 2,
+      "attempts": 2,
+      "note": "returned tool call thought signature"
+    },
+    {
+      "id": "image",
+      "caseId": "LIVE-P03-image",
+      "model": "gemini-3.8-flash",
+      "outcome": "PASS",
+      "durationMs": 2504,
+      "calls": 1,
+      "attempts": 1,
+      "note": "answer mentions red: true"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+=== RUN   TestLive
+=== RUN   TestLive/google-gemini
+=== RUN   TestLive/google-gemini/text-stream
+=== RUN   TestLive/google-gemini/text-complete
+=== RUN   TestLive/google-gemini/tool-round-trip
+=== RUN   TestLive/google-gemini/cancel-after-first-frame
+=== RUN   TestLive/google-gemini/reasoning-history
+=== RUN   TestLive/google-gemini/image
+--- PASS: TestLive (18.50s)
+    --- PASS: TestLive/google-gemini (18.50s)
+        --- PASS: TestLive/google-gemini/text-stream (4.23s)
+        --- PASS: TestLive/google-gemini/text-complete (2.91s)
+        --- PASS: TestLive/google-gemini/tool-round-trip (2.69s)
+        --- PASS: TestLive/google-gemini/cancel-after-first-frame (2.11s)
+        --- PASS: TestLive/google-gemini/reasoning-history (4.05s)
+        --- PASS: TestLive/google-gemini/image (2.50s)
+PASS
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/google-gemini/20261012T042152.651875000Z

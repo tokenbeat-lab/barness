@@ -1,0 +1,38 @@
+[
+  {
+    "combo": "google-gemini",
+    "argv": [
+      "python3",
+      ".scratch/barness-ai-thinking-sampling/release-evidence/run-live.py",
+      "--combo",
+      "google-gemini",
+      "--live",
+      "--binary",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/proxy.test",
+      "--out",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/google-gemini",
+      "--alias",
+      "local-google@region-permissions-unconfirmed"
+    ],
+    "exitCode": 0,
+    "runnerOutput": "{\"combo\": \"google-gemini\", \"liveEnabled\": true, \"keyPresent\": true, \"exitCode\": 0, \"durationSeconds\": 19.636960744857788, \"reports\": [\".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/google-gemini/20261012T042152.651875000Z/live-report.json\"]}\n"
+  },
+  {
+    "combo": "google-interactions-image",
+    "argv": [
+      "python3",
+      ".scratch/barness-ai-thinking-sampling/release-evidence/run-live.py",
+      "--combo",
+      "google-interactions-image",
+      "--live",
+      "--binary",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/proxy.test",
+      "--out",
+      ".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/google-interactions-image",
+      "--alias",
+      "local-google@region-permissions-unconfirmed"
+    ],
+    "exitCode": 0,
+    "runnerOutput": "{\"combo\": \"google-interactions-image\", \"liveEnabled\": true, \"keyPresent\": true, \"exitCode\": 0, \"durationSeconds\": 23.394614219665527, \"reports\": [\".evidence/barness-ai-thinking-sampling/remaining-proxy-rerun-20261012T041854Z/live/google-interactions-image/20261012T042211.230082000Z/live-report.json\"]}\n"
+  }
+]
