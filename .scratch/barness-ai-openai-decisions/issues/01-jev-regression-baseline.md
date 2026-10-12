@@ -48,3 +48,5 @@
 实际 HEAD 与设计 Baseline 同为 `8ea61b8d70de6c84fe27be34dc7d21c5c40841d9`，原源码/fixture/oracle/历史证据 Hash 无变化。既有回放 542 PASS、2 NOT_RUN；显式 Jev 差分 12 PASS、pending 0；新增公共对照 98 PASS，artifact 验证先红后绿并拒绝缺包/篡改/重写。完整开启 Pi 的测试套件退出 0，6,227 E2E case：6,218 PASS、9 NOT_RUN，815 差分均 PASS；相关 race 394 PASS，两种 vet 与整包脱敏审计通过。
 
 独立包、版本、原始捕获/判定、Hash 和准确命令见[基线说明](../jev-baseline/README.md)及[最终验证收据](../jev-baseline/validation.json)。历史源码重建仅核验原证明，没有冒称本次重建；历史 release/live/effect FAIL 保持，[压力缺陷](../../barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md)仍由原票负责。本次没有阻断 Jev 离线比较的问题；不表示 Decisions 已实现或发布 gate 已通过。后续工单不得删除、收窄本包及既有 Jev 断言。
+
+2026-10-12：实现提交 `7939308` 的两项独立 code-review 均通过，Standards 0、Spec 0；审查者独立核验固定包、最终收据及脱敏审计。见[审查记录](../jev-baseline/REVIEW.md)。

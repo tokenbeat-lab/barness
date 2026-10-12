@@ -51,6 +51,8 @@ python3 .scratch/barness-ai-openai-decisions/jev-baseline/replay.py \
 
 runner 顺序执行已有测试、Jev 差分、98 个补充对照、基线反篡改、oracle pin 拒绝、相关 race 和两种 vet。首次固定 supplemental 的 evidence 环境值相对 Go package 目录，原包收集到根输出目录但字节与原 manifest 不变；后续 runner 使用绝对输出目录。
 
+实现 commit `7939308` 已按 code-review 做两项独立审查，Standards 0、Spec 0；审查者另行核验固定包与审计。完整报告见 [REVIEW.md](REVIEW.md)。
+
 最终验证命令如下；日志和命令退出码独立记录在 `validation.json` 与 `validation.zip`。完整套件未开启设计压力/真实调用；相关 race 不宣称全仓库 race 或完整发布 gate。
 
 完整套件退出 0，用时 239.134 秒，6,227 case（6,218 PASS、9 NOT_RUN），其中 815 差分全部 PASS；相关 race 20.320 秒、394 PASS。`replay.py` 的整条新目录流水线也实际执行并退出 0。`validation.zip` 保存最终日志、原 run manifest/audit、4 个 artifact 绿灯 case 和重放收据；完整最终普通/race case 捕获仍在收据所指的本地 `.evidence` 目录，固定基线中的原 Jev 捕获独立完整。validation 的 SHA-256 清单保护其实际交付字节；它不替换基线固定 manifest。
