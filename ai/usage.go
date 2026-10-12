@@ -8,8 +8,8 @@ import "math"
 // the call was free or that usage was reported. How completely each attempt
 // reported is in CallMetadata.Attempts (see UsageReporting).
 type Usage struct {
-	// Input excludes CacheRead and CacheWrite on chat protocols. Google
-	// Interactions images retain the vendor total input, including cached input.
+	// Input excludes CacheRead and CacheWrite on chat protocols. Decisions
+	// and Google Interactions images retain inclusive vendor input.
 	Input      int64 `json:"input"`
 	Output     int64 `json:"output"`
 	CacheRead  int64 `json:"cacheRead"`
@@ -19,8 +19,9 @@ type Usage struct {
 	// it set it; Responses never does.
 	CacheWrite1h Nullable[int64] `json:"cacheWrite1h,omitzero"`
 	// Reasoning is the part of Output spent on reasoning: already counted in
-	// Output and TotalTokens and priced as output, never added again. As in
-	// pi, it is set (possibly 0) whenever the provider reported usage.
+	// Output and TotalTokens, never added again. Chat prices it as output
+	// and follows pi's presence rules. Decisions sets it only when explicitly
+	// reported (possibly 0); its output, including reasoning, is free.
 	Reasoning Nullable[int64] `json:"reasoning,omitzero"`
 	// Modalities is set only for image operations. Each count preserves
 	// missing versus zero; it is independently copied across result/observer boundaries.

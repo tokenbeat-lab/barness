@@ -4,46 +4,96 @@ import (
 	"bytes"
 	"encoding/json"
 	"math"
+	"strings"
 )
 
-// This first text slice preserves known basic counts. Missing detail fields
-// never imply complete reporting; full presence/details are owned by issue 04.
+// Decisions reports inclusive input and free output. Cache/reasoning details
+// validate that report and its completeness; cache never becomes a second
+// canonical bucket or a second charge. This conversion intentionally differs
+// from chat and TypeSafe, whose wire counts and presence have other meanings.
 func decisionsUsage(raw json.RawMessage, cost ModelCost) (UsageReporting, Usage, *Error) {
 	if len(raw) == 0 || bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
 		return UsageUnreported, Usage{}, nil
 	}
-	var fields map[string]json.RawMessage
-	if decodeClassifierJSON(raw, &fields) != nil || fields == nil {
+	fields, failure := decisionsUsageFields(raw, "input_tokens", "output_tokens", "total_tokens", "input_tokens_details", "output_tokens_details")
+	if failure != nil {
 		return UsageUnreported, Usage{}, classifierProtocolFailure()
 	}
+	inputDetails, failure := decisionsUsageFields(fields["input_tokens_details"], "cached_tokens", "cache_write_tokens")
+	if failure != nil {
+		return UsageUnreported, Usage{}, failure
+	}
+	outputDetails, failure := decisionsUsageFields(fields["output_tokens_details"], "reasoning_tokens")
+	if failure != nil {
+		return UsageUnreported, Usage{}, failure
+	}
 	u := Usage{}
+	var cached, written, reasoning int64
 	counts := []struct {
-		name  string
-		value *int64
-	}{{"input_tokens", &u.Input}, {"output_tokens", &u.Output}, {"total_tokens", &u.TotalTokens}}
-	present := map[string]bool{}
-	for _, count := range counts {
-		value := bytes.TrimSpace(fields[count.name])
+		raw      json.RawMessage
+		value    *int64
+		reported bool
+	}{
+		{raw: fields["input_tokens"], value: &u.Input},
+		{raw: fields["output_tokens"], value: &u.Output},
+		{raw: fields["total_tokens"], value: &u.TotalTokens},
+		{raw: inputDetails["cached_tokens"], value: &cached},
+		{raw: inputDetails["cache_write_tokens"], value: &written},
+		{raw: outputDetails["reasoning_tokens"], value: &reasoning},
+	}
+	reporting := UsageComplete
+	for i := range counts {
+		count := &counts[i]
+		value := bytes.TrimSpace(count.raw)
 		if len(value) == 0 || bytes.Equal(value, []byte("null")) {
+			reporting = UsagePartial
 			continue
 		}
 		if json.Unmarshal(value, count.value) != nil || *count.value < 0 {
 			return UsageUnreported, Usage{}, classifierProtocolFailure()
 		}
-		present[count.name] = true
+		count.reported = true
 	}
-	if u.Input > math.MaxInt64-u.Output {
+	if u.Input > math.MaxInt64-u.Output || cached > math.MaxInt64-written {
 		return UsageUnreported, Usage{}, classifierProtocolFailure()
 	}
-	if present["total_tokens"] {
-		if present["input_tokens"] && present["output_tokens"] && u.TotalTokens != u.Input+u.Output {
+	if counts[0].reported && cached+written > u.Input || counts[1].reported && reasoning > u.Output {
+		return UsageUnreported, Usage{}, classifierProtocolFailure()
+	}
+	if counts[2].reported {
+		if counts[0].reported && counts[1].reported && u.TotalTokens != u.Input+u.Output {
 			return UsageUnreported, Usage{}, classifierProtocolFailure()
 		}
 	} else {
 		u.TotalTokens = u.Input + u.Output
 	}
-	// Preserve host input tiers without borrowing or altering catalog rates.
+	if counts[5].reported {
+		u.Reasoning = Value(reasoning)
+	}
+	// The authorized classifier's snapshot selects a full-request tier from
+	// inclusive input alone, even if the host supplied nonzero free rates.
 	priced := cost.estimate(Usage{Input: u.Input})
 	u.Cost = UsageCost{Input: priced.Input, Total: priced.Input}
-	return UsagePartial, u, nil
+	return reporting, u, nil
+}
+
+// Missing/null detail objects are partial, while any other non-object is
+// invalid. Additive vendor metadata is allowed; known fields require exact
+// names, and duplicate keys anywhere in usage invalidate the whole report.
+func decisionsUsageFields(raw json.RawMessage, known ...string) (map[string]json.RawMessage, *Error) {
+	if len(raw) == 0 || bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+		return nil, nil
+	}
+	var fields map[string]json.RawMessage
+	if decodeClassifierJSON(raw, &fields) != nil || fields == nil {
+		return nil, classifierProtocolFailure()
+	}
+	for key := range fields {
+		for _, name := range known {
+			if key != name && strings.EqualFold(key, name) {
+				return nil, classifierProtocolFailure()
+			}
+		}
+	}
+	return fields, nil
 }

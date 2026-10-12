@@ -360,6 +360,16 @@ missing details remain partial or unreported. Google thought tokens count once w
 separately as reasoning. TypeSafe charges only input tokens. Observations include `Operation` and
 usage, never prompts, images, classifier state or answers.
 
+Decisions keeps inclusive `input_tokens` and reported output, with canonical cache buckets at zero.
+Reporting is complete only when input, output, total, cached, cache-write and reasoning counts are
+all explicit, including zero; missing/null counts remain partial, and absent/null usage is unreported.
+Reasoning is unset unless explicitly reported. Invalid or ambiguous usage fails the response with
+unreported usage; a damaged answer retains independently valid usage and its input-only estimate.
+The authorized classifier catalog supplies the input rate and full-request tiers. The Decisions
+standard-price example uses $0.10 per million through 272000 inclusive inputs, then $0.20 for all
+inputs. Output/cache add no charge. Regional premiums and actual bills are not reconciled by this
+estimate; synthetic cache fixtures prove conversion only. See the [usage contract](../docs/barness-ai/contract.md#decisions-用量与估价工单-04).
+
 ### Chat behavior at the pi-ai 1.1.0 baseline
 
 - Unparseable/nonfinite retry delays use bounded exponential backoff with jitter.

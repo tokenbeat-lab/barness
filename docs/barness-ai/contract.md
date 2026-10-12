@@ -125,6 +125,29 @@ AttemptStarted 的 UsageReporting 为 unreported，AttemptFinished 与 CallFinis
 使用同一 unreported/partial/complete 轴。PhaseResponse 在 errors.Is 的 Code 匹配中与其他阶段相同：
 Phase 为空匹配该 Code，Phase 非空同时匹配阶段。离线生命周期与资源证据见
 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
+
+### Decisions 用量与估价（工单 04）
+
+Decisions 独立转换 usage，不沿用聊天缓存拆桶或 TypeSafe 的 presence。Input 保留完整
+input_tokens，Output 如实报告，CacheRead/CacheWrite 为零。Reasoning 只在
+output_tokens_details.reasoning_tokens 明确出现时设置，显式 0 与未报不同。
+TotalTokens 保留合法 total_tokens；缺失/null 时为已知 Input+Output 的 checked sum，仍为 partial。
+缺失/null usage 是 unreported；对象内任一所需计数缺失/null 是 partial。complete 要求
+input_tokens、output_tokens、total_tokens、input_tokens_details.cached_tokens、
+input_tokens_details.cache_write_tokens、output_tokens_details.reasoning_tokens 六项均明确出现。
+
+只接受非负 int64 JSON 整数；重复键、已知字段大小写别名、错误类型、小数或溢出令整份 usage
+无效，以 protocol/response、unreported 和零 Usage 返回，不发布已解析前缀。缓存合计经 checked sum
+且不超已知 Input；reasoning 不超已知 Output；input/output/total 全部明确时必须相等。
+其他损坏答案仍保留唯一合法 usage 到 Result、Attempt 和 metadata-only Observer；2xx 后不重放。
+原始缓存细节与字段 presence 只保存在合成测试 fixture/capture，不扩充 Observer。
+
+Estimated Cost 只使用授权 Classifier Model 的 CatalogVersion/Hash 快照和输入费率；同名聊天型号
+及 ResponseModel 不替换授权身份或价格。宿主全球标准价格示例为 Input≤272000 用 $0.10/百万，
+Input>272000 对全请求输入用 $0.20/百万，不仅计超额部分。即使宿主填非零 output/cache 费率，
+这些费用桶仍为零。图片 token 不由张数/字节推算。区域 premium 未包含，缓存统计与真实账单未核对；
+本票不修改内置目录或支持矩阵。复核命令与计数/费用证据见
+[工单 04](../../.scratch/barness-ai-openai-decisions/issues/04-usage-presence-and-input-pricing.md)。
 内置目录 2026-10-08.3 仅列固定 jev-1.13.0，自己的真实冒烟已合并；禁用绑定或子策略即可停用新调用。
 不在本地计算分类 token 容量，真实上下文 guard 为 400 max_tokens_exceeded，保持 invalid_request/request；422 线上形状未确认。
 评分有界两位小数舍入与完整报告契约见 ADR-0021/0016；其他概率与图例规则保持。
