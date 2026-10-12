@@ -80,6 +80,30 @@ go test -tags live -timeout 180s ./ai/live -run '^TestCandidateDecisions$' -coun
 integrity 读取/写入失败会撤销 complete 并以 evidence 失败退出；权限字段大小写
 别名拒绝于网络前。原复审 RED 与修复 GREEN 原样保留。
 
-最终验证收据、两轴复审和固定包校验将在本目录保存；未观察的服务精度/格式反例
-仍未知。若将来遇到真实反例，原样保存 capture、usage 和 protocol FAIL，归因到
+最终源码 `a7c15ec`：候选进程普通/race 各 41 个测试条目 PASS；全仓最终
+7125 PASS、1118 SKIP、零 FAIL。未开启 PIDiff/pressure 的可选项没有被冒充通过。
+更早 `85ea917` 的完整 pressure+PIDiff 全仓为 8172 PASS、67 SKIP、零 FAIL，
+自己的 Decisions 公共 E2E/差分 1092 条目 PASS。`go vet -tags live ./...` PASS，
+所有已执行包审计无发现；两轴剩余发现各 0。准确命令、源码归属、退出状态和日志
+SHA-256 见 [validation](validation.json)，初始发现及复核见 [REVIEW](REVIEW.md)。
+
+固定 `candidate-live.zip` 保留最终普通/race 进程完整证据、1092 项协议/差分、
+实际配置 FAIL/config、无 key NOT_RUN、复审 RED/GREEN、两轮全仓 manifest/audit
+与混合容量适用 artifacts，以及起点变更的修复前/后源码。其他全仓 case 原始
+artifacts 仍保留在本地 `.evidence`；包内对应完整 manifest 如实列出其状态。
+包内 root manifest 对实际封装成员逐项 SHA-256，不把省略的全仓 case 当成封装成员。
+
+固定包核验：
+
+```sh
+(cd .scratch/barness-ai-openai-decisions/candidate-live-evidence && shasum -a 256 -c SHA256SUMS)
+unzip -t .scratch/barness-ai-openai-decisions/candidate-live-evidence/candidate-live.zip
+candidate_evidence_dir="$(mktemp -d)"
+unzip -q .scratch/barness-ai-openai-decisions/candidate-live-evidence/candidate-live.zip -d "$candidate_evidence_dir"
+go run ./ai/internal/testkit/audit/cmd/auditbundle "$candidate_evidence_dir"
+```
+
+包内 manifest 与报告、图片、逐场景 assertions/replay、每个候选进程独立的
+candidate-integrity.json 均可重复核对。原始开发失败和复审失败保留，没有以后续
+PASS 改写历史。未观察的服务精度/格式反例仍未知。若将来遇到真实反例，原样保存 capture、usage 和 protocol FAIL，归因到
 Decisions，涉及 ADR 的取舍需显式修订；本次没有改变概率/评分容差。

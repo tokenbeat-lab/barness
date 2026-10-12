@@ -24,13 +24,13 @@
 
 ## Acceptance criteria
 
-- [ ] source/candidate/harness/report/budget 的失败方式先写公共 process E2E，再实现 live 接缝。
-- [ ] 固定 classifier/openai/openai-decisions/gpt-6-luna、922000 Pi 分类快照及独立输入 .1/.2 阶梯来源，说明格式/模态/128/2–10 区分来源和本期子集。
+- [x] source/candidate/harness/report/budget 的失败方式先写公共 process E2E，再实现 live 接缝。
+- [x] 固定 classifier/openai/openai-decisions/gpt-6-luna、922000 Pi 分类快照及独立输入 .1/.2 阶梯来源，说明格式/模态/128/2–10 区分来源和本期子集。
 - [ ] 官方 endpoint 固定；独立测试 key、账户/区域别名与低权限配置可核验。无凭据 NOT_RUN，错误配置拒绝；厂商错误 FAIL。
-- [ ] 每进程最多 12 Logical Call/12 Attempt/24 问题/4 MiB 状态、累计 8 张及 4 MiB decoded 图片，180 秒总、30 秒单调用、Binding 零重试；失败和预留均入账。
+- [x] 每进程最多 12 Logical Call/12 Attempt/24 问题/4 MiB 状态、累计 8 张及 4 MiB decoded 图片，180 秒总、30 秒单调用、Binding 零重试；失败和预留均入账。
 - [ ] 自己的文本 choice/score/bool、混合、真 PNG/JPEG/WebP、usage/实际 Model/ID/归属/取消均有完整受控断言与真实捕获。
 - [ ] 合法 refusal 用自己的类型化结果记录；不循环制造 refusal/429/504，2xx 从不重试。
-- [ ] 用量 completeness 与协议报告完成区分，不为 complete 伪造缺省计数；缓存账单、区域 premium 等未观察项保持未知。
+- [x] 用量 completeness 与协议报告完成区分，不为 complete 伪造缺省计数；缓存账单、区域 premium 等未观察项保持未知。
 - [ ] 标记 candidate 版本/Hash，包含 source 日期/Hash、captures、结果/Attempt、Observer、预算、manifest/audit 与重放命令；不替代正式 Hash 报告。
 - [ ] 有限真实响应精度/格式反例先保存、归因并限定 Decisions 自身规则；涉及 ADR 取舍时明确提出修订，不默改容差。
 
@@ -61,3 +61,12 @@ candidate 实际完整通过且审计成功才可放行正式纳入。没有 key
 
 本票保持未完成与 needs-info。补充真实的测试账户/区域及专用权限核验记录后，
 按固定候选 Hash 重跑全部九场景、审计，才能逐项勾选真实验收并放行工单 10。
+
+
+2026-10-13 最终验证：代码 `a7c15ec` 的公共 process 普通/race 各 41 条目 PASS，
+全仓最终 7125 PASS、1118 SKIP、零 FAIL；`85ea917` 的完整 pressure+PIDiff 全仓
+8172 PASS、67 SKIP、零 FAIL。两轴初审共三项独立发现均先 RED 后修复，最终
+Standards 0 / Spec 0。逐包与固定包审计无发现，ZIP 的成员集合、CRC 与每成员
+SHA-256 均核验通过。完整 source/captures/取消/恢复/预算/Observer 与原失败保存于
+[candidate-live.zip](../candidate-live-evidence/candidate-live.zip)，收据在 validation.json。
+已勾选项为可独立验收的实现/受控证据，不解除本票真实自身 live 的完成条件。

@@ -1,0 +1,120 @@
+{
+  "date": "2026-10-13",
+  "timezone": "Asia/Shanghai",
+  "fixedPoint": "3f97f1992434dc1d4766628fca900fa42b1b1e78",
+  "implementationCommit": "85ea917",
+  "finalCodeCommit": "a7c15ec",
+  "candidateVersion": "decisions-candidate-2026-10-13.1",
+  "candidateHash": "sha256:b00222918033826f65c545519c4b6ad57ec1e619f427472c6c53a32ae41b1503",
+  "records": [
+    {
+      "name": "candidate-process",
+      "command": "go test -tags live ./ai/live -run '^TestDecisionsCandidateProcess$' -count=1 -json",
+      "source": "a7c15ec",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 41,
+        "output": 82,
+        "pass": 41
+      },
+      "logSHA256": "4575326c568dc8537b26be4e2444d1124c5cb70136c432d004ddf6814e34a821",
+      "evidenceDirOverride": "absolute <repo>/.evidence task-specific path; original outputs preserved with host home redacted"
+    },
+    {
+      "name": "candidate-process-race",
+      "command": "go test -race -tags live ./ai/live -run '^TestDecisionsCandidateProcess$' -count=1 -json",
+      "source": "a7c15ec",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 41,
+        "output": 82,
+        "pass": 41
+      },
+      "logSHA256": "cf39423614eae0e1cb7eb9357e38253c9d149772dd760e11ec6deeab8a1e9a10",
+      "evidenceDirOverride": "absolute <repo>/.evidence task-specific path; original outputs preserved with host home redacted"
+    },
+    {
+      "name": "decisions-public-pidiff",
+      "command": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -run 'Decisions|JevDifferentialMetadata' -count=1 -json",
+      "source": "working implementation before 85ea917",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 1092,
+        "output": 2184,
+        "pass": 1092
+      },
+      "logSHA256": "61e2c223adf447dd8a3197570176de5fc935e2d88750d074b371308a0651cc54",
+      "evidenceDirOverride": "absolute <repo>/.evidence task-specific path; original outputs preserved with host home redacted"
+    },
+    {
+      "name": "full-with-pressure-pidiff",
+      "command": "BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1 go test -tags live ./... -timeout 30m -count=1 -json",
+      "source": "85ea917",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 8239,
+        "output": 16561,
+        "pass": 8172,
+        "skip": 67
+      },
+      "logSHA256": "8d3d435257408ff8dd239d36563d8d26f3dbdafb8faf8747233ec7451c61d86d",
+      "evidenceDirOverride": "absolute <repo>/.evidence task-specific path; original outputs preserved with host home redacted"
+    },
+    {
+      "name": "final-full",
+      "command": "go test -tags live ./... -timeout 30m -count=1 -json",
+      "source": "a7c15ec",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 8243,
+        "output": 17610,
+        "pass": 7125,
+        "skip": 1118
+      },
+      "logSHA256": "19a53eb40a00fb05018d50bcce2784f34a58a7b9e1c0c17032f33bfdd06286d6",
+      "evidenceDirOverride": "absolute <repo>/.evidence task-specific path; original outputs preserved with host home redacted"
+    },
+    {
+      "name": "current-credential-config",
+      "command": "isolated dotenv OPENAI_KEY injection; go test -tags live -timeout 180s ./ai/live -run '^TestCandidateDecisions$' -count=1 -json",
+      "source": "working implementation before 85ea917",
+      "exitCode": 1,
+      "testEntries": {
+        "run": 1,
+        "output": 3,
+        "fail": 1
+      },
+      "logSHA256": "b332edb6b44eab4535427479ce2571089f54162fcb9de40b04918144b93def06",
+      "evidenceDirOverride": "absolute <repo>/.evidence task-specific path; original outputs preserved with host home redacted"
+    },
+    {
+      "name": "no-key-not-run",
+      "command": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate go test -tags live -timeout 180s ./ai/live -run '^TestCandidateDecisions$' -count=1 -json",
+      "source": "85ea917",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 1,
+        "output": 3,
+        "skip": 1
+      },
+      "logSHA256": "28209c4a08f05c61d0f9670d5e178b022dfd09124929095e1f19d93542d7867f",
+      "evidenceDirOverride": "absolute <repo>/.evidence task-specific path; original outputs preserved with host home redacted"
+    }
+  ],
+  "vet": {
+    "command": "go vet -tags live ./...",
+    "exitCode": 0,
+    "source": "a7c15ec"
+  },
+  "review": {
+    "standardsInitial": 1,
+    "specInitial": 2,
+    "standardsFinal": 0,
+    "specFinal": 0
+  },
+  "realVendorCalls": 0,
+  "liveStatus": "NOT_RUN; provided key configuration separately refused with FAIL/config before any budget reservation",
+  "externalBlocker": "Dedicated test key, low-privilege host verification and account/region aliases not supplied",
+  "formalCatalogAndMatrix": "unchanged",
+  "releaseGate": "NOT_RUN"
+}
