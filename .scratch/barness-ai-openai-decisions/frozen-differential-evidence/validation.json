@@ -1,0 +1,229 @@
+{
+  "schema": 1,
+  "baseline": "724f09ea17ff9fbfe0b1716cc8aca12637ab8371",
+  "implementation_commit": "6acff6d79a822e5cdc1b0d16dcdb3517875e3be4",
+  "route": "classifier/openai/openai-decisions/gpt-6-luna",
+  "live": "NOT_RUN",
+  "source_snapshot_sha256": "7970fe93f812c5801f4ee819041f6f8a23ecf378d320fa4f383d8a7e78349e63",
+  "commands": [
+    {
+      "role": "public-red",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_EVIDENCE_DIR=.evidence/decisions-diff-red go test ./ai/e2e -run '^TestDecisionsPiDifferential$' -count=1",
+      "exit_code": 1,
+      "cases": 45,
+      "statuses": {
+        "FAIL": 45
+      },
+      "pidiff": {
+        "FAIL": 45
+      }
+    },
+    {
+      "role": "first-full-regression",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_EVIDENCE_DIR=.evidence/decisions-diff-full go test ./... -count=1 -json",
+      "exit_code": 1,
+      "cases": 7268,
+      "statuses": {
+        "PASS": 7259,
+        "NOT_RUN": 9
+      },
+      "pidiff": {
+        "PASS": 861
+      },
+      "failure": "TestCostEstimate/builtin-prices-are-pi's"
+    },
+    {
+      "role": "node-review-red",
+      "command": "node --test ai/internal/testkit/pioracle/node/runner.test.mjs",
+      "exit_code": 1,
+      "tests": 9,
+      "pass": 7,
+      "fail": 2
+    },
+    {
+      "role": "SDK-import-red",
+      "command": "go test ./ai/internal/testkit/release -run '^TestDecisionsEvidence' -count=1",
+      "exit_code": 1,
+      "failed_variants": [
+        "sdk-missing",
+        "sdk-wrong"
+      ]
+    },
+    {
+      "role": "green",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_EVIDENCE_DIR=.evidence/decisions-diff-reviewed go test ./ai/e2e -run '^Test(DecisionsPi|JevDifferential)' -count=1",
+      "exit_code": 0,
+      "cases": 47,
+      "statuses": {
+        "PASS": 47
+      },
+      "pidiff": {
+        "PASS": 46
+      }
+    },
+    {
+      "role": "race",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_EVIDENCE_DIR=.evidence/decisions-diff-race-reviewed go test -race ./ai/e2e -run '^Test(DecisionsPi|JevDifferential|Classifier|JevRegression)' -count=1",
+      "exit_code": 0,
+      "cases": 347,
+      "statuses": {
+        "PASS": 347
+      },
+      "pidiff": {
+        "PASS": 47
+      }
+    },
+    {
+      "role": "full",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_EVIDENCE_DIR=.evidence/decisions-diff-full-reviewed go test ./... -count=1 -json",
+      "exit_code": 0,
+      "cases": 7268,
+      "statuses": {
+        "PASS": 7259,
+        "NOT_RUN": 9
+      },
+      "pidiff": {
+        "PASS": 861
+      },
+      "package_verdicts": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/chineseeval",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/hostintegration",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/localassembly",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/requestid",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/toolloop",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/clock",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/probe",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/host",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/provider",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/live",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate",
+          "verdict": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai",
+          "verdict": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle",
+          "verdict": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix",
+          "verdict": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+          "verdict": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit",
+          "verdict": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "verdict": "pass"
+        }
+      ]
+    },
+    {
+      "role": "node-green",
+      "command": "node --test ai/internal/testkit/pioracle/node/runner.test.mjs",
+      "exit_code": 0,
+      "tests": 9,
+      "pass": 9,
+      "fail": 0
+    },
+    {
+      "role": "oracle-and-release",
+      "command": "go test ./ai/internal/testkit/release ./ai/internal/testkit/pioracle -count=1",
+      "exit_code": 0
+    },
+    {
+      "role": "cost-regression",
+      "command": "BARNESS_AI_PIDIFF=1 go test ./ai -run '^TestCostEstimate$' -count=1",
+      "exit_code": 0
+    },
+    {
+      "role": "vet",
+      "command": "go vet ./...",
+      "exit_code": 0
+    },
+    {
+      "role": "vet-live",
+      "command": "go vet -tags live ./...",
+      "exit_code": 0
+    },
+    {
+      "role": "isolated-evidence-import",
+      "command": "go run ./ai/release/cmd/releasegate -bundle ai/e2e/.evidence/decisions-diff-reviewed/20261012T203543.349406000Z -out .evidence/decisions-diff-gate-reviewed",
+      "exit_code": 1,
+      "P10": {
+        "PASS": 46,
+        "pending": 0
+      },
+      "note": "Expected FAIL: only P10 supplied; previous six differential subsets and other release gates still required."
+    },
+    {
+      "role": "full-evidence-import",
+      "command": "go run ./ai/release/cmd/releasegate -bundle ai/e2e/.evidence/decisions-diff-full-reviewed/20261012T203606.695931000Z -out .evidence/decisions-diff-gate-full",
+      "exit_code": 1,
+      "differential": "PASS",
+      "pidiff_pass": 861,
+      "pending": 0,
+      "note": "Bundle-only evaluation does not run command/live/pressure/effect gates; recorded overall FAIL remains."
+    }
+  ],
+  "full_raw_captures_original": "ai/e2e/.evidence/decisions-diff-full-reviewed/20261012T203606.695931000Z",
+  "archive_selection": "red/green/race complete; full all PIDIFF and P07 plus catalog; full remaining cases summaries only",
+  "audit": {
+    "each_run": "PASS, findings=[]",
+    "archive_receipt": "archive-audit.json"
+  }
+}
