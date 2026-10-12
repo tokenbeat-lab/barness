@@ -53,3 +53,26 @@ BARNESS_AI_PIDIFF=1 go test ./... -count=1 -json
 
 完整最终测试、race、审查及源码适用性收据在本目录的 validation 文件中单独记录；
 固定 Jev 基线核验 655 case，历史 release FAIL 仍原样保留，不是当前 live 状态或本票的新发布结论。
+
+最终全仓库正常测试运行于实现提交 `0b6a011`：6,426 E2E case，6,417 PASS、9 既有 opt-in NOT_RUN，
+815 项既有 Pi 差分全部 PASS；所有包退出 0。相关 race 653 PASS，两种 vet 通过。
+全套后两轴审查的 Spec 为 0；Standards 发现的两个证据工具边界问题已修复，见 [REVIEW](REVIEW.md)。
+修复只改 `verify.py` 和公共 process 回归，库生产 Go 源码与全套/固定文本捕获的 SHA-256 一致；
+修复后六个证据 process case 及 race 重新通过，不冒称整套在新的源码快照下又跑了一次。
+
+验证器现在先有界读取 manifest（8 MiB）和 ZIP（32 MiB），再对同一不可变 ZIP 字节快照做哈希、
+成员验证及解压审计。公共 CLI 的文件替换与超大 manifest 先红后绿；不依赖 Darwin 不支持的 RLIMIT_AS。
+复核这两项修复：
+
+```sh
+go test ./ai/e2e -run '^TestDecisionsEvidence' -count=1
+go test -race ./ai/e2e -run '^TestDecisionsEvidence' -count=1
+```
+
+`validation.zip` 保存最终日志、全套 manifest/audit、完整专项 race 捕获、证据工具修复的红/绿捕获，
+`validation.json` 记录每个文件 SHA-256、准确命令、状态和库源码适用性。两份 ZIP 分别保留各自历史，
+后续重放不覆盖它们；验证 validation 字节时使用下方独立清单：
+
+```sh
+(cd .scratch/barness-ai-openai-decisions/text-choice-evidence && shasum -a 256 -c VALIDATION.SHA256SUMS)
+```

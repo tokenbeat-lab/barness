@@ -2,6 +2,7 @@
 """Verify fixed Decisions text evidence without accessing any Provider."""
 import argparse
 import hashlib
+import io
 import json
 from pathlib import Path, PurePosixPath
 import subprocess
@@ -41,14 +42,22 @@ def safe(name):
     return name
 
 
+def bounded_bytes(path, limit):
+    with path.open("rb") as source:
+        raw = source.read(limit + 1)
+    require(len(raw) <= limit, "artifact exceeds read budget")
+    return raw
+
+
 def verify(folder):
-    raw = (folder / "manifest.json").read_bytes()
+    raw = bounded_bytes(folder / "manifest.json", 8 << 20)
     require(sha(raw) == MANIFEST_SHA256, "fixed manifest changed")
     manifest = read_json(raw)
-    archive = folder / "text-choice.zip"
-    require(archive.stat().st_size <= 32 << 20, "compressed evidence exceeds budget")
-    require(sha(archive.read_bytes()) == manifest["archive_sha256"], "fixed archive changed")
-    with zipfile.ZipFile(archive) as bundle:
+    archive = bounded_bytes(folder / "text-choice.zip", 32 << 20)
+    require(sha(archive) == manifest["archive_sha256"], "fixed archive changed")
+    # The same owned bytes survive verification and the later audit; a
+    # concurrent path replacement cannot change which members get extracted.
+    with zipfile.ZipFile(io.BytesIO(archive)) as bundle:
         members = bundle.infolist()
         require(len(members) <= 20000 and sum(m.file_size for m in members) <= 128 << 20,
                 "expanded evidence exceeds budget")
@@ -93,7 +102,7 @@ def verify(folder):
                 require(run["role"] == "red" and counts.get("FAIL", 0) > 0,
                         "recorded red failure lost")
         require(green > 0, "no green public evidence")
-    return manifest, green
+    return manifest, green, archive
 
 
 def main():
@@ -102,11 +111,11 @@ def main():
     parser.add_argument("--audit", action="store_true")
     args = parser.parse_args()
     try:
-        manifest, cases = verify(args.bundle)
+        manifest, cases, archive = verify(args.bundle)
         if args.audit:
             with tempfile.TemporaryDirectory(prefix="decisions-text-audit-") as directory:
                 work = Path(directory)
-                with zipfile.ZipFile(args.bundle / "text-choice.zip") as bundle:
+                with zipfile.ZipFile(io.BytesIO(archive)) as bundle:
                     for item in bundle.infolist():
                         target = work / item.filename
                         target.parent.mkdir(parents=True, exist_ok=True)
