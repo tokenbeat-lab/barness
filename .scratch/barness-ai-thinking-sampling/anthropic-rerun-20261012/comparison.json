@@ -1,0 +1,15 @@
+{
+  "sameMethodURLHeadersAndRequestBody": true,
+  "requestBodySHA256": "96e653afc8779832953b1aa2ab8e4b9c0ac7c884e97979141ea7baad5204e8a4",
+  "directHTTPStatus": 403,
+  "proxyHTTPStatus": 200,
+  "directControlOutcome": "FAIL",
+  "proxySmokeOutcome": "PASS",
+  "proxyScenarioCount": 11,
+  "proxyHTTPStatuses": {
+    "200": 20
+  },
+  "proxy": "http://127.0.0.1:7890",
+  "controlledVariable": "recorder transport network route only",
+  "credentialSource": "Both isolated processes read the same root .env ANTHROPIC_KEY; no credential values saved."
+}

@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "scope": "Anthropic rerun requested by maintainer; explicit local HTTP proxy; original suite and core unchanged.",
+  "sourceCommit": "08169c4dec80cba51bb200efbc0d0f4706950aad",
+  "proxy": "http://127.0.0.1:7890",
+  "control": {
+    "scenario": "text-stream",
+    "httpStatus": 403,
+    "outcome": "FAIL",
+    "sameRequestAsProxy": true
+  },
+  "smoke": {
+    "outcome": "PASS",
+    "scenarios": 11,
+    "httpAttempts": 20,
+    "allHTTPStatus": 200,
+    "retries": 0,
+    "durationSeconds": 27.00622797012329,
+    "budget": {
+      "maxCalls": 32,
+      "httpAttempts": 20,
+      "maxRetriesPerScenario": 1,
+      "maxOutputTokensPerCall": 4096,
+      "callsUsed": 20,
+      "outputTokensUsed": 770,
+      "inputTokensUsed": 7167,
+      "environmentRetries": 0
+    },
+    "audit": "PASS"
+  },
+  "supportMatrix": {
+    "changedRows": [
+      "anthropic-messages"
+    ],
+    "row": {
+      "combo": "anthropic-messages",
+      "operation": "chat",
+      "provider": "anthropic",
+      "api": "anthropic-messages",
+      "model": "claude-haiku-4-5",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "accountAlias": "local-anthropic@region-permissions-unconfirmed",
+      "lastRunAt": "2026-10-12T03:57:58.891802Z",
+      "allPassedAt": "2026-10-12T03:57:58.891802Z",
+      "capabilities": [
+        {
+          "id": "text-stream",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "text-complete",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "tool-round-trip",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "note": "tool call by forced choice",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "cancel-after-first-frame",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "reasoning-history",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "note": "returned thinking text, thinking signature",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "image",
+          "model": "claude-haiku-4-5",
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "tool-changes-claude-opus-4-8",
+          "model": "claude-opus-4-8",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "tool-changes-claude-fable-5",
+          "model": "claude-fable-5",
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "effort-changes-claude-fable-5-1",
+          "model": "claude-fable-5-1",
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "effort-changes-claude-opus-5",
+          "model": "claude-opus-5",
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        },
+        {
+          "id": "effort-changes-claude-opus-5-5",
+          "model": "claude-opus-5-5",
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
+        }
+      ]
+    }
+  },
+  "archives": [
+    {
+      "role": "direct-control",
+      "archive": "direct-control.tar.gz",
+      "sha256": "5f7a8f9918b62c76f7928b5915d9e9b7cc07061b2d509e7a776e9b2102438e91",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/anthropic-rerun-20261012T035539Z/direct-control/20261012T035708.289622000Z",
+      "manifestSHA256": "a189bfe22b087d5f2b7b7dc67a08595e4339fc8cb827fbdac2c8666eb3d19dfe",
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    },
+    {
+      "role": "proxy-smoke",
+      "archive": "proxy-smoke.tar.gz",
+      "sha256": "f4d4ef2baf737fd533936ab53a82d62c0bd1c9117a03133c95f1d05111174584",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/anthropic-rerun-20261012T035539Z/proxy-smoke/20261012T035732.500892000Z",
+      "manifestSHA256": "537b200edb0b51574825ec17bf26549bc2d89d6df2f5e305a3309181faae244b",
+      "cases": 11,
+      "statuses": {
+        "PASS": 11
+      }
+    }
+  ],
+  "productionSourceFilesUnchanged": 464,
+  "supportMatrixPackageTests": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/internal/testkit/supportmatrix",
+      "-count=1"
+    ],
+    "exitCode": 0,
+    "packageSeconds": 0.793
+  },
+  "formalRelease": "NOT_REEXECUTED; saved 2026-10-11 FAIL report remains unchanged. Other providers and independent Chinese evaluation were not rerun.",
+  "buildCommand": [
+    "go",
+    "test",
+    "-c",
+    "-tags",
+    "live",
+    "-overlay",
+    ".scratch/barness-ai-thinking-sampling/anthropic-rerun-20261012/overlay.json",
+    "-o",
+    "<new-binary-path>",
+    "./ai/live"
+  ],
+  "smokeCommand": [
+    "python3",
+    ".scratch/barness-ai-thinking-sampling/release-evidence/run-live.py",
+    "--live",
+    "--combo",
+    "anthropic-messages",
+    "--binary",
+    "<new-binary-path>",
+    "--out",
+    "<new-evidence-directory>",
+    "--alias",
+    "local-anthropic@region-permissions-unconfirmed"
+  ],
+  "conclusion": "The current same-request control receives 403 directly and 200 via the explicit proxy. All 11 original scenarios pass on that route; the precise direct-route blocking policy remains unidentified."
+}

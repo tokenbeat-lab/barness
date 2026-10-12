@@ -1,0 +1,52 @@
+{
+  "schema": 2,
+  "combo": "anthropic-messages",
+  "operation": "chat",
+  "provider": "anthropic",
+  "api": "anthropic-messages",
+  "endpoint": "https://api.anthropic.com",
+  "model": "claude-haiku-4-5",
+  "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+  "accountAlias": "local-anthropic@region-permissions-unconfirmed",
+  "gitCommit": "08169c4dec80cba51bb200efbc0d0f4706950aad",
+  "catalogVersion": "2026-10-11.1",
+  "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+  "startedAt": "2026-10-12T03:57:08.289497Z",
+  "finishedAt": "2026-10-12T03:57:08.966838Z",
+  "budget": {
+    "maxCalls": 32,
+    "httpAttempts": 1,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 1,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 0,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "text-stream",
+    "text-complete",
+    "tool-round-trip",
+    "cancel-after-first-frame",
+    "reasoning-history",
+    "image",
+    "tool-changes-claude-opus-4-8",
+    "tool-changes-claude-fable-5",
+    "effort-changes-claude-fable-5-1",
+    "effort-changes-claude-opus-5",
+    "effort-changes-claude-opus-5-5"
+  ],
+  "scenarios": [
+    {
+      "id": "text-stream",
+      "caseId": "LIVE-P02-text-stream",
+      "model": "claude-haiku-4-5",
+      "outcome": "FAIL",
+      "errorCategory": "upstream_auth",
+      "environment": true,
+      "durationMs": 648,
+      "calls": 1,
+      "attempts": 1
+    }
+  ]
+}

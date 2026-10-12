@@ -1,0 +1,28 @@
+{
+  "sourceCommit": "08169c4dec80cba51bb200efbc0d0f4706950aad",
+  "proxy": "http://127.0.0.1:7890",
+  "scope": "Anthropic only; one direct text-stream control then complete original 11-scenario smoke via explicit HTTP proxy.",
+  "originalRecorderSHA256": "116e8b6b987775b37efa89ca555a38a25992acc2a4db3764f7f3ac3eb18f67bc",
+  "overlayRecorderSHA256": "4f293f1c323cf7160b2ab38d481479cbbb4af25cab431e238c5d6f9cf5051b8a",
+  "controlledChanges": [
+    "import net/url",
+    "explicit recorder transport Proxy",
+    "comment describing route"
+  ],
+  "unchanged": [
+    "production code",
+    "official endpoint",
+    "models",
+    "requests",
+    "assertions",
+    "timeouts",
+    "budgets",
+    "redaction"
+  ],
+  "noProxyEnvironment": true,
+  "connectivityHEAD": {
+    "direct": 403,
+    "proxy": 405,
+    "credentials": false
+  }
+}

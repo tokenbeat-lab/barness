@@ -1,0 +1,9 @@
+=== RUN   TestLive
+=== RUN   TestLive/anthropic-messages
+=== RUN   TestLive/anthropic-messages/text-stream
+    session_test.go:118: [LIVE-P02-text-stream] vendor or environment fault: upstream_auth (request, HTTP 403) after 1 attempt(s): 403 {"error":{"type":"forbidden","message":"Request not allowed"}}
+--- FAIL: TestLive (0.65s)
+    --- FAIL: TestLive/anthropic-messages (0.65s)
+        --- FAIL: TestLive/anthropic-messages/text-stream (0.65s)
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/barness-ai-thinking-sampling/anthropic-rerun-20261012T035539Z/direct-control/20261012T035708.289622000Z

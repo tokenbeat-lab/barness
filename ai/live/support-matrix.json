@@ -88,98 +88,94 @@
       "model": "claude-haiku-4-5",
       "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
       "accountAlias": "local-anthropic@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-11T02:58:29.055808Z",
-      "allPassedAt": "2026-10-08T11:45:53.02606Z",
+      "lastRunAt": "2026-10-12T03:57:58.891802Z",
+      "allPassedAt": "2026-10-12T03:57:58.891802Z",
       "capabilities": [
         {
           "id": "text-stream",
           "model": "claude-haiku-4-5",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "text-complete",
           "model": "claude-haiku-4-5",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "tool-round-trip",
           "model": "claude-haiku-4-5",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
+          "outcome": "PASS",
           "note": "tool call by forced choice",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "cancel-after-first-frame",
           "model": "claude-haiku-4-5",
-          "outcome": "FAIL",
-          "errorCategory": "assertion",
-          "note": "canceled after error",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "note": "canceled after text_start",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "reasoning-history",
           "model": "claude-haiku-4-5",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "note": "returned thinking text, thinking signature",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "image",
           "model": "claude-haiku-4-5",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "note": "answer mentions red: true",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "tool-changes-claude-opus-4-8",
           "model": "claude-opus-4-8",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "tool-changes-claude-fable-5",
           "model": "claude-fable-5",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "note": "called convert_temperature after the change and answered",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "effort-changes-claude-fable-5-1",
           "model": "claude-fable-5-1",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "effort-changes-claude-opus-5",
           "model": "claude-opus-5",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         },
         {
           "id": "effort-changes-claude-opus-5-5",
           "model": "claude-opus-5-5",
-          "outcome": "FAIL",
-          "errorCategory": "upstream_auth",
-          "lastRunAt": "2026-10-11T02:58:29.055808Z",
-          "lastPassedAt": "2026-10-08T11:45:53.02606Z"
+          "outcome": "PASS",
+          "note": "the vendor accepted the effort change from high to low",
+          "lastRunAt": "2026-10-12T03:57:58.891802Z",
+          "lastPassedAt": "2026-10-12T03:57:58.891802Z"
         }
       ]
     },

@@ -1,0 +1,191 @@
+{
+  "schema": 2,
+  "combo": "anthropic-messages",
+  "operation": "chat",
+  "provider": "anthropic",
+  "api": "anthropic-messages",
+  "endpoint": "https://api.anthropic.com",
+  "model": "claude-haiku-4-5",
+  "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+  "accountAlias": "local-anthropic@region-permissions-unconfirmed",
+  "gitCommit": "08169c4dec80cba51bb200efbc0d0f4706950aad",
+  "catalogVersion": "2026-10-11.1",
+  "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+  "startedAt": "2026-10-12T03:57:32.500762Z",
+  "finishedAt": "2026-10-12T03:57:58.891802Z",
+  "budget": {
+    "maxCalls": 32,
+    "httpAttempts": 20,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 20,
+    "outputTokensUsed": 770,
+    "inputTokensUsed": 7167,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "text-stream",
+    "text-complete",
+    "tool-round-trip",
+    "cancel-after-first-frame",
+    "reasoning-history",
+    "image",
+    "tool-changes-claude-opus-4-8",
+    "tool-changes-claude-fable-5",
+    "effort-changes-claude-fable-5-1",
+    "effort-changes-claude-opus-5",
+    "effort-changes-claude-opus-5-5"
+  ],
+  "scenarios": [
+    {
+      "id": "text-stream",
+      "caseId": "LIVE-P02-text-stream",
+      "model": "claude-haiku-4-5",
+      "outcome": "PASS",
+      "durationMs": 1506,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_011Cfwftt8DMsL7XYc9WMoBo"
+      ]
+    },
+    {
+      "id": "text-complete",
+      "caseId": "LIVE-P02-text-complete",
+      "model": "claude-haiku-4-5",
+      "outcome": "PASS",
+      "durationMs": 755,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_011Cfwftx475rbLLcw5EkrU4"
+      ]
+    },
+    {
+      "id": "tool-round-trip",
+      "caseId": "LIVE-P02-tool-round-trip",
+      "model": "claude-haiku-4-5",
+      "outcome": "PASS",
+      "durationMs": 1491,
+      "calls": 2,
+      "attempts": 2,
+      "providerRequestIds": [
+        "req_011Cfwfu1G5DvvC8cTdRRYc8",
+        "req_011Cfwfu4czMEn2RvpFJYNsw"
+      ],
+      "note": "tool call by forced choice"
+    },
+    {
+      "id": "cancel-after-first-frame",
+      "caseId": "LIVE-P02-cancel-after-first-frame",
+      "model": "claude-haiku-4-5",
+      "outcome": "PASS",
+      "durationMs": 768,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_011Cfwfu7dobf85mFn3GepnC"
+      ],
+      "note": "canceled after text_start"
+    },
+    {
+      "id": "reasoning-history",
+      "caseId": "LIVE-P02-reasoning-history",
+      "model": "claude-haiku-4-5",
+      "outcome": "PASS",
+      "durationMs": 3348,
+      "calls": 2,
+      "attempts": 2,
+      "providerRequestIds": [
+        "req_011CfwfuB1DtYRPUYuKmhuYw",
+        "req_011CfwfuGx9oWFsm64vDnMmR"
+      ],
+      "note": "returned thinking text, thinking signature"
+    },
+    {
+      "id": "image",
+      "caseId": "LIVE-P02-image",
+      "model": "claude-haiku-4-5",
+      "outcome": "PASS",
+      "durationMs": 627,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "req_011CfwfuRFy3a3qZRJ7bTyja"
+      ],
+      "note": "answer mentions red: true"
+    },
+    {
+      "id": "tool-changes-claude-opus-4-8",
+      "caseId": "LIVE-P02-tool-changes-claude-opus-4-8",
+      "model": "claude-opus-4-8",
+      "outcome": "PASS",
+      "durationMs": 4046,
+      "calls": 3,
+      "attempts": 3,
+      "providerRequestIds": [
+        "req_011CfwfuTvTYCFY5XrF46Lk1",
+        "req_011CfwfuauteBtBxjktNrgZs",
+        "req_011CfwfufWU978nZ46a3RSJi"
+      ],
+      "note": "called convert_temperature after the change and answered"
+    },
+    {
+      "id": "tool-changes-claude-fable-5",
+      "caseId": "LIVE-P02-tool-changes-claude-fable-5",
+      "model": "claude-fable-5",
+      "outcome": "PASS",
+      "durationMs": 6625,
+      "calls": 3,
+      "attempts": 3,
+      "providerRequestIds": [
+        "req_011CfwfumFW52K3p2YEF86R5",
+        "req_011Cfwfuxg5crZm1uVdA9ZGL",
+        "req_011Cfwfv7C3rAdW9Rcd2af2K"
+      ],
+      "note": "called convert_temperature after the change and answered"
+    },
+    {
+      "id": "effort-changes-claude-fable-5-1",
+      "caseId": "LIVE-P02-effort-changes-claude-fable-5-1",
+      "model": "claude-fable-5-1",
+      "outcome": "PASS",
+      "durationMs": 2464,
+      "calls": 2,
+      "attempts": 2,
+      "providerRequestIds": [
+        "req_011CfwfvFaaofsB7v3YrFwk3",
+        "req_011CfwfvMS3wX4V7NBkkS3Jx"
+      ],
+      "note": "the vendor accepted the effort change from high to low"
+    },
+    {
+      "id": "effort-changes-claude-opus-5",
+      "caseId": "LIVE-P02-effort-changes-claude-opus-5",
+      "model": "claude-opus-5",
+      "outcome": "PASS",
+      "durationMs": 2550,
+      "calls": 2,
+      "attempts": 2,
+      "providerRequestIds": [
+        "req_011CfwfvS6M6c8PibcvXttXe",
+        "req_011CfwfvXXmDJijs71PLyABT"
+      ],
+      "note": "the vendor accepted the effort change from high to low"
+    },
+    {
+      "id": "effort-changes-claude-opus-5-5",
+      "caseId": "LIVE-P02-effort-changes-claude-opus-5-5",
+      "model": "claude-opus-5-5",
+      "outcome": "PASS",
+      "durationMs": 2166,
+      "calls": 2,
+      "attempts": 2,
+      "providerRequestIds": [
+        "req_011Cfwfvd3uEV9Mmj3CQNnUs",
+        "req_011Cfwfvhxposf9cpMLuvBt6"
+      ],
+      "note": "the vendor accepted the effort change from high to low"
+    }
+  ]
+}

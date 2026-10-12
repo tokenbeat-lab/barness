@@ -1,0 +1,41 @@
+{
+  "bundleChecks": [
+    {
+      "role": "direct-control",
+      "bundle": ".evidence/barness-ai-thinking-sampling/anthropic-rerun-20261012T035539Z/direct-control/20261012T035708.289622000Z",
+      "caseCount": 1,
+      "allArtifactHashes": "PASS",
+      "audit": "PASS"
+    },
+    {
+      "role": "proxy-smoke",
+      "bundle": ".evidence/barness-ai-thinking-sampling/anthropic-rerun-20261012T035539Z/proxy-smoke/20261012T035732.500892000Z",
+      "caseCount": 11,
+      "allArtifactHashes": "PASS",
+      "audit": "PASS"
+    }
+  ],
+  "sameTextStreamRequest": "PASS",
+  "productionSourceHashesUnchanged": 464,
+  "noTLSVerificationDisabled": true,
+  "freshArchiveVerification": [
+    {
+      "role": "direct-control",
+      "archiveSHA256": "5f7a8f9918b62c76f7928b5915d9e9b7cc07061b2d509e7a776e9b2102438e91",
+      "cases": 1,
+      "allArtifactHashes": "PASS",
+      "freshExtractedBundleAudit": "PASS",
+      "originalVerdictUnchanged": true
+    },
+    {
+      "role": "proxy-smoke",
+      "archiveSHA256": "f4d4ef2baf737fd533936ab53a82d62c0bd1c9117a03133c95f1d05111174584",
+      "cases": 11,
+      "allArtifactHashes": "PASS",
+      "freshExtractedBundleAudit": "PASS",
+      "originalVerdictUnchanged": true
+    }
+  ],
+  "supportMatrixMerge": "PASS; only anthropic-messages row changed",
+  "vendorCallsDuringVerification": 0
+}
