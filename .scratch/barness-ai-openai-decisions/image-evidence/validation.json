@@ -1,0 +1,152 @@
+{
+  "base_revision": "ffe70054b0daf853ff632076a760d37e9ba063f9",
+  "final_implementation_revision": "926ed8a72bb00683b689a65a67d8557e510f47a1",
+  "branch": "main",
+  "commands": [
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test ./... -count=1 -json",
+      "exit_code": 0,
+      "compiled_revision": "0d823b9",
+      "cases": 7138,
+      "statuses": {
+        "PASS": 7129,
+        "NOT_RUN": 9
+      },
+      "directory": "20261012T143335.203117000Z",
+      "recorded_git_commit": "0d823b91de9ebcb0833b642dc2dd064bb995a97e"
+    },
+    {
+      "command": "go test -race ./... -count=1 -json",
+      "exit_code": 0,
+      "compiled_revision": "0d823b9",
+      "cases": 7138,
+      "statuses": {
+        "PASS": 6312,
+        "NOT_RUN": 826
+      },
+      "directory": "20261012T143337.964853000Z",
+      "recorded_git_commit": "0d823b91de9ebcb0833b642dc2dd064bb995a97e"
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test ./... -count=1 -json",
+      "exit_code": 0,
+      "compiled_revision": "9ba77ae",
+      "cases": 7151,
+      "statuses": {
+        "PASS": 7142,
+        "NOT_RUN": 9
+      },
+      "directory": "20261012T144033.537113000Z",
+      "recorded_git_commit": "e58eed13836030fbbd47907685e88fc899637e95"
+    },
+    {
+      "command": "go test -race ./ai/e2e -run '^Test(DecisionsImages|DecisionsHookGuard|DecisionsNativeLimits|JevRegression|Classifier|Unary)' -count=1 -json",
+      "exit_code": 0,
+      "compiled_revision": "9ba77ae",
+      "cases": 560,
+      "statuses": {
+        "PASS": 559,
+        "NOT_RUN": 1
+      },
+      "directory": "20261012T144037.059002000Z",
+      "recorded_git_commit": "9ba77aeaedfea94540d1d794c211711d7e5c95b2"
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test ./... -count=1 -json",
+      "exit_code": 0,
+      "compiled_revision": "e58eed1",
+      "cases": 7152,
+      "statuses": {
+        "PASS": 7143,
+        "NOT_RUN": 9
+      },
+      "directory": "20261012T144319.094134000Z",
+      "recorded_git_commit": "e58eed13836030fbbd47907685e88fc899637e95"
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run '^Test(DecisionsImages|JevRegression|Classifier)' -count=1 -json",
+      "exit_code": 0,
+      "compiled_revision": "e58eed1",
+      "cases": 425,
+      "statuses": {
+        "PASS": 425
+      },
+      "directory": "20261012T144322.370636000Z",
+      "recorded_git_commit": "e58eed13836030fbbd47907685e88fc899637e95"
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test ./... -count=1 -json",
+      "exit_code": 0,
+      "compiled_revision": "926ed8a",
+      "cases": 7158,
+      "statuses": {
+        "PASS": 7149,
+        "NOT_RUN": 9
+      },
+      "directory": "20261012T150639.707251000Z",
+      "recorded_git_commit": "926ed8a72bb00683b689a65a67d8557e510f47a1"
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run '^Test(DecisionsImages|JevRegression|Classifier)' -count=1 -json",
+      "exit_code": 0,
+      "compiled_revision": "926ed8a",
+      "cases": 431,
+      "statuses": {
+        "PASS": 431
+      },
+      "directory": "20261012T150642.678662000Z",
+      "recorded_git_commit": "926ed8a72bb00683b689a65a67d8557e510f47a1"
+    },
+    {
+      "command": "go vet ./...",
+      "exit_code": 0,
+      "compiled_revision": "926ed8a"
+    },
+    {
+      "command": "go vet -tags live ./...",
+      "exit_code": 0,
+      "compiled_revision": "926ed8a"
+    }
+  ],
+  "source_sha256": {
+    ".scratch/barness-ai-openai-decisions/image-failures.md": "bdc50b241e703f2e914ff3c43d4739ffd300a7c1bbd1e4de6fe2665b04c0a08d",
+    "ai/README.md": "595303e6d44ffc988a9a33a1e96657e0ddb96e15756d514ac39ff3e54d06df4e",
+    "ai/binding.go": "ea36afe5c06d63c92a574d0a503f0b0fb04a106351d8fa2af110f9107b315bd9",
+    "ai/catalog_operations.go": "a18e8d5b851f8fb6c88cd61fe8ba3b5a8acbe42a723552595f0e87b822979d28",
+    "ai/catalog_snapshot.go": "b72080b5ed9caaaf812e617784eff78733730e14f946a5d77e8b1ec1c58936e1",
+    "ai/catalog_validate.go": "b442065bb4715399810369f0c7f291aa9c608c6381d0502b014dd36b7c2c66e3",
+    "ai/classifier.go": "fa830f8be9dc06dbaa3ac0f2bf3d2425ebe585c78d00c64ed0e491ee6b9aed3e",
+    "ai/classifier_capabilities.go": "550fdf4be30c8dca7366cf5e4d6b76678927f44d78fe3c9ddde290a946f0e28b",
+    "ai/classifier_images.go": "18930c1bcfb016492f55644e3523438423c3f4882308dd74f0e9dff7b24e05f8",
+    "ai/classifier_json.go": "6005e89f09c1378ccce2d21f70389e1bab2477a163bd29f393b94f8b04e07be5",
+    "ai/classifier_policy.go": "0fe7f1309cdb969e2db2b5f240f482e0ce88ecde4bd1d14a8a7bd049fa354e18",
+    "ai/e2e/decisions_images_boundaries_test.go": "ddfefad39dd0d8f92b267fc74fad90ffadac9a29d722b0dce1d162e366d9a191",
+    "ai/e2e/decisions_images_bytes_test.go": "fe21a073ee09be169c13e7b849e004cbb4adc37d503036faf0f81942cb4effef",
+    "ai/e2e/decisions_images_catalog_test.go": "cd428516cbd75c701086fb960e088a15c2b0a24ee03682a6f73e64c5dcace61c",
+    "ai/e2e/decisions_images_fixture_test.go": "49b575ed000628f3bc13b8ed090063390731c33a21e9e63e34edbe651d80dfd0",
+    "ai/e2e/decisions_images_hooks_test.go": "d354d719776b617ca5688b988ae9f78fb2faf78cdbbe842d24371b6435cdcda3",
+    "ai/e2e/decisions_images_input_test.go": "b2ccce5b2f38c0601a17864a318e196a806548a549f79318d040fc5472fdff2e",
+    "ai/e2e/decisions_images_json_test.go": "a03f6133dab16fcbf068f09a312deee543bed1f02c1c7b41f0bad7c332b53fce",
+    "ai/e2e/decisions_images_lifecycle_test.go": "bc7efe6a6aad47168c4430ce49cb3e44bc8876843f3693472dd2c4c11fe51bd9",
+    "ai/e2e/decisions_images_message_test.go": "ddd55714a56b00bd0ab5dc4228312970a1a3e6baf6e36d2533074a0205b96b78",
+    "ai/e2e/decisions_images_raw_text_test.go": "35d0e3a9a3223fbbf27ddb7ed3c3e54b2b8045e46043728ae7d5fead67b4f4ff",
+    "ai/e2e/decisions_images_typed_request_test.go": "8d75fbb2fb92ee311d992d40fda123c14a918e3cd0924ba7cd64330ccf488460",
+    "ai/e2e/testdata/decisions/images/LICENSE": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "ai/e2e/testdata/decisions/images/README.md": "8ccf635a26f9b219a6fb3791d306a000e353b805f4b4a03415594ee3d11f4faa",
+    "ai/e2e/testdata/decisions/images/gopher.webp": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a",
+    "ai/limits.go": "c60a170adeb7d17f74fb48db088b74dc767674d2680611040ed0e8bc8734e752",
+    "ai/openai_decisions.go": "55d071b75925fa7f228cc7f3cd5b3446caeab6d8f423f7d4754f1b4e9eea2a42",
+    "ai/openai_decisions_guard.go": "ff3cf777fbcc84ec2c8a1ee0cb57f7c592ee04b76108ce4ae34f0defeb441ad2",
+    "ai/openai_decisions_image_payload.go": "1bc9094563ed82fcc7b12212048c967de10d4f8a4eae94eb2a5412700a8bb48c",
+    "ai/openai_decisions_images.go": "55e971cd647fbebeb4dc0da8c6c9262aebc63c837c274d35429a7db6c67e16f8",
+    "ai/openai_decisions_request.go": "432bc4a3a7a419a6b9b485a4a7a1a7d5787c7565373fe37a51156f7242f1b35f",
+    "ai/policy.go": "3bdc732869e26801a0fa16761f30862f1421868277580236eb838db6fa25c13b",
+    "ai/preflight.go": "3a9d7e6eca9b19dd90f4a98071be72cb36dc20b5cb324bb4c21bc793aac90740",
+    "go.mod": "5c8e9d19f2c6fb1145afd40d33f1904f05df796e9e3e57b0666c40ea61334fd2",
+    "go.sum": "f77e9fa444cb0de7133ad075ba5290a35b86df40b4ccfb235452ae1e4a5a8097",
+    "AGENTS.md": "adb0f58dabe63475d9f327828e0a540fe47013c52aa37fb90764338bb620eb6c"
+  },
+  "scope": "loopback synthetic catalog; live, new Decisions Pi differential, image design load and release gate NOT_RUN",
+  "summary_capture_scope": "full-suite logs and manifest/audit summaries; complete captures for preserved red runs and final 431-case green run",
+  "note": "TestMain records GitCommit at Finish; compiled_revision is the command-start revision, kept separately from recorded_git_commit."
+}
