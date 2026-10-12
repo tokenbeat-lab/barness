@@ -104,3 +104,22 @@ P07 离线、差分和扩展记录进入 P0/需求追溯，详见
 
 回滚：禁用 classifier Binding 或 ClassifierPolicy 停止新调用；恢复旧目录快照时
 显式移除型号授权。schema 2 矩阵按 Git 回滚整体数据，拒绝把旧报告再合并进新 schema。
+
+## 第二个 classifier 协议的文本闭环（2026-10-12）
+
+Decisions 转换在独立 `openai_decisions*.go` 中，保留 TypeSafe 的 native map/noul、宽说明、
+舍入及 usage 语义。公共 Classify 复用固定 Binding/Credential、Hooks 与 sendUnary，按 API 固定分派。
+Decisions 无图 wire 仅 model/input/questions；State string 转原文，对象/数组保留数值拼写 compact，
+问题及候选由冻结 map 的确定键序转换为 native array。初始和最终 native 请求均校验完整题目字节与总量。
+合法 Hook 换题后以最终独立 wire 记录校验答案，不把 wire input 反解成旧公共请求。
+
+新增 RefusalAnswer 的公共 JSON 仅 type=refusal，合法拒答为 stop/nil error；它要求宿主显式处理
+新的封闭答案 variant，因此保留逐题拒答，避免把有效拒答混入协议失败。TypeSafe native refusal
+依然 protocol/response；任何损坏 Decisions 答案整体清空，同时保留唯一基础 usage 和输入估价。
+新 usage 暂保守为 partial，完整 presence/details 与价格边界由工单 04 交付。
+当前仅支持至少两个候选、string 说明的文本 choice，未实现的 score/bool/message/image 在凭据前
+或最终 Hook guard 拒绝。后续切片直接扩充该协议真实实现，不新增 shim 或占位 Module。
+
+该切片按[工单 02](../../.scratch/barness-ai-openai-decisions/issues/02-decisions-text-choice.md)
+交付，公开 E2E 与固定 Jev 回归见[文本证据](../../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)。
+它部分落实 proposed ADR-0026，不把整份图片/发布设计标记 accepted；停用 Binding 或移除白名单即可阻止新调用。

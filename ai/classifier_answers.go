@@ -25,9 +25,16 @@ type BoolAnswer struct {
 	Probability float64 `json:"probability"`
 }
 
-func (ChoiceAnswer) classifierAnswer() {}
-func (ScoreAnswer) classifierAnswer()  {}
-func (BoolAnswer) classifierAnswer()   {}
+// RefusalAnswer is a valid per-question refusal, with no invented reason or
+// ordinary answer fields. A successful call may contain this answer variant.
+type RefusalAnswer struct{}
+
+func (ChoiceAnswer) classifierAnswer()  {}
+func (ScoreAnswer) classifierAnswer()   {}
+func (BoolAnswer) classifierAnswer()    {}
+func (RefusalAnswer) classifierAnswer() {}
+
+func (RefusalAnswer) MarshalJSON() ([]byte, error) { return []byte(`{"type":"refusal"}`), nil }
 
 // Concrete tagged encoders intentionally keep each closed type's fields explicit;
 // a shared untyped field-merging encoder would obscure the public JSON contract.

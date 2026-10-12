@@ -59,13 +59,15 @@ type ImagePricing struct {
 // ClassifierModel describes a classifier operation's model, located by
 // (classifier, Provider, API, ID). It has no chat generation settings.
 type ClassifierModel struct {
-	Provider      ProviderID             `json:"provider"`
-	API           API                    `json:"api"`
-	ID            string                 `json:"id"`
-	Name          string                 `json:"name"`
-	ContextWindow int                    `json:"contextWindow"`
-	Capabilities  ClassifierCapabilities `json:"capabilities"`
-	Cost          ModelCost              `json:"cost"`
+	Provider      ProviderID `json:"provider"`
+	API           API        `json:"api"`
+	ID            string     `json:"id"`
+	Name          string     `json:"name"`
+	ContextWindow int        `json:"contextWindow"`
+	// Omitted input retains the legacy text-only contract.
+	Input        []Modality             `json:"input,omitempty"`
+	Capabilities ClassifierCapabilities `json:"capabilities"`
+	Cost         ModelCost              `json:"cost"`
 }
 
 // ClassifierQuestionKind is a classifier's supported question category.
@@ -80,11 +82,24 @@ const (
 )
 
 // ClassifierCapabilities names supported question kinds (choice, score,
-// bool). Choice requires MaxChoices >= 2; score requires an inclusive level
+// bool). Omitted MinChoices means 1; MaxChoices must remain >= 2 for
+// existing catalogs. Score requires an inclusive level
 // range with minimum >= 2. Limits for unsupported kinds must be zero.
 type ClassifierCapabilities struct {
-	Kinds          []ClassifierQuestionKind `json:"kinds"`
-	MaxChoices     int                      `json:"maxChoices"`
-	MinScoreLevels int                      `json:"minScoreLevels"`
-	MaxScoreLevels int                      `json:"maxScoreLevels"`
+	Kinds      []ClassifierQuestionKind `json:"kinds"`
+	MaxChoices int                      `json:"maxChoices"`
+	MinChoices int                      `json:"minChoices,omitempty"`
+	// Omitted formats allow the legacy string/object/array descriptions.
+	DescriptionFormats []ClassifierDescriptionFormat `json:"descriptionFormats,omitempty"`
+	MinScoreLevels     int                           `json:"minScoreLevels"`
+	MaxScoreLevels     int                           `json:"maxScoreLevels"`
 }
+
+// ClassifierDescriptionFormat names a public JSON description's root type.
+type ClassifierDescriptionFormat string
+
+const (
+	ClassifierDescriptionString ClassifierDescriptionFormat = "string"
+	ClassifierDescriptionObject ClassifierDescriptionFormat = "object"
+	ClassifierDescriptionArray  ClassifierDescriptionFormat = "array"
+)

@@ -61,6 +61,8 @@ const (
 	APIGoogleInteractions API = "google-interactions"
 	// APITypeSafeSystemOne is the unary System One classification protocol.
 	APITypeSafeSystemOne API = "typesafe-system-one"
+	// APIOpenAIDecisions is the unary OpenAI Decisions classifier protocol.
+	APIOpenAIDecisions API = "openai-decisions"
 	// APIAnthropicMessages is the Anthropic Messages protocol.
 	APIAnthropicMessages API = "anthropic-messages"
 	// APIGoogleGenerativeAI is the Gemini Developer API's generateContent

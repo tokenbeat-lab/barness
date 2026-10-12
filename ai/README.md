@@ -186,6 +186,26 @@ host](examples/chineseeval/README.md) reports business results separately. The [
 evaluation](../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/README.md) does not establish
 production accuracy.
 
+Hosts can also supply a text classifier catalog for `ProviderOpenAI` /
+`APIOpenAIDecisions` and an `OperationClassifier` binding. This slice supports
+choice questions with at least two candidates and JSON string descriptions;
+state strings become raw text, while objects/arrays become compact JSON text
+without rounding numbers. Declare `Input: []ai.Modality{ai.ModalityText}`,
+`MinChoices: 2` and `DescriptionFormats: []ai.ClassifierDescriptionFormat{ai.ClassifierDescriptionString}`.
+`nil`, `OpenAIDecisionsOptions{}` and its non-nil pointer select the same defaults;
+typed nil and other protocols' options fail before credential access.
+
+Decisions validates responses against the final frozen hook request. A valid
+refusal is `RefusalAnswer{}` (`{"type":"refusal"}`), with `stop` and nil error:
+hosts must handle it alongside `ChoiceAnswer` in their result type switch.
+The initial and final native requests obey complete question and request byte
+budgets. Basic reported usage and input-only estimates survive invalid answers;
+detail reporting remains partial until the usage slice is delivered.
+Score, bool and image input remain disabled on this route pending their own
+implementation tickets. No Decisions model is in the built-in catalog yet;
+the [text evidence](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
+uses a synthetic host catalog and loopback HTTP, with no vendor live claim.
+
 ## Core concepts
 
 ```
@@ -433,7 +453,7 @@ not leak across these groups by convention.
 | Gemini Developer API | `gemini*.go` (REST, no SDK) |
 | Chat Completions | `chat*.go` (`chat_compat.go` holds per-provider differences) |
 | Native images | `images.go`, `image*.go`, `openai_images*.go`, `google_images*.go` |
-| TypeSafe classifier | `classifier*.go`, `typesafe*.go` |
+| Classifier protocols | `classifier*.go`, independent `typesafe*.go` and `openai_decisions*.go` |
 | Shared HTTP/SDK glue | `sdk_middleware.go`, `http_failures.go` |
 
 Other directories:

@@ -31,6 +31,14 @@ func (TypeSafeOptions) api() API         { return APITypeSafeSystemOne }
 func (o TypeSafeOptions) clone() Options { return o }
 func (TypeSafeOptions) validate() string { return "" }
 
+// OpenAIDecisionsOptions selects the Decisions protocol defaults. The text
+// classifier has no generation or authority options.
+type OpenAIDecisionsOptions struct{}
+
+func (OpenAIDecisionsOptions) api() API         { return APIOpenAIDecisions }
+func (o OpenAIDecisionsOptions) clone() Options { return o }
+func (OpenAIDecisionsOptions) validate() string { return "" }
+
 // Classify synchronously evaluates a set of questions. Options must belong to
 // the binding protocol; SimpleOptions cannot be passed to this full entry.
 func (c *Client) Classify(ctx context.Context, scope CallScope, target Target, req ClassifierRequest, opts Options) (ClassifierResult, error) {
@@ -118,11 +126,23 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 	if problem := req.checkCapabilities(model.Capabilities); problem != "" {
 		return newError(CodeInvalidRequest, PhaseCapability, problem)
 	}
+	if model.API == APIOpenAIDecisions {
+		if problem := decisionsTextCapability(req); problem != "" {
+			return newError(CodeInvalidRequest, PhaseCapability, problem)
+		}
+	}
 	cred, failure := r.pin(ctx, model.ID, hooks)
 	if failure != nil {
 		return failure
 	}
-	// Fixed dispatch: this operation currently has one real protocol, so a
-	// dynamic registry or generic adapter interface adds no useful boundary.
-	return c.classifyTypeSafe(ctx, r, cred, model, req, res)
+	// Protocol conversion stays independent; both paths own the same pinned
+	// call runtime and unary transport rather than a dynamic registry.
+	switch model.API {
+	case APITypeSafeSystemOne:
+		return c.classifyTypeSafe(ctx, r, cred, model, req, res)
+	case APIOpenAIDecisions:
+		return c.classifyDecisions(ctx, r, cred, model, req, res)
+	default:
+		return newError(CodeInvalidRequest, PhaseCapability, "unsupported classifier API")
+	}
 }

@@ -145,6 +145,9 @@ func (p ImagePricing) problem(input, output []Modality) string {
 }
 
 func (m ClassifierModel) problem() string {
+	if problem := classifierTextModelProblem(m); problem != "" {
+		return problem
+	}
 	if m.ContextWindow <= 0 {
 		return "classifier context window must be positive"
 	}

@@ -55,3 +55,11 @@ Go 宿主需更新切片构造；直接替换旧类型，不引入别名或兼�
 类型底层仍为 string，JSON 与目录内容哈希保持不变，因此不升级目录版本或重写价格快照。
 未知值仍可能来自 JSON 或显式转换，类型不代替边界校验；空、未知、重复类型与能力范围错误
 继续在 NewClient/Hash 拒绝。公共 E2E 验证常量装配、原有 JSON 形状、JSON 往返、查询深复制与失败场景。
+
+## Decisions 文本目录切片（2026-10-12）
+
+`classifier/openai/openai-decisions/ID` 作为独立四维身份参与同一 Binding/目录交集授权，
+采用固定分派和既有 unary runtime。新增 Input、MinChoices、DescriptionFormats 在目录入口、Hash
+及三个查询出口独立校验/复制；旧省略态保持 text-only、最低一候选、宽 JSON 说明且不改写旧 Hash。
+本票只开放文本单选；图片元数据与授权随工单 05 交付，score/bool 随工单 03 交付。
+宿主显式目录不等于内置支持，候选与正式目录仍由工单 09/10 的自身真实验收控制。

@@ -91,7 +91,7 @@ func (r ClassifierRequest) checkCapabilities(c ClassifierCapabilities) string {
 		switch q := question.(type) {
 		case ChoiceQuestion:
 			kind = ClassifierQuestionChoice
-			if len(q.Criteria) > c.MaxChoices {
+			if len(q.Criteria) < max(1, c.MinChoices) || len(q.Criteria) > c.MaxChoices {
 				return "choice options exceed model capability"
 			}
 		case ScoreQuestion:
@@ -106,6 +106,9 @@ func (r ClassifierRequest) checkCapabilities(c ClassifierCapabilities) string {
 		}
 		if !slices.Contains(c.Kinds, kind) {
 			return "model does not support the question kind"
+		}
+		if !classifierQuestionFormats(question, c.DescriptionFormats) {
+			return "model does not support the description format"
 		}
 	}
 	return ""

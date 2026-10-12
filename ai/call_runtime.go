@@ -2,6 +2,7 @@ package ai
 
 import (
 	"context"
+	"reflect"
 	"slices"
 	"time"
 )
@@ -81,7 +82,7 @@ func (r *callRuntime) resolve(ctx context.Context, target Target) (int, *Error) 
 	case OperationChat:
 		_, supported = r.client.adapters[b.API]
 	case OperationClassifier:
-		supported = b.ProviderID == ProviderTypeSafe && b.API == APITypeSafeSystemOne
+		supported = (b.ProviderID == ProviderTypeSafe && b.API == APITypeSafeSystemOne) || (b.ProviderID == ProviderOpenAI && b.API == APIOpenAIDecisions)
 	case OperationImage:
 		supported = (b.ProviderID == ProviderOpenAI && b.API == APIOpenAIImages) || (b.ProviderID == ProviderGoogle && b.API == APIGoogleInteractions)
 	}
@@ -102,6 +103,9 @@ func (r *callRuntime) resolve(ctx context.Context, target Target) (int, *Error) 
 func validateOptions(opts Options, api API) *Error {
 	if opts == nil {
 		return nil
+	}
+	if v := reflect.ValueOf(opts); v.Kind() == reflect.Pointer && v.IsNil() {
+		return newError(CodeInvalidRequest, PhaseCapability, "options must not be a typed nil pointer")
 	}
 	if opts.api() != api {
 		return newError(CodeInvalidRequest, PhaseCapability, "options do not match the binding API")

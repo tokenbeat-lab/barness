@@ -164,6 +164,20 @@ Google 使用 `OperationImage`、`ProviderGoogle`、`APIGoogleInteractions`，en
 评分标准按顺序排列，下标从零开始。答案按回调后的最终问题集合整体校验；不合格即拒绝，不重新归一化。
 `TypeSafeOptions{}` 是空选项类型。[中文评估宿主](examples/chineseeval/README.md) 独立报告业务效果；[24/24 合成样本结果](../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/README.md) 不代表生产准确率。
 
+宿主也可以自带 `ProviderOpenAI` / `APIOpenAIDecisions` 文本目录与 `OperationClassifier`
+绑定。本切片支持至少两个候选的单选，问题与非 null 候选说明必须为 JSON 字符串。
+目录声明 `Input: []ai.Modality{ai.ModalityText}`、`MinChoices: 2` 和
+`DescriptionFormats: []ai.ClassifierDescriptionFormat{ai.ClassifierDescriptionString}`。
+State 字符串转原文，对象/数组转保留数字精度的 compact JSON 文本。
+`nil`、`OpenAIDecisionsOptions{}` 与其非 nil 指针采用相同默认；typed nil 和错协议选项在凭据前拒绝。
+
+Decisions 按 Hook 后冻结的最终请求校验答案。合法拒答是 `RefusalAnswer{}`，JSON 仅
+`{"type":"refusal"}`，终态为 stop/nil error；宿主的答案 type switch 须同时处理它与 `ChoiceAnswer`。
+入口和最终 native 请求都受完整题目及完整请求字节限额约束。基础已报告用量与输入估价在坏答案时保留，
+完整用量明细由后续工单交付，目前 reporting 保守为 partial。score、bool 和图片输入保持拒绝。
+内置目录尚未加入 Decisions 型号；[文本证据](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
+使用合成宿主目录与本地受控 HTTP，不表示厂商真实验收已通过。
+
 ## 核心概念
 
 ```
@@ -344,7 +358,7 @@ Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 
 | Gemini Developer API | `gemini*.go`（REST，不用 SDK） |
 | Chat Completions | `chat*.go`（`chat_compat.go` 存放各 Provider 的差异） |
 | 原生图像 | `images.go`、`image*.go`、`openai_images*.go`、`google_images*.go` |
-| TypeSafe 分类 | `classifier*.go`、`typesafe*.go` |
+| 分类协议 | `classifier*.go`，独立的 `typesafe*.go` 与 `openai_decisions*.go` |
 | 共享 HTTP/SDK 胶水 | `sdk_middleware.go`、`http_failures.go` |
 
 其他目录：
