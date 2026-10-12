@@ -14,11 +14,8 @@ import (
 )
 
 type designLoad struct {
-	Load     struct{ Calls, Tenants, HistoryBytes, ChatOutputBytes, References, InputImageBytes, MaskBytes, OutputImages, OutputImageBytes, StateBytes, Questions, InstructionBytes int }
-	Headroom map[string]struct {
-		Design, Limit int64
-		Ratio         float64
-	}
+	Load                                                             struct{ Calls, Tenants, HistoryBytes, ChatOutputBytes, References, InputImageBytes, MaskBytes, OutputImages, OutputImageBytes, StateBytes, Questions, InstructionBytes int }
+	Headroom                                                         map[string]loadLimit
 	Heap                                                             struct{ BaselineLive, PeakLive uint64 }
 	HeapBudget, HeapGrowth, TotalAllocDuringCalls                    uint64
 	PeakPermits, ClientUnaryBytesAtEOF, ProviderCapturedRequestBytes int64
@@ -36,7 +33,7 @@ func DesignLoadEvidence(b Bundle) []EvidenceCheck {
 		e := EvidenceCheck{Name: "mixed-pressure-" + name, Bundle: b.Dir, Status: NotRun}
 		dir := b.caseDirs[id]
 		var r designLoad
-		var gauges map[string]int64
+		var gauges map[string]*int64
 		if dir == "" {
 			e.Detail = "required design-load case missing"
 			out = append(out, e)
@@ -59,12 +56,9 @@ func DesignLoadEvidence(b Bundle) []EvidenceCheck {
 		limits := map[string]int64{"MaxRequestBytes": 4 << 20, "MaxImageBytes": 1 << 20, "MaxFrameBytes (chat only)": 256 << 10, "MaxOutputBytes": 8 << 20, "Image.MaxInputImages": 4, "Image.MaxOutputImages": 4, "Image.MaxOutputImageBytes": 1 << 20, "Image.MaxTotalOutputImageBytes": 2 << 20, "Classifier.MaxQuestions": 16, "Classifier.MaxStateBytes": 256 << 10, "Classifier.MaxQuestionBytes": 8 << 10}
 		for key, limit := range limits {
 			h, ok := r.Headroom[key]
-			valid = valid && ok && h.Design > 0 && h.Limit == limit && h.Ratio > 0 && h.Ratio <= .75 && math.Abs(h.Ratio-float64(h.Design)/float64(h.Limit)) <= 1e-9
+			valid = valid && ok && h.Limit == limit && validLoadRatio(h)
 		}
-		for _, key := range []string{"calls", "permits", "waiters", "events", "bodies", "hostPermits"} {
-			n, ok := gauges[key]
-			valid = valid && ok && n == 0
-		}
+		valid = valid && loadResourcesReleased(gauges)
 		imageProblem := classifierImageLoadProblem(b, name, i)
 		valid = valid && loadCasePassed(b, id) && imageProblem == nil
 		if valid {

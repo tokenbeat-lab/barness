@@ -75,6 +75,12 @@ func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoa
 			return fmt.Errorf("classifier-image tenant authorization inconsistent")
 		}
 	}
+	seenRequests := map[string]bool{}
+	resultTenants := map[string]int{}
+	name := "local"
+	if r.Load.Tenants == 2 {
+		name = "cloud"
+	}
 	for i := range r.Load.Calls {
 		var result struct {
 			Answers map[string]struct {
@@ -88,8 +94,37 @@ func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoa
 			return fmt.Errorf("classifier-image unary results missing")
 		}
 		m := result.Metadata
+		expectedID := fmt.Sprintf("req-load-%s-%s-%d", name, b.Kind, i)
+		if m.RequestID != expectedID || seenRequests[m.RequestID] || m.BindingID != "luna" || m.CatalogVersion != r.Identity.CatalogVersion || m.TenantID == "" {
+			return fmt.Errorf("classifier-image result attribution inconsistent")
+		}
+		seenRequests[m.RequestID] = true
+		resultTenants[m.TenantID]++
 		if m.Operation != r.Identity.Operation || m.ProviderID != r.Identity.Provider || m.API != r.Identity.API || m.ModelID != r.Identity.Model || m.CatalogHash != r.Identity.CatalogHash || len(m.Attempts) != 1 || tenants[m.TenantID] != 4 {
 			return fmt.Errorf("classifier-image result identity/attempt inconsistent")
+		}
+		attempt := m.Attempts[0]
+		if attempt.AttemptID != m.RequestID+"#1" || attempt.HTTPStatus != 200 || attempt.ProviderRequestID != "up-design-load" || attempt.Code != "" || attempt.RetryDelay != 0 {
+			return fmt.Errorf("classifier-image attempt attribution inconsistent")
+		}
+		var observations []ai.Observation
+		if readLoadJSON(dir, "observations-"+m.RequestID+".json", &observations) != nil || len(observations) != 4 {
+			return fmt.Errorf("classifier-image Observer evidence missing")
+		}
+		finishes := 0
+		for _, o := range observations {
+			if o.Call.RequestID != m.RequestID || o.Call.TenantID != m.TenantID || o.Call.BindingID != m.BindingID || o.Call.Operation != m.Operation {
+				return fmt.Errorf("classifier-image Observer attribution inconsistent")
+			}
+			if o.Kind == ai.ObservationCallFinished {
+				finishes++
+				if o.StopReason != result.StopReason || (b.Kind == "cancel" && (o.Error == nil || o.Error.Code != ai.CodeCanceled || o.Error.Phase != ai.PhaseResponse)) || (b.Kind != "cancel" && o.Error != nil) {
+					return fmt.Errorf("classifier-image Observer terminal inconsistent")
+				}
+			}
+		}
+		if finishes != 1 {
+			return fmt.Errorf("classifier-image Observer terminal missing")
 		}
 		if b.Kind == "cancel" {
 			if len(result.Answers) != 0 || result.StopReason != ai.StopReasonAborted {
@@ -99,11 +134,17 @@ func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoa
 			if len(result.Answers) != r.Load.Questions || result.StopReason != ai.StopReasonStop {
 				return fmt.Errorf("classifier-image published results incomplete")
 			}
-			for _, answer := range result.Answers {
-				if answer.Type != "bool" || answer.Probability != .8 {
+			for q := range r.Load.Questions {
+				answer, ok := result.Answers[fmt.Sprintf("q%d", q)]
+				if !ok || answer.Type != "bool" || answer.Probability != .8 {
 					return fmt.Errorf("classifier-image published answer changed")
 				}
 			}
+		}
+	}
+	for tenant := range tenants {
+		if resultTenants[tenant] != 4 {
+			return fmt.Errorf("classifier-image results missing for tenant")
 		}
 	}
 	return nil

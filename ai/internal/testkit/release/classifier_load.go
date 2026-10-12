@@ -47,7 +47,7 @@ type classifierLoadBatch struct {
 	HeapGrowth, HeapAtEOF, HeapWithResults, TotalAllocDuringCalls                                        uint64
 	Duration                                                                                             string
 	CallsPerSecond                                                                                       float64
-	Resources                                                                                            map[string]int64
+	Resources                                                                                            map[string]*int64
 }
 
 // This is issue 08's standalone capacity import, not the final ten-route gate.
@@ -139,8 +139,13 @@ func classifierImageLoadProblem(b Bundle, name string, index int) error {
 		} else if *batch.Successful != l.Calls || *batch.Canceled != 0 {
 			return fmt.Errorf("classifier-image complete/recovery results missing")
 		}
+		// Captured request copies and the Client's complete unary buffers are
+		// simultaneously reachable at EOF and were allocated after baseline.
+		// A reported upper bound cannot be smaller than those known bytes.
+		copyFloor := uint64(int64(l.Calls) * r.RequestJSONBytes)
+		allocationFloor := copyFloor + uint64(batch.ClientUnaryBytesAtEOF)
 		h := batch.Heap
-		if h.BaselineLive == 0 || h.PeakLive < h.BaselineLive || batch.HeapGrowth != h.PeakLive-h.BaselineLive || batch.HeapGrowth > r.HeapBudget || batch.HeapAtEOF == 0 || batch.HeapWithResults == 0 || h.PeakLive < batch.HeapAtEOF || h.PeakLive < batch.HeapWithResults || batch.TotalAllocDuringCalls == 0 || batch.TotalAllocDuringCalls < batch.HeapGrowth || batch.TotalAllocDuringCalls > r.HeapBudget {
+		if h.BaselineLive == 0 || h.PeakLive < h.BaselineLive || batch.HeapGrowth != h.PeakLive-h.BaselineLive || batch.HeapGrowth > r.HeapBudget || batch.HeapAtEOF == 0 || batch.HeapWithResults == 0 || h.PeakLive < batch.HeapAtEOF || h.PeakLive < batch.HeapWithResults || batch.HeapAtEOF < allocationFloor || batch.HeapWithResults < copyFloor || batch.TotalAllocDuringCalls < allocationFloor || batch.TotalAllocDuringCalls < batch.HeapGrowth || batch.TotalAllocDuringCalls > r.HeapBudget {
 			return fmt.Errorf("classifier-image sampled memory or allocation upper bound invalid")
 		}
 		d, err := time.ParseDuration(batch.Duration)
@@ -152,7 +157,7 @@ func classifierImageLoadProblem(b Bundle, name string, index int) error {
 			return err
 		}
 	}
-	var resources map[string]int64
+	var resources map[string]*int64
 	if readLoadJSON(dir, "resources.json", &resources) != nil || !loadResourcesReleased(resources) {
 		return fmt.Errorf("classifier-image final resources missing or nonzero")
 	}
@@ -162,10 +167,10 @@ func classifierImageLoadProblem(b Bundle, name string, index int) error {
 func validLoadRatio(v loadLimit) bool {
 	return v.Design > 0 && v.Limit > 0 && v.Ratio > 0 && v.Ratio <= .75 && !math.IsNaN(v.Ratio) && math.Abs(v.Ratio-float64(v.Design)/float64(v.Limit)) <= 1e-9
 }
-func loadResourcesReleased(resources map[string]int64) bool {
+func loadResourcesReleased(resources map[string]*int64) bool {
 	for _, key := range []string{"calls", "permits", "waiters", "events", "bodies", "hostPermits"} {
 		n, ok := resources[key]
-		if !ok || n != 0 {
+		if !ok || n == nil || *n != 0 {
 			return false
 		}
 	}

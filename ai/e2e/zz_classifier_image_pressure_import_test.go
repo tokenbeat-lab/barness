@@ -16,7 +16,7 @@ import (
 // including a fully missing/new report, wrong route/load/limits and leaks.
 // The complete public pipeline is required to replay this filesystem seam.
 func TestClassifierImagesPressureImport(t *testing.T) {
-	modes := []string{"intact", "old-report", "case-fail", "missing-report", "missing-identity", "wrong-operation", "wrong-provider", "wrong-api", "wrong-model", "wrong-catalog", "small-load", "wrong-count", "wrong-image-bytes", "wrong-total-bytes", "wrong-base64", "wrong-data-url", "wrong-json-bytes", "changed-policy", "changed-limit", "wrong-ratio", "missing-headroom", "expanded-budget", "missing-batch", "concurrency", "missing-EOF", "missing-result-heap", "missing-alloc", "excessive-alloc", "missing-copies", "wrong-copies", "missing-throughput", "wrong-throughput", "cancel-not-proven", "recovery-not-proven", "resource-leak", "missing-resources", "tampered-capture"}
+	modes := []string{"intact", "old-report", "case-fail", "missing-report", "missing-identity", "wrong-operation", "wrong-provider", "wrong-api", "wrong-model", "wrong-catalog", "small-load", "wrong-count", "wrong-image-bytes", "wrong-total-bytes", "wrong-base64", "wrong-data-url", "wrong-json-bytes", "changed-policy", "changed-limit", "wrong-ratio", "missing-headroom", "expanded-budget", "missing-batch", "concurrency", "missing-EOF", "missing-result-heap", "missing-alloc", "excessive-alloc", "missing-copies", "wrong-copies", "missing-throughput", "wrong-throughput", "cancel-not-proven", "recovery-not-proven", "resource-leak", "missing-resources", "tampered-capture", "null-batch-resources", "null-final-resources", "null-old-resources", "tiny-memory", "tiny-allocation", "duplicated-results", "empty-attempt", "wrong-answer-name"}
 	for _, field := range []string{"schema", "identity", "load", "policy", "headroom", "heapBudget", "batches", "imageBase64Bytes", "imageDataURLBytes", "requestJSONBytes", "providerSharedResponseScriptBytes",
 		"identity.operation", "identity.provider", "identity.api", "identity.model", "identity.catalogVersion", "identity.catalogHash",
 		"load.calls", "load.tenants", "load.callsPerTenant", "load.stateBytes", "load.questions", "load.instructionBytes", "load.imageCount", "load.imageBytes", "load.totalImageBytes",
@@ -146,6 +146,16 @@ func TestClassifierImagesPressureImport(t *testing.T) {
 					report["batches"].([]any)[2].(map[string]any)["successful"] = 0
 				case "resource-leak":
 					batch["resources"].(map[string]any)["bodies"] = 1
+				case "null-batch-resources":
+					batch["resources"] = map[string]any{"calls": nil, "permits": nil, "waiters": nil, "events": nil, "bodies": nil, "hostPermits": nil}
+				case "tiny-memory":
+					batch["heap"] = map[string]any{"baselineLive": 1, "peakLive": 1}
+					batch["heapGrowth"] = 0
+					batch["heapAtEOF"] = 1
+					batch["heapWithResults"] = 1
+					batch["totalAllocDuringCalls"] = 1
+				case "tiny-allocation":
+					batch["totalAllocDuringCalls"] = 1
 				case "missing-resources":
 					delete(batch, "resources")
 				}
@@ -170,6 +180,54 @@ func TestClassifierImagesPressureImport(t *testing.T) {
 					raw = []byte(strings.Replace(string(raw), "data:image/png;base64,", "data:image/jpeg;base64,", 1))
 					if err := os.WriteFile(capture, raw, 0600); err != nil {
 						t.Fatal(err)
+					}
+				}
+				if mode == "null-final-resources" || mode == "null-old-resources" {
+					id := newID
+					if mode == "null-old-resources" {
+						id = oldID
+					}
+					if err := os.WriteFile(filepath.Join(dir, id, "resources.json"), []byte(`{"calls":null,"permits":null,"waiters":null,"events":null,"bodies":null,"hostPermits":null}`), 0600); err != nil {
+						t.Fatal(err)
+					}
+				}
+				if mode == "duplicated-results" || mode == "empty-attempt" || mode == "wrong-answer-name" {
+					for _, kind := range []string{"design", "cancel", "recovery"} {
+						first, err := os.ReadFile(filepath.Join(dir, newID, kind+"-result-0.json"))
+						if err != nil {
+							t.Fatal(err)
+						}
+						for i := range int(load["calls"].(float64)) {
+							path := filepath.Join(dir, newID, fmt.Sprintf("%s-result-%d.json", kind, i))
+							data, err := os.ReadFile(path)
+							if err != nil {
+								t.Fatal(err)
+							}
+							var result map[string]any
+							if err := json.Unmarshal(data, &result); err != nil {
+								t.Fatal(err)
+							}
+							switch mode {
+							case "duplicated-results":
+								data = first
+							case "empty-attempt":
+								result["metadata"].(map[string]any)["attempts"] = []any{map[string]any{}}
+								data, err = json.Marshal(result)
+							case "wrong-answer-name":
+								if kind != "cancel" {
+									answers := result["answers"].(map[string]any)
+									answers["unrelated"] = answers["q0"]
+									delete(answers, "q0")
+									data, err = json.Marshal(result)
+								}
+							}
+							if err != nil {
+								t.Fatal(err)
+							}
+							if err := os.WriteFile(path, data, 0600); err != nil {
+								t.Fatal(err)
+							}
+						}
 					}
 				}
 				// Rehash the mutated bundle: semantic validation must reject a
