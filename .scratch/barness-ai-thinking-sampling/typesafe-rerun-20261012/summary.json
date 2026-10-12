@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "scope": "Rerun all TypeSafe failures caused by prior HTTP 451: original three-scenario smoke plus independent 24-sample Chinese task.",
+  "sourceCommit": "c9641d1590e4fa606b95ac6d9a6fdd761ba1f2a7",
+  "proxy": "http://127.0.0.1:7890",
+  "smoke": {
+    "outcome": "PASS",
+    "scenarios": 3,
+    "durationSeconds": 2.9220659732818604,
+    "httpStatuses": {
+      "200": 2,
+      "400": 1
+    },
+    "contextProbe": "Expected concrete 400 detail.error_type=max_tokens_exceeded; documented 422 shape remains unconfirmed.",
+    "budget": {
+      "maxCalls": 6,
+      "maxQuestions": 10,
+      "questionsUsed": 5,
+      "httpAttempts": 3,
+      "maxStateBytesPerCall": 131072,
+      "stateBytesSubmitted": 80110,
+      "maxRetriesPerScenario": 1,
+      "maxOutputTokensPerCall": 0,
+      "callsUsed": 3,
+      "outputTokensUsed": 92,
+      "inputTokensUsed": 714,
+      "environmentRetries": 0
+    },
+    "audit": "PASS"
+  },
+  "evaluation": {
+    "status": "COMPLETE",
+    "kind": "live",
+    "audit": "PASS",
+    "samples": 24,
+    "scored": 24,
+    "correct": 24,
+    "accuracy": 1,
+    "seconds": 6.447213,
+    "allHTTPStatuses": 200,
+    "budget": {
+      "calls": 24,
+      "questions": 24,
+      "attempts": 24,
+      "retries": 0,
+      "inputTokens": 12843,
+      "outputTokens": 1080,
+      "knownCostUSD": 0.0005394060000000001,
+      "unreported": 0,
+      "partial": 0
+    },
+    "datasetScope": "简体中文在线商店支持请求：仅限四类明确请求目标；不包含闲聊、其他语言或无法判定的请求。",
+    "metricsScope": "Only the fixed synthetic 24-sample dataset; no production accuracy claim."
+  },
+  "requestsAndEvaluationInputsUnchanged": true,
+  "productionSourceHashesUnchanged": 464,
+  "supportMatrix": {
+    "changedRows": [
+      "typesafe-classifier"
+    ],
+    "row": {
+      "combo": "typesafe-classifier",
+      "operation": "classifier",
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "model": "jev-1.13.0",
+      "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+      "accountAlias": "local-typesafe@region-permissions-unconfirmed",
+      "lastRunAt": "2026-10-12T04:09:51.178919Z",
+      "allPassedAt": "2026-10-12T04:09:51.178919Z",
+      "capabilities": [
+        {
+          "id": "mixed-questions",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 0.01 (Client validates bounded hundredth rounding)",
+          "lastRunAt": "2026-10-12T04:09:51.178919Z",
+          "lastPassedAt": "2026-10-12T04:09:51.178919Z"
+        },
+        {
+          "id": "single-choice",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0",
+          "lastRunAt": "2026-10-12T04:09:51.178919Z",
+          "lastPassedAt": "2026-10-12T04:09:51.178919Z"
+        },
+        {
+          "id": "context-422",
+          "model": "jev-1.13.0",
+          "outcome": "PASS",
+          "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported",
+          "lastRunAt": "2026-10-12T04:09:51.178919Z",
+          "lastPassedAt": "2026-10-12T04:09:51.178919Z"
+        }
+      ]
+    }
+  },
+  "archives": [
+    {
+      "role": "proxy-smoke",
+      "archive": "proxy-smoke.tar.gz",
+      "sha256": "fbecf3d70ab6486a191501ce87f3bf7ef5370e27002e82e55c0bf529376ef62f",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/typesafe-rerun-20261012T040650Z/proxy-smoke/20261012T040949.262204000Z",
+      "manifestSHA256": "76e6f4446fd476fdc9d1161286708e7a02fcdd9f26be08c46986fb91601bb81f",
+      "cases": 3,
+      "statuses": {
+        "PASS": 3
+      }
+    },
+    {
+      "role": "chinese-evaluation",
+      "archive": "chinese-evaluation.tar.gz",
+      "sha256": "6682a581ef5215f34fa37e29130cf51caa54f0e744fe61e11d252364e1df9a93",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/typesafe-rerun-20261012T040650Z/chinese-evaluation/20261012T041001.647149000Z",
+      "manifestSHA256": "b8ae98316d9d74b672aa02ca66466292aa062dc78a81cb4ff4bb345715beb09c",
+      "cases": 0,
+      "statuses": {},
+      "evaluationStatus": "COMPLETE",
+      "samples": 24
+    }
+  ],
+  "checks": {
+    "supportmatrixPackage": {
+      "argv": [
+        "go",
+        "test",
+        "./ai/internal/testkit/supportmatrix",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "packageSeconds": 0.781
+    },
+    "evaluationIntegrityCLI": {
+      "exitCode": 0,
+      "outcome": "COMPLETE",
+      "vendorCalls": 0
+    }
+  },
+  "formalRelease": "NOT_REEXECUTED; original 2026-10-11 FAIL report remains unchanged. Only TypeSafe smoke and independent Chinese evaluation were rerun.",
+  "replayBuildSmoke": [
+    "go",
+    "test",
+    "-c",
+    "-tags",
+    "live",
+    "-overlay",
+    ".scratch/barness-ai-thinking-sampling/typesafe-rerun-20261012/overlay.json",
+    "-o",
+    "<new-smoke-binary>",
+    "./ai/live"
+  ],
+  "replayBuildEvaluation": [
+    "go",
+    "build",
+    "-overlay",
+    ".scratch/barness-ai-thinking-sampling/typesafe-rerun-20261012/overlay.json",
+    "-o",
+    "<new-evaluation-binary>",
+    "./ai/examples/chineseeval/cmd/chineseeval"
+  ],
+  "conclusion": "The exact original smoke requests now receive successful classifications or the expected context guard via the selected proxy. None returned 451. Independent evaluation uses byte-identical dataset/config and all 24 samples are answered correctly.",
+  "archivalRunnerSource": "run-evaluation-proxy.py.txt"
+}

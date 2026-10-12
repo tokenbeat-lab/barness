@@ -1,0 +1,44 @@
+{
+  "scope": "Historical unchanged requests vs new explicit-proxy rerun; no new direct paid requests.",
+  "proxy": "http://127.0.0.1:7890",
+  "cases": [
+    {
+      "caseId": "LIVE-P07-context-422",
+      "sameMethodURLHeadersBody": true,
+      "requestBodySHA256": "9de23e5887f23e84f1506b4e2fc75c47710fa91abdc739b01b4a3cdb41dece82",
+      "previousDirectStatus": 451,
+      "proxyStatus": 400,
+      "newOutcome": "PASS"
+    },
+    {
+      "caseId": "LIVE-P07-mixed-questions",
+      "sameMethodURLHeadersBody": true,
+      "requestBodySHA256": "6f80d92b2c8e52ef849ff9e8105e1aa5f17875abadbc0bd02167c169b556773d",
+      "previousDirectStatus": 451,
+      "proxyStatus": 200,
+      "newOutcome": "PASS"
+    },
+    {
+      "caseId": "LIVE-P07-single-choice",
+      "sameMethodURLHeadersBody": true,
+      "requestBodySHA256": "fc65527a3cd082acf4474bd6ad37504af8773e57f59b532f3e0d5f77b5bcf4cf",
+      "previousDirectStatus": 451,
+      "proxyStatus": 200,
+      "newOutcome": "PASS"
+    }
+  ],
+  "independentChineseEvaluation": {
+    "sameDatasetAndConfigBytes": true,
+    "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+    "configHash": "sha256:6879cee623e972efd5b9a28a0c419b1c3d71272baf0064009c642f24b4e53281",
+    "oldStatus": "FAIL",
+    "oldFailed": 24,
+    "newStatus": "COMPLETE",
+    "newScored": 24,
+    "newCorrect": 24,
+    "newAccuracy": 1,
+    "newHTTPStatuses": {
+      "200": 24
+    }
+  }
+}

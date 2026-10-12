@@ -1,0 +1,29 @@
+{
+  "scope": "TypeSafe explicit proxy rerun evidence",
+  "archives": [
+    {
+      "role": "proxy-smoke",
+      "archive": "proxy-smoke.tar.gz",
+      "sha256": "fbecf3d70ab6486a191501ce87f3bf7ef5370e27002e82e55c0bf529376ef62f",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/typesafe-rerun-20261012T040650Z/proxy-smoke/20261012T040949.262204000Z",
+      "manifestSHA256": "76e6f4446fd476fdc9d1161286708e7a02fcdd9f26be08c46986fb91601bb81f",
+      "cases": 3,
+      "statuses": {
+        "PASS": 3
+      }
+    },
+    {
+      "role": "chinese-evaluation",
+      "archive": "chinese-evaluation.tar.gz",
+      "sha256": "6682a581ef5215f34fa37e29130cf51caa54f0e744fe61e11d252364e1df9a93",
+      "originalBundle": ".evidence/barness-ai-thinking-sampling/typesafe-rerun-20261012T040650Z/chinese-evaluation/20261012T041001.647149000Z",
+      "manifestSHA256": "b8ae98316d9d74b672aa02ca66466292aa062dc78a81cb4ff4bb345715beb09c",
+      "cases": 0,
+      "statuses": {},
+      "evaluationStatus": "COMPLETE",
+      "samples": 24
+    }
+  ],
+  "originalRunsUnchanged": true,
+  "credentials": "redacted; never archived"
+}

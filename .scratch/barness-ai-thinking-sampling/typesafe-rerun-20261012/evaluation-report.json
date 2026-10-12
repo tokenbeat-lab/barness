@@ -1,0 +1,1655 @@
+{
+  "schema": 1,
+  "kind": "live",
+  "status": "COMPLETE",
+  "audit": "PASS",
+  "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+  "configHash": "sha256:6879cee623e972efd5b9a28a0c419b1c3d71272baf0064009c642f24b4e53281",
+  "dataset": {
+    "version": "zh-support-v1",
+    "source": "synthetic",
+    "scope": "简体中文在线商店支持请求：仅限四类明确请求目标；不包含闲聊、其他语言或无法判定的请求。",
+    "annotationPolicy": "由维护者编写的合成任务真值。依据用户最后明确请求的处理目标，而非被否定或作为背景的主题。支付/发票归 billing；登录/账号访问归 account；其余软件故障归 technical；物流配送归 delivery。每条只有一个明确目标；多目标及不确定输入不在本任务范围。不是生产用户总体的人工标注真值。",
+    "count": 24,
+    "distribution": {
+      "account": 6,
+      "billing": 6,
+      "delivery": 6,
+      "technical": 6
+    },
+    "labels": {
+      "account": "登录、密码、账号绑定或账号访问问题。",
+      "billing": "付款、重复扣款、退款或发票问题。",
+      "delivery": "包裹、发货、物流进度、签收或配送问题。",
+      "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+    },
+    "samples": [
+      {
+        "id": "billing-01",
+        "text": "订单扣了两次钱，请退回多收的一笔。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-02",
+        "text": "钱已付清，但电子发票一直没有开出来。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-03",
+        "text": "退款申请通过了，款项还没到账，麻烦查询。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-04",
+        "text": "不是物流的问题，我只想问为什么付款失败。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-05",
+        "text": "商品已经收到，我要把发票抬头改成公司名称。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-06",
+        "text": "登录和页面都正常，结算时却提示银行卡扣款失败。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "technical-01",
+        "text": "点击保存按钮后程序就闪退，内容也丢了。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-02",
+        "text": "报表页面一直转圈，刷新后仍然打不开。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-03",
+        "text": "升级以后搜索功能失效，输入关键词没有反应。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-04",
+        "text": "能正常登录，但下载文件时总提示服务器异常。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-05",
+        "text": "不涉及付款，设置页面点哪个按钮都没反应。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-06",
+        "text": "物流状态看得到，只是应用的通知开关无法保存。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "delivery-01",
+        "text": "包裹三天没有更新物流，能查一下到哪里了吗？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-02",
+        "text": "页面显示已签收，可我根本没收到快递。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-03",
+        "text": "订单付款成功了，请问什么时候发货？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-04",
+        "text": "快递员去了旧地址，能帮我更改配送地址吗？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-05",
+        "text": "不用退款，我只是想催一下迟到的包裹。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-06",
+        "text": "发票已经收到了，商品却还没有寄出，请查发货进度。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "account-01",
+        "text": "忘记登录密码了，请帮我找回账号。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-02",
+        "text": "换了手机号，原账号收不到登录验证码。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-03",
+        "text": "账号被锁住，无法进入个人中心，想申请解锁。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-04",
+        "text": "旧邮箱停用了，怎样更换账号绑定邮箱？",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-05",
+        "text": "不是程序闪退，是密码错误导致我无法登录。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-06",
+        "text": "付款记录不用查询，我现在只需要恢复被停用账号的访问权限。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      }
+    ]
+  },
+  "config": {
+    "version": "zh-eval-jev-v2",
+    "datasetVersion": "zh-support-v1",
+    "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+    "model": "jev-1.13.0",
+    "catalogVersion": "2026-10-11.1",
+    "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+    "questionKey": "intent",
+    "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+    "maxCalls": 24,
+    "maxQuestions": 24,
+    "maxAttempts": 24,
+    "maxRetries": 0,
+    "timeoutSeconds": 180,
+    "callTimeoutSeconds": 15
+  },
+  "accountAlias": "local-typesafe@region-unreported",
+  "startedAt": "2026-10-12T04:10:01.648569Z",
+  "finishedAt": "2026-10-12T04:10:08.095782Z",
+  "samples": [
+    {
+      "id": "billing-01",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 1,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-115795b58c4e8827d11990f7132500b1",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-115795b58c4e8827d11990f7132500b1#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4da38b71b9a43f44baf8987d56",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 532,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 577,
+              "cost": {
+                "input": 0.000022344,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022344
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "billing-02",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 1,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-2e56a9891349dbec5609c3a6e8f32ff2",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-2e56a9891349dbec5609c3a6e8f32ff2#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4da475700e873a2729275390f2",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 533,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 578,
+              "cost": {
+                "input": 0.000022386000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022386000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "billing-03",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 1,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-8ea009b9784a0782b103dc26d9f282d9",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-8ea009b9784a0782b103dc26d9f282d9#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4da57574de8b0355da30bf55c7",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 535,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 580,
+              "cost": {
+                "input": 0.000022470000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022470000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "billing-04",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 1,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-5a962e897b8c718b58cd7f38f565a7b4",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-5a962e897b8c718b58cd7f38f565a7b4#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4da6597482bde539c3422f33fc",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 535,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 580,
+              "cost": {
+                "input": 0.000022470000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022470000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "billing-05",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 1,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-2d4d35d8121b34698ac1d7417f8e69bb",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-2d4d35d8121b34698ac1d7417f8e69bb#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4da7537dc2864539ade964a06e",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 537,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 582,
+              "cost": {
+                "input": 0.000022554000000000005,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022554000000000005
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "billing-06",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 1,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-028d1cbe397db77f1190ccd5589dbde6",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-028d1cbe397db77f1190ccd5589dbde6#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4da83c77f296648f7c4f160b76",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 538,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 583,
+              "cost": {
+                "input": 0.000022596000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022596000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "technical-01",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 1
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-23a4a0852f2c72d2cd094a06f7ddbc17",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-23a4a0852f2c72d2cd094a06f7ddbc17#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4da9247f04b4870124e580006e",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 535,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 580,
+              "cost": {
+                "input": 0.000022470000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022470000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "technical-02",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 1
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-79ed77642caa9e74247d5f9c4088483e",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-79ed77642caa9e74247d5f9c4088483e#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4daa0f787cab430d0120e3ef3b",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 533,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 578,
+              "cost": {
+                "input": 0.000022386000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022386000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "technical-03",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 1
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-821e454ffb5a9beca3925f5e97a2bf4d",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-821e454ffb5a9beca3925f5e97a2bf4d#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4daafd76289abc61adec916937",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 536,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 581,
+              "cost": {
+                "input": 0.000022512000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022512000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "technical-04",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 1
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-6fbaee7f231398394c3280fd3937e654",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-6fbaee7f231398394c3280fd3937e654#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4dac157bd5b43ad88243e250de",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 536,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 581,
+              "cost": {
+                "input": 0.000022512000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022512000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "technical-05",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 1
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-9d15268f57981704de517dc14ba48a7d",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-9d15268f57981704de517dc14ba48a7d#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4dacfe7cc7a86b06b3bffa3b99",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 535,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 580,
+              "cost": {
+                "input": 0.000022470000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022470000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "technical-06",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0.02,
+          "technical": 0.98
+        },
+        "confidence": 0.97
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-a9e1b6f2ff588b67f563f193fd1f654a",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-a9e1b6f2ff588b67f563f193fd1f654a#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4dae017c8baca88324b24fd302",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 537,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 582,
+              "cost": {
+                "input": 0.000022554000000000005,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022554000000000005
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "delivery-01",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-04f02082adcbfc4db31c1e19943d8239",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-04f02082adcbfc4db31c1e19943d8239#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4daeed709a9d972f4c9721c1e1",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 537,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 582,
+              "cost": {
+                "input": 0.000022554000000000005,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022554000000000005
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "delivery-02",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-be3e0ae25dd397812ec88fa62d6f7216",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-be3e0ae25dd397812ec88fa62d6f7216#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4dafe97126b78fa268b9c52dd1",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 533,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 578,
+              "cost": {
+                "input": 0.000022386000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022386000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "delivery-03",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-672e9f9029046585e00d52bd052c3ac7",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-672e9f9029046585e00d52bd052c3ac7#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db0d371e799b5fd4c1f04437e",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 532,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 577,
+              "cost": {
+                "input": 0.000022344,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022344
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "delivery-04",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-4149e78accaf1929bdeb735808354b2c",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-4149e78accaf1929bdeb735808354b2c#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db1d07b9a9da8665aea37c648",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 535,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 580,
+              "cost": {
+                "input": 0.000022470000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022470000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "delivery-05",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-1df8635878b650e168d3ea333a3e658e",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-1df8635878b650e168d3ea333a3e658e#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db2c37c019ff653a01c999a01",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 534,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 579,
+              "cost": {
+                "input": 0.000022428000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022428000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "delivery-06",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-47e9104b49ae8cb3b4d6d8132d852aa7",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-47e9104b49ae8cb3b4d6d8132d852aa7#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db3a47cbb995581ac6feb72e8",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 539,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 584,
+              "cost": {
+                "input": 0.000022638000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022638000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "account-01",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-d5b6278b7e45a0a90a8e663ee976a5cb",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-d5b6278b7e45a0a90a8e663ee976a5cb#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db4957e00aab2ab59de487b9b",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 531,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 576,
+              "cost": {
+                "input": 0.000022302000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022302000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "account-02",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-27ba8747e770b446d039dd8ffac04f95",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-27ba8747e770b446d039dd8ffac04f95#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db5787201a6abc4e86587c48e",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 533,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 578,
+              "cost": {
+                "input": 0.000022386000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022386000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "account-03",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-bc5910bd68a57080df2bce94e2501a4d",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-bc5910bd68a57080df2bce94e2501a4d#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db67b7ef29d559ea6801b5b64",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 536,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 581,
+              "cost": {
+                "input": 0.000022512000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022512000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "account-04",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-29f71f9704c0f2f501fbc80dff598379",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-29f71f9704c0f2f501fbc80dff598379#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db76c7e428e4f6a31eed3c96f",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 533,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 578,
+              "cost": {
+                "input": 0.000022386000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022386000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "account-05",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-e7a42a0dd0723894496398bbaf02e6bc",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-e7a42a0dd0723894496398bbaf02e6bc#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db88a7964b73506aa4ab827ab",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 535,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 580,
+              "cost": {
+                "input": 0.000022470000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022470000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "account-06",
+      "status": "answered",
+      "responseModel": "jev-1.13.0",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-799c2e471976decfcab9ce13d95ba92c",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "typesafe",
+        "api": "typesafe-system-one",
+        "modelId": "jev-1.13.0",
+        "accountScopeId": "evaluation-typesafe",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-11.1",
+        "catalogHash": "sha256:0637491b230d7a75096f109a6d4d26482df883ae890faa1c338e012b49588f3a",
+        "attempts": [
+          {
+            "attemptId": "req-799c2e471976decfcab9ce13d95ba92c#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_01a12e4db99978e79be618cb6bc21362",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 543,
+              "output": 45,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 588,
+              "cost": {
+                "input": 0.000022806,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000022806
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "budget": {
+    "calls": 24,
+    "questions": 24,
+    "attempts": 24,
+    "retries": 0,
+    "inputTokens": 12843,
+    "outputTokens": 1080,
+    "knownCostUSD": 0.0005394060000000001,
+    "unreported": 0,
+    "partial": 0
+  },
+  "metrics": {
+    "total": 24,
+    "scored": 24,
+    "correct": 24,
+    "failed": 0,
+    "unexecuted": 0,
+    "accuracy": 1,
+    "scoredAccuracy": 1,
+    "confusion": {
+      "account": {
+        "account": 6
+      },
+      "billing": {
+        "billing": 6
+      },
+      "delivery": {
+        "delivery": 6
+      },
+      "technical": {
+        "technical": 6
+      }
+    },
+    "statusCounts": {
+      "answered": 24
+    },
+    "confidenceBins": [
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 24,
+        "correct": 24,
+        "mean": 0.9987499999999999,
+        "accuracy": 1
+      }
+    ],
+    "topProbabilityBins": [
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 24,
+        "correct": 24,
+        "mean": 0.9991666666666666,
+        "accuracy": 1
+      }
+    ],
+    "confidenceECE": 0.0012500000000000844,
+    "topProbabilityECE": 0.0008333333333333526,
+    "brier": 0.00003333333333333336,
+    "errorIDs": []
+  }
+}

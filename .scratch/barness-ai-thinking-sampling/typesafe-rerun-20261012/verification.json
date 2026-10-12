@@ -1,0 +1,29 @@
+{
+  "freshArchiveVerification": [
+    {
+      "role": "proxy-smoke",
+      "archiveSHA256": "fbecf3d70ab6486a191501ce87f3bf7ef5370e27002e82e55c0bf529376ef62f",
+      "artifactHashes": "PASS",
+      "freshAudit": "PASS",
+      "cases": 3
+    },
+    {
+      "role": "chinese-evaluation",
+      "archiveSHA256": "6682a581ef5215f34fa37e29130cf51caa54f0e744fe61e11d252364e1df9a93",
+      "artifactHashes": "PASS",
+      "freshAudit": "PASS",
+      "cases": 0,
+      "samples": 24,
+      "evaluationIntegrityExit": 0,
+      "evaluationStatus": "COMPLETE"
+    }
+  ],
+  "productionSourceHashesUnchanged": 464,
+  "smokeRequestsIdenticalToHistorical451Cases": true,
+  "datasetAndConfigBytesIdenticalToHistorical451Evaluation": true,
+  "matrixChangedRows": [
+    "typesafe-classifier"
+  ],
+  "vendorCallsDuringVerification": 0,
+  "originalVerdictsPreserved": true
+}
