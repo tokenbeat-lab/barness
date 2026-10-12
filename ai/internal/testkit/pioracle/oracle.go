@@ -32,6 +32,9 @@ const EnableEnv = "BARNESS_AI_PIDIFF"
 // ADR-0004's 1.1.0 rebuild. It adds tamper detection without changing the oracle.
 const SourceSHA256 = "39a9951108d0e7faf60886302ce4bc953d8c51d5ebad22370301f23b29aa2504"
 
+// SDKLockSHA256 identifies the unchanged frozen npm dependency graph.
+const SDKLockSHA256 = "e0b4084c372bc764b73faa25f2a311a3649e5b7ffb341352f25c13a891b7de65"
+
 // Enabled reports whether the differential was requested for this run.
 func Enabled() bool { return os.Getenv(EnableEnv) == "1" }
 
@@ -87,6 +90,9 @@ func Open() (*Oracle, error) {
 	lock, err := os.ReadFile(filepath.Join(dir, "package-lock.json"))
 	if err != nil {
 		return nil, err
+	}
+	if SHA256(lock) != SDKLockSHA256 {
+		return nil, errors.New("pioracle: SDK lock hash mismatch")
 	}
 	return &Oracle{dir: dir, node: node, prov: prov, sdks: sdks, sdkLockHash: SHA256(lock)}, nil
 }

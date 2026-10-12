@@ -58,6 +58,9 @@ func differentialRecordProblems(id string, fields map[string]json.RawMessage) []
 		if r.PiSourceSHA256 != pioracle.SourceSHA256 {
 			problems = append(problems, "pi_source_sha256 mismatch")
 		}
+		if r.SDKLockSHA256 != pioracle.SDKLockSHA256 {
+			problems = append(problems, "sdk_lock_sha256 mismatch")
+		}
 		if len(r.ResultSHA256) != 2 || !hexHash.MatchString(r.ResultSHA256["pi"]) || !hexHash.MatchString(r.ResultSHA256["barness"]) {
 			problems = append(problems, "result_sha256 mismatch")
 		}

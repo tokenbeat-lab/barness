@@ -15,7 +15,9 @@
     "reporting": "partial",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "",
+    "piError": ""
   },
   {
     "id": "OD49-retry-504",
@@ -33,7 +35,9 @@
     "reporting": "partial",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload"],
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "",
+    "piError": "OpenAI Decisions error (504): the request timed out at the gateway. Very large inputs (above roughly 600K tokens) currently exceed its time limit."
   },
   {
     "id": "OD49-error-400",
@@ -51,7 +55,13 @@
     "reporting": "unreported",
     "barnessCallbacks": ["payload"],
     "piCallbacks": ["payload"],
-    "usage": {"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}}
+    "usage": {"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}},
+    "barnessError": "400 Bad Request: bad input",
+    "piError": "OpenAI Decisions error (400): {\"error\":{\"message\":\"bad input\"}}",
+    "errorCode": "invalid_request",
+    "errorPhase": "request",
+    "errorStatus": 400,
+    "errorRequestId": "req-error"
   },
   {
     "id": "OD49-malformed-json",
@@ -69,7 +79,13 @@
     "reporting": "unreported",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload"],
-    "usage": {"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}}
+    "usage": {"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}},
+    "barnessError": "invalid classifier response",
+    "piError": "Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+    "errorCode": "protocol",
+    "errorPhase": "response",
+    "errorStatus": 0,
+    "errorRequestId": ""
   },
   {
     "id": "OD49-hook-final",
@@ -88,6 +104,8 @@
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
     "payload": {"model":"gpt-6-luna","input":"{\"text\":\"track order\"}","questions":[{"type":"choice","name":"renamed","instructions":"Classify","choices":[{"value":"other"},{"value":"track","description":"Tracking"}]}]},
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "",
+    "piError": "OpenAI Decisions did not return an answer for intent"
   }
 ]

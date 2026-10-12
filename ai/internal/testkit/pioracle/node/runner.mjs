@@ -150,7 +150,7 @@ function packageInfo() {
 function verifiedPackageInfo() {
 	const provenance = JSON.parse(readFileSync(new URL("./provenance.json", import.meta.url), "utf8"));
 	const info = packageInfo();
-	if (info.version !== provenance.pi_version) fail("version mismatch");
+	if (info.version !== "1.1.0" || info.version !== provenance.pi_version) fail("version mismatch");
 	if (info.modelDataSha256 !== provenance.model_data_sha256) fail("model data hash mismatch");
 	if (info.sourceSha256 !== SOURCE_SHA256) fail("source hash mismatch");
 	return info;
@@ -180,7 +180,10 @@ async function costs(input) {
 	}
 	const models = {};
 	for (const id of input.models ?? []) {
-		const m = known.find((m) => m.id === id);
+		// The existing ID-only cost seam queries chat catalogs. Classifiers
+		// use the operation-specific Models seam, so same-name models cannot
+		// replace a chat price when a new operation joins the oracle.
+		const m = known.find((m) => m.type === "chat" && m.id === id);
 		models[id] = m ? m.cost : null;
 	}
 	return { results, models };

@@ -15,7 +15,9 @@
     "reporting": "partial",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "",
+    "piError": "OpenAI Decisions refused to answer approved"
   },
   {
     "id": "OD49-extra-answer",
@@ -33,7 +35,13 @@
     "reporting": "partial",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "invalid classifier response",
+    "piError": "",
+    "errorCode": "protocol",
+    "errorPhase": "response",
+    "errorStatus": 0,
+    "errorRequestId": ""
   },
   {
     "id": "OD49-duplicate-answer",
@@ -51,7 +59,13 @@
     "reporting": "partial",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "invalid classifier response",
+    "piError": "",
+    "errorCode": "protocol",
+    "errorPhase": "response",
+    "errorStatus": 0,
+    "errorRequestId": ""
   },
   {
     "id": "OD49-confidence-range",
@@ -69,7 +83,13 @@
     "reporting": "partial",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "invalid classifier response",
+    "piError": "",
+    "errorCode": "protocol",
+    "errorPhase": "response",
+    "errorStatus": 0,
+    "errorRequestId": ""
   },
   {
     "id": "OD49-distribution-sum",
@@ -87,7 +107,13 @@
     "reporting": "partial",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "invalid classifier response",
+    "piError": "",
+    "errorCode": "protocol",
+    "errorPhase": "response",
+    "errorStatus": 0,
+    "errorRequestId": ""
   },
   {
     "id": "OD49-missing-answer",
@@ -105,7 +131,13 @@
     "reporting": "partial",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
-    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}}
+    "usage": {"input":296,"output":20,"cacheRead":0,"cacheWrite":0,"totalTokens":316,"cost":{"input":2.96e-05,"output":0,"cacheRead":0,"cacheWrite":0,"total":2.96e-05}},
+    "barnessError": "invalid classifier response",
+    "piError": "OpenAI Decisions did not return an answer for intent",
+    "errorCode": "protocol",
+    "errorPhase": "response",
+    "errorStatus": 0,
+    "errorRequestId": ""
   },
   {
     "id": "OD49-usage-invalid",
@@ -123,6 +155,12 @@
     "reporting": "unreported",
     "barnessCallbacks": ["payload","response"],
     "piCallbacks": ["payload","response"],
-    "usage": {"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}}
+    "usage": {"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}},
+    "barnessError": "invalid classifier response",
+    "piError": "",
+    "errorCode": "protocol",
+    "errorPhase": "response",
+    "errorStatus": 0,
+    "errorRequestId": ""
   }
 ]

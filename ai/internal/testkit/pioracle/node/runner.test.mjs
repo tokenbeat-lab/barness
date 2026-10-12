@@ -12,6 +12,7 @@ import http from "node:http";
 const source = dirname(fileURLToPath(import.meta.url));
 for (const [field, value, message] of [
 	["version", "0.0.0", "version mismatch"],
+	["paired-version", "0.0.0", "version mismatch"],
 	["commit", "0".repeat(40), "commit mismatch"],
 	["data", "altered", "model data hash mismatch"],
 	["source", "altered", "source hash mismatch"],
@@ -24,11 +25,17 @@ for (const [field, value, message] of [
 			mkdirSync(dirname(installed), { recursive: true });
 			cpSync(join(source, "node_modules", "@earendil-works", "pi-ai"), installed, { recursive: true });
 			cpSync(join(source, "provenance.json"), join(dir, "provenance.json"));
-			if (field === "version") {
+			if (field === "version" || field === "paired-version") {
 				const path = join(installed, "package.json");
 				const p = JSON.parse(readFileSync(path, "utf8"));
 				p.version = value;
 				writeFileSync(path, JSON.stringify(p));
+				if (field === "paired-version") {
+					const provenancePath = join(dir, "provenance.json");
+					const provenance = JSON.parse(readFileSync(provenancePath, "utf8"));
+					provenance.pi_version = value;
+					writeFileSync(provenancePath, JSON.stringify(provenance));
+				}
 			} else if (field === "commit") {
 				const path = join(dir, "provenance.json");
 				const p = JSON.parse(readFileSync(path, "utf8"));
@@ -53,7 +60,7 @@ for (const [field, value, message] of [
 
 function run(input, env = {}) {
 	return new Promise((resolve, reject) => {
-		const child = spawn(process.execPath, [join(source, "runner.mjs")], { env });
+		const child = spawn(process.execPath, [join(source, "runner.mjs")], { env, timeout: 10000 });
 		let stdout = "", stderr = "";
 		child.stdout.on("data", (b) => { stdout += b; });
 		child.stderr.on("data", (b) => { stderr += b; });
@@ -82,6 +89,15 @@ test("Decisions selects the classifier catalog independently of chat Luna", asyn
 	assert.equal(c.cost.input, 0.1);
 	assert.equal(chat.type, "chat");
 	assert.equal(foreign, null);
+});
+
+test("existing chat cost queries cannot select same-named classifier prices", async () => {
+	const out = await run({ entry: "costs", cases: [], models: ["gpt-6-luna"] });
+	assert.equal(out.status, 0, out.stderr);
+	assert.deepEqual(JSON.parse(out.stdout).models["gpt-6-luna"], {
+		input: 0.1, output: 0.5, cacheRead: 0.01, cacheWrite: 0.125,
+		tiers: [{ inputTokensAbove: 272000, input: 0.2, output: 0.75, cacheRead: 0.02, cacheWrite: 0.25 }],
+	});
 });
 
 test("Decisions uses the controlled HTTP endpoint and named answers", async () => {

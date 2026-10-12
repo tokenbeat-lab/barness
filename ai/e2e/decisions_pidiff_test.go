@@ -3,6 +3,7 @@ package e2e
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"math"
 	"os"
 	"runtime"
@@ -32,6 +33,12 @@ type decisionsDiffCase struct {
 	PiAnswers        json.RawMessage      `json:"piAnswers"`
 	BarnessStop      string               `json:"barnessStop"`
 	PiStop           string               `json:"piStop"`
+	BarnessError     string               `json:"barnessError"`
+	PiError          string               `json:"piError"`
+	ErrorCode        ai.Code              `json:"errorCode"`
+	ErrorPhase       ai.Phase             `json:"errorPhase"`
+	ErrorStatus      int                  `json:"errorStatus"`
+	ErrorRequestID   string               `json:"errorRequestId"`
 	Reporting        ai.UsageReporting    `json:"reporting"`
 	Usage            ai.Usage             `json:"usage"`
 	BarnessCallbacks []string             `json:"barnessCallbacks"`
@@ -64,13 +71,7 @@ func TestDecisionsPiDifferential(t *testing.T) {
 }
 
 func decisionsDifferential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, sc decisionsDiffCase, entry string) {
-	u := newClassifierImagesWorld(t, func(c *ai.Config) {
-		m := &c.Catalog.ClassifierModels[len(c.Catalog.ClassifierModels)-1]
-		m.ID, m.Name, m.ContextWindow = "gpt-6-luna", "GPT-6 Luna", 922000
-		m.Capabilities.Kinds = []ai.ClassifierQuestionKind{ai.ClassifierQuestionChoice, ai.ClassifierQuestionScore, ai.ClassifierQuestionBool}
-		m.Capabilities.MinScoreLevels, m.Capabilities.MaxScoreLevels = 2, 10
-		m.Cost = ai.ModelCost{CostRates: ai.CostRates{Input: .1}, Tiers: []ai.CostTier{{InputTokensAbove: 272000, CostRates: ai.CostRates{Input: .2}}}}
-	})
+	u := newClassifierImagesWorld(t, configureDifferentialLuna)
 	u.updateBindingOf(tenantA, "classifier", func(b *ai.Binding) { b.AllowedModels = []string{"gpt-6-luna"}; b.Retry.MaxRetries = sc.Retries })
 	replies := make([]provider.Reply, len(sc.Replies))
 	for i, r := range sc.Replies {
@@ -98,6 +99,13 @@ func decisionsDifferential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, 
 		res, callErr = client.Classify(ctxFor(t), textScope(ev.ID()), target, sc.Input, nil)
 	}
 	u.records(ev, res, callErr)
+	ev.Record("barness-result", res)
+	ev.Record("barness-error", errString(callErr))
+	ev.Check("own bounded diagnostic", res.ErrorMessage == sc.BarnessError, "got %q", res.ErrorMessage)
+	if sc.BarnessStop == "error" {
+		var failure *ai.Error
+		ev.Check("own classified diagnostic", errors.As(callErr, &failure) && failure.Code == sc.ErrorCode && failure.Phase == sc.ErrorPhase && failure.HTTPStatus == sc.ErrorStatus && failure.ProviderRequestID == sc.ErrorRequestID, "got %v", callErr)
+	}
 	u.released(ev)
 	gotUsage, wantUsage := res.Usage, sc.Usage
 	gotCost, wantCost := gotUsage.Cost, wantUsage.Cost
@@ -128,9 +136,11 @@ func decisionsDifferential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, 
 	var result struct {
 		Answers json.RawMessage `json:"answers"`
 		Stop    string          `json:"stopReason"`
+		Error   string          `json:"errorMessage"`
 	}
 	mustUnmarshal(t, pi.Result, &result)
 	ev.Check("frozen named answers and terminal", result.Stop == sc.PiStop && jsonEqual(result.Answers, sc.PiAnswers), "got %s", pi.Result)
+	ev.Check("own frozen diagnostic", result.Error == sc.PiError, "got %q", result.Error)
 	ev.Check("each side's exact attempt count", bn == sc.BarnessRequests && pn == sc.PiRequests, "barness=%d pi=%d", bn, pn)
 	for _, side := range []struct {
 		name     string
@@ -164,6 +174,17 @@ func decisionsDifferential(t *testing.T, ev *evidence.Case, o *pioracle.Oracle, 
 	checkDecisionsLedger(ev, diffs)
 	ev.Record("pidiff", o.Record(ev.ID(), "openai-decisions", v, pioracle.Sides{BarnessVersions: map[string]string{"go": runtime.Version()}, NodeVersion: piRun.Node, ModelCatalogHash: catalogHash(t, u.client.Catalog()), PiRequest: mustMarshal(t, pi.Request), BarnessRequest: mustMarshal(t, b.Request), PiResult: pi.Result, BarnessResult: b.Result, Frames: mustMarshal(t, replies)}))
 	ev.Check("zero pending Decisions differences", v.Pass, "%+v", v.Findings)
+}
+
+// Both catalog and public differential use this same synthetic host snapshot;
+// it copies the frozen classifier's common fields without promoting it into
+// the built-in catalog before the route's own live evidence is available.
+func configureDifferentialLuna(c *ai.Config) {
+	m := &c.Catalog.ClassifierModels[len(c.Catalog.ClassifierModels)-1]
+	m.ID, m.Name, m.ContextWindow = "gpt-6-luna", "GPT-6 Luna", 922000
+	m.Capabilities.Kinds = []ai.ClassifierQuestionKind{ai.ClassifierQuestionChoice, ai.ClassifierQuestionScore, ai.ClassifierQuestionBool}
+	m.Capabilities.MinScoreLevels, m.Capabilities.MaxScoreLevels = 2, 10
+	m.Cost = ai.ModelCost{CostRates: ai.CostRates{Input: .1}, Tiers: []ai.CostTier{{InputTokensAbove: 272000, CostRates: ai.CostRates{Input: .2}}}}
 }
 
 func checkDecisionsLedger(ev *evidence.Case, diffs []pioracle.Diff) {

@@ -18,13 +18,7 @@ func TestDecisionsPiCatalog(t *testing.T) {
 	}
 	classifier, chat := jsonObject(t, models[0]), jsonObject(t, models[1])
 	ev.Check("same named types remain independent", classifier["type"] == "classifier" && chat["type"] == "chat" && classifier["api"] == "openai-decisions" && chat["api"] == "openai-responses", "got %s", mustMarshal(t, models))
-	u := newClassifierImagesWorld(t, func(c *ai.Config) {
-		m := &c.Catalog.ClassifierModels[len(c.Catalog.ClassifierModels)-1]
-		m.ID, m.Name, m.ContextWindow = "gpt-6-luna", "GPT-6 Luna", 922000
-		m.Capabilities.Kinds = []ai.ClassifierQuestionKind{ai.ClassifierQuestionChoice, ai.ClassifierQuestionScore, ai.ClassifierQuestionBool}
-		m.Capabilities.MinScoreLevels, m.Capabilities.MaxScoreLevels = 2, 10
-		m.Cost = ai.ModelCost{CostRates: ai.CostRates{Input: .1}, Tiers: []ai.CostTier{{InputTokensAbove: 272000, CostRates: ai.CostRates{Input: .2}}}}
-	})
+	u := newClassifierImagesWorld(t, configureDifferentialLuna)
 	cat := u.client.Catalog()
 	m, found := cat.LookupClassifier(ai.ProviderOpenAI, ai.APIOpenAIDecisions, "gpt-6-luna")
 	ev.Check("public operation lookup selects classifier", found, "not found")
@@ -35,7 +29,9 @@ func TestDecisionsPiCatalog(t *testing.T) {
 	b := pioracle.Observation{Result: mustMarshal(t, bmodel)}
 	pi := pioracle.Observation{Result: models[0]}
 	ev.Check("frozen endpoint remains official", classifier["baseUrl"] == "https://api.openai.com/v1", "got %v", classifier["baseUrl"])
-	ev.Check("host capability metadata has its own public evidence", m.Capabilities.MinChoices == 2 && m.Capabilities.MaxChoices == 255 && m.Capabilities.MaxInputImages == 128 && m.Capabilities.MaxScoreLevels == 10, "got %+v", m.Capabilities)
+	expectedCaps := []byte(`{"descriptionFormats":["string"],"imageMimeTypes":["image/png","image/jpeg","image/webp"],"kinds":["choice","score","bool"],"maxChoices":255,"maxInputImages":128,"maxScoreLevels":10,"minChoices":2,"minScoreLevels":2}`)
+	ev.Check("complete host capability metadata has own public evidence", jsonEqual(mustMarshal(t, m.Capabilities), expectedCaps), "got %+v", m.Capabilities)
+	ev.Check("complete input modality declaration", jsonEqual(mustMarshal(t, m.Input), []byte(`["text","image"]`)), "got %v", m.Input)
 	ev.Record("pi-catalog", models)
 	ev.Record("barness-catalog", cat)
 	ev.Record("pi-observation", pi)
