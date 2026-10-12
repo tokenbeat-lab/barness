@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "baseline": "17f2f070fa63678c310b75191dbb2ae012091468",
+  "implementation_commit": "1e01c9ab4216478b119d391f7931d21040af86ac",
+  "route": "classifier/openai/openai-decisions/host-decisions",
+  "live": "NOT_RUN",
+  "billing_reconciled": false,
+  "regional_premium_included": false,
+  "nonzero_real_cache": "NOT_OBSERVED",
+  "source_snapshot_sha256": "4261bae33135b6b5794721ac5a9d9f052d3a83f71287c1250de92b187c4615ba",
+  "commands": [
+    {
+      "command": "BARNESS_AI_EVIDENCE_DIR=.evidence/decisions-usage-red go test ./ai/e2e -run '^TestDecisionsUsage' -count=1",
+      "exit_code": 1,
+      "role": "red",
+      "cases": 294,
+      "statuses": {
+        "PASS": 126,
+        "FAIL": 168
+      }
+    },
+    {
+      "command": "BARNESS_AI_EVIDENCE_DIR=\"$PWD/.evidence/decisions-usage-reviewed-final\" go test ./ai/e2e -run '^TestDecisionsUsage' -count=1",
+      "exit_code": 0,
+      "role": "green",
+      "cases": 307,
+      "statuses": {
+        "PASS": 307
+      }
+    },
+    {
+      "command": "BARNESS_AI_EVIDENCE_DIR=\"$PWD/.evidence/decisions-usage-race-final\" BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run '^Test(Decisions|JevRegression|Classifier|Unary|OperationCatalog)' -count=1",
+      "exit_code": 0,
+      "role": "race",
+      "cases": 1258,
+      "statuses": {
+        "PASS": 1258
+      }
+    },
+    {
+      "command": "BARNESS_AI_EVIDENCE_DIR=\"$PWD/.evidence/decisions-usage-full-final\" BARNESS_AI_PIDIFF=1 go test ./... -count=1 -json",
+      "exit_code": 0,
+      "role": "full",
+      "cases": 7027,
+      "statuses": {
+        "PASS": 7018,
+        "NOT_RUN": 9
+      },
+      "pidiff": {
+        "PASS": 815
+      },
+      "packageVerdicts": {
+        "pass": 6,
+        "skipNoTestFiles": 15
+      }
+    },
+    {
+      "command": "go test ./... -run '^$'",
+      "exit_code": 0,
+      "role": "compile"
+    },
+    {
+      "command": "go vet ./...",
+      "exit_code": 0,
+      "role": "vet"
+    },
+    {
+      "command": "go vet -tags live ./...",
+      "exit_code": 0,
+      "role": "vet-live"
+    },
+    {
+      "command": "python3 .scratch/barness-ai-openai-decisions/jev-baseline/verify.py --audit",
+      "exit_code": 0,
+      "role": "jev-baseline",
+      "fixedCases": 655,
+      "recordedRelease": "FAIL"
+    }
+  ],
+  "capturedRuns": [
+    {
+      "role": "red",
+      "directory": "runs/red",
+      "cases": 294,
+      "statuses": {
+        "PASS": 126,
+        "FAIL": 168
+      },
+      "recorded_commit": "17f2f070fa63678c310b75191dbb2ae012091468"
+    },
+    {
+      "role": "green",
+      "directory": "runs/green",
+      "cases": 307,
+      "statuses": {
+        "PASS": 307
+      },
+      "recorded_commit": "49f119c03aefc09394ad00802196f7fb0113bcb3"
+    },
+    {
+      "role": "race",
+      "directory": "runs/race",
+      "cases": 1258,
+      "statuses": {
+        "PASS": 1258
+      },
+      "recorded_commit": "1e01c9ab4216478b119d391f7931d21040af86ac"
+    }
+  ],
+  "review": {
+    "standards": 0,
+    "spec": 0
+  },
+  "notes": [
+    "Green capture finished before its source was committed as 1e01c9a; source snapshot and final race/full pin that exact reviewed source.",
+    "Raw malformed fixture was initially named response.json, causing audit failure despite passing assertions; changed to response.txt without weakening audit. That failed audit is retained in the process log.",
+    "Intermediate initial full run at 49f119c passed; review added OD41 tests and named presence indexes, so final full was repeated at 1e01c9a.",
+    "Full per-case captures remain in generated .evidence; full manifest, audit and process log are included, with complete captured red/green/race runs."
+  ]
+}
