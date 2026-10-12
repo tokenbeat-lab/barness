@@ -49,6 +49,8 @@ type exchange struct {
 // with every exchange recorded.
 type recorder struct {
 	next http.RoundTripper
+	// Trusted harness configuration; the default remains the ordinary smoke cap.
+	requestLimit int
 
 	mu           sync.Mutex
 	exchanges    []*exchange
@@ -85,8 +87,12 @@ func (r *recorder) RoundTrip(req *http.Request) (*http.Response, error) {
 		}
 		req.Body = io.NopCloser(bytes.NewReader(body))
 		req.GetBody = func() (io.ReadCloser, error) { return io.NopCloser(bytes.NewReader(body)), nil }
-		e.RequestBody = redactText(string(body[:min(len(body), maxCapturedRequest)]))
-		e.Truncated = len(body) > maxCapturedRequest
+		limit := maxCapturedRequest
+		if r.requestLimit > 0 {
+			limit = r.requestLimit
+		}
+		e.RequestBody = redactText(string(body[:min(len(body), limit)]))
+		e.Truncated = len(body) > limit
 	}
 	r.mu.Lock()
 	r.exchanges = append(r.exchanges, e)

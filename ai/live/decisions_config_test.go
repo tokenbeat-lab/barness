@@ -1,0 +1,115 @@
+//go:build live
+
+package live
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"net"
+	"net/http"
+	"net/url"
+	"os"
+	"regexp"
+	"slices"
+	"strings"
+	"time"
+)
+
+// This is a host verification record, not a vendor permissions introspection
+// response. The reference identifies the host's checked configuration; the
+// report preserves that distinction. It contains aliases, never account IDs.
+type candidatePermissions struct {
+	AccountAlias          string    `json:"accountAlias"`
+	RegionAlias           string    `json:"regionAlias"`
+	DedicatedTestKey      bool      `json:"dedicatedTestKey"`
+	Model                 string    `json:"model"`
+	Permissions           []string  `json:"permissions"`
+	SpendLimitUSD         float64   `json:"spendLimitUSD"`
+	VerifiedAt            time.Time `json:"verifiedAt"`
+	VerificationReference string    `json:"verificationReference"`
+}
+
+var candidateAlias = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9._@-]{0,79}$`)
+
+func candidateConfiguration(rec *recorder) (candidatePermissions, []byte, error) {
+	if err := candidateEnvironment(); err != nil {
+		return candidatePermissions{}, nil, err
+	}
+	alias, region := cfg.alias, os.Getenv("BARNESS_AI_LIVE_REGION_ALIAS")
+	if !candidateAlias.MatchString(alias) || !candidateAlias.MatchString(region) {
+		return candidatePermissions{}, nil, fmt.Errorf("account and region aliases are required")
+	}
+	path := os.Getenv("BARNESS_AI_LIVE_PERMISSIONS_FILE")
+	raw, err := readCandidateFile(path, 16384)
+	if err != nil {
+		return candidatePermissions{}, nil, fmt.Errorf("bounded host permission verification record is required")
+	}
+	// Top-level duplicate fields are rejected before the typed decoder. The
+	// remaining fields are scalars or a string list; nested objects are illegal.
+	tokens := json.NewDecoder(strings.NewReader(string(raw)))
+	first, err := tokens.Token()
+	if err != nil || first != json.Delim('{') {
+		return candidatePermissions{}, nil, fmt.Errorf("host permission record must be a JSON object")
+	}
+	seen := map[string]bool{}
+	for tokens.More() {
+		key, err := tokens.Token()
+		if err != nil {
+			return candidatePermissions{}, nil, fmt.Errorf("invalid permission record")
+		}
+		name, ok := key.(string)
+		if !ok || seen[name] {
+			return candidatePermissions{}, nil, fmt.Errorf("duplicate permission field")
+		}
+		seen[name] = true
+		var value json.RawMessage
+		if tokens.Decode(&value) != nil {
+			return candidatePermissions{}, nil, fmt.Errorf("invalid permission field")
+		}
+	}
+	if _, err = tokens.Token(); err != nil {
+		return candidatePermissions{}, nil, fmt.Errorf("invalid permission object")
+	}
+	var trailing any
+	if tokens.Decode(&trailing) != io.EOF {
+		return candidatePermissions{}, nil, fmt.Errorf("trailing permission document")
+	}
+	var p candidatePermissions
+	d := json.NewDecoder(strings.NewReader(string(raw)))
+	d.DisallowUnknownFields()
+	if d.Decode(&p) != nil || p.AccountAlias != alias || p.RegionAlias != region || !p.DedicatedTestKey || p.Model != "gpt-6-luna" || !slices.Equal(p.Permissions, []string{"POST /v1/decisions"}) || p.SpendLimitUSD <= 0 || p.VerifiedAt.IsZero() || p.VerifiedAt.After(time.Now()) || strings.TrimSpace(p.VerificationReference) == "" {
+		return candidatePermissions{}, nil, fmt.Errorf("host permission record does not verify dedicated Decisions-only access, model and spend limit")
+	}
+	proxy := os.Getenv("BARNESS_AI_LIVE_PROXY")
+	u, err := url.Parse(proxy)
+	if err != nil || u.Scheme != "http" || u.User != nil || u.RawQuery != "" || u.Fragment != "" || (u.Path != "" && u.Path != "/") || u.Port() == "" || net.ParseIP(u.Hostname()) == nil || !net.ParseIP(u.Hostname()).IsLoopback() {
+		return candidatePermissions{}, nil, fmt.Errorf("explicit loopback HTTP proxy is required")
+	}
+	if transport, ok := rec.next.(*http.Transport); ok {
+		transport.Proxy = http.ProxyURL(u)
+	}
+	// The proxy is trusted host transport configuration. The target remains
+	// https://api.openai.com/v1/decisions, with ordinary TLS verification.
+	return p, raw, nil
+}
+
+func candidateEnvironment() error {
+	for _, kv := range os.Environ() {
+		name, value, _ := strings.Cut(kv, "=")
+		if value == "" {
+			continue
+		}
+		if strings.HasPrefix(name, envKeyBase) && name != keyVar(decisionsCandidate.name) {
+			return fmt.Errorf("foreign combination credential variable is set")
+		}
+		if slices.Contains([]string{"BARNESS_AI_LIVE_ENDPOINT", "OPENAI_BASE_URL", "OPENAI_API_BASE"}, name) {
+			return fmt.Errorf("endpoint overrides are forbidden")
+		}
+		// A candidate process receives one injected key; it does not source .env.
+		if slices.Contains([]string{"OPENAI_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY", "GOOGLE_API_KEY", "DEEPSEEK_API_KEY", "TYPESAFE_KEY"}, name) {
+			return fmt.Errorf("ambient vendor credentials are forbidden")
+		}
+	}
+	return nil
+}

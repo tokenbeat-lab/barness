@@ -2,7 +2,8 @@
 // Decisions §2, §5): the same public Client a host uses, connected to a
 // vendor's real API with a low-privilege test account, run before a release
 // and after an SDK or model upgrade. Its results feed the support matrix
-// (support-matrix.json in this directory).
+// (support-matrix.json in this directory). The Decisions candidate is separate
+// pre-inclusion evidence and never emits a formal matrix report.
 //
 // Its tests are behind two switches, so `go test ./...` never reaches the
 // network: the build tag live and BARNESS_AI_LIVE=1. One process runs one
@@ -13,6 +14,17 @@
 //	BARNESS_AI_LIVE_ACCOUNT_ALIAS=ci-deepseek-lowpriv@cn \
 //	BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT=<injected by the CI secret store> \
 //	go test -tags live -count=1 ./ai/live
+//
+// Candidate: openai-decisions-candidate uses its own fixed host catalog and
+// candidate-decisions-report.json. TestCandidateDecisions requires verified
+// account/region aliases, a dedicated Decisions-only host permissions record
+// (BARNESS_AI_LIVE_PERMISSIONS_FILE), and explicit loopback HTTP transport proxy
+// (BARNESS_AI_LIVE_PROXY). Official endpoint is fixed; Binding has no retries.
+// Limits: 12 calls/12 attempt reservations/24 questions/4 MiB total state,
+// 8 images/4 MiB total decoded images, 180 s process/30 s call. Nine required
+// scenarios are never UNSUPPORTED. Absent key is NOT_RUN; malformed config
+// refuses before spend. Sources, replay, captures and actual current status:
+// .scratch/barness-ai-openai-decisions/candidate-live-evidence/README.md.
 //
 // Combinations (BARNESS_AI_LIVE_COMBO, key variable suffix):
 // openai-responses, openai-chat, anthropic-messages, google-gemini,

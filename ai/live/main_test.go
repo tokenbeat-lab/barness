@@ -42,11 +42,18 @@ var (
 
 func TestMain(m *testing.M) {
 	var err error
-	if run, err = evidence.NewRun("-tags live ./ai/live"); err != nil {
+	cfg = loadConfig()
+	packageArgs := "-tags live ./ai/live"
+	if cfg.combo == &decisionsCandidate {
+		packageArgs = "-tags live -timeout 180s ./ai/live"
+	}
+	if run, err = evidence.NewRun(packageArgs); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	cfg = loadConfig()
+	if cfg.combo == &decisionsCandidate {
+		candidateReport = initialCandidateReport()
+	}
 	if cfg.combo != nil && cfg.combo.operation == ai.OperationClassifier {
 		budget = classifierBudget()
 	}
@@ -70,8 +77,15 @@ func TestMain(m *testing.M) {
 		run.SetVersion("live_sdk", cfg.combo.sdk())
 	}
 	code := m.Run()
-	if cfg.combo != nil {
+	if cfg.combo != nil && cfg.combo != &decisionsCandidate {
 		if err := run.Record(supportmatrix.ReportName, report(catalogHash)); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			code = 1
+		}
+	}
+	if candidateReport != nil {
+		candidateReport.FinishedAt = time.Now().UTC()
+		if err := run.Record(candidateReportName, candidateReport); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			code = 1
 		}
@@ -82,7 +96,9 @@ func TestMain(m *testing.M) {
 	}
 	// The redaction audit forbids the key (registered above) and every
 	// credential-looking variable of this process, the key's included.
+	auditOK := true
 	if findings, err := run.Audit(); err != nil || len(findings) > 0 {
+		auditOK = false
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "live: redaction audit:", err)
 		}
@@ -90,6 +106,9 @@ func TestMain(m *testing.M) {
 			fmt.Fprintf(os.Stderr, "live: redaction audit: %s [%s] %s\n", f.File, f.Rule, f.Detail)
 		}
 		code = 1
+	}
+	if candidateReport != nil {
+		code = finishCandidateReport(code, auditOK)
 	}
 	os.Exit(code)
 }

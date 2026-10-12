@@ -39,6 +39,18 @@ func keyVar(name string) string {
 // loadConfig reads the process environment. It reads only the variables
 // named above: no vendor key variable, endpoint variable or credential file.
 func loadConfig() processConfig {
+	if os.Getenv(envCombo) == decisionsCandidate.name {
+		out := processConfig{combo: &decisionsCandidate, alias: os.Getenv(envAlias), key: strings.TrimSpace(os.Getenv(keyVar(decisionsCandidate.name)))}
+		if os.Getenv(envLive) != "1" {
+			out.notRun = envLive + "=1 is not set"
+		} else if out.key == "" {
+			out.notRun = "candidate key is not set"
+		}
+		return out
+	}
+	if os.Getenv(keyVar(decisionsCandidate.name)) != "" {
+		return processConfig{refused: "candidate credential must be isolated in its own process"}
+	}
 	if os.Getenv(envLive) != "1" {
 		return processConfig{notRun: envLive + "=1 is not set; the live smoke never runs implicitly"}
 	}
