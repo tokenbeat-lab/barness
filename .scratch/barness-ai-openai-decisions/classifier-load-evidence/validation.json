@@ -1,0 +1,269 @@
+{
+  "issue": "08",
+  "baseline": "c4cc495ddba6c7fbe625ccaede74989d4341fe88",
+  "finalImplementation": "0856b2b00e5033e8e07298cbdfbcc5c92accf69a",
+  "commands": [
+    {
+      "id": "policy-red",
+      "command": "go test ./ai/e2e ./ai/internal/testkit/release -run 'TestMixedPolicies|TestDesignLoadRejectsHistoricalTextOnlyReport' -count=1",
+      "exitCode": 1,
+      "log": "red.log"
+    },
+    {
+      "id": "load-red",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^TestClassifierImagesPressure$' -count=1",
+      "exitCode": 1,
+      "log": "load-red.log"
+    },
+    {
+      "id": "load-green",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^Test(MixedPolicies|MixedPressure|ClassifierImagesPressure)$' -count=1",
+      "exitCode": 0,
+      "log": "load-green.log"
+    },
+    {
+      "id": "import-red",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^Test(MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport)$' -count=1",
+      "exitCode": 1,
+      "log": "import-red.log"
+    },
+    {
+      "id": "incomplete-result-decoder",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e ./ai/internal/testkit/release -run '^Test(MixedPolicies|MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport|DesignLoad.*)$' -count=1",
+      "exitCode": 1,
+      "log": "import-green.log"
+    },
+    {
+      "id": "import-green",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e ./ai/internal/testkit/release -run '^Test(MixedPolicies|MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport|DesignLoad.*)$' -count=1",
+      "exitCode": 0,
+      "log": "target.log"
+    },
+    {
+      "id": "missing-zero-counter-red",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^Test(MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport)$' -count=1",
+      "exitCode": 1,
+      "log": "deletion.log"
+    },
+    {
+      "id": "missing-zero-counter-green",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e ./ai/internal/testkit/release -run '^Test(MixedPolicies|MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport|DesignLoad.*)$' -count=1",
+      "exitCode": 0,
+      "log": "final-target.log"
+    },
+    {
+      "id": "review-red",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^Test(MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport)$/(local|cloud)/(null.*|tiny.*|duplicated-results|empty-attempt|wrong-answer-name)$' -count=1",
+      "exitCode": 1,
+      "log": "review-red.log"
+    },
+    {
+      "id": "review-green",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e ./ai/internal/testkit/release -run '^Test(MixedPolicies|MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport|DesignLoad.*)$' -count=1",
+      "exitCode": 0,
+      "log": "review-green.log"
+    },
+    {
+      "id": "question-envelope-red",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^TestClassifierImagesPressure$' -count=1",
+      "exitCode": 1,
+      "log": "question-red.log"
+    },
+    {
+      "id": "question-envelope-green",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e ./ai/internal/testkit/release -run '^Test(MixedPolicies|MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport|DesignLoad.*)$' -count=1",
+      "exitCode": 0,
+      "log": "question-green.log"
+    },
+    {
+      "id": "question-capture-green",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e ./ai/internal/testkit/release -run '^Test(MixedPolicies|MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport|DesignLoad.*)$' -count=1",
+      "exitCode": 0,
+      "log": "question-final.log"
+    },
+    {
+      "id": "pre-review-full",
+      "command": "BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1 go test ./... -timeout 30m -count=1",
+      "exitCode": 1,
+      "log": "full.log"
+    },
+    {
+      "id": "post-review-full",
+      "command": "BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1 go test ./... -timeout 30m -count=1",
+      "exitCode": 0,
+      "log": "full-final.log"
+    },
+    {
+      "id": "post-review-race",
+      "command": "BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1 go test -race ./... -timeout 30m -count=1",
+      "exitCode": 0,
+      "log": "race.log"
+    },
+    {
+      "id": "target-race",
+      "command": "BARNESS_AI_PRESSURE=1 go test -race ./ai/e2e -run '^Test(MixedPolicies|MixedPressure|ClassifierImagesPressure|ClassifierImagesPressureImport)$' -timeout 30m -count=1",
+      "exitCode": 0,
+      "log": "target-race.log"
+    },
+    {
+      "id": "replay-count-five",
+      "command": "go test ./ai/e2e -run '^TestUnaryTransportTimeouts$/^body-call-deadline$' -count=5",
+      "exitCode": 0,
+      "log": "old-timeout-replay.log"
+    },
+    {
+      "id": "compile-all",
+      "command": "go test ./... -run '^$'",
+      "exitCode": 0,
+      "log": "compile-all.log"
+    },
+    {
+      "id": "vet-current",
+      "command": "go vet ./...",
+      "exitCode": 0,
+      "log": "current-vet.log"
+    },
+    {
+      "id": "vet-live-current",
+      "command": "go vet -tags live ./...",
+      "exitCode": 0,
+      "log": "current-vet-live.log"
+    },
+    {
+      "id": "full-current",
+      "command": "BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1 go test ./... -timeout 30m -count=1",
+      "exitCode": 1,
+      "log": "full-current.log",
+      "source": "0856b2b"
+    },
+    {
+      "id": "original-load-replay",
+      "command": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^TestPolicyPressure$/^local$/^design-load$' -timeout 10m -count=1",
+      "exitCode": 0,
+      "log": "original-load-replay.log",
+      "source": "0856b2b"
+    },
+    {
+      "id": "race-current",
+      "command": "BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1 go test -race ./... -timeout 30m -count=1",
+      "exitCode": 0,
+      "log": "race-current.log",
+      "source": "0856b2b00e5033e8e07298cbdfbcc5c92accf69a"
+    }
+  ],
+  "evidenceDirectoryNote": "Commands used BARNESS_AI_EVIDENCE_DIR with the absolute workspace .evidence/issue08/category. Private workspace prefixes are replaced in archive logs; each run manifest retains exact scenario replay and versions. Categories correspond to actual execution directories.",
+  "independentTimeoutReplay": {
+    "command": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-run",
+      "^TestUnaryTransportTimeouts$/^body-call-deadline$",
+      "-count=1"
+    ],
+    "runs": [
+      {
+        "iteration": 1,
+        "exitCode": 0
+      },
+      {
+        "iteration": 2,
+        "exitCode": 1
+      },
+      {
+        "iteration": 3,
+        "exitCode": 0
+      },
+      {
+        "iteration": 4,
+        "exitCode": 0
+      },
+      {
+        "iteration": 5,
+        "exitCode": 0
+      }
+    ]
+  },
+  "compilationFailures": {
+    "compile.log": "undefined sha helper; fixed before public load executed",
+    "import-compile.log": "Attempt.ErrorCode does not exist; corrected to the public result/Observer terminal before execution"
+  },
+  "review": {
+    "standards": 0,
+    "spec": 0,
+    "report": "REVIEW.md"
+  },
+  "live": "NOT_RUN",
+  "releaseGate": "NOT_RUN",
+  "packagingCommand": "python3 .scratch/barness-ai-openai-decisions/classifier-load-evidence/pack.py --executions .evidence/issue08",
+  "knownUnchangedFailures": [
+    {
+      "case": "P07-E08-unary-timeout-body-call-deadline",
+      "symptom": "ReadIdleTimeout 100ms won over CallTimeout 100ms; intermittent old terminal classification",
+      "source": "ai/e2e/unary_lifecycle_test.go:27",
+      "preserved": "full/20261012T210850.364919000Z and independent replay failure"
+    },
+    {
+      "case": "E08-policy-pressure-local-design-load",
+      "symptom": "two real loopback TCP writes returned ENOBUFS (no buffer space available) during parallel full normal/race processes",
+      "source": "Host OS loopback socket buffers; ai/e2e/pressure_transport_test.go recorded underlying error",
+      "preserved": "full-current/20261012T213926.060935000Z",
+      "isolatedOriginalReplay": "PASS, unchanged original sizes, concurrency, budget and limits"
+    }
+  ],
+  "finalRuns": [
+    {
+      "category": "full-current",
+      "manifest": "full-current/20261012T213926.060935000Z/manifest.json",
+      "gitCommit": "0856b2b00e5033e8e07298cbdfbcc5c92accf69a",
+      "startedAt": "2026-10-12T21:39:26.060935Z",
+      "finishedAt": "2026-10-12T21:44:35.817315Z",
+      "cases": 7446,
+      "statuses": {
+        "PASS": 7445,
+        "FAIL": 1
+      },
+      "applicable": {
+        "cases": 182,
+        "statuses": {
+          "PASS": 182
+        }
+      },
+      "differential": {
+        "cases": 861,
+        "statuses": {
+          "PASS": 861
+        }
+      },
+      "audit": {
+        "findings": []
+      }
+    },
+    {
+      "category": "race-current",
+      "manifest": "race-current/20261012T213928.904165000Z/manifest.json",
+      "gitCommit": "0856b2b00e5033e8e07298cbdfbcc5c92accf69a",
+      "startedAt": "2026-10-12T21:39:28.904165Z",
+      "finishedAt": "2026-10-12T21:48:41.164491Z",
+      "cases": 7446,
+      "statuses": {
+        "PASS": 7446
+      },
+      "applicable": {
+        "cases": 182,
+        "statuses": {
+          "PASS": 182
+        }
+      },
+      "differential": {
+        "cases": 861,
+        "statuses": {
+          "PASS": 861
+        }
+      },
+      "audit": {
+        "findings": []
+      }
+    }
+  ]
+}
