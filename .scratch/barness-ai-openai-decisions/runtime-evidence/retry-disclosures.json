@@ -1,0 +1,53 @@
+{
+  "operation": "classifier",
+  "provider": "openai",
+  "api": "openai-decisions",
+  "pi": {
+    "pi_package": "@earendil-works/pi-ai",
+    "pi_version": "1.1.0",
+    "pi_commit": "abe508e1b89912adde45528136c3221eb69acdd7",
+    "npm_git_head": "",
+    "tarball_integrity": "sha512-1T7LAkc/5Bvc0v6w4vAGVdCrli0o/E0pEmYKTnixu95vSFArBjvbhS/G4ZwI0RUePgf0Imcu0VyqlM4EcXxqfw==",
+    "model_data_sha256": "8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8"
+  },
+  "method": "barness public E2E plus frozen source inspection; not Decisions differential PASS",
+  "source_files": [
+    {
+      "path": "ai/internal/testkit/pioracle/node/node_modules/@earendil-works/pi-ai/dist/api/openai-decisions.js",
+      "sha256": "d901beabd6898c402ea88be7c03dd5a4397911d9cd3734caee0643ec802901f3"
+    },
+    {
+      "path": "ai/internal/testkit/pioracle/node/node_modules/@earendil-works/pi-ai/dist/api/classifier-shared.js",
+      "sha256": "a06829462e5406b0e616705e3f91df415f0eb3364fb0ac289b714a375900723c"
+    },
+    {
+      "path": "ai/internal/testkit/pioracle/node/node_modules/@earendil-works/pi-ai/dist/utils/provider-retry.js",
+      "sha256": "46da2f14c0f5d58164a44c1b2837d8ab7674ded3ae4c732d02ae62c87b39b939"
+    }
+  ],
+  "entries": [
+    {
+      "id": "OD40-default-zero",
+      "path": "Binding.Retry.MaxRetries",
+      "cases": [
+        "P10-OD40-runtime-default-429",
+        "P10-OD40-runtime-default-503",
+        "P10-OD40-runtime-default-504"
+      ],
+      "barness": "zero Binding policy sends once",
+      "pi": "postClassifierRequest options.maxRetries ?? 2",
+      "status": "DECLARED_NOT_PARITY"
+    },
+    {
+      "id": "OD40-504-explicit",
+      "path": "HTTP 504 initial-request retry",
+      "cases": [
+        "P10-OD40-runtime-504-extension"
+      ],
+      "barness": "explicit MaxRetries=1 permits a second attempt",
+      "pi": "Decisions NO_RETRY_STATUSES=[504], applied even with x-should-retry=true",
+      "status": "DECLARED_NOT_PARITY"
+    }
+  ],
+  "owner": "07-frozen-pi-differential"
+}

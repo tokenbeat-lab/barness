@@ -1,0 +1,473 @@
+{
+  "issue": "06",
+  "baseline": "26d955b260c2ac3f08bdce3bba810772d5948d49",
+  "finalGoSource": "fb30d255ff9bf5d26cbacd678205b54e3f18cadd",
+  "sourceSHA256": {
+    "ai/e2e/decisions_runtime_admission_test.go": "e127b1edbca281cf70e7f32ed5b3895045aed6e8edbd67afdbbf2e7b6fbeb5a5",
+    "ai/e2e/decisions_runtime_diagnostics_test.go": "a403be0fb83be9b011abaa4b9191a7b2c990f3445c42c432ef571a3232339315",
+    "ai/e2e/decisions_runtime_fixture_test.go": "de92fe15c004d2a0ef0cfa7314458307d65adab0684dd09123c3c2794f218619",
+    "ai/e2e/decisions_runtime_isolation_test.go": "0981d2e73909198ededdaf178e8726d914c81846e061fbf54b25389e121147fd",
+    "ai/e2e/decisions_runtime_lifecycle_test.go": "7250caceb76b4dc282aa1623e100606852e6dfd5ce275f631b3e9801ff6a8a0c",
+    "ai/e2e/decisions_runtime_mixed_fixture_test.go": "9e14490682c1eb0d8eb5871e747254e60ab7cdc1ec977831c2a0268d00e56c26",
+    "ai/e2e/decisions_runtime_observer_test.go": "d55a83b4ed6bb02971a2fdaab065960f2039259c1e5655ee1898ca0696419f16",
+    "ai/e2e/decisions_runtime_resources_test.go": "32a36b5f39a7f4f581ebcec222eaa6873a78917551549d9d631477b4218415ee",
+    "ai/e2e/decisions_runtime_retry_test.go": "43e37ae971b4f79347821880333af4deea6c3748e7059fa3fc16d166d9f3bb5e",
+    "ai/e2e/decisions_runtime_rollback_test.go": "74691b8e28d03e192c8889c770d9a8765903f55b04d7d3c18d2923d488a735aa",
+    "ai/e2e/decisions_runtime_snapshots_test.go": "d4a8140f839ba929e340a90d5ed2c8b2c03beea83fec05f0a03f45802e7639c0",
+    "ai/openai_decisions.go": "9b368d3d612c5b723760cde1c8e3333ca9f0806fff962fb1658bd49badb2393b"
+  },
+  "runReceipts": [
+    {
+      "path": ".evidence/runtime-06-history/20261012T153050.194418000Z",
+      "recordedHead": "26d955b260c2ac3f08bdce3bba810772d5948d49",
+      "started": "2026-10-12T15:30:50.194418Z",
+      "finished": "2026-10-12T15:30:50.245098Z",
+      "goVersion": "go1.26.2",
+      "cases": 14,
+      "statuses": {
+        "PASS": 8,
+        "FAIL": 6
+      },
+      "runtimeCases": 14,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 0,
+        "pass": 0,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-history/20261012T153226.335037000Z",
+      "recordedHead": "26d955b260c2ac3f08bdce3bba810772d5948d49",
+      "started": "2026-10-12T15:32:26.335037Z",
+      "finished": "2026-10-12T15:32:26.448853Z",
+      "goVersion": "go1.26.2",
+      "cases": 20,
+      "statuses": {
+        "PASS": 20
+      },
+      "runtimeCases": 20,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 0,
+        "pass": 0,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-history/20261012T153328.375451000Z",
+      "recordedHead": "26d955b260c2ac3f08bdce3bba810772d5948d49",
+      "started": "2026-10-12T15:33:28.375451Z",
+      "finished": "2026-10-12T15:33:29.880748Z",
+      "goVersion": "go1.26.2",
+      "cases": 19,
+      "statuses": {
+        "PASS": 15,
+        "FAIL": 4
+      },
+      "runtimeCases": 19,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 0,
+        "pass": 0,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-history/20261012T153509.508237000Z",
+      "recordedHead": "26d955b260c2ac3f08bdce3bba810772d5948d49",
+      "started": "2026-10-12T15:35:09.508237Z",
+      "finished": "2026-10-12T15:35:10.07676Z",
+      "goVersion": "go1.26.2",
+      "cases": 12,
+      "statuses": {
+        "PASS": 10,
+        "FAIL": 2
+      },
+      "runtimeCases": 12,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 0,
+        "pass": 0,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-history/20261012T153741.697936000Z",
+      "recordedHead": "26d955b260c2ac3f08bdce3bba810772d5948d49",
+      "started": "2026-10-12T15:37:41.697936Z",
+      "finished": "2026-10-12T15:37:42.001525Z",
+      "goVersion": "go1.26.2",
+      "cases": 19,
+      "statuses": {
+        "PASS": 19
+      },
+      "runtimeCases": 19,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 0,
+        "pass": 0,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-history/20261012T153844.119672000Z",
+      "recordedHead": "26d955b260c2ac3f08bdce3bba810772d5948d49",
+      "started": "2026-10-12T15:38:44.119672Z",
+      "finished": "2026-10-12T15:38:44.12083Z",
+      "goVersion": "go1.26.2",
+      "cases": 0,
+      "statuses": {},
+      "runtimeCases": 0,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 0,
+        "pass": 0,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-history/20261012T154001.811331000Z",
+      "recordedHead": "26d955b260c2ac3f08bdce3bba810772d5948d49",
+      "started": "2026-10-12T15:40:01.811331Z",
+      "finished": "2026-10-12T15:40:03.749863Z",
+      "goVersion": "go1.26.2",
+      "cases": 63,
+      "statuses": {
+        "PASS": 63
+      },
+      "runtimeCases": 63,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 0,
+        "pass": 0,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-final-race/20261012T154107.865655000Z",
+      "recordedHead": "c9124ef696754c73d588141077f4efb85ad16f00",
+      "started": "2026-10-12T15:41:07.865655Z",
+      "finished": "2026-10-12T15:41:20.445076Z",
+      "goVersion": "go1.26.2",
+      "cases": 566,
+      "statuses": {
+        "PASS": 564,
+        "NOT_RUN": 2
+      },
+      "runtimeCases": 63,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 1,
+        "pass": 1,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-final-race/20261012T154421.280668000Z",
+      "recordedHead": "c9124ef696754c73d588141077f4efb85ad16f00",
+      "started": "2026-10-12T15:44:21.280668Z",
+      "finished": "2026-10-12T15:44:21.580683Z",
+      "goVersion": "go1.26.2",
+      "cases": 16,
+      "statuses": {
+        "PASS": 16
+      },
+      "runtimeCases": 16,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 0,
+        "pass": 0,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-full/20261012T154521.915163000Z",
+      "recordedHead": "fb30d255ff9bf5d26cbacd678205b54e3f18cadd",
+      "started": "2026-10-12T15:45:21.915163Z",
+      "finished": "2026-10-12T15:48:56.207608Z",
+      "goVersion": "go1.26.2",
+      "cases": 7221,
+      "statuses": {
+        "PASS": 7212,
+        "NOT_RUN": 9
+      },
+      "runtimeCases": 63,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 815,
+        "pass": 815,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-full/20261012T154951.209727000Z",
+      "recordedHead": "fb30d255ff9bf5d26cbacd678205b54e3f18cadd",
+      "started": "2026-10-12T15:49:51.209727Z",
+      "finished": "2026-10-12T15:54:35.97529Z",
+      "goVersion": "go1.26.2",
+      "cases": 7221,
+      "statuses": {
+        "PASS": 7212,
+        "NOT_RUN": 9
+      },
+      "runtimeCases": 63,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 815,
+        "pass": 815,
+        "pending": 0
+      }
+    },
+    {
+      "path": ".evidence/runtime-06-full/20261012T160336.114442000Z",
+      "recordedHead": "fb30d255ff9bf5d26cbacd678205b54e3f18cadd",
+      "started": "2026-10-12T16:03:36.114442Z",
+      "finished": "2026-10-12T16:08:18.361026Z",
+      "goVersion": "go1.26.2",
+      "cases": 7221,
+      "statuses": {
+        "PASS": 7212,
+        "NOT_RUN": 9
+      },
+      "runtimeCases": 63,
+      "auditFindings": [],
+      "existingDifferential": {
+        "records": 815,
+        "pass": 815,
+        "pending": 0
+      }
+    }
+  ],
+  "commands": [
+    {
+      "command": "go test ./ai/e2e -run ^TestDecisionsRuntime -count=1",
+      "exitCode": 0,
+      "log": "logs/runtime-06-target.jsonl",
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "status": "PASS",
+          "elapsedSeconds": 3.184
+        }
+      ]
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run ^Test(DecisionsRuntime|DecisionsUsageAfter2xx|DecisionsImagesCancellation|Unary|Mixed|JevRegression|Classifier) -count=1 -json",
+      "exitCode": 0,
+      "log": "logs/runtime-06-race.jsonl",
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "status": "PASS",
+          "elapsedSeconds": 36.599
+        }
+      ]
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test -race ./ai/e2e -run ^TestDecisionsRuntime(MixedIsolation|Retry)$ -count=1 -json",
+      "exitCode": 0,
+      "log": "logs/runtime-06-review-race.jsonl",
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "status": "PASS",
+          "elapsedSeconds": 3.944
+        }
+      ]
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test ./... -count=1 -json",
+      "exitCode": 0,
+      "log": "logs/runtime-06-full.jsonl",
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai",
+          "status": "PASS",
+          "elapsedSeconds": 1.131
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit",
+          "status": "PASS",
+          "elapsedSeconds": 1.708
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle",
+          "status": "PASS",
+          "elapsedSeconds": 2.077
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix",
+          "status": "PASS",
+          "elapsedSeconds": 2.45
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+          "status": "PASS",
+          "elapsedSeconds": 3.575
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "status": "PASS",
+          "elapsedSeconds": 247.838
+        }
+      ]
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test -race ./... -count=1 -json",
+      "exitCode": 1,
+      "log": "logs/runtime-06-full-race.jsonl",
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit",
+          "status": "PASS",
+          "elapsedSeconds": 1.8519999999999999
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai",
+          "status": "PASS",
+          "elapsedSeconds": 2.638
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle",
+          "status": "PASS",
+          "elapsedSeconds": 2.833
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix",
+          "status": "PASS",
+          "elapsedSeconds": 3.221
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+          "status": "PASS",
+          "elapsedSeconds": 16.273
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "status": "FAIL",
+          "elapsedSeconds": 660.015
+        }
+      ]
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test -race ./... -timeout 30m -count=1 -json",
+      "exitCode": 0,
+      "log": "logs/runtime-06-full-race-retry.jsonl",
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai",
+          "status": "PASS",
+          "elapsedSeconds": 2.102
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit",
+          "status": "PASS",
+          "elapsedSeconds": 2.753
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle",
+          "status": "PASS",
+          "elapsedSeconds": 3.105
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix",
+          "status": "PASS",
+          "elapsedSeconds": 3.941
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+          "status": "PASS",
+          "elapsedSeconds": 16.083
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "status": "PASS",
+          "elapsedSeconds": 879.147
+        }
+      ]
+    },
+    {
+      "command": "go test ./... -run ^$ -count=1",
+      "exitCode": 0,
+      "purpose": "whole-repository compile/type check"
+    },
+    {
+      "command": "go vet ./...",
+      "exitCode": 0,
+      "log": "logs/runtime-06-vet.txt"
+    },
+    {
+      "command": "go vet -tags live ./...",
+      "exitCode": 0,
+      "log": "logs/runtime-06-vet-live.txt"
+    },
+    {
+      "command": "go run ./ai/internal/testkit/audit/cmd/auditbundle .evidence/runtime-06-full/20261012T154951.209727000Z",
+      "exitCode": 0,
+      "log": "logs/runtime-06-timeout-post-audit.txt",
+      "purpose": "post-timeout audit does not change original FAIL"
+    }
+  ],
+  "packagingCommand": [
+    "python3",
+    ".scratch/barness-ai-openai-decisions/runtime-evidence/pack.py",
+    "--validation",
+    ".scratch/barness-ai-openai-decisions/runtime-evidence/validation.json",
+    "--history",
+    ".evidence/runtime-06-history",
+    "--race",
+    ".evidence/runtime-06-final-race",
+    "--full",
+    ".evidence/runtime-06-full",
+    "--log",
+    ".evidence/runtime-06-target.jsonl",
+    "--log",
+    ".evidence/runtime-06-race.jsonl",
+    "--log",
+    ".evidence/runtime-06-review-race.jsonl",
+    "--log",
+    ".evidence/runtime-06-full.jsonl",
+    "--log",
+    ".evidence/runtime-06-full-race.jsonl",
+    "--log",
+    ".evidence/runtime-06-full-race-retry.jsonl",
+    "--log",
+    ".evidence/runtime-06-vet.txt",
+    "--log",
+    ".evidence/runtime-06-vet-live.txt",
+    "--log",
+    ".evidence/runtime-06-timeout-post-audit.txt"
+  ],
+  "review": {
+    "Standards": 0,
+    "Spec": 0,
+    "packagingFindingsResolved": {
+      "Standards": 2,
+      "Spec": 1
+    }
+  },
+  "knownFailedExecution": {
+    "run": "20261012T154951.209727000Z",
+    "exitCode": 1,
+    "cause": "go test frontend killed binary after default 11 minutes while race-instrumented audit scanned finished artifacts",
+    "testCaseStatuses": {
+      "PASS": 7212,
+      "NOT_RUN": 9
+    },
+    "originalRunAuditCompleted": false,
+    "separateOrdinaryAudit": {
+      "exitCode": 0,
+      "findings": []
+    }
+  },
+  "scope": {
+    "data": "synthetic fixtures/declared assets",
+    "newDecisionsParity": "NOT_RUN",
+    "pressure": "NOT_RUN",
+    "live": "NOT_RUN",
+    "formalCatalogUnchanged": true,
+    "supportMatrixUnchanged": true
+  },
+  "provenanceNote": "development runs recorded HEAD with working-tree changes; final full runs use Go source fb30d25; original case and process verdicts preserved"
+}
