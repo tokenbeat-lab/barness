@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/json"
+	"net/http"
 	"testing"
 	"time"
 
@@ -24,6 +25,15 @@ func TestDecisionsImagesSnapshot(t *testing.T) {
 			var borrowed map[string]any
 			enqueueClassifierImages(t, ev, u)
 			res, err := u.client.WithHooks(ai.Hooks{
+				TransformHeaders: func(context.Context, ai.CallScope, http.Header) error {
+					// This barrier is after entry copying but before native encoding.
+					if entry == "initial" {
+						assets[0] = ai.Image{Data: "changed", MimeType: "image/gif"}
+						req.State[1] = 'X'
+						req.Questions["intent"] = nil
+					}
+					return nil
+				},
 				OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 					// OnPayload is after entry copying. Mutations are synchronous.
 					if entry == "hook" {

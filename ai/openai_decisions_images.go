@@ -36,11 +36,18 @@ func (c *Client) checkDecisionsInput(ctx context.Context, raw []byte, model Clas
 		return decisionsSchemaFailure()
 	}
 	var message struct {
+		Type    json.RawMessage   `json:"type"`
 		Role    string            `json:"role"`
 		Content []json.RawMessage `json:"content"`
 	}
 	if decodeClassifierJSON(messages[0], &message) != nil || message.Role != "user" || len(message.Content) < 2 {
 		return decisionsSchemaFailure()
+	}
+	if len(message.Type) > 0 {
+		var kind string
+		if json.Unmarshal(message.Type, &kind) != nil || kind != "message" {
+			return decisionsSchemaFailure()
+		}
 	}
 	images := make([]Image, 0, len(message.Content)-1)
 	for i, part := range message.Content {

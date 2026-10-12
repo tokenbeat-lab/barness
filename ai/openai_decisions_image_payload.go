@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"reflect"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/buger/jsonparser"
 )
@@ -26,7 +27,26 @@ func (c *Client) imageBudget() *decisionsImageBudget {
 }
 
 func (c *Client) checkDecisionsInputPayload(input any) *Error {
-	return c.imageBudget().value(reflect.ValueOf(input), 0)
+	b := c.imageBudget()
+	v, failure := imagePayloadValue(reflect.ValueOf(input))
+	if failure != nil || !v.IsValid() {
+		return failure
+	}
+	if v.CanInterface() {
+		if raw, ok := v.Interface().(json.RawMessage); ok {
+			part, kind, _, err := jsonparser.Get(raw)
+			if err != nil {
+				return decisionsSchemaFailure()
+			}
+			if kind == jsonparser.String {
+				return b.rawText(part)
+			}
+		}
+	}
+	if !usesCustomJSON(v) && v.Kind() == reflect.String {
+		return c.checkDecisionsText(v.String())
+	}
+	return b.value(v, 0)
 }
 
 func (c *Client) checkDecisionsRawPayload(body []byte) *Error {
@@ -35,7 +55,7 @@ func (c *Client) checkDecisionsRawPayload(body []byte) *Error {
 		return decisionsSchemaFailure()
 	}
 	if kind == jsonparser.String {
-		return nil
+		return c.imageBudget().rawText(raw)
 	}
 	return c.imageBudget().raw(raw, kind, 0)
 }
@@ -190,6 +210,9 @@ func (b *decisionsImageBudget) rawField(key string, raw []byte, kind jsonparser.
 	if key == "file_id" || key == "item_reference" {
 		return decisionsImageDenied()
 	}
+	if key == "text" && kind == jsonparser.String {
+		return b.rawText(raw)
+	}
 	if key != "image_url" || kind != jsonparser.String {
 		return b.raw(raw, kind, depth)
 	}
@@ -237,4 +260,45 @@ func (b *decisionsImageBudget) rawField(key string, raw []byte, kind jsonparser.
 	}
 	length := n - int64(prefixLen)
 	return b.takeImage(max(0, length/4*3+(length%4)*3/4-min(padding, 2)))
+}
+
+// Count the UTF-8 bytes the standard decoder will produce, including escaped
+// surrogate pairs and its replacement of lone surrogates/invalid UTF-8. Only
+// a two-escape window is ever decoded; an oversized string is never copied.
+func (b *decisionsImageBudget) rawText(raw []byte) *Error {
+	remaining := b.policy.Classifier.MaxStateBytes
+	for i := 0; i < len(raw); {
+		n, consumed := int64(1), 1
+		if raw[i] == '\\' {
+			consumed = 2
+			if i+1 < len(raw) && raw[i+1] == 'u' {
+				consumed = 6
+				if i+12 <= len(raw) && raw[i+6] == '\\' && raw[i+7] == 'u' {
+					consumed = 12
+				}
+			}
+			if i+consumed > len(raw) {
+				return decisionsSchemaFailure()
+			}
+			var window [14]byte
+			window[0] = '"'
+			copy(window[1:], raw[i:i+consumed])
+			window[consumed+1] = '"'
+			var text string
+			if json.Unmarshal(window[:consumed+2], &text) != nil {
+				return decisionsSchemaFailure()
+			}
+			n = int64(len(text))
+		} else if raw[i] >= utf8.RuneSelf {
+			r, size := utf8.DecodeRune(raw[i:])
+			consumed = size
+			n = int64(utf8.RuneLen(r))
+		}
+		if n > remaining {
+			return limitFailure(PhaseRequest, "Classifier.MaxStateBytes", b.policy.Classifier.MaxStateBytes)
+		}
+		remaining -= n
+		i += consumed
+	}
+	return nil
 }
