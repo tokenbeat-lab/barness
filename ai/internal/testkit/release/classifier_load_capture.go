@@ -36,7 +36,7 @@ func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoa
 					ImageURL   string `json:"image_url"`
 				}
 			}
-			Questions []struct{ Type, Name, Instructions string }
+			Questions []json.RawMessage
 		}
 		if json.Unmarshal(c.Body, &req) != nil || req.Model != r.Identity.Model || len(req.Input) != 1 || req.Input[0].Role != "user" || len(req.Input[0].Content) != 3 || len(req.Questions) != r.Load.Questions {
 			return fmt.Errorf("classifier-image captured route/input invalid")
@@ -55,7 +55,12 @@ func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoa
 				return fmt.Errorf("classifier-image captured decoded bytes inconsistent")
 			}
 		}
-		for i, q := range req.Questions {
+		for i, rawQuestion := range req.Questions {
+			var native bytes.Buffer
+			var q struct{ Type, Name, Instructions string }
+			if json.Compact(&native, rawQuestion) != nil || int64(native.Len()) > r.Headroom["Classifier.MaxQuestionBytes"].Design || json.Unmarshal(rawQuestion, &q) != nil {
+				return fmt.Errorf("classifier-image native question capacity inconsistent")
+			}
 			if q.Type != "predicate" || q.Name != fmt.Sprintf("q%d", i) || q.Instructions != strings.Repeat("q", r.Load.InstructionBytes) {
 				return fmt.Errorf("classifier-image captured questions shrunk")
 			}

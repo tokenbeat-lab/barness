@@ -103,7 +103,7 @@ func classifierImageLoadProblem(b Bundle, name string, index int) error {
 	if r.HeapBudget != uint64(256<<20)*uint64(index+1) || len(r.Batches) != 3 {
 		return fmt.Errorf("classifier-image budget or bounded batches changed")
 	}
-	questionBytes := int64(len(`{"type":"bool","instructions":""}`) + l.InstructionBytes)
+	questionBytes := int64(len(`{"type":"predicate","name":"q0","instructions":""}`) + l.InstructionBytes)
 	expected := map[string]loadLimit{
 		"Classifier.Images.MaxImages": {2, 4, .5}, "MaxImageBytes": {256 << 10, 1 << 20, .25},
 		"Classifier.Images.MaxTotalImageBytes": {512 << 10, 1 << 20, .5},

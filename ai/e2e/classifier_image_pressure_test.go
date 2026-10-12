@@ -3,6 +3,7 @@ package e2e
 import (
 	"crypto/sha256"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"testing"
 
@@ -86,6 +87,18 @@ func TestClassifierImagesPressure(t *testing.T) {
 				"Classifier.MaxQuestionBytes":          room(int64(len(mustMarshal(t, req.Questions["q0"]))), p.policy.Classifier.MaxQuestionBytes),
 				"MaxOutputBytes":                       room(int64(len(reply.Chunks[0])), p.policy.MaxOutputBytes),
 			}
+			var nativeQuestionBytes int64
+			for _, captured := range w.provider.Requests() {
+				var wire struct{ Questions []json.RawMessage }
+				if err := json.Unmarshal(captured.Body, &wire); err != nil {
+					t.Fatal(err)
+				}
+				for _, q := range wire.Questions {
+					nativeQuestionBytes = max(nativeQuestionBytes, int64(len(q)))
+				}
+			}
+			rooms["Classifier.MaxQuestionBytes"] = room(max(rooms["Classifier.MaxQuestionBytes"].Design, nativeQuestionBytes), p.policy.Classifier.MaxQuestionBytes)
+			ev.Check("question limit includes native name/type JSON cost", rooms["Classifier.MaxQuestionBytes"].Design >= nativeQuestionBytes, "reported %d native %d", rooms["Classifier.MaxQuestionBytes"].Design, nativeQuestionBytes)
 			for name, h := range rooms {
 				ev.Check("limit use <=75%: "+name, h.Ratio > 0 && h.Ratio <= .75, "%+v", h)
 			}
