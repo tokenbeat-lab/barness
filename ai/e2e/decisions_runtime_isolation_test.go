@@ -71,6 +71,17 @@ func TestDecisionsRuntimeMixedIsolation(t *testing.T) {
 							ev.Check("Luna price independent of same-name operations", math.Abs(o.usage.Cost.Total-want) < 1e-15 && o.usage.Cost.Output == 0, "got %+v", o.usage.Cost)
 						}
 					}
+					// Worked USD totals from the synthetic catalog and 31/47 input
+					// tokens: chat has 1 output token, image has 20 image tokens,
+					// and both classifiers charge only input at different rates.
+					costs := map[string][2]float64{
+						"chat":         {0.000014, 0.0000204},
+						"openai-image": {0.000162, 0.000194},
+						"classifier":   {0.000031, 0.000047},
+						"luna":         {0.0000031, 0.0000047},
+					}
+					ev.Record(o.metadata.RequestID+"-expected-cost", costs[r.id][n])
+					ev.Check("each operation keeps its own price", math.Abs(o.usage.Cost.Total-costs[r.id][n]) < 1e-15, "got %+v", o.usage.Cost)
 					reads := w.host.ReadsFor(o.metadata.RequestID)
 					ev.Record(o.metadata.RequestID+"-reads", reads)
 					ev.Check("one own resolver snapshot", reads.Bindings == 1 && reads.Credentials == 1, "got %+v", reads)
@@ -93,6 +104,20 @@ func TestDecisionsRuntimeMixedIsolation(t *testing.T) {
 				var body map[string]any
 				mustUnmarshal(t, req.Body, &body)
 				ev.Check("same model stays on selected protocol", body["model"] == mixedModel, "got %v", body["model"])
+				if strings.Contains(req.Path, "/luna/") {
+					assets := classifierAssets(t)
+					image := assets[0]
+					if k == tenantB {
+						image = assets[1]
+					}
+					messages, ok := body["input"].([]any)
+					if ev.Check("one Luna image message", ok && len(messages) == 1, "invalid image input") {
+						content := messages[0].(map[string]any)["content"].([]any)
+						if ev.Check("one image after state", len(content) == 2, "wrong content count") {
+							ev.Check("image bytes never cross tenants", content[1].(map[string]any)["image_url"] == "data:"+image.MimeType+";base64,"+image.Data, "wrong captured image")
+						}
+					}
+				}
 			}
 			w.released(ev)
 		})
