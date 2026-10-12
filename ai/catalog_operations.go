@@ -86,9 +86,11 @@ const (
 // existing catalogs. Score requires an inclusive level
 // range with minimum >= 2. Limits for unsupported kinds must be zero.
 type ClassifierCapabilities struct {
-	Kinds      []ClassifierQuestionKind `json:"kinds"`
-	MaxChoices int                      `json:"maxChoices"`
-	MinChoices int                      `json:"minChoices,omitempty"`
+	MaxInputImages int                      `json:"maxInputImages,omitempty"`
+	ImageMIMETypes []string                 `json:"imageMimeTypes,omitempty"`
+	Kinds          []ClassifierQuestionKind `json:"kinds"`
+	MaxChoices     int                      `json:"maxChoices"`
+	MinChoices     int                      `json:"minChoices,omitempty"`
 	// Omitted formats allow the legacy string/object/array descriptions.
 	DescriptionFormats []ClassifierDescriptionFormat `json:"descriptionFormats,omitempty"`
 	MinScoreLevels     int                           `json:"minScoreLevels"`

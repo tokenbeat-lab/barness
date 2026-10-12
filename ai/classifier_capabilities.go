@@ -6,16 +6,28 @@ import (
 	"slices"
 )
 
-// Image metadata is delivered with the image slice (issue 05); catalogs in
-// this text slice must describe only the actually implemented input.
-func classifierTextModelProblem(m ClassifierModel) string {
+func classifierModelProblem(m ClassifierModel) string {
 	if problem := modalitiesProblem(m.Input); problem != "" {
 		return problem
 	}
-	if len(m.Input) > 0 && (!slices.Contains(m.Input, ModalityText) || slices.Contains(m.Input, ModalityImage)) {
-		return "classifier input must be text-only"
+	if len(m.Input) > 0 && !slices.Contains(m.Input, ModalityText) {
+		return "classifier input must include text"
 	}
 	c := m.Capabilities
+	image := slices.Contains(m.Input, ModalityImage)
+	if c.MaxInputImages < 0 || (image && (c.MaxInputImages == 0 || len(c.ImageMIMETypes) == 0)) || (!image && (c.MaxInputImages != 0 || len(c.ImageMIMETypes) > 0)) {
+		return "classifier image declarations are inconsistent"
+	}
+	if image && (m.Provider != ProviderOpenAI || m.API != APIOpenAIDecisions || c.MaxInputImages > decisionsImageLimit) {
+		return "classifier image declaration exceeds the implemented protocol"
+	}
+	seenMIME := map[string]bool{}
+	for _, mime := range c.ImageMIMETypes {
+		if !classifierImageMIME(mime) || seenMIME[mime] {
+			return "classifier image MIME is unknown or duplicated"
+		}
+		seenMIME[mime] = true
+	}
 	if c.MinChoices < 0 || c.MinChoices > c.MaxChoices || (c.MinChoices != 0 && !slices.Contains(c.Kinds, ClassifierQuestionChoice)) {
 		return "classifier minimum choices do not match its question kinds or maximum"
 	}

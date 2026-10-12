@@ -11,6 +11,8 @@ import (
 type ClassifierRequest struct {
 	State     json.RawMessage               `json:"state"`
 	Questions map[string]ClassifierQuestion `json:"questions"`
+	// Images are ordered inline inputs. Empty retains the text-only wire.
+	Images []Image `json:"images,omitempty"`
 }
 
 // ClassifierResult exists on both success and failure. Answers are published
@@ -58,10 +60,19 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 		failure = contextError(ctx, PhaseScope)
 	}
 	if failure == nil {
+		failure = c.policy.checkClassifierImageSizes(req.Images, PhaseScope)
+	}
+	if failure == nil && len(req.Images) > 0 {
+		failure = c.policy.byteLimits().checkClassifierInput(req)
+	}
+	if failure == nil {
 		failure = c.policy.Classifier.check(req)
 	}
 	if failure == nil {
 		failure = c.policy.byteLimits().checkClassifierInput(req)
+	}
+	if failure == nil && len(req.Images) > 0 {
+		failure = checkClassifierImageEncoding(ctx, req.Images, PhaseScope)
 	}
 	// Bound known sizes before copying any mutable input.
 	if failure == nil {
@@ -86,7 +97,7 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 }
 
 func (r ClassifierRequest) clone() ClassifierRequest {
-	out := ClassifierRequest{State: slices.Clone(r.State), Questions: make(map[string]ClassifierQuestion, len(r.Questions))}
+	out := ClassifierRequest{State: slices.Clone(r.State), Questions: make(map[string]ClassifierQuestion, len(r.Questions)), Images: slices.Clone(r.Images)}
 	for key, q := range r.Questions {
 		switch q := q.(type) {
 		case ChoiceQuestion:
@@ -117,6 +128,12 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 		return failure
 	}
 	model := c.catalog.ClassifierModels[i].clone()
+	if problem := classifierImageCapability(req.Images, model); problem != "" {
+		return newError(CodeInvalidRequest, PhaseCapability, problem)
+	}
+	if len(req.Images) > 0 && !r.binding.AllowClassifierImages {
+		return newError(CodeTenantDenied, PhaseCapability, "binding does not allow classifier images")
+	}
 	if failure := validateOptions(opts, model.API); failure != nil {
 		return failure
 	}

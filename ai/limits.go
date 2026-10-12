@@ -87,7 +87,7 @@ func (l byteLimits) checkImages(req Request) *Error {
 func base64Size(data string) int64 {
 	n := int64(len(data))
 	padding := int64(len(data) - len(strings.TrimRight(data, "=")))
-	return n*3/4 - min(padding, 2)
+	return max(0, n/4*3+(n%4)*3/4-min(padding, 2))
 }
 
 // limitBody bounds res's body while it is read: a successful response's body

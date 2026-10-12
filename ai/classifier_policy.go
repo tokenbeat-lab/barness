@@ -9,6 +9,8 @@ import (
 
 // ClassifierPolicy enables classification with explicit finite input bounds.
 type ClassifierPolicy struct {
+	// Images explicitly enables classification images; nil keeps them disabled.
+	Images           *ClassifierImagePolicy
 	MaxQuestions     int
 	MaxStateBytes    int64
 	MaxQuestionBytes int64
@@ -230,6 +232,11 @@ func (l byteLimits) checkClassifierInput(req ClassifierRequest) *Error {
 	}
 	if !take(len(req.State)) {
 		return limitFailure(PhaseScope, "MaxRequestBytes", l.request)
+	}
+	for _, img := range req.Images {
+		if !take(len(img.Data)) || !take(len(img.MimeType)) || !take(len("data:;base64,")) {
+			return limitFailure(PhaseScope, "MaxRequestBytes", l.request)
+		}
 	}
 	for key, q := range req.Questions {
 		if !take(len(key)) {

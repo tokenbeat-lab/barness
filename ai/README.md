@@ -186,7 +186,7 @@ host](examples/chineseeval/README.md) reports business results separately. The [
 evaluation](../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/README.md) does not establish
 production accuracy.
 
-Hosts can also supply a text classifier catalog for `ProviderOpenAI` /
+Hosts can also supply a classifier catalog for `ProviderOpenAI` /
 `APIOpenAIDecisions` and an `OperationClassifier` binding. This slice supports
 choice questions with at least two candidates, ordered score rubrics with 2–10
 levels, and bool questions, using JSON string descriptions;
@@ -209,7 +209,23 @@ bounded rounding rule; Decisions uses a 1e-6 sum/expectation tolerance.
 The initial and final native requests obey complete question and request byte
 budgets. Basic reported usage and input-only estimates survive invalid answers;
 detail reporting remains partial until the usage slice is delivered.
-Image input remains disabled pending its implementation ticket.
+Ordered inline `ClassifierRequest.Images` require all three opt-ins:
+`ClassifierPolicy.Images` with positive `MaxImages` / `MaxTotalImageBytes`,
+model `Input: []ai.Modality{ai.ModalityText, ai.ModalityImage}` with
+`MaxInputImages` (1–128) and an explicit `ImageMIMETypes` subset of
+`image/png`, `image/jpeg`, `image/webp`, and `Binding.AllowClassifierImages: true`.
+The image policy's total decoded budget must fit `MaxRequestBytes`; global
+`MaxImageBytes` bounds each decoded image, and the complete encoded native
+JSON still must fit `MaxRequestBytes`. `ResourcePolicy.Image` independently
+controls generation. Omitted/null/empty Images retain the text-only wire;
+TypeSafe rejects image inputs before credential access.
+
+State remains required (an empty JSON object works for an image judgment).
+Images use strict standard base64 and matching format headers, checked without
+allocating a raster. URLs, paths, vendor files, detail and automatic resize are
+unsupported. Image input becomes one user message with text first and ordered
+data URLs. Hooks must obey the same resource bounds and pinned permission;
+their final entire message/content tree is checked before any attempt.
 No Decisions model is in the built-in catalog yet;
 the [text evidence](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
 uses a synthetic host catalog and loopback HTTP, with no vendor live claim.

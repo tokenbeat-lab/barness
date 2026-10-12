@@ -66,6 +66,7 @@ func (r *ClassifierRequest) UnmarshalJSON(raw []byte) error {
 	var wire struct {
 		State     json.RawMessage            `json:"state"`
 		Questions map[string]json.RawMessage `json:"questions"`
+		Images    []json.RawMessage          `json:"images"`
 	}
 	if err := decodeClassifierJSON(raw, &wire); err != nil {
 		return err
@@ -75,6 +76,19 @@ func (r *ClassifierRequest) UnmarshalJSON(raw []byte) error {
 		return err
 	}
 	out := ClassifierRequest{State: wire.State, Questions: questions}
+	for _, raw := range wire.Images {
+		var image struct {
+			Data     *string `json:"data"`
+			MimeType *string `json:"mimeType"`
+		}
+		if err := decodeClassifierJSON(raw, &image); err != nil {
+			return err
+		}
+		if image.Data == nil || image.MimeType == nil {
+			return fmt.Errorf("classifier image requires string data and mimeType")
+		}
+		out.Images = append(out.Images, Image{Data: *image.Data, MimeType: *image.MimeType})
+	}
 	*r = out
 	return nil
 }

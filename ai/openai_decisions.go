@@ -18,7 +18,7 @@ func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Cre
 	if failure := c.policy.byteLimits().checkRequestBody(body); failure != nil {
 		return failure
 	}
-	if _, failure := c.freezeDecisionsRequest(body, model); failure != nil {
+	if _, failure := c.freezeDecisionsRequest(ctx, body, model, r.binding.AllowClassifierImages); failure != nil {
 		return failure
 	}
 	body, failure = r.hooks.payload(ctx, body, func(final map[string]any) *Error { return c.checkDecisionsPayload(final, model) })
@@ -28,7 +28,7 @@ func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Cre
 	if failure := c.policy.byteLimits().checkRequestBody(body); failure != nil {
 		return failure
 	}
-	final, failure := c.freezeDecisionsRequest(body, model)
+	final, failure := c.freezeDecisionsRequest(ctx, body, model, r.binding.AllowClassifierImages)
 	if failure != nil {
 		return failure
 	}

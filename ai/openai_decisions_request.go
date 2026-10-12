@@ -13,7 +13,7 @@ import (
 // caller's maps or become the public domain representation.
 type decisionsRequest struct {
 	Model     string              `json:"model"`
-	Input     *string             `json:"input"`
+	Input     json.RawMessage     `json:"input"`
 	Questions []decisionsQuestion `json:"questions"`
 }
 type decisionsQuestion struct {
@@ -46,7 +46,22 @@ func encodeDecisionsRequest(model string, req ClassifierRequest) ([]byte, error)
 		}
 		text = compact.String()
 	}
-	wire := decisionsRequest{Model: model, Input: &text}
+	input, err := marshalJS(text)
+	if err != nil {
+		return nil, err
+	}
+	if len(req.Images) > 0 {
+		content := []decisionsContent{{Type: "input_text", Text: &text}}
+		for _, img := range req.Images {
+			url := "data:" + img.MimeType + ";base64," + img.Data
+			content = append(content, decisionsContent{Type: "input_image", ImageURL: &url})
+		}
+		input, err = marshalJS([]decisionsMessage{{Role: "user", Content: content}})
+		if err != nil {
+			return nil, err
+		}
+	}
+	wire := decisionsRequest{Model: model, Input: input}
 	for _, name := range decisionsKeys(req.Questions) {
 		question, err := encodeDecisionsQuestion(name, req.Questions[name])
 		if err != nil {

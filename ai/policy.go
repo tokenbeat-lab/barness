@@ -150,6 +150,11 @@ func (p *ResourcePolicy) validate() error {
 	if err := p.Image.validate(p.MaxOutputBytes); err != nil {
 		return err
 	}
+	if p.Classifier != nil {
+		if err := p.Classifier.Images.validate(p.MaxRequestBytes); err != nil {
+			return err
+		}
+	}
 	return p.Classifier.validate()
 }
 
@@ -165,6 +170,10 @@ func (p *ResourcePolicy) clone() ResourcePolicy {
 	}
 	if p.Classifier != nil {
 		v := *p.Classifier
+		if v.Images != nil {
+			images := *v.Images
+			v.Images = &images
+		}
 		out.Classifier = &v
 	}
 	return out

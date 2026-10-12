@@ -52,6 +52,9 @@ func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID 
 	default:
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding operation is not supported")
 	}
+	if b.AllowClassifierImages && b.Operation != OperationClassifier {
+		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "classifier image permission requires a classifier binding")
+	}
 	if !endpointAllowed(b.Endpoint, c.loopback) {
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding endpoint must be https (http only for loopback)")
 	}

@@ -1,14 +1,14 @@
 package ai
 
 import (
+	"context"
 	"encoding/json"
 	"reflect"
 	"slices"
-	"strings"
 )
 
 func decisionsSchemaFailure() *Error {
-	return newError(CodeCallbackFailed, PhaseRequest, "invalid Decisions text request")
+	return newError(CodeCallbackFailed, PhaseRequest, "invalid Decisions request")
 }
 
 // Check borrowed hook shapes and sizes before allocating the encoded body.
@@ -36,10 +36,9 @@ func (c *Client) checkDecisionsPayload(body map[string]any, model ClassifierMode
 		if _, ok := jsonPayloadSize(body["input"], c.policy.MaxRequestBytes); !ok {
 			return limitFailure(PhaseRequest, "MaxRequestBytes", c.policy.MaxRequestBytes)
 		}
-		if raw, err := marshalJS(body["input"]); err == nil && decisionsExternalInput(raw) {
-			return newError(CodeTenantDenied, PhaseRequest, "payload callback may not reference external or vendor resources")
+		if failure := c.checkDecisionsInputPayload(body["input"]); failure != nil {
+			return failure
 		}
-		return decisionsSchemaFailure()
 	}
 	questions := reflect.ValueOf(body["questions"])
 	if questions.IsValid() && (questions.Kind() == reflect.Slice || questions.Kind() == reflect.Array) {
@@ -58,8 +57,14 @@ func (c *Client) checkDecisionsPayload(body map[string]any, model ClassifierMode
 	return nil
 }
 
-func (c *Client) freezeDecisionsRequest(body []byte, model ClassifierModel) (decisionsRequest, *Error) {
+func (c *Client) freezeDecisionsRequest(ctx context.Context, body []byte, model ClassifierModel, allowImages bool) (decisionsRequest, *Error) {
 	var req decisionsRequest
+	if failure := contextError(ctx, PhaseRequest); failure != nil {
+		return req, failure
+	}
+	if failure := c.checkDecisionsRawPayload(body); failure != nil {
+		return req, failure
+	}
 	if err := decodeClassifierJSON(body, &req); err != nil {
 		return req, decisionsSchemaFailure()
 	}
@@ -67,11 +72,11 @@ func (c *Client) freezeDecisionsRequest(body []byte, model ClassifierModel) (dec
 		return req, newError(CodeTenantDenied, PhaseRequest, "payload callback may not change the authorized model")
 	}
 	p := c.policy.Classifier
-	if req.Input == nil || len(req.Questions) == 0 {
+	if len(req.Input) == 0 || len(req.Questions) == 0 {
 		return req, decisionsSchemaFailure()
 	}
-	if int64(len(*req.Input)) > p.MaxStateBytes {
-		return req, limitFailure(PhaseRequest, "Classifier.MaxStateBytes", p.MaxStateBytes)
+	if failure := c.checkDecisionsInput(ctx, req.Input, model, allowImages); failure != nil {
+		return req, failure
 	}
 	if len(req.Questions) > p.MaxQuestions {
 		return req, limitFailure(PhaseRequest, "Classifier.MaxQuestions", int64(p.MaxQuestions))
@@ -153,37 +158,4 @@ func decisionsDescriptionValid(raw []byte, value *string) bool {
 	}
 	_, present := fields["description"]
 	return !present || value != nil
-}
-
-// Unsupported messages cannot enable image input in this slice. External
-// references are still an authority denial, including behind custom JSON
-// marshalers; inspect a bounded independent value without borrowing it.
-func decisionsExternalInput(raw []byte) bool {
-	var root any
-	if json.Unmarshal(raw, &root) != nil {
-		return false
-	}
-	pending := []any{root}
-	for len(pending) > 0 {
-		last := len(pending) - 1
-		value := pending[last]
-		pending = pending[:last]
-		switch v := value.(type) {
-		case map[string]any:
-			for key, child := range v {
-				if key == "file_id" || key == "item_reference" {
-					return true
-				}
-				if key == "image_url" {
-					if url, ok := child.(string); ok && url != "" && !strings.HasPrefix(url, "data:") {
-						return true
-					}
-				}
-				pending = append(pending, child)
-			}
-		case []any:
-			pending = append(pending, v...)
-		}
-	}
-	return false
 }

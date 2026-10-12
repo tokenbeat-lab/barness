@@ -117,6 +117,9 @@ type Binding struct {
 	// targets the tool reaches are this tenant's to use (ADR-0005). Empty, the
 	// default, refuses every hosted tool; barness-ai never declares one itself.
 	AllowedHostedTools []string
+	// AllowClassifierImages grants inline images only to classifier calls.
+	// Model metadata and image-generation policy cannot grant this permission.
+	AllowClassifierImages bool
 	// Retry is the operator's retry policy for calls through this binding;
 	// the zero value never retries. See RetryPolicy.
 	Retry RetryPolicy
