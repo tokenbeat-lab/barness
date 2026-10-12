@@ -123,3 +123,25 @@ Decisions 无图 wire 仅 model/input/questions；State string 转原文，对�
 该切片按[工单 02](../../.scratch/barness-ai-openai-decisions/issues/02-decisions-text-choice.md)
 交付，公开 E2E 与固定 Jev 回归见[文本证据](../../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)。
 它部分落实 proposed ADR-0026，不把整份图片/发布设计标记 accepted；停用 Binding 或移除白名单即可阻止新调用。
+
+## Decisions 文本混合答案与逐题拒答（工单 03，2026-10-12）
+
+Decisions 增加 ordered score levels 和 predicate 请求；公共 bool 两侧非空说明按固定双换行、
+True means / False means 行拼入 instructions，空说明省略。score 标签按原数组次序保留，允许重复；
+公共 2–10 范围与型号能力取交集，回调也必须满足原授权型号的 kinds 和范围。
+最终 guard 分 kind 检查封闭 schema，拒绝夹带其他 kind 的字段，即使字段为空或 null。
+Hook 可以合法改名、互换三种 kind、重排候选与等级；冻结记录独立拥有最终 wire 数据。
+
+完整答案按最终 name 集合匹配后原子发布；混合和全拒答均为 stop/nil，拒答只有 RefusalAnswer。
+score 必须完整覆盖整数 0..n−1，逐项 label 精确匹配最终 levels；公共 Probabilities 与 Legend 保留，
+Legend 为独立 JSON string。分布和与期望绝对容差固定 1e-6，不共享 Jev 的百分位舍入特例。
+bool 保留 0..1 概率，任何业务阈值由 Host 决定。任何坏答案使整次 Answers 为空，唯一合法 usage 保留。
+
+Decisions 响应允许有界 additive vendor metadata，选择避免非语义扩展破坏合法响应；代价是未来新增
+语义字段须显式纳入规则。已知字段精确大小写、重复键、跨 kind 答案字段、伪造拒答原因仍拒绝；
+MaxOutputBytes 限制完整响应。TypeSafe 请求/响应继续使用独立严格 decoder，不扩大 Jev 的未知字段容忍。
+相关公共 E2E 同时覆盖两入口的乱序、重复 label、容差内外、损坏后 usage 与单 Attempt，
+并保留 Jev 原拒答拒绝、宽 JSON、图例和真实舍入 replay。
+
+本切片使用合成 Host 目录和本地受控 HTTP；图片、usage presence 专项与真实服务验证仍由后续票拥有。
+新调用回滚仍通过禁用 classifier Binding 或移除型号白名单，已发送调用按固定快照完成并保留费用。

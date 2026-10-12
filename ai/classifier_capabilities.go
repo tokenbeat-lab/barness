@@ -89,11 +89,10 @@ func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescrip
 
 func decisionsTextCapability(req ClassifierRequest) string {
 	for _, q := range req.Questions {
-		choice, ok := q.(ChoiceQuestion)
-		if !ok {
-			return "Decisions currently supports only text choice questions (issue 03)"
+		if choice, ok := q.(ChoiceQuestion); ok && len(choice.Criteria) < 2 {
+			return "Decisions requires at least two choices"
 		}
-		if len(choice.Criteria) < 2 || !classifierQuestionFormats(q, []ClassifierDescriptionFormat{ClassifierDescriptionString}) {
+		if !classifierQuestionFormats(q, []ClassifierDescriptionFormat{ClassifierDescriptionString}) {
 			return "Decisions requires at least two choices and string descriptions"
 		}
 	}

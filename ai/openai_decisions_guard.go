@@ -3,11 +3,12 @@ package ai
 import (
 	"encoding/json"
 	"reflect"
+	"slices"
 	"strings"
 )
 
 func decisionsSchemaFailure() *Error {
-	return newError(CodeCallbackFailed, PhaseRequest, "invalid Decisions text choice request")
+	return newError(CodeCallbackFailed, PhaseRequest, "invalid Decisions text request")
 }
 
 // Check borrowed hook shapes and sizes before allocating the encoded body.
@@ -86,32 +87,72 @@ func (c *Client) freezeDecisionsRequest(body []byte, model ClassifierModel) (dec
 		if int64(len(raw.Questions[i])) > p.MaxQuestionBytes {
 			return req, limitFailure(PhaseRequest, "Classifier.MaxQuestionBytes", p.MaxQuestionBytes)
 		}
-		if decodeClassifierJSON(raw.Questions[i], &req.Questions[i]) != nil || q.Type != "choice" || q.Name == "" || seen[q.Name] || q.Instructions == nil || *q.Instructions == "" || len(q.Choices) < max(2, model.Capabilities.MinChoices) || len(q.Choices) > min(255, model.Capabilities.MaxChoices) {
+		if q.Name == "" || seen[q.Name] || q.Instructions == nil || *q.Instructions == "" || !validDecisionsQuestion(raw.Questions[i], q, model.Capabilities) {
 			return req, decisionsSchemaFailure()
 		}
 		seen[q.Name] = true
-		var record struct {
-			Choices []json.RawMessage `json:"choices"`
+	}
+	return req, nil
+}
+
+// The union record stores frozen values, but each native kind has a closed
+// schema. Even empty/null fields from another kind must fail the final guard.
+func validDecisionsQuestion(raw []byte, q decisionsQuestion, caps ClassifierCapabilities) bool {
+	switch q.Type {
+	case "choice":
+		var wire struct {
+			Type         string            `json:"type"`
+			Name         string            `json:"name"`
+			Instructions *string           `json:"instructions"`
+			Choices      []json.RawMessage `json:"choices"`
 		}
-		if json.Unmarshal(raw.Questions[i], &record) != nil {
-			return req, decisionsSchemaFailure()
+		if !slices.Contains(caps.Kinds, ClassifierQuestionChoice) || decodeClassifierJSON(raw, &wire) != nil || len(q.Choices) < max(2, caps.MinChoices) || len(q.Choices) > min(255, caps.MaxChoices) {
+			return false
 		}
 		values := map[string]bool{}
-		for j, choice := range q.Choices {
-			if decodeClassifierJSON(record.Choices[j], &req.Questions[i].Choices[j]) != nil || choice.Value == nil || values[*choice.Value] {
-				return req, decisionsSchemaFailure()
-			}
-			var fields map[string]json.RawMessage
-			if json.Unmarshal(record.Choices[j], &fields) != nil {
-				return req, decisionsSchemaFailure()
-			}
-			if _, present := fields["description"]; present && choice.Description == nil {
-				return req, decisionsSchemaFailure()
+		for i, choice := range q.Choices {
+			var checked decisionsChoice
+			if decodeClassifierJSON(wire.Choices[i], &checked) != nil || choice.Value == nil || values[*choice.Value] || !decisionsDescriptionValid(wire.Choices[i], choice.Description) {
+				return false
 			}
 			values[*choice.Value] = true
 		}
+	case "score":
+		var wire struct {
+			Type         string            `json:"type"`
+			Name         string            `json:"name"`
+			Instructions *string           `json:"instructions"`
+			Levels       []json.RawMessage `json:"levels"`
+		}
+		if !slices.Contains(caps.Kinds, ClassifierQuestionScore) || decodeClassifierJSON(raw, &wire) != nil || len(q.Levels) < max(2, caps.MinScoreLevels) || len(q.Levels) > min(10, caps.MaxScoreLevels) {
+			return false
+		}
+		for i, level := range q.Levels {
+			var checked decisionsLevel
+			if decodeClassifierJSON(wire.Levels[i], &checked) != nil || level.Label == nil || !decisionsDescriptionValid(wire.Levels[i], level.Description) {
+				return false
+			}
+		}
+	case "predicate":
+		var wire struct {
+			Type         string  `json:"type"`
+			Name         string  `json:"name"`
+			Instructions *string `json:"instructions"`
+		}
+		return slices.Contains(caps.Kinds, ClassifierQuestionBool) && decodeClassifierJSON(raw, &wire) == nil
+	default:
+		return false
 	}
-	return req, nil
+	return true
+}
+
+func decisionsDescriptionValid(raw []byte, value *string) bool {
+	var fields map[string]json.RawMessage
+	if json.Unmarshal(raw, &fields) != nil {
+		return false
+	}
+	_, present := fields["description"]
+	return !present || value != nil
 }
 
 // Unsupported messages cannot enable image input in this slice. External

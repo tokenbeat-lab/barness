@@ -6,6 +6,7 @@ import (
 	"maps"
 	"slices"
 	"strconv"
+	"strings"
 )
 
 // These private records own native protocol data. They never borrow the
@@ -19,7 +20,12 @@ type decisionsQuestion struct {
 	Type         string            `json:"type"`
 	Name         string            `json:"name"`
 	Instructions *string           `json:"instructions"`
-	Choices      []decisionsChoice `json:"choices"`
+	Choices      []decisionsChoice `json:"choices,omitempty"`
+	Levels       []decisionsLevel  `json:"levels,omitempty"`
+}
+type decisionsLevel struct {
+	Label       *string `json:"label"`
+	Description *string `json:"description,omitempty"`
 }
 type decisionsChoice struct {
 	Value       *string `json:"value"`
@@ -42,18 +48,29 @@ func encodeDecisionsRequest(model string, req ClassifierRequest) ([]byte, error)
 	}
 	wire := decisionsRequest{Model: model, Input: &text}
 	for _, name := range decisionsKeys(req.Questions) {
-		q := req.Questions[name].(ChoiceQuestion) // capability checked before pin
-		var instructions string
-		if err := json.Unmarshal(q.Instructions, &instructions); err != nil {
+		question, err := encodeDecisionsQuestion(name, req.Questions[name])
+		if err != nil {
 			return nil, err
 		}
-		question := decisionsQuestion{Type: "choice", Name: name, Instructions: &instructions}
+		wire.Questions = append(wire.Questions, question)
+	}
+	return marshalJS(wire)
+}
+
+// Capability validation guarantees string descriptions before conversion;
+// native score and predicate retain their own semantics, never boolean choices.
+func encodeDecisionsQuestion(name string, public ClassifierQuestion) (decisionsQuestion, error) {
+	question := decisionsQuestion{Name: name}
+	var raw json.RawMessage
+	switch q := public.(type) {
+	case ChoiceQuestion:
+		question.Type, raw = "choice", q.Instructions
 		for _, value := range decisionsKeys(q.Criteria) {
 			choice := decisionsChoice{Value: &value}
 			if !bytes.Equal(bytes.TrimSpace(q.Criteria[value]), []byte("null")) {
 				var description string
 				if err := json.Unmarshal(q.Criteria[value], &description); err != nil {
-					return nil, err
+					return question, err
 				}
 				if description != "" {
 					choice.Description = &description
@@ -61,9 +78,43 @@ func encodeDecisionsRequest(model string, req ClassifierRequest) ([]byte, error)
 			}
 			question.Choices = append(question.Choices, choice)
 		}
-		wire.Questions = append(wire.Questions, question)
+	case ScoreQuestion:
+		question.Type, raw = "score", q.Instructions
+		for _, criterion := range q.Criteria {
+			var label string
+			if err := json.Unmarshal(criterion, &label); err != nil {
+				return question, err
+			}
+			question.Levels = append(question.Levels, decisionsLevel{Label: &label})
+		}
+	case BoolQuestion:
+		question.Type, raw = "predicate", q.Instructions
 	}
-	return marshalJS(wire)
+	var instructions string
+	if err := json.Unmarshal(raw, &instructions); err != nil {
+		return question, err
+	}
+	if q, ok := public.(BoolQuestion); ok && q.Criteria != nil {
+		var yes, no string
+		if err := json.Unmarshal(q.Criteria.True, &yes); err != nil {
+			return question, err
+		}
+		if err := json.Unmarshal(q.Criteria.False, &no); err != nil {
+			return question, err
+		}
+		lines := []string{}
+		if yes != "" {
+			lines = append(lines, "True means: "+yes)
+		}
+		if no != "" {
+			lines = append(lines, "False means: "+no)
+		}
+		if len(lines) > 0 {
+			instructions += "\n\n" + strings.Join(lines, "\n")
+		}
+	}
+	question.Instructions = &instructions
+	return question, nil
 }
 
 // Go public maps promise no insertion order. Their frozen JSON object keys

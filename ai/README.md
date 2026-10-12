@@ -188,7 +188,8 @@ production accuracy.
 
 Hosts can also supply a text classifier catalog for `ProviderOpenAI` /
 `APIOpenAIDecisions` and an `OperationClassifier` binding. This slice supports
-choice questions with at least two candidates and JSON string descriptions;
+choice questions with at least two candidates, ordered score rubrics with 2–10
+levels, and bool questions, using JSON string descriptions;
 state strings become raw text, while objects/arrays become compact JSON text
 without rounding numbers. Declare `Input: []ai.Modality{ai.ModalityText}`,
 `MinChoices: 2` and `DescriptionFormats: []ai.ClassifierDescriptionFormat{ai.ClassifierDescriptionString}`.
@@ -197,12 +198,19 @@ typed nil and other protocols' options fail before credential access.
 
 Decisions validates responses against the final frozen hook request. A valid
 refusal is `RefusalAnswer{}` (`{"type":"refusal"}`), with `stop` and nil error:
-hosts must handle it alongside `ChoiceAnswer` in their result type switch.
+hosts must handle it alongside `ChoiceAnswer`, `ScoreAnswer` and `BoolAnswer`
+in their result type switch. Mixed and all-refusal responses retain every name
+and complete successfully. Score distributions and verified string legends are
+preserved; bool answers retain the probability without applying a threshold.
+Invalid answers clear the whole collection. Additive vendor metadata is bounded
+by the response budget; known semantic fields, case aliases and duplicate fields
+are validated strictly. TypeSafe retains its independent strict decoder and
+bounded rounding rule; Decisions uses a 1e-6 sum/expectation tolerance.
 The initial and final native requests obey complete question and request byte
 budgets. Basic reported usage and input-only estimates survive invalid answers;
 detail reporting remains partial until the usage slice is delivered.
-Score, bool and image input remain disabled on this route pending their own
-implementation tickets. No Decisions model is in the built-in catalog yet;
+Image input remains disabled pending its implementation ticket.
+No Decisions model is in the built-in catalog yet;
 the [text evidence](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
 uses a synthetic host catalog and loopback HTTP, with no vendor live claim.
 

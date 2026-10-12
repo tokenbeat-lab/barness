@@ -23,11 +23,6 @@ func TestDecisionsPreflight(t *testing.T) {
 					if name == "model-max" {
 						m.Capabilities.MaxChoices = 2
 					}
-					if name == "score" || name == "bool" {
-						m.Capabilities.Kinds = append(m.Capabilities.Kinds, ai.ClassifierQuestionScore, ai.ClassifierQuestionBool)
-						m.Capabilities.MinScoreLevels = 2
-						m.Capabilities.MaxScoreLevels = 10
-					}
 					if name == "chat-only" {
 						c.Catalog.Models = append(c.Catalog.Models, ai.Model{Provider: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, ID: "chat-only", Input: []ai.Modality{ai.ModalityText}})
 					}
