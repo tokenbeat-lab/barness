@@ -46,3 +46,15 @@ E07-mixed-snapshot 对 chat、OpenAI image、Google image、TypeSafe 分别验�
 保留原尝试消耗，其他操作可继续使用。未引入跨路线 fallback 或双路径兼容实现。
 
 [混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。
+
+## Decisions 运行时与撤销补证据（2026-10-12）
+
+工单 06 用共享 Client 的 Jev/Luna/chat/image、跨 Tenant 同名 Binding/Model 及
+共享 Account Scope/key 验证同一快照契约。实际收到请求的 barrier 后才修改源
+Catalog、Binding、Credential、图片/问题和回调引用；重试固定全部发送字节、
+header、key 与价格快照。CredentialResolver 修改其 Binding 入参不能改变调用副本。
+
+禁用 Luna Binding、移除型号白名单和撤销图片权限分别拒绝新调用；已 pin 请求及
+重试仍完成，已报告消耗保留，其他路线和 Tenant 仍可调用。图片撤销不撤销文本；
+恢复 Host 授权由新调用读取，库内没有 fallback。此补证据不更改 ADR-0003 的撤销边界。
+见[公共契约](../barness-ai/decisions-runtime.md)及[可重放证据](../../.scratch/barness-ai-openai-decisions/runtime-evidence/README.md)。

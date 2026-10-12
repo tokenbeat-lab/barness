@@ -2,6 +2,7 @@ package ai
 
 import (
 	"context"
+	"encoding/json"
 	"io"
 	"net/http"
 )
@@ -55,7 +56,19 @@ func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Cre
 }
 
 func decisionsHTTPError(res *http.Response, body []byte) (string, string) {
-	// Non-JSON gateways must never echo HTML or arbitrary upstream contents.
+	// The shared HTTP lifetime bounds body before this conversion and redacts
+	// the selected diagnostic afterwards. Only an unambiguous error.message
+	// is useful to the tenant; gateway HTML and other contents stay private.
 	message := res.Status + ": Decisions request failed"
+	fields, duplicate, err := unaryJSONEnvelope(body)
+	if err == nil && !duplicate {
+		detail, duplicate, err := unaryJSONEnvelope(fields["error"])
+		if err == nil && !duplicate {
+			var text string
+			if json.Unmarshal(detail["message"], &text) == nil && text != "" {
+				message = res.Status + ": " + text
+			}
+		}
+	}
 	return message, message
 }
