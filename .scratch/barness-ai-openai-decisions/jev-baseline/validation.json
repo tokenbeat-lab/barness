@@ -1,0 +1,248 @@
+{
+  "tested_head": "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+  "created_at": "2026-10-12T11:41:46.004517+00:00",
+  "commands": [
+    {
+      "name": "vet",
+      "argv": [
+        "go",
+        "vet",
+        "./..."
+      ],
+      "environment": {},
+      "started_at": "2026-10-12T11:35:37.827057+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "vet-live",
+      "argv": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ],
+      "environment": {},
+      "started_at": "2026-10-12T11:35:38.068348+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "race",
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^Test(JevRegression|Classifier|Unary|JevBaselineEvidence)",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {
+        "BARNESS_AI_PIDIFF": "1"
+      },
+      "started_at": "2026-10-12T11:35:38.433116+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "full",
+      "argv": [
+        "go",
+        "test",
+        "./...",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {
+        "BARNESS_AI_PIDIFF": "1"
+      },
+      "started_at": "2026-10-12T11:36:02.482723+00:00",
+      "exit_code": 0
+    }
+  ],
+  "runs": {
+    "race": {
+      "cases": 394,
+      "statuses": {
+        "PASS": 394
+      },
+      "differential_cases": 1,
+      "differential_statuses": {
+        "PASS": 1
+      },
+      "local_bundle": ".evidence/jev-baseline-20261012/final/race/20261012T113542.714443000Z"
+    },
+    "full": {
+      "cases": 6227,
+      "statuses": {
+        "PASS": 6218,
+        "NOT_RUN": 9
+      },
+      "differential_cases": 815,
+      "differential_statuses": {
+        "PASS": 815
+      },
+      "local_bundle": ".evidence/jev-baseline-20261012/final/full/20261012T113604.200717000Z"
+    }
+  },
+  "artifact_green": "4 PASS",
+  "fresh_archive_audit": "PASS / zero findings",
+  "replay_pipeline": [
+    {
+      "name": "existing",
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^Test(Classifier|Unary|Catalog|OperationCatalog|TrustedCallback|ProtocolCallbacks|ProtocolNoEnvironmentFallback)",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "started_at": "2026-10-12T11:40:17.734398+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "jev-differential",
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^TestPiDifferential$/^typesafe-system-one$|^TestClassifierCatalogParity$",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {
+        "BARNESS_AI_PIDIFF": "1"
+      },
+      "started_at": "2026-10-12T11:40:24.207317+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "supplement",
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^TestJevRegression",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "started_at": "2026-10-12T11:40:26.496623+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "artifact",
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^TestJevBaselineEvidence$",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "started_at": "2026-10-12T11:40:27.785253+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "oracle-startup",
+      "argv": [
+        "node",
+        "--test",
+        "ai/internal/testkit/pioracle/node/runner.test.mjs"
+      ],
+      "environment": {},
+      "started_at": "2026-10-12T11:40:29.060710+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "race",
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^Test(JevRegression|Classifier|Unary)",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {
+        "BARNESS_AI_PIDIFF": "1"
+      },
+      "started_at": "2026-10-12T11:40:29.674986+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "vet",
+      "argv": [
+        "go",
+        "vet",
+        "./..."
+      ],
+      "environment": {},
+      "started_at": "2026-10-12T11:40:51.452555+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "vet-live",
+      "argv": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ],
+      "environment": {},
+      "started_at": "2026-10-12T11:40:51.716578+00:00",
+      "exit_code": 0
+    }
+  ],
+  "archive_sha256": "c860edf6aef9ce2a35a86d0ece9a33ce8b5c6faf534d53a35f1b4745e12ffdce",
+  "files": {
+    "artifact-green/20261012T113517.098835000Z/P07-OD50-jev-baseline-changed-archive/assertions.json": "3b2c0d5cee1ed48a45fdecdd2b90b955870e2cd553edaeb4e767098901948594",
+    "artifact-green/20261012T113517.098835000Z/P07-OD50-jev-baseline-changed-archive/verification.json": "451db5c9949668b4f2381c8a63f587f1b38498415f70bf5646a3f8ddf523cccf",
+    "artifact-green/20261012T113517.098835000Z/P07-OD50-jev-baseline-intact/assertions.json": "cf4557accc4e58fe9438d52bd9d474f5ddb6fe631de5155a1f96379213112a0d",
+    "artifact-green/20261012T113517.098835000Z/P07-OD50-jev-baseline-intact/verification.json": "50acab838f3adca693083574f9eafacb92c960f387dbc1c7eefca5050361768d",
+    "artifact-green/20261012T113517.098835000Z/P07-OD50-jev-baseline-missing-archive/assertions.json": "d3bcccfa35748ca2565c79bf02dbce3e2a8c9c433246c118237ab4a01982dc5a",
+    "artifact-green/20261012T113517.098835000Z/P07-OD50-jev-baseline-missing-archive/verification.json": "e05da2565dd004b8d6e663745995317a784da520e8800739e1cc048e7a55ca65",
+    "artifact-green/20261012T113517.098835000Z/P07-OD50-jev-baseline-rewritten-manifest/assertions.json": "c16c8ab6c586fda1a5a02302de685c4a253cc1600ea6e1100d737fd04a01dc08",
+    "artifact-green/20261012T113517.098835000Z/P07-OD50-jev-baseline-rewritten-manifest/verification.json": "f288a129d46123a9b23223492d422e78950684325725ec9296ebf50ba544489c",
+    "artifact-green/20261012T113517.098835000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "artifact-green/20261012T113517.098835000Z/manifest.json": "94ba434352e570f91520a7bccea674beb3e15a2301cf4cc9fb6dbfb712f88fc4",
+    "artifact-green.log": "55c8ece9c38b73388289406ca03f0cfab7b9efc02f5735dddfc5551bef69dda6",
+    "audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "commands.json": "3a4438fc7ba8ee1186f1bc67b58aaceaa8ac0e688947d179336df7f4be0a4a3d",
+    "full/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "full/manifest.json": "452315c09b03f1d97a9c011812b26b7b338ab0bfba9d831dff7dbe68c420c76b",
+    "full.log": "7668ec8a561e3014db4bad626afe6a67e499bb6619bd480f773f8d105affbcdd",
+    "manifest.json": "9eebf65c1e3b296e4110eedd42fd22452e806d46af78c1b2b09873bcc115abb2",
+    "race/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "race/manifest.json": "4eac35113cd386056be9b08038e8ad18713cf1ae3c4a73732828581a4ef97f30",
+    "race.log": "10f51f0ef15eaf938be664b566086d73e3178ece94a12a43e700283165bcd115",
+    "replay-artifact.log": "7127f3e5899dcd10c50b5dabcd4e459ffe0207cd025ba703a6a6b70630e2b00b",
+    "replay-commands.json": "d7939998209f43faf146c2a1d3113edb2391193973e38b9e02b93c21f0afcc5a",
+    "replay-existing.log": "96896e282f052d279510f4c7f9c22407a4dd8fc70c26adebd518de5650c2aa4f",
+    "replay-inputs.json": "42665b0338f52407fd48d5f87b920f4c1dffe43a45af444e231052857f1877f1",
+    "replay-jev-differential.log": "3045d3be540880eea05cb5a826bba1bae89ae98043e81e9f216e052709fc6e8c",
+    "replay-oracle-startup.log": "af2d1980b73478a7ee49b438bd6f2d12fe786e43420f166605149bbdaefba813",
+    "replay-race.log": "609dd292ac525f046dd8dae33213b0a7f9eb0a9d9c0d29f9a3521dff90c4a151",
+    "replay-supplement.log": "ff85827580ca70e26304c079e33eb97ed4470c933bdadbd5afdee9e7bfe53f91",
+    "replay-vet-live.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "replay-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vet-live.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "supplemental command receipts/inventories; anchored baseline contains complete original Jev captures",
+  "production_changed": [],
+  "recorded_release": "FAIL",
+  "full_repo_race": "NOT_RUN",
+  "pressure": "NOT_RUN",
+  "live": "NOT_RUN"
+}
