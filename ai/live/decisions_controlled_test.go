@@ -37,6 +37,9 @@ func controlledDecisionsRecorder(t *testing.T, name string) *recorder {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("x-request-id", "req-controlled-decisions")
 		switch name {
+		case "process-deadline":
+			<-r.Context().Done()
+			return
 		case "429":
 			w.WriteHeader(429)
 			fmt.Fprint(w, `{"error":{"message":"synthetic rate limit"}}`)

@@ -45,7 +45,8 @@ func candidateConfiguration(rec *recorder) (candidatePermissions, []byte, error)
 	if err != nil {
 		return candidatePermissions{}, nil, fmt.Errorf("bounded host permission verification record is required")
 	}
-	// Top-level duplicate fields are rejected before the typed decoder. The
+	// Exact canonical field names and duplicates are checked before Go's
+	// case-insensitive typed decoder. The
 	// remaining fields are scalars or a string list; nested objects are illegal.
 	tokens := json.NewDecoder(strings.NewReader(string(raw)))
 	first, err := tokens.Token()
@@ -59,8 +60,8 @@ func candidateConfiguration(rec *recorder) (candidatePermissions, []byte, error)
 			return candidatePermissions{}, nil, fmt.Errorf("invalid permission record")
 		}
 		name, ok := key.(string)
-		if !ok || seen[name] {
-			return candidatePermissions{}, nil, fmt.Errorf("duplicate permission field")
+		if !ok || !slices.Contains([]string{"accountAlias", "regionAlias", "dedicatedTestKey", "model", "permissions", "spendLimitUSD", "verifiedAt", "verificationReference"}, name) || seen[name] {
+			return candidatePermissions{}, nil, fmt.Errorf("unknown, noncanonical or duplicate permission field")
 		}
 		seen[name] = true
 		var value json.RawMessage

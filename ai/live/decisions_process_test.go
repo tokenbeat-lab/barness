@@ -22,7 +22,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 	if os.Getenv("BARNESS_DECISIONS_CONTROLLED") != "" {
 		return
 	}
-	cases := []string{"not-run", "switch-off", "foreign-key", "missing-alias", "missing-permissions", "endpoint-override", "remote-proxy", "source-missing", "source-changed", "catalog-changed", "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "model-missing", "429", "504", "malformed-2xx", "precision-2xx", "narrowed", "calls-budget", "questions-budget", "state-budget", "images-budget", "image-bytes-budget", "permissions-trailing", "permissions-duplicate", "permissions-broad", "permissions-not-dedicated", "missing-region", "no-key-foreign", "mixed-refusal", "price-threshold", "price-long-tier"}
+	cases := []string{"not-run", "switch-off", "foreign-key", "missing-alias", "missing-permissions", "endpoint-override", "remote-proxy", "source-missing", "source-changed", "catalog-changed", "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "model-missing", "429", "504", "malformed-2xx", "precision-2xx", "narrowed", "calls-budget", "questions-budget", "state-budget", "images-budget", "image-bytes-budget", "permissions-trailing", "permissions-duplicate", "permissions-broad", "permissions-not-dedicated", "missing-region", "no-key-foreign", "mixed-refusal", "price-threshold", "price-long-tier", "permissions-case-alias", "process-deadline", "integrity-read-failure", "integrity-write-failure"}
 	for _, name := range cases {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "P10-OD51-process-"+name)
@@ -34,6 +34,8 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			permissions := filepath.Join(base, "permissions.json")
 			proof := `{"accountAlias":"controlled-test","regionAlias":"offline","dedicatedTestKey":true,"model":"gpt-6-luna","permissions":["POST /v1/decisions"],"spendLimitUSD":1,"verifiedAt":"2026-10-12T00:00:00Z","verificationReference":"controlled host permission fixture"}`
 			switch name {
+			case "permissions-case-alias":
+				proof = strings.Replace(proof, `"dedicatedTestKey":true`, `"dedicatedTestKey":false,"DedicatedTestKey":true`, 1)
 			case "permissions-trailing":
 				proof += `{}`
 			case "permissions-duplicate":
@@ -107,6 +109,9 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 			defer cancel()
 			cmd := exec.CommandContext(ctx, os.Args[0], "-test.run=^TestDecisionsCandidateControlledChild$", "-test.v")
+			if name == "process-deadline" {
+				cmd.Args = append(cmd.Args, "-test.timeout=12s")
+			}
 			cmd.Dir = dir
 			// Do not inherit credentials, endpoint or proxy settings into a child.
 			cmd.Env = append([]string{"PATH=" + os.Getenv("PATH"), "HOME=" + os.Getenv("HOME"), "TMPDIR=" + os.TempDir()}, env...)
@@ -150,21 +155,24 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			_, loadErr := supportmatrix.LoadReport(paths[0])
 			cs.Check("formal loader rejects candidate schema", loadErr != nil, "candidate report entered formal schema")
 			integrity, err := os.ReadFile(filepath.Join(root, "candidate-integrity.json"))
-			if err != nil {
+			if err != nil && !strings.HasPrefix(name, "integrity-") {
 				t.Fatal(err)
 			}
-			var inventory struct {
-				Files map[string]string `json:"files"`
+			if err == nil {
+				var inventory struct {
+					Files map[string]string `json:"files"`
+				}
+				if err := json.Unmarshal(integrity, &inventory); err != nil {
+					t.Fatal(err)
+				}
+				cs.Check("root artifacts inventoried", inventory.Files["manifest.json"] != "" && inventory.Files["audit.json"] != "" && inventory.Files["candidate-decisions-report.json"] != "", "missing root checksum")
+				for file, hash := range inventory.Files {
+					data, err := os.ReadFile(filepath.Join(root, file))
+					cs.Check("inventory matches exact captured bytes", err == nil && sha256Text(data) == hash, "changed artifact %s", file)
+				}
+				cs.Fixture("candidate-integrity-observed.json", integrity)
+
 			}
-			if err := json.Unmarshal(integrity, &inventory); err != nil {
-				t.Fatal(err)
-			}
-			cs.Check("root artifacts inventoried", inventory.Files["manifest.json"] != "" && inventory.Files["audit.json"] != "" && inventory.Files["candidate-decisions-report.json"] != "", "missing root checksum")
-			for file, hash := range inventory.Files {
-				data, err := os.ReadFile(filepath.Join(root, file))
-				cs.Check("inventory matches exact captured bytes", err == nil && sha256Text(data) == hash, "changed artifact %s", file)
-			}
-			cs.Fixture("candidate-integrity-observed.json", integrity)
 			_, err = os.Stat(filepath.Join(root, "live-report.json"))
 			cs.Check("candidate cannot be merged as formal support", os.IsNotExist(err), "formal report emitted")
 			var audit struct {
@@ -231,6 +239,12 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 				}
 				cs.Check("entire mandatory pipeline captured", len(report.Scenarios) == 9 && b.CallsUsed == 9 && b.HTTPAttempts == 9 && b.ImagesUsed == 3, "pipeline %+v", b)
 			}
+			if name == "process-deadline" {
+				cs.Check("deadline preserves terminal evidence", b.CallsUsed == 1 && b.HTTPAttempts == 1 && !report.Complete, "deadline lost or exceeded budget")
+			}
+			if strings.HasPrefix(name, "integrity-") {
+				cs.Check("artifact failure revokes acceptance", !report.Complete && report.Outcome == supportmatrix.Fail && b.CallsUsed == 9, "stale successful report after finalization failure")
+			}
 			if strings.Contains(name, "budget") {
 				cs.Check("overspend refused", report.Scenarios[len(report.Scenarios)-1].ErrorCategory == "budget", "missing budget failure")
 			}
@@ -252,4 +266,21 @@ func TestDecisionsCandidateControlledChild(t *testing.T) {
 		t.Skip("isolated controlled process only")
 	}
 	driveCandidateDecisions(t, controlledDecisionsRecorder(t, name), func(t *testing.T) []decisionsScenario { return controlledCandidateBudgetScenarios(t, name) }, "controlled")
+	if name == "integrity-write-failure" {
+		if err := os.Mkdir(filepath.Join(run.Dir(), "candidate-integrity.json"), 0700); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if name == "integrity-read-failure" {
+		file, err := os.Create(filepath.Join(run.Dir(), "oversized-controlled-fixture.bin"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = file.Truncate((16 << 20) + 1); err != nil {
+			t.Fatal(err)
+		}
+		if err = file.Close(); err != nil {
+			t.Fatal(err)
+		}
+	}
 }

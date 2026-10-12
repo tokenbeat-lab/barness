@@ -19,7 +19,9 @@ MIME、SHA-256、base64/data URL 长度。正常结果核验自己的问题键/�
 合法 RefusalAnswer 不导致重复请求；拒答/429/504 不主动在线制造。
 
 每进程上限 12 调用/12 Attempt 预留/24 问题/4 MiB 累计 state/8 张累计图片/
-4 MiB 累计 decoded 图片，180 秒总与 30 秒单调用，Binding 零重试。每次调用之前
+4 MiB 累计 decoded 图片，180 秒总与 30 秒单调用，Binding 零重试。其中预留 10 秒用于终态摘要、Observer、
+manifest/audit/integrity 落盘，执行使用进程期限及 Go 测试外层期限中较早者；不等待
+硬超时 panic 才退出。每次调用之前
 原子预留完整输入预算；故障和取消不退回预留。state/图片字节反例还验证累计耗尽，
 不是仅检查单次大小。请求捕获最多 8 MiB，响应捕获沿用 512 KiB；截断不能 PASS。
 协议 pipeline complete 与 UsageReporting 分开，usage 缺失也不编造 token 计数。
@@ -70,9 +72,13 @@ go test -tags live -timeout 180s ./ai/live -run '^TestCandidateDecisions$' -coun
 ```
 
 宿主记录须与别名一致，权限只含本路线，并说明真实模型访问、专用 key 与有限消费
-配置的核验来源。文件以有界单一 JSON 读取，拒绝未知/重复字段、尾随内容和未来核验
+配置的核验来源。文件以有界单一 JSON 读取，拒绝未知/非规范大小写/重复字段、尾随内容和未来核验
 时间。代理必须是显式 loopback HTTP URL；真实目标和普通 TLS 校验保持官方 endpoint。
 只有 candidate 自己全部 PASS 且审计成功，才可把本票转为 resolved 并进入工单 10。
+
+复审另以真实 Go 测试期限和文件系统边界验证：进程期限到达后仍保存完整失败账本；
+integrity 读取/写入失败会撤销 complete 并以 evidence 失败退出；权限字段大小写
+别名拒绝于网络前。原复审 RED 与修复 GREEN 原样保留。
 
 最终验证收据、两轴复审和固定包校验将在本目录保存；未观察的服务精度/格式反例
 仍未知。若将来遇到真实反例，原样保存 capture、usage 和 protocol FAIL，归因到

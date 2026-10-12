@@ -18,6 +18,10 @@ import (
 // Candidate evidence deliberately has no supportmatrix.Report schema. It can
 // only qualify this fixed candidate; inclusion and formal Hash live are issue 10.
 type candidateDecisionsReport struct {
+	FailureCategory    string                         `json:"failureCategory,omitempty"`
+	FailureNote        string                         `json:"failureNote,omitempty"`
+	ProcessDeadline    time.Time                      `json:"processDeadline,omitzero"`
+	ExecutionDeadline  time.Time                      `json:"executionDeadline,omitzero"`
 	Schema             int                            `json:"schema"`
 	Kind               string                         `json:"kind"`
 	Mode               string                         `json:"mode"`
@@ -46,22 +50,23 @@ type candidateDecisionsReport struct {
 	Unknown            []string                       `json:"unknown"`
 }
 type candidateBudget struct {
-	MaxCalls            int `json:"maxCalls"`
-	MaxAttempts         int `json:"maxAttempts"`
-	MaxQuestions        int `json:"maxQuestions"`
-	MaxStateBytes       int `json:"maxStateBytesTotal"`
-	MaxImages           int `json:"maxImages"`
-	MaxImageBytes       int `json:"maxDecodedImageBytesTotal"`
-	ProcessSeconds      int `json:"processSeconds"`
-	CallSeconds         int `json:"callSeconds"`
-	CallsUsed           int `json:"callsUsed"`
-	AttemptsReserved    int `json:"attemptsReserved"`
-	HTTPAttempts        int `json:"httpAttempts"`
-	QuestionsUsed       int `json:"questionsUsed"`
-	StateBytesSubmitted int `json:"stateBytesSubmitted"`
-	ImagesUsed          int `json:"imagesUsed"`
-	ImageBytesSubmitted int `json:"decodedImageBytesSubmitted"`
-	Retries             int `json:"retries"`
+	FinalizationReserveSeconds int `json:"finalizationReserveSeconds"`
+	MaxCalls                   int `json:"maxCalls"`
+	MaxAttempts                int `json:"maxAttempts"`
+	MaxQuestions               int `json:"maxQuestions"`
+	MaxStateBytes              int `json:"maxStateBytesTotal"`
+	MaxImages                  int `json:"maxImages"`
+	MaxImageBytes              int `json:"maxDecodedImageBytesTotal"`
+	ProcessSeconds             int `json:"processSeconds"`
+	CallSeconds                int `json:"callSeconds"`
+	CallsUsed                  int `json:"callsUsed"`
+	AttemptsReserved           int `json:"attemptsReserved"`
+	HTTPAttempts               int `json:"httpAttempts"`
+	QuestionsUsed              int `json:"questionsUsed"`
+	StateBytesSubmitted        int `json:"stateBytesSubmitted"`
+	ImagesUsed                 int `json:"imagesUsed"`
+	ImageBytesSubmitted        int `json:"decodedImageBytesSubmitted"`
+	Retries                    int `json:"retries"`
 }
 
 var candidateReport *candidateDecisionsReport
@@ -69,7 +74,7 @@ var candidateReport *candidateDecisionsReport
 func initialCandidateReport() *candidateDecisionsReport {
 	expected := []string{"text-choice", "text-score", "text-bool", "mixed-questions", "image-png", "image-jpeg", "image-webp", "cancel-in-flight", "recovery"}
 	out := &candidateDecisionsReport{Schema: 1, Kind: "candidate-only", Mode: "live", Outcome: supportmatrix.NotRun, Combo: decisionsCandidate.name, Operation: ai.OperationClassifier, Provider: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: decisionsCandidate.endpoint, Model: decisionsCandidate.model, SDK: decisionsCandidate.sdk(), StartedAt: started, GitCommit: evidence.GitCommit(), SourceManifestHash: candidateSourceHash, Expected: expected,
-		Budget:  candidateBudget{MaxCalls: 12, MaxAttempts: 12, MaxQuestions: 24, MaxStateBytes: 4 << 20, MaxImages: 8, MaxImageBytes: 4 << 20, ProcessSeconds: 180, CallSeconds: 30},
+		Budget:  candidateBudget{FinalizationReserveSeconds: 10, MaxCalls: 12, MaxAttempts: 12, MaxQuestions: 24, MaxStateBytes: 4 << 20, MaxImages: 8, MaxImageBytes: 4 << 20, ProcessSeconds: 180, CallSeconds: 30},
 		Unknown: []string{"vendor billing", "cache billing", "regional processing premium", "922000 token service capacity", "128 image service capacity", "service score maximum", "alias weights are not frozen by catalog hash"}}
 	for _, id := range expected {
 		out.Scenarios = append(out.Scenarios, supportmatrix.ScenarioResult{ID: id, CaseID: "P10-candidate-" + id, Model: out.Model, Outcome: supportmatrix.NotRun, Note: "scenario not executed in this process"})
@@ -106,7 +111,6 @@ func driveCandidateDecisions(t *testing.T, rec *recorder, scenarioFactory func(*
 	cat, sources, sourceErr := loadDecisionsCandidate(sourcesCase)
 	candidateReport.Sources = sources
 	if sourceErr == nil {
-		catalog = cat
 		candidateReport.CatalogVersion = cat.Version
 		candidateReport.CatalogHash, _ = cat.Hash()
 		run.SetVersion("model_catalog_version", cat.Version)
@@ -159,7 +163,14 @@ func driveCandidateDecisions(t *testing.T, rec *recorder, scenarioFactory func(*
 	// Include configuration actually used, with no credential payload.
 	sourcesCase.Record("host-configuration", map[string]any{"policy": policy, "binding": map[string]any{"operation": r.binding.Operation, "provider": r.binding.ProviderID, "api": r.binding.API, "endpoint": r.binding.Endpoint, "models": r.binding.AllowedModels, "allowClassifierImages": true, "retry": r.binding.Retry}, "permissions": p, "permissionHash": candidateReport.PermissionsHash})
 	deadline := started.Add(180 * time.Second)
-	ctx, cancel := context.WithDeadline(context.Background(), deadline)
+	if outer, ok := t.Deadline(); ok && outer.Before(deadline) {
+		deadline = outer
+	}
+	candidateReport.ProcessDeadline = deadline
+	candidateReport.ExecutionDeadline = deadline.Add(-time.Duration(candidateReport.Budget.FinalizationReserveSeconds) * time.Second)
+	// Leave time for remaining failure summaries, Observer delivery and the
+	// immutable report/manifest/audit/inventory before Go's hard timeout.
+	ctx, cancel := context.WithDeadline(context.Background(), candidateReport.ExecutionDeadline)
 	defer cancel()
 	session := &candidateSession{ctx: ctx, client: client, rec: rec, report: candidateReport}
 	for _, sc := range scenarioFactory(t) {

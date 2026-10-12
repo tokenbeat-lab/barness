@@ -27,3 +27,10 @@ filesystem inputs. No production endpoint override is added.
 Evidence is produced by `go test -tags live ./ai/live -run
 '^TestDecisionsCandidateProcess$' -count=1`; each child bundle includes manifest,
 assertions, replay, report and audit. Controlled evidence cannot grant live support.
+
+
+Review additions, before their fixes: real test-process deadline can preempt
+report/audit writes; Go's case-insensitive JSON decoding can accept contradictory
+permission aliases; integrity read/write faults can leave stale Complete=true.
+Four process cases reproduce these failures, then verify canonical fields,
+reserved finalization time and failed acceptance on artifact I/O faults.
