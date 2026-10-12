@@ -145,3 +145,4 @@ MaxOutputBytes 限制完整响应。TypeSafe 请求/响应继续使用独立严�
 
 本切片使用合成 Host 目录和本地受控 HTTP；图片、usage presence 专项与真实服务验证仍由后续票拥有。
 新调用回滚仍通过禁用 classifier Binding 或移除型号白名单，已发送调用按固定快照完成并保留费用。
+本票固定请求、响应与红绿历史见[混合答案证据](../../.scratch/barness-ai-openai-decisions/mixed-answer-evidence/README.md)。

@@ -181,6 +181,8 @@ Decisions 按 Hook 后冻结的最终请求校验答案。合法拒答是 `Refus
 完整用量明细由后续工单交付，目前 reporting 保守为 partial。图片输入由后续工单交付。
 内置目录尚未加入 Decisions 型号；[文本证据](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
 使用合成宿主目录与本地受控 HTTP，不表示厂商真实验收已通过。
+[混合答案证据](../.scratch/barness-ai-openai-decisions/mixed-answer-evidence/README.md)
+保存两个公共入口的 score、predicate、混合/全拒答与损坏响应回放。
 
 ## 核心概念
 

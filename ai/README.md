@@ -213,6 +213,8 @@ Image input remains disabled pending its implementation ticket.
 No Decisions model is in the built-in catalog yet;
 the [text evidence](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
 uses a synthetic host catalog and loopback HTTP, with no vendor live claim.
+The [mixed-answer evidence](../.scratch/barness-ai-openai-decisions/mixed-answer-evidence/README.md)
+records score, predicate, mixed/all refusals and malformed responses through both public entries.
 
 ## Core concepts
 
