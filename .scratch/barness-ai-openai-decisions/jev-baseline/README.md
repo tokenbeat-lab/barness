@@ -32,7 +32,9 @@ OD09 对坏 State、空题/空名/nil question、256 choice、1/11 score 同时�
 
 唯一运行 oracle 仍为 Pi 1.1.0，commit `abe508e1b89912adde45528136c3221eb69acdd7`，43 文件模型数据 Hash 为 `8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8`。原 lock/integrity、安装副本的版本与 43 文件实测字节均在包内。2026-10-11 两份源码等价证明的原 SHA256SUMS 本次重新核验；它们是历史重建，不宣称本次重新下载或重建。
 
-历史发布结论保持 FAIL：九组合 live 与独立中文效果未通过；压力流完整性异常尚未确认原因，继续由[原压力缺陷工单](../../barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md)负责。包内 `history/` 保存原发布报告及缺陷描述；本次 Jev 离线比较没有阻断，但不能证明新协议、live、效果或发布已支持。Decisions 差分由工单 07 负责，第十组合发布 gate 由工单 13 负责。
+包内 `history/` 保存 2026-10-11 原始发布 FAIL 报告及压力缺陷描述；该归档不是当前 live/effect 状态。2026-10-12 的本地代理重测已在本票起点 HEAD 之前提交：[Anthropic](../../barness-ai-thinking-sampling/anthropic-rerun-20261012/summary.json) 11 PASS；[TypeSafe](../../barness-ai-thinking-sampling/typesafe-rerun-20261012/summary.json) 3 PASS，独立中文评估 COMPLETE、24/24 正确；[其余五条路线](../../barness-ai-thinking-sampling/remaining-proxy-rerun-20261012/summary.json) 28 PASS、1 个既有协议 UNSUPPORTED。当前九路线矩阵没有 FAIL/NOT_RUN，不能再将旧 live/effect 失败描述为当前阻断。
+
+代理重测各报告明确记录完整 releasegate 尚未重新执行；原发布 FAIL 是历史判定，不据专项通过推断整版 gate 已 PASS。压力流完整性异常的根因仍由[原缺陷工单](../../barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md)追踪。本票自身执行的是 Jev 离线基线，没有额外真实调用；Decisions 差分由工单 07 负责，第十组合发布 gate 由工单 13 负责。
 
 从仓库根目录验证固定包（不产生真实调用）：
 
