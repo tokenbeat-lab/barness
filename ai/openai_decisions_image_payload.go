@@ -49,6 +49,11 @@ func (c *Client) checkDecisionsInputPayload(input any, encodedLimit int64) *Erro
 	if !usesCustomJSON(v) && v.Kind() == reflect.String {
 		return c.checkDecisionsText(v.String())
 	}
+	if !usesCustomJSON(v) && byteSliceEncodesBase64(v) {
+		if failure := b.checkByteText(v.Len()); failure != nil {
+			return failure
+		}
+	}
 	return b.value(v, 0)
 }
 
@@ -123,6 +128,11 @@ func (b *decisionsImageBudget) field(key string, value reflect.Value, depth int)
 	if key == "text" && v.Kind() == reflect.String && int64(v.Len()) > b.policy.Classifier.MaxStateBytes {
 		return limitFailure(PhaseRequest, "Classifier.MaxStateBytes", b.policy.Classifier.MaxStateBytes)
 	}
+	if key == "text" && byteSliceEncodesBase64(v) {
+		if failure := b.checkByteText(v.Len()); failure != nil {
+			return failure
+		}
+	}
 	return b.value(v, depth+1)
 }
 
@@ -154,6 +164,13 @@ func (b *decisionsImageBudget) value(value reflect.Value, depth int) *Error {
 	}
 	switch v.Kind() {
 	case reflect.Slice, reflect.Array:
+		if byteSliceEncodesBase64(v) {
+			size, ok := jsonPayloadValueSize(v, b.encodedRemaining)
+			if !ok {
+				return limitFailure(PhaseRequest, "MaxRequestBytes", b.policy.MaxRequestBytes)
+			}
+			return b.takeEncoded(size)
+		}
 		if int64(v.Len()) > b.policy.MaxRequestBytes {
 			return limitFailure(PhaseRequest, "MaxRequestBytes", b.policy.MaxRequestBytes)
 		}
@@ -239,6 +256,17 @@ func (b *decisionsImageBudget) takeEncoded(size int64) *Error {
 		return limitFailure(PhaseRequest, "MaxRequestBytes", b.policy.MaxRequestBytes)
 	}
 	b.encodedRemaining -= size
+	return nil
+}
+
+// []byte text becomes base64 characters, without JSON's surrounding quotes.
+// Check groups before multiplication and reserve the padded final group.
+func (b *decisionsImageBudget) checkByteText(length int) *Error {
+	limit := b.policy.Classifier.MaxStateBytes
+	groups := int64(length) / 3
+	if groups > limit/4 || (length%3 != 0 && limit-groups*4 < 4) {
+		return limitFailure(PhaseRequest, "Classifier.MaxStateBytes", limit)
+	}
 	return nil
 }
 
