@@ -29,17 +29,25 @@ func decisionsUsage(raw json.RawMessage, cost ModelCost) (UsageReporting, Usage,
 	}
 	u := Usage{}
 	var cached, written, reasoning int64
-	counts := []struct {
+	const (
+		inputCount = iota
+		outputCount
+		totalCount
+		cachedCount
+		writtenCount
+		reasoningCount
+	)
+	counts := [6]struct {
 		raw      json.RawMessage
 		value    *int64
 		reported bool
 	}{
-		{raw: fields["input_tokens"], value: &u.Input},
-		{raw: fields["output_tokens"], value: &u.Output},
-		{raw: fields["total_tokens"], value: &u.TotalTokens},
-		{raw: inputDetails["cached_tokens"], value: &cached},
-		{raw: inputDetails["cache_write_tokens"], value: &written},
-		{raw: outputDetails["reasoning_tokens"], value: &reasoning},
+		inputCount:     {raw: fields["input_tokens"], value: &u.Input},
+		outputCount:    {raw: fields["output_tokens"], value: &u.Output},
+		totalCount:     {raw: fields["total_tokens"], value: &u.TotalTokens},
+		cachedCount:    {raw: inputDetails["cached_tokens"], value: &cached},
+		writtenCount:   {raw: inputDetails["cache_write_tokens"], value: &written},
+		reasoningCount: {raw: outputDetails["reasoning_tokens"], value: &reasoning},
 	}
 	reporting := UsageComplete
 	for i := range counts {
@@ -57,17 +65,17 @@ func decisionsUsage(raw json.RawMessage, cost ModelCost) (UsageReporting, Usage,
 	if u.Input > math.MaxInt64-u.Output || cached > math.MaxInt64-written {
 		return UsageUnreported, Usage{}, classifierProtocolFailure()
 	}
-	if counts[0].reported && cached+written > u.Input || counts[1].reported && reasoning > u.Output {
+	if counts[inputCount].reported && cached+written > u.Input || counts[outputCount].reported && reasoning > u.Output {
 		return UsageUnreported, Usage{}, classifierProtocolFailure()
 	}
-	if counts[2].reported {
-		if counts[0].reported && counts[1].reported && u.TotalTokens != u.Input+u.Output {
+	if counts[totalCount].reported {
+		if counts[inputCount].reported && counts[outputCount].reported && u.TotalTokens != u.Input+u.Output {
 			return UsageUnreported, Usage{}, classifierProtocolFailure()
 		}
 	} else {
 		u.TotalTokens = u.Input + u.Output
 	}
-	if counts[5].reported {
+	if counts[reasoningCount].reported {
 		u.Reasoning = Value(reasoning)
 	}
 	// The authorized classifier's snapshot selects a full-request tier from
