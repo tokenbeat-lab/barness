@@ -36,7 +36,12 @@ func (c *Client) checkDecisionsPayload(body map[string]any, model ClassifierMode
 		if _, ok := jsonPayloadSize(body["input"], c.policy.MaxRequestBytes); !ok {
 			return limitFailure(PhaseRequest, "MaxRequestBytes", c.policy.MaxRequestBytes)
 		}
-		if failure := c.checkDecisionsInputPayload(body["input"]); failure != nil {
+		surround, ok := jsonPayloadSize(map[string]any{"model": body["model"], "input": nil, "questions": body["questions"]}, c.policy.MaxRequestBytes)
+		if !ok {
+			return limitFailure(PhaseRequest, "MaxRequestBytes", c.policy.MaxRequestBytes)
+		}
+		// The null placeholder occupies four bytes; reserve everything else.
+		if failure := c.checkDecisionsInputPayload(body["input"], c.policy.MaxRequestBytes-surround+4); failure != nil {
 			return failure
 		}
 	}

@@ -14,21 +14,23 @@ import (
 // raw JSON without serializing or copying image strings. Custom encoders run
 // once in boundHooks; their frozen bytes undergo the same checks afterwards.
 type decisionsImageBudget struct {
-	policy    *ResourcePolicy
-	count     int
-	remaining int64
+	policy           *ResourcePolicy
+	count            int
+	remaining        int64
+	encodedRemaining int64
 }
 
 func (c *Client) imageBudget() *decisionsImageBudget {
-	b := &decisionsImageBudget{policy: &c.policy}
+	b := &decisionsImageBudget{policy: &c.policy, encodedRemaining: c.policy.MaxRequestBytes}
 	if c.policy.Classifier.Images != nil {
 		b.remaining = c.policy.Classifier.Images.MaxTotalImageBytes
 	}
 	return b
 }
 
-func (c *Client) checkDecisionsInputPayload(input any) *Error {
+func (c *Client) checkDecisionsInputPayload(input any, encodedLimit int64) *Error {
 	b := c.imageBudget()
+	b.encodedRemaining = encodedLimit
 	v, failure := imagePayloadValue(reflect.ValueOf(input))
 	if failure != nil || !v.IsValid() {
 		return failure
@@ -85,10 +87,16 @@ func (b *decisionsImageBudget) field(key string, value reflect.Value, depth int)
 	}
 	v, failure := imagePayloadValue(value)
 	if failure != nil || !v.IsValid() {
+		if failure == nil {
+			return b.takeEncoded(4)
+		}
 		return failure
 	}
 	if v.CanInterface() {
 		if raw, ok := v.Interface().(json.RawMessage); ok {
+			if failure := b.takeEncoded(int64(len(raw))); failure != nil {
+				return failure
+			}
 			part, kind, _, err := jsonparser.Get(raw)
 			if err != nil {
 				return decisionsSchemaFailure()
@@ -97,7 +105,7 @@ func (b *decisionsImageBudget) field(key string, value reflect.Value, depth int)
 		}
 	}
 	if usesCustomJSON(v) {
-		return nil
+		return b.takeEncoded(1)
 	}
 	if key == "image_url" && v.Kind() == reflect.String {
 		url := v.String()
@@ -108,7 +116,9 @@ func (b *decisionsImageBudget) field(key string, value reflect.Value, depth int)
 		if !ok {
 			return decisionsSchemaFailure()
 		}
-		return b.takeImage(base64Size(data))
+		if failure := b.takeImage(base64Size(data)); failure != nil {
+			return failure
+		}
 	}
 	if key == "text" && v.Kind() == reflect.String && int64(v.Len()) > b.policy.Classifier.MaxStateBytes {
 		return limitFailure(PhaseRequest, "Classifier.MaxStateBytes", b.policy.Classifier.MaxStateBytes)
@@ -122,10 +132,16 @@ func (b *decisionsImageBudget) value(value reflect.Value, depth int) *Error {
 	}
 	v, failure := imagePayloadValue(value)
 	if failure != nil || !v.IsValid() {
+		if failure == nil {
+			return b.takeEncoded(4)
+		}
 		return failure
 	}
 	if v.CanInterface() {
 		if raw, ok := v.Interface().(json.RawMessage); ok {
+			if failure := b.takeEncoded(int64(len(raw))); failure != nil {
+				return failure
+			}
 			part, kind, _, err := jsonparser.Get(raw)
 			if err != nil {
 				return decisionsSchemaFailure()
@@ -134,12 +150,18 @@ func (b *decisionsImageBudget) value(value reflect.Value, depth int) *Error {
 		}
 	}
 	if usesCustomJSON(v) {
-		return nil
+		return b.takeEncoded(1)
 	}
 	switch v.Kind() {
 	case reflect.Slice, reflect.Array:
 		if int64(v.Len()) > b.policy.MaxRequestBytes {
 			return limitFailure(PhaseRequest, "MaxRequestBytes", b.policy.MaxRequestBytes)
+		}
+		if failure := b.takeEncoded(2); failure != nil {
+			return failure
+		}
+		if failure := b.takeEncoded(int64(max(0, v.Len()-1))); failure != nil {
+			return failure
 		}
 		for i := 0; i < v.Len(); i++ {
 			if failure := b.value(v.Index(i), depth+1); failure != nil {
@@ -147,11 +169,23 @@ func (b *decisionsImageBudget) value(value reflect.Value, depth int) *Error {
 			}
 		}
 	case reflect.Map:
+		if failure := b.takeEncoded(2); failure != nil {
+			return failure
+		}
+		if failure := b.takeEncoded(int64(max(0, v.Len()-1))); failure != nil {
+			return failure
+		}
 		entries := v.MapRange()
 		for entries.Next() {
 			key := ""
 			if entries.Key().Kind() == reflect.String {
 				key = entries.Key().String()
+			}
+			if failure := b.takeEncoded(jsonStringBytes(key)); failure != nil {
+				return failure
+			}
+			if failure := b.takeEncoded(1); failure != nil {
+				return failure
 			}
 			if failure := b.field(key, entries.Value(), depth+1); failure != nil {
 				return failure
@@ -160,18 +194,51 @@ func (b *decisionsImageBudget) value(value reflect.Value, depth int) *Error {
 	case reflect.Struct:
 		// Selected tagged/promoted fields share the existing image boundary's
 		// encoder-aware selection. Unknown fields fail the final closed schema.
+		if failure := b.takeEncoded(2); failure != nil {
+			return failure
+		}
+		count := 0
 		for _, key := range []string{"role", "content", "type", "text", "image_url", "file_id", "item_reference"} {
 			field, failure := imageStructField(v, key)
 			if failure != nil {
 				return failure
 			}
 			if field.IsValid() {
+				if count > 0 {
+					if failure := b.takeEncoded(1); failure != nil {
+						return failure
+					}
+				}
+				count++
+				if failure := b.takeEncoded(jsonStringBytes(key)); failure != nil {
+					return failure
+				}
+				if failure := b.takeEncoded(1); failure != nil {
+					return failure
+				}
 				if failure := b.field(key, field, depth+1); failure != nil {
 					return failure
 				}
 			}
 		}
+	default:
+		size, ok := jsonPayloadValueSize(v, b.encodedRemaining)
+		if !ok {
+			return limitFailure(PhaseRequest, "MaxRequestBytes", b.policy.MaxRequestBytes)
+		}
+		return b.takeEncoded(size)
 	}
+	return nil
+}
+
+// Native message/content structs have predictable field selection; count
+// their supported JSON fields as well as containers before encoding. Custom
+// fields remain deferred to the frozen byte guard, as in jsonPayloadSize.
+func (b *decisionsImageBudget) takeEncoded(size int64) *Error {
+	if size > b.encodedRemaining {
+		return limitFailure(PhaseRequest, "MaxRequestBytes", b.policy.MaxRequestBytes)
+	}
+	b.encodedRemaining -= size
 	return nil
 }
 
