@@ -193,5 +193,6 @@
     "--alias",
     "local-anthropic@region-permissions-unconfirmed"
   ],
-  "conclusion": "The current same-request control receives 403 directly and 200 via the explicit proxy. All 11 original scenarios pass on that route; the precise direct-route blocking policy remains unidentified."
+  "conclusion": "The current same-request control receives 403 directly and 200 via the explicit proxy. All 11 original scenarios pass on that route; the precise direct-route blocking policy remains unidentified.",
+  "overlayDiffFile": "proxy-overlay.diff.json"
 }
