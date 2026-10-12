@@ -12,7 +12,7 @@ import (
 
 func TestDecisionsImagesRawTextBudget(t *testing.T) {
 	assets := classifierAssets(t)
-	for _, name := range []string{"raw-input", "raw-value", "typed-value", "escaped-large", "escaped-boundary", "surrogate-boundary", "text-input"} {
+	for _, name := range []string{"raw-input", "raw-value", "typed-value", "escaped-large", "escaped-boundary", "surrogate-boundary", "prefix-surrogate-boundary", "text-input"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P10-OD26-images-raw-text-"+name)
 			u := newClassifierImagesWorld(t, func(c *ai.Config) {
@@ -20,6 +20,9 @@ func TestDecisionsImagesRawTextBudget(t *testing.T) {
 				c.Policy.Classifier.MaxStateBytes = 128
 				if name == "surrogate-boundary" {
 					c.Policy.Classifier.MaxStateBytes = 64
+				}
+				if name == "prefix-surrogate-boundary" {
+					c.Policy.Classifier.MaxStateBytes = 5
 				}
 			})
 			text := json.RawMessage(`"` + strings.Repeat("x", 2<<20) + `"`)
@@ -30,6 +33,8 @@ func TestDecisionsImagesRawTextBudget(t *testing.T) {
 				text = json.RawMessage(`"` + strings.Repeat(`\u0041`, 128) + `"`)
 			case "surrogate-boundary":
 				text = json.RawMessage(`"` + strings.Repeat(`\ud83d\ude00`, 16) + `"`)
+			case "prefix-surrogate-boundary":
+				text = json.RawMessage(`"\u0041\ud83d\ude00"`)
 			}
 			messages := classifierImageMessages(assets[:1])
 			content := messages[0].(map[string]any)["content"].([]any)
@@ -53,10 +58,14 @@ func TestDecisionsImagesRawTextBudget(t *testing.T) {
 			}
 			var before, after runtime.MemStats
 			runtime.ReadMemStats(&before)
+			req := decisionsInput()
+			if name == "prefix-surrogate-boundary" {
+				req.State = json.RawMessage(`""`)
+			}
 			res, err := u.client.WithHooks(ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				p.Body["input"] = input
 				return ai.KeepPayload(), nil
-			}}).Classify(ctxFor(t), textScope("req-image-rawtext-"+name), ai.Target{BindingID: "classifier", ModelID: "host-decisions"}, decisionsInput(), nil)
+			}}).Classify(ctxFor(t), textScope("req-image-rawtext-"+name), ai.Target{BindingID: "classifier", ModelID: "host-decisions"}, req, nil)
 			runtime.ReadMemStats(&after)
 			if valid {
 				ev.Check("raw escaped decoded byte boundary", err == nil, "got %v", err)

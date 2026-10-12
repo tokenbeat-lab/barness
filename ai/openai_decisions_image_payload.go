@@ -3,6 +3,7 @@ package ai
 import (
 	"encoding/json"
 	"reflect"
+	"strconv"
 	"strings"
 	"unicode/utf8"
 
@@ -274,7 +275,11 @@ func (b *decisionsImageBudget) rawText(raw []byte) *Error {
 			if i+1 < len(raw) && raw[i+1] == 'u' {
 				consumed = 6
 				if i+12 <= len(raw) && raw[i+6] == '\\' && raw[i+7] == 'u' {
-					consumed = 12
+					first, _ := strconv.ParseUint(string(raw[i+2:i+6]), 16, 16)
+					second, _ := strconv.ParseUint(string(raw[i+8:i+12]), 16, 16)
+					if first >= 0xd800 && first <= 0xdbff && second >= 0xdc00 && second <= 0xdfff {
+						consumed = 12
+					}
 				}
 			}
 			if i+consumed > len(raw) {
