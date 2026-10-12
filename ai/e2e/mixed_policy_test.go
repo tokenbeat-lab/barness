@@ -15,6 +15,7 @@ func TestMixedPolicies(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "E10-mixed-policy-"+name)
 			ev.Check("mixed example enables finite image and classifier policies", p.Image != nil && p.Classifier != nil, "image=%+v classifier=%+v", p.Image, p.Classifier)
+			ev.Check("classifier images explicitly bounded", p.Classifier.Images != nil && p.Classifier.Images.MaxImages == 4 && p.Classifier.Images.MaxTotalImageBytes == 1<<20, "images=%+v", p.Classifier.Images)
 		})
 	}
 }

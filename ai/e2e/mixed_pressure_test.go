@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -225,6 +226,7 @@ func TestMixedPressure(t *testing.T) {
 					ev.Check("all typed answers published", len(o.classifier.Answers) == l.Questions, "got %d", len(o.classifier.Answers))
 				}
 				w.record(ev, o)
+				o.recordResult(ev, o.metadata.RequestID+"-result")
 			}
 			var largest, captured int64
 			for _, req := range w.provider.Requests() {
@@ -264,6 +266,20 @@ func TestMixedPressure(t *testing.T) {
 			// allocations. LiveGrowth is the GC-measured lower bound only.
 			ev.Check("all allocations bound even unsampled parsing peaks", allocated <= p.budget, "allocated %d budget %d", allocated, p.budget)
 			ev.Record("mixed-pressure", map[string]any{"load": l, "headroom": rooms, "heap": use, "heapGrowth": use.LiveGrowth(), "heapBudget": p.budget, "totalAllocDuringCalls": allocated, "clientUnaryBytesAtEOF": eof.read.Load(), "peakPermits": heap.peakGauge.Load(), "providerCapturedRequestBytes": captured, "providerSharedResponseScriptBytes": scripts, "inputImageBase64Bytes": len(ref.Data), "outputImageBase64Bytes": base64.StdEncoding.EncodedLen(l.OutputImageBytes), "duration": elapsed.String(), "callsPerSecond": float64(l.Calls) / elapsed.Seconds(), "captureBoundCalls": l.Calls})
+			ev.Record("policy", p.policy)
+			ev.Record("catalog", w.client.Catalog())
+			ev.Record("requests", w.provider.Requests())
+			for _, k := range []tenantKey{tenantA, tenantB}[:p.tenants] {
+				for _, r := range mixedRoutes {
+					ev.Record("binding-"+k.tenant+"-"+r.id, w.host.Binding(k.tenant, r.id))
+				}
+			}
+			var generated []map[string]any
+			for route, reply := range replies {
+				chunks := joinChunks(reply.Chunks)
+				generated = append(generated, map[string]any{"route": route, "status": reply.Status, "header": reply.Header, "bytes": len(chunks), "sha256": fmt.Sprintf("%x", sha256.Sum256([]byte(chunks)))})
+			}
+			ev.Record("response-generation", map[string]any{"load": l, "scripts": generated})
 			w.released(ev)
 		})
 	}

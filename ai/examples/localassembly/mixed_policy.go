@@ -14,6 +14,13 @@ import "github.com/tokenbeat-lab/barness/ai"
 // values apply to that load, not to arbitrary chat or image deployments.
 // Re-run the probe before increasing concurrency or sizes. The larger
 // LocalPolicy remains the separate chat-only example.
+// An additional bounded batch (E08-mixed-pressure-*-classifier-images-design-load)
+// fills all 4/8 permits with four Luna/Decisions calls per tenant: each has
+// 128 KiB state, eight 4000-byte instructions and two 256 KiB PNGs. A canceled
+// batch and a recovery batch repeat that load. Each batch keeps the same
+// 256/512 MiB budget; the original four-route batch runs in full separately.
+// Classifier image count uses 2/4, each image 256 KiB/1 MiB, decoded total
+// 512 KiB/1 MiB; full request use includes base64, data URLs and JSON.
 func MixedPolicy() *ai.ResourcePolicy {
 	p := LocalPolicy()
 	p.MaxConcurrentPerTenant, p.MaxConcurrentProcess = 4, 4
@@ -24,6 +31,8 @@ func MixedPolicy() *ai.ResourcePolicy {
 		MaxInputImages: 4, MaxOutputImages: 4,
 		MaxOutputImageBytes: 1 << 20, MaxTotalOutputImageBytes: 2 << 20,
 	}
-	p.Classifier = &ai.ClassifierPolicy{MaxQuestions: 16, MaxStateBytes: 256 << 10, MaxQuestionBytes: 8 << 10}
+	p.Classifier = &ai.ClassifierPolicy{MaxQuestions: 16, MaxStateBytes: 256 << 10, MaxQuestionBytes: 8 << 10,
+		Images: &ai.ClassifierImagePolicy{MaxImages: 4, MaxTotalImageBytes: 1 << 20},
+	}
 	return p
 }

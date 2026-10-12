@@ -141,3 +141,28 @@ live 必须交付与矩阵当前完整运行一致的自身报告：operation/Pr
 导入的完整 live 报告只供内部判定，永不序列化到 release-report；拒绝证据不重复
 输出其中的字段值。发布报告分开呈现协议、live、压力和业务效果，审计仅给安全位置。
 交付保留完整可重放包、哈希清单、历史失败与当前结论；缺外部条件时明确阻断工单完成。
+
+## Decisions 工单 08：分类图片设计负载与实际导入（2026-10-13）
+
+保留原 mixed-pressure 每租户 chat、OpenAI image、Google image、Jev 的全部调用和大小。
+新增 Luna/Decisions 图片分类为独立有界批次：每租户四个调用占满原 4/8 并发，每次
+128 KiB 状态、八个 4000 字节说明、两张 256 KiB PNG。成功、完整 unary 读取处取消、
+同负载恢复三批分别应用原 256/512 MiB 预算，不能扩大预算或缩小旧负载以得到 PASS。
+若五种路线同时发起，每租户五个调用会突破原四许可合同；分批保留每个真实工作量，
+每批占满既定并发，Host 生成输入与共享脚本在基线前准备，Provider 捕获跨批保留。
+
+Classifier.Images 显式开启 MaxImages=4、MaxTotalImageBytes=1 MiB，沿用
+MaxImageBytes=1 MiB 与 MaxRequestBytes=4 MiB；不据 GenerateImages 政策授予分类图片。
+报告中的 ratio 固定为 design/limit（占用率），<=75% 等于剩余余量 >=25%，不是“余量为 75%”。
+图片 decoded/base64/data URL、整个 wire JSON、每批完整读取与结果保留 GC、连续采样、
+TotalAlloc 保守上界、Provider 副本、吞吐、取消/恢复及零资源均独立记录。
+
+DesignLoadEvidence 同时要求旧混合与新增图片 case 的 PASS，校验实际 Host 政策、目录/hash、
+Binding 授权、请求捕获、全部类型化结果与每批资源读数；按捕获重新计算 count/bytes/JSON，
+旧报告、缺字段、错路线、改负载或预算都拒绝。导入值是独立测量证据，非最终支持声明；
+本票使用合成 Host 目录，Luna 正式目录、live 与十组合普通/race 发布接线仍由后续票负责。
+当前门禁离线消费者已通过同一 DesignLoadEvidence 获取新增报告要求，最终 race 证据
+接线由工单 13 完成，不借本票宣称整版发布 PASS。回滚按 Git 整体恢复源码和证据合同，
+不添加兼容旧报告的 shim。
+
+重复运行与完整红绿记录见[分类图片容量证据](../../.scratch/barness-ai-openai-decisions/classifier-load-evidence/README.md)。

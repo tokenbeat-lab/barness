@@ -14,7 +14,7 @@ import (
 )
 
 type designLoad struct {
-	Load     struct{ Calls, Tenants, References, InputImageBytes, MaskBytes, OutputImages, OutputImageBytes, StateBytes, Questions int }
+	Load     struct{ Calls, Tenants, HistoryBytes, ChatOutputBytes, References, InputImageBytes, MaskBytes, OutputImages, OutputImageBytes, StateBytes, Questions, InstructionBytes int }
 	Headroom map[string]struct {
 		Design, Limit int64
 		Ratio         float64
@@ -53,22 +53,28 @@ func DesignLoadEvidence(b Bundle) []EvidenceCheck {
 			out = append(out, e)
 			continue
 		}
-		valid := r.Load.Calls == 4*(i+1) && r.Load.Tenants == i+1 && r.PeakPermits == int64(r.Load.Calls) && r.HeapBudget == uint64(256<<20)*(uint64(i)+1) && r.Heap.PeakLive >= r.Heap.BaselineLive && r.HeapGrowth == r.Heap.PeakLive-r.Heap.BaselineLive && r.HeapGrowth <= r.HeapBudget && r.TotalAllocDuringCalls > 0 && r.TotalAllocDuringCalls <= r.HeapBudget && r.ClientUnaryBytesAtEOF > 0 && r.ProviderCapturedRequestBytes > 0 && r.CallsPerSecond > 0 && !math.IsInf(r.CallsPerSecond, 0)
+		valid := len(b.Problems) == 0 && r.Load.HistoryBytes == 128<<10 && r.Load.ChatOutputBytes == 16<<10 && r.Load.InstructionBytes == 4000 && r.Load.Calls == 4*(i+1) && r.Load.Tenants == i+1 && r.PeakPermits == int64(r.Load.Calls) && r.HeapBudget == uint64(256<<20)*(uint64(i)+1) && r.Heap.PeakLive >= r.Heap.BaselineLive && r.HeapGrowth == r.Heap.PeakLive-r.Heap.BaselineLive && r.HeapGrowth <= r.HeapBudget && r.TotalAllocDuringCalls > 0 && r.TotalAllocDuringCalls <= r.HeapBudget && r.ClientUnaryBytesAtEOF > 0 && r.ProviderCapturedRequestBytes > 0 && r.CallsPerSecond > 0 && !math.IsInf(r.CallsPerSecond, 0)
 		duration, err := time.ParseDuration(r.Duration)
 		valid = valid && err == nil && duration > 0 && r.Load.References == 2 && r.Load.MaskBytes == 256<<10 && r.Load.InputImageBytes == 256<<10 && r.Load.OutputImages == 2 && r.Load.OutputImageBytes == 512<<10 && r.Load.StateBytes == 128<<10 && r.Load.Questions == 8 && r.InputImageBase64Bytes == base64.StdEncoding.EncodedLen(r.Load.InputImageBytes) && r.OutputImageBase64Bytes == base64.StdEncoding.EncodedLen(r.Load.OutputImageBytes)
-		for _, key := range []string{"MaxRequestBytes", "MaxImageBytes", "MaxFrameBytes (chat only)", "MaxOutputBytes", "Image.MaxInputImages", "Image.MaxOutputImages", "Image.MaxOutputImageBytes", "Image.MaxTotalOutputImageBytes", "Classifier.MaxQuestions", "Classifier.MaxStateBytes", "Classifier.MaxQuestionBytes"} {
+		limits := map[string]int64{"MaxRequestBytes": 4 << 20, "MaxImageBytes": 1 << 20, "MaxFrameBytes (chat only)": 256 << 10, "MaxOutputBytes": 8 << 20, "Image.MaxInputImages": 4, "Image.MaxOutputImages": 4, "Image.MaxOutputImageBytes": 1 << 20, "Image.MaxTotalOutputImageBytes": 2 << 20, "Classifier.MaxQuestions": 16, "Classifier.MaxStateBytes": 256 << 10, "Classifier.MaxQuestionBytes": 8 << 10}
+		for key, limit := range limits {
 			h, ok := r.Headroom[key]
-			valid = valid && ok && h.Design > 0 && h.Limit > 0 && h.Ratio > 0 && h.Ratio <= .75 && math.Abs(h.Ratio-float64(h.Design)/float64(h.Limit)) <= 1e-9
+			valid = valid && ok && h.Design > 0 && h.Limit == limit && h.Ratio > 0 && h.Ratio <= .75 && math.Abs(h.Ratio-float64(h.Design)/float64(h.Limit)) <= 1e-9
 		}
 		for _, key := range []string{"calls", "permits", "waiters", "events", "bodies", "hostPermits"} {
 			n, ok := gauges[key]
 			valid = valid && ok && n == 0
 		}
+		imageProblem := classifierImageLoadProblem(b, name, i)
+		valid = valid && loadCasePassed(b, id) && imageProblem == nil
 		if valid {
 			e.Status = Pass
-			e.Detail = fmt.Sprintf("%d concurrent calls, heap growth %d / budget %d, allocation upper bound %d; all headroom <=75%%; resources zero", r.Load.Calls, r.HeapGrowth, r.HeapBudget, r.TotalAllocDuringCalls)
+			e.Detail = fmt.Sprintf("%d concurrent calls, heap growth %d / budget %d, allocation upper bound %d; all limit use <=75%%; classifier-image design/cancel/recovery verified; resources zero", r.Load.Calls, r.HeapGrowth, r.HeapBudget, r.TotalAllocDuringCalls)
 		} else {
-			e.Detail = "design load, memory/headroom budget, concurrency or resource-release proof invalid"
+			e.Detail = "design load, memory/limit budget, concurrency or resource-release proof invalid"
+			if imageProblem != nil {
+				e.Detail = imageProblem.Error()
+			}
 		}
 		out = append(out, e)
 	}

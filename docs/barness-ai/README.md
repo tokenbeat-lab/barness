@@ -101,9 +101,20 @@ OpenAI image、Google image 和 TypeSafe；chat 为 128 KiB 历史/16 KiB 输出
 覆盖客户端 Body.Read 已交回全部字节但等待 EOF 和全部结果保留的阶段。live 堆只表示已捕获
 的存活增长下界；另将调用期 TotalAlloc 累计分配作为保守上界纳入相同预算，包含 GC
 采样间的全部暂存副本及测试/Observer 分配，避免漏掉解析峰值；这些数字
-是合成协议负载依据，不涵盖厂商像素计算。大 body/result 不额外复制进证据，保留生成
+是合成协议负载依据，不涵盖厂商像素计算。测量结束后才写出请求与完整结果，生成脚本保留
 参数、尺寸和哈希供重放。已有 `BARNESS_AI_PRESSURE=1` 显式开关/门禁启用，未开为 NOT_RUN。
 可重复报告见 [混合操作证据](../../.scratch/barness-ai-pi-1.0/mixed-operations-evidence/README.md)。
+
+Decisions 工单 08 保留上述全部调用，增加
+`E08-mixed-pressure-{local,cloud}-classifier-images-design-load`。新增每批每租户四个
+Luna 图片分类调用，各有 128 KiB 状态、八个 4000 字节问题及两张 256 KiB PNG；
+成功、完整读取处取消及同负载恢复三批分别占满 4/8 并发，沿用 256/512 MiB 预算。
+Classifier.Images 限制四张、总 decoded 1 MiB，单图 1 MiB、完整请求 4 MiB；
+设计占用率 count 50%、单图 25%、总图 50%，完整 JSON 含 base64/data URL 成本。
+占用率 <=75% 表示剩余余量 >=25%。实际 artifact 导入同时要求旧/新报告并从请求捕获
+核对字段、身份与容量，缺失或矛盾拒绝。该合成压力证明不替代 Luna 自己的 live。
+[新容量证据与重放](../../.scratch/barness-ai-openai-decisions/classifier-load-evidence/README.md)。
+
 
 ## 支持矩阵
 
