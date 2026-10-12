@@ -89,6 +89,9 @@ func LoadBundle(dir string) (Bundle, error) {
 			}
 		}
 		d.Missing = append(d.Missing, differentialRecordProblems(c.ID, v)...)
+		if strings.HasPrefix(c.ID, "PIDIFF-P10-") {
+			d.Missing = append(d.Missing, decisionsCaptureProblems(filepath.Join(dir, c.Dir), v)...)
+		}
 		b.Diffs = append(b.Diffs, d)
 	}
 	return b, nil

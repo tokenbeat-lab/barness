@@ -21,13 +21,14 @@
   "P07": "^(PIDIFF-)?P07-",
   "P08": "^P08-",
   "P09": "^P09-",
+  "P10": "^(PIDIFF-)?P10-",
   "D1": "^D1-",
   "D2": "(^|-)E07-(snapshot-|reject-[a-z-]*-between-reads|reject-host-reports-snapshot-conflict)",
   "H1": "(^|-)H1-",
   "PRESSURE": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-",
   "PIDIFF": "^PIDIFF-"
 },
-  "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "P09", "D1", "D2", "PRESSURE"],
+  "p0": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "P09", "P10", "D1", "D2", "PRESSURE"],
   "differential": {
   "required": [
     "P01",
@@ -35,7 +36,8 @@
     "P03",
     "P04",
     "P06",
-    "P07"
+    "P07",
+    "P10"
   ],
   "routes": [
     {
@@ -57,6 +59,7 @@
 },
   "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier", "openai-images", "google-interactions-image"],
   "items": [
+    {"id":"OD07-frozen-decisions","source":"OpenAI Decisions issue 07 / R02 R08 R15 R19 / OD14 OD48 OD49 OD50","requirement":"The unique frozen Pi 1.1.0 Decisions classifier/catalog differential compares complete wire and named basic answers; finite case/path differences retain full captures, source/request/result hashes, manifest and audit. Existing Jev evidence remains required.","scenarios":["P10","PIDIFF"],"cases":"^PIDIFF-P10-"},
     {"id":"C11-ChineseEffect","source":"issue 16 / US87 / ADR-0024","requirement":"Independent fixed synthetic Chinese dataset and real jev-1.13.0 COMPLETE report, full denominators, confusion/calibration and attempts; integrity and audit verified separately from protocol smoke, without an accuracy threshold","scenarios":["ARTIFACTS"],"cases":"^chinese-effect$"},
     {"id":"H5-design-load-artifacts","source":"issue 15–17 / ADR-0017","requirement":"Actual local and cloud mixed image design-load reports with measured whole JSON/base64, concurrency, allocation upper bounds, all limit ratios <=75% and released resources","scenarios":["ARTIFACTS"],"cases":"^mixed-pressure-(local|cloud)$"},
     {"id":"T03-mixed-operation-isolation","source":"issue 15 / ADR-0001/0003/0020","requirement":"Concurrent chat/image/classifier with same-named tenant bindings and model IDs, legal same-account credential sharing, preflight operation/options refusals, fixed retry snapshots and independent route disabling","scenarios":["E07"],"cases":"mixed-(same-named|preflight|snapshot|binding-disabled)"},

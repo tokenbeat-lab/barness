@@ -28,6 +28,10 @@ import (
 // installed node/ directory, so plain `go test ./...` reports it NOT_RUN.
 const EnableEnv = "BARNESS_AI_PIDIFF"
 
+// SourceSHA256 pins the same 827 source-equivalent dist files established by
+// ADR-0004's 1.1.0 rebuild. It adds tamper detection without changing the oracle.
+const SourceSHA256 = "39a9951108d0e7faf60886302ce4bc953d8c51d5ebad22370301f23b29aa2504"
+
 // Enabled reports whether the differential was requested for this run.
 func Enabled() bool { return os.Getenv(EnableEnv) == "1" }
 
@@ -44,10 +48,11 @@ type Provenance struct {
 
 // Oracle runs the frozen pi copy.
 type Oracle struct {
-	dir  string
-	node string
-	prov Provenance
-	sdks map[string]string
+	dir         string
+	node        string
+	prov        Provenance
+	sdks        map[string]string
+	sdkLockHash string
 }
 
 // Open locates the frozen copy and Node.js and checks the copy is installed.
@@ -79,7 +84,11 @@ func Open() (*Oracle, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Oracle{dir: dir, node: node, prov: prov, sdks: sdks}, nil
+	lock, err := os.ReadFile(filepath.Join(dir, "package-lock.json"))
+	if err != nil {
+		return nil, err
+	}
+	return &Oracle{dir: dir, node: node, prov: prov, sdks: sdks, sdkLockHash: SHA256(lock)}, nil
 }
 
 // Case is one runner invocation. Context is a pi Context (systemPrompt,
@@ -104,6 +113,10 @@ type Case struct {
 	// AbortAfterEvents > 0 aborts the call through its signal once that many
 	// events were received.
 	AbortAfterEvents int `json:"abortAfterEvents,omitempty"`
+	// TraceHooks records native payload/response callback order. Payload is a
+	// declarative replacement fixture, never executable code from the caller.
+	TraceHooks bool            `json:"traceHooks,omitempty"`
+	Payload    json.RawMessage `json:"payload,omitempty"`
 }
 
 // Run is what pi observed for a case.
@@ -111,6 +124,7 @@ type Run struct {
 	Pi struct {
 		Version         string `json:"version"`
 		ModelDataSHA256 string `json:"modelDataSha256"`
+		SourceSHA256    string `json:"sourceSha256"`
 	} `json:"pi"`
 	Node   string            `json:"node"`
 	Events []json.RawMessage `json:"events"`
@@ -139,6 +153,9 @@ func (o *Oracle) Run(ctx context.Context, c Case) (Run, error) {
 	var out Run
 	if err := json.Unmarshal(stdout.Bytes(), &out); err != nil {
 		return Run{}, fmt.Errorf("pioracle: runner output: %w", err)
+	}
+	if out.Pi.SourceSHA256 != SourceSHA256 {
+		return Run{}, errors.New("pioracle: source hash mismatch")
 	}
 	if out.Pi.Version != o.prov.PiVersion || out.Pi.ModelDataSHA256 != o.prov.ModelDataSHA256 {
 		return Run{}, fmt.Errorf("pioracle: installed pi-ai %s (model data %s) does not match provenance %s (%s)",
@@ -236,10 +253,14 @@ func (o *Oracle) direct(ctx context.Context, input, out any) error {
 		Pi struct {
 			Version         string `json:"version"`
 			ModelDataSHA256 string `json:"modelDataSha256"`
+			SourceSHA256    string `json:"sourceSha256"`
 		} `json:"pi"`
 	}
 	if err := json.Unmarshal(stdout.Bytes(), &header); err != nil {
 		return fmt.Errorf("pioracle: runner output: %w", err)
+	}
+	if header.Pi.SourceSHA256 != SourceSHA256 {
+		return errors.New("pioracle: source hash mismatch")
 	}
 	if header.Pi.Version != o.prov.PiVersion || header.Pi.ModelDataSHA256 != o.prov.ModelDataSHA256 {
 		return fmt.Errorf("pioracle: installed pi-ai %s does not match provenance %s", header.Pi.Version, o.prov.PiVersion)

@@ -3,6 +3,7 @@ package release
 import (
 	"encoding/json"
 	"regexp"
+	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 )
@@ -49,6 +50,44 @@ func differentialRecordProblems(id string, fields map[string]json.RawMessage) []
 	}
 	if pending != r.Pending {
 		problems = append(problems, "findings/pending mismatch")
+	}
+	if strings.HasPrefix(id, "PIDIFF-P10-") {
+		if r.Protocol != "openai-decisions" {
+			problems = append(problems, "protocol mismatch")
+		}
+		if r.PiSourceSHA256 != pioracle.SourceSHA256 {
+			problems = append(problems, "pi_source_sha256 mismatch")
+		}
+		if len(r.ResultSHA256) != 2 || !hexHash.MatchString(r.ResultSHA256["pi"]) || !hexHash.MatchString(r.ResultSHA256["barness"]) {
+			problems = append(problems, "result_sha256 mismatch")
+		}
+	}
+	return problems
+}
+
+// P10 requires full observations and binds their lossless compact JSON to
+// the record. Format-valid hashes alone cannot substitute for captured work.
+func decisionsCaptureProblems(dir string, fields map[string]json.RawMessage) []string {
+	raw, _ := json.Marshal(fields)
+	var r pioracle.Record
+	if json.Unmarshal(raw, &r) != nil {
+		return []string{"invalid capture record"}
+	}
+	var problems []string
+	for _, side := range []string{"pi", "barness"} {
+		var obs pioracle.Observation
+		if err := readJSON(dir+"/"+side+"-observation.json", &obs); err != nil {
+			problems = append(problems, side+" observation missing or invalid")
+			continue
+		}
+		request, err := json.Marshal(obs.Request)
+		if err != nil || pioracle.SHA256(request) != r.RequestSHA256[side] {
+			problems = append(problems, side+" request hash mismatch")
+		}
+		result, err := json.Marshal(obs.Result)
+		if err != nil || pioracle.SHA256(result) != r.ResultSHA256[side] {
+			problems = append(problems, side+" result hash mismatch")
+		}
 	}
 	return problems
 }

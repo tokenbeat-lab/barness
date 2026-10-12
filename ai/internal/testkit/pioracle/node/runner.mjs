@@ -12,17 +12,23 @@
 // only from the case, and pi's provider-env lookup gets an explicit empty map.
 
 import { createHash } from "node:crypto";
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import net from "node:net";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const LEAKY_ENV = /(API_KEY|_TOKEN|_SECRET|BASE_URL|ENDPOINT|PROXY)$/i;
+const SOURCE_SHA256 = "39a9951108d0e7faf60886302ce4bc953d8c51d5ebad22370301f23b29aa2504";
+let controlledEndpoint;
 
 // One case per API. A table entry is added when that protocol joins the
 // oracle; each catalog is a provider's model data whose entries on
 // catalogApi (default: the case's API) the case may name.
 const APIS = {
+	"openai-decisions": {
+		api: "@earendil-works/pi-ai/api/openai-decisions",
+		catalogs: [{ models: "@earendil-works/pi-ai/providers/openai.models", catalog: "OPENAI_CLASSIFIER_MODELS", type: "classifier" }],
+	},
 	"typesafe-system-one": {
 		api: "@earendil-works/pi-ai/api/typesafe-system-one",
 		catalogs: [{ models: "@earendil-works/pi-ai/providers/typesafe.models", catalog: "TYPESAFE_CLASSIFIER_MODELS", type: "classifier" }],
@@ -75,7 +81,6 @@ function refuseLeakyEnv() {
 }
 
 function isLoopbackHost(host) {
-	if (host === "localhost") return true;
 	const bare = host.replace(/^\[|\]$/g, "");
 	if (net.isIPv4(bare)) return bare.startsWith("127.");
 	if (net.isIPv6(bare)) return bare === "::1";
@@ -100,6 +105,13 @@ function installLoopbackGuard() {
 			host = typeof args[1] === "string" ? args[1] : "localhost";
 		}
 		if (!isLoopbackHost(host)) throw new Error(`pi-oracle loopback guard: refusing non-loopback host ${host}`);
+		const port = typeof opts === "object" ? opts.port : opts;
+		if (!controlledEndpoint || host.replace(/^\[|\]$/g, "") !== controlledEndpoint.hostname.replace(/^\[|\]$/g, "") || Number(port) !== Number(controlledEndpoint.port)) {
+			// undici connects from a later microtask; a synchronous throw there
+			// escapes fetch's promise. Fail through the socket's error channel.
+			process.nextTick(() => this.destroy(new Error("pi-oracle loopback guard: refusing target outside controlled loopback endpoint")));
+			return this;
+		}
 		return connect.apply(this, args);
 	};
 }
@@ -123,7 +135,14 @@ function packageInfo() {
 		const sum = createHash("sha256").update(readFileSync(join(dataDir, name))).digest("hex");
 		hash.update(`${sum}  ${name}\n`);
 	}
-	return { version: pkg.version, modelDataSha256: hash.digest("hex") };
+	// Hash every dist file, including source maps/types, in the same sorted
+	// relative-path format as ADR-0004's source-equivalent rebuild.
+	const sourceHash = createHash("sha256");
+	for (const name of readdirSync(dist, { recursive: true }).filter((n) => statSync(join(dist, n)).isFile()).sort()) {
+		const sum = createHash("sha256").update(readFileSync(join(dist, name))).digest("hex");
+		sourceHash.update(`${sum}  ${name}\n`);
+	}
+	return { version: pkg.version, modelDataSha256: hash.digest("hex"), sourceSha256: sourceHash.digest("hex") };
 }
 
 // Refuse a stale or altered installation before any provider code runs.
@@ -133,6 +152,7 @@ function verifiedPackageInfo() {
 	const info = packageInfo();
 	if (info.version !== provenance.pi_version) fail("version mismatch");
 	if (info.modelDataSha256 !== provenance.model_data_sha256) fail("model data hash mismatch");
+	if (info.sourceSha256 !== SOURCE_SHA256) fail("source hash mismatch");
 	return info;
 }
 
@@ -201,7 +221,9 @@ async function main() {
 	}
 	const entry = APIS[input.api];
 	if (!entry) fail(`unsupported api ${JSON.stringify(input.api)}`);
-	if (!input.baseUrl || !isLoopbackHost(new URL(input.baseUrl).hostname)) fail("baseUrl must be a loopback URL");
+	if (!input.baseUrl) fail("baseUrl must name a controlled loopback endpoint");
+	controlledEndpoint = new URL(input.baseUrl);
+	if (!isLoopbackHost(controlledEndpoint.hostname) || !controlledEndpoint.port || controlledEndpoint.protocol !== "http:" || controlledEndpoint.username || controlledEndpoint.password) fail("baseUrl must name a controlled loopback HTTP endpoint");
 	if (!input.apiKey) fail("apiKey is required; the runner never falls back to the environment");
 
 	const pi = await import("@earendil-works/pi-ai");
@@ -225,8 +247,13 @@ async function main() {
 	if (input.entry === "classify") {
 		if (model.type !== "classifier" || typeof api.classify !== "function") fail("classify requires a classifier model and API");
 		if (!Number.isInteger(options.maxRetries) || options.maxRetries < 0) fail("classify requires an explicit nonnegative maxRetries");
+		const events = [];
+		if (input.traceHooks) {
+			options.onPayload = () => { events.push({ type: "callback", name: "payload" }); return input.payload; };
+			options.onResponse = () => { events.push({ type: "callback", name: "response" }); };
+		}
 		const result = await api.classify(model, context, options);
-		process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, events: [], result }));
+		process.stdout.write(JSON.stringify({ pi: packageInfo(), node: process.version, events, result }));
 		return;
 	}
 	if (input.entry !== "stream" && input.entry !== "streamSimple") fail(`unsupported entry ${input.entry}`);

@@ -11,14 +11,14 @@ import (
 // This release contract is intentionally independent of editable trace input.
 // Updating the acceptance set requires a reviewed release-contract change;
 // deleting evidence or mappings cannot shrink the approved requirements.
-const requiredReleaseItems = `C11-ChineseEffect H5-design-load-artifacts T03-mixed-operation-isolation C08-mixed-lifecycle C09-mixed-observer H5-mixed-design-load C10-mixed-hosts V6-google-images-live H2-google-images-catalog C04-google-images-delivery-omission V4-google-images-editing H5-google-images-input-budgets C04-google-images-edit-final V4-google-images-generation C04-google-images-final H5-google-images-budgets T09-google-images-modalities V6-openai-images-live H2-openai-images-catalog V4-openai-images-editing H5-image-input-budgets C04-image-edit-final V4-openai-images-generation H5-image-budgets C04-image-final-payload T09-image-usage V6-typesafe-live H2-typesafe-catalog C08-unary-lifecycle H5-unary-budgets C04-unary-callbacks T09-unary-observer V4-typesafe-mixed H2-typesafe-parity T04-typesafe-final V4-typesafe-choice T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 V4-responses V4-anthropic V4-gemini V4-chat V4-deepseek V6-live H1 H2 H3 H4 H5 D1 D1-examples D2 S6-1-3 S6-4-7 S6-8-10 TS-R01 TS-R02 TS-R03 TS-R04 TS-R05 TS-R06 TS-R07 TS-R08 TS-R09 TS-R10 TS-R11 TS-R12`
+const requiredReleaseItems = `OD07-frozen-decisions C11-ChineseEffect H5-design-load-artifacts T03-mixed-operation-isolation C08-mixed-lifecycle C09-mixed-observer H5-mixed-design-load C10-mixed-hosts V6-google-images-live H2-google-images-catalog C04-google-images-delivery-omission V4-google-images-editing H5-google-images-input-budgets C04-google-images-edit-final V4-google-images-generation C04-google-images-final H5-google-images-budgets T09-google-images-modalities V6-openai-images-live H2-openai-images-catalog V4-openai-images-editing H5-image-input-budgets C04-image-edit-final V4-openai-images-generation H5-image-budgets C04-image-final-payload T09-image-usage V6-typesafe-live H2-typesafe-catalog C08-unary-lifecycle H5-unary-budgets C04-unary-callbacks T09-unary-observer V4-typesafe-mixed H2-typesafe-parity T04-typesafe-final V4-typesafe-choice T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 V4-responses V4-anthropic V4-gemini V4-chat V4-deepseek V6-live H1 H2 H3 H4 H5 D1 D1-examples D2 S6-1-3 S6-4-7 S6-8-10 TS-R01 TS-R02 TS-R03 TS-R04 TS-R05 TS-R06 TS-R07 TS-R08 TS-R09 TS-R10 TS-R11 TS-R12`
 
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "1a9a4bc554f7a130773d7c0290abc1d76aede48bbefd80e3a6572e7608d64b44"
+const approvedMappingHash = "9b0c1e5e3cdf03caa29b994901d5bf89cb9f57831842aa5180269b3a3552f7c6"
 
-// CheckReleasePlan validates the complete nine-route acceptance plan before
+// CheckReleasePlan validates the complete nine live routes and seven differentials acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified
 // input for Evaluate rather than allowing a mapping to assert its own status.
 func CheckReleasePlan(m TraceMap) Snapshot {
@@ -32,12 +32,12 @@ func CheckReleasePlan(m TraceMap) Snapshot {
 	if len(m.LiveCombos) != 9 {
 		problems = append(problems, "want exactly nine live combinations")
 	}
-	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 D1 D2 PRESSURE") {
+	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE") {
 		if count(m.P0, scenario) != 1 {
 			problems = append(problems, "required P0 "+scenario)
 		}
 	}
-	for _, scenario := range strings.Fields("P01 P02 P03 P04 P06 P07") {
+	for _, scenario := range strings.Fields("P01 P02 P03 P04 P06 P07 P10") {
 		if count(m.Differential.Required, scenario) != 1 {
 			problems = append(problems, "required differential "+scenario)
 		}

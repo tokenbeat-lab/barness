@@ -29,6 +29,8 @@ type Sides struct {
 	// (method, path, query, redacted headers, body) as JSON.
 	PiRequest      json.RawMessage
 	BarnessRequest json.RawMessage
+	PiResult       json.RawMessage
+	BarnessResult  json.RawMessage
 	// Frames is the response script both sides received.
 	Frames []byte
 }
@@ -42,14 +44,17 @@ type Record struct {
 	PiVersion string `json:"pi_version"`
 	// SDKVersions covers both sides: the pi-side npm packages and Node.js,
 	// and the barness-side Go SDKs and toolchain.
-	SDKVersions map[string]string `json:"sdk_versions"`
+	SDKVersions   map[string]string `json:"sdk_versions"`
+	SDKLockSHA256 string            `json:"sdk_lock_sha256,omitempty"`
 	// ModelCatalogHash is barness-ai's built-in catalog hash;
 	// PiModelDataSHA256 is the frozen pi copy's generated model data.
 	ModelCatalogHash  string `json:"model_catalog_hash"`
 	PiModelDataSHA256 string `json:"pi_model_data_sha256"`
+	PiSourceSHA256    string `json:"pi_source_sha256"`
 	// RequestSHA256 hashes each side's full request capture; FrameSHA256
 	// hashes the response script both sides received.
 	RequestSHA256 map[string]string `json:"request_sha256"`
+	ResultSHA256  map[string]string `json:"result_sha256,omitempty"`
 	FrameSHA256   string            `json:"frame_sha256"`
 	// FirstDiff is the earliest difference in request → events → result
 	// order, whatever its classification; FirstPending is the earliest one
@@ -80,12 +85,19 @@ func (o *Oracle) Record(caseID, protocol string, v Verdict, s Sides) Record {
 		PiCommit:          o.prov.PiCommit,
 		PiVersion:         o.prov.PiVersion,
 		SDKVersions:       versions,
+		SDKLockSHA256:     o.sdkLockHash,
 		ModelCatalogHash:  s.ModelCatalogHash,
 		PiModelDataSHA256: o.prov.ModelDataSHA256,
+		PiSourceSHA256:    SourceSHA256,
 		RequestSHA256:     map[string]string{"pi": SHA256(s.PiRequest), "barness": SHA256(s.BarnessRequest)},
 		FrameSHA256:       SHA256(s.Frames),
 		Verdict:           v,
 		Gate:              GateFail,
+	}
+	if len(s.PiResult) != 0 && len(s.BarnessResult) != 0 {
+		pi, _ := json.Marshal(s.PiResult)
+		barness, _ := json.Marshal(s.BarnessResult)
+		r.ResultSHA256 = map[string]string{"pi": SHA256(pi), "barness": SHA256(barness)}
 	}
 	if v.Pass {
 		r.Gate = GatePass

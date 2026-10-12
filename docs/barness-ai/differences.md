@@ -13,6 +13,7 @@
 | google-generative-ai（P03） | 32 | 0 | 0 |
 | openai-completions（P04、P06） | 39 | 7 | 0 |
 | typesafe-system-one（P07） | 25 | 0 | 0 |
+| openai-decisions（P10） | 49 | 0 | 0 |
 
 “已修复”条目只记录曾出现并已修复的差异；同一差异再次出现即为回归，按待处理计。扩展路径（`routes`）：DeepSeek × Responses、原生 OpenAI × Images。
 
@@ -150,3 +151,24 @@ Google 的思考加到 Output，但是否已经包含在模态输出明细中用
 用户于 2026-10-11 明确批准补齐 durationMs 并允许独立执行耗时的数值差异。账本限定四种聊天 API、有限 case ID，以及 result/terminal/partial 的单一 durationMs 字段。每次差分先断言结果为非负整数、唯一终态值与结果一致；缺失/类型错误/不一致无法由账本放行。非终态 PartialView 字段出现时机沿用既有共享视图契约，仅登记该字段的 presence 差异；最终字段必须存在。没有宽泛 result/event 豁免。
 
 仍成立的既有扩展（SDK 错误文本、共享 PartialView、目录可选能力、隔离/资源限额与扩展路线）完整保留并重新执行。DeepSeek Responses 仍独立断言和显式 skip，不计为 pi 原生差分。1.1.0 上层整轮 retryAssistantCall 的 server_busy 文本等不在本库初始请求重试承诺内，未扩展产品范围。迁移明细及执行证据见[专项索引](../../.scratch/barness-ai-thinking-sampling/evidence.md)。
+
+## Decisions 原生差分（工单 07，2026-10-13）
+
+冻结 Pi 1.1.0 自身提供 OpenAI × Decisions × classifier，P10 是第七个必需差分子集。
+它没有 `routes` 豁免。共同对象状态、PNG 图片输入、numeric-looking 名称/候选、string
+"true"/"false" 候选、命名 choice/score/bool 基本答案、输入阶梯计费及显式 429 重试完整比较。
+响应数组刻意乱序，按名称核对；公共字节保留大整数而 Pi 使用 Number 的差异有独立对照。
+
+| 有限差异 | 自身证据与边界 |
+| --- | --- |
+| State string / JSON 精度 | OD49-string/precision；只限 input，字符串长度变化另核对 Content-Length |
+| score 详情 / 逐题拒答 | OD49-score/refusal；score/confidence 共同字段保留，拒答的兄弟题与 billed usage 自身断言 |
+| presence / total / reasoning | OD49-usage-absent/empty/full、total-only、tier；完整 known counts、Reasoning unset/value 与 input-only 估价逐例断言 |
+| 严格校验 | OD49-extra-answer/duplicate-answer/confidence-range/distribution-sum/missing-answer/usage-invalid；整体清空答案，唯一合法用量保留 |
+| callback / HTTP 错误 / retry | OD49-malformed-json/error-400/retry-429/retry-504/hook-final；明确回调数组、终态、每个尝试的完整 wire 与请求次数 |
+| headers / catalog metadata | 六个 fetch/Go 默认头有固定值；OD48-catalog 比较整个条目，Binding endpoint 和 capability metadata 各有来源；P07-OD50 独立保留完整旧 Jev 内容 |
+
+49 条账本记录均有有限 case 列表、path/kind、理由和需求；移到未登记 case 一律 pending，
+改变共同 wire model 也 pending。P10 投影保留 cost、score 详情、refusal 和 usage presence，
+P07 投影未改。来源、逐例完整 captures、实际 verdict、manifest/audit 与命令见
+[证据包](../../.scratch/barness-ai-openai-decisions/frozen-differential-evidence/README.md)。
