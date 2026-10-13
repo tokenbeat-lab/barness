@@ -51,6 +51,11 @@ go run ./ai/examples/chineseeval/cmd/chineseeval -live
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -live
 ```
 
+需要本地出站代理时显式加 `-proxy http://127.0.0.1:7890`。只允许 loopback IP、
+有效端口和无凭据的 HTTP proxy，拒绝 query、fragment 与非根路径；仅供 `-live` 使用。
+默认不读取环境代理。目标仍是所选路线的官方 HTTPS endpoint，保留正常 TLS 验证。
+该参数只改变 Host transport，不改变目录、评估预算或质量指标；离线重放不使用代理。
+
 真实运行属于独立执行票 12。无 key 或未启用为 NOT_RUN，厂商/协议/预算故障为 FAIL，
 已发送 Attempt 和已知消耗仍入账；没有伪造 PASS 或制造拒答的重复请求。
 

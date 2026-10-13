@@ -36,10 +36,16 @@ func execute() error {
 	fixture := flag.String("fixture", "", "offline profile: normal, mixed, all-refusal, usage-absent, usage-partial, cancel, budget, response-alias")
 	out := flag.String("out", "", "base directory for a fresh bundle")
 	live := flag.Bool("live", false, "enable real evaluation with BARNESS_AI_CHINESE_EVAL=1")
+	proxy := flag.String("proxy", "", "explicit loopback HTTP proxy for live HTTPS requests")
 	verify := flag.String("verify", "", "verify a bundle with its own recorded snapshot")
 	flag.Parse()
 	if flag.NArg() != 0 || (*fixture != "" && *live) {
 		return errors.New("incompatible arguments")
+	}
+	stage = "proxy"
+	proxyURL, err := evaluationProxy(*proxy)
+	if err != nil || (*proxy != "" && (!*live || *verify != "")) {
+		return errors.New("invalid live proxy configuration")
 	}
 	if *verify != "" {
 		return verifyBundle(*verify, *routeName)
@@ -177,7 +183,7 @@ func execute() error {
 			capture = &captureTransport{kind: kind}
 		}
 		stage = "client_assembly"
-		client, transport, err := newClient(plan, key, observer, injected, capture)
+		client, transport, err := newClient(plan, key, observer, injected, capture, proxyURL)
 		if err != nil {
 			return err
 		}

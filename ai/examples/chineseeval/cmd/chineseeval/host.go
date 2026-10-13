@@ -3,7 +3,10 @@ package main
 import (
 	"context"
 	"errors"
+	"net"
 	"net/http"
+	"net/url"
+	"strconv"
 	"sync"
 	"time"
 
@@ -36,7 +39,7 @@ func (r *resolver) ResolveCredential(_ context.Context, s ai.CallScope, b ai.Bin
 	return r.credential, nil
 }
 
-func newClient(p *chineseeval.Plan, key string, o *observer, injected http.RoundTripper, capture *captureTransport) (*ai.Client, *http.Transport, error) {
+func newClient(p *chineseeval.Plan, key string, o *observer, injected http.RoundTripper, capture *captureTransport, proxy *url.URL) (*ai.Client, *http.Transport, error) {
 	c := p.Config()
 	route := p.Route()
 	r := &resolver{
@@ -47,8 +50,11 @@ func newClient(p *chineseeval.Plan, key string, o *observer, injected http.Round
 		r.cancelBeforeBinding = f.cancel
 	}
 	// Zero retries at the binding; one serial request per sample. Transport has
-	// no proxy/environment credential source and no alternate provider route.
+	// no environment credential/proxy source and no alternate provider route.
 	transport := &http.Transport{TLSHandshakeTimeout: 5 * time.Second, MaxIdleConns: 1, MaxIdleConnsPerHost: 1, IdleConnTimeout: 30 * time.Second}
+	if proxy != nil {
+		transport.Proxy = http.ProxyURL(proxy)
+	}
 	policy := &ai.ResourcePolicy{
 		Classifier:      &ai.ClassifierPolicy{MaxQuestions: 1, MaxStateBytes: 4096, MaxQuestionBytes: 4096},
 		MaxRequestBytes: 16384, MaxImageBytes: 1024, MaxFrameBytes: 16384, MaxToolJSONBytes: 1024, MaxErrorBodyBytes: 4096, MaxOutputBytes: 16384, MaxQueuedEvents: 8, MaxQueuedEventBytes: 16384,
@@ -70,6 +76,25 @@ func newClient(p *chineseeval.Plan, key string, o *observer, injected http.Round
 	catalog := p.Catalog()
 	client, err := ai.NewClient(ai.Config{Bindings: r, Credentials: r, Catalog: &catalog, Policy: policy, Transport: rt, Observer: o})
 	return client, transport, err
+}
+
+// A proxy is explicit trusted Host transport configuration; the official
+// endpoint and ordinary TLS verification still apply. Keep this independent
+// from live-smoke configuration: that runner has a separate evidence contract.
+func evaluationProxy(raw string) (*url.URL, error) {
+	if raw == "" {
+		return nil, nil
+	}
+	u, err := url.Parse(raw)
+	if err != nil {
+		return nil, errors.New("invalid proxy")
+	}
+	ip := net.ParseIP(u.Hostname())
+	port, err := strconv.Atoi(u.Port())
+	if err != nil || port < 1 || port > 65535 || ip == nil || !ip.IsLoopback() || u.Scheme != "http" || u.User != nil || u.RawQuery != "" || u.ForceQuery || u.Fragment != "" || (u.Path != "" && u.Path != "/") {
+		return nil, errors.New("explicit loopback HTTP proxy required")
+	}
+	return u, nil
 }
 
 type observer struct {

@@ -75,7 +75,7 @@ func verifyCapturedScripts(p *chineseeval.Plan, r chineseeval.Report, captures [
 			replay.samples = append(replay.samples, s)
 		}
 	}
-	client, transport, err := newClient(p, "synthetic-replay-credential", newObserver(), replay, nil)
+	client, transport, err := newClient(p, "synthetic-replay-credential", newObserver(), replay, nil, nil)
 	if err != nil {
 		return err
 	}
