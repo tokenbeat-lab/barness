@@ -1,0 +1,202 @@
+{
+  "schema": 3,
+  "combo": "openai-decisions",
+  "operation": "classifier",
+  "provider": "openai",
+  "api": "openai-decisions",
+  "endpoint": "https://api.openai.com/v1",
+  "model": "gpt-6-luna",
+  "sdk": "direct HTTP (OpenAI Decisions; ADR-0026)",
+  "accountAlias": "live-unverified-account",
+  "gitCommit": "f9bd770d94f7696aa59954400a1c2b4a47903e36",
+  "catalogVersion": "2026-10-13.1",
+  "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+  "startedAt": "2026-10-13T01:29:46.420502Z",
+  "finishedAt": "2026-10-13T01:29:49.594089Z",
+  "budget": {
+    "maxAttempts": 12,
+    "attemptsReserved": 9,
+    "maxStateBytesTotal": 4194304,
+    "maxDecodedImageBytesTotal": 4194304,
+    "decodedImageBytesSubmitted": 1161,
+    "processSeconds": 180,
+    "callSeconds": 30,
+    "finalizationReserveSeconds": 10,
+    "maxCalls": 12,
+    "maxImages": 8,
+    "imagesUsed": 3,
+    "maxQuestions": 24,
+    "questionsUsed": 13,
+    "httpAttempts": 9,
+    "stateBytesSubmitted": 480,
+    "maxRetriesPerScenario": 0,
+    "maxOutputTokensPerCall": 0,
+    "callsUsed": 9,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 1608,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "text-choice",
+    "text-score",
+    "text-bool",
+    "mixed-questions",
+    "image-png",
+    "image-jpeg",
+    "image-webp",
+    "cancel-in-flight",
+    "recovery"
+  ],
+  "scenarios": [
+    {
+      "id": "text-choice",
+      "caseId": "LIVE-P10-text-choice",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 839,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "stateBytes": 54,
+      "providerRequestIds": [
+        "req_aa8efb2616294ca88134e0b2ff524d3e"
+      ],
+      "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"
+    },
+    {
+      "id": "text-score",
+      "caseId": "LIVE-P10-text-score",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 304,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "stateBytes": 54,
+      "providerRequestIds": [
+        "req_9f96594021c94287adb1369d5a35fedd"
+      ],
+      "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"
+    },
+    {
+      "id": "text-bool",
+      "caseId": "LIVE-P10-text-bool",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 270,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "stateBytes": 54,
+      "providerRequestIds": [
+        "req_0a39cd4633934bc181296f793646d8b9"
+      ],
+      "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"
+    },
+    {
+      "id": "mixed-questions",
+      "caseId": "LIVE-P10-mixed-questions",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 284,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 3,
+      "stateBytes": 54,
+      "providerRequestIds": [
+        "req_83df69b2b72240b2b632c88999ec90c0"
+      ],
+      "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"
+    },
+    {
+      "id": "image-png",
+      "caseId": "LIVE-P10-image-png",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 283,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "images": 1,
+      "stateBytes": 52,
+      "decodedImageBytes": 107,
+      "providerRequestIds": [
+        "req_f55b2034522742a3995b2508d6f5545e"
+      ],
+      "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"
+    },
+    {
+      "id": "image-jpeg",
+      "caseId": "LIVE-P10-image-jpeg",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 289,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "images": 1,
+      "stateBytes": 52,
+      "decodedImageBytes": 612,
+      "providerRequestIds": [
+        "req_e4575dea163841c88359c0eaf17e0da1"
+      ],
+      "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"
+    },
+    {
+      "id": "image-webp",
+      "caseId": "LIVE-P10-image-webp",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 297,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "images": 1,
+      "stateBytes": 52,
+      "decodedImageBytes": 442,
+      "providerRequestIds": [
+        "req_0f094f7950164c2d95460d243a58fa24"
+      ],
+      "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"
+    },
+    {
+      "id": "cancel-in-flight",
+      "caseId": "LIVE-P10-cancel-in-flight",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 291,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 1,
+      "stateBytes": 54,
+      "providerRequestIds": [
+        "req_ff8332286da24cd89fcc0d52fe8c224f"
+      ]
+    },
+    {
+      "id": "recovery",
+      "caseId": "LIVE-P10-recovery",
+      "model": "gpt-6-luna",
+      "outcome": "PASS",
+      "durationMs": 284,
+      "calls": 1,
+      "attempts": 1,
+      "questions": 3,
+      "stateBytes": 54,
+      "providerRequestIds": [
+        "req_66b81e7355ca4f64a49c176d2e2a8fc5"
+      ],
+      "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"
+    }
+  ],
+  "decisions": {
+    "mode": "live",
+    "complete": true,
+    "auditPassed": true,
+    "sourceManifestHash": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe",
+    "accountVerificationStatus": "unknown",
+    "regionVerificationStatus": "unknown",
+    "permissionVerificationStatus": "unknown",
+    "accountVerificationPolicy": "allow_unknown"
+  }
+}

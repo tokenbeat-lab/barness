@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "retrievedAt": "2026-10-12T22:14:22.211600+00:00",
+  "sources": [
+    {
+      "file": "guide.md",
+      "url": "https://developers.openai.com/api/docs/guides/decisions.md",
+      "sha256": "518b4297877cb2aa6ddf6b36a1b201d3dd6e657b6171e2c2b2ae01b1d3d4aa77"
+    },
+    {
+      "file": "reference.txt",
+      "url": "https://developers.openai.com/api/reference/resources/decisions/methods/create",
+      "sha256": "99cac111ef6cbeae93afcb2f609b43e9c83ce96e4b7647ada3b085fd04fdb6ab"
+    },
+    {
+      "file": "model.md",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-luna.md",
+      "sha256": "2e4861582095740f5ea84b14bb18fa476a49c426b397b779b964bc144397b451"
+    },
+    {
+      "file": "pi-classifier.json",
+      "url": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz",
+      "sha256": "9c3eb7100ff6f4e915df6c3cf3952e5cb542077ebcecd98677050b27938be3cd"
+    },
+    {
+      "file": "gopher.webp",
+      "url": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/testdata/gopher-doc.1bpp.lossless.webp",
+      "sha256": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a"
+    },
+    {
+      "file": "LICENSE",
+      "url": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    }
+  ],
+  "referenceExtraction": {
+    "method": "Python HTMLParser; main element text nodes, excluding script/style, joined with newlines",
+    "downloadSHA256": "7007cb7445654ecf8cb4bfee271489d0cf5e51fe0de4d0ec11b74abe3fe928e4"
+  },
+  "pi": {
+    "version": "1.1.0",
+    "commit": "abe508e1b89912adde45528136c3221eb69acdd7",
+    "openaiFileSHA256": "f4c1ac9f8f84cb9f2a952b0ceec51c90a38b31b4cdf33200e018ece9d408e95f",
+    "modelDataSHA256": "8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8"
+  },
+  "claims": {
+    "identity": "Pi classifier snapshot, independently implemented route",
+    "contextWindow": "922000 is frozen Pi classifier metadata; not a tested service limit",
+    "price": "Decisions guide: input-only 0.10; general Luna model: >272000 full-request 2x input multiplier; independently yields 0.20. Chat output/cache rates are not imported. Regional premiums and billing are unobserved.",
+    "images": "128 from Decisions API reference. PNG/JPEG/WebP are the barness supported subset, proven by public fixtures and own live only when run.",
+    "score": "2\u201310 is the barness public subset, not an OpenAI maximum",
+    "descriptions": "strings are the native question format; public JSON descriptions remain route-specific",
+    "assets": "PNG/JPEG are deterministic synthetic 32x32 red squares encoded by Go standard library. WebP is the unchanged licensed x/image v0.45.0 gopher-doc.1bpp.lossless.webp; all are fully decoded and saved per call."
+  },
+  "candidateFileSHA256": "99d1c4c34a1addfd847f317c524b596a9122d380c7968694b5727b7500342e67"
+}

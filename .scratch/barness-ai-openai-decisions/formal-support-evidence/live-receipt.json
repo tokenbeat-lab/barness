@@ -1,0 +1,26 @@
+{
+  "command": [
+    "go",
+    "test",
+    "-tags",
+    "live",
+    "-timeout",
+    "180s",
+    "./ai/live",
+    "-run",
+    "^TestFormalDecisions$",
+    "-count=1",
+    "-json"
+  ],
+  "startedAt": "2026-10-13T01:29:43.027424+00:00",
+  "finishedAt": "2026-10-13T01:29:49.699853+00:00",
+  "exitCode": 0,
+  "credentialSource": ".env:OPENAI_KEY",
+  "proxy": "http://127.0.0.1:7890",
+  "accountVerification": "unknown",
+  "regionVerification": "unknown",
+  "permissionVerification": "unknown",
+  "logSHA256": "297f573f250e97d30e2cec0fe2c93ac4b51bca2169d601b00a91a086b3ad1fcd",
+  "sourceSnapshotSHA256": "267f10d0c3de77e42e1eef0c9429c0499aaf9c9badca2745dce9652bd9626f9a",
+  "userAuthorization": "issue 10 formal live; carries issue 09 explicit user authorization for credential, proxy and unknown provenance"
+}

@@ -1,0 +1,113 @@
+{
+  "assertions": [
+    {
+      "name": "own immutable attribution",
+      "pass": true,
+      "detail": "wrong call attribution"
+    },
+    {
+      "name": "own candidate price identity",
+      "pass": true,
+      "detail": "wrong configuration snapshot"
+    },
+    {
+      "name": "one reserved official attempt",
+      "pass": true,
+      "detail": "attempts 1 exchanges 1"
+    },
+    {
+      "name": "official route and complete bounded capture",
+      "pass": true,
+      "detail": "wrong or truncated request"
+    },
+    {
+      "name": "attempt identity and observed provider ID",
+      "pass": true,
+      "detail": "missing attempt evidence"
+    },
+    {
+      "name": "usage presence never inferred from zero",
+      "pass": true,
+      "detail": "inconsistent attempt usage"
+    },
+    {
+      "name": "complete own Observer sequence",
+      "pass": true,
+      "detail": "observations 4"
+    },
+    {
+      "name": "Observer kind and attribution",
+      "pass": true,
+      "detail": "wrong observation"
+    },
+    {
+      "name": "Observer kind and attribution",
+      "pass": true,
+      "detail": "wrong observation"
+    },
+    {
+      "name": "Observer kind and attribution",
+      "pass": true,
+      "detail": "wrong observation"
+    },
+    {
+      "name": "Observer kind and attribution",
+      "pass": true,
+      "detail": "wrong observation"
+    },
+    {
+      "name": "Observer terminal agrees with result",
+      "pass": true,
+      "detail": "wrong terminal metadata"
+    },
+    {
+      "name": "minimal native body",
+      "pass": true,
+      "detail": "unexpected native fields"
+    },
+    {
+      "name": "actual response model is reported separately",
+      "pass": true,
+      "detail": "actual model missing; never fabricate from requested ID"
+    },
+    {
+      "name": "successful full typed questions",
+      "pass": true,
+      "detail": "missing question answers"
+    },
+    {
+      "name": "own question name",
+      "pass": true,
+      "detail": "missing answer intent"
+    },
+    {
+      "name": "typed choice and own candidate set",
+      "pass": true,
+      "detail": "wrong choice intent"
+    },
+    {
+      "name": "choice probability and key",
+      "pass": true,
+      "detail": "invalid distribution"
+    },
+    {
+      "name": "choice probability and key",
+      "pass": true,
+      "detail": "invalid distribution"
+    },
+    {
+      "name": "choice argmax and probability total",
+      "pass": true,
+      "detail": "invalid choice distribution"
+    },
+    {
+      "name": "Decisions input-only price snapshot",
+      "pass": true,
+      "detail": "wrong estimate"
+    }
+  ],
+  "case_id": "LIVE-P10-text-choice",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestFormalDecisions$'",
+  "status": "PASS",
+  "test": "TestFormalDecisions/text-choice"
+}

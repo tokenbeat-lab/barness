@@ -1,0 +1,68 @@
+{
+  "error": "",
+  "result": {
+    "answers": {
+      "urgent": {
+        "type": "bool",
+        "probability": 0.27
+      }
+    },
+    "responseModel": "gpt-6-luna",
+    "usage": {
+      "input": 178,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 178,
+      "cost": {
+        "input": 0.000017800000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000017800000000000002
+      }
+    },
+    "stopReason": "stop",
+    "metadata": {
+      "tenantId": "live-smoke",
+      "requestId": "req-55f45c73cc37c9259bcd80e120056fae",
+      "actorId": "live-maintainer",
+      "jobId": "openai-decisions",
+      "bindingId": "openai-decisions",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "live-unverified-account",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-55f45c73cc37c9259bcd80e120056fae#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_0a39cd4633934bc181296f793646d8b9",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 178,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 178,
+            "cost": {
+              "input": 0.000017800000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000017800000000000002
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,158 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T09:29:46.435663+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-f44dd6886748c98dad742862ffdcc934",
+      "actorId": "live-maintainer",
+      "jobId": "openai-decisions",
+      "bindingId": "openai-decisions",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T09:29:46.435898+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-f44dd6886748c98dad742862ffdcc934",
+      "actorId": "live-maintainer",
+      "jobId": "openai-decisions",
+      "bindingId": "openai-decisions",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "live-unverified-account",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-f44dd6886748c98dad742862ffdcc934#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T09:29:47.274866+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-f44dd6886748c98dad742862ffdcc934",
+      "actorId": "live-maintainer",
+      "jobId": "openai-decisions",
+      "bindingId": "openai-decisions",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "live-unverified-account",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-f44dd6886748c98dad742862ffdcc934#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_aa8efb2616294ca88134e0b2ff524d3e",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 127,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 127,
+        "cost": {
+          "input": 0.0000127,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0000127
+        }
+      }
+    },
+    "duration": 838967750
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T09:29:47.27487+08:00",
+    "call": {
+      "tenantId": "live-smoke",
+      "requestId": "req-f44dd6886748c98dad742862ffdcc934",
+      "actorId": "live-maintainer",
+      "jobId": "openai-decisions",
+      "bindingId": "openai-decisions",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "live-unverified-account",
+      "bindingVersion": "live",
+      "credentialVersion": "live",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-f44dd6886748c98dad742862ffdcc934#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_aa8efb2616294ca88134e0b2ff524d3e",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 127,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 127,
+            "cost": {
+              "input": 0.0000127,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.0000127
+            }
+          }
+        }
+      ]
+    },
+    "duration": 839216542,
+    "stopReason": "stop",
+    "usage": {
+      "input": 127,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 127,
+      "cost": {
+        "input": 0.0000127,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0000127
+      }
+    }
+  }
+]

@@ -1,0 +1,252 @@
+{
+  "schema": 1,
+  "sourceReviewBaseline": "dbb4660344ea73fa9b03fa41461132fa72cff815",
+  "runtimeGitCommit": "f9bd770d94f7696aa59954400a1c2b4a47903e36",
+  "verifiedHead": "9be8fa554dca42be7e3a01dea97114391d064949",
+  "liveRuntimeMatchesVerifiedHead": true,
+  "fixturePinNote": "Full compiled Go source is f9bd770; usage fixture metadata pin was refreshed in 9be8fa5 before TestUsageAndCost read it. Its exact consumed bytes/SHA are in the full case manifest and responses-usage-pin.json. No runtime source changed.",
+  "formalVersion": "2026-10-13.1",
+  "formalHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+  "ownLive": "9/9 PASS",
+  "knownInputTokens": 1608,
+  "canceledUsage": "unreported; not counted as known zero",
+  "nineHistoricalRowsPreserved": true,
+  "review": {
+    "StandardsUnresolved": 0,
+    "SpecUnresolved": 0
+  },
+  "commands": [
+    {
+      "name": "initial-full",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -tags live ./... -count=1 -json",
+      "exitCode": 1,
+      "testEvents": {
+        "pass": 8208,
+        "skip": 69,
+        "fail": 25
+      },
+      "packageResults": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/live",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "outcome": "fail"
+        }
+      ],
+      "failures": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFixedWorkflow"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/missing_answer"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/wrong_key"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/protocol"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/usage_absent"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/usage_partial"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/response_drift"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/http_failure"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/budget"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures/cancel"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationFailures"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationNotRunAndArtifactGuards"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationCommand/disabled"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationCommand/missing_key"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationCommand/verify_incomplete"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationCommand/verify_observer"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationCommand"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationPreCancelled"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationImportedEvidence/negative_tokens"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationImportedEvidence/incorrect_cost"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationImportedEvidence/attempt_id"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationImportedEvidence/http_status"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestChineseEvaluationImportedEvidence"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestUsageAndCost/builtin-catalog-pinned"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": "TestUsageAndCost"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "test": null
+        }
+      ],
+      "firstEvent": "2026-10-13T09:25:19.994299+08:00",
+      "lastEvent": "2026-10-13T09:30:59.402047+08:00",
+      "log": "validation/initial-full.jsonl",
+      "logSHA256": "5f8c42e81c1397377593d965fbdd186dc39389ec6e4a1b14c1435e169533454d"
+    },
+    {
+      "name": "final-full",
+      "command": "BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -tags live ./... -count=1 -json",
+      "exitCode": 0,
+      "testEvents": {
+        "pass": 8234,
+        "skip": 69
+      },
+      "packageResults": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/live",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "outcome": "pass"
+        }
+      ],
+      "failures": [],
+      "firstEvent": "2026-10-13T09:29:45.219165+08:00",
+      "lastEvent": "2026-10-13T09:35:22.307789+08:00",
+      "log": "validation/final-full.jsonl",
+      "logSHA256": "6e90124ea2f560349d001ec3c7ecc37e217a6a977be076cb3d09450278a63dda"
+    },
+    {
+      "name": "final-race",
+      "command": "go test -race -tags live ./ai/e2e ./ai/live -run '^TestDecisionsFormal' -count=1 -json",
+      "exitCode": 0,
+      "testEvents": {
+        "pass": 53,
+        "skip": 1
+      },
+      "packageResults": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/live",
+          "outcome": "pass"
+        }
+      ],
+      "failures": [],
+      "firstEvent": "2026-10-13T09:29:46.114503+08:00",
+      "lastEvent": "2026-10-13T09:29:58.054473+08:00",
+      "log": "validation/final-race.jsonl",
+      "logSHA256": "5b84c14cc7a43124709abaf3d7e6e127bdc9f3be69244c7282e32ba43c252042"
+    },
+    {
+      "name": "vet",
+      "command": "go vet -tags live ./...",
+      "exitCode": 0,
+      "testEvents": {},
+      "packageResults": [],
+      "failures": [],
+      "firstEvent": null,
+      "lastEvent": null,
+      "log": "validation/vet.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "allTenRoutesReleased": false,
+  "remainingReleaseTicket": "13-ten-route-release-gate"
+}

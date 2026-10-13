@@ -1,0 +1,15 @@
+{
+  "state": {
+    "ticket": "My payment failed. Please fix my invoice."
+  },
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "Which department handles this ticket?",
+      "criteria": {
+        "billing": "Payments and invoices",
+        "technical": "Software bugs"
+      }
+    }
+  }
+}

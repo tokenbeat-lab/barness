@@ -1,0 +1,47 @@
+{
+  "binding": {
+    "allowClassifierImages": true,
+    "api": "openai-decisions",
+    "endpoint": "https://api.openai.com/v1",
+    "models": [
+      "gpt-6-luna"
+    ],
+    "operation": "classifier",
+    "provider": "openai",
+    "retry": {
+      "MaxRetries": 0,
+      "MaxRetryDelay": null
+    }
+  },
+  "permissionHash": "",
+  "permissions": null,
+  "policy": {
+    "Image": null,
+    "Classifier": {
+      "Images": {
+        "MaxImages": 8,
+        "MaxTotalImageBytes": 4194304
+      },
+      "MaxQuestions": 24,
+      "MaxStateBytes": 4194304,
+      "MaxQuestionBytes": 16384
+    },
+    "MaxRequestBytes": 8388608,
+    "MaxImageBytes": 4194304,
+    "MaxFrameBytes": 1048576,
+    "MaxToolJSONBytes": 65536,
+    "MaxErrorBodyBytes": 65536,
+    "MaxOutputBytes": 1048576,
+    "MaxQueuedEvents": 16384,
+    "MaxQueuedEventBytes": 8388608,
+    "MaxConcurrentPerTenant": 2,
+    "MaxConcurrentProcess": 2,
+    "AdmissionWait": 1000000000,
+    "MaxAdmissionWaiters": 2,
+    "MaxQueuedObservations": 128,
+    "CallTimeout": 30000000000,
+    "ConnectTimeout": 10000000000,
+    "ResponseHeaderTimeout": 25000000000,
+    "ReadIdleTimeout": 25000000000
+  }
+}

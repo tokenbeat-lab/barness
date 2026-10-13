@@ -1,0 +1,15 @@
+{
+  "state": {
+    "ticket": "My payment failed. Please fix my invoice."
+  },
+  "questions": {
+    "urgent": {
+      "type": "bool",
+      "instructions": "Is an immediate response needed?",
+      "criteria": {
+        "true": "Immediate",
+        "false": "Can wait"
+      }
+    }
+  }
+}

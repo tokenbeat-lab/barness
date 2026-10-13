@@ -1,0 +1,49 @@
+[
+  {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/decisions",
+    "requestHeaders": {
+      "authorization": "[REDACTED]",
+      "content-type": "application/json",
+      "user-agent": "barness-ai"
+    },
+    "requestBody": "{\"model\":\"gpt-6-luna\",\"input\":[{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"Describe the subject of this synthetic test image.\"},{\"type\":\"input_image\",\"image_url\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAMklEQVR4nGJ5piHHQEvARFPTRy0YtWDUglELRi0YtWDUglELRi0YtWDUAioCQAAAAP//6VEBb5a3tYAAAAAASUVORK5CYII=\"}]}],\"questions\":[{\"type\":\"choice\",\"name\":\"subject\",\"instructions\":\"Select the image subject\",\"choices\":[{\"value\":\"gopher\",\"description\":\"A cartoon gopher\"},{\"value\":\"shape\",\"description\":\"A colored geometric shape\"}]}]}",
+    "status": 200,
+    "responseHeaderNames": [
+      "access-control-allow-origin",
+      "access-control-expose-headers",
+      "alt-svc",
+      "cf-cache-status",
+      "cf-ray",
+      "content-type",
+      "date",
+      "openai-processing-ms",
+      "server",
+      "server-timing-total",
+      "set-cookie",
+      "strict-transport-security",
+      "vary",
+      "x-content-type-options",
+      "x-openai-proxy-wasm",
+      "x-ratelimit-limit-requests",
+      "x-ratelimit-limit-tokens",
+      "x-ratelimit-remaining-requests",
+      "x-ratelimit-remaining-tokens",
+      "x-ratelimit-reset-requests",
+      "x-ratelimit-reset-tokens",
+      "x-request-id"
+    ],
+    "responseHeaders": {
+      "content-type": "application/json",
+      "x-ratelimit-limit-requests": "5000",
+      "x-ratelimit-limit-tokens": "2000000",
+      "x-ratelimit-remaining-requests": "4998",
+      "x-ratelimit-remaining-tokens": "1999477",
+      "x-ratelimit-reset-requests": "24ms",
+      "x-ratelimit-reset-tokens": "15ms",
+      "x-request-id": "req_f55b2034522742a3995b2508d6f5545e"
+    },
+    "responseBody": "{\"model\":\"gpt-6-luna\",\"answers\":[{\"type\":\"choice\",\"name\":\"subject\",\"choice\":\"shape\",\"probabilities\":[{\"value\":\"gopher\",\"probability\":0.06},{\"value\":\"shape\",\"probability\":0.94}],\"confidence\":0.88}],\"usage\":{\"input_tokens\":128,\"input_tokens_details\":{\"cached_tokens\":0,\"cache_write_tokens\":0},\"output_tokens\":0,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":128}}",
+    "elapsedMs": 282
+  }
+]

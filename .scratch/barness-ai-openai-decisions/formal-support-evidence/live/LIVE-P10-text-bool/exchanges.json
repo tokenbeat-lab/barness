@@ -1,0 +1,49 @@
+[
+  {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/decisions",
+    "requestHeaders": {
+      "authorization": "[REDACTED]",
+      "content-type": "application/json",
+      "user-agent": "barness-ai"
+    },
+    "requestBody": "{\"model\":\"gpt-6-luna\",\"input\":\"{\\\"ticket\\\":\\\"My payment failed. Please fix my invoice.\\\"}\",\"questions\":[{\"type\":\"predicate\",\"name\":\"urgent\",\"instructions\":\"Is an immediate response needed?\\n\\nTrue means: Immediate\\nFalse means: Can wait\"}]}",
+    "status": 200,
+    "responseHeaderNames": [
+      "access-control-allow-origin",
+      "access-control-expose-headers",
+      "alt-svc",
+      "cf-cache-status",
+      "cf-ray",
+      "content-type",
+      "date",
+      "openai-processing-ms",
+      "server",
+      "server-timing-total",
+      "set-cookie",
+      "strict-transport-security",
+      "vary",
+      "x-content-type-options",
+      "x-openai-proxy-wasm",
+      "x-ratelimit-limit-requests",
+      "x-ratelimit-limit-tokens",
+      "x-ratelimit-remaining-requests",
+      "x-ratelimit-remaining-tokens",
+      "x-ratelimit-reset-requests",
+      "x-ratelimit-reset-tokens",
+      "x-request-id"
+    ],
+    "responseHeaders": {
+      "content-type": "application/json",
+      "x-ratelimit-limit-requests": "5000",
+      "x-ratelimit-limit-tokens": "2000000",
+      "x-ratelimit-remaining-requests": "4997",
+      "x-ratelimit-remaining-tokens": "1999570",
+      "x-ratelimit-reset-requests": "36ms",
+      "x-ratelimit-reset-tokens": "12ms",
+      "x-request-id": "req_0a39cd4633934bc181296f793646d8b9"
+    },
+    "responseBody": "{\"model\":\"gpt-6-luna\",\"answers\":[{\"type\":\"predicate\",\"name\":\"urgent\",\"probability\":0.27}],\"usage\":{\"input_tokens\":178,\"input_tokens_details\":{\"cached_tokens\":0,\"cache_write_tokens\":0},\"output_tokens\":0,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":178}}",
+    "elapsedMs": 270
+  }
+]

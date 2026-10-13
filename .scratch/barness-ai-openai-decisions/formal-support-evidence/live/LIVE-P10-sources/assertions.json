@@ -1,0 +1,7 @@
+{
+  "assertions": null,
+  "case_id": "LIVE-P10-sources",
+  "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestFormalDecisions$'",
+  "status": "PASS",
+  "test": "TestFormalDecisions"
+}

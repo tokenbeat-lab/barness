@@ -1,0 +1,49 @@
+[
+  {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/decisions",
+    "requestHeaders": {
+      "authorization": "[REDACTED]",
+      "content-type": "application/json",
+      "user-agent": "barness-ai"
+    },
+    "requestBody": "{\"model\":\"gpt-6-luna\",\"input\":[{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"Describe the subject of this synthetic test image.\"},{\"type\":\"input_image\",\"image_url\":\"data:image/webp;base64,UklGRrIBAABXRUJQVlA4TKUBAAAvSsAYAA8w//M///MfeJAkbXvaSG7m8Q3GfYSBJekwQztm/IcZlgwnmWImn2BK7aFmBtnVir6q//8VOkFE/xm4baTIu8c48ArEo6+B3zFKYln3pqClSCKX0begFTAXFOLXHSyF8cCNcZEG4OywuA4KVVfJCiArU7GAgJI8+lJP/OKMT/fBAjevg1cYB7YVkFuWga2lyPi5I0HFy5YTpWIHg0RZpkniRVW9odHAKOwosWuOGdxIyn2OvaCDvhg/we6TwadPBPbqBV58MsLmMJ8yZnOWk8SRz4N+QoyPL+MnamzMvcE1rHNEr91F9GKZPVUcS9w7PhhH36suB9qPeYb/oLk6cuTiJ0wOK3m5h1cKjW6EVZCYMK7dxcKCBdgP9HkKr9gkAO2P8GKZGWVdIAatQa+1IDpt6qyorVwdy01xdW8Jkfk6xjEXmVQQ+HQdFr6OKhIN34dXWq0+0qr6EJSCeeVLH9+gvGTLyqM65PQ44ihzlTXxQKjKbAvshXgir7Lil9w4L2bvMycmjQcqXaMCO6BlY28i+FOLzbfI1vEqxAhotocAAA==\"}]}],\"questions\":[{\"type\":\"choice\",\"name\":\"subject\",\"instructions\":\"Select the image subject\",\"choices\":[{\"value\":\"gopher\",\"description\":\"A cartoon gopher\"},{\"value\":\"shape\",\"description\":\"A colored geometric shape\"}]}]}",
+    "status": 200,
+    "responseHeaderNames": [
+      "access-control-allow-origin",
+      "access-control-expose-headers",
+      "alt-svc",
+      "cf-cache-status",
+      "cf-ray",
+      "content-type",
+      "date",
+      "openai-processing-ms",
+      "server",
+      "server-timing-total",
+      "set-cookie",
+      "strict-transport-security",
+      "vary",
+      "x-content-type-options",
+      "x-openai-proxy-wasm",
+      "x-ratelimit-limit-requests",
+      "x-ratelimit-limit-tokens",
+      "x-ratelimit-remaining-requests",
+      "x-ratelimit-remaining-tokens",
+      "x-ratelimit-reset-requests",
+      "x-ratelimit-reset-tokens",
+      "x-request-id"
+    ],
+    "responseHeaders": {
+      "content-type": "application/json",
+      "x-ratelimit-limit-requests": "5000",
+      "x-ratelimit-limit-tokens": "2000000",
+      "x-ratelimit-remaining-requests": "4996",
+      "x-ratelimit-remaining-tokens": "1999208",
+      "x-ratelimit-reset-requests": "48ms",
+      "x-ratelimit-reset-tokens": "23ms",
+      "x-request-id": "req_0f094f7950164c2d95460d243a58fa24"
+    },
+    "responseBody": "{\"model\":\"gpt-6-luna\",\"answers\":[{\"type\":\"choice\",\"name\":\"subject\",\"choice\":\"gopher\",\"probabilities\":[{\"value\":\"gopher\",\"probability\":1.0},{\"value\":\"shape\",\"probability\":0.0}],\"confidence\":1.0}],\"usage\":{\"input_tokens\":139,\"input_tokens_details\":{\"cached_tokens\":0,\"cache_write_tokens\":0},\"output_tokens\":0,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":139}}",
+    "elapsedMs": 297
+  }
+]
