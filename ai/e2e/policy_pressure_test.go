@@ -235,6 +235,13 @@ func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l 
 		}
 	}
 	ev.Record("provider-outcomes", outcomes)
+	for i, o := range outcomes {
+		wantChunks := len(textChunks)
+		if isTool(i) {
+			wantChunks = len(toolChunks)
+		}
+		ev.Check("every fixture completed its script without a socket error", o.RequestID != "" && o.WriteError == "" && o.ContextError == "" && o.Chunks == wantChunks, "%s: chunks %d/%d, write error %q, context error %q", o.RequestID, o.Chunks, wantChunks, o.WriteError, o.ContextError)
+	}
 	traces := pw.failures.integrity()
 	ev.Record("stream-integrity", traces)
 	for _, trace := range traces {

@@ -43,10 +43,10 @@ func TestPressureFixtureWriteBackpressure(t *testing.T) {
 			defer cancel()
 			if mode == "canceled" {
 				go func() {
+					defer close(fault.release)
 					select {
 					case <-fault.hit:
 						cancel()
-						close(fault.release)
 					case <-ctx.Done():
 					}
 				}()
