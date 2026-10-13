@@ -1,9 +1,14 @@
 # 工单 09：候选 Decisions 独立证据
 
-候选 harness 已实现，正式目录和支持矩阵未纳入 Luna。真实厂商调用尚未执行，
-本票未完成：用户指定 `.env:OPENAI_KEY` 与本地代理 `127.0.0.1:7890`，但没有提供
-测试账户/区域别名、专用低权限 key 和权限核验记录。实际凭据配置检查在网络前
-返回 FAIL/config；无凭据路径独立记录 NOT_RUN。不能把受控 fixture PASS 写成真实支持。
+2026-10-13 用户明确授权使用 `.env:OPENAI_KEY`，经 `127.0.0.1:7890` 执行，
+权限和区域未知如实记录，不再阻塞。固定候选 9/9 真实场景 PASS，9 次调用/9 次
+Attempt、13 问题、3 张图片、零重试，complete=true，审计零发现。
+[真实报告、收据及完整捕获](live-authorized-20261013/README.md) 已保存；账户/区域/
+权限/是否专用/厂商消费限额为 unknown，未伪造权限证明。正式目录和矩阵仍未纳入。
+
+下述 `candidate-live.zip` 与 validation.json 是此前离线实现和配置拒绝的历史证据，
+保留原 NOT_RUN/FAIL，不以新 PASS 改写历史。新的 candidate report schema=2，以
+nullable 权限证明和显式 unknown 状态区分实际执行与账户核验。
 
 公共接缝为 `Client.Classify` / `HookedClient.Classify` 与独立测试进程。
 [失败方式](FAILURES.md) 先于实现；进程反例覆盖来源/候选篡改、跨组合凭据、代理/
@@ -44,19 +49,17 @@ go vet -tags live ./...
 
 真实运行由宿主从 `.env` **只提取 OPENAI_KEY**，通过进程环境注入
 `BARNESS_AI_LIVE_KEY_OPENAI_DECISIONS_CANDIDATE`；不 source 整份文件，不注入其他组合
-或厂商 key，不在命令行/日志写 key。须提供以下宿主配置：
+或厂商 key，不在命令行/日志写 key。默认要求宿主核验；本次用户授权的未知信息路径使用以下配置：
 
 ```sh
 BARNESS_AI_LIVE=1 \
 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate \
-BARNESS_AI_LIVE_ACCOUNT_ALIAS=<已核验测试账户别名> \
-BARNESS_AI_LIVE_REGION_ALIAS=<已核验区域别名> \
-BARNESS_AI_LIVE_PERMISSIONS_FILE=<脱敏宿主核验记录路径> \
+BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 \
 BARNESS_AI_LIVE_PROXY=http://127.0.0.1:7890 \
 go test -tags live -timeout 180s ./ai/live -run '^TestCandidateDecisions$' -count=1
 ```
 
-权限记录格式（示例值不能当成实际权限证明）：
+提供核验材料时的权限记录格式（示例值不能当成实际权限证明）：
 
 ```json
 {
@@ -73,7 +76,9 @@ go test -tags live -timeout 180s ./ai/live -run '^TestCandidateDecisions$' -coun
 
 宿主记录须与别名一致，权限只含本路线，并说明真实模型访问、专用 key 与有限消费
 配置的核验来源。文件以有界单一 JSON 读取，拒绝未知/非规范大小写/重复字段、尾随内容和未来核验
-时间。代理必须是显式 loopback HTTP URL；真实目标和普通 TLS 校验保持官方 endpoint。
+时间。未提供材料且显式 ALLOW_UNKNOWN_ACCOUNT=1 时，用 unknown 记录，不填写虚构材料；
+提供的错误材料仍拒绝，跨组合 key、非本地代理和 endpoint override 均不获放行。
+代理必须是显式 loopback HTTP URL；真实目标和普通 TLS 校验保持官方 endpoint。
 只有 candidate 自己全部 PASS 且审计成功，才可把本票转为 resolved 并进入工单 10。
 
 复审另以真实 Go 测试期限和文件系统边界验证：进程期限到达后仍保存完整失败账本；

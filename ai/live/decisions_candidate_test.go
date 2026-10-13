@@ -18,36 +18,41 @@ import (
 // Candidate evidence deliberately has no supportmatrix.Report schema. It can
 // only qualify this fixed candidate; inclusion and formal Hash live are issue 10.
 type candidateDecisionsReport struct {
-	FailureCategory    string                         `json:"failureCategory,omitempty"`
-	FailureNote        string                         `json:"failureNote,omitempty"`
-	ProcessDeadline    time.Time                      `json:"processDeadline,omitzero"`
-	ExecutionDeadline  time.Time                      `json:"executionDeadline,omitzero"`
-	Schema             int                            `json:"schema"`
-	Kind               string                         `json:"kind"`
-	Mode               string                         `json:"mode"`
-	Outcome            supportmatrix.Outcome          `json:"outcome"`
-	Complete           bool                           `json:"complete"`
-	AuditPassed        bool                           `json:"auditPassed"`
-	Combo              string                         `json:"combo"`
-	Operation          ai.Operation                   `json:"operation"`
-	Provider           ai.ProviderID                  `json:"provider"`
-	API                ai.API                         `json:"api"`
-	Endpoint           string                         `json:"endpoint"`
-	Model              string                         `json:"model"`
-	SDK                string                         `json:"sdk"`
-	CatalogVersion     string                         `json:"candidateVersion"`
-	CatalogHash        string                         `json:"candidateHash"`
-	SourceManifestHash string                         `json:"sourceManifestHash"`
-	Sources            candidateSources               `json:"sources"`
-	Permissions        candidatePermissions           `json:"hostPermissionVerification"`
-	PermissionsHash    string                         `json:"hostPermissionVerificationHash,omitempty"`
-	GitCommit          string                         `json:"gitCommit"`
-	StartedAt          time.Time                      `json:"startedAt"`
-	FinishedAt         time.Time                      `json:"finishedAt"`
-	Budget             candidateBudget                `json:"budget"`
-	Expected           []string                       `json:"expected"`
-	Scenarios          []supportmatrix.ScenarioResult `json:"scenarios"`
-	Unknown            []string                       `json:"unknown"`
+	AccountScopeID               string                         `json:"accountScopeId"`
+	AccountVerificationStatus    string                         `json:"accountVerificationStatus"`
+	RegionVerificationStatus     string                         `json:"regionVerificationStatus"`
+	PermissionVerificationStatus string                         `json:"permissionVerificationStatus"`
+	AccountVerificationPolicy    string                         `json:"accountVerificationPolicy"`
+	FailureCategory              string                         `json:"failureCategory,omitempty"`
+	FailureNote                  string                         `json:"failureNote,omitempty"`
+	ProcessDeadline              time.Time                      `json:"processDeadline,omitzero"`
+	ExecutionDeadline            time.Time                      `json:"executionDeadline,omitzero"`
+	Schema                       int                            `json:"schema"`
+	Kind                         string                         `json:"kind"`
+	Mode                         string                         `json:"mode"`
+	Outcome                      supportmatrix.Outcome          `json:"outcome"`
+	Complete                     bool                           `json:"complete"`
+	AuditPassed                  bool                           `json:"auditPassed"`
+	Combo                        string                         `json:"combo"`
+	Operation                    ai.Operation                   `json:"operation"`
+	Provider                     ai.ProviderID                  `json:"provider"`
+	API                          ai.API                         `json:"api"`
+	Endpoint                     string                         `json:"endpoint"`
+	Model                        string                         `json:"model"`
+	SDK                          string                         `json:"sdk"`
+	CatalogVersion               string                         `json:"candidateVersion"`
+	CatalogHash                  string                         `json:"candidateHash"`
+	SourceManifestHash           string                         `json:"sourceManifestHash"`
+	Sources                      candidateSources               `json:"sources"`
+	Permissions                  *candidatePermissions          `json:"hostPermissionVerification"`
+	PermissionsHash              string                         `json:"hostPermissionVerificationHash,omitempty"`
+	GitCommit                    string                         `json:"gitCommit"`
+	StartedAt                    time.Time                      `json:"startedAt"`
+	FinishedAt                   time.Time                      `json:"finishedAt"`
+	Budget                       candidateBudget                `json:"budget"`
+	Expected                     []string                       `json:"expected"`
+	Scenarios                    []supportmatrix.ScenarioResult `json:"scenarios"`
+	Unknown                      []string                       `json:"unknown"`
 }
 type candidateBudget struct {
 	FinalizationReserveSeconds int `json:"finalizationReserveSeconds"`
@@ -73,7 +78,7 @@ var candidateReport *candidateDecisionsReport
 
 func initialCandidateReport() *candidateDecisionsReport {
 	expected := []string{"text-choice", "text-score", "text-bool", "mixed-questions", "image-png", "image-jpeg", "image-webp", "cancel-in-flight", "recovery"}
-	out := &candidateDecisionsReport{Schema: 1, Kind: "candidate-only", Mode: "live", Outcome: supportmatrix.NotRun, Combo: decisionsCandidate.name, Operation: ai.OperationClassifier, Provider: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: decisionsCandidate.endpoint, Model: decisionsCandidate.model, SDK: decisionsCandidate.sdk(), StartedAt: started, GitCommit: evidence.GitCommit(), SourceManifestHash: candidateSourceHash, Expected: expected,
+	out := &candidateDecisionsReport{Schema: 2, Kind: "candidate-only", Mode: "live", Outcome: supportmatrix.NotRun, Combo: decisionsCandidate.name, Operation: ai.OperationClassifier, Provider: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: decisionsCandidate.endpoint, Model: decisionsCandidate.model, SDK: decisionsCandidate.sdk(), StartedAt: started, GitCommit: evidence.GitCommit(), SourceManifestHash: candidateSourceHash, Expected: expected,
 		Budget:  candidateBudget{FinalizationReserveSeconds: 10, MaxCalls: 12, MaxAttempts: 12, MaxQuestions: 24, MaxStateBytes: 4 << 20, MaxImages: 8, MaxImageBytes: 4 << 20, ProcessSeconds: 180, CallSeconds: 30},
 		Unknown: []string{"vendor billing", "cache billing", "regional processing premium", "922000 token service capacity", "128 image service capacity", "service score maximum", "alias weights are not frozen by catalog hash"}}
 	for _, id := range expected {
@@ -136,12 +141,31 @@ func driveCandidateDecisions(t *testing.T, rec *recorder, scenarioFactory func(*
 	}
 	p, permissionsRaw, err := candidateConfiguration(rec)
 	candidateReport.Permissions = p
-	candidateReport.PermissionsHash = sha256Text(permissionsRaw)
+	if len(permissionsRaw) > 0 {
+		candidateReport.PermissionsHash = sha256Text(permissionsRaw)
+	}
 	if err != nil {
 		candidateConfigFail(t, err.Error())
 		return
 	}
-	sourcesCase.Fixture("host-permissions.json", permissionsRaw)
+	if p != nil {
+		candidateReport.AccountScopeID = p.AccountAlias + "@" + p.RegionAlias
+		candidateReport.AccountVerificationStatus = "host_verified"
+		candidateReport.RegionVerificationStatus = "host_verified"
+		candidateReport.PermissionVerificationStatus = "host_verified"
+		candidateReport.AccountVerificationPolicy = "require_host_verification"
+		sourcesCase.Fixture("host-permissions.json", permissionsRaw)
+	} else {
+		// This opaque host scope pins attribution to this credential, and
+		// does not claim knowledge of the actual vendor account or region.
+		candidateReport.AccountScopeID = "candidate-unverified-account"
+		candidateReport.AccountVerificationStatus = "unknown"
+		candidateReport.RegionVerificationStatus = "unknown"
+		candidateReport.PermissionVerificationStatus = "unknown"
+		candidateReport.AccountVerificationPolicy = "allow_unknown"
+		candidateReport.Unknown = append(candidateReport.Unknown, "provider account identity", "account region", "credential privilege scope", "dedicated test credential status", "provider-side spend limit")
+	}
+	sourcesCase.Record("account-evidence", map[string]any{"policy": candidateReport.AccountVerificationPolicy, "accountStatus": candidateReport.AccountVerificationStatus, "regionStatus": candidateReport.RegionVerificationStatus, "permissionStatus": candidateReport.PermissionVerificationStatus, "attributionScope": candidateReport.AccountScopeID, "hostPermissionVerification": p})
 	policy := livePolicy()
 	policy.Image = nil
 	policy.Classifier = &ai.ClassifierPolicy{MaxQuestions: 24, MaxStateBytes: 4 << 20, MaxQuestionBytes: 16384, Images: &ai.ClassifierImagePolicy{MaxImages: 8, MaxTotalImageBytes: 4 << 20}}
@@ -152,8 +176,8 @@ func driveCandidateDecisions(t *testing.T, rec *recorder, scenarioFactory func(*
 	policy.ConnectTimeout = 10 * time.Second
 	policy.ResponseHeaderTimeout = 25 * time.Second
 	policy.ReadIdleTimeout = 25 * time.Second
-	r := &resolver{binding: ai.Binding{TenantID: liveTenant, BindingID: decisionsCandidate.name, Version: "candidate", Enabled: true, Operation: ai.OperationClassifier, ProviderID: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: decisionsCandidate.endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: p.AccountAlias + "@" + p.RegionAlias, CredentialRef: "decisions-test-key", AllowedModels: []string{"gpt-6-luna"}, AllowClassifierImages: true},
-		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "decisions-test-key", Version: "candidate", BindingVersion: "candidate", AccountScopeID: p.AccountAlias + "@" + p.RegionAlias, Active: true, APIKey: ai.NewSecret(cfg.key)}}
+	r := &resolver{binding: ai.Binding{TenantID: liveTenant, BindingID: decisionsCandidate.name, Version: "candidate", Enabled: true, Operation: ai.OperationClassifier, ProviderID: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: decisionsCandidate.endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: candidateReport.AccountScopeID, CredentialRef: "decisions-test-key", AllowedModels: []string{"gpt-6-luna"}, AllowClassifierImages: true},
+		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "decisions-test-key", Version: "candidate", BindingVersion: "candidate", AccountScopeID: candidateReport.AccountScopeID, Active: true, APIKey: ai.NewSecret(cfg.key)}}
 	// Binding.Retry zero: each reserved Logical Call has at most one Attempt.
 	client, err := ai.NewClient(ai.Config{Policy: policy, Bindings: r, Credentials: r, Catalog: &cat, Transport: rec, Observer: rec})
 	if err != nil {

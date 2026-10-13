@@ -22,7 +22,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 	if os.Getenv("BARNESS_DECISIONS_CONTROLLED") != "" {
 		return
 	}
-	cases := []string{"not-run", "switch-off", "foreign-key", "missing-alias", "missing-permissions", "endpoint-override", "remote-proxy", "source-missing", "source-changed", "catalog-changed", "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "model-missing", "429", "504", "malformed-2xx", "precision-2xx", "narrowed", "calls-budget", "questions-budget", "state-budget", "images-budget", "image-bytes-budget", "permissions-trailing", "permissions-duplicate", "permissions-broad", "permissions-not-dedicated", "missing-region", "no-key-foreign", "mixed-refusal", "price-threshold", "price-long-tier", "permissions-case-alias", "process-deadline", "integrity-read-failure", "integrity-write-failure"}
+	cases := []string{"not-run", "switch-off", "foreign-key", "missing-alias", "missing-permissions", "endpoint-override", "remote-proxy", "source-missing", "source-changed", "catalog-changed", "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "model-missing", "429", "504", "malformed-2xx", "precision-2xx", "narrowed", "calls-budget", "questions-budget", "state-budget", "images-budget", "image-bytes-budget", "permissions-trailing", "permissions-duplicate", "permissions-broad", "permissions-not-dedicated", "missing-region", "no-key-foreign", "mixed-refusal", "price-threshold", "price-long-tier", "permissions-case-alias", "process-deadline", "integrity-read-failure", "integrity-write-failure", "unknown-account", "unknown-account-invalid-proof", "unknown-account-foreign-key", "unknown-account-remote-proxy", "unknown-account-no-key"}
 	for _, name := range cases {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "P10-OD51-process-"+name)
@@ -34,6 +34,8 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			permissions := filepath.Join(base, "permissions.json")
 			proof := `{"accountAlias":"controlled-test","regionAlias":"offline","dedicatedTestKey":true,"model":"gpt-6-luna","permissions":["POST /v1/decisions"],"spendLimitUSD":1,"verifiedAt":"2026-10-12T00:00:00Z","verificationReference":"controlled host permission fixture"}`
 			switch name {
+			case "unknown-account-invalid-proof":
+				proof = strings.Replace(proof, `"dedicatedTestKey":true`, `"dedicatedTestKey":false,"DedicatedTestKey":true`, 1)
 			case "permissions-case-alias":
 				proof = strings.Replace(proof, `"dedicatedTestKey":true`, `"dedicatedTestKey":false,"DedicatedTestKey":true`, 1)
 			case "permissions-trailing":
@@ -51,7 +53,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			env := []string{"BARNESS_DECISIONS_CONTROLLED=" + name, envLive + "=1", envCombo + "=openai-decisions-candidate", envAlias + "=controlled-test", "BARNESS_AI_LIVE_REGION_ALIAS=offline", keyVar("openai-decisions-candidate") + "=key:controlled-decisions", "BARNESS_AI_LIVE_PERMISSIONS_FILE=" + permissions, "BARNESS_AI_LIVE_PROXY=http://127.0.0.1:7890", "BARNESS_AI_EVIDENCE_DIR=" + base}
 			for i, kv := range env {
 				switch {
-				case (name == "not-run" || name == "no-key-foreign") && strings.HasPrefix(kv, keyVar("openai-decisions-candidate")+"="):
+				case (name == "not-run" || name == "no-key-foreign" || name == "unknown-account-no-key") && strings.HasPrefix(kv, keyVar("openai-decisions-candidate")+"="):
 					env[i] = keyVar("openai-decisions-candidate") + "="
 				case name == "switch-off" && strings.HasPrefix(kv, envLive+"="):
 					env[i] = envLive + "=0"
@@ -65,7 +67,26 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 					env[i] = "BARNESS_AI_LIVE_PROXY=http://proxy.invalid:7890"
 				}
 			}
-			if name == "foreign-key" || name == "no-key-foreign" {
+			if strings.HasPrefix(name, "unknown-account") {
+				env = append(env, "BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1")
+				if name != "unknown-account-invalid-proof" {
+					for i, kv := range env {
+						for _, key := range []string{envAlias, "BARNESS_AI_LIVE_REGION_ALIAS", "BARNESS_AI_LIVE_PERMISSIONS_FILE"} {
+							if strings.HasPrefix(kv, key+"=") {
+								env[i] = key + "="
+							}
+						}
+					}
+				}
+				if name == "unknown-account-remote-proxy" {
+					for i, kv := range env {
+						if strings.HasPrefix(kv, "BARNESS_AI_LIVE_PROXY=") {
+							env[i] = "BARNESS_AI_LIVE_PROXY=http://proxy.invalid:7890"
+						}
+					}
+				}
+			}
+			if name == "foreign-key" || name == "no-key-foreign" || name == "unknown-account-foreign-key" {
 				env = append(env, keyVar("openai-chat")+"=key:foreign")
 			}
 			if name == "endpoint-override" {
@@ -188,13 +209,25 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			cs.Check("child audit clean", len(audit.Findings) == 0, "audit findings")
 			want := "FAIL"
 			switch name {
-			case "not-run", "switch-off", "narrowed":
+			case "not-run", "switch-off", "narrowed", "unknown-account-no-key":
 				want = "NOT_RUN"
-			case "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "mixed-refusal", "price-threshold", "price-long-tier":
+			case "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "mixed-refusal", "price-threshold", "price-long-tier", "unknown-account":
 				want = "PASS"
 			}
 			cs.Check("honest process status", string(report.Outcome) == want && (childErr != nil) == (want == "FAIL"), "outcome %s exit %v: %s", report.Outcome, childErr, output)
 			cs.Check("complete only own full run", report.Complete == (want == "PASS") && report.Mode == "controlled", "invalid complete/mode")
+			if name == "unknown-account" {
+				var fields map[string]any
+				if err := json.Unmarshal(raw, &fields); err != nil {
+					t.Fatal(err)
+				}
+				cs.Check("permission proof remains absent", fields["hostPermissionVerification"] == nil, "fabricated permission proof")
+				cs.Check("metadata is explicitly unknown", fields["accountVerificationStatus"] == "unknown" && fields["regionVerificationStatus"] == "unknown" && fields["permissionVerificationStatus"] == "unknown", "missing unknown statuses")
+				unknown := []string{"provider account identity", "account region", "credential privilege scope", "dedicated test credential status", "provider-side spend limit"}
+				for _, item := range unknown {
+					cs.Check("unverified claims remain unknown", strings.Contains(string(raw), item), "missing unknown %s", item)
+				}
+			}
 			b := report.Budget
 			cs.Check("bounded independent budget", b.CallsUsed <= 12 && b.AttemptsReserved <= 12 && b.HTTPAttempts <= b.AttemptsReserved && b.QuestionsUsed <= 24 && b.StateBytesSubmitted <= 4<<20 && b.ImagesUsed <= 8 && b.ImageBytesSubmitted <= 4<<20 && b.Retries == 0 && b.ProcessSeconds == 180 && b.CallSeconds == 30, "budget %+v", b)
 			if want == "PASS" {
@@ -251,7 +284,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			if name == "429" || name == "504" || strings.HasSuffix(name, "2xx") {
 				cs.Check("failures and all reservations counted without retry", b.CallsUsed == 9 && b.AttemptsReserved == 9 && b.HTTPAttempts == 9, "failure consumption %+v", b)
 			}
-			if want == "FAIL" && (strings.HasPrefix(name, "source-") || name == "catalog-changed" || name == "foreign-key" || name == "missing-alias" || name == "missing-permissions" || name == "endpoint-override" || name == "remote-proxy" || strings.HasPrefix(name, "permissions-") || name == "missing-region" || name == "no-key-foreign") {
+			if want == "FAIL" && (strings.HasPrefix(name, "source-") || name == "catalog-changed" || name == "foreign-key" || name == "missing-alias" || name == "missing-permissions" || name == "endpoint-override" || name == "remote-proxy" || strings.HasPrefix(name, "permissions-") || name == "missing-region" || name == "no-key-foreign" || strings.HasPrefix(name, "unknown-account-")) {
 				cs.Check("config refuses before spend", b.CallsUsed == 0 && b.HTTPAttempts == 0, "config escaped")
 			}
 			_, included := ai.BuiltinCatalog().LookupClassifier(ai.ProviderOpenAI, ai.APIOpenAIDecisions, "gpt-6-luna")

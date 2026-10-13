@@ -4,7 +4,7 @@
 
 **Blocked by:** 07: 纳入冻结 Pi 的 Decisions 差分与有限差异账本；08: 形成分类图片设计负载与可核验容量证据
 
-**Status:** needs-info
+**Status:** resolved
 **Type:** task
 **Source tickets:** 07
 **Requirements:** R12, R16, R17, R19
@@ -26,17 +26,17 @@
 
 - [x] source/candidate/harness/report/budget 的失败方式先写公共 process E2E，再实现 live 接缝。
 - [x] 固定 classifier/openai/openai-decisions/gpt-6-luna、922000 Pi 分类快照及独立输入 .1/.2 阶梯来源，说明格式/模态/128/2–10 区分来源和本期子集。
-- [ ] 官方 endpoint 固定；独立测试 key、账户/区域别名与低权限配置可核验。无凭据 NOT_RUN，错误配置拒绝；厂商错误 FAIL。
+- [x] 官方 endpoint 固定；测试 key 在本组合进程独立注入。账户/区域、权限与是否专用无法核实时按 2026-10-13 用户授权标记 unknown，不阻塞真实执行；无凭据 NOT_RUN，错误配置拒绝；厂商错误 FAIL。
 - [x] 每进程最多 12 Logical Call/12 Attempt/24 问题/4 MiB 状态、累计 8 张及 4 MiB decoded 图片，180 秒总、30 秒单调用、Binding 零重试；失败和预留均入账。
-- [ ] 自己的文本 choice/score/bool、混合、真 PNG/JPEG/WebP、usage/实际 Model/ID/归属/取消均有完整受控断言与真实捕获。
-- [ ] 合法 refusal 用自己的类型化结果记录；不循环制造 refusal/429/504，2xx 从不重试。
+- [x] 自己的文本 choice/score/bool、混合、真 PNG/JPEG/WebP、usage/实际 Model/ID/归属/取消均有完整受控断言与真实捕获。
+- [x] 合法 refusal 用自己的类型化结果记录；不循环制造 refusal/429/504，2xx 从不重试。
 - [x] 用量 completeness 与协议报告完成区分，不为 complete 伪造缺省计数；缓存账单、区域 premium 等未观察项保持未知。
-- [ ] 标记 candidate 版本/Hash，包含 source 日期/Hash、captures、结果/Attempt、Observer、预算、manifest/audit 与重放命令；不替代正式 Hash 报告。
-- [ ] 有限真实响应精度/格式反例先保存、归因并限定 Decisions 自身规则；涉及 ADR 取舍时明确提出修订，不默改容差。
+- [x] 标记 candidate 版本/Hash，包含 source 日期/Hash、captures、结果/Attempt、Observer、预算、manifest/audit 与重放命令；不替代正式 Hash 报告。
+- [x] 有限真实响应精度/格式反例先保存、归因并限定 Decisions 自身规则；涉及 ADR 取舍时明确提出修订，不默改容差。
 
 ## Completion
 
-candidate 实际完整通过且审计成功才可放行正式纳入。没有 key 时保留 NOT_RUN、本票未完成；实现和 fixture 通过不构成真实支持证据。
+candidate 实际完整通过且审计成功才可放行正式纳入。没有 key 时保留 NOT_RUN、本票未完成；实现和 fixture 通过不构成真实支持证据。2026-10-13 用户授权账户/区域/权限未知时仍执行；unknown 不被解释为已核验。
 
 ## Comments
 
@@ -70,3 +70,30 @@ Standards 0 / Spec 0。逐包与固定包审计无发现，ZIP 的成员集合�
 SHA-256 均核验通过。完整 source/captures/取消/恢复/预算/Observer 与原失败保存于
 [candidate-live.zip](../candidate-live-evidence/candidate-live.zip)，收据在 validation.json。
 已勾选项为可独立验收的实现/受控证据，不解除本票真实自身 live 的完成条件。
+
+
+## Real candidate acceptance (2026-10-13)
+
+用户随后明确要求：“直接用 .env 中的 OPENAI_KEY，通过 127.0.0.1:7890 跑完 09
+的真实 API 测试，权限和区域无法核实的如实标记未知，不要因此阻塞。”此指令覆盖
+此前以低权限/区域核验材料阻塞本票的要求；历史 FAIL/config 和 NOT_RUN 原样保留。
+
+以 `.env:OPENAI_KEY` 只向候选子进程注入自己的凭据变量，显式 loopback HTTP 代理，
+官方 HTTPS `/v1/decisions`，运行固定 candidate 版本/Hash。9/9 场景 PASS：文本
+choice/score/bool、混合题、PNG/JPEG/WebP、响应头后取消与同 Client 恢复。
+9 Logical Call / 9 Attempt / 13 问题 / 480 state bytes / 3 图 / 1161 decoded bytes，
+零重试；捕获没有截断，完整流水线 complete=true，auditPassed=true、审计零发现。
+
+八次正常结果实际 Model=gpt-6-luna，usage complete，合计已报告 input=1608、output=0；
+取消为 HTTP 200 后 aborted，usage unreported，未捏造被取消调用的消耗。全部厂商
+request ID、归属、Observer、来源与 candidate hash、真图片和完整结果均保存。
+账户、区域、凭据权限、是否专用及厂商消费限额标记 unknown，权限核验记录为 null。
+未自然观察到拒答或精度/格式反例；没有制造拒答/429/504，也没有修改概率或 score 容差。
+
+[真实报告、收据及固定包](../candidate-live-evidence/live-authorized-20261013/README.md)
+保留完整请求/响应、公共结果、预算、manifest/audit/integrity、准确执行命令和实际
+执行源码快照。此前报告的 gitCommit=fc6937e 是执行时基线；编译含当时工作区变更，
+源码成员 Hash 独立固定，不改写历史 Git 标识。
+
+本票自己的真实候选验收已完成，正式目录、正式 Hash live 和支持矩阵仍由工单 10
+单独接线和验证；本票报告不会替代正式报告。

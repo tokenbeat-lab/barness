@@ -18,7 +18,11 @@ func setCandidateReplay(cs *evidence.Case, mode string) {
 		cs.ReplayRun("^TestDecisionsCandidateProcess$/^" + regexp.QuoteMeta(os.Getenv("BARNESS_DECISIONS_CONTROLLED")) + "$")
 		return
 	}
-	cs.ReplayEnv(envLive + "=1 " + envCombo + "=" + decisionsCandidate.name)
+	assignments := envLive + "=1 " + envCombo + "=" + decisionsCandidate.name
+	if os.Getenv("BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT") == "1" {
+		assignments += " BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1"
+	}
+	cs.ReplayEnv(assignments)
 	cs.ReplayRun("^TestCandidateDecisions$")
 }
 

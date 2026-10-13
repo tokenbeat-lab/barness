@@ -32,18 +32,30 @@ type candidatePermissions struct {
 
 var candidateAlias = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9._@-]{0,79}$`)
 
-func candidateConfiguration(rec *recorder) (candidatePermissions, []byte, error) {
+func candidateConfiguration(rec *recorder) (*candidatePermissions, []byte, error) {
 	if err := candidateEnvironment(); err != nil {
-		return candidatePermissions{}, nil, err
+		return nil, nil, err
+	}
+	allowUnknown := os.Getenv("BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT")
+	if allowUnknown != "" && allowUnknown != "0" && allowUnknown != "1" {
+		return nil, nil, fmt.Errorf("invalid unknown-account opt-in")
+	}
+	// Maintainer authorization may allow missing account/region/permission
+	// evidence. It never fabricates verification or ignores a supplied record.
+	if allowUnknown == "1" && os.Getenv("BARNESS_AI_LIVE_PERMISSIONS_FILE") == "" {
+		if err := configureCandidateProxy(rec); err != nil {
+			return nil, nil, err
+		}
+		return nil, nil, nil
 	}
 	alias, region := cfg.alias, os.Getenv("BARNESS_AI_LIVE_REGION_ALIAS")
 	if !candidateAlias.MatchString(alias) || !candidateAlias.MatchString(region) {
-		return candidatePermissions{}, nil, fmt.Errorf("account and region aliases are required")
+		return nil, nil, fmt.Errorf("account and region aliases are required")
 	}
 	path := os.Getenv("BARNESS_AI_LIVE_PERMISSIONS_FILE")
 	raw, err := readCandidateFile(path, 16384)
 	if err != nil {
-		return candidatePermissions{}, nil, fmt.Errorf("bounded host permission verification record is required")
+		return nil, nil, fmt.Errorf("bounded host permission verification record is required")
 	}
 	// Exact canonical field names and duplicates are checked before Go's
 	// case-insensitive typed decoder. The
@@ -51,48 +63,55 @@ func candidateConfiguration(rec *recorder) (candidatePermissions, []byte, error)
 	tokens := json.NewDecoder(strings.NewReader(string(raw)))
 	first, err := tokens.Token()
 	if err != nil || first != json.Delim('{') {
-		return candidatePermissions{}, nil, fmt.Errorf("host permission record must be a JSON object")
+		return nil, nil, fmt.Errorf("host permission record must be a JSON object")
 	}
 	seen := map[string]bool{}
 	for tokens.More() {
 		key, err := tokens.Token()
 		if err != nil {
-			return candidatePermissions{}, nil, fmt.Errorf("invalid permission record")
+			return nil, nil, fmt.Errorf("invalid permission record")
 		}
 		name, ok := key.(string)
 		if !ok || !slices.Contains([]string{"accountAlias", "regionAlias", "dedicatedTestKey", "model", "permissions", "spendLimitUSD", "verifiedAt", "verificationReference"}, name) || seen[name] {
-			return candidatePermissions{}, nil, fmt.Errorf("unknown, noncanonical or duplicate permission field")
+			return nil, nil, fmt.Errorf("unknown, noncanonical or duplicate permission field")
 		}
 		seen[name] = true
 		var value json.RawMessage
 		if tokens.Decode(&value) != nil {
-			return candidatePermissions{}, nil, fmt.Errorf("invalid permission field")
+			return nil, nil, fmt.Errorf("invalid permission field")
 		}
 	}
 	if _, err = tokens.Token(); err != nil {
-		return candidatePermissions{}, nil, fmt.Errorf("invalid permission object")
+		return nil, nil, fmt.Errorf("invalid permission object")
 	}
 	var trailing any
 	if tokens.Decode(&trailing) != io.EOF {
-		return candidatePermissions{}, nil, fmt.Errorf("trailing permission document")
+		return nil, nil, fmt.Errorf("trailing permission document")
 	}
 	var p candidatePermissions
 	d := json.NewDecoder(strings.NewReader(string(raw)))
 	d.DisallowUnknownFields()
 	if d.Decode(&p) != nil || p.AccountAlias != alias || p.RegionAlias != region || !p.DedicatedTestKey || p.Model != "gpt-6-luna" || !slices.Equal(p.Permissions, []string{"POST /v1/decisions"}) || p.SpendLimitUSD <= 0 || p.VerifiedAt.IsZero() || p.VerifiedAt.After(time.Now()) || strings.TrimSpace(p.VerificationReference) == "" {
-		return candidatePermissions{}, nil, fmt.Errorf("host permission record does not verify dedicated Decisions-only access, model and spend limit")
+		return nil, nil, fmt.Errorf("host permission record does not verify dedicated Decisions-only access, model and spend limit")
 	}
+	if err := configureCandidateProxy(rec); err != nil {
+		return nil, nil, err
+	}
+	return &p, raw, nil
+}
+
+func configureCandidateProxy(rec *recorder) error {
 	proxy := os.Getenv("BARNESS_AI_LIVE_PROXY")
 	u, err := url.Parse(proxy)
 	if err != nil || u.Scheme != "http" || u.User != nil || u.RawQuery != "" || u.Fragment != "" || (u.Path != "" && u.Path != "/") || u.Port() == "" || net.ParseIP(u.Hostname()) == nil || !net.ParseIP(u.Hostname()).IsLoopback() {
-		return candidatePermissions{}, nil, fmt.Errorf("explicit loopback HTTP proxy is required")
+		return fmt.Errorf("explicit loopback HTTP proxy is required")
 	}
 	if transport, ok := rec.next.(*http.Transport); ok {
 		transport.Proxy = http.ProxyURL(u)
 	}
 	// The proxy is trusted host transport configuration. The target remains
 	// https://api.openai.com/v1/decisions, with ordinary TLS verification.
-	return p, raw, nil
+	return nil
 }
 
 func candidateEnvironment() error {

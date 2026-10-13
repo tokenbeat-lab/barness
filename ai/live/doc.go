@@ -17,7 +17,11 @@
 //
 // Candidate: openai-decisions-candidate uses its own fixed host catalog and
 // candidate-decisions-report.json. TestCandidateDecisions requires verified
-// account/region aliases, a dedicated Decisions-only host permissions record
+// account/region aliases and a Decisions-only host permissions record by default.
+// Explicit BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 allows missing verification
+// and records account/region/permissions as unknown, as authorized on 2026-10-13.
+// It never fabricates a verification record or ignores a malformed supplied one.
+// The optional host verification file
 // (BARNESS_AI_LIVE_PERMISSIONS_FILE), and explicit loopback HTTP transport proxy
 // (BARNESS_AI_LIVE_PROXY). Official endpoint is fixed; Binding has no retries.
 // Limits: 12 calls/12 attempt reservations/24 questions/4 MiB total state,
