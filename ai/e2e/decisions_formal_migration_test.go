@@ -25,7 +25,8 @@ func TestDecisionsFormalMigration(t *testing.T) {
 	if len(after.Rows) != 10 {
 		return
 	}
-	ev.Check("nine exact history records retained", reflect.DeepEqual(before.Rows, after.Rows[:9]), "history was rewritten")
+	// Current rows advance with fresh smoke runs. The one-time migration
+	// invariant belongs to the retained migration snapshot, not current status.
 	ev.Check("new route fixed independent identity", after.Rows[9].Combo == "openai-decisions" && after.Rows[9].ValidIdentity(), "wrong identity")
 	raw, err := os.ReadFile("testdata/decisions/matrix-schema3-migrated.json")
 	if err != nil {
@@ -33,6 +34,7 @@ func TestDecisionsFormalMigration(t *testing.T) {
 	}
 	var migrated supportmatrix.Matrix
 	mustUnmarshal(t, raw, &migrated)
+	ev.Check("nine exact history records retained", reflect.DeepEqual(before.Rows, migrated.Rows[:9]), "history was rewritten")
 	row := migrated.Rows[9]
 	ev.Check("migration initializes NOT_RUN without invented history", row.LastRunAt == nil && row.AllPassedAt == nil && len(row.Capabilities) == 9, "invented timestamps")
 	for _, c := range row.Capabilities {

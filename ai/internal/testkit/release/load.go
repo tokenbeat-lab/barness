@@ -51,29 +51,8 @@ func LoadBundle(dir string) (Bundle, error) {
 			return Bundle{}, fmt.Errorf("release: invalid or duplicate evidence case directory")
 		}
 		b.caseDirs[c.ID] = filepath.Join(dir, c.Dir)
-		if len(c.Artifacts) == 0 {
-			b.Problems = append(b.Problems, "case artifact integrity inventory missing")
-		}
-		entries, err := os.ReadDir(b.caseDirs[c.ID])
-		if err != nil || len(entries) != len(c.Artifacts) {
-			b.Problems = append(b.Problems, "case artifact inventory is incomplete")
-		}
-		for _, entry := range entries {
-			if !entry.Type().IsRegular() || c.Artifacts[entry.Name()] == "" {
-				b.Problems = append(b.Problems, "case contains an unlisted or non-regular artifact")
-			}
-		}
-		for name, hash := range c.Artifacts {
-			if len(audit.File("identifiers.txt", []byte(name), audit.Environment())) != 0 {
-				return Bundle{}, fmt.Errorf("release: artifact identifier failed redaction audit")
-			}
-			if filepath.Base(name) != name {
-				return Bundle{}, fmt.Errorf("release: invalid artifact path")
-			}
-			raw, err := os.ReadFile(filepath.Join(dir, c.Dir, name))
-			if err != nil || pioracle.SHA256(raw) != hash {
-				b.Problems = append(b.Problems, "case artifact missing or changed")
-			}
+		if err := verifyArtifactInventory(b.caseDirs[c.ID], c.Artifacts); err != nil {
+			b.Problems = append(b.Problems, err.Error())
 		}
 		b.Cases = append(b.Cases, Case{ID: c.ID, Status: c.Status})
 		if kindOf(c.ID) != kindDifferential || c.Status == NotRun {

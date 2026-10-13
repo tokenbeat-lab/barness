@@ -43,17 +43,8 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 			if c.Dir != c.ID || filepath.Base(c.Dir) != c.Dir || c.Status != string(s.Outcome) {
 				return fmt.Errorf("live case identity/outcome disagrees with report")
 			}
-			if len(c.Artifacts) == 0 {
-				return fmt.Errorf("live case lacks its complete artifact integrity inventory")
-			}
-			for name, hash := range c.Artifacts {
-				if filepath.Base(name) != name {
-					return fmt.Errorf("invalid live artifact path")
-				}
-				raw, err := os.ReadFile(filepath.Join(dir, c.Dir, name))
-				if err != nil || pioracle.SHA256(raw) != hash {
-					return fmt.Errorf("live artifact missing or changed")
-				}
+			if err := verifyArtifactInventory(filepath.Join(dir, c.Dir), c.Artifacts); err != nil {
+				return err
 			}
 			if s.Attempts > 0 {
 				patterns := []string{"attempt-*-exchanges.json", "attempt-*-result.json", "observations-*.json"}
