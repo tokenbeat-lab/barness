@@ -22,7 +22,7 @@ func TestDecisionsFormalProcess(t *testing.T) {
 	if os.Getenv("BARNESS_DECISIONS_FORMAL_CONTROLLED") != "" {
 		return
 	}
-	for _, name := range []string{"success", "not-run", "foreign-key", "endpoint-override", "source-changed", "narrowed", "429", "504", "questions-budget", "audit-failed"} {
+	for _, name := range []string{"success", "not-run", "foreign-key", "endpoint-override", "source-changed", "narrowed", "429", "504", "questions-budget", "audit-failed", "publish-crash"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "P10-OD54-formal-process-"+name)
 			base := t.TempDir()
@@ -110,6 +110,9 @@ func TestDecisionsFormalControlledChild(t *testing.T) {
 	name := os.Getenv("BARNESS_DECISIONS_FORMAL_CONTROLLED")
 	if name == "" {
 		t.Skip("controlled child only")
+	}
+	if name == "publish-crash" {
+		beforeDecisionsPublication = func() { os.Exit(91) }
 	}
 	driveDecisions(t, controlledDecisionsRecorder(t, name), func(t *testing.T) []decisionsScenario { return controlledCandidateBudgetScenarios(t, name) }, "controlled")
 	if name == "audit-failed" {

@@ -44,7 +44,7 @@ func formalFixtureReport(t *testing.T, r map[string]any) supportmatrix.Report {
 	return out
 }
 func TestDecisionsFormalMatrix(t *testing.T) {
-	names := []string{"pass", "not-run", "fail", "schema2", "candidate-hash", "candidate-version", "wrong-model", "wrong-route", "both-wrong", "expected-missing", "expected-duplicate", "scenario-missing", "scenario-duplicate", "unsupported-image", "calls-over", "attempts-over", "questions-over", "state-over", "images-over", "bytes-over", "retry", "counter-disagreement", "missing-request-id", "wrong-source", "controlled", "audit-failed", "incomplete-pass", "timing-over", "future-start", "duplicate-row"}
+	names := []string{"pass", "not-run", "fail", "schema2", "candidate-hash", "candidate-version", "wrong-model", "wrong-route", "both-wrong", "expected-missing", "expected-duplicate", "scenario-missing", "scenario-duplicate", "unsupported-image", "calls-over", "attempts-over", "questions-over", "state-over", "images-over", "bytes-over", "retry", "counter-disagreement", "missing-request-id", "wrong-source", "controlled", "audit-failed", "incomplete-pass", "timing-over", "future-start", "duplicate-row", "negative-input", "negative-output"}
 	for _, name := range names {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P10-OD53-formal-merge-"+name)
@@ -83,6 +83,10 @@ func TestDecisionsFormalMatrix(t *testing.T) {
 			case "unsupported-image":
 				scenarios[4].(map[string]any)["outcome"] = "UNSUPPORTED"
 				scenarios[4].(map[string]any)["note"] = "synthetic missing image"
+			case "negative-input":
+				b["inputTokensUsed"] = -1
+			case "negative-output":
+				b["outputTokensUsed"] = -1
 			case "calls-over":
 				b["callsUsed"] = 13
 			case "attempts-over":

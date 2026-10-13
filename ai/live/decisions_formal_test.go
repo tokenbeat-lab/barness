@@ -4,6 +4,8 @@ package live
 
 import (
 	"net/http"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -67,7 +69,32 @@ func recordDecisionsStatus() error {
 		return err
 	}
 	if cfg.combo == &decisionsFormal {
-		return run.Record(supportmatrix.ReportName, formalDecisionsReport())
+		provisional := formalDecisionsReport()
+		provisional.Decisions.Complete = false
+		return run.Record(supportmatrix.ReportName, provisional)
 	}
 	return nil
+}
+
+const decisionsPendingReport = "decisions-pending-report"
+
+// Sync both the final bytes and the inventory before their atomic publication.
+// An abrupt exit before Rename leaves the stable report nonaccepting; afterwards
+// it names exactly the final bytes already sealed by the inventory and audit.
+func publishFormalDecisionsReport() error {
+	for _, name := range []string{decisionsPendingReport + ".json", decisionsIntegrityName() + ".json"} {
+		f, err := os.Open(filepath.Join(run.Dir(), name))
+		if err != nil {
+			return err
+		}
+		err = f.Sync()
+		closeErr := f.Close()
+		if err != nil {
+			return err
+		}
+		if closeErr != nil {
+			return closeErr
+		}
+	}
+	return os.Rename(filepath.Join(run.Dir(), decisionsPendingReport+".json"), filepath.Join(run.Dir(), supportmatrix.ReportFile))
 }

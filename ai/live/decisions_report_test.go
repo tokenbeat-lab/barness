@@ -35,6 +35,9 @@ func setDecisionsReplay(cs *evidence.Case, mode string) {
 
 // Audit success is independent of a vendor FAIL. Complete requires the whole
 // protocol pipeline, clean audit and successfully written integrity inventory.
+// The controlled process alone installs this abrupt-exit boundary probe.
+var beforeDecisionsPublication func()
+
 func finishDecisionsReport(code int, auditOK bool) int {
 	r := decisionsReport
 	// Keep the execution timestamp sealed before run.Finish builds its manifest.
@@ -79,19 +82,29 @@ func finishDecisionsReport(code int, auditOK bool) int {
 	if err := recordDecisionsStatus(); err != nil {
 		return decisionsEvidenceFailure("final-report-write")
 	}
+	if cfg.combo == &decisionsFormal {
+		defer os.Remove(filepath.Join(run.Dir(), decisionsPendingReport+".json"))
+		if err := run.Record(decisionsPendingReport, formalDecisionsReport()); err != nil {
+			return decisionsEvidenceFailure("pending-report-write")
+		}
+	}
 	findings, err := run.Audit()
 	if err != nil || len(findings) > 0 {
 		r.AuditPassed = false
 		return decisionsEvidenceFailure("final-audit")
 	}
-	// Refresh the two files written since inventory collection. The inventory
+	// Refresh the status and audit files written since inventory collection. The inventory
 	// hashes the final status and audit, never a transient provisional report.
 	finalFiles := []string{decisionsDetailName() + ".json", "audit.json"}
 	if cfg.combo == &decisionsFormal {
 		finalFiles = append(finalFiles, supportmatrix.ReportFile)
 	}
 	for _, name := range finalFiles {
-		raw, err := readDecisionsFile(filepath.Join(run.Dir(), name), 1<<20)
+		path := filepath.Join(run.Dir(), name)
+		if cfg.combo == &decisionsFormal && name == supportmatrix.ReportFile {
+			path = filepath.Join(run.Dir(), decisionsPendingReport+".json")
+		}
+		raw, err := readDecisionsFile(path, 1<<20)
 		if err != nil {
 			return decisionsEvidenceFailure("final-status-read")
 		}
@@ -99,6 +112,14 @@ func finishDecisionsReport(code int, auditOK bool) int {
 	}
 	if err := run.Record(decisionsIntegrityName(), map[string]any{"schema": 1, "files": files}); err != nil {
 		return decisionsEvidenceFailure("integrity-write")
+	}
+	if cfg.combo == &decisionsFormal {
+		if beforeDecisionsPublication != nil {
+			beforeDecisionsPublication()
+		}
+		if err := publishFormalDecisionsReport(); err != nil {
+			return decisionsEvidenceFailure("report-publication")
+		}
 	}
 	return code
 }
@@ -108,8 +129,8 @@ func decisionsEvidenceFailure(note string) int {
 	decisionsReport.FailureCategory = "evidence"
 	decisionsReport.FailureNote = note
 	if err := recordDecisionsStatus(); err != nil {
-		fmt.Fprintln(os.Stderr, "candidate failure status could not be written")
+		fmt.Fprintln(os.Stderr, "Decisions failure status could not be written")
 	}
-	fmt.Fprintln(os.Stderr, "candidate evidence finalization failed:", note)
+	fmt.Fprintln(os.Stderr, "Decisions evidence finalization failed:", note)
 	return 1
 }
