@@ -1,6 +1,10 @@
 # Offline E2E evidence bundles (ai/internal/testkit/evidence)
 /.evidence/
 
+# Generated test evidence archives; keep scripts, manifests and hashes in Git.
+/.scratch/**/*.zip
+/.scratch/**/*.tar.gz
+
 # Frozen pi oracle dependencies (rebuild: npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node)
 /ai/internal/testkit/pioracle/node/node_modules/
 
