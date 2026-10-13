@@ -1,0 +1,27 @@
+{
+  "fixedPoint": "d1cc6b88a0a729c3d6401a5416dabeb328ca4878",
+  "reviewedCommit": "1291d10643fd56735fd7b45769e21ed14757e681",
+  "diffCommand": "git diff d1cc6b88a0a729c3d6401a5416dabeb328ca4878...1291d10643fd56735fd7b45769e21ed14757e681",
+  "standards": {
+    "initialFindings": [
+      {
+        "severity": "P2",
+        "finding": "Cancellation fixture waited only on release; ctx.Done branch could leave cleanup blocked.",
+        "fix": "Deferred release on both cancellation coordinator exits."
+      }
+    ],
+    "remainingFindings": [],
+    "report": "No remaining Standards findings in d1cc6b8...1291d10. The release-test changes reuse the existing public CLI, retain fixture evidence as NOT_RUN for live delivery, and prevent unrelated source drift from masking tampering checks. They align with the repository E2E and evidence requirements. The cancellation cleanup fix remains correct. Standards: 0 findings; no actionable baseline smells."
+  },
+  "spec": {
+    "initialFindings": [
+      {
+        "severity": "P2",
+        "finding": "Pressure case recorded handler outcomes without gating write/context errors.",
+        "fix": "Every handler must have request identity, no write/context error, and exact script chunk count."
+      }
+    ],
+    "remainingCodeFindings": [],
+    "report": "No actionable Spec findings in d1cc6b8...1291d10. The new release-test setup supports the required full gate verification without changing its comparison rules. It generates current fixtures through the existing public CLI, requires the positive control to remain NOT_RUN with fixture/COMPLETE, and requires tampered evidence to fail. Source drift can no longer mask unrelated integrity checks; promotion of fixture evidence to live evidence remains rejected. The pressure changes preserve the original load, budgets, authentication/authorization, comparisons, failure history, and handler completion evidence. Natural causal attribution remains deliberately incomplete; the deterministic regression verifies the separately confirmed unsafe socket replay defect. Final acceptance still requires the fresh complete gate; the retained ordinary-suite failure and subsequent successful rerun must remain separate evidence."
+  }
+}

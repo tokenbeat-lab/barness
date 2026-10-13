@@ -1,0 +1,25 @@
+[
+  {
+    "phase": "diagnostic-red",
+    "command": "go test ./ai/e2e -run '^TestPressureTransportDiagnostics$' -count=1",
+    "exitCode": 1,
+    "execution": "COMPILE_FAILED",
+    "audit": "NOT_RUN",
+    "errors": [
+      "Reply.OnRequest undefined",
+      "pressureNetworkErrors.expect undefined",
+      "pressureNetworkErrors.integrity undefined"
+    ]
+  },
+  {
+    "phase": "missing-frame-red",
+    "command": "go test ./ai/e2e -run '^TestPressureTransportDiagnostics$' -count=1",
+    "exitCode": 1,
+    "execution": "COMPILE_FAILED",
+    "audit": "NOT_RUN",
+    "errors": [
+      "pressureIntegrityReport.NextFrame undefined",
+      "pressureIntegrityReport.NextFrameOffset undefined"
+    ]
+  }
+]

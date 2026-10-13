@@ -1,0 +1,265 @@
+{
+  "schema": 1,
+  "date": "2026-10-13",
+  "fixedPoint": "d1cc6b88a0a729c3d6401a5416dabeb328ca4878",
+  "initialGateSourceCommit": "069bb629a8c530813924f41db56b48571402f46d",
+  "finalGateSourceCommit": "1291d10643fd56735fd7b45769e21ed14757e681",
+  "currentAutomaticGate": "PASS",
+  "currentGateExitCode": 0,
+  "issueResolved": false,
+  "naturalHistoricalCause": "UNCONFIRMED",
+  "confirmedDefect": "Unsafe socket ENOBUFS resume can replay bytes already enqueued but not reported by Write",
+  "archives": [
+    {
+      "file": "investigation-history.zip",
+      "role": "investigation-history",
+      "bundles": [
+        {
+          "path": "ambiguous-red/20261013T073755.310416000Z",
+          "cases": 2,
+          "statuses": {
+            "FAIL": 2
+          },
+          "manifestSHA256": "3d06d598d8bcc117782f055008d62b4d3102f828c1ace9ea85eea77c1adc510e",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "ambiguous-red-repeat/20261013T073910.923778000Z",
+          "cases": 2,
+          "statuses": {
+            "FAIL": 2
+          },
+          "manifestSHA256": "81445ee8dab728f9ca7a4eb9351aee54a1b3c434f610a3542217f8aa6d447082",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "baseline-design/20261013T072521.798237000Z",
+          "cases": 1,
+          "statuses": {
+            "FAIL": 1
+          },
+          "manifestSHA256": "f52b4e53f8b9bf128dd0e923dd280152748a45edf2e2db53034fdde3e7da1cc3",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "diagnostic-green/20261013T072909.850798000Z",
+          "cases": 1,
+          "statuses": {
+            "PASS": 1
+          },
+          "manifestSHA256": "59b11e88bdb8bef033b372bf2ec01fc0f504950ec1e107548833729bbe3d1809",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "fixed-design/20261013T074146.939343000Z",
+          "cases": 1,
+          "statuses": {
+            "PASS": 1
+          },
+          "manifestSHA256": "c01f626107247142cefbb9e8094dd4ff99252112f262537650797858ab34f417",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "fixed-loop/20261013T074311.778080000Z",
+          "cases": 10,
+          "statuses": {
+            "PASS": 10
+          },
+          "manifestSHA256": "5031cd0e8a8381ea097b920c7bdfe753ecd4c0aa7050e2dfade230cef5218c86",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "missing-frame-green/20261013T074437.361695000Z",
+          "cases": 1,
+          "statuses": {
+            "PASS": 1
+          },
+          "manifestSHA256": "dd077fdc5810aa07309de912d7385a59523f3960d230d2097ec37dd4c28c4b56",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "no-resume-green/20261013T074138.214742000Z",
+          "cases": 11,
+          "statuses": {
+            "PASS": 11
+          },
+          "manifestSHA256": "960da8b746f503500383ca38b3594f9bcbce63e239384cabb186bb252dfe19c7",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "no-resume-red/20261013T074030.948710000Z",
+          "cases": 10,
+          "statuses": {
+            "FAIL": 6,
+            "PASS": 4
+          },
+          "manifestSHA256": "a679fac6497f28f5fa709ec784b8f70f8c014c6c23072cfb2ffe397304ed98ad",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "review-green/20261013T074856.149640000Z",
+          "cases": 11,
+          "statuses": {
+            "PASS": 11
+          },
+          "manifestSHA256": "93e298a175c3516bfc20d99c4ab1f4b8724db0cd75565ada385b4a79e9f4d85b",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "traced-design/20261013T073255.029747000Z",
+          "cases": 1,
+          "statuses": {
+            "PASS": 1
+          },
+          "manifestSHA256": "c40c8294538f63fc4bd177feab7325cf4936e33d7b68c8227ec16d0c0d202d8a",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "traced-extended/20261013T073318.667953000Z",
+          "cases": 50,
+          "statuses": {
+            "PASS": 50
+          },
+          "manifestSHA256": "57c7a529195e6a17a593f9a9cebdd59f9ae82fa55a20f8ed4da12991bdd42849",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "traced-loop/20261013T072920.986712000Z",
+          "cases": 10,
+          "statuses": {
+            "PASS": 10
+          },
+          "manifestSHA256": "6c82034ed02ba324e06913d63741789d0b1907ebb0e36aa6cca1587ebd02d043",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "traced-sparse-loop/20261013T073131.921222000Z",
+          "cases": 10,
+          "statuses": {
+            "PASS": 10
+          },
+          "manifestSHA256": "e315eaecaaecbcea29cc70ff02176bf59550192671ac29907c5ca481b92171c2",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "release-fixture-green/20261013T080249.146420000Z",
+          "cases": 18,
+          "statuses": {
+            "PASS": 18
+          },
+          "manifestSHA256": "ba2162dfe30c116dc990188d348dd563f53216ebd47ab41364e3523440fc5975",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "red-replay-20261013T081936.317808Z/bundles/20261013T081940.613792000Z",
+          "cases": 2,
+          "statuses": {
+            "FAIL": 2
+          },
+          "manifestSHA256": "cea9dfbdd05d1db1f2440fc37c00b43efb381f49ecc0899926aa5cf9e34dc81c",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        }
+      ]
+    },
+    {
+      "file": "initial-full-gate.zip",
+      "role": "failed-gate",
+      "bundles": [
+        {
+          "path": "full-gate/offline/20261013T075110.054931000Z",
+          "cases": 7619,
+          "statuses": {
+            "FAIL": 1,
+            "PASS": 7618
+          },
+          "manifestSHA256": "7bfd51e656629d8744b3a9defd8b602389e013a8b37f8f1dc80901cec49136f4",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "full-gate/race/20261013T075708.301393000Z",
+          "cases": 7619,
+          "statuses": {
+            "FAIL": 1,
+            "PASS": 7618
+          },
+          "manifestSHA256": "8f0cc1ce702f6bdf77380fd60c8bade8bc0580a10272b4df2e3d180d8a7ef1f1",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        }
+      ]
+    },
+    {
+      "file": "final-full-gate.zip",
+      "role": "full-gate",
+      "bundles": [
+        {
+          "path": "final-full-gate/offline/20261013T080832.297532000Z",
+          "cases": 7620,
+          "statuses": {
+            "PASS": 7620
+          },
+          "manifestSHA256": "c0e7c8652586bb99926fda12fd79edc1e4f241212eaaccee664efe37e8921564",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "final-full-gate/race/20261013T081431.295891000Z",
+          "cases": 7620,
+          "statuses": {
+            "PASS": 7620
+          },
+          "manifestSHA256": "a9187a8d2fe12da71252fdfa8046b232568b83f179505dbd865d4c1f0c18afff",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        }
+      ]
+    },
+    {
+      "file": "current-effects.zip",
+      "role": "current-effects",
+      "bundles": [
+        {
+          "path": "current-effects/jev/bundles/20261013T075028.321956000Z",
+          "cases": 0,
+          "statuses": {},
+          "manifestSHA256": "79b7d76bd6dfc4a07fe497c12e05406debdb952b03ee114f397b808be3dd4019",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        },
+        {
+          "path": "current-effects/luna/bundles/20261013T075034.683736000Z",
+          "cases": 0,
+          "statuses": {},
+          "manifestSHA256": "75cf1f06ae535c065163adf8cb57911ae4447e5612822445d6d403afd2c9a4f9",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+        }
+      ]
+    },
+    {
+      "file": "baseline-source.zip",
+      "role": "source-baseline"
+    },
+    {
+      "file": "initial-tested-source.zip",
+      "role": "source-initial-gate"
+    },
+    {
+      "file": "tested-source.zip",
+      "role": "source-final-gate"
+    }
+  ],
+  "referencedArtifacts": [
+    {
+      "path": ".scratch/barness-ai-openai-decisions/release-evidence/live-evaluation.zip",
+      "sha256": "c6f928be15f4fdce29bb9c37a080d828089e36ddc33335f7e33b6a757b8a9b75",
+      "purpose": "unchanged ten own-route smoke inputs already retained by issue 13; previous Jev/Luna inside this archive are not used for current effects"
+    }
+  ],
+  "incompleteHistory": {
+    "paths": [
+      "incomplete-relocated-loop",
+      "incomplete-loop-tail"
+    ],
+    "status": "INCOMPLETE",
+    "audit": "NOT_RUN",
+    "reason": "evidence directory was moved during execution; never counted as a code result or PASS"
+  },
+  "provenance": "Commit fields are labels, not binary proof. Prototype instrumentation changed under a shared HEAD label; original manifests/audits/verdicts remain byte-identical. Initial and final tested source snapshots are separately retained. Overlay replay records its exact source and compiled binary SHA; it never edits production source. Top-level report/log filesystem paths alone are aliased; inner evidence is unchanged.",
+  "frameNumbering": "zero-based original scripted SSE order; byte/chunk/frame offsets are zero-based"
+}

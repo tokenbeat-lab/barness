@@ -2,7 +2,7 @@
 
 Status: ready-for-agent
 Type: bug
-Updated: 2026-10-11
+Updated: 2026-10-13
 
 ## Actual failure
 
@@ -94,3 +94,56 @@ fix or establish the cause of call-04/call-11. The first unchanged-source FAIL
 and all later runs remain separate. One baseline loop run was interrupted by
 an evidence-directory relocation during execution; its files are preserved as
 incomplete and never counted as a valid test/audit run.
+
+### Verification and remaining acceptance
+
+- Socket/reader GREEN: 11 public E2E cases; targeted race also 11 PASS.
+- Original design command and post-fix ten-round loop: PASS with unchanged load;
+  every request-correlated scripted byte arrived, handlers ended, resources zero.
+- First full gate: normal/race each 7,618 PASS + 1 FAIL, solely
+  OD57-release-evaluation-current (a retained live test fixture was no longer
+  source-current). Both full original bundles and successful audits are retained.
+- Fixed only the E2E fixture setup: generate current evidence with the existing
+  public CLI; fixture positive control remains NOT_RUN, all tampering must FAIL
+  and cannot be masked by source drift. No gate comparison was relaxed.
+- Final full gate, source 1291d10: actual exit 0, all ten gates PASS. Normal and
+  race each 7,620 PASS (including 861 frozen Pi differential cases), zero FAIL;
+  commands took 357.680s and 1,214.584s. Both vet modes and all 14 input audits
+  PASS. Ten own-route smoke inputs retain their original applicability checks;
+  Jev and Luna were each newly collected through the explicit local proxy with
+  24 Calls/Attempts, zero retries, COMPLETE and zero audit findings.
+- Two-axis final review: Standards 0 and Spec 0 remaining code findings. The
+  initial cancellation-cleanup and fixture-outcome findings were fixed before
+  the successful gate.
+
+[Archive and exact verdicts](../pressure-stream-integrity-evidence/manifest.json),
+[full report](../pressure-stream-integrity-evidence/release-report.md),
+[two-axis review](../pressure-stream-integrity-evidence/review.json), and
+[verification](../pressure-stream-integrity-evidence/verification.json) preserve
+22 complete bundles / 30,619 case records, including 13 historical failing
+investigation cases and both first-gate failures. Outer SHA and inner manifests,
+audits, inventories and verdicts are independently checked; top-level diagnostic
+filesystem paths alone are aliased, original inner evidence bytes are unchanged.
+The interrupted loop remains explicitly INCOMPLETE / audit NOT_RUN.
+
+Reproduce the archived checks without network:
+
+```sh
+python3 .scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/verify.py
+python3 .scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/replay-red.py
+```
+
+The second command compiles a temporary Go overlay with the removed unsafe retry,
+requires both original byte/frame counterexamples to FAIL, and checks runtime
+source remains untouched. It writes a new evidence directory and binary/source
+SHA; it is explicitly regression RED, never production or release evidence.
+Use the two original reproduction commands above for current GREEN.
+
+**Status remains ready-for-agent; issue is not closed.** This delivery fixes the
+separately confirmed unsafe socket resume and completes current verification.
+It does not establish the first divergent bytes of the historical natural
+call-04/call-11 or the unchanged-source call-15. A future natural failure must be
+examined via the retained per-request byte/window/connection/write traces; only
+if bytes match should decoder-frame capture and then disabled-sampling versus
+empty-profile accumulation be investigated. Automatic gate PASS does not revoke
+that remaining causal-evidence requirement or the historical delivery blocker.
