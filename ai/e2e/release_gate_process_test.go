@@ -92,7 +92,11 @@ func TestTenRouteReleaseCLI(t *testing.T) {
 	}
 }
 func TestReleaseEvaluationIdentityAndIntegrity(t *testing.T) {
-	source := "../../.scratch/barness-ai-openai-decisions/chinese-live-evidence/live"
+	// Generate current execution evidence through the public CLI. A retained
+	// live bundle becomes stale after legitimate source changes; using it here
+	// would make every tampering case pass at the unrelated source-drift guard.
+	// Fixtures remain NOT_RUN for live delivery, including this positive control.
+	source := currentReleaseEvaluationFixture(t, run.Case(t, "OD57-release-evaluation-source"))
 	for _, mode := range []string{"current", "same-package", "wrong-route", "catalog", "budget", "code", "dataset", "config", "manifest", "audit", "files", "captures", "observer", "fixture", "not-run", "failed"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "OD57-release-evaluation-"+mode)
@@ -134,7 +138,7 @@ func TestReleaseEvaluationIdentityAndIntegrity(t *testing.T) {
 				case "config":
 					r["configHash"] = "sha256:" + strings.Repeat("0", 64)
 				case "fixture":
-					r["kind"] = "fixture"
+					r["kind"] = "live" // a fixture cannot be promoted to live evidence
 				case "not-run":
 					r["status"] = "NOT_RUN"
 				case "failed":
@@ -150,12 +154,25 @@ func TestReleaseEvaluationIdentityAndIntegrity(t *testing.T) {
 			}
 			e := releaseEvidence(t, r, name)
 			if mode == "current" {
-				ev.Check("own complete applicable report imported", e.Status == release.Pass, "got %+v", sanitizedReleaseEvidence([]release.EvidenceCheck{e}))
+				ev.Check("current fixture is verified without claiming live", e.Status == release.NotRun && strings.Contains(e.Detail, "fixture/COMPLETE"), "got %+v", sanitizedReleaseEvidence([]release.EvidenceCheck{e}))
 			} else {
-				ev.Check("invalid evidence rejected", e.Status != release.Pass, "accepted %s", mode)
+				ev.Check("tampered evidence fails its integrity checks", e.Status == release.Fail, "%s: got %s, %s", mode, e.Status, e.Detail)
+				if mode != "code" {
+					ev.Check("source drift does not mask the intended integrity check", !strings.Contains(e.Detail, "execution source is stale"), "%s: %s", mode, e.Detail)
+				}
 			}
 		})
 	}
+}
+
+func currentReleaseEvaluationFixture(t *testing.T, ev *evidence.Case) string {
+	t.Helper()
+	out := t.TempDir()
+	if _, err := evaluationCommand(t, "-route", "luna", "-fixture", "normal", "-out", out); err != nil {
+		t.Fatal(err)
+	}
+	dir, _ := evaluationBundle(t, out, ev)
+	return dir
 }
 func rehashReleaseFile(t *testing.T, dir, name string) {
 	t.Helper()

@@ -34,10 +34,7 @@ func TestReleaseAllRefusalImport(t *testing.T) {
 }
 func TestReleaseExecutionSourceDrift(t *testing.T) {
 	ev := run.Case(t, "OD57-release-current-source-hash")
-	dir := t.TempDir()
-	if err := os.CopyFS(dir, os.DirFS("../../.scratch/barness-ai-openai-decisions/chinese-live-evidence/live")); err != nil {
-		t.Fatal(err)
-	}
+	dir := currentReleaseEvaluationFixture(t, ev)
 	read := func(name string) map[string]any {
 		raw, err := os.ReadFile(filepath.Join(dir, name))
 		if err != nil {
