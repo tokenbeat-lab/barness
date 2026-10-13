@@ -22,7 +22,7 @@ func TestDecisionsFormalProcess(t *testing.T) {
 	if os.Getenv("BARNESS_DECISIONS_FORMAL_CONTROLLED") != "" {
 		return
 	}
-	for _, name := range []string{"success", "not-run", "foreign-key", "endpoint-override", "source-changed", "narrowed", "429", "504", "questions-budget", "audit-failed", "publish-crash"} {
+	for _, name := range []string{"success", "not-run", "foreign-key", "endpoint-override", "source-changed", "narrowed", "429", "504", "questions-budget", "audit-failed", "publish-crash", "pending-crash"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "P10-OD54-formal-process-"+name)
 			base := t.TempDir()
@@ -91,6 +91,10 @@ func TestDecisionsFormalProcess(t *testing.T) {
 				cs.Check("full producer matches formal consumer contract", mergeErr == nil, "err=%v", mergeErr)
 			}
 			root := filepath.Dir(paths[0])
+			if name == "pending-crash" {
+				_, loadErr := supportmatrix.LoadReport(filepath.Join(root, decisionsPendingReport+".json"))
+				cs.Check("private pending file cannot be consumed as formal Report", loadErr != nil, "pending accepted")
+			}
 			if name == "success" {
 				a := release.AuditBundle(root, nil)
 				cs.Record("consumer-audit", a)
@@ -98,7 +102,7 @@ func TestDecisionsFormalProcess(t *testing.T) {
 			}
 			for _, file := range []string{"manifest.json", "audit.json", "decisions-integrity.json"} {
 				data, e := os.ReadFile(filepath.Join(root, file))
-				cs.Check("final "+file, e == nil || (name == "audit-failed" && file == "decisions-integrity.json"), "missing")
+				cs.Check("final "+file, e == nil || ((name == "audit-failed" || name == "pending-crash") && file == "decisions-integrity.json"), "missing")
 				if e == nil {
 					cs.Fixture(file, data)
 				}
@@ -110,6 +114,9 @@ func TestDecisionsFormalControlledChild(t *testing.T) {
 	name := os.Getenv("BARNESS_DECISIONS_FORMAL_CONTROLLED")
 	if name == "" {
 		t.Skip("controlled child only")
+	}
+	if name == "pending-crash" {
+		afterDecisionsPendingReport = func() { os.Exit(92) }
 	}
 	if name == "publish-crash" {
 		beforeDecisionsPublication = func() { os.Exit(91) }

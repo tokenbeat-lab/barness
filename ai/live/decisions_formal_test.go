@@ -3,6 +3,7 @@
 package live
 
 import (
+	"encoding/json"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -78,23 +79,58 @@ func recordDecisionsStatus() error {
 
 const decisionsPendingReport = "decisions-pending-report"
 
-// Sync both the final bytes and the inventory before their atomic publication.
-// An abrupt exit before Rename leaves the stable report nonaccepting; afterwards
-// it names exactly the final bytes already sealed by the inventory and audit.
-func publishFormalDecisionsReport() error {
-	for _, name := range []string{decisionsPendingReport + ".json", decisionsIntegrityName() + ".json"} {
-		f, err := os.Open(filepath.Join(run.Dir(), name))
-		if err != nil {
-			return err
-		}
-		err = f.Sync()
-		closeErr := f.Close()
-		if err != nil {
-			return err
-		}
-		if closeErr != nil {
-			return closeErr
-		}
+// The private envelope is deliberately not a Report. Even an explicitly named
+// pending file must be rejected by the public report decoder before sealing.
+func pendingDecisionsBytes() ([]byte, error) {
+	raw, err := readDecisionsFile(filepath.Join(run.Dir(), decisionsPendingReport+".json"), 1<<20)
+	if err != nil {
+		return nil, err
 	}
-	return os.Rename(filepath.Join(run.Dir(), decisionsPendingReport+".json"), filepath.Join(run.Dir(), supportmatrix.ReportFile))
+	var envelope struct {
+		Report supportmatrix.Report `json:"report"`
+	}
+	if err = json.Unmarshal(raw, &envelope); err != nil {
+		return nil, err
+	}
+	return supportmatrix.Encode(envelope.Report)
+}
+
+// Only after audit and inventory succeed may accepting Report bytes exist.
+// The temporary envelope is never itself consumable as a Report. Sync both
+// final bytes and inventory before atomic publication to the stable filename.
+func publishFormalDecisionsReport() error {
+	data, err := pendingDecisionsBytes()
+	if err != nil {
+		return err
+	}
+	inventory, err := os.Open(filepath.Join(run.Dir(), decisionsIntegrityName()+".json"))
+	if err != nil {
+		return err
+	}
+	err = inventory.Sync()
+	closeErr := inventory.Close()
+	if err != nil {
+		return err
+	}
+	if closeErr != nil {
+		return closeErr
+	}
+	f, err := os.CreateTemp(run.Dir(), ".decisions-final-*.json")
+	if err != nil {
+		return err
+	}
+	defer os.Remove(f.Name())
+	if _, err = f.Write(data); err != nil {
+		f.Close()
+		return err
+	}
+	err = f.Sync()
+	closeErr = f.Close()
+	if err != nil {
+		return err
+	}
+	if closeErr != nil {
+		return closeErr
+	}
+	return os.Rename(f.Name(), filepath.Join(run.Dir(), supportmatrix.ReportFile))
 }

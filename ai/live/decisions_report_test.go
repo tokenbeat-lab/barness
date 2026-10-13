@@ -37,6 +37,7 @@ func setDecisionsReplay(cs *evidence.Case, mode string) {
 // protocol pipeline, clean audit and successfully written integrity inventory.
 // The controlled process alone installs this abrupt-exit boundary probe.
 var beforeDecisionsPublication func()
+var afterDecisionsPendingReport func()
 
 func finishDecisionsReport(code int, auditOK bool) int {
 	r := decisionsReport
@@ -84,8 +85,13 @@ func finishDecisionsReport(code int, auditOK bool) int {
 	}
 	if cfg.combo == &decisionsFormal {
 		defer os.Remove(filepath.Join(run.Dir(), decisionsPendingReport+".json"))
-		if err := run.Record(decisionsPendingReport, formalDecisionsReport()); err != nil {
+		if err := run.Record(decisionsPendingReport, struct {
+			Report supportmatrix.Report `json:"report"`
+		}{formalDecisionsReport()}); err != nil {
 			return decisionsEvidenceFailure("pending-report-write")
+		}
+		if afterDecisionsPendingReport != nil {
+			afterDecisionsPendingReport()
 		}
 	}
 	findings, err := run.Audit()
@@ -100,11 +106,10 @@ func finishDecisionsReport(code int, auditOK bool) int {
 		finalFiles = append(finalFiles, supportmatrix.ReportFile)
 	}
 	for _, name := range finalFiles {
-		path := filepath.Join(run.Dir(), name)
+		raw, err := readDecisionsFile(filepath.Join(run.Dir(), name), 1<<20)
 		if cfg.combo == &decisionsFormal && name == supportmatrix.ReportFile {
-			path = filepath.Join(run.Dir(), decisionsPendingReport+".json")
+			raw, err = pendingDecisionsBytes()
 		}
-		raw, err := readDecisionsFile(path, 1<<20)
 		if err != nil {
 			return decisionsEvidenceFailure("final-status-read")
 		}
