@@ -34,9 +34,10 @@ type pressureNetworkError struct {
 // Raw network causes are kept only in audited synthetic E2E evidence. Product
 // terminals and Observer records remain sanitized (issue 18).
 type pressureNetworkErrors struct {
-	next http.RoundTripper
-	mu   sync.Mutex
-	errs []pressureNetworkError
+	next    http.RoundTripper
+	mu      sync.Mutex
+	errs    []pressureNetworkError
+	streams map[string]*pressureIntegrity
 }
 
 func (f *pressureNetworkErrors) RoundTrip(req *http.Request) (*http.Response, error) {
@@ -44,7 +45,11 @@ func (f *pressureNetworkErrors) RoundTrip(req *http.Request) (*http.Response, er
 	if err != nil {
 		f.record(req.Context(), pressureNetworkError{RequestID: req.Header.Get(pressureCallHeader), Phase: "round-trip", Error: err.Error()})
 	} else if res.Body != nil {
-		res.Body = &pressureReadBody{ReadCloser: res.Body, failures: f, ctx: req.Context(), requestID: req.Header.Get(pressureCallHeader)}
+		id := req.Header.Get(pressureCallHeader)
+		f.mu.Lock()
+		trace := f.streams[id]
+		f.mu.Unlock()
+		res.Body = &pressureReadBody{ReadCloser: res.Body, failures: f, ctx: req.Context(), requestID: id, trace: trace}
 	}
 	return res, err
 }
@@ -71,11 +76,15 @@ type pressureReadBody struct {
 	requestID string
 	bytes     int64
 	closed    atomic.Bool
+	trace     *pressureIntegrity
 }
 
 func (b *pressureReadBody) Read(p []byte) (int, error) {
 	n, err := b.ReadCloser.Read(p)
 	b.bytes += int64(n)
+	if b.trace != nil {
+		b.trace.read(p[:n])
+	}
 	if err != nil && err != io.EOF {
 		b.failures.record(b.ctx, pressureNetworkError{RequestID: b.requestID, Phase: "body-read", ReadBytes: b.bytes, Error: err.Error(), BodyClosed: b.closed.Load()})
 	}

@@ -3,6 +3,7 @@ package e2e
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
 	"strings"
 	"testing"
 
@@ -20,6 +21,9 @@ func TestPressureTransportDiagnostics(t *testing.T) {
 	reply := sseReply(t, f, provider.FramingLF)
 	reply.Chunks = reply.Chunks[:len(reply.Chunks)-1]
 	reply.End = provider.EndAbort
+	reply.OnRequest = func(r provider.Request) {
+		pw.failures.expect(r.Header[http.CanonicalHeaderKey(pressureCallHeader)], lfChunks(t, f.Events))
+	}
 	finished := make(chan provider.ReplyOutcome, 1)
 	reply.OnFinish = func(o provider.ReplyOutcome) { finished <- o }
 	pw.provider.Enqueue(reply)
@@ -33,6 +37,9 @@ func TestPressureTransportDiagnostics(t *testing.T) {
 	ev.Check("read diagnostics identify the synthetic call", strings.Contains(string(diagnosticJSON), "req-pressure-diagnostic"), "call identity missing")
 	ev.Check("the synthetic evidence retains the underlying read error", len(errs) == 1 && errs[0].Error == "unexpected EOF" && errs[0].Phase == "body-read", "diagnostic count %d", len(errs))
 	ev.Check("the read was interrupted before cancellation or body close", len(errs) == 1 && errs[0].ContextError == "" && !errs[0].BodyClosed, "diagnostic count %d", len(errs))
+	traces := pw.failures.integrity()
+	ev.Record("stream-integrity", traces)
+	ev.Check("an interrupted exact prefix identifies the first missing byte and frame", len(traces) == 1 && traces[0].RequestID == "req-pressure-diagnostic" && traces[0].FirstDifference == nil && traces[0].ReadBytes == int64(len(reply.Script)-len(lfChunks(t, f.Events)[len(f.Events)-1])) && traces[0].NextFrame == len(f.Events)-1 && traces[0].NextFrameOffset == 0 && !traces[0].Complete, "traces %+v", traces)
 	select {
 	case outcome := <-finished:
 		ev.Record("provider-outcome", outcome)

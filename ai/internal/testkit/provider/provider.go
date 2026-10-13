@@ -30,6 +30,11 @@ type Reply struct {
 	// of the reply is written, so a test can change host state while a call is
 	// verifiably in flight.
 	OnReceive func() `json:"-"`
+	// OnRequest correlates a script with the redacted request actually served,
+	// before response bytes are written. Queue order is not call identity.
+	OnRequest func(Request) `json:"-"`
+	// TraceWrites retains socket write boundaries for synthetic diagnostics.
+	TraceWrites bool `json:"-"`
 	// End is how the reply ends once every chunk is written.
 	End End `json:"end,omitempty"`
 	// OnHold, when set, runs once an EndHold reply has written its chunks and
@@ -45,13 +50,14 @@ type Reply struct {
 
 // ReplyOutcome distinguishes an interrupted fixture from a completed script.
 type ReplyOutcome struct {
-	RequestID        string `json:"requestId,omitempty"`
-	End              End    `json:"end"`
-	WrittenBytes     int64  `json:"writtenBytes"`
-	Chunks           int    `json:"chunks"`
-	WriteError       string `json:"writeError,omitempty"`
-	ContextError     string `json:"contextError,omitempty"`
-	WriteBufferWaits int64  `json:"writeBufferWaits,omitempty"`
+	RequestID    string        `json:"requestId,omitempty"`
+	End          End           `json:"end"`
+	WrittenBytes int64         `json:"writtenBytes"`
+	Chunks       int           `json:"chunks"`
+	WriteError   string        `json:"writeError,omitempty"`
+	ContextError string        `json:"contextError,omitempty"`
+	ConnectionID int64         `json:"connectionId,omitempty"`
+	Writes       []SocketWrite `json:"writes,omitempty"`
 }
 
 // End selects how a reply ends after its chunks.
@@ -119,8 +125,8 @@ func NewWithListener(aliases map[string]string, listener net.Listener) *Server {
 		_ = s.srv.Listener.Close()
 		s.srv.Listener = listener
 	}
-	s.srv.Listener = writeBufferListener{s.srv.Listener}
-	s.srv.Config.ConnContext = writeBufferContext
+	s.srv.Listener = &traceListener{Listener: s.srv.Listener}
+	s.srv.Config.ConnContext = traceContext
 	s.srv.Start()
 	return s
 }
@@ -197,15 +203,24 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	outcome := ReplyOutcome{End: reply.End, RequestID: r.Header.Get("X-Barness-Test-Call")}
-	waitsBefore := writeBufferWaits(r.Context())
-	if reply.OnFinish != nil {
+	if reply.TraceWrites {
+		outcome.ConnectionID = startWriteTrace(r.Context())
+	}
+	if reply.OnFinish != nil || reply.TraceWrites {
 		defer func() {
-			outcome.WriteBufferWaits = writeBufferWaits(r.Context()) - waitsBefore
+			if reply.TraceWrites {
+				outcome.Writes = finishWriteTrace(r.Context())
+			}
 			if err := r.Context().Err(); err != nil {
 				outcome.ContextError = err.Error()
 			}
-			reply.OnFinish(outcome)
+			if reply.OnFinish != nil {
+				reply.OnFinish(outcome)
+			}
 		}()
+	}
+	if reply.OnRequest != nil {
+		reply.OnRequest(capture)
 	}
 	if reply.OnReceive != nil {
 		reply.OnReceive()

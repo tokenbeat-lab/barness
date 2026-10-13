@@ -56,8 +56,10 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-
 [工单 18](../../.scratch/barness-ai-pi-1.0/issues/18-pressure-loopback-interruption.md) 已解决，
 交付提交 `2256eaf`。带关联诊断的自然失败将 15 路客户端 `unexpected EOF` 对到测试
 Provider 的 TCP 写入 `ENOBUFS`，确认该轮由回环写缓冲耗尽后截断 HTTP 流引起。
-测试连接现仅续写未发送字节，每次 Write 最多等待 1 秒，其他错误、持续耗尽、关闭或
-取消仍失败；没有重放 HTTP 请求或 AI Attempt。另移除已完成证据对 `testing.T` 的长期
+该次交付曾按返回字节数续写 ENOBUFS；2026-10-13 的压力完整性调查确认这条测试路径
+不安全并删除：Darwin 可先把数据入队再报错，续写会重复字节。现在原样返回 socket 错误，
+保留连接、写入边界、调用身份与最早偏离的字节/帧诊断；不重放 HTTP 请求或 AI Attempt。
+该确定性缺陷与历史自然失败的归因分别记录在[工单 07](../../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md)。另移除已完成证据对 `testing.T` 的长期
 持有，释放跨轮请求捕获。原压力负载、预算和失败断言保持不变。
 
 先红后绿的连接回归 7 PASS；同进程 100 轮、独立进程 10 轮及完整普通/race 各

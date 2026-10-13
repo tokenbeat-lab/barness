@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
 	"sync"
@@ -175,6 +176,10 @@ func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l 
 		if isTool(i) {
 			reply = pressureReply(toolChunks)
 		}
+		reply.TraceWrites = true
+		reply.OnRequest = func(r provider.Request) {
+			pw.failures.expect(r.Header[http.CanonicalHeaderKey(pressureCallHeader)], reply.Chunks)
+		}
 		reply.OnReceive = barrier
 		reply.OnFinish = func(o provider.ReplyOutcome) {
 			served <- completion{i, o}
@@ -230,6 +235,11 @@ func runDesignLoad(t *testing.T, ev *evidence.Case, policy ai.ResourcePolicy, l 
 		}
 	}
 	ev.Record("provider-outcomes", outcomes)
+	traces := pw.failures.integrity()
+	ev.Record("stream-integrity", traces)
+	for _, trace := range traces {
+		ev.Check("Client received the exact scripted bytes and SSE frames", trace.Complete, "%s: %+v", trace.RequestID, trace.FirstDifference)
+	}
 	elapsed := time.Since(started)
 	use := heap.finish()
 	peakPermits := heap.peakGauge.Load()
@@ -342,7 +352,9 @@ func checkPressureReleased(ev *evidence.Case, pw pressureWorld) {
 		ev.Record("transport-errors", errs)
 	}
 	eventually(ev, "every call ended", func() bool { return pw.probe.ActiveCalls() == 0 })
+	ev.Record("probe", map[string]int64{"activeCalls": pw.probe.ActiveCalls(), "permits": pw.probe.Permits(), "waiters": pw.probe.AdmissionWaiters(), "openBodies": pw.bodies.Open()})
 	ev.Check("no permit is held", pw.probe.Permits() == 0, "%d held", pw.probe.Permits())
+	ev.Check("no admission waiter remains", pw.probe.AdmissionWaiters() == 0, "%d waiting", pw.probe.AdmissionWaiters())
 	ev.Check("every response body is closed", pw.bodies.Open() == 0, "%d open", pw.bodies.Open())
 }
 

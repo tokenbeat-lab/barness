@@ -51,3 +51,46 @@ BARNESS_AI_PRESSURE=1 BARNESS_AI_PRESSURE_LOOPS=10 go test ./ai/e2e \
 同一压力场景保持原设计负载并 PASS；完整 race 命令及审计也已 PASS（970.760 秒）。
 此轮只调整 release CLI 的整体 race 时间窗口，没有改流读取、解析或受控 Provider；
 所以本工单仍是未确认原因的缺陷，不能因重跑通过而关闭。
+
+## Implementation investigation (2026-10-13)
+
+- Public seam: existing authenticated/authorized ai.Client stream against the controlled
+  loopback Provider, retaining the original policy, load, comparisons and deadlines.
+- Failure inventory before changes: omitted/duplicated/corrupted body bytes; correct bytes
+  but differing SSE frame boundaries; exact frames but incorrect tool accumulation;
+  request identity confused with fixture queue order; loss of the first failed round;
+  instrumentation retaining whole response copies or masking cancellation/resource release.
+- First unchanged-source reproduction: design-load FAIL, call-15 invalid Responses JSON;
+  same handler completed all 65 chunks with one writeBufferWait. Audit: zero findings.
+  Evidence: `.evidence/pressure-integrity/baseline-design/20261013T072521.798237000Z`.
+  This establishes recurrence, not the cause.
+
+### Confirmed boundary defect
+
+Two independent synthetic socket reproductions returned identical first differences:
+fully enqueued/unreported ENOBUFS at byte 492 (frame 2, frame offset 16), and
+partially enqueued/unreported ENOBUFS at byte 354 (frame 1, frame offset 120).
+The former even returned public success with 2,846 bytes read from a 2,604-byte
+script. Both correlate the same requestId, connectionId and socket write digest;
+no AI request/Attempt retry occurred. Regression was red before the fix.
+
+Apple's TCP path calls sbappendstream before tcp_output, whose ENOBUFS can
+propagate through sosend; fp_writev suppresses only ERESTART/EINTR/EWOULDBLOCK
+after partial progress, so ENOBUFS need not expose consumed bytes to Go:
+- https://github.com/apple-oss-distributions/xnu/blob/main/bsd/netinet/tcp_usrreq.c
+- https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/uipc_socket.c
+- https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/sys_generic.c
+
+Removed the unsafe ENOBUFS retry entirely. The controlled Provider now preserves
+native socket errors and records failed write boundaries. Temporary exhaustion
+is an explicit fixture/transport failure, not a recovery or fabricated PASS.
+Product parsing, authentication/authorization, policies, budgets, load and
+comparison rules are unchanged. Revert this commit to roll back the diagnostics
+and boundary change together; no compatibility path or new dependency exists.
+
+The original natural failure still lacks a captured divergent byte/frame.
+Pre-fix traced 10 + 10 + 50 rounds passed without ENOBUFS; they do not prove a
+fix or establish the cause of call-04/call-11. The first unchanged-source FAIL
+and all later runs remain separate. One baseline loop run was interrupted by
+an evidence-directory relocation during execution; its files are preserved as
+incomplete and never counted as a valid test/audit run.
