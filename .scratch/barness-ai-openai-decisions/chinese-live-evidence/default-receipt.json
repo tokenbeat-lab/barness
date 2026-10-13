@@ -1,0 +1,64 @@
+{
+  "startedAt": "2026-10-13T02:58:59.466301+00:00",
+  "buildCommand": [
+    "go",
+    "build",
+    "-o",
+    ".evidence/issue12-executions/20261013T025857.246119Z/chineseeval",
+    "./ai/examples/chineseeval/cmd/chineseeval"
+  ],
+  "command": [
+    ".evidence/issue12-executions/20261013T025857.246119Z/chineseeval",
+    "-route",
+    "luna",
+    "-out",
+    ".evidence/issue12-executions/20261013T025857.246119Z/bundle"
+  ],
+  "binarySHA256": "2b30d3e8c999d8b393b94691779556eb2afa6159102aee629851aad2c781d59d",
+  "gitCommit": "d8442da8d2a8a2035b9b50ccd8d58a078324a43d",
+  "credentialSource": "none",
+  "credentialEnvironment": null,
+  "inheritedEnvironmentNames": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "accountAlias": null,
+  "accountVerification": "unknown",
+  "regionVerification": "unknown",
+  "dedicatedKeyVerification": "unknown",
+  "permissionVerification": "unknown",
+  "vendorSpendLimitVerification": "unknown",
+  "proxy": null,
+  "budget": {
+    "calls": 24,
+    "questions": 24,
+    "attempts": 24,
+    "retries": 0,
+    "concurrency": 1,
+    "totalSeconds": 600,
+    "callSeconds": 15
+  },
+  "matrixBeforeSHA256": "90a433b692727fd1a329031b8ce2a112b9fd19e81dff733cb093fb08271029fd",
+  "watchdogTriggered": false,
+  "finishedAt": "2026-10-13T02:59:00.577627+00:00",
+  "exitCode": 0,
+  "matrixAfterSHA256": "90a433b692727fd1a329031b8ce2a112b9fd19e81dff733cb093fb08271029fd",
+  "logSHA256": "b2922dd89dc550858032706467b9858f11ec94ccbacc12987d6d21447caf7c78",
+  "report": ".evidence/issue12-executions/20261013T025857.246119Z/bundle/20261013T025900.430941000Z/evaluation-report.json",
+  "reportSHA256": "af85a1e7e0ecd492114ba69ba82026abcd7dbf7de050143a287f6f01ed542b68",
+  "status": "NOT_RUN",
+  "kind": "live",
+  "budgetConsumed": {
+    "calls": 0,
+    "questions": 0,
+    "attempts": 0,
+    "retries": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "knownCostUSD": 0,
+    "unreported": 0,
+    "partial": 0
+  },
+  "codeHash": "sha256:998632e85d38a77714681346205717f7760fcc9bd380a35a00158314aaaaa528"
+}

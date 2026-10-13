@@ -1,0 +1,306 @@
+{
+  "checks": [
+    {
+      "name": "preflight-e2e",
+      "command": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^Test(ChineseEvaluation|ClassifierHostMigration)",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "exitCode": 0,
+      "counts": {
+        "pass": 105,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "action": "pass"
+        }
+      ],
+      "bundles": [
+        {
+          "manifest": ".evidence/issue12-preflight/20261013T024553.860665000Z/manifest.json",
+          "manifestSHA256": "686ea9df1dacb2123c2a176170840863a0a7a3eaee143b3b740d053e59eba296",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "auditFindings": 0
+        }
+      ],
+      "disclosedLogSHA256": "05f7791835eb62c823ba886da1a53067221998e382e469cb08eb19ae15fbbb33"
+    },
+    {
+      "name": "proxy-red",
+      "command": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^TestChineseEvaluationProxyProcess$",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "exitCode": 1,
+      "counts": {
+        "pass": 0,
+        "fail": 13,
+        "skip": 0
+      },
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "action": "fail"
+        }
+      ],
+      "bundles": [
+        {
+          "manifest": ".evidence/issue12-proxy-red/20261013T024707.436729000Z/manifest.json",
+          "manifestSHA256": "95df63a8434c0d56aedf85bb630b09b3ef5716d0696b66c77b71e621e37af540",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "auditFindings": 0
+        }
+      ],
+      "disclosedLogSHA256": "b3e17db01f4ea03335c54cc14d3b4888ad53978325e47d5a13d4315bc8848f66"
+    },
+    {
+      "name": "proxy-green",
+      "command": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^TestChineseEvaluationProxyProcess$",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "exitCode": 0,
+      "counts": {
+        "pass": 13,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "action": "pass"
+        }
+      ],
+      "bundles": [
+        {
+          "manifest": ".evidence/issue12-proxy-green/20261013T024807.336547000Z/manifest.json",
+          "manifestSHA256": "865ce305fbc35747d78bbef71a70ae68c52561699e47e94d9fdca85452448977",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "auditFindings": 0
+        }
+      ],
+      "disclosedLogSHA256": "4b4861dcd167c6612709ceb53997a91e36a113a3037cbaf55fe7f70cc948a2a7"
+    },
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^Test(ChineseEvaluation|ClassifierHostMigration)",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "exitCode": 0,
+      "counts": {
+        "pass": 118,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "action": "pass"
+        }
+      ],
+      "bundles": [
+        {
+          "manifest": ".evidence/issue12-race/20261013T025009.678409000Z/manifest.json",
+          "manifestSHA256": "30761d71eebd888c11d9a44c5cc40fc2b52338ae624e7073688742c3a6ad6901",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "auditFindings": 0
+        }
+      ],
+      "disclosedLogSHA256": "08423b0198b54bb3eb030be2bd684923b5d8b4130bef073a96008aa2a631a1d8"
+    },
+    {
+      "name": "full-suite",
+      "command": [
+        "go",
+        "test",
+        "./...",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {
+        "BARNESS_AI_PIDIFF": "1"
+      },
+      "exitCode": 0,
+      "counts": {
+        "pass": 7991,
+        "fail": 0,
+        "skip": 188
+      },
+      "packages": [
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/chineseeval",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/hostintegration",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/localassembly",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/requestid",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/examples/toolloop",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/probe",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/clock",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/host",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/provider",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/live",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate",
+          "action": "skip"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai",
+          "action": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle",
+          "action": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit",
+          "action": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix",
+          "action": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+          "action": "pass"
+        },
+        {
+          "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "action": "pass"
+        }
+      ],
+      "bundles": [
+        {
+          "manifest": ".evidence/issue12-full/20261013T025007.552295000Z/manifest.json",
+          "manifestSHA256": "bc47150a498f3929389486df7fabc1724c9e4d58b9bdd6ac5cd1ae14f6d7c28a",
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "auditFindings": 0
+        }
+      ],
+      "disclosedLogSHA256": "9e4402e64922f47c675574943d426490d12f0e533d4c8f73539ba7e89f67f41a"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "./..."
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "vet-live",
+      "command": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "launcher-red",
+      "command": [
+        "python3",
+        ".scratch/barness-ai-openai-decisions/chinese-live-evidence/launcher-process.py",
+        "red"
+      ],
+      "exitCode": 1,
+      "receipt": "launcher-red.json",
+      "counts": {
+        "pass": 0,
+        "fail": 3
+      }
+    },
+    {
+      "name": "launcher-green",
+      "command": [
+        "python3",
+        ".scratch/barness-ai-openai-decisions/chinese-live-evidence/launcher-process.py",
+        "green"
+      ],
+      "exitCode": 0,
+      "receipt": "launcher-green.json",
+      "counts": {
+        "pass": 3,
+        "fail": 0
+      }
+    }
+  ],
+  "fullEvidenceDisclosure": "Full-suite archive contains only original manifests/audits; all cases remain at .evidence/issue12-full and are repeatable using manifest replay commands. Targeted archives contain complete case artifacts.",
+  "preflightPathNote": "Initial preflight/proxy evidence used a relative environment path under ai/e2e; those three task-owned directories were moved unchanged to root .evidence/issue12-* after completion.",
+  "skips": "188 full-suite opt-in/unsupported cases remain SKIP; not counted as PASS."
+}

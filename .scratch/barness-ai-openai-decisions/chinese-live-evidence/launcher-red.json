@@ -1,0 +1,37 @@
+{
+  "seam": "run.py public process; no vendor key supplied",
+  "phase": "red",
+  "launcherSHA256": "2e98eb2e8208e244b36b4a6117635451bb5372f7c884d4d1b3cd61b824176718",
+  "command": [
+    "python3",
+    ".scratch/barness-ai-openai-decisions/chinese-live-evidence/launcher-process.py",
+    "red"
+  ],
+  "results": [
+    {
+      "case": "userinfo",
+      "nonzeroExit": true,
+      "safeOutput": true,
+      "noExecutionDirectory": false,
+      "noSecretPersisted": false,
+      "pass": false
+    },
+    {
+      "case": "query",
+      "nonzeroExit": true,
+      "safeOutput": true,
+      "noExecutionDirectory": false,
+      "noSecretPersisted": false,
+      "pass": false
+    },
+    {
+      "case": "fragment",
+      "nonzeroExit": true,
+      "safeOutput": true,
+      "noExecutionDirectory": false,
+      "noSecretPersisted": false,
+      "pass": false
+    }
+  ],
+  "status": "FAIL"
+}

@@ -3,6 +3,7 @@
 import argparse
 import datetime
 import hashlib
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -10,6 +11,7 @@ import shlex
 import signal
 import subprocess
 import sys
+from urllib.parse import urlsplit
 
 
 def stamp():
@@ -20,10 +22,27 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def safe_proxy(raw):
+    # Validate at this boundary too: receipts are written by Python even when
+    # the Go CLI rejects the command. Never persist untrusted URL credentials.
+    try:
+        parsed = urlsplit(raw)
+        valid = (raw.startswith('http://') and not any(c.isspace() for c in raw)
+                 and '?' not in raw and '#' not in raw and parsed.username is None
+                 and parsed.password is None and parsed.path in ('', '/')
+                 and parsed.port is not None and 1 <= parsed.port <= 65535
+                 and ipaddress.ip_address(parsed.hostname).is_loopback)
+    except (ValueError, TypeError):
+        valid = False
+    if not valid:
+        raise argparse.ArgumentTypeError('proxy requires a credential-free loopback HTTP URL and valid port')
+    return raw
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--live', action='store_true', help='enable up to 24 paid Luna calls')
-    parser.add_argument('--proxy', default='', help='explicit loopback HTTP proxy')
+    parser.add_argument('--proxy', type=safe_proxy, default=None, help='explicit loopback HTTP proxy')
     parser.add_argument('--account-alias', default='local-openai@region-unreported')
     args = parser.parse_args()
     if args.proxy and not args.live:

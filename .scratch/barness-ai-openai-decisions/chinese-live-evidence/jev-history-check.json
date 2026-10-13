@@ -1,0 +1,37 @@
+{
+  "command": [
+    "go",
+    "run",
+    "./ai/examples/chineseeval/cmd/chineseeval",
+    "-verify",
+    ".scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/live"
+  ],
+  "executedBinary": "go build ./ai/examples/chineseeval/cmd/chineseeval at 1ad3dd4d9855570bc647f5a21731f514e9dc1e4b",
+  "verifiedAt": "2026-10-13T02:47:28.149432+00:00",
+  "exitCode": 0,
+  "output": "COMPLETE: recorded snapshot and audit verified; evidence kind live\n",
+  "before": {
+    "audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "config.json": "00614d781e67d498f2a55c82cd2da08f98d2e0a0592e5a012266f900b81c9e6b",
+    "dataset.json": "3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+    "evaluation-report.json": "49675274395ebffea918a05fe5b92f22de896731788067bf70ed187403ce315d",
+    "manifest.json": "73039a0422f471ef4fd9c0cef66dc37b73878ccb951bf18f75e659b7fa4ca200",
+    "observations-evaluation.json": "7ec9795bcd38cac80145e4723d78c12ff0377ead52f5b0279d608977e1e119d3"
+  },
+  "after": {
+    "audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "config.json": "00614d781e67d498f2a55c82cd2da08f98d2e0a0592e5a012266f900b81c9e6b",
+    "dataset.json": "3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+    "evaluation-report.json": "49675274395ebffea918a05fe5b92f22de896731788067bf70ed187403ce315d",
+    "manifest.json": "73039a0422f471ef4fd9c0cef66dc37b73878ccb951bf18f75e659b7fa4ca200",
+    "observations-evaluation.json": "7ec9795bcd38cac80145e4723d78c12ff0377ead52f5b0279d608977e1e119d3"
+  },
+  "unchanged": true,
+  "historicalStatus": "COMPLETE",
+  "historicalFinishedAt": "2026-10-08T11:00:41.262609Z",
+  "historicalCatalogVersion": "2026-10-08.5",
+  "historicalCatalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+  "currentCatalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+  "currentReleaseApplicable": false,
+  "reason": "Historical catalogue/config/code differ from current formal evaluation. Issue 13 must collect a separate current Jev report; no report rewritten."
+}

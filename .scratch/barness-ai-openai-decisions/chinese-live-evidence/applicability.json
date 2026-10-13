@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-10-13T02:51:32.634326+00:00",
+  "command": [
+    ".evidence/issue12-executions/20261013T024924.574748Z/chineseeval",
+    "-route",
+    "luna",
+    "-verify",
+    ".scratch/barness-ai-openai-decisions/chinese-live-evidence/live"
+  ],
+  "exitCode": 0,
+  "output": "COMPLETE: recorded snapshot and audit verified; evidence kind live\n",
+  "luna": {
+    "status": "COMPLETE",
+    "currentApplicableAtCheck": true,
+    "route": {
+      "operation": "classifier",
+      "provider": "openai",
+      "api": "openai-decisions",
+      "model": "gpt-6-luna"
+    },
+    "routeHash": "sha256:f1985a1fe8b36dcfe8f7090ce23d6494f39033272ed525573440fde22018904d",
+    "configHash": "sha256:fb6c1f6201f9e5d9ae13d5ae61a0db209d38ff35f59fbdf6349f16bdab76b72c",
+    "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+    "catalogVersion": "2026-10-13.1",
+    "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+    "codeHash": "sha256:998632e85d38a77714681346205717f7760fcc9bd380a35a00158314aaaaa528",
+    "sourceFilesMatched": 460,
+    "responseModels": [
+      "gpt-6-luna"
+    ],
+    "formalCatalogExactMatch": true,
+    "sourceCommit": "d8442da8d2a8a2035b9b50ccd8d58a078324a43d",
+    "startedAt": "2026-10-13T02:49:27.114599Z",
+    "finishedAt": "2026-10-13T02:49:35.271835Z"
+  },
+  "jev": {
+    "historicalBundle": ".scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/live",
+    "historicallyVerifiable": true,
+    "currentApplicableAtCheck": false,
+    "nextAction": "issue 13 collects its own current formal report"
+  },
+  "supportMatrixUnchangedSHA256": "90a433b692727fd1a329031b8ce2a112b9fd19e81dff733cb093fb08271029fd",
+  "futureConsumer": "Recheck route/config/catalog/code/date against release expectations; this receipt is not a timeless release approval."
+}

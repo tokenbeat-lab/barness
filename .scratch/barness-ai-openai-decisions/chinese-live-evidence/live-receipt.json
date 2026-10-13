@@ -1,0 +1,70 @@
+{
+  "startedAt": "2026-10-13T02:49:26.023997+00:00",
+  "buildCommand": [
+    "go",
+    "build",
+    "-o",
+    ".evidence/issue12-executions/20261013T024924.574748Z/chineseeval",
+    "./ai/examples/chineseeval/cmd/chineseeval"
+  ],
+  "command": [
+    ".evidence/issue12-executions/20261013T024924.574748Z/chineseeval",
+    "-route",
+    "luna",
+    "-out",
+    ".evidence/issue12-executions/20261013T024924.574748Z/bundle",
+    "-live",
+    "-proxy",
+    "http://127.0.0.1:7890"
+  ],
+  "binarySHA256": "2b30d3e8c999d8b393b94691779556eb2afa6159102aee629851aad2c781d59d",
+  "gitCommit": "d8442da8d2a8a2035b9b50ccd8d58a078324a43d",
+  "credentialSource": ".env:OPENAI_KEY",
+  "credentialEnvironment": "BARNESS_AI_CHINESE_EVAL_OPENAI_KEY",
+  "inheritedEnvironmentNames": [
+    "BARNESS_AI_CHINESE_EVAL",
+    "BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS",
+    "BARNESS_AI_CHINESE_EVAL_OPENAI_KEY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "accountAlias": "local-openai@region-unreported",
+  "accountVerification": "unknown",
+  "regionVerification": "unknown",
+  "dedicatedKeyVerification": "unknown",
+  "permissionVerification": "unknown",
+  "vendorSpendLimitVerification": "unknown",
+  "proxy": "http://127.0.0.1:7890",
+  "budget": {
+    "calls": 24,
+    "questions": 24,
+    "attempts": 24,
+    "retries": 0,
+    "concurrency": 1,
+    "totalSeconds": 600,
+    "callSeconds": 15
+  },
+  "matrixBeforeSHA256": "90a433b692727fd1a329031b8ce2a112b9fd19e81dff733cb093fb08271029fd",
+  "watchdogTriggered": false,
+  "finishedAt": "2026-10-13T02:49:35.356313+00:00",
+  "exitCode": 0,
+  "matrixAfterSHA256": "90a433b692727fd1a329031b8ce2a112b9fd19e81dff733cb093fb08271029fd",
+  "logSHA256": "89b190116de4d4685a8602d17d94b9aaac8f3f8362e6b40a4912f37a67794568",
+  "report": ".evidence/issue12-executions/20261013T024924.574748Z/bundle/20261013T024927.042527000Z/evaluation-report.json",
+  "reportSHA256": "e1afc7e2b85ef3a36566e0f90170ee632b37f5e17f4fbc6e43c924af534dbbba",
+  "status": "COMPLETE",
+  "kind": "live",
+  "budgetConsumed": {
+    "calls": 24,
+    "questions": 24,
+    "attempts": 24,
+    "retries": 0,
+    "inputTokens": 6238,
+    "outputTokens": 0,
+    "knownCostUSD": 0.0006238,
+    "unreported": 0,
+    "partial": 0
+  },
+  "codeHash": "sha256:998632e85d38a77714681346205717f7760fcc9bd380a35a00158314aaaaa528"
+}

@@ -1,0 +1,1773 @@
+{
+  "route": {
+    "operation": "classifier",
+    "provider": "openai",
+    "api": "openai-decisions",
+    "model": "gpt-6-luna"
+  },
+  "routeHash": "sha256:f1985a1fe8b36dcfe8f7090ce23d6494f39033272ed525573440fde22018904d",
+  "codeHash": "sha256:998632e85d38a77714681346205717f7760fcc9bd380a35a00158314aaaaa528",
+  "protocolStatus": "COMPLETE",
+  "schema": 2,
+  "kind": "live",
+  "status": "COMPLETE",
+  "audit": "PASS",
+  "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+  "configHash": "sha256:fb6c1f6201f9e5d9ae13d5ae61a0db209d38ff35f59fbdf6349f16bdab76b72c",
+  "dataset": {
+    "version": "zh-support-v1",
+    "source": "synthetic",
+    "scope": "简体中文在线商店支持请求：仅限四类明确请求目标；不包含闲聊、其他语言或无法判定的请求。",
+    "annotationPolicy": "由维护者编写的合成任务真值。依据用户最后明确请求的处理目标，而非被否定或作为背景的主题。支付/发票归 billing；登录/账号访问归 account；其余软件故障归 technical；物流配送归 delivery。每条只有一个明确目标；多目标及不确定输入不在本任务范围。不是生产用户总体的人工标注真值。",
+    "count": 24,
+    "distribution": {
+      "account": 6,
+      "billing": 6,
+      "delivery": 6,
+      "technical": 6
+    },
+    "labels": {
+      "account": "登录、密码、账号绑定或账号访问问题。",
+      "billing": "付款、重复扣款、退款或发票问题。",
+      "delivery": "包裹、发货、物流进度、签收或配送问题。",
+      "technical": "软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+    },
+    "samples": [
+      {
+        "id": "billing-01",
+        "text": "订单扣了两次钱，请退回多收的一笔。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-02",
+        "text": "钱已付清，但电子发票一直没有开出来。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-03",
+        "text": "退款申请通过了，款项还没到账，麻烦查询。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-04",
+        "text": "不是物流的问题，我只想问为什么付款失败。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-05",
+        "text": "商品已经收到，我要把发票抬头改成公司名称。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "billing-06",
+        "text": "登录和页面都正常，结算时却提示银行卡扣款失败。",
+        "label": "billing",
+        "rationale": "明确请求目标属于付款、重复扣款、退款或发票问题。"
+      },
+      {
+        "id": "technical-01",
+        "text": "点击保存按钮后程序就闪退，内容也丢了。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-02",
+        "text": "报表页面一直转圈，刷新后仍然打不开。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-03",
+        "text": "升级以后搜索功能失效，输入关键词没有反应。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-04",
+        "text": "能正常登录，但下载文件时总提示服务器异常。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-05",
+        "text": "不涉及付款，设置页面点哪个按钮都没反应。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "technical-06",
+        "text": "物流状态看得到，只是应用的通知开关无法保存。",
+        "label": "technical",
+        "rationale": "明确请求目标属于软件故障、异常提示、页面或功能无法正常使用；排除支付和登录问题。"
+      },
+      {
+        "id": "delivery-01",
+        "text": "包裹三天没有更新物流，能查一下到哪里了吗？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-02",
+        "text": "页面显示已签收，可我根本没收到快递。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-03",
+        "text": "订单付款成功了，请问什么时候发货？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-04",
+        "text": "快递员去了旧地址，能帮我更改配送地址吗？",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-05",
+        "text": "不用退款，我只是想催一下迟到的包裹。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "delivery-06",
+        "text": "发票已经收到了，商品却还没有寄出，请查发货进度。",
+        "label": "delivery",
+        "rationale": "明确请求目标属于包裹、发货、物流进度、签收或配送问题。"
+      },
+      {
+        "id": "account-01",
+        "text": "忘记登录密码了，请帮我找回账号。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-02",
+        "text": "换了手机号，原账号收不到登录验证码。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-03",
+        "text": "账号被锁住，无法进入个人中心，想申请解锁。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-04",
+        "text": "旧邮箱停用了，怎样更换账号绑定邮箱？",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-05",
+        "text": "不是程序闪退，是密码错误导致我无法登录。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      },
+      {
+        "id": "account-06",
+        "text": "付款记录不用查询，我现在只需要恢复被停用账号的访问权限。",
+        "label": "account",
+        "rationale": "明确请求目标属于登录、密码、账号绑定或账号访问问题。"
+      }
+    ]
+  },
+  "config": {
+    "route": {
+      "operation": "classifier",
+      "provider": "openai",
+      "api": "openai-decisions",
+      "model": "gpt-6-luna"
+    },
+    "version": "zh-eval-luna-route-v1",
+    "datasetVersion": "zh-support-v1",
+    "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+    "model": "gpt-6-luna",
+    "catalogVersion": "2026-10-13.1",
+    "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+    "questionKey": "intent",
+    "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+    "maxCalls": 24,
+    "maxQuestions": 24,
+    "maxAttempts": 24,
+    "maxRetries": 0,
+    "timeoutSeconds": 600,
+    "callTimeoutSeconds": 15
+  },
+  "accountAlias": "local-openai@region-unreported",
+  "startedAt": "2026-10-13T02:49:27.114599Z",
+  "finishedAt": "2026-10-13T02:49:35.271835Z",
+  "samples": [
+    {
+      "startedAt": "2026-10-13T02:49:27.114613Z",
+      "finishedAt": "2026-10-13T02:49:28.543799Z",
+      "durationMS": 1429.186,
+      "id": "billing-01",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 1,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-56988d24700b398a6ed4251d3d2589da",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-56988d24700b398a6ed4251d3d2589da#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_58fab758ffe747368d4f994f683ce21e",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 260,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 260,
+              "cost": {
+                "input": 0.000026000000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026000000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:28.543811Z",
+      "finishedAt": "2026-10-13T02:49:28.821307Z",
+      "durationMS": 277.496,
+      "id": "billing-02",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 0.99,
+          "delivery": 0.01,
+          "technical": 0
+        },
+        "confidence": 0.99
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-5f8a441030dc49dd07e7788448eed300",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-5f8a441030dc49dd07e7788448eed300#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_d052075ac48f4676b813bf5867e67aa5",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 259,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 259,
+              "cost": {
+                "input": 0.000025900000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000025900000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:28.82132Z",
+      "finishedAt": "2026-10-13T02:49:29.141177Z",
+      "durationMS": 319.857,
+      "id": "billing-03",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 0.99,
+          "delivery": 0.01,
+          "technical": 0
+        },
+        "confidence": 0.99
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-368d3efb0a0e4e9a250b08db325e7f12",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-368d3efb0a0e4e9a250b08db325e7f12#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_168c97aefa0e4cad911aef1ba0a3196c",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 261,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 261,
+              "cost": {
+                "input": 0.0000261,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.0000261
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:29.141189Z",
+      "finishedAt": "2026-10-13T02:49:29.43935Z",
+      "durationMS": 298.161,
+      "id": "billing-04",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 0.99,
+          "delivery": 0.01,
+          "technical": 0
+        },
+        "confidence": 0.99
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-b13439c5b3da3a1e69ea3ec434b34c95",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-b13439c5b3da3a1e69ea3ec434b34c95#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_926c18f85cb947a49029514674d29575",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 257,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 257,
+              "cost": {
+                "input": 0.0000257,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.0000257
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:29.439394Z",
+      "finishedAt": "2026-10-13T02:49:29.728785Z",
+      "durationMS": 289.391,
+      "id": "billing-05",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0,
+          "billing": 0.99,
+          "delivery": 0.01,
+          "technical": 0
+        },
+        "confidence": 0.99
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-e0ba52e88a32fbec509a0f297445ece2",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-e0ba52e88a32fbec509a0f297445ece2#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_179c0cac706242e794f894ebf24d54a6",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 262,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 262,
+              "cost": {
+                "input": 0.000026200000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026200000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:29.728796Z",
+      "finishedAt": "2026-10-13T02:49:30.010292Z",
+      "durationMS": 281.496,
+      "id": "billing-06",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "account": 0.01,
+          "billing": 0.97,
+          "delivery": 0.01,
+          "technical": 0.01
+        },
+        "confidence": 0.96
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-ebcb42deaf020bcbc538cfbd1fd479ff",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-ebcb42deaf020bcbc538cfbd1fd479ff#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_e8d093a804394215b3da835e0055213a",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 262,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 262,
+              "cost": {
+                "input": 0.000026200000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026200000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:30.010304Z",
+      "finishedAt": "2026-10-13T02:49:30.312648Z",
+      "durationMS": 302.344,
+      "id": "technical-01",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0.01,
+          "delivery": 0.01,
+          "technical": 0.98
+        },
+        "confidence": 0.97
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-dbc00beb52a496fb7bc7114e0ef6d601",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-dbc00beb52a496fb7bc7114e0ef6d601#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_e14525fa5ff24fe2b2d0ddc73785aa7f",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 261,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 261,
+              "cost": {
+                "input": 0.0000261,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.0000261
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:30.312663Z",
+      "finishedAt": "2026-10-13T02:49:30.639879Z",
+      "durationMS": 327.216,
+      "id": "technical-02",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0.01,
+          "technical": 0.99
+        },
+        "confidence": 0.99
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-1fd3fe4cd92fd6dcd7616d447193adac",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-1fd3fe4cd92fd6dcd7616d447193adac#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_20c23f9f563d4118a1809cf424ac45ed",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 259,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 259,
+              "cost": {
+                "input": 0.000025900000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000025900000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:30.63989Z",
+      "finishedAt": "2026-10-13T02:49:30.919401Z",
+      "durationMS": 279.511,
+      "id": "technical-03",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0.01,
+          "technical": 0.99
+        },
+        "confidence": 0.99
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-e3bd6023483357796190d95c693f3cf3",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-e3bd6023483357796190d95c693f3cf3#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_68198dbda0684a85be647fcaf2a4e544",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 259,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 259,
+              "cost": {
+                "input": 0.000025900000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000025900000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:30.919415Z",
+      "finishedAt": "2026-10-13T02:49:31.25921Z",
+      "durationMS": 339.795,
+      "id": "technical-04",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0.02,
+          "billing": 0.01,
+          "delivery": 0.03,
+          "technical": 0.94
+        },
+        "confidence": 0.92
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-2603fa5b984b31628155e6198acf0199",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-2603fa5b984b31628155e6198acf0199#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_6264ef96b85e448fad2d2b7776bd5ab9",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 258,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 258,
+              "cost": {
+                "input": 0.000025800000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000025800000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:31.259223Z",
+      "finishedAt": "2026-10-13T02:49:31.531671Z",
+      "durationMS": 272.448,
+      "id": "technical-05",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 0.01,
+          "technical": 0.99
+        },
+        "confidence": 0.99
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-89b3b6d019bdab5207ceb298484b1edc",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-89b3b6d019bdab5207ceb298484b1edc#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_9add1110aeef4776b4eaed53af69c817",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 260,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 260,
+              "cost": {
+                "input": 0.000026000000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026000000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:31.531685Z",
+      "finishedAt": "2026-10-13T02:49:31.821841Z",
+      "durationMS": 290.156,
+      "id": "technical-06",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "technical",
+        "probabilities": {
+          "account": 0.01,
+          "billing": 0.01,
+          "delivery": 0.05,
+          "technical": 0.93
+        },
+        "confidence": 0.91
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-154d39273ecd8da5500aa1fa4e462d4a",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-154d39273ecd8da5500aa1fa4e462d4a#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_babfc403a92c459a9b91ccdb3dc6f300",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 260,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 260,
+              "cost": {
+                "input": 0.000026000000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026000000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:31.821855Z",
+      "finishedAt": "2026-10-13T02:49:32.090148Z",
+      "durationMS": 268.293,
+      "id": "delivery-01",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-99f813390e958d418ef55d89b8de5341",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-99f813390e958d418ef55d89b8de5341#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_c54613c91ce6490988e4867b7b9b7690",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 262,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 262,
+              "cost": {
+                "input": 0.000026200000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026200000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:32.090169Z",
+      "finishedAt": "2026-10-13T02:49:32.366549Z",
+      "durationMS": 276.38,
+      "id": "delivery-02",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-93484b8552d966a20411f26dcb4bb31c",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-93484b8552d966a20411f26dcb4bb31c#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_68db1e45c5384c2dbba681c20d5d9995",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 260,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 260,
+              "cost": {
+                "input": 0.000026000000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026000000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:32.36656Z",
+      "finishedAt": "2026-10-13T02:49:32.743414Z",
+      "durationMS": 376.854,
+      "id": "delivery-03",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-1399acc9cbcdc4da585d44aceef9d18a",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-1399acc9cbcdc4da585d44aceef9d18a#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_646027ab00aa4ed98b7c38fb1734dfdf",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 256,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 256,
+              "cost": {
+                "input": 0.000025600000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000025600000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:32.743427Z",
+      "finishedAt": "2026-10-13T02:49:33.013367Z",
+      "durationMS": 269.94,
+      "id": "delivery-04",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0.01,
+          "billing": 0,
+          "delivery": 0.99,
+          "technical": 0
+        },
+        "confidence": 0.99
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-e528de9b0f1cada58e9a81ecd3b51b5c",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-e528de9b0f1cada58e9a81ecd3b51b5c#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_ba8205e374e54f03b0d74520db898443",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 262,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 262,
+              "cost": {
+                "input": 0.000026200000000000003,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026200000000000003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:33.013379Z",
+      "finishedAt": "2026-10-13T02:49:33.295877Z",
+      "durationMS": 282.498,
+      "id": "delivery-05",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-499fc7bcac6e434b68928f3f341684b5",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-499fc7bcac6e434b68928f3f341684b5#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_4c36a1ac9fe347e6bd0963c7c71551a0",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 260,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 260,
+              "cost": {
+                "input": 0.000026000000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026000000000000002
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:33.29589Z",
+      "finishedAt": "2026-10-13T02:49:33.573997Z",
+      "durationMS": 278.107,
+      "id": "delivery-06",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "delivery",
+        "probabilities": {
+          "account": 0,
+          "billing": 0,
+          "delivery": 1,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-9a5f3487ab500483df7ee88f4f85fc60",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-9a5f3487ab500483df7ee88f4f85fc60#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_52bbd0f43ac249b699c8837490cf567a",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 265,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 265,
+              "cost": {
+                "input": 0.000026500000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026500000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:33.574009Z",
+      "finishedAt": "2026-10-13T02:49:33.857404Z",
+      "durationMS": 283.395,
+      "id": "account-01",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-f489eae033bd651a1848d748cfbad4c0",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-f489eae033bd651a1848d748cfbad4c0#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_a2dc995168d44d129a1f1dfd1ffa14ef",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 258,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 258,
+              "cost": {
+                "input": 0.000025800000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000025800000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:33.857418Z",
+      "finishedAt": "2026-10-13T02:49:34.135065Z",
+      "durationMS": 277.647,
+      "id": "account-02",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 0.98,
+          "billing": 0.01,
+          "delivery": 0.01,
+          "technical": 0
+        },
+        "confidence": 0.97
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-e101a8fbb28ebd982a28ee8221bf2a21",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-e101a8fbb28ebd982a28ee8221bf2a21#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_097eddeb1dc94a88bb4ee98055965167",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 257,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 257,
+              "cost": {
+                "input": 0.0000257,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.0000257
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:34.135081Z",
+      "finishedAt": "2026-10-13T02:49:34.416497Z",
+      "durationMS": 281.416,
+      "id": "account-03",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-3115d7a3cd17993a2016965346522fbb",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-3115d7a3cd17993a2016965346522fbb#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_8343d33edb5847fa8663a1fdf844a1e5",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 261,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 261,
+              "cost": {
+                "input": 0.0000261,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.0000261
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:34.416506Z",
+      "finishedAt": "2026-10-13T02:49:34.697992Z",
+      "durationMS": 281.486,
+      "id": "account-04",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-1ed0b968a43ec1b771546045d31bf3d4",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-1ed0b968a43ec1b771546045d31bf3d4#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_63c06cf21a384989b2c5a2e7dfaeebcf",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 258,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 258,
+              "cost": {
+                "input": 0.000025800000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000025800000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:34.698004Z",
+      "finishedAt": "2026-10-13T02:49:34.986366Z",
+      "durationMS": 288.362,
+      "id": "account-05",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_c457ac17392c4b818b38e35795a636b3",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 258,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 258,
+              "cost": {
+                "input": 0.000025800000000000004,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000025800000000000004
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "startedAt": "2026-10-13T02:49:34.986376Z",
+      "finishedAt": "2026-10-13T02:49:35.271832Z",
+      "durationMS": 285.456,
+      "id": "account-06",
+      "status": "answered",
+      "responseModel": "gpt-6-luna",
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "account": 1,
+          "billing": 0,
+          "delivery": 0,
+          "technical": 0
+        },
+        "confidence": 1
+      },
+      "metadata": {
+        "tenantId": "chinese-evaluation",
+        "requestId": "req-4e497cb0d3c9c6f74898cb90db2db51c",
+        "jobId": "chinese-evaluation",
+        "bindingId": "typesafe-chinese-evaluation",
+        "operation": "classifier",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-decisions",
+        "modelId": "gpt-6-luna",
+        "accountScopeId": "evaluation-openai",
+        "bindingVersion": "zh-eval-v1",
+        "credentialVersion": "evaluation-v1",
+        "catalogVersion": "2026-10-13.1",
+        "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "attempts": [
+          {
+            "attemptId": "req-4e497cb0d3c9c6f74898cb90db2db51c#1",
+            "httpStatus": 200,
+            "providerRequestId": "req_67c716081c24412980262da2a794477f",
+            "usageReporting": "complete",
+            "usage": {
+              "input": 263,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 263,
+              "cost": {
+                "input": 0.000026300000000000002,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000026300000000000002
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "budget": {
+    "calls": 24,
+    "questions": 24,
+    "attempts": 24,
+    "retries": 0,
+    "inputTokens": 6238,
+    "outputTokens": 0,
+    "knownCostUSD": 0.0006238,
+    "unreported": 0,
+    "partial": 0
+  },
+  "metrics": {
+    "refusalRate": 0,
+    "latency": {
+      "count": 24,
+      "meanMS": 339.8704583333333,
+      "p50MS": 282.498,
+      "p95MS": 376.854
+    },
+    "total": 24,
+    "scored": 24,
+    "correct": 24,
+    "failed": 0,
+    "unexecuted": 0,
+    "accuracy": 1,
+    "scoredAccuracy": 1,
+    "confusion": {
+      "account": {
+        "account": 6
+      },
+      "billing": {
+        "billing": 6
+      },
+      "delivery": {
+        "delivery": 6
+      },
+      "technical": {
+        "technical": 6
+      }
+    },
+    "statusCounts": {
+      "answered": 24
+    },
+    "confidenceBins": [
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 24,
+        "correct": 24,
+        "mean": 0.9854166666666666,
+        "accuracy": 1
+      }
+    ],
+    "topProbabilityBins": [
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 0,
+        "correct": 0,
+        "mean": null,
+        "accuracy": null
+      },
+      {
+        "count": 24,
+        "correct": 24,
+        "mean": 0.9883333333333334,
+        "accuracy": 1
+      }
+    ],
+    "confidenceECE": 0.014583333333333393,
+    "topProbabilityECE": 0.011666666666666603,
+    "brier": 0.0006916666666666667,
+    "errorIDs": []
+  }
+}

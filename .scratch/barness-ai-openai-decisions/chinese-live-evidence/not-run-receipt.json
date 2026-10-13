@@ -1,0 +1,34 @@
+{
+  "command": [
+    ".evidence/issue12-executions/20261013T024924.574748Z/chineseeval",
+    "-route",
+    "luna",
+    "-live",
+    "-proxy",
+    "http://127.0.0.1:7890",
+    "-out",
+    ".scratch/barness-ai-openai-decisions/chinese-live-evidence/not-run"
+  ],
+  "environmentNames": [
+    "BARNESS_AI_CHINESE_EVAL",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "exitCode": 0,
+  "output": "NOT_RUN: recorded snapshot and audit verified; evidence kind live\nNOT_RUN: independently audited Chinese classification evaluation\nbarness-ai evidence bundle: .scratch/barness-ai-openai-decisions/chinese-live-evidence/not-run/20261013T025053.341549000Z\n",
+  "report": ".scratch/barness-ai-openai-decisions/chinese-live-evidence/not-run/20261013T025053.341549000Z/evaluation-report.json",
+  "reason": "isolated evaluation credential missing",
+  "status": "NOT_RUN",
+  "budget": {
+    "calls": 0,
+    "questions": 0,
+    "attempts": 0,
+    "retries": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "knownCostUSD": 0,
+    "unreported": 0,
+    "partial": 0
+  }
+}

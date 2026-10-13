@@ -1,0 +1,3650 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:27.114614+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-56988d24700b398a6ed4251d3d2589da",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:27.114822+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-56988d24700b398a6ed4251d3d2589da",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-56988d24700b398a6ed4251d3d2589da#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:28.54379+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-56988d24700b398a6ed4251d3d2589da",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-56988d24700b398a6ed4251d3d2589da#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_58fab758ffe747368d4f994f683ce21e",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 260,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 260,
+        "cost": {
+          "input": 0.000026000000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026000000000000002
+        }
+      }
+    },
+    "duration": 1428955041
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:28.543797+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-56988d24700b398a6ed4251d3d2589da",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-56988d24700b398a6ed4251d3d2589da#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_58fab758ffe747368d4f994f683ce21e",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 260,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 260,
+            "cost": {
+              "input": 0.000026000000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026000000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 1429169917,
+    "stopReason": "stop",
+    "usage": {
+      "input": 260,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 260,
+      "cost": {
+        "input": 0.000026000000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026000000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:28.543813+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5f8a441030dc49dd07e7788448eed300",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:28.543957+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5f8a441030dc49dd07e7788448eed300",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-5f8a441030dc49dd07e7788448eed300#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:28.821297+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5f8a441030dc49dd07e7788448eed300",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-5f8a441030dc49dd07e7788448eed300#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_d052075ac48f4676b813bf5867e67aa5",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 259,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 259,
+        "cost": {
+          "input": 0.000025900000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000025900000000000003
+        }
+      }
+    },
+    "duration": 277338083
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:28.821305+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-5f8a441030dc49dd07e7788448eed300",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-5f8a441030dc49dd07e7788448eed300#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_d052075ac48f4676b813bf5867e67aa5",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 259,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 259,
+            "cost": {
+              "input": 0.000025900000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000025900000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 277490584,
+    "stopReason": "stop",
+    "usage": {
+      "input": 259,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 259,
+      "cost": {
+        "input": 0.000025900000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000025900000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:28.821321+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-368d3efb0a0e4e9a250b08db325e7f12",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:28.821472+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-368d3efb0a0e4e9a250b08db325e7f12",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-368d3efb0a0e4e9a250b08db325e7f12#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:29.141169+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-368d3efb0a0e4e9a250b08db325e7f12",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-368d3efb0a0e4e9a250b08db325e7f12#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_168c97aefa0e4cad911aef1ba0a3196c",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 261,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 261,
+        "cost": {
+          "input": 0.0000261,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0000261
+        }
+      }
+    },
+    "duration": 319694792
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:29.141175+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-368d3efb0a0e4e9a250b08db325e7f12",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-368d3efb0a0e4e9a250b08db325e7f12#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_168c97aefa0e4cad911aef1ba0a3196c",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 261,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 261,
+            "cost": {
+              "input": 0.0000261,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.0000261
+            }
+          }
+        }
+      ]
+    },
+    "duration": 319851333,
+    "stopReason": "stop",
+    "usage": {
+      "input": 261,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 261,
+      "cost": {
+        "input": 0.0000261,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0000261
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:29.14119+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-b13439c5b3da3a1e69ea3ec434b34c95",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:29.141336+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-b13439c5b3da3a1e69ea3ec434b34c95",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-b13439c5b3da3a1e69ea3ec434b34c95#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:29.439336+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-b13439c5b3da3a1e69ea3ec434b34c95",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-b13439c5b3da3a1e69ea3ec434b34c95#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_926c18f85cb947a49029514674d29575",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 257,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 257,
+        "cost": {
+          "input": 0.0000257,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0000257
+        }
+      }
+    },
+    "duration": 297997375
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:29.439347+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-b13439c5b3da3a1e69ea3ec434b34c95",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-b13439c5b3da3a1e69ea3ec434b34c95#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_926c18f85cb947a49029514674d29575",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 257,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 257,
+            "cost": {
+              "input": 0.0000257,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.0000257
+            }
+          }
+        }
+      ]
+    },
+    "duration": 298154750,
+    "stopReason": "stop",
+    "usage": {
+      "input": 257,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 257,
+      "cost": {
+        "input": 0.0000257,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0000257
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:29.439398+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e0ba52e88a32fbec509a0f297445ece2",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:29.439622+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e0ba52e88a32fbec509a0f297445ece2",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-e0ba52e88a32fbec509a0f297445ece2#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:29.728776+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e0ba52e88a32fbec509a0f297445ece2",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-e0ba52e88a32fbec509a0f297445ece2#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_179c0cac706242e794f894ebf24d54a6",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 262,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 262,
+        "cost": {
+          "input": 0.000026200000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026200000000000003
+        }
+      }
+    },
+    "duration": 289151625
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:29.728784+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e0ba52e88a32fbec509a0f297445ece2",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-e0ba52e88a32fbec509a0f297445ece2#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_179c0cac706242e794f894ebf24d54a6",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 262,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 262,
+            "cost": {
+              "input": 0.000026200000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026200000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 289383500,
+    "stopReason": "stop",
+    "usage": {
+      "input": 262,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 262,
+      "cost": {
+        "input": 0.000026200000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026200000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:29.728798+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-ebcb42deaf020bcbc538cfbd1fd479ff",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:29.728933+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-ebcb42deaf020bcbc538cfbd1fd479ff",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-ebcb42deaf020bcbc538cfbd1fd479ff#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:30.010285+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-ebcb42deaf020bcbc538cfbd1fd479ff",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-ebcb42deaf020bcbc538cfbd1fd479ff#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_e8d093a804394215b3da835e0055213a",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 262,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 262,
+        "cost": {
+          "input": 0.000026200000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026200000000000003
+        }
+      }
+    },
+    "duration": 281349458
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:30.01029+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-ebcb42deaf020bcbc538cfbd1fd479ff",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-ebcb42deaf020bcbc538cfbd1fd479ff#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_e8d093a804394215b3da835e0055213a",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 262,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 262,
+            "cost": {
+              "input": 0.000026200000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026200000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 281489750,
+    "stopReason": "stop",
+    "usage": {
+      "input": 262,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 262,
+      "cost": {
+        "input": 0.000026200000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026200000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:30.010305+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-dbc00beb52a496fb7bc7114e0ef6d601",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:30.010452+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-dbc00beb52a496fb7bc7114e0ef6d601",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-dbc00beb52a496fb7bc7114e0ef6d601#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:30.312638+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-dbc00beb52a496fb7bc7114e0ef6d601",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-dbc00beb52a496fb7bc7114e0ef6d601#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_e14525fa5ff24fe2b2d0ddc73785aa7f",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 261,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 261,
+        "cost": {
+          "input": 0.0000261,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0000261
+        }
+      }
+    },
+    "duration": 302183292
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:30.312647+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-dbc00beb52a496fb7bc7114e0ef6d601",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-dbc00beb52a496fb7bc7114e0ef6d601#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_e14525fa5ff24fe2b2d0ddc73785aa7f",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 261,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 261,
+            "cost": {
+              "input": 0.0000261,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.0000261
+            }
+          }
+        }
+      ]
+    },
+    "duration": 302339125,
+    "stopReason": "stop",
+    "usage": {
+      "input": 261,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 261,
+      "cost": {
+        "input": 0.0000261,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0000261
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:30.312665+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1fd3fe4cd92fd6dcd7616d447193adac",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:30.312809+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1fd3fe4cd92fd6dcd7616d447193adac",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-1fd3fe4cd92fd6dcd7616d447193adac#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:30.63987+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1fd3fe4cd92fd6dcd7616d447193adac",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-1fd3fe4cd92fd6dcd7616d447193adac#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_20c23f9f563d4118a1809cf424ac45ed",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 259,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 259,
+        "cost": {
+          "input": 0.000025900000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000025900000000000003
+        }
+      }
+    },
+    "duration": 327058458
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:30.639876+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1fd3fe4cd92fd6dcd7616d447193adac",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-1fd3fe4cd92fd6dcd7616d447193adac#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_20c23f9f563d4118a1809cf424ac45ed",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 259,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 259,
+            "cost": {
+              "input": 0.000025900000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000025900000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 327209208,
+    "stopReason": "stop",
+    "usage": {
+      "input": 259,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 259,
+      "cost": {
+        "input": 0.000025900000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000025900000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:30.639891+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e3bd6023483357796190d95c693f3cf3",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:30.640057+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e3bd6023483357796190d95c693f3cf3",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-e3bd6023483357796190d95c693f3cf3#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:30.919394+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e3bd6023483357796190d95c693f3cf3",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-e3bd6023483357796190d95c693f3cf3#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_68198dbda0684a85be647fcaf2a4e544",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 259,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 259,
+        "cost": {
+          "input": 0.000025900000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000025900000000000003
+        }
+      }
+    },
+    "duration": 279335208
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:30.919399+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e3bd6023483357796190d95c693f3cf3",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-e3bd6023483357796190d95c693f3cf3#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_68198dbda0684a85be647fcaf2a4e544",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 259,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 259,
+            "cost": {
+              "input": 0.000025900000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000025900000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 279505625,
+    "stopReason": "stop",
+    "usage": {
+      "input": 259,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 259,
+      "cost": {
+        "input": 0.000025900000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000025900000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:30.919416+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-2603fa5b984b31628155e6198acf0199",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:30.919569+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-2603fa5b984b31628155e6198acf0199",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-2603fa5b984b31628155e6198acf0199#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:31.259204+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-2603fa5b984b31628155e6198acf0199",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-2603fa5b984b31628155e6198acf0199#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_6264ef96b85e448fad2d2b7776bd5ab9",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 258,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 258,
+        "cost": {
+          "input": 0.000025800000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000025800000000000004
+        }
+      }
+    },
+    "duration": 339631208
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:31.259208+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-2603fa5b984b31628155e6198acf0199",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-2603fa5b984b31628155e6198acf0199#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_6264ef96b85e448fad2d2b7776bd5ab9",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 258,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 258,
+            "cost": {
+              "input": 0.000025800000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000025800000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 339789708,
+    "stopReason": "stop",
+    "usage": {
+      "input": 258,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 258,
+      "cost": {
+        "input": 0.000025800000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000025800000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:31.259224+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-89b3b6d019bdab5207ceb298484b1edc",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:31.259762+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-89b3b6d019bdab5207ceb298484b1edc",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-89b3b6d019bdab5207ceb298484b1edc#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:31.531662+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-89b3b6d019bdab5207ceb298484b1edc",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-89b3b6d019bdab5207ceb298484b1edc#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_9add1110aeef4776b4eaed53af69c817",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 260,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 260,
+        "cost": {
+          "input": 0.000026000000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026000000000000002
+        }
+      }
+    },
+    "duration": 271898208
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:31.531669+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-89b3b6d019bdab5207ceb298484b1edc",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-89b3b6d019bdab5207ceb298484b1edc#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_9add1110aeef4776b4eaed53af69c817",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 260,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 260,
+            "cost": {
+              "input": 0.000026000000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026000000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 272442000,
+    "stopReason": "stop",
+    "usage": {
+      "input": 260,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 260,
+      "cost": {
+        "input": 0.000026000000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026000000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:31.531687+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-154d39273ecd8da5500aa1fa4e462d4a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:31.531832+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-154d39273ecd8da5500aa1fa4e462d4a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-154d39273ecd8da5500aa1fa4e462d4a#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:31.821834+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-154d39273ecd8da5500aa1fa4e462d4a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-154d39273ecd8da5500aa1fa4e462d4a#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_babfc403a92c459a9b91ccdb3dc6f300",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 260,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 260,
+        "cost": {
+          "input": 0.000026000000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026000000000000002
+        }
+      }
+    },
+    "duration": 289999417
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:31.821838+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-154d39273ecd8da5500aa1fa4e462d4a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-154d39273ecd8da5500aa1fa4e462d4a#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_babfc403a92c459a9b91ccdb3dc6f300",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 260,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 260,
+            "cost": {
+              "input": 0.000026000000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026000000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 290149084,
+    "stopReason": "stop",
+    "usage": {
+      "input": 260,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 260,
+      "cost": {
+        "input": 0.000026000000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026000000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:31.821856+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-99f813390e958d418ef55d89b8de5341",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:31.822119+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-99f813390e958d418ef55d89b8de5341",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-99f813390e958d418ef55d89b8de5341#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:32.090142+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-99f813390e958d418ef55d89b8de5341",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-99f813390e958d418ef55d89b8de5341#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_c54613c91ce6490988e4867b7b9b7690",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 262,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 262,
+        "cost": {
+          "input": 0.000026200000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026200000000000003
+        }
+      }
+    },
+    "duration": 268020625
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:32.090146+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-99f813390e958d418ef55d89b8de5341",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-99f813390e958d418ef55d89b8de5341#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_c54613c91ce6490988e4867b7b9b7690",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 262,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 262,
+            "cost": {
+              "input": 0.000026200000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026200000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 268287875,
+    "stopReason": "stop",
+    "usage": {
+      "input": 262,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 262,
+      "cost": {
+        "input": 0.000026200000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026200000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:32.09017+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-93484b8552d966a20411f26dcb4bb31c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:32.0904+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-93484b8552d966a20411f26dcb4bb31c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-93484b8552d966a20411f26dcb4bb31c#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:32.366539+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-93484b8552d966a20411f26dcb4bb31c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-93484b8552d966a20411f26dcb4bb31c#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_68db1e45c5384c2dbba681c20d5d9995",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 260,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 260,
+        "cost": {
+          "input": 0.000026000000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026000000000000002
+        }
+      }
+    },
+    "duration": 276136459
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:32.366543+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-93484b8552d966a20411f26dcb4bb31c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-93484b8552d966a20411f26dcb4bb31c#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_68db1e45c5384c2dbba681c20d5d9995",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 260,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 260,
+            "cost": {
+              "input": 0.000026000000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026000000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 276370709,
+    "stopReason": "stop",
+    "usage": {
+      "input": 260,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 260,
+      "cost": {
+        "input": 0.000026000000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026000000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:32.366561+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1399acc9cbcdc4da585d44aceef9d18a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:32.366705+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1399acc9cbcdc4da585d44aceef9d18a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-1399acc9cbcdc4da585d44aceef9d18a#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:32.743408+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1399acc9cbcdc4da585d44aceef9d18a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-1399acc9cbcdc4da585d44aceef9d18a#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_646027ab00aa4ed98b7c38fb1734dfdf",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 256,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 256,
+        "cost": {
+          "input": 0.000025600000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000025600000000000002
+        }
+      }
+    },
+    "duration": 376699291
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:32.743412+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1399acc9cbcdc4da585d44aceef9d18a",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-1399acc9cbcdc4da585d44aceef9d18a#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_646027ab00aa4ed98b7c38fb1734dfdf",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 256,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 256,
+            "cost": {
+              "input": 0.000025600000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000025600000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 376847916,
+    "stopReason": "stop",
+    "usage": {
+      "input": 256,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 256,
+      "cost": {
+        "input": 0.000025600000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000025600000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:32.743429+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e528de9b0f1cada58e9a81ecd3b51b5c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:32.743593+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e528de9b0f1cada58e9a81ecd3b51b5c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-e528de9b0f1cada58e9a81ecd3b51b5c#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:33.01336+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e528de9b0f1cada58e9a81ecd3b51b5c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-e528de9b0f1cada58e9a81ecd3b51b5c#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_ba8205e374e54f03b0d74520db898443",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 262,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 262,
+        "cost": {
+          "input": 0.000026200000000000003,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026200000000000003
+        }
+      }
+    },
+    "duration": 269764792
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:33.013365+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e528de9b0f1cada58e9a81ecd3b51b5c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-e528de9b0f1cada58e9a81ecd3b51b5c#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_ba8205e374e54f03b0d74520db898443",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 262,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 262,
+            "cost": {
+              "input": 0.000026200000000000003,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026200000000000003
+            }
+          }
+        }
+      ]
+    },
+    "duration": 269933291,
+    "stopReason": "stop",
+    "usage": {
+      "input": 262,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 262,
+      "cost": {
+        "input": 0.000026200000000000003,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026200000000000003
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:33.01338+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-499fc7bcac6e434b68928f3f341684b5",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:33.013543+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-499fc7bcac6e434b68928f3f341684b5",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-499fc7bcac6e434b68928f3f341684b5#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:33.29587+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-499fc7bcac6e434b68928f3f341684b5",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-499fc7bcac6e434b68928f3f341684b5#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_4c36a1ac9fe347e6bd0963c7c71551a0",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 260,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 260,
+        "cost": {
+          "input": 0.000026000000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026000000000000002
+        }
+      }
+    },
+    "duration": 282324375
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:33.295875+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-499fc7bcac6e434b68928f3f341684b5",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-499fc7bcac6e434b68928f3f341684b5#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_4c36a1ac9fe347e6bd0963c7c71551a0",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 260,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 260,
+            "cost": {
+              "input": 0.000026000000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026000000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 282492416,
+    "stopReason": "stop",
+    "usage": {
+      "input": 260,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 260,
+      "cost": {
+        "input": 0.000026000000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026000000000000002
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:33.295891+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-9a5f3487ab500483df7ee88f4f85fc60",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:33.296048+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-9a5f3487ab500483df7ee88f4f85fc60",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-9a5f3487ab500483df7ee88f4f85fc60#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:33.57399+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-9a5f3487ab500483df7ee88f4f85fc60",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-9a5f3487ab500483df7ee88f4f85fc60#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_52bbd0f43ac249b699c8837490cf567a",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 265,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 265,
+        "cost": {
+          "input": 0.000026500000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026500000000000004
+        }
+      }
+    },
+    "duration": 277939291
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:33.573995+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-9a5f3487ab500483df7ee88f4f85fc60",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-9a5f3487ab500483df7ee88f4f85fc60#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_52bbd0f43ac249b699c8837490cf567a",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 265,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 265,
+            "cost": {
+              "input": 0.000026500000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026500000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 278101708,
+    "stopReason": "stop",
+    "usage": {
+      "input": 265,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 265,
+      "cost": {
+        "input": 0.000026500000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026500000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:33.57401+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-f489eae033bd651a1848d748cfbad4c0",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:33.574527+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-f489eae033bd651a1848d748cfbad4c0",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-f489eae033bd651a1848d748cfbad4c0#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:33.857395+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-f489eae033bd651a1848d748cfbad4c0",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-f489eae033bd651a1848d748cfbad4c0#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_a2dc995168d44d129a1f1dfd1ffa14ef",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 258,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 258,
+        "cost": {
+          "input": 0.000025800000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000025800000000000004
+        }
+      }
+    },
+    "duration": 282865000
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:33.857402+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-f489eae033bd651a1848d748cfbad4c0",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-f489eae033bd651a1848d748cfbad4c0#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_a2dc995168d44d129a1f1dfd1ffa14ef",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 258,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 258,
+            "cost": {
+              "input": 0.000025800000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000025800000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 283389292,
+    "stopReason": "stop",
+    "usage": {
+      "input": 258,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 258,
+      "cost": {
+        "input": 0.000025800000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000025800000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:33.857419+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e101a8fbb28ebd982a28ee8221bf2a21",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:33.85757+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e101a8fbb28ebd982a28ee8221bf2a21",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-e101a8fbb28ebd982a28ee8221bf2a21#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:34.135059+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e101a8fbb28ebd982a28ee8221bf2a21",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-e101a8fbb28ebd982a28ee8221bf2a21#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_097eddeb1dc94a88bb4ee98055965167",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 257,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 257,
+        "cost": {
+          "input": 0.0000257,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0000257
+        }
+      }
+    },
+    "duration": 277486375
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:34.135063+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-e101a8fbb28ebd982a28ee8221bf2a21",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-e101a8fbb28ebd982a28ee8221bf2a21#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_097eddeb1dc94a88bb4ee98055965167",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 257,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 257,
+            "cost": {
+              "input": 0.0000257,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.0000257
+            }
+          }
+        }
+      ]
+    },
+    "duration": 277641542,
+    "stopReason": "stop",
+    "usage": {
+      "input": 257,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 257,
+      "cost": {
+        "input": 0.0000257,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0000257
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:34.135082+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-3115d7a3cd17993a2016965346522fbb",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:34.135229+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-3115d7a3cd17993a2016965346522fbb",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-3115d7a3cd17993a2016965346522fbb#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:34.416491+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-3115d7a3cd17993a2016965346522fbb",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-3115d7a3cd17993a2016965346522fbb#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_8343d33edb5847fa8663a1fdf844a1e5",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 261,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 261,
+        "cost": {
+          "input": 0.0000261,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0000261
+        }
+      }
+    },
+    "duration": 281260125
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:34.416495+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-3115d7a3cd17993a2016965346522fbb",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-3115d7a3cd17993a2016965346522fbb#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_8343d33edb5847fa8663a1fdf844a1e5",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 261,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 261,
+            "cost": {
+              "input": 0.0000261,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.0000261
+            }
+          }
+        }
+      ]
+    },
+    "duration": 281410333,
+    "stopReason": "stop",
+    "usage": {
+      "input": 261,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 261,
+      "cost": {
+        "input": 0.0000261,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0000261
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:34.416507+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1ed0b968a43ec1b771546045d31bf3d4",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:34.416641+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1ed0b968a43ec1b771546045d31bf3d4",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-1ed0b968a43ec1b771546045d31bf3d4#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:34.697983+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1ed0b968a43ec1b771546045d31bf3d4",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-1ed0b968a43ec1b771546045d31bf3d4#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_63c06cf21a384989b2c5a2e7dfaeebcf",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 258,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 258,
+        "cost": {
+          "input": 0.000025800000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000025800000000000004
+        }
+      }
+    },
+    "duration": 281339791
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:34.69799+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-1ed0b968a43ec1b771546045d31bf3d4",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-1ed0b968a43ec1b771546045d31bf3d4#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_63c06cf21a384989b2c5a2e7dfaeebcf",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 258,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 258,
+            "cost": {
+              "input": 0.000025800000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000025800000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 281479833,
+    "stopReason": "stop",
+    "usage": {
+      "input": 258,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 258,
+      "cost": {
+        "input": 0.000025800000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000025800000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:34.698005+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:34.698137+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:34.98636+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_c457ac17392c4b818b38e35795a636b3",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 258,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 258,
+        "cost": {
+          "input": 0.000025800000000000004,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000025800000000000004
+        }
+      }
+    },
+    "duration": 288220542
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:34.986364+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-7513dd3cfefbe7f69e74ad20ea3bc7d0#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_c457ac17392c4b818b38e35795a636b3",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 258,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 258,
+            "cost": {
+              "input": 0.000025800000000000004,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000025800000000000004
+            }
+          }
+        }
+      ]
+    },
+    "duration": 288355666,
+    "stopReason": "stop",
+    "usage": {
+      "input": 258,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 258,
+      "cost": {
+        "input": 0.000025800000000000004,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000025800000000000004
+      }
+    }
+  },
+  {
+    "kind": "call_started",
+    "time": "2026-10-13T10:49:34.986377+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4e497cb0d3c9c6f74898cb90db2db51c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-13T10:49:34.986511+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4e497cb0d3c9c6f74898cb90db2db51c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-4e497cb0d3c9c6f74898cb90db2db51c#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-13T10:49:35.271824+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4e497cb0d3c9c6f74898cb90db2db51c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+    },
+    "attempt": {
+      "attemptId": "req-4e497cb0d3c9c6f74898cb90db2db51c#1",
+      "httpStatus": 200,
+      "providerRequestId": "req_67c716081c24412980262da2a794477f",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 263,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 263,
+        "cost": {
+          "input": 0.000026300000000000002,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000026300000000000002
+        }
+      }
+    },
+    "duration": 285311250
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-13T10:49:35.27183+08:00",
+    "call": {
+      "tenantId": "chinese-evaluation",
+      "requestId": "req-4e497cb0d3c9c6f74898cb90db2db51c",
+      "jobId": "chinese-evaluation",
+      "bindingId": "typesafe-chinese-evaluation",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "gpt-6-luna",
+      "accountScopeId": "evaluation-openai",
+      "bindingVersion": "zh-eval-v1",
+      "credentialVersion": "evaluation-v1",
+      "catalogVersion": "2026-10-13.1",
+      "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+      "attempts": [
+        {
+          "attemptId": "req-4e497cb0d3c9c6f74898cb90db2db51c#1",
+          "httpStatus": 200,
+          "providerRequestId": "req_67c716081c24412980262da2a794477f",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 263,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 263,
+            "cost": {
+              "input": 0.000026300000000000002,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000026300000000000002
+            }
+          }
+        }
+      ]
+    },
+    "duration": 285451541,
+    "stopReason": "stop",
+    "usage": {
+      "input": 263,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 263,
+      "cost": {
+        "input": 0.000026300000000000002,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000026300000000000002
+      }
+    }
+  }
+]
