@@ -1,0 +1,216 @@
+[
+  {
+    "Result": {
+      "message": {
+        "content": [
+          {
+            "id": "call_w1|fc_w1",
+            "name": "get_weather",
+            "arguments": {
+              "city": "Zürich",
+              "unit": "celsius"
+            },
+            "rawArguments": "{\"city\":\"Zürich\",\"unit\":\"celsius\"}"
+          },
+          {
+            "id": "call_t1|fc_t1",
+            "name": "get_time",
+            "arguments": {
+              "tz": "Europe/Zurich"
+            },
+            "rawArguments": "{\"tz\":\"Europe/Zurich\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_t1",
+        "usage": {
+          "input": 120,
+          "output": 40,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 160,
+          "cost": {
+            "input": 0.000048,
+            "output": 0.00006400000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00011200000000000001
+          }
+        },
+        "stopReason": "toolUse",
+        "rawStopReason": "completed",
+        "timestamp": 1791512701549
+      },
+      "metadata": {
+        "tenantId": "tenant-a",
+        "requestId": "req-df2d2bf7e444ec0c3343ea6b0353acda",
+        "actorId": "actor-7",
+        "bindingId": "primary",
+        "operation": "chat",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-responses",
+        "modelId": "gpt-4.1-mini",
+        "accountScopeId": "acct-tenant-a",
+        "bindingVersion": "b1",
+        "credentialVersion": "v1",
+        "catalogVersion": "2026-10-08.5",
+        "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+        "attempts": [
+          {
+            "attemptId": "req-df2d2bf7e444ec0c3343ea6b0353acda#1",
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 120,
+              "output": 40,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 160,
+              "cost": {
+                "input": 0.000048,
+                "output": 0.00006400000000000001,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.00011200000000000001
+              }
+            }
+          }
+        ]
+      }
+    },
+    "Results": [
+      {
+        "toolCallId": "call_w1|fc_w1",
+        "toolName": "get_weather",
+        "content": [
+          {
+            "text": "18°C, clear"
+          }
+        ],
+        "isError": false
+      },
+      {
+        "toolCallId": "call_t1|fc_t1",
+        "toolName": "get_time",
+        "content": [
+          {
+            "text": "14:05"
+          }
+        ],
+        "isError": false
+      }
+    ]
+  },
+  {
+    "Result": {
+      "message": {
+        "content": [
+          {
+            "id": "call_w1|fc_w1",
+            "name": "get_weather",
+            "arguments": {
+              "city": "Zürich",
+              "unit": "celsius"
+            },
+            "rawArguments": "{\"city\":\"Zürich\",\"unit\":\"celsius\"}"
+          },
+          {
+            "id": "call_t1|fc_t1",
+            "name": "get_time",
+            "arguments": {
+              "tz": "Europe/Zurich"
+            },
+            "rawArguments": "{\"tz\":\"Europe/Zurich\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_t1",
+        "usage": {
+          "input": 120,
+          "output": 40,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 160,
+          "cost": {
+            "input": 0.000048,
+            "output": 0.00006400000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00011200000000000001
+          }
+        },
+        "stopReason": "toolUse",
+        "rawStopReason": "completed",
+        "timestamp": 1791512701550
+      },
+      "metadata": {
+        "tenantId": "tenant-a",
+        "requestId": "req-028315be3862e3fd5de257f44d867a7a",
+        "actorId": "actor-7",
+        "bindingId": "primary",
+        "operation": "chat",
+        "resolved": true,
+        "providerId": "openai",
+        "api": "openai-responses",
+        "modelId": "gpt-4.1-mini",
+        "accountScopeId": "acct-tenant-a",
+        "bindingVersion": "b1",
+        "credentialVersion": "v1",
+        "catalogVersion": "2026-10-08.5",
+        "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+        "attempts": [
+          {
+            "attemptId": "req-028315be3862e3fd5de257f44d867a7a#1",
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 120,
+              "output": 40,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "reasoning": 0,
+              "totalTokens": 160,
+              "cost": {
+                "input": 0.000048,
+                "output": 0.00006400000000000001,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.00011200000000000001
+              }
+            }
+          }
+        ]
+      }
+    },
+    "Results": [
+      {
+        "toolCallId": "call_w1|fc_w1",
+        "toolName": "get_weather",
+        "content": [
+          {
+            "text": "18°C, clear"
+          }
+        ],
+        "isError": false
+      },
+      {
+        "toolCallId": "call_t1|fc_t1",
+        "toolName": "get_time",
+        "content": [
+          {
+            "text": "14:05"
+          }
+        ],
+        "isError": false
+      }
+    ]
+  }
+]

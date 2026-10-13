@@ -1,0 +1,45 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/chat/completions",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "268",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "3.66.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go"
+    },
+    "body": {
+      "model": "gpt-5.1",
+      "messages": [
+        {
+          "role": "developer",
+          "content": "You are terse."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Say hello."
+            }
+          ]
+        }
+      ],
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      },
+      "store": false,
+      "max_completion_tokens": 128000,
+      "reasoning_effort": "low"
+    }
+  }
+]

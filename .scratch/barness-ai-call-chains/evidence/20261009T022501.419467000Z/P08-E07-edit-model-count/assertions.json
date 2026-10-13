@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid edit refused before credentials and network",
+      "pass": true,
+      "detail": "got ai: resource_limit (capability): exceeded the resource policy's ImageModel.MaxReferenceImages (1)"
+    }
+  ],
+  "case_id": "P08-E07-edit-model-count",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEditingPreflight$/^model-count$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesEditingPreflight/model-count"
+}

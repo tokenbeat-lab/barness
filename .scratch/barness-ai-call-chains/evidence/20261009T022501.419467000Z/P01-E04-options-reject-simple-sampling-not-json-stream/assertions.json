@@ -1,0 +1,48 @@
+{
+  "assertions": [
+    {
+      "name": "no inference request sent",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "no credential read",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want invalid_request/capability, got ai: invalid_request (capability): samplingParams.top_p is not a JSON value"
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got invalid_request/capability"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"samplingParams.top_p is not a JSON value\" error=\"samplingParams.top_p is not a JSON value\""
+    },
+    {
+      "name": "stream ends with only an error terminal",
+      "pass": true,
+      "detail": "got [\"error:error\"]"
+    },
+    {
+      "name": "Err equals the Result error",
+      "pass": true,
+      "detail": "Err=ai: invalid_request (capability): samplingParams.top_p is not a JSON value Result=ai: invalid_request (capability): samplingParams.top_p is not a JSON value"
+    },
+    {
+      "name": "error event carries the Result's message and error",
+      "pass": true,
+      "detail": "event={Reason:error Message:{Content:[] API: Provider: Model: ResponseID: ResponseModel: ProviderThinkingLevel: Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error RawStopReason: ErrorMessage:samplingParams.top_p is not a JSON value Timestamp:1791512702356 NativeState:{env:{TenantID: AccountScopeID: ProviderID: API: ModelID:}}} Err:ai: invalid_request (capability): samplingParams.top_p is not a JSON value}"
+    }
+  ],
+  "case_id": "P01-E04-options-reject-simple-sampling-not-json-stream",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOptionRejects$/^simple-sampling-not-json$/^stream$'",
+  "status": "PASS",
+  "test": "TestOptionRejects/simple-sampling-not-json/stream"
+}

@@ -1,0 +1,103 @@
+{
+  "assertions": [
+    {
+      "name": "inference requests sent",
+      "pass": true,
+      "detail": "got 1 want 1"
+    },
+    {
+      "name": "request path",
+      "pass": true,
+      "detail": "got POST /v1/messages?beta=true"
+    },
+    {
+      "name": "tenant's key for the binding used",
+      "pass": true,
+      "detail": "got \"key:tenant-a-anthropic@v1\""
+    },
+    {
+      "name": "header Anthropic-Beta",
+      "pass": true,
+      "detail": "got \"mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01\" want \"mid-conversation-output-config-2026-07-01,thinking-binding-controls-2026-08-01\""
+    },
+    {
+      "name": "request body",
+      "pass": true,
+      "detail": "got {\"model\":\"claude-opus-5-5\",\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Hi.\"}]},{\"role\":\"system\",\"content\":[],\"output_config\":{\"effort\":\"xhigh\"}},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"Deep.\"},{\"type\":\"text\",\"text\":\"Hello.\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Again.\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"Hey.\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Once more.\"}]},{\"role\":\"system\",\"content\":[],\"output_config\":{\"effort\":\"max\"}},{\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"Mull.\"},{\"type\":\"text\",\"text\":\"Hi again.\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Last.\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"system\",\"content\":[],\"output_config\":{\"effort\":\"medium\"}}],\"max_tokens\":128000,\"stream\":true,\"system\":[{\"type\":\"text\",\"text\":\"You are terse.\",\"cache_control\":{\"type\":\"ephemeral\"}}],\"thinking\":{\"type\":\"adaptive\",\"display\":\"summarized\",\"block_binding\":{\"prefix_mismatch_behavior\":\"drop_block\"}},\"output_config\":{\"effort\":\"high\"}}\nwant {\n            \"model\": \"claude-opus-5-5\",\n            \"messages\": [\n              {\n                \"role\": \"user\",\n                \"content\": [\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Hi.\"\n                  }\n                ]\n              },\n              {\n                \"role\": \"system\",\n                \"content\": [],\n                \"output_config\": {\n                  \"effort\": \"xhigh\"\n                }\n              },\n              {\n                \"role\": \"assistant\",\n                \"content\": [\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Deep.\"\n                  },\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Hello.\"\n                  }\n                ]\n              },\n              {\n                \"role\": \"user\",\n                \"content\": [\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Again.\"\n                  }\n                ]\n              },\n              {\n                \"role\": \"assistant\",\n                \"content\": [\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Hey.\"\n                  }\n                ]\n              },\n              {\n                \"role\": \"user\",\n                \"content\": [\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Once more.\"\n                  }\n                ]\n              },\n              {\n                \"role\": \"system\",\n                \"content\": [],\n                \"output_config\": {\n                  \"effort\": \"max\"\n                }\n              },\n              {\n                \"role\": \"assistant\",\n                \"content\": [\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Mull.\"\n                  },\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Hi again.\"\n                  }\n                ]\n              },\n              {\n                \"role\": \"user\",\n                \"content\": [\n                  {\n                    \"type\": \"text\",\n                    \"text\": \"Last.\",\n                    \"cache_control\": {\n                      \"type\": \"ephemeral\"\n                    }\n                  }\n                ]\n              },\n              {\n                \"role\": \"system\",\n                \"content\": [],\n                \"output_config\": {\n                  \"effort\": \"medium\"\n                }\n              }\n            ],\n            \"max_tokens\": 128000,\n            \"stream\": true,\n            \"system\": [\n              {\n                \"type\": \"text\",\n                \"text\": \"You are terse.\",\n                \"cache_control\": {\n                  \"type\": \"ephemeral\"\n                }\n              }\n            ],\n            \"thinking\": {\n              \"type\": \"adaptive\",\n              \"display\": \"summarized\",\n              \"block_binding\": {\n                \"prefix_mismatch_behavior\": \"drop_block\"\n              }\n            },\n            \"output_config\": {\n              \"effort\": \"high\"\n            }\n          }"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\" want \"stop\""
+    },
+    {
+      "name": "error message",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "no error",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "Err after the terminal is Result's error",
+      "pass": true,
+      "detail": "Err=<nil> Result=<nil>"
+    },
+    {
+      "name": "done carries the final message",
+      "pass": true,
+      "detail": "done={Content:[{Thinking:Hmm. Signature:sig-r Redacted:false} {Text:Done. Signature:}] API:anthropic-messages Provider:anthropic Model:claude-opus-5-5 ResponseID:msg_m ResponseModel: ProviderThinkingLevel:medium Usage:{Input:10 Output:2 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:2 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:12 Cost:{Input:3.9999999999999996e-05 Output:4e-05 CacheRead:0 CacheWrite:0 Total:7.999999999999999e-05}} StopReason:stop RawStopReason:end_turn ErrorMessage: Timestamp:1791512702051 NativeState:{env:{TenantID:tenant-a AccountScopeID:acct-tenant-a-anthropic ProviderID:anthropic API:anthropic-messages ModelID:claude-opus-5-5}}}"
+    },
+    {
+      "name": "message identity",
+      "pass": true,
+      "detail": "api=\"anthropic-messages\" provider=\"anthropic\" model=\"claude-opus-5-5\""
+    },
+    {
+      "name": "raw stop reason",
+      "pass": true,
+      "detail": "got \"end_turn\" want \"end_turn\""
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"msg_m\" want \"msg_m\""
+    },
+    {
+      "name": "response model",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "provider thinking level",
+      "pass": true,
+      "detail": "got \"medium\" want \"medium\""
+    },
+    {
+      "name": "final content",
+      "pass": true,
+      "detail": "got [{\"thinking\":\"Hmm.\",\"thinkingSignature\":\"sig-r\",\"type\":\"thinking\"},{\"text\":\"Done.\",\"type\":\"text\"}]\nwant [\n          {\n            \"type\": \"thinking\",\n            \"thinking\": \"Hmm.\",\n            \"thinkingSignature\": \"sig-r\"\n          },\n          {\n            \"type\": \"text\",\n            \"text\": \"Done.\"\n          }\n        ]"
+    },
+    {
+      "name": "native state downgrades",
+      "pass": true,
+      "detail": "got {NoEnvelope:1 AccountMismatch:0 CrossModel:1} want {NoEnvelope:1 AccountMismatch:0 CrossModel:1}"
+    },
+    {
+      "name": "call resolved to the scenario's binding",
+      "pass": true,
+      "detail": "metadata {CallAttribution:{TenantID:tenant-a RequestID:req-opus-5-5-cross-model-history-stream ActorID:actor-7 JobID:job-42 BindingID:claude Operation:chat Resolved:true ProviderID:anthropic API:anthropic-messages ModelID:claude-opus-5-5 AccountScopeID:acct-tenant-a-anthropic} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:1 AccountMismatch:0 CrossModel:1} Attempts:[{AttemptID:req-opus-5-5-cross-model-history-stream#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:10 Output:2 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:2 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:12 Cost:{Input:3.9999999999999996e-05 Output:4e-05 CacheRead:0 CacheWrite:0 Total:7.999999999999999e-05}}}]}"
+    },
+    {
+      "name": "attempts recorded",
+      "pass": true,
+      "detail": "got 1 want 1"
+    }
+  ],
+  "case_id": "P02-E04-managed-effort-opus-5-5-cross-model-history",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestManagedEffort$/^opus-5-5-cross-model-history$'",
+  "status": "PASS",
+  "test": "TestManagedEffort/opus-5-5-cross-model-history"
+}

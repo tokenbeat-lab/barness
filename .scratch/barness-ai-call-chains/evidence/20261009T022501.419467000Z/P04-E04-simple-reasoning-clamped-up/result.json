@@ -1,0 +1,71 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "Hello, world!"
+      }
+    ],
+    "api": "openai-completions",
+    "provider": "openai",
+    "model": "gpt-5.1",
+    "responseId": "chatcmpl-001",
+    "responseModel": "gpt-5-mini-2025-08-07",
+    "usage": {
+      "input": 12,
+      "output": 4,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 16,
+      "cost": {
+        "input": 0.000015000000000000002,
+        "output": 0.00004,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.00005500000000000001
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "stop",
+    "timestamp": 1791512701488
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-simple-reasoning-clamped-up-stream",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "chat",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-completions",
+    "modelId": "gpt-5.1",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-simple-reasoning-clamped-up-stream#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 0.000015000000000000002,
+            "output": 0.00004,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00005500000000000001
+          }
+        }
+      }
+    ]
+  }
+}

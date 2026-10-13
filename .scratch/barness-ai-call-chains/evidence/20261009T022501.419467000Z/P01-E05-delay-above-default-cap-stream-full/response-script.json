@@ -1,0 +1,10 @@
+[
+  {
+    "status": 429,
+    "header": {
+      "Content-Type": "application/json",
+      "retry-after": "120"
+    },
+    "script": "{\"error\":{\"message\":\"Rate limit reached\",\"type\":\"requests\",\"code\":\"rate_limit_exceeded\"}}"
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "answers": null,
+  "usage": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 0,
+    "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+    }
+  },
+  "stopReason": "error",
+  "errorMessage": "payload callback exceeded classifier model capabilities",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-mixed-callback",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "classifier",
+    "operation": "classifier",
+    "resolved": true,
+    "providerId": "typesafe",
+    "api": "typesafe-system-one",
+    "modelId": "host-jev",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:18cba65ee28b7e456197253f72fbc78c98fc579ed1e9ecc4f2e121aa86f15933"
+  }
+}

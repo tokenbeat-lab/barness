@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "image header scope and hidden credential",
+      "pass": true,
+      "detail": "got {Operation:image TenantID:tenant-a RequestID:req-hooks-field-partial_images ActorID:actor-7 JobID:job-42}"
+    },
+    {
+      "name": "image payload identity",
+      "pass": true,
+      "detail": "got &{Operation:image ProviderID:openai API:openai-images ModelID:host-image Body:map[model:host-image prompt:一张餐厅露台照片]}"
+    },
+    {
+      "name": "classified callback",
+      "pass": true,
+      "detail": "got ai: tenant_denied (request): payload callback may not change image authority or operation"
+    },
+    {
+      "name": "one header and payload outside retry",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "rejected before HTTP",
+      "pass": true,
+      "detail": "got 0"
+    }
+  ],
+  "case_id": "P08-E04-hooks-field-partial_images",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^field-partial_images$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesHooks/field-partial_images"
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "event": {
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_011",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "Connection lost while reading the OpenAI Responses stream",
+        "timestamp": 1791512702518
+      }
+    },
+    "type": "start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_011",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "Connection lost while reading the OpenAI Responses stream",
+        "timestamp": 1791512702518
+      }
+    },
+    "type": "text_start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Delta": "Hello",
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_011",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "Connection lost while reading the OpenAI Responses stream",
+        "timestamp": 1791512702518
+      }
+    },
+    "type": "text_delta"
+  },
+  {
+    "event": {
+      "Reason": "error",
+      "Message": {
+        "content": [
+          {
+            "text": "Hello"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_011",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "Connection lost while reading the OpenAI Responses stream",
+        "timestamp": 1791512702518
+      },
+      "Err": {
+        "Code": "transport",
+        "Phase": "stream",
+        "Message": "Connection lost while reading the OpenAI Responses stream",
+        "HTTPStatus": 0,
+        "ProviderRequestID": "",
+        "RetryAfter": 0
+      }
+    },
+    "type": "error"
+  }
+]

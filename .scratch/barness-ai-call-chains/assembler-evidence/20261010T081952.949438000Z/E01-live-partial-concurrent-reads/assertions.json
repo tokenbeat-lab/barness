@@ -1,0 +1,57 @@
+{
+  "assertions": [
+    {
+      "name": "first Next returns",
+      "pass": true
+    },
+    {
+      "name": "first event",
+      "pass": true,
+      "detail": "stream ended before start"
+    },
+    {
+      "name": "start carries the live PartialView",
+      "pass": true,
+      "detail": "event=ai.StartEvent{Partial:(*ai.PartialView)(0xc00031e380)}"
+    },
+    {
+      "name": "stream drains",
+      "pass": true
+    },
+    {
+      "name": "snapshot reader stops",
+      "pass": true
+    },
+    {
+      "name": "concurrent snapshots are states the call passed through",
+      "pass": true
+    },
+    {
+      "name": "view is never behind the event being read",
+      "pass": true
+    },
+    {
+      "name": "Result returns",
+      "pass": true
+    },
+    {
+      "name": "call succeeds",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "view equals the final message after the terminal",
+      "pass": true,
+      "detail": "view={Content:[{Thinking:Thinking hard Signature:{\"id\":\"rs_001\",\"type\":\"reasoning\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"Thinking hard\"}],\"encrypted_content\":\"gAAAA-synthetic-001\"} Redacted:false} {Text:Hi there Signature:{\"v\":1,\"id\":\"msg_010\"}} {Thinking:More Signature:{\"id\":\"rs_002\",\"type\":\"reasoning\",\"summary\":[],\"content\":[{\"type\":\"reasoning_text\",\"text\":\"More\"}]} Redacted:false}] API:openai-responses Provider:openai Model:gpt-4.1-mini ResponseID:resp_010 ResponseModel: ProviderThinkingLevel: Usage:{Input:30 Output:12 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:8} Modalities:<nil> TotalTokens:42 Cost:{Input:1.2e-05 Output:1.9200000000000003e-05 CacheRead:0 CacheWrite:0 Total:3.12e-05}} StopReason:stop RawStopReason:completed ErrorMessage: Timestamp:1791620393100 NativeState:{env:{TenantID:tenant-a AccountScopeID:acct-tenant-a ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini}}}\nresult={Content:[{Thinking:Thinking hard Signature:{\"id\":\"rs_001\",\"type\":\"reasoning\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"Thinking hard\"}],\"encrypted_content\":\"gAAAA-synthetic-001\"} Redacted:false} {Text:Hi there Signature:{\"v\":1,\"id\":\"msg_010\"}} {Thinking:More Signature:{\"id\":\"rs_002\",\"type\":\"reasoning\",\"summary\":[],\"content\":[{\"type\":\"reasoning_text\",\"text\":\"More\"}]} Redacted:false}] API:openai-responses Provider:openai Model:gpt-4.1-mini ResponseID:resp_010 ResponseModel: ProviderThinkingLevel: Usage:{Input:30 Output:12 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:8} Modalities:<nil> TotalTokens:42 Cost:{Input:1.2e-05 Output:1.9200000000000003e-05 CacheRead:0 CacheWrite:0 Total:3.12e-05}} StopReason:stop RawStopReason:completed ErrorMessage: Timestamp:1791620393100 NativeState:{env:{TenantID:tenant-a AccountScopeID:acct-tenant-a ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini}}}"
+    },
+    {
+      "name": "final message is stable and snapshots share no storage",
+      "pass": true,
+      "detail": "view={Content:[{Thinking:Thinking hard Signature:{\"id\":\"rs_001\",\"type\":\"reasoning\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"Thinking hard\"}],\"encrypted_content\":\"gAAAA-synthetic-001\"} Redacted:false} {Text:Hi there Signature:{\"v\":1,\"id\":\"msg_010\"}} {Thinking:More Signature:{\"id\":\"rs_002\",\"type\":\"reasoning\",\"summary\":[],\"content\":[{\"type\":\"reasoning_text\",\"text\":\"More\"}]} Redacted:false}] API:openai-responses Provider:openai Model:gpt-4.1-mini ResponseID:resp_010 ResponseModel: ProviderThinkingLevel: Usage:{Input:30 Output:12 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:8} Modalities:<nil> TotalTokens:42 Cost:{Input:1.2e-05 Output:1.9200000000000003e-05 CacheRead:0 CacheWrite:0 Total:3.12e-05}} StopReason:stop RawStopReason:completed ErrorMessage: Timestamp:1791620393100 NativeState:{env:{TenantID:tenant-a AccountScopeID:acct-tenant-a ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini}}}"
+    }
+  ],
+  "case_id": "E01-live-partial-concurrent-reads",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^live-partial-concurrent-reads$'",
+  "status": "PASS",
+  "test": "TestStreamLifecycle/live-partial-concurrent-reads"
+}

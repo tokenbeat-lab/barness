@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "final references sent",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "final input independent and ordered",
+      "pass": true,
+      "detail": "got [{\"type\":\"text\",\"text\":\"edited prompt\"},{\"type\":\"image\",\"mime_type\":\"image/png\",\"data\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=\"},{\"type\":\"image\",\"mime_type\":\"image/png\",\"data\":\"iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAC0lEQVR4nGNggAIAAAkAAftSuKkAAAAASUVORK5CYII=\"}]"
+    }
+  ],
+  "case_id": "P09-E04-edit-insert",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^insert$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesEditingCallbacks/insert"
+}

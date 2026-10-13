@@ -1,0 +1,39 @@
+[
+  {
+    "event": {
+      "Reason": "error",
+      "Message": {
+        "content": null,
+        "api": "",
+        "provider": "",
+        "model": "",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "binding operation is not supported",
+        "timestamp": 1791512702090
+      },
+      "Err": {
+        "Code": "invalid_request",
+        "Phase": "binding",
+        "Message": "binding operation is not supported",
+        "HTTPStatus": 0,
+        "ProviderRequestID": "",
+        "RetryAfter": 0
+      }
+    },
+    "type": "error"
+  }
+]

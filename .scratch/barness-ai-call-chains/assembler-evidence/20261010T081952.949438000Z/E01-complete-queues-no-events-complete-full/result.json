@@ -1,0 +1,79 @@
+{
+  "message": {
+    "content": [
+      {
+        "thinking": "Thinking hard",
+        "thinkingSignature": "{\"id\":\"rs_001\",\"type\":\"reasoning\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"Thinking hard\"}],\"encrypted_content\":\"gAAAA-synthetic-001\"}"
+      },
+      {
+        "text": "Hi there",
+        "textSignature": "{\"v\":1,\"id\":\"msg_010\"}"
+      },
+      {
+        "thinking": "More",
+        "thinkingSignature": "{\"id\":\"rs_002\",\"type\":\"reasoning\",\"summary\":[],\"content\":[{\"type\":\"reasoning_text\",\"text\":\"More\"}]}"
+      }
+    ],
+    "api": "openai-responses",
+    "provider": "openai",
+    "model": "gpt-4.1-mini",
+    "responseId": "resp_010",
+    "usage": {
+      "input": 30,
+      "output": 12,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 8,
+      "totalTokens": 42,
+      "cost": {
+        "input": 0.000012,
+        "output": 0.000019200000000000003,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0000312
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "completed",
+    "timestamp": 1791620393122
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-complete-probe-complete-full",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "primary",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-responses",
+    "modelId": "gpt-4.1-mini",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-complete-probe-complete-full#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 30,
+          "output": 12,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 8,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.000012,
+            "output": 0.000019200000000000003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000312
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "Hello."
+      }
+    ],
+    "api": "anthropic-messages",
+    "provider": "anthropic",
+    "model": "claude-opus-4-7",
+    "responseId": "msg_o",
+    "usage": {
+      "input": 10,
+      "output": 2,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "cacheWrite1h": 0,
+      "totalTokens": 12,
+      "cost": {
+        "input": 0.00005,
+        "output": 0.00005,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0001
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "timestamp": 1791512701440
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-temperature-unsupported-stream",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "claude",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "anthropic",
+    "api": "anthropic-messages",
+    "modelId": "claude-opus-4-7",
+    "accountScopeId": "acct-tenant-a-anthropic",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-temperature-unsupported-stream#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.00005,
+            "output": 0.00005,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0001
+          }
+        }
+      }
+    ]
+  }
+}

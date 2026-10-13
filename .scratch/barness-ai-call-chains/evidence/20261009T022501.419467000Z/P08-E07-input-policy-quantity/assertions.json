@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input refused before credential and HTTP",
+      "pass": true,
+      "detail": "got ai: invalid_request (capability): image quantity exceeds the effective output limit"
+    }
+  ],
+  "case_id": "P08-E07-input-policy-quantity",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^policy-quantity$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesOptionsAndInput/policy-quantity"
+}

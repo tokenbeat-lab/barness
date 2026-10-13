@@ -1,0 +1,157 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/messages",
+    "query": "beta=true",
+    "key_alias": "key:tenant-a-anthropic@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Anthropic-Dangerous-Direct-Browser-Access": "true",
+      "Anthropic-Version": "2023-06-01",
+      "Content-Length": "391",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Api-Key": "key:tenant-a-anthropic@v1",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "1.75.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go",
+      "X-Stainless-Timeout": "600"
+    },
+    "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Look up x.",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ]
+        }
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "tools": [
+        {
+          "name": "lookup",
+          "description": "Look something up.",
+          "eager_input_streaming": true,
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "q": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "q"
+            ]
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/messages",
+    "query": "beta=true",
+    "key_alias": "key:tenant-a-anthropic@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Anthropic-Dangerous-Direct-Browser-Access": "true",
+      "Anthropic-Version": "2023-06-01",
+      "Content-Length": "704",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Api-Key": "key:tenant-a-anthropic@v1",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "1.75.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go",
+      "X-Stainless-Timeout": "600"
+    },
+    "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Look up x."
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "thinking",
+              "thinking": "Let me think",
+              "signature": "sig-abc"
+            },
+            {
+              "type": "text",
+              "text": "Hi there"
+            },
+            {
+              "type": "tool_use",
+              "id": "toolu_01",
+              "name": "lookup",
+              "input": {
+                "q": "x"
+              }
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "toolu_01",
+              "content": "42",
+              "is_error": false,
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ]
+        }
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "tools": [
+        {
+          "name": "lookup",
+          "description": "Look something up.",
+          "eager_input_streaming": true,
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "q": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "q"
+            ]
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        }
+      ]
+    }
+  }
+]

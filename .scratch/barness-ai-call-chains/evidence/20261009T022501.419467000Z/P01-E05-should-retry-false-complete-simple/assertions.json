@@ -1,0 +1,177 @@
+{
+  "assertions": [
+    {
+      "name": "call ends",
+      "pass": true
+    },
+    {
+      "name": "inference requests",
+      "pass": true,
+      "detail": "got 1 want 1"
+    },
+    {
+      "name": "pinned key used",
+      "pass": true,
+      "detail": "request 1 got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "same endpoint",
+      "pass": true,
+      "detail": "request 1 path \"/v1/responses\""
+    },
+    {
+      "name": "backoff waits",
+      "pass": true,
+      "detail": "got [] want []"
+    },
+    {
+      "name": "onPayload runs once per logical call",
+      "pass": true,
+      "detail": "got 1"
+    },
+    {
+      "name": "onResponse runs only after an initial response",
+      "pass": true,
+      "detail": "got 0 want 0"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"error\" want \"error\""
+    },
+    {
+      "name": "errorMessage",
+      "pass": true,
+      "detail": "got \"OpenAI API error (503): {\\\"message\\\":\\\"The server is overloaded\\\",\\\"type\\\":\\\"server_error\\\",\\\"code\\\":null}\"\nwant \"OpenAI API error (503): {\\\"message\\\":\\\"The server is overloaded\\\",\\\"type\\\":\\\"server_error\\\",\\\"code\\\":null}\""
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want upstream_error/request, got ai: upstream_error (request): OpenAI API error (503): {\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}"
+    },
+    {
+      "name": "error is a classified *ai.Error",
+      "pass": true,
+      "detail": "err=ai: upstream_error (request): OpenAI API error (503): {\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}"
+    },
+    {
+      "name": "HTTP status",
+      "pass": true,
+      "detail": "got 503 want 503"
+    },
+    {
+      "name": "provider request id",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "retry-after",
+      "pass": true,
+      "detail": "got 0s want 0s"
+    },
+    {
+      "name": "received content is kept, once",
+      "pass": true,
+      "detail": "got [] want []"
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "one record per attempt",
+      "pass": true,
+      "detail": "got [{AttemptID:req-e05-should-retry-false-complete-simple#1 HTTPStatus:503 ProviderRequestID: Code:upstream_error RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}] want [{HTTPStatus:503 Code:upstream_error ProviderRequestID: RetryDelayMs:0}]"
+    },
+    {
+      "name": "attempt id belongs to the call",
+      "pass": true,
+      "detail": "attempt 1 id \"req-e05-should-retry-false-complete-simple#1\""
+    },
+    {
+      "name": "attempt record",
+      "pass": true,
+      "detail": "attempt 1 got {AttemptID:req-e05-should-retry-false-complete-simple#1 HTTPStatus:503 ProviderRequestID: Code:upstream_error RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} want {HTTPStatus:503 Code:upstream_error ProviderRequestID: RetryDelayMs:0}"
+    },
+    {
+      "name": "attempt ids are distinct",
+      "pass": true,
+      "detail": "got [{AttemptID:req-e05-should-retry-false-complete-simple#1 HTTPStatus:503 ProviderRequestID: Code:upstream_error RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]"
+    },
+    {
+      "name": "retries never re-resolve the snapshot",
+      "pass": true,
+      "detail": "got {Bindings:1 Credentials:1}"
+    },
+    {
+      "name": "every response body is closed",
+      "pass": true,
+      "detail": "0 open"
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"vault://kv/tenant-a/openai token=hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:environment\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v2\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-deepseek@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-deepseek@v1\""
+    }
+  ],
+  "case_id": "P01-E05-should-retry-false-complete-simple",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestExplicitRetry$/^should-retry-false$/^complete-simple$'",
+  "status": "PASS",
+  "test": "TestExplicitRetry/should-retry-false/complete-simple"
+}

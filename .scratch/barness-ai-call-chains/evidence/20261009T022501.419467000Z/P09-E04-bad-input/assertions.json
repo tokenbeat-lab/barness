@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "explicit native differential skip",
+      "pass": true,
+      "detail": "missing native skip"
+    },
+    {
+      "name": "pinned Google auth redacted",
+      "pass": true,
+      "detail": "got {Operation:image TenantID:tenant-a RequestID:req-google-hook-bad-input ActorID:actor-7 JobID:job-42}"
+    },
+    {
+      "name": "Google image identity",
+      "pass": true,
+      "detail": "got &{Operation:image ProviderID:google API:google-interactions ModelID:host-google-image Body:map[input:[map[text:一张餐厅露台照片 type:text]] model:host-google-image response_format:map[type:image] store:false]}"
+    },
+    {
+      "name": "callbacks once",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "reject before network",
+      "pass": true,
+      "detail": "got ai: callback_failed (request): Google image input must be an array"
+    }
+  ],
+  "case_id": "P09-E04-bad-input",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^bad-input$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesCallbackFixtures/bad-input"
+}

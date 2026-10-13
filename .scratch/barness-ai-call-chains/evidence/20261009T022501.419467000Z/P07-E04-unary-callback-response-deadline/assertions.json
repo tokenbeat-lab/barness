@@ -1,0 +1,137 @@
+{
+  "assertions": [
+    {
+      "name": "typed error",
+      "pass": true,
+      "detail": "got ai: deadline_exceeded (request): Request timed out"
+    },
+    {
+      "name": "code-only match",
+      "pass": true,
+      "detail": "got ai: deadline_exceeded (request): Request timed out"
+    },
+    {
+      "name": "phase match",
+      "pass": true,
+      "detail": "got ai: deadline_exceeded (request): Request timed out"
+    },
+    {
+      "name": "other phase does not match",
+      "pass": true,
+      "detail": "got ai: deadline_exceeded (request): Request timed out"
+    },
+    {
+      "name": "terminal and empty answers",
+      "pass": true,
+      "detail": "got {Answers:map[] ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:aborted ErrorMessage:Request timed out Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-callback-response-deadline ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-callback-response-deadline#1 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]}}"
+    },
+    {
+      "name": "fixed result error text",
+      "pass": true,
+      "detail": "got ai: deadline_exceeded (request): Request timed out"
+    },
+    {
+      "name": "host cause Is and As survive context",
+      "pass": true,
+      "detail": "cause missing"
+    },
+    {
+      "name": "private callback diagnostic never published",
+      "pass": true,
+      "detail": "diagnostic leaked"
+    },
+    {
+      "name": "no callback retry",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-callback-response-deadline ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-callback-response-deadline#1 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]}"
+    },
+    {
+      "name": "observer received call_finished of req-callback-response-deadline",
+      "pass": true
+    },
+    {
+      "name": "unresolved trusted entry",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-callback-response-deadline ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt attribution",
+      "pass": true,
+      "detail": "got {Kind:attempt_started Time:2026-10-09 10:25:03.694646 +0800 CST m=+2.282302501 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-callback-response-deadline ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} Attempt:0x769a6e4ced00 Duration:0s StopReason: Error:<nil> Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "started attempt is unreported",
+      "pass": true,
+      "detail": "got &{AttemptID:req-callback-response-deadline#1 HTTPStatus:0 ProviderRequestID: Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "attempt attribution",
+      "pass": true,
+      "detail": "got {Kind:attempt_finished Time:2026-10-09 10:25:03.79573 +0800 CST m=+2.383385792 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-callback-response-deadline ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} Attempt:0x769a6e616680 Duration:101.083291ms StopReason: Error:<nil> Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "terminal attribution and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-09 10:25:03.795737 +0800 CST m=+2.383392751 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-callback-response-deadline ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-callback-response-deadline#1 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]} Attempt:<nil> Duration:101.140334ms StopReason:aborted Error:0x769a6e36c7c0 Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "observed classification",
+      "pass": true,
+      "detail": "got &{Code:deadline_exceeded Phase:request HTTPStatus:0 ProviderRequestID: RetryAfter:0s}"
+    },
+    {
+      "name": "one logical call",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "no invented attempts",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "unique attempt id",
+      "pass": true,
+      "detail": "got {AttemptID:req-callback-response-deadline#1 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "attempt usage axis agrees",
+      "pass": true,
+      "detail": "got {AttemptID:req-callback-response-deadline#1 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "released bodies",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released calls",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released permits",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released waiters",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released events",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released hostPermits",
+      "pass": true,
+      "detail": "got 0"
+    }
+  ],
+  "case_id": "P07-E04-unary-callback-response-deadline",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^response-deadline$'",
+  "status": "PASS",
+  "test": "TestUnaryCallbackFailures/response-deadline"
+}

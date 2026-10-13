@@ -1,0 +1,53 @@
+{
+  "assertions": [
+    {
+      "name": "the loop ends with the model's answer",
+      "pass": true,
+      "detail": "err=<nil> turns=2"
+    },
+    {
+      "name": "turn is tenant A's resolved call",
+      "pass": true,
+      "detail": "turn 0: {TenantID:tenant-a RequestID:req-e4e4e25161fcb29631879bf7639e06cf ActorID:actor-7 JobID: BindingID:claude Operation:chat Resolved:true ProviderID:anthropic API:anthropic-messages ModelID:claude-haiku-4-5 AccountScopeID:acct-tenant-a-anthropic}"
+    },
+    {
+      "name": "turn has a new RequestID",
+      "pass": true,
+      "detail": "turn 0: \"req-e4e4e25161fcb29631879bf7639e06cf\""
+    },
+    {
+      "name": "turn is tenant A's resolved call",
+      "pass": true,
+      "detail": "turn 1: {TenantID:tenant-a RequestID:req-ac04d04e17a689a56c45a2ec59baabc2 ActorID:actor-7 JobID: BindingID:claude Operation:chat Resolved:true ProviderID:anthropic API:anthropic-messages ModelID:claude-haiku-4-5 AccountScopeID:acct-tenant-a-anthropic}"
+    },
+    {
+      "name": "turn has a new RequestID",
+      "pass": true,
+      "detail": "turn 1: \"req-ac04d04e17a689a56c45a2ec59baabc2\""
+    },
+    {
+      "name": "the tool ran once with its validated arguments",
+      "pass": true,
+      "detail": "ran [\"lookup {\\\"q\\\":\\\"x\\\"}\"]"
+    },
+    {
+      "name": "the signed turn replays natively",
+      "pass": true,
+      "detail": "got {NoEnvelope:0 AccountMismatch:0 CrossModel:0}"
+    },
+    {
+      "name": "two inference requests",
+      "pass": true,
+      "detail": "got 2"
+    },
+    {
+      "name": "turn 2 answers the call with the host's result",
+      "pass": true,
+      "detail": "got {\"model\":\"claude-haiku-4-5\",\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Look up x.\"}]},{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me think\",\"signature\":\"sig-abc\"},{\"type\":\"text\",\"text\":\"Hi there\"},{\"type\":\"tool_use\",\"id\":\"toolu_01\",\"name\":\"lookup\",\"input\":{\"q\":\"x\"}}]},{\"role\":\"user\",\"content\":[{\"type\":\"tool_result\",\"tool_use_id\":\"toolu_01\",\"content\":\"42\",\"is_error\":false,\"cache_control\":{\"type\":\"ephemeral\"}}]}],\"max_tokens\":64000,\"stream\":true,\"tools\":[{\"name\":\"lookup\",\"description\":\"Look something up.\",\"eager_input_streaming\":true,\"input_schema\":{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"}},\"required\":[\"q\"]},\"cache_control\":{\"type\":\"ephemeral\"}}]}"
+    }
+  ],
+  "case_id": "P02-E10-example-tool-loop",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolLoopExample$/^anthropic$'",
+  "status": "PASS",
+  "test": "TestToolLoopExample/anthropic"
+}

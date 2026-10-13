@@ -1,0 +1,75 @@
+{
+  "content": [
+    {
+      "type": "image",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+      "mimeType": "image/png"
+    }
+  ],
+  "usage": {
+    "input": 10,
+    "output": 20,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "modalities": {
+      "inputText": 10,
+      "inputImage": 0,
+      "outputText": 0,
+      "outputImage": 20
+    },
+    "totalTokens": 30,
+    "cost": {
+      "input": 0.000019999999999999998,
+      "output": 0.0001,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0.00012
+    }
+  },
+  "stopReason": "stop",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-input-custom-size",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "images",
+    "operation": "image",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-images",
+    "modelId": "host-image",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:597faa21bfee5c63ae7a1fc317164d930c7275d2508f64c7100cd527f977fc96",
+    "attempts": [
+      {
+        "attemptId": "req-input-custom-size#1",
+        "httpStatus": 200,
+        "providerRequestId": "req-images",
+        "usageReporting": "complete",
+        "usage": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "modalities": {
+            "inputText": 10,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "totalTokens": 30,
+          "cost": {
+            "input": 0.000019999999999999998,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00012
+          }
+        }
+      }
+    ]
+  }
+}

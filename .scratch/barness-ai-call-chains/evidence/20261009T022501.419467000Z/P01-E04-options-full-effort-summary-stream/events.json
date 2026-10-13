@@ -1,0 +1,183 @@
+[
+  {
+    "event": {
+      "Partial": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-5.1",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.00005,
+            "output": 0.00002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00007000000000000001
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702125
+      }
+    },
+    "type": "start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Partial": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-5.1",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.00005,
+            "output": 0.00002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00007000000000000001
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702125
+      }
+    },
+    "type": "text_start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Delta": "Done.",
+      "Partial": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-5.1",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.00005,
+            "output": 0.00002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00007000000000000001
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702125
+      }
+    },
+    "type": "text_delta"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Content": "Done.",
+      "Partial": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-5.1",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.00005,
+            "output": 0.00002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00007000000000000001
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702125
+      }
+    },
+    "type": "text_end"
+  },
+  {
+    "event": {
+      "Reason": "stop",
+      "Message": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-5.1",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.00005,
+            "output": 0.00002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00007000000000000001
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702125
+      }
+    },
+    "type": "done"
+  }
+]

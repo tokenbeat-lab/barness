@@ -1,0 +1,9 @@
+[
+  {
+    "status": 200,
+    "header": {
+      "Content-Type": "text/event-stream"
+    },
+    "script": "event: response.created\ndata: {\"type\":\"response.created\",\"sequence_number\":0,\"response\":{\"id\":\"resp_t4\",\"object\":\"response\",\"created_at\":1790000003,\"status\":\"in_progress\",\"model\":\"gpt-4.1-mini-2025-04-14\",\"output\":[],\"usage\":null}}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"sequence_number\":1,\"output_index\":0,\"item\":{\"id\":\"fc_w4\",\"type\":\"function_call\",\"status\":\"in_progress\",\"arguments\":\"\",\"call_id\":\"call_w4\",\"name\":\"get_weather\"}}\n\nevent: response.function_call_arguments.delta\ndata: {\"type\":\"response.function_call_arguments.delta\",\"sequence_number\":2,\"item_id\":\"fc_w4\",\"output_index\":0,\"delta\":\"{\\\"city\\\":\\\"Zürich\\\"}\"}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"sequence_number\":3,\"output_index\":0,\"item\":{\"id\":\"fc_w4\",\"type\":\"function_call\",\"status\":\"completed\",\"arguments\":\"{\\\"city\\\":\\\"Zürich\\\"}\",\"call_id\":\"call_w4\",\"name\":\"get_weather\"}}\n\nevent: response.incomplete\ndata: {\"type\":\"response.incomplete\",\"sequence_number\":4,\"response\":{\"id\":\"resp_t4\",\"object\":\"response\",\"created_at\":1790000003,\"status\":\"incomplete\",\"incomplete_details\":{\"reason\":\"max_output_tokens\"},\"model\":\"gpt-4.1-mini-2025-04-14\",\"output\":[],\"usage\":{\"input_tokens\":120,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":9,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":129}}}\n\n"
+  }
+]

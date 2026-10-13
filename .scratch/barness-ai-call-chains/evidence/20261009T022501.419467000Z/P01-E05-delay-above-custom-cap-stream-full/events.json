@@ -1,0 +1,39 @@
+[
+  {
+    "event": {
+      "Reason": "error",
+      "Message": {
+        "content": null,
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "Server requested 2s retry delay (max: 1s). 429 Rate limit reached",
+        "timestamp": 1791512702475
+      },
+      "Err": {
+        "Code": "rate_limited",
+        "Phase": "request",
+        "Message": "Server requested 2s retry delay (max: 1s). 429 Rate limit reached",
+        "HTTPStatus": 429,
+        "ProviderRequestID": "",
+        "RetryAfter": 1500000000
+      }
+    },
+    "type": "error"
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "Done.",
+        "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+      }
+    ],
+    "api": "openai-responses",
+    "provider": "openai",
+    "model": "gpt-4",
+    "responseId": "resp_o",
+    "usage": {
+      "input": 40,
+      "output": 2,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 42,
+      "cost": {
+        "input": 0.0012000000000000001,
+        "output": 0.00012,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0013200000000000002
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "completed",
+    "timestamp": 1791512702265
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-options-simple-context-clamp",
+    "bindingId": "primary",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-responses",
+    "modelId": "gpt-4",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-options-simple-context-clamp#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.0012000000000000001,
+            "output": 0.00012,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0013200000000000002
+          }
+        }
+      }
+    ]
+  }
+}

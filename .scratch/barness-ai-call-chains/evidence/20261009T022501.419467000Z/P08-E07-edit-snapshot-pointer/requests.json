@@ -1,0 +1,31 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/images/edits",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "493",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "host-image",
+      "prompt": "一张餐厅露台照片",
+      "images": [
+        {
+          "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAC0lEQVR4nGNggAIAAAkAAftSuKkAAAAASUVORK5CYII="
+        }
+      ],
+      "mask": {
+        "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+      },
+      "input_fidelity": "high"
+    }
+  }
+]

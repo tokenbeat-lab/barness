@@ -1,0 +1,48 @@
+{
+  "assertions": [
+    {
+      "name": "no inference request sent",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "no credential read",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want invalid_request/capability, got ai: invalid_request (capability): reasoning must be minimal, low, medium, high, xhigh or max"
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got invalid_request/capability"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"reasoning must be minimal, low, medium, high, xhigh or max\" error=\"reasoning must be minimal, low, medium, high, xhigh or max\""
+    },
+    {
+      "name": "stream ends with only an error terminal",
+      "pass": true,
+      "detail": "got [\"error:error\"]"
+    },
+    {
+      "name": "Err equals the Result error",
+      "pass": true,
+      "detail": "Err=ai: invalid_request (capability): reasoning must be minimal, low, medium, high, xhigh or max Result=ai: invalid_request (capability): reasoning must be minimal, low, medium, high, xhigh or max"
+    },
+    {
+      "name": "error event carries the Result's message and error",
+      "pass": true,
+      "detail": "event={Reason:error Message:{Content:[] API: Provider: Model: ResponseID: ResponseModel: ProviderThinkingLevel: Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error RawStopReason: ErrorMessage:reasoning must be minimal, low, medium, high, xhigh or max Timestamp:1791512702347 NativeState:{env:{TenantID: AccountScopeID: ProviderID: API: ModelID:}}} Err:ai: invalid_request (capability): reasoning must be minimal, low, medium, high, xhigh or max}"
+    }
+  ],
+  "case_id": "P01-E04-options-reject-simple-reasoning-off-stream",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOptionRejects$/^simple-reasoning-off$/^stream$'",
+  "status": "PASS",
+  "test": "TestOptionRejects/simple-reasoning-off/stream"
+}

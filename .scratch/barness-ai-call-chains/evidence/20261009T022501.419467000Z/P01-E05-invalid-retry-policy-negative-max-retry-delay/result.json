@@ -1,0 +1,34 @@
+{
+  "message": {
+    "content": null,
+    "api": "",
+    "provider": "",
+    "model": "",
+    "usage": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 0,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      }
+    },
+    "stopReason": "error",
+    "errorMessage": "binding retry policy: MaxRetryDelay must not be negative",
+    "timestamp": 1791512703406
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-e05-invalid-negative-max-retry-delay",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "primary",
+    "operation": "chat",
+    "resolved": false
+  }
+}

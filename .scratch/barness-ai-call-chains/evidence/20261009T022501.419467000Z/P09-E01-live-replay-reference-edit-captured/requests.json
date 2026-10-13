@@ -1,0 +1,35 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1beta/interactions",
+    "query": "",
+    "key_alias": "key:tenant-a-google@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Content-Length": "1389",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Goog-Api-Key": "key:tenant-a-google@v1"
+    },
+    "body": {
+      "model": "gemini-nano-banana-2.1",
+      "store": false,
+      "input": [
+        {
+          "type": "text",
+          "text": "Edit this reference image: change the blue square to a green square, keeping the white background. Return exactly one image."
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAAC3klEQVR4nOzVMRFCURAEQaC+DwLEoBkxBCg5RLzggulWsMnUXjNzg6rH9gDYJADSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApF3bA04939/tCWm/z2t7whEPQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZB2n5ntDbDGA5AmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCk/QMAAP//z3UK/jkLT8sAAAAASUVORK5CYII="
+        }
+      ],
+      "response_format": {
+        "type": "image",
+        "aspect_ratio": "1:1",
+        "image_size": "1K"
+      }
+    }
+  }
+]

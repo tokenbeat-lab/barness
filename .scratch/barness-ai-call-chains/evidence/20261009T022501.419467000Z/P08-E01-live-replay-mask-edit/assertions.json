@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "live response accepted offline",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "complete native request and original route",
+      "pass": true,
+      "detail": "native request mismatch"
+    },
+    {
+      "name": "complete raster, MIME, dimensions and captured checksum",
+      "pass": true,
+      "detail": "invalid recorded image"
+    },
+    {
+      "name": "actual modality usage and known-only prices preserved",
+      "pass": true,
+      "detail": "got {Input:289 Output:196 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x769a6e3ae040 TotalTokens:485 Cost:{Input:0.002213 Output:0.00588 CacheRead:0 CacheWrite:0 Total:0.008093}}"
+    },
+    {
+      "name": "current catalog snapshot attributed",
+      "pass": true,
+      "detail": "wrong snapshot"
+    }
+  ],
+  "case_id": "P08-E01-live-replay-mask-edit",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesLiveWireReplay$/^mask-edit$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesLiveWireReplay/mask-edit"
+}

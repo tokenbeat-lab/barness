@@ -1,0 +1,48 @@
+{
+  "assertions": [
+    {
+      "name": "no inference request sent",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "no credential read",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want invalid_request/capability, got ai: invalid_request (capability): samplingParams may not set \"prompt_cache_key\""
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got invalid_request/capability"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"samplingParams may not set \\\"prompt_cache_key\\\"\" error=\"samplingParams may not set \\\"prompt_cache_key\\\"\""
+    },
+    {
+      "name": "stream ends with only an error terminal",
+      "pass": true,
+      "detail": "got [\"error:error\"]"
+    },
+    {
+      "name": "Err equals the Result error",
+      "pass": true,
+      "detail": "Err=ai: invalid_request (capability): samplingParams may not set \"prompt_cache_key\" Result=ai: invalid_request (capability): samplingParams may not set \"prompt_cache_key\""
+    },
+    {
+      "name": "error event carries the Result's message and error",
+      "pass": true,
+      "detail": "event={Reason:error Message:{Content:[] API: Provider: Model: ResponseID: ResponseModel: ProviderThinkingLevel: Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error RawStopReason: ErrorMessage:samplingParams may not set \"prompt_cache_key\" Timestamp:1791512702358 NativeState:{env:{TenantID: AccountScopeID: ProviderID: API: ModelID:}}} Err:ai: invalid_request (capability): samplingParams may not set \"prompt_cache_key\"}"
+    }
+  ],
+  "case_id": "P01-E04-options-reject-simple-sampling-prompt_cache_key-stream",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOptionRejects$/^simple-sampling-prompt_cache_key$/^stream$'",
+  "status": "PASS",
+  "test": "TestOptionRejects/simple-sampling-prompt_cache_key/stream"
+}

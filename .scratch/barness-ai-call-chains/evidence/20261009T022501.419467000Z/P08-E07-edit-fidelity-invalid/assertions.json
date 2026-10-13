@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid edit refused before credentials and network",
+      "pass": true,
+      "detail": "got ai: invalid_request (capability): unsupported image input fidelity"
+    }
+  ],
+  "case_id": "P08-E07-edit-fidelity-invalid",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEditingPreflight$/^fidelity-invalid$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesEditingPreflight/fidelity-invalid"
+}

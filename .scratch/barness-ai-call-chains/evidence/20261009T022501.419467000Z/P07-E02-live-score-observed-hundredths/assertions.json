@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "only bounded hundredth rounding accepted",
+      "pass": true,
+      "detail": "err=<nil>"
+    }
+  ],
+  "case_id": "P07-E02-live-score-observed-hundredths",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierLiveScoreRounding$/^observed-hundredths$'",
+  "status": "PASS",
+  "test": "TestClassifierLiveScoreRounding/observed-hundredths"
+}

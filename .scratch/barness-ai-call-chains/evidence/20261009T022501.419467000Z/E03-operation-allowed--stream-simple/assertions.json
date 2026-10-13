@@ -1,0 +1,142 @@
+{
+  "assertions": [
+    {
+      "name": "call succeeds",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "stream ends in done",
+      "pass": true,
+      "detail": "events=[\"start\" \"text_start#0\" \"text_delta#0:Hello\" \"text_delta#0:, \" \"text_delta#0:world!\" \"text_end#0:Hello, world!\" \"done:stop\"]"
+    },
+    {
+      "name": "Err is nil",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\""
+    },
+    {
+      "name": "no error message",
+      "pass": true,
+      "detail": "got \"\""
+    },
+    {
+      "name": "message identity",
+      "pass": true,
+      "detail": "api=\"openai-responses\" provider=\"openai\" model=\"gpt-4.1-mini\""
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"resp_001\""
+    },
+    {
+      "name": "usage",
+      "pass": true,
+      "detail": "got {Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}} want {Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}"
+    },
+    {
+      "name": "single text block",
+      "pass": true,
+      "detail": "content=[{Text:Hello, world! Signature:{\"v\":1,\"id\":\"msg_001\"}}]"
+    },
+    {
+      "name": "text content",
+      "pass": true,
+      "detail": "got {Text:Hello, world! Signature:{\"v\":1,\"id\":\"msg_001\"}}"
+    },
+    {
+      "name": "text signature",
+      "pass": true,
+      "detail": "got \"{\\\"v\\\":1,\\\"id\\\":\\\"msg_001\\\"}\""
+    },
+    {
+      "name": "observer received call_finished of req-operation-allowed--stream-simple",
+      "pass": true
+    },
+    {
+      "name": "call/attempt lifecycle",
+      "pass": true,
+      "detail": "got [\"call_started\" \"attempt_started:req-operation-allowed--stream-simple#1\" \"attempt_finished:req-operation-allowed--stream-simple#1\" \"call_finished\"] want [\"call_started\" \"attempt_started:req-operation-allowed--stream-simple#1\" \"attempt_finished:req-operation-allowed--stream-simple#1\" \"call_finished\"]"
+    },
+    {
+      "name": "records are in time order",
+      "pass": true,
+      "detail": "record 1 at 2026-10-09 10:25:02.103425 +0800 CST m=+0.691085417 before 2026-10-09 10:25:02.103406 +0800 CST m=+0.691066459"
+    },
+    {
+      "name": "records are in time order",
+      "pass": true,
+      "detail": "record 2 at 2026-10-09 10:25:02.103738 +0800 CST m=+0.691397876 before 2026-10-09 10:25:02.103425 +0800 CST m=+0.691085417"
+    },
+    {
+      "name": "records are in time order",
+      "pass": true,
+      "detail": "record 3 at 2026-10-09 10:25:02.103738 +0800 CST m=+0.691398459 before 2026-10-09 10:25:02.103738 +0800 CST m=+0.691397876"
+    },
+    {
+      "name": "call_started holds the scope, requested binding and entry operation",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-operation-allowed--stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} want {CallAttribution:{TenantID:tenant-a RequestID:req-operation-allowed--stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record attributed to the resolved call",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-operation-allowed--stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} want {CallAttribution:{TenantID:tenant-a RequestID:req-operation-allowed--stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record attributed to the resolved call",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-operation-allowed--stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} want {CallAttribution:{TenantID:tenant-a RequestID:req-operation-allowed--stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt duration is set",
+      "pass": true,
+      "detail": "got 312.459µs"
+    },
+    {
+      "name": "attempt_finished records equal the Result's attempts",
+      "pass": true,
+      "detail": "got [{AttemptID:req-operation-allowed--stream-simple#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}}] want [{AttemptID:req-operation-allowed--stream-simple#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}}]"
+    },
+    {
+      "name": "call_finished carries the Result's metadata",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-operation-allowed--stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-operation-allowed--stream-simple#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}}]} want {CallAttribution:{TenantID:tenant-a RequestID:req-operation-allowed--stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-operation-allowed--stream-simple#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}}]}"
+    },
+    {
+      "name": "call_finished stop reason",
+      "pass": true,
+      "detail": "got \"stop\" want \"stop\""
+    },
+    {
+      "name": "call_finished usage is the message's",
+      "pass": true,
+      "detail": "got {Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}} want {Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}"
+    },
+    {
+      "name": "call_finished duration is set",
+      "pass": true,
+      "detail": "got 332.208µs"
+    },
+    {
+      "name": "call_finished has no error on success",
+      "pass": true,
+      "detail": "got <nil> (err=<nil>)"
+    },
+    {
+      "name": "legacy and explicit chat bindings attribute chat",
+      "pass": true,
+      "detail": "got \"chat\""
+    }
+  ],
+  "case_id": "E03-operation-allowed--stream-simple",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChatOperationAuthorization$/^allowed-$/^stream-simple$'",
+  "status": "PASS",
+  "test": "TestChatOperationAuthorization/allowed-/stream-simple"
+}

@@ -1,0 +1,91 @@
+{
+  "assertions": [
+    {
+      "name": "Result returns while no event is read",
+      "pass": true
+    },
+    {
+      "name": "queued events drain after the call ended",
+      "pass": true
+    },
+    {
+      "name": "Result and the drained stream agree",
+      "pass": true,
+      "detail": "Result=ai: resource_limit (event_queue): exceeded the resource policy's MaxQueuedEvents (50) drained=ai: resource_limit (event_queue): exceeded the resource policy's MaxQueuedEvents (50)"
+    },
+    {
+      "name": "the queue never held more than its limit plus the terminal",
+      "pass": true,
+      "detail": "peak 51"
+    },
+    {
+      "name": "stop reason is error",
+      "pass": true,
+      "detail": "got \"error\""
+    },
+    {
+      "name": "errors.Is matches resource_limit and phase",
+      "pass": true,
+      "detail": "want resource_limit/event_queue, got ai: resource_limit (event_queue): exceeded the resource policy's MaxQueuedEvents (50)"
+    },
+    {
+      "name": "error names the policy limit",
+      "pass": true,
+      "detail": "got \"exceeded the resource policy's MaxQueuedEvents (50)\""
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"exceeded the resource policy's MaxQueuedEvents (50)\" error=\"exceeded the resource policy's MaxQueuedEvents (50)\""
+    },
+    {
+      "name": "message carries its timestamp",
+      "pass": true,
+      "detail": "got 1791620439615"
+    },
+    {
+      "name": "stream ends with exactly one error terminal",
+      "pass": true,
+      "detail": "got [\"start\" \"text_start#0\" \"text_delta#0:part-000 \" \"text_delta#0:part-001 \" \"text_delta#0:part-002 \" \"text_delta#0:part-003 \" \"text_delta#0:part-004 \" \"text_delta#0:part-005 \" \"text_delta#0:part-006 \" \"text_delta#0:part-007 \" \"text_delta#0:part-008 \" \"text_delta#0:part-009 \" \"text_delta#0:part-010 \" \"text_delta#0:part-011 \" \"text_delta#0:part-012 \" \"text_delta#0:part-013 \" \"text_delta#0:part-014 \" \"text_delta#0:part-015 \" \"text_delta#0:part-016 \" \"text_delta#0:part-017 \" \"text_delta#0:part-018 \" \"text_delta#0:part-019 \" \"text_delta#0:part-020 \" \"text_delta#0:part-021 \" \"text_delta#0:part-022 \" \"text_delta#0:part-023 \" \"text_delta#0:part-024 \" \"text_delta#0:part-025 \" \"text_delta#0:part-026 \" \"text_delta#0:part-027 \" \"text_delta#0:part-028 \" \"text_delta#0:part-029 \" \"text_delta#0:part-030 \" \"text_delta#0:part-031 \" \"text_delta#0:part-032 \" \"text_delta#0:part-033 \" \"text_delta#0:part-034 \" \"text_delta#0:part-035 \" \"text_delta#0:part-036 \" \"text_delta#0:part-037 \" \"text_delta#0:part-038 \" \"text_delta#0:part-039 \" \"text_delta#0:part-040 \" \"text_delta#0:part-041 \" \"text_delta#0:part-042 \" \"text_delta#0:part-043 \" \"text_delta#0:part-044 \" \"text_delta#0:part-045 \" \"text_delta#0:part-046 \" \"text_delta#0:part-047 \" \"error:error\"]"
+    },
+    {
+      "name": "Err equals the Result error",
+      "pass": true,
+      "detail": "Err=ai: resource_limit (event_queue): exceeded the resource policy's MaxQueuedEvents (50) Result=ai: resource_limit (event_queue): exceeded the resource policy's MaxQueuedEvents (50)"
+    },
+    {
+      "name": "error event carries the Result's message and error",
+      "pass": true,
+      "detail": "event={Reason:error Message:{Content:[{Text:part-000 part-001 part-002 part-003 part-004 part-005 part-006 part-007 part-008 part-009 part-010 part-011 part-012 part-013 part-014 part-015 part-016 part-017 part-018 part-019 part-020 part-021 part-022 part-023 part-024 part-025 part-026 part-027 part-028 part-029 part-030 part-031 part-032 part-033 part-034 part-035 part-036 part-037 part-038 part-039 part-040 part-041 part-042 part-043 part-044 part-045 part-046 part-047 part-048  Signature:}] API:openai-responses Provider:openai Model:gpt-4.1-mini ResponseID:resp_long ResponseModel: ProviderThinkingLevel: Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error RawStopReason: ErrorMessage:exceeded the resource policy's MaxQueuedEvents (50) Timestamp:1791620439615 NativeState:{env:{TenantID:tenant-a AccountScopeID:acct-tenant-a ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini}}} Err:ai: resource_limit (event_queue): exceeded the resource policy's MaxQueuedEvents (50)}"
+    },
+    {
+      "name": "the queued events are the call's first events, none dropped",
+      "pass": true,
+      "detail": "got [\"start\" \"text_start#0\" \"text_delta#0:part-000 \" \"text_delta#0:part-001 \" \"text_delta#0:part-002 \" \"text_delta#0:part-003 \" \"text_delta#0:part-004 \" \"text_delta#0:part-005 \" \"text_delta#0:part-006 \" \"text_delta#0:part-007 \" \"text_delta#0:part-008 \" \"text_delta#0:part-009 \" \"text_delta#0:part-010 \" \"text_delta#0:part-011 \" \"text_delta#0:part-012 \" \"text_delta#0:part-013 \" \"text_delta#0:part-014 \" \"text_delta#0:part-015 \" \"text_delta#0:part-016 \" \"text_delta#0:part-017 \" \"text_delta#0:part-018 \" \"text_delta#0:part-019 \" \"text_delta#0:part-020 \" \"text_delta#0:part-021 \" \"text_delta#0:part-022 \" \"text_delta#0:part-023 \" \"text_delta#0:part-024 \" \"text_delta#0:part-025 \" \"text_delta#0:part-026 \" \"text_delta#0:part-027 \" \"text_delta#0:part-028 \" \"text_delta#0:part-029 \" \"text_delta#0:part-030 \" \"text_delta#0:part-031 \" \"text_delta#0:part-032 \" \"text_delta#0:part-033 \" \"text_delta#0:part-034 \" \"text_delta#0:part-035 \" \"text_delta#0:part-036 \" \"text_delta#0:part-037 \" \"text_delta#0:part-038 \" \"text_delta#0:part-039 \" \"text_delta#0:part-040 \" \"text_delta#0:part-041 \" \"text_delta#0:part-042 \" \"text_delta#0:part-043 \" \"text_delta#0:part-044 \" \"text_delta#0:part-045 \" \"text_delta#0:part-046 \" \"text_delta#0:part-047 \" \"error:error\"]"
+    },
+    {
+      "name": "delivered deltas are a prefix of the final text",
+      "pass": true,
+      "detail": "text \"part-000 part-001 part-002 part-003 part-004 part-005 part-006 part-007 part-008 part-009 part-010 part-011 part-012 part-013 part-014 part-015 part-016 part-017 part-018 part-019 part-020 part-021 part-022 part-023 part-024 part-025 part-026 part-027 part-028 part-029 part-030 part-031 part-032 part-033 part-034 part-035 part-036 part-037 part-038 part-039 part-040 part-041 part-042 part-043 part-044 part-045 part-046 part-047 part-048 \""
+    },
+    {
+      "name": "the final text holds the delta that did not fit",
+      "pass": true,
+      "detail": "text \"part-000 part-001 part-002 part-003 part-004 part-005 part-006 part-007 part-008 part-009 part-010 part-011 part-012 part-013 part-014 part-015 part-016 part-017 part-018 part-019 part-020 part-021 part-022 part-023 part-024 part-025 part-026 part-027 part-028 part-029 part-030 part-031 part-032 part-033 part-034 part-035 part-036 part-037 part-038 part-039 part-040 part-041 part-042 part-043 part-044 part-045 part-046 part-047 part-048 \" delivered \"part-000 part-001 part-002 part-003 part-004 part-005 part-006 part-007 part-008 part-009 part-010 part-011 part-012 part-013 part-014 part-015 part-016 part-017 part-018 part-019 part-020 part-021 part-022 part-023 part-024 part-025 part-026 part-027 part-028 part-029 part-030 part-031 part-032 part-033 part-034 part-035 part-036 part-037 part-038 part-039 part-040 part-041 part-042 part-043 part-044 part-045 part-046 part-047 \""
+    },
+    {
+      "name": "every response body is closed",
+      "pass": true,
+      "detail": "0 open"
+    },
+    {
+      "name": "no call is active",
+      "pass": true,
+      "detail": "0 active"
+    }
+  ],
+  "case_id": "E08-queue-events-overflow-mid-deltas-result-only-stream-full",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestEventQueueLimits$/^events-overflow-mid-deltas$/^result-only-stream-full$'",
+  "status": "PASS",
+  "test": "TestEventQueueLimits/events-overflow-mid-deltas/result-only-stream-full"
+}

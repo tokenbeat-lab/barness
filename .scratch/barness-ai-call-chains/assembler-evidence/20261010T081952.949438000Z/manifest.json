@@ -1,0 +1,211 @@
+{
+  "cases": [
+    {
+      "artifacts": {
+        "assertions.json": "16119693e0809fe2396de7e6b1a1f50bd29f7ea4e45c7bc296ba3a72d86807cd",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "probe.json": "c46cf87445a5731f1096b5023092f420f6c4b8dce4b58f55f67b4c83960b94cd",
+        "response-script.json": "56164e1583e39cef6a2d11e9df7daa25e3e12a86271359ede2f22e3d85d0fd5c",
+        "result.json": "2f898f23a59e1a169110675ed42b013de63629472df124318fbf68a4ce51a925"
+      },
+      "dir": "E01-complete-queues-no-events-complete-full",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-complete-queues-no-events-complete-full",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^complete-queues-no-events$/^complete-full$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/complete-queues-no-events/complete-full"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "7048b6ad934ee0bcb16befb54933159223a8e52f34e3faf3734c1a88a32f6b1d",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "probe.json": "c46cf87445a5731f1096b5023092f420f6c4b8dce4b58f55f67b4c83960b94cd",
+        "response-script.json": "56164e1583e39cef6a2d11e9df7daa25e3e12a86271359ede2f22e3d85d0fd5c",
+        "result.json": "7e63cba1d7561a34d405a7f395c923a95375d2d00bf7d00dd00f54122e610371"
+      },
+      "dir": "E01-complete-queues-no-events-complete-simple",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-complete-queues-no-events-complete-simple",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^complete-queues-no-events$/^complete-simple$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/complete-queues-no-events/complete-simple"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "ff4a5e9f5f91dd31537165b4a2b5f12c555416de44bebe44f1e5ef6a0631df01",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "requests.json": "39d4df5066ae727c0ddb37865e592076ba498401a02da142447c9447a317697a",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a",
+        "result.json": "c6f690c3952d18f183e883f53ede286a173320300e2cab4e1f5aa3c85f7542a1"
+      },
+      "dir": "E01-interleaved-blocks-complete-full-bytewise",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-interleaved-blocks-complete-full-bytewise",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^complete-full-bytewise$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/interleaved-blocks/complete-full-bytewise"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "567d5536ed6341953710f470827f982916826c2533918df25ce9e6cda9a4adf3",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "requests.json": "39d4df5066ae727c0ddb37865e592076ba498401a02da142447c9447a317697a",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a",
+        "result.json": "1c46348afcde2b408f5dc838ccb6770996eecfd386753653a1e32ecb44cb50da"
+      },
+      "dir": "E01-interleaved-blocks-complete-full-lf",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-interleaved-blocks-complete-full-lf",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^complete-full-lf$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/interleaved-blocks/complete-full-lf"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "b9f4565834d053ae99cdb7b183a5b42b1bc19d29b23c5ffadc528a293aeb7587",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "requests.json": "f401fd2e0955ddac4302cfaa7f1287d10465c903442241be6a488867f1389ecc",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a",
+        "result.json": "40ef78f52813044ab4de5380d3c07dd2dc6091d6d7ba780a928fd393f827697b"
+      },
+      "dir": "E01-interleaved-blocks-complete-simple-bytewise",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-interleaved-blocks-complete-simple-bytewise",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^complete-simple-bytewise$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/interleaved-blocks/complete-simple-bytewise"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "a0519193937862e9fd6887030b63cd6794cecb25bd363dec196ddab4b5a0abfe",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "requests.json": "f401fd2e0955ddac4302cfaa7f1287d10465c903442241be6a488867f1389ecc",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a",
+        "result.json": "1128747adbd224da1598a76a508392566f0d6d3458057934ba96536197ff2ef3"
+      },
+      "dir": "E01-interleaved-blocks-complete-simple-lf",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-interleaved-blocks-complete-simple-lf",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^complete-simple-lf$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/interleaved-blocks/complete-simple-lf"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "34ccf151705ef1b4c8acf5cfb4f9cdfb43f2166c94bd8385bd2b290070a379c3",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "events.json": "5a5ad0af4dd11c0b3027ba734071b6650c87d0ae14994b097395c7e4d946bbf9",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "requests.json": "39d4df5066ae727c0ddb37865e592076ba498401a02da142447c9447a317697a",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a",
+        "result.json": "8acfc361cf8554ea591512933e18508b817912e64513d6c987cf4a1f5effb2cb"
+      },
+      "dir": "E01-interleaved-blocks-stream-full-bytewise",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-interleaved-blocks-stream-full-bytewise",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^stream-full-bytewise$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/interleaved-blocks/stream-full-bytewise"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "ef0cd66086c7acadb4bdd084cee3ffd00c714790ecab15f8b56c7ac9e3e0ee5c",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "events.json": "d6be105dd74c5e24b4b7cb377b49379e955b647dcef011b22ee78ae014c6a3c3",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "requests.json": "39d4df5066ae727c0ddb37865e592076ba498401a02da142447c9447a317697a",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a",
+        "result.json": "58e3c2db46fc4cef5c2eeaa70b9c0ba156e9ef62efb5d05f82c481403c4c323c"
+      },
+      "dir": "E01-interleaved-blocks-stream-full-lf",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-interleaved-blocks-stream-full-lf",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^stream-full-lf$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/interleaved-blocks/stream-full-lf"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "a6313bf0d55c944321a7607ee838fa8520605d7c18e70536f5a8817719a3f495",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "events.json": "f9b19cbe935c9896fbea43c1f5211300ccf0ba11a57868caf02ed996c920289b",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "requests.json": "f401fd2e0955ddac4302cfaa7f1287d10465c903442241be6a488867f1389ecc",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a",
+        "result.json": "96df500cf645958656e4297b869e6acfbda9d57cd5959b3fe3fb0f4baefce618"
+      },
+      "dir": "E01-interleaved-blocks-stream-simple-bytewise",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-interleaved-blocks-stream-simple-bytewise",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^stream-simple-bytewise$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/interleaved-blocks/stream-simple-bytewise"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "4f14fd3ef661824993a45fc5fc155b19d4adab5909d482c7dd8d76f4ecb673a6",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "events.json": "06c5c58ce40679ea63509e78ff12695a0f2b09badc20bb99865f1764ecb274f8",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "requests.json": "f401fd2e0955ddac4302cfaa7f1287d10465c903442241be6a488867f1389ecc",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a",
+        "result.json": "06e3e4714ab4fa6b53265694d00567a93617e75c83f0e0a910c89a7f57c8273a"
+      },
+      "dir": "E01-interleaved-blocks-stream-simple-lf",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-interleaved-blocks-stream-simple-lf",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^stream-simple-lf$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/interleaved-blocks/stream-simple-lf"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "adde13210fcb2b3377c1606ac9c73c1aa94c8c5ad0f13922556f0167570c0f05",
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd",
+        "reader_problems.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "response-script.json": "45dbeadcb354f28ca5ecd4c5012dbc3de73a65bd7e1b04c882d7525d5a47c82a"
+      },
+      "dir": "E01-live-partial-concurrent-reads",
+      "fixtures": {
+        "fixture.json": "1b4ad58b59b9a1230aae41ab27cf501e5fb7a43a027d9baaeb9cfc79414ae2cd"
+      },
+      "id": "E01-live-partial-concurrent-reads",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^live-partial-concurrent-reads$'",
+      "status": "PASS",
+      "test": "TestStreamLifecycle/live-partial-concurrent-reads"
+    }
+  ],
+  "finished_at": "2026-10-10T08:19:53.136843Z",
+  "git_commit": "39ab6a5f4c3e838340b46027e84f19b7a37d9fcf",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "./ai/e2e",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-10T08:19:52.949438Z",
+  "versions": {
+    "anthropic-sdk-go": "v1.75.0",
+    "model_catalog_hash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "model_catalog_version": "2026-10-08.5",
+    "openai-go": "v3.66.0"
+  }
+}

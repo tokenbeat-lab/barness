@@ -1,0 +1,89 @@
+{
+  "answers": {
+    "intent": {
+      "type": "choice",
+      "choice": "track",
+      "probabilities": {
+        "refund": 0.1,
+        "track": 0.9
+      },
+      "confidence": 0.82
+    }
+  },
+  "responseModel": "jev-versioned",
+  "usage": {
+    "input": 296,
+    "output": 20,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 316,
+    "cost": {
+      "input": 0.000296,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0.000296
+    }
+  },
+  "stopReason": "stop",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-frozen",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "classifier",
+    "operation": "classifier",
+    "resolved": true,
+    "providerId": "typesafe",
+    "api": "typesafe-system-one",
+    "modelId": "host-jev",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41",
+    "attempts": [
+      {
+        "attemptId": "req-frozen#1",
+        "httpStatus": 429,
+        "code": "rate_limited",
+        "retryDelay": 10000000,
+        "usageReporting": "unreported",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        }
+      },
+      {
+        "attemptId": "req-frozen#2",
+        "httpStatus": 200,
+        "providerRequestId": "req-typesafe",
+        "usageReporting": "complete",
+        "usage": {
+          "input": 296,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 316,
+          "cost": {
+            "input": 0.000296,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000296
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,183 @@
+[
+  {
+    "event": {
+      "Partial": {
+        "content": [
+          {
+            "text": "18°C and clear.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_n2\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_n2",
+        "usage": {
+          "input": 90,
+          "output": 8,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 98,
+          "cost": {
+            "input": 0.000036,
+            "output": 0.000012800000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000488
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702066
+      }
+    },
+    "type": "start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Partial": {
+        "content": [
+          {
+            "text": "18°C and clear.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_n2\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_n2",
+        "usage": {
+          "input": 90,
+          "output": 8,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 98,
+          "cost": {
+            "input": 0.000036,
+            "output": 0.000012800000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000488
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702066
+      }
+    },
+    "type": "text_start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Delta": "18°C and clear.",
+      "Partial": {
+        "content": [
+          {
+            "text": "18°C and clear.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_n2\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_n2",
+        "usage": {
+          "input": 90,
+          "output": 8,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 98,
+          "cost": {
+            "input": 0.000036,
+            "output": 0.000012800000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000488
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702066
+      }
+    },
+    "type": "text_delta"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Content": "18°C and clear.",
+      "Partial": {
+        "content": [
+          {
+            "text": "18°C and clear.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_n2\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_n2",
+        "usage": {
+          "input": 90,
+          "output": 8,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 98,
+          "cost": {
+            "input": 0.000036,
+            "output": 0.000012800000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000488
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702066
+      }
+    },
+    "type": "text_end"
+  },
+  {
+    "event": {
+      "Reason": "stop",
+      "Message": {
+        "content": [
+          {
+            "text": "18°C and clear.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_n2\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_n2",
+        "usage": {
+          "input": 90,
+          "output": 8,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 98,
+          "cost": {
+            "input": 0.000036,
+            "output": 0.000012800000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000488
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702066
+      }
+    },
+    "type": "done"
+  }
+]

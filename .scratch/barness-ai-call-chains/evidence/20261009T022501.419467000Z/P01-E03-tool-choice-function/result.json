@@ -1,0 +1,84 @@
+{
+  "message": {
+    "content": [
+      {
+        "id": "call_w1|fc_w1",
+        "name": "get_weather",
+        "arguments": {
+          "city": "Zürich",
+          "unit": "celsius"
+        },
+        "rawArguments": "{\"city\":\"Zürich\",\"unit\":\"celsius\"}"
+      },
+      {
+        "id": "call_t1|fc_t1",
+        "name": "get_time",
+        "arguments": {
+          "tz": "Europe/Zurich"
+        },
+        "rawArguments": "{\"tz\":\"Europe/Zurich\"}"
+      }
+    ],
+    "api": "openai-responses",
+    "provider": "openai",
+    "model": "gpt-4.1-mini",
+    "responseId": "resp_t1",
+    "usage": {
+      "input": 120,
+      "output": 40,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 160,
+      "cost": {
+        "input": 0.000048,
+        "output": 0.00006400000000000001,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.00011200000000000001
+      }
+    },
+    "stopReason": "toolUse",
+    "rawStopReason": "completed",
+    "timestamp": 1791512703456
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-tools-function",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "primary",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-responses",
+    "modelId": "gpt-4.1-mini",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-tools-function#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 120,
+          "output": 40,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 160,
+          "cost": {
+            "input": 0.000048,
+            "output": 0.00006400000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00011200000000000001
+          }
+        }
+      }
+    ]
+  }
+}

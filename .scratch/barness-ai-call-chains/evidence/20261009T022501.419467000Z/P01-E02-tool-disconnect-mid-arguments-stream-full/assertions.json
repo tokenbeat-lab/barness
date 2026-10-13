@@ -1,0 +1,42 @@
+{
+  "assertions": [
+    {
+      "name": "call ends",
+      "pass": true
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"error\" want \"error\""
+    },
+    {
+      "name": "received call kept for display",
+      "pass": true,
+      "detail": "got [\"toolCall:call_w5|fc_w5 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"cel\\\"} raw={\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"cel\"]\nwant [\"toolCall:call_w5|fc_w5 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"cel\\\"} raw={\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"cel\"]"
+    },
+    {
+      "name": "classified failure",
+      "pass": true,
+      "detail": "got ai: transport (stream): Connection lost while reading the OpenAI Responses stream"
+    },
+    {
+      "name": "event sequence",
+      "pass": true,
+      "detail": "got [\"start\" \"toolcall_start#0\" \"toolcall_delta#0:{\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"cel\" \"error:error\"]\nwant [\"start\" \"toolcall_start#0\" \"toolcall_delta#0:{\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"cel\" \"error:error\"]"
+    },
+    {
+      "name": "truncated call is not executable",
+      "pass": true,
+      "detail": "err=ai: tool call not_executable: message ended with stop reason \"error\"; only calls of a message that ended with \"toolUse\" can be executed"
+    },
+    {
+      "name": "every response body is closed",
+      "pass": true,
+      "detail": "0 open"
+    }
+  ],
+  "case_id": "P01-E02-tool-disconnect-mid-arguments-stream-full",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolCallTruncation$/^disconnect-mid-arguments$/^stream-full$'",
+  "status": "PASS",
+  "test": "TestToolCallTruncation/disconnect-mid-arguments/stream-full"
+}

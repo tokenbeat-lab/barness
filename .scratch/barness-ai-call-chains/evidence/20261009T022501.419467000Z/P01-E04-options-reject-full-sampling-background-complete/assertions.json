@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "no inference request sent",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "no credential read",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want invalid_request/capability, got ai: invalid_request (capability): samplingParams may not set \"background\""
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got invalid_request/capability"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"samplingParams may not set \\\"background\\\"\" error=\"samplingParams may not set \\\"background\\\"\""
+    }
+  ],
+  "case_id": "P01-E04-options-reject-full-sampling-background-complete",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOptionRejects$/^full-sampling-background$/^complete$'",
+  "status": "PASS",
+  "test": "TestOptionRejects/full-sampling-background/complete"
+}

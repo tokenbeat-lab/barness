@@ -1,0 +1,38 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1beta/interactions",
+    "query": "",
+    "key_alias": "key:tenant-a-google@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Content-Length": "424",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Goog-Api-Key": "key:tenant-a-google@v1"
+    },
+    "body": {
+      "model": "host-google-image",
+      "store": false,
+      "input": [
+        {
+          "type": "text",
+          "text": "一张餐厅露台照片"
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+        },
+        {
+          "type": "image",
+          "mime_type": "image/png",
+          "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAC0lEQVR4nGNggAIAAAkAAftSuKkAAAAASUVORK5CYII="
+        }
+      ],
+      "response_format": {
+        "type": "image"
+      }
+    }
+  }
+]

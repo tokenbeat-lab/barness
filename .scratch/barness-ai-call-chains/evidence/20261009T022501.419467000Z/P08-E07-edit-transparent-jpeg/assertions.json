@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid edit refused before credentials and network",
+      "pass": true,
+      "detail": "got ai: invalid_request (capability): transparent backgrounds require png or webp"
+    }
+  ],
+  "case_id": "P08-E07-edit-transparent-jpeg",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEditingPreflight$/^transparent-jpeg$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesEditingPreflight/transparent-jpeg"
+}

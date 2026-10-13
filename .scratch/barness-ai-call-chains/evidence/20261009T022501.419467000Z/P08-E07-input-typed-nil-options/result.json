@@ -1,0 +1,28 @@
+{
+  "content": null,
+  "usage": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 0,
+    "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+    }
+  },
+  "stopReason": "error",
+  "errorMessage": "image options must not be a typed nil",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-input-typed-nil-options",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "images",
+    "operation": "image",
+    "resolved": false
+  }
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "status": 503,
+    "header": {
+      "Content-Type": "application/json",
+      "retry-after": "soon"
+    },
+    "script": "{\"error\":{\"message\":\"busy\"}}"
+  },
+  {
+    "status": 503,
+    "header": {
+      "Content-Type": "application/json",
+      "retry-after": "soon"
+    },
+    "script": "{\"error\":{\"message\":\"busy\"}}"
+  },
+  {
+    "status": 503,
+    "header": {
+      "Content-Type": "application/json",
+      "retry-after": "soon"
+    },
+    "script": "{\"error\":{\"message\":\"busy\"}}"
+  },
+  {
+    "status": 503,
+    "header": {
+      "Content-Type": "application/json",
+      "retry-after": "soon"
+    },
+    "script": "{\"error\":{\"message\":\"busy\"}}"
+  },
+  {
+    "status": 503,
+    "header": {
+      "Content-Type": "application/json",
+      "retry-after": "soon"
+    },
+    "script": "{\"error\":{\"message\":\"busy\"}}"
+  },
+  {
+    "status": 503,
+    "header": {
+      "Content-Type": "application/json",
+      "retry-after": "soon"
+    },
+    "script": "{\"error\":{\"message\":\"busy\"}}"
+  },
+  {
+    "status": 200,
+    "header": {
+      "Content-Type": "text/event-stream"
+    },
+    "script": "event: response.created\ndata: {\"type\":\"response.created\",\"sequence_number\":0,\"response\":{\"id\":\"resp_001\",\"object\":\"response\",\"created_at\":1790000000,\"status\":\"in_progress\",\"model\":\"gpt-4.1-mini-2025-04-14\",\"output\":[],\"usage\":null}}\n\nevent: response.in_progress\ndata: {\"type\":\"response.in_progress\",\"sequence_number\":1,\"response\":{\"id\":\"resp_001\",\"object\":\"response\",\"created_at\":1790000000,\"status\":\"in_progress\",\"model\":\"gpt-4.1-mini-2025-04-14\",\"output\":[],\"usage\":null}}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"sequence_number\":2,\"output_index\":0,\"item\":{\"id\":\"msg_001\",\"type\":\"message\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]}}\n\nevent: response.content_part.added\ndata: {\"type\":\"response.content_part.added\",\"sequence_number\":3,\"item_id\":\"msg_001\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]}}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"sequence_number\":4,\"item_id\":\"msg_001\",\"output_index\":0,\"content_index\":0,\"delta\":\"Hello\"}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"sequence_number\":5,\"item_id\":\"msg_001\",\"output_index\":0,\"content_index\":0,\"delta\":\", \"}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"sequence_number\":6,\"item_id\":\"msg_001\",\"output_index\":0,\"content_index\":0,\"delta\":\"world!\"}\n\nevent: response.output_text.done\ndata: {\"type\":\"response.output_text.done\",\"sequence_number\":7,\"item_id\":\"msg_001\",\"output_index\":0,\"content_index\":0,\"text\":\"Hello, world!\"}\n\nevent: response.content_part.done\ndata: {\"type\":\"response.content_part.done\",\"sequence_number\":8,\"item_id\":\"msg_001\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"Hello, world!\",\"annotations\":[]}}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"sequence_number\":9,\"output_index\":0,\"item\":{\"id\":\"msg_001\",\"type\":\"message\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello, world!\",\"annotations\":[]}]}}\n\nevent: response.completed\ndata: {\"type\":\"response.completed\",\"sequence_number\":10,\"response\":{\"id\":\"resp_001\",\"object\":\"response\",\"created_at\":1790000000,\"status\":\"completed\",\"model\":\"gpt-4.1-mini-2025-04-14\",\"output\":[{\"id\":\"msg_001\",\"type\":\"message\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello, world!\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":20,\"input_tokens_details\":{\"cached_tokens\":4},\"output_tokens\":5,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":25}}}\n\n"
+  }
+]

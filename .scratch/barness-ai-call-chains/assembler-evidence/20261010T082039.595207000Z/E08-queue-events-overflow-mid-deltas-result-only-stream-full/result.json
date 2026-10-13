@@ -1,0 +1,68 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "part-000 part-001 part-002 part-003 part-004 part-005 part-006 part-007 part-008 part-009 part-010 part-011 part-012 part-013 part-014 part-015 part-016 part-017 part-018 part-019 part-020 part-021 part-022 part-023 part-024 part-025 part-026 part-027 part-028 part-029 part-030 part-031 part-032 part-033 part-034 part-035 part-036 part-037 part-038 part-039 part-040 part-041 part-042 part-043 part-044 part-045 part-046 part-047 part-048 "
+      }
+    ],
+    "api": "openai-responses",
+    "provider": "openai",
+    "model": "gpt-4.1-mini",
+    "responseId": "resp_long",
+    "usage": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 0,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      }
+    },
+    "stopReason": "error",
+    "errorMessage": "exceeded the resource policy's MaxQueuedEvents (50)",
+    "timestamp": 1791620439615
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-e08-queue-events-overflow-mid-deltas-stream-full",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "primary",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-responses",
+    "modelId": "gpt-4.1-mini",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-e08-queue-events-overflow-mid-deltas-stream-full#1",
+        "httpStatus": 200,
+        "usageReporting": "unreported",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        }
+      }
+    ]
+  }
+}

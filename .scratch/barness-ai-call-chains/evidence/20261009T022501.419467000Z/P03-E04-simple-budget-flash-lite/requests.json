@@ -1,0 +1,34 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1beta/models/gemini-2.5-flash-lite:streamGenerateContent",
+    "query": "alt=sse",
+    "key_alias": "key:tenant-a-google@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Content-Length": "162",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Goog-Api-Key": "key:tenant-a-google@v1"
+    },
+    "body": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Hi"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "maxOutputTokens": 65536,
+        "thinkingConfig": {
+          "includeThoughts": true,
+          "thinkingBudget": 512
+        }
+      }
+    }
+  }
+]

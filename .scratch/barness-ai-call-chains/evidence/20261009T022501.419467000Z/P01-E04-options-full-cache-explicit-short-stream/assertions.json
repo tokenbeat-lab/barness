@@ -1,0 +1,47 @@
+{
+  "assertions": [
+    {
+      "name": "the call ends",
+      "pass": true
+    },
+    {
+      "name": "the call succeeds",
+      "pass": true,
+      "detail": "err=<nil> stop=\"stop\""
+    },
+    {
+      "name": "one inference request",
+      "pass": true,
+      "detail": "got 1"
+    },
+    {
+      "name": "a derived cache key is sent",
+      "pass": true,
+      "detail": "prompt_cache_key=\"c8796dd391506b931cb365c93019a60e764b25b8c96974b627adede3efeebc88\""
+    },
+    {
+      "name": "affinity headers carry the cache key",
+      "pass": true,
+      "detail": "key=\"c8796dd391506b931cb365c93019a60e764b25b8c96974b627adede3efeebc88\" Session_id=\"c8796dd391506b931cb365c93019a60e764b25b8c96974b627adede3efeebc88\" X-Client-Request-Id=\"c8796dd391506b931cb365c93019a60e764b25b8c96974b627adede3efeebc88\""
+    },
+    {
+      "name": "wire body is pi's",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are terse.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"Weather in Bern? 🌦\"}]}],\"stream\":true,\"prompt_cache_key\":\"c8796dd391506b931cb365c93019a60e764b25b8c96974b627adede3efeebc88\",\"store\":false,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get the weather for a city.\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"]},\"strict\":false}]}"
+    },
+    {
+      "name": "the tenant is not sent",
+      "pass": true,
+      "detail": "body {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are terse.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"Weather in Bern? 🌦\"}]}],\"stream\":true,\"prompt_cache_key\":\"c8796dd391506b931cb365c93019a60e764b25b8c96974b627adede3efeebc88\",\"store\":false,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get the weather for a city.\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"]},\"strict\":false}]} headers map[Accept:application/json Accept-Encoding:gzip Authorization:Bearer key:tenant-a@v1 Content-Length:475 Content-Type:application/json Session_id:c8796dd391506b931cb365c93019a60e764b25b8c96974b627adede3efeebc88 User-Agent:barness-ai X-Client-Request-Id:c8796dd391506b931cb365c93019a60e764b25b8c96974b627adede3efeebc88 X-Stainless-Lang:go X-Stainless-Package-Version:3.66.0 X-Stainless-Retry-Count:0 X-Stainless-Runtime:go]"
+    },
+    {
+      "name": "the caller's options are unchanged",
+      "pass": true,
+      "detail": "before {\"sessionId\":\"session-1\"}\nafter  {\"sessionId\":\"session-1\"}"
+    }
+  ],
+  "case_id": "P01-E04-options-full-cache-explicit-short-stream",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOptions$/^full-cache-explicit-short$/^stream$'",
+  "status": "PASS",
+  "test": "TestOptions/full-cache-explicit-short/stream"
+}

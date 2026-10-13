@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "final edit refused before network",
+      "pass": true,
+      "detail": "got ai: callback_failed (request): input images require supported MIME and strict inline base64"
+    }
+  ],
+  "case_id": "P09-E04-edit-bad-mime",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^bad-mime$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesEditingCallbacks/bad-mime"
+}

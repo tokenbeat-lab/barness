@@ -1,0 +1,43 @@
+{
+  "assertions": [
+    {
+      "name": "confirmed native response accepted offline",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "same native request, v1beta and omitted delivery",
+      "pass": true,
+      "detail": "request mismatch"
+    },
+    {
+      "name": "raster remains fully readable and matches saved artifact",
+      "pass": true,
+      "detail": "invalid artifact"
+    },
+    {
+      "name": "actual identity presence, not attribution fallback",
+      "pass": true,
+      "detail": "identity invented or lost"
+    },
+    {
+      "name": "usage totals, nullable modalities and partial semantics",
+      "pass": true,
+      "detail": "usage={Input:46 Output:2254 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:819} Modalities:0x769a6e0e43c0 TotalTokens:2300 Cost:{Input:6.9e-05 Output:0.0397425 CacheRead:0 CacheWrite:0 Total:0.0398115}} want={Input:46 Output:2254 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:819} Modalities:0x769a6e752080 TotalTokens:2300 Cost:{Input:6.9e-05 Output:0.0397425 CacheRead:0 CacheWrite:0 Total:0.0398115}}"
+    },
+    {
+      "name": "thinking billed once and missing text stays unknown",
+      "pass": true,
+      "detail": "thought double-count or invented text"
+    },
+    {
+      "name": "updated immutable price snapshot",
+      "pass": true,
+      "detail": "wrong snapshot"
+    }
+  ],
+  "case_id": "P09-E01-live-replay-generation-captured",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesLiveWireReplay$/^generation$/^captured$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesLiveWireReplay/generation/captured"
+}

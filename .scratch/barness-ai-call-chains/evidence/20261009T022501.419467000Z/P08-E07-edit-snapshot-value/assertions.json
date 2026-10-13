@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "entry data independently frozen",
+      "pass": true,
+      "detail": "got <nil>"
+    }
+  ],
+  "case_id": "P08-E07-edit-snapshot-value",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEditingSnapshot$/^value$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesEditingSnapshot/value"
+}

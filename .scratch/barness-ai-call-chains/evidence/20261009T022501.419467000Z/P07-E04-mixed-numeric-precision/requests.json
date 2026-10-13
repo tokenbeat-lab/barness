@@ -1,0 +1,49 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "414",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "host-jev",
+      "questions": {
+        "anger": {
+          "criteria": [
+            "Calm",
+            "Unhappy",
+            "Angry"
+          ],
+          "instructions": "Rate anger",
+          "type": "score"
+        },
+        "intent": {
+          "criteria": {
+            "refund": "Refund",
+            "track": "Tracking"
+          },
+          "instructions": "Choose intent",
+          "type": "choice"
+        },
+        "urgent": {
+          "criteria": {
+            "false": "Can wait",
+            "true": "Immediate"
+          },
+          "instructions": "Is it urgent?",
+          "type": "noul"
+        }
+      },
+      "state": {
+        "decimal": 0.12345678901234567890123456789,
+        "id": 9007199254740993
+      }
+    }
+  }
+]

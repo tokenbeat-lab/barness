@@ -1,0 +1,93 @@
+{
+  "assertions": [
+    {
+      "name": "inference requests sent",
+      "pass": true,
+      "detail": "got 1 want 1"
+    },
+    {
+      "name": "request path",
+      "pass": true,
+      "detail": "got POST /v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse"
+    },
+    {
+      "name": "tenant's key for the binding used",
+      "pass": true,
+      "detail": "got \"key:tenant-a-google@v1\""
+    },
+    {
+      "name": "request body",
+      "pass": true,
+      "detail": "got {\"contents\":[{\"parts\":[{\"text\":\"Hi\"}],\"role\":\"user\"}],\"generationConfig\":{\"thinkingConfig\":{\"includeThoughts\":true,\"thinkingBudget\":null}}}\nwant {\n      \"contents\": [\n       {\n        \"parts\": [\n         {\n          \"text\": \"Hi\"\n         }\n        ],\n        \"role\": \"user\"\n       }\n      ],\n      \"generationConfig\": {\n       \"thinkingConfig\": {\n        \"includeThoughts\": true,\n        \"thinkingBudget\": null\n       }\n      }\n     }"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\" want \"stop\""
+    },
+    {
+      "name": "error message",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "no error",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "Err after the terminal is Result's error",
+      "pass": true,
+      "detail": "Err=<nil> Result=<nil>"
+    },
+    {
+      "name": "done carries the final message",
+      "pass": true,
+      "detail": "done={Content:[{Text:OK. Signature:}] API:google-generative-ai Provider:google Model:gemini-2.5-flash ResponseID: ResponseModel: ProviderThinkingLevel: Usage:{Input:5 Output:2 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:7 Cost:{Input:1.5e-06 Output:5e-06 CacheRead:0 CacheWrite:0 Total:6.5000000000000004e-06}} StopReason:stop RawStopReason:STOP ErrorMessage: Timestamp:1791512701567 NativeState:{env:{TenantID:tenant-a AccountScopeID:acct-tenant-a-google ProviderID:google API:google-generative-ai ModelID:gemini-2.5-flash}}}"
+    },
+    {
+      "name": "message identity",
+      "pass": true,
+      "detail": "api=\"google-generative-ai\" provider=\"google\" model=\"gemini-2.5-flash\""
+    },
+    {
+      "name": "raw stop reason",
+      "pass": true,
+      "detail": "got \"STOP\" want \"STOP\""
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "response model",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "provider thinking level",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "final content",
+      "pass": true,
+      "detail": "got [{\"text\":\"OK.\",\"type\":\"text\"}]\nwant [\n     {\n      \"type\": \"text\",\n      \"text\": \"OK.\"\n     }\n    ]"
+    },
+    {
+      "name": "call resolved to the scenario's binding",
+      "pass": true,
+      "detail": "metadata {CallAttribution:{TenantID:tenant-a RequestID:req-thinking-budget-null-stream ActorID:actor-7 JobID:job-42 BindingID:gemini Operation:chat Resolved:true ProviderID:google API:google-generative-ai ModelID:gemini-2.5-flash AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-thinking-budget-null-stream#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:5 Output:2 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:7 Cost:{Input:1.5e-06 Output:5e-06 CacheRead:0 CacheWrite:0 Total:6.5000000000000004e-06}}}]}"
+    },
+    {
+      "name": "attempts recorded",
+      "pass": true,
+      "detail": "got 1 want 1"
+    }
+  ],
+  "case_id": "P03-E04-thinking-budget-null",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGeminiOptions$/^thinking-budget-null$'",
+  "status": "PASS",
+  "test": "TestGeminiOptions/thinking-budget-null"
+}

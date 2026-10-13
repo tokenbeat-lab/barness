@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want invalid_request/binding, got ai: invalid_request (binding): binding retry policy: MaxRetries must not be negative"
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got invalid_request/binding"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"binding retry policy: MaxRetries must not be negative\" error=\"binding retry policy: MaxRetries must not be negative\""
+    },
+    {
+      "name": "no inference request sent",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "no attempt recorded",
+      "pass": true,
+      "detail": "got []"
+    }
+  ],
+  "case_id": "P01-E05-invalid-retry-policy-negative-max-retries",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestExplicitRetry$/^invalid-retry-policy$/^negative-max-retries$'",
+  "status": "PASS",
+  "test": "TestExplicitRetry/invalid-retry-policy/negative-max-retries"
+}

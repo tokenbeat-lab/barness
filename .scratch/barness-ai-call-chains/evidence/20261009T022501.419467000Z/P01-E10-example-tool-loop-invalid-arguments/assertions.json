@@ -1,0 +1,28 @@
+{
+  "assertions": [
+    {
+      "name": "the loop goes on to the answer",
+      "pass": true,
+      "detail": "err=<nil> turns=2"
+    },
+    {
+      "name": "only the valid call ran",
+      "pass": true,
+      "detail": "ran [\"get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"}\"]"
+    },
+    {
+      "name": "both calls are answered",
+      "pass": true,
+      "detail": "got 2"
+    },
+    {
+      "name": "the invalid call is answered as an error with the validation message",
+      "pass": true,
+      "detail": "got {ToolCallID:call_w1|fc_w1 ToolName:get_weather Content:[{Text:Validation failed for tool \"get_weather\":\n  - country: missing property 'country'\n\nReceived arguments:\n{\n  \"city\": \"Zürich\",\n  \"unit\": \"celsius\"\n} Signature:}] IsError:true}"
+    }
+  ],
+  "case_id": "P01-E10-example-tool-loop-invalid-arguments",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolLoopExample$/^invalid-arguments-answered$'",
+  "status": "PASS",
+  "test": "TestToolLoopExample/invalid-arguments-answered"
+}

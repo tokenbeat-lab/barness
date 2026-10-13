@@ -1,0 +1,23 @@
+{
+  "assertions": [
+    {
+      "name": "callback sees exact input numbers",
+      "pass": true,
+      "detail": "got map[decimal:0.12345678901234567890123456789 id:9007199254740993]"
+    },
+    {
+      "name": "original request unchanged",
+      "pass": true,
+      "detail": "input was mutated"
+    },
+    {
+      "name": "raw callback numbers survive",
+      "pass": true,
+      "detail": "got <nil>"
+    }
+  ],
+  "case_id": "P07-E04-mixed-numeric-precision",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^numeric-precision$'",
+  "status": "PASS",
+  "test": "TestClassifierMixedCallbacks/numeric-precision"
+}

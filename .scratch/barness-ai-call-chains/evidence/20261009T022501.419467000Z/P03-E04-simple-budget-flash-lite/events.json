@@ -1,0 +1,173 @@
+[
+  {
+    "event": {
+      "Partial": {
+        "content": [
+          {
+            "text": "OK."
+          }
+        ],
+        "api": "google-generative-ai",
+        "provider": "google",
+        "model": "gemini-2.5-flash-lite",
+        "usage": {
+          "input": 5,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 7,
+          "cost": {
+            "input": 5.000000000000001e-7,
+            "output": 8.000000000000001e-7,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000013000000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "STOP",
+        "timestamp": 1791512701588
+      }
+    },
+    "type": "start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Partial": {
+        "content": [
+          {
+            "text": "OK."
+          }
+        ],
+        "api": "google-generative-ai",
+        "provider": "google",
+        "model": "gemini-2.5-flash-lite",
+        "usage": {
+          "input": 5,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 7,
+          "cost": {
+            "input": 5.000000000000001e-7,
+            "output": 8.000000000000001e-7,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000013000000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "STOP",
+        "timestamp": 1791512701588
+      }
+    },
+    "type": "text_start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Delta": "OK.",
+      "Partial": {
+        "content": [
+          {
+            "text": "OK."
+          }
+        ],
+        "api": "google-generative-ai",
+        "provider": "google",
+        "model": "gemini-2.5-flash-lite",
+        "usage": {
+          "input": 5,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 7,
+          "cost": {
+            "input": 5.000000000000001e-7,
+            "output": 8.000000000000001e-7,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000013000000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "STOP",
+        "timestamp": 1791512701588
+      }
+    },
+    "type": "text_delta"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Content": "OK.",
+      "Partial": {
+        "content": [
+          {
+            "text": "OK."
+          }
+        ],
+        "api": "google-generative-ai",
+        "provider": "google",
+        "model": "gemini-2.5-flash-lite",
+        "usage": {
+          "input": 5,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 7,
+          "cost": {
+            "input": 5.000000000000001e-7,
+            "output": 8.000000000000001e-7,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000013000000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "STOP",
+        "timestamp": 1791512701588
+      }
+    },
+    "type": "text_end"
+  },
+  {
+    "event": {
+      "Reason": "stop",
+      "Message": {
+        "content": [
+          {
+            "text": "OK."
+          }
+        ],
+        "api": "google-generative-ai",
+        "provider": "google",
+        "model": "gemini-2.5-flash-lite",
+        "usage": {
+          "input": 5,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 7,
+          "cost": {
+            "input": 5.000000000000001e-7,
+            "output": 8.000000000000001e-7,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000013000000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "STOP",
+        "timestamp": 1791512701588
+      }
+    },
+    "type": "done"
+  }
+]

@@ -1,0 +1,70 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "Hello."
+      }
+    ],
+    "api": "anthropic-messages",
+    "provider": "anthropic",
+    "model": "claude-haiku-4-5",
+    "responseId": "msg_o",
+    "usage": {
+      "input": 10,
+      "output": 2,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "cacheWrite1h": 0,
+      "totalTokens": 12,
+      "cost": {
+        "input": 0.000009999999999999999,
+        "output": 0.00001,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000019999999999999998
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "timestamp": 1791512701433
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-simple-sampling-ignored-stream",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "claude",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "anthropic",
+    "api": "anthropic-messages",
+    "modelId": "claude-haiku-4-5",
+    "accountScopeId": "acct-tenant-a-anthropic",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:2fe42e9c91ab516fa22a8375501cd8f50451c6d7fc0af4d3df9628ff0541c073",
+    "attempts": [
+      {
+        "attemptId": "req-simple-sampling-ignored-stream#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.000009999999999999999,
+            "output": 0.00001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000019999999999999998
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "content": null,
+  "usage": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 0,
+    "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+    }
+  },
+  "stopReason": "error",
+  "errorMessage": "image prompt requires 1 to 32000 valid Unicode characters",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-input-long-prompt",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "images",
+    "operation": "image",
+    "resolved": false
+  }
+}

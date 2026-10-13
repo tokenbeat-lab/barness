@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid edit refused before credentials and network",
+      "pass": true,
+      "detail": "got ai: invalid_request (scope): input images require supported MIME and strict inline base64"
+    }
+  ],
+  "case_id": "P08-E07-edit-bad-mime",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEditingPreflight$/^bad-mime$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesEditingPreflight/bad-mime"
+}

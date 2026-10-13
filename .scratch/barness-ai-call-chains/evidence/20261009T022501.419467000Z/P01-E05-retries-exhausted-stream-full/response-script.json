@@ -1,0 +1,24 @@
+[
+  {
+    "status": 500,
+    "header": {
+      "Content-Type": "application/json"
+    },
+    "script": "{\"error\":{\"message\":\"Internal error\",\"type\":\"server_error\",\"code\":null}}"
+  },
+  {
+    "status": 502,
+    "header": {
+      "Content-Type": "application/json"
+    },
+    "script": "Bad gateway"
+  },
+  {
+    "status": 503,
+    "header": {
+      "Content-Type": "application/json",
+      "x-request-id": "req_503last"
+    },
+    "script": "{\"error\":{\"message\":\"The server is overloaded\",\"type\":\"server_error\",\"code\":null}}"
+  }
+]

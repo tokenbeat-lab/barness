@@ -1,0 +1,38 @@
+{
+  "assertions": [
+    {
+      "name": "image header scope and hidden credential",
+      "pass": true,
+      "detail": "got {Operation:image TenantID:tenant-a RequestID:req-hooks-callback-error ActorID:actor-7 JobID:job-42}"
+    },
+    {
+      "name": "image payload identity",
+      "pass": true,
+      "detail": "got &{Operation:image ProviderID:openai API:openai-images ModelID:host-image Body:map[model:host-image prompt:一张餐厅露台照片]}"
+    },
+    {
+      "name": "classified callback",
+      "pass": true,
+      "detail": "got ai: callback_failed (request): payload callback failed"
+    },
+    {
+      "name": "one header and payload outside retry",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "host cause preserved",
+      "pass": true,
+      "detail": "got ai: callback_failed (request): payload callback failed"
+    },
+    {
+      "name": "rejected before HTTP",
+      "pass": true,
+      "detail": "got 0"
+    }
+  ],
+  "case_id": "P08-E04-hooks-callback-error",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^callback-error$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesHooks/callback-error"
+}

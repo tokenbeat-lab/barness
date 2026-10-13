@@ -1,0 +1,112 @@
+{
+  "assertions": [
+    {
+      "name": "typed error",
+      "pass": true,
+      "detail": "got ai: canceled (request): Request was aborted"
+    },
+    {
+      "name": "code-only match",
+      "pass": true,
+      "detail": "got ai: canceled (request): Request was aborted"
+    },
+    {
+      "name": "phase match",
+      "pass": true,
+      "detail": "got ai: canceled (request): Request was aborted"
+    },
+    {
+      "name": "other phase does not match",
+      "pass": true,
+      "detail": "got ai: canceled (request): Request was aborted"
+    },
+    {
+      "name": "terminal and empty answers",
+      "pass": true,
+      "detail": "got {Answers:map[] ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:aborted ErrorMessage:Request was aborted Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-callback-payload-cancel ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}}"
+    },
+    {
+      "name": "fixed result error text",
+      "pass": true,
+      "detail": "got ai: canceled (request): Request was aborted"
+    },
+    {
+      "name": "host cause Is and As survive context",
+      "pass": true,
+      "detail": "cause missing"
+    },
+    {
+      "name": "private callback diagnostic never published",
+      "pass": true,
+      "detail": "diagnostic leaked"
+    },
+    {
+      "name": "no callback retry",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-callback-payload-cancel ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observer received call_finished of req-callback-payload-cancel",
+      "pass": true
+    },
+    {
+      "name": "unresolved trusted entry",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-callback-payload-cancel ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "terminal attribution and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-09 10:25:03.583815 +0800 CST m=+2.171471417 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-callback-payload-cancel ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} Attempt:<nil> Duration:26µs StopReason:aborted Error:0x769a6e4ed180 Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "observed classification",
+      "pass": true,
+      "detail": "got &{Code:canceled Phase:request HTTPStatus:0 ProviderRequestID: RetryAfter:0s}"
+    },
+    {
+      "name": "one logical call",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "no invented attempts",
+      "pass": true,
+      "detail": "got 0/0"
+    },
+    {
+      "name": "released waiters",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released events",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released hostPermits",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released bodies",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released calls",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released permits",
+      "pass": true,
+      "detail": "got 0"
+    }
+  ],
+  "case_id": "P07-E04-unary-callback-payload-cancel",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryCallbackFailures$/^payload-cancel$'",
+  "status": "PASS",
+  "test": "TestUnaryCallbackFailures/payload-cancel"
+}

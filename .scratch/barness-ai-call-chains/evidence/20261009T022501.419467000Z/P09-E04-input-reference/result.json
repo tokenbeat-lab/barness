@@ -1,0 +1,36 @@
+{
+  "content": null,
+  "usage": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 0,
+    "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+    }
+  },
+  "stopReason": "error",
+  "errorMessage": "input images require supported MIME and strict inline base64",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-google-hook-input-reference",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "images",
+    "operation": "image",
+    "resolved": true,
+    "providerId": "google",
+    "api": "google-interactions",
+    "modelId": "host-google-image",
+    "accountScopeId": "acct-tenant-a-google",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:00afa2f781fd63770e76e29eb5d38ba5f69ba3591fb21d16bf08049ee7c44b95"
+  }
+}

@@ -1,0 +1,145 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-09T10:25:03.694596+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-callback-response-deadline",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-09T10:25:03.694646+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-callback-response-deadline",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "host-jev",
+      "accountScopeId": "acct-tenant-a",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41"
+    },
+    "attempt": {
+      "attemptId": "req-callback-response-deadline#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-09T10:25:03.79573+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-callback-response-deadline",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "host-jev",
+      "accountScopeId": "acct-tenant-a",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41"
+    },
+    "attempt": {
+      "attemptId": "req-callback-response-deadline#1",
+      "httpStatus": 200,
+      "providerRequestId": "req-typesafe",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    },
+    "duration": 101083291
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-09T10:25:03.795737+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-callback-response-deadline",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "host-jev",
+      "accountScopeId": "acct-tenant-a",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41",
+      "attempts": [
+        {
+          "attemptId": "req-callback-response-deadline#1",
+          "httpStatus": 200,
+          "providerRequestId": "req-typesafe",
+          "usageReporting": "unreported",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          }
+        }
+      ]
+    },
+    "duration": 101140334,
+    "stopReason": "aborted",
+    "error": {
+      "code": "deadline_exceeded",
+      "phase": "request"
+    }
+  }
+]

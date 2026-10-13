@@ -1,0 +1,316 @@
+{
+ "case": "P02/E03 Anthropic × Messages history, tool round trip, thinking replay and images",
+ "source": "Synthetic offline fixture. Each scenario is a host's history in the test host's storage shape (see history_fixture_test.go decodeStoredMessage; trusted marks messages whose envelope the host vouches for, on the tenant's account at the message's provider) and the request body frozen pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) sends for it: packages/ai/src/api/transform-messages.ts transformMessages (same-/cross-model thinking and text, tool call id normalization with Anthropic's normalizeToolCallId, image placeholders, error turns, synthetic results) and packages/ai/src/api/anthropic-messages.ts convertMessages / convertToolResult / convertContentBlocks / convertTools (signed and redacted thinking replay, blank text dropped, consecutive tool results in one user message, cache_control on the last user block). Native state is replayed only under a trusted envelope (spec I6); otherwise the message follows the cross-model rules and the downgrade is counted.",
+ "scenarios": [
+  {
+   "id": "tool-round-trip",
+   "about": "A same-model turn with signed thinking, text and a tool call, answered by the host's tool result: thinking is replayed with its signature, the call as tool_use with its parsed input, the result as a tool_result in a user message carrying the cache marker.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "tools": [{"name": "lookup", "description": "Look something up.", "parameters": {"type": "object", "properties": {"q": {"type": "string"}}, "required": ["q"]}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Look up x."}]},
+     {"role": "assistant", "trusted": true, "api": "anthropic-messages", "provider": "anthropic", "model": "claude-haiku-4-5", "stopReason": "toolUse", "timestamp": 1,
+      "content": [{"type": "thinking", "thinking": "Let me think", "thinkingSignature": "sig-abc"}, {"type": "text", "text": "Hi there"}, {"type": "toolCall", "id": "toolu_01", "name": "lookup", "arguments": {"q": "x"}}]},
+     {"role": "toolResult", "toolCallId": "toolu_01", "toolName": "lookup", "content": [{"type": "text", "text": "42"}], "isError": false}
+    ]
+   },
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_h", "usage": {"input_tokens": 40, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "It is 42."}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 4}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {"role": "user", "content": [{"type": "text", "text": "Look up x."}]},
+       {"role": "assistant", "content": [{"type": "thinking", "thinking": "Let me think", "signature": "sig-abc"}, {"type": "text", "text": "Hi there"}, {"type": "tool_use", "id": "toolu_01", "name": "lookup", "input": {"q": "x"}}]},
+       {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "toolu_01", "content": "42", "is_error": false, "cache_control": {"type": "ephemeral"}}]}
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "tools": [{"name": "lookup", "description": "Look something up.", "eager_input_streaming": true, "input_schema": {"type": "object", "properties": {"q": {"type": "string"}}, "required": ["q"]}, "cache_control": {"type": "ephemeral"}}]
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_h",
+    "content": [{"type": "text", "text": "It is 42."}],
+    "downgrades": {}
+   }
+  },
+  {
+   "id": "signed-empty-and-redacted",
+   "about": "Same-model state under a trusted envelope: a thinking block with an empty text but a signature is replayed as thinking with that signature, a redacted block returns its payload as redacted_thinking.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Q?"}]},
+     {"role": "assistant", "trusted": true, "api": "anthropic-messages", "provider": "anthropic", "model": "claude-haiku-4-5", "stopReason": "stop", "timestamp": 1,
+      "content": [{"type": "thinking", "thinking": "", "thinkingSignature": "sig-empty"}, {"type": "thinking", "thinking": "[Reasoning redacted]", "thinkingSignature": "opaque-blob", "redacted": true}, {"type": "text", "text": "Answer."}]},
+     {"role": "user", "content": [{"type": "text", "text": "Next?"}]}
+    ]
+   },
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_h", "usage": {"input_tokens": 40, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Done."}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 2}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {"role": "user", "content": [{"type": "text", "text": "Q?"}]},
+       {"role": "assistant", "content": [{"type": "thinking", "thinking": "", "signature": "sig-empty"}, {"type": "redacted_thinking", "data": "opaque-blob"}, {"type": "text", "text": "Answer."}]},
+       {"role": "user", "content": [{"type": "text", "text": "Next?", "cache_control": {"type": "ephemeral"}}]}
+      ],
+      "max_tokens": 64000,
+      "stream": true
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_h",
+    "content": [{"type": "text", "text": "Done."}],
+    "downgrades": {}
+   }
+  },
+  {
+   "id": "untrusted-native-state",
+   "about": "The same history restored without the host vouching for it: its native state is not replayed; the cross-model rules drop the blank signed thinking and the redacted block, the call goes ahead and the downgrade is counted (barness-only metadata; pi, which has no envelope, replays it, see the ledger).",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Q?"}]},
+     {"role": "assistant", "api": "anthropic-messages", "provider": "anthropic", "model": "claude-haiku-4-5", "stopReason": "stop", "timestamp": 1,
+      "content": [{"type": "thinking", "thinking": "", "thinkingSignature": "sig-empty"}, {"type": "thinking", "thinking": "[Reasoning redacted]", "thinkingSignature": "opaque-blob", "redacted": true}, {"type": "text", "text": "Answer."}]},
+     {"role": "user", "content": [{"type": "text", "text": "Next?"}]}
+    ]
+   },
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_h", "usage": {"input_tokens": 40, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Done."}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 2}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {"role": "user", "content": [{"type": "text", "text": "Q?"}]},
+       {"role": "assistant", "content": [{"type": "text", "text": "Answer."}]},
+       {"role": "user", "content": [{"type": "text", "text": "Next?", "cache_control": {"type": "ephemeral"}}]}
+      ],
+      "max_tokens": 64000,
+      "stream": true
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_h",
+    "content": [{"type": "text", "text": "Done."}],
+    "downgrades": {"noEnvelope": 1}
+   }
+  },
+  {
+   "id": "cross-provider",
+   "about": "A Responses turn replayed to Anthropic: text loses its signature, the tool call id 'call_1|fc_1' is normalized to Anthropic's alphabet and the result follows it.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "tools": [{"name": "lookup", "description": "Look something up.", "parameters": {"type": "object", "properties": {"q": {"type": "string"}}, "required": ["q"]}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "Look up x."}]},
+     {"role": "assistant", "api": "openai-responses", "provider": "openai", "model": "gpt-4.1-mini", "stopReason": "toolUse", "timestamp": 1,
+      "content": [{"type": "text", "text": "Checking.", "textSignature": "{\"v\":1,\"id\":\"msg_1\"}"}, {"type": "toolCall", "id": "call_1|fc_1", "name": "lookup", "arguments": {"q": "x"}}]},
+     {"role": "toolResult", "toolCallId": "call_1|fc_1", "toolName": "lookup", "content": [{"type": "text", "text": "42"}], "isError": false}
+    ]
+   },
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_h", "usage": {"input_tokens": 40, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Done."}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 2}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {"role": "user", "content": [{"type": "text", "text": "Look up x."}]},
+       {"role": "assistant", "content": [{"type": "text", "text": "Checking."}, {"type": "tool_use", "id": "call_1_fc_1", "name": "lookup", "input": {"q": "x"}}]},
+       {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "call_1_fc_1", "content": "42", "is_error": false, "cache_control": {"type": "ephemeral"}}]}
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "tools": [{"name": "lookup", "description": "Look something up.", "eager_input_streaming": true, "input_schema": {"type": "object", "properties": {"q": {"type": "string"}}, "required": ["q"]}, "cache_control": {"type": "ephemeral"}}]
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_h",
+    "content": [{"type": "text", "text": "Done."}],
+    "downgrades": {"crossModel": 1}
+   }
+  },
+  {
+   "id": "images",
+   "about": "A model taking images gets the user image as a base64 image block, and a tool result holding only an image gets pi's '(see attached image)' text before it.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "tools": [{"name": "screenshot", "description": "Take a screenshot.", "parameters": {"type": "object", "properties": {}}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "What is this?"}, {"type": "image", "data": "iVBORw0KGgo=", "mimeType": "image/png"}]},
+     {"role": "assistant", "api": "anthropic-messages", "provider": "anthropic", "model": "claude-haiku-4-5", "stopReason": "toolUse", "timestamp": 1,
+      "content": [{"type": "toolCall", "id": "toolu_img", "name": "screenshot", "arguments": {}}]},
+     {"role": "toolResult", "toolCallId": "toolu_img", "toolName": "screenshot", "content": [{"type": "image", "data": "R0lGODdh", "mimeType": "image/gif"}], "isError": false}
+    ]
+   },
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_h", "usage": {"input_tokens": 40, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Done."}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 2}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {"role": "user", "content": [{"type": "text", "text": "What is this?"}, {"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": "iVBORw0KGgo="}}]},
+       {"role": "assistant", "content": [{"type": "tool_use", "id": "toolu_img", "name": "screenshot", "input": {}}]},
+       {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "toolu_img", "content": [{"type": "text", "text": "(see attached image)"}, {"type": "image", "source": {"type": "base64", "media_type": "image/gif", "data": "R0lGODdh"}}], "is_error": false, "cache_control": {"type": "ephemeral"}}]}
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "tools": [{"name": "screenshot", "description": "Take a screenshot.", "eager_input_streaming": true, "input_schema": {"type": "object", "properties": {}, "required": []}, "cache_control": {"type": "ephemeral"}}]
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_h",
+    "content": [{"type": "text", "text": "Done."}],
+    "downgrades": {}
+   }
+  },
+  {
+   "id": "image-placeholders",
+   "about": "The same history to a model without image input (a custom text-only model): images become pi's placeholder texts, so the tool result is plain text.",
+   "model": "claude-haiku-4-5",
+   "modelPatch": {"input": ["text"]},
+   "context": {
+    "tools": [{"name": "screenshot", "description": "Take a screenshot.", "parameters": {"type": "object", "properties": {}}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "What is this?"}, {"type": "image", "data": "iVBORw0KGgo=", "mimeType": "image/png"}]},
+     {"role": "assistant", "api": "anthropic-messages", "provider": "anthropic", "model": "claude-haiku-4-5", "stopReason": "toolUse", "timestamp": 1,
+      "content": [{"type": "toolCall", "id": "toolu_img", "name": "screenshot", "arguments": {}}]},
+     {"role": "toolResult", "toolCallId": "toolu_img", "toolName": "screenshot", "content": [{"type": "image", "data": "R0lGODdh", "mimeType": "image/gif"}], "isError": false}
+    ]
+   },
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_h", "usage": {"input_tokens": 40, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Done."}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 2}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {"role": "user", "content": [{"type": "text", "text": "What is this?"}, {"type": "text", "text": "(image omitted: model does not support images)"}]},
+       {"role": "assistant", "content": [{"type": "tool_use", "id": "toolu_img", "name": "screenshot", "input": {}}]},
+       {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "toolu_img", "content": "(tool image omitted: model does not support images)", "is_error": false, "cache_control": {"type": "ephemeral"}}]}
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "tools": [{"name": "screenshot", "description": "Take a screenshot.", "eager_input_streaming": true, "input_schema": {"type": "object", "properties": {}, "required": []}, "cache_control": {"type": "ephemeral"}}]
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_h",
+    "content": [{"type": "text", "text": "Done."}],
+    "downgrades": {}
+   }
+  },
+  {
+   "id": "missing-result-error-turn-blank-text",
+   "about": "A call left unanswered gets pi's synthetic 'No result provided' error result before the next user turn; an error turn is not replayed; blank user text is dropped.",
+   "model": "claude-haiku-4-5",
+   "context": {
+    "tools": [{"name": "lookup", "description": "Look something up.", "parameters": {"type": "object", "properties": {"q": {"type": "string"}}, "required": ["q"]}}],
+    "messages": [
+     {"role": "user", "content": [{"type": "text", "text": "First"}]},
+     {"role": "assistant", "api": "anthropic-messages", "provider": "anthropic", "model": "claude-haiku-4-5", "stopReason": "toolUse", "timestamp": 1,
+      "content": [{"type": "toolCall", "id": "toolu_a", "name": "lookup", "arguments": {"q": "a"}}]},
+     {"role": "user", "content": [{"type": "text", "text": "Never mind."}]},
+     {"role": "assistant", "api": "anthropic-messages", "provider": "anthropic", "model": "claude-haiku-4-5", "stopReason": "error", "errorMessage": "boom", "timestamp": 2,
+      "content": [{"type": "text", "text": "partial"}]},
+     {"role": "user", "content": [{"type": "text", "text": "   "}, {"type": "text", "text": "Go on."}]}
+    ]
+   },
+   "events": [
+    {"type": "message_start", "message": {"id": "msg_h", "usage": {"input_tokens": 40, "output_tokens": 1, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}}},
+    {"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}},
+    {"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": "Done."}},
+    {"type": "content_block_stop", "index": 0},
+    {"type": "message_delta", "delta": {"stop_reason": "end_turn"}, "usage": {"output_tokens": 2}},
+    {"type": "message_stop"}
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1/messages",
+     "query": "beta=true",
+     "body": {
+      "model": "claude-haiku-4-5",
+      "messages": [
+       {"role": "user", "content": [{"type": "text", "text": "First"}]},
+       {"role": "assistant", "content": [{"type": "tool_use", "id": "toolu_a", "name": "lookup", "input": {"q": "a"}}]},
+       {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "toolu_a", "content": "No result provided", "is_error": true}]},
+       {"role": "user", "content": [{"type": "text", "text": "Never mind."}]},
+       {"role": "user", "content": [{"type": "text", "text": "Go on.", "cache_control": {"type": "ephemeral"}}]}
+      ],
+      "max_tokens": 64000,
+      "stream": true,
+      "tools": [{"name": "lookup", "description": "Look something up.", "eager_input_streaming": true, "input_schema": {"type": "object", "properties": {"q": {"type": "string"}}, "required": ["q"]}, "cache_control": {"type": "ephemeral"}}]
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "responseId": "msg_h",
+    "content": [{"type": "text", "text": "Done."}],
+    "downgrades": {}
+   }
+  }
+ ]
+}

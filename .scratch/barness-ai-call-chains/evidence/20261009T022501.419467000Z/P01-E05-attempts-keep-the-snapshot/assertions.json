@@ -1,0 +1,63 @@
+{
+  "assertions": [
+    {
+      "name": "retried call succeeds",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "two attempts",
+      "pass": true,
+      "detail": "attempts=[{AttemptID:req-e05-pinned#1 HTTPStatus:503 ProviderRequestID: Code:upstream_error RetryDelay:450ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-e05-pinned#2 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}}]"
+    },
+    {
+      "name": "new call succeeds",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "inference requests",
+      "pass": true,
+      "detail": "got 3 want 3"
+    },
+    {
+      "name": "pinned key used",
+      "pass": true,
+      "detail": "request 1 got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "same endpoint",
+      "pass": true,
+      "detail": "request 1 path \"/v1/responses\""
+    },
+    {
+      "name": "pinned key used",
+      "pass": true,
+      "detail": "request 2 got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "same endpoint",
+      "pass": true,
+      "detail": "request 2 path \"/v1/responses\""
+    },
+    {
+      "name": "attempts resend the same body",
+      "pass": true,
+      "detail": "request 2 differs"
+    },
+    {
+      "name": "pinned key used",
+      "pass": true,
+      "detail": "request 3 got \"key:tenant-a@v2\" want \"key:tenant-a@v2\""
+    },
+    {
+      "name": "same endpoint",
+      "pass": true,
+      "detail": "request 3 path \"/v1/responses\""
+    }
+  ],
+  "case_id": "P01-E05-attempts-keep-the-snapshot",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestExplicitRetry$/^attempts-keep-the-snapshot$'",
+  "status": "PASS",
+  "test": "TestExplicitRetry/attempts-keep-the-snapshot"
+}

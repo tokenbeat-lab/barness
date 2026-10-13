@@ -1,0 +1,183 @@
+[
+  {
+    "event": {
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello, world!"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "openai",
+        "model": "gpt-5-mini",
+        "responseId": "chatcmpl-001",
+        "responseModel": "gpt-5-mini-2025-08-07",
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 0.000003,
+            "output": 0.000008,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000011
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "stop",
+        "timestamp": 1791512701463
+      }
+    },
+    "type": "start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello, world!"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "openai",
+        "model": "gpt-5-mini",
+        "responseId": "chatcmpl-001",
+        "responseModel": "gpt-5-mini-2025-08-07",
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 0.000003,
+            "output": 0.000008,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000011
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "stop",
+        "timestamp": 1791512701463
+      }
+    },
+    "type": "text_start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Delta": "Hello, world!",
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello, world!"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "openai",
+        "model": "gpt-5-mini",
+        "responseId": "chatcmpl-001",
+        "responseModel": "gpt-5-mini-2025-08-07",
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 0.000003,
+            "output": 0.000008,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000011
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "stop",
+        "timestamp": 1791512701463
+      }
+    },
+    "type": "text_delta"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Content": "Hello, world!",
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello, world!"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "openai",
+        "model": "gpt-5-mini",
+        "responseId": "chatcmpl-001",
+        "responseModel": "gpt-5-mini-2025-08-07",
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 0.000003,
+            "output": 0.000008,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000011
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "stop",
+        "timestamp": 1791512701463
+      }
+    },
+    "type": "text_end"
+  },
+  {
+    "event": {
+      "Reason": "stop",
+      "Message": {
+        "content": [
+          {
+            "text": "Hello, world!"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "openai",
+        "model": "gpt-5-mini",
+        "responseId": "chatcmpl-001",
+        "responseModel": "gpt-5-mini-2025-08-07",
+        "usage": {
+          "input": 12,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 16,
+          "cost": {
+            "input": 0.000003,
+            "output": 0.000008,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000011
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "stop",
+        "timestamp": 1791512701463
+      }
+    },
+    "type": "done"
+  }
+]

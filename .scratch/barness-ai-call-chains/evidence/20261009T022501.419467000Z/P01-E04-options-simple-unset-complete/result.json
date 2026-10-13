@@ -1,0 +1,69 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "Done.",
+        "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+      }
+    ],
+    "api": "openai-responses",
+    "provider": "openai",
+    "model": "gpt-4.1-mini",
+    "responseId": "resp_o",
+    "usage": {
+      "input": 40,
+      "output": 2,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 42,
+      "cost": {
+        "input": 0.000016000000000000003,
+        "output": 0.0000032000000000000003,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000019200000000000003
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "completed",
+    "timestamp": 1791512702206
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-options-simple-unset",
+    "bindingId": "primary",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-responses",
+    "modelId": "gpt-4.1-mini",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-options-simple-unset#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.000016000000000000003,
+            "output": 0.0000032000000000000003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000019200000000000003
+          }
+        }
+      }
+    ]
+  }
+}

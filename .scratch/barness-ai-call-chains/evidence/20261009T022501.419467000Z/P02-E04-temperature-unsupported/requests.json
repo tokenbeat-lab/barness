@@ -1,0 +1,42 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/messages",
+    "query": "beta=true",
+    "key_alias": "key:tenant-a-anthropic@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Anthropic-Dangerous-Direct-Browser-Access": "true",
+      "Anthropic-Version": "2023-06-01",
+      "Content-Length": "167",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Api-Key": "key:tenant-a-anthropic@v1",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "1.75.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go",
+      "X-Stainless-Timeout": "600"
+    },
+    "body": {
+      "model": "claude-opus-4-7",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Hi",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ]
+        }
+      ],
+      "max_tokens": 128000,
+      "stream": true
+    }
+  }
+]

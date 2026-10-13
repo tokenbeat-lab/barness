@@ -1,0 +1,57 @@
+{
+  "assertions": [
+    {
+      "name": "call ends",
+      "pass": true
+    },
+    {
+      "name": "round 1: success",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "round 1: stop reason",
+      "pass": true,
+      "detail": "got \"toolUse\" want \"toolUse\""
+    },
+    {
+      "name": "round 1: content",
+      "pass": true,
+      "detail": "got [\"toolCall:call_w1|fc_w1 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"} raw={\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"toolCall:call_t1|fc_t1 get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"} raw={\\\"tz\\\":\\\"Europe/Zurich\\\"}\"]\nwant [\"toolCall:call_w1|fc_w1 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"} raw={\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"toolCall:call_t1|fc_t1 get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"} raw={\\\"tz\\\":\\\"Europe/Zurich\\\"}\"]"
+    },
+    {
+      "name": "round 1: response id",
+      "pass": true,
+      "detail": "got \"resp_t1\""
+    },
+    {
+      "name": "round 1: usage",
+      "pass": true,
+      "detail": "got {Input:120 Output:40 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:160 Cost:{Input:4.8e-05 Output:6.400000000000001e-05 CacheRead:0 CacheWrite:0 Total:0.00011200000000000001}} want {Input:120 Output:40 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:160 Cost:{Input:4.8e-05 Output:6.400000000000001e-05 CacheRead:0 CacheWrite:0 Total:0.00011200000000000001}}"
+    },
+    {
+      "name": "round 1: event sequence",
+      "pass": true,
+      "detail": "got [\"start\" \"toolcall_start#0\" \"toolcall_delta#0:{\\\"ci\" \"toolcall_delta#0:ty\\\":\\\"Zü\" \"toolcall_delta#0:rich\\\",\\\"un\" \"toolcall_delta#0:it\\\":\\\"celsius\\\"}\" \"toolcall_end#0:call_w1|fc_w1 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"toolcall_start#1\" \"toolcall_delta#1:{\\\"tz\\\":\\\"Eur\" \"toolcall_delta#1:ope/Zurich\\\"}\" \"toolcall_end#1:call_t1|fc_t1 get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"}\" \"done:toolUse\"]\nwant [\"start\" \"toolcall_start#0\" \"toolcall_delta#0:{\\\"ci\" \"toolcall_delta#0:ty\\\":\\\"Zü\" \"toolcall_delta#0:rich\\\",\\\"un\" \"toolcall_delta#0:it\\\":\\\"celsius\\\"}\" \"toolcall_end#0:call_w1|fc_w1 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"toolcall_start#1\" \"toolcall_delta#1:{\\\"tz\\\":\\\"Eur\" \"toolcall_delta#1:ope/Zurich\\\"}\" \"toolcall_end#1:call_t1|fc_t1 get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"}\" \"done:toolUse\"]"
+    },
+    {
+      "name": "round 1: Err is nil",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "round 1: toolcall_end carries the final call",
+      "pass": true,
+      "detail": "event={ID:call_w1|fc_w1 Name:get_weather Arguments:{\"city\":\"Zürich\",\"unit\":\"celsius\"} RawArguments:{\"city\":\"Zürich\",\"unit\":\"celsius\"} ThoughtSignature:{state:0 value:}} final={ID:call_w1|fc_w1 Name:get_weather Arguments:{\"city\":\"Zürich\",\"unit\":\"celsius\"} RawArguments:{\"city\":\"Zürich\",\"unit\":\"celsius\"} ThoughtSignature:{state:0 value:}}"
+    },
+    {
+      "name": "round 1: toolcall_end carries the final call",
+      "pass": true,
+      "detail": "event={ID:call_t1|fc_t1 Name:get_time Arguments:{\"tz\":\"Europe/Zurich\"} RawArguments:{\"tz\":\"Europe/Zurich\"} ThoughtSignature:{state:0 value:}} final={ID:call_t1|fc_t1 Name:get_time Arguments:{\"tz\":\"Europe/Zurich\"} RawArguments:{\"tz\":\"Europe/Zurich\"} ThoughtSignature:{state:0 value:}}"
+    }
+  ],
+  "case_id": "P01-E03-tool-call-framing-lf",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolRoundTrip$/^framing-lf$'",
+  "status": "PASS",
+  "test": "TestToolRoundTrip/framing-lf"
+}

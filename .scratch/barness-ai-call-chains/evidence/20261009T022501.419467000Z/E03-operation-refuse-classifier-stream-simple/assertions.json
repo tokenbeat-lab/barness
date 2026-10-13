@@ -1,0 +1,177 @@
+{
+  "assertions": [
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want tenant_denied/capability, got ai: tenant_denied (capability): binding does not allow this operation"
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got tenant_denied/capability"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"binding does not allow this operation\" error=\"binding does not allow this operation\""
+    },
+    {
+      "name": "stream ends with only an error terminal",
+      "pass": true,
+      "detail": "got [\"error:error\"]"
+    },
+    {
+      "name": "Err equals the Result error",
+      "pass": true,
+      "detail": "Err=ai: tenant_denied (capability): binding does not allow this operation Result=ai: tenant_denied (capability): binding does not allow this operation"
+    },
+    {
+      "name": "error event carries the Result's message and error",
+      "pass": true,
+      "detail": "event={Reason:error Message:{Content:[] API: Provider: Model: ResponseID: ResponseModel: ProviderThinkingLevel: Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error RawStopReason: ErrorMessage:binding does not allow this operation Timestamp:1791512702098 NativeState:{env:{TenantID: AccountScopeID: ProviderID: API: ModelID:}}} Err:ai: tenant_denied (capability): binding does not allow this operation}"
+    },
+    {
+      "name": "scope attribution kept",
+      "pass": true,
+      "detail": "metadata={CallAttribution:{TenantID:tenant-a RequestID:req-operation-classifier-stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "identity reported unresolved",
+      "pass": true,
+      "detail": "metadata={CallAttribution:{TenantID:tenant-a RequestID:req-operation-classifier-stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "message names no provider, API or model",
+      "pass": true,
+      "detail": "api=\"\" provider=\"\" model=\"\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"vault://kv/tenant-a/openai token=hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:environment\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v2\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-deepseek@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-deepseek@v1\""
+    },
+    {
+      "name": "operation refused without reading credentials",
+      "pass": true,
+      "detail": "got {Bindings:1 Credentials:0}"
+    },
+    {
+      "name": "operation refused without Provider requests or attempts",
+      "pass": true,
+      "detail": "metadata={CallAttribution:{TenantID:tenant-a RequestID:req-operation-classifier-stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observer received call_finished of req-operation-classifier-stream-simple",
+      "pass": true
+    },
+    {
+      "name": "call/attempt lifecycle",
+      "pass": true,
+      "detail": "got [\"call_started\" \"call_finished\"] want [\"call_started\" \"call_finished\"]"
+    },
+    {
+      "name": "records are in time order",
+      "pass": true,
+      "detail": "record 1 at 2026-10-09 10:25:02.098342 +0800 CST m=+0.686001792 before 2026-10-09 10:25:02.098339 +0800 CST m=+0.685999334"
+    },
+    {
+      "name": "call_started holds the scope, requested binding and entry operation",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-operation-classifier-stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} want {CallAttribution:{TenantID:tenant-a RequestID:req-operation-classifier-stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt_finished records equal the Result's attempts",
+      "pass": true,
+      "detail": "got [] want []"
+    },
+    {
+      "name": "call_finished carries the Result's metadata",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-operation-classifier-stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} want {CallAttribution:{TenantID:tenant-a RequestID:req-operation-classifier-stream-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "call_finished stop reason",
+      "pass": true,
+      "detail": "got \"error\" want \"error\""
+    },
+    {
+      "name": "call_finished usage is the message's",
+      "pass": true,
+      "detail": "got {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}"
+    },
+    {
+      "name": "call_finished duration is set",
+      "pass": true,
+      "detail": "got 2.541µs"
+    },
+    {
+      "name": "call_finished classifies the error, without its text",
+      "pass": true,
+      "detail": "got &{Code:tenant_denied Phase:capability HTTPStatus:0 ProviderRequestID: RetryAfter:0s} want &{Code:tenant_denied Phase:capability HTTPStatus:0 ProviderRequestID: RetryAfter:0s}"
+    },
+    {
+      "name": "failed chat entry retains chat attribution",
+      "pass": true,
+      "detail": "got \"chat\""
+    }
+  ],
+  "case_id": "E03-operation-refuse-classifier-stream-simple",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChatOperationAuthorization$/^classifier$/^stream-simple$'",
+  "status": "PASS",
+  "test": "TestChatOperationAuthorization/classifier/stream-simple"
+}

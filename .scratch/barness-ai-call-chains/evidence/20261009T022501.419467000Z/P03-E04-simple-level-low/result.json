@@ -1,0 +1,69 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "OK."
+      }
+    ],
+    "api": "google-generative-ai",
+    "provider": "google",
+    "model": "gemini-3-flash-preview",
+    "usage": {
+      "input": 5,
+      "output": 2,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 7,
+      "cost": {
+        "input": 0.0000024999999999999998,
+        "output": 0.000006,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0000085
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "timestamp": 1791512701610
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-simple-level-low-stream",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "gemini",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "google",
+    "api": "google-generative-ai",
+    "modelId": "gemini-3-flash-preview",
+    "accountScopeId": "acct-tenant-a-google",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-simple-level-low-stream#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 5,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 7,
+          "cost": {
+            "input": 0.0000024999999999999998,
+            "output": 0.000006,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000085
+          }
+        }
+      }
+    ]
+  }
+}

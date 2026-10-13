@@ -1,0 +1,65 @@
+{
+  "cases": [
+    {
+      "artifacts": {
+        "assertions.json": "7767765b4c9d3100b1c1d767e031d939bbb2f4c76b5c5e4c1021ad6a3ef9b5c4",
+        "probe.json": "b46b0eea00d3e4c3ca0788cb5506fa57745602373f84b18be1167634618a7655",
+        "response-script.json": "e5e02c099f7d77e4dc34269e7dc779ec818acfec29f6c931fe4c4f3594d18bfc",
+        "result.json": "7ed00e7b90d9b140819be7a3c5d0b1deed1773352f2e07e7881c68f18da7e90c"
+      },
+      "dir": "E08-queue-events-overflow-mid-deltas-complete",
+      "fixtures": {},
+      "id": "E08-queue-events-overflow-mid-deltas-complete",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestEventQueueLimits$/^events-overflow-mid-deltas$/^complete$'",
+      "status": "PASS",
+      "test": "TestEventQueueLimits/events-overflow-mid-deltas/complete"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "92db485d8d780a426699382e1a774b83027e5d2e33261269489918e820333644",
+        "error.json": "8ede87a512f710617e36b19f7df284ff68fcbcef997057a92245e6b451fc3259",
+        "events.json": "ebbda71f6a4760122835eac3e124ede08b6c5fd80ad01a35e9bc76a668a6de5c",
+        "probe.json": "b46b0eea00d3e4c3ca0788cb5506fa57745602373f84b18be1167634618a7655",
+        "probe_peak_queued_events.json": "9e62e6489fcc4bc58be7cb23e74d25cbfcc3732c1f70e8c37f12a756d1db9381",
+        "response-script.json": "e5e02c099f7d77e4dc34269e7dc779ec818acfec29f6c931fe4c4f3594d18bfc",
+        "result.json": "e9627c6988400a06aa8f31b8ddfd7327fc5f0d4b63a3d32d973f691974236a03"
+      },
+      "dir": "E08-queue-events-overflow-mid-deltas-result-only-stream-full",
+      "fixtures": {},
+      "id": "E08-queue-events-overflow-mid-deltas-result-only-stream-full",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestEventQueueLimits$/^events-overflow-mid-deltas$/^result-only-stream-full$'",
+      "status": "PASS",
+      "test": "TestEventQueueLimits/events-overflow-mid-deltas/result-only-stream-full"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "0075acfe63878f74159da994220245a1cb45dcf48e9633a961f197c051ae804b",
+        "error.json": "8ede87a512f710617e36b19f7df284ff68fcbcef997057a92245e6b451fc3259",
+        "events.json": "8c28cb80ba47874f3aa35519ba61d212779fb8cc9325790a0a01e90ed7e02b66",
+        "probe.json": "b46b0eea00d3e4c3ca0788cb5506fa57745602373f84b18be1167634618a7655",
+        "probe_peak_queued_events.json": "9e62e6489fcc4bc58be7cb23e74d25cbfcc3732c1f70e8c37f12a756d1db9381",
+        "response-script.json": "e5e02c099f7d77e4dc34269e7dc779ec818acfec29f6c931fe4c4f3594d18bfc",
+        "result.json": "6613bf64ee025c3ccb8f30fcc578352d84e1fa3631de0942af62430d5d3e460d"
+      },
+      "dir": "E08-queue-events-overflow-mid-deltas-result-only-stream-simple",
+      "fixtures": {},
+      "id": "E08-queue-events-overflow-mid-deltas-result-only-stream-simple",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestEventQueueLimits$/^events-overflow-mid-deltas$/^result-only-stream-simple$'",
+      "status": "PASS",
+      "test": "TestEventQueueLimits/events-overflow-mid-deltas/result-only-stream-simple"
+    }
+  ],
+  "finished_at": "2026-10-10T08:20:39.667985Z",
+  "git_commit": "39ab6a5f4c3e838340b46027e84f19b7a37d9fcf",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "./ai/e2e",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-10T08:20:39.595207Z",
+  "versions": {
+    "anthropic-sdk-go": "v1.75.0",
+    "model_catalog_hash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "model_catalog_version": "2026-10-08.5",
+    "openai-go": "v3.66.0"
+  }
+}

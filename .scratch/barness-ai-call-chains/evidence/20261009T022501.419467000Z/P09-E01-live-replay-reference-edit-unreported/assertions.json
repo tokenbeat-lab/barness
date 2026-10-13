@@ -1,0 +1,38 @@
+{
+  "assertions": [
+    {
+      "name": "confirmed native response accepted offline",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "same native request, v1beta and omitted delivery",
+      "pass": true,
+      "detail": "request mismatch"
+    },
+    {
+      "name": "raster remains fully readable and matches saved artifact",
+      "pass": true,
+      "detail": "invalid artifact"
+    },
+    {
+      "name": "actual identity presence, not attribution fallback",
+      "pass": true,
+      "detail": "identity invented or lost"
+    },
+    {
+      "name": "usage totals, nullable modalities and partial semantics",
+      "pass": true,
+      "detail": "usage={Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want={Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}"
+    },
+    {
+      "name": "updated immutable price snapshot",
+      "pass": true,
+      "detail": "wrong snapshot"
+    }
+  ],
+  "case_id": "P09-E01-live-replay-reference-edit-unreported",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesLiveWireReplay$/^reference-edit$/^unreported$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesLiveWireReplay/reference-edit/unreported"
+}

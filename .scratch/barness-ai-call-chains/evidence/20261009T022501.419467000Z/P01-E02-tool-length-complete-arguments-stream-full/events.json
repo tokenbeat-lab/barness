@@ -1,0 +1,210 @@
+[
+  {
+    "event": {
+      "Partial": {
+        "content": [
+          {
+            "id": "call_w4|fc_w4",
+            "name": "get_weather",
+            "arguments": {
+              "city": "Zürich"
+            },
+            "rawArguments": "{\"city\":\"Zürich\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_t4",
+        "usage": {
+          "input": 120,
+          "output": 9,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 129,
+          "cost": {
+            "input": 0.000048,
+            "output": 0.000014400000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000624
+          }
+        },
+        "stopReason": "length",
+        "rawStopReason": "incomplete.max_output_tokens",
+        "timestamp": 1791512703465
+      }
+    },
+    "type": "start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Partial": {
+        "content": [
+          {
+            "id": "call_w4|fc_w4",
+            "name": "get_weather",
+            "arguments": {
+              "city": "Zürich"
+            },
+            "rawArguments": "{\"city\":\"Zürich\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_t4",
+        "usage": {
+          "input": 120,
+          "output": 9,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 129,
+          "cost": {
+            "input": 0.000048,
+            "output": 0.000014400000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000624
+          }
+        },
+        "stopReason": "length",
+        "rawStopReason": "incomplete.max_output_tokens",
+        "timestamp": 1791512703465
+      }
+    },
+    "type": "toolcall_start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Delta": "{\"city\":\"Zürich\"}",
+      "Partial": {
+        "content": [
+          {
+            "id": "call_w4|fc_w4",
+            "name": "get_weather",
+            "arguments": {
+              "city": "Zürich"
+            },
+            "rawArguments": "{\"city\":\"Zürich\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_t4",
+        "usage": {
+          "input": 120,
+          "output": 9,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 129,
+          "cost": {
+            "input": 0.000048,
+            "output": 0.000014400000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000624
+          }
+        },
+        "stopReason": "length",
+        "rawStopReason": "incomplete.max_output_tokens",
+        "timestamp": 1791512703465
+      }
+    },
+    "type": "toolcall_delta"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "ToolCall": {
+        "id": "call_w4|fc_w4",
+        "name": "get_weather",
+        "arguments": {
+          "city": "Zürich"
+        },
+        "rawArguments": "{\"city\":\"Zürich\"}"
+      },
+      "Partial": {
+        "content": [
+          {
+            "id": "call_w4|fc_w4",
+            "name": "get_weather",
+            "arguments": {
+              "city": "Zürich"
+            },
+            "rawArguments": "{\"city\":\"Zürich\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_t4",
+        "usage": {
+          "input": 120,
+          "output": 9,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 129,
+          "cost": {
+            "input": 0.000048,
+            "output": 0.000014400000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000624
+          }
+        },
+        "stopReason": "length",
+        "rawStopReason": "incomplete.max_output_tokens",
+        "timestamp": 1791512703465
+      }
+    },
+    "type": "toolcall_end"
+  },
+  {
+    "event": {
+      "Reason": "length",
+      "Message": {
+        "content": [
+          {
+            "id": "call_w4|fc_w4",
+            "name": "get_weather",
+            "arguments": {
+              "city": "Zürich"
+            },
+            "rawArguments": "{\"city\":\"Zürich\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_t4",
+        "usage": {
+          "input": 120,
+          "output": 9,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 129,
+          "cost": {
+            "input": 0.000048,
+            "output": 0.000014400000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000624
+          }
+        },
+        "stopReason": "length",
+        "rawStopReason": "incomplete.max_output_tokens",
+        "timestamp": 1791512703465
+      }
+    },
+    "type": "done"
+  }
+]

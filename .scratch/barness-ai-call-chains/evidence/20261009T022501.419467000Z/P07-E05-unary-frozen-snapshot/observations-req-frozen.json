@@ -1,0 +1,258 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-09T10:25:03.799229+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-frozen",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-09T10:25:03.799327+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-frozen",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "host-jev",
+      "accountScopeId": "acct-tenant-a",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41"
+    },
+    "attempt": {
+      "attemptId": "req-frozen#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-09T10:25:03.800192+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-frozen",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "host-jev",
+      "accountScopeId": "acct-tenant-a",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41"
+    },
+    "attempt": {
+      "attemptId": "req-frozen#1",
+      "httpStatus": 429,
+      "code": "rate_limited",
+      "retryDelay": 10000000,
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    },
+    "duration": 864375
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-09T10:25:03.800196+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-frozen",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "host-jev",
+      "accountScopeId": "acct-tenant-a",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41"
+    },
+    "attempt": {
+      "attemptId": "req-frozen#2",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-09T10:25:03.800614+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-frozen",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "host-jev",
+      "accountScopeId": "acct-tenant-a",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41"
+    },
+    "attempt": {
+      "attemptId": "req-frozen#2",
+      "httpStatus": 200,
+      "providerRequestId": "req-typesafe",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 296,
+        "output": 20,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 316,
+        "cost": {
+          "input": 0.000296,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000296
+        }
+      }
+    },
+    "duration": 418458
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-09T10:25:03.800618+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-frozen",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "host-jev",
+      "accountScopeId": "acct-tenant-a",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "2026-10-08.5",
+      "catalogHash": "sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41",
+      "attempts": [
+        {
+          "attemptId": "req-frozen#1",
+          "httpStatus": 429,
+          "code": "rate_limited",
+          "retryDelay": 10000000,
+          "usageReporting": "unreported",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          }
+        },
+        {
+          "attemptId": "req-frozen#2",
+          "httpStatus": 200,
+          "providerRequestId": "req-typesafe",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 296,
+            "output": 20,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 316,
+            "cost": {
+              "input": 0.000296,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000296
+            }
+          }
+        }
+      ]
+    },
+    "duration": 1390208,
+    "stopReason": "stop",
+    "usage": {
+      "input": 296,
+      "output": 20,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 316,
+      "cost": {
+        "input": 0.000296,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000296
+      }
+    }
+  }
+]

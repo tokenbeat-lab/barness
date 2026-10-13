@@ -1,0 +1,10 @@
+[
+  {
+    "status": 200,
+    "header": {
+      "Content-Type": "text/event-stream"
+    },
+    "script": "event: response.created\ndata: {\"type\":\"response.created\",\"sequence_number\":0,\"response\":{\"id\":\"resp_011\",\"object\":\"response\",\"created_at\":1790000000,\"status\":\"in_progress\",\"model\":\"gpt-4.1-mini-2025-04-14\",\"output\":[],\"usage\":null}}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"sequence_number\":1,\"output_index\":0,\"item\":{\"id\":\"msg_011\",\"type\":\"message\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]}}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"sequence_number\":2,\"item_id\":\"msg_011\",\"output_index\":0,\"content_index\":0,\"delta\":\"Hello\"}\n\n",
+    "end": "abort"
+  }
+]

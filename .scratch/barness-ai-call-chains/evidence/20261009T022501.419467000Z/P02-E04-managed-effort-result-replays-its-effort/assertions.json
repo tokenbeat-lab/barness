@@ -1,0 +1,38 @@
+{
+  "assertions": [
+    {
+      "name": "first turn succeeds",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "first turn records max",
+      "pass": true,
+      "detail": "got \"max\""
+    },
+    {
+      "name": "serialized with the message",
+      "pass": true,
+      "detail": "got {ProviderThinkingLevel:max}"
+    },
+    {
+      "name": "second turn succeeds and records low",
+      "pass": true,
+      "detail": "err=<nil> level=\"low\""
+    },
+    {
+      "name": "two requests sent",
+      "pass": true,
+      "detail": "got 2"
+    },
+    {
+      "name": "first turn replayed signed after its effort, the new effort trailing",
+      "pass": true,
+      "detail": "got [{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Say hello.\"}]},{\"role\":\"system\",\"content\":[],\"output_config\":{\"effort\":\"max\"}},{\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Hmm.\",\"signature\":\"sig-r\"},{\"type\":\"text\",\"text\":\"Done.\"}]},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"And now?\",\"cache_control\":{\"type\":\"ephemeral\"}}]},{\"role\":\"system\",\"content\":[],\"output_config\":{\"effort\":\"low\"}}]"
+    }
+  ],
+  "case_id": "P02-E04-managed-effort-result-replays-its-effort",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestManagedEffort$/^result-replays-its-effort$'",
+  "status": "PASS",
+  "test": "TestManagedEffort/result-replays-its-effort"
+}

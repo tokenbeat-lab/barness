@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "the loop stops at MaxTurns",
+      "pass": true,
+      "detail": "err=toolloop: too many turns: 2 turns=2"
+    },
+    {
+      "name": "no request beyond MaxTurns",
+      "pass": true,
+      "detail": "got 2"
+    }
+  ],
+  "case_id": "P01-E10-example-tool-loop-max-turns",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolLoopExample$/^max-turns$'",
+  "status": "PASS",
+  "test": "TestToolLoopExample/max-turns"
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "test": "TestToolLoopExample/responses",
+    "case": "P01-E10-example-tool-loop",
+    "status": "PASS",
+    "assertions": 9,
+    "result": "两次 /v1/responses；工具各运行一次；第二轮 function_call_output 带宿主结果；最终 stop。",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestToolLoopExample$/^responses$'",
+    "evidence": "/Users/cyber/RestoX/barness/.scratch/barness-ai-call-chains/evidence/20261009T022501.419467000Z/P01-E10-example-tool-loop"
+  },
+  {
+    "test": "TestOpenAIImagesEditingSnapshot/value",
+    "case": "P08-E07-edit-snapshot-value",
+    "status": "PASS",
+    "assertions": 1,
+    "result": "发往 /v1/images/edits 的仍是入口副本，返回一张合法 png。",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEditingSnapshot$/^value$'",
+    "evidence": "/Users/cyber/RestoX/barness/.scratch/barness-ai-call-chains/evidence/20261009T022501.419467000Z/P08-E07-edit-snapshot-value"
+  },
+  {
+    "test": "TestClassifierMixedCallbacks/final-questions",
+    "case": "P07-E04-mixed-final-questions",
+    "status": "PASS",
+    "assertions": 3,
+    "result": "changed.Score=0.25；yes.Probability=0.2。原输入保持不变；ResponseModel 不改授权 ModelID。",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^final-questions$'",
+    "evidence": "/Users/cyber/RestoX/barness/.scratch/barness-ai-call-chains/evidence/20261009T022501.419467000Z/P07-E04-mixed-final-questions"
+  },
+  {
+    "test": "TestUnaryFrozenRetry",
+    "case": "P07-E05-unary-frozen-snapshot",
+    "status": "PASS",
+    "assertions": 28,
+    "result": "Binding / Credential 各一次；Headers / Payload / Response 各一次；两份请求字节相同；结束资源计数为0。",
+    "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryFrozenRetry$'",
+    "evidence": "/Users/cyber/RestoX/barness/.scratch/barness-ai-call-chains/evidence/20261009T022501.419467000Z/P07-E05-unary-frozen-snapshot"
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "no inference request sent",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "no credential read",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want invalid_request/capability, got ai: invalid_request (capability): maxTokens must not be negative"
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got invalid_request/capability"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"maxTokens must not be negative\" error=\"maxTokens must not be negative\""
+    }
+  ],
+  "case_id": "P01-E04-options-reject-full-max-tokens-negative-complete",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOptionRejects$/^full-max-tokens-negative$/^complete$'",
+  "status": "PASS",
+  "test": "TestOptionRejects/full-max-tokens-negative/complete"
+}

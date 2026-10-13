@@ -1,0 +1,30 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1beta/interactions",
+    "query": "",
+    "key_alias": "key:tenant-a-google@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Content-Length": "178",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Goog-Api-Key": "key:tenant-a-google@v1"
+    },
+    "body": {
+      "input": [
+        {
+          "text": "一张餐厅露台照片",
+          "type": "text"
+        }
+      ],
+      "model": "host-google-image",
+      "response_format": {
+        "aspect_ratio": "16:9",
+        "image_size": "2K",
+        "type": "image"
+      },
+      "store": false
+    }
+  }
+]

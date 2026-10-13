@@ -1,0 +1,30 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1beta/interactions",
+    "query": "",
+    "key_alias": "key:tenant-a-google@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Content-Length": "389",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Goog-Api-Key": "key:tenant-a-google@v1"
+    },
+    "body": {
+      "model": "gemini-nano-banana-2.1",
+      "store": false,
+      "input": [
+        {
+          "type": "text",
+          "text": "Create an original whimsical still-life photograph of three handmade turquoise ceramic bowls, a yellow paper crane, and a small purple pebble on a pale peach tabletop, soft morning light. No text or logos. Return exactly one image."
+        }
+      ],
+      "response_format": {
+        "type": "image",
+        "aspect_ratio": "1:1",
+        "image_size": "1K"
+      }
+    }
+  }
+]

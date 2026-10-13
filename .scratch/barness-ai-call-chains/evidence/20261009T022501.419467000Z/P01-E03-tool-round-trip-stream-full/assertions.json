@@ -1,0 +1,170 @@
+{
+  "assertions": [
+    {
+      "name": "round 1 ends",
+      "pass": true
+    },
+    {
+      "name": "round 1: success",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "round 1: stop reason",
+      "pass": true,
+      "detail": "got \"toolUse\" want \"toolUse\""
+    },
+    {
+      "name": "round 1: content",
+      "pass": true,
+      "detail": "got [\"toolCall:call_w1|fc_w1 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"} raw={\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"toolCall:call_t1|fc_t1 get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"} raw={\\\"tz\\\":\\\"Europe/Zurich\\\"}\"]\nwant [\"toolCall:call_w1|fc_w1 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"} raw={\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"toolCall:call_t1|fc_t1 get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"} raw={\\\"tz\\\":\\\"Europe/Zurich\\\"}\"]"
+    },
+    {
+      "name": "round 1: response id",
+      "pass": true,
+      "detail": "got \"resp_t1\""
+    },
+    {
+      "name": "round 1: usage",
+      "pass": true,
+      "detail": "got {Input:120 Output:40 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:160 Cost:{Input:4.8e-05 Output:6.400000000000001e-05 CacheRead:0 CacheWrite:0 Total:0.00011200000000000001}} want {Input:120 Output:40 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:160 Cost:{Input:4.8e-05 Output:6.400000000000001e-05 CacheRead:0 CacheWrite:0 Total:0.00011200000000000001}}"
+    },
+    {
+      "name": "round 1: event sequence",
+      "pass": true,
+      "detail": "got [\"start\" \"toolcall_start#0\" \"toolcall_delta#0:{\\\"ci\" \"toolcall_delta#0:ty\\\":\\\"Zü\" \"toolcall_delta#0:rich\\\",\\\"un\" \"toolcall_delta#0:it\\\":\\\"celsius\\\"}\" \"toolcall_end#0:call_w1|fc_w1 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"toolcall_start#1\" \"toolcall_delta#1:{\\\"tz\\\":\\\"Eur\" \"toolcall_delta#1:ope/Zurich\\\"}\" \"toolcall_end#1:call_t1|fc_t1 get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"}\" \"done:toolUse\"]\nwant [\"start\" \"toolcall_start#0\" \"toolcall_delta#0:{\\\"ci\" \"toolcall_delta#0:ty\\\":\\\"Zü\" \"toolcall_delta#0:rich\\\",\\\"un\" \"toolcall_delta#0:it\\\":\\\"celsius\\\"}\" \"toolcall_end#0:call_w1|fc_w1 get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"toolcall_start#1\" \"toolcall_delta#1:{\\\"tz\\\":\\\"Eur\" \"toolcall_delta#1:ope/Zurich\\\"}\" \"toolcall_end#1:call_t1|fc_t1 get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"}\" \"done:toolUse\"]"
+    },
+    {
+      "name": "round 1: Err is nil",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "round 1: toolcall_end carries the final call",
+      "pass": true,
+      "detail": "event={ID:call_w1|fc_w1 Name:get_weather Arguments:{\"city\":\"Zürich\",\"unit\":\"celsius\"} RawArguments:{\"city\":\"Zürich\",\"unit\":\"celsius\"} ThoughtSignature:{state:0 value:}} final={ID:call_w1|fc_w1 Name:get_weather Arguments:{\"city\":\"Zürich\",\"unit\":\"celsius\"} RawArguments:{\"city\":\"Zürich\",\"unit\":\"celsius\"} ThoughtSignature:{state:0 value:}}"
+    },
+    {
+      "name": "round 1: toolcall_end carries the final call",
+      "pass": true,
+      "detail": "event={ID:call_t1|fc_t1 Name:get_time Arguments:{\"tz\":\"Europe/Zurich\"} RawArguments:{\"tz\":\"Europe/Zurich\"} ThoughtSignature:{state:0 value:}} final={ID:call_t1|fc_t1 Name:get_time Arguments:{\"tz\":\"Europe/Zurich\"} RawArguments:{\"tz\":\"Europe/Zurich\"} ThoughtSignature:{state:0 value:}}"
+    },
+    {
+      "name": "round 1 sent one request",
+      "pass": true,
+      "detail": "got 1"
+    },
+    {
+      "name": "round 1 body: tools and tool_choice",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are a weather assistant.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"What is the weather and local time in Zürich?\"}]}],\"stream\":true,\"store\":false,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Current weather for a city\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"},\"unit\":{\"type\":\"string\",\"enum\":[\"celsius\",\"fahrenheit\"]}},\"required\":[\"city\"],\"additionalProperties\":false},\"strict\":false},{\"type\":\"function\",\"name\":\"get_time\",\"description\":\"Local time in an IANA time zone\",\"parameters\":{\"type\":\"object\",\"properties\":{\"tz\":{\"type\":\"string\"}},\"required\":[\"tz\"],\"additionalProperties\":false},\"strict\":false}],\"tool_choice\":\"required\"}"
+    },
+    {
+      "name": "round 1 content is tool calls",
+      "pass": true,
+      "detail": "block 0 is ai.ToolCall"
+    },
+    {
+      "name": "call get_weather is executable",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "validated arguments decode",
+      "pass": true,
+      "detail": "got {\"city\":\"Zürich\",\"unit\":\"celsius\"}"
+    },
+    {
+      "name": "validated call keeps its identity",
+      "pass": true,
+      "detail": "got \"call_w1|fc_w1\" \"get_weather\""
+    },
+    {
+      "name": "round 1 content is tool calls",
+      "pass": true,
+      "detail": "block 1 is ai.ToolCall"
+    },
+    {
+      "name": "call get_time is executable",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "validated arguments decode",
+      "pass": true,
+      "detail": "got {\"tz\":\"Europe/Zurich\"}"
+    },
+    {
+      "name": "validated call keeps its identity",
+      "pass": true,
+      "detail": "got \"call_t1|fc_t1\" \"get_time\""
+    },
+    {
+      "name": "round 2 ends",
+      "pass": true
+    },
+    {
+      "name": "round 2: success",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "round 2: stop reason",
+      "pass": true,
+      "detail": "got \"stop\" want \"stop\""
+    },
+    {
+      "name": "round 2: content",
+      "pass": true,
+      "detail": "got [\"text:It is 18°C and clear in Zürich; local time 14:05.|{\\\"v\\\":1,\\\"id\\\":\\\"msg_t2\\\"}\"]\nwant [\"text:It is 18°C and clear in Zürich; local time 14:05.|{\\\"v\\\":1,\\\"id\\\":\\\"msg_t2\\\"}\"]"
+    },
+    {
+      "name": "round 2: response id",
+      "pass": true,
+      "detail": "got \"resp_t2\""
+    },
+    {
+      "name": "round 2: usage",
+      "pass": true,
+      "detail": "got {Input:126 Output:16 CacheRead:64 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:206 Cost:{Input:5.0400000000000005e-05 Output:2.5600000000000002e-05 CacheRead:6.4000000000000006e-06 CacheWrite:0 Total:8.240000000000001e-05}} want {Input:126 Output:16 CacheRead:64 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:206 Cost:{Input:5.0400000000000005e-05 Output:2.5600000000000002e-05 CacheRead:6.4000000000000006e-06 CacheWrite:0 Total:8.240000000000001e-05}}"
+    },
+    {
+      "name": "round 2: event sequence",
+      "pass": true,
+      "detail": "got [\"start\" \"text_start#0\" \"text_delta#0:It is 18°C and clear in Zürich; \" \"text_delta#0:local time 14:05.\" \"text_end#0:It is 18°C and clear in Zürich; local time 14:05.\" \"done:stop\"]\nwant [\"start\" \"text_start#0\" \"text_delta#0:It is 18°C and clear in Zürich; \" \"text_delta#0:local time 14:05.\" \"text_end#0:It is 18°C and clear in Zürich; local time 14:05.\" \"done:stop\"]"
+    },
+    {
+      "name": "round 2: Err is nil",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "two requests in all",
+      "pass": true,
+      "detail": "got 2"
+    },
+    {
+      "name": "round 2 body: replayed calls and results",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are a weather assistant.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"What is the weather and local time in Zürich?\"}]},{\"type\":\"function_call\",\"id\":\"fc_w1\",\"call_id\":\"call_w1\",\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\"},{\"type\":\"function_call\",\"id\":\"fc_t1\",\"call_id\":\"call_t1\",\"name\":\"get_time\",\"arguments\":\"{\\\"tz\\\":\\\"Europe/Zurich\\\"}\"},{\"type\":\"function_call_output\",\"call_id\":\"call_w1\",\"output\":\"18°C, clear\"},{\"type\":\"function_call_output\",\"call_id\":\"call_t1\",\"output\":\"14:05\"}],\"stream\":true,\"store\":false,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Current weather for a city\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"},\"unit\":{\"type\":\"string\",\"enum\":[\"celsius\",\"fahrenheit\"]}},\"required\":[\"city\"],\"additionalProperties\":false},\"strict\":false},{\"type\":\"function\",\"name\":\"get_time\",\"description\":\"Local time in an IANA time zone\",\"parameters\":{\"type\":\"object\",\"properties\":{\"tz\":{\"type\":\"string\"}},\"required\":[\"tz\"],\"additionalProperties\":false},\"strict\":false}]}"
+    },
+    {
+      "name": "both rounds use the tenant's key",
+      "pass": true,
+      "detail": "got \"key:tenant-a@v1\" \"key:tenant-a@v1\""
+    },
+    {
+      "name": "each round is its own logical call",
+      "pass": true,
+      "detail": "got \"req-tools-1-stream-full\" \"req-tools-2-stream-full\""
+    },
+    {
+      "name": "round 1 message unchanged by the replay",
+      "pass": true
+    }
+  ],
+  "case_id": "P01-E03-tool-round-trip-stream-full",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolRoundTrip$/^stream-full$'",
+  "status": "PASS",
+  "test": "TestToolRoundTrip/stream-full"
+}

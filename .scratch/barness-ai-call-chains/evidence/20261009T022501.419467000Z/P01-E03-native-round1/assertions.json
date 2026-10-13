@@ -1,0 +1,27 @@
+{
+  "assertions": [
+    {
+      "name": "reasoning signatures are JSON.stringify of the item, encrypted content backfilled",
+      "pass": true,
+      "detail": "got [\"thinking:Check the weather in Zürich / CH|{\\\"id\\\":\\\"rs_n1\\\",\\\"type\\\":\\\"reasoning\\\",\\\"encrypted_content\\\":\\\"gAAAA-n1-backfilled\\\",\\\"summary\\\":[{\\\"type\\\":\\\"summary_text\\\",\\\"text\\\":\\\"Check the weather in Zürich / CH\\\"}],\\\"status\\\":\\\"completed\\\"}\" \"thinking:|{\\\"id\\\":\\\"rs_n2\\\",\\\"type\\\":\\\"reasoning\\\",\\\"summary\\\":[],\\\"encrypted_content\\\":\\\"gAAAA-n2/x\\\"}\" \"text:Checking now.|{\\\"v\\\":1,\\\"id\\\":\\\"msg_n1\\\",\\\"phase\\\":\\\"commentary\\\"}\" \"toolCall:call_n1|fc_n1 get_weather {\\\"city\\\":\\\"Zürich\\\"} raw={\\\"city\\\":\\\"Zürich\\\"}\"]\nwant [\"thinking:Check the weather in Zürich / CH|{\\\"id\\\":\\\"rs_n1\\\",\\\"type\\\":\\\"reasoning\\\",\\\"encrypted_content\\\":\\\"gAAAA-n1-backfilled\\\",\\\"summary\\\":[{\\\"type\\\":\\\"summary_text\\\",\\\"text\\\":\\\"Check the weather in Zürich / CH\\\"}],\\\"status\\\":\\\"completed\\\"}\" \"thinking:|{\\\"id\\\":\\\"rs_n2\\\",\\\"type\\\":\\\"reasoning\\\",\\\"summary\\\":[],\\\"encrypted_content\\\":\\\"gAAAA-n2/x\\\"}\" \"text:Checking now.|{\\\"v\\\":1,\\\"id\\\":\\\"msg_n1\\\",\\\"phase\\\":\\\"commentary\\\"}\" \"toolCall:call_n1|fc_n1 get_weather {\\\"city\\\":\\\"Zürich\\\"} raw={\\\"city\\\":\\\"Zürich\\\"}\"]"
+    },
+    {
+      "name": "the result's native state carries its envelope",
+      "pass": true,
+      "detail": "got {TenantID:tenant-a AccountScopeID:acct-tenant-a ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini} ok=true"
+    },
+    {
+      "name": "no downgrade on a call without history",
+      "pass": true,
+      "detail": "got {NoEnvelope:0 AccountMismatch:0 CrossModel:0}"
+    },
+    {
+      "name": "the envelope stays out of the message JSON",
+      "pass": true
+    }
+  ],
+  "case_id": "P01-E03-native-round1",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestNativeStateReplay$/^round1$'",
+  "status": "PASS",
+  "test": "TestNativeStateReplay/round1"
+}

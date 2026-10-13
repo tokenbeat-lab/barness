@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "final edit refused before network",
+      "pass": true,
+      "detail": "got ai: resource_limit (request): exceeded the resource policy's ImageModel.MaxReferenceImages (14)"
+    }
+  ],
+  "case_id": "P09-E04-edit-protocol-count",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^protocol-count$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesEditingCallbacks/protocol-count"
+}

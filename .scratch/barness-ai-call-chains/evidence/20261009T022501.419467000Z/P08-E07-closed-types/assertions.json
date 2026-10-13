@@ -1,0 +1,23 @@
+{
+  "assertions": [
+    {
+      "name": "simple and chat options are excluded",
+      "pass": true,
+      "detail": "options leaked"
+    },
+    {
+      "name": "chat image excluded from output",
+      "pass": true,
+      "detail": "output leaked"
+    },
+    {
+      "name": "chat usage serialization unchanged",
+      "pass": true,
+      "detail": "got map[cacheRead:0 cacheWrite:0 cost:map[cacheRead:0 cacheWrite:0 input:0 output:0 total:0] input:0 output:0 totalTokens:0]"
+    }
+  ],
+  "case_id": "P08-E07-closed-types",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^closed-options-and-output$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesOptionsAndInput/closed-options-and-output"
+}

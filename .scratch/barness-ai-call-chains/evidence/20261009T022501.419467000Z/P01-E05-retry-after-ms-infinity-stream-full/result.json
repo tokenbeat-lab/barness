@@ -1,0 +1,92 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "Hello, world!",
+        "textSignature": "{\"v\":1,\"id\":\"msg_001\"}"
+      }
+    ],
+    "api": "openai-responses",
+    "provider": "openai",
+    "model": "gpt-4.1-mini",
+    "responseId": "resp_001",
+    "usage": {
+      "input": 16,
+      "output": 5,
+      "cacheRead": 4,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 25,
+      "cost": {
+        "input": 0.0000064000000000000006,
+        "output": 0.000008000000000000001,
+        "cacheRead": 4.0000000000000003e-7,
+        "cacheWrite": 0,
+        "total": 0.0000148
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "completed",
+    "timestamp": 1791512702530
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-e05-retry-after-ms-infinity-stream-full",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "primary",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-responses",
+    "modelId": "gpt-4.1-mini",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-e05-retry-after-ms-infinity-stream-full#1",
+        "httpStatus": 503,
+        "code": "upstream_error",
+        "retryDelay": 2000000000,
+        "usageReporting": "unreported",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        }
+      },
+      {
+        "attemptId": "req-e05-retry-after-ms-infinity-stream-full#2",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 16,
+          "output": 5,
+          "cacheRead": 4,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 25,
+          "cost": {
+            "input": 0.0000064000000000000006,
+            "output": 0.000008000000000000001,
+            "cacheRead": 4.0000000000000003e-7,
+            "cacheWrite": 0,
+            "total": 0.0000148
+          }
+        }
+      }
+    ]
+  }
+}

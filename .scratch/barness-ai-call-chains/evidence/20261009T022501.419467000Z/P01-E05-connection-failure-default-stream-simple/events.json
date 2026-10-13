@@ -1,0 +1,39 @@
+[
+  {
+    "event": {
+      "Reason": "error",
+      "Message": {
+        "content": null,
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "Connection error.",
+        "timestamp": 1791512702514
+      },
+      "Err": {
+        "Code": "transport",
+        "Phase": "request",
+        "Message": "Connection error.",
+        "HTTPStatus": 0,
+        "ProviderRequestID": "",
+        "RetryAfter": 0
+      }
+    },
+    "type": "error"
+  }
+]

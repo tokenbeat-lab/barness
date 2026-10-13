@@ -1,0 +1,83 @@
+{
+  "assertions": [
+    {
+      "name": "request count",
+      "pass": true,
+      "detail": "got 1 want 1"
+    },
+    {
+      "name": "image endpoint and tenant credential",
+      "pass": true,
+      "detail": "got {Method:POST Path:/v1beta/interactions Query: KeyAlias:key:tenant-a-google@v1 Header:map[Accept-Encoding:gzip Content-Length:424 Content-Type:application/json User-Agent:barness-ai X-Goog-Api-Key:key:tenant-a-google@v1] Body:[123 34 109 111 100 101 108 34 58 34 104 111 115 116 45 103 111 111 103 108 101 45 105 109 97 103 101 34 44 34 115 116 111 114 101 34 58 102 97 108 115 101 44 34 105 110 112 117 116 34 58 91 123 34 116 121 112 101 34 58 34 116 101 120 116 34 44 34 116 101 120 116 34 58 34 228 184 128 229 188 160 233 164 144 229 142 133 233 156 178 229 143 176 231 133 167 231 137 135 34 125 44 123 34 116 121 112 101 34 58 34 105 109 97 103 101 34 44 34 109 105 109 101 95 116 121 112 101 34 58 34 105 109 97 103 101 47 112 110 103 34 44 34 100 97 116 97 34 58 34 105 86 66 79 82 119 48 75 71 103 111 65 65 65 65 78 83 85 104 69 85 103 65 65 65 65 69 65 65 65 65 66 67 65 89 65 65 65 65 102 70 99 83 74 65 65 65 65 67 48 108 69 81 86 82 52 110 71 78 103 65 65 73 65 65 65 85 65 65 88 112 101 113 122 56 65 65 65 65 65 83 85 86 79 82 75 53 67 89 73 73 61 34 125 44 123 34 116 121 112 101 34 58 34 105 109 97 103 101 34 44 34 109 105 109 101 95 116 121 112 101 34 58 34 105 109 97 103 101 47 112 110 103 34 44 34 100 97 116 97 34 58 34 105 86 66 79 82 119 48 75 71 103 111 65 65 65 65 78 83 85 104 69 85 103 65 65 65 65 73 65 65 65 65 66 67 65 89 65 65 65 68 48 73 110 43 75 65 65 65 65 67 48 108 69 81 86 82 52 110 71 78 103 103 65 73 65 65 65 107 65 65 102 116 83 117 75 107 65 65 65 65 65 83 85 86 79 82 75 53 67 89 73 73 61 34 125 93 44 34 114 101 115 112 111 110 115 101 95 102 111 114 109 97 116 34 58 123 34 116 121 112 101 34 58 34 105 109 97 103 101 34 125 125]}"
+    },
+    {
+      "name": "image header X-Goog-Api-Key",
+      "pass": true,
+      "detail": "got \"key:tenant-a-google@v1\""
+    },
+    {
+      "name": "absent image header Authorization",
+      "pass": true,
+      "detail": "got \"\""
+    },
+    {
+      "name": "final request JSON",
+      "pass": true,
+      "detail": "got {\"model\":\"host-google-image\",\"store\":false,\"input\":[{\"type\":\"text\",\"text\":\"一张餐厅露台照片\"},{\"type\":\"image\",\"mime_type\":\"image/png\",\"data\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=\"},{\"type\":\"image\",\"mime_type\":\"image/png\",\"data\":\"iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAC0lEQVR4nGNggAIAAAkAAftSuKkAAAAASUVORK5CYII=\"}],\"response_format\":{\"type\":\"image\"}}"
+    },
+    {
+      "name": "terminal",
+      "pass": true,
+      "detail": "got stop"
+    },
+    {
+      "name": "success",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "ordered independent output blocks",
+      "pass": true,
+      "detail": "got [{Text:前} {Data:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII= MimeType:image/png} {Text:中} {Data:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII= MimeType:image/png} {Text:后}]"
+    },
+    {
+      "name": "diagnostic response identity",
+      "pass": true,
+      "detail": "got {Content:[{Text:前} {Data:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII= MimeType:image/png} {Text:中} {Data:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII= MimeType:image/png} {Text:后}] ResponseID:{state:2 value:interaction-fixture} ResponseModel:{state:2 value:reported-image-model} Usage:{Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x769a6e3ae040 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}} StopReason:stop ErrorMessage: Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-google-edit-snapshot ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:00afa2f781fd63770e76e29eb5d38ba5f69ba3591fb21d16bf08049ee7c44b95 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-google-edit-snapshot#1 HTTPStatus:200 ProviderRequestID:req-images Code: RetryDelay:0s UsageReporting:complete Usage:{Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x769a6e3ae140 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}}]}}"
+    },
+    {
+      "name": "usage retained and modality priced",
+      "pass": true,
+      "detail": "got {Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x769a6e3ae040 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}} want {Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x769a6e3af240 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}"
+    },
+    {
+      "name": "image attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-google-edit-snapshot ActorID:actor-7 JobID:job-42 BindingID:images Operation:image Resolved:true ProviderID:google API:google-interactions ModelID:host-google-image AccountScopeID:acct-tenant-a-google} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:00afa2f781fd63770e76e29eb5d38ba5f69ba3591fb21d16bf08049ee7c44b95 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-google-edit-snapshot#1 HTTPStatus:200 ProviderRequestID:req-images Code: RetryDelay:0s UsageReporting:complete Usage:{Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x769a6e3ae140 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}}]}"
+    },
+    {
+      "name": "attempt count",
+      "pass": true,
+      "detail": "got [{AttemptID:req-google-edit-snapshot#1 HTTPStatus:200 ProviderRequestID:req-images Code: RetryDelay:0s UsageReporting:complete Usage:{Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x769a6e3ae140 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}}]"
+    },
+    {
+      "name": "usage axis agrees",
+      "pass": true,
+      "detail": "got {AttemptID:req-google-edit-snapshot#1 HTTPStatus:200 ProviderRequestID:req-images Code: RetryDelay:0s UsageReporting:complete Usage:{Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x769a6e3ae140 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}}"
+    },
+    {
+      "name": "vendor ID",
+      "pass": true,
+      "detail": "got {AttemptID:req-google-edit-snapshot#1 HTTPStatus:200 ProviderRequestID:req-images Code: RetryDelay:0s UsageReporting:complete Usage:{Input:7 Output:42 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:22} Modalities:0x769a6e3ae140 TotalTokens:49 Cost:{Input:1.4e-05 Output:0.00018800000000000002 CacheRead:0 CacheWrite:0 Total:0.000202}}}"
+    },
+    {
+      "name": "caller mutation occurred",
+      "pass": true,
+      "detail": "mutation missing"
+    }
+  ],
+  "case_id": "P09-E07-edit-snapshot",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingSnapshot$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesEditingSnapshot"
+}

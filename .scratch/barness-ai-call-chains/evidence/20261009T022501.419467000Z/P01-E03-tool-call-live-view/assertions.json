@@ -1,0 +1,17 @@
+{
+  "assertions": [
+    {
+      "name": "live snapshot refused",
+      "pass": true,
+      "detail": "err=ai: tool call not_executable: message ended with stop reason \"pending\"; only calls of a message that ended with \"toolUse\" can be executed"
+    },
+    {
+      "name": "a delta was seen",
+      "pass": true
+    }
+  ],
+  "case_id": "P01-E03-tool-call-live-view",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolRoundTrip$/^live-view-not-executable$'",
+  "status": "PASS",
+  "test": "TestToolRoundTrip/live-view-not-executable"
+}

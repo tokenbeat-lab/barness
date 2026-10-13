@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "no inference request sent",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "no credential read",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want invalid_request/capability, got ai: invalid_request (capability): reasoning summary must be auto, detailed or concise"
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got invalid_request/capability"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"reasoning summary must be auto, detailed or concise\" error=\"reasoning summary must be auto, detailed or concise\""
+    }
+  ],
+  "case_id": "P01-E04-options-reject-full-summary-unknown-complete",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOptionRejects$/^full-summary-unknown$/^complete$'",
+  "status": "PASS",
+  "test": "TestOptionRejects/full-summary-unknown/complete"
+}

@@ -1,0 +1,31 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "175",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "host-jev",
+      "state": {
+        "ticket": "track order"
+      },
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "Choose intent",
+          "criteria": {
+            "refund": "Refund",
+            "track": "Tracking"
+          }
+        }
+      }
+    }
+  }
+]

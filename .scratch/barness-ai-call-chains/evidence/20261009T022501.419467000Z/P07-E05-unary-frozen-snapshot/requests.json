@@ -1,0 +1,62 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "175",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Frozen": "frozen"
+    },
+    "body": {
+      "model": "host-jev",
+      "questions": {
+        "intent": {
+          "criteria": {
+            "refund": "Refund",
+            "track": "Tracking"
+          },
+          "instructions": "Choose intent",
+          "type": "choice"
+        }
+      },
+      "state": {
+        "ticket": "track order"
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "175",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Frozen": "frozen"
+    },
+    "body": {
+      "model": "host-jev",
+      "questions": {
+        "intent": {
+          "criteria": {
+            "refund": "Refund",
+            "track": "Tracking"
+          },
+          "instructions": "Choose intent",
+          "type": "choice"
+        }
+      },
+      "state": {
+        "ticket": "track order"
+      }
+    }
+  }
+]

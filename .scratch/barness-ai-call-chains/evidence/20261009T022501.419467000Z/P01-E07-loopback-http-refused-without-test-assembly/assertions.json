@@ -1,0 +1,38 @@
+{
+  "assertions": [
+    {
+      "name": "no inference request sent",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "error is a classified *ai.Error",
+      "pass": true,
+      "detail": "err=ai: invalid_request (binding): binding endpoint must be https (http only for loopback)"
+    },
+    {
+      "name": "message ends with StopReason error",
+      "pass": true,
+      "detail": "got \"error\""
+    },
+    {
+      "name": "message carries errorMessage",
+      "pass": true,
+      "detail": "empty"
+    },
+    {
+      "name": "failed message still carries its timestamp",
+      "pass": true,
+      "detail": "got 1791512701536"
+    },
+    {
+      "name": "error code",
+      "pass": true,
+      "detail": "got ai: invalid_request (binding): binding endpoint must be https (http only for loopback)"
+    }
+  ],
+  "case_id": "P01-E07-loopback-http-refused-without-test-assembly",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClientRouting$/^loopback-http-refused-without-test-assembly$'",
+  "status": "PASS",
+  "test": "TestClientRouting/loopback-http-refused-without-test-assembly"
+}

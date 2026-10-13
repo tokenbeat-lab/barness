@@ -1,0 +1,162 @@
+{
+  "assertions": [
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want invalid_request/binding, got ai: invalid_request (binding): binding operation is not supported"
+    },
+    {
+      "name": "errors.As exposes code and phase",
+      "pass": true,
+      "detail": "got invalid_request/binding"
+    },
+    {
+      "name": "message errorMessage is the error's message",
+      "pass": true,
+      "detail": "message=\"binding operation is not supported\" error=\"binding operation is not supported\""
+    },
+    {
+      "name": "scope attribution kept",
+      "pass": true,
+      "detail": "metadata={CallAttribution:{TenantID:tenant-a RequestID:req-operation-unknown-complete-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "identity reported unresolved",
+      "pass": true,
+      "detail": "metadata={CallAttribution:{TenantID:tenant-a RequestID:req-operation-unknown-complete-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "message names no provider, API or model",
+      "pass": true,
+      "detail": "api=\"\" provider=\"\" model=\"\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"vault://kv/tenant-a/openai token=hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:environment\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v2\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-deepseek@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-deepseek@v1\""
+    },
+    {
+      "name": "operation refused without reading credentials",
+      "pass": true,
+      "detail": "got {Bindings:1 Credentials:0}"
+    },
+    {
+      "name": "operation refused without Provider requests or attempts",
+      "pass": true,
+      "detail": "metadata={CallAttribution:{TenantID:tenant-a RequestID:req-operation-unknown-complete-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observer received call_finished of req-operation-unknown-complete-simple",
+      "pass": true
+    },
+    {
+      "name": "call/attempt lifecycle",
+      "pass": true,
+      "detail": "got [\"call_started\" \"call_finished\"] want [\"call_started\" \"call_finished\"]"
+    },
+    {
+      "name": "records are in time order",
+      "pass": true,
+      "detail": "record 1 at 2026-10-09 10:25:02.092491 +0800 CST m=+0.680151667 before 2026-10-09 10:25:02.092486 +0800 CST m=+0.680146584"
+    },
+    {
+      "name": "call_started holds the scope, requested binding and entry operation",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-operation-unknown-complete-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} want {CallAttribution:{TenantID:tenant-a RequestID:req-operation-unknown-complete-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt_finished records equal the Result's attempts",
+      "pass": true,
+      "detail": "got [] want []"
+    },
+    {
+      "name": "call_finished carries the Result's metadata",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-operation-unknown-complete-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} want {CallAttribution:{TenantID:tenant-a RequestID:req-operation-unknown-complete-simple ActorID:actor-7 JobID:job-42 BindingID:primary Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "call_finished stop reason",
+      "pass": true,
+      "detail": "got \"error\" want \"error\""
+    },
+    {
+      "name": "call_finished usage is the message's",
+      "pass": true,
+      "detail": "got {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} want {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}"
+    },
+    {
+      "name": "call_finished duration is set",
+      "pass": true,
+      "detail": "got 5.333µs"
+    },
+    {
+      "name": "call_finished classifies the error, without its text",
+      "pass": true,
+      "detail": "got &{Code:invalid_request Phase:binding HTTPStatus:0 ProviderRequestID: RetryAfter:0s} want &{Code:invalid_request Phase:binding HTTPStatus:0 ProviderRequestID: RetryAfter:0s}"
+    },
+    {
+      "name": "failed chat entry retains chat attribution",
+      "pass": true,
+      "detail": "got \"chat\""
+    }
+  ],
+  "case_id": "E03-operation-refuse-unknown-complete-simple",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChatOperationAuthorization$/^unknown$/^complete-simple$'",
+  "status": "PASS",
+  "test": "TestChatOperationAuthorization/unknown/complete-simple"
+}

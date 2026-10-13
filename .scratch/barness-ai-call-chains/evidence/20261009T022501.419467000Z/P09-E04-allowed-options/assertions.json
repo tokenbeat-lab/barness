@@ -1,0 +1,43 @@
+{
+  "assertions": [
+    {
+      "name": "explicit native differential skip",
+      "pass": true,
+      "detail": "missing native skip"
+    },
+    {
+      "name": "pinned Google auth redacted",
+      "pass": true,
+      "detail": "got {Operation:image TenantID:tenant-a RequestID:req-google-hook-allowed-options ActorID:actor-7 JobID:job-42}"
+    },
+    {
+      "name": "Google image identity",
+      "pass": true,
+      "detail": "got &{Operation:image ProviderID:google API:google-interactions ModelID:host-google-image Body:map[input:[map[text:一张餐厅露台照片 type:text]] model:host-google-image response_format:map[type:image] store:false]}"
+    },
+    {
+      "name": "authorized identity, independent of response model",
+      "pass": true,
+      "detail": "got {Operation:image Status:200 Header:map[Content-Type:[application/json] Date:[Fri, 09 Oct 2026 02:25:01 GMT] X-Request-Id:[req-images]] ProviderID:google API:google-interactions ModelID:host-google-image}"
+    },
+    {
+      "name": "callbacks once",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "allowed changes sent",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "final options preserved",
+      "pass": true,
+      "detail": "got {\"aspect_ratio\":\"16:9\",\"image_size\":\"2K\",\"type\":\"image\"}"
+    }
+  ],
+  "case_id": "P09-E04-allowed-options",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesCallbackFixtures$/^allowed-options$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesCallbackFixtures/allowed-options"
+}

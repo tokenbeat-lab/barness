@@ -1,0 +1,39 @@
+[
+  {
+    "event": {
+      "Reason": "error",
+      "Message": {
+        "content": null,
+        "api": "",
+        "provider": "",
+        "model": "",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "tool choice must be auto or none",
+        "timestamp": 1791512702354
+      },
+      "Err": {
+        "Code": "invalid_request",
+        "Phase": "capability",
+        "Message": "tool choice must be auto or none",
+        "HTTPStatus": 0,
+        "ProviderRequestID": "",
+        "RetryAfter": 0
+      }
+    },
+    "type": "error"
+  }
+]

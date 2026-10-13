@@ -1,0 +1,28 @@
+{
+  "assertions": [
+    {
+      "name": "the loop stops after the turn",
+      "pass": true,
+      "detail": "turns=1"
+    },
+    {
+      "name": "the turn's error is returned",
+      "pass": true,
+      "detail": "err=ai: transport (stream): Connection lost while reading the OpenAI Responses stream"
+    },
+    {
+      "name": "no tool ran",
+      "pass": true,
+      "detail": "ran []"
+    },
+    {
+      "name": "no next turn was sent",
+      "pass": true,
+      "detail": "got 1"
+    }
+  ],
+  "case_id": "P01-E10-example-tool-loop-not-run-disconnect-mid-arguments",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolLoopExample$/^not-run$/^disconnect-mid-arguments$'",
+  "status": "PASS",
+  "test": "TestToolLoopExample/not-run/disconnect-mid-arguments"
+}

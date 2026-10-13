@@ -1,0 +1,116 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/responses",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "177",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "3.66.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go"
+    },
+    "body": {
+      "input": [
+        {
+          "content": "You are terse.",
+          "role": "system"
+        },
+        {
+          "content": [
+            {
+              "text": "Say hello.",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "model": "gpt-4.1-mini",
+      "store": false,
+      "stream": true
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/responses",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "177",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "3.66.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go"
+    },
+    "body": {
+      "input": [
+        {
+          "content": "You are terse.",
+          "role": "system"
+        },
+        {
+          "content": [
+            {
+              "text": "Say hello.",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "model": "gpt-4.1-mini",
+      "store": false,
+      "stream": true
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/responses",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "177",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "3.66.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go"
+    },
+    "body": {
+      "input": [
+        {
+          "content": "You are terse.",
+          "role": "system"
+        },
+        {
+          "content": [
+            {
+              "text": "Say hello.",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "model": "gpt-4.1-mini",
+      "store": false,
+      "stream": true
+    }
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input refused before credential and HTTP",
+      "pass": true,
+      "detail": "got ai: invalid_request (scope): image prompt requires 1 to 32000 valid Unicode characters"
+    }
+  ],
+  "case_id": "P08-E07-input-long-prompt",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^long-prompt$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesOptionsAndInput/long-prompt"
+}

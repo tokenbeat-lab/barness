@@ -1,0 +1,38 @@
+{
+  "assertions": [
+    {
+      "name": "image header scope and hidden credential",
+      "pass": true,
+      "detail": "got {Operation:image TenantID:tenant-a RequestID:req-hooks-final-format ActorID:actor-7 JobID:job-42}"
+    },
+    {
+      "name": "image payload identity",
+      "pass": true,
+      "detail": "got &{Operation:image ProviderID:openai API:openai-images ModelID:host-image Body:map[model:host-image prompt:一张餐厅露台照片]}"
+    },
+    {
+      "name": "image response metadata",
+      "pass": true,
+      "detail": "got {Operation:image Status:200 Header:map[Content-Type:[application/json] Date:[Fri, 09 Oct 2026 02:25:02 GMT] X-Request-Id:[req-images]] ProviderID:openai API:openai-images ModelID:host-image}"
+    },
+    {
+      "name": "successful allowed callback",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "one header and payload outside retry",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "final request determines MIME",
+      "pass": true,
+      "detail": "got [{Data:/9j/2Q== MimeType:image/jpeg}]"
+    }
+  ],
+  "case_id": "P08-E04-hooks-final-format",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesHooks$/^final-format$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesHooks/final-format"
+}

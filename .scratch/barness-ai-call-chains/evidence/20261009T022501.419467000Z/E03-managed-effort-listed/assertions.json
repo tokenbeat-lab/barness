@@ -1,0 +1,23 @@
+{
+  "assertions": [
+    {
+      "name": "claude-fable-5-1 listed with managed effort",
+      "pass": true,
+      "detail": "index 52"
+    },
+    {
+      "name": "claude-opus-5 listed with managed effort",
+      "pass": true,
+      "detail": "index 60"
+    },
+    {
+      "name": "claude-opus-5-5 listed with managed effort",
+      "pass": true,
+      "detail": "index 61"
+    }
+  ],
+  "case_id": "E03-managed-effort-listed",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestManagedEffort$/^listed$'",
+  "status": "PASS",
+  "test": "TestManagedEffort/listed"
+}

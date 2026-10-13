@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "original request unchanged",
+      "pass": true,
+      "detail": "input was mutated"
+    },
+    {
+      "name": "invalid callback before HTTP",
+      "pass": true,
+      "detail": "got ai: callback_failed (request): payload callback produced a body that cannot be encoded"
+    }
+  ],
+  "case_id": "P07-E04-mixed-unencodable",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^unencodable$'",
+  "status": "PASS",
+  "test": "TestClassifierMixedCallbacks/unencodable"
+}

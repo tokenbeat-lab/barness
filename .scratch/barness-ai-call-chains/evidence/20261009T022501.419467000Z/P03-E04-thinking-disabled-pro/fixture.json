@@ -1,0 +1,2787 @@
+{
+ "case": "P03/E04 Google × Gemini Developer API full and simple options, field presence and the Google level/budget mapping",
+ "source": "Synthetic offline fixture. Expected requests follow pi-ai 0.87.1 (commit 898ab804050730e9dcefb4443875d5a932aa6a32) google-generative-ai.ts buildParams, streamSimple and getGoogleBudget, and google-shared resolveGoogleThinkingLevel, usesGoogleThinkingLevel, getDisabledGoogleThinkingConfig and resolveGoogleFunctionCallingMode, as @google/genai 2.21.0 generateContentConfigToMldev sends them (null config fields dropped, thinkingConfig copied as is). Level maps and budgets are the frozen model data's.",
+ "scenarios": [
+  {
+   "id": "full-generation",
+   "about": "Temperature and maxTokens go into generationConfig.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "temperature": 0.2,
+    "maxTokens": 100
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "temperature": 0.2,
+       "maxOutputTokens": 100
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "full-presence",
+   "about": "A null temperature is dropped as the SDK drops null config fields; maxTokens 0 is sent.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "temperature": null,
+    "maxTokens": 0
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 0
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "full-null-max-tokens",
+   "about": "A null maxTokens sends no output budget.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "maxTokens": null
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "tool-choice-any",
+   "about": "toolChoice any with tools is the ANY calling mode.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "toolChoice": "any"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "tools": [
+       {
+        "functionDeclarations": [
+         {
+          "name": "lookup",
+          "description": "Look something up.",
+          "parametersJsonSchema": {
+           "type": "object",
+           "properties": {
+            "q": {
+             "type": "string"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ],
+      "toolConfig": {
+       "functionCallingConfig": {
+        "mode": "ANY"
+       }
+      },
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "tool-choice-none",
+   "about": "toolChoice none is NONE.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "toolChoice": "none"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "tools": [
+       {
+        "functionDeclarations": [
+         {
+          "name": "lookup",
+          "description": "Look something up.",
+          "parametersJsonSchema": {
+           "type": "object",
+           "properties": {
+            "q": {
+             "type": "string"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ],
+      "toolConfig": {
+       "functionCallingConfig": {
+        "mode": "NONE"
+       }
+      },
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "tool-choice-auto",
+   "about": "toolChoice auto is AUTO.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "toolChoice": "auto"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "tools": [
+       {
+        "functionDeclarations": [
+         {
+          "name": "lookup",
+          "description": "Look something up.",
+          "parametersJsonSchema": {
+           "type": "object",
+           "properties": {
+            "q": {
+             "type": "string"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ],
+      "toolConfig": {
+       "functionCallingConfig": {
+        "mode": "AUTO"
+       }
+      },
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "tool-choice-null",
+   "about": "A null toolChoice sends no tool config.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "toolChoice": null
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "tools": [
+       {
+        "functionDeclarations": [
+         {
+          "name": "lookup",
+          "description": "Look something up.",
+          "parametersJsonSchema": {
+           "type": "object",
+           "properties": {
+            "q": {
+             "type": "string"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ],
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "tool-choice-without-tools",
+   "about": "Without tools a tool choice sends nothing.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "toolChoice": "any"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-level",
+   "about": "An enabled level on a level model: includeThoughts and the level.",
+   "model": "gemini-3-flash-preview",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": true,
+     "level": "HIGH"
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3-flash-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingLevel": "HIGH"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-budget",
+   "about": "An enabled budget: includeThoughts and the budget.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": true,
+     "budgetTokens": 1024
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": 1024
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-budget-dynamic",
+   "about": "A budget of -1 asks for dynamic thinking.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": true,
+     "budgetTokens": -1
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": -1
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-budget-null",
+   "about": "A null budget is sent as null, the SDK copying thinkingConfig as is.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": true,
+     "budgetTokens": null
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": null
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-level-null",
+   "about": "A null level takes the level branch: neither a level nor the budget is sent.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": true,
+     "level": null,
+     "budgetTokens": 512
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "includeThoughts": true
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-enabled-only",
+   "about": "Enabled without level or budget: includeThoughts alone.",
+   "model": "gemini-3-flash-preview",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": true
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3-flash-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "includeThoughts": true
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-disabled-budget-model",
+   "about": "Disabled on a budget model: a zero budget.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": false
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "thinkingBudget": 0
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-disabled-level-model",
+   "about": "Disabled on a level model that cannot turn thinking off: its lowest supported level.",
+   "model": "gemini-3-flash-preview",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": false
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3-flash-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "thinkingLevel": "MINIMAL"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-disabled-pro",
+   "about": "Gemini 3.1 Pro has no minimal level: disabled is LOW.",
+   "model": "gemini-3.1-pro-preview",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": false
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3.1-pro-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "thinkingConfig": {
+        "thinkingLevel": "LOW"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-null",
+   "about": "A null thinking option sends no thinking config.",
+   "model": "gemini-3-flash-preview",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": null
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3-flash-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "thinking-not-reasoning",
+   "about": "A model without reasoning (a custom one) ignores thinking.",
+   "model": "gemini-2.5-flash",
+   "modelPatch": {
+    "reasoning": false
+   },
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "thinking": {
+     "enabled": true,
+     "budgetTokens": 1024
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "full-ignored-options",
+   "about": "Options pi's Google path ignores send nothing: cache retention, session id, metadata, timeoutMs.",
+   "model": "gemini-2.5-flash",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "cacheRetention": "long",
+    "sessionId": "s-1",
+    "metadata": {
+     "user_id": "u-1"
+    },
+    "timeoutMs": 5000
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {}
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-default",
+   "about": "Simple without a reasoning level: the clamped output budget and thinking disabled.",
+   "model": "gemini-3-flash-preview",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {},
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3-flash-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "thinkingLevel": "MINIMAL"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-budget-minimal",
+   "about": "Gemini 2.5 Pro's own minimal budget.",
+   "model": "gemini-2.5-pro",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "minimal"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-pro:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": 128
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-budget-medium",
+   "about": "Gemini 2.5 Pro's medium budget; the output budget is not raised for thinking.",
+   "model": "gemini-2.5-pro",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "medium",
+    "maxTokens": 1000
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-pro:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 1000,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": 8192
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-budget-xhigh",
+   "about": "xhigh clamps to high on a budget model: Gemini 2.5 Pro's high budget.",
+   "model": "gemini-2.5-pro",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "xhigh"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-pro:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": 32768
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-budget-flash-lite",
+   "about": "Gemini 2.5 Flash-Lite's minimal budget.",
+   "model": "gemini-2.5-flash-lite",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "minimal"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash-lite:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": 512
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-budget-flash-high",
+   "about": "Gemini 2.5 Flash's high budget.",
+   "model": "gemini-2.5-flash",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "high"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": 24576
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-custom-budget",
+   "about": "A custom budget for the level replaces the model's.",
+   "model": "gemini-2.5-flash",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "low",
+    "thinkingBudgets": {
+     "low": 777
+    }
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingBudget": 777
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-level-low",
+   "about": "A level model gets the level.",
+   "model": "gemini-3-flash-preview",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "low"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3-flash-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingLevel": "LOW"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-level-xhigh",
+   "about": "xhigh clamps to the highest supported level.",
+   "model": "gemini-3-flash-preview",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "xhigh"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3-flash-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingLevel": "HIGH"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-level-clamped-up",
+   "about": "minimal is unsupported on Gemini 3.1 Pro and clamps up to low.",
+   "model": "gemini-3.1-pro-preview",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "minimal"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-3.1-pro-preview:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingLevel": "LOW"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-gemma-mapped",
+   "about": "Gemma 4 maps low through its uppercase level map: low and medium are unsupported, so high.",
+   "model": "gemma-4-31b-it",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "reasoning": "low"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemma-4-31b-it:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 32768,
+       "thinkingConfig": {
+        "includeThoughts": true,
+        "thinkingLevel": "HIGH"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-gemma-disabled",
+   "about": "Gemma 4 cannot turn thinking off: disabled is its minimal level.",
+   "model": "gemma-4-26b-a4b-it",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {},
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemma-4-26b-a4b-it:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "maxOutputTokens": 32768,
+       "thinkingConfig": {
+        "thinkingLevel": "MINIMAL"
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-tool-choice",
+   "about": "The simple tool choice maps to the calling mode.",
+   "model": "gemini-2.5-flash",
+   "entry": "streamSimple",
+   "context": {
+    "tools": [
+     {
+      "name": "lookup",
+      "description": "Look something up.",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "q": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    ],
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "toolChoice": "none"
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "tools": [
+       {
+        "functionDeclarations": [
+         {
+          "name": "lookup",
+          "description": "Look something up.",
+          "parametersJsonSchema": {
+           "type": "object",
+           "properties": {
+            "q": {
+             "type": "string"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ],
+      "toolConfig": {
+       "functionCallingConfig": {
+        "mode": "NONE"
+       }
+      },
+      "generationConfig": {
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "thinkingBudget": 0
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  },
+  {
+   "id": "simple-ignored",
+   "about": "samplingParams, cache retention, the session id, metadata and timeoutMs have no Gemini field; temperature does.",
+   "model": "gemini-2.5-flash",
+   "entry": "streamSimple",
+   "context": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Hi"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "temperature": 0.3,
+    "samplingParams": {
+     "top_p": 0.5,
+     "top_k": 40
+    },
+    "cacheRetention": "long",
+    "sessionId": "s-1",
+    "metadata": {
+     "user_id": "u-1"
+    },
+    "timeoutMs": 5000
+   },
+   "events": [
+    {
+     "candidates": [
+      {
+       "content": {
+        "parts": [
+         {
+          "text": "OK."
+         }
+        ],
+        "role": "model"
+       },
+       "finishReason": "STOP",
+       "index": 0
+      }
+     ],
+     "usageMetadata": {
+      "promptTokenCount": 5,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 7
+     }
+    }
+   ],
+   "expect": {
+    "request": {
+     "path": "/v1beta/models/gemini-2.5-flash:streamGenerateContent",
+     "query": "alt=sse",
+     "body": {
+      "contents": [
+       {
+        "parts": [
+         {
+          "text": "Hi"
+         }
+        ],
+        "role": "user"
+       }
+      ],
+      "generationConfig": {
+       "temperature": 0.3,
+       "maxOutputTokens": 65536,
+       "thinkingConfig": {
+        "thinkingBudget": 0
+       }
+      }
+     }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "content": [
+     {
+      "type": "text",
+      "text": "OK."
+     }
+    ]
+   }
+  }
+ ]
+}

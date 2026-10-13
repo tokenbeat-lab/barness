@@ -1,0 +1,147 @@
+{
+  "assertions": [
+    {
+      "name": "only response metadata",
+      "pass": true,
+      "detail": "got {Operation:classifier Status:200 Header:map[Content-Type:[application/json] Date:[Fri, 09 Oct 2026 02:25:03 GMT] X-Typesafe-Request-Id:[req-typesafe]] ProviderID:typesafe API:typesafe-system-one ModelID:host-jev}"
+    },
+    {
+      "name": "retry succeeds with one set of callbacks",
+      "pass": true,
+      "detail": "err=<nil> callbacks=1/1/1"
+    },
+    {
+      "name": "same target credential headers and frozen bytes",
+      "pass": true,
+      "detail": "got [{Method:POST Path:/v1/systemone Query: KeyAlias:key:tenant-a@v1 Header:map[Accept-Encoding:gzip Authorization:Bearer key:tenant-a@v1 Content-Length:175 Content-Type:application/json User-Agent:barness-ai X-Frozen:frozen] Body:[123 34 109 111 100 101 108 34 58 34 104 111 115 116 45 106 101 118 34 44 34 113 117 101 115 116 105 111 110 115 34 58 123 34 105 110 116 101 110 116 34 58 123 34 99 114 105 116 101 114 105 97 34 58 123 34 114 101 102 117 110 100 34 58 34 82 101 102 117 110 100 34 44 34 116 114 97 99 107 34 58 34 84 114 97 99 107 105 110 103 34 125 44 34 105 110 115 116 114 117 99 116 105 111 110 115 34 58 34 67 104 111 111 115 101 32 105 110 116 101 110 116 34 44 34 116 121 112 101 34 58 34 99 104 111 105 99 101 34 125 125 44 34 115 116 97 116 101 34 58 123 34 116 105 99 107 101 116 34 58 34 116 114 97 99 107 32 111 114 100 101 114 34 125 125]} {Method:POST Path:/v1/systemone Query: KeyAlias:key:tenant-a@v1 Header:map[Accept-Encoding:gzip Authorization:Bearer key:tenant-a@v1 Content-Length:175 Content-Type:application/json User-Agent:barness-ai X-Frozen:frozen] Body:[123 34 109 111 100 101 108 34 58 34 104 111 115 116 45 106 101 118 34 44 34 113 117 101 115 116 105 111 110 115 34 58 123 34 105 110 116 101 110 116 34 58 123 34 99 114 105 116 101 114 105 97 34 58 123 34 114 101 102 117 110 100 34 58 34 82 101 102 117 110 100 34 44 34 116 114 97 99 107 34 58 34 84 114 97 99 107 105 110 103 34 125 44 34 105 110 115 116 114 117 99 116 105 111 110 115 34 58 34 67 104 111 111 115 101 32 105 110 116 101 110 116 34 44 34 116 121 112 101 34 58 34 99 104 111 105 99 101 34 125 125 44 34 115 116 97 116 101 34 58 123 34 116 105 99 107 101 116 34 58 34 116 114 97 99 107 32 111 114 100 101 114 34 125 125]}]"
+    },
+    {
+      "name": "pinned versions catalog and price",
+      "pass": true,
+      "detail": "got {Answers:map[intent:{Choice:track Probabilities:map[refund:0.1 track:0.9] Confidence:0.82}] ResponseModel:{state:2 value:jev-versioned} Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}} StopReason:stop ErrorMessage: Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-frozen ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-frozen#1 HTTPStatus:429 ProviderRequestID: Code:rate_limited RetryDelay:10ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-frozen#2 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:complete Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}}}]}}"
+    },
+    {
+      "name": "one configuration resolution",
+      "pass": true,
+      "detail": "got {Bindings:1 Credentials:1}"
+    },
+    {
+      "name": "callback cannot mutate vendor metadata",
+      "pass": true,
+      "detail": "got [{AttemptID:req-frozen#1 HTTPStatus:429 ProviderRequestID: Code:rate_limited RetryDelay:10ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-frozen#2 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:complete Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}}}]"
+    },
+    {
+      "name": "observer received call_finished of req-frozen",
+      "pass": true
+    },
+    {
+      "name": "unresolved trusted entry",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-frozen ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt attribution",
+      "pass": true,
+      "detail": "got {Kind:attempt_started Time:2026-10-09 10:25:03.799327 +0800 CST m=+2.386983459 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-frozen ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} Attempt:0x769a6e4cf930 Duration:0s StopReason: Error:<nil> Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "started attempt is unreported",
+      "pass": true,
+      "detail": "got &{AttemptID:req-frozen#1 HTTPStatus:0 ProviderRequestID: Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "attempt attribution",
+      "pass": true,
+      "detail": "got {Kind:attempt_finished Time:2026-10-09 10:25:03.800192 +0800 CST m=+2.387847834 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-frozen ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} Attempt:0x769a6e616f70 Duration:864.375µs StopReason: Error:<nil> Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "attempt attribution",
+      "pass": true,
+      "detail": "got {Kind:attempt_started Time:2026-10-09 10:25:03.800196 +0800 CST m=+2.387851751 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-frozen ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} Attempt:0x769a6e617040 Duration:0s StopReason: Error:<nil> Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "started attempt is unreported",
+      "pass": true,
+      "detail": "got &{AttemptID:req-frozen#2 HTTPStatus:0 ProviderRequestID: Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "attempt attribution",
+      "pass": true,
+      "detail": "got {Kind:attempt_finished Time:2026-10-09 10:25:03.800614 +0800 CST m=+2.388270209 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-frozen ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} Attempt:0x769a6e258270 Duration:418.458µs StopReason: Error:<nil> Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "terminal attribution and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-09 10:25:03.800618 +0800 CST m=+2.388274459 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-frozen ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-frozen#1 HTTPStatus:429 ProviderRequestID: Code:rate_limited RetryDelay:10ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-frozen#2 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:complete Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}}}]} Attempt:<nil> Duration:1.390208ms StopReason:stop Error:<nil> Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}}}"
+    },
+    {
+      "name": "observed success",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "one logical call",
+      "pass": true,
+      "detail": "got 1/1"
+    },
+    {
+      "name": "no invented attempts",
+      "pass": true,
+      "detail": "got 2/2"
+    },
+    {
+      "name": "unique attempt id",
+      "pass": true,
+      "detail": "got {AttemptID:req-frozen#1 HTTPStatus:429 ProviderRequestID: Code:rate_limited RetryDelay:10ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "attempt usage axis agrees",
+      "pass": true,
+      "detail": "got {AttemptID:req-frozen#1 HTTPStatus:429 ProviderRequestID: Code:rate_limited RetryDelay:10ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "unique attempt id",
+      "pass": true,
+      "detail": "got {AttemptID:req-frozen#2 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:complete Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}}}"
+    },
+    {
+      "name": "attempt usage axis agrees",
+      "pass": true,
+      "detail": "got {AttemptID:req-frozen#2 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:complete Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}}}"
+    },
+    {
+      "name": "released calls",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released permits",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released waiters",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released events",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released hostPermits",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released bodies",
+      "pass": true,
+      "detail": "got 0"
+    }
+  ],
+  "case_id": "P07-E05-unary-frozen-snapshot",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestUnaryFrozenRetry$'",
+  "status": "PASS",
+  "test": "TestUnaryFrozenRetry"
+}

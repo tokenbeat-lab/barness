@@ -1,0 +1,39 @@
+[
+  {
+    "event": {
+      "Reason": "error",
+      "Message": {
+        "content": null,
+        "api": "",
+        "provider": "",
+        "model": "",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "error",
+        "errorMessage": "reasoning must be minimal, low, medium, high, xhigh or max",
+        "timestamp": 1791512702351
+      },
+      "Err": {
+        "Code": "invalid_request",
+        "Phase": "capability",
+        "Message": "reasoning must be minimal, low, medium, high, xhigh or max",
+        "HTTPStatus": 0,
+        "ProviderRequestID": "",
+        "RetryAfter": 0
+      }
+    },
+    "type": "error"
+  }
+]

@@ -1,0 +1,187 @@
+{
+  "assertions": [
+    {
+      "name": "call ends",
+      "pass": true
+    },
+    {
+      "name": "inference requests",
+      "pass": true,
+      "detail": "got 1 want 1"
+    },
+    {
+      "name": "pinned key used",
+      "pass": true,
+      "detail": "request 1 got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "same endpoint",
+      "pass": true,
+      "detail": "request 1 path \"/v1/responses\""
+    },
+    {
+      "name": "backoff waits",
+      "pass": true,
+      "detail": "got [] want []"
+    },
+    {
+      "name": "onPayload runs once per logical call",
+      "pass": true,
+      "detail": "got 1"
+    },
+    {
+      "name": "onResponse runs only after an initial response",
+      "pass": true,
+      "detail": "got 0 want 0"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"error\" want \"error\""
+    },
+    {
+      "name": "errorMessage",
+      "pass": true,
+      "detail": "got \"OpenAI API error (401): {\\\"message\\\":\\\"Invalid key\\\",\\\"type\\\":\\\"invalid_request_error\\\",\\\"code\\\":\\\"invalid_api_key\\\"}\"\nwant \"OpenAI API error (401): {\\\"message\\\":\\\"Invalid key\\\",\\\"type\\\":\\\"invalid_request_error\\\",\\\"code\\\":\\\"invalid_api_key\\\"}\""
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want upstream_auth/request, got ai: upstream_auth (request): OpenAI API error (401): {\"message\":\"Invalid key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}"
+    },
+    {
+      "name": "error is a classified *ai.Error",
+      "pass": true,
+      "detail": "err=ai: upstream_auth (request): OpenAI API error (401): {\"message\":\"Invalid key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}"
+    },
+    {
+      "name": "HTTP status",
+      "pass": true,
+      "detail": "got 401 want 401"
+    },
+    {
+      "name": "provider request id",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "retry-after",
+      "pass": true,
+      "detail": "got 0s want 0s"
+    },
+    {
+      "name": "received content is kept, once",
+      "pass": true,
+      "detail": "got [] want []"
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "at most one start event",
+      "pass": true,
+      "detail": "events=[\"error:error\"]"
+    },
+    {
+      "name": "Err equals the Result error",
+      "pass": true,
+      "detail": "Err=ai: upstream_auth (request): OpenAI API error (401): {\"message\":\"Invalid key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"} Result=ai: upstream_auth (request): OpenAI API error (401): {\"message\":\"Invalid key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}"
+    },
+    {
+      "name": "one record per attempt",
+      "pass": true,
+      "detail": "got [{AttemptID:req-e05-auth-401-not-retried-stream-full#1 HTTPStatus:401 ProviderRequestID: Code:upstream_auth RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}] want [{HTTPStatus:401 Code:upstream_auth ProviderRequestID: RetryDelayMs:0}]"
+    },
+    {
+      "name": "attempt id belongs to the call",
+      "pass": true,
+      "detail": "attempt 1 id \"req-e05-auth-401-not-retried-stream-full#1\""
+    },
+    {
+      "name": "attempt record",
+      "pass": true,
+      "detail": "attempt 1 got {AttemptID:req-e05-auth-401-not-retried-stream-full#1 HTTPStatus:401 ProviderRequestID: Code:upstream_auth RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} want {HTTPStatus:401 Code:upstream_auth ProviderRequestID: RetryDelayMs:0}"
+    },
+    {
+      "name": "attempt ids are distinct",
+      "pass": true,
+      "detail": "got [{AttemptID:req-e05-auth-401-not-retried-stream-full#1 HTTPStatus:401 ProviderRequestID: Code:upstream_auth RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]"
+    },
+    {
+      "name": "retries never re-resolve the snapshot",
+      "pass": true,
+      "detail": "got {Bindings:1 Credentials:1}"
+    },
+    {
+      "name": "every response body is closed",
+      "pass": true,
+      "detail": "0 open"
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"vault://kv/tenant-a/openai token=hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:environment\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v2\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-deepseek@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-deepseek@v1\""
+    }
+  ],
+  "case_id": "P01-E05-auth-401-not-retried-stream-full",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestExplicitRetry$/^auth-401-not-retried$/^stream-full$'",
+  "status": "PASS",
+  "test": "TestExplicitRetry/auth-401-not-retried/stream-full"
+}

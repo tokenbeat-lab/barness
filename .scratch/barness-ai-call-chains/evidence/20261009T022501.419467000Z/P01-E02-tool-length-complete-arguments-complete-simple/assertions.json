@@ -1,0 +1,37 @@
+{
+  "assertions": [
+    {
+      "name": "call ends",
+      "pass": true
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"length\" want \"length\""
+    },
+    {
+      "name": "received call kept for display",
+      "pass": true,
+      "detail": "got [\"toolCall:call_w4|fc_w4 get_weather {\\\"city\\\":\\\"Zürich\\\"} raw={\\\"city\\\":\\\"Zürich\\\"}\"]\nwant [\"toolCall:call_w4|fc_w4 get_weather {\\\"city\\\":\\\"Zürich\\\"} raw={\\\"city\\\":\\\"Zürich\\\"}\"]"
+    },
+    {
+      "name": "truncation is not a failure",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "truncated call is not executable",
+      "pass": true,
+      "detail": "err=ai: tool call not_executable: message ended with stop reason \"length\"; only calls of a message that ended with \"toolUse\" can be executed"
+    },
+    {
+      "name": "every response body is closed",
+      "pass": true,
+      "detail": "0 open"
+    }
+  ],
+  "case_id": "P01-E02-tool-length-complete-arguments-complete-simple",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolCallTruncation$/^length-complete-arguments$/^complete-simple$'",
+  "status": "PASS",
+  "test": "TestToolCallTruncation/length-complete-arguments/complete-simple"
+}

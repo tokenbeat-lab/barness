@@ -1,0 +1,58 @@
+{
+  "content": null,
+  "usage": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 0,
+    "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+    }
+  },
+  "stopReason": "error",
+  "errorMessage": "OpenAI Images API error (429): {\"message\":\"limited\"}",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-hooks-default-no-retry",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "images",
+    "operation": "image",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-images",
+    "modelId": "host-image",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:2c3e9b913c8854e72d69068702a75b69ba5ede135d1b73c5ef94afe7e6e408d2",
+    "attempts": [
+      {
+        "attemptId": "req-hooks-default-no-retry#1",
+        "httpStatus": 429,
+        "code": "rate_limited",
+        "usageReporting": "unreported",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        }
+      }
+    ]
+  }
+}

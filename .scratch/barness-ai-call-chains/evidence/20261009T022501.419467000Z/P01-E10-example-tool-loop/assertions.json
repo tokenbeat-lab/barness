@@ -1,0 +1,53 @@
+{
+  "assertions": [
+    {
+      "name": "the loop ends with the model's answer",
+      "pass": true,
+      "detail": "err=<nil> turns=2"
+    },
+    {
+      "name": "turn is tenant A's resolved call",
+      "pass": true,
+      "detail": "turn 0: {TenantID:tenant-a RequestID:req-fdd0a6d88b16d0e058b6583110831354 ActorID:actor-7 JobID: BindingID:primary Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini AccountScopeID:acct-tenant-a}"
+    },
+    {
+      "name": "turn has a new RequestID",
+      "pass": true,
+      "detail": "turn 0: \"req-fdd0a6d88b16d0e058b6583110831354\""
+    },
+    {
+      "name": "turn is tenant A's resolved call",
+      "pass": true,
+      "detail": "turn 1: {TenantID:tenant-a RequestID:req-8a70050b22b7afdca97be3ed8f2b24f0 ActorID:actor-7 JobID: BindingID:primary Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:gpt-4.1-mini AccountScopeID:acct-tenant-a}"
+    },
+    {
+      "name": "turn has a new RequestID",
+      "pass": true,
+      "detail": "turn 1: \"req-8a70050b22b7afdca97be3ed8f2b24f0\""
+    },
+    {
+      "name": "each tool ran once with its validated arguments",
+      "pass": true,
+      "detail": "ran [\"get_weather {\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\" \"get_time {\\\"tz\\\":\\\"Europe/Zurich\\\"}\"]"
+    },
+    {
+      "name": "two inference requests",
+      "pass": true,
+      "detail": "got 2"
+    },
+    {
+      "name": "turn 1 sends the question and tools",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are a weather assistant.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"What is the weather and local time in Zürich?\"}]}],\"stream\":true,\"store\":false,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Current weather for a city\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"},\"unit\":{\"type\":\"string\",\"enum\":[\"celsius\",\"fahrenheit\"]}},\"required\":[\"city\"],\"additionalProperties\":false},\"strict\":false},{\"type\":\"function\",\"name\":\"get_time\",\"description\":\"Local time in an IANA time zone\",\"parameters\":{\"type\":\"object\",\"properties\":{\"tz\":{\"type\":\"string\"}},\"required\":[\"tz\"],\"additionalProperties\":false},\"strict\":false}]}"
+    },
+    {
+      "name": "turn 2 replays the calls with the host's results",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are a weather assistant.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"What is the weather and local time in Zürich?\"}]},{\"type\":\"function_call\",\"id\":\"fc_w1\",\"call_id\":\"call_w1\",\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Zürich\\\",\\\"unit\\\":\\\"celsius\\\"}\"},{\"type\":\"function_call\",\"id\":\"fc_t1\",\"call_id\":\"call_t1\",\"name\":\"get_time\",\"arguments\":\"{\\\"tz\\\":\\\"Europe/Zurich\\\"}\"},{\"type\":\"function_call_output\",\"call_id\":\"call_w1\",\"output\":\"18°C, clear\"},{\"type\":\"function_call_output\",\"call_id\":\"call_t1\",\"output\":\"14:05\"}],\"stream\":true,\"store\":false,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Current weather for a city\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"},\"unit\":{\"type\":\"string\",\"enum\":[\"celsius\",\"fahrenheit\"]}},\"required\":[\"city\"],\"additionalProperties\":false},\"strict\":false},{\"type\":\"function\",\"name\":\"get_time\",\"description\":\"Local time in an IANA time zone\",\"parameters\":{\"type\":\"object\",\"properties\":{\"tz\":{\"type\":\"string\"}},\"required\":[\"tz\"],\"additionalProperties\":false},\"strict\":false}]}"
+    }
+  ],
+  "case_id": "P01-E10-example-tool-loop",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestToolLoopExample$/^responses$'",
+  "status": "PASS",
+  "test": "TestToolLoopExample/responses"
+}

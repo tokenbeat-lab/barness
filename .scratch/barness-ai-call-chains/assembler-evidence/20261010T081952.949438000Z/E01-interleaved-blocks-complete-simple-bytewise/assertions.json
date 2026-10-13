@@ -1,0 +1,82 @@
+{
+  "assertions": [
+    {
+      "name": "Complete error is nil",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "call finishes",
+      "pass": true
+    },
+    {
+      "name": "exactly one inference request",
+      "pass": true,
+      "detail": "got 1"
+    },
+    {
+      "name": "method and path",
+      "pass": true,
+      "detail": "got POST /v1/responses"
+    },
+    {
+      "name": "tenant key used",
+      "pass": true,
+      "detail": "got \"key:tenant-a@v1\""
+    },
+    {
+      "name": "request body",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are terse.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"Think, then greet.\"}]}],\"stream\":true,\"store\":false,\"max_output_tokens\":32768}\nwant {\"input\":[{\"role\":\"system\",\"content\":\"You are terse.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"Think, then greet.\"}]}],\"max_output_tokens\":32768,\"model\":\"gpt-4.1-mini\",\"store\":false,\"stream\":true}"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\""
+    },
+    {
+      "name": "no error message",
+      "pass": true,
+      "detail": "got \"\""
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"resp_010\""
+    },
+    {
+      "name": "usage",
+      "pass": true,
+      "detail": "got {Input:30 Output:12 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:8} Modalities:<nil> TotalTokens:42 Cost:{Input:1.2e-05 Output:1.9200000000000003e-05 CacheRead:0 CacheWrite:0 Total:3.12e-05}} want {Input:30 Output:12 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:8} Modalities:<nil> TotalTokens:42 Cost:{Input:1.2e-05 Output:1.9200000000000003e-05 CacheRead:0 CacheWrite:0 Total:3.12e-05}}"
+    },
+    {
+      "name": "message identity",
+      "pass": true,
+      "detail": "api=\"openai-responses\" provider=\"openai\" model=\"gpt-4.1-mini\""
+    },
+    {
+      "name": "block count",
+      "pass": true,
+      "detail": "got [{Thinking:Thinking hard Signature:{\"id\":\"rs_001\",\"type\":\"reasoning\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"Thinking hard\"}],\"encrypted_content\":\"gAAAA-synthetic-001\"} Redacted:false} {Text:Hi there Signature:{\"v\":1,\"id\":\"msg_010\"}} {Thinking:More Signature:{\"id\":\"rs_002\",\"type\":\"reasoning\",\"summary\":[],\"content\":[{\"type\":\"reasoning_text\",\"text\":\"More\"}]} Redacted:false}]"
+    },
+    {
+      "name": "block 0",
+      "pass": true,
+      "detail": "got thinking \"Thinking hard\" sig=\"{\\\"id\\\":\\\"rs_001\\\",\\\"type\\\":\\\"reasoning\\\",\\\"summary\\\":[{\\\"type\\\":\\\"summary_text\\\",\\\"text\\\":\\\"Thinking hard\\\"}],\\\"encrypted_content\\\":\\\"gAAAA-synthetic-001\\\"}\"\nwant thinking \"Thinking hard\" sig=\"{\\\"id\\\":\\\"rs_001\\\",\\\"type\\\":\\\"reasoning\\\",\\\"summary\\\":[{\\\"type\\\":\\\"summary_text\\\",\\\"text\\\":\\\"Thinking hard\\\"}],\\\"encrypted_content\\\":\\\"gAAAA-synthetic-001\\\"}\""
+    },
+    {
+      "name": "block 1",
+      "pass": true,
+      "detail": "got text \"Hi there\" sig=\"{\\\"v\\\":1,\\\"id\\\":\\\"msg_010\\\"}\"\nwant text \"Hi there\" sig=\"{\\\"v\\\":1,\\\"id\\\":\\\"msg_010\\\"}\""
+    },
+    {
+      "name": "block 2",
+      "pass": true,
+      "detail": "got thinking \"More\" sig=\"{\\\"id\\\":\\\"rs_002\\\",\\\"type\\\":\\\"reasoning\\\",\\\"summary\\\":[],\\\"content\\\":[{\\\"type\\\":\\\"reasoning_text\\\",\\\"text\\\":\\\"More\\\"}]}\"\nwant thinking \"More\" sig=\"{\\\"id\\\":\\\"rs_002\\\",\\\"type\\\":\\\"reasoning\\\",\\\"summary\\\":[],\\\"content\\\":[{\\\"type\\\":\\\"reasoning_text\\\",\\\"text\\\":\\\"More\\\"}]}\""
+    }
+  ],
+  "case_id": "E01-interleaved-blocks-complete-simple-bytewise",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestStreamLifecycle$/^interleaved-blocks$/^complete-simple-bytewise$'",
+  "status": "PASS",
+  "test": "TestStreamLifecycle/interleaved-blocks/complete-simple-bytewise"
+}

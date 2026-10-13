@@ -1,0 +1,85 @@
+{
+  "message": {
+    "content": [
+      {
+        "thinking": "Check the weather in Zürich / CH",
+        "thinkingSignature": "{\"id\":\"rs_n1\",\"type\":\"reasoning\",\"encrypted_content\":\"gAAAA-n1-backfilled\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"Check the weather in Zürich / CH\"}],\"status\":\"completed\"}"
+      },
+      {
+        "thinking": "",
+        "thinkingSignature": "{\"id\":\"rs_n2\",\"type\":\"reasoning\",\"summary\":[],\"encrypted_content\":\"gAAAA-n2/x\"}"
+      },
+      {
+        "text": "Checking now.",
+        "textSignature": "{\"v\":1,\"id\":\"msg_n1\",\"phase\":\"commentary\"}"
+      },
+      {
+        "id": "call_n1|fc_n1",
+        "name": "get_weather",
+        "arguments": {
+          "city": "Zürich"
+        },
+        "rawArguments": "{\"city\":\"Zürich\"}"
+      }
+    ],
+    "api": "openai-responses",
+    "provider": "openai",
+    "model": "gpt-4.1-mini",
+    "responseId": "resp_n1",
+    "usage": {
+      "input": 50,
+      "output": 30,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 20,
+      "totalTokens": 80,
+      "cost": {
+        "input": 0.00002,
+        "output": 0.000048,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000068
+      }
+    },
+    "stopReason": "toolUse",
+    "rawStopReason": "completed",
+    "timestamp": 1791512702062
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-native-round1-gpt-4.1-mini",
+    "bindingId": "primary",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-responses",
+    "modelId": "gpt-4.1-mini",
+    "accountScopeId": "acct-tenant-a",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-native-round1-gpt-4.1-mini#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 50,
+          "output": 30,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 20,
+          "totalTokens": 80,
+          "cost": {
+            "input": 0.00002,
+            "output": 0.000048,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000068
+          }
+        }
+      }
+    ]
+  }
+}

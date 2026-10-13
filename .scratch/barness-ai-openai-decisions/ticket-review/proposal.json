@@ -1,0 +1,382 @@
+{
+  "schema": 1,
+  "status": "DRAFT_PENDING_APPROVAL",
+  "baseline": "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+  "date": "2026-10-12",
+  "originalHashes": {
+    ".scratch/barness-ai-openai-decisions/acceptance.md": "d446c36b898cfc7b6d6cea2335200853f01d5c6f2e6123381f476cc199766268",
+    ".scratch/barness-ai-openai-decisions/design.md": "39d4b9a1e8a955c3b32a99c448f342d0215367f5fcb2bd44e18cc7c5c5e7957d",
+    ".scratch/barness-ai-openai-decisions/implementation-plan.md": "b1455b62b3bf395f6780d34ab5a94fb3e1dfb3e289b1e10fe088f588f0c39816",
+    ".scratch/barness-ai-openai-decisions/planning-verification.md": "e7e845cec856ad2a086087f899d834744d4f8a16f55f53a484e63c3fc967e205",
+    ".scratch/barness-ai-openai-decisions/spec.md": "df012733a9754fc432c3770dd10bdcd77a163cfa310a0e14dde933c3791b0a82",
+    ".scratch/barness-ai-openai-decisions/issues/01-jev-baseline-and-failure-contract.md": "6f1ff4d6cb6859df44f55216aa9f6d6a84a7cd64f4b90bd3e03df79d4113ac69",
+    ".scratch/barness-ai-openai-decisions/issues/02-public-contracts-and-safe-defaults.md": "34e34328f1898a3aa6cd673ed2f06dd6d68dbb06bcd5f492d04a548fc7c29496",
+    ".scratch/barness-ai-openai-decisions/issues/03-text-protocol-and-final-payload.md": "e684c866a5a244f0775fd787b6cbf2e0ca72698418ebb5136438bf411ef4b17f",
+    ".scratch/barness-ai-openai-decisions/issues/04-answers-refusals-and-usage.md": "6c96164cd42f93886f938a93367dd3610b7c3ada8d5488b65785745db2a5a083",
+    ".scratch/barness-ai-openai-decisions/issues/05-classifier-images-and-authorization.md": "079255bbdb6e53344202c581e6d7611c38964cdd9264e33fc0ec6f12b00ac0eb",
+    ".scratch/barness-ai-openai-decisions/issues/06-runtime-isolation-and-differential.md": "a21e9d1ddb0bd28667009651afa3ef156ea6a4e3e5cb7762f8ccec4b8122594d",
+    ".scratch/barness-ai-openai-decisions/issues/07-live-catalog-and-support-matrix.md": "c96242dc6599a1cd5e759d8aee2733dbfa7f6f93cc9589f2cda81bbbf3366f9b",
+    ".scratch/barness-ai-openai-decisions/issues/08-host-examples-and-chinese-evaluation.md": "a49a338dfbf7db18d4f9e6b5ad659af20847e19fc497c7d99811009c23e80648",
+    ".scratch/barness-ai-openai-decisions/issues/09-release-gate-docs-and-rollback.md": "8853fe74941b8b35c88ceb80c6a65333592cd20683ae49cf4465ae5b73e4d64b"
+  },
+  "tickets": [
+    {
+      "id": "01",
+      "title": "固定 Jev 公共行为与可重放回归基线",
+      "file": "drafts/01-jev-regression-baseline.md",
+      "blockedBy": [],
+      "sourceTickets": [
+        "01"
+      ],
+      "requirements": [
+        "R02",
+        "R14",
+        "R15",
+        "R19"
+      ],
+      "cases": [
+        "OD01",
+        "OD03",
+        "OD09",
+        "OD16",
+        "OD34",
+        "OD50"
+      ]
+    },
+    {
+      "id": "02",
+      "title": "打通 Decisions 文本单选与最终请求闭环",
+      "file": "drafts/02-decisions-text-choice.md",
+      "blockedBy": [
+        "01"
+      ],
+      "sourceTickets": [
+        "02",
+        "03"
+      ],
+      "requirements": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R13",
+        "R14",
+        "R19"
+      ],
+      "cases": [
+        "OD01",
+        "OD02",
+        "OD03",
+        "OD04",
+        "OD05",
+        "OD06",
+        "OD09",
+        "OD10",
+        "OD11",
+        "OD12",
+        "OD14",
+        "OD16",
+        "OD22",
+        "OD23",
+        "OD25",
+        "OD27",
+        "OD28",
+        "OD29",
+        "OD30",
+        "OD31",
+        "OD32"
+      ]
+    },
+    {
+      "id": "03",
+      "title": "交付 score/bool 混合答案、分布与逐题拒答",
+      "file": "drafts/03-mixed-answers-and-refusals.md",
+      "blockedBy": [
+        "02"
+      ],
+      "sourceTickets": [
+        "04"
+      ],
+      "requirements": [
+        "R02",
+        "R04",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R19"
+      ],
+      "cases": [
+        "OD13",
+        "OD22",
+        "OD25",
+        "OD27",
+        "OD28",
+        "OD29",
+        "OD30",
+        "OD31",
+        "OD32",
+        "OD33",
+        "OD34",
+        "OD39",
+        "OD41"
+      ]
+    },
+    {
+      "id": "04",
+      "title": "证明 Decisions 用量完整性与输入阶梯计费",
+      "file": "drafts/04-usage-presence-and-input-pricing.md",
+      "blockedBy": [
+        "02"
+      ],
+      "sourceTickets": [
+        "04"
+      ],
+      "requirements": [
+        "R11",
+        "R12",
+        "R19"
+      ],
+      "cases": [
+        "OD35",
+        "OD36",
+        "OD37",
+        "OD38",
+        "OD41"
+      ]
+    },
+    {
+      "id": "05",
+      "title": "打通分类图片、三重授权与完整资源边界",
+      "file": "drafts/05-classifier-inline-images.md",
+      "blockedBy": [
+        "02"
+      ],
+      "sourceTickets": [
+        "02",
+        "05"
+      ],
+      "requirements": [
+        "R03",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R14",
+        "R19"
+      ],
+      "cases": [
+        "OD05",
+        "OD06",
+        "OD07",
+        "OD08",
+        "OD15",
+        "OD17",
+        "OD18",
+        "OD19",
+        "OD20",
+        "OD21",
+        "OD22",
+        "OD23",
+        "OD24",
+        "OD25",
+        "OD26",
+        "OD42"
+      ]
+    },
+    {
+      "id": "06",
+      "title": "证明故障、快照隔离与授权撤销行为",
+      "file": "drafts/06-runtime-isolation-and-rollback.md",
+      "blockedBy": [
+        "03",
+        "04",
+        "05"
+      ],
+      "sourceTickets": [
+        "06",
+        "09"
+      ],
+      "requirements": [
+        "R07",
+        "R09",
+        "R10",
+        "R13",
+        "R14",
+        "R19",
+        "R20"
+      ],
+      "cases": [
+        "OD40",
+        "OD41",
+        "OD42",
+        "OD43",
+        "OD44",
+        "OD45",
+        "OD46",
+        "OD58"
+      ]
+    },
+    {
+      "id": "07",
+      "title": "纳入冻结 Pi 的 Decisions 差分与有限差异账本",
+      "file": "drafts/07-frozen-pi-differential.md",
+      "blockedBy": [
+        "03",
+        "04",
+        "05"
+      ],
+      "sourceTickets": [
+        "06"
+      ],
+      "requirements": [
+        "R02",
+        "R08",
+        "R15",
+        "R19"
+      ],
+      "cases": [
+        "OD14",
+        "OD48",
+        "OD49",
+        "OD50"
+      ]
+    },
+    {
+      "id": "08",
+      "title": "形成分类图片设计负载与可核验容量证据",
+      "file": "drafts/08-classifier-image-design-load.md",
+      "blockedBy": [
+        "06"
+      ],
+      "sourceTickets": [
+        "06",
+        "09"
+      ],
+      "requirements": [
+        "R06",
+        "R13",
+        "R17",
+        "R19"
+      ],
+      "cases": [
+        "OD47",
+        "OD57"
+      ]
+    },
+    {
+      "id": "09",
+      "title": "取得候选 Decisions 路线自己的有界真实证据",
+      "file": "drafts/09-candidate-live-evidence.md",
+      "blockedBy": [
+        "07",
+        "08"
+      ],
+      "sourceTickets": [
+        "07"
+      ],
+      "requirements": [
+        "R12",
+        "R16",
+        "R17",
+        "R19"
+      ],
+      "cases": [
+        "OD51",
+        "OD54"
+      ]
+    },
+    {
+      "id": "10",
+      "title": "纳入正式目录并形成第十组合独立支持记录",
+      "file": "drafts/10-formal-catalog-and-support-matrix.md",
+      "blockedBy": [
+        "09"
+      ],
+      "sourceTickets": [
+        "07"
+      ],
+      "requirements": [
+        "R05",
+        "R16",
+        "R17",
+        "R19"
+      ],
+      "cases": [
+        "OD52",
+        "OD53",
+        "OD54"
+      ]
+    },
+    {
+      "id": "11",
+      "title": "交付 Host 迁移示例与独立拒答评估流程",
+      "file": "drafts/11-host-migration-and-evaluation-tooling.md",
+      "blockedBy": [
+        "03",
+        "04",
+        "05"
+      ],
+      "sourceTickets": [
+        "08"
+      ],
+      "requirements": [
+        "R03",
+        "R04",
+        "R10",
+        "R18",
+        "R19"
+      ],
+      "cases": [
+        "OD55",
+        "OD56"
+      ]
+    },
+    {
+      "id": "12",
+      "title": "取得 Luna 当前正式目录下的独立中文效果报告",
+      "file": "drafts/12-independent-chinese-live-evaluation.md",
+      "blockedBy": [
+        "10",
+        "11"
+      ],
+      "sourceTickets": [
+        "08"
+      ],
+      "requirements": [
+        "R18",
+        "R19"
+      ],
+      "cases": [
+        "OD55"
+      ]
+    },
+    {
+      "id": "13",
+      "title": "闭合十组合发布门禁、迁移文档与回滚证据",
+      "file": "drafts/13-ten-route-release-gate.md",
+      "blockedBy": [
+        "12"
+      ],
+      "sourceTickets": [
+        "09"
+      ],
+      "requirements": [
+        "R17",
+        "R19",
+        "R20"
+      ],
+      "cases": [
+        "OD53",
+        "OD57",
+        "OD58"
+      ]
+    }
+  ]
+}

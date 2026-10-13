@@ -1,0 +1,79 @@
+{
+  "content": [
+    {
+      "type": "image",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jBMsAAAAASUVORK5CYII=",
+      "mimeType": "image/png"
+    }
+  ],
+  "responseId": "interaction-fixture",
+  "responseModel": "reported-image-model",
+  "usage": {
+    "input": 7,
+    "output": 42,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "reasoning": 22,
+    "modalities": {
+      "inputText": 7,
+      "inputImage": 0,
+      "outputText": 0,
+      "outputImage": 20
+    },
+    "totalTokens": 49,
+    "cost": {
+      "input": 0.000014,
+      "output": 0.00018800000000000002,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0.000202
+    }
+  },
+  "stopReason": "stop",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-google-hook-allowed-options",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "images",
+    "operation": "image",
+    "resolved": true,
+    "providerId": "google",
+    "api": "google-interactions",
+    "modelId": "host-google-image",
+    "accountScopeId": "acct-tenant-a-google",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:00afa2f781fd63770e76e29eb5d38ba5f69ba3591fb21d16bf08049ee7c44b95",
+    "attempts": [
+      {
+        "attemptId": "req-google-hook-allowed-options#1",
+        "httpStatus": 200,
+        "providerRequestId": "req-images",
+        "usageReporting": "complete",
+        "usage": {
+          "input": 7,
+          "output": 42,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 22,
+          "modalities": {
+            "inputText": 7,
+            "inputImage": 0,
+            "outputText": 0,
+            "outputImage": 20
+          },
+          "totalTokens": 49,
+          "cost": {
+            "input": 0.000014,
+            "output": 0.00018800000000000002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000202
+          }
+        }
+      }
+    ]
+  }
+}

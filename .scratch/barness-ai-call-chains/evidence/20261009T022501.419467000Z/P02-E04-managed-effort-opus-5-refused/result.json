@@ -1,0 +1,66 @@
+{
+  "message": {
+    "content": null,
+    "api": "anthropic-messages",
+    "provider": "anthropic",
+    "model": "claude-opus-5",
+    "providerThinkingLevel": "max",
+    "usage": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 0,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      }
+    },
+    "stopReason": "error",
+    "errorMessage": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"bad\"}}",
+    "timestamp": 1791512702059
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-opus-5-refused-stream",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "claude",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "anthropic",
+    "api": "anthropic-messages",
+    "modelId": "claude-opus-5",
+    "accountScopeId": "acct-tenant-a-anthropic",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-opus-5-refused-stream#1",
+        "httpStatus": 400,
+        "providerRequestId": "req_400",
+        "code": "invalid_request",
+        "usageReporting": "unreported",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        }
+      }
+    ]
+  }
+}

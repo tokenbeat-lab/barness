@@ -1,0 +1,178 @@
+[
+  {
+    "event": {
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello."
+          }
+        ],
+        "api": "anthropic-messages",
+        "provider": "anthropic",
+        "model": "claude-sonnet-4-6",
+        "responseId": "msg_o",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.00003,
+            "output": 0.00003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00006
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "timestamp": 1791512701430
+      }
+    },
+    "type": "start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello."
+          }
+        ],
+        "api": "anthropic-messages",
+        "provider": "anthropic",
+        "model": "claude-sonnet-4-6",
+        "responseId": "msg_o",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.00003,
+            "output": 0.00003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00006
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "timestamp": 1791512701430
+      }
+    },
+    "type": "text_start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Delta": "Hello.",
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello."
+          }
+        ],
+        "api": "anthropic-messages",
+        "provider": "anthropic",
+        "model": "claude-sonnet-4-6",
+        "responseId": "msg_o",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.00003,
+            "output": 0.00003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00006
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "timestamp": 1791512701430
+      }
+    },
+    "type": "text_delta"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Content": "Hello.",
+      "Partial": {
+        "content": [
+          {
+            "text": "Hello."
+          }
+        ],
+        "api": "anthropic-messages",
+        "provider": "anthropic",
+        "model": "claude-sonnet-4-6",
+        "responseId": "msg_o",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.00003,
+            "output": 0.00003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00006
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "timestamp": 1791512701430
+      }
+    },
+    "type": "text_end"
+  },
+  {
+    "event": {
+      "Reason": "stop",
+      "Message": {
+        "content": [
+          {
+            "text": "Hello."
+          }
+        ],
+        "api": "anthropic-messages",
+        "provider": "anthropic",
+        "model": "claude-sonnet-4-6",
+        "responseId": "msg_o",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.00003,
+            "output": 0.00003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00006
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "timestamp": 1791512701430
+      }
+    },
+    "type": "done"
+  }
+]

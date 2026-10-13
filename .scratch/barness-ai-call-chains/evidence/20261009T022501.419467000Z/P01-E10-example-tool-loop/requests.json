@@ -1,0 +1,192 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/responses",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "730",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "3.66.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go"
+    },
+    "body": {
+      "model": "gpt-4.1-mini",
+      "input": [
+        {
+          "role": "system",
+          "content": "You are a weather assistant."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "What is the weather and local time in Zürich?"
+            }
+          ]
+        }
+      ],
+      "stream": true,
+      "store": false,
+      "tools": [
+        {
+          "type": "function",
+          "name": "get_weather",
+          "description": "Current weather for a city",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "city": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string",
+                "enum": [
+                  "celsius",
+                  "fahrenheit"
+                ]
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "additionalProperties": false
+          },
+          "strict": false
+        },
+        {
+          "type": "function",
+          "name": "get_time",
+          "description": "Local time in an IANA time zone",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "tz": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "tz"
+            ],
+            "additionalProperties": false
+          },
+          "strict": false
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/responses",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "1129",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "3.66.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go"
+    },
+    "body": {
+      "model": "gpt-4.1-mini",
+      "input": [
+        {
+          "role": "system",
+          "content": "You are a weather assistant."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "What is the weather and local time in Zürich?"
+            }
+          ]
+        },
+        {
+          "type": "function_call",
+          "id": "fc_w1",
+          "call_id": "call_w1",
+          "name": "get_weather",
+          "arguments": "{\"city\":\"Zürich\",\"unit\":\"celsius\"}"
+        },
+        {
+          "type": "function_call",
+          "id": "fc_t1",
+          "call_id": "call_t1",
+          "name": "get_time",
+          "arguments": "{\"tz\":\"Europe/Zurich\"}"
+        },
+        {
+          "type": "function_call_output",
+          "call_id": "call_w1",
+          "output": "18°C, clear"
+        },
+        {
+          "type": "function_call_output",
+          "call_id": "call_t1",
+          "output": "14:05"
+        }
+      ],
+      "stream": true,
+      "store": false,
+      "tools": [
+        {
+          "type": "function",
+          "name": "get_weather",
+          "description": "Current weather for a city",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "city": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string",
+                "enum": [
+                  "celsius",
+                  "fahrenheit"
+                ]
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "additionalProperties": false
+          },
+          "strict": false
+        },
+        {
+          "type": "function",
+          "name": "get_time",
+          "description": "Local time in an IANA time zone",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "tz": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "tz"
+            ],
+            "additionalProperties": false
+          },
+          "strict": false
+        }
+      ]
+    }
+  }
+]

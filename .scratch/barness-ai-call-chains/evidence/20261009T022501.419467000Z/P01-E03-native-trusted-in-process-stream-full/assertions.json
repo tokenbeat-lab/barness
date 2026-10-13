@@ -1,0 +1,50 @@
+{
+  "assertions": [
+    {
+      "name": "round 2 ends",
+      "pass": true
+    },
+    {
+      "name": "round 2 succeeds: a downgrade is never invalid_request",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\""
+    },
+    {
+      "name": "content",
+      "pass": true,
+      "detail": "got [\"text:18°C and clear.|{\\\"v\\\":1,\\\"id\\\":\\\"msg_n2\\\"}\"]"
+    },
+    {
+      "name": "downgrade counts and reasons in the Result metadata",
+      "pass": true,
+      "detail": "got {NoEnvelope:0 AccountMismatch:0 CrossModel:0} want {NoEnvelope:0 AccountMismatch:0 CrossModel:0}"
+    },
+    {
+      "name": "round 2 wire body",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are a weather assistant.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"Weather in Zürich?\"}]},{\"id\":\"rs_n1\",\"type\":\"reasoning\",\"encrypted_content\":\"gAAAA-n1-backfilled\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"Check the weather in Zürich / CH\"}],\"status\":\"completed\"},{\"id\":\"rs_n2\",\"type\":\"reasoning\",\"summary\":[],\"encrypted_content\":\"gAAAA-n2/x\"},{\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Checking now.\",\"annotations\":[]}],\"status\":\"completed\",\"id\":\"msg_n1\",\"phase\":\"commentary\"},{\"type\":\"reasoning\",\"id\":\"rs_red\",\"summary\":[],\"encrypted_content\":\"gAAAA-redacted\"},{\"type\":\"function_call\",\"id\":\"fc_n1\",\"call_id\":\"call_n1\",\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Zürich\\\"}\"},{\"type\":\"function_call_output\",\"call_id\":\"call_n1\",\"output\":\"18°C, clear\"}],\"stream\":true,\"store\":false,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Current weather for a city\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"additionalProperties\":false},\"strict\":false}]}"
+    },
+    {
+      "name": "round 2 uses the calling tenant's current key",
+      "pass": true,
+      "detail": "got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "the caller's history is unchanged",
+      "pass": true
+    },
+    {
+      "name": "downgrade counts stay out of the pi-compatible message",
+      "pass": true
+    }
+  ],
+  "case_id": "P01-E03-native-trusted-in-process-stream-full",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestNativeStateReplay$/^trusted-in-process$/^stream-full$'",
+  "status": "PASS",
+  "test": "TestNativeStateReplay/trusted-in-process/stream-full"
+}

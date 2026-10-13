@@ -1,0 +1,75 @@
+{
+  "message": {
+    "content": [
+      {
+        "thinking": "Hmm.",
+        "thinkingSignature": "sig-r"
+      },
+      {
+        "text": "Done."
+      }
+    ],
+    "api": "anthropic-messages",
+    "provider": "anthropic",
+    "model": "claude-fable-5-1",
+    "responseId": "msg_m",
+    "providerThinkingLevel": "high",
+    "usage": {
+      "input": 10,
+      "output": 2,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "cacheWrite1h": 0,
+      "totalTokens": 12,
+      "cost": {
+        "input": 0.0001,
+        "output": 0.0001,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.0002
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "end_turn",
+    "timestamp": 1791512702047
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-fable-5-1-first-turn-stream",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "claude",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "anthropic",
+    "api": "anthropic-messages",
+    "modelId": "claude-fable-5-1",
+    "accountScopeId": "acct-tenant-a-anthropic",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-fable-5-1-first-turn-stream#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 10,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 12,
+          "cost": {
+            "input": 0.0001,
+            "output": 0.0001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0002
+          }
+        }
+      }
+    ]
+  }
+}

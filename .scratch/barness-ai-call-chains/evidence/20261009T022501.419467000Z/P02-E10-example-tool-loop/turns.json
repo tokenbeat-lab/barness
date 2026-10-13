@@ -1,0 +1,169 @@
+[
+  {
+    "Result": {
+      "message": {
+        "content": [
+          {
+            "thinking": "Let me think",
+            "thinkingSignature": "sig-abc"
+          },
+          {
+            "text": "Hi there"
+          },
+          {
+            "id": "toolu_01",
+            "name": "lookup",
+            "arguments": {
+              "q": "x"
+            },
+            "rawArguments": "{\"q\":\"x\"}"
+          }
+        ],
+        "api": "anthropic-messages",
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5",
+        "responseId": "msg_002",
+        "usage": {
+          "input": 30,
+          "output": 12,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.000029999999999999997,
+            "output": 0.00006000000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00009
+          }
+        },
+        "stopReason": "toolUse",
+        "rawStopReason": "tool_use",
+        "timestamp": 1791512701543
+      },
+      "metadata": {
+        "tenantId": "tenant-a",
+        "requestId": "req-e4e4e25161fcb29631879bf7639e06cf",
+        "actorId": "actor-7",
+        "bindingId": "claude",
+        "operation": "chat",
+        "resolved": true,
+        "providerId": "anthropic",
+        "api": "anthropic-messages",
+        "modelId": "claude-haiku-4-5",
+        "accountScopeId": "acct-tenant-a-anthropic",
+        "bindingVersion": "b1",
+        "credentialVersion": "v1",
+        "catalogVersion": "2026-10-08.5",
+        "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+        "attempts": [
+          {
+            "attemptId": "req-e4e4e25161fcb29631879bf7639e06cf#1",
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 30,
+              "output": 12,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "cacheWrite1h": 0,
+              "totalTokens": 42,
+              "cost": {
+                "input": 0.000029999999999999997,
+                "output": 0.00006000000000000001,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.00009
+              }
+            }
+          }
+        ]
+      }
+    },
+    "Results": [
+      {
+        "toolCallId": "toolu_01",
+        "toolName": "lookup",
+        "content": [
+          {
+            "text": "42"
+          }
+        ],
+        "isError": false
+      }
+    ]
+  },
+  {
+    "Result": {
+      "message": {
+        "content": [
+          {
+            "text": "It is 42."
+          }
+        ],
+        "api": "anthropic-messages",
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5",
+        "responseId": "msg_h",
+        "usage": {
+          "input": 40,
+          "output": 4,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "cacheWrite1h": 0,
+          "totalTokens": 44,
+          "cost": {
+            "input": 0.000039999999999999996,
+            "output": 0.00002,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000059999999999999995
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "end_turn",
+        "timestamp": 1791512701543
+      },
+      "metadata": {
+        "tenantId": "tenant-a",
+        "requestId": "req-ac04d04e17a689a56c45a2ec59baabc2",
+        "actorId": "actor-7",
+        "bindingId": "claude",
+        "operation": "chat",
+        "resolved": true,
+        "providerId": "anthropic",
+        "api": "anthropic-messages",
+        "modelId": "claude-haiku-4-5",
+        "accountScopeId": "acct-tenant-a-anthropic",
+        "bindingVersion": "b1",
+        "credentialVersion": "v1",
+        "catalogVersion": "2026-10-08.5",
+        "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+        "attempts": [
+          {
+            "attemptId": "req-ac04d04e17a689a56c45a2ec59baabc2#1",
+            "httpStatus": 200,
+            "usageReporting": "complete",
+            "usage": {
+              "input": 40,
+              "output": 4,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "cacheWrite1h": 0,
+              "totalTokens": 44,
+              "cost": {
+                "input": 0.000039999999999999996,
+                "output": 0.00002,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0.000059999999999999995
+              }
+            }
+          }
+        ]
+      }
+    },
+    "Results": null
+  }
+]

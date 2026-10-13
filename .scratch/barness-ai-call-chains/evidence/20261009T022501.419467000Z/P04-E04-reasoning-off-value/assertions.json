@@ -1,0 +1,113 @@
+{
+  "assertions": [
+    {
+      "name": "inference requests sent",
+      "pass": true,
+      "detail": "got 1 want 1"
+    },
+    {
+      "name": "request path",
+      "pass": true,
+      "detail": "got POST /v1/chat/completions?"
+    },
+    {
+      "name": "tenant's key for the binding used",
+      "pass": true,
+      "detail": "got \"key:tenant-a@v1\""
+    },
+    {
+      "name": "request body",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-5.1\",\"messages\":[{\"role\":\"developer\",\"content\":\"You are terse.\"},{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"Say hello.\"}]}],\"stream\":true,\"stream_options\":{\"include_usage\":true},\"store\":false,\"reasoning_effort\":\"none\"}\nwant {\n      \"model\": \"gpt-5.1\",\n      \"messages\": [\n       {\n        \"role\": \"developer\",\n        \"content\": \"You are terse.\"\n       },\n       {\n        \"role\": \"user\",\n        \"content\": [\n         {\n          \"type\": \"text\",\n          \"text\": \"Say hello.\"\n         }\n        ]\n       }\n      ],\n      \"stream\": true,\n      \"stream_options\": {\n       \"include_usage\": true\n      },\n      \"store\": false,\n      \"reasoning_effort\": \"none\"\n     }"
+    },
+    {
+      "name": "event sequence",
+      "pass": true,
+      "detail": "got [\"start\" \"text_start#0\" \"text_delta#0:Hello, world!\" \"text_end#0:Hello, world!\" \"done:stop\"]\nwant [\"start\" \"text_start#0\" \"text_delta#0:Hello, world!\" \"text_end#0:Hello, world!\" \"done:stop\"]"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\" want \"stop\""
+    },
+    {
+      "name": "error message",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "no error",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "Err after the terminal is Result's error",
+      "pass": true,
+      "detail": "Err=<nil> Result=<nil>"
+    },
+    {
+      "name": "done carries the final message",
+      "pass": true,
+      "detail": "done={Content:[{Text:Hello, world! Signature:}] API:openai-completions Provider:openai Model:gpt-5.1 ResponseID:chatcmpl-001 ResponseModel:gpt-5-mini-2025-08-07 ProviderThinkingLevel: Usage:{Input:12 Output:4 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:16 Cost:{Input:1.5000000000000002e-05 Output:4e-05 CacheRead:0 CacheWrite:0 Total:5.500000000000001e-05}} StopReason:stop RawStopReason:stop ErrorMessage: Timestamp:1791512701465 NativeState:{env:{TenantID:tenant-a AccountScopeID:acct-tenant-a ProviderID:openai API:openai-completions ModelID:gpt-5.1}}}"
+    },
+    {
+      "name": "message identity",
+      "pass": true,
+      "detail": "api=\"openai-completions\" provider=\"openai\" model=\"gpt-5.1\""
+    },
+    {
+      "name": "raw stop reason",
+      "pass": true,
+      "detail": "got \"stop\" want \"stop\""
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"chatcmpl-001\" want \"chatcmpl-001\""
+    },
+    {
+      "name": "response model",
+      "pass": true,
+      "detail": "got \"gpt-5-mini-2025-08-07\" want \"gpt-5-mini-2025-08-07\""
+    },
+    {
+      "name": "provider thinking level",
+      "pass": true,
+      "detail": "got \"\" want \"\""
+    },
+    {
+      "name": "final content",
+      "pass": true,
+      "detail": "got [{\"text\":\"Hello, world!\",\"type\":\"text\"}]\nwant [\n     {\n      \"text\": \"Hello, world!\",\n      \"type\": \"text\"\n     }\n    ]"
+    },
+    {
+      "name": "usage",
+      "pass": true,
+      "detail": "got {Input:12 Output:4 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:16 Cost:{Input:1.5000000000000002e-05 Output:4e-05 CacheRead:0 CacheWrite:0 Total:5.500000000000001e-05}}\nwant {Input:12 Output:4 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:16 Cost:{Input:1.5000000000000002e-05 Output:4e-05 CacheRead:0 CacheWrite:0 Total:5.500000000000001e-05}}"
+    },
+    {
+      "name": "last attempt's usage reporting",
+      "pass": true,
+      "detail": "got \"complete\" want \"complete\""
+    },
+    {
+      "name": "last attempt's usage is the message's",
+      "pass": true,
+      "detail": "attempt {Input:12 Output:4 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:16 Cost:{Input:1.5000000000000002e-05 Output:4e-05 CacheRead:0 CacheWrite:0 Total:5.500000000000001e-05}} message {Input:12 Output:4 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:16 Cost:{Input:1.5000000000000002e-05 Output:4e-05 CacheRead:0 CacheWrite:0 Total:5.500000000000001e-05}}"
+    },
+    {
+      "name": "call resolved to the scenario's binding",
+      "pass": true,
+      "detail": "metadata {CallAttribution:{TenantID:tenant-a RequestID:req-reasoning-off-value-stream ActorID:actor-7 JobID:job-42 BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-completions ModelID:gpt-5.1 AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-reasoning-off-value-stream#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:12 Output:4 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:16 Cost:{Input:1.5000000000000002e-05 Output:4e-05 CacheRead:0 CacheWrite:0 Total:5.500000000000001e-05}}}]}"
+    },
+    {
+      "name": "attempts recorded",
+      "pass": true,
+      "detail": "got 1 want 1"
+    }
+  ],
+  "case_id": "P04-E04-reasoning-off-value",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestChatOptions$/^reasoning-off-value$'",
+  "status": "PASS",
+  "test": "TestChatOptions/reasoning-off-value"
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-09T10:25:02.095207+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-operation-image-complete-full",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "primary",
+      "operation": "chat",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-09T10:25:02.095211+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-operation-image-complete-full",
+      "actorId": "actor-7",
+      "jobId": "job-42",
+      "bindingId": "primary",
+      "operation": "chat",
+      "resolved": false
+    },
+    "duration": 4042,
+    "stopReason": "error",
+    "error": {
+      "code": "tenant_denied",
+      "phase": "capability"
+    }
+  }
+]

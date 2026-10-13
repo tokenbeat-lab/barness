@@ -1,0 +1,20 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/images/generations",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "81",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "host-image",
+      "output_format": "jpeg",
+      "prompt": "一张餐厅露台照片"
+    }
+  }
+]

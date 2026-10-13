@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid edit refused before credentials and network",
+      "pass": true,
+      "detail": "got ai: resource_limit (scope): exceeded the resource policy's Image.MaxInputImages (2)"
+    }
+  ],
+  "case_id": "P08-E07-edit-mask-count",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEditingPreflight$/^mask-count$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesEditingPreflight/mask-count"
+}

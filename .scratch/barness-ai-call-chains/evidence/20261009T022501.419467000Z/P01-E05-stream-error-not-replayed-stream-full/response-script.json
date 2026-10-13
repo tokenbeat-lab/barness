@@ -1,0 +1,9 @@
+[
+  {
+    "status": 200,
+    "header": {
+      "Content-Type": "text/event-stream"
+    },
+    "script": "event: response.created\ndata: {\"type\":\"response.created\",\"sequence_number\":0,\"response\":{\"id\":\"resp_012\",\"object\":\"response\",\"created_at\":1790000000,\"status\":\"in_progress\",\"model\":\"gpt-4.1-mini-2025-04-14\",\"output\":[],\"usage\":null}}\n\nevent: error\ndata: {\"type\":\"error\",\"sequence_number\":1,\"code\":\"server_error\",\"message\":\"The server had an error\",\"param\":null}\n\n"
+  }
+]

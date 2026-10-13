@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid edit refused before credentials and network",
+      "pass": true,
+      "detail": "got ai: invalid_request (scope): image mask dimensions must match the first reference image"
+    }
+  ],
+  "case_id": "P08-E07-edit-mask-size",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesEditingPreflight$/^mask-size$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesEditingPreflight/mask-size"
+}

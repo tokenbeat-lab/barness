@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "valid boundary succeeds",
+      "pass": true,
+      "detail": "got <nil>"
+    }
+  ],
+  "case_id": "P08-E07-input-max-prompt",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^max-prompt$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesOptionsAndInput/max-prompt"
+}

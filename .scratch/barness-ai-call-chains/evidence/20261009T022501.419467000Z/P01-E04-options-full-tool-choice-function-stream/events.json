@@ -1,0 +1,183 @@
+[
+  {
+    "event": {
+      "Partial": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.000016000000000000003,
+            "output": 0.0000032000000000000003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000019200000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702155
+      }
+    },
+    "type": "start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Partial": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.000016000000000000003,
+            "output": 0.0000032000000000000003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000019200000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702155
+      }
+    },
+    "type": "text_start"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Delta": "Done.",
+      "Partial": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.000016000000000000003,
+            "output": 0.0000032000000000000003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000019200000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702155
+      }
+    },
+    "type": "text_delta"
+  },
+  {
+    "event": {
+      "ContentIndex": 0,
+      "Content": "Done.",
+      "Partial": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.000016000000000000003,
+            "output": 0.0000032000000000000003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000019200000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702155
+      }
+    },
+    "type": "text_end"
+  },
+  {
+    "event": {
+      "Reason": "stop",
+      "Message": {
+        "content": [
+          {
+            "text": "Done.",
+            "textSignature": "{\"v\":1,\"id\":\"msg_o\"}"
+          }
+        ],
+        "api": "openai-responses",
+        "provider": "openai",
+        "model": "gpt-4.1-mini",
+        "responseId": "resp_o",
+        "usage": {
+          "input": 40,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 42,
+          "cost": {
+            "input": 0.000016000000000000003,
+            "output": 0.0000032000000000000003,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000019200000000000003
+          }
+        },
+        "stopReason": "stop",
+        "rawStopReason": "completed",
+        "timestamp": 1791512702155
+      }
+    },
+    "type": "done"
+  }
+]

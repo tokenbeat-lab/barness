@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "invalid input refused before credential and HTTP",
+      "pass": true,
+      "detail": "got ai: invalid_request (capability): model does not support transparent backgrounds"
+    }
+  ],
+  "case_id": "P08-E07-input-unsupported-transparency",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesOptionsAndInput$/^unsupported-transparency$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesOptionsAndInput/unsupported-transparency"
+}

@@ -1,0 +1,13 @@
+{
+  "assertions": [
+    {
+      "name": "final edit refused before network",
+      "pass": true,
+      "detail": "got ai: tenant_denied (request): image callback may not change the stateless inline Google operation or authorized model"
+    }
+  ],
+  "case_id": "P09-E04-edit-mask",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesEditingCallbacks$/^mask$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesEditingCallbacks/mask"
+}

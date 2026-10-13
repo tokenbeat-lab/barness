@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "original request unchanged",
+      "pass": true,
+      "detail": "input was mutated"
+    },
+    {
+      "name": "validate final answers atomically",
+      "pass": true,
+      "detail": "got ai: protocol (response): invalid classifier response / {Answers:map[] ResponseModel:{state:2 value:actual-version} Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}} StopReason:error ErrorMessage:invalid classifier response Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-mixed-callback ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-08.5 CatalogHash:sha256:5f0245a9780db7648d8d69c5582134ec56fc094cf57531a86f293d2872cbbb41 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-mixed-callback#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:296 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:316 Cost:{Input:0.000296 Output:0 CacheRead:0 CacheWrite:0 Total:0.000296}}}]}}"
+    }
+  ],
+  "case_id": "P07-E04-mixed-final-legend-mismatch",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^final-legend-mismatch$'",
+  "status": "PASS",
+  "test": "TestClassifierMixedCallbacks/final-legend-mismatch"
+}

@@ -1,0 +1,88 @@
+{
+  "assertions": [
+    {
+      "name": "call still resolves the model it was built with",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\""
+    },
+    {
+      "name": "no error message",
+      "pass": true,
+      "detail": "got \"\""
+    },
+    {
+      "name": "message identity",
+      "pass": true,
+      "detail": "api=\"openai-responses\" provider=\"openai\" model=\"gpt-4.1-mini\""
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"resp_001\""
+    },
+    {
+      "name": "usage",
+      "pass": true,
+      "detail": "got {Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}} want {Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}"
+    },
+    {
+      "name": "single text block",
+      "pass": true,
+      "detail": "content=[{Text:Hello, world! Signature:{\"v\":1,\"id\":\"msg_001\"}}]"
+    },
+    {
+      "name": "text content",
+      "pass": true,
+      "detail": "got {Text:Hello, world! Signature:{\"v\":1,\"id\":\"msg_001\"}}"
+    },
+    {
+      "name": "text signature",
+      "pass": true,
+      "detail": "got \"{\\\"v\\\":1,\\\"id\\\":\\\"msg_001\\\"}\""
+    },
+    {
+      "name": "exactly one inference request",
+      "pass": true,
+      "detail": "got 1"
+    },
+    {
+      "name": "method",
+      "pass": true,
+      "detail": "got \"POST\""
+    },
+    {
+      "name": "path",
+      "pass": true,
+      "detail": "got \"/v1/responses\""
+    },
+    {
+      "name": "query",
+      "pass": true,
+      "detail": "got \"\""
+    },
+    {
+      "name": "tenant key used",
+      "pass": true,
+      "detail": "got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "user agent",
+      "pass": true,
+      "detail": "got \"barness-ai\""
+    },
+    {
+      "name": "request body",
+      "pass": true,
+      "detail": "got {\"model\":\"gpt-4.1-mini\",\"input\":[{\"role\":\"system\",\"content\":\"You are terse.\"},{\"role\":\"user\",\"content\":[{\"type\":\"input_text\",\"text\":\"Say hello.\"}]}],\"stream\":true,\"store\":false}\nwant {\n        \"model\": \"gpt-4.1-mini\",\n        \"input\": [\n          {\"role\": \"system\", \"content\": \"You are terse.\"},\n          {\"role\": \"user\", \"content\": [{\"type\": \"input_text\", \"text\": \"Say hello.\"}]}\n        ],\n        \"stream\": true,\n        \"store\": false\n      }"
+    }
+  ],
+  "case_id": "P01-E01-config-read-only-after-construction",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClientRouting$/^config-read-only-after-construction$'",
+  "status": "PASS",
+  "test": "TestClientRouting/config-read-only-after-construction"
+}

@@ -1,0 +1,37 @@
+{
+  "commands": [
+    [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-race",
+      "-count=1",
+      "-json",
+      "-run",
+      "^TestStreamLifecycle$/^(live-partial-concurrent-reads|interleaved-blocks|complete-queues-no-events)$"
+    ],
+    [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-race",
+      "-count=1",
+      "-json",
+      "-run",
+      "^TestEventQueueLimits$/^events-overflow-mid-deltas$"
+    ]
+  ],
+  "exitCodes": [
+    0,
+    0
+  ],
+  "raceEnabled": true,
+  "cases": 14,
+  "allPassed": true,
+  "artifactsHashed": 80,
+  "hashMismatches": 0,
+  "evidenceManifests": [
+    "/Users/cyber/RestoX/barness/.scratch/barness-ai-call-chains/assembler-evidence/20261010T081952.949438000Z/manifest.json",
+    "/Users/cyber/RestoX/barness/.scratch/barness-ai-call-chains/assembler-evidence/20261010T082039.595207000Z/manifest.json"
+  ]
+}

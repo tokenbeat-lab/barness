@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "asOf": "2026-10-13",
+  "runtimeSourceHead": "73911f0",
+  "totalEvidenceCases": 256,
+  "runs": [
+    {
+      "name": "entry-and-host",
+      "command": "go test ./ai/e2e -run '^(TestJevRegression|TestJevRejectionOrder|TestDecisionsTextClosure|TestDecisionsMixedClosure|TestDecisionsUsagePresence|TestDecisionsUsageInputPricing|TestDecisionsImagesInput|TestDecisionsRuntimeRollback|TestClassifierHostMigration)$' -count=1 -json",
+      "packageResults": [
+        {
+          "Time": "2026-10-13T14:50:43.695665+08:00",
+          "Action": "pass",
+          "Package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "Elapsed": 1.921
+        }
+      ],
+      "bundle": "/Users/cyber/RestoX/barness/.evidence/barness-ai/20261013T065042.750483000Z",
+      "manifestSHA256": "d6c7afc03bf1eafb9405f299744102cca029007f07ccf5767d638e36d70c3e80",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "goTestStatuses": {
+        "pass": 226
+      },
+      "evidenceStatuses": {
+        "PASS": 218
+      },
+      "audit": {
+        "findings": []
+      }
+    },
+    {
+      "name": "jev-rejection-priority",
+      "command": "BARNESS_AI_EVIDENCE_DIR=/Users/cyber/RestoX/barness/.evidence/decisions-reading-priority-20261013 go test ./ai/e2e -run '^(TestJevRegressionRejectionOrder|TestJevRegressionAuthorizationOrder)$' -count=1 -json",
+      "packageResults": [
+        {
+          "Time": "2026-10-13T15:01:15.518699+08:00",
+          "Action": "pass",
+          "Package": "github.com/tokenbeat-lab/barness/ai/e2e",
+          "Elapsed": 1.04
+        }
+      ],
+      "bundle": "/Users/cyber/RestoX/barness/.evidence/decisions-reading-priority-20261013/20261013T070115.422598000Z",
+      "manifestSHA256": "62759a981e261721a1a4bf419047f4c7daa2a4c3bcc91aeed8934fa8b8008217",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "goTestStatuses": {
+        "pass": 40
+      },
+      "evidenceStatuses": {
+        "PASS": 38
+      },
+      "audit": {
+        "findings": []
+      }
+    }
+  ],
+  "livePerformed": false,
+  "fullReleaseRerunPerformed": false,
+  "existingDeliveryVerdict": "FAIL",
+  "reportSHA256": "cb7006aec83464894fdfb644ca42cf3fc776e7a6d895f42730d979c75b71e4f9",
+  "indexSHA256": "763430cf9fe2f4be368ece08be69e63101062b82a6d3dcb276fbfccfb6c99da7"
+}

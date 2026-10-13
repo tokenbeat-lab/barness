@@ -1,0 +1,18 @@
+{
+  "command": [
+    "go",
+    "test",
+    "./ai/e2e",
+    "-count=1",
+    "-json",
+    "-run",
+    "^Test(ClientRouting|ChatOperationAuthorization|Options|OptionRejects|ChatOptions|AnthropicOptions|GeminiOptions|ToolRoundTrip|ToolCallTruncation|NativeStateReplay|ToolLoopExample|OpenAIImagesEditingPreflight|OpenAIImagesEditingSnapshot|OpenAIImagesHooks|OpenAIImagesOptionsAndInput|GoogleImagesCallbackFixtures|GoogleImagesEditingCallbacks|GoogleImagesEditingSnapshot|ClassifierMixedCallbacks|UnaryFrozenRetry|UnaryCallbackFailures|ExplicitRetry|ManagedEffort|ClassifierLiveWireReplay|ClassifierLiveScoreRounding|OpenAIImagesLiveWireReplay|GoogleImagesLiveWireReplay)$"
+  ],
+  "exitCode": 0,
+  "topLevelTests": 27,
+  "passed": 27,
+  "failed": [],
+  "evidenceManifests": [
+    "/Users/cyber/RestoX/barness/.scratch/barness-ai-call-chains/evidence/20261009T022501.419467000Z/manifest.json"
+  ]
+}

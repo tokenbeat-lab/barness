@@ -1,0 +1,18 @@
+{
+  "assertions": [
+    {
+      "name": "original request unchanged",
+      "pass": true,
+      "detail": "input was mutated"
+    },
+    {
+      "name": "invalid callback before HTTP",
+      "pass": true,
+      "detail": "got ai: callback_failed (request): payload callback exceeded classifier input limits"
+    }
+  ],
+  "case_id": "P07-E04-mixed-question-limit",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestClassifierMixedCallbacks$/^question-limit$'",
+  "status": "PASS",
+  "test": "TestClassifierMixedCallbacks/question-limit"
+}

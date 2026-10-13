@@ -1,0 +1,33 @@
+{
+  "assertions": [
+    {
+      "name": "live response accepted offline",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "complete native request and original route",
+      "pass": true,
+      "detail": "native request mismatch"
+    },
+    {
+      "name": "complete raster, MIME, dimensions and captured checksum",
+      "pass": true,
+      "detail": "invalid recorded image"
+    },
+    {
+      "name": "actual modality usage and known-only prices preserved",
+      "pass": true,
+      "detail": "got {Input:17 Output:439 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x769a6e3afc40 TotalTokens:456 Cost:{Input:8.5e-05 Output:0.013170000000000001 CacheRead:0 CacheWrite:0 Total:0.013255000000000001}}"
+    },
+    {
+      "name": "current catalog snapshot attributed",
+      "pass": true,
+      "detail": "wrong snapshot"
+    }
+  ],
+  "case_id": "P08-E01-live-replay-generation",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestOpenAIImagesLiveWireReplay$/^generation$'",
+  "status": "PASS",
+  "test": "TestOpenAIImagesLiveWireReplay/generation"
+}

@@ -1,0 +1,43 @@
+{
+  "assertions": [
+    {
+      "name": "confirmed native response accepted offline",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "same native request, v1beta and omitted delivery",
+      "pass": true,
+      "detail": "request mismatch"
+    },
+    {
+      "name": "raster remains fully readable and matches saved artifact",
+      "pass": true,
+      "detail": "invalid artifact"
+    },
+    {
+      "name": "actual identity presence, not attribution fallback",
+      "pass": true,
+      "detail": "identity invented or lost"
+    },
+    {
+      "name": "usage totals, nullable modalities and partial semantics",
+      "pass": true,
+      "detail": "usage={Input:1145 Output:1251 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:30} Modalities:0x769a6e1aee40 TotalTokens:2396 Cost:{Input:0.0017175 Output:0.033825 CacheRead:0 CacheWrite:0 Total:0.0355425}} want={Input:1145 Output:1251 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:30} Modalities:0x769a6e752100 TotalTokens:2396 Cost:{Input:0.0017175 Output:0.033825 CacheRead:0 CacheWrite:0 Total:0.0355425}}"
+    },
+    {
+      "name": "thinking billed once and missing text stays unknown",
+      "pass": true,
+      "detail": "thought double-count or invented text"
+    },
+    {
+      "name": "updated immutable price snapshot",
+      "pass": true,
+      "detail": "wrong snapshot"
+    }
+  ],
+  "case_id": "P09-E01-live-replay-reference-edit-captured",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestGoogleImagesLiveWireReplay$/^reference-edit$/^captured$'",
+  "status": "PASS",
+  "test": "TestGoogleImagesLiveWireReplay/reference-edit/captured"
+}

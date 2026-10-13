@@ -1,0 +1,56 @@
+{
+  "assertions": [
+    {
+      "name": "backoff wait began",
+      "pass": true
+    },
+    {
+      "name": "waits the requested delay",
+      "pass": true,
+      "detail": "got 2m0s"
+    },
+    {
+      "name": "call ends",
+      "pass": true
+    },
+    {
+      "name": "no further attempt",
+      "pass": true,
+      "detail": "got 1"
+    },
+    {
+      "name": "the failed attempt is recorded with its planned delay",
+      "pass": true,
+      "detail": "attempts=[{AttemptID:req-e05-backoff-complete-simple#1 HTTPStatus:429 ProviderRequestID: Code:rate_limited RetryDelay:2m0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]"
+    },
+    {
+      "name": "every response body is closed",
+      "pass": true,
+      "detail": "0 open"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"aborted\" want \"aborted\""
+    },
+    {
+      "name": "errors.Is matches code and phase",
+      "pass": true,
+      "detail": "want deadline_exceeded/request, got ai: deadline_exceeded (request): Request timed out."
+    },
+    {
+      "name": "errorMessage",
+      "pass": true,
+      "detail": "got \"Request timed out.\" want \"Request timed out.\""
+    },
+    {
+      "name": "message still carries its timestamp",
+      "pass": true,
+      "detail": "got 1791512703196"
+    }
+  ],
+  "case_id": "P01-E05-deadline-bounds-uncapped-backoff-complete-simple",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestExplicitRetry$/^deadline-bounds-uncapped-backoff$/^complete-simple$'",
+  "status": "PASS",
+  "test": "TestExplicitRetry/deadline-bounds-uncapped-backoff/complete-simple"
+}

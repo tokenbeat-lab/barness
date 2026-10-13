@@ -1,0 +1,232 @@
+{
+  "assertions": [
+    {
+      "name": "call ends",
+      "pass": true
+    },
+    {
+      "name": "inference requests",
+      "pass": true,
+      "detail": "got 3 want 3"
+    },
+    {
+      "name": "pinned key used",
+      "pass": true,
+      "detail": "request 1 got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "same endpoint",
+      "pass": true,
+      "detail": "request 1 path \"/v1/responses\""
+    },
+    {
+      "name": "pinned key used",
+      "pass": true,
+      "detail": "request 2 got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "same endpoint",
+      "pass": true,
+      "detail": "request 2 path \"/v1/responses\""
+    },
+    {
+      "name": "attempts resend the same body",
+      "pass": true,
+      "detail": "request 2 differs"
+    },
+    {
+      "name": "pinned key used",
+      "pass": true,
+      "detail": "request 3 got \"key:tenant-a@v1\" want \"key:tenant-a@v1\""
+    },
+    {
+      "name": "same endpoint",
+      "pass": true,
+      "detail": "request 3 path \"/v1/responses\""
+    },
+    {
+      "name": "attempts resend the same body",
+      "pass": true,
+      "detail": "request 3 differs"
+    },
+    {
+      "name": "backoff waits",
+      "pass": true,
+      "detail": "got [450ms 900ms] want [450ms 900ms]"
+    },
+    {
+      "name": "onPayload runs once per logical call",
+      "pass": true,
+      "detail": "got 1"
+    },
+    {
+      "name": "onResponse runs only after an initial response",
+      "pass": true,
+      "detail": "got 1 want 1"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\" want \"stop\""
+    },
+    {
+      "name": "call succeeds",
+      "pass": true,
+      "detail": "err=<nil>"
+    },
+    {
+      "name": "stop reason",
+      "pass": true,
+      "detail": "got \"stop\""
+    },
+    {
+      "name": "no error message",
+      "pass": true,
+      "detail": "got \"\""
+    },
+    {
+      "name": "message identity",
+      "pass": true,
+      "detail": "api=\"openai-responses\" provider=\"openai\" model=\"gpt-4.1-mini\""
+    },
+    {
+      "name": "response id",
+      "pass": true,
+      "detail": "got \"resp_001\""
+    },
+    {
+      "name": "usage",
+      "pass": true,
+      "detail": "got {Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}} want {Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}"
+    },
+    {
+      "name": "single text block",
+      "pass": true,
+      "detail": "content=[{Text:Hello, world! Signature:{\"v\":1,\"id\":\"msg_001\"}}]"
+    },
+    {
+      "name": "text content",
+      "pass": true,
+      "detail": "got {Text:Hello, world! Signature:{\"v\":1,\"id\":\"msg_001\"}}"
+    },
+    {
+      "name": "text signature",
+      "pass": true,
+      "detail": "got \"{\\\"v\\\":1,\\\"id\\\":\\\"msg_001\\\"}\""
+    },
+    {
+      "name": "one record per attempt",
+      "pass": true,
+      "detail": "got [{AttemptID:req-e05-backoff-then-success-complete-full#1 HTTPStatus:503 ProviderRequestID: Code:upstream_error RetryDelay:450ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-e05-backoff-then-success-complete-full#2 HTTPStatus:500 ProviderRequestID: Code:upstream_error RetryDelay:900ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-e05-backoff-then-success-complete-full#3 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}}] want [{HTTPStatus:503 Code:upstream_error ProviderRequestID: RetryDelayMs:450} {HTTPStatus:500 Code:upstream_error ProviderRequestID: RetryDelayMs:900} {HTTPStatus:200 Code: ProviderRequestID: RetryDelayMs:0}]"
+    },
+    {
+      "name": "attempt id belongs to the call",
+      "pass": true,
+      "detail": "attempt 1 id \"req-e05-backoff-then-success-complete-full#1\""
+    },
+    {
+      "name": "attempt record",
+      "pass": true,
+      "detail": "attempt 1 got {AttemptID:req-e05-backoff-then-success-complete-full#1 HTTPStatus:503 ProviderRequestID: Code:upstream_error RetryDelay:450ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} want {HTTPStatus:503 Code:upstream_error ProviderRequestID: RetryDelayMs:450}"
+    },
+    {
+      "name": "attempt id belongs to the call",
+      "pass": true,
+      "detail": "attempt 2 id \"req-e05-backoff-then-success-complete-full#2\""
+    },
+    {
+      "name": "attempt record",
+      "pass": true,
+      "detail": "attempt 2 got {AttemptID:req-e05-backoff-then-success-complete-full#2 HTTPStatus:500 ProviderRequestID: Code:upstream_error RetryDelay:900ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} want {HTTPStatus:500 Code:upstream_error ProviderRequestID: RetryDelayMs:900}"
+    },
+    {
+      "name": "attempt id belongs to the call",
+      "pass": true,
+      "detail": "attempt 3 id \"req-e05-backoff-then-success-complete-full#3\""
+    },
+    {
+      "name": "attempt record",
+      "pass": true,
+      "detail": "attempt 3 got {AttemptID:req-e05-backoff-then-success-complete-full#3 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}} want {HTTPStatus:200 Code: ProviderRequestID: RetryDelayMs:0}"
+    },
+    {
+      "name": "attempt ids are distinct",
+      "pass": true,
+      "detail": "got [{AttemptID:req-e05-backoff-then-success-complete-full#1 HTTPStatus:503 ProviderRequestID: Code:upstream_error RetryDelay:450ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-e05-backoff-then-success-complete-full#2 HTTPStatus:500 ProviderRequestID: Code:upstream_error RetryDelay:900ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-e05-backoff-then-success-complete-full#3 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:complete Usage:{Input:16 Output:5 CacheRead:4 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:25 Cost:{Input:6.4000000000000006e-06 Output:8.000000000000001e-06 CacheRead:4.0000000000000003e-07 CacheWrite:0 Total:1.48e-05}}}]"
+    },
+    {
+      "name": "retries never re-resolve the snapshot",
+      "pass": true,
+      "detail": "got {Bindings:1 Credentials:1}"
+    },
+    {
+      "name": "every response body is closed",
+      "pass": true,
+      "detail": "0 open"
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"vault://kv/tenant-a/openai token=hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"hvs.BACKEND-INTERNAL\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:environment\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a@v2\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-anthropic@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-google@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-a-deepseek@v1\""
+    },
+    {
+      "name": "no secret in outcome",
+      "pass": true,
+      "detail": "found \"key:tenant-b-deepseek@v1\""
+    }
+  ],
+  "case_id": "P01-E05-backoff-then-success-complete-full",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestExplicitRetry$/^backoff-then-success$/^complete-full$'",
+  "status": "PASS",
+  "test": "TestExplicitRetry/backoff-then-success/complete-full"
+}

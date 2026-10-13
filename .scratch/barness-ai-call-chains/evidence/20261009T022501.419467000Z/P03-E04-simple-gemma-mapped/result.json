@@ -1,0 +1,69 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "OK."
+      }
+    ],
+    "api": "google-generative-ai",
+    "provider": "google",
+    "model": "gemma-4-31b-it",
+    "usage": {
+      "input": 5,
+      "output": 2,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 7,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "STOP",
+    "timestamp": 1791512701615
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-simple-gemma-mapped-stream",
+    "actorId": "actor-7",
+    "jobId": "job-42",
+    "bindingId": "gemini",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "google",
+    "api": "google-generative-ai",
+    "modelId": "gemma-4-31b-it",
+    "accountScopeId": "acct-tenant-a-google",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "2026-10-08.5",
+    "catalogHash": "sha256:824422bc176c76054cefdbe517af3301f448ca51a3418ead35bdea2134b62406",
+    "attempts": [
+      {
+        "attemptId": "req-simple-gemma-mapped-stream#1",
+        "httpStatus": 200,
+        "usageReporting": "complete",
+        "usage": {
+          "input": 5,
+          "output": 2,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 7,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        }
+      }
+    ]
+  }
+}
