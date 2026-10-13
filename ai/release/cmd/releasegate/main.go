@@ -46,12 +46,14 @@ const tailBytes = 4 << 10
 func main() {
 	out := flag.String("out", "", "release bundle directory (default .evidence/barness-ai-release/<time>)")
 	bundle := flag.String("bundle", "", "evaluate this existing offline bundle instead of running the suite")
+	raceBundle := flag.String("race-bundle", "", "independent race bundle when evaluating existing artifacts")
 	matrixPath := flag.String("matrix", "ai/live/support-matrix.json", "support matrix")
 	tracePath := flag.String("trace", "ai/release/traceability.json", "traceability map")
 	ledgerPath := flag.String("ledger", "ai/e2e/testdata/pidiff/ledger.json", "difference ledger")
 	snapshotPath := flag.String("snapshot", "ai/release/catalog-snapshot.json", "checked-in catalog snapshot")
 	writeSnapshot := flag.Bool("write-snapshot", false, "regenerate the catalog snapshot and exit")
-	evaluation := flag.String("evaluation", "", "independent complete Chinese evaluation bundle (no live calls are made by the gate)")
+	jev := flag.String("evaluation-jev", "", "current independent Jev Chinese evaluation bundle")
+	luna := flag.String("evaluation-luna", "", "current independent Luna Chinese evaluation bundle")
 	var live multi
 	flag.Var(&live, "live", "a live evidence bundle to audit (repeatable)")
 	flag.Parse()
@@ -118,7 +120,7 @@ func main() {
 			fail(err)
 		}
 		if race, err := release.FindBundle(raceBase); err == nil {
-			audited = append(audited, race)
+			*raceBundle = race
 		} else {
 			// A race bundle that cannot be found cannot be audited: report
 			// it rather than audit less.
@@ -129,16 +131,20 @@ func main() {
 		fail(err)
 	}
 	forbidden := audit.Environment()
-	if *evaluation != "" {
-		audited = append(audited, *evaluation)
+	for _, dir := range []string{*jev, *luna, *raceBundle} {
+		if dir != "" {
+			audited = append(audited, dir)
+		}
 	}
 	for _, dir := range append([]string{*bundle}, audited...) {
 		in.RequiredAudits = append(in.RequiredAudits, dir)
 		in.Audits = append(in.Audits, release.AuditBundle(dir, forbidden))
 	}
 	in.Audits = append(in.Audits, missing...)
-	in.Evidence = append(release.DesignLoadEvidence(in.Offline), release.ChineseEffectEvidence(*evaluation))
+	in.Evidence = append(release.DesignLoadEvidence(in.Offline), release.RevocationEvidence(in.Offline))
 
+	in.Evidence = append(in.Evidence, release.ChineseEffectsEvidence(*jev, *luna)...)
+	in.Evidence = append(in.Evidence, release.RaceEvidence(*raceBundle, trace, ledger)...)
 	report := release.Evaluate(in)
 	fixtures, err := release.Fixtures(".", "ai/e2e/testdata")
 	if err != nil {

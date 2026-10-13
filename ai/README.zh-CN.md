@@ -49,10 +49,11 @@
 | chat | DeepSeek × Responses（扩展路径，pi 无此路由） | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One，jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS（上下文探针返回 400；422 形状未确认） |
+| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（2026-10-13 正式 schema 3 运行） |
 | image | OpenAI × Images，gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS（生成、JSON 编辑与 mask） |
 | image | Google × Interactions v1beta，gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS（生成与参考编辑，1K / 1:1） |
 
-上表归纳 **2026-10-08** 九条路线各自的完整真实运行，以 [`live/support-matrix.json`](live/support-matrix.json) 为准。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
+十组合已在 **2026-10-13** 的正式目录与 schema 3 下各自重跑。完整发布结论还须离线/race/容量/效果证据，以 [`live/support-matrix.json`](live/support-matrix.json) 为准。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
 
 两条原生图像路线与 DeepSeek Responses 均登记为扩展路径，其自身证据不计为 pi 差分通过。发布结论与后续离线修复见[发布说明](../docs/barness-ai/README.md)。
 
@@ -159,13 +160,13 @@ Google 使用 `OperationImage`、`ProviderGoogle`、`APIGoogleInteractions`，en
 调用固定同步、`store=false`、无续接、输出内联；请求省略 `delivery`（ADR-0023），不保证精确输出数量。
 两条路线均不读取文件、不下载 URL、不接受厂商 file ID。
 
-分类状态与问题说明支持 JSON 字符串、对象或数组。`ChoiceQuestion` 返回 `ChoiceAnswer`（选项、分布、置信度），
+TypeSafe 分类状态与问题说明支持 JSON 字符串、对象或数组。`ChoiceQuestion` 返回 `ChoiceAnswer`（选项、分布、置信度），
 `ScoreQuestion` 返回 `ScoreAnswer`（期望分值、置信度、可选分布与图例），`BoolQuestion` 返回“是”的概率。
 评分标准按顺序排列，下标从零开始。答案按回调后的最终问题集合整体校验；不合格即拒绝，不重新归一化。
 `TypeSafeOptions{}` 是空选项类型。[中文评估宿主](examples/chineseeval/README.md) 独立报告业务效果；[24/24 合成样本结果](../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/README.md) 不代表生产准确率。
 
-宿主也可以自带 `ProviderOpenAI` / `APIOpenAIDecisions` 文本目录与 `OperationClassifier`
-绑定。本切片支持至少两个候选的单选、2–10 个有序等级的评分与是非题，说明须为 JSON 字符串。
+内置 `gpt-6-luna` classifier 使用 `ProviderOpenAI` / `APIOpenAIDecisions` 与 `OperationClassifier`
+绑定，宿主也可自带目录。支持至少两个候选的单选、2–10 个有序等级的评分与是非题，说明须为 JSON 字符串。
 目录声明 `Input: []ai.Modality{ai.ModalityText}`、`MinChoices: 2` 和
 `DescriptionFormats: []ai.ClassifierDescriptionFormat{ai.ClassifierDescriptionString}`。
 State 字符串转原文，对象/数组转保留数字精度的 compact JSON 文本。
@@ -178,11 +179,16 @@ Decisions 按 Hook 后冻结的最终请求校验答案。合法拒答是 `Refus
 坏答案使整次 Answers 为空。新增 vendor metadata 可在响应限额内忽略，但已知语义字段、大小写别名、
 重复字段仍严格校验；TypeSafe 的严格 decoder 与有界舍入独立，Decisions 的和与期望容差为 1e-6。
 入口和最终 native 请求都受完整题目及完整请求字节限额约束。基础已报告用量与输入估价在坏答案时保留，
-完整用量明细由后续工单交付，目前 reporting 保守为 partial。图片输入由后续工单交付。
-内置目录尚未加入 Decisions 型号；[文本证据](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
+用量按字段存在性独立记录 complete/partial/unreported；拒答不抹去已报告费用。
+inline PNG/JPEG/WebP 图片须同时开启 classifier 图片子策略、型号图片能力和 Binding.AllowClassifierImages；
+每图 decoded、总 decoded 与含 base64 的完整 JSON 分别受限，Hook 不可扩大权限。
+内置目录已加入 gpt-6-luna；无日期服务 alias 的实际权重不由目录 Hash 固定。[文本证据](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
 使用合成宿主目录与本地受控 HTTP，不表示厂商真实验收已通过。
 [混合答案证据](../.scratch/barness-ai-openai-decisions/mixed-answer-evidence/README.md)
 保存两个公共入口的 score、predicate、混合/全拒答与损坏响应回放。
+
+迁移、最终 Hook、错误与实际撤销步骤见 [Decisions 公共契约](../docs/barness-ai/decisions.md)
+及[可执行迁移示例](examples/classifiermigration/README.md)。
 
 ## 核心概念
 
@@ -405,11 +411,11 @@ go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # 把冒烟报告合并进�
 
 go run ./ai/examples/chineseeval/cmd/chineseeval       # 不联网，生成 NOT_RUN 包
 go run ./ai/examples/chineseeval/cmd/chineseeval -verify <评估包>
-go run ./ai/release/cmd/releasegate -evaluation <独立中文效果包> [-live <bundle-dir>]...
+go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> [-live <bundle-dir>]...
 ```
 
 每次 E2E 运行都会在 `.evidence/` 下写出脱敏的证据包（可用 `BARNESS_AI_EVIDENCE_DIR` 覆盖）。新行为需要一个 E2E 用例，且其证据能被发布门禁追溯（`release/traceability.json`）。
-完整发布门禁需要九条路线各自的真实证据与独立真实中文评估；离线 fixture 与 NOT_RUN 报告不能替代。
+完整发布门禁需要十条路线各自的当前真实证据，以及 Jev 和 Luna 各自独立、当前适用的真实中文评估；离线 fixture 与 NOT_RUN 报告不能替代。
 
 ## 延伸阅读
 

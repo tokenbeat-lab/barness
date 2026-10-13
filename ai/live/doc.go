@@ -80,3 +80,7 @@
 // A combination's row changes only through its own report: a pass through a
 // shared adapter never marks another combination.
 package live
+
+// Every formal smoke also accepts optional BARNESS_AI_LIVE_PROXY as an explicit
+// credential-free loopback HTTP proxy. Ambient proxy variables remain ignored;
+// official endpoints and ordinary TLS certificate verification remain fixed.

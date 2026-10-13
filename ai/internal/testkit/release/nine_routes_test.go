@@ -102,7 +102,7 @@ func TestOfflineArtifactsCannotBeDeleted(t *testing.T) {
 
 func TestBusinessEffectTraceUsesIndependentArtifact(t *testing.T) {
 	in := goodInputs(t)
-	in.Trace.Items = append(in.Trace.Items, TraceItem{ID: "C11-ChineseEffect", Source: "US87", Requirement: "independent real Chinese evaluation", Scenarios: []string{"ARTIFACTS"}, Cases: "^chinese-effect$"})
+	in.Trace.Items = append(in.Trace.Items, TraceItem{ID: "C11-ChineseEffect", Source: "US87", Requirement: "independent real Chinese evaluation", Scenarios: []string{"ARTIFACTS"}, Cases: "^chinese-effect-jev$"})
 	raw, err := json.Marshal(in.Trace)
 	if err != nil {
 		t.Fatal(err)

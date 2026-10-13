@@ -54,10 +54,12 @@ reading of `OPENAI_API_KEY`-style environment variables, no default resource lim
 | chat | DeepSeek × Responses (extension route, not in pi) | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One, jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS (context probe returned 400; 422 shape unconfirmed) |
+| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (formal schema 3 run, 2026-10-13) |
 | image | OpenAI × Images, gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS (generation, JSON edit and mask) |
 | image | Google × Interactions v1beta, gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS (generation and reference edit, 1K / 1:1) |
 
-The table summarizes the nine routes' full live runs on **2026-10-08**; the source of truth is
+All ten combinations were independently rerun on **2026-10-13** under schema 3 and the current
+catalog. The complete release verdict also requires offline/race/capacity/effect evidence; the source of truth is
 [`live/support-matrix.json`](live/support-matrix.json). A combination may be called supported only
 when its own row has fully passed; "OpenAI-compatible" does not mean any compatible service is
 accepted. Callable models are the intersection of the catalog (`BuiltinCatalog()`, snapshot in
@@ -176,7 +178,7 @@ reference/output, `1:1` and `1K`. Calls are synchronous with `store=false`, no c
 inline output; the request omits `delivery` (ADR-0023). Exact output count is not guaranteed.
 Neither route reads files, downloads URLs or accepts provider file IDs.
 
-Classification accepts JSON strings, objects or arrays as state and question descriptions.
+TypeSafe classification accepts JSON strings, objects or arrays as state and question descriptions.
 `ChoiceQuestion` returns `ChoiceAnswer` (choice, distribution, confidence); `ScoreQuestion` returns
 `ScoreAnswer` (expected score, confidence, optional distribution and legend); `BoolQuestion` returns
 the probability of yes. Score criteria are ordered, indexed from zero. Answers are validated as one
@@ -186,8 +188,8 @@ host](examples/chineseeval/README.md) reports business results separately. The [
 evaluation](../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/README.md) does not establish
 production accuracy.
 
-Hosts can also supply a classifier catalog for `ProviderOpenAI` /
-`APIOpenAIDecisions` and an `OperationClassifier` binding. This slice supports
+The built-in `gpt-6-luna` classifier uses `ProviderOpenAI` /
+`APIOpenAIDecisions` and an `OperationClassifier` binding. Hosts may also supply a catalog. It supports
 choice questions with at least two candidates, ordered score rubrics with 2–10
 levels, and bool questions, using JSON string descriptions;
 state strings become raw text, while objects/arrays become compact JSON text
@@ -207,8 +209,8 @@ by the response budget; known semantic fields, case aliases and duplicate fields
 are validated strictly. TypeSafe retains its independent strict decoder and
 bounded rounding rule; Decisions uses a 1e-6 sum/expectation tolerance.
 The initial and final native requests obey complete question and request byte
-budgets. Basic reported usage and input-only estimates survive invalid answers;
-detail reporting remains partial until the usage slice is delivered.
+budgets. Uniquely validated usage and input-only estimates survive invalid answers. Presence is
+reported as complete/partial/unreported; refusal never erases reported cost.
 Ordered inline `ClassifierRequest.Images` require all three opt-ins:
 `ClassifierPolicy.Images` with positive `MaxImages` / `MaxTotalImageBytes`,
 model `Input: []ai.Modality{ai.ModalityText, ai.ModalityImage}` with
@@ -226,11 +228,15 @@ allocating a raster. URLs, paths, vendor files, detail and automatic resize are
 unsupported. Image input becomes one user message with text first and ordered
 data URLs. Hooks must obey the same resource bounds and pinned permission;
 their final entire message/content tree is checked before any attempt.
-No Decisions model is in the built-in catalog yet;
+The formal catalog includes `gpt-6-luna` (a service alias whose weights are not pinned by the catalog Hash);
 the [text evidence](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
 uses a synthetic host catalog and loopback HTTP, with no vendor live claim.
 The [mixed-answer evidence](../.scratch/barness-ai-openai-decisions/mixed-answer-evidence/README.md)
 records score, predicate, mixed/all refusals and malformed responses through both public entries.
+
+Host migration, all three image opt-ins, final Hook validation, errors and rollback are documented
+in [the Decisions contract](../docs/barness-ai/decisions.md) and the
+[executable migration example](examples/classifiermigration/README.md).
 
 ## Core concepts
 
@@ -535,13 +541,13 @@ go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # merge reports into the ma
 
 go run ./ai/examples/chineseeval/cmd/chineseeval       # NOT_RUN bundle; no network
 go run ./ai/examples/chineseeval/cmd/chineseeval -verify <evaluation-bundle>
-go run ./ai/release/cmd/releasegate -evaluation <Chinese-evaluation-bundle> [-live <bundle-dir>]...
+go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-bundle> -evaluation-luna <Luna-bundle> [-live <bundle-dir>]...
 ```
 
 Every E2E run writes a redacted evidence bundle under `.evidence/` (`BARNESS_AI_EVIDENCE_DIR`
 overrides). New behavior needs an E2E case whose evidence the release gate can trace
-(`release/traceability.json`). The full release gate requires each of the nine live routes and an
-independent real Chinese evaluation; offline fixtures and NOT_RUN reports cannot replace them.
+(`release/traceability.json`). The full release gate requires each of the ten live routes and separate current
+Jev and Luna real Chinese evaluations; offline fixtures and NOT_RUN reports cannot replace them.
 
 ## Further reading
 

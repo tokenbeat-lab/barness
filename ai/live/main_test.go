@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"sync"
 	"testing"
@@ -168,6 +169,10 @@ const liveTenant = "live-smoke"
 func newLiveEnv(t *testing.T, c *combo, key string) *liveEnv {
 	t.Helper()
 	rec := newRecorder()
+	if cfg.proxy != nil {
+		rec.next.(*http.Transport).Proxy = http.ProxyURL(cfg.proxy)
+	}
+	t.Cleanup(rec.next.(*http.Transport).CloseIdleConnections)
 	client, err := newClient(c, key, rec, catalog)
 	if err != nil {
 		t.Fatalf("live: assembling the Client: %v", err)

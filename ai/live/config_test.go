@@ -4,6 +4,7 @@ package live
 
 import (
 	"fmt"
+	"net/url"
 	"os"
 	"slices"
 	"strings"
@@ -28,6 +29,7 @@ type processConfig struct {
 	refused string
 	combo   *combo
 	alias   string
+	proxy   *url.URL
 	key     string
 }
 
@@ -73,6 +75,14 @@ func loadConfig() processConfig {
 			// The secret store injects each key into its own combination's
 			// process only; seeing another one means it was not.
 			cfg.refused = fmt.Sprintf("%s is set in the %s process; inject each key only into its own combination's process", keyVar(other.name), c.name)
+			return cfg
+		}
+	}
+	if raw := os.Getenv("BARNESS_AI_LIVE_PROXY"); raw != "" {
+		var err error
+		cfg.proxy, err = smokeProxy(raw)
+		if err != nil {
+			cfg.refused = err.Error()
 			return cfg
 		}
 	}

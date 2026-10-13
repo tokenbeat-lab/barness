@@ -73,7 +73,7 @@ hc := client.WithHooks(hooks)                              // 可信回调，同
 四个聊天入口（含 WithHooks）期望 chat，操作不匹配为 `tenant_denied/capability`。
 核对操作后才查聊天目录与白名单，最后读取凭据并核对版本快照；操作拒绝没有凭据读取、Provider 请求或 Attempt。
 
-### 同步分类（工单 05–07）
+### TypeSafe 同步分类（工单 05–07）
 
 Client 与 HookedClient 的 Classify 接收 ClassifierRequest 和既有封闭 Options；nil 或空 TypeSafeOptions
 表示协议默认，错协议选项在 capability 拒绝，SimpleOptions 不能传入。Binding 必须固定为
@@ -125,6 +125,12 @@ AttemptStarted 的 UsageReporting 为 unreported，AttemptFinished 与 CallFinis
 使用同一 unreported/partial/complete 轴。PhaseResponse 在 errors.Is 的 Code 匹配中与其他阶段相同：
 Phase 为空匹配该 Code，Phase 非空同时匹配阶段。离线生命周期与资源证据见
 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
+
+### Decisions 同步分类
+
+正式目录已包含 classifier/openai/openai-decisions/gpt-6-luna。其 JSON 说明、
+公共 2–10 评分、三重图片授权、RefusalAnswer、最终 Hook 和迁移约束见
+[Decisions 公共契约](decisions.md)；以下单独记录其用量与费用语义。
 
 ### Decisions 用量与估价（工单 04）
 

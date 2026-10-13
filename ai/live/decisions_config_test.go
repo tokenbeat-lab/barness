@@ -6,9 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"net"
 	"net/http"
-	"net/url"
 	"os"
 	"regexp"
 	"slices"
@@ -102,9 +100,9 @@ func decisionsConfiguration(rec *recorder) (*decisionsPermissions, []byte, error
 
 func configureDecisionsProxy(rec *recorder) error {
 	proxy := os.Getenv("BARNESS_AI_LIVE_PROXY")
-	u, err := url.Parse(proxy)
-	if err != nil || u.Scheme != "http" || u.User != nil || u.RawQuery != "" || u.Fragment != "" || (u.Path != "" && u.Path != "/") || u.Port() == "" || net.ParseIP(u.Hostname()) == nil || !net.ParseIP(u.Hostname()).IsLoopback() {
-		return fmt.Errorf("explicit loopback HTTP proxy is required")
+	u, err := smokeProxy(proxy)
+	if err != nil {
+		return err
 	}
 	if transport, ok := rec.next.(*http.Transport); ok {
 		transport.Proxy = http.ProxyURL(u)

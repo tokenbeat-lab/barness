@@ -64,9 +64,25 @@ func (r Report) Markdown() string {
 			t.Status, short(t.Offline), short(t.Differential), short(t.Live), short(t.Artifacts), cell(t.Evidence, 3))
 	}
 
-	b.WriteString("\n## Design load and business effect\n\nProtocol smoke and business accuracy are separate evidence. COMPLETE verifies the fixed evaluation, with no accuracy threshold.\n\n")
-	for _, e := range r.Evidence {
-		fmt.Fprintf(&b, "- %s: %s; `%s`; %s\n", e.Name, e.Status, e.Bundle, e.Detail)
+	for _, section := range []struct{ title, match string }{
+		{"Capacity: normal and race design loads", "mixed-pressure-"},
+		{"Business effect: independent Jev and Luna", "chinese-effect-"},
+		{"Authorization revocation: normal and race", "authorization-revocation"},
+		{"Race artifact verification", "race-"},
+	} {
+		fmt.Fprintf(&b, "\n## %s\n\n", section.title)
+		if section.match == "chinese-effect-" {
+			b.WriteString("COMPLETE verifies the fixed task; no quality threshold. Null means unavailable, not zero.\n\n")
+		}
+		for _, e := range r.Evidence {
+			matches := strings.Contains(e.Name, section.match)
+			if section.title == "Race artifact verification" {
+				matches = e.Name == "race-offline" || e.Name == "race-differential"
+			}
+			if matches {
+				fmt.Fprintf(&b, "- %s: %s; `%s`; %s\n", e.Name, e.Status, e.Bundle, e.Detail)
+			}
+		}
 	}
 	b.WriteString("\n## Redaction audit\n\n")
 	for _, a := range r.Audits {

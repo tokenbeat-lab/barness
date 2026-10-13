@@ -8,9 +8,6 @@ import (
 	"os"
 	"path/filepath"
 	"time"
-
-	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/examples/chineseeval"
 )
 
 type designLoad struct {
@@ -73,64 +70,6 @@ func DesignLoadEvidence(b Bundle) []EvidenceCheck {
 		out = append(out, e)
 	}
 	return out
-}
-
-// ChineseEffectEvidence imports the independent fixed-task host artifacts.
-// Integrity/completeness is the release requirement, never an invented score.
-func ChineseEffectEvidence(dir string) EvidenceCheck {
-	e := EvidenceCheck{Name: "chinese-effect", Bundle: dir, Status: NotRun, Detail: "independent real evaluation not supplied"}
-	if dir == "" {
-		return e
-	}
-	data, err := readArtifact(filepath.Join(dir, "dataset.json"), 1<<20)
-	if err != nil {
-		return e
-	}
-	config, err := readArtifact(filepath.Join(dir, "config.json"), 16384)
-	if err != nil {
-		return e
-	}
-	e.Status = Fail
-	plan, err := chineseeval.Load(data, config, ai.BuiltinCatalog())
-	if err != nil {
-		e.Detail = "dataset/config/catalog drift"
-		return e
-	}
-	raw, err := readArtifact(filepath.Join(dir, "evaluation-report.json"), 16<<20)
-	if err != nil {
-		e.Detail = "evaluation report missing"
-		return e
-	}
-	r, err := plan.ReadReport(raw)
-	if err != nil {
-		e.Detail = "evaluation integrity failed"
-		return e
-	}
-	manifest, err := readArtifact(filepath.Join(dir, "manifest.json"), 1<<20)
-	if err != nil {
-		e.Detail = "evaluation manifest missing"
-		return e
-	}
-	observations, err := readArtifact(filepath.Join(dir, "observations-evaluation.json"), 1<<20)
-	if err != nil {
-		e.Detail = "evaluation Observer missing"
-		return e
-	}
-	if plan.VerifyEvidence(r, manifest, observations) != nil {
-		e.Detail = "evaluation provenance or observations incomplete"
-		return e
-	}
-	if r.Kind != "live" || r.Status != "COMPLETE" {
-		e.Status = NotRun
-		if r.Status == "FAIL" {
-			e.Status = Fail
-		}
-		e.Detail = "evaluation is " + r.Kind + "/" + r.Status
-		return e
-	}
-	e.Status = Pass
-	e.Detail = fmt.Sprintf("independent synthetic Chinese task, %d/%d scored, accuracy %.6f; dataset %s; config %s; no accuracy threshold", r.Metrics.Scored, r.Dataset.Count, *r.Metrics.Accuracy, r.DatasetHash, r.ConfigHash)
-	return e
 }
 
 // Import budgets apply before allocation, even if a file changes while read.

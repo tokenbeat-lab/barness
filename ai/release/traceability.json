@@ -57,10 +57,10 @@
     }
   ]
 },
-  "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier", "openai-images", "google-interactions-image"],
+  "liveCombos": ["openai-responses", "anthropic-messages", "google-gemini", "openai-chat", "deepseek-responses", "deepseek-chat", "typesafe-classifier", "openai-images", "google-interactions-image", "openai-decisions"],
   "items": [
     {"id":"OD07-frozen-decisions","source":"OpenAI Decisions issue 07 / R02 R08 R15 R19 / OD14 OD48 OD49 OD50","requirement":"The unique frozen Pi 1.1.0 Decisions classifier/catalog differential compares complete wire and named basic answers; finite case/path differences retain full captures, source/request/result hashes, manifest and audit. Existing Jev evidence remains required.","scenarios":["P10","PIDIFF"],"cases":"^PIDIFF-P10-"},
-    {"id":"C11-ChineseEffect","source":"issue 16 / US87 / ADR-0024","requirement":"Independent fixed synthetic Chinese dataset and real jev-1.13.0 COMPLETE report, full denominators, confusion/calibration and attempts; integrity and audit verified separately from protocol smoke, without an accuracy threshold","scenarios":["ARTIFACTS"],"cases":"^chinese-effect$"},
+    {"id":"C11-ChineseEffect","source":"issue 16 / US87 / ADR-0024","requirement":"Independent fixed synthetic Chinese dataset and real jev-1.13.0 COMPLETE report, full denominators, confusion/calibration and attempts; integrity and audit verified separately from protocol smoke, without an accuracy threshold","scenarios":["ARTIFACTS"],"cases":"^chinese-effect-jev$"},
     {"id":"H5-design-load-artifacts","source":"issue 15–17 / ADR-0017","requirement":"Actual local and cloud mixed image design-load reports with measured whole JSON/base64, concurrency, allocation upper bounds, all limit ratios <=75% and released resources","scenarios":["ARTIFACTS"],"cases":"^mixed-pressure-(local|cloud)$"},
     {"id":"T03-mixed-operation-isolation","source":"issue 15 / ADR-0001/0003/0020","requirement":"Concurrent chat/image/classifier with same-named tenant bindings and model IDs, legal same-account credential sharing, preflight operation/options refusals, fixed retry snapshots and independent route disabling","scenarios":["E07"],"cases":"mixed-(same-named|preflight|snapshot|binding-disabled)"},
     {"id":"C08-mixed-lifecycle","source":"issue 15 / ADR-0008","requirement":"Mixed cancellation/deadlines/failures and tenant/process/waiter/time caps release only own resources; complete body and validation remain under admission","scenarios":["E08"],"cases":"mixed-(cancel|deadline|http-failure|admission|image-budget)"},
@@ -147,6 +147,26 @@
     {"id":"TS-R09","source":".scratch/barness-ai-thinking-sampling/spec.md#r09","requirement":"Verified catalog contents, stable nested map hashing and upgraded price snapshot","scenarios":["E03"],"cases":"catalog-builtin-models-are-pis|thinking-sampling-snapshots"},
     {"id":"TS-R10","source":".scratch/barness-ai-thinking-sampling/spec.md#r10","requirement":"Single 1.1.0 oracle with two source equivalence proofs and zero pending full differential","scenarios":["E03","PIDIFF"],"cases":"thinking-sampling-baseline|^PIDIFF-"},
     {"id":"TS-R11","source":".scratch/barness-ai-thinking-sampling/spec.md#r11","requirement":"Current nine-route release contract, independent Chinese effect and design-load artifacts","scenarios":["LIVE","ARTIFACTS"]},
-    {"id":"TS-R12","source":".scratch/barness-ai-thinking-sampling/spec.md#r12","requirement":"Complete documented Host configuration and public protocol fixtures","scenarios":["E03","E04"],"cases":"thinking-sampling-(snapshot-call|S01)"}
+    {"id":"TS-R12","source":".scratch/barness-ai-thinking-sampling/spec.md#r12","requirement":"Complete documented Host configuration and public protocol fixtures","scenarios":["E03","E04"],"cases":"thinking-sampling-(snapshot-call|S01)"},
+    {"id":"OD-R01","source":"OpenAI Decisions spec R01","requirement":"独立型号身份和协议","scenarios":["P10"],"cases":"OD0[34]"},
+    {"id":"OD-R02","source":"OpenAI Decisions spec R02","requirement":"System One/Jev 不回归","scenarios":["P07"],"cases":"jev|mixed|choice"},
+    {"id":"OD-R03","source":"OpenAI Decisions spec R03","requirement":"公共请求和选项","scenarios":["P10"],"cases":"OD(0[46]|1[0-5]|16)"},
+    {"id":"OD-R04","source":"OpenAI Decisions spec R04","requirement":"格式与容量","scenarios":["P10"],"cases":"OD(0[89]|1[0-5])"},
+    {"id":"OD-R05","source":"OpenAI Decisions spec R05","requirement":"模型能力与安全默认","scenarios":["P10"],"cases":"OD(03|07|18|52)"},
+    {"id":"OD-R06","source":"OpenAI Decisions spec R06","requirement":"图片资源策略","scenarios":["ARTIFACTS"],"cases":"^mixed-pressure-"},
+    {"id":"OD-R07","source":"OpenAI Decisions spec R07","requirement":"Binding 图片授权","scenarios":["P10"],"cases":"OD(19|20|58)"},
+    {"id":"OD-R08","source":"OpenAI Decisions spec R08","requirement":"请求转换","scenarios":["P10"],"cases":"OD(1[045]|2[178])"},
+    {"id":"OD-R09","source":"OpenAI Decisions spec R09","requirement":"native 回调和最终请求","scenarios":["P10"],"cases":"OD(2[5-9]|30)"},
+    {"id":"OD-R10","source":"OpenAI Decisions spec R10","requirement":"拒答是类型化结果","scenarios":["P10"],"cases":"OD(31|32|33)"},
+    {"id":"OD-R11","source":"OpenAI Decisions spec R11","requirement":"严格结果发布","scenarios":["P10"],"cases":"OD(3[14-9])"},
+    {"id":"OD-R12","source":"OpenAI Decisions spec R12","requirement":"用量和价格","scenarios":["P10"],"cases":"OD(3[5-8])"},
+    {"id":"OD-R13","source":"OpenAI Decisions spec R13","requirement":"调用生命周期","scenarios":["P10"],"cases":"OD(4[0-5])"},
+    {"id":"OD-R14","source":"OpenAI Decisions spec R14","requirement":"隔离和不可变状态","scenarios":["P10"],"cases":"OD(44|45)"},
+    {"id":"OD-R15","source":"OpenAI Decisions spec R15","requirement":"固定 Pi 差分","scenarios":["PIDIFF"],"cases":"^PIDIFF-P10-"},
+    {"id":"OD-R16","source":"OpenAI Decisions spec R16","requirement":"目录纳入","scenarios":["P10"],"cases":"OD(51|52|53)"},
+    {"id":"OD-R17","source":"OpenAI Decisions spec R17","requirement":"独立支持与发布","scenarios":["LIVE"]},
+    {"id":"OD-R18","source":"OpenAI Decisions spec R18","requirement":"宿主示例和效果","scenarios":["ARTIFACTS"],"cases":"^chinese-effect-(jev|luna)$"},
+    {"id":"OD-R19","source":"OpenAI Decisions spec R19","requirement":"证据和观测","scenarios":["ARTIFACTS"],"cases":"^(mixed-pressure-|chinese-effect-|authorization-revocation$)"},
+    {"id":"OD-R20","source":"OpenAI Decisions spec R20","requirement":"文档和回滚","scenarios":["ARTIFACTS"],"cases":"^authorization-revocation$"}
   ]
 }

@@ -54,6 +54,15 @@ func LoadBundle(dir string) (Bundle, error) {
 		if len(c.Artifacts) == 0 {
 			b.Problems = append(b.Problems, "case artifact integrity inventory missing")
 		}
+		entries, err := os.ReadDir(b.caseDirs[c.ID])
+		if err != nil || len(entries) != len(c.Artifacts) {
+			b.Problems = append(b.Problems, "case artifact inventory is incomplete")
+		}
+		for _, entry := range entries {
+			if !entry.Type().IsRegular() || c.Artifacts[entry.Name()] == "" {
+				b.Problems = append(b.Problems, "case contains an unlisted or non-regular artifact")
+			}
+		}
 		for name, hash := range c.Artifacts {
 			if len(audit.File("identifiers.txt", []byte(name), audit.Environment())) != 0 {
 				return Bundle{}, fmt.Errorf("release: artifact identifier failed redaction audit")
