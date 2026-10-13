@@ -305,14 +305,12 @@ func TestDecisionsCandidateControlledChild(t *testing.T) {
 		}
 	}
 	if name == "integrity-read-failure" {
-		file, err := os.Create(filepath.Join(run.Dir(), "oversized-controlled-fixture.bin"))
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err = file.Truncate((16 << 20) + 1); err != nil {
-			t.Fatal(err)
-		}
-		if err = file.Close(); err != nil {
+		// A nonregular file exercises the same inventory-read rejection as the
+		// former 16 MiB+1 sparse file. Auditing that huge synthetic file exceeded
+		// the 20 s child supervisor under race (live-authorized-20261013 receipt).
+		// DevNull is empty for the privacy audit; descriptor validation still
+		// rejects it before inventory reads. No production budget is changed.
+		if err := os.Symlink(os.DevNull, filepath.Join(run.Dir(), "nonregular-controlled-fixture.bin")); err != nil {
 			t.Fatal(err)
 		}
 	}
