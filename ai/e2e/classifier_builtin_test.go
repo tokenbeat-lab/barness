@@ -26,12 +26,12 @@ func TestClassifierBuiltinOfficial(t *testing.T) {
 	ev.Record("catalog", catalog)
 	m, ok := catalog.LookupClassifier(ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, "jev-1.13.0")
 	ev.Check("fixed version has official capabilities and rates", ok && reflect.DeepEqual(m, facts.Model), "got %+v", m)
-	ev.Check("only first fixed classifier included", len(catalog.ClassifierModels) == 1, "listed %d", len(catalog.ClassifierModels))
+	ev.Check("only first fixed classifier included", len(catalog.ClassifierModelsOf(ai.ProviderTypeSafe, ai.APITypeSafeSystemOne)) == 1, "listed %d", len(catalog.ClassifierModels))
 	for _, id := range []string{"jev-latest", "jev-preview"} {
 		_, ok := catalog.LookupClassifier(ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, id)
 		ev.Check("moving alias excluded "+id, !ok, "alias listed")
 	}
-	ev.Check("content revision has its own version", catalog.Version == "2026-10-11.1", "version %s", catalog.Version)
+	ev.Check("content revision has its own version", catalog.Version == "2026-10-13.1", "version %s", catalog.Version)
 	// Mutating returned capabilities cannot change the next host's snapshot.
 	if len(m.Capabilities.Kinds) > 0 {
 		m.Capabilities.Kinds[0] = "invalid"

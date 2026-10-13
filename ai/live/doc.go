@@ -15,7 +15,10 @@
 //	BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT=<injected by the CI secret store> \
 //	go test -tags live -count=1 ./ai/live
 //
-// Candidate: openai-decisions-candidate uses its own fixed host catalog and
+// Formal Decisions: openai-decisions uses BuiltinCatalog and TestFormalDecisions,
+// emits schema-3 live-report.json plus decisions-execution-report.json and
+// decisions-integrity.json. Its nine capabilities require its own official live
+// at the current catalog Hash. Candidate: openai-decisions-candidate uses its own fixed host catalog and
 // candidate-decisions-report.json. TestCandidateDecisions requires verified
 // account/region aliases and a Decisions-only host permissions record by default.
 // Explicit BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 allows missing verification
@@ -32,7 +35,7 @@
 //
 // Combinations (BARNESS_AI_LIVE_COMBO, key variable suffix):
 // openai-responses, openai-chat, anthropic-messages, google-gemini,
-// deepseek-responses, deepseek-chat, typesafe-classifier, openai-images, google-interactions-image; the key variable is
+// deepseek-responses, deepseek-chat, typesafe-classifier, openai-images, google-interactions-image, openai-decisions; the key variable is
 // BARNESS_AI_LIVE_KEY_ followed by the name in upper case with "-" as "_".
 // TypeSafe uses fixed jev-1.13.0; at most 6 calls / 10 questions and 131072
 // state bytes per call. Its public Client context probe reports the actual

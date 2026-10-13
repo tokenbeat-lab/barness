@@ -44,15 +44,15 @@ func TestMain(m *testing.M) {
 	var err error
 	cfg = loadConfig()
 	packageArgs := "-tags live ./ai/live"
-	if cfg.combo == &decisionsCandidate {
+	if isDecisionsProcess() {
 		packageArgs = "-tags live -timeout 180s ./ai/live"
 	}
 	if run, err = evidence.NewRun(packageArgs); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if cfg.combo == &decisionsCandidate {
-		candidateReport = initialCandidateReport()
+	if isDecisionsProcess() {
+		decisionsReport = initialDecisionsReport()
 	}
 	if cfg.combo != nil && cfg.combo.operation == ai.OperationClassifier {
 		budget = classifierBudget()
@@ -77,15 +77,15 @@ func TestMain(m *testing.M) {
 		run.SetVersion("live_sdk", cfg.combo.sdk())
 	}
 	code := m.Run()
-	if cfg.combo != nil && cfg.combo != &decisionsCandidate {
+	if cfg.combo != nil && !isDecisionsProcess() {
 		if err := run.Record(supportmatrix.ReportName, report(catalogHash)); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			code = 1
 		}
 	}
-	if candidateReport != nil {
-		candidateReport.FinishedAt = time.Now().UTC()
-		if err := run.Record(candidateReportName, candidateReport); err != nil {
+	if decisionsReport != nil {
+		decisionsReport.FinishedAt = time.Now().UTC()
+		if err := run.Record(decisionsDetailName(), decisionsReport); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			code = 1
 		}
@@ -107,8 +107,8 @@ func TestMain(m *testing.M) {
 		}
 		code = 1
 	}
-	if candidateReport != nil {
-		code = finishCandidateReport(code, auditOK)
+	if decisionsReport != nil {
+		code = finishDecisionsReport(code, auditOK)
 	}
 	os.Exit(code)
 }

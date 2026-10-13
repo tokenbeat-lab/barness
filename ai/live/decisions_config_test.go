@@ -19,7 +19,7 @@ import (
 // This is a host verification record, not a vendor permissions introspection
 // response. The reference identifies the host's checked configuration; the
 // report preserves that distinction. It contains aliases, never account IDs.
-type candidatePermissions struct {
+type decisionsPermissions struct {
 	AccountAlias          string    `json:"accountAlias"`
 	RegionAlias           string    `json:"regionAlias"`
 	DedicatedTestKey      bool      `json:"dedicatedTestKey"`
@@ -30,10 +30,10 @@ type candidatePermissions struct {
 	VerificationReference string    `json:"verificationReference"`
 }
 
-var candidateAlias = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9._@-]{0,79}$`)
+var decisionsAlias = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9._@-]{0,79}$`)
 
-func candidateConfiguration(rec *recorder) (*candidatePermissions, []byte, error) {
-	if err := candidateEnvironment(); err != nil {
+func decisionsConfiguration(rec *recorder) (*decisionsPermissions, []byte, error) {
+	if err := decisionsEnvironment(); err != nil {
 		return nil, nil, err
 	}
 	allowUnknown := os.Getenv("BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT")
@@ -43,17 +43,17 @@ func candidateConfiguration(rec *recorder) (*candidatePermissions, []byte, error
 	// Maintainer authorization may allow missing account/region/permission
 	// evidence. It never fabricates verification or ignores a supplied record.
 	if allowUnknown == "1" && os.Getenv("BARNESS_AI_LIVE_PERMISSIONS_FILE") == "" {
-		if err := configureCandidateProxy(rec); err != nil {
+		if err := configureDecisionsProxy(rec); err != nil {
 			return nil, nil, err
 		}
 		return nil, nil, nil
 	}
 	alias, region := cfg.alias, os.Getenv("BARNESS_AI_LIVE_REGION_ALIAS")
-	if !candidateAlias.MatchString(alias) || !candidateAlias.MatchString(region) {
+	if !decisionsAlias.MatchString(alias) || !decisionsAlias.MatchString(region) {
 		return nil, nil, fmt.Errorf("account and region aliases are required")
 	}
 	path := os.Getenv("BARNESS_AI_LIVE_PERMISSIONS_FILE")
-	raw, err := readCandidateFile(path, 16384)
+	raw, err := readDecisionsFile(path, 16384)
 	if err != nil {
 		return nil, nil, fmt.Errorf("bounded host permission verification record is required")
 	}
@@ -88,19 +88,19 @@ func candidateConfiguration(rec *recorder) (*candidatePermissions, []byte, error
 	if tokens.Decode(&trailing) != io.EOF {
 		return nil, nil, fmt.Errorf("trailing permission document")
 	}
-	var p candidatePermissions
+	var p decisionsPermissions
 	d := json.NewDecoder(strings.NewReader(string(raw)))
 	d.DisallowUnknownFields()
 	if d.Decode(&p) != nil || p.AccountAlias != alias || p.RegionAlias != region || !p.DedicatedTestKey || p.Model != "gpt-6-luna" || !slices.Equal(p.Permissions, []string{"POST /v1/decisions"}) || p.SpendLimitUSD <= 0 || p.VerifiedAt.IsZero() || p.VerifiedAt.After(time.Now()) || strings.TrimSpace(p.VerificationReference) == "" {
 		return nil, nil, fmt.Errorf("host permission record does not verify dedicated Decisions-only access, model and spend limit")
 	}
-	if err := configureCandidateProxy(rec); err != nil {
+	if err := configureDecisionsProxy(rec); err != nil {
 		return nil, nil, err
 	}
 	return &p, raw, nil
 }
 
-func configureCandidateProxy(rec *recorder) error {
+func configureDecisionsProxy(rec *recorder) error {
 	proxy := os.Getenv("BARNESS_AI_LIVE_PROXY")
 	u, err := url.Parse(proxy)
 	if err != nil || u.Scheme != "http" || u.User != nil || u.RawQuery != "" || u.Fragment != "" || (u.Path != "" && u.Path != "/") || u.Port() == "" || net.ParseIP(u.Hostname()) == nil || !net.ParseIP(u.Hostname()).IsLoopback() {
@@ -114,13 +114,13 @@ func configureCandidateProxy(rec *recorder) error {
 	return nil
 }
 
-func candidateEnvironment() error {
+func decisionsEnvironment() error {
 	for _, kv := range os.Environ() {
 		name, value, _ := strings.Cut(kv, "=")
 		if value == "" {
 			continue
 		}
-		if strings.HasPrefix(name, envKeyBase) && name != keyVar(decisionsCandidate.name) {
+		if strings.HasPrefix(name, envKeyBase) && name != keyVar(cfg.combo.name) {
 			return fmt.Errorf("foreign combination credential variable is set")
 		}
 		if slices.Contains([]string{"BARNESS_AI_LIVE_ENDPOINT", "OPENAI_BASE_URL", "OPENAI_API_BASE"}, name) {

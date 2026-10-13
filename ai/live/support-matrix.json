@@ -1,5 +1,5 @@
 {
-  "schema": 2,
+  "schema": 3,
   "rows": [
     {
       "combo": "openai-responses",
@@ -598,6 +598,90 @@
           "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03571500 USD",
           "lastRunAt": "2026-10-12T04:22:34.487044Z",
           "lastPassedAt": "2026-10-12T04:22:34.487044Z"
+        }
+      ]
+    },
+    {
+      "combo": "openai-decisions",
+      "operation": "classifier",
+      "provider": "openai",
+      "api": "openai-decisions",
+      "model": "gpt-6-luna",
+      "sdk": "direct HTTP (OpenAI Decisions; ADR-0026)",
+      "accountAlias": "live-unverified-account",
+      "lastRunAt": "2026-10-13T01:17:28.413409Z",
+      "allPassedAt": "2026-10-13T01:17:28.413409Z",
+      "capabilities": [
+        {
+          "id": "text-choice",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
+        },
+        {
+          "id": "text-score",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
+        },
+        {
+          "id": "text-bool",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
+        },
+        {
+          "id": "mixed-questions",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
+        },
+        {
+          "id": "image-png",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
+        },
+        {
+          "id": "image-jpeg",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
+        },
+        {
+          "id": "image-webp",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
+        },
+        {
+          "id": "cancel-in-flight",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
+        },
+        {
+          "id": "recovery",
+          "model": "gpt-6-luna",
+          "outcome": "PASS",
+          "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved",
+          "lastRunAt": "2026-10-13T01:17:28.413409Z",
+          "lastPassedAt": "2026-10-13T01:17:28.413409Z"
         }
       ]
     }

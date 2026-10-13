@@ -14,10 +14,10 @@ import (
 )
 
 func costClose(a, b float64) bool { return math.Abs(a-b) < 1e-12 }
-func validateCandidateMetadata(cs *evidence.Case, r *candidateDecisionsReport, scope ai.CallScope, res ai.ClassifierResult, ex []exchange, obs []ai.Observation) {
+func validateDecisionsMetadata(cs *evidence.Case, r *decisionsExecutionReport, scope ai.CallScope, res ai.ClassifierResult, ex []exchange, obs []ai.Observation) {
 	m := res.Metadata
-	cs.Check("own immutable attribution", m.Resolved && m.TenantID == scope.TenantID && m.RequestID == scope.RequestID && m.ActorID == scope.ActorID && m.JobID == scope.JobID && m.BindingID == decisionsCandidate.name && m.Operation == ai.OperationClassifier && m.ProviderID == ai.ProviderOpenAI && m.API == ai.APIOpenAIDecisions && m.ModelID == "gpt-6-luna" && m.AccountScopeID == r.AccountScopeID, "wrong call attribution")
-	cs.Check("own candidate price identity", m.CatalogVersion == r.CatalogVersion && m.CatalogHash == r.CatalogHash && m.BindingVersion == "candidate" && m.CredentialVersion == "candidate", "wrong configuration snapshot")
+	cs.Check("own immutable attribution", m.Resolved && m.TenantID == scope.TenantID && m.RequestID == scope.RequestID && m.ActorID == scope.ActorID && m.JobID == scope.JobID && m.BindingID == r.Combo && m.Operation == ai.OperationClassifier && m.ProviderID == ai.ProviderOpenAI && m.API == ai.APIOpenAIDecisions && m.ModelID == "gpt-6-luna" && m.AccountScopeID == r.AccountScopeID, "wrong call attribution")
+	cs.Check("own candidate price identity", m.CatalogVersion == r.CatalogVersion && m.CatalogHash == r.CatalogHash && m.BindingVersion == decisionsBindingVersion() && m.CredentialVersion == decisionsBindingVersion(), "wrong configuration snapshot")
 	if !cs.Check("one reserved official attempt", len(m.Attempts) == 1 && len(ex) == 1, "attempts %d exchanges %d", len(m.Attempts), len(ex)) {
 		return
 	}
@@ -37,7 +37,7 @@ func validateCandidateMetadata(cs *evidence.Case, r *candidateDecisionsReport, s
 	var body map[string]json.RawMessage
 	cs.Check("minimal native body", json.Unmarshal([]byte(ex[0].RequestBody), &body) == nil && len(body) == 3 && body["model"] != nil && body["input"] != nil && body["questions"] != nil, "unexpected native fields")
 }
-func validateCandidateAnswers(cs *evidence.Case, req ai.ClassifierRequest, res ai.ClassifierResult) {
+func validateDecisionsAnswers(cs *evidence.Case, req ai.ClassifierRequest, res ai.ClassifierResult) {
 	actual, reported := res.ResponseModel.Get()
 	cs.Check("actual response model is reported separately", reported && strings.TrimSpace(actual) != "" && res.Metadata.ModelID == "gpt-6-luna", "actual model missing; never fabricate from requested ID")
 	cs.Check("successful full typed questions", res.StopReason == ai.StopReasonStop && len(res.Answers) == len(req.Questions), "missing question answers")

@@ -145,7 +145,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			var report candidateDecisionsReport
+			var report decisionsExecutionReport
 			if err = json.Unmarshal(raw, &report); err != nil {
 				t.Fatal(err)
 			}
@@ -288,7 +288,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 				cs.Check("config refuses before spend", b.CallsUsed == 0 && b.HTTPAttempts == 0, "config escaped")
 			}
 			_, included := ai.BuiltinCatalog().LookupClassifier(ai.ProviderOpenAI, ai.APIOpenAIDecisions, "gpt-6-luna")
-			cs.Check("candidate absent from builtins", !included, "premature inclusion")
+			cs.Check("candidate leaves formal catalog intact", included && ai.BuiltinCatalog().Version == "2026-10-13.1", "formal catalog changed")
 		})
 	}
 }
@@ -298,7 +298,7 @@ func TestDecisionsCandidateControlledChild(t *testing.T) {
 	if name == "" {
 		t.Skip("isolated controlled process only")
 	}
-	driveCandidateDecisions(t, controlledDecisionsRecorder(t, name), func(t *testing.T) []decisionsScenario { return controlledCandidateBudgetScenarios(t, name) }, "controlled")
+	driveDecisions(t, controlledDecisionsRecorder(t, name), func(t *testing.T) []decisionsScenario { return controlledCandidateBudgetScenarios(t, name) }, "controlled")
 	if name == "integrity-write-failure" {
 		if err := os.Mkdir(filepath.Join(run.Dir(), "candidate-integrity.json"), 0700); err != nil {
 			t.Fatal(err)

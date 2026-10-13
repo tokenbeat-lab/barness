@@ -62,7 +62,7 @@ func TestGoogleImagesHarnessProcess(t *testing.T) {
 				t.Fatal(err)
 			}
 			cs.Check("included smoke uses published catalog and prices", report.CatalogVersion == ai.BuiltinCatalog().Version && report.CatalogHash == hash, "live still used a candidate catalog")
-			matrix := supportmatrix.Matrix{Schema: 2, Rows: []supportmatrix.Row{{Combo: "google-interactions-image", Operation: "image", Provider: "google", API: "google-interactions"}}}
+			matrix := supportmatrix.Matrix{Schema: supportmatrix.SchemaVersion, Rows: []supportmatrix.Row{{Combo: "google-interactions-image", Operation: "image", Provider: "google", API: "google-interactions"}}}
 			merged, err := supportmatrix.Merge(matrix, report)
 			refuses := name == "foreign-key" || name == "narrowed"
 			cs.Check("invalid report never partially merges", (err != nil) == refuses, "merge=%v", err)

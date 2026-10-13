@@ -13,6 +13,8 @@ import (
 // a missing scenario must fail closed rather than shrink the release.
 func expectedCapabilities(combo string) []string {
 	switch combo {
+	case "openai-decisions":
+		return supportmatrix.DecisionsExpected()
 	case "typesafe-classifier":
 		return supportmatrix.ClassifierExpected()
 	case "openai-images":

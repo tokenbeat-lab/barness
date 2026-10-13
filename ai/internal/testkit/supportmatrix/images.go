@@ -9,7 +9,7 @@ import (
 // ImageCall is bounded protocol and raster validation evidence for one sent
 // request. Token consumption, including failed attempts, remains in the bundle's
 // public result/attempt records and the report's aggregate token counters.
-// These additive schema-2 fields leave classifier/chat report meanings unchanged.
+// Image fields retain their semantics in schema 3; classifier/chat budgets are separate.
 type ImageCall struct {
 	Path              string               `json:"path"`
 	Status            int                  `json:"status"`

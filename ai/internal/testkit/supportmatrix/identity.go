@@ -23,6 +23,8 @@ func (r Row) ValidIdentity() bool {
 		operation, provider, api = "image", "google", "google-interactions"
 	case "typesafe-classifier":
 		operation, provider, api = "classifier", "typesafe", "typesafe-system-one"
+	case "openai-decisions":
+		operation, provider, api = "classifier", "openai", "openai-decisions"
 	default:
 		return false
 	}

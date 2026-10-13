@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"reflect"
 	"testing"
 	"time"
 
@@ -15,9 +16,9 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
-// Candidate evidence deliberately has no supportmatrix.Report schema. It can
-// only qualify this fixed candidate; inclusion and formal Hash live are issue 10.
-type candidateDecisionsReport struct {
+// Execution evidence captures the full bounded pipeline for both candidate and
+// formal runs. Only an audited formal run also emits supportmatrix.Report.
+type decisionsExecutionReport struct {
 	AccountScopeID               string                         `json:"accountScopeId"`
 	AccountVerificationStatus    string                         `json:"accountVerificationStatus"`
 	RegionVerificationStatus     string                         `json:"regionVerificationStatus"`
@@ -40,21 +41,21 @@ type candidateDecisionsReport struct {
 	Endpoint                     string                         `json:"endpoint"`
 	Model                        string                         `json:"model"`
 	SDK                          string                         `json:"sdk"`
-	CatalogVersion               string                         `json:"candidateVersion"`
-	CatalogHash                  string                         `json:"candidateHash"`
+	CatalogVersion               string                         `json:"catalogVersion"`
+	CatalogHash                  string                         `json:"catalogHash"`
 	SourceManifestHash           string                         `json:"sourceManifestHash"`
 	Sources                      candidateSources               `json:"sources"`
-	Permissions                  *candidatePermissions          `json:"hostPermissionVerification"`
+	Permissions                  *decisionsPermissions          `json:"hostPermissionVerification"`
 	PermissionsHash              string                         `json:"hostPermissionVerificationHash,omitempty"`
 	GitCommit                    string                         `json:"gitCommit"`
 	StartedAt                    time.Time                      `json:"startedAt"`
 	FinishedAt                   time.Time                      `json:"finishedAt"`
-	Budget                       candidateBudget                `json:"budget"`
+	Budget                       decisionsBudget                `json:"budget"`
 	Expected                     []string                       `json:"expected"`
 	Scenarios                    []supportmatrix.ScenarioResult `json:"scenarios"`
 	Unknown                      []string                       `json:"unknown"`
 }
-type candidateBudget struct {
+type decisionsBudget struct {
 	FinalizationReserveSeconds int `json:"finalizationReserveSeconds"`
 	MaxCalls                   int `json:"maxCalls"`
 	MaxAttempts                int `json:"maxAttempts"`
@@ -72,17 +73,26 @@ type candidateBudget struct {
 	ImagesUsed                 int `json:"imagesUsed"`
 	ImageBytesSubmitted        int `json:"decodedImageBytesSubmitted"`
 	Retries                    int `json:"retries"`
+	// These are known reported counters only; canceled/unreported consumption
+	// remains unknown in the attempt records, rather than becoming zero usage.
+	ReportedInputTokens  int `json:"reportedInputTokens"`
+	ReportedOutputTokens int `json:"reportedOutputTokens"`
 }
 
-var candidateReport *candidateDecisionsReport
+var decisionsReport *decisionsExecutionReport
 
-func initialCandidateReport() *candidateDecisionsReport {
+func initialDecisionsReport() *decisionsExecutionReport {
 	expected := []string{"text-choice", "text-score", "text-bool", "mixed-questions", "image-png", "image-jpeg", "image-webp", "cancel-in-flight", "recovery"}
-	out := &candidateDecisionsReport{Schema: 2, Kind: "candidate-only", Mode: "live", Outcome: supportmatrix.NotRun, Combo: decisionsCandidate.name, Operation: ai.OperationClassifier, Provider: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: decisionsCandidate.endpoint, Model: decisionsCandidate.model, SDK: decisionsCandidate.sdk(), StartedAt: started, GitCommit: evidence.GitCommit(), SourceManifestHash: candidateSourceHash, Expected: expected,
-		Budget:  candidateBudget{FinalizationReserveSeconds: 10, MaxCalls: 12, MaxAttempts: 12, MaxQuestions: 24, MaxStateBytes: 4 << 20, MaxImages: 8, MaxImageBytes: 4 << 20, ProcessSeconds: 180, CallSeconds: 30},
+	out := &decisionsExecutionReport{Schema: 2, Kind: "candidate-only", Mode: "live", Outcome: supportmatrix.NotRun, Combo: cfg.combo.name, Operation: ai.OperationClassifier, Provider: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: cfg.combo.endpoint, Model: decisionsCandidate.model, SDK: decisionsCandidate.sdk(), StartedAt: started, GitCommit: evidence.GitCommit(), SourceManifestHash: decisionsSourceHash, Expected: expected,
+		Budget:  decisionsBudget{FinalizationReserveSeconds: 10, MaxCalls: 12, MaxAttempts: 12, MaxQuestions: 24, MaxStateBytes: 4 << 20, MaxImages: 8, MaxImageBytes: 4 << 20, ProcessSeconds: 180, CallSeconds: 30},
 		Unknown: []string{"vendor billing", "cache billing", "regional processing premium", "922000 token service capacity", "128 image service capacity", "service score maximum", "alias weights are not frozen by catalog hash"}}
 	for _, id := range expected {
-		out.Scenarios = append(out.Scenarios, supportmatrix.ScenarioResult{ID: id, CaseID: "P10-candidate-" + id, Model: out.Model, Outcome: supportmatrix.NotRun, Note: "scenario not executed in this process"})
+		out.Scenarios = append(out.Scenarios, supportmatrix.ScenarioResult{ID: id, CaseID: decisionsCasePrefix() + id, Model: out.Model, Outcome: supportmatrix.NotRun, Note: "scenario not executed in this process"})
+	}
+	if cfg.combo == &decisionsFormal {
+		out.Schema, out.Kind, out.Combo = 3, "formal-execution", decisionsFormal.name
+		out.CatalogVersion = catalog.Version
+		out.CatalogHash, _ = catalog.Hash()
 	}
 	return out
 }
@@ -92,7 +102,7 @@ func TestCandidateDecisions(t *testing.T) {
 	}
 	rec := newRecorder()
 	defer rec.next.(*http.Transport).CloseIdleConnections()
-	driveCandidateDecisions(t, rec, decisionsScenarios, "live")
+	driveDecisions(t, rec, decisionsScenarios, "live")
 }
 
 type decisionsScenario struct {
@@ -100,72 +110,80 @@ type decisionsScenario struct {
 	request ai.ClassifierRequest
 	cancel  bool
 }
-type candidateSession struct {
+type decisionsSession struct {
 	ctx    context.Context
 	client *ai.Client
 	rec    *recorder
-	report *candidateDecisionsReport
+	report *decisionsExecutionReport
 }
 
-func driveCandidateDecisions(t *testing.T, rec *recorder, scenarioFactory func(*testing.T) []decisionsScenario, mode string) {
+func driveDecisions(t *testing.T, rec *recorder, scenarioFactory func(*testing.T) []decisionsScenario, mode string) {
 	t.Helper()
-	candidateReport.Mode = mode
+	decisionsReport.Mode = mode
 	rec.requestLimit = 8 << 20
-	sourcesCase := run.Case(t, "P10-candidate-sources")
-	setCandidateReplay(sourcesCase, mode)
+	sourcesCase := run.Case(t, decisionsCasePrefix()+"sources")
+	setDecisionsReplay(sourcesCase, mode)
 	cat, sources, sourceErr := loadDecisionsCandidate(sourcesCase)
-	candidateReport.Sources = sources
+	decisionsReport.Sources = sources
+	if sourceErr == nil && cfg.combo == &decisionsFormal {
+		accepted := cat.ClassifierModels[0]
+		cat = ai.BuiltinCatalog()
+		actual, found := cat.LookupClassifier(ai.ProviderOpenAI, ai.APIOpenAIDecisions, "gpt-6-luna")
+		if !found || !reflect.DeepEqual(actual, accepted) {
+			sourceErr = fmt.Errorf("formal catalog differs from accepted candidate facts")
+		}
+	}
 	if sourceErr == nil {
-		candidateReport.CatalogVersion = cat.Version
-		candidateReport.CatalogHash, _ = cat.Hash()
+		decisionsReport.CatalogVersion = cat.Version
+		decisionsReport.CatalogHash, _ = cat.Hash()
 		run.SetVersion("model_catalog_version", cat.Version)
-		run.SetVersion("model_catalog_hash", candidateReport.CatalogHash)
-		run.SetVersion("candidate_source_manifest_hash", candidateSourceHash)
+		run.SetVersion("model_catalog_hash", decisionsReport.CatalogHash)
+		run.SetVersion("candidate_source_manifest_hash", decisionsSourceHash)
 	}
 	reason := cfg.refused
-	if err := candidateEnvironment(); err != nil {
+	if err := decisionsEnvironment(); err != nil {
 		reason = err.Error()
 	}
 	if sourceErr != nil {
 		reason = sourceErr.Error()
 	}
 	if reason != "" {
-		candidateConfigFail(t, reason)
+		decisionsConfigFail(t, reason)
 		return
 	}
 	if cfg.notRun != "" {
-		for i := range candidateReport.Scenarios {
-			candidateReport.Scenarios[i].Note = cfg.notRun
+		for i := range decisionsReport.Scenarios {
+			decisionsReport.Scenarios[i].Note = cfg.notRun
 		}
 		t.Skip("NOT_RUN: " + cfg.notRun)
 	}
-	p, permissionsRaw, err := candidateConfiguration(rec)
-	candidateReport.Permissions = p
+	p, permissionsRaw, err := decisionsConfiguration(rec)
+	decisionsReport.Permissions = p
 	if len(permissionsRaw) > 0 {
-		candidateReport.PermissionsHash = sha256Text(permissionsRaw)
+		decisionsReport.PermissionsHash = sha256Text(permissionsRaw)
 	}
 	if err != nil {
-		candidateConfigFail(t, err.Error())
+		decisionsConfigFail(t, err.Error())
 		return
 	}
 	if p != nil {
-		candidateReport.AccountScopeID = p.AccountAlias + "@" + p.RegionAlias
-		candidateReport.AccountVerificationStatus = "host_verified"
-		candidateReport.RegionVerificationStatus = "host_verified"
-		candidateReport.PermissionVerificationStatus = "host_verified"
-		candidateReport.AccountVerificationPolicy = "require_host_verification"
+		decisionsReport.AccountScopeID = p.AccountAlias + "@" + p.RegionAlias
+		decisionsReport.AccountVerificationStatus = "host_verified"
+		decisionsReport.RegionVerificationStatus = "host_verified"
+		decisionsReport.PermissionVerificationStatus = "host_verified"
+		decisionsReport.AccountVerificationPolicy = "require_host_verification"
 		sourcesCase.Fixture("host-permissions.json", permissionsRaw)
 	} else {
 		// This opaque host scope pins attribution to this credential, and
 		// does not claim knowledge of the actual vendor account or region.
-		candidateReport.AccountScopeID = "candidate-unverified-account"
-		candidateReport.AccountVerificationStatus = "unknown"
-		candidateReport.RegionVerificationStatus = "unknown"
-		candidateReport.PermissionVerificationStatus = "unknown"
-		candidateReport.AccountVerificationPolicy = "allow_unknown"
-		candidateReport.Unknown = append(candidateReport.Unknown, "provider account identity", "account region", "credential privilege scope", "dedicated test credential status", "provider-side spend limit")
+		decisionsReport.AccountScopeID = decisionsBindingVersion() + "-unverified-account"
+		decisionsReport.AccountVerificationStatus = "unknown"
+		decisionsReport.RegionVerificationStatus = "unknown"
+		decisionsReport.PermissionVerificationStatus = "unknown"
+		decisionsReport.AccountVerificationPolicy = "allow_unknown"
+		decisionsReport.Unknown = append(decisionsReport.Unknown, "provider account identity", "account region", "credential privilege scope", "dedicated test credential status", "provider-side spend limit")
 	}
-	sourcesCase.Record("account-evidence", map[string]any{"policy": candidateReport.AccountVerificationPolicy, "accountStatus": candidateReport.AccountVerificationStatus, "regionStatus": candidateReport.RegionVerificationStatus, "permissionStatus": candidateReport.PermissionVerificationStatus, "attributionScope": candidateReport.AccountScopeID, "hostPermissionVerification": p})
+	sourcesCase.Record("account-evidence", map[string]any{"policy": decisionsReport.AccountVerificationPolicy, "accountStatus": decisionsReport.AccountVerificationStatus, "regionStatus": decisionsReport.RegionVerificationStatus, "permissionStatus": decisionsReport.PermissionVerificationStatus, "attributionScope": decisionsReport.AccountScopeID, "hostPermissionVerification": p})
 	policy := livePolicy()
 	policy.Image = nil
 	policy.Classifier = &ai.ClassifierPolicy{MaxQuestions: 24, MaxStateBytes: 4 << 20, MaxQuestionBytes: 16384, Images: &ai.ClassifierImagePolicy{MaxImages: 8, MaxTotalImageBytes: 4 << 20}}
@@ -176,52 +194,52 @@ func driveCandidateDecisions(t *testing.T, rec *recorder, scenarioFactory func(*
 	policy.ConnectTimeout = 10 * time.Second
 	policy.ResponseHeaderTimeout = 25 * time.Second
 	policy.ReadIdleTimeout = 25 * time.Second
-	r := &resolver{binding: ai.Binding{TenantID: liveTenant, BindingID: decisionsCandidate.name, Version: "candidate", Enabled: true, Operation: ai.OperationClassifier, ProviderID: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: decisionsCandidate.endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: candidateReport.AccountScopeID, CredentialRef: "decisions-test-key", AllowedModels: []string{"gpt-6-luna"}, AllowClassifierImages: true},
-		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "decisions-test-key", Version: "candidate", BindingVersion: "candidate", AccountScopeID: candidateReport.AccountScopeID, Active: true, APIKey: ai.NewSecret(cfg.key)}}
+	r := &resolver{binding: ai.Binding{TenantID: liveTenant, BindingID: cfg.combo.name, Version: decisionsBindingVersion(), Enabled: true, Operation: ai.OperationClassifier, ProviderID: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions, Endpoint: cfg.combo.endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: decisionsReport.AccountScopeID, CredentialRef: "decisions-test-key", AllowedModels: []string{"gpt-6-luna"}, AllowClassifierImages: true},
+		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "decisions-test-key", Version: decisionsBindingVersion(), BindingVersion: decisionsBindingVersion(), AccountScopeID: decisionsReport.AccountScopeID, Active: true, APIKey: ai.NewSecret(cfg.key)}}
 	// Binding.Retry zero: each reserved Logical Call has at most one Attempt.
 	client, err := ai.NewClient(ai.Config{Policy: policy, Bindings: r, Credentials: r, Catalog: &cat, Transport: rec, Observer: rec})
 	if err != nil {
-		candidateConfigFail(t, "candidate Client assembly failed: "+err.Error())
+		decisionsConfigFail(t, "candidate Client assembly failed: "+err.Error())
 		return
 	}
 	// Include configuration actually used, with no credential payload.
-	sourcesCase.Record("host-configuration", map[string]any{"policy": policy, "binding": map[string]any{"operation": r.binding.Operation, "provider": r.binding.ProviderID, "api": r.binding.API, "endpoint": r.binding.Endpoint, "models": r.binding.AllowedModels, "allowClassifierImages": true, "retry": r.binding.Retry}, "permissions": p, "permissionHash": candidateReport.PermissionsHash})
+	sourcesCase.Record("host-configuration", map[string]any{"policy": policy, "binding": map[string]any{"operation": r.binding.Operation, "provider": r.binding.ProviderID, "api": r.binding.API, "endpoint": r.binding.Endpoint, "models": r.binding.AllowedModels, "allowClassifierImages": true, "retry": r.binding.Retry}, "permissions": p, "permissionHash": decisionsReport.PermissionsHash})
 	deadline := started.Add(180 * time.Second)
 	if outer, ok := t.Deadline(); ok && outer.Before(deadline) {
 		deadline = outer
 	}
-	candidateReport.ProcessDeadline = deadline
-	candidateReport.ExecutionDeadline = deadline.Add(-time.Duration(candidateReport.Budget.FinalizationReserveSeconds) * time.Second)
+	decisionsReport.ProcessDeadline = deadline
+	decisionsReport.ExecutionDeadline = deadline.Add(-time.Duration(decisionsReport.Budget.FinalizationReserveSeconds) * time.Second)
 	// Leave time for remaining failure summaries, Observer delivery and the
 	// immutable report/manifest/audit/inventory before Go's hard timeout.
-	ctx, cancel := context.WithDeadline(context.Background(), candidateReport.ExecutionDeadline)
+	ctx, cancel := context.WithDeadline(context.Background(), decisionsReport.ExecutionDeadline)
 	defer cancel()
-	session := &candidateSession{ctx: ctx, client: client, rec: rec, report: candidateReport}
+	session := &decisionsSession{ctx: ctx, client: client, rec: rec, report: decisionsReport}
 	for _, sc := range scenarioFactory(t) {
 		t.Run(sc.id, func(t *testing.T) { session.execute(t, sc) })
 	}
-	candidateReport.FinishedAt = time.Now().UTC()
-	candidateReport.Outcome = supportmatrix.Pass
-	for _, s := range candidateReport.Scenarios {
+	decisionsReport.FinishedAt = time.Now().UTC()
+	decisionsReport.Outcome = supportmatrix.Pass
+	for _, s := range decisionsReport.Scenarios {
 		if s.Outcome == supportmatrix.Fail {
-			candidateReport.Outcome = supportmatrix.Fail
+			decisionsReport.Outcome = supportmatrix.Fail
 			break
 		}
 		if s.Outcome != supportmatrix.Pass {
-			candidateReport.Outcome = supportmatrix.NotRun
+			decisionsReport.Outcome = supportmatrix.NotRun
 		}
 	}
 }
-func candidateConfigFail(t *testing.T, reason string) {
-	for i := range candidateReport.Scenarios {
-		candidateReport.Scenarios[i].Outcome = supportmatrix.Fail
-		candidateReport.Scenarios[i].ErrorCategory = "config"
-		candidateReport.Scenarios[i].Note = reason
+func decisionsConfigFail(t *testing.T, reason string) {
+	for i := range decisionsReport.Scenarios {
+		decisionsReport.Scenarios[i].Outcome = supportmatrix.Fail
+		decisionsReport.Scenarios[i].ErrorCategory = "config"
+		decisionsReport.Scenarios[i].Note = reason
 	}
-	candidateReport.Outcome = supportmatrix.Fail
+	decisionsReport.Outcome = supportmatrix.Fail
 	t.Errorf("candidate config: %s", reason)
 }
-func (s *candidateSession) reserve(req ai.ClassifierRequest) bool {
+func (s *decisionsSession) reserve(req ai.ClassifierRequest) bool {
 	b := &s.report.Budget
 	size := 0
 	for _, img := range req.Images {
@@ -242,9 +260,9 @@ func (s *candidateSession) reserve(req ai.ClassifierRequest) bool {
 	b.ImageBytesSubmitted += size
 	return true
 }
-func (s *candidateSession) execute(t *testing.T, sc decisionsScenario) {
-	cs := run.Case(t, "P10-candidate-"+sc.id)
-	setCandidateReplay(cs, s.report.Mode)
+func (s *decisionsSession) execute(t *testing.T, sc decisionsScenario) {
+	cs := run.Case(t, decisionsCasePrefix()+sc.id)
+	setDecisionsReplay(cs, s.report.Mode)
 	summary := supportmatrix.ScenarioResult{ID: sc.id, CaseID: cs.ID(), Model: s.report.Model, Outcome: supportmatrix.Pass}
 	defer func() {
 		if t.Failed() {
@@ -273,20 +291,25 @@ func (s *candidateSession) execute(t *testing.T, sc decisionsScenario) {
 	summary.Calls = 1
 	summary.Questions = len(sc.request.Questions)
 	summary.Images = len(sc.request.Images)
+	summary.StateBytes = len(sc.request.State)
+	for _, img := range sc.request.Images {
+		raw, _ := decodeCandidateImage(img)
+		summary.DecodedImageBytes += len(raw)
+	}
 	cs.Record("public-request", sc.request)
 	recordCandidateImages(cs, sc.request.Images)
 	ctx, cancel := context.WithTimeout(s.ctx, 30*time.Second)
 	defer cancel()
 	scope := newScope()
-	scope.ActorID = "candidate-maintainer"
-	scope.JobID = "decisions-candidate"
+	scope.ActorID = decisionsBindingVersion() + "-maintainer"
+	scope.JobID = cfg.combo.name
 	began := time.Now()
 	var res ai.ClassifierResult
 	var err error
 	if sc.cancel {
-		res, err = s.client.WithHooks(ai.Hooks{OnResponse: func(_ context.Context, _ ai.CallScope, _ ai.ResponseInfo) error { cancel(); return nil }}).Classify(ctx, scope, ai.Target{BindingID: decisionsCandidate.name, ModelID: "gpt-6-luna"}, sc.request, ai.OpenAIDecisionsOptions{})
+		res, err = s.client.WithHooks(ai.Hooks{OnResponse: func(_ context.Context, _ ai.CallScope, _ ai.ResponseInfo) error { cancel(); return nil }}).Classify(ctx, scope, ai.Target{BindingID: cfg.combo.name, ModelID: "gpt-6-luna"}, sc.request, ai.OpenAIDecisionsOptions{})
 	} else {
-		res, err = s.client.Classify(ctx, scope, ai.Target{BindingID: decisionsCandidate.name, ModelID: "gpt-6-luna"}, sc.request, ai.OpenAIDecisionsOptions{})
+		res, err = s.client.Classify(ctx, scope, ai.Target{BindingID: cfg.combo.name, ModelID: "gpt-6-luna"}, sc.request, ai.OpenAIDecisionsOptions{})
 	}
 	summary.DurationMS = time.Since(began).Milliseconds()
 	ex := s.rec.take()
@@ -303,7 +326,9 @@ func (s *candidateSession) execute(t *testing.T, sc decisionsScenario) {
 	cs.Record("observations", obs)
 	cs.Record("observer-stats", s.client.ObserverStats())
 	cs.Record("budget", s.report.Budget)
-	validateCandidateMetadata(cs, s.report, scope, res, ex, obs)
+	validateDecisionsMetadata(cs, s.report, scope, res, ex, obs)
+	s.report.Budget.ReportedInputTokens += int(res.Usage.Input)
+	s.report.Budget.ReportedOutputTokens += int(res.Usage.Output)
 	if sc.cancel {
 		var e *ai.Error
 		cs.Check("in-flight cancellation is aborted", errors.As(err, &e) && e.Code == ai.CodeCanceled && res.StopReason == ai.StopReasonAborted && len(res.Answers) == 0, "cancel outcome %v", err)
@@ -318,7 +343,7 @@ func (s *candidateSession) execute(t *testing.T, sc decisionsScenario) {
 		cs.Check("own live call succeeds", false, "%s", errText(err))
 		return
 	}
-	validateCandidateAnswers(cs, sc.request, res)
+	validateDecisionsAnswers(cs, sc.request, res)
 	reporting := res.Metadata.Attempts[0].UsageReporting
 	summary.Note = fmt.Sprintf("actual response model captured; usage reporting %s; billing/cache/regional premium unobserved", reporting)
 	// Cost is an estimate from reported input; absent counters stay unreported.

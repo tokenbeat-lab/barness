@@ -16,7 +16,7 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
-const candidateSourceHash = "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe"
+const decisionsSourceHash = "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe"
 const candidateVersion = "decisions-candidate-2026-10-13.1"
 const candidateReportName = "candidate-decisions-report"
 
@@ -44,7 +44,7 @@ func sha256Text(data []byte) string { sum := sha256.Sum256(data); return hex.Enc
 func loadDecisionsCandidate(cs *evidence.Case) (ai.Catalog, candidateSources, error) {
 	read := func(name string) ([]byte, error) {
 		path := filepath.Join("testdata", "decisions", name)
-		raw, err := readCandidateFile(path, 1<<20)
+		raw, err := readDecisionsFile(path, 1<<20)
 		if err == nil {
 			cs.Fixture(name, raw)
 		}
@@ -55,7 +55,7 @@ func loadDecisionsCandidate(cs *evidence.Case) (ai.Catalog, candidateSources, er
 		return ai.Catalog{}, candidateSources{}, err
 	}
 	var sources candidateSources
-	if sha256Text(raw) != candidateSourceHash || json.Unmarshal(raw, &sources) != nil || sources.Schema != 1 {
+	if sha256Text(raw) != decisionsSourceHash || json.Unmarshal(raw, &sources) != nil || sources.Schema != 1 {
 		return ai.Catalog{}, sources, fmt.Errorf("candidate source manifest differs from fixed pin")
 	}
 	for _, s := range sources.Sources {
@@ -78,7 +78,7 @@ func loadDecisionsCandidate(cs *evidence.Case) (ai.Catalog, candidateSources, er
 	return cat, sources, nil
 }
 
-func readCandidateFile(path string, limit int64) ([]byte, error) {
+func readDecisionsFile(path string, limit int64) ([]byte, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, fmt.Errorf("required candidate input is missing")

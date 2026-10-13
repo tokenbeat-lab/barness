@@ -26,7 +26,11 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 	if err := readJSON(filepath.Join(dir, "manifest.json"), &m); err != nil {
 		return err
 	}
-	if m.Package != "-tags live ./ai/live" || m.Commit != r.GitCommit || m.Started.IsZero() || m.Finished.Before(r.FinishedAt) || m.Started.Before(r.StartedAt) || m.Started.After(r.FinishedAt) || m.Versions["live_combo"] != r.Combo || m.Versions["live_sdk"] != r.SDK || m.Versions["model_catalog_version"] != r.CatalogVersion || m.Versions["model_catalog_hash"] != r.CatalogHash {
+	packageArgs := "-tags live ./ai/live"
+	if r.Combo == "openai-decisions" {
+		packageArgs = "-tags live -timeout 180s ./ai/live"
+	}
+	if m.Package != packageArgs || m.Commit != r.GitCommit || m.Started.IsZero() || m.Finished.Before(r.FinishedAt) || m.Started.Before(r.StartedAt) || m.Started.After(r.FinishedAt) || m.Versions["live_combo"] != r.Combo || m.Versions["live_sdk"] != r.SDK || m.Versions["model_catalog_version"] != r.CatalogVersion || m.Versions["model_catalog_hash"] != r.CatalogHash {
 		return fmt.Errorf("live manifest provenance disagrees with report")
 	}
 	for _, s := range r.Scenarios {
@@ -52,7 +56,11 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 				}
 			}
 			if s.Attempts > 0 {
-				for _, pattern := range []string{"attempt-*-exchanges.json", "attempt-*-result.json", "observations-*.json"} {
+				patterns := []string{"attempt-*-exchanges.json", "attempt-*-result.json", "observations-*.json"}
+				if r.Combo == "openai-decisions" {
+					patterns = []string{"exchanges.json", "result.json", "observations.json"}
+				}
+				for _, pattern := range patterns {
 					files, err := filepath.Glob(filepath.Join(dir, c.Dir, pattern))
 					if err != nil || len(files) == 0 {
 						return fmt.Errorf("live capture, consumption or Observer missing")

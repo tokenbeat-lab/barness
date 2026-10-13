@@ -18,7 +18,7 @@ import (
 
 // SchemaVersion is the report and matrix layout this package reads and
 // writes.
-const SchemaVersion = 2
+const SchemaVersion = 3
 
 // Outcome is a live scenario's result. There are exactly four; a vendor
 // fault is a Fail, never a skip.
@@ -65,28 +65,37 @@ type Report struct {
 	Budget Budget `json:"budget"`
 	// Expected are the IDs of every scenario the combination has, so a run
 	// narrowed to some of them cannot mark the row all-passed.
-	Expected  []string         `json:"expected"`
-	Scenarios []ScenarioResult `json:"scenarios"`
+	Expected  []string           `json:"expected"`
+	Scenarios []ScenarioResult   `json:"scenarios"`
+	Decisions *DecisionsEvidence `json:"decisions,omitempty"`
 }
 
 // Budget bounds one live process's spend.
 type Budget struct {
-	MaxCalls            int `json:"maxCalls"`
-	MaxImages           int `json:"maxImages,omitempty"`
-	ImagesUsed          int `json:"imagesUsed,omitempty"`
-	MaxImageWidth       int `json:"maxImageWidth,omitempty"`
-	MaxImageHeight      int `json:"maxImageHeight,omitempty"`
-	MaxQuestions        int `json:"maxQuestions,omitempty"`
-	QuestionsUsed       int `json:"questionsUsed,omitempty"`
-	HTTPAttempts        int `json:"httpAttempts"`
-	MaxStateBytes       int `json:"maxStateBytesPerCall,omitempty"`
-	StateBytesSubmitted int `json:"stateBytesSubmitted,omitempty"`
-	MaxRetries          int `json:"maxRetriesPerScenario"`
-	MaxOutputTokens     int `json:"maxOutputTokensPerCall"`
-	CallsUsed           int `json:"callsUsed"`
-	OutputTokensUsed    int `json:"outputTokensUsed"`
-	InputTokensUsed     int `json:"inputTokensUsed"`
-	EnvironmentRetries  int `json:"environmentRetries"`
+	MaxAttempts                int `json:"maxAttempts,omitempty"`
+	AttemptsReserved           int `json:"attemptsReserved,omitempty"`
+	MaxStateBytesTotal         int `json:"maxStateBytesTotal,omitempty"`
+	MaxDecodedImageBytesTotal  int `json:"maxDecodedImageBytesTotal,omitempty"`
+	DecodedImageBytesSubmitted int `json:"decodedImageBytesSubmitted,omitempty"`
+	ProcessSeconds             int `json:"processSeconds,omitempty"`
+	CallSeconds                int `json:"callSeconds,omitempty"`
+	FinalizationReserveSeconds int `json:"finalizationReserveSeconds,omitempty"`
+	MaxCalls                   int `json:"maxCalls"`
+	MaxImages                  int `json:"maxImages,omitempty"`
+	ImagesUsed                 int `json:"imagesUsed,omitempty"`
+	MaxImageWidth              int `json:"maxImageWidth,omitempty"`
+	MaxImageHeight             int `json:"maxImageHeight,omitempty"`
+	MaxQuestions               int `json:"maxQuestions,omitempty"`
+	QuestionsUsed              int `json:"questionsUsed,omitempty"`
+	HTTPAttempts               int `json:"httpAttempts"`
+	MaxStateBytes              int `json:"maxStateBytesPerCall,omitempty"`
+	StateBytesSubmitted        int `json:"stateBytesSubmitted,omitempty"`
+	MaxRetries                 int `json:"maxRetriesPerScenario"`
+	MaxOutputTokens            int `json:"maxOutputTokensPerCall"`
+	CallsUsed                  int `json:"callsUsed"`
+	OutputTokensUsed           int `json:"outputTokensUsed"`
+	InputTokensUsed            int `json:"inputTokensUsed"`
+	EnvironmentRetries         int `json:"environmentRetries"`
 }
 
 // ScenarioResult is one scenario of a report.
@@ -107,6 +116,8 @@ type ScenarioResult struct {
 	Attempts           int         `json:"attempts"`
 	Questions          int         `json:"questions,omitempty"`
 	Images             int         `json:"images,omitempty"`
+	StateBytes         int         `json:"stateBytes,omitempty"`
+	DecodedImageBytes  int         `json:"decodedImageBytes,omitempty"`
 	ImageCalls         []ImageCall `json:"imageCalls,omitempty"`
 	Retries            int         `json:"retries,omitempty"`
 	ProviderRequestIDs []string    `json:"providerRequestIds,omitempty"`
@@ -224,6 +235,13 @@ func check(m Matrix, r Report) (int, error) {
 	if r.Schema != SchemaVersion || m.Schema != SchemaVersion {
 		return 0, refuse("schema %d (matrix %d), want %d", r.Schema, m.Schema, SchemaVersion)
 	}
+	seenRows := map[string]bool{}
+	for _, row := range m.Rows {
+		if seenRows[row.Combo] || !row.ValidIdentity() {
+			return 0, refuse("duplicate or inconsistent matrix route %q", row.Combo)
+		}
+		seenRows[row.Combo] = true
+	}
 	idx := slices.IndexFunc(m.Rows, func(row Row) bool { return row.Combo == r.Combo })
 	if idx < 0 {
 		return 0, refuse("combination %q is not in the matrix", r.Combo)
@@ -271,6 +289,9 @@ func check(m Matrix, r Report) (int, error) {
 		return 0, err
 	}
 	if err := checkClassifier(r); err != nil {
+		return 0, err
+	}
+	if err := checkDecisions(r); err != nil {
 		return 0, err
 	}
 	return idx, nil
