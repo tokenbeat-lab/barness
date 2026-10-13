@@ -3,7 +3,7 @@
 Status: ready-for-agent
 Type: task
 Depends on: 01, 02, 03, 04, 05
-Updated: 2026-10-11
+Updated: 2026-10-13
 
 ## What to build
 
@@ -52,3 +52,28 @@ Updated: 2026-10-11
 0 可评分，B04 未通过，继续保持工单开放。另保留[压力缺陷 07](07-pressure-stream-integrity.md)
 的历史原失败与未确认根因，重跑通过不视为修复。完整可携证据与原状态重放见
 [发布证据包](../release-evidence/README.md)。
+
+### B04 上下文复核（2026-10-13）
+
+**B04 的自动门禁检查已通过，最终发布验收仍未完成，保持本票开放及 B04 未勾选。**
+上述 2026-10-11 的 live/effect FAIL 是保留的历史结果，不再代表当前适用证据。
+后续 [Decisions 工单 13](../../barness-ai-openai-decisions/issues/13-ten-route-release-gate.md)
+已执行包含原九组合的现行十组合完整门禁，受测源码 `807ccba`，正式目录
+`2026-10-13.1`，Hash
+`sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029`。
+
+[实际自动报告](../../barness-ai-openai-decisions/release-evidence/release-report.md)
+及机器报告记录全部十项 gate PASS、命令退出 0：normal/race 各 7,616 case PASS，
+均开启固定差分与压力，差分 861、pending 0；两种 vet、109 条追溯及 14 包零发现
+审计通过。十组合自身正式 smoke 全部符合发布合同（OpenAI Chat 保留明确的
+reasoning-history UNSUPPORTED）；Jev/Luna 各自独立效果 COMPLETE、24/24 正确。
+
+本次只做证据核对：83 个交付文件的 inventory/SHA、14 包原始 manifest/audit SHA、
+577 个受测源码文件 Hash，以及当前正式快照与矩阵均一致；没有重新执行完整测试、
+审计器或厂商调用。原缺陷工单和原始失败归档的 Hash 也与最终 verdict 一致。
+
+[最终交付 verdict](../../barness-ai-openai-decisions/release-evidence/delivery-verdict.json)
+仍为 `FAIL` / `completed=false`，阻断为[压力流完整性缺陷 07](07-pressure-stream-integrity.md)
+尚未确认根因与修复。后续 normal/race 及十轮复现 PASS 不构成修复证据。
+关闭条件仍是原票要求的定位、先红后绿回归、保持原负载的修复及再次完整发布验收；
+在此之前不关闭工单 06，不将 ADR-0025 标为正式生效。
