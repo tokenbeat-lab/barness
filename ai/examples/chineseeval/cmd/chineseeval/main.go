@@ -1,14 +1,12 @@
-// chineseeval runs the host's synthetic Chinese task, independently of live
-// smoke and the support matrix. It writes a fresh, audited evidence bundle.
+// chineseeval is a host-owned task evaluation, independent of support smoke.
 package main
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
-	"io"
+	"net/http"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -18,13 +16,10 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/examples/chineseeval"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
 var stage = "arguments"
-
-const keyEnv = "BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY"
 
 func main() {
 	if err := execute(); err != nil {
@@ -34,14 +29,35 @@ func main() {
 }
 
 func execute() error {
-	dataset := flag.String("dataset", "ai/examples/chineseeval/testdata/zh-support-v1.json", "versioned synthetic dataset")
-	config := flag.String("config", "ai/examples/chineseeval/testdata/jev-1.13.0-v1.json", "pinned task and budgets")
-	out := flag.String("out", "", "base directory for a new evidence bundle")
+	dataset := flag.String("dataset", "ai/examples/chineseeval/testdata/zh-support-v1.json", "fixed synthetic dataset")
+	config := flag.String("config", "", "pinned task and budgets (default preserves Jev schema 1)")
+	catalog := flag.String("catalog", "", "host-owned catalog snapshot (default builtin)")
+	routeName := flag.String("route", "", "explicit jev or luna route")
+	fixture := flag.String("fixture", "", "offline profile: normal, mixed, all-refusal, usage-absent, usage-partial, cancel, budget, response-alias")
+	out := flag.String("out", "", "base directory for a fresh bundle")
 	live := flag.Bool("live", false, "enable real evaluation with BARNESS_AI_CHINESE_EVAL=1")
-	verify := flag.String("verify", "", "verify an existing evidence bundle without network calls")
+	verify := flag.String("verify", "", "verify a bundle with its own recorded snapshot")
 	flag.Parse()
-	if flag.NArg() != 0 {
-		return errors.New("unexpected arguments")
+	if flag.NArg() != 0 || (*fixture != "" && *live) {
+		return errors.New("incompatible arguments")
+	}
+	if *verify != "" {
+		return verifyBundle(*verify, *routeName)
+	}
+	stage = "task_pins"
+	var selected chineseeval.Route
+	if *routeName != "" {
+		var err error
+		selected, err = chineseeval.RouteNamed(*routeName)
+		if err != nil {
+			return err
+		}
+	}
+	if *config == "" {
+		*config = "ai/examples/chineseeval/testdata/jev-1.13.0-v1.json"
+		if *routeName != "" {
+			*config = "ai/examples/chineseeval/testdata/" + *routeName + "-route-v1.json"
+		}
 	}
 	stage = "dataset_read"
 	data, err := readBounded(*dataset, 1<<20)
@@ -54,17 +70,34 @@ func execute() error {
 		return err
 	}
 	stage = "task_pins"
-	plan, err := chineseeval.Load(data, cfg, ai.BuiltinCatalog())
+	var plan *chineseeval.Plan
+	if *catalog == "" {
+		plan, err = chineseeval.Load(data, cfg, ai.BuiltinCatalog())
+	} else {
+		raw, readErr := readBounded(*catalog, 2<<20)
+		if readErr != nil {
+			return readErr
+		}
+		plan, err = chineseeval.LoadRecorded(data, cfg, raw)
+	}
 	if err != nil {
 		return err
 	}
-	if *verify != "" {
-		return verifyBundle(plan, *verify)
+	route := plan.Route()
+	if *routeName != "" && route != selected {
+		return errors.New("route/config mismatch")
+	}
+	if *fixture != "" && !fixtureValid(*fixture, route) {
+		return errors.New("invalid fixture for route")
 	}
 	stage = "credential_isolation"
-	key := strings.TrimSpace(os.Getenv(keyEnv))
-	if *live && os.Getenv("BARNESS_AI_CHINESE_EVAL") == "1" && foreignCredentials() {
-		return errors.New("evaluation credentials must be isolated")
+	key := ""
+	enabled := *live && os.Getenv("BARNESS_AI_CHINESE_EVAL") == "1"
+	if enabled {
+		if foreignCredentials(route.KeyEnv()) {
+			return errors.New("evaluation credentials must be isolated")
+		}
+		key = strings.TrimSpace(os.Getenv(route.KeyEnv()))
 	}
 	if *out != "" {
 		if err := os.Setenv(evidence.DirEnv, *out); err != nil {
@@ -82,53 +115,104 @@ func execute() error {
 	if key != "" {
 		run.RedactSecret(key, "[EVALUATION-KEY]")
 	}
+	kind := "live"
+	if *fixture != "" {
+		kind = "fixture"
+	}
 	run.SetVersion("dataset_hash", chineseeval.Hash(data))
 	run.SetVersion("config_hash", chineseeval.Hash(cfg))
 	run.SetVersion("model_catalog_version", plan.Config().CatalogVersion)
 	run.SetVersion("model_catalog_hash", plan.Config().CatalogHash)
-	run.SetVersion("typesafe_sdk", "direct-net-http-fixed-jev-1.13.0")
-	// Keep exact source bytes, so reformatting cannot masquerade as the same hash.
+	run.SetVersion("typesafe_sdk", route.SDK())
+	run.SetVersion("classifier_sdk", route.SDK())
+	run.SetVersion("route_hash", route.Hash())
+	run.SetVersion("evidence_kind", kind)
+	run.SetVersion("fixture_profile", *fixture)
 	for name, raw := range map[string][]byte{"dataset.json": data, "config.json": cfg} {
 		if err := os.WriteFile(filepath.Join(run.Dir(), name), raw, 0600); err != nil {
 			return err
 		}
 	}
+	if err := run.Record("catalog", plan.Catalog()); err != nil {
+		return err
+	}
+	code, err := codeSnapshot()
+	if err != nil {
+		return err
+	}
+	if err := run.Record("code-snapshot", code); err != nil {
+		return err
+	}
+	codeRaw, err := readBounded(filepath.Join(run.Dir(), "code-snapshot.json"), 1<<20)
+	if err != nil {
+		return err
+	}
+	codeHash := chineseeval.Hash(codeRaw)
+	run.SetVersion("code_hash", codeHash)
 	report := plan.NotRun("explicit evaluation switches disabled")
-	if *live && os.Getenv("BARNESS_AI_CHINESE_EVAL") == "1" {
-		if key == "" {
-			report = plan.NotRun("isolated evaluation credential missing")
-		} else {
+	if enabled && key == "" {
+		report = plan.NotRun("isolated evaluation credential missing")
+	}
+	if *fixture != "" || (enabled && key != "") {
+		alias := "synthetic@offline"
+		if kind == "live" {
 			stage = "account_alias"
-			alias := os.Getenv("BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS")
-			if !regexp.MustCompile(`^[A-Za-z0-9@._-]{1,96}$`).MatchString(alias) {
+			alias = os.Getenv("BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS")
+			if !regexp.MustCompile(`^[A-Za-z0-9@._-]{1,96}$`).MatchString(alias) || strings.HasPrefix(alias, "synthetic@") {
 				return errors.New("account and region alias required")
 			}
-			observer := newObserver()
-			stage = "client_assembly"
-			client, transport, err := newClient(plan.Config(), key, observer)
-			if err != nil {
+		}
+		observer := newObserver()
+		ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer cancel()
+		var f *fixtureTransport
+		var injected http.RoundTripper
+		if kind == "fixture" {
+			f = &fixtureTransport{route: route, profile: *fixture, cancel: cancel}
+			injected = f
+			key = "synthetic-fixture-credential"
+		}
+		var capture *captureTransport
+		if plan.Config().Route != nil {
+			capture = &captureTransport{kind: kind}
+		}
+		stage = "client_assembly"
+		client, transport, err := newClient(plan, key, observer, injected, capture)
+		if err != nil {
+			return err
+		}
+		defer transport.CloseIdleConnections()
+		report = plan.Run(ctx, client, ai.CallScope{TenantID: tenant, JobID: "chinese-evaluation"}, binding, kind, alias)
+		if report.Schema == 2 {
+			report.CodeHash = codeHash
+		}
+		if err := run.Record("evaluation-report", report); err != nil {
+			return err
+		}
+		stage = "observer_completion"
+		records, err := observer.finished(report.Budget.Calls)
+		if err != nil {
+			return err
+		}
+		if err := run.Record("observations-evaluation", records); err != nil {
+			return err
+		}
+		if stats := client.ObserverStats(); stats.Dropped != 0 || stats.Failed != 0 {
+			return errors.New("observer evidence incomplete")
+		}
+		if capture != nil {
+			if err := run.Record("captures", capture.snapshot()); err != nil {
 				return err
-			}
-			defer transport.CloseIdleConnections()
-			ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-			defer cancel()
-			report = plan.Run(ctx, client, ai.CallScope{TenantID: tenant, JobID: "chinese-evaluation"}, binding, "live", alias)
-			// Preserve sent-attempt accounting before post-run evidence checks.
-			if err := run.Record("evaluation-report", report); err != nil {
-				return err
-			}
-			stage = "observer_completion"
-			records, err := observer.finished(report.Budget.Calls)
-			if err != nil {
-				return err
-			}
-			if err := run.Record("observations-evaluation", records); err != nil {
-				return err
-			}
-			if stats := client.ObserverStats(); stats.Dropped != 0 || stats.Failed != 0 {
-				return errors.New("observer evidence incomplete")
 			}
 		}
+		if f != nil {
+			if err := run.Record("fixture-captures", f.captures); err != nil {
+				return err
+			}
+		}
+	}
+	if report.Schema == 2 {
+		report.CodeHash = codeHash
 	}
 	stage = "report_write"
 	if err := run.Record("evaluation-report", report); err != nil {
@@ -143,19 +227,20 @@ func execute() error {
 		return errors.New("redaction audit failed")
 	}
 	report.Audit = "PASS"
-	// Even FAIL/NOT_RUN need honest, complete accounting; no successful-only score.
 	stage = "report_integrity"
 	if err := plan.Verify(report); err != nil {
 		return err
 	}
-	stage = "report_write"
 	if err := run.Record("evaluation-report", report); err != nil {
 		return err
 	}
 	if findings, err = run.Audit(); err != nil || len(findings) != 0 {
 		return errors.New("final audit failed")
 	}
-	if err := verifyBundle(plan, run.Dir()); err != nil {
+	if err := freezeFiles(run.Dir()); err != nil {
+		return err
+	}
+	if err := verifyBundle(run.Dir(), *routeName); err != nil {
 		return err
 	}
 	fmt.Println(report.Status + ": independently audited Chinese classification evaluation")
@@ -166,75 +251,11 @@ func execute() error {
 	return nil
 }
 
-func verifyBundle(plan *chineseeval.Plan, dir string) error {
-	stage = "source_hashes"
-	for name, want := range map[string]string{"dataset.json": plan.NotRun("verify").DatasetHash, "config.json": plan.NotRun("verify").ConfigHash} {
-		raw, err := readBounded(filepath.Join(dir, name), 1<<20)
-		if err != nil || chineseeval.Hash(raw) != want {
-			return errors.New("source hash mismatch")
-		}
-	}
-	stage = "report_integrity"
-	raw, err := readBounded(filepath.Join(dir, "evaluation-report.json"), 16<<20)
-	if err != nil {
-		return err
-	}
-	report, err := plan.ReadReport(raw)
-	if err != nil {
-		return err
-	}
-	stage = "provenance_observations"
-	manifestRaw, err := readBounded(filepath.Join(dir, "manifest.json"), 1<<20)
-	if err != nil {
-		return err
-	}
-	var observations []byte
-	if report.Budget.Calls > 0 {
-		observations, err = readBounded(filepath.Join(dir, "observations-evaluation.json"), 1<<20)
-		if err != nil {
-			return err
-		}
-	}
-	if err := plan.VerifyEvidence(report, manifestRaw, observations); err != nil {
-		return err
-	}
-	stage = "redaction_audit"
-	auditRaw, err := readBounded(filepath.Join(dir, "audit.json"), 1<<20)
-	if err != nil {
-		return err
-	}
-	var result struct {
-		Findings []audit.Finding `json:"findings"`
-	}
-	if json.Unmarshal(auditRaw, &result) != nil || result.Findings == nil || len(result.Findings) != 0 {
-		return errors.New("missing successful audit")
-	}
-	findings, err := audit.Bundle(dir, audit.Environment())
-	if err != nil || len(findings) != 0 {
-		return errors.New("bundle audit failed")
-	}
-	fmt.Println(report.Status + ": artifact completeness and audit verified; evidence kind " + report.Kind)
-	return nil
-}
-
-func readBounded(path string, max int64) ([]byte, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-	raw, err := io.ReadAll(io.LimitReader(f, max+1))
-	if err != nil || int64(len(raw)) > max {
-		return nil, errors.New("oversized input")
-	}
-	return raw, nil
-}
-
-func foreignCredentials() bool {
+func foreignCredentials(allowed string) bool {
 	names := regexp.MustCompile(`(?i)(KEY|TOKEN|SECRET|PASSWORD|PASSWD|CREDENTIAL|AUTH)`)
 	for _, kv := range os.Environ() {
 		name, value, _ := strings.Cut(kv, "=")
-		if name != keyEnv && value != "" && names.MatchString(name) {
+		if name != allowed && value != "" && names.MatchString(name) {
 			return true
 		}
 	}

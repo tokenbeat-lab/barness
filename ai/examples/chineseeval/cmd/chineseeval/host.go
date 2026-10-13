@@ -15,13 +15,17 @@ const tenant = "chinese-evaluation"
 const binding = "typesafe-chinese-evaluation"
 
 type resolver struct {
-	binding    ai.Binding
-	credential ai.Credential
+	cancelBeforeBinding context.CancelFunc
+	binding             ai.Binding
+	credential          ai.Credential
 }
 
 func (r *resolver) ResolveBinding(_ context.Context, s ai.CallScope, id string) (ai.Binding, error) {
 	if s.TenantID != tenant || id != binding {
 		return ai.Binding{}, errors.New("evaluation binding denied")
+	}
+	if r.cancelBeforeBinding != nil {
+		r.cancelBeforeBinding()
 	}
 	return r.binding, nil
 }
@@ -32,10 +36,15 @@ func (r *resolver) ResolveCredential(_ context.Context, s ai.CallScope, b ai.Bin
 	return r.credential, nil
 }
 
-func newClient(c chineseeval.Config, key string, o *observer) (*ai.Client, *http.Transport, error) {
+func newClient(p *chineseeval.Plan, key string, o *observer, injected http.RoundTripper, capture *captureTransport) (*ai.Client, *http.Transport, error) {
+	c := p.Config()
+	route := p.Route()
 	r := &resolver{
-		binding:    ai.Binding{TenantID: tenant, BindingID: binding, Version: "zh-eval-v1", Enabled: true, Operation: ai.OperationClassifier, ProviderID: ai.ProviderTypeSafe, API: ai.APITypeSafeSystemOne, Endpoint: "https://api.typesafe.ai/v1", AuthKind: ai.AuthAPIKey, AccountScopeID: "evaluation-typesafe", CredentialRef: "evaluation-key", AllowedModels: []string{c.Model}},
-		credential: ai.Credential{OwnerTenantID: tenant, CredentialID: "evaluation-key", Version: "evaluation-v1", BindingVersion: "zh-eval-v1", AccountScopeID: "evaluation-typesafe", Active: true, APIKey: ai.NewSecret(key)},
+		binding:    ai.Binding{TenantID: tenant, BindingID: binding, Version: "zh-eval-v1", Enabled: true, Operation: ai.OperationClassifier, ProviderID: route.Provider, API: route.API, Endpoint: route.Endpoint(), AuthKind: ai.AuthAPIKey, AccountScopeID: "evaluation-" + string(route.Provider), CredentialRef: "evaluation-key", AllowedModels: []string{c.Model}},
+		credential: ai.Credential{OwnerTenantID: tenant, CredentialID: "evaluation-key", Version: "evaluation-v1", BindingVersion: "zh-eval-v1", AccountScopeID: "evaluation-" + string(route.Provider), Active: true, APIKey: ai.NewSecret(key)},
+	}
+	if f, ok := injected.(*fixtureTransport); ok && f.profile == "pre-attempt-cancel" {
+		r.cancelBeforeBinding = f.cancel
 	}
 	// Zero retries at the binding; one serial request per sample. Transport has
 	// no proxy/environment credential source and no alternate provider route.
@@ -46,7 +55,20 @@ func newClient(c chineseeval.Config, key string, o *observer) (*ai.Client, *http
 		MaxQueuedObservations: 128, MaxConcurrentPerTenant: 1, MaxConcurrentProcess: 1, MaxAdmissionWaiters: 1, AdmissionWait: time.Second,
 		CallTimeout: time.Duration(c.CallTimeoutSeconds) * time.Second, ConnectTimeout: 5 * time.Second, ResponseHeaderTimeout: 10 * time.Second, ReadIdleTimeout: 10 * time.Second,
 	}
-	client, err := ai.NewClient(ai.Config{Bindings: r, Credentials: r, Policy: policy, Transport: transport, Observer: o})
+	var rt http.RoundTripper = transport
+	if injected != nil {
+		rt = injected
+	}
+	if capture != nil {
+		capture.requestIDHeader = "x-request-id"
+		if route.API == ai.APITypeSafeSystemOne {
+			capture.requestIDHeader = "x-typesafe-request-id"
+		}
+		capture.inner = rt
+		rt = capture
+	}
+	catalog := p.Catalog()
+	client, err := ai.NewClient(ai.Config{Bindings: r, Credentials: r, Catalog: &catalog, Policy: policy, Transport: rt, Observer: o})
 	return client, transport, err
 }
 

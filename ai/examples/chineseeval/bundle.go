@@ -4,6 +4,7 @@ import (
 	"errors"
 	"reflect"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -29,15 +30,30 @@ func (p *Plan) VerifyEvidence(r Report, manifestRaw, observations []byte) error 
 		return bad
 	}
 	var m manifest
-	if len(manifestRaw) > 1<<20 || decode(manifestRaw, &m) != nil || m.Module != "barness-ai" || m.Package != "host Chinese evaluation (not support smoke)" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(m.GitCommit) || m.GoVersion == "" || m.Platform == "" || m.StartedAt.IsZero() || m.FinishedAt.Before(m.StartedAt) || m.StartedAt.After(r.StartedAt) || m.FinishedAt.Before(r.FinishedAt) || m.Versions["dataset_hash"] != p.datasetHash || m.Versions["config_hash"] != p.configHash || m.Versions["model_catalog_version"] != p.config.CatalogVersion || m.Versions["model_catalog_hash"] != p.config.CatalogHash || m.Versions["typesafe_sdk"] != "direct-net-http-fixed-jev-1.13.0" {
+	if len(manifestRaw) > 1<<20 || decode(manifestRaw, &m) != nil || m.Module != "barness-ai" || m.Package != "host Chinese evaluation (not support smoke)" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(m.GitCommit) || m.GoVersion == "" || m.Platform == "" || m.StartedAt.IsZero() || m.FinishedAt.Before(m.StartedAt) || m.StartedAt.After(r.StartedAt) || m.FinishedAt.Before(r.FinishedAt) || m.Versions["dataset_hash"] != p.datasetHash || m.Versions["config_hash"] != p.configHash || m.Versions["model_catalog_version"] != p.config.CatalogVersion || m.Versions["model_catalog_hash"] != p.config.CatalogHash || (r.Schema == 1 && m.Versions["typesafe_sdk"] != p.Route().SDK()) || (r.Schema == 2 && (m.Versions["classifier_sdk"] != p.Route().SDK() || m.Versions["route_hash"] != r.RouteHash || m.Versions["code_hash"] != r.CodeHash || m.Versions["evidence_kind"] != r.Kind || (r.Kind == "fixture" && m.Versions["fixture_profile"] == ""))) {
 		return bad
+	}
+	if m.Versions["evidence_kind"] != "" && m.Versions["evidence_kind"] != r.Kind {
+		return bad
+	}
+	if r.Kind == "live" {
+		if m.Versions["fixture_profile"] != "" || strings.HasPrefix(r.AccountAlias, "synthetic@") {
+			return bad
+		}
+		for _, s := range r.Samples {
+			for _, a := range s.Metadata.Attempts {
+				if strings.HasPrefix(a.ProviderRequestID, "synthetic-") {
+					return bad
+				}
+			}
+		}
 	}
 	if r.Budget.Calls == 0 {
 		return nil
 	}
-	// The CLI always collects the public Observer; fixtures use their own E2E
-	// bundle format and do not become vendor evidence via this verifier.
-	if r.Kind != "live" || len(observations) > 1<<20 {
+	// Both CLI paths collect the public Observer. Manifest evidence_kind and
+	// synthetic captures keep fixture completeness distinct from live quality.
+	if len(observations) > 1<<20 {
 		return bad
 	}
 	var records []ai.Observation
@@ -68,7 +84,7 @@ func (p *Plan) VerifyEvidence(r Report, manifestRaw, observations []byte) error 
 			if len(s.Metadata.Attempts) > 0 && !reflect.DeepEqual(o.Usage, s.Metadata.Attempts[len(s.Metadata.Attempts)-1].Usage) {
 				return bad
 			}
-			if (s.Status == "answered" || s.Status == "usage_incomplete") && (o.StopReason != ai.StopReasonStop || o.Error != nil) {
+			if (s.Status == "answered" || s.Status == "usage_incomplete" || s.Status == "refused") && (o.StopReason != ai.StopReasonStop || o.Error != nil) {
 				return bad
 			}
 			if s.Code != "" && (o.Error == nil || o.Error.Code != s.Code || o.Error.Phase != s.Phase) {

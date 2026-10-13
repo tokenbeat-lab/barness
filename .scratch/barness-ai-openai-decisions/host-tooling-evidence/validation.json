@@ -1,0 +1,52 @@
+{
+  "baseline": "efe6d198e301e96e4ccfcd0226d0f3c17eff00a8",
+  "realQuality": "NOT_RUN",
+  "reviews": {
+    "standards": "no remaining findings; 4 fixed",
+    "spec": "no remaining findings; 3 fixed"
+  },
+  "vet": {
+    "normal": "PASS",
+    "liveTag": "PASS"
+  },
+  "runs": [
+    {
+      "command": "go test ./ai/e2e -run '^Test(ChineseEvaluation|ClassifierHostMigration)' -count=1",
+      "exitCode": 0,
+      "sourceBundle": ".evidence/barness-ai/20261013T022212.756163000Z",
+      "manifestHash": "sha256:cb60ff42ac7b4c9ba202bb875f985ed7b20133b50a3e00bc60135372c066a0f9",
+      "counts": {
+        "PASS": 97
+      },
+      "auditFindings": 0
+    },
+    {
+      "command": "BARNESS_AI_PIDIFF=1 go test ./... -count=1",
+      "exitCode": 1,
+      "sourceBundle": ".evidence/barness-ai/20261013T022246.481993000Z",
+      "manifestHash": "sha256:e5a285fd0c6954d9ed1d943ea30d5342054a55aea846c9dc12bbd9685ff46925",
+      "counts": {
+        "PASS": 7356,
+        "NOT_RUN": 187,
+        "FAIL": 1
+      },
+      "auditFindings": 0
+    },
+    {
+      "command": "go test -race ./... -count=1",
+      "exitCode": 0,
+      "sourceBundle": ".evidence/barness-ai/20261013T022249.545430000Z",
+      "manifestHash": "sha256:eefbef8e464770b10af7bdeb99a3da3bca109b240540e8b1b590f4fb06846e9f",
+      "counts": {
+        "PASS": 6494,
+        "NOT_RUN": 1050
+      },
+      "auditFindings": 0
+    }
+  ],
+  "timeoutRerun": {
+    "command": "go test ./ai/e2e -run '^TestDecisionsRuntimeTimeouts$/^body-call-deadline$' -count=1",
+    "exitCode": 0,
+    "note": "Original full-run failure remains FAIL; no protocol/test assertion edits."
+  }
+}

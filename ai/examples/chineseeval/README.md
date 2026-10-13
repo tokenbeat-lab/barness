@@ -1,51 +1,99 @@
-# 固定中文分类评估宿主
+# 独立中文分类评估
 
-本例通过公共 `Client.Classify` 将固定合成中文支持任务提交给 jev-1.13.0，
-产出独立业务报告。标签和真值属于任务；没有修改 barness-ai 分类协议或支持矩阵。
+这是 Host 自己的四类、每类六条合成中文支持请求任务，共 24 条。数据集 bytes/hash 保持
+`zh-support-v1`，标注规则、适用范围和每条依据随报告保存。它独立于协议真实冒烟和支持矩阵；
+不制定业务阈值、不转人工、不从 fixture 推断真实质量。
 
-仓库根目录执行：
+## 公开命令
 
-    go test ./ai/e2e -run '^TestChineseEvaluation' -count=1
-    go run ./ai/examples/chineseeval/cmd/chineseeval
+原命令和默认 Jev/schema 1 保持：
 
-第二条默认不联网，写新的 NOT_RUN 包，24 条样本均保留，分数为 null。
-`-out` 指定证据基础目录，每次仍创建新目录。`-dataset` / `-config` 指定输入文件，
-上限 1 MiB / 16 KiB；拒绝未知或重复字段、缺标注、分布不符、版本/哈希漂移及无限预算。
-本例只接收 synthetic 数据，当前四类明确目标的任务之外要先制定新的标注任务。
+```sh
+go run ./ai/examples/chineseeval/cmd/chineseeval
+```
 
-显式真实评估需命令 `-live`、`BARNESS_AI_CHINESE_EVAL=1`、
-`BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY` 和 `BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS`。
-进程拒绝其他凭据环境变量。根 `.env` 的 TypeSafe 凭据可通过隔离启动器使用：
+默认无网络，生成新的 NOT_RUN 包，全部样本保留，准确率为 null。
+显式 `-route jev` / `-route luna` 选择各自配置，产生 schema 2 报告。
+不支持的 Operation/Provider/API/Model 或不匹配的 route/config 在读取 key 前拒绝。
 
-    python3 .scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/run-live.py --live
+不依赖正式目录或 key 的 Host 自带目录流程：
 
-启动器只提取 TYPESAFE_KEY，构建并运行独立宿主进程。账户别名为
-local-typesafe@region-unreported；权限级别与区域未独立核实。宿主固定官方目标，
-最多 24 次调用、24 个问题和 24 次尝试，零重试，单次 15 秒/总计 180 秒；
-SIGINT/SIGTERM 会取消当前调用并保留剩余 cancelled 状态和已知用量。
-不完整用量标为 usage_incomplete，可用答案供诊断保存，该样本不记为完整可评分结果。
+```sh
+go run ./ai/examples/chineseeval/cmd/chineseeval \
+  -route jev -catalog ai/examples/chineseeval/testdata/host-catalog-v1.json \
+  -config ai/examples/chineseeval/testdata/jev-host-v1.json -fixture normal
 
-`evaluation-report.json` 包含数据集/配置内容和原字节哈希、实际响应型号、全部样本状态、
-尝试元数据、预算/用量、混淆分布与错误样本 ID。ID 可定位同报告中的文本、真值、标注依据
-和答案。dataset.json/config.json 保留原字节；manifest.json 记录代码提交、运行环境和版本；
-audit.json 为既有逐文件脱敏审计。observations-evaluation.json 只含原有 Observer 元数据。
-API 失败只保存错误分类，不保存可能包含敏感数据的厂商错误正文。
+go run ./ai/examples/chineseeval/cmd/chineseeval \
+  -route luna -catalog ai/examples/chineseeval/testdata/host-catalog-v1.json \
+  -config ai/examples/chineseeval/testdata/luna-host-v1.json -fixture mixed
 
-文件回放不联网、不改报告：
+go run ./ai/examples/chineseeval/cmd/chineseeval \
+  -route luna -catalog ai/examples/chineseeval/testdata/host-catalog-v1.json \
+  -config ai/examples/chineseeval/testdata/luna-host-v1.json -fixture all-refusal
 
-    go run ./ai/examples/chineseeval/cmd/chineseeval -verify <bundle-directory>
+go test ./ai/e2e -run '^Test(ChineseEvaluation|ClassifierHostMigration)' -count=1
+```
 
-核验原输入哈希、所有样本、版本、指标重算、预算/用量、审计结论与包内敏感字段。
-COMPLETE 表示完整流程已执行，未规定准确率门槛；FAIL 为不完整执行，仍完整保留分母；
-NOT_RUN 是未执行。fixture 只证明流程，不能代表实际型号效果。
+fixture 使用无法建立网络连接的合成 transport；普通答案固定 billing，故意不读取标签。
+还有 `usage-absent`、`usage-partial`、`all-refusal-usage-absent`、`all-refusal-usage-partial`、
+`cancel`、`pre-attempt-cancel`、`http-failure`、`dual-request-id`、`response-alias`；`budget` 配合显式缩小的
+maxCalls/maxQuestions/maxAttempts 配置证明预算耗尽。每次都写新目录，保留失败、完整 raw
+请求/响应脚本、Observer、报告、源代码文件 Hash、完整文件 inventory、manifest 和 audit。
+fixture 与 `-live` 不可同时使用。
 
-解释指标：accuracy = correct / 全部 24 个样本；scoredAccuracy = correct / scored。
-FAILED/未执行数量分别公开，混淆表按真值行、预测标签或失败状态列统计。
-confidenceBins 与 topProbabilityBins 下标 i 表示 [i/10,(i+1)/10)，最后一段含 1；
-均值和正确率只针对有答案且完整上报用量的 scored 样本。
-ECE 为各段 |正确率−均值| 按 scored 数量加权；Brier 为四类概率与 one-hot 真值的平方差之和，
-在 scored 样本上取平均，没有再除以类别数。confidence 是厂商独立信号，不能据此声称
-已校准为正确概率。本集只有明确的合成目标，样本很少，不能推断生产分布效果。
+在独立进程中设置所选 route 的专用 key、账户/区域 alias 和开关，再执行真实评估。
+Jev 原专用 key `BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY` 保持，Luna 使用
+`BARNESS_AI_CHINESE_EVAL_OPENAI_KEY`。两者均需 `BARNESS_AI_CHINESE_EVAL=1` 和
+`BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS`（仅字母、数字、`@._-`）；不得同时提供其他 key。
 
-变更数据集、标注规则、问题或预算时升版本并更新数据集及配置哈希；目录变化后显式更新
-价格 pin。保存新包，不覆盖历史；真实答案可以变化，每次都保留日期与型号。
+```sh
+go run ./ai/examples/chineseeval/cmd/chineseeval -live
+go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -live
+```
+
+真实运行属于独立执行票 12。无 key 或未启用为 NOT_RUN，厂商/协议/预算故障为 FAIL，
+已发送 Attempt 和已知消耗仍入账；没有伪造 PASS 或制造拒答的重复请求。
+
+## 报告与完整性
+
+schema 1 保持原 Jev 配置与指标含义。schema 2 独立记录 Operation/Provider/API/Model、route
+Hash、配置和数据集 bytes Hash、目录/价格内容 Hash、实际代码内容 Hash、Git commit、日期及
+每条实际 ResponseModel。Luna 无日期 alias 的权重不称为固定，实际响应型号不改写授权 ModelID。
+
+每条状态 `answered`、`refused`、失败或未执行独立。refusal 进入全部 24 条的准确率分母，不计
+正确，不是调用失败。普通答案的条件准确率、混淆、confidence/chosen probability 各自十等宽 bin
+和 ECE、多类 Brier 独立计算，不复用 Jev threshold，空 bin 的均值/准确率为 null、不插值。
+延迟（全部执行调用的 mean/p50/p95）和费用独立列出。
+
+schema 2 的 protocolStatus 描述已调用的协议完成情况；status 描述任务完整性；metrics 描述
+质量。所有样本都得到普通答案或拒答、每次正好一个 Attempt、usage complete 且整包可核验时
+status 才是 COMPLETE。全拒答可 COMPLETE：总准确率 0、拒答率 1，条件准确率/ECE/Brier
+为 null，费用照实保留。partial/unreported 用量保留，协议成功也不能补造成任务 COMPLETE；
+它们不会抹掉合法普通答案的质量统计。COMPLETE 不设置准确率门槛。
+
+最大 24 Call、24 Question、24 Attempt、零重试、串行、总 600 秒、每调用 15 秒；原 schema 1
+的 180 秒配置保持。取消不发后续请求。执行的每条开始/结束时间及 duration 随报告保存，
+未执行项没有延迟。固定小样本不能证明生产分布或未覆盖置信区间的校准。
+
+## 核验与历史
+
+```sh
+go run ./ai/examples/chineseeval/cmd/chineseeval -verify <bundle-directory>
+go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -verify <luna-bundle-directory>
+go run ./ai/examples/chineseeval/cmd/chineseeval \
+  -verify .scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/live
+```
+
+核验从包内 dataset/config/catalog 装配，检查价格、route/代码 Hash、完整样本、指标、预算、
+Observer 和文件 inventory，并重新审计。schema 2 的 `captures.json` 由同一有界 collector
+记录实际传输：完整固定任务请求、响应文本（成功最多 16 KiB + 1、错误最多 4 KiB + 1）、
+HTTP status 和路线对应的 request-id header。它不保存认证 header、URL query 或错误字符串。
+完整字节通过公共 Client 在无网络 transport 重放；取消/超时的缺失或部分字节按
+Attempt/Observer 对账，不为重放而伪造完整响应或重新生成质量指标。原 Jev 历史包没有 catalog 文件，按它自身的
+`2026-10-08.5` Hash 解析从原 commit 导出的不可变 recorded snapshot；不重写历史报告、
+时间、Hash 或结论。历史核验不赋予当前发布适用性，fixture/NOT_RUN/live 身份不可互换。
+当前发布消费者仍须把报告与当前预期 route/config/catalog/code/日期相比较。
+
+Host 输入能力发现、nil/协议选项、结构化说明和封闭 Answer switch 的迁移示例见
+[迁移文档](../classifiermigration/README.md)。离线交付与 verifier 反例见
+[工单 11 证据](../../../.scratch/barness-ai-openai-decisions/host-tooling-evidence/README.md)。

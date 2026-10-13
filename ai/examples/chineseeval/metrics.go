@@ -15,6 +15,9 @@ type Bin struct {
 }
 
 type Metrics struct {
+	Refused            int                       `json:"refused,omitempty"`
+	RefusalRate        *float64                  `json:"refusalRate,omitempty"`
+	Latency            *Latency                  `json:"latency,omitempty"`
 	Total              int                       `json:"total"`
 	Scored             int                       `json:"scored"`
 	Correct            int                       `json:"correct"`
@@ -47,7 +50,13 @@ func metrics(r Report) Metrics {
 	for i, s := range r.Samples {
 		gold := r.Dataset.Samples[i].Label
 		m.StatusCounts[s.Status]++
-		if s.Status != "answered" || s.Answer == nil {
+		if s.Status == "refused" {
+			m.Refused++
+			m.Confusion[gold]["refused"]++
+			m.ErrorIDs = append(m.ErrorIDs, s.ID)
+			continue
+		}
+		if (s.Status != "answered" && !(r.Schema == 2 && s.Status == "usage_incomplete")) || s.Answer == nil {
 			m.Confusion[gold][s.Status]++
 			if s.Metadata.RequestID == "" {
 				m.Unexecuted++
@@ -75,6 +84,12 @@ func metrics(r Report) Metrics {
 			}
 			delta := a.Probabilities[label] - truth
 			brier += delta * delta
+		}
+	}
+	if r.Schema == 2 {
+		m.Latency = latencies(r)
+		if r.Budget.Calls > 0 {
+			m.RefusalRate = number(float64(m.Refused) / float64(m.Total))
 		}
 	}
 	if r.Status != "NOT_RUN" {

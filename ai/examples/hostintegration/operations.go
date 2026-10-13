@@ -36,7 +36,9 @@ func (h *Host) GenerateImages(ctx context.Context, who Principal, in ImageReques
 }
 
 // Classify returns typed answers without imposing business confidence
-// thresholds, routing or human review. The caller makes those decisions and
+// thresholds, routing or human review. A nil error can contain RefusalAnswer;
+// callers use a closed answer type switch (see ../classifiermigration/README.md).
+// The caller makes those decisions and
 // handles ai.Error codes such as admission_denied/deadline_exceeded. Repeating
 // a failed call can spend again; RequestID is attribution, not deduplication.
 func (h *Host) Classify(ctx context.Context, who Principal, in ClassificationRequest) (ai.ClassifierResult, error) {

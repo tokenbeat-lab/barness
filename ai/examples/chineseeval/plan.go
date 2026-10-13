@@ -5,6 +5,7 @@ package chineseeval
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"slices"
 	"strings"
@@ -31,6 +32,7 @@ type Dataset struct {
 }
 
 type Config struct {
+	Route              *Route `json:"route,omitempty"`
 	Version            string `json:"version"`
 	DatasetVersion     string `json:"datasetVersion"`
 	DatasetHash        string `json:"datasetHash"`
@@ -55,6 +57,7 @@ type Plan struct {
 	datasetHash string
 	configHash  string
 	price       ai.ModelCost
+	catalog     ai.Catalog
 }
 
 func Hash(raw []byte) string {
@@ -71,7 +74,7 @@ func Load(data, config []byte, catalog ai.Catalog) (*Plan, error) {
 		return nil, errors.New("evaluation: invalid or oversized input document")
 	}
 	d, c := p.dataset, p.config
-	if d.Version == "" || d.Source != "synthetic" || strings.TrimSpace(d.Scope) == "" || strings.TrimSpace(d.AnnotationPolicy) == "" || d.Count != len(d.Samples) || d.Count < 1 || d.Count > 1000 || len(d.Labels) != 4 {
+	if d.Version == "" || d.Source != "synthetic" || strings.TrimSpace(d.Scope) == "" || strings.TrimSpace(d.AnnotationPolicy) == "" || d.Count != len(d.Samples) || d.Count != 24 || len(d.Labels) != 4 {
 		return nil, errors.New("evaluation: incomplete synthetic dataset definition")
 	}
 	for _, key := range []string{"billing", "technical", "delivery", "account"} {
@@ -91,17 +94,17 @@ func Load(data, config []byte, catalog ai.Catalog) (*Plan, error) {
 		return nil, errors.New("evaluation: incomplete label distribution")
 	}
 	for key := range d.Labels {
-		if counts[key] < 1 || counts[key] != d.Distribution[key] {
+		if counts[key] != 6 || counts[key] != d.Distribution[key] {
 			return nil, errors.New("evaluation: label count mismatch")
 		}
 	}
 	hash, err := catalog.Hash()
-	if err != nil || c.Version == "" || c.DatasetVersion != d.Version || c.DatasetHash != p.datasetHash || c.Model != "jev-1.13.0" || c.CatalogVersion != catalog.Version || c.CatalogHash != hash || c.QuestionKey != "intent" || strings.TrimSpace(c.Instructions) == "" || len(c.Instructions) > 4096 {
+	if err != nil || c.Version == "" || c.DatasetVersion != d.Version || c.DatasetHash != p.datasetHash || !p.Route().Valid() || c.Model != p.Route().Model || c.CatalogVersion != catalog.Version || c.CatalogHash != hash || c.QuestionKey != "intent" || strings.TrimSpace(c.Instructions) == "" || len(c.Instructions) > 4096 {
 		return nil, errors.New("evaluation: task, model, dataset or price snapshot drift")
 	}
 	found := false
 	for _, m := range catalog.ClassifierModels {
-		if m.ID == c.Model && m.Provider == ai.ProviderTypeSafe && m.API == ai.APITypeSafeSystemOne {
+		if m.ID == c.Model && m.Provider == p.Route().Provider && m.API == p.Route().API {
 			found = true
 			p.price = m.Cost
 			p.price.Tiers = slices.Clone(m.Cost.Tiers)
@@ -110,8 +113,19 @@ func Load(data, config []byte, catalog ai.Catalog) (*Plan, error) {
 	if !found || c.MaxCalls < 1 || c.MaxCalls > d.Count || c.MaxQuestions < 1 || c.MaxQuestions > d.Count || c.MaxAttempts < 1 || c.MaxAttempts > d.Count || c.MaxRetries != 0 || c.TimeoutSeconds < 1 || c.TimeoutSeconds > 600 || c.CallTimeoutSeconds < 1 || c.CallTimeoutSeconds > 60 {
 		return nil, errors.New("evaluation: missing fixed model or invalid finite budget")
 	}
+	raw, _ := json.Marshal(catalog)
+	if err := json.Unmarshal(raw, &p.catalog); err != nil {
+		return nil, err
+	}
 	return p, nil
 }
 
 // Config returns only value fields, for host assembly of the fixed binding.
-func (p *Plan) Config() Config { return p.config }
+func (p *Plan) Config() Config {
+	c := p.config
+	if c.Route != nil {
+		r := *c.Route
+		c.Route = &r
+	}
+	return c
+}

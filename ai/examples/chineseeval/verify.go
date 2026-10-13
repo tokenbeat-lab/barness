@@ -3,9 +3,12 @@ package chineseeval
 import (
 	"errors"
 	"fmt"
-	"github.com/tokenbeat-lab/barness/ai"
 	"math"
 	"reflect"
+	"regexp"
+	"time"
+
+	"github.com/tokenbeat-lab/barness/ai"
 )
 
 // Verify rejects incomplete or internally inconsistent artifacts. This checks
@@ -13,7 +16,7 @@ import (
 // report remains a fixture even when this returns nil.
 func (p *Plan) Verify(r Report) error {
 	bad := errors.New("evaluation: report integrity or audit failed")
-	if r.Schema != 1 || (r.Kind != "live" && r.Kind != "fixture") || r.Audit != "PASS" || r.AccountAlias == "" || r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.DatasetHash != p.datasetHash || r.ConfigHash != p.configHash || !reflect.DeepEqual(r.Config, p.config) || !reflect.DeepEqual(r.Dataset, p.dataset) || len(r.Samples) != len(p.dataset.Samples) {
+	if !p.schemaValid(r) || (r.Kind != "live" && r.Kind != "fixture") || r.Audit != "PASS" || r.AccountAlias == "" || r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.DatasetHash != p.datasetHash || r.ConfigHash != p.configHash || !reflect.DeepEqual(r.Config, p.config) || !reflect.DeepEqual(r.Dataset, p.dataset) || len(r.Samples) != len(p.dataset.Samples) {
 		return bad
 	}
 	var b Budget
@@ -32,11 +35,14 @@ func (p *Plan) Verify(r Report) error {
 			if s.Answer != nil {
 				return bad
 			}
-		case "failed", "version_drift", "missing_answer", "usage_incomplete", "answered":
+		case "failed", "version_drift", "missing_answer", "usage_incomplete", "answered", "refused":
 			if s.Metadata.RequestID == "" {
 				return bad
 			}
 		default:
+			return bad
+		}
+		if r.Schema == 2 && !sampleTimingValid(r, s, i) {
 			return bad
 		}
 		if s.Metadata.RequestID != "" {
@@ -56,8 +62,8 @@ func (p *Plan) Verify(r Report) error {
 			b.Questions++
 			b.add(s.Metadata)
 		}
-		if s.Status == "answered" || s.Status == "usage_incomplete" {
-			if !p.identity(s.Metadata) || s.ResponseModel != p.config.Model || s.Answer == nil || !p.answerValid(*s.Answer) {
+		if s.Status == "answered" || s.Status == "usage_incomplete" || s.Status == "refused" {
+			if !p.identity(s.Metadata) || (r.Schema == 1 && s.ResponseModel != p.config.Model) || (s.Status == "refused" && (r.Schema != 2 || s.Answer != nil)) || (s.Status != "refused" && (s.Answer == nil || !p.answerValid(*s.Answer))) {
 				return bad
 			}
 			incomplete := false
@@ -66,13 +72,13 @@ func (p *Plan) Verify(r Report) error {
 					incomplete = true
 				}
 			}
-			if incomplete != (s.Status == "usage_incomplete") {
+			if r.Schema == 1 && incomplete != (s.Status == "usage_incomplete") {
 				return bad
 			}
 		} else if s.Answer != nil {
 			return bad
 		}
-		if s.Status != "answered" {
+		if (s.Status != "answered" && s.Status != "refused") || !usageComplete(s.Metadata) {
 			complete = false
 		}
 		if s.Status != "not_run" {
@@ -89,7 +95,7 @@ func (p *Plan) Verify(r Report) error {
 	if notRun {
 		want = "NOT_RUN"
 	}
-	if r.Status != want || !reflect.DeepEqual(metrics(r), r.Metrics) {
+	if r.Status != want || r.ProtocolStatus != protocolStatus(r) || !reflect.DeepEqual(metrics(r), r.Metrics) {
 		return bad
 	}
 	return nil
@@ -137,10 +143,13 @@ func (p *Plan) attemptsValid(s SampleResult) bool {
 			return false
 		}
 		u := a.Usage
+		if p.Route().API == ai.APIOpenAIDecisions && !decisionsUsageValid(u, a.UsageReporting) {
+			return false
+		}
 		if a.UsageReporting != ai.UsageComplete && a.UsageReporting != ai.UsagePartial && a.UsageReporting != ai.UsageUnreported {
 			return false
 		}
-		if u.Input < 0 || u.Output < 0 || u.Input > math.MaxInt64-u.Output || u.TotalTokens != u.Input+u.Output || u.CacheRead != 0 || u.CacheWrite != 0 || u.Modalities != nil {
+		if u.Input < 0 || u.Output < 0 || u.Input > math.MaxInt64-u.Output || (a.UsageReporting == ai.UsageComplete && u.TotalTokens != u.Input+u.Output) || u.TotalTokens < u.Input+u.Output || u.CacheRead != 0 || u.CacheWrite != 0 || u.Modalities != nil {
 			return false
 		}
 		rates := p.price.CostRates
@@ -158,10 +167,39 @@ func (p *Plan) attemptsValid(s SampleResult) bool {
 		if a.UsageReporting == ai.UsageUnreported && u != (ai.Usage{}) {
 			return false
 		}
-		if (s.Status == "answered" || s.Status == "usage_incomplete") && (a.HTTPStatus != 200 || a.Code != "" || a.ProviderRequestID == "") {
+		if (s.Status == "answered" || s.Status == "usage_incomplete" || s.Status == "refused") && (a.HTTPStatus != 200 || a.Code != "" || a.ProviderRequestID == "") {
 			return false
 		}
 	}
 	return true
 }
 func finiteNonnegative(v float64) bool { return !math.IsNaN(v) && !math.IsInf(v, 0) && v >= 0 }
+
+func (p *Plan) schemaValid(r Report) bool {
+	if p.config.Route == nil {
+		return r.Schema == 1 && r.Route == nil && r.RouteHash == "" && r.CodeHash == "" && r.ProtocolStatus == ""
+	}
+	return r.Schema == 2 && r.Route != nil && *r.Route == p.Route() && r.RouteHash == p.Route().Hash() && regexp.MustCompile(`^sha256:[a-f0-9]{64}$`).MatchString(r.CodeHash) && r.FinishedAt.Sub(r.StartedAt) <= time.Duration(p.config.TimeoutSeconds)*time.Second+time.Second
+}
+func sampleTimingValid(r Report, s SampleResult, i int) bool {
+	if s.Metadata.RequestID == "" {
+		return s.StartedAt.IsZero() && s.FinishedAt.IsZero() && s.DurationMS == nil
+	}
+	if s.DurationMS == nil || !finiteNonnegative(*s.DurationMS) || s.StartedAt.Before(r.StartedAt) || s.FinishedAt.Before(s.StartedAt) || s.FinishedAt.After(r.FinishedAt) || *s.DurationMS != float64(s.FinishedAt.Sub(s.StartedAt))/1e6 {
+		return false
+	}
+	return i == 0 || r.Samples[i-1].FinishedAt.IsZero() || !s.StartedAt.Before(r.Samples[i-1].FinishedAt)
+}
+
+// Partial canonical usage does not retain output presence. A zero Output alone
+// cannot establish an upper bound for reasoning when output was omitted.
+func decisionsUsageValid(u ai.Usage, reporting ai.UsageReporting) bool {
+	if !u.CacheWrite1h.IsZero() || u.Reasoning.IsNull() {
+		return false
+	}
+	reasoning, present := u.Reasoning.Get()
+	if reporting == ai.UsageComplete && !present {
+		return false
+	}
+	return !present || (reasoning >= 0 && ((reporting != ai.UsageComplete && u.Output == 0) || reasoning <= u.Output))
+}

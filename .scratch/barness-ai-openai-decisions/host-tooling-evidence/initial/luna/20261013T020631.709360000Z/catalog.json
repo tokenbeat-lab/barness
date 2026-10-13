@@ -1,0 +1,75 @@
+{
+  "version": "host-zh-eval-v1",
+  "models": null,
+  "classifierModels": [
+    {
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "id": "jev-1.13.0",
+      "name": "Jev",
+      "contextWindow": 64000,
+      "capabilities": {
+        "kinds": [
+          "choice",
+          "score",
+          "bool"
+        ],
+        "maxChoices": 255,
+        "minScoreLevels": 2,
+        "maxScoreLevels": 10
+      },
+      "cost": {
+        "input": 0.042,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      }
+    },
+    {
+      "provider": "openai",
+      "api": "openai-decisions",
+      "id": "gpt-6-luna",
+      "name": "GPT-6 Luna",
+      "contextWindow": 922000,
+      "input": [
+        "text",
+        "image"
+      ],
+      "capabilities": {
+        "maxInputImages": 128,
+        "imageMimeTypes": [
+          "image/png",
+          "image/jpeg",
+          "image/webp"
+        ],
+        "kinds": [
+          "choice",
+          "score",
+          "bool"
+        ],
+        "maxChoices": 255,
+        "minChoices": 2,
+        "descriptionFormats": [
+          "string"
+        ],
+        "minScoreLevels": 2,
+        "maxScoreLevels": 10
+      },
+      "cost": {
+        "input": 0.1,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "tiers": [
+          {
+            "inputTokensAbove": 272000,
+            "input": 0.2,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -30,6 +30,8 @@ type OperationsConfig struct {
 // explicit ai.Target. Pass the user's cancellation context through and handle
 // typed ai.Error codes; classification confidence thresholds, human review
 // and business routing are decisions of this program, not of barness-ai.
+// A nil classification error may include RefusalAnswer; see the closed answer
+// switch and explicit Jev/Luna assembly in ../classifiermigration/README.md.
 type Operations struct {
 	Client *ai.Client
 	tenant string

@@ -1,0 +1,158 @@
+[
+  {
+    "bundle": "final/all-refusal/20261013T022449.628450000Z",
+    "schema": 2,
+    "kind": "fixture",
+    "status": "COMPLETE",
+    "route": {
+      "operation": "classifier",
+      "provider": "openai",
+      "api": "openai-decisions",
+      "model": "gpt-6-luna"
+    },
+    "metrics": {
+      "total": 24,
+      "scored": 0,
+      "refused": 24,
+      "correct": 0,
+      "accuracy": 0,
+      "scoredAccuracy": null,
+      "refusalRate": 1,
+      "confidenceECE": null,
+      "topProbabilityECE": null,
+      "brier": null
+    },
+    "budget": {
+      "calls": 24,
+      "questions": 24,
+      "attempts": 24,
+      "retries": 0,
+      "inputTokens": 2400,
+      "outputTokens": 240,
+      "knownCostUSD": 0.00024,
+      "unreported": 0,
+      "partial": 0
+    },
+    "routeHash": "sha256:f1985a1fe8b36dcfe8f7090ce23d6494f39033272ed525573440fde22018904d",
+    "codeHash": "sha256:b79017928ef34d36d31b0b21349e850b0300517fc1244a274171e64f59de6ed2",
+    "configHash": "sha256:37427c4b5cbc34d0c4498ed7ae96eecfc84decc9fe84d58f7ffcb8f7fd03b99b",
+    "catalogHash": "sha256:aba880e95ef00e53a001113280a579dc2b3274e53a08613d83911bd2d59bb2e9"
+  },
+  {
+    "bundle": "final/jev/20261013T022449.136091000Z",
+    "schema": 2,
+    "kind": "fixture",
+    "status": "COMPLETE",
+    "route": {
+      "operation": "classifier",
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "model": "jev-1.13.0"
+    },
+    "metrics": {
+      "total": 24,
+      "scored": 24,
+      "refused": null,
+      "correct": 6,
+      "accuracy": 0.25,
+      "scoredAccuracy": 0.25,
+      "refusalRate": 0,
+      "confidenceECE": 0.5500000000000003,
+      "topProbabilityECE": 0.44999999999999973,
+      "brier": 1.02
+    },
+    "budget": {
+      "calls": 24,
+      "questions": 24,
+      "attempts": 24,
+      "retries": 0,
+      "inputTokens": 2400,
+      "outputTokens": 240,
+      "knownCostUSD": 0.00010079999999999996,
+      "unreported": 0,
+      "partial": 0
+    },
+    "routeHash": "sha256:424e30f05b690ee56b75c67d2501dccb8be24520e54d699199087e04466adb62",
+    "codeHash": "sha256:b79017928ef34d36d31b0b21349e850b0300517fc1244a274171e64f59de6ed2",
+    "configHash": "sha256:0b3941c3ddd05284f0ced48709e652b386f60da9ea8c2d4a85393bc5d7c31a34",
+    "catalogHash": "sha256:aba880e95ef00e53a001113280a579dc2b3274e53a08613d83911bd2d59bb2e9"
+  },
+  {
+    "bundle": "final/luna/20261013T022449.402520000Z",
+    "schema": 2,
+    "kind": "fixture",
+    "status": "COMPLETE",
+    "route": {
+      "operation": "classifier",
+      "provider": "openai",
+      "api": "openai-decisions",
+      "model": "gpt-6-luna"
+    },
+    "metrics": {
+      "total": 24,
+      "scored": 12,
+      "refused": 12,
+      "correct": 3,
+      "accuracy": 0.125,
+      "scoredAccuracy": 0.25,
+      "refusalRate": 0.5,
+      "confidenceECE": 0.5499999999999999,
+      "topProbabilityECE": 0.45000000000000007,
+      "brier": 1.0199999999999998
+    },
+    "budget": {
+      "calls": 24,
+      "questions": 24,
+      "attempts": 24,
+      "retries": 0,
+      "inputTokens": 2400,
+      "outputTokens": 240,
+      "knownCostUSD": 0.00024,
+      "unreported": 0,
+      "partial": 0
+    },
+    "routeHash": "sha256:f1985a1fe8b36dcfe8f7090ce23d6494f39033272ed525573440fde22018904d",
+    "codeHash": "sha256:b79017928ef34d36d31b0b21349e850b0300517fc1244a274171e64f59de6ed2",
+    "configHash": "sha256:37427c4b5cbc34d0c4498ed7ae96eecfc84decc9fe84d58f7ffcb8f7fd03b99b",
+    "catalogHash": "sha256:aba880e95ef00e53a001113280a579dc2b3274e53a08613d83911bd2d59bb2e9"
+  },
+  {
+    "bundle": "final/not-run/20261013T022449.854507000Z",
+    "schema": 2,
+    "kind": "live",
+    "status": "NOT_RUN",
+    "route": {
+      "operation": "classifier",
+      "provider": "openai",
+      "api": "openai-decisions",
+      "model": "gpt-6-luna"
+    },
+    "metrics": {
+      "total": 24,
+      "scored": 0,
+      "refused": null,
+      "correct": 0,
+      "accuracy": null,
+      "scoredAccuracy": null,
+      "refusalRate": null,
+      "confidenceECE": null,
+      "topProbabilityECE": null,
+      "brier": null
+    },
+    "budget": {
+      "calls": 0,
+      "questions": 0,
+      "attempts": 0,
+      "retries": 0,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "knownCostUSD": 0,
+      "unreported": 0,
+      "partial": 0
+    },
+    "routeHash": "sha256:f1985a1fe8b36dcfe8f7090ce23d6494f39033272ed525573440fde22018904d",
+    "codeHash": "sha256:b79017928ef34d36d31b0b21349e850b0300517fc1244a274171e64f59de6ed2",
+    "configHash": "sha256:fb6c1f6201f9e5d9ae13d5ae61a0db209d38ff35f59fbdf6349f16bdab76b72c",
+    "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029"
+  }
+]
