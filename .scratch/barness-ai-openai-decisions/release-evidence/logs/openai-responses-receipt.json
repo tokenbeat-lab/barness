@@ -1,0 +1,30 @@
+{
+  "kind": "smoke",
+  "route": "openai-responses",
+  "startedAt": "2026-10-13T03:20:14.509765+00:00",
+  "finishedAt": "2026-10-13T03:20:36.699463+00:00",
+  "command": [
+    ".evidence/issue13-current-live/live.test",
+    "-test.run=^TestLive$/^openai-responses$",
+    "-test.timeout=10m"
+  ],
+  "exitCode": 0,
+  "credentialSource": ".env:OPENAI_KEY",
+  "keyPresent": true,
+  "accountAlias": "local-openai@region-permissions-unconfirmed",
+  "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+  "environmentNames": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "BARNESS_AI_LIVE",
+    "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+    "BARNESS_AI_LIVE_COMBO",
+    "BARNESS_AI_LIVE_KEY_OPENAI_RESPONSES",
+    "BARNESS_AI_LIVE_PROXY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+  "bundle": ".evidence/issue13-current-live/smoke/openai-responses/bundles/20261013T032015.505978000Z",
+  "mergeExitCode": 0
+}

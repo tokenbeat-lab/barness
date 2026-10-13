@@ -1,0 +1,30 @@
+{
+  "kind": "smoke",
+  "route": "google-interactions-image",
+  "startedAt": "2026-10-13T03:23:02.954396+00:00",
+  "finishedAt": "2026-10-13T03:23:40.876011+00:00",
+  "command": [
+    ".evidence/issue13-current-live/live.test",
+    "-test.run=^TestLive$/^google-interactions-image$",
+    "-test.timeout=10m"
+  ],
+  "exitCode": 0,
+  "credentialSource": ".env:GEMINI_KEY",
+  "keyPresent": true,
+  "accountAlias": "local-google@region-permissions-unconfirmed",
+  "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+  "environmentNames": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "BARNESS_AI_LIVE",
+    "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+    "BARNESS_AI_LIVE_COMBO",
+    "BARNESS_AI_LIVE_KEY_GOOGLE_INTERACTIONS_IMAGE",
+    "BARNESS_AI_LIVE_PROXY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+  "bundle": ".evidence/issue13-current-live/smoke/google-interactions-image/bundles/20261013T032302.962640000Z",
+  "mergeExitCode": 0
+}

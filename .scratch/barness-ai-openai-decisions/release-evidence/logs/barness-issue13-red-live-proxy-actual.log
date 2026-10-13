@@ -1,0 +1,15 @@
+--- FAIL: TestReleaseLiveProxyProcess (3.49s)
+    --- FAIL: TestReleaseLiveProxyProcess/loopback (0.73s)
+        release_proxy_process_test.go:52: [OD57-live-explicit-proxy-loopback] explicit proxy used by actual smoke: proxy ignored
+    --- FAIL: TestReleaseLiveProxyProcess/remote (0.70s)
+        release_proxy_process_test.go:54: [OD57-live-explicit-proxy-remote] invalid proxy refused before network: invalid proxy accepted
+    --- FAIL: TestReleaseLiveProxyProcess/credential (0.70s)
+        release_proxy_process_test.go:54: [OD57-live-explicit-proxy-credential] invalid proxy refused before network: invalid proxy accepted
+    --- FAIL: TestReleaseLiveProxyProcess/query (0.69s)
+        release_proxy_process_test.go:54: [OD57-live-explicit-proxy-query] invalid proxy refused before network: invalid proxy accepted
+    --- FAIL: TestReleaseLiveProxyProcess/invalid-port (0.66s)
+        release_proxy_process_test.go:54: [OD57-live-explicit-proxy-invalid-port] invalid proxy refused before network: invalid proxy accepted
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/issue13-red-live-proxy-actual/20261013T031811.886797000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	3.993s
+FAIL

@@ -1,0 +1,334 @@
+[
+  {
+    "kind": "smoke",
+    "route": "openai-responses",
+    "startedAt": "2026-10-13T03:20:14.509765+00:00",
+    "finishedAt": "2026-10-13T03:20:36.699463+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^openai-responses$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:OPENAI_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-openai@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_OPENAI_RESPONSES",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/openai-responses/bundles/20261013T032015.505978000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "anthropic-messages",
+    "startedAt": "2026-10-13T03:20:36.830682+00:00",
+    "finishedAt": "2026-10-13T03:21:06.608692+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^anthropic-messages$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:ANTHROPIC_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-anthropic@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_ANTHROPIC_MESSAGES",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/anthropic-messages/bundles/20261013T032036.840263000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "google-gemini",
+    "startedAt": "2026-10-13T03:21:06.825381+00:00",
+    "finishedAt": "2026-10-13T03:21:53.760079+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^google-gemini$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:GEMINI_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-google@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_GOOGLE_GEMINI",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/google-gemini/bundles/20261013T032106.833565000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "openai-chat",
+    "startedAt": "2026-10-13T03:21:54.087533+00:00",
+    "finishedAt": "2026-10-13T03:22:08.641454+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^openai-chat$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:OPENAI_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-openai@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_OPENAI_CHAT",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/openai-chat/bundles/20261013T032154.096377000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "deepseek-responses",
+    "startedAt": "2026-10-13T03:22:08.746498+00:00",
+    "finishedAt": "2026-10-13T03:22:16.277980+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^deepseek-responses$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:DEEPSEEK_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-deepseek@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_DEEPSEEK_RESPONSES",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/deepseek-responses/bundles/20261013T032208.754632000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "deepseek-chat",
+    "startedAt": "2026-10-13T03:22:16.389638+00:00",
+    "finishedAt": "2026-10-13T03:22:26.284474+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^deepseek-chat$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:DEEPSEEK_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-deepseek@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/deepseek-chat/bundles/20261013T032216.397782000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "typesafe-classifier",
+    "startedAt": "2026-10-13T03:22:26.393394+00:00",
+    "finishedAt": "2026-10-13T03:22:28.109939+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^typesafe-classifier$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:TYPESAFE_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-typesafe@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_TYPESAFE_CLASSIFIER",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/typesafe-classifier/bundles/20261013T032226.401666000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "openai-images",
+    "startedAt": "2026-10-13T03:22:28.218679+00:00",
+    "finishedAt": "2026-10-13T03:23:02.828810+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^openai-images$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:OPENAI_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-openai@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_OPENAI_IMAGES",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/openai-images/bundles/20261013T032228.227090000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "google-interactions-image",
+    "startedAt": "2026-10-13T03:23:02.954396+00:00",
+    "finishedAt": "2026-10-13T03:23:40.876011+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestLive$/^google-interactions-image$",
+      "-test.timeout=10m"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:GEMINI_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-google@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_GOOGLE_INTERACTIONS_IMAGE",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/google-interactions-image/bundles/20261013T032302.962640000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "smoke",
+    "route": "openai-decisions",
+    "startedAt": "2026-10-13T03:23:40.980437+00:00",
+    "finishedAt": "2026-10-13T03:23:44.545943+00:00",
+    "command": [
+      ".evidence/issue13-current-live/live.test",
+      "-test.run=^TestFormalDecisions$",
+      "-test.timeout=180s"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:OPENAI_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-openai@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+      "BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT",
+      "BARNESS_AI_LIVE_COMBO",
+      "BARNESS_AI_LIVE_KEY_OPENAI_DECISIONS",
+      "BARNESS_AI_LIVE_PROXY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+    "bundle": ".evidence/issue13-current-live/smoke/openai-decisions/bundles/20261013T032340.988798000Z",
+    "mergeExitCode": 0
+  },
+  {
+    "kind": "evaluation",
+    "route": "jev",
+    "startedAt": "2026-10-13T03:23:44.661010+00:00",
+    "finishedAt": "2026-10-13T03:23:52.278458+00:00",
+    "command": [
+      ".evidence/issue13-current-live/chineseeval",
+      "-route",
+      "jev",
+      "-out",
+      ".evidence/issue13-current-live/evaluation/jev/bundles",
+      "-live",
+      "-proxy",
+      "http://127.0.0.1:7890"
+    ],
+    "exitCode": 0,
+    "credentialSource": ".env:TYPESAFE_KEY",
+    "keyPresent": true,
+    "accountAlias": "local-typesafe@region-permissions-unconfirmed",
+    "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+    "environmentNames": [
+      "BARNESS_AI_CHINESE_EVAL",
+      "BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS",
+      "BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "binarySHA256": "bd2ffa739c2fd65d7a312fa663710accf6739ccad49e28a5f6aa0848fb7ad30f",
+    "bundle": ".evidence/issue13-current-live/evaluation/jev/bundles/20261013T032345.376597000Z"
+  }
+]

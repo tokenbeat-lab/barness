@@ -1,0 +1,40 @@
+--- FAIL: TestTenRouteReleaseCLI (0.93s)
+    release_gate_process_test.go:80: [OD57-release-ten-route-contract] exactly ten own-route live requirements: got 9
+    release_gate_process_test.go:82: required evidence chinese-effect-jev absent
+--- FAIL: TestReleaseEvaluationIdentityAndIntegrity (2.00s)
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/current (0.55s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-current] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/same-package (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-same-package] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/wrong-route (0.09s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-wrong-route] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/catalog (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-catalog] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/budget (0.09s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-budget] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/code (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-code] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/dataset (0.09s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-dataset] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/config (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-config] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/manifest (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-manifest] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/audit (0.09s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-audit] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/files (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-files] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/captures (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-captures] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/observer (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-observer] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/fixture (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-fixture] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/not-run (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-not-run] CLI emits a reviewable verdict: report missing; exit=exit status 1
+    --- FAIL: TestReleaseEvaluationIdentityAndIntegrity/failed (0.10s)
+        release_gate_process_test.go:146: [OD57-release-evaluation-failed] CLI emits a reviewable verdict: report missing; exit=exit status 1
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/issue13-red-cli/20261013T031057.411433000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	4.030s
+FAIL

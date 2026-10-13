@@ -1,0 +1,31 @@
+{
+  "kind": "evaluation",
+  "route": "jev",
+  "startedAt": "2026-10-13T03:23:44.661010+00:00",
+  "finishedAt": "2026-10-13T03:23:52.278458+00:00",
+  "command": [
+    ".evidence/issue13-current-live/chineseeval",
+    "-route",
+    "jev",
+    "-out",
+    ".evidence/issue13-current-live/evaluation/jev/bundles",
+    "-live",
+    "-proxy",
+    "http://127.0.0.1:7890"
+  ],
+  "exitCode": 0,
+  "credentialSource": ".env:TYPESAFE_KEY",
+  "keyPresent": true,
+  "accountAlias": "local-typesafe@region-permissions-unconfirmed",
+  "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+  "environmentNames": [
+    "BARNESS_AI_CHINESE_EVAL",
+    "BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS",
+    "BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "binarySHA256": "bd2ffa739c2fd65d7a312fa663710accf6739ccad49e28a5f6aa0848fb7ad30f",
+  "bundle": ".evidence/issue13-current-live/evaluation/jev/bundles/20261013T032345.376597000Z"
+}

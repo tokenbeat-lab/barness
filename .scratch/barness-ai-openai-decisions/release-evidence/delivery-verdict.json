@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "status": "FAIL",
+  "completed": false,
+  "measuredReleaseGatePass": true,
+  "measuredReleaseGateExitCode": 0,
+  "issue13Status": "claimed",
+  "adr0026Status": "proposed",
+  "blockers": [
+    {
+      "issue": ".scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md",
+      "issueSHA256": "7adff195d94fb30278ed1060cb2142205e6769fb2719f65429b464c1c26992c6",
+      "status": "ready-for-agent",
+      "originalFailureArchive": ".scratch/barness-ai-thinking-sampling/release-evidence/audit-timeout-gate.tar.gz",
+      "archiveSHA256": "bf4c0e50ae8a6dbbbe62899bba4e1c5ffe4a9cefdf972d0206e001fe29cc29dd",
+      "case": "E08-policy-pressure-cloud-interactive-design-load",
+      "reason": "Unconfirmed pressure stream corruption from the earlier release remains unresolved. Passing current normal/race or ten diagnostic loops does not establish root cause or a fix.",
+      "closure": "Resolve the original issue with confirmed cause, regression evidence and unchanged design-load checks; then rerun final release acceptance."
+    }
+  ],
+  "contract": "Issue 13 requires old unresolved failures to remain recorded and block final completion. This delivery verdict does not rewrite measured command or artifact results."
+}

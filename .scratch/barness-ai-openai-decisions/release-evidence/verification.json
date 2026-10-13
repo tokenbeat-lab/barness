@@ -1,0 +1,19 @@
+{
+  "recordedRelease": true,
+  "deliveryStatus": "FAIL",
+  "deliveryHashes": 83,
+  "replayed": true,
+  "gates": {
+    "go-test": false,
+    "go-test-race": false,
+    "go-vet": false,
+    "p0-offline": true,
+    "differential": true,
+    "live": true,
+    "redaction-audit": true,
+    "traceability": true,
+    "snapshots": true,
+    "required-artifacts": true
+  },
+  "auditedBundles": 14
+}

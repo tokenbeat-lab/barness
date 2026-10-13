@@ -1,0 +1,20 @@
+--- FAIL: TestReleaseLiveProxyProcess (0.16s)
+    --- FAIL: TestReleaseLiveProxyProcess/loopback (0.04s)
+        release_proxy_process_test.go:50: [OD57-live-explicit-proxy-loopback] bounded failure: proxy failure not bounded
+        release_proxy_process_test.go:52: [OD57-live-explicit-proxy-loopback] explicit proxy used by actual smoke: proxy ignored
+    --- FAIL: TestReleaseLiveProxyProcess/remote (0.03s)
+        release_proxy_process_test.go:50: [OD57-live-explicit-proxy-remote] bounded failure: proxy failure not bounded
+        release_proxy_process_test.go:54: [OD57-live-explicit-proxy-remote] invalid proxy refused before network: invalid proxy accepted
+    --- FAIL: TestReleaseLiveProxyProcess/credential (0.03s)
+        release_proxy_process_test.go:50: [OD57-live-explicit-proxy-credential] bounded failure: proxy failure not bounded
+        release_proxy_process_test.go:54: [OD57-live-explicit-proxy-credential] invalid proxy refused before network: invalid proxy accepted
+    --- FAIL: TestReleaseLiveProxyProcess/query (0.03s)
+        release_proxy_process_test.go:50: [OD57-live-explicit-proxy-query] bounded failure: proxy failure not bounded
+        release_proxy_process_test.go:54: [OD57-live-explicit-proxy-query] invalid proxy refused before network: invalid proxy accepted
+    --- FAIL: TestReleaseLiveProxyProcess/invalid-port (0.03s)
+        release_proxy_process_test.go:50: [OD57-live-explicit-proxy-invalid-port] bounded failure: proxy failure not bounded
+        release_proxy_process_test.go:54: [OD57-live-explicit-proxy-invalid-port] invalid proxy refused before network: invalid proxy accepted
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/issue13-red-live-proxy/20261013T031756.549454000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	0.681s
+FAIL

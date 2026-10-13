@@ -1,0 +1,9 @@
+--- FAIL: TestReleaseRollbackArtifacts (1.16s)
+    --- FAIL: TestReleaseRollbackArtifacts/omit-inventory (0.14s)
+        release_rollback_import_test.go:118: [OD58-release-import-omit-inventory] complete revocation evidence required: status=PASS
+--- FAIL: TestReleaseOfflineInventoryCannotOmitFile (0.00s)
+    release_rollback_import_test.go:132: [OD57-release-offline-complete-inventory] unlisted artifact refused: unhashed artifact accepted
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/issue13-red-inventory/20261013T031629.065071000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.112s
+FAIL

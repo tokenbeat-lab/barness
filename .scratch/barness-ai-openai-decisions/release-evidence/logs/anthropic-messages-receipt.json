@@ -1,0 +1,30 @@
+{
+  "kind": "smoke",
+  "route": "anthropic-messages",
+  "startedAt": "2026-10-13T03:20:36.830682+00:00",
+  "finishedAt": "2026-10-13T03:21:06.608692+00:00",
+  "command": [
+    ".evidence/issue13-current-live/live.test",
+    "-test.run=^TestLive$/^anthropic-messages$",
+    "-test.timeout=10m"
+  ],
+  "exitCode": 0,
+  "credentialSource": ".env:ANTHROPIC_KEY",
+  "keyPresent": true,
+  "accountAlias": "local-anthropic@region-permissions-unconfirmed",
+  "accountRegionPermissionsDedicatedKeyVerification": "unknown",
+  "environmentNames": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "BARNESS_AI_LIVE",
+    "BARNESS_AI_LIVE_ACCOUNT_ALIAS",
+    "BARNESS_AI_LIVE_COMBO",
+    "BARNESS_AI_LIVE_KEY_ANTHROPIC_MESSAGES",
+    "BARNESS_AI_LIVE_PROXY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "binarySHA256": "3854549dc4bfc1881c62249962ddf95bddaa1f9ae3bcb2c52e30f2faf786a4ff",
+  "bundle": ".evidence/issue13-current-live/smoke/anthropic-messages/bundles/20261013T032036.840263000Z",
+  "mergeExitCode": 0
+}

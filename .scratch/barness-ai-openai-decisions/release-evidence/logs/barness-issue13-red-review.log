@@ -1,0 +1,78 @@
+--- FAIL: TestReleaseRevocationSemanticIntegrity (5.36s)
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/requests.json/null (0.24s)
+        release_review_import_test.go:68: [OD58-release-semantic-requests-null] invalid semantic proof rejected: accepted requests.json
+        release_review_import_test.go:69: [OD58-release-semantic-requests-null] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/requests.json/{} (0.21s)
+        release_review_import_test.go:69: [OD58-release-semantic-requests-object] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/requests.json/[] (0.22s)
+        release_review_import_test.go:69: [OD58-release-semantic-requests-array] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/requests.json/mismatch (0.20s)
+        release_review_import_test.go:68: [OD58-release-semantic-requests-mismatch] invalid semantic proof rejected: accepted requests.json
+        release_review_import_test.go:69: [OD58-release-semantic-requests-mismatch] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-active.json/null (0.21s)
+        release_review_import_test.go:68: [OD58-release-semantic-observations-req-active-null] invalid semantic proof rejected: accepted observations-req-active.json
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-active-null] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-active.json/{} (0.19s)
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-active-object] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-active.json/[] (0.17s)
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-active-array] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-active.json/mismatch (0.19s)
+        release_review_import_test.go:68: [OD58-release-semantic-observations-req-active-mismatch] invalid semantic proof rejected: accepted observations-req-active.json
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-active-mismatch] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-prior.json/null (0.19s)
+        release_review_import_test.go:68: [OD58-release-semantic-observations-req-prior-null] invalid semantic proof rejected: accepted observations-req-prior.json
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-prior-null] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-prior.json/{} (0.17s)
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-prior-object] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-prior.json/[] (0.18s)
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-prior-array] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-prior.json/mismatch (0.17s)
+        release_review_import_test.go:68: [OD58-release-semantic-observations-req-prior-mismatch] invalid semantic proof rejected: accepted observations-req-prior.json
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-prior-mismatch] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-after-revoke.json/null (0.18s)
+        release_review_import_test.go:68: [OD58-release-semantic-observations-req-after-revoke-null] invalid semantic proof rejected: accepted observations-req-after-revoke.json
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-after-revoke-null] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-after-revoke.json/{} (0.18s)
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-after-revoke-object] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-after-revoke.json/[] (0.18s)
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-after-revoke-array] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/observations-req-after-revoke.json/mismatch (0.18s)
+        release_review_import_test.go:68: [OD58-release-semantic-observations-req-after-revoke-mismatch] invalid semantic proof rejected: accepted observations-req-after-revoke.json
+        release_review_import_test.go:69: [OD58-release-semantic-observations-req-after-revoke-mismatch] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/revoked-binding.json/null (0.19s)
+        release_review_import_test.go:68: [OD58-release-semantic-revoked-binding-null] invalid semantic proof rejected: accepted revoked-binding.json
+        release_review_import_test.go:69: [OD58-release-semantic-revoked-binding-null] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/revoked-binding.json/{} (0.18s)
+        release_review_import_test.go:69: [OD58-release-semantic-revoked-binding-object] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/revoked-binding.json/[] (0.19s)
+        release_review_import_test.go:69: [OD58-release-semantic-revoked-binding-array] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/revoked-binding.json/mismatch (0.20s)
+        release_review_import_test.go:68: [OD58-release-semantic-revoked-binding-mismatch] invalid semantic proof rejected: accepted revoked-binding.json
+        release_review_import_test.go:69: [OD58-release-semantic-revoked-binding-mismatch] safe diagnostic identifies case and file: got six initial/final-Hook revocations: new calls denied, pinned attempts and reported cost preserved, no fallback, resources zero
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/active-result.json/null (0.19s)
+        release_review_import_test.go:69: [OD58-release-semantic-active-result-null] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/active-result.json/{} (0.19s)
+        release_review_import_test.go:69: [OD58-release-semantic-active-result-object] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/active-result.json/[] (0.19s)
+        release_review_import_test.go:69: [OD58-release-semantic-active-result-array] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/active-result.json/mismatch (0.19s)
+        release_review_import_test.go:69: [OD58-release-semantic-active-result-mismatch] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/resources.json/null (0.19s)
+        release_review_import_test.go:69: [OD58-release-semantic-resources-null] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/resources.json/{} (0.21s)
+        release_review_import_test.go:69: [OD58-release-semantic-resources-object] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/resources.json/[] (0.20s)
+        release_review_import_test.go:69: [OD58-release-semantic-resources-array] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+    --- FAIL: TestReleaseRevocationSemanticIntegrity/resources.json/mismatch (0.20s)
+        release_review_import_test.go:69: [OD58-release-semantic-resources-mismatch] safe diagnostic identifies case and file: got authorization revocation evidence incomplete
+--- FAIL: TestReleaseLiveInventoryCannotOmitProof (0.15s)
+    --- FAIL: TestReleaseLiveInventoryCannotOmitProof/exchanges.json (0.05s)
+        release_review_import_test.go:114: [OD57-release-live-inventory-exchanges] omitted proof is rejected despite existing file: unhashed proof accepted
+    --- FAIL: TestReleaseLiveInventoryCannotOmitProof/result.json (0.05s)
+        release_review_import_test.go:114: [OD57-release-live-inventory-result] omitted proof is rejected despite existing file: unhashed proof accepted
+    --- FAIL: TestReleaseLiveInventoryCannotOmitProof/observations.json (0.05s)
+        release_review_import_test.go:114: [OD57-release-live-inventory-observations] omitted proof is rejected despite existing file: unhashed proof accepted
+FAIL
+barness-ai evidence bundle: [REPO]/.evidence/issue13-red-review/20261013T033609.293770000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	6.615s
+FAIL

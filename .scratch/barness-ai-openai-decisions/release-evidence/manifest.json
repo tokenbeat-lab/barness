@@ -1,0 +1,219 @@
+{
+  "schema": 1,
+  "testedCommit": "807ccbaa53b6764e2d03299cc582ef560fe87165",
+  "actualExitCode": 0,
+  "bundles": [
+    {
+      "role": "offline",
+      "archive": "offline.zip",
+      "archivePath": "offline",
+      "originalBundle": ".evidence/issue13-final-gate/offline/20261013T034156.007664000Z",
+      "manifestSHA256": "87996b7132c18ca05c49ce4baec36e3418cc0fbf6d67a1c24d0fd302316753de",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "807ccbaa53b6764e2d03299cc582ef560fe87165",
+      "caseCount": 7616,
+      "caseStatuses": {
+        "PASS": 7616
+      }
+    },
+    {
+      "role": "race",
+      "archive": "race.zip",
+      "archivePath": "race",
+      "originalBundle": ".evidence/issue13-final-gate/race/20261013T034800.523245000Z",
+      "manifestSHA256": "e5d3d1e7bedfed3a09e515a0c7d1d2ff4ace46f9855257f3d12e3807978a0c15",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "807ccbaa53b6764e2d03299cc582ef560fe87165",
+      "caseCount": 7616,
+      "caseStatuses": {
+        "PASS": 7616
+      }
+    },
+    {
+      "role": "openai-responses",
+      "archive": "live-evaluation.zip",
+      "archivePath": "openai-responses",
+      "originalBundle": ".evidence/issue13-current-live/smoke/openai-responses/bundles/20261013T032015.505978000Z",
+      "manifestSHA256": "dfa3c33baaa1b2cec0e45e3e27003b53d2ca17c0918ceb99baf81cf699a5fe26",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 8,
+      "caseStatuses": {
+        "PASS": 8
+      }
+    },
+    {
+      "role": "anthropic-messages",
+      "archive": "live-evaluation.zip",
+      "archivePath": "anthropic-messages",
+      "originalBundle": ".evidence/issue13-current-live/smoke/anthropic-messages/bundles/20261013T032036.840263000Z",
+      "manifestSHA256": "acc83d38072e947c68f8e3fa0114a33bc23ef094ca031313329eed6a656f488f",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 11,
+      "caseStatuses": {
+        "PASS": 11
+      }
+    },
+    {
+      "role": "google-gemini",
+      "archive": "live-evaluation.zip",
+      "archivePath": "google-gemini",
+      "originalBundle": ".evidence/issue13-current-live/smoke/google-gemini/bundles/20261013T032106.833565000Z",
+      "manifestSHA256": "8e206f8a9e949f9297019d380fbfee7ceadd8437e4f5c06bd24483b4644be185",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 6,
+      "caseStatuses": {
+        "PASS": 6
+      }
+    },
+    {
+      "role": "openai-chat",
+      "archive": "live-evaluation.zip",
+      "archivePath": "openai-chat",
+      "originalBundle": ".evidence/issue13-current-live/smoke/openai-chat/bundles/20261013T032154.096377000Z",
+      "manifestSHA256": "cb382e465b7d72ac9188bcfe8f2aad2e7b62b2ba197ae58eb96b2c2bf8869fd1",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 10,
+      "caseStatuses": {
+        "PASS": 9,
+        "UNSUPPORTED": 1
+      }
+    },
+    {
+      "role": "deepseek-responses",
+      "archive": "live-evaluation.zip",
+      "archivePath": "deepseek-responses",
+      "originalBundle": ".evidence/issue13-current-live/smoke/deepseek-responses/bundles/20261013T032208.754632000Z",
+      "manifestSHA256": "05f6eb92a884992da9699325cbc2ee15669470443621559d045753fa8d1acf48",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 8,
+      "caseStatuses": {
+        "PASS": 8
+      }
+    },
+    {
+      "role": "deepseek-chat",
+      "archive": "live-evaluation.zip",
+      "archivePath": "deepseek-chat",
+      "originalBundle": ".evidence/issue13-current-live/smoke/deepseek-chat/bundles/20261013T032216.397782000Z",
+      "manifestSHA256": "d87918e74de0ad42bb34012e5f6f47d3978d639d00150ca08bf21c231c4df503",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 11,
+      "caseStatuses": {
+        "PASS": 11
+      }
+    },
+    {
+      "role": "typesafe-classifier",
+      "archive": "live-evaluation.zip",
+      "archivePath": "typesafe-classifier",
+      "originalBundle": ".evidence/issue13-current-live/smoke/typesafe-classifier/bundles/20261013T032226.401666000Z",
+      "manifestSHA256": "5ff9163892e538df24c08060faa4cc4683b8cb4e916d30febe5e697a3db8aabf",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 3,
+      "caseStatuses": {
+        "PASS": 3
+      }
+    },
+    {
+      "role": "openai-images",
+      "archive": "live-evaluation.zip",
+      "archivePath": "openai-images",
+      "originalBundle": ".evidence/issue13-current-live/smoke/openai-images/bundles/20261013T032228.227090000Z",
+      "manifestSHA256": "0d0ca809e78e0b64b97a829b0ea94510d21c8b8b14a46b4511b9bf6389bc9b2e",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 3,
+      "caseStatuses": {
+        "PASS": 3
+      }
+    },
+    {
+      "role": "google-interactions-image",
+      "archive": "live-evaluation.zip",
+      "archivePath": "google-interactions-image",
+      "originalBundle": ".evidence/issue13-current-live/smoke/google-interactions-image/bundles/20261013T032302.962640000Z",
+      "manifestSHA256": "77a4491cc896ff1bb1f6f34131cdeeb857c42f22cd88d795a69ee46b4a4f0191",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 2,
+      "caseStatuses": {
+        "PASS": 2
+      }
+    },
+    {
+      "role": "openai-decisions",
+      "archive": "live-evaluation.zip",
+      "archivePath": "openai-decisions",
+      "originalBundle": ".evidence/issue13-current-live/smoke/openai-decisions/bundles/20261013T032340.988798000Z",
+      "manifestSHA256": "e1e60b304e1bae4915f7cbf7bcbd64436a947112045a376b615816fd55ecd496",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 10,
+      "caseStatuses": {
+        "PASS": 10
+      }
+    },
+    {
+      "role": "jev",
+      "archive": "live-evaluation.zip",
+      "archivePath": "jev",
+      "originalBundle": ".evidence/issue13-current-live/evaluation/jev/bundles/20261013T032345.376597000Z",
+      "manifestSHA256": "f76e25195168804233e96acb6ad00369c2071c511f7dc9f8d05ab942b2cf409d",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "3b8d05be49c248529880e15e90e02195e56c5356",
+      "caseCount": 0,
+      "caseStatuses": {}
+    },
+    {
+      "role": "luna",
+      "archive": "live-evaluation.zip",
+      "archivePath": "luna",
+      "originalBundle": ".scratch/barness-ai-openai-decisions/chinese-live-evidence/live",
+      "manifestSHA256": "39d046a0d6f2efd4cefd38086811f94cc28e08eaf4bed12873fcf78ba26e1c51",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "recordedAuditFindings": 0,
+      "recordedGitCommit": "d8442da8d2a8a2035b9b50ccd8d58a078324a43d",
+      "caseCount": 0,
+      "caseStatuses": {}
+    }
+  ],
+  "retainedHistory": [
+    ".evidence/issue13-gate",
+    ".evidence/issue13-green-cli",
+    ".evidence/issue13-green-inventory",
+    ".evidence/issue13-green-live-proxy",
+    ".evidence/issue13-green-race",
+    ".evidence/issue13-green-review",
+    ".evidence/issue13-known-pressure-reproduction",
+    ".evidence/issue13-live-harness",
+    ".evidence/issue13-red-cli",
+    ".evidence/issue13-red-inventory",
+    ".evidence/issue13-red-live-proxy",
+    ".evidence/issue13-red-live-proxy-actual",
+    ".evidence/issue13-red-race",
+    ".evidence/issue13-red-review"
+  ],
+  "provenance": "Original bundle bytes, hashes, timestamps and recorded HEAD labels are preserved. Live binaries were built before the implementation commit; collection receipts and live-execution-source.zip identify that working tree. Runtime git_commit is a checkout label, not a binary build attestation. The first gate started before review fixes and failed the stale current-matrix migration test; final gate runs the committed fixes. Only top-level command diagnostics redact host paths.",
+  "lunaReuse": "Original issue 12 live package; current execution source set and public capture replay verified without rewriting its original code hash or time.",
+  "accountLimits": "Account region, permissions, dedicated key and provider spending limits were not independently verified; original aliases record unknown."
+}
