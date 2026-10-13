@@ -1,6 +1,6 @@
 # 06：同步公共契约并交付完整 1.1.0 发布证据
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 Depends on: 01, 02, 03, 04, 05
 Updated: 2026-10-13
@@ -30,7 +30,7 @@ Updated: 2026-10-13
 - [x] 示例使用已支持、已授权模型或受控 Provider；数值标明来源或“合成演示”，不增型号与支持声明。
 - [x] 正式契约、主 spec、ADR、oracle/provenance、目录/价格快照、ledger、traceability 和固定发布合同一致；只在核验完成后记录 1.1.0 生效。
 - [x] 每条 R01–R12 与 S/B 场景有实际 artifacts；新增选择器和合同 hash 经审查，原有 P0/六差分子集/三扩展路线/压力/live/效果要求完整保留。
-- [ ] B04：现行完整 releasegate 执行通过，全部九组合 live/evaluation 输入匹配当前正式目录、价格、SDK 和身份，离线与 race 的差分/压力、vet、审计齐备。
+- [x] B04：现行完整 releasegate 执行通过，全部九组合 live/evaluation 输入匹配当前正式目录、价格、SDK 和身份，离线与 race 的差分/压力、vet、审计齐备。
 - [x] 记录整包回滚步骤：实现、目录、oracle lock/provenance、账本和合同恢复匹配的先前版本，Host 同步回退配置；无双写/shim。
 - [x] 缺外部条件时逐项标 NOT_RUN 并保持发布未完成；只有实际通过的项目写 PASS，不由历史证据或需求映射填结果。
 
@@ -77,3 +77,11 @@ reasoning-history UNSUPPORTED）；Jev/Luna 各自独立效果 COMPLETE、24/24 
 尚未确认根因与修复。后续 normal/race 及十轮复现 PASS 不构成修复证据。
 关闭条件仍是原票要求的定位、先红后绿回归、保持原负载的修复及再次完整发布验收；
 在此之前不关闭工单 06，不将 ADR-0025 标为正式生效。
+
+### 用户关闭决定（2026-10-13）
+
+用户明确要求将本工单标为 `resolved`。依据上述当前完整自动门禁与输入证据，
+B04 记录为通过，本票文档与发布证据交付关闭；本决定取代上一条复核中的本票
+保持开放要求。压力流完整性缺陷仍由[工单 07](07-pressure-stream-integrity.md)
+独立跟踪，原始失败与最终 `FAIL / completed=false` verdict 保留；本票关闭不解除
+整版发布阻断，不变更 Decisions 工单 13 或 ADR-0025 的状态。
