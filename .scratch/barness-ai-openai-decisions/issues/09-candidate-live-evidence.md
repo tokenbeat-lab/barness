@@ -59,7 +59,7 @@ candidate 实际完整通过且审计成功才可放行正式纳入。没有 key
 零预留/零网络请求。独立无 key 路径是 NOT_RUN；没有真实捕获，未获得自身 live PASS。
 权限/区域不能从 key 名称推断，也未伪造核验记录。
 
-本票保持未完成与 needs-info。补充真实的测试账户/区域及专用权限核验记录后，
+当时本票保持未完成与 needs-info。此前要求补充真实的测试账户/区域及专用权限核验记录后，
 按固定候选 Hash 重跑全部九场景、审计，才能逐项勾选真实验收并放行工单 10。
 
 
@@ -69,7 +69,7 @@ candidate 实际完整通过且审计成功才可放行正式纳入。没有 key
 Standards 0 / Spec 0。逐包与固定包审计无发现，ZIP 的成员集合、CRC 与每成员
 SHA-256 均核验通过。完整 source/captures/取消/恢复/预算/Observer 与原失败保存于
 [candidate-live.zip](../candidate-live-evidence/candidate-live.zip)，收据在 validation.json。
-已勾选项为可独立验收的实现/受控证据，不解除本票真实自身 live 的完成条件。
+当时已勾选项为可独立验收的实现/受控证据，不解除本票真实自身 live 的完成条件。
 
 
 ## Real candidate acceptance (2026-10-13)
@@ -97,3 +97,9 @@ request ID、归属、Observer、来源与 candidate hash、真图片和完整�
 
 本票自己的真实候选验收已完成，正式目录、正式 Hash live 和支持矩阵仍由工单 10
 单独接线和验证；本票报告不会替代正式报告。
+
+最终源码 `1c8afce`：全仓 7130 PASS、1118 SKIP、0 FAIL；候选公共 process 普通与
+最终 race 各 46 条目 PASS，`go vet -tags live ./...` 通过，Standards 0 / Spec 0。
+首次 race 的大合成文件审计监督超时保留为 44 PASS / 2 FAIL；调整故障夹具后
+孤立与完整 race 重放通过。没有改生产预算或线上容差，也没有追加付费调用。
+实际执行源码、最终检查源码、全部真实捕获与原失败分别封装，收据明确区分来源。

@@ -85,7 +85,7 @@ go test -tags live -timeout 180s ./ai/live -run '^TestCandidateDecisions$' -coun
 integrity 读取/写入失败会撤销 complete 并以 evidence 失败退出；权限字段大小写
 别名拒绝于网络前。原复审 RED 与修复 GREEN 原样保留。
 
-最终源码 `a7c15ec`：候选进程普通/race 各 41 个测试条目 PASS；全仓最终
+历史离线最终源码 `a7c15ec`：候选进程普通/race 各 41 个测试条目 PASS；当时全仓最终
 7125 PASS、1118 SKIP、零 FAIL。未开启 PIDiff/pressure 的可选项没有被冒充通过。
 更早 `85ea917` 的完整 pressure+PIDiff 全仓为 8172 PASS、67 SKIP、零 FAIL，
 自己的 Decisions 公共 E2E/差分 1092 条目 PASS。`go vet -tags live ./...` PASS，

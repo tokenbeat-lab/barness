@@ -1,0 +1,295 @@
+{
+  "date": "2026-10-13",
+  "timezone": "Asia/Shanghai",
+  "fixedPoint": "fc6937e",
+  "liveRuntimeCommit": "abdb733",
+  "finalCodeCommit": "1c8afce",
+  "candidateVersion": "decisions-candidate-2026-10-13.1",
+  "candidateHash": "sha256:b00222918033826f65c545519c4b6ad57ec1e619f427472c6c53a32ae41b1503",
+  "userAuthorization": "2026-10-13: use .env OPENAI_KEY via 127.0.0.1:7890; unknown account/region/permissions must not block",
+  "credentialSource": ".env:OPENAI_KEY",
+  "proxy": "http://127.0.0.1:7890",
+  "liveStatus": "PASS",
+  "realVendorCalls": 9,
+  "accountVerification": "unknown",
+  "regionVerification": "unknown",
+  "permissionVerification": "unknown",
+  "hostPermissionVerification": null,
+  "budget": {
+    "finalizationReserveSeconds": 10,
+    "maxCalls": 12,
+    "maxAttempts": 12,
+    "maxQuestions": 24,
+    "maxStateBytesTotal": 4194304,
+    "maxImages": 8,
+    "maxDecodedImageBytesTotal": 4194304,
+    "processSeconds": 180,
+    "callSeconds": 30,
+    "callsUsed": 9,
+    "attemptsReserved": 9,
+    "httpAttempts": 9,
+    "questionsUsed": 13,
+    "stateBytesSubmitted": 480,
+    "imagesUsed": 3,
+    "decodedImageBytesSubmitted": 1161,
+    "retries": 0
+  },
+  "usage": {
+    "completeResponses": 8,
+    "reportedInputTokens": 1608,
+    "reportedOutputTokens": 0,
+    "cancelledResponse": "unreported; model not obtained; provider consumption remains unknown",
+    "finalVendorBill": "unknown"
+  },
+  "records": [
+    {
+      "name": "real-api",
+      "command": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "-timeout",
+        "180s",
+        "./ai/live",
+        "-run",
+        "^TestCandidateDecisions$",
+        "-count=1",
+        "-json"
+      ],
+      "source": "fc6937e baseline + working tree, captured execution-source; runtime later committed as abdb733",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 10,
+        "output": 20,
+        "pass": 10
+      },
+      "packageEntries": {
+        "start": 1,
+        "output": 3,
+        "pass": 1
+      },
+      "logSHA256": "49c2e15aea6eb83a858d80d3e01faa22de09f57aca0602cbfdb958a06eb24c65",
+      "note": "sole paid run: .env OPENAI_KEY via loopback proxy; account/region/permissions unknown by user authorization",
+      "evidenceDirOverride": "absolute task-specific repository .evidence directory; logs retain output with host home redacted"
+    },
+    {
+      "name": "candidate-process",
+      "command": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestDecisionsCandidateProcess$",
+        "-count=1",
+        "-json"
+      ],
+      "source": "abdb733",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 46,
+        "output": 92,
+        "pass": 46
+      },
+      "packageEntries": {
+        "start": 1,
+        "output": 3,
+        "pass": 1
+      },
+      "logSHA256": "c3f2fc5187bd68423b6b2d98697498de6ace88eaea261d658b05ec2494247894",
+      "note": "complete ordinary controlled public-process run",
+      "evidenceDirOverride": "absolute task-specific repository .evidence directory; logs retain output with host home redacted"
+    },
+    {
+      "name": "initial-race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestDecisionsCandidateProcess$",
+        "-count=1",
+        "-json"
+      ],
+      "source": "abdb733",
+      "exitCode": 1,
+      "testEntries": {
+        "run": 46,
+        "output": 93,
+        "pass": 44,
+        "fail": 2
+      },
+      "packageEntries": {
+        "start": 1,
+        "output": 3,
+        "fail": 1
+      },
+      "logSHA256": "ca2617f636cfc2e44d1b99414154e69423ab0e0fbe6d126c564d23eab24a63ed",
+      "note": "44 PASS; integrity-read-failure and parent FAIL after 20 s supervisor timeout; partial child audit absent",
+      "evidenceDirOverride": "absolute task-specific repository .evidence directory; logs retain output with host home redacted"
+    },
+    {
+      "name": "isolated-race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestDecisionsCandidateProcess$/^integrity-read-failure$",
+        "-count=1",
+        "-json"
+      ],
+      "source": "1c8afce working fixture before commit",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 2,
+        "output": 4,
+        "pass": 2
+      },
+      "packageEntries": {
+        "start": 1,
+        "output": 3,
+        "pass": 1
+      },
+      "logSHA256": "1caff51c539142f974c5f23af70e11959a9dd08e5a9c9ed407a74bb0c5b49d5d",
+      "note": "isolated integrity-read-failure replay",
+      "evidenceDirOverride": "absolute task-specific repository .evidence directory; logs retain output with host home redacted"
+    },
+    {
+      "name": "final-race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestDecisionsCandidateProcess$",
+        "-count=1",
+        "-json"
+      ],
+      "source": "1c8afce working fixture before commit",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 46,
+        "output": 92,
+        "pass": 46
+      },
+      "packageEntries": {
+        "start": 1,
+        "output": 3,
+        "pass": 1
+      },
+      "logSHA256": "2bb1e64bdbe79b26800950efb8ede9867008ef7880ee1c65be88808bac61b249",
+      "note": "complete controlled public-process race replay",
+      "evidenceDirOverride": "absolute task-specific repository .evidence directory; logs retain output with host home redacted"
+    },
+    {
+      "name": "initial-full",
+      "command": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "./...",
+        "-timeout",
+        "30m",
+        "-count=1",
+        "-json"
+      ],
+      "source": "abdb733",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 8248,
+        "output": 17620,
+        "pass": 7130,
+        "skip": 1118
+      },
+      "packageEntries": {
+        "start": 21,
+        "output": 30,
+        "skip": 14,
+        "pass": 7
+      },
+      "logSHA256": "1b2d85627ea14a4379e4a7a0dbd7092672070843bf97bdd84d7edaca9e025f4a",
+      "note": "full suite before test-only fixture refinement; PIDiff/pressure optional checks disabled",
+      "evidenceDirOverride": "absolute task-specific repository .evidence directory; logs retain output with host home redacted"
+    },
+    {
+      "name": "final-full",
+      "command": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "./...",
+        "-timeout",
+        "30m",
+        "-count=1",
+        "-json"
+      ],
+      "source": "1c8afce",
+      "exitCode": 0,
+      "testEntries": {
+        "run": 8248,
+        "output": 17620,
+        "pass": 7130,
+        "skip": 1118
+      },
+      "packageEntries": {
+        "start": 21,
+        "output": 30,
+        "skip": 14,
+        "pass": 7
+      },
+      "logSHA256": "409da38d0387f1b1c1ebd312ca1498363665da23a294cfd287a7c9cc32c22f9f",
+      "note": "full final suite; PIDiff/pressure optional checks disabled",
+      "evidenceDirOverride": "absolute task-specific repository .evidence directory; logs retain output with host home redacted"
+    }
+  ],
+  "redGreen": {
+    "sourceRed": "fc6937e; five explicit unknown-policy process failure cases added before implementation",
+    "redExitCode": 1,
+    "greenExitCode": 0,
+    "redLogSHA256": "075d92e07e666f0546076144c2fffb33d82e9de2b73894e10eaa9359b0875013",
+    "greenLogSHA256": "0fc9b63d0b18fdc95ccf5ace5e29cd762ded2e365eee89478541f6486dbde8c7"
+  },
+  "vet": {
+    "command": [
+      "go",
+      "vet",
+      "-tags",
+      "live",
+      "./..."
+    ],
+    "source": "1c8afce",
+    "exitCode": 0
+  },
+  "review": {
+    "standardsFinal": 0,
+    "specFinal": 0,
+    "runtimeFixedPoint": "fc6937e...abdb733",
+    "fixtureFixedPoint": "abdb733...1c8afce"
+  },
+  "liveInventoryFilesVerified": 83,
+  "executionSourceFilesVerified": 20,
+  "fullSuiteReplayManifestsWithoutAudit": [
+    "validation/initial-full/20261013T003458.984282000Z/manifest.json",
+    "validation/initial-full/20261013T003514.586857000Z/manifest.json",
+    "validation/final-full/20261013T004228.390210000Z/manifest.json",
+    "validation/final-full/20261013T004244.034893000Z/manifest.json"
+  ],
+  "formalCatalogAndMatrix": "unchanged",
+  "releaseGate": "not exercised by candidate-only report",
+  "historicalEvidence": "../candidate-live.zip remains immutable; prior FAIL/config and NOT_RUN retained",
+  "archiveCoverage": "complete live, process, initial race failure, isolated/final race, source and logs; full-suite manifests/audits only; other full-suite artifacts remain local"
+}

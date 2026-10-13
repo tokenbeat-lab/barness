@@ -1,0 +1,213 @@
+{
+  "cases": [
+    {
+      "artifacts": {
+        "assertions.json": "7728a0ec97e6e82b529215982dae96525c5e76d8dd55f3e0e3c0e51de71bc073",
+        "budget.json": "b518132c6588bd35d6097393896ec139bbec87731af888bb501ed688349c3e39",
+        "exchanges.json": "daa62207a34fb461e3619a258d06f57b0220355f7ab962df34943884db45290e",
+        "observations.json": "efbdb01980384783f987fcf5a1bd6a3b0f03e5fbc5a1238d86d84bd58722efc6",
+        "observer-stats.json": "2a91bcd601cc2226ddcb8e2b87d24bd1be9300fe5d7c4981be8320f22ee1bcc0",
+        "public-request.json": "2f3d9bc4a6a40dea1bb882f38a1f37c6c645999f9df98d81718dc16ab1b7738b",
+        "result.json": "e45a10303388bf940ff2f8c15f912ae2c461ba4b024746a0d1211c50125a4b2c"
+      },
+      "dir": "P10-candidate-cancel-in-flight",
+      "fixtures": {},
+      "id": "P10-candidate-cancel-in-flight",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/cancel-in-flight"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "ee1bb18890095c10b6617518defb6a1b80a07aba833d6aa9929b20df80493e00",
+        "budget.json": "4bea60c14328952a31c65b6dc08c7451fd3bb3cb463bbece11d3c62909840e9b",
+        "exchanges.json": "a235b8f195ec03ecabfd798319e3d8e8e9bd86ec09c86c86b5630059e88b790d",
+        "input-0-image.json": "a09ec0226c6850e73b41d6eedad462f6ea0e2603800f47ec4875367086c15f86",
+        "input-0.jpg": "0b2f21afec3a71cbdc10efbc42318afc864eaa9af358f36aa89683ffc14d7847",
+        "observations.json": "eafb3f1224075f6d82d678268e2f50562eca3d83274638d08c65c33f6d3d154c",
+        "observer-stats.json": "393f6c696b7f4a5e4e55dfbf5fbda302549007ed6c8b0c87c031a8e926bb33a3",
+        "public-request.json": "2a3f6ae2c416fd3de72a274c1b422c6b819d7703fae4abcf5428b31b27386a71",
+        "result.json": "3db3636dac865e8e98a550b163f515e33b3c2aa3c9a992e7d30afbe7b01800cf"
+      },
+      "dir": "P10-candidate-image-jpeg",
+      "fixtures": {
+        "input-0.jpg": "0b2f21afec3a71cbdc10efbc42318afc864eaa9af358f36aa89683ffc14d7847"
+      },
+      "id": "P10-candidate-image-jpeg",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/image-jpeg"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "584c0f7a03d3a9ce4d54a729c5909e14ec2e8b6913fc8681302a30f80d0d3311",
+        "budget.json": "29dc6cae15e25fc4039c5b8acb7e93409036fb5597aee7a36ca0c3bb7d5a42f6",
+        "exchanges.json": "dd34134084264c512ba46d61546eb781aae7d87875a015eb9eef741c4484c200",
+        "input-0-image.json": "94d85443d8998fb7fcf7b352bd549eeaed72de22475ae132adc6e9d9e2fd83d8",
+        "input-0.png": "6b015226a2ff4acce97d4a3178a90b915e2f7327d5f8fd127c59d14b227e578c",
+        "observations.json": "798408a5bdf8fdd1b57a99314f12dc607d012317c6e7099878b61342544e542f",
+        "observer-stats.json": "0ee3a29a19aba232511417e3bf47147f5ea12a90fb9e7492a752f2ed54c0e7c4",
+        "public-request.json": "5e5af85dbd5e14dafa3b6415b7651fb1bec8cc6eaf46913134de370bb958a45c",
+        "result.json": "74b2e3b44cd84ff6441d7b9e3917fd084d4c7fe7e2dac220d438b54b702f59af"
+      },
+      "dir": "P10-candidate-image-png",
+      "fixtures": {
+        "input-0.png": "6b015226a2ff4acce97d4a3178a90b915e2f7327d5f8fd127c59d14b227e578c"
+      },
+      "id": "P10-candidate-image-png",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/image-png"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "72e95b40ffdf9d6106cdc9f2404f4b977f110f632f139437e11fd1f5ec46048d",
+        "budget.json": "d501cef03e943f53e64029b02725d927c573f3afd94654ea6e35102a8b7bb979",
+        "exchanges.json": "a85575ed4e20aabaab26b2bc0dda426c9b13a72f2f00b710ca1ed8069141b4bc",
+        "input-0-image.json": "15ceb0946cb1a15921c89701dd59de97569575cfe60ab6e20b1d4fdb6ef389df",
+        "input-0.webp": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a",
+        "observations.json": "0a2be9123dc46fec85a2b6e53010909d5ab4bd815c48ea9fa0fe5d52655b9b6f",
+        "observer-stats.json": "e7eaa90accbf0fbee55ab4498798e97f8ff67685dd832e7b48db98119c40c9d5",
+        "public-request.json": "4cff8938cbcc6fa63f3f59e3c15f80b599dc722e73ad115d827f62410eb47ed9",
+        "result.json": "95152136b35d972ba3055011e0c8265bff1d1560175522d052037baf9f033b9b"
+      },
+      "dir": "P10-candidate-image-webp",
+      "fixtures": {
+        "input-0.webp": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a"
+      },
+      "id": "P10-candidate-image-webp",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/image-webp"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "34c061bb30b29c8de47e58efc8464d38315cdcbf42575c9dea7fc7b035c5141b",
+        "budget.json": "77ff05657a69e0f77d9d71229091bebd9af8d9d6399c3817e7c236edef7e6018",
+        "exchanges.json": "9282b0b82eca1022423f65fb51f1641ef419558becc8c074a61ae022a6c07a36",
+        "observations.json": "21548563ef37081355a036bddffcb90fba72034105614d699664e5aa814ddd89",
+        "observer-stats.json": "b9e2bc90d08c1e0b7a3b813f58f024bd79d8d6d02741e72099f425e2b987e648",
+        "public-request.json": "f157ec6e6f1eaf5588706e79ad9a9895945e4cf3a06dc47c7454bb9d7504681d",
+        "result.json": "ed2c9cfaffd33ff6bf19b372f9435ecf383330e3dcb9be99a483d67c09d087f0"
+      },
+      "dir": "P10-candidate-mixed-questions",
+      "fixtures": {},
+      "id": "P10-candidate-mixed-questions",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/mixed-questions"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "b27a7df02b836848daa57d88e066742b6f18209316cbe92e051547204c011d2e",
+        "budget.json": "d83268def9dd44fe7317c7caf120f76ee7055ee87d9c3c6d6eb534cb29246609",
+        "exchanges.json": "24cd49279b3c0425e4ecd81cb4b23dceedf9689eb506187f9e03977042e8a81e",
+        "observations.json": "a38951dbe2a64c5678ad4b016a58867c74652408e241bcaa98664ec76b0e5700",
+        "observer-stats.json": "0783ebe1d6ab505464b5e77f673b559651c65ffda4d36eeed2e7577cdbb114ed",
+        "public-request.json": "f157ec6e6f1eaf5588706e79ad9a9895945e4cf3a06dc47c7454bb9d7504681d",
+        "result.json": "ed66d860cab769e0c06007fb7e7f269d844b6bff501aa6e36881121119152880"
+      },
+      "dir": "P10-candidate-recovery",
+      "fixtures": {},
+      "id": "P10-candidate-recovery",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/recovery"
+    },
+    {
+      "artifacts": {
+        "LICENSE": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+        "account-evidence.json": "24d63a6ae5e3a16b485bb7b76c97de60e3b1f72249b4507754535ec1ebaecde3",
+        "assertions.json": "e7c23a5a223f946d11613de509cab1967a067692213702cb2dd7140fbfcc79a5",
+        "candidate.json": "99d1c4c34a1addfd847f317c524b596a9122d380c7968694b5727b7500342e67",
+        "gopher.webp": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a",
+        "guide.md": "518b4297877cb2aa6ddf6b36a1b201d3dd6e657b6171e2c2b2ae01b1d3d4aa77",
+        "host-configuration.json": "f223430d2a58977b16713233dcda11e6cefb6d09005ac644d282f202570c986e",
+        "model.md": "2e4861582095740f5ea84b14bb18fa476a49c426b397b779b964bc144397b451",
+        "pi-classifier.json": "9c3eb7100ff6f4e915df6c3cf3952e5cb542077ebcecd98677050b27938be3cd",
+        "reference.txt": "99cac111ef6cbeae93afcb2f609b43e9c83ce96e4b7647ada3b085fd04fdb6ab",
+        "sources.json": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe"
+      },
+      "dir": "P10-candidate-sources",
+      "fixtures": {
+        "LICENSE": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+        "candidate.json": "99d1c4c34a1addfd847f317c524b596a9122d380c7968694b5727b7500342e67",
+        "gopher.webp": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a",
+        "guide.md": "518b4297877cb2aa6ddf6b36a1b201d3dd6e657b6171e2c2b2ae01b1d3d4aa77",
+        "model.md": "2e4861582095740f5ea84b14bb18fa476a49c426b397b779b964bc144397b451",
+        "pi-classifier.json": "9c3eb7100ff6f4e915df6c3cf3952e5cb542077ebcecd98677050b27938be3cd",
+        "reference.txt": "99cac111ef6cbeae93afcb2f609b43e9c83ce96e4b7647ada3b085fd04fdb6ab",
+        "sources.json": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe"
+      },
+      "id": "P10-candidate-sources",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "c1231fe535aeb0e61637074d0723884c98ba9712afd20ef4e2c1207c50de2ec4",
+        "budget.json": "abeec14ca10f6dd4775e3ef579b72c8b740c4522fe2479c9e4a6161588e868f6",
+        "exchanges.json": "e926b0ab8f55168f2d5adc0f3ac35a66125b62eeba0edd21632057beb7f2fd78",
+        "observations.json": "389a801dc54d948b73f75952cd70ab5adb9a7e5b668549647be019d61256f838",
+        "observer-stats.json": "e7ea7b19ee72c9bc3673a3c6b5e875902810cd754cdece3eed7831e1f3bb3a19",
+        "public-request.json": "547728f1c74da3f530c5c3a809130932b7e36a022686f68a33c25b0b0129701b",
+        "result.json": "5e4c789801c7bf88465ad581db6b4c663560716bc38253cd63c667eaa23002b5"
+      },
+      "dir": "P10-candidate-text-bool",
+      "fixtures": {},
+      "id": "P10-candidate-text-bool",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/text-bool"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "0c62b42b746710e23971029d794bcd76f23d617d860e762eb38b9ece9720cf6d",
+        "budget.json": "289fd2d2096da1443bdb9bf4d042298ed347b3a131ec0054b97cf46d01d3005c",
+        "exchanges.json": "d876fb231a70a6aae2a22622357526f569f3ce8f11526d340a3a96617a754029",
+        "observations.json": "90bac902e8204e587399b222af06cc4ffa8d2a07877f8bbcca27ee53ab1d9390",
+        "observer-stats.json": "9cb044ac2b50e53044d0756de86f23374fab55fdfaec0bb46bffd8c5f31f602d",
+        "public-request.json": "2f3d9bc4a6a40dea1bb882f38a1f37c6c645999f9df98d81718dc16ab1b7738b",
+        "result.json": "fdc9f25424d537c884f39ad478ca5261222b612834269c6a4edda8efa817b523"
+      },
+      "dir": "P10-candidate-text-choice",
+      "fixtures": {},
+      "id": "P10-candidate-text-choice",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/text-choice"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "9289767e32f632ba76b4e5a535da9b760ac59a37534a47e6a62fd914fe8f412e",
+        "budget.json": "5dae8c8131a275133c4991dca7927fcf6eb85e9e19f75745bb34bca0fbedc924",
+        "exchanges.json": "3d0e2f7a482a42a755db3de61bf4eca7e78c8a7a547fc700f3a30d96de86ab5e",
+        "observations.json": "4158680d367cfc82d516637d528ce282d5abebf8c77c61a2d35b95d55b1c5679",
+        "observer-stats.json": "402a24adcc0410acebd3f931f5a2945fb33d7fa308f77d33921a3fb3bf5130a6",
+        "public-request.json": "de6d8a643540d4202834ccaa9b810ae89163f182840a509fe20b06e577960ec8",
+        "result.json": "2093c6f0ee2949a5f90f7667ddaab129a1bb32308eedfffea39b35f40bea3f8a"
+      },
+      "dir": "P10-candidate-text-score",
+      "fixtures": {},
+      "id": "P10-candidate-text-score",
+      "replay": "BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=openai-decisions-candidate BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1 go test -tags live -timeout 180s ./ai/live -count=1 -run '^TestCandidateDecisions$'",
+      "status": "PASS",
+      "test": "TestCandidateDecisions/text-score"
+    }
+  ],
+  "finished_at": "2026-10-13T00:30:47.101868Z",
+  "git_commit": "fc6937ef9af1198a52c8633e7eed5d828f78db03",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "-tags live -timeout 180s ./ai/live",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-13T00:30:42.77256Z",
+  "versions": {
+    "candidate_source_manifest_hash": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe",
+    "live_combo": "openai-decisions-candidate",
+    "live_sdk": "direct HTTP (OpenAI Decisions; ADR-0026)",
+    "model_catalog_hash": "sha256:b00222918033826f65c545519c4b6ad57ec1e619f427472c6c53a32ae41b1503",
+    "model_catalog_version": "decisions-candidate-2026-10-13.1"
+  }
+}

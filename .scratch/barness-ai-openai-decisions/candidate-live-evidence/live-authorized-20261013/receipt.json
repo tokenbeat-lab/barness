@@ -1,0 +1,25 @@
+{
+  "command": [
+    "go",
+    "test",
+    "-tags",
+    "live",
+    "-timeout",
+    "180s",
+    "./ai/live",
+    "-run",
+    "^TestCandidateDecisions$",
+    "-count=1",
+    "-json"
+  ],
+  "startedAt": "2026-10-13T00:30:41.401513+00:00",
+  "finishedAt": "2026-10-13T00:30:47.170806+00:00",
+  "exitCode": 0,
+  "credentialSource": ".env:OPENAI_KEY",
+  "proxy": "http://127.0.0.1:7890",
+  "accountVerification": "unknown",
+  "regionVerification": "unknown",
+  "permissionVerification": "unknown",
+  "userAuthorization": "2026-10-13: use .env OPENAI_KEY via 127.0.0.1:7890; unknown account/region/permissions must not block",
+  "logSHA256": "49c2e15aea6eb83a858d80d3e01faa22de09f57aca0602cbfdb958a06eb24c65"
+}
