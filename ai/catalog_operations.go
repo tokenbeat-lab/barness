@@ -79,10 +79,11 @@ const (
 	ClassifierQuestionChoice ClassifierQuestionKind = "choice"
 	ClassifierQuestionScore  ClassifierQuestionKind = "score"
 	ClassifierQuestionBool   ClassifierQuestionKind = "bool"
+	ClassifierQuestionBox    ClassifierQuestionKind = "box"
 )
 
 // ClassifierCapabilities names supported question kinds (choice, score,
-// bool). Omitted MinChoices means 1; MaxChoices must remain >= 2 for
+// bool, box). Omitted MinChoices means 1; MaxChoices must remain >= 2 for
 // existing catalogs. Score requires an inclusive level
 // range with minimum >= 2. Limits for unsupported kinds must be zero.
 type ClassifierCapabilities struct {
@@ -110,8 +111,8 @@ const (
 )
 
 // ClassifierImageLocation names the visibility of an image use. Only context
-// is implemented on Decisions and explicit experimental Jev candidates; other
-// positions fail capability.
+// is implemented on Decisions; fixed experimental Jev candidates can explicitly
+// declare context, state, instructions and criteria.
 type ClassifierImageLocation string
 
 const (

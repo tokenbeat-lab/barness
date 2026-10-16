@@ -88,6 +88,10 @@ func classifierQuestionTextLowerBound(question ClassifierQuestion, limit int64) 
 				return size, false
 			}
 		}
+	case BoxQuestion:
+		if !take(q.Instructions) {
+			return size, false
+		}
 	case BoolQuestion:
 		if !take(q.Instructions) {
 			return size, false

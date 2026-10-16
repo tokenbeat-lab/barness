@@ -273,3 +273,25 @@ native Legend 必须先通过最终 Criteria 的完整严格回显校验，再�
 图片仍在凭据前整体拒绝；Box、真实协议/视觉质量和正式目录由后续工单负责。
 回滚无持久化迁移，撤权影响新调用。[公共契约](../barness-ai/jev-criteria-images.md)
 与[工单验证](../../.scratch/jev-1.14-multimodal-box/07-verification.md)记录边界与证据。
+
+## Jev Box 与独立存在性（2026-10-16，统一图片工单 08）
+
+新增 sealed BoxQuestion/BoxAnswer，沿用一次 State、多题、原子答案和独立 native freeze。
+只允许 Host 明确配置固定 `jev-1.14.0` 图片候选及可见位置后声明 box，不从 alias 或
+版本字符串猜能力。公共说明保持非空 JSON 或明确根图，Box 没有 criteria。入口从
+已校验的放置计划检查每题可见图；最终 Hook 从真实全值图片出现独立检查 context、
+State 或该题 Instructions，其他题的局部图不能满足前提。选择在现有图片遍历中
+记录可见范围，避免再展开一份内容树，也不复用入口题集作为最终答案依据。
+
+四边先用 native 必填数值字段区分缺失/null/零，再独立转换为 Box 值；只接受有限
+[0,1] 且正面积。Confidence 用既有 Nullable 保留必填 null 与数字零，Unset 非法。
+Box 与 Bool 的存在概率独立返回，不在库内阈值化、条件执行或补造 image_id/not-found。
+原因是协议总会返回四边且多图关联没有机器可验字段；Host 维护题图关系与显示变换。
+代价是消费者必须显式处理新 sealed variant 和业务存在性，不能从合法框推断目标存在。
+
+所有图片授权、实验 header、预算和文件检查继续适用；无可见图入口为 scope 拒绝，
+Hook 丢失可见图为 callback_failed/request。坏任一 Box 清空全部答案/图片元数据，
+保留合法 usage 和响应型号，2xx 不重放。Decisions/旧 Jev 在凭据前拒绝。本票不改
+内置目录、正式支持、冻结 Pi 或 ADR-0030 proposed 状态。撤权阻止新调用，回滚代码
+无持久化迁移。[公共契约](../barness-ai/jev-box.md)和
+[验证记录](../../.scratch/jev-1.14-multimodal-box/08-verification.md)保留范围与证据。

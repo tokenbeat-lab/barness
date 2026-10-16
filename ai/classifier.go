@@ -88,6 +88,9 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 		failure = plan.checkValues(req)
 	}
 	if failure == nil {
+		failure = plan.checkBoxes(req)
+	}
+	if failure == nil {
 		failure = c.policy.byteLimits().checkClassifierInput(req)
 	}
 	if failure == nil && len(req.Images) > 0 {
@@ -135,6 +138,9 @@ func (r ClassifierRequest) clone() ClassifierRequest {
 			for i, v := range q.Criteria {
 				q.Criteria[i] = slices.Clone(v)
 			}
+			out.Questions[key] = q
+		case BoxQuestion:
+			q.Instructions = slices.Clone(q.Instructions)
 			out.Questions[key] = q
 		case BoolQuestion:
 			q.Instructions = slices.Clone(q.Instructions)

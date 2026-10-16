@@ -50,6 +50,8 @@ func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialR
 				failure = restoreTypeSafeLegend(&score, imageIndices)
 			}
 			answer = score
+		case "box":
+			answer, failure = decodeBoxAnswer(raw)
 		case "noul":
 			answer, failure = decodeBoolAnswer(raw)
 		default:

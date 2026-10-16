@@ -157,7 +157,7 @@ func (m ClassifierModel) problem() string {
 	}
 	seen := make(map[ClassifierQuestionKind]bool)
 	for _, kind := range caps.Kinds {
-		if kind != ClassifierQuestionChoice && kind != ClassifierQuestionScore && kind != ClassifierQuestionBool {
+		if kind != ClassifierQuestionChoice && kind != ClassifierQuestionScore && kind != ClassifierQuestionBool && kind != ClassifierQuestionBox {
 			return "classifier question kind is not supported"
 		}
 		if seen[kind] {

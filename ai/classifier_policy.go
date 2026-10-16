@@ -102,6 +102,8 @@ func (r ClassifierRequest) checkCapabilities(c ClassifierCapabilities, plan clas
 			if len(q.Criteria) < c.MinScoreLevels || len(q.Criteria) > c.MaxScoreLevels {
 				return "score levels exceed model capability"
 			}
+		case BoxQuestion:
+			kind = ClassifierQuestionBox
 		case BoolQuestion:
 			kind = ClassifierQuestionBool
 		default:
@@ -147,6 +149,10 @@ func classifierQuestionSize(question ClassifierQuestion, limit int64) (int64, bo
 				return size, false
 			}
 		}
+	case BoxQuestion:
+		if !take(len(q.Instructions)) {
+			return size, false
+		}
 	case BoolQuestion:
 		if !take(len(q.Instructions)) {
 			return size, false
@@ -184,6 +190,8 @@ func validateClassifierQuestion(question ClassifierQuestion, pointer string, pla
 				return "invalid score criterion"
 			}
 		}
+	case BoxQuestion:
+		instructions = q.Instructions
 	case BoolQuestion:
 		instructions = q.Instructions
 		if q.Criteria != nil && (!allowed(q.Criteria.True, false, pointer+"/criteria/true") || !allowed(q.Criteria.False, false, pointer+"/criteria/false")) {

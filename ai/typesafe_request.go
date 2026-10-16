@@ -40,6 +40,8 @@ func encodeTypeSafeRequest(model string, req ClassifierRequest) ([]byte, error) 
 			native = typeSafeQuestion{kind: "choice", instructions: q.Instructions, choices: q.Criteria}
 		case ScoreQuestion:
 			native = typeSafeQuestion{kind: "score", instructions: q.Instructions, levels: q.Criteria}
+		case BoxQuestion:
+			native = typeSafeQuestion{kind: "box", instructions: q.Instructions}
 		case BoolQuestion:
 			native = typeSafeQuestion{kind: "noul", instructions: q.Instructions}
 			if q.Criteria != nil {
@@ -88,6 +90,10 @@ func (q *typeSafeQuestion) UnmarshalJSON(raw []byte) error {
 		err = decodeClassifierJSON(wire.Criteria, &value.choices)
 	case "score":
 		err = decodeClassifierJSON(wire.Criteria, &value.levels)
+	case "box":
+		if len(wire.Criteria) > 0 {
+			return fmt.Errorf("TypeSafe Box has no criteria")
+		}
 	case "noul":
 		if len(wire.Criteria) > 0 {
 			if bytes.Equal(bytes.TrimSpace(wire.Criteria), []byte("null")) {

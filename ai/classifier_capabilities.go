@@ -24,6 +24,9 @@ func classifierModelProblem(m ClassifierModel) string {
 	if image && !jev && !decisions {
 		return "classifier image declaration exceeds the implemented protocol"
 	}
+	if slices.Contains(c.Kinds, ClassifierQuestionBox) && (!jev || !image || (!slices.Contains(c.ImageLocations, ClassifierImageLocationContext) && !slices.Contains(c.ImageLocations, ClassifierImageLocationState) && !slices.Contains(c.ImageLocations, ClassifierImageLocationInstructions))) {
+		return "Box requires the fixed Jev image protocol and a visible image location"
+	}
 	seenLocations := map[ClassifierImageLocation]bool{}
 	for _, location := range c.ImageLocations {
 		if !image || seenLocations[location] {
@@ -89,6 +92,8 @@ func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescrip
 				return false
 			}
 		}
+	case BoxQuestion:
+		return allowed(q.Instructions, false, "/instructions")
 	case BoolQuestion:
 		if !allowed(q.Instructions, false, "/instructions") {
 			return false

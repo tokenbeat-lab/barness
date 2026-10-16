@@ -125,6 +125,15 @@ func decodeClassifierQuestions(raw map[string]json.RawMessage) (map[string]Class
 				return nil, err
 			}
 			question = ScoreQuestion{Instructions: wire.Instructions, Criteria: wire.Criteria}
+		case "box":
+			var wire struct {
+				Type         string          `json:"type"`
+				Instructions json.RawMessage `json:"instructions"`
+			}
+			if err := decodeClassifierJSON(raw, &wire); err != nil {
+				return nil, err
+			}
+			question = BoxQuestion{Instructions: wire.Instructions}
 		case "bool":
 			var wire struct {
 				Type         string          `json:"type"`

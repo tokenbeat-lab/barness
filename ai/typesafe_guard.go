@@ -109,6 +109,8 @@ func (q typeSafeQuestion) valid() bool {
 				return false
 			}
 		}
+	case "box":
+		return true
 	case "noul":
 		return q.boolean == nil || (classifierDescription(q.boolean.True, false) && classifierDescription(q.boolean.False, false))
 	default:
@@ -130,6 +132,8 @@ func (q typeSafeQuestion) supported(c ClassifierCapabilities, assets map[string]
 		if len(q.levels) < c.MinScoreLevels || len(q.levels) > c.MaxScoreLevels {
 			return false
 		}
+	case "box":
+		kind = ClassifierQuestionBox
 	case "noul":
 		kind = ClassifierQuestionBool
 	}

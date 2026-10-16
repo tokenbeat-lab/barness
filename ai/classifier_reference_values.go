@@ -33,6 +33,8 @@ func classifierReferenceTarget(req ClassifierRequest, pointer string) bool {
 				raw = q.Instructions
 			case ScoreQuestion:
 				raw = q.Instructions
+			case BoxQuestion:
+				raw = q.Instructions
 			case BoolQuestion:
 				raw = q.Instructions
 			}

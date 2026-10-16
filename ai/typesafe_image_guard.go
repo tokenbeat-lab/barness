@@ -40,6 +40,11 @@ type typeSafeImageSnapshot struct {
 
 func (c *Client) freezeTypeSafeImages(ctx context.Context, req typeSafeRequest, model ClassifierModel, allowed, selected, contextWrapped bool) (typeSafeImageSnapshot, *Error) {
 	if len(req.Assets) == 0 {
+		for _, q := range req.Questions {
+			if q.kind == "box" {
+				return typeSafeImageSnapshot{}, typeSafeRequestFailure()
+			}
+		}
 		return typeSafeImageSnapshot{}, nil
 	}
 	if !allowed || !selected || c.policy.Classifier.Images == nil || !slices.Contains(model.Input, ModalityImage) {

@@ -19,12 +19,20 @@ func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, location
 		return nil, failure
 	}
 	var occurrences []string
+	sharedVisible := false
+	localVisible := map[string]bool{}
+	questionName := ""
 	add := func(key string, location ClassifierImageLocation) *Error {
 		if !slices.Contains(locations, location) {
 			return typeSafeRequestFailure()
 		}
 		if len(occurrences) >= maxReferences {
 			return limitFailure(PhaseRequest, "Classifier.Images.References.MaxReferences", int64(maxReferences))
+		}
+		if location == ClassifierImageLocationContext || location == ClassifierImageLocationState {
+			sharedVisible = true
+		} else if location == ClassifierImageLocationInstructions {
+			localVisible[questionName] = true
 		}
 		occurrences = append(occurrences, key)
 		return nil
@@ -96,6 +104,7 @@ func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, location
 		return nil, failure
 	}
 	for _, name := range slices.Sorted(maps.Keys(req.Questions)) {
+		questionName = name
 		q := req.Questions[name]
 		contents := []json.RawMessage{q.instructions}
 		for _, key := range slices.Sorted(maps.Keys(q.choices)) {
@@ -118,6 +127,11 @@ func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, location
 			if failure := walk(tree, location); failure != nil {
 				return nil, failure
 			}
+		}
+	}
+	for name, q := range req.Questions {
+		if q.kind == "box" && !sharedVisible && !localVisible[name] {
+			return nil, typeSafeRequestFailure()
 		}
 	}
 	return occurrences, nil
