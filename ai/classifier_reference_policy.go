@@ -18,7 +18,7 @@ func (p *ClassifierImagePolicy) referenceLimits() ClassifierImageReferencePolicy
 
 // Source sizes were checked separately. This pass reads borrowed entries only,
 // so even a huge reference table or pointer fails before plan allocation/copy.
-func (p *ResourcePolicy) checkClassifierReferenceSizes(ctx context.Context, req ClassifierRequest) *Error {
+func (p *ResourcePolicy) checkClassifierReferenceSizes(ctx context.Context, req ClassifierRequest, inline bool) *Error {
 	count := len(req.ImageReferences)
 	if count == 0 {
 		count = len(req.Images)
@@ -91,6 +91,9 @@ func (p *ResourcePolicy) checkClassifierReferenceSizes(ctx context.Context, req 
 		remaining -= size
 		// The final inline expansion cannot fit if even its unescaped strings do
 		// not fit. The full native framing is checked again at the encoder boundary.
+		if !inline {
+			continue
+		}
 		for _, n := range []int{len(img.Data), len(img.MimeType), len("data:;base64,")} {
 			if int64(n) > encoded {
 				return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)

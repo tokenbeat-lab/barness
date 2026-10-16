@@ -18,7 +18,9 @@ func classifierModelProblem(m ClassifierModel) string {
 	if c.MaxInputImages < 0 || (image && (c.MaxInputImages == 0 || len(c.ImageMIMETypes) == 0)) || (!image && (c.MaxInputImages != 0 || len(c.ImageMIMETypes) > 0)) {
 		return "classifier image declarations are inconsistent"
 	}
-	if image && (m.Provider != ProviderOpenAI || m.API != APIOpenAIDecisions || c.MaxInputImages > decisionsImageLimit) {
+	jev := m.Provider == ProviderTypeSafe && m.API == APITypeSafeSystemOne && m.ID == "jev-1.14.0"
+	decisions := m.Provider == ProviderOpenAI && m.API == APIOpenAIDecisions && c.MaxInputImages <= decisionsImageLimit
+	if image && !jev && !decisions {
 		return "classifier image declaration exceeds the implemented protocol"
 	}
 	seenLocations := map[ClassifierImageLocation]bool{}
@@ -35,9 +37,12 @@ func classifierModelProblem(m ClassifierModel) string {
 		}
 		seenLocations[location] = true
 	}
+	if image && jev && len(c.ImageLocations) == 0 {
+		return "Jev image locations must be explicitly declared"
+	}
 	seenMIME := map[string]bool{}
 	for _, mime := range c.ImageMIMETypes {
-		if !classifierImageMIME(mime) || seenMIME[mime] {
+		if !classifierImageMIME(mime) || seenMIME[mime] || (jev && mime == "image/webp") {
 			return "classifier image MIME is unknown or duplicated"
 		}
 		seenMIME[mime] = true

@@ -31,8 +31,11 @@ type ClassifierResult struct {
 	Metadata      CallMetadata                `json:"metadata"`
 }
 
-// TypeSafeOptions is empty: nil and this value both select protocol defaults.
-type TypeSafeOptions struct{}
+// TypeSafeOptions selects experimental image transport without granting image authority.
+// Nil and the zero value retain the text protocol defaults.
+type TypeSafeOptions struct {
+	ExperimentalImages bool `json:"experimentalImages,omitempty"`
+}
 
 func (TypeSafeOptions) api() API         { return APITypeSafeSystemOne }
 func (o TypeSafeOptions) clone() Options { return o }
@@ -68,7 +71,7 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 		failure = c.policy.checkClassifierImageSizes(req.Images, PhaseScope)
 	}
 	if failure == nil {
-		failure = c.policy.checkClassifierReferenceSizes(ctx, req)
+		failure = c.policy.checkClassifierReferenceSizes(ctx, req, c.classifierInlineImages(target))
 	}
 	if failure == nil && (len(req.Images) > 0 || len(req.ImageReferences) > 0) {
 		failure = c.policy.byteLimits().checkClassifierInput(req)
@@ -92,6 +95,11 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 	// Bound known sizes before copying any mutable input.
 	if failure == nil {
 		req = req.clone()
+		// Snapshot the new option before any external resolver can mutate a
+		// pointer supplied by the Host. Typed nil retains its existing rejection.
+		if o, ok := opts.(*TypeSafeOptions); ok && o != nil {
+			opts = o.clone()
+		}
 		failure = c.executeClassifier(ctx, r, target, req, plan, opts, hooks, &res)
 	}
 	res.StopReason = StopReasonStop
@@ -152,7 +160,7 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 	if problem := classifierImageCapability(req.Images, model); problem != "" {
 		return newError(CodeInvalidRequest, PhaseCapability, problem)
 	}
-	if len(plan) > min(model.Capabilities.MaxInputImages, decisionsImageLimit) {
+	if len(plan) > classifierImageLimit(model) {
 		return newError(CodeInvalidRequest, PhaseCapability, "expanded classifier images exceed model or protocol capability")
 	}
 	if len(req.Images) > 0 && !r.binding.AllowClassifierImages {
@@ -168,8 +176,31 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 		return newError(CodeInvalidRequest, PhaseCapability, problem)
 	}
 	if model.API == APIOpenAIDecisions {
+		if !c.classifierInlineImages(target) {
+			if failure := c.policy.checkClassifierReferenceSizes(ctx, req, true); failure != nil {
+				return failure
+			}
+		}
 		if problem := decisionsTextCapability(req); problem != "" {
 			return newError(CodeInvalidRequest, PhaseCapability, problem)
+		}
+	}
+	if model.API == APITypeSafeSystemOne && typeSafeImagesSelected(opts) {
+		if c.policy.Classifier.Images == nil || !slices.Contains(model.Input, ModalityImage) || !slices.Contains(model.Capabilities.ImageLocations, ClassifierImageLocationContext) {
+			return newError(CodeInvalidRequest, PhaseCapability, "Jev image experiment requires enabled image policy and model capabilities")
+		}
+		if !r.binding.AllowClassifierImages {
+			return newError(CodeTenantDenied, PhaseCapability, "binding does not allow classifier images")
+		}
+	}
+	var typeSafeBody []byte
+	if model.API == APITypeSafeSystemOne && len(req.Images) > 0 {
+		if !typeSafeImagesSelected(opts) {
+			return newError(CodeInvalidRequest, PhaseCapability, "Jev images require explicit experimental selection")
+		}
+		typeSafeBody, failure = c.prepareTypeSafeImages(ctx, model, req, plan)
+		if failure != nil {
+			return failure
 		}
 	}
 	cred, failure := r.pin(ctx, model.ID, hooks)
@@ -180,7 +211,7 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 	// call runtime and unary transport rather than a dynamic registry.
 	switch model.API {
 	case APITypeSafeSystemOne:
-		return c.classifyTypeSafe(ctx, r, cred, model, req, res)
+		return c.classifyTypeSafe(ctx, r, cred, model, req, opts, typeSafeBody, res)
 	case APIOpenAIDecisions:
 		return c.classifyDecisions(ctx, r, cred, model, req, plan, res)
 	default:

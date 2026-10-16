@@ -89,7 +89,7 @@ func classifierImageCapability(images []Image, model ClassifierModel) string {
 		return ""
 	}
 	caps := model.Capabilities
-	if model.Provider != ProviderOpenAI || model.API != APIOpenAIDecisions || !slices.Contains(model.Input, ModalityImage) || len(images) > min(caps.MaxInputImages, decisionsImageLimit) {
+	if !slices.Contains(model.Input, ModalityImage) || len(images) > classifierImageLimit(model) {
 		return "classifier images exceed model or protocol capability"
 	}
 	for _, img := range images {
@@ -98,4 +98,25 @@ func classifierImageCapability(images []Image, model ClassifierModel) string {
 		}
 	}
 	return ""
+}
+
+// Protocol bounds intersect the explicit Host catalog; IDs never grant images.
+func classifierImageLimit(model ClassifierModel) int {
+	if model.API == APIOpenAIDecisions {
+		return min(model.Capabilities.MaxInputImages, decisionsImageLimit)
+	}
+	return model.Capabilities.MaxInputImages
+}
+
+// Before Binding resolution, an explicitly declared native-asset candidate
+// can upload a source once. If an ID exists on multiple protocols, use this
+// less restrictive body estimate only; actual Decisions expansion is checked
+// again after resolution. This never grants protocol or image authority.
+func (c *Client) classifierInlineImages(target Target) bool {
+	for _, model := range c.catalog.ClassifierModels {
+		if model.ID == target.ModelID && model.API == APITypeSafeSystemOne && slices.Contains(model.Input, ModalityImage) {
+			return false
+		}
+	}
+	return true
 }

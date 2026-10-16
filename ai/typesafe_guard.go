@@ -3,6 +3,7 @@ package ai
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/buger/jsonparser"
 	"maps"
 	"slices"
 )
@@ -12,11 +13,14 @@ func (c *Client) freezeTypeSafeRequest(body []byte, model ClassifierModel) (type
 	if err := decodeClassifierJSON(body, &req); err != nil {
 		return req, typeSafeRequestFailure()
 	}
+	if _, _, _, err := jsonparser.Get(body, "assets"); err == nil && len(req.Assets) == 0 {
+		return req, typeSafeRequestFailure()
+	}
 	if req.Model != model.ID {
 		return req, newError(CodeTenantDenied, PhaseRequest, "payload callback may not change the authorized model")
 	}
 	p := c.policy.Classifier
-	if len(req.Questions) == 0 || len(req.Questions) > p.MaxQuestions || int64(len(req.State)) > p.MaxStateBytes || !classifierState(req.State) {
+	if len(req.Questions) == 0 || len(req.Questions) > p.MaxQuestions || int64(len(typeSafeBusinessState(req))) > p.MaxStateBytes || !classifierState(typeSafeBusinessState(req)) {
 		return req, typeSafeRequestFailure()
 	}
 	for _, name := range slices.Sorted(maps.Keys(req.Questions)) {

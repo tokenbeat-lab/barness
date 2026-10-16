@@ -168,3 +168,35 @@ TypeSafe 现在独立拥有原生请求、noul/choice/score 题目与 criteria�
 本票不增加图片/Box，不改变 Jev 1.13 wire、目录 Hash、冻结 Pi 或支持矩阵；ADR-0030
 仍是 proposed，后续能力逐票验收。关闭 Binding/型号授权仍阻止新调用；代码回滚直接恢复
 本票前实现，没有数据迁移或双路径切换，已经发送的 usage 继续保留。
+
+## Jev 1.14 实验 context 图片（2026-10-16，统一图片工单 04）
+
+在 Host 显式候选目录中仅接通固定 `jev-1.14.0` 的 PNG/JPEG context 图片。
+目录必须声明图片输入、context 位置、MIME 和有限数量；绑定图片授权与 Classifier 图片策略
+同时生效，调用还须选择 `TypeSafeOptions.ExperimentalImages`。选择本身不授予权限；
+Long Context、Hook 改实验选择、重复或矛盾 header 都拒绝。内置目录、Hash 和支持矩阵不变。
+
+context 投影为 native `state={state:<原 State>,images:[<私有 key>...]}`，保留原 State 中
+同名字段及精确数值，不改写问题里的自然语言路径。一个来源对应一个 native JSON asset，
+重复引用保留出现次序但不重复上传；原始字符串与对象键经过有界碰撞检查。上传 body 与 decoded
+引用展开分别计预算，不能套用 Decisions 每次引用都生成 Base64 block 的上传估计。
+绑定解析前只使用候选目录放宽 body 估计，若同名模型跨协议存在，解析后重新应用实际协议约束；
+这个估计不参与授权。无图 TypeSafe wire、旧文本容量/错误顺序和 Decisions WebP 边界保持。
+
+最终 native freeze 只接受该 context 投影及全值引用，拒绝 part、URL、substring、重叠 key、
+unused assets 和局部图片。Hook 可合法增删/换图/重排，最终 PNG/JPEG 格式、APNG、尺寸、文件、
+来源、展开、key 和 body 预算重新校验；对普通容器、RawMessage 和具名 struct 的已知图片长度
+在序列化前限流，未知自定义 encoder 仍受最终 body 与 schema 约束。Jev 的已知文件限制来自
+[官方 Images 文档](https://docs.typesafe.ai/images)（2026-10-16）；本地 decoded 预算不代表
+厂商处理后的体积、精确 token 或准确率。
+
+成功的 ImageInputs 只返回最终图片 MIME 与 decoded 文件 SHA-256，按 context 首次实际使用
+建立顺序，同 asset 复用一项，不按相同 bytes 合并独立 asset。全部答案合法且调用未取消后，
+它与 Answers 同时发布；Observer 和共享诊断不接收内容、私有 key 或 hash。来源、实验选择、
+headers、bytes 与凭据在重试前固定，2xx 后坏答案不重放。撤权只阻止新调用，已 pin 请求完成；
+代码回滚直接撤回本票实现，无数据迁移。
+
+这是 ADR-0030 拟议方案中的窄实施切片，不改变其 proposed 状态。State value、题内图片、
+图片图例、Box 与真实服务/效果/正式支持仍由后续工单验收。
+[工单 04 验证记录](../../.scratch/jev-1.14-multimodal-box/04-verification.md)保存失败方式、
+公开 E2E、最终请求/响应、Attempt/Observer、复现命令、完整性清单和脱敏审计。

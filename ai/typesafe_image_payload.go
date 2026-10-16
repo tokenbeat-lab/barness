@@ -1,0 +1,166 @@
+package ai
+
+import (
+	"encoding/json"
+	"reflect"
+
+	"github.com/buger/jsonparser"
+)
+
+// Inspect borrowed native assets before serialization. Unlike Decisions' URL
+// content tree, this boundary is a source map of raw Base64 files. The two
+// parsers deliberately evolve independently with their protocol schemas.
+type typeSafeImageBudget struct {
+	policy    *ResourcePolicy
+	remaining int64
+	count     int
+}
+
+func (c *Client) checkTypeSafeAssetPayload(value any) *Error {
+	if c.policy.Classifier.Images == nil {
+		return newError(CodeTenantDenied, PhaseRequest, "Jev images are not authorized")
+	}
+	b := typeSafeImageBudget{policy: &c.policy, remaining: c.policy.Classifier.Images.MaxTotalImageBytes}
+	v, failure := imagePayloadValue(reflect.ValueOf(value))
+	if failure != nil || !v.IsValid() {
+		return failure
+	}
+	if v.CanInterface() {
+		if raw, ok := v.Interface().(json.RawMessage); ok {
+			return b.rawAssets(raw)
+		}
+	}
+	if usesCustomJSON(v) || v.Kind() != reflect.Map {
+		return nil
+	} // Closed final decoder checks unknown shapes/encoders.
+	if v.Len() > c.policy.Classifier.Images.MaxImages {
+		return limitFailure(PhaseRequest, "Classifier.Images.MaxImages", int64(c.policy.Classifier.Images.MaxImages))
+	}
+	it := v.MapRange()
+	for it.Next() {
+		if failure := b.asset(it.Value()); failure != nil {
+			return failure
+		}
+	}
+	return nil
+}
+
+func (b *typeSafeImageBudget) take(size int64) *Error {
+	b.count++
+	ip := b.policy.Classifier.Images
+	if b.count > ip.MaxImages {
+		return limitFailure(PhaseRequest, "Classifier.Images.MaxImages", int64(ip.MaxImages))
+	}
+	if size > b.policy.MaxImageBytes {
+		return limitFailure(PhaseRequest, "MaxImageBytes", b.policy.MaxImageBytes)
+	}
+	if size > typeSafeImageBytes {
+		return limitFailure(PhaseRequest, "Jev.MaxImageBytes", typeSafeImageBytes)
+	}
+	if size > b.remaining {
+		return limitFailure(PhaseRequest, "Classifier.Images.MaxTotalImageBytes", ip.MaxTotalImageBytes)
+	}
+	b.remaining -= size
+	return nil
+}
+
+func (b *typeSafeImageBudget) asset(value reflect.Value) *Error {
+	v, failure := imagePayloadValue(value)
+	if failure != nil || !v.IsValid() {
+		return failure
+	}
+	if v.CanInterface() {
+		if raw, ok := v.Interface().(json.RawMessage); ok {
+			return b.rawAsset(raw)
+		}
+	}
+	if usesCustomJSON(v) {
+		return nil
+	}
+	var data reflect.Value
+	switch v.Kind() {
+	case reflect.Map:
+		if v.Type().Key().Kind() == reflect.String {
+			data = v.MapIndex(reflect.ValueOf("data_base64").Convert(v.Type().Key()))
+		}
+	case reflect.Struct:
+		data, failure = imageStructField(v, "data_base64")
+	}
+	if failure != nil {
+		return failure
+	}
+	data, failure = imagePayloadValue(data)
+	if failure != nil || !data.IsValid() {
+		return failure
+	}
+	if data.CanInterface() {
+		if raw, ok := data.Interface().(json.RawMessage); ok {
+			part, kind, _, err := jsonparser.Get(raw)
+			if err == nil && kind == jsonparser.String {
+				return b.rawData(part)
+			}
+			return nil
+		}
+	}
+	if !usesCustomJSON(data) && data.Kind() == reflect.String {
+		return b.take(base64Size(data.String()))
+	}
+	return nil
+}
+
+func (b *typeSafeImageBudget) rawAssets(raw []byte) *Error {
+	var failure *Error
+	err := jsonparser.ObjectEach(raw, func(_, value []byte, _ jsonparser.ValueType, _ int) error {
+		failure = b.rawAsset(value)
+		if failure != nil {
+			return failure
+		}
+		return nil
+	})
+	if failure != nil {
+		return failure
+	}
+	if err != nil {
+		return typeSafeRequestFailure()
+	}
+	return nil
+}
+
+func (b *typeSafeImageBudget) rawAsset(raw []byte) *Error {
+	data, kind, _, err := jsonparser.Get(raw, "data_base64")
+	if err != nil || kind != jsonparser.String {
+		return nil
+	} // Final schema owns invalid fields.
+	return b.rawData(data)
+}
+
+func (b *typeSafeImageBudget) rawData(raw []byte) *Error {
+	var escaped [6]byte
+	n, padding := int64(0), int64(0)
+	for i := 0; i < len(raw); {
+		ch := raw[i]
+		i++
+		if ch == '\\' {
+			length := 2
+			if i < len(raw) && raw[i] == 'u' {
+				length = 6
+			}
+			if i-1+length > len(raw) {
+				return typeSafeRequestFailure()
+			}
+			decoded, err := jsonparser.Unescape(raw[i-1:i-1+length], escaped[:])
+			if err != nil || len(decoded) != 1 {
+				return typeSafeRequestFailure()
+			}
+			ch = decoded[0]
+			i += length - 1
+		}
+		n++
+		if ch == '=' {
+			padding++
+		} else {
+			padding = 0
+		}
+	}
+	return b.take(n/4*3 - padding)
+}

@@ -110,7 +110,8 @@ const (
 )
 
 // ClassifierImageLocation names the visibility of an image use. Only context
-// is currently implemented, on Decisions; other positions fail capability.
+// is implemented on Decisions and explicit experimental Jev candidates; other
+// positions fail capability.
 type ClassifierImageLocation string
 
 const (

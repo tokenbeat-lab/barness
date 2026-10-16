@@ -13,6 +13,7 @@ type typeSafeRequest struct {
 	Model     string                      `json:"model"`
 	State     json.RawMessage             `json:"state"`
 	Questions map[string]typeSafeQuestion `json:"questions"`
+	Assets    map[string]typeSafeAsset    `json:"assets,omitempty"`
 }
 
 // The native discriminator selects exactly one criteria shape. Keep the
