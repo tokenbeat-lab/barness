@@ -97,7 +97,7 @@ Observer 的终态错误、用量及 Attempt 与公共结果逐项对账。Jev �
 
 ```sh
 go test ./ai/e2e -run '^TestVisualEvaluation' -count=1
-BARNESS_EXAMPLE_RACE=1 go test -race ./ai/e2e -run '^TestVisualEvaluation' -count=1
+BARNESS_EXAMPLE_RACE=1 go test -race ./ai/e2e -run '^TestVisualEvaluation(FixedWorkflow|FailureRetention|CancelledAccounting|SourceSet|Authorization|NotRun)$' -count=1
 ```
 
 回滚只需删除此 opt-in Host 示例及其测试；没有迁移、内部兼容层或运行时行为变更。
