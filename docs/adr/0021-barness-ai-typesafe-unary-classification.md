@@ -201,3 +201,27 @@ headers、bytes 与凭据在重试前固定，2xx 后坏答案不重放。撤权
 图片图例、Box 与真实服务/效果/正式支持仍由后续工单验收。
 [工单 04 验证记录](../../.scratch/jev-1.14-multimodal-box/04-verification.md)保存失败方式、
 公开 E2E、最终请求/响应、Attempt/Observer、复现命令、完整性清单和脱敏审计。
+
+## Jev State value 图片（2026-10-16，统一图片工单 05）
+
+固定 Host 候选 `jev-1.14.0` 可显式声明 `ImageLocations:[state]` 或 `[context,state]`。
+公共 `value` Pointer 在任何包裹之前解析；只替换明确引用的现存 null 值，包含 State 根、
+嵌套 object/array、转义键和数字对象键。无 context 时 native State 保持该业务树位置；
+混合时先填值，再包裹为工单 04 的独立 state/images 结构。普通 null、字符串、模板样式
+对象、候选/问题名和 JSON 数字拼写保留；同一来源仍只上传一个 asset。
+
+最终 freeze 按实际全值 key 扫描 State，依次校验用途、出现/展开预算及未使用资产，按对象
+键排序、数组原序构造首次使用的 ImageInputs；context 包裹中 images 先于 state 遍历。
+Hook 移动/增删/换图后不复用旧 Pointer 或来源索引。对象键、substring 和题内私有引用拒绝。
+生成 key 与包裹在分配引用展开前计入 State 预算；source、occurrence 和 native body 独立计量。
+
+包裹拓扑是 Adapter 的投影元信息，不是从业务字段名推断的协议标记。已有图片的 Hook
+保留该拓扑，可修改其中所有内容和资产；业务对象恰好只有 state/images 字段仍是业务树。
+Hook 从无图请求首次加入图片时，没有既有投影；只有严格的 native context envelope 且
+images 均指向实际 assets 才解释为 context，否则按 State 内容扫描。该选择不扩大目录位置
+能力；调用授权与实验选择仍固定。这个约束避免普通业务对象和原生包裹混淆，不引入公共标记。
+
+Decisions 含任意合法 value 时仍在 capability 整体拒绝。题内 Instructions/Criteria、图片
+图例和 Box 未开放；内置目录、正式支持与 ADR-0030 proposed 状态不变。回滚直接撤回本票
+代码，无持久化变更。[工单 05 验证记录](../../.scratch/jev-1.14-multimodal-box/05-verification.md)
+给出公开 E2E 与独立核验产物；受控 HTTP 不能证明真实服务或视觉质量 PASS。

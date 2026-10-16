@@ -26,17 +26,6 @@ func typeSafeImagesSelected(opts Options) bool {
 	return ok && o.ExperimentalImages
 }
 
-func typeSafeBusinessState(req typeSafeRequest) json.RawMessage {
-	if len(req.Assets) == 0 {
-		return req.State
-	}
-	var state typeSafeContext
-	if decodeClassifierJSON(req.State, &state) != nil {
-		return nil
-	}
-	return state.State
-}
-
 func (c *Client) prepareTypeSafeImages(ctx context.Context, model ClassifierModel, req ClassifierRequest, plan classifierImagePlan) ([]byte, *Error) {
 	if failure := checkTypeSafeUploadSize(req); failure != nil {
 		return nil, failure
@@ -104,36 +93,11 @@ func (c *Client) prepareTypeSafeImages(ctx context.Context, model ClassifierMode
 	// The already encoded business subtree has its final compact/HTML-escaped
 	// representation. Reserve framing and each encoded key before expanding
 	// references, so a small State budget cannot allocate a large projection.
-	state := typeSafeContext{State: native.State}
-	remaining := c.policy.Classifier.MaxStateBytes
-	base := int64(len(native.State)) + int64(len(`{"state":,"images":[]}`))
-	if base > remaining {
-		return nil, limitFailure(PhaseScope, "Classifier.MaxStateBytes", c.policy.Classifier.MaxStateBytes)
+	state, failure := c.projectTypeSafeState(native.State, original.(map[string]any)["state"], plan, keys)
+	if failure != nil {
+		return nil, failure
 	}
-	remaining -= base
-	keySizes := make([]int64, len(keys))
-	for i, key := range keys {
-		raw, _ := json.Marshal(key)
-		keySizes[i] = int64(len(raw))
-	}
-	for i, ref := range plan {
-		size := keySizes[ref.ImageIndex]
-		if i > 0 {
-			size++
-		}
-		if size > remaining {
-			return nil, limitFailure(PhaseScope, "Classifier.MaxStateBytes", c.policy.Classifier.MaxStateBytes)
-		}
-		remaining -= size
-		state.Images = append(state.Images, keys[ref.ImageIndex])
-	}
-	native.State, err = json.Marshal(state)
-	if err != nil {
-		return nil, typeSafeRequestFailure()
-	}
-	if int64(len(native.State)) > c.policy.Classifier.MaxStateBytes {
-		return nil, limitFailure(PhaseScope, "Classifier.MaxStateBytes", c.policy.Classifier.MaxStateBytes)
-	}
+	native.State = state
 	body, err = json.Marshal(native)
 	if err != nil {
 		return nil, typeSafeRequestFailure()

@@ -31,34 +31,28 @@ func (a *typeSafeAsset) UnmarshalJSON(raw []byte) error {
 	return nil
 }
 
-func (c *Client) freezeTypeSafeImages(ctx context.Context, req typeSafeRequest, model ClassifierModel, allowed, selected bool) ([]Image, *Error) {
+func (c *Client) freezeTypeSafeImages(ctx context.Context, req typeSafeRequest, model ClassifierModel, allowed, selected, contextWrapped bool) ([]Image, *Error) {
 	if len(req.Assets) == 0 {
 		return nil, nil
 	}
-	if !allowed || !selected || c.policy.Classifier.Images == nil || !slices.Contains(model.Input, ModalityImage) || !slices.Contains(model.Capabilities.ImageLocations, ClassifierImageLocationContext) {
+	if !allowed || !selected || c.policy.Classifier.Images == nil || !slices.Contains(model.Input, ModalityImage) {
 		return nil, newError(CodeTenantDenied, PhaseRequest, "Jev images are not authorized")
 	}
-	var state typeSafeContext
-	if decodeClassifierJSON(req.State, &state) != nil || len(state.Images) == 0 {
-		return nil, typeSafeRequestFailure()
-	}
 	limits := c.policy.Classifier.Images.referenceLimits()
-	if len(state.Images) > limits.MaxReferences {
-		return nil, limitFailure(PhaseRequest, "Classifier.Images.References.MaxReferences", int64(limits.MaxReferences))
-	}
 	if len(req.Assets) > model.Capabilities.MaxInputImages {
 		return nil, limitFailure(PhaseRequest, "ClassifierModel.MaxInputImages", int64(model.Capabilities.MaxInputImages))
 	}
 	if len(req.Assets) > c.policy.Classifier.Images.MaxImages {
 		return nil, limitFailure(PhaseRequest, "Classifier.Images.MaxImages", int64(c.policy.Classifier.Images.MaxImages))
 	}
-	if failure := typeSafeImageKeys(ctx, req, state.State); failure != nil {
+	keys, failure := typeSafeImageOccurrences(ctx, req, model.Capabilities.ImageLocations, contextWrapped, limits.MaxReferences)
+	if failure != nil {
 		return nil, failure
 	}
 	var images []Image
 	seen := map[string]bool{}
 	remaining := limits.MaxExpandedImageBytes
-	for _, key := range state.Images {
+	for _, key := range keys {
 		if failure := contextError(ctx, PhaseRequest); failure != nil {
 			return nil, failure
 		}
@@ -100,12 +94,11 @@ func (c *Client) freezeTypeSafeImages(ctx context.Context, req typeSafeRequest, 
 	return images, nil
 }
 
-// This ticket supports only the projected context array. No asset key may
-// occur in business State, question content, object keys or identity fields.
-// The final native data owns this validation; no public-request reconstruction.
-func typeSafeImageKeys(ctx context.Context, req typeSafeRequest, business json.RawMessage) *Error {
+// Validate the private key namespace and every non-State field. State values
+// are scanned separately with actual-use locations; object keys never use images.
+func typeSafeImageKeys(ctx context.Context, req typeSafeRequest) *Error {
 	plain := req
-	plain.State = business
+	plain.State = nil
 	plain.Assets = nil
 	raw, err := json.Marshal(plain)
 	if err != nil {

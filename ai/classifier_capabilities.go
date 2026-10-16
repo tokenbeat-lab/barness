@@ -30,7 +30,11 @@ func classifierModelProblem(m ClassifierModel) string {
 		}
 		switch location {
 		case ClassifierImageLocationContext:
-		case ClassifierImageLocationState, ClassifierImageLocationInstructions, ClassifierImageLocationCriteria:
+		case ClassifierImageLocationState:
+			if !jev {
+				return "classifier image location exceeds the implemented protocol"
+			}
+		case ClassifierImageLocationInstructions, ClassifierImageLocationCriteria:
 			return "classifier image location exceeds the implemented protocol"
 		default:
 			return "unknown classifier image location"

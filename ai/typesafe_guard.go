@@ -23,7 +23,7 @@ func (c *Client) freezeTypeSafeRequest(body []byte, model ClassifierModel) (type
 	if len(req.Assets) > 0 && int64(len(req.State)) > p.MaxStateBytes {
 		return req, limitFailure(PhaseRequest, "Classifier.MaxStateBytes", p.MaxStateBytes)
 	}
-	if len(req.Questions) == 0 || len(req.Questions) > p.MaxQuestions || int64(len(req.State)) > p.MaxStateBytes || !classifierState(typeSafeBusinessState(req)) {
+	if len(req.Questions) == 0 || len(req.Questions) > p.MaxQuestions || int64(len(req.State)) > p.MaxStateBytes || !classifierState(req.State) {
 		return req, typeSafeRequestFailure()
 	}
 	for _, name := range slices.Sorted(maps.Keys(req.Questions)) {

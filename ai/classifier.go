@@ -7,7 +7,8 @@ import (
 )
 
 // ClassifierRequest evaluates one state against all named questions in one
-// logical request. State is a JSON string, object or array.
+// logical request. State is a JSON string, object or array, or an explicitly
+// image-referenced null root on a model supporting State value images.
 type ClassifierRequest struct {
 	State     json.RawMessage               `json:"state"`
 	Questions map[string]ClassifierQuestion `json:"questions"`
@@ -153,8 +154,17 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 	}
 	model := c.catalog.ClassifierModels[i].clone()
 	for _, ref := range plan {
-		if ref.Placement != ImagePlacementContext {
-			return newError(CodeInvalidRequest, PhaseCapability, "classifier protocol does not support local image references")
+		location := ClassifierImageLocationContext
+		if ref.Placement == ImagePlacementValue {
+			parts, _ := imagePointerParts(ref.Pointer) // scope already resolved the target
+			if model.API != APITypeSafeSystemOne || parts[0] != "state" {
+				return newError(CodeInvalidRequest, PhaseCapability, "classifier protocol does not support this image location")
+			}
+			location = ClassifierImageLocationState
+		}
+		// Omitted Decisions locations retain the existing context default.
+		if !(model.API == APIOpenAIDecisions && len(model.Capabilities.ImageLocations) == 0) && !slices.Contains(model.Capabilities.ImageLocations, location) {
+			return newError(CodeInvalidRequest, PhaseCapability, "classifier model does not support this image location")
 		}
 	}
 	if problem := classifierImageCapability(req.Images, model); problem != "" {
@@ -186,7 +196,7 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 		}
 	}
 	if model.API == APITypeSafeSystemOne && typeSafeImagesSelected(opts) {
-		if c.policy.Classifier.Images == nil || !slices.Contains(model.Input, ModalityImage) || !slices.Contains(model.Capabilities.ImageLocations, ClassifierImageLocationContext) {
+		if c.policy.Classifier.Images == nil || !slices.Contains(model.Input, ModalityImage) || len(model.Capabilities.ImageLocations) == 0 {
 			return newError(CodeInvalidRequest, PhaseCapability, "Jev image experiment requires enabled image policy and model capabilities")
 		}
 		if !r.binding.AllowClassifierImages {
