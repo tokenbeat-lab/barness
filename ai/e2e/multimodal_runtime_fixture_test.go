@@ -114,13 +114,22 @@ func multimodalReply(t *testing.T, ev *evidence.Case, r mixedRoute, broken bool)
 			body = []byte(strings.Replace(string(body), `"answers":`, `"answers":null,"invalid":`, 1))
 		}
 		chunks[0] = body
-		ev.Record(fmt.Sprintf("response-%s-%x", r.id, sha256.Sum256(capture.Body)), json.RawMessage(body))
+		ev.Fixture(fmt.Sprintf("request-%x.json", sha256.Sum256(capture.Body)), capture.Body)
+		ev.Fixture(fmt.Sprintf("response-%s-%x.json", r.id, sha256.Sum256(capture.Body)), body)
 	}}
 }
 
 func multimodalEnqueue(ev *evidence.Case, u *unaryWorld, r mixedRoute, k tenantKey, replies ...provider.Reply) {
-	for i, reply := range replies {
-		ev.Record(fmt.Sprintf("script-%s-%s-%d-%d", k.tenant, r.id, reply.Status, i), reply)
+	for i := range replies {
+		reply := &replies[i]
+		ev.Record(fmt.Sprintf("script-%s-%s-%d-%d", k.tenant, r.id, reply.Status, i), *reply)
+		callback := reply.OnRequest
+		reply.OnRequest = func(capture provider.Request) {
+			ev.Fixture(fmt.Sprintf("request-%x.json", sha256.Sum256(capture.Body)), capture.Body)
+			if callback != nil {
+				callback(capture)
+			}
+		}
 	}
 	u.provider.EnqueueAt(r.prefix(k), replies...)
 }
@@ -130,6 +139,7 @@ func recordMultimodalCall(ev *evidence.Case, u *unaryWorld, req ai.ClassifierReq
 	ev.Record(id+"-input", req)
 	ev.Record(id+"-result", res)
 	ev.Record(id+"-host-reads", u.host.ReadsFor(id))
+	ev.Record(id+"-requests", u.provider.Requests())
 	for i, img := range req.Images {
 		raw, e := base64.StdEncoding.Strict().DecodeString(img.Data)
 		if e != nil {
@@ -158,6 +168,7 @@ func recordMultimodalCall(ev *evidence.Case, u *unaryWorld, req ai.ClassifierReq
 		ev.Check("Observer excludes hash", !strings.Contains(obs, img.SHA256), "hash leaked")
 	}
 	for _, capture := range u.provider.Requests() {
+		ev.Fixture(fmt.Sprintf("request-%x.json", sha256.Sum256(capture.Body)), capture.Body)
 		var native struct{ Assets map[string]json.RawMessage }
 		_ = json.Unmarshal(capture.Body, &native)
 		for key := range native.Assets {

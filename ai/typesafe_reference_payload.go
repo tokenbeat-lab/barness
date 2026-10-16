@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"reflect"
-	"strings"
 
 	"github.com/buger/jsonparser"
 )
@@ -82,6 +81,7 @@ func checkTypeSafeReferencePayload(ctx context.Context, body map[string]any, siz
 		}
 		return nil
 	}
+	fields := map[reflect.Type][]imageJSONField{}
 	var walk func(reflect.Value, int) *Error
 	walk = func(value reflect.Value, depth int) *Error {
 		if failure := contextError(ctx, PhaseRequest); failure != nil {
@@ -95,6 +95,9 @@ func checkTypeSafeReferencePayload(ctx context.Context, body map[string]any, siz
 			return failure
 		}
 		if v.CanInterface() {
+			if _, number := v.Interface().(json.Number); number {
+				return nil
+			}
 			if data, ok := v.Interface().(json.RawMessage); ok {
 				if int64(len(data)) > rawLimit {
 					return limitFailure(PhaseRequest, "MaxRequestBytes", rawLimit)
@@ -129,50 +132,16 @@ func checkTypeSafeReferencePayload(ctx context.Context, body map[string]any, siz
 				}
 			}
 		case reflect.Struct:
-			// Resolve each promoted JSON name against the original struct, so
-			// shadowed/omitted fields are never counted as image occurrences.
-			seen, visiting := map[string]bool{}, map[reflect.Type]bool{}
-			var fields func(reflect.Type) *Error
-			fields = func(t reflect.Type) *Error {
-				if visiting[t] {
-					return nil
-				}
-				visiting[t] = true
-				defer delete(visiting, t)
-				for i := 0; i < t.NumField(); i++ {
-					f := t.Field(i)
-					name, _, _ := strings.Cut(f.Tag.Get("json"), ",")
-					if name == "-" {
-						continue
-					}
-					embedded := f.Type
-					if embedded.Kind() == reflect.Pointer {
-						embedded = embedded.Elem()
-					}
-					if f.Anonymous && name == "" && embedded.Kind() == reflect.Struct {
-						if failure := fields(embedded); failure != nil {
-							return failure
-						}
-						continue
-					}
-					if name == "" {
-						name = f.Name
-					}
-					if f.PkgPath != "" || seen[name] {
-						continue
-					}
-					seen[name] = true
-					field, failure := imageStructField(v, name)
-					if failure != nil {
-						return failure
-					}
-					if failure := walk(field, depth+1); failure != nil {
-						return failure
-					}
-				}
-				return nil
+			selected, ok := fields[v.Type()]
+			if !ok {
+				selected = imageJSONFields(v.Type())
+				fields[v.Type()] = selected
 			}
-			return fields(v.Type())
+			for _, field := range selected {
+				if failure := walk(field.value(v), depth+1); failure != nil {
+					return failure
+				}
+			}
 		}
 		return nil
 	}

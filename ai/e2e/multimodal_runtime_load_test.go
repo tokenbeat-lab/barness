@@ -79,6 +79,10 @@ func TestMultimodalRuntimeDesignLoad(t *testing.T) {
 			ev.Check("bounded batch allocation", allocation < 64<<20, "allocated %d", allocation)
 			unblock()
 			wg.Wait()
+			var after runtime.MemStats
+			runtime.ReadMemStats(&after)
+			fullAllocation := after.TotalAlloc - before.TotalAlloc
+			ev.Check("complete batch allocation includes response decoding", fullAllocation < 64<<20, "allocated %d", fullAllocation)
 			use := heap.finish()
 			ev.Check("bounded live growth", use.LiveGrowth() < 64<<20, "grew %d", use.LiveGrowth())
 			rooms := map[string]headroom{}
@@ -144,7 +148,7 @@ func TestMultimodalRuntimeDesignLoad(t *testing.T) {
 			rooms["source"] = room(sourceBytes, 64<<10)
 			rooms["expanded"] = room(expandedBytes, 128<<10)
 			rooms["references"] = room(6, 8)
-			ev.Record("load", map[string]any{"calls": 4, "tenants": 2, "protocols": 2, "sourceImagesPerCall": 2, "jevOccurrences": 6, "decisionsOccurrences": 3, "headroom": rooms, "heap": use, "totalAlloc": allocation, "memoryCeiling": 64 << 20, "heldBodiesAtEOF": 4, "httpBytesAtEOF": eof.read.Load(), "realService": "NOT_RUN"})
+			ev.Record("load", map[string]any{"calls": 4, "tenants": 2, "protocols": 2, "sourceImagesPerCall": 2, "jevOccurrences": 6, "decisionsOccurrences": 3, "headroom": rooms, "heap": use, "totalAllocAtEOF": allocation, "totalAlloc": fullAllocation, "memoryCeiling": 64 << 20, "heldBodiesAtEOF": 4, "httpBytesAtEOF": eof.read.Load(), "realService": "NOT_RUN"})
 			u.released(ev)
 		})
 	}

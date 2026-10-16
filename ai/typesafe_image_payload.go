@@ -3,6 +3,7 @@ package ai
 import (
 	"encoding/json"
 	"reflect"
+	"strconv"
 
 	"github.com/buger/jsonparser"
 )
@@ -36,9 +37,24 @@ func (b *typeSafeImageBudget) assets(value any) *Error {
 			return b.rawAssets(raw)
 		}
 	}
-	if usesCustomJSON(v) || v.Kind() != reflect.Map {
+	if usesCustomJSON(v) {
 		return nil
 	} // Closed final decoder checks unknown shapes/encoders.
+	if v.Kind() == reflect.Struct {
+		for _, field := range imageJSONFields(v.Type()) {
+			before, count := b.remaining, b.count
+			if failure := b.asset(field.value(v)); failure != nil {
+				return failure
+			}
+			if b.count != count {
+				b.sizes[field.name] = before - b.remaining
+			}
+		}
+		return nil
+	}
+	if v.Kind() != reflect.Map {
+		return nil
+	}
 	if v.Len() > b.policy.Classifier.Images.MaxImages {
 		return limitFailure(PhaseRequest, "Classifier.Images.MaxImages", int64(b.policy.Classifier.Images.MaxImages))
 	}
@@ -48,8 +64,20 @@ func (b *typeSafeImageBudget) assets(value any) *Error {
 		if failure := b.asset(it.Value()); failure != nil {
 			return failure
 		}
-		if it.Key().Kind() == reflect.String && b.count != count {
-			b.sizes[it.Key().String()] = before - b.remaining
+		if b.count != count {
+			key := it.Key()
+			switch key.Kind() {
+			case reflect.String:
+				b.sizes[key.String()] = before - b.remaining
+			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+				if !usesCustomJSON(key) {
+					b.sizes[strconv.FormatInt(key.Int(), 10)] = before - b.remaining
+				}
+			case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+				if !usesCustomJSON(key) {
+					b.sizes[strconv.FormatUint(key.Uint(), 10)] = before - b.remaining
+				}
+			}
 		}
 	}
 	return nil

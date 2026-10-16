@@ -2,9 +2,10 @@ package e2e
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/base64"
-	"encoding/json"
 	"errors"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -162,7 +163,7 @@ func TestMultimodalRuntimeOutputLimits(t *testing.T) {
 							n++
 						}
 						reply.Chunks[0] = append(reply.Chunks[0], []byte(strings.Repeat(" ", n-len(reply.Chunks[0])))...)
-						ev.Record("padded-response", json.RawMessage(reply.Chunks[0]))
+						ev.Fixture(fmt.Sprintf("response-%s-%x.json", r.id, sha256.Sum256(capture.Body)), reply.Chunks[0])
 					}
 					if mode == "error-over" {
 						limit = 1024
