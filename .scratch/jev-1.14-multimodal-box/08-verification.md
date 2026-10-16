@@ -45,3 +45,41 @@ configuration, Host reads, resources, source files and recorder redaction audits
 It independently checks decoded image identities and native/public Box equality,
 visibility, confidence presence, final kinds/names, failure atomicity and secrecy.
 Controlled HTTP PASS does not prove real-service protocol or visual accuracy.
+
+## Completed review and validation
+
+[Independent two-axis review](08-code-review.md) of implementation `443fc30`:
+Standards 0 findings; Spec 0 findings. No implementation corrections required.
+Verifier/review commit `d3466a9` does not change Go sources.
+
+Final `go test ./... -count=1`: exit 0; **7,647 PASS / 1,050 explicit opt-in
+NOT_RUN**, including **246/246 ticket cases PASS**. Full manifest:
+`.evidence/barness-ai/20261016T085037.852408000Z/manifest.json` (Git `d3466a9`).
+Final related race: exit 0; **2,436 PASS / 225 explicit opt-in NOT_RUN**, including
+**246/246 ticket cases PASS**. Race manifest:
+`.evidence/barness-ai/20261016T084314.101695000Z/manifest.json` (Git `443fc30`).
+Final `go vet ./...`: exit 0. Both recorder redaction audits have zero findings.
+
+[Integrity inventory](08-evidence.json) independently verifies **57,733 full +
+25,701 race = 83,434 artifact hashes**, and the two first-red assertion artifacts.
+Each final bundle includes 234 recorded public calls plus 12 catalog/closed-JSON
+cases. Box values and explicit confidence exactly match the controlled response;
+final native questions determine kinds, names, visibility and image identity.
+Illegal responses publish no answers/image metadata; valid usage survives.
+Shared observations omit private image keys/hashes, and all recorded resources
+are released. All Go/module sources and ticket validation files are sealed.
+Capability-denial configurations for the legacy text Jev/Decisions fixtures also
+remain reproducible from the sealed existing Host fixture/configuration sources.
+
+Seal completed runs with:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 .scratch/jev-1.14-multimodal-box/verify-08-evidence.py --record \
+  .evidence/barness-ai/20261016T085037.852408000Z/manifest.json \
+  .evidence/barness-ai/20261016T084314.101695000Z/manifest.json
+```
+
+Bundles remain local in ignored `.evidence`; each manifest contains single-case
+replay commands. Offline PASS is solely controlled HTTP behavior. Real-service
+protocol, visual quality and formal support remain NOT_RUN/unclaimed. Built-in
+Jev/Decisions catalogs, release snapshot, support matrix and frozen Pi are unchanged.
