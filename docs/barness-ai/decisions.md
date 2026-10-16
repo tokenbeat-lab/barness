@@ -8,14 +8,14 @@
 
 | 边界 | Jev / System One | Luna / Decisions |
 | --- | --- | --- |
-| Options | nil 或空 TypeSafeOptions | nil 或空 OpenAIDecisionsOptions |
+| Options | 文本为 nil/空 TypeSafeOptions；实验候选图片须 ExperimentalImages | nil 或空 OpenAIDecisionsOptions |
 | State | JSON string/object/array | 字符串转原文，对象/数组转保留数字精度的 compact JSON 文本 |
 | 问题说明 | 保留 JSON 字符串/对象/数组及既有单选 null 规则 | Instructions / Criteria 仅 JSON 字符串 |
 | choice | 保留单候选行为 | 至少两个候选 |
 | score | 2–10，保留 Jev 有界舍入 | 2–10，分布/期望容差 1e-6，不共享舍入例外 |
 | 普通答案 | ChoiceAnswer / ScoreAnswer / BoolAnswer | 同左，score 分布和字符串 legend 保留 |
 | 拒答 | 未知 native refusal 拒绝 | RefusalAnswer，混合与全拒答为 stop/nil error |
-| 图片 | text-only | inline PNG/JPEG/WebP，按 context 引用排序和复用，无 URL、文件 ID 或自动 resize |
+| 图片 | 内置 Jev 仅文本；Host 显式 1.14 候选见下节 | inline PNG/JPEG/WebP，按 context 引用排序和复用，无 URL、文件 ID 或自动 resize |
 
 `ClassifierRequest.Images` 必须同时满足三项：`ClassifierPolicy.Images` 的正数
 MaxImages/MaxTotalImageBytes，ClassifierModel.Input/ImageMIMETypes/MaxInputImages 的能力，
@@ -83,13 +83,13 @@ req.ImageReferences = []ai.ImageReference{
 Questions、Criteria 集合及 type/图片/引用/授权字段不能作为目标。被明确引用的 State 或
 Instructions 根可为 null；未引用时仍按既有格式和非空规则检查。
 
-此票只实现 Decisions context：任何合法 value 用途（包括同时具有 context 引用）都整体
+Decisions 只实现 context：任何合法 value 用途（包括同时具有 context 引用）都整体
 以 `invalid_request/capability` 在凭据读取前拒绝，坏引用为 `invalid_request/scope`。
-Jev 图片及局部位置仍未开放；不会丢弃局部用途或提升为共享图片。
+内置 Jev 仍仅文本；Host 显式 Jev 候选见下节。不会丢弃局部用途或提升为共享图片。
 
-`ClassifierCapabilities.ImageLocations` 当前仅可显式声明 `context`，且只限 Decisions 图片
-型号。省略时旧图片型号仍解释为 context，文本型号没有图片位置；查询不写回默认值，旧目录
-Hash 不变。未知、重复、文本型号位置及未实现位置声明在 Catalog.Hash/NewClient 处拒绝。
+Decisions 的 `ClassifierCapabilities.ImageLocations` 只支持 `context`；省略时旧图片型号仍解释为
+context，文本型号没有图片位置。显式固定的实验 Jev 候选可声明下节列出的位置。查询不写回
+默认值，旧目录 Hash 不变。未知、重复、文本型号位置及不适用位置声明在 Catalog.Hash/NewClient 处拒绝。
 
 `ClassifierImagePolicy.References` 可配置 `MaxReferences` 和 `MaxExpandedImageBytes`，显式值
 必须都为正数；nil 时分别继承 MaxImages 与 MaxTotalImageBytes 的有限上限。来源仍受原数量、
@@ -118,3 +118,30 @@ Hook 可以合法换图、增删或重排；Host 应核对返回的 MIME/hash，
 内容 hash 只返回本次调用的租户，不进入 Observer、Attempt 或共享诊断。此字段不扩展
 Jev 图片、局部位置、Box、目录能力或真实服务支持结论；协议证据见
 [工单 03 验证记录](../../.scratch/jev-1.14-multimodal-box/03-verification.md)。
+
+## Host 实验候选与结果视图（工单 10）
+
+[可执行 Host](../../ai/examples/classifierimages/README.md)展示统一 PNG/JPEG 输入与
+Target/Options 切换、完整引用与独立展开预算、权限撤销及完整脱敏证据。
+内置 `jev-1.13.0` 的文本能力不变。只有 Host 显式固定的 `jev-1.14.0` 候选，声明 image、
+MIME/count、context/state/instructions/criteria 位置和 box kind，才能在原图片三项授权及
+`TypeSafeOptions{ExperimentalImages:true}` 下使用这些能力。Jev 文件每轴至少 256、至多
+1568 像素且每图至少 78400 像素，PNG/JPEG 静态文件检查与位置/字节预算独立；
+不替 Host 自动缩放或改变图义。当前实验不改变正式支持矩阵，ADR-0030 保持 proposed。
+
+Jev `ImageInputs` 每个最终 asset 一项，按 State、排序题名、每题 Instructions/Criteria、
+排序对象键/原数组顺序遍历。Hook 后 MIME/hash 是最终身份，不能反推入口下标。
+Score 的图片图例还原为 null 与 `LegendImageReferences`；Pointer 相对 Legend 根，索引
+最终 ImageInputs。Host 持有文件、按实际身份解释图例，不把 hash 当作权限或 Provider 资源。
+
+`BoxQuestion` / `BoxAnswer` 仅在声明支持的候选可用；归一化四边必须齐全、有限、位于 [0,1]
+且正面积。Confidence 必填，null 与数字零独立保留，不表示存在概率。每个 Box 必须看得到
+context、State 或自身 Instructions 的图片；其他题的局部图不满足。存在性是独立 Bool，
+库不阈值化或条件执行，不虚构 not-found/image_id。Host 显式关联搜索图，并按实际方向、
+宽高、裁剪转换像素。例子在 Hook 换图时同步更新 Host 关联；无可靠关联应拒绝展示定位。
+Decisions 对 Box/任意局部图在凭据前整体拒绝。坏 Box/图例仍原子清空答案和图片元数据，
+保留唯一合法 usage；2xx 不重放。撤销、refusal 与调用级错误仍分别处理，不自动降级。
+
+默认重放是受控 HTTP PASS，真实服务和视觉质量 NOT_RUN；真实模式要求显式 Host 注入配置，
+结果仅为 OBSERVED。工单 11/12/13/14 分别验收后续真实协议、效果、正式目录与发布整合，
+本示例不代替这些结论。

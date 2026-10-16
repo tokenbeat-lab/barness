@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "realService": "NOT_RUN",
+  "visualQuality": "NOT_RUN",
+  "runs": [
+    {
+      "manifest": ".evidence/barness-ai/20261016T113004.534649000Z/manifest.json",
+      "sha256": "738b6157f5c92ee827390eeb4c75dab855584377f245247a47292fd2a7894880",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "hostManifestSHA256": "71428b0cb81d5f575b455e630bd2ef284228d7b2414d5509e755c63e5f6b9c34",
+      "statuses": {
+        "PASS": 52
+      },
+      "ticketCases": 52,
+      "verifiedArtifacts": 538
+    }
+  ],
+  "reds": [
+    {
+      "manifest": ".evidence/barness-ai/20261016T112243.588000000Z/manifest.json",
+      "sha256": "b8b5758d8192d1980509f437981269dae46413d5c55100f910addff51a7c2ad5"
+    },
+    {
+      "manifest": ".evidence/barness-ai/20261016T112642.767633000Z/manifest.json",
+      "sha256": "c4936a69d509ec01611c6292582b145633aaf6c20a5c54378ad909e7adbd0fd8"
+    }
+  ],
+  "sources": {
+    "ai/examples/classifierimages/provider.go": "c8c945315d033fed178314528eb068027c1346295ab0f986374459525ddb70b9",
+    "ai/examples/classifierimages/interpret.go": "5582df451acb14f671abd2fd0bb582d58621302ed49246ae70f5723c1325dd44",
+    "ai/examples/classifierimages/run.go": "eaef937ecd9d0771e7b8febcd4db6b5af07eb8a3e82a41bd09de88cfe9245def",
+    "ai/examples/classifierimages/bundle.go": "8885b177d68935080daa4b2bef8c97a7d429629c4575673f697b92c96661cb2e",
+    "ai/examples/classifierimages/host.go": "70dd8b1ba349e59097de1e131ccf2f70b283be836a1f1e2b7cb8c4ee743abc9f",
+    "ai/examples/classifierimages/README.md": "d752f251eb2036aea44376083ee048e7dc1f1b2c7b0bdc3ba39853074a1e893d",
+    "ai/examples/classifierimages/inputs.go": "1552a42267ab147f34f9b052e597d357b66fa887b8d359c4dd9c632ec5758c73",
+    "ai/examples/classifierimages/capture.go": "c1a3c5512dc9297f678e2d318d251487590aaa4d5e44345fdb8f2944a014cf04",
+    "ai/examples/classifierimages/fixtures.go": "638210f0d9f86039cd66cdaabde671674fc1577c5966c521c5ca5b107e6a66a1",
+    "ai/examples/classifierimages/main.go": "2efee82f8888bbb1ec3a1c64b7f00f528728aeb25db92989f44d2d9a9e80a8d6",
+    "ai/e2e/classifier_images_example_test.go": "f76a71bde2cbac82c46e83da55202374de8dc0055f65eea05ed26816f9577003",
+    "go.mod": "5c8e9d19f2c6fb1145afd40d33f1904f05df796e9e3e57b0666c40ea61334fd2",
+    "go.sum": "f77e9fa444cb0de7133ad075ba5290a35b86df40b4ccfb235452ae1e4a5a8097",
+    "ai/catalog_typesafe.go": "d15492764b0ece4ec821781f980b94de8882f120f545d113bcccc9a27f283533",
+    "ai/release/catalog-snapshot.json": "1236d595f669d31ff46ca1359412b33fb8a2d17a5d68024f49f2425599fa53a8",
+    "ai/live/support-matrix.json": "a607b6d74abff2ba6197eb4cd5f20a59afb5f6364b6eec46232bf509b26e2158",
+    ".scratch/jev-1.14-multimodal-box/verify-10-evidence.py": "6e4afce28e2efe352c2696ff8d4bd6f407b7cbd8d5dd570441124a2d3e425190"
+  }
+}

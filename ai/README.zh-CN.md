@@ -190,6 +190,24 @@ inline PNG/JPEG/WebP 图片须同时开启 classifier 图片子策略、型号�
 迁移、最终 Hook、错误与实际撤销步骤见 [Decisions 公共契约](../docs/barness-ai/decisions.md)
 及[可执行迁移示例](examples/classifiermigration/README.md)。
 
+### 统一图片 Host 示例
+
+运行 `go run ./ai/examples/classifierimages`，无需凭据即可经两个公开 Classify 入口重放受控 HTTP。
+[完整示例](examples/classifierimages/README.md)用同一 PNG/JPEG context 请求只替换 Target/Options，
+并演示显式复用、State/说明/标准图片、视觉图例、Box、拒答、撤销与可核验脱敏证据。
+内置 Jev 仍仅文本；实验图片位置和 Box 需要 Host 显式 `jev-1.14.0` 候选目录及
+`TypeSafeOptions{ExperimentalImages: true}`。Decisions 在凭据前拒绝局部图和 Box。
+受控 PASS 不代表真实协议或视觉质量通过，ADR-0030 保持 proposed，正式支持矩阵不变。
+
+`ImageReferences` 完整声明有序用途，value Pointer 指向现存 null 槽位；来源预算与
+`ClassifierImagePolicy.References` 展开预算独立，Hook 后仍复核权限和限额。
+结果 `ImageInputs` 是最终 MIME/decoded 文件 SHA-256，不能使用入口下标解释。
+`ScoreAnswer.LegendImageReferences` 的 Pointer 相对 Legend 根，索引最终 ImageInputs。
+`BoxAnswer` 保留必填 nullable Confidence 和归一化四边，与独立存在性 Bool 无条件关系。
+Host 明确多图搜索关联，按实际方向、尺寸与裁剪转换像素，自行决定业务阈值。
+失败不发布 Answers/ImageInputs，独立有效 usage 保留。Host 撤销 Binding/图片权限阻止新调用，
+不自动切协议。真实模式必须显式 `-live -route -config -key-env` 注入 Host 配置，结果标为 OBSERVED。
+
 ## 核心概念
 
 ```

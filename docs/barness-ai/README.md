@@ -146,3 +146,13 @@ Classifier.Images 限制四张、总 decoded 1 MiB，单图 1 MiB、完整请求
 [分档采样配置与 Host 示例](thinking-sampling.md)使用唯一来源核验的 pi 1.1.0 oracle。当前六子集 814 条差分、pending 0，完整正式目录核对通过；采样的公共矩阵、授权、快照、重试和并发已验证。目录版本 2026-10-11.1，包含五处上游价格分层，没有编造采样默认。
 
 当前真实路线与独立中文评估未全部通过；一次普通压力失败另记未确认原因的缺陷，完整发布保持未通过；[实际候选证据](../../.scratch/barness-ai-thinking-sampling/evidence.md)保留全部新成功/失败结果。此前 2026-10-08 的整版 PASS 仅属于其原受测源码及旧目录 hash，不证明当前版本。
+
+## 统一图片 Host 示例（工单 10，受控验证）
+
+[可执行示例](../../ai/examples/classifierimages/README.md)由
+`go run ./ai/examples/classifierimages` 重放同一公共 PNG/JPEG 输入的 Jev/Decisions 调用、
+局部图片拒绝、最终图片身份/视觉图例、Box 与独立存在性、Hook 换图和撤销。
+它仅通过 Host 候选目录选择 `jev-1.14.0`，不改变正式目录、支持矩阵、发布判定或 proposed ADR。
+默认无需真实凭据，完整输入/请求/响应/结果/错误/Attempt/Observer/图片 hash/断言与审计
+由 manifest 封存。真实模式显式 opt-in 且要求 Host 配置和唯一命名 key 来源；真实服务协议、
+视觉质量及整版发布仍独立验收。[验证与重放](../../.scratch/jev-1.14-multimodal-box/10-verification.md)。
