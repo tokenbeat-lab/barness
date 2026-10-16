@@ -48,4 +48,27 @@ image MIME/file hashes and native-to-public legend nulls/pointers/indices,
 checks atomic failures, final question names/kinds, shared-observation secrecy,
 resource release and zero-finding recorder redaction audits. To seal completed
 runs: `--record FULL_MANIFEST RACE_MANIFEST`. Bundles stay in ignored `.evidence`.
-Final validation and independent review results will be recorded below.
+## Independent review and final validation
+
+[Two-axis review](07-code-review.md) of implementation `53edb35`: Standards
+0 findings; Spec 0 findings. No code corrections were required.
+
+Full `go test ./... -count=1`: exit 0; **7,401 PASS / 1,050 explicit opt-in
+NOT_RUN**, including **184/184 ticket cases PASS**. The independent verifier
+checked **54,389 artifact hashes**, final image identities and legend reference
+reconstruction. The full recorder redaction audit has **zero findings**.
+Full manifest: `.evidence/barness-ai/20261016T081935.948899000Z/manifest.json`.
+Focused race: exit 0; **934/934 PASS**, including **184/184 ticket cases**.
+Race manifest: `.evidence/barness-ai/20261016T082201.918819000Z/manifest.json`.
+The race recorder audit has **zero findings**. Final `go vet ./...`: exit 0.
+
+[Integrity inventory](07-evidence.json) independently verifies **54,389 full +
+12,492 race = 66,881 artifact hashes**, final decoded file identities, restored
+Legend nulls/pointers/final indices, final question names/kinds, failure
+atomicity, shared observation privacy, assertions, released resources and all
+Go/module source hashes. Both runs identify implementation commit `53edb35`;
+subsequent documentation-only commits do not change the verified sources.
+
+Offline PASS proves the controlled HTTP protocol/runtime behavior. Real-service
+protocol and visual quality remain **NOT_RUN**; formal support is unclaimed.
+Built-in model catalog, frozen Pi and support matrices retain their prior state.
