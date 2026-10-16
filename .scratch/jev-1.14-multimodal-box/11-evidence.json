@@ -1,0 +1,303 @@
+{
+  "schema": 1,
+  "kind": "ticket-11-controlled-and-NOT_RUN-only",
+  "codeCommit": "59e2dbc04b7a5aef523a05709f49a9668b35a8d5",
+  "formalCatalogUpdated": false,
+  "visualQuality": "NOT_RUN",
+  "runs": [
+    {
+      "path": ".evidence/barness-ai/20261016T115408.429237000Z",
+      "manifestSHA256": "73c683268971b0c857a18963d4c709d535de842019b97ac68b2987156073f2e5",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "artifacts": 62264,
+      "preRedactionFixtureInstances": 275,
+      "originalFixtureSources": {
+        "ai/e2e/testdata/responses/failures.json": "9b94f8b16e28f6a81fd56563e3d5a7a60cb4a6ad77924a9caf7611da1e6945f3",
+        "ai/e2e/testdata/anthropic/failures.json": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+        "ai/e2e/testdata/gemini/failures.json": "708aeb445be6aef9fbea7da8a4bd789f5fee18b2137afc95716d3da26614f766",
+        "ai/e2e/testdata/chat/failures.json": "8160d0cbc0187b5eb0df75040c3e5d29e3cc48bb37faa572dc312a4f1755b908"
+      },
+      "cases": {
+        "PASS": 7890,
+        "NOT_RUN": 1050
+      },
+      "ticket11Cases": 0
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T115409.762160000Z",
+      "manifestSHA256": "f6b40774ad5e348fba5c8c71f249b4218bb6eb0578b83c7f6c725bff7fee26b7",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "artifacts": 4395,
+      "preRedactionFixtureInstances": 0,
+      "originalFixtureSources": {},
+      "cases": {
+        "PASS": 178,
+        "NOT_RUN": 62
+      },
+      "ticket11Cases": 67
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T115411.218521000Z",
+      "manifestSHA256": "3fc5d1b38716f12f69a3e95d6ff19cec474fb0c6480cdf49da6d47dbcfb3c188",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "artifacts": 1832,
+      "preRedactionFixtureInstances": 0,
+      "originalFixtureSources": {},
+      "cases": {
+        "PASS": 67
+      },
+      "ticket11Cases": 67
+    }
+  ],
+  "controlled": [
+    {
+      "path": ".evidence/ticket11-sealed/20261016T115409.762160000Z/jev",
+      "outcome": "PASS",
+      "mode": "controlled",
+      "catalogHash": "sha256:2cec32a720f2a8ebea657ae59ba3b47b6c088f3025965862dee454d7f1bfa49d",
+      "reportSHA256": "be7278f7fe527b88aa9d37435926cec032163d95cca57253c2f457f6b05b4ad3",
+      "integritySHA256": "689af856e8c4f86de4522b725d599c0de896c59350e7cffb1a60776e40bd5836",
+      "verification": "jev: controlled candidate PASS; 152 hashes verified",
+      "liveGate": "REJECTED",
+      "budget": {
+        "limits": {
+          "calls": 12,
+          "attempts": 12,
+          "questions": 32,
+          "sources": 24,
+          "references": 32,
+          "sourceBytes": 8388608,
+          "expandedBytes": 16777216,
+          "stateBytes": 4194304
+        },
+        "reserved": {
+          "calls": 12,
+          "attempts": 12,
+          "questions": 20,
+          "sources": 18,
+          "references": 26,
+          "sourceBytes": 73548,
+          "expandedBytes": 106236,
+          "stateBytes": 27478
+        },
+        "actual": {
+          "calls": 12,
+          "attempts": 12,
+          "questions": 20,
+          "sources": 18,
+          "references": 26,
+          "sourceBytes": 44784,
+          "expandedBytes": 64688,
+          "stateBytes": 1670
+        },
+        "callsUsed": 12,
+        "httpAttempts": 12,
+        "maxNativeBodyBytes": 4194304,
+        "processSeconds": 180,
+        "callSeconds": 30,
+        "finalizationReserveSeconds": 10,
+        "retries": 0,
+        "reportedInputTokens": 1200,
+        "reportedOutputTokens": 240
+      }
+    },
+    {
+      "path": ".evidence/ticket11-sealed/20261016T115409.762160000Z/decisions",
+      "outcome": "PASS",
+      "mode": "controlled",
+      "catalogHash": "sha256:b247ae003f71145c7f5be5e00424a2a298acd4255bc9a25a7d222aba7d33ec65",
+      "reportSHA256": "45e675272c5df256f32e215ec663ce1ec0cfebfc64196c12525afba327926cf5",
+      "integritySHA256": "446eb79f1946abf4b06b719ccd448fed279a734206de81d896bf69901c3e1b83",
+      "verification": "decisions: controlled candidate PASS; 78 hashes verified",
+      "liveGate": "REJECTED",
+      "budget": {
+        "limits": {
+          "calls": 12,
+          "attempts": 12,
+          "questions": 32,
+          "sources": 24,
+          "references": 32,
+          "sourceBytes": 8388608,
+          "expandedBytes": 16777216,
+          "stateBytes": 4194304
+        },
+        "reserved": {
+          "calls": 6,
+          "attempts": 6,
+          "questions": 6,
+          "sources": 8,
+          "references": 10,
+          "sourceBytes": 32688,
+          "expandedBytes": 40860,
+          "stateBytes": 10696
+        },
+        "actual": {
+          "calls": 6,
+          "attempts": 6,
+          "questions": 6,
+          "sources": 8,
+          "references": 10,
+          "sourceBytes": 19904,
+          "expandedBytes": 24880,
+          "stateBytes": 456
+        },
+        "callsUsed": 6,
+        "httpAttempts": 6,
+        "maxNativeBodyBytes": 4194304,
+        "processSeconds": 180,
+        "callSeconds": 30,
+        "finalizationReserveSeconds": 10,
+        "retries": 0,
+        "reportedInputTokens": 600,
+        "reportedOutputTokens": 0
+      }
+    },
+    {
+      "path": ".evidence/ticket11-sealed/20261016T115411.218521000Z/jev",
+      "outcome": "PASS",
+      "mode": "controlled",
+      "catalogHash": "sha256:2cec32a720f2a8ebea657ae59ba3b47b6c088f3025965862dee454d7f1bfa49d",
+      "reportSHA256": "d3dd53d2047ce8c739c6807ba491b247e7f567635565f99991a67c04701b0188",
+      "integritySHA256": "e06a77dd9303b03091933ca9e3749816c7010f2670e4fad8ce7531a264eb0293",
+      "verification": "jev: controlled candidate PASS; 152 hashes verified",
+      "liveGate": "REJECTED",
+      "budget": {
+        "limits": {
+          "calls": 12,
+          "attempts": 12,
+          "questions": 32,
+          "sources": 24,
+          "references": 32,
+          "sourceBytes": 8388608,
+          "expandedBytes": 16777216,
+          "stateBytes": 4194304
+        },
+        "reserved": {
+          "calls": 12,
+          "attempts": 12,
+          "questions": 20,
+          "sources": 18,
+          "references": 26,
+          "sourceBytes": 73548,
+          "expandedBytes": 106236,
+          "stateBytes": 27478
+        },
+        "actual": {
+          "calls": 12,
+          "attempts": 12,
+          "questions": 20,
+          "sources": 18,
+          "references": 26,
+          "sourceBytes": 44784,
+          "expandedBytes": 64688,
+          "stateBytes": 1670
+        },
+        "callsUsed": 12,
+        "httpAttempts": 12,
+        "maxNativeBodyBytes": 4194304,
+        "processSeconds": 180,
+        "callSeconds": 30,
+        "finalizationReserveSeconds": 10,
+        "retries": 0,
+        "reportedInputTokens": 1200,
+        "reportedOutputTokens": 240
+      }
+    },
+    {
+      "path": ".evidence/ticket11-sealed/20261016T115411.218521000Z/decisions",
+      "outcome": "PASS",
+      "mode": "controlled",
+      "catalogHash": "sha256:b247ae003f71145c7f5be5e00424a2a298acd4255bc9a25a7d222aba7d33ec65",
+      "reportSHA256": "bf20add8c13eeae19a9c9f0ac248d542610e2f808a90fd57d989faa71406420d",
+      "integritySHA256": "6f3a8c3e71c6c44b3e434f1b4615fb75427056bac34e0acd372750cfcca5b92c",
+      "verification": "decisions: controlled candidate PASS; 78 hashes verified",
+      "liveGate": "REJECTED",
+      "budget": {
+        "limits": {
+          "calls": 12,
+          "attempts": 12,
+          "questions": 32,
+          "sources": 24,
+          "references": 32,
+          "sourceBytes": 8388608,
+          "expandedBytes": 16777216,
+          "stateBytes": 4194304
+        },
+        "reserved": {
+          "calls": 6,
+          "attempts": 6,
+          "questions": 6,
+          "sources": 8,
+          "references": 10,
+          "sourceBytes": 32688,
+          "expandedBytes": 40860,
+          "stateBytes": 10696
+        },
+        "actual": {
+          "calls": 6,
+          "attempts": 6,
+          "questions": 6,
+          "sources": 8,
+          "references": 10,
+          "sourceBytes": 19904,
+          "expandedBytes": 24880,
+          "stateBytes": 456
+        },
+        "callsUsed": 6,
+        "httpAttempts": 6,
+        "maxNativeBodyBytes": 4194304,
+        "processSeconds": 180,
+        "callSeconds": 30,
+        "finalizationReserveSeconds": 10,
+        "retries": 0,
+        "reportedInputTokens": 600,
+        "reportedOutputTokens": 0
+      }
+    }
+  ],
+  "live": [
+    {
+      "path": ".evidence/ticket11-live-not-run/20261016T115446.169508000Z",
+      "route": "jev",
+      "outcome": "NOT_RUN",
+      "reason": "explicit switch, isolated approved credential and authorization record are required",
+      "reportSHA256": "5cfef3cb00267eb504f6079979f72b3b305345a332afd03c1b67928616b43fb7",
+      "integritySHA256": "2900638fdd8daae4ef161640e95e348c14edf3a02da5e9d5ebe237315c89ee8e",
+      "catalogHash": "sha256:2cec32a720f2a8ebea657ae59ba3b47b6c088f3025965862dee454d7f1bfa49d",
+      "calls": 0,
+      "httpAttempts": 0
+    },
+    {
+      "path": ".evidence/ticket11-live-not-run/20261016T115446.169967000Z",
+      "route": "decisions",
+      "outcome": "NOT_RUN",
+      "reason": "explicit switch, isolated approved credential and authorization record are required",
+      "reportSHA256": "72158806c27e3b368127c0686616f6547f928757690fe9b1dbdfa3cab1d29615",
+      "integritySHA256": "4f5ed4877fbe21a276d6046243da0ba89556d17dbf0003018af966be418d0081",
+      "catalogHash": "sha256:b247ae003f71145c7f5be5e00424a2a298acd4255bc9a25a7d222aba7d33ec65",
+      "calls": 0,
+      "httpAttempts": 0
+    }
+  ],
+  "sourceHashes": {
+    ".scratch/jev-1.14-multimodal-box/verify-11-evidence.py": "e7649fc024995deeb56a3ff0a2b35d5ec0ee68f13785aacbf6ca4812dd2971a0",
+    "ai/live/main_test.go": "bafa75f801ffcfb5dd39553600b073bbb2fe9ef7bd9335f5057b4a317b027417",
+    "ai/live/multimodal_assertions_test.go": "7e4cd0bb55f3b894f47bd6dd92741ba16984d0855e65f20f34bf7f9348195f85",
+    "ai/live/multimodal_config_test.go": "81e35085ca20e96ccedebf9509b85503fea1f6fbf90d2b09d326979a736aa952",
+    "ai/live/multimodal_controlled_test.go": "516b1d91b7848d1310423b023c0ceaf704cb8ec3bd82ceb6006979b7c1884284",
+    "ai/live/multimodal_harness_test.go": "6cffc2b5bab1453c6a06c4699965afd0294ed3602b8e624eed0570f1edf1fe8a",
+    "ai/live/multimodal_process_test.go": "4dd2acc9994d980f09475699ecf1fb3f9ba7dd98b6a43cb438e1bb39a30acef1",
+    "ai/live/multimodal_report_test.go": "762763b03fb16b061c158bf8f810e16958ae99a168fe95935aa2ca17f35c61b0",
+    "ai/live/multimodal_scenarios_test.go": "15952c2019637a8d430b9c9e87e42d29688808581fb909445efae530ec341352",
+    "ai/live/multimodal_transport_test.go": "334813c2104c4393ce6e38710f6afbc90afc6bdd08168b15decf50cb3dfbef19",
+    "ai/live/testdata/multimodal/decisions.json": "d5cc54e4189c8075d031180fc6f9456e06306fa0ca7e8ae99d6dab776450712a",
+    "ai/live/testdata/multimodal/jev.json": "9ac5655199e22d45db2fd5b72af79ef597068a89f4298fbc47c539ed4f6426a4",
+    ".scratch/jev-1.14-multimodal-box/seal-11-evidence.py": "3cad97b185979fceaa4e4e3e51302fe513ea8bc84f0877788398f254c3a6b6aa"
+  },
+  "redAssertions": {
+    ".evidence/ticket11-first-red/ticket11-red/20261016T114005.681943000Z/MM11-process-jev-success/assertions.json": "935ddaa6a04008f50b2c22b1f7ee2088f944784942cb04b1c147bedcaa530247",
+    ".evidence/barness-ai/20261016T114522.551049000Z/MM11-tamper-jev-legend-index/assertions.json": "a8ba6cb3e7732f8db9be6c00913ef524f409183804fb01e14510e04a18c264b7",
+    ".evidence/barness-ai/20261016T115233.532225000Z/MM11-process-jev-unfiltered/assertions.json": "2c9fce487825abbd9c888b076de163a8e02559dadd61b2eee0634da275c0d138",
+    ".evidence/barness-ai/20261016T115247.834151000Z/MM11-tamper-jev-source-seal/assertions.json": "5453413add930ce45b280708b7e87541fbaae3de365c521ddcc1cd4d99694c74"
+  }
+}

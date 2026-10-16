@@ -35,4 +35,26 @@ First review: 1 finding, P1.
 Other reviewed requirements matched the ticket, including compliant NOT_RUN
 when this job has no explicitly approved real credentials.
 
-Final follow-up review results will be appended after independent reinspection.
+## Final follow-up
+
+Both independent reviewers reinspected `cf55cbd...59e2dbc` and found no remaining
+issues or new gaps. Standards confirms nested source sealing and publication
+deadline checks are fixed; Spec confirms isolated configuration and pre-`m.Run`
+rejection close the cross-route path. Full validation used `59e2dbc` unchanged.
+
+Standards: 2 initial P2 findings, fixed, 0 remaining. Spec: 1 initial P1 finding,
+fixed, 0 remaining.
+
+## Artifact-only follow-up
+
+The final receipt/sealer/document delta was independently reviewed on both axes.
+Spec reported 0 findings. Standards found one P2: top-level package metadata
+could bypass the sealer's symlink check. An identical-byte NOT_RUN integrity
+symlink reproduced acceptance before the fix, then explicit rejection after all
+metadata reads used `safe_path`. The original file and bytes were restored.
+Independent Standards reinspection: 0 remaining. No Go or primary verifier
+source changed after the full/race runs. The sealer runs identically under normal
+Python and `python3 -O`, and refuses to replace a differing existing receipt.
+
+Final totals: Standards 3 findings across both review stages, all fixed (worst
+initial P2), 0 remaining; Spec 1 initial P1, fixed, 0 remaining.

@@ -1,6 +1,6 @@
 # 11：形成 Jev 与 Decisions 各自的候选协议证据
 
-Status: claimed
+Status: resolved
 
 **What to build:** 维护者可用有限预算的真实探针分别确认两协议的统一输入映射、最终图片身份及 Jev Box，不混用候选和正式证据。
 
@@ -8,16 +8,16 @@ Status: claimed
 
 ## Acceptance criteria
 
-- [ ] 在修改实现前列出本票所有失败方式，先写经 Client.Classify / HookedClient.Classify 的公开 E2E 并确认红灯，再实施；不在实现后补单元测试。
-- [ ] 先实现真实探针的受控进程 E2E，验证缺配置、预算耗尽、错误 service/model、审计/清单损坏均不能生成可接受 PASS，再连接真实服务。
-- [ ] 使用显式版本 Host 候选目录：Jev 固定 1.14，Decisions 使用自身真实型号；同批固定目录 Hash，每进程只持有/请求一个路线的获准凭据。
-- [ ] 每路线每轮上限 12 Logical Calls / 12 HTTP Attempts、零重试、32 题、24 个来源/32 个出现，累计 source decoded 8 MiB/展开 16 MiB/State 4 MiB；每调用 native body ≤4 MiB，30 秒，进程 180 秒含 10 秒收尾。
-- [ ] 明确列出各路线必交场景：共同 context 与顺序复用；Jev State/题内/三种标准、Score 图例、混合 Box/Bool；Final ImageInputs 和真实 ResponseModel/usage 可核对。
-- [ ] 以合法小图片做真实请求；格式/越界/授权破坏主要用受控测试验证，不为了强求错误码扩大输入或重试，也不要求真实模型必然产生 null confidence。
-- [ ] 缺显式获准凭据/必要环境时记录 NOT_RUN，厂商故障预算内记录 FAIL；保留原始包、累计预留与实用量、时间/账户区域别名和未确认项。
-- [ ] 候选包先完整性核验和脱敏审计；不更新内置目录/正式矩阵，受控结果、另一协议 PASS、旧 Jev 结果不能替代本路线真实证据。
-- [ ] 同样输入的每次新运行保留新包；调整候选目录或源码后不覆盖旧 Hash、失败包或时间。
-- [ ] 结束时产出可重复、可核验的图片/fixture hash、输入、最终请求/响应、结果/错误、Attempt/Observer、断言、配置、完整性清单及脱敏审计；仅受控 HTTP 结果不得声明真实服务 PASS。
+- [x] 在修改实现前列出本票所有失败方式，先写经 Client.Classify / HookedClient.Classify 的公开 E2E 并确认红灯，再实施；不在实现后补单元测试。
+- [x] 先实现真实探针的受控进程 E2E，验证缺配置、预算耗尽、错误 service/model、审计/清单损坏均不能生成可接受 PASS，再连接真实服务。
+- [x] 使用显式版本 Host 候选目录：Jev 固定 1.14，Decisions 使用自身真实型号；同批固定目录 Hash，每进程只持有/请求一个路线的获准凭据。
+- [x] 每路线每轮上限 12 Logical Calls / 12 HTTP Attempts、零重试、32 题、24 个来源/32 个出现，累计 source decoded 8 MiB/展开 16 MiB/State 4 MiB；每调用 native body ≤4 MiB，30 秒，进程 180 秒含 10 秒收尾。
+- [x] 明确列出各路线必交场景：共同 context 与顺序复用；Jev State/题内/三种标准、Score 图例、混合 Box/Bool；Final ImageInputs 和真实 ResponseModel/usage 可核对。
+- [x] 以合法小图片做真实请求；格式/越界/授权破坏主要用受控测试验证，不为了强求错误码扩大输入或重试，也不要求真实模型必然产生 null confidence。
+- [x] 缺显式获准凭据/必要环境时记录 NOT_RUN，厂商故障预算内记录 FAIL；保留原始包、累计预留与实用量、时间/账户区域别名和未确认项。
+- [x] 候选包先完整性核验和脱敏审计；不更新内置目录/正式矩阵，受控结果、另一协议 PASS、旧 Jev 结果不能替代本路线真实证据。
+- [x] 同样输入的每次新运行保留新包；调整候选目录或源码后不覆盖旧 Hash、失败包或时间。
+- [x] 结束时产出可重复、可核验的图片/fixture hash、输入、最终请求/响应、结果/错误、Attempt/Observer、断言、配置、完整性清单及脱敏审计；仅受控 HTTP 结果不得声明真实服务 PASS。
 
 ## Traceability
 
@@ -41,3 +41,15 @@ Status: claimed
 先写[失败清单](../11-failure-modes.md)和进程红灯，后实施；图例索引、外来 OAuth token
 与进行中超时也保留先红后绿记录。两路线独立真实包因缺本票获准凭据/授权均 NOT_RUN，
 零 Logical Call / 零 HTTP；不借用其他任务凭据。完整验证与审查完成后再关闭。
+
+2026-10-16：实现 `cf55cbd`，审查修复 `59e2dbc`；工单按缺环境时记录 NOT_RUN 的
+验收分支完成。双轴初审 Standards 2 / Spec 1 均以进程红绿回归修复，独立复核零剩余。
+最终全量 `go test -tags live ./... -count=1` exit 0；记录 8,068 PASS / 1,112
+显式 opt-in NOT_RUN，其中本票 67/67 PASS；本票 race 67/67 PASS；全量 vet 通过。
+三份最终脱敏审计零发现，68,491 个最终产物 Hash 与 fixture 来源已独立核验。
+
+[验证/重放](../11-verification.md)、[双轴审查](../11-code-review.md)和
+[完整性回执](../11-evidence.json)保留原始输入/图片、最终请求响应、结果错误、
+Attempt/Observer、配置、累计预留与实际消耗。两路线各有 full/race 受控包；真实模式
+各有新 NOT_RUN 包，零调用零 HTTP，未借用任何其他任务凭据。受控 PASS、旧 Jev
+或另一协议证据不能替代真实协议 PASS；视觉质量、正式目录和支持矩阵由后续票验收。
