@@ -11,13 +11,16 @@ import (
 )
 
 func TestJevStateFinalHooks(t *testing.T) {
-	for _, name := range []string{"replace", "move", "root", "array", "raw", "mixed", "remove-all", "from-text", "business-envelope", "business-null-state", "unused", "substring", "object-key", "question-key", "instruction", "criteria", "location", "references", "expanded", "state-bytes", "body-bytes"} {
+	for _, name := range []string{"replace", "move", "root", "array", "raw", "mixed", "remove-all", "from-text", "from-text-business", "from-text-both-null", "from-text-context", "business-envelope", "business-null-state", "unused", "substring", "object-key", "question-key", "instruction", "criteria", "location", "references", "expanded", "state-bytes", "body-bytes"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "UC05-hook-"+name)
 			u := newJevStateWorld(t, ev, func(c *ai.Config) {
 				c.Policy.Classifier.Images.References = &ai.ClassifierImageReferencePolicy{MaxReferences: 8, MaxExpandedImageBytes: 1 << 19}
-				if name == "from-text" {
+				if name == "from-text" || name == "from-text-business" {
 					c.Catalog.ClassifierModels[0].Capabilities.ImageLocations = []ai.ClassifierImageLocation{ai.ClassifierImageLocationState}
+				}
+				if name == "from-text-context" {
+					c.Catalog.ClassifierModels[0].Capabilities.ImageLocations = []ai.ClassifierImageLocation{ai.ClassifierImageLocationContext}
 				}
 				if name == "references" {
 					c.Policy.Classifier.Images.References.MaxReferences = 4
@@ -35,13 +38,13 @@ func TestJevStateFinalHooks(t *testing.T) {
 			if name == "mixed" {
 				req.ImageReferences = append(req.ImageReferences, ai.ImageReference{ImageIndex: 0, Placement: ai.ImagePlacementContext})
 			}
-			if name == "from-text" {
+			if strings.HasPrefix(name, "from-text") {
 				req.Images, req.ImageReferences = nil, nil
 			}
 			images := jevContextImages(t)
 			recordClassifierAssets(ev, images)
 			want := []ai.Image{images[1], images[0]}
-			success := name == "replace" || name == "move" || name == "root" || name == "array" || name == "raw" || name == "mixed" || name == "remove-all" || name == "from-text" || name == "business-envelope" || name == "business-null-state"
+			success := name == "replace" || name == "move" || name == "root" || name == "array" || name == "raw" || name == "mixed" || name == "remove-all" || strings.HasPrefix(name, "from-text") || name == "business-envelope" || name == "business-null-state"
 			enqueue(ev, u.world, fixtureReply{Status: 200, Body: `{"answers":{"q":{"type":"noul","noul":0.5}}}`}.script(t, classifierProtocol, ""))
 			var borrowed map[string]any
 			hooks := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
@@ -67,12 +70,14 @@ func TestJevStateFinalHooks(t *testing.T) {
 					state = map[string]any{"ordinary": nil}
 					delete(p.Body, "assets")
 					want = nil
-				case "business-envelope":
+				case "business-envelope", "from-text-business":
 					state = map[string]any{"state": "image-B", "images": []any{"image-A"}}
 					want = images
-				case "business-null-state":
+				case "business-null-state", "from-text-both-null":
 					state = map[string]any{"state": nil, "images": []any{"image-A", "image-B"}}
 					want = images
+				case "from-text-context":
+					state = map[string]any{"state": "ordinary", "images": []any{"image-B", "image-A"}}
 				case "unused":
 					assets["unused-image"] = assets["image-A"]
 				case "substring":

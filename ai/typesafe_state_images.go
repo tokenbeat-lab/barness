@@ -2,6 +2,7 @@ package ai
 
 import (
 	"encoding/json"
+	"slices"
 	"strconv"
 )
 
@@ -81,10 +82,14 @@ func (c *Client) projectTypeSafeState(raw json.RawMessage, state any, plan class
 // Keep envelope provenance outside native user data: a business object named
 // state/images is still business content. Hooks may change every value and asset,
 // but cannot turn those coincidental field names into an implicit context scope.
-func typeSafeContextProjection(req ClassifierRequest, final typeSafeRequest) bool {
-	// A Hook adding the first images has no builder layout. Recognize a native
-	// envelope only by explicit, actual asset uses, never by template-like text.
+func typeSafeContextProjection(req ClassifierRequest, final typeSafeRequest, locations []ClassifierImageLocation) bool {
+	// With no builder layout, State-capable models scan all final State values
+	// as business content. Only context-only models need envelope recognition;
+	// their images must be actual whole-value asset uses, never template text.
 	if len(req.Images) == 0 {
+		if slices.Contains(locations, ClassifierImageLocationState) {
+			return false
+		}
 		var envelope typeSafeContext
 		if decodeClassifierJSON(final.State, &envelope) != nil || len(envelope.Images) == 0 {
 			return false

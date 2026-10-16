@@ -217,8 +217,8 @@ Hook 移动/增删/换图后不复用旧 Pointer 或来源索引。对象键、s
 
 包裹拓扑是 Adapter 的投影元信息，不是从业务字段名推断的协议标记。已有图片的 Hook
 保留该拓扑，可修改其中所有内容和资产；业务对象恰好只有 state/images 字段仍是业务树。
-Hook 从无图请求首次加入图片时，没有既有投影；只有严格的 native context envelope 且
-images 均指向实际 assets 才解释为 context，否则按 State 内容扫描。该选择不扩大目录位置
+Hook 从无图请求首次加入图片时，没有既有投影：型号支持 State 时完整扫描业务树；仅
+context 型号才识别严格的 native context envelope，且 images 必须均指向实际 assets。该选择不扩大目录位置
 能力；调用授权与实验选择仍固定。这个约束避免普通业务对象和原生包裹混淆，不引入公共标记。
 
 Decisions 含任意合法 value 时仍在 capability 整体拒绝。题内 Instructions/Criteria、图片

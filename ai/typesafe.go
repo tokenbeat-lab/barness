@@ -54,7 +54,7 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 	if len(final.Assets) > 0 && int64(len(body)) > typeSafeBodyBytes {
 		return limitFailure(PhaseRequest, "Jev.MaxRequestBytes", typeSafeBodyBytes)
 	}
-	images, failure := c.freezeTypeSafeImages(ctx, final, model, r.binding.AllowClassifierImages, typeSafeImagesSelected(opts), typeSafeContextProjection(req, final))
+	images, failure := c.freezeTypeSafeImages(ctx, final, model, r.binding.AllowClassifierImages, typeSafeImagesSelected(opts), typeSafeContextProjection(req, final, model.Capabilities.ImageLocations))
 	if failure != nil {
 		return failure
 	}
