@@ -1,0 +1,8 @@
+--- FAIL: TestJevStateFinalHooks (0.10s)
+    --- FAIL: TestJevStateFinalHooks/body-bytes (0.01s)
+        jev_state_hooks_test.go:114: [UC05-hook-body-bytes] invalid final usage rejected before Attempt: got <nil>
+        jev_state_hooks_test.go:115: [UC05-hook-body-bytes] no partial image result: partial result
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T052916.269296000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	12.080s
+FAIL

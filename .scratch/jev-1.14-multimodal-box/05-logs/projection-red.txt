@@ -1,0 +1,25 @@
+--- FAIL: TestJevStateProjection (0.02s)
+    --- FAIL: TestJevStateProjection/nested/plain (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/nested/hooked (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/root/plain (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/root/hooked (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/mixed/plain (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/mixed/hooked (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/root-mixed/plain (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/root-mixed/hooked (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/state-only/plain (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevStateProjection/state-only/hooked (0.00s)
+        jev_state_test.go:16: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T052637.931993000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.454s
+FAIL

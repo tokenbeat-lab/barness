@@ -1,0 +1,11 @@
+--- FAIL: TestJevStateBudgets (0.06s)
+    --- FAIL: TestJevStateBudgets/shared/plain (0.00s)
+        jev_state_budgets_test.go:52: [UC05-budget-shared-plain] shared State counted once across questions: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC05-budget-shared-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevStateBudgets/shared/hooked (0.00s)
+        jev_state_budgets_test.go:52: [UC05-budget-shared-hooked] shared State counted once across questions: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC05-budget-shared-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T053017.226238000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	13.041s
+FAIL

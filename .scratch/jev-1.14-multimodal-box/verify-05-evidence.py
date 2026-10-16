@@ -64,25 +64,28 @@ def identities(body):
 
 def verify_result(directory, result_path, requests):
     result = json.loads(result_path.read_text())
-    if result['stopReason'] != 'stop':
+    success = result['stopReason'] == 'stop'
+    if not success:
         assert result['answers'] is None and 'imageInputs' not in result, directory
+    if not requests:
+        assert not success, directory
         return
-    assert requests, directory
     if result_path.name in ('result-a.json', 'result-b.json'):
         alias = 'key:' + result['metadata']['tenantId'] + '@v1'
         requests = [request for request in requests if request['key_alias'] == alias]
     final = requests[-1]['body']
     expected = identities(final)
-    assert result.get('imageInputs', []) == expected, directory
-    if not expected:
+    if success:
+        assert result.get('imageInputs', []) == expected, directory
+    if not expected or not success:
         assert 'imageInputs' not in result, directory
     observed = directory / 'observer-records.json'
     shared = json.dumps(result['metadata'])
     if observed.is_file():
-        shared += observed.read_text()
+        shared += json.dumps(json.loads(observed.read_text()))
     assert all(item['sha256'] not in shared for item in expected), directory
     for key in final.get('assets', {}):
-        assert key not in shared and key not in result_path.read_text(), directory
+        assert key not in shared and key not in json.dumps(result), directory
 
 
 def verify_bundle(path):
@@ -104,6 +107,11 @@ def verify_bundle(path):
             if result_file.is_file():
                 verify_result(directory, result_file, requests)
         assert (directory / 'assertions.json').is_file(), directory
+        assertions = json.loads((directory / 'assertions.json').read_text())
+        assert all(item['pass'] for item in assertions['assertions']), directory
+        if (directory / 'resources.json').is_file():
+            assert all(value == 0 for value in json.loads(
+                (directory / 'resources.json').read_text()).values()), directory
     audit_path = path.parent / 'audit.json'
     assert json.loads(audit_path.read_text())['findings'] == [], audit_path
     return {'manifest': relative(path), 'manifestSHA256': sha(path),
@@ -119,6 +127,7 @@ def main():
                   'verificationFiles': {relative(path): sha(path) for path in sorted(REPORT.parent.glob('05-*.md'))}
                   | {relative(path): sha(path) for path in sorted((REPORT.parent / '05-logs').glob('*.txt'))}
                   | {relative(Path(__file__)): sha(Path(__file__))}
+                  | {'docs/adr/0021-barness-ai-typesafe-unary-classification.md': sha(ROOT / 'docs/adr/0021-barness-ai-typesafe-unary-classification.md')}
                   | {relative(REPORT.parent / 'issues/05-jev-state-value-images.md'): sha(REPORT.parent / 'issues/05-jev-state-value-images.md')},
                   'runs': {name: verify_bundle(Path(path).resolve())
                            for name, path in zip(('full', 'race'), sys.argv[2:])}}

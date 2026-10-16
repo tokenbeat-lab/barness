@@ -1,0 +1,11 @@
+--- FAIL: TestJevStateFinalHooks (0.03s)
+    --- FAIL: TestJevStateFinalHooks/from-text-business (0.01s)
+        jev_state_hooks_test.go:118: [UC05-hook-from-text-business] final native change succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC05-hook-from-text-business] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevStateFinalHooks/from-text-both-null (0.01s)
+        jev_state_hooks_test.go:118: [UC05-hook-from-text-both-null] final native change succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC05-hook-from-text-both-null] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T053425.412889000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.272s
+FAIL

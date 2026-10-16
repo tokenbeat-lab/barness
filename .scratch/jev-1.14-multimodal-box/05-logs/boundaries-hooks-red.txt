@@ -1,0 +1,10 @@
+--- FAIL: TestJevStateFinalHooks (0.11s)
+    --- FAIL: TestJevStateFinalHooks/from-text (0.00s)
+        jev_state_hooks_test.go:106: [UC05-hook-from-text] final native change succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC05-hook-from-text] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevStateFinalHooks/body-bytes (0.00s)
+        jev_state_hooks_test.go:17: NewClient: ai: invalid config Policy.MaxImageBytes: must not exceed MaxRequestBytes
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T052855.401378000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.940s
+FAIL
