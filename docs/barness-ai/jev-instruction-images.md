@@ -43,8 +43,11 @@ ImageInputs lists distinct final assets in first-use order: State (including
 context envelope order), then sorted question names, then Instructions object
 keys in sorted order and arrays in input order. It contains only MIME and decoded
 SHA-256; its indexes need not match Images. Legal renames, retyping and image
-replacement are reflected in answer validation and these identities. All answers
-and ImageInputs publish atomically; failures preserve valid reported usage.
+replacement are reflected in answer validation and these identities.
+An existing context envelope may retain an explicit empty `images:[]` when a
+Hook removes global uses and keeps local images; missing/null envelope fields
+remain invalid.
+Answers and ImageInputs publish atomically; failures preserve valid reported usage.
 Shared Observer metadata excludes image contents, private references and hashes.
 
 Disable the Binding, remove the model allowlist entry or revoke classifier image

@@ -1,0 +1,8 @@
+--- FAIL: TestJevInstructionsRemoveContext (0.01s)
+    --- FAIL: TestJevInstructionsRemoveContext/empty (0.01s)
+        jev_instructions_context_hooks_test.go:37: [UC06-hook-context-removal-empty] removing global occurrences keeps valid local image: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-hook-context-removal-empty] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261016T075530.674727000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.673s
+FAIL

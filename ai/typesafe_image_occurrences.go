@@ -70,7 +70,9 @@ func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, location
 	state := req.State
 	if contextWrapped {
 		var envelope typeSafeContext
-		if decodeClassifierJSON(state, &envelope) != nil || len(envelope.Images) == 0 || !classifierState(envelope.State) || contains("state") || contains("images") {
+		// A Hook may remove every context occurrence while keeping local uses.
+		// Preserve the builder topology: [] is valid, missing/null is not.
+		if decodeClassifierJSON(state, &envelope) != nil || envelope.Images == nil || !classifierState(envelope.State) || contains("state") || contains("images") {
 			return nil, typeSafeRequestFailure()
 		}
 		for _, key := range envelope.Images {

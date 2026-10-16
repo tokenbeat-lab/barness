@@ -239,6 +239,8 @@ Decisions 含任意合法 value 时仍在 capability 整体拒绝。题内 Instr
 最终 native 扫描先 State 后按问题键排序遍历 Instructions，按首次实际使用重建
 ImageInputs；不信任入口 Pointer 或旧问题。Criteria、身份键、对象键和 substring
 中的私有 key 仍拒绝。Hook 合法增删换题/换图由最终快照决定答案与图片身份。
+已包裹的 context 数组可以显式变为 []，保留仍有的题内图片；包裹拓扑继续固定，
+缺失/null 的 images 不视为空数组。这避免“移除最后一个共享引用”阻断合法局部用途。
 
 含 assets 的 Hook 容量失败统一 resource_limit/request；无图已有子容量失败分类
 保持。绑定、实验选择、来源、格式与最终容量的前后校验持续生效。Decisions 对
