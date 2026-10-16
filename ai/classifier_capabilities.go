@@ -45,27 +45,8 @@ func classifierModelProblem(m ClassifierModel) string {
 }
 
 func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescriptionFormat) bool {
-	if len(formats) == 0 {
-		return true
-	}
 	allowed := func(raw json.RawMessage, nullable bool) bool {
-		raw = bytes.TrimSpace(raw)
-		if nullable && bytes.Equal(raw, []byte("null")) {
-			return true
-		}
-		if len(raw) == 0 {
-			return false
-		}
-		var format ClassifierDescriptionFormat
-		switch raw[0] {
-		case '"':
-			format = ClassifierDescriptionString
-		case '{':
-			format = ClassifierDescriptionObject
-		case '[':
-			format = ClassifierDescriptionArray
-		}
-		return slices.Contains(formats, format)
+		return classifierDescriptionAllowed(raw, nullable, formats)
 	}
 	switch q := q.(type) {
 	case ChoiceQuestion:
@@ -97,6 +78,31 @@ func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescrip
 		return false
 	}
 	return true
+}
+
+// JSON format matching is shared by the Host and native boundaries without
+// converting either boundary's question records into the other's model.
+func classifierDescriptionAllowed(raw json.RawMessage, nullable bool, formats []ClassifierDescriptionFormat) bool {
+	if len(formats) == 0 {
+		return true
+	}
+	raw = bytes.TrimSpace(raw)
+	if nullable && bytes.Equal(raw, []byte("null")) {
+		return true
+	}
+	if len(raw) == 0 {
+		return false
+	}
+	var format ClassifierDescriptionFormat
+	switch raw[0] {
+	case '"':
+		format = ClassifierDescriptionString
+	case '{':
+		format = ClassifierDescriptionObject
+	case '[':
+		format = ClassifierDescriptionArray
+	}
+	return slices.Contains(formats, format)
 }
 
 func decisionsTextCapability(req ClassifierRequest) string {

@@ -7,7 +7,7 @@ import (
 
 // Usage is registered before parsing any answer. A syntactically valid
 // envelope with invalid answers retains consumption and response identity.
-func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialRequest, req ClassifierRequest, out *ClassifierResult) *Error {
+func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialRequest, req typeSafeRequest, out *ClassifierResult) *Error {
 	fields, duplicate, err := unaryJSONEnvelope(raw)
 	if err != nil {
 		return classifierProtocolFailure()
@@ -40,12 +40,12 @@ func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialR
 		}
 		var answer ClassifierAnswer
 		var failure *Error
-		switch q := question.(type) {
-		case ChoiceQuestion:
-			answer, failure = decodeChoiceAnswer(raw, q)
-		case ScoreQuestion:
-			answer, failure = decodeScoreAnswer(raw, q)
-		case BoolQuestion:
+		switch question.kind {
+		case "choice":
+			answer, failure = decodeChoiceAnswer(raw, question.choices)
+		case "score":
+			answer, failure = decodeScoreAnswer(raw, question.levels)
+		case "noul":
 			answer, failure = decodeBoolAnswer(raw)
 		default:
 			return classifierProtocolFailure()
@@ -101,7 +101,7 @@ func typeSafeTokenCount(raw json.RawMessage) (int64, bool) {
 	return n, true
 }
 
-func decodeChoiceAnswer(raw json.RawMessage, q ChoiceQuestion) (ChoiceAnswer, *Error) {
+func decodeChoiceAnswer(raw json.RawMessage, criteria map[string]json.RawMessage) (ChoiceAnswer, *Error) {
 	var wire struct {
 		Type          string                     `json:"type"`
 		Choice        *string                    `json:"choice"`
@@ -111,15 +111,15 @@ func decodeChoiceAnswer(raw json.RawMessage, q ChoiceQuestion) (ChoiceAnswer, *E
 	if decodeClassifierJSON(raw, &wire) != nil || wire.Type != "choice" || wire.Choice == nil || wire.Confidence == nil || !unitProbability(*wire.Confidence) {
 		return ChoiceAnswer{}, classifierProtocolFailure()
 	}
-	if _, ok := q.Criteria[*wire.Choice]; !ok {
+	if _, ok := criteria[*wire.Choice]; !ok {
 		return ChoiceAnswer{}, classifierProtocolFailure()
 	}
-	if len(wire.Probabilities) != len(q.Criteria) {
+	if len(wire.Probabilities) != len(criteria) {
 		return ChoiceAnswer{}, classifierProtocolFailure()
 	}
-	answer := ChoiceAnswer{Choice: *wire.Choice, Confidence: *wire.Confidence, Probabilities: make(map[string]float64, len(q.Criteria))}
+	answer := ChoiceAnswer{Choice: *wire.Choice, Confidence: *wire.Confidence, Probabilities: make(map[string]float64, len(criteria))}
 	sum, highest := 0.0, 0.0
-	for key := range q.Criteria {
+	for key := range criteria {
 		raw, ok := wire.Probabilities[key]
 		var probability *float64
 		if !ok || json.Unmarshal(raw, &probability) != nil || probability == nil || !unitProbability(*probability) {

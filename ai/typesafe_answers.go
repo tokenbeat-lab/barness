@@ -20,7 +20,7 @@ func decodeBoolAnswer(raw json.RawMessage) (BoolAnswer, *Error) {
 	return BoolAnswer{Probability: *wire.Noul}, nil
 }
 
-func decodeScoreAnswer(raw json.RawMessage, q ScoreQuestion) (ScoreAnswer, *Error) {
+func decodeScoreAnswer(raw json.RawMessage, criteria []json.RawMessage) (ScoreAnswer, *Error) {
 	var wire struct {
 		Type          string          `json:"type"`
 		Score         *float64        `json:"score"`
@@ -31,18 +31,18 @@ func decodeScoreAnswer(raw json.RawMessage, q ScoreQuestion) (ScoreAnswer, *Erro
 	if decodeClassifierJSON(raw, &wire) != nil || wire.Type != "score" || wire.Score == nil || wire.Confidence == nil || !unitProbability(*wire.Confidence) {
 		return ScoreAnswer{}, classifierProtocolFailure()
 	}
-	if math.IsNaN(*wire.Score) || math.IsInf(*wire.Score, 0) || *wire.Score < 0 || *wire.Score > float64(len(q.Criteria)-1) {
+	if math.IsNaN(*wire.Score) || math.IsInf(*wire.Score, 0) || *wire.Score < 0 || *wire.Score > float64(len(criteria)-1) {
 		return ScoreAnswer{}, classifierProtocolFailure()
 	}
 	a := ScoreAnswer{Score: *wire.Score, Confidence: *wire.Confidence}
 	if len(wire.Probabilities) > 0 {
 		var probabilities map[string]*float64
-		if decodeClassifierJSON(wire.Probabilities, &probabilities) != nil || len(probabilities) != len(q.Criteria) {
+		if decodeClassifierJSON(wire.Probabilities, &probabilities) != nil || len(probabilities) != len(criteria) {
 			return ScoreAnswer{}, classifierProtocolFailure()
 		}
 		a.Probabilities = make(map[int]float64, len(probabilities))
 		sum, expected := 0.0, 0.0
-		for i := range q.Criteria {
+		for i := range criteria {
 			p := probabilities[strconv.Itoa(i)]
 			if p == nil || !unitProbability(*p) {
 				return ScoreAnswer{}, classifierProtocolFailure()
@@ -57,11 +57,11 @@ func decodeScoreAnswer(raw json.RawMessage, q ScoreQuestion) (ScoreAnswer, *Erro
 	}
 	if len(wire.Legend) > 0 {
 		var legend map[string]json.RawMessage
-		if a.Probabilities == nil || decodeClassifierJSON(wire.Legend, &legend) != nil || len(legend) != len(q.Criteria) {
+		if a.Probabilities == nil || decodeClassifierJSON(wire.Legend, &legend) != nil || len(legend) != len(criteria) {
 			return ScoreAnswer{}, classifierProtocolFailure()
 		}
 		a.Legend = make(map[int]json.RawMessage, len(legend))
-		for i, criterion := range q.Criteria {
+		for i, criterion := range criteria {
 			value, ok := legend[strconv.Itoa(i)]
 			if !ok || !classifierJSONEqual(value, criterion) {
 				return ScoreAnswer{}, classifierProtocolFailure()

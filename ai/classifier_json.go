@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-// decodeClassifierJSON rejects unknown fields and trailing JSON. Every wire
-// question is independently converted to its public domain value.
+// decodeClassifierJSON rejects unknown fields, case aliases, duplicate keys
+// and trailing JSON at both public and native classifier boundaries.
 func decodeClassifierJSON(raw []byte, out any) error {
 	if err := uniqueClassifierJSON(raw); err != nil {
 		return err
@@ -71,7 +71,7 @@ func (r *ClassifierRequest) UnmarshalJSON(raw []byte) error {
 	if err := decodeClassifierJSON(raw, &wire); err != nil {
 		return err
 	}
-	questions, err := decodeClassifierQuestions(wire.Questions, false)
+	questions, err := decodeClassifierQuestions(wire.Questions)
 	if err != nil {
 		return err
 	}
@@ -93,7 +93,7 @@ func (r *ClassifierRequest) UnmarshalJSON(raw []byte) error {
 	return nil
 }
 
-func decodeClassifierQuestions(raw map[string]json.RawMessage, native bool) (map[string]ClassifierQuestion, error) {
+func decodeClassifierQuestions(raw map[string]json.RawMessage) (map[string]ClassifierQuestion, error) {
 	out := make(map[string]ClassifierQuestion, len(raw))
 	for key, raw := range raw {
 		var tag struct {
@@ -124,10 +124,7 @@ func decodeClassifierQuestions(raw map[string]json.RawMessage, native bool) (map
 				return nil, err
 			}
 			question = ScoreQuestion{Instructions: wire.Instructions, Criteria: wire.Criteria}
-		case "bool", "noul":
-			if (tag.Type == "noul") != native {
-				return nil, fmt.Errorf("invalid bool question encoding")
-			}
+		case "bool":
 			var wire struct {
 				Type         string          `json:"type"`
 				Instructions json.RawMessage `json:"instructions"`

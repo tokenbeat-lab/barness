@@ -146,3 +146,25 @@ MaxOutputBytes 限制完整响应。TypeSafe 请求/响应继续使用独立严�
 本切片使用合成 Host 目录和本地受控 HTTP；图片、usage presence 专项与真实服务验证仍由后续票拥有。
 新调用回滚仍通过禁用 classifier Binding 或移除型号白名单，已发送调用按固定快照完成并保留费用。
 本票固定请求、响应与红绿历史见[混合答案证据](../../.scratch/barness-ai-openai-decisions/mixed-answer-evidence/README.md)。
+
+## TypeSafe 独立 native 快照（2026-10-16，统一图片工单 01）
+
+将原先“Hook 后回解为 ClassifierRequest，再复用公共校验”的内部路径直接删除。
+TypeSafe 现在独立拥有原生请求、noul/choice/score 题目与 criteria；最终严格解码同时建立
+独立快照，答案只使用该最终 native 题集。公共 JSON decoder 只接受公共 bool，
+不再携带原生模式。该分层与既有 Decisions 的 native 所有权一致，为后续不同图片投影保留边界。
+
+选择让 native schema、数量与格式能力独立校验，代价是协议自身显式维护这些规则；
+以纯 JSON 描述校验和格式匹配复用稳定语义，避免把协议模型重新包装成 Host 类型。
+序列化前的借用值容量/authority 检查继续限制 Hook 数据，最终仅一次 native freeze；
+不增加 adapter 接口、动态注册、shim 或第二个语义 guard。
+
+这是等价重构：保留 TypeSafe 对 callback 子容量的原有 callback_failed/request 分类，
+总请求仍为 resource_limit/request；题目预算仍包含 canonical JSON 的 HTML 转义成本。
+保持原错误优先级、精确数字和图例、有界评分舍入、usage/ResponseModel、2xx 不重放及资源释放。
+先冻结公开成功与失败基线再实现；[失败清单与证据](../../.scratch/jev-1.14-multimodal-box/native-snapshot-failures.md)
+记录两个既有 Classify 入口、请求捕获、Attempt/Observer 与完整性核验。
+
+本票不增加图片/Box，不改变 Jev 1.13 wire、目录 Hash、冻结 Pi 或支持矩阵；ADR-0030
+仍是 proposed，后续能力逐票验收。关闭 Binding/型号授权仍阻止新调用；代码回滚直接恢复
+本票前实现，没有数据迁移或双路径切换，已经发送的 usage 继续保留。
