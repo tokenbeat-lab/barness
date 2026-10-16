@@ -47,3 +47,12 @@ Client without modifying runtime/catalog contracts. Controlled Provider and
 redaction audit are reused from ai/internal/testkit. Per-call immutable captures
 and a synchronized resolver/observer preserve tenant boundaries and revocation.
 Real mode is a single explicit Host-configured call using the same input builder.
+
+## Review-stage boundary check (before correction)
+
+Standards review found that a read-only current flow still aliased the Score
+legend into the Host view. Both map writes and mutation of RawMessage backing
+bytes could later change the canonical result retained for evidence. The
+correction must independently copy both levels, preserve nil/empty semantics,
+and keep all existing public E2E output unchanged. This is a boundary refactor;
+existing public E2E remains the verification seam, with no post-hoc unit tests.

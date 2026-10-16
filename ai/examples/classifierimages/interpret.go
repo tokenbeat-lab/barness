@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"slices"
 	"strconv"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -49,7 +50,13 @@ func interpret(res ai.ClassifierResult, files []fixture, search ai.ClassifierIma
 			v.Kind = "score"
 			v.Score = &a.Score
 			v.Confidence = ai.Value(a.Confidence)
-			v.Legend = a.Legend
+			// The view owns mutable JSON independently of the canonical result.
+			if a.Legend != nil {
+				v.Legend = make(map[int]json.RawMessage, len(a.Legend))
+				for level, raw := range a.Legend {
+					v.Legend[level] = slices.Clone(raw)
+				}
+			}
 			for _, ref := range a.LegendImageReferences {
 				if ref.ImageIndex < 0 || ref.ImageIndex >= len(res.ImageInputs) {
 					return nil, errors.New("legend index outside final ImageInputs")
