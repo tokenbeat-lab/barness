@@ -33,6 +33,24 @@ func (p *ResourcePolicy) checkClassifierReferenceSizes(req ClassifierRequest) *E
 	}
 	remaining := limits.MaxExpandedImageBytes
 	encoded := p.MaxRequestBytes
+	// State is shared once. Reserve the known text/question bytes alongside
+	// all expanded occurrences, rather than allowing each subtotal a full body.
+	stateSize := classifierJSONTextLowerBound(req.State)
+	if stateSize > encoded {
+		return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)
+	}
+	encoded -= stateSize
+	for key, question := range req.Questions {
+		if int64(len(key)) > encoded {
+			return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)
+		}
+		encoded -= int64(len(key))
+		size, ok := classifierQuestionTextLowerBound(question, encoded)
+		if !ok {
+			return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)
+		}
+		encoded -= size
+	}
 	for i := 0; i < count; i++ {
 		index := i
 		if len(req.ImageReferences) > 0 {

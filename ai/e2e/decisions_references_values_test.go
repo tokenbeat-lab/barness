@@ -47,7 +47,7 @@ func TestDecisionsReferencesValues(t *testing.T) {
 	} {
 		t.Run(sc.name, func(t *testing.T) {
 			ev := run.Case(t, "UC02-value-"+sc.name)
-			u := newClassifierImagesWorld(t, nil)
+			u := newReferenceWorld(t, ev, nil)
 			req := decisionsInput()
 			req.State = json.RawMessage(sc.state)
 			req.Images = classifierAssets(t)[:1]
@@ -89,7 +89,7 @@ func TestDecisionsReferencesInvalidPlan(t *testing.T) {
 	} {
 		t.Run(sc.name, func(t *testing.T) {
 			ev := run.Case(t, "UC02-invalid-plan-"+sc.name)
-			u := newClassifierImagesWorld(t, nil)
+			u := newReferenceWorld(t, ev, nil)
 			req := decisionsInput()
 			req.State = json.RawMessage(`{"photo":null}`)
 			req.Images = classifierAssets(t)[:sc.images]

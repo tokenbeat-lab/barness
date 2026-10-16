@@ -56,7 +56,7 @@ func TestDecisionsReferencesSnapshots(t *testing.T) {
 	ev := run.Case(t, "UC02-snapshots")
 	var source *ai.Catalog
 	var policy *ai.ResourcePolicy
-	u := newClassifierImagesWorld(t, func(c *ai.Config) {
+	u := newReferenceWorld(t, ev, func(c *ai.Config) {
 		source, policy = c.Catalog, c.Policy
 		c.Catalog.ClassifierModels[len(c.Catalog.ClassifierModels)-1].Capabilities.ImageLocations = []ai.ClassifierImageLocation{ai.ClassifierImageLocationContext}
 		setReferencePolicy(t, c, 3, 1<<19)

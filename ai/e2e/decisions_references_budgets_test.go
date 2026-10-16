@@ -28,7 +28,7 @@ func TestDecisionsReferencesBudgets(t *testing.T) {
 			count := 3
 			success := false
 			phase := ai.PhaseScope
-			u := newClassifierImagesWorld(t, func(c *ai.Config) {
+			u := newReferenceWorld(t, ev, func(c *ai.Config) {
 				switch name {
 				case "inherit-count":
 					c.Policy.Classifier.Images.MaxImages = 2
@@ -98,7 +98,7 @@ func TestDecisionsReferencesBeforeCopy(t *testing.T) {
 	for _, name := range []string{"count", "pointer"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "UC02-before-copy-"+name)
-			u := newClassifierImagesWorld(t, nil)
+			u := newReferenceWorld(t, ev, nil)
 			req := decisionsInput()
 			req.Images = classifierAssets(t)[:1]
 			if name == "count" {
@@ -106,6 +106,12 @@ func TestDecisionsReferencesBeforeCopy(t *testing.T) {
 			} else {
 				req.ImageReferences = []ai.ImageReference{{ImageIndex: 0, Placement: ai.ImagePlacementValue, Pointer: "/state/" + strings.Repeat("x", 8<<20)}}
 			}
+			ev.Record("input-recipe", map[string]any{"case": name, "source": req.Images, "state": req.State, "referenceCount": len(req.ImageReferences), "pointerBytes": func() int {
+				if len(req.ImageReferences) == 1 {
+					return len(req.ImageReferences[0].Pointer)
+				}
+				return 0
+			}()})
 			var before, after runtime.MemStats
 			runtime.ReadMemStats(&before)
 			res, err := u.client.Classify(ctxFor(t), textScope("req-before-copy-"+name), ai.Target{BindingID: "classifier", ModelID: "host-decisions"}, req, nil)
@@ -122,7 +128,7 @@ func TestDecisionsReferencesBeforeCopy(t *testing.T) {
 
 func TestDecisionsReferencesDocumentBeforeResolution(t *testing.T) {
 	ev := run.Case(t, "UC02-document-before-resolution")
-	u := newClassifierImagesWorld(t, nil)
+	u := newReferenceWorld(t, ev, nil)
 	req := decisionsInput()
 	req.Images = classifierAssets(t)[:1]
 	req.State = json.RawMessage(`{"photo":null,"tail":"` + strings.Repeat("x", 900<<10) + `"}`)
@@ -136,4 +142,57 @@ func TestDecisionsReferencesDocumentBeforeResolution(t *testing.T) {
 	ev.Check("per-document bound checked before pointer traversal copies subtrees", after.TotalAlloc-before.TotalAlloc < 128<<10, "allocated %d", after.TotalAlloc-before.TotalAlloc)
 	u.records(ev, res, err)
 	u.released(ev)
+}
+
+func TestDecisionsReferencesCombinedBeforeCopy(t *testing.T) {
+	ev := run.Case(t, "UC02-combined-before-copy")
+	u := newReferenceWorld(t, ev, func(c *ai.Config) { c.Policy.Classifier.MaxStateBytes = 1 << 20 })
+	raw := make([]byte, 230<<10)
+	copy(raw, []byte("\x89PNG\r\n\x1a\n"))
+	req := decisionsInput()
+	req.Images = []ai.Image{{Data: base64.StdEncoding.EncodeToString(raw), MimeType: "image/png"}}
+	req.State = json.RawMessage(`"` + strings.Repeat("x", 450<<10) + `"`)
+	req.ImageReferences = []ai.ImageReference{{ImageIndex: 0, Placement: ai.ImagePlacementContext}, {ImageIndex: 0, Placement: ai.ImagePlacementContext}}
+	ev.Record("input-recipe", map[string]any{"pngHeaderAndZeroBytes": len(raw), "stateXBytes": 450 << 10, "contextImageIndexes": []int{0, 0}})
+	var before, after runtime.MemStats
+	runtime.ReadMemStats(&before)
+	res, err := u.client.Classify(ctxFor(t), textScope("req-combined-before-copy"), ai.Target{BindingID: "classifier", ModelID: "host-decisions"}, req, nil)
+	runtime.ReadMemStats(&after)
+	checkUnaryFailure(ev, res, err, ai.CodeResourceLimit, ai.PhaseScope, ai.StopReasonError)
+	ev.Record("allocated-bytes", after.TotalAlloc-before.TotalAlloc)
+	ev.Check("combined known text and expanded image bytes rejected before copy", after.TotalAlloc-before.TotalAlloc < 128<<10, "allocated %d", after.TotalAlloc-before.TotalAlloc)
+	ev.Check("no credentials or Attempt", u.host.ReadsFor(res.Metadata.RequestID).Credentials == 0 && len(res.Metadata.Attempts) == 0, "got %+v", res.Metadata)
+	u.records(ev, res, err)
+	u.released(ev)
+}
+
+func TestDecisionsReferencesProjectedStateBudget(t *testing.T) {
+	for _, name := range []string{"whitespace", "escaped"} {
+		t.Run(name, func(t *testing.T) {
+			ev := run.Case(t, "UC02-projected-state-"+name)
+			u := newReferenceWorld(t, ev, func(c *ai.Config) {
+				c.Policy.MaxRequestBytes = 1000
+				c.Policy.MaxImageBytes = 1000
+				c.Policy.Classifier.Images.MaxTotalImageBytes = 1000
+			})
+			req := decisionsInput()
+			req.State = json.RawMessage(strings.Repeat(" ", 350) + `"x"` + strings.Repeat(" ", 350))
+			if name == "escaped" {
+				req.State = json.RawMessage(`"` + strings.Repeat(`\u0078`, 110) + `"`)
+			}
+			req.Images = classifierAssets(t)[:1]
+			req.ImageReferences = []ai.ImageReference{{ImageIndex: 0, Placement: ai.ImagePlacementContext}, {ImageIndex: 0, Placement: ai.ImagePlacementContext}, {ImageIndex: 0, Placement: ai.ImagePlacementContext}}
+			ev.Fixture("public-request.json", mustMarshal(t, req))
+			enqueueClassifierImages(t, ev, u)
+			res, err := u.client.Classify(ctxFor(t), textScope("req-projected-state-"+name), ai.Target{BindingID: "classifier", ModelID: "host-decisions"}, req, nil)
+			ev.Check("raw public input and native expansion fit their independent boundaries", err == nil, "got %v", err)
+			if requests := u.provider.Requests(); len(requests) == 1 {
+				ev.Check("final encoded body fits", len(requests[0].Body) <= 1000, "got %d", len(requests[0].Body))
+			}
+			ev.Record("result", res)
+			ev.Record("error", errString(err))
+			u.records(ev, res, err)
+			u.released(ev)
+		})
+	}
 }

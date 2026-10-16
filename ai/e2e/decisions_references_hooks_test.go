@@ -18,7 +18,7 @@ func TestDecisionsReferencesHooks(t *testing.T) {
 			ev := run.Case(t, "UC02-hook-"+name)
 			success := name == "reorder" || name == "add" || name == "replace"
 			code := ai.CodeResourceLimit
-			u := newClassifierImagesWorld(t, func(c *ai.Config) {
+			u := newReferenceWorld(t, ev, func(c *ai.Config) {
 				setReferencePolicy(t, c, 4, 1<<19)
 				switch name {
 				case "count", "custom-count":
@@ -99,7 +99,7 @@ func TestDecisionsReferencesFrozenCall(t *testing.T) {
 	req = decisionsReferenceRequest(t, req, `[{"imageIndex":1,"placement":"context"},{"imageIndex":0,"placement":"context"},{"imageIndex":1,"placement":"context"}]`)
 	original := []ai.Image{req.Images[1], req.Images[0], req.Images[1]}
 	var mutate func()
-	u := newClassifierImagesWorld(t, func(c *ai.Config) {
+	u := newReferenceWorld(t, ev, func(c *ai.Config) {
 		previous := c.Bindings
 		c.Bindings = bindingResolverFunc(func(ctx context.Context, s ai.CallScope, id string) (ai.Binding, error) {
 			if mutate != nil {

@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
 // This helper goes through the public codec, so fixture spelling is also
@@ -32,7 +33,7 @@ func TestDecisionsReferencesOrder(t *testing.T) {
 	} {
 		t.Run(sc.name, func(t *testing.T) {
 			ev := run.Case(t, "UC02-order-"+sc.name)
-			u := newClassifierImagesWorld(t, nil)
+			u := newReferenceWorld(t, ev, nil)
 			req := decisionsInput()
 			req.Images = classifierAssets(t)[:2]
 			if sc.name == "same-bytes" {
@@ -62,6 +63,51 @@ func TestDecisionsReferencesOrder(t *testing.T) {
 			ev.Record("result", res)
 			ev.Record("error", errString(err))
 			recordRuntimeConfig(ev, u)
+			u.records(ev, res, err)
+			u.released(ev)
+		})
+	}
+}
+
+// Capture the exact finite host configuration beside every reference E2E.
+func newReferenceWorld(t *testing.T, ev *evidence.Case, configure func(*ai.Config)) *unaryWorld {
+	t.Helper()
+	u := newClassifierImagesWorld(t, func(c *ai.Config) {
+		if configure != nil {
+			configure(c)
+		}
+		ev.Record("policy", c.Policy)
+	})
+	recordRuntimeConfig(ev, u)
+	return u
+}
+
+func TestDecisionsReferencesState(t *testing.T) {
+	for _, sc := range []struct{ name, raw, text string }{
+		{"object", ` {"ordinary": null, "n": 9007199254740993, "literal": "imageIndex:0"} `, `{"ordinary":null,"n":9007199254740993,"literal":"imageIndex:0"}`},
+		{"array", ` [null, 1.234567890123456789e+42, {"photo": null}] `, `[null,1.234567890123456789e+42,{"photo":null}]`},
+	} {
+		t.Run(sc.name, func(t *testing.T) {
+			ev := run.Case(t, "UC02-state-"+sc.name)
+			u := newReferenceWorld(t, ev, nil)
+			req := decisionsInput()
+			req.State = json.RawMessage(sc.raw)
+			req.Images = classifierAssets(t)[:1]
+			req.ImageReferences = []ai.ImageReference{{ImageIndex: 0, Placement: ai.ImagePlacementContext}}
+			ev.Fixture("public-request.json", mustMarshal(t, req))
+			enqueueClassifierImages(t, ev, u)
+			res, err := u.client.Classify(ctxFor(t), textScope("req-reference-state-"+sc.name), ai.Target{BindingID: "classifier", ModelID: "host-decisions"}, req, nil)
+			ev.Check("explicit context accepts ordinary nulls and exact JSON numbers", err == nil, "got %v", err)
+			captures := u.provider.Requests()
+			if len(captures) == 1 {
+				var body map[string]any
+				mustUnmarshal(t, captures[0].Body, &body)
+				expected := classifierImageMessages(req.Images)
+				expected[0].(map[string]any)["content"].([]any)[0].(map[string]any)["text"] = sc.text
+				ev.Check("State compact text preserves ordinary nulls, numeric lexemes and literal text", jsonEqual(mustMarshal(t, body["input"]), mustMarshal(t, expected)), "State changed")
+			}
+			ev.Record("result", res)
+			ev.Record("error", errString(err))
 			u.records(ev, res, err)
 			u.released(ev)
 		})
