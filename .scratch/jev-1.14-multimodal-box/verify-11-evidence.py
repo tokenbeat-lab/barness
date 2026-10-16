@@ -286,7 +286,11 @@ def verify(root, live):
             b["reportedInputTokens"] == tokens_in and b["reportedOutputTokens"] == tokens_out, "usage counters differ")
     for key, limit in LIMITS.items():
         require(0 <= totals[key] <= reserved[key] <= limit, "cumulative budget exceeded")
-    require(report["sourceHashes"] and report["unknown"], "source seal/unknowns absent")
+    sources = report["sourceHashes"]
+    for source in ("../internal/testkit/evidence/evidence.go", "../internal/testkit/audit/audit.go",
+                   "../internal/testkit/provider/bodies.go", "../live/multimodal_harness_test.go"):
+        require(source in sources and len(sources[source]) == 64, "source seal incomplete")
+    require(report["unknown"], "unknowns absent")
     print(f"{route}: {report['mode']} candidate PASS; {len(files)} hashes verified")
 
 

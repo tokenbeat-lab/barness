@@ -58,16 +58,32 @@ func TestMultimodalCandidate(t *testing.T) {
 	// Seal actual working source bytes as well as the commit. A dirty source run
 	// cannot silently borrow the identity of an earlier candidate package.
 	r.SourceHashes = map[string]string{}
-	for _, pattern := range []string{"../*.go", "../internal/*/*.go", "*.go", "../../go.mod", "../../go.sum", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py"} {
-		paths, _ := filepath.Glob(pattern)
-		for _, path := range paths {
-			raw, err := os.ReadFile(path)
-			if err != nil {
-				fail("source seal failed")
-				return
-			}
-			r.SourceHashes[filepath.ToSlash(path)] = sha256Text(raw)
+	paths := []string{"../../go.mod", "../../go.sum", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py"}
+	err = filepath.WalkDir("..", func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
 		}
+		if !d.IsDir() && strings.HasSuffix(path, ".go") {
+			paths = append(paths, path)
+		}
+		return nil
+	})
+	if err != nil {
+		fail("source enumeration failed")
+		return
+	}
+	for _, path := range paths {
+		info, err := os.Lstat(path)
+		if err != nil || !info.Mode().IsRegular() {
+			fail("nonregular source in seal")
+			return
+		}
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			fail("source seal failed")
+			return
+		}
+		r.SourceHashes[filepath.ToSlash(path)] = sha256Text(raw)
 	}
 	scenarios := multimodalScenarios(t, route.name)
 	for _, sc := range scenarios {

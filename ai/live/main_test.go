@@ -5,6 +5,7 @@ package live
 import (
 	"context"
 	"errors"
+	"flag"
 	"fmt"
 	"net/http"
 	"os"
@@ -43,7 +44,13 @@ var (
 
 func TestMain(m *testing.M) {
 	var err error
-	cfg = loadConfig()
+	// Select the isolated mode before legacy configuration can enable a route.
+	// An MM process never resolves or executes a legacy live combination.
+	if os.Getenv("BARNESS_MM_ROUTE") != "" {
+		cfg = processConfig{notRun: "isolated multimodal candidate process"}
+	} else {
+		cfg = loadConfig()
+	}
 	packageArgs := "-tags live ./ai/live"
 	if isDecisionsProcess() {
 		packageArgs = "-tags live -timeout 180s ./ai/live"
@@ -83,7 +90,15 @@ func TestMain(m *testing.M) {
 		run.SetVersion("live_combo", cfg.combo.name)
 		run.SetVersion("live_sdk", cfg.combo.sdk())
 	}
-	code := m.Run()
+	flag.Parse()
+	code := 0
+	if multimodalReport != nil && flag.Lookup("test.run").Value.String() != "^TestMultimodalCandidate$" {
+		multimodalReport.Outcome = "FAIL"
+		multimodalReport.Failure = "isolated candidate entry selection is required before any tests execute"
+		code = 1
+	} else {
+		code = m.Run()
+	}
 	if cfg.combo != nil && !isDecisionsProcess() && multimodalReport == nil {
 		if err := run.Record(supportmatrix.ReportName, report(catalogHash)); err != nil {
 			fmt.Fprintln(os.Stderr, err)

@@ -19,7 +19,7 @@ import (
 // Children receive a synthetic credential only, never the parent's environment.
 func TestMultimodalCandidateProcess(t *testing.T) {
 	for _, route := range []string{"jev", "decisions"} {
-		for _, fault := range []string{"success", "missing-key", "switch-off", "missing-proof", "foreign-key", "foreign-token", "wrong-service", "wrong-model", "wrong-catalog", "calls-budget", "attempts-budget", "questions-budget", "sources-budget", "references-budget", "source-bytes-budget", "expanded-bytes-budget", "state-budget", "body-budget", "deadline", "process-deadline", "429", "malformed", "audit", "manifest", "inventory"} {
+		for _, fault := range []string{"success", "unfiltered", "missing-key", "switch-off", "missing-proof", "foreign-key", "foreign-token", "wrong-service", "wrong-model", "wrong-catalog", "calls-budget", "attempts-budget", "questions-budget", "sources-budget", "references-budget", "source-bytes-budget", "expanded-bytes-budget", "state-budget", "body-budget", "deadline", "process-deadline", "publication-deadline", "429", "malformed", "audit", "manifest", "inventory"} {
 			t.Run(route+"/"+fault, func(t *testing.T) {
 				cs := run.Case(t, "MM11-process-"+route+"-"+fault)
 				base := t.TempDir()
@@ -56,6 +56,9 @@ func TestMultimodalCandidateProcess(t *testing.T) {
 				if fault == "process-deadline" {
 					cmd.Args[len(cmd.Args)-1] = "-test.timeout=12s"
 				}
+				if fault == "unfiltered" {
+					cmd.Args[1] = "-test.run=^Test(MultimodalCandidate|Live)$"
+				}
 				cmd.Env = env
 				output, childErr := cmd.CombinedOutput()
 				paths, _ := filepath.Glob(filepath.Join(base, "*", "multimodal-report.json"))
@@ -88,7 +91,7 @@ func TestMultimodalCandidateProcess(t *testing.T) {
 				if fault == "process-deadline" {
 					cs.Check("in-flight deadline retains spend and finalization", report.Budget.CallsUsed == 1 && report.Budget.HTTPAttempts == 1 && ctx.Err() == nil, "deadline evidence lost")
 				}
-				if want == "NOT_RUN" || strings.HasPrefix(fault, "wrong-") || (fault == "foreign-key" || fault == "foreign-token") {
+				if want == "NOT_RUN" || strings.HasPrefix(fault, "wrong-") || fault == "foreign-key" || fault == "foreign-token" || fault == "unfiltered" {
 					cs.Check("configuration stops before spend", report.Budget.CallsUsed == 0 && report.Budget.HTTPAttempts == 0, "configuration spent budget")
 				}
 				root := filepath.Dir(paths[0])
@@ -133,7 +136,7 @@ func TestMultimodalCandidateProcess(t *testing.T) {
 // rejection. These are executable bundle tests, not private-function tests.
 func verifyMultimodalTampering(t *testing.T, root, route string) {
 	t.Helper()
-	for _, fault := range []string{"counter", "narrowed", "audit-status", "final-image", "legend-index", "missing-assertions"} {
+	for _, fault := range []string{"counter", "narrowed", "audit-status", "source-seal", "final-image", "legend-index", "missing-assertions"} {
 		if route != "jev" && fault == "legend-index" {
 			continue
 		}
@@ -171,6 +174,8 @@ func verifyMultimodalTampering(t *testing.T, root, route string) {
 				doc["expected"] = []any{"default-context-plain"}
 			case "audit-status":
 				doc["auditPassed"] = false
+			case "source-seal":
+				delete(doc["sourceHashes"].(map[string]any), "../internal/testkit/evidence/evidence.go")
 			case "final-image":
 				doc["result"].(map[string]any)["imageInputs"].([]any)[0].(map[string]any)["sha256"] = strings.Repeat("0", 64)
 			case "legend-index":

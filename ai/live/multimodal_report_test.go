@@ -92,10 +92,14 @@ func initialMultimodalReport() *multimodalExecution {
 
 func finishMultimodalReport(code int, auditOK bool) int {
 	r := multimodalReport
-	r.FinishedAt = time.Now().UTC()
 	r.AuditPassed = auditOK
 	r.Complete = false
+	deadline := started.Add(180 * time.Second)
+	if shorter := r.ExecutionDeadline.Add(10 * time.Second); shorter.Before(deadline) {
+		deadline = shorter
+	}
 	fail := func(reason string) int {
+		r.FinishedAt = time.Now().UTC()
 		r.Outcome, r.Complete, r.Failure = "FAIL", false, reason
 		_ = run.Record("multimodal-report", r)
 		fmt.Fprintln(os.Stderr, "multimodal evidence rejected:", reason)
@@ -104,8 +108,11 @@ func finishMultimodalReport(code int, auditOK bool) int {
 	if !auditOK {
 		return fail("redaction audit failed")
 	}
-	if code != 0 || r.FinishedAt.After(started.Add(180*time.Second)) {
+	if code != 0 {
 		r.Outcome = "FAIL"
+	}
+	if time.Now().After(deadline) {
+		return fail("process deadline exceeded before finalization")
 	}
 	if os.Getenv("BARNESS_MM_CONTROLLED") == "manifest" {
 		_ = os.WriteFile(filepath.Join(run.Dir(), "manifest.json"), []byte(`{`), 0600)
@@ -114,7 +121,7 @@ func finishMultimodalReport(code int, auditOK bool) int {
 	if err != nil || !json.Valid(manifest) {
 		return fail("manifest invalid")
 	}
-	r.Complete = r.Outcome == "PASS" && code == 0
+	// Stay non-accepting through every expensive audit/read/hash operation.
 	if err = run.Record("multimodal-report", r); err != nil {
 		return fail("report write failed")
 	}
@@ -125,6 +132,9 @@ func finishMultimodalReport(code int, auditOK bool) int {
 	}
 	files := map[string]string{}
 	err = filepath.WalkDir(run.Dir(), func(path string, d os.DirEntry, err error) error {
+		if time.Now().After(deadline) {
+			return fmt.Errorf("finalization deadline exceeded")
+		}
 		if err != nil || d.IsDir() {
 			return err
 		}
@@ -149,11 +159,29 @@ func finishMultimodalReport(code int, auditOK bool) int {
 	if err != nil {
 		return fail("inventory read failed")
 	}
+	r.FinishedAt = time.Now().UTC()
+	r.Complete = r.Outcome == "PASS" && code == 0
+	if err = run.Record("multimodal-report", r); err != nil {
+		return fail("final report write failed")
+	}
+	final, err := readDecisionsFile(filepath.Join(run.Dir(), "multimodal-report.json"), 1<<20)
+	if err != nil {
+		return fail("final report read failed")
+	}
+	files["multimodal-report.json"] = sha256Text(final)
 	if os.Getenv("BARNESS_MM_CONTROLLED") == "inventory" {
 		_ = os.Mkdir(filepath.Join(run.Dir(), "multimodal-integrity.json"), 0700)
 	}
 	if err = run.Record("multimodal-integrity", map[string]any{"schema": 1, "files": files}); err != nil {
 		return fail("inventory write failed")
+	}
+	// Only a controlled test can shorten this last deadline. Real publication
+	// checks elapsed time after the final write too; slow disk cannot bless PASS.
+	if os.Getenv("BARNESS_MM_CONTROLLED") == "publication-deadline" {
+		deadline = time.Now().Add(-time.Nanosecond)
+	}
+	if time.Now().After(deadline) {
+		return fail("process deadline exceeded during publication")
 	}
 	return code
 }

@@ -41,4 +41,3 @@ Status: claimed
 先写[失败清单](../11-failure-modes.md)和进程红灯，后实施；图例索引、外来 OAuth token
 与进行中超时也保留先红后绿记录。两路线独立真实包因缺本票获准凭据/授权均 NOT_RUN，
 零 Logical Call / 零 HTTP；不借用其他任务凭据。完整验证与审查完成后再关闭。
-
