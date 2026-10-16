@@ -48,7 +48,7 @@ func (b *typeSafeImageBudget) assets(value any) *Error {
 				return failure
 			}
 			if b.count != count {
-				b.sizes[field.name] = before - b.remaining
+				b.sizes[typeSafeJSONText(field.name)] = before - b.remaining
 			}
 		}
 		return nil
@@ -69,7 +69,7 @@ func (b *typeSafeImageBudget) assets(value any) *Error {
 			key := it.Key()
 			switch key.Kind() {
 			case reflect.String:
-				b.sizes[key.String()] = before - b.remaining
+				b.sizes[typeSafeJSONText(key.String())] = before - b.remaining
 			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 				if !key.Type().Implements(reflect.TypeFor[encoding.TextMarshaler]()) {
 					b.sizes[strconv.FormatInt(key.Int(), 10)] = before - b.remaining
@@ -156,7 +156,7 @@ func (b *typeSafeImageBudget) rawAssets(raw []byte) *Error {
 			return failure
 		}
 		if b.count != count {
-			b.sizes[string(key)] = before - b.remaining
+			b.sizes[typeSafeJSONText(string(key))] = before - b.remaining
 		}
 		return nil
 	})

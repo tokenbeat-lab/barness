@@ -33,7 +33,7 @@ type multimodalBorrowedState struct {
 // Borrowed callback trees can be large yet fit the document budget. A much
 // smaller image-occurrence budget must reject them before encoded copies.
 func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
-	for _, shape := range []string{"map", "raw", "typed", "embedded", "integer-assets", "struct-assets", "wide", "quoted-int", "quoted-number", "json-key", "quoted-interface"} {
+	for _, shape := range []string{"map", "raw", "typed", "embedded", "integer-assets", "struct-assets", "wide", "quoted-int", "quoted-number", "json-key", "quoted-interface", "base64-values", "utf8-values", "utf8-key"} {
 		t.Run(shape, func(t *testing.T) {
 			ev := run.Case(t, "UC09-borrowed-references-"+shape)
 			u := newJevBoxWorld(t, ev, func(c *ai.Config) {
@@ -140,6 +140,38 @@ func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
 					}
 					p.Body["state"] = map[string]any{"state": values, "images": []string{key}}
 
+				case "base64-values", "utf8-values", "utf8-key":
+					var asset any
+					for _, a := range p.Body["assets"].(map[string]any) {
+						asset = a
+					}
+					var business any
+					switch shape {
+					case "base64-values":
+						key = "cGhvdG8="
+						values := make([][]byte, 65536)
+						for i := range values {
+							values[i] = []byte("photo")
+						}
+						business = values
+					case "utf8-values":
+						key = "��"
+						values := make([]string, 65536)
+						for i := range values {
+							values[i] = string([]byte{255, 254})
+						}
+						business = values
+					case "utf8-key":
+						key = string([]byte{255, 254})
+						values := make([]string, 65536)
+						for i := range values {
+							values[i] = "��"
+						}
+						business = values
+					}
+					p.Body["assets"] = map[string]any{key: asset}
+					p.Body["state"] = map[string]any{"state": business, "images": []string{key}}
+
 				case "embedded":
 					p.Body["state"] = struct{ multimodalBorrowedState }{multimodalBorrowedState{"bounded borrowed content", keys}}
 				}
@@ -163,7 +195,7 @@ func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
 }
 
 func TestMultimodalRuntimeBorrowedReferenceAccounting(t *testing.T) {
-	for _, shape := range []string{"map", "raw", "typed", "untagged", "tagged-shadow", "ambiguous-omitted", "number", "promoted-name", "interface-number", "double-pointer"} {
+	for _, shape := range []string{"map", "raw", "typed", "untagged", "tagged-shadow", "ambiguous-omitted", "number", "promoted-name", "interface-number", "double-pointer", "surrogate"} {
 		for _, mode := range []string{"exact", "count", "expanded"} {
 			t.Run(shape+"/"+mode, func(t *testing.T) {
 				ev := run.Case(t, "UC09-reference-accounting-"+shape+"-"+mode)
@@ -247,6 +279,16 @@ func TestMultimodalRuntimeBorrowedReferenceAccounting(t *testing.T) {
 							}{key, &ptr}
 						}
 						p.Body["state"] = map[string]any{"state": field, "images": []string{key, key}}
+						p.Body["questions"].(map[string]any)["exists"].(map[string]any)["instructions"] = []string{"compare", key}
+
+					case "surrogate":
+						var asset any
+						for _, a := range p.Body["assets"].(map[string]any) {
+							asset = a
+						}
+						key = "�"
+						p.Body["assets"] = map[string]any{key: asset}
+						p.Body["state"] = json.RawMessage(`{"state":{"Image":"\ud800"},"images":["�","�"]}`)
 						p.Body["questions"].(map[string]any)["exists"].(map[string]any)["instructions"] = []string{"compare", key}
 
 					case "untagged":

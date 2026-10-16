@@ -2,8 +2,11 @@ package ai
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"reflect"
+	"strings"
+	"unicode/utf8"
 
 	"github.com/buger/jsonparser"
 )
@@ -16,6 +19,10 @@ import (
 func checkTypeSafeReferencePayload(ctx context.Context, body map[string]any, sizes map[string]int64, limits ClassifierImageReferencePolicy, rawLimit int64) *Error {
 	count, remaining := 0, limits.MaxExpandedImageBytes
 	take := func(key string) *Error {
+		if len(key) > typeSafeKeyBytes {
+			return nil
+		} // Cannot match a legal native key.
+		key = typeSafeJSONText(key)
 		size, known := sizes[key]
 		if !known {
 			return nil
@@ -42,17 +49,16 @@ func checkTypeSafeReferencePayload(ctx context.Context, body map[string]any, siz
 		var err error
 		switch kind {
 		case jsonparser.String:
-			var buffer [typeSafeKeyBytes]byte
 			// A key is at most 1024 bytes (six escaped bytes per character).
 			// Avoid copying an unrelated large business string for comparison.
 			if len(value) > 6*typeSafeKeyBytes {
 				return nil
 			}
-			decoded, err := jsonparser.Unescape(value, buffer[:])
-			if err != nil {
-				return typeSafeRequestFailure()
+			decoded, failure := typeSafeReferenceString(value)
+			if failure != nil {
+				return failure
 			}
-			return take(string(decoded))
+			return take(decoded)
 		case jsonparser.Object:
 			err = jsonparser.ObjectEach(value, func(_, child []byte, childKind jsonparser.ValueType, _ int) error {
 				failure = raw(child, childKind, depth+1)
@@ -124,7 +130,18 @@ func checkTypeSafeReferencePayload(ctx context.Context, body map[string]any, siz
 			}
 		case reflect.Slice, reflect.Array:
 			if byteSliceEncodesBase64(v) {
-				return nil
+				// JSON encodes ordinary byte slices as Base64 strings. Compare
+				// only bounded possible keys; large business bytes need no copy.
+				if v.Len() > typeSafeKeyBytes/4*3 {
+					return nil
+				}
+				var data [typeSafeKeyBytes / 4 * 3]byte
+				for i := 0; i < v.Len(); i++ {
+					data[i] = byte(v.Index(i).Uint())
+				}
+				var encoded [typeSafeKeyBytes]byte
+				base64.StdEncoding.Encode(encoded[:], data[:v.Len()])
+				return take(string(encoded[:base64.StdEncoding.EncodedLen(v.Len())]))
 			}
 			for i := 0; i < v.Len(); i++ {
 				if failure := walk(v.Index(i), depth+1); failure != nil {
@@ -162,4 +179,27 @@ func checkTypeSafeReferencePayload(ctx context.Context, body map[string]any, siz
 		}
 	}
 	return nil
+}
+
+// encoding/json replaces each invalid UTF-8 byte separately. ToValidUTF8
+// merges runs and would assign different image identities to the same JSON.
+func typeSafeJSONText(value string) string {
+	if utf8.ValidString(value) {
+		return value
+	}
+	return strings.Map(func(r rune) rune { return r }, value)
+}
+
+// Use the native decoder's Unicode semantics for bounded raw strings too.
+// In particular, an unpaired surrogate is U+FFFD, not a malformed request.
+func typeSafeReferenceString(value []byte) (string, *Error) {
+	var literal [6*typeSafeKeyBytes + 2]byte
+	literal[0] = '"'
+	copy(literal[1:], value)
+	literal[len(value)+1] = '"'
+	var text string
+	if json.Unmarshal(literal[:len(value)+2], &text) != nil {
+		return "", typeSafeRequestFailure()
+	}
+	return text, nil
 }
