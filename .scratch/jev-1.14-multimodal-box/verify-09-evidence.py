@@ -203,7 +203,7 @@ def history():
 
 
 def documentation():
-    paths = [HERE / name for name in ('09-failure-modes.md', '09-verification.md', '09-code-review.md', 'verify-09-evidence.py')]
+    paths = [HERE / name for name in ('09-failure-modes.md', '09-verification.md', '09-code-review.md', 'verify-09-evidence.py', 'verify-07-evidence.py')]
     paths.append(HERE / 'issues/09-mixed-image-runtime-resource-isolation.md')
     paths.extend(sorted((HERE / '09-logs').glob('*.log')))
     return {relative(path): sha(path) for path in paths}

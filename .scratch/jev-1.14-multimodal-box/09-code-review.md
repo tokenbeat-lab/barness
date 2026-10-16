@@ -77,5 +77,10 @@ same payloads/concurrency/case count, same aborted terminal assertion, unchanged
 production code; coincident internal timers are outside this ticket. This is
 consistent with the tracked symptom, whose cause remains unresolved.
 
-Final totals: Standards **0 remaining** (7 repaired); Spec **0 remaining**
-(8 repaired). The axes retain their independent classifications.
+Both axes' final evidence review of `0589e6e` found one additional verification-integrity
+gap: the imported `verify-07-evidence.py` helper was not included in ticket 09's
+Python dependency inventory. The final inventory now seals that helper as well
+as the verifier, documents, logs and Go sources. No implementation or E2E changed.
+
+Final totals: Standards **0 remaining** (8 repaired); Spec **0 remaining**
+(9 repaired). The axes retain their independent classifications.
