@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -22,7 +23,7 @@ func visualWrite(t *testing.T, path string, v any) {
 func TestVisualEvaluationFailureRetention(t *testing.T) {
 	for _, route := range []string{"jev", "decisions"} {
 		for _, entry := range []string{"plain", "hooked"} {
-			for _, name := range []string{"http", "empty", "refused", "partial", "unreported", "drift", "budget", "deadline", "iou", "redaction"} {
+			for _, name := range []string{"http", "empty", "refused", "partial", "unreported", "drift", "budget", "deadline", "iou", "redaction", "oversize"} {
 				t.Run(route+"/"+entry+"/"+name, func(t *testing.T) {
 					ev := run.Case(t, "VQ12-failure-"+route+"-"+entry+"-"+name)
 					raw, err := os.ReadFile("../examples/visualeval/testdata/" + route + "-responses.json")
@@ -42,6 +43,8 @@ func TestVisualEvaluationFailureRetention(t *testing.T) {
 					case "redaction":
 						replies[0]["status"] = float64(529)
 						replies[0]["body"] = map[string]any{"error": "synthetic-" + "visual-evaluation-credential"}
+					case "oversize":
+						body["padding"] = strings.Repeat("x", 70000)
 					case "empty":
 						replies[0]["body"] = nil
 					case "refused":

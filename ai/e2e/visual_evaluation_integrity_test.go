@@ -103,7 +103,7 @@ func TestVisualEvaluationIntegrity(t *testing.T) {
 			if _, err := visualCommand(t, "-route", route, "-out", out); err != nil {
 				t.Fatal("controlled workflow failed")
 			}
-			for _, name := range []string{"score", "prediction", "response", "request", "observer", "inventory", "source", "protocol", "promotion", "time", "symlink", "hidden_calls", "assertion_keys"} {
+			for _, name := range []string{"score", "prediction", "response", "request", "observer", "inventory", "source", "protocol", "promotion", "time", "symlink", "hidden_calls", "assertion_keys", "observer_error", "observer_usage"} {
 				t.Run(name, func(t *testing.T) {
 					ev := run.Case(t, "VQ12-integrity-"+route+"-"+name)
 					if output, err := visualCommand(t, "-verify", out); err != nil {
@@ -161,6 +161,16 @@ func TestVisualEvaluationIntegrity(t *testing.T) {
 						backup, _ := os.ReadFile(filepath.Join(out, path))
 						backups[path] = backup
 						os.WriteFile(filepath.Join(out, path), raw, 0600)
+					case "observer_error", "observer_usage":
+						raw, _ := os.ReadFile(filepath.Join(out, "samples/v01/observations.json"))
+						var v []map[string]any
+						json.Unmarshal(raw, &v)
+						if name == "observer_error" {
+							v[3]["error"] = map[string]any{"code": "tenant_denied", "phase": "scope"}
+						} else {
+							v[3]["usage"].(map[string]any)["input"] = float64(900)
+						}
+						edit("samples/v01/observations.json", v)
 					case "observer":
 						v := []any{}
 						edit("samples/v01/observations.json", v)
@@ -242,6 +252,63 @@ func TestVisualEvaluationIntegrity(t *testing.T) {
 			if _, err := visualCommand(t, "-verify", out); err != nil {
 				t.Fatal("original package did not restore")
 			}
+		})
+	}
+}
+
+func TestVisualEvaluationCancelledAccounting(t *testing.T) {
+	for _, route := range []string{"jev", "decisions"} {
+		t.Run(route, func(t *testing.T) {
+			ev := run.Case(t, "VQ12-cancel-accounting-"+route)
+			raw, _ := os.ReadFile("../examples/visualeval/testdata/" + route + "-responses.json")
+			var replies []map[string]any
+			json.Unmarshal(raw, &replies)
+			replies[0]["delayMS"] = float64(1000)
+			script := filepath.Join(t.TempDir(), "script.json")
+			visualWrite(t, script, replies)
+			out := filepath.Join(run.Dir(), "visual-cancel-accounting-"+route)
+			visualCommand(t, "-route", route, "-responses", script, "-work-ms", "200", "-call-ms", "100", "-out", out)
+			if _, err := visualCommand(t, "-verify", out); err != nil {
+				t.Fatal("honest deadline package did not verify")
+			}
+			r := visualRead(t, out, "report.json")
+			s := r["samples"].([]any)[0].(map[string]any)
+			res := s["result"].(map[string]any)
+			a := res["metadata"].(map[string]any)["attempts"].([]any)[0].(map[string]any)
+			u := res["usage"].(map[string]any)
+			u["input"] = float64(900)
+			u["totalTokens"] = float64(900)
+			cost := u["cost"].(map[string]any)
+			cost["input"] = float64(123)
+			cost["total"] = float64(123)
+			a["usage"] = u
+			a["usageReporting"] = "complete"
+			b := r["budget"].(map[string]any)
+			b["inputTokens"] = b["inputTokens"].(float64) + 900
+			sum := 0.0
+			for _, rawSample := range r["samples"].([]any) {
+				result := rawSample.(map[string]any)["result"].(map[string]any)
+				md := result["metadata"].(map[string]any)
+				if attempts, ok := md["attempts"].([]any); ok {
+					for _, rawAttempt := range attempts {
+						sum += rawAttempt.(map[string]any)["usage"].(map[string]any)["cost"].(map[string]any)["total"].(float64)
+					}
+				}
+			}
+			b["knownCostUSD"] = sum
+			b["unreported"] = b["unreported"].(float64) - 1
+			visualPatch(t, filepath.Join(out, "report.json"), r)
+			visualPatch(t, filepath.Join(out, "samples/v01/result.json"), s)
+			raw, _ = os.ReadFile(filepath.Join(out, "samples/v01/observations.json"))
+			var obs []map[string]any
+			json.Unmarshal(raw, &obs)
+			obs[2]["attempt"] = a
+			obs[3]["call"] = res["metadata"]
+			obs[3]["usage"] = u
+			visualPatch(t, filepath.Join(out, "samples/v01/observations.json"), obs)
+			visualReseal(t, out)
+			_, err := visualCommand(t, "-verify", out)
+			ev.Check("cancelled raw response cannot justify invented spend", err != nil, "accepted fabricated usage")
 		})
 	}
 }

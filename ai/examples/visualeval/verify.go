@@ -218,6 +218,13 @@ func verify(dir string, requireLive bool) error {
 		if get(prefix+"observations.json", &obs) != nil || len(obs) != 4 || obs[0].Kind != ai.ObservationCallStarted || obs[1].Kind != ai.ObservationAttemptStarted || obs[2].Kind != ai.ObservationAttemptFinished || obs[3].Kind != ai.ObservationCallFinished || !same(obs[3].Call, md) || obs[1].Attempt == nil || obs[2].Attempt == nil || obs[1].Attempt.AttemptID != md.Attempts[0].AttemptID || !same(*obs[2].Attempt, md.Attempts[0]) {
 			return errors.New("Observer accounting drift")
 		}
+		terminal := obs[3]
+		if !same(terminal.Usage, s.Result.Usage) || (s.Error == nil) != (terminal.Error == nil) {
+			return errors.New("Observer terminal usage/error drift")
+		}
+		if s.Error != nil && (terminal.Error.Code != s.Error.Code || terminal.Error.Phase != s.Error.Phase) {
+			return errors.New("Observer terminal error differs from public failure")
+		}
 		for _, o := range obs {
 			if o.Call.RequestID != md.RequestID || o.Call.TenantID != md.TenantID {
 				return errors.New("Observer attribution drift")
@@ -313,8 +320,19 @@ func replaySample(p *plan, i int, entry string, w wire, s sampleResult) error {
 		return errors.New("final native input differs from fixed public task")
 	}
 	if s.Error != nil && (s.Error.Code == ai.CodeCanceled || s.Error.Code == ai.CodeDeadlineExceeded) {
-		if len(s.Result.Answers) != 0 || len(s.Result.ImageInputs) != 0 {
-			return errors.New("partial cancelled answer")
+		if len(s.Result.Answers) != 0 || len(s.Result.ImageInputs) != 0 || (s.Error.Phase != ai.PhaseRequest && s.Error.Phase != ai.PhaseResponse) {
+			return errors.New("invalid cancelled outcome")
+		}
+		ga, sa := got.Result.Metadata.Attempts[0], s.Result.Metadata.Attempts[0]
+		// Cancellation may occur before decoding even a fully consumed response.
+		// In that case nothing was reported, and every usage/cost field stays zero.
+		if sa.UsageReporting == ai.UsageUnreported && same(sa.Usage, ai.Usage{}) && same(s.Result.Usage, ai.Usage{}) && s.Result.ResponseModel.IsZero() {
+			return nil
+		}
+		// A cancellation after decoding can retain consumption, but only what the
+		// captured response independently produces at this exact price snapshot.
+		if !same(ga.Usage, sa.Usage) || ga.UsageReporting != sa.UsageReporting || !same(got.Result.Usage, s.Result.Usage) || !same(got.Result.ResponseModel, s.Result.ResponseModel) {
+			return errors.New("cancelled usage/model unsupported by captured response")
 		}
 		return nil
 	}

@@ -134,7 +134,7 @@ type capturedBody struct {
 func (b *capturedBody) Read(p []byte) (int, error) {
 	n, err := b.ReadCloser.Read(p)
 	b.c.mu.Lock()
-	keep := min(n, (64<<10)-len(b.c.wire.Response))
+	keep := min(n, ((64<<10)+1)-len(b.c.wire.Response))
 	b.c.wire.Response = append(b.c.wire.Response, p[:keep]...)
 	b.c.mu.Unlock()
 	return n, err

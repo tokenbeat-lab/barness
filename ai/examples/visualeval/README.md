@@ -86,7 +86,9 @@ Decisions 为 `gpt-6-luna` / `https://api.openai.com/v1/decisions`；candidate �
 
 独立核验会重新检查文件集合/hash/审计、固定输入/源码、候选关联、预算、全部终态、
 Observer 和资源，并将捕获的响应经无网络的公开 Classify 重放，核对最终请求、图片
-身份、答案、usage/估价，再重算指标。Jev 仅归一化随机私有素材 key；位置、图片和问题
+身份、答案、usage/估价，再重算指标。超限捕获保留 64 KiB 限额后的一个判定字节，以便重放同一个 resource_limit。取消若发生在解码前，
+usage 保持零值且 unreported；若已解码，保留的用量和型号必须由捕获响应与价格快照支持。
+Observer 的终态错误、用量及 Attempt 与公共结果逐项对账。Jev 仅归一化随机私有素材 key；位置、图片和问题
 仍精确匹配。核验旧包应 checkout 该包自己的源码版本；新目录 Hash 不继承旧效果。
 清单是完整性回执，不是来源数字签名；真实来源依赖 Host 保存原始可信包。
 
