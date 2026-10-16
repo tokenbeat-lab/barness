@@ -16,7 +16,10 @@ producer/consumer，而不改写旧行、旧报告或新增兼容执行路径。
 Observer、审计及完整性清单；仅凭 report 自报 PASS 或共享 Adapter 不构成支持。
 
 候选协议和效果先独立真实执行并经严格验证，见[纳入回执](../../.scratch/jev-1.14-multimodal-box/13-admission.json)。
-正式目录仍需在自身 Hash 下重采两份证据；保留原包而不将候选重命名为正式。
+正式目录已在自身 Hash 下独立重采两份真实证据，严格核验并只合并 1.14 新行，
+见[交付验证](../../.scratch/jev-1.14-multimodal-box/13-verification.md)及
+[最终回执](../../.scratch/jev-1.14-multimodal-box/13-evidence.json)；
+保留原包而不将候选重命名为正式。
 固定简单几何图任务不代表生产准确率，Box confidence 不代表存在性，账户/区域/权限
 未核验也不得冒称已核验。其他路线历史 PASS 不能自动成为新 Hash 的 PASS。
 

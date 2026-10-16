@@ -1,0 +1,584 @@
+{
+  "schema": 1,
+  "kind": "ticket-13-fixed-jev-formal-support",
+  "files": {
+    ".evidence/ticket13-final-1721024/e2e-race-command.json": "9d8d9c5c38701d12f0bd223ce462abdb59bd3aa3d7c2408eb42b58e10f80e9c6",
+    ".evidence/ticket13-final-1721024/e2e-race.log": "291241020fba7a36b1199c625291184914c303410a902b4c123b950abb9a87d5",
+    ".evidence/ticket13-final-1721024/full-command.json": "fb530ef14689f1d78cf43554af4cce6a9b7b7a56e90523c936447431b0abb80d",
+    ".evidence/ticket13-final-1721024/full.log": "da1db98b2cac9bb810d1d3701e14fbad1634ec53c6ff9720e84e47043325246e",
+    ".evidence/ticket13-final-1721024/live-race-command.json": "fd556c3ab0850a34c8dc124b432054860c3b69e0863598552bc4df722dac84ca",
+    ".evidence/ticket13-final-1721024/live-race.log": "8d5b13104cae7f5888174ea2764062607dfbea28a995487c3d1f8272a6993e7c",
+    ".evidence/ticket13-final-1721024/vet-command.json": "56e75a8af08c2c67bf9b4877eea68f1fbccbcd0db9c08dcadb9218916f9771bd",
+    ".evidence/ticket13-final-1721024/vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/effect-verification-command.json": "48bebb71be4dd63881d0aea5f2ed5b3756961641c6c1eb43aae38cb6083625ac",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/effect-verification.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/effects-command.json": "7c60de61e04e2c7b117140880d5eb16956220cf5bb81ca6758102032048320f3",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/effects.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/matrix-merge-command.json": "175b0200455f7bf88e37533acafc9b6aaab8560a5b9b669f640f3264abf3b074",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/matrix-merge.log": "4fd98f803beb8aa89e32a96c57530a9dbe2feb08101f63228e122f189d609af9",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/protocol-command.json": "e5ebb92899605e8f859bf919da88f9de6d06b8d52ad9072b394f3ffcb197d6fb",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/protocol.log": "c45db7b19b42f66fa6a90e978868635d12b0533453de172f8f1489321e51a85a",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/protocol-verification-command.json": "398a6ed13d690ec2736fcf7a688a6c9e696a7f83a70158ef5d3b61e7570b1e59",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/protocol-verification.log": "777d1c4a27218551bac9e9126bd702f581859ed1bc723b115351531fce4d270f",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/support-producer-command.json": "5e2695a451ec91fd7b08d10eafab52159e6b33fc878118159d8205fab05003a2",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/support-producer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/support-verification-command.json": "c3500edb221594c5186196ebdba8abe87e97df5fc746e639e6c4540db6d93331",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/support-verification.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".evidence/ticket13-final-1721024/e2e-race/20261016T230032.686484000Z/manifest.json": "92a55a8ed860d9bbc10c6230ec6eace1fa3d2ab0884e38c3df8c44f0922ccc2b",
+    ".evidence/ticket13-final-1721024/e2e-race/20261016T230032.686484000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/ticket13-final-1721024/full/20261016T225904.916186000Z/manifest.json": "419a58ef4d4506633c8aac7190a28003211dea0d72c886d1c1ea6a2b82698a34",
+    ".evidence/ticket13-final-1721024/full/20261016T225904.916186000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/ticket13-final-1721024/full/20261016T225906.866677000Z/manifest.json": "0283ae1e2cad0d8bca2d9db966b6b9a4cfc4dc38a2b018e5fc3b5e5c6d423e63",
+    ".evidence/ticket13-final-1721024/full/20261016T225906.866677000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/ticket13-final-1721024/live-race/20261016T225907.414689000Z/manifest.json": "c1e81102e6f0ca2f61f3c4c7f61f463fd1e68e35876b8e99864f59b5ec06afbc",
+    ".evidence/ticket13-final-1721024/live-race/20261016T225907.414689000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/ticket13-final-e633b3f/full-command.json": "b99e40f8603394eaffa779cfa5548dee456ff732da1f664bb8960d370b52d51c",
+    ".evidence/ticket13-final-e633b3f/full.log": "11b07e62723fce5dcec1a1eb847fa612bd78f65e179ba9e7a8259257fa20323c",
+    ".evidence/barness-ai/20261016T222756.729186000Z/manifest.json": "eb841c2cdc874e156a0982bf77859629f53bf0d89d48666138f516aa1393bafe",
+    ".evidence/barness-ai/20261016T222756.729186000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/barness-ai/20261016T222905.203922000Z/manifest.json": "ea8e008c859efd6414c5543f0f883f9bbf00645b87c5546ec2df672c7c9d3707",
+    ".evidence/barness-ai/20261016T222905.203922000Z/audit.json": "4eea22dfb28a8b1c31fadf734034fd83a0252ead109119dc7d8028d4d066dd5c",
+    ".evidence/barness-ai/20261016T223444.666466000Z/manifest.json": "b9f9ec67f7c8b6d38ed2a373e8043f4b2ad0bb49b5ca37672071098ac6d3773f",
+    ".evidence/barness-ai/20261016T223444.666466000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/barness-ai/20261016T223607.547597000Z/manifest.json": "59a22ebf31cb1e14f251bb91db23550dfcdea6f60eaf679d0e8b62aa50d4f31b",
+    ".evidence/barness-ai/20261016T223607.547597000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/barness-ai/20261016T223747.688305000Z/manifest.json": "2fffafbd842849d9700fe8710e38c6ff06a6262ea9bc0a13878b6ea9086367d3",
+    ".evidence/barness-ai/20261016T223747.688305000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/barness-ai/20261016T224551.586165000Z/manifest.json": "c2eeead81fc13021f4a28dd63b6de206f1a426b5feacc6eb5405e7cb7e3e92e8",
+    ".evidence/barness-ai/20261016T224551.586165000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/barness-ai/20261016T224756.033975000Z/manifest.json": "bcae57be2c28d4fb95e69eee1c620df93108fa2e4e4cd2a0d47f80305c49495f",
+    ".evidence/barness-ai/20261016T224756.033975000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/barness-ai/20261016T225150.274777000Z/manifest.json": "e5c534b93eb5ac8296ead11de7797ea46ef52228c828b10eae2475bcb2a04b9d",
+    ".evidence/barness-ai/20261016T225150.274777000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/ticket13-final-e633b3f/full/20261016T225305.033331000Z/manifest.json": "57f0e626539ec8ec85361240ac62dfaebd58dbefd52d0655da34d8b4fff1940a",
+    ".evidence/ticket13-final-e633b3f/full/20261016T225305.033331000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/support/formal-integrity.json": "0c55adfce326da665c1e770651f551105d19f747c2728f79b07f294c5eebf4c8",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/summary.json": "93f350d8ecd930e02920db257dc9b19acec3cc45d7ec3809503920c98ce0f4a7",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/formal-catalog.json": "d5131473e28af78e598ced484470043a43bf3a5efd62700a97bcd16fb3e0f163",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/authorization-context.json": "6714f0b4081be07c384fa2b76dab6f93c882d96aa8be1cea2accfd9e41488816",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/protocol-authorization.json": "3b3bc89a9d0c7f33a6d9ac8a8a94424b1eac9dd55af153edc3d8f1ff3558e88e",
+    ".evidence/ticket13-live-formal-20261016T230251.995980Z/effect-authorization.json": "28ea31fe9c19f865eceeb9a3a83712b74fda8decdb59f8cf78baf24574992c6b",
+    ".scratch/jev-1.14-multimodal-box/13-admission.json": "ae3289e10560b33d158aafb392ba3edcf34e6424a62d94417efa3f9b0e39de96",
+    "ai/examples/visualeval/testdata/pins.json": "79241cc41d395b4869504a68cad75292c846cd6b6948ed4c9b82f727c7a48701",
+    "ai/live/support-matrix.json": "d030bca2e931bc23c9680eb4825069774e176f5e66e8c93ef444f0544f79dd97",
+    ".scratch/jev-1.14-multimodal-box/seal-13-evidence.py": "425d6fb7cf14a28de9f28c932f1d1cea865a738f28dff031e21229c1be917129"
+  },
+  "runs": [
+    {
+      "path": ".evidence/ticket13-final-1721024/e2e-race/20261016T230032.686484000Z",
+      "package": "./ai/e2e",
+      "cases": {
+        "PASS": 21
+      },
+      "storedArtifactsVerified": 244,
+      "legacyPreRedactionFixtureFingerprints": 0,
+      "ticket13Cases": 21
+    },
+    {
+      "path": ".evidence/ticket13-final-1721024/full/20261016T225904.916186000Z",
+      "package": "./ai/e2e",
+      "cases": {
+        "PASS": 8011,
+        "NOT_RUN": 1050
+      },
+      "storedArtifactsVerified": 62674,
+      "legacyPreRedactionFixtureFingerprints": 275,
+      "ticket13Cases": 21
+    },
+    {
+      "path": ".evidence/ticket13-final-1721024/full/20261016T225906.866677000Z",
+      "package": "-tags live ./ai/live",
+      "cases": {
+        "PASS": 204,
+        "NOT_RUN": 62
+      },
+      "storedArtifactsVerified": 4454,
+      "legacyPreRedactionFixtureFingerprints": 0,
+      "ticket13Cases": 26
+    },
+    {
+      "path": ".evidence/ticket13-final-1721024/live-race/20261016T225907.414689000Z",
+      "package": "-tags live ./ai/live",
+      "cases": {
+        "PASS": 26
+      },
+      "storedArtifactsVerified": 59,
+      "legacyPreRedactionFixtureFingerprints": 0,
+      "ticket13Cases": 26
+    }
+  ],
+  "redRuns": [
+    {
+      "path": ".evidence/barness-ai/20261016T222756.729186000Z",
+      "cases": {
+        "FAIL": 2
+      }
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T222905.203922000Z",
+      "cases": {
+        "FAIL": 2
+      }
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T223444.666466000Z",
+      "cases": {
+        "FAIL": 3,
+        "PASS": 18
+      }
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T223607.547597000Z",
+      "cases": {
+        "FAIL": 1
+      }
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T223747.688305000Z",
+      "cases": {
+        "FAIL": 1,
+        "PASS": 20
+      }
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T224551.586165000Z",
+      "cases": {
+        "FAIL": 4,
+        "PASS": 20
+      }
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T224756.033975000Z",
+      "cases": {
+        "FAIL": 2
+      }
+    },
+    {
+      "path": ".evidence/barness-ai/20261016T225150.274777000Z",
+      "cases": {
+        "FAIL": 2
+      }
+    },
+    {
+      "path": ".evidence/ticket13-final-e633b3f/full/20261016T225305.033331000Z",
+      "cases": {
+        "PASS": 7918,
+        "NOT_RUN": 1050,
+        "FAIL": 29
+      }
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestJevFormal",
+        "-count=1"
+      ],
+      "startedAt": "2026-10-16T23:00:25.815752+00:00",
+      "finishedAt": "2026-10-16T23:00:56.515461+00:00",
+      "exitCode": 0,
+      "log": ".evidence/ticket13-final-1721024/e2e-race.log",
+      "credentialEnvironment": "ordinary build variables only; controlled E2E, no real credentials"
+    },
+    {
+      "command": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "./...",
+        "-count=1"
+      ],
+      "startedAt": "2026-10-16T22:59:00.482372+00:00",
+      "finishedAt": "2026-10-16T23:02:40.638245+00:00",
+      "exitCode": 0,
+      "credentialEnvironment": "ordinary build variables only; no live route configuration",
+      "log": ".evidence/ticket13-final-1721024/full.log"
+    },
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestJevFormal",
+        "-count=1"
+      ],
+      "startedAt": "2026-10-16T22:59:01.634445+00:00",
+      "finishedAt": "2026-10-16T23:00:25.815053+00:00",
+      "exitCode": 0,
+      "log": ".evidence/ticket13-final-1721024/live-race.log",
+      "credentialEnvironment": "ordinary build variables only; controlled E2E, no real credentials"
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ],
+      "startedAt": "2026-10-16T23:00:56.515957+00:00",
+      "finishedAt": "2026-10-16T23:00:57.209294+00:00",
+      "exitCode": 0,
+      "log": ".evidence/ticket13-final-1721024/vet.log",
+      "credentialEnvironment": "ordinary build variables only; controlled E2E, no real credentials"
+    },
+    {
+      "command": [
+        "/tmp/barness-ticket13-formal-visualeval",
+        "-verify",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/effects",
+        "-require-live"
+      ],
+      "startedAt": "2026-10-16T23:03:04.976825+00:00",
+      "finishedAt": "2026-10-16T23:03:05.121044+00:00",
+      "exitCode": 0,
+      "log": "effect-verification.log"
+    },
+    {
+      "command": [
+        "/tmp/barness-ticket13-formal-visualeval",
+        "-formal",
+        "-mode",
+        "live",
+        "-route",
+        "jev",
+        "-entry",
+        "plain",
+        "-authorization",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/effect-authorization.json",
+        "-out",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/effects"
+      ],
+      "startedAt": "2026-10-16T23:02:59.764314+00:00",
+      "finishedAt": "2026-10-16T23:03:04.976627+00:00",
+      "exitCode": 0,
+      "log": "effects.log"
+    },
+    {
+      "command": [
+        "go",
+        "run",
+        "./ai/live/cmd/supportmatrix",
+        "-matrix",
+        "ai/live/support-matrix.json",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/support"
+      ],
+      "startedAt": "2026-10-16T23:03:07.117589+00:00",
+      "finishedAt": "2026-10-16T23:03:07.740375+00:00",
+      "exitCode": 0,
+      "log": "matrix-merge.log"
+    },
+    {
+      "command": [
+        "/tmp/barness-ticket13-formal-probe",
+        "-test.run=^TestMultimodalFormal$",
+        "-test.timeout=180s"
+      ],
+      "startedAt": "2026-10-16T23:02:52.009651+00:00",
+      "finishedAt": "2026-10-16T23:02:59.677677+00:00",
+      "exitCode": 0,
+      "log": "protocol.log"
+    },
+    {
+      "command": [
+        "python3",
+        "[repository]/.scratch/jev-1.14-multimodal-box/verify-11-evidence.py",
+        "--formal-catalog",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/formal-catalog.json",
+        "--require-live",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/protocol/20261016T230253.926005000Z"
+      ],
+      "startedAt": "2026-10-16T23:02:59.677913+00:00",
+      "finishedAt": "2026-10-16T23:02:59.764134+00:00",
+      "exitCode": 0,
+      "log": "protocol-verification.log"
+    },
+    {
+      "command": [
+        "go",
+        "run",
+        "./ai/live/cmd/jevformal",
+        "-protocol",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/protocol/20261016T230253.926005000Z",
+        "-effects",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/effects",
+        "-out",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/support",
+        "-require-live"
+      ],
+      "startedAt": "2026-10-16T23:03:05.121284+00:00",
+      "finishedAt": "2026-10-16T23:03:06.573184+00:00",
+      "exitCode": 0,
+      "log": "support-producer.log"
+    },
+    {
+      "command": [
+        "go",
+        "run",
+        "./ai/live/cmd/jevformal",
+        "-verify",
+        "[repository]/.evidence/ticket13-live-formal-20261016T230251.995980Z/support",
+        "-require-live"
+      ],
+      "startedAt": "2026-10-16T23:03:06.573415+00:00",
+      "finishedAt": "2026-10-16T23:03:07.117394+00:00",
+      "exitCode": 0,
+      "log": "support-verification.log"
+    }
+  ],
+  "catalogHash": "sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7",
+  "formalSupportBundle": ".evidence/ticket13-live-formal-20261016T230251.995980Z/support",
+  "protocol": {
+    "outcome": "PASS",
+    "mode": "live",
+    "complete": true,
+    "budget": {
+      "limits": {
+        "calls": 12,
+        "attempts": 12,
+        "questions": 32,
+        "sources": 24,
+        "references": 32,
+        "sourceBytes": 8388608,
+        "expandedBytes": 16777216,
+        "stateBytes": 4194304
+      },
+      "reserved": {
+        "calls": 12,
+        "attempts": 12,
+        "questions": 20,
+        "sources": 18,
+        "references": 26,
+        "sourceBytes": 73548,
+        "expandedBytes": 106236,
+        "stateBytes": 27478
+      },
+      "actual": {
+        "calls": 12,
+        "attempts": 12,
+        "questions": 20,
+        "sources": 18,
+        "references": 26,
+        "sourceBytes": 44784,
+        "expandedBytes": 64688,
+        "stateBytes": 1670
+      },
+      "callsUsed": 12,
+      "httpAttempts": 12,
+      "maxNativeBodyBytes": 4194304,
+      "processSeconds": 180,
+      "callSeconds": 30,
+      "finalizationReserveSeconds": 10,
+      "retries": 0,
+      "reportedInputTokens": 9875,
+      "reportedOutputTokens": 372
+    }
+  },
+  "effects": {
+    "status": "COMPLETE",
+    "realQuality": "COMPLETE",
+    "mode": "live",
+    "budget": {
+      "calls": 12,
+      "attempts": 12,
+      "retries": 0,
+      "questions": 28,
+      "occurrences": 16,
+      "sourceBytes": 27959,
+      "expandedBytes": 41603,
+      "inputTokens": 10024,
+      "outputTokens": 716,
+      "knownCostUSD": 0.000421008,
+      "unreported": 0,
+      "partial": 0
+    },
+    "metrics": {
+      "common": {
+        "total": 8,
+        "classScored": 8,
+        "classCorrect": 8,
+        "existScored": 8,
+        "existCorrect": 8,
+        "falsePositive": 0,
+        "falseNegative": 0,
+        "classAccuracy": 1,
+        "existAccuracy": 1,
+        "confusion": {
+          "blue": {
+            "blue": 2
+          },
+          "empty": {
+            "empty": 2
+          },
+          "red": {
+            "red": 4
+          }
+        },
+        "statuses": {
+          "answered": 8
+        },
+        "errors": [],
+        "confidenceBins": [
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 8,
+            "correct": 8,
+            "sum": 8
+          }
+        ],
+        "existenceBrier": 0.01979999999999999
+      },
+      "local": {
+        "total": 4,
+        "classScored": 4,
+        "classCorrect": 4,
+        "existScored": 4,
+        "existCorrect": 4,
+        "falsePositive": 0,
+        "falseNegative": 0,
+        "classAccuracy": 1,
+        "existAccuracy": 1,
+        "confusion": {
+          "blue": {
+            "blue": 1
+          },
+          "empty": {
+            "empty": 1
+          },
+          "red": {
+            "red": 2
+          }
+        },
+        "statuses": {
+          "answered": 4
+        },
+        "errors": [],
+        "confidenceBins": [
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 0,
+            "correct": 0,
+            "sum": 0
+          },
+          {
+            "count": 4,
+            "correct": 4,
+            "sum": 4
+          }
+        ],
+        "existenceBrier": 0.027749999999999997
+      },
+      "supplementalContext": null,
+      "box": {
+        "present": 2,
+        "absent": 2,
+        "iouCount": 2,
+        "meanIoU": 0.701974024586969,
+        "presentDenominatorMeanIoU": 0.701974024586969,
+        "consumed": 2,
+        "absentFalsePositive": 0,
+        "absentRawBoxes": 2,
+        "lowExistenceBoxes": 2,
+        "missingExistenceBoxes": 0,
+        "missingPresentBoxes": 0
+      }
+    }
+  },
+  "realCallsAcrossAdmissionAndFormal": 48,
+  "realAttemptsAcrossAdmissionAndFormal": 48,
+  "realRetries": 0,
+  "otherRoutes": "historical rows unchanged; Decisions real image evidence NOT_RUN"
+}
