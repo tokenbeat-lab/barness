@@ -1,0 +1,86 @@
+{
+  "baseline": "7c1cd1a533a924dd06c57beaaa03a0977f130de2",
+  "checks": {
+    "exitCodes": {
+      "full": 0,
+      "race": 0,
+      "vet": 0
+    },
+    "full": "go test ./... -count=1",
+    "race": "go test -race ./ai/e2e -run '^TestDecisionsReferences' -count=1",
+    "vet": "go vet ./..."
+  },
+  "runs": {
+    "full": {
+      "audit": ".evidence/barness-ai/20261016T042652.492335000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "cases": 7767,
+      "finishedAtUTC": "2026-10-16T04:28:17.04205Z",
+      "manifest": ".evidence/barness-ai/20261016T042652.492335000Z/manifest.json",
+      "manifestSHA256": "5462f0c7a2d8ad168e1492d922a861565824d49b60d0804c6f6d3b5421ca03b2",
+      "referenceCases": 112,
+      "startedAtUTC": "2026-10-16T04:26:52.492335Z",
+      "statuses": {
+        "NOT_RUN": 1050,
+        "PASS": 6717
+      },
+      "verifiedArtifacts": 44095
+    },
+    "race": {
+      "audit": ".evidence/barness-ai/20261016T042656.176525000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "cases": 112,
+      "finishedAtUTC": "2026-10-16T04:26:57.491638Z",
+      "manifest": ".evidence/barness-ai/20261016T042656.176525000Z/manifest.json",
+      "manifestSHA256": "be03859c3c50c3c7ec68ec39c9b076eef63c1645df731852ad1db5e45b218d01",
+      "referenceCases": 112,
+      "startedAtUTC": "2026-10-16T04:26:56.176525Z",
+      "statuses": {
+        "PASS": 112
+      },
+      "verifiedArtifacts": 964
+    }
+  },
+  "runtimeCommit": "15b66fd6d9ffbbf1572ddc000890bebe3a73861b",
+  "scope": "ticket-02 controlled loopback HTTP; real-service NOT_RUN",
+  "sourceFiles": {
+    ".scratch/jev-1.14-multimodal-box/verify-02-evidence.py": "90623f580ca9bc923ebdc6f89baf1a60e5cacf1f9052b3e60030f0f74d52a4b1",
+    "ai/catalog_operations.go": "a8fc7bc0e6d4e580d1fe00e0ed43029d88e651cf6ef07f55a6c7d6ce4032d733",
+    "ai/catalog_snapshot.go": "27a0f0b86b699f9223b32fb0b305ba518b09fa3ad39a10226ed7c1699e7d93c7",
+    "ai/classifier.go": "df8f33553195b1c83b4a7b95d55f514b91aa4529e90b03652714ebb3e93b268f",
+    "ai/classifier_capabilities.go": "e8c8d495dd7534e9f4a7a122d7e65961c79755a05d5b5d02bce9cb1475b6073d",
+    "ai/classifier_images.go": "54edd17596f744a411dfffe26738125fa1f0aeda0d84f048f796babb0ebfb79d",
+    "ai/classifier_json.go": "7218e0c01701c154c539124a2ac422b0d90c3f6e9e64059c456ac8a017109f67",
+    "ai/classifier_policy.go": "4f81e87c688662da85b273786d022acf5e347d9857d299140a8259e5c0229615",
+    "ai/classifier_reference_policy.go": "6591d3dbd6c94fb3ea51c36c4b8a0005fbebd91e5ec7b5e3e423fb41e353b836",
+    "ai/classifier_reference_sizes.go": "a9ab51ab2e1897638b54ef8c91a2ee093212774c5ab9e25256a6b15308f370af",
+    "ai/classifier_reference_values.go": "52df8e401ffdd3cd946dbcdf0a53e2cf4f692ffb4f8754a93953c43dbd722e35",
+    "ai/classifier_references.go": "47ed82add9322fc994398fece7720c63d31c58444533e53cbda7307ee7a0f370",
+    "ai/e2e/classifier_fixture_test.go": "884a98e0a0a9aa3b099317fdb3b01822a96b76fd47657035a463b02ab0d338b9",
+    "ai/e2e/decisions_images_fixture_test.go": "49b575ed000628f3bc13b8ed090063390731c33a21e9e63e34edbe651d80dfd0",
+    "ai/e2e/decisions_references_budgets_test.go": "cf937244124f844d44078cbba821e3326a6eb53b12bb3503593daf5eadfea14e",
+    "ai/e2e/decisions_references_catalog_test.go": "f96f224f7ab1a4f8570c4fa9cb4313350c5dc1a2c89860f23721b510a14a4221",
+    "ai/e2e/decisions_references_hooks_test.go": "236f8be681d21d1d034aa405806b11000534a0f7641d3f5bad5826e0fefb3891",
+    "ai/e2e/decisions_references_json_test.go": "0feb33e22029058adba30c9cea108c8530f089e7fc626f089356e29d2887f9e8",
+    "ai/e2e/decisions_references_test.go": "fe31aa7410882872a8f9b469883a0a7f74d4d7bb66acc0d1d3679a15beec2edb",
+    "ai/e2e/decisions_references_values_test.go": "15821e6609382732b4834a96032c369dc11f4c65137735a7a5cac88d96cd4a7f",
+    "ai/e2e/decisions_runtime_fixture_test.go": "de92fe15c004d2a0ef0cfa7314458307d65adab0684dd09123c3c2794f218619",
+    "ai/e2e/decisions_text_test.go": "d39dfb5f36ff79a22d047cbfef399d47df1204fab3033a632cce136261ececdd",
+    "ai/e2e/main_test.go": "677901ac19933a4ea92fabb077063236fbe2ca15bc413fc627c209192e5ec149",
+    "ai/e2e/scenario_fixture_test.go": "b44044ef6a5b21e459f1a5563f227a99194efaa8396cef7469a303ef68441fb0",
+    "ai/e2e/testdata/decisions/images/gopher.webp": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a",
+    "ai/e2e/unary_fixture_test.go": "8fd604e97b58ddb53a6b7163150095e04e7dfcc2b511c3115607807b1ec6e349",
+    "ai/e2e/world_test.go": "4f627e368a6ecbec383e88ed5b7244b9fb52f07c5966aaa041598e0173597de9",
+    "ai/internal/testkit/evidence/evidence.go": "6b1f8bcee0bba10f3ac44ddc626b1a002c1c51a851cfd59e0e5ce0c423976a3e",
+    "ai/internal/testkit/evidence/inventory.go": "59255e3bd15e43a58fd2495b42dacb2e3f78eb783386c28717dd9fa7fa305dab",
+    "ai/openai_decisions.go": "0d637f196afa21f033cee89b54345261150773e7a0c4f0a163f6bea674662d87",
+    "ai/openai_decisions_image_payload.go": "708e25c062264b5fee7a74a23f3589f909d16df6e0d7b6caab8e34800af4fe2c",
+    "ai/openai_decisions_images.go": "81d36c3db51e0332f2c2daac428f59848f3466171f40df20bc70e9fca130253d",
+    "ai/openai_decisions_request.go": "ae03b73e8f4cca41f250e01606d55c38bd64648d9fea4a3fd4da4b4575b8a9e6",
+    "ai/policy.go": "1306cd2fe59936b3f854e9b6b4bfde46db1318b93d92fdd2d55f3c3f050112af",
+    "go.mod": "5c8e9d19f2c6fb1145afd40d33f1904f05df796e9e3e57b0666c40ea61334fd2",
+    "go.sum": "f77e9fa444cb0de7133ad075ba5290a35b86df40b4ccfb235452ae1e4a5a8097"
+  },
+  "trackedGoFileCount": 486,
+  "trackedGoSourceSHA256": "a36b996d551aa2e93c35324049c01181c70cc64dc04351eee703fc055a32a8fc"
+}
