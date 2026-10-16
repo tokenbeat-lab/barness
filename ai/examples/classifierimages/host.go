@@ -86,18 +86,6 @@ func (o *observer) await(ctx context.Context) ([]ai.Observation, error) {
 }
 func controlledConfig(route, endpoint string) hostConfig {
 	catalog := ai.BuiltinCatalog()
-	if route == "jev" {
-		m, _ := catalog.LookupClassifier(ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, "jev-1.13.0")
-		m.ID = "jev-1.14.0"
-		m.Name = "Host experimental Jev candidate"
-		m.Input = []ai.Modality{ai.ModalityText, ai.ModalityImage}
-		m.Capabilities.Kinds = append(m.Capabilities.Kinds, ai.ClassifierQuestionBox)
-		m.Capabilities.ImageLocations = []ai.ClassifierImageLocation{ai.ClassifierImageLocationContext, ai.ClassifierImageLocationState, ai.ClassifierImageLocationInstructions, ai.ClassifierImageLocationCriteria}
-		m.Capabilities.MaxInputImages = 8
-		m.Capabilities.ImageMIMETypes = []string{"image/png", "image/jpeg"}
-		catalog.ClassifierModels = append(catalog.ClassifierModels, m)
-	}
-	catalog.Version = "host-unified-images-controlled-candidate"
 	p := localassembly.MixedPolicy()
 	// One serial synthetic call; these bounds describe this example, not defaults.
 	p.Image = nil

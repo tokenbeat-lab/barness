@@ -21,8 +21,8 @@ func TestDecisionsFormalMigration(t *testing.T) {
 	}
 	ev.Record("before", before)
 	ev.Record("after", after)
-	ev.Check("schema three and independent tenth route", before.Schema == 2 && after.Schema == 3 && len(before.Rows) == 9 && len(after.Rows) == 10, "wrong schema or route count")
-	if len(after.Rows) != 10 {
+	ev.Check("schema three retains independent Decisions route", before.Schema == 2 && after.Schema == 3 && len(before.Rows) == 9 && len(after.Rows) >= 10, "wrong schema or missing route")
+	if len(after.Rows) < 10 {
 		return
 	}
 	// Current rows advance with fresh smoke runs. The one-time migration

@@ -2,7 +2,8 @@
 
 此命令用真实 `Client.Classify` / `HookedClient.Classify`、本地受控 HTTP Provider
 和合法合成 PNG/JPEG，重放统一输入、局部图片、视觉图例、Box、拒答及撤销。
-Jev 使用 Host 显式候选 `jev-1.14.0`；内置 `jev-1.13.0` 仍仅文本。
+Jev 使用正式内置目录中的固定 `jev-1.14.0`；`jev-1.13.0` 仍仅文本。
+图片与 Box 仍需显式实验选择、策略和 Binding 授权，目录纳入不代表生产准确率。
 受控结果只证明协议与 Host 流程，真实服务和视觉质量均为 NOT_RUN；不修改正式目录、
 支持矩阵或生产可用性结论。[ADR-0030](../../../docs/adr/0030-barness-ai-unified-classifier-image-references.md)
 保持 proposed，父规格不变。

@@ -1,7 +1,7 @@
 {
   "callTimeoutSeconds": 15,
-  "catalogHash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
-  "catalogVersion": "2026-10-13.1",
+  "catalogHash": "sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7",
+  "catalogVersion": "2026-10-17.1",
   "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
   "datasetVersion": "zh-support-v1",
   "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
@@ -18,5 +18,5 @@
     "provider": "openai"
   },
   "timeoutSeconds": 600,
-  "version": "zh-eval-luna-route-v1"
+  "version": "zh-eval-luna-route-v2"
 }
