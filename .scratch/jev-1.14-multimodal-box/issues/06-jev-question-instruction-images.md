@@ -1,6 +1,6 @@
 # 06：在 Jev 单题说明中使用视觉样例
 
-Status: ready-for-agent
+Status: resolved
 
 **What to build:** Host 把一张图放进某题说明，其他题不收到该局部图片，并能用有序片段混合文字与图片。
 
@@ -8,15 +8,15 @@ Status: ready-for-agent
 
 ## Acceptance criteria
 
-- [ ] 在修改实现前列出本票所有失败方式，先写经 Client.Classify / HookedClient.Classify 的公开 E2E 并确认红灯，再实施；不在实现后补单元测试。
-- [ ] 贯通 Choice/Score/Bool Instructions 的根图片、嵌套结构与有序文字/图片数组；只在实现后声明 instructions 位置能力。
-- [ ] 图片算有效非空内容，未被引用的空/null 说明仍遵守既有约束；文字容器的 DescriptionFormats 与图片位置能力分别校验。
-- [ ] native 图片留在该题 Instructions，不提升到 State/context，其他题不出现这份局部引用；同图在两题使用分开计展开预算。
-- [ ] 说明内普通文本不作字面替换；合法精确 Pointer 变为图片，缺失/重复/禁区/非 null 槽位与越权身份拒绝。
-- [ ] Hook 改题名/说明/图像后按最终问题与出现次序验证结果和 ImageInputs；所有前后置授权与容量校验完整。
-- [ ] 同一输入交给 Decisions 时凭据前拒绝，不把图片 stringify 成标签、丢弃或拆请求。
-- [ ] 已有 State/context、文本说明和其他协议回归保持；不因本票把尚未实现的视觉 Criteria 宣称为可用。
-- [ ] 结束时产出可重复、可核验的图片/fixture hash、输入、最终请求/响应、结果/错误、Attempt/Observer、断言、配置、完整性清单及脱敏审计；仅受控 HTTP 结果不得声明真实服务 PASS。
+- [x] 在修改实现前列出本票所有失败方式，先写经 Client.Classify / HookedClient.Classify 的公开 E2E 并确认红灯，再实施；不在实现后补单元测试。
+- [x] 贯通 Choice/Score/Bool Instructions 的根图片、嵌套结构与有序文字/图片数组；只在实现后声明 instructions 位置能力。
+- [x] 图片算有效非空内容，未被引用的空/null 说明仍遵守既有约束；文字容器的 DescriptionFormats 与图片位置能力分别校验。
+- [x] native 图片留在该题 Instructions，不提升到 State/context，其他题不出现这份局部引用；同图在两题使用分开计展开预算。
+- [x] 说明内普通文本不作字面替换；合法精确 Pointer 变为图片，缺失/重复/禁区/非 null 槽位与越权身份拒绝。
+- [x] Hook 改题名/说明/图像后按最终问题与出现次序验证结果和 ImageInputs；所有前后置授权与容量校验完整。
+- [x] 同一输入交给 Decisions 时凭据前拒绝，不把图片 stringify 成标签、丢弃或拆请求。
+- [x] 已有 State/context、文本说明和其他协议回归保持；不因本票把尚未实现的视觉 Criteria 宣称为可用。
+- [x] 结束时产出可重复、可核验的图片/fixture hash、输入、最终请求/响应、结果/错误、Attempt/Observer、断言、配置、完整性清单及脱敏审计；仅受控 HTTP 结果不得声明真实服务 PASS。
 
 ## Traceability
 
@@ -34,3 +34,22 @@ Status: ready-for-agent
 ## Comments
 
 2026-10-16：用户确认拆分，按已批准的标题、交付和依赖发布；尚无实现或验证执行记录。
+
+2026-10-16：依赖 05 已 resolved。完成 Choice/Score/Bool Instructions 根图片、嵌套
+结构及有序文字/图片片段；保持题内作用域，State/context 不因局部引用扩展。根图片
+与文字容器格式分别校验；生成 key 在展开前计入完整题目预算，跨题复用分别计出现。
+最终 Hook 按实际用途、最终题集和确定次序重建 ImageInputs，完整重验授权与容量。
+Decisions 对合法局部引用仍在凭据前整体拒绝；Criteria/Box 未开放。
+
+先列[失败方式](../06-failure-modes.md)，公开 E2E 红灯后实施，无实现后补单元测试。
+实现提交 `60f33a8`，独立 Spec 审查发现 1 个 P2（删除全部 context 出现时误拒绝仍有的
+局部图片），先加公开红灯后在 `5449e59` 修正。最终双轴复核：Standards 0；Spec 0
+遗留，见[审查](../06-code-review.md)。比较基点为本次开始时的 `4adf8c2`。
+
+最终全量 exit 0：7,216 PASS / 1,050 显式 opt-in NOT_RUN；相关 race 741/741 PASS；
+本票 149 场景在两份最终包均 PASS；go vet 通过。首次全量有一条既有相同 100ms
+截止/空闲超时竞争断言失败，隔离复跑 3 次通过，随后串行全量通过，原始失败保留。
+完整性清单核验 61,533 个产物 hash、最终文件身份、题名/题型、原子性、观测隔离、
+资源释放和源码清单，两份脱敏审计零发现。详见[验证与重放](../06-verification.md)、
+[完整性清单](../06-evidence.json)。真实服务、视觉质量及正式支持 **NOT_RUN**；未改
+内置目录、支持矩阵、冻结 Pi 或其他预先存在的用户文档改动。
