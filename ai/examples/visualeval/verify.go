@@ -152,7 +152,8 @@ func verify(dir string, requireLive bool) error {
 	}
 	for name, hash := range hashes {
 		raw, e := read("source/" + name)
-		if e != nil || digest(raw) != hash || digest(current[name]) != hash {
+		currentRaw, exists := current[name]
+		if e != nil || !exists || digest(raw) != hash || digest(currentRaw) != hash {
 			return errors.New("source snapshot drift; verify with recorded revision")
 		}
 	}
