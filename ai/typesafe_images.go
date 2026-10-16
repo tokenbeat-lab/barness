@@ -101,8 +101,30 @@ func (c *Client) prepareTypeSafeImages(ctx context.Context, model ClassifierMode
 			return nil, newError(CodeInvalidRequest, PhaseRequest, "could not allocate unambiguous image references")
 		}
 	}
-	state := typeSafeContext{State: req.State}
-	for _, ref := range plan {
+	// The already encoded business subtree has its final compact/HTML-escaped
+	// representation. Reserve framing and each encoded key before expanding
+	// references, so a small State budget cannot allocate a large projection.
+	state := typeSafeContext{State: native.State}
+	remaining := c.policy.Classifier.MaxStateBytes
+	base := int64(len(native.State)) + int64(len(`{"state":,"images":[]}`))
+	if base > remaining {
+		return nil, limitFailure(PhaseScope, "Classifier.MaxStateBytes", c.policy.Classifier.MaxStateBytes)
+	}
+	remaining -= base
+	keySizes := make([]int64, len(keys))
+	for i, key := range keys {
+		raw, _ := json.Marshal(key)
+		keySizes[i] = int64(len(raw))
+	}
+	for i, ref := range plan {
+		size := keySizes[ref.ImageIndex]
+		if i > 0 {
+			size++
+		}
+		if size > remaining {
+			return nil, limitFailure(PhaseScope, "Classifier.MaxStateBytes", c.policy.Classifier.MaxStateBytes)
+		}
+		remaining -= size
 		state.Images = append(state.Images, keys[ref.ImageIndex])
 	}
 	native.State, err = json.Marshal(state)

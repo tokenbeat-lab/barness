@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -77,4 +78,29 @@ func TestJevContextReviewedBudgets(t *testing.T) {
 			})
 		}
 	}
+}
+
+func TestJevContextProjectedStateBeforeCopy(t *testing.T) {
+	ev := run.Case(t, "UC04-projected-state-before-copy")
+	var before, after runtime.MemStats
+	u := newJevContextWorld(t, ev, func(c *ai.Config) {
+		c.Policy.Classifier.MaxStateBytes = 128
+		c.Policy.Classifier.Images.References = &ai.ClassifierImageReferencePolicy{MaxReferences: 10000, MaxExpandedImageBytes: 32 << 20}
+		previous := c.Bindings
+		c.Bindings = bindingResolverFunc(func(ctx context.Context, s ai.CallScope, id string) (ai.Binding, error) {
+			b, err := previous.ResolveBinding(ctx, s, id)
+			runtime.ReadMemStats(&before)
+			return b, err
+		})
+	})
+	req := jevContextInput(t)
+	req.Images = req.Images[:1]
+	for range 10000 {
+		req.ImageReferences = append(req.ImageReferences, ai.ImageReference{ImageIndex: 0, Placement: ai.ImagePlacementContext})
+	}
+	res, err := u.client.Classify(ctxFor(t), textScope("req-jev-projected-before-copy"), jevContextTarget(), req, jevContextOptions())
+	runtime.ReadMemStats(&after)
+	ev.Check("projected State rejected before expanding or encoding references", errors.Is(err, &ai.Error{Code: ai.CodeResourceLimit, Phase: ai.PhaseScope}) && after.TotalAlloc-before.TotalAlloc < 128<<10, "got %v allocated %d", err, after.TotalAlloc-before.TotalAlloc)
+	ev.Record("allocated-after-resolve", after.TotalAlloc-before.TotalAlloc)
+	recordJevContext(ev, u, req, res, err)
 }
