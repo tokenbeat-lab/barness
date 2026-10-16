@@ -55,6 +55,12 @@ func TestMain(m *testing.M) {
 	if isDecisionsProcess() {
 		decisionsReport = initialDecisionsReport()
 	}
+	if os.Getenv("BARNESS_MM_ROUTE") != "" {
+		multimodalReport = initialMultimodalReport()
+		if key := os.Getenv("BARNESS_MM_KEY"); key != "" {
+			run.RedactSecret(key, "[MULTIMODAL-CREDENTIAL]")
+		}
+	}
 	if cfg.combo != nil && cfg.combo.operation == ai.OperationClassifier {
 		budget = classifierBudget()
 	}
@@ -78,7 +84,7 @@ func TestMain(m *testing.M) {
 		run.SetVersion("live_sdk", cfg.combo.sdk())
 	}
 	code := m.Run()
-	if cfg.combo != nil && !isDecisionsProcess() {
+	if cfg.combo != nil && !isDecisionsProcess() && multimodalReport == nil {
 		if err := run.Record(supportmatrix.ReportName, report(catalogHash)); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			code = 1
@@ -110,6 +116,9 @@ func TestMain(m *testing.M) {
 	}
 	if decisionsReport != nil {
 		code = finishDecisionsReport(code, auditOK)
+	}
+	if multimodalReport != nil {
+		code = finishMultimodalReport(code, auditOK)
 	}
 	os.Exit(code)
 }
