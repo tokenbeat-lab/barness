@@ -26,7 +26,7 @@ func formalTamperCases(t *testing.T, cs *evidence.Case, bundle string, env []str
 	if output, err := cmd.CombinedOutput(); err != nil {
 		t.Fatalf("build: %v %s", err, output)
 	}
-	for _, kind := range []string{"model", "route", "hash", "expected", "scenario", "budget", "capture", "manifest", "audit", "outer-inventory", "outer-manifest", "duplicate-report", "trailing-report", "symlink", "unlisted", "source", "protocol-hash", "effect-hash", "unknown-field", "old-identity"} {
+	for _, kind := range []string{"model", "case-alias", "invalid-box", "missing-state-scope", "route", "hash", "expected", "scenario", "budget", "capture", "manifest", "audit", "outer-inventory", "outer-manifest", "duplicate-report", "trailing-report", "symlink", "unlisted", "source", "protocol-hash", "effect-hash", "unknown-field", "old-identity"} {
 		t.Run(kind, func(t *testing.T) {
 			ev := run.Case(t, "UC13-tamper-"+kind)
 			dest := filepath.Join(run.Dir(), "formal-corrupt-"+kind)
@@ -46,6 +46,20 @@ func formalTamperCases(t *testing.T, cs *evidence.Case, bundle string, env []str
 				t.Fatal("invalid fixture")
 			}
 			switch kind {
+			case "missing-state-scope":
+				corruptFormalStateScope(t, dest)
+				cmd := exec.Command(bin, "-protocol", filepath.Join(dest, "protocol"), "-effects", filepath.Join(dest, "effects"), "-out", filepath.Join(run.Dir(), "scope-relabelled-package"))
+				cmd.Dir = "../.."
+				cmd.Env = env
+				_, err := cmd.CombinedOutput()
+				ev.Record("producer", map[string]any{"rejected": err != nil})
+				ev.Check("producer requires actual State image scope", err != nil, "relabeled local scenario accepted without State image")
+				return
+			case "invalid-box":
+				corruptFormalBox(t, dest)
+				seal, _ := os.ReadFile(filepath.Join(dest, "protocol/multimodal-integrity.json"))
+				sum := sha256.Sum256(seal)
+				report["jev"].(map[string]any)["protocolHash"] = hex.EncodeToString(sum[:])
 			case "model":
 				report["model"] = "jev-1.13.0"
 			case "route":
@@ -82,6 +96,9 @@ func formalTamperCases(t *testing.T, cs *evidence.Case, bundle string, env []str
 			raw, _ = json.Marshal(report)
 			if kind == "duplicate-report" {
 				raw = append([]byte(`{"model":"jev-1.14.0",`), raw[1:]...)
+			}
+			if kind == "case-alias" {
+				raw = append([]byte(`{"MODEL":"jev-1.13.0",`), raw[1:]...)
 			}
 			if kind == "trailing-report" {
 				raw = append(raw, []byte(`{}`)...)
@@ -121,6 +138,12 @@ func formalTamperCases(t *testing.T, cs *evidence.Case, bundle string, env []str
 				os.Rename(filepath.Join(dest, "formal-integrity.json"), target)
 				os.Symlink(target, filepath.Join(dest, "formal-integrity.json"))
 			}
+			if kind == "invalid-box" {
+				check := exec.Command("python3", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py", "--formal-catalog", filepath.Join(dest, "protocol/MM11-configuration/formal-catalog.json"), filepath.Join(dest, "protocol"))
+				check.Env = env
+				_, directErr := check.CombinedOutput()
+				ev.Check("independent structural verifier rejects invalid Box", directErr != nil, "invalid normalized Box accepted")
+			}
 			cmd := exec.Command(bin, "-verify", dest)
 			cmd.Dir = "../.."
 			cmd.Env = env
@@ -129,4 +152,96 @@ func formalTamperCases(t *testing.T, cs *evidence.Case, bundle string, env []str
 			ev.Check("resealed corruption rejected at public command", err != nil, "accepted %s", kind)
 		})
 	}
+}
+
+func corruptFormalBox(t *testing.T, root string) {
+	t.Helper()
+	dir := filepath.Join(root, "protocol/MM11-box-existence-plain")
+	resultPath := filepath.Join(dir, "result.json")
+	raw, _ := os.ReadFile(resultPath)
+	var result map[string]any
+	json.Unmarshal(raw, &result)
+	result["result"].(map[string]any)["answers"].(map[string]any)["location"].(map[string]any)["box"].(map[string]any)["left"] = 2
+	raw, _ = json.Marshal(result)
+	os.WriteFile(resultPath, raw, 0600)
+	exchangePath := filepath.Join(dir, "exchanges.json")
+	raw, _ = os.ReadFile(exchangePath)
+	var exchanges []map[string]any
+	json.Unmarshal(raw, &exchanges)
+	var response map[string]any
+	json.Unmarshal([]byte(exchanges[0]["responseBody"].(string)), &response)
+	response["answers"].(map[string]any)["location"].(map[string]any)["box"].(map[string]any)["left"] = 2
+	raw, _ = json.Marshal(response)
+	exchanges[0]["responseBody"] = string(raw)
+	raw, _ = json.Marshal(exchanges)
+	os.WriteFile(exchangePath, raw, 0600)
+	refreshFormalProtocol(t, root)
+}
+
+// Move the State image to a second Instructions slot. The payload remains
+// valid and all counters/captures agree, but the mandatory State scope is gone.
+func corruptFormalStateScope(t *testing.T, root string) {
+	t.Helper()
+	dir := filepath.Join(root, "protocol/MM11-local-state-instructions-plain")
+	path := filepath.Join(dir, "public-request.json")
+	raw, _ := os.ReadFile(path)
+	var request map[string]any
+	json.Unmarshal(raw, &request)
+	request["imageReferences"].([]any)[0].(map[string]any)["pointer"] = "/questions/example/instructions/a"
+	request["questions"].(map[string]any)["example"].(map[string]any)["instructions"].(map[string]any)["a"] = nil
+	raw, _ = json.Marshal(request)
+	os.WriteFile(path, raw, 0600)
+	path = filepath.Join(dir, "exchanges.json")
+	raw, _ = os.ReadFile(path)
+	var exchanges []map[string]any
+	json.Unmarshal(raw, &exchanges)
+	var body map[string]any
+	json.Unmarshal([]byte(exchanges[0]["requestBody"].(string)), &body)
+	oldState, _ := json.Marshal(body["state"])
+	state := body["state"].(map[string]any)
+	body["questions"].(map[string]any)["example"].(map[string]any)["instructions"].(map[string]any)["a"] = state["photo"]
+	state["photo"] = nil
+	newState, _ := json.Marshal(state)
+	raw, _ = json.Marshal(body)
+	exchanges[0]["requestBody"] = string(raw)
+	raw, _ = json.Marshal(exchanges)
+	os.WriteFile(path, raw, 0600)
+	path = filepath.Join(root, "protocol/multimodal-report.json")
+	raw, _ = os.ReadFile(path)
+	var report map[string]any
+	json.Unmarshal(raw, &report)
+	actual := report["budget"].(map[string]any)["actual"].(map[string]any)
+	actual["stateBytes"] = actual["stateBytes"].(float64) + float64(len(newState)-len(oldState))
+	raw, _ = json.Marshal(report)
+	os.WriteFile(path, raw, 0600)
+	refreshFormalProtocol(t, root)
+}
+
+func refreshFormalProtocol(t *testing.T, root string) {
+	t.Helper()
+	manifestPath := filepath.Join(root, "protocol/manifest.json")
+	raw, _ := os.ReadFile(manifestPath)
+	var manifest map[string]any
+	json.Unmarshal(raw, &manifest)
+	for _, c := range manifest["cases"].([]any) {
+		caseMap := c.(map[string]any)
+		for name := range caseMap["artifacts"].(map[string]any) {
+			raw, _ := os.ReadFile(filepath.Join(root, "protocol", caseMap["id"].(string), name))
+			sum := sha256.Sum256(raw)
+			caseMap["artifacts"].(map[string]any)[name] = hex.EncodeToString(sum[:])
+		}
+	}
+	raw, _ = json.Marshal(manifest)
+	os.WriteFile(manifestPath, raw, 0600)
+	sealPath := filepath.Join(root, "protocol/multimodal-integrity.json")
+	raw, _ = os.ReadFile(sealPath)
+	var seal map[string]any
+	json.Unmarshal(raw, &seal)
+	for name := range seal["files"].(map[string]any) {
+		raw, _ := os.ReadFile(filepath.Join(root, "protocol", name))
+		sum := sha256.Sum256(raw)
+		seal["files"].(map[string]any)[name] = hex.EncodeToString(sum[:])
+	}
+	raw, _ = json.Marshal(seal)
+	os.WriteFile(sealPath, raw, 0600)
 }

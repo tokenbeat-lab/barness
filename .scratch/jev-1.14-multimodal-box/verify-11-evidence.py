@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-"""Independently read one immutable candidate package; never import formal support.
+"""Independently read candidate or explicitly selected formal protocol structure.
 
 No network, credentials, or working-source equality required for historical runs.
 Use --require-live to reject controlled HTTP packages. NOT_RUN/FAIL exit nonzero.
+Formal support additionally requires the public Classify replay and independent
+effect verification performed by the jevformal command; this is one stage only.
 """
 import argparse
 import base64
 import hashlib
 import json
+import math
 from pathlib import Path
 from datetime import datetime
 
@@ -44,11 +47,54 @@ def compact(value):
     return json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode()
 
 
+def validate_box(answer):
+    require(set(answer) == {"type", "box", "confidence"} and answer["type"] == "box",
+            "invalid Box answer fields")
+    box = answer["box"]
+    require(isinstance(box, dict) and set(box) == {"top", "bottom", "left", "right"},
+            "missing/extra Box edge")
+    def probability(value):
+        return type(value) in (int, float) and math.isfinite(value) and 0 <= value <= 1
+    require(all(probability(value) for value in box.values()) and
+            box["left"] < box["right"] and box["top"] < box["bottom"],
+            "invalid normalized Box")
+    require(answer["confidence"] is None or probability(answer["confidence"]),
+            "invalid Box confidence")
+
+
 def expected(route):
     names = ["default-context", "explicit-context", "ordered-reuse"]
     if route == "jev":
         names += ["local-state-instructions", "visual-criteria", "box-existence"]
     return [f"{name}-{entry}" for entry in ("plain", "hooked") for name in names]
+
+
+def validate_formal_scenario(scenario, req):
+    """Required capabilities are independent of the producer's saved labels."""
+    name = scenario.rsplit("-", 1)[0]
+    kinds, refs, images = {"exists": "bool"}, [], 1
+    def context(index):
+        return dict(imageIndex=index, placement="context")
+    def value(index, pointer):
+        return dict(imageIndex=index, placement="value", pointer=pointer)
+    if name == "explicit-context":
+        refs = [context(0)]
+    elif name == "ordered-reuse":
+        images, refs = 2, [context(1), context(0), context(1)]
+    elif name == "local-state-instructions":
+        images, kinds = 2, {"exists": "bool", "example": "bool"}
+        refs = [value(0, "/state/photo"), value(1, "/questions/example/instructions/example")]
+    elif name == "visual-criteria":
+        images, kinds = 2, {"choice": "choice", "bool": "bool", "score": "score"}
+        paths = ["/questions/choice/criteria/match", "/questions/bool/criteria/true",
+                 "/questions/bool/criteria/false", "/questions/score/criteria/0/example",
+                 "/questions/score/criteria/1/example"]
+        refs = [value(i % 2, path) for i, path in enumerate(paths)]
+    elif name == "box-existence":
+        kinds["location"] = "box"
+    require(len(req["images"]) == images and (req.get("imageReferences") or []) == refs and
+            {key: q["type"] for key, q in req["questions"].items()} == kinds,
+            "formal scenario does not exercise its mandatory capability")
 
 
 def validate_mapping(req, native, route, hooked, fixture_images):
@@ -97,6 +143,7 @@ def validate_mapping(req, native, route, hooked, fixture_images):
         require(state == dict(state=projected["state"], images=context), "Jev context mapping changed")
     else:
         require(state == projected["state"], "Jev State position changed")
+    require(set(native["questions"]) == set(projected["questions"]), "native question set changed")
     for name, q in projected["questions"].items():
         final = native["questions"][name]
         require(restore(final["instructions"]) == q["instructions"], "instructions scope changed")
@@ -191,6 +238,8 @@ def verify(root, live, formal_catalog=None):
     for scenario in expected(route):
         prefix = "MM11-"+scenario+"/"
         req = decode(read(prefix+"public-request.json"))
+        if formal_catalog is not None:
+            validate_formal_scenario(scenario, req)
         reservation = decode(read(prefix+"reservation.json"))
         for key in LIMITS:
             reserved[key] += reservation[key]
@@ -272,6 +321,7 @@ def verify(root, live, formal_catalog=None):
             require(ex["requestHeaders"]["typesafe-danger-zone-images"] == "true", "image opt-in absent")
             if scenario.startswith("box-existence"):
                 require(res["answers"]["location"] == response["answers"]["location"], "Box changed")
+                validate_box(response["answers"]["location"])
                 require("exists" in res["answers"], "independent existence absent")
             if scenario.startswith("visual-criteria"):
                 answer = res["answers"]["score"]

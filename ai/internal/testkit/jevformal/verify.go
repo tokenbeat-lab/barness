@@ -208,6 +208,9 @@ func CheckInputs(protocol, effects string, requireLive bool) (Proof, error) {
 	if err = command(root, "python3", args...); err != nil {
 		return out, err
 	}
+	if err = ReplayProtocol(protocol, p); err != nil {
+		return out, err
+	}
 	args = []string{"run", "./ai/examples/visualeval", "-verify", effects}
 	if requireLive {
 		args = append(args, "-require-live")

@@ -32,7 +32,7 @@ func TestGoogleImagesBuiltinCatalog(t *testing.T) {
 	ev.Record("catalog", cat)
 	m, ok := cat.LookupImage(ai.ProviderGoogle, ai.APIGoogleInteractions, "gemini-nano-banana-2.1")
 	ev.Check("own live-confirmed model, capabilities and rates", ok && reflect.DeepEqual(m, facts.Model), "model=%+v", m)
-	ev.Check("dated source with new content version", facts.Retrieved == "2026-10-08" && cat.Version == "2026-10-13.1", "version=%s", cat.Version)
+	ev.Check("dated source with new content version", facts.Retrieved == "2026-10-08" && cat.Version == "2026-10-17.1", "version=%s", cat.Version)
 	for _, id := range []string{"gemini-nano-banana-2.1", "gemini-3.1-flash-image", "gemini-2.5-flash-image", "imagen-4"} {
 		_, chat := cat.Lookup(ai.ProviderGoogle, ai.APIGoogleGenerativeAI, id)
 		ev.Check("image models cannot leak into chat "+id, !chat, "chat model listed")
@@ -146,7 +146,7 @@ func TestGoogleImagesLiveWireReplay(t *testing.T) {
 					imageTokens, _ := res.Usage.Modalities.OutputImage.Get()
 					ev.Check("thinking billed once and missing text stays unknown", res.Usage.Modalities.OutputText.IsZero() && math.Abs(res.Usage.Cost.Output-(float64(imageTokens)*30+float64(thought)*7.5)/1e6) < 1e-12, "thought double-count or invented text")
 				}
-				ev.Check("updated immutable price snapshot", res.Metadata.CatalogVersion == "2026-10-13.1" && res.Metadata.CatalogHash == builtinCatalogHash, "wrong snapshot")
+				ev.Check("updated immutable price snapshot", res.Metadata.CatalogVersion == "2026-10-17.1" && res.Metadata.CatalogHash == builtinCatalogHash, "wrong snapshot")
 			})
 		}
 	}

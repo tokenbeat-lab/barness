@@ -7,6 +7,8 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"reflect"
+	"strings"
 )
 
 // ReportName is the artifact name a live process gives its report inside
@@ -69,6 +71,13 @@ func Encode(v any) ([]byte, error) {
 }
 
 func readJSON(path string, v any) error {
+	info, err := os.Lstat(path)
+	if err != nil {
+		return err
+	}
+	if !info.Mode().IsRegular() || info.Size() > 16<<20 {
+		return fmt.Errorf("nonregular or oversized report")
+	}
 	f, err := os.Open(path)
 	if err != nil {
 		return err
@@ -86,10 +95,81 @@ func readJSON(path string, v any) error {
 	if err = uniqueFields(guard, 0); err != nil {
 		return err
 	}
+	var document any
+	shape := json.NewDecoder(bytes.NewReader(data))
+	shape.UseNumber()
+	if err = shape.Decode(&document); err != nil {
+		return err
+	}
+	if err = exactFields(document, reflect.TypeOf(v)); err != nil {
+		return err
+	}
 	dec := json.NewDecoder(bytes.NewReader(data))
 	dec.DisallowUnknownFields()
 	if err := dec.Decode(v); err != nil {
 		return fmt.Errorf("%s: %w", path, err)
+	}
+	return nil
+}
+
+// Struct member spelling is contractual; domain map keys remain case-sensitive
+// data. Go's ordinary decoder otherwise accepts MODEL and model as aliases.
+func exactFields(value any, t reflect.Type) error {
+	if value == nil {
+		return nil
+	}
+	for t.Kind() == reflect.Pointer {
+		t = t.Elem()
+	}
+	if reflect.PointerTo(t).Implements(reflect.TypeFor[json.Unmarshaler]()) {
+		return nil
+	}
+	switch t.Kind() {
+	case reflect.Struct:
+		object, ok := value.(map[string]any)
+		if !ok {
+			return nil
+		}
+		fields := map[string]reflect.Type{}
+		for i := 0; i < t.NumField(); i++ {
+			f := t.Field(i)
+			if f.PkgPath != "" {
+				continue
+			}
+			name := strings.Split(f.Tag.Get("json"), ",")[0]
+			if name == "-" {
+				continue
+			}
+			if name == "" {
+				name = f.Name
+			}
+			fields[name] = f.Type
+		}
+		for name, child := range object {
+			field, ok := fields[name]
+			if !ok {
+				return fmt.Errorf("noncanonical report JSON field")
+			}
+			if err := exactFields(child, field); err != nil {
+				return err
+			}
+		}
+	case reflect.Map:
+		if object, ok := value.(map[string]any); ok {
+			for _, child := range object {
+				if err := exactFields(child, t.Elem()); err != nil {
+					return err
+				}
+			}
+		}
+	case reflect.Slice, reflect.Array:
+		if array, ok := value.([]any); ok {
+			for _, child := range array {
+				if err := exactFields(child, t.Elem()); err != nil {
+					return err
+				}
+			}
+		}
 	}
 	return nil
 }
