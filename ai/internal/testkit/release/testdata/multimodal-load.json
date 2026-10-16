@@ -1,0 +1,453 @@
+{
+  "note": "Literal controlled UC09 workload, independently reviewed against multimodalInput/multimodalReply and the recorded pre-integration fixture; no live support claim. Only exact sentinel values are bound at import.",
+  "classifier": {
+    "input": {
+      "state": "STATE_JSON",
+      "questions": {
+        "approved": {
+          "type": "bool",
+          "instructions": [
+            "compare",
+            null
+          ],
+          "criteria": {
+            "true": "present",
+            "false": "absent"
+          }
+        },
+        "intent": {
+          "type": "choice",
+          "instructions": "Classify",
+          "criteria": {
+            "other": null,
+            "track": "Tracking"
+          }
+        },
+        "location": {
+          "type": "box",
+          "instructions": "locate the mug"
+        },
+        "urgency": {
+          "type": "score",
+          "instructions": "visual rubric",
+          "criteria": [
+            null,
+            "different"
+          ]
+        }
+      },
+      "images": [],
+      "imageReferences": [
+        {
+          "imageIndex": 1,
+          "placement": "context"
+        },
+        {
+          "imageIndex": 0,
+          "placement": "context"
+        },
+        {
+          "imageIndex": 1,
+          "placement": "context"
+        },
+        {
+          "imageIndex": 0,
+          "placement": "value",
+          "pointer": "/state/photo"
+        },
+        {
+          "imageIndex": 1,
+          "placement": "value",
+          "pointer": "/questions/approved/instructions/1"
+        },
+        {
+          "imageIndex": 0,
+          "placement": "value",
+          "pointer": "/questions/urgency/criteria/0"
+        }
+      ]
+    },
+    "request": {
+      "model": "jev-1.14.0",
+      "state": {
+        "state": {
+          "owner": "TENANT",
+          "photo": "IMAGE0_KEY"
+        },
+        "images": [
+          "IMAGE1_KEY",
+          "IMAGE0_KEY",
+          "IMAGE1_KEY"
+        ]
+      },
+      "questions": {
+        "approved": {
+          "type": "noul",
+          "instructions": [
+            "compare",
+            "IMAGE1_KEY"
+          ],
+          "criteria": {
+            "true": "present",
+            "false": "absent"
+          }
+        },
+        "intent": {
+          "type": "choice",
+          "instructions": "Classify",
+          "criteria": {
+            "other": null,
+            "track": "Tracking"
+          }
+        },
+        "location": {
+          "type": "box",
+          "instructions": "locate the mug"
+        },
+        "urgency": {
+          "type": "score",
+          "instructions": "visual rubric",
+          "criteria": [
+            "IMAGE0_KEY",
+            "different"
+          ]
+        }
+      },
+      "assets": {
+        "IMAGE1_KEY": {
+          "type": "image",
+          "format": "IMAGE1_FORMAT",
+          "data_base64": "IMAGE1_DATA"
+        },
+        "IMAGE0_KEY": {
+          "type": "image",
+          "format": "IMAGE0_FORMAT",
+          "data_base64": "IMAGE0_DATA"
+        }
+      }
+    },
+    "response": {
+      "answers": {
+        "approved": {
+          "noul": 0,
+          "type": "noul"
+        },
+        "intent": {
+          "choice": "track",
+          "confidence": 0.7,
+          "probabilities": {
+            "other": 0.1,
+            "track": 0.9
+          },
+          "type": "choice"
+        },
+        "location": {
+          "type": "box",
+          "box": {
+            "top": 0.25,
+            "bottom": 0.82,
+            "left": 0.44,
+            "right": 0.84
+          },
+          "confidence": null
+        },
+        "urgency": {
+          "confidence": 1,
+          "legend": {
+            "0": "IMAGE0_KEY",
+            "1": "different"
+          },
+          "probabilities": {
+            "0": 0,
+            "1": 1
+          },
+          "score": 1,
+          "type": "score"
+        }
+      },
+      "model": "jev-1.14.0",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 20
+      }
+    },
+    "answers": {
+      "approved": {
+        "type": "bool",
+        "probability": 0
+      },
+      "intent": {
+        "type": "choice",
+        "choice": "track",
+        "probabilities": {
+          "other": 0.1,
+          "track": 0.9
+        },
+        "confidence": 0.7
+      },
+      "location": {
+        "type": "box",
+        "box": {
+          "top": 0.25,
+          "bottom": 0.82,
+          "left": 0.44,
+          "right": 0.84
+        },
+        "confidence": null
+      },
+      "urgency": {
+        "type": "score",
+        "score": 1,
+        "confidence": 1,
+        "probabilities": {
+          "0": 0,
+          "1": 1
+        },
+        "legend": {
+          "0": null,
+          "1": "different"
+        },
+        "legendImageReferences": [
+          {
+            "imageIndex": 1,
+            "placement": "value",
+            "pointer": "/0"
+          }
+        ]
+      }
+    },
+    "usage": {
+      "input": 100,
+      "output": 20,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 120,
+      "cost": {
+        "input": 9.999999999999999e-05,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 9.999999999999999e-05
+      }
+    }
+  },
+  "luna": {
+    "input": {
+      "state": "STATE_JSON",
+      "questions": {
+        "approved": {
+          "type": "bool",
+          "instructions": "Approved?",
+          "criteria": {
+            "true": "同意",
+            "false": "不同意"
+          }
+        },
+        "intent": {
+          "type": "choice",
+          "instructions": "Classify",
+          "criteria": {
+            "other": null,
+            "track": "Tracking"
+          }
+        },
+        "urgency": {
+          "type": "score",
+          "instructions": "Urgency",
+          "criteria": [
+            "低",
+            "低",
+            "高"
+          ]
+        }
+      },
+      "images": [],
+      "imageReferences": [
+        {
+          "imageIndex": 1,
+          "placement": "context"
+        },
+        {
+          "imageIndex": 0,
+          "placement": "context"
+        },
+        {
+          "imageIndex": 1,
+          "placement": "context"
+        }
+      ]
+    },
+    "request": {
+      "model": "host-decisions",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "STATE_TEXT"
+            },
+            {
+              "type": "input_image",
+              "image_url": "IMAGE1_URL"
+            },
+            {
+              "type": "input_image",
+              "image_url": "IMAGE0_URL"
+            },
+            {
+              "type": "input_image",
+              "image_url": "IMAGE1_URL"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "type": "predicate",
+          "name": "approved",
+          "instructions": "Approved?\n\nTrue means: 同意\nFalse means: 不同意"
+        },
+        {
+          "type": "choice",
+          "name": "intent",
+          "instructions": "Classify",
+          "choices": [
+            {
+              "value": "other"
+            },
+            {
+              "value": "track",
+              "description": "Tracking"
+            }
+          ]
+        },
+        {
+          "type": "score",
+          "name": "urgency",
+          "instructions": "Urgency",
+          "levels": [
+            {
+              "label": "低"
+            },
+            {
+              "label": "低"
+            },
+            {
+              "label": "高"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "answers": [
+        {
+          "type": "choice",
+          "name": "intent",
+          "choice": "track",
+          "probabilities": [
+            {
+              "value": "track",
+              "probability": 0.9
+            },
+            {
+              "value": "other",
+              "probability": 0.1
+            }
+          ],
+          "confidence": 0.7
+        },
+        {
+          "type": "score",
+          "name": "urgency",
+          "score": 1.1,
+          "confidence": 0.6,
+          "probabilities": [
+            {
+              "value": 2,
+              "label": "高",
+              "probability": 0.3
+            },
+            {
+              "value": 0,
+              "label": "低",
+              "probability": 0.2
+            },
+            {
+              "value": 1,
+              "label": "低",
+              "probability": 0.5
+            }
+          ]
+        },
+        {
+          "type": "predicate",
+          "name": "approved",
+          "probability": 0.37
+        }
+      ],
+      "usage": {
+        "input_tokens": 296,
+        "output_tokens": 20,
+        "total_tokens": 316,
+        "input_tokens_details": {
+          "cached_tokens": 100,
+          "cache_write_tokens": 50
+        },
+        "output_tokens_details": {
+          "reasoning_tokens": 7
+        }
+      }
+    },
+    "answers": {
+      "approved": {
+        "type": "bool",
+        "probability": 0.37
+      },
+      "intent": {
+        "type": "choice",
+        "choice": "track",
+        "probabilities": {
+          "other": 0.1,
+          "track": 0.9
+        },
+        "confidence": 0.7
+      },
+      "urgency": {
+        "type": "score",
+        "score": 1.1,
+        "confidence": 0.6,
+        "probabilities": {
+          "0": 0.2,
+          "1": 0.5,
+          "2": 0.3
+        },
+        "legend": {
+          "0": "低",
+          "1": "低",
+          "2": "高"
+        }
+      }
+    },
+    "usage": {
+      "input": 296,
+      "output": 20,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 7,
+      "totalTokens": 316,
+      "cost": {
+        "input": 0.000592,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000592
+      }
+    }
+  },
+  "imageHashes": [
+    "7eeed071f00dbe21c3bef38a8182f85d5bae442e0e5287b3a57d642c53f871fd",
+    "67afefd8acd9e8ac0818a8b95b1134a934dc3ff9619f5f5405bfc40e5b0f9c92"
+  ]
+}

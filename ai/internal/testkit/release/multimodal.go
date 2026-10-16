@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"path/filepath"
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -119,14 +118,14 @@ func verifyMultimodalLoad(dir, id, entry string) error {
 			return bad("load.json request bytes")
 		}
 		call := "req-load-" + parts[1] + parts[2] + entry
-		if err := verifyMultimodalResult(dir, call, parts[1], parts[2], hash, jev); err != nil {
+		if err := verifyMultimodalResult(dir, call, parts[1], parts[2], hash, jev, c); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func verifyMultimodalResult(dir, call, tenant, binding, hash string, jev bool) error {
+func verifyMultimodalResult(dir, call, tenant, binding, hash string, jev bool, capture provider.Request) error {
 	bad := fmt.Errorf("mixed image input/result/Attempt/Observer reconciliation failed")
 	var input ai.ClassifierRequest
 	var result struct {
@@ -158,11 +157,5 @@ func verifyMultimodalResult(dir, call, tenant, binding, hash string, jev bool) e
 	if err := verifyRevocationObservations(dir, call, revocationResult{result.Usage, result.StopReason, m}, ""); err != nil {
 		return err
 	}
-	// Both native request and dynamically generated response are fixture-hashed
-	// in the already checked case inventory, alongside decoded synthetic files.
-	files, err := filepath.Glob(filepath.Join(dir, "response-"+binding+"-*.json"))
-	if err != nil || len(files) != 2 {
-		return bad
-	}
-	return nil
+	return verifyMultimodalCapture(dir, call, tenant, binding, capture, result.Answers, result.Usage)
 }

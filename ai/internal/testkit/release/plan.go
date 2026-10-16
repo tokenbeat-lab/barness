@@ -18,7 +18,7 @@ const requiredImageItems = `UC-R01 UC-R02 UC-R03 UC-R04 UC-R05 UC-R06 UC-R07 UC-
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "b54bf5d497fb19311268f6590af2f75e2040b4c003774082cba5c4d0caf04c6b"
+const approvedMappingHash = "fb5ed5b3424e361078a9970a9538a0eccde0d98e79f88e2592378662499b872a"
 
 // CheckReleasePlan validates the complete eleven live identities and seven differentials acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified
@@ -66,9 +66,10 @@ func CheckReleasePlan(m TraceMap) Snapshot {
 
 func mappingHash(m TraceMap) string {
 	type item struct {
-		ID        string   `json:"id"`
-		Scenarios []string `json:"scenarios"`
-		Cases     string   `json:"cases"`
+		ID            string   `json:"id"`
+		Scenarios     []string `json:"scenarios"`
+		Cases         string   `json:"cases"`
+		RequiredCases []string `json:"requiredCases,omitempty"`
 	}
 	normalized := struct {
 		Scenarios map[string]string `json:"scenarios"`
@@ -77,7 +78,9 @@ func mappingHash(m TraceMap) string {
 	for _, i := range m.Items {
 		scenarios := slices.Clone(i.Scenarios)
 		slices.Sort(scenarios)
-		normalized.Items = append(normalized.Items, item{i.ID, scenarios, i.Cases})
+		required := slices.Clone(i.RequiredCases)
+		slices.Sort(required)
+		normalized.Items = append(normalized.Items, item{i.ID, scenarios, i.Cases, required})
 	}
 	slices.SortFunc(normalized.Items, func(a, b item) int { return strings.Compare(a.ID, b.ID) })
 	raw, _ := json.Marshal(normalized) // Only strings and slices; encoding cannot fail.

@@ -23,11 +23,11 @@ go run ./ai/release/cmd/releasegate -out .evidence/NEW_RELEASE \
 PASS 均不能代替。没有新的整版 PASS 之前，不合并历史行、不改变父规格或 ADR 状态。
 
 `ai/release/traceability.json` 增加 UC-R01–17、UC-T01–16 和本票用户故事。
-映射只选择证据；状态由实际结果决定。normal/race 分别要求 UC09 两公开入口的
+映射只选择证据；每个新条目固定完整的必需用例清单，缺任一项不能 PASS；状态由实际结果决定。normal/race 分别要求 UC09 两公开入口的
 四调用双租户双协议图片负载，核对原 64 MiB、4 并发、引用/完整请求用量、
 结果/图片身份/Attempt/Observer、完整清单和资源归零。原 local/cloud 负载仍完整运行。
 `ai/release/classifier-extensions.json` 登记有限 case/path 的新引用、图片结果、Box
-和严格校验语义；它不提供差分豁免，也不将其算作 Pi 差分 PASS。
+和严格校验语义；门禁核对其固定内容并复制进发布包；它不提供差分豁免，也不将其算作 Pi 差分 PASS。
 唯一 Pi 1.1.0 基线、原 P07/P10 投影和差分账本保持。
 
 原 `.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md`

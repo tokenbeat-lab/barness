@@ -59,6 +59,9 @@ type TraceItem struct {
 	Scenarios   []string `json:"scenarios"`
 	// Cases, when set, narrows the scenarios' cases to those matching it.
 	Cases string `json:"cases,omitempty"`
+	// RequiredCases pins the complete finite acceptance set. A partial import
+	// cannot turn one matching PASS into proof of an entire requirement.
+	RequiredCases []string `json:"requiredCases,omitempty"`
 
 	cases *regexp.Regexp
 }
@@ -125,6 +128,13 @@ func ParseTraceMap(data []byte) (TraceMap, error) {
 			}
 			it.cases = re
 		}
+		required := map[string]bool{}
+		for _, id := range it.RequiredCases {
+			if id == "" || required[id] || (it.cases != nil && !it.cases.MatchString(id)) || !slices.ContainsFunc(it.Scenarios, func(sc string) bool { return m.matches(sc, id) }) {
+				return TraceMap{}, fmt.Errorf("trace map: item %s has invalid required cases", it.ID)
+			}
+			required[id] = true
+		}
 	}
 	return m, nil
 }
@@ -150,7 +160,8 @@ type TraceResult struct {
 	Artifacts Counts `json:"artifacts"`
 	// Evidence lists a few of the matching case IDs (and live
 	// combinations), where the assertions can be read.
-	Evidence []string `json:"evidence"`
+	Evidence     []string `json:"evidence"`
+	MissingCases []string `json:"missingCases,omitempty"`
 }
 
 // maxEvidence bounds the examples kept per item; the counts cover all.
@@ -198,12 +209,19 @@ func traceItems(m TraceMap, cases []Case, live []LiveRow, artifacts []EvidenceCh
 				}
 			}
 		}
+		for _, id := range it.RequiredCases {
+			if !slices.ContainsFunc(cases, func(c Case) bool { return c.ID == id }) {
+				r.MissingCases = append(r.MissingCases, id)
+			}
+		}
 		all := r.Offline.plus(r.Differential).plus(r.Live).plus(r.Artifacts)
 		switch {
 		case all.Fail > 0:
 			r.Status = Fail
 		case all.NotRun > 0:
 			r.Status = NotRun
+		case len(r.MissingCases) > 0:
+			r.Status = NoEvidence
 		case all.Pass == 0:
 			// No evidence at all, or only UNSUPPORTED: nothing was exercised.
 			r.Status = NoEvidence

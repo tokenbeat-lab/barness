@@ -48,6 +48,7 @@ func main() {
 	bundle := flag.String("bundle", "", "evaluate this existing offline bundle instead of running the suite")
 	raceBundle := flag.String("race-bundle", "", "independent race bundle when evaluating existing artifacts")
 	matrixPath := flag.String("matrix", "ai/live/support-matrix.json", "support matrix")
+	extensionsPath := flag.String("extensions", "ai/release/classifier-extensions.json", "finite classifier extension case/path registry")
 	tracePath := flag.String("trace", "ai/release/traceability.json", "traceability map")
 	ledgerPath := flag.String("ledger", "ai/e2e/testdata/pidiff/ledger.json", "difference ledger")
 	snapshotPath := flag.String("snapshot", "ai/release/catalog-snapshot.json", "checked-in catalog snapshot")
@@ -88,12 +89,13 @@ func main() {
 		fail(err)
 	}
 
+	extensionPlan, extensionBytes := release.CheckClassifierExtensions(*extensionsPath)
 	modules, err := release.GoModules(".")
 	if err != nil {
 		fail(err)
 	}
 	in := release.Inputs{Ledger: ledger, Matrix: matrix, Trace: trace, Modules: modules,
-		Snapshots: []release.Snapshot{release.CheckSnapshot("catalog", *snapshotPath, snapshot), release.CheckReleasePlan(trace), release.HistoricalPressureBlocker()}}
+		Snapshots: []release.Snapshot{release.CheckSnapshot("catalog", *snapshotPath, snapshot), release.CheckReleasePlan(trace), release.HistoricalPressureBlocker(), extensionPlan}}
 	var catalog struct {
 		Hash    string
 		Catalog struct{ Version string }
@@ -150,6 +152,9 @@ func main() {
 	fixtures, err := release.Fixtures(".", "ai/e2e/testdata")
 	if err != nil {
 		fail(err)
+	}
+	if extensionPlan.Current {
+		writeRaw(*out, "classifier-extensions.json", extensionBytes)
 	}
 	write(*out, "release-report.json", report)
 	write(*out, "fixtures.json", fixtures)
