@@ -66,6 +66,7 @@ func (r Report) Markdown() string {
 
 	for _, section := range []struct{ title, match string }{
 		{"Capacity: normal and race design loads", "mixed-pressure-"},
+		{"Multimodal classifier capacity: both public entries", "multimodal-images-"},
 		{"Business effect: independent Jev and Luna", "chinese-effect-"},
 		{"Authorization revocation: normal and race", "authorization-revocation"},
 		{"Race artifact verification", "race-"},

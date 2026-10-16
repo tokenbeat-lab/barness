@@ -13,26 +13,28 @@ import (
 // deleting evidence or mappings cannot shrink the approved requirements.
 const requiredReleaseItems = `OD-R01 OD-R02 OD-R03 OD-R04 OD-R05 OD-R06 OD-R07 OD-R08 OD-R09 OD-R10 OD-R11 OD-R12 OD-R13 OD-R14 OD-R15 OD-R16 OD-R17 OD-R18 OD-R19 OD-R20 OD07-frozen-decisions C11-ChineseEffect H5-design-load-artifacts T03-mixed-operation-isolation C08-mixed-lifecycle C09-mixed-observer H5-mixed-design-load C10-mixed-hosts V6-google-images-live H2-google-images-catalog C04-google-images-delivery-omission V4-google-images-editing H5-google-images-input-budgets C04-google-images-edit-final V4-google-images-generation C04-google-images-final H5-google-images-budgets T09-google-images-modalities V6-openai-images-live H2-openai-images-catalog V4-openai-images-editing H5-image-input-budgets C04-image-edit-final V4-openai-images-generation H5-image-budgets C04-image-final-payload T09-image-usage V6-typesafe-live H2-typesafe-catalog C08-unary-lifecycle H5-unary-budgets C04-unary-callbacks T09-unary-observer V4-typesafe-mixed H2-typesafe-parity T04-typesafe-final V4-typesafe-choice T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 V4-responses V4-anthropic V4-gemini V4-chat V4-deepseek V6-live H1 H2 H3 H4 H5 D1 D1-examples D2 S6-1-3 S6-4-7 S6-8-10 TS-R01 TS-R02 TS-R03 TS-R04 TS-R05 TS-R06 TS-R07 TS-R08 TS-R09 TS-R10 TS-R11 TS-R12`
 
+const requiredImageItems = `UC-R01 UC-R02 UC-R03 UC-R04 UC-R05 UC-R06 UC-R07 UC-R08 UC-R09 UC-R10 UC-R11 UC-R12 UC-R13 UC-R14 UC-R15 UC-R16 UC-R17 UC-T01 UC-T02 UC-T03 UC-T04 UC-T05 UC-T06 UC-T07 UC-T08 UC-T09 UC-T10 UC-T11 UC-T12 UC-T13 UC-T14 UC-T15 UC-T16 UC-US01 UC-US03 UC-US17 UC-US23 UC-US25 UC-US32 UC-US33 UC-US41 UC-US42 UC-US43 UC-US44 UC-US45 UC-US46 UC-US47 UC-US48 UC-US49 UC-US50 UC-current-live UC-mixed-images`
+
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "cb6d6ab6ae2447188c747521a3e451c0538f7405c6b93b4b26076041e3f198f1"
+const approvedMappingHash = "b54bf5d497fb19311268f6590af2f75e2040b4c003774082cba5c4d0caf04c6b"
 
-// CheckReleasePlan validates the complete ten live routes and seven differentials acceptance plan before
+// CheckReleasePlan validates the complete eleven live identities and seven differentials acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified
 // input for Evaluate rather than allowing a mapping to assert its own status.
 func CheckReleasePlan(m TraceMap) Snapshot {
 	s := Snapshot{Name: "release-plan"}
 	var problems []string
-	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions") {
+	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0") {
 		if count(m.LiveCombos, combo) != 1 {
 			problems = append(problems, "required live combo "+combo)
 		}
 	}
-	if len(m.LiveCombos) != 10 {
-		problems = append(problems, "want exactly ten live combinations")
+	if len(m.LiveCombos) != 11 {
+		problems = append(problems, "want exactly eleven live identities")
 	}
-	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE") {
+	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC") {
 		if count(m.P0, scenario) != 1 {
 			problems = append(problems, "required P0 "+scenario)
 		}
@@ -47,7 +49,7 @@ func CheckReleasePlan(m TraceMap) Snapshot {
 			problems = append(problems, "required extension route "+route.Scenario)
 		}
 	}
-	for _, id := range strings.Fields(requiredReleaseItems) {
+	for _, id := range strings.Fields(requiredReleaseItems + " " + requiredImageItems) {
 		if !slices.ContainsFunc(m.Items, func(i TraceItem) bool { return i.ID == id }) {
 			problems = append(problems, "required trace item "+id)
 		}

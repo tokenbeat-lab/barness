@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "classification": "extension",
+  "piVersion": "1.1.0",
+  "piCommit": "abe508e1b89912adde45528136c3221eb69acdd7",
+  "comparison": "not-compared-to-pi",
+  "note": "Finite independent E2E case/path registry. This file grants no differential exemption; original P07/P10 projections and ledger remain unchanged. Case status is read from current evidence, never from this registry.",
+  "items": [
+    {
+      "id": "references",
+      "paths": [
+        "input.imageReferences",
+        "request.body.input[0].content"
+      ],
+      "caseIDs": [
+        "UC02-invalid-plan-dangling",
+        "UC02-invalid-plan-duplicate-value",
+        "UC02-invalid-plan-no-source",
+        "UC02-invalid-plan-unused-source"
+      ]
+    },
+    {
+      "id": "final-image-inputs",
+      "paths": [
+        "result.imageInputs"
+      ],
+      "caseIDs": [
+        "UC03-atomic-bad-answer-plain",
+        "UC03-atomic-bad-model-plain",
+        "UC03-atomic-bad-answer-hooked",
+        "UC03-atomic-bad-model-hooked"
+      ]
+    },
+    {
+      "id": "jev-context",
+      "paths": [
+        "request.body.assets",
+        "request.body.state"
+      ],
+      "caseIDs": [
+        "UC04-projection-plain",
+        "UC04-projection-hooked"
+      ]
+    },
+    {
+      "id": "jev-state",
+      "paths": [
+        "request.body.state"
+      ],
+      "caseIDs": [
+        "UC05-projection-mixed-plain",
+        "UC05-projection-nested-plain",
+        "UC05-projection-mixed-hooked",
+        "UC05-projection-nested-hooked"
+      ]
+    },
+    {
+      "id": "jev-instructions",
+      "paths": [
+        "request.body.questions.*.instructions"
+      ],
+      "caseIDs": [
+        "UC06-projection-bool-mixed-plain",
+        "UC06-projection-bool-nested-plain",
+        "UC06-projection-bool-mixed-hooked",
+        "UC06-projection-bool-nested-hooked"
+      ]
+    },
+    {
+      "id": "jev-criteria-legend",
+      "paths": [
+        "request.body.questions.*.criteria",
+        "result.answers.*.legendImageReferences"
+      ],
+      "caseIDs": [
+        "UC07-legend-distribution-plain",
+        "UC07-legend-duplicate-plain",
+        "UC07-legend-distribution-hooked",
+        "UC07-legend-duplicate-hooked"
+      ]
+    },
+    {
+      "id": "box",
+      "paths": [
+        "request.body.questions.*",
+        "result.answers.*.box",
+        "result.answers.*.confidence"
+      ],
+      "caseIDs": [
+        "UC08-invalid-answer-bottom-\"0.5\"-plain",
+        "UC08-invalid-answer-bottom--0.1-plain",
+        "UC08-invalid-answer-bottom-\"0.5\"-hooked",
+        "UC08-invalid-answer-bottom--0.1-hooked"
+      ]
+    },
+    {
+      "id": "strict-final-validation",
+      "paths": [
+        "result.answers",
+        "result.imageInputs",
+        "result.metadata.attempts"
+      ],
+      "caseIDs": [
+        "UC09-limits-classifier-plain-expanded",
+        "UC09-limits-classifier-plain-framing",
+        "UC09-limits-classifier-hooked-expanded",
+        "UC09-limits-classifier-hooked-framing"
+      ]
+    }
+  ]
+}

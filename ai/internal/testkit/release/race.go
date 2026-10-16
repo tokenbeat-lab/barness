@@ -6,7 +6,7 @@ import "strings"
 // A successful process or a clean redaction scan alone cannot prove its P0,
 // frozen differential, design loads or authorization revocation.
 func RaceEvidence(dir string, trace TraceMap, ledger Ledger) []EvidenceCheck {
-	names := []string{"race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation"}
+	names := []string{"race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation", "race-multimodal-images-plain", "race-multimodal-images-hooked"}
 	b, err := LoadBundle(dir)
 	if dir == "" || err != nil {
 		var out []EvidenceCheck
@@ -26,7 +26,7 @@ func RaceEvidence(dir string, trace TraceMap, ledger Ledger) []EvidenceCheck {
 		}
 		out = append(out, EvidenceCheck{Name: names[i], Bundle: dir, Status: status, Detail: strings.Join(g.Problems, "; ")})
 	}
-	for _, e := range append(DesignLoadEvidence(b), RevocationEvidence(b)) {
+	for _, e := range append(append(DesignLoadEvidence(b), RevocationEvidence(b)), MultimodalImageEvidence(b)...) {
 		e.Name = "race-" + e.Name
 		out = append(out, e)
 	}

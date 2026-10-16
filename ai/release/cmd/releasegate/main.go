@@ -93,7 +93,7 @@ func main() {
 		fail(err)
 	}
 	in := release.Inputs{Ledger: ledger, Matrix: matrix, Trace: trace, Modules: modules,
-		Snapshots: []release.Snapshot{release.CheckSnapshot("catalog", *snapshotPath, snapshot), release.CheckReleasePlan(trace)}}
+		Snapshots: []release.Snapshot{release.CheckSnapshot("catalog", *snapshotPath, snapshot), release.CheckReleasePlan(trace), release.HistoricalPressureBlocker()}}
 	var catalog struct {
 		Hash    string
 		Catalog struct{ Version string }
@@ -142,6 +142,7 @@ func main() {
 	}
 	in.Audits = append(in.Audits, missing...)
 	in.Evidence = append(release.DesignLoadEvidence(in.Offline), release.RevocationEvidence(in.Offline))
+	in.Evidence = append(in.Evidence, release.MultimodalImageEvidence(in.Offline)...)
 
 	in.Evidence = append(in.Evidence, release.ChineseEffectsEvidence(*jev, *luna)...)
 	in.Evidence = append(in.Evidence, release.RaceEvidence(*raceBundle, trace, ledger)...)

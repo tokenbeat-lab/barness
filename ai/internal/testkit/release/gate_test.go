@@ -138,7 +138,7 @@ func goodInputs(t *testing.T) Inputs {
 		in.Audits[i+1].Live = &r
 	}
 	in.Evidence = []EvidenceCheck{{Name: "mixed-pressure-local", Bundle: "/b", Status: Pass}, {Name: "mixed-pressure-cloud", Bundle: "/b", Status: Pass}, {Name: "chinese-effect-jev", Bundle: "/effect", Status: Pass}, {Name: "chinese-effect-luna", Bundle: "/effect", Status: Pass}, {Name: "authorization-revocation", Bundle: "/b", Status: Pass}}
-	for _, name := range []string{"race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation"} {
+	for _, name := range []string{"race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation", "multimodal-images-plain", "multimodal-images-hooked", "race-multimodal-images-plain", "race-multimodal-images-hooked"} {
 		in.Evidence = append(in.Evidence, EvidenceCheck{Name: name, Bundle: "/b", Status: Pass})
 	}
 	in.Audits = append(in.Audits, AuditResult{Bundle: "/effect"})
