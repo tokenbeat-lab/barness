@@ -1,0 +1,9 @@
+--- FAIL: TestJevContextProjection (0.01s)
+    --- FAIL: TestJevContextProjection/plain (0.01s)
+        jev_context_test.go:47: [UC04-projection-plain] usage priced once: got {Input:100 Output:2 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:102 Cost:{Input:9.999999999999999e-05 Output:0 CacheRead:0 CacheWrite:0 Total:9.999999999999999e-05}}
+    --- FAIL: TestJevContextProjection/hooked (0.01s)
+        jev_context_test.go:47: [UC04-projection-hooked] usage priced once: got {Input:100 Output:2 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:102 Cost:{Input:9.999999999999999e-05 Output:0 CacheRead:0 CacheWrite:0 Total:9.999999999999999e-05}}
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T045510.666554000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.845s
+FAIL

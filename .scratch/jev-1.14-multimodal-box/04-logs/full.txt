@@ -1,0 +1,27 @@
+ok  	github.com/tokenbeat-lab/barness/ai	2.262s
+--- FAIL: TestUnaryTransportTimeouts (0.72s)
+    --- FAIL: TestUnaryTransportTimeouts/body-call-deadline (0.10s)
+        unary_fixture_test.go:65: [P07-E08-unary-timeout-body-call-deadline] terminal and empty answers: got {Answers:map[] ImageInputs:[] ResponseModel:{state:0 value:} Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}} StopReason:error ErrorMessage:exceeded the resource policy's ReadIdleTimeout (100ms) Metadata:{CallAttribution:{TenantID:tenant-a RequestID:req-timeout-body-call-deadline ActorID:actor-7 JobID:job-42 BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:host-jev AccountScopeID:acct-tenant-a} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:2026-10-13.1 CatalogHash:sha256:3e67eb4b480f09ab24139256faf3b9a92d49fbe19e75b9b20cb4b6ae9ab92087 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-timeout-body-call-deadline#1 HTTPStatus:200 ProviderRequestID:req-typesafe Code: RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]}}
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T050322.809983000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	129.303s
+?   	github.com/tokenbeat-lab/barness/ai/examples/chineseeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/hostintegration	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/localassembly	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/requestid	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/toolloop	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/clock	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/probe	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit	4.054s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/host	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle	2.667s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/provider	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	4.330s
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	3.160s
+?   	github.com/tokenbeat-lab/barness/ai/live	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate	[no test files]
+FAIL

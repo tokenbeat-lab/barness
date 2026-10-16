@@ -1,0 +1,48 @@
+--- FAIL: TestJevContextFinalHooks (0.19s)
+    --- FAIL: TestJevContextFinalHooks/overlap (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-overlap] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-overlap] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/object-key (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-object-key] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-object-key] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/question-key (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-question-key] final native rejection before Attempt: got ai: protocol (response): invalid classifier response
+    --- FAIL: TestJevContextFinalHooks/instruction (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-instruction] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-instruction] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/criteria (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-criteria] final native rejection before Attempt: got ai: protocol (response): invalid classifier response
+    --- FAIL: TestJevContextFinalHooks/nested-state (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-nested-state] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-nested-state] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/empty-key (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-empty-key] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-empty-key] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/long-key (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-long-key] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-long-key] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/null-assets (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-null-assets] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-null-assets] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/empty-assets (0.00s)
+        jev_context_hooks_test.go:142: [UC04-hook-empty-assets] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-empty-assets] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/asset-case (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-asset-case] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-asset-case] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/apng (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-apng] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-apng] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/small (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-small] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-small] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/over-references (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-over-references] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-over-references] atomic rejection: partial result
+    --- FAIL: TestJevContextFinalHooks/over-expanded (0.01s)
+        jev_context_hooks_test.go:142: [UC04-hook-over-expanded] final native rejection before Attempt: got <nil>
+        jev_context_hooks_test.go:143: [UC04-hook-over-expanded] atomic rejection: partial result
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T045654.748838000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.079s
+FAIL

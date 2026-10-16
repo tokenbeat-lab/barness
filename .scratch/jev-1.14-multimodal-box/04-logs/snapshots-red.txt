@@ -1,0 +1,24 @@
+--- FAIL: TestJevContextSelectionAuthority (0.03s)
+    --- FAIL: TestJevContextSelectionAuthority/policy/plain (0.01s)
+        jev_context_snapshots_test.go:45: [UC04-selection-policy-plain] selection cannot emit unauthorized experiment: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+    --- FAIL: TestJevContextSelectionAuthority/policy/hooked (0.01s)
+        jev_context_snapshots_test.go:45: [UC04-selection-policy-hooked] selection cannot emit unauthorized experiment: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+    --- FAIL: TestJevContextSelectionAuthority/binding/plain (0.00s)
+        jev_context_snapshots_test.go:45: [UC04-selection-binding-plain] selection cannot emit unauthorized experiment: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+    --- FAIL: TestJevContextSelectionAuthority/binding/hooked (0.00s)
+        jev_context_snapshots_test.go:45: [UC04-selection-binding-hooked] selection cannot emit unauthorized experiment: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+    --- FAIL: TestJevContextSelectionAuthority/model/plain (0.00s)
+        jev_context_snapshots_test.go:45: [UC04-selection-model-plain] selection cannot emit unauthorized experiment: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+    --- FAIL: TestJevContextSelectionAuthority/model/hooked (0.00s)
+        jev_context_snapshots_test.go:45: [UC04-selection-model-hooked] selection cannot emit unauthorized experiment: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+--- FAIL: TestJevContextSnapshots (0.01s)
+    --- FAIL: TestJevContextSnapshots/plain (0.01s)
+        jev_context_snapshots_test.go:84: [UC04-snapshot-plain] input and option copied before external resolver: got ai: invalid_request (capability): Jev images require explicit experimental selection
+        decisions_image_inputs_test.go:41: [UC04-snapshot-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevContextSnapshots/hooked (0.01s)
+        jev_context_snapshots_test.go:84: [UC04-snapshot-hooked] input and option copied before external resolver: got ai: invalid_request (capability): Jev images require explicit experimental selection
+        decisions_image_inputs_test.go:41: [UC04-snapshot-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T045942.182397000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.543s
+FAIL

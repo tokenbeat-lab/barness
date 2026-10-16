@@ -1,0 +1,26 @@
+--- FAIL: TestJevContextFinalHooks (0.19s)
+    --- FAIL: TestJevContextFinalHooks/asset-missing-type (0.01s)
+        jev_context_hooks_test.go:135: [UC04-hook-asset-missing-type] legal final native mutation: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC04-hook-asset-missing-type] final ordered decoded file identities; closed records: metadata differs from final images
+--- FAIL: TestJevContextReviewedBudgets (0.02s)
+    --- FAIL: TestJevContextReviewedBudgets/source-count/plain (0.00s)
+        jev_context_review_test.go:62: [UC04-reviewed-source-count-plain] one model source supports repeated context: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+        decisions_image_inputs_test.go:41: [UC04-reviewed-source-count-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevContextReviewedBudgets/source-count/hooked (0.00s)
+        jev_context_review_test.go:62: [UC04-reviewed-source-count-hooked] one model source supports repeated context: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+        decisions_image_inputs_test.go:41: [UC04-reviewed-source-count-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevContextReviewedBudgets/hook-source-count/hooked (0.00s)
+        jev_context_review_test.go:62: [UC04-reviewed-hook-source-count-hooked] one model source supports repeated context: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+        decisions_image_inputs_test.go:41: [UC04-reviewed-hook-source-count-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevContextReviewedBudgets/initial-state/plain (0.00s)
+        jev_context_review_test.go:69: [UC04-reviewed-initial-state-plain] complete native State budget: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+    --- FAIL: TestJevContextReviewedBudgets/initial-state/hooked (0.00s)
+        jev_context_review_test.go:69: [UC04-reviewed-initial-state-hooked] complete native State budget: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+    --- FAIL: TestJevContextReviewedBudgets/hook-state/hooked (0.00s)
+        jev_context_review_test.go:69: [UC04-reviewed-hook-state-hooked] complete native State budget: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+    --- FAIL: TestJevContextReviewedBudgets/raw-state/hooked (0.00s)
+        jev_context_review_test.go:69: [UC04-reviewed-raw-state-hooked] complete native State budget: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T050709.358092000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.169s
+FAIL

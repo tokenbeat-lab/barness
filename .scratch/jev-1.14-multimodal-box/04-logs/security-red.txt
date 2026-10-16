@@ -1,0 +1,54 @@
+--- FAIL: TestJevContextPreflight (0.14s)
+    --- FAIL: TestJevContextPreflight/apng/plain (0.00s)
+        unary_fixture_test.go:63: [UC04-preflight-apng-plain] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_security_test.go:119: [UC04-preflight-apng-plain] rejected before credentials and Attempt: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+             / {Bindings:1 Credentials:1}
+    --- FAIL: TestJevContextPreflight/apng/hooked (0.00s)
+        unary_fixture_test.go:63: [UC04-preflight-apng-hooked] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_security_test.go:119: [UC04-preflight-apng-hooked] rejected before credentials and Attempt: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+             / {Bindings:1 Credentials:1}
+    --- FAIL: TestJevContextPreflight/small-area/plain (0.00s)
+        unary_fixture_test.go:63: [UC04-preflight-small-area-plain] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_security_test.go:119: [UC04-preflight-small-area-plain] rejected before credentials and Attempt: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+             / {Bindings:1 Credentials:1}
+    --- FAIL: TestJevContextPreflight/small-area/hooked (0.00s)
+        unary_fixture_test.go:63: [UC04-preflight-small-area-hooked] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_security_test.go:119: [UC04-preflight-small-area-hooked] rejected before credentials and Attempt: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+             / {Bindings:1 Credentials:1}
+    --- FAIL: TestJevContextPreflight/small-edge/plain (0.00s)
+        unary_fixture_test.go:63: [UC04-preflight-small-edge-plain] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_security_test.go:119: [UC04-preflight-small-edge-plain] rejected before credentials and Attempt: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+             / {Bindings:1 Credentials:1}
+    --- FAIL: TestJevContextPreflight/small-edge/hooked (0.00s)
+        unary_fixture_test.go:63: [UC04-preflight-small-edge-hooked] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_security_test.go:119: [UC04-preflight-small-edge-hooked] rejected before credentials and Attempt: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+             / {Bindings:1 Credentials:1}
+    --- FAIL: TestJevContextPreflight/large-edge/plain (0.01s)
+        unary_fixture_test.go:62: [UC04-preflight-large-edge-plain] code-only match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        unary_fixture_test.go:63: [UC04-preflight-large-edge-plain] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_security_test.go:119: [UC04-preflight-large-edge-plain] rejected before credentials and Attempt: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+             / {Bindings:1 Credentials:1}
+    --- FAIL: TestJevContextPreflight/large-edge/hooked (0.01s)
+        unary_fixture_test.go:62: [UC04-preflight-large-edge-hooked] code-only match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        unary_fixture_test.go:63: [UC04-preflight-large-edge-hooked] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_security_test.go:119: [UC04-preflight-large-edge-hooked] rejected before credentials and Attempt: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+             / {Bindings:1 Credentials:1}
+    --- FAIL: TestJevContextPreflight/host-body/plain (0.00s)
+        jev_context_security_test.go:47: NewClient: ai: invalid config Policy.MaxImageBytes: must not exceed MaxRequestBytes
+    --- FAIL: TestJevContextPreflight/host-body/hooked (0.00s)
+        jev_context_security_test.go:47: NewClient: ai: invalid config Policy.MaxImageBytes: must not exceed MaxRequestBytes
+--- FAIL: TestJevContextHeaders (0.03s)
+    --- FAIL: TestJevContextHeaders/duplicate (0.00s)
+        jev_context_security_test.go:160: [UC04-headers-duplicate] experiment authority pinned: got <nil>
+    --- FAIL: TestJevContextHeaders/contradictory (0.00s)
+        jev_context_security_test.go:160: [UC04-headers-contradictory] experiment authority pinned: got <nil>
+    --- FAIL: TestJevContextHeaders/remove (0.00s)
+        jev_context_security_test.go:160: [UC04-headers-remove] experiment authority pinned: got <nil>
+    --- FAIL: TestJevContextHeaders/long-context (0.00s)
+        jev_context_security_test.go:160: [UC04-headers-long-context] experiment authority pinned: got <nil>
+    --- FAIL: TestJevContextHeaders/unselected (0.00s)
+        jev_context_security_test.go:160: [UC04-headers-unselected] experiment authority pinned: got <nil>
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T045549.325736000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.366s
+FAIL

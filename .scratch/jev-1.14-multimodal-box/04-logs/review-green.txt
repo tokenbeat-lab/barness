@@ -1,0 +1,7 @@
+--- FAIL: TestJevContextNativeBudgets (0.98s)
+    --- FAIL: TestJevContextNativeBudgets/key-total/hooked (0.00s)
+        jev_context_budgets_test.go:89: [UC04-native-budget-key-total-hooked] total key byte bound exercised: got ai: resource_limit (request): exceeded the resource policy's Classifier.MaxStateBytes (4096)
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T050734.827537000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	12.026s
+FAIL

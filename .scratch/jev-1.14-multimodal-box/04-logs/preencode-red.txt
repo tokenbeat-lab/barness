@@ -1,0 +1,11 @@
+--- FAIL: TestJevContextBorrowedImageBudget (0.04s)
+    --- FAIL: TestJevContextBorrowedImageBudget/map (0.02s)
+        jev_context_preencode_test.go:45: [UC04-borrowed-budget-map] known bytes rejected before encoded copies: got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (3000) allocated 7396944
+    --- FAIL: TestJevContextBorrowedImageBudget/raw (0.01s)
+        jev_context_preencode_test.go:45: [UC04-borrowed-budget-raw] known bytes rejected before encoded copies: got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (3000) allocated 6691976
+    --- FAIL: TestJevContextBorrowedImageBudget/typed (0.01s)
+        jev_context_preencode_test.go:45: [UC04-borrowed-budget-typed] known bytes rejected before encoded copies: got ai: resource_limit (request): exceeded the resource policy's MaxImageBytes (3000) allocated 7405728
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T050001.474086000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.643s
+FAIL

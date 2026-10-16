@@ -105,6 +105,11 @@ def main():
     if len(sys.argv) == 4 and sys.argv[1] == '--record':
         report = {'baseline': BASELINE, 'realService': 'NOT_RUN',
                   'sourceFiles': sources(),
+                  'verificationFiles': {relative(path): sha(path) for path in sorted(REPORT.parent.glob('04-*.md'))}
+                  | {relative(path): sha(path) for path in sorted((REPORT.parent / '04-logs').glob('*.txt'))}
+                  | {relative(Path(__file__)): sha(Path(__file__))}
+                  | {relative(REPORT.parent.parent / 'unary-timeout-priority/issues/01-unary-timeout-priority.md'): sha(REPORT.parent.parent / 'unary-timeout-priority/issues/01-unary-timeout-priority.md')}
+                  | {relative(REPORT.parent / 'issues/04-jev-context-images-json.md'): sha(REPORT.parent / 'issues/04-jev-context-images-json.md')},
                   'runs': {name: verify_bundle(Path(path).resolve())
                            for name, path in zip(('full', 'race'), sys.argv[2:])}}
         REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + '\n')
@@ -112,6 +117,8 @@ def main():
         raise SystemExit(__doc__)
     report = json.loads(REPORT.read_text())
     assert report['sourceFiles'] == sources(), 'Go source inventory changed'
+    for name, expected in report['verificationFiles'].items():
+        assert sha(ROOT / name) == expected, name
     for name, entry in report['runs'].items():
         actual = verify_bundle(ROOT / entry['manifest'])
         assert actual == entry, name

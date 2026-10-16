@@ -72,6 +72,42 @@ and resource-release assertions use the existing evidence recorder. The verifier
 checks every artifact hash and independently recomputes decoded-file identities
 from actual sent native assets, atomic failures and private observations.
 
-Final suite, race, redaction-audit and integrity inventory results are being
-sealed after the test processes complete. The same inventory records the exact
-Go sources used to reproduce the run; offline PASS never implies live PASS.
+Independent review found and corrected four approved-design details: optional
+native asset type; source counts versus reference occurrences; wrapped State
+budget; and rejection before projected-State expansion. The final review has no
+unresolved findings on either axis; see [two-axis report](04-code-review.md).
+
+The first full run had one existing equal-100ms timeout terminal assertion fail.
+Ten isolated repetitions passed unchanged, and the next full run passed. The
+observation and investigation conditions are preserved in a [triage ticket](../unary-timeout-priority/issues/01-unary-timeout-priority.md); the Jev change does
+not modify shared timeout runtime or weaken that assertion. Full runs after
+review corrections preserve the original failure rather than replacing its log.
+
+## Final sealed validation
+
+Final runtime/test source commit: `724a0a7` (with `5615b02` and `7bfec2e`).
+
+- Full `go test ./... -count=1`: exit 0, **6,938 PASS / 1,050 explicit opt-in
+  NOT_RUN** evidence cases. All **137 ticket-04 cases PASS**.
+- Focused race: exit 0, **463/463 PASS**, including all 137 ticket cases and the
+  prior TypeSafe native/text plus Decisions reference/identity regressions.
+- `go vet ./...`: exit 0.
+- Full and race redaction audits: **zero findings**.
+- Independent verifier: **47,764 full + 5,827 race = 53,591 artifact hashes**,
+  final decoded-file identities, atomic errors, private observations and complete
+  Go source inventory verified. Both bundles contain image fixtures/hashes,
+  actual inputs/wire/scripts, results/errors, Attempt/Observer, finite config,
+  assertions and released-resource gauges.
+
+[Full manifest](../../.evidence/barness-ai/20261016T051029.530899000Z/manifest.json),
+[race manifest](../../.evidence/barness-ai/20261016T051215.828696000Z/manifest.json),
+[integrity inventory](04-evidence.json), [review report](04-code-review.md).
+Final logs: `04-logs/full-sealed.txt`, `04-logs/race-sealed.txt`,
+`04-logs/vet-sealed.txt`; intermediate red/green and prior runs remain preserved.
+
+The inventory also hashes verification documents, logs, source and the audit /
+manifest files. Re-run the verifier without arguments to check the sealed local
+bundle. After an intentional fresh test run, `--record FULL_MANIFEST RACE_MANIFEST`
+seals that new bundle, retaining independently verified identities and all hashes.
+Offline PASS never implies live PASS; real-service protocol execution, visual
+quality and formal support remain **NOT_RUN** / unclaimed.

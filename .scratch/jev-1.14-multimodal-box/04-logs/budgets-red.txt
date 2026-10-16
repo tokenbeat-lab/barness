@@ -1,0 +1,11 @@
+--- FAIL: TestJevContextNativeBudgets (1.06s)
+    --- FAIL: TestJevContextNativeBudgets/shared-upload/plain (0.01s)
+        jev_context_budgets_test.go:76: [UC04-native-budget-shared-upload-plain] one uploaded asset fits independent expansion budget: got ai: resource_limit (scope): exceeded the resource policy's MaxRequestBytes (6000)
+        decisions_image_inputs_test.go:41: [UC04-native-budget-shared-upload-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevContextNativeBudgets/shared-upload/hooked (0.00s)
+        jev_context_budgets_test.go:76: [UC04-native-budget-shared-upload-hooked] one uploaded asset fits independent expansion budget: got ai: resource_limit (scope): exceeded the resource policy's MaxRequestBytes (6000)
+        decisions_image_inputs_test.go:41: [UC04-native-budget-shared-upload-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T045809.281925000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	10.698s
+FAIL

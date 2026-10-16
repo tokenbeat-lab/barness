@@ -1,0 +1,7 @@
+--- FAIL: TestJevContextFinalHooks (0.17s)
+    --- FAIL: TestJevContextFinalHooks/unauthorized (0.00s)
+        jev_context_hooks_test.go:142: [UC04-hook-unauthorized] final native rejection before Attempt: got ai: tenant_denied (capability): binding does not allow classifier images
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T050038.505729000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	12.185s
+FAIL

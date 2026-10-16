@@ -1,0 +1,24 @@
+--- FAIL: TestJevContextReviewedBudgets (0.03s)
+    --- FAIL: TestJevContextReviewedBudgets/source-count/plain (0.01s)
+        jev_context_review_test.go:64: [UC04-reviewed-source-count-plain] one model source supports repeated context: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+        decisions_image_inputs_test.go:41: [UC04-reviewed-source-count-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevContextReviewedBudgets/source-count/hooked (0.00s)
+        jev_context_review_test.go:64: [UC04-reviewed-source-count-hooked] one model source supports repeated context: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+        decisions_image_inputs_test.go:41: [UC04-reviewed-source-count-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevContextReviewedBudgets/hook-source-count/hooked (0.00s)
+        jev_context_review_test.go:64: [UC04-reviewed-hook-source-count-hooked] one model source supports repeated context: got ai: invalid_request (capability): expanded classifier images exceed model or protocol capability
+        decisions_image_inputs_test.go:41: [UC04-reviewed-hook-source-count-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevContextReviewedBudgets/initial-state/plain (0.00s)
+        jev_context_review_test.go:71: [UC04-reviewed-initial-state-plain] complete native State budget: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_review_test.go:73: [UC04-reviewed-initial-state-plain] projected budget before credentials: read credentials
+    --- FAIL: TestJevContextReviewedBudgets/initial-state/hooked (0.00s)
+        jev_context_review_test.go:71: [UC04-reviewed-initial-state-hooked] complete native State budget: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_context_review_test.go:73: [UC04-reviewed-initial-state-hooked] projected budget before credentials: read credentials
+    --- FAIL: TestJevContextReviewedBudgets/hook-state/hooked (0.00s)
+        jev_context_review_test.go:71: [UC04-reviewed-hook-state-hooked] complete native State budget: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+    --- FAIL: TestJevContextReviewedBudgets/raw-state/hooked (0.00s)
+        jev_context_review_test.go:71: [UC04-reviewed-raw-state-hooked] complete native State budget: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T050723.153871000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.651s
+FAIL
