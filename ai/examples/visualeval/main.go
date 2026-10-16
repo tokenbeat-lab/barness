@@ -116,7 +116,7 @@ func execute(a arguments) error {
 			}
 			server := provider.New(map[string]string{key: "key:visual-fixture"})
 			defer server.Close()
-			endpoint = server.URL()
+			endpoint = server.URL() + officialBasePath(p.route)
 			for _, v := range replies {
 				if v.Status < 100 || v.Status > 599 || v.DelayMS < 0 || v.DelayMS > 30000 {
 					return errors.New("invalid bounded response script")

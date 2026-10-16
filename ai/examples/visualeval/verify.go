@@ -313,7 +313,7 @@ func canonicalRequest(raw []byte) any {
 }
 func replaySample(p *plan, i int, entry string, w wire, s sampleResult) error {
 	a := arguments{mode: "controlled", entry: entry, callMS: 30000}
-	got, generated, _, err := call(context.Background(), p, a, p.request(i), i, "http://127.0.0.1", "synthetic-replay-credential", "synthetic-replay-account", replayTransport{w})
+	got, generated, _, err := call(context.Background(), p, a, p.request(i), i, "http://127.0.0.1"+officialBasePath(p.route), "synthetic-replay-credential", "synthetic-replay-account", replayTransport{w})
 	if err != nil {
 		return err
 	}

@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"net/url"
 	"os"
 	"regexp"
 	"strings"
@@ -75,4 +76,11 @@ func validAuthorization(p *plan, proof *authorization) error {
 		return errors.New("invalid pinned authorization")
 	}
 	return nil
+}
+
+// Both the controlled Provider and offline replay preserve the selected
+// official service's base path. Neither uses an environment endpoint override.
+func officialBasePath(route string) string {
+	u, _ := url.Parse(official(route)) // closed, validated route with a fixed URL
+	return u.Path
 }

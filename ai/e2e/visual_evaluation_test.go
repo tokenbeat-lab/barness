@@ -52,6 +52,12 @@ func TestVisualEvaluationFixedWorkflow(t *testing.T) {
 				if !ev.Check("executable crosses public Classify", err == nil, "command unavailable or replay failed") {
 					return
 				}
+				wire := visualRead(t, out, "samples/v01/wire.json")
+				expectedPath := "/v1/systemone"
+				if route == "decisions" {
+					expectedPath = "/v1/decisions"
+				}
+				ev.Check("controlled Provider preserves official service path prefix", wire["path"] == expectedPath, "lost official v1 prefix")
 				r := visualRead(t, out, "report.json")
 				ev.Record("report", r)
 				ev.Check("controlled completion never asserts real quality", r["status"] == "COMPLETE" && r["realQuality"] == "NOT_RUN", "wrong claims")
