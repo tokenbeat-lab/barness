@@ -172,6 +172,10 @@ func (p *ResourcePolicy) clone() ResourcePolicy {
 		v := *p.Classifier
 		if v.Images != nil {
 			images := *v.Images
+			if images.References != nil {
+				refs := *images.References
+				images.References = &refs
+			}
 			v.Images = &images
 		}
 		out.Classifier = &v

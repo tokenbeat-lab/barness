@@ -64,9 +64,10 @@ func exactClassifierFields(raw []byte, out any) error {
 
 func (r *ClassifierRequest) UnmarshalJSON(raw []byte) error {
 	var wire struct {
-		State     json.RawMessage            `json:"state"`
-		Questions map[string]json.RawMessage `json:"questions"`
-		Images    []json.RawMessage          `json:"images"`
+		State           json.RawMessage            `json:"state"`
+		Questions       map[string]json.RawMessage `json:"questions"`
+		Images          []json.RawMessage          `json:"images"`
+		ImageReferences []ImageReference           `json:"imageReferences"`
 	}
 	if err := decodeClassifierJSON(raw, &wire); err != nil {
 		return err
@@ -75,7 +76,7 @@ func (r *ClassifierRequest) UnmarshalJSON(raw []byte) error {
 	if err != nil {
 		return err
 	}
-	out := ClassifierRequest{State: wire.State, Questions: questions}
+	out := ClassifierRequest{State: wire.State, Questions: questions, ImageReferences: wire.ImageReferences}
 	for _, raw := range wire.Images {
 		var image struct {
 			Data     *string `json:"data"`

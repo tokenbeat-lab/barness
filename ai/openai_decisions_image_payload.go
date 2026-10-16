@@ -23,7 +23,7 @@ type decisionsImageBudget struct {
 func (c *Client) imageBudget() *decisionsImageBudget {
 	b := &decisionsImageBudget{policy: &c.policy, encodedRemaining: c.policy.MaxRequestBytes}
 	if c.policy.Classifier.Images != nil {
-		b.remaining = c.policy.Classifier.Images.MaxTotalImageBytes
+		b.remaining = c.policy.Classifier.Images.referenceLimits().MaxExpandedImageBytes
 	}
 	return b
 }
@@ -75,11 +75,12 @@ func (b *decisionsImageBudget) takeImage(size int64) *Error {
 		return limitFailure(PhaseRequest, "MaxImageBytes", p.MaxImageBytes)
 	}
 	if ip := p.Classifier.Images; ip != nil {
-		if b.count > ip.MaxImages {
-			return limitFailure(PhaseRequest, "Classifier.Images.MaxImages", int64(ip.MaxImages))
+		limits := ip.referenceLimits()
+		if b.count > limits.MaxReferences {
+			return limitFailure(PhaseRequest, "Classifier.Images.References.MaxReferences", int64(limits.MaxReferences))
 		}
 		if size > b.remaining {
-			return limitFailure(PhaseRequest, "Classifier.Images.MaxTotalImageBytes", ip.MaxTotalImageBytes)
+			return limitFailure(PhaseRequest, "Classifier.Images.References.MaxExpandedImageBytes", limits.MaxExpandedImageBytes)
 		}
 		b.remaining -= size
 	}

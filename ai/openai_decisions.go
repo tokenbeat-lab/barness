@@ -7,12 +7,12 @@ import (
 	"net/http"
 )
 
-func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Credential, model ClassifierModel, req ClassifierRequest, out *ClassifierResult) *Error {
+func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Credential, model ClassifierModel, req ClassifierRequest, plan classifierImagePlan, out *ClassifierResult) *Error {
 	header, failure := r.hooks.headers(ctx, http.Header{"Authorization": []string{"Bearer " + cred.APIKey.reveal()}, "Content-Type": []string{"application/json"}, "User-Agent": []string{userAgent}})
 	if failure != nil {
 		return failure
 	}
-	body, err := encodeDecisionsRequest(model.ID, req)
+	body, err := encodeDecisionsRequest(model.ID, req, plan)
 	if err != nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "Decisions request could not be encoded")
 	}

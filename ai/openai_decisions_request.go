@@ -32,7 +32,7 @@ type decisionsChoice struct {
 	Description *string `json:"description,omitempty"`
 }
 
-func encodeDecisionsRequest(model string, req ClassifierRequest) ([]byte, error) {
+func encodeDecisionsRequest(model string, req ClassifierRequest, plan classifierImagePlan) ([]byte, error) {
 	var text string
 	state := bytes.TrimSpace(req.State)
 	if state[0] == '"' {
@@ -52,7 +52,8 @@ func encodeDecisionsRequest(model string, req ClassifierRequest) ([]byte, error)
 	}
 	if len(req.Images) > 0 {
 		content := []decisionsContent{{Type: "input_text", Text: &text}}
-		for _, img := range req.Images {
+		for _, ref := range plan {
+			img := req.Images[ref.ImageIndex]
 			url := "data:" + img.MimeType + ";base64," + img.Data
 			content = append(content, decisionsContent{Type: "input_image", ImageURL: &url})
 		}

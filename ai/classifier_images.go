@@ -6,8 +6,11 @@ import (
 )
 
 // ClassifierImagePolicy holds finite host budgets, independent of image
-// generation. MaxImageBytes and MaxRequestBytes also apply to classification.
+// generation. MaxImages/MaxTotalImageBytes bound the source collection;
+// References bounds occurrences after reuse. MaxImageBytes and MaxRequestBytes
+// also apply to classification.
 type ClassifierImagePolicy struct {
+	References         *ClassifierImageReferencePolicy
 	MaxImages          int
 	MaxTotalImageBytes int64
 }
@@ -23,6 +26,14 @@ func (p *ClassifierImagePolicy) validate(requestLimit int64) error {
 	}
 	if p.MaxTotalImageBytes <= 0 || p.MaxTotalImageBytes > requestLimit {
 		return policyError("Classifier.Images.MaxTotalImageBytes", "must be positive and must not exceed MaxRequestBytes")
+	}
+	if p.References != nil {
+		if p.References.MaxReferences <= 0 {
+			return policyError("Classifier.Images.References.MaxReferences", "must be positive; unlimited is not supported")
+		}
+		if p.References.MaxExpandedImageBytes <= 0 {
+			return policyError("Classifier.Images.References.MaxExpandedImageBytes", "must be positive; unlimited is not supported")
+		}
 	}
 	return nil
 }

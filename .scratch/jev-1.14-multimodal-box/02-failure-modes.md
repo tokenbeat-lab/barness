@@ -1,0 +1,16 @@
+# Ticket 02 — failure inventory and agreed seams
+
+Baseline: 7c1cd1a533a924dd06c57beaaa03a0977f130de2. Scope: Decisions context references only.
+
+The ticket explicitly selects `Client.Classify` and `HookedClient.Classify` against the existing controlled HTTP provider as the public E2E seams. Public JSON and Catalog/NewClient are input/configuration boundaries of these calls. No post-implementation unit tests will be added. Each slice records RED before its implementation and GREEN afterwards.
+
+Before implementation, the failure inventory is:
+
+- Closed reference JSON: absent/null/empty defaults; null element; missing/null/noninteger/negative/overflow/out-of-range imageIndex; missing/null/unknown placement; missing/empty/null value pointer; context pointer even empty; unknown/case-alias/cross-variant fields; repeated record/request keys; wrong collection type. Both decoding and typed serialization must reject invalid records; valid JSON must round-trip including index zero.
+- Complete declaration: missing image source, dangling index, unused source, context order/reuse, identical bytes in separate sources, no hash deduplication, mutation of caller references/JSON/images after snapshot.
+- Value structure: pointer root/fragment/JSONPath/bad ~ escapes; literal percent/Unicode/numeric object keys; canonical array indices versus leading zeros/negative/append; escaped question/criterion keys; missing target; non-null target; duplicate target; prohibited root/Questions/Criteria/type/Images/reference/identity fields. Referenced State/Instructions/criterion roots may be null; ordinary null keeps old validation. Valid local uses must fail capability (including mixed context/local), invalid structures fail scope, all before credentials/Attempts.
+- Capability/catalog: unknown/duplicate/contradictory locations; text-only and Jev cannot claim new image support; omitted Decisions locations resolve to context without materializing defaults or changing old hash; explicit context must survive construction/query/clone/hash without aliasing.
+- Budgets: source count/decoded bytes/per-image/known request bounds before copying; reference count/expanded decoded bytes, inherited finite limits, positive explicit subpolicy, overflow-safe sums; expanded count versus both model and protocol 128; final encoded bytes including repeated data URLs; independent policy snapshots. Reuse cannot bypass limits.
+- Authorization/final hooks: original images require classifier policy and Binding.AllowClassifierImages (other operation grants do not suffice); final Hook-added/reordered/replaced images undergo permission, MIME, model, reference count/expanded bytes, schema/order and encoded-body validation before Attempt. Includes ordinary, typed and custom-encoded payloads.
+- Regression/lifetime: old compact State (numbers preserved)/question mapping/text-first unique user/MIME subset/refusal/usage unchanged; Jev rejects images; retries freeze final bytes and caller mutations cannot leak; failures publish no answers; Observer metadata excludes image data; calls release bodies/permits.
+- Evidence: synthetic fixtures and SHA-256, public input, final HTTP request/response, result/error, Attempt/Observer assertions/config, per-artifact hashes and secret audit, replay instructions. Controlled HTTP PASS is never real-provider PASS.

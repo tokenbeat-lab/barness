@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"maps"
 	"slices"
+	"strconv"
 )
 
 // ClassifierPolicy enables classification with explicit finite input bounds.
@@ -30,7 +31,7 @@ func (p *ClassifierPolicy) validate() error {
 	}
 	return nil
 }
-func (p *ClassifierPolicy) check(req ClassifierRequest) *Error {
+func (p *ClassifierPolicy) check(req ClassifierRequest, plan classifierImagePlan) *Error {
 	if p == nil {
 		return newError(CodeInvalidRequest, PhaseScope, "the client policy does not enable classification")
 	}
@@ -40,7 +41,7 @@ func (p *ClassifierPolicy) check(req ClassifierRequest) *Error {
 	if int64(len(req.State)) > p.MaxStateBytes {
 		return limitFailure(PhaseScope, "Classifier.MaxStateBytes", p.MaxStateBytes)
 	}
-	if !classifierState(req.State) || uniqueClassifierJSON(req.State) != nil {
+	if (!classifierState(req.State) && !(plan.hasValue("/state") && bytes.Equal(bytes.TrimSpace(req.State), []byte("null")))) || uniqueClassifierJSON(req.State) != nil {
 		return newError(CodeInvalidRequest, PhaseScope, "classifier state must be a JSON string, object or array")
 	}
 	if len(req.Questions) == 0 {
@@ -54,7 +55,7 @@ func (p *ClassifierPolicy) check(req ClassifierRequest) *Error {
 		if size, ok := classifierQuestionSize(q, p.MaxQuestionBytes); !ok || size > p.MaxQuestionBytes {
 			return limitFailure(PhaseScope, "Classifier.MaxQuestionBytes", p.MaxQuestionBytes)
 		}
-		if problem := validateClassifierQuestion(q); problem != "" {
+		if problem := validateClassifierQuestion(q, "/questions/"+imagePointerKey(key), plan); problem != "" {
 			return newError(CodeInvalidRequest, PhaseScope, problem)
 		}
 		// Count the complete encoded question too, including JSON key escaping
@@ -157,7 +158,10 @@ func classifierQuestionSize(question ClassifierQuestion, limit int64) (int64, bo
 	return size, true
 }
 
-func validateClassifierQuestion(question ClassifierQuestion) string {
+func validateClassifierQuestion(question ClassifierQuestion, pointer string, plan classifierImagePlan) string {
+	allowed := func(raw json.RawMessage, nonempty bool, path string) bool {
+		return (plan.hasValue(path) && bytes.Equal(bytes.TrimSpace(raw), []byte("null"))) || classifierDescription(raw, nonempty)
+	}
 	var instructions json.RawMessage
 	switch q := question.(type) {
 	case ChoiceQuestion:
@@ -165,8 +169,8 @@ func validateClassifierQuestion(question ClassifierQuestion) string {
 		if len(q.Criteria) < 1 || len(q.Criteria) > 255 {
 			return "choice requires 1 to 255 options"
 		}
-		for _, v := range q.Criteria {
-			if !classifierDescription(v, false) && string(bytes.TrimSpace(v)) != "null" {
+		for key, v := range q.Criteria {
+			if !allowed(v, false, pointer+"/criteria/"+imagePointerKey(key)) && string(bytes.TrimSpace(v)) != "null" {
 				return "invalid choice criterion"
 			}
 		}
@@ -175,20 +179,20 @@ func validateClassifierQuestion(question ClassifierQuestion) string {
 		if len(q.Criteria) < 2 || len(q.Criteria) > 10 {
 			return "score requires 2 to 10 ordered levels"
 		}
-		for _, v := range q.Criteria {
-			if !classifierDescription(v, false) {
+		for i, v := range q.Criteria {
+			if !allowed(v, false, pointer+"/criteria/"+strconv.Itoa(i)) {
 				return "invalid score criterion"
 			}
 		}
 	case BoolQuestion:
 		instructions = q.Instructions
-		if q.Criteria != nil && (!classifierDescription(q.Criteria.True, false) || !classifierDescription(q.Criteria.False, false)) {
+		if q.Criteria != nil && (!allowed(q.Criteria.True, false, pointer+"/criteria/true") || !allowed(q.Criteria.False, false, pointer+"/criteria/false")) {
 			return "bool criteria require true and false descriptions"
 		}
 	default:
 		return "unsupported classifier question"
 	}
-	if !classifierDescription(instructions, true) {
+	if !allowed(instructions, true, pointer+"/instructions") {
 		return "instructions must be a nonempty JSON string, object or array"
 	}
 	return ""
@@ -235,6 +239,11 @@ func (l byteLimits) checkClassifierInput(req ClassifierRequest) *Error {
 	}
 	for _, img := range req.Images {
 		if !take(len(img.Data)) || !take(len(img.MimeType)) || !take(len("data:;base64,")) {
+			return limitFailure(PhaseScope, "MaxRequestBytes", l.request)
+		}
+	}
+	for _, ref := range req.ImageReferences {
+		if !take(len(ref.Pointer)) || !take(len(ref.Placement)) || !take(len(strconv.Itoa(ref.ImageIndex))) {
 			return limitFailure(PhaseScope, "MaxRequestBytes", l.request)
 		}
 	}

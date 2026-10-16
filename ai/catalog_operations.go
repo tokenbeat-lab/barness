@@ -86,11 +86,14 @@ const (
 // existing catalogs. Score requires an inclusive level
 // range with minimum >= 2. Limits for unsupported kinds must be zero.
 type ClassifierCapabilities struct {
-	MaxInputImages int                      `json:"maxInputImages,omitempty"`
-	ImageMIMETypes []string                 `json:"imageMimeTypes,omitempty"`
-	Kinds          []ClassifierQuestionKind `json:"kinds"`
-	MaxChoices     int                      `json:"maxChoices"`
-	MinChoices     int                      `json:"minChoices,omitempty"`
+	// Omitted locations retain context for existing Decisions image models.
+	// Defaults are interpreted at call time, never materialized into catalogs.
+	ImageLocations []ClassifierImageLocation `json:"imageLocations,omitempty"`
+	MaxInputImages int                       `json:"maxInputImages,omitempty"`
+	ImageMIMETypes []string                  `json:"imageMimeTypes,omitempty"`
+	Kinds          []ClassifierQuestionKind  `json:"kinds"`
+	MaxChoices     int                       `json:"maxChoices"`
+	MinChoices     int                       `json:"minChoices,omitempty"`
 	// Omitted formats allow the legacy string/object/array descriptions.
 	DescriptionFormats []ClassifierDescriptionFormat `json:"descriptionFormats,omitempty"`
 	MinScoreLevels     int                           `json:"minScoreLevels"`
@@ -104,4 +107,15 @@ const (
 	ClassifierDescriptionString ClassifierDescriptionFormat = "string"
 	ClassifierDescriptionObject ClassifierDescriptionFormat = "object"
 	ClassifierDescriptionArray  ClassifierDescriptionFormat = "array"
+)
+
+// ClassifierImageLocation names the visibility of an image use. Only context
+// is currently implemented, on Decisions; other positions fail capability.
+type ClassifierImageLocation string
+
+const (
+	ClassifierImageLocationContext      ClassifierImageLocation = "context"
+	ClassifierImageLocationState        ClassifierImageLocation = "state"
+	ClassifierImageLocationInstructions ClassifierImageLocation = "instructions"
+	ClassifierImageLocationCriteria     ClassifierImageLocation = "criteria"
 )

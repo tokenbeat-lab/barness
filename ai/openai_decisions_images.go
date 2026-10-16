@@ -88,7 +88,10 @@ func (c *Client) checkDecisionsInput(ctx context.Context, raw []byte, model Clas
 			return decisionsImageDenied()
 		}
 	}
-	if failure := c.policy.checkClassifierImageSizes(images, PhaseRequest); failure != nil {
+	// Native content has no source table: every final block is an occurrence,
+	// including blocks introduced or reordered by a trusted Hook. Source budgets
+	// were checked on the public collection; never apply them to its expansion.
+	if failure := c.policy.checkClassifierExpandedImages(images, PhaseRequest); failure != nil {
 		return failure
 	}
 	if len(images) > min(model.Capabilities.MaxInputImages, decisionsImageLimit) {

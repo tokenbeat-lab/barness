@@ -15,7 +15,7 @@
 | score | 2–10，保留 Jev 有界舍入 | 2–10，分布/期望容差 1e-6，不共享舍入例外 |
 | 普通答案 | ChoiceAnswer / ScoreAnswer / BoolAnswer | 同左，score 分布和字符串 legend 保留 |
 | 拒答 | 未知 native refusal 拒绝 | RefusalAnswer，混合与全拒答为 stop/nil error |
-| 图片 | text-only | 仅有序 inline PNG/JPEG/WebP，无 URL、文件 ID 或自动 resize |
+| 图片 | text-only | inline PNG/JPEG/WebP，按 context 引用排序和复用，无 URL、文件 ID 或自动 resize |
 
 `ClassifierRequest.Images` 必须同时满足三项：`ClassifierPolicy.Images` 的正数
 MaxImages/MaxTotalImageBytes，ClassifierModel.Input/ImageMIMETypes/MaxInputImages 的能力，
@@ -56,3 +56,44 @@ Extension Route、旧混合及分类图片设计负载、Jev/Luna 独立效果�
 历史 Jev 使用 recorded snapshot 仍可单独核验；当前门禁另要求固定任务/config/catalog、
 当前执行源码完整集合和真实 COMPLETE。完整全拒答的准确率为 0，条件准确率/ECE/Brier
 为 null，消耗如实保留，不设置业务准确率门槛。
+
+
+## 统一图片引用
+
+`Images` 是唯一来源集合；`ImageReferences` 省略、null 或空数组时，按来源顺序各使用一次
+context。非空数组是完整声明，每个来源必须至少被使用一次。相同 bytes 的不同来源保持
+独立，重复引用也不去重。例如：
+
+```go
+req.Images = []ai.Image{png, jpeg}
+req.ImageReferences = []ai.ImageReference{
+    {ImageIndex: 1, Placement: ai.ImagePlacementContext},
+    {ImageIndex: 0, Placement: ai.ImagePlacementContext},
+    {ImageIndex: 1, Placement: ai.ImagePlacementContext},
+}
+```
+
+最终唯一 user 消息先发 State text，再发 JPEG、PNG、JPEG 三个 data URL block。
+公共 JSON 每条引用要求显式整数 `imageIndex`（零合法）及 `placement`；未知字段、重复键、
+大小写别名、负数、小数或缺失下标拒绝。context 必须省略 `pointer`。
+
+公共 `value` 引用用非空 RFC 6901 JSON 字符串 `pointer` 指向现有 null 内容槽位：State、
+单题 Instructions，或单个 Choice/Score/Bool criterion 的根或后代。支持 `~0`/`~1`、
+数字对象键和规范数组下标；不创建路径，不解释字符串中的特殊标记，不改变普通 null。
+Questions、Criteria 集合及 type/图片/引用/授权字段不能作为目标。被明确引用的 State 或
+Instructions 根可为 null；未引用时仍按既有格式和非空规则检查。
+
+此票只实现 Decisions context：任何合法 value 用途（包括同时具有 context 引用）都整体
+以 `invalid_request/capability` 在凭据读取前拒绝，坏引用为 `invalid_request/scope`。
+Jev 图片及局部位置仍未开放；不会丢弃局部用途或提升为共享图片。
+
+`ClassifierCapabilities.ImageLocations` 当前仅可显式声明 `context`，且只限 Decisions 图片
+型号。省略时旧图片型号仍解释为 context，文本型号没有图片位置；查询不写回默认值，旧目录
+Hash 不变。未知、重复、文本型号位置及未实现位置声明在 Catalog.Hash/NewClient 处拒绝。
+
+`ClassifierImagePolicy.References` 可配置 `MaxReferences` 和 `MaxExpandedImageBytes`，显式值
+必须都为正数；nil 时分别继承 MaxImages 与 MaxTotalImageBytes 的有限上限。来源仍受原数量、
+单图和总 decoded 预算约束；展开预算按每次使用计算。Decisions 展开数还须不超过
+`min(128, ClassifierModel.Capabilities.MaxInputImages)`，MaxInputImages 也继续限制来源数。
+已知超限在复制前拒绝，最终编码体再次检查 MaxRequestBytes。Hook 后原生图片 block 按
+展开用途重检这些预算及权限，既有来源预算不会错误地收紧 Host 显式配置的复用额度。

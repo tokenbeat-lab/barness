@@ -21,6 +21,20 @@ func classifierModelProblem(m ClassifierModel) string {
 	if image && (m.Provider != ProviderOpenAI || m.API != APIOpenAIDecisions || c.MaxInputImages > decisionsImageLimit) {
 		return "classifier image declaration exceeds the implemented protocol"
 	}
+	seenLocations := map[ClassifierImageLocation]bool{}
+	for _, location := range c.ImageLocations {
+		if !image || seenLocations[location] {
+			return "classifier image locations are inconsistent or duplicated"
+		}
+		switch location {
+		case ClassifierImageLocationContext:
+		case ClassifierImageLocationState, ClassifierImageLocationInstructions, ClassifierImageLocationCriteria:
+			return "classifier image location exceeds the implemented protocol"
+		default:
+			return "unknown classifier image location"
+		}
+		seenLocations[location] = true
+	}
 	seenMIME := map[string]bool{}
 	for _, mime := range c.ImageMIMETypes {
 		if !classifierImageMIME(mime) || seenMIME[mime] {

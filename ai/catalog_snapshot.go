@@ -57,6 +57,7 @@ func (m ClassifierModel) clone() ClassifierModel {
 	m.Capabilities.Kinds = slices.Clone(m.Capabilities.Kinds)
 	m.Capabilities.DescriptionFormats = slices.Clone(m.Capabilities.DescriptionFormats)
 	m.Capabilities.ImageMIMETypes = slices.Clone(m.Capabilities.ImageMIMETypes)
+	m.Capabilities.ImageLocations = slices.Clone(m.Capabilities.ImageLocations)
 	m.Cost.Tiers = slices.Clone(m.Cost.Tiers)
 	return m
 }

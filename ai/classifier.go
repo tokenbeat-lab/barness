@@ -11,8 +11,11 @@ import (
 type ClassifierRequest struct {
 	State     json.RawMessage               `json:"state"`
 	Questions map[string]ClassifierQuestion `json:"questions"`
-	// Images are ordered inline inputs. Empty retains the text-only wire.
+	// Images is the single inline source collection. Empty retains text-only wire.
 	Images []Image `json:"images,omitempty"`
+	// ImageReferences is a complete usage declaration when nonempty. Omitted,
+	// null or empty references use every source once as ordered context.
+	ImageReferences []ImageReference `json:"imageReferences,omitempty"`
 }
 
 // ClassifierResult exists on both success and failure. Answers are published
@@ -62,11 +65,21 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 	if failure == nil {
 		failure = c.policy.checkClassifierImageSizes(req.Images, PhaseScope)
 	}
-	if failure == nil && len(req.Images) > 0 {
+	if failure == nil {
+		failure = c.policy.checkClassifierReferenceSizes(req)
+	}
+	if failure == nil && (len(req.Images) > 0 || len(req.ImageReferences) > 0) {
 		failure = c.policy.byteLimits().checkClassifierInput(req)
 	}
+	var plan classifierImagePlan
 	if failure == nil {
-		failure = c.policy.Classifier.check(req)
+		plan, failure = planClassifierImages(req)
+	}
+	if failure == nil {
+		failure = c.policy.Classifier.check(req, plan)
+	}
+	if failure == nil {
+		failure = plan.checkValues(req)
 	}
 	if failure == nil {
 		failure = c.policy.byteLimits().checkClassifierInput(req)
@@ -77,7 +90,7 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 	// Bound known sizes before copying any mutable input.
 	if failure == nil {
 		req = req.clone()
-		failure = c.executeClassifier(ctx, r, target, req, opts, hooks, &res)
+		failure = c.executeClassifier(ctx, r, target, req, plan, opts, hooks, &res)
 	}
 	res.StopReason = StopReasonStop
 	if failure != nil {
@@ -97,7 +110,7 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 }
 
 func (r ClassifierRequest) clone() ClassifierRequest {
-	out := ClassifierRequest{State: slices.Clone(r.State), Questions: make(map[string]ClassifierQuestion, len(r.Questions)), Images: slices.Clone(r.Images)}
+	out := ClassifierRequest{State: slices.Clone(r.State), Questions: make(map[string]ClassifierQuestion, len(r.Questions)), Images: slices.Clone(r.Images), ImageReferences: slices.Clone(r.ImageReferences)}
 	for key, q := range r.Questions {
 		switch q := q.(type) {
 		case ChoiceQuestion:
@@ -122,14 +135,22 @@ func (r ClassifierRequest) clone() ClassifierRequest {
 	return out
 }
 
-func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target Target, req ClassifierRequest, opts Options, hooks Hooks, res *ClassifierResult) *Error {
+func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target Target, req ClassifierRequest, plan classifierImagePlan, opts Options, hooks Hooks, res *ClassifierResult) *Error {
 	i, failure := r.resolve(ctx, target)
 	if failure != nil {
 		return failure
 	}
 	model := c.catalog.ClassifierModels[i].clone()
+	for _, ref := range plan {
+		if ref.Placement != ImagePlacementContext {
+			return newError(CodeInvalidRequest, PhaseCapability, "classifier protocol does not support local image references")
+		}
+	}
 	if problem := classifierImageCapability(req.Images, model); problem != "" {
 		return newError(CodeInvalidRequest, PhaseCapability, problem)
+	}
+	if len(plan) > min(model.Capabilities.MaxInputImages, decisionsImageLimit) {
+		return newError(CodeInvalidRequest, PhaseCapability, "expanded classifier images exceed model or protocol capability")
 	}
 	if len(req.Images) > 0 && !r.binding.AllowClassifierImages {
 		return newError(CodeTenantDenied, PhaseCapability, "binding does not allow classifier images")
@@ -158,7 +179,7 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 	case APITypeSafeSystemOne:
 		return c.classifyTypeSafe(ctx, r, cred, model, req, res)
 	case APIOpenAIDecisions:
-		return c.classifyDecisions(ctx, r, cred, model, req, res)
+		return c.classifyDecisions(ctx, r, cred, model, req, plan, res)
 	default:
 		return newError(CodeInvalidRequest, PhaseCapability, "unsupported classifier API")
 	}
