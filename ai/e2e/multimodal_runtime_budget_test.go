@@ -13,6 +13,10 @@ import (
 	"github.com/tokenbeat-lab/barness/ai"
 )
 
+type multimodalNumericKey int
+
+func (multimodalNumericKey) MarshalJSON() ([]byte, error) { return []byte(`0`), nil }
+
 type MultimodalPromotedName struct {
 	Image string `json:"MultimodalPromotedName"`
 	Extra string `json:"extra"`
@@ -29,7 +33,7 @@ type multimodalBorrowedState struct {
 // Borrowed callback trees can be large yet fit the document budget. A much
 // smaller image-occurrence budget must reject them before encoded copies.
 func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
-	for _, shape := range []string{"map", "raw", "typed", "embedded", "integer-assets", "struct-assets", "wide"} {
+	for _, shape := range []string{"map", "raw", "typed", "embedded", "integer-assets", "struct-assets", "wide", "quoted-int", "quoted-number", "json-key"} {
 		t.Run(shape, func(t *testing.T) {
 			ev := run.Case(t, "UC09-borrowed-references-"+shape)
 			u := newJevBoxWorld(t, ev, func(c *ai.Config) {
@@ -93,6 +97,39 @@ func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
 						State  any      `json:"state"`
 						Images []string `json:"images"`
 					}{business, keys}
+
+				case "quoted-int", "quoted-number", "json-key":
+					key = "424242"
+					var asset any
+					for _, a := range p.Body["assets"].(map[string]any) {
+						asset = a
+					}
+					p.Body["assets"] = map[string]any{key: asset}
+					var business any
+					if shape == "quoted-int" {
+						values := make([]struct {
+							Image int `json:"image,string"`
+						}, 65536)
+						for i := range values {
+							values[i].Image = 424242
+						}
+						business = values
+					} else if shape == "quoted-number" {
+						values := make([]struct {
+							Image json.Number `json:"image,string"`
+						}, 65536)
+						for i := range values {
+							values[i].Image = "424242"
+						}
+						business = values
+					} else {
+						p.Body["assets"] = map[multimodalNumericKey]any{424242: asset}
+						for i := range keys {
+							keys[i] = key
+						}
+						business = keys
+					}
+					p.Body["state"] = map[string]any{"state": business, "images": []string{key}}
 
 				case "embedded":
 					p.Body["state"] = struct{ multimodalBorrowedState }{multimodalBorrowedState{"bounded borrowed content", keys}}

@@ -1,6 +1,7 @@
 package ai
 
 import (
+	"encoding/json"
 	"reflect"
 	"strings"
 	"unicode"
@@ -11,6 +12,48 @@ type imageJSONField struct {
 	index             []int
 	options           string
 	tagged, ambiguous bool
+}
+
+// Quoted primitives are strings on the JSON boundary, even when their Go
+// values are numeric. Keep this separate from resource-field inspection,
+// which needs the borrowed value itself rather than an encoded content value.
+func (f imageJSONField) quotedString(value reflect.Value, maxBytes int) (string, bool, *Error) {
+	quoted := false
+	for _, option := range strings.Split(f.options, ",") {
+		if option == "string" {
+			quoted = true
+		}
+	}
+	if !quoted {
+		return "", false, nil
+	}
+	v, failure := imagePayloadValue(value)
+	if failure != nil || !v.IsValid() {
+		return "", false, failure
+	}
+	if usesCustomJSON(v) {
+		return "", false, nil
+	}
+	switch v.Kind() {
+	case reflect.Bool, reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr, reflect.Float32, reflect.Float64:
+	case reflect.String:
+		if v.Len() > maxBytes {
+			return "", true, nil
+		} // Cannot equal a bounded asset key.
+		if v.Type() == reflect.TypeFor[json.Number]() {
+			return v.String(), true, nil
+		}
+	default:
+		return "", false, nil
+	}
+	if !v.CanInterface() {
+		return "", false, nil
+	}
+	raw, err := marshalJS(v.Interface())
+	if err != nil {
+		return "", false, nil
+	} // Final encoder owns invalid primitives.
+	return string(raw), true, nil
 }
 
 // Resolve ordinary JSON fields once per struct inspection. Resource fields

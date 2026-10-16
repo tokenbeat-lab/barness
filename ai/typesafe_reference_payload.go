@@ -138,7 +138,18 @@ func checkTypeSafeReferencePayload(ctx context.Context, body map[string]any, siz
 				fields[v.Type()] = selected
 			}
 			for _, field := range selected {
-				if failure := walk(field.value(v), depth+1); failure != nil {
+				value := field.value(v)
+				text, quoted, failure := field.quotedString(value, typeSafeKeyBytes)
+				if failure != nil {
+					return failure
+				}
+				if quoted {
+					if failure := take(text); failure != nil {
+						return failure
+					}
+					continue
+				}
+				if failure := walk(value, depth+1); failure != nil {
 					return failure
 				}
 			}

@@ -1,6 +1,7 @@
 package ai
 
 import (
+	"encoding"
 	"encoding/json"
 	"reflect"
 	"strconv"
@@ -70,11 +71,11 @@ func (b *typeSafeImageBudget) assets(value any) *Error {
 			case reflect.String:
 				b.sizes[key.String()] = before - b.remaining
 			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-				if !usesCustomJSON(key) {
+				if !key.Type().Implements(reflect.TypeFor[encoding.TextMarshaler]()) {
 					b.sizes[strconv.FormatInt(key.Int(), 10)] = before - b.remaining
 				}
 			case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
-				if !usesCustomJSON(key) {
+				if !key.Type().Implements(reflect.TypeFor[encoding.TextMarshaler]()) {
 					b.sizes[strconv.FormatUint(key.Uint(), 10)] = before - b.remaining
 				}
 			}
