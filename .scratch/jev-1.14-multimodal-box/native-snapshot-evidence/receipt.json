@@ -1,0 +1,326 @@
+{
+  "archive": "evidence.zip",
+  "archive_bytes": 82912558,
+  "archive_sha256": "d235cea0a09eed34fa516ac046539b30c61c264e2f1ec73ff35e6849bb21d438",
+  "baseline": {
+    "audit_findings": 0,
+    "commands": [
+      {
+        "argv": [
+          "go",
+          "test",
+          "./ai/e2e",
+          "-run",
+          "^Test(TypeSafeNative|JevRegression|JevBaselineEvidence|Classifier|Unary|Catalog|OperationCatalog|TrustedCallback|ProtocolCallbacks|ProtocolNoEnvironmentFallback)",
+          "-count=1",
+          "-json"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/focused"
+        },
+        "exit_code": 0,
+        "name": "focused"
+      },
+      {
+        "argv": [
+          "go",
+          "test",
+          "./ai/e2e",
+          "-run",
+          "^TestPiDifferential$/^typesafe-system-one$|^TestClassifierCatalogParity$",
+          "-count=1",
+          "-json"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/jev-differential",
+          "BARNESS_AI_PIDIFF": "1"
+        },
+        "exit_code": 0,
+        "name": "jev-differential"
+      },
+      {
+        "argv": [
+          "node",
+          "--test",
+          "ai/internal/testkit/pioracle/node/runner.test.mjs"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/oracle-startup"
+        },
+        "exit_code": 0,
+        "name": "oracle-startup"
+      },
+      {
+        "argv": [
+          "python3",
+          ".scratch/barness-ai-openai-decisions/jev-baseline/verify.py",
+          "--audit"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/frozen-baseline"
+        },
+        "exit_code": 0,
+        "name": "frozen-baseline"
+      },
+      {
+        "argv": [
+          "go",
+          "run",
+          "./ai/internal/testkit/audit/cmd/auditbundle",
+          "$OUT"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/audit"
+        },
+        "exit_code": 0,
+        "name": "audit"
+      }
+    ],
+    "directory": ".evidence/typesafe-native-snapshot/baseline",
+    "files": 4241,
+    "files_manifest_sha256": "63ce5f4a06b1aa1ffe7bca86f4463e511b81184de7fac9f2a6c7cac108656f61",
+    "manifest_sha256": "7bfaef665696637befbd614ac4ba8e3850c0cb5bac8d654fc4a724c4d7d9a801",
+    "runs": [
+      {
+        "counts": {
+          "NOT_RUN": 180,
+          "PASS": 702
+        },
+        "manifest": "runs/focused/20261016T035751.071918000Z/manifest.json",
+        "sha256": "5a84b58aef7cadff52d1795ec0d2ba1fe4f2a4dfec5003ffe3babe33883db3a1",
+        "versions": {
+          "anthropic-sdk-go": "v1.75.0",
+          "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+          "model_catalog_version": "2026-10-13.1",
+          "openai-go": "v3.66.0"
+        }
+      },
+      {
+        "counts": {
+          "PASS": 12
+        },
+        "manifest": "runs/jev-differential/20261016T035756.361939000Z/manifest.json",
+        "sha256": "521d14819a9fb298afee2b8c2c2c6e376dbcd9824df0baf002820b84afe08e6c",
+        "versions": {
+          "anthropic-sdk-go": "v1.75.0",
+          "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+          "model_catalog_version": "2026-10-13.1",
+          "openai-go": "v3.66.0"
+        }
+      }
+    ]
+  },
+  "baseline_configuration_sources_match": true,
+  "baseline_head": "6b893c4c7e26b7d84092644ae8f4fe7aaeb84d3b",
+  "collection_fix_commit": "90157fa66e446fcb7a2b86ea07cec095661dd181",
+  "date": "2026-10-16",
+  "final": {
+    "audit_findings": 0,
+    "commands": [
+      {
+        "argv": [
+          "go",
+          "test",
+          "./ai/e2e",
+          "-run",
+          "^Test(TypeSafeNative|JevRegression|JevBaselineEvidence|Classifier|Unary|Catalog|OperationCatalog|TrustedCallback|ProtocolCallbacks|ProtocolNoEnvironmentFallback)",
+          "-count=1",
+          "-json"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/focused"
+        },
+        "exit_code": 0,
+        "name": "focused"
+      },
+      {
+        "argv": [
+          "go",
+          "test",
+          "./ai/e2e",
+          "-run",
+          "^TestPiDifferential$/^typesafe-system-one$|^TestClassifierCatalogParity$",
+          "-count=1",
+          "-json"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/jev-differential",
+          "BARNESS_AI_PIDIFF": "1"
+        },
+        "exit_code": 0,
+        "name": "jev-differential"
+      },
+      {
+        "argv": [
+          "node",
+          "--test",
+          "ai/internal/testkit/pioracle/node/runner.test.mjs"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/oracle-startup"
+        },
+        "exit_code": 0,
+        "name": "oracle-startup"
+      },
+      {
+        "argv": [
+          "python3",
+          ".scratch/barness-ai-openai-decisions/jev-baseline/verify.py",
+          "--audit"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/frozen-baseline"
+        },
+        "exit_code": 0,
+        "name": "frozen-baseline"
+      },
+      {
+        "argv": [
+          "go",
+          "vet",
+          "./..."
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/vet"
+        },
+        "exit_code": 0,
+        "name": "vet"
+      },
+      {
+        "argv": [
+          "go",
+          "vet",
+          "-tags",
+          "live",
+          "./..."
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/vet-live"
+        },
+        "exit_code": 0,
+        "name": "vet-live"
+      },
+      {
+        "argv": [
+          "go",
+          "test",
+          "-race",
+          "./ai/e2e",
+          "-run",
+          "^Test(TypeSafeNative|JevRegression|Classifier|Unary)",
+          "-count=1",
+          "-json"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/race",
+          "BARNESS_AI_PIDIFF": "1"
+        },
+        "exit_code": 0,
+        "name": "race"
+      },
+      {
+        "argv": [
+          "go",
+          "test",
+          "./...",
+          "-count=1",
+          "-json"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/full",
+          "BARNESS_AI_PIDIFF": "1"
+        },
+        "exit_code": 0,
+        "name": "full"
+      },
+      {
+        "argv": [
+          "go",
+          "run",
+          "./ai/internal/testkit/audit/cmd/auditbundle",
+          "$OUT"
+        ],
+        "environment": {
+          "BARNESS_AI_EVIDENCE_DIR": "$OUT/runs/audit"
+        },
+        "exit_code": 0,
+        "name": "audit"
+      }
+    ],
+    "directory": ".evidence/typesafe-native-snapshot/final",
+    "files": 59185,
+    "files_manifest_sha256": "81f1cf5dc300d6a459f278c9900001021cc1418495681a6adb7c8c40011521a2",
+    "manifest_sha256": "dfa4af447bd29acf3a40fe5150d4ad065e1456fe664d8230a43b2c1817f94328",
+    "runs": [
+      {
+        "counts": {
+          "NOT_RUN": 180,
+          "PASS": 702
+        },
+        "manifest": "runs/focused/20261016T040121.388523000Z/manifest.json",
+        "sha256": "bd5691f8d482f6efd0539119bfdef1d5c2b2b2ceb3307159911c173205bd84d0",
+        "versions": {
+          "anthropic-sdk-go": "v1.75.0",
+          "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+          "model_catalog_version": "2026-10-13.1",
+          "openai-go": "v3.66.0"
+        }
+      },
+      {
+        "counts": {
+          "NOT_RUN": 187,
+          "PASS": 7468
+        },
+        "manifest": "runs/full/20261016T040201.649162000Z/manifest.json",
+        "sha256": "64b4045534d876c373cec55fad4bc991418c7d0c48be5edb245fa113eaee4f42",
+        "versions": {
+          "anthropic-sdk-go": "v1.75.0",
+          "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+          "model_catalog_version": "2026-10-13.1",
+          "openai-go": "v3.66.0"
+        }
+      },
+      {
+        "counts": {
+          "PASS": 12
+        },
+        "manifest": "runs/jev-differential/20261016T040126.618653000Z/manifest.json",
+        "sha256": "3d4d0429f3c00f86debd0e0f15297e7ad0911d12e93fbeffd4dc53192207ef21",
+        "versions": {
+          "anthropic-sdk-go": "v1.75.0",
+          "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+          "model_catalog_version": "2026-10-13.1",
+          "openai-go": "v3.66.0"
+        }
+      },
+      {
+        "counts": {
+          "NOT_RUN": 178,
+          "PASS": 448
+        },
+        "manifest": "runs/race/20261016T040139.320214000Z/manifest.json",
+        "sha256": "c9961dddbfc6a3bc4b5a97634a5b93fcfd608db6938ab50ed0ad6f6579fd7175",
+        "versions": {
+          "anthropic-sdk-go": "v1.75.0",
+          "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+          "model_catalog_version": "2026-10-13.1",
+          "openai-go": "v3.66.0"
+        }
+      }
+    ]
+  },
+  "images": "not applicable: text-only native snapshot refactor",
+  "implementation_commit": "d918842402c04850fffc492cc553500bd395c90c",
+  "initial_collection_exit_code": 1,
+  "live": "NOT_RUN",
+  "recovered_collection_exit_code": 0,
+  "review": {
+    "spec_findings": 0,
+    "standards_findings": 0
+  },
+  "stable_input_changes": [],
+  "stable_input_count": 34,
+  "status": "OFFLINE_PASS",
+  "tested_head": "29b300ef2c2ec7015bc3189ab71396c50cbdde5b",
+  "transport": "controlled loopback HTTP"
+}
