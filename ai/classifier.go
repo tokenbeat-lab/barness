@@ -160,7 +160,7 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 	if problem := classifierImageCapability(req.Images, model); problem != "" {
 		return newError(CodeInvalidRequest, PhaseCapability, problem)
 	}
-	if len(plan) > classifierImageLimit(model) {
+	if model.API == APIOpenAIDecisions && len(plan) > classifierImageLimit(model) {
 		return newError(CodeInvalidRequest, PhaseCapability, "expanded classifier images exceed model or protocol capability")
 	}
 	if len(req.Images) > 0 && !r.binding.AllowClassifierImages {

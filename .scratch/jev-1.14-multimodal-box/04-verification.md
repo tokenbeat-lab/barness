@@ -22,6 +22,10 @@ Jev's static PNG/JPEG, APNG, dimensions, decoded 16 MiB file, 32 MiB body and
 key limits are independent of Decisions' existing WebP and small-image contract.
 The service's processed file size and precise image token count are not predicted.
 
+The State budget includes generated keys and wrapping; model image counts bound
+sources, while reference policy bounds occurrences. Final native assets may omit
+`type`; any supplied value must be `image`. The builder always emits it.
+
 Final Hook output is independently frozen as native TypeSafe data. Legal source
 addition/deletion/replacement/reorder is supported. Only whole keys in the context
 array are supported; unused/overlapping keys, substring, part, URL and local uses

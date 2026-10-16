@@ -20,7 +20,10 @@ func (c *Client) freezeTypeSafeRequest(body []byte, model ClassifierModel) (type
 		return req, newError(CodeTenantDenied, PhaseRequest, "payload callback may not change the authorized model")
 	}
 	p := c.policy.Classifier
-	if len(req.Questions) == 0 || len(req.Questions) > p.MaxQuestions || int64(len(typeSafeBusinessState(req))) > p.MaxStateBytes || !classifierState(typeSafeBusinessState(req)) {
+	if len(req.Assets) > 0 && int64(len(req.State)) > p.MaxStateBytes {
+		return req, limitFailure(PhaseRequest, "Classifier.MaxStateBytes", p.MaxStateBytes)
+	}
+	if len(req.Questions) == 0 || len(req.Questions) > p.MaxQuestions || int64(len(req.State)) > p.MaxStateBytes || !classifierState(typeSafeBusinessState(req)) {
 		return req, typeSafeRequestFailure()
 	}
 	for _, name := range slices.Sorted(maps.Keys(req.Questions)) {

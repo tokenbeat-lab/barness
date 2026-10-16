@@ -5,7 +5,6 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/json"
-	"maps"
 	"strings"
 )
 
@@ -110,6 +109,9 @@ func (c *Client) prepareTypeSafeImages(ctx context.Context, model ClassifierMode
 	if err != nil {
 		return nil, typeSafeRequestFailure()
 	}
+	if int64(len(native.State)) > c.policy.Classifier.MaxStateBytes {
+		return nil, limitFailure(PhaseScope, "Classifier.MaxStateBytes", c.policy.Classifier.MaxStateBytes)
+	}
 	body, err = json.Marshal(native)
 	if err != nil {
 		return nil, typeSafeRequestFailure()
@@ -147,14 +149,13 @@ func (c *Client) checkTypeSafePayload(body map[string]any, limit int64) *Error {
 	if _, ok := body["assets"]; !ok {
 		return c.policy.Classifier.checkPayload(body, limit)
 	}
-	// Context framing is not business State. Its independent state subtree is
-	// checked on final native bytes; bound the entire borrowed body before encode.
 	if failure := c.checkTypeSafeAssetPayload(body["assets"]); failure != nil {
 		return failure
 	}
-	view := maps.Clone(body)
-	view["state"] = nil
-	if failure := c.policy.Classifier.checkPayload(view, limit); failure != nil {
+	if _, ok := jsonPayloadSize(body["state"], c.policy.Classifier.MaxStateBytes); !ok {
+		return limitFailure(PhaseRequest, "Classifier.MaxStateBytes", c.policy.Classifier.MaxStateBytes)
+	}
+	if failure := c.policy.Classifier.checkPayload(body, limit); failure != nil {
 		return failure
 	}
 	if _, ok := jsonPayloadSize(body, typeSafeBodyBytes); !ok {

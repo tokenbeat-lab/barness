@@ -25,6 +25,7 @@ func TestJevContextNativeBudgets(t *testing.T) {
 					c.Policy.Classifier.Images.MaxTotalImageBytes = 32 << 20
 					c.Policy.Classifier.Images.References = &ai.ClassifierImageReferencePolicy{MaxReferences: 128, MaxExpandedImageBytes: 40 << 20}
 					if name == "key-total" {
+						c.Policy.Classifier.MaxStateBytes = 1 << 18
 						c.Policy.Classifier.Images.MaxImages = 128
 						c.Catalog.ClassifierModels[0].Capabilities.MaxInputImages = 128
 					}

@@ -11,7 +11,7 @@ import (
 )
 
 func TestJevContextFinalHooks(t *testing.T) {
-	for _, name := range []string{"replace", "reorder", "add", "remove", "same-file", "raw", "unused", "part", "url", "data-url", "substring", "overlap", "object-key", "question-key", "instruction", "criteria", "nested-state", "empty-key", "long-key", "null-assets", "empty-assets", "asset-case", "asset-duplicate", "asset-missing-type", "asset-unknown", "asset-format", "apng", "small", "over-count", "over-references", "over-expanded", "unauthorized", "unselected", "model", "authority"} {
+	for _, name := range []string{"replace", "reorder", "add", "remove", "same-file", "raw", "unused", "part", "url", "data-url", "substring", "overlap", "object-key", "question-key", "instruction", "criteria", "nested-state", "empty-key", "long-key", "null-assets", "empty-assets", "asset-case", "asset-duplicate", "asset-missing-type", "asset-null-type", "asset-unknown", "asset-format", "apng", "small", "over-count", "over-references", "over-expanded", "unauthorized", "unselected", "model", "authority"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "UC04-hook-"+name)
 			u := newJevContextWorld(t, ev, func(c *ai.Config) {
@@ -36,7 +36,7 @@ func TestJevContextFinalHooks(t *testing.T) {
 					opts = ai.TypeSafeOptions{}
 				}
 			}
-			success := name == "replace" || name == "reorder" || name == "add" || name == "remove" || name == "same-file" || name == "raw"
+			success := name == "replace" || name == "reorder" || name == "add" || name == "remove" || name == "same-file" || name == "raw" || name == "asset-missing-type"
 			enqueue(ev, u.world, fixtureReply{Status: 200, Body: `{"answers":{"q":{"type":"noul","noul":0.5}}}`}.script(t, classifierProtocol, ""))
 			hook := func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 				// Fix understandable Hook keys independently of random adapter keys.
@@ -108,6 +108,8 @@ func TestJevContextFinalHooks(t *testing.T) {
 					delete(a, "type")
 				case "asset-duplicate":
 					assets["image-A"] = json.RawMessage(`{"type":"image","type":"image","format":"png","data_base64":"` + images[0].Data + `"}`)
+				case "asset-null-type":
+					assets["image-A"].(map[string]any)["type"] = nil
 				case "asset-missing-type":
 					delete(assets["image-A"].(map[string]any), "type")
 				case "asset-unknown":

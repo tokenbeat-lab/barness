@@ -184,7 +184,8 @@ context 投影为 native `state={state:<原 State>,images:[<私有 key>...]}`，
 这个估计不参与授权。无图 TypeSafe wire、旧文本容量/错误顺序和 Decisions WebP 边界保持。
 
 最终 native freeze 只接受该 context 投影及全值引用，拒绝 part、URL、substring、重叠 key、
-unused assets 和局部图片。Hook 可合法增删/换图/重排，最终 PNG/JPEG 格式、APNG、尺寸、文件、
+unused assets 和局部图片。原生 asset 可合法省略 type，存在时必须为 image；Builder 总是显式输出。
+型号数量限制 Jev 来源，出现次数由 References 策略限制；最终 State 预算包含生成 key 和包裹结构。Hook 可合法增删/换图/重排，最终 PNG/JPEG 格式、APNG、尺寸、文件、
 来源、展开、key 和 body 预算重新校验；对普通容器、RawMessage 和具名 struct 的已知图片长度
 在序列化前限流，未知自定义 encoder 仍受最终 body 与 schema 约束。Jev 的已知文件限制来自
 [官方 Images 文档](https://docs.typesafe.ai/images)（2026-10-16）；本地 decoded 预算不代表

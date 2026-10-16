@@ -4,17 +4,30 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"slices"
 	"strings"
 )
 
 func (a *typeSafeAsset) UnmarshalJSON(raw []byte) error {
-	type record typeSafeAsset
-	var out record
-	if err := decodeClassifierJSON(raw, &out); err != nil {
+	var wire struct {
+		Type   json.RawMessage `json:"type"`
+		Format string          `json:"format"`
+		Data   string          `json:"data_base64"`
+	}
+	if err := decodeClassifierJSON(raw, &wire); err != nil {
 		return err
 	}
-	*a = typeSafeAsset(out)
+	kind := "image"
+	if len(wire.Type) > 0 {
+		if err := json.Unmarshal(wire.Type, &kind); err != nil {
+			return err
+		}
+		if kind != "image" || bytes.Equal(bytes.TrimSpace(wire.Type), []byte("null")) {
+			return fmt.Errorf("invalid Jev asset type")
+		}
+	}
+	*a = typeSafeAsset{Type: kind, Format: wire.Format, Data: wire.Data}
 	return nil
 }
 
@@ -33,7 +46,7 @@ func (c *Client) freezeTypeSafeImages(ctx context.Context, req typeSafeRequest, 
 	if len(state.Images) > limits.MaxReferences {
 		return nil, limitFailure(PhaseRequest, "Classifier.Images.References.MaxReferences", int64(limits.MaxReferences))
 	}
-	if len(state.Images) > model.Capabilities.MaxInputImages {
+	if len(req.Assets) > model.Capabilities.MaxInputImages {
 		return nil, limitFailure(PhaseRequest, "ClassifierModel.MaxInputImages", int64(model.Capabilities.MaxInputImages))
 	}
 	if len(req.Assets) > c.policy.Classifier.Images.MaxImages {
