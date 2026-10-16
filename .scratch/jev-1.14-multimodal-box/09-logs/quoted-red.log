@@ -1,0 +1,11 @@
+--- FAIL: TestMultimodalRuntimeBorrowedReferences (0.27s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/quoted-int (0.11s)
+        multimodal_runtime_budget_test.go:149: [UC09-borrowed-references-quoted-int] known amplification rejected before copies: allocated 93688864
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/quoted-number (0.10s)
+        multimodal_runtime_budget_test.go:149: [UC09-borrowed-references-quoted-number] known amplification rejected before copies: allocated 100867984
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/json-key (0.05s)
+        multimodal_runtime_budget_test.go:149: [UC09-borrowed-references-json-key] known amplification rejected before copies: allocated 48436056
+FAIL
+barness-ai evidence bundle: [repo]/.evidence/barness-ai/20261016T092616.635786000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.528s
+FAIL

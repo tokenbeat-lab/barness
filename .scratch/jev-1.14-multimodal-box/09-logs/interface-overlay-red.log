@@ -1,0 +1,14 @@
+--- FAIL: TestMultimodalRuntimeBorrowedReferences (0.16s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/quoted-interface (0.16s)
+        multimodal_runtime_budget_test.go:158: [UC09-borrowed-references-quoted-interface] known amplification rejected before copies: allocated 143078632
+--- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting (0.02s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/interface-number/exact (0.00s)
+        multimodal_runtime_budget_test.go:268: [UC09-reference-accounting-interface-number-exact] exact mixed occurrences accepted: got ai: resource_limit (request): exceeded the resource policy's Classifier.Images.References.MaxReferences (4)
+        decisions_image_inputs_test.go:41: [UC09-reference-accounting-interface-number-exact] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/double-pointer/exact (0.00s)
+        multimodal_runtime_budget_test.go:268: [UC09-reference-accounting-double-pointer-exact] exact mixed occurrences accepted: got ai: resource_limit (request): exceeded the resource policy's Classifier.Images.References.MaxReferences (4)
+        decisions_image_inputs_test.go:41: [UC09-reference-accounting-double-pointer-exact] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: [repo]/.evidence/barness-ai/20261016T092927.278425000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.717s
+FAIL

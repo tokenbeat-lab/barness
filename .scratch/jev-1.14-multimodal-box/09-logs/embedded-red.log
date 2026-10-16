@@ -1,0 +1,7 @@
+--- FAIL: TestMultimodalRuntimeBorrowedReferences (0.10s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/embedded (0.10s)
+        multimodal_runtime_budget_test.go:63: [UC09-borrowed-references-embedded] known amplification rejected before copies: allocated 65554584
+FAIL
+barness-ai evidence bundle: [repo]/.evidence/barness-ai/20261016T091346.193090000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.682s
+FAIL

@@ -1,0 +1,7 @@
+--- FAIL: TestMultimodalRuntimeBorrowedReferences (0.11s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/byte-data (0.11s)
+        multimodal_runtime_budget_test.go:201: [UC09-borrowed-references-byte-data] known amplification rejected before copies: allocated 77218408
+FAIL
+barness-ai evidence bundle: [repo]/.evidence/barness-ai/20261016T093429.413111000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.729s
+FAIL

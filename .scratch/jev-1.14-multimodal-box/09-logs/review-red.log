@@ -1,0 +1,22 @@
+--- FAIL: TestMultimodalRuntimeBorrowedReferences (0.26s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/integer-assets (0.06s)
+        multimodal_runtime_budget_test.go:107: [UC09-borrowed-references-integer-assets] known amplification rejected before copies: allocated 43645552
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/struct-assets (0.07s)
+        multimodal_runtime_budget_test.go:107: [UC09-borrowed-references-struct-assets] known amplification rejected before copies: allocated 55442144
+    --- FAIL: TestMultimodalRuntimeBorrowedReferences/wide (0.11s)
+        multimodal_runtime_budget_test.go:107: [UC09-borrowed-references-wide] known amplification rejected before copies: allocated 63196120
+--- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting (0.08s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/ambiguous-omitted/exact (0.00s)
+        multimodal_runtime_budget_test.go:191: [UC09-reference-accounting-ambiguous-omitted-exact] exact mixed occurrences accepted: got ai: callback_failed (request): ambiguous inline image fields
+        decisions_image_inputs_test.go:41: [UC09-reference-accounting-ambiguous-omitted-exact] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/ambiguous-omitted/count (0.00s)
+        multimodal_runtime_budget_test.go:194: [UC09-reference-accounting-ambiguous-omitted-count] independent occurrence budget: got ai: callback_failed (request): ambiguous inline image fields
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/ambiguous-omitted/expanded (0.00s)
+        multimodal_runtime_budget_test.go:194: [UC09-reference-accounting-ambiguous-omitted-expanded] independent occurrence budget: got ai: callback_failed (request): ambiguous inline image fields
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/number/exact (0.00s)
+        multimodal_runtime_budget_test.go:191: [UC09-reference-accounting-number-exact] exact mixed occurrences accepted: got ai: resource_limit (request): exceeded the resource policy's Classifier.Images.References.MaxReferences (4)
+        decisions_image_inputs_test.go:41: [UC09-reference-accounting-number-exact] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: [repo]/.evidence/barness-ai/20261016T091926.968515000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.046s
+FAIL

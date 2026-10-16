@@ -1,0 +1,12 @@
+--- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting (0.01s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/untagged/exact (0.01s)
+        multimodal_runtime_budget_test.go:120: [UC09-reference-accounting-untagged-exact] exact mixed occurrences accepted: got ai: callback_failed (request): ambiguous inline image fields
+        decisions_image_inputs_test.go:41: [UC09-reference-accounting-untagged-exact] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/untagged/count (0.00s)
+        multimodal_runtime_budget_test.go:123: [UC09-reference-accounting-untagged-count] independent occurrence budget: got ai: callback_failed (request): ambiguous inline image fields
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/untagged/expanded (0.00s)
+        multimodal_runtime_budget_test.go:123: [UC09-reference-accounting-untagged-expanded] independent occurrence budget: got ai: callback_failed (request): ambiguous inline image fields
+FAIL
+barness-ai evidence bundle: [repo]/.evidence/barness-ai/20261016T091451.100123000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.593s
+FAIL

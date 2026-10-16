@@ -46,5 +46,13 @@ growth and 64 MiB allocation for this bounded batch, including HTTP recording.
 These are test policy values, not deployment defaults. Large rejected borrowed
 Hook values have a separate sub-512 KiB post-callback allocation ceiling.
 
+Review-discovered ordinary JSON encodings extend that same reference tracer:
+typed/numeric-key assets, byte-slice asset data and Base64 content, quoted
+primitive fields versus declared interface/pointer types, ordinary json.Number,
+promoted/omitted/shadowed fields and UTF-8 coercion. A separate wide-schema
+tracer supplies 2,048 business fields and rejects the same 65,536 occurrences;
+its predeclared 8 MiB ceiling includes per-field metadata. It first failed at
+63 MiB and is distinct from the original 512 KiB ceilings, which remain fixed.
+
 Only boundaries confirmed by these E2E failures may be repaired. Existing
 release defects retain their own issue identity/status.

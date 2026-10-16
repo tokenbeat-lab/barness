@@ -1,0 +1,12 @@
+--- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting (0.02s)
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/surrogate/exact (0.01s)
+        multimodal_runtime_budget_test.go:310: [UC09-reference-accounting-surrogate-exact] exact mixed occurrences accepted: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC09-reference-accounting-surrogate-exact] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/surrogate/count (0.00s)
+        multimodal_runtime_budget_test.go:313: [UC09-reference-accounting-surrogate-count] independent occurrence budget: got ai: callback_failed (request): payload callback produced an invalid classifier request
+    --- FAIL: TestMultimodalRuntimeBorrowedReferenceAccounting/surrogate/expanded (0.00s)
+        multimodal_runtime_budget_test.go:313: [UC09-reference-accounting-surrogate-expanded] independent occurrence budget: got ai: callback_failed (request): payload callback produced an invalid classifier request
+FAIL
+barness-ai evidence bundle: [repo]/.evidence/barness-ai/20261016T093259.189528000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.355s
+FAIL
