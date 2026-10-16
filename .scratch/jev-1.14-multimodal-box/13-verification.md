@@ -62,6 +62,11 @@ exercise in a full-suite completion run; those checks remain pending for resumed
 implementation. The existing verifier build and recorded command checks above
 did run.
 
+Preparation commit: `d344ea0`. The independent parallel
+[Standards/Spec review](13-code-review.md) found zero actionable preparation
+findings. The receipt checksum, all 16 recorded input hashes, 9 command outcomes
+and local links were rechecked; this does not approve the pending feature work.
+
 ## Resume
 
 Supply authentic candidate protocol and independent effect evidence for the
