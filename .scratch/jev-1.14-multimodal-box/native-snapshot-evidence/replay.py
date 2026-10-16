@@ -66,6 +66,11 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     before = inventory()
     write(out / "inputs.json", before)
+    configuration = ["ai/e2e/main_test.go", "ai/e2e/classifier_fixture_test.go",
+                     "ai/e2e/unary_fixture_test.go", "ai/e2e/typesafe_native_snapshot_test.go"]
+    write(out / "configuration.json", {"transport": "controlled loopback HTTP",
+          "images": "none", "sources": {name: (ROOT / name).read_text() for name in configuration},
+          "source_hashes": {name: before["sources"][name] for name in configuration}})
     records = []
     commands = [
         ("focused", ["go", "test", "./ai/e2e", "-run", FOCUSED, "-count=1", "-json"], {}),
