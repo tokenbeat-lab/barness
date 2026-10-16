@@ -1,0 +1,211 @@
+{
+  "version": "visual-zh-v1",
+  "source": "synthetic; scenes.json rendered by generate.go; no external or user data",
+  "scope": "12 simple 320x320 images; not a production distribution",
+  "annotationPolicy": "人工固定标注；目标为红矩形；坐标为半开像素边界；空白和蓝圆为缺目标；不按模型输出改标。",
+  "labels": {
+    "red": "红色矩形",
+    "blue": "蓝色圆形",
+    "empty": "纯白背景，没有形状"
+  },
+  "samples": [
+    {
+      "id": "v01",
+      "file": "v01.png",
+      "source": "v01-source.png",
+      "mime": "image/png",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "red",
+      "exists": true,
+      "box": {
+        "top": 0.25,
+        "bottom": 0.75,
+        "left": 0.25,
+        "right": 0.75
+      },
+      "rationale": "人工标注：白底红矩形，目标四边按源图像素边界除以320。"
+    },
+    {
+      "id": "v02",
+      "file": "v02.jpg",
+      "source": "v02-source.png",
+      "mime": "image/jpeg",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "red",
+      "exists": true,
+      "box": {
+        "top": 0.25,
+        "bottom": 0.75,
+        "left": 0.25,
+        "right": 0.75
+      },
+      "rationale": "人工标注：白底红矩形，目标四边按源图像素边界除以320。"
+    },
+    {
+      "id": "v03",
+      "file": "v03.png",
+      "source": "v03-source.png",
+      "mime": "image/png",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "blue",
+      "exists": false,
+      "box": null,
+      "rationale": "人工标注：白底蓝圆，无红矩形。"
+    },
+    {
+      "id": "v04",
+      "file": "v04.jpg",
+      "source": "v04-source.png",
+      "mime": "image/jpeg",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "empty",
+      "exists": false,
+      "box": null,
+      "rationale": "人工标注：纯白背景，无几何目标。"
+    },
+    {
+      "id": "v05",
+      "file": "v05.png",
+      "source": "v05-source.png",
+      "mime": "image/png",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "red",
+      "exists": true,
+      "box": {
+        "top": 0.25,
+        "bottom": 0.75,
+        "left": 0.25,
+        "right": 0.75
+      },
+      "rationale": "人工标注：白底红矩形，目标四边按源图像素边界除以320。"
+    },
+    {
+      "id": "v06",
+      "file": "v06.jpg",
+      "source": "v06-source.png",
+      "mime": "image/jpeg",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "blue",
+      "exists": false,
+      "box": null,
+      "rationale": "人工标注：白底蓝圆，无红矩形。"
+    },
+    {
+      "id": "v07",
+      "file": "v07.png",
+      "source": "v07-source.png",
+      "mime": "image/png",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "empty",
+      "exists": false,
+      "box": null,
+      "rationale": "人工标注：纯白背景，无几何目标。"
+    },
+    {
+      "id": "v08",
+      "file": "v08.jpg",
+      "source": "v08-source.png",
+      "mime": "image/jpeg",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "red",
+      "exists": true,
+      "box": {
+        "top": 0.25,
+        "bottom": 0.75,
+        "left": 0.25,
+        "right": 0.75
+      },
+      "rationale": "人工标注：白底红矩形，目标四边按源图像素边界除以320。"
+    },
+    {
+      "id": "v09",
+      "file": "v09.png",
+      "source": "v09-source.png",
+      "mime": "image/png",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "red",
+      "exists": true,
+      "box": {
+        "top": 0.25,
+        "bottom": 0.75,
+        "left": 0.25,
+        "right": 0.75
+      },
+      "rationale": "人工标注：白底红矩形，目标四边按源图像素边界除以320。"
+    },
+    {
+      "id": "v10",
+      "file": "v10.jpg",
+      "source": "v10-source.png",
+      "mime": "image/jpeg",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "red",
+      "exists": true,
+      "box": {
+        "top": 0.25,
+        "bottom": 0.75,
+        "left": 0.125,
+        "right": 0.625
+      },
+      "rationale": "人工标注：白底红矩形，目标四边按源图像素边界除以320。"
+    },
+    {
+      "id": "v11",
+      "file": "v11.png",
+      "source": "v11-source.png",
+      "mime": "image/png",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "empty",
+      "exists": false,
+      "box": null,
+      "rationale": "人工标注：纯白背景，无几何目标。"
+    },
+    {
+      "id": "v12",
+      "file": "v12.jpg",
+      "source": "v12-source.png",
+      "mime": "image/jpeg",
+      "width": 320,
+      "height": 320,
+      "orientation": "top-left; EXIF absent",
+      "transform": "identity; full 320x320 crop; JPEG quality 90 where applicable",
+      "label": "blue",
+      "exists": false,
+      "box": null,
+      "rationale": "人工标注：白底蓝圆，无红矩形。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "version": "visual-zh-experiment-v1",
+  "commonCount": 8,
+  "existenceThreshold": 0.5,
+  "boxPolicy": "Compute raw IoU for every valid box on present targets, even below existence threshold. Consume a box only when independent existence probability >= 0.5. Absent false positive means a consumed box; count all absent raw boxes separately.",
+  "classification": "请选择图片中唯一形状类别；纯白背景选 empty。",
+  "existence": "图片中是否存在红色矩形？蓝圆不是红矩形。",
+  "localization": "定位这张图片中的红色矩形，四边按图宽高归一化。存在性由另一个问题独立回答。",
+  "maxCalls": 12,
+  "maxAttempts": 12,
+  "maxRetries": 0,
+  "maxQuestions": 48,
+  "maxOccurrences": 24,
+  "maxSourceBytes": 8388608,
+  "maxExpandedBytes": 16777216,
+  "callSeconds": 30,
+  "processSeconds": 240,
+  "cleanupSeconds": 15,
+  "protocolEvidence": {
+    "jev": ".scratch/jev-1.14-multimodal-box/11-evidence.json",
+    "decisions": ".scratch/jev-1.14-multimodal-box/11-evidence.json"
+  }
+}

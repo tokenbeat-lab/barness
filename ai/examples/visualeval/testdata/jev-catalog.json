@@ -1,0 +1,45 @@
+{
+  "version": "host-jev-1.14-multimodal-2026-10-16.1",
+  "models": [],
+  "classifierModels": [
+    {
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "id": "jev-1.14.0",
+      "name": "Jev 1.14 Host candidate",
+      "input": [
+        "text",
+        "image"
+      ],
+      "contextWindow": 64000,
+      "cost": {
+        "input": 0.042,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "capabilities": {
+        "kinds": [
+          "choice",
+          "score",
+          "bool",
+          "box"
+        ],
+        "maxChoices": 255,
+        "minScoreLevels": 2,
+        "maxScoreLevels": 10,
+        "maxInputImages": 24,
+        "imageMimeTypes": [
+          "image/png",
+          "image/jpeg"
+        ],
+        "imageLocations": [
+          "context",
+          "state",
+          "instructions",
+          "criteria"
+        ]
+      }
+    }
+  ]
+}

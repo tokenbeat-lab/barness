@@ -1,0 +1,55 @@
+{
+  "version": "host-decisions-multimodal-2026-10-16.1",
+  "models": [],
+  "classifierModels": [
+    {
+      "provider": "openai",
+      "api": "openai-decisions",
+      "id": "gpt-6-luna",
+      "name": "GPT-6 Luna",
+      "input": [
+        "text",
+        "image"
+      ],
+      "contextWindow": 922000,
+      "cost": {
+        "input": 0.1,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "tiers": [
+          {
+            "inputTokensAbove": 272000,
+            "input": 0.2,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        ]
+      },
+      "capabilities": {
+        "kinds": [
+          "choice",
+          "score",
+          "bool"
+        ],
+        "minChoices": 2,
+        "maxChoices": 255,
+        "minScoreLevels": 2,
+        "maxScoreLevels": 10,
+        "descriptionFormats": [
+          "string"
+        ],
+        "maxInputImages": 128,
+        "imageMimeTypes": [
+          "image/png",
+          "image/jpeg",
+          "image/webp"
+        ],
+        "imageLocations": [
+          "context"
+        ]
+      }
+    }
+  ]
+}
