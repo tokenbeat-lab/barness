@@ -1,0 +1,40 @@
+{
+  "retrieved": "2026-10-17",
+  "model": "jev-1.14.0",
+  "models": {
+    "url": "https://docs.typesafe.ai/models",
+    "inputUSDPerMillionTokens": 0.042,
+    "outputUSDPerMillionTokens": 0,
+    "contextTokensPerRequest": 64000,
+    "contextTokensPerQuestion": 32000
+  },
+  "images": {
+    "url": "https://docs.typesafe.ai/images",
+    "experimental": true,
+    "formats": ["image/png", "image/jpeg"],
+    "animatedPNG": false,
+    "decodedFileMaxBytes": 16777216,
+    "edgeMinPixels": 280,
+    "edgeMaxPixels": 1568,
+    "areaMinPixels": 78400,
+    "areaMaxPixels": 2458624,
+    "requestBodyMaxBytes": 33554432,
+    "processedDistinctImagesMaxBytes": 33554432,
+    "processedExpandedRequestMaxBytes": 33554432,
+    "imageTokenRate": "same input rate; reported usage already includes every image occurrence"
+  },
+  "box": {
+    "url": "https://docs.typesafe.ai/primitives/box",
+    "experimental": true,
+    "requiresJev114": true,
+    "normalizedEdges": true,
+    "absence": "always returns a box; ask an independent Bool and let the Host decide whether to consume it"
+  },
+  "hostSubset": {
+    "maxInputImages": 24,
+    "countMeaning": "finite barness supported subset, not a vendor count limit; Host policies can be smaller",
+    "locations": ["context", "state", "instructions", "criteria"],
+    "upload": "JSON Base64 with whole-value private references only; no multipart, substring references, remote fetch or Long Context",
+    "processedCapacity": "source byte budgets do not claim a vendor re-encoding size or exact token estimate"
+  }
+}

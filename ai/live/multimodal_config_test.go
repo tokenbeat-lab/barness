@@ -47,6 +47,9 @@ func selectedMultimodalRoute() (multimodalRoute, error) {
 
 func multimodalConfiguration(route multimodalRoute, rec *recorder) (multimodalAuthorization, string, error) {
 	var proof multimodalAuthorization
+	if value := os.Getenv("BARNESS_MM_FORMAL"); value != "" && (value != "1" || route.name != "jev") {
+		return proof, "", fmt.Errorf("invalid formal route selection")
+	}
 	for _, kv := range os.Environ() {
 		name, value, _ := strings.Cut(kv, "=")
 		if value == "" {

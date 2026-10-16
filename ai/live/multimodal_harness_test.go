@@ -20,6 +20,20 @@ import (
 var multimodalCatalogPins = map[string]string{"jev": "9ac5655199e22d45db2fd5b72af79ef597068a89f4298fbc47c539ed4f6426a4", "decisions": "d5cc54e4189c8075d031180fc6f9456e06306fa0ca7e8ae99d6dab776450712a"}
 
 func TestMultimodalCandidate(t *testing.T) {
+	if os.Getenv("BARNESS_MM_FORMAL") != "" {
+		t.Skip("candidate entry only")
+	}
+	driveMultimodal(t)
+}
+
+func TestMultimodalFormal(t *testing.T) {
+	if os.Getenv("BARNESS_MM_FORMAL") != "1" {
+		t.Skip("explicit formal entry required")
+	}
+	driveMultimodal(t)
+}
+
+func driveMultimodal(t *testing.T) {
 	if multimodalReport == nil {
 		t.Skip("explicit isolated candidate route required")
 	}
@@ -34,10 +48,18 @@ func TestMultimodalCandidate(t *testing.T) {
 	cs.ReplayEnv("BARNESS_MM_ROUTE=" + route.name)
 	cs.ReplayRun("^TestMultimodalCandidate$")
 	catRaw, err := readDecisionsFile("testdata/multimodal/"+route.name+".json", 65536)
+	formal := os.Getenv("BARNESS_MM_FORMAL") == "1"
+	if formal {
+		if route.name != "jev" {
+			fail("formal multimodal evidence requires fixed Jev route")
+			return
+		}
+		catRaw, err = json.MarshalIndent(ai.BuiltinCatalog(), "", "  ")
+	}
 	if os.Getenv("BARNESS_MM_CONTROLLED") == "wrong-catalog" {
 		catRaw = append(catRaw, ' ')
 	}
-	if err != nil || sha256Text(catRaw) != multimodalCatalogPins[route.name] {
+	if err != nil || (!formal && sha256Text(catRaw) != multimodalCatalogPins[route.name]) {
 		fail("candidate file differs from fixed route pin")
 		return
 	}
@@ -52,13 +74,27 @@ func TestMultimodalCandidate(t *testing.T) {
 		fail("candidate hash invalid")
 		return
 	}
-	cs.Fixture("candidate.json", catRaw)
+	catalogFile := "candidate.json"
+	if formal {
+		catalogFile = "formal-catalog.json"
+	}
+	cs.Fixture(catalogFile, catRaw)
 	run.SetVersion("model_catalog_version", r.CatalogVersion)
 	run.SetVersion("model_catalog_hash", r.CatalogHash)
 	// Seal actual working source bytes as well as the commit. A dirty source run
 	// cannot silently borrow the identity of an earlier candidate package.
 	r.SourceHashes = map[string]string{}
 	paths := []string{"../../go.mod", "../../go.sum", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py"}
+	if formal {
+		path := "../live/testdata/jev-formal/sources.json"
+		sources, e := os.ReadFile(path)
+		if e != nil {
+			fail("formal primary sources unavailable")
+			return
+		}
+		cs.Fixture("formal-sources.json", sources)
+		paths = append(paths, path)
+	}
 	err = filepath.WalkDir("..", func(path string, d os.DirEntry, err error) error {
 		if err != nil {
 			return err

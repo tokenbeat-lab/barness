@@ -104,7 +104,7 @@ def validate_mapping(req, native, route, hooked, fixture_images):
             require(restore(final["criteria"]) == q["criteria"], "visual criteria scope changed")
 
 
-def verify(root, live):
+def verify(root, live, formal_catalog=None):
     root = root.resolve()
 
     def read(name):
@@ -128,8 +128,10 @@ def verify(root, live):
         require(sha(read(name)) == digest, "artifact checksum mismatch")
     report = decode(read("multimodal-report.json"))
     route = report["route"]
+    kind = "jev-formal-protocol" if formal_catalog is not None else "multimodal-candidate-only"
     require(route in PINS and report["schema"] == 1 and
-            report["kind"] == "multimodal-candidate-only", "wrong candidate identity")
+            report["kind"] == kind, "wrong evidence identity")
+    require(formal_catalog is None or route == "jev", "formal route must be Jev")
     require(report["mode"] in ("controlled", "live"), "unknown provenance")
     require(not live or report["mode"] == "live", "controlled package is not live evidence")
     require(report["outcome"] == "PASS" and report["complete"] is True and
@@ -153,8 +155,12 @@ def verify(root, live):
                     "missing/failed assertions")
         for name, digest in case["fixtures"].items():
             require(sha(read(prefix+name)) == digest, "fixture hash differs")
-    catalog_bytes = read("MM11-configuration/candidate.json")
-    require(sha(catalog_bytes) == PINS[route] == report["catalogFileHash"], "wrong pinned candidate")
+    catalog_bytes = read("MM11-configuration/" + ("formal-catalog.json" if formal_catalog is not None else "candidate.json"))
+    require(sha(catalog_bytes) == report["catalogFileHash"], "wrong catalog file hash")
+    if formal_catalog is None:
+        require(sha(catalog_bytes) == PINS[route], "wrong pinned candidate")
+    else:
+        require(decode(catalog_bytes) == decode(formal_catalog.read_bytes()), "wrong current formal catalog")
     cat = decode(catalog_bytes)
     require(cat["version"] == report["catalogVersion"], "catalog version differs")
     config = decode(read("MM11-configuration/host-configuration.json"))
@@ -291,16 +297,18 @@ def verify(root, live):
                    "../internal/testkit/provider/bodies.go", "../live/multimodal_harness_test.go"):
         require(source in sources and len(sources[source]) == 64, "source seal incomplete")
     require(report["unknown"], "unknowns absent")
-    print(f"{route}: {report['mode']} candidate PASS; {len(files)} hashes verified")
+    label = "formal protocol" if formal_catalog is not None else "candidate"
+    print(f"{route}: {report['mode']} {label} PASS; {len(files)} hashes verified")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--require-live", action="store_true")
+    parser.add_argument("--formal-catalog", type=Path)
     parser.add_argument("bundle", type=Path)
     args = parser.parse_args()
     try:
-        verify(args.bundle, args.require_live)
+        verify(args.bundle, args.require_live, args.formal_catalog)
     except (ValueError, KeyError, TypeError, OSError, IndexError) as error:
         print(f"REJECTED: {error}")
         raise SystemExit(1)

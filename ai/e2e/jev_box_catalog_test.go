@@ -47,7 +47,7 @@ func TestJevBoxCatalog(t *testing.T) {
 			builtin := ai.BuiltinCatalog()
 			for _, model := range builtin.ClassifierModels {
 				for _, kind := range model.Capabilities.Kinds {
-					ev.Check("built-in catalog unchanged", kind != ai.ClassifierQuestionBox, "promoted Box")
+					ev.Check("Box only belongs to independently accepted fixed Jev", kind != ai.ClassifierQuestionBox || (model.ID == "jev-1.14.0" && model.Provider == ai.ProviderTypeSafe && model.API == ai.APITypeSafeSystemOne), "promoted Box to another model")
 				}
 			}
 		})

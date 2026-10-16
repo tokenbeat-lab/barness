@@ -468,7 +468,7 @@
           "id": "forced-tool-with-thinking",
           "model": "deepseek-flash",
           "outcome": "PASS",
-          "note": "refused with HTTP 400 as ADR-0015 决策三 expects: 400: {\"message\":\"Thinking mode does not support this tool_choice (request_id: 57a818cb-355f-44a5-9514-011e45c88c7b)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
+          "note": "refused with HTTP 400 as ADR-0015 \u51b3\u7b56\u4e09 expects: 400: {\"message\":\"Thinking mode does not support this tool_choice (request_id: 57a818cb-355f-44a5-9514-011e45c88c7b)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}",
           "lastRunAt": "2026-10-13T03:22:26.248194Z",
           "lastPassedAt": "2026-10-13T03:22:26.248194Z"
         },
@@ -684,6 +684,13 @@
           "lastPassedAt": "2026-10-13T03:23:44.474432Z"
         }
       ]
+    },
+    {
+      "combo": "typesafe-classifier-jev-1.14.0",
+      "operation": "classifier",
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "model": "jev-1.14.0"
     }
   ]
 }

@@ -115,7 +115,12 @@ func (b *bundle) inputs(p *plan, a arguments, auth *authorization, r *report) er
 	if err := b.file("inputs/pins.json", raw); err != nil {
 		return err
 	}
-	if err := b.record("run-config.json", map[string]any{"mode": a.mode, "route": a.route, "entry": a.entry, "maxCalls": a.calls, "workMS": a.workMS, "callMS": a.callMS, "policy": policy(time.Duration(a.callMS) * time.Millisecond), "authorization": auth}); err != nil {
+	if p.formal {
+		if err := b.record("formal-catalog.json", p.catalog); err != nil {
+			return err
+		}
+	}
+	if err := b.record("run-config.json", map[string]any{"mode": a.mode, "route": a.route, "entry": a.entry, "formal": p.formal, "maxCalls": a.calls, "workMS": a.workMS, "callMS": a.callMS, "policy": policy(time.Duration(a.callMS) * time.Millisecond), "authorization": auth}); err != nil {
 		return err
 	}
 	files, err := sourceFiles()

@@ -68,6 +68,9 @@ type Report struct {
 	Expected  []string           `json:"expected"`
 	Scenarios []ScenarioResult   `json:"scenarios"`
 	Decisions *DecisionsEvidence `json:"decisions,omitempty"`
+	Jev       *JevEvidence       `json:"jev,omitempty"`
+	// File ownership is supplied by LoadReport, never accepted from JSON.
+	evidenceDir string
 }
 
 // Budget bounds one live process's spend.
@@ -292,6 +295,9 @@ func check(m Matrix, r Report) (int, error) {
 		return 0, err
 	}
 	if err := checkDecisions(r); err != nil {
+		return 0, err
+	}
+	if err := checkJev(r); err != nil {
 		return 0, err
 	}
 	return idx, nil

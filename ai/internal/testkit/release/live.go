@@ -17,6 +17,8 @@ func expectedCapabilities(combo string) []string {
 		return supportmatrix.DecisionsExpected()
 	case "typesafe-classifier":
 		return supportmatrix.ClassifierExpected()
+	case supportmatrix.JevFormalCombo:
+		return supportmatrix.JevExpected()
 	case "openai-images":
 		return supportmatrix.ImagesExpected()
 	case "google-interactions-image":

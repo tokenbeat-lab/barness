@@ -1,5 +1,7 @@
 # barness-ai
 
+> **Catalog update (2026-10-17):** `2026-10-17.1` contains 87 chat identities, two image models and three classifiers. Fixed `jev-1.14.0` adds explicitly experimental PNG/JPEG at four positions and Box; use `ExperimentalImages`, finite policies and explicit Binding/model authorization. It has an independent `typesafe-classifier-jev-1.14.0` support identity. Earlier route PASS records below remain historical for their own Hash; overall current-catalog acceptance is pending ticket 14. See [formal evidence and replay](live/testdata/jev-formal/README.md).
+
 English | [简体中文](README.zh-CN.md)
 
 `github.com/tokenbeat-lab/barness/ai` is barness's model protocol module: one trusted,
@@ -243,10 +245,10 @@ in [the Decisions contract](../docs/barness-ai/decisions.md) and the
 Run `go run ./ai/examples/classifierimages` for a credential-free, controlled HTTP replay through both public
 Classify entries. The [complete Host example](examples/classifierimages/README.md) uses the same PNG/JPEG context
 request with only Target/Options changed, then shows explicit reuse, scoped images, visual legends, Box, refusal,
-revocation and replayable audited evidence. Built-in Jev remains text-only; only an explicit Host candidate catalog
-for `jev-1.14.0` plus `TypeSafeOptions{ExperimentalImages: true}` enables its experimental image locations and Box.
+revocation and replayable audited evidence. Fixed built-in `jev-1.14.0` supports experimental image locations and Box;
+finite image policies, model/Binding authorization and `TypeSafeOptions{ExperimentalImages: true}` remain required.
 Decisions rejects local images and Box before credential access. Controlled PASS is not real-service or quality PASS;
-ADR-0030 remains proposed and the formal support matrix is unchanged.
+ADR-0030 remains proposed; fixed 1.14 support requires its own independently verified formal evidence.
 
 `ImageReferences` declares complete ordered uses; `value` pointers address existing null slots. Source and expanded
 occurrence budgets are independent (`ClassifierImagePolicy.References`), and final Hooks obey the same authorization

@@ -1,0 +1,204 @@
+{
+  "schema": 1,
+  "kind": "ticket-13-jev-real-candidate-admission",
+  "baseline": "75ae5907786a7b55893c6b833bdeb34669210ef8",
+  "route": "jev",
+  "model": "jev-1.14.0",
+  "catalogHash": "sha256:2cec32a720f2a8ebea657ae59ba3b47b6c088f3025965862dee454d7f1bfa49d",
+  "protocolBundle": ".evidence/ticket13-live-admission-20261016T222549.801919Z/protocol/20261016T222551.857021000Z",
+  "effectBundle": ".evidence/ticket13-live-admission-20261016T222549.801919Z/effects",
+  "protocol": "PASS",
+  "realQuality": "COMPLETE",
+  "calls": 24,
+  "attempts": 24,
+  "retries": 0,
+  "quality": {
+    "common": {
+      "total": 8,
+      "classScored": 8,
+      "classCorrect": 8,
+      "existScored": 8,
+      "existCorrect": 8,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "classAccuracy": 1,
+      "existAccuracy": 1,
+      "confusion": {
+        "blue": {
+          "blue": 2
+        },
+        "empty": {
+          "empty": 2
+        },
+        "red": {
+          "red": 4
+        }
+      },
+      "statuses": {
+        "answered": 8
+      },
+      "errors": [],
+      "confidenceBins": [
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 8,
+          "correct": 8,
+          "sum": 8
+        }
+      ],
+      "existenceBrier": 0.021124999999999998
+    },
+    "local": {
+      "total": 4,
+      "classScored": 4,
+      "classCorrect": 4,
+      "existScored": 4,
+      "existCorrect": 4,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "classAccuracy": 1,
+      "existAccuracy": 1,
+      "confusion": {
+        "blue": {
+          "blue": 1
+        },
+        "empty": {
+          "empty": 1
+        },
+        "red": {
+          "red": 2
+        }
+      },
+      "statuses": {
+        "answered": 4
+      },
+      "errors": [],
+      "confidenceBins": [
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 4,
+          "correct": 4,
+          "sum": 4
+        }
+      ],
+      "existenceBrier": 0.027849999999999996
+    },
+    "supplementalContext": null,
+    "box": {
+      "present": 2,
+      "absent": 2,
+      "iouCount": 2,
+      "meanIoU": 0.7026970874207218,
+      "presentDenominatorMeanIoU": 0.7026970874207218,
+      "consumed": 2,
+      "absentFalsePositive": 0,
+      "absentRawBoxes": 2,
+      "lowExistenceBoxes": 2,
+      "missingExistenceBoxes": 0,
+      "missingPresentBoxes": 0
+    }
+  },
+  "files": {
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/protocol/20261016T222551.857021000Z/multimodal-report.json": "09915200b55d255b11e4be1465412f43136698c04751622b1237a2cf4a255d69",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/protocol/20261016T222551.857021000Z/multimodal-integrity.json": "31180f123f090af2bbbfa2e9a54b8974994076b007f0425d24b3cf23d9f52e23",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/protocol/20261016T222551.857021000Z/manifest.json": "1fdd61d54e5543a254b2813347e6a1aba1aae994796e457ca7b2729ba05acddb",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/protocol/20261016T222551.857021000Z/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/effects/report.json": "d7cb1d7530b821a65bf90bd2df49c2d3b39591f3faf9638628a9097a22eab587",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/effects/manifest.json": "5e168382948319c3520f3ed311a2e0d3bbcc1fb9f7d2504e2c93ffd11cece2da",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/effects/audit.json": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/protocol-verification.json": "fe75bfc2bd7c199ebe7b06ddd277e184b335c3b21614357204c8198f91911f5e",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/effect-verification.json": "46b565de93b85fe2337afd0351654e00db6efde4b8f3bc9a63b6810565f46dc2",
+    ".evidence/ticket13-live-admission-20261016T222549.801919Z/authorization-context.json": "6a369fb7c9482251eb5c9f9f356bed542566b19ab4cf93671f6634c6cc22f984"
+  },
+  "authorization": "Direct user instruction: root .env TYPESAFE_KEY; one official Jev route only",
+  "accountRegionPermissions": "Unverified; isolated process is not provider permission introspection",
+  "decisionsRealStatus": "NOT_RUN; no Decisions credential authorized; no claim for that route"
+}

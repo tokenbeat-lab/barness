@@ -1,5 +1,7 @@
 # barness-ai
 
+> **目录更新（2026-10-17）**：`2026-10-17.1` 包含 87 个聊天身份、两个图像型号和三个分类型号。固定 `jev-1.14.0` 支持四位置 PNG/JPEG 与 Box，仍需 `ExperimentalImages`、有限策略及显式 Binding/型号授权。正式支持身份独立为 `typesafe-classifier-jev-1.14.0`；下文既有路线 PASS 仅属于其历史 Hash，当前目录整体验收待票 14。见[正式证据与复放](live/testdata/jev-formal/README.md)。
+
 [English](README.md) | 简体中文
 
 `github.com/tokenbeat-lab/barness/ai` 是 barness 的模型协议模块：一个可信、并发安全的
@@ -195,9 +197,9 @@ inline PNG/JPEG/WebP 图片须同时开启 classifier 图片子策略、型号�
 运行 `go run ./ai/examples/classifierimages`，无需凭据即可经两个公开 Classify 入口重放受控 HTTP。
 [完整示例](examples/classifierimages/README.md)用同一 PNG/JPEG context 请求只替换 Target/Options，
 并演示显式复用、State/说明/标准图片、视觉图例、Box、拒答、撤销与可核验脱敏证据。
-内置 Jev 仍仅文本；实验图片位置和 Box 需要 Host 显式 `jev-1.14.0` 候选目录及
+内置固定 `jev-1.14.0` 已具备实验图片位置和 Box，Host 仍需有限图片策略、型号白名单与
 `TypeSafeOptions{ExperimentalImages: true}`。Decisions 在凭据前拒绝局部图和 Box。
-受控 PASS 不代表真实协议或视觉质量通过，ADR-0030 保持 proposed，正式支持矩阵不变。
+受控 PASS 不代表真实协议或视觉质量通过；正式支持独立核验 1.14 自身证据，ADR-0030 保持 proposed。
 
 `ImageReferences` 完整声明有序用途，value Pointer 指向现存 null 槽位；来源预算与
 `ClassifierImagePolicy.References` 展开预算独立，Hook 后仍复核权限和限额。

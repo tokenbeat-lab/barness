@@ -84,6 +84,9 @@ func initialMultimodalReport() *multimodalExecution {
 	if os.Getenv("BARNESS_MM_CONTROLLED") != "" {
 		r.Mode = "controlled"
 	}
+	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
+		r.Kind = "jev-formal-protocol"
+	}
 	r.Budget.Limits = multimodalLimits
 	r.Budget.MaxNativeBodyBytes, r.Budget.ProcessSeconds, r.Budget.CallSeconds, r.Budget.FinalizationReserveSeconds = 4<<20, 180, 30, 10
 	r.ExecutionDeadline = started.Add(170 * time.Second)

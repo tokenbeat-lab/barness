@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 )
@@ -24,7 +25,9 @@ func LoadMatrix(path string) (Matrix, error) {
 // LoadReport reads a report file.
 func LoadReport(path string) (Report, error) {
 	var r Report
-	return r, readJSON(path, &r)
+	err := readJSON(path, &r)
+	r.evidenceDir = filepath.Dir(path)
+	return r, err
 }
 
 // SaveMatrix writes m to path through a temporary file, so a reader never
@@ -66,8 +69,21 @@ func Encode(v any) ([]byte, error) {
 }
 
 func readJSON(path string, v any) error {
-	data, err := os.ReadFile(path)
+	f, err := os.Open(path)
 	if err != nil {
+		return err
+	}
+	defer f.Close()
+	data, err := io.ReadAll(io.LimitReader(f, (16<<20)+1))
+	if err != nil {
+		return err
+	}
+	if len(data) > 16<<20 || !json.Valid(data) {
+		return fmt.Errorf("invalid or oversized report JSON")
+	}
+	guard := json.NewDecoder(bytes.NewReader(data))
+	guard.UseNumber()
+	if err = uniqueFields(guard, 0); err != nil {
 		return err
 	}
 	dec := json.NewDecoder(bytes.NewReader(data))
@@ -76,4 +92,37 @@ func readJSON(path string, v any) error {
 		return fmt.Errorf("%s: %w", path, err)
 	}
 	return nil
+}
+
+func uniqueFields(d *json.Decoder, depth int) error {
+	if depth > 64 {
+		return fmt.Errorf("report JSON depth exceeded")
+	}
+	token, err := d.Token()
+	if err != nil {
+		return err
+	}
+	delim, ok := token.(json.Delim)
+	if !ok {
+		return nil
+	}
+	seen := map[string]bool{}
+	for d.More() {
+		if delim == '{' {
+			key, err := d.Token()
+			if err != nil {
+				return err
+			}
+			name, ok := key.(string)
+			if !ok || seen[name] {
+				return fmt.Errorf("duplicate report JSON field")
+			}
+			seen[name] = true
+		}
+		if err := uniqueFields(d, depth+1); err != nil {
+			return err
+		}
+	}
+	_, err = d.Token()
+	return err
 }

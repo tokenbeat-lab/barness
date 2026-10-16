@@ -55,6 +55,7 @@ type budget struct {
 	Partial       int     `json:"partial"`
 }
 type report struct {
+	CatalogKind          string         `json:"catalogKind,omitempty"`
 	Schema               int            `json:"schema"`
 	Mode                 string         `json:"mode"`
 	Route                string         `json:"route"`
@@ -79,6 +80,9 @@ type report struct {
 func initial(p *plan, a arguments) report {
 	hash, _ := p.catalog.Hash()
 	r := report{Schema: 1, Mode: a.mode, Route: p.route, Entry: a.entry, Status: "NOT_RUN", RealQuality: "NOT_RUN", CatalogVersion: p.catalog.Version, CatalogHash: hash, Model: p.model.ID, DatasetHash: p.pins["dataset.json"], ConfigHash: p.pins["experiment.json"], StartedAt: time.Now().UTC()}
+	if p.formal {
+		r.CatalogKind = "formal"
+	}
 	for i, s := range p.dataset.Samples {
 		r.Samples = append(r.Samples, sampleResult{ID: s.ID, Group: p.group(i), Status: "not_run", View: map[string]answerView{}})
 	}

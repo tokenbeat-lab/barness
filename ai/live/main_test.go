@@ -92,7 +92,11 @@ func TestMain(m *testing.M) {
 	}
 	flag.Parse()
 	code := 0
-	if multimodalReport != nil && flag.Lookup("test.run").Value.String() != "^TestMultimodalCandidate$" {
+	mmEntry := "^TestMultimodalCandidate$"
+	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
+		mmEntry = "^TestMultimodalFormal$"
+	}
+	if multimodalReport != nil && flag.Lookup("test.run").Value.String() != mmEntry {
 		multimodalReport.Outcome = "FAIL"
 		multimodalReport.Failure = "isolated candidate entry selection is required before any tests execute"
 		code = 1

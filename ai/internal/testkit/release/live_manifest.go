@@ -11,6 +11,9 @@ import (
 )
 
 func verifyLiveManifest(dir string, r supportmatrix.Report) error {
+	if r.Combo == supportmatrix.JevFormalCombo {
+		return supportmatrix.VerifyJevReport(r, true)
+	}
 	var m struct {
 		Package  string
 		Commit   string    `json:"git_commit"`

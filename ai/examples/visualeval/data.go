@@ -48,6 +48,21 @@ type plan struct {
 	pins       map[string]string
 	route      string
 	model      ai.ClassifierModel
+	formal     bool
+}
+
+func (p *plan) useFormalCatalog() error {
+	if p.route != "jev" {
+		return errors.New("formal visual evaluation requires fixed Jev route")
+	}
+	p.catalog = ai.BuiltinCatalog()
+	var ok bool
+	p.model, ok = p.catalog.LookupClassifier(ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, "jev-1.14.0")
+	if !ok {
+		return errors.New("formal Jev model absent")
+	}
+	p.formal = true
+	return nil
 }
 
 func digest(raw []byte) string { s := sha256.Sum256(raw); return hex.EncodeToString(s[:]) }

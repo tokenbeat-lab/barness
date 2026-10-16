@@ -86,6 +86,18 @@ func verify(dir string, requireLive bool) error {
 	if err != nil {
 		return err
 	}
+	if r.CatalogKind != "" {
+		if r.CatalogKind != "formal" {
+			return errors.New("unknown catalog evidence kind")
+		}
+		if err = p.useFormalCatalog(); err != nil {
+			return err
+		}
+		var catalog ai.Catalog
+		if get("formal-catalog.json", &catalog) != nil || !same(catalog, p.catalog) {
+			return errors.New("formal catalog snapshot drift")
+		}
+	}
 	for name, hash := range p.pins {
 		raw, e := read("inputs/" + name)
 		if e != nil || digest(raw) != hash {
@@ -101,13 +113,14 @@ func verify(dir string, requireLive bool) error {
 		Mode          string             `json:"mode"`
 		Route         string             `json:"route"`
 		Entry         string             `json:"entry"`
+		Formal        bool               `json:"formal"`
 		MaxCalls      int                `json:"maxCalls"`
 		WorkMS        int                `json:"workMS"`
 		CallMS        int                `json:"callMS"`
 		Policy        *ai.ResourcePolicy `json:"policy"`
 		Authorization *authorization     `json:"authorization"`
 	}
-	if get("run-config.json", &config) != nil || config.Mode != r.Mode || config.Route != r.Route || config.Entry != r.Entry || config.MaxCalls < 1 || config.MaxCalls > 12 || config.WorkMS < 1 || config.WorkMS > 225000 || config.CallMS < 1 || config.CallMS > 30000 || !same(config.Policy, policy(time.Duration(config.CallMS)*time.Millisecond)) {
+	if get("run-config.json", &config) != nil || config.Formal != p.formal || config.Mode != r.Mode || config.Route != r.Route || config.Entry != r.Entry || config.MaxCalls < 1 || config.MaxCalls > 12 || config.WorkMS < 1 || config.WorkMS > 225000 || config.CallMS < 1 || config.CallMS > 30000 || !same(config.Policy, policy(time.Duration(config.CallMS)*time.Millisecond)) {
 		return errors.New("invalid run configuration")
 	}
 	if (r.Mode != "controlled" && r.Mode != "live") || (r.Entry != "plain" && r.Entry != "hooked") {
@@ -134,8 +147,18 @@ func verify(dir string, requireLive bool) error {
 		return errors.New("invalid independent protocol receipt")
 	}
 	linked := false
+	// The fixed task retains its original candidate provenance. Formal support
+	// additionally verifies a fresh formal protocol bundle at the merge boundary.
+	originHash := r.CatalogHash
+	if p.formal {
+		origin, e := load(r.Route)
+		if e != nil {
+			return e
+		}
+		originHash, _ = origin.catalog.Hash()
+	}
 	for _, v := range protocol.Live {
-		if v.Route == p.route && v.CatalogHash == r.CatalogHash {
+		if v.Route == p.route && v.CatalogHash == originHash {
 			linked = true
 		}
 	}

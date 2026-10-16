@@ -19,6 +19,7 @@ import (
 type arguments struct {
 	mode, route, entry, out, responses, authorization, verify string
 	requireLive                                               bool
+	formal                                                    bool
 	calls, workMS, callMS                                     int
 }
 type scriptReply struct {
@@ -37,6 +38,7 @@ func main() {
 	flag.StringVar(&a.authorization, "authorization", "", "live Host authorization JSON; sole key is BARNESS_VISUAL_KEY")
 	flag.StringVar(&a.verify, "verify", "", "independently verify an existing bundle without network")
 	flag.BoolVar(&a.requireLive, "require-live", false, "verification must contain complete real quality evidence")
+	flag.BoolVar(&a.formal, "formal", false, "use the current fixed Jev formal catalog; preserve candidate fixtures")
 	flag.IntVar(&a.calls, "calls", 12, "controlled-only lower call limit")
 	flag.IntVar(&a.workMS, "work-ms", 225000, "controlled-only shorter work deadline")
 	flag.IntVar(&a.callMS, "call-ms", 30000, "controlled-only shorter call deadline")
@@ -66,6 +68,9 @@ func execute(a arguments) error {
 		return errors.New("authorization requires explicit live mode")
 	}
 	p, err := load(a.route)
+	if err == nil && a.formal {
+		err = p.useFormalCatalog()
+	}
 	if err != nil {
 		return err
 	}

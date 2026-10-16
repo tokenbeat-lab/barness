@@ -1,6 +1,6 @@
 # 13：纳入 Jev 1.14 目录并建立独立正式支持记录
 
-Status: needs-info
+Status: claimed
 
 **What to build:** Host 可发现实际验收过的固定 Jev 1.14 图片/Box 型号，正式支持记录同时保留 Jev 1.13 的身份和历史。
 
@@ -43,3 +43,9 @@ Status: needs-info
 详见[前置核验](../13-verification.md)、[失败清单](../13-failure-modes.md)和
 [证据回执](../13-prerequisite-evidence.json)。本票未开始实现/新 E2E，未勾选验收项，
 未修改正式目录、矩阵或父规格/拟议 ADR 状态；needs-info 不改写 11/12 的已交付结论。
+
+2026-10-17：用户明确授权读取根 `.env` 的 `TYPESAFE_KEY`。隔离进程仅使用
+此凭据调用固定 Jev 官方路线，按既定逐轮预算完成真实候选协议（12 调用）与独立
+效果（12 样本/12 调用），均零重试，原严格验证器通过。记录见
+[Jev 纳入证据](../13-admission.json)；账户/区域/权限未冒称已核验。Jev 纳入前置条件
+已满足，开始实现；Decisions 无获准凭据，真实结论仍 NOT_RUN，不借本路线 PASS。

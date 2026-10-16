@@ -1,5 +1,7 @@
 # barness-ai 发布说明
 
+> **2026-10-17 目录更新**：当前快照为 `2026-10-17.1`，Hash 为 `sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7`，共 87 个聊天身份、两个图像型号和三个分类型号。新增固定 Jev 1.14 的四位置图片与 Box，实验选择及授权仍必需；[独立正式证据指南](../../ai/live/testdata/jev-formal/README.md)和 [ADR-0031](../adr/0031-jev-model-specific-formal-evidence.md)记录身份、预算及复放。下文 2026-10-13 的整体验收与其他路线行保留为历史，不能据此声明当前 Hash 已完整通过；本次整体验收由票 14 负责。
+
 barness-ai 是 barness 连接多种 LLM Provider 的协议中间件（Go 包 `github.com/tokenbeat-lab/barness/ai`）。本目录汇总发布交付物（spec I10、Testing Decisions §6，工单 24）。
 
 使用方式、三种模型操作、绑定与资源策略见包级 README：[English](../../ai/README.md) / [简体中文](../../ai/README.zh-CN.md)。

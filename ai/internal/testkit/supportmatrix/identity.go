@@ -21,7 +21,7 @@ func (r Row) ValidIdentity() bool {
 		operation, provider, api = "image", "openai", "openai-images"
 	case "google-interactions-image":
 		operation, provider, api = "image", "google", "google-interactions"
-	case "typesafe-classifier":
+	case "typesafe-classifier", JevFormalCombo:
 		operation, provider, api = "classifier", "typesafe", "typesafe-system-one"
 	case "openai-decisions":
 		operation, provider, api = "classifier", "openai", "openai-decisions"

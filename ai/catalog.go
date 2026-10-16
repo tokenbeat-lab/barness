@@ -52,7 +52,7 @@ type Catalog struct {
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	return Catalog{
-		Version: "2026-10-13.1",
+		Version: "2026-10-17.1",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
 			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels()),
 		ImageModels:      slices.Concat(builtinOpenAIImageModels(), builtinGoogleImageModels()),
