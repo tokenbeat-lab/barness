@@ -1,0 +1,53 @@
+--- FAIL: TestJevCriteriaProjection (0.04s)
+    --- FAIL: TestJevCriteriaProjection/choice/root/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/choice/root/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/choice/nested/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/choice/nested/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/choice/ordered/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/choice/ordered/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/choice/mixed/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/choice/mixed/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/score/root/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/score/root/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/score/nested/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/score/nested/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/score/ordered/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/score/ordered/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/score/mixed/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/score/mixed/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/bool/root/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/bool/root/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/bool/nested/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/bool/nested/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/bool/ordered/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/bool/ordered/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/bool/mixed/plain (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+    --- FAIL: TestJevCriteriaProjection/bool/mixed/hooked (0.00s)
+        jev_criteria_fixture_test.go:12: NewClient: ai: invalid config Catalog: classifier model jev-1.14.0: classifier image location exceeds the implemented protocol
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T081227.610016000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.386s
+FAIL

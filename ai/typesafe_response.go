@@ -7,7 +7,7 @@ import (
 
 // Usage is registered before parsing any answer. A syntactically valid
 // envelope with invalid answers retains consumption and response identity.
-func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialRequest, req typeSafeRequest, out *ClassifierResult) *Error {
+func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialRequest, req typeSafeRequest, imageIndices map[string]int, out *ClassifierResult) *Error {
 	fields, duplicate, err := unaryJSONEnvelope(raw)
 	if err != nil {
 		return classifierProtocolFailure()
@@ -44,7 +44,12 @@ func decodeTypeSafeResponse(raw []byte, model ClassifierModel, initial *initialR
 		case "choice":
 			answer, failure = decodeChoiceAnswer(raw, question.choices)
 		case "score":
-			answer, failure = decodeScoreAnswer(raw, question.levels)
+			var score ScoreAnswer
+			score, failure = decodeScoreAnswer(raw, question.levels)
+			if failure == nil {
+				failure = restoreTypeSafeLegend(&score, imageIndices)
+			}
+			answer = score
 		case "noul":
 			answer, failure = decodeBoolAnswer(raw)
 		default:

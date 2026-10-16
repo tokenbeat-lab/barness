@@ -110,7 +110,7 @@ func (r ClassifierRequest) checkCapabilities(c ClassifierCapabilities, plan clas
 		if !slices.Contains(c.Kinds, kind) {
 			return "model does not support the question kind"
 		}
-		if !classifierQuestionFormats(question, c.DescriptionFormats, plan.hasValue("/questions/"+imagePointerKey(name)+"/instructions")) {
+		if !classifierQuestionFormats(question, c.DescriptionFormats, func(path string) bool { return plan.hasValue("/questions/" + imagePointerKey(name) + path) }) {
 			return "model does not support the description format"
 		}
 	}

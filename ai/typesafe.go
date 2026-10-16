@@ -58,7 +58,7 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 	if failure != nil {
 		return failure
 	}
-	imageInputs, failure := classifierImageInputs(ctx, images)
+	imageInputs, failure := classifierImageInputs(ctx, images.images)
 	if failure != nil {
 		return failure
 	}
@@ -78,7 +78,7 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 	if err != nil {
 		return unaryReadFailure(err)
 	}
-	failure = decodeTypeSafeResponse(raw, model, r.initial, final, out)
+	failure = decodeTypeSafeResponse(raw, model, r.initial, final, images.indices, out)
 	if ended := contextError(ctx, PhaseResponse); ended != nil {
 		return ended
 	}

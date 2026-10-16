@@ -165,6 +165,8 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 				location = ClassifierImageLocationState
 			case len(parts) >= 3 && parts[0] == "questions" && parts[2] == "instructions":
 				location = ClassifierImageLocationInstructions
+			case len(parts) >= 4 && parts[0] == "questions" && parts[2] == "criteria":
+				location = ClassifierImageLocationCriteria
 			default:
 				return newError(CodeInvalidRequest, PhaseCapability, "classifier protocol does not support this image location")
 			}

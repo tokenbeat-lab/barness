@@ -248,3 +248,28 @@ ImageInputs；不信任入口 Pointer 或旧问题。Criteria、身份键、对�
 内置目录、支持矩阵和 ADR-0030 proposed 状态不变。撤销授权影响新调用，回滚本票
 代码无数据迁移。[公开说明](../barness-ai/jev-instruction-images.md)与
 [工单验证](../../.scratch/jev-1.14-multimodal-box/06-verification.md)记录范围与可重放证据。
+
+## Jev Criteria 图片与公共图例（2026-10-16，统一图片工单 07）
+
+固定 Host 候选 `jev-1.14.0` 可显式声明 `criteria`，同时贯通 Choice 单候选说明、
+Bool true/false 和 Score 全部有序等级。沿用统一来源与明确 null Pointer，保持
+标准的位置、集合与顺序；Choice 未引用 null 原义不变，Score/Bool 根 null 只在
+明确引用时有效。整题 canonical bytes 在投影前预留私有 key 的转义增长，来源与
+实际出现分别计量，最终 Hook 再校验权限、位置、文件、容量及未使用资产。
+
+选择将最终 native 素材索引与图片集合一起冻结，供 Score 公共图例还原使用；不
+沿用入口下标，也不按文件 hash 合并资产。这样 Hook 改名、换等级或换图后仍能
+解释结果，代价是调用内保留一个有限的私有 key→最终索引表。遍历 State 后按
+题名排序，逐题 Instructions 在 Criteria 前；Choice/Bool 和对象键排序、数组/
+Score 原序。协议模型保持独立所有权，没有回解为公共请求的兼容路径。
+
+native Legend 必须先通过最终 Criteria 的完整严格回显校验，再将全值图片还原
+为 null 和 `ScoreAnswer.LegendImageReferences`。Pointer 相对 Legend 根，索引
+指向最终 ImageInputs；无图值的 JSON 保持，含图树以 UseNumber 保留数值拼写。
+拒绝损坏回显而不是通过还原掩盖差异。坏任一答案均整体不发布 Answers/ImageInputs，
+保留唯一合法 usage；私有 key/bytes 不作为公共图例或共享观测输出。
+
+这是 ADR-0030 拟议设计的 Criteria 切片，保持其 proposed 状态。Decisions 局部
+图片仍在凭据前整体拒绝；Box、真实协议/视觉质量和正式目录由后续工单负责。
+回滚无持久化迁移，撤权影响新调用。[公共契约](../barness-ai/jev-criteria-images.md)
+与[工单验证](../../.scratch/jev-1.14-multimodal-box/07-verification.md)记录边界与证据。

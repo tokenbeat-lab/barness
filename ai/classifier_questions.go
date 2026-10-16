@@ -3,8 +3,9 @@ package ai
 import "encoding/json"
 
 // ClassifierQuestion is a closed choice, score or bool question. Instructions
-// may be an explicitly image-referenced null root on models supporting that
-// location; object/array descriptions can mix text with referenced null slots.
+// and individual criteria may be explicitly image-referenced null roots on
+// models supporting those locations; object/array descriptions can mix text
+// with referenced null slots. Collection containers cannot be image targets.
 type ClassifierQuestion interface{ classifierQuestion() }
 
 // ChoiceQuestion asks for one option. Instructions and criteria descriptions
@@ -15,14 +16,16 @@ type ChoiceQuestion struct {
 }
 
 // ScoreQuestion rates an ordered rubric of 2–10 levels. Each criterion's
-// position is its score, starting at zero; descriptions accept native JSON.
+// position is its score, starting at zero; descriptions accept native JSON
+// or explicitly image-referenced null slots when the model supports Criteria.
 type ScoreQuestion struct {
 	Instructions json.RawMessage   `json:"instructions"`
 	Criteria     []json.RawMessage `json:"criteria"`
 }
 
 // BoolQuestion asks for the probability of yes. Optional criteria clarify
-// both alternatives; when supplied, both must be JSON strings, objects or arrays.
+// both alternatives; when supplied, both must be JSON strings, objects, arrays
+// or explicitly image-referenced null slots when the model supports Criteria.
 type BoolQuestion struct {
 	Instructions json.RawMessage `json:"instructions"`
 	Criteria     *BoolCriteria   `json:"criteria,omitempty"`

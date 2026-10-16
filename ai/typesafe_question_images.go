@@ -3,9 +3,9 @@ package ai
 import "encoding/json"
 
 // Reserve complete canonical questions, including escaped private keys, before
-// expanding their instruction slots. Text container formats stay independent
+// expanding their content slots. Text container formats stay independent
 // of the image-location capability; only explicit root images bypass them.
-func (c *Client) projectTypeSafeInstructions(native *typeSafeRequest, original map[string]any, plan classifierImagePlan, keys []string) *Error {
+func (c *Client) projectTypeSafeQuestions(native *typeSafeRequest, original map[string]any, plan classifierImagePlan, keys []string) *Error {
 	remaining := make(map[string]int64)
 	for _, ref := range plan {
 		if ref.Placement != ImagePlacementValue {
@@ -39,16 +39,18 @@ func (c *Client) projectTypeSafeInstructions(native *typeSafeRequest, original m
 		parts, _ := imagePointerParts(ref.Pointer)
 		if parts[0] == "questions" {
 			q := questions[parts[1]].(map[string]any)
-			q["instructions"] = projectTypeSafeValue(q["instructions"], parts[3:], keys[ref.ImageIndex])
+			q[parts[2]] = projectTypeSafeValue(q[parts[2]], parts[3:], keys[ref.ImageIndex])
 		}
 	}
 	for name := range remaining {
-		q := native.Questions[name]
-		raw, err := json.Marshal(questions[name].(map[string]any)["instructions"])
+		raw, err := json.Marshal(questions[name])
 		if err != nil {
 			return typeSafeRequestFailure()
 		}
-		q.instructions = raw
+		var q typeSafeQuestion
+		if json.Unmarshal(raw, &q) != nil {
+			return typeSafeRequestFailure()
+		}
 		native.Questions[name] = q
 	}
 	return nil

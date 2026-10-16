@@ -1,0 +1,10 @@
+--- FAIL: TestJevCriteriaFinalHooks (0.14s)
+    --- FAIL: TestJevCriteriaFinalHooks/expanded (0.01s)
+        jev_criteria_hooks_test.go:121: [UC07-hook-expanded] final guard rejects atomically before Attempt: got <nil>
+--- FAIL: TestJevStateCatalogBoundary (0.00s)
+    --- FAIL: TestJevStateCatalogBoundary/criteria (0.00s)
+        jev_state_snapshot_test.go:62: [UC05-catalog-criteria] metadata matches implemented locations: hash=<nil> constructor=<nil>
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T081612.630367000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	17.242s
+FAIL

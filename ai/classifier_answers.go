@@ -12,12 +12,14 @@ type ChoiceAnswer struct {
 }
 
 // ScoreAnswer retains the expected score and any reported level distribution
-// and rubric. Legend values preserve the final criteria's native JSON.
+// and rubric. Image values in Legend are null slots addressed by
+// LegendImageReferences, relative to Legend and indexing final ImageInputs.
 type ScoreAnswer struct {
-	Score         float64                 `json:"score"`
-	Confidence    float64                 `json:"confidence"`
-	Probabilities map[int]float64         `json:"probabilities,omitempty"`
-	Legend        map[int]json.RawMessage `json:"legend,omitempty"`
+	Score                 float64                 `json:"score"`
+	Confidence            float64                 `json:"confidence"`
+	Probabilities         map[int]float64         `json:"probabilities,omitempty"`
+	Legend                map[int]json.RawMessage `json:"legend,omitempty"`
+	LegendImageReferences []ImageReference        `json:"legendImageReferences,omitempty"`
 }
 
 // BoolAnswer is the probability of yes, rather than a thresholded decision.

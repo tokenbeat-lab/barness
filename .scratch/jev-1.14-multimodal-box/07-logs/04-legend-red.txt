@@ -1,0 +1,24 @@
+--- FAIL: TestJevCriteriaLegend (0.12s)
+    --- FAIL: TestJevCriteriaLegend/root/plain (0.01s)
+        jev_criteria_legend_test.go:77: [UC07-legend-root-plain] legend restores public null slots: wrong legend
+        jev_criteria_legend_test.go:79: [UC07-legend-root-plain] legend references address final ImageInputs: wrong refs: 
+    --- FAIL: TestJevCriteriaLegend/root/hooked (0.01s)
+        jev_criteria_legend_test.go:77: [UC07-legend-root-hooked] legend restores public null slots: wrong legend
+        jev_criteria_legend_test.go:79: [UC07-legend-root-hooked] legend references address final ImageInputs: wrong refs: 
+    --- FAIL: TestJevCriteriaLegend/nested/plain (0.01s)
+        jev_criteria_legend_test.go:77: [UC07-legend-nested-plain] legend restores public null slots: wrong legend
+        jev_criteria_legend_test.go:79: [UC07-legend-nested-plain] legend references address final ImageInputs: wrong refs: 
+    --- FAIL: TestJevCriteriaLegend/nested/hooked (0.01s)
+        jev_criteria_legend_test.go:77: [UC07-legend-nested-hooked] legend restores public null slots: wrong legend
+        jev_criteria_legend_test.go:79: [UC07-legend-nested-hooked] legend references address final ImageInputs: wrong refs: 
+--- FAIL: TestJevCriteriaLegendFinalHook (0.02s)
+    --- FAIL: TestJevCriteriaLegendFinalHook/final (0.01s)
+        jev_criteria_legend_test.go:140: [UC07-legend-hook-final] final legend nulls and exact numbers: wrong legend
+        jev_criteria_legend_test.go:141: [UC07-legend-hook-final] repeated final asset references: wrong refs
+    --- FAIL: TestJevCriteriaLegendFinalHook/duplicate-use (0.01s)
+        jev_criteria_legend_test.go:140: [UC07-legend-hook-duplicate-use] final legend nulls and exact numbers: wrong legend
+        jev_criteria_legend_test.go:141: [UC07-legend-hook-duplicate-use] repeated final asset references: wrong refs
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T081400.445623000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.508s
+FAIL

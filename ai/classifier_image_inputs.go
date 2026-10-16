@@ -15,7 +15,8 @@ import (
 // the lowercase hexadecimal SHA-256 of the decoded file, not its Base64 or URL.
 // Indices belong to this result only; Hooks can change the original input order
 // and repeated Decisions blocks retain separate entries with identical hashes.
-// Jev retains one entry per final asset, in first context use order.
+// Jev retains one entry per final asset: State first, then sorted questions
+// (Instructions before Criteria), sorted object keys and original array order.
 // This is result content for the calling tenant, never an access credential.
 type ClassifierImageInput struct {
 	MimeType string `json:"mimeType"`

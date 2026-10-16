@@ -1,0 +1,302 @@
+--- FAIL: TestJevCriteriaProjection (0.10s)
+    --- FAIL: TestJevCriteriaProjection/choice/root/plain (0.01s)
+        jev_criteria_test.go:38: [UC07-projection-choice-root-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-choice-root-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-choice-root-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/choice/root/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-choice-root-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-choice-root-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-choice-root-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/choice/nested/plain (0.01s)
+        jev_criteria_test.go:38: [UC07-projection-choice-nested-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-choice-nested-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-choice-nested-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/choice/nested/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-choice-nested-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-choice-nested-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-choice-nested-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/choice/ordered/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-choice-ordered-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-choice-ordered-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-choice-ordered-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/choice/ordered/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-choice-ordered-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-choice-ordered-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-choice-ordered-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/choice/mixed/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-choice-mixed-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-choice-mixed-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-choice-mixed-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/choice/mixed/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-choice-mixed-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-choice-mixed-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-choice-mixed-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/score/root/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-score-root-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-score-root-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-score-root-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/score/root/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-score-root-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-score-root-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-score-root-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/score/nested/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-score-nested-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-score-nested-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-score-nested-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/score/nested/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-score-nested-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-score-nested-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-score-nested-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/score/ordered/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-score-ordered-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-score-ordered-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-score-ordered-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/score/ordered/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-score-ordered-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-score-ordered-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-score-ordered-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/score/mixed/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-score-mixed-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-score-mixed-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-score-mixed-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/score/mixed/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-score-mixed-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-score-mixed-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-score-mixed-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/bool/root/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-bool-root-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-bool-root-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-bool-root-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/bool/root/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-bool-root-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-bool-root-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-bool-root-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/bool/nested/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-bool-nested-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-bool-nested-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-bool-nested-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/bool/nested/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-bool-nested-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-bool-nested-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-bool-nested-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/bool/ordered/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-bool-ordered-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-bool-ordered-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-bool-ordered-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/bool/ordered/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-bool-ordered-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-bool-ordered-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-bool-ordered-hooked] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/bool/mixed/plain (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-bool-mixed-plain] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-bool-mixed-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-bool-mixed-plain] one request: unexpected sends
+    --- FAIL: TestJevCriteriaProjection/bool/mixed/hooked (0.00s)
+        jev_criteria_test.go:38: [UC07-projection-bool-mixed-hooked] visual criteria succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC07-projection-bool-mixed-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_criteria_test.go:41: [UC07-projection-bool-mixed-hooked] one request: unexpected sends
+--- FAIL: TestJevInstructionsCapabilities (0.07s)
+    --- FAIL: TestJevInstructionsCapabilities/root-format/plain (0.00s)
+        jev_instructions_boundaries_test.go:118: [UC06-capability-root-format-plain] root image independent of text formats: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-capability-root-format-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsCapabilities/root-format/hooked (0.00s)
+        jev_instructions_boundaries_test.go:118: [UC06-capability-root-format-hooked] root image independent of text formats: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-capability-root-format-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+--- FAIL: TestJevInstructionsBudgets (0.04s)
+    --- FAIL: TestJevInstructionsBudgets/reuse/plain (0.00s)
+        jev_instructions_boundaries_test.go:163: [UC06-budget-reuse-plain] three occurrences upload once: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-budget-reuse-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsBudgets/reuse/hooked (0.00s)
+        jev_instructions_boundaries_test.go:163: [UC06-budget-reuse-hooked] three occurrences upload once: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-budget-reuse-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsBudgets/body/plain (0.00s)
+        unary_fixture_test.go:62: [UC06-budget-body-plain] code-only match: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        unary_fixture_test.go:63: [UC06-budget-body-plain] phase match: got ai: callback_failed (request): payload callback produced an invalid classifier request
+    --- FAIL: TestJevInstructionsBudgets/body/hooked (0.00s)
+        unary_fixture_test.go:62: [UC06-budget-body-hooked] code-only match: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        unary_fixture_test.go:63: [UC06-budget-body-hooked] phase match: got ai: callback_failed (request): payload callback produced an invalid classifier request
+--- FAIL: TestJevInstructionsRemoveContext (0.01s)
+    --- FAIL: TestJevInstructionsRemoveContext/empty (0.00s)
+        jev_instructions_context_hooks_test.go:37: [UC06-hook-context-removal-empty] removing global occurrences keeps valid local image: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-hook-context-removal-empty] final ordered decoded file identities; closed records: metadata differs from final images
+--- FAIL: TestJevInstructionsFinalHooks (0.12s)
+    --- FAIL: TestJevInstructionsFinalHooks/replace (0.00s)
+        jev_instructions_hooks_test.go:123: [UC06-hook-replace] final renamed questions determine answers: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-hook-replace] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsFinalHooks/retype (0.00s)
+        jev_instructions_hooks_test.go:123: [UC06-hook-retype] final renamed questions determine answers: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-hook-retype] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsFinalHooks/state-first (0.00s)
+        jev_instructions_hooks_test.go:123: [UC06-hook-state-first] final renamed questions determine answers: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-hook-state-first] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsFinalHooks/remove (0.00s)
+        jev_instructions_hooks_test.go:123: [UC06-hook-remove] final renamed questions determine answers: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-hook-remove] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsFinalHooks/root-format (0.00s)
+        jev_instructions_hooks_test.go:123: [UC06-hook-root-format] final renamed questions determine answers: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-hook-root-format] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsFinalHooks/references (0.00s)
+        jev_instructions_hooks_test.go:135: [UC06-hook-references] final request rejected at boundary: got ai: callback_failed (request): payload callback produced an invalid classifier request
+    --- FAIL: TestJevInstructionsFinalHooks/expanded (0.00s)
+        jev_instructions_hooks_test.go:135: [UC06-hook-expanded] final request rejected at boundary: got ai: callback_failed (request): payload callback produced an invalid classifier request
+    --- FAIL: TestJevInstructionsFinalHooks/question-bytes (0.00s)
+        jev_instructions_hooks_test.go:135: [UC06-hook-question-bytes] final request rejected at boundary: got ai: callback_failed (request): payload callback produced an invalid classifier request
+    --- FAIL: TestJevInstructionsFinalHooks/raw-question-bytes (0.00s)
+        jev_instructions_hooks_test.go:135: [UC06-hook-raw-question-bytes] final request rejected at boundary: got ai: callback_failed (request): payload callback produced an invalid classifier request
+    --- FAIL: TestJevInstructionsFinalHooks/model (0.00s)
+        jev_instructions_hooks_test.go:135: [UC06-hook-model] final request rejected at boundary: got ai: callback_failed (request): payload callback produced an invalid classifier request
+    --- FAIL: TestJevInstructionsFinalHooks/authority (0.00s)
+        jev_instructions_hooks_test.go:135: [UC06-hook-authority] final request rejected at boundary: got ai: callback_failed (request): payload callback produced an invalid classifier request
+    --- FAIL: TestJevInstructionsFinalHooks/bad-answer (0.00s)
+        jev_instructions_hooks_test.go:135: [UC06-hook-bad-answer] final request rejected at boundary: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        jev_instructions_hooks_test.go:140: [UC06-hook-bad-answer] reported usage retained: usage lost or replayed
+    --- FAIL: TestJevInstructionsFinalHooks/stale-answer (0.00s)
+        jev_instructions_hooks_test.go:135: [UC06-hook-stale-answer] final request rejected at boundary: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        jev_instructions_hooks_test.go:140: [UC06-hook-stale-answer] reported usage retained: usage lost or replayed
+--- FAIL: TestJevInstructionsOrdering (0.04s)
+    --- FAIL: TestJevInstructionsOrdering/local/plain (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-local-plain] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-local-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/local/hooked (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-local-hooked] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-local-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/state/plain (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-state-plain] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-state-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/state/hooked (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-state-hooked] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-state-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/context/plain (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-context-plain] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-context-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/context/hooked (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-context-hooked] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-context-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/same-bytes/plain (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-same-bytes-plain] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-same-bytes-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/same-bytes/hooked (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-same-bytes-hooked] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-same-bytes-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/literal/plain (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-literal-plain] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-literal-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsOrdering/literal/hooked (0.00s)
+        jev_instructions_lifecycle_test.go:42: [UC06-order-literal-hooked] public order is final traversal, independent of reference order: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-order-literal-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+--- FAIL: TestJevInstructionsLifecycle (0.04s)
+    --- FAIL: TestJevInstructionsLifecycle/retry/plain (0.00s)
+        jev_instructions_lifecycle_test.go:114: [UC06-lifecycle-retry-plain] frozen local instructions succeed: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-lifecycle-retry-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_lifecycle_test.go:118: [UC06-lifecycle-retry-plain] retry has two Attempts: unexpected attempts
+    --- FAIL: TestJevInstructionsLifecycle/retry/hooked (0.00s)
+        jev_instructions_lifecycle_test.go:114: [UC06-lifecycle-retry-hooked] frozen local instructions succeed: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-lifecycle-retry-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_lifecycle_test.go:118: [UC06-lifecycle-retry-hooked] retry has two Attempts: unexpected attempts
+    --- FAIL: TestJevInstructionsLifecycle/snapshot/plain (0.00s)
+        jev_instructions_lifecycle_test.go:114: [UC06-lifecycle-snapshot-plain] frozen local instructions succeed: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-lifecycle-snapshot-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsLifecycle/snapshot/hooked (0.00s)
+        jev_instructions_lifecycle_test.go:114: [UC06-lifecycle-snapshot-hooked] frozen local instructions succeed: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-lifecycle-snapshot-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+--- FAIL: TestJevInstructionsProjection (0.09s)
+    --- FAIL: TestJevInstructionsProjection/choice/root/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-choice-root-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-choice-root-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-choice-root-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/choice/root/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-choice-root-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-choice-root-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-choice-root-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/choice/nested/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-choice-nested-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-choice-nested-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-choice-nested-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/choice/nested/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-choice-nested-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-choice-nested-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-choice-nested-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/choice/ordered/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-choice-ordered-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-choice-ordered-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-choice-ordered-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/choice/ordered/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-choice-ordered-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-choice-ordered-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-choice-ordered-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/choice/mixed/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-choice-mixed-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-choice-mixed-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-choice-mixed-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/choice/mixed/hooked (0.01s)
+        jev_instructions_test.go:34: [UC06-projection-choice-mixed-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-choice-mixed-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-choice-mixed-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/score/root/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-root-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-score-root-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-score-root-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/score/root/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-root-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-score-root-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-score-root-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/score/nested/plain (0.01s)
+        jev_instructions_test.go:34: [UC06-projection-score-nested-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-score-nested-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-score-nested-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/score/nested/hooked (0.01s)
+        jev_instructions_test.go:34: [UC06-projection-score-nested-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-score-nested-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-score-nested-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/score/ordered/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-ordered-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-score-ordered-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-score-ordered-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/score/ordered/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-ordered-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-score-ordered-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-score-ordered-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/score/mixed/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-mixed-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-score-mixed-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-score-mixed-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/score/mixed/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-mixed-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-score-mixed-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-score-mixed-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/bool/root/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-bool-root-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-bool-root-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-bool-root-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/bool/root/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-bool-root-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-bool-root-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-bool-root-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/bool/nested/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-bool-nested-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-bool-nested-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-bool-nested-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/bool/nested/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-bool-nested-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-bool-nested-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-bool-nested-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/bool/ordered/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-bool-ordered-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-bool-ordered-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-bool-ordered-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/bool/ordered/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-bool-ordered-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-bool-ordered-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-bool-ordered-hooked] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/bool/mixed/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-bool-mixed-plain] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-bool-mixed-plain] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-bool-mixed-plain] one request and Attempt: unexpected sends
+    --- FAIL: TestJevInstructionsProjection/bool/mixed/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-bool-mixed-hooked] local image classification succeeds: got ai: callback_failed (request): payload callback produced an invalid classifier request
+        decisions_image_inputs_test.go:41: [UC06-projection-bool-mixed-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+        jev_instructions_test.go:37: [UC06-projection-bool-mixed-hooked] one request and Attempt: unexpected sends
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T081303.379848000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.732s
+FAIL

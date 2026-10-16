@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"slices"
+	"strconv"
 )
 
 func classifierModelProblem(m ClassifierModel) string {
@@ -30,12 +31,10 @@ func classifierModelProblem(m ClassifierModel) string {
 		}
 		switch location {
 		case ClassifierImageLocationContext:
-		case ClassifierImageLocationState, ClassifierImageLocationInstructions:
+		case ClassifierImageLocationState, ClassifierImageLocationInstructions, ClassifierImageLocationCriteria:
 			if !jev {
 				return "classifier image location exceeds the implemented protocol"
 			}
-		case ClassifierImageLocationCriteria:
-			return "classifier image location exceeds the implemented protocol"
 		default:
 			return "unknown classifier image location"
 		}
@@ -67,34 +66,34 @@ func classifierModelProblem(m ClassifierModel) string {
 	return ""
 }
 
-func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescriptionFormat, instructionImage bool) bool {
-	allowed := func(raw json.RawMessage, nullable bool) bool {
-		return classifierDescriptionAllowed(raw, nullable, formats)
+func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescriptionFormat, rootImage func(string) bool) bool {
+	allowed := func(raw json.RawMessage, nullable bool, path string) bool {
+		return (rootImage != nil && rootImage(path)) || classifierDescriptionAllowed(raw, nullable, formats)
 	}
 	switch q := q.(type) {
 	case ChoiceQuestion:
-		if !instructionImage && !allowed(q.Instructions, false) {
+		if !allowed(q.Instructions, false, "/instructions") {
 			return false
 		}
-		for _, raw := range q.Criteria {
-			if !allowed(raw, true) {
+		for key, raw := range q.Criteria {
+			if !allowed(raw, true, "/criteria/"+imagePointerKey(key)) {
 				return false
 			}
 		}
 	case ScoreQuestion:
-		if !instructionImage && !allowed(q.Instructions, false) {
+		if !allowed(q.Instructions, false, "/instructions") {
 			return false
 		}
-		for _, raw := range q.Criteria {
-			if !allowed(raw, false) {
+		for i, raw := range q.Criteria {
+			if !allowed(raw, false, "/criteria/"+strconv.Itoa(i)) {
 				return false
 			}
 		}
 	case BoolQuestion:
-		if !instructionImage && !allowed(q.Instructions, false) {
+		if !allowed(q.Instructions, false, "/instructions") {
 			return false
 		}
-		if q.Criteria != nil && (!allowed(q.Criteria.True, false) || !allowed(q.Criteria.False, false)) {
+		if q.Criteria != nil && (!allowed(q.Criteria.True, false, "/criteria/true") || !allowed(q.Criteria.False, false, "/criteria/false")) {
 			return false
 		}
 	default:
@@ -133,7 +132,7 @@ func decisionsTextCapability(req ClassifierRequest) string {
 		if choice, ok := q.(ChoiceQuestion); ok && len(choice.Criteria) < 2 {
 			return "Decisions requires at least two choices"
 		}
-		if !classifierQuestionFormats(q, []ClassifierDescriptionFormat{ClassifierDescriptionString}, false) {
+		if !classifierQuestionFormats(q, []ClassifierDescriptionFormat{ClassifierDescriptionString}, nil) {
 			return "Decisions requires at least two choices and string descriptions"
 		}
 	}

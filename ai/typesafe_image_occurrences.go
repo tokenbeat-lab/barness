@@ -10,7 +10,8 @@ import (
 )
 
 // Freeze actual whole-value occurrences independently of the public pointers.
-// Walk State then sorted questions' Instructions in object-key/array order. A projected context
+// Walk State, then sorted questions: Instructions before Criteria, with sorted
+// object/Choice/Bool keys and original array/Score order. A projected context
 // envelope has images before state in that order. Only its topology is retained
 // from the builder; every content value, asset, permission and budget is rechecked.
 func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, locations []ClassifierImageLocation, contextWrapped bool, maxReferences int) ([]string, *Error) {
@@ -95,13 +96,28 @@ func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, location
 		return nil, failure
 	}
 	for _, name := range slices.Sorted(maps.Keys(req.Questions)) {
-		decoder := json.NewDecoder(bytes.NewReader(req.Questions[name].instructions))
-		decoder.UseNumber()
-		if decoder.Decode(&tree) != nil {
-			return nil, typeSafeRequestFailure()
+		q := req.Questions[name]
+		contents := []json.RawMessage{q.instructions}
+		for _, key := range slices.Sorted(maps.Keys(q.choices)) {
+			contents = append(contents, q.choices[key])
 		}
-		if failure := walk(tree, ClassifierImageLocationInstructions); failure != nil {
-			return nil, failure
+		contents = append(contents, q.levels...)
+		if q.boolean != nil {
+			contents = append(contents, q.boolean.False, q.boolean.True)
+		}
+		for i, raw := range contents {
+			decoder := json.NewDecoder(bytes.NewReader(raw))
+			decoder.UseNumber()
+			if decoder.Decode(&tree) != nil {
+				return nil, typeSafeRequestFailure()
+			}
+			location := ClassifierImageLocationCriteria
+			if i == 0 {
+				location = ClassifierImageLocationInstructions
+			}
+			if failure := walk(tree, location); failure != nil {
+				return nil, failure
+			}
 		}
 	}
 	return occurrences, nil

@@ -48,7 +48,7 @@ func (c *Client) freezeTypeSafeRequest(body []byte, model ClassifierModel) (type
 	// Shape and sub-policy failures historically precede model capabilities.
 	// Keep that priority and their callback_failed/request classification.
 	for _, q := range req.Questions {
-		if !q.supported(model.Capabilities, typeSafeRootImage(q.instructions, req.Assets)) {
+		if !q.supported(model.Capabilities, req.Assets) {
 			return req, newError(CodeCallbackFailed, PhaseRequest, "payload callback exceeded classifier model capabilities")
 		}
 	}
@@ -117,7 +117,7 @@ func (q typeSafeQuestion) valid() bool {
 	return true
 }
 
-func (q typeSafeQuestion) supported(c ClassifierCapabilities, instructionImage bool) bool {
+func (q typeSafeQuestion) supported(c ClassifierCapabilities, assets map[string]typeSafeAsset) bool {
 	var kind ClassifierQuestionKind
 	switch q.kind {
 	case "choice":
@@ -133,18 +133,18 @@ func (q typeSafeQuestion) supported(c ClassifierCapabilities, instructionImage b
 	case "noul":
 		kind = ClassifierQuestionBool
 	}
-	if !slices.Contains(c.Kinds, kind) || (!instructionImage && !classifierDescriptionAllowed(q.instructions, false, c.DescriptionFormats)) {
+	if !slices.Contains(c.Kinds, kind) || (!typeSafeRootImage(q.instructions, assets) && !classifierDescriptionAllowed(q.instructions, false, c.DescriptionFormats)) {
 		return false
 	}
 	for _, value := range q.choices {
-		if !classifierDescriptionAllowed(value, true, c.DescriptionFormats) {
+		if !typeSafeRootImage(value, assets) && !classifierDescriptionAllowed(value, true, c.DescriptionFormats) {
 			return false
 		}
 	}
 	for _, value := range q.levels {
-		if !classifierDescriptionAllowed(value, false, c.DescriptionFormats) {
+		if !typeSafeRootImage(value, assets) && !classifierDescriptionAllowed(value, false, c.DescriptionFormats) {
 			return false
 		}
 	}
-	return q.boolean == nil || (classifierDescriptionAllowed(q.boolean.True, false, c.DescriptionFormats) && classifierDescriptionAllowed(q.boolean.False, false, c.DescriptionFormats))
+	return q.boolean == nil || ((typeSafeRootImage(q.boolean.True, assets) || classifierDescriptionAllowed(q.boolean.True, false, c.DescriptionFormats)) && (typeSafeRootImage(q.boolean.False, assets) || classifierDescriptionAllowed(q.boolean.False, false, c.DescriptionFormats)))
 }
