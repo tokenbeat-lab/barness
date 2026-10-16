@@ -42,8 +42,42 @@ common-input equivalence and resource release. The two historical red manifests
 are retained, never relabeled PASS. Dynamic RequestIDs/times differ on replay;
 synthetic fixture hashes are deterministic.
 
-## Validation status
+## Final validation
 
-Focused public E2E and actual executable race run passed; `go vet ./...` passed.
-Full-suite validation and mandatory independent two-axis review are in progress.
-Final run paths, counts, audits and review findings will be recorded below.
+- `go test ./... -count=1`: exit 0, **7,890 PASS / 1,050 explicit opt-in
+  NOT_RUN**, including **52/52 ticket cases PASS**. Final E2E manifest:
+  `.evidence/barness-ai/20261016T113347.968132000Z/manifest.json`.
+- `BARNESS_EXAMPLE_RACE=1 go test -race ./ai/e2e -run
+  '^TestClassifierImagesExample' -count=1`: exit 0, **52/52 PASS**; the actual
+  executable is also compiled/run with `-race`, not only its outer test process.
+  Manifest: `.evidence/barness-ai/20261016T113347.035722000Z/manifest.json`.
+- `go vet ./...`: exit 0 on the final Go sources.
+- Both final parent recorder audits and both nested Host audits: zero findings.
+  Every recorded resource gauge returns to zero in all 48 executable scenarios.
+- Independent integrity verification: **63,239 artifact hashes**, **104 ticket
+  cases across the two final runs**, and both historical red manifests/children.
+
+[Independent two-axis review](10-code-review.md): Standards found one P3 mutable
+legend alias, fixed in `5d2d6ac` and independently confirmed resolved. Spec found
+no actionable findings. The final public E2E/race/full runs cover the corrected
+source; no Go implementation changes followed those runs.
+
+Seal these completed runs with:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 .scratch/jev-1.14-multimodal-box/verify-10-evidence.py --record \
+  .evidence/barness-ai/20261016T113347.968132000Z/manifest.json \
+  .evidence/barness-ai/20261016T113347.035722000Z/manifest.json
+```
+
+Bundles stay local under ignored `.evidence`; the committed receipt preserves
+manifest hashes, source hashes, audit hashes, counts and historical red pointers.
+Single-case E2E replay may regenerate the complete small Host matrix before
+selecting the requested assertion case. Standalone per-scenario commands are
+also stored in each config. Reruns require new output directories.
+
+The pre-existing uncommitted glossary/README/planning edits were preserved;
+commits include only ticket changes. Parent spec/design, proposed ADR statuses,
+built-in catalog, release snapshot, support matrix and frozen Pi remain unchanged.
+Real-service protocol, independent visual quality and production support are
+**NOT_RUN / unclaimed** by this ticket; controlled HTTP PASS never replaces them.

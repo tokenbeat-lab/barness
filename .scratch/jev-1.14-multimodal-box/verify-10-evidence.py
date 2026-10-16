@@ -141,7 +141,12 @@ def main():
     for expected in receipt['runs']:
         assert validate_run(ROOT / expected['manifest']) == expected
     for red in receipt['reds']:
-        assert sha(ROOT / red['manifest']) == red['sha256']
+        path = ROOT / red['manifest']
+        assert sha(path) == red['sha256']
+        manifest = load(path)
+        assert any(c['status'] == 'FAIL' for c in manifest['cases'])
+        for case in manifest['cases']:
+            assert_hashes(path.parent / case['dir'], case['artifacts'])
     print(json.dumps(dict(ticketCases=sum(r['ticketCases'] for r in receipt['runs']),
                           verifiedArtifacts=sum(r['verifiedArtifacts'] for r in receipt['runs']),
                           redManifests=len(receipt['reds']), realService='NOT_RUN',

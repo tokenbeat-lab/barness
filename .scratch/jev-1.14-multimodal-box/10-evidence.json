@@ -4,10 +4,22 @@
   "visualQuality": "NOT_RUN",
   "runs": [
     {
-      "manifest": ".evidence/barness-ai/20261016T113004.534649000Z/manifest.json",
-      "sha256": "738b6157f5c92ee827390eeb4c75dab855584377f245247a47292fd2a7894880",
+      "manifest": ".evidence/barness-ai/20261016T113347.968132000Z/manifest.json",
+      "sha256": "3f138bb4433b7b0ed2501405f4addc0c7a430f2f8389f853f11f6166e0cdab6a",
       "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
-      "hostManifestSHA256": "71428b0cb81d5f575b455e630bd2ef284228d7b2414d5509e755c63e5f6b9c34",
+      "hostManifestSHA256": "1d88b8a7a7afaa23b0af53e91a19997af3ce3f1ac1b4f27e076bed117907c5a4",
+      "statuses": {
+        "PASS": 7890,
+        "NOT_RUN": 1050
+      },
+      "ticketCases": 52,
+      "verifiedArtifacts": 62701
+    },
+    {
+      "manifest": ".evidence/barness-ai/20261016T113347.035722000Z/manifest.json",
+      "sha256": "f83bc3201211297318ca6b7ec6784005fba8336f5c42fa22d25f87335422d648",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "hostManifestSHA256": "27a203fa97178bcbf5226377dc461d9030bde75821555a25c03b7e98300b26f3",
       "statuses": {
         "PASS": 52
       },
@@ -27,7 +39,7 @@
   ],
   "sources": {
     "ai/examples/classifierimages/provider.go": "c8c945315d033fed178314528eb068027c1346295ab0f986374459525ddb70b9",
-    "ai/examples/classifierimages/interpret.go": "5582df451acb14f671abd2fd0bb582d58621302ed49246ae70f5723c1325dd44",
+    "ai/examples/classifierimages/interpret.go": "32cd14edd69060441c204a258f9c32ed114cb89f184853438bee6752538cce4a",
     "ai/examples/classifierimages/run.go": "eaef937ecd9d0771e7b8febcd4db6b5af07eb8a3e82a41bd09de88cfe9245def",
     "ai/examples/classifierimages/bundle.go": "8885b177d68935080daa4b2bef8c97a7d429629c4575673f697b92c96661cb2e",
     "ai/examples/classifierimages/host.go": "70dd8b1ba349e59097de1e131ccf2f70b283be836a1f1e2b7cb8c4ee743abc9f",
@@ -42,6 +54,6 @@
     "ai/catalog_typesafe.go": "d15492764b0ece4ec821781f980b94de8882f120f545d113bcccc9a27f283533",
     "ai/release/catalog-snapshot.json": "1236d595f669d31ff46ca1359412b33fb8a2d17a5d68024f49f2425599fa53a8",
     "ai/live/support-matrix.json": "a607b6d74abff2ba6197eb4cd5f20a59afb5f6364b6eec46232bf509b26e2158",
-    ".scratch/jev-1.14-multimodal-box/verify-10-evidence.py": "6e4afce28e2efe352c2696ff8d4bd6f407b7cbd8d5dd570441124a2d3e425190"
+    ".scratch/jev-1.14-multimodal-box/verify-10-evidence.py": "470f72d0c0c65e715deabca9232fc02dddc1db1f36dc1cf1ea5b8dcd5b3a84e1"
   }
 }
