@@ -33,7 +33,7 @@ type multimodalBorrowedState struct {
 // Borrowed callback trees can be large yet fit the document budget. A much
 // smaller image-occurrence budget must reject them before encoded copies.
 func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
-	for _, shape := range []string{"map", "raw", "typed", "embedded", "integer-assets", "struct-assets", "wide", "quoted-int", "quoted-number", "json-key", "quoted-interface", "base64-values", "utf8-values", "utf8-key"} {
+	for _, shape := range []string{"map", "raw", "typed", "embedded", "integer-assets", "struct-assets", "wide", "quoted-int", "quoted-number", "json-key", "quoted-interface", "base64-values", "utf8-values", "utf8-key", "byte-data"} {
 		t.Run(shape, func(t *testing.T) {
 			ev := run.Case(t, "UC09-borrowed-references-"+shape)
 			u := newJevBoxWorld(t, ev, func(c *ai.Config) {
@@ -171,6 +171,17 @@ func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
 					}
 					p.Body["assets"] = map[string]any{key: asset}
 					p.Body["state"] = map[string]any{"state": business, "images": []string{key}}
+
+				case "byte-data":
+					for _, a := range p.Body["assets"].(map[string]any) {
+						asset := a.(map[string]any)
+						decoded, e := base64.StdEncoding.DecodeString(asset["data_base64"].(string))
+						if e != nil {
+							t.Fatal(e)
+						}
+						asset["data_base64"] = decoded
+					}
+					p.Body["state"] = map[string]any{"state": "bounded content", "images": keys}
 
 				case "embedded":
 					p.Body["state"] = struct{ multimodalBorrowedState }{multimodalBorrowedState{"bounded borrowed content", keys}}

@@ -144,6 +144,11 @@ func (b *typeSafeImageBudget) asset(value reflect.Value) *Error {
 	if !usesCustomJSON(data) && data.Kind() == reflect.String {
 		return b.take(base64Size(data.String()))
 	}
+	if !usesCustomJSON(data) && byteSliceEncodesBase64(data) {
+		// The JSON encoder emits precisely these file bytes as Base64.
+		// Its decoded size is known without constructing an encoded string.
+		return b.take(int64(data.Len()))
+	}
 	return nil
 }
 
