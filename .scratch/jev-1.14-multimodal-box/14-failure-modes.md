@@ -33,3 +33,23 @@ catalog, then require eleven independent live identities in the CLI report and
 frozen trace contract. Confirm RED before changing release implementation.
 Subsequent slices add missing trace and mixed-load/blocker contracts with their
 own RED, without adding unit tests after implementation.
+
+Final contract audit (before the visual-integration slice): ticket 12 requires
+both independent visual tasks at the new formal Hash. Text effects or Decisions
+protocol smoke cannot replace its visual task; a Jev-only -formal producer leaves
+this requirement impossible even with credentials. Missing/candidate/wrong-route/
+wrong-model/stale-source/bad-budget/incomplete or forged-live visual packages
+must fail closed. First add formal Decisions public process E2E and required
+visual CLI artifact regressions, then extend producer/consumer together.
+
+Review follow-up, before corrections: the visual verifier launched through `go run`
+can leave its executable alive after the parent deadline; exercise the public
+release CLI with an isolated fake toolchain and a sleeping verifier. The receipt
+collector can skip visual-specific manifests; sealing and then deleting an actual
+controlled visual capture must make the public receipt verifier fail.
+
+The retained pre-visual full run hit Go's 20-minute race process timeout while
+its final artifact audit was still running: all 9,081 cases had terminal PASS,
+but audit.json was never written and the command failed. Preserve that failure;
+allow 30 minutes for the same full command without changing any scenario load,
+deadline, budget or assertion. Bound the outer all-command collector at 60 minutes.

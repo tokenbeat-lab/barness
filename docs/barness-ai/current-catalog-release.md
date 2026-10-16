@@ -4,7 +4,8 @@
 独立要求 `typesafe-classifier-jev-1.14.0`；`typesafe-classifier` 仍固定 1.13，
 `openai-decisions` 仍为 Luna。必交能力不能用 UNSUPPORTED 绕过。
 每条路线需要自己的当前目录 Hash、型号、SDK、完整报告、预算、捕获和审计。
-Jev 1.14 正式包还需独立视觉效果包，经已有严格 verifier 复核当前源码集合。
+Jev 1.14 正式包还需独立视觉效果包；门禁分别要求 Jev 与 Decisions 的当前正式目录固定视觉任务，
+经已有严格 verifier 复核完整数据、源码、捕获重放、评分、预算和审计。
 源码新增测试也会使该正式包过期；保留原包，在获准预算内重新采集，不能重写旧包。
 
 从仓库根目录运行完整 normal/race、差分和压力：
@@ -13,6 +14,8 @@ Jev 1.14 正式包还需独立视觉效果包，经已有严格 verifier 复核�
 go run ./ai/release/cmd/releasegate -out .evidence/NEW_RELEASE \
   -evaluation-jev CURRENT_JEV_113_TEXT_EFFECTS \
   -evaluation-luna CURRENT_LUNA_TEXT_EFFECTS \
+  -visual-evaluation-jev CURRENT_JEV_FORMAL_VISUAL_EFFECTS \
+  -visual-evaluation-decisions CURRENT_DECISIONS_FORMAL_VISUAL_EFFECTS \
   -live CURRENT_ROUTE_PACKAGE
 ```
 

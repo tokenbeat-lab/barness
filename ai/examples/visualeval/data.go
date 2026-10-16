@@ -52,14 +52,17 @@ type plan struct {
 }
 
 func (p *plan) useFormalCatalog() error {
-	if p.route != "jev" {
-		return errors.New("formal visual evaluation requires fixed Jev route")
+	provider, api, model := ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, "jev-1.14.0"
+	if p.route == "decisions" {
+		provider, api, model = ai.ProviderOpenAI, ai.APIOpenAIDecisions, "gpt-6-luna"
+	} else if p.route != "jev" {
+		return errors.New("unknown formal visual route")
 	}
 	p.catalog = ai.BuiltinCatalog()
 	var ok bool
-	p.model, ok = p.catalog.LookupClassifier(ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, "jev-1.14.0")
+	p.model, ok = p.catalog.LookupClassifier(provider, api, model)
 	if !ok {
-		return errors.New("formal Jev model absent")
+		return errors.New("formal classifier model absent")
 	}
 	p.formal = true
 	return nil

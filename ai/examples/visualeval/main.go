@@ -38,7 +38,7 @@ func main() {
 	flag.StringVar(&a.authorization, "authorization", "", "live Host authorization JSON; sole key is BARNESS_VISUAL_KEY")
 	flag.StringVar(&a.verify, "verify", "", "independently verify an existing bundle without network")
 	flag.BoolVar(&a.requireLive, "require-live", false, "verification must contain complete real quality evidence")
-	flag.BoolVar(&a.formal, "formal", false, "use the current fixed Jev formal catalog; preserve candidate fixtures")
+	flag.BoolVar(&a.formal, "formal", false, "use the current formal catalog for the selected fixed classifier; preserve candidate fixtures")
 	flag.IntVar(&a.calls, "calls", 12, "controlled-only lower call limit")
 	flag.IntVar(&a.workMS, "work-ms", 225000, "controlled-only shorter work deadline")
 	flag.IntVar(&a.callMS, "call-ms", 30000, "controlled-only shorter call deadline")

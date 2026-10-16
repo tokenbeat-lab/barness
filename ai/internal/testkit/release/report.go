@@ -68,11 +68,12 @@ func (r Report) Markdown() string {
 		{"Capacity: normal and race design loads", "mixed-pressure-"},
 		{"Multimodal classifier capacity: both public entries", "multimodal-images-"},
 		{"Business effect: independent Jev and Luna", "chinese-effect-"},
+		{"Visual effect: independent current-formal Jev and Decisions", "visual-effect-"},
 		{"Authorization revocation: normal and race", "authorization-revocation"},
 		{"Race artifact verification", "race-"},
 	} {
 		fmt.Fprintf(&b, "\n## %s\n\n", section.title)
-		if section.match == "chinese-effect-" {
+		if section.match == "chinese-effect-" || section.match == "visual-effect-" {
 			b.WriteString("COMPLETE verifies the fixed task; no quality threshold. Null means unavailable, not zero.\n\n")
 		}
 		for _, e := range r.Evidence {

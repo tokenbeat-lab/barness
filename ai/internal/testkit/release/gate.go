@@ -423,8 +423,8 @@ func auditGate(in Inputs) Gate {
 }
 
 func evidenceGate(in Inputs) Gate {
-	g := Gate{ID: GateEvidence, Name: "mixed image design loads and independent Chinese business evaluation"}
-	for _, name := range []string{"mixed-pressure-local", "mixed-pressure-cloud", "chinese-effect-jev", "chinese-effect-luna", "authorization-revocation", "race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation", "multimodal-images-plain", "multimodal-images-hooked", "race-multimodal-images-plain", "race-multimodal-images-hooked"} {
+	g := Gate{ID: GateEvidence, Name: "mixed image design loads and independent text/visual business evaluation"}
+	for _, name := range []string{"mixed-pressure-local", "mixed-pressure-cloud", "chinese-effect-jev", "chinese-effect-luna", "visual-effect-jev", "visual-effect-decisions", "authorization-revocation", "race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation", "multimodal-images-plain", "multimodal-images-hooked", "race-multimodal-images-plain", "race-multimodal-images-hooked"} {
 		i := slices.IndexFunc(in.Evidence, func(e EvidenceCheck) bool { return e.Name == name })
 		if i < 0 {
 			g.Problems = append(g.Problems, name+": NOT_RUN (required report missing)")

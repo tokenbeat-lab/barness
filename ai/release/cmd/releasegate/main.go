@@ -55,6 +55,8 @@ func main() {
 	writeSnapshot := flag.Bool("write-snapshot", false, "regenerate the catalog snapshot and exit")
 	jev := flag.String("evaluation-jev", "", "current independent Jev Chinese evaluation bundle")
 	luna := flag.String("evaluation-luna", "", "current independent Luna Chinese evaluation bundle")
+	visualJev := flag.String("visual-evaluation-jev", "", "current formal Jev fixed visual task bundle")
+	visualDecisions := flag.String("visual-evaluation-decisions", "", "current formal Decisions fixed visual task bundle")
 	var live multi
 	flag.Var(&live, "live", "a live evidence bundle to audit (repeatable)")
 	flag.Parse()
@@ -113,10 +115,11 @@ func main() {
 			run(release.CmdVetLive, nil, "go", "vet", "-tags", "live", "./..."),
 			run(release.CmdTest, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(offlineBase)}, "go", "test", "-count=1", "./..."),
 			// The full 1.1.0 matrix finishes its cases within ten minutes, but
-			// the race-instrumented audit of every retained artifact can run
+			// the race-instrumented audit exceeded the old twenty-minute
+			// process cap on the complete image acceptance set and can run
 			// past Go's default timeout. Keep the whole command bounded while
 			// preserving each scenario's existing deadlines and failure checks.
-			run(release.CmdRace, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(raceBase)}, "go", "test", "-race", "-count=1", "-timeout=20m", "./..."),
+			run(release.CmdRace, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(raceBase)}, "go", "test", "-race", "-count=1", "-timeout=30m", "./..."),
 		}
 		if *bundle, err = release.FindBundle(offlineBase); err != nil {
 			fail(err)
@@ -133,7 +136,7 @@ func main() {
 		fail(err)
 	}
 	forbidden := audit.Environment()
-	for _, dir := range []string{*jev, *luna, *raceBundle} {
+	for _, dir := range []string{*jev, *luna, *visualJev, *visualDecisions, *raceBundle} {
 		if dir != "" {
 			audited = append(audited, dir)
 		}
@@ -147,6 +150,7 @@ func main() {
 	in.Evidence = append(in.Evidence, release.MultimodalImageEvidence(in.Offline)...)
 
 	in.Evidence = append(in.Evidence, release.ChineseEffectsEvidence(*jev, *luna)...)
+	in.Evidence = append(in.Evidence, release.VisualEffectsEvidence(*visualJev, *visualDecisions)...)
 	in.Evidence = append(in.Evidence, release.RaceEvidence(*raceBundle, trace, ledger)...)
 	report := release.Evaluate(in)
 	fixtures, err := release.Fixtures(".", "ai/e2e/testdata")

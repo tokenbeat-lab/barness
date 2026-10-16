@@ -52,8 +52,16 @@ Box 对所有真实存在目标的合法预测计算原始 IoU，即使 Bool 低
 出现，Decisions 为 24 题/12 次。每调用 ≤30 秒，工作截止 225 秒，进程总限 240 秒，
 留 15 秒写终态与审计；取消后停止新调用，所有未发送样本仍保留。
 `-calls/-call-ms/-work-ms` 只能在 controlled 模式缩小上限，用于失败流程 E2E。
-消耗来自实际 Attempt：缺失、部分上报分别计数，按该路线 candidate 价格快照估算，
+消耗来自实际 Attempt：缺失、部分上报分别计数，按所选目录价格快照估算，
 不视为免费或厂商账单。用量不完整阻止 COMPLETE，但合法答案仍可评分。
+
+`-formal` 将所选 Jev 或 Decisions 路线固定到 `ai.BuiltinCatalog()` 的当前正式目录；
+默认仍为候选目录。正式发布分别使用两路线各自的 `-formal` 包，不能互换候选、型号
+或旧目录 Hash。每个进程仍只运行一条路线，数据、评分和有限预算不变。
+
+```sh
+go run ./ai/examples/visualeval -formal -mode live -route decisions -out .evidence/my-formal-decisions-not-run
+```
 
 ## 真实运行
 
