@@ -9,7 +9,7 @@
 **Source tickets:** 01
 **Requirements:** R02, R14, R15, R19
 **Acceptance cases:** OD01, OD03, OD09, OD16, OD34, OD50
-**Updated:** 2026-10-12
+**Updated:** 2026-10-16
 
 ## Responsibility
 
@@ -52,3 +52,7 @@
 2026-10-12：实现提交 `7939308` 的两项独立 code-review 均通过，Standards 0、Spec 0；审查者独立核验固定包、最终收据及脱敏审计。见[审查记录](../jev-baseline/REVIEW.md)。
 
 2026-10-12 用户复核后更正：此前说明遗漏实施起点之前的代理重测提交 `8db32ea`、`cc69d77`、`8ea61b8`，误将旧报告中的 live/effect FAIL 作为当前状态。已核对三份重测摘要、当前矩阵及全部文件 Hash（均一致），修正当前状态引用；固定基线包和原历史报告没有重写，没有新增厂商调用。
+
+### 本票复核（2026-10-16）
+
+本次开始时工单已 resolved，原实现、fixture 和固定包仍在。受测 HEAD 为 `291d2e52066bc846170d561626d87e0ecc429dcc`；使用全新输出目录重放，不修改生产代码、测试和原包，不将历史 PASS 记为本次执行。固定包 655 case 的 Hash 与审计通过；当前补充对照 98 PASS、Jev 差分 12 PASS、反篡改 4 PASS、Node 启动及协议边界 9 PASS，两种 vet 通过。相关 race 为 416 PASS、178 NOT_RUN；开启 Pi 的完整套件为 7,436 PASS、187 NOT_RUN，861 个差分全部 PASS、pending 0。未运行的均为压力或规模检查。完整结果、当前版本与历史偏移、精确重放命令见[复核说明](../jev-baseline/recheck-20261016/README.md)及[收据](../jev-baseline/recheck-20261016/receipt.json)。原包内历史 release FAIL 保留，不据本次离线复核宣布发布 gate 已通过。开始时已有的其他工作逐文件核验保留。

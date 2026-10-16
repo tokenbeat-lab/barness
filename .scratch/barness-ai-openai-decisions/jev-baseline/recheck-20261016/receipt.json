@@ -1,0 +1,317 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-16T03:25:41.078387+00:00",
+  "tested_head": "291d2e52066bc846170d561626d87e0ecc429dcc",
+  "historical_baseline_head": "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+  "initial_worktree_clean": false,
+  "preserved_user_files": 24,
+  "preserved_user_files_unchanged": true,
+  "production_changed": [],
+  "tests_changed": [],
+  "go_source_inventory_unchanged": true,
+  "go_version": "go version go1.26.2 darwin/arm64",
+  "node_version": "v24.15.0",
+  "original_baseline_files": {
+    "manifest.json": "9847ee653eff6d9534db94f590946bb487fd4ffcee4ba2bfbf88558b026086cb",
+    "baseline.zip": "b1c5a8e66af451580a587ce99ab1314918022f7362bdc447fd14d21ae530e8d7",
+    "validation.json": "f8f24327ea0fa4c74d094eb97669b3c4cf5e57f4616ef3b4714040630cfdd0d4",
+    "validation.zip": "c860edf6aef9ce2a35a86d0ece9a33ce8b5c6faf534d53a35f1b4745e12ffdce",
+    "verify.py": "4936382c94dbd53dd77a6f1a914a73233fe6c4ebc0f12e56ffcc7141a6623e40",
+    "replay.py": "bf9ba47a2848064735562622db440f129a8104cfd2d84d87432c529c25197c0d"
+  },
+  "commands": [
+    {
+      "name": "existing",
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^Test(Classifier|Unary|Catalog|OperationCatalog|TrustedCallback|ProtocolCallbacks|ProtocolNoEnvironmentFallback)",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "started_at": "2026-10-16T03:16:52.581166+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "jev-differential",
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^TestPiDifferential$/^typesafe-system-one$|^TestClassifierCatalogParity$",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {
+        "BARNESS_AI_PIDIFF": "1"
+      },
+      "started_at": "2026-10-16T03:17:00.798155+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "supplement",
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^TestJevRegression",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "started_at": "2026-10-16T03:17:03.727038+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "artifact",
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-run",
+        "^TestJevBaselineEvidence$",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {},
+      "started_at": "2026-10-16T03:17:05.064599+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "oracle-startup",
+      "argv": [
+        "node",
+        "--test",
+        "ai/internal/testkit/pioracle/node/runner.test.mjs"
+      ],
+      "environment": {},
+      "started_at": "2026-10-16T03:17:06.388379+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "race",
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^Test(JevRegression|Classifier|Unary)",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {
+        "BARNESS_AI_PIDIFF": "1"
+      },
+      "started_at": "2026-10-16T03:17:07.816242+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "vet",
+      "argv": [
+        "go",
+        "vet",
+        "./..."
+      ],
+      "environment": {},
+      "started_at": "2026-10-16T03:17:30.612241+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "vet-live",
+      "argv": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ],
+      "environment": {},
+      "started_at": "2026-10-16T03:17:31.036351+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "full",
+      "argv": [
+        "go",
+        "test",
+        "./...",
+        "-count=1",
+        "-json"
+      ],
+      "environment": {
+        "BARNESS_AI_PIDIFF": "1"
+      },
+      "started_at": "2026-10-16T03:17:54.905996+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-10-16T03:23:06.109308+00:00"
+    },
+    {
+      "name": "fixed-baseline",
+      "argv": [
+        "python3",
+        ".scratch/barness-ai-openai-decisions/jev-baseline/verify.py",
+        "--audit"
+      ],
+      "environment": {},
+      "started_at": "2026-10-16T03:24:42.871557+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "whole-recheck-audit",
+      "argv": [
+        "go",
+        "run",
+        "./ai/internal/testkit/audit/cmd/auditbundle",
+        ".evidence/jev-baseline-recheck-20261016"
+      ],
+      "environment": {},
+      "started_at": "2026-10-16T03:24:44.915590+00:00",
+      "exit_code": 0
+    }
+  ],
+  "runs": {
+    "existing": {
+      "cases": 748,
+      "statuses": {
+        "NOT_RUN": 180,
+        "PASS": 568
+      },
+      "differential_cases": 0,
+      "differential_gates": {},
+      "differential_pending": 0,
+      "local_bundle": ".evidence/jev-baseline-recheck-20261016/existing/20261016T031657.191273000Z",
+      "archive_manifest": "existing/20261016T031657.191273000Z/manifest.json",
+      "manifest_sha256": "be26f73112078f850ee5c8e4b924688d3020fb39d60fb78d99c5f981cc842cec",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "model_catalog_version": "2026-10-13.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "jev-differential": {
+      "cases": 12,
+      "statuses": {
+        "PASS": 12
+      },
+      "differential_cases": 12,
+      "differential_gates": {
+        "PASS": 12
+      },
+      "differential_pending": 0,
+      "local_bundle": ".evidence/jev-baseline-recheck-20261016/jev-differential/20261016T031701.806814000Z",
+      "archive_manifest": "jev-differential/20261016T031701.806814000Z/manifest.json",
+      "manifest_sha256": "c034fb1ce16636d99bc58a6cf3f135273a7f93c8ceff2876478ad5d129d6ef92",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "model_catalog_version": "2026-10-13.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "supplement": {
+      "cases": 98,
+      "statuses": {
+        "PASS": 98
+      },
+      "differential_cases": 0,
+      "differential_gates": {},
+      "differential_pending": 0,
+      "local_bundle": ".evidence/jev-baseline-recheck-20261016/supplement/20261016T031704.694517000Z",
+      "archive_manifest": "supplement/20261016T031704.694517000Z/manifest.json",
+      "manifest_sha256": "1f88e64c5a32d16438ad1e86a04bf80bafe6d6020051e57a2d1cd47de3135274",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "model_catalog_version": "2026-10-13.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "artifact": {
+      "cases": 4,
+      "statuses": {
+        "PASS": 4
+      },
+      "differential_cases": 0,
+      "differential_gates": {},
+      "differential_pending": 0,
+      "local_bundle": ".evidence/jev-baseline-recheck-20261016/artifact/20261016T031706.073038000Z",
+      "archive_manifest": "artifact/20261016T031706.073038000Z/manifest.json",
+      "manifest_sha256": "72e4ab66769b3aa49e43b111d53b27a10d1df51a34b193b911f2eadc62f30d1f",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "model_catalog_version": "2026-10-13.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "race": {
+      "cases": 594,
+      "statuses": {
+        "NOT_RUN": 178,
+        "PASS": 416
+      },
+      "differential_cases": 1,
+      "differential_gates": {
+        "PASS": 1
+      },
+      "differential_pending": 0,
+      "local_bundle": ".evidence/jev-baseline-recheck-20261016/race/20261016T031710.418813000Z",
+      "archive_manifest": "race/20261016T031710.418813000Z/manifest.json",
+      "manifest_sha256": "c2387226b6e02a1a6bfb5685fb49c172e323b29cf0089efd3ef470de91b2108d",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "model_catalog_version": "2026-10-13.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "full": {
+      "cases": 7623,
+      "statuses": {
+        "PASS": 7436,
+        "NOT_RUN": 187
+      },
+      "differential_cases": 861,
+      "differential_gates": {
+        "PASS": 861
+      },
+      "differential_pending": 0,
+      "local_bundle": ".evidence/jev-baseline-recheck-20261016/full/20261016T031757.520116000Z",
+      "archive_manifest": "full/20261016T031757.520116000Z/manifest.json",
+      "manifest_sha256": "56a8425b0e8339a6a9606c3f3dcfa613cfe884a412f5b40f9c4872aff86d2fff",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029",
+        "model_catalog_version": "2026-10-13.1",
+        "openai-go": "v3.66.0"
+      }
+    }
+  },
+  "oracle_startup": {
+    "tests": 9,
+    "pass": 9,
+    "fail": 0,
+    "skipped": 0
+  },
+  "audit": {
+    "findings": []
+  },
+  "live": "NOT_RUN",
+  "pressure": "NOT_RUN",
+  "full_repo_race": "NOT_RUN",
+  "releasegate": "NOT_RUN",
+  "archive": "recheck.zip",
+  "archive_sha256": "0f1b3fe589cd22a21a15b5d54f08426840512d41bf3debaae787a9726812a1a5",
+  "archive_bytes": 77481350,
+  "archive_members": 58381,
+  "files_manifest_sha256": "8cb318b7c37a6421ce89b1e0e84f72a59b02092b4ff717173894b84243a7150e",
+  "replay_inputs_sha256": "5a24c9c17dbb4b948d213ba409504bb3b7f14f39a515bd89634cfb701ec2ab2c",
+  "baseline_drift_sha256": "ad749b005ee5ed39dd66996969d07a60d5681570030667d57753e85db0251f0d"
+}

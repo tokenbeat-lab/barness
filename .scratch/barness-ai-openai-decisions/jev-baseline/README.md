@@ -1,5 +1,7 @@
 # Jev 公共回归基线（工单 01）
 
+2026-10-16 当前 HEAD 的独立重放、版本偏移、准确命令和产物 Hash 见[本次复核](recheck-20261016/README.md)。下文仍为 2026-10-12 的历史基线说明，原固定包及其状态保持不变。
+
 受测 HEAD 与设计 Baseline 均为 `8ea61b8d70de6c84fe27be34dc7d21c5c40841d9`，没有偏移。开始时已有未提交的 GLOSSARY、Decisions 规划/研究和 ADR-0026；本票保留这些改动。生产源码、已有目录、fixture、oracle、账本及历史报告逐文件 Hash 不变。本票只新增公共 E2E 和证据，不实现 Decisions，也不运行真实 API。
 
 | 本次执行 | 结果 | 证据位置（baseline.zip 内） |
