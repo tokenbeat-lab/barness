@@ -40,6 +40,7 @@ func imageStructField(v reflect.Value, name string) (reflect.Value, *Error) {
 	// duplicates cannot encode an unambiguous resource field.
 	var index []int
 	duplicate := false
+	bestTagged := false
 	visiting := map[reflect.Type]bool{}
 	var walk func(reflect.Type, []int)
 	walk = func(t reflect.Type, path []int) {
@@ -52,11 +53,17 @@ func imageStructField(v reflect.Value, name string) (reflect.Value, *Error) {
 			field := t.Field(i)
 			key, _, _ := strings.Cut(field.Tag.Get("json"), ",")
 			next := append(append([]int(nil), path...), i)
-			if field.PkgPath == "" && key == name {
-				if index == nil || len(next) < len(index) {
+			jsonName := key
+			if jsonName == "" {
+				jsonName = field.Name
+			}
+			tagged := key != ""
+			if field.PkgPath == "" && jsonName == name {
+				if index == nil || len(next) < len(index) || (len(next) == len(index) && tagged && !bestTagged) {
 					index = next
 					duplicate = false
-				} else if len(next) == len(index) {
+					bestTagged = tagged
+				} else if len(next) == len(index) && tagged == bestTagged {
 					duplicate = true
 				}
 			}

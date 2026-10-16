@@ -39,7 +39,7 @@ func (c *Client) classifyTypeSafe(ctx context.Context, r *callRuntime, cred Cred
 		if _, present := final["assets"]; present && (!r.binding.AllowClassifierImages || !typeSafeImagesSelected(opts)) {
 			return newError(CodeTenantDenied, PhaseRequest, "Jev images are not authorized")
 		}
-		return c.checkTypeSafePayload(final, limits.request)
+		return c.checkTypeSafePayload(ctx, final, limits.request)
 	})
 	if failure != nil {
 		return failure

@@ -134,11 +134,16 @@ func typeSafeContainsKey(value any, key string) bool {
 	return false
 }
 
-func (c *Client) checkTypeSafePayload(body map[string]any, limit int64) *Error {
+func (c *Client) checkTypeSafePayload(ctx context.Context, body map[string]any, limit int64) *Error {
 	if _, ok := body["assets"]; !ok {
 		return c.policy.Classifier.checkPayload(body, limit)
 	}
-	if failure := c.checkTypeSafeAssetPayload(body["assets"]); failure != nil {
+	sizes, failure := c.checkTypeSafeAssetPayload(body["assets"])
+	if failure != nil {
+		return failure
+	}
+
+	if failure := checkTypeSafeReferencePayload(ctx, body, sizes, c.policy.Classifier.Images.referenceLimits(), limit); failure != nil {
 		return failure
 	}
 	if _, ok := jsonPayloadSize(body["state"], c.policy.Classifier.MaxStateBytes); !ok {

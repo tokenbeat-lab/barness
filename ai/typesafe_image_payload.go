@@ -14,13 +14,19 @@ type typeSafeImageBudget struct {
 	policy    *ResourcePolicy
 	remaining int64
 	count     int
+	sizes     map[string]int64
 }
 
-func (c *Client) checkTypeSafeAssetPayload(value any) *Error {
+func (c *Client) checkTypeSafeAssetPayload(value any) (map[string]int64, *Error) {
 	if c.policy.Classifier.Images == nil {
-		return newError(CodeTenantDenied, PhaseRequest, "Jev images are not authorized")
+		return nil, newError(CodeTenantDenied, PhaseRequest, "Jev images are not authorized")
 	}
-	b := typeSafeImageBudget{policy: &c.policy, remaining: c.policy.Classifier.Images.MaxTotalImageBytes}
+	b := typeSafeImageBudget{policy: &c.policy, remaining: c.policy.Classifier.Images.MaxTotalImageBytes, sizes: map[string]int64{}}
+	failure := b.assets(value)
+	return b.sizes, failure
+}
+
+func (b *typeSafeImageBudget) assets(value any) *Error {
 	v, failure := imagePayloadValue(reflect.ValueOf(value))
 	if failure != nil || !v.IsValid() {
 		return failure
@@ -33,13 +39,17 @@ func (c *Client) checkTypeSafeAssetPayload(value any) *Error {
 	if usesCustomJSON(v) || v.Kind() != reflect.Map {
 		return nil
 	} // Closed final decoder checks unknown shapes/encoders.
-	if v.Len() > c.policy.Classifier.Images.MaxImages {
-		return limitFailure(PhaseRequest, "Classifier.Images.MaxImages", int64(c.policy.Classifier.Images.MaxImages))
+	if v.Len() > b.policy.Classifier.Images.MaxImages {
+		return limitFailure(PhaseRequest, "Classifier.Images.MaxImages", int64(b.policy.Classifier.Images.MaxImages))
 	}
 	it := v.MapRange()
 	for it.Next() {
+		before, count := b.remaining, b.count
 		if failure := b.asset(it.Value()); failure != nil {
 			return failure
+		}
+		if it.Key().Kind() == reflect.String && b.count != count {
+			b.sizes[it.Key().String()] = before - b.remaining
 		}
 	}
 	return nil
@@ -110,10 +120,14 @@ func (b *typeSafeImageBudget) asset(value reflect.Value) *Error {
 
 func (b *typeSafeImageBudget) rawAssets(raw []byte) *Error {
 	var failure *Error
-	err := jsonparser.ObjectEach(raw, func(_, value []byte, _ jsonparser.ValueType, _ int) error {
+	err := jsonparser.ObjectEach(raw, func(key, value []byte, _ jsonparser.ValueType, _ int) error {
+		before, count := b.remaining, b.count
 		failure = b.rawAsset(value)
 		if failure != nil {
 			return failure
+		}
+		if b.count != count {
+			b.sizes[string(key)] = before - b.remaining
 		}
 		return nil
 	})
