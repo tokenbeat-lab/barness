@@ -19,9 +19,11 @@ type ClassifierRequest struct {
 }
 
 // ClassifierResult exists on both success and failure. Answers are published
-// together only after validation; failure retains usage and call metadata.
+// together with ImageInputs only after validation; failure retains usage and
+// call metadata.
 type ClassifierResult struct {
 	Answers       map[string]ClassifierAnswer `json:"answers"`
+	ImageInputs   []ClassifierImageInput      `json:"imageInputs,omitempty"`
 	ResponseModel Nullable[string]            `json:"responseModel,omitzero"`
 	Usage         Usage                       `json:"usage"`
 	StopReason    StopReason                  `json:"stopReason"`
@@ -95,6 +97,7 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 	res.StopReason = StopReasonStop
 	if failure != nil {
 		res.Answers = nil
+		res.ImageInputs = nil
 		res.StopReason = StopReasonError
 		res.ErrorMessage = failure.Message
 		if failure.aborts() {

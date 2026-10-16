@@ -51,6 +51,7 @@ func TestDecisionsImagesSnapshot(t *testing.T) {
 				},
 			}).Classify(ctxFor(t), textScope("req-image-snapshot-"+entry), ai.Target{BindingID: "classifier", ModelID: "host-decisions"}, req, nil)
 			ev.Check("pinned permission and copied images", err == nil && res.Metadata.BindingVersion == "b1" && len(res.Answers) == 1, "got %v", err)
+			checkImageInputs(ev, res, []ai.Image{original, classifierAssets(t)[1], classifierAssets(t)[2]})
 			if ev.Check("one image request", len(u.provider.Requests()) == 1, "unexpected request count") {
 				var body map[string]any
 				mustUnmarshal(t, u.provider.Requests()[0].Body, &body)

@@ -64,6 +64,7 @@ func TestDecisionsRuntimeMixedIsolation(t *testing.T) {
 						a, ok := o.classifier.Answers["intent"].(ai.ChoiceAnswer)
 						ev.Check("own classifier answer", ok && a.Choice == choice, "got %+v", a)
 						if r.api == ai.APIOpenAIDecisions {
+							checkImageInputs(ev, o.classifier, classifierAssets(t)[n:n+1])
 							want := .0000031
 							if n == 1 {
 								want = .0000047

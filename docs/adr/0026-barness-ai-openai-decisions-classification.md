@@ -39,3 +39,20 @@ Host 需要新增 GPT-6 Luna 的 Decisions 分类和图片能力，同时保持 
 仍未确认根因及修复，本轮检查或复现通过不能关闭它。最终交付因此为 FAIL，工单 13 保持
 claimed；只有该阻断以原负载和回归证据解决、最终完整发布验收成立后，才能改为 accepted。
 既有 ADR 的历史记录和原始失败包保持不变。
+
+## 最终图片身份（2026-10-16，统一图片工单 03）
+
+公共结果增加 `ImageInputs`：按最终 Decisions content 中图片出现顺序，返回规范 MIME
+和 decoded 原文件 SHA-256。Hook 能合法换图、增删和重排，所以入口来源下标不能作为
+最终身份；重复 block 各保留一项，不按 hash 合并。该 additive 契约落实统一图片设计的
+Decisions 切片，Jev 图例和其他位置仍由后续票实现。
+
+最终 native 校验返回独立的图片值集合，经过既有权限与容量边界后，发送前以固定 4 KiB
+缓冲和取消检查计算 hash；代价是额外一遍有界 Base64 流读取，避免重建最终请求、保留
+decoded 文件或引入跨调用缓存。全部答案通过且调用未取消后才复制发布元数据，任何失败
+同时清空 Answers/ImageInputs，usage 与 ResponseModel 继续按原顺序保留。
+
+身份只属于调用租户的结果内容，不进入 Observer/Attempt/共享诊断，也不授予图片访问权。
+元数据下标只在本次结果有效。该切片不修改目录或真实服务结论，也不改变本 ADR 的
+proposed 状态和既有发布阻断；[本票证据](../../.scratch/jev-1.14-multimodal-box/03-verification.md)
+与历史发布包独立。

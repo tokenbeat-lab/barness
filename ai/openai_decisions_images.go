@@ -19,21 +19,21 @@ type decisionsContent struct {
 
 // The final native input is a closed union: text or exactly one user message
 // with text first and ordered inline images. Schema never grants authority.
-func (c *Client) checkDecisionsInput(ctx context.Context, raw []byte, model ClassifierModel, allowImages bool) *Error {
+func (c *Client) checkDecisionsInput(ctx context.Context, raw []byte, model ClassifierModel, allowImages bool) ([]Image, *Error) {
 	raw = bytes.TrimSpace(raw)
 	if len(raw) == 0 {
-		return decisionsSchemaFailure()
+		return nil, decisionsSchemaFailure()
 	}
 	if raw[0] == '"' {
 		var text string
 		if json.Unmarshal(raw, &text) != nil {
-			return decisionsSchemaFailure()
+			return nil, decisionsSchemaFailure()
 		}
-		return c.checkDecisionsText(text)
+		return nil, c.checkDecisionsText(text)
 	}
 	var messages []json.RawMessage
 	if json.Unmarshal(raw, &messages) != nil || len(messages) != 1 {
-		return decisionsSchemaFailure()
+		return nil, decisionsSchemaFailure()
 	}
 	var message struct {
 		Type    json.RawMessage   `json:"type"`
@@ -41,12 +41,12 @@ func (c *Client) checkDecisionsInput(ctx context.Context, raw []byte, model Clas
 		Content []json.RawMessage `json:"content"`
 	}
 	if decodeClassifierJSON(messages[0], &message) != nil || message.Role != "user" || len(message.Content) < 2 {
-		return decisionsSchemaFailure()
+		return nil, decisionsSchemaFailure()
 	}
 	if len(message.Type) > 0 {
 		var kind string
 		if json.Unmarshal(message.Type, &kind) != nil || kind != "message" {
-			return decisionsSchemaFailure()
+			return nil, decisionsSchemaFailure()
 		}
 	}
 	images := make([]Image, 0, len(message.Content)-1)
@@ -57,10 +57,10 @@ func (c *Client) checkDecisionsInput(ctx context.Context, raw []byte, model Clas
 				Text *string `json:"text"`
 			}
 			if decodeClassifierJSON(part, &text) != nil || text.Type != "input_text" || text.Text == nil {
-				return decisionsSchemaFailure()
+				return nil, decisionsSchemaFailure()
 			}
 			if failure := c.checkDecisionsText(*text.Text); failure != nil {
-				return failure
+				return nil, failure
 			}
 		} else {
 			var image struct {
@@ -68,36 +68,39 @@ func (c *Client) checkDecisionsInput(ctx context.Context, raw []byte, model Clas
 				URL  *string `json:"image_url"`
 			}
 			if decodeClassifierJSON(part, &image) != nil || image.Type != "input_image" || image.URL == nil {
-				return decisionsSchemaFailure()
+				return nil, decisionsSchemaFailure()
 			}
 			img, ok := parseOpenAIImageURL(*image.URL)
 			if !ok || !classifierImageMIME(img.MimeType) {
-				return decisionsSchemaFailure()
+				return nil, decisionsSchemaFailure()
 			}
 			images = append(images, img)
 		}
 	}
 	if !allowImages || c.policy.Classifier.Images == nil {
-		return decisionsImageDenied()
+		return nil, decisionsImageDenied()
 	}
 	if !slices.Contains(model.Input, ModalityImage) {
-		return decisionsImageDenied()
+		return nil, decisionsImageDenied()
 	}
 	for _, img := range images {
 		if !slices.Contains(model.Capabilities.ImageMIMETypes, img.MimeType) {
-			return decisionsImageDenied()
+			return nil, decisionsImageDenied()
 		}
 	}
 	// Native content has no source table: every final block is an occurrence,
 	// including blocks introduced or reordered by a trusted Hook. Source budgets
 	// were checked on the public collection; never apply them to its expansion.
 	if failure := c.policy.checkClassifierExpandedImages(images, PhaseRequest); failure != nil {
-		return failure
+		return nil, failure
 	}
 	if len(images) > min(model.Capabilities.MaxInputImages, decisionsImageLimit) {
-		return limitFailure(PhaseRequest, "ClassifierModel.MaxInputImages", int64(min(model.Capabilities.MaxInputImages, decisionsImageLimit)))
+		return nil, limitFailure(PhaseRequest, "ClassifierModel.MaxInputImages", int64(min(model.Capabilities.MaxInputImages, decisionsImageLimit)))
 	}
-	return checkClassifierImageEncoding(ctx, images, PhaseRequest)
+	if failure := checkClassifierImageEncoding(ctx, images, PhaseRequest); failure != nil {
+		return nil, failure
+	}
+	return images, nil
 }
 
 func (c *Client) checkDecisionsText(text string) *Error {

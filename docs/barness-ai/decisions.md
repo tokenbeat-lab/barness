@@ -97,3 +97,24 @@ Hash 不变。未知、重复、文本型号位置及未实现位置声明在 Ca
 `min(128, ClassifierModel.Capabilities.MaxInputImages)`，MaxInputImages 也继续限制来源数。
 已知超限在复制前拒绝，最终编码体再次检查 MaxRequestBytes。Hook 后原生图片 block 按
 展开用途重检这些预算及权限，既有来源预算不会错误地收紧 Host 显式配置的复用额度。
+
+## 最终图片身份
+
+成功的 `ClassifierResult.ImageInputs`（JSON `imageInputs`）按最终 Decisions 图片 content
+顺序列出 `ClassifierImageInput{MimeType, SHA256}`，每项仅含规范 `mimeType` 和 decoded
+原文件的 64 位小写十六进制 `sha256`。hash 覆盖完整文件，不能用 Base64、data URL 或
+图片头的 hash 替代。重复 block 保留不同条目，即使其 MIME/hash 相同。
+
+Hook 可以合法换图、增删或重排；Host 应核对返回的 MIME/hash，不能假定结果下标等于
+`Images` 来源下标。上述 JPEG、PNG、JPEG 示例产生三个相应身份条目。结果记录由 Host
+独立持有，不包含图片 bytes、厂商 key 或资源 ID；hash 不是访问授权，也不是跨调用引用。
+
+元数据在最终权限、格式与预算复核后，以固定缓冲流式计算并检查取消；全部答案合法及
+调用未取消时才随 Answers 一起发布。合法 RefusalAnswer 也可带 ImageInputs。坏答案、
+坏 usage、回调错误、取消或其他失败不发布两者；已验证 usage 与 ResponseModel 的保留
+顺序延续原合同。文本调用（包括 Hook 删除全部图片后）省略 `imageInputs`。
+
+元数据记录的编解码拒绝缺失/null/重复/未知/大小写别名字段、非规范 MIME 和非规范 hash。
+内容 hash 只返回本次调用的租户，不进入 Observer、Attempt 或共享诊断。此字段不扩展
+Jev 图片、局部位置、Box、目录能力或真实服务支持结论；协议证据见
+[工单 03 验证记录](../../.scratch/jev-1.14-multimodal-box/03-verification.md)。

@@ -63,6 +63,7 @@ func checkUnaryFailure(ev *evidence.Case, res ai.ClassifierResult, err error, co
 	ev.Check("phase match", errors.Is(err, &ai.Error{Code: code, Phase: phase}), "got %v", err)
 	ev.Check("other phase does not match", !errors.Is(err, &ai.Error{Code: code, Phase: ai.PhaseEventQueue}), "got %v", err)
 	ev.Check("terminal and empty answers", res.StopReason == stop && len(res.Answers) == 0, "got %+v", res)
+	ev.Check("failure publishes no image identities", res.ImageInputs == nil, "partial image metadata")
 	if ae != nil {
 		ev.Check("fixed result error text", ae.Message == res.ErrorMessage, "got %v", err)
 	}

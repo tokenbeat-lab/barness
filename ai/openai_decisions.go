@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"slices"
 )
 
 func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Credential, model ClassifierModel, req ClassifierRequest, plan classifierImagePlan, out *ClassifierResult) *Error {
@@ -19,7 +20,7 @@ func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Cre
 	if failure := c.policy.byteLimits().checkRequestBody(body); failure != nil {
 		return failure
 	}
-	if _, failure := c.freezeDecisionsRequest(ctx, body, model, r.binding.AllowClassifierImages); failure != nil {
+	if _, _, failure := c.freezeDecisionsRequest(ctx, body, model, r.binding.AllowClassifierImages); failure != nil {
 		return failure
 	}
 	body, failure = r.hooks.payload(ctx, body, func(final map[string]any) *Error { return c.checkDecisionsPayload(final, model) })
@@ -29,7 +30,11 @@ func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Cre
 	if failure := c.policy.byteLimits().checkRequestBody(body); failure != nil {
 		return failure
 	}
-	final, failure := c.freezeDecisionsRequest(ctx, body, model, r.binding.AllowClassifierImages)
+	final, images, failure := c.freezeDecisionsRequest(ctx, body, model, r.binding.AllowClassifierImages)
+	if failure != nil {
+		return failure
+	}
+	imageInputs, failure := classifierImageInputs(ctx, images)
 	if failure != nil {
 		return failure
 	}
@@ -51,6 +56,9 @@ func (c *Client) classifyDecisions(ctx context.Context, r *callRuntime, cred Cre
 	failure = decodeDecisionsResponse(raw, model, r.initial, final, out)
 	if ended := contextError(ctx, PhaseResponse); ended != nil {
 		return ended
+	}
+	if failure == nil {
+		out.ImageInputs = slices.Clone(imageInputs)
 	}
 	return failure
 }

@@ -62,47 +62,48 @@ func (c *Client) checkDecisionsPayload(body map[string]any, model ClassifierMode
 	return nil
 }
 
-func (c *Client) freezeDecisionsRequest(ctx context.Context, body []byte, model ClassifierModel, allowImages bool) (decisionsRequest, *Error) {
+func (c *Client) freezeDecisionsRequest(ctx context.Context, body []byte, model ClassifierModel, allowImages bool) (decisionsRequest, []Image, *Error) {
 	var req decisionsRequest
 	if failure := contextError(ctx, PhaseRequest); failure != nil {
-		return req, failure
+		return req, nil, failure
 	}
 	if failure := c.checkDecisionsRawPayload(body); failure != nil {
-		return req, failure
+		return req, nil, failure
 	}
 	if err := decodeClassifierJSON(body, &req); err != nil {
-		return req, decisionsSchemaFailure()
+		return req, nil, decisionsSchemaFailure()
 	}
 	if req.Model != model.ID {
-		return req, newError(CodeTenantDenied, PhaseRequest, "payload callback may not change the authorized model")
+		return req, nil, newError(CodeTenantDenied, PhaseRequest, "payload callback may not change the authorized model")
 	}
 	p := c.policy.Classifier
 	if len(req.Input) == 0 || len(req.Questions) == 0 {
-		return req, decisionsSchemaFailure()
+		return req, nil, decisionsSchemaFailure()
 	}
-	if failure := c.checkDecisionsInput(ctx, req.Input, model, allowImages); failure != nil {
-		return req, failure
+	images, failure := c.checkDecisionsInput(ctx, req.Input, model, allowImages)
+	if failure != nil {
+		return req, nil, failure
 	}
 	if len(req.Questions) > p.MaxQuestions {
-		return req, limitFailure(PhaseRequest, "Classifier.MaxQuestions", int64(p.MaxQuestions))
+		return req, nil, limitFailure(PhaseRequest, "Classifier.MaxQuestions", int64(p.MaxQuestions))
 	}
 	var raw struct {
 		Questions []json.RawMessage `json:"questions"`
 	}
 	if json.Unmarshal(body, &raw) != nil {
-		return req, decisionsSchemaFailure()
+		return req, nil, decisionsSchemaFailure()
 	}
 	seen := map[string]bool{}
 	for i, q := range req.Questions {
 		if int64(len(raw.Questions[i])) > p.MaxQuestionBytes {
-			return req, limitFailure(PhaseRequest, "Classifier.MaxQuestionBytes", p.MaxQuestionBytes)
+			return req, nil, limitFailure(PhaseRequest, "Classifier.MaxQuestionBytes", p.MaxQuestionBytes)
 		}
 		if q.Name == "" || seen[q.Name] || q.Instructions == nil || *q.Instructions == "" || !validDecisionsQuestion(raw.Questions[i], q, model.Capabilities) {
-			return req, decisionsSchemaFailure()
+			return req, nil, decisionsSchemaFailure()
 		}
 		seen[q.Name] = true
 	}
-	return req, nil
+	return req, images, nil
 }
 
 // The union record stores frozen values, but each native kind has a closed

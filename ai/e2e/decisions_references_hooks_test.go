@@ -129,6 +129,7 @@ func TestDecisionsReferencesFrozenCall(t *testing.T) {
 	}).Classify(ctxFor(t), textScope("req-reference-frozen"), ai.Target{BindingID: "classifier", ModelID: "host-decisions"}, req, nil)
 	captures := u.provider.Requests()
 	ev.Check("copied public reference plan survives resolver mutation and retry", err == nil && len(captures) == 2 && len(res.Metadata.Attempts) == 2 && calls == [2]int{1, 1}, "got %v", err)
+	checkImageInputs(ev, res, original)
 	if len(captures) == 2 {
 		ev.Check("retry freezes native bytes and credentials", reflect.DeepEqual(captures[0], captures[1]), "retry changed request")
 		var final map[string]any
