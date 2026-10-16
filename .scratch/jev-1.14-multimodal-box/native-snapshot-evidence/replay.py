@@ -59,19 +59,24 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--phase", choices=("baseline", "final"), required=True)
     parser.add_argument("--baseline", type=Path)
+    parser.add_argument("--finish-only", action="store_true", help="seal already completed commands without rerunning tests")
     args = parser.parse_args()
     if args.phase == "final" and args.baseline is None:
         parser.error("--baseline is required for final comparison")
     out = args.out.resolve()
-    out.mkdir(parents=True, exist_ok=False)
-    before = inventory()
-    write(out / "inputs.json", before)
-    configuration = ["ai/e2e/main_test.go", "ai/e2e/classifier_fixture_test.go",
-                     "ai/e2e/unary_fixture_test.go", "ai/e2e/typesafe_native_snapshot_test.go"]
-    write(out / "configuration.json", {"transport": "controlled loopback HTTP",
-          "images": "none", "sources": {name: (ROOT / name).read_text() for name in configuration},
-          "source_hashes": {name: before["sources"][name] for name in configuration}})
-    records = []
+    if args.finish_only:
+        before = json.loads((out / "inputs.json").read_text())
+        records = json.loads((out / "commands.json").read_text())
+    else:
+        out.mkdir(parents=True, exist_ok=False)
+        before = inventory()
+        write(out / "inputs.json", before)
+        configuration = ["ai/e2e/main_test.go", "ai/e2e/classifier_fixture_test.go",
+                         "ai/e2e/unary_fixture_test.go", "ai/e2e/typesafe_native_snapshot_test.go"]
+        write(out / "configuration.json", {"transport": "controlled loopback HTTP",
+              "images": "none", "sources": {name: (ROOT / name).read_text() for name in configuration},
+              "source_hashes": {name: before["sources"][name] for name in configuration}})
+        records = []
     commands = [
         ("focused", ["go", "test", "./ai/e2e", "-run", FOCUSED, "-count=1", "-json"], {}),
         ("jev-differential", ["go", "test", "./ai/e2e", "-run", PI, "-count=1", "-json"], {"BARNESS_AI_PIDIFF": "1"}),
@@ -85,15 +90,23 @@ def main():
             ("race", ["go", "test", "-race", "./ai/e2e", "-run", "^Test(TypeSafeNative|JevRegression|Classifier|Unary)", "-count=1", "-json"], {"BARNESS_AI_PIDIFF": "1"}),
             ("full", ["go", "test", "./...", "-count=1", "-json"], {"BARNESS_AI_PIDIFF": "1"}),
         ]
-    for name, argv, extra in commands:
-        records.append(execute(out, name, argv, extra))
-        write(out / "commands.json", records)
+    if args.finish_only:
+        # Existing command receipts must cover this exact pipeline before
+        # sealing. A collection failure must not turn absent tests into PASS.
+        if [r["name"] for r in records] != [name for name, _, _ in commands] or any(r["exit_code"] != 0 for r in records):
+            parser.error("finish-only requires all pipeline commands to have succeeded")
+    else:
+        for name, argv, extra in commands:
+            records.append(execute(out, name, argv, extra))
+            write(out / "commands.json", records)
     after = inventory()
     stable = before["stable_inputs"] == after["stable_inputs"]
     if args.baseline:
         stable = stable and before["stable_inputs"] == json.loads((args.baseline / "inputs.json").read_text())["stable_inputs"]
     summaries = []
-    for path in sorted((out / "runs").rglob("manifest.json")):
+    # Run manifests live directly under their timestamp directories. Full
+    # suites also capture nested example manifests whose schema is unrelated.
+    for path in sorted((out / "runs").glob("*/*/manifest.json")):
         data = json.loads(path.read_text())
         counts = {}
         for case in data["cases"]:
