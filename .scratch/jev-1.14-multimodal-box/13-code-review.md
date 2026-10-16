@@ -93,3 +93,10 @@ receipt's public seal/recheck commands passed. Its stored-byte checks account
 for the existing recorder's pre-redaction legacy fixture fingerprints; new
 UC13 fixtures match both identities. No runtime/source pin changed after the
 fresh real runs. Exact outcomes and artifact links are in 13-verification.md.
+
+Post-commit artifact review of `1721024...3e6714f`: both independent agents
+reran the public receipt verification (exit 0), checked the published receipt
+SHA-256 and confirmed 48 calls/48 Attempts/zero retries. Standards: 0 findings;
+Spec/evidence claims: 0 findings. The twelve new PASS capabilities and exact
+historical JSON values were independently checked. Reviewers used read-only source and retained evidence; neither modified files,
+accessed credentials nor made provider calls.
