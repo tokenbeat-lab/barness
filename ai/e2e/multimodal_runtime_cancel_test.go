@@ -26,6 +26,10 @@ func TestMultimodalRuntimeCancellation(t *testing.T) {
 					t.Run(name, func(t *testing.T) {
 						ev := run.Case(t, "UC09-cancel-"+name)
 						ctx, cancel := context.WithCancel(ctxFor(t))
+						if deadline {
+							cancel()
+							ctx, cancel = context.WithTimeout(ctxFor(t), 250*time.Millisecond)
+						}
 						defer cancel()
 						reached := make(chan struct{}, 1)
 						clk := clock.NewFake(time.Unix(1790000000, 0), 0)
@@ -38,9 +42,11 @@ func TestMultimodalRuntimeCancellation(t *testing.T) {
 								meter = &unaryMeter{next: c.Transport, held: func() bool { return c.Probe.Permits() == 1 }}
 								c.Transport = meter
 							}
-							if deadline {
-								fitCallTimeout(c.Policy, 250*time.Millisecond)
-							}
+							// Host deadline is deliberately earlier than finite call/I/O limits.
+							// Equal CallTimeout/ReadIdleTimeout ordering remains the original
+							// .scratch/barness-ai-timeout-ordering issue; this tests cancellation,
+							// without weakening its required aborted terminal or reducing input.
+
 							if stage == "pre-send" {
 								previous := c.Credentials
 								c.Credentials = credentialResolverFunc(func(ctx context.Context, s ai.CallScope, b ai.Binding) (ai.Credential, error) {
