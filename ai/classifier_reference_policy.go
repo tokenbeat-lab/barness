@@ -1,5 +1,7 @@
 package ai
 
+import "context"
+
 // ClassifierImageReferencePolicy bounds each image occurrence, including reuse.
 // Nil References inherits the finite source count and total decoded byte limits.
 type ClassifierImageReferencePolicy struct {
@@ -16,7 +18,7 @@ func (p *ClassifierImagePolicy) referenceLimits() ClassifierImageReferencePolicy
 
 // Source sizes were checked separately. This pass reads borrowed entries only,
 // so even a huge reference table or pointer fails before plan allocation/copy.
-func (p *ResourcePolicy) checkClassifierReferenceSizes(req ClassifierRequest) *Error {
+func (p *ResourcePolicy) checkClassifierReferenceSizes(ctx context.Context, req ClassifierRequest) *Error {
 	count := len(req.ImageReferences)
 	if count == 0 {
 		count = len(req.Images)
@@ -33,25 +35,43 @@ func (p *ResourcePolicy) checkClassifierReferenceSizes(req ClassifierRequest) *E
 	}
 	remaining := limits.MaxExpandedImageBytes
 	encoded := p.MaxRequestBytes
-	// State is shared once. Reserve the known text/question bytes alongside
-	// all expanded occurrences, rather than allowing each subtotal a full body.
-	stateSize := classifierJSONTextLowerBound(req.State)
-	if stateSize > encoded {
-		return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)
-	}
-	encoded -= stateSize
-	for key, question := range req.Questions {
-		if int64(len(key)) > encoded {
+	// Shorthand has no repeated expansion: the existing raw-input check already
+	// counts every source once. Explicit references need a separate projection,
+	// with cheap raw bounds first so oversized documents are never scanned.
+	if len(req.ImageReferences) > 0 {
+		if failure := p.byteLimits().checkClassifierInput(req); failure != nil {
+			return failure
+		}
+		if failure := p.Classifier.checkReferenceDocumentSizes(req); failure != nil {
+			return failure
+		}
+		if failure := contextError(ctx, PhaseScope); failure != nil {
+			return failure
+		}
+		stateSize := classifierJSONTextLowerBound(req.State)
+		if stateSize > encoded {
 			return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)
 		}
-		encoded -= int64(len(key))
-		size, ok := classifierQuestionTextLowerBound(question, encoded)
-		if !ok {
-			return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)
+		encoded -= stateSize
+		for key, question := range req.Questions {
+			if failure := contextError(ctx, PhaseScope); failure != nil {
+				return failure
+			}
+			if int64(len(key)) > encoded {
+				return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)
+			}
+			encoded -= int64(len(key))
+			size, ok := classifierQuestionTextLowerBound(question, encoded)
+			if !ok {
+				return limitFailure(PhaseScope, "MaxRequestBytes", p.MaxRequestBytes)
+			}
+			encoded -= size
 		}
-		encoded -= size
 	}
 	for i := 0; i < count; i++ {
+		if failure := contextError(ctx, PhaseScope); failure != nil {
+			return failure
+		}
 		index := i
 		if len(req.ImageReferences) > 0 {
 			ref := req.ImageReferences[i]
@@ -99,6 +119,23 @@ func (p *ResourcePolicy) checkClassifierExpandedImages(images []Image, phase Pha
 			return limitFailure(phase, "Classifier.Images.References.MaxExpandedImageBytes", limits.MaxExpandedImageBytes)
 		}
 		remaining -= size
+	}
+	return nil
+}
+
+// Eager raw bounds protect projection traversal. Full semantic validation still
+// runs at the ordinary public boundary with the normalized image plan.
+func (p *ClassifierPolicy) checkReferenceDocumentSizes(req ClassifierRequest) *Error {
+	if len(req.Questions) > p.MaxQuestions {
+		return limitFailure(PhaseScope, "Classifier.MaxQuestions", int64(p.MaxQuestions))
+	}
+	if int64(len(req.State)) > p.MaxStateBytes {
+		return limitFailure(PhaseScope, "Classifier.MaxStateBytes", p.MaxStateBytes)
+	}
+	for _, q := range req.Questions {
+		if _, ok := classifierQuestionSize(q, p.MaxQuestionBytes); !ok {
+			return limitFailure(PhaseScope, "Classifier.MaxQuestionBytes", p.MaxQuestionBytes)
+		}
 	}
 	return nil
 }

@@ -66,7 +66,7 @@ func (c *Client) classify(ctx context.Context, scope CallScope, target Target, r
 		failure = c.policy.checkClassifierImageSizes(req.Images, PhaseScope)
 	}
 	if failure == nil {
-		failure = c.policy.checkClassifierReferenceSizes(req)
+		failure = c.policy.checkClassifierReferenceSizes(ctx, req)
 	}
 	if failure == nil && (len(req.Images) > 0 || len(req.ImageReferences) > 0) {
 		failure = c.policy.byteLimits().checkClassifierInput(req)
