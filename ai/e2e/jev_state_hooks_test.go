@@ -39,6 +39,7 @@ func TestJevStateFinalHooks(t *testing.T) {
 				req.Images, req.ImageReferences = nil, nil
 			}
 			images := jevContextImages(t)
+			recordClassifierAssets(ev, images)
 			want := []ai.Image{images[1], images[0]}
 			success := name == "replace" || name == "move" || name == "root" || name == "array" || name == "raw" || name == "mixed" || name == "remove-all" || name == "from-text" || name == "business-envelope" || name == "business-null-state"
 			enqueue(ev, u.world, fixtureReply{Status: 200, Body: `{"answers":{"q":{"type":"noul","noul":0.5}}}`}.script(t, classifierProtocol, ""))
