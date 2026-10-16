@@ -1,0 +1,17 @@
+--- FAIL: TestDecisionsImageInputsOrder (0.03s)
+    --- FAIL: TestDecisionsImageInputsOrder/png (0.00s)
+        decisions_image_inputs_test.go:41: [UC03-identity-png] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestDecisionsImageInputsOrder/jpeg (0.00s)
+        decisions_image_inputs_test.go:41: [UC03-identity-jpeg] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestDecisionsImageInputsOrder/webp (0.00s)
+        decisions_image_inputs_test.go:41: [UC03-identity-webp] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestDecisionsImageInputsOrder/ordered (0.00s)
+        decisions_image_inputs_test.go:41: [UC03-identity-ordered] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestDecisionsImageInputsOrder/references (0.00s)
+        decisions_image_inputs_test.go:41: [UC03-identity-references] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestDecisionsImageInputsOrder/same-file (0.00s)
+        decisions_image_inputs_test.go:41: [UC03-identity-same-file] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T044047.591115000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.909s
+FAIL

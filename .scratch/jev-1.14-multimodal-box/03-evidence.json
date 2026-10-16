@@ -1,0 +1,78 @@
+{
+  "baseline": "1319e1f48d3b01d4f9e63890376dc381a8a5e2fa",
+  "checks": {
+    "exitCodes": {
+      "full": 0,
+      "race": 0,
+      "vet": 0
+    },
+    "full": "go test ./... -count=1",
+    "race": "go test -race ./ai/e2e -run '^TestDecisions(ImageInputs|ImagesSnapshot|ReferencesFrozenCall|RuntimeMixedIsolation)' -count=1",
+    "vet": "go vet ./..."
+  },
+  "runs": {
+    "full": {
+      "audit": ".evidence/barness-ai/20261016T044522.215757000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "cases": 7851,
+      "finishedAtUTC": "2026-10-16T04:46:51.536838Z",
+      "manifest": ".evidence/barness-ai/20261016T044522.215757000Z/manifest.json",
+      "manifestSHA256": "1d45aeb4bee0652b031fa0abd0c651b63b0d8fe1f55c5c27e3b089c800cc6ca7",
+      "startedAtUTC": "2026-10-16T04:45:22.215757Z",
+      "statuses": {
+        "NOT_RUN": 1050,
+        "PASS": 6801
+      },
+      "ticketCases": 84,
+      "verifiedArtifacts": 45670
+    },
+    "race": {
+      "audit": ".evidence/barness-ai/20261016T044456.014744000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "cases": 89,
+      "finishedAtUTC": "2026-10-16T04:44:57.768539Z",
+      "manifest": ".evidence/barness-ai/20261016T044456.014744000Z/manifest.json",
+      "manifestSHA256": "9f361c94d28d8f9a48d837030668b01ec1460932ec9e025deae4f212aa9a91f0",
+      "startedAtUTC": "2026-10-16T04:44:56.014744Z",
+      "statuses": {
+        "PASS": 89
+      },
+      "ticketCases": 84,
+      "verifiedArtifacts": 1762
+    }
+  },
+  "runtimeCommit": "b6175d705591f4477263e42f313b5811c62c4704",
+  "scope": "ticket-03 controlled loopback HTTP; real-service NOT_RUN",
+  "sourceFiles": {
+    ".scratch/jev-1.14-multimodal-box/03-code-review.md": "e4306022e5945596ecc88e5adaf0909f96e02073a8508aa840ef8f5a93b4586f",
+    ".scratch/jev-1.14-multimodal-box/03-failure-modes.md": "f2e7b7c9beb0e689b9803545feae28552b5f0737fb02b310f351cd2557f73b40",
+    ".scratch/jev-1.14-multimodal-box/03-logs/codec-red.txt": "f30212e35a853535036644e2eb292f2bba16f5f87e811e567987da3f50aa315d",
+    ".scratch/jev-1.14-multimodal-box/03-logs/focused.txt": "1d208b272902c0235e1c77203bb52075db35eb920f2aebe1bb896dac40484af2",
+    ".scratch/jev-1.14-multimodal-box/03-logs/full.txt": "90c3b47ddb9cf60ff9d64059072cdf8835404c45aa252d1ef245a9406b091563",
+    ".scratch/jev-1.14-multimodal-box/03-logs/order-green.txt": "5ac1101a1c794e2217a85f81320b6924e398e9bb513ddb660b1727afb0a5b2db",
+    ".scratch/jev-1.14-multimodal-box/03-logs/order-red.txt": "ebfa6660c3ee55b94be4f060a50510b0c12b625eae24494018b07750f44a2de7",
+    ".scratch/jev-1.14-multimodal-box/03-logs/race.txt": "96f302a798b87d14b40b6c12dd5cf4998e4a431f6b4d70bb7b9dce55fa77e4db",
+    ".scratch/jev-1.14-multimodal-box/03-logs/vet.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".scratch/jev-1.14-multimodal-box/03-verification.md": "d58d5dd8568a6bdd6edf591276b710ae2f3481018561df03a29c7fafd2198a53",
+    ".scratch/jev-1.14-multimodal-box/design.md": "9d5c4b7e402645a439b71acefb76fc4db54cd155c2e21ed933dd7ed31ce8c4f2",
+    ".scratch/jev-1.14-multimodal-box/issues/03-decisions-final-image-input-metadata.md": "efcd1c08f9fded90df007aff002104a2b6f155009d10d3a4d4ba23dd8b5ef49c",
+    ".scratch/jev-1.14-multimodal-box/spec.md": "c39897fdc21d7298df1cb1885f31e0d92e4cc1de160f9b56f556a680b8fefc57",
+    ".scratch/jev-1.14-multimodal-box/verify-03-evidence.py": "f438aa68f54945325ff4156d42b12d862d609fce2a7a9d63a868bc4dac4e2291",
+    "ai/classifier.go": "71b4a3a55293d3b7a1908a0c3b5b5875399b79d673c76343a6ed85a64a2fbcd0",
+    "ai/classifier_image_inputs.go": "adbe1cc7fba482bd4e1af1431ce89221a2596ef030e8572e6641062d9f65e47f",
+    "ai/e2e/decisions_image_inputs_codec_test.go": "b7dfe5a08b69739078d74a8e4b457ff3f0ad9c4c46572475fe80863df3f214b3",
+    "ai/e2e/decisions_image_inputs_failure_test.go": "f005aeb2fd293f337045795a996375919ca7de013b45213e9ba6dd0a257e8750",
+    "ai/e2e/decisions_image_inputs_hooks_test.go": "58551f74d3a633025e491f79b284e5e3b51d36a15b1ef37047780a6f9f90197b",
+    "ai/e2e/decisions_image_inputs_test.go": "abfb6992c4fa4448abb5f0e1b843c1b0e0c56daa9f230b4f68beb975c7538a33",
+    "ai/e2e/decisions_images_lifecycle_test.go": "91d18ffcb4e0d1ba8dab67f58fdefe19496af21d4a7b78a9382f982cdfe31413",
+    "ai/e2e/decisions_references_hooks_test.go": "35475db894f9fdb98cc73920e29a121dfc6c9e67835b9e5f212341f141f564cc",
+    "ai/e2e/decisions_runtime_isolation_test.go": "602829c8262e5ee4158021132c0b11ff017d5f3b91296be8c9677139215ba93f",
+    "ai/e2e/unary_fixture_test.go": "a3a77f77bd4b396e114cb4f1e3d9e070b1b79230f5404caed6da1b5d8696d704",
+    "ai/openai_decisions.go": "4f3494ee48ec2dde5c8286b7dcb67f73a91403f2b012fd0b7d6e2b657c13af48",
+    "ai/openai_decisions_guard.go": "fc32bc2a7347ba602555e89218cbb02237d7d8ad211f2e682f27ce8cad989f72",
+    "ai/openai_decisions_images.go": "5d3be060d92c9066ca5a6bfb9dd4eeb2c3c78604f6e3f3450517c8d959d53f14",
+    "docs/adr/0026-barness-ai-openai-decisions-classification.md": "6a11d9676358f00ec3a370097d9e9e9caf32502d5ffdc83305e97203079164ad",
+    "docs/barness-ai/decisions.md": "42dadde3bb8948cadf7ddae4837f51510c75a91990fc07ef96ec9414d86ea8fd"
+  },
+  "trackedGoSourceSHA256": "0980fb6bc3965d2570e08260e9135c7114dc8d20d9bfe8ccb10328e489e28290"
+}

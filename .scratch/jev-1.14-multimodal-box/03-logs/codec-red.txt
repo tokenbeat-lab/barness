@@ -1,0 +1,177 @@
+--- FAIL: TestDecisionsImageInputsCodec (0.09s)
+    --- FAIL: TestDecisionsImageInputsCodec/png (0.01s)
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-png] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-png] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-png] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-png] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-png] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/jpeg (0.00s)
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-jpeg] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-jpeg] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-jpeg] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-jpeg] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-jpeg] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/webp (0.00s)
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-webp] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-webp] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-webp] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-webp] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-webp] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/missing-mime (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-missing-mime] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-mime] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-mime] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-mime] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-mime] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-mime] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/missing-hash (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-missing-hash] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-missing-hash] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/null (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-null] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/null-mime (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-null-mime] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-mime] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-mime] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-mime] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-mime] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-mime] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/null-hash (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-null-hash] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-null-hash] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/alias (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-alias] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/alias-hash (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-alias-hash] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias-hash] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-alias-hash] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/duplicate (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-duplicate] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-duplicate] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-duplicate] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-duplicate] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-duplicate] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-duplicate] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/escaped-duplicate (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-escaped-duplicate] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-escaped-duplicate] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-escaped-duplicate] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-escaped-duplicate] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-escaped-duplicate] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-escaped-duplicate] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/unknown (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-unknown] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unknown] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unknown] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unknown] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unknown] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unknown] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/native-key (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-native-key] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-native-key] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-native-key] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-native-key] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-native-key] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-native-key] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/wrong-type (0.00s)
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-wrong-type] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-wrong-type] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-wrong-type] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-wrong-type] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-wrong-type] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/mime-case (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-mime-case] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:65: [UC03-codec-mime-case] failed decode leaves previous identity untouched: partially mutated metadata
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-case] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-case] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-case] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-case] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-case] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/mime-parameters (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-mime-parameters] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:65: [UC03-codec-mime-parameters] failed decode leaves previous identity untouched: partially mutated metadata
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-parameters] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-parameters] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-parameters] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-parameters] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-parameters] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/mime-alias (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-mime-alias] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:65: [UC03-codec-mime-alias] failed decode leaves previous identity untouched: partially mutated metadata
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-alias] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-alias] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-alias] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-alias] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-mime-alias] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/unsupported (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-unsupported] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:65: [UC03-codec-unsupported] failed decode leaves previous identity untouched: partially mutated metadata
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unsupported] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unsupported] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unsupported] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unsupported] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-unsupported] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/uppercase (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-uppercase] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:65: [UC03-codec-uppercase] failed decode leaves previous identity untouched: partially mutated metadata
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-uppercase] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-uppercase] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-uppercase] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-uppercase] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-uppercase] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/short (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-short] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:65: [UC03-codec-short] failed decode leaves previous identity untouched: partially mutated metadata
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-short] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-short] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-short] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-short] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-short] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/long (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-long] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:65: [UC03-codec-long] failed decode leaves previous identity untouched: partially mutated metadata
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-long] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-long] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-long] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-long] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-long] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/nonhex (0.00s)
+        decisions_image_inputs_codec_test.go:59: [UC03-codec-nonhex] closed metadata decoding: unexpected acceptance
+        decisions_image_inputs_codec_test.go:65: [UC03-codec-nonhex] failed decode leaves previous identity untouched: partially mutated metadata
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-nonhex] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-nonhex] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-nonhex] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-nonhex] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-nonhex] encoding rejects invalid metadata: invalid record encoded
+    --- FAIL: TestDecisionsImageInputsCodec/trailing (0.00s)
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-trailing] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-trailing] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-trailing] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-trailing] encoding rejects invalid metadata: invalid record encoded
+        decisions_image_inputs_codec_test.go:74: [UC03-codec-trailing] encoding rejects invalid metadata: invalid record encoded
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261016T044133.069034000Z
+redaction audit: UC03-codec-trailing/metadata-input.json [unparseable] not JSON (invalid): JSON rules not applied
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.802s
+FAIL
