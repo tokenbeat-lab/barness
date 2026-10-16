@@ -98,6 +98,9 @@ func (c *Client) prepareTypeSafeImages(ctx context.Context, model ClassifierMode
 		return nil, failure
 	}
 	native.State = state
+	if failure := c.projectTypeSafeInstructions(&native, original.(map[string]any), plan, keys); failure != nil {
+		return nil, failure
+	}
 	body, err = json.Marshal(native)
 	if err != nil {
 		return nil, typeSafeRequestFailure()

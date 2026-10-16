@@ -1,0 +1,13 @@
+--- FAIL: TestJevInstructionsBudgets (0.04s)
+    --- FAIL: TestJevInstructionsBudgets/body/plain (0.00s)
+        unary_fixture_test.go:62: [UC06-budget-body-plain] code-only match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        unary_fixture_test.go:63: [UC06-budget-body-plain] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_instructions_boundaries_test.go:167: [UC06-budget-body-plain] known expansion fails before pin: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+    --- FAIL: TestJevInstructionsBudgets/body/hooked (0.00s)
+        unary_fixture_test.go:62: [UC06-budget-body-hooked] code-only match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        unary_fixture_test.go:63: [UC06-budget-body-hooked] phase match: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+        jev_instructions_boundaries_test.go:167: [UC06-budget-body-hooked] known expansion fails before pin: got ai: invalid_request (request): 418 I'm a teapot: {"error":{"message":"no scripted reply"}}
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261016T074941.950822000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	3.081s
+FAIL

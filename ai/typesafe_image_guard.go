@@ -94,12 +94,18 @@ func (c *Client) freezeTypeSafeImages(ctx context.Context, req typeSafeRequest, 
 	return images, nil
 }
 
-// Validate the private key namespace and every non-State field. State values
-// are scanned separately with actual-use locations; object keys never use images.
+// Validate the private namespace and fields outside supported content. State
+// and Instructions are scanned separately; schema/identity/criteria keys never
+// use images, even when their spelling equals a private key.
 func typeSafeImageKeys(ctx context.Context, req typeSafeRequest) *Error {
 	plain := req
 	plain.State = nil
 	plain.Assets = nil
+	plain.Questions = make(map[string]typeSafeQuestion, len(req.Questions))
+	for name, q := range req.Questions {
+		q.instructions = nil
+		plain.Questions[name] = q
+	}
 	raw, err := json.Marshal(plain)
 	if err != nil {
 		return typeSafeRequestFailure()

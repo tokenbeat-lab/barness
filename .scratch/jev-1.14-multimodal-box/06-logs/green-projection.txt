@@ -1,0 +1,29 @@
+--- FAIL: TestJevInstructionsProjection (0.13s)
+    --- FAIL: TestJevInstructionsProjection/score/root/plain (0.01s)
+        jev_instructions_test.go:34: [UC06-projection-score-root-plain] local image classification succeeds: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC06-projection-score-root-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsProjection/score/root/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-root-hooked] local image classification succeeds: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC06-projection-score-root-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsProjection/score/nested/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-nested-plain] local image classification succeeds: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC06-projection-score-nested-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsProjection/score/nested/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-nested-hooked] local image classification succeeds: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC06-projection-score-nested-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsProjection/score/ordered/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-ordered-plain] local image classification succeeds: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC06-projection-score-ordered-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsProjection/score/ordered/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-ordered-hooked] local image classification succeeds: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC06-projection-score-ordered-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsProjection/score/mixed/plain (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-mixed-plain] local image classification succeeds: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC06-projection-score-mixed-plain] final ordered decoded file identities; closed records: metadata differs from final images
+    --- FAIL: TestJevInstructionsProjection/score/mixed/hooked (0.00s)
+        jev_instructions_test.go:34: [UC06-projection-score-mixed-hooked] local image classification succeeds: got ai: protocol (response): invalid classifier response
+        decisions_image_inputs_test.go:41: [UC06-projection-score-mixed-hooked] final ordered decoded file identities; closed records: metadata differs from final images
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261016T074851.863586000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.428s
+FAIL

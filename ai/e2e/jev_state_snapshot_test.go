@@ -58,7 +58,7 @@ func TestJevStateCatalogBoundary(t *testing.T) {
 			model.Capabilities.MaxInputImages = 1
 			_, hashErr := catalog.Hash()
 			_, constructErr := ai.NewClient(ai.Config{Policy: validPolicy(), Catalog: &catalog, Bindings: u.host, Credentials: u.host})
-			want := location == ai.ClassifierImageLocationState
+			want := location == ai.ClassifierImageLocationState || location == ai.ClassifierImageLocationInstructions
 			ev.Check("metadata matches implemented locations", (hashErr == nil) == want && (constructErr == nil) == want, "hash=%v constructor=%v", hashErr, constructErr)
 			ev.Record("catalog", catalog)
 		})

@@ -157,10 +157,17 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 		location := ClassifierImageLocationContext
 		if ref.Placement == ImagePlacementValue {
 			parts, _ := imagePointerParts(ref.Pointer) // scope already resolved the target
-			if model.API != APITypeSafeSystemOne || parts[0] != "state" {
+			if model.API != APITypeSafeSystemOne {
 				return newError(CodeInvalidRequest, PhaseCapability, "classifier protocol does not support this image location")
 			}
-			location = ClassifierImageLocationState
+			switch {
+			case parts[0] == "state":
+				location = ClassifierImageLocationState
+			case len(parts) >= 3 && parts[0] == "questions" && parts[2] == "instructions":
+				location = ClassifierImageLocationInstructions
+			default:
+				return newError(CodeInvalidRequest, PhaseCapability, "classifier protocol does not support this image location")
+			}
 		}
 		// Omitted Decisions locations retain the existing context default.
 		if !(model.API == APIOpenAIDecisions && len(model.Capabilities.ImageLocations) == 0) && !slices.Contains(model.Capabilities.ImageLocations, location) {
@@ -182,7 +189,7 @@ func (c *Client) executeClassifier(ctx context.Context, r *callRuntime, target T
 	if opts != nil {
 		opts = opts.clone()
 	}
-	if problem := req.checkCapabilities(model.Capabilities); problem != "" {
+	if problem := req.checkCapabilities(model.Capabilities, plan); problem != "" {
 		return newError(CodeInvalidRequest, PhaseCapability, problem)
 	}
 	if model.API == APIOpenAIDecisions {

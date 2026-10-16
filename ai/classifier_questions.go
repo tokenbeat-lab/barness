@@ -2,7 +2,9 @@ package ai
 
 import "encoding/json"
 
-// ClassifierQuestion is a closed choice, score or bool question.
+// ClassifierQuestion is a closed choice, score or bool question. Instructions
+// may be an explicitly image-referenced null root on models supporting that
+// location; object/array descriptions can mix text with referenced null slots.
 type ClassifierQuestion interface{ classifierQuestion() }
 
 // ChoiceQuestion asks for one option. Instructions and criteria descriptions

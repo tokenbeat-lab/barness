@@ -225,3 +225,24 @@ Decisions 含任意合法 value 时仍在 capability 整体拒绝。题内 Instr
 图例和 Box 未开放；内置目录、正式支持与 ADR-0030 proposed 状态不变。回滚直接撤回本票
 代码，无持久化变更。[工单 05 验证记录](../../.scratch/jev-1.14-multimodal-box/05-verification.md)
 给出公开 E2E 与独立核验产物；受控 HTTP 不能证明真实服务或视觉质量 PASS。
+
+## Jev Instructions value 图片（2026-10-16，统一图片工单 06）
+
+固定 Host 候选 `jev-1.14.0` 现在可显式声明 `instructions`；Choice、Score、Bool
+说明中的明确 null 槽位及根图片保持题内位置。沿用公共图片来源和精确 Pointer，
+不把局部图片提升到 State/context，不替换普通文字。同来源只上传一个 asset，跨题
+出现分别消耗展开预算；完整题目预算在展开前包含生成 key 的 HTML 转义长度。
+
+根图片按位置能力校验，普通 object/array 说明仍按 DescriptionFormats 校验。这避免
+为图片虚构 null 文字格式，代价是公共计划与 native 实际全值引用各自识别根图片。
+两者保持独立所有权；共享的仅是纯 JSON 格式判断和已有内容投影语义。
+最终 native 扫描先 State 后按问题键排序遍历 Instructions，按首次实际使用重建
+ImageInputs；不信任入口 Pointer 或旧问题。Criteria、身份键、对象键和 substring
+中的私有 key 仍拒绝。Hook 合法增删换题/换图由最终快照决定答案与图片身份。
+
+含 assets 的 Hook 容量失败统一 resource_limit/request；无图已有子容量失败分类
+保持。绑定、实验选择、来源、格式与最终容量的前后校验持续生效。Decisions 对
+局部图片在凭据前整体拒绝。Criteria 图片、Box、真实服务与视觉效果仍未验收；
+内置目录、支持矩阵和 ADR-0030 proposed 状态不变。撤销授权影响新调用，回滚本票
+代码无数据迁移。[公开说明](../barness-ai/jev-instruction-images.md)与
+[工单验证](../../.scratch/jev-1.14-multimodal-box/06-verification.md)记录范围与可重放证据。

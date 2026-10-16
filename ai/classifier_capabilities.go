@@ -30,11 +30,11 @@ func classifierModelProblem(m ClassifierModel) string {
 		}
 		switch location {
 		case ClassifierImageLocationContext:
-		case ClassifierImageLocationState:
+		case ClassifierImageLocationState, ClassifierImageLocationInstructions:
 			if !jev {
 				return "classifier image location exceeds the implemented protocol"
 			}
-		case ClassifierImageLocationInstructions, ClassifierImageLocationCriteria:
+		case ClassifierImageLocationCriteria:
 			return "classifier image location exceeds the implemented protocol"
 		default:
 			return "unknown classifier image location"
@@ -67,13 +67,13 @@ func classifierModelProblem(m ClassifierModel) string {
 	return ""
 }
 
-func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescriptionFormat) bool {
+func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescriptionFormat, instructionImage bool) bool {
 	allowed := func(raw json.RawMessage, nullable bool) bool {
 		return classifierDescriptionAllowed(raw, nullable, formats)
 	}
 	switch q := q.(type) {
 	case ChoiceQuestion:
-		if !allowed(q.Instructions, false) {
+		if !instructionImage && !allowed(q.Instructions, false) {
 			return false
 		}
 		for _, raw := range q.Criteria {
@@ -82,7 +82,7 @@ func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescrip
 			}
 		}
 	case ScoreQuestion:
-		if !allowed(q.Instructions, false) {
+		if !instructionImage && !allowed(q.Instructions, false) {
 			return false
 		}
 		for _, raw := range q.Criteria {
@@ -91,7 +91,7 @@ func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescrip
 			}
 		}
 	case BoolQuestion:
-		if !allowed(q.Instructions, false) {
+		if !instructionImage && !allowed(q.Instructions, false) {
 			return false
 		}
 		if q.Criteria != nil && (!allowed(q.Criteria.True, false) || !allowed(q.Criteria.False, false)) {
@@ -133,7 +133,7 @@ func decisionsTextCapability(req ClassifierRequest) string {
 		if choice, ok := q.(ChoiceQuestion); ok && len(choice.Criteria) < 2 {
 			return "Decisions requires at least two choices"
 		}
-		if !classifierQuestionFormats(q, []ClassifierDescriptionFormat{ClassifierDescriptionString}) {
+		if !classifierQuestionFormats(q, []ClassifierDescriptionFormat{ClassifierDescriptionString}, false) {
 			return "Decisions requires at least two choices and string descriptions"
 		}
 	}

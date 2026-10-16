@@ -83,7 +83,7 @@ func TestJevContextCandidateContract(t *testing.T) {
 		case "webp":
 			m.Capabilities.ImageMIMETypes = append(m.Capabilities.ImageMIMETypes, "image/webp")
 		case "local":
-			m.Capabilities.ImageLocations = append(m.Capabilities.ImageLocations, ai.ClassifierImageLocationInstructions)
+			m.Capabilities.ImageLocations = append(m.Capabilities.ImageLocations, ai.ClassifierImageLocationCriteria)
 		case "duplicate":
 			m.Capabilities.ImageLocations = append(m.Capabilities.ImageLocations, ai.ClassifierImageLocationContext)
 		case "omitted":

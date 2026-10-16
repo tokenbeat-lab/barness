@@ -28,6 +28,9 @@ func (c *Client) freezeTypeSafeRequest(body []byte, model ClassifierModel) (type
 	}
 	for _, name := range slices.Sorted(maps.Keys(req.Questions)) {
 		q := req.Questions[name]
+		if len(req.Assets) > 0 && !q.withinSize(p.MaxQuestionBytes) {
+			return req, limitFailure(PhaseRequest, "Classifier.MaxQuestionBytes", p.MaxQuestionBytes)
+		}
 		if name == "" || !q.withinSize(p.MaxQuestionBytes) || !q.valid() {
 			return req, typeSafeRequestFailure()
 		}
@@ -35,6 +38,9 @@ func (c *Client) freezeTypeSafeRequest(body []byte, model ClassifierModel) (type
 		// escaping. Native noul and public bool have equal encoded lengths;
 		// using the received raw length would silently widen Hook limits.
 		raw, err := json.Marshal(q)
+		if err == nil && len(req.Assets) > 0 && int64(len(raw)) > p.MaxQuestionBytes {
+			return req, limitFailure(PhaseRequest, "Classifier.MaxQuestionBytes", p.MaxQuestionBytes)
+		}
 		if err != nil || int64(len(raw)) > p.MaxQuestionBytes {
 			return req, typeSafeRequestFailure()
 		}
@@ -42,7 +48,7 @@ func (c *Client) freezeTypeSafeRequest(body []byte, model ClassifierModel) (type
 	// Shape and sub-policy failures historically precede model capabilities.
 	// Keep that priority and their callback_failed/request classification.
 	for _, q := range req.Questions {
-		if !q.supported(model.Capabilities) {
+		if !q.supported(model.Capabilities, typeSafeRootImage(q.instructions, req.Assets)) {
 			return req, newError(CodeCallbackFailed, PhaseRequest, "payload callback exceeded classifier model capabilities")
 		}
 	}
@@ -111,7 +117,7 @@ func (q typeSafeQuestion) valid() bool {
 	return true
 }
 
-func (q typeSafeQuestion) supported(c ClassifierCapabilities) bool {
+func (q typeSafeQuestion) supported(c ClassifierCapabilities, instructionImage bool) bool {
 	var kind ClassifierQuestionKind
 	switch q.kind {
 	case "choice":
@@ -127,7 +133,7 @@ func (q typeSafeQuestion) supported(c ClassifierCapabilities) bool {
 	case "noul":
 		kind = ClassifierQuestionBool
 	}
-	if !slices.Contains(c.Kinds, kind) || !classifierDescriptionAllowed(q.instructions, false, c.DescriptionFormats) {
+	if !slices.Contains(c.Kinds, kind) || (!instructionImage && !classifierDescriptionAllowed(q.instructions, false, c.DescriptionFormats)) {
 		return false
 	}
 	for _, value := range q.choices {

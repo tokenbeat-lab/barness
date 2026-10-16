@@ -19,6 +19,9 @@ func (c *Client) projectTypeSafeState(raw json.RawMessage, state any, plan class
 		keySizes[i] = int64(len(encoded))
 	}
 	for _, ref := range plan {
+		if ref.Placement == ImagePlacementValue && !typeSafeStateReference(ref) {
+			continue
+		}
 		size := keySizes[ref.ImageIndex]
 		if ref.Placement == ImagePlacementValue {
 			size -= 4 // replace only the literal null
@@ -43,27 +46,8 @@ func (c *Client) projectTypeSafeState(raw json.RawMessage, state any, plan class
 			continue
 		}
 		parts, _ := imagePointerParts(ref.Pointer)
-		if len(parts) == 1 {
-			state = key
-			continue
-		}
-		parent := state
-		for _, part := range parts[1 : len(parts)-1] {
-			switch node := parent.(type) {
-			case map[string]any:
-				parent = node[part]
-			case []any:
-				i, _ := strconv.Atoi(part)
-				parent = node[i]
-			}
-		}
-		last := parts[len(parts)-1]
-		switch node := parent.(type) {
-		case map[string]any:
-			node[last] = key
-		case []any:
-			i, _ := strconv.Atoi(last)
-			node[i] = key
+		if parts[0] == "state" {
+			state = projectTypeSafeValue(state, parts[1:], key)
 		}
 	}
 	if contextCount > 0 {
@@ -77,6 +61,38 @@ func (c *Client) projectTypeSafeState(raw json.RawMessage, state any, plan class
 		return nil, typeSafeRequestFailure()
 	}
 	return encoded, nil
+}
+
+func typeSafeStateReference(ref ImageReference) bool {
+	parts, _ := imagePointerParts(ref.Pointer)
+	return len(parts) > 0 && parts[0] == "state"
+}
+
+// Both State and Instructions project validated pointers into an owned decoded
+// content tree. The caller reserves encoded growth before any expansion.
+func projectTypeSafeValue(value any, parts []string, key string) any {
+	if len(parts) == 0 {
+		return key
+	}
+	parent := value
+	for _, part := range parts[:len(parts)-1] {
+		switch node := parent.(type) {
+		case map[string]any:
+			parent = node[part]
+		case []any:
+			i, _ := strconv.Atoi(part)
+			parent = node[i]
+		}
+	}
+	last := parts[len(parts)-1]
+	switch node := parent.(type) {
+	case map[string]any:
+		node[last] = key
+	case []any:
+		i, _ := strconv.Atoi(last)
+		node[i] = key
+	}
+	return value
 }
 
 // Keep envelope provenance outside native user data: a business object named

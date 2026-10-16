@@ -88,8 +88,8 @@ func classifierState(raw json.RawMessage) bool {
 	return false
 }
 
-func (r ClassifierRequest) checkCapabilities(c ClassifierCapabilities) string {
-	for _, question := range r.Questions {
+func (r ClassifierRequest) checkCapabilities(c ClassifierCapabilities, plan classifierImagePlan) string {
+	for name, question := range r.Questions {
 		var kind ClassifierQuestionKind
 		switch q := question.(type) {
 		case ChoiceQuestion:
@@ -110,7 +110,7 @@ func (r ClassifierRequest) checkCapabilities(c ClassifierCapabilities) string {
 		if !slices.Contains(c.Kinds, kind) {
 			return "model does not support the question kind"
 		}
-		if !classifierQuestionFormats(question, c.DescriptionFormats) {
+		if !classifierQuestionFormats(question, c.DescriptionFormats, plan.hasValue("/questions/"+imagePointerKey(name)+"/instructions")) {
 			return "model does not support the description format"
 		}
 	}

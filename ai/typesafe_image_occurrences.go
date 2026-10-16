@@ -10,7 +10,7 @@ import (
 )
 
 // Freeze actual whole-value occurrences independently of the public pointers.
-// Walk native State in deterministic object-key/array order. A projected context
+// Walk State then sorted questions' Instructions in object-key/array order. A projected context
 // envelope has images before state in that order. Only its topology is retained
 // from the builder; every content value, asset, permission and budget is rechecked.
 func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, locations []ClassifierImageLocation, contextWrapped bool, maxReferences int) ([]string, *Error) {
@@ -36,15 +36,15 @@ func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, location
 		}
 		return false
 	}
-	var walk func(any) *Error
-	walk = func(value any) *Error {
+	var walk func(any, ClassifierImageLocation) *Error
+	walk = func(value any, location ClassifierImageLocation) *Error {
 		if failure := contextError(ctx, PhaseRequest); failure != nil {
 			return failure
 		}
 		switch node := value.(type) {
 		case string:
 			if _, exists := req.Assets[node]; exists {
-				return add(node, ClassifierImageLocationState)
+				return add(node, location)
 			}
 			if contains(node) {
 				return typeSafeRequestFailure()
@@ -54,13 +54,13 @@ func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, location
 				if contains(key) {
 					return typeSafeRequestFailure()
 				}
-				if failure := walk(node[key]); failure != nil {
+				if failure := walk(node[key], location); failure != nil {
 					return failure
 				}
 			}
 		case []any:
 			for _, item := range node {
-				if failure := walk(item); failure != nil {
+				if failure := walk(item, location); failure != nil {
 					return failure
 				}
 			}
@@ -89,8 +89,18 @@ func typeSafeImageOccurrences(ctx context.Context, req typeSafeRequest, location
 	if decoder.Decode(&tree) != nil {
 		return nil, typeSafeRequestFailure()
 	}
-	if failure := walk(tree); failure != nil {
+	if failure := walk(tree, ClassifierImageLocationState); failure != nil {
 		return nil, failure
+	}
+	for _, name := range slices.Sorted(maps.Keys(req.Questions)) {
+		decoder := json.NewDecoder(bytes.NewReader(req.Questions[name].instructions))
+		decoder.UseNumber()
+		if decoder.Decode(&tree) != nil {
+			return nil, typeSafeRequestFailure()
+		}
+		if failure := walk(tree, ClassifierImageLocationInstructions); failure != nil {
+			return nil, failure
+		}
 	}
 	return occurrences, nil
 }

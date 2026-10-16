@@ -1,0 +1,13 @@
+--- FAIL: TestJevInstructionsFinalHooks (0.13s)
+    --- FAIL: TestJevInstructionsFinalHooks/part (0.01s)
+        jev_instructions_hooks_test.go:124: [UC06-hook-part] final request rejected at boundary: got <nil>
+        jev_instructions_hooks_test.go:125: [UC06-hook-part] atomic failure: partial result
+        jev_instructions_hooks_test.go:127: [UC06-hook-part] no Attempt or send: unexpected send
+    --- FAIL: TestJevInstructionsFinalHooks/question-bytes (0.00s)
+        jev_instructions_hooks_test.go:124: [UC06-hook-question-bytes] final request rejected at boundary: got ai: callback_failed (request): payload callback exceeded classifier input limits
+    --- FAIL: TestJevInstructionsFinalHooks/raw-question-bytes (0.00s)
+        jev_instructions_hooks_test.go:124: [UC06-hook-raw-question-bytes] final request rejected at boundary: got ai: callback_failed (request): payload callback exceeded classifier input limits
+FAIL
+barness-ai evidence bundle: .evidence/barness-ai/20261016T075032.943623000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.864s
+FAIL
