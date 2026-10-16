@@ -33,7 +33,7 @@ type multimodalBorrowedState struct {
 // Borrowed callback trees can be large yet fit the document budget. A much
 // smaller image-occurrence budget must reject them before encoded copies.
 func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
-	for _, shape := range []string{"map", "raw", "typed", "embedded", "integer-assets", "struct-assets", "wide", "quoted-int", "quoted-number", "json-key"} {
+	for _, shape := range []string{"map", "raw", "typed", "embedded", "integer-assets", "struct-assets", "wide", "quoted-int", "quoted-number", "json-key", "quoted-interface"} {
 		t.Run(shape, func(t *testing.T) {
 			ev := run.Case(t, "UC09-borrowed-references-"+shape)
 			u := newJevBoxWorld(t, ev, func(c *ai.Config) {
@@ -131,6 +131,15 @@ func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
 					}
 					p.Body["state"] = map[string]any{"state": business, "images": []string{key}}
 
+				case "quoted-interface":
+					values := make([]struct {
+						Image any `json:"image,string"`
+					}, 65536)
+					for i := range values {
+						values[i].Image = key
+					}
+					p.Body["state"] = map[string]any{"state": values, "images": []string{key}}
+
 				case "embedded":
 					p.Body["state"] = struct{ multimodalBorrowedState }{multimodalBorrowedState{"bounded borrowed content", keys}}
 				}
@@ -154,7 +163,7 @@ func TestMultimodalRuntimeBorrowedReferences(t *testing.T) {
 }
 
 func TestMultimodalRuntimeBorrowedReferenceAccounting(t *testing.T) {
-	for _, shape := range []string{"map", "raw", "typed", "untagged", "tagged-shadow", "ambiguous-omitted", "number", "promoted-name"} {
+	for _, shape := range []string{"map", "raw", "typed", "untagged", "tagged-shadow", "ambiguous-omitted", "number", "promoted-name", "interface-number", "double-pointer"} {
 		for _, mode := range []string{"exact", "count", "expanded"} {
 			t.Run(shape+"/"+mode, func(t *testing.T) {
 				ev := run.Case(t, "UC09-reference-accounting-"+shape+"-"+mode)
@@ -216,6 +225,30 @@ func TestMultimodalRuntimeBorrowedReferenceAccounting(t *testing.T) {
 
 					case "promoted-name":
 						p.Body["state"] = map[string]any{"state": struct{ MultimodalPromotedName }{MultimodalPromotedName{key, "ordinary"}}, "images": []string{key, key}}
+					case "interface-number", "double-pointer":
+						var asset any
+						for _, a := range p.Body["assets"].(map[string]any) {
+							asset = a
+						}
+						key = "424242"
+						p.Body["assets"] = map[string]any{key: asset}
+						var field any
+						if shape == "interface-number" {
+							field = struct {
+								Image string
+								Value any `json:"value,string"`
+							}{key, 424242}
+						} else {
+							n := 424242
+							ptr := &n
+							field = struct {
+								Image string
+								Value **int `json:"value,string"`
+							}{key, &ptr}
+						}
+						p.Body["state"] = map[string]any{"state": field, "images": []string{key, key}}
+						p.Body["questions"].(map[string]any)["exists"].(map[string]any)["instructions"] = []string{"compare", key}
+
 					case "untagged":
 						p.Body["state"] = struct {
 							State struct {

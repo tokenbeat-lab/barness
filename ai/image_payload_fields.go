@@ -12,19 +12,14 @@ type imageJSONField struct {
 	index             []int
 	options           string
 	tagged, ambiguous bool
+	quoted            bool
 }
 
 // Quoted primitives are strings on the JSON boundary, even when their Go
 // values are numeric. Keep this separate from resource-field inspection,
 // which needs the borrowed value itself rather than an encoded content value.
 func (f imageJSONField) quotedString(value reflect.Value, maxBytes int) (string, bool, *Error) {
-	quoted := false
-	for _, option := range strings.Split(f.options, ",") {
-		if option == "string" {
-			quoted = true
-		}
-	}
-	if !quoted {
+	if !f.quoted {
 		return "", false, nil
 	}
 	v, failure := imagePayloadValue(value)
@@ -95,6 +90,21 @@ func imageJSONFields(t reflect.Type) []imageJSONField {
 				name = field.Name
 			}
 			candidate := imageJSONField{name: name, index: index, options: options, tagged: tagged}
+			// encoding/json decides ,string from the declared field type,
+			// dereferencing only one unnamed pointer. Interfaces and further
+			// pointer levels retain their ordinary JSON representation.
+			declared := field.Type
+			if declared.Name() == "" && declared.Kind() == reflect.Pointer {
+				declared = declared.Elem()
+			}
+			for _, option := range strings.Split(options, ",") {
+				if option == "string" {
+					switch declared.Kind() {
+					case reflect.Bool, reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr, reflect.Float32, reflect.Float64, reflect.String:
+						candidate.quoted = true
+					}
+				}
+			}
 			previous, exists := selected[name]
 			if !exists || len(index) < len(previous.index) || (len(index) == len(previous.index) && tagged && !previous.tagged) {
 				selected[name] = candidate
