@@ -26,6 +26,8 @@
 
 - 2026-10-17：[05 已解决](issues/05-glm-responses-history-tools-cache.md)：两型号 Responses 完整历史、独立原生输入转换、工具往返、缓存路由隔离与最终能力/授权 guard 完成；合并07/08后 3,716 公共回归、471 Responses race、335 冻结 Responses 差分 PASS。见[ADR-0034](../../docs/adr/0034-barness-ai-zhipu-responses-boundary.md)与[证据索引](evidence/ticket-05/README.md)。5.3 自身生产 native-history live 仍由11取证，未扩大目录/矩阵声明。
 
+- 2026-10-17：[09 已解决](issues/09-glm-isolation-resource-callbacks.md)：共享 Client 三协议/两型号双租户工具/native/cache 隔离、回调授权/不可变边界及取消/资源释放完成；补齐 Chat 最终能力 guard 与宿主回调 panic 结算。当前359公共E2E/359 race、2,794受影响回归、523补充race及321冻结Chat差分通过；48故障调用回收与六路设计负载、原始RED/INCOMPLETE及校验ZIP见[证据索引](evidence/ticket-09/README.md)。不扩大正式支持声明。
+
 ## Fog
 
 - 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。

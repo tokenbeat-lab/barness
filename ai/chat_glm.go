@@ -64,6 +64,9 @@ func validateChatFinalBody(m Model, raw []byte, authorize func(map[string]any) s
 	if problem := authorize(body); problem != "" {
 		return newError(CodeTenantDenied, PhaseRequest, problem)
 	}
+	if problem := validateGLMChatCapabilities(body); problem != "" {
+		return newError(CodeInvalidRequest, PhaseRequest, problem)
+	}
 	if problem := validateGLMChatThinking(m, body); problem != "" {
 		return newError(CodeInvalidRequest, PhaseRequest, problem)
 	}
