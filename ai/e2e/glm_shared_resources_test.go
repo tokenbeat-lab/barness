@@ -117,7 +117,7 @@ func glmSharedBeforeTerminal(t *testing.T, protocol string) []json.RawMessage {
 	case "chat":
 		events = []string{`{"choices":[],"usage":{"prompt_tokens":12,"completion_tokens":7,"prompt_tokens_details":{"cached_tokens":4},"completion_tokens_details":{"reasoning_tokens":3}}}`, `{"choices":[{"delta":{"content":"known-content"}}]}`}
 	case "messages":
-		events = []string{`{"type":"message_start","message":{"id":"glm09-message","usage":{"input_tokens":0,"output_tokens":0}}}`, `{"type":"message_delta","delta":{},"usage":{"input_tokens":8,"output_tokens":7,"cache_read_input_tokens":4,"cache_creation_input_tokens":0}}`, `{"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}}`, `{"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"known-content"}}`}
+		events = []string{`{"type":"message_start","message":{"id":"glm09-message","usage":{"input_tokens":0,"output_tokens":0}}}`, `{"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}}`, `{"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"known-content"}}`, `{"type":"content_block_stop","index":0}`, `{"type":"message_delta","delta":{"stop_reason":"end_turn"},"usage":{"input_tokens":8,"output_tokens":7,"cache_read_input_tokens":4,"cache_creation_input_tokens":0}}`}
 	case "responses":
 		events = []string{`{"type":"response.output_item.added","output_index":0,"item":{"type":"message","id":"msg09","role":"assistant","content":[]}}`, `{"type":"response.content_part.added","output_index":0,"content_index":0,"part":{"type":"output_text","text":""}}`, `{"type":"response.output_text.delta","output_index":0,"content_index":0,"delta":"known-content"}`}
 	}
@@ -147,7 +147,7 @@ func TestGLMSharedDesignLoad(t *testing.T) {
 	baseline := runtime.NumGoroutine()
 	var before, after runtime.MemStats
 	runtime.ReadMemStats(&before)
-	var peakBytes int
+	var peakBytes, peakFrame, maxArgs, maxEvents, maxEventJSON int
 	for round, model := range []string{"glm-5.3", "glm-5.2"} {
 		held, release := make(chan struct{}, 6), make(chan struct{})
 		var wg sync.WaitGroup
@@ -158,7 +158,8 @@ func TestGLMSharedDesignLoad(t *testing.T) {
 				ev.Fixture(fmt.Sprintf("%s-%s.json", r.name, model), raw)
 				ev.Record("response-"+r.name+model, first)
 				req.Messages = append(req.Messages, ai.UserText(strings.Repeat("p", 1024)))
-				_, total := largestAndTotal(first.Chunks)
+				frame, total := largestAndTotal(first.Chunks)
+				peakFrame = max(peakFrame, frame)
 				peakBytes = max(peakBytes, total)
 				w.provider.EnqueueAt(r.prefix(k), first)
 				wg.Go(func() {
@@ -186,10 +187,33 @@ func TestGLMSharedDesignLoad(t *testing.T) {
 		for _, o := range out {
 			glmSharedRecord(ev, w, o)
 			ev.Check("design-load own protocol succeeds", o.err == nil, "%v", o.err)
+			maxEvents = max(maxEvents, len(o.events))
+			maxEventJSON = max(maxEventJSON, len(mustMarshal(t, eventsJSON(o.events))))
+			for _, b := range o.result.Message.Content {
+				if c, ok := b.(ai.ToolCall); ok {
+					maxArgs = max(maxArgs, len(c.RawArguments))
+				}
+			}
 		}
 	}
 	runtime.ReadMemStats(&after)
 	ev.Record("design-load", map[string]any{"concurrent": 6, "rounds": 2, "models": []string{"glm-5.3", "glm-5.2"}, "promptBytes": 1024, "maxToolArgsBytes": 4096, "maxWireOutputBytes": 32768, "largestObservedWireBytes": peakBytes, "allocatedBytes": after.TotalAlloc - before.TotalAlloc, "heapAfter": after.HeapAlloc, "requestLimit": 1 << 20, "frameLimit": 1 << 16, "outputLimit": 1 << 20, "toolLimit": 1 << 16, "queueEvents": 1024, "queueBytes": 1 << 20, "processConcurrency": 32, "tenantConcurrency": 8, "observedWireOutputFraction": float64(peakBytes) / (1 << 20), "concurrencyFraction": 6.0 / 32})
+	maxRequest := 0
+	for _, q := range w.provider.Requests() {
+		maxRequest = max(maxRequest, len(q.Body))
+	}
+	rooms := map[string]headroom{
+		"MaxRequestBytes": room(int64(maxRequest), 1<<20), "MaxFrameBytes": room(int64(peakFrame), 1<<16),
+		"MaxOutputBytes": room(int64(peakBytes), 1<<20), "MaxToolJSONBytes": room(int64(maxArgs), 1<<16),
+		"MaxQueuedEventsUpperBound": room(int64(maxEvents), 1024), "MaxQueuedEventBytesSerializedUpperBound": room(int64(maxEventJSON), 1<<20),
+		"MaxConcurrentPerTenant": room(3, 8), "MaxConcurrentProcess": room(6, 32),
+		"MaxAdmissionWaiters": room(0, 64), "MaxImageBytes": room(0, 1<<19), "MaxErrorBodyBytes": room(0, 1<<14),
+	}
+	ev.Record("headroom", rooms)
+	for name, h := range rooms {
+		ev.Check("controlled load leaves headroom under "+name, h.Ratio <= 0.5, "%+v", h)
+	}
+	ev.Record("queue-byte-basis", "Serialized complete event snapshots are a conservative bound, not a measurement of internal queue allocation. The success load drains events; separate unread-queue cases enforce both queue limits.")
 	ev.Record("requests", w.provider.Requests())
 	w.released(ev)
 	checkGoroutinesSettle(ev, baseline)
