@@ -23,6 +23,6 @@ Provider 协议能力只自动发送 store=false 和隔离后的缓存路由键�
 
 GLM 自身 Responses 历史在信任降级时保留这份无歧义的关联 ID；账户原生条目、reasoning 与可见内容仍独立遵守既有降级政策。其他来源的整个工具 ID 在 GLM 目标上作为新的调用组件，不使用 OpenAI 的受限字母表，也不猜测来源协议的分隔符；工具结果同步重命名。该取舍由两个型号公共 Client 的实际丢失/碰撞红例驱动，仅改变 GLM 目标，OpenAI/DeepSeek 的既有规范化与冻结差分合同保持。边界字符证据来自官方 schema 的离线合成场景，不冒充已观测的真实厂商 ID；见[专项红绿证据](../../.scratch/barness-ai-glm/evidence/ticket-05-followup-ids/README.md)。
 
-同一公开红例还证明 GLM Responses 来源在跨协议降级时，其他目标的标点替换或 64 字符截断仍可把两个合法调用 ID 合并。因此在转换完整历史前，仅为 GLM Responses 来源检测目标实际 wire call_id 冲突；无冲突的既有转换以及完全没有 GLM 来源的历史保持原规则。确有冲突时使用来自完整不透明 ID 的确定性摘要产生目标字母表内的短关联 ID；若该拼写已被历史占用，则在占用数量限定的数字空间内分配空闲值，沿用既有工具结果重命名。OpenAI Responses 的组合 item ID 不掩盖其 call_id 组件的碰撞。该处理只保证本次完整历史中的关联唯一，不产生可跨账户使用的原生状态或服务端引用。
+同一公开红例还证明 GLM Responses 来源在跨协议降级时，其他目标的标点替换或 64 字符截断仍可把两个合法调用 ID 合并。因此在转换完整历史前，仅为 GLM 来源检测目标实际 wire call_id 冲突或空值；无冲突的既有转换以及完全没有 GLM 来源的历史保持原规则。确有冲突时使用来自完整不透明 ID 的确定性摘要产生目标字母表内的短关联 ID；若该拼写已被历史占用，则在占用数量限定的数字空间内分配空闲值，沿用既有工具结果重命名。OpenAI Responses 的组合 item ID 不掩盖其 call_id 组件的碰撞。单个 GLM Chat 来源的 Unicode 调用 ID 也已通过公共 Client 复现为旧 Responses 规范化后的空字符串，同样得到有效的短关联 ID。该处理只保证本次完整历史中的关联唯一，不产生可跨账户使用的原生状态或服务端引用。
 
 证据与重放见[工单04](../../.scratch/barness-ai-glm/evidence/ticket-04/README.md)和[工单05](../../.scratch/barness-ai-glm/evidence/ticket-05/README.md)；正式目录、价格与独立真实验收由后续票提供。本决策继承 ADR-0014 的无状态完整历史与 Extension Route 边界，保留原有 OpenAI/DeepSeek 字节和差分合同。

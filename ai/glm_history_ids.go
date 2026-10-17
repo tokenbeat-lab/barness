@@ -8,18 +8,18 @@ import (
 	"strings"
 )
 
-// Other protocols retain their existing normalization. Only GLM Responses
+// Other protocols retain their existing normalization. Only GLM
 // source IDs that would collide on the target wire need a local replacement;
 // ordinary GLM histories and every history without this source stay unchanged.
 // Inspect the complete transcript before renaming so calls from separate
 // assistant turns share one collision domain with their matching results.
-func glmResponsesCollisionRules(target Model, messages []Message, rules historyRules) historyRules {
+func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules) historyRules {
 	if rules.normalizeToolCallID == nil || (target.Provider == ProviderZhipu && target.API == APIOpenAIResponses) {
 		return rules
 	}
 	if !slices.ContainsFunc(messages, func(message Message) bool {
 		a, ok := message.(AssistantMessage)
-		return ok && a.Provider == ProviderZhipu && a.API == APIOpenAIResponses
+		return ok && a.Provider == ProviderZhipu
 	}) {
 		return rules
 	}
@@ -60,7 +60,7 @@ func glmResponsesCollisionRules(target Model, messages []Message, rules historyR
 			// overwritten by a replacement assigned to a GLM source call.
 			reserve(call.ID, call.ID)
 			reserve(normalized, call.ID)
-			if assistant.Provider == ProviderZhipu && assistant.API == APIOpenAIResponses {
+			if assistant.Provider == ProviderZhipu {
 				candidates = append(candidates, candidate{call.ID, normalized, assistant})
 			}
 		}
@@ -68,7 +68,7 @@ func glmResponsesCollisionRules(target Model, messages []Message, rules historyR
 	replacements := map[string]string{}
 	slices.SortFunc(candidates, func(a, b candidate) int { return strings.Compare(a.id, b.id) })
 	for _, c := range candidates {
-		if !collisions[wireID(c.normalized)] {
+		if wireID(c.normalized) != "" && !collisions[wireID(c.normalized)] {
 			continue
 		}
 		if _, done := replacements[c.id]; done {
@@ -94,7 +94,7 @@ func glmResponsesCollisionRules(target Model, messages []Message, rules historyR
 		return rules
 	}
 	rules.normalizeToolCallID = func(id string, source AssistantMessage) string {
-		if source.Provider == ProviderZhipu && source.API == APIOpenAIResponses {
+		if source.Provider == ProviderZhipu {
 			if replacement, ok := replacements[id]; ok {
 				return replacement
 			}
