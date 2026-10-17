@@ -28,6 +28,7 @@ type chatBody struct {
 	Temperature         Nullable[float64] `json:"temperature,omitzero"`
 	Tools               *[]chatTool       `json:"tools,omitempty"`
 	ToolChoice          *ChatToolChoice   `json:"tool_choice,omitempty"`
+	ToolStream          bool              `json:"tool_stream,omitempty"`
 	Thinking            *chatThinking     `json:"thinking,omitempty"`
 	ReasoningEffort     string            `json:"reasoning_effort,omitempty"`
 }
@@ -145,6 +146,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 			}
 		}
 		body.Tools = &tools
+		body.ToolStream = compat.toolStream
 	case history.toolHistory:
 		// pi declares an empty tool list for a history with tool calls or
 		// results, which some proxies require.
@@ -155,7 +157,11 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	if err != nil {
 		return nil, err
 	}
-	return applyModelSamplingParams(out, model, opts.ReasoningEffort, opts.SamplingParams)
+	out, err = applyModelSamplingParams(out, model, opts.ReasoningEffort, opts.SamplingParams)
+	if err == nil && model.Provider == ProviderZhipu {
+		out, err = preserveGLMChatSamplingBudget(out, model, opts)
+	}
+	return out, err
 }
 
 // chatMessages ports pi's convertMessages for the prepared history.

@@ -33,6 +33,8 @@ type chatCompat struct {
 	// preserveThinkingDefault omits the switch when no effort was selected,
 	// retaining this provider's default rather than forcing thinking off.
 	preserveThinkingDefault bool
+	// toolStream requests incremental function arguments for declared tools.
+	toolStream bool
 	// reasoningContentOnAssistant: every replayed assistant message of a
 	// reasoning model carries reasoning_content, empty when the turn
 	// streamed none (pi's requiresReasoningContentOnAssistantMessages).
@@ -50,7 +52,7 @@ func chatCompatOf(p ProviderID) chatCompat {
 		return chatCompat{streamUsage: true, promptCache: true, maxTokens: true, thinkingToggle: true, reasoningContentOnAssistant: true}
 	}
 	if p == ProviderZhipu {
-		return chatCompat{maxTokens: true, thinkingToggle: true, preserveThinkingDefault: true}
+		return chatCompat{maxTokens: true, thinkingToggle: true, preserveThinkingDefault: true, toolStream: true}
 	}
 	return chatCompat{streamUsage: true, promptCache: true, store: true, developerRole: true}
 }
