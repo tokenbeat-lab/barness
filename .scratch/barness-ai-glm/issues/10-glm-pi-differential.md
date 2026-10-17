@@ -1,6 +1,6 @@
 # 10: 固定 GLM 的 pi 差分与扩展边界
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。

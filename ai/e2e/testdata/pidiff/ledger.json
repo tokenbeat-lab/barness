@@ -339,6 +339,27 @@
     "classification": "extension",
     "decision": "Native synchronous Images generation (and issue 10 JSON editing) uses an independently bounded unary route; frozen pi 1.0.0 routes OpenRouter images only. P08 fixtures explicitly skip pi differential and are never counted as a differential pass.",
     "ref": "docs/adr/0022-barness-ai-openai-images-unary.md"
-  }
+  },
+{
+  "provider": "zhipu",
+  "api": "openai-completions",
+  "classification": "extension",
+  "decision": "China standard chat (https://open.bigmodel.cn/api/paas/v4), both glm-5.3/glm-5.2: frozen pi-ai 1.1.0 has neither zhipu identity nor this standard endpoint. zai international Coding and zai-coding-cn China Coding are different services. Own official/observed fixtures and public Client cases prove the bounded extension; never counted as native pi differential PASS. Formal catalog/live remain tickets11/12.",
+  "ref": "spec R20/T01/A14; ADR-0014; ai/e2e/testdata/glm-pidiff/README.md; .scratch/barness-ai-glm/evidence/ticket-10/README.md"
+},
+{
+  "provider": "zhipu",
+  "api": "openai-responses",
+  "classification": "extension",
+  "decision": "China standard responses (https://open.bigmodel.cn/api/v1), both glm-5.3/glm-5.2: frozen pi-ai 1.1.0 has neither zhipu identity nor this standard endpoint. zai international Coding and zai-coding-cn China Coding are different services. Own official/observed fixtures and public Client cases prove the bounded extension; never counted as native pi differential PASS. Formal catalog/live remain tickets11/12.",
+  "ref": "spec R20/T01/A14; ADR-0014; ai/e2e/testdata/glm-pidiff/README.md; .scratch/barness-ai-glm/evidence/ticket-10/README.md"
+},
+{
+  "provider": "zhipu",
+  "api": "anthropic-messages",
+  "classification": "extension",
+  "decision": "China standard messages (https://open.bigmodel.cn/api/anthropic), both glm-5.3/glm-5.2: frozen pi-ai 1.1.0 has neither zhipu identity nor this standard endpoint. zai international Coding and zai-coding-cn China Coding are different services. Own official/observed fixtures and public Client cases prove the bounded extension; never counted as native pi differential PASS. Formal catalog/live remain tickets11/12.",
+  "ref": "spec R20/T01/A14; ADR-0014; ai/e2e/testdata/glm-pidiff/README.md; .scratch/barness-ai-glm/evidence/ticket-10/README.md"
+}
 ]
 }

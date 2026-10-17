@@ -1,0 +1,65 @@
+{
+  "url": "https://docs.bigmodel.cn/openapi/openapi.json",
+  "retrieved": "2026-10-17",
+  "sha256": "e1867cd1a7e31b15cc9088b03d8c1361e275153a1334b9e9e3bea95f4c623dd9",
+  "selectors": [
+    "#/components/schemas/ChatThinking",
+    "#/components/schemas/ChatCompletionTextRequest"
+  ],
+  "excerpts": {
+    "ChatThinking": {
+      "type": "object",
+      "description": "仅 `GLM-4.5` 及以上模型支持此参数配置. 控制大模型是否开启思维链。",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "是否开启思维链(`GLM-5.3` `GLM-5.3-FLASH`系列限制只能开启，由 `reasoning_effort` 控制思考强度。其它模型当开启后 `GLM-5.2` `GLM-5.1` `GLM-5` `GLM-5-Turbo` `GLM-5v-Turbo` `GLM-4.6` `GLM-4.6V` `GLM-4.5` 为模型自动判断是否思考，`GLM-4.7` `GLM-4.5V` 为强制思考), 默认: `enabled`.",
+          "default": "enabled",
+          "enum": [
+            "enabled",
+            "disabled"
+          ]
+        },
+        "clear_thinking": {
+          "type": "boolean",
+          "description": "默认为 `True`。用于控制是否清除历史对话轮次（`previous turns`）中的 `reasoning_content`。详见 [思考模式](/cn/guide/capabilities/thinking-mode) \n - `true`（默认）：在本次请求中，系统会忽略/移除历史 `turns` 的 `reasoning_content`，仅使用非推理内容（如用户/助手可见文本、工具调用与结果等）作为上下文输入。适用于普通对话与轻量任务，可降低上下文长度与成本 \n - `false`：保留历史 `turns` 的 `reasoning_content` 并随上下文一同提供给模型。若你希望启用 `Preserved Thinking`，必须在 `messages` 中完整、未修改、按原顺序透传历史 `reasoning_content`；缺失、裁剪、改写或重排会导致效果下降或无法生效。\n - 注意：该参数只影响跨 `turn` 的历史 `thinking blocks`；不改变模型在当前 `turn` 内是否产生/输出 `thinking`",
+          "default": true,
+          "example": true
+        }
+      }
+    },
+    "ChatCompletionTextRequest": {
+      "type": "object",
+      "properties": {
+        "thinking": {
+          "$ref": "#/components/schemas/ChatThinking"
+        },
+        "tool_choice": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "auto"
+              ],
+              "description": "用于控制模型选择调用哪个函数的方式，仅在工具类型为`function`时补充。默认`auto`且仅支持`auto`。"
+            }
+          ],
+          "description": "控制模型如何选择工具。"
+        },
+        "tool_stream": {
+          "type": "boolean",
+          "example": false,
+          "default": false,
+          "description": "是否开启流式响应`Function Calls`，仅限`GLM-5.3` `GLM-5.2` `GLM-5.1` `GLM-5` `GLM-5-Turbo` `GLM-4.7` `GLM-4.6`系列支持此参数，默认值`false`。参考 [工具流式输出](/cn/guide/capabilities/stream-tool)"
+        },
+        "max_tokens": {
+          "type": "integer",
+          "description": "模型输出的最大令牌`token`数量限制。`GLM-5.3` `GLM-5.2` `GLM-5.1` `GLM-5` `GLM-4.7` `GLM-4.6`系列最大支持`128K`输出长度，`GLM-4.5`系列最大支持`96K`输出长度，建议设置不小于`1024`。令牌是文本的基本单位，通常`1`个令牌约等于`0.75`个英文单词或`1.5`个中文字符。设置合适的`max_tokens`可以控制响应长度和成本，避免过长的输出。如果模型在达到`max_tokens`限制前完成回答，会自然结束；如果达到限制，输出可能被截断。\n默认值和最大值等更多详见 [max_tokens 文档](/cn/guide/start/concept-param#max_tokens)",
+          "example": 1024,
+          "minimum": 1,
+          "maximum": 131072
+        }
+      }
+    }
+  }
+}
