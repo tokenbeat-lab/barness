@@ -83,6 +83,53 @@ def commands(base, initial=False):
     return rows
 
 
+def producers(base, initial=False):
+    expected = {r.bundle(base/'live'/name) for name,_,_,_ in r.ROUTES}
+    expected.add(r.bundle(base/'text-luna'))
+    if not initial:
+        expected.update(r.bundle(base/name) for name in ('protocol113','protocol114','text-jev','gate/offline','gate/race'))
+    actual = {p.parent for pattern in ('live/*/*/manifest.json','protocol11?/*/manifest.json',
+        'text-*/*/manifest.json','gate/offline/*/manifest.json','gate/race/*/manifest.json') for p in base.glob(pattern)}
+    visuals = {'visual-decisions'} if initial else {'visual-decisions','visual-jev'}
+    if actual!=expected or {p.parent.name for p in base.glob('visual-*/manifest.json')}!=visuals:
+        raise ValueError('mandatory producer/effect stage coverage differs')
+    return sorted(expected)
+
+
+def consumption(base, full=False):
+    caps = recovery.CAPS if full else r.CAPS
+    summary = b.doc(base/('consumption-all.json' if full else 'consumption.json'))
+    rows = {row['name']:row for row in summary['routes']}
+    if len(rows)!=len(summary['routes']) or set(rows)!=set(caps):
+        raise ValueError('budget route set differs')
+    calls,attempts = 0,0
+    for name,cap in caps.items():
+        if name.startswith('visual-'):
+            path = base/name/'report.json'
+        elif name.startswith('text-'):
+            path = r.bundle(base/name)/'evaluation-report.json'
+        elif name=='protocol114':
+            path = r.bundle(base/name)/'multimodal-report.json'
+        else:
+            path = r.bundle(base/(name if name=='protocol113' else 'live/'+name))/'live-report.json'
+        budget = b.doc(path)['budget']
+        if name=='protocol114':
+            budget = budget['actual']
+        count,tries = ((budget['calls'],budget['attempts']) if name.startswith(('text-','visual-')) or name=='protocol114'
+            else (budget['callsUsed'],budget['httpAttempts']))
+        row = rows[name]
+        if (not 0<=count<=cap or not 0<=tries<=cap or row.get('actual')=='UNKNOWN' or row['maxCalls']!=cap
+                or row['calls']!=count or row['attempts']!=tries
+                or row['conservativeCalls']!=count or row['conservativeAttempts']!=tries):
+            raise ValueError('raw actual component consumption differs')
+        calls,attempts = calls+count,attempts+tries
+    total = dict(calls=calls,attempts=attempts,conservativeCalls=calls,conservativeAttempts=attempts,
+        maxCalls=sum(caps.values()),maxAttempts=sum(caps.values()))
+    if summary['total']!=total:
+        raise ValueError('actual budget summary sum differs')
+    return summary
+
+
 def current_results(base):
     report = b.doc(base/'gate/release-report.json')
     if (not report['pass'] or any(not gate['pass'] for gate in report['gates'])
@@ -91,12 +138,18 @@ def current_results(base):
         raise ValueError('complete actual release PASS missing')
     if not b.doc(base/'live-summary.json')['allCommandsSucceeded']:
         raise ValueError('real producer failed')
-    budgets = b.doc(base/'consumption-all.json')
-    if {row['name']:row['maxCalls'] for row in budgets['routes']}!=recovery.CAPS:
-        raise ValueError('finite route envelope changed')
-    if any(row.get('actual')=='UNKNOWN' for row in budgets['routes']):
-        raise ValueError('actual consumption unknown')
-    initial = b.doc(INITIAL/'consumption.json')['total']
+    producers(base)
+    producers(INITIAL,True)
+    for stage in ('offline','race'):
+        path = r.bundle(base/'gate'/stage)
+        if b.bundle(path)['cases']!={'PASS':9098}:
+            raise ValueError('actual complete normal/race manifest failed')
+        cases = b.doc(path/'manifest.json')['cases']
+        if (sum(c['id'].startswith('PIDIFF-') for c in cases)!=861
+                or sum(c['id'].startswith('UC14-') for c in cases)!=33):
+            raise ValueError('Pi or public image acceptance coverage differs')
+    budgets = consumption(base,True)
+    initial = consumption(INITIAL)['total']
     task = b.doc(base/'task-consumption.json')
     for key in ('calls','attempts','conservativeCalls','conservativeAttempts'):
         if task[key]!=initial[key]+budgets['total'][key] or not 0<=task[key]<=550:
@@ -152,9 +205,7 @@ def record(base):
     receipt['initialVerdict'] = dict(accepting=False,realConsumption=b.doc(INITIAL/'consumption.json'),
         decisionsFailure='optional direct proxy rejected before any HTTP')
     for root in (base,INITIAL):
-        producers = {p.parent for pattern in ('live/*/*/manifest.json','protocol11?/*/manifest.json',
-            'text-*/*/manifest.json','gate/offline/*/manifest.json','gate/race/*/manifest.json') for p in root.glob(pattern)}
-        for producer in sorted(producers):
+        for producer in producers(root,root==INITIAL):
             receipt['runs'].append(b.bundle(producer))
         for path in sorted(root.glob('visual-*/manifest.json')):
             receipt['inventories'].append(b.visual_bundle(path.parent))
@@ -197,6 +248,10 @@ def record(base):
         receipt['files'][b.relative(path)] = b.sha(path)
     for name in ('ai/live/support-matrix.json','ai/release/classifier-extensions.json',
         'ai/internal/testkit/release/testdata/multimodal-load.json','ai/e2e/testdata/pidiff/ledger.json',
+        'ai/internal/testkit/pioracle/node/package-lock.json','ai/internal/testkit/pioracle/node/runner.mjs',
+        'ai/internal/testkit/pioracle/node/package.json','ai/internal/testkit/pioracle/node/provenance.json',
+        'ai/internal/testkit/pioracle/node/model-data.sha256','ai/live/testdata/jev-formal/sources.json',
+        '.scratch/jev-1.14-multimodal-box/verify-11-evidence.py',
         '.scratch/jev-1.14-multimodal-box/issues/14-current-catalog-release-integration.md',
         '.scratch/jev-1.14-multimodal-box/14-live-authorization-checklist.md',
         '.scratch/barness-ai-release-verification/issues/04-decisions-direct-transport.md',
@@ -219,7 +274,8 @@ def verify():
     base = ROOT/receipt['base']
     if sorted(b.relative(p) for p in (ROOT/'ai').rglob('*.go'))!=receipt['sourcePaths']:
         raise ValueError('current complete source set drift')
-    if current_results(base)!=receipt['current'] or commands(base)!=receipt['commands'] or commands(INITIAL,True)!=receipt['initialCommands']:
+    if (json.loads(json.dumps(current_results(base)))!=receipt['current']
+            or commands(base)!=receipt['commands'] or commands(INITIAL,True)!=receipt['initialCommands']):
         raise ValueError('actual result/command drift')
     if historic_source(INITIAL)!=receipt['historicalSources'][0]:
         raise ValueError('initial historical source drift')

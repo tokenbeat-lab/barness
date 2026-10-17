@@ -1,6 +1,6 @@
 # 14：完成当前目录下的整体发布验收与追溯
 
-Status: needs-info
+Status: claimed
 
 **What to build:** 维护者取得当前目录/源码下完整且可追溯的验收结论，能明确区分本功能完成、历史阻断和是否可整体发布。
 
@@ -94,3 +94,12 @@ UC13矩阵历史续修03按自身验收关闭；原#07以resolved当前快照通
 实际发布报告pass=false、CLI退出1，剩余live/traceability/required-artifacts三项阻断均来自
 未获授权的其他9条真实支持和中文Luna/正式视觉Decisions两项效果。TypeSafe本轮缺口已验证，
 本票继续needs-info，两项整体验收保持未勾选，不更新父规格/ADR完成状态、不部署。
+
+2026-10-17 新授权：用户允许按根`.env`现有Provider key执行剩余9路线和2项效果直到
+整票通过，只报告变量名。`OPENAI_KEY`、`ANTHROPIC_KEY`、`GEMINI_KEY`、
+`DEEPSEEK_KEY`、`TYPESAFE_KEY`可用；账户/区域/厂商权限仍UNVERIFIED，金额硬限未知。
+本轮初248、最多一次修复后全量302恢复、合计550 Calls/Attempts上限。
+初轮实际120次、零重试：8支持及2效果完成；Decisions可选空代理配置缺陷0调用FAIL，
+由续修04按三个公开进程E2E先RED后修复，实际旧失败保持原样。
+当前本票进入claimed，已固定恢复源码并先跑无凭据harness；仅在全部当前真实/效果、
+清单审计及完整发布门禁通过后完成剩余两项验收。详见`../14-remaining-real/authorization.md`。
