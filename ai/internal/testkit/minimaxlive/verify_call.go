@@ -86,7 +86,7 @@ func verifyCall(dir string, r Report, c Call, p Case) error {
 		return e
 	}
 	models, usage := RawFacts(ex[0].ResponseBody)
-	if !reflect.DeepEqual(models, c.RawModels) || !JSONEqual(usage, c.UsagePresence) || len(models) == 0 && c.ID != "cancel" {
+	if !reflect.DeepEqual(models, c.RawModels) || !JSONEqual(usage, c.UsagePresence) || len(models) == 0 && c.ID != "cancel" && c.Failure != "transient-request" {
 		return fmt.Errorf("MiniMax raw model/usage proof differs")
 	}
 	for _, model := range models {
@@ -98,6 +98,9 @@ func verifyCall(dir string, r Report, c Call, p Case) error {
 		return e
 	}
 	a := meta.Attempts[0]
+	if a.Usage.CacheWrite > 0 {
+		return fmt.Errorf("MiniMax cache-write pricing unverified; promotion/certification refused")
+	}
 	if a.Usage.Input+a.Usage.CacheRead+a.Usage.CacheWrite > int64(c.Reservation.Input) {
 		return fmt.Errorf("MiniMax actual known input exceeds reservation")
 	}
@@ -150,6 +153,12 @@ func verifyCall(dir string, r Report, c Call, p Case) error {
 	}
 	if req[field] != float64(p.Output) {
 		return fmt.Errorf("MiniMax actual requested output differs")
+	}
+	if c.Failure == "transient-request" {
+		if c.Outcome != "FAIL" || c.Rerun != 0 || !RequestRerunnable(result, events, ex[0].Status) {
+			return fmt.Errorf("MiniMax invalid transient request rerun")
+		}
+		return nil
 	}
 	stop := result.Result.Message.StopReason
 	if c.ID == "cancel" {

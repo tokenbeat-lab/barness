@@ -32,6 +32,11 @@ func captureMiniMaxLedger() error {
 			return os.ErrInvalid
 		}
 		base := filepath.Join(filepath.Dir(run.Dir()), receipt.Session)
+		if _, e := os.Lstat(base); os.IsNotExist(e) {
+			if root := os.Getenv("BARNESS_MINIMAX_PREDECESSOR_ROOT"); root != "" {
+				base = filepath.Join(root, receipt.Session)
+			}
+		}
 		files, e := minimaxlive.Inventory(base)
 		if e != nil {
 			return e

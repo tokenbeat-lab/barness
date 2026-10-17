@@ -167,3 +167,13 @@ func (p *chatParser) validateMiniMaxReasoning(delta chatDelta) string {
 	}
 	return ""
 }
+
+// Empty final argument text is the existing no-arguments convention. Partial
+// display repair never proves a MiniMax executable tool call.
+func miniMaxToolArgumentsComplete(raw string) bool {
+	if raw == "" {
+		return true
+	}
+	var object map[string]json.RawMessage
+	return json.Unmarshal([]byte(raw), &object) == nil && object != nil
+}

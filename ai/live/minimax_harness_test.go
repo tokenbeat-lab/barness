@@ -23,12 +23,13 @@ func TestMiniMaxFormal(t *testing.T)    { driveMiniMax(t) }
 func TestMiniMaxReplay(t *testing.T)    { driveMiniMax(t) }
 
 type minimaxSession struct {
-	client      *ai.Client
-	rec         *recorder
-	gate        *minimaxHTTPGate
-	ctx         context.Context
-	tool        ai.Result
-	toolRequest ai.Request
+	client        *ai.Client
+	rec           *recorder
+	gate          *minimaxHTTPGate
+	ctx           context.Context
+	tool          ai.Result
+	toolRequest   ai.Request
+	requestReruns int
 }
 
 func driveMiniMax(t *testing.T) {
@@ -109,11 +110,11 @@ func driveMiniMax(t *testing.T) {
 		}
 	}
 	r.Outcome = "PASS"
-	if t.Failed() || len(r.Calls) < len(r.Expected) || len(r.Calls) > len(r.Expected)+1 {
+	if t.Failed() || len(r.Calls) < len(r.Expected) || len(r.Calls) > len(r.Expected)+1+minimaxlive.MaxRequestReruns {
 		r.Outcome = "FAIL"
 	}
 	for i, c := range r.Calls {
-		if c.Outcome != "PASS" && !(c.ID == "tool-call" && c.Rerun == 0 && i+1 < len(r.Calls) && r.Calls[i+1].ID == c.ID && r.Calls[i+1].Rerun == 1 && r.Calls[i+1].Outcome == "PASS") {
+		if c.Outcome != "PASS" && !minimaxlive.Recovered(r.Calls, i) {
 			r.Outcome = "FAIL"
 		}
 	}
@@ -346,6 +347,18 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	res := capture.Result
 	cs.Check("exact identity snapshot", res.Metadata.ProviderID == ai.ProviderMiniMaxCN && res.Metadata.API == minimaxReport.Identity.API && res.Metadata.ModelID == minimaxReport.Identity.Model && res.Metadata.CatalogHash == minimaxReport.CatalogHash, "identity mismatch")
 	cs.Check("body and Observer resources settled", s.gate.active.Load() == 0 && s.client.ObserverStats().Dropped == 0 && s.client.ObserverStats().Failed == 0, "resource not settled")
+	if rerun == 0 && minimaxReport.Kind != "minimax-research-only" && s.requestReruns < minimaxlive.MaxRequestReruns && minimaxlive.RequestRerunnable(capture, events, ex[0].Status) {
+		for _, x := range ex {
+			cs.Check("bounded initial request failure capture", !x.Truncated, "truncated")
+			cs.Fixture("request.json", []byte(x.RequestBody))
+			cs.Fixture("response.sse", []byte(x.ResponseBody))
+			out.RawModels, out.UsagePresence = minimaxlive.RawFacts(x.ResponseBody)
+		}
+		s.requestReruns++
+		out.Failure = "transient-request"
+		cs.Record("request-rerun", map[string]any{"outcome": "FAIL", "reason": "initial transient REQUEST only; no successful stream response", "ordinal": s.requestReruns, "limit": minimaxlive.MaxRequestReruns})
+		return true
+	}
 	for _, x := range ex {
 		cs.Check("complete bounded capture", !x.Truncated, "truncated")
 		cs.Fixture("request.json", []byte(x.RequestBody))
@@ -397,6 +410,7 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 				}
 			}
 			if tools == 0 || thoughts == 0 || res.Message.StopReason != ai.StopReasonToolUse {
+				out.Failure = "tool-capability"
 				cs.Record("incomplete-capability", map[string]any{"tools": tools, "thoughts": thoughts, "stop": res.Message.StopReason, "outcome": "FAIL", "note": "only tool-call can rerun once in the same ledger"})
 				if rerun > 0 {
 					cs.Check("own tool and reasoning coexist after allowed rerun", false, "tools=%d thoughts=%d stop=%s", tools, thoughts, res.Message.StopReason)

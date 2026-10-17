@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
@@ -11,6 +12,9 @@ import (
 )
 
 func verifyLiveManifest(dir string, r supportmatrix.Report) error {
+	if strings.HasPrefix(r.Combo, "minimax-cn-") {
+		return supportmatrix.VerifyMiniMaxReport(r)
+	}
 	if len(supportmatrix.GLMExpected(r.Combo)) > 0 {
 		return supportmatrix.VerifyGLMReport(r)
 	}

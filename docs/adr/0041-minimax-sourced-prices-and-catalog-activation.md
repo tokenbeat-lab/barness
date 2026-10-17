@@ -27,3 +27,16 @@ M3 中国区标准按量的三个协议身份采用独立固定快照。人民�
 
 [规格R06/R18/R25–R28](../../.scratch/barness-ai-minimax/spec.md)、
 [工单10](../../.scratch/barness-ai-minimax/issues/10-formal-catalog-support.md)。
+
+晋升工具以磁盘上的精确未激活快照为比较基准，并持有独占、崩溃后保留的激活锁；同一个
+预编译二进制不能凭自身旧的嵌入状态重写已激活或被编辑的文件。正自动写入按实际命中的
+输入侧阶梯判断缺价；明确正1h写入保留计数并失败，不能借用Anthropic的2×Input估价。
+
+实际来源是独立边界。子进程只执行结构自检；可信父启动器在固定live命令成功、精确源码
+守卫和凭据审计通过后，将原报告、seal、ledger及源码/二进制/计划pin写入common-Git的
+独立凭据。实际模式导入、目录晋升和正式投影必须验证它及canonical ledger前缀。正式投影
+由退出后的无凭据消费者发布，避免自检与来源证明相互依赖。把controlled/replay的mode和
+manifest一起改为live并重封存不能产生有效来源。可移植归档仅可使用仓库维护的
+ai/live/testdata/minimax-formal/origins.json索引；随归档提供的索引没有信任权。该索引是
+验证器数据，生成过程不读它，明确排除在生成源码适用性集合外；只从已成功的可信外部
+启动凭据导入，保留报告/seal原字节，在旧路线/Jev严格冻结前完成归档选择器更新。

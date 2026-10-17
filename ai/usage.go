@@ -15,8 +15,9 @@ type Usage struct {
 	CacheRead  int64 `json:"cacheRead"`
 	CacheWrite int64 `json:"cacheWrite"`
 	// CacheWrite1h is the part of CacheWrite written with a one-hour
-	// lifetime, which costs twice the input rate. Only protocols that report
-	// it set it; Responses never does.
+	// lifetime. Native Anthropic prices it at twice the input rate. MiniMax
+	// retains an explicit positive count and refuses success because its
+	// rate is unverified. Responses never reports this detail.
 	CacheWrite1h Nullable[int64] `json:"cacheWrite1h,omitzero"`
 	// Reasoning is the part of Output spent on reasoning: already counted in
 	// Output and TotalTokens, never added again. Chat prices it as output
@@ -114,14 +115,7 @@ func (r CostRates) list() []float64 { return []float64{r.Input, r.Output, r.Cach
 // otherwise fuse a multiply and a later add, even across statements, which
 // rounds once and can differ in the last bit.
 func (c ModelCost) estimate(u Usage) UsageCost {
-	rates := c.CostRates
-	inputTokens := u.Input + u.CacheRead + u.CacheWrite
-	matched := int64(-1)
-	for _, t := range c.Tiers {
-		if inputTokens > t.InputTokensAbove && t.InputTokensAbove > matched {
-			rates, matched = t.CostRates, t.InputTokensAbove
-		}
-	}
+	rates := c.ratesForUsage(u)
 	// Anthropic charges twice the base input rate for one-hour cache writes.
 	long, _ := u.CacheWrite1h.Get()
 	short := u.CacheWrite - long
@@ -143,4 +137,18 @@ func (c UsageCost) scaled(m float64) UsageCost {
 	c.CacheWrite = float64(c.CacheWrite * m)
 	c.Total = c.Input + c.Output + c.CacheRead + c.CacheWrite
 	return c
+}
+
+// ratesForUsage keeps pricing and provider-specific admissibility on the same
+// actually selected input-side tier.
+func (c ModelCost) ratesForUsage(u Usage) CostRates {
+	rates := c.CostRates
+	inputTokens := u.Input + u.CacheRead + u.CacheWrite
+	matched := int64(-1)
+	for _, t := range c.Tiers {
+		if inputTokens > t.InputTokensAbove && t.InputTokensAbove > matched {
+			rates, matched = t.CostRates, t.InputTokensAbove
+		}
+	}
+	return rates
 }

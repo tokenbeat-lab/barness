@@ -214,6 +214,11 @@ func (s *miniMaxResponsesState) validateFunctionIdentity(key responsesIndex, raw
 	if prior, ok := s.functions[key]; ok && prior != identity {
 		return errors.New("MiniMax function identity changed")
 	}
+	for other, prior := range s.functions {
+		if other != key && prior.CallID == identity.CallID {
+			return errors.New("MiniMax function call id is duplicated")
+		}
+	}
 	s.functions[key] = identity
 	return nil
 }

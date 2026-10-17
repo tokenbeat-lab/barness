@@ -62,7 +62,7 @@ func VerifyLedger(dir string, r Report) error {
 			}
 			caseCount[caseKey]++
 			limit := 1
-			if receipt.Case == "tool-call" {
+			if RerunnableCase(receipt.Case) {
 				limit = 2
 			}
 			if caseCount[caseKey] > limit {

@@ -3,6 +3,7 @@ package minimaxlive
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -17,7 +18,7 @@ func verifyArtifacts(dir string, r Report, files map[string]string) error {
 		cases[c.CaseID] = true
 	}
 	allowed := map[string]bool{}
-	for _, s := range []string{"public-request.json", "options.json", "plan.json", "budget-before.json", "result.json", "events.json", "observations.json", "exchanges.json", "metrics.json", "budget-after.json", "request.json", "response.sse", "assertions.json", "incomplete-capability.json"} {
+	for _, s := range []string{"public-request.json", "options.json", "plan.json", "budget-before.json", "result.json", "events.json", "observations.json", "exchanges.json", "metrics.json", "budget-after.json", "request.json", "response.sse", "assertions.json", "incomplete-capability.json", "request-rerun.json"} {
 		allowed[s] = true
 	}
 	for name := range files {
@@ -29,8 +30,16 @@ func verifyArtifacts(dir string, r Report, files map[string]string) error {
 			return fmt.Errorf("unexpected MiniMax artifact")
 		}
 	}
-	entries, e := os.ReadDir(dir)
+	f, e := os.Open(dir)
 	if e != nil {
+		return e
+	}
+	defer f.Close()
+	entries, e := f.ReadDir(1025)
+	if len(entries) > 1024 {
+		return fmt.Errorf("excessive artifact entries")
+	}
+	if e != nil && e != io.EOF {
 		return e
 	}
 	for _, entry := range entries {
@@ -69,7 +78,7 @@ func verifyEvents(events []json.RawMessage, c Call, result Capture) error {
 		if json.Unmarshal(raw, &event) != nil || event.Envelope.Call.RequestID != c.RequestID {
 			return fmt.Errorf("MiniMax event attribution differs")
 		}
-		if i == 0 && event.Type != ai.EventStart {
+		if i == 0 && event.Type != ai.EventStart && !(c.Failure == "transient-request" && len(events) == 1 && event.Type == ai.EventError) {
 			return fmt.Errorf("MiniMax start event absent")
 		}
 		if event.Type == ai.EventDone || event.Type == ai.EventError {

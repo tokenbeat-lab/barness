@@ -66,6 +66,7 @@ type chatCall struct {
 	indexed bool
 	index   float64
 	id      string
+	name    string
 }
 
 func newChatParser(out *assembler, model Model, usage chatUsage, failures chatFailures, attempt *initialRequest) *chatParser {
@@ -98,13 +99,15 @@ func (p *chatParser) read(ctx context.Context, dec ssestream.Decoder) *Error {
 	if ctx.Err() != nil {
 		// openai-node ends an aborted stream quietly; pi closes the blocks
 		// and then reports the abort.
-		p.closeBlocks()
+		_ = p.closeBlocks()
 		return interrupted(ctx, PhaseStream, msgChatAborted)
 	}
 	if err := dec.Err(); err != nil {
 		return p.fail(bodyReadFailure(err, msgChatConnectionLost))
 	}
-	p.closeBlocks()
+	if failure := p.closeBlocks(); failure != nil {
+		return p.fail(failure)
+	}
 	return p.settle()
 }
 
@@ -335,7 +338,7 @@ func (p *chatParser) toolCalls(raw json.RawMessage) *Error {
 		k := p.findCall(indexed, index, id)
 		if p.model.Provider == ProviderMiniMaxCN && k >= 0 {
 			previous := p.calls[k]
-			if (id != "" && previous.id != "" && id != previous.id) || (indexed && previous.indexed && index != previous.index) {
+			if (id != "" && previous.id != "" && id != previous.id) || (indexed && previous.indexed && index != previous.index) || (name != "" && previous.name != "" && name != previous.name) {
 				return newError(CodeProtocol, PhaseStream, "MiniMax tool call has conflicting index and id")
 			}
 		}
@@ -352,6 +355,9 @@ func (p *chatParser) toolCalls(raw json.RawMessage) *Error {
 		if id != "" {
 			p.byID[id] = k
 			call.id = id
+		}
+		if name != "" && call.name == "" {
+			call.name = name
 		}
 		p.out.fillToolCallIdentity(call.block, id, name)
 		if args != "" && !p.out.fitsToolJSON(call.raw.Len()+len(args)) {
@@ -377,7 +383,14 @@ func (p *chatParser) findCall(indexed bool, index float64, id string) int {
 // closeBlocks is pi's finishBlock for every block, in content order: the
 // thinking block takes the streamed details as its signature, a tool call
 // its final argument parse.
-func (p *chatParser) closeBlocks() {
+func (p *chatParser) closeBlocks() *Error {
+	if p.model.Provider == ProviderMiniMaxCN && p.stop == StopReasonToolUse {
+		for _, c := range p.calls {
+			if c.id == "" || c.name == "" || !miniMaxToolArgumentsComplete(c.raw.String()) {
+				return newError(CodeProtocol, PhaseStream, "MiniMax tool call is incomplete or unpairable")
+			}
+		}
+	}
 	for i := range p.out.blockCount() {
 		switch {
 		case i == p.text:
@@ -391,9 +404,12 @@ func (p *chatParser) closeBlocks() {
 		default:
 			for _, c := range p.calls {
 				if c.block == i {
-					p.out.toolCallEnd(i, c.raw.String())
+					if p.model.Provider != ProviderMiniMaxCN || miniMaxToolArgumentsComplete(c.raw.String()) {
+						p.out.toolCallEnd(i, c.raw.String())
+					}
 				}
 			}
 		}
 	}
+	return nil
 }

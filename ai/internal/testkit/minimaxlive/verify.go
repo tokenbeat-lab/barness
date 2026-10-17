@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimax"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -25,9 +24,9 @@ func Load(dir string) (Report, error) {
 	return r, e
 }
 
-// Verify recomputes exact files, source set, finite plan and business capture
+// VerifyCapture recomputes exact files, source set, finite plan and business capture
 // facts. formal=true additionally requires actual live + exact built-in M3.
-func Verify(dir string, formal bool) (Report, error) {
+func VerifyCapture(dir string, formal bool) (Report, error) {
 	r, e := Load(dir)
 	if e != nil {
 		return r, e
@@ -70,7 +69,7 @@ func Verify(dir string, formal bool) (Report, error) {
 	if r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.FinishedAt.Sub(r.StartedAt) > 1800e9 || r.SDK == "" || r.AccountAlias == "" || r.RegionAlias == "" || r.Entitlement != "confirmed" {
 		return r, fmt.Errorf("MiniMax provenance incomplete")
 	}
-	cat := minimax.CandidateCatalog()
+	cat := CandidateCatalog(id)
 	if r.Stage == "formal" || r.Mode == "replay" && r.CatalogVersion == ai.BuiltinCatalog().Version {
 		cat = ai.BuiltinCatalog()
 	}
@@ -109,6 +108,7 @@ func Verify(dir string, formal bool) (Report, error) {
 	}
 	budget := Budget{}
 	seen := map[string]int{}
+	requestReruns := 0
 	for index, call := range r.Calls {
 		var p *Case
 		for i := range plan {
@@ -116,8 +116,17 @@ func Verify(dir string, formal bool) (Report, error) {
 				p = &plan[i]
 			}
 		}
-		validRerun := call.ID == "tool-call" && seen[call.ID] == 1 && call.Rerun == 1
-		validInitialFailure := call.ID == "tool-call" && call.Rerun == 0 && call.Outcome == "FAIL" && index+1 < len(r.Calls) && r.Calls[index+1].ID == call.ID && r.Calls[index+1].Rerun == 1 && r.Calls[index+1].Outcome == "PASS"
+		validRerun := RerunnableCase(call.ID) && seen[call.ID] == 1 && call.Rerun == 1 && index > 0 && Recovered(r.Calls, index-1)
+		validInitialFailure := Recovered(r.Calls, index)
+		if call.Failure == "transient-request" {
+			requestReruns++
+			if requestReruns > MaxRequestReruns {
+				return r, fmt.Errorf("MiniMax transient rerun limit exceeded")
+			}
+		}
+		if call.Outcome == "PASS" && call.Failure != "" {
+			return r, fmt.Errorf("MiniMax successful call has failure marker")
+		}
 		if p == nil || seen[call.ID] > 0 && !validRerun || call.Rerun != 0 && !validRerun || call.CaseID != CaseID(call.ID, call.Rerun) || call.Outcome != "PASS" && !validInitialFailure {
 			return r, fmt.Errorf("invented or failed MiniMax case")
 		}

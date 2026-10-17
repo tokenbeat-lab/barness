@@ -4,7 +4,6 @@ package live
 
 import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 	"os"
 )
 
@@ -45,7 +44,7 @@ func finishMiniMax(code int, auditOK bool) int {
 		return 1
 	}
 	if r.Complete {
-		if _, e = minimaxlive.Verify(run.Dir(), false); e != nil {
+		if _, e = minimaxlive.VerifyCapture(run.Dir(), false); e != nil {
 			r.Complete = false
 			r.Outcome = "FAIL"
 			r.Failure = e.Error()
@@ -53,14 +52,7 @@ func finishMiniMax(code int, auditOK bool) int {
 			return 1
 		}
 	}
-	if r.Complete && r.Kind == "minimax-formal" && r.Mode == "live" {
-		projection, e := supportmatrix.NewMiniMaxReport(run.Dir())
-		if e != nil {
-			return 1
-		}
-		if e = run.Record("live-report", projection); e != nil {
-			return 1
-		}
-	}
+	// Actual formal support projection is published by the keyless post-exit
+	// consumer after the parent launcher has pinned this report and seal.
 	return code
 }

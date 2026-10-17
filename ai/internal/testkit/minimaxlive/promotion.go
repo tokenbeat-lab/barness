@@ -8,7 +8,6 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimax"
 )
 
@@ -89,20 +88,30 @@ func Activate(dirs []string, receiptPath string) error {
 	if receiptPath == "" {
 		return fmt.Errorf("exclusive promotion receipt is required")
 	}
-	for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
-		if _, ok := ai.BuiltinCatalog().Lookup(ai.ProviderMiniMaxCN, api, M3); ok {
-			return fmt.Errorf("MiniMax is already activated")
-		}
-	}
-	proposal, e := PromotionProposal(dirs)
-	if e != nil {
-		return e
-	}
 	root, e := Root()
 	if e != nil {
 		return e
 	}
 	path := filepath.Join(root, "ai/catalog_minimax.json")
+	lock := path + ".activation.lock"
+	if e := os.Mkdir(lock, 0700); e != nil {
+		return fmt.Errorf("MiniMax activation locked")
+	}
+	defer os.Remove(lock)
+	unchanged := func() error {
+		raw, e := ReadFile(path, 2<<20)
+		if e != nil || Hash(raw) != "7ba8d4b2fb192e384b10d3c2aa42e3fdcf115fc8434cc98dfa5a934631a59981" {
+			return fmt.Errorf("MiniMax inactive catalog target changed")
+		}
+		return nil
+	}
+	if e := unchanged(); e != nil {
+		return e
+	}
+	proposal, e := PromotionProposal(dirs)
+	if e != nil {
+		return e
+	}
 	receiptPath, e = filepath.Abs(receiptPath)
 	if e != nil {
 		return e
@@ -152,6 +161,9 @@ func Activate(dirs []string, receiptPath string) error {
 		e = closeErr
 	}
 	if e != nil {
+		return e
+	}
+	if e := unchanged(); e != nil {
 		return e
 	}
 	return os.Rename(temp.Name(), path)

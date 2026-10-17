@@ -52,8 +52,9 @@ type Case struct {
 	Research string `json:"research"`
 }
 
-// Fixed for each of the six identities. Only tool-call may be retried once;
-// no automatic transport retry is allowed. All reruns use the same ledger.
+// Fixed for each of six identities. At most three initial transient REQUEST
+// failures may repeat their scene once, plus one missing-tool/reasoning rerun.
+// No started stream is replayed. All reruns consume the same durable ledger.
 func Plan(id Identity) []Case {
 	return []Case{
 		{"full-stream", 1024, "default wire and terminal, raw actual model/ID and usage"},
@@ -82,4 +83,13 @@ func CaseID(id string, rerun int) string {
 // full candidate acceptance and can never certify completeness or support.
 func ResearchPlan() []Case {
 	return []Case{{"research-full-stream", 1024, "bounded unknown default wire"}, {"research-tool-call", 4096, "own unknown reasoning plus automatic tool"}, {"research-tool-result-native", 2048, "own unknown native continuation"}}
+}
+
+// CandidateCatalog separates sourced M3 standard rates from unpriced M3.1
+// synthetic mechanism fixtures. Neither catalog is a formal support claim.
+func CandidateCatalog(id Identity) ai.Catalog {
+	if id.Model == M3 {
+		return minimax.PricedM3Catalog()
+	}
+	return minimax.CandidateCatalog()
 }

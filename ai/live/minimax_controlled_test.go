@@ -14,7 +14,12 @@ import (
 // seam; it has no network path and does not borrow GLM's response shapes.
 func installMiniMaxControlled(rec *recorder, name string) {
 	toolCalls := 0
+	requests := 0
 	rec.next = roundTripFunc(func(req *http.Request) (*http.Response, error) {
+		requests++
+		if name == "success-transient-request" && requests == 1 || name == "transient-exhausted" && requests <= 2 {
+			return &http.Response{StatusCode: 503, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(`{"error":{"message":"synthetic unavailable"}}`)), Request: req}, nil
+		}
 		raw, _ := io.ReadAll(req.Body)
 		req.Body.Close()
 		var b map[string]any
@@ -129,7 +134,7 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			emit(map[string]any{"type": "message_delta", "delta": map[string]any{"stop_reason": stop}, "usage": map[string]any{"output_tokens": 10}})
 			emit(map[string]any{"type": "message_stop"})
 		}
-		if name == "missing-terminal" {
+		if name == "missing-terminal" || name == "transient-stream" {
 			idx := strings.LastIndex(body, "data:")
 			if idx > 0 {
 				body = body[:idx]

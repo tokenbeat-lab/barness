@@ -105,6 +105,7 @@ type anthropicParser struct {
 	// Native Anthropic retains the pinned pi ordering behavior above.
 	glmSeen        map[int64]bool
 	miniMaxSeen    map[int64]string
+	miniMaxToolIDs map[string]bool
 	miniMaxInitial map[int64]bool
 	// raw is each tool call's argument JSON received so far (pi's partialJson).
 	raw     map[int]*argumentText
@@ -374,9 +375,9 @@ func (a *anthropicUsage) start(w *anthropicWireUsage) {
 		}
 	}
 	// Compatible Providers have no verified native one-hour cache contract.
-	// Omission remains unset; even a synthetic/native-shaped detail cannot
-	// activate Anthropic's premium in the shared cost estimator.
-	if anthropicCapabilitiesOf(a.model.Provider).promptCache {
+	// Omission remains unset. MiniMax retains an explicit positive count so
+	// the call fails with known usage, without inventing a native premium.
+	if anthropicCapabilitiesOf(a.model.Provider).promptCache || a.model.Provider == ProviderMiniMaxCN && long > 0 {
 		a.u.CacheWrite1h = Value(long)
 	}
 	a.settle()
@@ -388,7 +389,7 @@ func (a *anthropicUsage) delta(w *anthropicWireUsage) {
 		a.take(w)
 		// Gateway deltas may supply or correct the TTL breakdown. This is
 		// an authoritative count, not an additional cache write (pi 1.0).
-		if anthropicCapabilitiesOf(a.model.Provider).promptCache && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
+		if (anthropicCapabilitiesOf(a.model.Provider).promptCache || a.model.Provider == ProviderMiniMaxCN) && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
 			a.u.CacheWrite1h = Value(*w.CacheDetails.Ephemeral1h)
 		}
 		// Anthropic reports reasoning tokens as a subset of output tokens.
@@ -413,6 +414,15 @@ func (a *anthropicUsage) take(w *anthropicWireUsage) {
 func (a *anthropicUsage) settle() {
 	a.u.TotalTokens = a.u.Input + a.u.Output + a.u.CacheRead + a.u.CacheWrite
 	a.u.Cost = a.model.Cost.estimate(a.u)
+	if a.model.Provider == ProviderMiniMaxCN {
+		if long, ok := a.u.CacheWrite1h.Get(); ok && long > 0 {
+			// This unsupported part has no verified price. Retain only known
+			// short-write cost; miniMaxUnpricedWriteFailure refuses success.
+			rates := a.model.Cost.ratesForUsage(a.u)
+			a.u.Cost.CacheWrite = rates.CacheWrite * float64(max(0, a.u.CacheWrite-long)) / 1e6
+			a.u.Cost.Total = a.u.Cost.Input + a.u.Cost.Output + a.u.Cost.CacheRead + a.u.Cost.CacheWrite
+		}
+	}
 }
 
 // reporting is complete when input, output, cache read and cache write

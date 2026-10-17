@@ -118,7 +118,7 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if stage.Calls > maxCalls || stage.Attempts > maxAttempts || stage.ReservedAttempts > maxAttempts || own.Calls > 20 || own.Attempts > 24 || own.Attempts > own.ReservedAttempts || own.ReservedAttempts > 24 || own.RequestedOutput > 40000 || own.ReservedInput > 120000 {
 		return Receipt{}, fmt.Errorf("MiniMax cumulative stage/identity budget exhausted")
 	}
-	if kind == "reserve" && (perCase[caseID] > 0 && (caseID != "tool-call" || perCase[caseID] > 1)) {
+	if kind == "reserve" && (perCase[caseID] > 0 && (!RerunnableCase(caseID) || perCase[caseID] > 1)) {
 		return Receipt{}, fmt.Errorf("unregistered repeated scenario")
 	}
 	if kind == "attempt" && attempted >= reserved {

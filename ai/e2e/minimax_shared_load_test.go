@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -158,7 +159,9 @@ func TestMiniMaxSharedDesignLoad(t *testing.T) {
 					if strings.Contains(name, "image") == false {
 						largestFrame = max(largestFrame, int64(frame))
 					}
-					ev.Record("response-"+name, reply)
+					captured := reply
+					captured.Script = string(bytes.Join(reply.Chunks, nil))
+					ev.Record("response-"+name, captured)
 				}
 				// old streamed Chat coalesces frames into network chunks: account for each
 				// actual SSE frame instead of treating a coalesced chunk as one frame.
