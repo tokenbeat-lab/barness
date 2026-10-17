@@ -72,3 +72,8 @@ that assertion, exercise it in a sanitized temporary repository source copy with
 only the copied original tracker changed to resolved. Preserve that failing public
 CLI E2E, then make the assertion reflect the real tracker and prove both states.
 The working original issue is never edited or closed.
+
+Complete-tree precheck found intentionally retained symlink-attack fixtures.
+Before correcting the collector, preserve its rejection. Primary inventories
+must still reject links; opaque retained trees must record link-target identity
+without following a link or reading its target, including dangling links.

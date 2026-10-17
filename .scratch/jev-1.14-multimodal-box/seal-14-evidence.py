@@ -4,6 +4,7 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -29,10 +30,21 @@ def relative(path):
     return path.relative_to(ROOT).as_posix()
 
 
-def inventory(base, files):
+def stored_identity(path):
+    if path.is_symlink():
+        if any(p.is_symlink() for p in path.parents):raise ValueError('linked parent')
+        return dict(kind='symlink',targetSHA256=hashlib.sha256(os.fsencode(os.readlink(path))).hexdigest())
+    return sha(path)
+
+
+def inventory(base, files, allow_links=False):
     for name, want in files.items():
         p=Path(name)
-        if p.is_absolute() or '..' in p.parts or sha(base/p)!=want.removeprefix('sha256:'):
+        if p.is_absolute() or '..' in p.parts:raise ValueError('unsafe inventory path')
+        if isinstance(want,dict):
+            if not allow_links or want.get('kind')!='symlink' or stored_identity(base/p)!=want:
+                raise ValueError('retained link identity mismatch')
+        elif sha(base/p)!=want.removeprefix('sha256:'):
             raise ValueError('evidence inventory mismatch')
     return len(files)
 
@@ -74,7 +86,9 @@ def tree_paths(base):
     # Walk the actual tree, never trust a nested fixture's ownership claims.
     paths=set()
     for p in base.rglob('*'):
-        if p.is_symlink():raise ValueError('symlink in retained evidence')
+        if p.is_symlink():
+            paths.add(p.relative_to(base).as_posix())
+            continue
         if p.is_file() and not (p.parent==base and p.name in BINS):
             paths.add(p.relative_to(base).as_posix())
     return paths
@@ -114,7 +128,7 @@ def main():
         for item in receipt['trees']:
             base=ROOT/item['base'];files=doc(ROOT/item['file'])
             if tree_paths(base)!=set(files):raise ValueError('retained tree file set drift')
-            inventory(base,files)
+            inventory(base,files,allow_links=True)
         print('ticket-14 source, complete retained trees, primary inventories, audits and NOT_RUN verdicts verified')
         return
     if not args.record:parser.error('use --record or --verify')
@@ -140,8 +154,8 @@ def main():
     for path in recorder_roots(base):
         if path in children:receipt['subprocessRuns'].append(bundle(path,allow_incomplete=True))
         else:receipt['runs'].append(bundle(path))
-    for path in sorted(base.glob('visual-*')):
-        receipt['inventories'].append(visual_bundle(path))
+    for name in ('visual-decisions','visual-jev'):
+        receipt['inventories'].append(visual_bundle(base/name))
     for p in sorted(base.glob('text-*/*/files.json')):
         files=doc(p);inventory(p.parent,files)
         receipt['inventories'].append(dict(file=relative(p),base=relative(p.parent),count=len(files)))
@@ -152,13 +166,14 @@ def main():
         seal(p)
     parent=ROOT/'.evidence/ticket14';indexes=parent/'integrity';indexes.mkdir(exist_ok=True)
     for directory in sorted(parent.iterdir()):
+        if directory.is_symlink():raise ValueError('linked evidence root')
         if not directory.is_dir() or directory==indexes:continue
         if directory!=base:
             for path in recorder_roots(directory):
                 receipt['history'].append(bundle(path,allow_incomplete=True))
         # Complete immutable stored-byte index, including nested protocol/effect
         # packages, failed captures and audits. Exclude only rebuildable binaries.
-        paths=tree_paths(directory);files={name:sha(directory/name) for name in sorted(paths)}
+        paths=tree_paths(directory);files={name:stored_identity(directory/name) for name in sorted(paths)}
         index=indexes/(directory.name+'.json')
         index.write_text(json.dumps(files,sort_keys=True,separators=(',',':'))+'\n')
         seal(index);receipt['trees'].append(dict(base=relative(directory),file=relative(index),count=len(files)))
@@ -177,6 +192,10 @@ def main():
                  '.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md',
                  '.scratch/jev-1.14-multimodal-box/run-14-verification.py',
                  '.scratch/jev-1.14-multimodal-box/14-code-review.md',
+                 '.scratch/jev-1.14-multimodal-box/14-verification.md',
+                 '.scratch/jev-1.14-multimodal-box/issues/14-current-catalog-release-integration.md',
+                 '.scratch/barness-ai-release-verification/issues/01-unary-race-timeout-stop-reason.md',
+                 '.scratch/barness-ai-release-verification/issues/02-decisions-notrun-case-inventory.md',
                  'docs/barness-ai/current-catalog-release.md'):
         seal(ROOT/name)
     seal(Path(__file__).resolve())
@@ -197,7 +216,7 @@ def main():
             raise ValueError('visual preflight makes real-quality claim')
     for p in sorted(base.glob('text-*/*/evaluation-report.json')):
         if doc(p)['status']!='NOT_RUN':raise ValueError('text preflight status changed')
-    RECEIPT.write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+'\n')
+    RECEIPT.write_text('{\n'+',\n'.join('  '+json.dumps(k)+': '+json.dumps(v,ensure_ascii=False,separators=(',',':')) for k,v in receipt.items())+'\n}\n')
     print('sealed',len(receipt['runs']),'primary current packages;',len(receipt['history']),'historical packages;',len(receipt['trees']),'complete trees; overall BLOCKED')
 
 

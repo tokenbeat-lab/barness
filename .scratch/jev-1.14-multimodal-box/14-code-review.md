@@ -91,3 +91,10 @@ and verifies its recorded hash rather than demanding perpetual unresolved status
 The attempted full run at `final-823cc4a` was deliberately interrupted before
 changing source; it is retained as partial history, never a complete release run.
 Final acceptance runs at `final-4310a53` with stable Go sources.
+
+Final opaque-tree precheck found the existing deliberate symlink-attack fixtures.
+Their target-string hashes are retained without following targets; primary byte
+inventories still reject links, and linked evidence roots are rejected. The public
+CLI regression records verify 0 / changed-target 1 / restored-target 0 / deleted-
+visual-capture 1. The independent Standards follow-up reports no remaining findings.
+Normal/race execution failures are recorded separately from review findings.
