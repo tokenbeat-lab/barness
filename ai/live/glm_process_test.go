@@ -96,6 +96,30 @@ func TestGLMCandidateProcess(t *testing.T) {
 			if !cs.Check("candidate report retained", len(matches) == 1, "reports=%d", len(matches)) {
 				return
 			}
+			childDir := filepath.Dir(matches[0])
+			copyErr := filepath.WalkDir(childDir, func(path string, d os.DirEntry, e error) error {
+				if e != nil {
+					return e
+				}
+				if d.IsDir() {
+					return nil
+				}
+				rel, e := filepath.Rel(childDir, path)
+				if e != nil {
+					return e
+				}
+				target := filepath.Join("child-evidence", rel)
+				if e = os.MkdirAll(filepath.Join(run.Dir(), cs.ID(), filepath.Dir(target)), 0755); e != nil {
+					return e
+				}
+				data, e := readDecisionsFile(path, 16<<20)
+				if e != nil {
+					return e
+				}
+				cs.Fixture(filepath.ToSlash(target), data)
+				return nil
+			})
+			cs.Check("raw controlled child evidence retained", copyErr == nil, "%v", copyErr)
 			raw, _ := os.ReadFile(matches[0])
 			var r struct {
 				Kind, Outcome         string
