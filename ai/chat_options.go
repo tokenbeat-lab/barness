@@ -146,7 +146,7 @@ func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey
 	if !m.Reasoning {
 		return
 	}
-	if compat.deepseekThinking {
+	if compat.thinkingToggle {
 		// No effort switches thinking off unless the model's level map
 		// says off is unsupported (null); off is never an effort here.
 		if o.ReasoningEffort != "" {
@@ -173,7 +173,7 @@ func (o ChatOptions) reasoningExpected(m Model, compat chatCompat) bool {
 	if !m.Reasoning {
 		return false
 	}
-	if compat.deepseekThinking {
+	if compat.thinkingToggle {
 		return o.ReasoningEffort != "" || m.ThinkingLevelMap.Off.IsNull()
 	}
 	return true

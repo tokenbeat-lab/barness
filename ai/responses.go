@@ -26,7 +26,8 @@ func (responsesAdapter) headers(ac adapterCall) http.Header {
 	h.Set("Authorization", "Bearer "+ac.apiKey.reveal())
 	h.Set("User-Agent", userAgent)
 	opts, _ := ac.options.(ResponsesOptions) // nil means protocol defaults
-	if key := opts.cacheKey(ac.cache, responsesCapabilitiesOf(ac.model.Provider)); key != "" {
+	caps := responsesCapabilitiesOf(ac.model.Provider)
+	if key := opts.cacheKey(ac.cache, caps); key != "" && caps.sessionAffinity {
 		h.Set("session_id", key)
 		h.Set("x-client-request-id", key)
 	}

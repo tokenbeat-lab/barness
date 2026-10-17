@@ -32,7 +32,7 @@ type chatBody struct {
 	ReasoningEffort     string            `json:"reasoning_effort,omitempty"`
 }
 
-// chatThinking switches DeepSeek's thinking mode: type is "enabled" or
+// chatThinking switches a provider's thinking mode: type is "enabled" or
 // "disabled".
 type chatThinking struct {
 	Type string `json:"type"`

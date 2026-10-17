@@ -24,7 +24,7 @@ type anthropicBlockBinding struct {
 // managed-effort model's turn runs at, the effort option or high; empty for
 // any other model.
 func anthropicThinkingLevel(m Model, o AnthropicOptions) AnthropicEffort {
-	if !m.Compat.SupportsMidConvoEffort {
+	if !anthropicCapabilitiesOf(m.Provider).managesEffort(m) {
 		return ""
 	}
 	return cmp.Or(o.Effort, AnthropicEffortHigh)

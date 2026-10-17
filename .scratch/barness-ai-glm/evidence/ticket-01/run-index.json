@@ -1,0 +1,165 @@
+{
+  "base_commit": "b2ad0c0",
+  "source_sha256": {
+    "ai/responses_capabilities.go": "51bc584e8d68b69d32877282c6798b89394aa58f83e86406fbbd02be3a217801",
+    "ai/responses_options.go": "038324aedfb3230bcc65652fbc8f343b49425b3503f94681d0bdcac51903a3e9",
+    "ai/responses.go": "66334bd4787ce87e86d997a9e2a5b59ff6aac7e2d8c22c33a748ade63ebd1c08",
+    "ai/chat_compat.go": "03d5cbac042288449c6bd72b213ef8db88019a90a9e9299dd42288637f2d0c82",
+    "ai/chat_options.go": "ae7765d42a05f6947bc2a76fe0a25b63a1dcfe500412d03580e38f8a8a5ae857",
+    "ai/chat_request.go": "ca2dd003e1ac29fa2259c5cce67e9c2e5523f22dbfa7ad07a0bea6446a093307",
+    "ai/anthropic_capabilities.go": "b00fb1319092dae03c4f58772358c69cbaf4744493a8361d0fc65f5bf2403614",
+    "ai/anthropic.go": "9bfe6bd0971770d5a6a2ca660462b94535cef899ae892f79ea0354463b120001",
+    "ai/anthropic_effort.go": "792ea5c9991649b8fc5b8ad092c4fa1c32290a67185742125a216ca25872a0fa",
+    "ai/anthropic_options.go": "a3f2bc4e1739b9a79bb111ebc1123036e1fa232c6a5bfe02a9ae55be08f9c2bf",
+    "ai/anthropic_request.go": "3c6f368c24805b406ce15ecea6a566b3e325f4950fe81d93d409739d7619499c"
+  },
+  "evidence_root": ".evidence/barness-ai-glm/ticket-01",
+  "comparison": {
+    "status": "PASS",
+    "before_manifest_sha256": "285b1ed3bfb171b73a2cf816aad6936071543225fe31a95a1631fbc6034dad6c",
+    "after_manifest_sha256": "7624975ee1628cebc3dee56b02301e59e1324ca6fad100721cfe2c875a8f8e51",
+    "before_commit": "b2ad0c0ac09b9083fb62212fea395c568c220c5d",
+    "after_commit": "b2ad0c0ac09b9083fb62212fea395c568c220c5d",
+    "versions": {
+      "anthropic-sdk-go": "v1.75.0",
+      "model_catalog_hash": "sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7",
+      "model_catalog_version": "2026-10-17.1",
+      "openai-go": "v3.66.0"
+    },
+    "cases_compared": 2340,
+    "not_run_cases": [
+      "E03-thinking-sampling-baseline-oracle-guards"
+    ],
+    "artifacts_compared": 10598,
+    "normalizations": [
+      "timestamp",
+      "durationMs",
+      "retryDelay",
+      "loopback port",
+      "concurrent request arrival order"
+    ],
+    "excluded_artifacts": [
+      {
+        "case": "P01-E06-thinking-sampling-concurrent-false",
+        "artifact": "result.json",
+        "reason": "last-finisher result filename"
+      },
+      {
+        "case": "P01-E06-thinking-sampling-concurrent-true",
+        "artifact": "result.json",
+        "reason": "last-finisher result filename"
+      },
+      {
+        "case": "P04-E06-thinking-sampling-concurrent-false",
+        "artifact": "result.json",
+        "reason": "last-finisher result filename"
+      },
+      {
+        "case": "P04-E06-thinking-sampling-concurrent-true",
+        "artifact": "result.json",
+        "reason": "last-finisher result filename"
+      },
+      {
+        "case": "P05-E06-thinking-sampling-concurrent-false",
+        "artifact": "result.json",
+        "reason": "last-finisher result filename"
+      },
+      {
+        "case": "P05-E06-thinking-sampling-concurrent-true",
+        "artifact": "result.json",
+        "reason": "last-finisher result filename"
+      },
+      {
+        "case": "P06-E06-thinking-sampling-concurrent-false",
+        "artifact": "result.json",
+        "reason": "last-finisher result filename"
+      },
+      {
+        "case": "P06-E06-thinking-sampling-concurrent-true",
+        "artifact": "result.json",
+        "reason": "last-finisher result filename"
+      }
+    ],
+    "differences": []
+  },
+  "comparison_sha256": "95a22931fdc227fa4771ee530c5f8e3e0bdd10533dcd4c4395a93c2fcb211d97",
+  "runs": {
+    "before": {
+      "manifest": "before/20261017T123109.102730000Z/manifest.json",
+      "manifest_sha256": "285b1ed3bfb171b73a2cf816aad6936071543225fe31a95a1631fbc6034dad6c",
+      "statuses": {
+        "PASS": 2339,
+        "NOT_RUN": 1
+      },
+      "audit_sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "audit_findings": 0
+    },
+    "after-final": {
+      "manifest": "after-final/20261017T123710.100823000Z/manifest.json",
+      "manifest_sha256": "7624975ee1628cebc3dee56b02301e59e1324ca6fad100721cfe2c875a8f8e51",
+      "statuses": {
+        "PASS": 2339,
+        "NOT_RUN": 1
+      },
+      "audit_sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "audit_findings": 0
+    },
+    "final": {
+      "manifest": "final/20261017T123255.638233000Z/manifest.json",
+      "manifest_sha256": "54ba6483e6da04fb1fc9ba8d10b94dedf55b7492be1203832ad7e55ab49e8301",
+      "statuses": {
+        "PASS": 8002,
+        "NOT_RUN": 1050,
+        "FAIL": 46
+      },
+      "audit_sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "audit_findings": 0
+    },
+    "pidiff": {
+      "manifest": "pidiff/20261017T123222.822858000Z/manifest.json",
+      "manifest_sha256": "f77bb2dd732d475e53ac54180200a55a20191e3352a7133e445ee5ae1b3e248f",
+      "statuses": {
+        "PASS": 726
+      },
+      "audit_sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "audit_findings": 0,
+      "pending_cases": [],
+      "findings": {
+        "extension": 17425
+      }
+    },
+    "pidiff-final-profile": {
+      "manifest": "pidiff-final-profile/20261017T123637.244998000Z/manifest.json",
+      "manifest_sha256": "da608a1ee1b64061d288f0587aca581cfc9b011ab6b8813721ec62a648bfd96b",
+      "statuses": {
+        "PASS": 6
+      },
+      "audit_sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "audit_findings": 0,
+      "pending_cases": [],
+      "findings": {
+        "extension": 281
+      }
+    },
+    "import-rerun": {
+      "manifest": "import-rerun/20261017T123709.650182000Z/manifest.json",
+      "manifest_sha256": "6b69af043d59fd926a454be4efa4088274372914d180bcf94c8f4b664916d120",
+      "statuses": {
+        "PASS": 45,
+        "FAIL": 1
+      },
+      "audit_sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "audit_findings": 0
+    },
+    "tracker-rerun": {
+      "manifest": "tracker-rerun/20261017T123731.971370000Z/manifest.json",
+      "manifest_sha256": "b0b3ed341e282b4a29cd5b0e18320a79abe3cd345cf875cf1278682c28379efd",
+      "statuses": {
+        "PASS": 1
+      },
+      "audit_sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "audit_findings": 0
+    }
+  },
+  "full_suite_recovery": "Initial full suite had 46 environment/inventory failures. import-rerun recovered 45 after copying 3 existing ignored ZIPs; tracker-rerun recovered the last after staging the new source file. No tests were modified."
+}

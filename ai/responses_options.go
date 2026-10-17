@@ -21,12 +21,13 @@ type ResponsesOptions struct {
 	// both full and simple entries (pi-ai parity). Keys that change the
 	// model, history, tools, stored state or cache key are refused.
 	SamplingParams map[string]json.RawMessage `json:"samplingParams,omitempty"`
-	// CacheRetention maps onto the prompt cache fields the model supports;
+	// CacheRetention maps onto the prompt cache fields the provider and model support;
 	// empty is "short".
 	CacheRetention CacheRetention `json:"cacheRetention,omitempty"`
-	// SessionID, unless retention is none, sends a prompt cache key and the
-	// session affinity headers, all derived from it, the tenant and the
-	// vendor account rather than the raw value.
+	// SessionID, unless retention is none, sends the provider's supported
+	// cache key and session affinity headers, derived from it, the tenant
+	// and the vendor account rather than the raw value. Cache routing does
+	// not imply retention or affinity support.
 	SessionID string `json:"sessionId,omitempty"`
 	// ReasoningEffort is sent as reasoning.effort through the model's level
 	// map, unclamped; a model without reasoning ignores it. Empty with no
@@ -121,7 +122,7 @@ func (responsesAdapter) simpleOptions(m Model, o SimpleOptions, _ []Message) Opt
 // gives one unless retention is none or the provider serves no prompt
 // cache.
 func (o ResponsesOptions) cacheKey(scope cacheScope, caps responsesCapabilities) string {
-	if o.SessionID == "" || o.CacheRetention == CacheRetentionNone || !caps.promptCache {
+	if o.SessionID == "" || o.CacheRetention == CacheRetentionNone || !caps.promptCacheKey {
 		return ""
 	}
 	return scope.key(o.SessionID)
@@ -149,8 +150,8 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 	explicit := m.Compat.SupportsExplicitPromptCacheMode
 	body.PromptCacheKey = cacheKey
 	switch {
-	case !caps.promptCache:
-		// No retention fields either: the provider has no prompt cache.
+	case !caps.promptCacheRetention:
+		// A routing key alone does not enable retention fields.
 	case retention == CacheRetentionLong && longRetention && !explicit:
 		body.PromptCacheRetention = "24h"
 	case explicit && retention == CacheRetentionNone:
@@ -178,7 +179,10 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 		if o.ReasoningEffort != "" {
 			effort = m.ThinkingLevelMap.wireValue(o.ReasoningEffort)
 		}
-		body.Reasoning = &responsesReasoning{Effort: effort, Summary: cmp.Or(o.ReasoningSummary, "auto")}
+		body.Reasoning = &responsesReasoning{Effort: effort}
+		if caps.reasoningSummary {
+			body.Reasoning.Summary = cmp.Or(o.ReasoningSummary, "auto")
+		}
 		if caps.encryptedReasoning {
 			body.Include = []string{"reasoning.encrypted_content"}
 		}
