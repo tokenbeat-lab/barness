@@ -1,3 +1,8 @@
+---
+status: accepted
+date: 2026-10-17
+---
+
 # Six China standard GLM identities and own formal evidence
 
 Publish six independent literal catalog entries for GLM-5.3/5.2 × Chat/Responses/Messages after their six own candidate acceptances. None is derived from an international Coding catalog or another protocol's model. Version2026-10-17.2 changes the complete catalog hash, so historical live passes remain history and the release must renew its current snapshot. There are13 protocol combinations and14 live identities because Jev1.13/1.14 retain independent model evidence.
@@ -11,3 +16,8 @@ Execution-source applicability compares the complete consumed runtime/capture/he
 The first66 formal calls' model details/captures retained correct known usage, but their generic support Budget token aggregates were0. Preserve those original bytes and derive a separate corrected no-paid support view from captured Attempts; sums are reported-known lower bounds with explicit partial/cancelled unknowns. Each view pins the trusted raw archive/index/original report/source and the current consumer's complete Git-verified source identity, with its own atomic inventory/audit. A consumer-only correction requires re-derivation, not new paid model calls; an actual model execution/catalog change still invalidates reuse. Artifact size limits bound the actual read as well as file metadata, so concurrent growth cannot escape the ceiling.
 
 Direct formal import also enforces exactly22 model-qualified cases plus one source case, finite owned root/case artifacts and a512-file ceiling. Editable inventories cannot legitimize an unreported24th case, extra attempt or unmanifest HTTP capture. Current derived views additionally require byte equality with the trusted original ZIP, so historical captures cannot be coherently rewritten into a different experiment.
+
+
+This decision inherits ADR0032–0035's Provider/model/protocol boundaries, ADR0018's own-evidence inclusion rule and ADR0003's versioned disablement semantics.13's full preflight found that09's first panic recovery unintentionally changed existing synchronous callers. Recovery is restricted to immutable Zhipu attribution; all original classifier/image and new old-Chat panic/cleanup proofs preserve legacy behavior. Runtime-source change expires12's formal captures for current-source reuse; originals remain immutable history and13 must renew all three formal routes before the complete current release. A data-only, independently reconciled per-capture usage expectation binds exact source/archive/report hashes without late Go changes that would invalidate Jev's complete all-Go evidence.
+
+The additive release contract retains every old mapping and requires all22 GLM decisions,15 acceptance groups and62 stories through finite actual case IDs plus own live evidence. Full restoration is independently exercised through the public rollback command in normal/race, checks every file/mode/blob of baselinef5cf536's complete tree, then proves old controlled behavior and six absent GLM identities with zero credential reads/requests. It preserves the user's root checkout and untracked bytes. Source-scoped historical release PASS is retained without claiming fresh billing. Current final evidence and source applicability are indexed by[ticket13](../../.scratch/barness-ai-glm/evidence/ticket-13/README.md).

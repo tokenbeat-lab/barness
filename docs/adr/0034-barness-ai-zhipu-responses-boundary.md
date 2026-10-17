@@ -26,3 +26,6 @@ GLM 自身 Responses 历史在信任降级时保留这份无歧义的关联 ID�
 同一公开红例还证明 GLM Responses 来源在跨协议降级时，其他目标的标点替换或 64 字符截断仍可把两个合法调用 ID 合并。因此在转换完整历史前，仅为 GLM 来源检测目标实际 wire call_id 冲突或空值；无冲突的既有转换以及完全没有 GLM 来源的历史保持原规则。确有冲突时使用来自完整不透明 ID 的确定性摘要产生目标字母表内的短关联 ID；若该拼写已被历史占用，则在占用数量限定的数字空间内分配空闲值，沿用既有工具结果重命名。OpenAI Responses 的组合 item ID 不掩盖其 call_id 组件的碰撞。单个 GLM Chat 来源的 Unicode 调用 ID 也已通过公共 Client 复现为旧 Responses 规范化后的空字符串，同样得到有效的短关联 ID。该处理只保证本次完整历史中的关联唯一，不产生可跨账户使用的原生状态或服务端引用。
 
 证据与重放见[工单04](../../.scratch/barness-ai-glm/evidence/ticket-04/README.md)和[工单05](../../.scratch/barness-ai-glm/evidence/ticket-05/README.md)；正式目录、价格与独立真实验收由后续票提供。本决策继承 ADR-0014 的无状态完整历史与 Extension Route 边界，保留原有 OpenAI/DeepSeek 字节和差分合同。
+
+
+后续正式状态：上述候选/探索限制记录其发生阶段。两型号的三协议已在11/12取得自身正式证据，包括5.3 Responses自身原生InputReasoning续接；六条目录与支持决定见[ADR0036](0036-barness-ai-zhipu-formal-catalog-evidence.md)。13的真实运行源码修正要求更新当前证据，旧捕获继续保留原身份与适用范围。

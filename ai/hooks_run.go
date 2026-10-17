@@ -53,7 +53,9 @@ func (b boundHooks) headers(ctx context.Context, merged http.Header) (http.Heade
 		}
 	}
 	err := func() (err error) {
-		defer recoverCallbackPanic(&err)
+		if b.identity.ProviderID == ProviderZhipu {
+			defer recoverCallbackPanic(&err)
+		}
 		return b.hooks.TransformHeaders(ctx, b.scope, view)
 	}()
 	if failure := callbackFailure(ctx, err, "header transform failed"); failure != nil {
@@ -99,7 +101,9 @@ func (b boundHooks) payload(ctx context.Context, body []byte, validate func(map[
 	}
 	p := &Payload{Operation: b.identity.Operation, ProviderID: b.identity.ProviderID, API: b.identity.API, ModelID: b.identity.ModelID, Body: decoded}
 	decision, err := func() (decision PayloadDecision, err error) {
-		defer recoverCallbackPanic(&err)
+		if b.identity.ProviderID == ProviderZhipu {
+			defer recoverCallbackPanic(&err)
+		}
 		return b.hooks.OnPayload(ctx, b.scope, p)
 	}()
 	if failure := callbackFailure(ctx, err, "payload callback failed"); failure != nil {
@@ -147,7 +151,9 @@ func (b boundHooks) response(ctx context.Context, res *http.Response) *Error {
 		ModelID:    b.identity.ModelID,
 	}
 	err := func() (err error) {
-		defer recoverCallbackPanic(&err)
+		if b.identity.ProviderID == ProviderZhipu {
+			defer recoverCallbackPanic(&err)
+		}
 		return b.hooks.OnResponse(ctx, b.scope, info)
 	}()
 	return callbackFailure(ctx, err, "response callback failed")
@@ -171,9 +177,10 @@ func callbackFailure(ctx context.Context, err error, msg string) *Error {
 	return nil
 }
 
-// A Host callback is an execution boundary. A panic must settle and release
-// the logical call as a callback failure rather than strand its resources or
-// crash the process. Preserve error causes for Host diagnosis, but never format
+// GLM callbacks must settle the logical call instead of crashing its stream
+// producer. The caller gates recovery on the immutable Provider attribution;
+// other providers retain their existing panic behavior. Preserve error causes
+// for Host diagnosis, but never format
 // arbitrary panic values: they may contain credentials or private payloads.
 func recoverCallbackPanic(err *error) {
 	if value := recover(); value != nil {

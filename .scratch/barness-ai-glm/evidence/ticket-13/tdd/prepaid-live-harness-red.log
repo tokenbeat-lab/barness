@@ -1,0 +1,101 @@
+--- FAIL: TestDecisionsCandidateProcess (5.91s)
+    --- FAIL: TestDecisionsCandidateProcess/direct (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-direct] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/unknown-account-direct (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-unknown-account-direct] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/not-run (0.05s)
+        decisions_process_test.go:293: [P10-OD51-process-not-run] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/switch-off (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-switch-off] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/foreign-key (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-foreign-key] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/missing-alias (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-missing-alias] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/missing-permissions (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-missing-permissions] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/endpoint-override (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-endpoint-override] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/remote-proxy (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-remote-proxy] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/source-missing (0.03s)
+        decisions_process_test.go:293: [P10-OD51-process-source-missing] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/source-changed (0.03s)
+        decisions_process_test.go:293: [P10-OD51-process-source-changed] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/catalog-changed (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-catalog-changed] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/success (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-success] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/refusal (0.08s)
+        decisions_process_test.go:293: [P10-OD51-process-refusal] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/usage-absent (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-usage-absent] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/usage-partial (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-usage-partial] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/usage-zero (0.08s)
+        decisions_process_test.go:293: [P10-OD51-process-usage-zero] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/model-alias (0.08s)
+        decisions_process_test.go:293: [P10-OD51-process-model-alias] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/model-missing (0.08s)
+        decisions_process_test.go:293: [P10-OD51-process-model-missing] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/429 (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-429] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/504 (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-504] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/malformed-2xx (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-malformed-2xx] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/precision-2xx (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-precision-2xx] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/narrowed (0.05s)
+        decisions_process_test.go:293: [P10-OD51-process-narrowed] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/calls-budget (0.08s)
+        decisions_process_test.go:293: [P10-OD51-process-calls-budget] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/questions-budget (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-questions-budget] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/state-budget (0.44s)
+        decisions_process_test.go:293: [P10-OD51-process-state-budget] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/images-budget (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-images-budget] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/image-bytes-budget (0.89s)
+        decisions_process_test.go:293: [P10-OD51-process-image-bytes-budget] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/permissions-trailing (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-permissions-trailing] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/permissions-duplicate (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-permissions-duplicate] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/permissions-broad (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-permissions-broad] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/permissions-not-dedicated (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-permissions-not-dedicated] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/missing-region (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-missing-region] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/no-key-foreign (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-no-key-foreign] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/mixed-refusal (0.08s)
+        decisions_process_test.go:293: [P10-OD51-process-mixed-refusal] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/price-threshold (0.08s)
+        decisions_process_test.go:293: [P10-OD51-process-price-threshold] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/price-long-tier (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-price-long-tier] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/permissions-case-alias (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-permissions-case-alias] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/process-deadline (2.07s)
+        decisions_process_test.go:293: [P10-OD51-process-process-deadline] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/integrity-read-failure (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-integrity-read-failure] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/integrity-write-failure (0.07s)
+        decisions_process_test.go:293: [P10-OD51-process-integrity-write-failure] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/unknown-account (0.08s)
+        decisions_process_test.go:293: [P10-OD51-process-unknown-account] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/unknown-account-invalid-proof (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-unknown-account-invalid-proof] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/unknown-account-foreign-key (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-unknown-account-foreign-key] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/unknown-account-remote-proxy (0.04s)
+        decisions_process_test.go:293: [P10-OD51-process-unknown-account-remote-proxy] candidate leaves formal catalog intact: formal catalog changed
+    --- FAIL: TestDecisionsCandidateProcess/unknown-account-no-key (0.05s)
+        decisions_process_test.go:293: [P10-OD51-process-unknown-account-no-key] candidate leaves formal catalog intact: formal catalog changed
+barness-ai evidence bundle: $REPO/.evidence/glm13-current-r1/live-harness/20261017T145338.707459000Z
+barness-ai evidence bundle: $REPO/.evidence/glm13-current-r1/live-harness/20261017T145354.328635000Z
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/glm13-current-r1/live-harness/20261017T145303.022003000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	95.838s
+FAIL

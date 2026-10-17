@@ -32,10 +32,14 @@ def digest(path):
 
 def sources():
     # Jev protocol intentionally pins every ai Go source. Include all tracked
-    # execution/config fixtures too; matrix is a generated output, not runtime.
+    # execution/config fixtures too; matrix is generated output, not runtime.
+    # Renew GLM capture data first, then prepare a new legacy source freeze.
     names = subprocess.check_output(['git','ls-files','ai'],cwd=ROOT,text=True).splitlines()
     names = [n for n in names if n.endswith(('.go','.json')) and n!='ai/live/support-matrix.json']
     names += ['go.mod','go.sum']
+    execution = Path(__file__).resolve().parent
+    names += [str((execution/name).relative_to(ROOT)) for name in
+        ('commands.py','run.py','glm_launcher.py','rollback.py','rollback-probe.txt')]
     return {name:digest(ROOT/name) for name in sorted(names)}
 
 

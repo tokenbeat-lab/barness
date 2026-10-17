@@ -173,7 +173,7 @@ _Avoid_: 工具白名单、全局工具开关
 _Avoid_: 模型 compat、"兼容 OpenAI"
 
 **Extension Route（扩展接入路径）**：
-冻结 pi 没有路由的 Provider × 协议组合（当前包含 DeepSeek × Responses、原生 OpenAI × Images 与 Google × Interactions 图像），以自身协议 fixture 和真实冒烟证明，登记在差分账本中，不计为 pi 差分通过。
+冻结 pi 没有路由的 Provider × 协议组合（当前包含 DeepSeek × Responses、原生 OpenAI × Images、Google × Interactions 图像及中国区 Zhipu × Chat/Responses/Messages），以自身协议 fixture 和真实冒烟证明，登记在差分账本中，不计为 pi 差分通过。
 _Avoid_: 差分通过、pi 已覆盖
 
 **Live Smoke（真实冒烟）**：
@@ -193,7 +193,7 @@ _Avoid_: 默认配置、基准测试
 _Avoid_: 日志过滤、事后清理
 
 **Release Gate（发布门禁）**：
-发布前对 barness-ai 的一次判定：vet、离线与 race、全部 P0、固定基线的差分、十组合自身完整真实证据、逐包脱敏审计、完整需求追溯、目录/价格快照、设计负载与 Jev/Luna 各自独立中文效果均有效才可发布。必交能力不可声明不支持以放行；协议、资源容量与业务效果分别呈现。只有映射或历史通过而没有当前适用证据的条目不算通过。
+发布前对 barness-ai 的一次判定：vet、离线与 race、全部 P0、固定基线的差分、十三协议组合、十四独立型号支持身份的自身完整真实证据、逐包脱敏审计、完整需求追溯、目录/价格快照、设计负载、Jev/Luna 各自独立中文效果及 Jev/Decisions 各自独立视觉效果均有效才可发布。必交能力不可声明不支持以放行；协议、资源容量与业务效果分别呈现。只有映射或历史通过而没有当前适用证据的条目不算通过。
 _Avoid_: CI 绿灯、发布流程
 
 **Chinese Classification Evaluation（中文分类评估）**：

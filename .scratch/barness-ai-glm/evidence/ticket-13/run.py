@@ -114,7 +114,8 @@ class Round:
   if c.doc(self.out/'live-harness-accepted.json')['exitCode']!=0:
    raise RuntimeError('no-key harness must pass')
   # Parent supplies this exact-source internal review receipt before collection.
-  if c.doc(self.out/'prerelease-source-review.json')['sourceCommit']!=c.doc(self.out/'source-at-start.json')['gitCommit']:
+  review=c.doc(self.out/'prerelease-source-review.json')
+  if review.get('decision')!='APPROVED' or review.get('sourceCommit')!=c.doc(self.out/'source-at-start.json')['gitCommit']:
    raise RuntimeError('prerelease source review identity missing')
   with (self.out/'paid-round-started.json').open('x') as stream:
    json.dump(dict(maxCalls=302,maxAttempts=302,automaticReruns=False),stream)

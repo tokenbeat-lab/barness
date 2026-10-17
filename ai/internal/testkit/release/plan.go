@@ -15,10 +15,13 @@ const requiredReleaseItems = `OD-R01 OD-R02 OD-R03 OD-R04 OD-R05 OD-R06 OD-R07 O
 
 const requiredImageItems = `UC-R01 UC-R02 UC-R03 UC-R04 UC-R05 UC-R06 UC-R07 UC-R08 UC-R09 UC-R10 UC-R11 UC-R12 UC-R13 UC-R14 UC-R15 UC-R16 UC-R17 UC-T01 UC-T02 UC-T03 UC-T04 UC-T05 UC-T06 UC-T07 UC-T08 UC-T09 UC-T10 UC-T11 UC-T12 UC-T13 UC-T14 UC-T15 UC-T16 UC-US01 UC-US03 UC-US17 UC-US23 UC-US25 UC-US32 UC-US33 UC-US41 UC-US42 UC-US43 UC-US44 UC-US45 UC-US46 UC-US47 UC-US48 UC-US49 UC-US50 UC-current-live UC-mixed-images UC-visual-effects`
 
+// Every GLM requirement, acceptance group and story is independently required.
+const requiredGLMItems = `GLM-R01 GLM-R02 GLM-R03 GLM-R04 GLM-R05 GLM-R06 GLM-R07 GLM-R08 GLM-R09 GLM-R10 GLM-R11 GLM-R12 GLM-R13 GLM-R14 GLM-R15 GLM-R16 GLM-R17 GLM-R18 GLM-R19 GLM-R20 GLM-R21 GLM-R22 GLM-A01 GLM-A02 GLM-A03 GLM-A04 GLM-A05 GLM-A06 GLM-A07 GLM-A08 GLM-A09 GLM-A10 GLM-A11 GLM-A12 GLM-A13 GLM-A14 GLM-A15 GLM-US01 GLM-US02 GLM-US03 GLM-US04 GLM-US05 GLM-US06 GLM-US07 GLM-US08 GLM-US09 GLM-US10 GLM-US11 GLM-US12 GLM-US13 GLM-US14 GLM-US15 GLM-US16 GLM-US17 GLM-US18 GLM-US19 GLM-US20 GLM-US21 GLM-US22 GLM-US23 GLM-US24 GLM-US25 GLM-US26 GLM-US27 GLM-US28 GLM-US29 GLM-US30 GLM-US31 GLM-US32 GLM-US33 GLM-US34 GLM-US35 GLM-US36 GLM-US37 GLM-US38 GLM-US39 GLM-US40 GLM-US41 GLM-US42 GLM-US43 GLM-US44 GLM-US45 GLM-US46 GLM-US47 GLM-US48 GLM-US49 GLM-US50 GLM-US51 GLM-US52 GLM-US53 GLM-US54 GLM-US55 GLM-US56 GLM-US57 GLM-US58 GLM-US59 GLM-US60 GLM-US61 GLM-US62`
+
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "92348fde5fe097ef2fac5946cbcd00a7cdcad6d2506bd298fe5a5fc98f3cdf92"
+const approvedMappingHash = "a579638ff2b7bc2ac90bdcb8b77b7d420dc3b6272407797c9210eda8c697883d"
 
 // CheckReleasePlan validates the complete fourteen live identities and seven differentials acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified
@@ -34,7 +37,7 @@ func CheckReleasePlan(m TraceMap) Snapshot {
 	if len(m.LiveCombos) != 14 {
 		problems = append(problems, "want exactly fourteen live identities")
 	}
-	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC GLM-CHAT GLM-RESPONSES GLM-MESSAGES") {
+	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC GLM-CHAT GLM-RESPONSES GLM-MESSAGES GLM-ACCEPTANCE") {
 		if count(m.P0, scenario) != 1 {
 			problems = append(problems, "required P0 "+scenario)
 		}
@@ -49,7 +52,7 @@ func CheckReleasePlan(m TraceMap) Snapshot {
 			problems = append(problems, "required extension route "+route.Scenario)
 		}
 	}
-	for _, id := range strings.Fields(requiredReleaseItems + " " + requiredImageItems) {
+	for _, id := range strings.Fields(requiredReleaseItems + " " + requiredImageItems + " " + requiredGLMItems) {
 		if !slices.ContainsFunc(m.Items, func(i TraceItem) bool { return i.ID == id }) {
 			problems = append(problems, "required trace item "+id)
 		}

@@ -1,6 +1,6 @@
 # barness-ai
 
-> **Catalog update (2026-10-17):** `2026-10-17.1` contains 87 chat identities, two image models and three classifiers. Fixed `jev-1.14.0` adds explicitly experimental PNG/JPEG at four positions and Box; use `ExperimentalImages`, finite policies and explicit Binding/model authorization. It has an independent `typesafe-classifier-jev-1.14.0` support identity. Earlier route PASS records below remain historical for their own Hash; overall current-catalog acceptance is pending ticket 14. See [formal evidence and replay](live/testdata/jev-formal/README.md).
+> **Catalog update (2026-10-17):** `2026-10-17.2` contains 93 chat identities, two image models and three classifiers. China standard GLM-5.3/5.2 each has independent Chat, Responses and Messages identities; the [complete Host example](examples/glmhost/README.md) covers three bindings, standard keys and full/simple/WithHooks. Jev1.14 PNG/JPEG/Box retains experimental image and explicit authorization requirements. The current release contract preserves13 protocol combinations and14 independent support identities; see [ticket13 current-source acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md).
 
 English | [简体中文](README.zh-CN.md)
 
@@ -56,29 +56,20 @@ Non-goals: no agent loop, no built-in memory or history trimming, no tool execut
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One, jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS (context probe returned 400; 422 shape unconfirmed) |
 | classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (formal schema 3 run, 2026-10-13) |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | Own independent formal evidence |
+| chat | China Zhipu × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | Own formal evidence; current-source renewal in ticket13 |
+| chat | China Zhipu × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | Own formal evidence; current-source renewal in ticket13 |
+| chat | China Zhipu × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | Own formal evidence; current-source renewal in ticket13 |
 | image | OpenAI × Images, gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS (generation, JSON edit and mask) |
 | image | Google × Interactions v1beta, gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS (generation and reference edit, 1K / 1:1) |
 
-All ten combinations were independently rerun on **2026-10-13** under schema 3 and catalog `2026-10-13.1`; route status
-is recorded in [`live/support-matrix.json`](live/support-matrix.json). A combination may be called supported only when
-its own row has fully passed; "OpenAI-compatible" does not mean any compatible service is accepted. Callable models are
-the intersection of the catalog (`BuiltinCatalog()`, snapshot in
-[`release/catalog-snapshot.json`](release/catalog-snapshot.json)) and `Binding.AllowedModels` within `(Operation,
-Provider, API, ModelID)`. Both native image routes and DeepSeek Responses are registered extensions; their evidence is
-independent of pi differential results. Release status and subsequent offline fixes are in [the release
-notes](../docs/barness-ai/README.md). The built-in catalog contains 87 chat identities, two image models and three
-classifiers; the same model ID may appear under different operations or protocols.
+The matrix records each identity's own source/catalog-scoped evidence. Jev1.13 and1.14 share one protocol combination and retain separate required identities. GLM routes are Extension Routes with their own evidence, alongside DeepSeek Responses and both native image routes; none claims frozen pi parity. Callable models remain the intersection of the full `(Operation, Provider, API, ModelID)` catalog identity and the binding allowlist.
 
 ### Current verification and release status
 
-The [latest complete
-gate](../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/release-report.md) tested source
-`1291d10`: all ten gates PASS, normal/race each 7,620 cases PASS, including 861 frozen pi differential cases with zero
-pending findings. Both vet modes, 14 input audits, capacity/revocation checks and independent Jev/Luna evaluations
-passed. The unsafe loopback socket-write resume was removed, but the historical natural stream corruption still has an
-unconfirmed cause. [Issue 07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) remains
-open and [issue 13's delivery verdict](../.scratch/barness-ai-openai-decisions/release-evidence/delivery-verdict.json)
-remains FAIL; an automatic gate PASS does not close that release blocker.
+The previous complete baseline is [ticket14's accepted release](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md):11 own live identities, four independent effects, normal/race9098 each,861 frozen pi cases and all gates PASS. The original [pressure issue07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) is resolved with retained causal evidence; earlier failing releases remain history.
+
+GLM formal catalog acceptance is recorded in [ticket12](../.scratch/barness-ai-glm/evidence/ticket-12/README.md). Ticket13's complete preflight found and fixed stale catalog/config pins and narrowed GLM callback-panic recovery to preserve existing providers. That actual runtime-source fix requires fresh formal GLM and legacy evidence. [Current acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) remains pending until its complete gate passes; prior source/hash evidence is not relabelled.
 
 ## Quick start (local)
 
