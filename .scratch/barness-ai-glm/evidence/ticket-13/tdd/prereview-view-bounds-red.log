@@ -1,0 +1,11 @@
+--- FAIL: TestGLMSupportViewBounds (0.43s)
+    --- FAIL: TestGLMSupportViewBounds/unlisted (0.11s)
+        glm_support_view_limits_test.go:59: [P0-GLM13-support-view-unlisted] invalid finite-owned shape rejected before payload read: err=supportmatrix: invalid report: GLM support view inventory changed allocated=63661000
+    --- FAIL: TestGLMSupportViewBounds/many (0.22s)
+        glm_support_view_limits_test.go:59: [P0-GLM13-support-view-many] invalid finite-owned shape rejected before payload read: err=supportmatrix: invalid report: GLM support view inventory changed allocated=351416504
+    --- FAIL: TestGLMSupportViewBounds/deep (0.10s)
+        glm_support_view_limits_test.go:59: [P0-GLM13-support-view-deep] invalid finite-owned shape rejected before payload read: err=supportmatrix: invalid report: GLM support view inventory changed allocated=63774904
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-glm-13/.evidence/barness-ai/20261017T151756.137763000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.704s
+FAIL

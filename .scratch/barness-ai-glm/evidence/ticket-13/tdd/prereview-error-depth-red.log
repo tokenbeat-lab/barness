@@ -1,0 +1,23 @@
+--- FAIL: TestGLMDeepErrorEnvelope (5.59s)
+    --- FAIL: TestGLMDeepErrorEnvelope/chat/glm-5.3 (0.90s)
+        glm_error_depth_test.go:38: [P0-GLM13-error-depth-chat-glm-5.3] unknown deep code never interpreted as legitimate envelope: nested code interpreted
+        glm_error_depth_test.go:39: [P0-GLM13-error-depth-chat-glm-5.3] bounded error parsing allocation: allocated 1013831760 for 50015-byte body
+    --- FAIL: TestGLMDeepErrorEnvelope/chat/glm-5.2 (0.95s)
+        glm_error_depth_test.go:38: [P0-GLM13-error-depth-chat-glm-5.2] unknown deep code never interpreted as legitimate envelope: nested code interpreted
+        glm_error_depth_test.go:39: [P0-GLM13-error-depth-chat-glm-5.2] bounded error parsing allocation: allocated 1013729272 for 50015-byte body
+    --- FAIL: TestGLMDeepErrorEnvelope/responses/glm-5.3 (0.93s)
+        glm_error_depth_test.go:38: [P0-GLM13-error-depth-responses-glm-5.3] unknown deep code never interpreted as legitimate envelope: nested code interpreted
+        glm_error_depth_test.go:39: [P0-GLM13-error-depth-responses-glm-5.3] bounded error parsing allocation: allocated 1009174424 for 50015-byte body
+    --- FAIL: TestGLMDeepErrorEnvelope/responses/glm-5.2 (0.95s)
+        glm_error_depth_test.go:38: [P0-GLM13-error-depth-responses-glm-5.2] unknown deep code never interpreted as legitimate envelope: nested code interpreted
+        glm_error_depth_test.go:39: [P0-GLM13-error-depth-responses-glm-5.2] bounded error parsing allocation: allocated 1009121880 for 50015-byte body
+    --- FAIL: TestGLMDeepErrorEnvelope/messages/glm-5.3 (0.94s)
+        glm_error_depth_test.go:38: [P0-GLM13-error-depth-messages-glm-5.3] unknown deep code never interpreted as legitimate envelope: nested code interpreted
+        glm_error_depth_test.go:39: [P0-GLM13-error-depth-messages-glm-5.3] bounded error parsing allocation: allocated 1003232248 for 50015-byte body
+    --- FAIL: TestGLMDeepErrorEnvelope/messages/glm-5.2 (0.92s)
+        glm_error_depth_test.go:38: [P0-GLM13-error-depth-messages-glm-5.2] unknown deep code never interpreted as legitimate envelope: nested code interpreted
+        glm_error_depth_test.go:39: [P0-GLM13-error-depth-messages-glm-5.2] bounded error parsing allocation: allocated 1003136856 for 50015-byte body
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-glm-13/.evidence/barness-ai/20261017T151301.156087000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	6.943s
+FAIL

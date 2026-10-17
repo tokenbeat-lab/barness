@@ -135,27 +135,12 @@ func loadGLMRawCapture(route string) (glmRawCapture, error) {
 }
 
 func glmOriginalMatches(dir string, raw glmRawCapture) error {
-	actual := map[string]string{}
-	e := filepath.WalkDir(dir, func(p string, d os.DirEntry, e error) error {
-		if e != nil {
-			return e
-		}
-		if d.IsDir() {
-			return nil
-		}
-		rel, _ := filepath.Rel(dir, p)
-		data, e := glmRead(p)
-		if e != nil {
-			return e
-		}
-		actual[filepath.ToSlash(rel)] = glmHash(data)
-		return nil
-	})
-	if e != nil || len(actual) != len(raw.files) {
-		return glmBad("original capture set differs from immutable archive")
-	}
-	for name, data := range raw.files {
-		if actual[name] != glmHash(data) {
+	// The owned complete path set was bounded before payload reads. Iterate
+	// only trusted archive names here; a second unbounded walk would reopen
+	// the same denial-of-service path during independent byte comparison.
+	for name, expected := range raw.files {
+		data, e := glmRead(filepath.Join(dir, filepath.FromSlash(name)))
+		if e != nil || glmHash(data) != glmHash(expected) {
 			return glmBad("original capture bytes differ from immutable archive")
 		}
 	}

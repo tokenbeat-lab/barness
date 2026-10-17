@@ -5,7 +5,6 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
-	"strings"
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
@@ -98,7 +97,7 @@ func CreateGLMSupportView(route, destination string) (Report, error) {
 	if e = write("audit.json", map[string]any{"findings": findings}); e != nil {
 		return empty, e
 	}
-	inventory, e := glmViewInventory(stage)
+	inventory, e := glmViewInventory(stage, raw.files)
 	if e != nil {
 		return empty, e
 	}
@@ -115,33 +114,6 @@ func CreateGLMSupportView(route, destination string) (Report, error) {
 	return r, nil
 }
 
-func glmViewInventory(dir string) (map[string]string, error) {
-	files := map[string]string{}
-	e := filepath.WalkDir(dir, func(p string, d os.DirEntry, e error) error {
-		if e != nil {
-			return e
-		}
-		if d.IsDir() {
-			return nil
-		}
-		rel, _ := filepath.Rel(dir, p)
-		rel = filepath.ToSlash(rel)
-		if !strings.HasPrefix(rel, "original/") && rel != "live-report.json" && rel != "glm-support-derivation.json" && rel != "audit.json" && rel != "manifest.json" && rel != "glm-support-integrity.json" {
-			return glmBad("unexpected support view artifact")
-		}
-		if rel == "glm-support-integrity.json" {
-			return nil
-		}
-		raw, e := glmRead(p)
-		if e != nil {
-			return e
-		}
-		files[rel] = glmHash(raw)
-		return nil
-	})
-	return files, e
-}
-
 func NewGLMSupportViewReport(dir string) (Report, error) {
 	var empty Report
 	var proof GLMDerivation
@@ -150,6 +122,19 @@ func NewGLMSupportViewReport(dir string) (Report, error) {
 	}
 	if proof.Schema != 1 || proof.Kind != "glm-derived-live-support" || proof.DerivedAt.IsZero() || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(proof.ImporterGitCommit) {
 		return empty, glmBad("support derivation identity invalid")
+	}
+	raw, e := loadGLMRawCapture(proof.Route)
+	if e != nil {
+		return empty, e
+	}
+	if proof.RawCaptureIndexSHA256 != raw.indexHash || proof.RawArchiveSHA256 != raw.archiveHash || proof.OriginalFormalReportSHA256 != raw.reportHash || proof.OriginalSupportReportSHA256 != raw.supportHash || proof.OriginalGitCommit != raw.commit {
+		return empty, glmBad("support derivation substituted raw capture/source identity")
+	}
+	// Reject unknown paths/counts/bytes before hashing view payloads, including
+	// stale views: source errors must not hide unbounded shape traversal.
+	paths, e := glmViewPaths(dir, raw.files)
+	if e != nil {
+		return empty, e
 	}
 	_, current, e := glmImporterIdentity()
 	if e != nil || proof.ImporterSourceSHA256 != current {
@@ -166,7 +151,7 @@ func NewGLMSupportViewReport(dir string) (Report, error) {
 	if readGLMJSON(filepath.Join(dir, "glm-support-integrity.json"), &inventory) != nil || inventory.Schema != 1 {
 		return empty, glmBad("support view inventory missing")
 	}
-	actual, e := glmViewInventory(dir)
+	actual, e := glmHashViewPaths(paths)
 	if e != nil || !reflect.DeepEqual(actual, inventory.Files) {
 		return empty, glmBad("support view inventory changed")
 	}
@@ -176,13 +161,6 @@ func NewGLMSupportViewReport(dir string) (Report, error) {
 	}
 	if findings, e := audit.Bundle(dir, nil); e != nil || len(findings) > 0 {
 		return empty, glmBad("support view independent audit failed")
-	}
-	raw, e := loadGLMRawCapture(proof.Route)
-	if e != nil {
-		return empty, e
-	}
-	if proof.RawCaptureIndexSHA256 != raw.indexHash || proof.RawArchiveSHA256 != raw.archiveHash || proof.OriginalFormalReportSHA256 != raw.reportHash || proof.OriginalSupportReportSHA256 != raw.supportHash || proof.OriginalGitCommit != raw.commit {
-		return empty, glmBad("support derivation substituted raw capture/source identity")
 	}
 	original := filepath.Join(dir, "original")
 	if e = glmOriginalMatches(original, raw); e != nil {

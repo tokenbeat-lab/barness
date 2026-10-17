@@ -344,8 +344,14 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 			content[j] = c.Text
 		}
 		thinking := cmp.Or(strings.Join(summary, "\n\n"), strings.Join(content, "\n\n"), p.out.thinkingText(i))
-		if p.glm && len(item.Content) == 0 && s.done != nil {
-			thinking = *s.done
+		if p.glm {
+			// Explicit content parts are authoritative even when their text
+			// is empty. An empty part list still uses a separate text.done.
+			if len(item.Content) > 0 {
+				thinking = strings.Join(content, "\n\n")
+			} else if s.done != nil {
+				thinking = *s.done
+			}
 		}
 		native := item.RawJSON()
 		if p.glm && p.glmNative[outputIndex] != "" {

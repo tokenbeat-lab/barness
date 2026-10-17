@@ -1,0 +1,32 @@
+package e2e
+
+import (
+ "context"
+ "encoding/json"
+ "testing"
+ "github.com/tokenbeat-lab/barness/ai"
+)
+
+func TestPrereviewGLMAuthoritativeEmptyReasoning(t *testing.T) {
+ ev := run.Case(t, "PREREVIEW-GLM-empty-reasoning")
+ w := newGLMResponsesWorld(t, nil)
+ events := []json.RawMessage{
+  json.RawMessage(`{"type":"response.output_item.added","output_index":0,"item":{"type":"reasoning","id":"r1","content":[]}}`),
+  json.RawMessage(`{"type":"response.reasoning_text.delta","output_index":0,"delta":"stale draft"}`),
+  json.RawMessage(`{"type":"response.output_item.done","output_index":0,"item":{"type":"reasoning","id":"r1","content":{"type":"reasoning_text","text":""}}}`),
+  json.RawMessage(`{"type":"response.completed","response":{"id":"resp1","status":"completed","output":[{"type":"reasoning","id":"r1","content":{"type":"reasoning_text","text":""}}]}}`),
+ }
+ enqueue(ev,w,glmResponsesReply(t,events))
+ o:=drain(w.client.Stream(ctxFor(t),textScope("prereview-empty"),glmResponsesTarget("glm-5.3"),glmResponsesRequest(),nil))
+ o.record(ev)
+ if o.err!=nil {t.Fatal(o.err)}
+ for _,b:=range o.result.Message.Content {if thought,ok:=b.(ai.Thinking);ok && thought.Thinking!="" {t.Fatalf("authoritative empty reasoning retained prior delta: %q",thought.Thinking)}}
+}
+func TestPrereviewGLMLegacyForcedTool(t *testing.T) {
+ ev:=run.Case(t,"PREREVIEW-GLM-legacy-forced-tool")
+ w:=newGLMChatWorld(t,nil)
+ reply,_:=glmChatReply(t,"glm-5.3");enqueue(ev,w,reply)
+ hooks:=ai.Hooks{OnPayload:func(_ context.Context,_ ai.CallScope,p *ai.Payload)(ai.PayloadDecision,error){p.Body["functions"]=[]any{map[string]any{"name":"lookup","parameters":map[string]any{"type":"object"}}};p.Body["function_call"]=map[string]any{"name":"lookup"};return ai.KeepPayload(),nil}}
+ o:=drain(w.client.WithHooks(hooks).Stream(ctxFor(t),textScope("prereview-legacy"),ai.Target{BindingID:"glm-chat",ModelID:"glm-5.3"},glmChatRequest(),nil));o.record(ev);ev.Record("requests",w.provider.Requests())
+ if len(w.provider.Requests())>0 {t.Fatalf("unsupported legacy forced function call was sent; err=%v",o.err)}
+}
