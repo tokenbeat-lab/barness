@@ -63,3 +63,24 @@ at 1800 seconds. `ai/live/glm_assembly_test.go` shares Client assembly with the
 existing harness while keeping its policy separate from the legacy runner.
 Its controlled test never makes a paid call; ticket 11 owns the isolated entry,
 switches, budget reservation and report. Missing credentials remain NOT_RUN.
+
+## Independent Responses candidate
+
+`ResponsesCatalog`, `ResponsesBinding` and `ResponsesEndpoint` are independent
+Responses definitions, sourced from the China Responses schema, model pages
+and the separately authorized basic/tool exploration. They are not generated
+from Chat entries. The base is `https://open.bigmodel.cn/api/v1`; the SDK appends
+`/responses`, using Bearer authentication. Output schema accepts 1..131072;
+context 1000000 is an explicitly conservative limit. Each entry is text only.
+
+The generic Responses effort schema describes all seven wire strings and maps
+low/medium to high; the 5.3 model page separately says low/high/max only. The
+candidate follows the spec's conservative 5.3 low/high/max contract and keeps
+omitted effort omitted. Actual low computation intensity is not established by
+Chat's semantics. The 5.2 map is independently based on the Responses generic
+schema (none/minimal abandon, low/medium/high→high, xhigh/max→max), not copied
+from Chat. Candidate costs are synthetic fixture rates, never RMB/USD pricing.
+Both early real basic streams used arrays; object-shape regression fixtures
+are official-schema-derived synthetic evidence. Native reasoning keeps its
+original shape, separately from the SDK parsing copy. Ticket05 owns history
+request conversion and tools; ticket11 owns paid production acceptance.
