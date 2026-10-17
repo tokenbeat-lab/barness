@@ -1,0 +1,141 @@
+{
+  "source": "Synthetic China standard Chat fixture, not recorded service evidence. Official independent model/schema facts: https://docs.bigmodel.cn/openapi/openapi.json ChatCompletionTextRequest/ChatThinking; https://docs.bigmodel.cn/cn/guide/capabilities/thinking.md; independently GLM-5.3 and GLM-5.2 model pages. Retrieved 2026-10-17. Tests deliberately place usage after finish_reason and before DONE. Fixture prices are synthetic.",
+  "scenarios": [
+    {
+      "model": "glm-5.3",
+      "events": [
+        {
+          "id": "glm-synthetic-text",
+          "object": "chat.completion.chunk",
+          "created": 1792238400,
+          "model": "glm-5.3",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "reasoning_content": "Let me think."
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "glm-synthetic-text",
+          "object": "chat.completion.chunk",
+          "created": 1792238400,
+          "model": "glm-5.3",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "Hello GLM."
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "glm-synthetic-text",
+          "object": "chat.completion.chunk",
+          "created": 1792238400,
+          "model": "glm-5.3",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "stop"
+            }
+          ]
+        },
+        {
+          "id": "glm-synthetic-text",
+          "object": "chat.completion.chunk",
+          "created": 1792238400,
+          "model": "glm-5.3",
+          "choices": [],
+          "usage": {
+            "prompt_tokens": 12,
+            "completion_tokens": 8,
+            "total_tokens": 20,
+            "prompt_tokens_details": {
+              "cached_tokens": 2
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 5
+            }
+          }
+        },
+        "[DONE]"
+      ]
+    },
+    {
+      "model": "glm-5.2",
+      "events": [
+        {
+          "id": "glm-synthetic-text",
+          "object": "chat.completion.chunk",
+          "created": 1792238400,
+          "model": "glm-5.2",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "reasoning_content": "Let me think."
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "glm-synthetic-text",
+          "object": "chat.completion.chunk",
+          "created": 1792238400,
+          "model": "glm-5.2",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "Hello GLM."
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "glm-synthetic-text",
+          "object": "chat.completion.chunk",
+          "created": 1792238400,
+          "model": "glm-5.2",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "stop"
+            }
+          ]
+        },
+        {
+          "id": "glm-synthetic-text",
+          "object": "chat.completion.chunk",
+          "created": 1792238400,
+          "model": "glm-5.2",
+          "choices": [],
+          "usage": {
+            "prompt_tokens": 12,
+            "completion_tokens": 8,
+            "total_tokens": 20,
+            "prompt_tokens_details": {
+              "cached_tokens": 2
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 5
+            }
+          }
+        },
+        "[DONE]"
+      ]
+    }
+  ]
+}

@@ -211,6 +211,12 @@ func newLiveEnv(t *testing.T, c *combo, key string) *liveEnv {
 // newClient assembles the Client on cat, allowing every model cat lists for
 // the combination.
 func newClient(c *combo, key string, rec *recorder, cat ai.Catalog) (*ai.Client, error) {
+	return newClientWithPolicy(c, key, rec, cat, livePolicy())
+}
+
+// newClientWithPolicy shares only Host assembly, not the legacy runner's
+// scenario selection, call budget or time limits with candidate evidence.
+func newClientWithPolicy(c *combo, key string, rec *recorder, cat ai.Catalog, policy *ai.ResourcePolicy) (*ai.Client, error) {
 	var models []string
 	for _, m := range cat.Models {
 		if m.Provider == c.provider && m.API == c.api {
@@ -234,7 +240,7 @@ func newClient(c *combo, key string, rec *recorder, cat ai.Catalog) (*ai.Client,
 		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "live-key", Version: "live",
 			BindingVersion: "live", AccountScopeID: "live-" + c.name, Active: true, APIKey: ai.NewSecret(key)},
 	}
-	return ai.NewClient(ai.Config{Policy: livePolicy(), Bindings: res, Credentials: res, Transport: rec, Observer: rec, Catalog: &cat})
+	return ai.NewClient(ai.Config{Policy: policy, Bindings: res, Credentials: res, Transport: rec, Observer: rec, Catalog: &cat})
 }
 
 // livePolicy bounds a smoke process: short turns, one call at a time.

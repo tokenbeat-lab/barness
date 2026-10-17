@@ -24,8 +24,8 @@ import (
 // built per call from explicit options only.
 //
 // It speaks pi's openai-completions compat for the binding's provider
-// (chatCompatOf): the standard OpenAI compat, or DeepSeek's. pi detects
-// other vendors' quirks too; their Chat models are not served here.
+// (chatCompatOf): OpenAI, DeepSeek and the independent China standard Zhipu
+// route. Shared wire framing never implies shared provider capabilities.
 type chatAdapter struct{}
 
 // headers are the bearer authentication and barness-ai's User-Agent; pi
@@ -49,6 +49,9 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	// stream back to true after it, which pi's does not.
 	body, failure := ac.hooks.payload(ctx, body, payloadAuthorization(authorizeChatPayload(ac.model, cacheKey, ac.hostedTools)))
 	if failure != nil {
+		return failure
+	}
+	if failure := validateChatFinalBody(ac.model, body, authorizeChatPayload(ac.model, cacheKey, ac.hostedTools)); failure != nil {
 		return failure
 	}
 	if failure := ac.limits.checkRequestBody(body); failure != nil {

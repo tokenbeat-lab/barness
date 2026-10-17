@@ -15,12 +15,12 @@ import (
 // openai-completions.ts buildParams and convertMessages for the provider's
 // compat (ADR-0013, ADR-0015).
 type chatBody struct {
-	Model                string            `json:"model"`
-	Messages             []any             `json:"messages"`
-	Stream               bool              `json:"stream"`
-	PromptCacheKey       string            `json:"prompt_cache_key,omitempty"`
-	PromptCacheRetention string            `json:"prompt_cache_retention,omitempty"`
-	StreamOptions        chatStreamOptions `json:"stream_options"`
+	Model                string             `json:"model"`
+	Messages             []any              `json:"messages"`
+	Stream               bool               `json:"stream"`
+	PromptCacheKey       string             `json:"prompt_cache_key,omitempty"`
+	PromptCacheRetention string             `json:"prompt_cache_retention,omitempty"`
+	StreamOptions        *chatStreamOptions `json:"stream_options,omitempty"`
 	// Store is nil (omitted) for providers that take no store field.
 	Store               *bool             `json:"store,omitempty"`
 	MaxTokens           int               `json:"max_tokens,omitempty"`
@@ -128,8 +128,10 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	if err != nil {
 		return nil, err
 	}
-	body := chatBody{Model: model.ID, Messages: messages, Stream: true,
-		StreamOptions: chatStreamOptions{IncludeUsage: true}}
+	body := chatBody{Model: model.ID, Messages: messages, Stream: true}
+	if compat.streamUsage {
+		body.StreamOptions = &chatStreamOptions{IncludeUsage: true}
+	}
 	if compat.store {
 		body.Store = new(bool)
 	}

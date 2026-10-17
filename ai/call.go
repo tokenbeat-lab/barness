@@ -81,6 +81,9 @@ func (c *Client) execute(ctx context.Context, cl call, runtime *callRuntime, asm
 	if failure := validateOptions(options, binding.API); failure != nil {
 		return failure
 	}
+	if failure := validateChatModelOptions(model, options); failure != nil {
+		return failure
+	}
 
 	// History source: native state is replayed only where its envelope
 	// matches this tenant, the binding's account and the model; the rest is
