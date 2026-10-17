@@ -39,9 +39,14 @@ type Model struct {
 	Cost ModelCost `json:"cost"`
 }
 
-// ModelCompat holds the protocol compatibility flags of pi-ai's model data
-// that barness-ai implements. An absent flag has pi's default.
+// ModelCompat holds model constraints and the protocol compatibility flags
+// of pi-ai's model data that barness-ai implements. An absent pi flag has
+// pi's default; additional semantic constraints document their zero behavior.
 type ModelCompat struct {
+	// RequiresThinking: the model cannot disable reasoning. This semantic
+	// constraint is independent of the provider's wire switch and level map;
+	// zero preserves existing models. Implemented by Zhipu Chat initially.
+	RequiresThinking bool `json:"requiresThinking,omitempty"`
 	// SupportsStrictMode: Responses function tools carry a "strict" field.
 	SupportsStrictMode bool `json:"supportsStrictMode,omitempty"`
 	// SupportsMidConvoSystemMessages: later system messages are sent in place

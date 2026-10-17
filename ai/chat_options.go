@@ -18,7 +18,7 @@ import (
 type ChatOptions struct {
 	// Temperature is sent as temperature, null included.
 	Temperature Nullable[float64] `json:"temperature,omitzero"`
-	// MaxTokens is sent as max_completion_tokens (max_tokens to DeepSeek);
+	// MaxTokens is sent as max_completion_tokens (max_tokens to DeepSeek/Zhipu);
 	// unset, null and 0 send nothing.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
 	// SamplingParams override named request fields and model defaults, on
@@ -36,7 +36,8 @@ type ChatOptions struct {
 	// map, unclamped; a model without reasoning ignores it. Empty sends the
 	// model's "off" mapping when that is a value. To DeepSeek it also sends
 	// thinking enabled, and empty sends thinking disabled unless the model
-	// maps off to null.
+	// maps off to null. Zhipu preserves default thinking when omitted and
+	// refuses explicit levels its model does not support.
 	ReasoningEffort ThinkingLevel `json:"reasoningEffort,omitempty"`
 	// ToolChoice is sent as tool_choice; unset and null send nothing.
 	ToolChoice Nullable[ChatToolChoice] `json:"toolChoice,omitzero"`
@@ -116,6 +117,9 @@ const openAIEndpointMarker = "api.openai.com"
 // the base URL is OpenAI's and retention is not none, or when retention is
 // long and the model supports long retention; only with a session id.
 func (o ChatOptions) cacheKey(scope cacheScope, endpoint string, m Model) string {
+	if !chatCompatOf(m.Provider).promptCache {
+		return ""
+	}
 	retention := cmp.Or(o.CacheRetention, CacheRetentionShort)
 	onOpenAI := strings.Contains(endpoint, openAIEndpointMarker) && retention != CacheRetentionNone
 	if o.SessionID == "" || !onOpenAI && !(retention == CacheRetentionLong && m.supportsLongCacheRetention()) {
@@ -129,7 +133,7 @@ func (o ChatOptions) cacheKey(scope cacheScope, endpoint string, m Model) string
 // the tool choice and the reasoning switch of its thinking format.
 func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey string) {
 	body.PromptCacheKey = cacheKey
-	if o.CacheRetention == CacheRetentionLong && m.supportsLongCacheRetention() {
+	if compat.promptCache && o.CacheRetention == CacheRetentionLong && m.supportsLongCacheRetention() {
 		body.PromptCacheRetention = "24h"
 	}
 	if n, ok := o.MaxTokens.Get(); ok && n != 0 {
@@ -152,7 +156,7 @@ func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey
 		if o.ReasoningEffort != "" {
 			body.Thinking = &chatThinking{Type: "enabled"}
 			body.ReasoningEffort = m.ThinkingLevelMap.wireValue(o.ReasoningEffort)
-		} else if !m.ThinkingLevelMap.Off.IsNull() {
+		} else if !compat.preserveThinkingDefault && !m.ThinkingLevelMap.Off.IsNull() {
 			body.Thinking = &chatThinking{Type: "disabled"}
 		}
 		return
@@ -165,8 +169,8 @@ func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey
 }
 
 // reasoningExpected is whether a call with these options asks model m for
-// reasoning, so its usage should count reasoning tokens: a reasoning model,
-// unless DeepSeek's thinking switch turns thinking off. A payload callback
+// reasoning, so its usage should count reasoning tokens. Providers preserving
+// enabled default thinking also expect it with an omitted level. A payload callback
 // that switches thinking on itself is not seen here; such a call's missing
 // count reads as complete.
 func (o ChatOptions) reasoningExpected(m Model, compat chatCompat) bool {
@@ -174,7 +178,7 @@ func (o ChatOptions) reasoningExpected(m Model, compat chatCompat) bool {
 		return false
 	}
 	if compat.thinkingToggle {
-		return o.ReasoningEffort != "" || m.ThinkingLevelMap.Off.IsNull()
+		return o.ReasoningEffort != "" || m.Compat.RequiresThinking || compat.preserveThinkingDefault || m.ThinkingLevelMap.Off.IsNull()
 	}
 	return true
 }

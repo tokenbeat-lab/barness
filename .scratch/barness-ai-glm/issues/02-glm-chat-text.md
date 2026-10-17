@@ -1,6 +1,6 @@
 # 02: 通过公共 Client 完成 GLM Chat 文本与思考调用
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。

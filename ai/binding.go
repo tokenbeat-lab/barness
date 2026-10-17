@@ -47,6 +47,9 @@ const (
 	// Responses protocol with OpenAI but not OpenAI's server-side features
 	// (ADR-0014).
 	ProviderDeepSeek ProviderID = "deepseek"
+	// ProviderZhipu is Zhipu's China-region service. Protocol and credential
+	// purpose remain explicit Host binding choices; Coding Plan is separate.
+	ProviderZhipu ProviderID = "zhipu"
 )
 
 // API identifies a wire protocol. Values match the frozen pi-ai API names.
