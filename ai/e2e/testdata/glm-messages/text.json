@@ -1,0 +1,48 @@
+{
+  "source": "2026-10-17 bounded public Client Messages exploration; source SSE bytes copied unchanged; no Chat/Responses facts",
+  "prompt": "Calculate 17 + 25. Reply with only the integer answer.",
+  "scenarios": [
+    {
+      "model": "glm-5.3",
+      "sse": "glm-5.3-response.sse",
+      "frames": "glm-5.3-frames.json",
+      "source": "protocol-exploration/messages/02-basic-sdk-query/glm-5.3",
+      "sseSha256": "4aa9a1b6a856bacc66c33aebe1811eaeb1cf487a4cfc16574af71358af4390e8",
+      "text": "42",
+      "responseId": "msg_202610172038433f751ebe55444103",
+      "content": [
+        {
+          "thinking": "The user wants me to calculate 17 + 25 and reply with only the integer answer.\n\n17 + 25 = 42",
+          "thinkingSignature": "bb82154ba4f94667868c1b8c"
+        },
+        {
+          "text": "42"
+        }
+      ],
+      "input": 26,
+      "output": 29,
+      "requestId": [
+        "29323f20-6e44-4c4d-9a09-b1d6fb9b4e52"
+      ]
+    },
+    {
+      "model": "glm-5.2",
+      "sse": "glm-5.2-response.sse",
+      "frames": "glm-5.2-frames.json",
+      "source": "protocol-exploration/messages/02-basic-sdk-query/glm-5.2",
+      "sseSha256": "4b363b5b23505121bd6cacba774d0a2caffda81df1cfc27d1a6d7c888723f12a",
+      "text": "42",
+      "responseId": "msg_20261017203846ba2ecb4eafaf4c0a",
+      "content": [
+        {
+          "text": "42"
+        }
+      ],
+      "input": 20,
+      "output": 1,
+      "requestId": [
+        "d0bdbb59-321c-484c-8428-226a8f0d3fa0"
+      ]
+    }
+  ]
+}
