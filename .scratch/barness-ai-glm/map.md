@@ -30,6 +30,8 @@
 
 - 2026-10-17：[05 专项补充已解决](issues/05-glm-responses-history-tools-cache.md)：在11冻结前修复 GLM 不透明 ID 的分隔符/percent/Unicode 往返，以及 GLM 来源降级后的冲突/空 ID；普通转换与非 GLM 历史保持原规则。90 新例、288 相关回归、124 race、335 冻结 Responses 差分 PASS，见[专项证据](evidence/ticket-05-followup-ids/README.md)。
 
+- 2026-10-17：[10 已解决](issues/10-glm-pi-differential.md)：冻结 pi1.1.0 全 43 文件路由证明三种中国标准 zhipu API 均为 ExtensionRoute；317 旧决定、3 旧扩展与冻结 pins 保持。自身账本 43 条 / 752 case-path / 420 场景零 pending；公共 GLM 1,733 + DeepSeek Responses 64、适用完整差分 726、来源 5 通过，合并 05 ID 修复后 90 新例 + 5 来源共 95 通过。见[证据索引](evidence/ticket-10/README.md)、[来源](evidence/ticket-10/sources/frozen-source.json)与校验归档；不扩大正式目录/live/矩阵声明。
+
 ## Fog
 
 - 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。

@@ -51,6 +51,9 @@ def main():
                          "auditSHA256": digest(path / "audit.json"), "statuses": statuses,
                          "gitCommit": manifest["git_commit"], "versions": manifest["versions"]}
         case_sets[name] = cases
+    validation_name = "post-merge" if "post-merge" in case_sets else "ledger"
+    validation = case_sets[validation_name]["GLM10-case-path-ledger"]
+    assert validation["fixtures"]["glm-acceptance-ledger.json"] == digest(ledger_path)
     proof = []
     for index, decision in enumerate(ledger["decisions"]):
         assert decision["classification"] in ("fixed", "extension")
@@ -80,6 +83,7 @@ def main():
     result = {"scope": "offline own GLM extension acceptance plus unchanged native differential; no live/support-matrix promotion",
               "bundles": bundles, "ledger": {"path": str(ledger_path.relative_to(root)), "sha256": digest(ledger_path),
               "decisions": len(ledger["decisions"]), "casePathPairs": len(proof), "cases": len({p['case'] for p in proof}),
+              "validationBundle": validation_name,
               "pending": 0, "proof": str(proof_path), "proofSHA256": digest(proof_path)},
               "nativeDifferentialCounts": dict(differential_counts), "glmNativePiParity": "NOT_APPLICABLE_EXTENSION_ROUTE"}
     args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")

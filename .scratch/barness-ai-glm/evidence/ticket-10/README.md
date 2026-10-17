@@ -10,7 +10,7 @@ business acceptance seam; the source inventory and ledger are provenance gates.
 ## Source decision
 
 All three China standard `zhipu` routes are **ExtensionRoute**, for **both**
-`glm-5.3` and `glm-5.2`. The existing pi-ai1.1.0 oracle first verifies its full
+`glm-5.3` and `glm-5.2`. The existing pi-ai 1.1.0 oracle first verifies its full
 827-file dist SHA, 43-file data SHA, SDK lock and commit/version pins; then the
 read-only source case inventories every native provider data file. No standard
 China identity or base exists. Its same-spelled GLM models are different
@@ -48,7 +48,7 @@ Anthropic or DeepSeek success supplies no substitute GLM artifact.
 [Responses schema excerpts](sources/responses-contract.json) retain original
 OutputReasoning/InputReasoning and function IDs; [Chat excerpts](sources/chat-contract.json)
 retain the independent request controls. Messages sources are the unchanged
-model-specific observed captures and bounded probes referenced in07, with raw
+model-specific observed captures and bounded probes referenced in 07, with raw
 request/SSE and source SHA retained by their own fixtures. Synthetic object,
 cache/error mutations and 5.3 native-history variants remain explicitly
 synthetic; none is described as observed service behavior. Candidate rates
@@ -57,8 +57,8 @@ remain synthetic, and no current source fact is promoted to a paid billing fact.
 The predecessor Responses tool captures have delimiter-free IDs. The pinned
 InputFunctionCall.call_id and OutputFunctionCall.{call_id,id} are arbitrary
 strings with no alphabet excluding `|`. Their success therefore does not prove
-delimiter collision safety. The coordinated05 correction now has four fixed
-call/result ID leaf-path records for58 exact public edge cases, covering pipe,
+delimiter collision safety. The coordinated 05 correction now has four fixed
+call/result ID leaf-path records for 58 exact public edge cases, covering pipe,
 percent, Unicode, ambiguous concatenation, Host restoration and cross-origin
 conversion. Additional cross-API collision and empty-origin-ID cases are retained
 in the same separate post-merge run. See [05 follow-up evidence](../ticket-05-followup-ids/README.md).
@@ -67,24 +67,30 @@ in the same separate post-merge run. See [05 follow-up evidence](../ticket-05-fo
 
 | Independent run | Result |
 | --- | --- |
-| Complete own GLM public suite | 1,733 PASS |
+| Own GLM public batch before ID follow-up | 1,733 PASS |
 | Existing DeepSeek Responses extension public suite | 64 PASS |
 | Source/extension/finite ledger gate with frozen opt-in | 5 PASS |
 | OpenAI Responses frozen differential | 335 PASS, zero pending |
 | OpenAI Chat frozen differential | 203 PASS, zero pending |
 | DeepSeek Chat frozen differential | 118 PASS, zero pending |
 | Native Anthropic frozen differential | 70 PASS, zero pending |
+| After integration merge: 90 ID cases + 5 provenance cases | 95 PASS |
 | go vet ./ai/e2e; whitespace | PASS |
 
 The combined offline public run also has one explicit NOT_RUN source-inventory
 case because the oracle opt-in is absent there; its separate frozen run passes.
 Thus 1,797 public PASS + 726 native differential PASS + 5 provenance PASS are
-separate counts, not one GLM parity total. Runtime production bytes are those
-of integration `8839138`; this ticket only adds tests/ledger/source records.
-The initial ledger run contained39 records; the post-merge gate validates the
-final43 records and new ID regressions separately. The public batch staged new
-files before inventory-bearing tests; manifests
-record each run's actual Git HEAD and pinned catalog/SDK versions.
+separate counts, not one GLM parity total. The full batches used integration `8839138` production bytes; this ticket
+adds only tests/ledger/source records. After merging stable integration
+`2222b9476f107843f23797ae6a094f08f231b71f` at
+`2b8c1a69dc672d0e8a661d2e8cef118f9e386537`, the separate post-merge batch
+passes all 90 new ID cases and five provenance cases. Upstream05 also retains
+its own 288 related regression, 124 race and 335 frozen Responses PASS at code
+`0f33a39`; its scope is documented in the linked follow-up, independently of
+the prior full 726 differential. The initial ledger run contained 39 records;
+the post-merge gate validates the final 43. New files were staged before
+inventory-bearing tests; manifests record each run's actual Git HEAD and
+pinned catalog/SDK versions.
 
 The first source-gate harness called the Models query with JSON null rather
 than an empty array; it failed before scanning. That diagnostic is preserved
@@ -106,6 +112,8 @@ referenced with its original scope rather than copied into new claims.
 npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node
 BARNESS_AI_PIDIFF=1 go test ./ai/e2e \
   -run '^TestGLM(Extension|FrozenRoute)' -count=1
+BARNESS_AI_PIDIFF=1 go test ./ai/e2e \
+  -run '^Test(GLM(Extension|FrozenRoute)|GLMResponses(OpaqueNativeIDs|CrossOriginOpaqueIDs|OriginIDCollision)|GLMChatOriginNonemptyResponseID)' -count=1
 BARNESS_AI_EVIDENCE_DIR="$PWD/.evidence/barness-ai-glm/ticket-10/replay-public" \
   go test ./ai/e2e -run '^Test(GLM|DeepSeekResponses)' -count=1
 BARNESS_AI_PIDIFF=1 go test ./ai/e2e \
