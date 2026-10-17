@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"github.com/tokenbeat-lab/barness/ai"
+	"math"
 	"testing"
 )
 
@@ -37,4 +38,16 @@ func TestMiniMaxResponsesTerminalDiagnostics(t *testing.T) {
 			ev.Check("raw terminal reason retained", o.result.Message.RawStopReason == sc.raw, "%+v", o.result.Message)
 		})
 	}
+}
+
+func TestMiniMaxResponsesStandardPriceBasis(t *testing.T) {
+	ev := run.Case(t, "MM03-standard-price-basis")
+	w := newMiniMaxResponsesWorld(t, nil)
+	event := `{"type":"response.completed","response":{"model":"MiniMax-M3","status":"completed","service_tier":"priority","output":[],"usage":{"input_tokens":3,"output_tokens":2,"total_tokens":5}}}`
+	ev.Fixture("synthetic-unexpected-tier.json", []byte(event))
+	enqueue(ev, w, minimaxResponsesReply(t, event))
+	o := drain(w.client.Stream(ctxFor(t), textScope(t.Name()), minimaxResponsesTarget("MiniMax-M3"), minimaxResponsesRequest(), ai.ResponsesOptions{ServiceTier: ai.Value("standard")}))
+	o.record(ev)
+	ev.Record("requests", w.provider.Requests())
+	ev.Check("standard estimate uses only declared standard rates", o.err == nil && math.Abs(o.result.Message.Usage.Cost.Total-0.000007) < 1e-14, "%v %+v", o.err, o.result.Message.Usage)
 }

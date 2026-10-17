@@ -103,7 +103,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 
 	out.start()
 	failure = readResponsesStream(ctx, ssestream.NewDecoder(res), responsesParser{out: out, failures: failures, slots: map[responsesIndex]responsesSlot{}, reasoning: map[string]int{},
-		glm: ac.model.Provider == ProviderZhipu, minimax: newMiniMaxResponsesState(ac.model.Provider), usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier, requestedTier: opts.ServiceTier}, attempt: ac.initial})
+		glm: ac.model.Provider == ProviderZhipu, minimax: newMiniMaxResponsesState(ac.model.Provider), usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier && ac.model.Provider != ProviderMiniMaxCN, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
 		if ac.model.Provider == ProviderZhipu {

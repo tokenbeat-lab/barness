@@ -22,7 +22,7 @@ SDK 能读取输出并不证明该输出可以原样回放。此处只决定有�
 MiniMax 使用独立 Provider 能力，保留完整 input。默认不派生 store、reasoning、include、
 parallel_tool_calls、truncation 或缓存期限/亲和头。显式 reasoning 按型号能力校验；
 M3 high 仅为开启，M3.1 low/medium/high/xhigh/max 且不可关闭。标准服务层级可显式表达，
-priority 拒绝。最终 sampling/可信回调之后再次验证请求子集、授权、精确预算及文本边界。
+priority 拒绝，响应不会启用 OpenAI 的 tier 价格倍率。最终 sampling/可信回调之后再次验证请求子集、授权、精确预算及文本边界。
 
 SSE 先验证原始数组形状与关联，再交 SDK 解码；不改写 transport 或把 reasoning 对象
 修成数组。done/终态输出具有权威性，终态独自携带输出也能生成完整结果。重复、错误关联、

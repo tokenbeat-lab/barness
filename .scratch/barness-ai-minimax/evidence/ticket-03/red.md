@@ -207,3 +207,16 @@ barness-ai evidence bundle: /private/tmp/barness-minimax-03/.evidence/barness-ai
 FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.656s
 FAIL
 ```
+
+## Tier pricing boundary
+
+Source SHA-256: `feb996f8f5429a9f6d414eb9e8d790573d816f494ebb8dc95d767b3a1dd54a24`
+
+```text
+--- FAIL: TestMiniMaxResponsesStandardPriceBasis (0.00s)
+    minimax_responses_terminal_test.go:51: [MM03-standard-price-basis] standard estimate uses only declared standard rates: <nil> {Input:3 Output:2 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:5 Cost:{Input:6e-06 Output:8e-06 CacheRead:0 CacheWrite:0 Total:1.4e-05}}
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-03/.evidence/barness-ai/20261017T222144.653783000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.240s
+FAIL
+```
