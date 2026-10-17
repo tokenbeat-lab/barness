@@ -79,6 +79,9 @@ func CreateGLMSupportView(route, destination string) (Report, error) {
 		}
 		return os.WriteFile(filepath.Join(stage, name), b, 0600)
 	}
+	if e = write("manifest.json", glmViewManifest{Schema: 1, Kind: "glm-derived-live-support", Mode: "no-paid-derivation", NetworkRequests: 0, Derivation: *proof}); e != nil {
+		return empty, e
+	}
 	if e = write("glm-support-derivation.json", proof); e != nil {
 		return empty, e
 	}
@@ -123,7 +126,7 @@ func glmViewInventory(dir string) (map[string]string, error) {
 		}
 		rel, _ := filepath.Rel(dir, p)
 		rel = filepath.ToSlash(rel)
-		if !strings.HasPrefix(rel, "original/") && rel != "live-report.json" && rel != "glm-support-derivation.json" && rel != "audit.json" && rel != "glm-support-integrity.json" {
+		if !strings.HasPrefix(rel, "original/") && rel != "live-report.json" && rel != "glm-support-derivation.json" && rel != "audit.json" && rel != "manifest.json" && rel != "glm-support-integrity.json" {
 			return glmBad("unexpected support view artifact")
 		}
 		if rel == "glm-support-integrity.json" {
@@ -195,4 +198,12 @@ func NewGLMSupportViewReport(dir string) (Report, error) {
 	r.GLM.Derivation = &proof
 	r.evidenceDir = dir
 	return r, nil
+}
+
+type glmViewManifest struct {
+	Schema          int           `json:"schema"`
+	Kind            string        `json:"kind"`
+	Mode            string        `json:"mode"`
+	NetworkRequests int           `json:"networkRequests"`
+	Derivation      GLMDerivation `json:"derivation"`
 }
