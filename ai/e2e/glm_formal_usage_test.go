@@ -72,3 +72,86 @@ func TestGLMFormalKnownUsage(t *testing.T) {
 		})
 	}
 }
+
+// A coherent editable inventory cannot hide an additional HTTP call from the
+// fixed route counters. The fixtures below clone already captured bytes only.
+func TestGLMFormalExtraCaptures(t *testing.T) {
+	var index struct {
+		Routes map[string]struct{ Archive, ArchiveSHA256, ReportPath string }
+	}
+	raw, e := os.ReadFile("../live/testdata/glm-formal/live-captures.json")
+	if e != nil || json.Unmarshal(raw, &index) != nil {
+		t.Fatal("formal captures unavailable")
+	}
+	entry := index.Routes["chat"]
+	for _, name := range []string{"extra-manifest-case", "hidden-second-attempt", "unmanifest-capture"} {
+		t.Run(name, func(t *testing.T) {
+			ev := run.Case(t, "GLM12-extra-capture-"+name)
+			dir := extractGLMFormalArchive(t, entry.Archive, entry.ArchiveSHA256)
+			base := filepath.Dir(filepath.Join(dir, entry.ReportPath))
+			data, _ := os.ReadFile(filepath.Join(base, "manifest.json"))
+			var manifest map[string]any
+			json.Unmarshal(data, &manifest)
+			first := "GLM11-glm-5.3-full-stream"
+			if name == "extra-manifest-case" {
+				target := "GLM11-hidden-http"
+				if e := os.CopyFS(filepath.Join(base, target), os.DirFS(filepath.Join(base, first))); e != nil {
+					t.Fatal(e)
+				}
+				var clone map[string]any
+				for _, c := range manifest["cases"].([]any) {
+					if c.(map[string]any)["id"] == first {
+						encoded, _ := json.Marshal(c)
+						json.Unmarshal(encoded, &clone)
+					}
+				}
+				clone["id"], clone["dir"] = target, target
+				manifest["cases"] = append(manifest["cases"].([]any), clone)
+				p := filepath.Join(base, target, "assertions.json")
+				b, _ := os.ReadFile(p)
+				var assertions map[string]any
+				json.Unmarshal(b, &assertions)
+				assertions["case_id"] = target
+				b, _ = json.Marshal(assertions)
+				os.WriteFile(p, b, 0600)
+			} else {
+				target := filepath.Join(base, first, "attempt-2-exchanges.json")
+				if name == "unmanifest-capture" {
+					target = filepath.Join(base, "unmanifest-http", "attempt-1-exchanges.json")
+					os.MkdirAll(filepath.Dir(target), 0755)
+				}
+				b, _ := os.ReadFile(filepath.Join(base, first, "attempt-1-exchanges.json"))
+				os.WriteFile(target, b, 0600)
+			}
+			for _, value := range manifest["cases"].([]any) {
+				c := value.(map[string]any)
+				files, _ := os.ReadDir(filepath.Join(base, c["dir"].(string)))
+				hashes := map[string]string{}
+				for _, f := range files {
+					b, _ := os.ReadFile(filepath.Join(base, c["dir"].(string), f.Name()))
+					hashes[f.Name()] = fmt.Sprintf("%x", sha256.Sum256(b))
+				}
+				c["artifacts"] = hashes
+			}
+			data, _ = json.Marshal(manifest)
+			os.WriteFile(filepath.Join(base, "manifest.json"), data, 0600)
+			inventory := map[string]string{}
+			filepath.WalkDir(base, func(p string, d os.DirEntry, e error) error {
+				if e != nil || d.IsDir() {
+					return e
+				}
+				rel, _ := filepath.Rel(base, p)
+				if rel != "glm-integrity.json" && rel != "live-report.json" {
+					b, _ := os.ReadFile(p)
+					inventory[filepath.ToSlash(rel)] = fmt.Sprintf("%x", sha256.Sum256(b))
+				}
+				return nil
+			})
+			data, _ = json.Marshal(map[string]any{"schema": 1, "files": inventory})
+			os.WriteFile(filepath.Join(base, "glm-integrity.json"), data, 0600)
+			_, err := supportmatrix.NewGLMReport(base)
+			ev.Check("finite owned call/capture contract rejects "+name, err != nil, "coherently rehashed hidden capture accepted")
+			ev.Record("scope", "Synthetic copy of actual immutable bytes; extra capture is never a real vendor call")
+		})
+	}
+}

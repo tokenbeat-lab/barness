@@ -42,6 +42,8 @@ func TestGLMFormalReports(t *testing.T) {
 			if e != nil {
 				return
 			}
+			_, overwriteError := supportmatrix.CreateGLMSupportView(route, filepath.Dir(reportPath))
+			ev.Check("existing support view is never overwritten", overwriteError != nil, "existing destination changed")
 			ev.Check("own22 model capabilities", merged.Rows[0].AllPassedAt != nil && len(merged.Rows[0].Capabilities) == 22, "incomplete row")
 			ev.Check("other row and caller untouched", reflect.DeepEqual(merged.Rows[1], m.Rows[1]) && len(m.Rows[0].Capabilities) == 0, "mutation")
 			audit := release.AuditBundle(filepath.Dir(reportPath), nil)

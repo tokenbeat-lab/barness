@@ -55,7 +55,7 @@ func verifyGLMBundle(dir string, r Report, detail glmDetail) error {
 		Schema int
 		Files  map[string]string
 	}
-	if readGLMJSON(filepath.Join(dir, "glm-integrity.json"), &inventory) != nil || inventory.Schema != 1 || len(inventory.Files) < 300 {
+	if readGLMJSON(filepath.Join(dir, "glm-integrity.json"), &inventory) != nil || inventory.Schema != 1 || len(inventory.Files) < 300 || len(inventory.Files) > 512 {
 		return glmBad("complete integrity inventory missing")
 	}
 	actual := map[string]string{}
@@ -74,6 +74,9 @@ func verifyGLMBundle(dir string, r Report, detail glmDetail) error {
 		raw, e := glmRead(path)
 		if e != nil {
 			return e
+		}
+		if len(actual) >= 512 {
+			return glmBad("capture file count exceeds bound")
 		}
 		actual[rel] = glmHash(raw)
 		return nil
@@ -94,10 +97,7 @@ func verifyGLMBundle(dir string, r Report, detail glmDetail) error {
 		Started  time.Time `json:"started_at"`
 		Finished time.Time `json:"finished_at"`
 		Versions map[string]string
-		Cases    []struct {
-			ID, Dir, Status string
-			Artifacts       map[string]string
-		}
+		Cases    []glmCapturedCase
 	}
 	if readGLMJSON(filepath.Join(dir, "manifest.json"), &manifest) != nil || manifest.Package != "-tags live -timeout 1800s ./ai/live" || manifest.Commit != r.GitCommit || manifest.Started.IsZero() || manifest.Finished.Before(r.FinishedAt) || manifest.Versions["glm_kind"] != "glm-formal" || manifest.Versions["glm_mode"] != "live" || manifest.Versions["live_combo"] != r.Combo || manifest.Versions["live_sdk"] != r.SDK || manifest.Versions["model_catalog_hash"] != r.CatalogHash || manifest.Versions["model_catalog_version"] != r.CatalogVersion || manifest.Versions["glm_source_manifest_hash"] != GLMSourcePin {
 		return glmBad("manifest provenance differs")
@@ -125,6 +125,9 @@ func verifyGLMBundle(dir string, r Report, detail glmDetail) error {
 		if e != nil || glmHash(raw) != hash {
 			return glmBad("referenced source/plan/candidate/price snapshot changed")
 		}
+	}
+	if err := checkGLMArtifactContract(r, manifest.Cases, inventory.Files, snapshots); err != nil {
+		return err
 	}
 	var recorded map[string]string
 	if readGLMJSON(filepath.Join(dir, "glm-execution-source.json"), &recorded) != nil {
