@@ -30,3 +30,5 @@ Base: `ecfd4b4`
 - 实际凭据资格、三协议真实推理续接形状和价格来源，按 R25–R27 收敛。
 
 - 01 resolved：共享 MiniMax 中国身份、默认采样标签及六候选装配完成；[Answer](issues/01-provider-model-contract.md#answer)、[证据](evidence/ticket-01/README.md)、ADR-0037。三协议为下一 frontier，所有候选保持非正式。
+
+- 03 resolved (offline scope): independent Responses capability/guards, authoritative stream handling and opaque native/tool history; [Answer](issues/03-responses-protocol.md#answer), [evidence](evidence/ticket-03/README.md), ADR-0039. Lossless reasoning input projection remains provisional until own live07 verifies it; no formal support claim.

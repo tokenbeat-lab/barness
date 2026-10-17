@@ -24,6 +24,9 @@ func (responsesAdapter) historyRules(m Model) historyRules {
 // hash of it, since the target never issued it; and the item id always
 // starts with "fc".
 func responsesToolCallID(target Model, id string, source AssistantMessage) string {
+	if target.Provider == ProviderMiniMaxCN {
+		return miniMaxResponsesHistoryToolID(id, source)
+	}
 	if target.Provider == ProviderZhipu {
 		return glmResponsesHistoryToolID(id, source)
 	}
