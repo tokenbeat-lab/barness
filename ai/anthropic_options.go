@@ -128,8 +128,15 @@ func (anthropicAdapter) simpleOptions(m Model, o SimpleOptions, history []Messag
 	if c, ok := o.ToolChoice.Get(); ok {
 		full.ToolChoice = Value(AnthropicToolChoice{Mode: string(c)})
 	}
-	if m.Provider == ProviderZhipu && o.Reasoning == "" {
+	if m.Provider == ProviderZhipu {
 		// GLM omission is its own provider default, never Claude disabled.
+		// An explicit canonical request has no verified budget/intensity map.
+		// Leave its budget unset so provider validation refuses it; do not
+		// let Claude's level arithmetic accidentally reach the exact proven
+		// full enabled/budget1024/max4096 shape (ADR-0035).
+		if o.Reasoning != "" {
+			full.ThinkingEnabled = Value(true)
+		}
 		return full
 	}
 	if o.Reasoning == "" {

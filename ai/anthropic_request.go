@@ -79,7 +79,7 @@ type anthropicToolResult struct {
 type anthropicThinkingBlock struct {
 	Type      string `json:"type"`
 	Thinking  string `json:"thinking"`
-	Signature string `json:"signature"`
+	Signature string `json:"signature,omitempty"`
 }
 
 type anthropicRedactedThinking struct {
@@ -368,8 +368,8 @@ func withCacheControl(block any, cc *anthropicCacheControl) any {
 // anthropicAssistantBlocks replays a previous turn prepared by
 // prepareTranscript: blank text is skipped; redacted thinking returns its
 // payload; signed thinking is replayed with its signature even when its text
-// is blank; unsigned thinking (only same-model state reaches here as
-// thinking) becomes text; tool calls become tool_use blocks.
+// is blank; unsigned thinking becomes text except for GLM's proven trusted
+// same-model field-absence replay shape (ADR-0035); tool calls become tool_use.
 func anthropicAssistantBlocks(m replayedAssistant) ([]any, error) {
 	var blocks []any
 	for _, block := range m.Content {
@@ -384,6 +384,8 @@ func anthropicAssistantBlocks(m replayedAssistant) ([]any, error) {
 			case b.Redacted:
 				blocks = append(blocks, anthropicRedactedThinking{Type: "redacted_thinking", Data: b.Signature})
 			case isBlank(b.Thinking) && !signed:
+			case !signed && m.Provider == ProviderZhipu && m.API == APIAnthropicMessages && m.sameModel:
+				blocks = append(blocks, anthropicThinkingBlock{Type: "thinking", Thinking: b.Thinking, Signature: b.Signature})
 			case !signed:
 				blocks = append(blocks, anthropicText{Type: "text", Text: b.Thinking})
 			default:
