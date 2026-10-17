@@ -154,6 +154,15 @@ func driveDecisions(t *testing.T, rec *recorder, scenarioFactory func(*testing.T
 	if cfg.notRun != "" {
 		for i := range decisionsReport.Scenarios {
 			decisionsReport.Scenarios[i].Note = cfg.notRun
+			sc := decisionsReport.Scenarios[i]
+			// Every declared outcome needs its own immutable case, including
+			// unexecuted scenarios. Do not reserve a call or manufacture captures.
+			t.Run(sc.ID, func(t *testing.T) {
+				cs := run.Case(t, sc.CaseID)
+				setDecisionsReplay(cs, mode)
+				cs.Record("not-run", map[string]string{"reason": cfg.notRun})
+				t.Skip("NOT_RUN: " + cfg.notRun)
+			})
 		}
 		t.Skip("NOT_RUN: " + cfg.notRun)
 	}

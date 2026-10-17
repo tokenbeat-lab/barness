@@ -95,10 +95,10 @@ func TestDecisionsFormalProcess(t *testing.T) {
 				_, loadErr := supportmatrix.LoadReport(filepath.Join(root, decisionsPendingReport+".json"))
 				cs.Check("private pending file cannot be consumed as formal Report", loadErr != nil, "pending accepted")
 			}
-			if name == "success" {
+			if name == "success" || name == "not-run" {
 				a := release.AuditBundle(root, nil)
 				cs.Record("consumer-audit", a)
-				cs.Check("schema3 public evidence consumer accepts own full captures", a.Err == "" && len(a.Findings) == 0, "err=%s", a.Err)
+				cs.Check("schema3 public evidence consumer accepts complete executed or NOT_RUN inventory", a.Err == "" && len(a.Findings) == 0, "err=%s", a.Err)
 			}
 			for _, file := range []string{"manifest.json", "audit.json", "decisions-integrity.json"} {
 				data, e := os.ReadFile(filepath.Join(root, file))
