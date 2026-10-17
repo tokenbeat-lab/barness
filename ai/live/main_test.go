@@ -46,7 +46,9 @@ func TestMain(m *testing.M) {
 	var err error
 	// Select the isolated mode before legacy configuration can enable a route.
 	// An MM process never resolves or executes a legacy live combination.
-	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
+	if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+		cfg = processConfig{notRun: "isolated MiniMax identity"}
+	} else if os.Getenv("BARNESS_GLM_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated GLM candidate"}
 	} else if os.Getenv("BARNESS_MM_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated multimodal candidate process"}
@@ -57,20 +59,22 @@ func TestMain(m *testing.M) {
 	if isDecisionsProcess() {
 		packageArgs = "-tags live -timeout 180s ./ai/live"
 	}
-	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
+	if os.Getenv("BARNESS_GLM_ROUTE") != "" || os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
 		packageArgs = "-tags live -timeout 1800s ./ai/live"
 	}
 	if run, err = evidence.NewRun(packageArgs); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
+	if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+		initializeMiniMax()
+	} else if os.Getenv("BARNESS_GLM_ROUTE") != "" {
 		initializeGLM()
 	}
 	if isDecisionsProcess() {
 		decisionsReport = initialDecisionsReport()
 	}
-	if os.Getenv("BARNESS_MM_ROUTE") != "" && glmReportState == nil {
+	if os.Getenv("BARNESS_MM_ROUTE") != "" && glmReportState == nil && minimaxReport == nil {
 		multimodalReport = initialMultimodalReport()
 		if key := os.Getenv("BARNESS_MM_KEY"); key != "" {
 			run.RedactSecret(key, "[MULTIMODAL-CREDENTIAL]")
@@ -92,7 +96,7 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if glmReportState == nil {
+	if glmReportState == nil && minimaxReport == nil {
 		run.SetVersion("model_catalog_version", catalog.Version)
 		run.SetVersion("model_catalog_hash", catalogHash)
 	}
@@ -106,7 +110,10 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
 		mmEntry = "^TestMultimodalFormal$"
 	}
-	if glmReportState != nil && flag.Lookup("test.run").Value.String() != glmSelectedEntry() {
+	if minimaxReport != nil && flag.Lookup("test.run").Value.String() != minimaxEntry() {
+		minimaxFail("exact isolated entry selection required")
+		code = 1
+	} else if glmReportState != nil && flag.Lookup("test.run").Value.String() != glmSelectedEntry() {
 		glmReportState.Outcome = "FAIL"
 		glmReportState.Failure = "exact isolated entry selection required"
 		code = 1
@@ -136,6 +143,12 @@ func TestMain(m *testing.M) {
 			code = 1
 		}
 	}
+	if minimaxReport != nil {
+		minimaxReport.FinishedAt = time.Now().UTC()
+		if err := run.Record("minimax-report", minimaxReport); err != nil {
+			code = 1
+		}
+	}
 	if err := run.Finish(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		code = 1
@@ -162,6 +175,9 @@ func TestMain(m *testing.M) {
 	if glmReportState != nil {
 		code = finishGLM(code, auditOK)
 		code = publishGLMFormal(code)
+	}
+	if minimaxReport != nil {
+		code = finishMiniMax(code, auditOK)
 	}
 	os.Exit(code)
 }
@@ -244,7 +260,9 @@ func newClientWithPolicy(c *combo, key string, rec *recorder, cat ai.Catalog, po
 	var models []string
 	for _, m := range cat.Models {
 		if m.Provider == c.provider && m.API == c.api {
-			models = append(models, m.ID)
+			if c.provider != ai.ProviderMiniMaxCN || m.ID == c.model {
+				models = append(models, m.ID)
+			}
 		}
 	}
 	for _, m := range cat.ImageModels {

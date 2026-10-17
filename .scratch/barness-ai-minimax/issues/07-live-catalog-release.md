@@ -1,6 +1,6 @@
 # 07 — 独立 Live Harness、预算与可信证据工具
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 Updated: 2026-10-18
 Blocked by: 02, 03, 04
@@ -18,3 +18,12 @@ Blocked by: 02, 03, 04
 ## Execution
 
 在自己的分支/worktree 从 `codex/minimax-cn` 当前 tip 开始；使用 tdd 技能，测试接缝已由 spec T01 确认。先登记失败方式，再逐垂直切片 red→green，产出可重放合成请求/SSE/事件/Result/Attempt/Observer 与脱敏/来源记录。实现前阅读相关 ADR。不能回退其他工作；单文件 ≤500 行。完成后合入集成分支 tip，在 Answer 附提交、验证及证据指针；真实缺口保持可见。
+
+
+## Answer
+
+独立六身份 MiniMax harness、固定13场景、可选3-call研究前沿、工具不足仅重跑一次、单身份与阶段累计持久预算、原始请求/SSE/事件/Result/Attempt/Observer/资源记录、固定来源/源码完整集合、脱敏与密封校验、无网络重放及支持报告导入工具已完成。正式入口要求当前 BuiltinCatalog 自身M3；candidate/controlled/replay不能导入正式PASS。SDK Messages 的`?beta=true`仅记录传输事实，未开放beta功能。
+
+提交：f96faef，合并集成tip164504e，SDK精确绑定de9de39，完整重放来源1dd2330。普通及race共有45受控case产物PASS；辅助ledger/supportmatrix race和live vet通过；独立CLI重验受控包通过。[失败清单、重放命令与当前缺口](../evidence/ticket-07/README.md)、[六身份/重跑/研究/重放原始档案](../evidence/ticket-07/controlled-captures.tar.gz)、[摘要](../evidence/ticket-07/controlled-summary.json)。
+
+本票没有读取.env/真实Key或执行厂商收费调用。M3实际三协议形状、价格正式目录、自身正式报告及最终发布合同仍归10，M3.1线上权益仍独立未知；未将这些缺口改写成正式通过。
