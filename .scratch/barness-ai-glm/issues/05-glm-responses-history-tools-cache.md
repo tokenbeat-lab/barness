@@ -1,6 +1,6 @@
 # 05: 完成 GLM Responses 无状态工具往返与缓存提示
 
-Status: resolved
+Status: claimed
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。

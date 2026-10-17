@@ -19,4 +19,8 @@ Provider 协议能力只自动发送 store=false 和隔离后的缓存路由键�
 
 两型号的真实工具调用和结果续接已在探索中分别捕获；5.2 实际 reasoning 数组经可信实验回调转换成文档对象并续接成功。5.3 工具首轮没有 reasoning，因此其原生 reasoning 历史仅有自身基础数组的离线回放与独立 schema 场景，不能以 5.2 续接成功代替其真实证明。生产适配后的两型号正式 native-history 场景仍由工单11提供。
 
+后续源审计确认官方 InputFunctionCall.call_id 与 OutputFunctionCall.call_id/id 均为普通字符串，没有排除 `|` 的字母表约束。原先直接 `call_id|item_id` 再按首个分隔符切分，会把 `same|a` 与 `same|b` 都回放为 `same`；两组不同原生元组甚至会得到相同公开工具 ID。GLM 因此在组合两个不透明组件前，分别单次转义 `%` 和 `|`；请求边界只逆转义调用组件。Unicode 不改写，普通已捕获 ID 的拼写保持不变，原生条目 ID 仍不发送。公开工具 ID 是 Host 不应解析的不透明关联值，没有新增 DTO 字段或第二套通用 ID 框架。
+
+GLM 自身 Responses 历史在信任降级时保留这份无歧义的关联 ID；账户原生条目、reasoning 与可见内容仍独立遵守既有降级政策。其他来源的整个工具 ID 在 GLM 目标上作为新的调用组件，不使用 OpenAI 的受限字母表，也不猜测来源协议的分隔符；工具结果同步重命名。该取舍由两个型号公共 Client 的实际丢失/碰撞红例驱动，仅改变 GLM 目标，OpenAI/DeepSeek 的既有规范化与冻结差分合同保持。边界字符证据来自官方 schema 的离线合成场景，不冒充已观测的真实厂商 ID；见[专项红绿证据](../../.scratch/barness-ai-glm/evidence/ticket-05-followup-ids/README.md)。
+
 证据与重放见[工单04](../../.scratch/barness-ai-glm/evidence/ticket-04/README.md)和[工单05](../../.scratch/barness-ai-glm/evidence/ticket-05/README.md)；正式目录、价格与独立真实验收由后续票提供。本决策继承 ADR-0014 的无状态完整历史与 Extension Route 边界，保留原有 OpenAI/DeepSeek 字节和差分合同。
