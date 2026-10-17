@@ -16,6 +16,8 @@
 
 - 2026-10-17：[06 已解决](issues/06-glm-messages-text-contract.md)：Messages 独立候选与真实 SSE 文本回放完成，GLM 默认省略思考且不附加 Claude 扩展；66 公共 Client/66 race、104 原生回归、168 原生运行时及 70 冻结差分通过。见 [ADR-0035](../../docs/adr/0035-barness-ai-zhipu-messages-basic.md) 与[证据索引](evidence/ticket-06/README.md)。仅基本文本，07/11/12 继续增强、正式 live 和内置登记。
 
+- 2026-10-17：[03 已解决](issues/03-glm-chat-tool-round-trip.md)：两型号工具分片/Host 往返、同轮推理与信任降级、auto-only/clear_thinking 最终约束及精确输出预算完成；已提交完整 Chat 358 PASS、新增 192 例 race PASS、受影响冻结差分 321 PASS 零 pending。见 [ADR-0033](../../docs/adr/0033-barness-ai-zhipu-chat-candidate.md) 与[证据索引](evidence/ticket-03/README.md)。
+
 ## Fog
 
 - 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。
