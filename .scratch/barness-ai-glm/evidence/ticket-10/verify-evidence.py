@@ -75,7 +75,7 @@ def main():
     proof_path = raw_root / "case-path-proof.json"
     proof_path.write_text(json.dumps(proof, ensure_ascii=False, indent=2) + "\n")
     result = {"scope": "offline own GLM extension acceptance plus unchanged native differential; no live/support-matrix promotion",
-              "bundles": bundles, "ledger": {"path": str(ledger_path), "sha256": digest(ledger_path),
+              "bundles": bundles, "ledger": {"path": str(ledger_path.relative_to(root)), "sha256": digest(ledger_path),
               "decisions": len(ledger["decisions"]), "casePathPairs": len(proof), "cases": len({p['case'] for p in proof}),
               "pending": 0, "proof": str(proof_path), "proofSHA256": digest(proof_path)},
               "nativeDifferentialCounts": dict(differential_counts), "glmNativePiParity": "NOT_APPLICABLE_EXTENSION_ROUTE"}
