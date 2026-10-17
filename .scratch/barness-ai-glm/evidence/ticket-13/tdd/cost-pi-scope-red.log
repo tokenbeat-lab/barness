@@ -1,0 +1,11 @@
+--- FAIL: TestCostEstimate (0.31s)
+    --- FAIL: TestCostEstimate/builtin-prices-are-pi's (0.00s)
+        cost_test.go:120: glm-5.3: barness {CostRates:{Input:1.1901219875 Output:4.1654269563 CacheRead:0.2975304969 CacheWrite:1.1901219875} Tiers:[]}, pi {CostRates:{Input:0 Output:0 CacheRead:0 CacheWrite:0} Tiers:[]}
+        cost_test.go:120: glm-5.2: barness {CostRates:{Input:1.1901219875 Output:4.1654269563 CacheRead:0.2975304969 CacheWrite:1.1901219875} Tiers:[]}, pi {CostRates:{Input:0 Output:0 CacheRead:0 CacheWrite:0} Tiers:[]}
+        cost_test.go:120: glm-5.3: barness {CostRates:{Input:1.1901219875 Output:4.1654269563 CacheRead:0.2975304969 CacheWrite:1.1901219875} Tiers:[]}, pi {CostRates:{Input:0 Output:0 CacheRead:0 CacheWrite:0} Tiers:[]}
+        cost_test.go:120: glm-5.2: barness {CostRates:{Input:1.1901219875 Output:4.1654269563 CacheRead:0.2975304969 CacheWrite:1.1901219875} Tiers:[]}, pi {CostRates:{Input:0 Output:0 CacheRead:0 CacheWrite:0} Tiers:[]}
+        cost_test.go:120: glm-5.3: barness {CostRates:{Input:1.1901219875 Output:4.1654269563 CacheRead:0.2975304969 CacheWrite:1.1901219875} Tiers:[]}, pi {CostRates:{Input:0 Output:0 CacheRead:0 CacheWrite:0} Tiers:[]}
+        cost_test.go:120: glm-5.2: barness {CostRates:{Input:1.1901219875 Output:4.1654269563 CacheRead:0.2975304969 CacheWrite:1.1901219875} Tiers:[]}, pi {CostRates:{Input:0 Output:0 CacheRead:0 CacheWrite:0} Tiers:[]}
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai	1.499s
+FAIL

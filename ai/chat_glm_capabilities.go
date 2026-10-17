@@ -12,7 +12,7 @@ func validateGLMChatCapabilities(body map[string]any) string {
 	if body["stream"] != true {
 		return "Zhipu Chat requires stream:true"
 	}
-	for _, field := range []string{"store", "prompt_cache_key", "prompt_cache_retention", "prompt_cache_options", "service_tier", "parallel_tool_calls", "context_management", "web_search_options"} {
+	for _, field := range []string{"functions", "function_call", "store", "prompt_cache_key", "prompt_cache_retention", "prompt_cache_options", "service_tier", "parallel_tool_calls", "context_management", "web_search_options"} {
 		if _, present := body[field]; present {
 			return "Zhipu Chat has not integrated " + field
 		}

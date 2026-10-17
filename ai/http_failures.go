@@ -96,15 +96,17 @@ func (f httpFailures) status(res *http.Response) attemptOutcome {
 	if f.classifyStatus != nil {
 		code = f.classifyStatus(res.StatusCode, body)
 	}
+	glmCode := ""
 	if f.glm != "" {
-		msg = glmErrorMessage(res.StatusCode, f.glmCode(body))
+		glmCode = f.glmCode(body)
+		msg = glmErrorMessage(res.StatusCode, glmCode)
 		sdkMsg = msg
 	}
 	e := newError(code, PhaseRequest, f.redact(msg))
 	o := f.unread(res, e)
 	o.sdkMessage = f.redact(sdkMsg)
 	if f.glm != "" {
-		o.permanent = f.glmPermanent(f.glmCode(body))
+		o.permanent = f.glmPermanent(glmCode)
 	}
 	return o
 }

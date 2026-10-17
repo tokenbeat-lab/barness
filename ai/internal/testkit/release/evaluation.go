@@ -59,7 +59,7 @@ func ChineseEffectEvidence(routeName, dir string) EvidenceCheck {
 		e.Detail = "evaluation route identity mismatch"
 		return e
 	}
-	configHash := map[string]string{"jev": "sha256:6c62b676eaac362a59d6e01ee6bf4b85205f0440ebcdb21086de8fe4cdd6aa92", "luna": "sha256:61d1bb1ea8015dfca0f18d88eb1378fd72dc677fcc78c10fe446136c7bb621df"}[routeName]
+	configHash := map[string]string{"jev": "sha256:0ec799764b818cd649a066812a2bf66d4e929ffc1cb8bf91f721c3670a74dd42", "luna": "sha256:4d01b7f17e7ea7c19c20527533295bb899a811788dc7090267ef35f1ab019b16"}[routeName]
 	if chineseeval.Hash(data) != "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb" || chineseeval.Hash(config) != configHash {
 		e.Detail = "fixed dataset/config drift"
 		return e

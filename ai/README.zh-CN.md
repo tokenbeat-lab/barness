@@ -1,6 +1,6 @@
 # barness-ai
 
-> **目录更新（2026-10-17）**：`2026-10-17.1` 包含 87 个聊天身份、两个图像型号和三个分类型号。固定 `jev-1.14.0` 支持四位置 PNG/JPEG 与 Box，仍需 `ExperimentalImages`、有限策略及显式 Binding/型号授权。正式支持身份独立为 `typesafe-classifier-jev-1.14.0`；下文既有路线 PASS 仅属于其历史 Hash，当前目录整体验收待票 14。见[正式证据与复放](live/testdata/jev-formal/README.md)。
+> **目录更新（2026-10-17）**：`2026-10-17.2` 包含 93 个聊天身份、两个图像型号和三个分类型号。中国区标准 GLM-5.3/5.2 各有 Chat、Responses、Messages 独立身份；[完整 Host 示例](examples/glmhost/README.md) 说明三份绑定、标准 Key 与 full/simple/WithHooks。`jev-1.14.0` 的四位置 PNG/JPEG 与 Box 继续需要 `ExperimentalImages` 和显式授权。当前发布合同保留十三协议组合、十四独立支持身份；本次完整当前源码验收见[票13](../.scratch/barness-ai-glm/evidence/ticket-13/README.md)。
 
 [English](README.md) | 简体中文
 
@@ -51,24 +51,24 @@
 | chat | DeepSeek × Responses（扩展路径，pi 无此路由） | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One，jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS（上下文探针返回 400；422 形状未确认） |
-| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（2026-10-13 正式 schema 3 运行） |
+| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（自身当前源码正式证据） |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS（自身当前源码正式证据） |
+| chat | 中国区智谱 × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS（自身当前源码证据） |
+| chat | 中国区智谱 × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS（自身当前源码证据） |
+| chat | 中国区智谱 × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | PASS（自身当前源码证据） |
 | image | OpenAI × Images，gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS（生成、JSON 编辑与 mask） |
 | image | Google × Interactions v1beta，gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS（生成与参考编辑，1K / 1:1） |
 
 十组合已在 **2026-10-13** 的正式目录 `2026-10-13.1` 与 schema 3 下各自重跑，路线状态见 [`live/support-matrix.json`](live/support-matrix.json)。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
 
 两条原生图像路线与 DeepSeek Responses 均登记为扩展路径，其自身证据不计为 pi 差分通过。发布结论与后续离线修复见[发布说明](../docs/barness-ai/README.md)。
-内置目录包含 87 个聊天身份、两个图像型号与三个分类型号；同名型号可以分属不同操作或协议。
+内置目录包含 93 个聊天身份、两个图像型号与三个分类型号；同名型号可以分属不同操作或协议。
 
 ### 当前验证与发布状态
 
-[最近一次完整门禁](../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/release-report.md)
-受测源码为 `1291d10`：十项自动门禁全部 PASS，普通/race 各 7,620 用例通过，
-其中固定 pi 差分 861、pending 0。两种 vet、14 份输入审计、容量/授权撤销与 Jev/Luna 独立效果均通过。
-不安全的回环 socket 续写已删除，但历史自然流损坏的根因仍未确认。
-[缺陷 07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) 继续开放，
-[工单 13 的最终交付 verdict](../.scratch/barness-ai-openai-decisions/release-evidence/delivery-verdict.json)
-仍为 FAIL；自动门禁通过不解除该发布阻塞。
+上一完整基线为[票14正式结论](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md)：11份自身真实支持、四份独立效果、normal/race各9098例、861份冻结pi案例和全部门禁通过。[原压力票07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) 已由自身因果证据解决，历史失败保留。
+
+[票13当前源码验收](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) 在 `3d3cd0f` 为 PASS：normal 11,049、race 11,049 例，全部十门禁、两种vet及20份输入审计通过。目录 `2026-10-17.2` 保留十四份自身支持、四份独立效果；本票实际HTTP为282次：GLM66、已封闭原旧路线轮180、必要更正轮36。旧失败/捕获保留历史；[校验索引](../.scratch/barness-ai-glm/evidence/ticket-13/index.json)提供精确源码适用范围、有限需求/故事追溯和完整基线回滚。
 
 ## 快速开始（本地）
 
@@ -452,7 +452,7 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-
 ```
 
 每次 E2E 运行都会在 `.evidence/` 下写出脱敏的证据包（可用 `BARNESS_AI_EVIDENCE_DIR` 覆盖）。新行为需要一个 E2E 用例，且其证据能被发布门禁追溯（`release/traceability.json`）。
-完整发布门禁需要十条路线各自的当前真实证据，以及 Jev 和 Luna 各自独立、当前适用的真实中文评估；离线 fixture 与 NOT_RUN 报告不能替代。
+完整发布门禁需要十三协议组合、十四支持身份各自的当前真实证据，Jev/Luna 各自独立中文评估、Jev/Decisions 各自独立视觉评估，以及完整离线、race、差分、压力和审计；离线 fixture 与 NOT_RUN 报告不能替代真实证据。
 
 ## 延伸阅读
 
@@ -463,6 +463,6 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-
 | [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | 分类输入、拒答、图片授权、用量与回滚 |
 | [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | 思考分档、合并顺序与 full/simple 边界 |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | 发布交付物、门禁状态、策略实测 |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0029 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0036 |
 | [GLOSSARY.md](../GLOSSARY.md) | 领域术语（租户、服务绑定、逻辑调用、原生续接状态……） |
 | `go doc -all ./ai` | 包与类型文档 |

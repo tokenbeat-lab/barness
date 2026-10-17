@@ -26,6 +26,17 @@ func TestGLMFormalReports(t *testing.T) {
 	if e != nil || json.Unmarshal(raw, &index) != nil {
 		t.Fatal("formal captures not yet available")
 	}
+	var known struct {
+		SourceCommit string
+		Routes       map[string]struct {
+			ArchiveSHA256, ReportSHA256 string
+			InputSide, Output           int
+		}
+	}
+	literal, err := os.ReadFile("../live/testdata/glm-formal/known-usage.json")
+	if err != nil || json.Unmarshal(literal, &known) != nil {
+		t.Fatal("independent current-capture expectation unavailable")
+	}
 	for _, route := range []string{"chat", "responses", "messages"} {
 		t.Run(route, func(t *testing.T) {
 			ev := run.Case(t, "GLM12-formal-import-"+route)
@@ -124,7 +135,7 @@ func TestGLMFormalReports(t *testing.T) {
 				case "original-report":
 					proof.OriginalSupportReportSHA256 = "changed"
 				case "importer-commit":
-					proof.ImporterGitCommit = r.GitCommit
+					proof.ImporterGitCommit = "f5cf5362610a8bdb8f3e170f408f3858c149e540"
 				case "importer-source":
 					proof.ImporterSourceSHA256 = "changed"
 				}
@@ -171,7 +182,12 @@ func TestGLMFormalReports(t *testing.T) {
 			if e == nil {
 				_, e = supportmatrix.Merge(m, originalReport)
 			}
-			ev.Check("immutable false-zero original cannot substitute corrected support view", e != nil, "old raw support report imported")
+			want := known.Routes[route]
+			ev.Check("fresh immutable raw report retains independently pinned known totals", e == nil && originalReport.GitCommit == known.SourceCommit && originalReport.Budget.InputTokensUsed == want.InputSide && originalReport.Budget.OutputTokensUsed == want.Output && r.GLM.Derivation.RawArchiveSHA256 == want.ArchiveSHA256 && r.GLM.Derivation.OriginalFormalReportSHA256 == want.ReportSHA256, "err=%v budget=%+v expected=%+v", e, originalReport.Budget, want)
+			zero := originalReport
+			zero.Budget.InputTokensUsed, zero.Budget.OutputTokensUsed = 0, 0
+			_, zeroError := supportmatrix.Merge(m, zero)
+			ev.Check("false-zero raw budget contradicting captured Attempts refused", zeroError != nil, "accepted false-zero raw budget")
 			// A later actual failure retains the last complete pass. It is tested by
 			// Merge's shared public history suite; this own report must retain history
 			// when a rejected newer substituted report is submitted.

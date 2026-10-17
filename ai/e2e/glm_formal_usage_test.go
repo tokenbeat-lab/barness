@@ -49,24 +49,45 @@ func extractGLMFormalArchive(t *testing.T, archive, hash string) string {
 	return dir
 }
 
-// The literals were independently summed from the immutable captured Attempt
-// usage before implementation: input+cache-read+cache-write once; output once.
+// Expected totals are independent literal data beside the pinned raw archive
+// identity, reconciled from captured Attempts before this consumer is run.
+// Keeping measured facts in data lets a new capture renew them without a Go
+// source edit that would invalidate already frozen Jev evidence.
 // Two cancellations are unknown on Chat/Responses, all Messages attempts partial.
 func TestGLMFormalKnownUsage(t *testing.T) {
 	var index struct {
-		Routes map[string]struct{ Archive, ArchiveSHA256, ReportPath string }
+		OriginalLiveSourceCommit string
+		Routes                   map[string]struct{ Archive, ArchiveSHA256, ReportPath, ReportSHA256 string }
 	}
 	raw, e := os.ReadFile("../live/testdata/glm-formal/live-captures.json")
 	if e != nil || json.Unmarshal(raw, &index) != nil {
 		t.Fatal("formal captures unavailable")
 	}
-	for route, want := range map[string][2]int{"chat": {1725, 8312}, "responses": {1648, 7839}, "messages": {2660, 3879}} {
+	var expected struct {
+		Schema       int
+		SourceCommit string
+		Routes       map[string]struct {
+			ArchiveSHA256, ReportSHA256 string
+			InputSide, Output           int
+		}
+	}
+	expectationBytes, readErr := os.ReadFile("../live/testdata/glm-formal/known-usage.json")
+	if readErr != nil || json.Unmarshal(expectationBytes, &expected) != nil || expected.Schema != 1 {
+		t.Fatal("independent measured expectations unavailable")
+	}
+	for _, route := range []string{"chat", "responses", "messages"} {
 		t.Run(route, func(t *testing.T) {
 			ev := run.Case(t, "GLM12-reported-known-usage-"+route)
 			entry := index.Routes[route]
+			literal := expected.Routes[route]
+			want := [2]int{literal.InputSide, literal.Output}
+			ev.Check("expectations bound to exact immutable source/report/archive", expected.SourceCommit == index.OriginalLiveSourceCommit && literal.ArchiveSHA256 == entry.ArchiveSHA256 && literal.ReportSHA256 == entry.ReportSHA256, "expectation identity drift")
+			ev.Check("independently reconciled measured totals present", want[0] > 0 && want[1] > 0, "missing measured expectations")
 			dir := extractGLMFormalArchive(t, entry.Archive, entry.ArchiveSHA256)
 			r, e := supportmatrix.NewGLMReport(filepath.Dir(filepath.Join(dir, entry.ReportPath)))
-			ev.Check("captured formal source accepted", e == nil, "%v", e)
+			if !ev.Check("captured formal source accepted", e == nil, "%v", e) {
+				return
+			}
 			ev.Check("reported known totals retained", r.Budget.InputTokensUsed == want[0] && r.Budget.OutputTokensUsed == want[1], "got input=%d output=%d", r.Budget.InputTokensUsed, r.Budget.OutputTokensUsed)
 			ev.Record("known-lower-bound", map[string]any{"input": want[0], "output": want[1], "note": "reported-known lower bounds; partial/cancelled/missing usage remains unknown; reasoning already within output; not billing"})
 		})

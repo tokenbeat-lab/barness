@@ -13,7 +13,8 @@ func TestGLMChatOriginNonemptyResponseID(t *testing.T) {
 		for _, destination := range []string{"openai", "deepseek"} {
 			t.Run(model+"/"+destination, func(t *testing.T) {
 				ev := run.Case(t, "GLM05-empty-origin-id-"+t.Name())
-				w := newGLMSharedWorld(t, func(cfg *ai.Config) { cfg.Catalog.Models = append(cfg.Catalog.Models, ai.BuiltinCatalog().Models...) })
+				// The formal catalog now owns the six GLM identities.
+				w := newGLMSharedWorld(t, func(cfg *ai.Config) { cfg.Catalog = nil })
 				w.host.PutBinding(primaryBinding(tenantA, w.provider.URL()))
 				w.host.PutCredential(primaryCredential(tenantA, "v1"))
 				w.host.PutBinding(deepseekBinding(tenantA, w.provider.URL()))

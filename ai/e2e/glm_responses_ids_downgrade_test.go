@@ -20,7 +20,8 @@ func TestGLMResponsesOriginIDCollision(t *testing.T) {
 			for _, destination := range []string{"glm-chat", "glm-messages", "openai-responses", "deepseek-responses", "openai-chat", "deepseek-chat", "anthropic-messages"} {
 				t.Run(model+"/"+ids.name+"/"+destination, func(t *testing.T) {
 					ev := run.Case(t, "GLM05-origin-id-collision-"+t.Name())
-					w := newGLMSharedWorld(t, func(cfg *ai.Config) { cfg.Catalog.Models = append(cfg.Catalog.Models, ai.BuiltinCatalog().Models...) })
+					// The formal catalog now owns the six GLM identities.
+					w := newGLMSharedWorld(t, func(cfg *ai.Config) { cfg.Catalog = nil })
 					w.host.PutBinding(primaryBinding(tenantA, w.provider.URL()))
 					w.host.PutCredential(primaryCredential(tenantA, "v1"))
 					w.host.PutBinding(chatBinding(tenantA, w.provider.URL()))

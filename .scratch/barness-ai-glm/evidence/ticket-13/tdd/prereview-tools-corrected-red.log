@@ -1,0 +1,21 @@
+--- FAIL: TestGLMChatLegacyToolFields (0.02s)
+    --- FAIL: TestGLMChatLegacyToolFields/glm-5.3/hook/functions (0.00s)
+        glm_legacy_tools_test.go:52: [P0-GLM13-legacy-tools-glm-5.3-hook-functions] legacy schema cannot force an unintegrated choice: err=<nil> attempts=1 requests=1
+    --- FAIL: TestGLMChatLegacyToolFields/glm-5.3/hook/function_call (0.00s)
+        glm_legacy_tools_test.go:52: [P0-GLM13-legacy-tools-glm-5.3-hook-function_call] legacy schema cannot force an unintegrated choice: err=<nil> attempts=1 requests=1
+    --- FAIL: TestGLMChatLegacyToolFields/glm-5.3/hook/both (0.00s)
+        glm_legacy_tools_test.go:52: [P0-GLM13-legacy-tools-glm-5.3-hook-both] legacy schema cannot force an unintegrated choice: err=<nil> attempts=1 requests=1
+    --- FAIL: TestGLMChatLegacyToolFields/glm-5.3/sampling/function_call (0.00s)
+        glm_legacy_tools_test.go:52: [P0-GLM13-legacy-tools-glm-5.3-sampling-function_call] legacy schema cannot force an unintegrated choice: err=<nil> attempts=1 requests=1
+    --- FAIL: TestGLMChatLegacyToolFields/glm-5.2/hook/functions (0.00s)
+        glm_legacy_tools_test.go:52: [P0-GLM13-legacy-tools-glm-5.2-hook-functions] legacy schema cannot force an unintegrated choice: err=<nil> attempts=1 requests=1
+    --- FAIL: TestGLMChatLegacyToolFields/glm-5.2/hook/function_call (0.00s)
+        glm_legacy_tools_test.go:52: [P0-GLM13-legacy-tools-glm-5.2-hook-function_call] legacy schema cannot force an unintegrated choice: err=<nil> attempts=1 requests=1
+    --- FAIL: TestGLMChatLegacyToolFields/glm-5.2/hook/both (0.00s)
+        glm_legacy_tools_test.go:52: [P0-GLM13-legacy-tools-glm-5.2-hook-both] legacy schema cannot force an unintegrated choice: err=<nil> attempts=1 requests=1
+    --- FAIL: TestGLMChatLegacyToolFields/glm-5.2/sampling/function_call (0.00s)
+        glm_legacy_tools_test.go:52: [P0-GLM13-legacy-tools-glm-5.2-sampling-function_call] legacy schema cannot force an unintegrated choice: err=<nil> attempts=1 requests=1
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-glm-13/.evidence/barness-ai/20261017T151625.704441000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.628s
+FAIL

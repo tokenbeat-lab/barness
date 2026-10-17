@@ -1,5 +1,7 @@
 # Ticket 12 formal GLM catalog and support
 
+> Historical scope: this ticket records its original66 formal calls at93c5106 and its original corrected views. Exact original selector bytes are preserved in [ticket12-live-captures.json](../ticket-13/history/ticket12-live-captures.json), [its pin](../ticket-13/history/ticket12-live-captures.sha256) and [ticket12-support-views.json](../ticket-13/history/ticket12-support-views.json). The repository's live selectors now point to ticket13's fresh current-source captures/views. References to “current” below describe the ticket12 stage; see [ticket13](../ticket-13/README.md) for the later acceptance. Original paragraphs and raw bytes remain historical evidence.
+
 BuiltinCatalog Version `2026-10-17.2`, complete hash `sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942`. Six independent literals match the accepted source facts, with fresh query copies and no changes to prior model data. Source/price/capacity provenance: ADR0036, immutable `ai/live/testdata/glm-candidate/sources.json` pin837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907.
 
 All three own formal paid runs passed at frozen measured source `93c510669cbab6eec6021481fa8f53340400b836`, binary SHA256 `e6b917981689956346a0fc248bd7a0e8b0e3e40290d18af28526922a3df90007`. Each route: both models11/11,22 Logical Calls/22 reservations/22 actual HTTP, zero retries or reruns,359 outer inventory payload hashes verified and exact selected-secret audit passed. Total66 actual calls. Chat130.149s, Responses114.568s, Messages89.279s. All fixed24/32/4096/120s/1800s caps held. One China standard key through the isolated Host, direct fixed endpoints, no proxy/endpoint fallback or paid error probes. Account/region/permission/billing remain unknown.
@@ -21,3 +23,7 @@ go run ./ai/live/cmd/glmformal -route chat -out /tmp/new-glm-chat-support-view
 ```
 
 The original raw archives plus current support-view archives listed by the two indices must be present at their repository-relative ignored paths. Existing raw original report and support-view bytes are never rewritten. `index.json` records all durable raw/controlled/replay/support archives and SHA256 values, including intentional RED/failed diagnostic history.
+
+## Historical scope after ticket13
+
+The paragraphs above describe12’s original captures/false-zero budgets and original derived views. Current `ai/live/testdata/glm-formal/live-captures.json` and `support-views.json` now select13’s independently renewed evidence; do not interpret12’s historical numbers against those mutable current selectors. Exact12 selector/sidecar/view bytes are preserved at [ticket12-live-captures.json](../ticket-13/history/ticket12-live-captures.json), [sidecar](../ticket-13/history/ticket12-live-captures.sha256) and [ticket12-support-views.json](../ticket-13/history/ticket12-support-views.json). Original archives and source identities remain unchanged; [ticket13 final index](../ticket-13/index.json) records current applicability and full release.

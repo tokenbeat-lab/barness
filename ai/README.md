@@ -1,6 +1,6 @@
 # barness-ai
 
-> **Catalog update (2026-10-17):** `2026-10-17.1` contains 87 chat identities, two image models and three classifiers. Fixed `jev-1.14.0` adds explicitly experimental PNG/JPEG at four positions and Box; use `ExperimentalImages`, finite policies and explicit Binding/model authorization. It has an independent `typesafe-classifier-jev-1.14.0` support identity. Earlier route PASS records below remain historical for their own Hash; overall current-catalog acceptance is pending ticket 14. See [formal evidence and replay](live/testdata/jev-formal/README.md).
+> **Catalog update (2026-10-17):** `2026-10-17.2` contains 93 chat identities, two image models and three classifiers. China standard GLM-5.3/5.2 each has independent Chat, Responses and Messages identities; the [complete Host example](examples/glmhost/README.md) covers three bindings, standard keys and full/simple/WithHooks. Jev1.14 PNG/JPEG/Box retains experimental image and explicit authorization requirements. The current release contract preserves13 protocol combinations and14 independent support identities; see [ticket13 current-source acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md).
 
 English | [简体中文](README.zh-CN.md)
 
@@ -55,30 +55,21 @@ Non-goals: no agent loop, no built-in memory or history trimming, no tool execut
 | chat | DeepSeek × Responses (extension route, not in pi) | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One, jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS (context probe returned 400; 422 shape unconfirmed) |
-| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (formal schema 3 run, 2026-10-13) |
+| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (own current-source formal evidence) |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS (own current-source formal evidence) |
+| chat | China Zhipu × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS (own current-source evidence) |
+| chat | China Zhipu × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS (own current-source evidence) |
+| chat | China Zhipu × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | PASS (own current-source evidence) |
 | image | OpenAI × Images, gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS (generation, JSON edit and mask) |
 | image | Google × Interactions v1beta, gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS (generation and reference edit, 1K / 1:1) |
 
-All ten combinations were independently rerun on **2026-10-13** under schema 3 and catalog `2026-10-13.1`; route status
-is recorded in [`live/support-matrix.json`](live/support-matrix.json). A combination may be called supported only when
-its own row has fully passed; "OpenAI-compatible" does not mean any compatible service is accepted. Callable models are
-the intersection of the catalog (`BuiltinCatalog()`, snapshot in
-[`release/catalog-snapshot.json`](release/catalog-snapshot.json)) and `Binding.AllowedModels` within `(Operation,
-Provider, API, ModelID)`. Both native image routes and DeepSeek Responses are registered extensions; their evidence is
-independent of pi differential results. Release status and subsequent offline fixes are in [the release
-notes](../docs/barness-ai/README.md). The built-in catalog contains 87 chat identities, two image models and three
-classifiers; the same model ID may appear under different operations or protocols.
+The matrix records each identity's own source/catalog-scoped evidence. Jev1.13 and1.14 share one protocol combination and retain separate required identities. GLM routes are Extension Routes with their own evidence, alongside DeepSeek Responses and both native image routes; none claims frozen pi parity. Callable models remain the intersection of the full `(Operation, Provider, API, ModelID)` catalog identity and the binding allowlist.
 
 ### Current verification and release status
 
-The [latest complete
-gate](../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/release-report.md) tested source
-`1291d10`: all ten gates PASS, normal/race each 7,620 cases PASS, including 861 frozen pi differential cases with zero
-pending findings. Both vet modes, 14 input audits, capacity/revocation checks and independent Jev/Luna evaluations
-passed. The unsafe loopback socket-write resume was removed, but the historical natural stream corruption still has an
-unconfirmed cause. [Issue 07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) remains
-open and [issue 13's delivery verdict](../.scratch/barness-ai-openai-decisions/release-evidence/delivery-verdict.json)
-remains FAIL; an automatic gate PASS does not close that release blocker.
+The previous complete baseline is [ticket14's accepted release](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md):11 own live identities, four independent effects, normal/race9098 each,861 frozen pi cases and all gates PASS. The original [pressure issue07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) is resolved with retained causal evidence; earlier failing releases remain history.
+
+[Ticket13 current-source acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) is PASS at `3d3cd0f`: normal 11,049 and race 11,049 cases, all ten gates, both vet modes and 20 clean input audits. Catalog `2026-10-17.2` retains fourteen own live identities and four independent effects. This ticket used 282 actual HTTP calls: 66 GLM, 180 in the closed original legacy round, and 36 necessary corrective calls. Original failures/captures remain historical. The [verified index](../.scratch/barness-ai-glm/evidence/ticket-13/index.json) records exact source applicability, finite requirement/story traces and full baseline rollback.
 
 ## Quick start (local)
 
@@ -225,30 +216,13 @@ checked without allocating a raster. `MaxImageBytes` bounds each decoded image, 
 bytes, and `MaxRequestBytes` bounds the complete native JSON including base64/data URLs. Hooks obey the same pinned
 permission and budgets. Empty images retain the text-only wire; no URLs, paths, file IDs or automatic resize.
 
-See [the Decisions contract](../docs/barness-ai/decisions.md) and [executable Jev/Luna migration
-example](examples/classifiermigration/README.md) for final hook validation, errors and rollback. The [Chinese evaluation
-host](examples/chineseeval/README.md) reports each route's business results separately; 24/24 on its fixed synthetic
-task is not a production accuracy guarantee.
+See [the Decisions contract](../docs/barness-ai/decisions.md) and [executable Jev/Luna migration example](examples/classifiermigration/README.md) for final hook validation, errors and rollback. The [Chinese evaluation host](examples/chineseeval/README.md) reports each route's business results separately; 24/24 on its fixed synthetic task is not a production accuracy guarantee.
 
 ### Unified image Host example
 
-Run `go run ./ai/examples/classifierimages` for a credential-free, controlled HTTP replay through both public
-Classify entries. The [complete Host example](examples/classifierimages/README.md) uses the same PNG/JPEG context
-request with only Target/Options changed, then shows explicit reuse, scoped images, visual legends, Box, refusal,
-revocation and replayable audited evidence. Fixed built-in `jev-1.14.0` supports experimental image locations and Box;
-finite image policies, model/Binding authorization and `TypeSafeOptions{ExperimentalImages: true}` remain required.
-Decisions rejects local images and Box before credential access. Controlled PASS is not real-service or quality PASS;
-ADR-0030 remains proposed; fixed 1.14 support requires its own independently verified formal evidence.
+Run `go run ./ai/examples/classifierimages` for a credential-free, controlled HTTP replay through both public Classify entries. The [complete Host example](examples/classifierimages/README.md) uses the same PNG/JPEG context request with only Target/Options changed, then shows explicit reuse, scoped images, visual legends, Box, refusal, revocation and replayable audited evidence. Fixed built-in `jev-1.14.0` supports experimental image locations and Box; finite image policies, model/Binding authorization and `TypeSafeOptions{ExperimentalImages: true}` remain required. Decisions rejects local images and Box before credential access. Controlled PASS is not real-service or quality PASS; ADR-0030 remains proposed; fixed 1.14 support requires its own independently verified formal evidence.
 
-`ImageReferences` declares complete ordered uses; `value` pointers address existing null slots. Source and expanded
-occurrence budgets are independent (`ClassifierImagePolicy.References`), and final Hooks obey the same authorization
-and limits. `ClassifierResult.ImageInputs` identifies final images by MIME/decoded-file SHA-256; never use entry indices.
-`ScoreAnswer.LegendImageReferences` pointers are relative to Legend and index those final identities. `BoxAnswer`
-retains required nullable Confidence and normalized edges independently of a Bool existence answer. Hosts explicitly
-associate the search image, apply actual orientation/crop/pixel transforms and choose business thresholds. A failed
-call publishes neither Answers nor ImageInputs while retaining independently valid usage. Revoke Binding/image
-permission in the Host store for new calls; no automatic protocol fallback. Live example mode requires explicit
-`-live -route -config -key-env` Host injection and labels its result OBSERVED, not a support verdict.
+`ImageReferences` declares complete ordered uses; `value` pointers address existing null slots. Source and expanded occurrence budgets are independent (`ClassifierImagePolicy.References`), and final Hooks obey the same authorization and limits. `ClassifierResult.ImageInputs` identifies final images by MIME/decoded-file SHA-256; never use entry indices. `ScoreAnswer.LegendImageReferences` pointers are relative to Legend and index those final identities. `BoxAnswer` retains required nullable Confidence and normalized edges independently of a Bool existence answer. Hosts explicitly associate the search image, apply actual orientation/crop/pixel transforms and choose business thresholds. A failed call publishes neither Answers nor ImageInputs while retaining independently valid usage. Revoke Binding/image permission in the Host store for new calls; no automatic protocol fallback. Live example mode requires explicit `-live -route -config -key-env` Host injection and labels its result OBSERVED, not a support verdict.
 
 ## Core concepts
 
@@ -499,12 +473,12 @@ go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # merge reports into the ma
 go run ./ai/examples/chineseeval/cmd/chineseeval -route jev  # NOT_RUN; no network
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna # independent NOT_RUN bundle
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -verify <Luna-bundle>
-go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-bundle> -evaluation-luna <Luna-bundle> [-live <bundle-dir>]...
+go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-bundle> -evaluation-luna <Luna-bundle> -visual-evaluation-jev <Jev-visual> -visual-evaluation-decisions <Decisions-visual> [-live <bundle-dir>]...
 ```
 
 Every E2E run writes a redacted evidence bundle under `.evidence/` (`BARNESS_AI_EVIDENCE_DIR` overrides). New behavior
 needs an E2E case whose evidence the release gate can trace (`release/traceability.json`). The full release gate
-requires each of the ten live routes and separate current Jev and Luna real Chinese evaluations; offline fixtures and
+requires fourteen own live identities across thirteen protocol combinations and four independent real effects; offline fixtures and
 NOT_RUN reports cannot replace them.
 
 ## Further reading
@@ -516,6 +490,6 @@ NOT_RUN reports cannot replace them.
 | [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | Classifier inputs, refusals, image authorization, usage and rollback |
 | [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | Thinking profiles, merge order and full/simple boundaries |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | Release deliverables, gate status, policy measurements |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0029 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0036 |
 | [GLOSSARY.md](../GLOSSARY.md) | Domain terms (Tenant, Binding, Logical Call, Native State, …) |
 | `go doc -all ./ai` | Package and type documentation |

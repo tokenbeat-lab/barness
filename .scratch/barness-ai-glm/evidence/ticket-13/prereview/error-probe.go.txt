@@ -1,0 +1,4 @@
+package main
+import("encoding/json";"fmt";"runtime";"strings";"time")
+func code(raw json.RawMessage) string { var e struct { Error json.RawMessage `json:"error"`; Code json.RawMessage `json:"code"`; Type string `json:"type"` }; if json.Unmarshal(raw,&e)!=nil{return ""};if len(e.Error)>0&&string(e.Error)!="null"{return code(e.Error)};var c string;_ = json.Unmarshal(e.Code,&c);return c }
+func main(){for _,n:=range []int{100,1000,5000,9999}{raw:=[]byte(strings.Repeat(`{"error":`,n)+`{"code":"1210"}`+strings.Repeat(`}`,n));runtime.GC();var a,b runtime.MemStats;runtime.ReadMemStats(&a);t:=time.Now();s:=code(raw);runtime.ReadMemStats(&b);fmt.Printf("depth=%d bytes=%d code=%s elapsed=%s allocations=%d\n",n,len(raw),s,time.Since(t),b.TotalAlloc-a.TotalAlloc)}}

@@ -11,24 +11,35 @@ import (
 // has its own named code set; it does not use Chat's numeric business codes.
 // Sources and synthetic Messages wire limits: ticket-08/sources and README.
 func (f httpFailures) glmCode(raw json.RawMessage) string {
+	// Only the documented direct object or one outer error envelope is
+	// meaningful. Decode the bounded body once; a recursive RawMessage unwrap
+	// would copy and reparse each remaining subtree quadratically.
 	var envelope struct {
-		Error json.RawMessage `json:"error"`
 		Code  json.RawMessage `json:"code"`
 		Type  string          `json:"type"`
+		Error *struct {
+			Code  json.RawMessage `json:"code"`
+			Type  string          `json:"type"`
+			Error json.RawMessage `json:"error"`
+		} `json:"error"`
 	}
 	if json.Unmarshal(raw, &envelope) != nil {
 		return ""
 	}
-	if len(envelope.Error) > 0 && string(envelope.Error) != "null" {
-		return f.glmCode(envelope.Error)
+	code, typ := envelope.Code, envelope.Type
+	if envelope.Error != nil {
+		if nested := envelope.Error.Error; len(nested) > 0 && string(nested) != "null" {
+			return ""
+		}
+		code, typ = envelope.Error.Code, envelope.Error.Type
 	}
-	if f.glm == APIAnthropicMessages && !rawTruthy(envelope.Code) {
-		switch envelope.Type {
+	if f.glm == APIAnthropicMessages && !rawTruthy(code) {
+		switch typ {
 		case "authentication_error", "permission_error", "invalid_request_error", "not_found_error", "rate_limit_error", "overloaded_error", "api_error":
-			return envelope.Type
+			return typ
 		}
 	}
-	s, ok := rawString(envelope.Code)
+	s, ok := rawString(code)
 	if !ok {
 		// Numeric business codes belong to Chat and the explicit Messages
 		// compatibility fixture, never to the Responses string schema.
@@ -36,7 +47,7 @@ func (f httpFailures) glmCode(raw json.RawMessage) string {
 			return ""
 		}
 		var n json.Number
-		if json.Unmarshal(envelope.Code, &n) != nil {
+		if json.Unmarshal(code, &n) != nil {
 			return ""
 		}
 		s = n.String()

@@ -62,3 +62,6 @@ tool results, without treating a tool schema/input property as a protocol field.
 The [ticket 07 record](../../.scratch/barness-ai-glm/evidence/ticket-07/README.md)
 retains raw captures, public Client red/green runs and regressions. Formal
 production-route live acceptance and built-in registration remain downstream.
+
+
+后续正式状态：上述候选/探索限制记录其发生阶段。两型号的三协议已在11/12取得自身正式证据，包括5.3 Responses自身原生InputReasoning续接；六条目录与支持决定见[ADR0036](0036-barness-ai-zhipu-formal-catalog-evidence.md)。13的真实运行源码修正要求更新当前证据，旧捕获继续保留原身份与适用范围。

@@ -333,3 +333,14 @@ Decisions 的共享重试、诊断、unary 资源边界与授权撤销契约见
 [运行时与回滚](decisions-runtime.md)；撤销仅影响新调用，已 pin 的调用不重解析或自动 fallback。
 
 唯一 oracle 固定 commit `abe508e1b89912adde45528136c3221eb69acdd7`，来源等价与全量差分已核验。每个聊天成功、错误、取消结果及其终态消息都有非负整数 `durationMs`，包含准备、回调与重试，使用单调时间四舍五入到毫秒；未完成的 PartialView 可尚无此字段。完整当前发布未通过前，不把实现基线切换称为整版正式发布。
+
+
+## 中国区标准 GLM 的独立协议边界
+
+`ProviderZhipu=zhipu` 复用三个既有chat入口协议，各有独立Binding和GLM-5.3/5.2条目，均为text-only；完整身份、SDK基址/资源路径/鉴权、版本化本地和云端装配以及Host工具循环见[可执行示例](../../ai/examples/glmhost/README.md)。正式目录为2026-10-17.2；支持与发布按各自当前源码/目录证据决定，不能把国际Coding路线、候选、离线重放或其他型号通过转成当前正式结论。
+
+GLM-5.3 Chat/Responses保留不可关闭思考，仅low/high/max子集；省略保留服务默认，full拒绝未支持显式档位，simple按独立目录夹取。5.2独立映射。Responses使用store:false和完整无状态历史，原生reasoning保留原始对象/数组，解析副本独立转换；缓存路由键不承诺TTL或命中。Chat同turn reasoning_content与tool_stream往返；Messages保留自身签名及验证过的signature字段省略，只有5.2的enabled1024/max4096形状可显式开启，canonical Messages档位仍不支持。未集成字段的本地拒绝不声明厂商逐字段拒绝。原生信任仍须Host存储完整性担保。
+
+标准Key用途由Host管理；2026-10-16分类规则不等于字符串识别、套餐资格或账务证明。两型号固定CNY费率按2026-10-16 CFETS 6.7220换成既有USD/M估算契约，cache-write按input是已标明的来源推断。reported缺项与报告零不同，reasoning已经包含在output；取消/中断未知usage仍未知，估算不是账单，也不承诺远端取消免计费。
+
+GLM三个可信回调的panic按callback_failed结算，Provider判断来自冻结Call Attribution；既有Provider/operation继续原来的panic传播。取消/截止时间优先，任意panic值不进入消息/Observer。禁用Binding拒绝新调用且零凭据读取/Attempt；已发送调用继续使用原版本和消耗。完整回滚恢复此前整棵实现/目录/能力/矩阵/证据树，不自动换Provider、账户或协议。见[正式决策ADR0036](../adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)与[可重复发布/回滚索引](../../.scratch/barness-ai-glm/evidence/ticket-13/README.md)。

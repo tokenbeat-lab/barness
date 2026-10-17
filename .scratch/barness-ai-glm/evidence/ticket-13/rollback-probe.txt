@@ -1,0 +1,28 @@
+// Build from the unmodified restored baseline module; public APIs only.
+package main
+import (
+ "context"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "net/http"
+ "os"
+ "github.com/tokenbeat-lab/barness/ai"
+ "github.com/tokenbeat-lab/barness/ai/examples/localassembly"
+)
+type backend struct{reads,requests int}
+func(b *backend)ResolveBinding(context.Context,ai.CallScope,string)(ai.Binding,error){return ai.Binding{TenantID:"rollback-tenant",BindingID:"glm",Version:"v1",Enabled:true,ProviderID:ai.ProviderID("zhipu"),API:ai.APIOpenAICompletions,Endpoint:"https://open.bigmodel.cn/api/paas/v4",AuthKind:ai.AuthAPIKey,AccountScopeID:"rollback-account",CredentialRef:"never-read",AllowedModels:[]string{"glm-5.3"}},nil}
+func(b *backend)ResolveCredential(context.Context,ai.CallScope,ai.Binding)(ai.Credential,error){b.reads++;return ai.Credential{},errors.New("unexpected credential read")}
+func(b *backend)RoundTrip(*http.Request)(*http.Response,error){b.requests++;return nil,errors.New("unexpected HTTP")}
+func main(){
+ cat:=ai.BuiltinCatalog();h,err:=cat.Hash();if err!=nil{panic(err)}
+ absent:=true
+ for _,api:=range []ai.API{ai.APIOpenAICompletions,ai.APIOpenAIResponses,ai.APIAnthropicMessages}{for _,m:=range []string{"glm-5.3","glm-5.2"}{_,ok:=cat.Lookup(ai.ProviderID("zhipu"),api,m);absent=absent&&!ok}}
+ b:=&backend{};client,err:=ai.NewClient(ai.Config{Policy:localassembly.LocalPolicy(),Bindings:b,Credentials:b,Transport:b});if err!=nil{panic(err)}
+ result,callErr:=client.Complete(context.Background(),ai.CallScope{TenantID:"rollback-tenant",RequestID:"rollback-no-glm"},ai.Target{BindingID:"glm",ModelID:"glm-5.3"},ai.Request{Messages:[]ai.Message{ai.UserText("offline rollback probe")}},nil)
+ var typed *ai.Error;typedOK:=errors.As(callErr,&typed)
+ passed:=absent&&typedOK&&b.reads==0&&b.requests==0&&len(result.Metadata.Attempts)==0
+ row:=map[string]any{"pass":passed,"catalogVersion":cat.Version,"catalogHash":h,"allSixGLMIdentitiesAbsent":absent,"typedError":typed,"credentialReads":b.reads,"httpRequests":b.requests,"attempts":len(result.Metadata.Attempts),"metadata":result.Metadata}
+ if err:=json.NewEncoder(os.Stdout).Encode(row);err!=nil{panic(err)}
+ if !passed{fmt.Fprintln(os.Stderr,"rollback public contract failed");os.Exit(1)}
+}

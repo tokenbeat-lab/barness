@@ -1,0 +1,7 @@
+--- FAIL: TestGLMReleaseTraceContract (0.75s)
+    --- FAIL: TestGLMReleaseTraceContract/complete (0.19s)
+        glm_release_trace_test.go:42: [P0-GLM13-release-trace-complete] complete additive GLM contract is fixed: mode=complete snapshot=[{Name:catalog Current:true Detail:} {Name:release-plan Current:false Detail:release acceptance contract incomplete: approved evidence mappings changed} {Name:pressure-stream-integrity Current:true Detail:.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md: resolved by original tracker; sha256:25bacdc0fddb101a79ebde7c6077dadfaddd1a9ff029529a876fd5335fc7a052} {Name:classifier-extension-plan Current:true Detail:finite extension case/path registry matches approved Pi 1.1.0 contract; never differential PASS}]
+FAIL
+barness-ai evidence bundle: /tmp/barness-glm13-trace-id-red/20261017T165420.713150000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.277s
+FAIL

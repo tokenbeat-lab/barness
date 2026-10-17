@@ -1,0 +1,199 @@
+ok  	github.com/tokenbeat-lab/barness/ai	0.484s
+--- FAIL: TestChineseEvaluationFixedWorkflow (0.00s)
+    chinese_evaluation_test.go:57: evaluation: task, model, dataset or price snapshot drift
+--- FAIL: TestChineseEvaluationFailures (0.00s)
+    --- FAIL: TestChineseEvaluationFailures/missing_answer (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationFailures/wrong_key (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationFailures/protocol (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationFailures/usage_absent (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationFailures/usage_partial (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationFailures/response_drift (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationFailures/http_failure (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationFailures/budget (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationFailures/cancel (0.00s)
+        chinese_evaluation_test.go:92: evaluation: task, model, dataset or price snapshot drift
+--- FAIL: TestChineseEvaluationNotRunAndArtifactGuards (0.00s)
+    chinese_evaluation_test.go:210: evaluation: task, model, dataset or price snapshot drift
+--- FAIL: TestChineseEvaluationCommand (1.84s)
+    --- FAIL: TestChineseEvaluationCommand/disabled (1.01s)
+        chinese_evaluation_test.go:252: expected fresh evidence bundle
+    --- FAIL: TestChineseEvaluationCommand/missing_key (0.53s)
+        chinese_evaluation_test.go:252: expected fresh evidence bundle
+    --- FAIL: TestChineseEvaluationCommand/verify_incomplete (0.10s)
+        chinese_evaluation_test.go:252: expected fresh evidence bundle
+    --- FAIL: TestChineseEvaluationCommand/verify_observer (0.10s)
+        chinese_evaluation_test.go:252: expected fresh evidence bundle
+--- FAIL: TestChineseEvaluationPreCancelled (0.00s)
+    chinese_evaluation_test.go:282: evaluation: task, model, dataset or price snapshot drift
+--- FAIL: TestChineseEvaluationImportedEvidence (0.32s)
+    --- FAIL: TestChineseEvaluationImportedEvidence/negative_tokens (0.00s)
+        chinese_evaluation_test.go:337: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationImportedEvidence/incorrect_cost (0.00s)
+        chinese_evaluation_test.go:337: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationImportedEvidence/attempt_id (0.00s)
+        chinese_evaluation_test.go:337: evaluation: task, model, dataset or price snapshot drift
+    --- FAIL: TestChineseEvaluationImportedEvidence/http_status (0.00s)
+        chinese_evaluation_test.go:337: evaluation: task, model, dataset or price snapshot drift
+--- FAIL: TestChineseEvaluationProxyProcess (1.18s)
+    --- FAIL: TestChineseEvaluationProxyProcess/connect-failure (0.10s)
+        chinese_proxy_process_test.go:61: [OD55-proxy-connect-failure] explicit proxy reaches only official TLS target: CONNECT counts=0/0
+--- FAIL: TestChineseEvaluationRoutesInputProcess (0.79s)
+    --- FAIL: TestChineseEvaluationRoutesInputProcess/old-default (0.10s)
+        chinese_routes_process_test.go:163: expected one bundle: <nil>
+--- FAIL: TestChineseEvaluationHistoricalProcess (0.11s)
+    chinese_routes_process_test.go:208: evaluation: task, model, dataset or price snapshot drift
+--- FAIL: TestClassifierBuiltinOfficial (0.00s)
+    classifier_builtin_test.go:34: [P07-E11-builtin-official] content revision has its own version: version 2026-10-17.2
+--- FAIL: TestClassifierCallbackPanicRelease (0.00s)
+    classifier_contract_test.go:320: [P07-E08-callback-panic] host can recover its own panic: got <nil>
+--- FAIL: TestGLMChatOriginNonemptyResponseID (0.00s)
+    --- FAIL: TestGLMChatOriginNonemptyResponseID/glm-5.3/openai (0.00s)
+        glm_chat_ids_downgrade_test.go:16: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMChatOriginNonemptyResponseID/glm-5.3/deepseek (0.00s)
+        glm_chat_ids_downgrade_test.go:16: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMChatOriginNonemptyResponseID/glm-5.2/openai (0.00s)
+        glm_chat_ids_downgrade_test.go:16: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMChatOriginNonemptyResponseID/glm-5.2/deepseek (0.00s)
+        glm_chat_ids_downgrade_test.go:16: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+--- FAIL: TestGLMResponsesOriginIDCollision (0.01s)
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/punctuation/glm-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/punctuation/glm-messages (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/punctuation/openai-responses (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/punctuation/deepseek-responses (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/punctuation/openai-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/punctuation/deepseek-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/punctuation/anthropic-messages (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/long-prefix/glm-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/long-prefix/glm-messages (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/long-prefix/openai-responses (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/long-prefix/deepseek-responses (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/long-prefix/openai-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/long-prefix/deepseek-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.3/long-prefix/anthropic-messages (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/punctuation/glm-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/punctuation/glm-messages (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/punctuation/openai-responses (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/punctuation/deepseek-responses (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/punctuation/openai-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/punctuation/deepseek-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/punctuation/anthropic-messages (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/long-prefix/glm-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/long-prefix/glm-messages (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/long-prefix/openai-responses (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/long-prefix/deepseek-responses (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/long-prefix/openai-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/long-prefix/deepseek-chat (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+    --- FAIL: TestGLMResponsesOriginIDCollision/glm-5.2/long-prefix/anthropic-messages (0.00s)
+        glm_responses_ids_downgrade_test.go:23: ai: invalid config Catalog: chat model glm-5.3: duplicate model identity for operation, provider, API and ID
+--- FAIL: TestGoogleImagesBuiltinCatalog (0.00s)
+    google_images_builtin_test.go:35: [P09-E03-live-catalog-inclusion] dated source with new content version: version=2026-10-17.2
+--- FAIL: TestGoogleImagesLiveWireReplay (0.20s)
+    --- FAIL: TestGoogleImagesLiveWireReplay/generation/captured (0.05s)
+        google_images_builtin_test.go:149: [P09-E01-live-replay-generation-captured] updated immutable price snapshot: wrong snapshot
+    --- FAIL: TestGoogleImagesLiveWireReplay/generation/partial (0.05s)
+        google_images_builtin_test.go:149: [P09-E01-live-replay-generation-partial] updated immutable price snapshot: wrong snapshot
+    --- FAIL: TestGoogleImagesLiveWireReplay/generation/unreported (0.05s)
+        google_images_builtin_test.go:149: [P09-E01-live-replay-generation-unreported] updated immutable price snapshot: wrong snapshot
+    --- FAIL: TestGoogleImagesLiveWireReplay/reference-edit/captured (0.02s)
+        google_images_builtin_test.go:149: [P09-E01-live-replay-reference-edit-captured] updated immutable price snapshot: wrong snapshot
+    --- FAIL: TestGoogleImagesLiveWireReplay/reference-edit/partial (0.02s)
+        google_images_builtin_test.go:149: [P09-E01-live-replay-reference-edit-partial] updated immutable price snapshot: wrong snapshot
+    --- FAIL: TestGoogleImagesLiveWireReplay/reference-edit/unreported (0.02s)
+        google_images_builtin_test.go:149: [P09-E01-live-replay-reference-edit-unreported] updated immutable price snapshot: wrong snapshot
+--- FAIL: TestGoogleImagesResources (0.29s)
+    --- FAIL: TestGoogleImagesResources/response-panic (0.00s)
+        google_images_resources_test.go:143: [P09-E08-resources-response-panic] panic unwinds lifetime: got <nil>
+    --- FAIL: TestGoogleImagesResources/edit-response-panic (0.00s)
+        google_images_resources_test.go:143: [P09-E08-resources-edit-response-panic] panic unwinds lifetime: got <nil>
+--- FAIL: TestOpenAIImagesBuiltinCatalog (0.00s)
+    images_builtin_test.go:36: [P08-E03-live-catalog-inclusion] dated source and new version: version=2026-10-17.2
+--- FAIL: TestOpenAIImagesLiveWireReplay (0.09s)
+    --- FAIL: TestOpenAIImagesLiveWireReplay/json-edit (0.05s)
+        images_builtin_test.go:131: [P08-E01-live-replay-json-edit] current catalog snapshot attributed: wrong snapshot
+    --- FAIL: TestOpenAIImagesLiveWireReplay/generation (0.01s)
+        images_builtin_test.go:131: [P08-E01-live-replay-generation] current catalog snapshot attributed: wrong snapshot
+    --- FAIL: TestOpenAIImagesLiveWireReplay/mask-edit (0.02s)
+        images_builtin_test.go:131: [P08-E01-live-replay-mask-edit] current catalog snapshot attributed: wrong snapshot
+--- FAIL: TestOpenAIImagesResources (0.13s)
+    --- FAIL: TestOpenAIImagesResources/response-panic (0.00s)
+        images_resources_test.go:118: [P08-E08-resources-response-panic] panic retained: got <nil>
+--- FAIL: TestJevFormalCatalog (0.01s)
+    --- FAIL: TestJevFormalCatalog/plain (0.01s)
+        jev_formal_catalog_test.go:39: [UC13-formal-catalog-plain] old model content and hash preserved: historical model changed
+    --- FAIL: TestJevFormalCatalog/hooked (0.01s)
+        jev_formal_catalog_test.go:39: [UC13-formal-catalog-hooked] old model content and hash preserved: historical model changed
+--- FAIL: TestReleaseAllRefusalImport (0.14s)
+    release_gate_extended_test.go:27: exit status 1
+--- FAIL: TestReleaseExecutionSourceDrift (0.09s)
+    release_gate_extended_test.go:37: exit status 1
+--- FAIL: TestReleaseEvaluationIdentityAndIntegrity (0.10s)
+    release_gate_process_test.go:99: exit status 1
+--- FAIL: TestUsageAndCost (0.13s)
+    --- FAIL: TestUsageAndCost/builtin-catalog-pinned (0.00s)
+        usage_test.go:90: [P01-E11-builtin-catalog-pinned] built-in catalog version: got "2026-10-17.2" want "2026-10-17.1"
+        usage_test.go:91: [P01-E11-builtin-catalog-pinned] built-in catalog content is the pinned one (bump Version, then the pin, on any change): got sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942 want sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7
+FAIL
+barness-ai evidence bundle: /tmp/barness-glm13-prepaid-offline/20261017T145429.877395000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	311.333s
+?   	github.com/tokenbeat-lab/barness/ai/examples/chineseeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/classifierimages	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/glmhost	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/hostintegration	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/localassembly	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/requestid	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/toolloop	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/examples/visualeval	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/clock	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/probe	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit	2.344s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/glm	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/host	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/jevformal	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle	0.949s
+?   	github.com/tokenbeat-lab/barness/ai/internal/testkit/provider	[no test files]
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	2.160s
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	1.937s
+?   	github.com/tokenbeat-lab/barness/ai/live	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/live/cmd/glmformal	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/live/cmd/jevformal	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix	[no test files]
+?   	github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate	[no test files]
+FAIL

@@ -290,7 +290,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 				cs.Check("config refuses before spend", b.CallsUsed == 0 && b.HTTPAttempts == 0, "config escaped")
 			}
 			_, included := ai.BuiltinCatalog().LookupClassifier(ai.ProviderOpenAI, ai.APIOpenAIDecisions, "gpt-6-luna")
-			cs.Check("candidate leaves formal catalog intact", included && ai.BuiltinCatalog().Version == "2026-10-17.1", "formal catalog changed")
+			cs.Check("candidate leaves formal catalog intact", included && ai.BuiltinCatalog().Version == "2026-10-17.2", "formal catalog changed")
 		})
 	}
 }

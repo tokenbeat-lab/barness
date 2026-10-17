@@ -1,0 +1,31 @@
+--- FAIL: TestGLMReleaseLauncherGuards (1.19s)
+    --- FAIL: TestGLMReleaseLauncherGuards/gate-report-absent (0.65s)
+        glm_release_launcher_test.go:116: [P0-GLM13-launcher-gate-report-absent] actual child failure retained without secondary traceback: exit=1 output=releasegate: started
+            releasegate: exit 17
+            Traceback (most recent call last):
+              File "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMReleaseLauncherGuardsgate-report-absent2368545805/001/.scratch/barness-ai-glm/evidence/ticket-13/run.py", line 206, in <module>
+                if __name__=='__main__':main()
+                                        ~~~~^^
+              File "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMReleaseLauncherGuardsgate-report-absent2368545805/001/.scratch/barness-ai-glm/evidence/ticket-13/run.py", line 205, in main
+                getattr(Round(args.out),args.mode)()
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+              File "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMReleaseLauncherGuardsgate-report-absent2368545805/001/.scratch/barness-ai-glm/evidence/ticket-13/run.py", line 196, in gate
+                passVerdict=c.doc(self.out/'gate/release-report.json')['pass']))
+                            ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              File "/private/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMReleaseLauncherGuardsgate-report-absent2368545805/001/.scratch/barness-ai-glm/evidence/ticket-13/commands.py", line 22, in doc
+                return json.loads(path.read_text())
+                                  ~~~~~~~~~~~~~~^^
+              File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+                with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+                     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+                return io.open(self, mode, buffering, encoding, errors, newline)
+                       ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMReleaseLauncherGuardsgate-report-absent2368545805/001/.evidence/round/gate/release-report.json'
+        glm_release_launcher_test.go:117: [P0-GLM13-launcher-gate-report-absent] absent or stale report cannot claim pass: read=open /var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMReleaseLauncherGuardsgate-report-absent2368545805/001/.evidence/round/gate-summary.json: no such file or directory decode=unexpected end of JSON input verdict={ExitCode:0 PassVerdict:false ReportAvailable:false}
+    --- FAIL: TestGLMReleaseLauncherGuards/gate-report-stale (0.54s)
+        glm_release_launcher_test.go:117: [P0-GLM13-launcher-gate-report-stale] absent or stale report cannot claim pass: read=<nil> decode=<nil> verdict={ExitCode:17 PassVerdict:true ReportAvailable:false}
+FAIL
+barness-ai evidence bundle: /tmp/barness-glm13-wrapper-red/20261017T165309.702795000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	2.588s
+FAIL

@@ -16,6 +16,8 @@ func TestGLMResponsesEntries(t *testing.T) {
 				name := model + "/" + entry
 				if hooked {
 					name += "/hooks"
+				} else {
+					name += "/plain"
 				}
 				t.Run(name, func(t *testing.T) {
 					ev := run.Case(t, "GLM04-entries-"+name)
@@ -78,6 +80,9 @@ func TestGLMResponsesEffort(t *testing.T) {
 	for _, source := range []string{"full", "simple", "sampling", "hook"} {
 		for _, level := range []string{"", "minimal", "low", "medium", "high", "xhigh", "max"} {
 			name := source + "/" + level
+			if level == "" {
+				name += "omitted"
+			}
 			t.Run(name, func(t *testing.T) {
 				ev := run.Case(t, "GLM04-effort-"+name)
 				ev.Fixture("text.json", raw)
