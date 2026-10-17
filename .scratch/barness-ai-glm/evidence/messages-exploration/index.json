@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "kind": "early-public-client-contract-exploration",
+  "productionAcceptance": false,
+  "logicalCalls": 13,
+  "conservativeAttempts": 13,
+  "externalHTTPRequests": 11,
+  "bundles": [
+    {
+      "id": "01-local-sdk-query-guard",
+      "bundle": ".evidence/barness-ai-glm/protocol-exploration/messages/01-local-sdk-query-guard",
+      "archive": "01-local-sdk-query-guard.zip",
+      "archiveSha256": "65e0c080a57bef44109d15818f3755c218002198e917c0ccd69c8279703c55b5",
+      "indexSha256": "1062fbb3d8ab8e44d43ce0bb82c9750cc8009cf9dbca5a7284d7d8c0ec20aab1",
+      "audit": {
+        "credentialHashPersisted": false,
+        "exactCredentialOccurrences": 0,
+        "headersAndCookiesRedacted": true,
+        "note": "actual key scanned only in memory; outputs reviewed for generated secret patterns; synthetic prompt only",
+        "passed": true,
+        "scannedFiles": 27
+      },
+      "budget": {
+        "HTTPAttemptsUsed": 0,
+        "callsRemainingInInitialProbe": 0,
+        "elapsedSeconds": 0.00279625,
+        "logicalCallsUsed": 2,
+        "maxHTTPAttempts": 2,
+        "maxLogicalCalls": 2,
+        "maxRequestedOutputTokens": 8192,
+        "maxTokensPerCall": 4096,
+        "observerStats": {
+          "delivered": 8,
+          "failed": 0,
+          "dropped": 0
+        },
+        "specMessagesAttemptsRemaining": 30,
+        "specMessagesCallsRemaining": 22,
+        "libraryRecordedAttempts": 2,
+        "transportInvocations": 2,
+        "externalHTTPRequestsSent": 0,
+        "externalHTTPResponsesReceived": 0,
+        "specMessagesAttemptsRemainingByExternalRequests": 32,
+        "note": "Both public Client calls entered one library attempt each, but strict final-target guard rejected SDK-generated beta=true query before base transport. Existing conservative attempt budget remains 2; external network request count is zero. No retry was performed."
+      }
+    },
+    {
+      "id": "02-basic-sdk-query",
+      "bundle": ".evidence/barness-ai-glm/protocol-exploration/messages/02-basic-sdk-query",
+      "archive": "02-basic-sdk-query.zip",
+      "archiveSha256": "12860b826bad0c78b32268c9d628394429672fcf763e50ce41b825af4b2a7712",
+      "indexSha256": "2b2fcd3e78b3919d2b7d6aecd370e3aa33b0677313b50c2d500b600e76bfc791",
+      "audit": {
+        "credentialHashPersisted": false,
+        "exactCredentialOccurrences": 0,
+        "headersAndCookiesRedacted": true,
+        "note": "actual key scanned only in memory; outputs reviewed for generated secret patterns; synthetic prompt only",
+        "passed": true,
+        "scannedFiles": 29
+      },
+      "budget": {
+        "HTTPAttemptsUsed": 2,
+        "callsRemainingInInitialProbe": 0,
+        "elapsedSeconds": 4.660814833,
+        "logicalCallsUsed": 2,
+        "maxHTTPAttempts": 2,
+        "maxLogicalCalls": 2,
+        "maxRequestedOutputTokens": 8192,
+        "maxTokensPerCall": 4096,
+        "observerStats": {
+          "delivered": 8,
+          "failed": 0,
+          "dropped": 0
+        },
+        "specMessagesAttemptsRemaining": 30,
+        "specMessagesCallsRemaining": 20,
+        "libraryRecordedAttempts": 2,
+        "transportInvocations": 2,
+        "externalHTTPRequestsSent": 2,
+        "externalHTTPResponsesReceived": 2,
+        "cumulativeEarlyLogicalCallsUsed": 4,
+        "cumulativeEarlyLibraryAttemptsUsed": 4,
+        "cumulativeEarlyExternalHTTPRequestsSent": 2,
+        "specMessagesAttemptsRemainingByConservativeReservation": 28,
+        "specMessagesAttemptsRemainingByExternalRequests": 30,
+        "priorLocalGuardBundle": "/tmp/barness-glm-messages-probe",
+        "note": "This invocation used2 calls/2 actual requests. Prior invocation used2 calls/2 local library attempts but0 external requests. No retries."
+      }
+    },
+    {
+      "id": "03-tools-thinking",
+      "bundle": ".evidence/barness-ai-glm/protocol-exploration/messages/03-tools-thinking",
+      "archive": "03-tools-thinking.zip",
+      "archiveSha256": "b04d46a3455b21aaefdc9e93b966acb3feff1f894173ebb7f1fdd6159c1c096b",
+      "indexSha256": "7c6024b2ebfb294a647eacdcf2621cea06b790782b3e9f9b5a9d4a4fdca317a2",
+      "audit": {
+        "credentialHashPersisted": false,
+        "exactCredentialOccurrences": 0,
+        "headersAndCookiesRedacted": true,
+        "note": "actual key scanned only in memory; outputs reviewed for generated secret patterns; synthetic prompt only",
+        "passed": true,
+        "scannedFiles": 91
+      },
+      "budget": {
+        "cumulativeEarlyExternalRequestsWithResponse": 8,
+        "cumulativeEarlyLocalAttemptReservations": 10,
+        "cumulativeEarlyLogicalCallsUsed": 10,
+        "elapsedSeconds": 35.380736625,
+        "externalHTTPResponsesReceived": 6,
+        "libraryRecordedAttempts": 6,
+        "logicalCallsUsed": 6,
+        "maxHTTPAttempts": 6,
+        "maxLogicalCalls": 6,
+        "maxRequestedOutputTokens": 24576,
+        "maxTokensPerCall": 4096,
+        "observerStats": {
+          "delivered": 24,
+          "failed": 0,
+          "dropped": 0
+        },
+        "specMessagesAttemptsRemainingConservative": 22,
+        "specMessagesCallsRemaining": 14,
+        "transportInvocations": 6,
+        "externalHTTPRequestsSent": 6,
+        "cumulativeEarlyExternalHTTPRequestsSent": 8,
+        "cumulativeEarlyLibraryAttemptsUsed": 10,
+        "cumulativeEarlyCallReservationsUsed": 10,
+        "specMessagesAttemptsRemainingByExternalRequests": 24
+      }
+    },
+    {
+      "id": "04-default-unsigned",
+      "bundle": ".evidence/barness-ai-glm/protocol-exploration/messages/04-default-unsigned",
+      "archive": "04-default-unsigned.zip",
+      "archiveSha256": "fe6d6fa6aa1e7633d6a3d7a19c90199e2c4c62985c3a62e00e82370c9fd524ea",
+      "indexSha256": "9a0cdb9992aab649b737fa2ec5e9e46bb054420fcf7e215df4893c3a95ddec8c",
+      "audit": {
+        "credentialHashPersisted": false,
+        "exactCredentialOccurrences": 0,
+        "headersAndCookiesRedacted": true,
+        "note": "actual key scanned only in memory; outputs reviewed for generated secret patterns; synthetic prompt only",
+        "passed": true,
+        "scannedFiles": 52
+      },
+      "budget": {
+        "cumulativeEarlyExternalRequestsWithResponse": 11,
+        "cumulativeEarlyLocalAttemptReservations": 13,
+        "cumulativeEarlyLogicalCallsUsed": 13,
+        "elapsedSeconds": 10.682059458,
+        "externalHTTPResponsesReceived": 3,
+        "libraryRecordedAttempts": 3,
+        "logicalCallsUsed": 3,
+        "maxHTTPAttempts": 3,
+        "maxLogicalCalls": 3,
+        "maxRequestedOutputTokens": 12288,
+        "maxTokensPerCall": 4096,
+        "observerStats": {
+          "delivered": 12,
+          "failed": 0,
+          "dropped": 0
+        },
+        "specMessagesAttemptsRemainingConservative": 19,
+        "specMessagesCallsRemaining": 11,
+        "transportInvocations": 3,
+        "externalHTTPRequestsSent": 3,
+        "cumulativeEarlyExternalHTTPRequestsSent": 11,
+        "cumulativeEarlyLibraryAttemptsUsed": 13,
+        "specMessagesAttemptsRemainingByExternalRequests": 21
+      }
+    }
+  ]
+}
