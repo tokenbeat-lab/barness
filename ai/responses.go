@@ -55,6 +55,9 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	if failure := validateGLMResponsesFinalBody(ac.model, body, authorize); failure != nil {
 		return failure
 	}
+	if failure := validateMiniMaxResponsesFinalBody(ac.model, body, authorize); failure != nil {
+		return failure
+	}
 	if failure := ac.limits.checkRequestBody(body); failure != nil {
 		return failure
 	}
@@ -100,7 +103,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 
 	out.start()
 	failure = readResponsesStream(ctx, ssestream.NewDecoder(res), responsesParser{out: out, failures: failures, slots: map[responsesIndex]responsesSlot{}, reasoning: map[string]int{},
-		glm: ac.model.Provider == ProviderZhipu, usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier, requestedTier: opts.ServiceTier}, attempt: ac.initial})
+		glm: ac.model.Provider == ProviderZhipu, minimax: newMiniMaxResponsesState(ac.model.Provider), usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier && ac.model.Provider != ProviderMiniMaxCN, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
 		if ac.model.Provider == ProviderZhipu {
@@ -116,6 +119,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 // (grammar) tool calls and tool namespaces, which only tools barness-ai does
 // not declare produce.
 type responsesParser struct {
+	minimax     *miniMaxResponsesState
 	glm         bool
 	glmNative   map[responsesIndex]string
 	glmFinished map[responsesIndex]bool
@@ -187,6 +191,9 @@ func (p *responsesParser) open(outputIndex responsesIndex, item responses.Respon
 		// the item id same-model replay needs.
 		s.raw = newArgumentText(item.Arguments.OfString)
 		id := item.CallID + "|" + item.ID
+		if p.minimax != nil {
+			id = miniMaxResponsesToolID(item.CallID, item.ID)
+		}
 		if p.glm {
 			id = glmResponsesToolID(item.CallID, item.ID)
 		}
@@ -234,6 +241,9 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 	switch ev.Type {
 	case "response.created":
 		p.out.responseID(ev.Response.ID)
+		if p.minimax != nil {
+			p.out.responseModel(ev.Response.Model)
+		}
 	case "response.output_item.added":
 		p.open(index, ev.Item)
 	// response.reasoning_text.done (DeepSeek) repeats the streamed text;
@@ -254,6 +264,9 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 	case "response.output_text.done", "response.refusal.done", "response.reasoning_text.done", "response.reasoning_summary_text.done":
 		if p.glm {
 			p.glmTextDone(ev)
+		}
+		if p.minimax != nil {
+			p.miniMaxTextDone(ev)
 		}
 	case "response.function_call_arguments.delta":
 		p.argumentsDelta(index, ev.Delta)
@@ -279,6 +292,9 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 // stays unreported even when the response carried usage (maintainer
 // decision, ADR-0010).
 func (p *responsesParser) failed(r responses.Response) *Error {
+	if p.minimax != nil {
+		p.out.responseModel(r.Model)
+	}
 	p.terminal = true
 	p.out.rawStopReason(string(r.Status))
 	switch {
@@ -310,6 +326,9 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 	}
 	i := s.index
 	delete(p.slots, outputIndex)
+	if p.minimax != nil {
+		p.minimax.finished[outputIndex] = s
+	}
 	if p.glm {
 		if p.glmFinished == nil {
 			p.glmFinished = map[responsesIndex]bool{}
@@ -327,7 +346,7 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 			}
 		}
 		value := text.String()
-		if p.glm && len(item.Content) == 0 {
+		if (p.glm || p.minimax != nil) && len(item.Content) == 0 {
 			value = p.out.textContent(i)
 			if s.done != nil {
 				value = *s.done
@@ -344,7 +363,7 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 			content[j] = c.Text
 		}
 		thinking := cmp.Or(strings.Join(summary, "\n\n"), strings.Join(content, "\n\n"), p.out.thinkingText(i))
-		if p.glm {
+		if p.glm || p.minimax != nil {
 			// Explicit content parts are authoritative even when their text
 			// is empty. An empty part list still uses a separate text.done.
 			if len(item.Content) > 0 {
@@ -357,7 +376,11 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 		if p.glm && p.glmNative[outputIndex] != "" {
 			native = p.glmNative[outputIndex]
 		}
-		p.out.thinkingEnd(i, thinking, reasoningSignature(native))
+		signature := reasoningSignature(native)
+		if p.minimax != nil {
+			signature = native
+		}
+		p.out.thinkingEnd(i, thinking, signature)
 		p.reasoning[item.ID] = i
 	case "function_call":
 		p.out.toolCallEnd(i, cmp.Or(item.Arguments.OfString, s.raw.String()))
@@ -368,8 +391,13 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 // finalize records a completed or incomplete response. A status pi cannot map
 // fails at once; a status that maps to an error fails once the stream ends.
 func (p *responsesParser) finalize(r responses.Response) *Error {
+	if p.minimax != nil {
+		p.out.responseModel(r.Model)
+	}
 	p.terminal = true
-	if p.glm {
+	if p.minimax != nil {
+		p.finishMiniMaxOutput(r.Output)
+	} else if p.glm {
 		p.finishGLMOutput(r.Output)
 	} else {
 		p.backfillReasoning(r.Output)
@@ -425,66 +453,4 @@ func mapResponsesStatus(status, incompleteReason string) (stop StopReason, msg s
 	default:
 		return StopReasonError, "Unhandled stop reason: " + status, false
 	}
-}
-
-// reasoningSignature is pi's thinkingSignature for a Responses reasoning item:
-// JSON.stringify of the item as received, so key order, escapes and number
-// spellings are JavaScript's and same-model replay sends exactly what pi
-// sends.
-func reasoningSignature(raw string) string {
-	item, err := parseJSON(raw)
-	if err != nil {
-		return raw // the SDK decoded it, so it is JSON; kept as is otherwise
-	}
-	return stringifyJSON(item)
-}
-
-// backfillReasoning ports pi's backfillReasoningSignatures: some services
-// omit a reasoning item's encrypted_content from output_item.done and send it
-// only in the terminal response's output. It is added to the finished block's
-// signature unless that already holds a truthy one, in place when the key is
-// present and at the end otherwise, so stateless (store:false) replay keeps
-// the encrypted reasoning.
-func (p *responsesParser) backfillReasoning(output []responses.ResponseOutputItemUnion) {
-	for _, item := range output {
-		if item.Type != "reasoning" {
-			continue
-		}
-		encrypted, err := parseJSON(item.JSON.EncryptedContent.Raw())
-		i, ok := p.reasoning[item.ID]
-		if err != nil || !jsTruthy(encrypted) || !ok {
-			continue
-		}
-		if sig, ok := withEncryptedContent(p.out.thinkingSignature(i), encrypted); ok {
-			p.out.setThinkingSignature(i, sig)
-		}
-	}
-}
-
-// withEncryptedContent is pi's {...storedItem, encrypted_content}: the stored
-// reasoning item with encrypted set, in place when the key exists. ok is
-// false when the signature is empty, not an object, or already holds a
-// truthy encrypted_content.
-func withEncryptedContent(signature string, encrypted any) (string, bool) {
-	stored, err := parseJSON(signature)
-	obj, isObject := stored.(*jsonObject)
-	if signature == "" || err != nil || !isObject {
-		return "", false
-	}
-	if current, _ := obj.get("encrypted_content"); jsTruthy(current) {
-		return "", false
-	}
-	obj.set("encrypted_content", encrypted)
-	return stringifyJSON(obj), true
-}
-
-// encodeTextSignature produces pi-ai's TextSignatureV1 JSON: {"v":1,"id":…[,"phase":…]}.
-func encodeTextSignature(id, phase string) string {
-	sig := struct {
-		V     int    `json:"v"`
-		ID    string `json:"id"`
-		Phase string `json:"phase,omitempty"`
-	}{V: 1, ID: id, Phase: phase}
-	data, _ := marshalJS(sig)
-	return string(data)
 }

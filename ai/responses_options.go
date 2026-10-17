@@ -15,7 +15,7 @@ type ResponsesOptions struct {
 	// Temperature is sent as temperature, null included.
 	Temperature Nullable[float64] `json:"temperature,omitzero"`
 	// MaxTokens is sent as max_output_tokens, raised to the protocol's
-	// minimum of 16 for OpenAI; GLM keeps its minimum of 1.
+	// minimum of 16 for OpenAI; GLM and MiniMax keep a minimum of 1.
 	// Unset, null and 0 send nothing.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
 	// SamplingParams override named request fields and model defaults, on
@@ -32,7 +32,7 @@ type ResponsesOptions struct {
 	SessionID string `json:"sessionId,omitempty"`
 	// ReasoningEffort is sent as reasoning.effort through the model's level
 	// map, unclamped; a model without reasoning ignores it. Empty with no
-	// summary sends the model's "off" mapping, unless that is null.
+	// summary keeps the Provider default; native OpenAI sends its "off" mapping.
 	ReasoningEffort ThinkingLevel `json:"reasoningEffort,omitempty"`
 	// ReasoningSummary is "auto", "detailed" or "concise"; empty (or null in
 	// JSON) is unset. Set alone it asks for medium effort.
@@ -163,7 +163,7 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 
 	if n, ok := o.MaxTokens.Get(); ok && n != 0 {
 		body.MaxOutputTokens = n
-		if m.Provider != ProviderZhipu {
+		if m.Provider != ProviderZhipu && m.Provider != ProviderMiniMaxCN {
 			body.MaxOutputTokens = max(n, responsesMinOutputTokens)
 		}
 	}
@@ -190,7 +190,7 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 		if caps.encryptedReasoning {
 			body.Include = []string{"reasoning.encrypted_content"}
 		}
-	case m.Provider == ProviderZhipu:
+	case m.Provider == ProviderZhipu || m.Provider == ProviderMiniMaxCN:
 		// Omission keeps GLM's documented service default, including mandatory
 		// thinking on 5.3; never synthesize an off request.
 	case !m.ThinkingLevelMap.Off.IsNull():

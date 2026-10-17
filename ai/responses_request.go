@@ -2,7 +2,6 @@ package ai
 
 import (
 	"bytes"
-	"cmp"
 	"encoding/json"
 	"slices"
 	"strconv"
@@ -167,6 +166,13 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 			}
 		case ToolResultMessage:
 			result := responsesToolResult(m, vision)
+			if model.Provider == ProviderMiniMaxCN {
+				var err error
+				result.CallID, err = miniMaxResponsesCallID(m.ToolCallID)
+				if err != nil {
+					return nil, err
+				}
+			}
 			if model.Provider == ProviderZhipu {
 				result.CallID = glmResponsesCallID(m.ToolCallID)
 			}
@@ -196,92 +202,13 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 		level = ThinkingMedium
 	}
 	out, err = applyModelSamplingParams(out, model, level, opts.SamplingParams)
+	if err == nil && model.Provider == ProviderMiniMaxCN {
+		return preserveMiniMaxResponsesBudget(out, model, level, opts.SamplingParams)
+	}
 	if err != nil || model.Provider != ProviderZhipu {
 		return out, err
 	}
 	return preserveGLMResponsesBudget(out, model, level, opts.SamplingParams)
-}
-
-// responsesAssistantItems replays a previous turn prepared by
-// prepareTranscript: a signed thinking block as its reasoning item, text as
-// output messages and tool calls as function_call items.
-func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]any, error) {
-	sameProviderAPI := m.Provider == model.Provider && m.API == model.API
-	// A same provider/API message whose native state was downgraded is
-	// replayed as pi replays another model's.
-	differentModel := sameProviderAPI && !m.sameModel
-	var items []any
-	textIndex := 0
-	for _, block := range m.Content {
-		switch b := block.(type) {
-		case Thinking:
-			if b.Signature == "" {
-				if model.Provider == ProviderZhipu && b.Thinking != "" {
-					items = append(items, glmResponsesAssistantText(b.Thinking))
-				}
-				continue
-			}
-			if model.Provider == ProviderZhipu {
-				item, err := glmResponsesReasoning(b)
-				if err != nil {
-					return nil, err
-				}
-				if item != nil {
-					items = append(items, item)
-				}
-				continue
-			}
-			// pi sends JSON.parse(thinkingSignature). Only same-model state
-			// under a trusted envelope gets here, so a signature that is not
-			// JSON is a host fault: invalid_request, never a silent drop.
-			item, err := parseJSON(b.Signature)
-			if err != nil {
-				return nil, err
-			}
-			items = append(items, json.RawMessage(stringifyJSON(item)))
-		case Text:
-			if model.Provider == ProviderZhipu {
-				items = append(items, glmResponsesAssistantText(b.Text))
-				continue
-			}
-			id, phase := parseTextSignature(b.Signature)
-			switch {
-			case id == "" && textIndex == 0:
-				id = "msg_pi_" + strconv.Itoa(msgIndex)
-			case id == "":
-				id = "msg_pi_" + strconv.Itoa(msgIndex) + "_" + strconv.Itoa(textIndex)
-			case len(id) > 64: // OpenAI's item id limit
-				id = "msg_" + shortHash(id)
-			}
-			textIndex++
-			items = append(items, responsesOutputMessage{Type: "message", Role: "assistant", Status: "completed", ID: id, Phase: phase,
-				Content: []responsesOutputText{{Type: "output_text", Text: b.Text, Annotations: []any{}}}})
-		case ToolCall:
-			parts := strings.Split(b.ID, "|")
-			callID := parts[0]
-			if model.Provider == ProviderZhipu {
-				callID = glmResponsesCallID(b.ID)
-			}
-			itemID := ""
-			if len(parts) > 1 {
-				itemID = parts[1]
-			}
-			// A different model's fc_ id would trip OpenAI's reasoning pairing
-			// check, and function_call item ids must start with fc_.
-			if model.Provider == ProviderZhipu || differentModel || !strings.HasPrefix(itemID, "fc_") {
-				itemID = ""
-			}
-			// Arguments that are not JSON (only a host-built call can have
-			// them) make the request unencodable: invalid_request, never a
-			// silent {}.
-			args, err := parseJSON(string(cmp.Or(b.Arguments, "{}")))
-			if err != nil {
-				return nil, err
-			}
-			items = append(items, responsesFunctionCall{Type: "function_call", ID: itemID, CallID: callID, Name: b.Name, Arguments: stringifyJSON(args)})
-		}
-	}
-	return items, nil
 }
 
 // responsesToolResult is a function_call_output (pi convertToolResultOutput).
