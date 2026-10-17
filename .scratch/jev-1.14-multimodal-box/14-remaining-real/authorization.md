@@ -58,3 +58,14 @@ Google36、DeepSeek64、TypeSafe54；仅在已诊断并完成所需修复后使�
 任何源/配置变化即停止。必须先无凭据完整live harness通过，再启用收费步骤。
 两个初轮执行器版本分别由Git保存：构建/paid是`d21aa99`，完整Go集合guard及
 复用verifier补强是`43ac874`；首轮运行期间Go和配置未变，不重写其源码或结果身份。
+
+## 同源码 DeepSeek Chat 一次有限确认
+
+恢复轮其他任务均完成，DeepSeek Chat只有reasoning-history断言失败：请求原始wire已发送
+thinking enabled/effort low，服务端原始SSE的reasoning_content为空且reasoning_tokens=0；
+不是Adapter丢失。首轮相同请求有非空推理且回放通过。不改源码、固定型号、提示或断言，
+原失败和12次消耗保留。基于用户“可以发起真实调用，直到整票通过”的持续授权，更新本机
+执行策略：唯一全量恢复轮之外，允许对此已诊断路线做一次完整独立确认，最多32次，
+不自动重复；仍计入原总550及DeepSeek总128上限，不挪用其他Provider额度、不增加金额假设。
+这修订先前“余额不授权第三轮”的本机策略为“无第三个全量轮；仅本段一次路线确认”。
+`recheck.py`独占预约、只注入DEEPSEEK_KEY映射、固定完整入口；失败仍阻断整版。

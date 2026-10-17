@@ -192,13 +192,23 @@ class Recovery:
     def live_inputs(self):
         result = []
         for route in r.doc(ROOT/'ai/release/traceability.json')['liveCombos']:
+            if route=='deepseek-chat' and (self.out/'accepted-deepseek-chat.json').is_file():
+                if not r.doc(self.out/'accepted-deepseek-chat.json')['accepting']:
+                    raise RuntimeError('DeepSeek confirmation did not pass')
+                result.append(r.bundle(self.out/'deepseek-chat-recheck'))
+                continue
             result.append(self.out/'support' if route=='typesafe-classifier-jev-1.14.0' else
                 r.bundle(self.out/'protocol113') if route=='typesafe-classifier' else r.bundle(self.out/'live'/route))
         return result
 
     def merge(self):
         self.guard()
-        if not r.doc(self.out/'live-summary.json')['allCommandsSucceeded']:
+        summary = r.doc(self.out/'live-summary.json')
+        repaired = ({k for k,v in summary['commands'].items() if v!=0}=={'deepseek-chat'} and
+            (self.out/'accepted-deepseek-chat.json').is_file() and
+            r.doc(self.out/'accepted-deepseek-chat.json')['accepting'] and
+            r.doc(self.out/'deepseek-chat-recheck-command.json')['exitCode']==0)
+        if not summary['allCommandsSucceeded'] and not repaired:
             raise RuntimeError('all strict producers must pass before matrix merge')
         with (self.out/'merge-started.json').open('x') as marker:
             json.dump({'wholeBatchAtomic':True},marker)
