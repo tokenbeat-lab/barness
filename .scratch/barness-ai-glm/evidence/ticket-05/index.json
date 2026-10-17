@@ -1,0 +1,353 @@
+{
+  "schema": 1,
+  "scope": "ticket-05-offline-public-Client",
+  "implementationCommit": "688847c",
+  "committedPostMergeReplaySource": "d0d935f",
+  "paidRequests": 0,
+  "runs": [
+    {
+      "name": "cache",
+      "kind": "diagnostic",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/cache/20261017T130955.382402000Z",
+      "manifestSha256": "3146dbe718f3ab4e91d8465973a9c81e9c2d1e18feb2ddf86d247d0de1b97f7e",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 6,
+      "statuses": {
+        "PASS": 4,
+        "FAIL": 2
+      }
+    },
+    {
+      "name": "callbacks",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/callbacks/20261017T131039.314150000Z",
+      "manifestSha256": "8cbb3519ee1b10f9dbc182b9922e38b577c4c620eb23298d519ca25625b5a592",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      }
+    },
+    {
+      "name": "green-cache",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-cache/20261017T131017.275484000Z",
+      "manifestSha256": "015a9d61a874a363120b987d357585e19ab787d3265a96de070e1d45a2d89b6b",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 6,
+      "statuses": {
+        "PASS": 6
+      }
+    },
+    {
+      "name": "green-content-modality",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-content-modality/20261017T131544.070884000Z",
+      "manifestSha256": "3a5b1986c96491f89fbab95801360236d5675cee7751299ba91dc471f43739e2",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 22,
+      "statuses": {
+        "PASS": 22
+      }
+    },
+    {
+      "name": "green-function-schema",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-function-schema/20261017T131454.606715000Z",
+      "manifestSha256": "d62b1e8c3bb118f667f4bfdbadc328c714dbbf5022189b9e91e200c9e2ccc62d",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 26,
+      "statuses": {
+        "PASS": 26
+      }
+    },
+    {
+      "name": "green-guards",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-guards/20261017T130757.002247000Z",
+      "manifestSha256": "a3ebb34cd733f3f97ea6d800be9f623811bcd7c22620f3a9762c441fa850371f",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 156,
+      "statuses": {
+        "PASS": 156
+      }
+    },
+    {
+      "name": "green-history",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-history/20261017T130655.052461000Z",
+      "manifestSha256": "b43b1cff0239de375dc108b1dd75921971e04b7d820e890f757ebe3270b12135",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 6,
+      "statuses": {
+        "PASS": 6
+      }
+    },
+    {
+      "name": "green-input-schema",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-input-schema/20261017T130934.458181000Z",
+      "manifestSha256": "f6a292809a01a4067d0531bf94710607ced72085e3e65f00677fa107ea516fee",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 32,
+      "statuses": {
+        "PASS": 32
+      }
+    },
+    {
+      "name": "green-native-input-guard",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-native-input-guard/20261017T131115.892035000Z",
+      "manifestSha256": "51c559549ac23bacbb7076536898505c7bd04ffa3439c94117780561c562c7bd",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 429,
+      "statuses": {
+        "PASS": 429
+      }
+    },
+    {
+      "name": "green-tools-lifecycle",
+      "kind": "diagnostic",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-tools-lifecycle/20261017T131154.965368000Z",
+      "manifestSha256": "f9880492c86d4fbe16889f3554f088ad9f8f48abb666b6a0c4f7ee6e49bcf5f2",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 24,
+      "statuses": {
+        "PASS": 21,
+        "FAIL": 3
+      }
+    },
+    {
+      "name": "green-tools-lifecycle-final",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-tools-lifecycle-final/20261017T131220.621246000Z",
+      "manifestSha256": "c273345005da2992c26fc18a84293fab6b95d3557749d0e19e3a16d0608414ae",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 24,
+      "statuses": {
+        "PASS": 24
+      }
+    },
+    {
+      "name": "green-visible",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/green-visible/20261017T130836.802143000Z",
+      "manifestSha256": "2c69d936357086e711f21d3fb995257de0ce8f9e51a24799dd3d9730d46bf1ae",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 18,
+      "statuses": {
+        "PASS": 18
+      }
+    },
+    {
+      "name": "named-capabilities",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/named-capabilities/20261017T131429.490452000Z",
+      "manifestSha256": "84695403e2463dc71551b1c3915a22d03285bc7214b2cd4b621329f916b4547e",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 8,
+      "statuses": {
+        "PASS": 8
+      }
+    },
+    {
+      "name": "pidiff",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/pidiff/20261017T131252.454615000Z",
+      "manifestSha256": "0c10244eff893b637443fceca3fe6a1ecbc32ef1034f1702a1a17cde1e109a40",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 335,
+      "statuses": {
+        "PASS": 335
+      }
+    },
+    {
+      "name": "pidiff-final",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/pidiff-final/20261017T131609.513938000Z",
+      "manifestSha256": "0342639317e97cc8141474c711030ac36c2708cc523e10ff822d312c2b26050a",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "d0d935f15b8442aa59ec40499f2f4c77e5c6c570",
+      "cases": 335,
+      "statuses": {
+        "PASS": 335
+      }
+    },
+    {
+      "name": "post-merge",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/post-merge/20261017T131609.035159000Z",
+      "manifestSha256": "f679cd3e9d40e27e7ad41021a825389ac8ad8d231a3e1a0e7e08657a47003cfe",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "d0d935f15b8442aa59ec40499f2f4c77e5c6c570",
+      "cases": 3716,
+      "statuses": {
+        "PASS": 3716
+      }
+    },
+    {
+      "name": "race",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/race/20261017T131300.485681000Z",
+      "manifestSha256": "f56b94f46b22c771fe0d5a164b0126d0b1a872285ea6dc9146ba07036c806748",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 453,
+      "statuses": {
+        "PASS": 453
+      }
+    },
+    {
+      "name": "race-final",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/race-final/20261017T131613.237863000Z",
+      "manifestSha256": "b354b8c2ee4e334c0a7854b398f44f80891cfbf2729cbfd25335c8e03ad88449",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "d0d935f15b8442aa59ec40499f2f4c77e5c6c570",
+      "cases": 471,
+      "statuses": {
+        "PASS": 471
+      }
+    },
+    {
+      "name": "red-content-modality",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/red-content-modality/20261017T131533.335570000Z",
+      "manifestSha256": "d9ee70ca72afac39b43c3b5b7efe6db255936e932f7e3c603ba675069b760f86",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 22,
+      "statuses": {
+        "FAIL": 4,
+        "PASS": 18
+      }
+    },
+    {
+      "name": "red-function-schema",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/red-function-schema/20261017T131445.459263000Z",
+      "manifestSha256": "529a8344ccc3f3b7268244984918291741e8d99123c2095ecc11946d2273e494",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 18,
+      "statuses": {
+        "PASS": 12,
+        "FAIL": 6
+      }
+    },
+    {
+      "name": "red-guards",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/red-guards/20261017T130728.400695000Z",
+      "manifestSha256": "d47f05bb64ae431b64d379bf54355a8c3de2b84f92b001be7a74e8f4d9554295",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 156,
+      "statuses": {
+        "FAIL": 68,
+        "PASS": 88
+      }
+    },
+    {
+      "name": "red-history",
+      "kind": "diagnostic",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/red-history/20261017T130621.681017000Z",
+      "manifestSha256": "41ff31db4ff6fafa452d7ef73df1ad78af12072bb8099da61279d11e4292cd0d",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 0,
+      "statuses": {}
+    },
+    {
+      "name": "red-history-real",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/red-history-real/20261017T130633.090515000Z",
+      "manifestSha256": "b296c5ea5728988f9e815b683435f80ddc5235d11a8bd32c996cf7581ca4725d",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 6,
+      "statuses": {
+        "FAIL": 6
+      }
+    },
+    {
+      "name": "red-input-schema",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/red-input-schema/20261017T130917.024104000Z",
+      "manifestSha256": "be34477e8d63070ff36263138e4c906f2dfd82f10791d1f3765a647abaed8f8f",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 32,
+      "statuses": {
+        "PASS": 16,
+        "FAIL": 16
+      }
+    },
+    {
+      "name": "red-native-input-guard",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/red-native-input-guard/20261017T131055.697208000Z",
+      "manifestSha256": "83978e3e1e7621119dbb92d15b103f6d528197689451e772753e6ee8a3698cc2",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 32,
+      "statuses": {
+        "PASS": 28,
+        "FAIL": 4
+      }
+    },
+    {
+      "name": "red-visible",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/red-visible/20261017T130825.069611000Z",
+      "manifestSha256": "be27c05989c778f0307a531a17105cb6b0654ba410a2203700766d0e0aeb411e",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 18,
+      "statuses": {
+        "PASS": 16,
+        "FAIL": 2
+      }
+    },
+    {
+      "name": "regression",
+      "kind": "diagnostic",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/regression/20261017T131208.094149000Z",
+      "manifestSha256": "6d5e64a5aeee85c21103b4e1c1aa51566f7797c891a7f28392ee486ede41be71",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 2134,
+      "statuses": {
+        "PASS": 2129,
+        "NOT_RUN": 1,
+        "FAIL": 4
+      }
+    },
+    {
+      "name": "regression-final",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05/regression-final/20261017T131251.748905000Z",
+      "manifestSha256": "180a887aea353c0eaf2dc40106255cbf2627c94211bad36b8db675d8bfc66e17",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4",
+      "cases": 2714,
+      "statuses": {
+        "PASS": 2714
+      }
+    }
+  ]
+}

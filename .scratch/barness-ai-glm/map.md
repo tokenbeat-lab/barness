@@ -24,6 +24,8 @@
 
 - 2026-10-17：[08 已解决](issues/08-glm-failures-retry-usage.md)：三协议独立错误码、安全诊断、不可恢复429零重试及固定快照有界重试完成；用量缺项/零/缓存/推理/断流保留，GLM不套用Anthropic一小时缓存元数据或溢价。最新合并GLM1108 PASS、原生回归2538 PASS、冻结三协议差分608 PASS零pending；见[证据索引](evidence/ticket-08/README.md)与ADR0006/0010。
 
+- 2026-10-17：[05 已解决](issues/05-glm-responses-history-tools-cache.md)：两型号 Responses 完整历史、独立原生输入转换、工具往返、缓存路由隔离与最终能力/授权 guard 完成；合并07/08后 3,716 公共回归、471 Responses race、335 冻结 Responses 差分 PASS。见[ADR-0034](../../docs/adr/0034-barness-ai-zhipu-responses-boundary.md)与[证据索引](evidence/ticket-05/README.md)。5.3 自身生产 native-history live 仍由11取证，未扩大目录/矩阵声明。
+
 ## Fog
 
 - 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。
