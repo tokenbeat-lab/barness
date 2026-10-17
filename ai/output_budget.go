@@ -8,11 +8,11 @@ import (
 	"strings"
 )
 
-// glmOutputBudgetNumber validates the exact final JSON number against an
+// outputBudgetNumber validates the exact final JSON number against an
 // integer schema. float64 alone rounds fractional values such as
 // 1.00000000000000001 to an integer. Chat and Responses share this constraint,
 // but their field names and model limits remain at each protocol boundary.
-func glmOutputBudgetNumber(raw json.RawMessage, limit int) bool {
+func outputBudgetNumber(raw json.RawMessage, limit int) bool {
 	s := strings.TrimSpace(string(raw))
 	if s == "" || (s[0] != '-' && (s[0] < '0' || s[0] > '9')) || !json.Valid(raw) {
 		return false

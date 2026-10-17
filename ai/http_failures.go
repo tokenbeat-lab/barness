@@ -26,9 +26,11 @@ const msgConnection = "Connection error."
 // header carries the vendor's request id.
 type httpFailures struct {
 	// glm selects independently documented GLM business codes and safe errors.
-	glm    API
-	apiKey Secret
-	clock  *clock.Clock // reads a retry-after date; nil is the system clock
+	glm API
+	// minimax selects safe, evidence-bound compatibility errors.
+	minimax API
+	apiKey  Secret
+	clock   *clock.Clock // reads a retry-after date; nil is the system clock
 	// requestIDHeader names the vendor's request id response header.
 	requestIDHeader string
 	// describe is the protocol's text for a non-2xx response res, whose body
@@ -102,11 +104,18 @@ func (f httpFailures) status(res *http.Response) attemptOutcome {
 		msg = glmErrorMessage(res.StatusCode, glmCode)
 		sdkMsg = msg
 	}
+	if f.minimax != "" {
+		msg = miniMaxErrorMessage(res.StatusCode, f.miniMaxErrorType(body))
+		sdkMsg = msg
+	}
 	e := newError(code, PhaseRequest, f.redact(msg))
 	o := f.unread(res, e)
 	o.sdkMessage = f.redact(sdkMsg)
 	if f.glm != "" {
 		o.permanent = f.glmPermanent(glmCode)
+	}
+	if f.minimax != "" {
+		o.permanent = miniMaxPermanentHTTPStatus(res.StatusCode) || miniMaxPermanentErrorType(f.miniMaxErrorType(body))
 	}
 	return o
 }
@@ -122,6 +131,9 @@ func (f httpFailures) unread(res *http.Response, e *Error) attemptOutcome {
 
 // upstream is a failure the provider reported inside the stream.
 func (f httpFailures) upstream(msg string) *Error {
+	if f.minimax != "" {
+		return newError(CodeUpstreamError, PhaseStream, miniMaxErrorMessage(0, f.miniMaxErrorType(json.RawMessage(msg))))
+	}
 	if f.glm != "" {
 		return newError(CodeUpstreamError, PhaseStream, "GLM stream error")
 	}

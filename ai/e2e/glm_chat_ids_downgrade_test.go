@@ -44,7 +44,7 @@ func TestGLMChatOriginNonemptyResponseID(t *testing.T) {
 				if len(qs) != 2 {
 					return
 				}
-				_, calls, results := glmSharedWirePairs(t, glmSharedRoute{"responses", ai.APIOpenAIResponses}, qs[1].Body)
+				_, calls, results := protocolWirePairs(t, "responses", qs[1].Body)
 				ev.Check("single source call gets a nonempty target ID and valid result link", len(calls) == 1 && len(results) == 1 && calls[0] != "" && calls[0] == results[0], "%v %v", calls, results)
 				w.released(ev)
 			})

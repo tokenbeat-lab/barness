@@ -32,7 +32,7 @@ func validateMiniMaxChatCapabilities(body map[string]any) string {
 	}
 	if n, present := body["n"]; present {
 		number, ok := n.(json.Number)
-		if !ok || !glmOutputBudgetNumber(json.RawMessage(number), 1) {
+		if !ok || !outputBudgetNumber(json.RawMessage(number), 1) {
 			return "MiniMax Chat supports only n=1"
 		}
 	}
