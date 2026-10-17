@@ -1,6 +1,6 @@
 # 06: 建立 GLM Messages 实际契约并完成文本调用
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。
