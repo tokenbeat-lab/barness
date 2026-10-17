@@ -27,6 +27,7 @@ records where configured and the runner's redaction audit. Extract with
 | green-before-observer | PASS: protocol slices before later tool identity/observer additions |
 | observer-assembly-failure | FAIL: new Observer test assembly omitted required queue policy |
 | observer-attribution-failure | FAIL: test expected CallStarted to be resolved; existing contract starts unresolved |
+| green-committed | PASS: 579 own cases, manifest source commit f5a02e8 (implementation committed) |
 | regression | PASS: final 579 own cases + 883 existing Chat/DeepSeek/GLM/parity cases |
 | race-final | PASS: final 579 own cases with race detector |
 | vet | PASS: go vet ./ai |
