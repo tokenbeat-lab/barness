@@ -70,7 +70,7 @@ func TestMain(m *testing.M) {
 	if isDecisionsProcess() {
 		decisionsReport = initialDecisionsReport()
 	}
-	if os.Getenv("BARNESS_MM_ROUTE") != "" {
+	if os.Getenv("BARNESS_MM_ROUTE") != "" && glmReportState == nil {
 		multimodalReport = initialMultimodalReport()
 		if key := os.Getenv("BARNESS_MM_KEY"); key != "" {
 			run.RedactSecret(key, "[MULTIMODAL-CREDENTIAL]")

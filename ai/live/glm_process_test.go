@@ -18,7 +18,7 @@ import (
 // Public executable seam. Children use one synthetic credential and a transport
 // that cannot open a socket; intentional failures remain in their own bundles.
 func TestGLMCandidateProcess(t *testing.T) {
-	for _, name := range []string{"not-run", "switch-off", "narrowed", "foreign-key", "ambient-key", "endpoint-override", "source-changed", "source-missing", "catalog-changed", "plan-changed", "wrong-route", "success-chat", "success-responses", "success-messages", "429", "missing-text", "calls-budget", "attempts-budget", "actual-budget", "deadline", "inventory-failure"} {
+	for _, name := range []string{"not-run", "switch-off", "narrowed", "foreign-key", "mixed-route", "ambient-key", "endpoint-override", "source-changed", "source-missing", "catalog-changed", "plan-changed", "wrong-route", "success-chat", "success-responses", "success-messages", "429", "missing-text", "calls-budget", "attempts-budget", "actual-budget", "deadline", "inventory-failure"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "GLM11-process-"+name)
 			base := t.TempDir()
@@ -35,6 +35,8 @@ func TestGLMCandidateProcess(t *testing.T) {
 				env[0] = "BARNESS_AI_LIVE=0"
 			case "foreign-key":
 				env = append(env, keyVar("openai-chat")+"=synthetic-foreign")
+			case "mixed-route":
+				env = append(env, "BARNESS_MM_ROUTE=jev")
 			case "ambient-key":
 				env = append(env, "OPENAI_API_KEY=synthetic-foreign")
 			case "endpoint-override":
@@ -132,6 +134,8 @@ func TestGLMCandidateProcess(t *testing.T) {
 			cs.Check("never formal", r.Kind == "glm-candidate-only", "kind=%s", r.Kind)
 			formal, _ := filepath.Glob(filepath.Join(base, "*", "live-report.json"))
 			cs.Check("no formal publication", len(formal) == 0, "formal=%v", formal)
+			foreign, _ := filepath.Glob(filepath.Join(base, "*", "multimodal-report.json"))
+			cs.Check("no foreign route report", len(foreign) == 0, "foreign report was initialized")
 			if strings.HasPrefix(name, "success-") {
 				cs.Check("full own route", r.Outcome == "PASS" && r.Complete && r.AuditPassed && r.Budget.CallsUsed == 22 && r.Budget.HTTPAttempts == 22 && len(r.Expected) == 22, "%s", raw)
 				dir := filepath.Dir(matches[0])
