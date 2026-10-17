@@ -1,0 +1,13 @@
+--- FAIL: TestMiniMaxChatSamplingLayers (0.01s)
+    --- FAIL: TestMiniMaxChatSamplingLayers/MiniMax-M3/full (0.00s)
+        minimax_chat_sampling_test.go:45: [MM02-sampling-TestMiniMaxChatSamplingLayers/MiniMax-M3/full] small budget and valid small sampling accepted: ai: invalid_request (request): temperature is outside the integrated numeric range
+    --- FAIL: TestMiniMaxChatSamplingLayers/MiniMax-M3/simple (0.00s)
+        minimax_chat_sampling_test.go:45: [MM02-sampling-TestMiniMaxChatSamplingLayers/MiniMax-M3/simple] small budget and valid small sampling accepted: ai: invalid_request (request): temperature is outside the integrated numeric range
+    --- FAIL: TestMiniMaxChatSamplingLayers/MiniMax-M3.1-Flash-Preview/full (0.00s)
+        minimax_chat_sampling_test.go:45: [MM02-sampling-TestMiniMaxChatSamplingLayers/MiniMax-M3.1-Flash-Preview/full] small budget and valid small sampling accepted: ai: invalid_request (request): temperature is outside the integrated numeric range
+    --- FAIL: TestMiniMaxChatSamplingLayers/MiniMax-M3.1-Flash-Preview/simple (0.00s)
+        minimax_chat_sampling_test.go:45: [MM02-sampling-TestMiniMaxChatSamplingLayers/MiniMax-M3.1-Flash-Preview/simple] small budget and valid small sampling accepted: ai: invalid_request (request): temperature is outside the integrated numeric range
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-02/.evidence/barness-ai/20261017T221825.374451000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.607s
+FAIL

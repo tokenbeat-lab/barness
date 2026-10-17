@@ -31,10 +31,11 @@ type chatBody struct {
 	ToolStream          bool              `json:"tool_stream,omitempty"`
 	Thinking            *chatThinking     `json:"thinking,omitempty"`
 	ReasoningEffort     string            `json:"reasoning_effort,omitempty"`
+	ReasoningSplit      *bool             `json:"reasoning_split,omitempty"`
 }
 
 // chatThinking switches a provider's thinking mode: type is "enabled" or
-// "disabled".
+// "disabled"; MiniMax uses "adaptive" for enabling.
 type chatThinking struct {
 	Type string `json:"type"`
 }
@@ -133,6 +134,10 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	if compat.streamUsage {
 		body.StreamOptions = &chatStreamOptions{IncludeUsage: true}
 	}
+	if compat.adaptiveThinking {
+		split := true
+		body.ReasoningSplit = &split
+	}
 	if compat.store {
 		body.Store = new(bool)
 	}
@@ -141,7 +146,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 		tools := make([]chatTool, len(history.tools))
 		for i, t := range history.tools {
 			tools[i] = chatTool{Type: "function", Function: chatToolFunction{Name: t.Name, Description: t.Description, Parameters: t.Parameters}}
-			if model.Compat.SupportsStrictMode && model.Provider != ProviderZhipu {
+			if model.Compat.SupportsStrictMode && model.Provider != ProviderZhipu && model.Provider != ProviderMiniMaxCN {
 				tools[i].Function.Strict = new(bool)
 			}
 		}
@@ -160,6 +165,9 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	out, err = applyModelSamplingParams(out, model, opts.ReasoningEffort, opts.SamplingParams)
 	if err == nil && model.Provider == ProviderZhipu {
 		out, err = preserveGLMChatSamplingBudget(out, model, opts)
+	}
+	if err == nil && model.Provider == ProviderMiniMaxCN {
+		out, err = preserveMiniMaxChatSampling(out, model, opts)
 	}
 	return out, err
 }

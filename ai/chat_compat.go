@@ -30,6 +30,8 @@ type chatCompat struct {
 	// enabled one (pi's thinkingFormat "deepseek"); otherwise
 	// reasoning_effort alone, the "off" mapping included (pi's "openai").
 	thinkingToggle bool
+	// adaptiveThinking uses the MiniMax adaptive/disabled switch, independent of effort.
+	adaptiveThinking bool
 	// preserveThinkingDefault omits the switch when no effort was selected,
 	// retaining this provider's default rather than forcing thinking off.
 	preserveThinkingDefault bool
@@ -44,10 +46,14 @@ type chatCompat struct {
 // chatCompatOf is p's profile: DeepSeek is a
 // non-standard vendor (no store, no developer role, max_tokens) with its
 // own thinking format that requires reasoning_content on assistant turns;
+// MiniMax declares only stream usage and its independent adaptive switch.
 // Zhipu shares only the max_tokens and switch shapes, preserves default
 // thinking and has no automatic stream usage/cache fields. Existing other
 // providers retain the standard OpenAI compat (ADR-0013).
 func chatCompatOf(p ProviderID) chatCompat {
+	if p == ProviderMiniMaxCN {
+		return chatCompat{streamUsage: true, adaptiveThinking: true, preserveThinkingDefault: true}
+	}
 	if p == ProviderDeepSeek {
 		return chatCompat{streamUsage: true, promptCache: true, maxTokens: true, thinkingToggle: true, reasoningContentOnAssistant: true}
 	}

@@ -33,6 +33,11 @@ func readResponsesStream(ctx context.Context, dec ssestream.Decoder, p responses
 			}
 		}
 		data := event.Data
+		if p.minimax != nil {
+			if err := p.validateMiniMaxEvent(data); err != nil {
+				return newError(CodeProtocol, PhaseStream, "MiniMax Responses event violates the protocol")
+			}
+		}
 		if p.glm {
 			var err error
 			data, err = p.normalizeGLMResponsesEvent(data)

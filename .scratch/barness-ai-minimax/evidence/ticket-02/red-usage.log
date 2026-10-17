@@ -1,0 +1,7 @@
+--- FAIL: TestMiniMaxChatUsage (0.01s)
+    --- FAIL: TestMiniMaxChatUsage/off (0.00s)
+        minimax_chat_usage_test.go:36: [MM02-usage-off] reporting reflects final thinking selection: <nil> [{AttemptID:TestMiniMaxChatUsage/off#1 HTTPStatus:200 ProviderRequestID: Code: RetryDelay:0s UsageReporting:partial Usage:{Input:10 Output:8 CacheRead:2 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:20 Cost:{Input:9.999999999999999e-06 Output:1.6e-05 CacheRead:2.0000000000000002e-07 CacheWrite:0 Total:2.62e-05}}}]
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-02/.evidence/barness-ai/20261017T221717.204824000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.594s
+FAIL

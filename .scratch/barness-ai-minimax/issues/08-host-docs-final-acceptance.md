@@ -1,9 +1,9 @@
-# 08 — Host 文档、ADR、完整验收和回滚
+# 08 — Host 文档、ADR 和回滚实现
 
 Status: ready-for-agent
 Type: task
 Updated: 2026-10-18
-Blocked by: 07
+Blocked by: 05, 06
 
 ## Context
 
@@ -11,7 +11,7 @@ Blocked by: 07
 
 ## Scope and acceptance
 
-完整本地/云端 Host 示例、三 Binding/用途、六身份思考语义、费用/缓存/信任/实际状态；ADR 记录能力拆分和真实续接结论。普通/race E2E、两种 vet、差分、资源/业务效果、逐包审计和完整回滚；更新 US/R/A→有限 case 追溯。全部完成后 code-review 双轴并修复所有问题，按本地 tracker resolved；不能在缺三份 M3 正式自身报告时关闭 spec。
+负责完整本地/云端 Host 示例、三 Binding/用途、六身份思考语义、费用/缓存/信任与如实支持状态；ADR 记录能力拆分和有来源的续接结论。实现并先验完整软件回滚、禁用 Binding 零凭据/请求和旧路线恢复。修复基线既有 GLM 回滚 commands.json 绝对路径泄漏，不减弱脱敏审计。与07并行；07结果到达后同步真实支持状态。最终全集验收与工单关闭由09汇合。
 
 追溯：R01–R28；A01–A20；US01–US80。
 
