@@ -29,6 +29,9 @@ func installMiniMaxReplay(rec *recorder) error {
 	if e != nil {
 		return e
 	}
+	if r.Mode == "replay" {
+		return fmt.Errorf("nested replay cannot replace original capture provenance")
+	}
 	if r.Identity != minimaxReport.Identity {
 		return fmt.Errorf("replay identity differs")
 	}
@@ -43,6 +46,13 @@ func installMiniMaxReplay(rec *recorder) error {
 	minimaxReport.CatalogHash = r.CatalogHash
 	run.SetVersion("model_catalog_version", r.CatalogVersion)
 	run.SetVersion("model_catalog_hash", r.CatalogHash)
+	origin, e := minimaxlive.Snapshot(dir)
+	if e != nil {
+		return e
+	}
+	if e = run.Record("minimax-replay-origin", origin); e != nil {
+		return e
+	}
 	var requests []string
 	var exchanges []minimaxlive.Exchange
 	var kinds []string

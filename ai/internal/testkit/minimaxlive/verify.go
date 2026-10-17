@@ -101,7 +101,7 @@ func Verify(dir string, formal bool) (Report, error) {
 		return r, fmt.Errorf("MiniMax provenance incomplete")
 	}
 	cat := minimax.CandidateCatalog()
-	if r.Stage == "formal" {
+	if r.Stage == "formal" || r.Mode == "replay" && r.CatalogVersion == ai.BuiltinCatalog().Version {
 		cat = ai.BuiltinCatalog()
 	}
 	hash, err := cat.Hash()
@@ -169,6 +169,9 @@ func Verify(dir string, formal bool) (Report, error) {
 	}
 	if len(seen) != len(plan) || !reflect.DeepEqual(budget, r.Budget) || budget.Calls > 20 || budget.Attempts > 24 || budget.RequestedOutput > 40000 || budget.ReservedInput > 120000 {
 		return r, fmt.Errorf("MiniMax budget or complete inventory differs")
+	}
+	if e = verifyReplayOrigin(dir, r); e != nil {
+		return r, e
 	}
 	if e = VerifyLedger(dir, r); e != nil {
 		return r, e

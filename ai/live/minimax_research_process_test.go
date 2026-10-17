@@ -41,5 +41,9 @@ func TestMiniMaxResearchPredecessor(t *testing.T) {
 	var ledger minimaxlive.LedgerEvidence
 	json.Unmarshal(raw, &ledger)
 	cs.Check("own prior captures retained", len(ledger.Predecessors) == 1, "predecessors=%d", len(ledger.Predecessors))
+	archive, archiveErr := archiveMiniMaxProcess(dir)
+	if cs.Check("full research predecessor captures retained", archiveErr == nil, "%v", archiveErr) {
+		cs.Fixture("full-with-research.tar.gz", archive)
+	}
 	execute("^TestMiniMaxCandidate$", false)
 }

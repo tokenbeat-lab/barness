@@ -54,6 +54,12 @@ func TestMiniMaxReplayProcess(t *testing.T) {
 			}
 			r, e := minimaxlive.Verify(filepath.Dir(replay[0]), false)
 			cs.Check("own complete replay preserves mode", e == nil && r.Mode == "replay" && r.Kind == "minimax-capture-replay-only", "err=%v", e)
+			archive, archiveErr := archiveMiniMaxProcess(filepath.Dir(replay[0]))
+			if cs.Check("replay captures retained", archiveErr == nil, "%v", archiveErr) {
+				cs.Fixture("replay-capture.tar.gz", archive)
+			}
+			origin, e := os.ReadFile(filepath.Join(filepath.Dir(replay[0]), "minimax-replay-origin.json"))
+			cs.Check("immutable replay source retained", e == nil && len(origin) > 0, "origin absent")
 			_, e = minimaxlive.Verify(filepath.Dir(replay[0]), true)
 			cs.Check("replay cannot become live", e != nil, "formal accepted replay")
 		})
