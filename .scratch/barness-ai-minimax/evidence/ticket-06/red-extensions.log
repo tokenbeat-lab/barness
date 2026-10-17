@@ -1,0 +1,37 @@
+--- FAIL: TestMiniMaxExtensionRoutes (0.11s)
+    --- FAIL: TestMiniMaxExtensionRoutes/chat-m3/stream-full (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-chat-m3-stream-full] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/chat-m3/stream-simple (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-chat-m3-stream-simple] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/chat-m3/complete-full (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-chat-m3-complete-full] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/chat-m3/complete-simple (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-chat-m3-complete-simple] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/responses-m3/stream-full (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-responses-m3-stream-full] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/responses-m3/stream-simple (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-responses-m3-stream-simple] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/responses-m3/complete-full (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-responses-m3-complete-full] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/responses-m3/complete-simple (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-responses-m3-complete-simple] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/chat-m31/stream-full (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-chat-m31-stream-full] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/chat-m31/stream-simple (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-chat-m31-stream-simple] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/chat-m31/complete-full (0.01s)
+        minimax_extension_routes_test.go:49: [MM06-extension-chat-m31-complete-full] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/chat-m31/complete-simple (0.00s)
+        minimax_extension_routes_test.go:49: [MM06-extension-chat-m31-complete-simple] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/responses-m31/stream-full (0.00s)
+        minimax_extension_routes_test.go:49: [MM06-extension-responses-m31-stream-full] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/responses-m31/stream-simple (0.00s)
+        minimax_extension_routes_test.go:49: [MM06-extension-responses-m31-stream-simple] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/responses-m31/complete-full (0.00s)
+        minimax_extension_routes_test.go:49: [MM06-extension-responses-m31-complete-full] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+    --- FAIL: TestMiniMaxExtensionRoutes/responses-m31/complete-simple (0.00s)
+        minimax_extension_routes_test.go:49: [MM06-extension-responses-m31-complete-simple] exact route inventory: {Provider: API: Classification: Decision: Ref:}
+FAIL
+barness-ai evidence bundle: /tmp/barness-minimax-06/.scratch/barness-ai-minimax/evidence/ticket-06/red-extensions/20261017T223435.019368000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.735s
+FAIL
