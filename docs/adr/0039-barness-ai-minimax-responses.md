@@ -15,7 +15,7 @@ R17–R21 要求复用公共 Client/Responses 生命周期，但不能沿用 Ope
 
 输出 reasoning.content 是 reasoning_text 数组；输入只声明 summary_text 数组。
 SDK 能读取输出并不证明该输出可以原样回放。此处只决定有明确来源的候选转换；
-实际 M3 工具结果后续接仍须由工单 07 的独立真实证据确认。
+实际 M3 工具结果后续接仍须由工单 10 的独立真实证据确认。
 
 ## Decision
 
@@ -54,5 +54,5 @@ schema，不能声明真实续接已通过。真实目标若拒绝该投影，�
 E2E 再调整此边界；不得丢推理、自动跨协议或以 UNSUPPORTED 放行必交能力。
 
 [工单 03](../../.scratch/barness-ai-minimax/issues/03-responses-protocol.md)保存 red/green
-证据指针；[工单 07](../../.scratch/barness-ai-minimax/issues/07-live-catalog-release.md)承担线上
+证据指针；[工单 10](../../.scratch/barness-ai-minimax/issues/10-formal-catalog-support.md)承担线上
 收敛。MiniMax 首期仍仅候选装配；是否正式支持由全部发布门槛独立决定。

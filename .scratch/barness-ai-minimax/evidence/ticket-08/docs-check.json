@@ -1,0 +1,113 @@
+{
+  "pass": true,
+  "errors": [],
+  "checkedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-08/failure-modes.md",
+      "lines": 13
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-08/rollback-probe.txt",
+      "lines": 63
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-08/rollback.py",
+      "lines": 142
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/08-host-docs-final-acceptance.md",
+      "lines": 37
+    },
+    {
+      "path": "ai/README.md",
+      "lines": 497
+    },
+    {
+      "path": "ai/README.zh-CN.md",
+      "lines": 470
+    },
+    {
+      "path": "ai/e2e/minimax_full_rollback_test.go",
+      "lines": 90
+    },
+    {
+      "path": "ai/e2e/minimax_host_bindings_test.go",
+      "lines": 51
+    },
+    {
+      "path": "ai/e2e/minimax_host_cloud_test.go",
+      "lines": 92
+    },
+    {
+      "path": "ai/e2e/minimax_host_disable_test.go",
+      "lines": 122
+    },
+    {
+      "path": "ai/e2e/minimax_host_example_test.go",
+      "lines": 102
+    },
+    {
+      "path": "ai/e2e/minimax_host_fixture_test.go",
+      "lines": 141
+    },
+    {
+      "path": "ai/e2e/minimax_host_local_test.go",
+      "lines": 43
+    },
+    {
+      "path": "ai/examples/hostintegration/host.go",
+      "lines": 180
+    },
+    {
+      "path": "ai/examples/localassembly/localassembly.go",
+      "lines": 175
+    },
+    {
+      "path": "ai/examples/minimaxhost/README.md",
+      "lines": 238
+    },
+    {
+      "path": "ai/examples/minimaxhost/README.zh-CN.md",
+      "lines": 197
+    },
+    {
+      "path": "ai/examples/minimaxhost/bindings.go",
+      "lines": 66
+    },
+    {
+      "path": "docs/adr/0037-barness-ai-minimax-candidate-metadata.md",
+      "lines": 34
+    },
+    {
+      "path": "docs/adr/0039-barness-ai-minimax-responses.md",
+      "lines": 58
+    },
+    {
+      "path": "docs/adr/0040-minimax-messages-adaptive-boundary.md",
+      "lines": 31
+    },
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-13/rollback.py",
+      "lines": 133
+    },
+    {
+      "path": "ai/e2e/glm_full_rollback_test.go",
+      "lines": 80
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-08/README.md",
+      "lines": 60
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/map.md",
+      "lines": 53
+    }
+  ],
+  "checks": [
+    "local Markdown links",
+    "500 line cap",
+    "Go format",
+    "Python parse"
+  ],
+  "targetedVet": "go vet ./ai/examples/localassembly ./ai/examples/hostintegration ./ai/examples/minimaxhost PASS"
+}

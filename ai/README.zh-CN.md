@@ -1,6 +1,8 @@
 # barness-ai
 
-> **目录更新（2026-10-17）**：`2026-10-17.2` 包含 93 个聊天身份、两个图像型号和三个分类型号。中国区标准 GLM-5.3/5.2 各有 Chat、Responses、Messages 独立身份；[完整 Host 示例](examples/glmhost/README.md) 说明三份绑定、标准 Key 与 full/simple/WithHooks。`jev-1.14.0` 的四位置 PNG/JPEG 与 Box 继续需要 `ExperimentalImages` 和显式授权。当前发布合同保留十三协议组合、十四独立支持身份；本次完整当前源码验收见[票13](../.scratch/barness-ai-glm/evidence/ticket-13/README.md)。
+> **目录更新（2026-10-17）**：`2026-10-17.2` 包含 93 个聊天身份、两个图像型号和三个分类型号。中国区标准 GLM-5.3/5.2 各有 Chat、Responses、Messages 独立身份；[完整 Host 示例](examples/glmhost/README.md) 说明三份绑定、标准 Key 与 full/simple/WithHooks。`jev-1.14.0` 的四位置 PNG/JPEG 与 Box 继续需要 `ExperimentalImages` 和显式授权。当前发布合同保留十三协议组合、十四独立支持身份；历史验收见[票13](../.scratch/barness-ai-glm/evidence/ticket-13/README.md)，发布仍须重新核验来源适用性。
+
+> **MiniMax 中国区（2026-10-18）**：三协议与[本地/云端 Host 示例](examples/minimaxhost/README.zh-CN.md)仍为受控候选。M3 正式推广待工单10自身真实、价格和发布证据；M3.1 权益及正式价格尚未确认。候选合成费率不是真实报价。
 
 [English](README.md) | 简体中文
 
@@ -463,6 +465,6 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-
 | [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | 分类输入、拒答、图片授权、用量与回滚 |
 | [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | 思考分档、合并顺序与 full/simple 边界 |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | 发布交付物、门禁状态、策略实测 |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0036 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0040 |
 | [GLOSSARY.md](../GLOSSARY.md) | 领域术语（租户、服务绑定、逻辑调用、原生续接状态……） |
 | `go doc -all ./ai` | 包与类型文档 |

@@ -1,0 +1,171 @@
+=== RUN   TestMiniMaxHostBindings
+=== RUN   TestMiniMaxHostBindings/standard
+=== RUN   TestMiniMaxHostBindings/m-plan
+--- PASS: TestMiniMaxHostBindings (0.00s)
+    --- PASS: TestMiniMaxHostBindings/standard (0.00s)
+    --- PASS: TestMiniMaxHostBindings/m-plan (0.00s)
+=== RUN   TestMiniMaxHostLocalAndCloud
+=== RUN   TestMiniMaxHostLocalAndCloud/chat
+=== RUN   TestMiniMaxHostLocalAndCloud/responses
+=== RUN   TestMiniMaxHostLocalAndCloud/messages
+--- PASS: TestMiniMaxHostLocalAndCloud (0.04s)
+    --- PASS: TestMiniMaxHostLocalAndCloud/chat (0.01s)
+    --- PASS: TestMiniMaxHostLocalAndCloud/responses (0.01s)
+    --- PASS: TestMiniMaxHostLocalAndCloud/messages (0.01s)
+=== RUN   TestMiniMaxHostDisable
+=== RUN   TestMiniMaxHostDisable/chat/standard
+=== RUN   TestMiniMaxHostDisable/chat/m-plan
+=== RUN   TestMiniMaxHostDisable/responses/standard
+=== RUN   TestMiniMaxHostDisable/responses/m-plan
+=== RUN   TestMiniMaxHostDisable/messages/standard
+=== RUN   TestMiniMaxHostDisable/messages/m-plan
+--- PASS: TestMiniMaxHostDisable (0.09s)
+    --- PASS: TestMiniMaxHostDisable/chat/standard (0.02s)
+    --- PASS: TestMiniMaxHostDisable/chat/m-plan (0.02s)
+    --- PASS: TestMiniMaxHostDisable/responses/standard (0.02s)
+    --- PASS: TestMiniMaxHostDisable/responses/m-plan (0.01s)
+    --- PASS: TestMiniMaxHostDisable/messages/standard (0.02s)
+    --- PASS: TestMiniMaxHostDisable/messages/m-plan (0.01s)
+=== RUN   TestMiniMaxHostPurposeDenial
+=== RUN   TestMiniMaxHostPurposeDenial/chat/standard
+=== RUN   TestMiniMaxHostPurposeDenial/chat/m-plan
+=== RUN   TestMiniMaxHostPurposeDenial/responses/standard
+=== RUN   TestMiniMaxHostPurposeDenial/responses/m-plan
+=== RUN   TestMiniMaxHostPurposeDenial/messages/standard
+=== RUN   TestMiniMaxHostPurposeDenial/messages/m-plan
+--- PASS: TestMiniMaxHostPurposeDenial (0.04s)
+    --- PASS: TestMiniMaxHostPurposeDenial/chat/standard (0.01s)
+    --- PASS: TestMiniMaxHostPurposeDenial/chat/m-plan (0.01s)
+    --- PASS: TestMiniMaxHostPurposeDenial/responses/standard (0.00s)
+    --- PASS: TestMiniMaxHostPurposeDenial/responses/m-plan (0.01s)
+    --- PASS: TestMiniMaxHostPurposeDenial/messages/standard (0.02s)
+    --- PASS: TestMiniMaxHostPurposeDenial/messages/m-plan (0.01s)
+=== RUN   TestMiniMaxHostExample
+=== RUN   TestMiniMaxHostExample/chat/standard/stream/plain
+=== RUN   TestMiniMaxHostExample/chat/standard/stream/hooks
+=== RUN   TestMiniMaxHostExample/chat/standard/complete/plain
+=== RUN   TestMiniMaxHostExample/chat/standard/complete/hooks
+=== RUN   TestMiniMaxHostExample/chat/standard/simple-stream/plain
+=== RUN   TestMiniMaxHostExample/chat/standard/simple-stream/hooks
+=== RUN   TestMiniMaxHostExample/chat/standard/simple-complete/plain
+=== RUN   TestMiniMaxHostExample/chat/standard/simple-complete/hooks
+=== RUN   TestMiniMaxHostExample/chat/m-plan/stream/plain
+=== RUN   TestMiniMaxHostExample/chat/m-plan/stream/hooks
+=== RUN   TestMiniMaxHostExample/chat/m-plan/complete/plain
+=== RUN   TestMiniMaxHostExample/chat/m-plan/complete/hooks
+=== RUN   TestMiniMaxHostExample/chat/m-plan/simple-stream/plain
+=== RUN   TestMiniMaxHostExample/chat/m-plan/simple-stream/hooks
+=== RUN   TestMiniMaxHostExample/chat/m-plan/simple-complete/plain
+=== RUN   TestMiniMaxHostExample/chat/m-plan/simple-complete/hooks
+=== RUN   TestMiniMaxHostExample/responses/standard/stream/plain
+=== RUN   TestMiniMaxHostExample/responses/standard/stream/hooks
+=== RUN   TestMiniMaxHostExample/responses/standard/complete/plain
+=== RUN   TestMiniMaxHostExample/responses/standard/complete/hooks
+=== RUN   TestMiniMaxHostExample/responses/standard/simple-stream/plain
+=== RUN   TestMiniMaxHostExample/responses/standard/simple-stream/hooks
+=== RUN   TestMiniMaxHostExample/responses/standard/simple-complete/plain
+=== RUN   TestMiniMaxHostExample/responses/standard/simple-complete/hooks
+=== RUN   TestMiniMaxHostExample/responses/m-plan/stream/plain
+=== RUN   TestMiniMaxHostExample/responses/m-plan/stream/hooks
+=== RUN   TestMiniMaxHostExample/responses/m-plan/complete/plain
+=== RUN   TestMiniMaxHostExample/responses/m-plan/complete/hooks
+=== RUN   TestMiniMaxHostExample/responses/m-plan/simple-stream/plain
+=== RUN   TestMiniMaxHostExample/responses/m-plan/simple-stream/hooks
+=== RUN   TestMiniMaxHostExample/responses/m-plan/simple-complete/plain
+=== RUN   TestMiniMaxHostExample/responses/m-plan/simple-complete/hooks
+=== RUN   TestMiniMaxHostExample/messages/standard/stream/plain
+=== RUN   TestMiniMaxHostExample/messages/standard/stream/hooks
+=== RUN   TestMiniMaxHostExample/messages/standard/complete/plain
+=== RUN   TestMiniMaxHostExample/messages/standard/complete/hooks
+=== RUN   TestMiniMaxHostExample/messages/standard/simple-stream/plain
+=== RUN   TestMiniMaxHostExample/messages/standard/simple-stream/hooks
+=== RUN   TestMiniMaxHostExample/messages/standard/simple-complete/plain
+=== RUN   TestMiniMaxHostExample/messages/standard/simple-complete/hooks
+=== RUN   TestMiniMaxHostExample/messages/m-plan/stream/plain
+=== RUN   TestMiniMaxHostExample/messages/m-plan/stream/hooks
+=== RUN   TestMiniMaxHostExample/messages/m-plan/complete/plain
+=== RUN   TestMiniMaxHostExample/messages/m-plan/complete/hooks
+=== RUN   TestMiniMaxHostExample/messages/m-plan/simple-stream/plain
+=== RUN   TestMiniMaxHostExample/messages/m-plan/simple-stream/hooks
+=== RUN   TestMiniMaxHostExample/messages/m-plan/simple-complete/plain
+=== RUN   TestMiniMaxHostExample/messages/m-plan/simple-complete/hooks
+--- PASS: TestMiniMaxHostExample (0.38s)
+    --- PASS: TestMiniMaxHostExample/chat/standard/stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/standard/stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/standard/complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/standard/complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/standard/simple-stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/standard/simple-stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/standard/simple-complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/standard/simple-complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/m-plan/stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/m-plan/stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/m-plan/complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/m-plan/complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/m-plan/simple-stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/m-plan/simple-stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/m-plan/simple-complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/chat/m-plan/simple-complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/standard/stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/standard/stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/standard/complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/standard/complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/standard/simple-stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/standard/simple-stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/standard/simple-complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/standard/simple-complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/m-plan/stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/m-plan/stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/m-plan/complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/m-plan/complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/m-plan/simple-stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/m-plan/simple-stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/m-plan/simple-complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/responses/m-plan/simple-complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/standard/stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/standard/stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/standard/complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/standard/complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/standard/simple-stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/standard/simple-stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/standard/simple-complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/standard/simple-complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/m-plan/stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/m-plan/stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/m-plan/complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/m-plan/complete/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/m-plan/simple-stream/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/m-plan/simple-stream/hooks (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/m-plan/simple-complete/plain (0.01s)
+    --- PASS: TestMiniMaxHostExample/messages/m-plan/simple-complete/hooks (0.01s)
+=== RUN   TestMiniMaxHostTools
+=== RUN   TestMiniMaxHostTools/chat/standard
+=== RUN   TestMiniMaxHostTools/chat/m-plan
+=== RUN   TestMiniMaxHostTools/responses/standard
+=== RUN   TestMiniMaxHostTools/responses/m-plan
+=== RUN   TestMiniMaxHostTools/messages/standard
+=== RUN   TestMiniMaxHostTools/messages/m-plan
+--- PASS: TestMiniMaxHostTools (0.05s)
+    --- PASS: TestMiniMaxHostTools/chat/standard (0.01s)
+    --- PASS: TestMiniMaxHostTools/chat/m-plan (0.01s)
+    --- PASS: TestMiniMaxHostTools/responses/standard (0.01s)
+    --- PASS: TestMiniMaxHostTools/responses/m-plan (0.01s)
+    --- PASS: TestMiniMaxHostTools/messages/standard (0.01s)
+    --- PASS: TestMiniMaxHostTools/messages/m-plan (0.01s)
+=== RUN   TestMiniMaxHostLocalAssembly
+=== RUN   TestMiniMaxHostLocalAssembly/chat/standard
+=== RUN   TestMiniMaxHostLocalAssembly/chat/m-plan
+=== RUN   TestMiniMaxHostLocalAssembly/responses/standard
+=== RUN   TestMiniMaxHostLocalAssembly/responses/m-plan
+=== RUN   TestMiniMaxHostLocalAssembly/messages/standard
+=== RUN   TestMiniMaxHostLocalAssembly/messages/m-plan
+--- PASS: TestMiniMaxHostLocalAssembly (0.04s)
+    --- PASS: TestMiniMaxHostLocalAssembly/chat/standard (0.01s)
+    --- PASS: TestMiniMaxHostLocalAssembly/chat/m-plan (0.01s)
+    --- PASS: TestMiniMaxHostLocalAssembly/responses/standard (0.01s)
+    --- PASS: TestMiniMaxHostLocalAssembly/responses/m-plan (0.01s)
+    --- PASS: TestMiniMaxHostLocalAssembly/messages/standard (0.01s)
+    --- PASS: TestMiniMaxHostLocalAssembly/messages/m-plan (0.01s)
+PASS
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T225727.561654000Z
+ok  	github.com/tokenbeat-lab/barness/ai/e2e	4.036s

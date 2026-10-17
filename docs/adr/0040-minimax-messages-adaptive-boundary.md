@@ -23,7 +23,7 @@ MiniMax 自己的最终请求和 SSE 边界严格验证；原厂及 GLM 的既�
 签名续接继续使用 Native State Envelope。当前只放行可信签名 thinking；unsigned 可见
 思考沿既有规则降级为文本，未验证的 opaque/redacted 结果保留原形并拒绝原生回放。
 不借用 GLM 的无签名例外。合成 fixture 仅证明本地协议守卫，实际签名和 start input /
-partial_json 组合须由工单 07 的对应型号真实证据单独确认；新证据改变规则时同步本 ADR
+partial_json 组合须由工单 10 的对应型号真实证据单独确认；新证据改变规则时同步本 ADR
 与对应 fixture，不能由另一 Provider 或另一个型号的结果推断。
 
 [规格 R05/R15/R16/R20](../../.scratch/barness-ai-minimax/spec.md)、

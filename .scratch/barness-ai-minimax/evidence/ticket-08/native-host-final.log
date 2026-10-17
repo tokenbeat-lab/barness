@@ -1,0 +1,205 @@
+=== RUN   TestClassifierHostMigration
+=== RUN   TestClassifierHostMigration/local/jev/nil-options
+=== RUN   TestClassifierHostMigration/local/jev/protocol-options
+=== RUN   TestClassifierHostMigration/local/jev/structured
+=== RUN   TestClassifierHostMigration/local/jev/wrong-options
+=== RUN   TestClassifierHostMigration/local/luna/nil-options
+=== RUN   TestClassifierHostMigration/local/luna/protocol-options
+=== RUN   TestClassifierHostMigration/local/luna/structured
+=== RUN   TestClassifierHostMigration/local/luna/wrong-options
+=== RUN   TestClassifierHostMigration/local/luna/refusal
+=== RUN   TestClassifierHostMigration/local/luna/image
+=== RUN   TestClassifierHostMigration/local/luna/no-image-binding
+=== RUN   TestClassifierHostMigration/local/luna/no-image-policy
+=== RUN   TestClassifierHostMigration/local/luna/no-image-model
+=== RUN   TestClassifierHostMigration/cloud/jev/nil-options
+=== RUN   TestClassifierHostMigration/cloud/jev/protocol-options
+=== RUN   TestClassifierHostMigration/cloud/jev/structured
+=== RUN   TestClassifierHostMigration/cloud/jev/wrong-options
+=== RUN   TestClassifierHostMigration/cloud/luna/nil-options
+=== RUN   TestClassifierHostMigration/cloud/luna/protocol-options
+=== RUN   TestClassifierHostMigration/cloud/luna/structured
+=== RUN   TestClassifierHostMigration/cloud/luna/wrong-options
+=== RUN   TestClassifierHostMigration/cloud/luna/refusal
+=== RUN   TestClassifierHostMigration/cloud/luna/image
+=== RUN   TestClassifierHostMigration/cloud/luna/no-image-binding
+=== RUN   TestClassifierHostMigration/cloud/luna/no-image-policy
+=== RUN   TestClassifierHostMigration/cloud/luna/no-image-model
+--- PASS: TestClassifierHostMigration (0.03s)
+    --- PASS: TestClassifierHostMigration/local/jev/nil-options (0.00s)
+    --- PASS: TestClassifierHostMigration/local/jev/protocol-options (0.00s)
+    --- PASS: TestClassifierHostMigration/local/jev/structured (0.00s)
+    --- PASS: TestClassifierHostMigration/local/jev/wrong-options (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/nil-options (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/protocol-options (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/structured (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/wrong-options (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/refusal (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/image (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/no-image-binding (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/no-image-policy (0.00s)
+    --- PASS: TestClassifierHostMigration/local/luna/no-image-model (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/jev/nil-options (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/jev/protocol-options (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/jev/structured (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/jev/wrong-options (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/nil-options (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/protocol-options (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/structured (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/wrong-options (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/refusal (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/image (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/no-image-binding (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/no-image-policy (0.00s)
+    --- PASS: TestClassifierHostMigration/cloud/luna/no-image-model (0.00s)
+=== RUN   TestHostIntegrationStreams
+=== RUN   TestHostIntegrationStreams/responses/send-fails
+=== RUN   TestHostIntegrationStreams/responses/client-disconnects
+=== RUN   TestHostIntegrationStreams/anthropic/send-fails
+=== RUN   TestHostIntegrationStreams/anthropic/client-disconnects
+=== RUN   TestHostIntegrationStreams/gemini/send-fails
+=== RUN   TestHostIntegrationStreams/gemini/client-disconnects
+=== RUN   TestHostIntegrationStreams/chat/send-fails
+=== RUN   TestHostIntegrationStreams/chat/client-disconnects
+=== RUN   TestHostIntegrationStreams/deepseek-responses/send-fails
+=== RUN   TestHostIntegrationStreams/deepseek-responses/client-disconnects
+=== RUN   TestHostIntegrationStreams/deepseek-chat/send-fails
+=== RUN   TestHostIntegrationStreams/deepseek-chat/client-disconnects
+=== RUN   TestHostIntegrationStreams/merge
+--- PASS: TestHostIntegrationStreams (0.05s)
+    --- PASS: TestHostIntegrationStreams/responses/send-fails (0.01s)
+    --- PASS: TestHostIntegrationStreams/responses/client-disconnects (0.00s)
+    --- PASS: TestHostIntegrationStreams/anthropic/send-fails (0.00s)
+    --- PASS: TestHostIntegrationStreams/anthropic/client-disconnects (0.00s)
+    --- PASS: TestHostIntegrationStreams/gemini/send-fails (0.00s)
+    --- PASS: TestHostIntegrationStreams/gemini/client-disconnects (0.00s)
+    --- PASS: TestHostIntegrationStreams/chat/send-fails (0.00s)
+    --- PASS: TestHostIntegrationStreams/chat/client-disconnects (0.00s)
+    --- PASS: TestHostIntegrationStreams/deepseek-responses/send-fails (0.00s)
+    --- PASS: TestHostIntegrationStreams/deepseek-responses/client-disconnects (0.00s)
+    --- PASS: TestHostIntegrationStreams/deepseek-chat/send-fails (0.00s)
+    --- PASS: TestHostIntegrationStreams/deepseek-chat/client-disconnects (0.00s)
+    --- PASS: TestHostIntegrationStreams/merge (0.00s)
+=== RUN   TestHostIntegrationExample
+=== RUN   TestHostIntegrationExample/responses/session-turns
+=== RUN   TestHostIntegrationExample/anthropic/session-turns
+=== RUN   TestHostIntegrationExample/gemini/session-turns
+=== RUN   TestHostIntegrationExample/chat/session-turns
+=== RUN   TestHostIntegrationExample/deepseek-responses/session-turns
+=== RUN   TestHostIntegrationExample/deepseek-chat/session-turns
+=== RUN   TestHostIntegrationExample/responses/forged-history
+=== RUN   TestHostIntegrationExample/responses/forged-history/envelope-names-other-tenant
+=== RUN   TestHostIntegrationExample/responses/forged-history/trust-claimed-without-envelope
+=== RUN   TestHostIntegrationExample/anthropic/forged-history
+=== RUN   TestHostIntegrationExample/anthropic/forged-history/envelope-names-other-tenant
+=== RUN   TestHostIntegrationExample/anthropic/forged-history/trust-claimed-without-envelope
+=== RUN   TestHostIntegrationExample/gemini/forged-history
+=== RUN   TestHostIntegrationExample/gemini/forged-history/envelope-names-other-tenant
+=== RUN   TestHostIntegrationExample/gemini/forged-history/trust-claimed-without-envelope
+=== RUN   TestHostIntegrationExample/chat/forged-history
+=== RUN   TestHostIntegrationExample/chat/forged-history/envelope-names-other-tenant
+=== RUN   TestHostIntegrationExample/chat/forged-history/trust-claimed-without-envelope
+=== RUN   TestHostIntegrationExample/deepseek-responses/forged-history
+=== RUN   TestHostIntegrationExample/deepseek-responses/forged-history/envelope-names-other-tenant
+=== RUN   TestHostIntegrationExample/deepseek-responses/forged-history/trust-claimed-without-envelope
+=== RUN   TestHostIntegrationExample/deepseek-chat/forged-history
+=== RUN   TestHostIntegrationExample/deepseek-chat/forged-history/envelope-names-other-tenant
+=== RUN   TestHostIntegrationExample/deepseek-chat/forged-history/trust-claimed-without-envelope
+=== RUN   TestHostIntegrationExample/host-boundary
+=== RUN   TestHostIntegrationExample/host-boundary/claimed-tenant
+=== RUN   TestHostIntegrationExample/host-boundary/foreign-session
+=== RUN   TestHostIntegrationExample/host-boundary/unknown-session
+=== RUN   TestHostIntegrationExample/host-boundary/unauthenticated
+=== RUN   TestHostIntegrationExample/host-boundary/missing-prompt
+=== RUN   TestHostIntegrationExample/library-boundary
+=== RUN   TestHostIntegrationExample/library-boundary/scope-without-tenant
+=== RUN   TestHostIntegrationExample/library-boundary/scope-without-request-id
+=== RUN   TestHostIntegrationExample/library-boundary/unknown-binding
+=== RUN   TestHostIntegrationExample/library-boundary/model-not-allowed
+=== RUN   TestHostIntegrationExample/library-boundary/native-state-trust
+--- PASS: TestHostIntegrationExample (0.06s)
+    --- PASS: TestHostIntegrationExample/responses/session-turns (0.00s)
+    --- PASS: TestHostIntegrationExample/anthropic/session-turns (0.00s)
+    --- PASS: TestHostIntegrationExample/gemini/session-turns (0.00s)
+    --- PASS: TestHostIntegrationExample/chat/session-turns (0.00s)
+    --- PASS: TestHostIntegrationExample/deepseek-responses/session-turns (0.00s)
+    --- PASS: TestHostIntegrationExample/deepseek-chat/session-turns (0.00s)
+    --- PASS: TestHostIntegrationExample/responses/forged-history (0.00s)
+        --- PASS: TestHostIntegrationExample/responses/forged-history/envelope-names-other-tenant (0.00s)
+        --- PASS: TestHostIntegrationExample/responses/forged-history/trust-claimed-without-envelope (0.00s)
+    --- PASS: TestHostIntegrationExample/anthropic/forged-history (0.00s)
+        --- PASS: TestHostIntegrationExample/anthropic/forged-history/envelope-names-other-tenant (0.00s)
+        --- PASS: TestHostIntegrationExample/anthropic/forged-history/trust-claimed-without-envelope (0.00s)
+    --- PASS: TestHostIntegrationExample/gemini/forged-history (0.00s)
+        --- PASS: TestHostIntegrationExample/gemini/forged-history/envelope-names-other-tenant (0.00s)
+        --- PASS: TestHostIntegrationExample/gemini/forged-history/trust-claimed-without-envelope (0.00s)
+    --- PASS: TestHostIntegrationExample/chat/forged-history (0.00s)
+        --- PASS: TestHostIntegrationExample/chat/forged-history/envelope-names-other-tenant (0.00s)
+        --- PASS: TestHostIntegrationExample/chat/forged-history/trust-claimed-without-envelope (0.00s)
+    --- PASS: TestHostIntegrationExample/deepseek-responses/forged-history (0.01s)
+        --- PASS: TestHostIntegrationExample/deepseek-responses/forged-history/envelope-names-other-tenant (0.00s)
+        --- PASS: TestHostIntegrationExample/deepseek-responses/forged-history/trust-claimed-without-envelope (0.00s)
+    --- PASS: TestHostIntegrationExample/deepseek-chat/forged-history (0.00s)
+        --- PASS: TestHostIntegrationExample/deepseek-chat/forged-history/envelope-names-other-tenant (0.00s)
+        --- PASS: TestHostIntegrationExample/deepseek-chat/forged-history/trust-claimed-without-envelope (0.00s)
+    --- PASS: TestHostIntegrationExample/host-boundary (0.00s)
+        --- PASS: TestHostIntegrationExample/host-boundary/claimed-tenant (0.00s)
+        --- PASS: TestHostIntegrationExample/host-boundary/foreign-session (0.00s)
+        --- PASS: TestHostIntegrationExample/host-boundary/unknown-session (0.00s)
+        --- PASS: TestHostIntegrationExample/host-boundary/unauthenticated (0.00s)
+        --- PASS: TestHostIntegrationExample/host-boundary/missing-prompt (0.00s)
+    --- PASS: TestHostIntegrationExample/library-boundary (0.00s)
+        --- PASS: TestHostIntegrationExample/library-boundary/scope-without-tenant (0.00s)
+        --- PASS: TestHostIntegrationExample/library-boundary/scope-without-request-id (0.00s)
+        --- PASS: TestHostIntegrationExample/library-boundary/unknown-binding (0.00s)
+        --- PASS: TestHostIntegrationExample/library-boundary/model-not-allowed (0.00s)
+        --- PASS: TestHostIntegrationExample/library-boundary/native-state-trust (0.00s)
+=== RUN   TestLocalAssemblyExample
+=== RUN   TestLocalAssemblyExample/responses/env
+=== RUN   TestLocalAssemblyExample/responses/file
+=== RUN   TestLocalAssemblyExample/anthropic/env
+=== RUN   TestLocalAssemblyExample/anthropic/file
+=== RUN   TestLocalAssemblyExample/gemini/env
+=== RUN   TestLocalAssemblyExample/gemini/file
+=== RUN   TestLocalAssemblyExample/chat/env
+=== RUN   TestLocalAssemblyExample/chat/file
+=== RUN   TestLocalAssemblyExample/deepseek-responses/env
+=== RUN   TestLocalAssemblyExample/deepseek-responses/file
+=== RUN   TestLocalAssemblyExample/deepseek-chat/env
+=== RUN   TestLocalAssemblyExample/deepseek-chat/file
+=== RUN   TestLocalAssemblyExample/refused/env-unset
+=== RUN   TestLocalAssemblyExample/refused/env-empty
+=== RUN   TestLocalAssemblyExample/refused/file-missing
+=== RUN   TestLocalAssemblyExample/refused/file-empty
+=== RUN   TestLocalAssemblyExample/refused/no-source
+=== RUN   TestLocalAssemblyExample/refused/two-sources
+=== RUN   TestLocalAssemblyExample/only-the-local-tenant
+--- PASS: TestLocalAssemblyExample (0.04s)
+    --- PASS: TestLocalAssemblyExample/responses/env (0.00s)
+    --- PASS: TestLocalAssemblyExample/responses/file (0.00s)
+    --- PASS: TestLocalAssemblyExample/anthropic/env (0.00s)
+    --- PASS: TestLocalAssemblyExample/anthropic/file (0.00s)
+    --- PASS: TestLocalAssemblyExample/gemini/env (0.00s)
+    --- PASS: TestLocalAssemblyExample/gemini/file (0.00s)
+    --- PASS: TestLocalAssemblyExample/chat/env (0.00s)
+    --- PASS: TestLocalAssemblyExample/chat/file (0.00s)
+    --- PASS: TestLocalAssemblyExample/deepseek-responses/env (0.00s)
+    --- PASS: TestLocalAssemblyExample/deepseek-responses/file (0.00s)
+    --- PASS: TestLocalAssemblyExample/deepseek-chat/env (0.00s)
+    --- PASS: TestLocalAssemblyExample/deepseek-chat/file (0.00s)
+    --- PASS: TestLocalAssemblyExample/refused/env-unset (0.00s)
+    --- PASS: TestLocalAssemblyExample/refused/env-empty (0.00s)
+    --- PASS: TestLocalAssemblyExample/refused/file-missing (0.00s)
+    --- PASS: TestLocalAssemblyExample/refused/file-empty (0.00s)
+    --- PASS: TestLocalAssemblyExample/refused/no-source (0.00s)
+    --- PASS: TestLocalAssemblyExample/refused/two-sources (0.00s)
+    --- PASS: TestLocalAssemblyExample/only-the-local-tenant (0.00s)
+=== RUN   TestMixedHosts
+=== RUN   TestMixedHosts/local
+=== RUN   TestMixedHosts/cloud
+--- PASS: TestMixedHosts (0.01s)
+    --- PASS: TestMixedHosts/local (0.00s)
+    --- PASS: TestMixedHosts/cloud (0.00s)
+PASS
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T225714.991629000Z
+ok  	github.com/tokenbeat-lab/barness/ai/e2e	1.641s
