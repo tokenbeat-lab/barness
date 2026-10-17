@@ -111,56 +111,6 @@ func glmSharedContinue(req ai.Request, m ai.AssistantMessage) ai.Request {
 	}
 	return req
 }
-func glmSharedWirePairs(t *testing.T, r glmSharedRoute, raw []byte) (native int, calls, results []string) {
-	t.Helper()
-	body := bodyFields(t, raw)
-	var input []map[string]any
-	if r.name == "responses" {
-		mustUnmarshal(t, body["input"], &input)
-	} else {
-		mustUnmarshal(t, body["messages"], &input)
-	}
-	for _, item := range input {
-		if r.name == "responses" {
-			switch item["type"] {
-			case "reasoning":
-				native++
-			case "function_call":
-				calls = append(calls, item["call_id"].(string))
-			case "function_call_output":
-				results = append(results, item["call_id"].(string))
-			}
-			continue
-		}
-		if r.name == "chat" {
-			if v, ok := item["reasoning_content"].(string); ok && v != "" {
-				native++
-			}
-			if list, ok := item["tool_calls"].([]any); ok {
-				for _, v := range list {
-					calls = append(calls, v.(map[string]any)["id"].(string))
-				}
-			}
-			if item["role"] == "tool" {
-				results = append(results, item["tool_call_id"].(string))
-			}
-			continue
-		}
-		content, _ := item["content"].([]any)
-		for _, v := range content {
-			b := v.(map[string]any)
-			switch b["type"] {
-			case "thinking":
-				native++
-			case "tool_use":
-				calls = append(calls, b["id"].(string))
-			case "tool_result":
-				results = append(results, b["tool_use_id"].(string))
-			}
-		}
-	}
-	return
-}
 
 // Explicit JSON copy for mutated restored Host records, never trust inferred
 // from JSON. The stored envelope is separately attested via TrustNativeState.

@@ -1,0 +1,107 @@
+{
+  "sourceCommit": "4ca7a11f0182d2f36f2674c2cbcaa298ca3266dc",
+  "cases": 258,
+  "ownCases": 202,
+  "otherCases": 56,
+  "audit": {
+    "findings": []
+  },
+  "load": [
+    {
+      "case": "MM05-design-load-cloud-chat",
+      "calls": 6,
+      "peakPermits": 6,
+      "baselineCallsUnchanged": 8,
+      "baselinePermitOccupancy": 1,
+      "maxAdditionalHeadroomRatio": 0.75,
+      "heapBudget": 536870912,
+      "totalAllocDuringCalls": 234191032,
+      "heap": {
+        "baselineLive": 6589288,
+        "peakLive": 16601632,
+        "baselineInuse": 8470528,
+        "peakInuse": 33357824
+      }
+    },
+    {
+      "case": "MM05-design-load-cloud-messages",
+      "calls": 6,
+      "peakPermits": 6,
+      "baselineCallsUnchanged": 8,
+      "baselinePermitOccupancy": 1,
+      "maxAdditionalHeadroomRatio": 0.75,
+      "heapBudget": 536870912,
+      "totalAllocDuringCalls": 57919560,
+      "heap": {
+        "baselineLive": 5687912,
+        "peakLive": 10791368,
+        "baselineInuse": 7536640,
+        "peakInuse": 19365888
+      }
+    },
+    {
+      "case": "MM05-design-load-cloud-responses",
+      "calls": 6,
+      "peakPermits": 6,
+      "baselineCallsUnchanged": 8,
+      "baselinePermitOccupancy": 1,
+      "maxAdditionalHeadroomRatio": 0.75,
+      "heapBudget": 536870912,
+      "totalAllocDuringCalls": 99572328,
+      "heap": {
+        "baselineLive": 7059840,
+        "peakLive": 21696704,
+        "baselineInuse": 8945664,
+        "peakInuse": 38952960
+      }
+    },
+    {
+      "case": "MM05-design-load-local-chat",
+      "calls": 3,
+      "peakPermits": 3,
+      "baselineCallsUnchanged": 4,
+      "baselinePermitOccupancy": 1,
+      "maxAdditionalHeadroomRatio": 0.75,
+      "heapBudget": 268435456,
+      "totalAllocDuringCalls": 117172712,
+      "heap": {
+        "baselineLive": 6509112,
+        "peakLive": 11006264,
+        "baselineInuse": 8495104,
+        "peakInuse": 18128896
+      }
+    },
+    {
+      "case": "MM05-design-load-local-messages",
+      "calls": 3,
+      "peakPermits": 3,
+      "baselineCallsUnchanged": 4,
+      "baselinePermitOccupancy": 1,
+      "maxAdditionalHeadroomRatio": 0.75,
+      "heapBudget": 268435456,
+      "totalAllocDuringCalls": 28983960,
+      "heap": {
+        "baselineLive": 5629848,
+        "peakLive": 9264704,
+        "baselineInuse": 7438336,
+        "peakInuse": 11051008
+      }
+    },
+    {
+      "case": "MM05-design-load-local-responses",
+      "calls": 3,
+      "peakPermits": 3,
+      "baselineCallsUnchanged": 4,
+      "baselinePermitOccupancy": 1,
+      "maxAdditionalHeadroomRatio": 0.75,
+      "heapBudget": 268435456,
+      "totalAllocDuringCalls": 51582016,
+      "heap": {
+        "baselineLive": 7021928,
+        "peakLive": 12406976,
+        "baselineInuse": 8912896,
+        "peakInuse": 23969792
+      }
+    }
+  ]
+}

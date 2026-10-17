@@ -9,16 +9,10 @@ import (
 	"slices"
 )
 
-// MiniMax's M3 exposes only an on/off switch. Depth is a separate capability,
-// expressed by more than one declared non-off canonical level (ADR-0037).
+// ThinkingSwitchOnly is independent from mandatory thinking and the Host's
+// narrowed canonical set. A single allowed depth still requires a wire effort.
 func miniMaxChatHasEffort(m Model) bool {
-	n := 0
-	for _, level := range supportedThinkingLevels(m) {
-		if level != thinkingOff {
-			n++
-		}
-	}
-	return n > 1
+	return m.Reasoning && !m.Compat.ThinkingSwitchOnly
 }
 
 func validateMiniMaxChatOptions(m Model, options Options) *Error {
@@ -73,7 +67,7 @@ func validateMiniMaxChatFinalBody(m Model, raw []byte, authorize func(map[string
 func validateMiniMaxChatBudget(m Model, body map[string]any) string {
 	if raw, present := body["max_completion_tokens"]; present {
 		n, ok := raw.(json.Number)
-		if !ok || !glmOutputBudgetNumber(json.RawMessage(n), min(m.MaxTokens, 131072)) {
+		if !ok || !outputBudgetNumber(json.RawMessage(n), min(m.MaxTokens, 131072)) {
 			return "max_completion_tokens must be an integer from 1 through the model output limit"
 		}
 	}

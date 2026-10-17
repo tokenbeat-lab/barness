@@ -49,7 +49,7 @@ func validateMiniMaxResponsesFinalBody(m Model, raw []byte, authorize func(map[s
 	}
 	var fields map[string]json.RawMessage
 	_ = json.Unmarshal(raw, &fields)
-	if budget, ok := fields["max_output_tokens"]; ok && !glmOutputBudgetNumber(budget, m.MaxTokens) {
+	if budget, ok := fields["max_output_tokens"]; ok && !outputBudgetNumber(budget, m.MaxTokens) {
 		return newError(CodeInvalidRequest, PhaseRequest, "max_output_tokens must be an integer from 1 through the model output limit")
 	}
 	return nil

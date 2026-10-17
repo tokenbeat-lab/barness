@@ -10,7 +10,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-01 → {02,03,04}；三协议完成后{05,06,07}独立推进；{05,06}→08，{05,06,07}→10，{08,10}→09。07先建受控证据工具，10等执行源码冻结后才运行真实调用；09汇合最终判定。
+01 → {02,03,04}；三协议完成后{05,06,07}独立推进；06→08，{05,06,07}→10，{08,10}→09。07先建受控证据工具，10等执行源码冻结后才运行真实调用；09汇合最终判定。
 
 - [01 Provider 身份、六个候选型号与思考元数据](issues/01-provider-model-contract.md)；Blocked by: None。
 - [02 MiniMax Chat 文本、推理、工具历史与边界](issues/02-chat-protocol.md)；Blocked by: 01。
@@ -19,12 +19,14 @@ Base: `ecfd4b4`
 - [05 三协议隔离、失败重试、回调和资源释放](issues/05-isolation-failure-resources.md)；Blocked by: 02, 03, 04。
 - [06 固定 MiniMax pi 差分和扩展证据](issues/06-pi-differential.md)；Blocked by: 02, 03, 04。
 - [07 独立 Live Harness、预算与可信证据工具](issues/07-live-catalog-release.md)；Blocked by: 02, 03, 04。
-- [08 Host 文档、ADR 和回滚实现](issues/08-host-docs-final-acceptance.md)；Blocked by: 05, 06。
+- [08 Host 文档、ADR 和回滚实现](issues/08-host-docs-final-acceptance.md)；Blocked by: 06。
 - [09 完整验收、双轴审查与交付判定](issues/09-integrated-acceptance-review.md)；Blocked by: 08, 10。
 
 - [10 M3自身真实证据、价格目录与增量发布合同](issues/10-formal-catalog-support.md)；Blocked by: 05, 06, 07。
 
 ## Decisions so far
+
+- 08的Host示例/回滚依赖已有协议与06差分结论，不依赖05资源增强；移除不必要的05阻塞。最终09仍经10依赖05全部验收。
 
 - 07受控harness无需等待05/06；已将真实候选/正式目录/发布合同独立为10，先冻结执行实现再付费捕获，R26全部预算不变。
 
@@ -32,13 +34,16 @@ Base: `ecfd4b4`
 
 - 实施不得把缺真实凭据改写为正式通过；M3 三协议正式目标与 M3.1 三候选离线约束全部保留。
 
+- 01 resolved：共享 MiniMax 中国身份、默认采样标签及六候选装配完成；[Answer](issues/01-provider-model-contract.md#answer)、[证据](evidence/ticket-01/README.md)、ADR-0037。三协议为下一 frontier，所有候选保持非正式。
+- 02 resolved：MiniMax Chat 独立能力、最终守卫、完整工具/推理历史与流末用量完成；[Answer](issues/02-chat-protocol.md#answer)、[证据](evidence/ticket-02/README.md)。579 自身 E2E/race 与 883 旧行为回归通过；真实 M3 分离格式/原生 auto 仍归 10，未宣称已证实。
+- 03 resolved (offline scope): independent Responses capability/guards, authoritative stream handling and opaque native/tool history; [Answer](issues/03-responses-protocol.md#answer), [evidence](evidence/ticket-03/README.md), ADR-0039. Lossless reasoning input projection remains provisional until own live10 verifies it; no formal support claim.
+- 04 resolved：Messages adaptive/effort、二元元数据、严格 SSE 与可信签名工具续接完成；[Answer](issues/04-messages-protocol.md#answer)、[138 own/race + 297 回归证据](evidence/ticket-04/README.md)、ADR-0040。真实形状与正式支持仍由后续票独立验收。
+
+- 06 resolved：冻结 M3 Messages 六条文本/签名双工具及完整续接实际差分、完整目录与五个扩展身份四入口验收完成；[Answer](issues/06-pi-differential.md#answer)、[29 own/race + 70 旧原生差分证据](evidence/ticket-06/README.md)。41 条有限 case/path/kind、2 条扩展路线；旧317条决策/6路线与全部 pins 不变，pending0，不声明 live 或正式价格。
+
 ## Fog
 
-- 实际凭据资格、三协议真实推理续接形状和价格来源，按 R25–R27 收敛。
+- 三协议真实推理续接形状与正式支持，按 R25–R27、票10独立验收。用户已确认 MINIMAX_KEY 中国区标准按量；M3.1 未获 M Plan 资格，线上候选保持 NOT_RUN。
+- 官方价格、汇率与schema已复核；正式价格目录与证据仍待票10生成。
 
-- 01 resolved：共享 MiniMax 中国身份、默认采样标签及六候选装配完成；[Answer](issues/01-provider-model-contract.md#answer)、[证据](evidence/ticket-01/README.md)、ADR-0037。三协议为下一 frontier，所有候选保持非正式。
-- 02 resolved：MiniMax Chat 独立能力、最终守卫、完整工具/推理历史与流末用量完成；[Answer](issues/02-chat-protocol.md#answer)、[证据](evidence/ticket-02/README.md)。579 自身 E2E/race 与 883 旧行为回归通过；真实 M3 分离格式/原生 auto 仍归 07，未宣称已证实。
-
-- 03 resolved (offline scope): independent Responses capability/guards, authoritative stream handling and opaque native/tool history; [Answer](issues/03-responses-protocol.md#answer), [evidence](evidence/ticket-03/README.md), ADR-0039. Lossless reasoning input projection remains provisional until own live07 verifies it; no formal support claim.
-
-- 04 resolved：Messages adaptive/effort、二元元数据、严格 SSE 与可信签名工具续接完成；[Answer](issues/04-messages-protocol.md#answer)、[138 own/race + 297 回归证据](evidence/ticket-04/README.md)、ADR-0040。真实形状与正式支持仍由后续票独立验收。
+- 05 resolved：MiniMax 三协议共享错误/回调/重试/冻结/隔离与全部资源边界完成；[Answer](issues/05-isolation-failure-resources.md#answer)、[证据](evidence/ticket-05/README.md)。202 自身 E2E/race、3311 受影响回归、258 已提交来源复验通过；原4/8负载保持，新增3/6批次全部≤75%。真实兼容 quota/trace 继续由10候选证据收敛。
