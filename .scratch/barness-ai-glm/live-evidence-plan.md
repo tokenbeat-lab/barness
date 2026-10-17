@@ -4,7 +4,9 @@
 
 ## 前置与当前状态
 
-当前状态：NOT_RUN。只检查了本地 `.env` 的变量名，未发现 GLM 凭据；已向 Host 请求标准 API Key 的文件路径/环境变量名与账户、区域别名。此计划不声称已发起任何请求，也不提供正式支持证据。
+完整候选状态：NOT_RUN。Host 已将 `GLM_KEY` 加入根目录 `.env`，作为所请求的中国区标准用途验收凭据；只由显式 Host launcher 读取，不输出或提交 Key。账户别名 `local-glm`、区域别名 `cn-standard-endpoint` 仅为本地匿名标签，不能视为已核实的账户身份或账单事实。
+
+先按 R13/T02 做独立有界的 Messages 基础 wire 探索：两型号各一次公共 Client 文本调用，共最多 2 Logical Call / 2 HTTP Attempt，零 SDK/Binding 重试、每次最多 4096 输出 token / 120 秒、进程 300 秒；源码、预登记计划和脱敏输出暂存 `/tmp/barness-glm-messages-probe/`，后续归档索引。探索不替代本计划的六组合完整候选报告，不更新正式支持矩阵。
 
 收费执行前必须：三条路线自己的公共 Client 离线验收通过；明确中国区标准 Key 用途；记录账户/区域别名；每进程只装配该组合的 Key；启用 live build tag 与显式运行开关；固定候选目录、SDK、Git 和来源 Hash。核心不读取 dotenv。不得使用其他 Provider Key、套餐 Key 或替代 endpoint。
 
