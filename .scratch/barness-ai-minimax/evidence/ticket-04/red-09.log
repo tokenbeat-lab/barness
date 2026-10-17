@@ -1,0 +1,7 @@
+--- FAIL: TestMiniMaxMessagesFinalGuards (0.00s)
+    --- FAIL: TestMiniMaxMessagesFinalGuards/top-p-null (0.00s)
+        minimax_messages_guards_test.go:95: [MM04-final-top-p-null] invalid final shape never reaches Provider: {CallAttribution:{TenantID:tenant-a RequestID:mm04-final-top-p-null ActorID:actor-7 JobID:job-42 BindingID:minimax-messages Operation:chat Resolved:true ProviderID:minimax-cn API:anthropic-messages ModelID:MiniMax-M3 AccountScopeID:acct-minimax-messages} BindingVersion:minimax-candidate-1 CredentialVersion:v1 CatalogVersion:minimax-six-candidate-2026-10-18.1-synthetic-prices CatalogHash:sha256:850a7b0d6cd17028fee322282707c53565985aa07d896bf3c97265e2172220ec NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:mm04-final-top-p-null#1 HTTPStatus:418 ProviderRequestID: Code:invalid_request RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]}
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T221952.059760000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.576s
+FAIL

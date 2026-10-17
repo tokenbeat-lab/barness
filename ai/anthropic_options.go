@@ -15,14 +15,16 @@ import (
 type AnthropicOptions struct {
 	// Temperature is sent as temperature, null included, unless thinking is
 	// enabled or the model does not support it or manages its effort
-	// (Model.Compat).
+	// (Model.Compat). MiniMax preserves explicit temperature during adaptive
+	// thinking.
 	Temperature Nullable[float64] `json:"temperature,omitzero"`
 	// MaxTokens is sent as max_tokens, 0 included; unset or null sends the
-	// model's maximum.
+	// model's maximum. MiniMax requires an explicit value to be 1..model limit.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
 	// CacheRetention marks the system prompt, the last tool and the last
 	// user turn with an ephemeral cache_control; "long" asks a model that
 	// supports it for a one-hour ttl, "none" marks nothing. Empty is "short".
+	// MiniMax uses automatic caching: these are hints and add no cache_control.
 	CacheRetention CacheRetention `json:"cacheRetention,omitempty"`
 	// Metadata's user_id is sent when it is a string; nothing else is. The
 	// library never adds the tenant.
@@ -31,16 +33,20 @@ type AnthropicOptions struct {
 	// or budget-based, per Model.Compat.ForceAdaptiveThinking); false sends
 	// thinking disabled unless the model's level map marks off unsupported.
 	// Unset or null sends no thinking field. A managed-effort model ignores
-	// it: its thinking is always adaptive.
+	// it: its thinking is always adaptive. MiniMax required-thinking models
+	// reject explicit false; omission preserves their service default.
 	ThinkingEnabled Nullable[bool] `json:"thinkingEnabled,omitzero"`
 	// ThinkingBudgetTokens is a budget-based model's budget_tokens; 0 is
 	// 1024.
 	ThinkingBudgetTokens int `json:"thinkingBudgetTokens,omitempty"`
 	// Effort is an adaptive model's output_config effort; empty sends none.
 	// A managed-effort model (Model.Compat.SupportsMidConvoEffort) runs the
-	// turn at it, empty being high, and records it on the message.
+	// turn at it, empty being high, and records it on the message. MiniMax
+	// binary M3 rejects Effort; mandatory M3.1 sends its explicit effort even
+	// when ThinkingEnabled is omitted.
 	Effort AnthropicEffort `json:"effort,omitempty"`
-	// ThinkingDisplay is "summarized" (the default) or "omitted".
+	// ThinkingDisplay is "summarized" (the default) or "omitted" on native
+	// Anthropic. MiniMax rejects this native extension when explicitly set.
 	ThinkingDisplay string `json:"thinkingDisplay,omitempty"`
 	// InterleavedThinking requests the interleaved-thinking beta for a
 	// budget-based model with thinking enabled; unset or null is true.
@@ -127,6 +133,15 @@ func (anthropicAdapter) simpleOptions(m Model, o SimpleOptions, history []Messag
 		Metadata: o.Metadata, TimeoutMs: o.TimeoutMs}
 	if c, ok := o.ToolChoice.Get(); ok {
 		full.ToolChoice = Value(AnthropicToolChoice{Mode: string(c)})
+	}
+	if m.Provider == ProviderMiniMaxCN {
+		if o.Reasoning != "" {
+			full.ThinkingEnabled = Value(true)
+			if miniMaxMessagesHasEffort(m) {
+				full.Effort = anthropicEffort(m, clampThinkingLevel(m, o.Reasoning))
+			}
+		}
+		return full
 	}
 	if m.Provider == ProviderZhipu {
 		// GLM omission is its own provider default, never Claude disabled.

@@ -1,5 +1,5 @@
 {
-  "version": "minimax-six-candidate-2026-10-18.1-synthetic-prices",
+  "version": "minimax-six-candidate-2026-10-18.2-synthetic-prices",
   "models": [
     {
       "provider": "minimax-cn",
@@ -24,7 +24,8 @@
       "defaultThinkingLevel": "high",
       "compat": {
         "requiresThinking": false,
-        "supportsLongCacheRetention": false
+        "supportsLongCacheRetention": false,
+        "thinkingSwitchOnly": true
       },
       "cost": {
         "input": 1,
@@ -88,7 +89,8 @@
       "defaultThinkingLevel": "off",
       "compat": {
         "requiresThinking": false,
-        "supportsLongCacheRetention": false
+        "supportsLongCacheRetention": false,
+        "thinkingSwitchOnly": true
       },
       "cost": {
         "input": 1,
@@ -152,7 +154,8 @@
       "defaultThinkingLevel": "off",
       "compat": {
         "requiresThinking": false,
-        "supportsLongCacheRetention": false
+        "supportsLongCacheRetention": false,
+        "thinkingSwitchOnly": true
       },
       "cost": {
         "input": 1,

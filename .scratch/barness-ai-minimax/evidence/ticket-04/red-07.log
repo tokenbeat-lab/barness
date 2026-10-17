@@ -1,0 +1,17 @@
+--- FAIL: TestMiniMaxMessagesUsage (0.01s)
+    --- FAIL: TestMiniMaxMessagesUsage/complete (0.00s)
+        minimax_messages_usage_test.go:42: [MM04-usage-complete] no Anthropic one-hour cache assumption: {Input:5 Output:7 CacheRead:2 CacheWrite:3 CacheWrite1h:{state:2 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:17 Cost:{Input:4.9999999999999996e-06 Output:1.4e-05 CacheRead:2.0000000000000002e-07 CacheWrite:3e-06 Total:2.2200000000000004e-05}}
+    --- FAIL: TestMiniMaxMessagesUsage/authoritative (0.00s)
+        minimax_messages_usage_test.go:42: [MM04-usage-authoritative] no Anthropic one-hour cache assumption: {Input:6 Output:7 CacheRead:4 CacheWrite:1 CacheWrite1h:{state:2 value:1} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:18 Cost:{Input:6e-06 Output:1.4e-05 CacheRead:4.0000000000000003e-07 CacheWrite:2e-06 Total:2.24e-05}}
+    --- FAIL: TestMiniMaxMessagesUsage/zero (0.00s)
+        minimax_messages_usage_test.go:42: [MM04-usage-zero] no Anthropic one-hour cache assumption: {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:2 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}
+    --- FAIL: TestMiniMaxMessagesUsage/partial (0.00s)
+        minimax_messages_usage_test.go:42: [MM04-usage-partial] no Anthropic one-hour cache assumption: {Input:5 Output:7 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:2 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:12 Cost:{Input:4.9999999999999996e-06 Output:1.4e-05 CacheRead:0 CacheWrite:0 Total:1.9e-05}}
+    --- FAIL: TestMiniMaxMessagesUsage/unreported (0.00s)
+        minimax_messages_usage_test.go:42: [MM04-usage-unreported] no Anthropic one-hour cache assumption: {Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:2 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}
+    --- FAIL: TestMiniMaxMessagesUsage/interrupted (0.00s)
+        minimax_messages_usage_test.go:42: [MM04-usage-interrupted] no Anthropic one-hour cache assumption: {Input:5 Output:0 CacheRead:2 CacheWrite:0 CacheWrite1h:{state:2 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:7 Cost:{Input:4.9999999999999996e-06 Output:0 CacheRead:2.0000000000000002e-07 CacheWrite:0 Total:5.199999999999999e-06}}
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T221700.312557000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.591s
+FAIL

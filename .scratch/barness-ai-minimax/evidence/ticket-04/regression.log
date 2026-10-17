@@ -1,0 +1,643 @@
+=== RUN   TestAnthropicFailures
+=== RUN   TestAnthropicFailures/http-401/stream
+=== RUN   TestAnthropicFailures/http-401/result
+=== RUN   TestAnthropicFailures/http-401/complete
+=== RUN   TestAnthropicFailures/http-403-key-echo/stream
+=== RUN   TestAnthropicFailures/http-403-key-echo/result
+=== RUN   TestAnthropicFailures/http-403-key-echo/complete
+=== RUN   TestAnthropicFailures/http-429/stream
+=== RUN   TestAnthropicFailures/http-429/result
+=== RUN   TestAnthropicFailures/http-429/complete
+=== RUN   TestAnthropicFailures/http-529-overloaded/stream
+=== RUN   TestAnthropicFailures/http-529-overloaded/result
+=== RUN   TestAnthropicFailures/http-529-overloaded/complete
+=== RUN   TestAnthropicFailures/http-500-text/stream
+=== RUN   TestAnthropicFailures/http-500-text/result
+=== RUN   TestAnthropicFailures/http-500-text/complete
+=== RUN   TestAnthropicFailures/sse-error-event/stream
+=== RUN   TestAnthropicFailures/sse-error-event/result
+=== RUN   TestAnthropicFailures/sse-error-event/complete
+=== RUN   TestAnthropicFailures/half-json/stream
+=== RUN   TestAnthropicFailures/half-json/result
+=== RUN   TestAnthropicFailures/half-json/complete
+=== RUN   TestAnthropicFailures/eof-before-message-stop/stream
+=== RUN   TestAnthropicFailures/eof-before-message-stop/result
+=== RUN   TestAnthropicFailures/eof-before-message-stop/complete
+=== RUN   TestAnthropicFailures/no-stop-reason/stream
+=== RUN   TestAnthropicFailures/no-stop-reason/result
+=== RUN   TestAnthropicFailures/no-stop-reason/complete
+=== RUN   TestAnthropicFailures/connection-cut/stream
+=== RUN   TestAnthropicFailures/connection-cut/result
+=== RUN   TestAnthropicFailures/connection-cut/complete
+=== RUN   TestAnthropicFailures/length-truncated-tool/stream
+=== RUN   TestAnthropicFailures/length-truncated-tool/result
+=== RUN   TestAnthropicFailures/length-truncated-tool/complete
+=== RUN   TestAnthropicFailures/refusal/stream
+=== RUN   TestAnthropicFailures/refusal/result
+=== RUN   TestAnthropicFailures/refusal/complete
+=== RUN   TestAnthropicFailures/sensitive/stream
+=== RUN   TestAnthropicFailures/sensitive/result
+=== RUN   TestAnthropicFailures/sensitive/complete
+=== RUN   TestAnthropicFailures/unknown-stop-reason/stream
+=== RUN   TestAnthropicFailures/unknown-stop-reason/result
+=== RUN   TestAnthropicFailures/unknown-stop-reason/complete
+=== RUN   TestAnthropicFailures/fallback-after-output/stream
+=== RUN   TestAnthropicFailures/fallback-after-output/result
+=== RUN   TestAnthropicFailures/fallback-after-output/complete
+=== RUN   TestAnthropicFailures/canceled-mid-stream/stream
+=== RUN   TestAnthropicFailures/deadline-mid-stream
+=== RUN   TestAnthropicFailures/setup-failure-before-start
+--- PASS: TestAnthropicFailures (0.36s)
+    --- PASS: TestAnthropicFailures/http-401/stream (0.00s)
+    --- PASS: TestAnthropicFailures/http-401/result (0.00s)
+    --- PASS: TestAnthropicFailures/http-401/complete (0.00s)
+    --- PASS: TestAnthropicFailures/http-403-key-echo/stream (0.00s)
+    --- PASS: TestAnthropicFailures/http-403-key-echo/result (0.00s)
+    --- PASS: TestAnthropicFailures/http-403-key-echo/complete (0.00s)
+    --- PASS: TestAnthropicFailures/http-429/stream (0.00s)
+    --- PASS: TestAnthropicFailures/http-429/result (0.00s)
+    --- PASS: TestAnthropicFailures/http-429/complete (0.00s)
+    --- PASS: TestAnthropicFailures/http-529-overloaded/stream (0.00s)
+    --- PASS: TestAnthropicFailures/http-529-overloaded/result (0.00s)
+    --- PASS: TestAnthropicFailures/http-529-overloaded/complete (0.00s)
+    --- PASS: TestAnthropicFailures/http-500-text/stream (0.00s)
+    --- PASS: TestAnthropicFailures/http-500-text/result (0.00s)
+    --- PASS: TestAnthropicFailures/http-500-text/complete (0.00s)
+    --- PASS: TestAnthropicFailures/sse-error-event/stream (0.00s)
+    --- PASS: TestAnthropicFailures/sse-error-event/result (0.00s)
+    --- PASS: TestAnthropicFailures/sse-error-event/complete (0.00s)
+    --- PASS: TestAnthropicFailures/half-json/stream (0.00s)
+    --- PASS: TestAnthropicFailures/half-json/result (0.00s)
+    --- PASS: TestAnthropicFailures/half-json/complete (0.00s)
+    --- PASS: TestAnthropicFailures/eof-before-message-stop/stream (0.00s)
+    --- PASS: TestAnthropicFailures/eof-before-message-stop/result (0.00s)
+    --- PASS: TestAnthropicFailures/eof-before-message-stop/complete (0.00s)
+    --- PASS: TestAnthropicFailures/no-stop-reason/stream (0.00s)
+    --- PASS: TestAnthropicFailures/no-stop-reason/result (0.00s)
+    --- PASS: TestAnthropicFailures/no-stop-reason/complete (0.00s)
+    --- PASS: TestAnthropicFailures/connection-cut/stream (0.00s)
+    --- PASS: TestAnthropicFailures/connection-cut/result (0.00s)
+    --- PASS: TestAnthropicFailures/connection-cut/complete (0.00s)
+    --- PASS: TestAnthropicFailures/length-truncated-tool/stream (0.00s)
+    --- PASS: TestAnthropicFailures/length-truncated-tool/result (0.00s)
+    --- PASS: TestAnthropicFailures/length-truncated-tool/complete (0.00s)
+    --- PASS: TestAnthropicFailures/refusal/stream (0.00s)
+    --- PASS: TestAnthropicFailures/refusal/result (0.00s)
+    --- PASS: TestAnthropicFailures/refusal/complete (0.00s)
+    --- PASS: TestAnthropicFailures/sensitive/stream (0.00s)
+    --- PASS: TestAnthropicFailures/sensitive/result (0.00s)
+    --- PASS: TestAnthropicFailures/sensitive/complete (0.00s)
+    --- PASS: TestAnthropicFailures/unknown-stop-reason/stream (0.00s)
+    --- PASS: TestAnthropicFailures/unknown-stop-reason/result (0.00s)
+    --- PASS: TestAnthropicFailures/unknown-stop-reason/complete (0.00s)
+    --- PASS: TestAnthropicFailures/fallback-after-output/stream (0.00s)
+    --- PASS: TestAnthropicFailures/fallback-after-output/result (0.00s)
+    --- PASS: TestAnthropicFailures/fallback-after-output/complete (0.00s)
+    --- PASS: TestAnthropicFailures/canceled-mid-stream/stream (0.00s)
+    --- PASS: TestAnthropicFailures/deadline-mid-stream (0.30s)
+    --- PASS: TestAnthropicFailures/setup-failure-before-start (0.00s)
+=== RUN   TestAnthropicHistory
+=== RUN   TestAnthropicHistory/tool-round-trip
+=== RUN   TestAnthropicHistory/signed-empty-and-redacted
+=== RUN   TestAnthropicHistory/untrusted-native-state
+=== RUN   TestAnthropicHistory/cross-provider
+=== RUN   TestAnthropicHistory/images
+=== RUN   TestAnthropicHistory/image-placeholders
+=== RUN   TestAnthropicHistory/missing-result-error-turn-blank-text
+=== RUN   TestAnthropicHistory/live-tool-round-trip
+--- PASS: TestAnthropicHistory (0.01s)
+    --- PASS: TestAnthropicHistory/tool-round-trip (0.00s)
+    --- PASS: TestAnthropicHistory/signed-empty-and-redacted (0.00s)
+    --- PASS: TestAnthropicHistory/untrusted-native-state (0.00s)
+    --- PASS: TestAnthropicHistory/cross-provider (0.00s)
+    --- PASS: TestAnthropicHistory/images (0.00s)
+    --- PASS: TestAnthropicHistory/image-placeholders (0.00s)
+    --- PASS: TestAnthropicHistory/missing-result-error-turn-blank-text (0.00s)
+    --- PASS: TestAnthropicHistory/live-tool-round-trip (0.00s)
+=== RUN   TestAnthropicOptions
+=== RUN   TestAnthropicOptions/simple-budget-reasoning
+=== RUN   TestAnthropicOptions/simple-budget-custom
+=== RUN   TestAnthropicOptions/simple-adaptive-unmapped
+=== RUN   TestAnthropicOptions/simple-adaptive-mapped
+=== RUN   TestAnthropicOptions/simple-adaptive-minimal
+=== RUN   TestAnthropicOptions/simple-sampling-ignored
+=== RUN   TestAnthropicOptions/full-presence-and-long-cache
+=== RUN   TestAnthropicOptions/full-budget-thinking
+=== RUN   TestAnthropicOptions/cache-none
+=== RUN   TestAnthropicOptions/temperature-unsupported
+=== RUN   TestAnthropicOptions/timeout-announced
+--- PASS: TestAnthropicOptions (0.02s)
+    --- PASS: TestAnthropicOptions/simple-budget-reasoning (0.00s)
+    --- PASS: TestAnthropicOptions/simple-budget-custom (0.00s)
+    --- PASS: TestAnthropicOptions/simple-adaptive-unmapped (0.00s)
+    --- PASS: TestAnthropicOptions/simple-adaptive-mapped (0.00s)
+    --- PASS: TestAnthropicOptions/simple-adaptive-minimal (0.00s)
+    --- PASS: TestAnthropicOptions/simple-sampling-ignored (0.00s)
+    --- PASS: TestAnthropicOptions/full-presence-and-long-cache (0.00s)
+    --- PASS: TestAnthropicOptions/full-budget-thinking (0.00s)
+    --- PASS: TestAnthropicOptions/cache-none (0.00s)
+    --- PASS: TestAnthropicOptions/temperature-unsupported (0.00s)
+    --- PASS: TestAnthropicOptions/timeout-announced (0.00s)
+=== RUN   TestAnthropicText
+=== RUN   TestAnthropicText/text/stream
+=== RUN   TestAnthropicText/text/result
+=== RUN   TestAnthropicText/text/complete
+=== RUN   TestAnthropicText/text-simple/stream
+=== RUN   TestAnthropicText/text-simple/result
+=== RUN   TestAnthropicText/text-simple/complete
+=== RUN   TestAnthropicText/interleaved/stream
+=== RUN   TestAnthropicText/block-start-content/stream
+=== RUN   TestAnthropicText/repair-and-trailing-events/stream
+=== RUN   TestAnthropicText/text/framing-lf
+=== RUN   TestAnthropicText/text/framing-crlf
+=== RUN   TestAnthropicText/text/framing-bytewise
+=== RUN   TestAnthropicText/text/framing-multiline
+=== RUN   TestAnthropicText/text/framing-heartbeat
+=== RUN   TestAnthropicText/text/framing-unknown-event
+--- PASS: TestAnthropicText (0.03s)
+    --- PASS: TestAnthropicText/text/stream (0.00s)
+    --- PASS: TestAnthropicText/text/result (0.00s)
+    --- PASS: TestAnthropicText/text/complete (0.00s)
+    --- PASS: TestAnthropicText/text-simple/stream (0.00s)
+    --- PASS: TestAnthropicText/text-simple/result (0.00s)
+    --- PASS: TestAnthropicText/text-simple/complete (0.00s)
+    --- PASS: TestAnthropicText/interleaved/stream (0.00s)
+    --- PASS: TestAnthropicText/block-start-content/stream (0.00s)
+    --- PASS: TestAnthropicText/repair-and-trailing-events/stream (0.00s)
+    --- PASS: TestAnthropicText/text/framing-lf (0.00s)
+    --- PASS: TestAnthropicText/text/framing-crlf (0.00s)
+    --- PASS: TestAnthropicText/text/framing-bytewise (0.01s)
+    --- PASS: TestAnthropicText/text/framing-multiline (0.00s)
+    --- PASS: TestAnthropicText/text/framing-heartbeat (0.00s)
+    --- PASS: TestAnthropicText/text/framing-unknown-event (0.00s)
+=== RUN   TestAnthropicUsageAndRetry
+=== RUN   TestAnthropicUsageAndRetry/cache-read-write-1h
+=== RUN   TestAnthropicUsageAndRetry/partial-usage
+=== RUN   TestAnthropicUsageAndRetry/delta-cache-1h
+=== RUN   TestAnthropicUsageAndRetry/delta-cache-1h-replaces
+=== RUN   TestAnthropicUsageAndRetry/delta-cache-1h-missing
+=== RUN   TestAnthropicUsageAndRetry/delta-cache-1h-zero
+=== RUN   TestAnthropicUsageAndRetry/delta-cache-1h-partial
+=== RUN   TestAnthropicUsageAndRetry/retry-429-then-success
+=== RUN   TestAnthropicUsageAndRetry/x-should-retry-false
+=== RUN   TestAnthropicUsageAndRetry/retry-delay-refused
+=== RUN   TestAnthropicUsageAndRetry/no-replay-after-start
+=== RUN   TestAnthropicUsageAndRetry/attempts-and-payload-once
+--- PASS: TestAnthropicUsageAndRetry (0.03s)
+    --- PASS: TestAnthropicUsageAndRetry/cache-read-write-1h (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/partial-usage (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/delta-cache-1h (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/delta-cache-1h-replaces (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/delta-cache-1h-missing (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/delta-cache-1h-zero (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/delta-cache-1h-partial (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/retry-429-then-success (0.01s)
+    --- PASS: TestAnthropicUsageAndRetry/x-should-retry-false (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/retry-delay-refused (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/no-replay-after-start (0.00s)
+    --- PASS: TestAnthropicUsageAndRetry/attempts-and-payload-once (0.01s)
+=== RUN   TestGLMMessagesThinkingBoundary
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/budget-512
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/budget-2048
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/output-2048
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/output-default
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/budget-without-enabled
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/any
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/none
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/simple-off
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/simple-minimal
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/simple-low
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/simple-medium
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/simple-high
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/simple-xhigh
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.2/simple-max
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/budget-512
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/budget-2048
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/output-2048
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/output-default
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/budget-without-enabled
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/any
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/none
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/simple-off
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/simple-minimal
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/simple-low
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/simple-medium
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/simple-high
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/simple-xhigh
+=== RUN   TestGLMMessagesThinkingBoundary/glm-5.3/simple-max
+--- PASS: TestGLMMessagesThinkingBoundary (0.01s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/budget-512 (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/budget-2048 (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/output-2048 (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/output-default (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/budget-without-enabled (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/any (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/none (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/simple-off (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/simple-minimal (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/simple-low (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/simple-medium (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/simple-high (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/simple-xhigh (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.2/simple-max (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/budget-512 (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/budget-2048 (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/output-2048 (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/output-default (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/budget-without-enabled (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/any (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/none (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/simple-off (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/simple-minimal (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/simple-low (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/simple-medium (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/simple-high (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/simple-xhigh (0.00s)
+    --- PASS: TestGLMMessagesThinkingBoundary/glm-5.3/simple-max (0.00s)
+=== RUN   TestGLMMessagesFinalThinkingBoundary
+=== RUN   TestGLMMessagesFinalThinkingBoundary/fractional-output
+=== RUN   TestGLMMessagesFinalThinkingBoundary/fractional-budget
+=== RUN   TestGLMMessagesFinalThinkingBoundary/other-budget
+=== RUN   TestGLMMessagesFinalThinkingBoundary/other-output
+=== RUN   TestGLMMessagesFinalThinkingBoundary/display
+=== RUN   TestGLMMessagesFinalThinkingBoundary/adaptive
+=== RUN   TestGLMMessagesFinalThinkingBoundary/any-choice
+=== RUN   TestGLMMessagesFinalThinkingBoundary/none-choice
+=== RUN   TestGLMMessagesFinalThinkingBoundary/named-choice
+=== RUN   TestGLMMessagesFinalThinkingBoundary/empty-signature
+=== RUN   TestGLMMessagesFinalThinkingBoundary/redacted
+--- PASS: TestGLMMessagesFinalThinkingBoundary (0.01s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/fractional-output (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/fractional-budget (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/other-budget (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/other-output (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/display (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/adaptive (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/any-choice (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/none-choice (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/named-choice (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/empty-signature (0.00s)
+    --- PASS: TestGLMMessagesFinalThinkingBoundary/redacted (0.00s)
+=== RUN   TestGLMMessagesBudgetMetadata
+=== RUN   TestGLMMessagesBudgetMetadata/0
+=== RUN   TestGLMMessagesBudgetMetadata/2048
+--- PASS: TestGLMMessagesBudgetMetadata (0.00s)
+    --- PASS: TestGLMMessagesBudgetMetadata/0 (0.00s)
+    --- PASS: TestGLMMessagesBudgetMetadata/2048 (0.00s)
+=== RUN   TestGLMMessagesCanonicalCannotGuessBudget
+--- PASS: TestGLMMessagesCanonicalCannotGuessBudget (0.00s)
+=== RUN   TestGLMMessagesUnverifiedToolFields
+=== RUN   TestGLMMessagesUnverifiedToolFields/strict
+=== RUN   TestGLMMessagesUnverifiedToolFields/defer_loading
+=== RUN   TestGLMMessagesUnverifiedToolFields/type
+--- PASS: TestGLMMessagesUnverifiedToolFields (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedToolFields/strict (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedToolFields/defer_loading (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedToolFields/type (0.00s)
+=== RUN   TestGLMMessagesTerminals
+=== RUN   TestGLMMessagesTerminals/glm-5.3/missing-message-stop
+=== RUN   TestGLMMessagesTerminals/glm-5.3/missing-stop-reason
+=== RUN   TestGLMMessagesTerminals/glm-5.3/stream-error
+=== RUN   TestGLMMessagesTerminals/glm-5.3/http-error
+=== RUN   TestGLMMessagesTerminals/glm-5.2/missing-message-stop
+=== RUN   TestGLMMessagesTerminals/glm-5.2/missing-stop-reason
+=== RUN   TestGLMMessagesTerminals/glm-5.2/stream-error
+=== RUN   TestGLMMessagesTerminals/glm-5.2/http-error
+--- PASS: TestGLMMessagesTerminals (0.01s)
+    --- PASS: TestGLMMessagesTerminals/glm-5.3/missing-message-stop (0.00s)
+    --- PASS: TestGLMMessagesTerminals/glm-5.3/missing-stop-reason (0.00s)
+    --- PASS: TestGLMMessagesTerminals/glm-5.3/stream-error (0.00s)
+    --- PASS: TestGLMMessagesTerminals/glm-5.3/http-error (0.00s)
+    --- PASS: TestGLMMessagesTerminals/glm-5.2/missing-message-stop (0.00s)
+    --- PASS: TestGLMMessagesTerminals/glm-5.2/missing-stop-reason (0.00s)
+    --- PASS: TestGLMMessagesTerminals/glm-5.2/stream-error (0.00s)
+    --- PASS: TestGLMMessagesTerminals/glm-5.2/http-error (0.00s)
+=== RUN   TestGLMMessagesFinalImages
+=== RUN   TestGLMMessagesFinalImages/glm-5.2/user
+=== RUN   TestGLMMessagesFinalImages/glm-5.2/system
+=== RUN   TestGLMMessagesFinalImages/glm-5.2/tool-result
+=== RUN   TestGLMMessagesFinalImages/glm-5.3/user
+=== RUN   TestGLMMessagesFinalImages/glm-5.3/system
+=== RUN   TestGLMMessagesFinalImages/glm-5.3/tool-result
+--- PASS: TestGLMMessagesFinalImages (0.00s)
+    --- PASS: TestGLMMessagesFinalImages/glm-5.2/user (0.00s)
+    --- PASS: TestGLMMessagesFinalImages/glm-5.2/system (0.00s)
+    --- PASS: TestGLMMessagesFinalImages/glm-5.2/tool-result (0.00s)
+    --- PASS: TestGLMMessagesFinalImages/glm-5.3/user (0.00s)
+    --- PASS: TestGLMMessagesFinalImages/glm-5.3/system (0.00s)
+    --- PASS: TestGLMMessagesFinalImages/glm-5.3/tool-result (0.00s)
+=== RUN   TestGLMMessagesImagePropertyData
+--- PASS: TestGLMMessagesImagePropertyData (0.00s)
+=== RUN   TestGLMMessagesRedactedBoundary
+=== RUN   TestGLMMessagesRedactedBoundary/glm-5.2/untrusted
+=== RUN   TestGLMMessagesRedactedBoundary/glm-5.2/trusted
+=== RUN   TestGLMMessagesRedactedBoundary/glm-5.3/untrusted
+=== RUN   TestGLMMessagesRedactedBoundary/glm-5.3/trusted
+--- PASS: TestGLMMessagesRedactedBoundary (0.00s)
+    --- PASS: TestGLMMessagesRedactedBoundary/glm-5.2/untrusted (0.00s)
+    --- PASS: TestGLMMessagesRedactedBoundary/glm-5.2/trusted (0.00s)
+    --- PASS: TestGLMMessagesRedactedBoundary/glm-5.3/untrusted (0.00s)
+    --- PASS: TestGLMMessagesRedactedBoundary/glm-5.3/trusted (0.00s)
+=== RUN   TestGLMMessagesCapabilityAuthorization
+--- PASS: TestGLMMessagesCapabilityAuthorization (0.00s)
+=== RUN   TestGLMMessagesToolPropertyNames
+--- PASS: TestGLMMessagesToolPropertyNames (0.00s)
+=== RUN   TestGLMMessagesSimpleToolNone
+=== RUN   TestGLMMessagesSimpleToolNone/glm-5.2
+=== RUN   TestGLMMessagesSimpleToolNone/glm-5.3
+--- PASS: TestGLMMessagesSimpleToolNone (0.00s)
+    --- PASS: TestGLMMessagesSimpleToolNone/glm-5.2 (0.00s)
+    --- PASS: TestGLMMessagesSimpleToolNone/glm-5.3 (0.00s)
+=== RUN   TestGLMMessagesUnverifiedOptions
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/thinking-enabled
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/thinking-disabled
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/thinking-budget
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/effort
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/display
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/interleaved
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/cache-short
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/cache-long
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/temperature
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/metadata
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.3/forced-tool
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/thinking-enabled
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/thinking-disabled
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/thinking-budget
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/effort
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/display
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/interleaved
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/cache-short
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/cache-long
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/temperature
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/metadata
+=== RUN   TestGLMMessagesUnverifiedOptions/glm-5.2/forced-tool
+--- PASS: TestGLMMessagesUnverifiedOptions (0.02s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/thinking-enabled (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/thinking-disabled (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/thinking-budget (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/effort (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/display (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/interleaved (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/cache-short (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/cache-long (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/temperature (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/metadata (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.3/forced-tool (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/thinking-enabled (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/thinking-disabled (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/thinking-budget (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/effort (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/display (0.01s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/interleaved (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/cache-short (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/cache-long (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/temperature (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/metadata (0.00s)
+    --- PASS: TestGLMMessagesUnverifiedOptions/glm-5.2/forced-tool (0.00s)
+=== RUN   TestGLMMessagesFinalGuards
+=== RUN   TestGLMMessagesFinalGuards/thinking
+=== RUN   TestGLMMessagesFinalGuards/output-config
+=== RUN   TestGLMMessagesFinalGuards/cache
+=== RUN   TestGLMMessagesFinalGuards/nested-cache
+=== RUN   TestGLMMessagesFinalGuards/beta-body
+=== RUN   TestGLMMessagesFinalGuards/beta-header
+=== RUN   TestGLMMessagesFinalGuards/browser
+=== RUN   TestGLMMessagesFinalGuards/temperature
+=== RUN   TestGLMMessagesFinalGuards/budget-zero
+=== RUN   TestGLMMessagesFinalGuards/budget-fraction
+--- PASS: TestGLMMessagesFinalGuards (0.01s)
+    --- PASS: TestGLMMessagesFinalGuards/thinking (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/output-config (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/cache (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/nested-cache (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/beta-body (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/beta-header (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/browser (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/temperature (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/budget-zero (0.00s)
+    --- PASS: TestGLMMessagesFinalGuards/budget-fraction (0.00s)
+=== RUN   TestGLMMessagesSamplingIgnored
+=== RUN   TestGLMMessagesSamplingIgnored/glm-5.3
+=== RUN   TestGLMMessagesSamplingIgnored/glm-5.2
+--- PASS: TestGLMMessagesSamplingIgnored (0.00s)
+    --- PASS: TestGLMMessagesSamplingIgnored/glm-5.3 (0.00s)
+    --- PASS: TestGLMMessagesSamplingIgnored/glm-5.2 (0.00s)
+=== RUN   TestGLMMessagesTools
+=== RUN   TestGLMMessagesTools/glm-5.2/stream/default
+=== RUN   TestGLMMessagesTools/glm-5.2/stream/auto
+=== RUN   TestGLMMessagesTools/glm-5.2/complete/default
+=== RUN   TestGLMMessagesTools/glm-5.2/complete/auto
+=== RUN   TestGLMMessagesTools/glm-5.2/stream-simple/default
+=== RUN   TestGLMMessagesTools/glm-5.2/stream-simple/auto
+=== RUN   TestGLMMessagesTools/glm-5.2/complete-simple/default
+=== RUN   TestGLMMessagesTools/glm-5.2/complete-simple/auto
+=== RUN   TestGLMMessagesTools/glm-5.3/stream/default
+=== RUN   TestGLMMessagesTools/glm-5.3/stream/auto
+=== RUN   TestGLMMessagesTools/glm-5.3/complete/default
+=== RUN   TestGLMMessagesTools/glm-5.3/complete/auto
+=== RUN   TestGLMMessagesTools/glm-5.3/stream-simple/default
+=== RUN   TestGLMMessagesTools/glm-5.3/stream-simple/auto
+=== RUN   TestGLMMessagesTools/glm-5.3/complete-simple/default
+=== RUN   TestGLMMessagesTools/glm-5.3/complete-simple/auto
+--- PASS: TestGLMMessagesTools (0.03s)
+    --- PASS: TestGLMMessagesTools/glm-5.2/stream/default (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.2/stream/auto (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.2/complete/default (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.2/complete/auto (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.2/stream-simple/default (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.2/stream-simple/auto (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.2/complete-simple/default (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.2/complete-simple/auto (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.3/stream/default (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.3/stream/auto (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.3/complete/default (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.3/complete/auto (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.3/stream-simple/default (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.3/stream-simple/auto (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.3/complete-simple/default (0.00s)
+    --- PASS: TestGLMMessagesTools/glm-5.3/complete-simple/auto (0.00s)
+=== RUN   TestGLMMessagesNativeReplay
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/signed/in-process
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/signed/restored
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/signed/untrusted
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/signed/tenant
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/signed/account
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/signed/api
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/signed/model
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/unsigned/in-process
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/unsigned/restored
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/unsigned/untrusted
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/unsigned/tenant
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/unsigned/account
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/unsigned/api
+=== RUN   TestGLMMessagesNativeReplay/glm-5.2/unsigned/model
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/signed/in-process
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/signed/restored
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/signed/untrusted
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/signed/tenant
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/signed/account
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/signed/api
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/signed/model
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/unsigned/in-process
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/unsigned/restored
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/unsigned/untrusted
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/unsigned/tenant
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/unsigned/account
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/unsigned/api
+=== RUN   TestGLMMessagesNativeReplay/glm-5.3/unsigned/model
+--- PASS: TestGLMMessagesNativeReplay (0.11s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/signed/in-process (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/signed/restored (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/signed/untrusted (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/signed/tenant (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/signed/account (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/signed/api (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/signed/model (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/unsigned/in-process (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/unsigned/restored (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/unsigned/untrusted (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/unsigned/tenant (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/unsigned/account (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/unsigned/api (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.2/unsigned/model (0.01s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/signed/in-process (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/signed/restored (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/signed/untrusted (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/signed/tenant (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/signed/account (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/signed/api (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/signed/model (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/unsigned/in-process (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/unsigned/restored (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/unsigned/untrusted (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/unsigned/tenant (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/unsigned/account (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/unsigned/api (0.00s)
+    --- PASS: TestGLMMessagesNativeReplay/glm-5.3/unsigned/model (0.00s)
+=== RUN   TestGLMMessagesSequence
+=== RUN   TestGLMMessagesSequence/glm-5.2/no-message-start
+=== RUN   TestGLMMessagesSequence/glm-5.2/duplicate-message-start
+=== RUN   TestGLMMessagesSequence/glm-5.2/duplicate-index
+=== RUN   TestGLMMessagesSequence/glm-5.2/unopened-delta
+=== RUN   TestGLMMessagesSequence/glm-5.2/wrong-delta-kind
+=== RUN   TestGLMMessagesSequence/glm-5.2/open-block-at-terminal
+=== RUN   TestGLMMessagesSequence/glm-5.2/premature-message-stop
+=== RUN   TestGLMMessagesSequence/glm-5.2/after-terminal
+=== RUN   TestGLMMessagesSequence/glm-5.2/event-type-mismatch
+=== RUN   TestGLMMessagesSequence/glm-5.3/no-message-start
+=== RUN   TestGLMMessagesSequence/glm-5.3/duplicate-message-start
+=== RUN   TestGLMMessagesSequence/glm-5.3/duplicate-index
+=== RUN   TestGLMMessagesSequence/glm-5.3/unopened-delta
+=== RUN   TestGLMMessagesSequence/glm-5.3/wrong-delta-kind
+=== RUN   TestGLMMessagesSequence/glm-5.3/open-block-at-terminal
+=== RUN   TestGLMMessagesSequence/glm-5.3/premature-message-stop
+=== RUN   TestGLMMessagesSequence/glm-5.3/after-terminal
+=== RUN   TestGLMMessagesSequence/glm-5.3/event-type-mismatch
+--- PASS: TestGLMMessagesSequence (0.05s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/no-message-start (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/duplicate-message-start (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/duplicate-index (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/unopened-delta (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/wrong-delta-kind (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/open-block-at-terminal (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/premature-message-stop (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/after-terminal (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.2/event-type-mismatch (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/no-message-start (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/duplicate-message-start (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/duplicate-index (0.01s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/unopened-delta (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/wrong-delta-kind (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/open-block-at-terminal (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/premature-message-stop (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/after-terminal (0.00s)
+    --- PASS: TestGLMMessagesSequence/glm-5.3/event-type-mismatch (0.00s)
+=== RUN   TestGLMMessagesMultiIndex
+=== RUN   TestGLMMessagesMultiIndex/glm-5.2
+=== RUN   TestGLMMessagesMultiIndex/glm-5.3
+--- PASS: TestGLMMessagesMultiIndex (0.00s)
+    --- PASS: TestGLMMessagesMultiIndex/glm-5.2 (0.00s)
+    --- PASS: TestGLMMessagesMultiIndex/glm-5.3 (0.00s)
+=== RUN   TestGLMMessagesText
+=== RUN   TestGLMMessagesText/glm-5.3/stream-nil/plain
+=== RUN   TestGLMMessagesText/glm-5.3/stream-nil/hooks
+=== RUN   TestGLMMessagesText/glm-5.3/stream-full/plain
+=== RUN   TestGLMMessagesText/glm-5.3/stream-full/hooks
+=== RUN   TestGLMMessagesText/glm-5.3/complete-nil/plain
+=== RUN   TestGLMMessagesText/glm-5.3/complete-nil/hooks
+=== RUN   TestGLMMessagesText/glm-5.3/complete-full/plain
+=== RUN   TestGLMMessagesText/glm-5.3/complete-full/hooks
+=== RUN   TestGLMMessagesText/glm-5.3/stream-simple/plain
+=== RUN   TestGLMMessagesText/glm-5.3/stream-simple/hooks
+=== RUN   TestGLMMessagesText/glm-5.3/complete-simple/plain
+=== RUN   TestGLMMessagesText/glm-5.3/complete-simple/hooks
+=== RUN   TestGLMMessagesText/glm-5.2/stream-nil/plain
+=== RUN   TestGLMMessagesText/glm-5.2/stream-nil/hooks
+=== RUN   TestGLMMessagesText/glm-5.2/stream-full/plain
+=== RUN   TestGLMMessagesText/glm-5.2/stream-full/hooks
+=== RUN   TestGLMMessagesText/glm-5.2/complete-nil/plain
+=== RUN   TestGLMMessagesText/glm-5.2/complete-nil/hooks
+=== RUN   TestGLMMessagesText/glm-5.2/complete-full/plain
+=== RUN   TestGLMMessagesText/glm-5.2/complete-full/hooks
+=== RUN   TestGLMMessagesText/glm-5.2/stream-simple/plain
+=== RUN   TestGLMMessagesText/glm-5.2/stream-simple/hooks
+=== RUN   TestGLMMessagesText/glm-5.2/complete-simple/plain
+=== RUN   TestGLMMessagesText/glm-5.2/complete-simple/hooks
+--- PASS: TestGLMMessagesText (0.04s)
+    --- PASS: TestGLMMessagesText/glm-5.3/stream-nil/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/stream-nil/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/stream-full/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/stream-full/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/complete-nil/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/complete-nil/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/complete-full/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/complete-full/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/stream-simple/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/stream-simple/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/complete-simple/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.3/complete-simple/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/stream-nil/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/stream-nil/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/stream-full/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/stream-full/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/complete-nil/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/complete-nil/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/complete-full/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/complete-full/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/stream-simple/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/stream-simple/hooks (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/complete-simple/plain (0.00s)
+    --- PASS: TestGLMMessagesText/glm-5.2/complete-simple/hooks (0.00s)
+=== RUN   TestGLMMessagesExactThinking
+=== RUN   TestGLMMessagesExactThinking/stream
+=== RUN   TestGLMMessagesExactThinking/complete
+=== RUN   TestGLMMessagesExactThinking/payload
+--- PASS: TestGLMMessagesExactThinking (0.06s)
+    --- PASS: TestGLMMessagesExactThinking/stream (0.03s)
+    --- PASS: TestGLMMessagesExactThinking/complete (0.00s)
+    --- PASS: TestGLMMessagesExactThinking/payload (0.03s)
+=== RUN   TestManagedEffort
+=== RUN   TestManagedEffort/listed
+=== RUN   TestManagedEffort/fable-5-1-first-turn
+=== RUN   TestManagedEffort/opus-5-history-levels
+=== RUN   TestManagedEffort/opus-5-5-cross-model-history
+=== RUN   TestManagedEffort/opus-5-tool-loop
+=== RUN   TestManagedEffort/opus-5-5-simple-minimal
+=== RUN   TestManagedEffort/fable-5-1-simple-unset
+=== RUN   TestManagedEffort/opus-5-simple-xhigh-history
+=== RUN   TestManagedEffort/opus-5-refused
+=== RUN   TestManagedEffort/result-replays-its-effort
+--- PASS: TestManagedEffort (0.02s)
+    --- PASS: TestManagedEffort/listed (0.00s)
+    --- PASS: TestManagedEffort/fable-5-1-first-turn (0.00s)
+    --- PASS: TestManagedEffort/opus-5-history-levels (0.00s)
+    --- PASS: TestManagedEffort/opus-5-5-cross-model-history (0.00s)
+    --- PASS: TestManagedEffort/opus-5-tool-loop (0.00s)
+    --- PASS: TestManagedEffort/opus-5-5-simple-minimal (0.00s)
+    --- PASS: TestManagedEffort/fable-5-1-simple-unset (0.00s)
+    --- PASS: TestManagedEffort/opus-5-simple-xhigh-history (0.00s)
+    --- PASS: TestManagedEffort/opus-5-refused (0.00s)
+    --- PASS: TestManagedEffort/result-replays-its-effort (0.00s)
+PASS
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T222601.084980000Z
+ok  	github.com/tokenbeat-lab/barness/ai/e2e	2.109s

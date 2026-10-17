@@ -1,0 +1,303 @@
+=== RUN   TestMiniMaxMessagesSupportedEfforts
+=== RUN   TestMiniMaxMessagesSupportedEfforts/low
+=== RUN   TestMiniMaxMessagesSupportedEfforts/medium
+=== RUN   TestMiniMaxMessagesSupportedEfforts/high
+=== RUN   TestMiniMaxMessagesSupportedEfforts/xhigh
+=== RUN   TestMiniMaxMessagesSupportedEfforts/max
+--- PASS: TestMiniMaxMessagesSupportedEfforts (0.01s)
+    --- PASS: TestMiniMaxMessagesSupportedEfforts/low (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedEfforts/medium (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedEfforts/high (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedEfforts/xhigh (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedEfforts/max (0.00s)
+=== RUN   TestMiniMaxMessagesSupportedBoundaries
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/one-full
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/one-simple
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/one-hook
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/max-full
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/null-budget
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/temperature-zero
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/temperature-max
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/temperature-null
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/top-p-zero
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/top-p-max
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/standard
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/auto
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/none
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/cache-short
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/cache-long
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/cache-none
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/metadata
+=== RUN   TestMiniMaxMessagesSupportedBoundaries/sampling-ignored
+--- PASS: TestMiniMaxMessagesSupportedBoundaries (0.02s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/one-full (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/one-simple (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/one-hook (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/max-full (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/null-budget (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/temperature-zero (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/temperature-max (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/temperature-null (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/top-p-zero (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/top-p-max (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/standard (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/auto (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/none (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/cache-short (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/cache-long (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/cache-none (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/metadata (0.00s)
+    --- PASS: TestMiniMaxMessagesSupportedBoundaries/sampling-ignored (0.00s)
+=== RUN   TestMiniMaxMessagesModelNarrowsSampling
+=== RUN   TestMiniMaxMessagesModelNarrowsSampling/named
+=== RUN   TestMiniMaxMessagesModelNarrowsSampling/payload
+--- PASS: TestMiniMaxMessagesModelNarrowsSampling (0.00s)
+    --- PASS: TestMiniMaxMessagesModelNarrowsSampling/named (0.00s)
+    --- PASS: TestMiniMaxMessagesModelNarrowsSampling/payload (0.00s)
+=== RUN   TestMiniMaxMessagesRequiredBinaryIsNotDepth
+--- PASS: TestMiniMaxMessagesRequiredBinaryIsNotDepth (0.00s)
+=== RUN   TestMiniMaxMessagesNarrowedDepth
+--- PASS: TestMiniMaxMessagesNarrowedDepth (0.00s)
+=== RUN   TestMiniMaxMessagesBusinessFields
+--- PASS: TestMiniMaxMessagesBusinessFields (0.00s)
+=== RUN   TestMiniMaxMessagesNamedGuards
+=== RUN   TestMiniMaxMessagesNamedGuards/m3-depth
+=== RUN   TestMiniMaxMessagesNamedGuards/m31-off
+=== RUN   TestMiniMaxMessagesNamedGuards/budget
+=== RUN   TestMiniMaxMessagesNamedGuards/display
+=== RUN   TestMiniMaxMessagesNamedGuards/interleaved-false
+=== RUN   TestMiniMaxMessagesNamedGuards/budget-zero
+=== RUN   TestMiniMaxMessagesNamedGuards/budget-high
+=== RUN   TestMiniMaxMessagesNamedGuards/temperature-high
+=== RUN   TestMiniMaxMessagesNamedGuards/forced-any
+=== RUN   TestMiniMaxMessagesNamedGuards/forced-name
+--- PASS: TestMiniMaxMessagesNamedGuards (0.01s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/m3-depth (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/m31-off (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/budget (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/display (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/interleaved-false (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/budget-zero (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/budget-high (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/temperature-high (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/forced-any (0.00s)
+    --- PASS: TestMiniMaxMessagesNamedGuards/forced-name (0.00s)
+=== RUN   TestMiniMaxMessagesFinalGuards
+=== RUN   TestMiniMaxMessagesFinalGuards/m3-effort
+=== RUN   TestMiniMaxMessagesFinalGuards/m31-off
+=== RUN   TestMiniMaxMessagesFinalGuards/m31-none
+=== RUN   TestMiniMaxMessagesFinalGuards/m31-minimal
+=== RUN   TestMiniMaxMessagesFinalGuards/budget-fraction
+=== RUN   TestMiniMaxMessagesFinalGuards/budget-null
+=== RUN   TestMiniMaxMessagesFinalGuards/budget-zero
+=== RUN   TestMiniMaxMessagesFinalGuards/budget-high
+=== RUN   TestMiniMaxMessagesFinalGuards/temperature-high
+=== RUN   TestMiniMaxMessagesFinalGuards/top-p-high
+=== RUN   TestMiniMaxMessagesFinalGuards/top-p-null
+=== RUN   TestMiniMaxMessagesFinalGuards/thinking-budget
+=== RUN   TestMiniMaxMessagesFinalGuards/thinking-display
+=== RUN   TestMiniMaxMessagesFinalGuards/thinking-binding
+=== RUN   TestMiniMaxMessagesFinalGuards/stop
+=== RUN   TestMiniMaxMessagesFinalGuards/top-k
+=== RUN   TestMiniMaxMessagesFinalGuards/priority
+=== RUN   TestMiniMaxMessagesFinalGuards/cache
+=== RUN   TestMiniMaxMessagesFinalGuards/parallel
+=== RUN   TestMiniMaxMessagesFinalGuards/forced
+=== RUN   TestMiniMaxMessagesFinalGuards/redacted
+=== RUN   TestMiniMaxMessagesFinalGuards/image
+--- PASS: TestMiniMaxMessagesFinalGuards (0.01s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/m3-effort (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/m31-off (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/m31-none (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/m31-minimal (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/budget-fraction (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/budget-null (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/budget-zero (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/budget-high (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/temperature-high (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/top-p-high (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/top-p-null (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/thinking-budget (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/thinking-display (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/thinking-binding (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/stop (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/top-k (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/priority (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/cache (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/parallel (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/forced (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/redacted (0.00s)
+    --- PASS: TestMiniMaxMessagesFinalGuards/image (0.00s)
+=== RUN   TestMiniMaxMessagesMalformedContent
+=== RUN   TestMiniMaxMessagesMalformedContent/text-null
+=== RUN   TestMiniMaxMessagesMalformedContent/text-delta-missing
+=== RUN   TestMiniMaxMessagesMalformedContent/thinking-delta-null
+=== RUN   TestMiniMaxMessagesMalformedContent/signature-null
+=== RUN   TestMiniMaxMessagesMalformedContent/tool-id-missing
+=== RUN   TestMiniMaxMessagesMalformedContent/tool-input-array
+=== RUN   TestMiniMaxMessagesMalformedContent/tool-delta-missing
+=== RUN   TestMiniMaxMessagesMalformedContent/redacted-missing-data
+--- PASS: TestMiniMaxMessagesMalformedContent (0.01s)
+    --- PASS: TestMiniMaxMessagesMalformedContent/text-null (0.00s)
+    --- PASS: TestMiniMaxMessagesMalformedContent/text-delta-missing (0.00s)
+    --- PASS: TestMiniMaxMessagesMalformedContent/thinking-delta-null (0.00s)
+    --- PASS: TestMiniMaxMessagesMalformedContent/signature-null (0.00s)
+    --- PASS: TestMiniMaxMessagesMalformedContent/tool-id-missing (0.00s)
+    --- PASS: TestMiniMaxMessagesMalformedContent/tool-input-array (0.00s)
+    --- PASS: TestMiniMaxMessagesMalformedContent/tool-delta-missing (0.00s)
+    --- PASS: TestMiniMaxMessagesMalformedContent/redacted-missing-data (0.00s)
+=== RUN   TestMiniMaxMessagesIncompleteToolJSON
+--- PASS: TestMiniMaxMessagesIncompleteToolJSON (0.00s)
+=== RUN   TestMiniMaxMessagesNativeReplay
+=== RUN   TestMiniMaxMessagesNativeReplay/signed/in-process
+=== RUN   TestMiniMaxMessagesNativeReplay/signed/restored
+=== RUN   TestMiniMaxMessagesNativeReplay/signed/untrusted
+=== RUN   TestMiniMaxMessagesNativeReplay/signed/account
+=== RUN   TestMiniMaxMessagesNativeReplay/signed/model
+=== RUN   TestMiniMaxMessagesNativeReplay/signed/tenant
+=== RUN   TestMiniMaxMessagesNativeReplay/absent/in-process
+=== RUN   TestMiniMaxMessagesNativeReplay/absent/restored
+=== RUN   TestMiniMaxMessagesNativeReplay/absent/untrusted
+=== RUN   TestMiniMaxMessagesNativeReplay/absent/account
+=== RUN   TestMiniMaxMessagesNativeReplay/absent/model
+=== RUN   TestMiniMaxMessagesNativeReplay/absent/tenant
+=== RUN   TestMiniMaxMessagesNativeReplay/empty/in-process
+=== RUN   TestMiniMaxMessagesNativeReplay/empty/restored
+=== RUN   TestMiniMaxMessagesNativeReplay/empty/untrusted
+=== RUN   TestMiniMaxMessagesNativeReplay/empty/account
+=== RUN   TestMiniMaxMessagesNativeReplay/empty/model
+=== RUN   TestMiniMaxMessagesNativeReplay/empty/tenant
+=== RUN   TestMiniMaxMessagesNativeReplay/redacted/in-process
+=== RUN   TestMiniMaxMessagesNativeReplay/redacted/restored
+=== RUN   TestMiniMaxMessagesNativeReplay/redacted/untrusted
+=== RUN   TestMiniMaxMessagesNativeReplay/redacted/account
+=== RUN   TestMiniMaxMessagesNativeReplay/redacted/model
+=== RUN   TestMiniMaxMessagesNativeReplay/redacted/tenant
+--- PASS: TestMiniMaxMessagesNativeReplay (0.04s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/signed/in-process (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/signed/restored (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/signed/untrusted (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/signed/account (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/signed/model (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/signed/tenant (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/absent/in-process (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/absent/restored (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/absent/untrusted (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/absent/account (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/absent/model (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/absent/tenant (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/empty/in-process (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/empty/restored (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/empty/untrusted (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/empty/account (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/empty/model (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/empty/tenant (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/redacted/in-process (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/redacted/restored (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/redacted/untrusted (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/redacted/account (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/redacted/model (0.00s)
+    --- PASS: TestMiniMaxMessagesNativeReplay/redacted/tenant (0.00s)
+=== RUN   TestMiniMaxMessagesRedactedOutput
+--- PASS: TestMiniMaxMessagesRedactedOutput (0.00s)
+=== RUN   TestMiniMaxMessagesThinkingWire
+=== RUN   TestMiniMaxMessagesThinkingWire/m3-nil
+=== RUN   TestMiniMaxMessagesThinkingWire/m3-full
+=== RUN   TestMiniMaxMessagesThinkingWire/m3-simple
+=== RUN   TestMiniMaxMessagesThinkingWire/m31-nil
+=== RUN   TestMiniMaxMessagesThinkingWire/m31-full
+=== RUN   TestMiniMaxMessagesThinkingWire/m31-simple
+=== RUN   TestMiniMaxMessagesThinkingWire/m3-on
+=== RUN   TestMiniMaxMessagesThinkingWire/m3-off
+=== RUN   TestMiniMaxMessagesThinkingWire/m3-simple-clamp
+=== RUN   TestMiniMaxMessagesThinkingWire/m31-effort-only
+=== RUN   TestMiniMaxMessagesThinkingWire/m31-on-effort
+=== RUN   TestMiniMaxMessagesThinkingWire/m31-simple-clamp
+--- PASS: TestMiniMaxMessagesThinkingWire (0.01s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m3-nil (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m3-full (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m3-simple (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m31-nil (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m31-full (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m31-simple (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m3-on (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m3-off (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m3-simple-clamp (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m31-effort-only (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m31-on-effort (0.00s)
+    --- PASS: TestMiniMaxMessagesThinkingWire/m31-simple-clamp (0.00s)
+=== RUN   TestMiniMaxMessagesSequence
+=== RUN   TestMiniMaxMessagesSequence/no-start
+=== RUN   TestMiniMaxMessagesSequence/duplicate-start
+=== RUN   TestMiniMaxMessagesSequence/duplicate-index
+=== RUN   TestMiniMaxMessagesSequence/unopened-delta
+=== RUN   TestMiniMaxMessagesSequence/wrong-delta
+=== RUN   TestMiniMaxMessagesSequence/open-terminal
+=== RUN   TestMiniMaxMessagesSequence/stop-before-delta
+=== RUN   TestMiniMaxMessagesSequence/after-terminal
+=== RUN   TestMiniMaxMessagesSequence/duplicate-terminal
+=== RUN   TestMiniMaxMessagesSequence/mismatched-type
+=== RUN   TestMiniMaxMessagesSequence/missing-index
+=== RUN   TestMiniMaxMessagesSequence/unknown-block
+=== RUN   TestMiniMaxMessagesSequence/missing-stop
+=== RUN   TestMiniMaxMessagesSequence/missing-stop-reason
+--- PASS: TestMiniMaxMessagesSequence (0.01s)
+    --- PASS: TestMiniMaxMessagesSequence/no-start (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/duplicate-start (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/duplicate-index (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/unopened-delta (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/wrong-delta (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/open-terminal (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/stop-before-delta (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/after-terminal (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/duplicate-terminal (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/mismatched-type (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/missing-index (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/unknown-block (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/missing-stop (0.00s)
+    --- PASS: TestMiniMaxMessagesSequence/missing-stop-reason (0.00s)
+=== RUN   TestMiniMaxMessagesTools
+=== RUN   TestMiniMaxMessagesTools/MiniMax-M3/stream
+=== RUN   TestMiniMaxMessagesTools/MiniMax-M3/complete
+=== RUN   TestMiniMaxMessagesTools/MiniMax-M3/stream-simple
+=== RUN   TestMiniMaxMessagesTools/MiniMax-M3/complete-simple
+=== RUN   TestMiniMaxMessagesTools/MiniMax-M3.1-Flash-Preview/stream
+=== RUN   TestMiniMaxMessagesTools/MiniMax-M3.1-Flash-Preview/complete
+=== RUN   TestMiniMaxMessagesTools/MiniMax-M3.1-Flash-Preview/stream-simple
+=== RUN   TestMiniMaxMessagesTools/MiniMax-M3.1-Flash-Preview/complete-simple
+--- PASS: TestMiniMaxMessagesTools (0.01s)
+    --- PASS: TestMiniMaxMessagesTools/MiniMax-M3/stream (0.00s)
+    --- PASS: TestMiniMaxMessagesTools/MiniMax-M3/complete (0.00s)
+    --- PASS: TestMiniMaxMessagesTools/MiniMax-M3/stream-simple (0.00s)
+    --- PASS: TestMiniMaxMessagesTools/MiniMax-M3/complete-simple (0.00s)
+    --- PASS: TestMiniMaxMessagesTools/MiniMax-M3.1-Flash-Preview/stream (0.00s)
+    --- PASS: TestMiniMaxMessagesTools/MiniMax-M3.1-Flash-Preview/complete (0.00s)
+    --- PASS: TestMiniMaxMessagesTools/MiniMax-M3.1-Flash-Preview/stream-simple (0.00s)
+    --- PASS: TestMiniMaxMessagesTools/MiniMax-M3.1-Flash-Preview/complete-simple (0.00s)
+=== RUN   TestMiniMaxMessagesStartInput
+=== RUN   TestMiniMaxMessagesStartInput/complete
+=== RUN   TestMiniMaxMessagesStartInput/placeholder
+=== RUN   TestMiniMaxMessagesStartInput/mixed
+--- PASS: TestMiniMaxMessagesStartInput (0.00s)
+    --- PASS: TestMiniMaxMessagesStartInput/complete (0.00s)
+    --- PASS: TestMiniMaxMessagesStartInput/placeholder (0.00s)
+    --- PASS: TestMiniMaxMessagesStartInput/mixed (0.00s)
+=== RUN   TestMiniMaxMessagesUsage
+=== RUN   TestMiniMaxMessagesUsage/complete
+=== RUN   TestMiniMaxMessagesUsage/authoritative
+=== RUN   TestMiniMaxMessagesUsage/zero
+=== RUN   TestMiniMaxMessagesUsage/partial
+=== RUN   TestMiniMaxMessagesUsage/unreported
+=== RUN   TestMiniMaxMessagesUsage/interrupted
+--- PASS: TestMiniMaxMessagesUsage (0.01s)
+    --- PASS: TestMiniMaxMessagesUsage/complete (0.00s)
+    --- PASS: TestMiniMaxMessagesUsage/authoritative (0.00s)
+    --- PASS: TestMiniMaxMessagesUsage/zero (0.00s)
+    --- PASS: TestMiniMaxMessagesUsage/partial (0.00s)
+    --- PASS: TestMiniMaxMessagesUsage/unreported (0.00s)
+    --- PASS: TestMiniMaxMessagesUsage/interrupted (0.00s)
+=== RUN   TestMiniMaxThinkingSwitchOnlyMetadata
+--- PASS: TestMiniMaxThinkingSwitchOnlyMetadata (0.00s)
+PASS
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T222550.506405000Z
+ok  	github.com/tokenbeat-lab/barness/ai/e2e	1.534s

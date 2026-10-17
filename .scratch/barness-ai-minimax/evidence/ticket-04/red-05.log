@@ -1,0 +1,41 @@
+--- FAIL: TestMiniMaxMessagesSequence (0.02s)
+    --- FAIL: TestMiniMaxMessagesSequence/no-start (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-no-start] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-no-start] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/duplicate-start (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-duplicate-start] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-duplicate-start] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/duplicate-index (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-duplicate-index] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-duplicate-index] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/unopened-delta (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-unopened-delta] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-unopened-delta] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/wrong-delta (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-wrong-delta] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-wrong-delta] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/open-terminal (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-open-terminal] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-open-terminal] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/stop-before-delta (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-stop-before-delta] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-stop-before-delta] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/after-terminal (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-after-terminal] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-after-terminal] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/duplicate-terminal (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-duplicate-terminal] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-duplicate-terminal] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/mismatched-type (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-mismatched-type] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-mismatched-type] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/missing-index (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-missing-index] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-missing-index] one failure terminal with no replay: errors=0 done=1
+    --- FAIL: TestMiniMaxMessagesSequence/unknown-block (0.00s)
+        minimax_messages_sequence_test.go:69: [MM04-sequence-unknown-block] malformed sequence has a diagnostic protocol failure: <nil>
+        minimax_messages_sequence_test.go:79: [MM04-sequence-unknown-block] one failure terminal with no replay: errors=0 done=1
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T221527.012919000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.610s
+FAIL
