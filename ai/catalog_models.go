@@ -26,6 +26,11 @@ type Model struct {
 	// ThinkingLevelMap maps a reasoning model's levels to provider values
 	// and marks unsupported ones.
 	ThinkingLevelMap ThinkingLevelMap `json:"thinkingLevelMap,omitzero"`
+	// DefaultThinkingLevel selects the sampling profile when reasoning is
+	// omitted. It labels the service default without requesting a wire effort
+	// or recording a caller choice. Empty preserves the existing off/clamp
+	// selection; an explicit label must be canonical and model-supported.
+	DefaultThinkingLevel ThinkingLevel `json:"defaultThinkingLevel,omitempty"`
 	// SamplingParams are the model's default sampling parameters; full and
 	// simple chat entries apply call-level values over them key by key.
 	SamplingParams map[string]json.RawMessage `json:"samplingParams,omitempty"`

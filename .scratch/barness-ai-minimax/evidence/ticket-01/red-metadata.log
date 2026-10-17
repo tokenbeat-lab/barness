@@ -1,0 +1,17 @@
+--- FAIL: TestMiniMaxDefaultThinkingMetadata (0.00s)
+    --- FAIL: TestMiniMaxDefaultThinkingMetadata/canonical (0.00s)
+        minimax_metadata_test.go:48: [MM01-default-metadata-canonical] JSON retains canonical label: {"version":"synthetic-default-label","models":[{"provider":"openai","api":"openai-responses","id":"gpt-5","name":"GPT-5","reasoning":true,"input":["text","image"],"contextWindow":400000,"maxTokens":128000,"thinkingLevelMap":{"off":null,"minimal":"minimal","low":"low","medium":"medium","high":"high","xhigh":null,"max":null},"compat":{"supportsStrictMode":true},"cost":{"input":1.25,"output":10,"cacheRead":0.125,"cacheWrite":0}}]}
+        minimax_metadata_test.go:49: [MM01-default-metadata-canonical] label enters price snapshot hash: hash did not change
+    --- FAIL: TestMiniMaxDefaultThinkingMetadata/unknown (0.00s)
+        minimax_metadata_test.go:36: [MM01-default-metadata-unknown] configuration boundaries agree: client=<nil> hash=<nil>
+        minimax_metadata_test.go:38: [MM01-default-metadata-unknown] safe default-label error: <nil>
+    --- FAIL: TestMiniMaxDefaultThinkingMetadata/unsupported (0.00s)
+        minimax_metadata_test.go:36: [MM01-default-metadata-unsupported] configuration boundaries agree: client=<nil> hash=<nil>
+        minimax_metadata_test.go:38: [MM01-default-metadata-unsupported] safe default-label error: <nil>
+    --- FAIL: TestMiniMaxDefaultThinkingMetadata/mandatory-off (0.00s)
+        minimax_metadata_test.go:36: [MM01-default-metadata-mandatory-off] configuration boundaries agree: client=<nil> hash=<nil>
+        minimax_metadata_test.go:38: [MM01-default-metadata-mandatory-off] safe default-label error: <nil>
+FAIL
+barness-ai evidence bundle: .scratch/barness-ai-minimax/evidence/ticket-01/red-metadata/20261017T220511.703087000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.581s
+FAIL

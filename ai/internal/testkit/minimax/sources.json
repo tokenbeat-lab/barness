@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "retrievedAt": "2026-10-18",
+  "sourceKind": "official-schema-and-spec",
+  "status": "offline-candidate-only",
+  "sources": [
+    {
+      "url": "https://platform.minimax.cn/docs/api-reference/text/api/openapi-responses.json",
+      "sha256": "045a5d322183cc5114706c1cfeb249cc5a5576bc30947ea68aab8e14a4169c30",
+      "bytes": 33007
+    },
+    {
+      "url": "https://platform.minimax.cn/docs/api-reference/text/api/openapi-chat-openai.json",
+      "sha256": "9b01666f1df386776cb4d9f49a8dd2832f94ab7bbb446d1c72fa3e76af4348fb",
+      "bytes": 71703
+    },
+    {
+      "url": "https://platform.minimax.cn/docs/api-reference/text/api/openapi-chat-anthropic.json",
+      "sha256": "57111d5dddd2ada7f481e5c373d88c745eba0b852b60bf1ca20096c61f28b77c",
+      "bytes": 67160
+    },
+    {
+      "url": "https://platform.minimax.cn/docs/guides/text-m3-function-call.md",
+      "sha256": "42193c24a679a9bc170cf1ee30b15a1ff5adae9a6f5c1a7cd222470f1fecc8a7",
+      "bytes": 31221
+    },
+    {
+      "url": "https://platform.minimax.cn/docs/api-reference/text-openai-api.md",
+      "sha256": "2b1b748877fe8f1c5712f9073dfaf3f4b83dfde89bf97cd7219300216fb3f552",
+      "bytes": 11195
+    },
+    {
+      "url": "https://platform.minimax.cn/docs/m-plan/faq.md",
+      "sha256": "4c2948a181ba4a52439a44b539df872d80dde6d55c74bbcd7dd4b02768961a09",
+      "bytes": 13053
+    },
+    {
+      "url": "https://platform.minimax.cn/docs/pricing/overview.md",
+      "sha256": "9cc4095db97b24c7f66f98fa09d8dd591dd97f0e16c4ee296512fbf018451bc7",
+      "bytes": 31107
+    }
+  ],
+  "prices": {
+    "kind": "synthetic",
+    "currencyLabel": "USD-test-only",
+    "appliesTo": "all six candidates",
+    "input": 1,
+    "output": 2,
+    "cacheRead": 0.1,
+    "cacheWrite": 1,
+    "disclaimer": "Mechanism test rates; not sourced MiniMax standard rates, M Plan fees, entitlement or an estimate for real calls."
+  },
+  "capacity": {
+    "contextWindow": 1000000,
+    "maxTokens": 131072,
+    "maxTokensSource": "spec R06 conservative barness first-release ceiling, not vendor maximum or live capacity proof"
+  },
+  "thinkingSource": "spec R07/R08; protocol entries are independently declared",
+  "formalInclusion": "None. Requires per-identity own live acceptance plus sourced prices and explicit formal catalog update."
+}

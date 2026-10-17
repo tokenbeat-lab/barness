@@ -1,0 +1,45 @@
+--- FAIL: TestMiniMaxDefaultSampling (0.04s)
+    --- FAIL: TestMiniMaxDefaultSampling/responses//stream-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses//stream-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses//complete-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses//complete-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/stream-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/stream-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/complete-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/complete-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/stream-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/stream-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/complete-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/complete-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/chat/high/stream-full (0.00s)
+        minimax_default_sampling_test.go:44: [MM01-sampling-chat-high-stream-full] omission uses declared sampling label: {"model":"gpt-4.1-mini","messages":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"store":false,"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/chat/high/stream-simple (0.00s)
+        minimax_default_sampling_test.go:44: [MM01-sampling-chat-high-stream-simple] omission uses declared sampling label: {"model":"gpt-4.1-mini","messages":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"store":false,"max_completion_tokens":32768,"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/chat/high/complete-full (0.00s)
+        minimax_default_sampling_test.go:44: [MM01-sampling-chat-high-complete-full] omission uses declared sampling label: {"model":"gpt-4.1-mini","messages":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"store":false,"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/chat/high/complete-simple (0.00s)
+        minimax_default_sampling_test.go:44: [MM01-sampling-chat-high-complete-simple] omission uses declared sampling label: {"model":"gpt-4.1-mini","messages":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"store":false,"max_completion_tokens":32768,"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/chat/max/stream-full (0.00s)
+        minimax_default_sampling_test.go:44: [MM01-sampling-chat-max-stream-full] omission uses declared sampling label: {"model":"gpt-4.1-mini","messages":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"store":false,"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/chat/max/stream-simple (0.00s)
+        minimax_default_sampling_test.go:44: [MM01-sampling-chat-max-stream-simple] omission uses declared sampling label: {"model":"gpt-4.1-mini","messages":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"store":false,"max_completion_tokens":32768,"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/chat/max/complete-full (0.00s)
+        minimax_default_sampling_test.go:44: [MM01-sampling-chat-max-complete-full] omission uses declared sampling label: {"model":"gpt-4.1-mini","messages":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"store":false,"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/chat/max/complete-simple (0.00s)
+        minimax_default_sampling_test.go:44: [MM01-sampling-chat-max-complete-simple] omission uses declared sampling label: {"model":"gpt-4.1-mini","messages":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"store":false,"max_completion_tokens":32768,"temperature":0.1}
+FAIL
+barness-ai evidence bundle: /tmp/barness-minimax-01/.scratch/barness-ai-minimax/evidence/ticket-01/red-sampling/20261017T220612.884325000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.719s
+FAIL

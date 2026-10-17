@@ -11,7 +11,7 @@ import (
 // adapter's wire reasoning. Apply it once after named fields, before Hooks;
 // reasoning overrides in sampling/callbacks never feed back into selection.
 func applyModelSamplingParams(body []byte, model Model, input ThinkingLevel, overrides map[string]json.RawMessage) ([]byte, error) {
-	level := clampThinkingLevel(model, cmp.Or(input, thinkingOff))
+	level := clampThinkingLevel(model, cmp.Or(input, model.DefaultThinkingLevel, thinkingOff))
 	return applySamplingParams(body, model.SamplingParams, model.SamplingParamsByThinkingLevel[level], overrides)
 }
 
