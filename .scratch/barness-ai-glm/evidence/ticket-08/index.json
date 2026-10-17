@@ -1,0 +1,332 @@
+{
+  "ticket": "08",
+  "date": "2026-10-17",
+  "seam": "spec T01 public Client; no credentials read or paid calls",
+  "implementationCommit": "c4beed8",
+  "integrationMergedBeforeFinalChecks": "4729fe0aa9455b4b14e133a8df7d059a81178498",
+  "runs": [
+    {
+      "name": "differential",
+      "bundle": "differential/20261017T131039.864292000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/differential.zip",
+      "archiveSha256": "5e8feb8aab609ece149bc7e2139cc659de95420e4606a8885873955aed1f7593",
+      "manifestSha256": "81262727b32a1c69b6fe08dfc4007d6be813e0e91e6637de174e4c8eef264732",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 608
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "green-complete",
+      "bundle": "green-complete/20261017T130956.771974000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/green-complete.zip",
+      "archiveSha256": "1643502107c13851f8776a44d8c144f6e5b861466896eecb686f8deff02e8eef",
+      "manifestSha256": "30a4828bc2de027ee8d4c24d59c5b98ae4cfc9db22536e88ac90da67bcd2f499",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 346
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "green-http",
+      "bundle": "green-http/20261017T130712.334439000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/green-http.zip",
+      "archiveSha256": "caa490554247dd00c0e8fa219ec3d4651e5c30499ff9c9a7e83e74313c031cf2",
+      "manifestSha256": "a8e2af79c0c4811a0e1cd64b71d55b698d2a68baab61d56639cbb6cb2e2405f6",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 260
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "green-messages-ttl",
+      "bundle": "green-messages-ttl/20261017T131309.673851000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/green-messages-ttl.zip",
+      "archiveSha256": "c200f08b87f299862258677ef02f601f3388846d7e9afd0fe5baf04ba366e78a",
+      "manifestSha256": "536c4ff62624a5277be48866d6cba0fdd525f0b556384a2343e4a9a77c3211e3",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 136
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "green-stream-usage",
+      "bundle": "green-stream-usage/20261017T130829.078936000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/green-stream-usage.zip",
+      "archiveSha256": "ffd8254d6be2c9a0e30fb4965c0bfb65af9110b8f7d56fe1a9bab627c5a4da11",
+      "manifestSha256": "4024e4c66783dcb1c75458f49f44906867d68026f45d9d88c4ff1e165ec2cdd2",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 56
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "merged-glm",
+      "bundle": "merged-glm/20261017T131327.035666000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/merged-glm.zip",
+      "archiveSha256": "72927c32ebcf143d2bdea0d74d34586d1a2f9a98e533c87fc0aae22e65409fcc",
+      "manifestSha256": "8a1a80e8a4d9e9dad424a053369fe7ebe7298dd89e2bfb69691421f0b09176ad",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 1108
+      },
+      "implementationCommitAtRun": "4729fe0aa9455b4b14e133a8df7d059a81178498"
+    },
+    {
+      "name": "race",
+      "bundle": "race/20261017T131027.093522000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/race.zip",
+      "archiveSha256": "2e5e103b913e0309b4f21b694dcb7fed4496d56f4ab8e7199d84fb0b8ea753c9",
+      "manifestSha256": "aed5a9d5970d2d1293b5ebbded678ca70782c06a32e1bf589620e93de4bbc30e",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 346
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "red-http",
+      "bundle": "red-http/20261017T130622.238296000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/red-http.zip",
+      "archiveSha256": "ea72ab61934d14cec39c3ad6952933cf73452f6dc28d6ac6f412b8e46066b2cf",
+      "manifestSha256": "eafbc69725931a37ec9fced53fe7ba886ff87e989375a4ad0e7dac16f4d1b47f",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "FAIL": 276
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "red-http-protocols",
+      "bundle": "red-http-protocols/20261017T130642.930351000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/red-http-protocols.zip",
+      "archiveSha256": "8cf3f39a009bad86bff27de1dd562be2c7d66ee1415a7d8c20f4bb57285c802e",
+      "manifestSha256": "b14bfe1ebd3910e1c44a27b0caa4fddf4d091ae692cf575f7131985b4919a7fd",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "FAIL": 260
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "red-messages-error-type",
+      "bundle": "red-messages-error-type/20261017T130920.813792000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/red-messages-error-type.zip",
+      "archiveSha256": "4402303ca0ec0fca22abe26c20c3d2f8c7a28b3b5ba30664dd0e70cb8548470d",
+      "manifestSha256": "a22e44b3f18a9b372688c71f1ca17d026f498f8a848b8a315b968aa79e1606ef",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "FAIL": 12
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "red-messages-ttl",
+      "bundle": "red-messages-ttl/20261017T131254.109421000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/red-messages-ttl.zip",
+      "archiveSha256": "58c6526bc08103ea3c168c7cb1948383b3cdf42fcdfc818ee4fe2977f321e6de",
+      "manifestSha256": "4a9b0890ebc7002fba1df596a27d811b3114942b7680391e926474d2326b672d",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "FAIL": 14
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "red-stream-usage",
+      "bundle": "red-stream-usage/20261017T130756.049513000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/red-stream-usage.zip",
+      "archiveSha256": "456536382a0019aa72cdce0ba6fadc6a00782ed8fdcf3ee58f006b896b0282c7",
+      "manifestSha256": "e2d96b7fd30408e8814127e2397dc9d8c0d369c966e483cac4e9d1eb99bf0c17",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "FAIL": 56
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "red-stream-usage-valid",
+      "bundle": "red-stream-usage-valid/20261017T130808.170225000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/red-stream-usage-valid.zip",
+      "archiveSha256": "e560fc5a66bb1d0dfe6da25c60c249b71c2e74647c8f720e12cdb2403081fe96",
+      "manifestSha256": "b4a85d1bbab20f20608ab27c9d0ba3429b48c24ee96af32682aad1c88c635a4f",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "FAIL": 24,
+        "PASS": 32
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "regressions",
+      "bundle": "regressions/20261017T131021.572926000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/regressions.zip",
+      "archiveSha256": "ff1ecd387fb31fa35706d76052e9d7708948b93c393ab0c7f6aab59764d030f3",
+      "manifestSha256": "40b608ddc36987cd02cdef15fb26dec6ff13f66f9a5d0d831d60c58de548c48b",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 2538
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "snapshot",
+      "bundle": "snapshot/20261017T130854.364028000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/snapshot.zip",
+      "archiveSha256": "78ba0f1a819e25fc537a3df6b71019a5d14b8ce036957f3c4fe6efa91020638a",
+      "manifestSha256": "97703a3b9c6f839acb0de60256cb7f5610edfc771acdddbfb19c1bc9aab94f68",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 12
+      },
+      "implementationCommitAtRun": "f0fb0de2658e2d7b92a16a7ea2bf30f9186d42c4"
+    },
+    {
+      "name": "ttl-race",
+      "bundle": "ttl-race/20261017T131331.700301000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/ttl-race.zip",
+      "archiveSha256": "6756334e0aef19a26097fd27a4e889ffb4080d6ef5e515dd140394cac1e4c55f",
+      "manifestSha256": "fa75d634d205a7df5de6975d4904bbf62d57dad0f33d52193bf380ce197bac50",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 12
+      },
+      "implementationCommitAtRun": "4729fe0aa9455b4b14e133a8df7d059a81178498"
+    },
+    {
+      "name": "ttl-race-complete",
+      "bundle": "ttl-race-complete/20261017T131346.127719000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-08/ttl-race-complete.zip",
+      "archiveSha256": "59cfc10490b3403c5796e6c677c9118bd9f06888f80c9505ffa858aa96a73c68",
+      "manifestSha256": "172aa9e2fe3d1d7ed6974b4f20f6a327142eb147cad7777d2781f0123d8dc8bd",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 50
+      },
+      "implementationCommitAtRun": "4729fe0aa9455b4b14e133a8df7d059a81178498"
+    }
+  ],
+  "sources": [
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-08/sources/api-code.md",
+      "sha256": "317210513822244a4bef611d4bd47f145bcc74c8173ea24a160e8171eb9ad3ef"
+    },
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-08/sources/chat-errors.json",
+      "sha256": "44a9b29eb9ecf965efa74ada87bf60b2641b51b075749488c37c1a50805b99b6"
+    },
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-08/sources/responses-errors.json",
+      "sha256": "1ed6bcdba3dcb63755b3b05b555c9ad09f4236448b3e701245096ab842058df1"
+    },
+    {
+      "path": "ai/anthropic.go",
+      "sha256": "3d0a76568fd05c97b7c0ef356c3260c60cfda82604a00a93d0a8d945851a7dce"
+    },
+    {
+      "path": "ai/anthropic_stream.go",
+      "sha256": "e8337ade5f2383c69e79cbb2a1c7eb5c1fba12eb037de98fae6e6483b72050fd"
+    },
+    {
+      "path": "ai/chat.go",
+      "sha256": "d181a044bb6020d90f96145b2640854e95c6d4c2229ef4e55a40bcb574ad0762"
+    },
+    {
+      "path": "ai/e2e/glm_failures_fixture_test.go",
+      "sha256": "f02b9845f3d941c813f23353c501752f4552e320ff5c4d6f32a637ccfac4a57f"
+    },
+    {
+      "path": "ai/e2e/glm_failures_http_test.go",
+      "sha256": "cf317f7ec388362323f9ea03e98337a21e9132008f8bd8c4dc5096db66e12915"
+    },
+    {
+      "path": "ai/e2e/glm_failures_snapshot_test.go",
+      "sha256": "ea17e604160ff1e4056e0dc211e048e97ac7338db3ccd3f9c55d683421478fd9"
+    },
+    {
+      "path": "ai/e2e/glm_failures_stream_test.go",
+      "sha256": "513863a83d8d6d214ad704f4d214a5245a6d308896cd2eba2e5dc11b39162af4"
+    },
+    {
+      "path": "ai/e2e/glm_failures_usage_test.go",
+      "sha256": "fe03178b89e57f662c510f1b8f20dcb9dd4936226b05cc1b9df17f1a7f7c2104"
+    },
+    {
+      "path": "ai/e2e/testdata/glm-failures/http.json",
+      "sha256": "2130a1af24e59c1c9de98093fc9e4258480e014355c9b3fae5dfe126a00c3f94"
+    },
+    {
+      "path": "ai/e2e/testdata/glm-failures/stream.json",
+      "sha256": "db0aecd54ce47e651b94dba1b337e0a44d865edda4a1d060eb43a3b1a673ac73"
+    },
+    {
+      "path": "ai/e2e/testdata/glm-failures/usage.json",
+      "sha256": "2f4901491f77317a5a0b10db8230a907b47da7aa5ed4a6e1ea02f41e63d19573"
+    },
+    {
+      "path": "ai/errors.go",
+      "sha256": "79ae83bcef3888fae2f7c836585e5e1c57934fa9f0654f59cbb12cc219476443"
+    },
+    {
+      "path": "ai/glm_failures.go",
+      "sha256": "395f16d5ecbd3ee82872ff162f427cac43abcf4540205f40c432c99758ca11e7"
+    },
+    {
+      "path": "ai/http_failures.go",
+      "sha256": "c5db1047d1be1dbc3ebb38e1207aca36fba62e2688457f8aba01cfeba33dd516"
+    },
+    {
+      "path": "ai/responses.go",
+      "sha256": "80d4747b7f76cbda492e5fcd068825626897b819912ceda8c558a6b643e2fffb"
+    },
+    {
+      "path": "ai/responses_errors.go",
+      "sha256": "99c7c55cadb66446c050170c9d353b6f44cea0a16c45faeee6ed69e8a8bc5c58"
+    },
+    {
+      "path": "ai/responses_stream.go",
+      "sha256": "1059a6f1b82b6cc6f239a6a644b93962fea53f433b0f4acc6c2af4b3fdfc94e2"
+    },
+    {
+      "path": "ai/responses_usage.go",
+      "sha256": "e95058dab959df4e7b5f81703f3de3f1aff0bc5b22a69264d186e1dc55e6c1ca"
+    },
+    {
+      "path": "ai/retry.go",
+      "sha256": "e3a9592a1b7d4d34dd95051db4378fdb1a00947318571bea195b2edf1c47766a"
+    }
+  ],
+  "sourceLimits": [
+    "Responses own string names are not Chat numeric business codes.",
+    "Messages billing/error objects and one-hour TTL detail are explicitly synthetic compatibility faults; no live error or TTL billing wire claimed.",
+    "Actual success X-Request-Id and Messages usage placement come from protocol exploration pointers.",
+    "Candidate rates are synthetic; no formal pricing or support-matrix assertion."
+  ],
+  "redRunNotes": {
+    "red-http": "Earlier quoted-numeric Responses diagnostic; use red-http-protocols for exact own code set.",
+    "red-stream-usage": "Harness diagnostic: indented JSON in single SSE data line; corrected before valid behavior red.",
+    "ttl-race": "Only native Anthropic cases selected by initial expression; ttl-race-complete includes all intended GLM usage and native cases."
+  }
+}

@@ -63,7 +63,10 @@ Chat/Responses totals; reasoning is inside Output and is not added or priced
 twice. Messages input is already exclusive of separately reported cache.
 Actual Messages initial input/output0 is replaced by message_delta counts;
 absent cache_creation stays partial and no separate reasoning count is
-invented. Explicit cache-read4/cache-creation0 fixtures are synthetic arithmetic
+invented. GLM one-hour cache metadata stays unset even if a synthetic native-shaped
+TTL detail arrives; aggregate CacheWrite uses only the configured rate, without
+Anthropic’s 2×Input premium. Native Anthropic TTL pricing is unchanged.
+Explicit cache-read4/cache-creation0 fixtures are synthetic arithmetic
 variants, not observed cache hits. Responses missing total becomes its known
 sum while reporting stays partial; response.failed usage remains unreported
 under the preexisting contract. Candidate rates are synthetic and do not
@@ -81,10 +84,13 @@ regressions ran; this ticket does not invent post-terminal cancellation cases.
 | Correct own-protocol HTTP red → green | 260 FAIL → 260 PASS |
 | Valid SSE usage/stream red → green | 24 FAIL / 32 PASS → 56 PASS |
 | Messages type-only error red | 12 FAIL before the corresponding fix |
-| Full new public Client slice | 346 PASS |
+| Initial full new public Client slice | 346 PASS |
 | New slice under race | 346 PASS |
 | Affected GLM/native/http/retry/usage/callback regressions | 2,538 PASS |
-| Frozen three-protocol differential | Recorded in index after completion |
+| Frozen three-protocol differential | 608 PASS, zero pending |
+| Messages TTL absence/premium red → green (plus native usage regression) | 14 FAIL → 136 PASS |
+| Latest merged GLM suite (ticket07 integration included) | 1,108 PASS, including all 348 current ticket08 cases |
+| Final GLM usage + native Anthropic usage race | 50 PASS |
 | `go vet ./ai/...`, staged/unstaged whitespace | PASS |
 
 The first stream harness run emitted indented JSON over single data lines, so

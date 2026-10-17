@@ -1,6 +1,6 @@
 # 08: 让三协议的失败、重试和用量可解释
 
-Status: claimed
+Status: resolved
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。
@@ -25,3 +25,36 @@ Blocked by: 04, 06
 
 **依赖理由：** 错误和用量需要三个基础路线已经能通过公共 Client 发起/读取；工具与历史增强不构成本票前置条件。
 
+
+## Answer
+
+Implemented at `c4beed8`; latest ticket07 integration `a5cf147` merged as
+`4729fe0` before the final GLM/race checks. Separate Responses named strings,
+Chat numeric business codes and Messages nested synthetic compatibility error
+objects preserve stable HTTP classification and suppress permanent refusals
+before retry headers. Error messages omit upstream free text; GLM stream
+errors retain HTTP200 and confirmed X-Request-Id, absent IDs stay absent.
+Final post-hook payload/credential snapshots remain fixed across bounded
+pre-stream attempts; stream errors never replay.
+
+All protocol/model usage-presence, cache/reasoning arithmetic and known-usage
+body interruptions pass. Responses missing total uses known sum and remains
+partial; failed-response legacy usage remains unreported. GLM Messages omits
+unverified one-hour metadata and never activates Anthropic TTL pricing;
+aggregate explicitly reported CacheWrite uses only the configured rate.
+
+Evidence: [ticket08 index/README](../evidence/ticket-08/README.md). Initial
+346-case/race suite passed, then parent-review TTL red14→green136; current
+348 ticket08 cases pass inside latest merged GLM1108 PASS. Affected
+GLM/native/http/retry/usage/callback regression2538 PASS; frozen native three
+protocol differential608 PASS, zero pending. Final GLM usage/native TTL race
+50 PASS, vet/whitespace PASS, every completed audit has zero findings.
+Durable audited archives and latest ordinary bundle were copied to root
+`.evidence/barness-ai-glm/ticket-08/` before worktree cleanup.
+
+Sources explicitly distinguish Responses' own strings from the Chat numeric
+table. Messages errors/billing/TTL faults are synthetic and do not claim
+observed service failures. Actual header/usage facts reference each protocol's
+existing real success capture. This ticket read no .env and sent no paid calls.
+Cancellation/resource ordering remains ticket09; [handoff](../evidence/ticket-08/handoff-09.md).
+No built-in catalog, support matrix, formal price or full release claim changed.
