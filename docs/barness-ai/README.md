@@ -2,13 +2,15 @@
 
 > **2026-10-17 目录更新**：当前快照为 `2026-10-17.1`，Hash 为 `sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7`，共 87 个聊天身份、两个图像型号和三个分类型号。新增固定 Jev 1.14 的四位置图片与 Box，实验选择及授权仍必需；[独立正式证据指南](../../ai/live/testdata/jev-formal/README.md)和 [ADR-0031](../adr/0031-jev-model-specific-formal-evidence.md)记录身份、预算及复放。下文 2026-10-13 的整体验收与其他路线行保留为历史，不能据此声明当前 Hash 已完整通过；本次整体验收由票 14 负责。
 
-barness-ai 是 barness 连接多种 LLM Provider 的协议中间件（Go 包 `github.com/tokenbeat-lab/barness/ai`）。本目录汇总发布交付物（spec I10、Testing Decisions §6，工单 24）。
+barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go 包 `github.com/tokenbeat-lab/barness/ai`），支持 chat、image、classifier 三种操作。本目录汇总发布交付物、当前验证结论与历史证据。
 
 使用方式、三种模型操作、绑定与资源策略见包级 README：[English](../../ai/README.md) / [简体中文](../../ai/README.zh-CN.md)。
 
 | 交付物 | 位置 |
 | --- | --- |
 | 公共契约、错误分类与装配说明 | [contract.md](contract.md) |
+| Decisions 分类、拒答、图片授权与撤销 | [decisions.md](decisions.md)；[Jev/Luna 迁移示例](../../ai/examples/classifiermigration/README.md) |
+| 思考档位采样与 full/simple 边界 | [thinking-sampling.md](thinking-sampling.md) |
 | 差异登记（含 D1/D2 与 DeepSeek Responses 扩展） | [differences.md](differences.md)；逐条账本 [`ai/e2e/testdata/pidiff/ledger.json`](../../ai/e2e/testdata/pidiff/ledger.json) |
 | 支持矩阵 | [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)（只经 `go run ./ai/live/cmd/supportmatrix` 合并冒烟报告更新） |
 | 模型/价格快照 | [`ai/release/catalog-snapshot.json`](../../ai/release/catalog-snapshot.json)（内置目录及其哈希；门禁核对它与代码一致） |
@@ -16,10 +18,44 @@ barness-ai 是 barness 连接多种 LLM Provider 的协议中间件（Go 包 `gi
 | 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |
 | 最小示例 | `ai/examples/localassembly`、`hostintegration`（聊天与混合操作）、`toolloop`、`requestid`；独立中文评估见 [`chineseeval`](../../ai/examples/chineseeval/README.md) |
 | 研究条目追溯 | [`ai/release/traceability.json`](../../ai/release/traceability.json)（研究 T/C/H/V/S 条目 → E/P/D 场景 → 证据用例） |
-| 决策 | [ADR-0001…0024](../adr/)；门禁本身见 ADR-0017 |
+| 决策 | [ADR-0001…0029](../adr/)；门禁本身见 ADR-0017 |
 
-当前十组合发布记录见[工单 13](../../.scratch/barness-ai-openai-decisions/issues/13-ten-route-release-gate.md)
-和[发布证据](../../.scratch/barness-ai-openai-decisions/release-evidence/README.md)。
+## 历史完整验收与交付状态（2026-10-13）
+
+正式目录为 `2026-10-13.1`，包含 87 个聊天身份、两个图像型号与两个分类型号；Hash 为
+`sha256:faae843ac61fea6e3ae59bb75165dc97fcf6aa409dabfe0a2f7c9dccbba12029`。
+实现使用唯一核验的 pi-ai 1.1.0 基线。Luna 已纳入正式目录，支持单选、评分、是非、逐题拒答与
+显式授权的内联 PNG/JPEG/WebP；采样配置和 `durationMs` 的公共行为见上表对应契约。
+
+[最近一次完整自动门禁报告](../../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/release-report.md)
+受测源码 `1291d10`，实际退出 0，十项 gate 全部 PASS：
+
+| 核验 | 实际结果 |
+| --- | --- |
+| 完整普通 / race | 各 7,620 PASS、0 FAIL，含 861 固定 pi 差分；pending 0 |
+| 两种 vet、快照与追溯 | PASS；正式目录/价格快照与固定十路线合同一致 |
+| 真实冒烟 | 十组合自身 schema 3 报告符合当前合同；沿用各自原始报告的适用性核验 |
+| 容量与授权撤销 | 普通/race 均验证原混合负载、分类图片负载与六种撤销；资源归零 |
+| 独立中文效果 | Jev/Luna 本轮分别新采集，均 COMPLETE、24 Calls / 24 Attempts、零重试、24/24 正确 |
+| 脱敏审计 | 普通、race、十个 live、两份效果包，共 14 包全部零发现 |
+
+自动门禁 PASS 与最终交付状态分别记录。[历史交付 verdict](../../.scratch/barness-ai-openai-decisions/release-evidence/delivery-verdict.json)
+仍为 `FAIL / completed=false`，[工单 13](../../.scratch/barness-ai-openai-decisions/issues/13-ten-route-release-gate.md)
+仍未完成，ADR-0025/0026 保持 proposed。不安全的 socket ENOBUFS 续写已删除并通过先红后绿回归，
+但原自然压力失败尚无首个偏离字节/帧证据，[缺陷 07](../../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md)
+继续开放，后续门禁通过不解除这一因果证据要求。
+
+[归档清单](../../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/manifest.json)
+与[核验收据](../../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/verification.json)
+保留 22 个完整包、30,619 条 case 记录及全部历史失败。小样本效果不保证生产准确率，估价不等于账单。
+不调用厂商的完整性核验命令：
+
+```sh
+python3 .scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/verify.py
+```
+
+此前十组合门禁（源码 `807ccba`、普通/race 各 7,616 PASS）和原最终拒绝决定，
+继续保留在[工单 13 发布证据](../../.scratch/barness-ai-openai-decisions/release-evidence/README.md)。
 
 ## 发布门禁
 
@@ -123,7 +159,7 @@ Classifier.Images 限制四张、总 decoded 1 MiB，单图 1 MiB、完整请求
 [新容量证据与重放](../../.scratch/barness-ai-openai-decisions/classifier-load-evidence/README.md)。
 
 
-## 支持矩阵
+## 当前支持矩阵
 
 | 组合 | 操作 | 协议 | 状态 |
 | --- | --- | --- | --- |
@@ -132,22 +168,25 @@ Classifier.Images 限制四张、总 decoded 1 MiB，单图 1 MiB、完整请求
 | google-gemini | chat | Google × Gemini Developer API（P03），gemini-3.8-flash | PASS |
 | openai-chat | chat | OpenAI × Chat Completions（P04），gpt-5-mini | PASS（reasoning-history UNSUPPORTED：该协议不返回可回放的推理） |
 | deepseek-responses | chat | DeepSeek × Responses（P05，扩展路径），deepseek-flash | PASS |
-| deepseek-chat | chat | DeepSeek × Chat Completions（P06），deepseek-flash / deepseek-v4-pro | PASS |
+| deepseek-chat | chat | DeepSeek × Chat Completions（P06），deepseek-flash | PASS |
 | typesafe-classifier | classifier | TypeSafe × System One（P07），jev-1.13.0 | PASS（有界上下文探针返回 400；422 形状未确认） |
 | openai-images | image | OpenAI × Images（P08），gpt-image-2.5-sunburst-2026-09-08 | PASS（生成、JSON 编辑与 mask） |
 | google-interactions-image | image | Google × Interactions v1beta（P09），gemini-nano-banana-2.1 | PASS（生成与参考编辑，一参考/一输出、1K/1:1） |
+| openai-decisions | classifier | OpenAI × Decisions（P10），gpt-6-luna | PASS（文本单选、评分、是非、拒答、图片及边界场景） |
 
-2026-10-08 九组合均以自己的独立真实进程重跑并合并完整报告，具体能力、型号与时间见矩阵。
-账户别名为 `local-*@region-permissions-unconfirmed`，如实保留本次未确认的区域与权限属性。
-完整捕获、消费结果、Observer、图像校验及独立中文效果见 [九组合发布证据](../../.scratch/barness-ai-pi-1.0/nine-route-release-evidence/README.md)。
+2026-10-13 十组合均以自己的独立真实进程重跑，并按正式目录合并 schema 3 完整报告，
+具体能力、受测型号与时间见 [`support-matrix.json`](../../ai/live/support-matrix.json)。
+原九组合账户别名为 `local-*@region-permissions-unconfirmed`，Decisions 为 `live-unverified-account`，
+如实保留账户、区域与权限属性未独立核实的边界。完整原始报告见
+[十组合证据](../../.scratch/barness-ai-openai-decisions/release-evidence/README.md)。
 
 在矩阵对应行完整通过之前，不得宣称该组合受支持（spec I10）。
 
-## 2026-10-11 采样实施候选
+## 历史采样实施候选（2026-10-11）
 
-[分档采样配置与 Host 示例](thinking-sampling.md)使用唯一来源核验的 pi 1.1.0 oracle。当前六子集 814 条差分、pending 0，完整正式目录核对通过；采样的公共矩阵、授权、快照、重试和并发已验证。目录版本 2026-10-11.1，包含五处上游价格分层，没有编造采样默认。
+[分档采样配置与 Host 示例](thinking-sampling.md)使用唯一来源核验的 pi 1.1.0 oracle。当时六子集 814 条差分、pending 0，完整正式目录核对通过；采样的公共矩阵、授权、快照、重试和并发已验证。目录版本 2026-10-11.1，包含五处上游价格分层，没有编造采样默认。
 
-当前真实路线与独立中文评估未全部通过；一次普通压力失败另记未确认原因的缺陷，完整发布保持未通过；[实际候选证据](../../.scratch/barness-ai-thinking-sampling/evidence.md)保留全部新成功/失败结果。此前 2026-10-08 的整版 PASS 仅属于其原受测源码及旧目录 hash，不证明当前版本。
+当时真实路线与独立中文评估未全部通过；一次普通压力失败另记未确认原因的缺陷，完整发布未通过；[原候选证据](../../.scratch/barness-ai-thinking-sampling/evidence.md)保留全部成功/失败结果。2026-10-13 的当前自动门禁结论见本文开头；历史 PASS/FAIL 仍只属于各自原受测源码与目录 hash。
 
 ## 统一图片 Host 示例（工单 10，受控验证）
 

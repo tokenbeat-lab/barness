@@ -14,7 +14,7 @@
 - **Coding agent**：修改本模块前需要先掌握不变量、目录结构、约定与测试命令（见
   [写给 coding agent](#写给-coding-agent)）。
 
-权威来源的优先级依次为：[1.0 升级 spec](../.scratch/barness-ai-pi-1.0/spec.md) 及其基础 spec、[ADR](../docs/adr/)、包文档（`go doc ./ai`）。spec 描述目标，本文的支持声明以实际目录和各路线自身的验收证据为准。术语定义见 [GLOSSARY.md](../GLOSSARY.md)。
+设计要求见[模型操作 spec](../.scratch/barness-ai-pi-1.0/spec.md)、[分档采样 spec](../.scratch/barness-ai-thinking-sampling/spec.md)、[Decisions spec](../.scratch/barness-ai-openai-decisions/spec.md) 与 [ADR](../docs/adr/)。本文 API 以当前实现（`go doc ./ai`）为准，支持声明依据正式目录和各路线自身的验收证据。术语定义见 [GLOSSARY.md](../GLOSSARY.md)。
 
 ## 模型操作
 
@@ -55,9 +55,20 @@
 | image | OpenAI × Images，gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS（生成、JSON 编辑与 mask） |
 | image | Google × Interactions v1beta，gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS（生成与参考编辑，1K / 1:1） |
 
-十组合已在 **2026-10-13** 的正式目录与 schema 3 下各自重跑。完整发布结论还须离线/race/容量/效果证据，以 [`live/support-matrix.json`](live/support-matrix.json) 为准。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
+十组合已在 **2026-10-13** 的正式目录 `2026-10-13.1` 与 schema 3 下各自重跑，路线状态见 [`live/support-matrix.json`](live/support-matrix.json)。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
 
 两条原生图像路线与 DeepSeek Responses 均登记为扩展路径，其自身证据不计为 pi 差分通过。发布结论与后续离线修复见[发布说明](../docs/barness-ai/README.md)。
+内置目录包含 87 个聊天身份、两个图像型号与三个分类型号；同名型号可以分属不同操作或协议。
+
+### 当前验证与发布状态
+
+[最近一次完整门禁](../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/release-report.md)
+受测源码为 `1291d10`：十项自动门禁全部 PASS，普通/race 各 7,620 用例通过，
+其中固定 pi 差分 861、pending 0。两种 vet、14 份输入审计、容量/授权撤销与 Jev/Luna 独立效果均通过。
+不安全的回环 socket 续写已删除，但历史自然流损坏的根因仍未确认。
+[缺陷 07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) 继续开放，
+[工单 13 的最终交付 verdict](../.scratch/barness-ai-openai-decisions/release-evidence/delivery-verdict.json)
+仍为 FAIL；自动门禁通过不解除该发布阻塞。
 
 ## 快速开始（本地）
 
@@ -115,14 +126,13 @@ asm, err := localassembly.OpenOperations(localassembly.OperationsConfig{
 		},
 		{
 			BindingID: "classifier", Operation: ai.OperationClassifier, Enabled: true,
-			ProviderID: ai.ProviderTypeSafe, API: ai.APITypeSafeSystemOne,
-			Endpoint: "https://api.typesafe.ai", AccountScopeID: "my-typesafe-account",
-			CredentialRef: "typesafe-key", AllowedModels: []string{"jev-1.13.0"},
+			ProviderID: ai.ProviderOpenAI, API: ai.APIOpenAIDecisions,
+			Endpoint: "https://api.openai.com/v1", AccountScopeID: "my-openai-account",
+			CredentialRef: "openai-key", AllowedModels: []string{"gpt-6-luna"},
 		},
 	},
 	Keys: map[string]localassembly.KeySource{
-		"openai-key":   {EnvVar: "BARNESS_OPENAI_KEY"},
-		"typesafe-key": {EnvVar: "BARNESS_TYPESAFE_KEY"},
+		"openai-key": {EnvVar: "BARNESS_OPENAI_KEY"},
 	},
 	Policy: localassembly.MixedPolicy(),
 })
@@ -141,15 +151,20 @@ for _, block := range images.Content {
 }
 
 classified, err := asm.Client.Classify(ctx, asm.Scope(),
-	ai.Target{BindingID: "classifier", ModelID: "jev-1.13.0"},
+	ai.Target{BindingID: "classifier", ModelID: "gpt-6-luna"},
 	ai.ClassifierRequest{
 		State: json.RawMessage(`{"message":"I cannot sign in."}`),
 		Questions: map[string]ai.ClassifierQuestion{
 			"needs_help": ai.BoolQuestion{Instructions: json.RawMessage(`"Does the user need support?"`)},
 		},
-	}, nil)
+	}, ai.OpenAIDecisionsOptions{}) // nil 同样选择协议默认
 if err != nil { return err } // 答案校验失败时仍保留已上报用量
-fmt.Println(classified.Answers["needs_help"].(ai.BoolAnswer).Probability)
+switch answer := classified.Answers["needs_help"].(type) {
+case ai.BoolAnswer:
+	fmt.Println(answer.Probability)
+case ai.RefusalAnswer:
+	fmt.Println("needs_help: refused") // 宿主决定重问或转人工
+}
 ```
 
 OpenAI 无 `ReferenceImages` 时生成，有内联 `ai.Image` 参考图时走 JSON 编辑。
@@ -162,35 +177,42 @@ Google 使用 `OperationImage`、`ProviderGoogle`、`APIGoogleInteractions`，en
 调用固定同步、`store=false`、无续接、输出内联；请求省略 `delivery`（ADR-0023），不保证精确输出数量。
 两条路线均不读取文件、不下载 URL、不接受厂商 file ID。
 
-TypeSafe 分类状态与问题说明支持 JSON 字符串、对象或数组。`ChoiceQuestion` 返回 `ChoiceAnswer`（选项、分布、置信度），
-`ScoreQuestion` 返回 `ScoreAnswer`（期望分值、置信度、可选分布与图例），`BoolQuestion` 返回“是”的概率。
-评分标准按顺序排列，下标从零开始。答案按回调后的最终问题集合整体校验；不合格即拒绝，不重新归一化。
-`TypeSafeOptions{}` 是空选项类型。[中文评估宿主](examples/chineseeval/README.md) 独立报告业务效果；[24/24 合成样本结果](../.scratch/barness-ai-pi-1.0/chinese-evaluation-evidence/README.md) 不代表生产准确率。
+### 分类输入与答案
 
-内置 `gpt-6-luna` classifier 使用 `ProviderOpenAI` / `APIOpenAIDecisions` 与 `OperationClassifier`
-绑定，宿主也可自带目录。支持至少两个候选的单选、2–10 个有序等级的评分与是非题，说明须为 JSON 字符串。
-目录声明 `Input: []ai.Modality{ai.ModalityText}`、`MinChoices: 2` 和
-`DescriptionFormats: []ai.ClassifierDescriptionFormat{ai.ClassifierDescriptionString}`。
-State 字符串转原文，对象/数组转保留数字精度的 compact JSON 文本。
-`nil`、`OpenAIDecisionsOptions{}` 与其非 nil 指针采用相同默认；typed nil 和错协议选项在凭据前拒绝。
+| 内置分类器 | 状态 / 说明格式 | 问题与选项 |
+| --- | --- | --- |
+| TypeSafe `jev-1.13.0` | 仅文本；State 与说明支持 JSON 字符串/对象/数组 | 单选 1–255 个候选；评分 2–10 个有序等级；是非题；`TypeSafeOptions{}` |
+| TypeSafe `jev-1.14.0` | 文本与明确选择的实验 PNG/JPEG；context/State/Instructions/Criteria 四位置 | 单选、评分、是非和 Box；图片/Box 需 `TypeSafeOptions{ExperimentalImages: true}` |
+| OpenAI `gpt-6-luna` | 文本与获授权的内联图片；State 支持 JSON 字符串/对象/数组，说明为字符串 | 单选 2–255 个候选；评分 2–10 个有序等级；是非题；`OpenAIDecisionsOptions{}` |
 
-Decisions 按 Hook 后冻结的最终请求校验答案。合法拒答是 `RefusalAnswer{}`，JSON 仅
-`{"type":"refusal"}`，终态为 stop/nil error；宿主的答案 type switch 须同时处理它与
-`ChoiceAnswer`、`ScoreAnswer`、`BoolAnswer`。混合或全部拒答保留完整名称集并成功结束。
-评分保留原分布与验证后的字符串图例，是非题保留概率，不作阈值判断。
-坏答案使整次 Answers 为空。新增 vendor metadata 可在响应限额内忽略，但已知语义字段、大小写别名、
-重复字段仍严格校验；TypeSafe 的严格 decoder 与有界舍入独立，Decisions 的和与期望容差为 1e-6。
-入口和最终 native 请求都受完整题目及完整请求字节限额约束。基础已报告用量与输入估价在坏答案时保留，
-用量按字段存在性独立记录 complete/partial/unreported；拒答不抹去已报告费用。
-inline PNG/JPEG/WebP 图片须同时开启 classifier 图片子策略、型号图片能力和 Binding.AllowClassifierImages；
-每图 decoded、总 decoded 与含 base64 的完整 JSON 分别受限，Hook 不可扩大权限。
-内置目录已加入 gpt-6-luna；无日期服务 alias 的实际权重不由目录 Hash 固定。[文本证据](../.scratch/barness-ai-openai-decisions/text-choice-evidence/README.md)
-使用合成宿主目录与本地受控 HTTP，不表示厂商真实验收已通过。
-[混合答案证据](../.scratch/barness-ai-openai-decisions/mixed-answer-evidence/README.md)
-保存两个公共入口的 score、predicate、混合/全拒答与损坏响应回放。
+两条路线都使用 `OperationClassifier`，`nil` 选择各自协议默认；typed nil 和错协议选项在凭据前拒绝。
+Decisions 将 State 字符串转原文，对象/数组转保留数字精度的 compact JSON 文本。
+其目录上下文窗口 922,000 来自冻结 pi 元数据；无日期服务 alias 的实际权重不由目录 Hash 固定。
 
-迁移、最终 Hook、错误与实际撤销步骤见 [Decisions 公共契约](../docs/barness-ai/decisions.md)
-及[可执行迁移示例](examples/classifiermigration/README.md)。
+`ChoiceAnswer` 保留选项、分布与置信度，`ScoreAnswer` 保留期望分、分布及验证后的图例，
+`BoolAnswer` 保留“是”的概率。评分等级从零开始。Decisions 的合法拒答为 `RefusalAnswer{}`
+（`{"type":"refusal"}`），终态 stop/nil error；混合或全部拒答仍保留每个问题名。
+宿主显式处理拒答，决定业务阈值、以新逻辑调用重问或转人工。
+答案按 Hook 后冻结的最终请求整体校验；坏答案清空集合，但保留独立有效的已上报用量。
+
+#### 内联分类图片
+
+`ClassifierRequest.Images` 须同时满足三个独立条件：
+
+1. `ResourcePolicy.Classifier.Images` 明确设置正数 `MaxImages` / `MaxTotalImageBytes`。
+2. 型号声明 image 输入、`MaxInputImages` 与允许的 MIME。内置 Luna 最多 128 张 PNG/JPEG/WebP，
+   宿主策略可更小；Jev 1.13 拒绝图片，固定 1.14 仍需实验图片选项。
+3. 可信宿主配置授予 `Binding.AllowClassifierImages: true`。
+
+上例绑定在开启第三项前只允许文本。传入有序的 `ai.Image{Data: base64Data, MimeType: "image/png"}`，
+同时提供必需的 JSON `State`（可为 `{}`）。严格 base64 与图片格式头在不分配像素栅格的情况下校验。
+全局 `MaxImageBytes` 限制每图 decoded 字节，子策略限制总 decoded 字节，
+`MaxRequestBytes` 限制含 base64/data URL 的完整 native JSON。Hook 同样受固定权限与预算约束。
+空 Images 保留纯文本 wire；不支持 URL、路径、file ID 或自动缩放。
+
+最终 Hook、错误与撤销步骤见 [Decisions 公共契约](../docs/barness-ai/decisions.md)
+及[可执行 Jev/Luna 迁移示例](examples/classifiermigration/README.md)。
+[中文评估宿主](examples/chineseeval/README.md) 按路线独立报告业务效果；固定合成任务的 24/24 不保证生产准确率。
 
 ### 统一图片 Host 示例
 
@@ -212,40 +234,22 @@ Host 明确多图搜索关联，按实际方向、尺寸与裁剪转换像素，
 
 ## 核心概念
 
-```
-宿主 ──CallScope + Target + 对应操作的请求/选项──▶ Client
-  1. 入口固定 Operation；校验作用域与输入限额
-  2. 解析 Binding；校验操作、对应类型目录与 AllowedModels
-  3. 校验选项/输入；仅聊天：准备历史与原生状态
-  4. 解析 Credential；固定一致的绑定 + 凭据 + 目录快照
-  5. 回调后冻结请求；每次尝试：准入 → 协议实现 → Provider
-  6. chat：合并事件/消息；unary：读取并校验完整响应
-     → Result / Stream / ImagesResult / ClassifierResult，均附 CallMetadata
-```
-
 | 概念 | Go 类型 | 说明 |
 | --- | --- | --- |
 | 调用作用域 | `CallScope` | `TenantID`、`RequestID` 必填，入口设置 `Operation`。`RequestID` 每个逻辑调用全局唯一；内部重试沿用，新调用换新。它用于归属，不是去重键——见 [`examples/requestid`](examples/requestid)。 |
 | 目标 | `Target` | `BindingID` + `ModelID`。协议、endpoint、账户与 key 来自绑定，从不来自请求。 |
 | 服务绑定 | `Binding` | 固定一种操作、Provider、API、endpoint、账户，以及型号/工具白名单、`Retry`（零值不重试）。`Operation` 零值**仅表示 chat**，未知非空值拒绝；`Enabled` 与 `Version` 仍必填。 |
 | 凭据 | `Credential` | 带版本的快照；`BindingVersion` 必须等于所解析绑定的版本，否则调用失败（`credential_unavailable`/`consistency`，ADR-0003）。key 以 `ai.Secret` 传入，不会出现在任何输出中。 |
-| 请求 | `Request`、`ImagesRequest`、`ClassifierRequest` | 分别为聊天历史/工具、图像提示/参考图、分类状态/问题。可变输入独立复制，unary 先检查已知大小再复制。 |
-| 选项 | `ResponsesOptions`、`AnthropicOptions`、`GeminiOptions`、`ChatOptions` / `SimpleOptions`；`OpenAIImagesOptions`、`GoogleImagesOptions`、`TypeSafeOptions` | 完整选项必须与绑定 API 匹配。`Nullable[T]` 区分未设置、`null` 与零值；图像选项拒绝显式 null。 |
+| 请求 | `Request`、`ImagesRequest`、`ClassifierRequest` | 分别为聊天历史/工具、图像提示/参考图、分类状态/问题/可选图片。可变输入独立复制，unary 先检查已知大小再复制。 |
+| 选项 | `ResponsesOptions`、`AnthropicOptions`、`GeminiOptions`、`ChatOptions` / `SimpleOptions`；`OpenAIImagesOptions`、`GoogleImagesOptions`；`TypeSafeOptions`、`OpenAIDecisionsOptions` | 完整选项必须与绑定 API 匹配。`Nullable[T]` 区分未设置、`null` 与零值；图像选项拒绝显式 null。 |
 | 结果 | `Result`、`ImagesResult`、`ClassifierResult` | 均含 `Metadata`：操作、调用归属、版本、目录哈希、尝试与用量完整性。聊天失败时仍有有效消息；unary 失败时内容/答案为空，已上报用量保留。 |
 | 目录 | `Model`、`ImageModel`、`ClassifierModel` | `Catalog.Lookup` / `ModelsOf` 仅查聊天；图像用 `LookupImage` / `ImageModelsOf`，分类用 `LookupClassifier` / `ClassifierModelsOf`。`Client.Catalog()` 返回独立快照，发现能力不授予调用权限。 |
 
 用不匹配的操作入口调用绑定，会在读取凭据和创建尝试前以 `tenant_denied/capability` 拒绝。同 Provider、同账户的多个操作绑定可以共用凭据引用，授权仍分别执行。
 
-### 入口
+### 回调与流式调用
 
-```go
-res, err := client.Complete(ctx, scope, target, req, opts)        // 完整协议选项
-res, err := client.CompleteSimple(ctx, scope, target, req, simple) // 协议无关选项
-s := client.Stream(ctx, scope, target, req, opts)
-s := client.StreamSimple(ctx, scope, target, req, simple)
-hc := client.WithHooks(hooks) // 可信请求回调；提供全部六个入口
-```
-
+`client.WithHooks(hooks)` 返回提供全部六个入口的 `HookedClient`。
 请求头与 payload 回调每个逻辑调用只执行一次，重试复用冻结后的请求。
 unary 响应回调在成功 HTTP 响应后、读取响应体前执行一次；Gemini 聊天继续不执行响应回调。
 
@@ -302,7 +306,8 @@ unary 的响应读取、解码与输出校验失败属于 `PhaseResponse`。成�
 
 经压力验证、带注释的起点：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`hostintegration.CloudBatchPolicy`。每个数值的依据写在源码注释中，实测数据见 [docs/barness-ai/README.md](../docs/barness-ai/README.md)。
 
-`ResourcePolicy.Image == nil` 禁用图像，`Classifier == nil` 禁用分类。启用的子策略容量必须全部为正，构造时深复制：
+`ResourcePolicy.Image == nil` 禁用图像生成，`Classifier == nil` 禁用分类；
+`Classifier.Images == nil` 独立禁用分类图片输入。启用的子策略容量必须全部为正，构造时深复制：
 图像限制输入/输出数量、单张与总输出字节；分类限制问题数、状态字节与单个问题字节。
 全局请求/输出字节、并发与时限约束三种操作。unary JSON 按 `MaxOutputBytes` 读取，不受仅用于 SSE 的 `MaxFrameBytes` 限制；实际限额同时取协议/型号硬限制。
 
@@ -314,8 +319,8 @@ unary 的响应读取、解码与输出校验失败属于 `PhaseResponse`。成�
 宿主处理类型化结果与错误、业务置信阈值和转人工；记录使用 Observer。重放命令：
 
 ```sh
-BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^TestMixed' -count=1
-go test -race ./ai/e2e -run '^TestMixed' -count=1
+BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^Test(Mixed|ClassifierImagesPressure)' -count=1
+BARNESS_AI_PRESSURE=1 go test -race ./ai/e2e -run '^Test(Mixed|ClassifierImagesPressure)' -count=1
 ```
 
 ### 可观测性、用量与成本
@@ -326,12 +331,23 @@ go test -race ./ai/e2e -run '^TestMixed' -count=1
 Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 只对输入 token 计价。
 观测包含 `Operation` 与用量，不含提示、图片、分类状态或答案。
 
+Decisions 保留包含缓存的完整 `input_tokens` 与已上报输出，规范缓存桶为零，不重复扣费。
+input/output/total/cached/cache-write/reasoning 六项均明确报告（包括零）才为 complete；
+缺失或 null 字段为 partial，整个 usage 缺失/null 为 unreported。无显式 reasoning 时保持未设置。
+损坏或有歧义的 usage 使响应失败并标 unreported；坏答案仍保留独立合法的用量与输入估价。
+内置 Luna 按输入计价：不超过 272000 token 为 $0.10/百万，超过后全部输入为 $0.20/百万；
+输出/缓存不另收费。区域 premium 与账单不由估价核对，详见[用量契约](../docs/barness-ai/contract.md#decisions-用量与估价工单-04)。
+
 ### pi-ai 1.1.0 基线的聊天行为
 
 - 无法解析或非有限的重试等待时间回退为有界、带抖动的指数退避。
 - Responses 按响应报告的服务等级估价，缺失时取选项：flex 为 0.5 倍，priority/fast 为 2 倍（gpt-5.5 为 2.5 倍）。
 - Anthropic 后续增量中的 1 小时缓存写入明细覆盖此前值。
-- Responses/Chat 按具名 → 通用 → canonical 分档 → 调用 → OnPayload 一次浅合并；[完整 Host 示例与 full/simple 边界](../docs/barness-ai/thinking-sampling.md)；1.1.0 整版发布仍待当前真实门禁。
+- Responses/Chat 按具名选项 → 型号通用默认 → canonical 分档默认 → 调用覆盖 → `OnPayload` 一次浅合并。
+  分档使用 `off/minimal/low/medium/high/xhigh/max`；原生 Anthropic/Gemini 忽略两种采样 map。
+  Full 保留原 wire effort，Simple 独立 clamp；采样/Hook 覆盖后不重新选档。内置型号未声明采样默认。
+  见[完整 Host 示例](../docs/barness-ai/thinking-sampling.md)。
+- 最终聊天消息与终结事件带非负整数 `DurationMs`（JSON `durationMs`），从调用建立计至结束，包含 Hook 与重试。
 - Responses 拒绝未完成的工具调用，包括被重复输出索引覆盖的旧块；宿主仍需在执行前校验工具参数。
 
 ## 云端宿主接入
@@ -364,14 +380,14 @@ Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 
 6. **没有环境隐式配置。** 不读取 Provider 环境变量、代理环境变量、凭据文件或默认 endpoint。endpoint 必须为 https，`AllowLoopbackHTTP`（仅测试）除外。
 7. **默认与 pi 一致。** 可观察行为与冻结的 pi-ai `1.1.0` 一致。任何有意差异都必须登记到 [`e2e/testdata/pidiff/ledger.json`](e2e/testdata/pidiff/ledger.json) 与 [differences.md](../docs/barness-ai/differences.md)；`pending` 条目会阻断发布。
 8. **能力按 Provider 确定，而非按协议。** 共享 adapter 不得发送其他 Provider 的字段（如 DeepSeek × Responses 不发送 `store`/`include`/缓存字段）。请求字段从该 Provider 的能力派生。
-9. **Observer 从不影响调用；回调可以使调用失败，但不能放宽**操作、鉴权、目标、模型、原生引用或托管工具。unary 最终输入必须重新校验（ADR-0005）。
+9. **Observer 从不影响调用；回调可以使调用失败，但不能放宽**操作、鉴权、目标、模型、原生引用、托管工具或分类图片权限。unary 最终输入必须重新校验（ADR-0005）。
 10. **工具参数不可执行**，直到对已结束的消息调用 `ValidateToolCall` 通过。
 11. **操作独立授权。** 绑定操作零值只允许聊天，按操作查目录后才读凭据（ADR-0020）。
 12. **unary 输出整体发布。** 所有图片/答案校验后一起交出；任何失败均保留已上报用量并归还许可。
 
 ### 包结构
 
-所有生产代码都在单一的 `ai` 包中（扁平结构，按文件名前缀分组）。按约定，未导出类型不跨组泄漏。
+生产代码位于单一的 `ai` 包，按职责与协议前缀组织文件。
 
 | 领域 | 文件 |
 | --- | --- |
@@ -382,7 +398,7 @@ Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 
 | 历史与原生状态 | `transcript.go`、`history.go`、`replay.go`、`native.go`、`cache_key.go` |
 | 工具 | `tool.go`、`tool_validate.go`、`tool_coerce.go`、`tool_json.go`、`argument_text.go` |
 | 目录 | `catalog*.go`（类型化型号、查询、校验、内置数据、快照与价格） |
-| 用量与成本 | `usage.go`、`estimate.go`、`anthropic_effort.go` |
+| 用量与成本 | `usage.go`、`estimate.go`、各协议 `*_usage.go`；`anthropic_effort.go` 处理托管推理强度 |
 | 回调与可观测性 | `hooks.go`、`hooks_run.go`、`observer.go` |
 | 聊天 adapter 契约 | `adapter.go`（`adapter` 接口与按 `API` 索引的固定 `registry()`）；unary 在 `images.go` / `classifier.go` 按操作与协议显式分派 |
 | OpenAI Responses | `responses*.go`、`openai_sdk.go` |
@@ -397,7 +413,7 @@ Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 
 
 | 目录 | 用途 |
 | --- | --- |
-| `examples/` | `localassembly`、`hostintegration`（聊天/混合操作）、`toolloop`、`requestid`、`chineseeval`（独立业务评估），均有离线 E2E |
+| `examples/` | `localassembly`、`hostintegration`（聊天/混合操作）、`toolloop`、`requestid`、`classifiermigration`、`chineseeval`（独立业务评估），均有离线 E2E |
 | `e2e/` | 针对公共 API、本地受控 Provider 与宿主替身的离线验收测试；fixture 位于 `e2e/testdata/<protocol>/` |
 | `live/` | 真实 API 冒烟（build tag `live`），更新 `support-matrix.json` |
 | `release/` | 发布门禁命令、目录快照、追溯映射 |
@@ -406,7 +422,7 @@ Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 
 
 ### 常见改动
 
-- **新增型号：** 按纳入标准（ADR-0018）更新 `catalog_builtin.go`、`catalog_images.go` 或 `catalog_typesafe.go`，再用 `go run ./ai/release/cmd/releasegate -write-snapshot` 重新生成目录快照并审阅差异。
+- **新增型号：** 按纳入标准（ADR-0018）更新对应 `catalog_*.go` 数据（分类还包括 `catalog_decisions.go`），再用 `go run ./ai/release/cmd/releasegate -write-snapshot` 重新生成目录快照并审阅差异。
 - **在已有协议上新增 Provider：** 新增 `ProviderID` 及其能力集（如 `chat_compat.go` / `responses_capabilities.go`）、`e2e/testdata/` 下的 fixture、live 组合、ADR；pi 没有该路由时还需登记差分账本。
 - **新增协议：** 明确操作、`API`、类型化选项与结果转换，添加 E2E 套件与 ADR。聊天实现 `adapter` / `registry()`；unary 复用共同运行时与显式分派。编码、读取和校验均执行限额，不提前添加注册抽象。
 - **改变可观察行为：** 运行 pi 差分，然后更新账本与 `differences.md`。
@@ -417,9 +433,9 @@ Google 思考 token 计入输出一次，并单独记录为推理量；TypeSafe 
 
 ```sh
 go test ./ai/...                               # 离线 E2E 与包内测试，不访问网络
-go test -race ./ai/...
-BARNESS_AI_PRESSURE=1 go test ./ai/e2e         # 策略压力场景
-BARNESS_AI_PIDIFF=1  go test ./ai/e2e          # 与冻结 pi 的差分
+go test -race -count=1 -timeout=20m ./ai/...
+BARNESS_AI_PRESSURE=1 go test -count=1 ./ai/e2e # 策略压力场景
+BARNESS_AI_PIDIFF=1 go test -count=1 ./ai/e2e   # 与冻结 pi 的差分
 #   需要 Node.js，并先执行：npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node
 
 # 真实冒烟：一个进程只跑一个组合，只持有该组合的 key
@@ -429,8 +445,9 @@ go test -tags live -count=1 ./ai/live
 # 提前向该进程注入 BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT。
 go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # 把冒烟报告合并进支持矩阵
 
-go run ./ai/examples/chineseeval/cmd/chineseeval       # 不联网，生成 NOT_RUN 包
-go run ./ai/examples/chineseeval/cmd/chineseeval -verify <评估包>
+go run ./ai/examples/chineseeval/cmd/chineseeval -route jev  # 不联网，生成 NOT_RUN 包
+go run ./ai/examples/chineseeval/cmd/chineseeval -route luna # 独立的 NOT_RUN 包
+go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -verify <Luna-效果包>
 go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> [-live <bundle-dir>]...
 ```
 
@@ -443,7 +460,9 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-
 | --- | --- |
 | [docs/barness-ai/contract.md](../docs/barness-ai/contract.md) | 公共契约、完整错误表、装配说明 |
 | [docs/barness-ai/differences.md](../docs/barness-ai/differences.md) | 与 pi-ai 的全部差异及处置 |
+| [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | 分类输入、拒答、图片授权、用量与回滚 |
+| [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | 思考分档、合并顺序与 full/simple 边界 |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | 发布交付物、门禁状态、策略实测 |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0024 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0029 |
 | [GLOSSARY.md](../GLOSSARY.md) | 领域术语（租户、服务绑定、逻辑调用、原生续接状态……） |
 | `go doc -all ./ai` | 包与类型文档 |
