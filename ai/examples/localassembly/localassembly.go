@@ -50,6 +50,10 @@ type Config struct {
 	// Version, Enabled, AuthKind and CredentialRef are filled in by Open.
 	Binding ai.Binding
 	Key     KeySource
+	// Catalog is a reviewed Host snapshot. Nil keeps the built-in catalog;
+	// a controlled candidate must be supplied explicitly and is copied by
+	// Client construction. Supplying it does not confer formal support.
+	Catalog *ai.Catalog
 	// Policy is the resource policy; nil uses LocalPolicy.
 	Policy *ai.ResourcePolicy
 	// Transport and AllowLoopbackHTTP are the Client's network assembly
@@ -92,7 +96,7 @@ func Open(cfg Config) (*Assembly, error) {
 		AccountScopeID: b.AccountScopeID, Active: true, APIKey: ai.NewSecret(key),
 	}}
 	client, err := ai.NewClient(ai.Config{
-		Policy: policy, Bindings: store, Credentials: store,
+		Policy: policy, Bindings: store, Credentials: store, Catalog: cfg.Catalog,
 		Transport: cfg.Transport, AllowLoopbackHTTP: cfg.AllowLoopbackHTTP,
 	})
 	if err != nil {

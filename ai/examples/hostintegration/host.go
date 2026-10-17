@@ -71,9 +71,18 @@ var (
 	ErrDownstream = errors.New("hostintegration: downstream send failed")
 )
 
+// ModelClient is the model interface this Host consumes. Both
+// *ai.Client and its trusted *ai.HookedClient satisfy it, so deployments can
+// cap native output budgets without adding another Host or transport layer.
+type ModelClient interface {
+	Stream(context.Context, ai.CallScope, ai.Target, ai.Request, ai.Options) *ai.Stream
+	GenerateImages(context.Context, ai.CallScope, ai.Target, ai.ImagesRequest, ai.ImageOptions) (ai.ImagesResult, error)
+	Classify(context.Context, ai.CallScope, ai.Target, ai.ClassifierRequest, ai.Options) (ai.ClassifierResult, error)
+}
+
 // Host runs turns for authenticated callers.
 type Host struct {
-	client   *ai.Client
+	client   ModelClient
 	sessions Store
 	// newRequestID mints a globally unique RequestID per logical call
 	// (requestid.New in production).
@@ -81,7 +90,7 @@ type Host struct {
 }
 
 // New returns a Host using client, sessions and newRequestID.
-func New(client *ai.Client, sessions Store, newRequestID func() string) *Host {
+func New(client ModelClient, sessions Store, newRequestID func() string) *Host {
 	return &Host{client: client, sessions: sessions, newRequestID: newRequestID}
 }
 

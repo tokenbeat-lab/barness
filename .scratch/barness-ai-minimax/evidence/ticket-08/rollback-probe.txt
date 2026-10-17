@@ -1,0 +1,63 @@
+// Compiled against the exact restored baseline; no MiniMax symbols required.
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"net/http"
+	"os"
+
+	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/examples/localassembly"
+)
+
+type backend struct {
+	api             ai.API
+	model           string
+	reads, requests int
+}
+
+func (b *backend) ResolveBinding(_ context.Context, _ ai.CallScope, id string) (ai.Binding, error) {
+	return ai.Binding{TenantID: "rollback-tenant", BindingID: id, Version: "restore-v1", Enabled: true, ProviderID: ai.ProviderID("minimax-cn"), API: b.api, Endpoint: "https://api.minimax.cn/v1", AuthKind: ai.AuthAPIKey, AccountScopeID: "rollback-account", CredentialRef: "never-read", AllowedModels: []string{b.model}}, nil
+}
+func (b *backend) ResolveCredential(context.Context, ai.CallScope, ai.Binding) (ai.Credential, error) {
+	b.reads++
+	return ai.Credential{}, errors.New("unexpected credential read")
+}
+func (b *backend) RoundTrip(*http.Request) (*http.Response, error) {
+	b.requests++
+	return nil, errors.New("unexpected HTTP")
+}
+func main() {
+	cat := ai.BuiltinCatalog()
+	hash, err := cat.Hash()
+	if err != nil {
+		panic(err)
+	}
+	rows := []map[string]any{}
+	pass := true
+	for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
+		for _, model := range []string{"MiniMax-M3", "MiniMax-M3.1-Flash-Preview"} {
+			_, present := cat.Lookup(ai.ProviderID("minimax-cn"), api, model)
+			b := &backend{api: api, model: model}
+			client, err := ai.NewClient(ai.Config{Policy: localassembly.LocalPolicy(), Bindings: b, Credentials: b, Transport: b})
+			if err != nil {
+				panic(err)
+			}
+			id := "rollback-" + string(api) + "-" + model
+			result, callErr := client.Complete(context.Background(), ai.CallScope{TenantID: "rollback-tenant", RequestID: id}, ai.Target{BindingID: "removed-minimax", ModelID: model}, ai.Request{Messages: []ai.Message{ai.UserText("Controlled rollback probe.")}}, nil)
+			var typed *ai.Error
+			typedOK := errors.As(callErr, &typed)
+			good := !present && typedOK && b.reads == 0 && b.requests == 0 && len(result.Metadata.Attempts) == 0
+			pass = pass && good
+			rows = append(rows, map[string]any{"pass": good, "api": api, "model": model, "catalogIdentityAbsent": !present, "typedError": typed, "credentialReads": b.reads, "httpRequests": b.requests, "attempts": len(result.Metadata.Attempts)})
+		}
+	}
+	if err := json.NewEncoder(os.Stdout).Encode(map[string]any{"pass": pass, "catalogVersion": cat.Version, "catalogHash": hash, "checks": rows}); err != nil {
+		panic(err)
+	}
+	if !pass {
+		os.Exit(1)
+	}
+}

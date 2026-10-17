@@ -1,6 +1,6 @@
 # 08 — Host 文档、ADR 和回滚实现
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Updated: 2026-10-18
 Blocked by: 06
