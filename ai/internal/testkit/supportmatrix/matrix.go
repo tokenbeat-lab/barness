@@ -68,6 +68,7 @@ type Report struct {
 	Expected  []string           `json:"expected"`
 	Scenarios []ScenarioResult   `json:"scenarios"`
 	Decisions *DecisionsEvidence `json:"decisions,omitempty"`
+	GLM       *GLMEvidence       `json:"glm,omitempty"`
 	Jev       *JevEvidence       `json:"jev,omitempty"`
 	// File ownership is supplied by LoadReport, never accepted from JSON.
 	evidenceDir string
@@ -295,6 +296,9 @@ func check(m Matrix, r Report) (int, error) {
 		return 0, err
 	}
 	if err := checkDecisions(r); err != nil {
+		return 0, err
+	}
+	if err := checkGLM(r); err != nil {
 		return 0, err
 	}
 	if err := checkJev(r); err != nil {

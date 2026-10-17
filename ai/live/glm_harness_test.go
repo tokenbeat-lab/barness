@@ -29,6 +29,8 @@ type glmSession struct {
 
 func TestGLMCandidate(t *testing.T) { driveGLMCandidate(t) }
 
+func TestGLMFormal(t *testing.T) { driveGLMCandidate(t) }
+
 func driveGLMCandidate(t *testing.T) {
 	if glmReportState == nil {
 		t.Skip("isolated GLM route not selected")
@@ -46,6 +48,18 @@ func driveGLMCandidate(t *testing.T) {
 			return
 		}
 		cs.Fixture(n, raw)
+	}
+	if os.Getenv("BARNESS_GLM_FORMAL") == "1" {
+		raw, _ := readDecisionsFile("testdata/glm-candidate/sources.json", 2<<20)
+		var src glmSources
+		json.Unmarshal(raw, &src)
+		for _, source := range src.Sources {
+			raw, err := readDecisionsFile("testdata/glm-candidate/"+source.File, 2<<20)
+			if !cs.Check("fixed referenced snapshot copied "+source.File, err == nil, "%v", err) {
+				return
+			}
+			cs.Fixture(source.File, raw)
+		}
 	}
 	if r.Mode != "replay" && (os.Getenv("BARNESS_AI_LIVE") != "1" || glmKey == "") {
 		t.Skip("NOT_RUN: explicit live switch or selected key absent")
@@ -66,6 +80,7 @@ func driveGLMCandidate(t *testing.T) {
 	}
 	if name := os.Getenv("BARNESS_GLM_CONTROLLED"); name != "" && r.Mode != "replay" {
 		r.Mode = "controlled"
+		run.SetVersion("glm_mode", r.Mode)
 		installGLMControlled(rec, name)
 	}
 	rec.next = &glmHTTPGate{next: rec.next}

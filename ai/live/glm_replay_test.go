@@ -5,6 +5,7 @@ package live
 import (
 	"archive/zip"
 	"bytes"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -47,18 +48,54 @@ func TestGLMCaptureReplay(t *testing.T) {
 	}
 	driveGLMCandidate(t)
 }
+func glmFormalSelected() bool { return os.Getenv("BARNESS_GLM_FORMAL") == "1" }
+func glmCaptureIndexPath() string {
+	if glmFormalSelected() {
+		return "testdata/glm-formal/live-captures.json"
+	}
+	return "testdata/glm-candidate/live-captures.json"
+}
+func glmOriginalKind() string {
+	if glmFormalSelected() {
+		return "glm-formal"
+	}
+	return "glm-candidate-only"
+}
+func glmCaptureIndexData() ([]byte, error) {
+	raw, e := readDecisionsFile(glmCaptureIndexPath(), 16384)
+	if e != nil {
+		return nil, e
+	}
+	pin := glmCaptureIndexPin
+	if glmFormalSelected() {
+		data, e := readDecisionsFile("testdata/glm-formal/live-captures.sha256", 128)
+		if e != nil {
+			return nil, e
+		}
+		pin = strings.TrimSpace(string(data))
+		decoded, e := hex.DecodeString(pin)
+		if e != nil || len(decoded) != 32 || len(pin) != 64 {
+			return nil, fmt.Errorf("formal capture index pin invalid")
+		}
+	}
+	if sha256Text(raw) != pin {
+		return nil, fmt.Errorf("fixed capture index missing or changed")
+	}
+	return raw, nil
+}
 func glmReplayArchiveRelative() string {
-	raw, _ := readDecisionsFile("testdata/glm-candidate/live-captures.json", 16384)
+	raw, _ := glmCaptureIndexData()
 	var index glmCaptureIndex
 	json.Unmarshal(raw, &index)
 	return index.Routes[glmReportState.Route].Archive
 }
 func installGLMCaptureReplay(rec *recorder) error {
-	raw, e := readDecisionsFile("testdata/glm-candidate/live-captures.json", 16384)
+	raw, e := glmCaptureIndexData()
 	var index glmCaptureIndex
-	if e != nil || sha256Text(raw) != glmCaptureIndexPin || json.Unmarshal(raw, &index) != nil {
+	if e != nil || json.Unmarshal(raw, &index) != nil || index.Schema != 1 || index.SourceManifestSHA256 != glmSourcePin {
 		return fmt.Errorf("fixed capture index missing or changed")
 	}
+	rawIndex := append([]byte(nil), raw...)
 	entry, ok := index.Routes[glmReportState.Route]
 	if !ok {
 		return fmt.Errorf("unknown capture route")
@@ -102,7 +139,7 @@ func installGLMCaptureReplay(rec *recorder) error {
 	}
 	reportRaw := files[entry.ReportPath]
 	var original glmReport
-	if sha256Text(reportRaw) != entry.ReportSHA256 || json.Unmarshal(reportRaw, &original) != nil || original.Mode != "live" || original.Kind != "glm-candidate-only" || !original.Complete || original.Outcome != "PASS" || original.Route != glmReportState.Route || original.GitCommit != index.OriginalLiveSourceCommit || original.CatalogHash != glmReportState.CatalogHash || len(original.Scenarios) != 22 {
+	if sha256Text(reportRaw) != entry.ReportSHA256 || json.Unmarshal(reportRaw, &original) != nil || original.Mode != "live" || original.Kind != glmOriginalKind() || !original.Complete || !original.AuditPassed || original.SourceManifestHash != glmSourcePin || original.Outcome != "PASS" || original.Route != glmReportState.Route || original.GitCommit != index.OriginalLiveSourceCommit || original.CatalogHash != glmReportState.CatalogHash || len(original.Scenarios) != 22 {
 		return fmt.Errorf("original live authority does not match replay")
 	}
 	state := &glmCaptureReplay{calls: map[string]glmReplayCall{}, wireMatched: map[string]bool{}, ack: make(chan struct{}, 1)}
@@ -129,7 +166,11 @@ func installGLMCaptureReplay(rec *recorder) error {
 	glmReportState.OriginalLiveGitCommit = original.GitCommit
 	glmReportState.OriginalLiveReportSHA256 = entry.ReportSHA256
 	glmReportState.CaptureArchiveSHA256 = entry.ArchiveSHA256
-	return run.Record("capture-replay-source", map[string]any{"captureIndexSHA256": glmCaptureIndexPin, "archiveSHA256": entry.ArchiveSHA256, "originalLiveReportSHA256": entry.ReportSHA256, "originalLiveGitCommit": original.GitCommit, "networkRequests": 0, "normalization": "only exact Host request/attempt ID and local clock/duration paths; all upstream IDs/signatures/payload data preserved"})
+	pinPath := "ai/live/glm_replay_test.go:glmCaptureIndexPin"
+	if glmFormalSelected() {
+		pinPath = "ai/live/testdata/glm-formal/live-captures.sha256"
+	}
+	return run.Record("capture-replay-source", map[string]any{"captureIndexPinPath": pinPath, "captureIndexPinGitCommit": glmReportState.GitCommit, "captureIndexSchema": index.Schema, "captureIndexSHA256": sha256Text(rawIndex), "archiveSHA256": entry.ArchiveSHA256, "originalLiveReportSHA256": entry.ReportSHA256, "originalLiveGitCommit": original.GitCommit, "networkRequests": 0, "normalization": "only exact Host request/attempt ID and local clock/duration paths; all upstream IDs/signatures/payload data preserved"})
 }
 
 func (s *glmCaptureReplay) RoundTrip(req *http.Request) (*http.Response, error) {

@@ -781,6 +781,507 @@
           "lastPassedAt": "2026-10-17T07:48:36.445154Z"
         }
       ]
+    },
+    {
+      "combo": "zhipu-chat",
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "openai-completions",
+      "model": "glm-5.3",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+      "accountAlias": "local-glm@cn-standard-endpoint",
+      "lastRunAt": "2026-10-17T14:27:55.608017Z",
+      "allPassedAt": "2026-10-17T14:27:55.608017Z",
+      "capabilities": [
+        {
+          "id": "glm-5.3/full-stream",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/full-complete",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/simple-stream",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/simple-complete",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/tool-call",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/tool-result",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/native-history",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/recovery",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/control-temperature",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.3/control-usage",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/full-stream",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/full-complete",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/simple-stream",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/simple-complete",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/tool-call",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/tool-result",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/native-history",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/cancel",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/recovery",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/control-temperature",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        },
+        {
+          "id": "glm-5.2/control-usage",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:27:55.608017Z",
+          "lastPassedAt": "2026-10-17T14:27:55.608017Z"
+        }
+      ]
+    },
+    {
+      "combo": "zhipu-responses",
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "openai-responses",
+      "model": "glm-5.3",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+      "accountAlias": "local-glm@cn-standard-endpoint",
+      "lastRunAt": "2026-10-17T14:29:55.208513Z",
+      "allPassedAt": "2026-10-17T14:29:55.208513Z",
+      "capabilities": [
+        {
+          "id": "glm-5.3/full-stream",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/full-complete",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/simple-stream",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/simple-complete",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/tool-call",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/tool-result",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/native-history",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/recovery",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/control-low",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.3/control-max",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/full-stream",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/full-complete",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/simple-stream",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/simple-complete",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/tool-call",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/tool-result",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/native-history",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/cancel",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/recovery",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/control-low",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        },
+        {
+          "id": "glm-5.2/control-max",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:29:55.208513Z",
+          "lastPassedAt": "2026-10-17T14:29:55.208513Z"
+        }
+      ]
+    },
+    {
+      "combo": "zhipu-messages",
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "anthropic-messages",
+      "model": "glm-5.3",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "accountAlias": "local-glm@cn-standard-endpoint",
+      "lastRunAt": "2026-10-17T14:31:45.765019Z",
+      "allPassedAt": "2026-10-17T14:31:45.765019Z",
+      "capabilities": [
+        {
+          "id": "glm-5.3/full-stream",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/full-complete",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/simple-stream",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/simple-complete",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/tool-call",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/tool-result",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/native-history",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/recovery",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/control-unsigned",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.3/control-auto",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/full-stream",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/full-complete",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/simple-stream",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/simple-complete",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/tool-call",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/tool-result",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/native-history",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/cancel",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/recovery",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/control-unsigned",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        },
+        {
+          "id": "glm-5.2/control-default",
+          "model": "glm-5.2",
+          "outcome": "PASS",
+          "lastRunAt": "2026-10-17T14:31:45.765019Z",
+          "lastPassedAt": "2026-10-17T14:31:45.765019Z"
+        }
+      ]
     }
   ]
 }

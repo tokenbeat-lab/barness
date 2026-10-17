@@ -13,15 +13,25 @@ import (
 	"time"
 )
 
-func TestGLMCaptureReplayProcess(t *testing.T) {
+func TestGLMCaptureReplayProcess(t *testing.T)       { driveGLMCaptureReplayProcess(t, false) }
+func TestGLMFormalCaptureReplayProcess(t *testing.T) { driveGLMCaptureReplayProcess(t, true) }
+func driveGLMCaptureReplayProcess(t *testing.T, formal bool) {
 	var index struct {
 		Routes map[string]struct{ Archive string }
 	}
-	raw, e := os.ReadFile("testdata/glm-candidate/live-captures.json")
+	indexPath := "testdata/glm-candidate/live-captures.json"
+	if formal {
+		indexPath = "testdata/glm-formal/live-captures.json"
+	}
+	raw, e := os.ReadFile(indexPath)
 	if e != nil || json.Unmarshal(raw, &index) != nil {
 		t.Fatal("fixed capture index unavailable")
 	}
-	for _, name := range []string{"chat", "responses", "messages", "missing", "mutated", "wrong-route", "credential", "narrowed", "provider-id", "native-signature"} {
+	names := []string{"chat", "responses", "messages", "missing", "mutated", "wrong-route", "credential", "narrowed", "provider-id", "native-signature"}
+	if formal {
+		names = append(names, "index-mutated")
+	}
+	for _, name := range names {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "GLM11-replay-process-"+name)
 			route := name
@@ -47,6 +57,9 @@ func TestGLMCaptureReplayProcess(t *testing.T) {
 				route = "chat"
 			}
 			env := []string{"BARNESS_AI_LIVE=0", "BARNESS_GLM_ROUTE=" + route, "BARNESS_GLM_REPLAY_ARCHIVE=" + archive, "BARNESS_AI_EVIDENCE_DIR=" + base, "BARNESS_GLM_REPLAY_TESTCASE=" + name}
+			if formal {
+				env = append(env, "BARNESS_GLM_FORMAL=1")
+			}
 			if name == "credential" {
 				env = append(env, "BARNESS_GLM_KEY=forbidden-synthetic-replay-credential")
 			}
@@ -62,6 +75,24 @@ func TestGLMCaptureReplayProcess(t *testing.T) {
 			defer cancel()
 			cmd := exec.CommandContext(ctx, exe, "-test.run="+entry, "-test.timeout=50s")
 			cwd, _ := os.Getwd()
+			if name == "index-mutated" {
+				inputs := filepath.Join(base, "inputs")
+				for _, source := range []string{"glm-candidate", "glm-formal"} {
+					if e := os.MkdirAll(filepath.Join(inputs, "testdata", source), 0755); e != nil {
+						t.Fatal(e)
+					}
+					if e := os.CopyFS(filepath.Join(inputs, "testdata", source), os.DirFS(filepath.Join("testdata", source))); e != nil {
+						t.Fatal(e)
+					}
+				}
+				p := filepath.Join(inputs, "testdata/glm-formal/live-captures.json")
+				raw, e := os.ReadFile(p)
+				if e != nil {
+					t.Fatal(e)
+				}
+				os.WriteFile(p, append(raw, ' '), 0600)
+				cwd = inputs
+			}
 			cmd.Dir = cwd
 			cmd.Env = env
 			output, err := cmd.CombinedOutput()

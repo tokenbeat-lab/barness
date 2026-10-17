@@ -147,7 +147,7 @@ func initializeGLM() {
 		if v == "" {
 			continue
 		}
-		if strings.HasPrefix(n, envKeyBase) || n == envCombo || n == "BARNESS_MM_ROUTE" || strings.HasSuffix(n, "_BASE_URL") || n == "BARNESS_AI_LIVE_ENDPOINT" || n == "OPENAI_API_BASE" {
+		if strings.HasPrefix(n, envKeyBase) || n == envCombo || n == "BARNESS_MM_ROUTE" || strings.HasSuffix(n, "_BASE_URL") || n == "BARNESS_AI_LIVE_PROXY" || n == "BARNESS_AI_LIVE_ENDPOINT" || n == "OPENAI_API_BASE" {
 			glmConfigError = "mixed route, credential or endpoint override forbidden"
 		}
 		if n != "BARNESS_GLM_KEY" && (strings.HasSuffix(n, "_KEY") || strings.HasSuffix(n, "_TOKEN") || strings.HasSuffix(n, "_SECRET")) {
@@ -185,11 +185,19 @@ func initializeGLM() {
 		glmConfigError = "fixed six-candidate/22-call identity set required"
 		return
 	}
+	if os.Getenv("BARNESS_GLM_FORMAL") == "1" {
+		if err := selectGLMFormalCatalog(); err != nil {
+			glmConfigError = err.Error()
+			return
+		}
+	}
 	r.CatalogVersion = glmCandidateCatalog.Version
 	r.CatalogHash, _ = glmCandidateCatalog.Hash()
 	run.SetVersion("model_catalog_version", r.CatalogVersion)
 	run.SetVersion("model_catalog_hash", r.CatalogHash)
 	run.SetVersion("glm_source_manifest_hash", glmSourcePin)
+	run.SetVersion("glm_kind", r.Kind)
+	run.SetVersion("glm_mode", r.Mode)
 	run.SetVersion("live_combo", glmSelected.name)
 	run.SetVersion("live_sdk", r.SDK)
 	for _, sc := range glmFixedPlan.Routes[route] {

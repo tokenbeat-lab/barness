@@ -11,6 +11,9 @@ import (
 )
 
 func verifyLiveManifest(dir string, r supportmatrix.Report) error {
+	if len(supportmatrix.GLMExpected(r.Combo)) > 0 {
+		return supportmatrix.VerifyGLMReport(r)
+	}
 	if r.Combo == supportmatrix.JevFormalCombo {
 		return supportmatrix.VerifyJevReport(r, true)
 	}

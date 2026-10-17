@@ -1,0 +1,7 @@
+# Formal GLM execution plan
+
+Three isolated processes, one each Chat/Responses/Messages; both own models, exactly22 fixed model-qualified cases from immutable candidate plan. Each process hard ceilings:24 Logical Calls,32 reservations/actual HTTP attempts,4096 output tokens/call,120sec/call,1800sec/process including20sec finalization reserve. SDK/binding/automatic scenario retries0. No paid errors or extra probes. Total preregistered maximum72 logical calls/96 attempts; planned66/66. Genuine failures retained; no dynamic ceilings, hidden reruns, narrower model/scenario set or endpoint/proxy fallback.
+
+User explicitly supplied root GLM_KEY for this spec. Host launcher reads only that named field, injects it into a clean one-route process, checks exact-secret absence, and seals immutable ZIP/receipt/SHA256SUMS. Account local-glm and region cn-standard-endpoint are labels; actual account, region, permissions and billing remain unknown. Transport is direct Proxy:nil, fixed China standard endpoints.
+
+Before first paid process: clean source commit, full actual BuiltinCatalog Version/Hash and prices, binary hash, exact tracked source inventory and actual execution-source map frozen. After sealing, tracked capture index is populated without changing measured execution code; replay uses immutable original formal captures with separate Mode=replay and zero paid requests. No candidate relabeling. Supportmatrix updates only the three own new rows; eleven old rows remain historical until ticket13 current-hash renewal.
