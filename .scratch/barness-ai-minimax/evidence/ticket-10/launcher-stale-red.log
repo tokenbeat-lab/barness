@@ -12,7 +12,7 @@ test_unknown_research_consumes_full_identity_cap (__main__.Launcher.test_unknown
 FAIL: test_stale_output_refuses_before_key_or_budget_reservation (__main__.Launcher.test_stale_output_refuses_before_key_or_budget_reservation)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/private/tmp/barness-minimax-10/.scratch/barness-ai-minimax/tools/test_paid.py", line 197, in test_stale_output_refuses_before_key_or_budget_reservation
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 197, in test_stale_output_refuses_before_key_or_budget_reservation
     self.assertFalse((self.root/'.evidence/minimax-launches/mm-research-m3-chat.json').exists())
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: True is not false

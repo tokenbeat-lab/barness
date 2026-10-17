@@ -241,6 +241,26 @@ class Launcher(unittest.TestCase):
         for flag in ('-evaluation-jev','-evaluation-luna','-visual-evaluation-jev','-visual-evaluation-decisions'):
             self.assertIn(flag,view['gate'])
         self.assertFalse(view['credentialsRead'])
+        # Execute the fixed verification sequence twice. The controlled Go
+        # boundary enforces jevformal's real exclusive-output contract, so a
+        # stale creation action cannot hide behind argv-count assertions.
+        log=self.root/'verified-argv.jsonl'
+        (self.bin/'go').write_text('#!'+sys.executable+'\nimport json,sys\nfrom pathlib import Path\n'
+            'args=sys.argv[1:]\n'
+            'with Path('+repr(str(log))+').open("a") as stream:stream.write(json.dumps(args)+"\\n")\n'
+            'if "./ai/live/cmd/jevformal" in args and "-out" in args:\n'
+            '    target=Path(args[args.index("-out")+1]);target.mkdir()\n')
+        for _ in range(2):
+            emitted=json.loads(self.invoke('keyless-plan','out').stdout)
+            for argv in emitted['verify']:
+                expanded=[arg.replace('$REPO',str(self.root)) for arg in argv]
+                completed=subprocess.run(expanded,cwd=self.root,env=self.env,capture_output=True,text=True,timeout=10)
+                self.assertEqual(completed.returncode,0,completed.stderr)
+        actions=[json.loads(line) for line in log.read_text().splitlines()]
+        jev=[a for a in actions if './ai/live/cmd/jevformal' in a]
+        self.assertEqual(len(jev),2)
+        self.assertTrue(all('-verify' in a and '-out' not in a for a in jev))
+        self.assertEqual((base/'support/live-report.json').read_text(),'{}')
 
     def test_stale_output_refuses_before_key_or_budget_reservation(self):
         self.prepared()

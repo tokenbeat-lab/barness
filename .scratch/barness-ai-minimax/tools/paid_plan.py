@@ -125,8 +125,6 @@ def keyless_plan(root,out):
         commands.append([str(out/'chineseeval'),'-route',route,'-verify',str(unique(out/('text-'+route),'manifest.json'))])
     for route in ('jev','decisions'):
         commands.append([str(out/'visualeval'),'-verify',str(out/('visual-'+route)),'-require-live'])
-    commands.append(['go','run','./ai/live/cmd/jevformal','-protocol',str(unique(out/'protocol114','manifest.json')),
-                     '-effects',str(out/'visual-jev'),'-out',str(out/'support'),'-require-live'])
     commands.append(['go','run','./ai/live/cmd/jevformal','-verify',str(out/'support'),'-require-live'])
     for r in ('chat','responses','messages'):
         commands.append(['go','run','./ai/live/cmd/minimaxverify','-formal',

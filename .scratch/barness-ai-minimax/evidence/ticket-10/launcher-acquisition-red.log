@@ -4,7 +4,7 @@ test_selected_process_isolation_redaction_and_directory_restart (__main__.Launch
 FAIL: test_selected_process_isolation_redaction_and_directory_restart (__main__.Launcher.test_selected_process_isolation_redaction_and_directory_restart)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/private/tmp/barness-minimax-10/.scratch/barness-ai-minimax/tools/test_paid.py", line 104, in test_selected_process_isolation_redaction_and_directory_restart
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 104, in test_selected_process_isolation_redaction_and_directory_restart
     self.assertTrue(intent['credentialsRead'])
     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: False is not true

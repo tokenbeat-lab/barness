@@ -4,13 +4,13 @@ test_prepare_check_preview_never_acquire_credentials (__main__.Launcher.test_pre
 FAIL: test_prepare_check_preview_never_acquire_credentials (__main__.Launcher.test_prepare_check_preview_never_acquire_credentials)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/private/tmp/barness-minimax-10/.scratch/barness-ai-minimax/tools/test_paid.py", line 51, in test_prepare_check_preview_never_acquire_credentials
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 51, in test_prepare_check_preview_never_acquire_credentials
     self.invoke('prepare','out')
     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/private/tmp/barness-minimax-10/.scratch/barness-ai-minimax/tools/test_paid.py", line 44, in invoke
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 44, in invoke
     if ok: self.assertEqual(p.returncode,0,p.stdout+p.stderr)
            ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: 2 != 0 : /opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '/private/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/minimax-launcher-gy6jkakq/.scratch/barness-ai-minimax/tools/paid.py': [Errno 2] No such file or directory
+AssertionError: 2 != 0 : /opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '$TMP': [Errno 2] No such file or directory
 
 
 ----------------------------------------------------------------------

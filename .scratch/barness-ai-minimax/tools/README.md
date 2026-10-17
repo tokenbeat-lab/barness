@@ -58,7 +58,9 @@ failed. A pre-existing selected output directory is refused before credentials
 or budget intent so stale reports cannot masquerade as current evidence.
 
 `keyless-plan <collection>` prints verification, atomic merge and actual gate
-argv after all own bundles and the derived Jev support bundle exist. It preserves
+argv after all own bundles and the derived Jev support bundle exist. It verifies
+the existing Jev support bundle and does not recreate it. The printed `$REPO`
+placeholder expands to this checkout when executing the displayed argv. It preserves
 exactly17 own formal inputs (10 generic + Jev1.14 + GLM3 + M3three) and all four
 text/visual effects. The gate argv has neither supplied suite bundle override;
 its public command runs the actual normal/race/vet/load/differential requirements.

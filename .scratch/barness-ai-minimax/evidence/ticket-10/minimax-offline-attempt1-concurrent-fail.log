@@ -1,0 +1,15 @@
+--- FAIL: TestMiniMaxFullRollback (8.17s)
+    minimax_full_rollback_test.go:49: [MM08-full-software-rollback] whole software rollback process succeeds: exit status 1 Traceback (most recent call last):
+          File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-08/rollback.py", line 142, in <module>
+            if __name__=='__main__':main()
+                                    ~~~~^^
+          File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-08/rollback.py", line 138, in main
+            if before!=after:raise RuntimeError('caller/user checkout or untracked work changed')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        RuntimeError: caller/user checkout or untracked work changed
+--- FAIL: TestMiniMaxAdditiveReleaseContract (0.11s)
+    minimax_release_contract_test.go:30: [MM10-release-contract] seventeen own formal support identities: count=17 contract={Name:release-plan Current:false Detail:release acceptance contract incomplete: approved evidence mappings changed}
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T232410.450539000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	41.775s
+FAIL

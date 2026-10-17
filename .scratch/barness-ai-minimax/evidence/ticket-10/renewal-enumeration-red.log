@@ -1,0 +1,22 @@
+test_empty_directory_fanout_and_depth_refuse_before_selector_writes (__main__.Renewal.test_empty_directory_fanout_and_depth_refuse_before_selector_writes) ... FAIL
+
+======================================================================
+FAIL: test_empty_directory_fanout_and_depth_refuse_before_selector_writes (__main__.Renewal.test_empty_directory_fanout_and_depth_refuse_before_selector_writes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_renewal.py", line 148, in test_empty_directory_fanout_and_depth_refuse_before_selector_writes
+    self.runcli(*args,ok=False)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_renewal.py", line 55, in runcli
+    else:self.assertNotEqual(p.returncode,0,p.stderr[-700:]+p.stdout[:200])
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : {
+  "schema": 1,
+  "sourceCommit": "12745cb89ea6ee1a0b051b5bd5df0d9752c2cc03",
+  "selectorSHA256": {
+    "ai/live/testdata/glm-formal/live-captures.json": "00d40f97b708a7e9a35dfcd1e7e8e20ad29680996d51
+
+----------------------------------------------------------------------
+Ran 1 test in 0.764s
+
+FAILED (failures=1)

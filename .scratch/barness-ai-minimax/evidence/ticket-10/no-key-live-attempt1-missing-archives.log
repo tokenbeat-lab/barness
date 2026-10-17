@@ -1,0 +1,4466 @@
+--- FAIL: TestGLMCaptureReplayProcess (0.28s)
+    --- FAIL: TestGLMCaptureReplayProcess/chat (0.02s)
+        glm_replay_process_test.go:101: [GLM11-replay-process-chat] public replay exit: exit status 1: --- FAIL: TestGLMCaptureReplay (0.00s)
+                glm_config_test.go:213: GLM candidate: immutable replay source rejected: immutable archive missing or changed
+            FAIL
+            barness-ai evidence bundle: $TMP
+        glm_replay_process_test.go:114: [GLM11-replay-process-chat] exact own22 replay: {
+              "schema": 1,
+              "kind": "glm-capture-replay-only",
+              "outcome": "FAIL",
+              "complete": false,
+              "auditPassed": true,
+              "route": "chat",
+              "api": "openai-completions",
+              "endpoint": "https://open.bigmodel.cn/api/paas/v4",
+              "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+              "catalogVersion": "glm-six-candidate-2026-10-17.1-sourced-usd",
+              "catalogHash": "sha256:4f30bbd051a9602d06085fd477ff39f7c3b058872a113b14f7a5cfe9ee655aa5",
+              "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+              "gitCommit": "unknown",
+              "mode": "replay",
+              "accountAlias": "local-glm",
+              "regionAlias": "cn-standard-endpoint",
+              "accountVerification": "unknown",
+              "regionVerification": "unknown",
+              "privilegeVerification": "unknown",
+              "startedAt": "2026-10-17T23:24:25.261717Z",
+              "finishedAt": "2026-10-17T23:24:25.264261Z",
+              "processDeadline": "0001-01-01T00:00:00Z",
+              "executionDeadline": "0001-01-01T00:00:00Z",
+              "budget": {
+                "replayAttempts": 0,
+                "plannedCalls": 22,
+                "maxCalls": 24,
+                "maxAttempts": 32,
+                "maxOutputTokens": 4096,
+                "callSeconds": 120,
+                "processSeconds": 1800,
+                "finalizationReserveSeconds": 20,
+                "callsUsed": 0,
+                "attemptsReserved": 0,
+                "httpAttempts": 0,
+                "retries": 0
+              },
+              "expected": [
+                "glm-5.3/full-stream",
+                "glm-5.3/full-complete",
+                "glm-5.3/simple-stream",
+                "glm-5.3/simple-complete",
+                "glm-5.3/tool-call",
+                "glm-5.3/tool-result",
+                "glm-5.3/native-history",
+                "glm-5.3/cancel",
+                "glm-5.3/recovery",
+                "glm-5.3/control-temperature",
+                "glm-5.3/control-usage",
+                "glm-5.2/full-stream",
+                "glm-5.2/full-complete",
+                "glm-5.2/simple-stream",
+                "glm-5.2/simple-complete",
+                "glm-5.2/tool-call",
+                "glm-5.2/tool-result",
+                "glm-5.2/native-history",
+                "glm-5.2/cancel",
+                "glm-5.2/recovery",
+                "glm-5.2/control-temperature",
+                "glm-5.2/control-usage"
+              ],
+              "scenarios": [
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-call",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-result",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/native-history",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/cancel",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/recovery",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-temperature",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-usage",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-call",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-result",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/native-history",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/cancel",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/recovery",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-temperature",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-usage",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                }
+              ],
+              "models": {
+                "glm-5.2": "NOT_RUN",
+                "glm-5.3": "NOT_RUN"
+              },
+              "failure": "immutable replay source rejected: immutable archive missing or changed",
+              "unknown": [
+                "vendor account/region/permissions/billing",
+                "capacity load not tested",
+                "storage/time charges",
+                "acceptance does not establish intensity"
+              ]
+            }
+    --- FAIL: TestGLMCaptureReplayProcess/responses (0.02s)
+        glm_replay_process_test.go:101: [GLM11-replay-process-responses] public replay exit: exit status 1: --- FAIL: TestGLMCaptureReplay (0.00s)
+                glm_config_test.go:213: GLM candidate: immutable replay source rejected: immutable archive missing or changed
+            FAIL
+            barness-ai evidence bundle: $TMP
+        glm_replay_process_test.go:114: [GLM11-replay-process-responses] exact own22 replay: {
+              "schema": 1,
+              "kind": "glm-capture-replay-only",
+              "outcome": "FAIL",
+              "complete": false,
+              "auditPassed": true,
+              "route": "responses",
+              "api": "openai-responses",
+              "endpoint": "https://open.bigmodel.cn/api/v1",
+              "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+              "catalogVersion": "glm-six-candidate-2026-10-17.1-sourced-usd",
+              "catalogHash": "sha256:4f30bbd051a9602d06085fd477ff39f7c3b058872a113b14f7a5cfe9ee655aa5",
+              "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+              "gitCommit": "unknown",
+              "mode": "replay",
+              "accountAlias": "local-glm",
+              "regionAlias": "cn-standard-endpoint",
+              "accountVerification": "unknown",
+              "regionVerification": "unknown",
+              "privilegeVerification": "unknown",
+              "startedAt": "2026-10-17T23:24:25.285736Z",
+              "finishedAt": "2026-10-17T23:24:25.288306Z",
+              "processDeadline": "0001-01-01T00:00:00Z",
+              "executionDeadline": "0001-01-01T00:00:00Z",
+              "budget": {
+                "replayAttempts": 0,
+                "plannedCalls": 22,
+                "maxCalls": 24,
+                "maxAttempts": 32,
+                "maxOutputTokens": 4096,
+                "callSeconds": 120,
+                "processSeconds": 1800,
+                "finalizationReserveSeconds": 20,
+                "callsUsed": 0,
+                "attemptsReserved": 0,
+                "httpAttempts": 0,
+                "retries": 0
+              },
+              "expected": [
+                "glm-5.3/full-stream",
+                "glm-5.3/full-complete",
+                "glm-5.3/simple-stream",
+                "glm-5.3/simple-complete",
+                "glm-5.3/tool-call",
+                "glm-5.3/tool-result",
+                "glm-5.3/native-history",
+                "glm-5.3/cancel",
+                "glm-5.3/recovery",
+                "glm-5.3/control-low",
+                "glm-5.3/control-max",
+                "glm-5.2/full-stream",
+                "glm-5.2/full-complete",
+                "glm-5.2/simple-stream",
+                "glm-5.2/simple-complete",
+                "glm-5.2/tool-call",
+                "glm-5.2/tool-result",
+                "glm-5.2/native-history",
+                "glm-5.2/cancel",
+                "glm-5.2/recovery",
+                "glm-5.2/control-low",
+                "glm-5.2/control-max"
+              ],
+              "scenarios": [
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-call",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-result",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/native-history",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/cancel",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/recovery",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-low",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-max",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-call",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-result",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/native-history",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/cancel",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/recovery",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-low",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-max",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                }
+              ],
+              "models": {
+                "glm-5.2": "NOT_RUN",
+                "glm-5.3": "NOT_RUN"
+              },
+              "failure": "immutable replay source rejected: immutable archive missing or changed",
+              "unknown": [
+                "vendor account/region/permissions/billing",
+                "capacity load not tested",
+                "storage/time charges",
+                "acceptance does not establish intensity"
+              ]
+            }
+    --- FAIL: TestGLMCaptureReplayProcess/messages (0.02s)
+        glm_replay_process_test.go:101: [GLM11-replay-process-messages] public replay exit: exit status 1: --- FAIL: TestGLMCaptureReplay (0.00s)
+                glm_config_test.go:213: GLM candidate: immutable replay source rejected: immutable archive missing or changed
+            FAIL
+            barness-ai evidence bundle: $TMP
+        glm_replay_process_test.go:114: [GLM11-replay-process-messages] exact own22 replay: {
+              "schema": 1,
+              "kind": "glm-capture-replay-only",
+              "outcome": "FAIL",
+              "complete": false,
+              "auditPassed": true,
+              "route": "messages",
+              "api": "anthropic-messages",
+              "endpoint": "https://open.bigmodel.cn/api/anthropic",
+              "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+              "catalogVersion": "glm-six-candidate-2026-10-17.1-sourced-usd",
+              "catalogHash": "sha256:4f30bbd051a9602d06085fd477ff39f7c3b058872a113b14f7a5cfe9ee655aa5",
+              "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+              "gitCommit": "unknown",
+              "mode": "replay",
+              "accountAlias": "local-glm",
+              "regionAlias": "cn-standard-endpoint",
+              "accountVerification": "unknown",
+              "regionVerification": "unknown",
+              "privilegeVerification": "unknown",
+              "startedAt": "2026-10-17T23:24:25.31105Z",
+              "finishedAt": "2026-10-17T23:24:25.313712Z",
+              "processDeadline": "0001-01-01T00:00:00Z",
+              "executionDeadline": "0001-01-01T00:00:00Z",
+              "budget": {
+                "replayAttempts": 0,
+                "plannedCalls": 22,
+                "maxCalls": 24,
+                "maxAttempts": 32,
+                "maxOutputTokens": 4096,
+                "callSeconds": 120,
+                "processSeconds": 1800,
+                "finalizationReserveSeconds": 20,
+                "callsUsed": 0,
+                "attemptsReserved": 0,
+                "httpAttempts": 0,
+                "retries": 0
+              },
+              "expected": [
+                "glm-5.3/full-stream",
+                "glm-5.3/full-complete",
+                "glm-5.3/simple-stream",
+                "glm-5.3/simple-complete",
+                "glm-5.3/tool-call",
+                "glm-5.3/tool-result",
+                "glm-5.3/native-history",
+                "glm-5.3/cancel",
+                "glm-5.3/recovery",
+                "glm-5.3/control-unsigned",
+                "glm-5.3/control-auto",
+                "glm-5.2/full-stream",
+                "glm-5.2/full-complete",
+                "glm-5.2/simple-stream",
+                "glm-5.2/simple-complete",
+                "glm-5.2/tool-call",
+                "glm-5.2/tool-result",
+                "glm-5.2/native-history",
+                "glm-5.2/cancel",
+                "glm-5.2/recovery",
+                "glm-5.2/control-unsigned",
+                "glm-5.2/control-default"
+              ],
+              "scenarios": [
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-call",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-result",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/native-history",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/cancel",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/recovery",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-unsigned",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-auto",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-call",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-result",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/native-history",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/cancel",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/recovery",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-unsigned",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-default",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                }
+              ],
+              "models": {
+                "glm-5.2": "NOT_RUN",
+                "glm-5.3": "NOT_RUN"
+              },
+              "failure": "immutable replay source rejected: immutable archive missing or changed",
+              "unknown": [
+                "vendor account/region/permissions/billing",
+                "capacity load not tested",
+                "storage/time charges",
+                "acceptance does not establish intensity"
+              ]
+            }
+    --- FAIL: TestGLMCaptureReplayProcess/mutated (0.00s)
+        glm_replay_process_test.go:50: open $REPO/.evidence/barness-ai-glm/ticket-11/20261017T135635Z-responses.zip: no such file or directory
+    --- FAIL: TestGLMCaptureReplayProcess/provider-id (0.04s)
+        glm_replay_process_test.go:123: [GLM11-replay-process-provider-id] specific upstream field comparison rejects mutation: comparison did not reject changed upstream field
+    --- FAIL: TestGLMCaptureReplayProcess/native-signature (0.04s)
+        glm_replay_process_test.go:123: [GLM11-replay-process-native-signature] specific upstream field comparison rejects mutation: comparison did not reject changed upstream field
+--- FAIL: TestGLMFormalCaptureReplayProcess (1.23s)
+    --- FAIL: TestGLMFormalCaptureReplayProcess/chat (0.15s)
+        glm_replay_process_test.go:101: [GLM11-replay-process-chat] public replay exit: exit status 1: --- FAIL: TestGLMCaptureReplay (0.00s)
+                glm_config_test.go:213: GLM candidate: immutable replay source rejected: immutable archive missing or changed
+            FAIL
+            barness-ai evidence bundle: $TMP
+        glm_replay_process_test.go:114: [GLM11-replay-process-chat] exact own22 replay: {
+              "schema": 1,
+              "kind": "glm-capture-replay-only",
+              "outcome": "FAIL",
+              "complete": false,
+              "auditPassed": true,
+              "route": "chat",
+              "api": "openai-completions",
+              "endpoint": "https://open.bigmodel.cn/api/paas/v4",
+              "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+              "catalogVersion": "2026-10-17.2",
+              "catalogHash": "sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942",
+              "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+              "gitCommit": "unknown",
+              "mode": "replay",
+              "accountAlias": "local-glm",
+              "regionAlias": "cn-standard-endpoint",
+              "accountVerification": "unknown",
+              "regionVerification": "unknown",
+              "privilegeVerification": "unknown",
+              "startedAt": "2026-10-17T23:24:25.539048Z",
+              "finishedAt": "2026-10-17T23:24:25.550559Z",
+              "processDeadline": "0001-01-01T00:00:00Z",
+              "executionDeadline": "0001-01-01T00:00:00Z",
+              "budget": {
+                "replayAttempts": 0,
+                "plannedCalls": 22,
+                "maxCalls": 24,
+                "maxAttempts": 32,
+                "maxOutputTokens": 4096,
+                "callSeconds": 120,
+                "processSeconds": 1800,
+                "finalizationReserveSeconds": 20,
+                "callsUsed": 0,
+                "attemptsReserved": 0,
+                "httpAttempts": 0,
+                "retries": 0
+              },
+              "expected": [
+                "glm-5.3/full-stream",
+                "glm-5.3/full-complete",
+                "glm-5.3/simple-stream",
+                "glm-5.3/simple-complete",
+                "glm-5.3/tool-call",
+                "glm-5.3/tool-result",
+                "glm-5.3/native-history",
+                "glm-5.3/cancel",
+                "glm-5.3/recovery",
+                "glm-5.3/control-temperature",
+                "glm-5.3/control-usage",
+                "glm-5.2/full-stream",
+                "glm-5.2/full-complete",
+                "glm-5.2/simple-stream",
+                "glm-5.2/simple-complete",
+                "glm-5.2/tool-call",
+                "glm-5.2/tool-result",
+                "glm-5.2/native-history",
+                "glm-5.2/cancel",
+                "glm-5.2/recovery",
+                "glm-5.2/control-temperature",
+                "glm-5.2/control-usage"
+              ],
+              "scenarios": [
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-call",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-result",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/native-history",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/cancel",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/recovery",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-temperature",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-usage",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-call",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-result",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/native-history",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/cancel",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/recovery",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-temperature",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-usage",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                }
+              ],
+              "models": {
+                "glm-5.2": "NOT_RUN",
+                "glm-5.3": "NOT_RUN"
+              },
+              "failure": "immutable replay source rejected: immutable archive missing or changed",
+              "unknown": [
+                "vendor account/region/permissions/billing",
+                "capacity load not tested",
+                "storage/time charges",
+                "acceptance does not establish intensity"
+              ]
+            }
+    --- FAIL: TestGLMFormalCaptureReplayProcess/responses (0.16s)
+        glm_replay_process_test.go:101: [GLM11-replay-process-responses] public replay exit: exit status 1: --- FAIL: TestGLMCaptureReplay (0.01s)
+                glm_config_test.go:213: GLM candidate: immutable replay source rejected: immutable archive missing or changed
+            FAIL
+            barness-ai evidence bundle: $TMP
+        glm_replay_process_test.go:114: [GLM11-replay-process-responses] exact own22 replay: {
+              "schema": 1,
+              "kind": "glm-capture-replay-only",
+              "outcome": "FAIL",
+              "complete": false,
+              "auditPassed": true,
+              "route": "responses",
+              "api": "openai-responses",
+              "endpoint": "https://open.bigmodel.cn/api/v1",
+              "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+              "catalogVersion": "2026-10-17.2",
+              "catalogHash": "sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942",
+              "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+              "gitCommit": "unknown",
+              "mode": "replay",
+              "accountAlias": "local-glm",
+              "regionAlias": "cn-standard-endpoint",
+              "accountVerification": "unknown",
+              "regionVerification": "unknown",
+              "privilegeVerification": "unknown",
+              "startedAt": "2026-10-17T23:24:25.68998Z",
+              "finishedAt": "2026-10-17T23:24:25.711663Z",
+              "processDeadline": "0001-01-01T00:00:00Z",
+              "executionDeadline": "0001-01-01T00:00:00Z",
+              "budget": {
+                "replayAttempts": 0,
+                "plannedCalls": 22,
+                "maxCalls": 24,
+                "maxAttempts": 32,
+                "maxOutputTokens": 4096,
+                "callSeconds": 120,
+                "processSeconds": 1800,
+                "finalizationReserveSeconds": 20,
+                "callsUsed": 0,
+                "attemptsReserved": 0,
+                "httpAttempts": 0,
+                "retries": 0
+              },
+              "expected": [
+                "glm-5.3/full-stream",
+                "glm-5.3/full-complete",
+                "glm-5.3/simple-stream",
+                "glm-5.3/simple-complete",
+                "glm-5.3/tool-call",
+                "glm-5.3/tool-result",
+                "glm-5.3/native-history",
+                "glm-5.3/cancel",
+                "glm-5.3/recovery",
+                "glm-5.3/control-low",
+                "glm-5.3/control-max",
+                "glm-5.2/full-stream",
+                "glm-5.2/full-complete",
+                "glm-5.2/simple-stream",
+                "glm-5.2/simple-complete",
+                "glm-5.2/tool-call",
+                "glm-5.2/tool-result",
+                "glm-5.2/native-history",
+                "glm-5.2/cancel",
+                "glm-5.2/recovery",
+                "glm-5.2/control-low",
+                "glm-5.2/control-max"
+              ],
+              "scenarios": [
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-call",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-result",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/native-history",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/cancel",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/recovery",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-low",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-max",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-call",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-result",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/native-history",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/cancel",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/recovery",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-low",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-max",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                }
+              ],
+              "models": {
+                "glm-5.2": "NOT_RUN",
+                "glm-5.3": "NOT_RUN"
+              },
+              "failure": "immutable replay source rejected: immutable archive missing or changed",
+              "unknown": [
+                "vendor account/region/permissions/billing",
+                "capacity load not tested",
+                "storage/time charges",
+                "acceptance does not establish intensity"
+              ]
+            }
+    --- FAIL: TestGLMFormalCaptureReplayProcess/messages (0.17s)
+        glm_replay_process_test.go:101: [GLM11-replay-process-messages] public replay exit: exit status 1: --- FAIL: TestGLMCaptureReplay (0.00s)
+                glm_config_test.go:213: GLM candidate: immutable replay source rejected: immutable archive missing or changed
+            FAIL
+            barness-ai evidence bundle: $TMP
+        glm_replay_process_test.go:114: [GLM11-replay-process-messages] exact own22 replay: {
+              "schema": 1,
+              "kind": "glm-capture-replay-only",
+              "outcome": "FAIL",
+              "complete": false,
+              "auditPassed": true,
+              "route": "messages",
+              "api": "anthropic-messages",
+              "endpoint": "https://open.bigmodel.cn/api/anthropic",
+              "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+              "catalogVersion": "2026-10-17.2",
+              "catalogHash": "sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942",
+              "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+              "gitCommit": "unknown",
+              "mode": "replay",
+              "accountAlias": "local-glm",
+              "regionAlias": "cn-standard-endpoint",
+              "accountVerification": "unknown",
+              "regionVerification": "unknown",
+              "privilegeVerification": "unknown",
+              "startedAt": "2026-10-17T23:24:25.855176Z",
+              "finishedAt": "2026-10-17T23:24:25.86705Z",
+              "processDeadline": "0001-01-01T00:00:00Z",
+              "executionDeadline": "0001-01-01T00:00:00Z",
+              "budget": {
+                "replayAttempts": 0,
+                "plannedCalls": 22,
+                "maxCalls": 24,
+                "maxAttempts": 32,
+                "maxOutputTokens": 4096,
+                "callSeconds": 120,
+                "processSeconds": 1800,
+                "finalizationReserveSeconds": 20,
+                "callsUsed": 0,
+                "attemptsReserved": 0,
+                "httpAttempts": 0,
+                "retries": 0
+              },
+              "expected": [
+                "glm-5.3/full-stream",
+                "glm-5.3/full-complete",
+                "glm-5.3/simple-stream",
+                "glm-5.3/simple-complete",
+                "glm-5.3/tool-call",
+                "glm-5.3/tool-result",
+                "glm-5.3/native-history",
+                "glm-5.3/cancel",
+                "glm-5.3/recovery",
+                "glm-5.3/control-unsigned",
+                "glm-5.3/control-auto",
+                "glm-5.2/full-stream",
+                "glm-5.2/full-complete",
+                "glm-5.2/simple-stream",
+                "glm-5.2/simple-complete",
+                "glm-5.2/tool-call",
+                "glm-5.2/tool-result",
+                "glm-5.2/native-history",
+                "glm-5.2/cancel",
+                "glm-5.2/recovery",
+                "glm-5.2/control-unsigned",
+                "glm-5.2/control-default"
+              ],
+              "scenarios": [
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/full-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-stream",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/simple-complete",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-call",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/tool-result",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/native-history",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/cancel",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/recovery",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-unsigned",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.3/control-auto",
+                  "model": "glm-5.3",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/full-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-stream",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/simple-complete",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-call",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/tool-result",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/native-history",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/cancel",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/recovery",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-unsigned",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                },
+                {
+                  "replayAttempts": 0,
+                  "id": "glm-5.2/control-default",
+                  "model": "glm-5.2",
+                  "outcome": "NOT_RUN",
+                  "failure": "",
+                  "calls": 0,
+                  "httpAttempts": 0,
+                  "durationMs": 0,
+                  "providerRequestIds": null,
+                  "requestIdSources": null,
+                  "requestId": "",
+                  "usage": {
+                    "input": 0,
+                    "output": 0,
+                    "cacheRead": 0,
+                    "cacheWrite": 0,
+                    "totalTokens": 0,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "usageReporting": null,
+                  "rawUsagePresence": null,
+                  "truncated": false
+                }
+              ],
+              "models": {
+                "glm-5.2": "NOT_RUN",
+                "glm-5.3": "NOT_RUN"
+              },
+              "failure": "immutable replay source rejected: immutable archive missing or changed",
+              "unknown": [
+                "vendor account/region/permissions/billing",
+                "capacity load not tested",
+                "storage/time charges",
+                "acceptance does not establish intensity"
+              ]
+            }
+    --- FAIL: TestGLMFormalCaptureReplayProcess/mutated (0.00s)
+        glm_replay_process_test.go:50: open $REPO/.evidence/barness-ai-glm/ticket-13/formal-current/3485306-responses.zip: no such file or directory
+    --- FAIL: TestGLMFormalCaptureReplayProcess/provider-id (0.16s)
+        glm_replay_process_test.go:123: [GLM11-replay-process-provider-id] specific upstream field comparison rejects mutation: comparison did not reject changed upstream field
+    --- FAIL: TestGLMFormalCaptureReplayProcess/native-signature (0.15s)
+        glm_replay_process_test.go:123: [GLM11-replay-process-native-signature] specific upstream field comparison rejects mutation: comparison did not reject changed upstream field
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T232437.718562000Z
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T232453.343242000Z
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T232411.412238000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	94.490s
+FAIL

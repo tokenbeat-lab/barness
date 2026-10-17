@@ -11,7 +11,7 @@ test_unknown_research_consumes_full_identity_cap (__main__.Launcher.test_unknown
 FAIL: test_timeout_receipt_cannot_borrow_partial_report_counts (__main__.Launcher.test_timeout_receipt_cannot_borrow_partial_report_counts)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/private/tmp/barness-minimax-10/.scratch/barness-ai-minimax/tools/test_paid.py", line 157, in test_timeout_receipt_cannot_borrow_partial_report_counts
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 157, in test_timeout_receipt_cannot_borrow_partial_report_counts
     self.assertEqual((row['state'],row['conservativeCalls'],row['conservativeAttempts']),('UNKNOWN',20,24))
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Tuples differ: ('REPORTED', 3, 3) != ('UNKNOWN', 20, 24)

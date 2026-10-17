@@ -1,0 +1,21 @@
+--- FAIL: TestMiniMaxEvidenceContract (0.58s)
+    --- FAIL: TestMiniMaxEvidenceContract/candidate-mode-spoof (0.03s)
+        minimax_evidence_test.go:141: [MM07-validator-candidate-mode-spoof] tampered or ineligible report refused: accepted candidate-mode-spoof
+        minimax_evidence_test.go:143: [MM07-validator-candidate-mode-spoof] actual-only external origin required: <nil>
+    --- FAIL: TestMiniMaxEvidenceContract/formal-mode-spoof (0.02s)
+        minimax_evidence_test.go:143: [MM07-validator-formal-mode-spoof] actual-only external origin required: MiniMax selected catalog/price snapshot is stale
+--- FAIL: TestMiniMaxReplayProcess (3.63s)
+    --- FAIL: TestMiniMaxReplayProcess/chat (0.70s)
+        minimax_replay_process_test.go:85: [MM07-replay-chat] removed replay provenance cannot forge actual origin: <nil>
+    --- FAIL: TestMiniMaxReplayProcess/responses (0.79s)
+        minimax_replay_process_test.go:85: [MM07-replay-responses] removed replay provenance cannot forge actual origin: <nil>
+    --- FAIL: TestMiniMaxReplayProcess/messages (0.70s)
+        minimax_replay_process_test.go:85: [MM07-replay-messages] removed replay provenance cannot forge actual origin: <nil>
+    --- FAIL: TestMiniMaxReplayProcess/rerun-tool (0.73s)
+        minimax_replay_process_test.go:85: [MM07-replay-rerun-tool] removed replay provenance cannot forge actual origin: <nil>
+    --- FAIL: TestMiniMaxReplayProcess/transient-request (0.72s)
+        minimax_replay_process_test.go:85: [MM07-replay-transient-request] removed replay provenance cannot forge actual origin: <nil>
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T231955.188574000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	4.861s
+FAIL

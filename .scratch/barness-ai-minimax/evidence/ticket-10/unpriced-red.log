@@ -1,0 +1,14 @@
+--- FAIL: TestMiniMaxUnpricedAutomaticWriteCannotSucceed (0.01s)
+    --- FAIL: TestMiniMaxUnpricedAutomaticWriteCannotSucceed/chat-sourced (0.00s)
+        preflight_reject_test.go:223: [MM10-unpriced-write-chat-sourced] errors.Is matches code and phase: want protocol/stream, got <nil>
+        preflight_reject_test.go:236: [MM10-unpriced-write-chat-sourced] stream ends with only an error terminal: got ["start" "text_start#0" "text_delta#0:ok" "text_end#0:ok" "done:stop"]
+    --- FAIL: TestMiniMaxUnpricedAutomaticWriteCannotSucceed/responses-sourced (0.00s)
+        preflight_reject_test.go:223: [MM10-unpriced-write-responses-sourced] errors.Is matches code and phase: want protocol/stream, got <nil>
+        preflight_reject_test.go:236: [MM10-unpriced-write-responses-sourced] stream ends with only an error terminal: got ["start" "done:stop"]
+    --- FAIL: TestMiniMaxUnpricedAutomaticWriteCannotSucceed/messages-sourced (0.00s)
+        preflight_reject_test.go:223: [MM10-unpriced-write-messages-sourced] errors.Is matches code and phase: want protocol/stream, got <nil>
+        preflight_reject_test.go:236: [MM10-unpriced-write-messages-sourced] stream ends with only an error terminal: got ["start" "done:stop"]
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T225935.966727000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.621s
+FAIL

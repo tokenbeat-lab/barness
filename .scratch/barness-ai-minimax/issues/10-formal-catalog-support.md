@@ -1,6 +1,6 @@
 # 10 — M3 自身真实证据、价格目录与增量发布合同
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Updated: 2026-10-18
 Blocked by: 05, 06, 07

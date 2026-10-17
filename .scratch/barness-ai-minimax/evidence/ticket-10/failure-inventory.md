@@ -15,3 +15,8 @@ known actual budgets; failed GLM support projection hiding genuine raw formal
 consumption; research tool failure generating a zero-reservation dependent
 scene, which would prevent later complete candidate verification. These are
 covered before the corresponding auxiliary changes.
+
+Final prepay CLI planning failure: requiring an existing derived Jev support
+bundle while emitting its exclusive creation step makes every fresh printed
+sequence contradictory. Execute the emitted verification sequence twice,
+requiring existing input to remain byte for byte and no creation action.
