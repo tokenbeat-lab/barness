@@ -1,0 +1,21 @@
+{
+  "provenance": "Synthetic stream faults use own-protocol framing. Responses Error/EventError schemas and Chat official finish_reason strings; Messages error envelope is compatibility contract, no observed GLM error wire claim.",
+  "protocols": {
+    "responses": [
+      {"name":"inband","events":[{"type":"error","code":"insufficient_quota","message":"SYNTHETIC_PRIVATE_ECHO"}],"business":"insufficient_quota"},
+      {"name":"error-field","events":[{"type":"response.created","error":{"code":"server_error","message":"SYNTHETIC_PRIVATE_ECHO"}}],"business":"server_error"},
+      {"name":"missing-terminal","events":[{"type":"response.created","response":{"id":"created","status":"in_progress"}}],"code":"protocol"}
+    ],
+    "chat": [
+      {"name":"inband","events":[{"error":{"code":1302,"message":"SYNTHETIC_PRIVATE_ECHO"}}],"business":"1302"},
+      {"name":"missing-terminal","events":[{"choices":[{"delta":{"content":"partial"}}]}],"code":"protocol"},
+      {"name":"sensitive","events":[{"choices":[{"delta":{"content":"partial"},"finish_reason":"sensitive"}]}],"rawStop":"sensitive"},
+      {"name":"network_error","events":[{"choices":[{"delta":{"content":"partial"},"finish_reason":"network_error"}]}],"rawStop":"network_error"},
+      {"name":"model_context_window_exceeded","events":[{"choices":[{"delta":{"content":"partial"},"finish_reason":"model_context_window_exceeded"}]}],"rawStop":"model_context_window_exceeded"}
+    ],
+    "messages": [
+      {"name":"inband","events":[{"type":"error","error":{"type":"overloaded_error","message":"SYNTHETIC_PRIVATE_ECHO","code":1305}}],"business":"1305"},
+      {"name":"missing-terminal","events":[{"type":"message_start","message":{"id":"msg-synthetic","role":"assistant","content":[],"model":"MODEL"}},{"type":"message_delta","delta":{"stop_reason":"end_turn"}}],"code":"protocol"}
+    ]
+  }
+}

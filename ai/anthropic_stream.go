@@ -148,6 +148,9 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 	// pi fails on an error event whatever came before, its data as the
 	// message.
 	if ev.name == "error" {
+		if p.failures.glm != "" {
+			return p.failures.providerError(json.RawMessage(ev.data))
+		}
 		return p.failures.upstream(ev.data)
 	}
 	if !anthropicMessageEvents[ev.name] {
@@ -358,7 +361,12 @@ func (a *anthropicUsage) start(w *anthropicWireUsage) {
 			long = *w.CacheDetails.Ephemeral1h
 		}
 	}
-	a.u.CacheWrite1h = Value(long)
+	// GLM has no verified one-hour cache breakdown or Anthropic TTL price.
+	// Omission remains unset; even a synthetic/native-shaped detail cannot
+	// activate Anthropic's premium in the shared cost estimator.
+	if a.model.Provider != ProviderZhipu {
+		a.u.CacheWrite1h = Value(long)
+	}
 	a.settle()
 }
 
@@ -368,7 +376,7 @@ func (a *anthropicUsage) delta(w *anthropicWireUsage) {
 		a.take(w)
 		// Gateway deltas may supply or correct the TTL breakdown. This is
 		// an authoritative count, not an additional cache write (pi 1.0).
-		if w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
+		if a.model.Provider != ProviderZhipu && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
 			a.u.CacheWrite1h = Value(*w.CacheDetails.Ephemeral1h)
 		}
 		// Anthropic reports reasoning tokens as a subset of output tokens.

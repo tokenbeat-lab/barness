@@ -22,7 +22,9 @@ import (
 // retried, by pi-ai's provider-retry rules: x-should-retry decides first,
 // then a connection failure without a response and HTTP 408, 409, 429 and
 // 5xx are retried, and nothing else. A stream that has started is never
-// replayed. A request that reached the provider but whose response was lost
+// replayed. GLM permanent billing/entitlement/auth/parameter business refusals
+// are excluded before HTTP retry headers (ADR-0006).
+// A request that reached the provider but whose response was lost
 // may be billed twice.
 type RetryPolicy struct {
 	// MaxRetries is how often a retryable failure of the initial request is
@@ -145,6 +147,9 @@ type attemptOutcome struct {
 	// baseline's network-error shape (openai-node's APIConnectionError), the
 	// only failure without a status that is retried.
 	connection bool
+	// permanent is an explicit provider business refusal, even if HTTP status
+	// or retry headers suggest retrying (GLM billing/entitlement errors).
+	permanent bool
 	// sdkMessage is the protocol SDK's own text for an HTTP failure, which
 	// pi quotes when it refuses a requested delay. Already redacted.
 	sdkMessage string
@@ -158,7 +163,7 @@ type attemptOutcome struct {
 // is a recorded extension (ADR-0007; pi retries a 429/5xx whatever its
 // body; ledger PIDIFF-P01-E08-error-body-over-limit).
 func (o attemptOutcome) retryable() bool {
-	if o.failure != nil && o.failure.Code == CodeResourceLimit {
+	if o.permanent || (o.failure != nil && o.failure.Code == CodeResourceLimit) {
 		return false
 	}
 	if o.status == 0 {

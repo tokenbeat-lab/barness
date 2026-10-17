@@ -99,3 +99,22 @@ Google 图像沿用 Usage/Attempt 的单一上报轴。Input 保留厂商总输�
 费率仅计算一次。未知包含关系只估已知部分并标 partial，不推算缓存模态或按张费用。
 即便请求仅图像，也要求明确文本思考费率。带来源的合成变体由工单 14 的实际形状确认。
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## GLM 工单 08：独立协议的缺项与已知总量（2026-10-17）
+
+GLM Responses 缺少 `total_tokens` 时，总量只取已知输入、输出与已拆开的缓存之和，
+完整性仍为 partial；Reasoning 已包含于 Output，不再相加。该扩展仅对 Zhipu 生效，
+不改变原 Provider 的数字语义，也不改变决策三：`response.failed` 的 usage 保持
+unreported，不能据零值声明免费。流读取失败保留此前已合法登记的用量。
+
+Messages 实际 capture 的 `message_start` input/output 为0，随后 `message_delta`
+替换为实际值；cache_read 为显式0，cache_creation 缺失，因此是 partial，
+不是完整零缓存写入证据；实际流没有独立 reasoning token 明细，不补造该计数。
+Chat 按其自身 prompt/cache/reasoning presence 解释，不从 Messages 或 Responses
+推断完整性。合成缓存/零/缺项/断流变体与原始来源边界见
+[工单08证据](../../.scratch/barness-ai-glm/evidence/ticket-08/README.md)。
+
+GLM Messages 不公布未经核验的 `CacheWrite1h`：原始值缺失保持 unset，合成的
+Anthropic TTL 明细也不激活该字段。聚合 CacheWrite 若实际报告则仅使用目录中
+明确配置的缓存写费率，不套用 Anthropic 的 2×Input 一小时溢价。原生 Anthropic
+的既有 TTL 用量和估价保持。该取舍避免把兼容容器当成厂商计费承诺。

@@ -92,6 +92,9 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
+		if ac.model.Provider == ProviderZhipu {
+			failure.HTTPStatus = res.StatusCode
+		}
 		return failure
 	}
 
@@ -100,6 +103,9 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		glm: ac.model.Provider == ProviderZhipu, usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
+		if ac.model.Provider == ProviderZhipu {
+			failure.HTTPStatus = res.StatusCode
+		}
 	}
 	return failure
 }
@@ -254,6 +260,9 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 	case "response.completed", "response.incomplete":
 		return p.finalize(ev.Response)
 	case "error":
+		if p.glm {
+			return p.failures.providerCodeError(ev.Code)
+		}
 		return p.failures.upstream("Error Code " + jsText(ev.JSON.Code, ev.Code) + ": " + jsText(ev.JSON.Message, ev.Message))
 	case "response.failed":
 		return p.failed(ev.Response)
@@ -270,6 +279,9 @@ func (p *responsesParser) failed(r responses.Response) *Error {
 	p.out.rawStopReason(string(r.Status))
 	switch {
 	case r.JSON.Error.Valid():
+		if p.glm {
+			return p.failures.providerCodeError(string(r.Error.Code))
+		}
 		return p.failures.upstream(cmp.Or(string(r.Error.Code), "unknown") + ": " + cmp.Or(r.Error.Message, "no message"))
 	case r.IncompleteDetails.Reason != "":
 		return p.failures.upstream("incomplete: " + string(r.IncompleteDetails.Reason))

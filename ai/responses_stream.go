@@ -29,7 +29,7 @@ func readResponsesStream(ctx context.Context, dec ssestream.Decoder, p responses
 				continue
 			}
 			if raw, reported := openAIStreamError(event.Type, event.Data); reported {
-				return p.failures.upstream(apiErrorText(raw))
+				return p.failures.providerError(raw)
 			}
 		}
 		data := event.Data
