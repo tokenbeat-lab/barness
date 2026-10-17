@@ -32,6 +32,8 @@
 
 - 2026-10-17：[10 已解决](issues/10-glm-pi-differential.md)：冻结 pi1.1.0 全 43 文件路由证明三种中国标准 zhipu API 均为 ExtensionRoute；317 旧决定、3 旧扩展与冻结 pins 保持。自身账本 43 条 / 752 case-path / 420 场景零 pending；公共 GLM 1,733 + DeepSeek Responses 64、适用完整差分 726、来源 5 通过，合并 05 ID 修复后 90 新例 + 5 来源共 95 通过。见[证据索引](evidence/ticket-10/README.md)、[来源](evidence/ticket-10/sources/frozen-source.json)与校验归档；不扩大正式目录/live/矩阵声明。
 
+- 2026-10-17：[11 已解决](issues/11-glm-candidate-live-evidence.md)：六个候选各11/11真实场景PASS，三协议各22call/22HTTP、零重跑，总66；完整来源与固定USD/保守容量快照、原始wire/usage/Observer/343文件inventory及脱敏封存。原始捕获又通过公共Client无Key/无网络精确回放66次，保留全部上游ID/原生签名；normal/race/vet通过。见[原始与回放证据](evidence/ticket-11/README.md)与[12接续](evidence/ticket-11/handoff-12.md)。正式目录/当前Hash重跑及矩阵由12完成。
+
 ## Fog
 
-- 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。
+- 六组合候选真实证据及固定USD来源已取得；12的正式BuiltinCatalog/当前Hash自身重跑和矩阵、13的当前发布门禁与效果仍待完成，不能用候选或离线回放冒充正式发布。
