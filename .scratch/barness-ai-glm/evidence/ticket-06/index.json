@@ -1,0 +1,238 @@
+{
+  "schema": 1,
+  "ticket": "06",
+  "scope": "basic GLM Messages text candidate; no formal live/full support claim",
+  "sourceCommit": "c0efafa3559ebab36a56b45dbe873db8fd57e899",
+  "failureModes": "failure-modes.md",
+  "rawEvidenceRoot": ".evidence/barness-ai-glm/ticket-06",
+  "liveExplorationIndex": "../messages-exploration/index.json",
+  "paidCallsByThisTicket": 0,
+  "sourceFiles": [
+    {
+      "path": "ai/anthropic.go",
+      "sha256": "367c7253b475630b723c33b8891643686664b697f58d8621cb41ba8192da1a4b"
+    },
+    {
+      "path": "ai/anthropic_capabilities.go",
+      "sha256": "aa41b56bfd4adfd0f9c1e2d026b2dfe2fa03d87a48db3f7fdeda4403fff01b57"
+    },
+    {
+      "path": "ai/anthropic_glm.go",
+      "sha256": "5110e88db99d72ae81ad71f7f1c97d4723470cf0605db90f6f62355a2eccc8a9"
+    },
+    {
+      "path": "ai/anthropic_options.go",
+      "sha256": "112ca7895505d9935870a3394d0af07520b4e38e1daab4e1bf5e670685d205ba"
+    },
+    {
+      "path": "ai/e2e/glm_messages_fixture_test.go",
+      "sha256": "74b0006959faaf9dbf65ad24748fd5ccd03b8e56111dfd948589d488e0a5d1a3"
+    },
+    {
+      "path": "ai/e2e/glm_messages_text_test.go",
+      "sha256": "ef2cf0da15511afcda1270e2843b876369ce5e15b4af9e02022418a2457c26e6"
+    },
+    {
+      "path": "ai/e2e/glm_messages_options_test.go",
+      "sha256": "43e51bc2178d54ecc0fad04dc0b3ffe1f5098b7a8dd0767cba9ded5d25701487"
+    },
+    {
+      "path": "ai/e2e/glm_messages_failures_test.go",
+      "sha256": "f4de62c47c789aa7dd8a0cdb9a333f7a0fdad931575c3b970a3928393cfa61b5"
+    },
+    {
+      "path": "ai/internal/testkit/glm/messages.go",
+      "sha256": "61c157ec2cc8a0ab6dc612dc29eef85e27bf77b86b8a830cfd2a699651c8604f"
+    },
+    {
+      "path": "ai/internal/testkit/glm/messages-catalog.json",
+      "sha256": "f644d5900ebde2e66ba526373eb1f30581f3c047962745efb5354de345063c8c"
+    },
+    {
+      "path": "ai/internal/testkit/glm/messages.md",
+      "sha256": "94539c9e2742fdc731e8f1747dc9e1725a874946181418f647501114281e7e6c"
+    },
+    {
+      "path": "docs/adr/0035-barness-ai-zhipu-messages-basic.md",
+      "sha256": "4475ca71e5d8f0dcd04da5fa7bc5bef737526b374f963a3170d16420a9694a71"
+    }
+  ],
+  "bundles": [
+    {
+      "kind": "committed-glm",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/committed-glm/20261017T125847.156909000Z",
+      "manifestSha256": "c61ec9a6b19e6bcd25e0a6e93a651d391977a522b73f78773f01221efd142928",
+      "recordedGitCommit": "c0efafa3559ebab36a56b45dbe873db8fd57e899",
+      "cases": 66,
+      "statuses": {
+        "PASS": 66
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/committed-glm-20261017T125847.156909000Z.zip",
+      "archiveSha256": "65641edec4fdb9caae94c0ab136953f4af2887a91a0bf05446983a058a6f65ff",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    },
+    {
+      "kind": "final-glm",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/final-glm/20261017T125747.022300000Z",
+      "manifestSha256": "f2ba4fd1b4941493135587f0f7dbc53dc25a99581616ee1bac21c4f5e6cb9ac2",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 66,
+      "statuses": {
+        "PASS": 66
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/final-glm-20261017T125747.022300000Z.zip",
+      "archiveSha256": "188c335a74ed6356fcfc5d9f01105f37f7985d39be27d4ed9d742d8d0756b273",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    },
+    {
+      "kind": "green-basic",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/green-basic/20261017T125518.437452000Z",
+      "manifestSha256": "45a1810cb21e445bb87cd3bde772b3866ce92515dfae430885bb93986308a0dc",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 24,
+      "statuses": {
+        "PASS": 24
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/green-basic-20261017T125518.437452000Z.zip",
+      "archiveSha256": "828839b303d6bbcda83f1e6d60930e37fab16c33179ae62db957d79852c70599",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    },
+    {
+      "kind": "green-options",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/green-options/20261017T125619.961037000Z",
+      "manifestSha256": "354b4737d72840c82f4e6eba9c8fdc3ddabfdf678c72bba4d05c5e180348e45c",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 58,
+      "statuses": {
+        "PASS": 58
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/green-options-20261017T125619.961037000Z.zip",
+      "archiveSha256": "7ac2dba2467480c82049e015f1deabff43bb6810ca7dab76fedb723c533dfcc8",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    },
+    {
+      "kind": "native-pidiff",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/native-pidiff/20261017T125804.174099000Z",
+      "manifestSha256": "94d7013ca5930f165e45a6e09ecd74ab10f87aff19508bc98e71e26a305bb55f",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 70,
+      "statuses": {
+        "PASS": 70
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/native-pidiff-20261017T125804.174099000Z.zip",
+      "archiveSha256": "20457d3abd0315c87c9369b03dc0558d7f109c659cc715d4b70a8ebc8b71d779",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    },
+    {
+      "kind": "native-regression",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/native-regression/20261017T125749.745749000Z",
+      "manifestSha256": "b2b405e95334f10ec96799f2a73d4a74ed88e0e7c7010622a5193d088f51edfd",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 104,
+      "statuses": {
+        "PASS": 104
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/native-regression-20261017T125749.745749000Z.zip",
+      "archiveSha256": "1eee927a0d40a3cbdcb2ce42179cab2d7aee33c4318c562f031713a3e8ae09bf",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    },
+    {
+      "kind": "native-runtime",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/native-runtime/20261017T125828.984825000Z",
+      "manifestSha256": "82bffd28acc878959b3412c7df40247a96d3021a23f86d999bf51ae227b84b9e",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 168,
+      "statuses": {
+        "PASS": 168
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/native-runtime-20261017T125828.984825000Z.zip",
+      "archiveSha256": "be39738c8bcfb963c2ad6015c2753f450605a84e3780359352067cd986e17a62",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    },
+    {
+      "kind": "race",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/race/20261017T125811.638886000Z",
+      "manifestSha256": "427233ae35628faeaa652d941f02b0864eb1d9acbacfbce98a898762c38da0c9",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 66,
+      "statuses": {
+        "PASS": 66
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/race-20261017T125811.638886000Z.zip",
+      "archiveSha256": "9839d8527af9168dd75cb76eaa91caed99c8febc1e0fa1897e7dee1479d66b74",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    },
+    {
+      "kind": "red-basic",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/red-basic/20261017T125507.187459000Z",
+      "manifestSha256": "1456a1e6a6210842ed21c1613df975f96f2d3906b48562a65338b7fe837c98c6",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 24,
+      "statuses": {
+        "FAIL": 24
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/red-basic-20261017T125507.187459000Z.zip",
+      "archiveSha256": "7ec04d040daabc99e908267467b862b1a16a7329ed13015d12b06e540006cd7d",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "behavior red-before-implementation"
+    },
+    {
+      "kind": "red-options",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/red-options/20261017T125557.923313000Z",
+      "manifestSha256": "b7ba6f552fd508f42ae6c4aa0698f7a01ed3c7be18048e832a2843d53ae01266",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 34,
+      "statuses": {
+        "FAIL": 32,
+        "PASS": 2
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/red-options-20261017T125557.923313000Z.zip",
+      "archiveSha256": "7ee0a7c6eee85d69ca5a4284dc05c01ac84eedb38846a00c865f53d47b903669",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "behavior red-before-implementation"
+    },
+    {
+      "kind": "terminal",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/terminal/20261017T125658.467163000Z",
+      "manifestSha256": "dce35be8e161e8847cb2b530df2f5b828359afeb055abf8dc78e32f78ae0030e",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 8,
+      "statuses": {
+        "PASS": 6,
+        "FAIL": 2
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/terminal-20261017T125658.467163000Z.zip",
+      "archiveSha256": "5cbf574ccf01abd1297f7e2d6148427ba591706cf5c0f3147736b0329d833017",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "test-harness mutation mismatch; superseded by terminal-fixed"
+    },
+    {
+      "kind": "terminal-fixed",
+      "bundle": ".evidence/barness-ai-glm/ticket-06/terminal-fixed/20261017T125712.707082000Z",
+      "manifestSha256": "922004a140f2dcbc9bc450140472dff7f84d7589e9066db22404c9984023b7c9",
+      "recordedGitCommit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 8,
+      "statuses": {
+        "PASS": 8
+      },
+      "archive": ".evidence/barness-ai-glm/ticket-06/terminal-fixed-20261017T125712.707082000Z.zip",
+      "archiveSha256": "da2f5f9a3e69170442fa6d79adabceae8e67d6114ff7e031808476435aacaa66",
+      "audit": "TestMain unconditionally ran redaction audit; process exit success on valid green bundles",
+      "scope": "offline replay"
+    }
+  ],
+  "checks": {
+    "vet": "go vet ./ai/... PASS",
+    "diff": "git diff --check and git diff --cached --check PASS; .sse whitespace attribute preserves required final empty delimiter",
+    "integrationMerge": "latest codex/barness-ai-glm tip 2acb83f is an ancestor; merge reported already up to date",
+    "temporaryDependencySymlink": "existing locked root oracle dependencies reused for Messages pi diff; worktree symlink removed"
+  }
+}
