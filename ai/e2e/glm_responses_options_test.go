@@ -16,6 +16,8 @@ func TestGLMResponsesEntries(t *testing.T) {
 				name := model + "/" + entry
 				if hooked {
 					name += "/hooks"
+				} else {
+					name += "/plain"
 				}
 				t.Run(name, func(t *testing.T) {
 					ev := run.Case(t, "GLM04-entries-"+name)

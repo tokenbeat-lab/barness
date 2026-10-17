@@ -185,10 +185,11 @@ class Round:
   (self.out/'matrix-after.json').write_bytes(matrix.read_bytes())
   if code!=0:raise SystemExit(code)
 
- def gate(self):
+ def gate(self,text_root=None):
   self.guard()
+  text_root=self.out if text_root is None else text_root
   args=['go','run','./ai/release/cmd/releasegate','-out',self.out/'gate',
-   '-evaluation-jev',c.bundle(self.out/'text-jev'),'-evaluation-luna',c.bundle(self.out/'text-luna'),
+   '-evaluation-jev',c.bundle(text_root/'text-jev'),'-evaluation-luna',c.bundle(text_root/'text-luna'),
    '-visual-evaluation-jev',self.out/'visual-jev','-visual-evaluation-decisions',self.out/'visual-decisions']
   for path in self.live_inputs():args+=['-live',path]
   code=self.execute('releasegate',args,timeout=6600)

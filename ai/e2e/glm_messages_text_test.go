@@ -18,6 +18,8 @@ func TestGLMMessagesText(t *testing.T) {
 				name := sc.Model + "/" + entry
 				if hooked {
 					name += "/hooks"
+				} else {
+					name += "/plain"
 				}
 				t.Run(name, func(t *testing.T) {
 					ev := run.Case(t, "GLM06-text-"+name)

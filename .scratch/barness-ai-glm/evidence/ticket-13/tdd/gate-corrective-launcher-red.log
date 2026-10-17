@@ -1,0 +1,13 @@
+--- FAIL: TestGLMCorrectiveLauncherGuards (0.01s)
+    --- FAIL: TestGLMCorrectiveLauncherGuards/review-denied (0.00s)
+        glm_corrective_launcher_test.go:26: open ../../.scratch/barness-ai-glm/evidence/ticket-13/corrective.py: no such file or directory
+    --- FAIL: TestGLMCorrectiveLauncherGuards/script-drift (0.00s)
+        glm_corrective_launcher_test.go:26: open ../../.scratch/barness-ai-glm/evidence/ticket-13/corrective.py: no such file or directory
+    --- FAIL: TestGLMCorrectiveLauncherGuards/binary-drift (0.00s)
+        glm_corrective_launcher_test.go:26: open ../../.scratch/barness-ai-glm/evidence/ticket-13/corrective.py: no such file or directory
+    --- FAIL: TestGLMCorrectiveLauncherGuards/already-started (0.00s)
+        glm_corrective_launcher_test.go:26: open ../../.scratch/barness-ai-glm/evidence/ticket-13/corrective.py: no such file or directory
+FAIL
+barness-ai evidence bundle: /tmp/barness-glm13-corrective-launcher-red/20261017T165919.204306000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.315s
+FAIL
