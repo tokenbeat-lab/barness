@@ -21,7 +21,7 @@ const requiredGLMItems = `GLM-R01 GLM-R02 GLM-R03 GLM-R04 GLM-R05 GLM-R06 GLM-R0
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "9d784ace89ce030e9f89b042dd0a36807f8a17a9bdd6bd2623e09975a58dfc1d"
+const approvedMappingHash = "e64c3206ec1190d07ff9d4779765a9f0ba5d87a3fe6c16115200be61d2084d47"
 
 // CheckReleasePlan validates the complete fourteen live identities and seven differentials acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified

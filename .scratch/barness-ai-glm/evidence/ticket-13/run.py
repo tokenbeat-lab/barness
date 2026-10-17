@@ -192,9 +192,13 @@ class Round:
    '-visual-evaluation-jev',self.out/'visual-jev','-visual-evaluation-decisions',self.out/'visual-decisions']
   for path in self.live_inputs():args+=['-live',path]
   code=self.execute('releasegate',args,timeout=6600)
+  report=self.out/'gate/release-report.json'
+  available=report.is_file()
+  passed=code==0 and available and c.doc(report).get('pass') is True
   self.guard();c.dump(self.out/'gate-summary.json',dict(exitCode=code,
-   passVerdict=c.doc(self.out/'gate/release-report.json')['pass']))
+   passVerdict=passed,reportAvailable=available))
   if code!=0:raise SystemExit(code)
+  if not passed:raise SystemExit(1)
 
 
 def main():

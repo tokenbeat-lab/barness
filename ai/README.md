@@ -216,30 +216,13 @@ checked without allocating a raster. `MaxImageBytes` bounds each decoded image, 
 bytes, and `MaxRequestBytes` bounds the complete native JSON including base64/data URLs. Hooks obey the same pinned
 permission and budgets. Empty images retain the text-only wire; no URLs, paths, file IDs or automatic resize.
 
-See [the Decisions contract](../docs/barness-ai/decisions.md) and [executable Jev/Luna migration
-example](examples/classifiermigration/README.md) for final hook validation, errors and rollback. The [Chinese evaluation
-host](examples/chineseeval/README.md) reports each route's business results separately; 24/24 on its fixed synthetic
-task is not a production accuracy guarantee.
+See [the Decisions contract](../docs/barness-ai/decisions.md) and [executable Jev/Luna migration example](examples/classifiermigration/README.md) for final hook validation, errors and rollback. The [Chinese evaluation host](examples/chineseeval/README.md) reports each route's business results separately; 24/24 on its fixed synthetic task is not a production accuracy guarantee.
 
 ### Unified image Host example
 
-Run `go run ./ai/examples/classifierimages` for a credential-free, controlled HTTP replay through both public
-Classify entries. The [complete Host example](examples/classifierimages/README.md) uses the same PNG/JPEG context
-request with only Target/Options changed, then shows explicit reuse, scoped images, visual legends, Box, refusal,
-revocation and replayable audited evidence. Fixed built-in `jev-1.14.0` supports experimental image locations and Box;
-finite image policies, model/Binding authorization and `TypeSafeOptions{ExperimentalImages: true}` remain required.
-Decisions rejects local images and Box before credential access. Controlled PASS is not real-service or quality PASS;
-ADR-0030 remains proposed; fixed 1.14 support requires its own independently verified formal evidence.
+Run `go run ./ai/examples/classifierimages` for a credential-free, controlled HTTP replay through both public Classify entries. The [complete Host example](examples/classifierimages/README.md) uses the same PNG/JPEG context request with only Target/Options changed, then shows explicit reuse, scoped images, visual legends, Box, refusal, revocation and replayable audited evidence. Fixed built-in `jev-1.14.0` supports experimental image locations and Box; finite image policies, model/Binding authorization and `TypeSafeOptions{ExperimentalImages: true}` remain required. Decisions rejects local images and Box before credential access. Controlled PASS is not real-service or quality PASS; ADR-0030 remains proposed; fixed 1.14 support requires its own independently verified formal evidence.
 
-`ImageReferences` declares complete ordered uses; `value` pointers address existing null slots. Source and expanded
-occurrence budgets are independent (`ClassifierImagePolicy.References`), and final Hooks obey the same authorization
-and limits. `ClassifierResult.ImageInputs` identifies final images by MIME/decoded-file SHA-256; never use entry indices.
-`ScoreAnswer.LegendImageReferences` pointers are relative to Legend and index those final identities. `BoxAnswer`
-retains required nullable Confidence and normalized edges independently of a Bool existence answer. Hosts explicitly
-associate the search image, apply actual orientation/crop/pixel transforms and choose business thresholds. A failed
-call publishes neither Answers nor ImageInputs while retaining independently valid usage. Revoke Binding/image
-permission in the Host store for new calls; no automatic protocol fallback. Live example mode requires explicit
-`-live -route -config -key-env` Host injection and labels its result OBSERVED, not a support verdict.
+`ImageReferences` declares complete ordered uses; `value` pointers address existing null slots. Source and expanded occurrence budgets are independent (`ClassifierImagePolicy.References`), and final Hooks obey the same authorization and limits. `ClassifierResult.ImageInputs` identifies final images by MIME/decoded-file SHA-256; never use entry indices. `ScoreAnswer.LegendImageReferences` pointers are relative to Legend and index those final identities. `BoxAnswer` retains required nullable Confidence and normalized edges independently of a Bool existence answer. Hosts explicitly associate the search image, apply actual orientation/crop/pixel transforms and choose business thresholds. A failed call publishes neither Answers nor ImageInputs while retaining independently valid usage. Revoke Binding/image permission in the Host store for new calls; no automatic protocol fallback. Live example mode requires explicit `-live -route -config -key-env` Host injection and labels its result OBSERVED, not a support verdict.
 
 ## Core concepts
 

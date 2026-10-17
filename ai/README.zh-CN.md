@@ -452,7 +452,7 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-
 ```
 
 每次 E2E 运行都会在 `.evidence/` 下写出脱敏的证据包（可用 `BARNESS_AI_EVIDENCE_DIR` 覆盖）。新行为需要一个 E2E 用例，且其证据能被发布门禁追溯（`release/traceability.json`）。
-完整发布门禁需要十条路线各自的当前真实证据，以及 Jev 和 Luna 各自独立、当前适用的真实中文评估；离线 fixture 与 NOT_RUN 报告不能替代。
+完整发布门禁需要十三协议组合、十四支持身份各自的当前真实证据，Jev/Luna 各自独立中文评估、Jev/Decisions 各自独立视觉评估，以及完整离线、race、差分、压力和审计；离线 fixture 与 NOT_RUN 报告不能替代真实证据。
 
 ## 延伸阅读
 
