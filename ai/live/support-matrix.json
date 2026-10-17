@@ -505,33 +505,33 @@
       "api": "typesafe-system-one",
       "model": "jev-1.13.0",
       "sdk": "direct HTTP (ADR-0021; typesafe-system-one v1)",
-      "accountAlias": "local-typesafe@region-permissions-unconfirmed",
-      "lastRunAt": "2026-10-13T03:22:28.083288Z",
-      "allPassedAt": "2026-10-13T03:22:28.083288Z",
+      "accountAlias": "local-typesafe-unverified@region-unverified",
+      "lastRunAt": "2026-10-17T05:57:41.295693Z",
+      "allPassedAt": "2026-10-17T05:57:41.295693Z",
       "capabilities": [
         {
           "id": "mixed-questions",
           "model": "jev-1.13.0",
           "outcome": "PASS",
-          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); severity score distribution deviation 0 / expectation 0 (Client validates bounded hundredth rounding); intent choice distribution deviation 0",
-          "lastRunAt": "2026-10-13T03:22:28.083288Z",
-          "lastPassedAt": "2026-10-13T03:22:28.083288Z"
+          "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 0.01 (Client validates bounded hundredth rounding)",
+          "lastRunAt": "2026-10-17T05:57:41.295693Z",
+          "lastPassedAt": "2026-10-17T05:57:41.295693Z"
         },
         {
           "id": "single-choice",
           "model": "jev-1.13.0",
           "outcome": "PASS",
           "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0",
-          "lastRunAt": "2026-10-13T03:22:28.083288Z",
-          "lastPassedAt": "2026-10-13T03:22:28.083288Z"
+          "lastRunAt": "2026-10-17T05:57:41.295693Z",
+          "lastPassedAt": "2026-10-17T05:57:41.295693Z"
         },
         {
           "id": "context-422",
           "model": "jev-1.13.0",
           "outcome": "PASS",
           "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported",
-          "lastRunAt": "2026-10-13T03:22:28.083288Z",
-          "lastPassedAt": "2026-10-13T03:22:28.083288Z"
+          "lastRunAt": "2026-10-17T05:57:41.295693Z",
+          "lastPassedAt": "2026-10-17T05:57:41.295693Z"
         }
       ]
     },
@@ -692,93 +692,93 @@
       "api": "typesafe-system-one",
       "model": "jev-1.14.0",
       "sdk": "direct HTTP (fixed Jev formal)",
-      "accountAlias": "user-approved-typesafe@unverified",
-      "lastRunAt": "2026-10-16T23:02:59.675431Z",
-      "allPassedAt": "2026-10-16T23:02:59.675431Z",
+      "accountAlias": "local-typesafe-unverified@unverified",
+      "lastRunAt": "2026-10-17T05:57:54.801633Z",
+      "allPassedAt": "2026-10-17T05:57:54.801633Z",
       "capabilities": [
         {
           "id": "default-context-plain",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "explicit-context-plain",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "ordered-reuse-plain",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "local-state-instructions-plain",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "visual-criteria-plain",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "box-existence-plain",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "default-context-hooked",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "explicit-context-hooked",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "ordered-reuse-hooked",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "local-state-instructions-hooked",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "visual-criteria-hooked",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         },
         {
           "id": "box-existence-hooked",
           "model": "jev-1.14.0",
           "outcome": "PASS",
-          "lastRunAt": "2026-10-16T23:02:59.675431Z",
-          "lastPassedAt": "2026-10-16T23:02:59.675431Z"
+          "lastRunAt": "2026-10-17T05:57:54.801633Z",
+          "lastPassedAt": "2026-10-17T05:57:54.801633Z"
         }
       ]
     }
