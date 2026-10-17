@@ -97,12 +97,12 @@ func (t *watchedTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 			}
 		}
 	}
-	connectTimer := time.AfterFunc(t.connect, expire(fieldConnectTimeout, t.connect))
-	headerTimer := time.AfterFunc(header, expire(field, header))
-	trace := &httptrace.ClientTrace{GotConn: func(httptrace.GotConnInfo) { connectTimer.Stop() }}
+	connectTimer := armAttemptTimer(ctx, t.connect, expire(fieldConnectTimeout, t.connect), nil)
+	headerTimer := armAttemptTimer(ctx, header, expire(field, header), nil)
+	trace := &httptrace.ClientTrace{GotConn: func(httptrace.GotConnInfo) { stopAttemptTimer(connectTimer) }}
 	res, err := t.next.RoundTrip(req.WithContext(httptrace.WithClientTrace(ctx, trace)))
-	connectTimer.Stop()
-	headerTimer.Stop()
+	stopAttemptTimer(connectTimer)
+	stopAttemptTimer(headerTimer)
 	mu.Lock()
 	settled = true
 	mu.Unlock()
@@ -120,9 +120,6 @@ func (t *watchedTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 		return nil, err
 	}
 	body := &idleBody{ReadCloser: res.Body, ctx: ctx, cancel: cancel, limit: t.readIdle}
-	// Created stopped: each Read arms it for its own wait.
-	body.idle = time.AfterFunc(t.readIdle, body.expire)
-	body.idle.Stop()
 	res.Body = body
 	return res, nil
 }
@@ -134,6 +131,29 @@ func expiredLimit(ctx context.Context) *timeLimitExpired {
 		return expired
 	}
 	return nil
+}
+
+// A later attempt timer must not win a race with the earlier call deadline's
+// cancellation callback. Context propagation and timer dispatch are asynchronous:
+// both can be overdue while ctx.Err() is still nil (release-verification #01).
+// Keep ownership with the earlier deadline, as ADR-0008 requires. Read timers
+// are reused, but stopped once the remaining call time becomes the smaller bound.
+func armAttemptTimer(ctx context.Context, limit time.Duration, expire func(), timer *time.Timer) *time.Timer {
+	if deadline, ok := ctx.Deadline(); ok && !time.Now().Add(limit).Before(deadline) {
+		stopAttemptTimer(timer)
+		return nil
+	}
+	if timer == nil {
+		return time.AfterFunc(limit, expire)
+	}
+	timer.Reset(limit)
+	return timer
+}
+
+func stopAttemptTimer(timer *time.Timer) {
+	if timer != nil {
+		timer.Stop()
+	}
 }
 
 // idleBody bounds each Read's wait for upstream data by the read idle limit
@@ -153,7 +173,7 @@ type idleBody struct {
 func (b *idleBody) expire() {
 	b.mu.Lock()
 	defer b.mu.Unlock()
-	if b.reading {
+	if b.reading && b.idle != nil {
 		b.cancel(&timeLimitExpired{field: fieldReadIdleTimeout, limit: b.limit})
 	}
 }
@@ -161,12 +181,12 @@ func (b *idleBody) expire() {
 func (b *idleBody) Read(p []byte) (int, error) {
 	b.mu.Lock()
 	b.reading = true
-	b.idle.Reset(b.limit)
+	b.idle = armAttemptTimer(b.ctx, b.limit, b.expire, b.idle)
 	b.mu.Unlock()
 	n, err := b.ReadCloser.Read(p)
 	b.mu.Lock()
 	b.reading = false
-	b.idle.Stop()
+	stopAttemptTimer(b.idle)
 	b.mu.Unlock()
 	if err != nil {
 		if expired := expiredLimit(b.ctx); expired != nil {
@@ -177,7 +197,9 @@ func (b *idleBody) Read(p []byte) (int, error) {
 }
 
 func (b *idleBody) Close() error {
-	b.idle.Stop()
+	b.mu.Lock()
+	stopAttemptTimer(b.idle)
+	b.mu.Unlock()
 	err := b.ReadCloser.Close()
 	b.cancel(nil)
 	return err
