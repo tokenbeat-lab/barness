@@ -43,6 +43,11 @@ type Model struct {
 // of pi-ai's model data that barness-ai implements. An absent pi flag has
 // pi's default; additional semantic constraints document their zero behavior.
 type ModelCompat struct {
+	// MessagesThinkingBudgetTokens opts a model into one verified Messages
+	// enabled/budget wire value, within its provider's implemented subset.
+	// Zero opts into none. This is exact shape evidence, not a budget range,
+	// enforcement guarantee or canonical intensity mapping (ADR-0035).
+	MessagesThinkingBudgetTokens int `json:"messagesThinkingBudgetTokens,omitempty"`
 	// RequiresThinking: the model cannot disable reasoning. This semantic
 	// constraint is independent of the provider's wire switch and level map;
 	// zero preserves existing models. Implemented by Zhipu Chat initially.
