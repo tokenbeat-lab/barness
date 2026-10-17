@@ -14,9 +14,12 @@ type anthropicCapabilities struct {
 	browserAccess       bool
 }
 
-// All currently served Messages routes retain the native Anthropic defaults.
-// A new provider's profile belongs here alongside its own wire evidence.
-func anthropicCapabilitiesOf(ProviderID) anthropicCapabilities {
+// Zhipu keeps only the basic Messages shape established by its own public
+// Client wire captures (ADR-0035). Native Anthropic defaults stay unchanged.
+func anthropicCapabilitiesOf(provider ProviderID) anthropicCapabilities {
+	if provider == ProviderZhipu {
+		return anthropicCapabilities{}
+	}
 	return anthropicCapabilities{promptCache: true, nativeThinking: true,
 		eagerInputStreaming: true, browserAccess: true}
 }
@@ -27,4 +30,13 @@ func (c anthropicCapabilities) managesEffort(m Model) bool {
 
 func (c anthropicCapabilities) usesAdaptiveThinking(m Model) bool {
 	return c.nativeThinking && m.Compat.ForceAdaptiveThinking
+}
+
+// The China Messages endpoint returns X-Request-Id in both successful and
+// failed attempts; native Anthropic keeps Request-Id (ADR-0035).
+func anthropicRequestIDHeaderFor(provider ProviderID) string {
+	if provider == ProviderZhipu {
+		return "x-request-id"
+	}
+	return anthropicRequestIDHeader
 }

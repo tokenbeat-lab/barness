@@ -74,6 +74,9 @@ func (anthropicAdapter) headers(ac adapterCall) http.Header {
 
 func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *Error {
 	opts, _ := ac.options.(AnthropicOptions) // nil means protocol defaults
+	if failure := validateGLMMessagesOptions(ac.model, opts); failure != nil {
+		return failure
+	}
 	// As pi, recorded before anything can fail, so a failed message of a
 	// managed-effort model carries it too.
 	if level := anthropicThinkingLevel(ac.model, opts); level != "" {
@@ -104,6 +107,9 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		if body, beta, failure = takeBetas(body); failure != nil {
 			return failure
 		}
+	}
+	if failure := validateGLMMessagesBody(ac.model, body, header, beta, authorizeAnthropicPayload(ac.model, ac.hostedTools)); failure != nil {
+		return failure
 	}
 	if failure := ac.limits.checkRequestBody(body); failure != nil {
 		return failure
@@ -148,7 +154,8 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		return withoutHostDescription(r, next)
 	}))
 	svc := anthropic.NewBetaMessageService(reqOpts...)
-	failures := httpFailures{apiKey: ac.apiKey, clock: ac.initial.clock, requestIDHeader: anthropicRequestIDHeader, describe: anthropicHTTPError}
+	requestIDHeader := anthropicRequestIDHeaderFor(ac.model.Provider)
+	failures := httpFailures{apiKey: ac.apiKey, clock: ac.initial.clock, requestIDHeader: requestIDHeader, describe: anthropicHTTPError}
 	ctx = withProtocolTimeout(ctx, opts.requestTimeout())
 	var res *http.Response
 	failure = ac.initial.send(ctx, func(ctx context.Context) attemptOutcome {
@@ -167,14 +174,14 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 			closeBody(res)
 			return o
 		}
-		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get(anthropicRequestIDHeader)}
+		return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: res.Header.Get(requestIDHeader)}
 	})
 	if failure != nil {
 		return failure
 	}
 	// Closing releases the response body on every later path.
 	defer closeBody(res)
-	requestID := res.Header.Get(anthropicRequestIDHeader)
+	requestID := res.Header.Get(requestIDHeader)
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
 		return failure

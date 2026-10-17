@@ -128,6 +128,10 @@ func (anthropicAdapter) simpleOptions(m Model, o SimpleOptions, history []Messag
 	if c, ok := o.ToolChoice.Get(); ok {
 		full.ToolChoice = Value(AnthropicToolChoice{Mode: string(c)})
 	}
+	if m.Provider == ProviderZhipu && o.Reasoning == "" {
+		// GLM omission is its own provider default, never Claude disabled.
+		return full
+	}
 	if o.Reasoning == "" {
 		full.ThinkingEnabled = Value(false)
 		return full
