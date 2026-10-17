@@ -22,7 +22,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 	if os.Getenv("BARNESS_DECISIONS_CONTROLLED") != "" {
 		return
 	}
-	cases := []string{"not-run", "switch-off", "foreign-key", "missing-alias", "missing-permissions", "endpoint-override", "remote-proxy", "source-missing", "source-changed", "catalog-changed", "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "model-missing", "429", "504", "malformed-2xx", "precision-2xx", "narrowed", "calls-budget", "questions-budget", "state-budget", "images-budget", "image-bytes-budget", "permissions-trailing", "permissions-duplicate", "permissions-broad", "permissions-not-dedicated", "missing-region", "no-key-foreign", "mixed-refusal", "price-threshold", "price-long-tier", "permissions-case-alias", "process-deadline", "integrity-read-failure", "integrity-write-failure", "unknown-account", "unknown-account-invalid-proof", "unknown-account-foreign-key", "unknown-account-remote-proxy", "unknown-account-no-key"}
+	cases := []string{"direct", "unknown-account-direct", "not-run", "switch-off", "foreign-key", "missing-alias", "missing-permissions", "endpoint-override", "remote-proxy", "source-missing", "source-changed", "catalog-changed", "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "model-missing", "429", "504", "malformed-2xx", "precision-2xx", "narrowed", "calls-budget", "questions-budget", "state-budget", "images-budget", "image-bytes-budget", "permissions-trailing", "permissions-duplicate", "permissions-broad", "permissions-not-dedicated", "missing-region", "no-key-foreign", "mixed-refusal", "price-threshold", "price-long-tier", "permissions-case-alias", "process-deadline", "integrity-read-failure", "integrity-write-failure", "unknown-account", "unknown-account-invalid-proof", "unknown-account-foreign-key", "unknown-account-remote-proxy", "unknown-account-no-key"}
 	for _, name := range cases {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "P10-OD51-process-"+name)
@@ -65,6 +65,8 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 					env[i] = "BARNESS_AI_LIVE_PERMISSIONS_FILE="
 				case name == "remote-proxy" && strings.HasPrefix(kv, "BARNESS_AI_LIVE_PROXY="):
 					env[i] = "BARNESS_AI_LIVE_PROXY=http://proxy.invalid:7890"
+				case (name == "direct" || name == "unknown-account-direct") && strings.HasPrefix(kv, "BARNESS_AI_LIVE_PROXY="):
+					env[i] = "BARNESS_AI_LIVE_PROXY="
 				}
 			}
 			if strings.HasPrefix(name, "unknown-account") {
@@ -211,12 +213,12 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 			switch name {
 			case "not-run", "switch-off", "narrowed", "unknown-account-no-key":
 				want = "NOT_RUN"
-			case "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "mixed-refusal", "price-threshold", "price-long-tier", "unknown-account":
+			case "success", "direct", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "mixed-refusal", "price-threshold", "price-long-tier", "unknown-account", "unknown-account-direct":
 				want = "PASS"
 			}
 			cs.Check("honest process status", string(report.Outcome) == want && (childErr != nil) == (want == "FAIL"), "outcome %s exit %v: %s", report.Outcome, childErr, output)
 			cs.Check("complete only own full run", report.Complete == (want == "PASS") && report.Mode == "controlled", "invalid complete/mode")
-			if name == "unknown-account" {
+			if name == "unknown-account" || name == "unknown-account-direct" {
 				var fields map[string]any
 				if err := json.Unmarshal(raw, &fields); err != nil {
 					t.Fatal(err)

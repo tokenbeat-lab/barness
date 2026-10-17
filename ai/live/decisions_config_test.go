@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"regexp"
 	"slices"
@@ -99,13 +100,17 @@ func decisionsConfiguration(rec *recorder) (*decisionsPermissions, []byte, error
 }
 
 func configureDecisionsProxy(rec *recorder) error {
-	proxy := os.Getenv("BARNESS_AI_LIVE_PROXY")
-	u, err := smokeProxy(proxy)
-	if err != nil {
-		return err
+	var proxy *url.URL
+	if raw := os.Getenv("BARNESS_AI_LIVE_PROXY"); raw != "" {
+		var err error
+		proxy, err = smokeProxy(raw)
+		if err != nil {
+			return err
+		}
 	}
 	if transport, ok := rec.next.(*http.Transport); ok {
-		transport.Proxy = http.ProxyURL(u)
+		// nil means direct transport and does not inherit ambient proxies.
+		transport.Proxy = http.ProxyURL(proxy)
 	}
 	// The proxy is trusted host transport configuration. The target remains
 	// https://api.openai.com/v1/decisions, with ordinary TLS verification.

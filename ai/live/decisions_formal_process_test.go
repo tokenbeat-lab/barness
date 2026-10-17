@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -22,11 +23,19 @@ func TestDecisionsFormalProcess(t *testing.T) {
 	if os.Getenv("BARNESS_DECISIONS_FORMAL_CONTROLLED") != "" {
 		return
 	}
-	for _, name := range []string{"success", "not-run", "foreign-key", "endpoint-override", "source-changed", "narrowed", "429", "504", "questions-budget", "audit-failed", "publish-crash", "pending-crash"} {
+	for _, name := range []string{"success", "direct", "not-run", "foreign-key", "endpoint-override", "source-changed", "narrowed", "429", "504", "questions-budget", "audit-failed", "publish-crash", "pending-crash"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "P10-OD54-formal-process-"+name)
 			base := t.TempDir()
 			env := []string{"PATH=" + os.Getenv("PATH"), "HOME=" + os.Getenv("HOME"), "TMPDIR=" + os.TempDir(), "BARNESS_DECISIONS_FORMAL_CONTROLLED=" + name, envLive + "=1", envCombo + "=openai-decisions", keyVar("openai-decisions") + "=key:controlled-decisions", "BARNESS_AI_LIVE_ALLOW_UNKNOWN_ACCOUNT=1", "BARNESS_AI_LIVE_PROXY=http://127.0.0.1:7890", "BARNESS_AI_EVIDENCE_DIR=" + base}
+			if name == "direct" {
+				for i, kv := range env {
+					if strings.HasPrefix(kv, "BARNESS_AI_LIVE_PROXY=") {
+						env = append(env[:i], env[i+1:]...)
+						break
+					}
+				}
+			}
 			if name == "not-run" {
 				env = append(env, keyVar("openai-decisions")+"=")
 			}
@@ -73,19 +82,22 @@ func TestDecisionsFormalProcess(t *testing.T) {
 			hash, _ := cat.Hash()
 			cs.Check("formal route and price identity", r.Schema == 3 && r.Combo == "openai-decisions" && r.Operation == "classifier" && r.Provider == "openai" && r.API == "openai-decisions" && r.Model == "gpt-6-luna" && r.CatalogVersion == cat.Version && r.CatalogHash == hash, "wrong formal identity")
 			cs.Check("all required outcomes emitted", len(r.Expected) == 9 && len(r.Scenarios) >= 9, "narrowed report")
-			if name == "success" {
+			if name == "success" || name == "direct" {
 				cs.Check("known consumption reports actual successful counters", r.Budget.InputTokensUsed == 800 && r.Budget.OutputTokensUsed == 0, "input=%d output=%d", r.Budget.InputTokensUsed, r.Budget.OutputTokensUsed)
 				cs.Check("controlled full formal pipeline", err == nil && r.Decisions != nil && r.Decisions.Complete && r.Decisions.AuditPassed && r.Budget.CallsUsed == 9 && r.Budget.HTTPAttempts == 9 && r.Budget.QuestionsUsed == 13 && r.Budget.ImagesUsed == 3, "incomplete controlled smoke")
+			}
+			if name == "direct" {
+				cs.Check("direct transport keeps account permission status unknown", r.Decisions.AccountVerificationStatus == "unknown" && r.Decisions.RegionVerificationStatus == "unknown" && r.Decisions.PermissionVerificationStatus == "unknown", "invented host verification")
 			}
 			if name == "not-run" {
 				cs.Check("no credential no spend", err == nil && !r.Decisions.Complete && r.Budget.CallsUsed == 0, "wrong NOT_RUN")
 			}
-			if name != "success" && name != "not-run" && name != "narrowed" {
+			if name != "success" && name != "direct" && name != "not-run" && name != "narrowed" {
 				cs.Check("failure never formal PASS", err != nil && r.Decisions != nil && !r.Decisions.Complete, "failure promoted")
 			}
 			_, mergeErr := supportmatrix.Merge(supportmatrix.Matrix{Schema: 3, Rows: []supportmatrix.Row{{Combo: "openai-decisions", Operation: "classifier", Provider: "openai", API: "openai-decisions"}}}, r)
 			cs.Check("controlled report cannot become real support", mergeErr != nil, "synthetic report accepted")
-			if name == "success" || name == "not-run" {
+			if name == "success" || name == "direct" || name == "not-run" {
 				r.Decisions.Mode = "live"
 				_, mergeErr = supportmatrix.Merge(supportmatrix.Matrix{Schema: 3, Rows: []supportmatrix.Row{{Combo: "openai-decisions", Operation: "classifier", Provider: "openai", API: "openai-decisions"}}}, r)
 				cs.Check("full producer matches formal consumer contract", mergeErr == nil, "err=%v", mergeErr)
@@ -95,7 +107,7 @@ func TestDecisionsFormalProcess(t *testing.T) {
 				_, loadErr := supportmatrix.LoadReport(filepath.Join(root, decisionsPendingReport+".json"))
 				cs.Check("private pending file cannot be consumed as formal Report", loadErr != nil, "pending accepted")
 			}
-			if name == "success" || name == "not-run" {
+			if name == "success" || name == "direct" || name == "not-run" {
 				a := release.AuditBundle(root, nil)
 				cs.Record("consumer-audit", a)
 				cs.Check("schema3 public evidence consumer accepts complete executed or NOT_RUN inventory", a.Err == "" && len(a.Findings) == 0, "err=%s", a.Err)

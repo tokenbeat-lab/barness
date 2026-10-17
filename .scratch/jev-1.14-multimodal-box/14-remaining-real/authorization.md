@@ -45,3 +45,16 @@ Google36、DeepSeek64、TypeSafe54；仅在已诊断并完成所需修复后使�
 先无凭据prepare，固定600个Go文件及目录/配置；每步独占intent标记、白名单环境、
 独立进程组及实际退出码，保留所有原始包。所有真实步骤结束后清除进程key引用，
 再进行严格公开verifier、按路线合并当前PASS及完整releasegate；旧封存包保持原样。
+
+## 唯一恢复轮启用条件已满足
+
+首轮实际120 Calls/Attempts、零重试：8条支持和2项效果完成，Decisions因可选代理
+空值被错误拒绝而配置FAIL、0次请求。三种既有进程E2E直连场景先RED，再修复非空
+才校验且不继承ambient proxy，直连/原loopback/远程代理拒绝GREEN。
+该Go测试代码改变使包含全部Go的Jev正式协议/封装过期；中文/视觉的源码适用性排除
+相应测试文件，不能声称所有旧效果都被verifier机械判过期。本轮选择统一全量重采
+11条支持和4项效果，仍各自独立进程、原固定型号及预算，最多302次且只此一轮。
+`recover.py prepare`独占首轮`recovery-reservation.json`，固定首轮用量Hash；新一轮
+任何源/配置变化即停止。必须先无凭据完整live harness通过，再启用收费步骤。
+两个初轮执行器版本分别由Git保存：构建/paid是`d21aa99`，完整Go集合guard及
+复用verifier补强是`43ac874`；首轮运行期间Go和配置未变，不重写其源码或结果身份。
