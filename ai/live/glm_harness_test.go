@@ -354,7 +354,15 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	if !cs.Check("complete required terminal", result.Message.StopReason == ai.StopReasonStop || (kind == "tool-call" || kind == "control-auto") && result.Message.StopReason == ai.StopReasonToolUse, "stop=%s", result.Message.StopReason) {
 		return
 	}
-	cs.Check("own nonempty assistant content", len(result.Message.Content) > 0, "empty content")
+	if kind != "tool-call" && kind != "control-auto" {
+		text := ""
+		for _, part := range result.Message.Content {
+			if v, ok := part.(ai.Text); ok {
+				text += v.Text
+			}
+		}
+		cs.Check("required text entry produces final text", strings.TrimSpace(text) != "", "no final text")
+	}
 	if kind == "tool-call" || kind == "control-auto" {
 		count := 0
 		for i, c := range result.Message.Content {

@@ -18,7 +18,7 @@ import (
 // Public executable seam. Children use one synthetic credential and a transport
 // that cannot open a socket; intentional failures remain in their own bundles.
 func TestGLMCandidateProcess(t *testing.T) {
-	for _, name := range []string{"not-run", "switch-off", "narrowed", "foreign-key", "ambient-key", "endpoint-override", "source-changed", "source-missing", "catalog-changed", "plan-changed", "wrong-route", "success-chat", "success-responses", "success-messages", "429", "calls-budget", "attempts-budget", "actual-budget", "deadline", "inventory-failure"} {
+	for _, name := range []string{"not-run", "switch-off", "narrowed", "foreign-key", "ambient-key", "endpoint-override", "source-changed", "source-missing", "catalog-changed", "plan-changed", "wrong-route", "success-chat", "success-responses", "success-messages", "429", "missing-text", "calls-budget", "attempts-budget", "actual-budget", "deadline", "inventory-failure"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "GLM11-process-"+name)
 			base := t.TempDir()

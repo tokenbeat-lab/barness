@@ -82,6 +82,9 @@ func installGLMControlled(rec *recorder, name string) {
 				anthropic(map[string]any{"type": "message_stop"})
 			}
 		}
+		if name == "missing-text" && !tool {
+			body = strings.ReplaceAll(body, `"42"`, `""`)
+		}
 		var responseBody io.ReadCloser = io.NopCloser(strings.NewReader(body))
 		if strings.Contains(string(raw), "Write the integers") && status == 200 {
 			pr, pw := io.Pipe()
