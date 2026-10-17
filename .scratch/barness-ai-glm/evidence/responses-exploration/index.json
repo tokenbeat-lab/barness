@@ -34,5 +34,47 @@
     "externalHTTPRequestsSent": 2,
     "externalHTTPResponsesReceived": 2,
     "otherProtocolBudgetChanged": false
+  },
+  "logicalCalls": 6,
+  "attempts": 6,
+  "externalHTTPRequests": 6,
+  "toolRoundTrip": {
+    "bundle": ".evidence/barness-ai-glm/protocol-exploration/responses/02-tools",
+    "archive": "02-tools.zip",
+    "archiveSha256": "efbb97132527566c05e89da780dc1bba098e25ceb5734ffb26ee171501f9f3ff",
+    "indexSha256": "f2b7bc84a3feff878e229b48ac0b6b5f655b98e602fdbeac97be8e4a77d2db12",
+    "audit": {
+      "credentialHashPersisted": false,
+      "exactCredentialOccurrences": 0,
+      "headersAndCookiesRedacted": true,
+      "note": "actual key scanned only in memory; outputs reviewed for generated secret patterns; synthetic prompt only",
+      "passed": true,
+      "scannedFiles": 73
+    },
+    "budget": {
+      "cumulativeEarlyResponsesAttemptReservations": 6,
+      "cumulativeEarlyResponsesExternalRequestsWithResponse": 6,
+      "cumulativeEarlyResponsesLogicalCallsUsed": 6,
+      "elapsedSeconds": 16.834347667,
+      "externalHTTPResponsesReceived": 4,
+      "libraryRecordedAttempts": 4,
+      "logicalCallsUsed": 4,
+      "maxHTTPAttempts": 4,
+      "maxLogicalCalls": 4,
+      "maxRequestedOutputTokens": 16384,
+      "maxTokensPerCall": 4096,
+      "observerStats": {
+        "delivered": 16,
+        "failed": 0,
+        "dropped": 0
+      },
+      "specResponsesAttemptsRemainingConservative": 26,
+      "specResponsesCallsRemaining": 18,
+      "transportInvocations": 4,
+      "externalHTTPRequestsSent": 4,
+      "cumulativeEarlyResponsesExternalHTTPRequestsSent": 6,
+      "cumulativeEarlyResponsesLibraryAttemptsUsed": 6,
+      "messagesBudgetChanged": false
+    }
   }
 }
