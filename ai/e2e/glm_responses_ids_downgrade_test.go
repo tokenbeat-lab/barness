@@ -98,7 +98,7 @@ func TestGLMResponsesOriginIDCollision(t *testing.T) {
 					if len(qs) != 2 {
 						return
 					}
-					native, calls, results := glmSharedWirePairs(t, route, qs[1].Body)
+					native, calls, results := protocolWirePairs(t, route.name, qs[1].Body)
 					ev.Check("two different GLM calls never collapse on target wire", len(calls) == 2 && calls[0] != calls[1], "calls=%v", calls)
 					ev.Check("all downgraded tool results retain pairing", native == 0 && slices.Equal(calls, results) && len(results) == 2, "native=%d calls=%v results=%v", native, calls, results)
 					ev.Check("both distinct Host results remain visible", strings.Contains(string(qs[1].Body), "first-result") && strings.Contains(string(qs[1].Body), "second-result"), "%s", qs[1].Body)

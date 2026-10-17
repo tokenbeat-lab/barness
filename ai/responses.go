@@ -95,7 +95,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
-		if ac.model.Provider == ProviderZhipu {
+		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMaxCN {
 			failure.HTTPStatus = res.StatusCode
 		}
 		return failure
@@ -106,7 +106,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		glm: ac.model.Provider == ProviderZhipu, minimax: newMiniMaxResponsesState(ac.model.Provider), usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier && ac.model.Provider != ProviderMiniMaxCN, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
-		if ac.model.Provider == ProviderZhipu {
+		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMaxCN {
 			failure.HTTPStatus = res.StatusCode
 		}
 	}

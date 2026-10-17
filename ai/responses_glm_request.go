@@ -54,7 +54,7 @@ func validateGLMResponsesFinalBody(m Model, raw []byte, authorize func(map[strin
 	}
 	var fields map[string]json.RawMessage
 	_ = json.Unmarshal(raw, &fields)
-	if budget, present := fields["max_output_tokens"]; present && !glmOutputBudgetNumber(budget, min(m.MaxTokens, 131072)) {
+	if budget, present := fields["max_output_tokens"]; present && !outputBudgetNumber(budget, min(m.MaxTokens, 131072)) {
 		return newError(CodeInvalidRequest, PhaseRequest, "max_output_tokens must be an integer from 1 through the model output limit")
 	}
 	if rawReasoning, present := body["reasoning"]; present {

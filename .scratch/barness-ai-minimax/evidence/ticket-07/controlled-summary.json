@@ -1,0 +1,241 @@
+{
+  "kind": "controlled-only",
+  "gitCommit": "1dd2330614fd2ba31c2efa10e85164787411deb5",
+  "suiteCases": 45,
+  "audit": {
+    "findings": []
+  },
+  "identities": [
+    {
+      "identity": {
+        "route": "chat",
+        "model": "MiniMax-M3",
+        "purpose": "standard",
+        "api": "openai-completions",
+        "endpoint": "https://api.minimax.cn/v1"
+      },
+      "mode": "controlled",
+      "kind": "minimax-candidate-only",
+      "complete": true,
+      "outcome": "PASS",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29436
+      },
+      "cumulativeIdentityBudget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29436
+      },
+      "catalogHash": "sha256:900c7251b70f4171e9f56dd656a4e4c71fce1ddf2d262bff13a707a79b88c912",
+      "planHash": "86bff2ee446a74a4e64bb4a84d3bdb108dc55e021a2978a0c46e3a39e5406550",
+      "sourceHash": "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0"
+    },
+    {
+      "identity": {
+        "route": "chat",
+        "model": "MiniMax-M3.1-Flash-Preview",
+        "purpose": "mplan",
+        "api": "openai-completions",
+        "endpoint": "https://api.minimax.cn/v1"
+      },
+      "mode": "controlled",
+      "kind": "minimax-candidate-only",
+      "complete": true,
+      "outcome": "PASS",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29452
+      },
+      "cumulativeIdentityBudget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29452
+      },
+      "catalogHash": "sha256:900c7251b70f4171e9f56dd656a4e4c71fce1ddf2d262bff13a707a79b88c912",
+      "planHash": "86bff2ee446a74a4e64bb4a84d3bdb108dc55e021a2978a0c46e3a39e5406550",
+      "sourceHash": "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0"
+    },
+    {
+      "identity": {
+        "route": "messages",
+        "model": "MiniMax-M3.1-Flash-Preview",
+        "purpose": "mplan",
+        "api": "anthropic-messages",
+        "endpoint": "https://api.minimax.cn/anthropic"
+      },
+      "mode": "controlled",
+      "kind": "minimax-candidate-only",
+      "complete": true,
+      "outcome": "PASS",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29441
+      },
+      "cumulativeIdentityBudget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29441
+      },
+      "catalogHash": "sha256:900c7251b70f4171e9f56dd656a4e4c71fce1ddf2d262bff13a707a79b88c912",
+      "planHash": "86bff2ee446a74a4e64bb4a84d3bdb108dc55e021a2978a0c46e3a39e5406550",
+      "sourceHash": "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)"
+    },
+    {
+      "identity": {
+        "route": "responses",
+        "model": "MiniMax-M3.1-Flash-Preview",
+        "purpose": "mplan",
+        "api": "openai-responses",
+        "endpoint": "https://api.minimax.cn/v1"
+      },
+      "mode": "controlled",
+      "kind": "minimax-candidate-only",
+      "complete": true,
+      "outcome": "PASS",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29684
+      },
+      "cumulativeIdentityBudget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29684
+      },
+      "catalogHash": "sha256:900c7251b70f4171e9f56dd656a4e4c71fce1ddf2d262bff13a707a79b88c912",
+      "planHash": "86bff2ee446a74a4e64bb4a84d3bdb108dc55e021a2978a0c46e3a39e5406550",
+      "sourceHash": "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0"
+    },
+    {
+      "identity": {
+        "route": "messages",
+        "model": "MiniMax-M3",
+        "purpose": "standard",
+        "api": "anthropic-messages",
+        "endpoint": "https://api.minimax.cn/anthropic"
+      },
+      "mode": "controlled",
+      "kind": "minimax-candidate-only",
+      "complete": true,
+      "outcome": "PASS",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29425
+      },
+      "cumulativeIdentityBudget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29425
+      },
+      "catalogHash": "sha256:900c7251b70f4171e9f56dd656a4e4c71fce1ddf2d262bff13a707a79b88c912",
+      "planHash": "86bff2ee446a74a4e64bb4a84d3bdb108dc55e021a2978a0c46e3a39e5406550",
+      "sourceHash": "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)"
+    },
+    {
+      "identity": {
+        "route": "chat",
+        "model": "MiniMax-M3",
+        "purpose": "standard",
+        "api": "openai-completions",
+        "endpoint": "https://api.minimax.cn/v1"
+      },
+      "mode": "controlled",
+      "kind": "minimax-candidate-only",
+      "complete": true,
+      "outcome": "PASS",
+      "budget": {
+        "calls": 14,
+        "reservedAttempts": 14,
+        "attempts": 13,
+        "requestedOutput": 21506,
+        "reservedInput": 31484
+      },
+      "cumulativeIdentityBudget": {
+        "calls": 14,
+        "reservedAttempts": 14,
+        "attempts": 13,
+        "requestedOutput": 21506,
+        "reservedInput": 31484
+      },
+      "catalogHash": "sha256:900c7251b70f4171e9f56dd656a4e4c71fce1ddf2d262bff13a707a79b88c912",
+      "planHash": "86bff2ee446a74a4e64bb4a84d3bdb108dc55e021a2978a0c46e3a39e5406550",
+      "sourceHash": "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0"
+    },
+    {
+      "identity": {
+        "route": "responses",
+        "model": "MiniMax-M3",
+        "purpose": "standard",
+        "api": "openai-responses",
+        "endpoint": "https://api.minimax.cn/v1"
+      },
+      "mode": "controlled",
+      "kind": "minimax-candidate-only",
+      "complete": true,
+      "outcome": "PASS",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29652
+      },
+      "cumulativeIdentityBudget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 29652
+      },
+      "catalogHash": "sha256:900c7251b70f4171e9f56dd656a4e4c71fce1ddf2d262bff13a707a79b88c912",
+      "planHash": "86bff2ee446a74a4e64bb4a84d3bdb108dc55e021a2978a0c46e3a39e5406550",
+      "sourceHash": "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0"
+    }
+  ],
+  "archives": {
+    "success-chat.tar.gz": "9e70dd12d6f90acb6133738a31a08ccde7a55186dfe1b1ee17593996291b9a8f",
+    "success-m31-chat.tar.gz": "b02a0d2ea93cefad1c977699805ae5af992da67dc29fec437537acc1c2a455f3",
+    "success-m31-messages.tar.gz": "8655a46f8a06dc743c7b6aa57ee5cb04b35dd92e569eda57c93dbf4f43f53ed5",
+    "success-m31-responses.tar.gz": "bf68d2eace582b1acce08a48d880996de59398ad92541ebba8aead1a683fdff0",
+    "success-messages.tar.gz": "d9fc0a366eed55a229486b1e39618b88a90d5fb73a5536ec3283ebafc82b87c4",
+    "success-rerun-tool.tar.gz": "a850d9df3c1f146250358675b8bde95a1e5600da0c6debbd01797d0ced7e4dcf",
+    "success-responses.tar.gz": "c9a4584b157ba9effe37c32cc05feee8daf53205b9712e65549a5d8c15097752",
+    "MM07-replay-chat.tar.gz": "10798b3dc6d839e0c117eb85ac275d6f9405ca6e78a5e33a1d8a74fd5f6d05ee",
+    "MM07-replay-messages.tar.gz": "44db75970b88e19393538f294d2dc06a139db1aadaf9e30cd849b22575c4ac31",
+    "MM07-replay-rerun-tool.tar.gz": "6c4573d33ce75f5893e26f3f8b8df898884c856ac9ce6c778e98582208883f58",
+    "MM07-replay-responses.tar.gz": "d65ad137defd57baf39ba2ae1063f193d45a95da56b23fe6f58494dbeabeb7f3",
+    "research-predecessor.tar.gz": "0eecd9f8af6661bba7027bc31bbf8e79053bc1b178cbbfda7625a5a505d89dcb"
+  }
+}

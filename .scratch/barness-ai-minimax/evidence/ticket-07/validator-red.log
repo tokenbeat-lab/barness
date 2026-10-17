@@ -1,0 +1,11 @@
+--- FAIL: TestMiniMaxEvidenceContract (0.54s)
+    --- FAIL: TestMiniMaxEvidenceContract/altered-usage (0.02s)
+        minimax_evidence_test.go:99: [MM07-validator-altered-usage] tampered or ineligible report refused: accepted altered-usage
+    --- FAIL: TestMiniMaxEvidenceContract/altered-events (0.02s)
+        minimax_evidence_test.go:99: [MM07-validator-altered-events] tampered or ineligible report refused: accepted altered-events
+    --- FAIL: TestMiniMaxEvidenceContract/extra-file (0.03s)
+        minimax_evidence_test.go:99: [MM07-validator-extra-file] tampered or ineligible report refused: accepted extra-file
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-07/.evidence/barness-ai/20261017T224014.165564000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	2.180s
+FAIL

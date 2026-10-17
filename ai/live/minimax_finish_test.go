@@ -1,0 +1,66 @@
+//go:build live
+
+package live
+
+import (
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
+	"os"
+)
+
+func finishMiniMax(code int, auditOK bool) int {
+	r := minimaxReport
+	r.AuditPassed = auditOK
+	r.Complete = false
+	if code != 0 || !auditOK {
+		r.Outcome = "FAIL"
+	}
+	if e := captureMiniMaxLedger(); e != nil {
+		r.Outcome = "FAIL"
+		r.Failure = "durable ledger evidence unavailable"
+		code = 1
+	}
+	if r.Outcome == "PASS" && r.Kind != "minimax-research-only" && code == 0 && auditOK {
+		r.Complete = true
+	}
+	if e := run.Record("minimax-report", r); e != nil {
+		return 1
+	}
+	if findings, e := run.Audit(); e != nil || len(findings) > 0 {
+		r.AuditPassed = false
+		r.Complete = false
+		r.Outcome = "FAIL"
+		_ = run.Record("minimax-report", r)
+		return 1
+	}
+	files, e := minimaxlive.Inventory(run.Dir())
+	if e != nil || os.Getenv("BARNESS_MINIMAX_CONTROLLED") == "inventory-failure" {
+		r.Complete = false
+		r.Outcome = "FAIL"
+		r.Failure = "inventory read failed"
+		_ = run.Record("minimax-report", r)
+		return 1
+	}
+	if e = run.Record("minimax-integrity", minimaxlive.Seal{Schema: 1, Files: files}); e != nil {
+		return 1
+	}
+	if r.Complete {
+		if _, e = minimaxlive.Verify(run.Dir(), false); e != nil {
+			r.Complete = false
+			r.Outcome = "FAIL"
+			r.Failure = e.Error()
+			_ = run.Record("minimax-report", r)
+			return 1
+		}
+	}
+	if r.Complete && r.Kind == "minimax-formal" && r.Mode == "live" {
+		projection, e := supportmatrix.NewMiniMaxReport(run.Dir())
+		if e != nil {
+			return 1
+		}
+		if e = run.Record("live-report", projection); e != nil {
+			return 1
+		}
+	}
+	return code
+}

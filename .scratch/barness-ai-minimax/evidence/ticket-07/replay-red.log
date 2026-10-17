@@ -1,0 +1,23 @@
+--- FAIL: TestMiniMaxReplayProcess (1.45s)
+    --- FAIL: TestMiniMaxReplayProcess/chat (0.50s)
+        minimax_replay_process_test.go:29: [MM07-replay-chat] bounded child passes ^TestMiniMaxReplay$: err=exit status 1 output=--- FAIL: TestMiniMaxReplay (0.14s)
+                --- FAIL: TestMiniMaxReplay/cancel (0.01s)
+                    minimax_harness_test.go:371: [MM07-cancel] cancel after visible content: code=protocol stop=error
+            FAIL
+            barness-ai evidence bundle: /var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestMiniMaxReplayProcesschat3070904784/001/replay/20261017T224213.109111000Z
+    --- FAIL: TestMiniMaxReplayProcess/responses (0.47s)
+        minimax_replay_process_test.go:29: [MM07-replay-responses] bounded child passes ^TestMiniMaxReplay$: err=exit status 1 output=--- FAIL: TestMiniMaxReplay (0.14s)
+                --- FAIL: TestMiniMaxReplay/cancel (0.01s)
+                    minimax_harness_test.go:371: [MM07-cancel] cancel after visible content: code=protocol stop=error
+            FAIL
+            barness-ai evidence bundle: /var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestMiniMaxReplayProcessresponses1837408854/001/replay/20261017T224213.585777000Z
+    --- FAIL: TestMiniMaxReplayProcess/messages (0.48s)
+        minimax_replay_process_test.go:29: [MM07-replay-messages] bounded child passes ^TestMiniMaxReplay$: err=exit status 1 output=--- FAIL: TestMiniMaxReplay (0.14s)
+                --- FAIL: TestMiniMaxReplay/cancel (0.01s)
+                    minimax_harness_test.go:371: [MM07-cancel] cancel after visible content: code=protocol stop=error
+            FAIL
+            barness-ai evidence bundle: /var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestMiniMaxReplayProcessmessages2133975756/001/replay/20261017T224214.054419000Z
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-07/.evidence/barness-ai/20261017T224212.838720000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	2.013s
+FAIL

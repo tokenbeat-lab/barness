@@ -91,7 +91,7 @@ func validateGLMChatBudget(m Model, body map[string]any) string {
 	}
 	if raw, present := body["max_tokens"]; present {
 		n, ok := raw.(json.Number)
-		if !ok || !glmOutputBudgetNumber(json.RawMessage(n), min(m.MaxTokens, glmChatMaxOutputTokens)) {
+		if !ok || !outputBudgetNumber(json.RawMessage(n), min(m.MaxTokens, glmChatMaxOutputTokens)) {
 			return "max_tokens must be an integer from 1 through the model output limit"
 		}
 	}
