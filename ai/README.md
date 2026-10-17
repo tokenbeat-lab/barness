@@ -1,6 +1,8 @@
 # barness-ai
 
-> **Catalog update (2026-10-17):** `2026-10-17.2` contains 93 chat identities, two image models and three classifiers. China standard GLM-5.3/5.2 each has independent Chat, Responses and Messages identities; the [complete Host example](examples/glmhost/README.md) covers three bindings, standard keys and full/simple/WithHooks. Jev1.14 PNG/JPEG/Box retains experimental image and explicit authorization requirements. The current release contract preserves13 protocol combinations and14 independent support identities; see [ticket13 current-source acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md).
+> **Catalog update (2026-10-17):** `2026-10-17.2` contains 93 chat identities, two image models and three classifiers. China standard GLM-5.3/5.2 each has independent Chat, Responses and Messages identities; the [complete Host example](examples/glmhost/README.md) covers three bindings, standard keys and full/simple/WithHooks. Jev1.14 PNG/JPEG/Box retains experimental image and explicit authorization requirements. The current release contract preserves13 protocol combinations and14 independent support identities; see [ticket13 historical acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md); release checks must revalidate source applicability.
+
+> **MiniMax China (2026-10-18):** adapters and [local/cloud Host examples](examples/minimaxhost/README.md) are controlled candidates. M3 formal promotion is pending its own ticket10 live/price/release evidence; M3.1 entitlement and production price remain unconfirmed. Candidate test rates are not real quotes.
 
 English | [简体中文](README.zh-CN.md)
 
@@ -490,6 +492,6 @@ NOT_RUN reports cannot replace them.
 | [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | Classifier inputs, refusals, image authorization, usage and rollback |
 | [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | Thinking profiles, merge order and full/simple boundaries |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | Release deliverables, gate status, policy measurements |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0036 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0040 |
 | [GLOSSARY.md](../GLOSSARY.md) | Domain terms (Tenant, Binding, Logical Call, Native State, …) |
 | `go doc -all ./ai` | Package and type documentation |

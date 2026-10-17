@@ -1,0 +1,7 @@
+=== RUN   TestMiniMaxFullRollback
+    minimax_full_rollback_test.go:39: [MM08-full-software-rollback] whole software rollback process succeeds: exit status 2 /opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '$REPO/.scratch/barness-ai-minimax/evidence/ticket-08/rollback.py': [Errno 2] No such file or directory
+--- FAIL: TestMiniMaxFullRollback (0.03s)
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T224400.676915000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.644s
+FAIL

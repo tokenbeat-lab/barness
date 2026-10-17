@@ -21,7 +21,11 @@ M3 Responses/Messages off，M3.1 全为 max。它不物化为 wire effort 或用
 共享采样只在输入为空时采用标签，回调之后不重选；Messages 继续忽略采样 map。
 
 没有选择通过协议默认强行写入用户 Reasoning，因为它混淆省略与显式设置，也会污染续接
-和采样的归属。没有添加二元思考兼容开关，因为已有支持档位 map 已足以表达真实集合。
+和采样的归属。初始方案认为“没有添加二元思考兼容开关，因为已有支持档位 map 已足以
+表达真实集合”；这一局部理由已被 [ADR-0040](0040-minimax-messages-adaptive-boundary.md)
+取代。M3 被 Host 收紧为必须开启与 M3.1 被收窄到 high-only 是两个真实用例，证明二元
+开关、mandatory 与支持 map 是独立语义；当前使用 ModelCompat.ThinkingSwitchOnly 显式
+声明二元能力。本 ADR 的默认采样标签与 wire effort 分离决策继续有效。
 
 候选价格全部是明确标记的合成测试费率，版本与显示名不允许它冒充 M Plan/标准报价。
 真实 M3 价格及其 RMB→USD 来源在后续独立候选/正式快照取得，不用零值假装免费。
