@@ -66,7 +66,9 @@ class Round:
         current = sources()
         if current != doc(self.out/'source-at-start.json')['files']:
             raise RuntimeError('frozen source/config changed; paid execution stopped')
-        if any(current.get(p) != h for p,h in doc(TYPESAFE/'source-at-start.json')['files'].items()):
+        prior = doc(TYPESAFE/'source-at-start.json')['files']
+        if ({p for p in current if p.endswith('.go')} != {p for p in prior if p.endswith('.go')}
+                or any(current.get(p) != h for p,h in prior.items())):
             raise RuntimeError('existing TypeSafe evidence expired; a separately bounded fresh round is required')
 
     @staticmethod
@@ -166,8 +168,18 @@ class Round:
             ('build-visual',['go','build','-o',self.out/'visualeval','./ai/examples/visualeval'])):
             if self.execute(name,argv,timeout=180) != 0:
                 raise RuntimeError('credential-free build failed')
+        self.verify_reuse()
         self.guard()
         dump(self.out/'prepared.json',dict(state='PREPARED',credentialsRead=False))
+
+    def verify_reuse(self):
+        self.guard()
+        for name,argv in (
+            ('reuse-typesafe-support',['go','run','./ai/live/cmd/jevformal','-verify',TYPESAFE/'support','-require-live']),
+            ('reuse-typesafe-text',[self.out/'chineseeval','-route','jev','-verify',bundle(TYPESAFE/'text-jev')]),
+            ('reuse-typesafe-visual',[self.out/'visualeval','-verify',TYPESAFE/'visual-jev','-require-live'])):
+            if self.execute(name,argv,timeout=180) != 0:
+                raise RuntimeError('existing TypeSafe evidence rejected before reuse')
 
     def summarize(self):
         rows = []
