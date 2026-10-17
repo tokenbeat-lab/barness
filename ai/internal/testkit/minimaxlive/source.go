@@ -135,7 +135,11 @@ func SDKVersion(id Identity) (string, error) {
 	for _, line := range strings.Split(string(raw), "\n") {
 		fields := strings.Fields(strings.TrimPrefix(strings.TrimSpace(line), "require "))
 		if len(fields) >= 2 && fields[0] == module {
-			return module + " " + fields[1], nil
+			suffix := ""
+			if id.Route == "messages" {
+				suffix = " (HTTP; SSE decoded by barness-ai, ADR-0011)"
+			}
+			return module + " " + fields[1] + suffix, nil
 		}
 	}
 	return "", fmt.Errorf("MiniMax SDK dependency unavailable")

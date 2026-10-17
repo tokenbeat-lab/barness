@@ -60,7 +60,7 @@ func Plan(id Identity) []Case {
 		{"full-complete", 1024, "full Complete text"},
 		{"simple-stream", 1024, "simple Stream default selection"},
 		{"simple-complete", 1024, "simple Complete default selection"},
-		{"thinking-on", 2048, "own explicit reasoning on/high or mandatory low"},
+		{"thinking-on", 2048, "own explicit reasoning on/high or mandatory high"},
 		{"thinking-control", 1024, "binary off or mandatory max"},
 		{"tool-call", 4096, "own automatic tool and reasoning in the same assistant turn"},
 		{"tool-result-native", 2048, "Host validated tool and original trusted reasoning/native state continuation"},
