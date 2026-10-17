@@ -39,6 +39,8 @@ Base: `ecfd4b4`
 - 03 resolved (offline scope): independent Responses capability/guards, authoritative stream handling and opaque native/tool history; [Answer](issues/03-responses-protocol.md#answer), [evidence](evidence/ticket-03/README.md), ADR-0039. Lossless reasoning input projection remains provisional until own live10 verifies it; no formal support claim.
 - 04 resolved：Messages adaptive/effort、二元元数据、严格 SSE 与可信签名工具续接完成；[Answer](issues/04-messages-protocol.md#answer)、[138 own/race + 297 回归证据](evidence/ticket-04/README.md)、ADR-0040。真实形状与正式支持仍由后续票独立验收。
 
+- 06 resolved：冻结 M3 Messages 六条文本/签名双工具及完整续接实际差分、完整目录与五个扩展身份四入口验收完成；[Answer](issues/06-pi-differential.md#answer)、[29 own/race + 70 旧原生差分证据](evidence/ticket-06/README.md)。41 条有限 case/path/kind、2 条扩展路线；旧317条决策/6路线与全部 pins 不变，pending0，不声明 live 或正式价格。
+
 ## Fog
 
 - 三协议真实推理续接形状与正式支持，按 R25–R27、票10独立验收。用户已确认 MINIMAX_KEY 中国区标准按量；M3.1 未获 M Plan 资格，线上候选保持 NOT_RUN。
