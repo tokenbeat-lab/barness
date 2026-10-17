@@ -92,6 +92,9 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
+		if ac.model.Provider == ProviderZhipu {
+			failure.HTTPStatus = res.StatusCode
+		}
 		return failure
 	}
 
@@ -101,6 +104,9 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	failure = p.read(ctx, ssestream.NewDecoder(res))
 	if failure != nil {
 		failure.ProviderRequestID = requestID
+		if ac.model.Provider == ProviderZhipu {
+			failure.HTTPStatus = res.StatusCode
+		}
 	}
 	return failure
 }
@@ -111,13 +117,20 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 type chatFailures struct{ httpFailures }
 
 func newChatFailures(provider ProviderID, apiKey Secret, initial *initialRequest) chatFailures {
-	return chatFailures{httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: requestIDHeaderOf(provider), describe: chatHTTPError}}
+	f := httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: requestIDHeaderOf(provider), describe: chatHTTPError}
+	if provider == ProviderZhipu {
+		f.glm = APIOpenAICompletions
+	}
+	return chatFailures{f}
 }
 
 // inBand is a named error event or a chunk's truthy error: openai-node raises
 // APIError without a status, whose message pi reports, followed by
 // OpenRouter's raw provider metadata when the message lacks it.
 func (f chatFailures) inBand(raw json.RawMessage) *Error {
+	if f.glm != "" {
+		return f.providerError(raw)
+	}
 	return f.upstream(withRawMetadata(apiErrorText(raw), raw))
 }
 

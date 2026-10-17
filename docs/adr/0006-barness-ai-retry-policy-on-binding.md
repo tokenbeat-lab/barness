@@ -37,3 +37,23 @@ TypeSafe 直连 HTTP 在 Do 边界复用连接失败标记，只有真正发起 
 成功响应回调一次。429/529/连接失败耗尽和 401/403/422 分类有离线证据；退避期间无 body
 或许可，context 结束保留此前 Attempt。成功 HTTP 后的读断、坏 JSON、无效答案、超限、
 回调失败和取消都不重放，详见 [工单 07](../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md)。
+
+## GLM 工单 08：业务拒绝优先于重试头（2026-10-17）
+
+仅对 `ProviderZhipu` 增加明确的永久业务拒绝：官方 Chat 数字错误表中的欠费、
+使用上限、套餐失效/权益、认证、参数与安全策略码，以及 Responses 自身的具名
+额度/认证/参数/策略错误码，均禁止自动重试，即使 HTTP429 或
+`x-should-retry:true`。保留原 HTTP 对应的稳定 Code/Phase，不新增账务错误分类。
+已知业务码与未知 HTTP429 均保留安全诊断，但不从未知码猜测账务原因。
+暂时限流/过载和未知码仍遵守上述 HTTP、Binding 上限与延迟规则。
+
+这是相对通用 pi HTTP 判定的显式厂商扩展：重试不能解除欠费或账户权益限制，
+会重复消耗预算；相反，把所有429均禁用会损失合法的暂时限流恢复能力。
+依据为[错误码及独立协议 schema 快照](../../.scratch/barness-ai-glm/evidence/ticket-08/README.md)。
+Responses 的字符串码与 Chat 的数字码不是同一套；Messages 嵌套错误对象的离线
+兼容性 fixture 明确标为合成契约，不能被引用为实际 GLM 欠费 wire 观测。
+
+GLM 公共错误只显示 HTTP 与经过白名单/数值格式校验的业务码，省略厂商自由文本，
+以免其回显提示、思考或凭据；Observer 继续只含原有元数据。GLM 流失败保留已取得
+的 HTTP200 和经真实成功捕获确认的 `X-Request-Id`，缺失时不补本地或 DeepSeek ID。
+其他 Provider 的既有错误文本、重试头优先级与冻结差分契约均保持。

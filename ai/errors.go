@@ -72,7 +72,8 @@ const (
 // goes back only to the calling tenant and is that tenant's content: a host
 // must not write Message, Error() or ErrorMessage to shared logs, and
 // should log Observer records instead (an approved security difference,
-// ADR-0009).
+// ADR-0009). GLM instead exposes only validated business codes and HTTP
+// metadata; its provider text is omitted because it can echo sensitive content.
 type Error struct {
 	Code    Code
 	Phase   Phase
@@ -81,7 +82,7 @@ type Error struct {
 	// was received.
 	HTTPStatus int
 	// ProviderRequestID is the vendor's own request id (OpenAI's
-	// x-request-id, DeepSeek's x-ds-trace-id, Anthropic's request-id
+	// x-request-id, GLM's x-request-id, DeepSeek's x-ds-trace-id, Anthropic's request-id
 	// response header, or TypeSafe's x-typesafe-request-id), when a response carried one.
 	ProviderRequestID string
 	// RetryAfter is the delay the provider asked for, from retry-after-ms or
