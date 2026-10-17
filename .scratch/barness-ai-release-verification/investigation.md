@@ -82,3 +82,27 @@ Darwin 源码佐证：TCP 在输出前入队
 资源竞争实验未结束时过早启动的一轮回归出现额外网络/恢复失败，保留于 `pressure-green`
 及其 condition.json。已终止竞争进程，后续 `isolated-regressions` 独立执行；
 不以相同目录覆盖失败，不将实验返回码或后续成功冒充那轮 PASS。
+
+## 自然反例的独立确认与当前对照
+
+改进诊断装置为先建立全部 256 个普通 TCP 连接，再做有限写入/排空；所有写有三秒
+deadline，所有子进程白名单环境并在 finally 回收。没有 errno、帧或正文注入，
+只在临时 overlay 恢复已经删除的不安全续写及原发送缓冲，600 个 Go 文件保持不变。
+
+两次顺序、独立运行分别在 `native-20261017T022612.488595Z` 的 call-03/connection 2
+及 `native-20261017T022622.224455Z` 的 call-09/11、connection 4/30 得到相同首差：
+body 1,318,335 / SSE frame 4098 offset 262,214，JSON 结束字节被重复 `c` 替代。
+每次都关联 seq194、wire offset 1,060,329、783,784-byte write、ENOBUFS/0-reported
+及同 Hash 续写。实际测试均 exit 1、audit=0、runtimeSourceUnchanged=true。冷编译/设置
+超时的 round0 未完成、不计验收；此前重叠观察也不计这两次独立反馈。
+
+当前安全实现同条件 `native-20261017T022910.882286Z`：32 handlers/traces，22 个显式
+transport 失败、10 个成功；每请求一次 Attempt、零首差、全部资源归零、audit=0。
+最终归档脚本再次独立执行于 `native-20261017T023345.189293Z`，实际 exit 1；
+故意耗尽导致的错误按 FAIL 保留，不能将诊断收集退出 0 写成发布 PASS。
+具体计数、探针和每请求终态以原包为准。归档脚本/白名单/清理流程已实际执行。
+
+公开 socket 回归通过归档 `replay-red.py` 再次恢复旧行为得到两个既定 RED；
+当前隔离回归 normal/race 与原 single-P race 300 轮均 PASS。新证据闭合可重复的自然
+续写损坏机制，但没有反向认证历史 call-04/call-11 的原始字节。完整本版 normal/race
+仍是原 #07 关闭的必要条件，真实支持和效果继续 NOT_RUN。

@@ -1,0 +1,132 @@
+// DEBUG-native07: bounded loopback-only competing socket buffers. No fault injection.
+package main
+
+import (
+ "encoding/json"
+ "fmt"
+ "net"
+ "os"
+ "os/signal"
+ "sync"
+ "syscall"
+"strconv"
+ "time"
+)
+
+func main() {
+ dir := os.Getenv("BARNESS_NATIVE_CONDITION_DIR")
+ if dir!="" {
+  until:=time.Now().Add(90*time.Second)
+  for { if _,e:=os.Stat(dir+"/start");e==nil { break }; if time.Now().After(until) { return }; time.Sleep(time.Millisecond) }
+ }
+ if os.Getenv("BARNESS_NATIVE_KIND")=="udp" { udpCondition(dir); return }
+ ln, err := net.Listen("tcp", "127.0.0.1:0")
+ if err != nil { panic(err) }
+ defer ln.Close()
+ pairs:=128
+ if v,e:=strconv.Atoi(os.Getenv("BARNESS_NATIVE_PAIRS"));e==nil && v>=1 && v<=256 { pairs=v }
+ accepted := make(chan *net.TCPConn, pairs)
+ go func() {
+  for range pairs {
+   c, err := ln.Accept()
+   if err != nil { return }
+   tcp := c.(*net.TCPConn)
+   _ = tcp.SetReadBuffer(4<<20)
+   accepted <- tcp
+  }
+ }()
+ payload := make([]byte, 128<<10)
+ connections := []*net.TCPConn{}
+ var wg sync.WaitGroup
+ var mu sync.Mutex
+ total := int64(0)
+ causes := map[string]int{}
+ writers := []*net.TCPConn{}
+ for range pairs {
+  c, err := net.DialTimeout("tcp", ln.Addr().String(), time.Second)
+  if err != nil { panic(err) }
+  tcp := c.(*net.TCPConn)
+  _ = tcp.SetWriteBuffer(4<<20)
+  select { case server := <-accepted: connections = append(connections,tcp,server); case <-time.After(time.Second): panic("accept deadline") }
+  writers = append(writers,tcp)
+ }
+ for _, tcp := range writers {
+  wg.Add(1)
+  go func(c *net.TCPConn) {
+   defer wg.Done()
+   _ = c.SetWriteDeadline(time.Now().Add(3*time.Second))
+   written := int64(0)
+   var cause error
+   for written < 8<<20 {
+    n, err := c.Write(payload)
+    written += int64(n)
+    if err != nil { cause=err; break }
+   }
+   mu.Lock()
+   total += written
+   if cause!=nil { if e,ok:=cause.(*net.OpError);ok && e.Timeout() { causes["deadline"]++ } else { causes[fmt.Sprint(cause)]++ } }
+   mu.Unlock()
+  }(tcp)
+ }
+ wg.Wait()
+ // The test runner captures this synthetic-only receipt before starting the original load.
+ _ = json.NewEncoder(os.Stdout).Encode(map[string]any{"ready":true,"pairs":pairs,"reportedQueuedBytes":total,"causes":causes,"condition":"local competing buffers; no modified provider socket or injected error"})
+ if dir!="" { _=os.WriteFile(dir+"/ready",[]byte("ready"),0600) }
+ stop:=make(chan struct{})
+ if os.Getenv("BARNESS_NATIVE_REFILL")=="1" {
+  for i,c:=range connections { if i%2!=0 { continue };wg.Add(1);go func(c *net.TCPConn){ defer wg.Done();for { select { case <-stop:return;default: };_ = c.SetWriteDeadline(time.Now().Add(20*time.Millisecond));_,_ = c.Write(payload);time.Sleep(time.Millisecond) } }(c) }
+ }
+ done := make(chan os.Signal,1)
+ signal.Notify(done,os.Interrupt,syscall.SIGTERM)
+ released:=make(chan struct{})
+ if dir!="" { go func(){ for { if _,e:=os.Stat(dir+"/release");e==nil { delay,_:=strconv.Atoi(os.Getenv("BARNESS_NATIVE_RELEASE_DELAY_MS"))
+    if os.Getenv("BARNESS_NATIVE_CLOSE_PULSE")=="1" {
+     for step:=0;step<delay && step<pairs;step++ { for _,c:=range connections[step*2:step*2+2] { _=c.SetLinger(0);_=c.Close() };time.Sleep(time.Millisecond) }
+    } else if os.Getenv("BARNESS_NATIVE_DRAIN")=="1" {
+     buf:=make([]byte,64<<10)
+     for step:=0;step<delay;step++ { c:=connections[(step%pairs)*2+1];_=c.SetReadDeadline(time.Now().Add(time.Millisecond));_,_=c.Read(buf);time.Sleep(time.Millisecond) }
+    } else { time.Sleep(time.Duration(delay)*time.Millisecond) }
+    close(released);return };time.Sleep(time.Millisecond) } }() }
+ select { case <-done: case <-released: case <-time.After(4*time.Minute): }
+ close(stop)
+ for _, c := range connections { _ = c.Close() }
+ wg.Wait()
+ if dir!="" { _=os.WriteFile(dir+"/closed",[]byte("closed"),0600) }
+}
+
+func udpCondition(dir string) {
+ pairs:=192
+ if v,e:=strconv.Atoi(os.Getenv("BARNESS_NATIVE_PAIRS"));e==nil && v>=1 && v<=256 { pairs=v }
+ receivers:=[]*net.UDPConn{}
+ senders:=[]*net.UDPConn{}
+ data:=make([]byte,(16<<10)-64)
+ var wg sync.WaitGroup
+ var mu sync.Mutex
+ reported:=int64(0)
+ errors:=0
+ causes:=map[string]int{}
+ for range pairs {
+  r,e:=net.ListenUDP("udp",&net.UDPAddr{IP:net.ParseIP("127.0.0.1")}); if e!=nil { panic(e) }
+  _=r.SetReadBuffer(4<<20)
+  w,e:=net.DialUDP("udp",nil,r.LocalAddr().(*net.UDPAddr));if e!=nil { panic(e) }
+  _=w.SetWriteBuffer(64<<10)
+  receivers=append(receivers,r);senders=append(senders,w)
+  wg.Add(1)
+  go func(w *net.UDPConn){ defer wg.Done();sent:=int64(0);bad:=0;_ = w.SetWriteDeadline(time.Now().Add(time.Second));for range 240 { n,e:=w.Write(data);sent+=int64(n);if e!=nil { bad++;mu.Lock();causes[fmt.Sprint(e)]++;mu.Unlock();break } };mu.Lock();reported+=sent;errors+=bad;mu.Unlock() }(w)
+ }
+ wg.Wait()
+ queued:=0
+ for _,r:=range receivers { raw,_:=r.SyscallConn();_=raw.Control(func(fd uintptr){ n,e:=syscall.GetsockoptInt(int(fd),syscall.SOL_SOCKET,syscall.SO_NREAD);if e==nil { queued+=n } }) }
+ _=json.NewEncoder(os.Stdout).Encode(map[string]any{"ready":true,"kind":"udp","pairs":pairs,"reportedSentBytes":reported,"firstDatagramBytesSum":queued,"sendErrors":errors,"causes":causes})
+ _=os.WriteFile(dir+"/ready",[]byte("ready"),0600)
+ until:=time.Now().Add(8*time.Second)
+ for { if _,e:=os.Stat(dir+"/release");e==nil { break };if time.Now().After(until) { break };time.Sleep(time.Millisecond) }
+ delay,_:=strconv.Atoi(os.Getenv("BARNESS_NATIVE_RELEASE_DELAY_MS"))
+ for step:=0;step<delay;step++ {
+  r:=receivers[step%len(receivers)];_=r.SetReadDeadline(time.Now().Add(time.Millisecond))
+  for range 4 { _,_,_=r.ReadFromUDP(data) }
+  time.Sleep(time.Millisecond)
+ }
+ for _,r:=range receivers { _=r.Close() };for _,w:=range senders { _=w.Close() }
+ _=os.WriteFile(dir+"/closed",[]byte("closed"),0600)
+}
