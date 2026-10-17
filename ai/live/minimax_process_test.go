@@ -16,20 +16,23 @@ import (
 )
 
 func TestMiniMaxProcess(t *testing.T) {
-	for _, name := range []string{"not-run", "switch-off", "missing-entitlement", "narrowed", "foreign-key", "mixed-route", "endpoint-override", "wrong-model", "formal-absent", "success-chat", "success-responses", "success-messages", "success-m31-chat", "success-m31-responses", "success-m31-messages", "missing-thinking", "wrong-actual-model", "missing-terminal", "extra-attempt", "output-budget", "input-budget", "known-input-overrun", "inventory-failure", "research-chat", "success-rerun-tool", "success-transient-request", "transient-exhausted", "transient-stream"} {
+	for _, name := range []string{"not-run", "switch-off", "missing-entitlement", "narrowed", "foreign-key", "mixed-route", "endpoint-override", "wrong-model", "formal-absent", "success-chat", "success-responses", "success-messages", "success-m31-chat", "success-m31-responses", "success-m31-messages", "missing-thinking", "wrong-actual-model", "missing-terminal", "extra-attempt", "output-budget", "input-budget", "known-input-overrun", "inventory-failure", "research-chat", "success-rerun-tool", "success-transient-request", "transient-exhausted", "transient-stream", "permanent-429", "unknown-429", "typed-503", "success-transient-transport", "success-one-hour-zero"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "MM07-process-"+name)
 			base := t.TempDir()
 			route, model, purpose := "chat", minimaxlive.M3, "standard"
 			if strings.HasPrefix(name, "success-") {
 				route = strings.TrimPrefix(name, "success-")
-				if name == "success-rerun-tool" || name == "success-transient-request" {
+				if name == "success-rerun-tool" || strings.HasPrefix(name, "success-transient-") {
 					route = "chat"
 				}
 			}
 			if strings.HasPrefix(route, "m31-") {
 				route = strings.TrimPrefix(route, "m31-")
 				model, purpose = minimaxlive.M31, "mplan"
+			}
+			if name == "permanent-429" || name == "unknown-429" || name == "typed-503" || name == "success-one-hour-zero" {
+				route = "messages"
 			}
 			env := []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=" + route, "BARNESS_MINIMAX_MODEL=" + model, "BARNESS_MINIMAX_PURPOSE=" + purpose, "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=cn-test", "BARNESS_MINIMAX_CONTROLLED=" + name, "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + filepath.Join(base, "captures")}
 			switch name {
@@ -95,7 +98,7 @@ func TestMiniMaxProcess(t *testing.T) {
 			formal, _ := filepath.Glob(filepath.Join(filepath.Dir(reports[0]), "live-report.json"))
 			cs.Check("no formal report", len(formal) == 0, "formal report was published")
 			if strings.HasPrefix(name, "success-") {
-				cs.Check("complete own identity", r.Outcome == "PASS" && r.Complete && ((name != "success-rerun-tool" && name != "success-transient-request" && r.Budget.Calls == 13 && r.Budget.Attempts == 12) || ((name == "success-rerun-tool" || name == "success-transient-request") && r.Budget.Calls == 14 && r.Budget.Attempts == 13)) && r.Budget.RequestedOutput < 40000, "%s", raw)
+				cs.Check("complete own identity", r.Outcome == "PASS" && r.Complete && ((name != "success-rerun-tool" && !strings.HasPrefix(name, "success-transient-") && r.Budget.Calls == 13 && r.Budget.Attempts == 12) || ((name == "success-rerun-tool" || strings.HasPrefix(name, "success-transient-")) && r.Budget.Calls == 14 && r.Budget.Attempts == 13)) && r.Budget.RequestedOutput < 40000, "%s", raw)
 			} else if strings.HasPrefix(name, "research-") {
 				cs.Check("research cannot certify full candidate", r.Outcome == "PASS" && !r.Complete && r.Kind == "minimax-research-only" && r.Budget.Calls == 3 && r.Budget.Attempts == 3, "%s", raw)
 			} else if ok {

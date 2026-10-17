@@ -29,7 +29,8 @@ python3 .scratch/barness-ai-minimax/tools/paid.py summarize .evidence/minimax-ti
 
 Repeat only the explicitly reviewed protocol names `chat`, `responses`, and
 `messages`; there is no batch paid command or process retry. The fixed full
-inventory has13 cases plus one possible tool-call rerun; optional research has3
+inventory has13 cases plus one possible tool-call rerun and at most3 initial
+transient REQUEST scene reruns (once per scene, no started-stream replay); optional research has3
 cases. Both share the same per-identity20calls/24attempts/40000output/120000input
 harness ledger. Candidate stage120/144 and formal60/72 survive new collection
 roots and worktrees. Actual ledgers always use the common Git repository root
@@ -73,3 +74,43 @@ python3 .scratch/barness-ai-minimax/tools/test_paid.py
 These use new synthetic Git repositories, fake Go builds and Python producer
 processes, including a directory at `.env` proving keyless/pre-review paths do
 not open it. They never read the real credential file or contact a vendor.
+
+Optional scene reruns exclude every429 and any HTTP error with a nonempty
+`error.type`; typed permanent errors never become eligible merely because the
+HTTP status is transient. Untyped408/409/5xx and initial transport/deadline
+failures remain bounded by three scene reruns, once per scene, with no started
+stream replay. Raw response fields, phase and event sequence are rechecked by
+the independent verifier. Transport replay uses the recorded failed exchange;
+a captured deadline retains its original bounded call timeout.
+
+Research captures are copied byte for byte only after the fixed child/source
+and credential audit checks into common-root
+`.evidence/minimax-research-captures/mm-research-<model>-<protocol>/<session>`.
+A streaming bounded scan checks the original seal before exclusive retention.
+Candidate plans use this stable root across new prepared source collections or
+worktrees; all earlier failures/calls/attempts remain in the same stage ledger.
+
+A successful MiniMax child self-check is structural. Actual promotion/import
+also requires the trusted external launcher origin pins, canonical ledger
+prefix, or the curated repository verifier index. The keyless formal publisher
+runs after the launcher records original report/seal/ledger/source/binary/plan
+pins. GLM renewal likewise requires the original four-file capture pins in its
+canonical launcher receipt. Metadata settlement preserves real producer DTOs:
+per-scenario support outcomes (including documented UNSUPPORTED) and COMPLETE
+business-effect status; it does not replace public certification. Original
+producer report hashes prevent later edits from lowering settled counters.
+
+Known producer settlement reads the original GLM `formal-glm-report.json` even
+when public support projection fails. Other support rows retain their real
+scenario outcomes; documented UNSUPPORTED scenes can coexist with passed
+mandatory scenes. Effect COMPLETE status is retained as successful execution
+metadata. The original report hash is pinned before later summaries; changed
+reports become UNKNOWN and consume the original ceiling. Both producer
+reservation spellings, `attemptsReserved` and `reservedAttempts`, are retained.
+This settlement never changes the public certification/import rules.
+
+If the bounded research tool probe fails, the dependent native continuation is
+explicitly NOT_RUN and receives no synthetic Call or reservation. Original
+failed probe captures, source applicability and receipts remain byte for byte
+in the canonical research archive. The complete candidate still executes the
+unchanged thirteen-case inventory and accounts for those actual prior calls.

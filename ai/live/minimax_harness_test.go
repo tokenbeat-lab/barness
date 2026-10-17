@@ -105,6 +105,11 @@ func driveMiniMax(t *testing.T) {
 				t.Run(p.ID+"-rerun-1", func(t *testing.T) { s.execute(t, p, 1) })
 			}
 		}
+		if r.Kind == "minimax-research-only" && p.ID == "research-tool-call" &&
+			(len(r.Calls) == 0 || r.Calls[len(r.Calls)-1].Outcome != "PASS") {
+			r.Unknown = append(r.Unknown, "research-tool-result-native NOT_RUN: own tool/reasoning prerequisite did not pass")
+			break
+		}
 		if r.Failure == "known-input-overrun" {
 			break
 		}
@@ -347,7 +352,7 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	res := capture.Result
 	cs.Check("exact identity snapshot", res.Metadata.ProviderID == ai.ProviderMiniMaxCN && res.Metadata.API == minimaxReport.Identity.API && res.Metadata.ModelID == minimaxReport.Identity.Model && res.Metadata.CatalogHash == minimaxReport.CatalogHash, "identity mismatch")
 	cs.Check("body and Observer resources settled", s.gate.active.Load() == 0 && s.client.ObserverStats().Dropped == 0 && s.client.ObserverStats().Failed == 0, "resource not settled")
-	if rerun == 0 && minimaxReport.Kind != "minimax-research-only" && s.requestReruns < minimaxlive.MaxRequestReruns && minimaxlive.RequestRerunnable(capture, events, ex[0].Status) {
+	if rerun == 0 && minimaxReport.Kind != "minimax-research-only" && s.requestReruns < minimaxlive.MaxRequestReruns && minimaxlive.RequestRerunnable(capture, events, ex[0].Status, ex[0].ResponseBody) {
 		for _, x := range ex {
 			cs.Check("bounded initial request failure capture", !x.Truncated, "truncated")
 			cs.Fixture("request.json", []byte(x.RequestBody))

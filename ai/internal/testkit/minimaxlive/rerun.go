@@ -18,7 +18,7 @@ func RerunnableCase(id string) bool {
 	}
 	return false
 }
-func RequestRerunnable(result Capture, events []json.RawMessage, status int) bool {
+func RequestRerunnable(result Capture, events []json.RawMessage, status int, responseBody string) bool {
 	if result.ErrorPhase != ai.PhaseRequest || len(result.Result.Metadata.Attempts) != 1 || len(result.Result.Message.Content) != 0 {
 		return false
 	}
@@ -28,9 +28,8 @@ func RequestRerunnable(result Capture, events []json.RawMessage, status int) boo
 	}
 	switch result.ErrorCode {
 	case ai.CodeRateLimited:
-		if a.HTTPStatus != 429 {
-			return false
-		}
+		// Optional scene reruns never duplicate core's explicit429 policy.
+		return false
 	case ai.CodeUpstreamError:
 		if a.HTTPStatus < 500 && a.HTTPStatus != 408 && a.HTTPStatus != 409 {
 			return false
@@ -41,6 +40,16 @@ func RequestRerunnable(result Capture, events []json.RawMessage, status int) boo
 		}
 	default:
 		return false
+	}
+	if status != 0 {
+		var response struct {
+			Error map[string]json.RawMessage `json:"error"`
+		}
+		_ = json.Unmarshal([]byte(responseBody), &response)
+		typ := string(response.Error["type"])
+		if typ != "" && typ != `""` && typ != "null" {
+			return false
+		}
 	}
 	for _, raw := range events {
 		var event struct {

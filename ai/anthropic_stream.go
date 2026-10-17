@@ -375,9 +375,9 @@ func (a *anthropicUsage) start(w *anthropicWireUsage) {
 		}
 	}
 	// Compatible Providers have no verified native one-hour cache contract.
-	// Omission remains unset. MiniMax retains an explicit positive count so
-	// the call fails with known usage, without inventing a native premium.
-	if anthropicCapabilitiesOf(a.model.Provider).promptCache || a.model.Provider == ProviderMiniMaxCN && long > 0 {
+	// Omission remains unset. MiniMax retains an explicit count, including zero;
+	// positive usage fails without inventing a native premium.
+	if anthropicCapabilitiesOf(a.model.Provider).promptCache || a.model.Provider == ProviderMiniMaxCN && w != nil && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
 		a.u.CacheWrite1h = Value(long)
 	}
 	a.settle()

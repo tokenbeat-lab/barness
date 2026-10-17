@@ -69,13 +69,22 @@ class Launcher(unittest.TestCase):
         code='#!'+sys.executable+'\nimport json,os\nfrom pathlib import Path\nprint(json.dumps(dict(os.environ)))\n'
         if report:
             code += "base=Path(os.environ['BARNESS_AI_EVIDENCE_DIR'])/'session';base.mkdir(parents=True)\n"
-            code += "(base/'minimax-report.json').write_text(json.dumps({'outcome':'PASS','budget':{'calls':3,'attempts':3},'cumulativeIdentityBudget':{'calls':3,'attempts':3}}))\n"
+            code += "(base/'minimax-report.json').write_text(json.dumps({'outcome':'PASS','budget':{'calls':3,'attempts':3},'cumulativeIdentityBudget':{'calls':3,'attempts':3},'session':'session','mode':'live','kind':'minimax-research-only'}))\n"
+            code += "import hashlib\nraw=(base/'minimax-report.json').read_bytes()\n(base/'minimax-integrity.json').write_text(json.dumps({'schema':1,'files':{'minimax-report.json':hashlib.sha256(raw).hexdigest()}}))\n"
         (self.bin/'producer').write_text(code)
 
     def prepared(self,report=True):
         self.producer(report)
         self.invoke('prepare','out');self.invoke('check','out');self.approve()
         (self.root/'.env').write_text('MINIMAX_KEY=SELECTED-CONTROLLED-SECRET\nOPENAI_KEY=UNSELECTED-CONTROLLED-SECRET\n')
+
+    def test_actual_origin_requires_successful_reviewed_child_and_seal(self):
+        self.prepared();self.approve(routes=['mm-candidate-m3-chat'])
+        # Synthetic producer reports PASS but omits actual identity/seal: a
+        # reviewed launch cannot anchor this as a valid actual candidate.
+        self.invoke('run-selected','out','mm-candidate-m3-chat',ok=False)
+        intent=json.loads((self.root/'.evidence/minimax-launches/mm-candidate-m3-chat.json').read_text())
+        self.assertNotIn('origin',intent)
 
     def test_malformed_report_never_prints_unknown_fields(self):
         self.prepared();self.invoke('run-selected','out','mm-research-m3-chat')
@@ -108,6 +117,12 @@ class Launcher(unittest.TestCase):
         data=json.loads(receipt)
         self.assertEqual([k for k in data['environmentKeys'] if k.endswith('_KEY')],['BARNESS_MINIMAX_KEY'])
         self.invoke('prepare','other');self.invoke('check','other');self.approve('other')
+        retained=self.root/'.evidence/minimax-research-captures/mm-research-m3-chat/session'
+        original=self.root/'out/mm-research-m3-chat/session'
+        self.assertEqual((retained/'minimax-report.json').read_bytes(),(original/'minimax-report.json').read_bytes())
+        self.assertEqual((retained/'minimax-integrity.json').read_bytes(),(original/'minimax-integrity.json').read_bytes())
+        later=json.loads(self.invoke('preview','other','mm-candidate-m3-chat').stdout)
+        self.assertEqual(later['environment']['BARNESS_MINIMAX_PREDECESSOR_ROOT'],'$REPO/.evidence/minimax-research-captures/mm-research-m3-chat')
         (self.root/'.env').unlink();(self.root/'.env').mkdir()
         self.invoke('run-selected','other','mm-research-m3-chat',ok=False)
         self.assertFalse((self.root/'other/mm-research-m3-chat-command.json').exists())
@@ -122,6 +137,16 @@ class Launcher(unittest.TestCase):
         (self.root/'.env').unlink();(self.root/'.env').mkdir()
         self.invoke('run-selected','out','mm-candidate-m3-chat',ok=False)
         self.assertFalse((self.root/'out/mm-candidate-m3-chat-command.json').exists())
+
+    def test_verifier_origin_index_is_not_paid_generation_input(self):
+        self.prepared()
+        index=self.root/'ai/live/testdata/minimax-formal/origins.json'
+        index.parent.mkdir(parents=True)
+        index.write_text('{"schema":1,"entries":{}}')
+        self.invoke('preview','out','mm-candidate-m3-chat')
+        index.write_text('{"schema":1,"entries":{"curated-verifier-only":{}}}')
+        self.invoke('preview','out','mm-candidate-m3-chat')
+        self.assertFalse((self.root/'.evidence/minimax-launches').exists())
 
     def test_source_binary_review_drift_refuses_before_intent(self):
         self.prepared()
@@ -157,6 +182,33 @@ class Launcher(unittest.TestCase):
         result=json.loads(self.invoke('summarize','out').stdout)
         row=next(r for r in result['routes'] if r['route']=='mm-research-m3-chat')
         self.assertEqual((row['state'],row['conservativeCalls'],row['conservativeAttempts']),('UNKNOWN',20,24))
+
+    def test_actual_producer_status_formats_keep_known_component_counters(self):
+        (self.root/'.env').mkdir();self.invoke('prepare','out')
+        scenarios={'expected':['text','optional'],'scenarios':[{'id':'text','outcome':'PASS'},{'id':'optional','outcome':'UNSUPPORTED'}], 'budget':{'callsUsed':2,'httpAttempts':2,'attemptsReserved':2}}
+        cases=[('openai-chat','live/openai-chat/session/live-report.json',scenarios,2),
+               ('glm-chat','glm-chat/session/formal-glm-report.json',{'outcome':'FAIL','budget':{'callsUsed':2,'httpAttempts':2,'attemptsReserved':2}},2),
+               ('text-jev','text-jev/session/evaluation-report.json',{'status':'COMPLETE','budget':{'calls':24,'attempts':24}},24),
+               ('visual-jev','visual-jev/report.json',{'status':'COMPLETE','budget':{'calls':12,'attempts':12}},12),
+               ('protocol114','protocol114/session/multimodal-report.json',{'outcome':'PASS','budget':{'actual':{'calls':12,'attempts':12}}},12)]
+        for route,path,report,calls in cases:
+            target=self.root/'out'/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(report))
+            (self.root/'out'/(route+'-command.json')).write_text('{"state":"COMPLETED"}')
+            marker=self.root/'.evidence/minimax-launches'/(route+'.json');marker.parent.mkdir(parents=True,exist_ok=True);marker.write_text('{"state":"COMPLETED"}')
+        result=json.loads(self.invoke('summarize','out').stdout)
+        for route,_,_,calls in cases:
+            row=next(r for r in result['routes'] if r['route']==route)
+            self.assertEqual((row['state'],row['status'],row['calls'],row['attempts']),('REPORTED','FAIL' if route=='glm-chat' else 'PASS',calls,calls))
+            if route in ('openai-chat','glm-chat'):
+                self.assertEqual(row['currentReportBudget']['attemptsReserved'],2)
+        report=self.root/'out/live/openai-chat/session/live-report.json'
+        import hashlib
+        marker=self.root/'.evidence/minimax-launches/openai-chat.json'
+        marker.write_text(json.dumps({'state':'COMPLETED','reportedFileSha256':hashlib.sha256(report.read_bytes()).hexdigest()}))
+        value=json.loads(report.read_text());value['budget']['callsUsed']=0;value['budget']['httpAttempts']=0;report.write_text(json.dumps(value))
+        changed=json.loads(self.invoke('summarize','out').stdout)
+        row=next(r for r in changed['routes'] if r['route']=='openai-chat')
+        self.assertEqual((row['state'],row['conservativeCalls']),('UNKNOWN',32))
 
     def test_all_commands_keep_component_caps_and_exact_seventeen_inputs(self):
         (self.root/'.env').mkdir()

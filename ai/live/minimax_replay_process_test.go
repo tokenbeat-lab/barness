@@ -16,11 +16,11 @@ import (
 )
 
 func TestMiniMaxReplayProcess(t *testing.T) {
-	for _, route := range []string{"chat", "responses", "messages", "rerun-tool", "transient-request"} {
+	for _, route := range []string{"chat", "responses", "messages", "rerun-tool", "transient-request", "transient-transport"} {
 		t.Run(route, func(t *testing.T) {
 			cs := run.Case(t, "MM07-replay-"+route)
 			control := "success-" + route
-			if route == "rerun-tool" || route == "transient-request" {
+			if route == "rerun-tool" || strings.HasPrefix(route, "transient-") {
 				control = "success-" + route
 				route = "chat"
 			}

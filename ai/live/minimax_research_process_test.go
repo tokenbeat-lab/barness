@@ -54,3 +54,41 @@ func TestMiniMaxResearchPredecessor(t *testing.T) {
 	}
 	execute("^TestMiniMaxCandidate$", false)
 }
+
+func TestMiniMaxFailedResearchPredecessor(t *testing.T) {
+	cs := run.Case(t, "MM07-failed-research-predecessor")
+	base := t.TempDir()
+	exe, _ := os.Executable()
+	env := []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=chat", "BARNESS_MINIMAX_MODEL=MiniMax-M3", "BARNESS_MINIMAX_PURPOSE=standard", "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=cn-test", "BARNESS_MINIMAX_CONTROLLED=missing-thinking", "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + filepath.Join(base, "research"), "BARNESS_MINIMAX_RESEARCH=1"}
+	execute := func(entry string, want bool) {
+		ctx, cancel := context.WithTimeout(context.Background(), 40*time.Second)
+		defer cancel()
+		cmd := exec.CommandContext(ctx, exe, "-test.run="+entry, "-test.timeout=35s")
+		cmd.Env = env
+		output, e := cmd.CombinedOutput()
+		cs.Record(entry, map[string]any{"success": e == nil, "output": string(output)})
+		cs.Check("bounded child status "+entry, (e == nil) == want, "%v %s", e, output)
+	}
+	execute("^TestMiniMaxResearch$", false)
+	reports, _ := filepath.Glob(filepath.Join(base, "research", "*", minimaxlive.ReportFile))
+	if len(reports) != 1 {
+		t.Fatal("missing research")
+	}
+	prior, e := minimaxlive.Load(filepath.Dir(reports[0]))
+	cs.Check("failed tool keeps two attempted scenes, dependent scene not run", e == nil && !prior.Complete && prior.Outcome == "FAIL" && len(prior.Calls) == 2 && prior.Budget.Calls == 2, "%v %+v", e, prior.Budget)
+	env[8] = "BARNESS_MINIMAX_CONTROLLED=success-chat"
+	env[10] = "BARNESS_AI_EVIDENCE_DIR=" + filepath.Join(base, "candidate")
+	env[11] = "BARNESS_MINIMAX_RESEARCH=0"
+	env = append(env, "BARNESS_MINIMAX_PREDECESSOR_ROOT="+filepath.Join(base, "research"))
+	execute("^TestMiniMaxCandidate$", true)
+	reports, _ = filepath.Glob(filepath.Join(base, "candidate", "*", minimaxlive.ReportFile))
+	if len(reports) != 1 {
+		t.Fatal("missing current candidate")
+	}
+	r, e := minimaxlive.Verify(filepath.Dir(reports[0]), false)
+	cs.Check("complete candidate retains genuine failed research budget", e == nil && r.Complete && r.Cumulative.Calls == 15 && r.Cumulative.Attempts == 14, "%v %+v", e, r.Cumulative)
+	archive, e := archiveMiniMaxProcess(filepath.Dir(reports[0]))
+	if cs.Check("failed research captures retained byte for byte", e == nil, "%v", e) {
+		cs.Fixture("failed-research-predecessor.tar.gz", archive)
+	}
+}

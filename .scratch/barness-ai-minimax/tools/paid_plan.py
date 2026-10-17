@@ -65,13 +65,14 @@ def jobs(root, out, common):
                      'BARNESS_MINIMAX_REGION_ALIAS':'cn','BARNESS_AI_EVIDENCE_DIR':str(out/name),
                      'BARNESS_MINIMAX_LEDGER':str(common/'.evidence/minimax-stages'/(stage+'.jsonl'))}
                 if phase=='research':env['BARNESS_MINIMAX_RESEARCH']='1'
+                if phase=='candidate':env['BARNESS_MINIMAX_PREDECESSOR_ROOT']=str(common/'.evidence/minimax-research-captures'/('mm-research-'+short+'-'+route))
                 if phase=='formal':env['BARNESS_MINIMAX_FORMAL']='1'
                 selector='^TestMiniMax'+phase.title()+'$'
                 add(name,'minimax',key,'BARNESS_MINIMAX_KEY',
                     [live,'-test.run='+selector,'-test.timeout=1800s','-test.v'],env,20,24,
                     timeout=1800,cwd=root/'ai/live',phase=phase,stage=stage,model=model,purpose=purpose,
                     route=route,plannedCalls=3 if phase=='research' else 13,maxOutputTokens=4096,
-                    maxRequestedOutput=40000,maxReservedInput=120000,maxToolReruns=0 if phase=='research' else 1)
+                    maxRequestedOutput=40000,maxReservedInput=120000,maxToolReruns=0 if phase=='research' else 1,maxRequestReruns=0 if phase=='research' else 3)
     return result
 
 
@@ -103,8 +104,8 @@ def report_path(out, job):
     if n.startswith('text-'):return unique(out/n,'evaluation-report.json')/'evaluation-report.json'
     if n=='protocol114':return unique(out/n,'multimodal-report.json')/'multimodal-report.json'
     if n.startswith('mm-'):return unique(out/n,'minimax-report.json')/'minimax-report.json'
-    base=out/n if n.startswith('glm-') else out/'live'/n
-    return unique(base,'live-report.json')/'live-report.json'
+    if n.startswith('glm-'):return unique(out/n,'formal-glm-report.json')/'formal-glm-report.json'
+    return unique(out/'live'/n,'live-report.json')/'live-report.json'
 
 
 def live_inputs(out):

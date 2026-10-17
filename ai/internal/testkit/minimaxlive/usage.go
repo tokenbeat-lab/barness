@@ -60,6 +60,9 @@ func verifyUsage(dir string, r Report, result Capture, raw []json.RawMessage) er
 					*target = n
 				}
 			}
+			if n, ok := count(nested(obj, "cache_creation"), "ephemeral_1h_input_tokens"); ok {
+				want.CacheWrite1h = ai.Value(n)
+			}
 			if n, ok := count(nested(obj, "output_tokens_details"), "thinking_tokens"); ok {
 				want.Reasoning = ai.Value(n)
 			}

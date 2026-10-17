@@ -155,7 +155,7 @@ func verifyCall(dir string, r Report, c Call, p Case) error {
 		return fmt.Errorf("MiniMax actual requested output differs")
 	}
 	if c.Failure == "transient-request" {
-		if c.Outcome != "FAIL" || c.Rerun != 0 || !RequestRerunnable(result, events, ex[0].Status) {
+		if c.Outcome != "FAIL" || c.Rerun != 0 || !RequestRerunnable(result, events, ex[0].Status, ex[0].ResponseBody) {
 			return fmt.Errorf("MiniMax invalid transient request rerun")
 		}
 		return nil

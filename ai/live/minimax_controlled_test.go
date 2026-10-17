@@ -17,6 +17,22 @@ func installMiniMaxControlled(rec *recorder, name string) {
 	requests := 0
 	rec.next = roundTripFunc(func(req *http.Request) (*http.Response, error) {
 		requests++
+		if requests == 1 && (name == "permanent-429" || name == "unknown-429" || name == "typed-503") {
+			req.Body.Close()
+			status, body := 429, `{"error":{"type":"permission_error","message":"synthetic"}}`
+			if name == "unknown-429" {
+				body = `{"error":{"message":"synthetic"}}`
+			}
+			if name == "typed-503" {
+				status = 503
+			}
+			return &http.Response{StatusCode: status, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(body)), Request: req}, nil
+		}
+		if requests == 1 && name == "success-transient-transport" {
+			req.Body.Close()
+			return nil, fmt.Errorf("synthetic connection failure")
+		}
+
 		if name == "success-transient-request" && requests == 1 || name == "transient-exhausted" && requests <= 2 {
 			return &http.Response{StatusCode: 503, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(`{"error":{"message":"synthetic unavailable"}}`)), Request: req}, nil
 		}
@@ -54,6 +70,9 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			input = 100000
 		}
 		emit := func(v map[string]any) {
+			if name == "success-one-hour-zero" && v["type"] == "message_start" {
+				v["message"].(map[string]any)["usage"].(map[string]any)["cache_creation"] = map[string]any{"ephemeral_1h_input_tokens": 0}
+			}
 			x, _ := json.Marshal(v)
 			if minimaxReport.Identity.Route == "messages" {
 				body += "event: " + fmt.Sprint(v["type"]) + "\n"
