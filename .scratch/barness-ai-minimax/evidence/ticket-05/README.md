@@ -76,3 +76,13 @@ permanent HTTP status retried despite its semantics. Full current GREEN/race and
 committed-source acceptance artifacts are bound in SHA256SUMS. Broad regression
 records 3311 passing cases, including 202 own cases and all impacted old protocol
 families; no full slow release gate or live acceptance is claimed here.
+
+
+Final committed-source acceptance: **270 PASS** cases at `4ca7a11` (202 own,
+66 existing GLM native/cross-protocol regression, two unchanged original design
+loads). All successful retained bundles have no redaction findings. Own race:
+202 PASS at the same final runtime; vet PASS. `green-summary.json` records each
+of the six added load batches' permit peak, <=75% maximum bound, unchanged
+baseline4/8 identity and actual allocation against256/512MiB. Earlier broad
+3311-case regression metadata is compacted in regression-metadata.tar.gz; its
+summary states the later finite SSE-type-only diagnostic change separately.
