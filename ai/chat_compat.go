@@ -21,11 +21,11 @@ type chatCompat struct {
 	// maxTokens: the output budget is max_tokens instead of
 	// max_completion_tokens.
 	maxTokens bool
-	// deepseekThinking: a reasoning model's thinking is switched by
+	// thinkingToggle: a reasoning model's thinking is switched by
 	// thinking:{type:enabled|disabled}, with reasoning_effort only beside an
 	// enabled one (pi's thinkingFormat "deepseek"); otherwise
 	// reasoning_effort alone, the "off" mapping included (pi's "openai").
-	deepseekThinking bool
+	thinkingToggle bool
 	// reasoningContentOnAssistant: every replayed assistant message of a
 	// reasoning model carries reasoning_content, empty when the turn
 	// streamed none (pi's requiresReasoningContentOnAssistantMessages).
@@ -38,7 +38,7 @@ type chatCompat struct {
 // every other provider gets the standard OpenAI compat (ADR-0013).
 func chatCompatOf(p ProviderID) chatCompat {
 	if p == ProviderDeepSeek {
-		return chatCompat{maxTokens: true, deepseekThinking: true, reasoningContentOnAssistant: true}
+		return chatCompat{maxTokens: true, thinkingToggle: true, reasoningContentOnAssistant: true}
 	}
 	return chatCompat{store: true, developerRole: true}
 }

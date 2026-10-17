@@ -133,7 +133,7 @@ func (anthropicAdapter) simpleOptions(m Model, o SimpleOptions, history []Messag
 		return full
 	}
 	full.ThinkingEnabled = Value(true)
-	if m.Compat.ForceAdaptiveThinking {
+	if anthropicCapabilitiesOf(m.Provider).usesAdaptiveThinking(m) {
 		full.Effort = anthropicEffort(m, o.Reasoning)
 		return full
 	}

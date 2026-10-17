@@ -62,7 +62,9 @@ func (anthropicAdapter) headers(ac adapterCall) http.Header {
 	h := http.Header{}
 	h.Set("X-Api-Key", ac.apiKey.reveal())
 	h.Set("User-Agent", userAgent)
-	h.Set("Anthropic-Dangerous-Direct-Browser-Access", "true")
+	if anthropicCapabilitiesOf(ac.model.Provider).browserAccess {
+		h.Set("Anthropic-Dangerous-Direct-Browser-Access", "true")
+	}
 	opts, _ := ac.options.(AnthropicOptions) // nil means protocol defaults
 	if betas := anthropicBetas(ac.model, opts); len(betas) > 0 {
 		h.Set("Anthropic-Beta", strings.Join(betas, ","))
