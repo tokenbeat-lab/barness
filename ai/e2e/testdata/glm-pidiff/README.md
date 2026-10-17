@@ -74,8 +74,12 @@ The predecessor Responses tool fixtures use delimiter-free `call_id`/item IDs.
 Their recorded success does not establish arbitrary-string composite-ID safety.
 The pinned InputFunctionCall.call_id and OutputFunctionCall.{call_id,id} are
 plain strings with no `pattern`, `format` or alphabet excluding `|`; exact
-schema fields are retained in the Responses source excerpt. A separately
-coordinated05 focused public regression owns that boundary correction.
+schema fields are retained in the Responses source excerpt. The coordinated05 source-led correction has separate focused public regressions
+for delimiter, percent, Unicode and ambiguous concatenation IDs, trusted/restored
+state and cross-origin conversion. Their exact58 case IDs and four call/result
+leaf paths are now fixed records; recurrence remains pending. Additional
+cross-API collision and empty-origin-ID cases retain their own05 evidence scope.
+See [follow-up evidence](../../../../.scratch/barness-ai-glm/evidence/ticket-05-followup-ids/README.md).
 
 No built-in catalog, formal route registration, support matrix or live evidence
 is promoted here. Candidate catalog rates remain synthetic. Tickets11–13 own

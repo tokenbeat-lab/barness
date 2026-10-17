@@ -35,7 +35,10 @@ def main():
     ledger = json.loads(ledger_path.read_text())
     raw_root = args.raw_root.resolve()
     bundles, case_sets = {}, {}
-    for name in ["public", "differential", "ledger"]:
+    names = ["public", "differential", "ledger"]
+    if (raw_root / "runs/post-merge").exists():
+        names.append("post-merge")
+    for name in names:
         path = raw_root / "runs" / name
         manifest, cases = verify_bundle(path)
         statuses = dict(collections.Counter(c["status"] for c in cases.values()))
@@ -54,7 +57,7 @@ def main():
         assert decision["cases"] and decision["protocol"].startswith("zhipu/")
         assert decision["path"] not in ("request.body", "result", "events")
         for case_id in decision["cases"]:
-            case = case_sets["public"][case_id]
+            case = case_sets["public"].get(case_id) or case_sets.get("post-merge", {})[case_id]
             assert case["status"] == "PASS", case_id
             proof.append({"decision": index, "classification": decision["classification"],
                           "protocol": decision["protocol"], "path": decision["path"],

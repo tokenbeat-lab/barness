@@ -34,3 +34,15 @@ The source/ledger checks are provenance gates, not a second business interface.
    before inventory-bearing E2E; save RED and GREEN separately, audit bundles,
    checksum archives and persist raw data at root .evidence. GLM is never counted
    as native pi parity PASS; formal catalog/live/matrix remain later tickets.
+
+## Source-led ID follow-up
+
+The pinned Input/OutputFunctionCall ID fields allow arbitrary strings. The
+source check therefore exposed an additional delimiter assumption before final
+freeze. Parent coordinated the actual public RED→fix work under05;10 does not
+write retrospective helper unit tests or change that worker's runtime files.
+The05 failure plan, raw REDs and public literal-ID fixtures are retained at
+`evidence/ticket-05-followup-ids/`.10 adds exact58 public cases/four call-result
+leaf paths as fixed records and repeats the complete90-edge public selector plus
+its own five provenance cases after merging integration. Prior delimiter-free
+captures remain limited to their original scope.

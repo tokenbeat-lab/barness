@@ -29,11 +29,11 @@ counts as `piParity=PASS`; native differential evidence remains separate.
 ## Bounded behavior and independent evidence
 
 The [own case/path ledger](../../../../ai/e2e/testdata/glm-pidiff/ledger.json)
-contains **39 records, 520 case/path pairs, 362 distinct public cases** and zero
+contains **43 records, 752 case/path pairs, 420 distinct public cases** and zero
 pending. This is a source-backed own-extension behavior ledger, not fabricated
 Pi/Barness observations. Public Result-envelope and captured-request leaf paths
 are exact and GLM scoped. Unknown case/path/native protocol stays pending;
-fixed content-loss recurrence remains a regression. There is no whole-body,
+fixed content-loss and ID-collision recurrence remains a regression. There is no whole-body,
 result, event-list or protocol exemption. The verification helper checks that
 every referenced public case passed and every artifact retains its hash.
 
@@ -57,8 +57,11 @@ remain synthetic, and no current source fact is promoted to a paid billing fact.
 The predecessor Responses tool captures have delimiter-free IDs. The pinned
 InputFunctionCall.call_id and OutputFunctionCall.{call_id,id} are arbitrary
 strings with no alphabet excluding `|`. Their success therefore does not prove
-delimiter collision safety; the coordinated05 correction and focused public
-regressions are tracked separately before final ticket resolution.
+delimiter collision safety. The coordinated05 correction now has four fixed
+call/result ID leaf-path records for58 exact public edge cases, covering pipe,
+percent, Unicode, ambiguous concatenation, Host restoration and cross-origin
+conversion. Additional cross-API collision and empty-origin-ID cases are retained
+in the same separate post-merge run. See [05 follow-up evidence](../ticket-05-followup-ids/README.md).
 
 ## Verified runs
 
@@ -78,7 +81,9 @@ case because the oracle opt-in is absent there; its separate frozen run passes.
 Thus 1,797 public PASS + 726 native differential PASS + 5 provenance PASS are
 separate counts, not one GLM parity total. Runtime production bytes are those
 of integration `8839138`; this ticket only adds tests/ledger/source records.
-The public batch staged new files before inventory-bearing tests; manifests
+The initial ledger run contained39 records; the post-merge gate validates the
+final43 records and new ID regressions separately. The public batch staged new
+files before inventory-bearing tests; manifests
 record each run's actual Git HEAD and pinned catalog/SDK versions.
 
 The first source-gate harness called the Models query with JSON null rather
