@@ -133,7 +133,11 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 				text = m.promptText()
 			}
 			if text != "" {
-				body.Input = append(body.Input, responsesInstruction{Role: role, Content: text})
+				if model.Provider == ProviderZhipu {
+					body.Input = append(body.Input, glmResponsesMessage{Type: "message", Role: role, Content: text})
+				} else {
+					body.Input = append(body.Input, responsesInstruction{Role: role, Content: text})
+				}
 			}
 			if i > 0 {
 				msgIndex++
@@ -150,7 +154,11 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 				}
 			}
 			if len(content) > 0 {
-				items = append(items, responsesUserMessage{Role: "user", Content: content})
+				if model.Provider == ProviderZhipu {
+					items = append(items, glmResponsesMessage{Type: "message", Role: "user", Content: content})
+				} else {
+					items = append(items, responsesUserMessage{Role: "user", Content: content})
+				}
 			}
 		case replayedAssistant:
 			var err error
@@ -169,7 +177,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 
 	for _, t := range history.tools {
 		tool := responsesTool{Type: "function", Name: t.Name, Description: t.Description, Parameters: t.Parameters}
-		if model.Compat.SupportsStrictMode {
+		if caps.strictFunctionTools && model.Compat.SupportsStrictMode {
 			tool.Strict = new(bool)
 		}
 		body.Tools = append(body.Tools, tool)
@@ -204,6 +212,19 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 		switch b := block.(type) {
 		case Thinking:
 			if b.Signature == "" {
+				if model.Provider == ProviderZhipu && b.Thinking != "" {
+					items = append(items, glmResponsesAssistantText(b.Thinking))
+				}
+				continue
+			}
+			if model.Provider == ProviderZhipu {
+				item, err := glmResponsesReasoning(b)
+				if err != nil {
+					return nil, err
+				}
+				if item != nil {
+					items = append(items, item)
+				}
 				continue
 			}
 			// pi sends JSON.parse(thinkingSignature). Only same-model state
@@ -215,6 +236,10 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 			}
 			items = append(items, json.RawMessage(stringifyJSON(item)))
 		case Text:
+			if model.Provider == ProviderZhipu {
+				items = append(items, glmResponsesAssistantText(b.Text))
+				continue
+			}
 			id, phase := parseTextSignature(b.Signature)
 			switch {
 			case id == "" && textIndex == 0:
@@ -235,7 +260,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 			}
 			// A different model's fc_ id would trip OpenAI's reasoning pairing
 			// check, and function_call item ids must start with fc_.
-			if differentModel || !strings.HasPrefix(itemID, "fc_") {
+			if model.Provider == ProviderZhipu || differentModel || !strings.HasPrefix(itemID, "fc_") {
 				itemID = ""
 			}
 			// Arguments that are not JSON (only a host-built call can have
