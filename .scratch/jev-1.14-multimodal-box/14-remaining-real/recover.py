@@ -76,6 +76,7 @@ class Recovery:
         code = self.execute('live-harness',['go','test','-tags','live','-count=1','./ai/live'],
             extra={'BARNESS_AI_EVIDENCE_DIR':str(self.out/'live-harness')},timeout=900)
         self.guard()
+        r.dump(self.out/'live-harness-accepted.json',dict(command='live-harness',exitCode=code))
         if code != 0:
             raise SystemExit(code)
 
@@ -155,7 +156,9 @@ class Recovery:
 
     def live(self):
         self.guard()
-        if r.doc(self.out/'live-harness-command.json')['exitCode'] != 0:
+        accepted = r.doc(self.out/'live-harness-accepted.json')
+        if (accepted['command'] not in ('live-harness','live-harness-recheck') or accepted['exitCode']!=0
+                or r.doc(self.out/(accepted['command']+'-command.json'))['exitCode']!=0):
             raise RuntimeError('complete no-key live harness must pass before paid recovery')
         with (self.out/'paid-round-started.json').open('x') as marker:
             json.dump(dict(maxCalls=302,maxAttempts=302,noAutomaticResend=True),marker)

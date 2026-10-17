@@ -25,3 +25,13 @@ Status: claimed
 `configureDecisionsProxy` 无条件调用只接受非空显式 loopback 的 `smokeProxy`。
 其他两个调用方先判断非空；已有候选/正式进程夹具总设置合法 loopback，掩盖了直连分支。
 这不是服务端权限拒绝，不需要新增厂商授权；固定 endpoint、TLS 和型号不变。
+
+2026-10-17：三个直连进程场景RED后，空代理只走直连，非空仍原loopback校验。
+同一进程seam的8项直连、loopback、unknown及remote-proxy回归GREEN，完整源码提交
+`9a8ea45`。收费恢复前完整live harness为206 PASS、62 NOT_RUN、1 FAIL：
+仅`UC13-fifo-report`在2秒子进程上限触发deadline，原包保持FAIL。
+未改变源码、时限或验收，独立同例PASS；新CLI先`-help`完成约0.524s，再对真实FIFO
+以约0.0114s返回`nonregular or oversized report`、退出1。FIFO已按测试清理，模式与
+argv/时长/输出留存。未捕获首个超时进程的内部栈，不把启动调度延迟认作已证明根因。
+故执行一次同源码完整无凭据复核，使用新intent/目录，原失败不覆盖；只有完整复核通过
+才能启用收费恢复。所有材料在`.evidence/ticket14-decisions-direct-20261017/`及恢复根。
