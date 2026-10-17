@@ -113,13 +113,13 @@ func main() {
 		in.Commands = []release.Command{
 			run(release.CmdVet, nil, "go", "vet", "./..."),
 			run(release.CmdVetLive, nil, "go", "vet", "-tags", "live", "./..."),
-			run(release.CmdTest, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(offlineBase)}, "go", "test", "-count=1", "./..."),
-			// The full 1.1.0 matrix finishes its cases within ten minutes, but
-			// the race-instrumented audit exceeded the old twenty-minute
-			// process cap on the complete image acceptance set and can run
-			// past Go's default timeout. Keep the whole command bounded while
-			// preserving each scenario's existing deadlines and failure checks.
-			run(release.CmdRace, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(raceBase)}, "go", "test", "-race", "-count=1", "-timeout=30m", "./..."),
+			run(release.CmdTest, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(offlineBase)}, "go", "test", "-count=1", "-timeout=20m", "./..."),
+			// The complete catalog now includes three GLM extension routes.
+			// Preregister bounded 20m normal / 45m race package envelopes before
+			// collection: the prior complete race command took about31m with
+			// compilation/audits. Scenario deadlines, pressure loads, resource
+			// limits and the separate1800s GLM paid-process cap are unchanged.
+			run(release.CmdRace, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(raceBase)}, "go", "test", "-race", "-count=1", "-timeout=45m", "./..."),
 		}
 		if *bundle, err = release.FindBundle(offlineBase); err != nil {
 			fail(err)

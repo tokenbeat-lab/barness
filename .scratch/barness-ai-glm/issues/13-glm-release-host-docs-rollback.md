@@ -1,6 +1,6 @@
 # 13: 完成 Host 接入、十三组合发布门禁与回滚证明
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。
