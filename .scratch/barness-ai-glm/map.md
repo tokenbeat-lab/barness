@@ -28,6 +28,8 @@
 
 - 2026-10-17：[09 已解决](issues/09-glm-isolation-resource-callbacks.md)：共享 Client 三协议/两型号双租户工具/native/cache 隔离、回调授权/不可变边界及取消/资源释放完成；补齐 Chat 最终能力 guard 与宿主回调 panic 结算。当前359公共E2E/359 race、2,794受影响回归、523补充race及321冻结Chat差分通过；48故障调用回收与六路设计负载、原始RED/INCOMPLETE及校验ZIP见[证据索引](evidence/ticket-09/README.md)。不扩大正式支持声明。
 
+- 2026-10-17：[05 专项补充已解决](issues/05-glm-responses-history-tools-cache.md)：在11冻结前修复 GLM 不透明 ID 的分隔符/percent/Unicode 往返，以及 GLM 来源降级后的冲突/空 ID；普通转换与非 GLM 历史保持原规则。90 新例、288 相关回归、124 race、335 冻结 Responses 差分 PASS，见[专项证据](evidence/ticket-05-followup-ids/README.md)。
+
 ## Fog
 
 - 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。
