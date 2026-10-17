@@ -31,6 +31,17 @@ func (l *traceListener) Accept() (net.Conn, error) {
 	if err != nil {
 		return nil, err
 	}
+	// Bound the controlled fixture's kernel queue before any HTTP writes.
+	// Autotuned send buffers across 32 design-load streams can exhaust Darwin
+	// mbufs; unlike ordinary TCP backpressure, ENOBUFS may hide consumed bytes
+	// (#07). Request a small send window so writers wait for readers instead.
+	// Custom socket-fault listeners retain their own connection semantics.
+	if tcp, ok := c.(*net.TCPConn); ok {
+		if err := tcp.SetWriteBuffer(64 << 10); err != nil {
+			_ = c.Close()
+			return nil, err
+		}
+	}
 	return &traceConn{Conn: c, id: l.next.Add(1)}, nil
 }
 
