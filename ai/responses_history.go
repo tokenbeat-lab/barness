@@ -7,7 +7,7 @@ import "strings"
 // OPENAI_TOOL_CALL_PROVIDERS). pi also lists openai-codex and opencode, which
 // barness-ai does not serve. Any other target, such as DeepSeek, gets the
 // whole id sanitized into one part.
-var responsesToolCallProviders = map[ProviderID]bool{ProviderOpenAI: true}
+var responsesToolCallProviders = map[ProviderID]bool{ProviderOpenAI: true, ProviderZhipu: true}
 
 func (responsesAdapter) historyRules(m Model) historyRules {
 	return historyRules{

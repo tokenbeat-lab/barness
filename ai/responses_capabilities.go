@@ -28,6 +28,9 @@ type responsesCapabilities struct {
 	// serviceTier: ServiceTier may be requested, and the tier the response
 	// names prices its usage.
 	serviceTier bool
+	// strictFunctionTools permits the existing explicit strict:false field.
+	// Model compatibility can narrow a provider's profile, never expand it.
+	strictFunctionTools bool
 }
 
 // responsesCapabilitiesOf is p's profile. DeepSeek's Responses guide
@@ -42,10 +45,10 @@ func responsesCapabilitiesOf(p ProviderID) responsesCapabilities {
 	}
 	if p == ProviderDeepSeek {
 		// DeepSeek accepts summary but does not generate one (ADR-0014).
-		return responsesCapabilities{reasoningSummary: true}
+		return responsesCapabilities{reasoningSummary: true, strictFunctionTools: true}
 	}
 	return responsesCapabilities{store: true, encryptedReasoning: true, promptCacheKey: true,
-		promptCacheRetention: true, sessionAffinity: true, reasoningSummary: true, serviceTier: true}
+		promptCacheRetention: true, sessionAffinity: true, reasoningSummary: true, serviceTier: true, strictFunctionTools: true}
 }
 
 // unsupportedOption is why opts asks for something the provider does not

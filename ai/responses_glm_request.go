@@ -19,6 +19,12 @@ func validateResponsesModelOptions(m Model, options Options) *Error {
 	if problem := responsesCapabilitiesOf(m.Provider).unsupportedOption(o); problem != "" {
 		return newError(CodeInvalidRequest, PhaseCapability, problem)
 	}
+	if !o.ToolChoice.IsZero() {
+		choice, ok := o.ToolChoice.Get()
+		if !ok || (choice.Mode != "auto" && choice.Mode != "none") || choice.Function != "" || choice.AllowedTools != nil {
+			return newError(CodeInvalidRequest, PhaseCapability, "GLM Responses supports only default, none or auto tool choice")
+		}
+	}
 	if o.ReasoningEffort != "" && !slices.Contains(supportedThinkingLevels(m), o.ReasoningEffort) {
 		return newError(CodeInvalidRequest, PhaseCapability, "reasoning effort is not supported by this model")
 	}
@@ -39,6 +45,9 @@ func validateGLMResponsesFinalBody(m Model, raw []byte, authorize func(map[strin
 	}
 	if problem := authorize(body); problem != "" {
 		return newError(CodeTenantDenied, PhaseRequest, problem)
+	}
+	if problem := validateGLMResponsesControls(m, body); problem != "" {
+		return newError(CodeInvalidRequest, PhaseRequest, problem)
 	}
 	var fields map[string]json.RawMessage
 	_ = json.Unmarshal(raw, &fields)

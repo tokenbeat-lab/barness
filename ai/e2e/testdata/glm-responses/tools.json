@@ -1,0 +1,177 @@
+{
+  "scenarios": [
+    {
+      "name": "schema-native-object",
+      "model": "glm-5.3",
+      "tools": [
+        {"type":"response.output_item.done","output_index":0,"item":{"type":"reasoning","id":"rs_native","status":"completed","summary":[],"encrypted_content":null,"content":{"type":"reasoning_text","text":"Check both."}}},
+        {"type":"response.output_item.done","output_index":1,"item":{"type":"message","id":"msg_native","role":"assistant","status":"completed","content":{"type":"output_text","text":"Checking."}}},
+        {"type":"response.output_item.added","output_index":2,"item":{"type":"function_call","id":"fc_alpha","call_id":"call_alpha","name":"lookup_probe_code","arguments":""}},
+        {"type":"response.output_item.added","output_index":3,"item":{"type":"function_call","id":"fc_beta","call_id":"call_beta","name":"lookup_probe_code","arguments":""}},
+        {"type":"response.function_call_arguments.delta","output_index":2,"delta":"{\"label\":\"wrong\""},
+        {"type":"response.function_call_arguments.done","output_index":2,"arguments":"{\"label\":\"alpha\"}"},
+        {"type":"response.output_item.done","output_index":2,"item":{"type":"function_call","id":"fc_alpha","call_id":"call_alpha","name":"lookup_probe_code","arguments":"{\"label\":\"alpha\"}"}},
+        {"type":"response.function_call_arguments.delta","output_index":3,"delta":"{\"label\":\"wrong\""},
+        {"type":"response.function_call_arguments.done","output_index":3,"arguments":"{\"label\":\"beta\"}"},
+        {"type":"response.output_item.done","output_index":3,"item":{"type":"function_call","id":"fc_beta","call_id":"call_beta","name":"lookup_probe_code","arguments":"{\"label\":\"beta\"}"}},
+        {"type":"response.completed","response":{"id":"resp_tools","status":"completed","output":[],"usage":{"input_tokens":12,"output_tokens":8,"total_tokens":20}}}
+      ],
+      "answer": [
+        {"type":"response.output_item.done","output_index":0,"item":{"type":"message","id":"msg_answer","role":"assistant","content":{"type":"output_text","text":"BRN42"}}},
+        {"type":"response.completed","response":{"id":"resp_answer","status":"completed","output":[],"usage":{"input_tokens":30,"output_tokens":12,"total_tokens":42}}}
+      ],
+      "provenance": {"kind": "synthetic", "source": "https://docs.bigmodel.cn/openapi/openapi-responses.json", "note": "Own schema fixture; not a live native-history claim."}
+    },
+    {
+      "name": "schema-native-array",
+      "model": "glm-5.3",
+      "tools": [
+        {"type":"response.output_item.done","output_index":0,"item":{"type":"reasoning","id":"rs_native","status":"completed","summary":[],"encrypted_content":null,"content":[{"type":"reasoning_text","text":"Check both."}]}},
+        {"type":"response.output_item.done","output_index":1,"item":{"type":"message","id":"msg_native","role":"assistant","status":"completed","content":{"type":"output_text","text":"Checking."}}},
+        {"type":"response.output_item.added","output_index":2,"item":{"type":"function_call","id":"fc_alpha","call_id":"call_alpha","name":"lookup_probe_code","arguments":""}},
+        {"type":"response.output_item.added","output_index":3,"item":{"type":"function_call","id":"fc_beta","call_id":"call_beta","name":"lookup_probe_code","arguments":""}},
+        {"type":"response.function_call_arguments.delta","output_index":2,"delta":"{\"label\":\"wrong\""},
+        {"type":"response.function_call_arguments.done","output_index":2,"arguments":"{\"label\":\"alpha\"}"},
+        {"type":"response.output_item.done","output_index":2,"item":{"type":"function_call","id":"fc_alpha","call_id":"call_alpha","name":"lookup_probe_code","arguments":"{\"label\":\"alpha\"}"}},
+        {"type":"response.function_call_arguments.delta","output_index":3,"delta":"{\"label\":\"wrong\""},
+        {"type":"response.function_call_arguments.done","output_index":3,"arguments":"{\"label\":\"beta\"}"},
+        {"type":"response.output_item.done","output_index":3,"item":{"type":"function_call","id":"fc_beta","call_id":"call_beta","name":"lookup_probe_code","arguments":"{\"label\":\"beta\"}"}},
+        {"type":"response.completed","response":{"id":"resp_tools","status":"completed","output":[],"usage":{"input_tokens":12,"output_tokens":8,"total_tokens":20}}}
+      ],
+      "answer": [
+        {"type":"response.output_item.done","output_index":0,"item":{"type":"message","id":"msg_answer","role":"assistant","content":{"type":"output_text","text":"BRN42"}}},
+        {"type":"response.completed","response":{"id":"resp_answer","status":"completed","output":[],"usage":{"input_tokens":30,"output_tokens":12,"total_tokens":42}}}
+      ],
+      "provenance": {"kind": "synthetic", "source": "https://docs.bigmodel.cn/openapi/openapi-responses.json", "note": "Own schema fixture; not a live native-history claim."}
+    },
+    {
+      "name": "observed-tool-loop",
+      "model": "glm-5.3",
+      "tools": [
+        {"response":{"created_at":1792241391,"id":"resp_20261017204951144686834f1e4c86","model":"glm-5.3","object":"response","output":[],"status":"in_progress"},"sequence_number":0,"type":"response.created"},
+        {"response":{"created_at":1792241391,"id":"resp_20261017204951144686834f1e4c86","model":"glm-5.3","object":"response","output":[],"status":"in_progress"},"sequence_number":1,"type":"response.in_progress"},
+        {"item":{"arguments":"","call_id":"call_747452cb547c45e2a665cc38","id":"fc_call_747452cb547c45e2a665cc38","name":"lookup_probe_code","status":"in_progress","type":"function_call"},"output_index":0,"sequence_number":2,"type":"response.output_item.added"},
+        {"delta":"{\"","item_id":"fc_call_747452cb547c45e2a665cc38","output_index":0,"sequence_number":3,"type":"response.function_call_arguments.delta"},
+        {"delta":"label","item_id":"fc_call_747452cb547c45e2a665cc38","output_index":0,"sequence_number":4,"type":"response.function_call_arguments.delta"},
+        {"delta":"\":\"","item_id":"fc_call_747452cb547c45e2a665cc38","output_index":0,"sequence_number":5,"type":"response.function_call_arguments.delta"},
+        {"delta":"alpha\"","item_id":"fc_call_747452cb547c45e2a665cc38","output_index":0,"sequence_number":6,"type":"response.function_call_arguments.delta"},
+        {"delta":"}","item_id":"fc_call_747452cb547c45e2a665cc38","output_index":0,"sequence_number":7,"type":"response.function_call_arguments.delta"},
+        {"arguments":"{\"label\":\"alpha\"}","item_id":"fc_call_747452cb547c45e2a665cc38","name":"lookup_probe_code","output_index":0,"sequence_number":8,"type":"response.function_call_arguments.done"},
+        {"item":{"arguments":"{\"label\":\"alpha\"}","call_id":"call_747452cb547c45e2a665cc38","id":"fc_call_747452cb547c45e2a665cc38","name":"lookup_probe_code","status":"completed","type":"function_call"},"output_index":0,"sequence_number":9,"type":"response.output_item.done"},
+        {"response":{"conversation_id":"","created_at":1792241391,"error":null,"id":"resp_20261017204951144686834f1e4c86","incomplete_details":null,"instructions":"","metadata":null,"model":"glm-5.3","object":"response","output":[{"arguments":"{\"label\":\"alpha\"}","call_id":"call_747452cb547c45e2a665cc38","id":"fc_call_747452cb547c45e2a665cc38","name":"lookup_probe_code","status":"completed","type":"function_call"}],"parallel_tool_calls":true,"previous_response_id":"","status":"completed","usage":{"input_tokens":244,"input_tokens_details":{"cached_tokens":0},"output_tokens":13,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":257}},"sequence_number":10,"type":"response.completed"}
+      ],
+      "answer": [
+        {"response":{"created_at":1792241397,"id":"resp_2026101720495745ac86c1f2a94a6d","model":"glm-5.3","object":"response","output":[],"status":"in_progress"},"sequence_number":0,"type":"response.created"},
+        {"response":{"created_at":1792241397,"id":"resp_2026101720495745ac86c1f2a94a6d","model":"glm-5.3","object":"response","output":[],"status":"in_progress"},"sequence_number":1,"type":"response.in_progress"},
+        {"item":{"content":[],"id":"msg_resp_2026101720495745ac86c1f2a94a6d","role":"assistant","status":"in_progress","type":"message"},"output_index":0,"sequence_number":2,"type":"response.output_item.added"},
+        {"content_index":0,"item_id":"msg_resp_2026101720495745ac86c1f2a94a6d","output_index":0,"part":{"annotations":[],"text":"","type":"output_text"},"sequence_number":3,"type":"response.content_part.added"},
+        {"content_index":0,"delta":"BRN42","item_id":"msg_resp_2026101720495745ac86c1f2a94a6d","logprobs":[],"output_index":0,"sequence_number":4,"type":"response.output_text.delta"},
+        {"content_index":0,"item_id":"msg_resp_2026101720495745ac86c1f2a94a6d","output_index":0,"sequence_number":5,"text":"BRN42","type":"response.output_text.done"},
+        {"content_index":0,"item_id":"msg_resp_2026101720495745ac86c1f2a94a6d","output_index":0,"part":{"annotations":[],"text":"BRN42","type":"output_text"},"sequence_number":6,"type":"response.content_part.done"},
+        {"item":{"content":[{"annotations":[],"text":"BRN42","type":"output_text"}],"id":"msg_resp_2026101720495745ac86c1f2a94a6d","role":"assistant","status":"completed","type":"message"},"output_index":0,"sequence_number":7,"type":"response.output_item.done"},
+        {"response":{"conversation_id":"","created_at":1792241397,"error":null,"id":"resp_2026101720495745ac86c1f2a94a6d","incomplete_details":null,"instructions":"","metadata":null,"model":"glm-5.3","object":"response","output":[{"content":[{"annotations":[],"text":"BRN42","type":"output_text"}],"id":"msg_resp_2026101720495745ac86c1f2a94a6d","role":"assistant","status":"completed","type":"message"}],"parallel_tool_calls":true,"previous_response_id":"","status":"completed","usage":{"input_tokens":264,"input_tokens_details":{"cached_tokens":0},"output_tokens":5,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":269}},"sequence_number":8,"type":"response.completed"}
+      ],
+      "provenance": {"kind": "observed-replay", "sourceBundle": ".evidence/barness-ai-glm/protocol-exploration/responses/02-tools", "framesSHA256": "46397d653e8c3689714a5882de81fe3c09b4530f1c0675104b5f6ea021e25905", "note": "5.3 tool turn has no reasoning; this is not its native-history live evidence. Trailing blank data frame omitted."}
+    },
+    {
+      "name": "schema-native-object",
+      "model": "glm-5.2",
+      "tools": [
+        {"type":"response.output_item.done","output_index":0,"item":{"type":"reasoning","id":"rs_native","status":"completed","summary":[],"encrypted_content":null,"content":{"type":"reasoning_text","text":"Check both."}}},
+        {"type":"response.output_item.done","output_index":1,"item":{"type":"message","id":"msg_native","role":"assistant","status":"completed","content":{"type":"output_text","text":"Checking."}}},
+        {"type":"response.output_item.added","output_index":2,"item":{"type":"function_call","id":"fc_alpha","call_id":"call_alpha","name":"lookup_probe_code","arguments":""}},
+        {"type":"response.output_item.added","output_index":3,"item":{"type":"function_call","id":"fc_beta","call_id":"call_beta","name":"lookup_probe_code","arguments":""}},
+        {"type":"response.function_call_arguments.delta","output_index":2,"delta":"{\"label\":\"wrong\""},
+        {"type":"response.function_call_arguments.done","output_index":2,"arguments":"{\"label\":\"alpha\"}"},
+        {"type":"response.output_item.done","output_index":2,"item":{"type":"function_call","id":"fc_alpha","call_id":"call_alpha","name":"lookup_probe_code","arguments":"{\"label\":\"alpha\"}"}},
+        {"type":"response.function_call_arguments.delta","output_index":3,"delta":"{\"label\":\"wrong\""},
+        {"type":"response.function_call_arguments.done","output_index":3,"arguments":"{\"label\":\"beta\"}"},
+        {"type":"response.output_item.done","output_index":3,"item":{"type":"function_call","id":"fc_beta","call_id":"call_beta","name":"lookup_probe_code","arguments":"{\"label\":\"beta\"}"}},
+        {"type":"response.completed","response":{"id":"resp_tools","status":"completed","output":[],"usage":{"input_tokens":12,"output_tokens":8,"total_tokens":20}}}
+      ],
+      "answer": [
+        {"type":"response.output_item.done","output_index":0,"item":{"type":"message","id":"msg_answer","role":"assistant","content":{"type":"output_text","text":"BRN42"}}},
+        {"type":"response.completed","response":{"id":"resp_answer","status":"completed","output":[],"usage":{"input_tokens":30,"output_tokens":12,"total_tokens":42}}}
+      ],
+      "provenance": {"kind": "synthetic", "source": "https://docs.bigmodel.cn/openapi/openapi-responses.json", "note": "Own schema fixture; not a live native-history claim."}
+    },
+    {
+      "name": "schema-native-array",
+      "model": "glm-5.2",
+      "tools": [
+        {"type":"response.output_item.done","output_index":0,"item":{"type":"reasoning","id":"rs_native","status":"completed","summary":[],"encrypted_content":null,"content":[{"type":"reasoning_text","text":"Check both."}]}},
+        {"type":"response.output_item.done","output_index":1,"item":{"type":"message","id":"msg_native","role":"assistant","status":"completed","content":{"type":"output_text","text":"Checking."}}},
+        {"type":"response.output_item.added","output_index":2,"item":{"type":"function_call","id":"fc_alpha","call_id":"call_alpha","name":"lookup_probe_code","arguments":""}},
+        {"type":"response.output_item.added","output_index":3,"item":{"type":"function_call","id":"fc_beta","call_id":"call_beta","name":"lookup_probe_code","arguments":""}},
+        {"type":"response.function_call_arguments.delta","output_index":2,"delta":"{\"label\":\"wrong\""},
+        {"type":"response.function_call_arguments.done","output_index":2,"arguments":"{\"label\":\"alpha\"}"},
+        {"type":"response.output_item.done","output_index":2,"item":{"type":"function_call","id":"fc_alpha","call_id":"call_alpha","name":"lookup_probe_code","arguments":"{\"label\":\"alpha\"}"}},
+        {"type":"response.function_call_arguments.delta","output_index":3,"delta":"{\"label\":\"wrong\""},
+        {"type":"response.function_call_arguments.done","output_index":3,"arguments":"{\"label\":\"beta\"}"},
+        {"type":"response.output_item.done","output_index":3,"item":{"type":"function_call","id":"fc_beta","call_id":"call_beta","name":"lookup_probe_code","arguments":"{\"label\":\"beta\"}"}},
+        {"type":"response.completed","response":{"id":"resp_tools","status":"completed","output":[],"usage":{"input_tokens":12,"output_tokens":8,"total_tokens":20}}}
+      ],
+      "answer": [
+        {"type":"response.output_item.done","output_index":0,"item":{"type":"message","id":"msg_answer","role":"assistant","content":{"type":"output_text","text":"BRN42"}}},
+        {"type":"response.completed","response":{"id":"resp_answer","status":"completed","output":[],"usage":{"input_tokens":30,"output_tokens":12,"total_tokens":42}}}
+      ],
+      "provenance": {"kind": "synthetic", "source": "https://docs.bigmodel.cn/openapi/openapi-responses.json", "note": "Own schema fixture; not a live native-history claim."}
+    },
+    {
+      "name": "observed-tool-loop",
+      "model": "glm-5.2",
+      "tools": [
+        {"response":{"created_at":1792241403,"id":"resp_20261017205003abe0ab5a59724ee3","model":"glm-5.2","object":"response","output":[],"status":"in_progress"},"sequence_number":0,"type":"response.created"},
+        {"response":{"created_at":1792241403,"id":"resp_20261017205003abe0ab5a59724ee3","model":"glm-5.2","object":"response","output":[],"status":"in_progress"},"sequence_number":1,"type":"response.in_progress"},
+        {"item":{"content":[],"id":"rs_resp_20261017205003abe0ab5a59724ee3","status":"in_progress","summary":[],"type":"reasoning"},"output_index":0,"sequence_number":2,"type":"response.output_item.added"},
+        {"content_index":0,"item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"part":{"text":"","type":"reasoning_text"},"sequence_number":3,"type":"response.content_part.added"},
+        {"content_index":0,"delta":"The","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":4,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" user wants","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":5,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" me to","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":6,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" call the","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":7,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" lookup_probe","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":8,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":"_code function","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":9,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" with label","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":10,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" \"alpha","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":11,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":"\" and","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":12,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" then reply","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":13,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" only with","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":14,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":" the code","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":15,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":".","item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":16,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"sequence_number":17,"text":"The user wants me to call the lookup_probe_code function with label \"alpha\" and then reply only with the code.","type":"response.reasoning_text.done"},
+        {"content_index":0,"item_id":"rs_resp_20261017205003abe0ab5a59724ee3","output_index":0,"part":{"text":"The user wants me to call the lookup_probe_code function with label \"alpha\" and then reply only with the code.","type":"reasoning_text"},"sequence_number":18,"type":"response.content_part.done"},
+        {"item":{"content":[{"text":"The user wants me to call the lookup_probe_code function with label \"alpha\" and then reply only with the code.","type":"reasoning_text"}],"encrypted_content":null,"id":"rs_resp_20261017205003abe0ab5a59724ee3","status":"completed","summary":[],"type":"reasoning"},"output_index":0,"sequence_number":19,"type":"response.output_item.done"},
+        {"item":{"arguments":"","call_id":"call_8975b62440c34dd987ff8b43","id":"fc_call_8975b62440c34dd987ff8b43","name":"lookup_probe_code","status":"in_progress","type":"function_call"},"output_index":1,"sequence_number":20,"type":"response.output_item.added"},
+        {"delta":"{","item_id":"fc_call_8975b62440c34dd987ff8b43","output_index":1,"sequence_number":21,"type":"response.function_call_arguments.delta"},
+        {"delta":"\"label\": ","item_id":"fc_call_8975b62440c34dd987ff8b43","output_index":1,"sequence_number":22,"type":"response.function_call_arguments.delta"},
+        {"delta":"\"alpha\"","item_id":"fc_call_8975b62440c34dd987ff8b43","output_index":1,"sequence_number":23,"type":"response.function_call_arguments.delta"},
+        {"delta":"}","item_id":"fc_call_8975b62440c34dd987ff8b43","output_index":1,"sequence_number":24,"type":"response.function_call_arguments.delta"},
+        {"arguments":"{\"label\": \"alpha\"}","item_id":"fc_call_8975b62440c34dd987ff8b43","name":"lookup_probe_code","output_index":1,"sequence_number":25,"type":"response.function_call_arguments.done"},
+        {"item":{"arguments":"{\"label\": \"alpha\"}","call_id":"call_8975b62440c34dd987ff8b43","id":"fc_call_8975b62440c34dd987ff8b43","name":"lookup_probe_code","status":"completed","type":"function_call"},"output_index":1,"sequence_number":26,"type":"response.output_item.done"},
+        {"response":{"conversation_id":"","created_at":1792241403,"error":null,"id":"resp_20261017205003abe0ab5a59724ee3","incomplete_details":null,"instructions":"","metadata":null,"model":"glm-5.2","object":"response","output":[{"content":[{"text":"The user wants me to call the lookup_probe_code function with label \"alpha\" and then reply only with the code.","type":"reasoning_text"}],"encrypted_content":null,"id":"rs_resp_20261017205003abe0ab5a59724ee3","status":"completed","summary":[],"type":"reasoning"},{"arguments":"{\"label\": \"alpha\"}","call_id":"call_8975b62440c34dd987ff8b43","id":"fc_call_8975b62440c34dd987ff8b43","name":"lookup_probe_code","status":"completed","type":"function_call"}],"parallel_tool_calls":true,"previous_response_id":"","status":"completed","usage":{"input_tokens":244,"input_tokens_details":{"cached_tokens":0},"output_tokens":36,"output_tokens_details":{"reasoning_tokens":24},"total_tokens":280}},"sequence_number":27,"type":"response.completed"}
+      ],
+      "answer": [
+        {"response":{"created_at":1792241405,"id":"resp_202610172050056941abf623094883","model":"glm-5.2","object":"response","output":[],"status":"in_progress"},"sequence_number":0,"type":"response.created"},
+        {"response":{"created_at":1792241405,"id":"resp_202610172050056941abf623094883","model":"glm-5.2","object":"response","output":[],"status":"in_progress"},"sequence_number":1,"type":"response.in_progress"},
+        {"item":{"content":[],"id":"rs_resp_202610172050056941abf623094883","status":"in_progress","summary":[],"type":"reasoning"},"output_index":0,"sequence_number":2,"type":"response.output_item.added"},
+        {"content_index":0,"item_id":"rs_resp_202610172050056941abf623094883","output_index":0,"part":{"text":"","type":"reasoning_text"},"sequence_number":3,"type":"response.content_part.added"},
+        {"content_index":0,"delta":"BR","item_id":"rs_resp_202610172050056941abf623094883","output_index":0,"sequence_number":4,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":"N","item_id":"rs_resp_202610172050056941abf623094883","output_index":0,"sequence_number":5,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"delta":"42","item_id":"rs_resp_202610172050056941abf623094883","output_index":0,"sequence_number":6,"type":"response.reasoning_text.delta"},
+        {"content_index":0,"item_id":"rs_resp_202610172050056941abf623094883","output_index":0,"sequence_number":7,"text":"BRN42","type":"response.reasoning_text.done"},
+        {"content_index":0,"item_id":"rs_resp_202610172050056941abf623094883","output_index":0,"part":{"text":"BRN42","type":"reasoning_text"},"sequence_number":8,"type":"response.content_part.done"},
+        {"item":{"content":[{"text":"BRN42","type":"reasoning_text"}],"encrypted_content":null,"id":"rs_resp_202610172050056941abf623094883","status":"completed","summary":[],"type":"reasoning"},"output_index":0,"sequence_number":9,"type":"response.output_item.done"},
+        {"item":{"content":[],"id":"msg_resp_202610172050056941abf623094883","role":"assistant","status":"in_progress","type":"message"},"output_index":1,"sequence_number":10,"type":"response.output_item.added"},
+        {"content_index":0,"item_id":"msg_resp_202610172050056941abf623094883","output_index":1,"part":{"annotations":[],"text":"","type":"output_text"},"sequence_number":11,"type":"response.content_part.added"},
+        {"content_index":0,"delta":"BR","item_id":"msg_resp_202610172050056941abf623094883","logprobs":[],"output_index":1,"sequence_number":12,"type":"response.output_text.delta"},
+        {"content_index":0,"delta":"N","item_id":"msg_resp_202610172050056941abf623094883","logprobs":[],"output_index":1,"sequence_number":13,"type":"response.output_text.delta"},
+        {"content_index":0,"delta":"42","item_id":"msg_resp_202610172050056941abf623094883","logprobs":[],"output_index":1,"sequence_number":14,"type":"response.output_text.delta"},
+        {"content_index":0,"item_id":"msg_resp_202610172050056941abf623094883","output_index":1,"sequence_number":15,"text":"BRN42","type":"response.output_text.done"},
+        {"content_index":0,"item_id":"msg_resp_202610172050056941abf623094883","output_index":1,"part":{"annotations":[],"text":"BRN42","type":"output_text"},"sequence_number":16,"type":"response.content_part.done"},
+        {"item":{"content":[{"annotations":[],"text":"BRN42","type":"output_text"}],"id":"msg_resp_202610172050056941abf623094883","role":"assistant","status":"completed","type":"message"},"output_index":1,"sequence_number":17,"type":"response.output_item.done"},
+        {"response":{"conversation_id":"","created_at":1792241405,"error":null,"id":"resp_202610172050056941abf623094883","incomplete_details":null,"instructions":"","metadata":null,"model":"glm-5.2","object":"response","output":[{"content":[{"text":"BRN42","type":"reasoning_text"}],"encrypted_content":null,"id":"rs_resp_202610172050056941abf623094883","status":"completed","summary":[],"type":"reasoning"},{"content":[{"annotations":[],"text":"BRN42","type":"output_text"}],"id":"msg_resp_202610172050056941abf623094883","role":"assistant","status":"completed","type":"message"}],"parallel_tool_calls":true,"previous_response_id":"","status":"completed","usage":{"input_tokens":264,"input_tokens_details":{"cached_tokens":0},"output_tokens":7,"output_tokens_details":{"reasoning_tokens":4},"total_tokens":271}},"sequence_number":18,"type":"response.completed"}
+      ],
+      "provenance": {"kind": "observed-replay", "sourceBundle": ".evidence/barness-ai-glm/protocol-exploration/responses/02-tools", "framesSHA256": "2ed4ff29f02e1ebc578d4f8f9625e1da4ece0700a8932f2f0d3a146f1a6f3aff", "note": "5.3 tool turn has no reasoning; this is not its native-history live evidence. Trailing blank data frame omitted."}
+    }
+  ]
+}
