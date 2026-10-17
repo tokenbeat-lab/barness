@@ -64,5 +64,5 @@ go vet ./ai/e2e ./ai/internal/testkit/pioracle
 
 Exact difference rationale and source/extension boundaries:
 `ai/e2e/testdata/minimax-pidiff/README.md`. Candidate USD rates are explicitly
-synthetic; ticket07 must independently source current M3 standard prices,
+synthetic; ticket10 must independently source current M3 standard prices,
 execute the three real protocols and produce their formal acceptance.

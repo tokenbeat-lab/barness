@@ -56,7 +56,7 @@ historical USD rates are recorded honestly, not silently updated.
 Current official `api.minimax.cn` endpoint and text subset are spec R02/R06.
 Official source hashes and conservative capacity origin are in
 `ai/internal/testkit/minimax/sources.json`; candidate prices are deliberately
-synthetic and must stay outside formal cost/support claims. Ticket07 owns
+synthetic and must stay outside formal cost/support claims. Ticket10 owns
 current CNY→USD/tier evidence and each real M3 protocol's formal release.
 
 ## Extension acceptance, never fabricated parity
