@@ -166,7 +166,11 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 				return nil, err
 			}
 		case ToolResultMessage:
-			items = append(items, responsesToolResult(m, vision))
+			result := responsesToolResult(m, vision)
+			if model.Provider == ProviderZhipu {
+				result.CallID = glmResponsesCallID(m.ToolCallID)
+			}
+			items = append(items, result)
 		}
 		if len(items) == 0 {
 			continue
@@ -254,6 +258,10 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 				Content: []responsesOutputText{{Type: "output_text", Text: b.Text, Annotations: []any{}}}})
 		case ToolCall:
 			parts := strings.Split(b.ID, "|")
+			callID := parts[0]
+			if model.Provider == ProviderZhipu {
+				callID = glmResponsesCallID(b.ID)
+			}
 			itemID := ""
 			if len(parts) > 1 {
 				itemID = parts[1]
@@ -270,7 +278,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 			if err != nil {
 				return nil, err
 			}
-			items = append(items, responsesFunctionCall{Type: "function_call", ID: itemID, CallID: parts[0], Name: b.Name, Arguments: stringifyJSON(args)})
+			items = append(items, responsesFunctionCall{Type: "function_call", ID: itemID, CallID: callID, Name: b.Name, Arguments: stringifyJSON(args)})
 		}
 	}
 	return items, nil

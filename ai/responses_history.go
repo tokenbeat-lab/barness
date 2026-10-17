@@ -7,7 +7,7 @@ import "strings"
 // OPENAI_TOOL_CALL_PROVIDERS). pi also lists openai-codex and opencode, which
 // barness-ai does not serve. Any other target, such as DeepSeek, gets the
 // whole id sanitized into one part.
-var responsesToolCallProviders = map[ProviderID]bool{ProviderOpenAI: true, ProviderZhipu: true}
+var responsesToolCallProviders = map[ProviderID]bool{ProviderOpenAI: true}
 
 func (responsesAdapter) historyRules(m Model) historyRules {
 	return historyRules{
@@ -24,6 +24,9 @@ func (responsesAdapter) historyRules(m Model) historyRules {
 // hash of it, since the target never issued it; and the item id always
 // starts with "fc".
 func responsesToolCallID(target Model, id string, source AssistantMessage) string {
+	if target.Provider == ProviderZhipu {
+		return glmResponsesHistoryToolID(id, source)
+	}
 	if !responsesToolCallProviders[target.Provider] || !strings.Contains(id, "|") {
 		return normalizeIDPart(id)
 	}
