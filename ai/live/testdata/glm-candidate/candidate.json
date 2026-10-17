@@ -1,0 +1,190 @@
+{
+  "version": "glm-six-candidate-2026-10-17.1-sourced-usd",
+  "models": [
+    {
+      "provider": "zhipu",
+      "api": "openai-completions",
+      "id": "glm-5.3",
+      "name": "GLM-5.3 Chat candidate",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": "low",
+        "medium": null,
+        "high": "high",
+        "xhigh": null,
+        "max": "max"
+      },
+      "compat": {
+        "requiresThinking": true,
+        "supportsLongCacheRetention": false
+      },
+      "cost": {
+        "input": 1.1901219875,
+        "output": 4.1654269563,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 1.1901219875
+      }
+    },
+    {
+      "provider": "zhipu",
+      "api": "openai-completions",
+      "id": "glm-5.2",
+      "name": "GLM-5.2 Chat candidate",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": "none",
+        "minimal": "minimal",
+        "low": "high",
+        "medium": "high",
+        "high": "high",
+        "xhigh": "max",
+        "max": "max"
+      },
+      "compat": {
+        "supportsLongCacheRetention": false
+      },
+      "cost": {
+        "input": 1.1901219875,
+        "output": 4.1654269563,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 1.1901219875
+      }
+    },
+    {
+      "provider": "zhipu",
+      "api": "openai-responses",
+      "id": "glm-5.3",
+      "name": "GLM-5.3 Responses candidate",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": "low",
+        "medium": null,
+        "high": "high",
+        "xhigh": null,
+        "max": "max"
+      },
+      "compat": {
+        "requiresThinking": true,
+        "supportsLongCacheRetention": false
+      },
+      "cost": {
+        "input": 1.1901219875,
+        "output": 4.1654269563,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 1.1901219875
+      }
+    },
+    {
+      "provider": "zhipu",
+      "api": "openai-responses",
+      "id": "glm-5.2",
+      "name": "GLM-5.2 Responses candidate",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": "none",
+        "minimal": "minimal",
+        "low": "high",
+        "medium": "high",
+        "high": "high",
+        "xhigh": "max",
+        "max": "max"
+      },
+      "compat": {
+        "supportsLongCacheRetention": false
+      },
+      "cost": {
+        "input": 1.1901219875,
+        "output": 4.1654269563,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 1.1901219875
+      }
+    },
+    {
+      "provider": "zhipu",
+      "api": "anthropic-messages",
+      "id": "glm-5.3",
+      "name": "glm-5.3 Messages candidate",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1000000,
+      "maxTokens": 128000,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": null,
+        "medium": null,
+        "high": null,
+        "xhigh": null,
+        "max": null
+      },
+      "compat": {
+        "supportsTemperature": false,
+        "supportsLongCacheRetention": false
+      },
+      "cost": {
+        "input": 1.1901219875,
+        "output": 4.1654269563,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 1.1901219875
+      }
+    },
+    {
+      "provider": "zhipu",
+      "api": "anthropic-messages",
+      "id": "glm-5.2",
+      "name": "glm-5.2 Messages candidate",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1000000,
+      "maxTokens": 128000,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": null,
+        "medium": null,
+        "high": null,
+        "xhigh": null,
+        "max": null
+      },
+      "compat": {
+        "supportsTemperature": false,
+        "supportsLongCacheRetention": false,
+        "messagesThinkingBudgetTokens": 1024
+      },
+      "cost": {
+        "input": 1.1901219875,
+        "output": 4.1654269563,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 1.1901219875
+      }
+    }
+  ]
+}

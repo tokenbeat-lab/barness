@@ -1,0 +1,578 @@
+{
+  "schema": 1,
+  "publicSeam": "ai.Client Stream/Complete/StreamSimple/CompleteSimple; ai.ValidateToolCall; trusted native-history",
+  "models": [
+    "glm-5.3",
+    "glm-5.2"
+  ],
+  "budget": {
+    "plannedCalls": 22,
+    "maxCalls": 24,
+    "maxAttempts": 32,
+    "maxOutputTokens": 4096,
+    "callSeconds": 120,
+    "processSeconds": 1800,
+    "finalizationReserveSeconds": 20,
+    "sdkRetries": 0,
+    "bindingRetries": 0,
+    "scenarioVendorReruns": 1,
+    "totalVendorReruns": 2
+  },
+  "prompts": {
+    "text": "Find the smallest positive integer n satisfying n modulo 7 = 3, n modulo 11 = 5, and n modulo 13 = 8. Reply only with n.",
+    "tool": "Call the add function with a=17 and b=25. Do not calculate it yourself. After receiving its result, reply with the integer answer.",
+    "continuation": "Reply only with the same integer answer.",
+    "cancel": "Write the integers from 1 through 1000, one per line."
+  },
+  "routes": {
+    "chat": [
+      {
+        "id": "glm-5.3/full-stream",
+        "model": "glm-5.3",
+        "kind": "full-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/full-complete",
+        "model": "glm-5.3",
+        "kind": "full-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "low",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/simple-stream",
+        "model": "glm-5.3",
+        "kind": "simple-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/simple-complete",
+        "model": "glm-5.3",
+        "kind": "simple-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "max",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/tool-call",
+        "model": "glm-5.3",
+        "kind": "tool-call",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/tool-result",
+        "model": "glm-5.3",
+        "kind": "tool-result",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/native-history",
+        "model": "glm-5.3",
+        "kind": "native-history",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/cancel",
+        "model": "glm-5.3",
+        "kind": "cancel",
+        "expected": "cancel after observable content then aborted",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/recovery",
+        "model": "glm-5.3",
+        "kind": "recovery",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/control-temperature",
+        "model": "glm-5.3",
+        "kind": "control-temperature",
+        "baseline": "glm-5.3/full-stream",
+        "onlyChangedField": "temperature",
+        "value": 0,
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      },
+      {
+        "id": "glm-5.3/control-usage",
+        "model": "glm-5.3",
+        "kind": "control-usage",
+        "baseline": "glm-5.3/full-stream",
+        "onlyChangedField": "stream_options.include_usage",
+        "value": true,
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      },
+      {
+        "id": "glm-5.2/full-stream",
+        "model": "glm-5.2",
+        "kind": "full-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/full-complete",
+        "model": "glm-5.2",
+        "kind": "full-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "low",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/simple-stream",
+        "model": "glm-5.2",
+        "kind": "simple-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/simple-complete",
+        "model": "glm-5.2",
+        "kind": "simple-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "max",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/tool-call",
+        "model": "glm-5.2",
+        "kind": "tool-call",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/tool-result",
+        "model": "glm-5.2",
+        "kind": "tool-result",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/native-history",
+        "model": "glm-5.2",
+        "kind": "native-history",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/cancel",
+        "model": "glm-5.2",
+        "kind": "cancel",
+        "expected": "cancel after observable content then aborted",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/recovery",
+        "model": "glm-5.2",
+        "kind": "recovery",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/control-temperature",
+        "model": "glm-5.2",
+        "kind": "control-temperature",
+        "baseline": "glm-5.2/full-stream",
+        "onlyChangedField": "temperature",
+        "value": 0,
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      },
+      {
+        "id": "glm-5.2/control-usage",
+        "model": "glm-5.2",
+        "kind": "control-usage",
+        "baseline": "glm-5.2/full-stream",
+        "onlyChangedField": "stream_options.include_usage",
+        "value": true,
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      }
+    ],
+    "responses": [
+      {
+        "id": "glm-5.3/full-stream",
+        "model": "glm-5.3",
+        "kind": "full-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/full-complete",
+        "model": "glm-5.3",
+        "kind": "full-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/simple-stream",
+        "model": "glm-5.3",
+        "kind": "simple-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/simple-complete",
+        "model": "glm-5.3",
+        "kind": "simple-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/tool-call",
+        "model": "glm-5.3",
+        "kind": "tool-call",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/tool-result",
+        "model": "glm-5.3",
+        "kind": "tool-result",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/native-history",
+        "model": "glm-5.3",
+        "kind": "native-history",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/cancel",
+        "model": "glm-5.3",
+        "kind": "cancel",
+        "expected": "cancel after observable content then aborted",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/recovery",
+        "model": "glm-5.3",
+        "kind": "recovery",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/control-low",
+        "model": "glm-5.3",
+        "kind": "control-low",
+        "baseline": "glm-5.3/full-stream",
+        "onlyChangedField": "reasoning.effort",
+        "value": "low",
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      },
+      {
+        "id": "glm-5.3/control-max",
+        "model": "glm-5.3",
+        "kind": "control-max",
+        "baseline": "glm-5.3/full-stream",
+        "onlyChangedField": "reasoning.effort",
+        "value": "max",
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      },
+      {
+        "id": "glm-5.2/full-stream",
+        "model": "glm-5.2",
+        "kind": "full-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/full-complete",
+        "model": "glm-5.2",
+        "kind": "full-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/simple-stream",
+        "model": "glm-5.2",
+        "kind": "simple-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/simple-complete",
+        "model": "glm-5.2",
+        "kind": "simple-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/tool-call",
+        "model": "glm-5.2",
+        "kind": "tool-call",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/tool-result",
+        "model": "glm-5.2",
+        "kind": "tool-result",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/native-history",
+        "model": "glm-5.2",
+        "kind": "native-history",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/cancel",
+        "model": "glm-5.2",
+        "kind": "cancel",
+        "expected": "cancel after observable content then aborted",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/recovery",
+        "model": "glm-5.2",
+        "kind": "recovery",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "high",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/control-low",
+        "model": "glm-5.2",
+        "kind": "control-low",
+        "baseline": "glm-5.2/full-stream",
+        "onlyChangedField": "reasoning.effort",
+        "value": "low",
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      },
+      {
+        "id": "glm-5.2/control-max",
+        "model": "glm-5.2",
+        "kind": "control-max",
+        "baseline": "glm-5.2/full-stream",
+        "onlyChangedField": "reasoning.effort",
+        "value": "max",
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      }
+    ],
+    "messages": [
+      {
+        "id": "glm-5.3/full-stream",
+        "model": "glm-5.3",
+        "kind": "full-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/full-complete",
+        "model": "glm-5.3",
+        "kind": "full-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/simple-stream",
+        "model": "glm-5.3",
+        "kind": "simple-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/simple-complete",
+        "model": "glm-5.3",
+        "kind": "simple-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/tool-call",
+        "model": "glm-5.3",
+        "kind": "tool-call",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/tool-result",
+        "model": "glm-5.3",
+        "kind": "tool-result",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/native-history",
+        "model": "glm-5.3",
+        "kind": "native-history",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/cancel",
+        "model": "glm-5.3",
+        "kind": "cancel",
+        "expected": "cancel after observable content then aborted",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/recovery",
+        "model": "glm-5.3",
+        "kind": "recovery",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.3/control-unsigned",
+        "model": "glm-5.3",
+        "kind": "control-unsigned",
+        "baseline": "glm-5.3/native-history",
+        "onlyChangedField": "messages[*].content[thinking].signature",
+        "value": "omit",
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      },
+      {
+        "id": "glm-5.3/control-auto",
+        "model": "glm-5.3",
+        "kind": "control-auto",
+        "baseline": "glm-5.3/tool-call",
+        "onlyChangedField": "tool_choice",
+        "value": {
+          "type": "auto"
+        },
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      },
+      {
+        "id": "glm-5.2/full-stream",
+        "model": "glm-5.2",
+        "kind": "full-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "enabled:1024/max4096"
+      },
+      {
+        "id": "glm-5.2/full-complete",
+        "model": "glm-5.2",
+        "kind": "full-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/simple-stream",
+        "model": "glm-5.2",
+        "kind": "simple-stream",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/simple-complete",
+        "model": "glm-5.2",
+        "kind": "simple-complete",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/tool-call",
+        "model": "glm-5.2",
+        "kind": "tool-call",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/tool-result",
+        "model": "glm-5.2",
+        "kind": "tool-result",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/native-history",
+        "model": "glm-5.2",
+        "kind": "native-history",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "enabled:1024/max4096"
+      },
+      {
+        "id": "glm-5.2/cancel",
+        "model": "glm-5.2",
+        "kind": "cancel",
+        "expected": "cancel after observable content then aborted",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/recovery",
+        "model": "glm-5.2",
+        "kind": "recovery",
+        "expected": "successful own model public call; complete terminal",
+        "effort": "omitted",
+        "thinking": "omitted"
+      },
+      {
+        "id": "glm-5.2/control-unsigned",
+        "model": "glm-5.2",
+        "kind": "control-unsigned",
+        "baseline": "glm-5.2/native-history",
+        "onlyChangedField": "messages[*].content[thinking].signature",
+        "value": "omit",
+        "expected": "accepted request and successful terminal; no inference of service intensity",
+        "thinking": "enabled:1024/max4096"
+      },
+      {
+        "id": "glm-5.2/control-default",
+        "model": "glm-5.2",
+        "kind": "control-default",
+        "baseline": "glm-5.2/full-stream",
+        "onlyChangedField": "thinking",
+        "value": "omit",
+        "expected": "accepted request and successful terminal; no inference of service intensity"
+      }
+    ]
+  }
+}

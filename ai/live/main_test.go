@@ -46,7 +46,9 @@ func TestMain(m *testing.M) {
 	var err error
 	// Select the isolated mode before legacy configuration can enable a route.
 	// An MM process never resolves or executes a legacy live combination.
-	if os.Getenv("BARNESS_MM_ROUTE") != "" {
+	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
+		cfg = processConfig{notRun: "isolated GLM candidate"}
+	} else if os.Getenv("BARNESS_MM_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated multimodal candidate process"}
 	} else {
 		cfg = loadConfig()
@@ -55,14 +57,20 @@ func TestMain(m *testing.M) {
 	if isDecisionsProcess() {
 		packageArgs = "-tags live -timeout 180s ./ai/live"
 	}
+	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
+		packageArgs = "-tags live -timeout 1800s ./ai/live"
+	}
 	if run, err = evidence.NewRun(packageArgs); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
+		initializeGLM()
+	}
 	if isDecisionsProcess() {
 		decisionsReport = initialDecisionsReport()
 	}
-	if os.Getenv("BARNESS_MM_ROUTE") != "" {
+	if os.Getenv("BARNESS_MM_ROUTE") != "" && glmReportState == nil {
 		multimodalReport = initialMultimodalReport()
 		if key := os.Getenv("BARNESS_MM_KEY"); key != "" {
 			run.RedactSecret(key, "[MULTIMODAL-CREDENTIAL]")
@@ -84,8 +92,10 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	run.SetVersion("model_catalog_version", catalog.Version)
-	run.SetVersion("model_catalog_hash", catalogHash)
+	if glmReportState == nil {
+		run.SetVersion("model_catalog_version", catalog.Version)
+		run.SetVersion("model_catalog_hash", catalogHash)
+	}
 	if cfg.combo != nil {
 		run.SetVersion("live_combo", cfg.combo.name)
 		run.SetVersion("live_sdk", cfg.combo.sdk())
@@ -96,7 +106,11 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
 		mmEntry = "^TestMultimodalFormal$"
 	}
-	if multimodalReport != nil && flag.Lookup("test.run").Value.String() != mmEntry {
+	if glmReportState != nil && flag.Lookup("test.run").Value.String() != glmSelectedEntry() {
+		glmReportState.Outcome = "FAIL"
+		glmReportState.Failure = "exact isolated entry selection required"
+		code = 1
+	} else if multimodalReport != nil && flag.Lookup("test.run").Value.String() != mmEntry {
 		multimodalReport.Outcome = "FAIL"
 		multimodalReport.Failure = "isolated candidate entry selection is required before any tests execute"
 		code = 1
@@ -113,6 +127,12 @@ func TestMain(m *testing.M) {
 		decisionsReport.FinishedAt = time.Now().UTC()
 		if err := run.Record(decisionsDetailName(), decisionsReport); err != nil {
 			fmt.Fprintln(os.Stderr, err)
+			code = 1
+		}
+	}
+	if glmReportState != nil {
+		glmReportState.FinishedAt = time.Now().UTC()
+		if err := run.Record(glmReportName, glmReportState); err != nil {
 			code = 1
 		}
 	}
@@ -138,6 +158,9 @@ func TestMain(m *testing.M) {
 	}
 	if multimodalReport != nil {
 		code = finishMultimodalReport(code, auditOK)
+	}
+	if glmReportState != nil {
+		code = finishGLM(code, auditOK)
 	}
 	os.Exit(code)
 }

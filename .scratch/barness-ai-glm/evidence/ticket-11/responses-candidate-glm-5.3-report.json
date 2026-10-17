@@ -1,0 +1,556 @@
+{
+  "accountAlias": "local-glm",
+  "api": "openai-responses",
+  "auditPassed": true,
+  "calls": 11,
+  "catalogHash": "sha256:4f30bbd051a9602d06085fd477ff39f7c3b058872a113b14f7a5cfe9ee655aa5",
+  "catalogVersion": "glm-six-candidate-2026-10-17.1-sourced-usd",
+  "complete": true,
+  "endpoint": "https://open.bigmodel.cn/api/v1",
+  "finishedAt": "2026-10-17T13:58:25.997231Z",
+  "gitCommit": "06975520f8f1a76278644dd26d7926bfef24a1d2",
+  "httpAttempts": 11,
+  "kind": "glm-model-candidate-only",
+  "mode": "live",
+  "model": "glm-5.3",
+  "outcome": "PASS",
+  "provider": "zhipu",
+  "regionAlias": "cn-standard-endpoint",
+  "reportedKnownUsage": {
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "estimatedUSD": 0.0090574233859657,
+    "incompleteAttempts": 1,
+    "input": 824,
+    "note": "reported known counters only; incomplete or cancelled usage remains unknown, estimate not invoice",
+    "output": 1939
+  },
+  "route": "responses",
+  "scenarios": [
+    {
+      "id": "glm-5.3/full-stream",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 6265,
+      "providerRequestIds": [
+        "resp_20261017215637b797032a345a4603"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-3514638e50614dc2504a4d84cdc39035",
+      "usage": {
+        "input": 49,
+        "output": 314,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 307,
+        "totalTokens": 363,
+        "cost": {
+          "input": 0.0000583159773875,
+          "output": 0.0013079440642782,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0013662600416657
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 49,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 314,
+          "output_tokens_details": {
+            "reasoning_tokens": 307
+          },
+          "total_tokens": 363
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/full-complete",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 4448,
+      "providerRequestIds": [
+        "resp_20261017215642e9ffa56c36234e30"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-d0c854d3e0c34b160bd1358f25257f0e",
+      "usage": {
+        "input": 49,
+        "output": 251,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 247,
+        "totalTokens": 300,
+        "cost": {
+          "input": 0.0000583159773875,
+          "output": 0.0010455221660313002,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0011038381434188
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 49,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 251,
+          "output_tokens_details": {
+            "reasoning_tokens": 247
+          },
+          "total_tokens": 300
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/simple-stream",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 3681,
+      "providerRequestIds": [
+        "resp_2026101721564690f2c2756bab4182"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-9c7cacdeb44469e486082eade03e257b",
+      "usage": {
+        "input": 49,
+        "output": 194,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 189,
+        "totalTokens": 243,
+        "cost": {
+          "input": 0.0000583159773875,
+          "output": 0.0008080928295222001,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0008664088069097001
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 49,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 194,
+          "output_tokens_details": {
+            "reasoning_tokens": 189
+          },
+          "total_tokens": 243
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/simple-complete",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 3533,
+      "providerRequestIds": [
+        "resp_20261017215650b7b4598a465c4d0c"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-e65070a91710dcf250b3195bc72103ba",
+      "usage": {
+        "input": 49,
+        "output": 235,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 230,
+        "totalTokens": 284,
+        "cost": {
+          "input": 0.0000583159773875,
+          "output": 0.0009788753347305002,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.001037191312118
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 49,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 235,
+          "output_tokens_details": {
+            "reasoning_tokens": 230
+          },
+          "total_tokens": 284
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/tool-call",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 4282,
+      "providerRequestIds": [
+        "resp_202610172156530ce05a756fb0427d"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-3d89837df6f5d32a8b0f474a4451fbdf",
+      "usage": {
+        "input": 198,
+        "output": 17,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 215,
+        "cost": {
+          "input": 0.000235644153525,
+          "output": 0.0000708122582571,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0003064564117821
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 198,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 17,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 215
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/tool-result",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 4327,
+      "providerRequestIds": [
+        "resp_202610172156589875130d861c4d24"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-d77b5db66618f1ef930a173e07808922",
+      "usage": {
+        "input": 220,
+        "output": 3,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 223,
+        "cost": {
+          "input": 0.00026182683725,
+          "output": 0.0000124962808689,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0002743231181189
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 220,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 3,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 223
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/native-history",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 1839,
+      "providerRequestIds": [
+        "resp_202610172157027042657bd9ea45c8"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-db879d0bd941715bd393389322dceabe",
+      "usage": {
+        "input": 63,
+        "output": 76,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 72,
+        "totalTokens": 139,
+        "cost": {
+          "input": 0.0000749776852125,
+          "output": 0.00031657244867880005,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.00039155013389130007
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 63,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 76,
+          "output_tokens_details": {
+            "reasoning_tokens": 72
+          },
+          "total_tokens": 139
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/cancel",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 1347,
+      "providerRequestIds": [
+        "resp_2026101721570433b05f90abef4216"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-96d67094e4bad42cc02b7deb5f36f0d0",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      },
+      "usageReporting": [
+        "unreported"
+      ],
+      "rawUsagePresence": null,
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/recovery",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 7680,
+      "providerRequestIds": [
+        "resp_20261017215705c4497c7258f149f2"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-dd28521cd7bd28f4e336e7e0e63a191e",
+      "usage": {
+        "input": 49,
+        "output": 282,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 276,
+        "totalTokens": 331,
+        "cost": {
+          "input": 0.0000583159773875,
+          "output": 0.0011746504016766001,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0012329663790641
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 49,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 282,
+          "output_tokens_details": {
+            "reasoning_tokens": 276
+          },
+          "total_tokens": 331
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/control-low",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 3182,
+      "providerRequestIds": [
+        "resp_20261017215713849a22cded7d4c4c"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-766e0f1ae6a31a4630f1d9e5159d339f",
+      "usage": {
+        "input": 49,
+        "output": 151,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 147,
+        "totalTokens": 200,
+        "cost": {
+          "input": 0.0000583159773875,
+          "output": 0.0006289794704013,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0006872954477888001
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 49,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 151,
+          "output_tokens_details": {
+            "reasoning_tokens": 147
+          },
+          "total_tokens": 200
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "id": "glm-5.3/control-max",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "failure": "",
+      "calls": 1,
+      "httpAttempts": 1,
+      "durationMs": 5271,
+      "providerRequestIds": [
+        "resp_202610172157161efabd0f69f64379"
+      ],
+      "requestIdSources": [
+        "response header:x-request-id"
+      ],
+      "requestId": "req-ad2e99eed8b99b536ab160d49c929cc4",
+      "usage": {
+        "input": 49,
+        "output": 416,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 411,
+        "totalTokens": 465,
+        "cost": {
+          "input": 0.0000583159773875,
+          "output": 0.0017328176138208002,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0017911335912083
+        }
+      },
+      "usageReporting": [
+        "complete"
+      ],
+      "rawUsagePresence": [
+        {
+          "input_tokens": 49,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 416,
+          "output_tokens_details": {
+            "reasoning_tokens": 411
+          },
+          "total_tokens": 465
+        }
+      ],
+      "truncated": false
+    }
+  ],
+  "schema": 1,
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+  "startedAt": "2026-10-17T13:56:35.132974Z",
+  "unknown": [
+    "vendor account/region/permissions/billing",
+    "capacity load not tested",
+    "storage/time charges",
+    "acceptance does not establish intensity"
+  ]
+}

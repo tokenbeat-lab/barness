@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "kind": "glm-candidate-evidence-index",
+  "realCandidateOutcome": "PASS",
+  "sourceManifestSHA256": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+  "controlledArchives": [
+    {
+      "label": "initial-red",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/initial-red.zip",
+      "sha256": "d2834e25f06c214dfeb7c87d5bd671d074b1b25bd03213e46391085b7b5e7bf4",
+      "fileCount": 5
+    },
+    {
+      "label": "thinking-shape-red",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/thinking-shape-red.zip",
+      "sha256": "3d13de96ec1e4823ddb444dc3094f8c2c45e6c173cc034fccfb1d41f309b6144",
+      "fileCount": 6
+    },
+    {
+      "label": "retained-green",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/retained-green.zip",
+      "sha256": "975d43f65cdd5125b649e666adbd55ccbfed243a0f67926c86726bcb5e32ba28",
+      "fileCount": 1918
+    },
+    {
+      "label": "retained-race",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/retained-race.zip",
+      "sha256": "b5cab92d66d8a710597625009a2de7eb6b5c54b74d05505b0fce74933b8e2a26",
+      "fileCount": 1908
+    },
+    {
+      "label": "empty-text-red",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/empty-text-red.zip",
+      "sha256": "3e1efd7148d6b45ae040ebb57bf9b30010ef02199d775639d5401f820336f23a",
+      "fileCount": 350
+    },
+    {
+      "label": "mixed-route-red",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/mixed-route-red.zip",
+      "sha256": "f8607f44041c3e0919a12c05b09afb1aa9dc9c1da488c6fc5857af67ee838240",
+      "fileCount": 14
+    },
+    {
+      "label": "capture-replay-red",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/capture-replay-red.zip",
+      "sha256": "d94bbc253f77e4973f5cd48dd529d7ad1f34e6eb14f497cd0925b1b81db7d26b",
+      "fileCount": 5
+    },
+    {
+      "label": "capture-replay-read-bound-red",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/capture-replay-read-bound-red.zip",
+      "sha256": "68444b1706ca9bc103d6969defd91207393a8d7a414aa4965a15ca53184c7365",
+      "fileCount": 504
+    },
+    {
+      "label": "capture-replay-normal",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/capture-replay-normal.zip",
+      "sha256": "9cf42f91c2bdc2345a20610c4ad38e23f62789813bec8201d3d516db770478f1",
+      "fileCount": 4401
+    },
+    {
+      "label": "capture-replay-race",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/capture-replay-race.zip",
+      "sha256": "18e433feeb4ef027ca1c9ed0ae05da5b6e20db7efda0bb270cf9b34ebb669a6b",
+      "fileCount": 4401
+    },
+    {
+      "label": "final-controlled",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/final-controlled.zip",
+      "sha256": "dbd544924a8a502614faf1f11dc385021d540b095f999aab645f04cd2d028587"
+    },
+    {
+      "label": "final-race",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/final-race.zip",
+      "sha256": "61650d020787616666ef462f3daecafe44003a6796e8745d61ea9de645f11ba3"
+    },
+    {
+      "label": "legacy-decisions",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/legacy-decisions.zip",
+      "sha256": "dc6d25387af463c1a3ca254d7b728dc7a9c75e4044f4261fdb16945efb0d9e6b"
+    },
+    {
+      "label": "legacy-mm",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/legacy-mm.zip",
+      "sha256": "40319c43b38a7ba2642f23390b2666bf7cf9b0d22cf3a9b26c3a1829fc45e104"
+    }
+  ],
+  "realArchives": [
+    {
+      "route": "chat",
+      "archive": ".evidence/barness-ai-glm/ticket-11/20261017T135338Z-chat.zip",
+      "archiveSHA256": "a1c568f7f7019088f961b045b31070eb0510b519f5292eff83ba1643681069b5",
+      "reportSHA256": "84dedb7e40e4b24a1099c7d845318e90e196adc67877b8175bb0f6689d194ff8",
+      "outcome": "PASS",
+      "calls": 22,
+      "attemptsReserved": 22,
+      "httpAttempts": 22,
+      "elapsedSeconds": 131.528,
+      "auditPassed": true,
+      "inventoryFiles": 343
+    },
+    {
+      "route": "responses",
+      "archive": ".evidence/barness-ai-glm/ticket-11/20261017T135635Z-responses.zip",
+      "archiveSHA256": "872063b9abe49150bb813b33cb91b5fae6361e35bc5a47a95f77f5ea355b0f91",
+      "reportSHA256": "e2538df98121ce790f67880638fa677fe8dea5a1f670c699346aa8467129c427",
+      "outcome": "PASS",
+      "calls": 22,
+      "attemptsReserved": 22,
+      "httpAttempts": 22,
+      "elapsedSeconds": 111.792,
+      "auditPassed": true,
+      "inventoryFiles": 343
+    },
+    {
+      "route": "messages",
+      "archive": ".evidence/barness-ai-glm/ticket-11/20261017T135838Z-messages.zip",
+      "archiveSHA256": "469363dd4fc28a0a67071c1be6efb6f67196a222d5e2186479b2dc60d8c7bf51",
+      "reportSHA256": "2e9ff5668c760530d81ddd0b72cb41c2a210074d44470448fa62b1b149252465",
+      "outcome": "PASS",
+      "calls": 22,
+      "attemptsReserved": 22,
+      "httpAttempts": 22,
+      "elapsedSeconds": 108.994,
+      "auditPassed": true,
+      "inventoryFiles": 343
+    }
+  ],
+  "notes": [
+    "Original immutable real source/reports unchanged",
+    "Messages22partial; Chat/Responses20complete+2unreported each; reported-known estimate is not invoice",
+    "All failure archives retained; earliest red predates raw child retention",
+    "Read-bound red rejected unused large event files; replay now decompresses only fixed needed protocol inputs <=2MiB; unchanged whole archive stays pinned",
+    "No formal support publication"
+  ],
+  "realCalls": 66,
+  "realHTTPAttempts": 66,
+  "realReruns": 0,
+  "reportedKnownEstimatedUSD": 0.0881874442137029,
+  "liveSourceCommit": "06975520f8f1a76278644dd26d7926bfef24a1d2",
+  "replaySourceCommit": "f301e2d676ac49847cacb3f7d635b0a20f410970",
+  "captureIndexSHA256": "67d90ba4473914c3390677d536b7cc0275879a214a3e0aa184204d55ae367c05",
+  "checks": {
+    "normal": "PASS",
+    "race": "PASS",
+    "liveVet": "PASS",
+    "captureReplay": "PASS (66 replay attempts, zero external requests)",
+    "legacySelectedProcesses": "PASS"
+  }
+}

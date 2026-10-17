@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "route": "responses",
+  "command": [
+    "candidate-live-binary",
+    "-test.run=^TestGLMCandidate$",
+    "-test.timeout=1800s",
+    "-test.v"
+  ],
+  "gitCommit": "06975520f8f1a76278644dd26d7926bfef24a1d2",
+  "binarySHA256": "87cf6b3ed542e7132ca6b399a74305ea0f0a3928a4e08ad88a09addac75f79d7",
+  "sourceManifestSHA256": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+  "startedAt": "2026-10-17T13:56:35Z",
+  "accountAlias": "local-glm",
+  "regionAlias": "cn-standard-endpoint",
+  "accountRegionPermissionsBilling": "unknown",
+  "credentialSource": "only GLM_KEY selected by Host from root dotenv; one injected key; exact-secret absence audit",
+  "exitCode": 0,
+  "elapsedSeconds": 111.792,
+  "finishedAt": "2026-10-17T13:58:26Z",
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}
