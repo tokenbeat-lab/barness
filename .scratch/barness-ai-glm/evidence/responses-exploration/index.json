@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "kind": "early-public-client-contract-exploration",
+  "productionAcceptance": false,
+  "bundle": ".evidence/barness-ai-glm/protocol-exploration/responses/01-basic",
+  "archive": "01-basic.zip",
+  "archiveSha256": "51d276e7d3619d7436691cc138f3013778f3fa459594a01853c360d4a13d4c1b",
+  "indexSha256": "4c92cf20cb84ab733388af955b56bb49e7b4be7e1315911f47d80eda474b443a",
+  "audit": {
+    "credentialHashPersisted": false,
+    "exactCredentialOccurrences": 0,
+    "headersAndCookiesRedacted": true,
+    "note": "actual key scanned only in memory; outputs reviewed for generated secret patterns; synthetic prompt only",
+    "passed": true,
+    "scannedFiles": 35
+  },
+  "budget": {
+    "HTTPAttemptsUsed": 2,
+    "callsRemainingInInitialProbe": 0,
+    "elapsedSeconds": 6.869334958,
+    "logicalCallsUsed": 2,
+    "maxHTTPAttempts": 2,
+    "maxLogicalCalls": 2,
+    "maxRequestedOutputTokens": 8192,
+    "maxTokensPerCall": 4096,
+    "observerStats": {
+      "delivered": 8,
+      "failed": 0,
+      "dropped": 0
+    },
+    "specResponsesAttemptsRemaining": 30,
+    "specResponsesCallsRemaining": 22,
+    "libraryRecordedAttempts": 2,
+    "externalHTTPRequestsSent": 2,
+    "externalHTTPResponsesReceived": 2,
+    "otherProtocolBudgetChanged": false
+  }
+}
