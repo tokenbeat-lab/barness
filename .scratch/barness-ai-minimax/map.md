@@ -10,7 +10,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-01 → {02,03,04} → {05,06} → 07 → 08。05 与 06 相互独立。
+01 → {02,03,04} → {05,06} → {07,08} → 09。05与06相互独立；07真实证据/发布和08文档/回滚独立推进，09汇合最终判定。
 
 - [01 Provider 身份、六个候选型号与思考元数据](issues/01-provider-model-contract.md)；Blocked by: None。
 - [02 MiniMax Chat 文本、推理、工具历史与边界](issues/02-chat-protocol.md)；Blocked by: 01。
@@ -19,9 +19,12 @@ Base: `ecfd4b4`
 - [05 三协议隔离、失败重试、回调和资源释放](issues/05-isolation-failure-resources.md)；Blocked by: 02, 03, 04。
 - [06 固定 MiniMax pi 差分和扩展证据](issues/06-pi-differential.md)；Blocked by: 02, 03, 04。
 - [07 六身份候选、M3 正式证据和目录发布门禁](issues/07-live-catalog-release.md)；Blocked by: 05, 06。
-- [08 Host 文档、ADR、完整验收和回滚](issues/08-host-docs-final-acceptance.md)；Blocked by: 07。
+- [08 Host 文档、ADR 和回滚实现](issues/08-host-docs-final-acceptance.md)；Blocked by: 05, 06。
+- [09 完整验收、双轴审查与交付判定](issues/09-integrated-acceptance-review.md)；Blocked by: 07, 08。
 
 ## Decisions so far
+
+- 08文档/回滚不需要等待07真实报告才开始；已将最终验收独立为09，避免无关依赖，全部交付要求保持。
 
 - 实施不得把缺真实凭据改写为正式通过；M3 三协议正式目标与 M3.1 三候选离线约束全部保留。
 
