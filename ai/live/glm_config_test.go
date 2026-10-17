@@ -34,34 +34,64 @@ type glmSources struct {
 	Provenance                  map[string]any
 }
 type glmBudget struct {
-	PlannedCalls, MaxCalls, MaxAttempts, MaxOutputTokens, CallSeconds, ProcessSeconds, FinalizationReserveSeconds int
-	CallsUsed, AttemptsReserved, HTTPAttempts, Retries                                                            int
+	PlannedCalls               int `json:"plannedCalls"`
+	MaxCalls                   int `json:"maxCalls"`
+	MaxAttempts                int `json:"maxAttempts"`
+	MaxOutputTokens            int `json:"maxOutputTokens"`
+	CallSeconds                int `json:"callSeconds"`
+	ProcessSeconds             int `json:"processSeconds"`
+	FinalizationReserveSeconds int `json:"finalizationReserveSeconds"`
+	CallsUsed                  int `json:"callsUsed"`
+	AttemptsReserved           int `json:"attemptsReserved"`
+	HTTPAttempts               int `json:"httpAttempts"`
+	Retries                    int `json:"retries"`
 }
 type glmOutcome struct {
-	ID, Model, Outcome, Failure string
-	Calls, HTTPAttempts         int
-	DurationMS                  int64
-	ProviderRequestIDs          []string
-	Usage                       ai.Usage
-	UsageReporting              []ai.UsageReporting
-	RawUsagePresence            []json.RawMessage
-	Truncated                   bool
+	ID                 string              `json:"id"`
+	Model              string              `json:"model"`
+	Outcome            string              `json:"outcome"`
+	Failure            string              `json:"failure"`
+	Calls              int                 `json:"calls"`
+	HTTPAttempts       int                 `json:"httpAttempts"`
+	DurationMS         int64               `json:"durationMs"`
+	ProviderRequestIDs []string            `json:"providerRequestIds"`
+	RequestIDSources   []string            `json:"requestIdSources"`
+	RequestID          string              `json:"requestId"`
+	Usage              ai.Usage            `json:"usage"`
+	UsageReporting     []ai.UsageReporting `json:"usageReporting"`
+	RawUsagePresence   []json.RawMessage   `json:"rawUsagePresence"`
+	Truncated          bool                `json:"truncated"`
 }
 type glmReport struct {
-	Schema                                                                                      int    `json:"schema"`
-	Kind                                                                                        string `json:"kind"`
-	Outcome                                                                                     string `json:"outcome"`
-	Complete                                                                                    bool   `json:"complete"`
-	AuditPassed                                                                                 bool   `json:"auditPassed"`
-	Route, API, Endpoint, SDK, CatalogVersion, CatalogHash, SourceManifestHash, GitCommit, Mode string
-	AccountAlias, RegionAlias, AccountVerification, RegionVerification, PrivilegeVerification   string
-	StartedAt, FinishedAt, ProcessDeadline, ExecutionDeadline                                   time.Time
-	Budget                                                                                      glmBudget
-	Expected                                                                                    []string
-	Scenarios                                                                                   []glmOutcome
-	Models                                                                                      map[string]string
-	Failure                                                                                     string
-	Unknown                                                                                     []string
+	Schema                int               `json:"schema"`
+	Kind                  string            `json:"kind"`
+	Outcome               string            `json:"outcome"`
+	Complete              bool              `json:"complete"`
+	AuditPassed           bool              `json:"auditPassed"`
+	Route                 string            `json:"route"`
+	API                   string            `json:"api"`
+	Endpoint              string            `json:"endpoint"`
+	SDK                   string            `json:"sdk"`
+	CatalogVersion        string            `json:"catalogVersion"`
+	CatalogHash           string            `json:"catalogHash"`
+	SourceManifestHash    string            `json:"sourceManifestHash"`
+	GitCommit             string            `json:"gitCommit"`
+	Mode                  string            `json:"mode"`
+	AccountAlias          string            `json:"accountAlias"`
+	RegionAlias           string            `json:"regionAlias"`
+	AccountVerification   string            `json:"accountVerification"`
+	RegionVerification    string            `json:"regionVerification"`
+	PrivilegeVerification string            `json:"privilegeVerification"`
+	StartedAt             time.Time         `json:"startedAt"`
+	FinishedAt            time.Time         `json:"finishedAt"`
+	ProcessDeadline       time.Time         `json:"processDeadline"`
+	ExecutionDeadline     time.Time         `json:"executionDeadline"`
+	Budget                glmBudget         `json:"budget"`
+	Expected              []string          `json:"expected"`
+	Scenarios             []glmOutcome      `json:"scenarios"`
+	Models                map[string]string `json:"models"`
+	Failure               string            `json:"failure"`
+	Unknown               []string          `json:"unknown"`
 }
 
 var glmReportState *glmReport

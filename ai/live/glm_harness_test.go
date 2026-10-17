@@ -250,6 +250,7 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	ctx, cancel := context.WithTimeout(s.ctx, 120*time.Second)
 	defer cancel()
 	scope := newScope()
+	out.RequestID = scope.RequestID
 	target := ai.Target{BindingID: glmSelected.name, ModelID: sc.Model}
 	hook := s.client.WithHooks(ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 		if kind == "control-low" || kind == "control-max" {
@@ -323,6 +324,7 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	for _, e := range ex {
 		out.Truncated = out.Truncated || e.Truncated
 		out.RawUsagePresence = append(out.RawUsagePresence, glmUsagePresence(e.ResponseBody)...)
+		out.RequestIDSources = append(out.RequestIDSources, glmRequestIDSources(result, e)...)
 		if !cs.Check("capture has no accidental truncation", !e.Truncated, "capture truncated") {
 			return
 		}
