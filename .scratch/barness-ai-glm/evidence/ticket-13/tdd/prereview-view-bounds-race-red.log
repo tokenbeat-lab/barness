@@ -1,0 +1,11 @@
+--- FAIL: TestGLMSupportViewBounds (0.98s)
+    --- FAIL: TestGLMSupportViewBounds/unlisted (0.30s)
+        glm_support_view_limits_test.go:59: [P0-GLM13-support-view-unlisted] invalid finite-owned shape rejected before payload read: err=supportmatrix: invalid report: GLM unexpected support view artifact allocated=58480024
+    --- FAIL: TestGLMSupportViewBounds/many (0.35s)
+        glm_support_view_limits_test.go:59: [P0-GLM13-support-view-many] invalid finite-owned shape rejected before payload read: err=supportmatrix: invalid report: GLM unexpected support view artifact count allocated=57936872
+    --- FAIL: TestGLMSupportViewBounds/deep (0.33s)
+        glm_support_view_limits_test.go:59: [P0-GLM13-support-view-deep] invalid finite-owned shape rejected before payload read: err=supportmatrix: invalid report: GLM unexpected support view artifact directory allocated=57975696
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-glm-13/.evidence/barness-ai/20261017T152226.073456000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.565s
+FAIL

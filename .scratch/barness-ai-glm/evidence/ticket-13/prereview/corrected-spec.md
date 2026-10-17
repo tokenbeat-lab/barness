@@ -1,0 +1,10 @@
+Spec correction review: `808d6d551408bf357ab897c93b3f9134bbb7aa2d` → clean `ee9ee51752b1a4f687c8032a326345387253b585` in `/tmp/barness-glm-13`. Original feature baseline: `f5cf5362610a8bdb8f3e170f408f3858c149e540`.
+
+**Closed: 2; remaining: 0; new Spec findings: 0.**
+
+- **Closed — authoritative empty reasoning.** R09: “正文、推理与工具参数的 delta 和 authoritative done 都要处理”. GLM now selects explicit reasoning content by part presence, preserving an empty string in both object and array shapes. Absent content/empty lists retain streamed text unless a separate text.done supplies an authoritative value, including empty text. Original native shapes remain preserved. The branch is gated on `p.glm`; existing OpenAI/DeepSeek behavior is unchanged by this fix.
+- **Closed — legacy forced-tool fields.** R11: “首期仅接入 tool_choice=auto；其他明确指定形式请求前拒绝”. The final GLM Chat guard rejects both `functions` and `function_call` after callbacks. Public coverage verifies both models with `WithHooks` and `SamplingParams`, each field separately and together, with zero requests/Attempts. Existing reserved-key capability rejection remains intact, and the new guard remains Zhipu-specific.
+
+Inspected retained public RED receipts and archive index `prereview/artifacts.json`, focused GREEN log `/tmp/glm13-prereview-focused-green.log`, production fixes, additive trace changes and related consumer/error corrections. Independently reran the original two reviewer reproductions via read-only overlay, the 22 new reasoning/tool cases, and existing OpenAI Responses/Chat text acceptance: **53 recorded cases PASS**, exit 0. Evidence: `/tmp/barness-glm-prereview-corrected-evidence/20261017T152131.289662000Z/manifest.json`. Repository remains clean; no paid/external network calls.
+
+This closes the source-review Spec findings at the exact corrected SHA. Six source-stale formal positive imports remain intentionally pending the planned three-route renewal. Final release acceptance and the mandatory post-ticket13 review remain separate.

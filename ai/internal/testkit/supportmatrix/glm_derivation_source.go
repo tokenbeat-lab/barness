@@ -119,9 +119,15 @@ func loadGLMRawCapture(route string) (glmRawCapture, error) {
 		if e != nil {
 			return out, e
 		}
-		data, e := io.ReadAll(io.LimitReader(r, 16<<20+1))
+		// This archive is hash-authenticated and its declared sizes are bounded
+		// above. Read exactly once instead of repeatedly growing ReadAll buffers;
+		// verify EOF so metadata never weakens the actual byte ceiling.
+		data := make([]byte, file.UncompressedSize64)
+		_, e = io.ReadFull(r, data)
+		var extra [1]byte
+		n, end := io.ReadFull(r, extra[:])
 		r.Close()
-		if e != nil || len(data) > 16<<20 {
+		if e != nil || n != 0 || end != io.EOF {
 			return out, glmBad("original capture exceeds bound")
 		}
 		files[name] = data
