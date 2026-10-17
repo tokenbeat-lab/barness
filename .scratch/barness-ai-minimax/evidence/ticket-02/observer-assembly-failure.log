@@ -1,0 +1,21 @@
+--- FAIL: TestMiniMaxChatText (0.00s)
+    --- FAIL: TestMiniMaxChatText/MiniMax-M3/stream (0.00s)
+        minimax_chat_text_test.go:19: NewClient: ai: invalid config Policy.MaxQueuedObservations: must be positive when an Observer is configured
+    --- FAIL: TestMiniMaxChatText/MiniMax-M3/complete (0.00s)
+        minimax_chat_text_test.go:19: NewClient: ai: invalid config Policy.MaxQueuedObservations: must be positive when an Observer is configured
+    --- FAIL: TestMiniMaxChatText/MiniMax-M3/stream-simple (0.00s)
+        minimax_chat_text_test.go:19: NewClient: ai: invalid config Policy.MaxQueuedObservations: must be positive when an Observer is configured
+    --- FAIL: TestMiniMaxChatText/MiniMax-M3/complete-simple (0.00s)
+        minimax_chat_text_test.go:19: NewClient: ai: invalid config Policy.MaxQueuedObservations: must be positive when an Observer is configured
+    --- FAIL: TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/stream (0.00s)
+        minimax_chat_text_test.go:19: NewClient: ai: invalid config Policy.MaxQueuedObservations: must be positive when an Observer is configured
+    --- FAIL: TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/complete (0.00s)
+        minimax_chat_text_test.go:19: NewClient: ai: invalid config Policy.MaxQueuedObservations: must be positive when an Observer is configured
+    --- FAIL: TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/stream-simple (0.00s)
+        minimax_chat_text_test.go:19: NewClient: ai: invalid config Policy.MaxQueuedObservations: must be positive when an Observer is configured
+    --- FAIL: TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/complete-simple (0.00s)
+        minimax_chat_text_test.go:19: NewClient: ai: invalid config Policy.MaxQueuedObservations: must be positive when an Observer is configured
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-02/.evidence/barness-ai/20261017T221911.214911000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.576s
+FAIL

@@ -144,10 +144,19 @@ func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey
 		}
 	}
 	body.Temperature = o.Temperature
-	if c, ok := o.ToolChoice.Get(); ok {
+	if c, ok := o.ToolChoice.Get(); ok && !(compat.adaptiveThinking && c.Mode == "auto") {
 		body.ToolChoice = &c
 	}
 	if !m.Reasoning {
+		return
+	}
+	if compat.adaptiveThinking {
+		if o.ReasoningEffort != "" {
+			body.Thinking = &chatThinking{Type: "adaptive"}
+			if miniMaxChatHasEffort(m) {
+				body.ReasoningEffort = m.ThinkingLevelMap.wireValue(o.ReasoningEffort)
+			}
+		}
 		return
 	}
 	if compat.thinkingToggle {
@@ -176,6 +185,9 @@ func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey
 func (o ChatOptions) reasoningExpected(m Model, compat chatCompat) bool {
 	if !m.Reasoning {
 		return false
+	}
+	if compat.adaptiveThinking {
+		return true
 	}
 	if compat.thinkingToggle {
 		return o.ReasoningEffort != "" || m.Compat.RequiresThinking || compat.preserveThinkingDefault || m.ThinkingLevelMap.Off.IsNull()

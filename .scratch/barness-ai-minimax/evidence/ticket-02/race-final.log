@@ -1,0 +1,1181 @@
+=== RUN   TestMiniMaxChatProtocolContainers
+=== RUN   TestMiniMaxChatProtocolContainers/stream
+=== RUN   TestMiniMaxChatProtocolContainers/strict
+=== RUN   TestMiniMaxChatProtocolContainers/legacy
+=== RUN   TestMiniMaxChatProtocolContainers/developer
+=== RUN   TestMiniMaxChatProtocolContainers/image
+=== RUN   TestMiniMaxChatProtocolContainers/no-user-content
+=== RUN   TestMiniMaxChatProtocolContainers/bad-reasoning
+=== RUN   TestMiniMaxChatProtocolContainers/bad-details
+=== RUN   TestMiniMaxChatProtocolContainers/bad-call
+=== RUN   TestMiniMaxChatProtocolContainers/cache
+=== RUN   TestMiniMaxChatProtocolContainers/store-true
+=== RUN   TestMiniMaxChatProtocolContainers/store-false
+=== RUN   TestMiniMaxChatProtocolContainers/near-temp
+=== RUN   TestMiniMaxChatProtocolContainers/near-top-p
+--- PASS: TestMiniMaxChatProtocolContainers (0.04s)
+    --- PASS: TestMiniMaxChatProtocolContainers/stream (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/strict (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/legacy (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/developer (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/image (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/no-user-content (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/bad-reasoning (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/bad-details (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/bad-call (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/cache (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/store-true (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/store-false (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/near-temp (0.00s)
+    --- PASS: TestMiniMaxChatProtocolContainers/near-top-p (0.00s)
+=== RUN   TestMiniMaxChatFinalGuard
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/model/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/profile/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/call/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/hook/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/repair/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/n-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/thinking-{"type":"disabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/thinking-{"type":"enabled"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/thinking-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/thinking-{"type":"adaptive","budget_tokens":12}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_effort-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_effort-"minimal"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_effort-"low"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_effort-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_split-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_split-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_split-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-131072
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-131073
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-1.00000000000000001
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-1e0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-1e1000000000
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature-2.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature--0.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/top_p-0
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/top_p-1.1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/top_p-null
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/tool_choice-"auto"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/tool_choice-"none"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/parallel_tool_calls-false
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/stream_options-{"include_usage":false}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/tool_stream-true
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/prompt_cache_retention-"24h"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/service_tier-"priority"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/service_tier-"standard"
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/stop-["END"]
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/response_format-{"type":"json_object"}
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/seed-1
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/n-2
+=== RUN   TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/n-1
+--- PASS: TestMiniMaxChatFinalGuard (1.39s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"disabled"} (0.01s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/model/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/call/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/repair/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3/authorization/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-null (0.02s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/top_p-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/repair/n-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/thinking-{"type":"disabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/thinking-{"type":"enabled"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/thinking-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_effort-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_effort-"minimal" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_effort-"low" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_effort-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_split-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_split-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/reasoning_split-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-131072 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-131073 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-1.00000000000000001 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-1e0 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/max_completion_tokens-1e1000000000 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature-2.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/temperature--0.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/top_p-0 (0.03s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/top_p-1.1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/top_p-null (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/tool_choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/tool_choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/parallel_tool_calls-false (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/stream_options-{"include_usage":false} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/tool_stream-true (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/prompt_cache_retention-"24h" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/service_tier-"priority" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/service_tier-"standard" (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/stop-["END"] (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/response_format-{"type":"json_object"} (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/seed-1 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/n-2 (0.00s)
+    --- PASS: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/authorization/n-1 (0.00s)
+=== RUN   TestMiniMaxChatToolHistory
+=== RUN   TestMiniMaxChatToolHistory/reasoning_content/in-process
+=== RUN   TestMiniMaxChatToolHistory/reasoning_content/trusted-restored
+=== RUN   TestMiniMaxChatToolHistory/reasoning_content/untrusted
+=== RUN   TestMiniMaxChatToolHistory/reasoning_content/cross-account
+=== RUN   TestMiniMaxChatToolHistory/reasoning_content/cross-model
+=== RUN   TestMiniMaxChatToolHistory/reasoning_details/in-process
+=== RUN   TestMiniMaxChatToolHistory/reasoning_details/trusted-restored
+=== RUN   TestMiniMaxChatToolHistory/reasoning_details/untrusted
+=== RUN   TestMiniMaxChatToolHistory/reasoning_details/cross-account
+=== RUN   TestMiniMaxChatToolHistory/reasoning_details/cross-model
+--- PASS: TestMiniMaxChatToolHistory (0.07s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_content/in-process (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_content/trusted-restored (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_content/untrusted (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_content/cross-account (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_content/cross-model (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_details/in-process (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_details/trusted-restored (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_details/untrusted (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_details/cross-account (0.01s)
+    --- PASS: TestMiniMaxChatToolHistory/reasoning_details/cross-model (0.01s)
+=== RUN   TestMiniMaxChatNamedOptions
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/minimal/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/minimal/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/low/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/low/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/medium/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/medium/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/high/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/high/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/xhigh/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/xhigh/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/max/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3/max/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/minimal/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/minimal/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/low/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/low/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/medium/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/medium/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/high/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/high/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/xhigh/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/xhigh/simple
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/max/full
+=== RUN   TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/max/simple
+=== RUN   TestMiniMaxChatNamedOptions/choice-"auto"
+=== RUN   TestMiniMaxChatNamedOptions/choice-"none"
+=== RUN   TestMiniMaxChatNamedOptions/choice-"required"
+=== RUN   TestMiniMaxChatNamedOptions/choice-{"type":"function","function":{"name":"lookup"}}
+=== RUN   TestMiniMaxChatNamedOptions/choice-{"type":"allowed_tools","allowed_tools":{"mode":"auto","tools":[{"type":"function","function":{"name":"lookup"}}]}}
+--- PASS: TestMiniMaxChatNamedOptions (0.09s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/minimal/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/minimal/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/low/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/low/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/medium/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/medium/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/high/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/high/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/xhigh/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/xhigh/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/max/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3/max/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/minimal/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/minimal/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/low/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/low/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/medium/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/medium/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/high/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/high/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/xhigh/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/xhigh/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/max/full (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/MiniMax-M3.1-Flash-Preview/max/simple (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/choice-"auto" (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/choice-"none" (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/choice-"required" (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/choice-{"type":"function","function":{"name":"lookup"}} (0.00s)
+    --- PASS: TestMiniMaxChatNamedOptions/choice-{"type":"allowed_tools","allowed_tools":{"mode":"auto","tools":[{"type":"function","function":{"name":"lookup"}}]}} (0.00s)
+=== RUN   TestMiniMaxChatUnknownReasoningFormat
+=== RUN   TestMiniMaxChatUnknownReasoningFormat/"reasoning_details":{"text":"unknown"}
+=== RUN   TestMiniMaxChatUnknownReasoningFormat/"reasoning_details":[{"type":"unknown","text":"opaque"}]
+=== RUN   TestMiniMaxChatUnknownReasoningFormat/"reasoning_content":"visible","reasoning_details":[{"type":"reasoning.text","text":"other"}]
+=== RUN   TestMiniMaxChatUnknownReasoningFormat/"reasoning_content":true
+=== RUN   TestMiniMaxChatUnknownReasoningFormat/"reasoning":"unknown_field"
+--- PASS: TestMiniMaxChatUnknownReasoningFormat (0.02s)
+    --- PASS: TestMiniMaxChatUnknownReasoningFormat/"reasoning_details":{"text":"unknown"} (0.00s)
+    --- PASS: TestMiniMaxChatUnknownReasoningFormat/"reasoning_details":[{"type":"unknown","text":"opaque"}] (0.00s)
+    --- PASS: TestMiniMaxChatUnknownReasoningFormat/"reasoning_content":"visible","reasoning_details":[{"type":"reasoning.text","text":"other"}] (0.00s)
+    --- PASS: TestMiniMaxChatUnknownReasoningFormat/"reasoning_content":true (0.00s)
+    --- PASS: TestMiniMaxChatUnknownReasoningFormat/"reasoning":"unknown_field" (0.00s)
+=== RUN   TestMiniMaxChatSamplingLayers
+=== RUN   TestMiniMaxChatSamplingLayers/MiniMax-M3/full
+=== RUN   TestMiniMaxChatSamplingLayers/MiniMax-M3/simple
+=== RUN   TestMiniMaxChatSamplingLayers/MiniMax-M3.1-Flash-Preview/full
+=== RUN   TestMiniMaxChatSamplingLayers/MiniMax-M3.1-Flash-Preview/simple
+--- PASS: TestMiniMaxChatSamplingLayers (0.02s)
+    --- PASS: TestMiniMaxChatSamplingLayers/MiniMax-M3/full (0.00s)
+    --- PASS: TestMiniMaxChatSamplingLayers/MiniMax-M3/simple (0.00s)
+    --- PASS: TestMiniMaxChatSamplingLayers/MiniMax-M3.1-Flash-Preview/full (0.00s)
+    --- PASS: TestMiniMaxChatSamplingLayers/MiniMax-M3.1-Flash-Preview/simple (0.00s)
+=== RUN   TestMiniMaxChatTerminal
+=== RUN   TestMiniMaxChatTerminal/eof
+=== RUN   TestMiniMaxChatTerminal/done
+=== RUN   TestMiniMaxChatTerminal/length
+=== RUN   TestMiniMaxChatTerminal/missing
+=== RUN   TestMiniMaxChatTerminal/filtered
+=== RUN   TestMiniMaxChatTerminal/unknown
+=== RUN   TestMiniMaxChatTerminal/tool-stop-conflict
+=== RUN   TestMiniMaxChatTerminal/empty-tools
+=== RUN   TestMiniMaxChatTerminal/tool-finish
+=== RUN   TestMiniMaxChatTerminal/bad-json
+=== RUN   TestMiniMaxChatTerminal/error
+--- PASS: TestMiniMaxChatTerminal (0.04s)
+    --- PASS: TestMiniMaxChatTerminal/eof (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/done (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/length (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/missing (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/filtered (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/unknown (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/tool-stop-conflict (0.01s)
+    --- PASS: TestMiniMaxChatTerminal/empty-tools (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/tool-finish (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/bad-json (0.00s)
+    --- PASS: TestMiniMaxChatTerminal/error (0.00s)
+=== RUN   TestMiniMaxChatToolIdentityConflicts
+=== RUN   TestMiniMaxChatToolIdentityConflicts/[{"index":0,"id":"call-a","function":{"name":"lookup","arguments":"{}"}},{"index":1,"id":"call-a","function":{"name":"lookup","arguments":"{}"}}]
+=== RUN   TestMiniMaxChatToolIdentityConflicts/[{"index":0,"id":"call-a","function":{"name":"lookup","arguments":"{}"}},{"index":0,"id":"call-b","function":{"name":"lookup","arguments":"{}"}}]
+--- PASS: TestMiniMaxChatToolIdentityConflicts (0.01s)
+    --- PASS: TestMiniMaxChatToolIdentityConflicts/[{"index":0,"id":"call-a","function":{"name":"lookup","arguments":"{}"}},{"index":1,"id":"call-a","function":{"name":"lookup","arguments":"{}"}}] (0.00s)
+    --- PASS: TestMiniMaxChatToolIdentityConflicts/[{"index":0,"id":"call-a","function":{"name":"lookup","arguments":"{}"}},{"index":0,"id":"call-b","function":{"name":"lookup","arguments":"{}"}}] (0.00s)
+=== RUN   TestMiniMaxChatText
+=== RUN   TestMiniMaxChatText/MiniMax-M3/stream
+=== RUN   TestMiniMaxChatText/MiniMax-M3/complete
+=== RUN   TestMiniMaxChatText/MiniMax-M3/stream-simple
+=== RUN   TestMiniMaxChatText/MiniMax-M3/complete-simple
+=== RUN   TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/stream
+=== RUN   TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/complete
+=== RUN   TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/stream-simple
+=== RUN   TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/complete-simple
+--- PASS: TestMiniMaxChatText (0.04s)
+    --- PASS: TestMiniMaxChatText/MiniMax-M3/stream (0.01s)
+    --- PASS: TestMiniMaxChatText/MiniMax-M3/complete (0.00s)
+    --- PASS: TestMiniMaxChatText/MiniMax-M3/stream-simple (0.01s)
+    --- PASS: TestMiniMaxChatText/MiniMax-M3/complete-simple (0.00s)
+    --- PASS: TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/stream (0.01s)
+    --- PASS: TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/complete (0.00s)
+    --- PASS: TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/stream-simple (0.01s)
+    --- PASS: TestMiniMaxChatText/MiniMax-M3.1-Flash-Preview/complete-simple (0.00s)
+=== RUN   TestMiniMaxChatUsage
+=== RUN   TestMiniMaxChatUsage/missing
+=== RUN   TestMiniMaxChatUsage/partial
+=== RUN   TestMiniMaxChatUsage/off
+=== RUN   TestMiniMaxChatUsage/zero
+--- PASS: TestMiniMaxChatUsage (0.01s)
+    --- PASS: TestMiniMaxChatUsage/missing (0.00s)
+    --- PASS: TestMiniMaxChatUsage/partial (0.00s)
+    --- PASS: TestMiniMaxChatUsage/off (0.00s)
+    --- PASS: TestMiniMaxChatUsage/zero (0.00s)
+PASS
+barness-ai evidence bundle: /private/tmp/barness-minimax-02/.evidence/barness-ai/20261017T222050.286104000Z
+ok  	github.com/tokenbeat-lab/barness/ai/e2e	9.159s

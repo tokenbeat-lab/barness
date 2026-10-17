@@ -57,12 +57,12 @@ func chatReasoningDetail(v any) (*jsonObject, bool) {
 // discrete. Each entry is pi's shallow copy of the first delta.
 type chatDetails []*jsonObject
 
-func (ds *chatDetails) add(d *jsonObject) {
+func (ds *chatDetails) add(d *jsonObject, preserveIdentity bool) {
 	if n := len(*ds); n > 0 {
 		last := (*ds)[n-1]
 		lastType, _ := last.get("type")
 		typ, _ := d.get("type")
-		if typ == lastType && (typ == "reasoning.text" || typ == "reasoning.summary") {
+		if typ == lastType && (typ == "reasoning.text" || typ == "reasoning.summary") && (!preserveIdentity || sameChatReasoningEntry(last, d)) {
 			field := "text"
 			if typ == "reasoning.summary" {
 				field = "summary"
@@ -167,4 +167,18 @@ func chatLegacyReasoningDetails(calls []ToolCall) json.RawMessage {
 		return nil
 	}
 	return json.RawMessage(stringifyJSON(found))
+}
+
+// MiniMax split arrays are native entries. Deltas may extend one entry, but
+// distinct explicit ids/indexes must never be flattened into one signature.
+// The actual M3 split schema still needs its own live acceptance evidence.
+func sameChatReasoningEntry(a, b *jsonObject) bool {
+	for _, key := range []string{"id", "index"} {
+		av, ap := a.get(key)
+		bv, bp := b.get(key)
+		if ap && bp && av != nil && bv != nil && av != bv {
+			return false
+		}
+	}
+	return true
 }

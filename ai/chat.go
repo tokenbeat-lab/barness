@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/buger/jsonparser"
 	"github.com/openai/openai-go/v3"
 	"github.com/openai/openai-go/v3/option"
 	"github.com/openai/openai-go/v3/packages/ssestream"
@@ -99,7 +100,12 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	}
 
 	out.start()
-	usage := chatUsage{model: ac.model, reasoningExpected: opts.reasoningExpected(ac.model, chatCompatOf(ac.model.Provider))}
+	reasoningExpected := opts.reasoningExpected(ac.model, chatCompatOf(ac.model.Provider))
+	if ac.model.Provider == ProviderMiniMaxCN {
+		kind, _ := jsonparser.GetString(body, "thinking", "type")
+		reasoningExpected = ac.model.Reasoning && kind != "disabled"
+	}
+	usage := chatUsage{model: ac.model, reasoningExpected: reasoningExpected}
 	p := newChatParser(out, ac.model, usage, failures, ac.initial)
 	failure = p.read(ctx, ssestream.NewDecoder(res))
 	if failure != nil {
