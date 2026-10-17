@@ -52,7 +52,7 @@ func TestGLMSharedChatFinalCapabilities(t *testing.T) {
 							return ai.KeepPayload(), nil
 						}
 					}
-					o := drain(w.client.WithHooks(hooks).Stream(ctxFor(t), textScope("glm09-boundary"), ai.Target{BindingID: "glm-chat", ModelID: model}, glmToolRequest(model), opts))
+					o := drain(w.client.WithHooks(hooks).Stream(ctxFor(t), textScope("glm09-boundary-"+model+"-"+source+"-"+sc.id), ai.Target{BindingID: "glm-chat", ModelID: model}, glmToolRequest(model), opts))
 					o.record(ev)
 					ev.Record("requests", w.provider.Requests())
 					code := ai.CodeInvalidRequest
@@ -87,7 +87,7 @@ func TestGLMSharedChatCatalogAndData(t *testing.T) {
 			ev.Fixture("text.json", raw)
 			enqueue(ev, w, reply)
 			req := ai.Request{Messages: []ai.Message{ai.UserText("Synthetic input")}, Tools: []ai.Tool{{Name: "lookup", Parameters: json.RawMessage(`{"type":"object","properties":{"strict":{"type":"boolean"},"image_url":{"type":"string"},"service_tier":{"type":"string"}},"required":[]}`)}}}
-			o := drain(w.client.Stream(ctxFor(t), textScope("glm09-catalog-data"), ai.Target{BindingID: "glm-chat", ModelID: model}, req, ai.ChatOptions{SamplingParams: map[string]json.RawMessage{"response_format": json.RawMessage(`{"type":"json_object"}`), "do_sample": json.RawMessage(`false`)}}))
+			o := drain(w.client.Stream(ctxFor(t), textScope("glm09-catalog-data-"+model), ai.Target{BindingID: "glm-chat", ModelID: model}, req, ai.ChatOptions{SamplingParams: map[string]json.RawMessage{"response_format": json.RawMessage(`{"type":"json_object"}`), "do_sample": json.RawMessage(`false`)}}))
 			o.record(ev)
 			ev.Record("requests", w.provider.Requests())
 			ev.Check("documented controls and schema property names accepted", o.err == nil && len(w.provider.Requests()) == 1, "%v", o.err)
