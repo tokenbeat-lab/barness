@@ -38,6 +38,8 @@
 
 - 2026-10-18：[13已解决](issues/13-glm-release-host-docs-rollback.md)：当前14身份/13协议组合、四独立效果、normal11049/race11049、十门禁/两种vet/全部审计PASS；本票282实际HTTP、无自动重跑。Host禁用/完整回滚与99项/643用例见[最终证据](evidence/ticket-13/README.md)，实施票13证据已具备；父spec仍待全部合并后的最终两轴审查及关闭。
 
+- 2026-10-18：全部 13 票合入 `2264bacb701a02bb4494c560ff4056f97a32e6d1` 后完成[最终两轴审查](review.md)，Standards 0 / Spec 0，无待修复问题；父 [spec](spec.md) 已关闭。实际完整门禁及持久化校验结论见 [13 证据](evidence/ticket-13/README.md)。
+
 ## Fog
 
-- 全部13票合并后的mandatory final两轴审查、发现修复和父spec关闭由Root完成；历史失败及来源适用范围保留在各票索引。
+- 无未完成实施项；失败历史、精确来源与验收范围保留在各票索引。

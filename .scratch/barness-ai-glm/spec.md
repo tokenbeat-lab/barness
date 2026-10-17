@@ -1,8 +1,8 @@
 # barness-ai 接入 GLM：Responses、Chat Completions 与 Messages
 
-Status: ready-for-agent
+Status: resolved
 Type: feature
-Updated: 2026-10-17
+Updated: 2026-10-18
 
 本文件是待实施的交付契约，不表示 GLM 已接入或真实冒烟已通过。依据为[GLM 三种兼容协议研究](research.md)，研究包含官方来源、文档冲突与已复现的 Go SDK 解析风险；本次制定 spec 不使用真实凭据或执行收费请求。
 
@@ -299,3 +299,13 @@ Support Matrix 仅由本组合自己的完整报告更新，保留 PASS/FAIL/NOT
 上述是实施中的证据任务，不是要求用户补充业务需求。ready-for-agent 表示可据此开始实施和核验，不表示未知事实已成立。公共 Client E2E 测试接缝已获用户确认；该确认不改变表中尚需取得的厂商协议证据。
 
 主要证据入口：[研究及本地解析探针](research.md)、[官方 Responses 指南](https://docs.bigmodel.cn/cn/guide/develop/responses/introduction)、[OpenAI 兼容指南](https://docs.bigmodel.cn/cn/guide/develop/openai/introduction)、[Claude 兼容指南](https://docs.bigmodel.cn/cn/guide/develop/claude/introduction)、[2026-10-16 Key 公告](https://docs.bigmodel.cn/cn/coding-plan/notice/api-key-management)。实施工单后续按本地 issue tracker 规则单独拆分；本次不创建实施工单或修改运行时代码。
+
+## Answer
+
+全部 13 张工单已按依赖图完成并合入 `codex/barness-ai-glm`。原始规范正文保留制定时上下文；当前实现、实际验收和限制以本节链接的证据为准。
+
+已交付独立 Zhipu Provider、GLM-5.3/5.2 的三协议六身份，以及文本/思考、流式、工具往返、完整历史、用量、隔离、取消和资源约束。实际完整发布 CLI 在 `3d3cd0fac02a9470a382e825a5e2e114d9e45ee7` 退出 0：normal/race 各 11,049 例、全部十门禁、两种 vet、861 适用冻结 Pi 差分且零 pending、14 份自身支持、四份独立效果与 20 份零发现审计。22 要求、15 验收组、62 故事共 99 项，对应 643 个有限必需 ID，普通/race 全部通过。
+
+[票 13 最终证据](evidence/ticket-13/README.md)与[可重复校验索引](evidence/ticket-13/index.json)保存正式目录/价格、原始捕获、派生视图、精确回放、完整基线回滚及全部失败历史。票 13 实际 282 次 HTTP（GLM 66、原旧路线轮 180、必要更正轮 36），无自动重跑或 Provider 回退；账户、区域、权限和实际账单仍不作已核验声明。
+
+全部 13 票合并后，在集成提交 `2264bacb701a02bb4494c560ff4056f97a32e6d1` 完成 [最终 Standards / Spec 审查](review.md)：两轴均 0 项，无待修复问题。后续父规范关闭仅更新本地 Markdown。
