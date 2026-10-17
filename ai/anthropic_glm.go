@@ -97,6 +97,16 @@ func validateGLMMessagesBody(m Model, raw []byte, header http.Header, beta strin
 			return newError(CodeInvalidRequest, PhaseRequest, "GLM Messages supports only the verified automatic tool choice")
 		}
 	}
+	if tools, ok := body["tools"].([]any); ok {
+		for _, tool := range tools {
+			obj, _ := tool.(map[string]any) // authorization checked object shape
+			for field := range obj {
+				if !slices.Contains([]string{"name", "description", "input_schema"}, field) {
+					return newError(CodeInvalidRequest, PhaseRequest, "GLM Messages tool field is not supported: "+field)
+				}
+			}
+		}
+	}
 	for _, field := range []string{"messages", "system", "tools"} {
 		if unsupported := glmMessagesExtension(body[field], m.acceptsImages()); unsupported != "" {
 			return newError(CodeInvalidRequest, PhaseRequest, "GLM Messages extension is not supported: "+unsupported)

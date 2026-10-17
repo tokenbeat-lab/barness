@@ -117,3 +117,24 @@ func TestGLMMessagesCanonicalCannotGuessBudget(t *testing.T) {
 	checkRejected(ev, o, ai.CodeInvalidRequest, ai.PhaseRequest)
 	ev.Check("canonical budget arithmetic cannot opt into one observed full wire shape", len(w.provider.Requests()) == 0 && len(o.result.Metadata.Attempts) == 0, "%+v", o.result.Metadata)
 }
+
+func TestGLMMessagesUnverifiedToolFields(t *testing.T) {
+	for _, field := range []string{"strict", "defer_loading", "type"} {
+		t.Run(field, func(t *testing.T) {
+			ev := run.Case(t, "GLM07-tool-field-"+field)
+			w := newGLMMessagesWorld(t, nil)
+			req := glmMessagesCapturedRequest(t, glmMessagesCaptureByName(t, "glm-5.3-tool"))
+			hooks := glmMessagesPayload(func(p *ai.Payload) {
+				t := p.Body["tools"].([]any)[0].(map[string]any)
+				t[field] = true
+				if field == "type" {
+					t[field] = "custom"
+				}
+			})
+			o := drain(w.client.WithHooks(hooks).Stream(ctxFor(t), textScope("glm07-tool-field"), ai.Target{BindingID: "glm-messages", ModelID: "glm-5.3"}, req, nil))
+			o.record(ev)
+			checkRejected(ev, o, ai.CodeInvalidRequest, ai.PhaseRequest)
+			ev.Check("unverified Claude tool extension never attempted", len(w.provider.Requests()) == 0 && len(o.result.Metadata.Attempts) == 0, "%+v", o.result.Metadata)
+		})
+	}
+}
