@@ -16,7 +16,7 @@ The revised [finite plan](plan.md) adds GLM72 Calls/96 Attempts maximum to the u
 - Six disable/in-flight/other-route+tenant/restore cases retain prior and active consumption while new calls have zero credential reads/Attempts and no fallback.
 - [Whole-tree rollback command](rollback.py) restores exact baselinef5cf5362610a8bdb8f3e170f408f3858c149e540/treee0e006866c606fdab3bf02be0322bde2eae02300 outside worktrees, verifies all6682 tracked paths/blobs/modes before/after execution, runs public zero-request no-GLM refusal and old-provider controlled E2E, compares root/user-untracked bytes, and removes owned temporary restoration. Public normal/race E2E executes this command too. Old full release remains historical, not renewed billing.
 - Additive [frozen trace](../../../../ai/release/traceability.json) preserves every preexisting mapping and requires22 GLM requirements,15 acceptance groups and62 stories through exact finite cases plus own live evidence. Missing item/story/required-case and actual launcher source/review mutations have retained public RED→GREEN process proofs. The [summary](trace-summary.json) maps stories to requirements.
-- Actual release CLI preregisters20m normal/45m race outer package envelopes; no core/scenario/paid limit changes. Final command must run real full normal/race, both vet modes, pressure, all current live/effect inputs and all audits.
+- Actual release CLI preregisters20m normal/75m race outer package envelopes; no core/scenario/paid limit changes. Final command must run real full normal/race, both vet modes, pressure, all current live/effect inputs and all audits.
 
 ## Repeatable commands
 

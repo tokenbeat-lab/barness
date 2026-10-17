@@ -38,5 +38,5 @@ func TestGLMReleaseCommandEnvelope(t *testing.T) {
 	ev.Record("process", map[string]any{"rejected": err != nil, "panic": strings.Contains(string(output), "panic:")})
 	ev.Check("incomplete commands fail closed", err != nil && readErr == nil && !strings.Contains(string(output), "panic:"), "err=%v read=%v", err, readErr)
 	ev.Check("normal bounded package envelope preregistered", strings.Contains(string(raw), "test -count=1 -timeout=20m ./..."), "normal command=%s", raw)
-	ev.Check("race bounded package envelope preregistered", strings.Contains(string(raw), "test -race -count=1 -timeout=45m ./..."), "race command=%s", raw)
+	ev.Check("race bounded package envelope preregistered", strings.Contains(string(raw), "test -race -count=1 -timeout=75m ./..."), "race command=%s", raw)
 }

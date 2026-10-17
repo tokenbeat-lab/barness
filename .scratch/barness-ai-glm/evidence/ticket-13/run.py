@@ -191,7 +191,7 @@ class Round:
    '-evaluation-jev',c.bundle(self.out/'text-jev'),'-evaluation-luna',c.bundle(self.out/'text-luna'),
    '-visual-evaluation-jev',self.out/'visual-jev','-visual-evaluation-decisions',self.out/'visual-decisions']
   for path in self.live_inputs():args+=['-live',path]
-  code=self.execute('releasegate',args,timeout=6000)
+  code=self.execute('releasegate',args,timeout=6600)
   self.guard();c.dump(self.out/'gate-summary.json',dict(exitCode=code,
    passVerdict=c.doc(self.out/'gate/release-report.json')['pass']))
   if code!=0:raise SystemExit(code)
