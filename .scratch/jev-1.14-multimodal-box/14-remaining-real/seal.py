@@ -58,14 +58,16 @@ def commands(base, initial=False):
         expected.update({'protocol113':('BARNESS_AI_LIVE_KEY_TYPESAFE_CLASSIFIER','TYPESAFE_KEY'),
             'protocol114':('BARNESS_MM_KEY','TYPESAFE_KEY'),
             'text-jev':('BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY','TYPESAFE_KEY'),
-            'visual-jev':('BARNESS_VISUAL_KEY','TYPESAFE_KEY')})
+            'visual-jev':('BARNESS_VISUAL_KEY','TYPESAFE_KEY'),
+            'deepseek-chat-recheck':('BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT','DEEPSEEK_KEY')})
     rows = [b.doc(p) for p in sorted(base.glob('*-command.json'))]
     paid = set()
     for row in rows:
         injection,source = expected.get(row['name'],(None,None))
         if (row['credentialsInherited'] or row['injectedCredential']!=injection or row['sourceVariable']!=source
                 or row['state']!='COMPLETED' or row['exitCode']!=(1 if
-                    (initial and row['name']=='openai-decisions') or (not initial and row['name']=='live-harness') else 0)):
+                    (initial and row['name']=='openai-decisions') or
+                    (not initial and row['name'] in ('live-harness','deepseek-chat')) else 0)):
             raise ValueError('command verdict/isolation changed')
         keys = {name for name in row['environmentKeys'] if 'KEY' in name or 'TOKEN' in name or 'SECRET' in name}
         if keys != ({injection} if injection else set()):
@@ -88,8 +90,10 @@ def producers(base, initial=False):
     expected.add(r.bundle(base/'text-luna'))
     if not initial:
         expected.update(r.bundle(base/name) for name in ('protocol113','protocol114','text-jev','gate/offline','gate/race'))
+        expected.add(r.bundle(base/'deepseek-chat-recheck'))
     actual = {p.parent for pattern in ('live/*/*/manifest.json','protocol11?/*/manifest.json',
-        'text-*/*/manifest.json','gate/offline/*/manifest.json','gate/race/*/manifest.json') for p in base.glob(pattern)}
+        'text-*/*/manifest.json','gate/offline/*/manifest.json','gate/race/*/manifest.json',
+        'deepseek-chat-recheck/*/manifest.json') for p in base.glob(pattern)}
     visuals = {'visual-decisions'} if initial else {'visual-decisions','visual-jev'}
     if actual!=expected or {p.parent.name for p in base.glob('visual-*/manifest.json')}!=visuals:
         raise ValueError('mandatory producer/effect stage coverage differs')
@@ -136,8 +140,10 @@ def current_results(base):
             or len(report['live']['rows'])!=11 or any(row['status']!='PASS' for row in report['live']['rows'])
             or len(report['audits'])!=17 or any(a['findings'] or a.get('error') for a in report['audits'])):
         raise ValueError('complete actual release PASS missing')
-    if not b.doc(base/'live-summary.json')['allCommandsSucceeded']:
-        raise ValueError('real producer failed')
+    summary = b.doc(base/'live-summary.json')
+    if ({name for name,code in summary['commands'].items() if code!=0}!={'deepseek-chat'}
+            or not b.doc(base/'accepted-deepseek-chat.json')['accepting']):
+        raise ValueError('actual producer/confirmation verdict differs')
     producers(base)
     producers(INITIAL,True)
     for stage in ('offline','race'):
@@ -150,10 +156,22 @@ def current_results(base):
             raise ValueError('Pi or public image acceptance coverage differs')
     budgets = consumption(base,True)
     initial = consumption(INITIAL)['total']
-    task = b.doc(base/'task-consumption.json')
+    original_task = b.doc(base/'task-consumption.json')
+    target = b.doc(r.bundle(base/'deepseek-chat-recheck')/'live-report.json')
+    if (target['combo']!='deepseek-chat' or any(s['outcome']!='PASS' for s in target['scenarios'])
+            or not 0<=target['budget']['callsUsed']<=32 or not 0<=target['budget']['httpAttempts']<=32):
+        raise ValueError('targeted full route did not pass within its envelope')
+    target_calls,target_attempts = target['budget']['callsUsed'],target['budget']['httpAttempts']
+    task = b.doc(base/'task-consumption-final.json')
     for key in ('calls','attempts','conservativeCalls','conservativeAttempts'):
-        if task[key]!=initial[key]+budgets['total'][key] or not 0<=task[key]<=550:
+        extra = target_calls if key in ('calls','conservativeCalls') else target_attempts
+        if (original_task[key]!=initial[key]+budgets['total'][key]
+                or task[key]!=original_task[key]+extra or not 0<=task[key]<=550):
             raise ValueError('task budget drift')
+    deepseek = [row for row in consumption(INITIAL)['routes']+budgets['routes'] if row['name'].startswith('deepseek-')]
+    if (sum(row['calls'] for row in deepseek)+target_calls>128
+            or sum(row['attempts'] for row in deepseek)+target_attempts>128):
+        raise ValueError('DeepSeek task provider cap exceeded')
     if max(budgets['total']['conservativeCalls'],budgets['total']['conservativeAttempts'])>302:
         raise ValueError('recovery exceeded')
     formal = b.doc(r.bundle(base/'live/openai-decisions')/'decisions-execution-report.json')
@@ -166,7 +184,9 @@ def current_results(base):
     if (len(before['rows'])!=11 or [x['combo'] for x in before['rows']]!=[x['combo'] for x in after['rows']]
             or any(old==new for old,new in zip(before['rows'],after['rows']))):
         raise ValueError('expected eleven independent matrix row updates missing')
-    return dict(report=report,consumption=budgets,task=task,typesafe=previous.real_results(base),
+    return dict(report=report,consumption=budgets,task=task,
+        targetedConfirmation=dict(calls=target_calls,attempts=target_attempts,maxCalls=32),
+        typesafe=previous.real_results(base),
         matrixChangedRows=[row['combo'] for row in after['rows']])
 
 
@@ -259,7 +279,7 @@ def record(base):
         'docs/barness-ai/current-catalog-release.md'):
         receipt['files'][name] = b.sha(ROOT/name)
     for path in (old_receipt,HERE.parent/'14-typesafe-real/seal.py',HERE.parent/'seal-14-evidence.py',
-                 HERE/'run.py',HERE/'recover.py',HERE/'seal.py',HERE/'authorization.md',HERE/'verification.md'):
+                 HERE/'run.py',HERE/'recover.py',HERE/'recheck.py',HERE/'seal.py',HERE/'authorization.md',HERE/'verification.md'):
         receipt['files'][b.relative(path)] = b.sha(path)
     with RECEIPT.open('x') as stream:
         stream.write('{\n'+',\n'.join('  '+json.dumps(k)+': '+json.dumps(v,ensure_ascii=False,

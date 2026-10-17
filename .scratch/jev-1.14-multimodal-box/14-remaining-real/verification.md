@@ -1,6 +1,6 @@
 # #14 全 Provider 真实验证与整版验收
 
-当前状态：恢复轮真实采集中，整版门禁尚未完成；不得据本文件草稿关闭工单。
+当前状态：11条当前真实支持及4项效果已通过严格核验，整版门禁运行中；不得提前关闭工单。
 
 ## 授权、凭据与预算
 
@@ -22,8 +22,10 @@
 不存在Host permissions文件或虚构spendLimitUSD。Decisions使用已授权的显式allow_unknown分支。
 视觉dedicatedCredential只代表独立注入。未提供美元硬上限，目录估价不充当账单熔断。
 所有原token、图片、题数、时限和重试合同保持。恢复轮只预约一次，各步骤独占intent，
-外层超时/取消回收整个进程组，不能自动重发收费步骤。初轮已用120，因此本次可执行最大
-为120+302=422，仍低于550总边界；余额不授权第三轮。
+外层超时/取消回收整个进程组，不能自动重发收费步骤。初轮已用120、唯一全量恢复已用179，
+追加确认前共299次。随后唯一DeepSeek Chat同源码确认按用户持续授权，在原Provider/任务
+总上限内另预约32次，最多可达331次；实际最终312次。不启用第三个全量轮，
+此例外已向用户说明并记录在授权文件。
 
 ## 初轮及修复证据
 
@@ -55,7 +57,38 @@
 当前Go内容`9a8ea45`，600Go与7配置独立固定；任何变化都会停止下一步收费。
 初轮消费Hash和唯一恢复预约保存在初轮根`recovery-reservation.json`。
 
-待收齐实际15任务、严格核验、矩阵合并及完整发布结果后，替换本段并关闭#14剩余验收。
+恢复轮15任务实际179 Calls/Attempts，零重试：除DeepSeek Chat一次推理回放断言外全部通过。
+该Chat原始请求明确thinking enabled/effort low，原始SSE非空reasoning块为0且reasoning_tokens=0；
+首轮同场景请求字节完全相同，有18块非空推理并成功回放。客户端未丢弃服务端状态。
+原12次失败包完整保留，未修改Go、提示、型号、断言或UNSUPPORTED规则。
+`recheck.py`在既有550总额与DeepSeek128内独占预约一次完整路线≤32次，实际13次、
+11/11 PASS；使用新目录`deepseek-chat-recheck`，旧失败和原allCommandsSucceeded=false保留。
+最终选定包仅采用这次新的完整有效Chat报告，不拼接不同进程场景。
+
+本次新增总计312 Calls/Attempts：初120 + 全量恢复179 + 单路线确认13，零重试；
+之前TypeSafe102次属于独立历史授权，不计入本次新增。
+
+| Provider | 本次实际 Calls/Attempts | 本次总上限 | 补充授权阻断 |
+| --- | ---: | ---: | --- |
+| OpenAI | 143 / 143 | 232 / 232 | 当前必交调用均通过；账户/区域/privilege内省未知 |
+| Anthropic | 40 / 40 | 64 / 64 | 当前必交调用均通过；同上 |
+| Google | 20 / 20 | 72 / 72 | 当前必交调用均通过；同上 |
+| DeepSeek | 58 / 58 | 128 / 128 | 当前必交调用均通过；空推理失败原包保留 |
+| TypeSafe | 51 / 51 | 54 / 54 | 当前必交调用均通过；账户/区域/privilege内省未知 |
+
+11个当前包经公开supportmatrix命令整批原子更新，提交`6eb440a`；全部行独立更新，
+Jev1.13、Jev1.14和Decisions的型号身份保留。没有用候选或其他型号替代必交能力。
+OpenAI Chat的reasoning-history仍为原合同明确的UNSUPPORTED，其余必交场景均PASS。
+
+当前Jev/Luna中文各24/24正确，两路线protocolStatus均COMPLETE；正式视觉每路线12样本
+COMPLETE。两路线共有8样本的分类/存在性全正确；Jev的4个local样本与Decisions的4个
+supplemental context样本各自全正确，但两组不是局部能力等价对照。
+Jev当前Box present2、absent2，MeanIoU=0.7123740342276741；消费后absent误报0，
+仍保留2个raw absent box被存在性门控抑制的事实。分数只描述固定合成小任务，无新增质量阈值。
+两文本、两视觉及Jev正式封装均通过公开严格verifier，视觉/封装均require-live。
+
+完整无凭据releasegate正在运行，输入恰为11个当前支持、2文本和2正式视觉包；
+normal/race、Pi、压力、审计及最终实际CLI结果待完成后填写。所有收费调用已结束，不再自动补跑。
 
 ## 可重复核验
 
