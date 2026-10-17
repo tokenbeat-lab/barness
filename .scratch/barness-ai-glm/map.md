@@ -12,6 +12,8 @@
 - 2026-10-17：按 implement-spec 指令发布既有 13 张工单，按阻塞图实施。
 - 2026-10-17：[01 已解决](issues/01-provider-capability-prefactor.md)：Provider 自动字段边界完成；既有 Client 前后 10,598 artifact 零未解释差异、适用冻结差分零 pending。见 [ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md) 与[运行索引](evidence/ticket-01/README.md)。
 
+- 2026-10-17：[02 已解决](issues/02-glm-chat-text.md)：zhipu Chat 独立候选目录、四入口文本/思考、型号与最终请求硬约束、标准 Key Host 示例与 120 秒候选装配完成；最终 166 例、受影响冻结差分 321 例通过。见 [ADR-0033](../../docs/adr/0033-barness-ai-zhipu-chat-candidate.md) 与[证据索引](evidence/ticket-02/README.md)。工具、其他协议和正式支持仍由后续票验收。
+
 ## Fog
 
 - 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。
