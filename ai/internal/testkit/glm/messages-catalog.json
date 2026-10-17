@@ -1,5 +1,5 @@
 {
-  "version": "glm-messages-candidate-2026-10-17.1-synthetic-rates",
+  "version": "glm-messages-candidate-2026-10-17.2-synthetic-rates",
   "models": [
     {
       "provider": "zhipu",
@@ -54,7 +54,8 @@
       },
       "compat": {
         "supportsTemperature": false,
-        "supportsLongCacheRetention": false
+        "supportsLongCacheRetention": false,
+        "messagesThinkingBudgetTokens": 1024
       },
       "cost": {
         "input": 1,

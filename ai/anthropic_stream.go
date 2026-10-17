@@ -100,6 +100,9 @@ type anthropicParser struct {
 	// pi's search for the first block with that index, a repeated index
 	// addresses the older block until it stops.
 	open map[int64][]anthropicSlot
+	// GLM's observed Messages contract requires each block index once.
+	// Native Anthropic retains the pinned pi ordering behavior above.
+	glmSeen map[int64]bool
 	// raw is each tool call's argument JSON received so far (pi's partialJson).
 	raw     map[int]*argumentText
 	usage   anthropicUsage
@@ -153,6 +156,11 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 	var e anthropicEvent
 	if err := decodeAnthropicEvent(ev.data, &e); err != nil {
 		return newError(CodeProtocol, PhaseStream, msgAnthropicInvalidJSON(ev.name))
+	}
+	if p.model.Provider == ProviderZhipu {
+		if failure := p.glmSequence(ev.name, e); failure != nil {
+			return failure
+		}
 	}
 	switch e.Type {
 	case "message_start":
