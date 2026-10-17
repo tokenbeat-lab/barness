@@ -2,6 +2,10 @@ package e2e
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"regexp"
 	"slices"
 	"strings"
 	"testing"
@@ -55,9 +59,74 @@ func TestCurrentReleaseTraceAndBlocker(t *testing.T) {
 		}
 	}
 	i := slices.IndexFunc(report.Snapshots, func(s release.Snapshot) bool { return s.Name == "pressure-stream-integrity" })
-	ev.Check("historical causal-evidence blocker retained", i >= 0 && !report.Snapshots[i].Current && strings.Contains(report.Snapshots[i].Detail, "07-pressure-stream-integrity"), "unresolved historical blocker passed")
+	if i >= 0 {
+		ev.Record("original-blocker", report.Snapshots[i])
+	}
+	tracker, err := os.ReadFile("../../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md")
+	if err != nil {
+		t.Fatal("original pressure tracker unavailable")
+	}
+	// The original tracker is the authority; legitimate resolution must clear
+	// this check without editing the integration contract or closing it here.
+	statuses := regexp.MustCompile(`(?m)^Status:`).FindAll(tracker, -1)
+	resolved := regexp.MustCompile(`(?m)^Status:[ \t]*resolved[ \t]*$`).Match(tracker) && len(statuses) == 1
+	ev.Record("tracker-expectation", map[string]bool{"resolved": resolved})
+	ev.Check("historical tracker controls release blocker", i >= 0 && report.Snapshots[i].Current == resolved && strings.Contains(report.Snapshots[i].Detail, "07-pressure-stream-integrity"), "tracker and release gate disagree")
 	for _, name := range []string{"multimodal-images-plain", "multimodal-images-hooked", "race-multimodal-images-plain", "race-multimodal-images-hooked"} {
 		e := releaseEvidence(t, report, name)
 		ev.Check("missing public-entry load never passes "+name, e.Status != release.Pass, "missing load passed")
+	}
+}
+
+// Clone only versioned sources/fixtures: no user credentials or original tracker
+// writes. The child runs the same public release CLI assertion in both states.
+func TestCurrentReleaseTrackerTransition(t *testing.T) {
+	ev := run.Case(t, "UC14-original-blocker-transition")
+	clone := t.TempDir()
+	const issue = ".scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md"
+	list := exec.CommandContext(ctxFor(t), "git", "ls-files", "-z", "--", "ai", "go.mod", "go.sum", issue)
+	list.Dir = "../.."
+	files, err := list.Output()
+	if err != nil {
+		t.Fatal("versioned source inventory unavailable")
+	}
+	for _, name := range strings.Split(string(files), "\x00") {
+		if name == "" {
+			continue
+		}
+		raw, err := os.ReadFile(filepath.Join("../..", name))
+		if err != nil {
+			t.Fatal(err)
+		}
+		dst := filepath.Join(clone, name)
+		if err := os.MkdirAll(filepath.Dir(dst), 0700); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(dst, raw, 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	for _, state := range []string{"ready-for-agent", "resolved"} {
+		raw := []byte("# Synthetic original tracker fixture\n\nStatus: " + state + "\n")
+		ev.Fixture("tracker-"+state+".md", raw)
+		if err := os.WriteFile(filepath.Join(clone, issue), raw, 0600); err != nil {
+			t.Fatal(err)
+		}
+		out := t.TempDir()
+		cmd := exec.CommandContext(ctxFor(t), "go", "test", "./ai/e2e", "-run", "^TestCurrentReleaseTraceAndBlocker$", "-count=1")
+		cmd.Dir = clone
+		for _, key := range []string{"PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH"} {
+			if value, ok := os.LookupEnv(key); ok {
+				cmd.Env = append(cmd.Env, key+"="+value)
+			}
+		}
+		cmd.Env = append(cmd.Env, "BARNESS_AI_EVIDENCE_DIR="+out)
+		err := cmd.Run()
+		ev.Check("public gate follows original tracker "+state, err == nil, "state %s rejected: %v", state, err)
+		if bundle, e := release.FindBundle(out); e == nil {
+			if captured, e := os.ReadFile(filepath.Join(bundle, "UC14-trace-and-external-blocker", "original-blocker.json")); e == nil {
+				ev.Fixture("snapshot-"+state+".json", captured)
+			}
+		}
 	}
 }

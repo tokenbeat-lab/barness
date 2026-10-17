@@ -18,7 +18,7 @@ const requiredImageItems = `UC-R01 UC-R02 UC-R03 UC-R04 UC-R05 UC-R06 UC-R07 UC-
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "70237dbbc8f8814a3d58e585f06f2231c31bd164c3225391e035842860870b77"
+const approvedMappingHash = "d6ac8b86a0e6584a0b1f9b33c3d9d0abcef45bd7599eb3eb66c126e18bfb774f"
 
 // CheckReleasePlan validates the complete eleven live identities and seven differentials acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified

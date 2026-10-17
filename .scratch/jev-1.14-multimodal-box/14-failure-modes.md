@@ -53,3 +53,22 @@ its final artifact audit was still running: all 9,081 cases had terminal PASS,
 but audit.json was never written and the command failed. Preserve that failure;
 allow 30 minutes for the same full command without changing any scenario load,
 deadline, budget or assertion. Bound the outer all-command collector at 60 minutes.
+
+Collector preflight against actual retained recorder output exposed captured
+manifest.json files being mistaken for independent recorder roots. Some are
+intentional corrupt fixtures. Before changing collection, retain the failed
+precheck; distinguish inventory-owned captured manifests and preserve invalid
+nested fixtures byte-for-byte without accepting their asserted PASS.
+
+The actual live-tag harness intentionally terminates two child recorders before
+audit finalization. Its parent starts first and verifies those crash boundaries.
+Collector discovery must keep parent validation strict while recording child
+MISSING audits explicitly; it must not reject the passing parent harness or
+pretend those killed children completed their audits.
+
+Spec review found the live-tracker E2E hardcoded unresolved=false/Current=false:
+legitimate original resolution would fail the future release. Before correcting
+that assertion, exercise it in a sanitized temporary repository source copy with
+only the copied original tracker changed to resolved. Preserve that failing public
+CLI E2E, then make the assertion reflect the real tracker and prove both states.
+The working original issue is never edited or closed.
