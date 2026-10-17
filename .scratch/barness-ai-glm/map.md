@@ -14,6 +14,8 @@
 
 - 2026-10-17：[02 已解决](issues/02-glm-chat-text.md)：zhipu Chat 独立候选目录、四入口文本/思考、型号与最终请求硬约束、标准 Key Host 示例与 120 秒候选装配完成；最终 166 例、受影响冻结差分 321 例通过。见 [ADR-0033](../../docs/adr/0033-barness-ai-zhipu-chat-candidate.md) 与[证据索引](evidence/ticket-02/README.md)。工具、其他协议和正式支持仍由后续票验收。
 
+- 2026-10-17：[06 已解决](issues/06-glm-messages-text-contract.md)：Messages 独立候选与真实 SSE 文本回放完成，GLM 默认省略思考且不附加 Claude 扩展；66 公共 Client/66 race、104 原生回归、168 原生运行时及 70 冻结差分通过。见 [ADR-0035](../../docs/adr/0035-barness-ai-zhipu-messages-basic.md) 与[证据索引](evidence/ticket-06/README.md)。仅基本文本，07/11/12 继续增强、正式 live 和内置登记。
+
 ## Fog
 
 - 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。

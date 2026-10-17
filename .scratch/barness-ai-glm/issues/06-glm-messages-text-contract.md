@@ -1,6 +1,6 @@
 # 06: 建立 GLM Messages 实际契约并完成文本调用
 
-Status: claimed
+Status: resolved
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。
@@ -11,17 +11,25 @@ Blocked by: 02
 
 依据：GLM 接入 spec R02、R04、R05、R06、R07、R13、R14；验收组 A01、A02、A06；User Stories 4、5、6、7、8、17、18、21、31、40、51、52、53、56。
 
-- [ ] 先写官方基础示例所支持的公共文本 E2E，再实现 GLM Provider 配置；文档缺失字段通过有界候选探针取证，不能复制 Chat/Responses 的 wire 假设。
-- [ ] 两型号候选条目与 Messages Binding 独立，最终官方资源地址和 x-api-key 正确；使用现有显式 SDK service、SSE 读取、资源控制和关闭的 SDK 重试。
-- [ ] 核对 SDK 默认 anthropic-version、header 与 GLM 基本事件形状；未证实前不自动发 cache_control/TTL、eager、display、interleaved beta、adaptive/block_binding、managed effort/fallback。
-- [ ] Stream、Complete、两种 simple、nil/full 与合法 WithHooks 均可通过同一公共 Client 演示；Messages 不消费 SamplingParams/分档 map。
-- [ ] 省略思考使用 GLM 自身已证实的默认形状；始终思考型号不能由 simple 默认产生 false/disabled；未接入的显式思考选项按实际支持范围拒绝。
-- [ ] 基本 message_start/content/message_delta/message_stop、正文、stop reason 和已报告 usage 形成可重放 wire fixture；缺终态与流内 error 不判成功。
-- [ ] 候选探针先登记变量、预期、标准 Key、型号和预算；一次只改一个变量，未有 Key 记录 NOT_RUN，不改用其他身份或扩大额度。
-- [ ] 保存现有 SDK 解析与 GLM 实际字段的兼容/差异结论，记录未知项；本票只交付基本文本路径，不把它标为完整 Messages 支持。
-- [ ] 产出两型号公共 Client 文本证据和用于 07 的已确认 thinking/工具/usage 协议形状，原生 Anthropic 行为回归保持。
+- [x] 先写官方基础示例所支持的公共文本 E2E，再实现 GLM Provider 配置；文档缺失字段通过有界候选探针取证，不能复制 Chat/Responses 的 wire 假设。
+- [x] 两型号候选条目与 Messages Binding 独立，最终官方资源地址和 x-api-key 正确；使用现有显式 SDK service、SSE 读取、资源控制和关闭的 SDK 重试。
+- [x] 核对 SDK 默认 anthropic-version、header 与 GLM 基本事件形状；未证实前不自动发 cache_control/TTL、eager、display、interleaved beta、adaptive/block_binding、managed effort/fallback。
+- [x] Stream、Complete、两种 simple、nil/full 与合法 WithHooks 均可通过同一公共 Client 演示；Messages 不消费 SamplingParams/分档 map。
+- [x] 省略思考使用 GLM 自身已证实的默认形状；始终思考型号不能由 simple 默认产生 false/disabled；未接入的显式思考选项按实际支持范围拒绝。
+- [x] 基本 message_start/content/message_delta/message_stop、正文、stop reason 和已报告 usage 形成可重放 wire fixture；缺终态与流内 error 不判成功。
+- [x] 候选探针先登记变量、预期、标准 Key、型号和预算；一次只改一个变量，未有 Key 记录 NOT_RUN，不改用其他身份或扩大额度。
+- [x] 保存现有 SDK 解析与 GLM 实际字段的兼容/差异结论，记录未知项；本票只交付基本文本路径，不把它标为完整 Messages 支持。
+- [x] 产出两型号公共 Client 文本证据和用于 07 的已确认 thinking/工具/usage 协议形状，原生 Anthropic 行为回归保持。
 
 **独立验收：** 两型号经公共四种入口完成 Messages 文本调用；实际请求头和基础 SSE 可重放，并能证明 GLM 未被附加未经证实的 Claude 字段。
 
 **依赖理由：** 仅复用 02 的 Provider 身份和候选 Host 装配；不依赖 Chat 工具或 Responses 实现。
 
+
+## Answer
+
+Basic Messages text contract is implemented on `codex/glm-06` at `c0efafa`, based on integration `2acb83f`. Both models use independent Messages Catalog/Binding snapshots and unchanged actual Messages SSE captures. Public Stream/Complete/StreamSimple/CompleteSimple, nil/full options and WithHooks pass; GLM omission does not generate Claude disabled thinking. GLM receives no automatic cache/browser/beta/display/eager/adaptive/managed extensions; unsupported named options and final callback fields reject before any send. X-Request-Id is retained for success/error attempts, final usage replaces initial zero, and absent cache creation remains partial. Missing terminal/stop reason and stream errors fail once.
+
+66 final/committed GLM cases and 66 race cases PASS, 104 native Anthropic regression plus 168 native runtime cases PASS, 70 frozen Messages differential cases PASS with zero pending; vet/diff checks pass. [Evidence index and replay](../evidence/ticket-06/README.md), [ADR-0035](../../../docs/adr/0035-barness-ai-zhipu-messages-basic.md), [own-protocol exploration](../evidence/messages-exploration/README.md). No paid request or .env read in this ticket.
+
+The prior authorized tool/thinking/signature/default control bundles are preserved for 07. A proven exact 5.2 enabled/budget1024 shape does not establish arbitrary budgets/canonical efforts. Full Messages support, native replay enhancements, formal live and built-in registration remain in their downstream tickets.
