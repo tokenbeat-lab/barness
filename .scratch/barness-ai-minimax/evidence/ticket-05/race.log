@@ -1,0 +1,437 @@
+=== RUN   TestMiniMaxSharedFailures
+=== RUN   TestMiniMaxSharedFailures/chat/bad
+=== RUN   TestMiniMaxSharedFailures/chat/auth
+=== RUN   TestMiniMaxSharedFailures/chat/denied
+=== RUN   TestMiniMaxSharedFailures/chat/default429
+=== RUN   TestMiniMaxSharedFailures/chat/retry429
+=== RUN   TestMiniMaxSharedFailures/chat/retry500
+=== RUN   TestMiniMaxSharedFailures/chat/retry503
+=== RUN   TestMiniMaxSharedFailures/responses/bad
+=== RUN   TestMiniMaxSharedFailures/responses/auth
+=== RUN   TestMiniMaxSharedFailures/responses/denied
+=== RUN   TestMiniMaxSharedFailures/responses/default429
+=== RUN   TestMiniMaxSharedFailures/responses/retry429
+=== RUN   TestMiniMaxSharedFailures/responses/retry500
+=== RUN   TestMiniMaxSharedFailures/responses/retry503
+=== RUN   TestMiniMaxSharedFailures/messages/bad
+=== RUN   TestMiniMaxSharedFailures/messages/auth
+=== RUN   TestMiniMaxSharedFailures/messages/denied
+=== RUN   TestMiniMaxSharedFailures/messages/default429
+=== RUN   TestMiniMaxSharedFailures/messages/retry429
+=== RUN   TestMiniMaxSharedFailures/messages/retry500
+=== RUN   TestMiniMaxSharedFailures/messages/retry503
+--- PASS: TestMiniMaxSharedFailures (0.18s)
+    --- PASS: TestMiniMaxSharedFailures/chat/bad (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/chat/auth (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/chat/denied (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/chat/default429 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/chat/retry429 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/chat/retry500 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/chat/retry503 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/responses/bad (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/responses/auth (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/responses/denied (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/responses/default429 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/responses/retry429 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/responses/retry500 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/responses/retry503 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/messages/bad (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/messages/auth (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/messages/denied (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/messages/default429 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/messages/retry429 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/messages/retry500 (0.01s)
+    --- PASS: TestMiniMaxSharedFailures/messages/retry503 (0.01s)
+=== RUN   TestMiniMaxSharedStreamErrorPrivacy
+=== RUN   TestMiniMaxSharedStreamErrorPrivacy/chat
+=== RUN   TestMiniMaxSharedStreamErrorPrivacy/responses
+=== RUN   TestMiniMaxSharedStreamErrorPrivacy/messages
+--- PASS: TestMiniMaxSharedStreamErrorPrivacy (0.02s)
+    --- PASS: TestMiniMaxSharedStreamErrorPrivacy/chat (0.00s)
+    --- PASS: TestMiniMaxSharedStreamErrorPrivacy/responses (0.01s)
+    --- PASS: TestMiniMaxSharedStreamErrorPrivacy/messages (0.01s)
+=== RUN   TestMiniMaxSharedMessagesPermanentType
+=== RUN   TestMiniMaxSharedMessagesPermanentType/invalid_request_error
+=== RUN   TestMiniMaxSharedMessagesPermanentType/authentication_error
+=== RUN   TestMiniMaxSharedMessagesPermanentType/permission_error
+=== RUN   TestMiniMaxSharedMessagesPermanentType/not_found_error
+=== RUN   TestMiniMaxSharedMessagesPermanentType/request_too_large
+--- PASS: TestMiniMaxSharedMessagesPermanentType (0.03s)
+    --- PASS: TestMiniMaxSharedMessagesPermanentType/invalid_request_error (0.01s)
+    --- PASS: TestMiniMaxSharedMessagesPermanentType/authentication_error (0.01s)
+    --- PASS: TestMiniMaxSharedMessagesPermanentType/permission_error (0.01s)
+    --- PASS: TestMiniMaxSharedMessagesPermanentType/not_found_error (0.01s)
+    --- PASS: TestMiniMaxSharedMessagesPermanentType/request_too_large (0.01s)
+=== RUN   TestMiniMaxSharedCallbackPanic
+=== RUN   TestMiniMaxSharedCallbackPanic/chat/headers
+=== RUN   TestMiniMaxSharedCallbackPanic/chat/payload
+=== RUN   TestMiniMaxSharedCallbackPanic/chat/response
+=== RUN   TestMiniMaxSharedCallbackPanic/responses/headers
+=== RUN   TestMiniMaxSharedCallbackPanic/responses/payload
+=== RUN   TestMiniMaxSharedCallbackPanic/responses/response
+=== RUN   TestMiniMaxSharedCallbackPanic/messages/headers
+=== RUN   TestMiniMaxSharedCallbackPanic/messages/payload
+=== RUN   TestMiniMaxSharedCallbackPanic/messages/response
+--- PASS: TestMiniMaxSharedCallbackPanic (0.03s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/chat/headers (0.00s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/chat/payload (0.00s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/chat/response (0.00s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/responses/headers (0.00s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/responses/payload (0.00s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/responses/response (0.01s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/messages/headers (0.00s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/messages/payload (0.00s)
+    --- PASS: TestMiniMaxSharedCallbackPanic/messages/response (0.01s)
+=== RUN   TestMiniMaxSharedTenantRoundTrips
+=== RUN   TestMiniMaxSharedTenantRoundTrips/MiniMax-M3
+=== RUN   TestMiniMaxSharedTenantRoundTrips/MiniMax-M3.1-Flash-Preview
+--- PASS: TestMiniMaxSharedTenantRoundTrips (0.13s)
+    --- PASS: TestMiniMaxSharedTenantRoundTrips/MiniMax-M3 (0.06s)
+    --- PASS: TestMiniMaxSharedTenantRoundTrips/MiniMax-M3.1-Flash-Preview (0.06s)
+=== RUN   TestMiniMaxSharedNativeBoundaries
+=== RUN   TestMiniMaxSharedNativeBoundaries/chat/restored
+=== RUN   TestMiniMaxSharedNativeBoundaries/chat/untrusted
+=== RUN   TestMiniMaxSharedNativeBoundaries/chat/foreign-tenant
+=== RUN   TestMiniMaxSharedNativeBoundaries/chat/account
+=== RUN   TestMiniMaxSharedNativeBoundaries/chat/model-account
+=== RUN   TestMiniMaxSharedNativeBoundaries/chat/api
+=== RUN   TestMiniMaxSharedNativeBoundaries/chat/provider
+=== RUN   TestMiniMaxSharedNativeBoundaries/responses/restored
+=== RUN   TestMiniMaxSharedNativeBoundaries/responses/untrusted
+=== RUN   TestMiniMaxSharedNativeBoundaries/responses/foreign-tenant
+=== RUN   TestMiniMaxSharedNativeBoundaries/responses/account
+=== RUN   TestMiniMaxSharedNativeBoundaries/responses/model-account
+=== RUN   TestMiniMaxSharedNativeBoundaries/responses/api
+=== RUN   TestMiniMaxSharedNativeBoundaries/responses/provider
+=== RUN   TestMiniMaxSharedNativeBoundaries/messages/restored
+=== RUN   TestMiniMaxSharedNativeBoundaries/messages/untrusted
+=== RUN   TestMiniMaxSharedNativeBoundaries/messages/foreign-tenant
+=== RUN   TestMiniMaxSharedNativeBoundaries/messages/account
+=== RUN   TestMiniMaxSharedNativeBoundaries/messages/model-account
+=== RUN   TestMiniMaxSharedNativeBoundaries/messages/api
+=== RUN   TestMiniMaxSharedNativeBoundaries/messages/provider
+--- PASS: TestMiniMaxSharedNativeBoundaries (0.19s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/chat/restored (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/chat/untrusted (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/chat/foreign-tenant (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/chat/account (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/chat/model-account (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/chat/api (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/chat/provider (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/responses/restored (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/responses/untrusted (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/responses/foreign-tenant (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/responses/account (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/responses/model-account (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/responses/api (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/responses/provider (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/messages/restored (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/messages/untrusted (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/messages/foreign-tenant (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/messages/account (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/messages/model-account (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/messages/api (0.01s)
+    --- PASS: TestMiniMaxSharedNativeBoundaries/messages/provider (0.01s)
+=== RUN   TestMiniMaxSharedCrossProtocol
+=== RUN   TestMiniMaxSharedCrossProtocol/chat/responses
+=== RUN   TestMiniMaxSharedCrossProtocol/chat/messages
+=== RUN   TestMiniMaxSharedCrossProtocol/responses/chat
+=== RUN   TestMiniMaxSharedCrossProtocol/responses/messages
+=== RUN   TestMiniMaxSharedCrossProtocol/messages/chat
+=== RUN   TestMiniMaxSharedCrossProtocol/messages/responses
+--- PASS: TestMiniMaxSharedCrossProtocol (0.05s)
+    --- PASS: TestMiniMaxSharedCrossProtocol/chat/responses (0.01s)
+    --- PASS: TestMiniMaxSharedCrossProtocol/chat/messages (0.01s)
+    --- PASS: TestMiniMaxSharedCrossProtocol/responses/chat (0.01s)
+    --- PASS: TestMiniMaxSharedCrossProtocol/responses/messages (0.01s)
+    --- PASS: TestMiniMaxSharedCrossProtocol/messages/chat (0.01s)
+    --- PASS: TestMiniMaxSharedCrossProtocol/messages/responses (0.01s)
+=== RUN   TestMiniMaxSharedDesignLoad
+=== RUN   TestMiniMaxSharedDesignLoad/local/chat
+=== RUN   TestMiniMaxSharedDesignLoad/local/responses
+=== RUN   TestMiniMaxSharedDesignLoad/local/messages
+=== RUN   TestMiniMaxSharedDesignLoad/cloud/chat
+=== RUN   TestMiniMaxSharedDesignLoad/cloud/responses
+=== RUN   TestMiniMaxSharedDesignLoad/cloud/messages
+--- PASS: TestMiniMaxSharedDesignLoad (6.34s)
+    --- PASS: TestMiniMaxSharedDesignLoad/local/chat (1.00s)
+    --- PASS: TestMiniMaxSharedDesignLoad/local/responses (0.94s)
+    --- PASS: TestMiniMaxSharedDesignLoad/local/messages (0.62s)
+    --- PASS: TestMiniMaxSharedDesignLoad/cloud/chat (1.30s)
+    --- PASS: TestMiniMaxSharedDesignLoad/cloud/responses (1.49s)
+    --- PASS: TestMiniMaxSharedDesignLoad/cloud/messages (0.98s)
+=== RUN   TestMiniMaxSharedObserverFailures
+=== RUN   TestMiniMaxSharedObserverFailures/chat/error
+=== RUN   TestMiniMaxSharedObserverFailures/chat/panic
+=== RUN   TestMiniMaxSharedObserverFailures/responses/error
+=== RUN   TestMiniMaxSharedObserverFailures/responses/panic
+=== RUN   TestMiniMaxSharedObserverFailures/messages/error
+=== RUN   TestMiniMaxSharedObserverFailures/messages/panic
+--- PASS: TestMiniMaxSharedObserverFailures (0.05s)
+    --- PASS: TestMiniMaxSharedObserverFailures/chat/error (0.01s)
+    --- PASS: TestMiniMaxSharedObserverFailures/chat/panic (0.01s)
+    --- PASS: TestMiniMaxSharedObserverFailures/responses/error (0.01s)
+    --- PASS: TestMiniMaxSharedObserverFailures/responses/panic (0.01s)
+    --- PASS: TestMiniMaxSharedObserverFailures/messages/error (0.01s)
+    --- PASS: TestMiniMaxSharedObserverFailures/messages/panic (0.01s)
+=== RUN   TestMiniMaxSharedAuthorization
+=== RUN   TestMiniMaxSharedAuthorization/chat/disabled
+=== RUN   TestMiniMaxSharedAuthorization/chat/operation
+=== RUN   TestMiniMaxSharedAuthorization/chat/model-denied
+=== RUN   TestMiniMaxSharedAuthorization/chat/credential-owner
+=== RUN   TestMiniMaxSharedAuthorization/chat/header-key
+=== RUN   TestMiniMaxSharedAuthorization/chat/header-target
+=== RUN   TestMiniMaxSharedAuthorization/chat/payload-model
+=== RUN   TestMiniMaxSharedAuthorization/chat/payload-native
+=== RUN   TestMiniMaxSharedAuthorization/chat/payload-hosted
+=== RUN   TestMiniMaxSharedAuthorization/responses/disabled
+=== RUN   TestMiniMaxSharedAuthorization/responses/operation
+=== RUN   TestMiniMaxSharedAuthorization/responses/model-denied
+=== RUN   TestMiniMaxSharedAuthorization/responses/credential-owner
+=== RUN   TestMiniMaxSharedAuthorization/responses/header-key
+=== RUN   TestMiniMaxSharedAuthorization/responses/header-target
+=== RUN   TestMiniMaxSharedAuthorization/responses/payload-model
+=== RUN   TestMiniMaxSharedAuthorization/responses/payload-native
+=== RUN   TestMiniMaxSharedAuthorization/responses/payload-hosted
+=== RUN   TestMiniMaxSharedAuthorization/messages/disabled
+=== RUN   TestMiniMaxSharedAuthorization/messages/operation
+=== RUN   TestMiniMaxSharedAuthorization/messages/model-denied
+=== RUN   TestMiniMaxSharedAuthorization/messages/credential-owner
+=== RUN   TestMiniMaxSharedAuthorization/messages/header-key
+=== RUN   TestMiniMaxSharedAuthorization/messages/header-target
+=== RUN   TestMiniMaxSharedAuthorization/messages/payload-model
+=== RUN   TestMiniMaxSharedAuthorization/messages/payload-native
+=== RUN   TestMiniMaxSharedAuthorization/messages/payload-hosted
+--- PASS: TestMiniMaxSharedAuthorization (0.09s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/disabled (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/operation (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/model-denied (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/credential-owner (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/header-key (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/header-target (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/payload-model (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/payload-native (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/chat/payload-hosted (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/disabled (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/operation (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/model-denied (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/credential-owner (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/header-key (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/header-target (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/payload-model (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/payload-native (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/responses/payload-hosted (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/disabled (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/operation (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/model-denied (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/credential-owner (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/header-key (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/header-target (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/payload-model (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/payload-native (0.00s)
+    --- PASS: TestMiniMaxSharedAuthorization/messages/payload-hosted (0.00s)
+=== RUN   TestMiniMaxSharedConcurrentRelease
+--- PASS: TestMiniMaxSharedConcurrentRelease (0.24s)
+=== RUN   TestMiniMaxSharedAdmissionIsolation
+=== RUN   TestMiniMaxSharedAdmissionIsolation/chat
+=== RUN   TestMiniMaxSharedAdmissionIsolation/responses
+=== RUN   TestMiniMaxSharedAdmissionIsolation/messages
+--- PASS: TestMiniMaxSharedAdmissionIsolation (0.96s)
+    --- PASS: TestMiniMaxSharedAdmissionIsolation/chat (0.31s)
+    --- PASS: TestMiniMaxSharedAdmissionIsolation/responses (0.32s)
+    --- PASS: TestMiniMaxSharedAdmissionIsolation/messages (0.33s)
+=== RUN   TestMiniMaxSharedResources
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/request
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/frame
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/error-body
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/tool-json
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/output
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/queue-count
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/queue-bytes
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/admission
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/connect-timeout
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/header-timeout
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/read-timeout
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/call-timeout
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3/host-deadline
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/request
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/frame
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/error-body
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/tool-json
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/output
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/queue-count
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/queue-bytes
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/admission
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/connect-timeout
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/header-timeout
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/read-timeout
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/call-timeout
+=== RUN   TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/host-deadline
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/request
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/frame
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/error-body
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/tool-json
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/output
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/queue-count
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/queue-bytes
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/admission
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/connect-timeout
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/header-timeout
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/read-timeout
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/call-timeout
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3/host-deadline
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/request
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/frame
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/error-body
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/tool-json
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/output
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/queue-count
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/queue-bytes
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/admission
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/connect-timeout
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/header-timeout
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/read-timeout
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/call-timeout
+=== RUN   TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/host-deadline
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/request
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/frame
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/error-body
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/tool-json
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/output
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/queue-count
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/queue-bytes
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/admission
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/connect-timeout
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/header-timeout
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/read-timeout
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/call-timeout
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3/host-deadline
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/request
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/frame
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/error-body
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/tool-json
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/output
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/queue-count
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/queue-bytes
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/admission
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/connect-timeout
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/header-timeout
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/read-timeout
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/call-timeout
+=== RUN   TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/host-deadline
+--- PASS: TestMiniMaxSharedResources (3.64s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/request (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/frame (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/error-body (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/tool-json (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/output (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/queue-count (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/queue-bytes (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/admission (0.00s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/connect-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/header-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/read-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/call-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3/host-deadline (0.11s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/request (0.00s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/frame (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/error-body (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/tool-json (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/output (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/queue-count (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/queue-bytes (0.01s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/admission (0.00s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/connect-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/header-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/read-timeout (0.12s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/call-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/host-deadline (0.12s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/request (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/frame (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/error-body (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/tool-json (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/output (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/queue-count (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/queue-bytes (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/admission (0.00s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/connect-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/header-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/read-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/call-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3/host-deadline (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/request (0.00s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/frame (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/error-body (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/tool-json (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/output (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/queue-count (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/queue-bytes (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/admission (0.01s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/connect-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/header-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/read-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/call-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/host-deadline (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/request (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/frame (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/error-body (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/tool-json (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/output (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/queue-count (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/queue-bytes (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/admission (0.00s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/connect-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/header-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/read-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/call-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3/host-deadline (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/request (0.00s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/frame (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/error-body (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/tool-json (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/output (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/queue-count (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/queue-bytes (0.01s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/admission (0.00s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/connect-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/header-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/read-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/call-timeout (0.11s)
+    --- PASS: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/host-deadline (0.11s)
+=== RUN   TestMiniMaxSharedCancellation
+=== RUN   TestMiniMaxSharedCancellation/chat/before-send
+=== RUN   TestMiniMaxSharedCancellation/chat/before-headers
+=== RUN   TestMiniMaxSharedCancellation/chat/after-content
+=== RUN   TestMiniMaxSharedCancellation/responses/before-send
+=== RUN   TestMiniMaxSharedCancellation/responses/before-headers
+=== RUN   TestMiniMaxSharedCancellation/responses/after-content
+=== RUN   TestMiniMaxSharedCancellation/messages/before-send
+=== RUN   TestMiniMaxSharedCancellation/messages/before-headers
+=== RUN   TestMiniMaxSharedCancellation/messages/after-content
+--- PASS: TestMiniMaxSharedCancellation (0.10s)
+    --- PASS: TestMiniMaxSharedCancellation/chat/before-send (0.01s)
+    --- PASS: TestMiniMaxSharedCancellation/chat/before-headers (0.01s)
+    --- PASS: TestMiniMaxSharedCancellation/chat/after-content (0.01s)
+    --- PASS: TestMiniMaxSharedCancellation/responses/before-send (0.01s)
+    --- PASS: TestMiniMaxSharedCancellation/responses/before-headers (0.01s)
+    --- PASS: TestMiniMaxSharedCancellation/responses/after-content (0.01s)
+    --- PASS: TestMiniMaxSharedCancellation/messages/before-send (0.01s)
+    --- PASS: TestMiniMaxSharedCancellation/messages/before-headers (0.01s)
+    --- PASS: TestMiniMaxSharedCancellation/messages/after-content (0.01s)
+=== RUN   TestMiniMaxSharedFrozenRetries
+=== RUN   TestMiniMaxSharedFrozenRetries/chat
+=== RUN   TestMiniMaxSharedFrozenRetries/responses
+=== RUN   TestMiniMaxSharedFrozenRetries/messages
+--- PASS: TestMiniMaxSharedFrozenRetries (0.04s)
+    --- PASS: TestMiniMaxSharedFrozenRetries/chat (0.01s)
+    --- PASS: TestMiniMaxSharedFrozenRetries/responses (0.01s)
+    --- PASS: TestMiniMaxSharedFrozenRetries/messages (0.01s)
+=== RUN   TestMiniMaxSharedThinkingSemantics
+=== RUN   TestMiniMaxSharedThinkingSemantics/MiniMax-M3
+=== RUN   TestMiniMaxSharedThinkingSemantics/MiniMax-M3.1-Flash-Preview
+--- PASS: TestMiniMaxSharedThinkingSemantics (0.01s)
+    --- PASS: TestMiniMaxSharedThinkingSemantics/MiniMax-M3 (0.00s)
+    --- PASS: TestMiniMaxSharedThinkingSemantics/MiniMax-M3.1-Flash-Preview (0.00s)
+PASS
+barness-ai evidence bundle: /private/tmp/barness-minimax-05/.evidence/barness-ai/20261017T224255.633997000Z
+ok  	github.com/tokenbeat-lab/barness/ai/e2e	55.129s

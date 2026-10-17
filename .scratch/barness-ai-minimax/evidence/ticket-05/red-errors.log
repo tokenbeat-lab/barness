@@ -1,0 +1,39 @@
+--- FAIL: TestMiniMaxSharedFailures (0.06s)
+    --- FAIL: TestMiniMaxSharedFailures/chat/bad (0.01s)
+        minimax_shared_errors_test.go:33: [MM05-http-chatbad] private freeform errors stay out of caller and Observer: ai: invalid_request (request): 400: {"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"}
+    --- FAIL: TestMiniMaxSharedFailures/chat/auth (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-chatauth] private freeform errors stay out of caller and Observer: ai: upstream_auth (request): 401: {"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"}
+    --- FAIL: TestMiniMaxSharedFailures/chat/denied (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-chatdenied] private freeform errors stay out of caller and Observer: ai: upstream_auth (request): 403: {"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"}
+    --- FAIL: TestMiniMaxSharedFailures/chat/default429 (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-chatdefault429] private freeform errors stay out of caller and Observer: ai: rate_limited (request): 429: {"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"}
+    --- FAIL: TestMiniMaxSharedFailures/responses/bad (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-responsesbad] private freeform errors stay out of caller and Observer: ai: invalid_request (request): minimax-cn API error (400): {"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"}
+    --- FAIL: TestMiniMaxSharedFailures/responses/auth (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-responsesauth] private freeform errors stay out of caller and Observer: ai: upstream_auth (request): minimax-cn API error (401): {"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"}
+    --- FAIL: TestMiniMaxSharedFailures/responses/denied (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-responsesdenied] private freeform errors stay out of caller and Observer: ai: upstream_auth (request): minimax-cn API error (403): {"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"}
+    --- FAIL: TestMiniMaxSharedFailures/responses/default429 (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-responsesdefault429] private freeform errors stay out of caller and Observer: ai: rate_limited (request): minimax-cn API error (429): {"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"}
+    --- FAIL: TestMiniMaxSharedFailures/messages/bad (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-messagesbad] private freeform errors stay out of caller and Observer: ai: invalid_request (request): 400 {"error":{"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"},"base_resp":{"status_code":1008}}
+    --- FAIL: TestMiniMaxSharedFailures/messages/auth (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-messagesauth] private freeform errors stay out of caller and Observer: ai: upstream_auth (request): 401 {"error":{"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"},"base_resp":{"status_code":1008}}
+    --- FAIL: TestMiniMaxSharedFailures/messages/denied (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-messagesdenied] private freeform errors stay out of caller and Observer: ai: upstream_auth (request): 403 {"error":{"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"},"base_resp":{"status_code":1008}}
+    --- FAIL: TestMiniMaxSharedFailures/messages/default429 (0.00s)
+        minimax_shared_errors_test.go:33: [MM05-http-messagesdefault429] private freeform errors stay out of caller and Observer: ai: rate_limited (request): 429 {"error":{"type":"unclassified","message":"synthetic-private-prompt-and-reasoning"},"base_resp":{"status_code":1008}}
+--- FAIL: TestMiniMaxSharedStreamErrorPrivacy (0.00s)
+    --- FAIL: TestMiniMaxSharedStreamErrorPrivacy/chat (0.00s)
+        minimax_shared_errors_test.go:59: [MM05-stream-error-chat] stream error is private with actual status and zero replay: ai: upstream_error (stream): synthetic-private-error-text
+        minimax_shared_errors_test.go:61: [MM05-stream-error-chat] known HTTP200 retained: ai: upstream_error (stream): synthetic-private-error-text
+    --- FAIL: TestMiniMaxSharedStreamErrorPrivacy/responses (0.00s)
+        minimax_shared_errors_test.go:59: [MM05-stream-error-responses] stream error is private with actual status and zero replay: ai: upstream_error (stream): synthetic-private-error-text
+        minimax_shared_errors_test.go:61: [MM05-stream-error-responses] known HTTP200 retained: ai: upstream_error (stream): synthetic-private-error-text
+    --- FAIL: TestMiniMaxSharedStreamErrorPrivacy/messages (0.00s)
+        minimax_shared_errors_test.go:59: [MM05-stream-error-messages] stream error is private with actual status and zero replay: ai: upstream_error (stream): {"type":"error","error":{"type":"api_error","message":"synthetic-private-error-text"},"code":"server_error","message":"synthetic-private-error-text"}
+        minimax_shared_errors_test.go:61: [MM05-stream-error-messages] known HTTP200 retained: ai: upstream_error (stream): {"type":"error","error":{"type":"api_error","message":"synthetic-private-error-text"},"code":"server_error","message":"synthetic-private-error-text"}
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-05/.evidence/barness-ai/20261017T223254.454750000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.714s
+FAIL

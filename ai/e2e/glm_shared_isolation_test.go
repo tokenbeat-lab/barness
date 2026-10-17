@@ -57,7 +57,7 @@ func TestGLMSharedTenantTools(t *testing.T) {
 						route = r
 					}
 				}
-				n, calls, results := glmSharedWirePairs(t, route, q.Body)
+				n, calls, results := protocolWirePairs(t, route.name, q.Body)
 				if len(results) > 0 {
 					ev.Check("own native state and valid pairs survive shared Client", (n > 0 || (route.name == "messages" && model == "glm-5.2")) && len(calls) == len(results) && reflect.DeepEqual(calls, results), "%d %v %v", n, calls, results)
 				}
@@ -160,7 +160,7 @@ func TestGLMSharedNativeBoundaries(t *testing.T) {
 					ev.Check("caller history stays immutable", string(before) == string(persist(t, m)), "history changed")
 					qs := w.provider.Requests()
 					if len(qs) >= 2 {
-						n, calls, results := glmSharedWirePairs(t, r, qs[len(qs)-1].Body)
+						n, calls, results := protocolWirePairs(t, r.name, qs[len(qs)-1].Body)
 						ev.Check("only trusted matching state replays natively", (want == (ai.NativeStateDowngrades{}) && n > 0) || (want != (ai.NativeStateDowngrades{}) && n == 0), "native=%d", n)
 						ev.Check("downgrade preserves effective tool pairs", len(calls) > 0 && reflect.DeepEqual(calls, results), "%v %v", calls, results)
 					}

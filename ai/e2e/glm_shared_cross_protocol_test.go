@@ -41,7 +41,7 @@ func TestGLMSharedCrossProtocolHistory(t *testing.T) {
 					qs := w.provider.Requests()
 					ev.Record("requests", qs)
 					if len(qs) == 2 {
-						native, calls, results := glmSharedWirePairs(t, target, qs[1].Body)
+						native, calls, results := protocolWirePairs(t, target.name, qs[1].Body)
 						ev.Check("source opaque state does not enter another protocol", native == 0, "native=%d", native)
 						ev.Check("converted call IDs still pair each tool result", len(calls) > 0 && reflect.DeepEqual(calls, results), "%v %v", calls, results)
 					}

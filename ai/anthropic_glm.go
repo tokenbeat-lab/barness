@@ -73,7 +73,7 @@ func validateGLMMessagesBody(m Model, raw []byte, header http.Header, beta strin
 	}
 	var fields map[string]json.RawMessage
 	_ = json.Unmarshal(raw, &fields)
-	if !glmOutputBudgetNumber(fields["max_tokens"], m.MaxTokens) {
+	if !outputBudgetNumber(fields["max_tokens"], m.MaxTokens) {
 		return newError(CodeInvalidRequest, PhaseRequest, "max_tokens must be an integer from 1 through the model output limit")
 	}
 	if thinking, present := body["thinking"]; present {
@@ -84,7 +84,7 @@ func validateGLMMessagesBody(m Model, raw []byte, header http.Header, beta strin
 		}
 		var exactThinking map[string]json.RawMessage
 		_ = json.Unmarshal(fields["thinking"], &exactThinking)
-		if !glmOutputBudgetNumber(exactThinking["budget_tokens"], 1024) {
+		if !outputBudgetNumber(exactThinking["budget_tokens"], 1024) {
 			return newError(CodeInvalidRequest, PhaseRequest, "GLM Messages thinking budget must be the exact verified integer")
 		}
 	}

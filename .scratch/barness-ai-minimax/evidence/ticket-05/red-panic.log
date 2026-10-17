@@ -1,0 +1,23 @@
+--- FAIL: TestMiniMaxSharedCallbackPanic (0.01s)
+    --- FAIL: TestMiniMaxSharedCallbackPanic/chat/headers (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-chatheaders] panic remains one classified logical failure: escaped=true error=<nil>
+    --- FAIL: TestMiniMaxSharedCallbackPanic/chat/payload (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-chatpayload] panic remains one classified logical failure: escaped=true error=<nil>
+    --- FAIL: TestMiniMaxSharedCallbackPanic/chat/response (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-chatresponse] panic remains one classified logical failure: escaped=true error=<nil>
+    --- FAIL: TestMiniMaxSharedCallbackPanic/responses/headers (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-responsesheaders] panic remains one classified logical failure: escaped=true error=<nil>
+    --- FAIL: TestMiniMaxSharedCallbackPanic/responses/payload (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-responsespayload] panic remains one classified logical failure: escaped=true error=<nil>
+    --- FAIL: TestMiniMaxSharedCallbackPanic/responses/response (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-responsesresponse] panic remains one classified logical failure: escaped=true error=<nil>
+    --- FAIL: TestMiniMaxSharedCallbackPanic/messages/headers (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-messagesheaders] panic remains one classified logical failure: escaped=true error=<nil>
+    --- FAIL: TestMiniMaxSharedCallbackPanic/messages/payload (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-messagespayload] panic remains one classified logical failure: escaped=true error=<nil>
+    --- FAIL: TestMiniMaxSharedCallbackPanic/messages/response (0.00s)
+        minimax_shared_hooks_test.go:37: [MM05-hook-panic-messagesresponse] panic remains one classified logical failure: escaped=true error=<nil>
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-05/.evidence/barness-ai/20261017T223137.835284000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.331s
+FAIL

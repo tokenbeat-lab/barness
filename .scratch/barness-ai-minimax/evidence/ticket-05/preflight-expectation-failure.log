@@ -1,0 +1,14 @@
+--- FAIL: TestMiniMaxSharedAuthorization (0.03s)
+    --- FAIL: TestMiniMaxSharedAuthorization/chat/credential-owner (0.00s)
+        preflight_reject_test.go:223: [MM05-authorization-chatcredential-owner] errors.Is matches code and phase: want tenant_denied/credential, got ai: tenant_denied (consistency): credential does not belong to the calling tenant
+        preflight_reject_test.go:227: [MM05-authorization-chatcredential-owner] errors.As exposes code and phase: got tenant_denied/consistency
+    --- FAIL: TestMiniMaxSharedAuthorization/responses/credential-owner (0.00s)
+        preflight_reject_test.go:223: [MM05-authorization-responsescredential-owner] errors.Is matches code and phase: want tenant_denied/credential, got ai: tenant_denied (consistency): credential does not belong to the calling tenant
+        preflight_reject_test.go:227: [MM05-authorization-responsescredential-owner] errors.As exposes code and phase: got tenant_denied/consistency
+    --- FAIL: TestMiniMaxSharedAuthorization/messages/credential-owner (0.00s)
+        preflight_reject_test.go:223: [MM05-authorization-messagescredential-owner] errors.Is matches code and phase: want tenant_denied/credential, got ai: tenant_denied (consistency): credential does not belong to the calling tenant
+        preflight_reject_test.go:227: [MM05-authorization-messagescredential-owner] errors.As exposes code and phase: got tenant_denied/consistency
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-05/.evidence/barness-ai/20261017T223833.352550000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.654s
+FAIL

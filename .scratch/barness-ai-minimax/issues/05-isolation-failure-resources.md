@@ -1,6 +1,6 @@
 # 05 — 三协议隔离、失败重试、回调和资源释放
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Updated: 2026-10-18
 Blocked by: 02, 03, 04

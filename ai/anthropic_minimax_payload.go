@@ -33,7 +33,7 @@ func validateMiniMaxMessagesBody(m Model, raw []byte, header http.Header, beta s
 	}
 	var fields map[string]json.RawMessage
 	_ = json.Unmarshal(raw, &fields)
-	if !glmOutputBudgetNumber(fields["max_tokens"], m.MaxTokens) {
+	if !outputBudgetNumber(fields["max_tokens"], m.MaxTokens) {
 		return invalid("max_tokens must be an integer from 1 through the model output limit")
 	}
 	if body["stream"] != true {
