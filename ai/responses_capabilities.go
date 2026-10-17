@@ -37,6 +37,9 @@ type responsesCapabilities struct {
 // history is always sent as complete input. Every other provider gets the
 // OpenAI profile, which pi sends to whatever serves openai-responses.
 func responsesCapabilitiesOf(p ProviderID) responsesCapabilities {
+	if p == ProviderZhipu {
+		return responsesCapabilities{store: true, promptCacheKey: true}
+	}
 	if p == ProviderDeepSeek {
 		// DeepSeek accepts summary but does not generate one (ADR-0014).
 		return responsesCapabilities{reasoningSummary: true}

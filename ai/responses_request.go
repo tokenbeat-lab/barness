@@ -183,7 +183,11 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 	if level == "" && opts.ReasoningSummary != "" {
 		level = ThinkingMedium
 	}
-	return applyModelSamplingParams(out, model, level, opts.SamplingParams)
+	out, err = applyModelSamplingParams(out, model, level, opts.SamplingParams)
+	if err != nil || model.Provider != ProviderZhipu {
+		return out, err
+	}
+	return preserveGLMResponsesBudget(out, model, level, opts.SamplingParams)
 }
 
 // responsesAssistantItems replays a previous turn prepared by

@@ -15,7 +15,8 @@ type ResponsesOptions struct {
 	// Temperature is sent as temperature, null included.
 	Temperature Nullable[float64] `json:"temperature,omitzero"`
 	// MaxTokens is sent as max_output_tokens, raised to the protocol's
-	// minimum of 16. Unset, null and 0 send nothing.
+	// minimum of 16 for OpenAI; GLM keeps its minimum of 1.
+	// Unset, null and 0 send nothing.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
 	// SamplingParams override named request fields and model defaults, on
 	// both full and simple entries (pi-ai parity). Keys that change the
@@ -161,7 +162,10 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 	}
 
 	if n, ok := o.MaxTokens.Get(); ok && n != 0 {
-		body.MaxOutputTokens = max(n, responsesMinOutputTokens)
+		body.MaxOutputTokens = n
+		if m.Provider != ProviderZhipu {
+			body.MaxOutputTokens = max(n, responsesMinOutputTokens)
+		}
 	}
 	body.Temperature = o.Temperature
 	if caps.serviceTier {
@@ -186,6 +190,9 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 		if caps.encryptedReasoning {
 			body.Include = []string{"reasoning.encrypted_content"}
 		}
+	case m.Provider == ProviderZhipu:
+		// Omission keeps GLM's documented service default, including mandatory
+		// thinking on 5.3; never synthesize an off request.
 	case !m.ThinkingLevelMap.Off.IsNull():
 		// pi's `thinkingLevelMap?.off ?? "none"`: only an unset entry
 		// falls back.

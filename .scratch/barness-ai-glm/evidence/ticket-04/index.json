@@ -1,0 +1,127 @@
+{
+  "schema": 1,
+  "scope": "ticket-04-offline-public-Client",
+  "paidRequests": 0,
+  "runs": [
+    {
+      "name": "red-object",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/red-object/20261017T125408.946025000Z",
+      "manifestSha256": "9771329411249149e8247240ac9f4c7238e6350a36dcc75e3d20f5d6e0f920d4",
+      "cases": 2,
+      "statuses": {
+        "FAIL": 2
+      }
+    },
+    {
+      "name": "green-object",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/green-object/20261017T125429.960039000Z",
+      "manifestSha256": "698cf5c16e766b867b985b5a07d13a48ca2a711216b8179edbc6ca30925171d7",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      }
+    },
+    {
+      "name": "red-lifecycle",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/red-lifecycle/20261017T125448.468574000Z",
+      "manifestSha256": "9c57e8c0a6103127dc4fec9ee61cfbd3fb01cfc112e37748fe29942e1835d63b",
+      "cases": 12,
+      "statuses": {
+        "PASS": 8,
+        "FAIL": 4
+      }
+    },
+    {
+      "name": "green-lifecycle",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/green-lifecycle/20261017T125523.939228000Z",
+      "manifestSha256": "9f88613b77626be214b4e9eccdd57331943812b7cef7adc038913f6162cb3e87",
+      "cases": 12,
+      "statuses": {
+        "PASS": 12
+      }
+    },
+    {
+      "name": "red-terminal",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/red-terminal/20261017T125824.886683000Z",
+      "manifestSha256": "cd4334af87a3dee10bb24aab8dc06121f21ffa6b1ae5bb2e57c6b79ded8f27e4",
+      "cases": 42,
+      "statuses": {
+        "PASS": 36,
+        "FAIL": 6
+      }
+    },
+    {
+      "name": "green-terminal",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/green-terminal/20261017T125843.461248000Z",
+      "manifestSha256": "0c2d393d5b9a56c30417dc23ae1f6164e4686f8ef40b1fa3fb7df04f8d6ff4ba",
+      "cases": 198,
+      "statuses": {
+        "PASS": 198
+      }
+    },
+    {
+      "name": "red-index",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/red-index/20261017T125958.467406000Z",
+      "manifestSha256": "fd137c94914bec3c2314e5c28bc176fe1bc90f72c8522d32f26451d21292e8e2",
+      "cases": 2,
+      "statuses": {
+        "FAIL": 2
+      }
+    },
+    {
+      "name": "observed",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/observed/20261017T125929.239054000Z",
+      "manifestSha256": "c7aafab7206f969934dcce40d5cb49b76572e53238765a3dd41b756e6959c395",
+      "cases": 44,
+      "statuses": {
+        "PASS": 44
+      }
+    },
+    {
+      "name": "final-staged",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/final-staged/20261017T130053.165224000Z",
+      "manifestSha256": "fcf2138088381c76e8f9cd32e84bd0f0949e218c556125076a78684a8906cb63",
+      "cases": 1979,
+      "statuses": {
+        "PASS": 1978,
+        "NOT_RUN": 1
+      }
+    },
+    {
+      "name": "exact-final",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/exact-final/20261017T130122.139109000Z",
+      "manifestSha256": "6ca24de1f435711420b9bab1ad43326ec488fa728e58db318649e2a9327e71b1",
+      "cases": 115,
+      "statuses": {
+        "PASS": 115
+      }
+    },
+    {
+      "name": "diff",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/diff/20261017T125930.514788000Z",
+      "manifestSha256": "a60a0182d58dee00259f3b5362eb29b1ac1c0fc5d431d87f55b18491cdd97d6b",
+      "cases": 335,
+      "statuses": {
+        "PASS": 335
+      }
+    },
+    {
+      "name": "post-merge",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/post-merge/20261017T130157.298147000Z",
+      "manifestSha256": "5384cc10ff265a7db340e02a89ac320116387fd8b92b1d9402ef762b3d5135bc",
+      "cases": 3,
+      "statuses": {
+        "PASS": 3
+      }
+    },
+    {
+      "name": "post-merge-full",
+      "bundle": ".evidence/barness-ai-glm/ticket-04/post-merge-full/20261017T130227.280958000Z",
+      "manifestSha256": "5457a1d81f003e596fd81cffdc08e7fc2dd75c6d9811fe4296f4572aec6ccc91",
+      "cases": 212,
+      "statuses": {
+        "PASS": 212
+      }
+    }
+  ]
+}
