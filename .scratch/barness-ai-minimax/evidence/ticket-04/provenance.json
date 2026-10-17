@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-18",
+  "kind": "synthetic-protocol-only",
+  "formalSupport": false,
+  "candidateVersion": "minimax-six-candidate-2026-10-18.2-synthetic-prices",
+  "officialSchema": {
+    "url": "https://platform.minimax.cn/docs/api-reference/text/api/openapi-chat-anthropic.json",
+    "sha256": "57111d5dddd2ada7f481e5c373d88c745eba0b852b60bf1ca20096c61f28b77c"
+  },
+  "fixtures": {
+    "tools.sse": "623872d2b85a2e6f75ae8050335323f186d16a77c08378c2c2177cdfd3546099",
+    "text.sse": "fd29a524b2c36c64ef1567d17b1bbfc70d9bd92dcf63e1518e6dd5e03432a0d3"
+  },
+  "runs": [
+    {
+      "label": "red-01",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 12,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 12
+      }
+    },
+    {
+      "label": "red-02",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 10,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 10
+      }
+    },
+    {
+      "label": "red-03",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 21,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 21
+      }
+    },
+    {
+      "label": "red-04",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 1,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 1
+      }
+    },
+    {
+      "label": "red-05",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 14,
+      "statuses": {
+        "PASS": 2,
+        "FAIL": 12
+      }
+    },
+    {
+      "label": "red-06",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 11,
+      "statuses": {
+        "PASS": 9,
+        "FAIL": 2
+      }
+    },
+    {
+      "label": "red-07",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 6,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 6
+      }
+    },
+    {
+      "label": "red-08",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 8,
+      "statuses": {
+        "PASS": 1,
+        "FAIL": 7
+      }
+    },
+    {
+      "label": "red-09",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 1,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 1
+      }
+    },
+    {
+      "label": "red-10",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 1,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 1
+      }
+    },
+    {
+      "label": "red-11",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 2,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 2
+      }
+    },
+    {
+      "label": "red-12",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 1,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 1
+      }
+    },
+    {
+      "label": "red-13",
+      "gitCommit": "603127aa00a973282a584f3c71f3ae593e6c0e49",
+      "cases": 2,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 2
+      }
+    },
+    {
+      "label": "green-final",
+      "gitCommit": "f68f38df85ec113dc51516ac8e9c829c83a0829a",
+      "cases": 138,
+      "statuses": {
+        "PASS": 138,
+        "FAIL": 0
+      }
+    },
+    {
+      "label": "race-final",
+      "gitCommit": "f68f38df85ec113dc51516ac8e9c829c83a0829a",
+      "cases": 138,
+      "statuses": {
+        "PASS": 138,
+        "FAIL": 0
+      }
+    },
+    {
+      "label": "regression",
+      "gitCommit": "f68f38df85ec113dc51516ac8e9c829c83a0829a",
+      "cases": 297,
+      "statuses": {
+        "PASS": 297,
+        "FAIL": 0
+      }
+    }
+  ]
+}

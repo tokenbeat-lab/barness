@@ -1,0 +1,8 @@
+--- FAIL: TestMiniMaxMessagesRequiredBinaryIsNotDepth (0.00s)
+    preflight_reject_test.go:223: [MM04-required-binary] errors.Is matches code and phase: want invalid_request/capability, got ai: invalid_request (request): 418 {"error":{"message":"no scripted reply"}}
+    preflight_reject_test.go:227: [MM04-required-binary] errors.As exposes code and phase: got invalid_request/request
+    minimax_messages_boundaries_test.go:149: [MM04-required-binary] required high-only declaration stays a binary switch: {CallAttribution:{TenantID:tenant-a RequestID:mm04-required-binary ActorID:actor-7 JobID:job-42 BindingID:minimax-messages Operation:chat Resolved:true ProviderID:minimax-cn API:anthropic-messages ModelID:MiniMax-M3 AccountScopeID:acct-minimax-messages} BindingVersion:minimax-candidate-1 CredentialVersion:v1 CatalogVersion:minimax-six-candidate-2026-10-18.1-synthetic-prices CatalogHash:sha256:c2b57f3b0c2d1e19ba2277e966e8cca958a9057794fe97d9091ae3c0875b66a4 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:mm04-required-binary#1 HTTPStatus:418 ProviderRequestID: Code:invalid_request RetryDelay:0s UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}]}
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T222308.876230000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.598s
+FAIL

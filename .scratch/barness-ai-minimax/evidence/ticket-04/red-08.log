@@ -1,0 +1,19 @@
+--- FAIL: TestMiniMaxMessagesMalformedContent (0.01s)
+    --- FAIL: TestMiniMaxMessagesMalformedContent/text-null (0.00s)
+        minimax_messages_malformed_test.go:34: [MM04-malformed-text-null] malformed required content is a protocol failure: <nil>
+    --- FAIL: TestMiniMaxMessagesMalformedContent/text-delta-missing (0.00s)
+        minimax_messages_malformed_test.go:34: [MM04-malformed-text-delta-missing] malformed required content is a protocol failure: <nil>
+    --- FAIL: TestMiniMaxMessagesMalformedContent/thinking-delta-null (0.00s)
+        minimax_messages_malformed_test.go:34: [MM04-malformed-thinking-delta-null] malformed required content is a protocol failure: <nil>
+    --- FAIL: TestMiniMaxMessagesMalformedContent/signature-null (0.00s)
+        minimax_messages_malformed_test.go:34: [MM04-malformed-signature-null] malformed required content is a protocol failure: <nil>
+    --- FAIL: TestMiniMaxMessagesMalformedContent/tool-id-missing (0.00s)
+        minimax_messages_malformed_test.go:34: [MM04-malformed-tool-id-missing] malformed required content is a protocol failure: <nil>
+    --- FAIL: TestMiniMaxMessagesMalformedContent/tool-delta-missing (0.00s)
+        minimax_messages_malformed_test.go:34: [MM04-malformed-tool-delta-missing] malformed required content is a protocol failure: <nil>
+    --- FAIL: TestMiniMaxMessagesMalformedContent/redacted-missing-data (0.00s)
+        minimax_messages_malformed_test.go:34: [MM04-malformed-redacted-missing-data] malformed required content is a protocol failure: <nil>
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T221817.081575000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.611s
+FAIL

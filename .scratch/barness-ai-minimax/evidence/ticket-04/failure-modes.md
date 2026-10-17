@@ -9,4 +9,4 @@ Confirmed seam T01: public Client plus controlled external HTTP Provider, Result
 5. Signed native tool history loses thinking/signature or crosses tenant/account/model; unsigned, empty-signature, redacted forms silently gain unproven replay privileges.
 6. Usage overwrites count updates incorrectly, computes cache totals/1h from Claude assumptions, or hides partial/unreported usage.
 
-All fixtures in this ticket are synthetic, provenance-labelled. Live signature/start input shapes remain a ticket06 evidence obligation. No key read or network call is authorized in ticket04.
+All fixtures in this ticket are synthetic, provenance-labelled. Live signature/start input shapes remain a ticket07 evidence obligation. No real credential was read and no live call was made in ticket04.
