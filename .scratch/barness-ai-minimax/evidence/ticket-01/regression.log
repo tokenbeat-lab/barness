@@ -1,0 +1,29 @@
+--- FAIL: TestMiniMaxDefaultSampling (0.03s)
+    --- FAIL: TestMiniMaxDefaultSampling/responses//stream-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses//stream-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses//complete-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses//complete-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/stream-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/stream-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/complete-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/complete-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/stream-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/stream-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/complete-full (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/complete-simple (0.00s)
+        minimax_default_sampling_test.go:21: open testdata/responses/text.json: no such file or directory
+FAIL
+barness-ai evidence bundle: /tmp/barness-minimax-01/.evidence/minimax-01-regression/20261017T220742.300587000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	18.880s
+FAIL
