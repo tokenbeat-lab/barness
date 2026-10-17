@@ -1,0 +1,473 @@
+{
+  "ticket": "09",
+  "date": "2026-10-17",
+  "seam": "Spec T01 public Client; offline synthetic credentials, no environment key reads or paid calls",
+  "implementationCommit": "6e6cf45",
+  "orderingAndHeadroomCommit": "a422f0e",
+  "distinctRequestIDsCommit": "113d992",
+  "concurrentReleaseCommit": "a2031e9",
+  "integrationMergedBeforeCompletion": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+  "productionFiles": {
+    "ai/chat_glm.go": "3b7fec83eb7c7d0ec52b3679d07f7284f9b869107d46c184fb3dde8ff35ecb15",
+    "ai/chat_glm_capabilities.go": "6efaa9daa3ec4cc0572f9ce1ca9ecb4f7fdeaca7c578dec74c1e6d2186488a70",
+    "ai/chat_request.go": "22e5f57be948444a040377b74bd5c35c9a06e3839187bb3df97a9e1c3f8e895a",
+    "ai/hooks.go": "b4b55b0cf5267c1e28b2f6ce66dac580593fa8e8b9d7258e91d1c1fdd30609fc",
+    "ai/hooks_run.go": "9a9c3e77309f6e6983e8ebd870a5fc9a6430a9f6f81dd9f7bd928dbfeb0286e0"
+  },
+  "officialSources": {
+    ".scratch/barness-ai-glm/evidence/ticket-09/sources/chat-boundary.json": "d49f4fb6972a9d2bdb51fa833375e912a17f056a02663abf13e00d78d920e17d"
+  },
+  "ownFixtures": {
+    "ai/e2e/testdata/glm-chat/text.json": "6d57803109b9fc6b4ec68abec1ac202a0b0829bf444034279f7d9edc781150b9",
+    "ai/e2e/testdata/glm-chat/tools.json": "82bb6383cf52426f84832627fefeebf45a78e8f034bec9083016a18d037b7c6f",
+    "ai/e2e/testdata/glm-failures/http.json": "2130a1af24e59c1c9de98093fc9e4258480e014355c9b3fae5dfe126a00c3f94",
+    "ai/e2e/testdata/glm-failures/stream.json": "db0aecd54ce47e651b94dba1b337e0a44d865edda4a1d060eb43a3b1a673ac73",
+    "ai/e2e/testdata/glm-failures/usage.json": "2f4901491f77317a5a0b10db8230a907b47da7aa5ed4a6e1ea02f41e63d19573",
+    "ai/e2e/testdata/glm-messages/.gitattributes": "d4a6f5604bbc3fcfede2a3852bef3f50d5d51c5f2b5d71756cef48d8cfba9ab5",
+    "ai/e2e/testdata/glm-messages/glm-5.2-frames.json": "091d76e53cf60dc45586779373039eb5bf66d0850ad73fd0a0ad2d89e645d566",
+    "ai/e2e/testdata/glm-messages/glm-5.2-response.sse": "4b363b5b23505121bd6cacba774d0a2caffda81df1cfc27d1a6d7c888723f12a",
+    "ai/e2e/testdata/glm-messages/glm-5.2-thinking-continuation-request.json": "5d2c8c19d89bc36d3342541c687205385e1a61a3d9e08a5d623c9491088c376d",
+    "ai/e2e/testdata/glm-messages/glm-5.2-thinking-continuation-response.sse": "c6ef7d70629e6a2ea3fafee88ee94a32f6d2b2e192e652a52a158d4e1cb90843",
+    "ai/e2e/testdata/glm-messages/glm-5.2-thinking-enabled-request.json": "6538166a1f64e6a1e1124e0afcbbe556a711b9d440e0e4173eeea258ab7a9cd7",
+    "ai/e2e/testdata/glm-messages/glm-5.2-thinking-enabled-response.sse": "9a76049f761c73a6fa61e59a090f6f82e02439e07d9cb34c63af83584166a3f4",
+    "ai/e2e/testdata/glm-messages/glm-5.2-tool-continuation-request.json": "ead9ca3f6de9ab76a4e79751f7ff4d04b50571489008b6f827a082e403011352",
+    "ai/e2e/testdata/glm-messages/glm-5.2-tool-continuation-response.sse": "35b064235b4716ff72ae38691de4ae9aab66a23030ad06eeedc6bec2e3e3c29f",
+    "ai/e2e/testdata/glm-messages/glm-5.2-tool-request.json": "8b58c909d1b00c274653e1fc248669754875514a3367f74ea4b74d4b29ad98a0",
+    "ai/e2e/testdata/glm-messages/glm-5.2-tool-response.sse": "e4b9ec2e4737acb76ce285c2097197ab4f2af1053666af6cffff3b79a9584d7e",
+    "ai/e2e/testdata/glm-messages/glm-5.3-frames.json": "cd17eb536d62e25695483cb7a66a2b4754c80c8358c6a4e665d131897f8fe6a2",
+    "ai/e2e/testdata/glm-messages/glm-5.3-response.sse": "4aa9a1b6a856bacc66c33aebe1811eaeb1cf487a4cfc16574af71358af4390e8",
+    "ai/e2e/testdata/glm-messages/glm-5.3-tool-continuation-request.json": "0a9114cca10fd4f20cb3eafd303a58e249f4cba5e5ad1dc5ea6dab21a8f54bf2",
+    "ai/e2e/testdata/glm-messages/glm-5.3-tool-continuation-response.sse": "8f5c5e5dbee5352d03b3bac65e036ac1f80d9991f4446801629572e6918892d7",
+    "ai/e2e/testdata/glm-messages/glm-5.3-tool-request.json": "0f1549deffd5fc32c3d8880b841a1b4c2a7dfb159eeb51659385465010454ff6",
+    "ai/e2e/testdata/glm-messages/glm-5.3-tool-response.sse": "1558fd2b64327dab8c2818d8ead36177a2f5697608a964f91038e169ccd8a35b",
+    "ai/e2e/testdata/glm-messages/text.json": "82436bc532d2fd8291634b2ba71dd0dada3c7c8d73571c453887ba003627a976",
+    "ai/e2e/testdata/glm-messages/tools-thinking.json": "c87fbc69e156e82c37ade37dbeda9bcecb30dcad38e21f3565cb2325eebdfce4",
+    "ai/e2e/testdata/glm-responses/text.json": "ccfc7d7bb3bd974e8d210c4a79cb521cb9bc7ef954fafe38f0be567a7c9caf5a",
+    "ai/e2e/testdata/glm-responses/tools.json": "5b5bd261754dd56470951e53d114df6cd221bc7f95760e9af8fc256c4ade61cf"
+  },
+  "runs": [
+    {
+      "name": "affected/20261017T132831.251765000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/affected/20261017T132831.251765000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/affected--20261017T132831.251765000Z.zip",
+      "archiveSha256": "8b76cdc9f91950f91e0301f39a438f1e1f68ff41094ee19c174998f2ad7b6f48",
+      "manifestSha256": "5489cf9081286ae3e7473e9e5bb7531b5b0d1e746a37f6859b4b55bf9b3d67df",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 2794
+      },
+      "gitCommitAtRun": "6e6cf45fc1518608beca28bb3ab88815d4fff4a3",
+      "verifiedCaseArtifacts": 20832,
+      "verifiedZipFiles": 20448
+    },
+    {
+      "name": "all359/20261017T133353.645177000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/all359/20261017T133353.645177000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/all359--20261017T133353.645177000Z.zip",
+      "archiveSha256": "89f38650ce420e7288e5b9f8aef28ae9d5a596b51244c834d221cc29aed3e0b6",
+      "manifestSha256": "90671b9dcb7f79b4b635559e915831ec77db4c2df29f006f39c3ff8f173109fe",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 359
+      },
+      "gitCommitAtRun": "a2031e918187d8eabaaeb20f67cd6b5d8a641864",
+      "verifiedCaseArtifacts": 4358,
+      "verifiedZipFiles": 4360
+    },
+    {
+      "name": "concurrent-release/20261017T133319.072610000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/concurrent-release/20261017T133319.072610000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/concurrent-release--20261017T133319.072610000Z.zip",
+      "archiveSha256": "bf55d88b586ba2d1831aa5602f4cda2457034cb248533972f2716916ae949867",
+      "manifestSha256": "961cc52b2f96124db4cc35f7985e231e1cb19d4fd5985aa624dd79858131ef71",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 2
+      },
+      "gitCommitAtRun": "a2031e918187d8eabaaeb20f67cd6b5d8a641864",
+      "verifiedCaseArtifacts": 228,
+      "verifiedZipFiles": 230
+    },
+    {
+      "name": "diagnostics/20261017T132043.317532000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132043.317532000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132043.317532000Z.zip",
+      "archiveSha256": "591ff483e90436e1aefcb97dd43dea522b61cb8627679ea10d3fdcf902755231",
+      "manifestSha256": "61559985721b118cf1177424af158a66fed6e560e09120e73ae296552e71243c",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "FAIL": 66,
+        "PASS": 32
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 686,
+      "verifiedZipFiles": 688
+    },
+    {
+      "name": "diagnostics/20261017T132102.297109000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132102.297109000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132102.297109000Z.zip",
+      "archiveSha256": "f37c67d14bf038cfdd3065ac6868a51fbe82aa1c866962785a5b9f7f0a7eed52",
+      "manifestSha256": "6f6c199583ace2a554176f4ea5bf7f5ea6ec6c91b4c89fc9f092060862dcbb35",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 70,
+        "FAIL": 28
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 686,
+      "verifiedZipFiles": 688
+    },
+    {
+      "name": "diagnostics/20261017T132116.835017000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132116.835017000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132116.835017000Z.zip",
+      "archiveSha256": "da0c4cb773e2499bd8a7c0e26b7f2ca2a80d71a018340281b0425bb53415e277",
+      "manifestSha256": "6121e947144c413cfe060160abb14cd868300ed74bb0eeef2a6e6e5c22ed2038",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 98
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 686,
+      "verifiedZipFiles": 688
+    },
+    {
+      "name": "diagnostics/20261017T132204.430043000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132204.430043000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132204.430043000Z.zip",
+      "archiveSha256": "a535fa956ad240fe63dd089d0dcd9b7d27a7553a723b90dd78d646ef5e827fae",
+      "manifestSha256": "1e1d06f70ff9c8ebd6e8b3ccc4a85f5aef77ab5f6df8838bd013e810041163f8",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 98,
+        "FAIL": 50
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 736,
+      "verifiedZipFiles": 738
+    },
+    {
+      "name": "diagnostics/20261017T132215.349331000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132215.349331000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132215.349331000Z.zip",
+      "archiveSha256": "0ed9bbec2074841aba88dc91b5b96e291110190be68e457240fad906c2ce6a6a",
+      "manifestSha256": "de305034cfa1bd82efe363f69b96dbd4a56005867852e08c0f7b721d1d920814",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 41,
+        "FAIL": 9
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 644,
+      "verifiedZipFiles": 646
+    },
+    {
+      "name": "diagnostics/20261017T132344.339411000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132344.339411000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132344.339411000Z.zip",
+      "archiveSha256": "ed0e19072f0268ab01fc417359aa8b24014d8e2dba85dc8a1476a1e1725b6c52",
+      "manifestSha256": "6f5003d80ff87a53220e05e5fefd7dda839dfaf79428228b3d68323a325a8944",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 116,
+        "FAIL": 6
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 1502,
+      "verifiedZipFiles": 1504
+    },
+    {
+      "name": "diagnostics/20261017T132412.065838000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132412.065838000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132412.065838000Z.zip",
+      "archiveSha256": "ca4f73d76388a296a0e69432ae14b702ea95974a8c4b7ac57f75c0e9ef068a3f",
+      "manifestSha256": "526e3cd3f8ea7238f137b8bad868bc4f91fba03b72c24ea14fd5504f087c6bc3",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 122
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 1502,
+      "verifiedZipFiles": 1504
+    },
+    {
+      "name": "diagnostics/20261017T132455.060110000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132455.060110000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132455.060110000Z.zip",
+      "archiveSha256": "986b35dc13274665cb8c64d7dd8af6b99211c2ca2e92b9b41241ec135d7e056c",
+      "manifestSha256": "c384ac691bd4459ad711acd492d9e41158b2b1a99a38d274d2446bd47b6fcb4e",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "FAIL": 1,
+        "PASS": 72
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 929,
+      "verifiedZipFiles": 931
+    },
+    {
+      "name": "diagnostics/20261017T132523.733932000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132523.733932000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132523.733932000Z.zip",
+      "archiveSha256": "60e2dd2d569a9e4d5d1fa8b362728ed92862437c9a2a061172788464b4a5484b",
+      "manifestSha256": "9de9b4d8d96d6e84170d2ad641b9a64cc740c7483dab8a853f075d487204bfac",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 22
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 296,
+      "verifiedZipFiles": 298
+    },
+    {
+      "name": "diagnostics/20261017T132556.774834000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132556.774834000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132556.774834000Z.zip",
+      "archiveSha256": "72c7c76e05424f73dc1178eeb963dd9dd9f6eb1aeac2f8231fef96154ec5fac0",
+      "manifestSha256": "6690934d037ef7a51502299ab7119d20ddeba008dee6c848cabb440e3ff08397",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 6,
+        "FAIL": 6
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 84,
+      "verifiedZipFiles": 86
+    },
+    {
+      "name": "diagnostics/20261017T132559.442519000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132559.442519000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132559.442519000Z.zip",
+      "archiveSha256": "37aeba2adbe95392c921125d72ad44488ef95303e947fdd87fa2567a744fe584",
+      "manifestSha256": "77cce575be6a06bb93f39fe675ffe55e4a7f0ea025a309e81ded7c108b613b74",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 73
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 929,
+      "verifiedZipFiles": 931
+    },
+    {
+      "name": "diagnostics/20261017T132609.420152000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132609.420152000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132609.420152000Z.zip",
+      "archiveSha256": "8778722b28dd5257c0a6273cb7d79c6bd1f22cd10c7c43b085bf7be3c3031337",
+      "manifestSha256": "6dcb4c3d39a9b3839167d68c018c2a6e5b21b1fbf0ab5d1de9b78293be3a2cb7",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 114,
+        "FAIL": 2
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 812,
+      "verifiedZipFiles": 814
+    },
+    {
+      "name": "diagnostics/20261017T132651.047801000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132651.047801000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132651.047801000Z.zip",
+      "archiveSha256": "052f995be6b0710f70f33d5c25b91d2820cf439dac08215513c2a944b117d1de",
+      "manifestSha256": "68c9cc337eda41e8428e5adb1b330b9e1d5fc262563053006b544ebea4fefa6c",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 339
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 3611,
+      "verifiedZipFiles": 3613
+    },
+    {
+      "name": "diagnostics/20261017T132740.530022000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/diagnostics/20261017T132740.530022000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/diagnostics--20261017T132740.530022000Z.zip",
+      "archiveSha256": "13142aae846e757da0fb711e6e149b3217f35f9110cfd7e2e8435a1776b6d732",
+      "manifestSha256": "286e8dd7532b5e5041112e37719ba8903c01a84bd2ea4eb1a1560732ee817bc7",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 66
+      },
+      "gitCommitAtRun": "11ef77e3ec3515c7b9cc87e3f21cf066b9b35aa4",
+      "verifiedCaseArtifacts": 828,
+      "verifiedZipFiles": 830
+    },
+    {
+      "name": "differential/20261017T132900.725552000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/differential/20261017T132900.725552000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/differential--20261017T132900.725552000Z.zip",
+      "archiveSha256": "823b36cc9f8bb9a2233efe6360f7b0e621ee25a316064662ce638dcd8ebc3053",
+      "manifestSha256": "98276da05c1b3090365d7ec69e21d62d9d358b0e2ff98246c9b0edfa66bca800",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 321
+      },
+      "gitCommitAtRun": "a422f0e4654021fbc0e43935ada48cf93af3afbc",
+      "verifiedCaseArtifacts": 3531,
+      "verifiedZipFiles": 3533
+    },
+    {
+      "name": "final-identity/20261017T133117.377137000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/final-identity/20261017T133117.377137000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/final-identity--20261017T133117.377137000Z.zip",
+      "archiveSha256": "2317db1c85e4fc7413bc2d375729195ef1fde6a8f923534570477fccdbe3d5ac",
+      "manifestSha256": "5fc3f1ea13d4be03ad0934ec1e4cdee65c18f7c579227a2404cf408b079b4f64",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 116
+      },
+      "gitCommitAtRun": "113d99251fd491c449ad71abb7726ea998fc5b1b",
+      "verifiedCaseArtifacts": 812,
+      "verifiedZipFiles": 814
+    },
+    {
+      "name": "final-race/20261017T133002.843773000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/final-race/20261017T133002.843773000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/final-race--20261017T133002.843773000Z.zip",
+      "archiveSha256": "40190488b7d6c4a82a03d10adbd446f5763b27f5544d9f446488824b4f1dcbc0",
+      "manifestSha256": "3b692ee1bc7949c8c53fc3473c1ccda65d86e0179945c71353cc8153deef13a9",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 357
+      },
+      "gitCommitAtRun": "a422f0e4654021fbc0e43935ada48cf93af3afbc",
+      "verifiedCaseArtifacts": 4130,
+      "verifiedZipFiles": 4132
+    },
+    {
+      "name": "final09/20261017T132958.732525000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/final09/20261017T132958.732525000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/final09--20261017T132958.732525000Z.zip",
+      "archiveSha256": "45311c9d429c1a2959bc1fa0ffd7acd8fb31bce7e001352f95047310b3b05437",
+      "manifestSha256": "add1a22b875535c8686fb10615d18a6f452ef2db1088ac9df066c5769ee81074",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 357
+      },
+      "gitCommitAtRun": "a422f0e4654021fbc0e43935ada48cf93af3afbc",
+      "verifiedCaseArtifacts": 4130,
+      "verifiedZipFiles": 4132
+    },
+    {
+      "name": "full09/20261017T132830.211901000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/full09/20261017T132830.211901000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/full09--20261017T132830.211901000Z.zip",
+      "archiveSha256": "34aee38fc466340a8d41f42ecd16b741db21be3dc7f2fc0dc7a712f8ff78e0db",
+      "manifestSha256": "0efc5b0aefec3ae13ab78c38e20b3f8adc5e13674094bef55e477375cbc1e489",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 357
+      },
+      "gitCommitAtRun": "6e6cf45fc1518608beca28bb3ab88815d4fff4a3",
+      "verifiedCaseArtifacts": 4128,
+      "verifiedZipFiles": 4130
+    },
+    {
+      "name": "race/20261017T132834.292862000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/race/20261017T132834.292862000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/race--20261017T132834.292862000Z.zip",
+      "archiveSha256": "93288aacb7cab5debf22c3f528dc6f377f9997b72f248e028668ab825fda10de",
+      "manifestSha256": "2521bb8640c12f4fa37387cb769aedc994fee5ca14ba75accb2df44cbef118fd",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 523
+      },
+      "gitCommitAtRun": "6e6cf45fc1518608beca28bb3ab88815d4fff4a3",
+      "verifiedCaseArtifacts": 4989,
+      "verifiedZipFiles": 4991
+    },
+    {
+      "name": "race359/20261017T133352.409916000Z",
+      "kind": "public-client-e2e",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/race359/20261017T133352.409916000Z",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/race359--20261017T133352.409916000Z.zip",
+      "archiveSha256": "406c8a5e6d49fc7d838afb279e20849abf9a513025f23af6968fb5d3a1ae2d96",
+      "manifestSha256": "7dea16a796098279db36ebc1f25351e6a6318a7f8166758b50ee418aa89b68d9",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {
+        "PASS": 359
+      },
+      "gitCommitAtRun": "a2031e918187d8eabaaeb20f67cd6b5d8a641864",
+      "verifiedCaseArtifacts": 4358,
+      "verifiedZipFiles": 4360
+    },
+    {
+      "name": "raw-logs",
+      "kind": "diagnostic-logs-only",
+      "bundle": ".evidence/barness-ai-glm/ticket-09/raw-logs",
+      "archive": ".evidence/barness-ai-glm/ticket-09/archives/raw-logs.zip",
+      "archiveSha256": "0b91bb7bb41ee6bd2dafe47a02bc76863cd9e8aac2fe4a88b9b0f868fda5617b",
+      "manifestSha256": "3760e7743d6b5d06dec86365b8a9154e23db3653d343994e004b17739aa06f59",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "auditFindings": 0,
+      "outcomes": {},
+      "gitCommitAtRun": null,
+      "verifiedCaseArtifacts": 0,
+      "verifiedZipFiles": 43
+    }
+  ],
+  "incompleteRun": {
+    "path": "raw-logs/incomplete-callback-panic",
+    "status": "INCOMPLETE",
+    "behaviorManifest": false,
+    "audit": "Only audited as diagnostic files under raw-logs, never a finished behavior bundle",
+    "rawLog": "raw-logs/glm09-shared.log"
+  },
+  "vet": {
+    "exitCode": 0,
+    "rawLog": "raw-logs/glm09-verified-vet.log"
+  },
+  "notes": [
+    "Current complete suite/race: all359 and race359, 359 PASS each. Concurrent-release separately proves48 failed logical calls under race; final-identity reruns116 boundary cases after RequestID-literal-only change.",
+    "Earlier full09/race/affected bundles share identical production code; tests later correct Messages usage ordering and add load headroom only.",
+    "Diagnostics preserve assertion/harness failures, including capacity setup, absent 5.2 Messages thinking in own tool capture, phase expectations, and bounded idle pool. Only refined Chat-container red (6 FAIL / 6 PASS) and callback crash establish the corresponding remaining fixes.",
+    "Every archive was opened and each entry rehashed against source bytes; each manifest case artifact was verified before archiving."
+  ]
+}
