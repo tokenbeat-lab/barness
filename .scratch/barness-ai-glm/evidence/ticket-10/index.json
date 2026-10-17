@@ -1,0 +1,83 @@
+{
+  "scope": "offline own GLM extension acceptance plus unchanged native differential; no live/support-matrix promotion",
+  "bundles": {
+    "public": {
+      "path": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-10/runs/public",
+      "manifestSHA256": "f89b317c7f362a1c245178eb1134ad9790411b4be6b215a6ecbdff94e6ab3927",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "statuses": {
+        "PASS": 1797,
+        "NOT_RUN": 1
+      },
+      "gitCommit": "8839138c7c6ea3808756b6db005fbf19e0814e95",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7",
+        "model_catalog_version": "2026-10-17.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "differential": {
+      "path": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-10/runs/differential",
+      "manifestSHA256": "6e6aaa2f811bfc23b06c6d5869fe30bce008eaa766d678f470e16171bfcd4be5",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "statuses": {
+        "PASS": 726
+      },
+      "gitCommit": "af49ce029f8993cb5a5a7ac15bfdadab9d509266",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7",
+        "model_catalog_version": "2026-10-17.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "ledger": {
+      "path": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-10/runs/ledger",
+      "manifestSHA256": "11968993c581dd8cd1520c37f30926b0c497897f0274687de6777f6bc9db8d05",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "statuses": {
+        "PASS": 5
+      },
+      "gitCommit": "af49ce029f8993cb5a5a7ac15bfdadab9d509266",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7",
+        "model_catalog_version": "2026-10-17.1",
+        "openai-go": "v3.66.0"
+      }
+    },
+    "post-merge": {
+      "path": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-10/runs/post-merge",
+      "manifestSHA256": "f2038c585e93401d65f45391661b4f3f8863c47c4148ddacfd3a2c23d9dc0ed4",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "statuses": {
+        "PASS": 95
+      },
+      "gitCommit": "2b8c1a69dc672d0e8a661d2e8cef118f9e386537",
+      "versions": {
+        "anthropic-sdk-go": "v1.75.0",
+        "model_catalog_hash": "sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7",
+        "model_catalog_version": "2026-10-17.1",
+        "openai-go": "v3.66.0"
+      }
+    }
+  },
+  "ledger": {
+    "path": "ai/e2e/testdata/glm-pidiff/ledger.json",
+    "sha256": "58c5a1fbb81cf7589b846e44c270b5b20836d80a59e2a64acd73e1f1c5c47f16",
+    "decisions": 43,
+    "casePathPairs": 752,
+    "cases": 420,
+    "validationBundle": "post-merge",
+    "pending": 0,
+    "proof": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-10/case-path-proof.json",
+    "proofSHA256": "855b37839cf39835fecd976602b937beba700e468583278153a605450222a0e8"
+  },
+  "nativeDifferentialCounts": {
+    "openai-responses": 335,
+    "anthropic-messages": 70,
+    "openai-completions": 321
+  },
+  "glmNativePiParity": "NOT_APPLICABLE_EXTENSION_ROUTE"
+}

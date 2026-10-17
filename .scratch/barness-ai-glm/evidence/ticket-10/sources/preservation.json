@@ -1,0 +1,59 @@
+{
+  "baselineCommit": "8839138c7c6ea3808756b6db005fbf19e0814e95",
+  "oldNativeDecisionsUnchanged": 317,
+  "oldExtensionRoutesUnchanged": [
+    {
+      "provider": "google",
+      "api": "google-interactions",
+      "classification": "extension",
+      "decision": "Native synchronous stateless Google Interactions image generation and ordered inline reference editing are outside frozen pi 1.0.0 routes. Public prompt-then-images input deliberately omits interleaved content and masks; shared strict png/jpeg/webp input validation is narrower than the protocol MIME list. Every P09 fixture skips pi differential and never counts as a differential pass. Own live/catalog confirmation remains issue 14.",
+      "ref": "docs/adr/0022-barness-ai-openai-images-unary.md; .scratch/barness-ai-pi-1.0/issues/12-google-interactions-image-generation.md; .scratch/barness-ai-pi-1.0/issues/13-google-reference-images-and-guards.md"
+    },
+    {
+      "provider": "deepseek",
+      "api": "openai-responses",
+      "classification": "extension",
+      "decision": "DeepSeek × Responses (P05) is an access path outside the frozen pi routes: pi 0.87.1 routes DeepSeek only through openai-completions (providers/deepseek.ts). It reuses barness's Responses adapter with DeepSeek's own capabilities (no store, include, prompt cache or service tier; full input history) and is proven by the official-protocol fixtures in ai/e2e/testdata/deepseek-responses, run offline by TestDeepSeekResponses*; none of them runs as a differential case and none counts as a differential pass. Its live evidence is issue 23's smoke.",
+      "ref": "spec I4, Testing Decisions §5; ADR-0014; issues/21; ai/e2e/deepseek_responses_test.go, deepseek_routing_test.go"
+    },
+    {
+      "provider": "openai",
+      "api": "openai-images",
+      "classification": "extension",
+      "decision": "Native synchronous Images generation (and issue 10 JSON editing) uses an independently bounded unary route; frozen pi 1.0.0 routes OpenRouter images only. P08 fixtures explicitly skip pi differential and are never counted as a differential pass.",
+      "ref": "docs/adr/0022-barness-ai-openai-images-unary.md"
+    }
+  ],
+  "addedExtensionRoutes": [
+    {
+      "provider": "zhipu",
+      "api": "openai-completions",
+      "classification": "extension",
+      "decision": "China standard chat (https://open.bigmodel.cn/api/paas/v4), both glm-5.3/glm-5.2: frozen pi-ai 1.1.0 has neither zhipu identity nor this standard endpoint. zai international Coding and zai-coding-cn China Coding are different services. Own official/observed fixtures and public Client cases prove the bounded extension; never counted as native pi differential PASS. Formal catalog/live remain tickets11/12.",
+      "ref": "spec R20/T01/A14; ADR-0014; ai/e2e/testdata/glm-pidiff/README.md; .scratch/barness-ai-glm/evidence/ticket-10/README.md"
+    },
+    {
+      "provider": "zhipu",
+      "api": "openai-responses",
+      "classification": "extension",
+      "decision": "China standard responses (https://open.bigmodel.cn/api/v1), both glm-5.3/glm-5.2: frozen pi-ai 1.1.0 has neither zhipu identity nor this standard endpoint. zai international Coding and zai-coding-cn China Coding are different services. Own official/observed fixtures and public Client cases prove the bounded extension; never counted as native pi differential PASS. Formal catalog/live remain tickets11/12.",
+      "ref": "spec R20/T01/A14; ADR-0014; ai/e2e/testdata/glm-pidiff/README.md; .scratch/barness-ai-glm/evidence/ticket-10/README.md"
+    },
+    {
+      "provider": "zhipu",
+      "api": "anthropic-messages",
+      "classification": "extension",
+      "decision": "China standard messages (https://open.bigmodel.cn/api/anthropic), both glm-5.3/glm-5.2: frozen pi-ai 1.1.0 has neither zhipu identity nor this standard endpoint. zai international Coding and zai-coding-cn China Coding are different services. Own official/observed fixtures and public Client cases prove the bounded extension; never counted as native pi differential PASS. Formal catalog/live remain tickets11/12.",
+      "ref": "spec R20/T01/A14; ADR-0014; ai/e2e/testdata/glm-pidiff/README.md; .scratch/barness-ai-glm/evidence/ticket-10/README.md"
+    }
+  ],
+  "unchangedFrozenInputs": {
+    "ai/internal/testkit/pioracle/node/package.json": "b7261f19721f524d9dc16fed8191ac70e7b600174e79b8aac19c02c7b5638c42",
+    "ai/internal/testkit/pioracle/node/package-lock.json": "e0b4084c372bc764b73faa25f2a311a3649e5b7ffb341352f25c13a891b7de65",
+    "ai/internal/testkit/pioracle/node/PROVENANCE.md": "9c316bfaeb1c3327a4c6858eb8eeecd2b89779669bdd2d51e28fcbeca8fb2f0e",
+    "ai/internal/testkit/pioracle/node/model-data.sha256": "8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8",
+    "ai/internal/testkit/pioracle/node/provenance.json": "e4a486db16ef1bb57fdd1ed06c271fd892ee2e659b280fa1f6510929a780a20f",
+    "ai/internal/testkit/pioracle/node/runner.mjs": "aacfb6c44b2ca528ee828c07635a26a647c0ea1afe74eb91abe3d620401af465",
+    "ai/internal/testkit/pioracle/node/runner.test.mjs": "cced3a66ab8bba08b8465155498d3179f6711725ffb1ef45b00b253da2345be4"
+  }
+}
