@@ -78,8 +78,8 @@ records 3311 passing cases, including 202 own cases and all impacted old protoco
 families; no full slow release gate or live acceptance is claimed here.
 
 
-Final committed-source acceptance: **270 PASS** cases at `4ca7a11` (202 own,
-66 existing GLM native/cross-protocol regression, two unchanged original design
+Final committed-source acceptance: **258 PASS** cases at `4ca7a11` (202 own,
+54 existing GLM native-boundary regression, two unchanged original design
 loads). All successful retained bundles have no redaction findings. Own race:
 202 PASS at the same final runtime; vet PASS. `green-summary.json` records each
 of the six added load batches' permit peak, <=75% maximum bound, unchanged
