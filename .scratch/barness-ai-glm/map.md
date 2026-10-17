@@ -20,6 +20,10 @@
 
 - 2026-10-17：[03 已解决](issues/03-glm-chat-tool-round-trip.md)：两型号工具分片/Host 往返、同轮推理与信任降级、auto-only/clear_thinking 最终约束及精确输出预算完成；已提交完整 Chat 358 PASS、新增 192 例 race PASS、受影响冻结差分 321 PASS 零 pending。见 [ADR-0033](../../docs/adr/0033-barness-ai-zhipu-chat-candidate.md) 与[证据索引](evidence/ticket-03/README.md)。
 
+- 2026-10-17：[07 已解决](issues/07-glm-messages-tools-thinking-replay.md)：两型号 Messages 工具/原生签名与无签名 thinking 回放、5.2 唯一已证实 budget1024/max4096 full 形状、来源降级及最终能力/图片/SSE 顺序校验完成；193 公共 Client、190+3 race、104 原生回归、168 运行时和70冻结差分通过。见 [ADR-0035](../../docs/adr/0035-barness-ai-zhipu-messages-basic.md) 与[证据索引](evidence/ticket-07/README.md)。无 canonical 强度映射/预算范围/redacted 支持或正式 live 发布声明。
+
+- 2026-10-17：[08 已解决](issues/08-glm-failures-retry-usage.md)：三协议独立错误码、安全诊断、不可恢复429零重试及固定快照有界重试完成；用量缺项/零/缓存/推理/断流保留，GLM不套用Anthropic一小时缓存元数据或溢价。最新合并GLM1108 PASS、原生回归2538 PASS、冻结三协议差分608 PASS零pending；见[证据索引](evidence/ticket-08/README.md)与ADR0006/0010。
+
 ## Fog
 
 - 候选协议、真实标准 Key 冒烟和人民币价格换算证据均待取得；不得以离线通过代替正式支持。

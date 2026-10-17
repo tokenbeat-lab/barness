@@ -1,0 +1,68 @@
+{
+  "source": "https://docs.bigmodel.cn/openapi/openapi-responses.json",
+  "sourceSha256": "0914af477ff4c1fae0372f9c44ace23033d0bed0cc486796eaff2c2024e5f18c",
+  "schemas": {
+    "ResponseError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "错误码，见 Error 说明。"
+        },
+        "message": {
+          "type": "string",
+          "description": "错误描述。"
+        }
+      }
+    },
+    "EventError": {
+      "type": "object",
+      "description": "发生错误时触发。",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "error"
+          ]
+        },
+        "sequence_number": {
+          "type": "integer",
+          "format": "int64",
+          "description": "事件序列号。"
+        },
+        "code": {
+          "type": "string",
+          "description": "错误码。"
+        },
+        "message": {
+          "type": "string",
+          "description": "错误原因。"
+        }
+      },
+      "title": "error"
+    },
+    "Error": {
+      "type": "object",
+      "description": "Response API 错误。`error.code` 为字符串，与对话补全的数字业务码不是同一套。\n\n| code | 含义 |\n| --- | --- |\n| `invalid_request` | 请求参数或格式错误 |\n| `model_not_found` | 模型不存在 |\n| `not_implemented` | 接口或能力未实现 |\n| `request_too_large` | 请求体超过大小限制 |\n| `authentication_error` / `invalid_api_key` / `expired` | 认证失败 |\n| `permission_denied` | 权限不足 |\n| `context_length_exceeded` | 输入超过模型上下文窗口 |\n| `rate_limit_exceeded` | 请求频率超限 |\n| `insufficient_quota` / `quota_exceeded` / `usage_limit_reached` / `usage_not_included` | 额度或用量限制 |\n| `server_error` | 服务端内部错误 |\n| `server_is_overloaded` / `overloaded` / `slow_down` | 服务过载或要求降速 |\n| `content_filter` / `cyber_policy` | 内容或安全策略拦截 |",
+      "properties": {
+        "error": {
+          "type": "object",
+          "required": [
+            "code",
+            "message"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "错误码，例如 `invalid_request`。"
+            },
+            "message": {
+              "type": "string",
+              "description": "错误描述。"
+            }
+          }
+        }
+      }
+    }
+  }
+}

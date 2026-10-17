@@ -1,8 +1,8 @@
 # GLM Messages Host candidate
 
 `MessagesCatalog`, `MessagesBinding` and `MessagesEndpoint` assemble a separate
-Host candidate for China Zhipu × Messages. This is basic text support under
-verification, not a built-in model or full Messages support claim. Chat and
+Host candidate for China Zhipu × Messages. This is text, tools and bounded native-thinking support under
+verification, not a built-in model or formal live support claim. Chat and
 Responses entries are not used to derive its wire behavior.
 
 The [official Claude compatibility guide](https://docs.bigmodel.cn/cn/guide/develop/claude/introduction.md)
@@ -34,26 +34,46 @@ visible reasoning does not describe internal computation.
 Use `Stream`, `Complete`, `StreamSimple` or `CompleteSimple` with omitted
 reasoning. Nil/full omitted thinking and simple omitted reasoning preserve
 wire omission, including GLM-5.3. Messages ignores model/call SamplingParams
-and per-level maps. Full explicit thinking, canonical levels/budgets, display,
-effort, cache hints and metadata are not exposed by this basic ticket; they
-fail before send instead of being silently mapped to Claude fields. Cache
-`none` is a legal omission preference. A single real 5.2 enabled/budget1024
-shape exists, but does not establish a budget range or canonical strength map.
-Ticket 07 owns the next bounded extension.
+and per-level maps. Both models support function definitions and default/auto
+selection, public ValidateToolCall and ToolResultText continuation. Other tool
+choices remain unimplemented and reject before send.
+
+The 5.2 candidate independently opts into ModelCompat.MessagesThinkingBudgetTokens
+1024. Only full ThinkingEnabled=true, ThinkingBudgetTokens=1024 and MaxTokens=4096
+produces the exact own-probe request, without display/beta. No other explicit
+budget/output pair is proven; the provider rejects them even if metadata asks
+for a larger value. This acceptance does not prove ceiling enforcement or
+canonical intensity. All canonical levels remain unsupported, and 5.3 explicit
+thinking controls remain unimplemented while its default signed thinking works.
+
+Returned signed thinking is preserved for trusted same-model/account/tenant/API
+history. The Host can persist the message and envelope, check storage integrity,
+then call TrustNativeState to restore trust. Both models also accepted the same
+successful continuation with ONLY signature field omission. Such trusted unsigned
+thinking remains thinking and has no signature field; this is not provider-emitted
+unsigned output or empty-string signature evidence. Unsigned thinking receives the
+same provenance checks before keeping its native wire kind. Untrusted or mismatched
+history downgrades visible thinking to text and drops opaque redacted data. No
+actual redacted GLM block was observed: native redacted replay and empty signatures
+reject before send instead of being advertised as supported. Cache `none` is a
+legal omission preference; cache hints, effort, display and metadata are unimplemented.
 
 No automatic cache/TTL, eager tool streaming, browser header, thinking display,
 beta, adaptive/block binding, managed effort, fallback or protocol conversion
-is added. A trusted callback may retain/modify the verified basic body and
+is added. A trusted callback may retain/modify the verified body and
 ordinary headers; final validation rejects unverified fields or beta/browser
-headers before any Attempt. Existing authorization still protects model,
+headers before any Attempt. Final callbacks cannot inject native image blocks into these
+text-only models, including system/user/tool-result content. Tool schema/input
+properties remain user data. Existing authorization still protects model,
 credentials and provider-side references.
 
 Actual usage begins with input/output zero in `message_start`, then reports
 actual input/output and cache_read=0 in `message_delta`. `cache_creation` is
 absent, so UsageReporting remains partial, and reasoning is not fabricated.
 The response's X-Request-Id is preserved in Attempts and errors; native
-Anthropic retains Request-Id. Missing stop reason/message_stop and in-stream
-error fail with one terminal result through the existing lifecycle.
+Anthropic retains Request-Id. Missing stop reason/message_stop, in-stream
+error and illegal GLM event ordering fail with one terminal result. Native
+Anthropic keeps its pinned parser behavior. Each tool index assembles independently.
 
 ```go
 catalog := glm.MessagesCatalog() // explicit trusted Host snapshot

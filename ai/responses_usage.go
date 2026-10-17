@@ -34,6 +34,11 @@ func (p responsesUsage) of(r responses.Response) (u Usage, reporting UsageReport
 		Reasoning:   Value(ru.OutputTokensDetails.ReasoningTokens),
 		TotalTokens: ru.TotalTokens,
 	}
+	// GLM may omit total_tokens; preserve the known parts without claiming
+	// that the missing field was reported. Native provider semantics stay fixed.
+	if p.model.Provider == ProviderZhipu && !ru.JSON.TotalTokens.Valid() {
+		u.TotalTokens = u.Input + u.Output + u.CacheRead + u.CacheWrite
+	}
 	u.Cost = p.model.Cost.estimate(u).scaled(serviceTierMultiplier(p.model, p.tier(r)))
 	return u, responsesUsageReporting(ru), true
 }
