@@ -1,5 +1,14 @@
 # 当前目录的分类图片发布验收
 
+2026-10-17最新整版验收已PASS：当前Go内容`9a8ea45`，实际报告提交`fc8f02b`，
+公开releasegate退出0、10项门禁全部通过。11条独立真实支持和4项效果均被接受，
+normal/race各9098 PASS、0 FAIL，各861 Pi及33 UC14，17个输入审计零发现；#14已resolved。
+本次新增312 Calls/Attempts，包含已保留原失败的一次DeepSeek完整路线确认，低于550上限。
+原配置失败、空推理失败、harness时限失败和先前TypeSafe/压力历史均保持原样。
+当前结果、按Provider授权/有限预算和完整字节核验入口见
+`.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md`。
+下文的旧NOT_RUN与阻断段落保留其当时事实，不代表本次最终状态。
+
 发布命令仍是 `go run ./ai/release/cmd/releasegate`。当前合同在原十条路线之外，
 独立要求 `typesafe-classifier-jev-1.14.0`；`typesafe-classifier` 仍固定 1.13，
 `openai-decisions` 仍为 Luna。必交能力不能用 UNSUPPORTED 绕过。

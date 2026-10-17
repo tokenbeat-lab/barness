@@ -216,7 +216,8 @@ def record(base):
     receipt = dict(schema=1,kind='ticket14-all-provider-real',overall='PASS',base=b.relative(base),
         files=dict(source['files']),sourcePaths=paths,executionCommit=result['report']['commit'],
         sourceCommit=source['gitCommit'],current=result,commands=commands(base),initialCommands=commands(INITIAL,True),
-        historicalSources=[historic_source(INITIAL)],runs=[],subprocessRuns=[],inventories=[],storedTrees=[],
+        sourceGitVerification=historic_source(base),historicalSources=[historic_source(INITIAL)],
+        runs=[],subprocessRuns=[],inventories=[],storedTrees=[],
         excludedRebuildableRootBinaries=sorted(b.BINS))
     initial = b.doc(r.bundle(INITIAL/'live/openai-decisions')/'live-report.json')
     if (initial['budget']['callsUsed'] or initial['budget']['httpAttempts']
@@ -299,6 +300,8 @@ def verify():
         raise ValueError('actual result/command drift')
     if historic_source(INITIAL)!=receipt['historicalSources'][0]:
         raise ValueError('initial historical source drift')
+    if historic_source(base)!=receipt['sourceGitVerification']:
+        raise ValueError('current source Git identity drift')
     for run in receipt['runs']+receipt['subprocessRuns']:
         if b.bundle(ROOT/run['path'],allow_incomplete=run in receipt['subprocessRuns'])!=run:
             raise ValueError('producer inventory/verdict drift')

@@ -1,6 +1,6 @@
 # 04：Decisions 正式真实入口拒绝未配置代理的直连
 
-Status: claimed
+Status: resolved
 
 ## Failure modes before implementation
 
@@ -35,3 +35,14 @@ Status: claimed
 argv/时长/输出留存。未捕获首个超时进程的内部栈，不把启动调度延迟认作已证明根因。
 故执行一次同源码完整无凭据复核，使用新intent/目录，原失败不覆盖；只有完整复核通过
 才能启用收费恢复。所有材料在`.evidence/ticket14-decisions-direct-20261017/`及恢复根。
+
+
+## Answer
+
+2026-10-17：`9a8ea45`仅在非空代理时运行既有loopback校验，空代理明确直连且不继承ambient。
+三个公开进程E2E先RED，8项直连/loopback/非法代理回归GREEN，完整同源码harness复核
+207 PASS、62 NOT_RUN、0 FAIL；旧FIFO时限FAIL保持原结论，未改时限或宣称已解释根因。
+新真实正式Decisions9场景全PASS、9 Calls/Attempts，账户/区域/权限仍unknown而非伪造verified。
+当前整版`fc8f02b`实际CLI0、pass=true、10门禁全部PASS，normal/race各9098 PASS、0 FAIL，
+各861 Pi/33 UC14，17个输入审计零发现。当前真实/效果及旧失败都进入独立完整字节索引。
+验收材料见`../../jev-1.14-multimodal-box/14-remaining-real/verification.md`。

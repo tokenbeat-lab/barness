@@ -1,5 +1,25 @@
 # 工单14真实验证缺口与授权预算清单
 
+## 最新执行状态（2026-10-17）
+
+用户已允许按根`.env`现有key真实调用直到整票通过。可用变量名按Provider为：
+OpenAI `OPENAI_KEY`，Anthropic `ANTHROPIC_KEY`，Google `GEMINI_KEY`，
+DeepSeek `DEEPSEEK_KEY`，TypeSafe `TYPESAFE_KEY`。不记录任何值、长度、前后缀或指纹。
+本次总上限550 Calls/Attempts；Provider上限分别232、64、72、128、54。
+先初轮248上限，再唯一全量恢复302上限；已用312次包含一次≤32次的同源码
+DeepSeek Chat完整确认。没有第三个全量轮，不再自动补跑，之前TypeSafe102次属独立历史授权。
+
+当前选定11支持及4效果包均通过严格核验，矩阵已整批原子更新。初轮Decisions空代理
+0调用配置FAIL及恢复轮DeepSeek空推理12次FAIL保持原包，修复/确认使用新包。
+当前Go内容`9a8ea45`；实际报告提交`fc8f02b`、pass=true、CLI退出0，10项门禁全PASS。
+normal/race均9098 PASS、0 FAIL，各861 Pi及33 UC14；17个输入审计零发现，#14已resolved。
+未出现仍需补充才能执行当前必交调用的授权阻断；账户/区域/privilege及金额硬限内省仍未知，
+不编造Host permissions或美元熔断。完整授权、按Provider实际用量、错误原包及最终结论见
+[本轮验收](14-remaining-real/verification.md)和[授权](14-remaining-real/authorization.md)。
+以下是首次清单、历史续记和保持不变的各路线合同，不代表仍缺少本轮授权。
+
+## 初次核对与历史续记
+
 2026-10-17，核对基准 `8e13d23`，Go 内容为 `cc78cfd` 的完整600文件集合。
 当前正式目录版本 `2026-10-17.1`，Hash 为
 `sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7`。
@@ -20,7 +40,7 @@ Jev1.13协议3、中文24、Jev1.14正式协议12、正式视觉12，共51 Calls
 整体仍BLOCKED（CLI退出1），因为下述其他真实路线和效果仍未运行。
 其他9条支持及2项效果仍未获准执行，待授权原额度仍为248次，不从累计调用数扣算。
 
-## 剩余验收
+## 初次核对时的剩余验收（历史）
 
 [#14](issues/14-current-catalog-release-integration.md)仍有两项未勾选；TypeSafe部分已执行，
 以下全合同还需其他9条支持与2项效果的当前真实包：

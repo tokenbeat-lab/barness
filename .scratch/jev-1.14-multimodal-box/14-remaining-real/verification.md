@@ -1,6 +1,6 @@
 # #14 全 Provider 真实验证与整版验收
 
-当前状态：11条当前真实支持及4项效果已通过严格核验，整版门禁运行中；不得提前关闭工单。
+最终公开发布门禁：**PASS**，实际CLI退出0。11条当前真实支持及4项效果完成，normal/race各9098 PASS、0 FAIL，17个输入审计零发现。
 
 ## 授权、凭据与预算
 
@@ -65,7 +65,8 @@
 11/11 PASS；使用新目录`deepseek-chat-recheck`，旧失败和原allCommandsSucceeded=false保留。
 最终选定包仅采用这次新的完整有效Chat报告，不拼接不同进程场景。
 
-本次新增总计312 Calls/Attempts：初120 + 全量恢复179 + 单路线确认13，零重试；
+本次新增总计312 Calls/Attempts：初120 + 全量恢复179 + 单路线确认13；
+各包SDK/场景内retry计数均0，另行安排的整路线复核13次明确计入总额，不隐藏为零消耗。
 之前TypeSafe102次属于独立历史授权，不计入本次新增。
 
 | Provider | 本次实际 Calls/Attempts | 本次总上限 | 补充授权阻断 |
@@ -87,8 +88,26 @@ Jev当前Box present2、absent2，MeanIoU=0.7123740342276741；消费后absent�
 仍保留2个raw absent box被存在性门控抑制的事实。分数只描述固定合成小任务，无新增质量阈值。
 两文本、两视觉及Jev正式封装均通过公开严格verifier，视觉/封装均require-live。
 
-完整无凭据releasegate正在运行，输入恰为11个当前支持、2文本和2正式视觉包；
-normal/race、Pi、压力、审计及最终实际CLI结果待完成后填写。所有收费调用已结束，不再自动补跑。
+完整无凭据releasegate已完整结束，输入恰为11个当前支持、2文本和2正式视觉包；
+normal/race实际manifest均为9098 PASS、0 FAIL，各含861 Pi及33 UC14，完整压力与两入口
+图片负载在其中；两阶段审计均0发现。实际报告`gate/release-report.json`为`pass=true`，
+CLI退出0，执行报告提交`fc8f02b`（Go内容仍`9a8ea45`），29个本轮命令状态逐一保留。
+两种vet、P0、差分、live、脱敏、追溯、快照、required-artifacts等10项门禁全部PASS。
+11条live行全部PASS；4项文本/正式视觉效果和原要求的资源/撤销/负载证据均被接受。
+17个指定输入包聚合审计零发现；normal约493.18s，race约1858.04s，均完整执行，
+没有使用`-bundle`复评来替代本轮normal/race。
+
+目录、发布计划、有限classifier扩展表和原#07快照均current。原#07保持其既有resolved
+和Hash `25bacdc0fddb101a79ebde7c6077dadfaddd1a9ff029529a876fd5335fc7a052`，
+没有重写其原始因果证据或追认旧报告PASS。#14仅在全部真实包和本次整版门禁满足后
+勾选最后两项并resolved；续修04随真实9场景及完整回归验收关闭。父规格/ADR的用户
+未提交内容未被代改，未执行部署。
+
+封存器另从原始报告重算120+179+13，校对550任务及128 DeepSeek上限、每路线预算、
+实际步骤退出码、source-at-start的607项与Git对象、600个完整Go路径、必需唯一生产包、
+两阶段真实9098/861/33覆盖、各case清单、视觉/文本/派生支持完整性及所有保留树。
+历史TypeSafe两轮按原字节与旧索引保存，当前只接纳本轮新源码包。
+所有收费调用已结束，不再自动补跑。
 
 ## 可重复核验
 
