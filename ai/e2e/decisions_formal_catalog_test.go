@@ -40,10 +40,11 @@ func TestDecisionsFormalCatalog(t *testing.T) {
 	mustUnmarshal(t, raw, &candidate)
 	ev.Check("accepted sourced capabilities and input-only prices", reflect.DeepEqual(m, candidate.ClassifierModels[0]), "changed model")
 	hash := catalogHash(t, cat)
-	ev.Check("fresh formal version and hash", cat.Version == "2026-10-17.1" && hash != before.Hash && hash != catalogHash(t, candidate), "wrong formal identity")
+	ev.Check("fresh formal version and hash", cat.Version == "2026-10-17.2" && hash != before.Hash && hash != catalogHash(t, candidate), "wrong formal identity")
 	cat.ClassifierModels = slices.DeleteFunc(slices.Clone(cat.ClassifierModels), func(m ai.ClassifierModel) bool {
 		return (m.Provider == ai.ProviderOpenAI && m.API == ai.APIOpenAIDecisions) || m.ID == "jev-1.14.0"
 	})
+	cat.Models = slices.DeleteFunc(cat.Models, func(m ai.Model) bool { return m.Provider == ai.ProviderZhipu })
 	cat.Version = before.Catalog.Version
 	ev.Check("all old entries and omitted defaults unchanged", reflect.DeepEqual(cat, before.Catalog) && catalogHash(t, cat) == before.Hash, "historical content changed")
 	raw, err = os.ReadFile("../live/testdata/decisions/sources.json")

@@ -7,6 +7,12 @@ func (r Row) ValidIdentity() bool {
 	switch r.Combo {
 	case "openai-responses":
 		operation, provider, api = "chat", "openai", "openai-responses"
+	case "zhipu-chat":
+		operation, provider, api = "chat", "zhipu", "openai-completions"
+	case "zhipu-responses":
+		operation, provider, api = "chat", "zhipu", "openai-responses"
+	case "zhipu-messages":
+		operation, provider, api = "chat", "zhipu", "anthropic-messages"
 	case "openai-chat":
 		operation, provider, api = "chat", "openai", "openai-completions"
 	case "anthropic-messages":

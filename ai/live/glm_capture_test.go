@@ -118,11 +118,17 @@ func glmModelReports() map[string]any {
 			}
 		}
 		kind := "glm-model-candidate-only"
+		if r.Kind == "glm-formal" {
+			kind = "glm-model-formal"
+		}
 		if r.Mode == "replay" {
 			kind = "glm-model-capture-replay-only"
 		}
 		detail := map[string]any{"schema": 1, "kind": kind, "route": r.Route, "provider": "zhipu", "api": r.API, "endpoint": r.Endpoint, "model": model, "mode": r.Mode, "outcome": r.Models[model], "complete": r.Complete && r.Models[model] == "PASS", "auditPassed": r.AuditPassed, "catalogVersion": r.CatalogVersion, "catalogHash": r.CatalogHash, "sourceManifestHash": r.SourceManifestHash, "gitCommit": r.GitCommit, "startedAt": r.StartedAt, "finishedAt": r.FinishedAt, "sdk": r.SDK, "accountAlias": r.AccountAlias, "regionAlias": r.RegionAlias, "unknown": r.Unknown, "reportedKnownUsage": map[string]any{"input": knownInput, "output": knownOutput, "cacheRead": knownCacheRead, "cacheWrite": knownCacheWrite, "estimatedUSD": knownEstimate, "incompleteAttempts": unreported, "note": "reported known counters only; incomplete or cancelled usage remains unknown, estimate not invoice"}, "replayAttempts": replayAttempts, "calls": calls, "httpAttempts": attempts, "scenarios": cases}
 		name := "candidate-" + model + "-report"
+		if r.Kind == "glm-formal" {
+			name = "formal-" + model + "-report"
+		}
 		if r.Mode == "replay" {
 			name = "replay-" + model + "-report"
 		}
@@ -160,6 +166,9 @@ func glmAttemptCount() int {
 func glmSelectedEntry() string {
 	if glmReportState.Mode == "replay" {
 		return "^TestGLMCaptureReplay$"
+	}
+	if glmReportState.Kind == "glm-formal" {
+		return "^TestGLMFormal$"
 	}
 	return glmEntry
 }

@@ -1,6 +1,6 @@
 # 12: 发布六个正式目录条目与三个独立支持记录
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。

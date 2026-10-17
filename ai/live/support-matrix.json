@@ -781,6 +781,24 @@
           "lastPassedAt": "2026-10-17T07:48:36.445154Z"
         }
       ]
+    },
+    {
+      "combo": "zhipu-chat",
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "openai-completions"
+    },
+    {
+      "combo": "zhipu-responses",
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "openai-responses"
+    },
+    {
+      "combo": "zhipu-messages",
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "anthropic-messages"
     }
   ]
 }

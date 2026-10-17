@@ -101,6 +101,9 @@ func TestCatalogInclusion(t *testing.T) {
 		ev.ReplayEnv(pioracle.EnableEnv + "=1")
 		o := openOracle(t)
 		catalog := ai.BuiltinCatalog()
+		// China standard GLM has independent vendor sources and extension routes;
+		// TestGLMFormalCatalog verifies those six, never a frozen pi data claim.
+		catalog.Models = slices.DeleteFunc(catalog.Models, func(m ai.Model) bool { return m.Provider == ai.ProviderZhipu })
 		keys := make([]pioracle.ModelKey, len(catalog.Models))
 		for i, m := range catalog.Models {
 			keys[i] = piModelKey(m)

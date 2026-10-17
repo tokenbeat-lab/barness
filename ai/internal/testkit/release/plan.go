@@ -18,23 +18,23 @@ const requiredImageItems = `UC-R01 UC-R02 UC-R03 UC-R04 UC-R05 UC-R06 UC-R07 UC-
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "d6ac8b86a0e6584a0b1f9b33c3d9d0abcef45bd7599eb3eb66c126e18bfb774f"
+const approvedMappingHash = "92348fde5fe097ef2fac5946cbcd00a7cdcad6d2506bd298fe5a5fc98f3cdf92"
 
-// CheckReleasePlan validates the complete eleven live identities and seven differentials acceptance plan before
+// CheckReleasePlan validates the complete fourteen live identities and seven differentials acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified
 // input for Evaluate rather than allowing a mapping to assert its own status.
 func CheckReleasePlan(m TraceMap) Snapshot {
 	s := Snapshot{Name: "release-plan"}
 	var problems []string
-	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0") {
+	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0 zhipu-chat zhipu-responses zhipu-messages") {
 		if count(m.LiveCombos, combo) != 1 {
 			problems = append(problems, "required live combo "+combo)
 		}
 	}
-	if len(m.LiveCombos) != 11 {
-		problems = append(problems, "want exactly eleven live identities")
+	if len(m.LiveCombos) != 14 {
+		problems = append(problems, "want exactly fourteen live identities")
 	}
-	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC") {
+	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC GLM-CHAT GLM-RESPONSES GLM-MESSAGES") {
 		if count(m.P0, scenario) != 1 {
 			problems = append(problems, "required P0 "+scenario)
 		}
@@ -44,7 +44,7 @@ func CheckReleasePlan(m TraceMap) Snapshot {
 			problems = append(problems, "required differential "+scenario)
 		}
 	}
-	for _, route := range []RouteRef{{Scenario: "P05", Provider: "deepseek", API: "openai-responses"}, {Scenario: "P08", Provider: "openai", API: "openai-images"}, {Scenario: "P09", Provider: "google", API: "google-interactions"}} {
+	for _, route := range []RouteRef{{Scenario: "P05", Provider: "deepseek", API: "openai-responses"}, {Scenario: "P08", Provider: "openai", API: "openai-images"}, {Scenario: "P09", Provider: "google", API: "google-interactions"}, {Scenario: "GLM-CHAT", Provider: "zhipu", API: "openai-completions"}, {Scenario: "GLM-RESPONSES", Provider: "zhipu", API: "openai-responses"}, {Scenario: "GLM-MESSAGES", Provider: "zhipu", API: "anthropic-messages"}} {
 		if !slices.Contains(m.Differential.Routes, route) {
 			problems = append(problems, "required extension route "+route.Scenario)
 		}

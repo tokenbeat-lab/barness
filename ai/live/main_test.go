@@ -161,6 +161,7 @@ func TestMain(m *testing.M) {
 	}
 	if glmReportState != nil {
 		code = finishGLM(code, auditOK)
+		code = publishGLMFormal(code)
 	}
 	os.Exit(code)
 }
