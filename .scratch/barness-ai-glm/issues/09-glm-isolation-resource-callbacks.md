@@ -1,6 +1,6 @@
 # 09: 验证共享 Client 的隔离、回调授权与资源释放
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。

@@ -1,0 +1,370 @@
+{
+  "retrieved": "2026-10-17",
+  "url": "https://docs.bigmodel.cn/openapi/openapi.json",
+  "sha256": "e1867cd1a7e31b15cc9088b03d8c1361e275153a1334b9e9e3bea95f4c623dd9",
+  "schemas": {
+    "ChatCompletionTextRequest": {
+      "required": [
+        "model",
+        "messages"
+      ],
+      "type": "object",
+      "description": "普通对话模型请求，支持纯文本对话和工具调用",
+      "properties": {
+        "model": {
+          "type": "string",
+          "description": "调用的模型代码。`GLM-5.3` 是最新的旗舰模型系列，提供了复杂推理、超长上下文、极致推理速度。",
+          "example": "glm-5.3",
+          "default": "glm-5.3",
+          "enum": [
+            "glm-5.3",
+            "glm-5.2",
+            "glm-5.1",
+            "glm-5-turbo",
+            "glm-5",
+            "glm-4.7",
+            "glm-4.7-flash",
+            "glm-4.7-flashx",
+            "glm-4.6",
+            "glm-4.5-air",
+            "glm-4.5-airx",
+            "glm-4.5-flash",
+            "glm-4-flash-250414",
+            "glm-4-flashx-250414"
+          ]
+        },
+        "messages": {
+          "type": "array",
+          "description": "对话消息列表，包含当前对话的完整上下文信息。每条消息都有特定的角色和内容，模型会根据这些消息生成回复。消息按时间顺序排列，支持四种角色：`system`（系统消息，用于设定`AI`的行为和角色）、`user`（用户消息，来自用户的输入）、`assistant`（助手消息，来自`AI`的回复）、`tool`（工具消息，工具调用的结果）。普通对话模型主要支持纯文本内容。注意不能只包含系统消息或助手消息。",
+          "items": {
+            "oneOf": [
+              {
+                "title": "用户消息",
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "user"
+                    ],
+                    "description": "消息作者的角色",
+                    "default": "user"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "文本消息内容",
+                    "example": "What opportunities and challenges will the Chinese large model industry face in 2025?"
+                  }
+                },
+                "required": [
+                  "role",
+                  "content"
+                ]
+              },
+              {
+                "title": "系统消息",
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "system"
+                    ],
+                    "description": "消息作者的角色",
+                    "default": "system"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "消息文本内容",
+                    "example": "You are a helpful assistant."
+                  }
+                },
+                "required": [
+                  "role",
+                  "content"
+                ]
+              },
+              {
+                "title": "助手消息",
+                "type": "object",
+                "description": "可包含工具调用",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "assistant"
+                    ],
+                    "description": "消息作者的角色",
+                    "default": "assistant"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "文本消息内容",
+                    "example": "I'll help you with that analysis."
+                  },
+                  "tool_calls": {
+                    "type": "array",
+                    "description": "模型生成的工具调用消息。当提供此字段时，`content`通常为空。",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "工具调用ID"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "工具类型，支持 `web_search、retrieval、function`",
+                          "enum": [
+                            "function",
+                            "web_search",
+                            "retrieval"
+                          ]
+                        },
+                        "function": {
+                          "type": "object",
+                          "description": "函数调用信息，当`type`为`function`时不为空",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "description": "函数名称"
+                            },
+                            "arguments": {
+                              "type": "string",
+                              "description": "函数参数，`JSON`格式字符串"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "arguments"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "role"
+                ]
+              },
+              {
+                "title": "工具消息",
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "tool"
+                    ],
+                    "description": "消息作者的角色",
+                    "default": "tool"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "消息文本内容",
+                    "example": "Function executed successfully with result: ..."
+                  },
+                  "tool_call_id": {
+                    "type": "string",
+                    "description": "指示此消息对应的工具调用 `ID`"
+                  }
+                },
+                "required": [
+                  "role",
+                  "content"
+                ]
+              }
+            ]
+          },
+          "minItems": 1
+        },
+        "stream": {
+          "type": "boolean",
+          "example": false,
+          "default": false,
+          "description": "是否启用流式输出模式。默认值为 `false`。当设置为 `false` 时，模型会在生成完整响应后一次性返回所有内容，适合短文本生成和批处理场景。当设置为 `true` 时，模型会通过`Server-Sent Events (SSE)`流式返回生成的内容，用户可以实时看到文本生成过程，适合聊天对话和长文本生成场景，能提供更好的用户体验。流式输出结束时会返回 `data: [DONE]` 消息。"
+        },
+        "thinking": {
+          "$ref": "#/components/schemas/ChatThinking"
+        },
+        "reasoning_effort": {
+          "type": "string",
+          "description": "控制模型的推理程度，`thinking` 开启时生效，默认 `max`，仅  `GLM-5.2` 及其以上模型支持。对于 `GLM-5.3` `GLM-5.3-FLASH` 模型，仅支持 low / high / max 档位。对于 `GLM-5.2` 模型，传入 `none` 或 `minimal` 模型会放弃思考；传入 `low` `medium` 将映射为 `high`；传入 `xhigh` 将映射为 `max`。",
+          "example": "max",
+          "default": "max",
+          "enum": [
+            "max",
+            "xhigh",
+            "high",
+            "medium",
+            "low",
+            "minimal",
+            "none"
+          ]
+        },
+        "do_sample": {
+          "type": "boolean",
+          "example": true,
+          "default": true,
+          "description": "是否启用采样策略来生成文本。默认值为 `true`。当设置为 `true` 时，模型会使用 `temperature、top_p` 等参数进行随机采样，生成更多样化的输出；当设置为 `false` 时，模型总是选择概率最高的词汇，生成更确定性的输出，此时 `temperature` 和 `top_p` 参数将被忽略。对于需要一致性和可重复性的任务（如代码生成、翻译），建议设置为 `false`。"
+        },
+        "temperature": {
+          "type": "number",
+          "description": "采样温度，控制输出的随机性和创造性，取值范围为 `[0.0, 1.0]`，限两位小数。对于`GLM-5.3` `GLM-5.2` `GLM-5.1` `GLM-5` `GLM-4.7` `GLM-4.6`系列默认值为 `1.0`，`GLM-4.5`系列默认值为 `0.6`，`GLM-4`系列默认值为 `0.75`。较高的值（如`0.8`）会使输出更随机、更具创造性，适合创意写作和头脑风暴；较低的值（如`0.2`）会使输出更稳定、更确定，适合事实性问答等场景。建议根据应用场景调整 `top_p` 或 `temperature` 参数，但不要同时调整两个参数。",
+          "format": "float",
+          "example": 1,
+          "default": 1,
+          "minimum": 0,
+          "maximum": 1
+        },
+        "top_p": {
+          "type": "number",
+          "description": "核采样（`nucleus sampling`）参数，是`temperature`采样的替代方法，取值范围为 `[0.01, 1.0]`，限两位小数。对于`GLM-5.3` `GLM-5.2` `GLM-5.1` `GLM-5` `GLM-4.7` `GLM-4.6` `GLM-4.5`系列默认值为 `0.95`，`GLM-4`系列默认值为 `0.9`。模型只考虑累积概率达到`top_p`的候选词汇。例如：`0.1`表示只考虑前`10%`概率的词汇，`0.9`表示考虑前`90%`概率的词汇。较小的值会产生更集中、更一致的输出；较大的值会增加输出的多样性。建议根据应用场景调整 `top_p` 或 `temperature` 参数，但不建议同时调整两个参数。",
+          "format": "float",
+          "example": 0.95,
+          "default": 0.95,
+          "minimum": 0.01,
+          "maximum": 1
+        },
+        "max_tokens": {
+          "type": "integer",
+          "description": "模型输出的最大令牌`token`数量限制。`GLM-5.3` `GLM-5.2` `GLM-5.1` `GLM-5` `GLM-4.7` `GLM-4.6`系列最大支持`128K`输出长度，`GLM-4.5`系列最大支持`96K`输出长度，建议设置不小于`1024`。令牌是文本的基本单位，通常`1`个令牌约等于`0.75`个英文单词或`1.5`个中文字符。设置合适的`max_tokens`可以控制响应长度和成本，避免过长的输出。如果模型在达到`max_tokens`限制前完成回答，会自然结束；如果达到限制，输出可能被截断。\n默认值和最大值等更多详见 [max_tokens 文档](/cn/guide/start/concept-param#max_tokens)",
+          "example": 1024,
+          "minimum": 1,
+          "maximum": 131072
+        },
+        "tool_stream": {
+          "type": "boolean",
+          "example": false,
+          "default": false,
+          "description": "是否开启流式响应`Function Calls`，仅限`GLM-5.3` `GLM-5.2` `GLM-5.1` `GLM-5` `GLM-5-Turbo` `GLM-4.7` `GLM-4.6`系列支持此参数，默认值`false`。参考 [工具流式输出](/cn/guide/capabilities/stream-tool)"
+        },
+        "tools": {
+          "type": "array",
+          "description": "模型可以调用的工具列表。支持函数调用、知识库检索和网络搜索。使用此参数提供模型可以生成 `JSON` 输入的函数列表或配置其他工具。最多支持 `128` 个函数。",
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/components/schemas/FunctionToolSchema"
+              }
+            },
+            {
+              "items": {
+                "$ref": "#/components/schemas/RetrievalToolSchema"
+              }
+            },
+            {
+              "items": {
+                "$ref": "#/components/schemas/WebSearchToolSchema"
+              }
+            },
+            {
+              "items": {
+                "$ref": "#/components/schemas/MCPToolSchema"
+              }
+            }
+          ]
+        },
+        "tool_choice": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "auto"
+              ],
+              "description": "用于控制模型选择调用哪个函数的方式，仅在工具类型为`function`时补充。默认`auto`且仅支持`auto`。"
+            }
+          ],
+          "description": "控制模型如何选择工具。"
+        },
+        "stop": {
+          "type": "array",
+          "description": "停止词列表，当模型生成的文本中遇到这些指定的字符串时会立即停止生成。格式为[\"stop_word1\"]。",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 4
+        },
+        "response_format": {
+          "type": "object",
+          "description": "指定模型的响应输出格式，默认为`text`，仅文本模型支持此字段。`type` 取值收敛为三种：`text`（普通文本输出）、`json_object`（`JSON` 格式输出）。",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "text",
+                "json_object"
+              ],
+              "default": "text",
+              "description": "输出格式类型：`text` 表示普通文本输出；`json_object` 表示 `JSON` 格式输出。"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        },
+        "request_id": {
+          "type": "string",
+          "description": "请求唯一标识符。由用户端传递，`ID`长度要求：最少`6`个字符，最多`64`个字符，建议使用`UUID`格式确保唯一性，若未提供平台将自动生成。",
+          "minLength": 6,
+          "maxLength": 64
+        },
+        "user_id": {
+          "type": "string",
+          "description": "终端用户的唯一标识符。`ID`长度要求：最少`6`个字符，最多`128`个字符，建议使用不包含敏感信息的唯一标识。",
+          "minLength": 6,
+          "maxLength": 128
+        }
+      }
+    },
+    "FunctionToolSchema": {
+      "type": "object",
+      "title": "Function Call",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "function",
+          "enum": [
+            "function"
+          ]
+        },
+        "function": {
+          "$ref": "#/components/schemas/FunctionObject"
+        }
+      },
+      "required": [
+        "type",
+        "function"
+      ],
+      "additionalProperties": false
+    },
+    "FunctionObject": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "要调用的函数名称。必须是 `a-z、A-Z、0-9`，或包含下划线和破折号，最大长度为 `64`。",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "description": {
+          "type": "string",
+          "description": "函数功能的描述，供模型选择何时以及如何调用函数。"
+        },
+        "parameters": {
+          "$ref": "#/components/schemas/FunctionParameters"
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "parameters"
+      ]
+    }
+  }
+}
