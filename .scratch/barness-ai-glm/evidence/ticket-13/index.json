@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "passVerdict": true,
+  "sourceCommit": "3d3cd0fac02a9470a382e825a5e2e114d9e45ee7",
+  "durableRoot": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-13",
+  "catalogVersion": "2026-10-17.2",
+  "catalogHash": "sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942",
+  "actualFullRelease": {
+    "report": "release-report.json",
+    "sha256": "88261c03cb683c97050ac2216a411d7b1238c4bad414fe507086a28eba7f21af",
+    "seal": "current-release-seal.json",
+    "sealSHA256": "80199a9e506056d1724a61581d3624e084bdef099650f227d8754d9d5fea51d6",
+    "normalCases": 11049,
+    "raceCases": 11049,
+    "gates": 10,
+    "audits": 20,
+    "liveIdentities": 14,
+    "protocolCombinations": 13,
+    "effects": 4,
+    "commandsPassed": true,
+    "suppliedOfflineBundle": false
+  },
+  "trace": {
+    "requirements": 22,
+    "acceptanceGroups": 15,
+    "stories": 62,
+    "items": 99,
+    "finiteCaseIDs": 643,
+    "allRequiredCasesNormalAndRacePass": true,
+    "receipt": "complete-trace-receipts.json",
+    "sha256": "e45d47e3e588c997a7fa93f58e777372e462a02e35b0010ad692264e2b230956"
+  },
+  "sourceApplicability": {
+    "path": "final-source-applicability.json",
+    "sha256": "fbe0e7b337669798d95694382b1081c40c86f866ca86a1a7953ff7de48ea3ca6"
+  },
+  "paid": {
+    "glmLogicalCalls": 66,
+    "glmHTTP": 66,
+    "legacyLogicalCalls": 180,
+    "legacyHTTP": 180,
+    "correctiveLogicalCalls": 36,
+    "correctiveHTTP": 36,
+    "newActualHTTP": 282,
+    "originalRoundClosed": true,
+    "correctiveMaxCalls": 36,
+    "correctiveMaxAttempts": 36,
+    "cumulativePlannedMaxCalls": 410,
+    "cumulativePlannedMaxAttempts": 434,
+    "automaticReruns": 0,
+    "providerFallbacks": 0,
+    "accountRegionPermissionsBilling": "UNKNOWN; reported usage and USD estimates are not invoices"
+  },
+  "historicalGLM": {
+    "originalsPreserved": true,
+    "glmOnlyLogicalCalls": 217,
+    "glmOnlyHTTPAttempts": 215,
+    "scope": "exploration19/17 + candidate66/66 + formal12 66/66 + formal13 66/66; no total invoice claim"
+  },
+  "rollback": {
+    "current": "rollback-index.json",
+    "historicalReconciliation": "rollback-history/reconciliation.json",
+    "restoredBaseline": "f5cf5362610a8bdb8f3e170f408f3858c149e540",
+    "completeTrackedFiles": 6682,
+    "exactSelectedHistoricalPayloads": 201887,
+    "historicalMeasuredGoModuleFiles": 600
+  },
+  "proofIndexes": {
+    "formal-current/capture-index.json": "32d15c15a2c18af47f686b3004098a9d16bf182a9c9c5de077988a6490155e8e",
+    "formal-current/independent-reconciliation.json": "714f8a7d6e6fab1b9e4f622df9f4ba555aa5b41f0713194a243fa1d087d059c4",
+    "formal-current/independent-parent-usage.json": "0108f8d56795915040fae72e920365729fef3887bd7d58af1828376035293a0f",
+    "legacy-paid-index.json": "6491bbd3ed66c96f33e52b2fad07ad8d15dcb55264331893a064373e9ca0c77a",
+    "legacy-paid-root-verification.json": "e491c5855ce9d0d12cf3e7245fdb013304c6169163827aff544e68f87bf04791",
+    "normal-root-verification.json": "cf4f1a508b9dc8ced22091f99b7bb42fadc88b576f6fac02a5acd06eb45e2608",
+    "race-root-verification.json": "2272608fe705ef25e4621c8fe16efb8483ae9ddcb55fe71bfd7dc65cbd560c37",
+    "effects-root-verification.json": "144976f1d19ee1669e36816fa850d5854d17327b36b230e313139a665a7249b8",
+    "effect-summary.json": "64220528be87816aad6963958c7696ffa5368c39bff95db3db7739fcedd34714",
+    "current-effect-summary.json": "6b7ccd0b184c98be984c30f11e94d8691062356bf469827f74abf8b70f3bf3d9",
+    "current-normal-root-verification.json": "7838ea2a956d182ef55e7f73e0e2c5f3819d3a2644f43ee84f0e88531f5f4a1a",
+    "current-race-root-verification.json": "9dc6565a052eb5b69660765c86fe76e2649aca0b6cef800926e42d3ce27d32c3",
+    "current-case-regression-scope.json": "d4bdd5760f5041fd1d3ec6c4073d943048b2aa6bbba1b7f79a2261783dc811fc",
+    "final-whole-gate-root-verification.json": "ec233848e68db77e455c2ecc43cfe2a24d81b013a4febe166023bfc0a8f0a48e",
+    "prereview/corrective-3d3cd0f/barness-glm-corrective-paid-root-verification.json": "954b6f5039ed862d4b27ca91c5b1c1db9b973f0a11ceb64c7fa422eddec041e3",
+    "prereview/corrective-3d3cd0f/barness-glm-corrective-source-root-verification.json": "64f5825779308dde61b5d454fc820656e328f8a5730bb8df6e53c78ab1b9f638",
+    "prereview/corrective-3d3cd0f/barness-glm-corrective-reuse-root-verification.json": "197b6ae5ff54ba046e48f71deb447ea6f884eeafac9d3e83db0fa34acd5a5a01",
+    "prereview/corrective-3d3cd0f/prerelease-source-review.json": "fef573f1d02a5dd8ea6d8aae2ab6f8d33c06023edb9dc103e67ec24568a7a956",
+    "prereview/corrective-3d3cd0f/prepaid-checks.json": "24262a9bf8d9d68f82269e8ce7921a78826232a8d491c33be068e9bae5f07113",
+    "prereview/corrective-3d3cd0f/matrix-root-verification.json": "f11465d12fd463c22e7d7cebd0e16c97c9fec00d52626a1c1e08dd4d22e577e4",
+    "historical-r3-preservation.json": "0f21ded3279ada541979d9d557695599db6aee09361b1e6e2b5b472b430794c5",
+    "historical-r3-files.json": "4efc48621621cfac2072d0994a9b8c42f6d9f485c0677f6f7419dacf27a52486",
+    "remaining-history-preservation.json": "25d0d1d3f1a6a3a5ff99aad84569b97efd59bcce13e8cae1647a5bbf40af7fcd",
+    "default-e2e-history-preservation.json": "029ee8c5115a14d40eb6a0b31ec8f5bd7a6a4cd6dbaecf2427199dd90d0ce9c6",
+    "failed-full-gate-r1-index.json": "75d7cc61c190ee536281fcce194ce648afe23a6f7ef53f09eb38bf13992d7d44",
+    "corrective-paid-index.json": "bf616f634092ae7528303134cadc9a838b26f4595dc28a1148793c86ccf5094e",
+    "consumer-diagnostic-r2-index.json": "80703cafaeb0e7c210d06452ca724fd90f0c3ad0d72824931a5bd0cecea6bce7",
+    "prereview/ten-axis-review-reports.json": "9f214a3c0da2bad5599490d615c7bdddbc23587808af08047bc7295fe1f69e1b",
+    "rollback-index.json": "d28e5c91624e0da7ddb6a69ae7d78a1c33de734bb03dcf4076b8bd7c43a5b0be",
+    "rollback-history/reconciliation.json": "e3f563547523abfcf5870b105311cf623aa307e0d35d8868a89d69366d020d2b",
+    "owned-cleanup.json": "c110ca072ae806252d075f92533394af34ef96adde4e40a2f6a693f988006194"
+  },
+  "verificationTools": {
+    "seal.py": {
+      "source": ".scratch/barness-ai-glm/evidence/ticket-13/seal.py",
+      "sha256": "266eefafd7c3d2e429a0faf151f2352e9013ff70efa2283824ab63933490ca22"
+    },
+    "reconcile-rollback-history.py": {
+      "source": ".scratch/barness-ai-glm/evidence/ticket-13/reconcile-rollback-history.py",
+      "sha256": "e12d17db0b8523bba86b6096a48402b285aceb8fd0fbbaa0dbd83caf6fa50f06"
+    },
+    "preserve-history.py": {
+      "source": ".scratch/barness-ai-glm/evidence/ticket-13/preserve-history.py",
+      "sha256": "4aee8abc94a6bee7f5ee8ab774937c39e30e60110cb374514ba1cedb3218cbdf"
+    },
+    "preserve-default-history.py": {
+      "source": ".scratch/barness-ai-glm/evidence/ticket-13/preserve-default-history.py",
+      "sha256": "3935d945798b49abad78a025510eec5d8f2e3a318ebda709b1fa992a441c4c36"
+    },
+    "index.py": {
+      "source": ".scratch/barness-ai-glm/evidence/ticket-13/index.py",
+      "sha256": "bff632c714b89841a0cea60e0bbafbc0021e0a264c3a1ae9b021b1b388f03f3e"
+    }
+  },
+  "canonicalTrees": {
+    "glm-source-collection": {
+      "path": "/Users/cyber/RestoX/barness/.evidence/glm13-current-r4",
+      "files": 25417,
+      "exactCopyVerified": true,
+      "finalReleaseEvidence": true,
+      "inventory": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-13/glm-source-collection-files.json",
+      "inventorySHA256": "3fd16d7f46b0e391aa7d0e7543ee372339c102c29a2dcb598596e95f03d2e76e",
+      "archive": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-13/glm-source-collection.tar.gz",
+      "archiveSHA256": "b43b6aa889f27a22be240a52f420a56dfadf9a8fb7996e7212bae13a498a8599"
+    },
+    "complete-current-release": {
+      "path": "/Users/cyber/RestoX/barness/.evidence/glm13-corrective-current-r1",
+      "files": 291555,
+      "exactCopyVerified": true,
+      "finalReleaseEvidence": true,
+      "inventory": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-13/complete-current-release-files.json",
+      "inventorySHA256": "ab1a8f35edd3394d823fe527470d41154de5cda5fa1bbc1af1dbcd17f6ae80c4",
+      "archive": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-13/complete-current-release.tar.gz",
+      "archiveSHA256": "667abe813bb8df82d2380a384487289df1e5303449d9dbd901f2783ddaf113d9"
+    },
+    "nonfinal-consumer-diagnostic": {
+      "path": "/Users/cyber/RestoX/barness/.evidence/glm13-consumer-diagnostic-r2",
+      "files": 236592,
+      "exactCopyVerified": true,
+      "finalReleaseEvidence": false,
+      "inventory": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-13/nonfinal-consumer-diagnostic-files.json",
+      "inventorySHA256": "35bf0e230fa418b613ba886a632bfdb2757da75acf1188f351f0eb36246afb44",
+      "archive": "/Users/cyber/RestoX/barness/.evidence/barness-ai-glm/ticket-13/nonfinal-consumer-diagnostic.tar.gz",
+      "archiveSHA256": "d1ea521bbeb10c04705150fceec68b26ea0ac5f527c7eebae4f0f1bc78f3a46f"
+    }
+  },
+  "durableInventory": {
+    "path": "durable-evidence-files.json",
+    "sha256": "9ef7c1fafb60feafe3990a98e4b5920e512fefe4a8912acdd6f885ed3831773c",
+    "files": 239914
+  },
+  "scopes": {
+    "prepaidReviews": "all original and corrective exact-source two-axis reports retained; all findings closed before respective paid collection; final parent review remains separate",
+    "intermediateReceipts": "legacy-paid-index and independent original normal/race/effect receipts are preserved checkpoints of the closed original round; historical-r3 retains actual failed CLI; current release-report/current-release-seal provide the new complete final verdict",
+    "independentManifestReceipts": "current-normal/current-race independently verify cases and payloads only; actualFullRelease/current-release-seal supplies the whole CLI verdict",
+    "originalWorkerPaths": "preserved provenance; durableRoot/canonicalTrees contain usable current copies; remaining-history-preservation.json accounts for all otherwise-unsealed historical trees; default-e2e-history-preservation.json retains34 original focused runs",
+    "deployment": "not performed",
+    "accountRegionPermissionsBilling": "UNKNOWN"
+  }
+}

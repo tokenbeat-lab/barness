@@ -55,11 +55,11 @@ Non-goals: no agent loop, no built-in memory or history trimming, no tool execut
 | chat | DeepSeek × Responses (extension route, not in pi) | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One, jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS (context probe returned 400; 422 shape unconfirmed) |
-| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (formal schema 3 run, 2026-10-13) |
-| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | Own independent formal evidence |
-| chat | China Zhipu × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | Own formal evidence; current-source renewal in ticket13 |
-| chat | China Zhipu × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | Own formal evidence; current-source renewal in ticket13 |
-| chat | China Zhipu × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | Own formal evidence; current-source renewal in ticket13 |
+| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (own current-source formal evidence) |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS (own current-source formal evidence) |
+| chat | China Zhipu × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS (own current-source evidence) |
+| chat | China Zhipu × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS (own current-source evidence) |
+| chat | China Zhipu × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | PASS (own current-source evidence) |
 | image | OpenAI × Images, gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS (generation, JSON edit and mask) |
 | image | Google × Interactions v1beta, gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS (generation and reference edit, 1K / 1:1) |
 
@@ -69,7 +69,7 @@ The matrix records each identity's own source/catalog-scoped evidence. Jev1.13 a
 
 The previous complete baseline is [ticket14's accepted release](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md):11 own live identities, four independent effects, normal/race9098 each,861 frozen pi cases and all gates PASS. The original [pressure issue07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) is resolved with retained causal evidence; earlier failing releases remain history.
 
-GLM formal catalog acceptance is recorded in [ticket12](../.scratch/barness-ai-glm/evidence/ticket-12/README.md). Ticket13's complete preflight found and fixed stale catalog/config pins and narrowed GLM callback-panic recovery to preserve existing providers. That actual runtime-source fix requires fresh formal GLM and legacy evidence. [Current acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) remains pending until its complete gate passes; prior source/hash evidence is not relabelled.
+[Ticket13 current-source acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) is PASS at `3d3cd0f`: normal 11,049 and race 11,049 cases, all ten gates, both vet modes and 20 clean input audits. Catalog `2026-10-17.2` retains fourteen own live identities and four independent effects. This ticket used 282 actual HTTP calls: 66 GLM, 180 in the closed original legacy round, and 36 necessary corrective calls. Original failures/captures remain historical. The [verified index](../.scratch/barness-ai-glm/evidence/ticket-13/index.json) records exact source applicability, finite requirement/story traces and full baseline rollback.
 
 ## Quick start (local)
 
@@ -473,12 +473,12 @@ go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # merge reports into the ma
 go run ./ai/examples/chineseeval/cmd/chineseeval -route jev  # NOT_RUN; no network
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna # independent NOT_RUN bundle
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -verify <Luna-bundle>
-go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-bundle> -evaluation-luna <Luna-bundle> [-live <bundle-dir>]...
+go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-bundle> -evaluation-luna <Luna-bundle> -visual-evaluation-jev <Jev-visual> -visual-evaluation-decisions <Decisions-visual> [-live <bundle-dir>]...
 ```
 
 Every E2E run writes a redacted evidence bundle under `.evidence/` (`BARNESS_AI_EVIDENCE_DIR` overrides). New behavior
 needs an E2E case whose evidence the release gate can trace (`release/traceability.json`). The full release gate
-requires each of the ten live routes and separate current Jev and Luna real Chinese evaluations; offline fixtures and
+requires fourteen own live identities across thirteen protocol combinations and four independent real effects; offline fixtures and
 NOT_RUN reports cannot replace them.
 
 ## Further reading
@@ -490,6 +490,6 @@ NOT_RUN reports cannot replace them.
 | [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | Classifier inputs, refusals, image authorization, usage and rollback |
 | [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | Thinking profiles, merge order and full/simple boundaries |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | Release deliverables, gate status, policy measurements |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0029 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0036 |
 | [GLOSSARY.md](../GLOSSARY.md) | Domain terms (Tenant, Binding, Logical Call, Native State, …) |
 | `go doc -all ./ai` | Package and type documentation |

@@ -51,11 +51,11 @@
 | chat | DeepSeek × Responses（扩展路径，pi 无此路由） | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One，jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS（上下文探针返回 400；422 形状未确认） |
-| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（2026-10-13 正式 schema 3 运行） |
-| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | 自身独立正式证据 |
-| chat | 中国区智谱 × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | 自身正式证据；票13更新当前源码验收 |
-| chat | 中国区智谱 × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | 自身正式证据；票13更新当前源码验收 |
-| chat | 中国区智谱 × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | 自身正式证据；票13更新当前源码验收 |
+| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（自身当前源码正式证据） |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS（自身当前源码正式证据） |
+| chat | 中国区智谱 × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS（自身当前源码证据） |
+| chat | 中国区智谱 × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS（自身当前源码证据） |
+| chat | 中国区智谱 × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | PASS（自身当前源码证据） |
 | image | OpenAI × Images，gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS（生成、JSON 编辑与 mask） |
 | image | Google × Interactions v1beta，gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS（生成与参考编辑，1K / 1:1） |
 
@@ -68,7 +68,7 @@
 
 上一完整基线为[票14正式结论](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md)：11份自身真实支持、四份独立效果、normal/race各9098例、861份冻结pi案例和全部门禁通过。[原压力票07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) 已由自身因果证据解决，历史失败保留。
 
-GLM目录与自身真实证据见[票12](../.scratch/barness-ai-glm/evidence/ticket-12/README.md)。票13完整预检修正了过期目录/配置快照，并把回调panic恢复限制在Zhipu以保留既有行为；实际运行源码改变，因此必须更新GLM和旧路线的当前证据。[本次完整结论](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) 在完整门禁通过前保持待验收，旧源码/Hash不改名冒充当前通过。
+[票13当前源码验收](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) 在 `3d3cd0f` 为 PASS：normal 11,049、race 11,049 例，全部十门禁、两种vet及20份输入审计通过。目录 `2026-10-17.2` 保留十四份自身支持、四份独立效果；本票实际HTTP为282次：GLM66、已封闭原旧路线轮180、必要更正轮36。旧失败/捕获保留历史；[校验索引](../.scratch/barness-ai-glm/evidence/ticket-13/index.json)提供精确源码适用范围、有限需求/故事追溯和完整基线回滚。
 
 ## 快速开始（本地）
 
@@ -463,6 +463,6 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-
 | [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | 分类输入、拒答、图片授权、用量与回滚 |
 | [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | 思考分档、合并顺序与 full/simple 边界 |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | 发布交付物、门禁状态、策略实测 |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0029 |
+| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0036 |
 | [GLOSSARY.md](../GLOSSARY.md) | 领域术语（租户、服务绑定、逻辑调用、原生续接状态……） |
 | `go doc -all ./ai` | 包与类型文档 |

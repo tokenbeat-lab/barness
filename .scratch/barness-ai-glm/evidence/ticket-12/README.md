@@ -23,3 +23,7 @@ go run ./ai/live/cmd/glmformal -route chat -out /tmp/new-glm-chat-support-view
 ```
 
 The original raw archives plus current support-view archives listed by the two indices must be present at their repository-relative ignored paths. Existing raw original report and support-view bytes are never rewritten. `index.json` records all durable raw/controlled/replay/support archives and SHA256 values, including intentional RED/failed diagnostic history.
+
+## Historical scope after ticket13
+
+The paragraphs above describe12’s original captures/false-zero budgets and original derived views. Current `ai/live/testdata/glm-formal/live-captures.json` and `support-views.json` now select13’s independently renewed evidence; do not interpret12’s historical numbers against those mutable current selectors. Exact12 selector/sidecar/view bytes are preserved at [ticket12-live-captures.json](../ticket-13/history/ticket12-live-captures.json), [sidecar](../ticket-13/history/ticket12-live-captures.sha256) and [ticket12-support-views.json](../ticket-13/history/ticket12-support-views.json). Original archives and source identities remain unchanged; [ticket13 final index](../ticket-13/index.json) records current applicability and full release.
