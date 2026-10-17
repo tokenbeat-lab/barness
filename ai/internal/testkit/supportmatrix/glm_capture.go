@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -32,7 +33,20 @@ func glmRead(path string) ([]byte, error) {
 	if err != nil || !st.Mode().IsRegular() || st.Size() > 16<<20 {
 		return nil, glmBad("nonregular, missing or oversized capture")
 	}
-	return os.ReadFile(path)
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, glmBad("capture unavailable")
+	}
+	defer file.Close()
+	actual, err := file.Stat()
+	if err != nil || !actual.Mode().IsRegular() || actual.Size() > 16<<20 {
+		return nil, glmBad("capture changed before open")
+	}
+	raw, err := io.ReadAll(io.LimitReader(file, 16<<20+1))
+	if err != nil || len(raw) > 16<<20 {
+		return nil, glmBad("capture read exceeds bound")
+	}
+	return raw, nil
 }
 func glmHash(raw []byte) string { return fmt.Sprintf("%x", sha256.Sum256(raw)) }
 

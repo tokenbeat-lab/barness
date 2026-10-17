@@ -107,6 +107,8 @@ func TestGLMFormalReports(t *testing.T) {
 				proofBytes, _ := os.ReadFile(proofPath)
 				reportBytes, _ := os.ReadFile(reportPath)
 				inventoryBytes, _ := os.ReadFile(inventoryPath)
+				manifestPath := filepath.Join(filepath.Dir(reportPath), "manifest.json")
+				manifestBytes, _ := os.ReadFile(manifestPath)
 				bad := r
 				glmProof := *r.GLM
 				proof := *r.GLM.Derivation
@@ -126,6 +128,11 @@ func TestGLMFormalReports(t *testing.T) {
 				}
 				encoded, _ := supportmatrix.Encode(proof)
 				os.WriteFile(proofPath, encoded, 0600)
+				var manifest map[string]any
+				json.Unmarshal(manifestBytes, &manifest)
+				manifest["derivation"] = proof
+				encoded, _ = supportmatrix.Encode(manifest)
+				os.WriteFile(manifestPath, encoded, 0600)
 				encoded, _ = supportmatrix.Encode(bad)
 				os.WriteFile(reportPath, encoded, 0600)
 				files := map[string]string{}
@@ -150,7 +157,19 @@ func TestGLMFormalReports(t *testing.T) {
 				os.WriteFile(proofPath, proofBytes, 0600)
 				os.WriteFile(reportPath, reportBytes, 0600)
 				os.WriteFile(inventoryPath, inventoryBytes, 0600)
+				os.WriteFile(manifestPath, manifestBytes, 0600)
 			}
+			oversizedPath := filepath.Join(filepath.Dir(reportPath), "original/GLM11-glm-5.3-full-stream/request.json")
+			oldRequest, _ := os.ReadFile(oversizedPath)
+			os.WriteFile(oversizedPath, make([]byte, 16<<20+1), 0600)
+			_, oversizedError := supportmatrix.Merge(m, r)
+			ev.Check("oversized captured artifact refused within read ceiling", oversizedError != nil, "oversized read accepted")
+			os.WriteFile(oversizedPath, oldRequest, 0600)
+			originalReport, e := supportmatrix.LoadReport(filepath.Join(filepath.Dir(reportPath), "original/live-report.json"))
+			if e == nil {
+				_, e = supportmatrix.Merge(m, originalReport)
+			}
+			ev.Check("immutable false-zero original cannot substitute corrected support view", e != nil, "old raw support report imported")
 			// A later actual failure retains the last complete pass. It is tested by
 			// Merge's shared public history suite; this own report must retain history
 			// when a rejected newer substituted report is submitted.
