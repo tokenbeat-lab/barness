@@ -57,6 +57,11 @@ type ModelCompat struct {
 	// constraint is independent of the provider's wire switch and level map;
 	// zero preserves existing models. Implemented by Zhipu Chat initially.
 	RequiresThinking bool `json:"requiresThinking,omitempty"`
+	// ThinkingSwitchOnly: canonical high enables reasoning without exposing
+	// distinct effort depths. This is independent of RequiresThinking and of
+	// a Host narrowing the supported level map; zero retains existing models'
+	// depth semantics. Provider capability still limits the actual wire shape.
+	ThinkingSwitchOnly bool `json:"thinkingSwitchOnly,omitempty"`
 	// SupportsStrictMode: Responses function tools carry a "strict" field.
 	SupportsStrictMode bool `json:"supportsStrictMode,omitempty"`
 	// SupportsMidConvoSystemMessages: later system messages are sent in place

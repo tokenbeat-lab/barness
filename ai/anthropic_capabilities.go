@@ -7,8 +7,9 @@ package ai
 // capability registry; SDK version and authentication remain protocol concerns.
 type anthropicCapabilities struct {
 	promptCache bool
-	// Native thinking includes display, adaptive/managed effort and the
-	// beta headers they require; basic enabled/budget thinking is core.
+	// Adaptive thinking is independent of native display, beta headers and
+	// managed per-turn controls. Compatible Providers opt in separately.
+	adaptiveThinking    bool
 	nativeThinking      bool
 	eagerInputStreaming bool
 	browserAccess       bool
@@ -17,10 +18,13 @@ type anthropicCapabilities struct {
 // Zhipu keeps only the basic Messages shape established by its own public
 // Client wire captures (ADR-0035). Native Anthropic defaults stay unchanged.
 func anthropicCapabilitiesOf(provider ProviderID) anthropicCapabilities {
+	if provider == ProviderMiniMaxCN {
+		return anthropicCapabilities{adaptiveThinking: true}
+	}
 	if provider == ProviderZhipu {
 		return anthropicCapabilities{}
 	}
-	return anthropicCapabilities{promptCache: true, nativeThinking: true,
+	return anthropicCapabilities{promptCache: true, adaptiveThinking: true, nativeThinking: true,
 		eagerInputStreaming: true, browserAccess: true}
 }
 
@@ -29,7 +33,7 @@ func (c anthropicCapabilities) managesEffort(m Model) bool {
 }
 
 func (c anthropicCapabilities) usesAdaptiveThinking(m Model) bool {
-	return c.nativeThinking && m.Compat.ForceAdaptiveThinking
+	return c.adaptiveThinking && (m.Provider == ProviderMiniMaxCN || m.Compat.ForceAdaptiveThinking)
 }
 
 // The China Messages endpoint returns X-Request-Id in both successful and

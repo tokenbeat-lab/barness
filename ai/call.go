@@ -89,6 +89,10 @@ func (c *Client) execute(ctx context.Context, cl call, runtime *callRuntime, asm
 		return failure
 	}
 
+	if failure := validateMiniMaxMessagesOptions(model, options); failure != nil {
+		return failure
+	}
+
 	// History source: native state is replayed only where its envelope
 	// matches this tenant, the binding's account and the model; the rest is
 	// downgraded, never refused.

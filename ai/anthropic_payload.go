@@ -44,7 +44,11 @@ func authorizeAnthropicPayload(m Model, hostedTools []string) func(map[string]an
 			}
 		}
 		for _, field := range []string{"system", "messages"} {
-			if ref := anthropicFileReference(body[field]); ref != "" {
+			findReference := anthropicFileReference
+			if m.Provider == ProviderMiniMaxCN {
+				findReference = miniMaxMessagesFileReference
+			}
+			if ref := findReference(body[field]); ref != "" {
 				return "payload callback may not reference vendor-side state (" + ref + ")"
 			}
 		}
@@ -70,6 +74,33 @@ func anthropicFileReference(v any) string {
 		}
 		for _, e := range v {
 			if ref := anthropicFileReference(e); ref != "" {
+				return ref
+			}
+		}
+	}
+	return ""
+}
+
+// MiniMax authorizes protocol containers, not custom tool arguments. Other
+// Providers retain their existing reference contract; arbitrary input JSON
+// is business data, while a file source in a content block is vendor state.
+func miniMaxMessagesFileReference(v any) string {
+	switch v := v.(type) {
+	case []any:
+		for _, item := range v {
+			if ref := miniMaxMessagesFileReference(item); ref != "" {
+				return ref
+			}
+		}
+	case map[string]any:
+		if _, present := v["file_id"]; present {
+			return "file_id"
+		}
+		if v["type"] == "file" {
+			return "file source"
+		}
+		for _, key := range []string{"content", "source"} {
+			if ref := miniMaxMessagesFileReference(v[key]); ref != "" {
 				return ref
 			}
 		}

@@ -111,6 +111,9 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	if failure := validateGLMMessagesBody(ac.model, body, header, beta, authorizeAnthropicPayload(ac.model, ac.hostedTools)); failure != nil {
 		return failure
 	}
+	if failure := validateMiniMaxMessagesBody(ac.model, body, header, beta, authorizeAnthropicPayload(ac.model, ac.hostedTools)); failure != nil {
+		return failure
+	}
 	if failure := ac.limits.checkRequestBody(body); failure != nil {
 		return failure
 	}

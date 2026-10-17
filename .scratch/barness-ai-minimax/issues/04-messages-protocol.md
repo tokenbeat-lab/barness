@@ -1,6 +1,6 @@
 # 04 — MiniMax Messages adaptive 思考、工具和签名续接
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Updated: 2026-10-18
 Blocked by: 01

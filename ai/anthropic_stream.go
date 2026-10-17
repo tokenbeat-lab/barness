@@ -23,13 +23,14 @@ type anthropicEvent struct {
 		Usage *anthropicWireUsage `json:"usage"`
 	} `json:"message"`
 	ContentBlock *struct {
-		Type      string `json:"type"`
-		Text      string `json:"text"`
-		Thinking  string `json:"thinking"`
-		Signature string `json:"signature"`
-		Data      string `json:"data"`
-		ID        string `json:"id"`
-		Name      string `json:"name"`
+		Type      string          `json:"type"`
+		Input     json.RawMessage `json:"input"`
+		Text      string          `json:"text"`
+		Thinking  string          `json:"thinking"`
+		Signature string          `json:"signature"`
+		Data      string          `json:"data"`
+		ID        string          `json:"id"`
+		Name      string          `json:"name"`
 	} `json:"content_block"`
 	Delta *struct {
 		Type        string `json:"type"`
@@ -102,7 +103,9 @@ type anthropicParser struct {
 	open map[int64][]anthropicSlot
 	// GLM's observed Messages contract requires each block index once.
 	// Native Anthropic retains the pinned pi ordering behavior above.
-	glmSeen map[int64]bool
+	glmSeen        map[int64]bool
+	miniMaxSeen    map[int64]string
+	miniMaxInitial map[int64]bool
 	// raw is each tool call's argument JSON received so far (pi's partialJson).
 	raw     map[int]*argumentText
 	usage   anthropicUsage
@@ -153,7 +156,7 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 		}
 		return p.failures.upstream(ev.data)
 	}
-	if !anthropicMessageEvents[ev.name] {
+	if !anthropicMessageEvents[ev.name] && p.model.Provider != ProviderMiniMaxCN {
 		return nil
 	}
 	var e anthropicEvent
@@ -162,6 +165,11 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 	}
 	if p.model.Provider == ProviderZhipu {
 		if failure := p.glmSequence(ev.name, e); failure != nil {
+			return failure
+		}
+	}
+	if p.model.Provider == ProviderMiniMaxCN {
+		if failure := p.miniMaxSequence(ev, e); failure != nil {
 			return failure
 		}
 	}
@@ -218,11 +226,15 @@ func (p *anthropicParser) blockStart(e anthropicEvent) *Error {
 	case "redacted_thinking":
 		slot = anthropicSlot{index: p.out.thinkingStart(Thinking{Thinking: "[Reasoning redacted]", Signature: b.Data, Redacted: true}), kind: blockThinking}
 	case "tool_use":
-		slot = anthropicSlot{index: p.out.toolCallStart(b.ID, b.Name, ""), kind: blockToolCall}
+		initial := ""
+		if p.model.Provider == ProviderMiniMaxCN && p.miniMaxInitial[e.Index] {
+			initial = string(b.Input)
+		}
+		slot = anthropicSlot{index: p.out.toolCallStart(b.ID, b.Name, initial), kind: blockToolCall}
 		if p.raw == nil {
 			p.raw = map[int]*argumentText{}
 		}
-		p.raw[slot.index] = newArgumentText("")
+		p.raw[slot.index] = newArgumentText(initial)
 	default:
 		return nil
 	}
@@ -361,10 +373,10 @@ func (a *anthropicUsage) start(w *anthropicWireUsage) {
 			long = *w.CacheDetails.Ephemeral1h
 		}
 	}
-	// GLM has no verified one-hour cache breakdown or Anthropic TTL price.
+	// Compatible Providers have no verified native one-hour cache contract.
 	// Omission remains unset; even a synthetic/native-shaped detail cannot
 	// activate Anthropic's premium in the shared cost estimator.
-	if a.model.Provider != ProviderZhipu {
+	if anthropicCapabilitiesOf(a.model.Provider).promptCache {
 		a.u.CacheWrite1h = Value(long)
 	}
 	a.settle()
@@ -376,7 +388,7 @@ func (a *anthropicUsage) delta(w *anthropicWireUsage) {
 		a.take(w)
 		// Gateway deltas may supply or correct the TTL breakdown. This is
 		// an authoritative count, not an additional cache write (pi 1.0).
-		if a.model.Provider != ProviderZhipu && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
+		if anthropicCapabilitiesOf(a.model.Provider).promptCache && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
 			a.u.CacheWrite1h = Value(*w.CacheDetails.Ephemeral1h)
 		}
 		// Anthropic reports reasoning tokens as a subset of output tokens.
