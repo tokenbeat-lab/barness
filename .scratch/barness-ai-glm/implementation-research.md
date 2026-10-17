@@ -178,3 +178,35 @@ Useful exact file hashes (already covered by released package provenance):
 3. Final SDK headers/path capture and GLM acceptance, without accepting inherited beta/caching assumptions.
 4. Provider request-ID response headers and per-protocol error shapes under actual standard account.
 5. Any future price/free-period changes require a new snapshot; this fixed snapshot is reproducible but does not verify an invoice or account entitlement.
+
+## Authorized early public Client Messages exploration (later update)
+
+Actual two-request synthetic evidence is now available at `/tmp/barness-glm-messages-probe-sdk-query/`, especially `finding.md`, `index.json`, each model's `wire.json`, `response.sse`, `frames.json`, `events.json`, `result.json`, `usage.json`, and `secret-audit.json`. First local guard failure is retained separately at `/tmp/barness-glm-messages-probe/`; there were zero external requests in that first run because locked SDK beta service adds `?beta=true`. Parent then explicitly authorized the second run with only that query accepted.
+
+The two model basic requests both returned200 and legal Messages termination. 5.3 produced signed thinking (one24-character signature fragment) preserved by the public Client; 5.2 produced text only in its simple arithmetic sample. Usage begins as input/output0 in message_start, actual counts arrive in message_delta (5.3 input26/output29;5.2 input20/output1;cache_read0;cache_creation absent), and public partial reporting matches. Header X-Request-Id is present in both samples; native Anthropic Request-Id lookup misses it. No advanced controls or tools/replay have yet been tested. This update resolves basic shape and available default5.3 thinking evidence only.
+
+Cumulative early budget:4 Logical Calls /4 conservative local attempt reservations /2 external HTTP requests; both secret audits passed. Actual live credential never appears in notes/artifacts.
+
+## Cache creation versus storage pricing (official source follow-up)
+
+Source retrieved2026-10-17: https://docs.bigmodel.cn/cn/guide/capabilities/cache.md (`/tmp/barness-glm-cache.txt`, SHA256 `f6a428c0c63ae10e9423306205c012b40d2b8c9a26eb277f16f79a52cfc7cb84`). Its billing section is expressly for standard API, excluding resource packs and Coding Plan. It separates new-content tokens (standard price), cache hits (discounted price), and output tokens (standard price). The source's generic example uses a 50% hit discount, but that is illustrative; use model-specific current2/8 cache/input rates for5.2/5.3, not the generic percentage.
+
+The pricing page separately defines cache storage in RMB per million tokens per hour and calls it limited-time free. That time-based storage charge is different from new-content input computation. Therefore a zero CacheWrite token rate cannot be justified by temporary free storage.
+
+Proposed normalized mapping, explicitly an implementation inference: if a Messages response separately reports cache_creation_input_tokens, those are newly computed/new-content input tokens. Since normalized Usage.Input excludes CacheWrite, price CacheWrite at the same sourced standard input rate (8RMB/M→1.190121987503719 USD/M) to count them once, without a separate Anthropic premium. This is derived from the source's new-content rule, not a documented GLM Messages cache_creation field contract or observed bill. If the meaning of that future field is not established, preserve partial reporting/unknown status rather than treating it as free. No rate for a future storage-free-period ending or one-hour Anthropic premium is established.
+
+All early live Messages samples so far report cache_read_input_tokens0 but omit cache_creation_input_tokens; they do not establish any cache-creation counter semantics or charge. No additional service calls were made for pricing research.
+
+## Authorized tools/thinking/native replay evidence (later update)
+
+Six fixed public Client calls are recorded in `/tmp/barness-glm-messages-probe-tools-thinking/` (`finding.md`, `index.json`, SHA256SUMS and per-scenario raw wire/public snapshots). Both models accepted function schema+explicit auto, emitted tool_use/input_json_delta, passed public ValidateToolCall, and accepted original public Message+ToolResultText continuation. GLM5.3 first tool turn produced signed thinking; its one original thinking/signature block was preserved unchanged in public conversion and service accepted same-turn replay. GLM5.2 tool sample had no thinking.
+
+One exact GLM5.2 enabled/budget1024 candidate succeeded with signed thinking; original public signed history plus a new user message was accepted with the same settings. This establishes exact wire acceptance and legal replay, not arbitrary budgets, enforced computation cap, effort mappings or guaranteed semantic preserved thinking. GLM5.3 tool continuation emitted text only, so do not require new observable thinking on every Messages response. All6 calls were HTTP200 and untruncated, with late usage fields matching public counts and partial reporting. No advanced/alternate/retry requests were made. Both secret audits passed.
+
+Cumulative all early probes:10 logical calls /10 local attempt reservations /8 actual external HTTP requests. All three bundles remain separate and secret-free; no production edits.
+
+## Final authorized Messages default/unsigned evidence
+
+Bundle `/tmp/barness-glm-messages-probe-default-unsigned/` records3 more fixed public calls, allHTTP200/untruncated and audited. GLM5.2 equal challenging prompt with only thinking omitted emitted text only (no observable thinking); compared to the prior accepted enabled/budget1024 request, exact outgoing JSON equality minus thinking is proven. Both models accepted trusted restored thinking history with ONLY signature field omitted after public conversion, full JSON compared to pinned prior successful signed continuations. This establishes absent-signature replay acceptance for these exact cases, not empty-string signature or provider-emitted unsigned output. Trusted Host restoration/identity checks and public native-state path remained active.
+
+Final early Messages cumulative13 Logical Calls/13 conservative local attempt reservations/11 actual external requests. No further Messages exploration is authorized or pending. All4 bundles remain separately hashed/audited outside repo.
