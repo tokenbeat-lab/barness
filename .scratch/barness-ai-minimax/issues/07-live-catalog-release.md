@@ -1,9 +1,9 @@
-# 07 — 六身份候选、M3 正式证据和目录发布门禁
+# 07 — 独立 Live Harness、预算与可信证据工具
 
 Status: ready-for-agent
 Type: task
 Updated: 2026-10-18
-Blocked by: 05, 06
+Blocked by: 02, 03, 04
 
 ## Context
 
@@ -11,7 +11,7 @@ Blocked by: 05, 06
 
 ## Scope and acceptance
 
-先固定六身份场景、研究问题和候选/正式预算；每进程单身份/用途/Key。复用 live tag、可信来源/捕获/脱敏/适用性机制；缺 Key/权益记录 NOT_RUN。M3 只有通过自身候选与可靠 RMB→USD 快照后才能进入正式目录，三正式报告绑定正式 Hash。M3.1 缺可靠价格保持候选。增量加入三组合，不削弱既有十三组合/十四身份门禁。
+先固定六身份场景、研究问题和候选/正式预算；每进程单身份/用途/Key。实现独立 live tag harness、阶段累计预算收据、原始请求/SSE捕获、公共Client场景、可信来源/脱敏/适用性与离线重放/导入校验。复用既有 recorder/Host/evidence 边界，不复制GLM两型号进程假设。用受控进程与篡改失败证明全部证据工具；缺合法配置输出NOT_RUN，candidate/controlled/replay不能正式PASS。本票只建工具并以受控E2E验证，不运行厂商收费调用。05/06完成且执行源码冻结后，10负责实际候选、正式目录和发布门禁，避免付费捕获后再改执行源码。
 
 追溯：R06、R18、R25–R27；A02、A15、A20；US15–US18、US50–US53、US66–US76、US80。
 

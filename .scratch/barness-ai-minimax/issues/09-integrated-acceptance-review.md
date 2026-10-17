@@ -3,7 +3,7 @@
 Status: ready-for-agent
 Type: task
 Updated: 2026-10-18
-Blocked by: 07, 08
+Blocked by: 08, 10
 
 ## Context
 
