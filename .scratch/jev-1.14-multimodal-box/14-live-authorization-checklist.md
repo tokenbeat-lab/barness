@@ -3,18 +3,34 @@
 2026-10-17，核对基准 `8e13d23`，Go 内容为 `cc78cfd` 的完整600文件集合。
 当前正式目录版本 `2026-10-17.1`，Hash 为
 `sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7`。
-本清单只整理执行条件；真实支持与效果均维持 NOT_RUN，本轮零真实调用。
+本清单初次整理时只记录执行条件，真实支持与效果均为 NOT_RUN、零真实调用。
+下列完整路线和预算仍是固定合同；之后的获准执行单独记录，不扩大原范围。
+
+2026-10-17 后续用户指定根 `.env:TYPESAFE_KEY`，TypeSafe 四项已完成一轮：
+Jev1.13协议3、中文24、Jev1.14正式协议12、正式视觉12，共51 Calls/Attempts、零重试，
+低于该Provider原54次上限。两条正式支持PASS、两项效果COMPLETE，其他9条支持与
+2项效果仍NOT_RUN；剩余原额度合计248次，尚未取得其他凭据及执行授权。
+账户/区域/厂商权限仍UNVERIFIED，没有提供美元硬上限。详见
+[本轮验证](14-typesafe-real/verification.md)及[授权边界](14-typesafe-real/authorization.md)。
+
+后续normal发现UC13历史矩阵测试缺陷。用户明确追加同一key四项一轮、最多54次，
+修复提交`541ef2d`后第二轮已取得51/51、零重试的当前证据；两轮累计102/102，
+首轮不作为新源码的当前验收。旧normal失败和race中止事实保留；第二轮完整normal/race
+各9098 PASS、0 FAIL，七项内部门禁PASS，17个输入审计零发现。原UC13缺陷已通过验收关闭。
+整体仍BLOCKED（CLI退出1），因为下述其他真实路线和效果仍未运行。
+其他9条支持及2项效果仍未获准执行，待授权原额度仍为248次，不从累计调用数扣算。
 
 ## 剩余验收
 
-[#14](issues/14-current-catalog-release-integration.md)仍有两项未勾选：
+[#14](issues/14-current-catalog-release-integration.md)仍有两项未勾选；TypeSafe部分已执行，
+以下全合同还需其他9条支持与2项效果的当前真实包：
 
 | 缺口 | 完成所需证据 |
 | --- | --- |
 | 当前目录及源码下各路线真实支持和效果 | 11个独立正式支持输入，另有2文本、2正式视觉效果包；旧Hash、候选、其他型号和controlled包不能替代 |
 | 实际执行包的完整性和一致性 | 对每包核对源码/配置/目录/固定输入、预算预留及实际使用、捕获重放、Attempt/Observer、资源归零、清单和审计；实际服务故障保留FAIL |
 
-normal/race各9,098 PASS、0 FAIL，两种vet、P0、861个冻结Pi差分及当前输入审计均已通过。
+初次核对基准的normal/race各9,098 PASS、0 FAIL，两种vet、P0、861个冻结Pi差分及输入审计均通过。
 原压力#07及续修01/02已完成验收并关闭，不再是当前待修缺陷。
 [最新完整验收](../barness-ai-release-verification/verification.md)和
 [封存回执](../barness-ai-release-verification/evidence.json)保持原样。
@@ -22,6 +38,10 @@ normal/race各9,098 PASS、0 FAIL，两种vet、P0、861个冻结Pi差分及当�
 旧发布报告仍为pass=false，并保留启动时#07未关闭的snapshot。这是历史快照；
 取得当前真实包、合并支持矩阵后，仍须在新目录重跑完整发布命令，产生新的总体结论。
 #14继续needs-info；父规格和ADR的交付状态只能依据新的完整结果更新。
+
+首轮真实矩阵更新后，完整门禁normal出现UC13历史矩阵测试FAIL（其余9,097 PASS），
+race在用户追加授权后主动中止。测试把一次迁移的历史保留断言施加于后续合法重测；原失败保留，
+[续修03](../barness-ai-release-verification/issues/03-jev-matrix-history-current-runs.md)记录诊断和源码变化对真实包有效性的影响。
 
 ## 正式支持路线
 

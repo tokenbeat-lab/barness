@@ -66,3 +66,31 @@ Decisions逐场景NOT_RUN清单已修复并被严格消费者接受，unary取�
 及整体完整性验收项仍不宣称全部完成。详见
 [续修验收](../../barness-ai-release-verification/verification.md)与
 [回执](../../barness-ai-release-verification/evidence.json)。
+
+2026-10-17 TypeSafe真实验证：用户明确指定根`.env:TYPESAFE_KEY`，按清单仅执行该Provider
+四项一轮。Jev1.13协议3场景PASS（3次）、中文24样本COMPLETE且24/24正确；
+Jev1.14正式协议12场景PASS、正式视觉12样本COMPLETE，两项均严格require-live核验。
+总计51 Calls/51 Attempts、零重试，低于原54次上限；正式封装、效果清单、审计和
+支持矩阵两条独立身份均已核对，其他9矩阵行不变。未读取或注入其他Provider凭据。
+账户/区域/厂商权限仍未内省，没有编造美元硬上限或权限验证。
+其他9条支持、2项效果仍NOT_RUN，本票继续needs-info，原两项整体验收不提前勾选。
+完整无凭据门禁normal出现唯一UC13历史矩阵测试FAIL（9,097 PASS、1 FAIL），
+该断言错误拒绝后续合法重测，单例复现和独立Spec核对均已完成；race继续收齐。
+本轮结果、续修03和剩余248次待授权额度见
+[TypeSafe验证](../14-typesafe-real/verification.md)。
+
+2026-10-17追加：用户明确授权修复UC13测试并用同一key再跑四项一轮、最多54次。
+旧门禁在已有normal确定失败后主动中止，race未完成，不追认PASS。`541ef2d`修复
+一次迁移与后续真实重测的边界，原before未改，after取自首次纳入提交；公开CLI
+验证1.13仅更新自身、其他十行完整保留、陈旧报告原子拒绝，单例RED/GREEN已保留。
+修复后第二轮真实四项再获51 Calls/Attempts、零重试，严格verifier/正式封装均通过，
+矩阵提交`4d191fa`，两轮累计102次。新源码当前Box平均IoU为0.6840596383，
+不使用首轮较高分替换；独立两轴复核无阻断发现。第二轮完整无凭据门禁仍在运行，
+真实缺口与两项整体验收继续保持未完成，其他Provider仍NOT_RUN。
+
+2026-10-17最终收尾：第二轮完整normal/race各9098 PASS、0 FAIL，每阶段861Pi与33UC14
+均PASS；两种vet、P0、差分、快照和聚合脱敏七项内部门禁PASS，17个输入审计零发现。
+UC13矩阵历史续修03按自身验收关闭；原#07以resolved当前快照通过，旧失败及中止未改写。
+实际发布报告pass=false、CLI退出1，剩余live/traceability/required-artifacts三项阻断均来自
+未获授权的其他9条真实支持和中文Luna/正式视觉Decisions两项效果。TypeSafe本轮缺口已验证，
+本票继续needs-info，两项整体验收保持未勾选，不更新父规格/ADR完成状态、不部署。

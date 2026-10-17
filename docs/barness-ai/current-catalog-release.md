@@ -23,7 +23,8 @@ go run ./ai/release/cmd/releasegate -out .evidence/NEW_RELEASE \
 `ai/live/testdata/jev-formal/README.md`、`ai/examples/chineseeval/README.md`
 及原各路线指南。命令本身不读取凭据、不代为调用收费服务。
 缺少获准凭据或当前包为 NOT_RUN，历史 Hash、候选、受控 HTTP 或另一个型号的
-PASS 均不能代替。没有新的整版 PASS 之前，不合并历史行、不改变父规格或 ADR 状态。
+PASS 均不能代替。当前报告经严格核验后只合并其自己的型号/路线，其他历史行保留；
+整个发布仍需新的整版PASS，父规格或ADR交付状态不能依据局部支持记录提前更新。
 
 `ai/release/traceability.json` 增加 UC-R01–17、UC-T01–16 和本票用户故事。
 映射只选择证据；每个新条目固定完整的必需用例清单，缺任一项不能 PASS；状态由实际结果决定。normal/race 分别要求 UC09 两公开入口的
@@ -61,3 +62,9 @@ normal/race各9,098PASS、0FAIL；Decisions未执行清单和unary截止竞态�
 原#07只在验收后转换为resolved，启动时旧快照与原发布pass=false保持原样，不追认PASS。
 真实支持及效果仍NOT_RUN，票14保持needs-info；当前续修报告、状态转换与独立封存入口见
 `.scratch/barness-ai-release-verification/verification.md`。
+
+2026-10-17后续获准的TypeSafe轮次已取得当前Jev1.13/1.14各自真实支持与独立效果包，
+首轮51 Calls/Attempts后发现UC13迁移测试错误；用户追加授权修复并独立重采，当前源码
+第二轮51/51、零重试，两轮累计102次。支持矩阵只更新这两行，其余9条支持和2项效果仍NOT_RUN，
+不能据此宣称整版发布PASS。实际协议、效果分数、授权边界和本轮完整门禁见
+`.scratch/jev-1.14-multimodal-box/14-typesafe-real/verification.md`；原历史报告和快照保持原样。

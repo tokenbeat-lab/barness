@@ -1,6 +1,6 @@
 # 03：矩阵历史迁移 E2E 错误禁止后续合法真实重测
 
-Status: ready-for-agent
+Status: resolved
 
 ## 问题与影响
 
@@ -46,3 +46,11 @@ TypeSafe四项、最多54 Calls/Attempts的真实采集；不得自动重跑收�
 原before未改；完整旧行比较移到迁移前后快照，公开CLI新增合法后续1.13重测、
 其他十行精确保留和陈旧报告拒绝/文件不变。原单例RED退出1，新单例GREEN退出0，
 两轴只读复核无阻断发现。待新源码下真实四项及完整门禁结束后再完成验收。
+
+2026-10-17最终验收：源码`541ef2d`、发布执行`4d191fa`，新独立真实四项51/51、
+零重试且全部严格核验通过。完整normal/race各9098 PASS、0 FAIL；两阶段UC13均30条
+断言PASS，各861Pi/33UC14通过，原压力和图片设计负载未缩减。两种vet、P0、差分、
+快照及聚合审计PASS，17个输入审计零发现。本缺陷按这些当前证据关闭。
+首轮normal9097/1、race中止及旧51次仍保留；#14仍因其他9条真实路线及2项效果NOT_RUN
+保持needs-info，整体报告pass=false/CLI退出1，不以本缺陷关闭替代整版通过。
+结果与可重复封存入口见[TypeSafe验证](../../jev-1.14-multimodal-box/14-typesafe-real/verification.md)。
