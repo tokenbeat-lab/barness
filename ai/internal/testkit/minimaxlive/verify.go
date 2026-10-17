@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimax"
-	"os"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -17,35 +16,6 @@ type Seal struct {
 	Files  map[string]string `json:"files"`
 }
 
-func Inventory(dir string) (map[string]string, error) {
-	out := map[string]string{}
-	e := filepath.WalkDir(dir, func(path string, d os.DirEntry, e error) error {
-		if e != nil {
-			return e
-		}
-		if path == dir {
-			return nil
-		}
-		if d.Type()&os.ModeSymlink != 0 {
-			return fmt.Errorf("symlink artifact forbidden")
-		}
-		if d.IsDir() {
-			return nil
-		}
-		name, _ := filepath.Rel(dir, path)
-		name = filepath.ToSlash(name)
-		if name == SealFile || name == "live-report.json" {
-			return nil
-		}
-		raw, e := ReadFile(path, 16<<20)
-		if e != nil {
-			return e
-		}
-		out[name] = Hash(raw)
-		return nil
-	})
-	return out, e
-}
 func Load(dir string) (Report, error) {
 	var r Report
 	raw, e := ReadFile(filepath.Join(dir, ReportFile), 2<<20)

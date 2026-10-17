@@ -46,7 +46,7 @@ func validateMiniMaxMessagesBody(m Model, raw []byte, header http.Header, beta s
 	}
 	for _, s := range []struct {
 		field string
-		max   float64
+		max   int64
 	}{{"temperature", 2}, {"top_p", 1}} {
 		if v, present := body[s.field]; present {
 			// Temperature has the established Nullable option contract; top_p
@@ -54,9 +54,7 @@ func validateMiniMaxMessagesBody(m Model, raw []byte, header http.Header, beta s
 			if v == nil && s.field == "temperature" {
 				continue
 			}
-			n, ok := v.(json.Number)
-			f, err := n.Float64()
-			if !ok || err != nil || f < 0 || f > s.max {
+			if !miniMaxSamplingNumber(v, s.max, true) {
 				return invalid(s.field + " is outside the MiniMax Messages range")
 			}
 		}

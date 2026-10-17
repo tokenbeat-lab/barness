@@ -102,8 +102,9 @@ func TestCatalogInclusion(t *testing.T) {
 		o := openOracle(t)
 		catalog := ai.BuiltinCatalog()
 		// China standard GLM has independent vendor sources and extension routes;
-		// TestGLMFormalCatalog verifies those six, never a frozen pi data claim.
-		catalog.Models = slices.DeleteFunc(catalog.Models, func(m ai.Model) bool { return m.Provider == ai.ProviderZhipu })
+		// TestGLMFormalCatalog verifies those six; MiniMax has its own dated
+		// price/tier and protocol metadata acceptance, never a frozen data claim.
+		catalog.Models = slices.DeleteFunc(catalog.Models, func(m ai.Model) bool { return m.Provider == ai.ProviderZhipu || m.Provider == ai.ProviderMiniMaxCN })
 		keys := make([]pioracle.ModelKey, len(catalog.Models))
 		for i, m := range catalog.Models {
 			keys[i] = piModelKey(m)

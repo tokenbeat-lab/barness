@@ -11,13 +11,14 @@ type miniMaxResponsesState struct {
 	finished  map[responsesIndex]responsesSlot
 	ids       map[responsesIndex]string
 	doneParts map[responsesIndex]map[int64]string
+	functions map[responsesIndex]miniMaxFunctionIdentity
 }
 
 func newMiniMaxResponsesState(provider ProviderID) *miniMaxResponsesState {
 	if provider != ProviderMiniMaxCN {
 		return nil
 	}
-	return &miniMaxResponsesState{finished: map[responsesIndex]responsesSlot{}, ids: map[responsesIndex]string{}, doneParts: map[responsesIndex]map[int64]string{}}
+	return &miniMaxResponsesState{finished: map[responsesIndex]responsesSlot{}, ids: map[responsesIndex]string{}, doneParts: map[responsesIndex]map[int64]string{}, functions: map[responsesIndex]miniMaxFunctionIdentity{}}
 }
 
 func (p *responsesParser) miniMaxTextDone(ev responses.ResponseStreamEventUnion) {

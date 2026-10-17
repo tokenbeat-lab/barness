@@ -50,7 +50,14 @@ func TestMiniMaxCandidateCatalog(t *testing.T) {
 			}
 			ev.Check("per-protocol omitted label", string(fields["defaultThinkingLevel"]) == wantDefault, "%s", mustMarshal(t, m))
 			_, formal := ai.BuiltinCatalog().Lookup(ai.ProviderMiniMaxCN, api, id)
-			ev.Check("candidate stays outside formal catalog", !formal, "%s/%s", api, id)
+			if id == "MiniMax-M3.1-Flash-Preview" {
+				ev.Check("unpriced M3.1 stays outside formal catalog", !formal, "%s/%s", api, id)
+			} else if formal {
+				sourced := minimax.PricedM3Catalog()
+				want, _ := sourced.Lookup(ai.ProviderMiniMaxCN, api, id)
+				got, _ := ai.BuiltinCatalog().Lookup(ai.ProviderMiniMaxCN, api, id)
+				ev.Check("promoted M3 keeps own sourced constraints", got.MaxTokens == want.MaxTokens && jsonEqual(mustMarshal(t, got.Cost), mustMarshal(t, want.Cost)), "%+v", got)
+			}
 		}
 	}
 	cat.Models[0].Input[0] = ai.ModalityImage

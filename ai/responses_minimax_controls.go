@@ -3,7 +3,6 @@ package ai
 import (
 	"encoding/json"
 	"slices"
-	"strconv"
 )
 
 // Provider request capability is independent from a custom catalog. Validate
@@ -26,12 +25,7 @@ func validateMiniMaxResponsesControls(m Model, body map[string]any) string {
 	}
 	for _, field := range []string{"temperature", "top_p"} {
 		if raw, ok := body[field]; ok {
-			n, ok := raw.(json.Number)
-			if !ok {
-				return "MiniMax Responses " + field + " must be a number in (0,1]"
-			}
-			f, e := strconv.ParseFloat(string(n), 64)
-			if e != nil || f <= 0 || f > 1 {
+			if !miniMaxSamplingNumber(raw, 1, false) {
 				return "MiniMax Responses " + field + " must be a number in (0,1]"
 			}
 		}

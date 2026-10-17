@@ -203,7 +203,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 	}
 	out, err = applyModelSamplingParams(out, model, level, opts.SamplingParams)
 	if err == nil && model.Provider == ProviderMiniMaxCN {
-		return preserveMiniMaxResponsesBudget(out, model, level, opts.SamplingParams)
+		return preserveMiniMaxResponsesSampling(out, model, level, opts.SamplingParams)
 	}
 	if err != nil || model.Provider != ProviderZhipu {
 		return out, err

@@ -45,9 +45,10 @@ type chatParser struct {
 	// byIndex and byID find the call a delta continues, as pi's maps do:
 	// a call registers its first stream index, and every id a delta of it
 	// carries, the latest registration winning.
-	byIndex map[float64]int
-	byID    map[string]int
-	details chatDetails // streamed reasoning_details, nil before any
+	byIndex                map[float64]int
+	byID                   map[string]int
+	details                chatDetails // streamed reasoning_details, nil before any
+	miniMaxReasoningFormat string      // one integrated native representation per MiniMax turn
 	// responseID and responseModel were taken from a chunk: pi keeps the
 	// first truthy ones.
 	responseID, responseModel bool
@@ -224,7 +225,7 @@ func (p *chatParser) chunk(c chatChunk) *Error {
 		return nil
 	}
 	if p.model.Provider == ProviderMiniMaxCN {
-		if problem := validateMiniMaxChatReasoningDelta(delta); problem != "" {
+		if problem := p.validateMiniMaxReasoning(delta); problem != "" {
 			return newError(CodeProtocol, PhaseStream, problem)
 		}
 	}

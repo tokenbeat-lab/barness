@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -174,13 +175,38 @@ func ReadLedger(path string) ([]Receipt, error) {
 	}
 	return out, nil
 }
+
+// ReadFile admits and reads the same descriptor, bounded even if the file
+// grows after admission. Lstat/SameFile preserve the no-symlink contract.
 func ReadFile(path string, max int64) ([]byte, error) {
-	info, e := os.Lstat(path)
+	if max < 0 || max > 256<<20 {
+		return nil, fmt.Errorf("invalid artifact read budget")
+	}
+	before, e := os.Lstat(path)
 	if e != nil {
 		return nil, e
 	}
-	if !info.Mode().IsRegular() || info.Size() > max {
+	if !before.Mode().IsRegular() {
+		return nil, fmt.Errorf("unsafe artifact")
+	}
+	f, e := os.Open(path)
+	if e != nil {
+		return nil, e
+	}
+	defer f.Close()
+	info, e := f.Stat()
+	if e != nil {
+		return nil, e
+	}
+	if !info.Mode().IsRegular() || !os.SameFile(before, info) || info.Size() > max {
 		return nil, fmt.Errorf("unsafe or oversized artifact")
 	}
-	return os.ReadFile(path)
+	raw, e := io.ReadAll(io.LimitReader(f, max+1))
+	if e != nil {
+		return nil, e
+	}
+	if int64(len(raw)) > max {
+		return nil, fmt.Errorf("artifact grew beyond read budget")
+	}
+	return raw, nil
 }
