@@ -18,6 +18,7 @@ ENV = {k:os.environ[k] for k in ('PATH','HOME','TMPDIR','GOCACHE','GOPATH','GOTO
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('mode', choices=('prepare','live','gate'))
 parser.add_argument('out', help='new repository-relative evidence directory')
+parser.add_argument('--authorization-reference', default='ticket14-user-typesafe-20261017')
 args = parser.parse_args()
 if Path(args.out).is_absolute() or '..' in Path(args.out).parts:
     parser.error('repository-relative output required')
@@ -134,7 +135,7 @@ def prepare():
     cat = json.loads((ROOT/'ai/release/catalog-snapshot.json').read_text())
     proof = dict(route='jev',model='jev-1.14.0',service='https://api.typesafe.ai/v1/systemone',
         accountAlias='local-typesafe-unverified',regionAlias='unverified',
-        authorizationReference='ticket14-user-typesafe-20261017', dedicatedCredential=True,
+        authorizationReference=args.authorization_reference, dedicatedCredential=True,
         maxCalls=12,maxAttempts=12)
     dump(OUT/'protocol-authorization.json', proof)
     proof['reference'] = proof.pop('authorizationReference')
