@@ -55,3 +55,9 @@ PASS 均不能代替。没有新的整版 PASS 之前，不合并历史行、不
 本票的当前验收结果、命令和完整性回执见
 `.scratch/jev-1.14-multimodal-box/14-verification.md`；没有当前真实证据时仍保留
 NOT_RUN/整体阻断，受控协议验证与业务效果分别报告。
+
+2026-10-17另行授权的续修已按原#07要求取得两轮独立自然因果RED、安全对照和完整
+normal/race各9,098PASS、0FAIL；Decisions未执行清单和unary截止竞态亦已修复。
+原#07只在验收后转换为resolved，启动时旧快照与原发布pass=false保持原样，不追认PASS。
+真实支持及效果仍NOT_RUN，票14保持needs-info；当前续修报告、状态转换与独立封存入口见
+`.scratch/barness-ai-release-verification/verification.md`。

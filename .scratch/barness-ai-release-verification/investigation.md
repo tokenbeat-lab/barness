@@ -104,5 +104,16 @@ transport 失败、10 个成功；每请求一次 Attempt、零首差、全部�
 
 公开 socket 回归通过归档 `replay-red.py` 再次恢复旧行为得到两个既定 RED；
 当前隔离回归 normal/race 与原 single-P race 300 轮均 PASS。新证据闭合可重复的自然
-续写损坏机制，但没有反向认证历史 call-04/call-11 的原始字节。完整本版 normal/race
+续写损坏机制，但没有反向认证历史 call-04/call-11 的原始字节。完整本版 normal/race 及相关质量/完整性/审计
 仍是原 #07 关闭的必要条件，真实支持和效果继续 NOT_RUN。
+
+## 最终本版验收
+
+完整执行f29703b，Go内容cc78cfd，全程600源文件Hash不变。normal493.945s、race1,849.728s
+实际命令成功，各9,098PASS、0FAIL；各861Pi/33UC14、两入口图片负载及原两失败场景通过。
+两种vet、P0、差分及聚合审计共六受控gate全PASS，17发布输入审计0；live-tag主harness
+204PASS/62NOT_RUN、audit0。原#07和续修01/02在完整受控验收结束后关闭，状态转换保留。
+
+原发布CLI实际exit1/pass=false，启动时#07旧snapshot不改写；11真实路线及4效果包仍
+NOT_RUN、真实Calls/Attempts0，整体BLOCKED、票14needs-info。上轮全部失败回执保持原样。
+最终结果、限制和独立封存入口见`verification.md`与`evidence.json`。

@@ -54,3 +54,15 @@ Status: needs-info
 Decisions NOT_RUN 声明场景缺少清单 case 的拒绝。后两项按 needs-triage 记录在
 `.scratch/barness-ai-release-verification/issues/`，没有擅改原验收或放宽校验。
 因此“所有包清单/审计一致”仍未勾选，真实/效果证据条件也未勾选；工单不宣称完成。
+
+
+2026-10-17 续修：用户授权修复Decisions清单与normal/race失败，并按原#07验收定位压力。
+完整新执行f29703b（Go内容cc78cfd）normal/race各9,098PASS、0FAIL，两种vet、P0、
+差分、聚合脱敏门禁PASS，17个输入审计零发现；各33个UC14及861个Pi比较通过。
+Decisions逐场景NOT_RUN清单已修复并被严格消费者接受，unary取消归属与受控夹具缓冲已修复。
+原#07在重复自然因果反馈、回归和本版完整受控验收后由其自身关闭；状态前后原文/Hash和
+验收后转换单独保留，启动时未关闭的旧snapshot及原report.pass=false均不改写。
+真实11路线及4效果包仍NOT_RUN、Calls/Attempts0，本票保持needs-info，真实/效果证据
+及整体完整性验收项仍不宣称全部完成。详见
+[续修验收](../../barness-ai-release-verification/verification.md)与
+[回执](../../barness-ai-release-verification/evidence.json)。

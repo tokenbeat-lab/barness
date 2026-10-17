@@ -1,8 +1,8 @@
 # 07：定位当前发布压力流完整性失败
 
-Status: ready-for-agent
+Status: resolved
 Type: bug
-Updated: 2026-10-13
+Updated: 2026-10-17
 
 ## Actual failure
 
@@ -147,3 +147,34 @@ examined via the retained per-request byte/window/connection/write traces; only
 if bytes match should decoder-frame capture and then disabled-sampling versus
 empty-profile accumulation be investigated. Automatic gate PASS does not revoke
 that remaining causal-evidence requirement or the historical delivery blocker.
+
+## 2026-10-17 续修验收与关闭
+
+用户另行授权按本工单原要求继续定位、修复并执行完整门禁；真实服务保持 NOT_RUN。
+此前未关闭说明作为当时事实保留。本次已补足重复的自然因果反馈和当前完整验收，
+因此将原工单自身转换为 resolved，不依赖整合票代为撤销历史要求。
+
+两个顺序独立、未注入 errno/正文的普通 TCP 竞争缓冲反例，分别在
+`.evidence/pressure-integrity/native-20261017T022612.488595Z` 和
+`native-20261017T022622.224455Z` 关联 call-03/09/11 与 connection 2/4/30：
+相同首差 body1,318,335 / SSE frame4098 offset262,214，JSON结束字节被重复c覆盖；
+同连接 seq194、wire offset1,060,329、783,784-byte write 返回 ENOBUFS/0，继以同Hash续写。
+它证明原解析前不安全续写的自然机制；不反向认证历史call-04/call-11原始字节。
+
+当前安全边界同条件对照实际FAIL：22显式错误、10成功，32handler/trace，各一次Attempt，
+零字节偏离、资源0、audit0；没有将资源耗尽当生产PASS。原不安全续写公开RED重放仍失败，
+当前隔离70个回归、原压力设计和十轮均通过。默认受控 TCP 夹具请求64KiB发送缓冲，
+限制自身内核队列增长；保持原32并发、脚本、预算、认证/授权、比较和真实错误传播。
+
+当前Go内容提交cc78cfd，完整执行提交f29703b：normal/race各9,098 PASS、0FAIL，
+实际命令成功，耗时493.945s / 1,849.728s。两种vet、P0、冻结Pi差分和聚合审计通过，
+17个输入包审计0发现；两阶段各861个Pi及33个UC14用例通过。源码600文件Hash不变。
+Standards/Spec独立复核无剩余发现，认为本工单因果、回归及完整受控验收均满足。
+
+原始发布报告仍pass=false，保留启动时本工单未关闭的snapshot/Hash；关闭发生在本次
+验收结束之后，绝不改写或追认旧报告PASS。真实11路线和4效果包仍NOT_RUN，
+Calls/Attempts均0；整体发布及整合票14保持BLOCKED/needs-info。状态转换前后原文、
+Hash、时间、所依据原报告见`.evidence/release-followup/pressure-tracker-transition.json`。
+详细结果与可重复封存校验见
+[续修验收](../../barness-ai-release-verification/verification.md)和
+[两轴复核](../../barness-ai-release-verification/code-review.md)。

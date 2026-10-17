@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Diagnostic-only historical retry overlay. No injected socket errors or gate verdicts."""
-import datetime, hashlib, json, os, subprocess, sys, tempfile, signal
+import datetime, hashlib, json, os, subprocess, sys, tempfile
+from contextlib import suppress
 from pathlib import Path
 
 root = Path.cwd()
@@ -122,34 +123,54 @@ with tempfile.TemporaryDirectory() as temporary:
     build = subprocess.run(['go','test','-c','-overlay',str(overlay),'-o',str(binary),'./ai/e2e'],cwd=root,env=env,capture_output=True,timeout=120)
     (dest/'build.log').write_bytes(build.stdout+build.stderr)
     if build.returncode: raise SystemExit('diagnostic overlay did not compile: '+str(dest))
-    ambient=None
-    if condition:
-        ambient_source=folder/'ambient.go'
-        ambient_source.write_bytes((Path(__file__).parent/'ambient.go.txt').read_bytes())
-        ambient_binary=folder/'ambient'
-        subprocess.run(['go','build','-o',str(ambient_binary),str(ambient_source)],env=env,check=True,capture_output=True,timeout=120)
-        (dest/'ambient-source.go.txt').write_bytes(ambient_source.read_bytes())
-        receipt['ambientSHA256']=hashlib.sha256(ambient_binary.read_bytes()).hexdigest()
-        ambient_log=(dest/'ambient.json').open('wb')
-        ambient=subprocess.Popen([str(ambient_binary)],env=env,stdout=ambient_log,stderr=subprocess.STDOUT)
-    receipt['binarySHA256'] = hashlib.sha256(binary.read_bytes()).hexdigest()
-    command = [str(binary),'-test.run=^TestPressureLoopback$','-test.timeout=15m','-test.v']
-    receipt['command'] = ['[OVERLAY_BINARY]'] + command[1:]
-    (dest/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
-    print(str(dest),flush=True)
+    ambient = None
+    ambient_log = None
+    result = None
     started = datetime.datetime.now(datetime.timezone.utc)
+    command = [str(binary), '-test.run=^TestPressureLoopback$', '-test.timeout=15m', '-test.v']
+    receipt.update(command=['[OVERLAY_BINARY]']+command[1:], executionState='SETUP', exitCode=None)
     try:
+        if condition:
+            ambient_source = folder/'ambient.go'
+            ambient_source.write_bytes((Path(__file__).parent/'ambient.go.txt').read_bytes())
+            ambient_binary = folder/'ambient'
+            subprocess.run(['go', 'build', '-o', str(ambient_binary), str(ambient_source)],
+                           env=env, check=True, capture_output=True, timeout=120)
+            (dest/'ambient-source.go.txt').write_bytes(ambient_source.read_bytes())
+            receipt['ambientSHA256'] = hashlib.sha256(ambient_binary.read_bytes()).hexdigest()
+            ambient_log = (dest/'ambient.json').open('wb')
+            ambient = subprocess.Popen([str(ambient_binary)], env=env,
+                                       stdout=ambient_log, stderr=subprocess.STDOUT)
+        receipt.update(binarySHA256=hashlib.sha256(binary.read_bytes()).hexdigest(),
+                       executionState='RUNNING')
+        (dest/'receipt.json').write_text(json.dumps(receipt, indent=2)+'\n')
+        print(str(dest), flush=True)
         with (dest/'execution.log').open('wb') as log:
-            result = subprocess.run(command,cwd=root/'ai/e2e',env=env,stdout=log,stderr=subprocess.STDOUT,timeout=920)
+            result = subprocess.run(command, cwd=root/'ai/e2e', env=env,
+                                    stdout=log, stderr=subprocess.STDOUT, timeout=920)
+        receipt.update(exitCode=result.returncode, executionState='COMPLETED')
+    except BaseException as error:
+        receipt.update(executionState='TIMEOUT' if isinstance(error, subprocess.TimeoutExpired)
+                       else 'INTERRUPTED' if isinstance(error, KeyboardInterrupt) else 'ERROR',
+                       exceptionType=type(error).__name__)
+        raise
     finally:
-        if ambient is not None:
-            ambient.terminate()
-            try:
-                ambient.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                ambient.kill()
-                ambient.wait()
-            ambient_log.close()
-    receipt.update(exitCode=result.returncode,elapsedSeconds=(datetime.datetime.now(datetime.timezone.utc)-started).total_seconds(),runtimeSourceUnchanged=all(hashlib.sha256(p.read_bytes()).hexdigest()==receipt['sources'][str(p.relative_to(root))]['originalSHA256'] for p in sources))
-    (dest/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
-    print(json.dumps({'exitCode':result.returncode,'evidence':str(dest)}),flush=True)
+        try:
+            if ambient is not None:
+                with suppress(ProcessLookupError):
+                    ambient.terminate()
+                try:
+                    ambient.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    with suppress(ProcessLookupError):
+                        ambient.kill()
+                    ambient.wait()
+        finally:
+            if ambient_log is not None:
+                ambient_log.close()
+            after = {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
+                     for p in (root/'ai').rglob('*.go')}
+            receipt.update(elapsedSeconds=(datetime.datetime.now(datetime.timezone.utc)-started).total_seconds(),
+                           runtimeSourceUnchanged=after == base)
+            (dest/'receipt.json').write_text(json.dumps(receipt, indent=2)+'\n')
+    print(json.dumps({'exitCode':result.returncode, 'evidence':str(dest)}), flush=True)
