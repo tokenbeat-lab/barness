@@ -1,14 +1,35 @@
 package ai
 
 import (
+	"bytes"
+	"cmp"
 	"encoding/json"
-	"math"
 	"slices"
+
+	"github.com/buger/jsonparser"
 )
 
 // China ChatCompletionTextRequest.max_tokens.maximum, retrieved 2026-10-17:
 // https://docs.bigmodel.cn/openapi/openapi.json. Models may narrow this cap.
 const glmChatMaxOutputTokens = 131072
+
+// Sampling otherwise follows pi's JavaScript number semantics. GLM's exact
+// integer budget must survive that conversion until the final guard, where a
+// hook can still repair it. Keep field selection here: Chat and Responses use
+// different output fields and independently evolve their wire contracts.
+func preserveGLMChatSamplingBudget(body []byte, m Model, o ChatOptions) ([]byte, error) {
+	level := clampThinkingLevel(m, cmp.Or(o.ReasoningEffort, thinkingOff))
+	var budget json.RawMessage
+	for _, source := range []map[string]json.RawMessage{m.SamplingParams, m.SamplingParamsByThinkingLevel[level], o.SamplingParams} {
+		if raw, present := source["max_tokens"]; present {
+			budget = raw
+		}
+	}
+	if budget == nil {
+		return body, nil
+	}
+	return jsonparser.Set(body, budget, "max_tokens")
+}
 
 // validateChatModelOptions runs after binding/model authorization and simple
 // clamping, before credentials. GLM's full entry rejects unsupported named
@@ -18,6 +39,9 @@ func validateChatModelOptions(m Model, options Options) *Error {
 		return nil
 	}
 	o, _ := options.(ChatOptions)
+	if c, present := o.ToolChoice.Get(); present && (c.Mode != "auto" || c.Function != "" || c.AllowedTools != nil) {
+		return newError(CodeInvalidRequest, PhaseCapability, "Zhipu Chat supports only the default or auto tool choice")
+	}
 	if o.ReasoningEffort != "" && !slices.Contains(supportedThinkingLevels(m), o.ReasoningEffort) {
 		return newError(CodeInvalidRequest, PhaseCapability, "reasoning effort is not supported by this model")
 	}
@@ -32,13 +56,18 @@ func validateChatFinalBody(m Model, raw []byte, authorize func(map[string]any) s
 		return nil
 	}
 	var body map[string]any
-	if json.Unmarshal(raw, &body) != nil || body == nil {
+	dec := json.NewDecoder(bytes.NewReader(raw))
+	dec.UseNumber()
+	if dec.Decode(&body) != nil || body == nil {
 		return newError(CodeInvalidRequest, PhaseRequest, "request could not be encoded")
 	}
 	if problem := authorize(body); problem != "" {
 		return newError(CodeTenantDenied, PhaseRequest, problem)
 	}
 	if problem := validateGLMChatThinking(m, body); problem != "" {
+		return newError(CodeInvalidRequest, PhaseRequest, problem)
+	}
+	if problem := validateGLMChatTools(body); problem != "" {
 		return newError(CodeInvalidRequest, PhaseRequest, problem)
 	}
 	if problem := validateGLMChatBudget(m, body); problem != "" {
@@ -52,9 +81,8 @@ func validateGLMChatBudget(m Model, body map[string]any) string {
 		return "Zhipu Chat requires max_tokens instead of max_completion_tokens"
 	}
 	if raw, present := body["max_tokens"]; present {
-		// raw was decoded from the final JSON, so only float64 is numeric.
-		n, ok := raw.(float64)
-		if !ok || math.Trunc(n) != n || n < 1 || n > float64(min(m.MaxTokens, glmChatMaxOutputTokens)) {
+		n, ok := raw.(json.Number)
+		if !ok || !glmOutputBudgetNumber(json.RawMessage(n), min(m.MaxTokens, glmChatMaxOutputTokens)) {
 			return "max_tokens must be an integer from 1 through the model output limit"
 		}
 	}
@@ -73,6 +101,9 @@ func validateGLMChatThinking(m Model, body map[string]any) string {
 		if thinking["type"] == "enabled" && !m.Reasoning {
 			return "this model does not support thinking"
 		}
+		if clear, present := thinking["clear_thinking"]; present && clear != true {
+			return "Zhipu Chat requires clear_thinking:true; preserved prior-turn thinking is not integrated"
+		}
 	}
 	if raw, present := body["reasoning_effort"]; present {
 		effort, ok := raw.(string)
@@ -90,6 +121,16 @@ func validateGLMChatThinking(m Model, body map[string]any) string {
 			}
 		}
 		return "reasoning_effort is not supported by this model"
+	}
+	return ""
+}
+
+func validateGLMChatTools(body map[string]any) string {
+	if choice, present := body["tool_choice"]; present && choice != "auto" {
+		return "Zhipu Chat supports only the default or auto tool choice"
+	}
+	if tools, _ := body["tools"].([]any); len(tools) > 0 && body["tool_stream"] != true {
+		return "Zhipu Chat requires tool_stream:true when function tools are declared"
 	}
 	return ""
 }

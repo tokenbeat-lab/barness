@@ -1,0 +1,39 @@
+{
+  "source": "Synthetic China standard Chat tool stream, not a recorded service response. Source: https://docs.bigmodel.cn/openapi/openapi.json ChatCompletionTextRequest tool_stream/tool_choice, https://docs.bigmodel.cn/cn/guide/capabilities/thinking.md same-turn reasoning_content replay and clear_thinking default true, retrieved 2026-10-17. Each model has its own script. Deliberately interleaved nonsequential indexes plus ID-only continuation; usage follows finish_reason.",
+  "scenarios": [
+    {
+      "model": "glm-5.3",
+      "tools": [
+        {"id":"glm53-tools","model":"glm-5.3","choices":[{"delta":{"reasoning_content":"Check "},"finish_reason":null}]},
+        {"choices":[{"delta":{"tool_calls":[{"index":7,"id":"call_a","type":"function","function":{"name":"lookup","arguments":"{\"q\":\""}}]},"finish_reason":null}]},
+        {"choices":[{"delta":{"tool_calls":[{"index":3,"id":"call_b","type":"function","function":{"name":"clock","arguments":"{\"zone\":\""}}]},"finish_reason":null}]},
+        {"choices":[{"delta":{"reasoning_content":"both.","tool_calls":[{"id":"call_a","function":{"arguments":"x\",\"n\":"}}]},"finish_reason":null}]},
+        {"choices":[{"delta":{"tool_calls":[{"index":3,"function":{"arguments":"UTC\"}"}},{"index":7,"function":{"arguments":"2}"}}]},"finish_reason":"tool_calls"}]},
+        {"choices":[],"usage":{"prompt_tokens":12,"completion_tokens":8,"total_tokens":20,"completion_tokens_details":{"reasoning_tokens":5}}},
+        "[DONE]"
+      ],
+      "answer": [
+        {"id":"glm53-answer","model":"glm-5.3","choices":[{"delta":{"content":"The answer is 42 at UTC."},"finish_reason":"stop"}]},
+        {"choices":[],"usage":{"prompt_tokens":30,"completion_tokens":12,"total_tokens":42,"completion_tokens_details":{"reasoning_tokens":0}}},
+        "[DONE]"
+      ]
+    },
+    {
+      "model": "glm-5.2",
+      "tools": [
+        {"id":"glm52-tools","model":"glm-5.2","choices":[{"delta":{"reasoning_content":"Check "},"finish_reason":null}]},
+        {"choices":[{"delta":{"tool_calls":[{"index":7,"id":"call_a","type":"function","function":{"name":"lookup","arguments":"{\"q\":\""}}]},"finish_reason":null}]},
+        {"choices":[{"delta":{"tool_calls":[{"index":3,"id":"call_b","type":"function","function":{"name":"clock","arguments":"{\"zone\":\""}}]},"finish_reason":null}]},
+        {"choices":[{"delta":{"reasoning_content":"both.","tool_calls":[{"id":"call_a","function":{"arguments":"x\",\"n\":"}}]},"finish_reason":null}]},
+        {"choices":[{"delta":{"tool_calls":[{"index":3,"function":{"arguments":"UTC\"}"}},{"index":7,"function":{"arguments":"2}"}}]},"finish_reason":"tool_calls"}]},
+        {"choices":[],"usage":{"prompt_tokens":12,"completion_tokens":8,"total_tokens":20,"completion_tokens_details":{"reasoning_tokens":5}}},
+        "[DONE]"
+      ],
+      "answer": [
+        {"id":"glm52-answer","model":"glm-5.2","choices":[{"delta":{"content":"The answer is 42 at UTC."},"finish_reason":"stop"}]},
+        {"choices":[],"usage":{"prompt_tokens":30,"completion_tokens":12,"total_tokens":42,"completion_tokens_details":{"reasoning_tokens":0}}},
+        "[DONE]"
+      ]
+    }
+  ]
+}

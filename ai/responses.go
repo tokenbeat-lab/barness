@@ -47,8 +47,12 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	}
 	// As in pi, the payload callback runs once per logical call, outside
 	// any retry of the initial request.
-	body, failure := ac.hooks.payload(ctx, body, payloadAuthorization(authorizeResponsesPayload(ac.model, cacheKey, ac.hostedTools)))
+	authorize := authorizeResponsesPayload(ac.model, cacheKey, ac.hostedTools)
+	body, failure := ac.hooks.payload(ctx, body, payloadAuthorization(authorize))
 	if failure != nil {
+		return failure
+	}
+	if failure := validateGLMResponsesFinalBody(ac.model, body, authorize); failure != nil {
 		return failure
 	}
 	if failure := ac.limits.checkRequestBody(body); failure != nil {
@@ -93,7 +97,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 
 	out.start()
 	failure = readResponsesStream(ctx, ssestream.NewDecoder(res), responsesParser{out: out, failures: failures, slots: map[responsesIndex]responsesSlot{}, reasoning: map[string]int{},
-		usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier, requestedTier: opts.ServiceTier}, attempt: ac.initial})
+		glm: ac.model.Provider == ProviderZhipu, usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
 	}
@@ -106,10 +110,13 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 // (grammar) tool calls and tool namespaces, which only tools barness-ai does
 // not declare produce.
 type responsesParser struct {
-	out        *assembler
-	failures   responsesFailures
-	slots      map[responsesIndex]responsesSlot // output_index → open block
-	unfinished map[int]responsesToolRef         // content index → call lacking item.done
+	glm         bool
+	glmNative   map[responsesIndex]string
+	glmFinished map[responsesIndex]bool
+	out         *assembler
+	failures    responsesFailures
+	slots       map[responsesIndex]responsesSlot // output_index → open block
+	unfinished  map[int]responsesToolRef         // content index → call lacking item.done
 	// reasoning maps a finished reasoning item's id to its thinking block,
 	// for the terminal response's encrypted content backfill.
 	reasoning map[string]int
@@ -150,7 +157,8 @@ type responsesSlot struct {
 	kind  string // the item type: "message", "reasoning" or "function_call"
 	index int    // content index in the assistant message
 	// raw is a function call's argument JSON received so far (pi's partialJson).
-	raw *argumentText
+	raw  *argumentText
+	done *string
 }
 
 // slot returns the open block for outputIndex if it has the given kind.
@@ -233,6 +241,10 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 		if i, ok := p.slot(index, "message"); ok {
 			p.out.textDelta(i, ev.Delta)
 		}
+	case "response.output_text.done", "response.refusal.done", "response.reasoning_text.done", "response.reasoning_summary_text.done":
+		if p.glm {
+			p.glmTextDone(ev)
+		}
 	case "response.function_call_arguments.delta":
 		p.argumentsDelta(index, ev.Delta)
 	case "response.function_call_arguments.done":
@@ -282,6 +294,12 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 	}
 	i := s.index
 	delete(p.slots, outputIndex)
+	if p.glm {
+		if p.glmFinished == nil {
+			p.glmFinished = map[responsesIndex]bool{}
+		}
+		p.glmFinished[outputIndex] = true
+	}
 	switch item.Type {
 	case "message":
 		var text strings.Builder
@@ -292,7 +310,14 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 				text.WriteString(c.Refusal)
 			}
 		}
-		p.out.textEnd(i, text.String(), encodeTextSignature(item.ID, string(item.Phase)))
+		value := text.String()
+		if p.glm && len(item.Content) == 0 {
+			value = p.out.textContent(i)
+			if s.done != nil {
+				value = *s.done
+			}
+		}
+		p.out.textEnd(i, value, encodeTextSignature(item.ID, string(item.Phase)))
 	case "reasoning":
 		summary := make([]string, len(item.Summary))
 		for j, s := range item.Summary {
@@ -303,7 +328,14 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 			content[j] = c.Text
 		}
 		thinking := cmp.Or(strings.Join(summary, "\n\n"), strings.Join(content, "\n\n"), p.out.thinkingText(i))
-		p.out.thinkingEnd(i, thinking, reasoningSignature(item.RawJSON()))
+		if p.glm && len(item.Content) == 0 && s.done != nil {
+			thinking = *s.done
+		}
+		native := item.RawJSON()
+		if p.glm && p.glmNative[outputIndex] != "" {
+			native = p.glmNative[outputIndex]
+		}
+		p.out.thinkingEnd(i, thinking, reasoningSignature(native))
 		p.reasoning[item.ID] = i
 	case "function_call":
 		p.out.toolCallEnd(i, cmp.Or(item.Arguments.OfString, s.raw.String()))
@@ -315,7 +347,11 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 // fails at once; a status that maps to an error fails once the stream ends.
 func (p *responsesParser) finalize(r responses.Response) *Error {
 	p.terminal = true
-	p.backfillReasoning(r.Output)
+	if p.glm {
+		p.finishGLMOutput(r.Output)
+	} else {
+		p.backfillReasoning(r.Output)
+	}
 	if r.ID != "" {
 		p.out.responseID(r.ID)
 	}

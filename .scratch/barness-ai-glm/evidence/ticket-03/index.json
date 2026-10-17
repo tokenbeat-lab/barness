@@ -1,0 +1,255 @@
+{
+  "schema": 1,
+  "ticket": "03",
+  "feature_commit": "2769e460d7a2584e81bd47e0d27beba5911ade4b",
+  "committed_replay_source": "49752144de9738cb9c073700db43b6dd4e8b2e9b",
+  "scope": "Offline public Client E2E on two independent synthetic Chat candidates; no credentials, paid calls, builtin catalog or formal support change.",
+  "runs": [
+    {
+      "phase": "all-glm",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/all-glm/20261017T125956.681773000Z/manifest.json",
+      "sha256": "98c353b3e220eaaf49ef82d064b4f622d7080f65cad66247795dc1080bd5e180",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 356,
+      "statuses": {
+        "PASS": 356
+      },
+      "redaction_audit": "PASS"
+    },
+    {
+      "phase": "committed-glm",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/committed-glm/20261017T130153.910174000Z/manifest.json",
+      "sha256": "77825a01175b543e2a5b47352f2c1cfc8bef3cf17060b00947536e28ec2caec4",
+      "git_commit": "49752144de9738cb9c073700db43b6dd4e8b2e9b",
+      "cases": 358,
+      "statuses": {
+        "PASS": 358
+      },
+      "redaction_audit": "PASS",
+      "note": "All 358 GLM Chat cases after latest integration merge; includes ticket02 and all 192 ticket03 cases."
+    },
+    {
+      "phase": "differential",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/differential/20261017T130001.915112000Z/manifest.json",
+      "sha256": "a1cf7f32c4530a57b8ce1c8d7d08e96f1db97dec886a074909fb1ac9c287588d",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 321,
+      "statuses": {
+        "PASS": 321
+      },
+      "redaction_audit": "PASS",
+      "note": "321 frozen OpenAI Chat / DeepSeek Chat cases passed; no native GLM route claimed."
+    },
+    {
+      "phase": "green-controls",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/green-controls/20261017T125551.853156000Z/manifest.json",
+      "sha256": "e870f408517c52ba450e556a79876af196cf3123379175c70504e347859f05b8",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 114,
+      "statuses": {
+        "PASS": 114
+      },
+      "redaction_audit": "PASS"
+    },
+    {
+      "phase": "green-precision",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/green-precision/20261017T125640.990690000Z/manifest.json",
+      "sha256": "4b9e07e36a9d8477c0b525537276b1103c32b761a3f3de6f68b31f53971726a8",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 12,
+      "statuses": {
+        "PASS": 12
+      },
+      "redaction_audit": "PASS"
+    },
+    {
+      "phase": "green-sampling-precision",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/green-sampling-precision/20261017T125841.037079000Z/manifest.json",
+      "sha256": "1a1722acc952cea1f6373424b6aad1368bfcd6b43bca42e103469a37c1fba534",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 68,
+      "statuses": {
+        "PASS": 68
+      },
+      "redaction_audit": "PASS"
+    },
+    {
+      "phase": "green-tools",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/green-tools/20261017T125455.264812000Z/manifest.json",
+      "sha256": "2d01b7747e030513db28bdeb7f53b826c4c758bfe8598937e4b79a05359eb377",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 4,
+      "statuses": {
+        "PASS": 4
+      },
+      "redaction_audit": "PASS"
+    },
+    {
+      "phase": "history",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/history/20261017T125728.869477000Z/manifest.json",
+      "sha256": "34810d311f6b773b6fbe28cda3630663663255e3148b48c1998e48a011e37efe",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 20,
+      "statuses": {
+        "PASS": 18,
+        "FAIL": 2
+      },
+      "redaction_audit": "PASS",
+      "note": "Initial characterization incorrectly treated q:3 as invalid; existing public validation intentionally coerces it to string. Changed fixture to n:not-an-integer, no production change. Corrected history passes green-sampling-precision and committed-glm."
+    },
+    {
+      "phase": "oracle-guards",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/oracle-guards/20261017T130122.604880000Z/manifest.json",
+      "sha256": "3508b25f9ed1024a1f0afd64d297432ae2a8c54d10d1a9296dde59b6c9833094",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "redaction_audit": "PASS"
+    },
+    {
+      "phase": "pending",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/pending/20261017T130044.994280000Z/manifest.json",
+      "sha256": "20c9234abe0021694cc77f4dc73421fb731c5f6fa5d1c76c4844409390027ef0",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      },
+      "redaction_audit": "PASS"
+    },
+    {
+      "phase": "race",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/race/20261017T130008.617551000Z/manifest.json",
+      "sha256": "e9a29eb83e9b7a7a53ede46908e78e884325baa395cd2c3bf540e465b13e6aa3",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 190,
+      "statuses": {
+        "PASS": 190
+      },
+      "redaction_audit": "PASS",
+      "note": "All initial 190 ticket03 cases passed race; two later pending-call characterization cases independently passed race-pending."
+    },
+    {
+      "phase": "race-pending",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/race-pending/20261017T130157.891634000Z/manifest.json",
+      "sha256": "5e17f968aee3c1b3f9537f7ba55852ccb68d2cdc0004e9180e33e666105d11e6",
+      "git_commit": "49752144de9738cb9c073700db43b6dd4e8b2e9b",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      },
+      "redaction_audit": "PASS"
+    },
+    {
+      "phase": "red-controls",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/red-controls/20261017T125540.752154000Z/manifest.json",
+      "sha256": "93f165804f2ec1d514a48a0c29f872a9e4e891d4fa34255c8023a98dd8b0e02a",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 110,
+      "statuses": {
+        "PASS": 32,
+        "FAIL": 78
+      },
+      "redaction_audit": "PASS",
+      "note": "Behavioral red: 78 unsupported named/final controls sent; valid repairs and authorization precedence already work."
+    },
+    {
+      "phase": "red-precision",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/red-precision/20261017T125617.043234000Z/manifest.json",
+      "sha256": "94e27e2508e5a5d8b869c80dbd2864d0dc9d3e96f7af125f75008bd4d75d3577",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 12,
+      "statuses": {
+        "PASS": 8,
+        "FAIL": 4
+      },
+      "redaction_audit": "PASS",
+      "note": "Behavioral red: four final callback fractional budgets rounded to integers."
+    },
+    {
+      "phase": "red-sampling-precision",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/red-sampling-precision/20261017T125827.184996000Z/manifest.json",
+      "sha256": "94d7f5b540aadbfe8fbc05671182ccaccd35fa28f25d4e1bcce34095cb84f652",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 48,
+      "statuses": {
+        "PASS": 36,
+        "FAIL": 12
+      },
+      "redaction_audit": "PASS",
+      "note": "Behavioral red: 12 model/profile/call fractional budgets rounded before final validation."
+    },
+    {
+      "phase": "red-tools",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/red-tools/20261017T125426.453449000Z/manifest.json",
+      "sha256": "a1380d0b0523a458f9f062ce6a1557c6e1745b3235bc364f9db28ce4cb6eae63",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 4,
+      "statuses": {
+        "FAIL": 4
+      },
+      "redaction_audit": "PASS",
+      "note": "Initial diagnostics also contained an incorrect event-summary expectation; use red-tools-corrected as the behavioral red source."
+    },
+    {
+      "phase": "red-tools",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/red-tools/20261017T125429.368308000Z/manifest.json",
+      "sha256": "ec24cca711e1ef6d76c178429495352d13b98079f3abd65b7829b3b2537b97c0",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 4,
+      "statuses": {
+        "FAIL": 4
+      },
+      "redaction_audit": "PASS",
+      "note": "Initial diagnostics also contained an incorrect event-summary expectation; use red-tools-corrected as the behavioral red source."
+    },
+    {
+      "phase": "red-tools-corrected",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/red-tools-corrected/20261017T125447.965122000Z/manifest.json",
+      "sha256": "f2b40af27ea32ae3701b0ae193dba8b5506a0dbe7c15f448b7cedf9c267cbd6f",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 4,
+      "statuses": {
+        "FAIL": 4
+      },
+      "redaction_audit": "PASS",
+      "note": "Behavioral red: both model default/auto cases omit required tool_stream."
+    },
+    {
+      "phase": "regressions",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/regressions/20261017T125956.190185000Z/manifest.json",
+      "sha256": "8950712838d60c360ec576835b5ca21329eae483bed2b0b79871f4b169ad73fe",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 2000,
+      "statuses": {
+        "PASS": 1999,
+        "NOT_RUN": 1
+      },
+      "redaction_audit": "PASS",
+      "note": "1999 PASS; one opt-in oracle guard initially NOT_RUN, separately replayed PASS in oracle-guards."
+    },
+    {
+      "phase": "snapshots",
+      "manifest": ".evidence/barness-ai-glm/ticket-03/snapshots/20261017T125931.445453000Z/manifest.json",
+      "sha256": "8eb27d7f455bc6254f0cf05c39b6d7c1647e8016ece81febd344c0a65900705f",
+      "git_commit": "2acb83ffc87f3b46a83cb002d86545b359a0b972",
+      "cases": 8,
+      "statuses": {
+        "PASS": 8
+      },
+      "redaction_audit": "PASS"
+    }
+  ],
+  "checks": [
+    {
+      "command": "go vet ./ai/...",
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --check && git diff --cached --check",
+      "result": "PASS"
+    }
+  ]
+}
