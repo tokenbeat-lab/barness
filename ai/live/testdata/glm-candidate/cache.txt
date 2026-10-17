@@ -1,0 +1,146 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.bigmodel.cn/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# 上下文缓存
+
+上下文缓存功能通过缓存重复的上下文内容来显著降低 Token 消耗和响应延迟。当您在对话中重复使用相同的系统提示词或历史对话时，缓存机制会自动识别并复用这些内容，从而提升性能并降低成本。
+
+## 功能特性
+
+* **自动缓存识别**：隐式缓存，智能识别重复的上下文内容，无需手动配置
+* **显著降低成本**：缓存命中的 Token 按更低价格计费，大幅节省成本
+* **提升响应速度**：减少重复内容的处理时间，加快模型响应
+* **透明化计费**：详细显示缓存命中的 Token 数量，响应字段 `usage.prompt_tokens_details.cached_tokens`
+
+> 上下文缓存通过对输入的消息内容进行计算并识别出与之前请求中相同内容。当检测到重复内容时，系统会复用之前的计算结果，从而避免重复计算这些内容所需的 Token。
+
+## 代码示例
+
+<Tabs>
+  <Tab title="cURL">
+    **第一次请求 —— 建立缓存**
+
+    > 要触发上下文缓存，重复的前缀内容必须足够长（建议 500 Token 以上），两三句话的短系统提示词通常无法命中。下面以"长知识库系统提示词 + 不同用户问题"为例：系统提示词保持完全一致，只有用户问题变化。
+
+    ```bash theme={null}
+    # 第一次请求 - 建立缓存（cached_tokens 为 0）
+    curl --location 'https://open.bigmodel.cn/api/paas/v4/chat/completions' \
+    --header 'Authorization: Bearer YOUR_API_KEY' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "model": "glm-5.3",
+        "thinking": {
+            "type": "enabled"
+        },
+        "reasoning_effort": "low",
+        "max_tokens": 300,
+        "messages": [
+            {
+                "role": "system",
+                "content": "你是智谱开放平台（BigModel）的官方技术支持助手。请严格依据以下知识库回答开发者问题；知识库未覆盖的问题请如实告知，并引导开发者查阅官方文档或提交工单。\n\n【知识库开始】\n一、平台概述\n智谱开放平台面向开发者与企业提供 GLM 系列大模型 API 服务，涵盖智能对话、代码生成、深度思考、联网搜索、工具调用、图像理解与生成、向量检索等能力。开发者可通过 HTTPS API 直接调用，也可以使用 Python、Java、Go、Node.js 等官方 SDK 接入。平台提供 API Key 管理、用量统计、批量推理等配套服务。\n\n二、模型介绍\nGLM-5.3：当前旗舰模型，仅支持文本模态，支持 1M 上下文窗口，最大输出 128K Token；思考功能始终开启，提供 low、high、max 三档思考强度，默认 max；适合复杂推理、代码与智能体任务。\nGLM-5.3-Flash：轻量快速版本，延迟与成本更低，适合高并发、低复杂度场景。\nGLM-5.2：上一代旗舰模型，支持深度思考与工具调用，同样适合长上下文任务。\nGLM-4.5-Flash：免费模型，适合原型验证与学习。\n各模型均支持 Function Calling 与结构化输出，具体能力以模型详情页为准。\n\n三、接口与协议\n平台支持多种接入协议：OpenAI Chat Completion 协议、OpenAI Response 协议与 Anthropic Message 协议。请求鉴权使用 Bearer Token，即 API Key。流式响应使用 SSE 格式，usage 统计在最后一个 chunk 返回。\n\n四、计费与用量\n模型调用按输入与输出 Token 分开计费，深度思考的思考过程计入输出 Token。上下文缓存命中的 Token 按优惠价格计费，命中数量可通过 usage.prompt_tokens_details.cached_tokens 查询。余额不足时调用会返回相应错误码，请及时充值或设置余额提醒。\n\n五、常见问题处理规范\n1. API Key 安全：密钥泄漏后应立即在控制台吊销并重新生成；请勿将密钥写入前端代码或公开仓库。\n2. 限流问题：触发限流会返回 429，请按指数退避重试，必要时联系商务提升并发配额。\n3. 迁移问题：旧请求中的 thinking.type 为 disabled，迁移至 GLM-5.3 时必须改为 enabled，否则请求会失败，推荐搭配 reasoning_effort 为 low 起步。\n4. 转人工规范：以下情形必须引导提交工单——涉及计费争议、账号被盗、批量接口异常、连续多次重试仍失败。\n【知识库结束】\n\n【知识库补充：开发者进阶指南】\n六、错误码规范\n调用 API 失败时，响应体中的 error.code 与 error.message 会给出明确原因。常见错误码：401 表示 API Key 无效或格式错误；429 表示触发限流，响应头中的 Retry-After 给出建议等待秒数；400 表示请求参数不合法，例如 max_tokens 超出模型上限、messages 缺少必要字段；500 表示服务端内部错误，可重试；503 表示模型过载，建议稍后重试或切换轻量模型。排查时请先核对错误码，再检查请求体与鉴权头，最后携带 request_id 提交工单。\n\n七、流式与断线处理\n流式响应基于 SSE，每个 chunk 以 data: 开头。遇到网络中断时，可通过最后一个 chunk 的 finish_reason 与已接收内容判断断点；建议对幂等场景实现重试与拼接。深度思考模型的思考过程在 reasoning_content 字段增量返回，正式回答在 content 字段增量返回，二者分开渲染。\n\n八、最佳实践\n1. 提示词：把稳定不变的说明、规范与知识库放在系统提示词前部，把多变的问题放在用户消息中，这样可以最大化上下文缓存的命中率。\n2. 上下文缓存：重复的长前缀会被自动缓存，命中的 Token 按优惠价格计费；缓存为异步生效，首次请求后稍等片刻再发起后续请求效果更好。\n3. 并发与退避：客户端应实现指数退避与抖动，避免固定间隔重试造成惊群；批量任务建议使用异步批量接口。\n4. 成本控制：为每个调用设置合理的 max_tokens，对深度思考模型按任务复杂度选择合适的思考强度，可以显著降低输出成本。\n\n九、工单与技术支持\n标准工单响应时间为一个工作日；企业版客户享有专属通道与更高优先级。提交工单时请附上 request_id、调用时间、请求体（隐去密钥）与期望行为，以便快速定位问题。\n"
+            },
+            {
+                "role": "user",
+                "content": "GLM-5.3 支持多大的上下文窗口和最大输出？"
+            }
+        ]
+    }'
+    ```
+
+    **第二次请求 —— 复用缓存**
+
+    ```bash theme={null}
+    # 第二次请求 - 复用系统提示词缓存
+    curl --location 'https://open.bigmodel.cn/api/paas/v4/chat/completions' \
+    --header 'Authorization: Bearer YOUR_API_KEY' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "model": "glm-5.3",
+        "thinking": {
+            "type": "enabled"
+        },
+        "reasoning_effort": "low",
+        "max_tokens": 300,
+        "messages": [
+            {
+                "role": "system",
+                "content": "你是智谱开放平台（BigModel）的官方技术支持助手。请严格依据以下知识库回答开发者问题；知识库未覆盖的问题请如实告知，并引导开发者查阅官方文档或提交工单。\n\n【知识库开始】\n一、平台概述\n智谱开放平台面向开发者与企业提供 GLM 系列大模型 API 服务，涵盖智能对话、代码生成、深度思考、联网搜索、工具调用、图像理解与生成、向量检索等能力。开发者可通过 HTTPS API 直接调用，也可以使用 Python、Java、Go、Node.js 等官方 SDK 接入。平台提供 API Key 管理、用量统计、批量推理等配套服务。\n\n二、模型介绍\nGLM-5.3：当前旗舰模型，仅支持文本模态，支持 1M 上下文窗口，最大输出 128K Token；思考功能始终开启，提供 low、high、max 三档思考强度，默认 max；适合复杂推理、代码与智能体任务。\nGLM-5.3-Flash：轻量快速版本，延迟与成本更低，适合高并发、低复杂度场景。\nGLM-5.2：上一代旗舰模型，支持深度思考与工具调用，同样适合长上下文任务。\nGLM-4.5-Flash：免费模型，适合原型验证与学习。\n各模型均支持 Function Calling 与结构化输出，具体能力以模型详情页为准。\n\n三、接口与协议\n平台支持多种接入协议：OpenAI Chat Completion 协议、OpenAI Response 协议与 Anthropic Message 协议。请求鉴权使用 Bearer Token，即 API Key。流式响应使用 SSE 格式，usage 统计在最后一个 chunk 返回。\n\n四、计费与用量\n模型调用按输入与输出 Token 分开计费，深度思考的思考过程计入输出 Token。上下文缓存命中的 Token 按优惠价格计费，命中数量可通过 usage.prompt_tokens_details.cached_tokens 查询。余额不足时调用会返回相应错误码，请及时充值或设置余额提醒。\n\n五、常见问题处理规范\n1. API Key 安全：密钥泄漏后应立即在控制台吊销并重新生成；请勿将密钥写入前端代码或公开仓库。\n2. 限流问题：触发限流会返回 429，请按指数退避重试，必要时联系商务提升并发配额。\n3. 迁移问题：旧请求中的 thinking.type 为 disabled，迁移至 GLM-5.3 时必须改为 enabled，否则请求会失败，推荐搭配 reasoning_effort 为 low 起步。\n4. 转人工规范：以下情形必须引导提交工单——涉及计费争议、账号被盗、批量接口异常、连续多次重试仍失败。\n【知识库结束】\n\n【知识库补充：开发者进阶指南】\n六、错误码规范\n调用 API 失败时，响应体中的 error.code 与 error.message 会给出明确原因。常见错误码：401 表示 API Key 无效或格式错误；429 表示触发限流，响应头中的 Retry-After 给出建议等待秒数；400 表示请求参数不合法，例如 max_tokens 超出模型上限、messages 缺少必要字段；500 表示服务端内部错误，可重试；503 表示模型过载，建议稍后重试或切换轻量模型。排查时请先核对错误码，再检查请求体与鉴权头，最后携带 request_id 提交工单。\n\n七、流式与断线处理\n流式响应基于 SSE，每个 chunk 以 data: 开头。遇到网络中断时，可通过最后一个 chunk 的 finish_reason 与已接收内容判断断点；建议对幂等场景实现重试与拼接。深度思考模型的思考过程在 reasoning_content 字段增量返回，正式回答在 content 字段增量返回，二者分开渲染。\n\n八、最佳实践\n1. 提示词：把稳定不变的说明、规范与知识库放在系统提示词前部，把多变的问题放在用户消息中，这样可以最大化上下文缓存的命中率。\n2. 上下文缓存：重复的长前缀会被自动缓存，命中的 Token 按优惠价格计费；缓存为异步生效，首次请求后稍等片刻再发起后续请求效果更好。\n3. 并发与退避：客户端应实现指数退避与抖动，避免固定间隔重试造成惊群；批量任务建议使用异步批量接口。\n4. 成本控制：为每个调用设置合理的 max_tokens，对深度思考模型按任务复杂度选择合适的思考强度，可以显著降低输出成本。\n\n九、工单与技术支持\n标准工单响应时间为一个工作日；企业版客户享有专属通道与更高优先级。提交工单时请附上 request_id、调用时间、请求体（隐去密钥）与期望行为，以便快速定位问题。\n"
+            },
+            {
+                "role": "user",
+                "content": "从旧模型迁移到 GLM-5.3 时 thinking 参数要注意什么？"
+            }
+        ]
+    }'
+    ```
+  </Tab>
+</Tabs>
+
+响应包含上下文缓存的 Token 使用信息：
+
+```json theme={null}
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "## 迁移到 GLM-5.3 时 thinking 参数注意事项\n\n根据知识库，迁移时需注意以下关键点：\n\n1. **必须修改参数值**：旧请求中的 `thinking.type` 为 `disabled`，迁移至 GLM-5.3 时**必须改为 `enabled`**，否则请求会失败。\n\n2. **思考功能不可关闭**：GLM-5.3 的思考功能**始终开启**，因此不能像旧模型那样禁用思考。\n\n3. **建议搭配 reasoning_effort 起步**：推荐将 `reasoning_effort` 设为 `low` 起步。GLM-5.3 提供三档思考强度：\n   - `low`（推荐迁移起步）\n   - `high`\n   - `max`（默认）\n\n4. **成本提示**：深度思考的思考过程会计入**输出 Token** 计费，如需控制成本，可根据任务复杂度选择合适的思考强度。\n\n如迁移后仍遇到问题，建议携带 request_id、调用时间和请求体（隐去密钥）提交工单，以便快速定位。",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1789641381,
+  "id": "202609171836159342f8e00bec415f",
+  "model": "glm-5.3",
+  "object": "chat.completion",
+  "request_id": "202609171836159342f8e00bec415f",
+  "usage": {
+    "completion_tokens": 241,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1075,
+    "prompt_tokens_details": {
+      "cached_tokens": 1024
+    },
+    "total_tokens": 1316
+  }
+}
+```
+
+## 计费说明
+
+<Tip>
+  仅适用于**标准 API** 计费，不包括资源包和 GLM Coding Plan 套餐。
+</Tip>
+
+上下文缓存采用差异化计费策略：
+
+* 新内容 Token：按标准价格计费
+* 缓存命中 Token：按优惠价格计费（通常为标准价格的 50%）
+* 输出 Token：按标准价格计费
+
+计费示例：
+
+```
+假设标准价格为 0.01 元/1K Token：
+
+请求详情：
+- 总输入 Token：2000
+- 缓存命中 Token：1200
+- 新内容 Token：800
+- 输出 Token：500
+
+计费计算：
+- 新内容费用：800 × 0.01/1000 = 0.008 元
+- 缓存费用：1200 × 0.005/1000 = 0.006 元
+- 输出费用：500 × 0.01/1000 = 0.005 元
+- 总费用：0.019 元
+
+相比无缓存（2500 × 0.01/1000 = 0.025 元），节省 24%
+```
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

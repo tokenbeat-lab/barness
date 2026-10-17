@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "retrievedAt": "2026-10-17",
+  "sources": [
+    {
+      "file": "chat.txt",
+      "url": "https://docs.bigmodel.cn/openapi/openapi.json",
+      "sha256": "e1867cd1a7e31b15cc9088b03d8c1361e275153a1334b9e9e3bea95f4c623dd9"
+    },
+    {
+      "file": "responses.txt",
+      "url": "https://docs.bigmodel.cn/openapi/openapi-responses.json",
+      "sha256": "0914af477ff4c1fae0372f9c44ace23033d0bed0cc486796eaff2c2024e5f18c"
+    },
+    {
+      "file": "glm52.txt",
+      "url": "https://docs.bigmodel.cn/cn/guide/models/text/glm-5.2.md",
+      "sha256": "ad435d6334a6c221a7004ada5cb6a0c936968c445b1648f7158623ed1f2967d1"
+    },
+    {
+      "file": "glm53.txt",
+      "url": "https://docs.bigmodel.cn/cn/guide/models/text/glm-5.3.md",
+      "sha256": "2ae550297e839b51498db0f487d9ba5cb0c44f996236546d0eb2e07ce43ef8d8"
+    },
+    {
+      "file": "pricing.txt",
+      "url": "https://docs.bigmodel.cn/cn/guide/start/pricing.md",
+      "sha256": "e47e492fffffdd7d0cdb3fb6b61f0ed33b2ab829dd3973c9d55e8a1f1c537e4a"
+    },
+    {
+      "file": "cache.txt",
+      "url": "https://docs.bigmodel.cn/cn/guide/capabilities/cache.md",
+      "sha256": "f6a428c0c63ae10e9423306205c012b40d2b8c9a26eb277f16f79a52cfc7cb84"
+    },
+    {
+      "file": "claude.txt",
+      "url": "https://docs.bigmodel.cn/cn/guide/develop/claude/introduction.md",
+      "sha256": "becda63d7e3a6e71b4155b2a966794ea84a33dba67beebcaa6abafb823cd2cdc"
+    },
+    {
+      "file": "thinking.txt",
+      "url": "https://docs.bigmodel.cn/cn/guide/capabilities/thinking.md",
+      "sha256": "280bf00451b2ad210439f95d2c6bee3ee7c9145db6da85ba23348aa0a98f12a2"
+    },
+    {
+      "file": "fx.json",
+      "url": "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr-notice2026-10-16.json",
+      "sha256": "bb0b4f2575c08eeb09daba9af3e59c1c9d2ddda7c1df09dfbfbac9994c5ae36c"
+    },
+    {
+      "file": "fx.html",
+      "url": "https://www.chinamoney.com.cn/chinese/ccprnoticecontent/index.html?searchDate=2026-10-16",
+      "sha256": "7b01f35a3dac587ee066b00f79419f636673867c1655ad1478ad3e4c09ad34c0"
+    },
+    {
+      "file": "fx.js",
+      "url": "https://www.chinamoney.com.cn/r/cms/chinese/chinamoney/assets/js/cm-basic.js",
+      "sha256": "4e0479941d0c9f754528b020ae2725998679eebd4f7ddd40f0e01fae3ace9af9"
+    }
+  ],
+  "candidateSHA256": "6b9dc9e24188f51808d9ec7b95103c900897105bee7cfb2fcab3851d39b31606",
+  "planSHA256": "87a364da95c42008820017291dacbc1b0ccdd672d8fe8e0beff1336a80320638",
+  "provenance": {
+    "currency": "USD per million tokens",
+    "formula": "USD=RMB/6.7220; fixed 10 decimal places",
+    "rmb": {
+      "input": 8,
+      "output": 28,
+      "cacheRead": 2
+    },
+    "fxDate": "2026-10-16",
+    "cacheWrite": "inference: new-content computation at ordinary input rate, counted once; storage time price not included",
+    "tiers": "none listed for target model rows",
+    "capacities": "context 1000000 conservative barness interpretation of 1M; Chat/Responses output131072 schema ceiling plus model128K; Messages128000 conservative barness bound; not capacity load evidence",
+    "aliases": "local-glm / cn-standard-endpoint are unverified Host labels",
+    "messages": "canonical effort maps all null; explicit1024/max4096 only5.2 established own wire evidence; 5.3 default only"
+  }
+}

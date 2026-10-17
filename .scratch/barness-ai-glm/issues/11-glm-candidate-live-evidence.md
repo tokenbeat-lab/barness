@@ -1,6 +1,6 @@
 # 11: 取得六个候选型号组合的真实 API 与价格证据
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 
 由 2026-10-17 implement-spec 实施指令发布。
