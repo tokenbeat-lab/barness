@@ -3,7 +3,7 @@
 Status: ready-for-agent
 Type: task
 Updated: 2026-10-18
-Blocked by: 05, 06
+Blocked by: 06
 
 ## Context
 
@@ -11,7 +11,7 @@ Blocked by: 05, 06
 
 ## Scope and acceptance
 
-负责完整本地/云端 Host 示例、三 Binding/用途、六身份思考语义、费用/缓存/信任与如实支持状态；ADR 记录能力拆分和有来源的续接结论。实现并先验完整软件回滚、禁用 Binding 零凭据/请求和旧路线恢复。修复基线既有 GLM 回滚 commands.json 绝对路径泄漏，不减弱脱敏审计。与07并行；07结果到达后同步真实支持状态。最终全集验收与工单关闭由09汇合。
+负责完整本地/云端 Host 示例、三 Binding/用途、六身份思考语义、费用/缓存/信任与如实支持状态；ADR 记录能力拆分和有来源的续接结论。实现并先验完整软件回滚、禁用 Binding 零凭据/请求和旧路线恢复。修复基线既有 GLM 回滚 commands.json 绝对路径泄漏，不减弱脱敏审计。与共享验证/证据工具并行；10结果到达后同步真实支持状态。最终全集验收与工单关闭由09汇合。
 
 追溯：R01–R28；A01–A20；US01–US80。
 
