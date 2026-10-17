@@ -34,6 +34,8 @@
 
 - 2026-10-17：[11 已解决](issues/11-glm-candidate-live-evidence.md)：六个候选各11/11真实场景PASS，三协议各22call/22HTTP、零重跑，总66；完整来源与固定USD/保守容量快照、原始wire/usage/Observer/343文件inventory及脱敏封存。原始捕获又通过公共Client无Key/无网络精确回放66次，保留全部上游ID/原生签名；normal/race/vet通过。见[原始与回放证据](evidence/ticket-11/README.md)与[12接续](evidence/ticket-11/handoff-12.md)。正式目录/当前Hash重跑及矩阵由12完成。
 
+- 2026-10-17：[12 已解决](issues/12-glm-formal-catalog-support-matrix.md)：六个独立正式GLM条目、完整Catalog .2/Hash及三条自身22能力记录已发布；正式66次真实请求与66次无Key精确回放通过、零重跑。原始预算token0/0经公共RED定位，仅消费者派生独立已报告下界视图，原始证据/测量源码保持；固定来源、完整场景与有限artifact/隐藏调用拒绝、当前消费者身份、原子矩阵更新验证完成。旧11行保持，发布契约为14身份/13协议组合；40归档/33099文件与13接续见[证据](evidence/ticket-12/README.md)。
+
 ## Fog
 
-- 六组合候选真实证据及固定USD来源已取得；12的正式BuiltinCatalog/当前Hash自身重跑和矩阵、13的当前发布门禁与效果仍待完成，不能用候选或离线回放冒充正式发布。
+- 六组合候选和正式当前Hash自身证据已取得，12目录/矩阵已完成；13仍须收敛其余11个当前Hash身份、效果、Host示例/回滚与完整发布门禁，不能把新三组合通过冒充完整发布。
