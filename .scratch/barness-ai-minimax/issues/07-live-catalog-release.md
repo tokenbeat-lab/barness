@@ -1,6 +1,6 @@
 # 07 — 独立 Live Harness、预算与可信证据工具
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Updated: 2026-10-18
 Blocked by: 02, 03, 04
