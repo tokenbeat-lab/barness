@@ -46,6 +46,19 @@ func TestGLMFullRollback(t *testing.T) {
 		}
 		ev.Fixture(name, raw)
 	}
+	var commands []struct {
+		Argv []string `json:"argv"`
+	}
+	commandBytes, err := os.ReadFile(filepath.Join(abs, "commands.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	mustUnmarshal(t, commandBytes, &commands)
+	for _, command := range commands {
+		for _, arg := range command.Argv {
+			ev.Check("rollback receipt paths are portable and redacted", !filepath.IsAbs(arg), "absolute argument leaked")
+		}
+	}
 	var report struct {
 		Pass           bool `json:"passVerdict"`
 		Baseline, Tree string

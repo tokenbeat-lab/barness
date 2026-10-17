@@ -75,6 +75,14 @@ def verify_tree(root,entries,blobs):
  return result
 
 
+
+def receipt_text(value,restoration):
+ # Receipts are portable evidence: argv and compiler output can contain both
+ # the isolated tree and the caller's checkout/home. Sanitize at the writer,
+ # before E2E imports the files; keep the downstream redaction audit intact.
+ return str(value).replace(str(restoration),'$RESTORATION').replace(str(c.ROOT),'$REPO').replace(str(Path.home()),'$HOME')
+
+
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('out');args=p.parse_args()
  if Path(args.out).is_absolute() or '..' in Path(args.out).parts:p.error('new repository-relative output required')
@@ -104,8 +112,8 @@ def main():
    ('baseline-old-provider-e2e',['go','test','./ai/e2e','-run','^TestLocalAssemblyExample$','-count=1'])):
    env=c.ENV|{'BARNESS_AI_EVIDENCE_DIR':str(out/'baseline-e2e')}
    proc=subprocess.run(argv,cwd=restored,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=240)
-   (out/(name+'.log')).write_bytes(proc.stdout.replace(str(Path(temp)).encode(),b'$RESTORATION'))
-   receipts.append(dict(name=name,argv=[str(a).replace(str(Path(temp)),'$RESTORATION') for a in argv],
+   (out/(name+'.log')).write_text(receipt_text(proc.stdout.decode(errors='replace'),Path(temp)))
+   receipts.append(dict(name=name,argv=[receipt_text(a,Path(temp)) for a in argv],
     cwd='$RESTORATION/restored',exitCode=proc.returncode,environmentKeys=sorted(env),credentialsRead=False))
    if proc.returncode:raise RuntimeError(name+' failed')
   c.dump(out/'commands.json',receipts)
