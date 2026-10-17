@@ -48,6 +48,7 @@ func (o replayOrigin) prepareTranscript(req Request, rules historyRules) (transc
 		msgs = collapseSystemMessages(msgs)
 	}
 	tools := currentTools(msgs)
+	rules = glmHistoryToolIDRules(o.model, msgs, rules)
 
 	vision := o.model.acceptsImages()
 	renamed := map[string]string{}

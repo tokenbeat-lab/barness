@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "scope": "ticket-05-scoped-opaque-ID-followup-public-Client",
+  "committedReplaySource": "0f33a39",
+  "paidRequests": 0,
+  "runs": [
+    {
+      "name": "green-all-ids",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/green-all-ids/20261017T134809.239507000Z",
+      "manifestSha256": "8f42855bf08bddaa18b34425325804e535e5a8f6a6bd0ea207bb719fb5dd5864",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "c29cb4aedc2b7d6878ee55a8301de5255b485074",
+      "cases": 90,
+      "statuses": {
+        "PASS": 90
+      }
+    },
+    {
+      "name": "green-downgrade",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/green-downgrade/20261017T134623.727881000Z",
+      "manifestSha256": "a24955c779bbedede137791d4f6c5ff86a09399c11b7af3a4b9e678b318502c4",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "709e6d08af5923e93dac7dbee31e10100dbc00a1",
+      "cases": 86,
+      "statuses": {
+        "PASS": 86
+      }
+    },
+    {
+      "name": "green-public",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/green-public/20261017T134242.007470000Z",
+      "manifestSha256": "141357c141f2e4aa8b4bf0b37b81df3f9b4121bd2f0bf96a8f8eaad674a10092",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "8839138c7c6ea3808756b6db005fbf19e0814e95",
+      "cases": 58,
+      "statuses": {
+        "PASS": 58
+      }
+    },
+    {
+      "name": "pidiff",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/pidiff/20261017T134839.343708000Z",
+      "manifestSha256": "62ba03c18d0fd13a2ba9e995eb7bec532fe5cd0b69c7245a51bb6154649393e8",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "0f33a39a1c62e56e4471e5becef90f1162b54d39",
+      "cases": 335,
+      "statuses": {
+        "PASS": 335
+      }
+    },
+    {
+      "name": "race",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/race/20261017T134845.557692000Z",
+      "manifestSha256": "4bba158e4428cdaa91b93e9589862f78534d495324e4f51da97f3b2aa3bcdd0f",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "0f33a39a1c62e56e4471e5becef90f1162b54d39",
+      "cases": 124,
+      "statuses": {
+        "PASS": 124
+      }
+    },
+    {
+      "name": "red-downgrade",
+      "kind": "diagnostic",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/red-downgrade/20261017T134526.084510000Z",
+      "manifestSha256": "24b3220e13dc742bda91bda4c45648f81419984156a6a3623b26f057ad89cf9d",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "709e6d08af5923e93dac7dbee31e10100dbc00a1",
+      "cases": 28,
+      "statuses": {
+        "FAIL": 22,
+        "PASS": 6
+      }
+    },
+    {
+      "name": "red-downgrade-unique",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/red-downgrade-unique/20261017T134537.979085000Z",
+      "manifestSha256": "4bf68d07ec66c21bfd8a105ea6bc254530f39c507779c102dd88c0389d4eb20f",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "709e6d08af5923e93dac7dbee31e10100dbc00a1",
+      "cases": 28,
+      "statuses": {
+        "FAIL": 22,
+        "PASS": 6
+      }
+    },
+    {
+      "name": "red-empty-origin",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/red-empty-origin/20261017T134801.525369000Z",
+      "manifestSha256": "920bc342352f394647288ea7c2a9227975ae4dfb58371b367bb1e44723d1c185",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "c29cb4aedc2b7d6878ee55a8301de5255b485074",
+      "cases": 4,
+      "statuses": {
+        "FAIL": 4
+      }
+    },
+    {
+      "name": "red-public",
+      "kind": "implementation-red",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/red-public/20261017T134205.151775000Z",
+      "manifestSha256": "72bf736c912be63413f76be216e7c20baf0d72349a801997202d63d2036046d0",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "8839138c7c6ea3808756b6db005fbf19e0814e95",
+      "cases": 58,
+      "statuses": {
+        "FAIL": 48,
+        "PASS": 10
+      }
+    },
+    {
+      "name": "regression",
+      "kind": "verification",
+      "bundle": ".evidence/barness-ai-glm/ticket-05-followup-ids/regression/20261017T134838.850128000Z",
+      "manifestSha256": "6f7cb6edb13d862a0bcec2c44feca5fbcff1a8e2ad74625b347432afb960feef",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "gitCommit": "0f33a39a1c62e56e4471e5becef90f1162b54d39",
+      "cases": 288,
+      "statuses": {
+        "PASS": 288
+      }
+    }
+  ]
+}

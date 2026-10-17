@@ -186,11 +186,15 @@ func (p *responsesParser) open(outputIndex responsesIndex, item responses.Respon
 		// pi's tool call id joins the call id the result must answer with
 		// the item id same-model replay needs.
 		s.raw = newArgumentText(item.Arguments.OfString)
-		s.index = p.out.toolCallStart(item.CallID+"|"+item.ID, item.Name, s.raw.String())
+		id := item.CallID + "|" + item.ID
+		if p.glm {
+			id = glmResponsesToolID(item.CallID, item.ID)
+		}
+		s.index = p.out.toolCallStart(id, item.Name, s.raw.String())
 		if p.unfinished == nil {
 			p.unfinished = make(map[int]responsesToolRef)
 		}
-		p.unfinished[s.index] = responsesToolRef{name: item.Name, id: item.CallID + "|" + item.ID}
+		p.unfinished[s.index] = responsesToolRef{name: item.Name, id: id}
 	default:
 		return 0, false
 	}
