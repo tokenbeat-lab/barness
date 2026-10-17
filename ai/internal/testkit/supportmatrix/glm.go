@@ -15,8 +15,11 @@ import (
 const GLMSourcePin = "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907"
 
 type GLMEvidence struct {
-	Mode               string `json:"mode"`
-	SourceManifestHash string `json:"sourceManifestHash"`
+	Mode                 string         `json:"mode"`
+	SourceManifestHash   string         `json:"sourceManifestHash"`
+	UsageBasis           string         `json:"usageBasis"`
+	UnknownUsageAttempts int            `json:"unknownUsageAttempts"`
+	Derivation           *GLMDerivation `json:"derivation,omitempty"`
 }
 
 func GLMExpected(combo string) []string {
@@ -94,7 +97,7 @@ func NewGLMReport(dir string) (Report, error) {
 	if !slices.Equal(d.Expected, expected) || len(d.Scenarios) != 22 {
 		return Report{}, refuse("GLM complete model-qualified scenario set required")
 	}
-	r := Report{Schema: SchemaVersion, Combo: combo, Operation: "chat", Provider: "zhipu", API: api, Endpoint: endpoint, Model: "glm-5.3", SDK: d.SDK, AccountAlias: d.AccountAlias + "@" + d.RegionAlias, GitCommit: d.GitCommit, CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: d.StartedAt, FinishedAt: d.FinishedAt, Expected: expected, GLM: &GLMEvidence{d.Mode, d.SourceManifestHash}, evidenceDir: dir,
+	r := Report{Schema: SchemaVersion, Combo: combo, Operation: "chat", Provider: "zhipu", API: api, Endpoint: endpoint, Model: "glm-5.3", SDK: d.SDK, AccountAlias: d.AccountAlias + "@" + d.RegionAlias, GitCommit: d.GitCommit, CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: d.StartedAt, FinishedAt: d.FinishedAt, Expected: expected, GLM: &GLMEvidence{Mode: d.Mode, SourceManifestHash: d.SourceManifestHash, UsageBasis: "reported-known-lower-bound"}, evidenceDir: dir,
 		Budget: Budget{MaxCalls: 24, MaxAttempts: 32, MaxOutputTokens: 4096, ProcessSeconds: 1800, CallSeconds: 120, FinalizationReserveSeconds: 20, CallsUsed: b.CallsUsed, AttemptsReserved: b.AttemptsReserved, HTTPAttempts: b.HTTPAttempts}}
 	allPassed := true
 	calls, attempts := 0, 0
@@ -139,6 +142,9 @@ func NewGLMReport(dir string) (Report, error) {
 	if err := verifyGLMBundle(dir, r, d); err != nil {
 		return Report{}, err
 	}
+	if err := glmKnownUsage(dir, &r); err != nil {
+		return Report{}, err
+	}
 	return r, nil
 }
 
@@ -146,7 +152,13 @@ func VerifyGLMReport(r Report) error {
 	if r.GLM == nil || r.evidenceDir == "" {
 		return refuse("GLM formal report requires owned file evidence")
 	}
-	want, err := NewGLMReport(r.evidenceDir)
+	var want Report
+	var err error
+	if r.GLM.Derivation != nil {
+		want, err = NewGLMSupportViewReport(r.evidenceDir)
+	} else {
+		want, err = NewGLMReport(r.evidenceDir)
+	}
 	if err != nil {
 		return err
 	}

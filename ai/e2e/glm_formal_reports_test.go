@@ -1,16 +1,13 @@
 package e2e
 
 import (
-	"archive/zip"
 	"bytes"
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"reflect"
-	"strings"
 	"testing"
 	"time"
 
@@ -25,7 +22,7 @@ func TestGLMFormalReports(t *testing.T) {
 	var index struct {
 		Routes map[string]struct{ Archive, ArchiveSHA256, ReportPath string }
 	}
-	raw, e := os.ReadFile("../live/testdata/glm-formal/live-captures.json")
+	raw, e := os.ReadFile("../live/testdata/glm-formal/support-views.json")
 	if e != nil || json.Unmarshal(raw, &index) != nil {
 		t.Fatal("formal captures not yet available")
 	}
@@ -33,35 +30,7 @@ func TestGLMFormalReports(t *testing.T) {
 		t.Run(route, func(t *testing.T) {
 			ev := run.Case(t, "GLM12-formal-import-"+route)
 			entry := index.Routes[route]
-			raw, e := os.ReadFile("../../" + entry.Archive)
-			if e != nil || fmt.Sprintf("%x", sha256.Sum256(raw)) != entry.ArchiveSHA256 {
-				t.Fatal("immutable archive unavailable")
-			}
-			dir := t.TempDir()
-			archive, e := zip.NewReader(bytes.NewReader(raw), int64(len(raw)))
-			if e != nil {
-				t.Fatal(e)
-			}
-			for _, f := range archive.File {
-				if f.FileInfo().IsDir() {
-					continue
-				}
-				if strings.Contains(f.Name, "..") || filepath.IsAbs(f.Name) || f.UncompressedSize64 > 16<<20 {
-					t.Fatal("invalid capture path")
-				}
-				p := filepath.Join(dir, f.Name)
-				os.MkdirAll(filepath.Dir(p), 0755)
-				r, e := f.Open()
-				if e != nil {
-					t.Fatal(e)
-				}
-				b, e := io.ReadAll(io.LimitReader(r, 16<<20+1))
-				r.Close()
-				if e != nil || len(b) > 16<<20 {
-					t.Fatal("capture read")
-				}
-				os.WriteFile(p, b, 0600)
-			}
+			dir := extractGLMFormalArchive(t, entry.Archive, entry.ArchiveSHA256)
 			reportPath := filepath.Join(dir, filepath.FromSlash(entry.ReportPath))
 			r, e := supportmatrix.LoadReport(reportPath)
 			if e != nil {
@@ -77,7 +46,7 @@ func TestGLMFormalReports(t *testing.T) {
 			ev.Check("other row and caller untouched", reflect.DeepEqual(merged.Rows[1], m.Rows[1]) && len(m.Rows[0].Capabilities) == 0, "mutation")
 			audit := release.AuditBundle(filepath.Dir(reportPath), nil)
 			ev.Check("release import verifies same evidence", audit.Err == "" && audit.Live != nil, "%s", audit.Err)
-			for _, name := range []string{"stale-hash", "candidate", "controlled", "replay", "wrong-api", "wrong-provider", "wrong-model", "narrow", "unsupported", "fake-counters", "fake-provider-id"} {
+			for _, name := range []string{"stale-hash", "candidate", "controlled", "replay", "wrong-api", "wrong-provider", "wrong-model", "narrow", "unsupported", "fake-counters", "fake-provider-id", "fake-known-usage", "fake-unknown-usage", "billing-claim"} {
 				bad := r
 				bad.Expected = append([]string{}, r.Expected...)
 				bad.Scenarios = append([]supportmatrix.ScenarioResult{}, r.Scenarios...)
@@ -107,6 +76,12 @@ func TestGLMFormalReports(t *testing.T) {
 					bad.Scenarios[0].Note = "synthetic unsupported"
 				case "fake-counters":
 					bad.Budget.HTTPAttempts = 0
+				case "fake-known-usage":
+					bad.Budget.InputTokensUsed++
+				case "fake-unknown-usage":
+					bad.GLM.UnknownUsageAttempts = 0
+				case "billing-claim":
+					bad.GLM.UsageBasis = "full-vendor-invoice"
 				case "fake-provider-id":
 					bad.Scenarios[0].ProviderRequestIDs = []string{"invented"}
 				}
@@ -115,7 +90,7 @@ func TestGLMFormalReports(t *testing.T) {
 				after, _ := json.Marshal(m)
 				ev.Check("refuses "+name, err != nil && bytes.Equal(before, after), "accepted or mutated: %v", err)
 			}
-			for _, name := range []string{"audit.json", "glm-integrity.json", "glm-execution-source.json", "formal-glm-report.json", "GLM11-glm-5.3-full-stream/request.json", "GLM11-glm-5.3-full-stream/response.sse", "GLM11-glm-5.3-full-stream/attempt-1-result.json", "GLM11-glm-5.3-full-stream/observations-1.json", "GLM11-glm-5.3-full-stream/assertions.json"} {
+			for _, name := range []string{"audit.json", "glm-support-integrity.json", "glm-support-derivation.json", "original/glm-integrity.json", "original/glm-execution-source.json", "original/formal-glm-report.json", "original/GLM11-glm-5.3-full-stream/request.json", "original/GLM11-glm-5.3-full-stream/response.sse", "original/GLM11-glm-5.3-full-stream/attempt-1-result.json", "original/GLM11-glm-5.3-full-stream/observations-1.json", "original/GLM11-glm-5.3-full-stream/assertions.json"} {
 				p := filepath.Join(filepath.Dir(reportPath), name)
 				old, e := os.ReadFile(p)
 				if e != nil {
@@ -125,6 +100,56 @@ func TestGLMFormalReports(t *testing.T) {
 				_, err := supportmatrix.Merge(m, r)
 				ev.Check("missing own capture "+name, err != nil, "accepted missing capture")
 				os.WriteFile(p, old, 0600)
+			}
+			for _, name := range []string{"raw-index", "raw-archive", "original-report", "importer-commit", "importer-source"} {
+				proofPath := filepath.Join(filepath.Dir(reportPath), "glm-support-derivation.json")
+				inventoryPath := filepath.Join(filepath.Dir(reportPath), "glm-support-integrity.json")
+				proofBytes, _ := os.ReadFile(proofPath)
+				reportBytes, _ := os.ReadFile(reportPath)
+				inventoryBytes, _ := os.ReadFile(inventoryPath)
+				bad := r
+				glmProof := *r.GLM
+				proof := *r.GLM.Derivation
+				glmProof.Derivation = &proof
+				bad.GLM = &glmProof
+				switch name {
+				case "raw-index":
+					proof.RawCaptureIndexSHA256 = "changed"
+				case "raw-archive":
+					proof.RawArchiveSHA256 = "changed"
+				case "original-report":
+					proof.OriginalSupportReportSHA256 = "changed"
+				case "importer-commit":
+					proof.ImporterGitCommit = r.GitCommit
+				case "importer-source":
+					proof.ImporterSourceSHA256 = "changed"
+				}
+				encoded, _ := supportmatrix.Encode(proof)
+				os.WriteFile(proofPath, encoded, 0600)
+				encoded, _ = supportmatrix.Encode(bad)
+				os.WriteFile(reportPath, encoded, 0600)
+				files := map[string]string{}
+				filepath.WalkDir(filepath.Dir(reportPath), func(p string, d os.DirEntry, e error) error {
+					if e != nil || d.IsDir() {
+						return e
+					}
+					rel, _ := filepath.Rel(filepath.Dir(reportPath), p)
+					if rel != "glm-support-integrity.json" {
+						b, _ := os.ReadFile(p)
+						files[filepath.ToSlash(rel)] = fmt.Sprintf("%x", sha256.Sum256(b))
+					}
+					return nil
+				})
+				encoded, _ = supportmatrix.Encode(map[string]any{"schema": 1, "files": files})
+				os.WriteFile(inventoryPath, encoded, 0600)
+				loaded, e := supportmatrix.LoadReport(reportPath)
+				if e == nil {
+					_, e = supportmatrix.Merge(m, loaded)
+				}
+				ev.Check("coherent local rehash cannot substitute "+name, e != nil, "accepted forged derivation")
+				os.WriteFile(proofPath, proofBytes, 0600)
+				os.WriteFile(reportPath, reportBytes, 0600)
+				os.WriteFile(inventoryPath, inventoryBytes, 0600)
 			}
 			// A later actual failure retains the last complete pass. It is tested by
 			// Merge's shared public history suite; this own report must retain history
