@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "kind": "glm-candidate-evidence-index",
+  "realCandidateOutcome": "NOT_RUN",
+  "sourceManifestSHA256": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+  "controlledArchives": [
+    {
+      "label": "initial-red",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/initial-red.zip",
+      "sha256": "d2834e25f06c214dfeb7c87d5bd671d074b1b25bd03213e46391085b7b5e7bf4",
+      "fileCount": 5
+    },
+    {
+      "label": "thinking-shape-red",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/thinking-shape-red.zip",
+      "sha256": "3d13de96ec1e4823ddb444dc3094f8c2c45e6c173cc034fccfb1d41f309b6144",
+      "fileCount": 6
+    },
+    {
+      "label": "retained-green",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/retained-green.zip",
+      "sha256": "975d43f65cdd5125b649e666adbd55ccbfed243a0f67926c86726bcb5e32ba28",
+      "fileCount": 1918
+    },
+    {
+      "label": "retained-race",
+      "path": ".evidence/barness-ai-glm/ticket-11/controlled/retained-race.zip",
+      "sha256": "b5cab92d66d8a710597625009a2de7eb6b5c54b74d05505b0fce74933b8e2a26",
+      "fileCount": 1908
+    }
+  ],
+  "realArchives": [],
+  "notes": [
+    "All existing failure archives retained",
+    "No formal live-report or matrix publication",
+    "Raw controlled child retention added after the earliest red runs"
+  ]
+}
