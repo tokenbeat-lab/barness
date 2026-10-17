@@ -35,7 +35,7 @@ class Renewal(unittest.TestCase):
   self.write('fake-bin/go',('#!'+sys.executable+'\nimport sys,os,json,pathlib,shutil\na=sys.argv[1:]\n'
    'if "-o" in a:\n p=pathlib.Path(a[a.index("-o")+1]);shutil.copy(pathlib.Path(__file__).with_name("producer"),p);p.chmod(0o755)\n'
    'elif "-write-snapshot" in a:\n p=pathlib.Path("ai/release/catalog-snapshot.json");p.write_text(json.dumps({"hash":"sha256:new","catalog":{"version":"new"}}))\n'
-   'elif "./ai/live/cmd/glmformal" in a:\n p=pathlib.Path(a[a.index("-out")+1]);p.mkdir();(p/"live-report.json").write_text("{}")\n'
+   'elif "./ai/live/cmd/glmformal" in a:\n p=pathlib.Path(a[a.index("-out")+1]);p.mkdir();(p/"live-report.json").write_text("{}");(p/"original"/"case").mkdir(parents=True);(p/"original"/"case"/"result.json").write_text("{}")\n'
    'print(json.dumps({"environmentKeys":sorted(os.environ)}))\n').encode());(self.bin/'go').chmod(0o755)
   self.write('fake-bin/producer',('#!'+sys.executable+'\nimport os,json,pathlib,subprocess\nr=os.environ["BARNESS_MINIMAX_ROUTE"];p=pathlib.Path(os.environ["BARNESS_AI_EVIDENCE_DIR"])/"session";p.mkdir(parents=True)\n'
    'd={"outcome":"NOT_RUN","complete":False,"mode":"live","stage":"candidate","identity":{"route":r,"model":"MiniMax-M3.1-Flash-Preview","purpose":"mplan"},"budget":{"calls":0,"reservedAttempts":0,"attempts":0,"requestedOutput":0,"reservedInput":0},"gitCommit":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()}\n'
@@ -74,7 +74,11 @@ class Renewal(unittest.TestCase):
     self.put(base+'/GLM11-'+case.replace('/','-')+'/attempt-1-result.json',{'result':{'metadata':{'attempts':[{'usage':usage,'usageReporting':'complete' if n<21 else 'unreported'}]}}})
    self.put(base+'/formal-glm-report.json',{'schema':1,'route':route,'mode':'live','kind':'glm-formal','outcome':'PASS','complete':True,'auditPassed':True,'sourceManifestHash':self.pin,'catalogHash':'sha256:current','catalogVersion':'current','gitCommit':commit,'scenarios':scenarios})
    self.put(base+'/live-report.json',{'raw':'unchanged'})
-   self.put('.evidence/minimax-launches/glm-'+route+'.json',{'state':'COMPLETED','route':'glm-'+route,'sourceCommit':commit,'exitCode':0,'credentialsRead':True,'launcherAudit':{'passed':True}})
+   self.put(base+'/glm-execution-source.json',{'controlled-source':'frozen'})
+   self.put(base+'/glm-integrity.json',{'schema':1,'files':{'formal-glm-report.json':hashlib.sha256((self.root/base/'formal-glm-report.json').read_bytes()).hexdigest()}})
+   pins={'schema':1}
+   for field,leaf in [('formalReportSha256','formal-glm-report.json'),('integritySha256','glm-integrity.json'),('supportReportSha256','live-report.json'),('executionSourceSha256','glm-execution-source.json')]:pins[field]=hashlib.sha256((self.root/base/leaf).read_bytes()).hexdigest()
+   self.put('.evidence/minimax-launches/glm-'+route+'.json',{'state':'COMPLETED','route':'glm-'+route,'sourceCommit':commit,'exitCode':0,'credentialsRead':True,'launcherAudit':{'passed':True},'capturePins':pins})
    result[route]='raw/'+route
   return result
  def archive(self,out='.evidence/minimax-renewal-glm',ok=True):
@@ -139,6 +143,19 @@ class Renewal(unittest.TestCase):
    self.assertNotIn('OPENAI_API_KEY',text);self.assertNotIn('HTTP_PROXY',text)
    self.assertNotIn('BARNESS_MINIMAX_KEY',text);self.assertNotIn('BARNESS_MINIMAX_ENTITLEMENT',text)
 
+ def test_empty_directory_fanout_and_depth_refuse_before_selector_writes(self):
+  values=self.captures();base=self.root/'raw/chat/session'
+  original=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
+  for n in range(1025):(base/f'empty-{n}').mkdir()
+  args=['glm-archive','.evidence/minimax-empty-fanout']
+  for route,value in values.items():args+=['--'+route,value]
+  self.runcli(*args,ok=False)
+  self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),original)
+  for n in range(1025):(base/f'empty-{n}').rmdir()
+  (base/'nested/a/b/c').mkdir(parents=True)
+  args[1]='.evidence/minimax-excess-depth';self.runcli(*args,ok=False)
+  self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),original)
+
  def test_capture_file_count_per_file_and_expanded_bounds(self):
   values=self.captures();original=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
   base=self.root/'raw/chat/session'
@@ -155,5 +172,38 @@ class Renewal(unittest.TestCase):
    self.runcli(*args,ok=False)
    self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),original)
    for p in extras:p.unlink()
+
+ def test_coherent_raw_edits_cannot_borrow_canonical_successful_receipt(self):
+  values=self.captures();base=self.root/'raw/chat/session'
+  selectors=['live-captures.json','live-captures.sha256','known-usage.json']
+  before={n:(self.root/'ai/live/testdata/glm-formal'/n).read_bytes() for n in selectors}
+  receipt=self.root/'.evidence/minimax-launches/glm-chat.json'
+  names=['formal-glm-report.json','glm-integrity.json','live-report.json','glm-execution-source.json']
+  originals={n:(base/n).read_bytes() for n in names};old_receipt=receipt.read_bytes()
+  for mutation in ('coherent-report-seal','missing-pins','support-report','execution-source'):
+   for n,raw in originals.items():(base/n).write_bytes(raw)
+   receipt.write_bytes(old_receipt)
+   if mutation=='coherent-report-seal':
+    formal=json.loads(originals['formal-glm-report.json']);formal['accountAlias']='edited-without-new-process';(base/'formal-glm-report.json').write_text(json.dumps(formal))
+    support=json.loads(originals['live-report.json']);support['accountAlias']=formal['accountAlias'];(base/'live-report.json').write_text(json.dumps(support))
+    seal=json.loads(originals['glm-integrity.json']);seal['files']['formal-glm-report.json']=hashlib.sha256((base/'formal-glm-report.json').read_bytes()).hexdigest();seal['files']['live-report.json']=hashlib.sha256((base/'live-report.json').read_bytes()).hexdigest();(base/'glm-integrity.json').write_text(json.dumps(seal))
+   elif mutation=='missing-pins':
+    value=json.loads(old_receipt);value.pop('capturePins');receipt.write_text(json.dumps(value))
+   elif mutation=='support-report':(base/'live-report.json').write_text('{"raw":"changed"}')
+   else:(base/'glm-execution-source.json').write_text('{"controlled-source":"edited"}')
+   args=['glm-archive','.evidence/minimax-borrow-'+mutation]
+   for route,value in values.items():args+=['--'+route,value]
+   self.runcli(*args,ok=False)
+   for name,raw in before.items():self.assertEqual((self.root/'ai/live/testdata/glm-formal'/name).read_bytes(),raw)
+
+ def test_bundle_lookup_fanout_is_bounded_before_capture_reads(self):
+  values=self.captures();parent=self.root/'raw/chat'
+  original=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
+  for n in range(1025):(parent/f'empty-{n}').mkdir()
+  args=['glm-archive','.evidence/minimax-bundle-fanout']
+  for route,value in values.items():args+=['--'+route,value]
+  result=self.runcli(*args,ok=False)
+  self.assertIn('bundle lookup entries exceed1024',result.stderr)
+  self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),original)
 
 if __name__=='__main__':unittest.main(verbosity=2)

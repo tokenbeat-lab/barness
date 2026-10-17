@@ -51,6 +51,18 @@ def capture(out,values):
                 receipt.get('launcherAudit',{}).get('passed') is not True or receipt.get('route')!='glm-'+route or
                 receipt.get('sourceCommit')!=report['gitCommit']):
                 raise RuntimeError('fresh successful canonical GLM launcher receipt required')
+            # A completed process is not authority for subsequently edited
+            # captures. These hashes are written only by the successful fixed
+            # launcher, and the sealed inventory binds all remaining payloads.
+            pins=receipt.get('capturePins',{})
+            expected={'schema':1}
+            for field,leaf in (('formalReportSha256','formal-glm-report.json'),
+                ('integritySha256','glm-integrity.json'),('supportReportSha256','live-report.json'),
+                ('executionSourceSha256','glm-execution-source.json')):
+                if leaf not in files:raise RuntimeError('original launcher-pinned GLM capture missing')
+                expected[field]=u.sha(files[leaf])
+            if not isinstance(pins,dict) or type(pins.get('schema')) is not int or pins!=expected:
+                raise RuntimeError('GLM original capture bytes differ from canonical launcher pins')
             commit=report['gitCommit'];commits.add(commit)
             copied=Path(temporary)/route/base.name
             for name,raw in files.items():

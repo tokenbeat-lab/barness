@@ -66,17 +66,27 @@ def public(out,name,argv,timeout=240,env=None,cwd=None):
 
 def tree(base):
     if base.is_symlink() or not base.is_dir():raise RuntimeError('regular capture directory required')
+    # Bound the entire shape before reading or hashing any payload. Empty
+    # directories count too, and scandir must stop before collecting fanout.
+    pending=[(base,0)];paths=[];entries=0
+    while pending:
+        directory,depth=pending.pop()
+        with os.scandir(directory) as scanned:
+            for entry in scanned:
+                entries+=1
+                if entries>1024:raise RuntimeError('capture total entries exceed1024')
+                if depth+1>3:raise RuntimeError('capture depth exceeds3')
+                if entry.is_symlink():raise RuntimeError('symlink capture entry forbidden')
+                path=Path(entry.path)
+                if entry.is_dir(follow_symlinks=False):pending.append((path,depth+1))
+                elif entry.is_file(follow_symlinks=False):
+                    if len(paths)>=512:raise RuntimeError('capture file count exceeds512')
+                    paths.append(path)
+                else:raise RuntimeError('regular capture entry required')
     files={};total=0
-    def unreadable(error):raise RuntimeError('capture directory cannot be read')
-    for directory,dirs,names in os.walk(base,followlinks=False,onerror=unreadable):
-        for name in dirs:
-            if (Path(directory)/name).is_symlink():raise RuntimeError('symlink capture directory forbidden')
-        for name in names:
-            path=Path(directory)/name
-            if len(files)>=512:raise RuntimeError('capture file count exceeds512')
-            raw=file_bytes(path,min(16<<20,(128<<20)-total));total+=len(raw)
-            if total>128<<20:raise RuntimeError('capture expanded bytes exceed128MiB')
-            files[path.relative_to(base).as_posix()]=raw
+    for path in paths:
+        raw=file_bytes(path,min(16<<20,(128<<20)-total));total+=len(raw)
+        files[path.relative_to(base).as_posix()]=raw
     if not files:raise RuntimeError('empty capture directory')
     return files
 
@@ -92,9 +102,24 @@ def archive(path,files,prefix=''):
 def bundle(value,leaf):
     path=repo_path(value)
     if (path/leaf).is_file():return path
-    found=list(path.glob('*/'+leaf))
+    # The one-level bundle lookup has its own bounded streaming inventory;
+    # an eager glob would allocate every attacker-controlled child first.
+    directories=[];entries=0
+    with os.scandir(path) as scanned:
+        for entry in scanned:
+            entries+=1
+            if entries>1024:raise RuntimeError('bundle lookup entries exceed1024')
+            if entry.is_symlink():raise RuntimeError('symlink bundle entry forbidden')
+            if entry.is_dir(follow_symlinks=False):directories.append(Path(entry.path))
+    found=[]
+    for directory in directories:
+        report=directory/leaf
+        if report.is_symlink():raise RuntimeError('symlink bundle report forbidden')
+        if report.is_file():
+            if found:raise RuntimeError('exactly one current own bundle required')
+            found.append(directory)
     if len(found)!=1:raise RuntimeError('exactly one current own bundle required')
-    return found[0].parent
+    return found[0]
 
 
 def committed(names):
