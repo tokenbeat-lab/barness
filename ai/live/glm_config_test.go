@@ -15,7 +15,9 @@ import (
 )
 
 const glmSourcePin = "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907"
-const glmReportName = "candidate-glm-report"
+
+var glmReportName = "candidate-glm-report"
+
 const glmEntry = "^TestGLMCandidate$"
 
 type glmCasePlan struct {
@@ -34,6 +36,7 @@ type glmSources struct {
 	Provenance                  map[string]any
 }
 type glmBudget struct {
+	ReplayAttempts             int `json:"replayAttempts"`
 	PlannedCalls               int `json:"plannedCalls"`
 	MaxCalls                   int `json:"maxCalls"`
 	MaxAttempts                int `json:"maxAttempts"`
@@ -47,6 +50,7 @@ type glmBudget struct {
 	Retries                    int `json:"retries"`
 }
 type glmOutcome struct {
+	ReplayAttempts     int                 `json:"replayAttempts"`
 	ID                 string              `json:"id"`
 	Model              string              `json:"model"`
 	Outcome            string              `json:"outcome"`
@@ -63,35 +67,38 @@ type glmOutcome struct {
 	Truncated          bool                `json:"truncated"`
 }
 type glmReport struct {
-	Schema                int               `json:"schema"`
-	Kind                  string            `json:"kind"`
-	Outcome               string            `json:"outcome"`
-	Complete              bool              `json:"complete"`
-	AuditPassed           bool              `json:"auditPassed"`
-	Route                 string            `json:"route"`
-	API                   string            `json:"api"`
-	Endpoint              string            `json:"endpoint"`
-	SDK                   string            `json:"sdk"`
-	CatalogVersion        string            `json:"catalogVersion"`
-	CatalogHash           string            `json:"catalogHash"`
-	SourceManifestHash    string            `json:"sourceManifestHash"`
-	GitCommit             string            `json:"gitCommit"`
-	Mode                  string            `json:"mode"`
-	AccountAlias          string            `json:"accountAlias"`
-	RegionAlias           string            `json:"regionAlias"`
-	AccountVerification   string            `json:"accountVerification"`
-	RegionVerification    string            `json:"regionVerification"`
-	PrivilegeVerification string            `json:"privilegeVerification"`
-	StartedAt             time.Time         `json:"startedAt"`
-	FinishedAt            time.Time         `json:"finishedAt"`
-	ProcessDeadline       time.Time         `json:"processDeadline"`
-	ExecutionDeadline     time.Time         `json:"executionDeadline"`
-	Budget                glmBudget         `json:"budget"`
-	Expected              []string          `json:"expected"`
-	Scenarios             []glmOutcome      `json:"scenarios"`
-	Models                map[string]string `json:"models"`
-	Failure               string            `json:"failure"`
-	Unknown               []string          `json:"unknown"`
+	OriginalLiveGitCommit    string            `json:"originalLiveGitCommit,omitempty"`
+	OriginalLiveReportSHA256 string            `json:"originalLiveReportSHA256,omitempty"`
+	CaptureArchiveSHA256     string            `json:"captureArchiveSHA256,omitempty"`
+	Schema                   int               `json:"schema"`
+	Kind                     string            `json:"kind"`
+	Outcome                  string            `json:"outcome"`
+	Complete                 bool              `json:"complete"`
+	AuditPassed              bool              `json:"auditPassed"`
+	Route                    string            `json:"route"`
+	API                      string            `json:"api"`
+	Endpoint                 string            `json:"endpoint"`
+	SDK                      string            `json:"sdk"`
+	CatalogVersion           string            `json:"catalogVersion"`
+	CatalogHash              string            `json:"catalogHash"`
+	SourceManifestHash       string            `json:"sourceManifestHash"`
+	GitCommit                string            `json:"gitCommit"`
+	Mode                     string            `json:"mode"`
+	AccountAlias             string            `json:"accountAlias"`
+	RegionAlias              string            `json:"regionAlias"`
+	AccountVerification      string            `json:"accountVerification"`
+	RegionVerification       string            `json:"regionVerification"`
+	PrivilegeVerification    string            `json:"privilegeVerification"`
+	StartedAt                time.Time         `json:"startedAt"`
+	FinishedAt               time.Time         `json:"finishedAt"`
+	ProcessDeadline          time.Time         `json:"processDeadline"`
+	ExecutionDeadline        time.Time         `json:"executionDeadline"`
+	Budget                   glmBudget         `json:"budget"`
+	Expected                 []string          `json:"expected"`
+	Scenarios                []glmOutcome      `json:"scenarios"`
+	Models                   map[string]string `json:"models"`
+	Failure                  string            `json:"failure"`
+	Unknown                  []string          `json:"unknown"`
 }
 
 var glmReportState *glmReport
@@ -104,7 +111,15 @@ var glmConfigError string
 func initializeGLM() {
 	route := os.Getenv("BARNESS_GLM_ROUTE")
 	glmReportState = &glmReport{Schema: 1, Kind: "glm-candidate-only", Outcome: "NOT_RUN", Route: route, StartedAt: started, GitCommit: evidence.GitCommit(), SourceManifestHash: glmSourcePin, Mode: "live", AccountAlias: "local-glm", RegionAlias: "cn-standard-endpoint", AccountVerification: "unknown", RegionVerification: "unknown", PrivilegeVerification: "unknown", Models: map[string]string{}, Budget: glmBudget{PlannedCalls: 22, MaxCalls: 24, MaxAttempts: 32, MaxOutputTokens: 4096, CallSeconds: 120, ProcessSeconds: 1800, FinalizationReserveSeconds: 20}, Unknown: []string{"vendor account/region/permissions/billing", "capacity load not tested", "storage/time charges", "acceptance does not establish intensity"}}
+	if os.Getenv("BARNESS_GLM_REPLAY_ARCHIVE") != "" {
+		glmReportState.Mode = "replay"
+		glmReportState.Kind = "glm-capture-replay-only"
+		glmReportName = "capture-glm-replay-report"
+	}
 	glmKey = strings.TrimSpace(os.Getenv("BARNESS_GLM_KEY"))
+	if glmReportState.Mode == "replay" && (glmKey != "" || os.Getenv("BARNESS_AI_LIVE") == "1") {
+		glmConfigError = "replay forbids live switch and vendor credentials"
+	}
 	if glmKey != "" {
 		run.RedactSecret(glmKey, "[GLM-CREDENTIAL]")
 	}

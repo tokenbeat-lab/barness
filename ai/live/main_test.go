@@ -106,7 +106,7 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
 		mmEntry = "^TestMultimodalFormal$"
 	}
-	if glmReportState != nil && flag.Lookup("test.run").Value.String() != glmEntry {
+	if glmReportState != nil && flag.Lookup("test.run").Value.String() != glmSelectedEntry() {
 		glmReportState.Outcome = "FAIL"
 		glmReportState.Failure = "exact isolated entry selection required"
 		code = 1

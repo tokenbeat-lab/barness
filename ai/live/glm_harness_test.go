@@ -27,7 +27,9 @@ type glmSession struct {
 	bodies   map[string]map[string]any
 }
 
-func TestGLMCandidate(t *testing.T) {
+func TestGLMCandidate(t *testing.T) { driveGLMCandidate(t) }
+
+func driveGLMCandidate(t *testing.T) {
 	if glmReportState == nil {
 		t.Skip("isolated GLM route not selected")
 	}
@@ -45,7 +47,7 @@ func TestGLMCandidate(t *testing.T) {
 		}
 		cs.Fixture(n, raw)
 	}
-	if os.Getenv("BARNESS_AI_LIVE") != "1" || glmKey == "" {
+	if r.Mode != "replay" && (os.Getenv("BARNESS_AI_LIVE") != "1" || glmKey == "") {
 		t.Skip("NOT_RUN: explicit live switch or selected key absent")
 	}
 	rec := newRecorder()
@@ -54,12 +56,20 @@ func TestGLMCandidate(t *testing.T) {
 		glmFail(t, err.Error())
 		return
 	}
-	if name := os.Getenv("BARNESS_GLM_CONTROLLED"); name != "" {
+	key := glmKey
+	if r.Mode == "replay" {
+		if e := installGLMCaptureReplay(rec); e != nil {
+			glmFail(t, "immutable replay source rejected: "+e.Error())
+			return
+		}
+		key = "capture-replay-synthetic"
+	}
+	if name := os.Getenv("BARNESS_GLM_CONTROLLED"); name != "" && r.Mode != "replay" {
 		r.Mode = "controlled"
 		installGLMControlled(rec, name)
 	}
 	rec.next = &glmHTTPGate{next: rec.next}
-	client, e := newGLMCandidateClient(glmSelected, glmKey, rec, glmCandidateCatalog)
+	client, e := newGLMCandidateClient(glmSelected, key, rec, glmCandidateCatalog)
 	if e != nil {
 		glmFail(t, "public Client assembly failed")
 		return
@@ -266,7 +276,7 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 		}
 		return ai.KeepPayload(), nil
 	}})
-	beforeHTTP := glmReportState.Budget.HTTPAttempts
+	beforeHTTP := glmAttemptCount()
 	began := time.Now()
 	var result ai.Result
 	var err error
@@ -295,6 +305,9 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 			raw, _ := json.Marshal(stream.Envelope())
 			events = append(events, raw)
 			if kind == "cancel" && !seenCancel && (event.Type() == ai.EventTextDelta || event.Type() == ai.EventThinkingDelta) {
+				if glmReplayState != nil && !glmReplayState.cancelMatches(sc.ID, event) {
+					continue
+				}
 				seenCancel = true
 				cancel()
 			}
@@ -305,12 +318,19 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	out.DurationMS = time.Since(began).Milliseconds()
 	obs := s.rec.observationsOf(scope.RequestID)
 	ex := s.rec.take()
-	out.HTTPAttempts = glmReportState.Budget.HTTPAttempts - beforeHTTP
+	out.HTTPAttempts = glmAttemptCount() - beforeHTTP
+	if glmReportState.Mode == "replay" {
+		out.ReplayAttempts = out.HTTPAttempts
+		out.HTTPAttempts = 0
+	}
 	cs.Record("attempt-1-exchanges", ex)
 	cs.Record("attempt-1-result", map[string]any{"result": result, "error": errText(err)})
 	cs.Record("events", events)
 	cs.Record("observations-1", obs)
 	cs.Record("budget-after", glmReportState.Budget)
+	if glmReplayState != nil {
+		glmReplayState.compare(cs, sc.ID, result, err, obs)
+	}
 	if !cs.Check("single actual attempt and finite capture", len(ex) == 1 && len(result.Metadata.Attempts) == 1 && glmReportState.Budget.HTTPAttempts <= 32, "actual=%d attempts=%d", len(ex), len(result.Metadata.Attempts)) {
 		return
 	}

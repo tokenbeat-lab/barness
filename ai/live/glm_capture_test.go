@@ -26,11 +26,15 @@ type glmHTTPGate struct {
 func (g *glmHTTPGate) RoundTrip(req *http.Request) (*http.Response, error) {
 	g.mu.Lock()
 	b := &glmReportState.Budget
-	if b.HTTPAttempts >= b.MaxAttempts || b.HTTPAttempts >= b.AttemptsReserved {
+	if glmAttemptCount() >= b.MaxAttempts || glmAttemptCount() >= b.AttemptsReserved {
 		g.mu.Unlock()
 		return nil, fmt.Errorf("GLM actual HTTP attempt budget exhausted")
 	}
-	b.HTTPAttempts++
+	if glmReportState.Mode == "replay" {
+		b.ReplayAttempts++
+	} else {
+		b.HTTPAttempts++
+	}
 	g.mu.Unlock()
 	return g.next.RoundTrip(req)
 }
@@ -91,7 +95,7 @@ func glmModelReports() map[string]any {
 	r := glmReportState
 	for _, model := range []string{"glm-5.3", "glm-5.2"} {
 		var cases []glmOutcome
-		calls, attempts := 0, 0
+		calls, attempts, replayAttempts := 0, 0, 0
 		var knownInput, knownOutput, knownCacheRead, knownCacheWrite int64
 		knownEstimate := 0.0
 		unreported := 0
@@ -100,6 +104,7 @@ func glmModelReports() map[string]any {
 				cases = append(cases, sc)
 				calls += sc.Calls
 				attempts += sc.HTTPAttempts
+				replayAttempts += sc.ReplayAttempts
 				knownInput += sc.Usage.Input
 				knownOutput += sc.Usage.Output
 				knownCacheRead += sc.Usage.CacheRead
@@ -112,13 +117,31 @@ func glmModelReports() map[string]any {
 				}
 			}
 		}
-		detail := map[string]any{"schema": 1, "kind": "glm-model-candidate-only", "route": r.Route, "provider": "zhipu", "api": r.API, "endpoint": r.Endpoint, "model": model, "mode": r.Mode, "outcome": r.Models[model], "complete": r.Complete && r.Models[model] == "PASS", "auditPassed": r.AuditPassed, "catalogVersion": r.CatalogVersion, "catalogHash": r.CatalogHash, "sourceManifestHash": r.SourceManifestHash, "gitCommit": r.GitCommit, "startedAt": r.StartedAt, "finishedAt": r.FinishedAt, "sdk": r.SDK, "accountAlias": r.AccountAlias, "regionAlias": r.RegionAlias, "unknown": r.Unknown, "reportedKnownUsage": map[string]any{"input": knownInput, "output": knownOutput, "cacheRead": knownCacheRead, "cacheWrite": knownCacheWrite, "estimatedUSD": knownEstimate, "incompleteAttempts": unreported, "note": "reported known counters only; incomplete or cancelled usage remains unknown, estimate not invoice"}, "calls": calls, "httpAttempts": attempts, "scenarios": cases}
-		reports["candidate-"+model+"-report"] = detail
+		kind := "glm-model-candidate-only"
+		if r.Mode == "replay" {
+			kind = "glm-model-capture-replay-only"
+		}
+		detail := map[string]any{"schema": 1, "kind": kind, "route": r.Route, "provider": "zhipu", "api": r.API, "endpoint": r.Endpoint, "model": model, "mode": r.Mode, "outcome": r.Models[model], "complete": r.Complete && r.Models[model] == "PASS", "auditPassed": r.AuditPassed, "catalogVersion": r.CatalogVersion, "catalogHash": r.CatalogHash, "sourceManifestHash": r.SourceManifestHash, "gitCommit": r.GitCommit, "startedAt": r.StartedAt, "finishedAt": r.FinishedAt, "sdk": r.SDK, "accountAlias": r.AccountAlias, "regionAlias": r.RegionAlias, "unknown": r.Unknown, "reportedKnownUsage": map[string]any{"input": knownInput, "output": knownOutput, "cacheRead": knownCacheRead, "cacheWrite": knownCacheWrite, "estimatedUSD": knownEstimate, "incompleteAttempts": unreported, "note": "reported known counters only; incomplete or cancelled usage remains unknown, estimate not invoice"}, "replayAttempts": replayAttempts, "calls": calls, "httpAttempts": attempts, "scenarios": cases}
+		name := "candidate-" + model + "-report"
+		if r.Mode == "replay" {
+			name = "replay-" + model + "-report"
+		}
+		reports[name] = detail
 	}
 	return reports
 }
 
 func setGLMReplay(cs *evidence.Case) {
+	if glmReportState != nil && glmReportState.Mode == "replay" {
+		if name := os.Getenv("BARNESS_GLM_REPLAY_TESTCASE"); name != "" {
+			cs.ReplayEnv("BARNESS_GLM_ROUTE= BARNESS_GLM_KEY= BARNESS_GLM_REPLAY_ARCHIVE= BARNESS_AI_LIVE=0")
+			cs.ReplayRun("^TestGLMCaptureReplayProcess$/^" + regexp.QuoteMeta(name) + "$")
+			return
+		}
+		cs.ReplayEnv("BARNESS_AI_LIVE=0 BARNESS_GLM_ROUTE=" + glmReportState.Route + " BARNESS_GLM_REPLAY_ARCHIVE=../../" + glmReplayArchiveRelative())
+		cs.ReplayRun("^TestGLMCaptureReplay$")
+		return
+	}
 	if name := os.Getenv("BARNESS_GLM_CONTROLLED"); name != "" {
 		cs.ReplayEnv("BARNESS_GLM_ROUTE= BARNESS_GLM_KEY= BARNESS_GLM_CONTROLLED= BARNESS_AI_LIVE=0")
 		cs.ReplayRun("^TestGLMCandidateProcess$/^" + regexp.QuoteMeta(name) + "$")
@@ -126,4 +149,17 @@ func setGLMReplay(cs *evidence.Case) {
 	}
 	cs.ReplayEnv("BARNESS_AI_LIVE=1 BARNESS_GLM_ROUTE=" + glmReportState.Route)
 	cs.ReplayRun(glmEntry)
+}
+
+func glmAttemptCount() int {
+	if glmReportState.Mode == "replay" {
+		return glmReportState.Budget.ReplayAttempts
+	}
+	return glmReportState.Budget.HTTPAttempts
+}
+func glmSelectedEntry() string {
+	if glmReportState.Mode == "replay" {
+		return "^TestGLMCaptureReplay$"
+	}
+	return glmEntry
 }
