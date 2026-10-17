@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-const glmSourcePin = "2e7c1a4e82f4e218e2a973c2049d220837ff7f8b428d3ae5e22342a535b38140"
+const glmSourcePin = "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907"
 const glmReportName = "candidate-glm-report"
 const glmEntry = "^TestGLMCandidate$"
 
@@ -42,6 +42,10 @@ type glmOutcome struct {
 	Calls, HTTPAttempts         int
 	DurationMS                  int64
 	ProviderRequestIDs          []string
+	Usage                       ai.Usage
+	UsageReporting              []ai.UsageReporting
+	RawUsagePresence            []json.RawMessage
+	Truncated                   bool
 }
 type glmReport struct {
 	Schema                                                                                      int    `json:"schema"`
@@ -150,77 +154,6 @@ func initializeGLM() {
 	}
 }
 
-func finishGLM(code int, auditOK bool) int {
-	r := glmReportState
-	r.AuditPassed = auditOK
-	r.Complete = false
-	fail := func(note string) int {
-		r.Outcome = "FAIL"
-		r.Complete = false
-		r.Failure = note
-		_ = run.Record(glmReportName, r)
-		return 1
-	}
-	if !auditOK {
-		return fail("redaction audit failed")
-	}
-	if code != 0 {
-		r.Outcome = "FAIL"
-	}
-	if err := run.Record(glmReportName, r); err != nil {
-		return fail("provisional report write failed")
-	}
-	if err := recordGLMModelReports(); err != nil {
-		return fail("model reports write failed")
-	}
-	files := map[string]string{}
-	err := filepath.WalkDir(run.Dir(), func(path string, d os.DirEntry, e error) error {
-		if e != nil {
-			return e
-		}
-		if d.IsDir() {
-			return nil
-		}
-		if d.Name() == "glm-integrity.json" {
-			return nil
-		}
-		raw, e := readDecisionsFile(path, 16<<20)
-		if e != nil {
-			return e
-		}
-		rel, e := filepath.Rel(run.Dir(), path)
-		if e != nil {
-			return e
-		}
-		files[filepath.ToSlash(rel)] = sha256Text(raw)
-		return nil
-	})
-	if err != nil || os.Getenv("BARNESS_GLM_CONTROLLED") == "inventory-failure" {
-		return fail("inventory read failed")
-	}
-	r.Complete = r.Outcome == "PASS" && code == 0
-	if err = run.Record(glmReportName, r); err != nil {
-		return fail("final report write failed")
-	}
-	if err := recordGLMModelReports(); err != nil {
-		return fail("final model reports write failed")
-	}
-	findings, e := run.Audit()
-	if e != nil || len(findings) > 0 {
-		return fail("final audit failed")
-	}
-	for _, name := range []string{glmReportName + ".json", "candidate-glm-5.3-report.json", "candidate-glm-5.2-report.json", "audit.json"} {
-		raw, e := readDecisionsFile(filepath.Join(run.Dir(), name), 1<<20)
-		if e != nil {
-			return fail("final inventory read failed")
-		}
-		files[name] = sha256Text(raw)
-	}
-	if err = run.Record("glm-integrity", map[string]any{"schema": 1, "files": files}); err != nil {
-		return fail("inventory write failed")
-	}
-	return code
-}
 func glmFail(t interface{ Errorf(string, ...any) }, why string) {
 	glmReportState.Outcome = "FAIL"
 	glmReportState.Failure = why

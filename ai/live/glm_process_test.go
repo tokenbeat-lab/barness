@@ -4,6 +4,8 @@ package live
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"os"
 	"os/exec"
@@ -108,6 +110,50 @@ func TestGLMCandidateProcess(t *testing.T) {
 			cs.Check("no formal publication", len(formal) == 0, "formal=%v", formal)
 			if strings.HasPrefix(name, "success-") {
 				cs.Check("full own route", r.Outcome == "PASS" && r.Complete && r.AuditPassed && r.Budget.CallsUsed == 22 && r.Budget.HTTPAttempts == 22 && len(r.Expected) == 22, "%s", raw)
+				dir := filepath.Dir(matches[0])
+				inventoryRaw, e := os.ReadFile(filepath.Join(dir, "glm-integrity.json"))
+				var inventory struct{ Files map[string]string }
+				if !cs.Check("sealed inventory available", e == nil && json.Unmarshal(inventoryRaw, &inventory) == nil, "%v", e) {
+					return
+				}
+				for name, want := range inventory.Files {
+					data, e := os.ReadFile(filepath.Join(dir, filepath.FromSlash(name)))
+					sum := sha256.Sum256(data)
+					cs.Check("inventory hash "+name, e == nil && hex.EncodeToString(sum[:]) == want, "mismatch")
+				}
+				manifestRaw, e := os.ReadFile(filepath.Join(dir, "manifest.json"))
+				var manifest struct{ Versions map[string]string }
+				json.Unmarshal(manifestRaw, &manifest)
+				cs.Check("manifest uses actual candidate snapshot", e == nil && manifest.Versions["model_catalog_version"] == "glm-six-candidate-2026-10-17.1-sourced-usd" && manifest.Versions["glm_source_manifest_hash"] == glmSourcePin, "candidate provenance changed")
+				if name == "success-messages" {
+					for _, kind := range []string{"native-history", "control-unsigned"} {
+						data, e := os.ReadFile(filepath.Join(dir, "GLM11-glm-5.2-"+kind, "request.json"))
+						var req struct {
+							Max      int `json:"max_tokens"`
+							Thinking struct {
+								Type   string
+								Budget int `json:"budget_tokens"`
+							}
+						}
+						json.Unmarshal(data, &req)
+						cs.Check("5.2 native keeps known thinking shape "+kind, e == nil && req.Max == 4096 && req.Thinking.Type == "enabled" && req.Thinking.Budget == 1024, "unexpected native thinking shape")
+					}
+				}
+				for _, model := range []string{"glm-5.3", "glm-5.2"} {
+					data, e := os.ReadFile(filepath.Join(dir, "candidate-"+model+"-report.json"))
+					var detail struct {
+						Model, Outcome      string
+						Complete            bool
+						Calls, HTTPAttempts int
+						Scenarios           []struct{ ID, Model string }
+					}
+					json.Unmarshal(data, &detail)
+					cs.Check("independent model report "+model, e == nil && detail.Complete && detail.Outcome == "PASS" && detail.Model == model && detail.Calls == 11 && detail.HTTPAttempts == 11 && len(detail.Scenarios) == 11, "incomplete own model report")
+					for _, sc := range detail.Scenarios {
+						cs.Check("model-qualified capability "+sc.ID, sc.Model == model && strings.HasPrefix(sc.ID, model+"/"), "cross-model certification")
+					}
+				}
+
 			}
 			if name == "not-run" || name == "switch-off" {
 				cs.Check("not run spends zero", r.Outcome == "NOT_RUN" && !r.Complete && r.Budget.CallsUsed == 0 && r.Budget.HTTPAttempts == 0, "%s", raw)

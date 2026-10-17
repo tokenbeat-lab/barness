@@ -536,7 +536,7 @@
         "kind": "native-history",
         "expected": "successful own model public call; complete terminal",
         "effort": "omitted",
-        "thinking": "omitted"
+        "thinking": "enabled:1024/max4096"
       },
       {
         "id": "glm-5.2/cancel",
@@ -561,7 +561,8 @@
         "baseline": "glm-5.2/native-history",
         "onlyChangedField": "messages[*].content[thinking].signature",
         "value": "omit",
-        "expected": "accepted request and successful terminal; no inference of service intensity"
+        "expected": "accepted request and successful terminal; no inference of service intensity",
+        "thinking": "enabled:1024/max4096"
       },
       {
         "id": "glm-5.2/control-default",

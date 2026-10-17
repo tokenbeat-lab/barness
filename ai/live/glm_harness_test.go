@@ -37,8 +37,7 @@ func TestGLMCandidate(t *testing.T) {
 		return
 	}
 	cs := run.Case(t, "GLM11-sources")
-	cs.ReplayEnv("BARNESS_AI_LIVE=1 BARNESS_GLM_ROUTE=" + r.Route)
-	cs.ReplayRun(glmEntry)
+	setGLMReplay(cs)
 	for _, n := range []string{"sources.json", "candidate.json", "plan.json"} {
 		raw, e := readDecisionsFile("testdata/glm-candidate/"+n, 2<<20)
 		if !cs.Check("fixed source copied", e == nil, "%v", e) {
@@ -70,9 +69,6 @@ func TestGLMCandidate(t *testing.T) {
 		r.ProcessDeadline = d
 	}
 	r.ExecutionDeadline = r.ProcessDeadline.Add(-20 * time.Second)
-	if r.Mode == "controlled" {
-		r.ExecutionDeadline = time.Now().Add(25 * time.Second)
-	}
 	ctx, cancel := context.WithDeadline(context.Background(), r.ExecutionDeadline)
 	defer cancel()
 	s := &glmSession{ctx: ctx, client: client, rec: rec, results: map[string]ai.Result{}, requests: map[string]ai.Request{}, bodies: map[string]map[string]any{}}
@@ -133,7 +129,7 @@ func glmFullOptions(sc glmCasePlan) ai.Options {
 		return ai.ResponsesOptions{MaxTokens: ai.Value(4096), ReasoningEffort: ai.ThinkingHigh}
 	default:
 		o := ai.AnthropicOptions{MaxTokens: ai.Value(4096)}
-		if sc.Model == "glm-5.2" && kind == "full-stream" && sc.Kind != "control-default" {
+		if sc.Model == "glm-5.2" && (kind == "full-stream" || kind == "native-history") && sc.Kind != "control-default" {
 			o.ThinkingEnabled = ai.Value(true)
 			o.ThinkingBudgetTokens = 1024
 		}
@@ -146,8 +142,7 @@ func glmFullOptions(sc glmCasePlan) ai.Options {
 
 func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	cs := run.Case(t, "GLM11-"+strings.ReplaceAll(sc.ID, "/", "-"))
-	cs.ReplayEnv("BARNESS_AI_LIVE=1 BARNESS_GLM_ROUTE=" + glmReportState.Route)
-	cs.ReplayRun(glmEntry)
+	setGLMReplay(cs)
 	out.Outcome = "FAIL"
 	defer func() {
 		if t.Failed() {
@@ -320,10 +315,14 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	}
 	cs.Check("exact snapshot attribution", result.Metadata.CatalogHash == glmReportState.CatalogHash && result.Metadata.ProviderID == ai.ProviderZhipu && result.Metadata.API == glmSelected.api && result.Metadata.ModelID == sc.Model, "wrong attribution")
 	cs.Check("finished Observer metadata", len(obs) == 4 && obs[len(obs)-1].Kind == ai.ObservationCallFinished, "observations=%d", len(obs))
+	out.Usage = result.Message.Usage
 	for _, a := range result.Metadata.Attempts {
+		out.UsageReporting = append(out.UsageReporting, a.UsageReporting)
 		out.ProviderRequestIDs = append(out.ProviderRequestIDs, a.ProviderRequestID)
 	}
 	for _, e := range ex {
+		out.Truncated = out.Truncated || e.Truncated
+		out.RawUsagePresence = append(out.RawUsagePresence, glmUsagePresence(e.ResponseBody)...)
 		if !cs.Check("capture has no accidental truncation", !e.Truncated, "capture truncated") {
 			return
 		}
@@ -394,6 +393,9 @@ func glmCheckControl(cs *evidence.Case, sc glmCasePlan, bodies map[string]map[st
 		return b
 	}
 	a, b := clone(bodies[sc.Baseline]), clone(bodies[sc.ID])
+	originalA, _ := json.Marshal(a)
+	originalB, _ := json.Marshal(b)
+	cs.Check("declared field actually changes", string(originalA) != string(originalB), "control identical to baseline")
 	switch sc.Kind {
 	case "control-temperature":
 		cs.Check("temperature0 present", b["temperature"] == float64(0), "missing")
