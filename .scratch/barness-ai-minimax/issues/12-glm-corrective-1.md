@@ -3,7 +3,7 @@
 Status: ready-for-human
 Type: task
 Updated: 2026-10-18
-Blocked by: actual GLM Responses native-history failure
+Blocked by: current GLM Responses actual failure (ticket13); original one-round contract closed
 
 ## Context
 

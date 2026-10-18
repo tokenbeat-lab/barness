@@ -76,6 +76,6 @@ Base: `ecfd4b4`
 
 8fbd170完整公共CLI已完成两种vet、ordinary/race，四项数字退出0/0/1/1，两套各12439PASS/8FAIL/1NOT_RUN、审计0；报告pass=false。原始启动中断与完成后的全量运行分开保留；不采用旧bundle冒充新执行。
 
-[14 离线前置缺口](issues/14-release-preflight-gaps.md)承接完整门禁发现的固定映射Hash、可选诊断默认注册和测试夹具inventory修复。当前frontier为14 → 10 → 09；13的有限实际执行已结束，归档审查和状态收敛仍在完成。M3自身映射仍适用；其他证据按既有执行范围核对，不刷新旧pins。新增付费尚未请求或批准，最小必要重验范围待两轴独立政策复核。
+[14 离线前置缺口](issues/14-release-preflight-gaps.md)承接完整门禁发现的固定映射Hash、可选诊断默认注册和测试夹具inventory修复。当前frontier为14、[16 GLM验收Host预算对齐](issues/16-glm-host-deadline-alignment.md) → [15 最小来源重验](issues/15-source-scoped-revalidation.md)（待新增有限付费批准） → 10 → 09；13的有限实际执行已结束，归档审查和状态收敛仍在完成。M3自身映射仍适用；其他证据按既有执行范围核对，不刷新旧pins。新增付费尚未请求或批准，最小必要重验范围待两轴独立政策复核。
 
 历史Fog条目保留原检查点语境，当前结论以[交付状态](delivery-status.md)和机器状态为准；spec/10/09不关闭。

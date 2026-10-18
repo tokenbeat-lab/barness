@@ -156,7 +156,8 @@
     "10",
     "12",
     "13",
-    "14"
+    "14",
+    "16"
   ],
   "blockers": [
     "GLM Responses two actual timeouts and dependent tool-result failure",
@@ -180,6 +181,15 @@
     "combinedCeilingCalls": 653,
     "combinedCeilingAttempts": 677,
     "conditionalOnFinalSourceReview": true,
-    "oldReportsRehashed": false
+    "oldReportsRehashed": false,
+    "glmDeadlineProspective": {
+      "ticket": "16",
+      "status": "PLANNED_OFFLINE_NOT_IMPLEMENTED",
+      "callTimeoutSeconds": 120,
+      "responseHeaderTimeoutSeconds": 120,
+      "previousHeaderSeconds": 90,
+      "oldActualFailuresUnchanged": true,
+      "vendorSuccessAt120Proven": false
+    }
   }
 }
