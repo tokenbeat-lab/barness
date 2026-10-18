@@ -1,0 +1,5 @@
+# Closed first incomplete-gate race retention
+
+Only original primary7931/1056 completed B race subtree, exact completed numeric receipt1/2286.9994075000286s and immutable plan-v2 are inputs. No current ticket17 source substitution, no gate rerun, no original input/native writes. Preserve all original files, manifests/refs/audits, six actual GLM failures, true PI differential and both29-named/15-required pressure lists. Original ordinary and remaining outer verdict are separate capsules.
+
+Failure-first public verifier before new implementation; reject unsafe/missing/extra/changed files, whole directory shape/depth/files/bytes bounds, substituted source/plan/path/receipt, hidden failures or invented pass/exit/counts, incomplete reference inventory, widened limits or observations and links/nonregular files. Reuse the pinned full reader unchanged256MiB compressed/2GiB tar/160000 files/200000 entries/64MiB member/1600MiB payload, exact-int command1 and no extraction/execution. This is historical custody, not current applicability or a whole gate certificate.

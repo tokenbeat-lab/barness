@@ -1,0 +1,14 @@
+# First incomplete gate: closed race command
+
+This is the original primary7931/1056 run, not ticket17 source2306. Actual `/usr/local/go/bin/go test -race -count=1 -timeout=75m ./...` finished numeric1 after2286.9994075000286s at2026-10-18T12:52:52.691772Z. Its main manifest has12451 cases:12445 PASS and6 FAIL, no NOT_RUN. The six exact GLM12 formal-import/reported-known-usage failures for chat/responses/messages remain visible with original assertions. Audit has no findings; all868 true `PIDIFF-` cases PASS. All29 pressure-named cases PASS;15 match the fixed required PRESSURE regex. Both complete identity lists are retained.
+
+The immutable common-root archive `.evidence/minimax-retained/ticket-15-new-actual/incomplete-race-raw.tar.gz` SHA256 `d4d61315538ee4ae0d276fe54af46b11bdeedc8548be80b567d657f02d6ae473` holds133174 original regular files plus exact completed receipt, original G source snapshot and immutable B plan-v2:133177 members/1304291193 payload bytes/114046383 compressed bytes. Inputs were regular-only bounded before collection and hashed again afterward. No original source/report/pin was refreshed. The current worker code and HEAD were never substituted.
+
+This standalone historical consumer intentionally keeps its own race root, argv and immutable plan/source bindings; ordinary's separately reviewed reader and archive stay unchanged. Both reuse the same pinned full protocol unchanged:256MiB compressed/2GiB decoded tar/160000 files/200000 reader entries/64MiB member/1600MiB payload/40MiB decoded inventory/8MiB compressed inventory/256 observations/16MiB observed member/64MiB observed total. Snapshot counts the entire directory shape and bounds depth32, files and bytes. Archives allow regular files only and are never extracted or executed. The complete98710 manifest artifact references are independently checked.
+
+```sh
+python3 -B .scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/verify.py --common-root /Users/cyber/RestoX/barness
+python3 -B .scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/check-boundaries.py --common-root /Users/cyber/RestoX/barness
+```
+
+Eight public private-copy metadata negatives test source/path/bounds/archive/summary/failure/observation guards, using read-only archive hardlinks. Original verification runs before and after. The first missing public entrypoint exit2 and first log-index refusal1 (compressedSHA256 omitted in new metadata) remain authoring history; corrected public verification0 and all8 exact-reason negative refusals are retained. Original archive/native bytes never changed. Whole outer/package stdout and final public verdict are separate; this capsule alone is not a complete gate or current applicability certificate. Retention reads no Key, performs no network or paid call and writes no original source/native input.
