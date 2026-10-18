@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "kind": "failure-first-intermediate-offline-captures",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "rawFiles": 18146,
+  "rawBytes": 64937034,
+  "archive": "international-convergence-red-green-8d56410.tar.gz",
+  "archiveBytes": 5827271,
+  "archiveSha256": "5604732777a0d4fa95b8622f2a32a85de12ede4bb49184bdb183278f33bbadbf",
+  "verifiedArtifactReferences": 18842,
+  "artifactHashMismatches": 0,
+  "fileInventoryGzipSha256": "d53760f45119f769780e1ecd0a878905c36bddf7b541ddef705c03c473b8164a",
+  "runs": [
+    {
+      "manifest": "mm10-global-chat-mirror-red/captures/20261018T015336.024284000Z/manifest.json",
+      "gitCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+      "cases": 2,
+      "outcomes": {
+        "FAIL": 2
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm10-global-chat-mirror-green/captures/20261018T015420.131879000Z/manifest.json",
+      "gitCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+      "cases": 9,
+      "outcomes": {
+        "PASS": 9
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm10-global-chat-history-red/captures/20261018T015453.002710000Z/manifest.json",
+      "gitCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+      "cases": 6,
+      "outcomes": {
+        "PASS": 4,
+        "FAIL": 2
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm10-global-chat-history-green/captures/20261018T015527.278761000Z/manifest.json",
+      "gitCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+      "cases": 25,
+      "outcomes": {
+        "PASS": 25
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm10-global-responses-red/captures/20261018T015903.156163000Z/manifest.json",
+      "gitCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+      "cases": 11,
+      "outcomes": {
+        "FAIL": 7,
+        "PASS": 4
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm10-global-responses-green/captures/20261018T015942.080640000Z/manifest.json",
+      "gitCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+      "cases": 23,
+      "outcomes": {
+        "PASS": 23
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm10-global-focused-normal/captures/20261018T020050.060169000Z/manifest.json",
+      "gitCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+      "cases": 1372,
+      "outcomes": {
+        "PASS": 1372
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm10-global-focused-race/captures/20261018T020136.226005000Z/manifest.json",
+      "gitCommit": "76977765efe16ebaf2b91cbcd38b6599ae643c9e",
+      "cases": 1372,
+      "outcomes": {
+        "PASS": 1372
+      },
+      "auditFindings": 0
+    }
+  ],
+  "provenance": "Red/green and focused manifests retain their original base git_commit (38b7098/7697776); tests/runtime were uncommitted during those failure-first cycles, then committed at8d564103. These are retained failure history; complete committed-source ordinary/race MiniMax bundles are separate. No original research capture was changed.",
+  "retention": "Complete archive tracked here and duplicated in common-root .evidence/minimax-retained/international-convergence-red-green-8d56410.tar.gz"
+}
