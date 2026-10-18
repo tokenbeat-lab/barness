@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "kind": "closed-L-byte-retention-provenance",
+  "createdAt": "2026-10-18T05:02:04.926297+00:00",
+  "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "selectedSourceFiles": 1034,
+  "selection": "L top-level immutable metadata and parent scripts/receipts;15 complete paid roots;3 current NOT_RUN roots; full passed no-key preflight separate;16 original common canonical receipts and external C/M/Q boundaries",
+  "originalActualOutcome": "PARTIAL/FAIL:2PASS13FAIL168calls168attempts; original reports remain unchanged",
+  "rootOfAuthority": "Original common-root canonical launch receipts and original prepared/APPROVED metadata; curation makes no new paid or support authority",
+  "preflightNegativeLinkConvention": "Hash original link target text bytes; never follow/extract",
+  "largeArchiveIntendedDestination": "$COMMON/.evidence/minimax-retained/legacy-preflight-3d3.tar.gz",
+  "binaryScope": [
+    {
+      "file": "live.test",
+      "sha256": "4304046180d6c9bd1122de3170b2f9a84b5cd8357d3fc45b1a0581c403baed2e",
+      "bytes": 35951234,
+      "included": false,
+      "original": "$REPO/.evidence/minimax-global-legacy-final/live.test"
+    },
+    {
+      "file": "chineseeval",
+      "sha256": "1f22c731b9891ba143cdf04ef611af6537a9117fcc38493cbb7ac552c35a6f65",
+      "bytes": 29139970,
+      "included": false,
+      "original": "$REPO/.evidence/minimax-global-legacy-final/chineseeval"
+    },
+    {
+      "file": "visualeval",
+      "sha256": "4080cfd62c097b418217c4c9ece3bf407e7b31943d50d13e9425d46ce6ae6ea2",
+      "bytes": 29619154,
+      "included": false,
+      "original": "$REPO/.evidence/minimax-global-legacy-final/visualeval"
+    }
+  ],
+  "externalArchiveBoundaries": [
+    {
+      "sha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08",
+      "scope": "C original candidate760; PASS3, priorCN/research accounting retained",
+      "file": "international-candidates-7605332.tar.gz",
+      "bytes": 5816813,
+      "included": false
+    },
+    {
+      "sha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e",
+      "scope": "M source890; M3formal3 PASS; initial GLM PASS/FAIL/PASS66/66",
+      "file": "international-formal-glm-8900034.tar.gz",
+      "bytes": 5511291,
+      "included": false
+    },
+    {
+      "sha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38",
+      "scope": "Q approved R1 source5bf; Chat/Messages PASS; Responses FAIL, no canonical capturePins;132/132 cumulative, noR2",
+      "file": "glm-corrective-actual-5bf2c16.tar.gz",
+      "bytes": 4632201,
+      "included": false
+    },
+    {
+      "sha256": "7fe0d49506b8c31c445f5ebc9f8868e25dbbee4e875e62e43ea226356601bd86",
+      "scope": "Original9dc full1033source bytes; original failed no-key/PENDING source, no paid approval",
+      "file": "q-9dc-committed-source-proof.tar.gz",
+      "bytes": 3325125,
+      "included": false
+    },
+    {
+      "sha256": "56e08cbf7105f4fe1a1751bae42ba83988bcdbb4d1b1d443dd9bcd9a2d62ae3c",
+      "scope": "Original9dc failed no-key335PASS62NOT_RUN audit2/Goexit1; raw exact diagnostics unchanged; PENDING no paid approval",
+      "file": "glm-corrective-q-9dc-audit-failure.tar.gz",
+      "bytes": 53271279,
+      "included": false
+    },
+    {
+      "sha256": "6517f953a0e56fb5cf477f0196704193af76589137c11322a5c83179f223e71a",
+      "scope": "Approved5bf no-key336PASS62NOT_RUN audit0/Goexit0; no actual release qualification",
+      "file": "corrective-approved-prepay-5bf2c16.tar.gz",
+      "bytes": 38302855,
+      "included": false
+    }
+  ],
+  "actualKeylessAExcluded": true,
+  "derivedLSupportExcluded": true,
+  "automaticReruns": false,
+  "R2Authorized": false,
+  "releaseCertifiedByCurator": false,
+  "capturedCommandsExecuted": false,
+  "rootFilesModified": false,
+  "gitModified": false,
+  "credentialsRead": false,
+  "environmentRead": false,
+  "networkUsed": false,
+  "vendorCalls": 0,
+  "testsRun": false,
+  "portableByteVerifierExecuted": true,
+  "verificationResult": {
+    "integrity": "PASS",
+    "scope": "archive bytes/references only; actual paid outcome PARTIAL/FAIL",
+    "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+    "sourceFiles": 1034,
+    "smallCapsule": {
+      "entries": 2563,
+      "expandedBytes": 26364638
+    },
+    "preflightRaw": {
+      "entries": 27829,
+      "expandedBytes": 219977781
+    },
+    "preflightMainManifests": [
+      {
+        "manifest": "20261018T043534.832443000Z/manifest.json",
+        "caseOutcomes": {
+          "PASS": 1
+        },
+        "artifactReferences": 1,
+        "auditFindings": null
+      },
+      {
+        "manifest": "20261018T043457.035375000Z/manifest.json",
+        "caseOutcomes": {
+          "PASS": 336,
+          "NOT_RUN": 62
+        },
+        "artifactReferences": 15693,
+        "auditFindings": 0
+      },
+      {
+        "manifest": "20261018T043550.476751000Z/manifest.json",
+        "caseOutcomes": {
+          "PASS": 1
+        },
+        "artifactReferences": 1,
+        "auditFindings": null
+      }
+    ],
+    "paidOutcomes": {
+      "FAIL": 13,
+      "PASS": 2
+    },
+    "paidCalls": 168,
+    "paidAttempts": 168,
+    "legacyCalls": 300,
+    "legacyAttempts": 300,
+    "historicalCanonicalReceipts": 16,
+    "externalBoundaries": [
+      {
+        "file": "international-candidates-7605332.tar.gz",
+        "status": "HASH_SIZE_AND_SELECTED_HISTORY_PASS",
+        "historicalCanonicalBytesCompared": 7
+      },
+      {
+        "file": "international-formal-glm-8900034.tar.gz",
+        "status": "HASH_SIZE_AND_SELECTED_HISTORY_PASS",
+        "historicalCanonicalBytesCompared": 6
+      },
+      {
+        "file": "glm-corrective-actual-5bf2c16.tar.gz",
+        "status": "HASH_SIZE_AND_SELECTED_HISTORY_PASS",
+        "historicalCanonicalBytesCompared": 3
+      },
+      {
+        "file": "q-9dc-committed-source-proof.tar.gz",
+        "status": "HASH_SIZE_AND_SELECTED_HISTORY_PASS",
+        "historicalCanonicalBytesCompared": 0
+      },
+      {
+        "file": "glm-corrective-q-9dc-audit-failure.tar.gz",
+        "status": "HASH_SIZE_AND_SELECTED_HISTORY_PASS",
+        "historicalCanonicalBytesCompared": 0
+      },
+      {
+        "file": "corrective-approved-prepay-5bf2c16.tar.gz",
+        "status": "HASH_SIZE_AND_SELECTED_HISTORY_PASS",
+        "historicalCanonicalBytesCompared": 0
+      }
+    ],
+    "releaseCertifiedByCurator": false,
+    "excludedBinariesVerifiedByPortableTool": false,
+    "actualKeylessACollected": false,
+    "capturedCommandsExecuted": false,
+    "environmentRead": false,
+    "networkUsed": false
+  }
+}

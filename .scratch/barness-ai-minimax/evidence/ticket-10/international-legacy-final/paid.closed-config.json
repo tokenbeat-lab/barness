@@ -1,0 +1,339 @@
+{
+  "_instructions": "Parent explicitly closed L15. Only L top metadata/paid actual roots/current M3.1 NOT_RUN/preflight selected. Active A and L/support excluded. Captured commands are never executed. No R2.",
+  "repo": "/Users/cyber/RestoX/barness",
+  "out": "/tmp/barness-minimax-final-evidence-curation/paid-closed-output",
+  "name": "legacy-final-3d3",
+  "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "phase": "paid",
+  "sourceManifest": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final/source-at-start.json",
+  "paidCollection": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final",
+  "routes": [
+    "openai-responses",
+    "openai-chat",
+    "anthropic-messages",
+    "google-gemini",
+    "deepseek-responses",
+    "deepseek-chat",
+    "openai-images",
+    "google-interactions-image",
+    "openai-decisions",
+    "typesafe-classifier",
+    "protocol114",
+    "text-jev",
+    "text-luna",
+    "visual-jev",
+    "visual-decisions"
+  ],
+  "canonicalReceipts": {
+    "openai-responses": null,
+    "openai-chat": null,
+    "anthropic-messages": null,
+    "google-gemini": null,
+    "deepseek-responses": null,
+    "deepseek-chat": null,
+    "openai-images": null,
+    "google-interactions-image": null,
+    "openai-decisions": null,
+    "typesafe-classifier": null,
+    "protocol114": null,
+    "text-jev": null,
+    "text-luna": null,
+    "visual-jev": null,
+    "visual-decisions": null
+  },
+  "metadataDirectories": {
+    "L": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final",
+    "L-parent": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final-parent"
+  },
+  "rawGroups": [
+    {
+      "name": "L-no-key-live",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final/no-key-live",
+      "verifyOuterManifests": true
+    },
+    {
+      "name": "L-live",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final/live",
+      "verifyOuterManifests": true
+    },
+    {
+      "name": "L-protocol114",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final/protocol114",
+      "verifyOuterManifests": true
+    },
+    {
+      "name": "L-text-jev",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final/text-jev",
+      "verifyOuterManifests": true
+    },
+    {
+      "name": "L-text-luna",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final/text-luna",
+      "verifyOuterManifests": true
+    },
+    {
+      "name": "L-visual-jev",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final/visual-jev",
+      "verifyOuterManifests": true
+    },
+    {
+      "name": "L-visual-decisions",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final/visual-decisions",
+      "verifyOuterManifests": true
+    }
+  ],
+  "parentAuditFiles": [
+    {
+      "path": "/tmp/barness-minimax-retention-3d3-review.md"
+    },
+    {
+      "path": "/tmp/barness-minimax-retention-3d3-review.json",
+      "claims": [
+        {
+          "pointer": "/reviewedCommit",
+          "equals": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+        }
+      ]
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-q-9dc-audit-failure.json"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-q-9dc-audit-failure-files.json.gz"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.json"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/corrective-approved-prepay-5bf2c16.json"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/corrective-approved-prepay-5bf2c16-files.json.gz"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/q-9dc-committed-source-proof.json"
+    },
+    {
+      "path": "/tmp/barness-minimax-L-final-diagnosis.md",
+      "sha256": "2c601405d858f36da263e4e860451ab797cea166667b0397a7605df3b8543a51"
+    },
+    {
+      "path": "/tmp/barness-minimax-L-final-audit.json",
+      "sha256": "0a0c5393be80db73d5b84b49871ebf6b1fb69b8c84ed1e535cc75a60fbc1729e"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.json"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json"
+    }
+  ],
+  "externalArchives": [
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.tar.gz",
+      "sha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08",
+      "scope": "C original candidate760; PASS3, priorCN/research accounting retained"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.tar.gz",
+      "sha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e",
+      "scope": "M source890; M3formal3 PASS; initial GLM PASS/FAIL/PASS66/66"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.tar.gz",
+      "sha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38",
+      "scope": "Q approved R1 source5bf; Chat/Messages PASS; Responses FAIL, no canonical capturePins;132/132 cumulative, noR2"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/q-9dc-committed-source-proof.tar.gz",
+      "sha256": "7fe0d49506b8c31c445f5ebc9f8868e25dbbee4e875e62e43ea226356601bd86",
+      "scope": "Original9dc full1033source bytes; original failed no-key/PENDING source, no paid approval"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/glm-corrective-q-9dc-audit-failure.tar.gz",
+      "sha256": "56e08cbf7105f4fe1a1751bae42ba83988bcdbb4d1b1d443dd9bcd9a2d62ae3c",
+      "scope": "Original9dc failed no-key335PASS62NOT_RUN audit2/Goexit1; raw exact diagnostics unchanged; PENDING no paid approval"
+    },
+    {
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/corrective-approved-prepay-5bf2c16.tar.gz",
+      "sha256": "6517f953a0e56fb5cf477f0196704193af76589137c11322a5c83179f223e71a",
+      "scope": "Approved5bf no-key336PASS62NOT_RUN audit0/Goexit0; no actual release qualification"
+    }
+  ],
+  "ownInputs": [],
+  "effects": [],
+  "notRunArtifacts": [],
+  "actualCommands": {},
+  "historicalReceipts": [
+    {
+      "route": "mm-research-m3-chat",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.json",
+      "member": "launches/mm-research-m3-chat.json",
+      "archiveSha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08"
+    },
+    {
+      "route": "mm-global-research-m3-chat",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.json",
+      "member": "launches/mm-global-research-m3-chat.json",
+      "archiveSha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08"
+    },
+    {
+      "route": "mm-global-research-m3-responses",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.json",
+      "member": "launches/mm-global-research-m3-responses.json",
+      "archiveSha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08"
+    },
+    {
+      "route": "mm-global-research-m3-messages",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.json",
+      "member": "launches/mm-global-research-m3-messages.json",
+      "archiveSha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08"
+    },
+    {
+      "route": "mm-global-candidate-m3-chat",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.json",
+      "member": "collection/mm-global-candidate-m3-chat-intent.json",
+      "archiveSha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08"
+    },
+    {
+      "route": "mm-global-candidate-m3-responses",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.json",
+      "member": "collection/mm-global-candidate-m3-responses-intent.json",
+      "archiveSha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08"
+    },
+    {
+      "route": "mm-global-candidate-m3-messages",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.json",
+      "member": "collection/mm-global-candidate-m3-messages-intent.json",
+      "archiveSha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08"
+    },
+    {
+      "route": "mm-global-formal-m3-chat",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json",
+      "member": "collection/mm-global-formal-m3-chat-intent.json",
+      "archiveSha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e"
+    },
+    {
+      "route": "mm-global-formal-m3-responses",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json",
+      "member": "collection/mm-global-formal-m3-responses-intent.json",
+      "archiveSha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e"
+    },
+    {
+      "route": "mm-global-formal-m3-messages",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json",
+      "member": "collection/mm-global-formal-m3-messages-intent.json",
+      "archiveSha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e"
+    },
+    {
+      "route": "glm-chat",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json",
+      "member": "collection/glm-chat-intent.json",
+      "archiveSha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e"
+    },
+    {
+      "route": "glm-responses",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json",
+      "member": "collection/glm-responses-intent.json",
+      "archiveSha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e"
+    },
+    {
+      "route": "glm-messages",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json",
+      "member": "collection/glm-messages-intent.json",
+      "archiveSha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e"
+    },
+    {
+      "route": "glm-corrective-1-chat",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.json",
+      "member": "collection/glm-corrective-1-chat-intent.json",
+      "archiveSha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38"
+    },
+    {
+      "route": "glm-corrective-1-responses",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.json",
+      "member": "collection/glm-corrective-1-responses-intent.json",
+      "archiveSha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38"
+    },
+    {
+      "route": "glm-corrective-1-messages",
+      "index": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.json",
+      "member": "collection/glm-corrective-1-messages-intent.json",
+      "archiveSha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38"
+    }
+  ],
+  "embeddedRawGroups": [
+    {
+      "name": "openai-responses",
+      "relative": "live/openai-responses"
+    },
+    {
+      "name": "openai-chat",
+      "relative": "live/openai-chat"
+    },
+    {
+      "name": "anthropic-messages",
+      "relative": "live/anthropic-messages"
+    },
+    {
+      "name": "google-gemini",
+      "relative": "live/google-gemini"
+    },
+    {
+      "name": "deepseek-responses",
+      "relative": "live/deepseek-responses"
+    },
+    {
+      "name": "deepseek-chat",
+      "relative": "live/deepseek-chat"
+    },
+    {
+      "name": "openai-images",
+      "relative": "live/openai-images"
+    },
+    {
+      "name": "google-interactions-image",
+      "relative": "live/google-interactions-image"
+    },
+    {
+      "name": "openai-decisions",
+      "relative": "live/openai-decisions"
+    },
+    {
+      "name": "typesafe-classifier",
+      "relative": "live/typesafe-classifier"
+    },
+    {
+      "name": "protocol114",
+      "relative": "protocol114"
+    },
+    {
+      "name": "text-jev",
+      "relative": "text-jev"
+    },
+    {
+      "name": "text-luna",
+      "relative": "text-luna"
+    },
+    {
+      "name": "visual-jev",
+      "relative": "visual-jev"
+    },
+    {
+      "name": "visual-decisions",
+      "relative": "visual-decisions"
+    },
+    {
+      "name": "m31-not-run-chat",
+      "relative": "m31-not-run-chat"
+    },
+    {
+      "name": "m31-not-run-responses",
+      "relative": "m31-not-run-responses"
+    },
+    {
+      "name": "m31-not-run-messages",
+      "relative": "m31-not-run-messages"
+    }
+  ]
+}

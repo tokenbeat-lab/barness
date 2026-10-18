@@ -1,0 +1,776 @@
+{
+  "schema": 1,
+  "kind": "original3d3-actual-failed-gate-byte-retention",
+  "createdAt": "2026-10-18T05:48:30.843617+00:00",
+  "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "sourceFilesProvedExternally": 1034,
+  "fullSourceByteArchive": "legacy-paid-3d3.tar.gz",
+  "fullSourceByteArchiveSHA256": "a152988b0ffc906902295358ca720636bccde20914b5cf4d3aeddb507137ec76",
+  "archive": "A-final-keyless-3d3-metadata.tar.gz",
+  "archiveSha256": "1c1d40f233b129d7c90bf0a394fbd0924922183431808609e8fe7a8dcf5b7e42",
+  "archiveBytes": 248194,
+  "files": {
+    "metadata/A/actual-releasegate-command.json": {
+      "sha256": "a4959fe77f114633f705663f9e27aa15d45f25333b2277d0db5a3c1cf497a3b3",
+      "bytes": 2984
+    },
+    "metadata/A/actual-releasegate.log": {
+      "sha256": "590b5047c1b3756c8f7a91a9fa527e80b3658b6e86a18db985fa93b3599d723d",
+      "bytes": 8769
+    },
+    "metadata/A/argv-manifest.json": {
+      "sha256": "5609de5a8689f63cae8530867a8b7ae3603b2957f08c4473625f6ae6f8430234",
+      "bytes": 26099
+    },
+    "metadata/A/derive-jev-support-command.json": {
+      "sha256": "2ad15d0d9be731ae55b578188c3b6bbf0645bd2162e248b3fea811bb56b703b3",
+      "bytes": 827
+    },
+    "metadata/A/derive-jev-support.log": {
+      "sha256": "8b69d6f919c76fa8c035fd5a424b0eae6f6027133f6a6b04753e079b8401e049",
+      "bytes": 76
+    },
+    "metadata/A/matrix-after.json": {
+      "sha256": "cacb9dd13d75e44ae6ad22103504bfa2c2f6679ae7fba66764eb679d8889519b",
+      "bytes": 46213
+    },
+    "metadata/A/matrix-before.json": {
+      "sha256": "cacb9dd13d75e44ae6ad22103504bfa2c2f6679ae7fba66764eb679d8889519b",
+      "bytes": 46213
+    },
+    "metadata/A/matrix-validation-after.json": {
+      "sha256": "cacb9dd13d75e44ae6ad22103504bfa2c2f6679ae7fba66764eb679d8889519b",
+      "bytes": 46213
+    },
+    "metadata/A/progress.json": {
+      "sha256": "1f964e10ae8ea88328b205062640bee6bac22dc1cca8028234bb9f2af7366869",
+      "bytes": 1700
+    },
+    "metadata/A/summary.json": {
+      "sha256": "7e18ca9a883e3d1ced88cb634877b3a669712e2a31bd4838a64c1bba047f205f",
+      "bytes": 2361
+    },
+    "metadata/A/temporary-validation-argv.json": {
+      "sha256": "ac86a4356fdd6f091cb1fdfcb70229b81dad171e53c0afaff04cd85076ec5ed6",
+      "bytes": 1956
+    },
+    "metadata/A/validate-17-temporary-matrix-command.json": {
+      "sha256": "c5f6f54b2224e8545ff7b1b21ae65b1ed10f342c74885e0185cad0849fbe223e",
+      "bytes": 2390
+    },
+    "metadata/A/validate-17-temporary-matrix.log": {
+      "sha256": "9a42288aa8819039262d47072ff100f3a5b3656e10ef6baef309fceafe919abf",
+      "bytes": 114
+    },
+    "metadata/A/verify-jev-support-command.json": {
+      "sha256": "da63fe147f8ebcccd963bee8150ea78526c463af4c577d9587fdb5a7536c98e5",
+      "bytes": 644
+    },
+    "metadata/A/verify-jev-support.log": {
+      "sha256": "3a6c6528660c2ca8a8c42960b063d7bd6bd764bd4dae2ad9ec72440746cd8a20",
+      "bytes": 127
+    },
+    "metadata/A/verify-minimax-chat-command.json": {
+      "sha256": "5f24cf68e84100aeaeb72a07b1357bdf0f2aef4cd0a33ab215aaedc89228c466",
+      "bytes": 671
+    },
+    "metadata/A/verify-minimax-chat.log": {
+      "sha256": "657342d1d3b517885d388525f5950b5026a46767edb669538b1064c436809e84",
+      "bytes": 92
+    },
+    "metadata/A/verify-minimax-messages-command.json": {
+      "sha256": "bdef0fdf13d58282cf1508f42f941e29036fde414044572f7355612e24a27fae",
+      "bytes": 679
+    },
+    "metadata/A/verify-minimax-messages.log": {
+      "sha256": "10652587034e338c176814db9b6cda928f2fbaa92c387f835350b297bd660c6a",
+      "bytes": 96
+    },
+    "metadata/A/verify-minimax-responses-command.json": {
+      "sha256": "162dc53d467b32c775d803f82a0942819d8e033854b95632af9263ee2b868fca",
+      "bytes": 681
+    },
+    "metadata/A/verify-minimax-responses.log": {
+      "sha256": "38ec865728e7825398a6f17b6cd819c715659bffdc85b593f6b55fe67ac23577",
+      "bytes": 97
+    },
+    "metadata/A/verify-text-jev-command.json": {
+      "sha256": "da3d74aabc712c8f6d65fcbe842b413057769dc9ee16083afcb00732be818f28",
+      "bytes": 685
+    },
+    "metadata/A/verify-text-jev.log": {
+      "sha256": "3332aa5435ae4a4ba534f5f3f3b5a187ae5f5a93cccd33b5c8b674e2adbf72d6",
+      "bytes": 63
+    },
+    "metadata/A/verify-text-luna-command.json": {
+      "sha256": "793c206124697af463c57a25e4638cd86462c1dd37db3f66ff9482b2aea1dc11",
+      "bytes": 688
+    },
+    "metadata/A/verify-text-luna.log": {
+      "sha256": "3332aa5435ae4a4ba534f5f3f3b5a187ae5f5a93cccd33b5c8b674e2adbf72d6",
+      "bytes": 63
+    },
+    "metadata/A/verify-visual-decisions-command.json": {
+      "sha256": "dfb5cd28b3e6fc67cce958cc2d324332242a7b03ea9db5db45127ddfa2671d1e",
+      "bytes": 669
+    },
+    "metadata/A/verify-visual-decisions.log": {
+      "sha256": "d16b31692776b3e1404502f165cba8fc0a98b359981458d7dc2498768bfbdd6a",
+      "bytes": 56
+    },
+    "metadata/A/verify-visual-jev-command.json": {
+      "sha256": "e11f1e3fd5724e3886c63abfb815bc2240dd42d0abe155b8c28bb9780b955f49",
+      "bytes": 657
+    },
+    "metadata/A/verify-visual-jev.log": {
+      "sha256": "d16b31692776b3e1404502f165cba8fc0a98b359981458d7dc2498768bfbdd6a",
+      "bytes": 56
+    },
+    "producer/parent-keyless-runner.py": {
+      "sha256": "e6fd109a0f5c0892a0f0b64ab16edc0b3fd12880fd3f41be15577f5acf7b2b92",
+      "bytes": 16467
+    },
+    "source-proof/original-paid-L-index.json": {
+      "sha256": "4f10df52a57cfce8f04a39297523e2d343b3c07e98e8b24599e0ed4211a18e73",
+      "bytes": 505403
+    },
+    "source-proof/source-at-start.json": {
+      "sha256": "681a80e4053286063ff2be681818184b1e72ea9555b4e56070dfb25bdaed150b",
+      "bytes": 114523
+    },
+    "source-proof/public-gate/ai/release/cmd/releasegate/main.go": {
+      "sha256": "d62dfff8ef52eecb54097f33169bc0b9fb9e485a8c3a32801782783a6223f87a",
+      "bytes": 9238
+    },
+    "source-proof/public-gate/ai/internal/testkit/release/gate.go": {
+      "sha256": "1c3ce9c232edfc242153a994bcc7a1caa1491c4b61617a56af6644c7c316e5bf",
+      "bytes": 15340
+    },
+    "source-proof/public-gate/ai/internal/testkit/release/load.go": {
+      "sha256": "c2bf28b2e13fe090eafe463c7d2dbeb7e21fe2eed2fe9ba220069e0c7ae9d4c5",
+      "bytes": 10806
+    },
+    "suite-summaries/offline/derived-index.json": {
+      "sha256": "9abe9d0ce6cda87f69914698acde1092ca0360b64eaa460e7cd7a302fa990395",
+      "bytes": 2873
+    },
+    "suite-summaries/offline/audit.json": {
+      "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "bytes": 21
+    },
+    "failed-assertions/offline/GLM12-formal-import-chat.json": {
+      "sha256": "10ace3131b9a3a5c75964a2c6c68d1ebb301961a69812d98979523dbed895bc2",
+      "bytes": 376
+    },
+    "failed-assertions/offline/GLM12-formal-import-messages.json": {
+      "sha256": "46d72c40f87cb3ff5aa0d6452401f8e696c546c44a4f5db0e3b6adfa0000c866",
+      "bytes": 388
+    },
+    "failed-assertions/offline/GLM12-formal-import-responses.json": {
+      "sha256": "6bead3ef080a41e821811e2b110cc2e8e9b39b636e79b727613c2d555bcc78e3",
+      "bytes": 391
+    },
+    "failed-assertions/offline/GLM12-reported-known-usage-chat.json": {
+      "sha256": "fad3738259ed453988cdff2ccad02237477de2c4d6eb854ad3f117008d5a70ef",
+      "bytes": 725
+    },
+    "failed-assertions/offline/GLM12-reported-known-usage-messages.json": {
+      "sha256": "3bbea41893776c8fbce142760710bedf593f0a3ef8ce4190eec852e70ba0210c",
+      "bytes": 737
+    },
+    "failed-assertions/offline/GLM12-reported-known-usage-responses.json": {
+      "sha256": "e1b1477c2a52da0a2ae2fc3a24cbbbe2df2ec5e061ec85e9f275cb3e1012e7b6",
+      "bytes": 740
+    },
+    "suite-summaries/race/derived-index.json": {
+      "sha256": "fee39bf5a80f77c15614a6922fd5731ee4de9d9c8d34789c9b216a7315bf63fb",
+      "bytes": 2873
+    },
+    "suite-summaries/race/audit.json": {
+      "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "bytes": 21
+    },
+    "failed-assertions/race/GLM12-formal-import-chat.json": {
+      "sha256": "10ace3131b9a3a5c75964a2c6c68d1ebb301961a69812d98979523dbed895bc2",
+      "bytes": 376
+    },
+    "failed-assertions/race/GLM12-formal-import-messages.json": {
+      "sha256": "46d72c40f87cb3ff5aa0d6452401f8e696c546c44a4f5db0e3b6adfa0000c866",
+      "bytes": 388
+    },
+    "failed-assertions/race/GLM12-formal-import-responses.json": {
+      "sha256": "6bead3ef080a41e821811e2b110cc2e8e9b39b636e79b727613c2d555bcc78e3",
+      "bytes": 391
+    },
+    "failed-assertions/race/GLM12-reported-known-usage-chat.json": {
+      "sha256": "fad3738259ed453988cdff2ccad02237477de2c4d6eb854ad3f117008d5a70ef",
+      "bytes": 725
+    },
+    "failed-assertions/race/GLM12-reported-known-usage-messages.json": {
+      "sha256": "3bbea41893776c8fbce142760710bedf593f0a3ef8ce4190eec852e70ba0210c",
+      "bytes": 737
+    },
+    "failed-assertions/race/GLM12-reported-known-usage-responses.json": {
+      "sha256": "e1b1477c2a52da0a2ae2fc3a24cbbbe2df2ec5e061ec85e9f275cb3e1012e7b6",
+      "bytes": 740
+    },
+    "parent-audits/barness-minimax-retention-3d3-review.md": {
+      "sha256": "facd6877cdc20733a2f0ece0bab7d17b5ac41598886ef1340e638ed1044ebe87",
+      "bytes": 1732
+    },
+    "parent-audits/barness-minimax-retention-3d3-review.json": {
+      "sha256": "fe90e3e673f7b01e87ab6e5d1fcea091adf2a8efaf5b7f5b01d561154c38ae96",
+      "bytes": 2783
+    },
+    "parent-audits/barness-minimax-L-final-diagnosis.md": {
+      "sha256": "2c601405d858f36da263e4e860451ab797cea166667b0397a7605df3b8543a51",
+      "bytes": 8954
+    },
+    "parent-audits/barness-minimax-L-final-audit.json": {
+      "sha256": "0a0c5393be80db73d5b84b49871ebf6b1fb69b8c84ed1e535cc75a60fbc1729e",
+      "bytes": 50550
+    },
+    "curation-tools/curate_a.py": {
+      "sha256": "da808b0d31d260f5d3d937d98168847a4c1091f54f661d0f5dbd6c7b61f042de",
+      "bytes": 12858
+    },
+    "curation-tools/verify_a.py": {
+      "sha256": "b74cd73a6096c0e988e328e8c54f9c740d97ff608c493305d66b26241893cc41",
+      "bytes": 9629
+    },
+    "curation-tools/a_core.py": {
+      "sha256": "2a7c6cd1a3fc6513ad981aca1005c48f9ef649fb4b50acaa53c321cc89dfcb63",
+      "bytes": 5483
+    },
+    "curation-tools/retention_core.py": {
+      "sha256": "b4ebb3b209a23fc684c809e097843d4b89601ffac966c3c079b77c4a933ae810",
+      "bytes": 13114
+    },
+    "curation-tools/README.md": {
+      "sha256": "ef7c6f5a8703b793cadb920a8f63ea25eebc8c0b2cd8bd4bc7b4916b616ea0dd",
+      "bytes": 2245
+    },
+    "curation-tools/FAILURE-INVENTORY.md": {
+      "sha256": "49c18250a70afe993bf18c2a1d64c04c44e85e6a378032c44c30cc5249895c95",
+      "bytes": 4035
+    },
+    "curation-config.json": {
+      "sha256": "973b84a44560f8c0d371624e1dccd878f295de3a38b560d216de6fa189a62b9a",
+      "bytes": 20397
+    }
+  },
+  "archiveRoundtrip": {
+    "entries": 62,
+    "expandedBytes": 1007998
+  },
+  "rawGroups": [
+    {
+      "archive": "A-offline-3d3.tar.gz",
+      "sha256": "81ce118545c9c31b63883224fd8905f4f6877dd9448ce1a3ee31fc46e716fbb9",
+      "bytes": 106189059,
+      "inventory": "A-offline-3d3-files.json.gz",
+      "inventorySha256": "e6f50c0e2353e7c84972ed00f2fb37227f2086145b60cec9397c9e38b351b7de",
+      "entries": 131992,
+      "expandedBytes": 1300755752,
+      "name": "offline",
+      "mainManifests": [
+        {
+          "manifest": "20261018T045647.697909000Z/manifest.json",
+          "caseOutcomes": {
+            "PASS": 12385,
+            "FAIL": 6
+          },
+          "artifactReferences": 98560,
+          "auditFindings": 0
+        }
+      ],
+      "originalMainManifest": "20261018T045647.697909000Z/manifest.json",
+      "originalMainManifestSHA256": "b4dcf3e8772285e0cd06e03dc627be0dad33315199d8e9965c734187407af21e",
+      "originalOutcomes": {
+        "PASS": 12385,
+        "FAIL": 6
+      },
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "intendedCommonRetention": "$COMMON/.evidence/minimax-retained/A-offline-3d3.tar.gz"
+    },
+    {
+      "archive": "A-race-3d3.tar.gz",
+      "sha256": "13777e10fa81bb4bc200882f35e7bb9c6680634720475d1dd8c12d7303698bc9",
+      "bytes": 106019555,
+      "inventory": "A-race-3d3-files.json.gz",
+      "inventorySha256": "7c90f8034517612f186ca85d86b1d70523187d5bcd1eddef607ba654a0a48ecb",
+      "entries": 131992,
+      "expandedBytes": 1296730971,
+      "name": "race",
+      "mainManifests": [
+        {
+          "manifest": "20261018T050644.512932000Z/manifest.json",
+          "caseOutcomes": {
+            "PASS": 12385,
+            "FAIL": 6
+          },
+          "artifactReferences": 98560,
+          "auditFindings": 0
+        }
+      ],
+      "originalMainManifest": "20261018T050644.512932000Z/manifest.json",
+      "originalMainManifestSHA256": "14b1f2b38e69e62ac628554c8db436390aeeae682086f0dd9291ab3865a2c907",
+      "originalOutcomes": {
+        "PASS": 12385,
+        "FAIL": 6
+      },
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "intendedCommonRetention": "$COMMON/.evidence/minimax-retained/A-race-3d3.tar.gz"
+    }
+  ],
+  "plannedOwnInputs": [
+    {
+      "identity": "openai-responses",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/openai-responses/20261018T043700.861534000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/openai-responses/20261018T043700.861534000Z/live-report.json",
+      "sha256": "30d39efad13f08d246385818499c4e0cb1f6c3cc120f8aee0444156c3940310b",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "openai-chat",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/openai-chat/20261018T044121.509056000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/openai-chat/20261018T044121.509056000Z/live-report.json",
+      "sha256": "49727d3771b50725b00b79bb2bef692a030989cc8490046142a2b1a82bf508ab",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "anthropic-messages",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/anthropic-messages/20261018T044617.207205000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/anthropic-messages/20261018T044617.207205000Z/live-report.json",
+      "sha256": "94f8effe29ec3b806f6b82d70afddf3056f5836eaa824c751443b5f002a45ec4",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "google-gemini",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/google-gemini/20261018T044621.835242000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/google-gemini/20261018T044621.835242000Z/live-report.json",
+      "sha256": "d398905c700a30ad1a2f050ddb1c8b7e8cfd961072c057656d932f57453d7340",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "deepseek-responses",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/deepseek-responses/20261018T044932.533105000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/deepseek-responses/20261018T044932.533105000Z/live-report.json",
+      "sha256": "7d47954bdca1d0eaa25ba63f4ce7032e65f0c570526002d2e4eeab18cee62a4f",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "deepseek-chat",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/deepseek-chat/20261018T044939.527068000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/deepseek-chat/20261018T044939.527068000Z/live-report.json",
+      "sha256": "3700ac26f940ef4d2b1c4de7d7885e975605637917d140090b20a2d7a569bfa1",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "openai-images",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/openai-images/20261018T044949.747276000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/openai-images/20261018T044949.747276000Z/live-report.json",
+      "sha256": "a97b8e991447dbf2dc0ccd1ebcddfde010c8b3d7e0efb30995e045aa5cab6c5d",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "google-interactions-image",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/google-interactions-image/20261018T045025.350717000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/google-interactions-image/20261018T045025.350717000Z/live-report.json",
+      "sha256": "4102a634a0401e41c2e99644830b4ef1b00e18eab83db8a7562924c1fc4551cb",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "openai-decisions",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/openai-decisions/20261018T045135.991551000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/openai-decisions/20261018T045135.991551000Z/live-report.json",
+      "sha256": "2acd11eaec4de8eeada2bf608ce132181507089832a9616f96f7dd6fc3f422f8",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "typesafe-classifier",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/typesafe-classifier/20261018T045306.632466000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/typesafe-classifier/20261018T045306.632466000Z/live-report.json",
+      "sha256": "d7cbbbde93fd4a8872a0dc6372596a7753f55b63b608940b38b780abe1d9dc77",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "typesafe-classifier-jev-1.14.0",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/support",
+      "expectedPresence": "MISSING",
+      "reason": "Original Protocol1.14 HTTP451 partial report rejected by public Jev derivation; no substitute support input",
+      "archive": null,
+      "member": null,
+      "sha256": null,
+      "observedPresence": "MISSING"
+    },
+    {
+      "identity": "zhipu-chat",
+      "path": "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat/20261018T041951.329592000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "glm-corrective-actual-5bf2c16.tar.gz",
+      "member": "glm/glm-corrective-1-chat/20261018T041951.329592000Z/live-report.json",
+      "sha256": "edc5ea87377ecc516a17d7044830b1a326f7475796820e3e15ad21acaff1bb0e",
+      "sourceBoundary": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "zhipu-responses",
+      "path": "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses/20261018T042202.466861000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "glm-corrective-actual-5bf2c16.tar.gz",
+      "member": "glm-forensic/glm-corrective-1-responses/20261018T042202.466861000Z/live-report.json",
+      "sha256": "447e47b79a421294c019888fc1285c4e20986abd4b46e14be490059634cee428",
+      "sourceBoundary": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "zhipu-messages",
+      "path": "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages/20261018T042527.020498000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "glm-corrective-actual-5bf2c16.tar.gz",
+      "member": "glm/glm-corrective-1-messages/20261018T042527.020498000Z/live-report.json",
+      "sha256": "7ef114807bd14bff32cf68f268882fd557c1f9abba75ce8a10a7a137aff728df",
+      "sourceBoundary": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "minimax-chat",
+      "path": "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "international-formal-glm-8900034.tar.gz",
+      "member": "minimax/mm-global-formal-m3-chat/20261018T030234.929339000Z/live-report.json",
+      "sha256": "dc78881bf3631189dbf2e0db5b047f30729641b4ddd75b88e7aa89b4600d7af8",
+      "sourceBoundary": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "minimax-responses",
+      "path": "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "international-formal-glm-8900034.tar.gz",
+      "member": "minimax/mm-global-formal-m3-responses/20261018T030308.589357000Z/live-report.json",
+      "sha256": "417be2156fe3478e19af8a0b398f562d1d9e85db57a97afdee67079a5d3c298c",
+      "sourceBoundary": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "minimax-messages",
+      "path": "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "international-formal-glm-8900034.tar.gz",
+      "member": "minimax/mm-global-formal-m3-messages/20261018T030335.626044000Z/live-report.json",
+      "sha256": "a4882ca666945e605261f89175918da7d2a4305ef7a0f0551aac3f27edbeef83",
+      "sourceBoundary": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    }
+  ],
+  "effectReferences": [
+    {
+      "identity": "text-jev",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/text-jev/20261018T045313.344018000Z",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/text-jev/20261018T045313.344018000Z/evaluation-report.json",
+      "sha256": "b9011257b944b6dec0519c4af4b503b8c997d7b2f6866494003b46aba61c8d54",
+      "outcome": "FAIL",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "text-luna",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/text-luna/20261018T045321.320255000Z",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/text-luna/20261018T045321.320255000Z/evaluation-report.json",
+      "sha256": "734623d0912038f13aa43370b8989debab7f7250aaa3ebcf22999b9f51c94c8d",
+      "outcome": "FAIL",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "visual-jev",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/visual-jev",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/visual-jev/report.json",
+      "sha256": "0a63cd4288a576dc4a72ad007476370438796ecbb987618c7ffd195663aeabcc",
+      "outcome": "FAIL",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    },
+    {
+      "identity": "visual-decisions",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/visual-decisions",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/visual-decisions/report.json",
+      "sha256": "6f407ed3cebf5c81c53dc7792fc256fe4f2e500a732bd9562f372bc8cc24371e",
+      "outcome": "FAIL",
+      "observedPresence": "EXTERNAL_ORIGINAL_BYTES_VERIFIED"
+    }
+  ],
+  "failedAssertions": [
+    {
+      "suite": "offline",
+      "caseId": "GLM12-formal-import-chat",
+      "status": "FAIL",
+      "file": "failed-assertions/offline/GLM12-formal-import-chat.json",
+      "sha256": "10ace3131b9a3a5c75964a2c6c68d1ebb301961a69812d98979523dbed895bc2",
+      "rawArchive": "A-offline-3d3.tar.gz",
+      "rawMember": "20261018T045647.697909000Z/GLM12-formal-import-chat/assertions.json"
+    },
+    {
+      "suite": "offline",
+      "caseId": "GLM12-formal-import-messages",
+      "status": "FAIL",
+      "file": "failed-assertions/offline/GLM12-formal-import-messages.json",
+      "sha256": "46d72c40f87cb3ff5aa0d6452401f8e696c546c44a4f5db0e3b6adfa0000c866",
+      "rawArchive": "A-offline-3d3.tar.gz",
+      "rawMember": "20261018T045647.697909000Z/GLM12-formal-import-messages/assertions.json"
+    },
+    {
+      "suite": "offline",
+      "caseId": "GLM12-formal-import-responses",
+      "status": "FAIL",
+      "file": "failed-assertions/offline/GLM12-formal-import-responses.json",
+      "sha256": "6bead3ef080a41e821811e2b110cc2e8e9b39b636e79b727613c2d555bcc78e3",
+      "rawArchive": "A-offline-3d3.tar.gz",
+      "rawMember": "20261018T045647.697909000Z/GLM12-formal-import-responses/assertions.json"
+    },
+    {
+      "suite": "offline",
+      "caseId": "GLM12-reported-known-usage-chat",
+      "status": "FAIL",
+      "file": "failed-assertions/offline/GLM12-reported-known-usage-chat.json",
+      "sha256": "fad3738259ed453988cdff2ccad02237477de2c4d6eb854ad3f117008d5a70ef",
+      "rawArchive": "A-offline-3d3.tar.gz",
+      "rawMember": "20261018T045647.697909000Z/GLM12-reported-known-usage-chat/assertions.json"
+    },
+    {
+      "suite": "offline",
+      "caseId": "GLM12-reported-known-usage-messages",
+      "status": "FAIL",
+      "file": "failed-assertions/offline/GLM12-reported-known-usage-messages.json",
+      "sha256": "3bbea41893776c8fbce142760710bedf593f0a3ef8ce4190eec852e70ba0210c",
+      "rawArchive": "A-offline-3d3.tar.gz",
+      "rawMember": "20261018T045647.697909000Z/GLM12-reported-known-usage-messages/assertions.json"
+    },
+    {
+      "suite": "offline",
+      "caseId": "GLM12-reported-known-usage-responses",
+      "status": "FAIL",
+      "file": "failed-assertions/offline/GLM12-reported-known-usage-responses.json",
+      "sha256": "e1b1477c2a52da0a2ae2fc3a24cbbbe2df2ec5e061ec85e9f275cb3e1012e7b6",
+      "rawArchive": "A-offline-3d3.tar.gz",
+      "rawMember": "20261018T045647.697909000Z/GLM12-reported-known-usage-responses/assertions.json"
+    },
+    {
+      "suite": "race",
+      "caseId": "GLM12-formal-import-chat",
+      "status": "FAIL",
+      "file": "failed-assertions/race/GLM12-formal-import-chat.json",
+      "sha256": "10ace3131b9a3a5c75964a2c6c68d1ebb301961a69812d98979523dbed895bc2",
+      "rawArchive": "A-race-3d3.tar.gz",
+      "rawMember": "20261018T050644.512932000Z/GLM12-formal-import-chat/assertions.json"
+    },
+    {
+      "suite": "race",
+      "caseId": "GLM12-formal-import-messages",
+      "status": "FAIL",
+      "file": "failed-assertions/race/GLM12-formal-import-messages.json",
+      "sha256": "46d72c40f87cb3ff5aa0d6452401f8e696c546c44a4f5db0e3b6adfa0000c866",
+      "rawArchive": "A-race-3d3.tar.gz",
+      "rawMember": "20261018T050644.512932000Z/GLM12-formal-import-messages/assertions.json"
+    },
+    {
+      "suite": "race",
+      "caseId": "GLM12-formal-import-responses",
+      "status": "FAIL",
+      "file": "failed-assertions/race/GLM12-formal-import-responses.json",
+      "sha256": "6bead3ef080a41e821811e2b110cc2e8e9b39b636e79b727613c2d555bcc78e3",
+      "rawArchive": "A-race-3d3.tar.gz",
+      "rawMember": "20261018T050644.512932000Z/GLM12-formal-import-responses/assertions.json"
+    },
+    {
+      "suite": "race",
+      "caseId": "GLM12-reported-known-usage-chat",
+      "status": "FAIL",
+      "file": "failed-assertions/race/GLM12-reported-known-usage-chat.json",
+      "sha256": "fad3738259ed453988cdff2ccad02237477de2c4d6eb854ad3f117008d5a70ef",
+      "rawArchive": "A-race-3d3.tar.gz",
+      "rawMember": "20261018T050644.512932000Z/GLM12-reported-known-usage-chat/assertions.json"
+    },
+    {
+      "suite": "race",
+      "caseId": "GLM12-reported-known-usage-messages",
+      "status": "FAIL",
+      "file": "failed-assertions/race/GLM12-reported-known-usage-messages.json",
+      "sha256": "3bbea41893776c8fbce142760710bedf593f0a3ef8ce4190eec852e70ba0210c",
+      "rawArchive": "A-race-3d3.tar.gz",
+      "rawMember": "20261018T050644.512932000Z/GLM12-reported-known-usage-messages/assertions.json"
+    },
+    {
+      "suite": "race",
+      "caseId": "GLM12-reported-known-usage-responses",
+      "status": "FAIL",
+      "file": "failed-assertions/race/GLM12-reported-known-usage-responses.json",
+      "sha256": "e1b1477c2a52da0a2ae2fc3a24cbbbe2df2ec5e061ec85e9f275cb3e1012e7b6",
+      "rawArchive": "A-race-3d3.tar.gz",
+      "rawMember": "20261018T050644.512932000Z/GLM12-reported-known-usage-responses/assertions.json"
+    }
+  ],
+  "originalCommandBannerEvidence": [
+    {
+      "role": "go-vet",
+      "originalBanner": "releasegate: go vet ./...",
+      "logByteOffset": 0,
+      "bannerBytes": 26,
+      "individualExitCode": null,
+      "scope": "Exact original log banner only; numeric internal command result was not persisted."
+    },
+    {
+      "role": "go-vet-live",
+      "originalBanner": "releasegate: go vet -tags live ./...",
+      "logByteOffset": 26,
+      "bannerBytes": 37,
+      "individualExitCode": null,
+      "scope": "Exact original log banner only; numeric internal command result was not persisted."
+    },
+    {
+      "role": "go-test",
+      "originalBanner": "releasegate: BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -count=1 -timeout=20m ./...",
+      "logByteOffset": 63,
+      "bannerBytes": 91,
+      "individualExitCode": null,
+      "scope": "Exact original log banner only; numeric internal command result was not persisted."
+    },
+    {
+      "role": "go-test-race",
+      "originalBanner": "releasegate: BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 -timeout=75m ./...",
+      "logByteOffset": 4373,
+      "bannerBytes": 97,
+      "individualExitCode": null,
+      "scope": "Exact original log banner only; numeric internal command result was not persisted."
+    }
+  ],
+  "individualInternalCommandExitCodesPersisted": false,
+  "actualGateExitCode": 1,
+  "actualGatePass": null,
+  "originalReleaseReportPresent": false,
+  "childCLIExitStatusInOriginalLog": 2,
+  "actualGateTerminalState": "FAILED_AT_OFFLINE_BUNDLE_LOAD_BEFORE_REPORT",
+  "actualSummaryPassVerdict": false,
+  "externalArchives": [
+    {
+      "file": "international-candidates-7605332.tar.gz",
+      "sha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08",
+      "bytes": 5816813,
+      "scope": "C original candidate760; PASS3, priorCN/research accounting retained"
+    },
+    {
+      "file": "international-formal-glm-8900034.tar.gz",
+      "sha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e",
+      "bytes": 5511291,
+      "scope": "M source890; M3formal3 PASS; initial GLM PASS/FAIL/PASS66/66"
+    },
+    {
+      "file": "glm-corrective-actual-5bf2c16.tar.gz",
+      "sha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38",
+      "bytes": 4632201,
+      "scope": "Q approved R1 source5bf; Chat/Messages PASS; Responses FAIL, no canonical capturePins;132/132 cumulative, noR2"
+    },
+    {
+      "file": "q-9dc-committed-source-proof.tar.gz",
+      "sha256": "7fe0d49506b8c31c445f5ebc9f8868e25dbbee4e875e62e43ea226356601bd86",
+      "bytes": 3325125,
+      "scope": "Original9dc full1033source bytes; original failed no-key/PENDING source, no paid approval"
+    },
+    {
+      "file": "glm-corrective-q-9dc-audit-failure.tar.gz",
+      "sha256": "56e08cbf7105f4fe1a1751bae42ba83988bcdbb4d1b1d443dd9bcd9a2d62ae3c",
+      "bytes": 53271279,
+      "scope": "Original9dc failed no-key335PASS62NOT_RUN audit2/Goexit1; raw exact diagnostics unchanged; PENDING no paid approval"
+    },
+    {
+      "file": "corrective-approved-prepay-5bf2c16.tar.gz",
+      "sha256": "6517f953a0e56fb5cf477f0196704193af76589137c11322a5c83179f223e71a",
+      "bytes": 38302855,
+      "scope": "Approved5bf no-key336PASS62NOT_RUN audit0/Goexit0; no actual release qualification"
+    },
+    {
+      "file": "legacy-paid-3d3.tar.gz",
+      "sha256": "a152988b0ffc906902295358ca720636bccde20914b5cf4d3aeddb507137ec76",
+      "bytes": 7472840,
+      "scope": "Original closed L15 paid/source capsule; exact1034 committed3d3 bytes and16 historical canonical receipts; original2PASS13FAIL"
+    },
+    {
+      "file": "legacy-preflight-3d3.tar.gz",
+      "sha256": "764ab1d7b894770b154a580da9a75a3b9f4953cf65557fd180ce8bfda29c1172",
+      "bytes": 37840497,
+      "scope": "Original L passed preflight raw;336PASS62NOT_RUN audit0 plus2aux1PASS; no release certification"
+    }
+  ],
+  "toolFiles": {
+    "curate_a.py": {
+      "sha256": "da808b0d31d260f5d3d937d98168847a4c1091f54f661d0f5dbd6c7b61f042de",
+      "bytes": 12858
+    },
+    "verify_a.py": {
+      "sha256": "b74cd73a6096c0e988e328e8c54f9c740d97ff608c493305d66b26241893cc41",
+      "bytes": 9629
+    },
+    "a_core.py": {
+      "sha256": "2a7c6cd1a3fc6513ad981aca1005c48f9ef649fb4b50acaa53c321cc89dfcb63",
+      "bytes": 5483
+    },
+    "retention_core.py": {
+      "sha256": "b4ebb3b209a23fc684c809e097843d4b89601ffac966c3c079b77c4a933ae810",
+      "bytes": 13114
+    },
+    "README.md": {
+      "sha256": "ef7c6f5a8703b793cadb920a8f63ea25eebc8c0b2cd8bd4bc7b4916b616ea0dd",
+      "bytes": 2245
+    },
+    "FAILURE-INVENTORY.md": {
+      "sha256": "49c18250a70afe993bf18c2a1d64c04c44e85e6a378032c44c30cc5249895c95",
+      "bytes": 4035
+    }
+  },
+  "releaseCertifiedByCurator": false,
+  "originalOutcomesUpgraded": false,
+  "missingReportsInvented": false,
+  "additionalRoundAuthorized": false,
+  "paidCallsByCurator": 0,
+  "rootModified": false,
+  "gitModified": false,
+  "credentialsRead": false,
+  "environmentRead": false,
+  "networkUsed": false,
+  "testsRun": false,
+  "capturedCommandsExecuted": false,
+  "scope": "Only original3d3 closed A. Later source fixes are separate. Byte integrity never repairs actual failed acceptance."
+}

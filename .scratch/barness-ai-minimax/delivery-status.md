@@ -5,69 +5,45 @@ Updated: 2026-10-18
 Integration branch: `codex/minimax-global`
 Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 
-用户已明确将当前目标改为国际站。票11已完成Provider/端点/USD价格、证明身份与共享预算转换和国际站离线验证，10/09继续真实验收；原中国区离线通过和实际401保留为历史。**当前完整发布门禁未通过，spec、10和09保持未关闭。**
+国际站 MiniMax 接入、M3 三协议自身候选和自身正式验收已完成。完整 spec 仍未通过：旧能力续期存在真实失败，17 身份矩阵未完成，原始完整发布门禁没有产生发布报告。spec、10、09 保持开放；所有已批准的一次性实际进程均已结束。[机器可读状态](evidence/ticket-09/international-delivery-status.json)记录当前结论与来源边界。
 
-原CN检查点见[历史机器可读状态](evidence/ticket-09/partial-delivery-status.json)与[ticket10证据入口](evidence/ticket-10/README.md)。
-
-| 范围 | 当前状态 | 证据与边界 |
+| 范围 | 结果 | 可核验依据 |
 | --- | --- | --- |
-| 国际站三协议与六型号离线约束 | PASS，离线范围 | 8d56410完整MiniMax普通/race各1340/1340，定向普通/race各1372；审计0、双vet和双轴审查通过，见[收敛证据](evidence/ticket-10/international-convergence/README.md)。此前e9731a4全量无Key检查通过；不证明厂商接受修复后的请求。 |
-| 原CN三协议与六型号离线约束 | PASS，历史离线范围 | 最新完整MiniMax普通/race均1307/1307；含冻结pi、压力、完整软件回滚，审计0发现。不能证明厂商实际接受请求。 |
-| 原CN M3 Chat实际研究 | FAIL，历史范围 | 两次Logical Call、两次Attempt均HTTP401 `authorized_error`；没有实际型号或已知usage。依赖原生工具续接NOT_RUN。 |
-| 国际站M3 Chat实际研究 | FAIL，原始研究范围 | HTTP200、实际M3；两次调用/两次Attempt在相等推理镜像处被本地误拒，usage未上报，依赖native NOT_RUN。 |
-| 国际站M3 Responses实际研究 | FAIL，原始研究范围 | 文本/工具通过HTTP200；native续接本地编码失败，3calls/2attempts。 |
-| 国际站M3 Messages实际研究 | PASS，仅研究范围 | 文本、思考工具及native续接3calls/3attempts通过；不能代替完整候选或正式支持。 |
-| 国际站M3完整候选三身份 | 三项PASS，完整实际候选 | 来源7605332、各13calls/12attempts；三路推理/工具及持久化native续接通过，自己的实际origin与审计通过，见[精确汇总](evidence/ticket-10/international-candidates-7605332-summary.json)。 |
-| 国际站M3正式三身份及目录激活 | 三项正式PASS；目录已激活 | 来源8900034，各13calls/12attempts，完整正式总39/36；目录2026-10-18.1-minimax/3718603f，原始报告/origin/源码/审计见[正式胶囊](evidence/ticket-10/international-formal-glm/README.md)。支持矩阵及完整门禁待完成。 |
-| M3.1线上候选三身份 | 三项NOT_RUN | 未获M Plan用途/资格授权；零实际调用，不虚构公开价格，离线约束已完成。 |
-| 原十四身份与四业务效果续期 | PARTIAL | 初轮GLM Chat/Messages各22/22 PASS，Responses22/22 FAIL、不完整且无seal，66/66消费全部保留。GLM捕获源码修复后，初轮报告不作当前支持；唯一获批补正已执行66/66：Chat/Messages各22/22 PASS，Responses21 PASS/1 FAIL（完整上游SSE只有推理、缺正文）。本次GLM累计132/132；当前raw/views续期拒绝，四个旧selector未变。其余15项身份/效果继续原授权验证。 |
-| 完整ordinary/race发布门禁 | NOT_RUN，未取得发布认证 | 已保留原ordinary失败/中断记录；46个可本地修复case的定向普通/race重验均通过，不能推出完整门禁PASS。 |
+| 三协议、M3/M3.1 六身份离线约束 | PASS，限定离线来源 | 来源8d56410，国际站完整 MiniMax 普通/race 各1340 PASS，定向各1372 PASS，双 vet、审计与两轴审查通过；见[收敛证据](evidence/ticket-10/international-convergence/README.md)。 |
+| M3 三份自身完整候选 | 三项 PASS | 来源7605332，各13 calls/12 Attempts；[完整候选胶囊](evidence/ticket-10/international-complete-candidates/README.md)。 |
+| M3 三份自身正式与目录 | 三项 PASS，目录已激活 | 来源8900034，合计39 calls/36 Attempts；目录2026-10-18.1-minimax / `3718603f`；[正式胶囊](evidence/ticket-10/international-formal-glm/README.md)。三份263文件执行映射仍适用，公共验证通过。 |
+| M3.1 三协议线上候选 | 三项 NOT_RUN，0/0 | 缺少获准 M Plan 资格；没有读取 Key、建立付费 intent 或虚构公开价格。离线约束已完成。 |
+| GLM 唯一获批补正 R1 | Chat/Messages PASS，Responses FAIL | R1 三路各22/22消费，Responses为21 PASS/1 FAIL；完整上游 SSE 缺正文。连原轮累计132 calls/132 Attempts；[实际补正胶囊](evidence/ticket-12/actual-corrective-1/README.md)。217文件执行映射仍适用，无 R2。 |
+| 其余15项原授权身份/效果 | 2 PASS / 13 FAIL，168/168 | 两项 DeepSeek PASS；其他失败及全部消费保留，见[实际证据](evidence/ticket-10/international-legacy-final/README.md)。来源3d3a1fb为历史来源，不给后续 Go 修改刷新证明。 |
+| 原始完整 ordinary/race 发布门禁 | 两套各12385 PASS / 6 FAIL，审计0；无发布报告 | 来源3d3a1fb，实际运行双 vet、两套完整测试及 pi/压力；随后读取 bundle 失败。最终 verdict 为 null，见[原始完整证据](evidence/ticket-09/international-final-actual/README.md)。 |
+| 发布证据消费者修复 | 定向普通/race各93 PASS，审计0；双vet通过 | 见[修复与复核入口](evidence/ticket-09/release-consumer/README.md)。这不授予新全量认证。 |
 
-原两次实际调用后，另有一次仅本地语法诊断读取同一已选`MINIMAX_KEY`，网络请求为0，未输出Key值、长度或Hash；Bearer前缀、内部空白和控制字符标记均为false。此诊断不增加收费账本，实际消费仍为2次调用/2次Attempt；无Key验证进程各自保持未读凭据。
+## 实际失败与消费边界
 
-## 已保存的验证
+R1 的 `glm-5.2/native-history` 返回 HTTP200、完整 SSE 与 completed 终止，但只有推理、没有正文或 refusal；适配器没有丢失内容。不能将推理改作正文，也不能拼接原轮次。严格 raw/views 续期拒绝，四个旧 selector 字节未变。捕获和场景清单齐全、`complete=false` 的 FAIL 报告可以如实导入临时矩阵，但不能因此授予发布支持。
 
-国际站真实研究来源38b7098：[完整不可变捕获及来源索引](evidence/ticket-10/international-research-38b7098.json)保留148文件和454639字节归档，三个隔离启动器审计均通过。国际站认证有效；本轮缺口为协议兼容，不再等待账户修复。Chat未知用量不记为零账单；研究PASS也不授予正式支持。
+剩余15项的失败包括连接前超时/未取得 HTTP 响应、Anthropic 实际 HTTP403、TypeSafe 实际 HTTP451“Typesafe is not available in your region.”。403 不证明 Key 无效；未取得响应的记录不足以区分 DNS/TCP/TLS。20个 Attempt 用量完整，148个未上报，未上报不能记作免费。[只读诊断与原始审计](evidence/ticket-10/international-legacy-final/audit.md)保留这些限制。
 
-当前国际站来源e9731a4：MiniMax普通/race各1314 PASS，live-tag race66 PASS；两种vet、精确来源prepare/check及无Keylive通过（328 PASS/62 NOT_RUN，另有辅助结果）。三份M3.1无资格NOT_RUN各为0calls/0attempts，未读Key或建立付费intent。双轴源码审查均0发现，完整捕获、逐文件Hash与重放入口见[ticket11](evidence/ticket-11/README.md)。这是国际站离线检查点，不替代自身actual/formal或完整发布认证。
+旧能力本次续期共300 calls/300 Attempts（GLM132/132加其余168/168），批准上限440/464。M3候选阶段保留全部历史49 calls/45实际Attempts（49 reserved），正式阶段39/36（39 reserved）；中国区两次401仍计入候选历史。未消费额度不授予另开轮次；所有既定实际进程已关闭。
 
-完整MiniMax离线套件：[普通](evidence/ticket-10/minimax-ordinary-1205300.json)43.000秒、[race](evidence/ticket-10/minimax-race-1205300.json)152.736秒，均1307个case通过；冻结pi差分、压力与完整软件回滚均运行。46个修复后的定向旧case[普通](evidence/ticket-10/repaired-ordinary-1205300.json)/[race](evidence/ticket-10/repaired-race-1205300.json)分别46/46。[无Key live和两种vet](evidence/ticket-10/offline-checks-1205300.json)通过。来源1205300及其后矩阵数据修正的适用范围以10的原始manifest、审计、命令和归档Hash为准，不给历史捕获刷新来源。
+Jev1.14 的部分失败无法派生正式支持包，17项临时矩阵导入因此拒绝；默认矩阵未写入，SHA256仍为 `cacb9dd13d75e44ae6ad22103504bfa2c2f6679ae7fba66764eb679d8889519b`。本次不能完成17身份与四业务效果的当前支持认证。
 
-原CN检查点无Key live的主manifest为323 PASS/62 NOT_RUN，另有两个辅助PASS；进程正常结束不意味着未执行的真实场景已通过。[历史CN M3.1三份NOT_RUN](evidence/ticket-10/m31-not-run-1205300-summary.json)及关键来源/子捕获保存在[有明确选择范围的无Key胶囊](evidence/ticket-10/postauth-keyless-1205300.tar.gz)。
+## 完整测试与后续修复的适用范围
 
-旧9481a6a完整ordinary的测试主体已结束，[原manifest](evidence/ticket-10/whole-ordinary-failed-9481a6a.json)为12304 PASS/52 FAIL；进程在后续阶段因已知harness修复被停止，exit=-15，不能声称完整普通套件通过。独立redaction audit随后完成，0发现；这是独立派生审计，不修改原退出状态。[计时调查](evidence/ticket-09/whole-ordinary-timing-investigation.md)没有支持E03或精确小数解析死循环的证据。52个失败中的46个本地可修复case已定向重验，其余六个GLM来源校验需真实续期，不能放宽适用性规则。
+来源3d3a1fb的原始公共 CLI 确实执行了两种 vet、完整普通和完整 race；每套12391个 case 中12385 PASS/6 FAIL，两套生产者均记录审计0。六项失败为旧 GLM 正式导入/已知用量的来源不适用。每套869个 PIDiff 标记 case、29个 Pressure 标记 case 均 PASS；这些是原生产者记录的case状态，后续消费者对两份记录的拒绝见下文。内部各命令数字退出码没有持久化，保持未知；不能从静默日志补写为0。CLI最后因 bundle 目录校验失败退出，没有 `release-report.json`，gate级最终审计与判定未到达。
 
-## 历史证据完整性
+来源7754c7f修正了空effort case的单尾分隔符、递归artifact inventory与安全读取边界：保留原case ID及manifest字节，拒绝canonical目录别名、软链接、目录置换、文件篡改、重复枚举与超限输入。判定文件在解析前经有界、rooted、预期Hash验证；不改producer或支持断言。失败先行证据与每轮审查均保留。最终定向普通/race各93 PASS、审计0、exit0，双vet均exit0；独立只读导入测试1 PASS，原两套各12391场景与原Hash/6FAIL不变。公共CLI随后显式采用原始普通/race及17身份/效果输入，只读诊断176.607秒后生成报告：pass=false、outer exit1、commands=null；没有执行四个完整命令或新增付费。加载、回滚、多模态和六MiniMax加载消费者均PASS，保留缺失Jev支持目录和当前17身份矩阵失败。另有两项差分记录诊断，原因与后续范围见[只读原因及后续生产者修正](evidence/ticket-09/release-consumer/README.md)：原目录差分缺少实际Go版本来源；原目录查找控制没有Compare/Record/HTTP却使用PIDIFF前缀。严格消费者的拒绝正确，旧原始记录保持不变。
 
-原完整失败bundle已在主工作区本地保留，110MB归档不纳入Git；ticket10的[有限索引](evidence/ticket-10/whole-ordinary-failed-9481a6a.json)与[完整文件Hash清单](evidence/ticket-10/whole-ordinary-failed-9481a6a-files.json.gz)记录其位置和SHA。原131505个文件未改写，归档额外保留一个21字节的派生审计文件。
+后续来源ad20469仅补齐目录差分的实际Go版本来源，将lookup-only控制更名为`MM06-frozen-catalog-metadata`，并更新7行当前追溯。全部断言、artifact与requiredCase数量保持；真实差分的SDK篡改负例在重算合法inventory后仍被严格拒绝。新的producer→consumer普通/race（含frozen子进程race）和双vet均exit0，两轴审查0发现。旧A诊断没有重跑或改写；这是后续生产者的定向证明，不授予新完整认证。
 
-98236个声明的artifact引用全部匹配，零缺失、零artifact不符。另349项fixture来源归属Hash与脱敏后的artifact文件Hash不同，二者按既有语义分别记录；不能合并两种Hash后推断捕获被篡改。[独立只读复核](evidence/ticket-09/whole-ordinary-artifact-integrity.md)通过单case来源和登记替换的逐字节复现解释了该区别，见[版本与来源](evidence/ticket-09/whole-ordinary-artifact-integrity-provenance.json)。该完整性结论不改变原52个FAIL或中断退出。
+后续 release 源码修复不在三份 M3 的263文件及三份 GLM R1的217文件执行映射内，相关自身实际证据仍适用；L的1034文件广域来源与五项 Jev 广域 Go 来源则只能保留历史适用性。后续定向验证或采用旧 bundle 的只读诊断都不能充当新源码的完整 ordinary/race 执行认证，原3d3失败记录不改写。
 
-复核脚本记录的是调查时路径。可将保留归档解压到临时目录，并把脚本的`bundle`指向该目录后只读复核；不需要Key、厂商调用或重跑测试。
+[最终两轴审查索引](evidence/ticket-09/final-reviews/README.md)分别保留固定基点ecfd4b4以来的源码审查、便携校验器修复复审、关闭后实际证据审查、消费者修复与生产者修正复审。源码审查通过不替代真实支持与完整发布认证。
 
-## 后续冻结前检查点
+## 证据保留与复核
 
-国际站实际wire收敛已合并至366fb7f：完整普通/race各1340 PASS，定向普通/race各1372 PASS、双vet与双轴审查0发现，1024个生成来源文件与8d56410字节相同。[原始收敛归档](evidence/ticket-10/international-convergence/README.md)保留red/green与原始失败，不将修复视作服务接受。
+全部实际候选、正式、GLM原轮/R1、其余15项、原始完整普通/race及失败先行修复均有不可变归档、逐文件 Hash 和无 Key 复核入口。大原始归档保留在主仓库 `.evidence/minimax-retained/`，有限索引和完整压缩清单纳入 Git；各 README 明确外部保留文件、复核命令和可迁移路径。校验 Hash 通过只证明保存完整，不升级原来的 FAIL/NOT_RUN。
 
-独立后续顺序审计发现：激活M3使当前目录Hash改变，旧GLM正式回放却装配当前目录，导致续期前全量无Key检查自阻塞。[顺序与具体边界](evidence/ticket-10/international-postcandidate-sequence.md)交同一实现者先作失败先行修复：历史回放只能使用经验证原始快照并保持replay-only，当前实际正式/导入/门禁继续严格校验当前目录。该修复完成前不启动完整候选，避免已消费的一次性证据因源码改变而过期。
+早期中国区和国际站研究、历史失败/中断、目录激活及受控检查点仍在[票09历史证据](evidence/ticket-09/README.md)、[票10历史证据](evidence/ticket-10/README.md)与[票11](evidence/ticket-11/README.md)中。原CN401、9481a6a的12304 PASS/52 FAIL/exit-15，以及后续12378 PASS/11 FAIL均保持原状态。GLM便携校验器的有界解压修复保留[原程序及 red/green](evidence/ticket-12/retention-bounds/README.md)，旧索引继续对应原字节，当前校验器 Hash 独立登记。
 
-后续源码de05193已修复上述循环及完整激活时发现的当前目录版本、Host夹具和MiniMax双目录选择问题；续期工具将只更新四份当前目录归属文档与生成快照。定向live67 PASS、续期CLI11/11 PASS；独立完整激活克隆的全量无Keylive为331 PASS/62未选厂商NOT_RUN/0 FAIL。该来源的MiniMax完整普通/race各1340 PASS，双轴审查0发现，见[审查](evidence/ticket-10/international-preflight-review-de05193.json)；激活后的公共E2E全集已结束：12378 PASS/11 FAIL，exit1、审计0；六项为待真实续期的GLM来源校验，另外三项发布叶子场景及聚合失败来自完整配置Hash耦合目录归属，GLM回滚另为私有克隆软链接设置问题。原始失败不改写，归档待整理。这些均不构成真实候选或正式支持。
-
-最新df342b9保留固定中文任务的独立业务Hash，只排除已由Plan.Load严格校验的两项目录字段；24个定向边界case通过，包含指令/超时协同篡改拒绝、原发布正例和回滚设置复验。[双轴源码审查](evidence/ticket-10/international-business-boundary-review-df342b9.json)均0发现。该结果只解决已复现的额外失败，不能将原11 FAIL改标为完整ordinary PASS；六项GLM来源时效仍须真实续期，后续最终发布门禁仍必交。
-
-## 待继续工作
-
-1. [票11](issues/11-international-target.md)已完成国际站身份、三端点、USD价格、frozen pi与离线复验；沿用户指示使用单一MINIMAX_KEY做国际站标准M3三协议验收，不再等待中国区修复，不推断M3.1资格。
-2. 票10先以已保存实际wire失败E2E修复Chat镜像推理及Responses本地native编码。随后对新的已提交源码重新prepare、无Key检查和精确来源审查；旧9481a6a批准不适用于新HEAD。随后使用独立国际站研究intent与自身前驱继续三候选真实验收；保留原CN401及所有失败，不将其作为跨区native前驱，不覆盖既有intent。完整候选三路已通过；候选阶段累计49/120调用、45/144 Attempts（49reserved），包含历史消费；Chat槽17calls/16attempts、Responses16/14、Messages16/15。正式阶段已39/60调用、36/72实际Attempts（39reserved）。不得重置账本或降低验收。
-3. 三候选各自通过后才作数据目录激活，获取三份自身正式报告；再续期原十四身份和四业务效果，运行完整ordinary/race/压力/pi、两种vet、逐包脱敏和回滚门禁。
-4. 对固定基点`ecfd4b4`完成最终独立Standards/Spec审查及必要修复重验，全部必交通过后才关闭spec和10/09。
-
-历史、受控或回放结果均不转成actual/formal PASS。历史追溯表继续保留其原来源和状态；当前完整交付判断只依据实际适用证据。
-
-2026-10-18当前实际收集已封存：[完整候选](evidence/ticket-10/international-complete-candidates/README.md)和[正式/GLM原始轮次](evidence/ticket-10/international-formal-glm/README.md)。两份便携校验器均通过，全量原始失败保留；六份M3实际origin已由公共验证器验证并登记。GLM Responses失败同时包含4096预算用尽、无正文、512KiB捕获截断和17.7MB事件文件；原22/22计入消费。拟离线准备一次GLM专属补正，不修改M3执行来源或正式断言，不自动授予新预算。
-
-[票12离线检查点](evidence/ticket-12/README.md)已完成GLM专属捕获/重放容量及用量结算修复：最终普通/race各4 PASS/audit0，辅助CLI35 PASS，两种vet通过；两轴最终0 open。三份现有M3正式公共验证均PASS，各263执行文件不变；集成1,033生成文件与已审查6ff字节相同。拟一次GLM corrective-1，固定66场景、额外最多72calls/96Attempts，每次4096输出；本次续期累计GLM138/162、其他旧能力302/302不变、旧能力合计440/464。此前任务历史另行保留。该段记录离线方案时的PENDING历史；其后用户明确批准唯一72/96补正，实际结果见下。
-
-## 获批补正后的当前状态
-
-[实际R1完整证据](evidence/ticket-12/actual-corrective-1/README.md)保留5bf2c16来源、APPROVED收据、三路原始捕获及132/132累计消费。Chat、Messages通过；Responses的glm-5.2/native-history实际无正文，保留FAIL，不新增R2。当前GLM raw/views严格续期拒绝；公共矩阵已在临时副本验证可如实导入完整失败报告，不能把记录FAIL当作发布认证。固定基点ecfd4b4到5bf2c16两轴源码审查均0发现。其余15项原授权验证（上限302/302）与实际ordinary/race门禁仍必交。
+完整交付仍为 PARTIAL。剩余真实支持缺口需要可用且获准的服务配置/上游结果与另行明确的有限调用合同；不能重置历史消费、降低验收或自动新增补正轮次。

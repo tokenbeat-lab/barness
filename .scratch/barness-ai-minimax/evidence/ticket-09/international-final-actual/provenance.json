@@ -1,0 +1,220 @@
+{
+  "schema": 1,
+  "kind": "original-A3d3-failed-load-retention-provenance",
+  "createdAt": "2026-10-18T05:50:25.877174+00:00",
+  "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "sourceProof": "Exact1034 original committed source bytes portably verified in immutable external paid L capsule; original public gate/main/loader code retained in small capsule",
+  "sourceArchive": "legacy-paid-3d3.tar.gz",
+  "sourceArchiveSHA256": "a152988b0ffc906902295358ca720636bccde20914b5cf4d3aeddb507137ec76",
+  "scope": "Original CLOSED A only; no later source fixes/reruns spliced; no generated replacement release-report or command result records",
+  "originalGateTerminalState": "FAILED_AT_OFFLINE_BUNDLE_LOAD_BEFORE_REPORT",
+  "originalOuterExitCode": 1,
+  "originalChildCLIExitStatusInLog": 2,
+  "originalReleaseReportPresent": false,
+  "originalReleasePass": null,
+  "originalParentPassVerdict": false,
+  "originalInternalNumericExitCodesPersisted": false,
+  "derivedCommandBannerIndexOnly": [
+    {
+      "role": "go-vet",
+      "originalBanner": "releasegate: go vet ./...",
+      "logByteOffset": 0,
+      "bannerBytes": 26,
+      "individualExitCode": null,
+      "scope": "Exact original log banner only; numeric internal command result was not persisted."
+    },
+    {
+      "role": "go-vet-live",
+      "originalBanner": "releasegate: go vet -tags live ./...",
+      "logByteOffset": 26,
+      "bannerBytes": 37,
+      "individualExitCode": null,
+      "scope": "Exact original log banner only; numeric internal command result was not persisted."
+    },
+    {
+      "role": "go-test",
+      "originalBanner": "releasegate: BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -count=1 -timeout=20m ./...",
+      "logByteOffset": 63,
+      "bannerBytes": 91,
+      "individualExitCode": null,
+      "scope": "Exact original log banner only; numeric internal command result was not persisted."
+    },
+    {
+      "role": "go-test-race",
+      "originalBanner": "releasegate: BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 -timeout=75m ./...",
+      "logByteOffset": 4373,
+      "bannerBytes": 97,
+      "individualExitCode": null,
+      "scope": "Exact original log banner only; numeric internal command result was not persisted."
+    }
+  ],
+  "originalOwnInputs": 17,
+  "honestMissingSupportInputs": 1,
+  "effects": 4,
+  "actualFailedAssertions": 12,
+  "rawArchives": [
+    {
+      "archive": "A-offline-3d3.tar.gz",
+      "sha256": "81ce118545c9c31b63883224fd8905f4f6877dd9448ce1a3ee31fc46e716fbb9",
+      "bytes": 106189059,
+      "inventory": "A-offline-3d3-files.json.gz",
+      "inventorySha256": "e6f50c0e2353e7c84972ed00f2fb37227f2086145b60cec9397c9e38b351b7de",
+      "entries": 131992,
+      "expandedBytes": 1300755752,
+      "name": "offline",
+      "mainManifests": [
+        {
+          "manifest": "20261018T045647.697909000Z/manifest.json",
+          "caseOutcomes": {
+            "PASS": 12385,
+            "FAIL": 6
+          },
+          "artifactReferences": 98560,
+          "auditFindings": 0
+        }
+      ],
+      "originalMainManifest": "20261018T045647.697909000Z/manifest.json",
+      "originalMainManifestSHA256": "b4dcf3e8772285e0cd06e03dc627be0dad33315199d8e9965c734187407af21e",
+      "originalOutcomes": {
+        "PASS": 12385,
+        "FAIL": 6
+      },
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "intendedCommonRetention": "$COMMON/.evidence/minimax-retained/A-offline-3d3.tar.gz"
+    },
+    {
+      "archive": "A-race-3d3.tar.gz",
+      "sha256": "13777e10fa81bb4bc200882f35e7bb9c6680634720475d1dd8c12d7303698bc9",
+      "bytes": 106019555,
+      "inventory": "A-race-3d3-files.json.gz",
+      "inventorySha256": "7c90f8034517612f186ca85d86b1d70523187d5bcd1eddef607ba654a0a48ecb",
+      "entries": 131992,
+      "expandedBytes": 1296730971,
+      "name": "race",
+      "mainManifests": [
+        {
+          "manifest": "20261018T050644.512932000Z/manifest.json",
+          "caseOutcomes": {
+            "PASS": 12385,
+            "FAIL": 6
+          },
+          "artifactReferences": 98560,
+          "auditFindings": 0
+        }
+      ],
+      "originalMainManifest": "20261018T050644.512932000Z/manifest.json",
+      "originalMainManifestSHA256": "14b1f2b38e69e62ac628554c8db436390aeeae682086f0dd9291ab3865a2c907",
+      "originalOutcomes": {
+        "PASS": 12385,
+        "FAIL": 6
+      },
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "intendedCommonRetention": "$COMMON/.evidence/minimax-retained/A-race-3d3.tar.gz"
+    }
+  ],
+  "existingExternalArchiveBoundaries": [
+    {
+      "file": "international-candidates-7605332.tar.gz",
+      "sha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08",
+      "bytes": 5816813,
+      "scope": "C original candidate760; PASS3, priorCN/research accounting retained"
+    },
+    {
+      "file": "international-formal-glm-8900034.tar.gz",
+      "sha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e",
+      "bytes": 5511291,
+      "scope": "M source890; M3formal3 PASS; initial GLM PASS/FAIL/PASS66/66"
+    },
+    {
+      "file": "glm-corrective-actual-5bf2c16.tar.gz",
+      "sha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38",
+      "bytes": 4632201,
+      "scope": "Q approved R1 source5bf; Chat/Messages PASS; Responses FAIL, no canonical capturePins;132/132 cumulative, noR2"
+    },
+    {
+      "file": "q-9dc-committed-source-proof.tar.gz",
+      "sha256": "7fe0d49506b8c31c445f5ebc9f8868e25dbbee4e875e62e43ea226356601bd86",
+      "bytes": 3325125,
+      "scope": "Original9dc full1033source bytes; original failed no-key/PENDING source, no paid approval"
+    },
+    {
+      "file": "glm-corrective-q-9dc-audit-failure.tar.gz",
+      "sha256": "56e08cbf7105f4fe1a1751bae42ba83988bcdbb4d1b1d443dd9bcd9a2d62ae3c",
+      "bytes": 53271279,
+      "scope": "Original9dc failed no-key335PASS62NOT_RUN audit2/Goexit1; raw exact diagnostics unchanged; PENDING no paid approval"
+    },
+    {
+      "file": "corrective-approved-prepay-5bf2c16.tar.gz",
+      "sha256": "6517f953a0e56fb5cf477f0196704193af76589137c11322a5c83179f223e71a",
+      "bytes": 38302855,
+      "scope": "Approved5bf no-key336PASS62NOT_RUN audit0/Goexit0; no actual release qualification"
+    },
+    {
+      "file": "legacy-paid-3d3.tar.gz",
+      "sha256": "a152988b0ffc906902295358ca720636bccde20914b5cf4d3aeddb507137ec76",
+      "bytes": 7472840,
+      "scope": "Original closed L15 paid/source capsule; exact1034 committed3d3 bytes and16 historical canonical receipts; original2PASS13FAIL"
+    },
+    {
+      "file": "legacy-preflight-3d3.tar.gz",
+      "sha256": "764ab1d7b894770b154a580da9a75a3b9f4953cf65557fd180ce8bfda29c1172",
+      "bytes": 37840497,
+      "scope": "Original L passed preflight raw;336PASS62NOT_RUN audit0 plus2aux1PASS; no release certification"
+    }
+  ],
+  "sourceOrPaidApprovalCreated": false,
+  "releaseCertifiedByCurator": false,
+  "additionalRoundAuthorized": false,
+  "automaticReruns": false,
+  "rootFilesModified": false,
+  "gitModified": false,
+  "credentialsRead": false,
+  "environmentRead": false,
+  "networkUsed": false,
+  "vendorCalls": 0,
+  "testsRun": false,
+  "capturedCommandsExecuted": false,
+  "portableByteVerifierExecuted": true,
+  "portableVerificationResult": {
+    "integrity": "PASS",
+    "scope": "original3d3 archive-byte/reference proof; actual gate failed loading before report; release verdict absent",
+    "sourceFilesVerifiedInsideExternalPaidL": 1034,
+    "rawSuites": [
+      {
+        "name": "offline",
+        "entries": 131992,
+        "expandedBytes": 1300755752,
+        "caseOutcomes": {
+          "PASS": 12385,
+          "FAIL": 6
+        },
+        "artifactReferences": 98560
+      },
+      {
+        "name": "race",
+        "entries": 131992,
+        "expandedBytes": 1296730971,
+        "caseOutcomes": {
+          "PASS": 12385,
+          "FAIL": 6
+        },
+        "artifactReferences": 98560
+      }
+    ],
+    "plannedOwnInputs": 17,
+    "plannedMissingOwnInputs": 1,
+    "effects": 4,
+    "failedAssertions": 12,
+    "externalArchiveBoundaries": 8,
+    "actualGateExitCode": 1,
+    "childCLIExitStatusInOriginalLog": 2,
+    "actualGatePass": null,
+    "originalReleaseReportPresent": false,
+    "individualInternalCommandExitsPersisted": false,
+    "releaseCertifiedByCurator": false,
+    "originalOutcomesUpgraded": false,
+    "capturedCommandsExecuted": false,
+    "environmentRead": false,
+    "networkUsed": false
+  }
+}

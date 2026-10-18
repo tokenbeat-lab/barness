@@ -23,3 +23,5 @@ Blocked by: 08, 10
 当前为[PARTIAL交付](../delivery-status.md)。完整MiniMax自身离线普通/race验证与部分旧case定向重验可独立通过，但不替代三M3自身正式报告、旧十四身份/四效果续期、完整发布门禁与最终整体验收。不得关闭本票或将原ordinary的52个FAIL和中断退出重写为PASS。
 
 实际M3 Chat研究已执行两次调用、两次Attempt，均为HTTP401认证失败；工具续接明确NOT_RUN，不能将已执行研究改写成NOT_RUN。该中国区失败作为历史保留；用户已改用国际站，先由11完成切换后继续10的自身真实验收；M3.1缺少获准M Plan资格，三个线上候选保持NOT_RUN。实际失败捕获与预算由10持有，09只引用其不可变来源。
+
+2026-10-18当前：全部批准实际收集与原始完整门禁均已结束。其余15项原授权验证已完成168/168（两项DeepSeek PASS、13项FAIL）；3d3a1fb的完整普通/race各12385 PASS/6 FAIL、审计0，CLI随后读取bundle失败且没有发布报告。全部实际进程已关闭，旧能力本次续期累计300/300，17身份矩阵与完整交付仍未通过；消费者修复及其适用范围见交付状态。 原始双套每套869个PIDiff及29个Pressure标记case均PASS，不能因此推出发布PASS；内部各命令数字退出码未留存，保持未知。后续 release-only 读取修复及两轴复审与原始3d3全量结果分别保留。见[原始门禁](../evidence/ticket-09/international-final-actual/README.md)、[审查索引](../evidence/ticket-09/final-reviews/README.md)及[当前交付状态](../delivery-status.md)。本票保持claimed，不关闭spec。

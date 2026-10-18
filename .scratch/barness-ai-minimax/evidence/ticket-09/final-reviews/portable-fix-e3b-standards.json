@@ -1,0 +1,46 @@
+{
+  "axis": "standards",
+  "base": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "target": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+  "verdict": "PASS",
+  "confidence": "high",
+  "openFindings": 0,
+  "documentedBreaches": [],
+  "judgmentSmells": [],
+  "findings": [],
+  "closedFindings": [
+    {
+      "priority": 2,
+      "title": "Bound gzip inventory expansion before allocation",
+      "locations": [
+        {
+          "file": ".scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/verify_q.py",
+          "startLine": 39,
+          "endLine": 46
+        },
+        {
+          "file": ".scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/verify_actual.py",
+          "startLine": 147,
+          "endLine": 155
+        }
+      ],
+      "resolution": "Bound exact compressed buffer, authenticate before decode, read expanded limit+1 and reject before JSON."
+    }
+  ],
+  "integrityInspection": {
+    "historicalArchiveHashMatches": true,
+    "historicalFilesByteEqualToBase": 9,
+    "oldParentMetadataUnchanged": 7,
+    "currentVerifierHashesMatchIndex": true,
+    "frozenGenerationSourcesUnchanged": 1034
+  },
+  "verificationEvidence": "Inspected retained six-case public red/green receipts and genuine old/current positive outputs; did not rerun tests.",
+  "additionalObservation": "Uncommitted closed-L verifier inspected only for eager-gzip family; bounded128MiB+1 read found. No full unpinned capsule verdict.",
+  "scope": "Evidence-only fix, no runtime applicability or paid authorization change; actual acceptance and running gate remain separate.",
+  "repoMutations": false,
+  "testsRun": false,
+  "credentialAccess": false,
+  "networkUsed": false,
+  "vendorCalls": 0,
+  "merged": false
+}

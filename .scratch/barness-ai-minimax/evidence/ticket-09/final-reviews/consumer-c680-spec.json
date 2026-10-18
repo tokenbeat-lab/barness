@@ -1,0 +1,39 @@
+{
+  "base": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+  "target": "c6801d0441da589cce29a9d4169d195b54207ac7",
+  "confidence": "high",
+  "verdict": "BLOCKED",
+  "findings": [
+    {
+      "title": "[P2] Bind downstream artifact reads to the verified tree",
+      "priority": 2,
+      "file": "/tmp/barness-minimax-10-global/ai/internal/testkit/release/load.go",
+      "line": 72,
+      "end_line": 72,
+      "spec_file": "/tmp/barness-minimax-10-global/.scratch/barness-ai-minimax/spec.md",
+      "spec_line": 355,
+      "spec_quote": "门禁使用可信实际case与不可变来源；缺文件/篡改…都要失败",
+      "trigger": "Replace a verified case directory, ancestor or artifact after inventory verification, then allow pidiff or a returned Bundle business-proof consumer to reopen its ordinary path.",
+      "impact": "The consumer can follow a symlink or consume same-case proof bytes not covered by the verified artifact digest.",
+      "requested_change": "Use rooted, bounded, expected-hash reads for every consumed artifact and verify the original bundle identity; add failure-first public replacement and same-semantics tamper coverage.",
+      "confidence": "high",
+      "introduced_by_delta": false,
+      "relevance": "Incomplete replacement containment in the touched consumer boundary."
+    }
+  ],
+  "producerCaptureManifestReceiptChanged": false,
+  "approvalOrPaidScopeChanged": false,
+  "originalRecordedOutcomes": {
+    "casesPerBundle": 12391,
+    "passPerBundle": 12385,
+    "failPerBundle": 6,
+    "originalLoadFailed": true,
+    "originalReleaseReport": null,
+    "internalNumericCommandExits": "unknown"
+  },
+  "diagnosticIsFreshSuiteExecution": false,
+  "narrowM3QSourceApplicability": "unchanged by reviewed paths",
+  "broadLJevSourceApplicability": "historical only after this delta",
+  "releaseCertification": false,
+  "testsRunByReviewer": false
+}

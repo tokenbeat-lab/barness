@@ -1,0 +1,264 @@
+{
+  "sourceOriginalFullRun": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "delivery": "PARTIAL",
+  "legacyCalls": 300,
+  "legacyAttempts": 300,
+  "glmCalls": 132,
+  "glmAttempts": 132,
+  "remaining15Calls": 168,
+  "remaining15Attempts": 168,
+  "remaining15Pass": 2,
+  "remaining15Fail": 13,
+  "normalAndRaceEach": {
+    "PASS": 12385,
+    "FAIL": 6,
+    "auditFindings": 0
+  },
+  "originalReleaseReportPresent": false,
+  "originalReleasePass": null,
+  "consumerFix": {
+    "source": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "ordinary": {
+      "PASS": 93,
+      "FAIL": 0,
+      "auditFindings": 0,
+      "exitCode": 0
+    },
+    "race": {
+      "PASS": 93,
+      "FAIL": 0,
+      "auditFindings": 0,
+      "exitCode": 0
+    },
+    "vetExit": 0,
+    "liveVetExit": 0,
+    "readOnlyOriginalBundleImport": {
+      "PASS": 1,
+      "FAIL": 0,
+      "auditFindings": 0,
+      "exitCode": 0,
+      "originalManifestsUnchanged": true,
+      "originalStatusesUnchanged": true
+    },
+    "reviews": {
+      "standards": "PASS",
+      "spec": "PASS",
+      "openSourceFindings": 0,
+      "source": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9"
+    },
+    "scope": "release consumer only; targeted checks do not certify current full suites",
+    "preparedSourceComparison": {
+      "originalLFiles": 1034,
+      "currentFiles": 1040,
+      "modifiedGoPaths": 15,
+      "addedGoPaths": 6,
+      "changedGoPaths": 21,
+      "allChangesInReleaseConsumersOrTests": true,
+      "broadOriginalProofsRefreshed": false,
+      "atSource": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9"
+    }
+  },
+  "noNewPaidRound": true,
+  "schema": 1,
+  "updated": "2026-10-18",
+  "integrationBranch": "codex/minimax-global",
+  "releaseCertified": false,
+  "specClosed": false,
+  "openTickets": [
+    "09",
+    "10",
+    "12"
+  ],
+  "internationalTarget": true,
+  "allAuthorizedPaidProcessesClosed": true,
+  "legacyLimits": {
+    "logicalCalls": 440,
+    "httpAttempts": 464
+  },
+  "glmOriginal": {
+    "logicalCalls": 66,
+    "httpAttempts": 66
+  },
+  "glmCorrective1": {
+    "logicalCalls": 66,
+    "httpAttempts": 66,
+    "approvedMaxCalls": 72,
+    "approvedMaxAttempts": 96,
+    "chat": "PASS",
+    "responses": "FAIL",
+    "messages": "PASS",
+    "additionalRoundAuthorized": false
+  },
+  "m3CandidateStageIncludingHistory": {
+    "logicalCalls": 49,
+    "httpAttempts": 45,
+    "reservedAttempts": 49,
+    "ceilingCalls": 120,
+    "ceilingAttempts": 144,
+    "currentCandidates": 3,
+    "passCandidates": 3
+  },
+  "m3FormalStage": {
+    "logicalCalls": 39,
+    "httpAttempts": 36,
+    "reservedAttempts": 39,
+    "ceilingCalls": 60,
+    "ceilingAttempts": 72,
+    "reports": 3,
+    "passReports": 3
+  },
+  "m31Online": {
+    "status": "NOT_RUN",
+    "identities": 3,
+    "logicalCalls": 0,
+    "httpAttempts": 0,
+    "reason": "No authorized M Plan entitlement",
+    "offlineConstraints": "PASS"
+  },
+  "defaultMatrix": {
+    "changedByFinalImport": false,
+    "sha256": "cacb9dd13d75e44ae6ad22103504bfa2c2f6679ae7fba66764eb679d8889519b",
+    "final17Import": "REJECTED",
+    "reason": "Missing actual Jev1.14 support output"
+  },
+  "remaining15Usage": {
+    "completeAttempts": 20,
+    "unreportedAttempts": 148,
+    "unreportedMeansFree": false
+  },
+  "originalFullGate": {
+    "source": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+    "ordinary": {
+      "PASS": 12385,
+      "FAIL": 6,
+      "auditFindings": 0
+    },
+    "race": {
+      "PASS": 12385,
+      "FAIL": 6,
+      "auditFindings": 0
+    },
+    "perSuiteNamedPIDiffCases": 869,
+    "perSuiteNamedPressureCases": 29,
+    "fourCommandsActuallyExecuted": true,
+    "individualCommandExitCodes": null,
+    "outerGoRunExit": 1,
+    "terminalGateExit": 2,
+    "reportPresent": false,
+    "releasePass": null,
+    "reason": "Original consumer refused recorded case directory",
+    "laterFixDoesNotRewriteOriginalResult": true,
+    "namedPIDiffCountsAreProducerCaseStatuses": true
+  },
+  "selectedExecutionScope": {
+    "m3FormalEach": 263,
+    "glmCorrectiveEach": 217,
+    "releaseConsumerFilesExcluded": true,
+    "m3AndGlmMapsStillApplicable": true,
+    "broadLegacyAndJevEvidenceAfterConsumerGoChanges": "HISTORICAL_ONLY"
+  },
+  "consumerDiagnostic": {
+    "source": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "mode": "adopted original3d3 historical inputs",
+    "status": "COMPLETED",
+    "reportPresent": true,
+    "pass": false,
+    "outerExitCode": 1,
+    "elapsedSecondsApprox": 176.607,
+    "commands": null,
+    "fourCommandsExecuted": false,
+    "newPaidCalls": 0,
+    "newWholeSourceCertificate": false,
+    "offlineRaceLoadRevocationMultimodalSixMiniMaxConsumers": "PASS",
+    "redactionInputProblem": "Missing actual Jev support directory; no content finding reported",
+    "live17": "FAIL: unchanged default matrix and no valid17 merge",
+    "additionalDifferentialDiagnostics": [
+      {
+        "case": "PIDIFF-MM06-catalog-differences",
+        "problem": "sdk_versions mismatch",
+        "cause": "Original producer retained valid frozen npm pins but omitted actual Go Sides.BarnessVersions; strict consumer correctly rejects incomplete provenance."
+      },
+      {
+        "case": "PIDIFF-MM06-frozen-catalog",
+        "problem": "missing pidiff.json",
+        "cause": "Original pure catalog lookup/provenance control had a PIDIFF case prefix despite no Compare/Record/HTTP; it is not a protocol differential proof."
+      }
+    ],
+    "originalAReportsAndStatusesRewritten": false,
+    "outputAudit": {
+      "regularBundleAudit": "REFUSED: no manifest; original refusal preserved",
+      "method": "existing exported audit.File/Environment rules via finite retained auxiliary overlay",
+      "files": 8,
+      "findings": 0,
+      "inventedManifest": false,
+      "gateRerun": false,
+      "scope": "diagnostic output files only"
+    }
+  },
+  "blockers": [
+    "GLM Responses native-history actual SSE has no text",
+    "Other legacy identity/effect acceptance failures: no HTTP response, actual403, actual451",
+    "Jev1.14 actual formal support output missing",
+    "Final17 matrix import rejected",
+    "No current whole-source full ordinary/race release certification"
+  ],
+  "accountingScope": "Current MiniMax-driven renewal: original GLM66/66 + unique corrective66/66 + remaining15 168/168. Prior GLM-task paid history is separately immutable; MiniMax candidate/formal stages are separately accounted.",
+  "differentialProducerFix": {
+    "status": "PASS",
+    "scope": "two E2E producers and seven current finite trace references; no consumer SDK/oracle relaxation",
+    "originalARewritten": false,
+    "newPaidCalls": 0,
+    "repeatOriginalHistoricalDiagnostic": false,
+    "source": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+    "standardsReview": "PASS",
+    "futureMetadataCaseID": "MM06-frozen-catalog-metadata",
+    "currentTraceRowsChanged": 7,
+    "traceLeavesChanged": 14,
+    "traceOnlyRegexAndRequiredCaseIdentity": true,
+    "requiredCaseCountsAndAllOtherFieldsUnchanged": true,
+    "consumerSdkOracleUntouched": true,
+    "oldNullRequestFixtureAssumptionCorrectedBeforeProductionEdits": true,
+    "specReview": "PASS",
+    "openSourceFindings": 0,
+    "ordinary": {
+      "exitCode": 0,
+      "elapsedSecondsApprox": 5.088,
+      "recordedParentCases": 1,
+      "PASS": 1,
+      "FAIL": 0
+    },
+    "race": {
+      "exitCode": 0,
+      "elapsedSecondsApprox": 10.286,
+      "frozenChildRaceIncluded": true,
+      "recordedParentCases": 1,
+      "PASS": 1,
+      "FAIL": 0
+    },
+    "vetExit": 0,
+    "liveVetExit": 0,
+    "parentPublicAdmissionCase": "PASS",
+    "childProducerCasesRetained": 2,
+    "coherentlyRehashedSdkNegatives": "sdk_versions mismatch; no inventory shortcut",
+    "m3AndQSelectedExecutionMaps": "ZERO_DRIFT",
+    "preparedSourceFiles": 1041,
+    "selectedSourceFilesEqualReviewedAd20469": true
+  },
+  "finalWorkerTip": "ecb60da5b44d41ef83db34299b01230d8b216f80",
+  "finalCodeSource": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+  "currentRepairRetention": {
+    "path": "evidence/ticket-09/release-consumer/index.json",
+    "archiveBytes": 1735862,
+    "archiveSHA256": "f4cbc2b94cfe6c6a17aaedc875c5f0e72127a8dce6f87914382f86096a51d268",
+    "members": 1985,
+    "rawBundles": 22,
+    "artifactRefsVerified": 1766,
+    "checksumFilesVerified": 31,
+    "archiveRoundtrip": "PASS",
+    "tracked": true,
+    "commonRawRetained": true,
+    "originalActualCapturesReceiptsAndLedgerModified": false
+  },
+  "integratedWorkerTip": "ecb60da5b44d41ef83db34299b01230d8b216f80",
+  "integrationMergeReceipt": "integration-merge.json"
+}

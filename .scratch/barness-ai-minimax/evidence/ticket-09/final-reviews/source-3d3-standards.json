@@ -1,0 +1,104 @@
+{
+  "axis": "standards",
+  "base": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+  "previouslyReviewed": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+  "target": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "verdict": "CHANGES_REQUESTED",
+  "runtimeSourceVerdict": "PASS_UNCHANGED",
+  "confidence": "high",
+  "documentedBreaches": [
+    {
+      "priority": 2,
+      "severity": "P2",
+      "title": "Bound gzip inventory expansion before allocation",
+      "category": "documented-standard-breach",
+      "file": ".scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/verify_q.py",
+      "startLine": 39,
+      "endLine": 40,
+      "relatedLocations": [
+        {
+          "file": ".scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/verify_actual.py",
+          "startLine": 147,
+          "endLine": 148
+        }
+      ],
+      "standard": "AGENTS.md engineering principles4 and5: validate untrusted external inputs at boundaries and bound resource use.",
+      "reason": "gzip.decompress allocates the entire expanded inventory before the 32 MiB check; the 8 MiB compressed ceiling in verify_q cannot bound expanded memory, and the hash check follows decompression.",
+      "requestedChange": "Use a bounded gzip stream read of (32<<20)+1, reject overflow before JSON decoding, and preserve exact compressed hash validation.",
+      "confidence": "high",
+      "scope": "Portable retention verifiers only; unchanged runtime source maps remain applicable."
+    }
+  ],
+  "judgmentSmells": [],
+  "findings": [
+    {
+      "priority": 2,
+      "severity": "P2",
+      "title": "Bound gzip inventory expansion before allocation",
+      "category": "documented-standard-breach",
+      "file": ".scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/verify_q.py",
+      "startLine": 39,
+      "endLine": 40,
+      "relatedLocations": [
+        {
+          "file": ".scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/verify_actual.py",
+          "startLine": 147,
+          "endLine": 148
+        }
+      ],
+      "standard": "AGENTS.md engineering principles4 and5: validate untrusted external inputs at boundaries and bound resource use.",
+      "reason": "gzip.decompress allocates the entire expanded inventory before the 32 MiB check; the 8 MiB compressed ceiling in verify_q cannot bound expanded memory, and the hash check follows decompression.",
+      "requestedChange": "Use a bounded gzip stream read of (32<<20)+1, reject overflow before JSON decoding, and preserve exact compressed hash validation.",
+      "confidence": "high",
+      "scope": "Portable retention verifiers only; unchanged runtime source maps remain applicable."
+    }
+  ],
+  "evidenceObservations": {
+    "frozenGenerationFiles": 1034,
+    "changedFrozenGenerationFiles": [],
+    "correctiveCalls": 66,
+    "correctiveAttempts": 66,
+    "glmCumulativeCalls": 132,
+    "glmCumulativeAttempts": 132,
+    "correctiveRouteOutcomes": {
+      "chat": "PASS22",
+      "responses": "FAIL:21PASS/1FAIL glm-5.2/native-history",
+      "messages": "PASS22"
+    },
+    "actualCapsuleArchiveHashAndLengthAgree": true
+  },
+  "externalAcceptanceBlockers": [
+    {
+      "kind": "GLM",
+      "status": "Responses native-history FAIL; strict current three-route renewal rejected"
+    },
+    {
+      "kind": "closed-L",
+      "calls": 168,
+      "attempts": 168,
+      "passed": 2,
+      "failed": 13,
+      "causeBasis": "Parent reports network/403/451; closed consumption receipt read independently"
+    },
+    {
+      "kind": "legacy-accounting",
+      "calls": 300,
+      "attempts": 300,
+      "maxCalls": 440,
+      "maxAttempts": 464
+    },
+    {
+      "kind": "Jev/import",
+      "status": "Parent reports partial protocol, no formal derived support, rejected 17-input temporary import and unchanged actual matrix"
+    },
+    {
+      "kind": "gate",
+      "status": "Ordinary in flight, race pending; mutable A not audited as closed"
+    }
+  ],
+  "repoMutations": false,
+  "testsRun": false,
+  "credentialAccess": false,
+  "networkUsed": false,
+  "vendorCalls": 0
+}

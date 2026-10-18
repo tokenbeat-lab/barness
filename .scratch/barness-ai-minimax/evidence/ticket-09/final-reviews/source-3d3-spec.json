@@ -1,0 +1,63 @@
+{
+  "base": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+  "target": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "priorSourceReview": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+  "confidence": "high",
+  "sourceVerdict": "PASS",
+  "deliveryStatus": "PARTIAL",
+  "findings": [],
+  "generationSourceFiles": 1034,
+  "generationSourceDrift": 0,
+  "m3FormalSources": {
+    "chat": {
+      "files": 263,
+      "drift": 0,
+      "outcome": "PASS"
+    },
+    "responses": {
+      "files": 263,
+      "drift": 0,
+      "outcome": "PASS"
+    },
+    "messages": {
+      "files": 263,
+      "drift": 0,
+      "outcome": "PASS"
+    }
+  },
+  "actualAccounting": {
+    "originalGLM": [
+      66,
+      66
+    ],
+    "correctiveGLM": [
+      66,
+      66
+    ],
+    "currentGLMTotal": [
+      132,
+      132
+    ],
+    "closedL15": [
+      168,
+      168
+    ],
+    "currentLegacyTotal": [
+      300,
+      300
+    ],
+    "legacyCeiling": [
+      440,
+      464
+    ]
+  },
+  "externalAcceptanceBlockers": [
+    "GLM Responses glm-5.2/native-history21PASS/1FAIL; complete SSE contains no visible text",
+    "L15 two DeepSeek PASS / thirteen network/403/451 FAIL",
+    "Jev1.14 partial protocol prevents derived formal support",
+    "17-input temporary import refused; actual matrix and four GLM selectors unchanged"
+  ],
+  "mutableGateArtifactsReviewedAsClosed": false,
+  "releaseCertification": false,
+  "additionalPaidAuthorization": false
+}

@@ -1,0 +1,420 @@
+{
+  "schema": 1,
+  "status": "PARENT_A_CLOSED_ORIGINAL_FAILED_LOAD_NO_RELEASE_REPORT",
+  "parentClosureConfirmed": true,
+  "repo": "/Users/cyber/RestoX/barness",
+  "out": "/tmp/barness-minimax-final-A-curation/closed-output",
+  "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "collection": "/Users/cyber/RestoX/barness/.evidence/minimax-global-final-keyless",
+  "argvManifestSHA256": "5609de5a8689f63cae8530867a8b7ae3603b2957f08c4473625f6ae6f8430234",
+  "expectedOuterArgv": [
+    "go",
+    "run",
+    "./ai/release/cmd/releasegate",
+    "-out",
+    "$REPO/.evidence/minimax-global-final-keyless/gate",
+    "-evaluation-jev",
+    "$REPO/.evidence/minimax-global-legacy-final/text-jev/20261018T045313.344018000Z",
+    "-evaluation-luna",
+    "$REPO/.evidence/minimax-global-legacy-final/text-luna/20261018T045321.320255000Z",
+    "-visual-evaluation-jev",
+    "$REPO/.evidence/minimax-global-legacy-final/visual-jev",
+    "-visual-evaluation-decisions",
+    "$REPO/.evidence/minimax-global-legacy-final/visual-decisions",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/openai-responses/20261018T043700.861534000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/openai-chat/20261018T044121.509056000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/anthropic-messages/20261018T044617.207205000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/google-gemini/20261018T044621.835242000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/deepseek-responses/20261018T044932.533105000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/deepseek-chat/20261018T044939.527068000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/openai-images/20261018T044949.747276000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/google-interactions-image/20261018T045025.350717000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/openai-decisions/20261018T045135.991551000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/live/typesafe-classifier/20261018T045306.632466000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-legacy-final/support",
+    "-live",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat/20261018T041951.329592000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses/20261018T042202.466861000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages/20261018T042527.020498000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z",
+    "-live",
+    "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z"
+  ],
+  "runnerPath": "/Users/cyber/RestoX/barness/.evidence/minimax-global-legacy-final-parent/barness-minimax-final-keyless.py",
+  "runnerSHA256": "e6fd109a0f5c0892a0f0b64ab16edc0b3fd12880fd3f41be15577f5acf7b2b92",
+  "paidIndexPath": "/tmp/barness-minimax-final-evidence-curation/paid-closed-output/legacy-paid-3d3.json",
+  "paidIndexSHA256": "4f10df52a57cfce8f04a39297523e2d343b3c07e98e8b24599e0ed4211a18e73",
+  "paidArchive": "legacy-paid-3d3.tar.gz",
+  "sourceFileCount": 1034,
+  "publicSourceFiles": [
+    "ai/release/cmd/releasegate/main.go",
+    "ai/internal/testkit/release/gate.go",
+    "ai/internal/testkit/release/load.go"
+  ],
+  "rawGroups": [
+    {
+      "name": "offline",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-final-keyless/gate/offline",
+      "session": "20261018T045647.697909000Z",
+      "manifest": "20261018T045647.697909000Z/manifest.json",
+      "publishedManifestSHA256": "b4dcf3e8772285e0cd06e03dc627be0dad33315199d8e9965c734187407af21e",
+      "expectedCaseCount": 12391,
+      "expectedOutcomes": {
+        "PASS": 12385,
+        "FAIL": 6
+      },
+      "failedCaseIds": [
+        "GLM12-formal-import-chat",
+        "GLM12-formal-import-messages",
+        "GLM12-formal-import-responses",
+        "GLM12-reported-known-usage-chat",
+        "GLM12-reported-known-usage-messages",
+        "GLM12-reported-known-usage-responses"
+      ],
+      "maxEntries": 400000,
+      "maxExpandedBytes": 4294967296,
+      "maxFileBytes": 134217728,
+      "maxDepth": 24
+    },
+    {
+      "name": "race",
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-global-final-keyless/gate/race",
+      "session": "20261018T050644.512932000Z",
+      "manifest": "20261018T050644.512932000Z/manifest.json",
+      "publishedManifestSHA256": "14b1f2b38e69e62ac628554c8db436390aeeae682086f0dd9291ab3865a2c907",
+      "expectedCaseCount": 12391,
+      "expectedOutcomes": {
+        "PASS": 12385,
+        "FAIL": 6
+      },
+      "failedCaseIds": [
+        "GLM12-formal-import-chat",
+        "GLM12-formal-import-messages",
+        "GLM12-formal-import-responses",
+        "GLM12-reported-known-usage-chat",
+        "GLM12-reported-known-usage-messages",
+        "GLM12-reported-known-usage-responses"
+      ],
+      "maxEntries": 400000,
+      "maxExpandedBytes": 4294967296,
+      "maxFileBytes": 134217728,
+      "maxDepth": 24
+    }
+  ],
+  "ownInputReferences": [
+    {
+      "identity": "openai-responses",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/openai-responses/20261018T043700.861534000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/openai-responses/20261018T043700.861534000Z/live-report.json",
+      "sha256": "30d39efad13f08d246385818499c4e0cb1f6c3cc120f8aee0444156c3940310b",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "openai-chat",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/openai-chat/20261018T044121.509056000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/openai-chat/20261018T044121.509056000Z/live-report.json",
+      "sha256": "49727d3771b50725b00b79bb2bef692a030989cc8490046142a2b1a82bf508ab",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "anthropic-messages",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/anthropic-messages/20261018T044617.207205000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/anthropic-messages/20261018T044617.207205000Z/live-report.json",
+      "sha256": "94f8effe29ec3b806f6b82d70afddf3056f5836eaa824c751443b5f002a45ec4",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "google-gemini",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/google-gemini/20261018T044621.835242000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/google-gemini/20261018T044621.835242000Z/live-report.json",
+      "sha256": "d398905c700a30ad1a2f050ddb1c8b7e8cfd961072c057656d932f57453d7340",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "deepseek-responses",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/deepseek-responses/20261018T044932.533105000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/deepseek-responses/20261018T044932.533105000Z/live-report.json",
+      "sha256": "7d47954bdca1d0eaa25ba63f4ce7032e65f0c570526002d2e4eeab18cee62a4f",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "deepseek-chat",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/deepseek-chat/20261018T044939.527068000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/deepseek-chat/20261018T044939.527068000Z/live-report.json",
+      "sha256": "3700ac26f940ef4d2b1c4de7d7885e975605637917d140090b20a2d7a569bfa1",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "openai-images",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/openai-images/20261018T044949.747276000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/openai-images/20261018T044949.747276000Z/live-report.json",
+      "sha256": "a97b8e991447dbf2dc0ccd1ebcddfde010c8b3d7e0efb30995e045aa5cab6c5d",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "google-interactions-image",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/google-interactions-image/20261018T045025.350717000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/google-interactions-image/20261018T045025.350717000Z/live-report.json",
+      "sha256": "4102a634a0401e41c2e99644830b4ef1b00e18eab83db8a7562924c1fc4551cb",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "openai-decisions",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/openai-decisions/20261018T045135.991551000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/openai-decisions/20261018T045135.991551000Z/live-report.json",
+      "sha256": "2acd11eaec4de8eeada2bf608ce132181507089832a9616f96f7dd6fc3f422f8",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "typesafe-classifier",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/live/typesafe-classifier/20261018T045306.632466000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/typesafe-classifier/20261018T045306.632466000Z/live-report.json",
+      "sha256": "d7cbbbde93fd4a8872a0dc6372596a7753f55b63b608940b38b780abe1d9dc77",
+      "sourceBoundary": "3d3a1fb28e143a2c29d684f78edcad94c0217243"
+    },
+    {
+      "identity": "typesafe-classifier-jev-1.14.0",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/support",
+      "expectedPresence": "MISSING",
+      "reason": "Original Protocol1.14 HTTP451 partial report rejected by public Jev derivation; no substitute support input",
+      "archive": null,
+      "member": null,
+      "sha256": null
+    },
+    {
+      "identity": "zhipu-chat",
+      "path": "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat/20261018T041951.329592000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "glm-corrective-actual-5bf2c16.tar.gz",
+      "member": "glm/glm-corrective-1-chat/20261018T041951.329592000Z/live-report.json",
+      "sha256": "edc5ea87377ecc516a17d7044830b1a326f7475796820e3e15ad21acaff1bb0e",
+      "sourceBoundary": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4"
+    },
+    {
+      "identity": "zhipu-responses",
+      "path": "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses/20261018T042202.466861000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "glm-corrective-actual-5bf2c16.tar.gz",
+      "member": "glm-forensic/glm-corrective-1-responses/20261018T042202.466861000Z/live-report.json",
+      "sha256": "447e47b79a421294c019888fc1285c4e20986abd4b46e14be490059634cee428",
+      "sourceBoundary": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4"
+    },
+    {
+      "identity": "zhipu-messages",
+      "path": "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages/20261018T042527.020498000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "glm-corrective-actual-5bf2c16.tar.gz",
+      "member": "glm/glm-corrective-1-messages/20261018T042527.020498000Z/live-report.json",
+      "sha256": "7ef114807bd14bff32cf68f268882fd557c1f9abba75ce8a10a7a137aff728df",
+      "sourceBoundary": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4"
+    },
+    {
+      "identity": "minimax-chat",
+      "path": "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "international-formal-glm-8900034.tar.gz",
+      "member": "minimax/mm-global-formal-m3-chat/20261018T030234.929339000Z/live-report.json",
+      "sha256": "dc78881bf3631189dbf2e0db5b047f30729641b4ddd75b88e7aa89b4600d7af8",
+      "sourceBoundary": "89000346b48480d94c3d6f6523629870f4e7b1b0"
+    },
+    {
+      "identity": "minimax-responses",
+      "path": "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "international-formal-glm-8900034.tar.gz",
+      "member": "minimax/mm-global-formal-m3-responses/20261018T030308.589357000Z/live-report.json",
+      "sha256": "417be2156fe3478e19af8a0b398f562d1d9e85db57a97afdee67079a5d3c298c",
+      "sourceBoundary": "89000346b48480d94c3d6f6523629870f4e7b1b0"
+    },
+    {
+      "identity": "minimax-messages",
+      "path": "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z",
+      "expectedPresence": "PRESENT",
+      "archive": "international-formal-glm-8900034.tar.gz",
+      "member": "minimax/mm-global-formal-m3-messages/20261018T030335.626044000Z/live-report.json",
+      "sha256": "a4882ca666945e605261f89175918da7d2a4305ef7a0f0551aac3f27edbeef83",
+      "sourceBoundary": "89000346b48480d94c3d6f6523629870f4e7b1b0"
+    }
+  ],
+  "effectReferences": [
+    {
+      "identity": "text-jev",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/text-jev/20261018T045313.344018000Z",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/text-jev/20261018T045313.344018000Z/evaluation-report.json",
+      "sha256": "b9011257b944b6dec0519c4af4b503b8c997d7b2f6866494003b46aba61c8d54",
+      "outcome": "FAIL"
+    },
+    {
+      "identity": "text-luna",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/text-luna/20261018T045321.320255000Z",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/text-luna/20261018T045321.320255000Z/evaluation-report.json",
+      "sha256": "734623d0912038f13aa43370b8989debab7f7250aaa3ebcf22999b9f51c94c8d",
+      "outcome": "FAIL"
+    },
+    {
+      "identity": "visual-jev",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/visual-jev",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/visual-jev/report.json",
+      "sha256": "0a63cd4288a576dc4a72ad007476370438796ecbb987618c7ffd195663aeabcc",
+      "outcome": "FAIL"
+    },
+    {
+      "identity": "visual-decisions",
+      "path": "$REPO/.evidence/minimax-global-legacy-final/visual-decisions",
+      "archive": "legacy-paid-3d3.tar.gz",
+      "member": "captures/visual-decisions/report.json",
+      "sha256": "6f407ed3cebf5c81c53dc7792fc256fe4f2e500a732bd9562f372bc8cc24371e",
+      "outcome": "FAIL"
+    }
+  ],
+  "externalArchives": [
+    {
+      "sha256": "06fca74279c09495cf817c377311718f66290b63c43103285c26cfd87753ca08",
+      "scope": "C original candidate760; PASS3, priorCN/research accounting retained",
+      "file": "international-candidates-7605332.tar.gz",
+      "bytes": 5816813,
+      "included": false,
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.tar.gz"
+    },
+    {
+      "sha256": "8b649a95fbc5d0e668173400a92ce2395ef86dc491762f6b9fff9a8ecf5aa07e",
+      "scope": "M source890; M3formal3 PASS; initial GLM PASS/FAIL/PASS66/66",
+      "file": "international-formal-glm-8900034.tar.gz",
+      "bytes": 5511291,
+      "included": false,
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.tar.gz"
+    },
+    {
+      "sha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38",
+      "scope": "Q approved R1 source5bf; Chat/Messages PASS; Responses FAIL, no canonical capturePins;132/132 cumulative, noR2",
+      "file": "glm-corrective-actual-5bf2c16.tar.gz",
+      "bytes": 4632201,
+      "included": false,
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.tar.gz"
+    },
+    {
+      "sha256": "7fe0d49506b8c31c445f5ebc9f8868e25dbbee4e875e62e43ea226356601bd86",
+      "scope": "Original9dc full1033source bytes; original failed no-key/PENDING source, no paid approval",
+      "file": "q-9dc-committed-source-proof.tar.gz",
+      "bytes": 3325125,
+      "included": false,
+      "path": "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/q-9dc-committed-source-proof.tar.gz"
+    },
+    {
+      "sha256": "56e08cbf7105f4fe1a1751bae42ba83988bcdbb4d1b1d443dd9bcd9a2d62ae3c",
+      "scope": "Original9dc failed no-key335PASS62NOT_RUN audit2/Goexit1; raw exact diagnostics unchanged; PENDING no paid approval",
+      "file": "glm-corrective-q-9dc-audit-failure.tar.gz",
+      "bytes": 53271279,
+      "included": false,
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/glm-corrective-q-9dc-audit-failure.tar.gz"
+    },
+    {
+      "sha256": "6517f953a0e56fb5cf477f0196704193af76589137c11322a5c83179f223e71a",
+      "scope": "Approved5bf no-key336PASS62NOT_RUN audit0/Goexit0; no actual release qualification",
+      "file": "corrective-approved-prepay-5bf2c16.tar.gz",
+      "bytes": 38302855,
+      "included": false,
+      "path": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/corrective-approved-prepay-5bf2c16.tar.gz"
+    },
+    {
+      "file": "legacy-paid-3d3.tar.gz",
+      "path": "/tmp/barness-minimax-final-evidence-curation/paid-closed-output/legacy-paid-3d3.tar.gz",
+      "sha256": "a152988b0ffc906902295358ca720636bccde20914b5cf4d3aeddb507137ec76",
+      "bytes": 7472840,
+      "scope": "Original closed L15 paid/source capsule; exact1034 committed3d3 bytes and16 historical canonical receipts; original2PASS13FAIL"
+    },
+    {
+      "file": "legacy-preflight-3d3.tar.gz",
+      "path": "/tmp/barness-minimax-final-evidence-curation/paid-closed-output/legacy-preflight-3d3.tar.gz",
+      "sha256": "764ab1d7b894770b154a580da9a75a3b9f4953cf65557fd180ce8bfda29c1172",
+      "bytes": 37840497,
+      "scope": "Original L passed preflight raw;336PASS62NOT_RUN audit0 plus2aux1PASS; no release certification"
+    }
+  ],
+  "parentAuditFiles": [
+    {
+      "path": "/tmp/barness-minimax-retention-3d3-review.md",
+      "sha256": "facd6877cdc20733a2f0ece0bab7d17b5ac41598886ef1340e638ed1044ebe87"
+    },
+    {
+      "path": "/tmp/barness-minimax-retention-3d3-review.json",
+      "sha256": "fe90e3e673f7b01e87ab6e5d1fcea091adf2a8efaf5b7f5b01d561154c38ae96"
+    },
+    {
+      "path": "/tmp/barness-minimax-L-final-diagnosis.md",
+      "sha256": "2c601405d858f36da263e4e860451ab797cea166667b0397a7605df3b8543a51"
+    },
+    {
+      "path": "/tmp/barness-minimax-L-final-audit.json",
+      "sha256": "0a0c5393be80db73d5b84b49871ebf6b1fb69b8c84ed1e535cc75a60fbc1729e"
+    }
+  ],
+  "plannedClosureRequirements": {
+    "outerCommandState": "COMPLETED",
+    "originalGateSource": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+    "outerExitCode": 1,
+    "publicReleasePass": null,
+    "summaryPassVerdict": false,
+    "suiteAuditFindings": 0,
+    "actualCommands": [
+      "go-vet",
+      "go-vet-live",
+      "go-test",
+      "go-test-race"
+    ],
+    "differentialPressureSwitches": [
+      "BARNESS_AI_PIDIFF=1",
+      "BARNESS_AI_PRESSURE=1"
+    ],
+    "suppliedSuiteBundlesPermitted": false,
+    "originalReleaseReportPresent": false,
+    "terminalError": "releasegate: release: invalid or duplicate evidence case directory",
+    "childCLIExitStatusInLog": 2,
+    "internalIndividualCommandExitCodesPersisted": false
+  },
+  "additionalRoundAuthorized": false,
+  "paidCallsByCurator": 0,
+  "releaseCertifiedByCurator": false,
+  "closedOuterSHA256": "a4959fe77f114633f705663f9e27aa15d45f25333b2277d0db5a3c1cf497a3b3",
+  "closedSummarySHA256": "7e18ca9a883e3d1ced88cb634877b3a669712e2a31bd4838a64c1bba047f205f",
+  "closedLogSHA256": "590b5047c1b3756c8f7a91a9fa527e80b3658b6e86a18db985fa93b3599d723d"
+}

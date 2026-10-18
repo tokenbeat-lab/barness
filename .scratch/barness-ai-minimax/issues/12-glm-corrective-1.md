@@ -27,6 +27,8 @@ Blocked by: actual GLM Responses native-history failure
 
 4ff完整GLM普通/race各61项PASS、审计0；最终6ff针对全部新捕获与事件预算的普通/race各4项PASS、审计0，工具CLI35项PASS，普通/live vet通过。原4ff两条Spec发现、5abc修正与6ff fixture独立双轴报告均保留，最终两轴0 open。5abc中间race为4项断言PASS但实现者中断慢速final audit，exit-15/无审计，不能称为Go PASS或timeout；纠正说明原样保留。详见[证据](../evidence/ticket-12/README.md)。
 
-以上为离线实现检查点。用户随后明确批准唯一新增72/96；精确来源5bf2c16、二进制/计划/检查及APPROVED收据均在[实际补正胶囊](../evidence/ticket-12/actual-corrective-1/README.md)保留。实际额外66 calls/66 Attempts，连原66/66为132/132。Chat与Messages各22/22 PASS；Responses为21 PASS/1 FAIL，glm-5.2/native-history的完整HTTP200/SSE只有推理而无正文，适配器未丢失内容。三路均完成且审计通过；没有R2。严格raw/views续期拒绝失败、原四selector不变；公共矩阵可记录真实完整FAIL。此外部验收阻塞未解决，票12保持ready-for-human，10/09/spec保持未关闭；其余15项原授权验证与完整门禁继续。
+以上为离线实现检查点。用户随后明确批准唯一新增72/96；精确来源5bf2c16、二进制/计划/检查及APPROVED收据均在[实际补正胶囊](../evidence/ticket-12/actual-corrective-1/README.md)保留。实际额外66 calls/66 Attempts，连原66/66为132/132。Chat与Messages各22/22 PASS；Responses为21 PASS/1 FAIL，glm-5.2/native-history的完整HTTP200/SSE只有推理而无正文，适配器未丢失内容。三路均完成且审计通过；没有R2。严格raw/views续期拒绝失败、原四selector不变；公共矩阵可记录捕获和场景清单齐全、但complete=false的真实FAIL。此外部验收阻塞未解决，票12保持ready-for-human，10/09/spec保持未关闭；其余15项原授权验证已完成168/168（两项DeepSeek PASS、13项FAIL）；3d3a1fb的完整普通/race各12385 PASS/6 FAIL、审计0，CLI随后读取bundle失败且没有发布报告。全部实际进程已关闭，旧能力本次续期累计300/300，17身份矩阵与完整交付仍未通过；消费者修复及其适用范围见交付状态。
 
 Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66/66 plus corrective-1. Prior GLM-task paid history (including its separate282-call contract) remains immutable and separately accounted; this extension does not erase or reset it.
+
+2026-10-18补充：便携证据校验器已完成先失败再修复的有界解压验证，原程序和原索引字节另行保留，当前校验器版本独立登记；见[retention-bounds](../evidence/ticket-12/retention-bounds/README.md)。这是离线保留修复，不改变原轮/R1实际结果、消费或审批范围。

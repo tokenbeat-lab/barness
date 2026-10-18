@@ -66,4 +66,10 @@ Base: `ecfd4b4`
 
 - 8900034国际站M3三份自身正式报告均PASS（39calls/36实际Attempts），完整候选49/45及历史消费、原始失败均封存。GLM初轮Chat/Messages PASS、Responses FAIL，66/66如实保留；[正式证据](evidence/ticket-10/international-formal-glm/README.md)。票10/09未关闭，随后用户批准唯一72/96补正，实际结果见票12。
 
-- [12 GLM捕获修正与唯一补正轮次](issues/12-glm-corrective-1.md)：离线实现、普通/race、双vet、两轴审查及M3源保持均完成；[证据](evidence/ticket-12/README.md)。额外72/96已明确批准且唯一R1完成66/66；连原66/66共132/132。Chat/Messages各22/22 PASS，Responses21 PASS/1 FAIL，完整上游SSE缺正文。当前raw/views续期拒绝，旧四selector不变；无R2。见[实际证据](evidence/ticket-12/actual-corrective-1/README.md)。10/09仍开放，其余15项原授权验证和完整门禁继续。
+- [12 GLM捕获修正与唯一补正轮次](issues/12-glm-corrective-1.md)：离线实现、普通/race、双vet、两轴审查及M3源保持均完成；[证据](evidence/ticket-12/README.md)。额外72/96已明确批准且唯一R1完成66/66；连原66/66共132/132。Chat/Messages各22/22 PASS，Responses21 PASS/1 FAIL，完整上游SSE缺正文。当前raw/views续期拒绝，旧四selector不变；无R2。见[实际证据](evidence/ticket-12/actual-corrective-1/README.md)。10/09仍开放。其余15项原授权验证已完成168/168（两项DeepSeek PASS、13项FAIL）；3d3a1fb的完整普通/race各12385 PASS/6 FAIL、审计0，CLI随后读取bundle失败且没有发布报告。全部实际进程已关闭，旧能力本次续期累计300/300，17身份矩阵与完整交付仍未通过；消费者修复及其适用范围见交付状态。
+
+## 当前验收收敛（2026-10-18）
+
+其余15项原授权验证已完成168/168（两项DeepSeek PASS、13项FAIL）；3d3a1fb的完整普通/race各12385 PASS/6 FAIL、审计0，CLI随后读取bundle失败且没有发布报告。全部实际进程已关闭，旧能力本次续期累计300/300，17身份矩阵与完整交付仍未通过；消费者修复及其适用范围见交付状态。
+
+M3 三份自身正式的263文件和 GLM R1三份217文件执行映射保持适用；后续 release 源码修改使 L/Jev 广域来源仅历史适用。最终审查、原始失败、后续定向与诊断结果分别保留，不将 adopted bundle 当作新全量执行认证。详见[交付状态](delivery-status.md)。

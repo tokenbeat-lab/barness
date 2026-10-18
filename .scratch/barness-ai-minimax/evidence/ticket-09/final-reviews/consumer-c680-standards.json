@@ -1,0 +1,119 @@
+{
+  "axis": "standards",
+  "base": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+  "target": "c6801d0441da589cce29a9d4169d195b54207ac7",
+  "fullBase": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+  "verdict": "CHANGES_REQUESTED",
+  "confidence": "high",
+  "documentedBreaches": [
+    {
+      "priority": 2,
+      "severity": "P2",
+      "category": "documented-standard-breach",
+      "title": "Keep consumed verdicts inside the verified rooted boundary",
+      "file": "ai/internal/testkit/release/load.go",
+      "startLine": 70,
+      "endLine": 72,
+      "relatedLocations": [
+        {
+          "file": "ai/internal/testkit/release/load.go",
+          "startLine": 85,
+          "endLine": 90
+        },
+        {
+          "file": "ai/internal/testkit/release/differential_record.go",
+          "startLine": 73,
+          "endLine": 82
+        }
+      ],
+      "standard": "AGENTS.md engineering principles3/4/5; preregistered release-consumer failure#3 requires rooted opens during replacement.",
+      "reason": "The verified root is closed, then verdict/capture files are reopened by mutable ordinary paths. A later case/ancestor replacement can escape the bundle or substitute unverified bytes.",
+      "requestedChange": "Read consumed artifacts through a pinned rooted bounded reader authenticating expected inventory hashes, or retain immutable verified bytes, including subsequent Bundle consumers.",
+      "confidence": "high"
+    },
+    {
+      "priority": 2,
+      "severity": "P2",
+      "category": "documented-standard-breach",
+      "title": "Compare exact unique enumerated inventory membership",
+      "file": "ai/internal/testkit/release/inventory.go",
+      "startLine": 145,
+      "endLine": 160,
+      "relatedLocations": [
+        {
+          "file": "ai/internal/testkit/release/inventory.go",
+          "startLine": 107,
+          "endLine": 117
+        }
+      ],
+      "standard": "AGENTS.md engineering principles5/9: concurrent correctness and verifiable exact artifact inventory.",
+      "reason": "Only a visited-file count is compared with declaration length; streamed directory enumeration may repeat names under concurrent modification, hiding another unvisited declared key.",
+      "requestedChange": "Track and reject repeated enumerated artifact names, then compare the exact seen key set with declared inventory.",
+      "confidence": "high"
+    }
+  ],
+  "judgmentSmells": [],
+  "findings": [
+    {
+      "priority": 2,
+      "severity": "P2",
+      "category": "documented-standard-breach",
+      "title": "Keep consumed verdicts inside the verified rooted boundary",
+      "file": "ai/internal/testkit/release/load.go",
+      "startLine": 70,
+      "endLine": 72,
+      "relatedLocations": [
+        {
+          "file": "ai/internal/testkit/release/load.go",
+          "startLine": 85,
+          "endLine": 90
+        },
+        {
+          "file": "ai/internal/testkit/release/differential_record.go",
+          "startLine": 73,
+          "endLine": 82
+        }
+      ],
+      "standard": "AGENTS.md engineering principles3/4/5; preregistered release-consumer failure#3 requires rooted opens during replacement.",
+      "reason": "The verified root is closed, then verdict/capture files are reopened by mutable ordinary paths. A later case/ancestor replacement can escape the bundle or substitute unverified bytes.",
+      "requestedChange": "Read consumed artifacts through a pinned rooted bounded reader authenticating expected inventory hashes, or retain immutable verified bytes, including subsequent Bundle consumers.",
+      "confidence": "high"
+    },
+    {
+      "priority": 2,
+      "severity": "P2",
+      "category": "documented-standard-breach",
+      "title": "Compare exact unique enumerated inventory membership",
+      "file": "ai/internal/testkit/release/inventory.go",
+      "startLine": 145,
+      "endLine": 160,
+      "relatedLocations": [
+        {
+          "file": "ai/internal/testkit/release/inventory.go",
+          "startLine": 107,
+          "endLine": 117
+        }
+      ],
+      "standard": "AGENTS.md engineering principles5/9: concurrent correctness and verifiable exact artifact inventory.",
+      "reason": "Only a visited-file count is compared with declaration length; streamed directory enumeration may repeat names under concurrent modification, hiding another unvisited declared key.",
+      "requestedChange": "Track and reject repeated enumerated artifact names, then compare the exact seen key set with declared inventory.",
+      "confidence": "high"
+    }
+  ],
+  "positiveObservations": [
+    "Raw IDs retained; only a single benign trailing directory separator accepted; lexical aliases rejected.",
+    "Pinned rooted component opens, Lstat/SameFile checks, nonblocking regular-file reads and finite streaming bounds.",
+    "Descriptor cleanup and bounded recursion appear correct.",
+    "Typed M3/GLM importers remain unchanged; old actual command results remain historical."
+  ],
+  "scope": "Pinned release-consumer source delta only; broader L/Jev applicability becomes historical; no current full-suite or release certification.",
+  "repoMutations": false,
+  "testsRun": false,
+  "credentialAccess": false,
+  "networkUsed": false,
+  "vendorCalls": 0,
+  "findingsDeliveredTo": [
+    "/root",
+    "/root/live_harness"
+  ]
+}
