@@ -6,7 +6,6 @@ import (
 	"io"
 	"math"
 	"os"
-	"path/filepath"
 	"time"
 )
 
@@ -28,21 +27,21 @@ func DesignLoadEvidence(b Bundle) []EvidenceCheck {
 	for i, name := range []string{"local", "cloud"} {
 		id := "E08-mixed-pressure-" + name + "-design-load"
 		e := EvidenceCheck{Name: "mixed-pressure-" + name, Bundle: b.Dir, Status: NotRun}
-		dir := b.caseDirs[id]
+		files := b.caseFiles[id]
 		var r designLoad
 		var gauges map[string]*int64
-		if dir == "" {
+		if files.bundle == nil {
 			e.Detail = "required design-load case missing"
 			out = append(out, e)
 			continue
 		}
 		e.Status = Fail
-		if err := readJSON(filepath.Join(dir, "mixed-pressure.json"), &r); err != nil {
+		if err := files.json("mixed-pressure.json", maxInventoryFile, &r); err != nil {
 			e.Detail = "design-load report missing or invalid"
 			out = append(out, e)
 			continue
 		}
-		if err := readJSON(filepath.Join(dir, "resources.json"), &gauges); err != nil {
+		if err := files.json("resources.json", maxInventoryFile, &gauges); err != nil {
 			e.Detail = "resource-release report missing or invalid"
 			out = append(out, e)
 			continue

@@ -71,6 +71,6 @@ func actualMiniMaxLoadFixture(t *testing.T) Bundle {
 	}
 	b := miniMaxFixture.bundle
 	b.Cases = slices.Clone(b.Cases)
-	b.caseDirs = maps.Clone(b.caseDirs)
+	b.caseFiles = maps.Clone(b.caseFiles)
 	return b
 }

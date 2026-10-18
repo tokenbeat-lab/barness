@@ -32,3 +32,23 @@ Finite limits preregistered and parent-approved before implementation:
 descriptor-rooted opens and bounded streaming hashes preserve these limits
 under growth/replacement. These are consumer import ceilings, not vendor or
 producer budget changes.
+
+## c680 review follow-up (before implementation)
+
+Standards found two P2 gaps despite the original public checks passing:
+post-inventory consumers reopened unchecked paths, and a repeated streaming
+directory name could inflate file-count equality. Preserve the c680 checks as
+historical intermediate evidence, not proof these gaps were closed.
+
+Public RED scenarios: load intact genuine revocation bytes and confirm PASS;
+then replace the case, its ancestor or bundle directory with an outside
+symlink, replace a consumed file with a same-bytes symlink, or append JSON
+whitespace to a consumed file (same semantics, different pinned hash). Each
+subsequent public `RevocationEvidence` call must refuse the modified input.
+
+Parent explicitly approved one necessary isolated iterator-boundary exception:
+a finite scripted `fs.ReadDirFile` returns `a.json, a.json` while declarations
+require `a.json, b.json`. Counting two is insufficient; duplicate entry names
+must be refused and the exact successfully authenticated file-name set must
+equal the declared set. No new exported API or dependency is allowed. Ordinary
+unique iteration and nested parent attribution remain unchanged.

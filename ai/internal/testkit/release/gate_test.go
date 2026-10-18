@@ -147,7 +147,7 @@ func goodInputs(t *testing.T) Inputs {
 	// and attach genuine new public load captures for the added evidence gates.
 	loads := actualMiniMaxLoadFixture(t)
 	in.Offline.Cases = append(in.Offline.Cases, loads.Cases...)
-	in.Offline.caseDirs = loads.caseDirs
+	in.Offline.caseFiles = loads.caseFiles
 	for _, e := range MiniMaxDesignLoadEvidence(loads) {
 		e.Name = "race-" + e.Name
 		e.Bundle = "/b"

@@ -1,9 +1,7 @@
 package release
 
 import (
-	"encoding/json"
 	"fmt"
-	"path/filepath"
 	"reflect"
 	"slices"
 
@@ -27,12 +25,12 @@ func RevocationEvidence(b Bundle) EvidenceCheck {
 	for _, mode := range []string{"disabled-binding", "removed-model", "revoked-images"} {
 		for _, entry := range []string{"initial-images", "hook-images"} {
 			id := "P10-OD58-runtime-" + mode + "-" + entry
-			dir := b.caseDirs[id]
-			if dir == "" || !loadCasePassed(b, id) {
+			files := b.caseFiles[id]
+			if files.bundle == nil || !loadCasePassed(b, id) {
 				e.Detail = id + ": manifest.json: required PASS case missing"
 				return e
 			}
-			if err := verifyRevocationCase(dir, id, mode, entry); err != nil {
+			if err := verifyRevocationCase(files, id, mode, entry); err != nil {
 				e.Detail = id + ": " + err.Error()
 				return e
 			}
@@ -45,15 +43,11 @@ func RevocationEvidence(b Bundle) EvidenceCheck {
 
 // Diagnostics contain fixed case/file names and validation rules only. Artifact
 // contents and JSON decoder errors may contain private data and are not echoed.
-func readRevocationArtifact(dir, name string, v any) error {
-	raw, err := readArtifact(filepath.Join(dir, name), 4<<20)
-	if err != nil || json.Unmarshal(raw, v) != nil {
-		return fmt.Errorf("%s: required JSON missing or invalid", name)
-	}
-	return nil
+func readRevocationArtifact(files verifiedCase, name string, v any) error {
+	return files.json(name, 4<<20, v)
 }
 
-func verifyRevocationCase(dir, id, mode, entry string) error {
+func verifyRevocationCase(files verifiedCase, id, mode, entry string) error {
 	var a struct {
 		CaseID     string `json:"case_id"`
 		Status     string
@@ -62,7 +56,7 @@ func verifyRevocationCase(dir, id, mode, entry string) error {
 			Pass bool
 		}
 	}
-	if err := readRevocationArtifact(dir, "assertions.json", &a); err != nil {
+	if err := readRevocationArtifact(files, "assertions.json", &a); err != nil {
 		return err
 	}
 	if a.CaseID != id || a.Status != "PASS" {
@@ -98,7 +92,7 @@ func verifyRevocationCase(dir, id, mode, entry string) error {
 	} {
 		file := call.name + "-result.json"
 		var r revocationResult
-		if err := readRevocationArtifact(dir, file, &r); err != nil {
+		if err := readRevocationArtifact(files, file, &r); err != nil {
 			return err
 		}
 		m := r.Metadata
@@ -119,18 +113,18 @@ func verifyRevocationCase(dir, id, mode, entry string) error {
 				}
 			}
 		}
-		if err := verifyRevocationObservations(dir, call.id, r, phase); err != nil {
+		if err := verifyRevocationObservations(files, call.id, r, phase); err != nil {
 			return err
 		}
 	}
-	if err := verifyRevokedBinding(dir, mode); err != nil {
+	if err := verifyRevokedBinding(files, mode); err != nil {
 		return err
 	}
-	if err := verifyRevocationCaptures(dir, mode); err != nil {
+	if err := verifyRevocationCaptures(files, mode); err != nil {
 		return err
 	}
 	var gauges map[string]*int64
-	if err := readRevocationArtifact(dir, "resources.json", &gauges); err != nil {
+	if err := readRevocationArtifact(files, "resources.json", &gauges); err != nil {
 		return err
 	}
 	if !loadResourcesReleased(gauges) {
@@ -139,12 +133,12 @@ func verifyRevocationCase(dir, id, mode, entry string) error {
 	return nil
 }
 
-func verifyRevokedBinding(dir, mode string) error {
+func verifyRevokedBinding(files verifiedCase, mode string) error {
 	var original, revoked ai.Binding
-	if err := readRevocationArtifact(dir, "binding-tenant-a-luna.json", &original); err != nil {
+	if err := readRevocationArtifact(files, "binding-tenant-a-luna.json", &original); err != nil {
 		return err
 	}
-	if err := readRevocationArtifact(dir, "revoked-binding.json", &revoked); err != nil {
+	if err := readRevocationArtifact(files, "revoked-binding.json", &revoked); err != nil {
 		return err
 	}
 	if original.TenantID != "tenant-a" || original.BindingID != "luna" || original.Version != "b1" || !original.Enabled || original.Operation != ai.OperationClassifier || original.ProviderID != ai.ProviderOpenAI || original.API != ai.APIOpenAIDecisions || !original.AllowClassifierImages || !slices.Contains(original.AllowedModels, "same-model") {

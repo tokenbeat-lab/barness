@@ -28,22 +28,6 @@ func canonicalArtifactPath(name string) bool {
 	return name != "." && fs.ValidPath(name) && filepath.IsLocal(name) && !strings.Contains(name, `\`)
 }
 
-// Live cases have one directory component. Offline import keeps its already
-// opened bundle root through every ancestor instead of reopening a checked path.
-func verifyArtifactInventory(dir string, artifacts map[string]string) error {
-	root, err := os.OpenRoot(filepath.Dir(dir))
-	if err != nil {
-		return fmt.Errorf("case artifact directory unavailable")
-	}
-	defer root.Close()
-	child, err := openInventoryCase(root, filepath.Base(dir))
-	if err != nil {
-		return err
-	}
-	defer child.Close()
-	return verifyCaseArtifactInventory(child, artifacts)
-}
-
 // Open each component relative to a pinned descriptor. Root prevents escape
 // during replacement; Lstat/SameFile also refuses internal symlink aliases.
 func openInventoryCase(root *os.Root, name string) (*os.Root, error) {
@@ -104,7 +88,8 @@ func verifyCaseArtifactInventory(root *os.Root, artifacts map[string]string) err
 			prefix, ok = prefix+"/"+next, more
 		}
 	}
-	files, entries := 0, 0
+	entries := 0
+	seenEntries, seenFiles := map[string]bool{}, map[string]bool{}
 	var total int64
 	var walk func(*os.Root, string) error
 	walk = func(dir *os.Root, prefix string) error {
@@ -113,57 +98,73 @@ func verifyCaseArtifactInventory(root *os.Root, artifacts map[string]string) err
 			return fmt.Errorf("case artifact directory unavailable")
 		}
 		defer listing.Close()
-		for {
-			batch, readErr := listing.ReadDir(1)
-			if readErr != nil && readErr != io.EOF {
-				return fmt.Errorf("case artifact enumeration failed")
-			}
-			for _, entry := range batch {
-				entries++
-				if entries > maxInventoryEntries {
-					return fmt.Errorf("case artifact directory entry limit exceeded")
+		return scanInventoryEntries(listing, prefix, &entries, seenEntries, func(entry fs.DirEntry) error {
+			name := prefix + entry.Name()
+			if entry.IsDir() {
+				if !dirs[name] {
+					return fmt.Errorf("case contains an unlisted artifact directory")
 				}
-				name := prefix + entry.Name()
-				if entry.IsDir() {
-					if !dirs[name] {
-						return fmt.Errorf("case contains an unlisted artifact directory")
-					}
-					child, err := openInventoryDirectory(dir, entry.Name())
-					if err != nil {
-						return err
-					}
-					err = walk(child, name+"/")
-					child.Close()
-					if err != nil {
-						return err
-					}
-					continue
-				}
-				if !entry.Type().IsRegular() || artifacts[name] == "" {
-					return fmt.Errorf("case contains an unlisted or non-regular artifact")
-				}
-				n, err := hashInventoryArtifact(dir, entry.Name(), artifacts[name], maxInventoryBytes-total)
+				child, err := openInventoryDirectory(dir, entry.Name())
 				if err != nil {
 					return err
 				}
-				total += n
-				files++
-			}
-			if readErr == io.EOF {
+				err = walk(child, name+"/")
+				child.Close()
+				if err != nil {
+					return err
+				}
 				return nil
 			}
-		}
+			if !entry.Type().IsRegular() || artifacts[name] == "" {
+				return fmt.Errorf("case contains an unlisted or non-regular artifact")
+			}
+			n, err := copyInventoryArtifact(dir, entry.Name(), artifacts[name], maxInventoryBytes-total, io.Discard)
+			if err != nil {
+				return err
+			}
+			total += n
+			seenFiles[name] = true
+			return nil
+		})
 	}
 	if err := walk(root, ""); err != nil {
 		return err
 	}
-	if files != len(artifacts) {
-		return fmt.Errorf("case artifact inventory is incomplete")
+	for name := range artifacts {
+		if !seenFiles[name] {
+			return fmt.Errorf("case artifact inventory is incomplete")
+		}
 	}
 	return nil
 }
 
-func hashInventoryArtifact(root *os.Root, name, want string, remaining int64) (int64, error) {
+func scanInventoryEntries(listing fs.ReadDirFile, prefix string, count *int, seen map[string]bool, visit func(fs.DirEntry) error) error {
+	for {
+		batch, err := listing.ReadDir(1)
+		if err != nil && err != io.EOF {
+			return fmt.Errorf("case artifact enumeration failed")
+		}
+		for _, entry := range batch {
+			*count = *count + 1
+			if *count > maxInventoryEntries {
+				return fmt.Errorf("case artifact directory entry limit exceeded")
+			}
+			name := prefix + entry.Name()
+			if seen[name] {
+				return fmt.Errorf("case artifact directory repeated an entry")
+			}
+			seen[name] = true
+			if err := visit(entry); err != nil {
+				return err
+			}
+		}
+		if err == io.EOF {
+			return nil
+		}
+	}
+}
+
+func copyInventoryArtifact(root *os.Root, name, want string, remaining int64, dst io.Writer) (int64, error) {
 	limit := min(int64(maxInventoryFile), remaining)
 	before, err := root.Lstat(name)
 	if err != nil || !before.Mode().IsRegular() || before.Size() > limit {
@@ -181,7 +182,7 @@ func hashInventoryArtifact(root *os.Root, name, want string, remaining int64) (i
 		return 0, fmt.Errorf("case artifact changed or over byte limit")
 	}
 	h := sha256.New()
-	n, err := io.Copy(h, io.LimitReader(f, limit+1))
+	n, err := io.Copy(io.MultiWriter(h, dst), io.LimitReader(f, limit+1))
 	if err != nil || n > limit || hex.EncodeToString(h.Sum(nil)) != want {
 		return 0, fmt.Errorf("case artifact missing, changed or over byte limit")
 	}

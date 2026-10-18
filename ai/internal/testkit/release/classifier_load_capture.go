@@ -14,9 +14,9 @@ import (
 // Recompute image/request readings from the actual captured JSON, rather than
 // trusting a report whose positive counters could describe a text-only call.
 // Captures are pretty-printed by evidence; compact restores sent wire bytes.
-func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoadBatch) error {
+func classifierCaptureProblem(files verifiedCase, r classifierImageLoad, b classifierLoadBatch) error {
 	var captures []provider.Request
-	if readLoadJSON(dir, b.Kind+"-requests.json", &captures) != nil || len(captures) != r.Load.Calls {
+	if readLoadJSON(files, b.Kind+"-requests.json", &captures) != nil || len(captures) != r.Load.Calls {
 		return fmt.Errorf("classifier-image captures missing or count changed")
 	}
 	tenants := map[string]int{}
@@ -76,7 +76,7 @@ func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoa
 	}
 	for tenant, count := range tenants {
 		var binding ai.Binding
-		if count != 4 || readLoadJSON(dir, "binding-"+tenant+".json", &binding) != nil || binding.TenantID != tenant || binding.BindingID != "luna" || binding.Operation != ai.OperationClassifier || binding.ProviderID != r.Identity.Provider || binding.API != r.Identity.API || !binding.Enabled || !binding.AllowClassifierImages || len(binding.AllowedModels) != 1 || binding.AllowedModels[0] != r.Identity.Model || binding.Retry.MaxRetries != 0 {
+		if count != 4 || readLoadJSON(files, "binding-"+tenant+".json", &binding) != nil || binding.TenantID != tenant || binding.BindingID != "luna" || binding.Operation != ai.OperationClassifier || binding.ProviderID != r.Identity.Provider || binding.API != r.Identity.API || !binding.Enabled || !binding.AllowClassifierImages || len(binding.AllowedModels) != 1 || binding.AllowedModels[0] != r.Identity.Model || binding.Retry.MaxRetries != 0 {
 			return fmt.Errorf("classifier-image tenant authorization inconsistent")
 		}
 	}
@@ -95,7 +95,7 @@ func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoa
 			Metadata   ai.CallMetadata
 			StopReason ai.StopReason
 		}
-		if readLoadJSON(dir, fmt.Sprintf("%s-result-%d.json", b.Kind, i), &result) != nil {
+		if readLoadJSON(files, fmt.Sprintf("%s-result-%d.json", b.Kind, i), &result) != nil {
 			return fmt.Errorf("classifier-image unary results missing")
 		}
 		m := result.Metadata
@@ -113,7 +113,7 @@ func classifierCaptureProblem(dir string, r classifierImageLoad, b classifierLoa
 			return fmt.Errorf("classifier-image attempt attribution inconsistent")
 		}
 		var observations []ai.Observation
-		if readLoadJSON(dir, "observations-"+m.RequestID+".json", &observations) != nil || len(observations) != 4 {
+		if readLoadJSON(files, "observations-"+m.RequestID+".json", &observations) != nil || len(observations) != 4 {
 			return fmt.Errorf("classifier-image Observer evidence missing")
 		}
 		finishes := 0

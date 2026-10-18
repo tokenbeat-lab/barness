@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"path/filepath"
 	"reflect"
 	"slices"
 	"strings"
@@ -51,9 +50,9 @@ func MiniMaxDesignLoadEvidence(b Bundle) []EvidenceCheck {
 		for phase, route := range []string{"chat", "responses", "messages"} {
 			id := "MM05-design-load-" + host + "-" + route
 			e := EvidenceCheck{Name: "minimax-design-load-" + host + "-" + route, Bundle: b.Dir, Status: NotRun, Detail: "required additional own design-load case missing"}
-			if dir := b.caseDirs[id]; dir != "" {
+			if files := b.caseFiles[id]; files.bundle != nil {
 				e.Status = Fail
-				if err := miniMaxLoadProblem(b, id, dir, host, route, phase, tenants, policy); err == nil {
+				if err := miniMaxLoadProblem(b, id, files, host, route, phase, tenants, policy); err == nil {
 					e.Status, e.Detail = Pass, "own protocol and original routes; full3/6-call captures/results/Observer; memory and75percent headroom; resources zero"
 				} else {
 					e.Detail = err.Error()
@@ -66,11 +65,11 @@ func MiniMaxDesignLoadEvidence(b Bundle) []EvidenceCheck {
 	return out
 }
 
-func miniMaxLoadProblem(b Bundle, id, dir, host, route string, phase, tenants int, policy *ai.ResourcePolicy) error {
+func miniMaxLoadProblem(b Bundle, id string, files verifiedCase, host, route string, phase, tenants int, policy *ai.ResourcePolicy) error {
 	var r miniMaxLoad
 	var recorded ai.ResourcePolicy
 	var gauges map[string]*int64
-	if len(b.Problems) > 0 || !loadCasePassed(b, id) || readLoadJSON(dir, "design-load.json", &r) != nil || readLoadJSON(dir, "policy.json", &recorded) != nil || readLoadJSON(dir, "resources.json", &gauges) != nil {
+	if len(b.Problems) > 0 || !loadCasePassed(b, id) || readLoadJSON(files, "design-load.json", &r) != nil || readLoadJSON(files, "policy.json", &recorded) != nil || readLoadJSON(files, "resources.json", &gauges) != nil {
 		return fmt.Errorf("MiniMax load report, inventory, status or resources missing")
 	}
 	expectedRoutes := [][]string{{"chat", "openai-image"}, {"openai-image", "google-image"}, {"google-image", "classifier"}}[phase]
@@ -104,7 +103,7 @@ func miniMaxLoadProblem(b Bundle, id, dir, host, route string, phase, tenants in
 		return fmt.Errorf("MiniMax load concurrency/queue readings changed")
 	}
 	var captures []provider.Request
-	if readLoadJSON(dir, "requests.json", &captures) != nil || len(captures) != 3*tenants {
+	if readLoadJSON(files, "requests.json", &captures) != nil || len(captures) != 3*tenants {
 		return fmt.Errorf("MiniMax load complete requests missing")
 	}
 	seen := map[string]bool{}
@@ -129,7 +128,7 @@ func miniMaxLoadProblem(b Bundle, id, dir, host, route string, phase, tenants in
 		if err := miniMaxLoadRequest(capture.Body, binding); err != nil {
 			return err
 		}
-		if err := miniMaxLoadResult(dir, host, route, parts[0], binding); err != nil {
+		if err := miniMaxLoadResult(files, host, route, parts[0], binding); err != nil {
 			return err
 		}
 	}
@@ -143,7 +142,7 @@ func miniMaxLoadProblem(b Bundle, id, dir, host, route string, phase, tenants in
 			name = "response-" + route + ".json"
 		}
 		var reply provider.Reply
-		if err := readLoadJSON(dir, name, &reply); err != nil || reply.Status != 200 || len(reply.Script) == 0 {
+		if err := readLoadJSON(files, name, &reply); err != nil || reply.Status != 200 || len(reply.Script) == 0 {
 			return fmt.Errorf("MiniMax load response script missing: %s (status=%d bytes=%d errorType=%T)", name, reply.Status, len(reply.Script), err)
 		}
 		size := int64(len(reply.Script))
@@ -159,8 +158,8 @@ func miniMaxLoadProblem(b Bundle, id, dir, host, route string, phase, tenants in
 	if r.Headroom["MaxOutputBytes"].Design != largestResponse {
 		return fmt.Errorf("MiniMax load measured output capacity inconsistent")
 	}
-	results, err := filepath.Glob(filepath.Join(dir, "*-result.json"))
-	if err != nil || len(results) != 3*tenants {
+	results := files.matches("*-result.json")
+	if len(results) != 3*tenants {
 		return fmt.Errorf("MiniMax load result inventory changed")
 	}
 	return nil
@@ -241,7 +240,7 @@ func miniMaxLoadRequest(raw []byte, binding string) error {
 	return nil
 }
 
-func miniMaxLoadResult(dir, host, route, tenant, binding string) error {
+func miniMaxLoadResult(files verifiedCase, host, route, tenant, binding string) error {
 	id := "mm05-load-" + host + "-" + route + "-old-" + binding + "-" + tenant
 	if binding == "minimax-"+route {
 		id = "mm05-load-" + host + route + tenant
@@ -260,7 +259,7 @@ func miniMaxLoadResult(dir, host, route, tenant, binding string) error {
 	}
 	var meta ai.CallMetadata
 	var callError string
-	if readLoadJSON(dir, id+"-result.json", &result) != nil || readLoadJSON(dir, id+"-metadata.json", &meta) != nil || readLoadJSON(dir, id+"-error.json", &callError) != nil || callError != "" || !reflect.DeepEqual(meta, result.Metadata) || meta.RequestID != id || meta.TenantID != tenant || meta.BindingID != binding || len(meta.Attempts) != 1 || meta.Attempts[0].AttemptID != id+"#1" || meta.Attempts[0].HTTPStatus != 200 || meta.Attempts[0].Code != "" || meta.Attempts[0].RetryDelay != 0 {
+	if readLoadJSON(files, id+"-result.json", &result) != nil || readLoadJSON(files, id+"-metadata.json", &meta) != nil || readLoadJSON(files, id+"-error.json", &callError) != nil || callError != "" || !reflect.DeepEqual(meta, result.Metadata) || meta.RequestID != id || meta.TenantID != tenant || meta.BindingID != binding || len(meta.Attempts) != 1 || meta.Attempts[0].AttemptID != id+"#1" || meta.Attempts[0].HTTPStatus != 200 || meta.Attempts[0].Code != "" || meta.Attempts[0].RetryDelay != 0 {
 		return fmt.Errorf("MiniMax load own result/attempt/attribution missing")
 	}
 	model := "same-model"
@@ -305,7 +304,7 @@ func miniMaxLoadResult(dir, host, route, tenant, binding string) error {
 		return fmt.Errorf("MiniMax load complete classifier results missing")
 	}
 	var obs []ai.Observation
-	if readLoadJSON(dir, "observations-"+id+".json", &obs) != nil || len(obs) != 4 {
+	if readLoadJSON(files, "observations-"+id+".json", &obs) != nil || len(obs) != 4 {
 		return fmt.Errorf("MiniMax load Observer evidence missing")
 	}
 	kinds := map[ai.ObservationKind]int{}

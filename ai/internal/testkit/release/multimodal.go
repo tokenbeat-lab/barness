@@ -20,11 +20,11 @@ func MultimodalImageEvidence(b Bundle) []EvidenceCheck {
 	for _, entry := range []string{"plain", "hooked"} {
 		e := EvidenceCheck{Name: "multimodal-images-" + entry, Bundle: b.Dir, Status: NotRun, Detail: "required public-entry mixed image load missing"}
 		id := "UC09-design-load-" + entry
-		if dir := b.caseDirs[id]; dir != "" {
+		if files := b.caseFiles[id]; files.bundle != nil {
 			e.Status = Fail
 			if len(b.Problems) != 0 || !loadCasePassed(b, id) {
 				e.Detail = "mixed image case failed or artifact inventory invalid"
-			} else if err := verifyMultimodalLoad(dir, id, entry); err != nil {
+			} else if err := verifyMultimodalLoad(files, id, entry); err != nil {
 				e.Detail = err.Error()
 			} else {
 				e.Status, e.Detail = Pass, "four simultaneous calls, two tenants and protocols; 64 MiB memory ceiling, <=75% limit use, both final results/usage/Observer and zero resources; controlled HTTP only"
@@ -35,14 +35,14 @@ func MultimodalImageEvidence(b Bundle) []EvidenceCheck {
 	return out
 }
 
-func verifyMultimodalLoad(dir, id, entry string) error {
+func verifyMultimodalLoad(files verifiedCase, id, entry string) error {
 	bad := func(file string) error { return fmt.Errorf("%s: mixed image contract missing or inconsistent", file) }
 	var assertions struct {
 		ID         string `json:"case_id"`
 		Status     string
 		Assertions []struct{ Pass bool }
 	}
-	if readLoadJSON(dir, "assertions.json", &assertions) != nil || assertions.ID != id || assertions.Status != "PASS" || len(assertions.Assertions) == 0 {
+	if readLoadJSON(files, "assertions.json", &assertions) != nil || assertions.ID != id || assertions.Status != "PASS" || len(assertions.Assertions) == 0 {
 		return bad("assertions.json")
 	}
 	for _, a := range assertions.Assertions {
@@ -58,7 +58,7 @@ func verifyMultimodalLoad(dir, id, entry string) error {
 		Heap                                                                                                  struct{ BaselineLive, PeakLive uint64 }
 		Headroom                                                                                              map[string]loadLimit
 	}
-	if readLoadJSON(dir, "load.json", &load) != nil || load.Calls != 4 || load.Tenants != 2 || load.Protocols != 2 || load.SourceImagesPerCall != 2 || load.JevOccurrences != 6 || load.DecisionsOccurrences != 3 || load.HeldBodiesAtEOF != 4 || load.MemoryCeiling != 64<<20 || load.TotalAllocAtEOF == 0 || load.TotalAlloc < load.TotalAllocAtEOF || load.TotalAlloc >= load.MemoryCeiling || load.HTTPBytesAtEOF <= 0 || load.RealService != "NOT_RUN" || load.Heap.PeakLive < load.Heap.BaselineLive || load.Heap.PeakLive-load.Heap.BaselineLive >= load.MemoryCeiling || len(load.Headroom) != 7 {
+	if readLoadJSON(files, "load.json", &load) != nil || load.Calls != 4 || load.Tenants != 2 || load.Protocols != 2 || load.SourceImagesPerCall != 2 || load.JevOccurrences != 6 || load.DecisionsOccurrences != 3 || load.HeldBodiesAtEOF != 4 || load.MemoryCeiling != 64<<20 || load.TotalAllocAtEOF == 0 || load.TotalAlloc < load.TotalAllocAtEOF || load.TotalAlloc >= load.MemoryCeiling || load.HTTPBytesAtEOF <= 0 || load.RealService != "NOT_RUN" || load.Heap.PeakLive < load.Heap.BaselineLive || load.Heap.PeakLive-load.Heap.BaselineLive >= load.MemoryCeiling || len(load.Headroom) != 7 {
 		return bad("load.json")
 	}
 	for key, h := range load.Headroom {
@@ -76,14 +76,14 @@ func verifyMultimodalLoad(dir, id, entry string) error {
 		return bad("load.json")
 	}
 	var resources map[string]*int64
-	if readLoadJSON(dir, "resources.json", &resources) != nil || !loadResourcesReleased(resources) {
+	if readLoadJSON(files, "resources.json", &resources) != nil || !loadResourcesReleased(resources) {
 		return bad("resources.json")
 	}
 	var config struct {
 		Catalog ai.Catalog
 		Policy  ai.ResourcePolicy
 	}
-	if readLoadJSON(dir, "config.json", &config) != nil {
+	if readLoadJSON(files, "config.json", &config) != nil {
 		return bad("config.json")
 	}
 	p := config.Policy
@@ -95,7 +95,7 @@ func verifyMultimodalLoad(dir, id, entry string) error {
 		return bad("config.json")
 	}
 	var captures []provider.Request
-	if readLoadJSON(dir, "requests.json", &captures) != nil || len(captures) != 4 {
+	if readLoadJSON(files, "requests.json", &captures) != nil || len(captures) != 4 {
 		return bad("requests.json")
 	}
 	seen := map[string]bool{}
@@ -118,14 +118,14 @@ func verifyMultimodalLoad(dir, id, entry string) error {
 			return bad("load.json request bytes")
 		}
 		call := "req-load-" + parts[1] + parts[2] + entry
-		if err := verifyMultimodalResult(dir, call, parts[1], parts[2], hash, jev, c); err != nil {
+		if err := verifyMultimodalResult(files, call, parts[1], parts[2], hash, jev, c); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func verifyMultimodalResult(dir, call, tenant, binding, hash string, jev bool, capture provider.Request) error {
+func verifyMultimodalResult(files verifiedCase, call, tenant, binding, hash string, jev bool, capture provider.Request) error {
 	bad := fmt.Errorf("mixed image input/result/Attempt/Observer reconciliation failed")
 	var input ai.ClassifierRequest
 	var result struct {
@@ -135,7 +135,7 @@ func verifyMultimodalResult(dir, call, tenant, binding, hash string, jev bool, c
 		StopReason  ai.StopReason
 		Metadata    ai.CallMetadata
 	}
-	if readLoadJSON(dir, call+"-input.json", &input) != nil || readLoadJSON(dir, call+"-result.json", &result) != nil || len(input.Images) != 2 || len(result.Answers) != len(input.Questions) || result.StopReason != ai.StopReasonStop || result.Usage.Input <= 0 || result.Usage.Cost.Total <= 0 {
+	if readLoadJSON(files, call+"-input.json", &input) != nil || readLoadJSON(files, call+"-result.json", &result) != nil || len(input.Images) != 2 || len(result.Answers) != len(input.Questions) || result.StopReason != ai.StopReasonStop || result.Usage.Input <= 0 || result.Usage.Cost.Total <= 0 {
 		return bad
 	}
 	model, api, providerID, count := "host-decisions", ai.APIOpenAIDecisions, ai.ProviderOpenAI, 3
@@ -154,8 +154,8 @@ func verifyMultimodalResult(dir, call, tenant, binding, hash string, jev bool, c
 			return bad
 		}
 	}
-	if err := verifyRevocationObservations(dir, call, revocationResult{result.Usage, result.StopReason, m}, ""); err != nil {
+	if err := verifyRevocationObservations(files, call, revocationResult{result.Usage, result.StopReason, m}, ""); err != nil {
 		return err
 	}
-	return verifyMultimodalCapture(dir, call, tenant, binding, capture, result.Answers, result.Usage)
+	return verifyMultimodalCapture(files, call, tenant, binding, capture, result.Answers, result.Usage)
 }

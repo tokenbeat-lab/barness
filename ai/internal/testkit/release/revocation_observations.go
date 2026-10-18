@@ -8,10 +8,10 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
-func verifyRevocationObservations(dir, id string, r revocationResult, phase ai.Phase) error {
+func verifyRevocationObservations(files verifiedCase, id string, r revocationResult, phase ai.Phase) error {
 	file := "observations-" + id + ".json"
 	var records []ai.Observation
-	if err := readRevocationArtifact(dir, file, &records); err != nil {
+	if err := readRevocationArtifact(files, file, &records); err != nil {
 		return err
 	}
 	fail := func() error {
@@ -47,11 +47,11 @@ func verifyRevocationObservations(dir, id string, r revocationResult, phase ai.P
 	return nil
 }
 
-func verifyRevocationCaptures(dir, mode string) error {
+func verifyRevocationCaptures(files verifiedCase, mode string) error {
 	// Reuse the captured wire artifact schema, then independently validate it;
 	// neither the manifest's PASS nor the runtime assertion text proves this.
 	var requests []provider.Request
-	if err := readRevocationArtifact(dir, "requests.json", &requests); err != nil {
+	if err := readRevocationArtifact(files, "requests.json", &requests); err != nil {
 		return err
 	}
 	expected := 11

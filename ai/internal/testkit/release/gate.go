@@ -75,12 +75,12 @@ type DiffCase struct {
 
 // Bundle is an offline evidence bundle.
 type Bundle struct {
-	Dir      string     `json:"dir"`
-	Commit   string     `json:"commit"`
-	Cases    []Case     `json:"-"`
-	Diffs    []DiffCase `json:"-"`
-	caseDirs map[string]string
-	Problems []string `json:"problems,omitempty"`
+	Dir       string     `json:"dir"`
+	Commit    string     `json:"commit"`
+	Cases     []Case     `json:"-"`
+	Diffs     []DiffCase `json:"-"`
+	caseFiles map[string]verifiedCase
+	Problems  []string `json:"problems,omitempty"`
 }
 
 // Command is one gate command's result.

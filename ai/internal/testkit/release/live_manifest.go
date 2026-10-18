@@ -2,7 +2,6 @@ package release
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 	"time"
@@ -43,6 +42,11 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 	if m.Package != packageArgs || m.Commit != r.GitCommit || m.Started.IsZero() || m.Finished.Before(r.FinishedAt) || m.Started.Before(r.StartedAt) || m.Started.After(r.FinishedAt) || m.Versions["live_combo"] != r.Combo || m.Versions["live_sdk"] != r.SDK || m.Versions["model_catalog_version"] != r.CatalogVersion || m.Versions["model_catalog_hash"] != r.CatalogHash {
 		return fmt.Errorf("live manifest provenance disagrees with report")
 	}
+	source, root, err := openArtifactBundle(dir)
+	if err != nil {
+		return err
+	}
+	defer root.Close()
 	for _, s := range r.Scenarios {
 		matches := 0
 		for _, c := range m.Cases {
@@ -53,23 +57,28 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 			if c.Dir != c.ID || filepath.Base(c.Dir) != c.Dir || c.Status != string(s.Outcome) {
 				return fmt.Errorf("live case identity/outcome disagrees with report")
 			}
-			if err := verifyArtifactInventory(filepath.Join(dir, c.Dir), c.Artifacts); err != nil {
+			child, err := openInventoryCase(root, c.Dir)
+			if err != nil {
 				return err
 			}
+			err = verifyCaseArtifactInventory(child, c.Artifacts)
+			child.Close()
+			if err != nil {
+				return err
+			}
+			files := verifiedCase{bundle: source, dir: c.Dir, artifacts: c.Artifacts, verified: true}
 			if s.Attempts > 0 {
 				patterns := []string{"attempt-*-exchanges.json", "attempt-*-result.json", "observations-*.json"}
 				if r.Combo == "openai-decisions" {
 					patterns = []string{"exchanges.json", "result.json", "observations.json"}
 				}
 				for _, pattern := range patterns {
-					files, err := filepath.Glob(filepath.Join(dir, c.Dir, pattern))
-					if err != nil || len(files) == 0 {
+					if len(files.matches(pattern)) == 0 {
 						return fmt.Errorf("live capture, consumption or Observer missing")
 					}
 				}
 				if r.Operation == "image" && s.Outcome == supportmatrix.Pass {
-					files, err := filepath.Glob(filepath.Join(dir, c.Dir, "attempt-*-image-check.json"))
-					if err != nil || len(files) == 0 {
+					if len(files.matches("attempt-*-image-check.json")) == 0 {
 						return fmt.Errorf("live raster verification missing")
 					}
 				}
@@ -79,7 +88,7 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 				Status     string
 				Assertions []struct{ Pass bool }
 			}
-			if err := readJSON(filepath.Join(dir, c.Dir, "assertions.json"), &assertions); err != nil {
+			if err := files.json("assertions.json", maxInventoryFile, &assertions); err != nil {
 				return err
 			}
 			if assertions.ID != c.ID || assertions.Status != c.Status || (s.Outcome == supportmatrix.Pass && len(assertions.Assertions) == 0) {
@@ -94,7 +103,7 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 				if filepath.Base(name) != name {
 					return fmt.Errorf("invalid live fixture path")
 				}
-				raw, err := os.ReadFile(filepath.Join(dir, c.Dir, name))
+				raw, err := files.read(name, maxInventoryFile)
 				if err != nil || pioracle.SHA256(raw) != hash {
 					return fmt.Errorf("live fixture missing or changed")
 				}

@@ -41,8 +41,8 @@ func LoadBundle(dir string) (Bundle, error) {
 	if m.Package != OfflinePackage {
 		return Bundle{}, fmt.Errorf("release: %s is a bundle of %q, not the offline E2E (%s)", dir, m.Package, OfflinePackage)
 	}
-	b := Bundle{Dir: dir, Commit: m.GitCommit, caseDirs: map[string]string{}}
-	root, err := os.OpenRoot(dir)
+	b := Bundle{Dir: dir, Commit: m.GitCommit, caseFiles: map[string]verifiedCase{}}
+	source, root, err := openArtifactBundle(dir)
 	if err != nil {
 		return Bundle{}, fmt.Errorf("release: cannot open evidence bundle")
 	}
@@ -58,11 +58,10 @@ func LoadBundle(dir string) (Bundle, error) {
 		// leaf. Only that single trailing separator may differ from its physical
 		// directory; never clean an otherwise unsafe path into an accepted one.
 		physical := strings.TrimSuffix(c.Dir, "/")
-		if c.ID == "" || !canonicalArtifactPath(physical) || b.caseDirs[c.ID] != "" || seenDirs[physical] {
+		if c.ID == "" || !canonicalArtifactPath(physical) || b.caseFiles[c.ID].bundle != nil || seenDirs[physical] {
 			return Bundle{}, fmt.Errorf("release: invalid or duplicate evidence case directory")
 		}
 		seenDirs[physical] = true
-		b.caseDirs[c.ID] = filepath.Join(dir, physical)
 		caseRoot, inventoryErr := openInventoryCase(root, physical)
 		if inventoryErr != nil && !errors.Is(inventoryErr, fs.ErrNotExist) {
 			return Bundle{}, fmt.Errorf("release: unsafe evidence case directory")
@@ -74,6 +73,8 @@ func LoadBundle(dir string) (Bundle, error) {
 		if inventoryErr != nil {
 			b.Problems = append(b.Problems, inventoryErr.Error())
 		}
+		files := verifiedCase{bundle: source, dir: physical, artifacts: c.Artifacts, verified: inventoryErr == nil}
+		b.caseFiles[c.ID] = files
 		b.Cases = append(b.Cases, Case{ID: c.ID, Status: c.Status})
 		if kindOf(c.ID) != kindDifferential || c.Status == NotRun {
 			continue
@@ -83,16 +84,15 @@ func LoadBundle(dir string) (Bundle, error) {
 			continue // do not consume a verdict from an unverified artifact tree
 		}
 		var v map[string]json.RawMessage
-		path := filepath.Join(dir, c.Dir, "pidiff.json")
-		if _, err := os.Stat(path); err != nil {
+		if c.Artifacts["pidiff.json"] == "" {
 			continue // the gate reports the missing verdict
 		}
-		if err := readJSON(path, &v); err != nil {
+		if err := files.json("pidiff.json", maxInventoryFile, &v); err != nil {
 			return Bundle{}, err
 		}
 		var pending *int
 		if err := json.Unmarshal(v["pending"], &pending); err != nil || pending == nil {
-			return Bundle{}, fmt.Errorf("release: %s has no pending count", path)
+			return Bundle{}, fmt.Errorf("release: differential artifact has no pending count")
 		}
 		d := DiffCase{ID: c.ID, Status: c.Status, Pending: *pending}
 		for _, field := range diffRecordFields {
@@ -102,7 +102,7 @@ func LoadBundle(dir string) (Bundle, error) {
 		}
 		d.Missing = append(d.Missing, differentialRecordProblems(c.ID, v)...)
 		if strings.HasPrefix(c.ID, "PIDIFF-P10-") {
-			d.Missing = append(d.Missing, decisionsCaptureProblems(filepath.Join(dir, c.Dir), v)...)
+			d.Missing = append(d.Missing, decisionsCaptureProblems(files, v)...)
 		}
 		b.Diffs = append(b.Diffs, d)
 	}
