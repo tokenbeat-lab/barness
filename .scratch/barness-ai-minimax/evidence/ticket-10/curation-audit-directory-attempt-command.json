@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "curated-evidence-audit",
+  "argv": [
+    "go",
+    "run",
+    "./ai/internal/testkit/audit/cmd/auditbundle",
+    "$REPO/.scratch/barness-ai-minimax/evidence/ticket-10"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 120,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T00:41:23.450151+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.29274216713383794,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}
