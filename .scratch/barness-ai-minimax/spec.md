@@ -1,10 +1,12 @@
 # barness-ai 接入 MiniMax：Responses、Chat Completions 与 Messages
 
-Status: ready-for-agent
+Status: claimed
 Type: feature
 Updated: 2026-10-18
 
-本文件是待实施的交付契约，不表示 MiniMax 已接入或真实冒烟已通过。依据为 [MiniMax 三种兼容协议研究](research.md)；研究中的官方声明、文档冲突与待实测项分别保留，不将其他厂商的兼容行为当作 MiniMax 事实。本次仅制定 spec，不读取真实凭据或执行收费请求。
+本文件是交付契约，本身不表示 MiniMax 接入或真实冒烟已通过。依据为 [MiniMax 三种兼容协议研究](research.md)；研究中的官方声明、文档冲突与待实测项分别保留，不将其他厂商的兼容行为当作 MiniMax 事实。原始规格制定阶段未读取真实凭据或执行收费请求；后续实施状态另行记录。
+
+当前交付为PARTIAL，见[交付状态](delivery-status.md)。三协议实现和离线约束已经验证；实际M3研究遇到认证失败，正式三身份、旧证据续期及完整门禁仍未完成。本spec与10/09保持未关闭，以下验收范围、预算与证据规则继续有效。
 
 领域与架构依据：[领域词汇](../../GLOSSARY.md)、[协议边界 ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[DeepSeek Responses ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[DeepSeek Chat ADR-0015](../../docs/adr/0015-barness-ai-deepseek-chat-completions.md)、[型号纳入 ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[Provider 自动字段 ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[GLM 接入 spec](../barness-ai-glm/spec.md)、[GLM 正式支持 ADR-0036](../../docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)。
 

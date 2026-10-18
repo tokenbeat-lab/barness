@@ -1,5 +1,7 @@
 # Ticket 09 — evidence curation checkpoint
 
+当前整体交付为[PARTIAL](../../delivery-status.md)。下列追溯表保留其原始历史来源；最新验证与剩余义务由交付状态和ticket10证据分别记录。
+
 Final acceptance is **BLOCKED by ticket10**. This checkpoint curates documents
 and existing observations; it does not execute vendor calls, change runtime
 sources, or close ticket09, ticket10 or the spec. Integration base is
@@ -73,15 +75,19 @@ The [independent authentication-failure audit](actual-auth-failure-review.md)
 passes twenty checks for accounting and retention, while model support remains
 FAIL/incomplete. The [capsule pointer](actual-auth-failure-pointer.json) pins
 ticket10's 197,572-byte, 58-file portable archive. Ticket10 owns its tracked
-archive; this checkpoint does not duplicate it. After ticket10 merges, its
-`evidence/ticket-10/README.md` is the portable capture entry point. The failed
+archive; this checkpoint does not duplicate it. The
+[ticket10 evidence guide](../ticket-10/README.md) is the portable capture entry point. The failed
 capture retains commit `9481a6a`; subsequent harness corrections do not refresh
 its source applicability or convert it to successful evidence.
 
 The first whole ordinary run was interrupted at the root agent's request for
-a known harness correction, after 536.7 seconds with exit -15. It has no PASS
-conclusion. Fresh ordinary/race execution and the correction's source review
-remain separate requirements.
+a known harness correction, after 536.7 seconds with exit -15. Its test body
+had finished with 12,304 PASS / 52 FAIL; it has no whole-suite PASS conclusion.
+The [read-only timing investigation](whole-ordinary-timing-investigation.md)
+and [original-note provenance](whole-ordinary-timing-provenance.json) preserve
+that diagnosis. Later targeted repairs, MiniMax-only complete runs and an
+independent derived audit are separate observations documented in the current
+delivery status; they do not rewrite the original exit status or failures.
 
 Required work before closing ticket09 includes three own M3 candidate reports,
 data-only formal activation, three own M3 formal reports, fourteen renewed

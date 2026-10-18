@@ -4,6 +4,8 @@ Status: claimed
 Integration branch: `codex/minimax-cn`
 Base: `ecfd4b4`
 
+[当前交付：PARTIAL](delivery-status.md)。10、09和spec保持未关闭；自身离线验证通过不替代实际正式报告与完整门禁。
+
 ## Notes
 
 2026-10-18 用户调用 implement-spec；原目录只有规格与研究，本次按本地 tracker 补齐任务图。测试接缝由 spec T01 明确确认，不再重复确认。采用独立 worktree 和实现/合并 subagent。
@@ -52,4 +54,4 @@ Base: `ecfd4b4`
 ## Fog
 
 - 三协议真实推理续接形状与正式支持，按 R25–R27、票10独立验收。用户已确认 MINIMAX_KEY 中国区标准按量；实际M3 Chat研究的两次调用、两次Attempt均返回HTTP401认证失败，研究为FAIL/incomplete，依赖工具续接为NOT_RUN。其余M3实际验收等待该已授权凭据修复，不能用受控或重放报告替代。M3.1未获M Plan资格，三个线上候选保持NOT_RUN。
-- 官方价格、汇率与schema已复核；正式价格目录与证据仍待票10生成。09的最终普通/race/压力/差分、旧十四身份和四业务效果更新、门禁及最终双轴审查尚未完成。
+- 官方价格、汇率与schema已复核；正式价格目录与证据仍待票10生成。MiniMax自身完整普通/race离线验证（含压力/pi/完整回滚）已通过；46个本地可修复旧case已定向重验通过。原完整ordinary记录为12304 PASS/52 FAIL且进程中断，六个GLM当前来源适用性检查仍需实际续期。旧十四身份和四业务效果更新、完整发布门禁与最终交付判定尚未完成，不能以局部通过推断整体PASS。
