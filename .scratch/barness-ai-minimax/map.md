@@ -13,7 +13,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-历史任务图01 → {02,03,04} → {05,06,07}、06→08已完成；用户新增继续验证及区域路由指令后，当时frontier为13 → 10 → 09（11已完成国际站实现/离线范围），10同时保留05/06/07依赖。13单独冻结本轮有限合同，旧票12消费不转移；09汇合最终判定。
+当前01–08、11、13、14、16均按各票范围resolved；票17在本轮离线修复/审查留存范围闭合。票15固定六项已批准且全部执行结束，因Messages失败、严格来源与发布认证缺口保持ready-for-human；票12亦保留ready-for-human。当前阻断链为15（实际验收缺口）→10→09，spec保持claimed/PARTIAL，没有待自动执行的付费frontier。
 
 - [01 Provider 身份、六个候选型号与思考元数据](issues/01-provider-model-contract.md)；Blocked by: None。
 - [02 MiniMax Chat 文本、推理、工具历史与边界](issues/02-chat-protocol.md)；Blocked by: 01。
@@ -60,6 +60,8 @@ Base: `ecfd4b4`
 
 - 11 resolved（国际站实现/离线范围）：ProviderMiniMax/minimax、.io三端点、直接USD快照、冻结MINIMAX_MODELS、精确目标证明与共享预算槽完成；[Answer](issues/11-international-target.md#answer)、[当前国际站证据](evidence/ticket-11/README.md)。源码e9731a4普通/race各1314 PASS、live-tag race66 PASS、两种vet与无Key检查通过，双轴源码审查0发现；原CN2/2与全部历史完整保留。10继续真实国际站候选/正式报告与旧证据续期，09继续完整门禁及最终审查。
 
+- 17 resolved（离线源码、文档与证据留存范围）：[Answer](issues/17-final-payload-review-gaps.md#answer)和[最终审查](evidence/ticket-09/final-closure/README.md)闭合最终payload/文档及留存工具问题；完整验收、真实失败和严格当前来源缺口不随本票关闭。
+
 ## Fog
 
 - 国际站38b7098三路研究已证明认证与实际M3；Messages三场景通过，Chat等值双推理镜像误拒、Responses本地native编码失败已由10作离线收敛，完整普通/race各1340 PASS、双轴0发现；后续目录预验循环及业务配置边界已修复，来源7605332三路完整实际候选各13/12通过并完成数据目录激活；正式三报告、GLM/旧证据续期和最终门禁继续由10/09完成。原始148文件归档/2个失败状态保留；完整候选/正式仍须R25–R27自身验收。M3.1没有M Plan资格与价格确认，线上三候选保持NOT_RUN，离线仍必交。
@@ -70,7 +72,7 @@ Base: `ecfd4b4`
 
 - [12 GLM捕获修正与唯一补正轮次](issues/12-glm-corrective-1.md)：离线实现、普通/race、双vet、两轴审查及M3源保持均完成；[证据](evidence/ticket-12/README.md)。额外72/96已明确批准且唯一R1完成66/66；连原66/66共132/132。Chat/Messages各22/22 PASS，Responses21 PASS/1 FAIL，完整上游SSE缺正文。当前raw/views续期拒绝，旧四selector不变；无R2。见[实际证据](evidence/ticket-12/actual-corrective-1/README.md)。10/09仍开放。其余15项原授权验证已完成168/168（两项DeepSeek PASS、13项FAIL）；3d3a1fb的完整普通/race各12385 PASS/6 FAIL、审计0，CLI随后读取bundle失败且没有发布报告。全部实际进程已关闭，旧能力本次续期累计300/300，17身份矩阵与完整交付仍未通过；消费者修复及其适用范围见交付状态。
 
-## 当前验收收敛（2026-10-18）
+## 历史验收收敛检查点（2026-10-18，六项审批前）
 
 用户新增区域路由验证已执行固定18个付费进程：GLM/DeepSeek直连，国际服务经127.0.0.1:7890。其余15项collection全部PASS，GLM Chat/Messages PASS、Responses19PASS/3FAIL。新增245/245，连此前300/300累计545/545；全部进程关闭，未用额度不转移，不自动另开一轮。Jev自身支持包已派生，17身份默认矩阵原子导入16PASS/1FAIL。
 
@@ -85,3 +87,14 @@ Base: `ecfd4b4`
 - 16 resolved（离线范围）：[Answer](issues/16-glm-host-deadline-alignment.md#answer)记录GLM专属120秒装配、本地91秒RED/GREEN及M3三份263项不变；没有厂商120秒成功证据。
 
 - 15离线实现检查点：09228工具源码与90ec留存已两轴0发现并合入，71工具测试/双vet通过；[证据](evidence/ticket-15/README.md)。ROOT精确计划及六项实际无Key检查仍待执行，新108/132审批未请求，真实六项/最终门禁尚未执行，15、10、09和spec不关闭。
+
+
+## 当前验收收敛：固定六项已关闭
+
+2026-10-18 最新固定六项真实验收已按用户新增108calls/132HTTPAttempts批准完成：中国区GLM直连，国际protocol114及两项视觉经127.0.0.1:7890。Chat、Responses及三项效果collection通过，Messages21PASS/1FAIL，新增102/102，连原545/545累计647/647。该固定合同全部关闭，未用6calls/30Attempts不转移，无自动下一轮或新增付费授权。严格GLM续期和新四报告装配拒绝，原selector与17身份矩阵SHA保持；原矩阵16PASS/1FAIL为旧Responses记录，最新Messages原始失败未导入。
+
+来源7931的首次完整无Key公共CLI及post-guards均已结束：八项输入校验0，双vet/ordinary/race数字退出0/0/1/1，CLI1、报告pass=false。普通/race各12451项（12445PASS/6FAIL/0NOT_RUN），审计0、868真实PIDIFF PASS；29个pressure命名用例通过，其中固定规则选择15项。六项失败为GLM三协议正式导入/已报告用量检查；未采用旧bundle或绕过缺失Messages报告。
+
+最终双轴审查发现的Messages最终payload形状及文档问题已由票17离线补正，源码2306917、文档295728a均复审零发现。44公共用例为42非法输入零Provider/Attempt拒绝、两合法业务JSON原值发送；定向普通/race各1663PASS/8NOT_RUN，同8项mandatory显式开关另各8PASS，双vet0。实际测量为ca67+WIP，1027编译/JSON/mod/sum文件等于2306，不声称提交后重跑。修复后M3/GLM/文本/protocol/视觉全部11组严格来源当前相等性不成立；历史证据保持，generic10按既有受影响规则另行核对不变。旧门禁不认证当前源码。
+
+[17 最终payload及文档补正](issues/17-final-payload-review-gaps.md)只按离线修复与审查留存范围闭合；[15](issues/15-source-scoped-revalidation.md)及[12](issues/12-glm-corrective-1.md)保留ready-for-human验收缺口，10、09和spec保持claimed/PARTIAL。无当前完整发布认证。原始报告、严格适用性与双轴复审见[最终审查入口](evidence/ticket-09/final-closure/README.md)。历史Fog与审批前条目按原检查点保留，不代表当前待审批状态。

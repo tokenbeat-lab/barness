@@ -1,0 +1,252 @@
+{
+  "axis": "Spec",
+  "verdict": "CHANGES_REQUESTED_PROSPECTIVE_CREATOR_BOUND",
+  "baseCommit": "3274ba478ad52c8a0bffa4c4490a846a976cfe30",
+  "reviewedCommit": "eed4579691470c7cb822aeb07b888f308ce2540b",
+  "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff 3274ba478ad52c8a0bffa4c4490a846a976cfe30...eed4579691470c7cb822aeb07b888f308ce2540b",
+  "commitsCommand": "git log 3274ba478ad52c8a0bffa4c4490a846a976cfe30..eed4579691470c7cb822aeb07b888f308ce2540b --oneline",
+  "diffSHA256": "48c8c29ff78c23132ef22bf271afe9ba0f73c901b7dd53c7a74052882eab3b78",
+  "findings": [
+    {
+      "id": "B-GATE-RETENTION-SPEC-01",
+      "severity": "P2",
+      "category": "RETENTION_PRODUCER_OUTPUT_READ_BOUND",
+      "file": ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/freeze.py",
+      "line": 54,
+      "also": [
+        {
+          "file": ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/freeze.py",
+          "line": 48
+        }
+      ],
+      "spec": {
+        "file": ".scratch/barness-ai-minimax/spec.md",
+        "line": 353,
+        "decision": "T04",
+        "quote": "大负载按既有方式保存生成参数/长度/Hash，不复制无界正文"
+      },
+      "relatedRequirement": {
+        "file": ".scratch/barness-ai-minimax/spec.md",
+        "line": 270,
+        "decision": "R23",
+        "quote": "全部路径经过现有 Admission、并发/等待、请求/响应头/调用时限、输入/输出/帧/工具 JSON/事件队列限制"
+      },
+      "finding": "After separate pathname stat checks, both producers reopen the final compressed output using archive.read_bytes(), without same-FD size/regular validation or a cumulative read cap. That read can consume unbounded replacement/growth despite the declared creation caps. Original actual archive integrity independently verifies.",
+      "requestedChange": "Failure-first public creator boundary probes followed by same-FD no-follow regular/exact-size fstat and chunked cumulative-cap hashing; retain original actual creators/archives/native report/this review unchanged. No runtime, paid or source-qualification change.",
+      "reviewerValidation": "Static exact Git eed source only; reviewer performed no attack probe, project/captured program execution or mutation."
+    }
+  ],
+  "actualCustodyVerified": true,
+  "report": "Spec retention review: CHANGES REQUESTED for one P2 producer boundary; the original failed gate custody independently verifies.\n\nP2 — race/freeze.py:54 and verdict/freeze.py:48. T04:353 requires “大负载按既有方式保存生成参数/长度/Hash，不复制无界正文”; R23:270 preserves input/output limits. Both producers stat the completed archive, later reopen it with archive.read_bytes() to hash its entire contents, and do not bind that read to the validated FD or enforce a cumulative read cap. Replacement/growth between those steps bypasses the stated creation envelope. Use one no-follow regular FD, exact expected-size fstat and chunked capped hashing. Preserve original creator bytes, archives and this report; review the prospective repair separately. This is a concrete static resource boundary, not evidence that the original archives changed.\n\nReviewed immutable3274ba4…eed4579,37 retention files. Bounded standard-library streaming independently verified all133177 race and64 outer regular members/inventory hashes, payload1304291193/40387698 bytes and archive SHA d4d61315…/28a657eb…. Original compressed sizes114046383/13522586 and fixed full-reader limits remain unchanged. All1056 selected source files match Git7931. Previous full ordinary proof is reused only after checking its archive/index/inventory/source/summary pins and exact cross-receipts.\n\nEach suite retains12451 cases:12445PASS/6FAIL/0NOT_RUN, audit0,98710 artifact references,868 true PIDIFF and29 named pressure PASS, including the fixed15 required IDs. Six GLM12 source/import/known-usage failures and full147627-byte stdout remain intact. Numeric commands are0/0/1/1; all8 format-verifier receipts are0; compiled public CLI exits1 with consistent reportfalse. STARTING/completed/reviews/build/helper/observer/17-directory plan and preapproval refusals agree across capsules. Public verification and eight negative results per new frontdoor were inspected as records only.\n\nRaw Messages cancelFAIL120001ms and absent own live-report remain distinct from the old matrix ResponsesFAIL. Strict publication/four-row assembly stay refused, matrix7fbe72… unchanged, no rows imported or certificate issued. Fixed-six102/102 plus immutable545/545 remains647/647; retention adds no paid calls or authorization. No ticket17 applicability upgrade, mandatory-acceptance closure, test/project/captured-code execution, Key/network access or repository mutation occurred.",
+  "reportBodyWords": 276,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/README.md": {
+      "bytes": 2898,
+      "sha256": "f5e2b7d360e2526e879f0b58dc1225cf49a7d5a2de8597996ad512ab0f1dd075"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/README.md": {
+      "bytes": 2859,
+      "sha256": "b10697147ad7b266d204acbd9f6f15082dafe97819e998e4a21a777e4fe50ead"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/SHA256SUMS": {
+      "bytes": 1407,
+      "sha256": "dc42cd1b6175c04eb384fae16063a6c95cb1785b570f6da92951c158946dd00c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/check-boundaries.py": {
+      "bytes": 3207,
+      "sha256": "47eac8ebf4b3d512c243112c997ae2a3043631bebf97fe1fa309a2b52930e185"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/failure-inventory.md": {
+      "bytes": 1070,
+      "sha256": "7bc349c85677ba1de2d28994e98772a2b32e99ce3422ee3c293c56b31224363b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/freeze.py": {
+      "bytes": 5695,
+      "sha256": "5420a822977d2ed6ec355bf99a5ab24ec071c6d73482f7005a13b4de850d934c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/index.json": {
+      "bytes": 1992,
+      "sha256": "e699eeef8c2cb64aea0a3add11864bf1e39e298890a89577dc9290376d8bba47"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/inventory.json.gz": {
+      "bytes": 4405574,
+      "sha256": "5969b068b7f83425486aaf10aad39babfa7553a5273000c79d0ed870c0172d7f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/readers.py": {
+      "bytes": 949,
+      "sha256": "b3bec7f74b5378096bb735b0d515ffd1d64bc0063ffd2506d609de6f9e30dd4a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/source-at-start.json.gz": {
+      "bytes": 49298,
+      "sha256": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/summary.json": {
+      "bytes": 6368,
+      "sha256": "94336f35441e0a049dee2433cb93b984ad941089c7c60ba94f89336f7d4959a6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/all8-public-negatives.json.gz": {
+      "bytes": 362,
+      "sha256": "aa238705e27969fffe5161a74336ca3d833f6cac57d94945edb8fd6bbcccd7af"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/exclusive-freeze.log.gz": {
+      "bytes": 281,
+      "sha256": "e2e13c0df413615b75f36da78b76fc3e624946be9069a2dafce786bf61adfe33"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/final-public-verifier.json.gz": {
+      "bytes": 392,
+      "sha256": "e9a41d4a636f4921c439e96de55408520b42ec0e79678016515ffa0da3c3dc4e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/initial-entrypoint-red.log.gz": {
+      "bytes": 238,
+      "sha256": "7b8e852d1120d70a9359cba9af198b67a346d12cd92527ea674ee3803e629893"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/initial-missing-compressed-pin-refusal.log.gz": {
+      "bytes": 20,
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/raw-log-index.json": {
+      "bytes": 1463,
+      "sha256": "4e616d7d53774efb6dc658159df6fd4df7404a5c01fc6c755b2f4efe89d1bbdc"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/verify.py": {
+      "bytes": 5094,
+      "sha256": "24698beea29fce131a26a4c8ab6fa308709f185611210065744cf1f014feae4a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/README.md": {
+      "bytes": 4511,
+      "sha256": "d0a276f20042b95d254b2b1b9cca15b4d5863659b083a859ece8a6ecfb2e0c8d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/SHA256SUMS": {
+      "bytes": 1581,
+      "sha256": "603fa9ffddadbd27cb231186ae8ed07603d14a0a68f701c3ccf755888d713e1e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/actual-creator-index.json": {
+      "bytes": 565,
+      "sha256": "80ae4a129609f137791a0900895aded4a4106b80f1cb9de1edab9cb4d3ee35dd"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/check-boundaries.py": {
+      "bytes": 3476,
+      "sha256": "f2819de4eaac0818ad702ff261bd8683eea1c32d8c1ccb24db493633520cedbd"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/failure-inventory.md": {
+      "bytes": 1359,
+      "sha256": "6d68f24c9dcf10771ecd259ec417f5febe1f1738c2ac5f1d4b346e83bc00088e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/freeze.py": {
+      "bytes": 4718,
+      "sha256": "f187278997fec91ca1fae65bb2165a4d5d4858e8a3362f656ca0b44a9a8eb90d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/index.json": {
+      "bytes": 4458,
+      "sha256": "1ab52e0a0c9aa23f09024740ea06ff2f4566e23daa5ba791c2a0c9348eb80b4e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/inventory.json.gz": {
+      "bytes": 3283,
+      "sha256": "d4066ae63cba5a32e0ff28d6a5904d0a68206c3060c60f81fb1591fc533e1512"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/race-actual-creator.py.txt": {
+      "bytes": 5695,
+      "sha256": "5420a822977d2ed6ec355bf99a5ab24ec071c6d73482f7005a13b4de850d934c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/readers.py": {
+      "bytes": 949,
+      "sha256": "b3bec7f74b5378096bb735b0d515ffd1d64bc0063ffd2506d609de6f9e30dd4a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/source-at-start.json.gz": {
+      "bytes": 49298,
+      "sha256": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/summary.json": {
+      "bytes": 6506,
+      "sha256": "59457c5a4cdd9dc39a315d9148e07a7b8c056bbc871846e889fc4159a550d0a1"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/all8-public-negatives.json.gz": {
+      "bytes": 364,
+      "sha256": "0853b12cfa541c25ef1be287ac9fd72aede10216d635dcb858f9a8ac8808d09d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/combined-public-verifier.json.gz": {
+      "bytes": 2276,
+      "sha256": "6464e02c2c8d64742ca4ed9c6ad8a01847d4d6d7e621b8d9556a538cae099162"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/exclusive-outer-freeze.log.gz": {
+      "bytes": 223,
+      "sha256": "bd6f54d747120dca6f2a8e82d90333c08a4ed462fcab7d49c3fdd1497271ac30"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/initial-entrypoint-red.log.gz": {
+      "bytes": 240,
+      "sha256": "dff67dc320199227a3a2eddcc298098b4f00308859422d15e5b8232455ebcd15"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/raw-log-index.json": {
+      "bytes": 1064,
+      "sha256": "27a8eb2da0deb5c532961e978c4de98bd76f4b256d2bcd72ddbf8937dadcbd74"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/verdict-actual-creator.py.txt": {
+      "bytes": 4718,
+      "sha256": "f187278997fec91ca1fae65bb2165a4d5d4858e8a3362f656ca0b44a9a8eb90d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/verify.py": {
+      "bytes": 12107,
+      "sha256": "0907fffddaff3bb209ebecdeb9550bad001ce89b1f4aa5273b14853145968d74"
+    }
+  },
+  "capsules": {
+    "race": {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-race-raw.tar.gz",
+      "bytes": 114046383,
+      "sha256": "d4d61315538ee4ae0d276fe54af46b11bdeedc8548be80b567d657f02d6ae473",
+      "prefix": "repair-incomplete-race"
+    },
+    "outer": {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-outer-raw.tar.gz",
+      "bytes": 13522586,
+      "sha256": "28a657eb1aecf02036af15ec47513c9f3100c0e6317e615a63429ff8a78fba3a",
+      "prefix": "repair-incomplete-outer"
+    }
+  },
+  "independentFullProof": {
+    "path": "/tmp/barness-repair-gate-independent-proof.json",
+    "sha256": "5abb1d33f0779fb1975c72f942a6c89725f67b175ca3a3a3daccff45257c5798",
+    "readerSHA256": "5c41678759dd26cb47a8f33fd938ff700be297d52b65f2f2f99ee52c6e068050"
+  },
+  "ordinaryFullProofReused": {
+    "file": "/tmp/barness-repair-ordinary-independent-proof.json",
+    "sha256": "d009abf14015c7fa17a2ee98d8256013a49a7064afff6ecf5e2893fd98689a0d",
+    "unchangedMetadata": [
+      "index.json",
+      "inventory.json.gz",
+      "source-at-start.json.gz",
+      "summary.json"
+    ]
+  },
+  "numericExits": {
+    "vet": 0,
+    "vet-live": 0,
+    "ordinary": 1,
+    "race": 1
+  },
+  "inputVerifierExits": {
+    "verify-text-jev": 0,
+    "verify-text-luna": 0,
+    "verify-visual-jev": 0,
+    "verify-visual-decisions": 0,
+    "verify-current-jev": 0,
+    "verify-minimax-chat": 0,
+    "verify-minimax-responses": 0,
+    "verify-minimax-messages": 0
+  },
+  "releaseCertified": false,
+  "assemblyComplete": false,
+  "newRowsImported": 0,
+  "sourceQualification": "Historical7931 only; no current ticket17 certificate",
+  "scopeConstraints": {
+    "closedWindowConfirmedBeforeArchiveStreams": true,
+    "prospectiveWorkerFixNotReviewed": true,
+    "originalsUnchanged": true,
+    "capturedCodeExecuted": false,
+    "projectVerifierTestsRun": false,
+    "keyRead": false,
+    "network": false,
+    "repositoryMutation": false
+  }
+}

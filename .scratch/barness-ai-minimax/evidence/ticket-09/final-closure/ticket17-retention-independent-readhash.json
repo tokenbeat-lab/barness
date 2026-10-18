@@ -1,0 +1,1879 @@
+{
+  "baseCommit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+  "reviewedCommit": "3274ba478ad52c8a0bffa4c4490a846a976cfe30",
+  "archive": {
+    "file": ".evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+    "bytes": 90847757,
+    "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d",
+    "prefix": "ticket17-offline-tdd"
+  },
+  "inventoryCompressedSHA256": "28602c0447c8840bcf5a89c6b862cad2eaa9f8f1f871c0a55b6e18638c9eca26",
+  "inventoryDecodedSHA256": "8de7163b9526067351c582364f0f5e8b8efe4aeacb7b9ee6a6bb14145388e9e6",
+  "regularMembers": 62996,
+  "physicalHeaders": 106602,
+  "paxHeaders": 43606,
+  "payloadBytes": 594764048,
+  "decodedTarBytes": 689623040,
+  "links": 0,
+  "allMembersHashed": true,
+  "nativeStages": {
+    "red-containers": {
+      "actualExitCode": 1,
+      "seconds": 0.38651108741760254,
+      "statuses": {},
+      "sourceSnapshotSHA256": "f12435fa25fcacb027d0bcc44d28dfaac8c4097d8f5f9586a075277360558f2f"
+    },
+    "red-containers-actual": {
+      "actualExitCode": 1,
+      "seconds": 4.4422008991241455,
+      "statuses": {
+        "FAIL": 5
+      },
+      "sourceSnapshotSHA256": "0aa886bec753210d959fa7fd57a07486f20df9f8ebc70a52db1a39fa4577c72a",
+      "cases": 5
+    },
+    "green-containers": {
+      "actualExitCode": 0,
+      "seconds": 4.547728776931763,
+      "statuses": {
+        "PASS": 5
+      },
+      "sourceSnapshotSHA256": "c9a9760a9b8622ed728d98437e78acc1ce378ac8c0658d3ae5d404fcec7fe7c0",
+      "cases": 5
+    },
+    "red-message-fields": {
+      "actualExitCode": 1,
+      "seconds": 3.7080671787261963,
+      "statuses": {
+        "FAIL": 9
+      },
+      "sourceSnapshotSHA256": "6718aab62e1b7754c082198e49a40c20dbc7a5ca8185bff2648bf312493c62eb",
+      "cases": 9
+    },
+    "green-message-fields": {
+      "actualExitCode": 0,
+      "seconds": 4.359243154525757,
+      "statuses": {
+        "PASS": 14
+      },
+      "sourceSnapshotSHA256": "71f1c87ef677c79610c6e638be3b5610d7c7f459cc059070c953e7a21098c2ee",
+      "cases": 14
+    },
+    "red-block-fields": {
+      "actualExitCode": 1,
+      "seconds": 4.6234049797058105,
+      "statuses": {
+        "FAIL": 14
+      },
+      "sourceSnapshotSHA256": "92e74d7cc0588fe8f82a78e40350b9c2397c3562005e50c492d456da33a02958",
+      "cases": 14
+    },
+    "green-block-fields": {
+      "actualExitCode": 0,
+      "seconds": 5.37230110168457,
+      "statuses": {
+        "PASS": 28
+      },
+      "sourceSnapshotSHA256": "493b53143c1d17effb32863b7cb1693f50ccdc38114b27989bb65c22e227cb2d",
+      "cases": 28
+    },
+    "red-tool-fields": {
+      "actualExitCode": 1,
+      "seconds": 6.2158708572387695,
+      "statuses": {
+        "FAIL": 14
+      },
+      "sourceSnapshotSHA256": "785001f54cc96c63203fb3667c93c30e4b5cc3bf3d5aba7037d8bf554255d208",
+      "cases": 14
+    },
+    "red-tools-with-business-controls": {
+      "actualExitCode": 1,
+      "seconds": 2.919041872024536,
+      "statuses": {
+        "FAIL": 15,
+        "PASS": 1
+      },
+      "sourceSnapshotSHA256": "4981df3edef6ccf55212283f2a5df94ef43f602f2bf123a8c058504d56eee294",
+      "cases": 16
+    },
+    "green-final-shapes": {
+      "actualExitCode": 1,
+      "seconds": 6.159332036972046,
+      "statuses": {
+        "PASS": 29,
+        "FAIL": 15
+      },
+      "sourceSnapshotSHA256": "55ce9fbb571d2ac60cbd924d4ad6dad4b1d4e9e1e61cd2618041ea48bda9398e",
+      "cases": 44
+    },
+    "red-tools-native-containers-actual": {
+      "actualExitCode": 1,
+      "seconds": 4.7106850147247314,
+      "statuses": {
+        "FAIL": 14,
+        "PASS": 2
+      },
+      "sourceSnapshotSHA256": "7a356ae52d05b02ada0724b1f0538ca5d7cdc656f61bb6cd857b316d123d7e24",
+      "cases": 16
+    },
+    "green-final-native-shapes": {
+      "actualExitCode": 0,
+      "seconds": 4.118484020233154,
+      "statuses": {
+        "PASS": 44
+      },
+      "sourceSnapshotSHA256": "cb444ca222a1714a680603debb142697ca0359523f6c3f718329e1b683a8fecc",
+      "cases": 44
+    },
+    "red-expanded-trace-old-constant": {
+      "actualExitCode": 1,
+      "seconds": 5.844702959060669,
+      "statuses": {
+        "FAIL": 2,
+        "PASS": 4
+      },
+      "sourceSnapshotSHA256": "116cb9bc679b885476207b528daccabda4e95f8fbeef6726acaa364a718cc60f",
+      "cases": 6
+    },
+    "green-expanded-trace": {
+      "actualExitCode": 0,
+      "seconds": 6.002680778503418,
+      "statuses": {
+        "PASS": 6
+      },
+      "sourceSnapshotSHA256": "1541c10cdd7374884d0fd7fbbba4de965af053d52e2d85cd5adf68f5e343005e",
+      "cases": 6
+    },
+    "regression-ordinary": {
+      "actualExitCode": 1,
+      "seconds": 48.76548194885254,
+      "statuses": {
+        "PASS": 1662,
+        "NOT_RUN": 8,
+        "FAIL": 1
+      },
+      "sourceSnapshotSHA256": "5fa87d900a362a2aaadd23c3a484befd905ae2adc587e95db393dba9deb2df73",
+      "cases": 1671
+    },
+    "diagnose-catalog-before-local-dependencies": {
+      "actualExitCode": 1,
+      "seconds": 3.800100803375244,
+      "statuses": {
+        "FAIL": 2
+      },
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "cases": 2
+    },
+    "vet": {
+      "actualExitCode": 0,
+      "seconds": 1.1058807373046875,
+      "statuses": {},
+      "sourceSnapshotSHA256": "5fa87d900a362a2aaadd23c3a484befd905ae2adc587e95db393dba9deb2df73"
+    },
+    "vet-live": {
+      "actualExitCode": 0,
+      "seconds": 1.1050629615783691,
+      "statuses": {},
+      "sourceSnapshotSHA256": "5fa87d900a362a2aaadd23c3a484befd905ae2adc587e95db393dba9deb2df73"
+    },
+    "regression-ordinary-restored": {
+      "actualExitCode": 0,
+      "seconds": 51.04156494140625,
+      "statuses": {
+        "PASS": 1663,
+        "NOT_RUN": 8
+      },
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "cases": 1671
+    },
+    "regression-race-restored": {
+      "actualExitCode": 0,
+      "seconds": 140.15305590629578,
+      "statuses": {
+        "PASS": 1663,
+        "NOT_RUN": 8
+      },
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "cases": 1671
+    },
+    "selected-opt-in-ordinary": {
+      "actualExitCode": 0,
+      "seconds": 5.2498321533203125,
+      "statuses": {
+        "PASS": 8
+      },
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "cases": 8
+    },
+    "selected-opt-in-race": {
+      "actualExitCode": 0,
+      "seconds": 59.132752895355225,
+      "statuses": {
+        "PASS": 8
+      },
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "cases": 8
+    },
+    "vet-restored": {
+      "actualExitCode": 0,
+      "seconds": 0.6905558109283447,
+      "statuses": {},
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81"
+    },
+    "vet-live-restored": {
+      "actualExitCode": 0,
+      "seconds": 0.6665468215942383,
+      "statuses": {},
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81"
+    }
+  },
+  "manifestArtifactReferences": 39321,
+  "fixtureInputReferences": 1642,
+  "preRedactionFixtureReferences": [
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-canceled-mid-stream-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-connection-cut-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-connection-cut-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-connection-cut-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-deadline-mid-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-eof-before-message-stop-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-eof-before-message-stop-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-eof-before-message-stop-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-fallback-after-output-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-fallback-after-output-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-fallback-after-output-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-half-json-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-half-json-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-half-json-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-401-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-401-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-401-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-403-key-echo-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-403-key-echo-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-403-key-echo-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-429-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-429-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-429-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-500-text-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-500-text-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-500-text-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-529-overloaded-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-529-overloaded-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-http-529-overloaded-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-length-truncated-tool-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-length-truncated-tool-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-length-truncated-tool-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-no-stop-reason-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-no-stop-reason-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-no-stop-reason-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-refusal-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-refusal-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-refusal-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-sensitive-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-sensitive-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-sensitive-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-sse-error-event-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-sse-error-event-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-sse-error-event-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-unknown-stop-reason-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-unknown-stop-reason-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary",
+      "case": "P02-E02-unknown-stop-reason-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-canceled-mid-stream-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-connection-cut-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-connection-cut-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-connection-cut-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-deadline-mid-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-eof-before-message-stop-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-eof-before-message-stop-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-eof-before-message-stop-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-fallback-after-output-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-fallback-after-output-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-fallback-after-output-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-half-json-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-half-json-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-half-json-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-401-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-401-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-401-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-403-key-echo-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-403-key-echo-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-403-key-echo-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-429-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-429-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-429-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-500-text-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-500-text-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-500-text-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-529-overloaded-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-529-overloaded-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-http-529-overloaded-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-length-truncated-tool-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-length-truncated-tool-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-length-truncated-tool-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-no-stop-reason-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-no-stop-reason-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-no-stop-reason-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-refusal-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-refusal-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-refusal-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-sensitive-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-sensitive-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-sensitive-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-sse-error-event-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-sse-error-event-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-sse-error-event-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-unknown-stop-reason-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-unknown-stop-reason-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-ordinary-restored",
+      "case": "P02-E02-unknown-stop-reason-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-ordinary-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-canceled-mid-stream-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-connection-cut-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-connection-cut-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-connection-cut-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-deadline-mid-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-eof-before-message-stop-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-eof-before-message-stop-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-eof-before-message-stop-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-fallback-after-output-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-fallback-after-output-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-fallback-after-output-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-half-json-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-half-json-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-half-json-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-401-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-401-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-401-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-403-key-echo-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-403-key-echo-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-403-key-echo-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-429-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-429-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-429-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-500-text-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-500-text-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-500-text-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-529-overloaded-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-529-overloaded-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-http-529-overloaded-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-length-truncated-tool-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-length-truncated-tool-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-length-truncated-tool-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-no-stop-reason-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-no-stop-reason-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-no-stop-reason-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-refusal-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-refusal-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-refusal-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-sensitive-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-sensitive-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-sensitive-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-sse-error-event-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-sse-error-event-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-sse-error-event-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-unknown-stop-reason-complete",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-unknown-stop-reason-result",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    },
+    {
+      "stage": "regression-race-restored",
+      "case": "P02-E02-unknown-stop-reason-stream",
+      "table": "fixtures",
+      "leaf": "fixture.json",
+      "declared": "09c79f7ff4c1714c10e8f17d5ef829e8123230780ccfb06e0efa6d41c4f3e717",
+      "actual": "a5e3087643609daef51959d5cc7aab347ec47611a27ffa381f7b9552e0b00c26",
+      "declaredRawInputSourceMembers": [
+        "stages/regression-race-restored/source/ai/e2e/testdata/anthropic/failures.json"
+      ]
+    }
+  ],
+  "all141BoundToExactStageAnthropicFailuresInput": true,
+  "trueREDs": 42,
+  "greenRejections": 42,
+  "positiveControls": 2,
+  "nativeNullZeroRequests": 42,
+  "resourceRecordsZero": 88,
+  "auditFindings": 0,
+  "audits": 19,
+  "measuredCompilerJSONModsumFiles": 1027,
+  "sourceSnapshotSHA256": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299",
+  "all6FinalSourceSnapshotsMatchGit2306": true,
+  "reviewCopies": {
+    "reviews/source-standards-review.json": {
+      "original": "/tmp/barness-ticket17-source-standards-review.json",
+      "sha256": "fa5d7b937d3a8376246e83403bf9c0291cd4995cb2288195dd4a26528c8da573"
+    },
+    "reviews/source-spec-review.json": {
+      "original": "/tmp/barness-ticket17-source-spec-review.json",
+      "sha256": "8bea06a62b2ea9e8622db80cef4f36118010f311987aa9e308b04a807eb067fd"
+    },
+    "reviews/docs-standards-review.json": {
+      "original": "/tmp/barness-ticket17-docs-standards-review.json",
+      "sha256": "bf4dc9db1eb1d547a03367eb49895e07c7fbf4e212c72e46886e939a8a8e278f"
+    },
+    "reviews/docs-spec-review.json": {
+      "original": "/tmp/barness-ticket17-docs-spec-review.json",
+      "sha256": "a96ee09c272ec31ebbce8d22df15661d773c55c6ef7c26be245de6d557c29e46"
+    },
+    "reviews/current-source-applicability.json": {
+      "original": "/tmp/barness-ticket17-current-source-applicability.json",
+      "sha256": "29d7009a2f31e03199b17225b3f069b78d99777e4c0d8c21ea71f1c9e51f8ff0"
+    },
+    "reviews/current-source-applicability.md": {
+      "original": "/tmp/barness-ticket17-current-source-applicability.md",
+      "sha256": "b905c0ffd46cf4967512837755f5a9927528204f55edddc13e8d35e92642488b"
+    },
+    "original-standards-review.json": {
+      "original": "/tmp/barness-minimax-final-source-standards-review.json",
+      "sha256": "61a03e2fe01267f2fcbeeb5814e90fe42ae0090df3d9c36e04a0b1852824e53a"
+    },
+    "original-spec-review.json": {
+      "original": "/tmp/barness-minimax-final-source-spec-review.json",
+      "sha256": "003b8edb0b584a6c63f1c854588644808f25216a340e9d1fc6b4cd8706f40a8a"
+    }
+  },
+  "publicVerifierRecordedExit0": true,
+  "privateNegativeCount": 11,
+  "originalBeforeAfterIdentical": true,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-17/README.md": "6dd10607ddf2aa2b89f9dfb60a997c7d6aaf7acef9981de6565b72e1373d1f47",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/SHA256SUMS": "18ee3c01607cecd535e31f2a000c159c3ae2374062dd827267ecab0362b68bab",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/check-boundaries.py": "1b6f38f12b1e0d0991291e1a51bf5a5b41708af6df336c31ec9ac7b123d7dfaa",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/contract.py": "d5e2f957eb923b8ed985dbea956f4f1459f2d44653b002504c1d04d4d7f4d07c",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/freeze-before-physical-tmp-fix.py.txt": "0fb3a4e429d9bb0aace62179b5731482d78b704ef7da2db9039c70e54bb80aba",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/freeze-original-refusal.log.gz": "aece1507f13e6109d99454bc810062fb22292addc81639a4e6b54e57869df218",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/metadata-reader-corrections.json": "9c1f4783a69221e9c41382c5569c9c8fc15eae383227effb7d3968f45b9d06c5",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/public-entrypoint-authoring-history.json": "0289a9392dc60061a6ef6ef49a4da884c8dcacdd99a06fb3bb33340556895571",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/public-initial-fixture-refusal.log.gz": "ace6cba07110042898cd34958fcc77cc433a6cd16953f69af15576f27ed544e7",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/refusal.json": "fdfbe3b766aaac2a3090a0497b8f0a79c64d53995288b924c015610fb588c933",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/retention-initial-red.log.gz": "b24cb3192a8f5ee52baecd55fb6cbc3775039713ad3fdce63f2a5ce4991558ee",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/retention-negative-initial-red.log.gz": "fa8930859a7ccffa4c5575c2d9f0ac33cb96775d4845b33fb20e90c06431bcfc",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/verify-before-fixture-provenance-correction.py.txt": "72a814aa2bc04868f48f400f679fc374c22594b591ecfa7c7369819b1d58b947",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/expand-trace.py": "a371f61a308e550abe6d374f500555d8e13be95039d1c3a18212c0acba68355e",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/failure-inventory.md": "ad70315b9a9d6079e9cb96172d93f50969c5426c91099b013252204feb35e7e5",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/final-checks.json": "735977361068e07703e43952b2c742af9d2b5854e93c8b643a6b378c972a7c22",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/freeze.py": "94bf02267f8adee85b3653d72cf47f86651508dc9473ae3796554137d33b4595",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/historical-fixture-hash-divergences.json": "9463d819dc873fe0d5510c7c9f848628ae569f6d99f92826645b937b36c7c983",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/index.json": "0b34de732cf6ecbffa0eb7e22ec395480827fe8c9d3fc1d7bd564c0b9da09d90",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/inventory.json.gz": "28602c0447c8840bcf5a89c6b862cad2eaa9f8f1f871c0a55b6e18638c9eca26",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/original-spec-review.json": "003b8edb0b584a6c63f1c854588644808f25216a340e9d1fc6b4cd8706f40a8a",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/original-standards-review.json": "61a03e2fe01267f2fcbeeb5814e90fe42ae0090df3d9c36e04a0b1852824e53a",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/readers.py": "5e01d36494d35dcd8dc1754b2caa69455c22a51a076e05834fcf89596e5a94b6",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/current-source-applicability.json": "29d7009a2f31e03199b17225b3f069b78d99777e4c0d8c21ea71f1c9e51f8ff0",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/current-source-applicability.md": "b905c0ffd46cf4967512837755f5a9927528204f55edddc13e8d35e92642488b",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/docs-spec-review.json": "a96ee09c272ec31ebbce8d22df15661d773c55c6ef7c26be245de6d557c29e46",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/docs-standards-review.json": "bf4dc9db1eb1d547a03367eb49895e07c7fbf4e212c72e46886e939a8a8e278f",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/index.json": "5db8c8bae1943c06b7d6651cb134dcd5a032ef88d66c0cf597ce7888b692c4dc",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/source-spec-review.json": "8bea06a62b2ea9e8622db80cef4f36118010f311987aa9e308b04a807eb067fd",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/source-standards-review.json": "fa5d7b937d3a8376246e83403bf9c0291cd4995cb2288195dd4a26528c8da573",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/source-proof.json": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/source-proof.json.gz": "17dc071a628ec93d587b1622bcaa73ba8b62b708338b5b226c8ef19231bde779",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/summary.json": "a53f1b01cab5fe3bdc3464c0fb85c01946c8eb511613c3cb818a4b72b510c629",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/tool-fixture-repair-source-proof.json": "8cafc4240955893ce96f67821dbfd7fb72c9ac2d2235fea951f833e4fa9d4013",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/tool-guard-reapplied-proof.json": "8de808624924e4a4ced8c5f451876123fc6eb146568a011758eca84292be9f9d",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/trace-after.json.gz": "5de7e6d4a27880e9d6c69a25ec8850bed6df67919c4ce3e4869987aa85128d49",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/trace-before.json.gz": "cd18d1dcdf2febea33fa58d194fa9d1ce32067f68179180aca9f4a6c695b3c9e",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/trace-byte-delta.json": "feff59e4cd62c50e6fabd08e9e66db9a8cfeb780d15f49d91d5e9117f1cff8b0",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/trace-expansion.json": "9b9298b83965854707d44f7198d545d47063a03bd93c69909412742392106165",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/verification/commands.json": "9154debcce23799163744aa05834af88cdf2883fe7ce92f0b60ed3c0609e7bb2",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/verification/public-negatives.json.gz": "6a1cece7f69647eefbe2c5c21b9404c921c2f25dd69f6a8d563fca3c703a50cb",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/verification/public-verifier.json.gz": "3b2e33d3516e9f9aaa34d0458e4d7030a77b827188e907e131daf76e2899e662",
+    ".scratch/barness-ai-minimax/evidence/ticket-17/verify.py": "a3a19fca113bc1f3c77ca47946887e7aab218c2ac13937a7f6ba331f6bb805c2"
+  },
+  "projectCodeExecuted": false
+}

@@ -1,0 +1,318 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_RETENTION_ONLY",
+  "baseCommit": "1c629514ff760e4889ce64c4b787f9800a4514b9",
+  "reviewedCommit": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+  "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff 1c629514ff760e4889ce64c4b787f9800a4514b9...d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+  "commitsCommand": "git log 1c629514ff760e4889ce64c4b787f9800a4514b9..d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5 --oneline",
+  "diffSHA256": "c7996ba5be0190f5db9992c6ae2a41d7867dfdcf5e276afab479504800268a53",
+  "findings": [],
+  "report": "Spec retention review: PASS, no findings. Exact1c629514…d47d7bd adds only the failed A assembly frontdoor; source7931 remains historical custody, with no future source or current-release certificate.\n\nT02:353 requires “失败历史不覆盖”. Independently bounded stdlib reads checked the compressed archive,607 regular member sizes/hashes and exact inventory. All603 original A files match byte-for-byte and the whole original membership is unchanged; four declared metadata members are additional. The958322-byte archive decodes to4352000 tar bytes and3800779 payload bytes, within the unchanged32/192MiB reader envelope. No extraction, symlink following or captured program execution occurred.\n\nThe actual keyless receipts remain derive-Jev0, verify0 and four-candidate1, with exact argv/cwd/no-Key metadata. The raw missing-Messages-support diagnostic is retained. STARTING intent remains STARTING; no assemble-completed or default-merge record exists. Original before/candidate/default matrices all hash7fbe72… unchanged. Missing native support follows the existing7931 converter’s120000ms guard and publish ordering against the recorded120001ms failure; this is source inference, not a new converter probe. No report or success capturePins were synthesized.\n\nAll589 copied protocol/visual files match the sealed E native inventories. The complete592-entry Jev seal, audit0 and12 PASS scenario accounting agree; those12 calls reference E’s actual calls rather than new consumption. Six original report paths/canonical references,102/102 known consumption, source1056, original history/reuse/scope and helper/observer/Go pins agree with the already reviewed G/E capsules. Old39/545 and native15 inputs are preserved references.\n\nThe retained public verifier0, initial missing-entry RED2, later report-path RED1 and13 exact-reason negative refusals are distinct and were inspected without rerunning them. R27’s mandatory acceptance remains unmet: valid derived Jev evidence does not create four-row import, seventeen valid admissions or a complete passing gate. Higher15/09/10/spec must remain open for acceptance; this diff makes no completion claim. B was not inspected. No project/captured verifier, test, Key, network, paid call, root/input edit or merge by the reviewer.",
+  "reportBodyWords": 282,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/README.md": {
+      "bytes": 3594,
+      "sha256": "df066e755b6e040c653962bc75ce41893c83345b001460ed2b5a1ecaba1967ef"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/SHA256SUMS": {
+      "bytes": 2380,
+      "sha256": "51114b2fdf0ea85b500597cd3c8ed0185b1e001d92dce029f52e1d22b984cfd7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/check-boundaries.py": {
+      "bytes": 5512,
+      "sha256": "9fe86e2adb2f0965e815433b848dbbd9826ecbc4184c052cca8cc1db1f983150"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/failure-inventory.md": {
+      "bytes": 960,
+      "sha256": "18567273bee4b8adcda47338595de0a3e475202eab727d84d0b1a877ff9c3b1d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/freeze.py": {
+      "bytes": 5382,
+      "sha256": "0978b8e117f0dd01be08ce8ca040afecfd4424631dd455603eb9f6c68db96abd"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/index.json": {
+      "bytes": 2256,
+      "sha256": "ee650ba16d6db48cf936ea2d5ab09f88dfb51c0e69d9dfe374e28348b0e6de50"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/inventory.json.gz": {
+      "bytes": 27736,
+      "sha256": "5aa98cc52dd0094eed8897219dd5b883bcc8d10488db3095e6b1078b1142231d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/negative-results.json": {
+      "bytes": 2015,
+      "sha256": "e28166e91623c2bd8a38a10e73f96871f9d15f57bc2ac3972ade22733950d4a0"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/readers.py": {
+      "bytes": 949,
+      "sha256": "2e338ce15ef8b372f4b14ea3cc0d027650b2a3d4bea4f84e44d9ffb94576983c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/source-at-start.json.gz": {
+      "bytes": 49298,
+      "sha256": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/summary.json": {
+      "bytes": 1039,
+      "sha256": "fc41eb6f9997da9d514776ebebb0e87656384d458b030e879a44ad48ab7c5f62"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/final-public-verification-output.json": {
+      "bytes": 1726,
+      "sha256": "ce7a0e9840523da90309583104e4d32324bb2e5337ec557bd9d51878b2a68a6a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/final-public-verification.json": {
+      "bytes": 297,
+      "sha256": "413acfaae0bdae7491d60e094e4fe7dcc6d08a00303d1664ca4f99fff1cf35aa"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/green-all13-guards-command.json": {
+      "bytes": 307,
+      "sha256": "ae1f2be00013f42d464396abfb09ea361a8b9454491bed855de8ed7f65618aa0"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/green-all13-guards.log.gz": {
+      "bytes": 560,
+      "sha256": "73294b1ea484982d265882f4e85c511e7bfe1e4c5fcb73ad4934c4fb6c85d6d4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/green-public-cli-command.json": {
+      "bytes": 297,
+      "sha256": "413acfaae0bdae7491d60e094e4fe7dcc6d08a00303d1664ca4f99fff1cf35aa"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/green-public-cli.log.gz": {
+      "bytes": 708,
+      "sha256": "ad4c5b66efd68155bb7852522d2b72b544e635c215d83045e9b1e46f1f3f7df5"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/negative-guards-command.json": {
+      "bytes": 307,
+      "sha256": "f89f4242366cc841affd48a8bd4058d96cd79921565b328bc30d6c9d083dd917"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/negative-guards.log.gz": {
+      "bytes": 536,
+      "sha256": "5999c0e3705abaccf7f10142bcfb45a774d7ede0c71e1cdd65c08f1cf8d1b434"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/raw-log-index.json": {
+      "bytes": 1658,
+      "sha256": "2efa46f2787415f971e23995b3a4ced63869ce67a6b041f8a6346953d6e281ad"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/red-missing-public-cli-command.json": {
+      "bytes": 332,
+      "sha256": "bc86c125af721ae52247e07d211cfa24ce7f1e996660e6c080a34285a1992c04"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/red-missing-public-cli.log.gz": {
+      "bytes": 235,
+      "sha256": "629217cfffffc286caf5113b1b00eb55018dd2e3bc8e57cf13a15dd02e72eb98"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/red-original-report-path-command.json": {
+      "bytes": 342,
+      "sha256": "2c6c5b5f3cb448e99870d5817a16264fcd6fc1c5759909bc037a12b117234e1c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/red-original-report-path.log.gz": {
+      "bytes": 407,
+      "sha256": "ae7d05760461778f90595dd0a71c152fb3541673c98130ed8ad64aa15e771f79"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/snapshot-command.json": {
+      "bytes": 249,
+      "sha256": "a1a770d3c84d38549abcc18ba4e1af2b380c120bb45828f606f6f1f4b6f4d83e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/snapshot-command.log.gz": {
+      "bytes": 234,
+      "sha256": "05ceeedb1ac22b74a1532b80fd256a13b678855b48edaa04a80ebab6d5a79748"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/verify.py": {
+      "bytes": 9969,
+      "sha256": "ff42ebe756ce8923f29b9b07860140f342ec5e449bbcd75098bea28a7602f71d"
+    }
+  },
+  "independentArchiveProof": {
+    "baseCommit": "1c629514ff760e4889ce64c4b787f9800a4514b9",
+    "reviewedCommit": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+    "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "diffSHA256": "c7996ba5be0190f5db9992c6ae2a41d7867dfdcf5e276afab479504800268a53",
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/assembly-failed-raw.tar.gz",
+      "bytes": 958322,
+      "sha256": "dd017296ceee895329bf6fb6566435747a03b47ccb088b8bbe6d86ae8d7273f4",
+      "prefix": "repair-assembly-failed"
+    },
+    "files": 607,
+    "payloadBytes": 3800779,
+    "decodedTarBytes": 4352000,
+    "directOriginalBytesMatched": 603,
+    "fullOriginalMembershipMatched": true,
+    "nativeCopiedFilesMatched": 589,
+    "derivedSealFiles": 592,
+    "missingMessagesSupport": true,
+    "failedCancelMs": 120001,
+    "nativeRefs": {
+      "glm": {
+        "frontdoor": "../glm",
+        "indexSHA256": "e85009f4eeb7893d44ec91c7938bcf401fa1318c714445cfa6d8f926e4ad6f9d"
+      },
+      "effects": {
+        "frontdoor": "../effects",
+        "indexSHA256": "02ee494af106d539921538d884edbc7eac1f07a66a205792ce633b18bd99708b"
+      }
+    },
+    "originalMatrixSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "recordedNegativeGuards": 13
+  },
+  "actualCommands": {
+    "derive-jev-support": {
+      "state": "COMPLETED",
+      "name": "derive-jev-support",
+      "argv": [
+        "/usr/local/go/bin/go",
+        "run",
+        "./ai/live/cmd/jevformal",
+        "-protocol",
+        "$REPO/.evidence/minimax-release-repair-effects-1/protocol114/20261018T115021.300997000Z",
+        "-effects",
+        "$REPO/.evidence/minimax-release-repair-effects-1/visual-jev",
+        "-out",
+        "$REPO/.evidence/minimax-release-repair-final-1/jev-support",
+        "-require-live"
+      ],
+      "cwd": "$REPO",
+      "timeoutSeconds": 240,
+      "credentialsInherited": false,
+      "sourceVariable": null,
+      "injectedCredential": null,
+      "credentialsRead": false,
+      "startedAt": "2026-10-18T11:52:15.112996+00:00",
+      "exitCode": 0,
+      "environmentKeys": [
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "seconds": 1.9905064590275288,
+      "launcherAudit": {
+        "passed": true,
+        "findings": []
+      }
+    },
+    "verify-derived-jev": {
+      "state": "COMPLETED",
+      "name": "verify-derived-jev",
+      "argv": [
+        "/usr/local/go/bin/go",
+        "run",
+        "./ai/live/cmd/jevformal",
+        "-verify",
+        "$REPO/.evidence/minimax-release-repair-final-1/jev-support",
+        "-require-live"
+      ],
+      "cwd": "$REPO",
+      "timeoutSeconds": 240,
+      "credentialsInherited": false,
+      "sourceVariable": null,
+      "injectedCredential": null,
+      "credentialsRead": false,
+      "startedAt": "2026-10-18T11:52:17.400942+00:00",
+      "exitCode": 0,
+      "environmentKeys": [
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "seconds": 0.673728708177805,
+      "launcherAudit": {
+        "passed": true,
+        "findings": []
+      }
+    },
+    "validate-four-candidate": {
+      "state": "COMPLETED",
+      "name": "validate-four-candidate",
+      "argv": [
+        "/usr/local/go/bin/go",
+        "run",
+        "./ai/live/cmd/supportmatrix",
+        "-matrix",
+        "$REPO/.evidence/minimax-release-repair-final-1/matrix-candidate.json",
+        "$REPO/.evidence/minimax-release-repair-glm-1/glm-chat/20261018T113441.516431000Z",
+        "$REPO/.evidence/minimax-release-repair-glm-1/glm-responses/20261018T113707.359791000Z",
+        "$REPO/.evidence/minimax-release-repair-glm-1/glm-messages/20261018T113921.111086000Z",
+        "$REPO/.evidence/minimax-release-repair-final-1/jev-support"
+      ],
+      "cwd": "$REPO",
+      "timeoutSeconds": 240,
+      "credentialsInherited": false,
+      "sourceVariable": null,
+      "injectedCredential": null,
+      "credentialsRead": false,
+      "startedAt": "2026-10-18T11:52:18.743057+00:00",
+      "exitCode": 1,
+      "environmentKeys": [
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "seconds": 0.18592720804736018,
+      "launcherAudit": {
+        "passed": true,
+        "findings": []
+      }
+    }
+  },
+  "retainedSummary": {
+    "schema": 1,
+    "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "assemblyOutcome": "FAIL",
+    "assemblyIntent": "STARTING",
+    "assembleCompletedPresent": false,
+    "defaultMergePresent": false,
+    "commands": {
+      "derive-jev-support": 0,
+      "verify-derived-jev": 0,
+      "validate-four-candidate": 1
+    },
+    "failure": "Missing original GLM Messages live-report.json; candidate validation refused before matrix writes",
+    "missingMessagesSupport": true,
+    "derivedJev": {
+      "deriveExit": 0,
+      "verifyExit": 0,
+      "scenarios": 12,
+      "statuses": {
+        "PASS": 12
+      },
+      "calls": 12,
+      "attempts": 12,
+      "copiedNativeFiles": 589,
+      "sealFiles": 592,
+      "auditFindings": 0
+    },
+    "originalRegularFiles": 603,
+    "originalLinks": 0,
+    "matrixBeforeSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "matrixCandidateSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "defaultMatrixSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "matrixChanged": false,
+    "sixActualCalls": 102,
+    "sixActualAttempts": 102,
+    "retentionPaidCalls": 0,
+    "retentionCredentialsRead": false,
+    "releaseCertified": false
+  },
+  "sourceInference": {
+    "reason": "Recorded120001ms exceeds NewGLMReport120000ms guard; publishGLMFormal records support only after converter success. No converter probe executed.",
+    "sourcePins": {
+      "ai/internal/testkit/supportmatrix/glm.go": "873d82a99e5fcf90a0102a795df9c1b484e9d9d013fc6fcbccd1a75912f40c15",
+      "ai/live/glm_formal_test.go": "d366ee2679ab5823541645c7971986c4db4a3ddf443c468b0e9479ab8319d8fc"
+    },
+    "locations": [
+      "ai/internal/testkit/supportmatrix/glm.go:106",
+      "ai/live/glm_formal_test.go:62"
+    ]
+  },
+  "scopeConstraints": {
+    "BInspected": false,
+    "futureSourceApproved": false,
+    "releaseCertified": false,
+    "assemblyComplete": false,
+    "newRowsImported": 0,
+    "retentionOnly": true,
+    "testsOrProjectCapturedProgramsExecuted": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "rootOrInputChanges": false
+  },
+  "independentReaderSHA256": "e1705215d427471928317da003b2e8bb35a8b1500597f361d7c2e2783f8c36c9"
+}

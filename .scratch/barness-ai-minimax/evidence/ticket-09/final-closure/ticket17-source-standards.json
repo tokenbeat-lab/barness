@@ -1,0 +1,244 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+  "reviewedCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+  "diffCommand": "git diff ca67bedb001217a4b585e798b0feacfa3ee02c1a...230691742b731c77e8167b94646219e10f78c8f7",
+  "diffSHA256": "c187bb4df761716617f4bfa5b37771edecaac274d2e8e4ccbb976748b10ff130",
+  "diffBytes": 372217,
+  "scope": "Exact six source files only; docs/retention/native applicability excluded",
+  "standards": [
+    "User AGENTS.md all engineering/test principles; frontend-only provisions not applicable to this backend delta",
+    "docs/agents/domain.md and ADR0040/0042/0017 boundaries",
+    "Issue17 public Client failure-first seam and R20/R28 context",
+    "Full twelve-smell baseline is judgment guidance; repository rules override; tooling-enforced checks skipped"
+  ],
+  "findings": [],
+  "smells": [],
+  "smellAssessment": {
+    "Mysterious Name": "Private helpers identify the final MiniMax Messages shape/string/block task clearly.",
+    "Duplicated Code": "Existing fixtures are reused; separate boundary checks serve distinct wire-shape and extension semantics without a speculative shared validator.",
+    "Feature Envy": "Validation remains in the owning ai protocol boundary.",
+    "Data Clumps": "No repeated cross-module parameter group introduced.",
+    "Primitive Obsession": "Raw JSON any values stay at their parsing boundary; no new domain string travels across modules.",
+    "Repeated Switches": "One shape dispatch plus the existing distinct extension check; no repeated provider cascade added.",
+    "Shotgun Surgery": "Runtime shape responsibility is concentrated; tests and trace contract changes are deliberate corresponding boundaries.",
+    "Divergent Change": "Message shape is split from the payload options/extension boundary into a focused private file.",
+    "Speculative Generality": "No generic schema framework, new dependency or unused hook added.",
+    "Message Chains": "No new caller dependency on long internal navigation.",
+    "Middle Man": "New helpers perform actual validation.",
+    "Refused Bequest": "No inheritance/interface implementation added."
+  },
+  "report": "PASS: no documented-standard breach or actionable baseline smell found in the exact six-file source delta. MiniMax provider gating remains at the existing final-byte boundary before Provider execution. The new private message/block checks are small, cohesive and read-only; they reject malformed containers/roles/required fields without traversing function inputs or schema business properties. Existing authorization priority, typed request errors, lifecycle and resource release remain in the shared Client path. No dependency, generic schema framework, public API or cross-provider behavior is introduced.\n\nPublic Client E2E retains42 local negative cases with zero requests/Attempts and two positive controls that preserve legal final business JSON with one request/Attempt. Independently inspected true failure-first sends and the corrected native-tool fixture RED/reapplication; initial compile/authorization/dependency/fixture branches are distinguished from genuine malformed sends. Retention sealing itself remains outside this review.\n\nAll1027 measured Go/JSON/mod/sum hashes independently match Git2306917. Measurements ran at ca67 plus WIP, not committed2306917; byte equivalence is the supported claim. Recorded selected ordinary/race each has1663 PASS/8 NOT_RUN; the exact eight opt-in cases separately passed ordinary/race with audit0, and both vets exited0. Recorded command windows overlap, so no isolated performance inference is made. No command was rerun here.\n\nTraceability preserves394 items,391 byte-unchanged item rows and every old required case/selector. Exactly three rows add the44 new cases; independent normalized hashing matches e2a81850. This approves source only: FINAL-STANDARDS-DOC-01 remains pending separate docs, original native applicability is not renewed, and source7931 B cannot certify the changed source.",
+  "reviewedFiles": {
+    "ai/anthropic_minimax_message.go": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+    "ai/anthropic_minimax_payload.go": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+    "ai/e2e/minimax_messages_final_shape_test.go": "fcf900f767d231b42ff8cce2faab7c33400fec9cc0963ffa029b166e25e6c478",
+    "ai/e2e/minimax_messages_final_tools_test.go": "4a2674852073484ee74bc34abd1813ae7377c922b151d0aa96641ab016b79a09",
+    "ai/internal/testkit/release/plan.go": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd",
+    "ai/release/traceability.json": "0bb23afc3ce9881a4965ce5408b5d46626b655d2b3937cb523ab8bdcae8d4ca8"
+  },
+  "independentProof": {
+    "sourceProofFileSHA256": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299",
+    "measuredCompilerJSONFiles": 1027,
+    "all1027HashesEqualGitTip": true,
+    "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+    "measuredWIP": true,
+    "committedAfterMeasurement": "230691742b731c77e8167b94646219e10f78c8f7",
+    "wholeOperationalFreezeClaimed": false,
+    "sourceFiles": {
+      "ai/anthropic_minimax_message.go": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+      "ai/anthropic_minimax_payload.go": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+      "ai/e2e/minimax_messages_final_shape_test.go": "fcf900f767d231b42ff8cce2faab7c33400fec9cc0963ffa029b166e25e6c478",
+      "ai/e2e/minimax_messages_final_tools_test.go": "4a2674852073484ee74bc34abd1813ae7377c922b151d0aa96641ab016b79a09",
+      "ai/internal/testkit/release/plan.go": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd",
+      "ai/release/traceability.json": "0bb23afc3ce9881a4965ce5408b5d46626b655d2b3937cb523ab8bdcae8d4ca8"
+    },
+    "checks": {
+      "regression-ordinary-restored": {
+        "exitCode": 0,
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+        "cases": 1671,
+        "statuses": {
+          "PASS": 1663,
+          "NOT_RUN": 8
+        }
+      },
+      "regression-race-restored": {
+        "exitCode": 0,
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+        "cases": 1671,
+        "statuses": {
+          "PASS": 1663,
+          "NOT_RUN": 8
+        }
+      },
+      "selected-opt-in-ordinary": {
+        "exitCode": 0,
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+        "cases": 8,
+        "statuses": {
+          "PASS": 8
+        }
+      },
+      "selected-opt-in-race": {
+        "exitCode": 0,
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+        "cases": 8,
+        "statuses": {
+          "PASS": 8
+        }
+      },
+      "vet-restored": {
+        "exitCode": 0,
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+        "cases": null,
+        "statuses": null
+      },
+      "vet-live-restored": {
+        "exitCode": 0,
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+        "cases": null,
+        "statuses": null
+      }
+    },
+    "tdd": {
+      "red-containers-actual": {
+        "cases": 5,
+        "statuses": {
+          "FAIL": 5
+        },
+        "providerRequests": {
+          "1": 5
+        },
+        "attempts": {
+          "1": 5
+        },
+        "commandExit": 1
+      },
+      "red-message-fields": {
+        "cases": 9,
+        "statuses": {
+          "FAIL": 9
+        },
+        "providerRequests": {
+          "1": 9
+        },
+        "attempts": {
+          "1": 9
+        },
+        "commandExit": 1
+      },
+      "red-block-fields": {
+        "cases": 14,
+        "statuses": {
+          "FAIL": 14
+        },
+        "providerRequests": {
+          "1": 14
+        },
+        "attempts": {
+          "1": 14
+        },
+        "commandExit": 1
+      },
+      "red-tools-native-containers-actual": {
+        "cases": 16,
+        "statuses": {
+          "PASS": 2,
+          "FAIL": 14
+        },
+        "providerRequests": {
+          "1": 16
+        },
+        "attempts": {
+          "1": 16
+        },
+        "commandExit": 1
+      },
+      "green-final-native-shapes": {
+        "cases": 44,
+        "statuses": {
+          "PASS": 44
+        },
+        "providerRequests": {
+          "0": 42,
+          "1": 2
+        },
+        "attempts": {
+          "0": 42,
+          "1": 2
+        },
+        "commandExit": 0
+      }
+    },
+    "traceability": {
+      "items": 394,
+      "unchangedItems": 391,
+      "changedItems": [
+        "MM-R20",
+        "MM-A17",
+        "MM-US55"
+      ],
+      "addedCasesPerChangedItem": 44,
+      "oldRequiredCasesDropped": 0,
+      "oldNormalizedHash": "f1de4ce6b8a81f08b0ce27c56bc01f6c8fae9e8a8ca51c114c44d5a55acd21b6",
+      "newNormalizedHash": "e2a81850d9082571cb1cd5033415a442cf96a138c50d82c12997736bcca6c5d4"
+    },
+    "docsFindingSeparate": "FINAL-STANDARDS-DOC-01 remains outside six-source delta",
+    "noNewDependencies": true,
+    "retentionApprovalGranted": false,
+    "formalApplicabilityRenewed": false,
+    "projectProgramsExecuted": false
+  },
+  "independentReadArtifacts": {
+    "/tmp/barness-ticket17-source-standards-independent-proof.json": "1d7af45607e889e25e5a4f656ea1ccfc36d122421bce8ccf3bcd9900b8234377",
+    "/tmp/barness-review-ticket17-source-proof.py": "c3165e2391d85af706a8105a504335147ba539a30f24de94e46f048eaeecfc57"
+  },
+  "unsealedSupportingInputs": {
+    "/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md": "4780f2c2dd8502f3e3a49f672eabaf14dedbee0c91b9685237543581a6ce0020",
+    "/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/failure-inventory.md": "ad70315b9a9d6079e9cb96172d93f50969c5426c91099b013252204feb35e7e5",
+    "/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/source-proof.json": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299",
+    "/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/final-checks.json": "735977361068e07703e43952b2c742af9d2b5854e93c8b643a6b378c972a7c22",
+    "/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/tool-fixture-repair-source-proof.json": "8cafc4240955893ce96f67821dbfd7fb72c9ac2d2235fea951f833e4fa9d4013",
+    "/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/tool-guard-reapplied-proof.json": "8de808624924e4a4ced8c5f451876123fc6eb146568a011758eca84292be9f9d",
+    "/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/trace-expansion.json": "9b9298b83965854707d44f7198d545d47063a03bd93c69909412742392106165",
+    "/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/trace-byte-delta.json": "feff59e4cd62c50e6fabd08e9e66db9a8cfeb780d15f49d91d5e9117f1cff8b0"
+  },
+  "measurementQualification": {
+    "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+    "measuredWIP": true,
+    "sourceCommitWithEqualCompilerJSONBytes": "230691742b731c77e8167b94646219e10f78c8f7",
+    "sourceFilesVerified": 1027,
+    "postCommitRunClaimed": false,
+    "whole1056OperationalFreezeClaimed": false,
+    "rawRetentionApprovalGranted": false,
+    "commandOverlapPreserved": true
+  },
+  "pendingSeparateFinding": "FINAL-STANDARDS-DOC-01",
+  "nativeApplicabilityRenewed": false,
+  "releaseCertified": false,
+  "reviewerExecution": {
+    "projectProgramsExecuted": false,
+    "capturedProgramsExecuted": false,
+    "testsOrVerifiersExecuted": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "rootWrites": false,
+    "workerWrites": false,
+    "BRead": false,
+    "oldGuardExecuted": false
+  },
+  "rootObserved": {
+    "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/\n"
+  }
+}

@@ -4,29 +4,26 @@ Delivery: PARTIAL
 Updated: 2026-10-18
 Integration branch: `codex/minimax-global`
 
-已按指定路由完成本轮固定验证：中国区GLM、DeepSeek直连，国际OpenAI、Anthropic、Google、TypeSafe通过`http://127.0.0.1:7890`。其余15项身份/效果全部通过；GLM Chat、Messages通过，Responses仍失败。默认17身份矩阵已原子导入，记录16项PASS和1项FAIL。完整公共发布门禁已生成`pass=false`报告，spec、10、09保持开放。
+已按指定路由完成获准的六项补充真实验收：中国区GLM直连，国际protocol114及两项视觉服务通过`http://127.0.0.1:7890`。五项collection通过，GLM Messages失败；新增102calls/102HTTPAttempts，本次旧能力续期连原545/545累计647/647。该固定合同全部关闭，未用额度不转移，没有后续付费轮次授权。
 
-| 范围 | 实际结果 | 依据 |
+| 范围 | 已关闭的实际结果 | 依据 |
 | --- | --- | --- |
-| 国际站M3三协议自身正式 | 三项PASS，39 calls/36 HTTP Attempts；原263文件映射仍适用 | [正式证据](evidence/ticket-10/international-formal-glm/README.md)、[来源核对](evidence/ticket-13/current-source-impact.json) |
-| M3.1三协议线上候选 | 三项NOT_RUN，0/0；没有获准M Plan资格，离线约束仍必交 | [本轮候选状态](evidence/ticket-13/actual-legacy/README.md) |
-| 本轮GLM三路 | Chat、Messages各22场景PASS；Responses为19 PASS/3 FAIL；共65 calls/65 Attempts | [GLM实际证据](evidence/ticket-13/actual-glm/README.md) |
-| 其余15项身份/效果 | 15个collection PASS，180 calls/180 Attempts；155个原生场景/样本为82 PASS、1 UNSUPPORTED、72 answered | [实际证据与Jev支持包](evidence/ticket-13/actual-legacy/README.md) |
-| 默认17身份矩阵 | 导入成功，最新16项PASS、GLM Responses FAIL；旧allPassedAt保留 | [矩阵](../../ai/live/support-matrix.json) |
-| 完整普通/race | 各12439 PASS、8 FAIL、1 NOT_RUN，审计0；868个真实PIDiff、29个Pressure case均PASS | [完整门禁证据](evidence/ticket-13/final-gate/README.md) |
-| 四项实际命令与发布报告 | vet=0、live vet=0、ordinary=1、race=1；CLI exit1，报告pass=false | [完整门禁证据](evidence/ticket-13/final-gate/README.md) |
-| 后续离线修复 | 映射Hash、可选诊断注册顺序和严格inventory夹具已合入；六项实际无Key检查均0 | [票14](issues/14-release-preflight-gaps.md) |
+| 最新GLM三协议，来源7931 | Chat、Responses各22/22 PASS；Messages21PASS/1FAIL；66calls/66Attempts | [新GLM原始证据](evidence/ticket-15/new-actual/glm/README.md) |
+| 新protocol114、visual Jev、visual Decisions，来源7931 | 三项各12/12 PASS，共36/36 | [新效果原始证据](evidence/ticket-15/new-actual/effects/README.md) |
+| GLM严格raw/views续期 | 实际exit1，四个原selector字节不变 | [新GLM原始证据](evidence/ticket-15/new-actual/glm/README.md) |
+| 新四报告装配 | Jev派生0、校验0，候选导入1；无默认矩阵导入 | [装配失败原始证据](evidence/ticket-15/new-actual/assembly/README.md) |
+| 默认17身份矩阵 | 仍是上一轮16PASS/1FAIL（GLM Responses）；最新Messages失败尚未导入 | [原矩阵](../../ai/live/support-matrix.json) |
+| 原国际M3三协议自身formal，来源8900034 | 历史三项PASS，39calls/36Attempts，本轮未重跑 | [原正式证据](evidence/ticket-10/international-formal-glm/README.md) |
+| M3.1三协议线上候选 | 三项NOT_RUN0/0；没有获准MPlan资格 | [原候选状态](evidence/ticket-13/actual-legacy/README.md) |
 
-GLM Responses的`glm-5.3/tool-call`和`glm-5.3/control-max`各约90秒后`deadline_exceeded`，各1call/1Attempt且未记录HTTP响应；依赖的`tool-result`保留FAIL和0/0。原始error进一步明确为Host的90秒响应头等待上限；没有证据说明上游会在更长等待内成功。两个型号native-history本轮均PASS；原R1缺正文失败保留为历史。
+GLM Messages的`glm-5.3/cancel`在收到可观察内容之前到达120秒调用期限，实际duration120001ms；这不能证明成功执行了取消，也不能定位厂商或内部网络原因。其raw formal报告与完整性原件保留，`live-report.json`未生成。严格续期与装配拒绝均保留实际退出和错误，不舍入时间、不合成支持报告、不替换旧Messages或Jev报告。新Responses通过不改写上一轮90秒响应头超时或R1缺正文的历史。
 
-Responses捕获和完整性清单齐全，但`complete=false`，没有成功capturePins。严格三路raw/known-usage/support views续期拒绝，四个旧selector字节不变。GLM的六项正式导入/用量离线case因此仍失败。另两项离线case因固定映射Hash漂移失败；可选OD57跳过还进入了mandatory evidence inventory。完整release包另有测试夹具缺少文件Hash清单。[只读诊断](evidence/ticket-13/postgate-gap-2.json)区分这些离线缺口及实际GLM阻断；后续修复不能改写原全量结果。
+来源7931的完整公开发布CLI与最终输入post-guards均已完成：八项自身输入校验数字0；vet/live-vet/ordinary/race分别0/0/1/1，CLI exit1，报告pass=false且与实际命令一致。普通与race主E2E均为12451项（12445PASS、6FAIL、0NOT_RUN），审计各0；868个真实PIDIFF、29个名称含pressure的用例均PASS，其中固定PRESSURE规则选择15项。六个失败均为GLM三协议正式导入或已报告用量检查。完整stdout另外确认失败包仅ai/e2e；live/trace等最终门禁也保留导入拒绝后的真实失败，不冒充通过。未采用旧bundle，门禁不读Key/不新增付费。见[完整门禁原件](evidence/ticket-15/new-actual/final-gate/README.md)。
 
-本轮18个付费进程已全部关闭：17 PASS/1 FAIL，新增245/245，上限374/398；此前本次MiniMax续期300/300保留，累计545/545。GLM原轮/R1、本轮以及更早独立GLM任务分别记账。M3候选历史49/45、正式39/36另列。未知usage不记免费，未用额度不转移，不自动新增轮次。
+[票17](issues/17-final-payload-review-gaps.md)离线修复最终Messages的消息容器、角色、内容块及函数工具必需字段校验，保留业务JSON/schema数据。源码2306917、文档295728a均已独立双轴0发现，原最终审查的Standards1项/Spec2项源码与文档问题闭合。44公共用例中42非法输入零Provider/零Attempt拒绝，两合法业务输入原值发送；定向普通/race各1663PASS、8NOT_RUN，另以显式压力/差分开关对同8个mandatory用例各补普通/race8PASS，审计均0、双vet0。原NOT_RUN与命令窗口重叠不改写。实际测量为ca67+WIP，1027个编译/JSON/mod/sum文件等于已提交2306；没有声称提交后运行或完整1056来源冻结。票17原始留存及新负向夹具构造器的有限读取/解压/哈希问题也已失败先行补正，最终双轴复审零发现；原夹具错误/失败GREEN/依赖缺失等分支见[完整离线历史](evidence/ticket-17/README.md)。
 
-GLM实际来源51c3433，其余15项及完整门禁来源8fbd170，当时冻结执行文件逐字一致。票14及16的已审查离线修复与证据现已在 `7231fdad` 合入；六项无Key前置检查通过，本地91秒响应头的公共Client测试先RED再GREEN。旧全量运行不能授予修正后源码认证。两轴独立政策复核确认：按既有受影响组合规则，拟复用的10项generic与2份文本效果相关执行范围保持则可继续使用；需新验的固定6进程为GLM三路、protocol114及两份视觉效果，上限108calls/132Attempts。GLM已按[票16](issues/16-glm-host-deadline-alignment.md)把专属Host响应头等待对齐到已有120秒调用上限，并独立完成本地受控验证；不证明上游会在120秒成功。此范围须经最终源码复核，详见[票15](issues/15-source-scoped-revalidation.md)。新的6进程合同已在90ecf203完成离线实现及两轴源码/留存审查：71项工具测试、双vet通过，见[证据](evidence/ticket-15/README.md)。实际ROOT来源/binary/plan尚未冻结，六项真实无Key前置待执行；尚未请求或获得新增付费预算。
+原M3、GLM、文本、protocol及视觉的严格来源集合均包含本次最终payload修复涉及的runtime文件。修改后，原报告仍可在其测量来源复核历史结果，但不能认证修复后的当前源码。全部原hash、map、selector、catalog、矩阵时间和授权保持；source7931全量门禁也不授予后续17源码认证。generic10已按原受影响组合规则核对SDK/目录/型号/live producer及非MiniMax路径不变；这不依赖缺map豁免。最终合入来源共1117个文件（ai源码/数据及go.mod/go.sum）与2306字节相等，完整新增/删除集合也已核对，原严格map仍不具当前资格。
 
-原完整门禁启动尝试因`go run`改变PATH绕过退出码观测器，由操作者停止：exit-15、无报告。保留原失败后，构建并直接执行同一公开CLI完成本轮全量；新执行没有采用旧ordinary/race bundle，也没有新增付费。全部四项数字退出码和最终false报告均已留存。
+spec、10、09及真实GLM验收仍未关闭。当前没有完整发布认证。此前300/300与区域路由轮245/245、旧全量失败及中国区401均按各自原轮保留；M3候选49/45、正式39/36与更早独立GLM任务另列。未知或部分usage不记免费。
 
-[两轴审查](evidence/ticket-13/reviews/README.md)逐份保留源码、计划与实际归档审查，审查通过不替代真实支持或完整发布认证。大原始包保留在主仓库`.evidence/minimax-retained/`，各证据入口提供逐文件Hash和无Key有界复核。用户原有session-analysis与其他功能human-review目录保持。
-
-[上轮状态快照](evidence/ticket-13/pre-routed-delivery-status.md)保留300/300、其余15项2PASS/13FAIL、3d3a1fb全量失败及当时无报告的原结论；[旧审查链](evidence/ticket-09/final-reviews/README.md)、[GLM R1](evidence/ticket-12/actual-corrective-1/README.md)与中国区401历史均不改写。机器可读的[当前状态](evidence/ticket-09/international-delivery-status.json)与历史快照分开。
+[两轴审查及留存入口](evidence/ticket-09/final-closure/README.md)提供原始命令、全文件hash、有界无Key复核及失败分支；大型归档保留在主仓库`.evidence/minimax-retained/`。自建worktree已实际移除，分支保留以便恢复；见[清理记录](evidence/ticket-09/final-closure/owned-worktree-cleanup.json)。用户原有session-analysis与其他功能human-review目录保持。

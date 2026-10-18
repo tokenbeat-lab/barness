@@ -1,0 +1,70 @@
+{
+  "axis": "Spec",
+  "verdict": "APPROVED_FIRST_INCOMPLETE_KEYLESS_GATE_ONLY",
+  "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "planSHA256": "f97c97c158189bc741a22ea714a1cc64053ea79755d688f8a66450d87fab6985",
+  "compiledCLISHA256": "ee246d0e05346d4b6295f60847e64095db45c10306f85db7ba866fef58e79bca",
+  "helperSHA256": "0ee913b5856de200b75f550a33c34a8ab8d4f3e52f445221f9c6b820d4790ee6",
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "SPEC-IG-01",
+      "severity": "P2",
+      "status": "CLOSED",
+      "originalReportSHA256": "1ec897f7fce9a0df9edffddc0a2e9d7e2bc89b8c0204a1e770003d0861b86e71",
+      "resolution": "V2 creates a ModuleType and compile/executes exactly the bounded O_NOFOLLOW-read SHA-verified V4 bytes, preserving __file__; no pathname reload occurs."
+    }
+  ],
+  "assessment": [
+    "The exact revised plan closes the sole draft finding with no new Spec finding. The verified-byte import change is narrow. Original b011 helper, bbf plan, template and refusal probe remain preserved; plan-v2 adds only the new helper operation hash and explicit revision/supersession fields. Its preparation revises pending metadata once without repeating a build or effect; runtime review/intent/result bindings use the new plan and also guard the original plan hash.",
+    "Current7931 source1056, compiled public CLIee246d0e and original successful builda0f637 remain unchanged. All3677 native files/full directory membership, whole603-file failed A, two partial-publication files,39 old/15 reuse/new6 known102/102 proofs, matrix7fbe72 and explicit missing-file/failed-handoff facts match their pins. No original capture, selector, matrix, timestamp or source is edited; V4 and its refused assembly are not retried.",
+    "The fixed run contains all17 distinct own directories (including incomplete Messages), original text2/newvisual2/newderivedJev/protocol dependencies, eight public verifiers and the first complete direct compiled public gate with actual dualvet/ordinary/race/Pi differential/pressure. Bound observer/realGo hashes and repo cwd preserve numeric command provenance; there is no old-bundle adoption, arbitrary command, Key acquisition, vendor request or paid retry.",
+    "Native Messages120001ms/refused support publication remains intact. Gate results are allowed to expose missing live evidence and old matrix/provenance failures. The wrapper always records successfalse, certificationBlockedtrue, releaseCertifiedfalse, assemblyCompletefalse and zero new imported rows, while retaining the actual native verdict/outer exit. An unexpected true verdict is inconsistent, not rewritten. Both original and V2 pre-review public probes really refused1 with no execution intent/output. This approves this exact first keyless verification attempt only; it grants no passing release/spec certificate or subsequent rerun."
+  ],
+  "originalPlanSHA256": "bbf895e5cfab00ddab99ae5ef03479cbfe8ffd141d31596b5d9e2c2465877bfe",
+  "buildReceiptSHA256": "a0f63739280f88b98d4e066fb1850a21a6fad3cadaa3f425fe3f70d01b3aead2",
+  "operations": {
+    "assemblyHelperSHA256": "e5dc66b14e65011574c807602a77502a4b28b72fe64c1685953c7d2e53fda836",
+    "observerSHA256": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+    "realGoSHA256": "005640c7ff93028cb704283b0f737f2db3faf8b51b2561170c769b83905da646",
+    "helperSHA256": "0ee913b5856de200b75f550a33c34a8ab8d4f3e52f445221f9c6b820d4790ee6",
+    "designSHA256": "26777274527fbdb99389a48c8ff5c432dddce40aabe5e95bd68edd072300bd42",
+    "operatorPlansSHA256": {
+      "Standards": "9adf792c118fc56e3934b2c0b4a886b9386fad129626fbceb7e92f631e9180a6",
+      "Spec": "da86ad62e53714779e4f4b4d031451e9ccce855c834306c338dc2487a4a22756"
+    }
+  },
+  "inputCounts": {
+    "selectedSource": 1056,
+    "nativeFiles": 3677,
+    "nativeBytes": 38280583,
+    "originalAFiles": 603,
+    "originalABytes": 3621300,
+    "partialPublicationFiles": 2,
+    "suppliedOwnLiveDirectories": 17,
+    "eightPublicVerifiers": 8,
+    "actualGoCommands": 4
+  },
+  "requiredAbsencesPreserved": true,
+  "newExecutionIntentExists": false,
+  "gateOutputExists": false,
+  "preapprovalProbe": {
+    "v1SHA256": "4866b49d9c6bc7b98ef7b43529a52ace070bd3e9499d5652c0dc0b5acc013ba3",
+    "v2SHA256": "658be0ef28997b6a30471ef66ab33f7888f8ad8fe267473464c6cb76f005190e",
+    "v2CommandSHA256": "f7c6e0ab099282a77c265592bc137656e5b9b9fe68aaf7a6d68486ba607f8da4",
+    "actualCLIExitCode": 1,
+    "outerAssertionExitIsSeparate": true
+  },
+  "reviewedArtifactsSHA256": {
+    "plan.json": "bbf895e5cfab00ddab99ae5ef03479cbfe8ffd141d31596b5d9e2c2465877bfe",
+    "plan-v2.json": "f97c97c158189bc741a22ea714a1cc64053ea79755d688f8a66450d87fab6985",
+    "keyless-source-review.template.json": "84689dee01a14b4a0002061015d0f6a7a31d8b2e969c78d96779c9aa939dc9ff",
+    "keyless-source-review-v2.template.json": "b990dfde568fc4d36f849655eba9097bca3ec2a79bc471a5ba3cf7f9df3e4365",
+    "build-current-public-releasegate-command.json": "a0f63739280f88b98d4e066fb1850a21a6fad3cadaa3f425fe3f70d01b3aead2",
+    "preapproval-negative.json": "4866b49d9c6bc7b98ef7b43529a52ace070bd3e9499d5652c0dc0b5acc013ba3",
+    "preapproval-negative-v2.json": "658be0ef28997b6a30471ef66ab33f7888f8ad8fe267473464c6cb76f005190e"
+  },
+  "releaseCertified": false,
+  "assemblyComplete": false,
+  "reviewerActions": "Read/hash/static-diff only; no tests, helper/verifier/gate execution, Keys, network, source/input edits or commits."
+}

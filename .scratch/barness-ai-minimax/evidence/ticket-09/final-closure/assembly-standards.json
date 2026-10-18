@@ -1,0 +1,127 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "1c629514ff760e4889ce64c4b787f9800a4514b9",
+  "reviewedCommit": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+  "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff 1c629514ff760e4889ce64c4b787f9800a4514b9...d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+  "diffSHA256": "c7996ba5be0190f5db9992c6ae2a41d7867dfdcf5e276afab479504800268a53",
+  "diffBytes": 49962,
+  "scope": "Only ticket-15/new-actual/assembly; no A rerun, B data, runtime or future-source approval",
+  "standards": [
+    "User AGENTS.md principles1-10 and failure-first test instruction",
+    "docs/agents/domain.md; ADR0042/0045/0046",
+    "All twelve baseline smells considered as judgment calls; skip tool-enforced checks"
+  ],
+  "findings": [],
+  "smells": [],
+  "report": "PASS: no documented-standard breach or actionable baseline smell found in the27-file assembly-retention delta. Independently streamed the958322-byte capsule, checking all607 regular payloads and676 physical tar headers against inventory pins, finite bounds and safe paths without extraction or execution. All603 original A files were independently reopened and hashed; the1,056 source files match historical source7931. All93 previously reviewed G/E frontdoor files remain byte-identical.\n\nThe original Jev derivation and verification exited0; candidate validation exited1 with the exact missing GLM Messages live-report diagnostic. STARTING intent is preserved, with no assemble-completed/default-merge record. Before, candidate and default matrices retain the original7fbe72 hash. All589 copied protocol/visual files match the E inventory; the derived592-file seal,12 PASS accounting and audit0 are consistent. Those12 calls reference E and introduce no consumption. Valid derived support does not claim seventeen-input admission.\n\nOriginal six actual report/receipt paths and hashes, source/history/reuse/scope proofs, V4 helper/observer/Go pins remain bound. The unchanged small reader uses finite FD-rooted regular reads; captured programs are never executed. Failure-first missing-reader RED2 and redirected-report-path RED1 remain historical failures; retained final public verifier0 and13 private guard refusals were read only. This is historical A custody approval, with releaseCertified:false. It does not cover evolving B, current/future17 source applicability, another paid run or release certification.",
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/README.md": "df066e755b6e040c653962bc75ce41893c83345b001460ed2b5a1ecaba1967ef",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/SHA256SUMS": "51114b2fdf0ea85b500597cd3c8ed0185b1e001d92dce029f52e1d22b984cfd7",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/check-boundaries.py": "9fe86e2adb2f0965e815433b848dbbd9826ecbc4184c052cca8cc1db1f983150",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/failure-inventory.md": "18567273bee4b8adcda47338595de0a3e475202eab727d84d0b1a877ff9c3b1d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/freeze.py": "0978b8e117f0dd01be08ce8ca040afecfd4424631dd455603eb9f6c68db96abd",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/index.json": "ee650ba16d6db48cf936ea2d5ab09f88dfb51c0e69d9dfe374e28348b0e6de50",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/inventory.json.gz": "5aa98cc52dd0094eed8897219dd5b883bcc8d10488db3095e6b1078b1142231d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/negative-results.json": "e28166e91623c2bd8a38a10e73f96871f9d15f57bc2ac3972ade22733950d4a0",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/readers.py": "2e338ce15ef8b372f4b14ea3cc0d027650b2a3d4bea4f84e44d9ffb94576983c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/source-at-start.json.gz": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/summary.json": "fc41eb6f9997da9d514776ebebb0e87656384d458b030e879a44ad48ab7c5f62",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/final-public-verification-output.json": "ce7a0e9840523da90309583104e4d32324bb2e5337ec557bd9d51878b2a68a6a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/final-public-verification.json": "413acfaae0bdae7491d60e094e4fe7dcc6d08a00303d1664ca4f99fff1cf35aa",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/green-all13-guards-command.json": "ae1f2be00013f42d464396abfb09ea361a8b9454491bed855de8ed7f65618aa0",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/green-all13-guards.log.gz": "73294b1ea484982d265882f4e85c511e7bfe1e4c5fcb73ad4934c4fb6c85d6d4",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/green-public-cli-command.json": "413acfaae0bdae7491d60e094e4fe7dcc6d08a00303d1664ca4f99fff1cf35aa",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/green-public-cli.log.gz": "ad4c5b66efd68155bb7852522d2b72b544e635c215d83045e9b1e46f1f3f7df5",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/negative-guards-command.json": "f89f4242366cc841affd48a8bd4058d96cd79921565b328bc30d6c9d083dd917",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/negative-guards.log.gz": "5999c0e3705abaccf7f10142bcfb45a774d7ede0c71e1cdd65c08f1cf8d1b434",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/raw-log-index.json": "2efa46f2787415f971e23995b3a4ced63869ce67a6b041f8a6346953d6e281ad",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/red-missing-public-cli-command.json": "bc86c125af721ae52247e07d211cfa24ce7f1e996660e6c080a34285a1992c04",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/red-missing-public-cli.log.gz": "629217cfffffc286caf5113b1b00eb55018dd2e3bc8e57cf13a15dd02e72eb98",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/red-original-report-path-command.json": "2c6c5b5f3cb448e99870d5817a16264fcd6fc1c5759909bc037a12b117234e1c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/red-original-report-path.log.gz": "ae7d05760461778f90595dd0a71c152fb3541673c98130ed8ad64aa15e771f79",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/snapshot-command.json": "a1a770d3c84d38549abcc18ba4e1af2b380c120bb45828f606f6f1f4b6f4d83e",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/tdd/snapshot-command.log.gz": "05ceeedb1ac22b74a1532b80fd256a13b678855b48edaa04a80ebab6d5a79748",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/assembly/verify.py": "ff42ebe756ce8923f29b9b07860140f342ec5e449bbcd75098bea28a7602f71d"
+  },
+  "capsule": {
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/assembly-failed-raw.tar.gz",
+      "bytes": 958322,
+      "sha256": "dd017296ceee895329bf6fb6566435747a03b47ccb088b8bbe6d86ae8d7273f4",
+      "prefix": "repair-assembly-failed"
+    },
+    "files": 607,
+    "rawHeaders": 676,
+    "paxHeaders": 69,
+    "payloadBytes": 3800779,
+    "decodedTarBytes": 4352000,
+    "inventoryCompressedSHA256": "5aa98cc52dd0094eed8897219dd5b883bcc8d10488db3095e6b1078b1142231d",
+    "inventoryDecodedSHA256": "48b85c293aa4e8d4313f16c1a9c38b6af3ad5a66f7a632d6f3e0228d2193ce42",
+    "allMembersAndHeadersChecked": true,
+    "observed": 18,
+    "links": 0
+  },
+  "originalRegularFilesCompared": 603,
+  "sourceFilesVerifiedAgainstCommit": 1056,
+  "provenance": {
+    "commands": {
+      "derive-jev-support": 0,
+      "verify-derived-jev": 0,
+      "validate-four-candidate": 1
+    },
+    "missingMessagesSupport": true,
+    "startingIntent": true,
+    "noCompletion": true,
+    "noMerge": true,
+    "matrixSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "copiedOriginalEffectFiles": 589,
+    "derivedSealFiles": 592,
+    "derivedCalls": 12,
+    "derivedCallsAreReferencesNotNewCalls": true,
+    "sixActuals": 102,
+    "sourceFiles": 1056,
+    "originalGEFilesUnchanged": 93,
+    "oldProofsEqualOriginalE": true,
+    "publicVerifierExit": 0,
+    "negativeGuards": 13,
+    "noReaderExecuted": true
+  },
+  "readerSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+  "operationalPins": {
+    "helper": "e5dc66b14e65011574c807602a77502a4b28b72fe64c1685953c7d2e53fda836",
+    "observer": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+    "realGo": "005640c7ff93028cb704283b0f737f2db3faf8b51b2561170c769b83905da646"
+  },
+  "independentReadArtifacts": {
+    "/tmp/barness-repair-assembly-retention-independent-readhash.json": "54d7ff4e3b829b87fcbe2147bee4982df555ef6ff825333de68c959750244d09",
+    "/tmp/barness-repair-assembly-retention-independent-provenance.json": "a297a84b732269df72724884361e9b2d052a405397b06dcb5b03d66e666742e4",
+    "/tmp/barness-review-assembly-retention.py": "0aa081e01a0cae46d296d701a0fb10bfc4928cfac4fe4b5441e21f45250f3e0c",
+    "/tmp/barness-review-assembly-provenance.py": "db2fb5ecb0f5198da39e45e6cf9eadafed20def900347dab7c8de7848095307f"
+  },
+  "priorGERetentionReview": {
+    "file": "/tmp/barness-repair-actuals-retention-standards-review.json",
+    "sha256": "aaa1c0f3980945033749a8d65d8505258849b79394926f507f9d268fe8bb6e90",
+    "same93CommittedMetadataFiles": true
+  },
+  "reviewerExecution": {
+    "projectProgramsExecuted": false,
+    "capturedProgramsExecuted": false,
+    "testsOrVerifiersExecuted": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "rootWrites": false,
+    "workerWrites": false,
+    "archiveExtraction": false,
+    "BDataRead": false
+  },
+  "rootObserved": {
+    "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/\n"
+  },
+  "releaseCertified": false,
+  "futureSourceApplicability": false
+}

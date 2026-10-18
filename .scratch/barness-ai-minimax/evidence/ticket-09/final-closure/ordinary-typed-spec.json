@@ -1,0 +1,588 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_RETENTION_TYPE_REPAIR_ONLY",
+  "baseCommit": "2afcc52b8ca46a94af2dab8344f427e819ce5de0",
+  "reviewedCommit": "27f44f7296f9edf1545c3775e2c5eac3b67012ee",
+  "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff 2afcc52b8ca46a94af2dab8344f427e819ce5de0...27f44f7296f9edf1545c3775e2c5eac3b67012ee",
+  "commitsCommand": "git log 2afcc52b8ca46a94af2dab8344f427e819ce5de0..27f44f7296f9edf1545c3775e2c5eac3b67012ee --oneline",
+  "diffSHA256": "6270e0f630ce3defd47db6c1b07865b49075056f49a0218be4a3cd802485d9cb",
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "ORDINARY-SPEC-01",
+      "status": "CLEARED",
+      "evidence": "Exact-int guards in verify.py:11 and freeze.py:19; genuine public accepted0 to refused1 for bool/float private native receipts; original capture remains int1."
+    }
+  ],
+  "report": "Spec exact rereview: PASS; ORDINARY-SPEC-01 cleared. Reviewed2afcc52…27f44f7,48 changed retention files only. Ticket15:32 requires “持久化四项数字退出码和报告”. Both public consumer and exclusive creation guard now require type(exitCode) is int before value1; JSON true and1.0 cannot pass. Before/after code copies exactly match their respective commits, and the original6d8aa73… review remains byte-identical.\n\nTwo independently resealed full private capsules exercise the public verifier process. Recorded pre-fix public exits are0 with verified:true despite true/1.0; recorded post-fix exits are1 with the precise numeric-exit refusal. Outer probe assertions have their separate1→0 results. The initial small-reader inventory setup refusal is preserved and explicitly excluded from the genuine RED proof; no direct analyse/unit substitution occurred.\n\nIndependent bounded stdlib streams verified each negative archive’s133177 regular member hashes and complete inventory. Each differs from the original inventory only at receipts/ordinary.json; JSON comparison confirms that only exitCode’s semantic type changes, with all other native fields and every other member unchanged. Boolean archiveff7ea49e… and floatarchivea294c835… are separate read-only/non-authoritative fixtures; both stay within unchanged256MiB compressed/2GiB tar/64MiB member/full-reader limits. Each decodes1543362560 tar bytes and retains the original source/plan/failure bodies.\n\nOriginal archive9c8c1bcb…, index, inventory, source and summary remain byte-identical. Its actual receipt remains int1; original12445PASS/6FAIL,98710 references,868 PIDIFF and29/15 pressure results are unchanged. Recorded final original public verification0, both retained-fixture integrity verification results and all10 exact-reason negative refusals agree. They were read, not rerun.\n\nThis closes only the retention reader type gap. It grants no ordinary Go PASS, race/outer verdict, new source applicability, paid authority or release certificate. No evolving B race/outer, ticket17 WIP, project/captured program/test/verifier, Key, network, repository edit or merge was used.",
+  "reportBodyWords": 255,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/README.md": {
+      "bytes": 5678,
+      "sha256": "816a4d18a916e7910d1c93540869b26b5002591e6a0436e5b7d9d25ea0bccb5b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/SHA256SUMS": {
+      "bytes": 6978,
+      "sha256": "513848b279a068d7214bffdbc90a443f1f5d559bf1ada89fd032d9b24f473ec7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py": {
+      "bytes": 6535,
+      "sha256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-boundaries.py": {
+      "bytes": 4244,
+      "sha256": "4ecd88ee911f0d7af79a58faa163b746df967b6a3ffd52817e36a2f594a948c8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/failure-inventory.md": {
+      "bytes": 1679,
+      "sha256": "7b599dc1bb37adf01af218e943ee507626f41fd70e517dcd8302e19861541bc4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/after-freeze.py.txt": {
+      "bytes": 5751,
+      "sha256": "dea0b0d17cb49b89f73d351956103e5b4c95d84706bded6efb9f49fb0a30db36"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/after-verify.py.txt": {
+      "bytes": 5137,
+      "sha256": "e8fa51864d50d61fa27359d84cd04e85b1967ffb6110cb22aa363e10ced754a3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/before-freeze.py.txt": {
+      "bytes": 5717,
+      "sha256": "b9071b13adaeb1faf2b81dcdad2ecd3463edb053928a031a5cb60213d6c73dd7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/before-verify.py.txt": {
+      "bytes": 5097,
+      "sha256": "a5e33c7e105a33563efa53fedd0435a58fd20031ea755ac5e554b22c9763017d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/boolean-check-public-command.json": {
+      "bytes": 617,
+      "sha256": "374526bc162a30d4b00e5c95fc0051055a3976f48ef0867dd08f200fbc68a937"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/boolean-check-public.log.gz": {
+      "bytes": 84,
+      "sha256": "2e9ebca96ef2e9c9f9b743cfe136f725580b1d652dced96dacc62279acdafd3c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/boolean-fixture-proof.json": {
+      "bytes": 642,
+      "sha256": "627c52e3c08ddcf10870ec2b46385ded0e74f12f64577bee02597d819281018d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/boolean-negative-index.json": {
+      "bytes": 2146,
+      "sha256": "ccdce1d8dae2256c221c916d483719b79fe616de06ff85889ebadb236cb4294e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/boolean-negative-inventory.json.gz": {
+      "bytes": 4400864,
+      "sha256": "727c6e213165e3b8d5ea3cfcaeca1d97067cf4d3cddf4a74565465f787fd0bac"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/boolean-prepare-public-command.json": {
+      "bytes": 618,
+      "sha256": "42fea3a6a193863e9811c5fee64aec3fbf3e0541f6de008f692e061deb8482a9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/boolean-prepare-public.log.gz": {
+      "bytes": 399,
+      "sha256": "d74e764bf89023454fbe3f97b3620fbeb5279dddeb9d90251177883512dcc392"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/final-original-verification-command.json": {
+      "bytes": 308,
+      "sha256": "80e6c3901eb5c3a3ff1b927402f1bbf83ce5cec3e43cdb25b6b9da0a149fdc4a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/final-original-verification-output.json": {
+      "bytes": 675,
+      "sha256": "de11c069f24468e82512540a3e9977eda242cc2ebb751e02da71cf1f8c65d685"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/float-check-public-command.json": {
+      "bytes": 613,
+      "sha256": "56255411bb9dcad2c19a5c01010f75679776153e905f517c4f1dfc63b8486f1e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/float-check-public.log.gz": {
+      "bytes": 84,
+      "sha256": "2e9ebca96ef2e9c9f9b743cfe136f725580b1d652dced96dacc62279acdafd3c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/float-fixture-proof.json": {
+      "bytes": 639,
+      "sha256": "c6789a69c2c92a0552200828fd481713ab5c097eb6583655c9499101ec1a0f25"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/float-negative-index.json": {
+      "bytes": 2142,
+      "sha256": "fd5f9951158577ad9258ef8c2f306b562e1f9497ff1b7f7b62ab7e0b0cbfebdc"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/float-negative-inventory.json.gz": {
+      "bytes": 4400868,
+      "sha256": "40d5297010030c964d33af4d9e2b23d3db7b03e6165b37534ca31a0f0d205167"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/float-prepare-public-command.json": {
+      "bytes": 614,
+      "sha256": "3a2beba462b7c1d6ec9de5402b14262ff9029b924931053998089f51fd4e0026"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/float-prepare-public.log.gz": {
+      "bytes": 397,
+      "sha256": "9c1c13cad2a897f8914f4a6a1c3bf55532815c9a4d1fe71fc2d8e937460604bb"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/green-all10-boundaries-command.json": {
+      "bytes": 318,
+      "sha256": "2e14ec8c4a945f3a910ec0f6c6317247a49b5d19c91dd5782d32b35c97282d4a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/green-all10-boundaries.log.gz": {
+      "bytes": 520,
+      "sha256": "d0a932605ce25a0013ffe5fc8675b0f66ea2c74c7bf6790145003b5163023bd4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/green-public-boolean-receipt-command.json": {
+      "bytes": 423,
+      "sha256": "2bf968b847d187eedcbdc84b4573dda36ba85d14563da7db3f7ba084c0abc4aa"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/green-public-boolean-receipt.log.gz": {
+      "bytes": 424,
+      "sha256": "b8802bbb0d380fbe73626a5e5b8d3693aceed4a81dae8a711dbfff99cac67826"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/green-public-float-receipt-command.json": {
+      "bytes": 419,
+      "sha256": "a306b96308703bd79169fce16618479b5eec0745f8291f2d52b6671f13cc47c4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/green-public-float-receipt.log.gz": {
+      "bytes": 423,
+      "sha256": "e9189886d1b3ecf75b3de278820844d1bcaaf5e6d86c89965f617ae6c3cab442"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/negative-fixtures.json": {
+      "bytes": 766,
+      "sha256": "0ba5d1bc8200dea905e46455eadf78e450d35ecb84b2860cb6e9f2285d44ed0e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/original-reviews.json": {
+      "bytes": 488,
+      "sha256": "c907ea4194646100b9ffb19b21d10e679c6169f5d4c6ddfce96bdbe076707bb2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/original-spec-review.json": {
+      "bytes": 34787,
+      "sha256": "6d8aa73c63e8da89a24fdf3b03d2d18153f3e1033c263dd9425649b162645f70"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/original-standards-review.json": {
+      "bytes": 11919,
+      "sha256": "c35eac630f8fd669cd6c25a50b5809623210381b8bb7ec3f9460854352de6aa8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/red-public-boolean-receipt-attempt2-command.json": {
+      "bytes": 460,
+      "sha256": "745837c46c6953e995724b4fa1e428dc91a33da2c634ebd0acc36f63459c531e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/red-public-boolean-receipt-attempt2.log.gz": {
+      "bytes": 763,
+      "sha256": "08c5ce310e447d3cbdb4cf9226465fbb328bf6ea0224d7ef22b18722c2c50a38"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/red-public-boolean-receipt-command.json": {
+      "bytes": 439,
+      "sha256": "57bb62aa7b71db46d90745556d7dfecc2125d40ffa8c4d4c89b4bd45d9ff0bff"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/red-public-boolean-receipt.log.gz": {
+      "bytes": 576,
+      "sha256": "5c1fe13a46b93708468d7fe6a2cba769ab4f85f1d00b70c52821fee18e08f3f0"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/red-public-float-receipt-attempt2-command.json": {
+      "bytes": 456,
+      "sha256": "ddcf5b816f9ae1e53d503bba39af9d27c2ff28eada5b39ab96a4fecebf2cb51a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/red-public-float-receipt-attempt2.log.gz": {
+      "bytes": 765,
+      "sha256": "7de9eda9882cf1b8b9fb6fa8c2c329e8077baa2f0de780c07cd80d24634ae620"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/retained-negative-fixtures-verification-command.json": {
+      "bytes": 339,
+      "sha256": "45e1cb39fabd9bd7686203458d78e15781908d1cda556961ec39d697264ec498"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/retained-negative-fixtures-verification.log.gz": {
+      "bytes": 397,
+      "sha256": "8f2ca178a40abc4de1eb8d19df14485e4680c4426fd13cd1ce4d6835923c28b7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/field-repair/verify-negative-fixtures.py": {
+      "bytes": 1755,
+      "sha256": "9d7faaecdcf5dcd5b27fae680020342443f75953c6c8960440cb4b3e199ef998"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/freeze.py": {
+      "bytes": 5751,
+      "sha256": "dea0b0d17cb49b89f73d351956103e5b4c95d84706bded6efb9f49fb0a30db36"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/negative-results.json": {
+      "bytes": 1788,
+      "sha256": "fc137485657ad8d376b12486fb067f23e6724743883ad707b71d79966e5cf3cf"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/raw-log-index.json": {
+      "bytes": 5089,
+      "sha256": "0fca7b45ea32db40ac01f13d138fa8b382cb549ca5ab41704ca1f90f2c0d6715"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py": {
+      "bytes": 5137,
+      "sha256": "e8fa51864d50d61fa27359d84cd04e85b1967ffb6110cb22aa363e10ced754a3"
+    }
+  },
+  "originalArchive": {
+    "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz",
+    "bytes": 114797350,
+    "sha256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd",
+    "prefix": "repair-incomplete-ordinary"
+  },
+  "originalIndexInventorySourceSummaryBytesUnchanged": true,
+  "originalReviewSHA256": "6d8aa73c63e8da89a24fdf3b03d2d18153f3e1033c263dd9425649b162645f70",
+  "negativeArchives": [
+    {
+      "kind": "boolean",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-boolean-negative-raw.tar.gz",
+        "bytes": 114797347,
+        "sha256": "ff7ea49e9fdec8f8004a8c98bd73cd9273f38d5c2d25ff1ed32d5046fe06ad53",
+        "prefix": "repair-incomplete-ordinary"
+      },
+      "inventory": {
+        "file": "field-repair/boolean-negative-inventory.json.gz",
+        "compressedSHA256": "727c6e213165e3b8d5ea3cfcaeca1d97067cf4d3cddf4a74565465f787fd0bac",
+        "decodedBytes": 25702325,
+        "decodedSHA256": "a3e1a9150a7cf4648ff35a893b4c8d4f525ced4a2d540c186f1177b736039cbb",
+        "files": 133177
+      },
+      "limitsUnchanged": true,
+      "files": 133177,
+      "payloadBytes": 1308872074,
+      "decodedTarBytes": 1543362560,
+      "maxMemberBytes": 36351001,
+      "changedNativeMembers": [
+        "receipts/ordinary.json"
+      ],
+      "nativeExitType": "bool",
+      "allOtherNativeFieldsAndBytesUnchanged": true,
+      "nonAuthoritative": true
+    },
+    {
+      "kind": "float",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-float-negative-raw.tar.gz",
+        "bytes": 114797346,
+        "sha256": "a294c835e078d6eeac61454f939476115715f0f9b7acc35e0cdad9f33b9f4373",
+        "prefix": "repair-incomplete-ordinary"
+      },
+      "inventory": {
+        "file": "field-repair/float-negative-inventory.json.gz",
+        "compressedSHA256": "40d5297010030c964d33af4d9e2b23d3db7b03e6165b37534ca31a0f0d205167",
+        "decodedBytes": 25702325,
+        "decodedSHA256": "d0d01e3a1e73e15b39aae2649d6adf67e271d0d7f6adf0488a5b68f6202c6c72",
+        "files": 133177
+      },
+      "limitsUnchanged": true,
+      "files": 133177,
+      "payloadBytes": 1308872073,
+      "decodedTarBytes": 1543362560,
+      "maxMemberBytes": 36351001,
+      "changedNativeMembers": [
+        "receipts/ordinary.json"
+      ],
+      "nativeExitType": "float",
+      "allOtherNativeFieldsAndBytesUnchanged": true,
+      "nonAuthoritative": true
+    }
+  ],
+  "publicREDGREEN": {
+    "boolean": {
+      "red": {
+        "argv": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "-B",
+          "/tmp/barness-ordinary-boolean-receipt-2/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py",
+          "--common-root",
+          "/tmp/barness-ordinary-boolean-receipt-2"
+        ],
+        "publicExitCode": 0,
+        "invalidNumericReceiptRefused": false,
+        "stdoutSHA256": "3dd0ea2431245f2ff7cdf0f50db002478baf953ea04cd97f0a65234d27fc7cda",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "publicVerifierSHA256": "a5e33c7e105a33563efa53fedd0435a58fd20031ea755ac5e554b22c9763017d",
+        "credentialsRead": false,
+        "paidCalls": 0
+      },
+      "green": {
+        "argv": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "-B",
+          "/tmp/barness-ordinary-boolean-receipt-2/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py",
+          "--common-root",
+          "/tmp/barness-ordinary-boolean-receipt-2"
+        ],
+        "publicExitCode": 1,
+        "invalidNumericReceiptRefused": true,
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSHA256": "fc667c6a440b20a67ec8d024e0bc40c6e643495ceb051f77b229608062865f3c",
+        "publicVerifierSHA256": "e8fa51864d50d61fa27359d84cd04e85b1967ffb6110cb22aa363e10ced754a3",
+        "credentialsRead": false,
+        "paidCalls": 0
+      }
+    },
+    "float": {
+      "red": {
+        "argv": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "-B",
+          "/tmp/barness-ordinary-float-receipt-2/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py",
+          "--common-root",
+          "/tmp/barness-ordinary-float-receipt-2"
+        ],
+        "publicExitCode": 0,
+        "invalidNumericReceiptRefused": false,
+        "stdoutSHA256": "3a26e32986bb10b23c303a40b35d16beccdb674e5b1457b45583168fa3fb9af8",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "publicVerifierSHA256": "a5e33c7e105a33563efa53fedd0435a58fd20031ea755ac5e554b22c9763017d",
+        "credentialsRead": false,
+        "paidCalls": 0
+      },
+      "green": {
+        "argv": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "-B",
+          "/tmp/barness-ordinary-float-receipt-2/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py",
+          "--common-root",
+          "/tmp/barness-ordinary-float-receipt-2"
+        ],
+        "publicExitCode": 1,
+        "invalidNumericReceiptRefused": true,
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSHA256": "fc667c6a440b20a67ec8d024e0bc40c6e643495ceb051f77b229608062865f3c",
+        "publicVerifierSHA256": "e8fa51864d50d61fa27359d84cd04e85b1967ffb6110cb22aa363e10ced754a3",
+        "credentialsRead": false,
+        "paidCalls": 0
+      }
+    }
+  },
+  "recordedNegativeGuards": {
+    "verified": true,
+    "negativeGuards": [
+      {
+        "case": "metadata",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: local metadata pin differs"
+      },
+      {
+        "case": "wrong-source",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: fixed original ordinary capsule identity differs"
+      },
+      {
+        "case": "wrong-path",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: fixed original ordinary capsule identity differs"
+      },
+      {
+        "case": "widen-limits",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: fixed streaming limits differ"
+      },
+      {
+        "case": "archive-pin",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: compressed archive pin differs"
+      },
+      {
+        "case": "summary-pass",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: independent ordinary summary differs"
+      },
+      {
+        "case": "summary-failures",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: independent ordinary summary differs"
+      },
+      {
+        "case": "observations",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: fixed observed metadata inventory"
+      },
+      {
+        "case": "exit-code-boolean",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: original actual ordinary numeric exit differs",
+        "fixtureArchiveSHA256": "ff7ea49e9fdec8f8004a8c98bd73cd9273f38d5c2d25ff1ed32d5046fe06ad53"
+      },
+      {
+        "case": "exit-code-float",
+        "exitCode": 1,
+        "reason": "REFUSED: ValueError: original actual ordinary numeric exit differs",
+        "fixtureArchiveSHA256": "a294c835e078d6eeac61454f939476115715f0f9b7acc35e0cdad9f33b9f4373"
+      }
+    ],
+    "originalArchivesMutated": false,
+    "archiveHardlinksUsedReadOnly": true,
+    "credentialsRead": false,
+    "paidCalls": 0
+  },
+  "retainedFixtureVerification": {
+    "verified": true,
+    "negativeFixtures": [
+      {
+        "kind": "boolean",
+        "archive": {
+          "files": 133177,
+          "entries": 133177,
+          "rawBytes": 1308872074,
+          "decodedTarBytes": 1543362560,
+          "archiveBytes": 114797347,
+          "archiveSHA256": "ff7ea49e9fdec8f8004a8c98bd73cd9273f38d5c2d25ff1ed32d5046fe06ad53"
+        },
+        "syntheticNativeField": "exitCode",
+        "releaseEvidence": false
+      },
+      {
+        "kind": "float",
+        "archive": {
+          "files": 133177,
+          "entries": 133177,
+          "rawBytes": 1308872073,
+          "decodedTarBytes": 1543362560,
+          "archiveBytes": 114797346,
+          "archiveSHA256": "a294c835e078d6eeac61454f939476115715f0f9b7acc35e0cdad9f33b9f4373"
+        },
+        "syntheticNativeField": "exitCode",
+        "releaseEvidence": false
+      }
+    ],
+    "originalActualExitType": "int",
+    "originalActualExit": 1,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "releaseCertified": false
+  },
+  "rawLogPins": {
+    "logs": [
+      {
+        "originalFile": "tdd/green-all8-boundaries-attempt2.log",
+        "file": "tdd/green-all8-boundaries-attempt2.log.gz",
+        "compressedSHA256": "e4e3915cec2fdb31a0c16876ae953355129482cba60c6d5083690898a83911db",
+        "decodedBytes": 1286,
+        "decodedSHA256": "3462f3b6192bffb656a113fa7aa1c185efdf067334dc86139b55abff12233833"
+      },
+      {
+        "originalFile": "tdd/green-all8-boundaries.log",
+        "file": "tdd/green-all8-boundaries.log.gz",
+        "compressedSHA256": "76ff9cf53be623daea650aac40985b1d998c06d9d4ad670b20383ba045953fc5",
+        "decodedBytes": 1012,
+        "decodedSHA256": "0eabbca7b11ec701998036b5d6e5c8545036a6f11d3d863cd83c7a5d0a135c39"
+      },
+      {
+        "originalFile": "tdd/public-boundaries.log",
+        "file": "tdd/public-boundaries.log.gz",
+        "compressedSHA256": "2c7a11910b189057a1d56cd3e27cad73bdc7f16290339641ee0735aef149d9d5",
+        "decodedBytes": 1031,
+        "decodedSHA256": "ce6f241fd99592858385ce46ebbf9a6e778cba3027eec4fb003a0b47cd8c8f23"
+      },
+      {
+        "originalFile": "tdd/red-missing-public-reader.log",
+        "file": "tdd/red-missing-public-reader.log.gz",
+        "compressedSHA256": "9d6b6b814a5a3268cf2670a4c1dfe87bde9a44853e26cb503776ae24274b39aa",
+        "decodedBytes": 316,
+        "decodedSHA256": "a2a52234065d854f19b75e061b441fa347d49518c6f09a2becb64fc91a64e320"
+      },
+      {
+        "originalFile": "tdd/sealed-bytes-verification.log",
+        "file": "tdd/sealed-bytes-verification.log.gz",
+        "compressedSHA256": "310305e56f608364dcee1b0f9ccb9071280a0cb4e78115d1f2956dc2b8c6b87c",
+        "decodedBytes": 377,
+        "decodedSHA256": "2dff29853f036d498ede19a6c731d27be75a00e8986f52575a90764cd94c1667"
+      },
+      {
+        "originalFile": "tdd/snapshot-command.log",
+        "file": "tdd/snapshot-command.log.gz",
+        "compressedSHA256": "cfb8f2c3dfb762b41ebde0da66a3773b526ee83fdecc201fe07e35cfc66b16a7",
+        "decodedBytes": 478,
+        "decodedSHA256": "fda1e37c3e4fb4f4e0954f7123dbb4b77b40667f45d07f1368930bb125114270"
+      },
+      {
+        "originalFile": "field-repair/boolean-check-public.log",
+        "file": "field-repair/boolean-check-public.log.gz",
+        "compressedSHA256": "2e9ebca96ef2e9c9f9b743cfe136f725580b1d652dced96dacc62279acdafd3c",
+        "decodedBytes": 67,
+        "decodedSHA256": "fc667c6a440b20a67ec8d024e0bc40c6e643495ceb051f77b229608062865f3c"
+      },
+      {
+        "originalFile": "field-repair/boolean-prepare-public.log",
+        "file": "field-repair/boolean-prepare-public.log.gz",
+        "compressedSHA256": "d74e764bf89023454fbe3f97b3620fbeb5279dddeb9d90251177883512dcc392",
+        "decodedBytes": 675,
+        "decodedSHA256": "3dd0ea2431245f2ff7cdf0f50db002478baf953ea04cd97f0a65234d27fc7cda"
+      },
+      {
+        "originalFile": "field-repair/float-check-public.log",
+        "file": "field-repair/float-check-public.log.gz",
+        "compressedSHA256": "2e9ebca96ef2e9c9f9b743cfe136f725580b1d652dced96dacc62279acdafd3c",
+        "decodedBytes": 67,
+        "decodedSHA256": "fc667c6a440b20a67ec8d024e0bc40c6e643495ceb051f77b229608062865f3c"
+      },
+      {
+        "originalFile": "field-repair/float-prepare-public.log",
+        "file": "field-repair/float-prepare-public.log.gz",
+        "compressedSHA256": "9c1c13cad2a897f8914f4a6a1c3bf55532815c9a4d1fe71fc2d8e937460604bb",
+        "decodedBytes": 675,
+        "decodedSHA256": "3a26e32986bb10b23c303a40b35d16beccdb674e5b1457b45583168fa3fb9af8"
+      },
+      {
+        "originalFile": "field-repair/green-all10-boundaries.log",
+        "file": "field-repair/green-all10-boundaries.log.gz",
+        "compressedSHA256": "d0a932605ce25a0013ffe5fc8675b0f66ea2c74c7bf6790145003b5163023bd4",
+        "decodedBytes": 1788,
+        "decodedSHA256": "fc137485657ad8d376b12486fb067f23e6724743883ad707b71d79966e5cf3cf"
+      },
+      {
+        "originalFile": "field-repair/green-public-boolean-receipt.log",
+        "file": "field-repair/green-public-boolean-receipt.log.gz",
+        "compressedSHA256": "b8802bbb0d380fbe73626a5e5b8d3693aceed4a81dae8a711dbfff99cac67826",
+        "decodedBytes": 659,
+        "decodedSHA256": "f659b258466eaae94db950acab5006327d78104edead358d44fbd9f09f90ac9e"
+      },
+      {
+        "originalFile": "field-repair/green-public-float-receipt.log",
+        "file": "field-repair/green-public-float-receipt.log.gz",
+        "compressedSHA256": "e9189886d1b3ecf75b3de278820844d1bcaaf5e6d86c89965f617ae6c3cab442",
+        "decodedBytes": 655,
+        "decodedSHA256": "6110fb9456437180626d0e08b2c1f19ed831e8d140734e3527aff10829cd2f6c"
+      },
+      {
+        "originalFile": "field-repair/red-public-boolean-receipt-attempt2.log",
+        "file": "field-repair/red-public-boolean-receipt-attempt2.log.gz",
+        "compressedSHA256": "08c5ce310e447d3cbdb4cf9226465fbb328bf6ea0224d7ef22b18722c2c50a38",
+        "decodedBytes": 2079,
+        "decodedSHA256": "f9e90bfa504cdf1839077d59076cb5fef27519610d98ae8cceebbbf7042cd006"
+      },
+      {
+        "originalFile": "field-repair/red-public-boolean-receipt.log",
+        "file": "field-repair/red-public-boolean-receipt.log.gz",
+        "compressedSHA256": "5c1fe13a46b93708468d7fe6a2cba769ab4f85f1d00b70c52821fee18e08f3f0",
+        "decodedBytes": 2005,
+        "decodedSHA256": "17cdf9e75eabb5a94b9a481d77fb4a5f50e54cd5812bd5dca18fa019da569ee2"
+      },
+      {
+        "originalFile": "field-repair/red-public-float-receipt-attempt2.log",
+        "file": "field-repair/red-public-float-receipt-attempt2.log.gz",
+        "compressedSHA256": "7de9eda9882cf1b8b9fb6fa8c2c329e8077baa2f0de780c07cd80d24634ae620",
+        "decodedBytes": 2075,
+        "decodedSHA256": "23ad828fbe795a7c1d27e7d087ece60bc565effee473404cc6a38379045d6dad"
+      },
+      {
+        "originalFile": "field-repair/retained-negative-fixtures-verification.log",
+        "file": "field-repair/retained-negative-fixtures-verification.log.gz",
+        "compressedSHA256": "8f2ca178a40abc4de1eb8d19df14485e4680c4426fd13cd1ce4d6835923c28b7",
+        "decodedBytes": 964,
+        "decodedSHA256": "bcc3ce19d03623036acebcd7ed54b5dfc7b74bf6827a576662c594359f6a77f3"
+      }
+    ]
+  },
+  "sourcePins": {
+    "verify.py": "e8fa51864d50d61fa27359d84cd04e85b1967ffb6110cb22aa363e10ced754a3",
+    "freeze.py": "dea0b0d17cb49b89f73d351956103e5b4c95d84706bded6efb9f49fb0a30db36",
+    "boolean-receipt-probe.py": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79",
+    "field-repair/before-verify.py.txt": "a5e33c7e105a33563efa53fedd0435a58fd20031ea755ac5e554b22c9763017d",
+    "field-repair/after-verify.py.txt": "e8fa51864d50d61fa27359d84cd04e85b1967ffb6110cb22aa363e10ced754a3",
+    "field-repair/before-freeze.py.txt": "b9071b13adaeb1faf2b81dcdad2ecd3463edb053928a031a5cb60213d6c73dd7",
+    "field-repair/after-freeze.py.txt": "dea0b0d17cb49b89f73d351956103e5b4c95d84706bded6efb9f49fb0a30db36"
+  },
+  "scopeConstraints": {
+    "noBRead": true,
+    "ticket17WIPApproved": false,
+    "releaseCertified": false,
+    "newSourceApplicabilityApproved": false,
+    "projectCapturedProgramsOrTestsExecuted": false,
+    "keysRead": false,
+    "networkCalls": 0,
+    "repoChanges": false
+  },
+  "independentReaderSHA256": "d624e304b2cf989fc6c87a6084141e63adf68e3d304c6db3a13fc30dc6fa2ed2"
+}

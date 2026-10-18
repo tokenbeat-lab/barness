@@ -30,3 +30,14 @@ Blocked by: 08, 10
 2026-10-18区域路由轮次后：来源8fbd170的新完整公共CLI已实际完成双vet、ordinary/race，四项数字退出0/0/1/1；两套各12439PASS/8FAIL/1NOT_RUN、审计0，868个真实PIDiff及29个Pressure case均PASS。已生成pass=false报告；不改写3d3a1fb原来无报告的历史。其余15项与GLM Chat/Messages本轮PASS，GLM Responses仍真实FAIL，17矩阵记录16PASS/1FAIL。新增245/245、累计545/545全部关闭。离线新缺口由[14](14-release-preflight-gaps.md)补正，最终完整认证仍未通过。本票保持claimed。
 
 2026-10-18离线合入检查点：已审查修复与有限归档在 `7231fdad` 合入，13按固定执行/证据范围resolved，14/16按离线范围resolved。六项无Key检查与本地GLM91秒边界证明不替代真实支持；旧545/545、GLM Responses FAIL和8fbd全量false保持。[15](15-source-scoped-revalidation.md)准备固定6进程，最终来源/二进制/计划及无Key检查审查就绪后才请求新108/132预算；本票与spec继续开放。
+
+
+### 2026-10-18 固定六项关闭后的最新交付检查点
+
+2026-10-18 最新固定六项真实验收已按人类新增108calls/132HTTPAttempts批准完成：中国区GLM直连，国际protocol114及两项视觉经127.0.0.1:7890。Chat、Responses及三项效果collection通过，Messages21PASS/1FAIL，新增102/102，连原545/545累计647/647。该固定合同全部关闭，未用6calls/30Attempts不转移，无自动下一轮或新增付费授权。严格GLM续期和新四报告装配拒绝，原selector与17身份矩阵SHA保持；原矩阵16PASS/1FAIL为旧Responses记录，最新Messages原始失败未导入。
+
+来源7931的首次完整无Key公共CLI及post-guards均已结束：八项输入校验0，双vet/ordinary/race数字退出0/0/1/1，CLI1、报告pass=false。普通/race各12451项（12445PASS/6FAIL/0NOT_RUN），审计0、868真实PIDIFF PASS；29个pressure命名用例通过，其中固定规则选择15项。六项失败为GLM三协议正式导入/已报告用量检查；未采用旧bundle或绕过缺失Messages报告。
+
+最终双轴审查发现的Messages最终payload形状及文档问题已由票17离线补正，源码2306917、文档295728a均复审零发现。44公共用例为42非法输入零Provider/Attempt拒绝、两合法业务JSON原值发送；定向普通/race各1663PASS/8NOT_RUN，同8项mandatory显式开关另各8PASS，双vet0。实际测量为ca67+WIP，1027编译/JSON/mod/sum文件等于2306，不声称提交后重跑。修复后M3/GLM/文本/protocol/视觉全部11组严格来源当前相等性不成立；历史证据保持，generic10按既有受影响规则另行核对不变。旧门禁不认证当前源码。
+
+本票保持claimed；M3原来源8900034三份自身正式PASS39/36、本轮未重跑，M3.1线上三候选NOT_RUN0/0仍无获准MPlan资格。spec继续开放，不以受控通过替代修复后当前来源的必交证明。见[当前交付](../delivery-status.md)、[六项原件](../evidence/ticket-15/new-actual/glm/README.md)、[全量门禁](../evidence/ticket-15/new-actual/final-gate/README.md)及[最终审查](../evidence/ticket-09/final-closure/README.md)。

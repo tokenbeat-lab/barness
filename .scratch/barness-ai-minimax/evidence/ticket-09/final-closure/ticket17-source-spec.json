@@ -1,0 +1,505 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_SOURCE_REPAIR_ONLY",
+  "baseCommit": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+  "reviewedCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+  "diffCommand": "git diff ca67bedb001217a4b585e798b0feacfa3ee02c1a...230691742b731c77e8167b94646219e10f78c8f7",
+  "commitsCommand": "git log ca67bedb001217a4b585e798b0feacfa3ee02c1a..230691742b731c77e8167b94646219e10f78c8f7 --oneline",
+  "diffSHA256": "c187bb4df761716617f4bfa5b37771edecaac274d2e8e4ccbb976748b10ff130",
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "FINAL-SPEC-01",
+      "status": "CLEARED_FOR_SOURCE_2306917",
+      "spec": {
+        "file": ".scratch/barness-ai-minimax/spec.md",
+        "line": 252,
+        "quote": "所有默认、模型/调用采样与回调之后统一校验最终 stream、模型、消息、函数工具、原生引用、认证、缓存键、型号约束、已接入能力与资源限制；无 hook 也走同样边界。只检查协议容器，函数 JSON Schema 属性名、arguments 或正文中的同名字段仍是业务数据，不能递归误拒。"
+      },
+      "evidence": "Committed guard/test bytes match preparatory static analysis; genuine public Client RED actual malformed sends followed by final related ordinary/race42 negative0/0 and2 positive exact wire1/1."
+    }
+  ],
+  "notCleared": [
+    {
+      "id": "FINAL-SPEC-02",
+      "reason": "Documentation is absent from this source-only commit and requires separate exact committed review."
+    }
+  ],
+  "report": "Spec source repair review: PASS; FINAL-SPEC-01 cleared for exactca67bed…2306917, six code/trace files. FINAL-SPEC-02 documentation is not addressed or cleared by this commit.\n\nR20:252 requires “统一校验最终 stream、模型、消息、函数工具” while “函数 JSON Schema 属性名、arguments 或正文中的同名字段仍是业务数据”. The committed guard validates required message arrays/objects, user/assistant roles, content/block types and required thinking/tool-use/tool-result fields, plus function-tool name/schema and declared top-level container types. It runs after payload hooks/authorization on the shared public full/simple Stream/Complete path, before Provider send/Attempt creation. MiniMax-only dispatch preserves other Providers; existing signed-thinking/native tool continuation guards remain intact. Business input/schema values are not recursively interpreted, and no general schema validator is introduced.\n\nAll six committed hashes equal the earlier pinned WIP analysis. Public E2E adds44 unique cases:42 malformed requests and2 positive Complete hook controls. Independently read final ordinary/race artifacts confirm each negative0 Provider/0 Attempts and each positive1/1 with unchanged wire messages/tools. Genuine container/field/block/tool REDs record actual malformed1/1 sends before fixes; initial compile failure, RawMessage fixture authorization branches, failed GREEN and dependency failure remain separate historical records.\n\nAll394 trace rows/old required cases and P0/live/differential policy remain. Only R20/A17/US55 append44 exact case IDs/literal alternatives; independently normalized hashes reproduce f1de4ce6…→e2a81850…, matching the sole approved-hash constant update.\n\nRecorded related ordinary0/51.04s and race0/140.15s each have1671=1663PASS/8NOT_RUN,audit0; exact same eight mandatory IDs separately pass ordinary0/5.25s and race0/59.13s. Dual vets are0. Original overlapping timestamps remain. Measurements ran HEADca67+WIP; all1027 measured Go/JSON/mod/sum file hashes match Git2306, not a claim of execution at committed HEAD or whole1056 operational freeze. Retention is not yet approved.\n\nControlled checks do not close mandatory real acceptance: original Messages cancel FAIL/missing support, strict publication/import refusal and absent current whole certificate remain. Historical formal/source applicability is not renewed by this runtime fix. No paid authority, B inspection, project/test/verifier execution, Key/network access or repository edit by reviewer.",
+  "reportBodyWords": 285,
+  "reviewedFiles": {
+    "ai/anthropic_minimax_message.go": {
+      "bytes": 2866,
+      "sha256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+      "matchesPreparatoryWIP": true
+    },
+    "ai/anthropic_minimax_payload.go": {
+      "bytes": 6499,
+      "sha256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+      "matchesPreparatoryWIP": true
+    },
+    "ai/e2e/minimax_messages_final_shape_test.go": {
+      "bytes": 5700,
+      "sha256": "fcf900f767d231b42ff8cce2faab7c33400fec9cc0963ffa029b166e25e6c478",
+      "matchesPreparatoryWIP": true
+    },
+    "ai/e2e/minimax_messages_final_tools_test.go": {
+      "bytes": 4731,
+      "sha256": "4a2674852073484ee74bc34abd1813ae7377c922b151d0aa96641ab016b79a09",
+      "matchesPreparatoryWIP": true
+    },
+    "ai/internal/testkit/release/plan.go": {
+      "bytes": 7494,
+      "sha256": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd",
+      "matchesPreparatoryWIP": true
+    },
+    "ai/release/traceability.json": {
+      "bytes": 2937513,
+      "sha256": "0bb23afc3ce9881a4965ce5408b5d46626b655d2b3937cb523ab8bdcae8d4ca8",
+      "matchesPreparatoryWIP": true
+    }
+  },
+  "preliminaryNotesSHA256": "0a3061c3bf6b7181eabe35b60c10b1bb19a8881e4ac0d3d63ff5f55ce4e666f3",
+  "traceAnalysis": {
+    "oldRows": 394,
+    "newRows": 394,
+    "oldRequirementsPreserved": true,
+    "topLevelPolicyUnchanged": true,
+    "changedRows": [
+      {
+        "id": "MM-R20",
+        "added": 44,
+        "caseRegexOnlyAppendsExactLiterals": true
+      },
+      {
+        "id": "MM-A17",
+        "added": 44,
+        "caseRegexOnlyAppendsExactLiterals": true
+      },
+      {
+        "id": "MM-US55",
+        "added": 44,
+        "caseRegexOnlyAppendsExactLiterals": true
+      }
+    ],
+    "addedIDs": [
+      "MM04-final-block-field-text-missing",
+      "MM04-final-block-field-text-number",
+      "MM04-final-block-field-thinking-number",
+      "MM04-final-block-field-tool-result-assistant",
+      "MM04-final-block-field-tool-result-content-number",
+      "MM04-final-block-field-tool-result-error-string",
+      "MM04-final-block-field-tool-result-id-missing",
+      "MM04-final-block-field-tool-result-nested-use",
+      "MM04-final-block-field-tool-use-id-missing",
+      "MM04-final-block-field-tool-use-input-array",
+      "MM04-final-block-field-tool-use-input-null",
+      "MM04-final-block-field-tool-use-name-number",
+      "MM04-final-block-field-tool-use-user",
+      "MM04-final-block-field-type-missing",
+      "MM04-final-business-hook-business-containers",
+      "MM04-final-business-hook-string-content",
+      "MM04-final-message-container-empty",
+      "MM04-final-message-container-null",
+      "MM04-final-message-container-number",
+      "MM04-final-message-container-object",
+      "MM04-final-message-container-scalar-element",
+      "MM04-final-message-field-block-scalar",
+      "MM04-final-message-field-content-empty",
+      "MM04-final-message-field-content-missing",
+      "MM04-final-message-field-content-null",
+      "MM04-final-message-field-content-number",
+      "MM04-final-message-field-content-object",
+      "MM04-final-message-field-role-missing",
+      "MM04-final-message-field-role-number",
+      "MM04-final-message-field-role-unknown",
+      "MM04-final-tool-field-description-number",
+      "MM04-final-tool-field-missing-name-schema",
+      "MM04-final-tool-field-name-blank",
+      "MM04-final-tool-field-name-number",
+      "MM04-final-tool-field-null",
+      "MM04-final-tool-field-properties-array",
+      "MM04-final-tool-field-required-number",
+      "MM04-final-tool-field-required-string",
+      "MM04-final-tool-field-schema-array",
+      "MM04-final-tool-field-schema-missing",
+      "MM04-final-tool-field-schema-null",
+      "MM04-final-tool-field-schema-number",
+      "MM04-final-tool-field-schema-type-array",
+      "MM04-final-tool-field-schema-type-missing"
+    ],
+    "oldNormalizedHash": "f1de4ce6b8a81f08b0ce27c56bc01f6c8fae9e8a8ca51c114c44d5a55acd21b6",
+    "newNormalizedHash": "e2a81850d9082571cb1cd5033415a442cf96a138c50d82c12997736bcca6c5d4"
+  },
+  "testGroups": {
+    "TestMiniMaxMessagesFinalMessageContainers": {
+      "count": 5,
+      "prefix": "MM04-final-message-container-",
+      "cases": [
+        "MM04-final-message-container-number",
+        "MM04-final-message-container-null",
+        "MM04-final-message-container-object",
+        "MM04-final-message-container-empty",
+        "MM04-final-message-container-scalar-element"
+      ]
+    },
+    "TestMiniMaxMessagesFinalMessageFields": {
+      "count": 9,
+      "prefix": "MM04-final-message-field-",
+      "cases": [
+        "MM04-final-message-field-role-missing",
+        "MM04-final-message-field-role-number",
+        "MM04-final-message-field-role-unknown",
+        "MM04-final-message-field-content-missing",
+        "MM04-final-message-field-content-null",
+        "MM04-final-message-field-content-number",
+        "MM04-final-message-field-content-object",
+        "MM04-final-message-field-content-empty",
+        "MM04-final-message-field-block-scalar"
+      ]
+    },
+    "TestMiniMaxMessagesFinalBlockFields": {
+      "count": 14,
+      "prefix": "MM04-final-block-field-",
+      "cases": [
+        "MM04-final-block-field-type-missing",
+        "MM04-final-block-field-text-missing",
+        "MM04-final-block-field-text-number",
+        "MM04-final-block-field-thinking-number",
+        "MM04-final-block-field-tool-use-id-missing",
+        "MM04-final-block-field-tool-use-name-number",
+        "MM04-final-block-field-tool-use-input-null",
+        "MM04-final-block-field-tool-use-input-array",
+        "MM04-final-block-field-tool-use-user",
+        "MM04-final-block-field-tool-result-id-missing",
+        "MM04-final-block-field-tool-result-content-number",
+        "MM04-final-block-field-tool-result-error-string",
+        "MM04-final-block-field-tool-result-assistant",
+        "MM04-final-block-field-tool-result-nested-use"
+      ]
+    },
+    "TestMiniMaxMessagesFinalToolFields": {
+      "count": 14,
+      "prefix": "MM04-final-tool-field-",
+      "cases": [
+        "MM04-final-tool-field-null",
+        "MM04-final-tool-field-missing-name-schema",
+        "MM04-final-tool-field-name-number",
+        "MM04-final-tool-field-name-blank",
+        "MM04-final-tool-field-schema-missing",
+        "MM04-final-tool-field-schema-null",
+        "MM04-final-tool-field-schema-array",
+        "MM04-final-tool-field-schema-number",
+        "MM04-final-tool-field-schema-type-missing",
+        "MM04-final-tool-field-schema-type-array",
+        "MM04-final-tool-field-properties-array",
+        "MM04-final-tool-field-required-string",
+        "MM04-final-tool-field-required-number",
+        "MM04-final-tool-field-description-number"
+      ]
+    },
+    "TestMiniMaxMessagesFinalBusinessHook": {
+      "count": 2,
+      "prefix": "MM04-final-business-hook-",
+      "cases": [
+        "MM04-final-business-hook-string-content",
+        "MM04-final-business-hook-business-containers"
+      ]
+    }
+  },
+  "independentSourceAndCheckProof": {
+    "baseCommit": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+    "reviewedCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+    "diffSHA256": "c187bb4df761716617f4bfa5b37771edecaac274d2e8e4ccbb976748b10ff130",
+    "reviewedFiles": {
+      "ai/anthropic_minimax_message.go": {
+        "bytes": 2866,
+        "sha256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+        "matchesPreparatoryWIP": true
+      },
+      "ai/anthropic_minimax_payload.go": {
+        "bytes": 6499,
+        "sha256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+        "matchesPreparatoryWIP": true
+      },
+      "ai/e2e/minimax_messages_final_shape_test.go": {
+        "bytes": 5700,
+        "sha256": "fcf900f767d231b42ff8cce2faab7c33400fec9cc0963ffa029b166e25e6c478",
+        "matchesPreparatoryWIP": true
+      },
+      "ai/e2e/minimax_messages_final_tools_test.go": {
+        "bytes": 4731,
+        "sha256": "4a2674852073484ee74bc34abd1813ae7377c922b151d0aa96641ab016b79a09",
+        "matchesPreparatoryWIP": true
+      },
+      "ai/internal/testkit/release/plan.go": {
+        "bytes": 7494,
+        "sha256": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd",
+        "matchesPreparatoryWIP": true
+      },
+      "ai/release/traceability.json": {
+        "bytes": 2937513,
+        "sha256": "0bb23afc3ce9881a4965ce5408b5d46626b655d2b3937cb523ab8bdcae8d4ca8",
+        "matchesPreparatoryWIP": true
+      }
+    },
+    "sourceProofSHA256": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299",
+    "finalChecksSHA256": "735977361068e07703e43952b2c742af9d2b5854e93c8b643a6b378c972a7c22",
+    "compilerJSONSourceCount": 1027,
+    "compilerJSONSourceMatchesCommit": true,
+    "measuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+    "measuredWIP": true,
+    "formalApplicabilityRenewed": false,
+    "checkPins": {
+      "regression-ordinary-restored": {
+        "commandSHA256": "c05d53cb762c801a5d725d74f97ef7627255de486b01a3e08856970c3427b92d",
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "logSHA256": "5612764cf4a308d252736b54650044c0cef855f2e4879764872193367a343f8f"
+      },
+      "regression-race-restored": {
+        "commandSHA256": "978aaded96d20dfcb56c8a217c7ee01b6a45f53726f06ed46b54222cb8b699a5",
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "logSHA256": "bbb2b40694fc6aaf1aa01d0fdd49fd893809e11d01c0920907a36350bab750d1"
+      },
+      "selected-opt-in-ordinary": {
+        "commandSHA256": "aa3e8d35b6d023d1ef09d254101a5d70ca11720a84d3856584c51bd65c02fdcd",
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "logSHA256": "03b7ca6067a156fff86518c2635195800ffa5bd3d6428ed06ebbc76b675fe152"
+      },
+      "selected-opt-in-race": {
+        "commandSHA256": "6ac7dbb9d15a5c4e7c0d9c3639cb74aa5b145bc3389186734300cfc623069a1c",
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "logSHA256": "8961ed553290f5c5413bd85ad24539558ed829dfc20dc8dc27414e218bcce51f"
+      },
+      "vet-restored": {
+        "commandSHA256": "894a7ad236ffbfc35495247a83ab01e5d7da85d3e54e34cf94a23fdc993a3e8e",
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "vet-live-restored": {
+        "commandSHA256": "6bbce5fa167c2fcec82ff562cc7c509458a1f8011bc99c0af63c26753962b49e",
+        "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "checks": [
+      {
+        "name": "regression-ordinary-restored",
+        "exitCode": 0,
+        "seconds": 51.04156494140625,
+        "argv": [
+          "go",
+          "test",
+          "./ai/e2e",
+          "-count=1",
+          "-run",
+          "^(TestMiniMax|TestAnthropic|TestGLMMessages|TestGLMReleaseTraceContract)",
+          "-timeout=20m"
+        ],
+        "cases": 1671,
+        "statuses": {
+          "PASS": 1663,
+          "NOT_RUN": 8
+        },
+        "manifestSHA256": "655d498d6482ddc0b9f16728727e2a8a89fbb3ca47b1fe5df059dd72724803d2",
+        "startedAt": "2026-10-18T12:48:27.338851Z",
+        "finishedAt": "2026-10-18T12:49:11.55912Z",
+        "newCases": 44,
+        "negativeZeroProviderZeroAttempts": 42,
+        "positiveOneProviderOneAttempt": 2
+      },
+      {
+        "name": "regression-race-restored",
+        "exitCode": 0,
+        "seconds": 140.15305590629578,
+        "argv": [
+          "go",
+          "test",
+          "-race",
+          "./ai/e2e",
+          "-count=1",
+          "-run",
+          "^(TestMiniMax|TestAnthropic|TestGLMMessages|TestGLMReleaseTraceContract)",
+          "-timeout=20m",
+          "-exec",
+          "/usr/bin/env BARNESS_MINIMAX_CATALOG_CHILD_RACE=1"
+        ],
+        "cases": 1671,
+        "statuses": {
+          "PASS": 1663,
+          "NOT_RUN": 8
+        },
+        "manifestSHA256": "a1fab134cff229878fa76629ffb386a150af6f066f17759de8c95201a47cd802",
+        "startedAt": "2026-10-18T12:48:32.832724Z",
+        "finishedAt": "2026-10-18T12:49:59.036076Z",
+        "newCases": 44,
+        "negativeZeroProviderZeroAttempts": 42,
+        "positiveOneProviderOneAttempt": 2
+      },
+      {
+        "name": "selected-opt-in-ordinary",
+        "exitCode": 0,
+        "seconds": 5.2498321533203125,
+        "argv": [
+          "go",
+          "test",
+          "./ai/e2e",
+          "-count=1",
+          "-run",
+          "^(TestMiniMaxSharedDesignLoad|TestMiniMaxPiCatalog|TestMiniMaxPiCatalogDifferences)$",
+          "-exec",
+          "/usr/bin/env BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1",
+          "-timeout=20m"
+        ],
+        "cases": 8,
+        "statuses": {
+          "PASS": 8
+        },
+        "manifestSHA256": "7d0be206cfa137fd6237bdb509481a059214a3c3fed33e05c6b14f468770aaca",
+        "startedAt": "2026-10-18T12:51:07.495754Z",
+        "finishedAt": "2026-10-18T12:51:08.503941Z"
+      },
+      {
+        "name": "selected-opt-in-race",
+        "exitCode": 0,
+        "seconds": 59.132752895355225,
+        "argv": [
+          "go",
+          "test",
+          "-race",
+          "./ai/e2e",
+          "-count=1",
+          "-run",
+          "^(TestMiniMaxSharedDesignLoad|TestMiniMaxPiCatalog|TestMiniMaxPiCatalogDifferences)$",
+          "-exec",
+          "/usr/bin/env BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1",
+          "-timeout=20m"
+        ],
+        "cases": 8,
+        "statuses": {
+          "PASS": 8
+        },
+        "manifestSHA256": "14fb60cd11474fe6468366853fe40758d305ffae733a2efc089ef0123fdb86f1",
+        "startedAt": "2026-10-18T12:51:08.049617Z",
+        "finishedAt": "2026-10-18T12:51:15.86486Z"
+      },
+      {
+        "name": "vet-restored",
+        "exitCode": 0,
+        "seconds": 0.6905558109283447,
+        "argv": [
+          "go",
+          "vet",
+          "./..."
+        ]
+      },
+      {
+        "name": "vet-live-restored",
+        "exitCode": 0,
+        "seconds": 0.6665468215942383,
+        "argv": [
+          "go",
+          "vet",
+          "-tags",
+          "live",
+          "./..."
+        ]
+      }
+    ],
+    "genuineStages": [
+      {
+        "stage": "red-containers-actual",
+        "measuredHEAD": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+        "exitCode": 1,
+        "cases": 5,
+        "statuses": {
+          "FAIL": 5
+        },
+        "actualNegativeProviderAttemptCount": 1,
+        "commandSHA256": "225042f1da5d2ece5ded5b8c3454fdd01694d7639ca784b13ec0b16bfa3f72ad",
+        "manifestSHA256": "6f1e804228fa01375382edf37df92d3078d9e13d14fb7a2d0a454f6ac4010f25"
+      },
+      {
+        "stage": "red-message-fields",
+        "measuredHEAD": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+        "exitCode": 1,
+        "cases": 9,
+        "statuses": {
+          "FAIL": 9
+        },
+        "actualNegativeProviderAttemptCount": 1,
+        "commandSHA256": "276f47fd0a2806002e0289db55d4c0af92688e7b937b13cd2b5cca35d33dd883",
+        "manifestSHA256": "f31575901a9791335fd486dcbea1a935a02b23fd74339cff889ac94e4440a9d2"
+      },
+      {
+        "stage": "red-block-fields",
+        "measuredHEAD": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+        "exitCode": 1,
+        "cases": 14,
+        "statuses": {
+          "FAIL": 14
+        },
+        "actualNegativeProviderAttemptCount": 1,
+        "commandSHA256": "c90cc47ffb2da252a7e4603030e2b28ad0e5bf4ca0b6236128d528e0fa2e6184",
+        "manifestSHA256": "c9d2012f9de80e97d1979c8364081dd778a4d9503b6718248aac5bf74caa5956"
+      },
+      {
+        "stage": "red-tools-native-containers-actual",
+        "measuredHEAD": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+        "exitCode": 1,
+        "cases": 16,
+        "statuses": {
+          "PASS": 2,
+          "FAIL": 14
+        },
+        "actualNegativeProviderAttemptCount": 1,
+        "commandSHA256": "9b6be7927b36c720731b5fcd9aa12a02b65454da37c0c81b8a17d851f4cf8270",
+        "manifestSHA256": "713a445932950618bbcb84b172f29d326e27b59250a6e1735d14f450a8889637"
+      },
+      {
+        "stage": "green-final-native-shapes",
+        "measuredHEAD": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+        "exitCode": 0,
+        "cases": 44,
+        "statuses": {
+          "PASS": 44
+        },
+        "actualNegativeProviderAttemptCount": 0,
+        "commandSHA256": "d9902da89d216d92de8db8df7ebc30d5eee17121094f3c00b50503c06cde2920",
+        "manifestSHA256": "1b936a2ab42e3d71d177bade2c1241d4b06bc42ee35b0d6abf076e64f991e035"
+      }
+    ],
+    "excludedSetupFixtureFailedGreenHistoriesPreserved": true,
+    "exactMainNOTRUNAndSelectedOptInIDs": [
+      "MM05-design-load-cloud-chat",
+      "MM05-design-load-cloud-messages",
+      "MM05-design-load-cloud-responses",
+      "MM05-design-load-local-chat",
+      "MM05-design-load-local-messages",
+      "MM05-design-load-local-responses",
+      "MM06-frozen-catalog-metadata",
+      "PIDIFF-MM06-catalog-differences"
+    ]
+  },
+  "scopeConstraints": {
+    "sourceOnly": true,
+    "retentionApproved": false,
+    "docsApproved": false,
+    "formalApplicabilityRenewed": false,
+    "wholeOperationalSourceFreezeClaimed": false,
+    "currentWholeCertificate": false,
+    "paidApproval": false,
+    "BRead": false,
+    "reviewerTestsOrProjectProgramsExecuted": false,
+    "keysRead": false,
+    "networkCalls": 0,
+    "repoModified": false
+  },
+  "unsealedEvidencePins": {
+    "source-proof.json": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299",
+    "final-checks.json": "735977361068e07703e43952b2c742af9d2b5854e93c8b643a6b378c972a7c22",
+    "tool-fixture-repair-source-proof.json": "8cafc4240955893ce96f67821dbfd7fb72c9ac2d2235fea951f833e4fa9d4013",
+    "tool-guard-reapplied-proof.json": "8de808624924e4a4ced8c5f451876123fc6eb146568a011758eca84292be9f9d"
+  },
+  "independentReaderSHA256": "9c8fb60759731226bc2ec04593889018674f7195395f933020d2177273618cb7"
+}

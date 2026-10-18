@@ -1,0 +1,437 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "reviewedCommit": "1c629514ff760e4889ce64c4b787f9800a4514b9",
+  "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff 7931b163f983a8b362374163b7949d31e68bbec4...1c629514ff760e4889ce64c4b787f9800a4514b9",
+  "diffSHA256": "964ffd1df27588b069540f4d4cdfd8ef4d344f5c1a955818a16c86ed3e98a003",
+  "diffBytes": 328853,
+  "scope": "Only ticket-15/new-actual/{glm,effects}; no runtime/current certificate/A/B scope",
+  "standards": [
+    "User-supplied AGENTS.md engineering principles 1-10 and failure-first test instructions",
+    "docs/agents/domain.md and applicable ADR0042/0045/0046",
+    "Full twelve-smell baseline treated as judgment calls; skip tool-enforced checks"
+  ],
+  "findings": [],
+  "smells": [],
+  "report": "PASS: no documented-standard breach or actionable baseline smell found in the 93-file G/E retention delta. Independently read all six archives with a separate bounded standard-library reader, checking every physical tar header, regular payload, member inventory, compressed hash, local metadata seal and 1,056 source-file hashes against source7931. No archive link was accepted or extracted. Each preflight preserves its one exact intentional fixture link only as typed metadata; original scan refusals remain RED. The fixed small/full reader bytes and limits remain unchanged.\n\nRecomputed G66/66 as65 PASS/1 FAIL, including Messages120001ms deadline before content, unknown usage, absent native support report and absent success capturePins. Strict public publication exited1 and all four selectors match their original committed bytes. E36/36 passed with36 complete usage records; fixed-sample quality and native862/323/323 source maps match, including the explicitly retained original protocol validator outside the outer1056 selection. China GLM is direct; all international effects use the explicit loopback proxy.\n\nThe original39 receipts and990 native files were independently hashed without copying or repinning. New102 plus prior545 equals647 calls/Attempts. Source-only review, later human108/132 authority, six numeric keyless receipts, paid commands, binaries and historical PENDING templates remain distinct. Retained verifier/negative-probe successes were read, never rerun. This approves custody metadata for historical source7931 only; it grants no current release certificate, future17-source applicability, new paid run, or A/B gate result.",
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/README.md": "5bcd8270c29633ff910d067b6cde200e87a4a3d0d020a1db2ff510bb420dc897",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/SHA256SUMS": "d7bfcbf5625272349c32552c67b86e9c40a34c02fe475f464a255b1235234fc8",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/additional-protocol-source.json": "eded6c74942de481719816ed33bfe7832b66e20e8df08e4f7641272cc31dbc5b",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/additional-protocol-source.py.gz": "572f51cd62e9c927ad7aef7f599d19674ad97e1b76e462fb4d3ca5045a6da44a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/binary-inventory.json.gz": "185701c0b462be9c08900f44e692a16f32cc256bce84339f38e53228dcc9c769",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/check-boundaries.py": "988a4847ae37caedddfd4f1f494810115401a42826b1e4e2e61891511ced64b3",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/failure-inventory.md": "8d28df9194fc7a39ad178d06b8ff714dc496e7b42784ee058e81237bd14a8d12",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/freeze.py": "6fa4548fce1f1e1387372af2d9db6c48975f15fcdc248c625b83e630bc085e70",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/index.json": "02ee494af106d539921538d884edbc7eac1f07a66a205792ce633b18bd99708b",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/inventory.json.gz": "d8c4b91827c903d0029f3193f0c7c70baf86862ca578baf7eb92dc84b47e99fe",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/negative-results.json": "637fe6772e5f967286614bd59b928765fe342f92f42e9863f32d5ecee863966c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/preflight-inventory.json.gz": "269dedc1fa21043560bcb1552a09db5541602e7b61562598f46ff7a3fafbac05",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/provenance.py": "46634c5c644937dfd9eadc255d94847b5163ade4deef1d3311f639f0a995fd78",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/quality.py": "2cbadf5ff28ff4234f1b4e1fcad7069af9c633be18c6144a4c238ac46017ccb2",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/readers.py": "2e338ce15ef8b372f4b14ea3cc0d027650b2a3d4bea4f84e44d9ffb94576983c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/scenarios.jsonl": "aed16036d0a81e2f7f894c478c800b4b425097bd4a175c5b24af7e36f19be5fe",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/secondary-summary.json": "640c126d3b9cdb209207dc2620d046cdef61c58028a20d572ee0774d75c30dc9",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/snapshot-authoring-history.json": "d1077e2b4371044b91b1bc651d3d0e1f65ae1f1e7a9fbeda25e229562511b849",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/source-at-start.json.gz": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/summary.json": "f64d90054d5edd11d92c2931248299e1718346010e1ed25ea89e076ba265beca",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/analyse-controller.py": "056b9f524c5e61ececaaef726dc4fb3f4c570f8b3ca7a622fd6d9bf1f9d12b7a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/final-public-verification-output.json": "deb824b98b085ccaa2ae249325761cc674f82a9e1fa686b85db3894ad44fcb71",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/final-public-verification.json": "437babe8093c6e6e1464e9d0244b7bdbadc62bc7fadfa6735ee06cebef08fe74",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/green-public-cli-command.json": "437babe8093c6e6e1464e9d0244b7bdbadc62bc7fadfa6735ee06cebef08fe74",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/green-public-cli.log.gz": "da70fc4f5376e215d785fda24dc124426488a73538a44573643b7408696c4ece",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/initial-analysis-native-source-refusal-command.json": "861ae0167b85cf0bd548f40efdedc7c9bedc9de4e1099f743ac5850e6a89ad3a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/initial-analysis-native-source-refusal.log.gz": "a2e2a41aca92fb0b11d5abc86b3d5510959356bc7fcb96b28eb015a3cd8cbd43",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/negative-guards-command.json": "fbf6e729a147653b859059594671347cdbda4aa7f218c594ed3fee48b3548400",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/negative-guards-command.log.gz": "30038a0f4f84841caa2ff63f2711cfa715ccd774bac9433c1f74879c19d57308",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/raw-log-index.json": "9075580a03e1b984fdea8edf3172bc6e86311dc91f123f38a0b467cb4ee907f9",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-missing-public-cli-command.json": "a2831be5bb76b6e1f3f6b6fb6487eb7880e09bd3fc1b212fa01ce33a0cf7a9ab",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-missing-public-cli.log.gz": "7352503a5a14664aa404bb1366443aa632b6e40fa3999ef25da968c8258d1f20",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-original-regular-scan-command.json": "4962494934d3cee33743ec8b214de0dada016ab86fff5933a3dffb798aa1d6eb",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-original-regular-scan.log.gz": "c80b29ea682163a8e4339a729899c0692fc5ef2706a0c105d36211151e0fddc1",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-original-regular-scan.py": "4d08d04410360954a962edddfdaa52dd2a1aeea47819633bcd51aa0c1b383303",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/snapshot-command.json": "0ea4847efa5e48d430ab4303d496fecd164d86744bff64e26773833b6fcd73b4",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/snapshot-command.log.gz": "0691d7413a1c872894ef6a59fcf56bce17ce80e77c2ad27eadb7ce4a0cd39218",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/verify.py": "04ee2c8351996297c058c99befca7e82ce7b4ac9d2ccf18bc5f73054fc7a4b10",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/README.md": "2aa6527bb2002bf8ad71c61d748125b09ace3b90eee6d53432b9f0db48b2f832",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/SHA256SUMS": "b2c29495c40921c0a0654cb45e556de7bc12e325d43c19e7bde26ee2ec72d243",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/binary-inventory.json.gz": "88fee7d8443e373a88648d2d0ed90b45d56f73d90fa5c8ca4020e75b8fc71269",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py": "271ffdc67666b74d04fc783960621e9c0d308659c728ee7344541d0cba8055c2",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/complete-snapshot.py": "527f43efd7a4874747acfa1687cd8a1533ab2e3b42769380b280a9912a43a78f",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/failure-inventory.md": "a81c48dd20428a8c6bb45b83ff11532c6cf22cf36e648f82297d466ae89872bb",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py": "ee60fc38a0e656727918d3e8b92b0fdd81285bc7600e40463e40740a08afa3ba",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/index.json": "e85009f4eeb7893d44ec91c7938bcf401fa1318c714445cfa6d8f926e4ad6f9d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/inventory.json.gz": "f2eeece1a1e37daf6caee41bae353db6750b36e307e7d59cedd46b091ebffc89",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/negative-results.json": "11c1028c09bf3704849d0874dda59e28ae6e27be68201f455612837b19d722d2",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/preflight-inventory.json.gz": "9c211cb2895c060aaf570f53cd0c784aafeceeb0aaddf8bab1371f0176ad7dfa",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/provenance.py": "a71b0b535bc79ed24ece99738f850c57ce7a8f8fdfc4d9f6391cf4223af6fef2",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/readers.py": "2e338ce15ef8b372f4b14ea3cc0d027650b2a3d4bea4f84e44d9ffb94576983c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/scenarios.jsonl": "460664d08fbaf0d4d83e0540b01be8f63817ca54e70fca6b58d014c33bdb4582",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/secondary-summary.json": "ebf8cc3ad1ebd5e249e3bc84f75c755621c7695945f0aad8fc1fc9976fc5ae34",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/snapshot-authoring-history.json": "c1c94d638be39394122ec33b825c611df114ec4fefb3d165b22ce8d0bbe36ee0",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/source-at-start.json.gz": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/summary.json": "c99c6195239224d154cfa374b11756e73df01edf521c50b9ee887558437e76ab",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/before-messages-support-guard.py.txt": "a8b72f0a8c9d671702d8e7f1852f785831332056f0ac2d4daab40046f3a70990",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/before-path-guards-provenance.py.txt": "bc6c2396ec0ceb036c0a26dc226d4e86c820c2accb9091412af266e2fc6f9d90",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/before-path-guards-verify.py.txt": "13af4ce9834f78755a7e74806d3021a568d88aa86f714bb1d6478034ec0e9009",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-g-public-negative-guards-command.json": "5fe5ae4a1388396e9176a851e2d526c200ea843886cfdf5f0ed2e1929ddb3b45",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-g-public-negative-guards.log": "11c1028c09bf3704849d0874dda59e28ae6e27be68201f455612837b19d722d2",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-independent-verify-command.json": "328addbcfe630cde5ddd5be3c0c0ec9576a9ec53c22c2b87c6e27a13c75dca45",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-independent-verify.log": "99bc95487452d8eefaf6a154dbb4d86b295db3e7b31f6a0883c3a3b2f8546370",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-sealed-g-verification-command.json": "053d8a34aafed3fff486f6f518b13718c88c0a2da0c8c2568c2e736055ca9270",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-sealed-g-verification.log": "99bc95487452d8eefaf6a154dbb4d86b295db3e7b31f6a0883c3a3b2f8546370",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/freeze-before-link-projection.py.txt": "2d6238af86f658f20b644f148b53f634b34bbe6d8d9613aafa8413c70e58e06f",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/freeze-before-observation-selection.py.txt": "8af47f8d45f1d1256807647946f500e8992639bb7ea56e2ecb9c92ccee1b2657",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-complete-actual-g-guards-command.json": "971e1c014f094912060607bb37124720fa5c260b7b6d793836f36a49c2572cc3",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-complete-actual-g-guards.log": "11c1028c09bf3704849d0874dda59e28ae6e27be68201f455612837b19d722d2",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-completed-fixed-snapshot-command.json": "1b40e267209bfdf773d851b4185bc27cda44ed9226db53c510e704cb8f32f396",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-completed-fixed-snapshot.log": "a9c4d90984f5170cfae3b920d914eb4b11824f035dfc559717afdb115337de3f",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-final-public-negative-guards-command.json": "1455482e887c13b0cd7a58e0ae493ab4fa136da796de09aaa0f74fb949b26f93",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-final-public-negative-guards.log": "782792c7ca6e52675a0c096abb2d26e28548983c1f1f46d8e9b6bdc9acded4b1",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-fixed-regular-snapshot-command.json": "30030d4fc297b577d8acd0af9c7ef77ab889883dfc2c72adb99395d7998e8da8",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-fixed-regular-snapshot.log": "90f973eb369c0364e0ad0396496e5e3e8ed5e3f55bcc4a0992b9099304a41e2f",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-original-paths-proof-command.json": "ab7dc6a770dcd3376b87885bbb5d87bb249ac327d60e2b97abf847c018d3b206",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-original-paths-proof.log": "782792c7ca6e52675a0c096abb2d26e28548983c1f1f46d8e9b6bdc9acded4b1",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/initial-tool-scan.json": "bdce348f38f14ffb711669bc1c730c98cfd5973b593d123ef7a74a06d618fe35",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/link-projection.json": "ba2942ec08dde7cc57ac196289746c1ecc13b00de46aec282ada57f8b62de66e",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/lossless-log-final-verification-command.json": "1b4c7c0157efc165cd23454dc66126b35ccc6b3f327a3a4320b9f017158c1672",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/lossless-log-final-verification.log": "99bc95487452d8eefaf6a154dbb4d86b295db3e7b31f6a0883c3a3b2f8546370",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/raw-log-index.json": "1eae3c07f65e931406c3c26fa2f47809c491d882efe55c86411f7d8afb923870",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-canonical-root-proof-command.json": "41185f5abc0f88e22bc89d6bce6440952cbad055fda3bc017106cd7e9f108732",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-canonical-root-proof.log.gz": "9d1ee5bd0202a9b4ee1fb4fe03ddb500ef572e79b2c54f75bf7e5a1befd562fe",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-capsule-public-cli-command.json": "973a0d5850b6e59bbb822a977c8b46cb4429d353db2983d3a34eddf95be052b6",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-capsule-public-cli.log.gz": "b9fa7588fd0e229fcfa325fffc6539f54aeef051c9c8794d1c1befc79b50443d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-exact-link-scan-command.json": "cc667399edeaa51e1b32e958c46f15959d6f8f3731844cbc261877348ef13a6a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-exact-link-scan.log": "b6d01dde24d7759c9bc27ce1675a2f70bd968894f17343d95fac388fe03ea61c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-fabricated-messages-support-command.json": "327ae4e88a9db58d560b2e6e64c56faa5855979131054205927572f46ff6fe44",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-fabricated-messages-support.log.gz": "2c1bcc6f99299902a35b04f0d8b9f2a5a995c752febe05dae40de2dffbf2a6a0",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-original-paths-proof-command.json": "970dae47aa607aa93d5705fce3e9775f1da5a6b20b87f9c6434ec2b8293cbc3d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-original-paths-proof.log.gz": "a915ef1959f08835df7636065a7091f4484c27cd7da8158012fef3e9d6213dae",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/verify.py": "20bcd7c821bd7a855c929865923ca4d7e74203e33d75c9bb7e5c42bf4f94cf0f"
+  },
+  "capsules": {
+    "glm": {
+      "frontdoorFiles": 55,
+      "capsules": {
+        "capsule": {
+          "archive": {
+            "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-raw.tar.gz",
+            "bytes": 2715968,
+            "sha256": "5371d79f7324b501626b1f6c1f1cb36037be89c89206d2855c2001a161a0d6f0",
+            "prefix": "repair-glm-actual"
+          },
+          "files": 1127,
+          "rawHeaders": 1809,
+          "paxHeaders": 682,
+          "payloadBytes": 22326483,
+          "decodedTarBytes": 23930880,
+          "inventoryCompressedSHA256": "f2eeece1a1e37daf6caee41bae353db6750b36e307e7d59cedd46b091ebffc89",
+          "inventoryDecodedSHA256": "0de83ff8f97bd11614831118e44f2e85caf641c4cf980296a238e81ed875a80f",
+          "allMembersAndHeadersChecked": true,
+          "observed": 270,
+          "links": 0
+        },
+        "preflight": {
+          "archive": {
+            "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-preflight-raw.tar.gz",
+            "bytes": 39276565,
+            "sha256": "dbcb04ff6185c098766d73f45fbff5f2d67af2164fb87b86a7a22c65eef68e82",
+            "prefix": "repair-glm-preflight"
+          },
+          "files": 27910,
+          "rawHeaders": 55800,
+          "paxHeaders": 27890,
+          "payloadBytes": 220600643,
+          "decodedTarBytes": 271063040,
+          "inventoryCompressedSHA256": "9c211cb2895c060aaf570f53cd0c784aafeceeb0aaddf8bab1371f0176ad7dfa",
+          "inventoryDecodedSHA256": "19de52f7085768eb6eb8e6d356e91b09ee7a6823be0cb0ee43f6e567e5679179",
+          "allMembersAndHeadersChecked": true,
+          "observed": 9,
+          "links": 0
+        },
+        "binary": {
+          "archive": {
+            "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-binary-raw.tar.gz",
+            "bytes": 14737909,
+            "sha256": "b65ce438af742c1252146ae615f233f852eada2938c4aeebaedfd2bf4c24584b",
+            "prefix": "repair-glm-binary"
+          },
+          "files": 4,
+          "rawHeaders": 4,
+          "paxHeaders": 0,
+          "payloadBytes": 36157481,
+          "decodedTarBytes": 36167680,
+          "inventoryCompressedSHA256": "88fee7d8443e373a88648d2d0ed90b45d56f73d90fa5c8ca4020e75b8fc71269",
+          "inventoryDecodedSHA256": "b8f9832acbfc6811ea964baec8457f5fcb36ea590b53ec1c4b13381cb30af88d",
+          "allMembersAndHeadersChecked": true,
+          "observed": 3,
+          "links": 0
+        }
+      },
+      "sourceFilesVerifiedAgainstCommit": 1056
+    },
+    "effects": {
+      "frontdoorFiles": 38,
+      "capsules": {
+        "capsule": {
+          "archive": {
+            "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-actual-raw.tar.gz",
+            "bytes": 1601166,
+            "sha256": "d49a9364fd60f31a8c546d394fc6969514a05f34be88e5a19c0982098216de7f",
+            "prefix": "repair-effects-actual"
+          },
+          "files": 1075,
+          "rawHeaders": 1253,
+          "paxHeaders": 178,
+          "payloadBytes": 6173920,
+          "decodedTarBytes": 7188480,
+          "inventoryCompressedSHA256": "d8c4b91827c903d0029f3193f0c7c70baf86862ca578baf7eb92dc84b47e99fe",
+          "inventoryDecodedSHA256": "73cc3da03963e57d321d36184bddbcc6c5c738508fb1c33cdd8c1e0f60d947b7",
+          "allMembersAndHeadersChecked": true,
+          "observed": 166,
+          "links": 0
+        },
+        "preflight": {
+          "archive": {
+            "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-preflight-raw.tar.gz",
+            "bytes": 39283805,
+            "sha256": "0e10dbd70e8654994ee744fb564fb9e5bc4b148780752861351d68698fbdd4e9",
+            "prefix": "repair-effects-preflight"
+          },
+          "files": 27910,
+          "rawHeaders": 55809,
+          "paxHeaders": 27899,
+          "payloadBytes": 220601763,
+          "decodedTarBytes": 271073280,
+          "inventoryCompressedSHA256": "269dedc1fa21043560bcb1552a09db5541602e7b61562598f46ff7a3fafbac05",
+          "inventoryDecodedSHA256": "708e2b310fc818a50b7eb9a8d1f745e56fb2fdd2f5371785f78d9a76596ccc83",
+          "allMembersAndHeadersChecked": true,
+          "observed": 9,
+          "links": 0
+        },
+        "binary": {
+          "archive": {
+            "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-binary-raw.tar.gz",
+            "bytes": 11578776,
+            "sha256": "49a30b5d22d5d1a2bed27db5b0c5f9bbb601a3390dceb4dd07cc609d8a170f3b",
+            "prefix": "repair-effects-binary"
+          },
+          "files": 4,
+          "rawHeaders": 4,
+          "paxHeaders": 0,
+          "payloadBytes": 29737360,
+          "decodedTarBytes": 29747200,
+          "inventoryCompressedSHA256": "185701c0b462be9c08900f44e692a16f32cc256bce84339f38e53228dcc9c769",
+          "inventoryDecodedSHA256": "32462793fec65886eeba9edb40073ac5ee7410297eaa2aae5b939e1e583aa8e5",
+          "allMembersAndHeadersChecked": true,
+          "observed": 3,
+          "links": 0
+        }
+      },
+      "sourceFilesVerifiedAgainstCommit": 1056
+    }
+  },
+  "independentProvenance": {
+    "glm": {
+      "originalFrozenFilesCompared": 44,
+      "oldReceiptsHashed": 39,
+      "oldNativeFilesHashed": 990,
+      "oldNativePayload": 10835999,
+      "certifiedOldInventoryPins": 3,
+      "keylessArtifactReferences": 15724,
+      "keylessCases": [
+        [
+          399,
+          {
+            "PASS": 337,
+            "NOT_RUN": 62
+          }
+        ],
+        [
+          1,
+          {
+            "PASS": 1
+          }
+        ],
+        [
+          1,
+          {
+            "PASS": 1
+          }
+        ],
+        [
+          10,
+          {
+            "PASS": 10
+          }
+        ]
+      ],
+      "sourceManifest": "4bb4e654f4f23c7faa6fbda6ef24d3ddd7ab1ef41a095d8a6c6e6ea181b66620",
+      "plan": "40d4bf5ba0a4cb0d4516a7b7848b330161d74f7b1065f9c13a828daba8a8a6e5",
+      "checks": "1c7d8db297419f0f7dd85caa3853af93a46df1824009377d8d8695ff33e36338",
+      "human": "0e2fc317bc6ee74ac0c42f6beae49628ff201db83c9617a619097e7440a22003",
+      "calls": 66,
+      "attempts": 66,
+      "statuses": {
+        "PASS": 65,
+        "FAIL": 1
+      },
+      "usage": {
+        "complete": 40,
+        "unreported": 5,
+        "partial": 21
+      },
+      "knownInputSide": 11680,
+      "knownOutput": 18697,
+      "collections": [
+        {
+          "route": "chat",
+          "selectedSourcePaths": 217,
+          "calls": 22,
+          "attempts": 22,
+          "outcome": "PASS"
+        },
+        {
+          "route": "responses",
+          "selectedSourcePaths": 217,
+          "calls": 22,
+          "attempts": 22,
+          "outcome": "PASS"
+        },
+        {
+          "route": "messages",
+          "selectedSourcePaths": 217,
+          "calls": 22,
+          "attempts": 22,
+          "outcome": "FAIL"
+        }
+      ]
+    },
+    "effects": {
+      "originalFrozenFilesCompared": 46,
+      "oldReceiptsHashed": 39,
+      "oldNativeFilesHashed": 990,
+      "oldNativePayload": 10835999,
+      "certifiedOldInventoryPins": 3,
+      "keylessArtifactReferences": 15724,
+      "keylessCases": [
+        [
+          399,
+          {
+            "PASS": 337,
+            "NOT_RUN": 62
+          }
+        ],
+        [
+          1,
+          {
+            "PASS": 1
+          }
+        ],
+        [
+          1,
+          {
+            "PASS": 1
+          }
+        ],
+        [
+          10,
+          {
+            "PASS": 10
+          }
+        ]
+      ],
+      "sourceManifest": "4bb4e654f4f23c7faa6fbda6ef24d3ddd7ab1ef41a095d8a6c6e6ea181b66620",
+      "plan": "77cba73f4abb8ea471f9b7bdf5f4b095bc95d3178db10270c2e15df4830d6dd1",
+      "checks": "67ff2a6e18233b9b541df28376af8c0e140214d9a5857b49e22e67ec2335c796",
+      "human": "0e2fc317bc6ee74ac0c42f6beae49628ff201db83c9617a619097e7440a22003",
+      "calls": 36,
+      "attempts": 36,
+      "statuses": {
+        "PASS": 36
+      },
+      "usage": {
+        "complete": 36
+      },
+      "knownInputSide": 24742,
+      "knownOutput": 1088,
+      "collections": [
+        {
+          "route": "visual-decisions",
+          "selectedSourcePaths": 323,
+          "calls": 12,
+          "attempts": 12,
+          "outcome": "PASS"
+        },
+        {
+          "route": "visual-jev",
+          "selectedSourcePaths": 323,
+          "calls": 12,
+          "attempts": 12,
+          "outcome": "PASS"
+        },
+        {
+          "route": "protocol114",
+          "selectedSourcePaths": 862,
+          "calls": 12,
+          "attempts": 12,
+          "outcome": "PASS"
+        }
+      ]
+    },
+    "combined": {
+      "newCalls": 102,
+      "newAttempts": 102,
+      "priorCalls": 545,
+      "priorAttempts": 545,
+      "totalCalls": 647,
+      "totalAttempts": 647,
+      "releaseCertified": false
+    }
+  },
+  "totalRegularMembers": 58030,
+  "totalRawTarHeaders": 114679,
+  "totalPayloadBytes": 535597650,
+  "readerPins": {
+    "small": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+    "full": "3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328"
+  },
+  "independentReadArtifacts": {
+    "/tmp/barness-repair-actuals-retention-independent-readhash.json": "fc12c9d7f471200fe77828dec2f791d7431a6bea35725318d5ea3b439b6578ca",
+    "/tmp/barness-repair-actuals-retention-independent-provenance.json": "38ec57ef804180bca9090887ed53c174da0a0979c1572c29dbe437e14b02f3bd",
+    "/tmp/barness-review-ge-retention.py": "a1db842556c5c517d6806ad0b399bb11ea352edfb5b15a4e706efb055be584e9",
+    "/tmp/barness-review-ge-provenance.py": "b3b317742d70106fbf1e588998549c88487b906ea3808de773d210dbe2e6bdc8"
+  },
+  "guardEvidence": {
+    "glmPublicVerifierExit": 0,
+    "glmPrivateNegativeRejections": 19,
+    "effectsPublicVerifierExit": 0,
+    "effectsPrivateNegativeRejections": 15,
+    "reviewerReranAny": false
+  },
+  "limitations": {
+    "historicalSourceOnly": true,
+    "currentReleaseCertificate": false,
+    "futureSourceApplicability": false,
+    "sourceFindingsOutsideThisDeltaRemainSeparate": true,
+    "AorBReviewedInThisReport": false
+  },
+  "reviewerExecution": {
+    "projectProgramsExecuted": false,
+    "capturedCommandsExecuted": false,
+    "testsOrVerifiersExecuted": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "rootWrites": false,
+    "workerWrites": false,
+    "archiveExtraction": false
+  },
+  "rootObserved": {
+    "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/\n"
+  }
+}

@@ -1,8 +1,7 @@
 # 17 — Final MiniMax Messages payload and current documentation review gaps
 
 Type: task
-Status: claimed
-Labels: ready-for-agent
+Status: resolved
 Blocked by: none
 
 ## Scope
@@ -29,3 +28,15 @@ Parent assigned one implementer and explicitly authorized only local loopback sy
 - Public TDD:42 actual malformed-send REDs, then42 local zero-Provider/zero-Attempt rejections and2 unchanged business-wire positives. Initial compile failure, incorrectly typed RawMessage fixture/failed GREEN and local-dependency setup refusals remain historical branches, not substituted REDs.
 - Related ordinary/race commands exit0 with1663 PASS+8 NOT_RUN each, audit0; exact8 mandatory pressure/catalog cases separately run with explicit opt-ins ordinary/race,8 PASS each/audit0. Dual vet exits0. The opt-in window overlaps the tail of main race and all measured source bytes stay fixed.
 - Old strict source maps M3×263, GLM217, textselected261, protocol862 and visual323 remain original and cannot certify new payload code. Generic routes require independent final-diff applicability review; missing maps grant no exemption. No real Key/vendor call/new paid round or pin refresh was authorized. Raw TDD retention and documentation await separate exact-tip review; complete release remains PARTIAL.
+
+- Final retention correction `6b440de18181128e082c56acc10d277fb0a721ab` and exact dual-axis reports close all source/documentation/retention findings; B source7931 and its post-guards were already closed before integration. See final-closure index for original findings and separately sealed resolution reports.
+
+## Answer
+
+Offline review-fix scope resolved. Runtime source `230691742b731c77e8167b94646219e10f78c8f7` and documentation `295728ac041006b00959dcfa368d3c1eab2f1953` close FINAL-SPEC-01/02 and FINAL-STANDARDS-DOC-01; both source axes and both documentation axes have zero remaining findings. The MiniMax-only final Messages boundary rejects malformed containers, roles, blocks and function-tool required fields before sending, while preserving business schema/tool-input JSON. No dependency or general validator framework was added.
+
+The [complete offline history](../evidence/ticket-17/README.md) retains42 real malformed-send REDs,42 zero-Provider/Attempt GREEN rejections and2 legal unchanged-wire cases. Related ordinary/race each1663PASS/8NOT_RUN, explicit mandatory8 opt-ins each8PASS, both vets0 and audits0. The actual measured source wasca67+WIP;1027 compiler/JSON/mod/sum files equal committed2306. Original failed compile/fixture/environment branches and command-window overlap remain recorded.
+
+The [retention corrections](../evidence/ticket-17/retention-fixes/README.md) retain original reviews, raw before/after command receipts, bounded private fixtures and failed authoring branches. Original ticket17 full-v2 and B ordinary/race/outer bytes remain unchanged. Main creators use bounded no-follow nonblocking regular FD reads and same-FD cumulative archive hashes; resources require six exact int0 counters. Negative fixture construction follows the same finite-read/decompression/hash boundary. Final correction commit and both exact-tip review outputs are indexed in [final closure](../evidence/ticket-09/final-closure/README.md).
+
+The B source7931 full gate and all post-guards are closed, with actual0/0/1/1,outer1/reportfalse; it does not certify this new runtime. [Applicability](../evidence/ticket-09/final-closure/current-source-applicability.json) and the final selected-source byte-equality seal preserve the original strict maps/pins and generic10 affected-source proof. No native source/hash/selector/price/time was refreshed. This ticket's resolution does not resolve the live acceptance gaps,15/12/10/09 or the spec; current delivery stays PARTIAL. All approved six actual processes are closed,102/102 added and647/647 cumulative; no further paid round is authorized. No Key/vendor call was used by this offline correction.

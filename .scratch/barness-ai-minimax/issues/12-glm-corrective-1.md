@@ -3,7 +3,7 @@
 Status: ready-for-human
 Type: task
 Updated: 2026-10-18
-Blocked by: current GLM Responses actual failure (ticket13); original one-round contract closed
+Blocked by: latest GLM Messages actual failure (ticket15); strict current-source applicability; original one-round contract closed
 
 ## Context
 
@@ -35,3 +35,10 @@ Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66
 
 
 2026-10-18票13新增路由合同的实际结果另列：三路65calls/65Attempts，Chat/Messages各22场景PASS，Responses19PASS/3FAIL；两个native-history均PASS，但glm-5.3/tool-call与control-max约90秒超时，tool-result依赖失败0/0。此结果不改写本票原R1缺正文捕获或66/66消费，也不是本票自动R2。严格续期仍拒绝，后续额外付费尚未批准。当前GLM阻断以[票13实际证据](../evidence/ticket-13/actual-glm/README.md)和[交付状态](../delivery-status.md)为准。
+
+
+### 2026-10-18 固定六项关闭后的最新交付检查点
+
+2026-10-18 最新固定六项真实验收已按人类新增108calls/132HTTPAttempts批准完成：中国区GLM直连，国际protocol114及两项视觉经127.0.0.1:7890。Chat、Responses及三项效果collection通过，Messages21PASS/1FAIL，新增102/102，连原545/545累计647/647。该固定合同全部关闭，未用6calls/30Attempts不转移，无自动下一轮或新增付费授权。严格GLM续期和新四报告装配拒绝，原selector与17身份矩阵SHA保持；原矩阵16PASS/1FAIL为旧Responses记录，最新Messages原始失败未导入。
+
+最新Messages cancel在可观察内容前到达120秒期限，duration120001ms、usage未报告；不证明成功取消或厂商原因。原R1缺正文、区域轮Responses失败与本轮分开保留。本票保持ready-for-human。见[当前交付](../delivery-status.md)、[六项原件](../evidence/ticket-15/new-actual/glm/README.md)、[全量门禁](../evidence/ticket-15/new-actual/final-gate/README.md)及[最终审查](../evidence/ticket-09/final-closure/README.md)。
