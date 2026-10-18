@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "name": "glm-corrective-followup",
+  "codeCommit": "5abc1a541ed2ed09d588904bb7eb55f951f56f04",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "glm-corrective-followup.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/glm-corrective-followup.tar.gz",
+  "archiveBytes": 6024969,
+  "archiveSha256": "504c460f6716debb5531dd9fb15d8661128992df2ba4f6db1f1464c81f5df434",
+  "files": 4041,
+  "negativeSymlinkFixtures": 0,
+  "entries": 4041,
+  "expandedBytes": 385530848,
+  "inventory": "glm-corrective-followup-files.json.gz",
+  "inventorySha256": "1e4a903802d489c59d48db91bf098e31accdcf41dd0e2bba34ecce88fea74a18",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "failure-first-red",
+      "manifest": "failure-first-red/go-evidence/20261018T033318.590566000Z/manifest.json",
+      "caseOutcomes": {
+        "FAIL": 1
+      },
+      "artifactReferences": 220,
+      "auditFindings": 0
+    },
+    {
+      "group": "intermediate-green",
+      "manifest": "intermediate-green/go-evidence/20261018T033359.284714000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 1
+      },
+      "artifactReferences": 260,
+      "auditFindings": 0
+    },
+    {
+      "group": "5abc-checks-and-interruption",
+      "manifest": "5abc-checks-and-interruption/normal-evidence/20261018T033554.456226000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 4
+      },
+      "artifactReferences": 1762,
+      "auditFindings": 0
+    },
+    {
+      "group": "5abc-checks-and-interruption",
+      "manifest": "5abc-checks-and-interruption/race-evidence/20261018T033556.258902000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 4
+      },
+      "artifactReferences": 1758,
+      "auditFindings": null
+    }
+  ]
+}

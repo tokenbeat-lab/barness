@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "name": "glm-corrective-4ff-full",
+  "codeCommit": "4ff6dca903adbf73b8324c7475482c4a902163ff",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "$COMMON/.evidence/minimax-retained/glm-corrective-4ff-full.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/glm-corrective-4ff-full.tar.gz",
+  "archiveBytes": 15823059,
+  "archiveSha256": "cd1709b1b3e43c01d1b149ea887c7e00a2900fd8c426ea0cae28f297f4f4818c",
+  "files": 15658,
+  "negativeSymlinkFixtures": 0,
+  "entries": 15658,
+  "expandedBytes": 185685641,
+  "inventory": "glm-corrective-4ff-full-files.json.gz",
+  "inventorySha256": "f7f9d0a5090fac2b5e010ec8c7a325c7dacd9f58a4048b35ed4ad4115d3654d0",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "full-offline-checks",
+      "manifest": "full-offline-checks/normal-evidence/20261018T032630.875792000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 61
+      },
+      "artifactReferences": 10054,
+      "auditFindings": 0
+    },
+    {
+      "group": "full-offline-checks",
+      "manifest": "full-offline-checks/race-evidence/20261018T032634.196117000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 61
+      },
+      "artifactReferences": 10054,
+      "auditFindings": 0
+    }
+  ]
+}

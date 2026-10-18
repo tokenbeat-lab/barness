@@ -1,0 +1,32 @@
+{
+  "axis": "standards",
+  "base": "b862249da6510d7bd23ab06f0470ce758529965c",
+  "previouslyReviewed": "4ff6dca903adbf73b8324c7475482c4a902163ff",
+  "target": "5abc1a541ed2ed09d588904bb7eb55f951f56f04",
+  "verdict": "PASS",
+  "confidence": "high",
+  "documentedBreaches": [],
+  "judgmentSmells": [],
+  "findings": [],
+  "scope": "Pinned read-only source review of the final GLM corrective delta; additional paid scope remains pending explicit human approval.",
+  "verifiedFollowups": [
+    {
+      "path": "ai/live/glm_harness_test.go",
+      "startLine": 358,
+      "endLine": 385,
+      "observation": "Known Usage and Attempt completeness metadata precede explicit event-evidence refusal."
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/tools/glm_corrective.py",
+      "startLine": 135,
+      "endLine": 153,
+      "observation": "Canonical corrective markers must carry original receipt identity and approval pins before ordinary-plan disclosure."
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/tools/paid.py",
+      "startLine": 28,
+      "endLine": 38,
+      "observation": "Ordinary preparation discloses inherited scoped consumption and caps."
+    }
+  ]
+}

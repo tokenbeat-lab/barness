@@ -1,0 +1,9 @@
+Spec-axis fixture follow-up: PASS; 0 findings. Target 6ff05b843750d062de012bd4f64da625a3caa189; reviewed delta5abc1a5...6ff05b8 with fixed-base b862249 and prior full correction review retained. Confidence: high.
+
+No underspecified test weakening or contract drift found. The synthetic peer now injects the9000-delta overflow once using a process-owned atomic flag. The fixed22 formal driver still runs; the first full-stream scene must actually report Overflow, preserve input20 and Attempt reporting, and leave the process FAIL/incomplete. It still fails if overflow does not occur, if the child unexpectedly succeeds, or if the failed report is missing. Other scenes retain their ordinary synthetic responses, avoiding22 repeated stress injections without changing production limits or scenario inventory.
+
+The missing-report branch still records its failing assertion, then retains available interrupted-child artifacts before TempDir cleanup. It does not turn a timeout or interrupted run into PASS. This follows R25:284's requirement to preserve failures and T04:353's “失败历史不覆盖”. The two fixes closed at5abc1a5 remain unchanged: GLM R17:196 known-usage settlement precedes overflow refusal, and conditional canonical corrective disclosure preserves original66/66, additional72/96 and the440/464 ceiling.
+
+The delta contains only the two GLM fixture files. Production capture, Python approval/accounting, importer, catalog and source selectors are byte-identical to5abc1a5. Each actual M3 execution map still contains263 pins; neither changed path intersects any map, preserving the independently verified zero drift from5abc1a5.
+
+The prospective corrective budget remains PENDING HUMAN APPROVAL. This source review does not authorize paid calls or certify unfinished whole-spec gates. No repository edits, tests, environment/credential reads or network/vendor calls were performed; previous review files remain unchanged.

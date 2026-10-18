@@ -1,0 +1,233 @@
+{
+  "implementationCommit": "6ff05b843750d062de012bd4f64da625a3caa189",
+  "executionSourceFiles": 1033,
+  "sourceUnchanged": true,
+  "userEnvRead": false,
+  "realCredentialsRead": false,
+  "vendorCalls": 0,
+  "newCanonicalCorrectiveIntents": 0,
+  "paidApproval": "PENDING HUMAN APPROVAL",
+  "accountingScope": "current MiniMax-release GLM renewal: original66/66 plus corrective-1 only; prior GLM-task paid history remains separate and immutable",
+  "prospectiveBudget": {
+    "priorCalls": 66,
+    "priorAttempts": 66,
+    "additionalMaxCalls": 72,
+    "additionalMaxAttempts": 96,
+    "lifetimeGLMMaxCalls": 138,
+    "lifetimeGLMMaxAttempts": 162,
+    "otherLegacyMaxCalls": 302,
+    "otherLegacyMaxAttempts": 302,
+    "legacyMaxCalls": 440,
+    "legacyMaxAttempts": 464
+  },
+  "originalReceipts": {
+    "glm-chat": {
+      "receiptSHA256": "1f50933ed97db33d21c4df46c5adeb4112d6dc6a080ac54a910782e402cb19bc",
+      "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "b6eae1e8d65be603bdce079d44e930d1514e904ad4e148649acb553507a6d619",
+      "calls": 22,
+      "attempts": 22,
+      "status": "PASS"
+    },
+    "glm-responses": {
+      "receiptSHA256": "13ccf3916853ab93d7e52a06353f4ced5cda0fb34c6f2f3303b310ddbb00d0d5",
+      "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "80ef74877de644227ab72a80ba07a9d7e385a1979cd8cde240c6c35cf655609b",
+      "calls": 22,
+      "attempts": 22,
+      "status": "FAIL"
+    },
+    "glm-messages": {
+      "receiptSHA256": "d4dad5b68303b07f3c07cb0001841fa1a5147c74b65698c85e5a08882cf255ca",
+      "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "652727389bfaf1addb49d41714070bf70f9f5ebf53d0313990c290b36565b8fe",
+      "calls": 22,
+      "attempts": 22,
+      "status": "PASS"
+    }
+  },
+  "checks": {
+    "glm-corrective-1-offline": {
+      "commands": {
+        "normal-command.json": {
+          "exitCode": 0,
+          "seconds": 26.51052987528965,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "vet-command.json": {
+          "exitCode": 0,
+          "seconds": 1.202839625068009,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "tools-command.json": {
+          "exitCode": 0,
+          "seconds": 37.333863040897995,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "race-command.json": {
+          "exitCode": 0,
+          "seconds": 373.79965366609395,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "vet-live-command.json": {
+          "exitCode": 0,
+          "seconds": 1.2156980410218239,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        }
+      },
+      "bundles": {
+        "normal": {
+          "caseOutcomes": {
+            "PASS": 61
+          },
+          "auditFindings": 0,
+          "finishedAt": "2026-10-18T03:26:50.262463Z"
+        },
+        "race": {
+          "caseOutcomes": {
+            "PASS": 61
+          },
+          "auditFindings": 0,
+          "finishedAt": "2026-10-18T03:31:12.034241Z"
+        }
+      }
+    },
+    "glm-corrective-1-final-5abc1a5": {
+      "commands": {
+        "normal-command.json": {
+          "exitCode": 0,
+          "seconds": 20.10752149997279,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "vet-command.json": {
+          "exitCode": 0,
+          "seconds": 0.39206233294680715,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "tools-command.json": {
+          "exitCode": 0,
+          "seconds": 39.9291839171201,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "m3-current-messages-command.json": {
+          "exitCode": 0,
+          "seconds": 0.17976787500083447,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "race-command.json": {
+          "exitCode": -15,
+          "seconds": 229.14772999985144,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "vet-live-command.json": {
+          "exitCode": 0,
+          "seconds": 0.5096588754095137,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "m3-current-responses-command.json": {
+          "exitCode": 0,
+          "seconds": 0.79361991584301,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "m3-current-chat-command.json": {
+          "exitCode": 0,
+          "seconds": 1.71031012525782,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        }
+      },
+      "bundles": {
+        "normal": {
+          "caseOutcomes": {
+            "PASS": 4
+          },
+          "auditFindings": 0,
+          "finishedAt": "2026-10-18T03:36:07.007902Z"
+        },
+        "race": {
+          "caseOutcomes": {
+            "PASS": 4
+          },
+          "auditFindings": null,
+          "finishedAt": "2026-10-18T03:38:37.103731Z"
+        }
+      }
+    },
+    "glm-corrective-1-final-6ff05b8": {
+      "commands": {
+        "normal-command.json": {
+          "exitCode": 0,
+          "seconds": 10.429337416309863,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "vet-command.json": {
+          "exitCode": 0,
+          "seconds": 0.4591716662980616,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "race-command.json": {
+          "exitCode": 0,
+          "seconds": 139.25709470827132,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        },
+        "vet-live-command.json": {
+          "exitCode": 0,
+          "seconds": 0.5513235838152468,
+          "credentialsRead": false,
+          "state": "COMPLETED"
+        }
+      },
+      "bundles": {
+        "normal": {
+          "caseOutcomes": {
+            "PASS": 4
+          },
+          "auditFindings": 0,
+          "finishedAt": "2026-10-18T03:40:28.620308Z"
+        },
+        "race": {
+          "caseOutcomes": {
+            "PASS": 4
+          },
+          "auditFindings": 0,
+          "finishedAt": "2026-10-18T03:41:53.139473Z"
+        }
+      }
+    }
+  },
+  "m3": {
+    "chat": {
+      "sourceFiles": 263,
+      "sourceChanged": false,
+      "originalReportSha256": "e65cd00d598befd62b9af32e2daa42e0f06d83878187afe83d2f90c164dd03ff",
+      "publicFormalVerifierAt5abc1a5": "PASS"
+    },
+    "responses": {
+      "sourceFiles": 263,
+      "sourceChanged": false,
+      "originalReportSha256": "33fb060912110b35680c0baadd37566f3380d165998c1ec38334d47f129dc425",
+      "publicFormalVerifierAt5abc1a5": "PASS"
+    },
+    "messages": {
+      "sourceFiles": 263,
+      "sourceChanged": false,
+      "originalReportSha256": "4932f71f744a2532269ed64005447e6ab98f859cd288ccefa1350ed747e907fd",
+      "publicFormalVerifierAt5abc1a5": "PASS"
+    }
+  }
+}

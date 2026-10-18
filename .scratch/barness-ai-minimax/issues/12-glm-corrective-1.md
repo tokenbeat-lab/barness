@@ -21,6 +21,12 @@ Blocked by: explicit human approval of additional paid budget
 
 ## Answer
 
-离线实现与证据准备中；付费预算扩展保持 **PENDING HUMAN APPROVAL**。本票实现者不读取.env/真实Key，不运行厂商调用，不创建APPROVED，不改写任何实际历史或canonical已存在intent。原Responses FAIL及全规格未完成状态保持。
+离线实现完成，生产捕获/审批修正为 `4ff6dca`、`5abc1a5`，受控 fault 单次注入为 `6ff05b8`。仅 GLM 自身 Go 来源及 Python 计划/归档边界改变；共享/M3-selected Go、正式导入、来源选择器、目录和已有真实证据/intent 均未修改。原始三份 M3 formal 公开 verifier 全部 PASS，三个263文件map及报告字节不变。
+
+先保留公开 red 再实现 green：完整大SSE为2,047,892字节，转义exchange为2,114,598字节，4094个delta的事件文件约2.2MiB；当前与历史wire/Result/Observer/cancel回放保持。length/no-text、wire超限及event超限都保持FAIL，后者仍保留已知input20与UsageReporting。后续L计划显式携带原66/66及R1已知/未知消费；本次续期上限440/464、Zhipu138/162，其余302不变，旧GLM任务历史独立保留。
+
+4ff完整GLM普通/race各61项PASS、审计0；最终6ff针对全部新捕获与事件预算的普通/race各4项PASS、审计0，工具CLI35项PASS，普通/live vet通过。原4ff两条Spec发现、5abc修正与6ff fixture独立双轴报告均保留，最终两轴0 open。5abc中间race为4项断言PASS但实现者中断慢速final audit，exit-15/无审计，不能称为Go PASS或timeout；纠正说明原样保留。详见[证据](../evidence/ticket-12/README.md)。
+
+付费预算扩展仍为 **PENDING HUMAN APPROVAL**。本票没有读取用户.env/真实Key、调用厂商、创建APPROVED或新的canonical R1 intent，也未改写任何真实历史。原Responses失败、GLM当前来源续期及全规格未完成状态保持；父任务将在集成后生成精确PENDING源码/二进制/计划/检查pins供人类审批。
 
 Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66/66 plus corrective-1. Prior GLM-task paid history (including its separate282-call contract) remains immutable and separately accounted; this extension does not erase or reset it.
