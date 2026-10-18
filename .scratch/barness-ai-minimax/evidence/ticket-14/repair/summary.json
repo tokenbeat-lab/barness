@@ -1,0 +1,202 @@
+{
+  "schema": 1,
+  "codeCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "selectedFiles": 1047,
+  "sourceFilesChanged": [
+    ".scratch/barness-ai-minimax/tools/routed_validation.py",
+    ".scratch/barness-ai-minimax/tools/test_routed_validation.py",
+    "ai/internal/testkit/release/plan.go"
+  ],
+  "mappingDeltaIDs": [
+    "MM-R24",
+    "MM-T03",
+    "MM-A19",
+    "MM-US68",
+    "MM-US71",
+    "MM-US72",
+    "MM-US73"
+  ],
+  "publicContractRED": {
+    "exitCode": 1,
+    "cases": 6,
+    "PASS": 4,
+    "FAIL": 2
+  },
+  "publicContractGREEN": {
+    "ordinaryExit": 0,
+    "raceExit": 0,
+    "casesEach": 6,
+    "PASS": 6
+  },
+  "publicPreflightCLI": {
+    "redExit": 1,
+    "redFailures": 2,
+    "greenExit": 0,
+    "greenTests": 2
+  },
+  "toolsGREEN": {
+    "exitCode": 0,
+    "tests": 60
+  },
+  "dualVet": [
+    0,
+    0
+  ],
+  "actualPreflightFirst": {
+    "passed": false,
+    "commands": {
+      "vet": 0,
+      "vet-live": 0,
+      "no-key-live": 1
+    },
+    "credentialsRead": false
+  },
+  "actualPreflightRestored": {
+    "passed": true,
+    "commands": {
+      "vet": 0,
+      "vet-live": 0,
+      "no-key-live": 0,
+      "no-key-visual-proxy": 0,
+      "no-key-release-contracts": 0
+    },
+    "credentialsRead": false
+  },
+  "restoredOfflineZIPs": 6,
+  "restoredZIPBytes": 2891933,
+  "nativeManifests": [
+    {
+      "member": "actual-visual-proxy/20261018T091519.448462000Z/manifest.json",
+      "cases": 16,
+      "statuses": {
+        "PASS": 16
+      },
+      "gitCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "auditFindings": 0,
+      "auditPresent": true
+    },
+    {
+      "member": "preflight-1/no-key-live/20261018T090917.114975000Z/manifest.json",
+      "cases": 398,
+      "statuses": {
+        "PASS": 324,
+        "FAIL": 12,
+        "NOT_RUN": 62
+      },
+      "gitCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "auditFindings": 0,
+      "auditPresent": true
+    },
+    {
+      "member": "preflight-1/no-key-live/20261018T090948.390870000Z/manifest.json",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "gitCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "auditFindings": null,
+      "auditPresent": false
+    },
+    {
+      "member": "preflight-1/no-key-live/20261018T091004.028692000Z/manifest.json",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "gitCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "auditFindings": null,
+      "auditPresent": false
+    },
+    {
+      "member": "preflight-2/no-key-live/20261018T091324.853082000Z/manifest.json",
+      "cases": 398,
+      "statuses": {
+        "PASS": 336,
+        "NOT_RUN": 62
+      },
+      "gitCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "auditFindings": 0,
+      "auditPresent": true
+    },
+    {
+      "member": "preflight-2/no-key-live/20261018T091402.909127000Z/manifest.json",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "gitCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "auditFindings": null,
+      "auditPresent": false
+    },
+    {
+      "member": "preflight-2/no-key-live/20261018T091418.532056000Z/manifest.json",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "gitCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "auditFindings": null,
+      "auditPresent": false
+    },
+    {
+      "member": "preflight-2/no-key-release-contracts/20261018T091523.081551000Z/manifest.json",
+      "cases": 6,
+      "statuses": {
+        "PASS": 6
+      },
+      "gitCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "auditFindings": 0,
+      "auditPresent": true
+    },
+    {
+      "member": "tdd/green/20261018T090122.323930000Z/manifest.json",
+      "cases": 6,
+      "statuses": {
+        "PASS": 6
+      },
+      "gitCommit": "a3a9097dcf13d42217337be35718f8ae21c5d174",
+      "auditFindings": 0,
+      "auditPresent": true
+    },
+    {
+      "member": "tdd/race/20261018T090544.528152000Z/manifest.json",
+      "cases": 6,
+      "statuses": {
+        "PASS": 6
+      },
+      "gitCommit": "711164125a02fe9691290d37fa24f1695d978926",
+      "auditFindings": 0,
+      "auditPresent": true
+    },
+    {
+      "member": "tdd/red/20261018T090019.828007000Z/manifest.json",
+      "cases": 6,
+      "statuses": {
+        "FAIL": 2,
+        "PASS": 4
+      },
+      "gitCommit": "a3a9097dcf13d42217337be35718f8ae21c5d174",
+      "auditFindings": 0,
+      "auditPresent": true
+    }
+  ],
+  "artifactReferencesVerified": 27412,
+  "negativeFixtureLinksMetadataOnly": 2,
+  "unusedBinariesHashReferences": 6,
+  "authorization": "PENDING",
+  "newRoundCreated": false,
+  "original18Unchanged": true,
+  "retentionCredentialsRead": false,
+  "retentionPaidCalls": 0,
+  "capturedCommandsExecuted": false,
+  "releaseCertified": false,
+  "archive": {
+    "files": 54792,
+    "entries": 54792,
+    "rawBytes": 425402095,
+    "decodedTarBytes": 524359680,
+    "archiveBytes": 81125177,
+    "archiveSHA256": "88eae30a5c322edab67bde19a709c62acd7971bf07446a62637454d7332c407c"
+  },
+  "scope": "Offline mapping hash and preflight repair only; original paid failures and frozen source expiry remain; no new paid authority"
+}

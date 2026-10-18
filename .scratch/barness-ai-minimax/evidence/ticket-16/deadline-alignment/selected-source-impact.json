@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "atHEAD": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+  "workingTreeChanged": true,
+  "assemblySHA256": "2fd107f18e3d34b6793fd256a69322bd335e9be42f50d232fbca963fe25afaf9",
+  "evidence": [
+    {
+      "kind": "M3 formal selected applicability",
+      "route": "chat",
+      "report": "$COMMON/.evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z/minimax-report.json",
+      "reportSHA256": "e65cd00d598befd62b9af32e2daa42e0f06d83878187afe83d2f90c164dd03ff",
+      "selectedFiles": 263,
+      "changed": [],
+      "historicalOutcome": "PASS"
+    },
+    {
+      "kind": "GLM previous actual source applicability",
+      "route": "chat",
+      "sourceMap": "$COMMON/.evidence/minimax-routed-glm-1/glm-chat/20261018T080736.880773000Z/glm-execution-source.json",
+      "sourceMapSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "selectedFiles": 217,
+      "changed": [
+        "ai/live/glm_assembly_test.go"
+      ],
+      "expired": true,
+      "historicalOutcomeUnchanged": true
+    },
+    {
+      "kind": "M3 formal selected applicability",
+      "route": "responses",
+      "report": "$COMMON/.evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z/minimax-report.json",
+      "reportSHA256": "33fb060912110b35680c0baadd37566f3380d165998c1ec38334d47f129dc425",
+      "selectedFiles": 263,
+      "changed": [],
+      "historicalOutcome": "PASS"
+    },
+    {
+      "kind": "GLM previous actual source applicability",
+      "route": "responses",
+      "sourceMap": "$COMMON/.evidence/minimax-routed-glm-1/glm-responses/20261018T080948.959906000Z/glm-execution-source.json",
+      "sourceMapSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "selectedFiles": 217,
+      "changed": [
+        "ai/live/glm_assembly_test.go"
+      ],
+      "expired": true,
+      "historicalOutcomeUnchanged": true
+    },
+    {
+      "kind": "M3 formal selected applicability",
+      "route": "messages",
+      "report": "$COMMON/.evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z/minimax-report.json",
+      "reportSHA256": "4932f71f744a2532269ed64005447e6ab98f859cd288ccefa1350ed747e907fd",
+      "selectedFiles": 263,
+      "changed": [],
+      "historicalOutcome": "PASS"
+    },
+    {
+      "kind": "GLM previous actual source applicability",
+      "route": "messages",
+      "sourceMap": "$COMMON/.evidence/minimax-routed-glm-1/glm-messages/20261018T081504.519210000Z/glm-execution-source.json",
+      "sourceMapSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "selectedFiles": 217,
+      "changed": [
+        "ai/live/glm_assembly_test.go"
+      ],
+      "expired": true,
+      "historicalOutcomeUnchanged": true
+    }
+  ],
+  "oldPinsRefreshed": false,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "vendorCalls": 0,
+  "scope": "Only source applicability. PriorGLM90s failures remain; controlledTLS success does not claim vendor response by120s."
+}

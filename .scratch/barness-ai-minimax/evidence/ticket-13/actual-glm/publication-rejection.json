@@ -1,0 +1,36 @@
+{
+  "state": "COMPLETED",
+  "name": "strict-rejected-publication",
+  "argv": [
+    "python3",
+    "$REPO/.scratch/barness-ai-minimax/tools/renewal.py",
+    "glm-archive",
+    ".evidence/minimax-routed-glm-publication-rejected-1",
+    "--round",
+    "routed-validation-1",
+    "--chat",
+    "$REPO/.evidence/minimax-routed-glm-1/glm-chat/20261018T080736.880773000Z",
+    "--responses",
+    "$REPO/.evidence/minimax-routed-glm-1/glm-responses/20261018T080948.959906000Z",
+    "--messages",
+    "$REPO/.evidence/minimax-routed-glm-1/glm-messages/20261018T081504.519210000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 300,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T08:18:06.342930+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.2458706246688962,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

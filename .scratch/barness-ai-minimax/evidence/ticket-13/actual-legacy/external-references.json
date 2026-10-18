@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "references": [
+    {
+      "location": "$COMMON/.evidence/minimax-routed-legacy-1/chineseeval",
+      "bytes": 29139970,
+      "sha256": "8842c6a1f1b46f299559f180962f9badfbee3db1e697c572df9af84f3c24c3af",
+      "copied": false,
+      "reason": "large frozen binary; original binaries manifest retained"
+    },
+    {
+      "location": "$COMMON/.evidence/minimax-routed-legacy-1/live.test",
+      "bytes": 36021842,
+      "sha256": "a960ae7839003178863c25a9c78fad86c96fa2f449b923f990ad3a85113733fe",
+      "copied": false,
+      "reason": "large frozen binary; original binaries manifest retained"
+    },
+    {
+      "location": "$COMMON/.evidence/minimax-routed-legacy-1/visualeval",
+      "bytes": 29619346,
+      "sha256": "d5eef21e87b8cbeddcc2c9a2f558a8347c2ac3fe6b4971dc554b1d6f101f0823",
+      "copied": false,
+      "reason": "large frozen binary; original binaries manifest retained"
+    },
+    {
+      "location": "$COMMON/.evidence/minimax-routed-legacy-1/no-key-live",
+      "files": 27877,
+      "bytes": 220415751,
+      "inventory": "no-key-live-external-inventory.json.gz",
+      "compressedSHA256": "2d16e4f7aa830735086b795d07ab42447b3b8609e4075d72e50617d3b622629c",
+      "decodedSHA256": "e939a1648a9db18f393dee827a6d50b1629d71c553bafe92c68bd63a1d3eae1c",
+      "copied": false,
+      "reason": "large keyless preflight; frozen checks and command receipts retained"
+    }
+  ],
+  "companionGLM": {
+    "sourceCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+    "summary": "../actual-glm/summary.json",
+    "summarySHA256": "82c46b42ccd75d335f397c97113c4a2f220477a62d9795b1d5aba855c06476c2",
+    "calls": 65,
+    "attempts": 65,
+    "outcome": "FAIL",
+    "ownArchive": "../actual-glm/index.json"
+  }
+}

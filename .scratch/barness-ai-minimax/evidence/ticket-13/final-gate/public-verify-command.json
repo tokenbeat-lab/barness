@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "public-verify",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    "$REPO/.scratch/barness-ai-minimax/evidence/ticket-13/final-gate/verify.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T09:58:49.598965+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 8.93925187503919,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

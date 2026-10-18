@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "results": [
+    {
+      "case": "wrong-hash",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "oversized",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "symlink",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "symlink-parent",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "launder-red",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "invent-paid",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "reuse-expired-glm",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "redirect-archive",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "change-source",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "change-helper",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "wrong-m3-source",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "tar-link",
+      "exitCode": 1,
+      "rejected": true
+    }
+  ],
+  "originalArchiveVerifiedBeforeAfter": true,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "vendorCalls": 0,
+  "capturedCommandsExecuted": false
+}

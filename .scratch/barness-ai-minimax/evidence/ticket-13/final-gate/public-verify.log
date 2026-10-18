@@ -1,0 +1,56 @@
+{
+  "verified": true,
+  "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "releaseCertified": false,
+  "releasePass": false,
+  "actualNumericExits": {
+    "vet": 0,
+    "vet-live": 0,
+    "ordinary": 1,
+    "race": 1
+  },
+  "suites": [
+    {
+      "suite": "ordinary",
+      "cases": 12448,
+      "statuses": {
+        "PASS": 12439,
+        "FAIL": 8,
+        "NOT_RUN": 1
+      },
+      "PIDiff": 868,
+      "pressure": 29,
+      "artifactReferences": 98703,
+      "archive": {
+        "files": 133171,
+        "entries": 133171,
+        "rawBytes": 1307506599,
+        "decodedTarBytes": 1538959360,
+        "archiveBytes": 114322540,
+        "archiveSHA256": "9f72789f54f61f40cba8880c9a42f7be818df02f431c1360e250dbafd1329467"
+      }
+    },
+    {
+      "suite": "race",
+      "cases": 12448,
+      "statuses": {
+        "PASS": 12439,
+        "FAIL": 8,
+        "NOT_RUN": 1
+      },
+      "PIDiff": 868,
+      "pressure": 29,
+      "artifactReferences": 98703,
+      "archive": {
+        "files": 133169,
+        "entries": 133169,
+        "rawBytes": 1302505276,
+        "decodedTarBytes": 1516769280,
+        "archiveBytes": 113453106,
+        "archiveSHA256": "b5b96d819cd097c6db13ebbc2101f1a3988ecd05ad4f607a1f32d7b561a0371f"
+      }
+    }
+  ],
+  "retentionCredentialsRead": false,
+  "retentionPaidCalls": 0
+}
