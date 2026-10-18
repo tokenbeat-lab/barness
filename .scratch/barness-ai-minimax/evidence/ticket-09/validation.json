@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "scope": "documentation, historical integrity and finite mapping only",
+  "verdict": "PASS",
+  "confersReleasePass": false,
+  "checks": 2877,
+  "failedChecks": [],
+  "verifiedLocalLinks": 54,
+  "sourceContractCommit": "9481a6ad8028025a7f35da19a3e488935c6cd897",
+  "originalRunCommit": "ecbbeeb01007052b81052c256ebb9940d9b2e203",
+  "allHistoricalCaseHashesVerified": true,
+  "missingRequiredCaseIds": [],
+  "ticket03ArchiveVerification": {
+    "schema": 1,
+    "kind": "historical-controlled-Responses-preservation-verification",
+    "originalIndexUnchanged": true,
+    "notFreshLive": true,
+    "runs": 33,
+    "verifiedArchivedFiles": 29012,
+    "verifiedArchivedBytes": 118969270,
+    "auditFindingCount": 0,
+    "files": {
+      "historical-controlled-captures.tar.gz": "cdbb9c88500638067e4c94fedfe4da3c8634e65aeaec8d82e60f91429778b198",
+      "historical-index.json": "b66d8149997bc8eee4e790d45b4486237d06b37dafdfb008add3e711000e7b8a",
+      "SHA256SUMS": "d9f68910f383da62898be695930fda3fd50b9b50fb5da45abc6100a1fe8753bf"
+    }
+  },
+  "runtimeCommandsRun": false,
+  "vendorCallsRun": false,
+  "sourceOrCaptureBytesChanged": false,
+  "actualFailurePointerChecks": {
+    "archiveHashAndSize": true,
+    "regularFileCount": 58,
+    "duplicateArchiveInTicket09": false,
+    "independentAuditHash": true,
+    "noModelSupportClaim": true
+  }
+}

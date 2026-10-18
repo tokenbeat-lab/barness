@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "kind": "documentation-evidence-curation-checkpoint",
+  "finalAcceptance": "BLOCKED",
+  "integrationBase": "01cfc5a4eadfe31c35feb93500b3b3e270274d75",
+  "sourceContractCommit": "9481a6ad8028025a7f35da19a3e488935c6cd897",
+  "sourceContractSha256": "f827130b57c44abef2a66d9ae1c8da6aff26ace3f0a27e82701ec7975cdc4d4e",
+  "counts": {
+    "requirements": 28,
+    "acceptanceGroups": 20,
+    "userStories": 80,
+    "uniqueRequiredCases": 1304,
+    "originalObservedOfflineCases": 1307,
+    "supplementalObservedCases": 3,
+    "verifiedOriginalFiles": 9922,
+    "verifiedOriginalBytes": 86466083
+  },
+  "originalObservation": {
+    "run": "20261017T234543.353974000Z",
+    "commit": "ecbbeeb01007052b81052c256ebb9940d9b2e203",
+    "manifestSha256": "b3c07bf100cae479a3169073671b50d568653fddce3299acc3faa94da4ea8d4b",
+    "finishedAt": "2026-10-17T23:46:22.409964Z",
+    "modelCatalogHash": "sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942",
+    "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "allOriginalCasesPASS": true,
+    "scope": "historical controlled offline; not actual/formal/current release certification"
+  },
+  "originalTestSources": 59,
+  "missingFiniteCaseIds": [],
+  "sourceAndHistoricalCaptureBytesChanged": false,
+  "currentPaidGap": {
+    "route": "MiniMax-M3/openai-completions/research",
+    "status": "FAIL",
+    "httpStatus": 401,
+    "vendorErrorType": "authorized_error",
+    "calls": 2,
+    "attempts": 2,
+    "dependentNativeContinuation": "NOT_RUN because tool capability probe failed",
+    "otherM3Routes": "NOT_RUN pending repaired authorized credential",
+    "M31": "NOT_RUN; M Plan entitlement not authorized"
+  },
+  "pendingFinalRequirements": [
+    "three own M3 candidate PASS captures",
+    "data-only formal catalog activation",
+    "three own M3 formal PASS captures",
+    "fourteen renewed legacy own support identities",
+    "four renewed business effects",
+    "fresh ordinary/race/pressure/frozen-pi gate and two vets",
+    "per-bundle redaction and rollback acceptance",
+    "final independent Standards/Spec review against ecfd4b4"
+  ],
+  "actualFailurePreservation": {
+    "pointer": "actual-auth-failure-pointer.json",
+    "independentAudit": "actual-auth-failure-review.md",
+    "capsuleOwner": "ticket10",
+    "archiveSha256": "2b1bbf9624c4692bc93f48a604c9df4a86aab768ed7cda6d6a373d7db66bd8d8",
+    "archiveBytes": 197572,
+    "regularFiles": 58
+  },
+  "interruptedWholeOrdinary": {
+    "exitCode": -15,
+    "elapsedSeconds": 536.7,
+    "reason": "root requested stop for known harness correction",
+    "conclusion": "NO_PASS"
+  }
+}
