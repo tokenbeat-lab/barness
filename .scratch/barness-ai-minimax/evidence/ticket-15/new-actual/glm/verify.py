@@ -90,6 +90,9 @@ def main():
  if scenes!=[json.loads(line) for line in b.read(BASE,'scenarios.jsonl',1<<20).decode().splitlines()]:raise ValueError('independent scenario inventory differs')
  more=secondary(b,index,a.common_root,m)
  if more!=b.doc(b.read(BASE,'secondary-summary.json',1<<20)):raise ValueError('independent secondary summary differs')
+ logs=b.doc(b.read(BASE,'tdd/raw-log-index.json',1<<20))['logs']
+ if len(logs)!=4 or len({v['originalFile'] for v in logs})!=4:raise ValueError('fixed lossless raw log inventory differs')
+ for row in logs:b.decoded_gzip(row)
  negative=b.doc(b.read(BASE,'negative-results.json',1<<20));guards=negative.get('negativeGuards',[])
  if negative.get('verified') is not True or negative.get('originalArchivesMutated') is not False or len(guards)!=19 or len({v['case'] for v in guards})!=19 or any(v.get('exitCode')!=1 or not v.get('reason','').startswith('REFUSED:') for v in guards):raise ValueError('actual public negative guard evidence differs')
  print(json.dumps(dict(verified=True,actualSource=SOURCE,collectionOutcome='FAIL',calls=66,attempts=66,threeRoutePublication=False,archive=archive,secondary=more,retentionCredentialsRead=False,retentionPaidCalls=0,releaseCertified=False),indent=2))
