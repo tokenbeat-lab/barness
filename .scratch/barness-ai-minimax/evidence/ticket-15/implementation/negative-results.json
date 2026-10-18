@@ -1,0 +1,78 @@
+{
+  "verified": true,
+  "negativeGuards": [
+    {
+      "case": "metadata-pin",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: local metadata pin differs"
+    },
+    {
+      "case": "wrong-source",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed capsule identity differs"
+    },
+    {
+      "case": "wrong-summary",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent observed summary differs"
+    },
+    {
+      "case": "inventory-pin",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: inventory decoded pin or limit"
+    },
+    {
+      "case": "inventory-decoded-bound",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: inventory decoded pin or limit"
+    },
+    {
+      "case": "archive-hash",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: compressed archive pin"
+    },
+    {
+      "case": "archive-size-bound",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: compressed archive size"
+    },
+    {
+      "case": "archive-symlink",
+      "exitCode": 1,
+      "reason": "REFUSED: OSError: [Errno 62] Too many levels of symbolic links: 'release-repair-raw.tar.gz'"
+    },
+    {
+      "case": "archive-fifo",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: regular artifact required"
+    },
+    {
+      "case": "traversal",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: invalid owned artifact path"
+    },
+    {
+      "case": "duplicate",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: archive path or duplicate"
+    },
+    {
+      "case": "typed-link",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: regular archive member required"
+    },
+    {
+      "case": "entry-bound",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: archive entry limit"
+    },
+    {
+      "case": "observation-bound",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: bounded observation differs"
+    }
+  ],
+  "realCredentialsRead": false,
+  "vendorCalls": 0,
+  "originalArchivesMutated": false
+}

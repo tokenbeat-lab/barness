@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "verify",
+  "argv": [
+    "python3",
+    "-B",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 120,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T11:01:03.139575+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.1495357919484377,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}
