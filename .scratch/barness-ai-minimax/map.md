@@ -13,7 +13,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-历史任务图01 → {02,03,04} → {05,06,07}、06→08已完成；当前frontier为10 → 09（11已完成国际站实现/离线范围），10同时保留05/06/07依赖。07先建受控证据工具，10等执行源码冻结后才运行真实调用；09汇合最终判定。
+历史任务图01 → {02,03,04} → {05,06,07}、06→08已完成；用户新增继续验证及区域路由指令后，当前frontier为13 → 10 → 09（11已完成国际站实现/离线范围），10同时保留05/06/07依赖。13单独冻结本轮有限合同，旧票12消费不转移；09汇合最终判定。
 
 - [01 Provider 身份、六个候选型号与思考元数据](issues/01-provider-model-contract.md)；Blocked by: None。
 - [02 MiniMax Chat 文本、推理、工具历史与边界](issues/02-chat-protocol.md)；Blocked by: 01。
@@ -28,6 +28,8 @@ Base: `ecfd4b4`
 - [10 M3自身真实证据、价格目录与增量发布合同](issues/10-formal-catalog-support.md)；Blocked by: 05, 06, 07, 11。
 
 - [11 国际站身份、美元价格与地区证据切换](issues/11-international-target.md)；Blocked by: 01–08（均已resolved）。
+
+- [13 按区域固定路由的缺口验证](issues/13-routed-validation.md)；用户新增指令已授权继续，当前 claimed；本轮合同和无 Key [连通性诊断](evidence/ticket-13/network/README.md)独立保留。
 
 ## Decisions so far
 
