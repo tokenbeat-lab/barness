@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "check-boundaries",
+  "argv": [
+    "python3",
+    "-B",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/check-boundaries.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 90,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T10:15:49.949449+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.5965820830315351,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

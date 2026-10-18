@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "verify",
+  "argv": [
+    "python3",
+    "-B",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/verify.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 90,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T10:15:49.754519+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.18330595921725035,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}
