@@ -107,7 +107,8 @@
     "initialVisualRed": "15 FAIL, audit2; absent proxy flag and unsafe failure assertion, preserved unchanged",
     "emptyFragmentRed": "1 FAIL, audit0; fixed before final16 PASS",
     "specReviewRed": "foreign-phase changed report was incorrectly REPORTED22/22; fixed51 now UNKNOWN24/32",
-    "fixtureRepair": "first green attempt tried creating a symlink over a restored file; original failed log retained; fixture fixed before final green"
+    "fixtureRepair": "first green attempt tried creating a symlink over a restored file; original failed log retained; fixture fixed before final green",
+    "renewalFixtureRepair": "First new-round green attempt used an output directory lacking the existing minimax prefix; fixture corrected before full green. Original log retained."
   },
   "scope": "Measured working-tree bases in manifests stay exact; frozen83/51 source snapshots do not replace those measurements. No full release or provider certification."
 }
