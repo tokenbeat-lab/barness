@@ -1,0 +1,49 @@
+{
+  "verified": true,
+  "negativeGuards": [
+    {
+      "case": "metadata",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: local metadata pin differs"
+    },
+    {
+      "case": "wrong-source",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed original ordinary capsule identity differs"
+    },
+    {
+      "case": "wrong-path",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed original ordinary capsule identity differs"
+    },
+    {
+      "case": "widen-limits",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed streaming limits differ"
+    },
+    {
+      "case": "archive-pin",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: compressed archive pin differs"
+    },
+    {
+      "case": "summary-pass",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent ordinary summary differs"
+    },
+    {
+      "case": "summary-failures",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent ordinary summary differs"
+    },
+    {
+      "case": "observations",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed observed metadata inventory"
+    }
+  ],
+  "originalArchivesMutated": false,
+  "archiveHardlinksUsedReadOnly": true,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

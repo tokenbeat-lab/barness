@@ -1,0 +1,20 @@
+# First incomplete gate: completed ordinary command only
+
+Primary source `7931b163f983a8b362374163b7949d31e68bbec4` ran the actual default ordinary command `/usr/local/go/bin/go test -count=1 -timeout=20m ./...`, finishing with numeric1 after644.3308634581044 seconds. Its own native manifest has12451 cases:12445 PASS and6 FAIL, no NOT_RUN. The six failures are the GLM12 formal-import and reported-known-usage checks for chat/responses/messages against historical sources; their exact assertions are retained. This is a failed ordinary run, not a whole gate certificate.
+
+The immutable common-root archive `.evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz` has SHA256 `9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd`. It contains all133174 original ordinary regular files plus the exact closed ordinary numeric receipt, immutable B plan-v2 and original G source snapshot:133177 members,1308872132 payload bytes,1543362560 decoded tar bytes and114797350 compressed bytes. All original paths were bounded/regular-only, hashed before and after snapshot, and independently streamed through the unchanged bounded reader. No extraction or captured program execution occurs.
+
+The source snapshot is the original primary7931/1056 map; immutable plan-v2 SHA is `f97c97c158189bc741a22ea714a1cc64053ea79755d688f8a66450d87fab6985`. The worker's later ticket17 WIP is not substituted for this source and cannot gain certification from this archive. The original plan already records missing Messages support, incomplete assembly and no new-row import. G/E/A and the default matrix remain original byte references.
+
+The reader independently checks every manifest artifact reference, audit0 and all868 true `PIDIFF-` cases PASS. The29 case IDs containing pressure all pass;15 of these match the fixed release `PRESSURE` regex `^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-`. Both exact lists are retained in `summary.json`; the14 additional pressure diagnostic/write cases are not silently counted as required load scenarios.
+
+Only the parent-approved closed ordinary subtree, its completed receipt and immutable plan were read from B. The race subtree, evolving outer log/report/progress and eventual outer verdict are excluded. A main E2E manifest cannot settle package-level/unit failures outside its case registry; those require the eventual closed outer log/report and remain unclaimed here.
+
+```sh
+python3 -B .scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py --common-root /Users/cyber/RestoX/barness
+python3 -B .scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-boundaries.py --common-root /Users/cyber/RestoX/barness
+```
+
+The unchanged full-suite reader is pinned to SHA3017cba1… and retains its fixed256MiB compressed/2GiB decoded tar/160000 files/200000 entries/64MiB member/1600MiB payload/40MiB decoded inventory/8MiB compressed inventory/256 observations/16MiB observed member/64MiB observed total limits. The snapshot counts directories and files before collecting, limits depth32 and forbids all links/nonregular members. No bound is widened. Eight public private-index negatives use read-only hardlinks of the immutable raw archive, never modify it, and reject local pin/source/path/limit/hash/summary/observation tampering. Original checks run before and after. Retention reads no Key, makes no network/paid call, creates no intent and writes no live source/input.
+
+Authoring history retains initial missing-reader RED and conservative initial baseline refusals: plan newRowsImported is native integer0, and eight original MM03 case directories end in a slash. The reader checks the directory after removing only its trailing slash and compares normalized owned member paths; traversal, empty/dot components and archive bounds remain rejected. No raw archive or native manifest was rewritten.
