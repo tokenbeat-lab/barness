@@ -119,6 +119,7 @@ def main():
         p=sub.add_parser(mode);p.add_argument('out')
         if mode=='glm-archive':
             for route in u.ROUTES:p.add_argument('--'+route,required=True)
+            p.add_argument('--round',choices=('original','corrective-1'),default='original')
         if mode=='origins':p.add_argument('--bundle',action='append',required=True)
     a=parser.parse_args()
     if a.mode=='m31-not-run':out=u.repo_path(a.out);result=m31_not_run(out)
@@ -128,7 +129,7 @@ def main():
         elif a.mode=='origins':result=origins(out,a.bundle)
         else:
             import renewal_glm as g
-            result=g.capture(out,{r:getattr(a,r) for r in u.ROUTES}) if a.mode=='glm-archive' else g.views(out)
+            result=g.capture(out,{r:getattr(a,r) for r in u.ROUTES},a.round) if a.mode=='glm-archive' else g.views(out)
     print(json.dumps(c.redact(result),ensure_ascii=False,indent=2))
 
 if __name__=='__main__':

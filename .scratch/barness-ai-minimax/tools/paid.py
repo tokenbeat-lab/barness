@@ -144,7 +144,7 @@ def pin_glm_capture(out,job,record):
     report=c.doc(bundle/'formal-glm-report.json')
     if (record.get('state')!='COMPLETED' or record.get('exitCode')!=0 or
         not record.get('credentialsRead') or not record.get('launcherAudit',{}).get('passed') or
-        report.get('mode')!='live' or report.get('kind')!='glm-formal' or report.get('route')!=job['name'].removeprefix('glm-') or
+        report.get('mode')!='live' or report.get('kind')!='glm-formal' or report.get('route')!=job.get('glmRoute',job['name'].removeprefix('glm-')) or
         report.get('outcome')!='PASS' or report.get('complete') is not True or report.get('auditPassed') is not True or
         report.get('gitCommit')!=record.get('sourceCommit')):
         raise RuntimeError('GLM exact capture pins require successful reviewed own fixed live child')
@@ -220,15 +220,24 @@ def summarize(out):
             conservativeAttempts=actual['attempts'] if known else job['maxAttempts'])
         if 'stage' in job:row.update(stage=job['stage'],identity=p.identity(job),budgetSlot=job['route']+'/'+job['model']+'/'+job['purpose'])
         rows.append(row)
+    # Corrective-1 is a separately human-authorized fixed round. Carry its
+    # canonical actual/unknown consumption alongside the original intents;
+    # unused original GLM reservation is never transferred to it.
+    import glm_corrective as g
+    corrective=g.rows()
+    if corrective:g.originals()
+    rows.extend(corrective)
     legacy=[r for r in rows if r['provider']!='minimax']
+    maxcalls,maxattempts=(440,464) if corrective else (374,398)
     total=dict(calls=sum(r['calls'] or 0 for r in legacy),attempts=sum(r['attempts'] or 0 for r in legacy),
                conservativeCalls=sum(r['conservativeCalls'] for r in legacy),
-               conservativeAttempts=sum(r['conservativeAttempts'] for r in legacy),maxCalls=374,maxAttempts=398)
-    if total['conservativeCalls']>374 or total['conservativeAttempts']>398:raise RuntimeError('legacy budget exceeded')
+               conservativeAttempts=sum(r['conservativeAttempts'] for r in legacy),maxCalls=maxcalls,maxAttempts=maxattempts)
+    if total['conservativeCalls']>maxcalls or total['conservativeAttempts']>maxattempts:raise RuntimeError('legacy budget exceeded')
     for provider,cap in p.PROVIDER_CAPS.items():
         own=[r for r in legacy if r['provider']==provider]
+        if provider=='zhipu' and corrective:cap=138
         if sum(r['conservativeCalls'] for r in own)>cap:raise RuntimeError('provider budget exceeded')
-        attemptcap=96 if provider=='zhipu' else cap
+        attemptcap=(162 if corrective else 96) if provider=='zhipu' else cap
         if sum(r['conservativeAttempts'] for r in own)>attemptcap:raise RuntimeError('provider attempt budget exceeded')
     history=h.inventory()
     mini=[]

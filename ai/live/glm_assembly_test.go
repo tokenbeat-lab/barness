@@ -24,7 +24,22 @@ func newGLMCandidateClient(c *combo, key string, rec *recorder, cat ai.Catalog) 
 	}
 	policy := livePolicy()
 	policy.CallTimeout = 120 * time.Second
-	return newClientWithPolicy(c, key, rec, cat, policy)
+	var models []string
+	for _, model := range cat.Models {
+		if model.Provider == c.provider && model.API == c.api {
+			models = append(models, model.ID)
+		}
+	}
+	// This assembly is independently source-pinned by GLM. Keeping the capture
+	// policy here avoids changing the shared recorder or other formal proofs.
+	r := &resolver{
+		binding: ai.Binding{TenantID: liveTenant, BindingID: c.name, Version: "live", Enabled: true,
+			Operation: c.operation, ProviderID: c.provider, API: c.api, Endpoint: c.endpoint, AuthKind: ai.AuthAPIKey,
+			AccountScopeID: "live-" + c.name, CredentialRef: "live-key", AllowedModels: models},
+		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "live-key", Version: "live", BindingVersion: "live",
+			AccountScopeID: "live-" + c.name, Active: true, APIKey: ai.NewSecret(key)},
+	}
+	return ai.NewClient(ai.Config{Policy: policy, Bindings: r, Credentials: r, Transport: glmCaptureTransport{rec}, Observer: rec, Catalog: &cat})
 }
 
 // This is an offline public Client acceptance test despite the package's live

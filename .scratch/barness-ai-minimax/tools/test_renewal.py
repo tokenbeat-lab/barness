@@ -107,6 +107,26 @@ class Renewal(unittest.TestCase):
   views=json.loads((self.root/'ai/live/testdata/glm-formal/support-views.json').read_text())
   self.assertEqual(set(views['routes']),{'chat','responses','messages'})
   self.assertTrue(all(v['reportPath']=='live-report.json' for v in views['routes'].values()))
+
+ def test_corrective_round_requires_explicit_own_canonical_pins_no_original_fallback(self):
+  values=self.captures()
+  before={n:(self.root/'ai/live/testdata/glm-formal'/n).read_bytes() for n in ('live-captures.json','known-usage.json')}
+  args=['glm-archive','.evidence/minimax-corrective-missing','--round','corrective-1']
+  for route,value in values.items():args+=['--'+route,value]
+  self.runcli(*args,ok=False)
+  for route in ('chat','responses','messages'):
+   old=self.root/'.evidence/minimax-launches'/('glm-'+route+'.json')
+   value=json.loads(old.read_text());value.update(route='glm-corrective-1-'+route,correctiveRound='corrective-1',humanApprovalSha256='a'*64)
+   self.put('.evidence/minimax-launches/glm-corrective-1-'+route+'.json',value)
+  args[1]='.evidence/minimax-corrective-explicit';self.runcli(*args)
+  index=json.loads((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_text())
+  self.assertEqual(index['collectionRound'],'corrective-1')
+  self.assertEqual(set(index['launcherReceiptSHA256']),{'chat','responses','messages'})
+  # Borrowing one old receipt into the new round is never a fallback.
+  mixed=self.root/'.evidence/minimax-launches/glm-corrective-1-messages.json';mixed.write_bytes((self.root/'.evidence/minimax-launches/glm-messages.json').read_bytes())
+  fixed=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
+  args[1]='.evidence/minimax-corrective-mixed';self.runcli(*args,ok=False)
+  self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),fixed)
  def test_raw_capture_symlink_and_mixed_source_refuse_without_selector_mutation(self):
   values=self.captures();target=self.root/'raw/chat/session/link';target.symlink_to(self.root/'go.mod')
   original=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()

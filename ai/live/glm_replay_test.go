@@ -122,7 +122,7 @@ func installGLMCaptureReplay(rec *recorder) error {
 		if !needed[f.Name] {
 			continue
 		}
-		if path.IsAbs(f.Name) || path.Clean(f.Name) != f.Name || strings.HasPrefix(f.Name, "../") || f.UncompressedSize64 > 2<<20 || total+f.UncompressedSize64 > 64<<20 {
+		if path.IsAbs(f.Name) || path.Clean(f.Name) != f.Name || strings.HasPrefix(f.Name, "../") || f.UncompressedSize64 > 16<<20 || total+f.UncompressedSize64 > 128<<20 {
 			return fmt.Errorf("capture archive exceeds safe path/read bounds")
 		}
 		total += f.UncompressedSize64
@@ -130,9 +130,9 @@ func installGLMCaptureReplay(rec *recorder) error {
 		if e != nil {
 			return fmt.Errorf("capture entry unavailable")
 		}
-		data, e := io.ReadAll(io.LimitReader(r, 2<<20+1))
+		data, e := io.ReadAll(io.LimitReader(r, 16<<20+1))
 		r.Close()
-		if e != nil || len(data) > 2<<20 {
+		if e != nil || len(data) > 16<<20 {
 			return fmt.Errorf("capture entry exceeds bound")
 		}
 		files[f.Name] = data

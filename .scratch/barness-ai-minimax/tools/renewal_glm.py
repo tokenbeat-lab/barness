@@ -28,13 +28,14 @@ def known_usage(files,report):
     return dict(inputSide=total_input,output=total_output,unknownUsageAttempts=unknown,actualAttempts=attempts)
 
 
-def capture(out,values):
+def capture(out,values,round_name='original'):
+    if round_name not in ('original','corrective-1'):raise RuntimeError('fixed explicit GLM collection round required')
     snapshot=u.json_doc(c.ROOT/'ai/release/catalog-snapshot.json')
     source=u.sha(u.file_bytes(c.ROOT/'ai/live/testdata/glm-candidate/sources.json'))
     code=u.file_bytes(c.ROOT/'ai/internal/testkit/supportmatrix/glm.go').decode()
     pin=re.search(r'const GLMSourcePin = "([a-f0-9]{64})"',code)
     if pin is None or pin.group(1)!=source:raise RuntimeError('current independently pinned GLM source manifest required')
-    entries={};known={};commits=set();paths=[]
+    entries={};known={};commits=set();paths=[];receipts={}
     with tempfile.TemporaryDirectory(prefix='raw-validation-',dir=out) as temporary:
         for route in u.ROUTES:
             base=u.bundle(values[route],'formal-glm-report.json');files=u.tree(base)
@@ -45,12 +46,17 @@ def capture(out,values):
                 report.get('catalogHash')!=snapshot['hash'] or report.get('catalogVersion')!=snapshot['catalog']['version'] or
                 re.fullmatch(r'[a-f0-9]{40}',report.get('gitCommit','')) is None):
                 raise RuntimeError('fresh own current GLM formal identity/source/catalog required')
-            receipt_path=c.common_root()/'.evidence/minimax-launches'/('glm-'+route+'.json')
+            launch='glm-'+('corrective-1-' if round_name=='corrective-1' else '')+route
+            receipt_path=c.common_root()/'.evidence/minimax-launches'/(launch+'.json')
             receipt=u.json_doc(receipt_path)
             if (receipt.get('state')!='COMPLETED' or receipt.get('exitCode')!=0 or receipt.get('credentialsRead') is not True or
-                receipt.get('launcherAudit',{}).get('passed') is not True or receipt.get('route')!='glm-'+route or
+                receipt.get('launcherAudit',{}).get('passed') is not True or receipt.get('route')!=launch or
                 receipt.get('sourceCommit')!=report['gitCommit']):
                 raise RuntimeError('fresh successful canonical GLM launcher receipt required')
+            if round_name=='corrective-1' and (receipt.get('correctiveRound')!='corrective-1' or
+                u.HEX.fullmatch(receipt.get('humanApprovalSha256','')) is None):
+                raise RuntimeError('explicit corrective-1 approved canonical receipt required; no original fallback')
+            receipts[route]=u.sha(u.file_bytes(receipt_path,2<<20))
             # A completed process is not authority for subsequently edited
             # captures. These hashes are written only by the successful fixed
             # launcher, and the sealed inventory binds all remaining payloads.
@@ -76,7 +82,8 @@ def capture(out,values):
         if len(commits)!=1:raise RuntimeError('all three own GLM routes must share actual source commit')
         u.validate_glm(out,paths,'validate-glm-raw')
     commit=next(iter(commits))
-    index=dict(schema=1,originalLiveSourceCommit=commit,sourceManifestSHA256=source,routes=entries)
+    index=dict(schema=1,originalLiveSourceCommit=commit,sourceManifestSHA256=source,routes=entries,
+        collectionRound=round_name,launcherReceiptSHA256=receipts)
     usage=dict(schema=1,sourceCommit=commit,
         basis='Independent Python final Attempt sums: input+cacheRead+cacheWrite once; output once; reasoning already output. Partial/cancelled/unreported remains unknown; known lower bound, not invoice.',routes=known)
     # Keep recoverable originals in the new task directory; historical archives

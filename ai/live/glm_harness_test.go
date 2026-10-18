@@ -295,7 +295,8 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	began := time.Now()
 	var result ai.Result
 	var err error
-	var events []json.RawMessage
+	events := newGLMEventLog()
+	var eventCaptureError error
 	seenCancel := false
 	simple := ai.SimpleOptions{MaxTokens: ai.Value(4096)}
 	if glmSelected.api == ai.APIOpenAIResponses {
@@ -317,8 +318,10 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 		}
 		for stream.Next() {
 			event := stream.Event()
-			raw, _ := json.Marshal(stream.Envelope())
-			events = append(events, raw)
+			if captureErr := events.append(stream.Envelope()); captureErr != nil {
+				eventCaptureError = captureErr
+				cancel()
+			}
 			if kind == "cancel" && !seenCancel && (event.Type() == ai.EventTextDelta || event.Type() == ai.EventThinkingDelta) {
 				if glmReplayState != nil && !glmReplayState.cancelMatches(sc.ID, event) {
 					continue
@@ -330,6 +333,7 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 		result, err = stream.Result()
 		stream.Close()
 	}
+	events.finish()
 	out.DurationMS = time.Since(began).Milliseconds()
 	obs := s.rec.observationsOf(scope.RequestID)
 	ex := s.rec.take()
@@ -343,6 +347,9 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	cs.Record("events", events)
 	cs.Record("observations-1", obs)
 	cs.Record("budget-after", glmReportState.Budget)
+	if !cs.Check("bounded complete event evidence", eventCaptureError == nil, "%v", eventCaptureError) {
+		return
+	}
 	if glmReplayState != nil {
 		glmReplayState.compare(cs, sc.ID, result, err, obs)
 	}

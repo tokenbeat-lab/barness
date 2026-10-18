@@ -82,6 +82,11 @@ func installGLMControlled(rec *recorder, name string) {
 				anthropic(map[string]any{"type": "message_stop"})
 			}
 		}
+		if strings.HasPrefix(name, "corrective-") {
+			if reasoning, ok := b["reasoning"].(map[string]any); ok && reasoning["effort"] == "low" && b["model"] == "glm-5.3" {
+				body = glmCorrectiveSyntheticResponse(name)
+			}
+		}
 		if name == "missing-text" && !tool {
 			body = strings.ReplaceAll(body, `"42"`, `""`)
 		}
