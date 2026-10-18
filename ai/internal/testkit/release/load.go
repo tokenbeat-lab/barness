@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/fs"
 	"os"
@@ -41,22 +42,45 @@ func LoadBundle(dir string) (Bundle, error) {
 		return Bundle{}, fmt.Errorf("release: %s is a bundle of %q, not the offline E2E (%s)", dir, m.Package, OfflinePackage)
 	}
 	b := Bundle{Dir: dir, Commit: m.GitCommit, caseDirs: map[string]string{}}
+	root, err := os.OpenRoot(dir)
+	if err != nil {
+		return Bundle{}, fmt.Errorf("release: cannot open evidence bundle")
+	}
+	defer root.Close()
+	seenDirs := map[string]bool{}
 	for _, c := range m.Cases {
 		// Manifest identifiers become report fields. Reject sensitive names
 		// before conversion rather than copy them into a failed release report.
 		if len(audit.File("identifiers.txt", []byte(c.ID+"\n"+c.Dir), audit.Environment())) != 0 {
 			return Bundle{}, fmt.Errorf("release: evidence case identifier failed redaction audit")
 		}
-		if c.ID == "" || c.Dir == "" || filepath.IsAbs(c.Dir) || filepath.Clean(c.Dir) != c.Dir || strings.HasPrefix(c.Dir, "..") || b.caseDirs[c.ID] != "" {
+		// Run.Finish preserves the raw ID, including the meaningful empty-effort
+		// leaf. Only that single trailing separator may differ from its physical
+		// directory; never clean an otherwise unsafe path into an accepted one.
+		physical := strings.TrimSuffix(c.Dir, "/")
+		if c.ID == "" || !canonicalArtifactPath(physical) || b.caseDirs[c.ID] != "" || seenDirs[physical] {
 			return Bundle{}, fmt.Errorf("release: invalid or duplicate evidence case directory")
 		}
-		b.caseDirs[c.ID] = filepath.Join(dir, c.Dir)
-		if err := verifyArtifactInventory(b.caseDirs[c.ID], c.Artifacts); err != nil {
-			b.Problems = append(b.Problems, err.Error())
+		seenDirs[physical] = true
+		b.caseDirs[c.ID] = filepath.Join(dir, physical)
+		caseRoot, inventoryErr := openInventoryCase(root, physical)
+		if inventoryErr != nil && !errors.Is(inventoryErr, fs.ErrNotExist) {
+			return Bundle{}, fmt.Errorf("release: unsafe evidence case directory")
+		}
+		if inventoryErr == nil {
+			inventoryErr = verifyCaseArtifactInventory(caseRoot, c.Artifacts)
+			caseRoot.Close()
+		}
+		if inventoryErr != nil {
+			b.Problems = append(b.Problems, inventoryErr.Error())
 		}
 		b.Cases = append(b.Cases, Case{ID: c.ID, Status: c.Status})
 		if kindOf(c.ID) != kindDifferential || c.Status == NotRun {
 			continue
+		}
+		if inventoryErr != nil {
+			b.Diffs = append(b.Diffs, DiffCase{ID: c.ID, Status: c.Status, Missing: []string{"artifact inventory invalid"}})
+			continue // do not consume a verdict from an unverified artifact tree
 		}
 		var v map[string]json.RawMessage
 		path := filepath.Join(dir, c.Dir, "pidiff.json")
