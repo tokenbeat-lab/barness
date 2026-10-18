@@ -27,6 +27,14 @@ func TestGLMCorrectiveEventBudgetProcess(t *testing.T) {
 	cs.Check("event evidence overflow remains failure", err != nil, "unexpected success")
 	matches, _ := filepath.Glob(filepath.Join(base, "*", "formal-glm-report.json"))
 	if !cs.Check("failed report retained", len(matches) == 1, "reports=%d", len(matches)) {
+		// A timed-out synthetic child may not reach final report publication.
+		// Preserve the partial artifact directory before TempDir cleanup too.
+		entries, _ := os.ReadDir(base)
+		for _, entry := range entries {
+			if entry.IsDir() {
+				cs.Check("interrupted child evidence retained", glmRetainCorrectiveChild(cs, filepath.Join(base, entry.Name()), "interrupted-child") == nil, "partial copy failed")
+			}
+		}
 		return
 	}
 	dir := filepath.Dir(matches[0])

@@ -9,12 +9,14 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"sync/atomic"
 )
 
 // Synthetic protocol peer at the transport seam. It reads requests unchanged,
 // cannot network, and keeps cancellation in flight after an observable frame.
 func installGLMControlled(rec *recorder, name string) {
 	rec.next.(*http.Transport).CloseIdleConnections()
+	var eventOverflowOnce atomic.Bool
 	rec.next = roundTripFunc(func(req *http.Request) (*http.Response, error) {
 		raw, _ := io.ReadAll(req.Body)
 		req.Body.Close()
@@ -86,7 +88,7 @@ func installGLMControlled(rec *recorder, name string) {
 			if reasoning, ok := b["reasoning"].(map[string]any); ok && reasoning["effort"] == "low" && b["model"] == "glm-5.3" {
 				body = glmCorrectiveSyntheticResponse(name)
 			}
-			if name == "corrective-eventcap" {
+			if name == "corrective-eventcap" && eventOverflowOnce.CompareAndSwap(false, true) {
 				body = glmCorrectiveMessageOverflow()
 			}
 		}
