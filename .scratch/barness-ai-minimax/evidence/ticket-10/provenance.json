@@ -428,6 +428,66 @@
     "vet-live-green.log": {
       "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "redactedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "postauth-public-tools-green.log": {
+      "originalSha256": "fce26a69c122beec069d8b94e8b5a15977394fe45dcef0631018afad185fdd7b",
+      "redactedSha256": "fce26a69c122beec069d8b94e8b5a15977394fe45dcef0631018afad185fdd7b",
+      "pathRedaction": "Already redacted metadata-only log"
+    },
+    "postauth-launcher-green.log": {
+      "originalSha256": "677b20d5c62eabb8558fc13fd516bf8f743822ecba07d78a983f552ed29bdbd3",
+      "redactedSha256": "677b20d5c62eabb8558fc13fd516bf8f743822ecba07d78a983f552ed29bdbd3",
+      "pathRedaction": "Already redacted metadata-only log"
+    },
+    "tool-error-rerun-race-green.log": {
+      "originalSha256": "e4b3fe8b027d92ae5987807663e11f4802b2a4261218164e8053c54cf16fc734",
+      "redactedSha256": "e4b3fe8b027d92ae5987807663e11f4802b2a4261218164e8053c54cf16fc734",
+      "pathRedaction": "Already redacted metadata-only log"
+    },
+    "tool-error-rerun-red.log": {
+      "originalSha256": "3c70242c6357434a31f05181a65f1549921cf90a7bbf33b44cd2477703eaf002",
+      "redactedSha256": "3c70242c6357434a31f05181a65f1549921cf90a7bbf33b44cd2477703eaf002",
+      "pathRedaction": "Already redacted metadata-only log"
+    },
+    "historical-handoff-green.log": {
+      "originalSha256": "d67045b3f8e8208a0c51cf9d14640063fb7850eac252d4091f12dda94cc6d87c",
+      "redactedSha256": "d67045b3f8e8208a0c51cf9d14640063fb7850eac252d4091f12dda94cc6d87c",
+      "pathRedaction": "Already redacted metadata-only log"
+    },
+    "postauth-renewal-green.log": {
+      "originalSha256": "7a975c72746cacac948ab1dc8718267de8210dac93ffa9f2f110bce46d21762b",
+      "redactedSha256": "7a975c72746cacac948ab1dc8718267de8210dac93ffa9f2f110bce46d21762b",
+      "pathRedaction": "Already redacted metadata-only log"
+    },
+    "tool-error-rerun-green.log": {
+      "originalSha256": "3133faa1dcec2bcfe873e48a904de19ec5f0a1c71e1b578f9d21d13c2bedcdfb",
+      "redactedSha256": "3133faa1dcec2bcfe873e48a904de19ec5f0a1c71e1b578f9d21d13c2bedcdfb",
+      "pathRedaction": "Already redacted metadata-only log"
     }
+  },
+  "actualAuthFailure": {
+    "archive": "actual-auth-failure-9481a6a.tar.gz",
+    "sha256": "2b1bbf9624c4692bc93f48a604c9df4a86aab768ed7cda6d6a373d7db66bd8d8",
+    "sourceCommit": "9481a6ad8028025a7f35da19a3e488935c6cd897",
+    "mode": "live",
+    "outcome": "FAIL",
+    "complete": false,
+    "calls": 2,
+    "attempts": 2,
+    "knownUsageReturned": false,
+    "formalSupport": false
+  },
+  "historicalHandoff": {
+    "archive": "historical-handoff-707b153.tar.gz",
+    "sha256": "18f7935d7cbb25023b8dcf457b574d467c93ac526ed1350f76b0e08e1766d62f",
+    "sourceCommit": "707b1530d9ee03f901262387785273075be6f0f7",
+    "mode": "controlled",
+    "outcome": "PASS",
+    "actualCandidateOrFormal": false,
+    "ownCalls": 13,
+    "ownAttempts": 12,
+    "cumulativeCalls": 15,
+    "cumulativeAttempts": 14,
+    "canonicalPaidLedgerUnchanged": true
   }
 }

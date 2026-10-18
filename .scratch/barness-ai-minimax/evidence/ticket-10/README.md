@@ -1,28 +1,74 @@
-# Ticket 10 prepay checkpoint
+# Ticket 10 implementation and blocked actual evidence
 
-This is synthetic/offline implementation evidence. No actual credential file
-or vendor endpoint has been accessed. M3 is still absent from BuiltinCatalog;
-three genuine candidate reports, data-only promotion, three own formal reports,
-M3.1 NOT_RUN reports, fourteen renewed legacy support identities, four renewed
-business effects and the final actual release gate remain outstanding.
+Actual M3 acceptance is blocked by authentication. At source9481a6a, the
+approved China standard Chat research made two calls/two Attempts; both returned
+HTTP401, provider type authorized_error and public upstream_auth/request. No
+actual model or known usage was returned. The dependent native continuation is
+NOT_RUN. No actual full candidate, formal or legacy renewal process has run;
+BuiltinCatalog remains inactive for M3, and no successful origin was issued.
 
-Source slices: ba8305a (sourced prices and initial review fixes), 9de9068
-(actual-origin/ledger and complete tool integrity), 65b20b9 / 5decc7a (keyless
-renewal and bounded GLM import fixes), ecbbeeb (final runtime and launcher
-settlement). The tools-only keyless-plan correction follows these slices.
+[Original actual FAIL capsule](actual-auth-failure-9481a6a.tar.gz) SHA256
+`2b1bbf9624c4692bc93f48a604c9df4a86aab768ed7cda6d6a373d7db66bd8d8`
+contains unchanged original capture/seal, parent exact-source approval,
+launcher/source/binary/plan/check receipts, canonical ledger snapshot and three
+M3.1 NOT_RUN bundles. Its58 files total197572 compressed bytes. Both original
+capture and parent secret audit passed; all seal/file hashes were recomputed.
+[Independent narrow20-check audit](../ticket-09/actual-auth-failure-review.md)
+passes accounting/retention, while actual support remains FAIL/incomplete.
+No credential value or raw provider error message is reproduced in this guide.
 
-At ecbbeeb, all MiniMax offline public E2E passed with frozen pi differentials
-and pressure enabled (44.150s), including full software rollback. Fifty-one
-selected runtime cases also passed under race (5.033s). Both vets and the whole
-no-key live suite passed (104.351s). Source-frozen prepare/check receipts have
-credentialsRead=false. The final twelve controlled launcher checks pass,
-including executing the emitted keyless verification sequence twice; nine
-controlled renewal CLI checks pass. Synthetic CLI processes cannot certify
-actual model support. The final exact-source preparation follows the tools fix.
+Canonical candidate-stage consumption remains2/120 calls and2/144 Attempts;
+the affected identity has2/20 calls and2/24 Attempts. Requested-output5120 and
+reserved-input4096 are conservative reservations, not observed billed usage.
+Formal-stage consumption is0/60 and0/72; legacy renewal consumption is zero.
+The failed history, original source/hash and one-shot intent are retained.
+No research relaunch, budget reset, promotion or mandatory-scene waiver occurred.
+Further actual collection waits for the user's credential repair.
+
+[M3.1 summary](m31-not-run-summary.json) records three own keyless candidate
+NOT_RUN reports at9481a6a: chat/responses/messages, no M Plan entitlement or
+credential, zero calls/Attempts and no paid intent/ledger change. The independent
+M3.1 offline constraints continue to run. No public M3.1 price or formal row was
+added.
+
+The observed auth failure also exposed a harness-only rerun defect. Commit
+0170960 returns before tool-capability classification when the public call has
+any error. Failure-first controlled401, permanent429 and visible stream-error
+cases each reproduced a forbidden second tool attempt; fixed normal/race checks
+pass while the registered once-only successful missing-tool rerun remains valid.
+Focused process/research/replay normal PASS13.403s, focused race PASS10.524s,
+public live-tools E2E PASS14.953s, launcher12 and renewal9 CLI checks PASS.
+Production DTOs, core retry policy and all budget ceilings remain unchanged.
+
+[Historical handoff result](historical-handoff-result.json) and
+[controlled handoff capsule](historical-handoff-707b153.tar.gz) prove current
+source707b153 can independently execute all13 scenes/current12 Attempts while
+retaining every byte of the genuine failed9481a6a predecessor. Private cumulative
+counts are15/14; the canonical paid ledger is unchanged. Public minimaxverify
+passes the current controlled proof. This is a synthetic mechanism check and
+cannot certify actual candidate/formal support. Old source is never relabeled.
+
+A whole ordinary run on9481a6a was cancelled by the parent after536.749s once
+the harness defect required a source correction. Its original receipt retains
+exitCode=-15; the separate cancellation record explains the interruption.
+There is no whole-suite PASS claim. Complete fixed-source ordinary/race suites,
+three own actual M3 candidate/formal reports, data-only activation, fourteen
+renewed legacy support identities, four renewed business effects and the actual
+release gate remain outstanding at this checkpoint. Ticket10/09 stay open.
+
+Historical prepay source slices: ba8305a (sourced prices and first review fixes),
+9de9068 (actual-origin/ledger and complete tool integrity),65b20b9/5decc7a
+(keyless renewal/bounded GLM import),ecbbeeb (runtime/producer settlement),
+dd76cd2 (repeatable keyless verification plan),9481a6a (capture capsules).
+At ecbbeeb, all MiniMax public E2E passed with frozen pi/pressure (44.150s),
+including full software rollback; selected runtime race PASS5.033s. At9481a6a,
+both vets and whole no-key live PASS104.328s, credentialsRead=false. These
+historical results do not certify a later source or replace final whole gates.
 
 ```sh
 BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run TestMiniMax -count=1 -timeout=8m
-go test -race ./ai/e2e -run 'TestMiniMax(ChatMixedReasoningFrames|ResponsesFunctionIdentityFrozen|FinalSamplingExactRanges|ResponsesSamplingMapExactRanges|ChatFinalToolIntegrity|NativeCallIDsAreDistinct|WritePriceUsesSelectedTier|OneHourWriteHasNoNativeAnthropicPrice|MessagesUsage|PromotionBoundary)$' -count=1 -timeout=4m
+go test -tags live ./ai/live -run '^TestMiniMax(Process|FailedResearchPredecessor|ResearchPredecessor|ReplayProcess)$' -count=1
+go test -race -tags live ./ai/live -run '^TestMiniMaxProcess$/(tool-auth401|tool-permanent429|tool-stream-error|success-rerun-tool)$' -count=1
 python3 .scratch/barness-ai-minimax/tools/test_paid.py
 python3 .scratch/barness-ai-minimax/tools/test_renewal.py
 python3 .scratch/barness-ai-minimax/tools/paid.py prepare .evidence/minimax-prepay-new
@@ -30,26 +76,18 @@ python3 .scratch/barness-ai-minimax/tools/paid.py check .evidence/minimax-prepay
 (cd .scratch/barness-ai-minimax/evidence/ticket-10 && shasum -a 256 -c SHA256SUMS)
 ```
 
-The three tarballs contain curated original case bytes and original manifests /
-audits, plus capsule.json stating which cases were selected. Omitted cases are
-explicit; these are not complete release-gate input bundles. All selected
-artifact/fixture hashes were independently recomputed before archiving.
-provenance.json pins original manifests, archives, selected inventory and logs.
-The live-tools capsule preserves the original sealed failed research captures,
-finite rerun refusals/replay, explicit zero usage and origin-forgery checks.
-No raw capture or assertion outcome was rewritten. Text logs replace only
-absolute checkout/home/temporary paths; their original hashes are retained.
+The three prepay tarballs contain curated original synthetic case bytes and
+original manifests/audits; capsule.json explicitly lists selected/omitted cases.
+They are not full release-gate input bundles. Selected artifact/fixture hashes
+were independently recomputed. provenance.json pins originals and archives.
+Text logs replace only absolute checkout/home/temporary paths; original hashes
+are retained. Two prior full MiniMax attempts failed on concurrent checkout
+mutation during rollback; the stable-root run passed. Initial whole no-key live
+failed because nine ignored historical ZIPs were absent; fixture-hydration.json
+pins the exact restored bytes. All failures remain. Historical ZIPs were not
+renewed or rehashed into current actual support.
 
-Red logs precede the corresponding fixes. Two full MiniMax attempts failed only
-because checkout bytes changed during rollback's before/after comparison; a
-subsequent stable-root run passed. The first whole no-key live attempt failed
-because nine ignored historical ZIP fixtures were absent from the worktree;
-fixture-hydration.json records exact copied historical bytes and pins, and the
-subsequent whole no-key run passed. These failures remain retained. Historical
-ZIPs were neither renewed nor rehashed into current real support evidence.
-
-The public fee DTOs remain unchanged. Actual positive unpriced automatic writes
-or positive native one-hour writes fail with retained known usage. Pricing is
-fixed to sourced M3 standard CNY/dated FX and the selected input tier; M3.1
-synthetic rates are never a public price or formal support claim. ADR-0041
-records the data-only activation, external trusted-origin boundary and timing.
+Public fee DTOs remain unchanged. Positive unpriced automatic/native1h writes
+fail with retained known usage; selected-tier pricing uses sourced M3 standard
+CNY/dated FX. ADR-0041 records inactive data-only activation, external origin
+boundaries and timing. Actual support decisions still require own live proof.
