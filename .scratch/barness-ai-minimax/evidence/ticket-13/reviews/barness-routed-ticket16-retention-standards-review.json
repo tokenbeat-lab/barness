@@ -1,0 +1,237 @@
+{
+  "schema": 1,
+  "axis": "Standards retention",
+  "decision": "APPROVED_RETENTION_ONLY",
+  "reviewedSource": "4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef",
+  "base": "3a76c7cb550f45517e2c156f4825f54ac93956cc",
+  "diffCommand": "git diff 3a76c7cb550f45517e2c156f4825f54ac93956cc...4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef",
+  "commitLogCommand": "git log 3a76c7cb550f45517e2c156f4825f54ac93956cc..4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef --oneline",
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/M3-selected-README.md",
+      "bytes": 2451,
+      "sha256": "d61e19458c0e215566667d8d01b99488e2a15c082a764d9f7efd9e9380c3cfbd",
+      "lines": 39
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/README.md",
+      "bytes": 3120,
+      "sha256": "e6cee9249989b5a78d91339a845d9e39406c60e10485fbb08dd5899756fc91c3",
+      "lines": 20
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/SHA256SUMS",
+      "bytes": 1430,
+      "sha256": "0c118c99330f7f01ca125f243cc2726855c8300b15cb5947107920d986135fe9",
+      "lines": 17
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/boundary-checks.json",
+      "bytes": 1230,
+      "sha256": "29597e99b3f16d1d3e0e6bc2b06eb8ada4bbed692bed66500da0e43ccfc2a3e3",
+      "lines": 70
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/check-boundaries-command.json",
+      "bytes": 617,
+      "sha256": "e5b928ca1807a8830053774fee0a76112ed5965b65b43a7208f0368dc7bf885c",
+      "lines": 29
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/check-boundaries.log",
+      "bytes": 1230,
+      "sha256": "29597e99b3f16d1d3e0e6bc2b06eb8ada4bbed692bed66500da0e43ccfc2a3e3",
+      "lines": 70
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/check-boundaries.py",
+      "bytes": 4634,
+      "sha256": "49c50b1dc49fd3d449b6e5e160a3a0eea1342fea80a7c82442de1586ca179aa6",
+      "lines": 63
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/index.json",
+      "bytes": 47651,
+      "sha256": "e8a067f0cd32ed0c105402cadd95b0acd72d69cfcd6a11dc46e1c1157a9e6c92",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/inventory.json.gz",
+      "bytes": 115708,
+      "sha256": "cbf5e888b4976c2eb98fc8d8ae7fbbeabc5c897f03974081c228600b394a94a4",
+      "lines": null
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/selected-source-impact.json",
+      "bytes": 3063,
+      "sha256": "3eebba48fd74b7033327ebbf238ab1f8f67f59ad01d2bc347ed163994d13ee27",
+      "lines": 76
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/setup-copy-note.json",
+      "bytes": 742,
+      "sha256": "5772c6c7e0ae48b43b000254cee88d4c162cee332001594653c242d3530f07be",
+      "lines": 11
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/snapshot.py",
+      "bytes": 4262,
+      "sha256": "8a5c7e41ee680dd4dbdba1e456fb5edcf8edea3c3e851e6bb10a714bc44ae1b7",
+      "lines": 41
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/source-at-start.json.gz",
+      "bytes": 48941,
+      "sha256": "22424ebab942010d536b049cd2fbfdb9c86bc800da38b79a7ea081d7f2672d0f",
+      "lines": null
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/summary.json",
+      "bytes": 1848,
+      "sha256": "805899fbcb11b5c4cf3aefe86f6340329a9efc5d0477f0a4b385df5b112566d7",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/validation.json",
+      "bytes": 216,
+      "sha256": "d9d70e7c9e9f21d74386723c4bde046013f288e0e0fe8f7a5d85b780e9e7690a",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/verify-command.json",
+      "bytes": 598,
+      "sha256": "4e8d7d40056f619078ef09b756c61c697d01ca66809e2327fb5ed51ab63015ec",
+      "lines": 29
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/verify.log",
+      "bytes": 395,
+      "sha256": "db706710e6b49ecc2be67182c83cf45c1788f87c67176a737e60728e5a0e4a6b",
+      "lines": 15
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/verify.py",
+      "bytes": 8270,
+      "sha256": "f0eae33f0ac195fdfc27b1bc9f6df7f79b2bbcb344b6bf8821918f6d8c760f9c",
+      "lines": 81
+    }
+  ],
+  "findings": [],
+  "possibleSmells": [],
+  "summary": "No documented Standards breach or actionable baseline smell found. Three Python programs remain below500 lines (maximum81). The capsule reuses the unchanged SHA-pinned implementation reader with finite32MiB compressed/192MiB decoded/32768-entry bounds, bounded1MiB observations and explicit512-member/16MiB observation caps. Streaming reads verify owned paths, hashes, sizes, duplicates and nonregular/link rejection without disk extraction or captured-code execution. All3785 archive members,421 observed original/source files and3724 native artifact references match. RED HEAD0622+test WIP and GREEN HEADd8e+header WIP remain explicit; source snapshots tie the final bytes to dcd30f7. The initial overlapping copy stays a labelled WIP projection, alongside recovered exact339797 committed baseline; no historical byte was silently replaced. The genuine90.002s header timeout and91.002s local response/91.009s call preserve one request/attempt and zero vendor calls, with synthetic partial usage. Normal2,179-case Host/cancel ordinary/race, and dualvet0 receipts are retained. All3 M3 maps check all263 files, including the separately retained README outside the1048-file launcher selection; all3 prior GLM217 maps expire only on assembly. Old90s actual FAIL remains, and no vendor120s success, paid authority or full-suite certificate is inferred.",
+  "codeSource": "dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98",
+  "measuredSource": {
+    "REDHEAD": "06229f68de6e9dc3100724f05365bb4bd414667a",
+    "REDTestWIP": true,
+    "GREENHEAD": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+    "GREENWorkingTreeChanged": true,
+    "assemblySHA256": "2fd107f18e3d34b6793fd256a69322bd335e9be42f50d232fbca963fe25afaf9"
+  },
+  "readHashProof": {
+    "file": "/tmp/barness-routed-ticket16-retention-readhash.json",
+    "sha256": "4e07c0a0f329eec81bcfbeb0341e2eee5341e49f2b53473b795fb3a52b3f688f",
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-16-glm-header-alignment/deadline-alignment-raw.tar.gz",
+      "bytes": 1572266,
+      "sha256": "fa7d7673b6708cab627e62cd9355b168aaca8a5c851ea63d6365327175e446ae",
+      "prefix": "glm-header-alignment"
+    },
+    "files": 3785,
+    "rawPayloadBytes": 10434366,
+    "observedOriginalFilesCompared": 421,
+    "artifactReferences": 3724,
+    "nativeManifests": [
+      {
+        "member": "tdd/green-headers/20261018T100946.171518000Z/manifest.json",
+        "cases": 1,
+        "statuses": {
+          "PASS": 1
+        }
+      },
+      {
+        "member": "tdd/green-host-cancel/20261018T101129.880059000Z/manifest.json",
+        "cases": 179,
+        "statuses": {
+          "PASS": 179
+        }
+      },
+      {
+        "member": "tdd/green-normal/20261018T101129.331895000Z/manifest.json",
+        "cases": 2,
+        "statuses": {
+          "PASS": 2
+        }
+      },
+      {
+        "member": "tdd/race-host-cancel/20261018T101131.658119000Z/manifest.json",
+        "cases": 179,
+        "statuses": {
+          "PASS": 179
+        }
+      },
+      {
+        "member": "tdd/red-headers/20261018T100736.737595000Z/manifest.json",
+        "cases": 1,
+        "statuses": {
+          "FAIL": 1
+        }
+      }
+    ],
+    "M3All263IncludingOutsideFreezeREADMEMatch": true,
+    "GLM217ExpireOnlyAssembly": true,
+    "redGreenOnePolicyLine": true,
+    "initialCopyWIPPreserved": true
+  },
+  "retainedPublicReplay": {
+    "schema": 1,
+    "publicVerifyExit": 0,
+    "negativeGuards": 12,
+    "allNegativeGuardsRejected": true,
+    "originalArchiveVerifiedBeforeAfter": true,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "vendorCalls": 0,
+    "capturedCommandsExecuted": false
+  },
+  "sourceProof": {
+    "M3Maps": 3,
+    "selectedFilesPerM3": 263,
+    "allPathsCheckedIncludingREADME": true,
+    "priorGLMMaps": 3,
+    "selectedFilesPerGLM": 217,
+    "changed": [
+      "ai/live/glm_assembly_test.go"
+    ],
+    "oldPinsRefreshed": false
+  },
+  "lateHeaders": {
+    "callElapsedMs": 91009,
+    "headersAfterMs": 91002,
+    "localTLSPeer": true,
+    "transportRequests": 1,
+    "vendorCalls": 0
+  },
+  "syntheticUsage": "partial",
+  "standards": [
+    "AGENTS.md principles1-5,7-9 and failure-first E2E rules",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0036",
+    "ADR0045",
+    "ADR0046",
+    "full12-smell code-review baseline; repo overrides; tool-enforced issues skipped"
+  ],
+  "boundaries": {
+    "committedMetadataOnly": true,
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "capturedCommandsExecuted": false,
+    "sourceEdits": false,
+    "mergePerformed": false,
+    "paidApproval": false,
+    "releaseCertified": false,
+    "priorSourceReviewsUnchanged": true
+  }
+}

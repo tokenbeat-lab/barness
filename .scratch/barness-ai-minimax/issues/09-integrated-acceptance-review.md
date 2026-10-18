@@ -28,3 +28,5 @@ Blocked by: 08, 10
 
 
 2026-10-18区域路由轮次后：来源8fbd170的新完整公共CLI已实际完成双vet、ordinary/race，四项数字退出0/0/1/1；两套各12439PASS/8FAIL/1NOT_RUN、审计0，868个真实PIDiff及29个Pressure case均PASS。已生成pass=false报告；不改写3d3a1fb原来无报告的历史。其余15项与GLM Chat/Messages本轮PASS，GLM Responses仍真实FAIL，17矩阵记录16PASS/1FAIL。新增245/245、累计545/545全部关闭。离线新缺口由[14](14-release-preflight-gaps.md)补正，最终完整认证仍未通过。本票保持claimed。
+
+2026-10-18离线合入检查点：已审查修复与有限归档在 `7231fdad` 合入，13按固定执行/证据范围resolved，14/16按离线范围resolved。六项无Key检查与本地GLM91秒边界证明不替代真实支持；旧545/545、GLM Responses FAIL和8fbd全量false保持。[15](15-source-scoped-revalidation.md)准备固定6进程，最终来源/二进制/计划及无Key检查审查就绪后才请求新108/132预算；本票与spec继续开放。

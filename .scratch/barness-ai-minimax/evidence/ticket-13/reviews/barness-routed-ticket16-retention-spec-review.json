@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "axis": "SPEC retention review",
+  "decision": "PASS_RETENTION_ONLY",
+  "base": "3a76c7cb550f45517e2c156f4825f54ac93956cc",
+  "reviewedCommit": "4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef",
+  "diffCommand": "git diff 3a76c7cb550f45517e2c156f4825f54ac93956cc...4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef",
+  "scope": "Exactly18 new ticket16/deadline-alignment files; committed objects and original retained data only.",
+  "review": "R21/ADR0036 permit≤120s call subject to Host bounds; issue16/T02 require prospective public failure-first proof, and R26/T04 preserve exact sources and failures. Retention truthfully records RED at0622/test-WIP with Host90 failure, GREEN atd8e/WIP with Host120, one local request/Attempt and0 vendor calls; final source is dcd bytes. Normal2 and earlier Host/call/header/read/cancel/settlement ordinary/race179 each and dualvet0 remain separate. Synthetic usage stays partial, not vendor billing. Setup overlap is explicitly preserved as a WIP projectionbdcff8, separate from Git-recovered committed baseline339797 and measured RED679b2410; final2fd107f1 differs from RED by only the header assignment. No false committed-run or overwritten-original claim is made. All three263-file M3 maps are checked including the separately pinned README outside the1048 snapshot; no map entry is dropped. Old GLM217 maps differ only in assembly and all expire; old failures stay unchanged. Fixed helper32MiB/192MiB/32768-entry/8MiB-inventory/1MiB-observed bounds remain, with an additional512-member/16MiB observation ceiling; no captured code executes during verification.",
+  "findings": [],
+  "scopeCreep": [],
+  "wrongImplementation": [],
+  "independentChecks": "All3785 regular members hash correctly; payload10434366 and decoded17397760 bytes match. All3775 archived original TDD files match their retained originals, all3724 native artifact references reconcile, and five actual manifest measured commits/outcomes match the stated chronology. M3 README equals the exact dcd Git blob and each formal map hash. Public verifier0 and12 actual refusals are retained; this reviewer did not execute them.",
+  "limits": "Local TLS proves only the prospective Host deadline behavior, not vendor success by120s, new paid authority, current whole-suite PASS or a full-spec certificate. Source16 approval and future six-process source/binary/check/reuse plus human108/132 approval are separate.",
+  "reviewedCommittedFilesSHA256": {
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/M3-selected-README.md": "d61e19458c0e215566667d8d01b99488e2a15c082a764d9f7efd9e9380c3cfbd",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/README.md": "e6cee9249989b5a78d91339a845d9e39406c60e10485fbb08dd5899756fc91c3",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/SHA256SUMS": "0c118c99330f7f01ca125f243cc2726855c8300b15cb5947107920d986135fe9",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/boundary-checks.json": "29597e99b3f16d1d3e0e6bc2b06eb8ada4bbed692bed66500da0e43ccfc2a3e3",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/check-boundaries-command.json": "e5b928ca1807a8830053774fee0a76112ed5965b65b43a7208f0368dc7bf885c",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/check-boundaries.log": "29597e99b3f16d1d3e0e6bc2b06eb8ada4bbed692bed66500da0e43ccfc2a3e3",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/check-boundaries.py": "49c50b1dc49fd3d449b6e5e160a3a0eea1342fea80a7c82442de1586ca179aa6",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/index.json": "e8a067f0cd32ed0c105402cadd95b0acd72d69cfcd6a11dc46e1c1157a9e6c92",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/inventory.json.gz": "cbf5e888b4976c2eb98fc8d8ae7fbbeabc5c897f03974081c228600b394a94a4",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/selected-source-impact.json": "3eebba48fd74b7033327ebbf238ab1f8f67f59ad01d2bc347ed163994d13ee27",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/setup-copy-note.json": "5772c6c7e0ae48b43b000254cee88d4c162cee332001594653c242d3530f07be",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/snapshot.py": "8a5c7e41ee680dd4dbdba1e456fb5edcf8edea3c3e851e6bb10a714bc44ae1b7",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/source-at-start.json.gz": "22424ebab942010d536b049cd2fbfdb9c86bc800da38b79a7ea081d7f2672d0f",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/summary.json": "805899fbcb11b5c4cf3aefe86f6340329a9efc5d0477f0a4b385df5b112566d7",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/validation.json": "d9d70e7c9e9f21d74386723c4bde046013f288e0e0fe8f7a5d85b780e9e7690a",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/verify-command.json": "4e8d7d40056f619078ef09b756c61c697d01ca66809e2327fb5ed51ab63015ec",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/verify.log": "db706710e6b49ecc2be67182c83cf45c1788f87c67176a737e60728e5a0e4a6b",
+    ".scratch/barness-ai-minimax/evidence/ticket-16/deadline-alignment/verify.py": "f0eae33f0ac195fdfc27b1bc9f6df7f79b2bbcb344b6bf8821918f6d8c760f9c"
+  },
+  "independentStaticPins": {
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-16-glm-header-alignment/deadline-alignment-raw.tar.gz",
+      "bytes": 1572266,
+      "sha256": "fa7d7673b6708cab627e62cd9355b168aaca8a5c851ea63d6365327175e446ae",
+      "prefix": "glm-header-alignment"
+    },
+    "allRegularMembersHashed": 3785,
+    "payloadBytes": 10434366,
+    "decodedTarBytes": 17397760,
+    "observedFiles": 421,
+    "allOriginalTDDFilesByteEqual": 3775,
+    "nativeArtifactReferences": 3724,
+    "nativeManifests": [
+      {
+        "member": "tdd/green-headers/20261018T100946.171518000Z/manifest.json",
+        "measuredCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "cases": 1,
+        "statuses": {
+          "PASS": 1
+        }
+      },
+      {
+        "member": "tdd/green-host-cancel/20261018T101129.880059000Z/manifest.json",
+        "measuredCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "cases": 179,
+        "statuses": {
+          "PASS": 179
+        }
+      },
+      {
+        "member": "tdd/green-normal/20261018T101129.331895000Z/manifest.json",
+        "measuredCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "cases": 2,
+        "statuses": {
+          "PASS": 2
+        }
+      },
+      {
+        "member": "tdd/race-host-cancel/20261018T101131.658119000Z/manifest.json",
+        "measuredCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "cases": 179,
+        "statuses": {
+          "PASS": 179
+        }
+      },
+      {
+        "member": "tdd/red-headers/20261018T100736.737595000Z/manifest.json",
+        "measuredCommit": "06229f68de6e9dc3100724f05365bb4bd414667a",
+        "cases": 1,
+        "statuses": {
+          "FAIL": 1
+        }
+      }
+    ],
+    "committedBaselineSHA256": "33979746dff7fdacfb895ad4c49bc4599c1c96cc5d657c9066770028f89760ec",
+    "setupWIPProjectionSHA256": "bdcff8de613424c6b5ea7ba0631367301c214fb81363a02adc68af72a64c6e34",
+    "measuredREDSHA256": "679b24106117375a2759c9263422d14b9e061d2226677dc7a7b182ab509275d4",
+    "measuredGREENAndCommittedSourceSHA256": "2fd107f18e3d34b6793fd256a69322bd335e9be42f50d232fbca963fe25afaf9",
+    "M3SelectedREADME_SHA256": "d61e19458c0e215566667d8d01b99488e2a15c082a764d9f7efd9e9380c3cfbd",
+    "mapComparisons": [
+      {
+        "route": "chat",
+        "M3selected": 263,
+        "M3changed": [],
+        "GLMselected": 217,
+        "GLMchanged": [
+          "ai/live/glm_assembly_test.go"
+        ]
+      },
+      {
+        "route": "responses",
+        "M3selected": 263,
+        "M3changed": [],
+        "GLMselected": 217,
+        "GLMchanged": [
+          "ai/live/glm_assembly_test.go"
+        ]
+      },
+      {
+        "route": "messages",
+        "M3selected": 263,
+        "M3changed": [],
+        "GLMselected": 217,
+        "GLMchanged": [
+          "ai/live/glm_assembly_test.go"
+        ]
+      }
+    ]
+  },
+  "staticPinsReportSHA256": "01714bf8a0fd158fae0532a22f5aeb6de4746725154d5883c9a6159c08d3e6c0",
+  "reviewerActions": {
+    "readHashOnly": true,
+    "testsOrVerifiersExecuted": false,
+    "keysRead": false,
+    "network": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

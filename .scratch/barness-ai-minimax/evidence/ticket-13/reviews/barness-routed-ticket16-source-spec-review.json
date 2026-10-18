@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "axis": "SPEC source review",
+  "decision": "PASS_SOURCE_ONLY",
+  "base": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+  "reviewedCommit": "dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98",
+  "diffCommand": "git diff d8e7100695a5747a801bf5f8966cef1a2d129e4c...dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98",
+  "reviewedSourceSHA256": {
+    "ai/live/glm_assembly_test.go": "2fd107f18e3d34b6793fd256a69322bd335e9be42f50d232fbca963fe25afaf9"
+  },
+  "review": "Issue16/designv2 explicitly authorize a prospective GLM-only Host header alignment within GLM R21/ADR0036: call≤120s and shorter Host bounds. The diff changes only the GLM factory header90→120 and extends its existing public Client controlled seam. Shared livePolicy, connect15/read-idle90/call120/process1800, native22 prompts/assertions, output4096,24calls/32Attempts and zero retries remain unchanged. The new case uses a synthetic credential and controlled loopback TLS transport, observes official binding identity before remapping, and requires one attempt/request, complete text/terminal and elapsed<120. Its91s boundary proves actual public behavior rather than private field mirroring. Existing two model controls and three-route earlier Host/call/cancel/settlement assertions remain intact. Fixed paid jobs select only TestGLMFormal, so the added controlled case adds no paid scenario.",
+  "findings": [],
+  "scopeCreep": [],
+  "wrongImplementation": [],
+  "TDD": "Retained RED source equals final assembly bytes minus exactly the new header assignment:679b2410. The same boundary fails at90002ms with ResponseHeaderTimeout(1m30s), then GREEN has headers91002ms/call91009ms, one local request,0 vendor calls. Normal2, focused Host/call/cancel ordinary/race and dualvet receipts are all0. GREEN was measured atd8e/WIP, not a committed run; all six1048-file GREEN snapshots match finaldcd source exactly.",
+  "applicability": "Independent exact selected-set/hash comparison confirms all3 M3 own263-file maps unchanged; all3 old GLM217-file maps differ only in glm_assembly_test.go and expire for current-source reuse. Preserve old pins/failures; refresh all3 GLM at one new actual source within the separate fixed-six plan. Generic/text relevant producers remain unchanged; strict protocol/visual refresh remains separately required.",
+  "limits": "Controlled success does not show vendor response by120s or repair historical GLM/A2 FAIL. This source approval grants no new human108/132 approval, paid intent or current full-spec certificate. Final source/binary/plan/check and reusable-input reviews remain separate.",
+  "controlEvidence": {
+    "red-headers": {
+      "timing": {
+        "callElapsedMs": 90002,
+        "headersAfterMs": 0,
+        "localTLSPeer": true,
+        "transportRequests": 1,
+        "vendorCalls": 0
+      },
+      "error": "ai: deadline_exceeded (request): exceeded the resource policy's ResponseHeaderTimeout (1m30s)",
+      "timingSHA256": "a89ef070e22f5058e61dfc3cc5f3d93cf0d949f5d59b5e0beb118e5cab50a22b",
+      "errorSHA256": "4c33f1c72d177a2075e4da99321bd6df5c034e5b57dddc2859eff0f0b2fb92b7"
+    },
+    "green-headers": {
+      "timing": {
+        "callElapsedMs": 91009,
+        "headersAfterMs": 91002,
+        "localTLSPeer": true,
+        "transportRequests": 1,
+        "vendorCalls": 0
+      },
+      "error": "",
+      "timingSHA256": "92de6f2aa376d0dac58a63b778d418c212c1031716331c843043b4c1991c5d8e",
+      "errorSHA256": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184"
+    }
+  },
+  "receiptPins": {
+    "green-headers-command.json": {
+      "sha256": "55303f22d7d57e39047f0340ad64fdc29f3a88668694905fdd0531da465b3e16",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-count=1",
+        "-run",
+        "^TestGLMCandidateAssemblyControlled$/^response-headers-after-90s$",
+        "-timeout=4m"
+      ]
+    },
+    "green-host-cancel-command.json": {
+      "sha256": "6576907e88b99dc303109f959ae54e108e5a8515d1b67f19d825f4a1885e116d",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestGLMSharedLimitsAndTimeouts|TestGLMSharedCancellation|TestGLMSharedResponsesSettlement|TestProtocolTimeouts)$"
+      ]
+    },
+    "green-normal-command.json": {
+      "sha256": "a7d82ae78728d1d2378b7b92791a0cccde02e10d0b3fb7deec4d9bbb1a50f060",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-count=1",
+        "-run",
+        "^TestGLMCandidateAssemblyControlled$/^glm-5[.]"
+      ]
+    },
+    "race-host-cancel-command.json": {
+      "sha256": "990a276d8f2a8d6e5d795944fdc41fc00c252dfd24a2a76b79b3853f3348cbde",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestGLMSharedLimitsAndTimeouts|TestGLMSharedCancellation|TestGLMSharedResponsesSettlement|TestProtocolTimeouts)$"
+      ]
+    },
+    "red-headers-command.json": {
+      "sha256": "85d4d791e37532032375d4ddfe9e5d7ed81f11ead9b6e4d7df9f1864688580a2",
+      "state": "COMPLETED",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-count=1",
+        "-run",
+        "^TestGLMCandidateAssemblyControlled$/^response-headers-after-90s$",
+        "-timeout=4m"
+      ]
+    },
+    "vet-command.json": {
+      "sha256": "7f9912b5d22ee5d4e01b8acdaa1a423b435ffa9378fab66fd454535129b1ba25",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "vet",
+        "./..."
+      ]
+    },
+    "vet-live-command.json": {
+      "sha256": "97801b258fe007b56a5f138e955fdd5d01588cb65b2463b11eef6915ad6cfac1",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ]
+    }
+  },
+  "selectedSourceImpactSHA256": "3eebba48fd74b7033327ebbf238ab1f8f67f59ad01d2bc347ed163994d13ee27",
+  "independentSelectedMapAndSnapshotComparison": {
+    "selectedSourceComparisons": [
+      {
+        "kind": "M3",
+        "route": "chat",
+        "files": 263,
+        "changed": [],
+        "originalProofSHA256": "e65cd00d598befd62b9af32e2daa42e0f06d83878187afe83d2f90c164dd03ff",
+        "exactSelectedSet": true
+      },
+      {
+        "kind": "GLM",
+        "route": "chat",
+        "files": 217,
+        "changed": [
+          "ai/live/glm_assembly_test.go"
+        ],
+        "originalProofSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+        "exactSelectedSet": true
+      },
+      {
+        "kind": "M3",
+        "route": "responses",
+        "files": 263,
+        "changed": [],
+        "originalProofSHA256": "33fb060912110b35680c0baadd37566f3380d165998c1ec38334d47f129dc425",
+        "exactSelectedSet": true
+      },
+      {
+        "kind": "GLM",
+        "route": "responses",
+        "files": 217,
+        "changed": [
+          "ai/live/glm_assembly_test.go"
+        ],
+        "originalProofSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+        "exactSelectedSet": true
+      },
+      {
+        "kind": "M3",
+        "route": "messages",
+        "files": 263,
+        "changed": [],
+        "originalProofSHA256": "4932f71f744a2532269ed64005447e6ab98f859cd288ccefa1350ed747e907fd",
+        "exactSelectedSet": true
+      },
+      {
+        "kind": "GLM",
+        "route": "messages",
+        "files": 217,
+        "changed": [
+          "ai/live/glm_assembly_test.go"
+        ],
+        "originalProofSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+        "exactSelectedSet": true
+      }
+    ],
+    "snapshotComparisons": [
+      {
+        "name": "source-before.json",
+        "sha256": "1bb2726741307c3d729d3d0e3812f2be3657665b4430b87d64b6dd0b3527208f",
+        "sourceCommit": "06229f68de6e9dc3100724f05365bb4bd414667a",
+        "workingTreeChanged": null,
+        "files": 1048,
+        "differentFromFinal": [
+          "ai/live/glm_assembly_test.go"
+        ]
+      },
+      {
+        "name": "source-green-headers.json",
+        "sha256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32",
+        "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "workingTreeChanged": true,
+        "files": 1048,
+        "differentFromFinal": []
+      },
+      {
+        "name": "source-green-host-cancel.json",
+        "sha256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32",
+        "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "workingTreeChanged": true,
+        "files": 1048,
+        "differentFromFinal": []
+      },
+      {
+        "name": "source-green-normal.json",
+        "sha256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32",
+        "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "workingTreeChanged": true,
+        "files": 1048,
+        "differentFromFinal": []
+      },
+      {
+        "name": "source-race-host-cancel.json",
+        "sha256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32",
+        "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "workingTreeChanged": true,
+        "files": 1048,
+        "differentFromFinal": []
+      },
+      {
+        "name": "source-red-headers.json",
+        "sha256": "36009a3beb212d810e2447fdf087f2c0f71e05936c9be4b75538149365b6607e",
+        "sourceCommit": "06229f68de6e9dc3100724f05365bb4bd414667a",
+        "workingTreeChanged": true,
+        "files": 1048,
+        "differentFromFinal": [
+          "ai/live/glm_assembly_test.go"
+        ]
+      },
+      {
+        "name": "source-vet-live.json",
+        "sha256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32",
+        "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "workingTreeChanged": true,
+        "files": 1048,
+        "differentFromFinal": []
+      },
+      {
+        "name": "source-vet.json",
+        "sha256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32",
+        "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+        "workingTreeChanged": true,
+        "files": 1048,
+        "differentFromFinal": []
+      }
+    ]
+  },
+  "comparisonSHA256": "73ea2ef5c1a951b00dc1c391a5af2f29e399d2c58bcfdf46497c03784834a2d8",
+  "requirementPins": {
+    ".scratch/barness-ai-minimax/issues/16-glm-host-deadline-alignment.md": "ee4c5dfde869e3db0bbc8d7137026e28845a72af6d8b88176834118328f7f5e1",
+    ".scratch/barness-ai-glm/spec.md": "c7517a952799505d5727db6fa4921581f7f13ea667e8a7d20470d07e435cc7ce",
+    "docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md": "721b033abb258446362d9ebd836a157614ce1fbf02a5655d7edc802bb5a5fd1e"
+  },
+  "reviewerActions": {
+    "committedReadAndHashOnly": true,
+    "testsOrVerifiersExecuted": false,
+    "keysRead": false,
+    "network": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "schema": 1,
+  "axis": "Standards retention",
+  "decision": "CHANGES_REQUESTED_DOCUMENTATION_ONLY",
+  "reviewedSource": "06229f68de6e9dc3100724f05365bb4bd414667a",
+  "base": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f",
+  "actualRunSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "diffCommand": "git diff 572570bbe4a9322fb02ed740bd2a10c9b8ce792f...06229f68de6e9dc3100724f05365bb4bd414667a",
+  "commitLogCommand": "git log 572570bbe4a9322fb02ed740bd2a10c9b8ce792f..06229f68de6e9dc3100724f05365bb4bd414667a --oneline",
+  "commits": [
+    "06229f6 docs: compact generated fullgate observations",
+    "604e834 docs: retain actual failed compiled full release gate"
+  ],
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/README.md",
+      "bytes": 4477,
+      "sha256": "87d35109b628bb1f56a4fb80a1ef73dae7e7fbf929a61b9bb85852ee28f212be",
+      "lines": 36
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/SHA256SUMS",
+      "bytes": 1883,
+      "sha256": "b9eb822b04d22511c3a491843763c942dcef35f26d0ee7c73625ee4a03d4e1ec",
+      "lines": 22
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/binary-reference.json",
+      "bytes": 362,
+      "sha256": "240a31456083d84c530e03ef17ba7e52f2039b0e3287cec9ffaa891ee4c2504e",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/boundary-checks.json",
+      "bytes": 1435,
+      "sha256": "d26bca044636029b203eccc3364457d9c368e44ed1484c1ddc4a051b41b72498",
+      "lines": 79
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/capsule.py",
+      "bytes": 5284,
+      "sha256": "3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328",
+      "lines": 79
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/check-boundaries.py",
+      "bytes": 6198,
+      "sha256": "aed537cad23b9f84d1fc817765eafed376740ec96864c4ffdbebc05379a45ab3",
+      "lines": 88
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/ordinary-index.json",
+      "bytes": 2558,
+      "sha256": "6584f1d5e6d14dd0c133aab8578be43738168ec67a192e04a118bece9143b831",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/ordinary-inventory.json.gz",
+      "bytes": 4400176,
+      "sha256": "0101aa0ed7cac24a7f6c4dc33d43131501a4b6a36690ca0a70d36c93da8bc230",
+      "lines": null
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/ordinary-observations.json",
+      "bytes": 30184,
+      "sha256": "d574af94a1081860b9f767a27d62ed1f790985c371e5894a5b2987e0ac3b6510",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/public-verify-command.json",
+      "bytes": 638,
+      "sha256": "8ee1b732c994e66dfb8873800202ba151f46536a4f4493dbc444bdd0e260e8d8",
+      "lines": 29
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/public-verify.log",
+      "bytes": 1331,
+      "sha256": "6b375fd6cc813cf711684c9b8ad9ac2cdf49212ddaca1ba210cd2e6ccd35224e",
+      "lines": 56
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/race-index.json",
+      "bytes": 2439,
+      "sha256": "ba65bdf993a7ad8ee7be00e7ccc073e094acd16ff4db272616b68a75a4889fb5",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/race-inventory.json.gz",
+      "bytes": 4404800,
+      "sha256": "61382cf4e37bc39f1c3d00e4e2202c080e3e9dcec46b05acae39d5da5ce8b4ba",
+      "lines": null
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/race-observations.json",
+      "bytes": 31614,
+      "sha256": "6b655f59b1a84b60865a21ddf4d68cfba2211a8e3d1991f84f9b08d5f06f7be6",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/snapshot-ordinary.py",
+      "bytes": 5290,
+      "sha256": "b355709278ab8795fba0eab5047ea4aeb53cd3c052e1947d49ed304e0f547b41",
+      "lines": 56
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/snapshot-race.py",
+      "bytes": 5626,
+      "sha256": "010abcd97b363625ce946fb31ef55165fe2b1506a1051717aa07564b4c955c0d",
+      "lines": 60
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/snapshot-verdict.py",
+      "bytes": 4131,
+      "sha256": "c9b40146dcabdb62aff983de796b76614ef8f2a1fd1d111a6d2a5becc16250c6",
+      "lines": 44
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/source-at-start.json.gz",
+      "bytes": 48861,
+      "sha256": "df42eb6709fd15aa3e63433700c03ea1897416672ce2c96a4cf3e24e7dc3681a",
+      "lines": null
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/summary.json",
+      "bytes": 61385,
+      "sha256": "d9235181d19e11003a772095aacf4ced9ea23a5e6aac91b90273837509ad1ca1",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/validation.json",
+      "bytes": 862,
+      "sha256": "3f5b9366e10747cf656869dd1f14792729a4af6f293824d900e9d7d8d1d80050",
+      "lines": 18
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/verdict-index.json",
+      "bytes": 2826,
+      "sha256": "55c0ecc5c6e355417e2a52ef0923b6a7597d7d61ba804c203adef465add168ef",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/verdict-inventory.json.gz",
+      "bytes": 2271,
+      "sha256": "2bb10e4883524d4792984c2750993932a540d328f3890e956653b479335a4d09",
+      "lines": null
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/verify.py",
+      "bytes": 11668,
+      "sha256": "2f3728842f58a68f5d05cbc448216fb8c1ce3adc4e64d73ea587060879938ad4",
+      "lines": 127
+    }
+  ],
+  "findings": [
+    {
+      "id": "RETAIN-STANDARDS-01",
+      "priority": "P2 documentation clarification",
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/README.md",
+      "line": 32,
+      "rule": "AGENTS.md principles8 and9: preserve accurate context and verifiable behavior.",
+      "quote": "小型verdict另限原始32 MiB/256文件",
+      "finding": "Those smaller limits are checked only by the snapshot creation recipe. The committed verdict index and capsule.verify apply the common finite runtime envelope (256MiB compressed,2GiB decoded,160000 files,1600MiB payload). The README does not distinguish creation limits from reader limits.",
+      "requestedCorrection": "Qualify32MiB/256files as creation-time selection limits and state the actual shared runtime reader envelope. Preserve raw/index/reader bytes and the original failed verdict."
+    }
+  ],
+  "possibleSmells": [],
+  "summary": "No other documented breach or actionable baseline smell found. All six Python programs remain below500 lines (maximum127). The separately bounded suite protocol reuses the unchanged SHA-pinned safe opener/duplicate-JSON/decoded limiter, streams without disk extraction, rejects nonregular/link/duplicate/foreign members, verifies sizes/hashes and compares failed summaries with native observations. Three raw archives and all266385 regular members matched committed inventories;77 observed original files matched byte-for-byte. Each suite retains12439PASS/8FAIL/1NOT_RUN,868 actual PIDIFF,29pressure and98703 native artifact references. Outer false, true0/0/1/1 exits,17own16PASS/1FAIL, source8fbd and the additional unregistered release-fixture/mapping test failures remain explicit. The30MB compiled binary matches the original file and prior immutable launch-history member. The0622 compaction changes only JSON formatting in three observations. Retention verification success never becomes release certification or current-source applicability.",
+  "rawReadHashChecks": [
+    {
+      "label": "verdict",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-13-final-gate/verdict-raw.tar.gz",
+        "bytes": 407502,
+        "sha256": "5988535e18f3cefcf793cd6ea126b16ecd06b062e20c45256eb434d69910078e",
+        "prefix": "routed-compiled-verdict"
+      },
+      "files": 45,
+      "rawPayloadBytes": 4619704,
+      "observedOriginalByteComparisons": 45,
+      "releasePass": false,
+      "numericExits": {
+        "vet": 0,
+        "vet-live": 0,
+        "ordinary": 1,
+        "race": 1
+      }
+    },
+    {
+      "label": "ordinary",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-13-final-gate/ordinary-raw.tar.gz",
+        "bytes": 114322540,
+        "sha256": "9f72789f54f61f40cba8880c9a42f7be818df02f431c1360e250dbafd1329467",
+        "prefix": "routed-compiled-ordinary"
+      },
+      "files": 133171,
+      "rawPayloadBytes": 1307506599,
+      "observedOriginalByteComparisons": 17,
+      "statuses": {
+        "PASS": 12439,
+        "FAIL": 8,
+        "NOT_RUN": 1
+      },
+      "artifactReferences": 98703,
+      "PIDiff": 868,
+      "pressure": 29
+    },
+    {
+      "label": "race",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-13-final-gate/race-raw.tar.gz",
+        "bytes": 113453106,
+        "sha256": "b5b96d819cd097c6db13ebbc2101f1a3988ecd05ad4f607a1f32d7b561a0371f",
+        "prefix": "routed-compiled-race"
+      },
+      "files": 133169,
+      "rawPayloadBytes": 1302505276,
+      "observedOriginalByteComparisons": 15,
+      "statuses": {
+        "PASS": 12439,
+        "FAIL": 8,
+        "NOT_RUN": 1
+      },
+      "artifactReferences": 98703,
+      "PIDiff": 868,
+      "pressure": 29
+    }
+  ],
+  "rawReadHashDetail": {
+    "file": "/tmp/barness-routed-final-gate-readhash-inputs.json",
+    "sha256": "4aa90355013e3e10b82d8b24022bc7d39e9e09915f3416f05c1c4a250da38306"
+  },
+  "retainedReceipts": {
+    "publicVerifierExitCode": 0,
+    "negativeBoundaryCases": 14,
+    "negativeBoundaryReplayExitCode": 0,
+    "reviewerExecutedReceipts": false
+  },
+  "binaryReference": {
+    "schema": 1,
+    "file": "$REPO/.evidence/minimax-routed-final-compiled-1/releasegate",
+    "bytes": 30338354,
+    "sha256": "c54a7d07f5780711af334a4369dcfd1dbb2b3b8bd440f09962b88831d11a906a",
+    "copied": false,
+    "existingImmutableArchive": ".evidence/minimax-retained/ticket-13-keyless-launch-history/keyless-launch-history-raw.tar.gz",
+    "existingMember": "compiled-prepared/releasegate"
+  },
+  "runtimeLimits": {
+    "compressedBytes": 268435456,
+    "decodedTarBytes": 2147483648,
+    "files": 160000,
+    "entries": 200000,
+    "memberBytes": 67108864,
+    "observedMetadataBytes": 16777216,
+    "observedTotalBytes": 67108864,
+    "inventoryDecodedBytes": 41943040,
+    "inventoryCompressedBytes": 8388608,
+    "rawMemberBytes": 1677721600
+  },
+  "boundaries": {
+    "noTestsExecuted": true,
+    "noVerifiersExecuted": true,
+    "noKeyRead": true,
+    "noNetwork": true,
+    "noCapturedCommandsExecuted": true,
+    "noSourceEdits": true,
+    "noMerge": true,
+    "paidApproval": false,
+    "releaseCertified": false,
+    "priorSource14ReviewsUnchanged": true
+  },
+  "standards": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0045",
+    "ADR0046",
+    "full12-smell code-review baseline; documented repo overrides; tool-enforced issues skipped"
+  ]
+}

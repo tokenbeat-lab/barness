@@ -3,6 +3,62 @@
   "scope": "separate independent reviews; source approvals do not grant provider or whole-release PASS",
   "reports": [
     {
+      "file": "barness-routed-final-gate-retention-spec-rereview.json",
+      "sha256": "0afacd10bdefc4b437e91a2a8c8c60856aeb143ed2fe197efbcdac572a1171aa",
+      "axis": "SPEC narrow retention rereview",
+      "decision": "PASS_RETENTION_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-final-gate-retention-spec-review.json",
+      "sha256": "8263dc9734fe27b9cf65001c026a0d3cc357e67aef2891bfdde29bbe51a5e020",
+      "axis": "SPEC retention review",
+      "decision": "CHANGES_REQUESTED_DOCUMENTATION_ONLY",
+      "findings": 1
+    },
+    {
+      "file": "barness-routed-final-gate-retention-standards-rereview.json",
+      "sha256": "5400219ebced9a932731668431b0f99c105594f1610da05c0059fb56489103e0",
+      "axis": "Standards retention narrow re-review",
+      "decision": "APPROVED_RETENTION_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-final-gate-retention-standards-review.json",
+      "sha256": "3d4bb5800dbafe8e4b825115daf93b0820da15c9cd00789949137e96b6972f35",
+      "axis": "Standards retention",
+      "decision": "CHANGES_REQUESTED_DOCUMENTATION_ONLY",
+      "findings": 1
+    },
+    {
+      "file": "barness-routed-gap2-retention-spec-review.json",
+      "sha256": "bebef9f02af3a22a29cb92427b0ff156561b6d6ca0031c0c7b1a598dabc8d2fb",
+      "axis": "SPEC retention review",
+      "decision": "PASS_RETENTION_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-gap2-retention-standards-review.json",
+      "sha256": "6beb73c5797f7f56a3f55c32dcd1c5317a636398aa6cbaaea943d812272a65a7",
+      "axis": "Standards retention",
+      "decision": "APPROVED_RETENTION_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-gap2-source-spec-review.json",
+      "sha256": "72c2769fe095e5813da9bff944f34685b8b63dbd110850876bec0fc55e898a21",
+      "axis": "SPEC source review",
+      "decision": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-gap2-source-standards-review.json",
+      "sha256": "55ad0b00c16f5abdc749a62c9e13def0b2f3912591e0f1e9eefc6746c1514cae",
+      "axis": "Standards",
+      "decision": "APPROVED_STANDARDS_INCREMENTAL_SOURCE_ONLY",
+      "findings": 0
+    },
+    {
       "file": "barness-routed-parent-status-spec-review.json",
       "sha256": "4abd7eec9ed29087ca1c2c676a611910c58f168c3260732986537b55211615b3",
       "axis": "SPEC parent status reconciliation",
@@ -140,6 +196,48 @@
       "sha256": "15cdf6bf359686ce6883ce9992ca5ddc31638ddcd53757619b1d988e1bf6244f",
       "axis": "Standards",
       "decision": "APPROVED",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-ticket16-retention-spec-review.json",
+      "sha256": "d67f75fafe468e5af295483f5354d054e7c621029ec87f3a3effce0dbab14cbb",
+      "axis": "SPEC retention review",
+      "decision": "PASS_RETENTION_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-ticket16-retention-standards-review.json",
+      "sha256": "7dcc0e59f0c2cc0ece92df453a82150b2f4ee2de377fbca2e71ba9f5c66f8dea",
+      "axis": "Standards retention",
+      "decision": "APPROVED_RETENTION_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-ticket16-source-spec-review.json",
+      "sha256": "11261f5bf1556a5f523b3177b1b8d7d0d261a86866cc3e4c2f08184ff841a922",
+      "axis": "SPEC source review",
+      "decision": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-ticket16-source-standards-review.json",
+      "sha256": "f233f36f4805888c5ff78c0151048efe436547431c0de26e4f738defdb5f94b0",
+      "axis": "Standards source",
+      "decision": "APPROVED_SOURCE_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-integrated-repair-status-standards-review.json",
+      "sha256": "bc6557c7c91afe173a0d47c45315bbcc1d97d804282758d1da5400ba0a9ce3ac",
+      "axis": "Standards metadata reconciliation",
+      "decision": "APPROVED_METADATA_ONLY",
+      "findings": 0
+    },
+    {
+      "file": "barness-routed-integrated-repair-status-spec-review.json",
+      "sha256": "f5d1bd452c487437d212f1a8d938157162c2fffda6f08f1a0f186b53f9bbfc2d",
+      "axis": "SPEC integrated repair status metadata review",
+      "decision": "PASS_METADATA_ONLY",
       "findings": 0
     }
   ]

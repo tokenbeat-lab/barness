@@ -1,7 +1,7 @@
 # 14 — 修复证据映射 hash 与付费前置契约预检
 
 Type: task
-Status: claimed
+Status: resolved
 Updated: 2026-10-18
 
 ## 问题与边界
@@ -36,3 +36,7 @@ Updated: 2026-10-18
 ## 修复证据留存
 
 代码提交 `c2604db6` 完成公开Go契约ordinary/race各6 PASS、公开CLI RED/GREEN、工具60项及双vet。c260的实际无Key预检在补齐6个selector固定的历史ZIP后五项均0；首次缺ZIP的12 FAIL完整保留，未混入真正代码RED或覆盖历史结果。模板保持PENDING，原18 canonical hash前后不变，无新round/paid intent。固定原始归档、逐项hash、27,412个artifact引用校验及14个拒绝反例见[票14无Key修复留存](../evidence/ticket-14/repair/README.md)。源代码审查锚点仍为c260，留存文档提交不刷新原始capture来源。
+
+## Answer
+
+本文件保留票14早期映射子任务与保守18进程提案的历史。映射修复、留存和后续离线缺口已在 `7231fdad` 一并合入；完整当前结论见[票14主记录](14-release-preflight-gaps.md#answer)。既有受影响组合规则经独立政策审查后，最小未来集合为[票15](15-source-scoped-revalidation.md)的6进程108/132待批合同；上文18进程推断已被后续明确核对替代，不构成新增收费或执行授权。
