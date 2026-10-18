@@ -65,3 +65,5 @@ Base: `ecfd4b4`
 - 11完成后按新已提交来源prepare、无Key检查和精确审查，再执行国际站研究。旧十四身份与四效果须在最终目录/源码下实际续期；完整ordinary/race与最终双轴审查仍必交。历史12304 PASS/52 FAIL/exit-15与已通过CN局部验证保持原状态，不能转作国际站完整门禁。
 
 - 8900034国际站M3三份自身正式报告均PASS（39calls/36实际Attempts），完整候选49/45及历史消费、原始失败均封存。GLM初轮Chat/Messages PASS、Responses FAIL，66/66如实保留；[正式证据](evidence/ticket-10/international-formal-glm/README.md)。票10/09未关闭，GLM补正新增预算未批准。
+
+- [12 GLM捕获修正与唯一补正轮次](issues/12-glm-corrective-1.md)：离线实现、普通/race、双vet、两轴审查及M3源保持均完成；[证据](evidence/ticket-12/README.md)。额外72/96为PENDING HUMAN APPROVAL，原66/66不刷新，无自动下一轮。10/09仍开放；人类批准前只做无Key prepare/check。

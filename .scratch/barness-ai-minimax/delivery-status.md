@@ -20,7 +20,7 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 | 国际站M3完整候选三身份 | 三项PASS，完整实际候选 | 来源7605332、各13calls/12attempts；三路推理/工具及持久化native续接通过，自己的实际origin与审计通过，见[精确汇总](evidence/ticket-10/international-candidates-7605332-summary.json)。 |
 | 国际站M3正式三身份及目录激活 | 三项正式PASS；目录已激活 | 来源8900034，各13calls/12attempts，完整正式总39/36；目录2026-10-18.1-minimax/3718603f，原始报告/origin/源码/审计见[正式胶囊](evidence/ticket-10/international-formal-glm/README.md)。支持矩阵及完整门禁待完成。 |
 | M3.1线上候选三身份 | 三项NOT_RUN | 未获M Plan用途/资格授权；零实际调用，不虚构公开价格，离线约束已完成。 |
-| 原十四身份与四业务效果续期 | PARTIAL | 当前GLM Chat/Messages各22/22 PASS；Responses原始22/22 FAIL、不完整且无seal，66/66消费全部保留。其余身份与四效果尚待续期。失败不得作为当前支持；补正预算尚未批准。 |
+| 原十四身份与四业务效果续期 | PARTIAL | 初轮GLM Chat/Messages各22/22 PASS，Responses22/22 FAIL、不完整且无seal，66/66消费全部保留。GLM捕获源码修复后，初轮报告不作当前支持；三路补正、其余身份与四效果仍待续期，额外预算未批准。 |
 | 完整ordinary/race发布门禁 | NOT_RUN，未取得发布认证 | 已保留原ordinary失败/中断记录；46个可本地修复case的定向普通/race重验均通过，不能推出完整门禁PASS。 |
 
 原两次实际调用后，另有一次仅本地语法诊断读取同一已选`MINIMAX_KEY`，网络请求为0，未输出Key值、长度或Hash；Bearer前缀、内部空白和控制字符标记均为false。此诊断不增加收费账本，实际消费仍为2次调用/2次Attempt；无Key验证进程各自保持未读凭据。
@@ -65,3 +65,5 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 历史、受控或回放结果均不转成actual/formal PASS。历史追溯表继续保留其原来源和状态；当前完整交付判断只依据实际适用证据。
 
 2026-10-18当前实际收集已封存：[完整候选](evidence/ticket-10/international-complete-candidates/README.md)和[正式/GLM原始轮次](evidence/ticket-10/international-formal-glm/README.md)。两份便携校验器均通过，全量原始失败保留；六份M3实际origin已由公共验证器验证并登记。GLM Responses失败同时包含4096预算用尽、无正文、512KiB捕获截断和17.7MB事件文件；原22/22计入消费。拟离线准备一次GLM专属补正，不修改M3执行来源或正式断言，不自动授予新预算。
+
+[票12离线检查点](evidence/ticket-12/README.md)已完成GLM专属捕获/重放容量及用量结算修复：最终普通/race各4 PASS/audit0，辅助CLI35 PASS，两种vet通过；两轴最终0 open。三份现有M3正式公共验证均PASS，各263执行文件不变；集成1,033生成文件与已审查6ff字节相同。拟一次GLM corrective-1，固定66场景、额外最多72calls/96Attempts，每次4096输出；本次续期累计GLM138/162、其他旧能力302/302不变、旧能力合计440/464。此前任务历史另行保留。该方案等待明确人类批准，尚无新真实凭据读取、厂商调用或canonical corrective intent。

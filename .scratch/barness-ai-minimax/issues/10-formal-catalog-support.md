@@ -40,3 +40,7 @@ M3三身份只有自身候选通过才能进入BuiltinCatalog，正式三份报�
 ### 2026-10-18 国际站自身正式完成、旧GLM续期缺口
 
 三份完整M3实际候选与三份自身正式均PASS；目录已数据激活，六份canonical origin由公共验证器验证登记。[正式/GLM原始轮次证据](../evidence/ticket-10/international-formal-glm/README.md)保留实际来源8900034、全原始捕获及所有真实消费。M3正式39/36；GLM Chat/Messages各22/22 PASS，Responses22/22 FAIL且不完整，无seal或成功capturePins。不得重置intent、拼接报告或刷新旧源码。继续GLM专属离线补正设计；新付费轮次须单独固定合同与明确预算批准。其余旧身份、四效果及完整发布门禁未完成，Status仍claimed。
+
+### 2026-10-18 GLM离线补正就绪、付费预算待批
+
+[票12](12-glm-corrective-1.md)的GLM专属修复与一次补正启动流程已完成离线验证和独立双轴审查；[检查点](../evidence/ticket-12/README.md)保留原5abc审计中断的准确状态及更正记录。初轮三GLM报告保持原状态和消费，但因GLM执行源码变化不再授予当前支持；M3三正式的263文件执行映射完全不变且公共验证通过。额外预算尚未批准，不运行补测。余下实际工作顺序为：明确批准后GLM三路独立完整补正→raw/views六ZIP原位跟踪与selector提交→L剩余15项→17身份原子矩阵与完整发布门禁。

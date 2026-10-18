@@ -75,3 +75,7 @@ test_renewal test_glm_corrective.Corrective -v`; both `go vet ./...` and
 5abc receipt; there is no fabricated final-HEAD repetition. Parent will prepare
 and perform the full no-key live check on the final integrated HEAD before
 asking for the distinct paid budget approval.
+
+## Parent integration and portable current archive plan
+
+Integration merged byte-exact at `a080b37`; [merge proof](integration-merge-proof.json) checks all1,033 generation files against reviewed6ff and each original M3 263-pin map. [Archive portability](archive-portability.md) confirms no Go change is required. If corrective-1 is explicitly approved and all three actual captures PASS, use a fresh `.evidence/minimax-ticket12-current-glm` for raw archive publication and same-directory support-view derivation. Force-track all three original generated raw ZIPs with raw selectors/checkpoints before deriving views, then all three generated view ZIPs with the view selector before L freeze. Do not relocate files or rewrite raw-index checkpoints. Original captures and their sources remain immutable.
