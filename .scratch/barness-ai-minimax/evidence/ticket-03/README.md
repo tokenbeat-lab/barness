@@ -33,5 +33,29 @@ release suite; it is not reported PASS here.
 [ADR-0039](../../../../docs/adr/0039-barness-ai-minimax-responses.md) records the
 lossless content.reasoning_text → summary.summary_text candidate projection.
 Actual M3 reasoning/tool continuation, accepted ID constraints and diagnostic
-headers remain ticket07 live evidence obligations; M3.1 live status is independent.
+headers remain ticket10 live evidence obligations; M3.1 live status is independent.
 No synthetic case is presented as proof that the server accepts the projection.
+
+## Preserved historical observations
+
+[historical-controlled-captures.tar.gz](historical-controlled-captures.tar.gz)
+contains the original 33 controlled runs, including red and green observations.
+[historical-index.json](historical-index.json) preserves each run's original
+source commit, status set, completion time and audit, plus every file hash.
+The source commits are `603127aa00a973282a584f3c71f3ae593e6c0e49` and
+`69bf852754fb11990c5c8c2626a1a3cae7720ef0`. Twenty runs have only own PASS
+cases, nine have only own FAIL cases, and four contain both. None is a current
+formal or actual live report.
+
+The archive and index were copied without rewriting their contents. Ticket09
+streamed all 29,012 regular archive members and checked their original hashes
+and total 118,969,270 bytes; all 33 original audits have zero findings. See the
+[preservation receipt](../ticket-09/ticket03-preservation.json). The original
+[SHA256SUMS](SHA256SUMS) pins the archive and index:
+
+```sh
+(cd .scratch/barness-ai-minimax/evidence/ticket-03 && shasum -a 256 -c SHA256SUMS)
+```
+
+The test commands above create new controlled observations. They do not change
+these historical statuses or establish that current MiniMax accepts a request.
