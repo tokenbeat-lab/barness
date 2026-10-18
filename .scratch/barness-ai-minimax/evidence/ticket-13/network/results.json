@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "createdAt": "2026-10-18T07:40:39.295287+00:00",
+  "credentialsRead": false,
+  "apiRequests": 0,
+  "results": [
+    {
+      "service": "glm",
+      "host": "open.bigmodel.cn",
+      "routing": "direct",
+      "credentialsRead": false,
+      "apiRequests": 0,
+      "dns": {
+        "resolved": true
+      },
+      "tcp": true,
+      "tlsVerified": true,
+      "tlsVersion": "TLSv1.3",
+      "certificateSHA256": "b725bf2cd9db8f27a5d7ece57ab835ef6f1488fa6662955a0db18ae9efb248d2",
+      "passed": true,
+      "seconds": 0.056
+    },
+    {
+      "service": "deepseek",
+      "host": "api.deepseek.com",
+      "routing": "direct",
+      "credentialsRead": false,
+      "apiRequests": 0,
+      "dns": {
+        "resolved": true
+      },
+      "tcp": true,
+      "tlsVerified": true,
+      "tlsVersion": "TLSv1.3",
+      "certificateSHA256": "30d82529d19c5da6175a80db1c5522ac3ba5b42589212405cdc8783a1bf047fa",
+      "passed": true,
+      "seconds": 0.05
+    },
+    {
+      "service": "openai",
+      "host": "api.openai.com",
+      "routing": "proxy",
+      "credentialsRead": false,
+      "apiRequests": 0,
+      "proxyTCP": true,
+      "connectStatus": 200,
+      "tlsVerified": true,
+      "tlsVersion": "TLSv1.3",
+      "certificateSHA256": "fabf4da3abcc692e524df400362d90cc638125adca67cc2e6619cc87c1301c58",
+      "passed": true,
+      "seconds": 0.877
+    },
+    {
+      "service": "anthropic",
+      "host": "api.anthropic.com",
+      "routing": "proxy",
+      "credentialsRead": false,
+      "apiRequests": 0,
+      "proxyTCP": true,
+      "connectStatus": 200,
+      "tlsVerified": true,
+      "tlsVersion": "TLSv1.3",
+      "certificateSHA256": "bf92eba57d8ce9d89b26b2743accf966b3f0d7b8bc118537dbb0754e142a3371",
+      "passed": true,
+      "seconds": 0.645
+    },
+    {
+      "service": "google",
+      "host": "generativelanguage.googleapis.com",
+      "routing": "proxy",
+      "credentialsRead": false,
+      "apiRequests": 0,
+      "proxyTCP": true,
+      "connectStatus": 200,
+      "tlsVerified": true,
+      "tlsVersion": "TLSv1.3",
+      "certificateSHA256": "ebd61d9a760b5a3c0874836daaa7f4b30d178f4f3e6b9c916c5b9ef7081f0062",
+      "passed": true,
+      "seconds": 0.646
+    },
+    {
+      "service": "typesafe",
+      "host": "api.typesafe.ai",
+      "routing": "proxy",
+      "credentialsRead": false,
+      "apiRequests": 0,
+      "proxyTCP": true,
+      "connectStatus": 200,
+      "tlsVerified": true,
+      "tlsVersion": "TLSv1.3",
+      "certificateSHA256": "fa3c05cb309919d98a83fc38680abbe96902b18544edecfeae3136a063443bec",
+      "passed": true,
+      "seconds": 0.684
+    },
+    {
+      "service": "minimax",
+      "host": "api.minimax.io",
+      "routing": "proxy",
+      "credentialsRead": false,
+      "apiRequests": 0,
+      "proxyTCP": true,
+      "connectStatus": 200,
+      "tlsVerified": true,
+      "tlsVersion": "TLSv1.3",
+      "certificateSHA256": "e26694696b73435e8cd5950dbd49f34e8ffc4e09d67eab535c676d6edf321d16",
+      "passed": true,
+      "seconds": 0.73
+    }
+  ],
+  "allConnected": true
+}
