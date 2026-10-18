@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "review": "GLM deadline policy: static only",
+  "verdict": "PROSPECTIVE_GLM_ONLY_ALIGNMENT_PERMITTED_WITH_NEW_SOURCE; NO_EXISTING_LAUNCHER_OVERRIDE",
+  "reviewedRootHEAD": "73ef82888b7a9c623d3ff4c33f331057f0275af4",
+  "reviewedWorkerHEAD": "1dedc575228c1691bed0843ddb54b84c379c5727",
+  "contract": {
+    "requirement": ".scratch/barness-ai-glm/spec.md:222 (R21, not base R26)",
+    "quote": "单调用不超过 120 秒且受 Host 更短时限约束",
+    "adr": "ADR0036 retains120-second-call/1800-second-process; ADR0045 retains120s/1800s,24calls/32Attempts,4096outputs and zero automatic retries.",
+    "classification": "90 seconds is the fixed smoke Host header/read-idle policy, not a normative GLM maximum. It is nevertheless the actual historical experiment condition, not a plan-only configurable CLI value."
+  },
+  "currentBounds": {
+    "callSeconds": 120,
+    "headerSeconds": 90,
+    "readIdleSeconds": 90,
+    "connectSeconds": 15,
+    "processSeconds": 1800,
+    "sources": [
+      "ai/live/main_test.go:290-299",
+      "ai/live/glm_assembly_test.go:25-26",
+      "ai/live/glm_harness_test.go:275",
+      "ai/live/glm_config_test.go:113"
+    ]
+  },
+  "actualEvidence": [
+    {
+      "path": ".evidence/minimax-routed-glm-1/glm-responses/20261018T080948.959906000Z/GLM11-glm-5.3-tool-call/attempt-1-result.json",
+      "sha256": "7494d34738eb15bf3af3f8ef07db6903a82b62465b243a18d0937afb99c32a75",
+      "scenario": "glm-5.3/tool-call",
+      "durationMs": 90001,
+      "calls": 1,
+      "httpAttempts": 1,
+      "error": "ai: deadline_exceeded (request): exceeded the resource policy's ResponseHeaderTimeout (1m30s)"
+    },
+    {
+      "path": ".evidence/minimax-routed-glm-1/glm-responses/20261018T080948.959906000Z/GLM11-glm-5.3-control-max/attempt-1-result.json",
+      "sha256": "146832927d89c87abb131eb4e18780afc7be68fd1e19fb51afac8605bcefef00",
+      "scenario": "glm-5.3/control-max",
+      "durationMs": 90001,
+      "calls": 1,
+      "httpAttempts": 1,
+      "error": "ai: deadline_exceeded (request): exceeded the resource policy's ResponseHeaderTimeout (1m30s)"
+    }
+  ],
+  "causalityLimit": "The records prove local Host ResponseHeaderTimeout expiry before response headers. They do not prove vendor transient latency, a vendor response by120, or eventual success; no HTTP response or usage was obtained for these two calls.",
+  "existingKnobs": {
+    "publicAPI": "ResourcePolicy.ResponseHeaderTimeout is configured by the trusted Host at Client construction; all attempt durations must fit CallTimeout. TimeoutMs can only shorten the effective header limit (ai/timeouts.go:79-84).",
+    "nativeCLI": "No timeout env/flag is exposed by the fixed GLM config, options assembly or paid launcher. -test.timeout controls the process only. Changing TimeoutMs to120000 cannot override Host90.",
+    "planOnly120Available": false
+  },
+  "recommendation": {
+    "proposedOnly": "If selected prospectively, align only policy.ResponseHeaderTimeout to120*time.Second in ai/live/glm_assembly_test.go immediately after its CallTimeout assignment. This is a narrow harness assembly change using an existing public API, within R21, not a product/adapter change. No edit has been made or approved by this review.",
+    "preserve": [
+      "shared livePolicy remains unchanged",
+      "whole call120 and process1800",
+      "connect15 and read-idle90",
+      "fixed22 scenarios, prompts, controls, assertions and tool dependency",
+      "24/32 per GLM route,4096 output, zero automatic retries",
+      "all original failed bytes, counters and90-second provenance"
+    ],
+    "condition": "Amend the future design source exception and ticket15 deadline wording before final source freeze, independent reviews, new exact binary/plan/check pins and explicit new108/132 human approval. Never change a running or previously measured contract."
+  },
+  "sourceApplicability": {
+    "oldActualSource": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+    "oldGLMMapSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+    "oldGLMMapEntries": 217,
+    "assemblyRecordedSHA256": "33979746dff7fdacfb895ad4c49bc4599c1c96cc5d657c9066770028f89760ec",
+    "currentAssemblyMatchesActual": true,
+    "effect": "All3 GLM execution maps select ai/live/glm_assembly_test.go; align before their new same-source round and retain old reports unchanged. M3 selector selects only minimax_* live files plus enumerated shared files; it excludes glm_assembly_test.go, so this isolated change does not expire its263-file own proof. Changing shared main_test.go, runtime/policy/transport or other source is outside this recommendation and requires re-analysis. Existing protocol/visual refresh scope remains required for the independent release-only repairs."
+  },
+  "failureFirstPublicSeam": {
+    "existing": "ai/live/glm_assembly_test.go:TestGLMCandidateAssemblyControlled calls the real public Client through a synthetic RoundTripper; existing GLM shared resource E2Es exercise earlier Host/header/read/call limits.",
+    "meaningfulREDGREEN": "Before implementation extend that public assembly seam with a controlled GLM response whose headers arrive after90s but before120s, require successful one-attempt output and retained120 whole-call bound; old Host90 must fail, aligned Host120 may pass. Keep public earlier-Host cancellation and no-resource-leak checks. No private-field mirror or source-string-only test establishes the behavior.",
+    "timeLimit": "The current public API has no fake-time seam for literal header timers. A literal90→120 behavioral boundary needs more than90s of controlled waiting; use one canonical route through the shared assembly, not extra paid calls. Existing short scaled timeout E2Es preserve enforcement but do not alone prove the assembly90→120 change."
+  },
+  "reviewedFilesSHA256": {
+    ".scratch/barness-ai-glm/spec.md": "c7517a952799505d5727db6fa4921581f7f13ea667e8a7d20470d07e435cc7ce",
+    "docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md": "721b033abb258446362d9ebd836a157614ce1fbf02a5655d7edc802bb5a5fd1e",
+    "docs/adr/0045-glm-corrective-capture-round.md": "a81f1849fb935238818e1420afbc749242b7fe502667fedc0e4c134af58e0dbd",
+    "ai/live/main_test.go": "db5b7dab4a280b504d063c222a897d8b0de624bc055bbed573fcac9c1d120cad",
+    "ai/live/glm_assembly_test.go": "33979746dff7fdacfb895ad4c49bc4599c1c96cc5d657c9066770028f89760ec",
+    "ai/live/glm_harness_test.go": "b9232ee3f150f8b314a9680e6a4559493bec070725f1d1c491ae9a68014c2537",
+    "ai/live/glm_config_test.go": "f00b60f931aebcbb19bcd20e6fcdc0d529d700dc999099611f45ecd71d5caaeb",
+    "ai/options.go": "c4f99c28f91ccf13a1fcb2c9f606b54644f01a53649aabe47c5ae2f853917f1c",
+    "ai/chat_options.go": "a9e274699ece78af0f1ecf35ec802052f5bcc23bce8563a47e20ebea778a1b7e",
+    "ai/responses_options.go": "754aaf85dc812e69c37469aeb7c264424af8325878aac2ebf7f07f948abc0bf8",
+    "ai/anthropic_options.go": "0c53c08c41381298b270e228557ea01b0e0d547717ccfc1c304ef0d3f8b50ef1",
+    "ai/policy.go": "1306cd2fe59936b3f854e9b6b4bfde46db1318b93d92fdd2d55f3c3f050112af",
+    "ai/timeouts.go": "d4577e8e758103d75377b9d74a48b1b883eadec5c2a9a2e368fb287dc57cf2b2",
+    "ai/transport.go": "ff603f1b956c9e94f2b7fff5c0f008b96def1e0adf0cf3049c35b39bc2b6b0c3",
+    "ai/internal/testkit/supportmatrix/glm_source.go": "fbb70f34e8be207e53b930f7e7630c6af7fb354fec047e27aea0ccea28c2aa38",
+    "ai/internal/testkit/minimaxlive/source.go": "5a4691e992739bc4887cddfe5484306b91d288cdfe98b7b7240081791ca211cb",
+    "ai/e2e/glm_shared_resources_test.go": "d704a714ea0841c9d2ab95e5003fe72b9b98b9f6b4a6df92c310e429bb159439",
+    "ai/e2e/protocol_admission_test.go": "c9c4ec03beb9144ac02e58c962d655e407d6d2d4927bbb4ad659f298ca59e2d2",
+    ".scratch/barness-ai-minimax/tools/paid_plan.py": "8213089eee34ff2ff4ad973b835886c167b90fc8fd8ac0b9af7f96eb79979a5a",
+    ".scratch/barness-ai-minimax/tools/routed_validation.py": "d3e5f0e253cca68b628ecfa95dd13a83e57d11459fdc2eb5c5758fdb1c38b7c3",
+    ".scratch/barness-ai-minimax/tools/routed_contract.py": "b6a8ba6f9daf116d664af30ffcfd96033b0d38f5d62e84f2c318e6584eb52bd8",
+    ".scratch/barness-ai-minimax/tools/paid_core.py": "d04b6ada7669530169debbfead314e9140f2f6f9295871ecddb42764cad14177",
+    ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md": "2c35251e073c0022251823803521eeb70ff196b4ae9608c394585ddd17fee88a"
+  },
+  "constraints": {
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "sourceEdits": false,
+    "reportOnly": true
+  }
+}

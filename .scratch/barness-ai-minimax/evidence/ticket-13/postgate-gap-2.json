@@ -1,0 +1,114 @@
+{
+  "kind": "read-only-postgate-second-gap-diagnosis",
+  "actualSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "reportSHA256": "af9362f5e8a525420bef595f032f9bf7fbb3ab44eeb33d23657aa492005b864d",
+  "summarySHA256": "d1a6ef19266c63bfca1329d39399e83b966b007f6557d832844bfa6b22f279d7",
+  "noMutationsTestsKeysOrNetwork": true,
+  "actualPreserved": {
+    "releasePass": false,
+    "gateExit": 1,
+    "allFourNumericExitsPresent": true,
+    "exits": {
+      "vet": 0,
+      "vet-live": 0,
+      "ordinary": 1,
+      "race": 1
+    },
+    "ordinaryAndRaceEach": {
+      "cases": 12448,
+      "PASS": 12439,
+      "FAIL": 8,
+      "NOT_RUN": 1,
+      "auditFindings": 0
+    },
+    "eightPublicVerifiers": 0
+  },
+  "gaps": [
+    {
+      "id": "POSTGATE-OPTIONAL-DIAGNOSTIC",
+      "file": "ai/e2e/release_recorded_bundle_test.go",
+      "line": 17,
+      "cause": "run.Case registers OD57 before checking BARNESS_RELEASE_DIAGNOSTIC_BUNDLES. The normal complete suite intentionally leaves this optional manual history input unset, so t.Skip leaves a registered NOT_RUN case. Both offline completeness and race-offline correctly reject it. This case has no mandatory trace mapping.",
+      "minimalFix": "Move only the env-empty t.Skip before run.Case registration. Keep the explicit enabled-mode registration, exact2historical-path validation, pinned manifest identities, all12391original-case assertions, unchanged bytes checks and diagnostic-only provenance. Do not alter mandatory trace or completeness acceptance rules.",
+      "verificationNeeded": "Use failure-first existing public child-process seam: default unconfigured run must not add an OD57 evidence case; explicit configured execution still registers and preserves all original assertions and invalid-input refusal. A normal Go test skip may remain; the optional case must not enter the mandatory evidence inventory."
+    },
+    {
+      "id": "POSTGATE-DECISIONS-FIXTURE-INVENTORY",
+      "file": "ai/internal/testkit/release/decisions_record_test.go",
+      "line": 41,
+      "cause": "All7subcases write pidiff.json and two full observation JSON files, but the synthetic manifest includes only id/dir/status and no artifacts. The tightened existing LoadBundle inventory contract rejects before differentialRecordProblems or decisionsCaptureProblems; the valid control now fails artifact inventory invalid. The negative subcases can pass for the wrong inventory reason.",
+      "minimalFix": "Complete the synthetic fixture manifest with SHA256ofactualwritten pidiff.json,pi-observation.json,barness-observation.json after each deliberate mutation; retain exactly the consumer contract. Require no b.Problems before semantic assertions so all original7 modes reach the intended source/result/protocol/capture/sdk checks. Do not relax LoadBundle, allow unhashed paths or forge any actual/provider source proof.",
+      "relatedCheck": "The adjacent TestImportedDifferentialRejectsWrongOracle fixture also omits artifacts. Its current negative successes may be inventory failures; give it a valid hashed baseline or assert the intended semantic reason rather than claiming frozen-value guards were exercised. This is fixture-only work, not a provider/runtime change.",
+      "postInventorySemantics": "Current SDK/protocol/source/result values of the valid Decisions fixture satisfy the existing consumer; static inspection finds no additional product change needed. Actual captured mutation hashes must enter the artifact map, while r.result_sha256 remains the original expected value so capture mutation still fails semantically."
+    }
+  ],
+  "alreadyDiagnosed": "TestGLMReleaseContract and TestReleasePlanCannotBeReduced complete-baseline failures are the same approvedMappingHash drift already repaired byc260. They do not require deleting requirements or separate consumer changes.",
+  "traceConsequences": [
+    {
+      "id": "UC-current-live",
+      "live": {
+        "pass": 16,
+        "fail": 1,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "explanation": "Live16PASS/1FAIL is solely current zhipu-responses actual3failedcapabilities. This aggregate LIVE requirement fails transitively; it is not a new OpenAI/TypeSafe/legacy-provider fault."
+    },
+    {
+      "id": "V6-live",
+      "live": {
+        "pass": 16,
+        "fail": 1,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "explanation": "Live16PASS/1FAIL is solely current zhipu-responses actual3failedcapabilities. This aggregate LIVE requirement fails transitively; it is not a new OpenAI/TypeSafe/legacy-provider fault."
+    },
+    {
+      "id": "TS-R11",
+      "live": {
+        "pass": 16,
+        "fail": 1,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 27,
+        "fail": 1,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "explanation": "Live16PASS/1FAIL is solely current zhipu-responses actual3failedcapabilities. The additional artifact1FAIL is race-offline, aggregating the same original offline8FAIL/OD57NOT_RUN;27otherartifactsPASS."
+    },
+    {
+      "id": "OD-R17",
+      "live": {
+        "pass": 16,
+        "fail": 1,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "explanation": "Live16PASS/1FAIL is solely current zhipu-responses actual3failedcapabilities. This aggregate LIVE requirement fails transitively; it is not a new OpenAI/TypeSafe/legacy-provider fault."
+    }
+  ],
+  "remainingIndependentBlockers": "Original six GLM12formal-import/known-usage cases remain stale because strict renewal refused the failed3-route live collection; fixing diagnostic registration and synthetic inventories does not publish captures, remove required cases, change actual GLM Responses failure or create full certification.",
+  "safeScope": "Finish all authorized fixture/optional-flow offline work in an isolated worker, retain original A2 report/manifests/exits unchanged, failure-first verify actual default/full consumers and complete keyless package tests, then review exact final source and applicability. Test-only changes still affect the all-Go protocol/Jev source sets; never refresh old pins or call the old A2 fullrun current for repaired HEAD. No new paid question/process before concrete reviewed offline result."
+}

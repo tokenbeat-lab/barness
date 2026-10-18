@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED",
+  "reviewedSource": "1dedc575228c1691bed0843ddb54b84c379c5727",
+  "codeAnchor": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "integrationHeldAt": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "diffCommand": "git diff c2604db6...1dedc575228c1691bed0843ddb54b84c379c5727",
+  "diffSHA256": "f8608388d6f95f08c3c6899bd0ae161a70d0d7b3b629e7f1de30974180812336",
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md",
+    ".scratch/barness-ai-minimax/issues/14-release-evidence-mapping-pin.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "metadataOnly": true,
+  "findings": [],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "archive": {
+    "sha256": "88eae30a5c322edab67bde19a709c62acd7971bf07446a62637454d7332c407c",
+    "bytes": 81125177,
+    "regularEntriesVerified": 54792,
+    "rawPayloadBytes": 425402095,
+    "observedMembers": 174,
+    "originalObservedFilesByteMatched": 153,
+    "nativeArtifactReferencesVerified": 27412,
+    "tarLinksAccepted": 0
+  },
+  "negativeFixtureLinks": {
+    "metadataProjections": 2,
+    "tarEntriesPresent": false,
+    "targetTextHashesMatch": true,
+    "followedOrRecreated": false
+  },
+  "programSHA256": {
+    "verify.py": "66fbcc8b5f84b5bfcf0b97a457e3f09b5a81bdf9d4a6fa6e38f23fdf5ce8d6da",
+    "capsule.py": "651903be831bcff9ac172f2f8e1b3cbd5f469460760bfaa3af9af59a08c30f84",
+    "check-boundaries.py": "1ee8d3a024a52fb41e1300d6b03126549830cbe177612cd3a3750a8cea7b3ad7",
+    "snapshot.py": "b2f8add23b13154e25e6a980cd31b7da470347a1b8adcab603192e2f1ab54873"
+  },
+  "fixedLimits": {
+    "compressedBytes": 201326592,
+    "decodedTarBytes": 1073741824,
+    "files": 90000,
+    "entries": 100000,
+    "memberBytes": 67108864,
+    "observedMetadataBytes": 8388608,
+    "inventoryDecodedBytes": 25165824,
+    "inventoryCompressedBytes": 8388608
+  },
+  "notes": [
+    "All54792 regular archive members match their pinned inventory; 27412 native artifact references resolve to the exact same hashes. Observed TDD and both preflight original files match worker originals byte-for-byte.",
+    "Reader fixes explicit compressed/decoded/member/inventory/observed/count limits, drains gzip, rejects tar links and symlink file paths, and never extracts or runs captured programs. Existing smaller reader bytes remain unchanged.",
+    "Snapshot records the exact two deliberate negative-fixture symlinks as regular metadata only; original targets are not followed, recreated or claimed as regular source bytes.",
+    "True Go and CLI code RED/GREEN remain distinct from first real missing-ZIP environment failure324PASS/12FAIL/62NOTRUN; restored preflight336PASS/62NOTRUN and all5numeric0 retain exact measured commits/source bytes and Pending authority.",
+    "Six old fixed selector ZIP restorations, prepared unused binaries as external Hash references, old18 canonical unchanged, source expiry and original paid545/545 remain explicit; no new paid round or release certificate is granted."
+  ],
+  "scope": "Independent static Standards review plus read-only streaming hashes of archive and native references. No verifier, tests, Key, network, root/source/input mutation or merge by reviewer."
+}

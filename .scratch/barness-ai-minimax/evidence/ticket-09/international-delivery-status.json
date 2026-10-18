@@ -1,111 +1,130 @@
 {
-  "sourceOriginalFullRun": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
-  "delivery": "PARTIAL",
-  "legacyCalls": 300,
-  "legacyAttempts": 300,
-  "glmCalls": 132,
-  "glmAttempts": 132,
-  "remaining15Calls": 168,
-  "remaining15Attempts": 168,
-  "remaining15Pass": 2,
-  "remaining15Fail": 13,
-  "normalAndRaceEach": {
-    "PASS": 12385,
-    "FAIL": 6,
-    "auditFindings": 0
-  },
-  "originalReleaseReportPresent": false,
-  "originalReleasePass": null,
-  "consumerFix": {
-    "source": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
-    "ordinary": {
-      "PASS": 93,
-      "FAIL": 0,
-      "auditFindings": 0,
-      "exitCode": 0
-    },
-    "race": {
-      "PASS": 93,
-      "FAIL": 0,
-      "auditFindings": 0,
-      "exitCode": 0
-    },
-    "vetExit": 0,
-    "liveVetExit": 0,
-    "readOnlyOriginalBundleImport": {
-      "PASS": 1,
-      "FAIL": 0,
-      "auditFindings": 0,
-      "exitCode": 0,
-      "originalManifestsUnchanged": true,
-      "originalStatusesUnchanged": true
-    },
-    "reviews": {
-      "standards": "PASS",
-      "spec": "PASS",
-      "openSourceFindings": 0,
-      "source": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9"
-    },
-    "scope": "release consumer only; targeted checks do not certify current full suites",
-    "preparedSourceComparison": {
-      "originalLFiles": 1034,
-      "currentFiles": 1040,
-      "modifiedGoPaths": 15,
-      "addedGoPaths": 6,
-      "changedGoPaths": 21,
-      "allChangesInReleaseConsumersOrTests": true,
-      "broadOriginalProofsRefreshed": false,
-      "atSource": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9"
-    }
-  },
-  "noNewPaidRound": true,
-  "schema": 1,
+  "schema": 2,
   "updated": "2026-10-18",
   "integrationBranch": "codex/minimax-global",
+  "delivery": "PARTIAL",
   "releaseCertified": false,
   "specClosed": false,
-  "openTickets": [
-    "09",
-    "10",
-    "12"
-  ],
-  "internationalTarget": true,
+  "currentActualSource": "8fbd17006677774368d4d77d924a8672fd205c51",
   "allAuthorizedPaidProcessesClosed": true,
-  "legacyLimits": {
-    "logicalCalls": 440,
-    "httpAttempts": 464
+  "additionalPaidRoundAuthorized": false,
+  "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
+  "legacyCalls": 545,
+  "legacyAttempts": 545,
+  "routedValidation1": {
+    "status": "CLOSED",
+    "processes": 18,
+    "processPass": 17,
+    "processFail": 1,
+    "logicalCalls": 245,
+    "httpAttempts": 245,
+    "ceilingCalls": 374,
+    "ceilingAttempts": 398,
+    "china": "DIRECT: GLM and DeepSeek",
+    "internationalProxy": "http://127.0.0.1:7890",
+    "inheritedProxy": false,
+    "regionFallback": false,
+    "automaticReruns": false,
+    "glm": {
+      "source": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+      "logicalCalls": 65,
+      "httpAttempts": 65,
+      "chat": "PASS",
+      "messages": "PASS",
+      "responses": {
+        "status": "FAIL",
+        "PASS": 19,
+        "FAIL": 3,
+        "logicalCalls": 21,
+        "httpAttempts": 21,
+        "failedCases": [
+          "glm-5.3/tool-call",
+          "glm-5.3/tool-result",
+          "glm-5.3/control-max"
+        ]
+      },
+      "rawViewsRenewal": "REJECTED",
+      "oldFourSelectorsUnchanged": true,
+      "usageAttempts": {
+        "complete": 37,
+        "partial": 22,
+        "unreported": 6
+      }
+    },
+    "other15": {
+      "source": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "collectionsPass": 15,
+      "collectionsFail": 0,
+      "logicalCalls": 180,
+      "httpAttempts": 180,
+      "nativeRows": {
+        "PASS": 82,
+        "UNSUPPORTED": 1,
+        "answered": 72
+      },
+      "usageAttempts": {
+        "complete": 170,
+        "partial": 2,
+        "unreported": 8
+      },
+      "unreportedMeansFree": false,
+      "jevSupportDerived": true
+    }
   },
-  "glmOriginal": {
-    "logicalCalls": 66,
-    "httpAttempts": 66
+  "priorRenewal": {
+    "logicalCalls": 300,
+    "httpAttempts": 300,
+    "immutableStatus": "evidence/ticket-13/pre-routed-delivery-status.json"
   },
-  "glmCorrective1": {
-    "logicalCalls": 66,
-    "httpAttempts": 66,
-    "approvedMaxCalls": 72,
-    "approvedMaxAttempts": 96,
-    "chat": "PASS",
-    "responses": "FAIL",
-    "messages": "PASS",
-    "additionalRoundAuthorized": false
+  "currentFullGate": {
+    "source": "8fbd17006677774368d4d77d924a8672fd205c51",
+    "finishedAt": "2026-10-18T09:34:10.738298Z",
+    "fourCommandsActuallyExecuted": true,
+    "individualCommandExitCodes": {
+      "vet": 0,
+      "vet-live": 0,
+      "ordinary": 1,
+      "race": 1
+    },
+    "eachOfflineSuite": {
+      "cases": 12448,
+      "PASS": 12439,
+      "FAIL": 8,
+      "NOT_RUN": 1,
+      "auditFindings": 0,
+      "truePIDiffPASS": 868,
+      "pressurePASS": 29
+    },
+    "reportPresent": true,
+    "releasePass": false,
+    "outerExit": 1,
+    "adoptedOldOfflineBundles": false,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "evidence": "evidence/ticket-13/final-gate/README.md"
+  },
+  "defaultMatrix": {
+    "changedByFinalImport": true,
+    "sha256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "final17Import": "COMPLETED",
+    "latestPass": 16,
+    "latestFail": 1,
+    "failedCombo": "zhipu-responses",
+    "oldAllPassedAtPreserved": true
+  },
+  "m3Formal": {
+    "source": "8900034",
+    "reports": 3,
+    "passReports": 3,
+    "logicalCalls": 39,
+    "httpAttempts": 36,
+    "selectedFilesEach": 263,
+    "applicableAtActualSource": true
   },
   "m3CandidateStageIncludingHistory": {
     "logicalCalls": 49,
     "httpAttempts": 45,
-    "reservedAttempts": 49,
-    "ceilingCalls": 120,
-    "ceilingAttempts": 144,
-    "currentCandidates": 3,
-    "passCandidates": 3
-  },
-  "m3FormalStage": {
-    "logicalCalls": 39,
-    "httpAttempts": 36,
-    "reservedAttempts": 39,
-    "ceilingCalls": 60,
-    "ceilingAttempts": 72,
-    "reports": 3,
-    "passReports": 3
+    "reservedAttempts": 49
   },
   "m31Online": {
     "status": "NOT_RUN",
@@ -115,156 +134,62 @@
     "reason": "No authorized M Plan entitlement",
     "offlineConstraints": "PASS"
   },
-  "defaultMatrix": {
-    "changedByFinalImport": false,
-    "sha256": "cacb9dd13d75e44ae6ad22103504bfa2c2f6679ae7fba66764eb679d8889519b",
-    "final17Import": "REJECTED",
-    "reason": "Missing actual Jev1.14 support output"
-  },
-  "remaining15Usage": {
-    "completeAttempts": 20,
-    "unreportedAttempts": 148,
-    "unreportedMeansFree": false
-  },
-  "originalFullGate": {
-    "source": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
-    "ordinary": {
-      "PASS": 12385,
-      "FAIL": 6,
-      "auditFindings": 0
-    },
-    "race": {
-      "PASS": 12385,
-      "FAIL": 6,
-      "auditFindings": 0
-    },
-    "perSuiteNamedPIDiffCases": 869,
-    "perSuiteNamedPressureCases": 29,
-    "fourCommandsActuallyExecuted": true,
-    "individualCommandExitCodes": null,
-    "outerGoRunExit": 1,
-    "terminalGateExit": 2,
-    "reportPresent": false,
-    "releasePass": null,
-    "reason": "Original consumer refused recorded case directory",
-    "laterFixDoesNotRewriteOriginalResult": true,
-    "namedPIDiffCountsAreProducerCaseStatuses": true
-  },
-  "selectedExecutionScope": {
-    "m3FormalEach": 263,
-    "glmCorrectiveEach": 217,
-    "releaseConsumerFilesExcluded": true,
-    "m3AndGlmMapsStillApplicable": true,
-    "broadLegacyAndJevEvidenceAfterConsumerGoChanges": "HISTORICAL_ONLY"
-  },
-  "consumerDiagnostic": {
-    "source": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
-    "mode": "adopted original3d3 historical inputs",
-    "status": "COMPLETED",
-    "reportPresent": true,
-    "pass": false,
-    "outerExitCode": 1,
-    "elapsedSecondsApprox": 176.607,
-    "commands": null,
-    "fourCommandsExecuted": false,
-    "newPaidCalls": 0,
-    "newWholeSourceCertificate": false,
-    "offlineRaceLoadRevocationMultimodalSixMiniMaxConsumers": "PASS",
-    "redactionInputProblem": "Missing actual Jev support directory; no content finding reported",
-    "live17": "FAIL: unchanged default matrix and no valid17 merge",
-    "additionalDifferentialDiagnostics": [
-      {
-        "case": "PIDIFF-MM06-catalog-differences",
-        "problem": "sdk_versions mismatch",
-        "cause": "Original producer retained valid frozen npm pins but omitted actual Go Sides.BarnessVersions; strict consumer correctly rejects incomplete provenance."
-      },
-      {
-        "case": "PIDIFF-MM06-frozen-catalog",
-        "problem": "missing pidiff.json",
-        "cause": "Original pure catalog lookup/provenance control had a PIDIFF case prefix despite no Compare/Record/HTTP; it is not a protocol differential proof."
-      }
+  "pendingOfflineRepair": {
+    "ticket": "14",
+    "integrationStatus": "WORKER_ONLY",
+    "mappingFixReviewedCode": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+    "mappingKeylessChecksPass": 5,
+    "newGaps": [
+      "optional diagnostic registers NOT_RUN before default skip",
+      "Decisions and adjacent oracle fixtures lack strict artifact inventory"
     ],
-    "originalAReportsAndStatusesRewritten": false,
-    "outputAudit": {
-      "regularBundleAudit": "REFUSED: no manifest; original refusal preserved",
-      "method": "existing exported audit.File/Environment rules via finite retained auxiliary overlay",
-      "files": 8,
-      "findings": 0,
-      "inventedManifest": false,
-      "gateRerun": false,
-      "scope": "diagnostic output files only"
-    }
+    "originalFullGateRewritten": false,
+    "newFullCertification": false
   },
-  "blockers": [
-    "GLM Responses native-history actual SSE has no text",
-    "Other legacy identity/effect acceptance failures: no HTTP response, actual403, actual451",
-    "Jev1.14 actual formal support output missing",
-    "Final17 matrix import rejected",
-    "No current whole-source full ordinary/race release certification"
+  "sourceApplicability": {
+    "actualGlmAndLegacyFrozenFilesEqual": true,
+    "pendingFixScope": "Conditional existing affected-combination policy independently reviewed: reuse original10generic and text2 if runtime/SDK/models/catalog/live producers stay unchanged; rerun only GLM3 +protocol114 +visual2. Keep all original pins.",
+    "oldFullRunCertifiesPendingRepair": false
+  },
+  "openTickets": [
+    "09",
+    "10",
+    "12",
+    "13",
+    "14",
+    "16"
   ],
-  "accountingScope": "Current MiniMax-driven renewal: original GLM66/66 + unique corrective66/66 + remaining15 168/168. Prior GLM-task paid history is separately immutable; MiniMax candidate/formal stages are separately accounted.",
-  "differentialProducerFix": {
-    "status": "PASS",
-    "scope": "two E2E producers and seven current finite trace references; no consumer SDK/oracle relaxation",
-    "originalARewritten": false,
-    "newPaidCalls": 0,
-    "repeatOriginalHistoricalDiagnostic": false,
-    "source": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
-    "standardsReview": "PASS",
-    "futureMetadataCaseID": "MM06-frozen-catalog-metadata",
-    "currentTraceRowsChanged": 7,
-    "traceLeavesChanged": 14,
-    "traceOnlyRegexAndRequiredCaseIdentity": true,
-    "requiredCaseCountsAndAllOtherFieldsUnchanged": true,
-    "consumerSdkOracleUntouched": true,
-    "oldNullRequestFixtureAssumptionCorrectedBeforeProductionEdits": true,
-    "specReview": "PASS",
-    "openSourceFindings": 0,
-    "ordinary": {
-      "exitCode": 0,
-      "elapsedSecondsApprox": 5.088,
-      "recordedParentCases": 1,
-      "PASS": 1,
-      "FAIL": 0
-    },
-    "race": {
-      "exitCode": 0,
-      "elapsedSecondsApprox": 10.286,
-      "frozenChildRaceIncluded": true,
-      "recordedParentCases": 1,
-      "PASS": 1,
-      "FAIL": 0
-    },
-    "vetExit": 0,
-    "liveVetExit": 0,
-    "parentPublicAdmissionCase": "PASS",
-    "childProducerCasesRetained": 2,
-    "coherentlyRehashedSdkNegatives": "sdk_versions mismatch; no inventory shortcut",
-    "m3AndQSelectedExecutionMaps": "ZERO_DRIFT",
-    "preparedSourceFiles": 1041,
-    "selectedSourceFilesEqualReviewedAd20469": true
-  },
-  "finalWorkerTip": "ecb60da5b44d41ef83db34299b01230d8b216f80",
-  "finalCodeSource": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
-  "currentRepairRetention": {
-    "path": "evidence/ticket-09/release-consumer/index.json",
-    "archiveBytes": 1735862,
-    "archiveSHA256": "f4cbc2b94cfe6c6a17aaedc875c5f0e72127a8dce6f87914382f86096a51d268",
-    "members": 1985,
-    "rawBundles": 22,
-    "artifactRefsVerified": 1766,
-    "checksumFilesVerified": 31,
-    "archiveRoundtrip": "PASS",
-    "tracked": true,
-    "commonRawRetained": true,
-    "originalActualCapturesReceiptsAndLedgerModified": false
-  },
-  "integratedWorkerTip": "ecb60da5b44d41ef83db34299b01230d8b216f80",
-  "integrationMergeReceipt": "integration-merge.json",
-  "worktreeCleanup": {
-    "receipt": "worktree-cleanup.json",
-    "allOwnedImplementationWorktreesRemoved": true,
-    "ignoredInputsPreservedByRename": true,
-    "forced": false
+  "blockers": [
+    "GLM Responses two actual timeouts and dependent tool-result failure",
+    "Strict GLM formal raw/views renewal refused",
+    "Offline mapping/optional registration/fixture gaps require completed repair and review",
+    "No passing current complete release certification"
+  ],
+  "historicalPreviousDelivery": "evidence/ticket-13/pre-routed-delivery-status.json",
+  "historicalOriginalFullGateSource": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "historicalOriginalFullGateReportPresent": false,
+  "priorCleanupAppliesOnlyToPriorWorktrees": true,
+  "currentOwnedWorker": "/tmp/barness-minimax-routed-validation",
+  "currentOwnedWorkerRemoved": false,
+  "proposedAdditionalScope": {
+    "status": "PENDING_NOT_AUTHORIZED",
+    "processes": 6,
+    "round": "release-repair-validation-1",
+    "nominalCalls": 102,
+    "ceilingCalls": 108,
+    "ceilingAttempts": 132,
+    "combinedCeilingCalls": 653,
+    "combinedCeilingAttempts": 677,
+    "conditionalOnFinalSourceReview": true,
+    "oldReportsRehashed": false,
+    "glmDeadlineProspective": {
+      "ticket": "16",
+      "status": "PLANNED_OFFLINE_NOT_IMPLEMENTED",
+      "callTimeoutSeconds": 120,
+      "responseHeaderTimeoutSeconds": 120,
+      "previousHeaderSeconds": 90,
+      "oldActualFailuresUnchanged": true,
+      "vendorSuccessAt120Proven": false
+    }
   }
 }

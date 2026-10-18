@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "kind": "postgate-source-applicability-policy-review",
+  "reviewer": "routed_merger_review",
+  "sourceObserved": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "sourceRepairAnchor": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "proposalSHA256": "767d1e5ccc9880b929953ab4fe64ed97dbf550c907fdc014e78f94af39482af6",
+  "decision": "REVISE_BROAD_SCOPE_PROPOSAL",
+  "finalSourceReviewed": false,
+  "paidAuthorizationGranted": false,
+  "readyForPaidApprovalQuestion": false,
+  "conclusion": "A broad18-process374/398 renewal is not automatically required for isolated release-only/offline fixture/tool changes. Established affected-combination rules allow unchanged generic10 and text2 native evidence to remain applicable without refreshing any original bytes or outer1047 freeze. Conditional minimum is six fixed processes: GLM3 plus protocol114 plus visual2.",
+  "authority": [
+    {
+      "path": ".scratch/barness-ai/spec.md:327",
+      "quote": "SDK/模型/adapter 改动重跑受影响组合及横向隔离场景",
+      "meaning": "Existing base policy is affected-combination revalidation, not HEAD-wide automatic expiry for every generic route."
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/spec.md:355",
+      "quote": "源码改变须按既有适用性规则更新证据，不为省调用改写历史捕获。",
+      "meaning": "Preserves existing per-artifact applicability boundaries; no new exemption or old capture modification is permitted."
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/spec.md:292",
+      "meaning": "R26 MiniMax formal evidence binds complete actual execution source/dependencies; current MiniMax263-file native selection remains authoritative, not an unrelated outer launcher manifest."
+    },
+    {
+      "path": "docs/adr/0016-barness-ai-live-smoke-and-support-matrix.md",
+      "meaning": "Per-combination own live reports, SDK/model/default changes rerun affected combinations, matrix updates only from each own report."
+    },
+    {
+      "path": "ai/internal/testkit/release/live.go:195",
+      "meaning": "Existing staleSDK comment explicitly notes direct HTTP has no module staleness here and adapter changes require maintainer rerun. This must be paired with unchanged runtime/SDK/model proof, not absence of checking alone."
+    }
+  ],
+  "applicability": [
+    {
+      "evidence": "generic10 original L",
+      "reuse": true,
+      "basis": "Established affected-combination policy; SDK/model/adapter/runtime/live request/capture behavior unchanged by release-only and consumer fixture changes.",
+      "existingConsumer": "release.liveEvidenceProblem + verifyLiveManifest + supportmatrix.Merge; measured gitCommit must match original native manifest, catalog/SDK/route/complete capabilities/current matrix timestamps must agree. No HEAD equality required.",
+      "limit": "Do not call the old full1047 launcher freeze current; retain gitCommit8fbd, all original report/capture/command/approval hashes and explicit reuse assessment. Final delta must verify all relevant execution/capture code unchanged, including Decisions docs source pin."
+    },
+    {
+      "evidence": "Chinese text2 original L",
+      "reuse": true,
+      "basis": "Existing currentEvaluationSource/evaluationSource excludes release tooling, live/E2E and test files; complete261 selected execution files remain unchanged.",
+      "limit": "Keep original full860 raw snapshot/codeHash/commit. Re-run current public verifier/admission; do not rewrite source set."
+    },
+    {
+      "evidence": "M3 formal3",
+      "reuse": true,
+      "basis": "Existing native263-file complete execution maps unchanged by isolated release/fixture/tool edits.",
+      "limit": "Reverify original formal signatures/origins/current catalog and all263 entries; no new MiniMax call or Key."
+    },
+    {
+      "evidence": "GLM own3",
+      "reuse": "historical state remains applicable but insufficient to publish renewal",
+      "basis": "Native217 execution maps exclude release plumbing; original Responses remainsFAIL. Existing strict raw publication requires all3 PASS from one actual source commit, so recollect all3 complete22 scenes in one new finite round rather than mix old Chat/Messages with new Responses.",
+      "existingConsumer": ".scratch/barness-ai-minimax/tools/renewal_glm.py:capture; same commit and canonical capturePins for all3."
+    },
+    {
+      "evidence": "protocol114 and derived Jev support",
+      "reuse": false,
+      "basis": "jevformal.CheckInputs compares current complete all-Go source set; plan.go and additional Go fixture tests are included.",
+      "needed": "New current own protocol114 live12 + new current visual-jev live12; derive a new self-contained Jev package through existing public jevformal CLI."
+    },
+    {
+      "evidence": "visual2",
+      "reuse": false,
+      "basis": "visualeval.verify sourceFiles compares current full non-test ai Go snapshots; plan.go change invalidates both.",
+      "needed": "Two new current live12 reports, preserving original formal catalog/quality tasks and proxy."
+    }
+  ],
+  "minimumNewContract": {
+    "processes": 6,
+    "name": "prospective fixed six-process contract; name/implementation not yet authorized",
+    "components": [
+      {
+        "name": "glm-chat",
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "plannedCalls": 22,
+        "route": "china-direct"
+      },
+      {
+        "name": "glm-responses",
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "plannedCalls": 22,
+        "route": "china-direct"
+      },
+      {
+        "name": "glm-messages",
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "plannedCalls": 22,
+        "route": "china-direct"
+      },
+      {
+        "name": "protocol114",
+        "maxCalls": 12,
+        "maxAttempts": 12,
+        "plannedCalls": 12,
+        "route": "international-loopback-proxy"
+      },
+      {
+        "name": "visual-jev",
+        "maxCalls": 12,
+        "maxAttempts": 12,
+        "plannedCalls": 12,
+        "route": "international-loopback-proxy"
+      },
+      {
+        "name": "visual-decisions",
+        "maxCalls": 12,
+        "maxAttempts": 12,
+        "plannedCalls": 12,
+        "route": "international-loopback-proxy"
+      }
+    ],
+    "maxCalls": 108,
+    "maxAttempts": 132,
+    "plannedCalls": 102,
+    "priorCalls": 545,
+    "priorAttempts": 545,
+    "totalMaxCalls": 653,
+    "totalMaxAttempts": 677,
+    "excludedAccounting": "MiniMax own candidate/formal and earlier standalone GLM task histories remain separate and immutable."
+  },
+  "broadProposal": {
+    "processes": 18,
+    "maxCalls": 374,
+    "maxAttempts": 398,
+    "totalMaxCalls": 919,
+    "totalMaxAttempts": 943,
+    "arithmeticCorrect": true,
+    "mandatoryForIsolatedChange": false,
+    "interpretation": "Optional conservative repeat-all proposal; must not be described as spec-required or as necessary solely because an outer launcher freeze changed."
+  },
+  "existingMixedInputPath": {
+    "possible": true,
+    "supportMatrixIdentities": {
+      "originalGeneric": 10,
+      "newDerivedJev": 1,
+      "newGLM": 3,
+      "originalMiniMax": 3,
+      "total": 17
+    },
+    "businessEffectInputs": {
+      "originalText": 2,
+      "newVisual": 2
+    },
+    "publicCommands": [
+      "go run ./ai/live/cmd/jevformal -protocol <new protocol114> -effects <new visual-jev> -out <new support> -require-live",
+      "go run ./ai/live/cmd/supportmatrix -matrix <fresh temporary matrix> <17 own original/new native bundles>",
+      "go run ./ai/live/cmd/supportmatrix <same17>",
+      "<compiled current public releasegate> -live <each17> -evaluation-jev <original text-jev> -evaluation-luna <original text-luna> -visual-evaluation-jev <new visual-jev> -visual-evaluation-decisions <new visual-decisions>"
+    ],
+    "details": "Native public validators and matrix have existing independent per-report provenance checks and no all17-same-HEAD condition. Derived Jev independently requires current protocol/effects source and exact original copies. New GLM collection must pass strict own3 same-source publication before raw/known-usage/support views update.",
+    "sourceGuard": "Old paid_core.guard(oldG/oldL) correctly becomes stale and must never be bypassed or rewritten. Existing old finalizer calls oldL guard and cannot finalize repaired HEAD. A prospective new fixed6 launcher/finalizer must freeze new current committed source/binaries/plan and separately pin applicable immutable old native inputs plus this established-scope evidence; use current public consumers, not old binary replay or bundle adoption."
+  },
+  "workflowBeforeApproval": [
+    "Finish both newly diagnosed offline optional-registration and strict synthetic-inventory fixes, retain original A2 actual false/8FAIL/1NOTRUN and all four numeric exits; obtain failure-first targeted and affected consumer/package evidence.",
+    "Review exact final delta and source sets: no runtime/SDK/model/catalog/endpoint/live producer change for retained generic10; all selected261 text and263 M3 source bytes unchanged. If this fails, expand only the actually affected identities and recompute a concrete budget.",
+    "Implement and keylessly verify a new immutable six-job prospective contract: original39 closed canonical receipts545/545, fixed108/132, independent exact source/binary/plan + five prerelease checks, approvalPENDING, no old intent reuse, no automatic next round; prepare concrete reviewable plans before asking.",
+    "Ask human explicitly for this distinct bounded additional round only after all authorized offline work and both reviews are complete. Existing72/96 or ticket13 continuation/unused headroom is not authority for another one-shot.",
+    "After approval run GLM3 once. If all3 own completePASS, strictly publish raw/known usage/support views through existing CLI and commit data. If anyFAIL, preserve failure and do not publish3PASS; no automatic retry.",
+    "Freeze current source after any approved selector/data updates; run only protocol114 plus visual2 once through explicit loopback proxy, derive current own Jev support, keylessly verify original text2/current visual2/M3formal3 and all17 own reports. Preserve original hashes/commits/timestamps for reused inputs.",
+    "Validate17 imports on fresh temporary matrix then default atomically; run new actual complete ordinary/race/two vets through the pinned compiled public gate with exact numeric exits. Never adopt old A2 bundle as a new current certificate."
+  ],
+  "routing": {
+    "china": "GLM new calls direct; original DeepSeek direct evidence retained unchanged",
+    "international": "New protocol/visual TypeSafe/OpenAI calls through explicit http://127.0.0.1:7890 only; official endpoints/TLS stay fixed; no ambient proxy/fallback",
+    "keys": "New paid processes need only GLM_KEY, TYPESAFE_KEY and OPENAI_KEY one selected key each; no DeepSeek/Anthropic/Google/MiniMax/M Plan key is read for reused identities."
+  },
+  "findings": [
+    {
+      "id": "POLICY-SCOPE-01",
+      "severity": "correction needed before approval question",
+      "location": "/tmp/barness-post-mapping-validation-proposal.md",
+      "message": "Its current reasoning treats generic native lack of HEAD/hash checks as the sole basis and then dismisses all reuse. Existing base spec327 and ADR0016 already define affected SDK/model/adapter scope. Rewrite the proposal around that established policy and conditional six-process108/132 budget; retain full18 only as an optional conservative choice, not a requirement."
+    }
+  ],
+  "noExecution": {
+    "tests": false,
+    "network": false,
+    "keys": false,
+    "sourceEdits": false,
+    "merges": false
+  },
+  "caveat": "Policy review only. Exact pending offline fix source and new prospective contract still require separate final review before any paid approval or execution."
+}

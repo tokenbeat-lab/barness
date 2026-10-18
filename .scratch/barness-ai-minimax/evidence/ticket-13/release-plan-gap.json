@@ -1,0 +1,200 @@
+{
+  "kind": "read-only-scoped-release-plan-diagnosis",
+  "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "noMutations": true,
+  "noTestsKeysOrNetwork": true,
+  "rootCause": {
+    "file": "ai/internal/testkit/release/plan.go",
+    "line": 24,
+    "approvedConstant": "803e5aa6b091bdb7557a68c824befe01289428ea688e0c58e6d9e2d5ca79c225",
+    "currentNormalizedMappingHash": "f1de4ce6b8a81f08b0ce27c56bc01f6c8fae9e8a8ca51c114c44d5a55acd21b6",
+    "originCommit": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+    "explanation": "The prior producer provenance repair renamed a pure metadata lookup away from the PIDIFF prefix, and updated7 trace rows but omitted the independent normalized approvedMappingHash. The normalized pre-ad20469 map exactly matches current constant803e..., while current trace is f1de.... CheckReleasePlan therefore rejects the otherwise intended renamed mapping, causing MM10-release-contract and P0-GLM13-release-trace-complete failures.",
+    "itemsBefore": 394,
+    "itemsNow": 394,
+    "topLevelOtherChanges": [],
+    "delta": [
+      {
+        "id": "MM-A19",
+        "changedFields": [
+          "cases",
+          "requiredCases"
+        ],
+        "requiredRemoved": [
+          "PIDIFF-MM06-frozen-catalog"
+        ],
+        "requiredAdded": [
+          "MM06-frozen-catalog-metadata"
+        ],
+        "oldRequiredCount": 29,
+        "newRequiredCount": 29,
+        "regexIsExactSingleRename": true
+      },
+      {
+        "id": "MM-R24",
+        "changedFields": [
+          "cases",
+          "requiredCases"
+        ],
+        "requiredRemoved": [
+          "PIDIFF-MM06-frozen-catalog"
+        ],
+        "requiredAdded": [
+          "MM06-frozen-catalog-metadata"
+        ],
+        "oldRequiredCount": 29,
+        "newRequiredCount": 29,
+        "regexIsExactSingleRename": true
+      },
+      {
+        "id": "MM-T03",
+        "changedFields": [
+          "cases",
+          "requiredCases"
+        ],
+        "requiredRemoved": [
+          "PIDIFF-MM06-frozen-catalog"
+        ],
+        "requiredAdded": [
+          "MM06-frozen-catalog-metadata"
+        ],
+        "oldRequiredCount": 29,
+        "newRequiredCount": 29,
+        "regexIsExactSingleRename": true
+      },
+      {
+        "id": "MM-US68",
+        "changedFields": [
+          "cases",
+          "requiredCases"
+        ],
+        "requiredRemoved": [
+          "PIDIFF-MM06-frozen-catalog"
+        ],
+        "requiredAdded": [
+          "MM06-frozen-catalog-metadata"
+        ],
+        "oldRequiredCount": 36,
+        "newRequiredCount": 36,
+        "regexIsExactSingleRename": true
+      },
+      {
+        "id": "MM-US71",
+        "changedFields": [
+          "cases",
+          "requiredCases"
+        ],
+        "requiredRemoved": [
+          "PIDIFF-MM06-frozen-catalog"
+        ],
+        "requiredAdded": [
+          "MM06-frozen-catalog-metadata"
+        ],
+        "oldRequiredCount": 29,
+        "newRequiredCount": 29,
+        "regexIsExactSingleRename": true
+      },
+      {
+        "id": "MM-US72",
+        "changedFields": [
+          "cases",
+          "requiredCases"
+        ],
+        "requiredRemoved": [
+          "PIDIFF-MM06-frozen-catalog"
+        ],
+        "requiredAdded": [
+          "MM06-frozen-catalog-metadata"
+        ],
+        "oldRequiredCount": 79,
+        "newRequiredCount": 79,
+        "regexIsExactSingleRename": true
+      },
+      {
+        "id": "MM-US73",
+        "changedFields": [
+          "cases",
+          "requiredCases"
+        ],
+        "requiredRemoved": [
+          "PIDIFF-MM06-frozen-catalog"
+        ],
+        "requiredAdded": [
+          "MM06-frozen-catalog-metadata"
+        ],
+        "oldRequiredCount": 666,
+        "newRequiredCount": 666,
+        "regexIsExactSingleRename": true
+      }
+    ]
+  },
+  "minimalLegitimateFix": {
+    "change": "After A2 completes unchanged, update only approvedMappingHash in plan.go from803e... to f1de4ce6b8a81f08b0ce27c56bc01f6c8fae9e8a8ca51c114c44d5a55acd21b6, with an explicit reviewed release-contract rationale linking the already reviewed7 exact case renames.",
+    "preserve": "No trace/item/scenario/assertion/required-case deletion, regex widening, model selector or budget changes. Preserve existing public additive-contract and GLM trace failed actuals as RED and exercise their current semantic negative controls on the repair.",
+    "runtimeMeaning": "This changes release acceptance bookkeeping, but existing measured source contracts also include that path in some paid evidence; do not infer applicability merely from package purpose."
+  },
+  "sourceScopes": [
+    {
+      "scope": "Outer G/L launcher freeze",
+      "files": 1047,
+      "containsPlanGo": true,
+      "effect": "Any plan.go change makes old paid_core.guard G/L source-at-start freeze stale. Those canonical intents remain closed and immutable; never rewrite or refresh old source/binary/approval pins."
+    },
+    {
+      "scope": "GLM3 own execution-source maps",
+      "filesEach": 217,
+      "containsPlanGo": false,
+      "effect": "This isolated file change does not alter GLM own selected execution maps. Responses stays actualFAIL and cannot publish3PASS raw selectors."
+    },
+    {
+      "scope": "M3three own execution-source maps",
+      "filesEach": 263,
+      "containsPlanGo": false,
+      "effect": "This isolated file change preserves M3 selected-source applicability and historical own formalPASS; do not relabel original commits."
+    },
+    {
+      "scope": "L2visual own source-hashes/codeHash",
+      "filesEach": 323,
+      "containsPlanGo": true,
+      "enforcement": "ai/examples/visualeval/verify.go:173-184 recomputes all non-test ai Go bytes and rejects current mismatch; release.visualEffect builds current public verifier.",
+      "effect": "Both visual reports become historical for a source containing the constant fix; rehashed snapshots or old binary verification cannot create current visualPASS."
+    },
+    {
+      "scope": "Lprotocol114 and derivedJevsupport own sourceHashes",
+      "filesEach": 861,
+      "containsPlanGo": true,
+      "recordedKey": "../internal/testkit/release/plan.go",
+      "enforcement": "ai/internal/testkit/jevformal/verify.go:148-180 compares every current ai Go file to original protocol sourceHashes; supportmatrix.NewJevReport/VerifyJevReport re-enters that check.",
+      "effect": "protocol114/Jev support become source-stale on the repaired tree; unchanged raw bytes remain historicalPASS at8fbd. Do not derive/repin them as current."
+    },
+    {
+      "scope": "L2Chinese text raw snapshots vs actual gate execution selection",
+      "rawSnapshotFilesEach": 860,
+      "rawContainsPlanGo": true,
+      "selectedExecutionFilesEach": 261,
+      "selectedContainsPlanGo": false,
+      "enforcement": "ai/internal/testkit/release/evaluation_source.go:31-50 explicitly excludes ai/internal/testkit/release/ and test/live/E2E code; CLI verifyCode checks recorded fullsnapshot integrity without current equality.",
+      "effect": "Existing text applicability survives this isolated release-tool file under the existing selection rule. Retain full raw codeHash/commit unchanged; no new exception or scope narrowing."
+    },
+    {
+      "scope": "L10 generic/Decisions live reports",
+      "GoExecutionMapInReport": false,
+      "codeHashInReport": false,
+      "effect": "Native reports carry measured8fbd gitCommit, catalog/SDK and actual manifests, not a dynamic all-Go map. Current release.liveEvidenceProblem requires nonempty measured commit plus matching current catalog/matrix/SDK and route-specific validation, not HEAD equality. plan.go alone does not introduce a native report current-source failure; do not advertise old outer1047 freeze as a new complete-source paid measurement."
+    }
+  ],
+  "safeDelivery": "Keep root8fbd/A2 race/source/inputs frozen through completion; retain exact4numericexits and full ordinary/race actuals including original8FAIL/NOT_RUN. A subsequent isolated offline source repair may show its own targeted behavior and new full-run outcome, but cannot be labelled a current complete certificate from the old A2 bundles, old visual/protocol/Jev reports, refreshed hashes, or unchanged old selectors. No further paid round is authorized; overall remainsPARTIAL unless original contract can actually be satisfied. GLM3FAIL publication and historical6import failures are independent blockers not solved by this digest update.",
+  "conservativeRenewalInterpretation": {
+    "nativeAdmissionIsNotFullFreshnessProof": "Generic L10 have no Go executionSource/codeHash in their native report. The current public live admission checks nonempty measured commit, current catalog/SDK, actual matrix/report/cases and provider-specific facts; it does not compare HEAD or full1047 Go hashes. Acceptance there does not constitute an established release-only execution-source exemption.",
+    "existingProofPolicyEvidence": [
+      "Ticket13 line13 expressly includes both older DeepSeekPASS identities for renewal against current source, rather than treating native admission as source freshness.",
+      "Ticket13 lines17–21 require frozen source/binary/plan, independent review and actual source/assertions for support/matrix/effects.",
+      "SpecT04: source changes must update evidence according to existing applicability rules and must not rewrite historical captures.",
+      "ROUTED-VALIDATION-1 has exactly3GLM+15legacy full native jobs, one-shot across worktrees/directories."
+    ],
+    "whySixIsUnproven": "3GLM plus onlyprotocol/visual3 would repair the strict dynamic current-map failures, but leaves the10generic current complete execution-source measurement unproved under the full-source renewal policy. Their native admission lacks a check rather than supplying a narrower selected source map. Do not retroactively shrink their source manifest or call an old8fbd measurement current.",
+    "textExceptionIsAlreadyEstablished": "Both Chinese text reports retain their full860-file historical codeHash; current release admission already uses the261-file evaluation execution selection excluding release tooling, so isolated plan.go change is not material there. This is distinct from inventing a generic exemption. It could support a separately reviewed prospective narrower contract, but does not change the currently fixed15-job phase or authorize replay.",
+    "conservativeConcreteFutureScope": "For a later explicit finite full-current-source renewal proposal after all fixes and offline checks, prepare3completeGLM processes and the complete15Lphase (18canonical jobs, existing72/96 plus302/302 ceilings) against new source/binaries/review/request pins. M3formal maps remain applicable if their263file sets do not change; MPlan stays0/0NOT_RUN. This is a proposed conservative scope, not permission or a claim that every native reader intrinsically forces15reruns. Current new-round intents remain closed and no unspent numerical headroom transfers.",
+    "noCurrentAuthorization": "No additional paid execution now. Preserve A2 original full result and complete the isolated offline repair first; only a subsequent concrete approved contract can acquire Keys for another round."
+  }
+}

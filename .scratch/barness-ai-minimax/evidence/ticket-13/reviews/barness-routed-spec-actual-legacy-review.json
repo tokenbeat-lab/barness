@@ -1,0 +1,27 @@
+{
+  "axis": "SPEC",
+  "decision": "PASS",
+  "findings": [],
+  "reviewedCommit": "534a7abc53f6d9fa5d4e513f3cbcd8a41f4d90b3",
+  "actualSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "scope": "Read-only static source/schema review and original archive/data/hash inspection. No verifier/test execution, Key read, network, merge or root/source/HEAD/input write.",
+  "pins": {
+    "archiveSHA256": "b8ebed319b4f6f3a7ea40d18fe9bf967f92959ca472cc41d1caf0b24b4a5ca87",
+    "archiveBytes": 5833549,
+    "indexSHA256": "d0a17474721deef08bd10e004762b117f9b669288b9dbfac7d8041b725622d62",
+    "summarySHA256": "80a69ed08f278a2089648ca06b11884234aceae92fd069a4b750aa79b4c560c8",
+    "scenariosSHA256": "1272719a2d6ff7bc6a4b1bab9c256d15d2da64be5b877e871530e72e90b9822f",
+    "verifierSHA256": "6aca7e2f1cd08337cc131a7f4922bb5056ee017c4f30217b4fc6818155bd31d6",
+    "negativeBoundaryProgramSHA256": "3b16b84813d8a63d8aa0249652f4c8425e549bc35c062a17e20c6619eb8ab4f7",
+    "boundedHelperSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f"
+  },
+  "observations": {
+    "archive": "5833549 compressed bytes/b8ebed31... and2228 exact member sizes/hashes match indexed inventory; decoded18063360 bytes. All2097 actual/ files match the original L file bytes. No extraction.",
+    "collections": "All15 collection processes PASS,180calls/180Attempts.155 scenario/sample rows preserve their native statuses: {'PASS': 82, 'UNSUPPORTED': 1, 'answered': 72}. OpenAI Chat reasoning-history remains UNSUPPORTED0/0, distinct from pro-model-unavailable(gpt-5.4-pro)PASS; no unsupported capability is upgraded.",
+    "attemptsAndUsage": "Independent final Attempt/wire counts match all15 canonical budgets and original report pins:180/180. Usage170complete/2partial/8unreported; known input-side63176/output9486, explicitly lower bounds and unknown10 preserved.",
+    "effectsAndSupport": "Both text and both visual original metrics equal summary quality fields. Jev own support is typesafe-classifier-jev-1.14.0 at8fbd with12 ownPASS; derived protocol/effects copies and complete support seal are preserved. All3 original A derive/temp-import/default-import receipts remain COMPLETED0 with no Key. Matrix retains17 exact identities and zhipu-responsesFAIL.",
+    "MPlanAndHistory": "M3.1threeNOT_RUN0/0 reports and separate no-Key commands/summary preserve missing entitlement, no paid intent. GLM companion remains own failed65/65; routed round245/245, prior300/300 and total545/545 scopes remain distinct. No new round authorization or complete spec PASS claimed."
+  },
+  "staticVerifierReview": "Fixed15route/schema/source constants, canonical report/command/source/review/authorization/check pins, own manifest/seal inventories, exact scenario statuses, independent Attempt/wire/usage sums, four raw quality fields, derived Jev copies, matrix17 and MPlanNOT_RUN are checked against pinned raw archive. Reused exact reviewed bounded helper enforces compressed SHA before parse, finite decode/member/count/path sizes, nonregular/symlink and duplicate/omission refusal, gzip drain and no extraction. Eight archived negative checks include false usage, UNSUPPORTED laundering, redirected own report and helper mutation. verify.py imports no paid modules and executes no network/real requests; no negative check was executed by this reviewer.",
+  "limitations": "Integrity/accounting/quality retention review only. The running A2 full release gate and overall GLM blocker remain separately reported."
+}

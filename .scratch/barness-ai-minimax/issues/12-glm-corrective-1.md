@@ -3,7 +3,7 @@
 Status: ready-for-human
 Type: task
 Updated: 2026-10-18
-Blocked by: actual GLM Responses native-history failure
+Blocked by: current GLM Responses actual failure (ticket13); original one-round contract closed
 
 ## Context
 
@@ -32,3 +32,6 @@ Blocked by: actual GLM Responses native-history failure
 Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66/66 plus corrective-1. Prior GLM-task paid history (including its separate282-call contract) remains immutable and separately accounted; this extension does not erase or reset it.
 
 2026-10-18补充：便携证据校验器已完成先失败再修复的有界解压验证，原程序和原索引字节另行保留，当前校验器版本独立登记；见[retention-bounds](../evidence/ticket-12/retention-bounds/README.md)。这是离线保留修复，不改变原轮/R1实际结果、消费或审批范围。
+
+
+2026-10-18票13新增路由合同的实际结果另列：三路65calls/65Attempts，Chat/Messages各22场景PASS，Responses19PASS/3FAIL；两个native-history均PASS，但glm-5.3/tool-call与control-max约90秒超时，tool-result依赖失败0/0。此结果不改写本票原R1缺正文捕获或66/66消费，也不是本票自动R2。严格续期仍拒绝，后续额外付费尚未批准。当前GLM阻断以[票13实际证据](../evidence/ticket-13/actual-glm/README.md)和[交付状态](../delivery-status.md)为准。

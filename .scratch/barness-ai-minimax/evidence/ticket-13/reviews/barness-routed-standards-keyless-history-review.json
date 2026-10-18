@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED",
+  "reviewedSource": "a3a9097dcf13d42217337be35718f8ae21c5d174",
+  "integrationHeldAt": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "fixedPoint": "534a7abc53f6d9fa5d4e513f3cbcd8a41f4d90b3",
+  "diffCommand": "git diff 534a7abc...a3a9097dcf13d42217337be35718f8ae21c5d174",
+  "diffSHA256": "c6135fe37187f73bd65e93eea015d6375ecc180000dadf615b4509c645a0c9f1",
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "findings": [],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "metadataOnly": true,
+  "scope": "Static Standards review and read-only complete archive hashing. No captured program, verifier, test, Key or network execution and no root write/merge during active race.",
+  "archive": {
+    "sha256": "997bdf9e25ec98192636ba83d0a0e742f0125cf975a1c04aa0221c2015669782",
+    "bytes": 66090602,
+    "regularMemberHashesVerified": 81742,
+    "observedMembers": 73,
+    "observedOriginalFilesByteMatched": 65,
+    "rawBytes": 799768259
+  },
+  "readerSHA256": "1d2fc4888e51b18c946dfa8d216b18e07a50551c54df900422815e87adc42e5e",
+  "verifierSHA256": "ee67a34025960e6770e54a68e45eac7b80ca16e9fb7e865259b510b7e38fbf2e",
+  "boundaryProgramSHA256": "f56b645e1864583271a241ef79bb5680f16acdde265751f0c61905833e6e270c",
+  "fixedLimits": {
+    "compressedBytes": 201326592,
+    "decodedTarBytes": 1073741824,
+    "files": 90000,
+    "entries": 100000,
+    "memberBytes": 67108864,
+    "observedMetadataBytes": 1048576,
+    "inventoryDecodedBytes": 25165824,
+    "inventoryCompressedBytes": 8388608
+  },
+  "notes": [
+    "Distinct larger reader is explicitly justified by original81742-file interrupted history; existing implementation reader bytes and its smaller limits remain unchanged.",
+    "Compressed hash precedes parsing; new streaming reader fixes192MiB compressed/1GiB decoded/90k files/100k entries/64MiB member/24MiB inventory/1MiB observed and8MiB observed-total limits, rejects path/symlink/duplicate/missing/member drift and drains gzip to its trailer without extraction.",
+    "All81742 member hashes match the pinned inventory; observed original interrupted/probe/frozen-preparation files match current originals byte-for-byte.",
+    "Old A remains -15/no report/no numeric internal exits/no race; RED Go-run observer absence and GREEN direct compiled vet0 remain distinct.",
+    "A2 preparation is limited to an exact11-file allowlist and records no live gate/progress/intent/output; historical83 programs remain bytes-only and f7c2 actual phase parent source is pinned separately.",
+    "Ten negative guard receipts describe temporary/sparse metadata fixtures only; no captured command or paid work is replayed, certified or authorized here."
+  ]
+}

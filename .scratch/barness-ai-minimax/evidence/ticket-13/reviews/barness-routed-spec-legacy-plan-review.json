@@ -1,0 +1,69 @@
+{
+  "axis": "SPEC",
+  "decision": "PASS",
+  "reviewedCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "base": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+  "findings": [],
+  "preparedPins": {
+    "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+    "sourceManifestSHA256": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+    "binariesManifestSHA256": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+    "planSHA256": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+    "preparedSHA256": "5209ddd33c6206a0f292fbd800c9aef5c6a4d8d2c969ebf759905fc42e15c13c"
+  },
+  "binaries": {
+    "live.test": "a960ae7839003178863c25a9c78fad86c96fa2f449b923f990ad3a85113733fe",
+    "chineseeval": "8842c6a1f1b46f299559f180962f9badfbee3db1e697c572df9af84f3c24c3af",
+    "visualeval": "d5eef21e87b8cbeddcc2c9a2f558a8347c2ac3fe6b4971dc554b1d6f101f0823"
+  },
+  "authorizedRoutes": [
+    "routed-validation-1-openai-responses",
+    "routed-validation-1-openai-chat",
+    "routed-validation-1-anthropic-messages",
+    "routed-validation-1-google-gemini",
+    "routed-validation-1-deepseek-responses",
+    "routed-validation-1-deepseek-chat",
+    "routed-validation-1-openai-images",
+    "routed-validation-1-google-interactions-image",
+    "routed-validation-1-openai-decisions",
+    "routed-validation-1-typesafe-classifier",
+    "routed-validation-1-protocol114",
+    "routed-validation-1-text-jev",
+    "routed-validation-1-text-luna",
+    "routed-validation-1-visual-jev",
+    "routed-validation-1-visual-decisions"
+  ],
+  "credentialScopes": {
+    "OPENAI_KEY": "routed-validation-1/international-loopback-proxy",
+    "ANTHROPIC_KEY": "routed-validation-1/international-loopback-proxy",
+    "GEMINI_KEY": "routed-validation-1/international-loopback-proxy",
+    "DEEPSEEK_KEY": "routed-validation-1/china-direct",
+    "TYPESAFE_KEY": "routed-validation-1/international-loopback-proxy"
+  },
+  "planReview": "Exactly15 complete native jobs:10 generic/special smoke identities, protocol114,2text and2visual. Both DeepSeek jobs are direct with no proxy injection;13 international jobs use only explicit loopback HTTP127.0.0.1:7890 through the existing native env/CLI seam. Original selectors, formal flags, endpoints, models and per-process budgets remain fixed. Legacy max302/302; newround max374/398 and prior300/300 remain distinct. Isolated paid_core environment carries no ambient proxy or provider Key; exactly the reviewed selected sourceVariable is acquired by each child after source/check/review/request guards. No replay or automatic next round.",
+  "sourceApplicability": {
+    "glmMeasuredCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+    "legacyPreparedCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+    "files": 1047,
+    "selectedFileMapsEqual": true,
+    "currentFilesMatchPrepared": true,
+    "comment": "Commits differ solely by retained metadata/docs, not selected Go/tool execution bytes. This does not upgrade failed GLM evidence or publish new selectors."
+  },
+  "helperSHA256": {
+    "/tmp/barness-routed-final-keyless.py": "9e948f217a64bbed41cc6ae6bf9293f5d4cc99db975d148abc0cc82db462b02a",
+    "/tmp/barness-routed-go-recorder.py": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+    "/tmp/barness-routed-run-phase.py": "f7c2b86676e7a46e1aabeb4c37300eaa75663060a23420d0d518f98ce04cc29f"
+  },
+  "helpersMatchPriorRereview": true,
+  "metadataOnlyReview": "51..8fbd adds implementation history/frontdoor only. README explicitly retains actual working-tree measured2731aaa/b327fc4 bases rather than relabelling them83/51,15FAIL/audit2 and fragment/cross-phase REDs, and both fixture errors.58/5tool results remain scoped offline; empty vet logs alone are explicitly insufficient numeric receipts. verify.py reads only the two fixed capsules, validates compressed hash before bounded stream parsing, validates member/inventory/source hashes and retained observations, rejects symlink/nonregular/path/count/size/duplicate faults, drains gzip, and performs no extraction, Key read, network or writes. No provider/full-release PASS upgrade is claimed.",
+  "metadataPins": {
+    "README.md": "5213f33a6851c5c48379ce4d0940b79ecab1e4081716f8b023dff2419db24a24",
+    "verify.py": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+    "index.json": "4071b95e60e1e7b7a0f63334631c70c0659d47a84dacfd8fd4b483cc46b6a09f",
+    "observations.json": "07954dd604a8105240484d18d6509ea9db3c6b528bd4f1b0213304a7e36e5cc7",
+    "validation.json": "a088a9417624fa46db7dd358aed2fd0b55eaf8386ab227a8a056cfc543243ba1",
+    "boundary-checks.json": "8c1881db744087b95eb73779cc0318313830f68ca45a0c850728cdc22eca6ec4"
+  },
+  "prepayStatus": "Plan/source/binaries independently reviewed PASS. checks.json was not yet complete when inspected; launcher must still require passed no-Key checks and exact independent source-review/request authorization before any Key acquisition. Review does not itself authorize bypassing those guards.",
+  "performed": "Read-only source/diff/JSON/hash inspection. No source edits, tests, .env, Keys, paid process or vendor calls."
+}

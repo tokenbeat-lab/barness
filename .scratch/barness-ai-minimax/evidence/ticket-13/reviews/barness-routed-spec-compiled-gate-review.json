@@ -1,0 +1,27 @@
+{
+  "axis": "SPEC",
+  "decision": "PASS",
+  "findings": [],
+  "reviewedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "scope": "Static review of the one-shot keyless compiled public releasegate orchestration and exact prepared artifacts. No helper/test/fullgate execution, no Key read or vendor call by this reviewer.",
+  "pins": {
+    "helperSHA256": "a1ecf4a0b2285732aada1a9d7026f693f7c05cef5b73ddb21b1a2bfe13226d4a",
+    "observerSHA256": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+    "planSHA256": "3311e853c2ab5dee938e0e533ccf3e7068b5d248d72acc5fd99f6c4beb436c5a",
+    "binarySHA256": "c54a7d07f5780711af334a4369dcfd1dbb2b3b8bd440f09962b88831d11a906a",
+    "binaryBytes": 30338354,
+    "binaryMetadataSHA256": "cc030b8a4848df0cf8d0b877fa2a6ad1d0609f8e50d5010d60111ccddd61eeb7",
+    "buildReceiptSHA256": "906ac6e9f540690b907eb157a4e217980c7466346c7c852295ee02be394cffaa",
+    "realGoSHA256": "005640c7ff93028cb704283b0f737f2db3faf8b51b2561170c769b83905da646",
+    "probeSummarySHA256": "20565d2460ab3e572b90f9c3a00bc58055ff4d767345f32960ef60f772126507"
+  },
+  "checks": {
+    "preparedBuild": "Exact /usr/local/go/bin/go build -o <A2>/releasegate ./ai/release/cmd/releasegate; completed exit0, credentialsReadfalse. Binary/source/build receipt hashes match plan and copied helper/observer match reviewed bytes.",
+    "sourceAndInputs": "HEAD8fbd1700 and1047 frozen execution file hashes remain exact. All137 original input pins match. G18canonical actuals retain GLM ResponsesFAIL21/21 plus others; new total245/245. Current17-identity matrix matches the original successful matrix-after bytes. Existing Jev support derivation and temporary/default matrix merge each retain original completed0 receipts.",
+    "execution": "Fresh A2 and exclusive intent; rebuilds the same unchanged public CLI and directly executes that binary. Fixed eight public verifications recheck2text+2visual+Jev+M3three without deriving support or merging again. Gate receives17own identities and4effects, with no -bundle/-race adoption flags; thus ordinary/race, both vet, frozen PIDiff and pressure execute through current public CLI.",
+    "observability": "Permanently pinned observer remains first in PATH for direct binary execution. It records current exact4commands only at repository cwd; all4 completed numeric exits are required for verdict, and zero plus public report.pass true are required for PASS.",
+    "probe": "Read original same-probe source, RED/GREEN logs and receipts: go run resolved real GOROOT Go and left observer absent while vet exited0; direct compiled probe resolved shim, retained observer vet0 receipt. Local base.RunStdin source confirms AppendPATH prepends GOROOT/bin. These diagnostics are keyless and do not substitute for full release verification.",
+    "oldAttempt": "Original A gate exit-15, absent release report and false summary remain distinct and unchanged; interruption annotation records only owned process group termination and no survivors. New A2 does not upgrade that original attempt."
+  },
+  "unperformed": "Actual A2 execution-intent and actual-releasegate receipt absent at inspection. This review certifies the prepared mechanism and pins only; provider/full-release outcomes remain their own actual results."
+}
