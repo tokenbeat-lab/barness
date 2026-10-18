@@ -21,3 +21,5 @@
 [留存索引](index.json)和gzip全文件inventory指向主仓库 `.evidence/minimax-retained/ticket18-messages-cancel-actual/raw.tar.gz`，包括首次审计拒绝、最终无Key检查、原始真实请求/SSE/事件/断言、完整性报告及所有收据；可用标准gzip/tar读取，无需运行收费入口。实际报告原件在 `.evidence/glm-messages-cancel-20261019-1/actual/20261018T230218.566865000Z/diagnostic-glm-messages-cancel-report.json`。二进制按独立SHA留在原输出目录，未收入Git或原件压缩包。
 
 原120001ms超时失败所有文件哈希仍匹配 [原失败pins](original-failure-pins.json)；四个正式selector及默认矩阵仍匹配 [执行前pins](publication-before.json)。没有拼接原21个通过场景、生成新的formal22支持报告或修改矩阵。**此PASS只更新该单场景的最新观察**；当前来源下的全Messages正式报告、11组严格来源资格、GLM严格续期/四报告装配以及完整发布门禁仍开放。交付保持PARTIAL，本轮1/1授权与进程均已关闭。
+
+最终实际结果与上下文在提交 `3227b5a` 接受独立[Standards](final-standards-review.json)及[Spec](final-spec-review.json)复核，两轴均0发现。该复核覆盖本次单场景、留存与上下文，不授予完整正式验收认证。[清理记录](cleanup.json)确认本轮两个自建工作树和临时二进制已移除，原冻结二进制及原件继续留存，两个用户目录保持。

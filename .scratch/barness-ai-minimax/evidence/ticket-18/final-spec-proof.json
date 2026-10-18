@@ -1,0 +1,764 @@
+{
+  "baseCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "reviewedCommit": "3227b5a8d627ff6a90abf4c961280f2def5617c5",
+  "diffSHA256": "dae97a0c89d01428f6f876c077d68a36a3725634ac80c0bcfb80b7bd4ba4f5ac",
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/delivery-status.md": {
+      "bytes": 6027,
+      "sha256": "12c6dc9f024b97549018badbcca059099c10f6da61bc7f9df5e64ada689ff249"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-09/international-delivery-status.json": {
+      "bytes": 15594,
+      "sha256": "bf9f114e24f13c600fb29d0349e8458017a6c2ada5e4484998ec1f648521c7b3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/README.md": {
+      "bytes": 3484,
+      "sha256": "87f681bad3ba3a97e74e635fcfcc38c8b48511fa2d6632eaae063e1ae4ce295e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/actual-command.json": {
+      "bytes": 818,
+      "sha256": "a23936d88decb4575959b18811a963f725c8d2ac2fe2b9d0da05c3e08c826129"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/authorization.json": {
+      "bytes": 745,
+      "sha256": "73277790beef3960e35f5b708992ae4c684a37aad943517646e4b8bc37a5bb9e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/binaries.json": {
+      "bytes": 86,
+      "sha256": "2e86e2fab97bdaee9b0161433b73a22ea1012f5d24e984725fbdf8558cb50d5c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/checks-temp.json": {
+      "bytes": 259,
+      "sha256": "c9ffe3a957348e4a2dd236fe09a49aac4bb99ffa4b1caf2aade0c817c24ffb25"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/checks.json": {
+      "bytes": 119,
+      "sha256": "1b26b3d0967465baca897afd5a6d39b3b15d836da6b82d4b99334acdb848a330"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/cleanup.json": {
+      "bytes": 1224,
+      "sha256": "6b09ad67ed0ae3c2909afc7c4d93b02ccae35ae8188b6e6cc4eaf35600bcb118"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/execution-binary.json": {
+      "bytes": 210,
+      "sha256": "f11f51f7f98d129214d73afb0051ea9d19c20bb6a8868ffecf11aded98f5d84e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/index.json": {
+      "bytes": 745,
+      "sha256": "4a5be85784468c890f6df56f7ded50baa2fc3bee7fdb969f3c28c814978c965e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/original-failure-pins.json": {
+      "bytes": 1620,
+      "sha256": "a3a0ad26d7c24a15a4e1340db9d509c98ad37f9f242fa78af63147f7f25cd648"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/paid-intent.json": {
+      "bytes": 627,
+      "sha256": "85ad80d8b3bbee3b7b4a782b0ee49044e2507219f99f81039ed7165314bfec51"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/plan.json": {
+      "bytes": 1093,
+      "sha256": "39a25cba7bcb48635983fdeba3a7a08b5c2c5958df54dc8745bc45a9d974a68a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/post-source-guard.json": {
+      "bytes": 169,
+      "sha256": "1bd21e50c929a3810e3f4f0db8ddc4cd7f4c14500615ee826d8854edadad110a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/preparation-error.json": {
+      "bytes": 254,
+      "sha256": "033f6f6de292ae52f11baaaec9b94b036103675e3840d1f888cbd38666c4c129"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/prepared.json": {
+      "bytes": 824,
+      "sha256": "652cc3bb98b216a960587a3f3a5e0857aa2bd2a3c0cc2abe931f5d747245ad46"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/publication-before.json": {
+      "bytes": 584,
+      "sha256": "abf13919d50b06324bd9d63b8e6c14b111020f972f52ef4338a1280d93350fd0"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/raw-inventory.json.gz": {
+      "bytes": 8519,
+      "sha256": "60c81d36cf22921205a39c753304e520548d57d88e7d8694dcc6fc3e20eacd79"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/result.json": {
+      "bytes": 1235,
+      "sha256": "8bdac8a2bf65c222f67976dcbd2f674fb3528737c06f0aa7aa55bf162b91c86d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/reviewed-integration.json": {
+      "bytes": 7338,
+      "sha256": "2583d539518ff04116230e5f1f7f5594259f8e332897f350c595944c51289d35"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/source-at-start.json": {
+      "bytes": 117813,
+      "sha256": "fe59e559a2a44d5935c0ce9b896e52e207fc74c482eabe1173d22512914dc8da"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/spec-independent-proof.json": {
+      "bytes": 48885,
+      "sha256": "4e148370e212a04367d4ea866b664c92a2df3a3eb2ec32b0d86a3b0ebc0b088b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/spec-review.json": {
+      "bytes": 9558,
+      "sha256": "2309dc828acefe4522270a57522fc0adbcb93253161d269608794b82c70acdee"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/standards-independent-readhash.json": {
+      "bytes": 3847,
+      "sha256": "251369c8a283007421b46a128e2834bbd40cee88b7852c0002628cdb5ec3993e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/standards-review.json": {
+      "bytes": 5243,
+      "sha256": "9333bdf92a88195fa37b11da9fa57a3b4e8fc9888048bc10615075290be3a92f"
+    },
+    ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md": {
+      "bytes": 7602,
+      "sha256": "4fa356f78e1c7c6ace1b4a2cb69d7e554aded2060265b3df9a6bfc8bd82522e0"
+    },
+    ".scratch/barness-ai-minimax/issues/18-glm-messages-cancel-rerun.md": {
+      "bytes": 2218,
+      "sha256": "721dccf7d7dbc96ee5d3f918e11988d8ee0752c90314912261130681317bfda7"
+    },
+    ".scratch/barness-ai-minimax/map.md": {
+      "bytes": 15131,
+      "sha256": "a8c65adc87dfcdab3dd6db0686dd3b1915e22c73c592cbcc354b930d323ed403"
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "archive": ".evidence/minimax-retained/ticket18-messages-cancel-actual/raw.tar.gz",
+    "archiveSHA256": "e2da2879c3ed153efabe7fdcbf8336a9be12445c951b08f539212ea12af6c877",
+    "compressedBytes": 143442,
+    "files": 237,
+    "payloadBytes": 684595,
+    "inventorySHA256": "60c81d36cf22921205a39c753304e520548d57d88e7d8694dcc6fc3e20eacd79",
+    "binaryExcluded": true,
+    "binaryRetained": ".evidence/glm-messages-cancel-20261019-1/live.test",
+    "binarySHA256": "4d8d64291c6d10466c010b1aa950ad48366f61c048642d2a63bee16868c66f33",
+    "nativeIntegrityChecked": true,
+    "nativeIntegrityFiles": 18,
+    "initialPreflightFailureRetained": true,
+    "preparationSchemaErrorRetained": true,
+    "credentialsCopied": false,
+    "releaseCertified": false
+  },
+  "archiveMembers": 237,
+  "payloadBytes": 684595,
+  "decodedTarBytes": 1116160,
+  "sourceFilesVerified": 1061,
+  "binaryBytes": 36073682,
+  "binarySHA256": "4d8d64291c6d10466c010b1aa950ad48366f61c048642d2a63bee16868c66f33",
+  "sourceCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "preparedPinsChecked": true,
+  "command": {
+    "state": "COMPLETED",
+    "name": "actual",
+    "argv": [
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-glm-cancel-wxppqpyz/live.test",
+      "-test.run=^TestGLMMessagesCancelDiagnostic$",
+      "-test.timeout=180s",
+      "-test.count=1",
+      "-test.v"
+    ],
+    "cwd": "$REPO/ai/live",
+    "timeoutSeconds": 210,
+    "credentialsInherited": false,
+    "sourceVariable": "GLM_KEY",
+    "injectedCredential": "BARNESS_GLM_KEY",
+    "credentialsRead": true,
+    "startedAt": "2026-10-18T23:02:18.528108+00:00",
+    "exitCode": 0,
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_AI_LIVE",
+      "BARNESS_GLM_DIAGNOSTIC",
+      "BARNESS_GLM_KEY",
+      "BARNESS_GLM_ROUTE",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "seconds": 0.9927180409431458,
+    "launcherAudit": {
+      "passed": true,
+      "findings": []
+    }
+  },
+  "intent": {
+    "state": "COMPLETED",
+    "round": "glm-messages-cancel-20261019-1",
+    "authorizationSHA256": "73277790beef3960e35f5b708992ae4c684a37aad943517646e4b8bc37a5bb9e",
+    "sourceCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "planSHA256": "39a25cba7bcb48635983fdeba3a7a08b5c2c5958df54dc8745bc45a9d974a68a",
+    "binarySHA256": "4d8d64291c6d10466c010b1aa950ad48366f61c048642d2a63bee16868c66f33",
+    "maxCalls": 1,
+    "maxHTTPAttempts": 1,
+    "automaticReruns": false,
+    "credentialsRead": true,
+    "exitCode": 0,
+    "launcherAudit": {
+      "passed": true,
+      "findings": []
+    },
+    "finishedAt": "2026-10-18T23:02:19.533964+00:00"
+  },
+  "manifests": {
+    "actual/20261018T230218.566865000Z/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      }
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-429/child/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-formal-mixed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-formal-narrowed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-missing-key/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-narrowed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-proxy/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-success/child/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      }
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-wrong-model/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight/20261018T230058.661430000Z/GLM18-diagnostic-process-wrong-route/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight/20261018T230058.661430000Z/manifest.json": {
+      "cases": 9,
+      "statuses": {
+        "PASS": 9
+      }
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-429/child/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-formal-mixed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-formal-narrowed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-missing-key/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-narrowed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-proxy/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-success/child/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      }
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-wrong-model/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight-temp/20261018T230140.264304000Z/GLM18-diagnostic-process-wrong-route/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "preflight-temp/20261018T230140.264304000Z/manifest.json": {
+      "cases": 9,
+      "statuses": {
+        "PASS": 9
+      }
+    }
+  },
+  "artifactReferences": 267,
+  "nativeIntegrityFiles": 18,
+  "report": {
+    "schema": 1,
+    "kind": "glm-single-case-diagnostic-only",
+    "outcome": "PASS",
+    "complete": true,
+    "auditPassed": true,
+    "route": "messages",
+    "api": "anthropic-messages",
+    "endpoint": "https://open.bigmodel.cn/api/anthropic",
+    "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+    "catalogVersion": "2026-10-18.1-minimax",
+    "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+    "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+    "gitCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "mode": "live",
+    "accountAlias": "local-glm",
+    "regionAlias": "cn-standard-endpoint",
+    "accountVerification": "unknown",
+    "regionVerification": "unknown",
+    "privilegeVerification": "unknown",
+    "startedAt": "2026-10-18T23:02:18.566778Z",
+    "finishedAt": "2026-10-18T23:02:19.482726Z",
+    "processDeadline": "2026-10-18T23:05:18.566778Z",
+    "executionDeadline": "2026-10-18T23:04:58.566778Z",
+    "budget": {
+      "replayAttempts": 0,
+      "plannedCalls": 1,
+      "maxCalls": 1,
+      "maxAttempts": 1,
+      "maxOutputTokens": 4096,
+      "callSeconds": 120,
+      "processSeconds": 180,
+      "finalizationReserveSeconds": 20,
+      "callsUsed": 1,
+      "attemptsReserved": 1,
+      "httpAttempts": 1,
+      "retries": 0
+    },
+    "expected": [
+      "glm-5.3/cancel"
+    ],
+    "scenarios": [
+      {
+        "replayAttempts": 0,
+        "id": "glm-5.3/cancel",
+        "model": "glm-5.3",
+        "outcome": "PASS",
+        "failure": "",
+        "calls": 1,
+        "httpAttempts": 1,
+        "durationMs": 861,
+        "providerRequestIds": [
+          "3edbd188-7831-4ede-95ec-546ffe02a846"
+        ],
+        "requestIdSources": [
+          "response header:x-request-id"
+        ],
+        "requestId": "req-a7a5ae3e33a58de5372a0e8fc38e48e3",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": [
+          "partial"
+        ],
+        "rawUsagePresence": [
+          {
+            "input_tokens": 0,
+            "output_tokens": 0
+          }
+        ],
+        "truncated": false
+      }
+    ],
+    "models": {
+      "glm-5.3": "PASS"
+    },
+    "failure": "",
+    "unknown": [
+      "vendor account/region/permissions/billing",
+      "capacity load not tested",
+      "storage/time charges",
+      "acceptance does not establish intensity"
+    ]
+  },
+  "attemptResult": {
+    "error": "ai: canceled (stream): Request was aborted",
+    "result": {
+      "message": {
+        "content": [
+          {
+            "thinking": "The"
+          }
+        ],
+        "api": "anthropic-messages",
+        "provider": "zhipu",
+        "model": "glm-5.3",
+        "responseId": "msg_20261019070218fcd6054b5d7e4c39",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "aborted",
+        "errorMessage": "Request was aborted",
+        "timestamp": 1792364538616,
+        "durationMs": 862
+      },
+      "metadata": {
+        "tenantId": "live-smoke",
+        "requestId": "req-a7a5ae3e33a58de5372a0e8fc38e48e3",
+        "jobId": "live-smoke",
+        "bindingId": "zhipu-messages-diagnostic",
+        "operation": "chat",
+        "resolved": true,
+        "providerId": "zhipu",
+        "api": "anthropic-messages",
+        "modelId": "glm-5.3",
+        "accountScopeId": "live-zhipu-messages-diagnostic",
+        "bindingVersion": "live",
+        "credentialVersion": "live",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "attempts": [
+          {
+            "attemptId": "req-a7a5ae3e33a58de5372a0e8fc38e48e3#1",
+            "httpStatus": 200,
+            "providerRequestId": "3edbd188-7831-4ede-95ec-546ffe02a846",
+            "usageReporting": "partial",
+            "usage": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 0,
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "exchanges": [
+    {
+      "method": "POST",
+      "url": "https://open.bigmodel.cn/api/anthropic/v1/messages?beta=true",
+      "requestHeaders": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "barness-ai",
+        "x-api-key": "[REDACTED]",
+        "x-stainless-lang": "go",
+        "x-stainless-package-version": "1.75.0",
+        "x-stainless-retry-count": "0",
+        "x-stainless-runtime": "go",
+        "x-stainless-timeout": "600"
+      },
+      "requestBody": "{\"max_tokens\":4096,\"messages\":[{\"content\":[{\"text\":\"Write the integers from 1 through 1000, one per line.\",\"type\":\"text\"}],\"role\":\"user\"}],\"model\":\"glm-5.3\",\"stream\":true}",
+      "status": 200,
+      "responseHeaderNames": [
+        "access-control-allow-headers",
+        "access-control-allow-origin",
+        "alt-svc",
+        "cache-control",
+        "content-type",
+        "date",
+        "ga-traceid",
+        "set-cookie",
+        "vary",
+        "x-log-id",
+        "x-process-time",
+        "x-request-id"
+      ],
+      "responseHeaders": {
+        "content-type": "text/event-stream; charset=utf-8",
+        "ga-traceid": "6219beec2e4f89bfea27c2a97069d42a",
+        "x-request-id": "3edbd188-7831-4ede-95ec-546ffe02a846"
+      },
+      "responseBody": "event: message_start\ndata: {\"type\": \"message_start\", \"message\": {\"id\": \"msg_20261019070218fcd6054b5d7e4c39\", \"type\": \"message\", \"role\": \"assistant\", \"model\": \"glm-5.3\", \"content\": [], \"stop_reason\": null, \"stop_sequence\": null, \"usage\": {\"input_tokens\": 0, \"output_tokens\": 0}}}\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_start\ndata: {\"type\": \"content_block_start\", \"index\": 0, \"content_block\": {\"type\": \"thinking\", \"thinking\": \"\", \"signature\": \"\"}}\n\nevent: content_block_delta\ndata: {\"type\": \"content_block_delta\", \"index\": 0, \"delta\": {\"type\": \"thinking_delta\", \"thinking\": \"The\"}}\n\n",
+      "elapsedMs": 860
+    }
+  ],
+  "events": {
+    "schema": 1,
+    "partialPolicy": "event-owned fields in order; shared live Partial recorded once after drain",
+    "events": [
+      {
+        "type": "start",
+        "call": {
+          "tenantId": "live-smoke",
+          "requestId": "req-a7a5ae3e33a58de5372a0e8fc38e48e3",
+          "jobId": "live-smoke",
+          "bindingId": "zhipu-messages-diagnostic",
+          "operation": "chat",
+          "resolved": true,
+          "providerId": "zhipu",
+          "api": "anthropic-messages",
+          "modelId": "glm-5.3",
+          "accountScopeId": "live-zhipu-messages-diagnostic"
+        },
+        "event": {
+          "Partial": null
+        }
+      },
+      {
+        "type": "thinking_start",
+        "call": {
+          "tenantId": "live-smoke",
+          "requestId": "req-a7a5ae3e33a58de5372a0e8fc38e48e3",
+          "jobId": "live-smoke",
+          "bindingId": "zhipu-messages-diagnostic",
+          "operation": "chat",
+          "resolved": true,
+          "providerId": "zhipu",
+          "api": "anthropic-messages",
+          "modelId": "glm-5.3",
+          "accountScopeId": "live-zhipu-messages-diagnostic"
+        },
+        "event": {
+          "ContentIndex": 0,
+          "Partial": null
+        }
+      },
+      {
+        "type": "thinking_delta",
+        "call": {
+          "tenantId": "live-smoke",
+          "requestId": "req-a7a5ae3e33a58de5372a0e8fc38e48e3",
+          "jobId": "live-smoke",
+          "bindingId": "zhipu-messages-diagnostic",
+          "operation": "chat",
+          "resolved": true,
+          "providerId": "zhipu",
+          "api": "anthropic-messages",
+          "modelId": "glm-5.3",
+          "accountScopeId": "live-zhipu-messages-diagnostic"
+        },
+        "event": {
+          "ContentIndex": 0,
+          "Delta": "The",
+          "Partial": null
+        }
+      },
+      {
+        "type": "error",
+        "call": {
+          "tenantId": "live-smoke",
+          "requestId": "req-a7a5ae3e33a58de5372a0e8fc38e48e3",
+          "jobId": "live-smoke",
+          "bindingId": "zhipu-messages-diagnostic",
+          "operation": "chat",
+          "resolved": true,
+          "providerId": "zhipu",
+          "api": "anthropic-messages",
+          "modelId": "glm-5.3",
+          "accountScopeId": "live-zhipu-messages-diagnostic"
+        },
+        "event": {
+          "Reason": "aborted",
+          "Message": {
+            "content": [
+              {
+                "thinking": "The"
+              }
+            ],
+            "api": "anthropic-messages",
+            "provider": "zhipu",
+            "model": "glm-5.3",
+            "responseId": "msg_20261019070218fcd6054b5d7e4c39",
+            "usage": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "totalTokens": 0,
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "total": 0
+              }
+            },
+            "stopReason": "aborted",
+            "errorMessage": "Request was aborted",
+            "timestamp": 1792364538616,
+            "durationMs": 862
+          },
+          "Err": {
+            "Code": "canceled",
+            "Phase": "stream",
+            "Message": "Request was aborted",
+            "HTTPStatus": 200,
+            "ProviderRequestID": "3edbd188-7831-4ede-95ec-546ffe02a846",
+            "RetryAfter": 0
+          }
+        }
+      }
+    ],
+    "finalPartial": {
+      "content": [
+        {
+          "thinking": "The"
+        }
+      ],
+      "api": "anthropic-messages",
+      "provider": "zhipu",
+      "model": "glm-5.3",
+      "responseId": "msg_20261019070218fcd6054b5d7e4c39",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      },
+      "stopReason": "aborted",
+      "errorMessage": "Request was aborted",
+      "timestamp": 1792364538616,
+      "durationMs": 862
+    },
+    "overflow": false
+  },
+  "originalFailurePreserved": {
+    "directory": ".evidence/minimax-release-repair-glm-1/glm-messages/20261018T113921.111086000Z/GLM11-glm-5.3-cancel",
+    "files": {
+      "assertions.json": "e15d054c2815194cc4f0c11dc9cc8ec31d948982f4a09ce0c234aa22b16fe092",
+      "attempt-1-exchanges.json": "50476f0d05aad9f44bc13cc1fd604a4e4c9bbb16b8cdef3890046e6e76436652",
+      "attempt-1-result.json": "92fbfb4d7d130c2d29ecab2897c2b0e90baed2cb6b64d4ee18b28f7240deac8d",
+      "budget-after.json": "fdb9c65b6b63b4adae1734150af85f5949bb0ce9d59aff1c5ac32e99e230bbcc",
+      "budget-before.json": "260f36e0f36a263853c6134735f15a11233ff403abf7753823ff9d50561cea5e",
+      "capture-scope.json": "8a1c1471d56a48c14ba1572ea516ac8a2e41c6bf5a42b9bda2903ff2096cbb17",
+      "events.json": "8613eef466c2afcca361aa63336d7ae0110eaa9fadbaf822ac978b2efbb88087",
+      "observations-1.json": "f16a96fcf650e5644fb27be495eaa07976663e595969d4e836428d4f8681b00c",
+      "options.json": "5885732ff7f3ad9afa116f89cd48f9276806c4093da82f8fa35ed89f39daafec",
+      "plan.json": "0d239f099853abaeb29ad739ea334e75f455a61b8c0cf1a176c9f63c14cd90b3",
+      "public-request.json": "40da4c9d35c2ad5e45f224814a5f535e1220112326598f581f07e875d53b8a37",
+      "request-id-source.json": "5f9f9241e18fdc1ab532f063d8fc46f47a3ba770edaa293168407f888fb6ea84",
+      "request.json": "8c3dcb4d5a5f320a256f2026680b2998eada81d538914faa1debdc8346d9c5dc",
+      "response.sse": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "usage-presence.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+    },
+    "immutable": true,
+    "case": "glm-5.3/cancel",
+    "outcome": "FAIL",
+    "durationMs": 120001
+  },
+  "result": {
+    "schema": 1,
+    "updated": "2026-10-19",
+    "status": "CLOSED",
+    "outcome": "PASS",
+    "scope": "single-case diagnostic only",
+    "sourceCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "route": "messages",
+    "case": "glm-5.3/cancel",
+    "durationMs": 861,
+    "httpStatus": 200,
+    "firstObservableEvent": "thinking_delta",
+    "nonEmptyDeltaObserved": true,
+    "cancelCode": "canceled",
+    "cancelPhase": "stream",
+    "stopReason": "aborted",
+    "logicalCalls": 1,
+    "httpAttempts": 1,
+    "retries": 0,
+    "china": "DIRECT",
+    "usageReporting": [
+      "partial"
+    ],
+    "unknownUsageMeansFree": false,
+    "priorRenewalCalls": 647,
+    "priorRenewalHTTPAttempts": 647,
+    "combinedRenewalCalls": 648,
+    "combinedRenewalHTTPAttempts": 648,
+    "originalFailurePreserved": true,
+    "sameWireRequestAsOriginalFailure": true,
+    "publicationSelectorsAndMatrixUnchanged": true,
+    "fullMessagesRouteCertified": false,
+    "releaseCertified": false,
+    "additionalPaidRoundAuthorized": false,
+    "report": ".evidence/glm-messages-cancel-20261019-1/actual/20261018T230218.566865000Z/diagnostic-glm-messages-cancel-report.json",
+    "reportSHA256": "78395266585b5c632bced498789d2135d57c214860e59cba48b1c317d483267c",
+    "evidence": "evidence/ticket-18/README.md"
+  },
+  "cleanup": {
+    "plainOwnedWorktree": "/tmp/barness-glm-cancel-diagnostic",
+    "removeExit": 0,
+    "plainWorktreeRemoved": true,
+    "recoverableBranch": "codex/glm-cancel-diagnostic",
+    "branchCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "managedUnusedWorktree": "/Users/cyber/.codex/worktrees/glm-messages-cancel-diagnostic/barness",
+    "managedArchivedViaApp": true,
+    "managedWorktreeRemoved": true,
+    "temporaryBinaryRemoved": true,
+    "retainedBinary": ".evidence/glm-messages-cancel-20261019-1/live.test",
+    "generatedPythonCacheRemoved": true,
+    "userDirectoriesBefore": {
+      ".scratch/barness-ai-minimax/session-analysis": {
+        "inode": 89600159,
+        "mtimeNs": 1792307679016698385,
+        "mode": 16877
+      },
+      ".scratch/jev-1.14-multimodal-box/human-review": {
+        "inode": 80264406,
+        "mtimeNs": 1792227923487013005,
+        "mode": 16877
+      }
+    },
+    "userDirectoriesAfter": {
+      ".scratch/barness-ai-minimax/session-analysis": {
+        "inode": 89600159,
+        "mtimeNs": 1792307679016698385,
+        "mode": 16877
+      },
+      ".scratch/jev-1.14-multimodal-box/human-review": {
+        "inode": 80264406,
+        "mtimeNs": 1792227923487013005,
+        "mode": 16877
+      }
+    },
+    "userDirectoriesPreserved": true
+  },
+  "noFullFormalSupportPublished": true,
+  "projectExecuted": false,
+  "keyRead": false,
+  "network": false,
+  "repoWrites": false
+}
