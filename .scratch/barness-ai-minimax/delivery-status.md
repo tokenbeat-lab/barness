@@ -51,7 +51,9 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 
 独立后续顺序审计发现：激活M3使当前目录Hash改变，旧GLM正式回放却装配当前目录，导致续期前全量无Key检查自阻塞。[顺序与具体边界](evidence/ticket-10/international-postcandidate-sequence.md)交同一实现者先作失败先行修复：历史回放只能使用经验证原始快照并保持replay-only，当前实际正式/导入/门禁继续严格校验当前目录。该修复完成前不启动完整候选，避免已消费的一次性证据因源码改变而过期。
 
-后续源码de05193已修复上述循环及完整激活时发现的当前目录版本、Host夹具和MiniMax双目录选择问题；续期工具将只更新四份当前目录归属文档与生成快照。定向live67 PASS、续期CLI11/11 PASS；独立完整激活克隆的全量无Keylive为331 PASS/62未选厂商NOT_RUN/0 FAIL。该来源的MiniMax完整普通/race各1340 PASS，双轴审查0发现，见[审查](evidence/ticket-10/international-preflight-review-de05193.json)；激活后的公共E2E全集仍在验证，原始证据归档待整理。这些均不构成真实候选或正式支持。
+后续源码de05193已修复上述循环及完整激活时发现的当前目录版本、Host夹具和MiniMax双目录选择问题；续期工具将只更新四份当前目录归属文档与生成快照。定向live67 PASS、续期CLI11/11 PASS；独立完整激活克隆的全量无Keylive为331 PASS/62未选厂商NOT_RUN/0 FAIL。该来源的MiniMax完整普通/race各1340 PASS，双轴审查0发现，见[审查](evidence/ticket-10/international-preflight-review-de05193.json)；激活后的公共E2E全集已结束：12378 PASS/11 FAIL，exit1、审计0；六项为待真实续期的GLM来源校验，另外三项发布叶子场景及聚合失败来自完整配置Hash耦合目录归属，GLM回滚另为私有克隆软链接设置问题。原始失败不改写，归档待整理。这些均不构成真实候选或正式支持。
+
+最新df342b9保留固定中文任务的独立业务Hash，只排除已由Plan.Load严格校验的两项目录字段；24个定向边界case通过，包含指令/超时协同篡改拒绝、原发布正例和回滚设置复验。[双轴源码审查](evidence/ticket-10/international-business-boundary-review-df342b9.json)均0发现。该结果只解决已复现的额外失败，不能将原11 FAIL改标为完整ordinary PASS；六项GLM来源时效仍须真实续期，后续最终发布门禁仍必交。
 
 ## 待继续工作
 
