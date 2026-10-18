@@ -11,13 +11,13 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 
 | 范围 | 当前状态 | 证据与边界 |
 | --- | --- | --- |
-| 国际站三协议与六型号离线约束 | PASS，离线范围 | e9731a4完整MiniMax普通/race各1314/1314；live-tag race66/66、双vet及全量无Key检查通过，脱敏0发现。来源与完整原包见[ticket11](evidence/ticket-11/README.md)，不证明厂商接受请求。 |
+| 国际站三协议与六型号离线约束 | PASS，离线范围 | 8d56410完整MiniMax普通/race各1340/1340，定向普通/race各1372；审计0、双vet和双轴审查通过，见[收敛证据](evidence/ticket-10/international-convergence/README.md)。此前e9731a4全量无Key检查通过；不证明厂商接受修复后的请求。 |
 | 原CN三协议与六型号离线约束 | PASS，历史离线范围 | 最新完整MiniMax普通/race均1307/1307；含冻结pi、压力、完整软件回滚，审计0发现。不能证明厂商实际接受请求。 |
 | 原CN M3 Chat实际研究 | FAIL，历史范围 | 两次Logical Call、两次Attempt均HTTP401 `authorized_error`；没有实际型号或已知usage。依赖原生工具续接NOT_RUN。 |
-| 国际站M3 Chat实际研究 | FAIL，兼容待修复 | HTTP200、实际M3；两次调用/两次Attempt在相等推理镜像处被本地误拒，usage未上报，依赖native NOT_RUN。 |
-| 国际站M3 Responses实际研究 | FAIL，兼容待修复 | 文本/工具通过HTTP200；native续接本地编码失败，3calls/2attempts。 |
+| 国际站M3 Chat实际研究 | FAIL，原始研究范围 | HTTP200、实际M3；两次调用/两次Attempt在相等推理镜像处被本地误拒，usage未上报，依赖native NOT_RUN。 |
+| 国际站M3 Responses实际研究 | FAIL，原始研究范围 | 文本/工具通过HTTP200；native续接本地编码失败，3calls/2attempts。 |
 | 国际站M3 Messages实际研究 | PASS，仅研究范围 | 文本、思考工具及native续接3calls/3attempts通过；不能代替完整候选或正式支持。 |
-| 国际站M3完整候选三身份 | 三项NOT_RUN | 尚待Chat/Responses实际wire缺口修复、来源重审及固定完整inventory。 |
+| 国际站M3完整候选三身份 | 三项NOT_RUN | Chat/Responses实际wire缺口已作失败先行修复并离线复验；先修复后续目录激活的历史GLM回放循环，再按新来源冻结固定完整inventory。 |
 | 国际站M3正式三身份及目录激活 | 三项NOT_RUN | BuiltinCatalog未激活M3；没有成功actual origin或正式支持投影。 |
 | M3.1线上候选三身份 | 三项NOT_RUN | 未获M Plan用途/资格授权；零实际调用，不虚构公开价格，离线约束已完成。 |
 | 原十四身份与四业务效果续期 | NOT_RUN | 尚待最终正式目录/来源确定后重新获取实际证据；六个GLM当前来源适用性校验仍不通过。 |
@@ -44,6 +44,12 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 98236个声明的artifact引用全部匹配，零缺失、零artifact不符。另349项fixture来源归属Hash与脱敏后的artifact文件Hash不同，二者按既有语义分别记录；不能合并两种Hash后推断捕获被篡改。[独立只读复核](evidence/ticket-09/whole-ordinary-artifact-integrity.md)通过单case来源和登记替换的逐字节复现解释了该区别，见[版本与来源](evidence/ticket-09/whole-ordinary-artifact-integrity-provenance.json)。该完整性结论不改变原52个FAIL或中断退出。
 
 复核脚本记录的是调查时路径。可将保留归档解压到临时目录，并把脚本的`bundle`指向该目录后只读复核；不需要Key、厂商调用或重跑测试。
+
+## 后续冻结前检查点
+
+国际站实际wire收敛已合并至366fb7f：完整普通/race各1340 PASS，定向普通/race各1372 PASS、双vet与双轴审查0发现，1024个生成来源文件与8d56410字节相同。[原始收敛归档](evidence/ticket-10/international-convergence/README.md)保留red/green与原始失败，不将修复视作服务接受。
+
+独立后续顺序审计发现：激活M3使当前目录Hash改变，旧GLM正式回放却装配当前目录，导致续期前全量无Key检查自阻塞。[顺序与具体边界](evidence/ticket-10/international-postcandidate-sequence.md)交同一实现者先作失败先行修复：历史回放只能使用经验证原始快照并保持replay-only，当前实际正式/导入/门禁继续严格校验当前目录。该修复完成前不启动完整候选，避免已消费的一次性证据因源码改变而过期。
 
 ## 待继续工作
 
