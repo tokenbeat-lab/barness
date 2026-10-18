@@ -41,13 +41,15 @@ Base: `ecfd4b4`
 
 - 06 resolved：冻结 M3 Messages 六条文本/签名双工具及完整续接实际差分、完整目录与五个扩展身份四入口验收完成；[Answer](issues/06-pi-differential.md#answer)、[29 own/race + 70 旧原生差分证据](evidence/ticket-06/README.md)。41 条有限 case/path/kind、2 条扩展路线；旧317条决策/6路线与全部 pins 不变，pending0，不声明 live 或正式价格。
 
-## Fog
-
-- 三协议真实推理续接形状与正式支持，按 R25–R27、票10独立验收。用户已确认 MINIMAX_KEY 中国区标准按量；M3.1 未获 M Plan 资格，线上候选保持 NOT_RUN。
-- 官方价格、汇率与schema已复核；正式价格目录与证据仍待票10生成。
-
 - 05 resolved：MiniMax 三协议共享错误/回调/重试/冻结/隔离与全部资源边界完成；[Answer](issues/05-isolation-failure-resources.md#answer)、[证据](evidence/ticket-05/README.md)。202 自身 E2E/race、3311 受影响回归、258 已提交来源复验通过；原4/8负载保持，新增3/6批次全部≤75%。真实兼容 quota/trace 继续由10候选证据收敛。
 
 - 07 resolved (controlled tools only)：六身份独立harness、持久阶段预算、研究前驱、原始捕获/密封/重放与正式导入防线完成；[Answer](issues/07-live-catalog-release.md#answer)、[证据](evidence/ticket-07/README.md)。45受控case普通/race通过，无厂商收费请求；实际M3正式目录和自身报告仍由10提供。
 
 - 08 resolved (Host/rollback scope)：完整本地/云端三 Binding/用途示例、双语指南/ADR、配置撤销和7039文件完整软件回滚完成；[Answer](issues/08-host-docs-final-acceptance.md#answer)、[证据](evidence/ticket-08/README.md)。79自身+88旧 Host cases 普通/race、两种软件回滚普通/race与定向 vet PASS；原 GLM receipt 路径泄漏根因已修复且审计保留。实际支持仍待10，09汇合最终状态与全集验收。
+
+- 09文档整理检查点：[有限追溯与历史保存](evidence/ticket-09/README.md)保留28个R、20个A、80个US到1304个既有有限case的精确映射，以及原始1307-case离线观察的来源/状态。03的33次受控red/green捕获及29012文件已原样归档并验证。此整理不代表最终验收；09仍受10阻塞。
+
+## Fog
+
+- 三协议真实推理续接形状与正式支持，按 R25–R27、票10独立验收。用户已确认 MINIMAX_KEY 中国区标准按量；实际M3 Chat研究的两次调用、两次Attempt均返回HTTP401认证失败，研究为FAIL/incomplete，依赖工具续接为NOT_RUN。其余M3实际验收等待该已授权凭据修复，不能用受控或重放报告替代。M3.1未获M Plan资格，三个线上候选保持NOT_RUN。
+- 官方价格、汇率与schema已复核；正式价格目录与证据仍待票10生成。09的最终普通/race/压力/差分、旧十四身份和四业务效果更新、门禁及最终双轴审查尚未完成。
