@@ -207,7 +207,7 @@ store、parallel_tool_calls、truncation 在官方端点被忽略，核心均不
 
 ### R14 — Responses 原生回放与工具 ID
 
-reasoning 输出 content 数组与输入 summary 声明不对称，是必收敛的协议问题。先保存原始输出和来源，再验证完整 reasoning 条目的真实可接受输入；若需要输入转换，必须有官方/真实证据、保留原始 Native State，并证明工具结果后继续生成。不能将完整推理自行摘要化、借服务端保存绕过完整历史，或以另一型号回放成功代替本型号。仍无法续接时该身份未完成，不标 UNSUPPORTED 放行必交历史。
+reasoning 输出 content 数组与输入 summary 声明不对称，是必收敛的协议问题。先保存原始输出和来源，再验证完整 reasoning 条目的真实可接受输入；若需要输入转换，必须有官方/真实证据、保留原始 Native State，并证明工具结果后继续生成。不能将完整推理自行摘要化、借服务端保存绕过完整历史，或以另一型号回放成功代替本型号。 2026-10-18自身Responses输出还包含文档未列的字符串encrypted_content；该原始输出须完整保留。首期不据此开放密文输入：仅把已公开文本无损投影到文档summary形状，保持输入hook拒绝密文；后续完整候选必须实际证明工具续接，不能把本地编码修复当作服务已接受。仍无法续接时该身份未完成，不标 UNSUPPORTED 放行必交历史。
 
 function_call 与 function_call_output 用真实 call_id 配对，条目 ID 与调用 ID 分开处理。合法 ID 视为不透明值，覆盖 `%`、`|`、Unicode、空/超长约束及碰撞；只有服务契约限制时才净化。公开组合 ID 必须可无歧义关联且避免截断碰撞；不复制 OpenAI 的 fc_ 前缀假设或 GLM 专用编码。跨身份转换同步改名结果并保留工具配对，旧 Provider 历史无关场景不改变。
 
