@@ -28,7 +28,7 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 
 完整MiniMax离线套件：[普通](evidence/ticket-10/minimax-ordinary-1205300.json)43.000秒、[race](evidence/ticket-10/minimax-race-1205300.json)152.736秒，均1307个case通过；冻结pi差分、压力与完整软件回滚均运行。46个修复后的定向旧case[普通](evidence/ticket-10/repaired-ordinary-1205300.json)/[race](evidence/ticket-10/repaired-race-1205300.json)分别46/46。[无Key live和两种vet](evidence/ticket-10/offline-checks-1205300.json)通过。来源1205300及其后矩阵数据修正的适用范围以10的原始manifest、审计、命令和归档Hash为准，不给历史捕获刷新来源。
 
-无Key live的主manifest为323 PASS/62 NOT_RUN，另有两个辅助PASS；进程正常结束不意味着未执行的真实场景已通过。[当前M3.1三份NOT_RUN](evidence/ticket-10/m31-not-run-1205300-summary.json)及关键来源/子捕获保存在[有明确选择范围的无Key胶囊](evidence/ticket-10/postauth-keyless-1205300.tar.gz)。
+原CN检查点无Key live的主manifest为323 PASS/62 NOT_RUN，另有两个辅助PASS；进程正常结束不意味着未执行的真实场景已通过。[历史CN M3.1三份NOT_RUN](evidence/ticket-10/m31-not-run-1205300-summary.json)及关键来源/子捕获保存在[有明确选择范围的无Key胶囊](evidence/ticket-10/postauth-keyless-1205300.tar.gz)。
 
 旧9481a6a完整ordinary的测试主体已结束，[原manifest](evidence/ticket-10/whole-ordinary-failed-9481a6a.json)为12304 PASS/52 FAIL；进程在后续阶段因已知harness修复被停止，exit=-15，不能声称完整普通套件通过。独立redaction audit随后完成，0发现；这是独立派生审计，不修改原退出状态。[计时调查](evidence/ticket-09/whole-ordinary-timing-investigation.md)没有支持E03或精确小数解析死循环的证据。52个失败中的46个本地可修复case已定向重验，其余六个GLM来源校验需真实续期，不能放宽适用性规则。
 
