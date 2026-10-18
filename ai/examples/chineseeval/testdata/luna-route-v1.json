@@ -1,7 +1,7 @@
 {
   "callTimeoutSeconds": 15,
-  "catalogHash": "sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942",
-  "catalogVersion": "2026-10-17.2",
+  "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+  "catalogVersion": "2026-10-18.1-minimax",
   "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
   "datasetVersion": "zh-support-v1",
   "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
