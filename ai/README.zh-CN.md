@@ -1,8 +1,8 @@
 # barness-ai
 
-> **目录更新（2026-10-17）**：`2026-10-17.2` 包含 93 个聊天身份、两个图像型号和三个分类型号。中国区标准 GLM-5.3/5.2 各有 Chat、Responses、Messages 独立身份；[完整 Host 示例](examples/glmhost/README.md) 说明三份绑定、标准 Key 与 full/simple/WithHooks。`jev-1.14.0` 的四位置 PNG/JPEG 与 Box 继续需要 `ExperimentalImages` 和显式授权。当前发布合同保留十三协议组合、十四独立支持身份；历史验收见[票13](../.scratch/barness-ai-glm/evidence/ticket-13/README.md)，发布仍须重新核验来源适用性。
+> **目录与发布状态（2026-10-18）**：`2026-10-18.1-minimax` 包含96个聊天身份、两个图像型号和三个分类型号，发布合同要求十六协议组合、十七自身支持身份。中国区标准GLM-5.3/5.2各有Chat、Responses、Messages独立绑定；[Host示例](examples/glmhost/README.md)覆盖标准Key和full/simple/WithHooks。Jev1.14图像与Box继续要求实验图像开关和显式授权。下表保留各路线自身真实历史；当前源码适用性须重新核验，MiniMax整体验收仍为 **PARTIAL**。
 
-> **MiniMax 中国区（2026-10-18）**：三协议与[本地/云端 Host 示例](examples/minimaxhost/README.zh-CN.md)仍为受控候选。M3 正式推广待工单10自身真实、价格和发布证据；M3.1 权益及正式价格尚未确认。候选合成费率不是真实报价。
+> **MiniMax 国际站**：`BuiltinCatalog()` 已包含 `minimax` × Chat、Responses、Messages 的三个 `MiniMax-M3` 身份，端点为 `api.minimax.io/v1` 或 `api.minimax.io/anthropic`。三份自身[国际站正式报告](../.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md)保留历史PASS及有日期的USD价格快照。M3.1仍为未推广候选，自身报告NOT_RUN，M Plan权益与正式价格未知。[Host示例](examples/minimaxhost/README.zh-CN.md)要求明确账户和凭据用途。[票17](../.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md)修改最终payload边界后，原M3、GLM、文本、协议及视觉来源pins不能认证新源码；严格发布与整体资格仍不完整。
 
 [English](README.md) | 简体中文
 
@@ -44,7 +44,7 @@
 
 ## 支持的组合
 
-| 操作 | Provider × 协议 | `ProviderID` / `API` | 真实冒烟 |
+| 操作 | Provider × 协议 | `ProviderID` / `API` | 自身真实报告历史 |
 | --- | --- | --- | --- |
 | chat | OpenAI × Responses | `openai` / `openai-responses` | PASS |
 | chat | Anthropic × Messages | `anthropic` / `anthropic-messages` | PASS |
@@ -53,24 +53,27 @@
 | chat | DeepSeek × Responses（扩展路径，pi 无此路由） | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One，jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS（上下文探针返回 400；422 形状未确认） |
-| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（自身当前源码正式证据） |
-| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS（自身当前源码正式证据） |
-| chat | 中国区智谱 × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS（自身当前源码证据） |
-| chat | 中国区智谱 × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS（自身当前源码证据） |
-| chat | 中国区智谱 × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | PASS（自身当前源码证据） |
+| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（自身历史正式证据，须重验来源） |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS（自身历史正式证据，须重验来源） |
+| chat | 中国区智谱 × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS（自身历史证据，须重验来源） |
+| chat | 中国区智谱 × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS（自身历史证据，须重验来源） |
+| chat | 中国区智谱 × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | 最新source7931为FAIL（cancel），旧PASS保留 |
+| chat | 国际站MiniMax-M3 × Chat | `minimax` / `openai-completions` | 自身正式历史PASS，票17新源码资格未建立 |
+| chat | 国际站MiniMax-M3 × Responses | `minimax` / `openai-responses` | 自身正式历史PASS，票17新源码资格未建立 |
+| chat | 国际站MiniMax-M3 × Messages | `minimax` / `anthropic-messages` | 自身正式历史PASS，票17新源码资格未建立 |
 | image | OpenAI × Images，gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS（生成、JSON 编辑与 mask） |
 | image | Google × Interactions v1beta，gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS（生成与参考编辑，1K / 1:1） |
 
 十组合已在 **2026-10-13** 的正式目录 `2026-10-13.1` 与 schema 3 下各自重跑，路线状态见 [`live/support-matrix.json`](live/support-matrix.json)。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
 
 两条原生图像路线与 DeepSeek Responses 均登记为扩展路径，其自身证据不计为 pi 差分通过。发布结论与后续离线修复见[发布说明](../docs/barness-ai/README.md)。
-内置目录包含 93 个聊天身份、两个图像型号与三个分类型号；同名型号可以分属不同操作或协议。
+内置目录包含 96 个聊天身份、两个图像型号与三个分类型号；同名型号可以分属不同操作或协议。
 
 ### 当前验证与发布状态
 
 上一完整基线为[票14正式结论](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md)：11份自身真实支持、四份独立效果、normal/race各9098例、861份冻结pi案例和全部门禁通过。[原压力票07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) 已由自身因果证据解决，历史失败保留。
 
-[票13当前源码验收](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) 在 `3d3cd0f` 为 PASS：normal 11,049、race 11,049 例，全部十门禁、两种vet及20份输入审计通过。目录 `2026-10-17.2` 保留十四份自身支持、四份独立效果；本票实际HTTP为282次：GLM66、已封闭原旧路线轮180、必要更正轮36。旧失败/捕获保留历史；[校验索引](../.scratch/barness-ai-glm/evidence/ticket-13/index.json)提供精确源码适用范围、有限需求/故事追溯和完整基线回滚。
+[票13历史验收](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) 在 `3d3cd0f` 为 PASS：normal 11,049、race 11,049 例，全部十门禁、两种vet及20份输入审计通过。当时目录 `2026-10-17.2` 保留十四份自身支持、四份独立效果；本票实际HTTP为282次：GLM66、已封闭原旧路线轮180、必要更正轮36。旧失败/捕获保留历史；[校验索引](../.scratch/barness-ai-glm/evidence/ticket-13/index.json)提供精确源码适用范围、有限需求/故事追溯和完整基线回滚。
 
 ## 快速开始（本地）
 
@@ -454,7 +457,7 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-
 ```
 
 每次 E2E 运行都会在 `.evidence/` 下写出脱敏的证据包（可用 `BARNESS_AI_EVIDENCE_DIR` 覆盖）。新行为需要一个 E2E 用例，且其证据能被发布门禁追溯（`release/traceability.json`）。
-完整发布门禁需要十三协议组合、十四支持身份各自的当前真实证据，Jev/Luna 各自独立中文评估、Jev/Decisions 各自独立视觉评估，以及完整离线、race、差分、压力和审计；离线 fixture 与 NOT_RUN 报告不能替代真实证据。
+完整发布门禁需要十六协议组合、十七支持身份各自的当前真实证据，Jev/Luna 各自独立中文评估、Jev/Decisions 各自独立视觉评估，以及完整离线、race、差分、压力和审计；离线 fixture 与 NOT_RUN 报告不能替代真实证据。
 
 ## 延伸阅读
 

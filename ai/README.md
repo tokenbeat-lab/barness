@@ -1,8 +1,8 @@
 # barness-ai
 
-> **Catalog update (2026-10-17):** `2026-10-17.2` contains 93 chat identities, two image models and three classifiers. China standard GLM-5.3/5.2 each has independent Chat, Responses and Messages identities; the [complete Host example](examples/glmhost/README.md) covers three bindings, standard keys and full/simple/WithHooks. Jev1.14 PNG/JPEG/Box retains experimental image and explicit authorization requirements. The current release contract preserves13 protocol combinations and14 independent support identities; see [ticket13 historical acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md); release checks must revalidate source applicability.
+> **Catalog and release status (2026-10-18):** `2026-10-18.1-minimax` contains 96 chat identities, two image models and three classifiers. The release contract requires 16 protocol combinations and 17 independent own support identities. China standard GLM-5.3/5.2 keep separate Chat, Responses and Messages bindings; [Host examples](examples/glmhost/README.md) cover standard keys and full/simple/WithHooks. Jev1.14 images and Box retain experimental-image and explicit-authorization requirements. The table records own live history; current source applicability must be revalidated and the complete MiniMax release remains **PARTIAL**.
 
-> **MiniMax China (2026-10-18):** adapters and [local/cloud Host examples](examples/minimaxhost/README.md) are controlled candidates. M3 formal promotion is pending its own ticket10 live/price/release evidence; M3.1 entitlement and production price remain unconfirmed. Candidate test rates are not real quotes.
+> **MiniMax international:** `BuiltinCatalog()` includes `MiniMax-M3` on `minimax` × `openai-completions`, `openai-responses` and `anthropic-messages`, using `api.minimax.io/v1` or `api.minimax.io/anthropic`. The three own [international formal reports](../.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md) are historical PASS with a dated USD price snapshot. M3.1 remains an unpromoted candidate: its own reports are NOT_RUN, with M Plan entitlement and production price unconfirmed. [Host examples](examples/minimaxhost/README.md) require an explicit account and credential purpose. [Ticket17](../.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md) changes the final-payload boundary; the old M3, GLM, text, protocol and visual source pins do not certify this new source. Strict publication and full release qualification remain incomplete.
 
 English | [简体中文](README.zh-CN.md)
 
@@ -48,7 +48,7 @@ Non-goals: no agent loop, no built-in memory or history trimming, no tool execut
 
 ## Supported combinations
 
-| Operation | Provider × API | `ProviderID` / `API` | Live smoke |
+| Operation | Provider × API | `ProviderID` / `API` | Own live report history |
 | --- | --- | --- | --- |
 | chat | OpenAI × Responses | `openai` / `openai-responses` | PASS |
 | chat | Anthropic × Messages | `anthropic` / `anthropic-messages` | PASS |
@@ -57,11 +57,14 @@ Non-goals: no agent loop, no built-in memory or history trimming, no tool execut
 | chat | DeepSeek × Responses (extension route, not in pi) | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One, jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS (context probe returned 400; 422 shape unconfirmed) |
-| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (own current-source formal evidence) |
-| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS (own current-source formal evidence) |
-| chat | China Zhipu × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS (own current-source evidence) |
-| chat | China Zhipu × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS (own current-source evidence) |
-| chat | China Zhipu × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | PASS (own current-source evidence) |
+| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (own historical formal evidence; revalidate source) |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS (own historical formal evidence; revalidate source) |
+| chat | China Zhipu × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS (own historical evidence; revalidate source) |
+| chat | China Zhipu × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS (own historical evidence; revalidate source) |
+| chat | China Zhipu × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | Latest source7931 FAIL (cancel); older PASS retained |
+| chat | International MiniMax-M3 × Chat | `minimax` / `openai-completions` | Own formal historical PASS; ticket17 source unqualified |
+| chat | International MiniMax-M3 × Responses | `minimax` / `openai-responses` | Own formal historical PASS; ticket17 source unqualified |
+| chat | International MiniMax-M3 × Messages | `minimax` / `anthropic-messages` | Own formal historical PASS; ticket17 source unqualified |
 | image | OpenAI × Images, gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS (generation, JSON edit and mask) |
 | image | Google × Interactions v1beta, gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS (generation and reference edit, 1K / 1:1) |
 
@@ -71,7 +74,7 @@ The matrix records each identity's own source/catalog-scoped evidence. Jev1.13 a
 
 The previous complete baseline is [ticket14's accepted release](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md):11 own live identities, four independent effects, normal/race9098 each,861 frozen pi cases and all gates PASS. The original [pressure issue07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) is resolved with retained causal evidence; earlier failing releases remain history.
 
-[Ticket13 current-source acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) is PASS at `3d3cd0f`: normal 11,049 and race 11,049 cases, all ten gates, both vet modes and 20 clean input audits. Catalog `2026-10-17.2` retains fourteen own live identities and four independent effects. This ticket used 282 actual HTTP calls: 66 GLM, 180 in the closed original legacy round, and 36 necessary corrective calls. Original failures/captures remain historical. The [verified index](../.scratch/barness-ai-glm/evidence/ticket-13/index.json) records exact source applicability, finite requirement/story traces and full baseline rollback.
+[Historical ticket13 acceptance](../.scratch/barness-ai-glm/evidence/ticket-13/README.md) was PASS at `3d3cd0f`: normal 11,049 and race 11,049 cases, all ten gates, both vet modes and 20 clean input audits. That catalog `2026-10-17.2` retained fourteen own live identities and four independent effects. This ticket used 282 actual HTTP calls: 66 GLM, 180 in the closed original legacy round, and 36 necessary corrective calls. Original failures/captures remain historical. The [verified index](../.scratch/barness-ai-glm/evidence/ticket-13/index.json) records exact source applicability, finite requirement/story traces and full baseline rollback.
 
 ## Quick start (local)
 
@@ -480,7 +483,7 @@ go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-bundle> -evaluation-lun
 
 Every E2E run writes a redacted evidence bundle under `.evidence/` (`BARNESS_AI_EVIDENCE_DIR` overrides). New behavior
 needs an E2E case whose evidence the release gate can trace (`release/traceability.json`). The full release gate
-requires fourteen own live identities across thirteen protocol combinations and four independent real effects; offline fixtures and
+requires seventeen own live identities across sixteen protocol combinations and four independent real effects; offline fixtures and
 NOT_RUN reports cannot replace them.
 
 ## Further reading
