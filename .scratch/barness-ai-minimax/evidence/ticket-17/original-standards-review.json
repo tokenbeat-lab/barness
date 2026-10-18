@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "skill": "code-review",
+  "axis": "Standards",
+  "base": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+  "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "target": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff ecfd4b4d6ec54db30453f4b5112989e9fdbd0782...HEAD",
+  "pinnedDiffCommand": "git diff ecfd4b4d6ec54db30453f4b5112989e9fdbd0782...7931b163f983a8b362374163b7949d31e68bbec4",
+  "diff": {
+    "file": "/tmp/barness-repair-final-source-diff.patch",
+    "sha256": "5b8b4c2be4b904806c350166dc5592ed6699c2c12f80a78b5cb66efa1676277b",
+    "bytes": 22471730,
+    "nonempty": true
+  },
+  "commits": {
+    "file": "/tmp/barness-repair-final-source-commits.txt",
+    "sha256": "927d79cc79785a098a2820fcb63d4910d603597a3fd899a05e993160de7e5f1c"
+  },
+  "files": {
+    "file": "/tmp/barness-repair-final-source-files.txt",
+    "sha256": "63f81610c2c51ad9f164c2208155bb7eb02af986947a9f29d3f00eb1cd56ad4c",
+    "count": 1320,
+    "kinds": {
+      "Operational/test scripts": 68,
+      "Markdown": 187,
+      "Data/retained artifacts": 833,
+      "Go implementation": 102,
+      "Go tests": 130
+    }
+  },
+  "standards": {
+    "filesSHA256": {
+      "AGENTS.md": "adb0f58dabe63475d9f327828e0a540fe47013c52aa37fb90764338bb620eb6c",
+      "docs/agents/domain.md": "593a7042218689f1d24df89df14eaf0a20e19e0d0a7d479a01947ac78f0784b9",
+      "GLOSSARY.md": "e799846cab1f56811c34152ebf9ec804ac19810dd1856cd05b949f6c45a9f6d9",
+      "docs/adr/0037-barness-ai-minimax-candidate-metadata.md": "010c0e5ad95057242426cc0f63711b54cf92b98fc673301cccc2ce43ca505024",
+      "docs/adr/0039-barness-ai-minimax-responses.md": "d61cd26e2684a46bdf025e1d8b3fe931bc11ebd91bf3863b394164faf3f322aa",
+      "docs/adr/0040-minimax-messages-adaptive-boundary.md": "0e6ef5136195bb17e9eb967dc959c10606aca6910ff148d3676add1167c611ec",
+      "docs/adr/0041-minimax-sourced-prices-and-catalog-activation.md": "8c8c1912cfb35ac35dfaf9df6488970afb1614b7fd81fba78b50031c6d0a8b67",
+      "docs/adr/0042-barness-ai-minimax-international-target.md": "4ca1bf50c78bba00facb08da4f5c09615947e126d0bfd0ae8106e89d5bf4861a",
+      "docs/adr/0043-barness-ai-minimax-observed-native-reasoning.md": "551fc81214dcad5c6b1610baab2fddc33c187bcc53b459f63da00ef7eda2af74",
+      "docs/adr/0044-barness-ai-historical-catalog-replay.md": "de3dbe23bc2293739e114471ec0d0f80cd148b7cdbdc721ae8d930c2b3f8cfcc",
+      "docs/adr/0045-glm-corrective-capture-round.md": "a81f1849fb935238818e1420afbc749242b7fe502667fedc0e4c134af58e0dbd",
+      "docs/adr/0046-region-routed-validation-round.md": "35c165b9f070b96f0ee45ba801deba513daf2da7ba8f084be7654a1064a68312"
+    },
+    "userProvidedAGENTS": "Same ten engineering principles and failure-first/public E2E policy supplied in task.",
+    "baseline": [
+      "Mysterious Name",
+      "Duplicated Code",
+      "Feature Envy",
+      "Data Clumps",
+      "Primitive Obsession",
+      "Repeated Switches",
+      "Shotgun Surgery",
+      "Divergent Change",
+      "Speculative Generality",
+      "Message Chains",
+      "Middle Man",
+      "Refused Bequest"
+    ],
+    "interpretation": "Documented repo rules override baseline; smells are judgment calls; tool-enforced issues skipped."
+  },
+  "decision": "CHANGES_REQUESTED_DOCUMENTATION",
+  "findings": [
+    {
+      "id": "FINAL-STANDARDS-DOC-01",
+      "priority": "P2",
+      "classification": "documented-standard breach",
+      "locations": [
+        {
+          "file": "ai/README.md",
+          "line": 5,
+          "quote": "MiniMax China (2026-10-18)"
+        },
+        {
+          "file": "ai/README.zh-CN.md",
+          "line": 5,
+          "quote": "MiniMax 中国区（2026-10-18）"
+        },
+        {
+          "file": "docs/barness-ai/contract.md",
+          "line": 359,
+          "quote": "当前BuiltinCatalog没有MiniMax正式型号"
+        }
+      ],
+      "rule": "AGENTS.md principles8/9 require accurate maintainer context and verifiable changes; docs/agents/domain.md requires ADR consistency. ADR0042 defines the sole current international identity.",
+      "finding": "Current-facing docs describe the former China target and absent builtin MiniMax models. The frozen tree embeds three activated international MiniMax-M3 identities in catalog_minimax.json; BuiltinCatalog concatenates them and adopts version2026-10-18.1-minimax. The conflicting guidance can misdirect Host/account/catalog setup.",
+      "requestedChange": "After active gate closes, update current-facing docs to the international target and already activated/sourced M3 catalog. Keep whole-release PARTIAL, remaining acceptance blockers and M3.1 entitlement/price unknown qualifiers; preserve historical evidence/pins."
+    }
+  ],
+  "smells": [],
+  "report": "1 documented-standard finding (P2): ai/README.md:5 and ai/README.zh-CN.md:5 still label MiniMax China, while docs/barness-ai/contract.md:359 says BuiltinCatalog has no MiniMax formal models. This conflicts with AGENTS8/9 and ADR0042: the frozen tree already embeds three international M3 identities. Correct current documentation after the active gate closes, retaining full-release PARTIAL and M3.1 unknown qualifiers.\n\nThe complete pinned scope was assessed across protocol adapters/shared lifecycle, native-state isolation, exact numeric/request guards, cost/usage boundaries, actual-origin/ledger/capture verification, catalog activation, release artifact readers, finite paid authority/source applicability and retained evidence. No further documented standard breach or actionable baseline smell was identified. Protocol-specific policies remain scoped, real second-use helpers are shared, and immutable historical snapshots retain their original context.\n\nThis is static Standards review only. Earlier resolved findings and narrow reviews remain historical records; no fresh full-suite certificate or current gate result is claimed. The active gate and later documentation/evidence delta require separate result/metadata review.",
+  "findingFilePins": {
+    "ai/README.md": "ce9af7f034aef7393bd3a36bec680255e32be3232ca0cfd87695c19da2bf557b",
+    "ai/README.zh-CN.md": "dcea5019873dd87f47a8435c38d7bfbbd06fac1ed9e3d97edc2e33be694fb477",
+    "docs/barness-ai/contract.md": "af532c094a0315c90e89f19e8a7611454e43058aa49181eebdd9a7bea7ccce23",
+    "ai/catalog_minimax.json": "5d9be9244a1cb4059f50f4b7d8333461deeffaf0ead3220910afe20d3fb525ce",
+    "ai/catalog_minimax.go": "eacfce9acacd6c19b6a9d65857470087c5ba858991efe2e946ca469e559e1868",
+    "ai/catalog.go": "e2ddc52bff18de67a746b8dbfffa4f6f65c3bead093e632781342c137282ca21"
+  },
+  "previousFullReviewPreserved": {
+    "file": "/tmp/barness-minimax-final-source-standards-review-5bf2c16.json",
+    "sha256": "ba2cba0c4af7b1ca6473c6563f8f6d154a71fd0cfd3bf691c2da0b7681aff37c",
+    "target": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4"
+  },
+  "historicalNarrowReviewsPreserved": true,
+  "constraints": {
+    "readOnly": true,
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "sourceEdits": false,
+    "rootWrites": false,
+    "currentGateCertification": false,
+    "activeGateResultAssumed": false,
+    "specAxisMixed": false
+  }
+}

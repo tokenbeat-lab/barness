@@ -1,0 +1,759 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+  "reviewedCommit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+  "diffCommand": "git diff 230691742b731c77e8167b94646219e10f78c8f7..295728ac041006b00959dcfa368d3c1eab2f1953",
+  "diffSHA256": "b9c5aeb4575fafef19d2c9c3963a1b84eb9962a4a58eab52d008eab0bee3f191",
+  "diffBytes": 25519,
+  "scope": "Exact four-file ticket17 documentation delta only; no source or retention approval.",
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "e346489dc74dbc36511e5c95558a07a6e40b68c3",
+      "bytes": 3402,
+      "sha256": "a19213e8122a46710c17c1eced211955201ef01b343464c988ce5fdd727528a5"
+    },
+    {
+      "path": "ai/README.md",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "48b7f52e2902f3047ae0b55cbc143fce629f9a90",
+      "bytes": 38161,
+      "sha256": "71754bbb3e60569c79029c7274449777dbe650598c214a84efa70894ceddc0d2"
+    },
+    {
+      "path": "ai/README.zh-CN.md",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "9ddc3413e4695b1bc8ce070006f773e85188ce0f",
+      "bytes": 37484,
+      "sha256": "d317b70529641bccf98c086503dacca7dee22f6b76da7df43870cd519a1f0a20"
+    },
+    {
+      "path": "docs/barness-ai/contract.md",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "642c024d30c93228b0f038d51083a695a04d53a7",
+      "bytes": 37754,
+      "sha256": "8d8092d903031fd417aa87cb9264a87e64e843e292f2ff08b96ac14b583a98bf"
+    }
+  ],
+  "standards": [
+    "AGENTS.md principles1-10, particularly8 maintainer context and9 verifiability; failure-first tests unchanged by this docs-only delta.",
+    "docs/agents/domain.md and ADR0042 current international identity superseding historical CN target.",
+    "All12 supplied baseline smell heuristics considered as judgment calls; no tooling-enforced issue reported."
+  ],
+  "findings": [],
+  "smells": [],
+  "closedFindings": [
+    {
+      "id": "FINAL-STANDARDS-DOC-01",
+      "status": "CLOSED",
+      "originalReview": {
+        "path": "/tmp/barness-minimax-final-source-standards-review.json",
+        "bytes": 7175,
+        "sha256": "61a03e2fe01267f2fcbeeb5814e90fe42ae0090df3d9c36e04a0b1852824e53a"
+      },
+      "reason": "Changed current-facing MiniMax China/controlled-candidate and absent-BuiltinCatalog statements to international .io, three already activated M3 identities with own historical formal PASS; retains current source unqualified, M3.1 unknown and whole release PARTIAL.",
+      "locations": [
+        {
+          "file": "ai/README.md",
+          "line": 5
+        },
+        {
+          "file": "ai/README.zh-CN.md",
+          "line": 5
+        },
+        {
+          "file": "docs/barness-ai/contract.md",
+          "line": 349
+        }
+      ]
+    }
+  ],
+  "facts": {
+    "catalogVersion": "2026-10-18.1-minimax",
+    "catalogCounts": {
+      "chat": 96,
+      "image": 2,
+      "classifier": 3
+    },
+    "M3BuiltinIdentities": [
+      [
+        "minimax",
+        "openai-completions",
+        "MiniMax-M3"
+      ],
+      [
+        "minimax",
+        "openai-responses",
+        "MiniMax-M3"
+      ],
+      [
+        "minimax",
+        "anthropic-messages",
+        "MiniMax-M3"
+      ]
+    ],
+    "supportIdentities": 17,
+    "protocolCombinations": 16,
+    "defaultMatrixUnchangedSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "oldMatrixResponsesFAILPreserved": true,
+    "latestSource7931RawMessagesFAILPreserved": true,
+    "M31NOT_RUN": {
+      "credentialsRead": false,
+      "entitlementConfirmed": false,
+      "paidIntentsCreated": false,
+      "routes": [
+        {
+          "route": "chat",
+          "model": "MiniMax-M3.1-Flash-Preview",
+          "status": "NOT_RUN",
+          "credentialsRead": false,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "route": "responses",
+          "model": "MiniMax-M3.1-Flash-Preview",
+          "status": "NOT_RUN",
+          "credentialsRead": false,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "route": "messages",
+          "model": "MiniMax-M3.1-Flash-Preview",
+          "status": "NOT_RUN",
+          "credentialsRead": false,
+          "calls": 0,
+          "attempts": 0
+        }
+      ]
+    },
+    "strictPublicationExitCode": 1,
+    "strictPublicationSelectorsUnchanged": true,
+    "relativeLinksChecked": 97,
+    "relativeLinksMissing": [],
+    "runtimeJSONModsumDelta": []
+  },
+  "scopeQualifications": {
+    "M3FormalSource": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+    "GSource": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "ticket17Source": "230691742b731c77e8167b94646219e10f78c8f7",
+    "sourceMeasuredAt": "ca67+WIP1027 selected compiler/JSON/modsum bytes, not postcommit operational1056 freeze",
+    "currentStrictNativeEligibilityGranted": false,
+    "releaseCertified": false,
+    "paidAuthorityGranted": false,
+    "newRuntimeSourceChangesInThisDocsTip": false
+  },
+  "existingIndependentReports": [
+    {
+      "path": "/tmp/barness-ticket17-source-standards-review.json",
+      "bytes": 12610,
+      "sha256": "fa5d7b937d3a8376246e83403bf9c0291cd4995cb2288195dd4a26528c8da573"
+    },
+    {
+      "path": "/tmp/barness-ticket17-source-spec-review.json",
+      "bytes": 22345,
+      "sha256": "8bea06a62b2ea9e8622db80cef4f36118010f311987aa9e308b04a807eb067fd"
+    },
+    {
+      "path": "/tmp/barness-ticket17-current-source-applicability.json",
+      "bytes": 49705,
+      "sha256": "29d7009a2f31e03199b17225b3f069b78d99777e4c0d8c21ea71f1c9e51f8ff0"
+    }
+  ],
+  "supportingGitObjects": [
+    {
+      "path": "AGENTS.md",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "34b8523fb708e412890b8f2b88d0b999cc24a756",
+      "bytes": 3942,
+      "sha256": "adb0f58dabe63475d9f327828e0a540fe47013c52aa37fb90764338bb620eb6c"
+    },
+    {
+      "path": "docs/agents/domain.md",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "4032de016c1e91119d33d477633e2b8f265f4195",
+      "bytes": 2042,
+      "sha256": "593a7042218689f1d24df89df14eaf0a20e19e0d0a7d479a01947ac78f0784b9"
+    },
+    {
+      "path": "docs/adr/0042-barness-ai-minimax-international-target.md",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "aeb9ae6399d47cb992296fdaa78dfc9ba94065cc",
+      "bytes": 2409,
+      "sha256": "4ca1bf50c78bba00facb08da4f5c09615947e126d0bfd0ae8106e89d5bf4861a"
+    },
+    {
+      "path": "ai/release/catalog-snapshot.json",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "105552f175c2f442517067cb99e412660ac22cb8",
+      "bytes": 77027,
+      "sha256": "fd6d59db596e8e4a81f970e50d6fe0567f86306957c1e934c1fae5e1c36dce63"
+    },
+    {
+      "path": "ai/catalog_minimax.json",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "a8891185f8d05e0d209ef457d13d18ffad2f69a0",
+      "bytes": 2967,
+      "sha256": "5d9be9244a1cb4059f50f4b7d8333461deeffaf0ead3220910afe20d3fb525ce"
+    },
+    {
+      "path": "ai/catalog.go",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "031ff666134673f25acf2683b575c9cfc3f12536",
+      "bytes": 3393,
+      "sha256": "e2ddc52bff18de67a746b8dbfffa4f6f65c3bead093e632781342c137282ca21"
+    },
+    {
+      "path": "ai/live/support-matrix.json",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "0ea34b14dcf9ed995d70c6ada5fc1ed98c591b52",
+      "bytes": 55889,
+      "sha256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f"
+    },
+    {
+      "path": "ai/internal/testkit/release/plan.go",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "7b0623e482ed340022f3b390644f5eff9396c1d3",
+      "bytes": 7494,
+      "sha256": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "0860e370affff9c5d37fcf2ecc977f5d9be56c99",
+      "bytes": 1312,
+      "sha256": "091ff79532bd49983f37f319f46c086bb31e318b9a9f47b8ce80b2a69fe5687f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "b43dd633f2dc830a0a913247ed3d8566d51fb12d",
+      "bytes": 992099,
+      "sha256": "121075a2a34a35c9966c6bf2c81eff29f20b587df103c3eb4f071ebf703183b4"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-10/m31-not-run-summary.json",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "a234dbe31b1726e30de3388959ecb894a59c0c2b",
+      "bytes": 656,
+      "sha256": "fc3b8a7405c0e7452ac2ee516ce1c61b835c574c6d0596ab49b86b3820e2274f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/summary.json",
+      "commit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+      "gitBlob": "fc18490add81b0723e9d0fc04970a448d9976d00",
+      "bytes": 3803,
+      "sha256": "c99c6195239224d154cfa374b11756e73df01edf521c50b9ee887558437e76ab"
+    }
+  ],
+  "relativeLinkProof": [
+    {
+      "source": "ai/README.md",
+      "destination": "examples/glmhost/README.md",
+      "resolved": "ai/examples/glmhost/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md",
+      "resolved": ".scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "examples/minimaxhost/README.md",
+      "resolved": "ai/examples/minimaxhost/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md",
+      "resolved": ".scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "README.zh-CN.md",
+      "resolved": "ai/README.zh-CN.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../.scratch/barness-ai-pi-1.0/spec.md",
+      "resolved": ".scratch/barness-ai-pi-1.0/spec.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/adr/",
+      "resolved": "docs/adr"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../GLOSSARY.md",
+      "resolved": "GLOSSARY.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md",
+      "resolved": ".scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md",
+      "resolved": ".scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../.scratch/barness-ai-glm/evidence/ticket-13/README.md",
+      "resolved": ".scratch/barness-ai-glm/evidence/ticket-13/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../.scratch/barness-ai-glm/evidence/ticket-13/index.json",
+      "resolved": ".scratch/barness-ai-glm/evidence/ticket-13/index.json"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../go.mod",
+      "resolved": "go.mod"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "examples/localassembly",
+      "resolved": "ai/examples/localassembly"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/decisions.md",
+      "resolved": "docs/barness-ai/decisions.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "examples/classifiermigration/README.md",
+      "resolved": "ai/examples/classifiermigration/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "examples/chineseeval/README.md",
+      "resolved": "ai/examples/chineseeval/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "examples/classifierimages/README.md",
+      "resolved": "ai/examples/classifierimages/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "examples/requestid",
+      "resolved": "ai/examples/requestid"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "examples/toolloop",
+      "resolved": "ai/examples/toolloop"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/contract.md",
+      "resolved": "docs/barness-ai/contract.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/README.md",
+      "resolved": "docs/barness-ai/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/contract.md#decisions-用量与估价工单-04",
+      "resolved": "docs/barness-ai/contract.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/thinking-sampling.md",
+      "resolved": "docs/barness-ai/thinking-sampling.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "examples/hostintegration",
+      "resolved": "ai/examples/hostintegration"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../GLOSSARY.md",
+      "resolved": "GLOSSARY.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../AGENTS.md",
+      "resolved": "AGENTS.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "e2e/testdata/pidiff/ledger.json",
+      "resolved": "ai/e2e/testdata/pidiff/ledger.json"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/differences.md",
+      "resolved": "docs/barness-ai/differences.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/contract.md",
+      "resolved": "docs/barness-ai/contract.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/differences.md",
+      "resolved": "docs/barness-ai/differences.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/decisions.md",
+      "resolved": "docs/barness-ai/decisions.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/thinking-sampling.md",
+      "resolved": "docs/barness-ai/thinking-sampling.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/barness-ai/README.md",
+      "resolved": "docs/barness-ai/README.md"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../docs/adr/",
+      "resolved": "docs/adr"
+    },
+    {
+      "source": "ai/README.md",
+      "destination": "../GLOSSARY.md",
+      "resolved": "GLOSSARY.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/glmhost/README.md",
+      "resolved": "ai/examples/glmhost/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md",
+      "resolved": ".scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/minimaxhost/README.zh-CN.md",
+      "resolved": "ai/examples/minimaxhost/README.zh-CN.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md",
+      "resolved": ".scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "README.md",
+      "resolved": "ai/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/barness-ai-pi-1.0/spec.md",
+      "resolved": ".scratch/barness-ai-pi-1.0/spec.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/barness-ai-thinking-sampling/spec.md",
+      "resolved": ".scratch/barness-ai-thinking-sampling/spec.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/barness-ai-openai-decisions/spec.md",
+      "resolved": ".scratch/barness-ai-openai-decisions/spec.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/adr/",
+      "resolved": "docs/adr"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../GLOSSARY.md",
+      "resolved": "GLOSSARY.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "live/support-matrix.json",
+      "resolved": "ai/live/support-matrix.json"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "release/catalog-snapshot.json",
+      "resolved": "ai/release/catalog-snapshot.json"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/README.md",
+      "resolved": "docs/barness-ai/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md",
+      "resolved": ".scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md",
+      "resolved": ".scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/barness-ai-glm/evidence/ticket-13/README.md",
+      "resolved": ".scratch/barness-ai-glm/evidence/ticket-13/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../.scratch/barness-ai-glm/evidence/ticket-13/index.json",
+      "resolved": ".scratch/barness-ai-glm/evidence/ticket-13/index.json"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../go.mod",
+      "resolved": "go.mod"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/localassembly",
+      "resolved": "ai/examples/localassembly"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/decisions.md",
+      "resolved": "docs/barness-ai/decisions.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/classifiermigration/README.md",
+      "resolved": "ai/examples/classifiermigration/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/chineseeval/README.md",
+      "resolved": "ai/examples/chineseeval/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/classifierimages/README.md",
+      "resolved": "ai/examples/classifierimages/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/requestid",
+      "resolved": "ai/examples/requestid"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/toolloop",
+      "resolved": "ai/examples/toolloop"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/contract.md",
+      "resolved": "docs/barness-ai/contract.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/README.md",
+      "resolved": "docs/barness-ai/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/contract.md#decisions-用量与估价工单-04",
+      "resolved": "docs/barness-ai/contract.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/thinking-sampling.md",
+      "resolved": "docs/barness-ai/thinking-sampling.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "examples/hostintegration",
+      "resolved": "ai/examples/hostintegration"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../GLOSSARY.md",
+      "resolved": "GLOSSARY.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../AGENTS.md",
+      "resolved": "AGENTS.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "e2e/testdata/pidiff/ledger.json",
+      "resolved": "ai/e2e/testdata/pidiff/ledger.json"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/differences.md",
+      "resolved": "docs/barness-ai/differences.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/contract.md",
+      "resolved": "docs/barness-ai/contract.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/differences.md",
+      "resolved": "docs/barness-ai/differences.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/decisions.md",
+      "resolved": "docs/barness-ai/decisions.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/thinking-sampling.md",
+      "resolved": "docs/barness-ai/thinking-sampling.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/barness-ai/README.md",
+      "resolved": "docs/barness-ai/README.md"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../docs/adr/",
+      "resolved": "docs/adr"
+    },
+    {
+      "source": "ai/README.zh-CN.md",
+      "destination": "../GLOSSARY.md",
+      "resolved": "GLOSSARY.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../.scratch/barness-ai/spec.md",
+      "resolved": ".scratch/barness-ai/spec.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../adr/",
+      "resolved": "docs/adr"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../GLOSSARY.md",
+      "resolved": "GLOSSARY.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../ai/release/catalog-snapshot.json",
+      "resolved": "ai/release/catalog-snapshot.json"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "README.md#资源策略示例与数值依据",
+      "resolved": "docs/barness-ai/README.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "thinking-sampling.md",
+      "resolved": "docs/barness-ai/thinking-sampling.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../.scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md",
+      "resolved": ".scratch/barness-ai-pi-1.0/unary-failures-evidence/README.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "decisions.md",
+      "resolved": "docs/barness-ai/decisions.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../.scratch/barness-ai-openai-decisions/issues/04-usage-presence-and-input-pricing.md",
+      "resolved": ".scratch/barness-ai-openai-decisions/issues/04-usage-presence-and-input-pricing.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "README.md#支持矩阵",
+      "resolved": "docs/barness-ai/README.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../ai/live/support-matrix.json",
+      "resolved": "ai/live/support-matrix.json"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../adr/0022-barness-ai-openai-images-unary.md",
+      "resolved": "docs/adr/0022-barness-ai-openai-images-unary.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "decisions-runtime.md",
+      "resolved": "docs/barness-ai/decisions-runtime.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../ai/examples/glmhost/README.md",
+      "resolved": "ai/examples/glmhost/README.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../adr/0036-barness-ai-zhipu-formal-catalog-evidence.md",
+      "resolved": "docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../.scratch/barness-ai-glm/evidence/ticket-13/README.md",
+      "resolved": ".scratch/barness-ai-glm/evidence/ticket-13/README.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md",
+      "resolved": ".scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md",
+      "resolved": ".scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../../ai/examples/minimaxhost/README.zh-CN.md",
+      "resolved": "ai/examples/minimaxhost/README.zh-CN.md"
+    },
+    {
+      "source": "docs/barness-ai/contract.md",
+      "destination": "../adr/0042-barness-ai-minimax-international-target.md",
+      "resolved": "docs/adr/0042-barness-ai-minimax-international-target.md"
+    }
+  ],
+  "report": "PASS: no documented Standards breach or possible baseline smell was found in this four-file documentation delta. FINAL-STANDARDS-DOC-01 is closed: both READMEs and the contract now identify the international .io target and three already activated MiniMax-M3 builtin identities, replacing the former China/candidate/no-builtin statements.\n\nThe catalog counts independently match 96 chat, two image and three classifier entries; the unchanged matrix contains 17 own identities across 16 protocol combinations. Historical M3 formal PASS is explicitly separated from ticket17 source qualification. M3.1 stays unpromoted/NOT_RUN with entitlement and production price unknown, and the complete release remains PARTIAL.\n\nThe latest source7931 GLM Messages cancel FAIL and absent native report are stated honestly; its refused publication preserves the original matrix, including the older Responses failure. Historical acceptance and source7931 gate history do not certify the new payload source. The issue distinguishes ca67+WIP byte-equal measurements from a postcommit operational freeze and keeps raw retention and final integration separate.\n\nAll 97 relative Markdown links resolve in the fixed Git tree. No runtime, selector, matrix, source pin, dependency or budget changed. This closes the documentation finding only; it grants no formal current-source eligibility, paid authority or release certificate. No project code, verifier, test, credential or network operation was executed.",
+  "reviewerExecution": {
+    "projectCodeExecuted": false,
+    "capturedCodeExecuted": false,
+    "verifiersExecuted": false,
+    "testsRun": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "repositoryWrites": false,
+    "BOuterOrRaceRead": false
+  },
+  "rootObserved": {
+    "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "status": [
+      "?? .scratch/barness-ai-minimax/session-analysis/",
+      "?? .scratch/jev-1.14-multimodal-box/human-review/"
+    ]
+  }
+}

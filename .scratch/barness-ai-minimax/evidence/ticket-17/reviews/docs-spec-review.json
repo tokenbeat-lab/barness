@@ -1,0 +1,252 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_DOCUMENTATION_REPAIR_ONLY",
+  "baseCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+  "reviewedCommit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+  "diffCommand": "git diff 230691742b731c77e8167b94646219e10f78c8f7...295728ac041006b00959dcfa368d3c1eab2f1953",
+  "commitsCommand": "git log 230691742b731c77e8167b94646219e10f78c8f7..295728ac041006b00959dcfa368d3c1eab2f1953 --oneline",
+  "diffSHA256": "b9c5aeb4575fafef19d2c9c3963a1b84eb9962a4a58eab52d008eab0bee3f191",
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "FINAL-SPEC-02",
+      "status": "CLEARED_FOR_DOCS_295728A",
+      "requirement": {
+        "file": ".scratch/barness-ai-minimax/spec.md",
+        "line": 306,
+        "quote": "交付完整 Host 配置示例，说明两种凭据用途、三绑定、文本子集、六型号默认/档位、full/simple、hook、缓存提示、标准服务层级、USD 估算、诊断、原生状态信任及真实支持状态。"
+      },
+      "evidence": "Committed contract now states actual three M3 builtin identities and historical formal evidence, with whole release/current-source/M3.1 limits explicit."
+    }
+  ],
+  "priorSourceClosure": {
+    "finding": "FINAL-SPEC-01",
+    "sourceCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+    "reviewSHA256": "8bea06a62b2ea9e8622db80cef4f36118010f311987aa9e308b04a807eb067fd"
+  },
+  "report": "Spec documentation review: PASS, no findings. Exact2306917…295728a changes four documentation/issue files only. FINAL-SPEC-02 is cleared; the separate2306 source review already clears FINAL-SPEC-01 and is not reissued here.\n\nR28:306 requires documenting “真实支持状态”. The contract now correctly states three international MiniMax-M3 BuiltinCatalog identities, their .io endpoints and historical own formal PASS evidence. Independent committed catalog/snapshot reads confirm version2026-10-18.1-minimax,96 chat/2 image/3 classifier entries,16 operation/provider/API combinations and17 own support identities. Formal8900 metadata confirms three M3 PASS reports while its whole checkpoint remains PARTIAL. M3.1 is absent from builtin activation, has three zero-consumption M Plan slots and remains unpromoted/NOT_RUN with unknown entitlement and price.\n\nBoth README tables now explicitly show own live history and revalidation qualifications. Their historical baselines retain exact source attribution rather than claiming current certification. New7931 G Chat/Responses PASS and Messages cancel FAIL are distinct from the unchanged default matrix’s16PASS/1FAIL Responses history: the contract explicitly retains missing Messages support, refused strict publication/four-input import and unchanged matrix. No new row import or aggregate success is implied.\n\nOriginal M3×263, GLM217, text261, protocol862 and visual323 source mappings/selectors are described as original evidence that does not certify ticket17’s new payload code. Generic routes still require independent final-diff applicability review; missing maps do not grant an exemption. Catalog, source/data selectors and matrix bytes are unchanged by this docs commit.\n\nIssue17 remains claimed and raw retention pending. It accurately separates measuredca67+WIP1027 compiler/JSON byte equality to2306 from direct postcommit execution or whole1056 operational freeze. Related1663PASS+8NOT_RUN and separate exact-eight opt-in PASS results remain distinct. Controlled fixes do not close spec/09/10 mandatory live acceptance or authorize paid reruns. No current ticket17 source qualification, complete release certificate or M3.1 promotion is claimed.\n\nNo project/test/verifier, Key, network, B race/outer read or repository edit by reviewer. Source and raw retention approvals remain separate.",
+  "reportBodyWords": 289,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md": {
+      "bytes": 3402,
+      "sha256": "a19213e8122a46710c17c1eced211955201ef01b343464c988ce5fdd727528a5"
+    },
+    "ai/README.md": {
+      "bytes": 38161,
+      "sha256": "71754bbb3e60569c79029c7274449777dbe650598c214a84efa70894ceddc0d2"
+    },
+    "ai/README.zh-CN.md": {
+      "bytes": 37484,
+      "sha256": "d317b70529641bccf98c086503dacca7dee22f6b76da7df43870cd519a1f0a20"
+    },
+    "docs/barness-ai/contract.md": {
+      "bytes": 37754,
+      "sha256": "8d8092d903031fd417aa87cb9264a87e64e843e292f2ff08b96ac14b583a98bf"
+    }
+  },
+  "independentPrimarySourceFacts": {
+    "catalogVersion": "2026-10-18.1-minimax",
+    "chatModels": 96,
+    "imageModels": 2,
+    "classifierModels": 3,
+    "protocolCombinations": [
+      [
+        "chat",
+        "anthropic",
+        "anthropic-messages"
+      ],
+      [
+        "chat",
+        "deepseek",
+        "openai-completions"
+      ],
+      [
+        "chat",
+        "deepseek",
+        "openai-responses"
+      ],
+      [
+        "chat",
+        "google",
+        "google-generative-ai"
+      ],
+      [
+        "chat",
+        "minimax",
+        "anthropic-messages"
+      ],
+      [
+        "chat",
+        "minimax",
+        "openai-completions"
+      ],
+      [
+        "chat",
+        "minimax",
+        "openai-responses"
+      ],
+      [
+        "chat",
+        "openai",
+        "openai-completions"
+      ],
+      [
+        "chat",
+        "openai",
+        "openai-responses"
+      ],
+      [
+        "chat",
+        "zhipu",
+        "anthropic-messages"
+      ],
+      [
+        "chat",
+        "zhipu",
+        "openai-completions"
+      ],
+      [
+        "chat",
+        "zhipu",
+        "openai-responses"
+      ],
+      [
+        "classifier",
+        "openai",
+        "openai-decisions"
+      ],
+      [
+        "classifier",
+        "typesafe",
+        "typesafe-system-one"
+      ],
+      [
+        "image",
+        "google",
+        "google-interactions"
+      ],
+      [
+        "image",
+        "openai",
+        "openai-images"
+      ]
+    ],
+    "protocolCombinationCount": 16,
+    "ownIdentityCount": 17,
+    "builtinMiniMax": [
+      {
+        "model": "MiniMax-M3",
+        "provider": "minimax",
+        "api": "openai-completions"
+      },
+      {
+        "model": "MiniMax-M3",
+        "provider": "minimax",
+        "api": "openai-responses"
+      },
+      {
+        "model": "MiniMax-M3",
+        "provider": "minimax",
+        "api": "anthropic-messages"
+      }
+    ],
+    "historicalM3Formal": [
+      {
+        "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+        "identity": {
+          "route": "chat",
+          "model": "MiniMax-M3",
+          "purpose": "standard",
+          "api": "openai-completions",
+          "endpoint": "https://api.minimax.io/v1"
+        },
+        "outcome": "PASS",
+        "reportSHA256": "e65cd00d598befd62b9af32e2daa42e0f06d83878187afe83d2f90c164dd03ff"
+      },
+      {
+        "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+        "identity": {
+          "route": "responses",
+          "model": "MiniMax-M3",
+          "purpose": "standard",
+          "api": "openai-responses",
+          "endpoint": "https://api.minimax.io/v1"
+        },
+        "outcome": "PASS",
+        "reportSHA256": "33fb060912110b35680c0baadd37566f3380d165998c1ec38334d47f129dc425"
+      },
+      {
+        "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+        "identity": {
+          "route": "messages",
+          "model": "MiniMax-M3",
+          "purpose": "standard",
+          "api": "anthropic-messages",
+          "endpoint": "https://api.minimax.io/anthropic"
+        },
+        "outcome": "PASS",
+        "reportSHA256": "4932f71f744a2532269ed64005447e6ab98f859cd288ccefa1350ed747e907fd"
+      }
+    ],
+    "formalWholeCheckpoint": "PARTIAL",
+    "M31Active": false,
+    "M31ZeroConsumptionSlots": {
+      "chat/MiniMax-M3.1-Flash-Preview/mplan": {
+        "calls": 0,
+        "attempts": 0,
+        "requestedOutput": 0,
+        "reservedInput": 0,
+        "unknown": false
+      },
+      "responses/MiniMax-M3.1-Flash-Preview/mplan": {
+        "calls": 0,
+        "attempts": 0,
+        "requestedOutput": 0,
+        "reservedInput": 0,
+        "unknown": false
+      },
+      "messages/MiniMax-M3.1-Flash-Preview/mplan": {
+        "calls": 0,
+        "attempts": 0,
+        "requestedOutput": 0,
+        "reservedInput": 0,
+        "unknown": false
+      }
+    },
+    "defaultMatrixSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "defaultMatrixCurrentRowFailures": [
+      "zhipu-responses"
+    ],
+    "defaultMatrixQualification": "16 historical PASS rows/1 FAIL Responses, not a source2957 certificate",
+    "nativeDataSelectorsUnchanged": {
+      "ai/catalog.go": "e2ddc52bff18de67a746b8dbfffa4f6f65c3bead093e632781342c137282ca21",
+      "ai/catalog_minimax.go": "eacfce9acacd6c19b6a9d65857470087c5ba858991efe2e946ca469e559e1868",
+      "ai/catalog_minimax.json": "5d9be9244a1cb4059f50f4b7d8333461deeffaf0ead3220910afe20d3fb525ce",
+      "ai/release/catalog-snapshot.json": "fd6d59db596e8e4a81f970e50d6fe0567f86306957c1e934c1fae5e1c36dce63",
+      "ai/live/support-matrix.json": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+      "ai/live/testdata/glm-formal/live-captures.json": "32d15c15a2c18af47f686b3004098a9d16bf182a9c9c5de077988a6490155e8e",
+      "ai/live/testdata/glm-formal/live-captures.sha256": "89a3ad86498045059ac105cacbcd23f7467c74270bf2c33361af1d34776fdf67",
+      "ai/live/testdata/glm-formal/known-usage.json": "a6e729775ea2ef1fcc09c33913f8005a620af6cf94d3e0bb11a1e5a65ae40a97",
+      "ai/live/testdata/glm-formal/support-views.json": "c8adcc9c66d98bb5db7da9f7935ae6cb3dbef29bde48c263a7771e80cff906ac"
+    }
+  },
+  "supportingGitPins": {
+    ".scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.json": "121075a2a34a35c9966c6bf2c81eff29f20b587df103c3eb4f071ebf703183b4",
+    ".scratch/barness-ai-minimax/evidence/ticket-10/international-candidates-7605332-summary.json": "23b395b8bbb99d73610127828939490462d38ad38044e205664dc3debe98cfcd",
+    "ai/release/traceability.json": "0bb23afc3ce9881a4965ce5408b5d46626b655d2b3937cb523ab8bdcae8d4ca8"
+  },
+  "scopeConstraints": {
+    "docsOnly": true,
+    "retentionApproved": false,
+    "issue17Claimed": true,
+    "mandatoryAcceptanceClosed": false,
+    "currentSourceApplicabilityRenewed": false,
+    "releaseCertified": false,
+    "paidAuthority": false,
+    "testsOrProjectProgramsExecuted": false,
+    "keysRead": false,
+    "networkCalls": 0,
+    "BRead": false,
+    "repoModified": false
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "axis": "Spec",
+  "base": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+  "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "spec": ".scratch/barness-ai-minimax/spec.md",
+  "specSHA256": "212c7ee886d186deab5a62ed39def94e42d096bd6d5d284ad4de359571e21a96",
+  "verdict": "CHANGES_REQUESTED_SOURCE_AND_ACCEPTANCE_INCOMPLETE",
+  "findings": [
+    {
+      "id": "FINAL-SPEC-01",
+      "severity": "P2",
+      "category": "SOURCE_BUG",
+      "file": "ai/anthropic_minimax_payload.go",
+      "line": 103,
+      "spec": {
+        "file": ".scratch/barness-ai-minimax/spec.md",
+        "line": 252,
+        "decision": "R20",
+        "quote": "所有默认、模型/调用采样与回调之后统一校验最终 stream、模型、消息、函数工具、原生引用、认证、缓存键、型号约束、已接入能力与资源限制"
+      },
+      "finding": "The MiniMax Messages final guard does not validate required message/tool structure. An OnPayload hook replacing messages with json.Number(\"7\") passes authorization and miniMaxMessagesContent (its scalar branch returns empty/no problem); tools:[{}] also passes the required-name/input_schema checks because those checks are absent. anthropic.go:134 sends these malformed final bytes via WithRequestBody, consuming a Provider request instead of local rejection.",
+      "requestedChange": "After the current freeze, add failure-first public Client E2E cases for malformed final message containers/roles and missing/incorrect function-tool required fields; reject before Provider requests/Attempts while leaving JSON Schema properties and tool input business data alone.",
+      "validation": "Deterministic static call-path analysis; no test executed by reviewer."
+    },
+    {
+      "id": "FINAL-SPEC-02",
+      "severity": "P2",
+      "category": "DOCUMENTATION_BUG",
+      "file": "docs/barness-ai/contract.md",
+      "line": 359,
+      "spec": {
+        "file": ".scratch/barness-ai-minimax/spec.md",
+        "line": 306,
+        "decision": "R28",
+        "quote": "交付完整 Host 配置示例，说明两种凭据用途、三绑定、文本子集、六型号默认/档位、full/simple、hook、缓存提示、标准服务层级、USD 估算、诊断、原生状态信任及真实支持状态。"
+      },
+      "finding": "The public contract says 当前BuiltinCatalog没有MiniMax正式型号, but catalog_minimax.json contains three activated M3 entries and BuiltinCatalog appends them. This misstates the nil/default Catalog configuration and current catalog boundary.",
+      "requestedChange": "Correct after the running freeze: distinguish active M3 catalog/three own formal PASS reports from still-PARTIAL full release qualification and unpromoted M3.1 candidates; do not claim the whole spec is passed."
+    }
+  ],
+  "sourceFindings": 2,
+  "scopeCreepFindings": 0,
+  "report": "Spec source review: CHANGES REQUESTED; two P2 source/documentation findings. Fixed base ecfd4b4d6ec54db30453f4b5112989e9fdbd0782, target7931b163f983a8b362374163b7949d31e68bbec4.\n\n(a)/(c) P2 — ai/anthropic_minimax_payload.go:103–146. R20:252 requires “统一校验最终 stream、模型、消息、函数工具”. The Messages post-hook guard accepts a scalar messages value and tools:[{}]: the content walker treats noncontainers as valid and required function fields are not checked. Authorization does not supply those checks, and anthropic.go:134 sends the exact malformed bytes. Add failure-first public Client rejection cases and structural checks, preserving business JSON. This is a static source defect, distinct from vendor failures; no test was executed.\n\n(c) P2 — docs/barness-ai/contract.md:359. R28:306 requires documenting “真实支持状态”. It claims BuiltinCatalog has no MiniMax formal model, although the activated data/catalog code includes all three M3 entries. Correct that configuration statement while retaining the distinction between M3 own formal evidence, M3.1 candidates and the incomplete whole release.\n\n(b) No unasked scope creep confirmed. The protocol adapters retain existing Client/lifecycle boundaries; six model identities, exact reasoning/default/capability guards, cache/usage/price semantics, native history, isolation/resources, finite live provenance, frozen differential and rollback seams are implemented. All28 R,20 A and80 US identifiers have nonempty finite trace mappings (128 contract rows,1,304 unique required cases).\n\nMandatory acceptance remains incomplete independently of these source findings. R27:300 says “文本、工具往返、思考开启与合法续接、隔离、终态和资源约束均为必交”, and R27:302 requires “完整当前报告、目录/价格快照与门禁通过”. Current GLM Messages cancel is an actual FAIL; its120001ms detail cannot produce the required support report, strict publication and four-row import remain refused, and the original matrix remains unchanged. The first current full gate requires a separate completed-results addendum; this static review asserts no PASS/certificate. Original545/545 and new102/102 remain immutable, total647/647. No edits, tests, Keys, network or paid calls by the reviewer.",
+  "reportWordCount": 260,
+  "mandatoryAcceptanceGaps": [
+    {
+      "category": "ACTUAL_ACCEPTANCE_GAP_NOT_ADAPTER_BUG",
+      "requirements": [
+        "R27:300",
+        "R27:302",
+        "T04:355",
+        "ticket15 strict3PASS/four-new-rows"
+      ],
+      "facts": [
+        "new GLM Messages21PASS/1FAIL; cancel120001ms, completefalse, no live-report.json",
+        "strict GLM publication refused; four selectors unchanged",
+        "new four-row import refused; matrix7fbe72 remains",
+        "first current full-gate actual result is outside this static review and requires a completed-results addendum"
+      ],
+      "releaseCertified": false
+    }
+  ],
+  "scope": {
+    "diffCommand": "git diff ecfd4b4d6ec54db30453f4b5112989e9fdbd0782...7931b163f983a8b362374163b7949d31e68bbec4",
+    "commitCommand": "git log ecfd4b4d6ec54db30453f4b5112989e9fdbd0782..7931b163f983a8b362374163b7949d31e68bbec4 --oneline",
+    "nonempty": true,
+    "changedFiles": 1320,
+    "diffSHA256": "5b8b4c2be4b904806c350166dc5592ed6699c2c12f80a78b5cb66efa1676277b",
+    "capturedDiffMatchesGit": true,
+    "capturedCommitListSHA256": "927d79cc79785a098a2820fcb63d4910d603597a3fd899a05e993160de7e5f1c",
+    "capturedFileListSHA256": "63f81610c2c51ad9f164c2208155bb7eb02af986947a9f29d3f00eb1cd56ad4c",
+    "traceRows": 394,
+    "requiredTraceGroups": 128,
+    "uniqueRequiredMiniMaxCases": 1304
+  },
+  "reviewedRelevantPinsSHA256": {
+    ".scratch/barness-ai-minimax/spec.md": "212c7ee886d186deab5a62ed39def94e42d096bd6d5d284ad4de359571e21a96",
+    "ai/anthropic_minimax_payload.go": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+    "ai/anthropic.go": "a25b9d4ae0e7cef960899e5a93fd207c6e8df6a9ffe7709bc9188906a113337c",
+    "ai/anthropic_payload.go": "9343b61c38c9c4a46107aecfd7712046d8ade5299bddf7b9c45509d5034a24a2",
+    "docs/barness-ai/contract.md": "af532c094a0315c90e89f19e8a7611454e43058aa49181eebdd9a7bea7ccce23",
+    "ai/catalog.go": "e2ddc52bff18de67a746b8dbfffa4f6f65c3bead093e632781342c137282ca21",
+    "ai/catalog_minimax.go": "eacfce9acacd6c19b6a9d65857470087c5ba858991efe2e946ca469e559e1868",
+    "ai/catalog_minimax.json": "5d9be9244a1cb4059f50f4b7d8333461deeffaf0ead3220910afe20d3fb525ce",
+    "ai/release/traceability.json": "457acee6499ee916ed1e116ca9f832ee73799b9b0328733063dc07ddc1025166",
+    "ai/internal/testkit/release/plan.go": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+    "ai/internal/testkit/supportmatrix/glm.go": "873d82a99e5fcf90a0102a795df9c1b484e9d9d013fc6fcbccd1a75912f40c15",
+    ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md": "f22b0d1e989b09e78d6471a95e809cf70d7763f2ba72a64e9a798b2201f1b466"
+  },
+  "sourceReviewCoverage": [
+    "R01–R08 identities/explicit bindings/six model/default and option contracts",
+    "R09–R16 three wire/request/stream/native-history capability paths",
+    "R17–R23 cache/usage/pricing/hooks/authorization/error/retry/isolation/resources",
+    "R24–R28 finite differential/provenance/promotion/acceptance/rollback/documents",
+    "A01–A20 and US01–US80 trace completeness; actual failures kept separate",
+    "Postgate release-consumer fixes, fixed6 authority/approval/routing/source-applicability and first incomplete-gate plan reviewed separately at exact stages"
+  ],
+  "historicalReviewsNotCurrentCertificate": true,
+  "newPaidAccounting": {
+    "priorCalls": 545,
+    "priorAttempts": 545,
+    "newCalls": 102,
+    "newAttempts": 102,
+    "combinedCalls": 647,
+    "combinedAttempts": 647,
+    "closedProcesses": 6,
+    "PASS": 5,
+    "FAIL": 1
+  },
+  "reviewerActions": "Static/read/hash-only. No tests, verifier/helper/gate execution, Key reads, network/vendor calls, source/input writes, commits or merges. Frozen source remains unchanged."
+}

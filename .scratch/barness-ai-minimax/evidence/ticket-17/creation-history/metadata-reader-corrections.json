@@ -1,0 +1,9 @@
+{
+  "classification": "retention authoring, not runtime failures",
+  "observedRefusals": [
+    "object-only decoder rejected requests array",
+    "nil Go request slice is JSON null in42 final zero-request captures",
+    "object-only decoder rejected141-record provenance array"
+  ],
+  "corrections": "Decode bounded metadata arrays with JSON parser; permit only literal null for expected zero request count; require exact141 same-stage raw input JSON proofs. Original archive/manifest/captures/pins unchanged."
+}

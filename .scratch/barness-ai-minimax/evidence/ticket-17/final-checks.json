@@ -1,0 +1,308 @@
+{
+  "regression-ordinary-restored": {
+    "command": {
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestMiniMax|TestAnthropic|TestGLMMessages|TestGLMReleaseTraceContract)",
+        "-timeout=20m"
+      ],
+      "cwd": "/private/tmp/barness-minimax-routed-validation",
+      "state": "COMPLETED",
+      "environmentKeys": [
+        "BARNESS_AI_EVIDENCE_DIR",
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "credentialsRead": false,
+      "realProviderRequestsAuthorized": false,
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "runnerSHA256": "17dd303a1ba28882f3af5a8f83661fe98d856232e38e19a31d68fc10e6534032",
+      "exitCode": 0,
+      "seconds": 51.04156494140625,
+      "sourceUnchangedAfter": true,
+      "changedFiles": [],
+      "logSHA256": "5612764cf4a308d252736b54650044c0cef855f2e4879764872193367a343f8f"
+    },
+    "cases": 1671,
+    "statuses": {
+      "PASS": 1663,
+      "NOT_RUN": 8
+    },
+    "startedAt": "2026-10-18T12:48:27.338851Z",
+    "finishedAt": "2026-10-18T12:49:11.55912Z",
+    "notRun": [
+      {
+        "id": "MM05-design-load-cloud-chat",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^chat$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-cloud-messages",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^messages$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-cloud-responses",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^responses$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-local-chat",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^chat$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-local-messages",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^messages$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-local-responses",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^responses$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM06-frozen-catalog-metadata",
+        "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxPiCatalog$'",
+        "reason": "requires BARNESS_AI_PIDIFF=1"
+      },
+      {
+        "id": "PIDIFF-MM06-catalog-differences",
+        "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxPiCatalogDifferences$'",
+        "reason": "requires BARNESS_AI_PIDIFF=1"
+      }
+    ],
+    "audit": {
+      "findings": []
+    }
+  },
+  "regression-race-restored": {
+    "command": {
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestMiniMax|TestAnthropic|TestGLMMessages|TestGLMReleaseTraceContract)",
+        "-timeout=20m",
+        "-exec",
+        "/usr/bin/env BARNESS_MINIMAX_CATALOG_CHILD_RACE=1"
+      ],
+      "cwd": "/private/tmp/barness-minimax-routed-validation",
+      "state": "COMPLETED",
+      "environmentKeys": [
+        "BARNESS_AI_EVIDENCE_DIR",
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "credentialsRead": false,
+      "realProviderRequestsAuthorized": false,
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "runnerSHA256": "17dd303a1ba28882f3af5a8f83661fe98d856232e38e19a31d68fc10e6534032",
+      "exitCode": 0,
+      "seconds": 140.15305590629578,
+      "sourceUnchangedAfter": true,
+      "changedFiles": [],
+      "logSHA256": "bbb2b40694fc6aaf1aa01d0fdd49fd893809e11d01c0920907a36350bab750d1"
+    },
+    "cases": 1671,
+    "statuses": {
+      "PASS": 1663,
+      "NOT_RUN": 8
+    },
+    "startedAt": "2026-10-18T12:48:32.832724Z",
+    "finishedAt": "2026-10-18T12:49:59.036076Z",
+    "notRun": [
+      {
+        "id": "MM05-design-load-cloud-chat",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^chat$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-cloud-messages",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^messages$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-cloud-responses",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^responses$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-local-chat",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^chat$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-local-messages",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^messages$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM05-design-load-local-responses",
+        "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^responses$'",
+        "reason": "requires BARNESS_AI_PRESSURE=1"
+      },
+      {
+        "id": "MM06-frozen-catalog-metadata",
+        "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxPiCatalog$'",
+        "reason": "requires BARNESS_AI_PIDIFF=1"
+      },
+      {
+        "id": "PIDIFF-MM06-catalog-differences",
+        "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxPiCatalogDifferences$'",
+        "reason": "requires BARNESS_AI_PIDIFF=1"
+      }
+    ],
+    "audit": {
+      "findings": []
+    }
+  },
+  "selected-opt-in-ordinary": {
+    "command": {
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestMiniMaxSharedDesignLoad|TestMiniMaxPiCatalog|TestMiniMaxPiCatalogDifferences)$",
+        "-exec",
+        "/usr/bin/env BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1",
+        "-timeout=20m"
+      ],
+      "cwd": "/private/tmp/barness-minimax-routed-validation",
+      "state": "COMPLETED",
+      "environmentKeys": [
+        "BARNESS_AI_EVIDENCE_DIR",
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "credentialsRead": false,
+      "realProviderRequestsAuthorized": false,
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "runnerSHA256": "17dd303a1ba28882f3af5a8f83661fe98d856232e38e19a31d68fc10e6534032",
+      "exitCode": 0,
+      "seconds": 5.2498321533203125,
+      "sourceUnchangedAfter": true,
+      "changedFiles": [],
+      "logSHA256": "03b7ca6067a156fff86518c2635195800ffa5bd3d6428ed06ebbc76b675fe152"
+    },
+    "cases": 8,
+    "statuses": {
+      "PASS": 8
+    },
+    "startedAt": "2026-10-18T12:51:07.495754Z",
+    "finishedAt": "2026-10-18T12:51:08.503941Z",
+    "notRun": [],
+    "audit": {
+      "findings": []
+    }
+  },
+  "selected-opt-in-race": {
+    "command": {
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestMiniMaxSharedDesignLoad|TestMiniMaxPiCatalog|TestMiniMaxPiCatalogDifferences)$",
+        "-exec",
+        "/usr/bin/env BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1",
+        "-timeout=20m"
+      ],
+      "cwd": "/private/tmp/barness-minimax-routed-validation",
+      "state": "COMPLETED",
+      "environmentKeys": [
+        "BARNESS_AI_EVIDENCE_DIR",
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "credentialsRead": false,
+      "realProviderRequestsAuthorized": false,
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "runnerSHA256": "17dd303a1ba28882f3af5a8f83661fe98d856232e38e19a31d68fc10e6534032",
+      "exitCode": 0,
+      "seconds": 59.132752895355225,
+      "sourceUnchangedAfter": true,
+      "changedFiles": [],
+      "logSHA256": "8961ed553290f5c5413bd85ad24539558ed829dfc20dc8dc27414e218bcce51f"
+    },
+    "cases": 8,
+    "statuses": {
+      "PASS": 8
+    },
+    "startedAt": "2026-10-18T12:51:08.049617Z",
+    "finishedAt": "2026-10-18T12:51:15.86486Z",
+    "notRun": [],
+    "audit": {
+      "findings": []
+    }
+  },
+  "vet-restored": {
+    "command": {
+      "argv": [
+        "go",
+        "vet",
+        "./..."
+      ],
+      "cwd": "/private/tmp/barness-minimax-routed-validation",
+      "state": "COMPLETED",
+      "environmentKeys": [
+        "BARNESS_AI_EVIDENCE_DIR",
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "credentialsRead": false,
+      "realProviderRequestsAuthorized": false,
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "runnerSHA256": "17dd303a1ba28882f3af5a8f83661fe98d856232e38e19a31d68fc10e6534032",
+      "exitCode": 0,
+      "seconds": 0.6905558109283447,
+      "sourceUnchangedAfter": true,
+      "changedFiles": [],
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "vet-live-restored": {
+    "command": {
+      "argv": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ],
+      "cwd": "/private/tmp/barness-minimax-routed-validation",
+      "state": "COMPLETED",
+      "environmentKeys": [
+        "BARNESS_AI_EVIDENCE_DIR",
+        "HOME",
+        "PATH",
+        "TMPDIR"
+      ],
+      "credentialsRead": false,
+      "realProviderRequestsAuthorized": false,
+      "sourceSnapshotSHA256": "7f1059727da0361efe82f512c92abbcff6e56d37bbc969049fbed2e60d260f81",
+      "runnerSHA256": "17dd303a1ba28882f3af5a8f83661fe98d856232e38e19a31d68fc10e6534032",
+      "exitCode": 0,
+      "seconds": 0.6665468215942383,
+      "sourceUnchangedAfter": true,
+      "changedFiles": [],
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

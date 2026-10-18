@@ -1,0 +1,24 @@
+{
+  "logs": [
+    {
+      "file": "retention-initial-red.log.gz",
+      "decodedBytes": 285,
+      "decodedSHA256": "1c3bb2730d7e1f5357c106327b1a52f07aa7c5b47f16af071aae3c566470a199",
+      "actualExitCode": 2
+    },
+    {
+      "file": "retention-negative-initial-red.log.gz",
+      "decodedBytes": 1421,
+      "decodedSHA256": "7ea7fb8f34f6d0e92915fd1eb56ea69e3a2360b62061661414ba39291a5e8cfb",
+      "actualExitCode": 1
+    },
+    {
+      "file": "public-initial-fixture-refusal.log.gz",
+      "decodedBytes": 66,
+      "decodedSHA256": "e0b2084cf5f7f5239d5cef99b52ab3639d0d93af89d0a8791362404dc7a05d6a",
+      "actualExitCode": 1
+    }
+  ],
+  "classification": "first absent public entrypoint/index setup refusals and a conservative wrong fixture/hash invariant; not runtime vulnerability RED",
+  "fixtureMeaning": "Fixture input SHA is pre-redaction; artifacts SHA is saved bytes. All141 distinct-table differences retain exact same-stage source JSON proof. No archive/manifest/hash was changed."
+}

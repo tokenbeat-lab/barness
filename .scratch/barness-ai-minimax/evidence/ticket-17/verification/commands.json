@@ -1,0 +1,36 @@
+[
+  {
+    "argv": [
+      "python3",
+      "-B",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/verify.py",
+      "--common-root",
+      "/Users/cyber/RestoX/barness"
+    ],
+    "actualExitCode": 0,
+    "outputFile": "verification/public-verifier.json.gz",
+    "compressedSHA256": "3b2e33d3516e9f9aaa34d0458e4d7030a77b827188e907e131daf76e2899e662",
+    "decodedSHA256": "df1c90b3d6145b5755c7d2ff7f0c290c0e76b92bbd8b53238c195f60a1b8daeb",
+    "decodedBytes": 7600,
+    "recordedFrom": "actual completed exec tool exit and original redirected stdout",
+    "credentialsRead": false,
+    "paidCalls": 0
+  },
+  {
+    "argv": [
+      "python3",
+      "-B",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/check-boundaries.py",
+      "--common-root",
+      "/Users/cyber/RestoX/barness"
+    ],
+    "actualExitCode": 0,
+    "outputFile": "verification/public-negatives.json.gz",
+    "compressedSHA256": "6a1cece7f69647eefbe2c5c21b9404c921c2f25dd69f6a8d563fca3c703a50cb",
+    "decodedSHA256": "022a413104a575c6b185c8e26e672be541f252353a71c9dd84a2ff95b0f4b365",
+    "decodedBytes": 3963,
+    "recordedFrom": "actual completed exec tool exit and original redirected stdout",
+    "credentialsRead": false,
+    "paidCalls": 0
+  }
+]
