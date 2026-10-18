@@ -1,0 +1,25 @@
+{
+  "axis": "standards",
+  "base": "9dcf896b9bea357fd6c784acbca1b027dc96a177",
+  "target": "ecce8678dafb8dbf816539d4c958cc4dbcb7536c",
+  "verdict": "PASS",
+  "confidence": "high",
+  "documentedBreaches": [],
+  "judgmentSmells": [],
+  "findings": [],
+  "scope": "Read-only review of synthetic replay diagnostic redaction and controlled public process evidence; no change to prior verdicts or paid authorization.",
+  "verifiedBoundaries": [
+    {
+      "path": "ai/live/glm_corrective_replay_process_test.go",
+      "startLine": 33,
+      "endLine": 36,
+      "observation": "Only the unique synthetic temporary root is registered; diagnostic suffix and shared audit remain intact."
+    },
+    {
+      "path": "ai/live/glm_corrective_home_process_test.go",
+      "startLine": 28,
+      "endLine": 46,
+      "observation": "Isolated child HOME exercises executable/audit boundary and retains verifiable redaction evidence."
+    }
+  ]
+}

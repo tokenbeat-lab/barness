@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "name": "glm-corrective-q-9dc-audit-failure",
+  "codeCommit": "9dcf896b9bea357fd6c784acbca1b027dc96a177",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "$COMMON/.evidence/minimax-retained/glm-corrective-q-9dc-audit-failure.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/glm-corrective-q-9dc-audit-failure.tar.gz",
+  "archiveBytes": 53271279,
+  "archiveSha256": "56e08cbf7105f4fe1a1751bae42ba83988bcdbb4d1b1d443dd9bcd9a2d62ae3c",
+  "files": 27417,
+  "negativeSymlinkFixtures": 1,
+  "entries": 27418,
+  "expandedBytes": 253350201,
+  "inventory": "glm-corrective-q-9dc-audit-failure-files.json.gz",
+  "inventorySha256": "2f05a96713f94dfcc84f7923c60ffd60a7dc360fc2fff43dec849e4255149273",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "original-Q",
+      "manifest": "original-Q/no-key-live/20261018T035159.936295000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 335,
+        "NOT_RUN": 62
+      },
+      "artifactReferences": 15261,
+      "auditFindings": 2
+    }
+  ]
+}

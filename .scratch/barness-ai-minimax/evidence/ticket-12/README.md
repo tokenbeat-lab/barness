@@ -81,3 +81,35 @@ asking for the distinct paid budget approval.
 Integration merged byte-exact at `a080b37`; [merge proof](integration-merge-proof.json) checks all1,033 generation files against reviewed6ff and each original M3 263-pin map. [Archive portability](archive-portability.md) confirms no Go change is required. If corrective-1 is explicitly approved and all three actual captures PASS, use a fresh `.evidence/minimax-ticket12-current-glm` for raw archive publication and same-directory support-view derivation. Force-track all three original generated raw ZIPs with raw selectors/checkpoints before deriving views, then all three generated view ZIPs with the view selector before L freeze. Do not relocate files or rewrite raw-index checkpoints. Original captures and their sources remain immutable.
 
 The original implementer checksum receipt and overview are retained byte-exact as `source-a080b37-SHA256SUMS` and `source-a080b37-README.md`; their paths describe Git source a080b37. The current `SHA256SUMS` also covers parent integration/context additions. Raw captures, original indexes and reviews were not changed.
+
+## Checkout-inside-HOME diagnostic followup
+
+The original actual-root PENDING keyless check at9dcf896 had335 PASS,62
+NOT_RUN,zero case FAIL and overall exit1 because audit found two HOME paths in
+nested replay stdout. It remains a failed preparation, with original checks and
+receipts preserved. [Diagnostic rationale](diagnostic-home.md) and
+[exact summary](diagnostic-home-summary.json) document the public failure-first
+reproduction and the GLM-only fix at `ecce867`. The shared audit is unchanged.
+
+Focused ordinary5 PASS and race5 PASS both have audit0/exit0; both vets exit0.
+All1,034 generation-source files stayed identical during these checks. Each
+existing M3 formal bundle still passes the public verifier with its263 source
+pins and original report bytes unchanged. No credentials, vendor requests or
+canonical corrective intents were used. This evidence does not substitute for
+the fresh actual-root full no-key check required before any budget approval.
+
+`glm-corrective-home-ecce867.tar.gz` retains complete red/green raw bundles,
+source maps, the exact failure-first patch, command receipts and all three M3
+verifier receipts. It has5,730,563 bytes/5,420 files and is byte-verified both in
+common ignored retention and as a tracked capsule; its JSON index and compressed
+full inventory pin every original byte. The original9dcf896 overview/checksum
+receipt remains byte-exact as `source-9dcf896-*`. Corrective-1 remains PENDING
+HUMAN APPROVAL.
+
+Both independent diagnostic review axes at ecce867 PASS with zero findings and
+high confidence; the four `ecce867-*-review.*` reports are retained byte-exact,
+with [copy provenance](diagnostic-review-provenance.json).
+[Original root Q retention](glm-corrective-q-9dc-audit-failure.json) pins the
+entire immutable failed Q plus parent receipts:53,271,279 compressed bytes and
+27,417 regular files in common ignored storage, with a tracked full inventory.
+Parent independently audits that original retention before fresh preparation.
