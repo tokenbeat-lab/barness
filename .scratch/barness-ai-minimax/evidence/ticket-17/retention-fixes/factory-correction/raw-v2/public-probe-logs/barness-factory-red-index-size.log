@@ -1,0 +1,71 @@
+{
+  "case": "index-size",
+  "expectation": "unsafe",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/check-factory.py",
+    "--child",
+    "--case",
+    "index-size",
+    "--producer",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/source/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py",
+    "--output",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/work",
+    "--events",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/events.jsonl",
+    "--common-root",
+    "/Users/cyber/RestoX/barness"
+  ],
+  "exitCode": 1,
+  "seconds": 13.235710124950856,
+  "injected": true,
+  "constructionPresent": true,
+  "verificationInvoked": true,
+  "sealRewritten": true,
+  "diagnostic": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/check-factory.py\", line 68, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--case',choices=('index-size','inventory-compressed','inventory-decoded','seal-metadata','output-grow'),required=True);p.add_argument('--expect',choices=('unsafe','bounded'));p.add_argument('--out');p.add_argument('--common-root',default='/Users/cyber/RestoX/barness');p.add_argument('--child',action='store_true');p.add_argument('--producer');p.add_argument('--output');p.add_argument('--events');a=p.parse_args();child(a) if a.child else main(a)\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ~~~~~^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/check-factory.py\", line 48, in child\n    sys.addaudithook(audit);sys.argv=[str(producer),'--common-root',a.common_root,'--value','false','--out',str(output)];runpy.run_path(str(producer),run_name='__main__')\n                                                                                                                         ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen runpy>\", line 294, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/source/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py\", line 52, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',default='/Users/cyber/RestoX/barness');p.add_argument('--out',required=True);p.add_argument('--value',choices=('false','float'));p.add_argument('--recheck',action='store_true');main(p.parse_args())\n                                                                                                                                                                                                                                                ~~~~^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/source/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py\", line 50, in main\n    index['archive'].update(bytes=size,sha256=digest);(base/'index.json').write_text(json.dumps(index)+'\\n');destination.chmod(0o444);(out/'construction.json').write_text(json.dumps(dict(kind='NON_AUTHORITATIVE-negative-resource-fixture',originalArchiveSHA256='5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d',value=a.value,changes=changed,files=len(pins),unchangedOtherFiles=len(pins)-2,archive=index['archive'],limits=full.LIMITS,credentialsRead=False,paidCalls=0,releaseCertified=False),indent=2)+'\\n');invoke(base,common,out/'red',0)\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/source/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py\", line 10, in invoke\n    if run.returncode!=expect or (expect==1 and b'original public resource release differs' not in run.stderr):raise ValueError('public resource boundary outcome differs')\n                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: public resource boundary outcome differs\n",
+  "sourceSHA256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+  "testSHA256": "82da61891ec1e0afc1191139170d63b0a1cfe9d8078d5e4d191d4c45591dea30",
+  "originalBefore": {
+    "index": "0b34de732cf6ecbffa0eb7e22ec395480827fe8c9d3fc1d7bd564c0b9da09d90",
+    "inventory": "28602c0447c8840bcf5a89c6b862cad2eaa9f8f1f871c0a55b6e18638c9eca26",
+    "originalArchive": {
+      "mode": 33060,
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d"
+    }
+  },
+  "originalAfter": {
+    "index": "0b34de732cf6ecbffa0eb7e22ec395480827fe8c9d3fc1d7bd564c0b9da09d90",
+    "inventory": "28602c0447c8840bcf5a89c6b862cad2eaa9f8f1f871c0a55b6e18638c9eca26",
+    "originalArchive": {
+      "mode": 33060,
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d"
+    }
+  },
+  "originalsUnchanged": true,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "releaseCertified": false,
+  "publicVerification": {
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-B",
+      "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/verify.py",
+      "--common-root",
+      "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/work/common"
+    ],
+    "exitCode": 1,
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+    "expectedExit": 0,
+    "credentialsRead": false,
+    "paidCalls": 0
+  },
+  "privateOutput": {
+    "mode": 33060,
+    "bytes": 90847871,
+    "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34"
+  }
+}

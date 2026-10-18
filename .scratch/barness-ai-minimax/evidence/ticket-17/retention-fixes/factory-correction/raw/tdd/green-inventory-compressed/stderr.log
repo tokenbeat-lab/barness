@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/check-factory.py", line 68, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--case',choices=('index-size','inventory-compressed','inventory-decoded','seal-metadata','output-grow'),required=True);p.add_argument('--expect',choices=('unsafe','bounded'));p.add_argument('--out');p.add_argument('--common-root',default='/Users/cyber/RestoX/barness');p.add_argument('--child',action='store_true');p.add_argument('--producer');p.add_argument('--output');p.add_argument('--events');a=p.parse_args();child(a) if a.child else main(a)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ~~~~~^^^
+  File "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/check-factory.py", line 48, in child
+    sys.addaudithook(audit);sys.argv=[str(producer),'--common-root',a.common_root,'--value','false','--out',str(output)];runpy.run_path(str(producer),run_name='__main__')
+                                                                                                                         ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-inventory-compressed/source/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py", line 77, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--common-root',default='/Users/cyber/RestoX/barness');p.add_argument('--out',required=True);p.add_argument('--value',choices=('false','float'));p.add_argument('--recheck',action='store_true');main(p.parse_args())
+                                                                                                                                                                                                                                                ~~~~^^^^^^^^^^^^^^^^
+  File "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-inventory-compressed/source/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py", line 33, in main
+    b=readers.small();full=readers.full();index=b.doc(b.read(base,'index.json',1<<20));pins=b.doc(full.decoded(b,base,index['inventory'],full.LIMITS['inventoryDecodedBytes']));original=copy.deepcopy(pins);common=out/'common';b.relative(index['archive']['file']);destination=common/index['archive']['file'];destination.parent.mkdir(parents=True)
+                                                                                                  ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-inventory-compressed/source/.scratch/barness-ai-minimax/evidence/ticket-13/final-gate/capsule.py", line 20, in decoded
+    encoded=b.read(base,info['file'],LIMITS['inventoryCompressedBytes'])
+  File "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-inventory-compressed/source/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py", line 41, in read
+    if os.fstat(stream.fileno()).st_size>limit:raise ValueError('artifact size limit')
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: artifact size limit
