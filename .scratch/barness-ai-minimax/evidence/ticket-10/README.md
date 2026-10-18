@@ -1,5 +1,8 @@
 # Ticket 10 implementation and blocked actual evidence
 
+> 当前国际站：2026-10-18来源38b7098已完成三份自身研究，[原始捕获与索引](international-research-38b7098.json)保留实际状态。Messages研究3/3通过；Chat相等推理镜像被本地误拒，Responses文本/工具通过后native本地编码失败。票10正在失败先行修复；本页其他原CN检查点保留历史适用性。当前阶段10calls/9attempts（含CN2/2），正式0；研究不是完整候选/正式支持。
+
+
 Actual M3 acceptance is blocked by authentication. At source9481a6a, the
 approved China standard Chat research made two calls/two Attempts; both returned
 HTTP401, provider type authorized_error and public upstream_auth/request. No

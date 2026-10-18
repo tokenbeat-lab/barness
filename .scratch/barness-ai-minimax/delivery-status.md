@@ -14,7 +14,10 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 | 国际站三协议与六型号离线约束 | PASS，离线范围 | e9731a4完整MiniMax普通/race各1314/1314；live-tag race66/66、双vet及全量无Key检查通过，脱敏0发现。来源与完整原包见[ticket11](evidence/ticket-11/README.md)，不证明厂商接受请求。 |
 | 原CN三协议与六型号离线约束 | PASS，历史离线范围 | 最新完整MiniMax普通/race均1307/1307；含冻结pi、压力、完整软件回滚，审计0发现。不能证明厂商实际接受请求。 |
 | 原CN M3 Chat实际研究 | FAIL，历史范围 | 两次Logical Call、两次Attempt均HTTP401 `authorized_error`；没有实际型号或已知usage。依赖原生工具续接NOT_RUN。 |
-| 国际站M3完整候选三身份 | 三项NOT_RUN | Chat研究失败不等于完整候选执行；Responses/Messages完整候选也未执行。 |
+| 国际站M3 Chat实际研究 | FAIL，兼容待修复 | HTTP200、实际M3；两次调用/两次Attempt在相等推理镜像处被本地误拒，usage未上报，依赖native NOT_RUN。 |
+| 国际站M3 Responses实际研究 | FAIL，兼容待修复 | 文本/工具通过HTTP200；native续接本地编码失败，3calls/2attempts。 |
+| 国际站M3 Messages实际研究 | PASS，仅研究范围 | 文本、思考工具及native续接3calls/3attempts通过；不能代替完整候选或正式支持。 |
+| 国际站M3完整候选三身份 | 三项NOT_RUN | 尚待Chat/Responses实际wire缺口修复、来源重审及固定完整inventory。 |
 | 国际站M3正式三身份及目录激活 | 三项NOT_RUN | BuiltinCatalog未激活M3；没有成功actual origin或正式支持投影。 |
 | M3.1线上候选三身份 | 三项NOT_RUN | 未获M Plan用途/资格授权；零实际调用，不虚构公开价格，离线约束已完成。 |
 | 原十四身份与四业务效果续期 | NOT_RUN | 尚待最终正式目录/来源确定后重新获取实际证据；六个GLM当前来源适用性校验仍不通过。 |
@@ -23,6 +26,8 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 原两次实际调用后，另有一次仅本地语法诊断读取同一已选`MINIMAX_KEY`，网络请求为0，未输出Key值、长度或Hash；Bearer前缀、内部空白和控制字符标记均为false。此诊断不增加收费账本，实际消费仍为2次调用/2次Attempt；无Key验证进程各自保持未读凭据。
 
 ## 已保存的验证
+
+国际站真实研究来源38b7098：[完整不可变捕获及来源索引](evidence/ticket-10/international-research-38b7098.json)保留148文件和454639字节归档，三个隔离启动器审计均通过。国际站认证有效；本轮缺口为协议兼容，不再等待账户修复。Chat未知用量不记为零账单；研究PASS也不授予正式支持。
 
 当前国际站来源e9731a4：MiniMax普通/race各1314 PASS，live-tag race66 PASS；两种vet、精确来源prepare/check及无Keylive通过（328 PASS/62 NOT_RUN，另有辅助结果）。三份M3.1无资格NOT_RUN各为0calls/0attempts，未读Key或建立付费intent。双轴源码审查均0发现，完整捕获、逐文件Hash与重放入口见[ticket11](evidence/ticket-11/README.md)。这是国际站离线检查点，不替代自身actual/formal或完整发布认证。
 
@@ -43,7 +48,7 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 ## 待继续工作
 
 1. [票11](issues/11-international-target.md)已完成国际站身份、三端点、USD价格、frozen pi与离线复验；沿用户指示使用单一MINIMAX_KEY做国际站标准M3三协议验收，不再等待中国区修复，不推断M3.1资格。
-2. 先对新的已提交源码重新prepare、无Key检查和精确来源审查；旧9481a6a批准不适用于新HEAD。随后使用独立国际站研究intent与自身前驱继续三候选真实验收；保留原CN401及所有失败，不将其作为跨区native前驱，不覆盖既有intent。候选阶段已消费2/120调用、2/144 Attempts；该Chat身份2/20、2/24；正式阶段0/60、0/72。不得重置账本或降低验收。
+2. 票10先以已保存实际wire失败E2E修复Chat镜像推理及Responses本地native编码。随后对新的已提交源码重新prepare、无Key检查和精确来源审查；旧9481a6a批准不适用于新HEAD。随后使用独立国际站研究intent与自身前驱继续三候选真实验收；保留原CN401及所有失败，不将其作为跨区native前驱，不覆盖既有intent。候选阶段已消费10/120调用、9/144 Attempts（10reserved）；Chat预算槽4/20调用、4/24 Attempts，Responses3/2、Messages3/3；正式阶段0/60、0/72。不得重置账本或降低验收。
 3. 三候选各自通过后才作数据目录激活，获取三份自身正式报告；再续期原十四身份和四业务效果，运行完整ordinary/race/压力/pi、两种vet、逐包脱敏和回滚门禁。
 4. 对固定基点`ecfd4b4`完成最终独立Standards/Spec审查及必要修复重验，全部必交通过后才关闭spec和10/09。
 
