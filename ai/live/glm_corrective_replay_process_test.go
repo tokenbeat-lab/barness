@@ -30,6 +30,10 @@ func glmCorrectiveReplay(t *testing.T, cs *evidence.Case, original string) {
 		t.Fatal(err)
 	}
 	base, _ = filepath.Abs(base)
+	// Only this synthetic replay's temporary root is diagnostic context. Keep
+	// its session/path suffix while hiding checkout/HOME prefixes; registering
+	// HOME itself would mask unrelated leaks in the shared environment audit.
+	run.RedactSecret(base, "$GLM_REPLAY_ROOT")
 	defer os.RemoveAll(base)
 	for _, kind := range []string{"glm-formal", "glm-candidate"} {
 		path := filepath.Join(base, "testdata", kind)
