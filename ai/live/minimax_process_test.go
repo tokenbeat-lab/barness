@@ -16,20 +16,23 @@ import (
 )
 
 func TestMiniMaxProcess(t *testing.T) {
-	for _, name := range []string{"not-run", "switch-off", "missing-entitlement", "narrowed", "foreign-key", "mixed-route", "endpoint-override", "wrong-model", "formal-absent", "success-chat", "success-responses", "success-messages", "success-m31-chat", "success-m31-responses", "success-m31-messages", "missing-thinking", "wrong-actual-model", "missing-terminal", "extra-attempt", "output-budget", "input-budget", "known-input-overrun", "inventory-failure", "research-chat", "success-rerun-tool"} {
+	for _, name := range []string{"not-run", "switch-off", "missing-entitlement", "narrowed", "foreign-key", "mixed-route", "endpoint-override", "wrong-model", "formal-absent", "success-chat", "success-responses", "success-messages", "success-m31-chat", "success-m31-responses", "success-m31-messages", "missing-thinking", "wrong-actual-model", "missing-terminal", "extra-attempt", "output-budget", "input-budget", "known-input-overrun", "inventory-failure", "research-chat", "success-rerun-tool", "success-transient-request", "transient-exhausted", "transient-stream", "permanent-429", "unknown-429", "typed-503", "success-transient-transport", "success-one-hour-zero", "tool-auth401", "tool-permanent429", "tool-stream-error"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "MM07-process-"+name)
 			base := t.TempDir()
 			route, model, purpose := "chat", minimaxlive.M3, "standard"
 			if strings.HasPrefix(name, "success-") {
 				route = strings.TrimPrefix(name, "success-")
-				if name == "success-rerun-tool" {
+				if name == "success-rerun-tool" || strings.HasPrefix(name, "success-transient-") {
 					route = "chat"
 				}
 			}
 			if strings.HasPrefix(route, "m31-") {
 				route = strings.TrimPrefix(route, "m31-")
 				model, purpose = minimaxlive.M31, "mplan"
+			}
+			if name == "permanent-429" || name == "unknown-429" || name == "typed-503" || name == "success-one-hour-zero" {
+				route = "messages"
 			}
 			env := []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=" + route, "BARNESS_MINIMAX_MODEL=" + model, "BARNESS_MINIMAX_PURPOSE=" + purpose, "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=cn-test", "BARNESS_MINIMAX_CONTROLLED=" + name, "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + filepath.Join(base, "captures")}
 			switch name {
@@ -85,13 +88,37 @@ func TestMiniMaxProcess(t *testing.T) {
 				Outcome, Mode, Kind string
 				Complete            bool
 				Budget              minimaxlive.Budget
+				Calls               []minimaxlive.Call
 			}
 			json.Unmarshal(raw, &r)
+			if strings.HasPrefix(name, "tool-") {
+				count := 0
+				for _, call := range r.Calls {
+					if call.ID == "tool-call" {
+						count++
+						cs.Check("error is not a capability-rerun reason", call.Failure != "tool-capability", "failure=%s", call.Failure)
+					}
+				}
+				cs.Check("failed tool scene has no capability rerun", count == 1, "tool calls=%d", count)
+				captured, e := os.ReadFile(filepath.Join(filepath.Dir(reports[0]), "MM07-tool-call", "result.json"))
+				var failure minimaxlive.Capture
+				json.Unmarshal(captured, &failure)
+				phase := "request"
+				if name == "tool-stream-error" {
+					phase = "stream"
+					cs.Check("failed stream retains partial thinking", len(failure.Result.Message.Content) > 0, "partial content absent")
+				}
+				cs.Check("original public error retained", e == nil && failure.ErrorCode != "" && string(failure.ErrorPhase) == phase, "code=%s phase=%s", failure.ErrorCode, failure.ErrorPhase)
+			}
+			if strings.HasPrefix(name, "success-") {
+				_, promotionErr := minimaxlive.PromotionProposal([]string{filepath.Dir(reports[0]), filepath.Dir(reports[0]), filepath.Dir(reports[0])})
+				cs.Check("controlled cannot promote Builtin", promotionErr != nil, "controlled proof activated")
+			}
 			cs.Check("controlled cannot formal certify", r.Kind != "minimax-formal" || r.Mode != "live", "kind=%s mode=%s", r.Kind, r.Mode)
 			formal, _ := filepath.Glob(filepath.Join(filepath.Dir(reports[0]), "live-report.json"))
 			cs.Check("no formal report", len(formal) == 0, "formal report was published")
 			if strings.HasPrefix(name, "success-") {
-				cs.Check("complete own identity", r.Outcome == "PASS" && r.Complete && ((name != "success-rerun-tool" && r.Budget.Calls == 13 && r.Budget.Attempts == 12) || (name == "success-rerun-tool" && r.Budget.Calls == 14 && r.Budget.Attempts == 13)) && r.Budget.RequestedOutput < 40000, "%s", raw)
+				cs.Check("complete own identity", r.Outcome == "PASS" && r.Complete && ((name != "success-rerun-tool" && !strings.HasPrefix(name, "success-transient-") && r.Budget.Calls == 13 && r.Budget.Attempts == 12) || ((name == "success-rerun-tool" || strings.HasPrefix(name, "success-transient-")) && r.Budget.Calls == 14 && r.Budget.Attempts == 13)) && r.Budget.RequestedOutput < 40000, "%s", raw)
 			} else if strings.HasPrefix(name, "research-") {
 				cs.Check("research cannot certify full candidate", r.Outcome == "PASS" && !r.Complete && r.Kind == "minimax-research-only" && r.Budget.Calls == 3 && r.Budget.Attempts == 3, "%s", raw)
 			} else if ok {

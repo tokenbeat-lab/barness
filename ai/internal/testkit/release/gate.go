@@ -261,6 +261,11 @@ func kindOf(id string) caseKind {
 
 // Evaluate decides the release.
 func Evaluate(in Inputs) Report {
+	// Derive added normal load verdicts from the loaded bundle rather than
+	// allowing caller-supplied PASS assertions to replace actual captures.
+	in.Evidence = slices.DeleteFunc(slices.Clone(in.Evidence), func(e EvidenceCheck) bool { return strings.HasPrefix(e.Name, "minimax-design-load-") })
+	in.Evidence = append(in.Evidence, MiniMaxDesignLoadEvidence(in.Offline)...)
+
 	r := Report{Commit: in.Offline.Commit, Bundle: in.Offline.Dir, Commands: in.Commands, Audits: in.Audits, Snapshots: in.Snapshots, Evidence: in.Evidence}
 	r.Gates = append(r.Gates,
 		commandGate(in, GateTest, "go test ./... (offline, differential on)", CmdTest),
@@ -424,7 +429,8 @@ func auditGate(in Inputs) Gate {
 
 func evidenceGate(in Inputs) Gate {
 	g := Gate{ID: GateEvidence, Name: "mixed image design loads and independent text/visual business evaluation"}
-	for _, name := range []string{"mixed-pressure-local", "mixed-pressure-cloud", "chinese-effect-jev", "chinese-effect-luna", "visual-effect-jev", "visual-effect-decisions", "authorization-revocation", "race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation", "multimodal-images-plain", "multimodal-images-hooked", "race-multimodal-images-plain", "race-multimodal-images-hooked"} {
+	names := append(miniMaxLoadNames(), miniMaxRaceLoadNames()...)
+	for _, name := range append(names, []string{"mixed-pressure-local", "mixed-pressure-cloud", "chinese-effect-jev", "chinese-effect-luna", "visual-effect-jev", "visual-effect-decisions", "authorization-revocation", "race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation", "multimodal-images-plain", "multimodal-images-hooked", "race-multimodal-images-plain", "race-multimodal-images-hooked"}...) {
 		i := slices.IndexFunc(in.Evidence, func(e EvidenceCheck) bool { return e.Name == name })
 		if i < 0 {
 			g.Problems = append(g.Problems, name+": NOT_RUN (required report missing)")

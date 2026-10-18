@@ -131,5 +131,8 @@ func (c *Client) execute(ctx context.Context, cl call, runtime *callRuntime, asm
 	}
 	failure = ad.stream(ctx, ac, asm)
 	meta.Attempts = initial.attempts
+	if failure == nil {
+		failure = miniMaxUnpricedWriteFailure(model, meta.Attempts)
+	}
 	return failure
 }

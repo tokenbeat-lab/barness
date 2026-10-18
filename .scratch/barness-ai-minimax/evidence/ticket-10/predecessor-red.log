@@ -1,0 +1,9 @@
+--- FAIL: TestMiniMaxResearchPredecessor (0.47s)
+    minimax_research_process_test.go:28: [MM07-research-predecessor] child stage behavior ^TestMiniMaxCandidate$: err=exit status 1 output=PASS
+        barness-ai evidence bundle: $TMP
+    minimax_research_process_test.go:46: [MM07-research-predecessor] full current report accounts prior research: err=MiniMax report is incomplete budget={Calls:13 ReservedAttempts:13 Attempts:12 RequestedOutput:17410 ReservedInput:29430} cumulative={Calls:16 ReservedAttempts:16 Attempts:15 RequestedOutput:24578 ReservedInput:35660}
+    minimax_research_process_test.go:50: [MM07-research-predecessor] own prior captures retained: predecessors=0
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T231529.055831000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	2.129s
+FAIL

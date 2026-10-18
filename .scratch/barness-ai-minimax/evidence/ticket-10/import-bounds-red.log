@@ -1,0 +1,7 @@
+--- FAIL: TestArtifactGrowthCannotEscapeReadBudget (0.01s)
+    import_bounds_test.go:36: unbounded admitted read: 1048576 bytes
+--- FAIL: TestInventoryEntryBudgetPrecedesHashing (0.05s)
+    import_bounds_test.go:50: unbounded invented artifact inventory accepted
+FAIL
+FAIL	github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive	0.577s
+FAIL

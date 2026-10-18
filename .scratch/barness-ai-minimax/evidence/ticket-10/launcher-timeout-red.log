@@ -1,0 +1,29 @@
+test_all_commands_keep_component_caps_and_exact_seventeen_inputs (__main__.Launcher.test_all_commands_keep_component_caps_and_exact_seventeen_inputs) ... ok
+test_known_research_plus_candidate_cannot_exceed_identity_cap (__main__.Launcher.test_known_research_plus_candidate_cannot_exceed_identity_cap) ... ok
+test_malformed_report_never_prints_unknown_fields (__main__.Launcher.test_malformed_report_never_prints_unknown_fields) ... ok
+test_prepare_check_preview_never_acquire_credentials (__main__.Launcher.test_prepare_check_preview_never_acquire_credentials) ... ok
+test_selected_process_isolation_redaction_and_directory_restart (__main__.Launcher.test_selected_process_isolation_redaction_and_directory_restart) ... ok
+test_source_binary_review_drift_refuses_before_intent (__main__.Launcher.test_source_binary_review_drift_refuses_before_intent) ... ok
+test_timeout_receipt_cannot_borrow_partial_report_counts (__main__.Launcher.test_timeout_receipt_cannot_borrow_partial_report_counts) ... FAIL
+test_unknown_research_consumes_full_identity_cap (__main__.Launcher.test_unknown_research_consumes_full_identity_cap) ... ok
+
+======================================================================
+FAIL: test_timeout_receipt_cannot_borrow_partial_report_counts (__main__.Launcher.test_timeout_receipt_cannot_borrow_partial_report_counts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 157, in test_timeout_receipt_cannot_borrow_partial_report_counts
+    self.assertEqual((row['state'],row['conservativeCalls'],row['conservativeAttempts']),('UNKNOWN',20,24))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('REPORTED', 3, 3) != ('UNKNOWN', 20, 24)
+
+First differing element 0:
+'REPORTED'
+'UNKNOWN'
+
+- ('REPORTED', 3, 3)
++ ('UNKNOWN', 20, 24)
+
+----------------------------------------------------------------------
+Ran 8 tests in 9.397s
+
+FAILED (failures=1)

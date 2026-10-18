@@ -33,7 +33,7 @@ func TestCurrentCatalogRelease(t *testing.T) {
 			recordJevContext(ev, u, req, result, err)
 			u.released(ev)
 			report := releaseProcess(t, ev)
-			ev.Check("all fourteen independent identities required", len(report.Live.Rows) == 14, "got %d rows", len(report.Live.Rows))
+			ev.Check("all seventeen independent identities required", len(report.Live.Rows) == 17, "got %d rows", len(report.Live.Rows))
 			for _, identity := range []struct{ combo, model string }{{"typesafe-classifier", "jev-1.13.0"}, {supportmatrix.JevFormalCombo, "jev-1.14.0"}, {"openai-decisions", "gpt-6-luna"}} {
 				i := slices.IndexFunc(report.Live.Rows, func(r release.LiveRow) bool { return r.Combo == identity.combo })
 				ev.Check("independent model "+identity.combo, i >= 0 && report.Live.Rows[i].Model == identity.model, "model missing or substituted")

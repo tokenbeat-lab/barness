@@ -1,0 +1,7 @@
+--- FAIL: TestMiniMaxMessagesUsage (0.00s)
+    --- FAIL: TestMiniMaxMessagesUsage/one-hour-zero (0.00s)
+        minimax_messages_usage_test.go:44: [MM04-usage-one-hour-zero] unsupported one-hour count retained without native premium: {Input:5 Output:7 CacheRead:2 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:14 Cost:{Input:4.9999999999999996e-06 Output:1.4e-05 CacheRead:2.0000000000000002e-07 CacheWrite:0 Total:1.9200000000000003e-05}}
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T233058.255383000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.271s
+FAIL

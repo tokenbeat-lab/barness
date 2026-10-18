@@ -14,7 +14,28 @@ import (
 // seam; it has no network path and does not borrow GLM's response shapes.
 func installMiniMaxControlled(rec *recorder, name string) {
 	toolCalls := 0
+	requests := 0
 	rec.next = roundTripFunc(func(req *http.Request) (*http.Response, error) {
+		requests++
+		if requests == 1 && (name == "permanent-429" || name == "unknown-429" || name == "typed-503") {
+			req.Body.Close()
+			status, body := 429, `{"error":{"type":"permission_error","message":"synthetic"}}`
+			if name == "unknown-429" {
+				body = `{"error":{"message":"synthetic"}}`
+			}
+			if name == "typed-503" {
+				status = 503
+			}
+			return &http.Response{StatusCode: status, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(body)), Request: req}, nil
+		}
+		if requests == 1 && name == "success-transient-transport" {
+			req.Body.Close()
+			return nil, fmt.Errorf("synthetic connection failure")
+		}
+
+		if name == "success-transient-request" && requests == 1 || name == "transient-exhausted" && requests <= 2 {
+			return &http.Response{StatusCode: 503, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(`{"error":{"message":"synthetic unavailable"}}`)), Request: req}, nil
+		}
 		raw, _ := io.ReadAll(req.Body)
 		req.Body.Close()
 		var b map[string]any
@@ -43,12 +64,22 @@ func installMiniMaxControlled(rec *recorder, name string) {
 				thinking = false
 			}
 		}
+		if tool && toolCalls == 1 && (name == "tool-auth401" || name == "tool-permanent429") {
+			status := 401
+			if name == "tool-permanent429" {
+				status = 429
+			}
+			return &http.Response{StatusCode: status, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(`{"error":{"type":"permission_error","message":"synthetic"}}`)), Request: req}, nil
+		}
 		body := ""
 		input := 20
 		if name == "known-input-overrun" {
 			input = 100000
 		}
 		emit := func(v map[string]any) {
+			if name == "success-one-hour-zero" && v["type"] == "message_start" {
+				v["message"].(map[string]any)["usage"].(map[string]any)["cache_creation"] = map[string]any{"ephemeral_1h_input_tokens": 0}
+			}
 			x, _ := json.Marshal(v)
 			if minimaxReport.Identity.Route == "messages" {
 				body += "event: " + fmt.Sprint(v["type"]) + "\n"
@@ -129,7 +160,11 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			emit(map[string]any{"type": "message_delta", "delta": map[string]any{"stop_reason": stop}, "usage": map[string]any{"output_tokens": 10}})
 			emit(map[string]any{"type": "message_stop"})
 		}
-		if name == "missing-terminal" {
+		if tool && toolCalls == 1 && name == "tool-stream-error" {
+			body = `data: {"model":"MiniMax-M3","choices":[{"index":0,"delta":{"reasoning_content":"Partial synthetic reasoning."}}]}` + "\n\n" +
+				`data: {"error":{"message":"synthetic stream failure","code":"synthetic_error"}}` + "\n\n"
+		}
+		if name == "missing-terminal" || name == "transient-stream" {
 			idx := strings.LastIndex(body, "data:")
 			if idx > 0 {
 				body = body[:idx]

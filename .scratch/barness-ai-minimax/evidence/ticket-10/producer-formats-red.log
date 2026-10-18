@@ -1,0 +1,22 @@
+test_actual_producer_status_formats_keep_known_component_counters (__main__.Launcher.test_actual_producer_status_formats_keep_known_component_counters) ... FAIL
+
+======================================================================
+FAIL: test_actual_producer_status_formats_keep_known_component_counters (__main__.Launcher.test_actual_producer_status_formats_keep_known_component_counters)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 185, in test_actual_producer_status_formats_keep_known_component_counters
+    self.assertEqual((row['state'],row['status'],row['calls'],row['attempts']),('REPORTED','PASS',calls,calls))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('UNKNOWN', 'UNKNOWN', None, None) != ('REPORTED', 'PASS', 2, 2)
+
+First differing element 0:
+'UNKNOWN'
+'REPORTED'
+
+- ('UNKNOWN', 'UNKNOWN', None, None)
++ ('REPORTED', 'PASS', 2, 2)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.835s
+
+FAILED (failures=1)

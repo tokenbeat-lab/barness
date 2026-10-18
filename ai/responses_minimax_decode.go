@@ -49,6 +49,9 @@ func (p *responsesParser) validateMiniMaxEvent(raw []byte) error {
 			if typ == "response.output_item.added" && open {
 				return errors.New("duplicate output item")
 			}
+			if err := p.minimax.validateFunctionIdentity(key, ev["item"]); err != nil {
+				return err
+			}
 			p.minimax.ids[key] = id
 		} else {
 			if strings.HasSuffix(typ, ".delta") && (!open || slot.kind != kind || p.miniMaxPartFinished(key, ev)) {
@@ -108,6 +111,9 @@ func (p *responsesParser) validateMiniMaxEvent(raw []byte) error {
 				}
 				if slot, ok := p.slots[key]; ok && slot.kind != kind {
 					return errors.New("terminal item kind mismatch")
+				}
+				if err := p.minimax.validateFunctionIdentity(key, item); err != nil {
+					return err
 				}
 				if prior := p.minimax.ids[key]; prior != "" && id != "" && prior != id {
 					return errors.New("terminal item ID mismatch")
@@ -188,4 +194,31 @@ func (p *responsesParser) miniMaxPartFinished(key responsesIndex, event map[stri
 	}
 	_, done := p.minimax.doneParts[key][index]
 	return done
+}
+
+type miniMaxFunctionIdentity struct{ CallID, Name string }
+
+func (s *miniMaxResponsesState) validateFunctionIdentity(key responsesIndex, raw json.RawMessage) error {
+	var item struct {
+		Type   string `json:"type"`
+		CallID string `json:"call_id"`
+		Name   string `json:"name"`
+	}
+	if json.Unmarshal(raw, &item) != nil {
+		return errors.New("invalid function identity")
+	}
+	if item.Type != "function_call" {
+		return nil
+	}
+	identity := miniMaxFunctionIdentity{item.CallID, item.Name}
+	if prior, ok := s.functions[key]; ok && prior != identity {
+		return errors.New("MiniMax function identity changed")
+	}
+	for other, prior := range s.functions {
+		if other != key && prior.CallID == identity.CallID {
+			return errors.New("MiniMax function call id is duplicated")
+		}
+	}
+	s.functions[key] = identity
+	return nil
 }

@@ -1,0 +1,9 @@
+--- FAIL: TestMiniMaxFailedResearchPredecessor (0.41s)
+    minimax_research_process_test.go:78: [MM07-failed-research-predecessor] failed tool keeps two attempted scenes, dependent scene not run: <nil> {Calls:2 ReservedAttempts:2 Attempts:2 RequestedOutput:5120 ReservedInput:4096}
+    minimax_research_process_test.go:70: [MM07-failed-research-predecessor] bounded child status ^TestMiniMaxCandidate$: exit status 1 PASS
+        barness-ai evidence bundle: $TMP
+    minimax_research_process_test.go:89: [MM07-failed-research-predecessor] complete candidate retains genuine failed research budget: MiniMax sealed file set changed {Calls:15 ReservedAttempts:15 Attempts:14 RequestedOutput:22530 ReservedInput:33526}
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T234257.314186000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	1.689s
+FAIL

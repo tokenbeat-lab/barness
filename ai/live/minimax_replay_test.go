@@ -4,6 +4,7 @@ package live
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -56,6 +57,7 @@ func installMiniMaxReplay(rec *recorder) error {
 	var requests []string
 	var exchanges []minimaxlive.Exchange
 	var kinds []string
+	var failures []ai.Code
 	miniMaxReplayCalls = map[string]miniMaxReplayCall{}
 	for _, c := range r.Calls {
 		raw, e := minimaxlive.ReadFile(filepath.Join(dir, c.CaseID, "result.json"), 2<<20)
@@ -88,6 +90,7 @@ func installMiniMaxReplay(rec *recorder) error {
 		requests = append(requests, ex[0].RequestBody)
 		exchanges = append(exchanges, ex[0])
 		kinds = append(kinds, c.ID)
+		failures = append(failures, call.result.ErrorCode)
 	}
 	index := 0
 	sourceRaw, _ := minimaxlive.ReadFile(filepath.Join(dir, minimaxlive.ReportFile), 2<<20)
@@ -100,7 +103,18 @@ func installMiniMaxReplay(rec *recorder) error {
 		}
 		ex := exchanges[index]
 		kind := kinds[index]
+		failure := failures[index]
 		index++
+		if ex.Status == 0 {
+			if failure == ai.CodeDeadlineExceeded {
+				<-req.Context().Done()
+				return nil, req.Context().Err()
+			}
+			if ex.TransportError == "" {
+				return nil, fmt.Errorf("replay transport failure proof absent")
+			}
+			return nil, errors.New(ex.TransportError)
+		}
 		header := http.Header{}
 		for k, v := range ex.ResponseHeaders {
 			header.Set(k, v)

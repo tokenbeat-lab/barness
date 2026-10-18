@@ -56,6 +56,15 @@ func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error 
 				p.miniMaxSeen = map[int64]string{}
 			}
 			p.miniMaxSeen[e.Index] = e.ContentBlock.Type
+			if e.ContentBlock.Type == "tool_use" {
+				if p.miniMaxToolIDs[e.ContentBlock.ID] {
+					return invalid()
+				}
+				if p.miniMaxToolIDs == nil {
+					p.miniMaxToolIDs = map[string]bool{}
+				}
+				p.miniMaxToolIDs[e.ContentBlock.ID] = true
+			}
 			if e.ContentBlock.Type == "tool_use" && len(e.ContentBlock.Input) > 0 {
 				var input map[string]json.RawMessage
 				if json.Unmarshal(e.ContentBlock.Input, &input) != nil || input == nil {

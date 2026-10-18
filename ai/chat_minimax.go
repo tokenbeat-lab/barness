@@ -30,7 +30,11 @@ func validateMiniMaxChatOptions(m Model, options Options) *Error {
 // merge. Final guards see exact wire values; OnPayload can still repair them.
 func preserveMiniMaxChatSampling(body []byte, m Model, o ChatOptions) ([]byte, error) {
 	level := clampThinkingLevel(m, cmp.Or(o.ReasoningEffort, m.DefaultThinkingLevel, thinkingOff))
-	for _, source := range []map[string]json.RawMessage{m.SamplingParams, m.SamplingParamsByThinkingLevel[level], o.SamplingParams} {
+	return preserveMiniMaxSampling(body, m, level, o.SamplingParams)
+}
+
+func preserveMiniMaxSampling(body []byte, m Model, level ThinkingLevel, overrides map[string]json.RawMessage) ([]byte, error) {
+	for _, source := range []map[string]json.RawMessage{m.SamplingParams, m.SamplingParamsByThinkingLevel[level], overrides} {
 		for _, field := range slices.Sorted(maps.Keys(source)) {
 			var err error
 			body, err = jsonparser.Set(body, source[field], field)
@@ -138,4 +142,38 @@ func validateMiniMaxChatReasoningDelta(d chatDelta) string {
 		}
 	}
 	return ""
+}
+
+// A turn cannot alternate between independently integrated representations:
+// replaying details would otherwise discard earlier reasoning_content (or
+// overwrite its native signature). Other providers retain their own contracts.
+func (p *chatParser) validateMiniMaxReasoning(delta chatDelta) string {
+	if problem := validateMiniMaxChatReasoningDelta(delta); problem != "" {
+		return problem
+	}
+	format := ""
+	if rawTruthy(delta.ReasoningContent) {
+		format = "content"
+	}
+	var entries []json.RawMessage
+	if json.Unmarshal(delta.ReasoningDetails, &entries) == nil && len(entries) > 0 {
+		format = "details"
+	}
+	if format != "" {
+		if p.miniMaxReasoningFormat != "" && p.miniMaxReasoningFormat != format {
+			return "MiniMax returned conflicting reasoning formats across stream frames"
+		}
+		p.miniMaxReasoningFormat = format
+	}
+	return ""
+}
+
+// Empty final argument text is the existing no-arguments convention. Partial
+// display repair never proves a MiniMax executable tool call.
+func miniMaxToolArgumentsComplete(raw string) bool {
+	if raw == "" {
+		return true
+	}
+	var object map[string]json.RawMessage
+	return json.Unmarshal([]byte(raw), &object) == nil && object != nil
 }

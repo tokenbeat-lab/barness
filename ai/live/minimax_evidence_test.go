@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -40,7 +41,7 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 	for name := range original {
 		saved[name], _ = os.ReadFile(filepath.Join(dir, name))
 	}
-	for _, name := range []string{"formal-controlled", "invented-case", "omitted-attempt", "altered-usage", "coordinated-usage", "altered-request", "altered-events", "source-addition", "source-deletion", "ledger-omission", "unknown-field", "duplicate-field", "noncanonical-field", "extra-file", "unsafe-file"} {
+	for _, name := range []string{"candidate-mode-spoof", "formal-mode-spoof", "formal-controlled", "invented-case", "omitted-attempt", "altered-usage", "coordinated-usage", "altered-request", "altered-events", "source-addition", "source-deletion", "ledger-omission", "unknown-field", "duplicate-field", "noncanonical-field", "extra-file", "unsafe-file"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "MM07-validator-"+name)
 			for path, raw := range saved {
@@ -56,6 +57,21 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 				os.WriteFile(filepath.Join(dir, path), raw, 0600)
 			}
 			switch name {
+			case "candidate-mode-spoof", "formal-mode-spoof":
+				mutate(minimaxlive.ReportFile, func(v map[string]any) {
+					v["mode"] = "live"
+					if name == "formal-mode-spoof" {
+						v["kind"] = "minimax-formal"
+						v["stage"] = "formal"
+					}
+				})
+				mutate("manifest.json", func(v map[string]any) {
+					v["versions"].(map[string]any)["minimax_mode"] = "live"
+					if name == "formal-mode-spoof" {
+						v["versions"].(map[string]any)["minimax_kind"] = "minimax-formal"
+					}
+				})
+
 			case "invented-case":
 				mutate(minimaxlive.ReportFile, func(v map[string]any) { v["calls"].([]any)[0].(map[string]any)["id"] = "invented" })
 			case "omitted-attempt":
@@ -123,6 +139,9 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 			}
 			_, err := minimaxlive.Verify(dir, name == "formal-controlled")
 			cs.Check("tampered or ineligible report refused", err != nil, "accepted %s", name)
+			if strings.HasSuffix(name, "mode-spoof") {
+				cs.Check("actual-only external origin required", err != nil && strings.Contains(err.Error(), "origin"), "%v", err)
+			}
 		})
 	}
 }

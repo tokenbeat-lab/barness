@@ -2,10 +2,7 @@ package ai
 
 import (
 	"encoding/json"
-	"math/big"
 	"slices"
-	"strconv"
-	"strings"
 )
 
 // This is the integrated China text/function subset, not a list of everything
@@ -45,7 +42,7 @@ func validateMiniMaxChatCapabilities(body map[string]any) string {
 			if raw == nil && sample.nullable {
 				continue
 			}
-			if !miniMaxChatSamplingNumber(raw, int64(sample.max)) {
+			if !miniMaxSamplingNumber(raw, int64(sample.max), true) {
 				return sample.key + " is outside the integrated numeric range"
 			}
 		}
@@ -174,32 +171,4 @@ func validateMiniMaxChatMessages(body map[string]any) string {
 		}
 	}
 	return ""
-}
-
-// JSON numbers are checked exactly even when a fractional excess would round
-// to the range endpoint in float64. Bound decimal expansion before big.Rat.
-func miniMaxChatSamplingNumber(raw any, maximum int64) bool {
-	n, ok := raw.(json.Number)
-	if !ok {
-		return false
-	}
-	s := string(n)
-	approximate, err := strconv.ParseFloat(s, 64)
-	if err != nil || approximate < 0 || approximate > float64(maximum) {
-		return false
-	}
-	if approximate < float64(maximum) {
-		// Float underflow must not turn a negative nonzero sample into zero.
-		mantissa, _, _ := strings.Cut(strings.ToLower(s), "e")
-		return approximate != 0 || !strings.HasPrefix(s, "-") || !strings.ContainsAny(mantissa, "123456789")
-	}
-	if i := strings.IndexAny(s, "eE"); i >= 0 {
-		exp, err := strconv.Atoi(s[i+1:])
-		bound := len(s) + 16
-		if err != nil || exp > bound || exp < -bound {
-			return false
-		}
-	}
-	value, ok := new(big.Rat).SetString(s)
-	return ok && value.Sign() >= 0 && value.Cmp(new(big.Rat).SetInt64(maximum)) <= 0
 }

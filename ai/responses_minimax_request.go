@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"slices"
-
-	"github.com/buger/jsonparser"
 )
 
 func validateMiniMaxResponsesOptions(m Model, options Options) *Error {
@@ -55,24 +53,14 @@ func validateMiniMaxResponsesFinalBody(m Model, raw []byte, authorize func(map[s
 	return nil
 }
 
-// Sampling numbers stay exact through the final schema boundary. This follows
-// GLM's established wire-number preservation, but has MiniMax's own limits.
-func preserveMiniMaxResponsesBudget(body []byte, m Model, level ThinkingLevel, overrides map[string]json.RawMessage) ([]byte, error) {
+// Restore all raw sampling values after the pi-compatible merge so the final
+// guard validates the bytes actually requested (budget and scalar endpoints).
+func preserveMiniMaxResponsesSampling(body []byte, m Model, level ThinkingLevel, overrides map[string]json.RawMessage) ([]byte, error) {
 	if level == "" {
 		level = m.DefaultThinkingLevel
 		if level == "" {
 			level = thinkingOff
 		}
 	}
-	level = clampThinkingLevel(m, level)
-	var budget json.RawMessage
-	for _, source := range []map[string]json.RawMessage{m.SamplingParams, m.SamplingParamsByThinkingLevel[level], overrides} {
-		if raw, ok := source["max_output_tokens"]; ok {
-			budget = raw
-		}
-	}
-	if budget == nil {
-		return body, nil
-	}
-	return jsonparser.Set(body, budget, "max_output_tokens")
+	return preserveMiniMaxSampling(body, m, clampThinkingLevel(m, level), overrides)
 }

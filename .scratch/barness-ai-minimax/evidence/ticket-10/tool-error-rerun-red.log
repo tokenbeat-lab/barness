@@ -1,0 +1,14 @@
+--- FAIL: TestMiniMaxProcess (1.06s)
+    --- FAIL: TestMiniMaxProcess/tool-auth401 (0.24s)
+        minimax_process_test.go:99: [MM07-process-tool-auth401] error is not a capability-rerun reason: failure=tool-capability
+        minimax_process_test.go:102: [MM07-process-tool-auth401] failed tool scene has no capability rerun: tool calls=2
+    --- FAIL: TestMiniMaxProcess/tool-permanent429 (0.25s)
+        minimax_process_test.go:99: [MM07-process-tool-permanent429] error is not a capability-rerun reason: failure=tool-capability
+        minimax_process_test.go:102: [MM07-process-tool-permanent429] failed tool scene has no capability rerun: tool calls=2
+    --- FAIL: TestMiniMaxProcess/tool-stream-error (0.25s)
+        minimax_process_test.go:99: [MM07-process-tool-stream-error] error is not a capability-rerun reason: failure=tool-capability
+        minimax_process_test.go:102: [MM07-process-tool-stream-error] failed tool scene has no capability rerun: tool calls=2
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261018T000632.670290000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	2.340s
+FAIL

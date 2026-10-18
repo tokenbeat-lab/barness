@@ -6,7 +6,7 @@ import "strings"
 // A successful process or a clean redaction scan alone cannot prove its P0,
 // frozen differential, design loads or authorization revocation.
 func RaceEvidence(dir string, trace TraceMap, ledger Ledger) []EvidenceCheck {
-	names := []string{"race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation", "race-multimodal-images-plain", "race-multimodal-images-hooked"}
+	names := append(miniMaxRaceLoadNames(), []string{"race-offline", "race-differential", "race-mixed-pressure-local", "race-mixed-pressure-cloud", "race-authorization-revocation", "race-multimodal-images-plain", "race-multimodal-images-hooked"}...)
 	b, err := LoadBundle(dir)
 	if dir == "" || err != nil {
 		var out []EvidenceCheck
@@ -24,11 +24,19 @@ func RaceEvidence(dir string, trace TraceMap, ledger Ledger) []EvidenceCheck {
 		if !g.Pass {
 			status = Fail
 		}
-		out = append(out, EvidenceCheck{Name: names[i], Bundle: dir, Status: status, Detail: strings.Join(g.Problems, "; ")})
+		out = append(out, EvidenceCheck{Name: []string{"race-offline", "race-differential"}[i], Bundle: dir, Status: status, Detail: strings.Join(g.Problems, "; ")})
 	}
-	for _, e := range append(append(DesignLoadEvidence(b), RevocationEvidence(b)), MultimodalImageEvidence(b)...) {
+	for _, e := range append(append(append(DesignLoadEvidence(b), RevocationEvidence(b)), MultimodalImageEvidence(b)...), MiniMaxDesignLoadEvidence(b)...) {
 		e.Name = "race-" + e.Name
 		out = append(out, e)
 	}
 	return out
+}
+
+func miniMaxRaceLoadNames() []string {
+	names := miniMaxLoadNames()
+	for i := range names {
+		names[i] = "race-" + names[i]
+	}
+	return names
 }

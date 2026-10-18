@@ -13,7 +13,6 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimax"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
 
@@ -84,7 +83,7 @@ func initializeMiniMax() {
 		minimaxSelected.sdk = anthropicSDK
 	}
 	r.SDK = minimaxSelected.sdk()
-	minimaxCatalog = minimax.CandidateCatalog()
+	minimaxCatalog = minimaxlive.CandidateCatalog(id)
 	if r.Stage == "formal" {
 		minimaxCatalog = ai.BuiltinCatalog()
 		if id.Model != minimaxlive.M3 {
@@ -112,15 +111,20 @@ func initializeMiniMax() {
 		minimaxConfigError = e.Error()
 	}
 	path := os.Getenv("BARNESS_MINIMAX_LEDGER")
-	root, _ := minimaxlive.Root()
-	canonical := filepath.Join(root, ".evidence", "minimax-stages", r.Stage+".jsonl")
-	if r.Mode == "live" && path != "" && path != canonical {
-		minimaxConfigError = "actual live requires canonical durable stage ledger"
-	}
-	if path == "" {
+	if r.Mode == "live" {
+		canonical, e := minimaxlive.StageLedgerPath(r.Stage)
+		if e != nil {
+			minimaxConfigError = e.Error()
+		} else if path != "" && path != canonical {
+			minimaxConfigError = "actual live requires common-Git durable stage ledger"
+		} else {
+			path = canonical
+		}
+	} else if path == "" {
 		root, _ := minimaxlive.Root()
-		path = filepath.Join(root, ".evidence", "minimax-stages", r.Stage+".jsonl")
+		path = filepath.Join(root, ".evidence", "minimax-controlled-stages", r.Stage+".jsonl")
 	}
+
 	minimaxLedger = minimaxlive.Ledger{Path: path, Stage: r.Stage, Session: r.Session, Identity: id}
 	run.SetVersion("minimax_mode", r.Mode)
 	run.SetVersion("minimax_kind", r.Kind)

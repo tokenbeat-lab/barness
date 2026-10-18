@@ -4,9 +4,11 @@ package live
 
 import (
 	"context"
+	"encoding/json"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -14,12 +16,12 @@ import (
 )
 
 func TestMiniMaxReplayProcess(t *testing.T) {
-	for _, route := range []string{"chat", "responses", "messages", "rerun-tool"} {
+	for _, route := range []string{"chat", "responses", "messages", "rerun-tool", "transient-request", "transient-transport"} {
 		t.Run(route, func(t *testing.T) {
 			cs := run.Case(t, "MM07-replay-"+route)
 			control := "success-" + route
-			if route == "rerun-tool" {
-				control = "success-rerun-tool"
+			if route == "rerun-tool" || strings.HasPrefix(route, "transient-") {
+				control = "success-" + route
 				route = "chat"
 			}
 			base := t.TempDir()
@@ -62,6 +64,26 @@ func TestMiniMaxReplayProcess(t *testing.T) {
 			cs.Check("immutable replay source retained", e == nil && len(origin) > 0, "origin absent")
 			_, e = minimaxlive.Verify(filepath.Dir(replay[0]), true)
 			cs.Check("replay cannot become live", e != nil, "formal accepted replay")
+			replayDir := filepath.Dir(replay[0])
+			r.Mode = "live"
+			r.Kind = "minimax-candidate-only"
+			r.ReplaySource = ""
+			raw, _ := json.Marshal(r)
+			os.WriteFile(filepath.Join(replayDir, minimaxlive.ReportFile), raw, 0600)
+			manifestRaw, _ := os.ReadFile(filepath.Join(replayDir, "manifest.json"))
+			var m map[string]any
+			json.Unmarshal(manifestRaw, &m)
+			m["versions"].(map[string]any)["minimax_mode"] = "live"
+			m["versions"].(map[string]any)["minimax_kind"] = "minimax-candidate-only"
+			manifestRaw, _ = json.Marshal(m)
+			os.WriteFile(filepath.Join(replayDir, "manifest.json"), manifestRaw, 0600)
+			os.Remove(filepath.Join(replayDir, "minimax-replay-origin.json"))
+			files, _ := minimaxlive.Inventory(replayDir)
+			seal, _ := json.Marshal(minimaxlive.Seal{Schema: 1, Files: files})
+			os.WriteFile(filepath.Join(replayDir, minimaxlive.SealFile), seal, 0600)
+			_, e = minimaxlive.Verify(replayDir, false)
+			cs.Check("removed replay provenance cannot forge actual origin", e != nil && strings.Contains(e.Error(), "origin"), "%v", e)
+
 		})
 	}
 }

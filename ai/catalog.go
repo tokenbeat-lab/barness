@@ -51,10 +51,15 @@ type Catalog struct {
 // Responses API, a route pi itself does not have (see
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
+	minimax := builtinMiniMaxCatalog()
+	version := "2026-10-17.2"
+	if len(minimax.Models) > 0 {
+		version = minimax.Version
+	}
 	return Catalog{
-		Version: "2026-10-17.2",
+		Version: version,
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
-			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels()),
+			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels(), minimax.Models),
 		ImageModels:      slices.Concat(builtinOpenAIImageModels(), builtinGoogleImageModels()),
 		ClassifierModels: slices.Concat(builtinTypeSafeModels(), builtinDecisionsModels()),
 	}
