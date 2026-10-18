@@ -137,6 +137,11 @@ func validateMiniMaxOutputItem(raw json.RawMessage, added bool) (string, string,
 	if value, ok := item["id"]; ok && json.Unmarshal(value, &id) != nil {
 		return "", "", invalid
 	}
+	if encrypted, present := item["encrypted_content"]; present {
+		if _, ok := rawString(encrypted); !ok || typ != "reasoning" {
+			return "", "", invalid
+		}
+	}
 	switch typ {
 	case "message", "reasoning":
 		for _, field := range []string{"content", "summary"} {

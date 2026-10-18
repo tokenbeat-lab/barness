@@ -1,0 +1,20 @@
+--- FAIL: TestMiniMaxResponsesObservedNative (0.02s)
+    --- FAIL: TestMiniMaxResponsesObservedNative/in-process (0.01s)
+        minimax_responses_observed_test.go:70: [MM10-actual-responses-native-in-process] documented text projection reaches transport: ai: invalid_request (request): request could not be encoded
+    --- FAIL: TestMiniMaxResponsesObservedNative/restored (0.00s)
+        minimax_responses_observed_test.go:70: [MM10-actual-responses-native-restored] documented text projection reaches transport: ai: invalid_request (request): request could not be encoded
+--- FAIL: TestMiniMaxResponsesObservedEncryptedType (0.01s)
+    --- FAIL: TestMiniMaxResponsesObservedEncryptedType/null (0.00s)
+        minimax_responses_observed_test.go:117: [MM10-actual-responses-encrypted-type-null] unobserved encrypted type fails protocol: <nil>
+    --- FAIL: TestMiniMaxResponsesObservedEncryptedType/42 (0.00s)
+        minimax_responses_observed_test.go:117: [MM10-actual-responses-encrypted-type-42] unobserved encrypted type fails protocol: <nil>
+    --- FAIL: TestMiniMaxResponsesObservedEncryptedType/true (0.00s)
+        minimax_responses_observed_test.go:117: [MM10-actual-responses-encrypted-type-true] unobserved encrypted type fails protocol: <nil>
+    --- FAIL: TestMiniMaxResponsesObservedEncryptedType/[] (0.00s)
+        minimax_responses_observed_test.go:117: [MM10-actual-responses-encrypted-type-[]] unobserved encrypted type fails protocol: <nil>
+    --- FAIL: TestMiniMaxResponsesObservedEncryptedType/{} (0.00s)
+        minimax_responses_observed_test.go:117: [MM10-actual-responses-encrypted-type-{}] unobserved encrypted type fails protocol: <nil>
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/mm10-global-responses-red/captures/20261018T015903.156163000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.345s
+FAIL

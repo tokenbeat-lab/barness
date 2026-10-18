@@ -114,8 +114,11 @@ func validateMiniMaxChatMessages(body map[string]any) string {
 			if _, ok := chatReasoningDetails(string(encoded)); err != nil || !ok || role != "assistant" {
 				return "MiniMax reasoning_details must preserve typed assistant entries"
 			}
-			if _, present := message["reasoning_content"]; present {
-				return "MiniMax assistant reasoning formats cannot be combined"
+			if content, present := message["reasoning_content"]; present {
+				mirror, err := json.Marshal(content)
+				if err != nil || !miniMaxChatMirror(mirror, encoded) {
+					return "MiniMax assistant reasoning formats must be equal text mirrors"
+				}
 			}
 		}
 		if raw, present := message["tool_calls"]; present {

@@ -115,7 +115,7 @@ func (p *chatParser) read(ctx context.Context, dec ssestream.Decoder) *Error {
 // as its signature, without an end event.
 func (p *chatParser) fail(failure *Error) *Error {
 	if p.thinking >= 0 && p.details != nil {
-		p.out.setThinkingSignature(p.thinking, p.details.signature())
+		p.out.setThinkingSignature(p.thinking, p.reasoningSignature())
 	}
 	return failure
 }
@@ -398,7 +398,7 @@ func (p *chatParser) closeBlocks() *Error {
 		case i == p.thinking:
 			sig := p.out.thinkingSignature(i)
 			if p.details != nil {
-				sig = p.details.signature()
+				sig = p.reasoningSignature()
 			}
 			p.out.thinkingEnd(i, p.out.thinkingText(i), sig)
 		default:

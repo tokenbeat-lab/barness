@@ -125,9 +125,6 @@ func validateMiniMaxChatReasoningDelta(d chatDelta) string {
 	if len(d.ReasoningDetails) == 0 || string(d.ReasoningDetails) == "null" {
 		return ""
 	}
-	if rawTruthy(d.ReasoningContent) {
-		return "MiniMax returned conflicting reasoning formats"
-	}
 	var entries []json.RawMessage
 	if json.Unmarshal(d.ReasoningDetails, &entries) != nil || entries == nil {
 		return "MiniMax returned an unintegrated reasoning_details format"
@@ -140,6 +137,9 @@ func validateMiniMaxChatReasoningDelta(d chatDelta) string {
 		if _, ok := chatReasoningDetail(entry); !ok {
 			return "MiniMax returned an unintegrated reasoning entry"
 		}
+	}
+	if content, present := rawString(d.ReasoningContent); present && (content != "" || len(entries) > 0) && !miniMaxChatMirror(d.ReasoningContent, d.ReasoningDetails) {
+		return "MiniMax returned conflicting reasoning formats"
 	}
 	return ""
 }
@@ -158,6 +158,9 @@ func (p *chatParser) validateMiniMaxReasoning(delta chatDelta) string {
 	var entries []json.RawMessage
 	if json.Unmarshal(delta.ReasoningDetails, &entries) == nil && len(entries) > 0 {
 		format = "details"
+	}
+	if miniMaxChatMirror(delta.ReasoningContent, delta.ReasoningDetails) {
+		format = "mirror"
 	}
 	if format != "" {
 		if p.miniMaxReasoningFormat != "" && p.miniMaxReasoningFormat != format {

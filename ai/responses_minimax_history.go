@@ -49,7 +49,9 @@ type miniMaxInputReasoning struct {
 // Official snapshot 2026-10-18: output.content uses reasoning_text whereas
 // input.summary uses summary_text. This is a lossless field/part projection,
 // never a generated summary. The original output stays in Thinking.Signature.
-// ADR-0039 records that real acceptance must independently prove continuation.
+// Observed encrypted_content remains output-only in the raw signature; the
+// documented input has no ciphertext field. ADR-0043 requires actual text-
+// projection continuation proof independently of this source convergence.
 func miniMaxResponsesReasoning(b Thinking) (miniMaxInputReasoning, error) {
 	var raw map[string]json.RawMessage
 	invalid := errors.New("MiniMax reasoning state is not a documented text item")
@@ -57,7 +59,12 @@ func miniMaxResponsesReasoning(b Thinking) (miniMaxInputReasoning, error) {
 		return miniMaxInputReasoning{}, invalid
 	}
 	for key := range raw {
-		if !slices.Contains([]string{"type", "id", "status", "content", "summary"}, key) {
+		if !slices.Contains([]string{"type", "id", "status", "content", "summary", "encrypted_content"}, key) {
+			return miniMaxInputReasoning{}, invalid
+		}
+	}
+	if encrypted, present := raw["encrypted_content"]; present {
+		if _, ok := rawString(encrypted); !ok {
 			return miniMaxInputReasoning{}, invalid
 		}
 	}

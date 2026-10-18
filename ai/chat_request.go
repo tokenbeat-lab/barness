@@ -298,6 +298,14 @@ func chatAssistant(m replayedAssistant, model Model, compat chatCompat) (chatAss
 	}
 	var details json.RawMessage
 	for _, t := range thinking {
+		if model.Provider == ProviderMiniMax {
+			if d, ok := miniMaxMirroredDetails(t.Signature); ok {
+				details = d
+				mirror := t.Thinking
+				msg.ReasoningContent = &mirror
+				break
+			}
+		}
 		if d, ok := chatReasoningDetails(t.Signature); ok {
 			details = d
 			break
