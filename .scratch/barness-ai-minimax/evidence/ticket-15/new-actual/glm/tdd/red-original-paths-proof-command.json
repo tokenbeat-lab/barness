@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "red-original-paths-proof",
+  "argv": [
+    "python3",
+    "-B",
+    "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T11:55:27.959850+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 4.2287406250834465,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

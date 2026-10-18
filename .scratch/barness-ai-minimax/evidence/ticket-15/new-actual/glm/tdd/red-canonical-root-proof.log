@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py", line 79, in <module>
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--common-root',type=Path,default=BASE.parents[5]);a=p.parse_args();print(json.dumps(run(a.common_root),indent=2))
+                                                                                                                                                       ~~~^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py", line 74, in run
+    if result.returncode==0 or reason not in result.stderr:raise ValueError('wrong rejection for '+name+': '+result.stderr[-500:])
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: wrong rejection for canonical-root-forgery: REFUSED: FileNotFoundError: [Errno 2] No such file or directory: 'glm-preflight-raw.tar.gz'
+

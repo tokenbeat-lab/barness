@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py", line 100, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py", line 74, in main
+    elif row.name in ('no-key-live','no-key-release-contracts'):scan(path,'preflight/'+row.name,preflight,200000,64<<20)
+                                                                ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py", line 30, in scan
+    if row.is_symlink():raise ValueError('snapshot links forbidden')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: snapshot links forbidden

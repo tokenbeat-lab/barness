@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py", line 77, in <module>
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--common-root',type=Path,default=BASE.parents[5]);a=p.parse_args();print(json.dumps(run(a.common_root),indent=2))
+                                                                                                                                                       ~~~^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py", line 17, in run
+    if baseline.returncode!=0:raise ValueError('correct actual FAIL history must verify: '+baseline.stderr[-1000:])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: correct actual FAIL history must verify: /opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/verify.py': [Errno 2] No such file or directory
+

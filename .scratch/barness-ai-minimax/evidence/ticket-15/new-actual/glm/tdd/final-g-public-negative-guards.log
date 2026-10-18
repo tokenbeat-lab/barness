@@ -1,0 +1,103 @@
+{
+  "verified": true,
+  "negativeGuards": [
+    {
+      "case": "metadata-pin",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: local metadata pin differs"
+    },
+    {
+      "case": "wrong-source",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed own G retention identity differs"
+    },
+    {
+      "case": "summary-pass",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent summary differs"
+    },
+    {
+      "case": "summary-usage",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent summary differs"
+    },
+    {
+      "case": "inventory-bound",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: inventory decoded pin or limit"
+    },
+    {
+      "case": "archive-hash",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: compressed archive pin"
+    },
+    {
+      "case": "archive-size",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: compressed archive size"
+    },
+    {
+      "case": "archive-link",
+      "exitCode": 1,
+      "reason": "REFUSED: OSError: [Errno 62] Too many levels of symbolic links: 'glm-raw.tar.gz'"
+    },
+    {
+      "case": "archive-fifo",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: regular artifact required"
+    },
+    {
+      "case": "traversal",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: invalid owned artifact path"
+    },
+    {
+      "case": "duplicate",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: archive path or duplicate"
+    },
+    {
+      "case": "typed-link",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: regular archive member required"
+    },
+    {
+      "case": "entry-bound",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: archive entry limit"
+    },
+    {
+      "case": "observation-bound",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: observed metadata bound differs"
+    },
+    {
+      "case": "canonical-capture-forgery",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: failed Messages cannot acquire success capturePins or a fabricated support report"
+    },
+    {
+      "case": "canonical-root-forgery",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: canonical root/base/source/caps differ"
+    },
+    {
+      "case": "messages-support-forgery",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: failed Messages cannot acquire success capturePins or a fabricated support report"
+    },
+    {
+      "case": "secondary-path-forgery",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed secondary capsule identity differs"
+    },
+    {
+      "case": "refusal-forgery",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: strict publication refusal or original command differs"
+    }
+  ],
+  "originalArchivesMutated": false,
+  "retentionCredentialsRead": false,
+  "retentionPaidCalls": 0
+}

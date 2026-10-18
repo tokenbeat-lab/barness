@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "red-fabricated-messages-support",
+  "argv": [
+    "python3",
+    "-B",
+    "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T11:59:43.964001+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 4.710179124958813,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

@@ -1,0 +1,12 @@
+{"snapshot": "actual", "files": 1127, "rawBytes": 22326483, "archiveBytes": 2715968, "archiveSHA256": "5371d79f7324b501626b1f6c1f1cb36037be89c89206d2855c2001a161a0d6f0"}
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py", line 107, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py", line 103, in main
+    pcap,_=snapshot('preflight',preflight,{'projection/known-intentional-link.json':projection},False,manifest_names+['projection/known-intentional-link.json']);bcap,_=snapshot('binary',binary,{},False,[n for n in binary if n!='frozen/live.test'])
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py", line 61, in snapshot
+    if len(observation)>(512 if small else 256) or not set(observation)<=set(pins) or any(pins[n]['bytes']>(1<<20 if small else large.LIMITS['observedMetadataBytes']) for n in observation) or sum(pins[n]['bytes'] for n in observation)>(16<<20 if small else large.LIMITS['observedTotalBytes']):raise ValueError('snapshot observed metadata bound')
+                                                                                                                                                                                                                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: snapshot observed metadata bound

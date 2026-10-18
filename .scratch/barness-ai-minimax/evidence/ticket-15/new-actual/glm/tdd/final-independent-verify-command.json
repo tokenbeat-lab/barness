@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "final-independent-verify",
+  "argv": [
+    "python3",
+    "-B",
+    "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/verify.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T11:58:27.302015+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.061147500295192,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

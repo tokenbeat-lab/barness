@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "green-complete-actual-g-guards",
+  "argv": [
+    "python3",
+    "-B",
+    "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T12:00:35.129417+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 5.563773833680898,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

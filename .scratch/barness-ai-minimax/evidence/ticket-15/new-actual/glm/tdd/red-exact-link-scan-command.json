@@ -1,0 +1,27 @@
+{
+  "state": "COMPLETED",
+  "name": "red-exact-link-scan",
+  "argv": [
+    "python3",
+    "-B",
+    "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 120,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T11:49:28.352507+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.14354704227298498,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

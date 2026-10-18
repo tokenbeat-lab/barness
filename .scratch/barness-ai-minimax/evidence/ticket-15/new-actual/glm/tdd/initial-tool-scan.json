@@ -1,0 +1,14 @@
+{
+  "evidenceSource": "actual exec_command tool result, chunk02d9d9",
+  "argv": [
+    "python3",
+    "-B",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py"
+  ],
+  "exitCode": 1,
+  "sourceSHA256": "2d6238af86f658f20b644f148b53f634b34bbe6d8d9613aafa8413c70e58e06f",
+  "failure": "snapshot links forbidden",
+  "archivesWritten": 0,
+  "nativeInputsChanged": false,
+  "reproduction": "next red-exact-link-scan numeric command receipt repeats the same bytes and argv after removing only its owned empty output directory"
+}
