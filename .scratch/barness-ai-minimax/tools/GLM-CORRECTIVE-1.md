@@ -4,7 +4,7 @@ This prospective workflow is deliberately separate from the spent original
 `glm-{chat,responses,messages}` intents. It never changes them or splices scenes.
 One new full22 process per route, max24 calls/32 Attempts, output4096,
 120s/call,1800s/process, zero default retries. Additional72/96 plus original66/66
-means GLM lifetime138/162, other legacy302/302 unchanged, legacy440/464.
+means this renewal GLM cumulative ceiling138/162, other legacy302/302 unchanged, legacy440/464.
 Original unused6/30 is not transferred. There is no corrective-2.
 
 After committing and independently reviewing all source, prepare on the exact
@@ -48,3 +48,5 @@ for the remaining legacy/Jev collection. Current M3 formal source maps remain
 unchanged because the capture repair touches GLM-only Go, not shared recorder,
 runtime, importer or selectors. Native/usage completeness and output failures
 remain measured facts; missing usage never means zero consumption.
+
+Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66/66 plus corrective-1. Prior GLM-task paid history (including its separate282-call contract) remains immutable and separately accounted; this extension does not erase or reset it.

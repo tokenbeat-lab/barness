@@ -1,0 +1,27 @@
+{
+  "target": "4ff6dca903adbf73b8324c7475482c4a902163ff",
+  "base": "b862249da6510d7bd23ab06f0470ce758529965c",
+  "confidence": "high",
+  "findings": [
+    {
+      "priority": 2,
+      "title": "Freeze the same carried lifetime ceiling that summarize enforces",
+      "file": "/tmp/barness-minimax-10-global/.scratch/barness-ai-minimax/tools/paid.py",
+      "line": 32,
+      "end_line": 32,
+      "trigger": "After corrective-1 is approved/launched, run paid.py prepare for remaining legacy work. plan.json still advertises 374/398 and zhipu72, but summarize uses 440/464 and zhipu138.",
+      "requirement": ".scratch/barness-ai-minimax/issues/12-glm-corrective-1.md:14: 原66/66不刷新；额外最多72/96…旧能力总体440/464; GLM spec.md:222: 需修改固定预算时先改规范和证据计划",
+      "fix": "Use one carried budget declaration for prepare and summarize; preserve original66/66 and other302/302, and label prospective authorization correctly."
+    },
+    {
+      "priority": 2,
+      "title": "Settle known usage before returning on event evidence overflow",
+      "file": "/tmp/barness-minimax-10-global/ai/live/glm_harness_test.go",
+      "line": 350,
+      "end_line": 351,
+      "trigger": "A Messages stream reports input usage at message_start, then crosses the 8192-event/4MiB evidence cap. The new early return skips scene Usage/UsageReporting settlement at361–365; model reportedKnownUsage omits legal input usage and incompleteAttempts remains zero, despite the raw Result retaining it.",
+      "requirement": ".scratch/barness-ai-glm/spec.md:196: 流中断保留已合法上报的用量; issue12:18: native/terminal/usage…均保留",
+      "fix": "Copy Result/Attempt known usage/reporting and diagnostic facts before the new capture-error return. Keep the scene and process FAIL and add a public early-usage overflow case."
+    }
+  ]
+}

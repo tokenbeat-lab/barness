@@ -11,7 +11,7 @@ Blocked by: explicit human approval of additional paid budget
 
 ## Prospective contract — PENDING HUMAN APPROVAL
 
-只新增一次固定 `glm-corrective-1-{chat,responses,messages}` 三路完整22场景。沿用既定prompts/plan/source manifest、两型号、4096输出、120s单调用/1800s进程、默认零重试，各24 calls/32 Attempts，无自动R2。原66/66不刷新；额外最多72/96，GLM终身138/162；其他旧能力302/302保持，旧能力总体440/464。原unused6/30不转移。人类明确同意前禁止读取凭据或调用；实现只生成PENDING模板，精确code/binary/plan/checks及原收据pins需同时获得人类授权和独立源码审查。
+只新增一次固定 `glm-corrective-1-{chat,responses,messages}` 三路完整22场景。沿用既定prompts/plan/source manifest、两型号、4096输出、120s单调用/1800s进程、默认零重试，各24 calls/32 Attempts，无自动R2。原66/66不刷新；额外最多72/96，本次续期GLM累计上限138/162；其他旧能力302/302保持，旧能力总体440/464。原unused6/30不转移。人类明确同意前禁止读取凭据或调用；实现只生成PENDING模板，精确code/binary/plan/checks及原收据pins需同时获得人类授权和独立源码审查。
 
 ## Acceptance
 
@@ -22,3 +22,5 @@ Blocked by: explicit human approval of additional paid budget
 ## Answer
 
 离线实现与证据准备中；付费预算扩展保持 **PENDING HUMAN APPROVAL**。本票实现者不读取.env/真实Key，不运行厂商调用，不创建APPROVED，不改写任何实际历史或canonical已存在intent。原Responses FAIL及全规格未完成状态保持。
+
+Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66/66 plus corrective-1. Prior GLM-task paid history (including its separate282-call contract) remains immutable and separately accounted; this extension does not erase or reset it.

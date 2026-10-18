@@ -25,11 +25,16 @@ def out_path(value):
 
 def prepare(out):
     frozen=c.committed_sources()
+    import glm_corrective as g
+    carried=g.disclosure()
+    caps=p.PROVIDER_CAPS|({'zhipu':138} if carried else {})
+    attempts=caps|{'zhipu':162 if carried else 96}
     out.mkdir(parents=True,exist_ok=False,mode=0o700)
     c.dump(out/'source-at-start.json',frozen)
     inventory=p.jobs(c.ROOT,out,c.common_root())
     c.dump(out/'plan.json',c.redact(dict(schema=1,reference='barness-ai-minimax-ticket10',
-        maxLegacyCalls=374,maxLegacyAttempts=398,providerCaps=p.PROVIDER_CAPS,
+        maxLegacyCalls=440 if carried else 374,maxLegacyAttempts=464 if carried else 398,
+        providerCaps=caps,providerAttemptCaps=attempts,carriedGLM=carried,
         miniMaxCandidate=dict(maxCalls=120,maxAttempts=144,maxIdentities=6),
         miniMaxFormal=dict(maxCalls=60,maxAttempts=72,maxIdentities=3),
         automaticProcessReruns=False,previousTaskBalanceCarried=True,
@@ -224,8 +229,8 @@ def summarize(out):
     # canonical actual/unknown consumption alongside the original intents;
     # unused original GLM reservation is never transferred to it.
     import glm_corrective as g
-    corrective=g.rows()
-    if corrective:g.originals()
+    carried=g.disclosure()
+    corrective=carried['routes'] if carried else []
     rows.extend(corrective)
     legacy=[r for r in rows if r['provider']!='minimax']
     maxcalls,maxattempts=(440,464) if corrective else (374,398)

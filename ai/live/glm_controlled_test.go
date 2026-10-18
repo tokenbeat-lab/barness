@@ -86,6 +86,9 @@ func installGLMControlled(rec *recorder, name string) {
 			if reasoning, ok := b["reasoning"].(map[string]any); ok && reasoning["effort"] == "low" && b["model"] == "glm-5.3" {
 				body = glmCorrectiveSyntheticResponse(name)
 			}
+			if name == "corrective-eventcap" {
+				body = glmCorrectiveMessageOverflow()
+			}
 		}
 		if name == "missing-text" && !tool {
 			body = strings.ReplaceAll(body, `"42"`, `""`)

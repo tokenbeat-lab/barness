@@ -91,6 +91,17 @@ class Corrective(unittest.TestCase):
         total=json.loads(aggregate.stdout)['legacy']
         self.assertEqual((total['calls'],total['attempts'],total['maxCalls'],total['maxAttempts']),(88,88,440,464))
         self.invoke('prepare','other');self.invoke('check','other');self.approve('other')
+        plan=json.loads((self.root/'other/plan.json').read_text())
+        # Later ordinary legacy preparation must disclose the already approved
+        # inherited round; it must not silently revert to the original budget.
+        ordinary=[sys.executable,str(self.tools/'paid.py')]
+        result=subprocess.run([*ordinary,'prepare','future-legacy'],cwd=self.root,env=self.env,text=True,capture_output=True,timeout=10)
+        self.assertEqual(result.returncode,0,result.stderr)
+        future=json.loads((self.root/'future-legacy/plan.json').read_text())
+        self.assertEqual((future['maxLegacyCalls'],future['maxLegacyAttempts']),(440,464))
+        self.assertEqual((future['providerCaps']['zhipu'],future['providerAttemptCaps']['zhipu']),(138,162))
+        self.assertEqual((future['carriedGLM']['lifetime']['calls'],future['carriedGLM']['lifetime']['attempts']),(88,88))
+        self.assertEqual(future['carriedGLM']['budget']['otherLegacyMaxCalls'],302)
         (self.root/'.env').unlink();(self.root/'.env').mkdir()
         self.invoke('run-selected','other','glm-corrective-1-chat',ok=False)
         self.assertFalse((self.root/'other/glm-corrective-1-chat-command.json').exists())
@@ -108,6 +119,10 @@ class Corrective(unittest.TestCase):
         value=json.loads(marker.read_text());value['budget']={'state':'UNKNOWN'};marker.write_text(json.dumps(value))
         summary=json.loads(self.invoke('summarize','corrective').stdout)
         self.assertEqual((summary['lifetime']['conservativeCalls'],summary['lifetime']['conservativeAttempts']),(90,98))
+        prepared=subprocess.run([sys.executable,str(self.tools/'paid.py'),'prepare','future-unknown'],cwd=self.root,env=self.env,text=True,capture_output=True,timeout=10)
+        self.assertEqual(prepared.returncode,0,prepared.stderr)
+        future=json.loads((self.root/'future-unknown/plan.json').read_text())
+        self.assertEqual((future['carriedGLM']['lifetime']['conservativeCalls'],future['carriedGLM']['lifetime']['conservativeAttempts']),(90,98))
         self.invoke('run-selected','corrective','glm-corrective-1-chat',ok=False)
 
     def test_unknown_original_fails_preparation_without_credential_or_intent(self):
@@ -115,6 +130,13 @@ class Corrective(unittest.TestCase):
         p=self.root/'.evidence/minimax-launches/glm-messages.json';value=json.loads(p.read_text());value['budget']['state']='UNKNOWN';p.write_text(json.dumps(value))
         (self.root/'.env').mkdir();self.invoke('prepare','out',ok=False)
         self.assertFalse((self.root/'.evidence/minimax-launches/glm-corrective-1-messages.json').exists())
+
+    def test_unapproved_marker_cannot_extend_ordinary_budget(self):
+        self.setup_round();(self.root/'.env').mkdir()
+        marker=self.root/'.evidence/minimax-launches/glm-corrective-1-chat.json';marker.write_text('{}')
+        for mode,out in (('prepare','unapproved'),('summarize','corrective')):
+            result=subprocess.run([sys.executable,str(self.tools/'paid.py'),mode,out],cwd=self.root,env=self.env,text=True,capture_output=True,timeout=10)
+            self.assertNotEqual(result.returncode,0,result.stdout[:200])
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

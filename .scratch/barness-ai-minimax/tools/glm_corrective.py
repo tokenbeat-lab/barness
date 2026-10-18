@@ -17,6 +17,7 @@ import paid
 
 ROUND='corrective-1'
 ROUTES=('chat','responses','messages')
+ACCOUNTING_SCOPE='current MiniMax-release GLM renewal: original66/66 plus corrective-1 only; prior GLM-task paid history remains separate and immutable'
 BUDGET=dict(priorCalls=66,priorAttempts=66,additionalMaxCalls=72,additionalMaxAttempts=96,
     lifetimeGLMMaxCalls=138,lifetimeGLMMaxAttempts=162,otherLegacyMaxCalls=302,
     otherLegacyMaxAttempts=302,legacyMaxCalls=440,legacyMaxAttempts=464)
@@ -58,7 +59,7 @@ def prepare(out):
     prior=originals();frozen=c.committed_sources()
     out.mkdir(parents=True,exist_ok=False,mode=0o700)
     c.dump(out/'source-at-start.json',frozen)
-    c.dump(out/'plan.json',c.redact(dict(schema=1,round=ROUND,approval='PENDING HUMAN APPROVAL',
+    c.dump(out/'plan.json',c.redact(dict(schema=1,round=ROUND,accountingScope=ACCOUNTING_SCOPE,approval='PENDING HUMAN APPROVAL',
         budget=BUDGET,originalReceipts=prior,routes=jobs(out),automaticProcessReruns=False,
         noSceneSplice=True,maxOutputTokens=4096,callSeconds=120,processSeconds=1800,defaultRetries=0)))
     if c.execute(out,'build-live',['go','test','-tags','live','-c','-o',out/'live.test','./ai/live'])!=0:
@@ -71,14 +72,14 @@ def prepare(out):
     c.dump(out/'prerelease-source-review.template.json',dict(decision='PENDING',reviewedBy='',
         **pins,authorizedRoutes=[],credentialScopes={}))
     c.dump(out/'human-approval.template.json',dict(decision='PENDING',authority='',replyReference='',
-        round=ROUND,**pins,**BUDGET,originalReceipts=prior))
+        round=ROUND,accountingScope=ACCOUNTING_SCOPE,**pins,**BUDGET,originalReceipts=prior))
     c.guard(out)
     return dict(state='PREPARED',approval='PENDING HUMAN APPROVAL',credentialsRead=False,**pins)
 
 
 def guard(out):
     frozen=c.guard(out);plan=c.doc(out/'plan.json')
-    if (plan.get('round')!=ROUND or plan.get('budget')!=BUDGET or
+    if (plan.get('round')!=ROUND or plan.get('accountingScope')!=ACCOUNTING_SCOPE or plan.get('budget')!=BUDGET or
         plan.get('originalReceipts')!=originals() or plan.get('routes')!=c.redact(jobs(out))):
         raise RuntimeError('fixed corrective plan or carried original receipts changed')
     return frozen
@@ -96,7 +97,7 @@ def approved(out,job):
     # Template is advisory, not authority: independently recompute every pin.
     pins=dict(sourceCommit=frozen['sourceCommit'],sourceManifestSHA256=c.digest(out/'source-at-start.json'),
         binariesManifestSHA256=c.digest(out/'binaries.json'),planSHA256=c.digest(out/'plan.json'))
-    if any(approval.get(k)!=v for k,v in pins.items()) or approval.get('round')!=ROUND:
+    if any(approval.get(k)!=v for k,v in pins.items()) or approval.get('round')!=ROUND or approval.get('accountingScope')!=ACCOUNTING_SCOPE:
         raise RuntimeError('human approval exact pins differ')
     if approval.get('checksSHA256')!=c.digest(out/'checks.json'):
         raise RuntimeError('explicit human approval must pin successful exact checks')
@@ -126,9 +127,30 @@ def summarize(out):
         conservativeCalls=66+sum(r['conservativeCalls'] for r in current),conservativeAttempts=66+sum(r['conservativeAttempts'] for r in current),
         maxCalls=138,maxAttempts=162)
     if consumed['conservativeCalls']>138 or consumed['conservativeAttempts']>162:raise RuntimeError('GLM lifetime cap exceeded')
-    result=dict(round=ROUND,originalReceipts=originals(),routes=current,lifetime=consumed,
+    result=dict(round=ROUND,accountingScope=ACCOUNTING_SCOPE,originalReceipts=originals(),routes=current,lifetime=consumed,
         budget=BUDGET,automaticReruns=False,credentialsRead=False)
     c.dump(out/'corrective-consumption.json',result);return result
+
+
+def disclosure():
+    """Later ordinary plans disclose inherited authority and conservative spend."""
+    current=rows()
+    if not current:return None
+    prior=originals();receipts={}
+    for row in current:
+        path=paid.marker(row['route']);record=c.doc(path)
+        if (record.get('correctiveRound')!=ROUND or record.get('route')!=row['route'] or
+            record.get('originalReceipts')!=prior or
+            any(re.fullmatch('[a-f0-9]{64}',record.get(field,'')) is None for field in
+                ('humanApprovalSha256','sourceManifestSha256','binariesManifestSha256','planSha256'))):
+            raise RuntimeError('inherited corrective budget requires canonical approved intent pins')
+        receipts[row['route']]=dict(receiptSHA256=c.digest(path),sourceCommit=record['sourceCommit'])
+    lifetime=dict(calls=66+sum(r['calls'] or 0 for r in current),attempts=66+sum(r['attempts'] or 0 for r in current),
+        conservativeCalls=66+sum(r['conservativeCalls'] for r in current),
+        conservativeAttempts=66+sum(r['conservativeAttempts'] for r in current))
+    return dict(accountingScope=ACCOUNTING_SCOPE,budget=BUDGET,originalReceipts=prior,
+        correctiveReceipts=receipts,routes=current,lifetime=lifetime,
+        spentRoutes=['glm-'+r for r in ROUTES]+[r['route'] for r in current])
 
 
 def run_selected(out,job):

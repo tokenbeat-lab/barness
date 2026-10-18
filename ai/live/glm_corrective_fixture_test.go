@@ -44,3 +44,25 @@ func glmCorrectiveSyntheticResponse(name string) string {
 	emit(map[string]any{"type": terminal, "response": response})
 	return body.String()
 }
+
+func glmCorrectiveMessageOverflow() string {
+	var body strings.Builder
+	emit := func(value map[string]any) {
+		raw, _ := json.Marshal(value)
+		body.WriteString("event: ")
+		body.WriteString(value["type"].(string))
+		body.WriteString("\ndata: ")
+		body.Write(raw)
+		body.WriteString("\n\n")
+	}
+	emit(map[string]any{"type": "message_start", "message": map[string]any{"id": "msg_eventcap", "type": "message", "role": "assistant", "model": "glm-5.3", "content": []any{}, "usage": map[string]any{"input_tokens": 20, "output_tokens": 0}}})
+	emit(map[string]any{"type": "content_block_start", "index": 0, "content_block": map[string]any{"type": "thinking", "thinking": "", "signature": ""}})
+	for n := 0; n < 9000; n++ {
+		emit(map[string]any{"type": "content_block_delta", "index": 0, "delta": map[string]any{"type": "thinking_delta", "thinking": "x"}})
+	}
+	emit(map[string]any{"type": "content_block_delta", "index": 0, "delta": map[string]any{"type": "signature_delta", "signature": "controlled-signature"}})
+	emit(map[string]any{"type": "content_block_stop", "index": 0})
+	emit(map[string]any{"type": "message_delta", "delta": map[string]any{"stop_reason": "end_turn"}, "usage": map[string]any{"output_tokens": 10}})
+	emit(map[string]any{"type": "message_stop"})
+	return body.String()
+}

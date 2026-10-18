@@ -347,9 +347,6 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	cs.Record("events", events)
 	cs.Record("observations-1", obs)
 	cs.Record("budget-after", glmReportState.Budget)
-	if !cs.Check("bounded complete event evidence", eventCaptureError == nil, "%v", eventCaptureError) {
-		return
-	}
 	if glmReplayState != nil {
 		glmReplayState.compare(cs, sc.ID, result, err, obs)
 	}
@@ -382,6 +379,11 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 		}
 		cs.Check("final output budget exact4096", n == float64(4096), "budget=%v", n)
 		cs.Record("request-id-source", map[string]any{"responseHeaders": e.ResponseHeaders, "providerRequestIDs": out.ProviderRequestIDs, "responseID": result.Message.ResponseID, "actualSource": glmRequestIDSources(result, e)})
+	}
+	// Evidence refusal must retain the actual Attempt's known usage and wire
+	// above, even when the event log overflow caused Host cancellation.
+	if !cs.Check("bounded complete event evidence", eventCaptureError == nil, "%v", eventCaptureError) {
+		return
 	}
 	if kind == "cancel" {
 		var ae *ai.Error
