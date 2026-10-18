@@ -20,3 +20,25 @@ Final prepay CLI planning failure: requiring an existing derived Jev support
 bundle while emitting its exclusive creation step makes every fresh printed
 sequence contradictory. Execute the emitted verification sequence twice,
 requiring existing input to remain byte for byte and no creation action.
+
+Failure inventory before the post-auth harness correction, 2026-10-18.
+
+Observed original: genuine research tool call returned CodeUpstreamAuth /
+PhaseRequest / HTTP401 but was labeled tool-capability. Research correctly did
+not retry; full candidate would currently grant the optional capability retry.
+Do not rewrite the genuine failed capture or source pins.
+
+Public controlled executable boundaries to cover before the guard:
+1. Own tool scene HTTP401/authentication failure: retain error and one actual
+   tool attempt, no optional capability rerun.
+2. Own tool scene HTTP429 with permanent permission type: retain public error
+   and one actual tool attempt, no optional capability rerun.
+3. Own tool scene HTTP200 with a visible thinking delta then stream error:
+   retain partial content/error and one actual tool attempt, no capability rerun.
+4. Existing successful response missing required tool/reasoning may still use
+   its registered single capability rerun under the same caps.
+
+Minimal change: require successful public call before capability classification.
+No production runtime, public DTO, retry policy, capture rewrite or budgets
+change. New source needs focused normal/race checks and both-axis review before
+any new exact-source preparation / dependent paid command.

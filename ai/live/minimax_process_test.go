@@ -16,7 +16,7 @@ import (
 )
 
 func TestMiniMaxProcess(t *testing.T) {
-	for _, name := range []string{"not-run", "switch-off", "missing-entitlement", "narrowed", "foreign-key", "mixed-route", "endpoint-override", "wrong-model", "formal-absent", "success-chat", "success-responses", "success-messages", "success-m31-chat", "success-m31-responses", "success-m31-messages", "missing-thinking", "wrong-actual-model", "missing-terminal", "extra-attempt", "output-budget", "input-budget", "known-input-overrun", "inventory-failure", "research-chat", "success-rerun-tool", "success-transient-request", "transient-exhausted", "transient-stream", "permanent-429", "unknown-429", "typed-503", "success-transient-transport", "success-one-hour-zero"} {
+	for _, name := range []string{"not-run", "switch-off", "missing-entitlement", "narrowed", "foreign-key", "mixed-route", "endpoint-override", "wrong-model", "formal-absent", "success-chat", "success-responses", "success-messages", "success-m31-chat", "success-m31-responses", "success-m31-messages", "missing-thinking", "wrong-actual-model", "missing-terminal", "extra-attempt", "output-budget", "input-budget", "known-input-overrun", "inventory-failure", "research-chat", "success-rerun-tool", "success-transient-request", "transient-exhausted", "transient-stream", "permanent-429", "unknown-429", "typed-503", "success-transient-transport", "success-one-hour-zero", "tool-auth401", "tool-permanent429", "tool-stream-error"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "MM07-process-"+name)
 			base := t.TempDir()
@@ -88,8 +88,28 @@ func TestMiniMaxProcess(t *testing.T) {
 				Outcome, Mode, Kind string
 				Complete            bool
 				Budget              minimaxlive.Budget
+				Calls               []minimaxlive.Call
 			}
 			json.Unmarshal(raw, &r)
+			if strings.HasPrefix(name, "tool-") {
+				count := 0
+				for _, call := range r.Calls {
+					if call.ID == "tool-call" {
+						count++
+						cs.Check("error is not a capability-rerun reason", call.Failure != "tool-capability", "failure=%s", call.Failure)
+					}
+				}
+				cs.Check("failed tool scene has no capability rerun", count == 1, "tool calls=%d", count)
+				captured, e := os.ReadFile(filepath.Join(filepath.Dir(reports[0]), "MM07-tool-call", "result.json"))
+				var failure minimaxlive.Capture
+				json.Unmarshal(captured, &failure)
+				phase := "request"
+				if name == "tool-stream-error" {
+					phase = "stream"
+					cs.Check("failed stream retains partial thinking", len(failure.Result.Message.Content) > 0, "partial content absent")
+				}
+				cs.Check("original public error retained", e == nil && failure.ErrorCode != "" && string(failure.ErrorPhase) == phase, "code=%s phase=%s", failure.ErrorCode, failure.ErrorPhase)
+			}
 			if strings.HasPrefix(name, "success-") {
 				_, promotionErr := minimaxlive.PromotionProposal([]string{filepath.Dir(reports[0]), filepath.Dir(reports[0]), filepath.Dir(reports[0])})
 				cs.Check("controlled cannot promote Builtin", promotionErr != nil, "controlled proof activated")

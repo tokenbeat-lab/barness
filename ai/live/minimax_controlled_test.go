@@ -64,6 +64,13 @@ func installMiniMaxControlled(rec *recorder, name string) {
 				thinking = false
 			}
 		}
+		if tool && toolCalls == 1 && (name == "tool-auth401" || name == "tool-permanent429") {
+			status := 401
+			if name == "tool-permanent429" {
+				status = 429
+			}
+			return &http.Response{StatusCode: status, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(`{"error":{"type":"permission_error","message":"synthetic"}}`)), Request: req}, nil
+		}
 		body := ""
 		input := 20
 		if name == "known-input-overrun" {
@@ -152,6 +159,10 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			}
 			emit(map[string]any{"type": "message_delta", "delta": map[string]any{"stop_reason": stop}, "usage": map[string]any{"output_tokens": 10}})
 			emit(map[string]any{"type": "message_stop"})
+		}
+		if tool && toolCalls == 1 && name == "tool-stream-error" {
+			body = `data: {"model":"MiniMax-M3","choices":[{"index":0,"delta":{"reasoning_content":"Partial synthetic reasoning."}}]}` + "\n\n" +
+				`data: {"error":{"message":"synthetic stream failure","code":"synthetic_error"}}` + "\n\n"
 		}
 		if name == "missing-terminal" || name == "transient-stream" {
 			idx := strings.LastIndex(body, "data:")

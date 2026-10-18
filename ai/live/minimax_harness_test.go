@@ -401,6 +401,9 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	} else {
 		cs.Check("public call succeeds", err == nil, "code=%s phase=%s", capture.ErrorCode, capture.ErrorPhase)
 		if p.ID == "tool-call" {
+			if err != nil {
+				return
+			}
 			tools, thoughts := 0, 0
 			for i, part := range res.Message.Content {
 				switch v := part.(type) {
