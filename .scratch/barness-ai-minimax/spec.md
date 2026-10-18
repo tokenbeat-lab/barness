@@ -4,9 +4,9 @@ Status: claimed
 Type: feature
 Updated: 2026-10-18
 
-本文件是交付契约，本身不表示 MiniMax 接入或真实冒烟已通过。依据为 [MiniMax 三种兼容协议研究](research.md)；研究中的官方声明、文档冲突与待实测项分别保留，不将其他厂商的兼容行为当作 MiniMax 事实。原始规格制定阶段未读取真实凭据或执行收费请求；后续实施状态另行记录。
+本文件是交付契约，本身不表示 MiniMax 接入或真实冒烟已通过。2026-10-18 用户明确将接入目标改为国际站；当前依据为 [国际站研究](research-international.md)，[中国区研究](research.md)及原始失败捕获作为历史保留。官方声明、文档冲突与待实测项分别记录，不将其他地区或厂商的行为当作国际站事实。
 
-当前交付为PARTIAL，见[交付状态](delivery-status.md)。三协议实现和离线约束已经验证；实际M3研究遇到认证失败，正式三身份、旧证据续期及完整门禁仍未完成。本spec与10/09保持未关闭，以下验收范围、预算与证据规则继续有效。
+当前交付为PARTIAL，见[交付状态](delivery-status.md)。此前中国区实现和离线验证不授予国际站支持；[工单11](issues/11-international-target.md)完成国际站切换后继续10/09的真实验收、旧证据续期与完整门禁。此前中国区两次调用、两次Attempt仍计入共同候选阶段预算，历史不重置。
 
 领域与架构依据：[领域词汇](../../GLOSSARY.md)、[协议边界 ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[DeepSeek Responses ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[DeepSeek Chat ADR-0015](../../docs/adr/0015-barness-ai-deepseek-chat-completions.md)、[型号纳入 ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[Provider 自动字段 ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[GLM 接入 spec](../barness-ai-glm/spec.md)、[GLM 正式支持 ADR-0036](../../docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)。
 
@@ -16,13 +16,13 @@ Host 希望在本地和云端通过 barness-ai 调用 MiniMax，自主选择 Res
 
 仅替换 endpoint 或把 MiniMax 标成 OpenAI/Anthropic，会沿用错误的自动字段、思考默认、工具策略、缓存期限和计价。M3 在 Chat 默认思考，在 Responses/Messages 默认不思考；M3.1 强制思考且五档深度可调。M3 的 Chat 推理字段有官方资料冲突，Responses 的推理输入/输出 schema 不对称，Messages 的工具选择也小于原厂能力。有效文本响应不能证明工具历史能够续接。
 
-Host 还需区分中国账户、按量与 M Plan 凭据用途、型号实际可用性和估算成本。M3.1 暂限 M Plan/MiniMax Code，旧 M2.x 正在迁移；自动换 Key、换协议或继续以旧型号价格估算会使授权、排障和费用归属失真。
+Host 还需区分地区账户、按量与 M Plan 凭据用途、型号实际可用性和估算成本。M3.1 暂限 M Plan/MiniMax Code，旧 M2.x 正在迁移；自动换 Key、换协议或继续以旧型号价格估算会使授权、排障和费用归属失真。
 
 ## Solution
 
-新增中国区 `minimax-cn` Provider；沿用 `openai-responses`、`openai-completions`、`anthropic-messages` 三种 API Protocol，各有明确 Binding 和独立 Model 条目，共用现有协议 adapter、调用生命周期、SDK 传输、资源限制与可信续接边界。Host 负责认证授权、凭据、Transcript 和工具执行；模块一次处理一个 Generation Turn，不拥有会话或自动执行工具。
+新增国际站 `minimax` Provider；沿用 `openai-responses`、`openai-completions`、`anthropic-messages` 三种 API Protocol，各有明确 Binding 和独立 Model 条目，共用现有协议 adapter、调用生命周期、SDK 传输、资源限制与可信续接边界。Host 负责认证授权、凭据、Transcript 和工具执行；模块一次处理一个 Generation Turn，不拥有会话或自动执行工具。
 
-首期正式型号为 `MiniMax-M3`，三个协议身份均必交；同时为 `MiniMax-M3.1-Flash-Preview` 的三个候选身份实现并离线验证已知型号约束。首期交付文本输入/输出、流式消费、函数 Tool Round Trip、可观察推理及合法原生历史；多模态输入不在首期子集。M3 以中国标准按量配置正式验收，M3.1 仅在有资格的 M Plan 配置中单独候选验收，二者不互相证明。当前研究尚无 M3.1 可直接用于美元 token 估算的公开费率；候选不能因此虚构价格或进入正式目录，也不阻塞 M3 的三协议交付。
+首期正式型号为 `MiniMax-M3`，三个协议身份均必交；同时为 `MiniMax-M3.1-Flash-Preview` 的三个候选身份实现并离线验证已知型号约束。首期交付文本输入/输出、流式消费、函数 Tool Round Trip、可观察推理及合法原生历史；多模态输入不在首期子集。M3 以国际站标准按量配置正式验收，M3.1 仅在有资格的 M Plan 配置中单独候选验收，二者不互相证明。当前研究尚无 M3.1 可直接用于美元 token 估算的公开费率；候选不能因此虚构价格或进入正式目录，也不阻塞 M3 的三协议交付。
 
 保留公共调用形状，使用完整历史，不自动转换协议。首期只支持 standard 服务层级、自动缓存及 Responses 已公开的隔离缓存路由键；priority、Messages 主动缓存等尚未完整表达费用或期限的能力明确列为未接入。交付包含失败场景先行的公共 Client E2E、M3 三身份自己的正式真实证据、M3.1 候选约束和状态、目录/价格快照、差分或扩展登记、使用文档、可回滚变更和完整发布门禁。
 
@@ -79,7 +79,7 @@ Host 还需区分中国账户、按量与 M Plan 凭据用途、型号实际可�
 47. As a Host developer, I want automatic cache usage retained, so that available cache savings remain observable.
 48. As a tenant administrator, I want cache routing keys scoped to tenant and account, so that raw session identifiers are not shared.
 49. As a Host developer, I want unsupported cache lifetimes described explicitly, so that a routing hint does not imply a retention guarantee.
-50. As a Host operator, I want versioned RMB-to-USD prices, so that Chinese prices cannot be interpreted as dollar rates.
+50. As a Host operator, I want versioned international USD prices, so that another region's rates or exchange conversions cannot be applied to my account.
 51. As a Host operator, I want long-context price tiers tested, so that estimates remain correct at threshold boundaries.
 52. As a Host operator, I want unsupported priority requests rejected, so that an unpriced service tier cannot create misleading estimates.
 53. As a Host operator, I want subscription usage distinguished from estimated standard API cost, so that estimates are not presented as M Plan deductions.
@@ -115,19 +115,19 @@ Host 还需区分中国账户、按量与 M Plan 凭据用途、型号实际可�
 
 ### R01 — Provider、操作与协议边界
 
-新增 `ProviderMiniMaxCN`，值 `minimax-cn`，表示本次研究的中国区服务；Operation 为 chat。API 保留 `openai-responses`、`openai-completions`、`anthropic-messages`；Completions 专指 Chat Completions，不包含旧文本 Completions。复用现有三套 adapter，不增加 MiniMax 专有协议、代理服务或第二套 Client/assembler/重试生命周期。国际 `minimax` 不纳入本期，不按 URL 猜测 Provider 或自动换区。
+新增 `ProviderMiniMax`，值 `minimax`，表示国际站服务；Operation 为 chat。API 保留 `openai-responses`、`openai-completions`、`anthropic-messages`；Completions 专指 Chat Completions，不包含旧文本 Completions。复用现有三套 adapter，不增加 MiniMax 专有协议、代理服务或第二套 Client/assembler/重试生命周期。此前尚未激活的中国区运行时路径在本次切换中删除，不新增别名或兼容shim。中国区历史仅用于来源与预算审计，不按 URL 猜测 Provider 或自动换区。
 
 ### R02 — Binding、端点和鉴权
 
-每个 Binding 固定一种 Operation × Provider × API；同一型号的三种协议分别授权。正式中国基址与最终资源路径如下；SDK 自动补路径、查询参数和版本头须由捕获验证，不通过重复拼接版本段适配。
+每个 Binding 固定一种 Operation × Provider × API；同一型号的三种协议分别授权。正式国际站基址与最终资源路径如下；SDK 自动补路径、查询参数和版本头须由捕获验证，不通过重复拼接版本段适配。
 
 | API | Binding.Endpoint | 生成请求地址 | 本期鉴权 |
 | --- | --- | --- | --- |
-| openai-responses | `https://api.minimax.cn/v1` | `POST https://api.minimax.cn/v1/responses` | Bearer API Key |
-| openai-completions | `https://api.minimax.cn/v1` | `POST https://api.minimax.cn/v1/chat/completions` | Bearer API Key |
-| anthropic-messages | `https://api.minimax.cn/anthropic` | `POST https://api.minimax.cn/anthropic/v1/messages` | x-api-key |
+| openai-responses | `https://api.minimax.io/v1` | `POST https://api.minimax.io/v1/responses` | Bearer API Key |
+| openai-completions | `https://api.minimax.io/v1` | `POST https://api.minimax.io/v1/chat/completions` | Bearer API Key |
+| anthropic-messages | `https://api.minimax.io/anthropic` | `POST https://api.minimax.io/anthropic/v1/messages` | x-api-key |
 
-Messages 沿用当前 SDK 的 x-api-key 路径，这是官方明确接受的鉴权方式；首期不新增可选双鉴权或通用 AuthKind。最终请求不得同时带 Bearer 与 x-api-key，尤其不得依赖上游 Bearer 优先级选择另一把 Key。保留可信 header 回调与认证字段保护，不能利用回调追加第二套认证。当前文档域名与冻结 pi 的历史中国基址有差异，正式请求使用本表地址，差异据实登记。
+Messages 沿用当前 SDK 的 x-api-key 路径，这是官方明确接受的鉴权方式；首期不新增可选双鉴权或通用 AuthKind。最终请求不得同时带 Bearer 与 x-api-key，尤其不得依赖上游 Bearer 优先级选择另一把 Key。保留可信 header 回调与认证字段保护，不能利用回调追加第二套认证。正式请求使用本表地址；冻结 pi 的国际站原始配置须独立装配并核对，实际差异据实登记。
 
 ### R03 — 账户、凭据用途与型号资格
 
@@ -235,7 +235,7 @@ Chat 不派生未公开的 cache key/retention。Messages 首期不自动生成 
 
 三协议只支持省略或 standard 服务层级；显式 priority 在具名选项和最终 payload 均拒绝。当前 Responses 可表达 tier，但其原厂 priority 倍率不适用；Chat/ Messages 的透传也缺完整 tier 计价，不能只修一条路径后放开另外两条。1.5 倍是官方事实，本期不以透传方式提供它。
 
-CostRates/UsageCost 继续是美元/百万 tokens 与美元金额。M3 三身份按官方人民币价和有来源/日期的固定人民币兑美元汇率建立 Price Snapshot，禁止运行时汇率请求、人民币直接填美元、拿合成 fixture 价格正式发布或缺价填 0。M3 输入侧 ≤512000 与 >512000 的费率按官方真实阈值核验，包含输入/输出/缓存读，不以上下文窗口或未缓存 input 单独判阶梯。M3.1 的正式订阅标准价/估算基准须单独有出处；未取得可靠费率时维持 R06 的候选边界，不能捏造按量售价或自动复制 M3 价格。
+CostRates/UsageCost 继续是美元/百万 tokens 与美元金额。M3 三身份按有来源、日期与Hash的官方国际站美元价建立 Price Snapshot，不使用中国区费率或人民币汇率换算。标准输入/输出/缓存读费率在输入侧≤512000时为0.30/1.20/0.06 USD/M，超过时为0.60/2.40/0.12 USD/M。定价总览是当前费率依据，其他指南的旧价示例单独记录冲突；不得用合成fixture正式发布或缺价填0。官方价格页仅写512k，未明示512000或524288；512000是本项目保守估算策略，不冒充官方精确整数。未来取得可靠整数定义时再修订此快照；当前保留边界±1验证，不执行高容量收费探测。阶梯包含输入/输出/缓存读，输入侧包含缓存读写，不以上下文窗口或未缓存 input 单独判阶梯。M3.1 的正式订阅标准价/估算基准须单独有出处；未取得可靠费率时维持 R06 的候选边界，不能捏造按量售价或自动复制 M3 价格。
 
 订阅 Usage 保留 token 消耗；Estimated Cost 仅为明确基准下的估算，不是 M Plan 积分、额度扣减或账单。若平台返回意外的实际型号，记录 ResponseModel，不能自动换配置型号、归属或费率；未知实际型号造成估算不可靠须在报告披露并阻止正式支持验收，不能为迁移旧名默用原价。
 
@@ -273,7 +273,7 @@ Observer 继续只含既有授权元数据和调用归属，不加入 prompt、�
 
 ### R24 — 冻结 pi、差分与扩展
 
-保持唯一 pi-ai 1.1.0 版本、commit、完整模型数据与源码 pins，不升级或修改冻结包。该基线已有 minimax-cn × Messages 的 M3/M2.7 数据，当前 oracle 仍需显式装配其 catalog；M3 在本期文本/工具行为适用的场景进入真实差分，当前端点、图像子集、默认字段或回放差异逐 case/path 登记。不能因上游有 Provider 就把尚未运行的差分标 PASS。
+保持唯一 pi-ai 1.1.0 版本、commit、完整模型数据与源码 pins，不升级或修改冻结包。该基线完整目录包含国际站 minimax × Messages 的M3/M2.7数据；保持包与完整数据pins，仅将oracle装配改为已有MINIMAX_MODELS；M3 在本期文本/工具行为适用的场景进入真实差分，当前端点、图像子集、默认字段或回放差异逐 case/path 登记。不能因上游有 Provider 就把尚未运行的差分标 PASS。
 
 MiniMax Chat/Responses 是冻结 Provider 数据没有的路线，登记 Extension Route、自身 fixture 与明确 pi skip；M3.1 不在冻结型号目录，单独登记型号扩展，不套 M3 型号冒充直接差分。差异只限实际受影响字段和场景，不豁免整个协议/结果/请求体，未解释项保持 pending。OpenAI/Anthropic/DeepSeek/GLM 共享 adapter 的通过不证明 MiniMax，既有差分与扩展覆盖不得减少。
 
@@ -289,15 +289,15 @@ M3 正式三路径必须收敛：Chat 分离推理字段与完整历史；工具
 
 每个候选或正式身份进程上限 20 个 Logical Call、24 个实际 HTTP Attempt、40000 个请求输出预算 tokens，单次输出上限 4096、单调用 120 秒、进程 1800 秒且服从 Host 更短时限。输入按固定合成文本/历史的保守估算累计预留最多 120000 tokens，实际已知用量超出估算时停止后续请求，不把取消后的未知量当零。场景运行前预留最坏输出/Attempt，合法历史须完成至少一次 Host 工具往返；text/thinking、开关/档位、截断、缓存/usage、error/cancel 场景固定 inventory。预算为低成本协议取样，长上下文阶梯用离线合成用量验证，不执行高容量收费压测；输入估算边界与误差须记录，不能把这些本地预算宣称厂商计费硬上限。
 
-候选阶段含所有 SDK/HTTP 探索，六身份合计最多 120 个 Logical Call/144 个 Attempt；正式阶段首期三个 M3 身份合计最多 60 个 Logical Call/72 个 Attempt。M3.1 线上候选依合法配置执行，缺资格可 NOT_RUN，但其三协议离线约束仍为必交，不影响 M3 正式门槛。不得循环启动新进程绕开同阶段上限。场景重跑至多一次且占同一预算，预算不足为 FAIL。固定 inventory 或预算需变更时先更新规范和证据计划，不运行中放宽。candidate/controlled/capture replay 不发布正式 PASS；正式报告绑定实际 SDK、执行源码完整集合/依赖、目录/价格 Hash、型号、endpoint、区域与账户用途别名及捕获来源。执行源码或目录改变令不适用证据过期，允许的文档变更不得篡改已测身份。
+候选阶段含所有 SDK/HTTP 探索，当前六个国际站身份与此前中国区历史消费共同受最多 120 个 Logical Call/144 个 Attempt 限制；中国区已消费的2次调用/2次Attempt保留，地区切换不刷新阶段余额或route/model/purpose预算槽；该Chat/M3/standard槽仍受20/24限制，历史计数与当前精确Provider/endpoint证明身份分别校验；正式阶段首期三个 M3 身份合计最多 60 个 Logical Call/72 个 Attempt。M3.1 线上候选依合法配置执行，缺资格可 NOT_RUN，但其三协议离线约束仍为必交，不影响 M3 正式门槛。不得循环启动新进程绕开同阶段上限。场景重跑至多一次且占同一预算，预算不足为 FAIL。固定 inventory 或预算需变更时先更新规范和证据计划，不运行中放宽。candidate/controlled/capture replay 不发布正式 PASS；正式报告绑定实际 SDK、执行源码完整集合/依赖、目录/价格 Hash、型号、endpoint、区域与账户用途别名及捕获来源。执行源码或目录改变令不适用证据过期，允许的文档变更不得篡改已测身份。
 
 ### R27 — 支持矩阵、门禁与交付判定
 
-新增 minimax-cn-chat、minimax-cn-responses、minimax-cn-messages 三个正式协议组合；每条必须有 M3 自身完整正式报告。M3.1 的候选记录与矩阵隔离，不用候选 Hash、合成价格或 M3 报告给它授予正式支持。后续多型号正式推广若需要汇合报告，必须在已有证据边界保留每型号独立来源、当前失败与完整覆盖，不让门禁/聚合进程持有厂商 Key；本期不为尚未转正的 M3.1 新造多型号合并机制。
+新增 minimax-chat、minimax-responses、minimax-messages 三个正式协议组合；每条必须有 M3 自身完整正式报告。M3.1 的候选记录与矩阵隔离，不用候选 Hash、合成价格或 M3 报告给它授予正式支持。后续多型号正式推广若需要汇合报告，必须在已有证据边界保留每型号独立来源、当前失败与完整覆盖，不让门禁/聚合进程持有厂商 Key；本期不为尚未转正的 M3.1 新造多型号合并机制。
 
 PASS/FAIL/NOT_RUN/UNSUPPORTED 含义保持；缺 Key/权益不是平台不支持，真实故障不是跳过。文本、工具往返、思考开启与合法续接、隔离、终态和资源约束均为必交，不能 UNSUPPORTED 放行。新增三组合与六型号追溯是增量合同；全部既有十三组合、十四自身支持身份、分类/图像/业务效果、差分、压力、普通/race、两种 vet、脱敏与回滚要求继续有效。不得删除旧映射、降低预算负载或减少能力选择器以通过。
 
-候选通过不等于正式目录支持；正式纳入后的完整当前报告、目录/价格快照与门禁通过均需可核验。研究、代码编译、合成 fixture 或历史 PASS 单独都不是本 spec 完成证据。三个 M3 身份任一必交缺失，或 M3.1 三身份的离线型号约束缺失，则本 spec 交付不完整。最终声明须明确“MiniMax 中国区 M3 三协议文本/工具正式支持，M3.1 为候选”，不称所有型号、所有参数或多模态全面支持。
+候选通过不等于正式目录支持；正式纳入后的完整当前报告、目录/价格快照与门禁通过均需可核验。研究、代码编译、合成 fixture 或历史 PASS 单独都不是本 spec 完成证据。三个 M3 身份任一必交缺失，或 M3.1 三身份的离线型号约束缺失，则本 spec 交付不完整。最终声明须明确“MiniMax 国际站 M3 三协议文本/工具正式支持，M3.1 为候选”，不称所有型号、所有参数或多模态全面支持。
 
 ### R28 — 文档、ADR 与回滚
 
@@ -333,7 +333,7 @@ PASS/FAIL/NOT_RUN/UNSUPPORTED 含义保持；缺 Key/权益不是平台不支持
 | A12 Messages流历史 | 块索引与类型、签名delta、多工具JSON；原样thinking工具续接；已确认有/无签名/空签名规则；非法顺序/缺stop/error失败 | R16、R21 |
 | A13 能力守卫 | 强制/禁并行、store/truncation/background/include/summary/格式/忽略停止字段、priority/主动缓存从具名/采样/hook均无法绕过；schema同名业务属性合法 | R05、R09、R12、R15、R17–R20 |
 | A14 缓存 | 自动用量保留；Responses隔离路由键、none不发、short/long不承诺期限；Chat无未公开key、Messages无默认主动写入或1h | R17 |
-| A15 用量与费用 | 缺/零/部分/中断usage；Messages输入加缓存而Chat/Responses拆缓存；reasoning不双计；RMB→USD来源、512000边界±1、priority拒绝、未知实际型号阻止正式通过 | R18–R19 |
+| A15 用量与费用 | 缺/零/部分/中断usage；Messages输入加缓存而Chat/Responses拆缓存；reasoning不双计；国际站USD来源、512000边界±1、priority拒绝、未知实际型号阻止正式通过 | R18–R19 |
 | A16 错误与重试 | 401/403/400/429/5xx、余额与套餐永久错误、流内error；实际trace与原始停止原因；默认零/显式有限重试、流开始后零重放 | R22 |
 | A17 回调/不变性 | header→payload→response顺序；授权先于能力、发送前零Attempt；回调修复合法、越权不合法；重试不重跑hook；输入/结果map修改不串扰 | R20 |
 | A18 隔离与释放 | 两租户同名binding/model/session、不同用途并发；持久化信任/跨账户降级；Admission、取消、deadline、帧/队列/工具限额、唯一Result及资源归零 | R21–R23 |
@@ -354,7 +354,7 @@ PASS/FAIL/NOT_RUN/UNSUPPORTED 含义保持；缺 Key/权益不是平台不支持
 
 ## Out of Scope
 
-- MiniMax 自有生成协议、旧式文本 Completions、国际区 Provider、第三方网关及自动跨协议转换。
+- MiniMax 自有生成协议、旧式文本 Completions、中国区运行时接入、第三方网关及自动跨协议转换。
 - 图片/视频/音频输入、图像生成、Files/mm_file资源、resize与新媒体DTO；厂商多模态能力不等于本期已接入。
 - M2.x、高速别名与迁移旧名的正式目录；不自动把旧请求改成M3.1。
 - M3.1 在缺少可验证价格基准/权益时的正式目录与正式支持声明；其已知三协议型号约束的候选实现和离线验证仍在范围内。
@@ -367,6 +367,6 @@ PASS/FAIL/NOT_RUN/UNSUPPORTED 含义保持；缺 Key/权益不是平台不支持
 ## Further Notes
 
 1. 本 spec 将研究建议收敛为固定交付边界：M3三身份正式交付，M3.1三身份实现已知约束并保持候选；首期文本/工具、standard和自动缓存，Responses路由键独立支持。M3.1缺价不成为虚构免费或阻断已有正式型号的理由。后续推广M3.1、增加priority、主动缓存或视觉，均须另有明确契约、价格和自身验收，不靠通用payload透传变相开放。
-2. 官方事实的检索日为2026-10-18；来源、七项文档Hash、冲突与URL集中在[研究报告](research.md)。编码前若官方契约改变，保留旧来源并记录差异，不能把新文档静默替换成当时已知事实。
-3. 三协议主来源：[Responses](https://platform.minimax.cn/docs/api-reference/responses-create)、[Chat Completions](https://platform.minimax.cn/docs/api-reference/text-openai-api)、[Messages](https://platform.minimax.cn/docs/api-reference/text-anthropic-api)。模型资格与迁移依据：[型号概览](https://platform.minimax.cn/docs/guides/models-intro)、[M Plan FAQ](https://platform.minimax.cn/docs/m-plan/faq)。未知不能升级为已支持，缺凭据不能记为厂商不支持。
+2. 官方事实的检索日为2026-10-18；国际站来源、逐项文档Hash、冲突与URL集中在[研究报告](research-international.md)。编码前若官方契约改变，保留旧来源并记录差异，不能把新文档静默替换成当时已知事实。
+3. 三协议主来源：[Responses](https://platform.minimax.io/docs/api-reference/responses-create)、[Chat Completions](https://platform.minimax.io/docs/api-reference/text-openai-api)、[Messages](https://platform.minimax.io/docs/api-reference/text-anthropic-api)。模型资格与迁移依据：[型号概览](https://platform.minimax.io/docs/guides/models-intro)、[M Plan FAQ](https://platform.minimax.io/docs/m-plan/faq)。未知不能升级为已支持，缺凭据不能记为厂商不支持。
 4. 计划/实施必须追溯US01–US80、R01–R28与A01–A20至实际有限case；实施任务若另行拆分，沿本地工单约定逐票建档，不把本spec当作已完成实现或真实支持声明。

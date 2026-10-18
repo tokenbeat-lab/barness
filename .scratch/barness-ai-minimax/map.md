@@ -1,7 +1,8 @@
 # MiniMax 实施任务图
 
 Status: claimed
-Integration branch: `codex/minimax-cn`
+Integration branch: `codex/minimax-global`
+Historical CN checkpoint: `codex/minimax-cn` at `4295ee8`
 Base: `ecfd4b4`
 
 [当前交付：PARTIAL](delivery-status.md)。10、09和spec保持未关闭；自身离线验证通过不替代实际正式报告与完整门禁。
@@ -12,7 +13,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-01 → {02,03,04}；三协议完成后{05,06,07}独立推进；06→08，{05,06,07}→10，{08,10}→09。07先建受控证据工具，10等执行源码冻结后才运行真实调用；09汇合最终判定。
+历史任务图01 → {02,03,04} → {05,06,07}、06→08已完成；当前frontier为11 → 10 → 09，10同时保留05/06/07依赖。07先建受控证据工具，10等执行源码冻结后才运行真实调用；09汇合最终判定。
 
 - [01 Provider 身份、六个候选型号与思考元数据](issues/01-provider-model-contract.md)；Blocked by: None。
 - [02 MiniMax Chat 文本、推理、工具历史与边界](issues/02-chat-protocol.md)；Blocked by: 01。
@@ -24,7 +25,9 @@ Base: `ecfd4b4`
 - [08 Host 文档、ADR 和回滚实现](issues/08-host-docs-final-acceptance.md)；Blocked by: 06。
 - [09 完整验收、双轴审查与交付判定](issues/09-integrated-acceptance-review.md)；Blocked by: 08, 10。
 
-- [10 M3自身真实证据、价格目录与增量发布合同](issues/10-formal-catalog-support.md)；Blocked by: 05, 06, 07。
+- [10 M3自身真实证据、价格目录与增量发布合同](issues/10-formal-catalog-support.md)；Blocked by: 05, 06, 07, 11。
+
+- [11 国际站身份、美元价格与地区证据切换](issues/11-international-target.md)；Blocked by: 01–08（均已resolved）。
 
 ## Decisions so far
 
@@ -51,7 +54,10 @@ Base: `ecfd4b4`
 
 - 09文档整理检查点：[有限追溯与历史保存](evidence/ticket-09/README.md)保留28个R、20个A、80个US到1304个既有有限case的精确映射，以及原始1307-case离线观察的来源/状态。03的33次受控red/green捕获及29012文件已原样归档并验证。此整理不代表最终验收；09仍受10阻塞。
 
+- 2026-10-18用户明确改用国际站：01–08的原resolved范围作为CN历史保留；11承接当前目标转换和国际站离线复验，10/09原正式要求不减。使用ProviderMiniMax/minimax、.io端点、直接USD快照；按ADR-0042分开历史预算槽与当前精确证明身份。共享候选消费2/120、2/144，Chat槽2/20、2/24，不重置历史intent或账本。
+
 ## Fog
 
-- 三协议真实推理续接形状与正式支持，按 R25–R27、票10独立验收。用户已确认 MINIMAX_KEY 中国区标准按量；实际M3 Chat研究的两次调用、两次Attempt均返回HTTP401认证失败，研究为FAIL/incomplete，依赖工具续接为NOT_RUN。其余M3实际验收等待该已授权凭据修复，不能用受控或重放报告替代。M3.1未获M Plan资格，三个线上候选保持NOT_RUN。
-- 官方价格、汇率与schema已复核；正式价格目录与证据仍待票10生成。MiniMax自身完整普通/race离线验证（含压力/pi/完整回滚）已通过；46个本地可修复旧case已定向重验通过。原完整ordinary记录为12304 PASS/52 FAIL且进程中断，六个GLM当前来源适用性检查仍需实际续期。旧十四身份和四业务效果更新、完整发布门禁与最终交付判定尚未完成，不能以局部通过推断整体PASS。
+- 国际站自身推理/工具/native/usage须依R25–R27由10独立真实验证；原CN401不证明国际站可用或不可用。M3.1没有M Plan资格与价格确认，线上三候选保持NOT_RUN，离线仍必交。
+- 官方国际站价格512k未定义精确整数；当前512000为明示保守估算策略。正独立缓存写缺价继续失败。三协议结构比较相同不授予线上支持。
+- 11完成后按新已提交来源prepare、无Key检查和精确审查，再执行国际站研究。旧十四身份与四效果须在最终目录/源码下实际续期；完整ordinary/race与最终双轴审查仍必交。历史12304 PASS/52 FAIL/exit-15与已通过CN局部验证保持原状态，不能转作国际站完整门禁。

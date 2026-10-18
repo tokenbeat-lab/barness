@@ -2,18 +2,19 @@
 
 Delivery: PARTIAL
 Updated: 2026-10-18
-Integration branch: `codex/minimax-cn`
+Integration branch: `codex/minimax-global`
+Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 
-三协议实现、M3/M3.1已知约束及离线验证已完成；真实M3验收被中国区账户认证失败阻塞。**当前完整发布门禁未通过，spec、10和09保持未关闭。**
+用户已明确将当前目标改为国际站。票11正在转换Provider/端点/USD价格、证明身份与共享预算，随后继续10/09；原中国区离线通过和实际401保留为历史。**当前完整发布门禁未通过，spec、10和09保持未关闭。**
 
-见[机器可读状态](evidence/ticket-09/partial-delivery-status.json)与[ticket10证据入口](evidence/ticket-10/README.md)。
+原CN检查点见[历史机器可读状态](evidence/ticket-09/partial-delivery-status.json)与[ticket10证据入口](evidence/ticket-10/README.md)。
 
 | 范围 | 当前状态 | 证据与边界 |
 | --- | --- | --- |
-| 三协议与六型号离线约束 | PASS，离线范围 | 最新完整MiniMax普通/race均1307/1307；含冻结pi、压力、完整软件回滚，审计0发现。不能证明厂商实际接受请求。 |
-| M3 Chat实际研究 | FAIL | 两次Logical Call、两次Attempt均HTTP401 `authorized_error`；没有实际型号或已知usage。依赖原生工具续接NOT_RUN。 |
-| M3完整候选三身份 | 三项NOT_RUN | Chat研究失败不等于完整候选执行；Responses/Messages完整候选也未执行。 |
-| M3正式三身份及目录激活 | 三项NOT_RUN | BuiltinCatalog未激活M3；没有成功actual origin或正式支持投影。 |
+| 原CN三协议与六型号离线约束 | PASS，历史离线范围 | 最新完整MiniMax普通/race均1307/1307；含冻结pi、压力、完整软件回滚，审计0发现。不能证明厂商实际接受请求。 |
+| 原CN M3 Chat实际研究 | FAIL，历史范围 | 两次Logical Call、两次Attempt均HTTP401 `authorized_error`；没有实际型号或已知usage。依赖原生工具续接NOT_RUN。 |
+| 国际站M3完整候选三身份 | 三项NOT_RUN | Chat研究失败不等于完整候选执行；Responses/Messages完整候选也未执行。 |
+| 国际站M3正式三身份及目录激活 | 三项NOT_RUN | BuiltinCatalog未激活M3；没有成功actual origin或正式支持投影。 |
 | M3.1线上候选三身份 | 三项NOT_RUN | 未获M Plan用途/资格授权；零实际调用，不虚构公开价格，离线约束已完成。 |
 | 原十四身份与四业务效果续期 | NOT_RUN | 尚待最终正式目录/来源确定后重新获取实际证据；六个GLM当前来源适用性校验仍不通过。 |
 | 完整ordinary/race发布门禁 | NOT_RUN，未取得发布认证 | 已保留原ordinary失败/中断记录；46个可本地修复case的定向普通/race重验均通过，不能推出完整门禁PASS。 |
@@ -38,8 +39,8 @@ Integration branch: `codex/minimax-cn`
 
 ## 待继续工作
 
-1. 用户在本机修复`.env`中的`MINIMAX_KEY`或中国区标准按量账户认证后回复；不在聊天中发送Key。已有M3三协议用途授权继续有效，无需改变账户用途或推断M3.1资格。
-2. 先对新的已提交源码重新prepare、无Key检查和精确来源审查；旧9481a6a批准不适用于新HEAD。随后沿现有失败前驱衔接机制和未执行的预登记计划继续三候选真实验收，保留原401及所有失败，不重启或覆盖既有研究intent。候选阶段已消费2/120调用、2/144 Attempts；该Chat身份2/20、2/24；正式阶段0/60、0/72。不得重置账本或降低验收。
+1. 按[票11](issues/11-international-target.md)完成国际站身份、三端点、USD价格、frozen pi与离线复验；沿用户指示使用单一MINIMAX_KEY做国际站标准M3三协议验收，不再等待中国区修复，不推断M3.1资格。
+2. 先对新的已提交源码重新prepare、无Key检查和精确来源审查；旧9481a6a批准不适用于新HEAD。随后使用独立国际站研究intent与自身前驱继续三候选真实验收；保留原CN401及所有失败，不将其作为跨区native前驱，不覆盖既有intent。候选阶段已消费2/120调用、2/144 Attempts；该Chat身份2/20、2/24；正式阶段0/60、0/72。不得重置账本或降低验收。
 3. 三候选各自通过后才作数据目录激活，获取三份自身正式报告；再续期原十四身份和四业务效果，运行完整ordinary/race/压力/pi、两种vet、逐包脱敏和回滚门禁。
 4. 对固定基点`ecfd4b4`完成最终独立Standards/Spec审查及必要修复重验，全部必交通过后才关闭spec和10/09。
 

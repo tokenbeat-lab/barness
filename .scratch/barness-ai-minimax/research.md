@@ -1,3 +1,5 @@
+> 历史中国区研究：2026-10-18用户明确改为国际站；当前接入依据为[国际站研究](research-international.md)。本文保留原事实与Hash，不授予国际站支持。
+
 # MiniMax 三种兼容协议研究与 barness-ai 接入建议
 
 研究日期：**2026-10-18（Asia/Shanghai）**。研究对象是 MiniMax 中国站 `platform.minimax.cn/docs`，国际站仅用于补充地域端点证据。范围是 OpenAI **Responses**、OpenAI **Chat Completions**、Anthropic **Messages**；MiniMax 自有生成协议不在范围。这里的 Completions 指 `/v1/chat/completions`，不是旧式文本 `/v1/completions`。
