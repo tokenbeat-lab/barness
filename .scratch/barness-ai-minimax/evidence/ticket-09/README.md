@@ -69,6 +69,20 @@ credential. Ticket10 owns the sealed failed captures and shared budget history.
 M3.1 has no authorized M Plan entitlement, so its three online candidate states
 remain NOT_RUN; all three offline model constraints are still mandatory.
 
+The [independent authentication-failure audit](actual-auth-failure-review.md)
+passes twenty checks for accounting and retention, while model support remains
+FAIL/incomplete. The [capsule pointer](actual-auth-failure-pointer.json) pins
+ticket10's 197,572-byte, 58-file portable archive. Ticket10 owns its tracked
+archive; this checkpoint does not duplicate it. After ticket10 merges, its
+`evidence/ticket-10/README.md` is the portable capture entry point. The failed
+capture retains commit `9481a6a`; subsequent harness corrections do not refresh
+its source applicability or convert it to successful evidence.
+
+The first whole ordinary run was interrupted at the root agent's request for
+a known harness correction, after 536.7 seconds with exit -15. It has no PASS
+conclusion. Fresh ordinary/race execution and the correction's source review
+remain separate requirements.
+
 Required work before closing ticket09 includes three own M3 candidate reports,
 data-only formal activation, three own M3 formal reports, fourteen renewed
 legacy support identities, four renewed business effects, and the actual

@@ -48,5 +48,19 @@
     "fresh ordinary/race/pressure/frozen-pi gate and two vets",
     "per-bundle redaction and rollback acceptance",
     "final independent Standards/Spec review against ecfd4b4"
-  ]
+  ],
+  "actualFailurePreservation": {
+    "pointer": "actual-auth-failure-pointer.json",
+    "independentAudit": "actual-auth-failure-review.md",
+    "capsuleOwner": "ticket10",
+    "archiveSha256": "2b1bbf9624c4692bc93f48a604c9df4a86aab768ed7cda6d6a373d7db66bd8d8",
+    "archiveBytes": 197572,
+    "regularFiles": 58
+  },
+  "interruptedWholeOrdinary": {
+    "exitCode": -15,
+    "elapsedSeconds": 536.7,
+    "reason": "root requested stop for known harness correction",
+    "conclusion": "NO_PASS"
+  }
 }
