@@ -83,24 +83,25 @@ def document(raw):
     return value
 
 
-def settled(job):
+def settled(job,*,root=None,contract=r,expected_owner=None):
     """Unknown retains its whole cap; stored budget counters are never proof."""
+    root=c.ROOT if root is None else root
     unknown=dict(state='UNKNOWN',status='UNKNOWN',calls=None,attempts=None)
     try:
         marker=paid.marker(job['name'])
         with Root(c.common_root()) as common:
             receipt=document(common.read(marker.relative_to(c.common_root()).as_posix()))
-        phase='glm' if job['baseName'].startswith('glm-') else 'legacy'
+        phase=contract.phase_for(job['baseName']) if hasattr(contract,'phase_for') else ('glm' if job['baseName'].startswith('glm-') else 'legacy')
         if (receipt.get('state')!='COMPLETED' or receipt.get('route')!=job['name'] or
-            receipt.get('validationRound')!=r.ROUND or receipt.get('phase')!=phase or receipt.get('automaticReruns') is not False or
+            receipt.get('validationRound')!=contract.ROUND or receipt.get('phase')!=phase or receipt.get('automaticReruns') is not False or
             receipt.get('credentialsRead') is not True or receipt.get('launcherAudit',{}).get('passed') is not True or
-            receipt.get('collectionOwnerSHA256')!=location(c.ROOT)['rootSHA256'] or
+            receipt.get('collectionOwnerSHA256')!=(u.sha(str(root).encode()) if expected_owner is None else expected_owner) or
             any(receipt.get(k)!=job[k] for k in ('baseName','sourceVariable','maxCalls','maxAttempts','networkRoute'))):
             return unknown
-        root=receipt.get('collectionRoot','')
-        if not isinstance(root,str) or not root.startswith('$REPO/'):return unknown
-        relative=root.removeprefix('$REPO/');parts(relative)
-        with Root(c.ROOT) as evidence:
+        collection=receipt.get('collectionRoot','')
+        if not isinstance(collection,str) or not collection.startswith('$REPO/'):return unknown
+        relative=collection.removeprefix('$REPO/');parts(relative)
+        with Root(root) as evidence:
             def pinned(leaf,field):
                 raw=evidence.read(relative+'/'+leaf)
                 if HEX.fullmatch(receipt.get(field,'')) is None or u.sha(raw)!=receipt[field]:
@@ -115,13 +116,17 @@ def settled(job):
             pins=dict(sourceCommit=source['sourceCommit'],sourceManifestSHA256=receipt['sourceManifestSha256'],
                 binariesManifestSHA256=receipt['binariesManifestSha256'],planSHA256=receipt['planSha256'])
             expected=dict(decision='APPROVED',authority='explicit-user-request',requestReference=authorization.get('requestReference'),
-                requestText=r.REQUEST,round=r.ROUND,phase=phase,budget=r.BUDGET,accountingScope=r.ACCOUNTING_SCOPE,**pins,
+                requestText=getattr(contract,'REQUEST',''),round=contract.ROUND,phase=phase,budget=contract.BUDGET,accountingScope=contract.ACCOUNTING_SCOPE,**pins,
                 checksSHA256=u.sha(evidence.read(relative+'/checks.json')),sourceReviewSHA256=receipt['sourceReviewSha256'])
+            for leaf,field in getattr(contract,'EXTRA_PINS',{}).items():
+                pinned(leaf,field);pins[field]=receipt[field]
+            if hasattr(contract,'expected_authorization'):
+                expected=contract.expected_authorization(authorization,phase,pins,u.sha(evidence.read(relative+'/checks.json')),receipt['sourceReviewSha256'])
             if (authorization!=expected or not isinstance(authorization.get('requestReference'),str) or not authorization['requestReference'].strip() or
                 source['sourceCommit']!=receipt.get('sourceCommit') or review.get('decision')!='APPROVED' or not review.get('reviewedBy') or
                 any(review.get(k)!=v for k,v in pins.items()) or job['name'] not in review.get('authorizedRoutes',[]) or
-                review.get('credentialScopes',{}).get(job['sourceVariable'])!=r.ROUND+'/'+job['networkRoute'] or
-                plan.get('round')!=r.ROUND or plan.get('phase')!=phase or plan.get('budget')!=r.BUDGET or
+                review.get('credentialScopes',{}).get(job['sourceVariable'])!=contract.ROUND+'/'+job['networkRoute'] or
+                plan.get('round')!=contract.ROUND or plan.get('phase')!=phase or plan.get('budget')!=contract.BUDGET or
                 plan.get('collection')!=dict(rootSHA256=receipt['collectionOwnerSHA256'],relativeRoot=relative)):
                 return unknown
             checks=document(evidence.read(relative+'/checks.json'));planned=plan['routes'][job['name']]
@@ -131,14 +136,18 @@ def settled(job):
                 command.get('argv')!=planned['argv'] or command.get('cwd')!=planned['cwd'] or
                 any(planned.get(k)!=job[k] for k in ('baseName','sourceVariable','maxCalls','maxAttempts','networkRoute'))):
                 return unknown
-            base=job['baseName'];directory=relative+('/live/' if base in {v[0] for v in p.GENERIC} else '/')+base
-            leaf=('evaluation-report.json' if base.startswith('text-') else 'multimodal-report.json' if base=='protocol114' else
-                'formal-glm-report.json' if base.startswith('glm-') else 'live-report.json')
-            raw=evidence.read(directory+'/report.json',16<<20) if base.startswith('visual-') else evidence.unique(directory,leaf)
+            if hasattr(contract,'validate_checks'):contract.validate_checks(evidence,relative,checks)
+            raw=report_bytes(evidence,relative,job['baseName'])
             if HEX.fullmatch(receipt.get('reportedFileSha256','')) is None or u.sha(raw)!=receipt['reportedFileSha256']:
                 return unknown
             return native_counters(document(raw),job)
     except (OSError,RuntimeError,ValueError,KeyError,TypeError,AttributeError):return unknown
+
+
+def report_bytes(reader,relative,base):
+ directory=relative+('/live/' if base in {v[0] for v in p.GENERIC} else '/')+base
+ leaf='evaluation-report.json' if base.startswith('text-') else 'multimodal-report.json' if base=='protocol114' else 'formal-glm-report.json' if base.startswith('glm-') else 'live-report.json'
+ return reader.read(directory+'/report.json',16<<20) if base.startswith('visual-') else reader.unique(directory,leaf)
 
 
 def native_counters(report,job):

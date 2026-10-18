@@ -8,6 +8,7 @@ import renewal_common as u
 
 BASE='ai/live/testdata/glm-formal/'
 RAW_NAMES=[BASE+n for n in ('live-captures.json','live-captures.sha256','known-usage.json')]
+USAGE_BASIS='Independent Python final Attempt sums: input+cacheRead+cacheWrite once; output once; reasoning already output. Partial/cancelled/unreported remains unknown; known lower bound, not invoice.'
 
 
 def known_usage(files,report):
@@ -29,7 +30,7 @@ def known_usage(files,report):
 
 
 def capture(out,values,round_name='original'):
-    if round_name not in ('original','corrective-1','routed-validation-1'):raise RuntimeError('fixed explicit GLM collection round required')
+    if round_name not in ('original','corrective-1','routed-validation-1','release-repair-validation-1'):raise RuntimeError('fixed explicit GLM collection round required')
     snapshot=u.json_doc(c.ROOT/'ai/release/catalog-snapshot.json')
     source=u.sha(u.file_bytes(c.ROOT/'ai/live/testdata/glm-candidate/sources.json'))
     code=u.file_bytes(c.ROOT/'ai/internal/testkit/supportmatrix/glm.go').decode()
@@ -46,7 +47,7 @@ def capture(out,values,round_name='original'):
                 report.get('catalogHash')!=snapshot['hash'] or report.get('catalogVersion')!=snapshot['catalog']['version'] or
                 re.fullmatch(r'[a-f0-9]{40}',report.get('gitCommit','')) is None):
                 raise RuntimeError('fresh own current GLM formal identity/source/catalog required')
-            launch=('routed-validation-1-glm-' if round_name=='routed-validation-1' else
+            launch=(round_name+'-glm-' if round_name in ('routed-validation-1','release-repair-validation-1') else
                 'glm-'+('corrective-1-' if round_name=='corrective-1' else ''))+route
             receipt_path=c.common_root()/'.evidence/minimax-launches'/(launch+'.json')
             receipt=u.json_doc(receipt_path)
@@ -57,11 +58,14 @@ def capture(out,values,round_name='original'):
             if round_name=='corrective-1' and (receipt.get('correctiveRound')!='corrective-1' or
                 u.HEX.fullmatch(receipt.get('humanApprovalSha256','')) is None):
                 raise RuntimeError('explicit corrective-1 approved canonical receipt required; no original fallback')
-            if round_name=='routed-validation-1':
+            if round_name=='release-repair-validation-1':
+                import repair_publication
+                repair_publication.require(route)
+            if round_name in ('routed-validation-1','release-repair-validation-1'):
                 fields=('authorizationSha256','sourceReviewSha256','sourceManifestSha256',
                     'binariesManifestSha256','planSha256','commandReceiptSha256')
                 budget=receipt.get('budget',{})
-                if (receipt.get('validationRound')!='routed-validation-1' or receipt.get('baseName')!='glm-'+route or
+                if (receipt.get('validationRound')!=round_name or receipt.get('baseName')!='glm-'+route or
                     receipt.get('phase')!='glm' or receipt.get('networkRoute')!='china-direct' or
                     receipt.get('maxCalls')!=24 or receipt.get('maxAttempts')!=32 or receipt.get('automaticReruns') is not False or
                     budget.get('state')!='REPORTED' or budget.get('status')!='PASS' or
@@ -98,7 +102,7 @@ def capture(out,values,round_name='original'):
     index=dict(schema=1,originalLiveSourceCommit=commit,sourceManifestSHA256=source,routes=entries,
         collectionRound=round_name,launcherReceiptSHA256=receipts)
     usage=dict(schema=1,sourceCommit=commit,
-        basis='Independent Python final Attempt sums: input+cacheRead+cacheWrite once; output once; reasoning already output. Partial/cancelled/unreported remains unknown; known lower bound, not invoice.',routes=known)
+        basis=USAGE_BASIS,routes=known)
     # Keep recoverable originals in the new task directory; historical archives
     # are immutable. Index bytes and their SHA pin publish only after validation.
     before={n:u.file_bytes(c.ROOT/n) for n in RAW_NAMES}
@@ -136,6 +140,14 @@ def views(out):
     u.validate_glm(out,paths,'validate-glm-support-views')
     target=c.ROOT/BASE/'support-views.json'
     (out/'support-views-before.json').write_bytes(u.file_bytes(target))
-    c.dump(target,dict(schema=1,kind='no-paid-derived-glm-support-views',routes=entries))
+    view=dict(schema=1,kind='no-paid-derived-glm-support-views',routes=entries)
+    if index.get('collectionRound')=='release-repair-validation-1':
+        import repair_publication
+        repair_publication.validate(index,view)
+    c.dump(target,view)
     result=dict(credentialsRead=False,routes=entries,next='commit support-view selectors before fresh complete legacy/Jev source freeze')
     c.dump(out/'views-published.json',result);return result
+
+def validate_repair_publication(index):
+    import repair_publication
+    return repair_publication.validate(index)

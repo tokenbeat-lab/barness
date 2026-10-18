@@ -10,6 +10,7 @@ import paid_plan as p
 import paid
 import routed_contract as r
 import routed_evidence as e
+import paid_checks
 
 
 def prepare(out,phase):
@@ -155,18 +156,8 @@ def main():
         if not a.phase:raise RuntimeError('prepare requires fixed glm or legacy phase')
         result=prepare(out,a.phase)
     elif a.mode=='check':
-        guard(out);result=paid.check(out);guard(out)
-        code=c.execute(out,'no-key-visual-proxy',['go','test','./ai/e2e','-run',
-            '^TestVisualEvaluationProxyProcess$','-count=1','-timeout=5m'],timeout=360)
-        result['commands']['no-key-visual-proxy']=code;result['passed']=result['passed'] and code==0
-        code=c.execute(out,'no-key-release-contracts',['go','test','./ai/e2e','-count=1','-run',
-            '^(TestMiniMaxAdditiveReleaseContract|TestGLMReleaseTraceContract|TestReleaseRecordedBundleDiagnosticProcess)$'],
-            env={'BARNESS_AI_EVIDENCE_DIR':str(out/'no-key-release-contracts')},timeout=360)
-        result['commands']['no-key-release-contracts']=code;result['passed']=result['passed'] and code==0
-        code=c.execute(out,'no-key-release-package',['go','test','./ai/internal/testkit/release','-count=1'],timeout=360)
-        result['commands']['no-key-release-package']=code;result['passed']=result['passed'] and code==0
-        c.dump(out/'checks.json',result);guard(out)
-        if not result['passed']:raise RuntimeError('no-key visual or release checks failed')
+        result=paid_checks.run(out,guard)
+        if not result['passed']:raise RuntimeError('fixed keyless visual/release checks failed')
         template=c.doc(out/'execution-authorization.template.json')
         template['checksSHA256']=c.digest(out/'checks.json');c.dump(out/'execution-authorization.template.json',template)
     else:

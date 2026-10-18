@@ -150,6 +150,93 @@ class Renewal(unittest.TestCase):
    self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),fixed)
    path.write_bytes(original)
 
+ def repair_receipts(self,values):
+  # Synthetic approved historical metadata at the public renewal boundary;
+  # no launcher or key acquisition is performed by these fixtures.
+  code="""
+import sys,shutil
+from pathlib import Path
+sys.path.insert(0,'.scratch/barness-ai-minimax/tools')
+import paid_core as c,repair_contract as r,routed_evidence as e,paid_checks
+out=c.ROOT/'repair-own';out.mkdir();jobs=r.jobs(out,'glm');commit=c.git('rev-parse','HEAD')
+for route in ('chat','responses','messages'):
+ source=c.ROOT/'raw'/route/'session';target=out/('glm-'+route)/'session';shutil.copytree(source,target)
+ value=c.doc(target/'formal-glm-report.json');value['budget']=dict(callsUsed=22,httpAttempts=22,attemptsReserved=22);c.dump(target/'formal-glm-report.json',value)
+ seal=c.doc(target/'glm-integrity.json');seal['files']['formal-glm-report.json']=c.digest(target/'formal-glm-report.json');c.dump(target/'glm-integrity.json',seal)
+for leaf in r.EXTRA_PINS:c.dump(out/leaf,{})
+c.dump(out/'source-at-start.json',dict(sourceCommit=commit,files={}));c.dump(out/'binaries.json',{})
+c.dump(out/'plan.json',c.redact(dict(round=r.ROUND,phase='glm',budget=r.BUDGET,collection=e.location(out),routes=jobs)))
+pins=dict(sourceCommit=commit,sourceManifestSHA256=c.digest(out/'source-at-start.json'),binariesManifestSHA256=c.digest(out/'binaries.json'),planSHA256=c.digest(out/'plan.json'),**{field:c.digest(out/leaf) for leaf,field in r.EXTRA_PINS.items()})
+checks=dict(passed=True,commands={},commandReceipts={},credentialsRead=False)
+for name,argv,_,_ in paid_checks.commands(out):
+ c.dump(out/(name+'-command.json'),dict(name=name,argv=argv,cwd='$REPO',state='COMPLETED',exitCode=0,credentialsRead=False,credentialsInherited=False,sourceVariable=None,injectedCredential=None,launcherAudit=dict(passed=True,findings=[])))
+ checks['commands'][name]=0;checks['commandReceipts'][name]=c.digest(out/(name+'-command.json'))
+c.dump(out/'checks.json',checks)
+c.dump(out/'prerelease-source-review.json',dict(decision='APPROVED',reviewedBy='synthetic independent review',**pins,authorizedRoutes=list(jobs),credentialScopes={'GLM_KEY':r.ROUND+'/china-direct'}))
+c.dump(out/'execution-authorization.json',dict(decision='APPROVED',authority='explicit-additional-budget-reply',requestReference='synthetic new108/132 question/reply',requestText='approve NEW108/132',approvalProposalSHA256=r.PROPOSAL_SHA256,approvedAdditionalMaxCalls=108,approvedAdditionalMaxAttempts=132,round=r.ROUND,phase='glm',budget=r.BUDGET,accountingScope=r.ACCOUNTING_SCOPE,**pins,checksSHA256=c.digest(out/'checks.json'),sourceReviewSHA256=c.digest(out/'prerelease-source-review.json')))
+for name,job in jobs.items():
+ route=job['glmRoute'];base=job['baseName'];bundle=out/base/'session';planned=c.doc(out/'plan.json')['routes'][name]
+ c.dump(out/(base+'-command.json'),dict(name=base,argv=planned['argv'],cwd=planned['cwd'],state='COMPLETED',exitCode=0,credentialsRead=True,launcherAudit=dict(passed=True)))
+ capture=dict(schema=1,**{field:c.digest(bundle/leaf) for field,leaf in [('formalReportSha256','formal-glm-report.json'),('integritySha256','glm-integrity.json'),('supportReportSha256','live-report.json'),('executionSourceSha256','glm-execution-source.json')]})
+ c.dump(c.common_root()/'.evidence/minimax-launches'/(name+'.json'),c.redact(dict(state='COMPLETED',route=name,baseName=base,validationRound=r.ROUND,phase='glm',sourceCommit=commit,sourceVariable='GLM_KEY',maxCalls=24,maxAttempts=32,networkRoute='china-direct',automaticReruns=False,credentialsRead=True,exitCode=0,launcherAudit=dict(passed=True),collectionRoot=str(out),collectionOwnerSHA256=e.location(out)['rootSHA256'],sourceManifestSha256=pins['sourceManifestSHA256'],binariesManifestSha256=pins['binariesManifestSHA256'],planSha256=pins['planSHA256'],sourceReviewSha256=c.digest(out/'prerelease-source-review.json'),authorizationSha256=c.digest(out/'execution-authorization.json'),commandReceiptSha256=c.digest(out/(base+'-command.json')),reportedFileSha256=c.digest(bundle/'formal-glm-report.json'),capturePins=capture,budget=dict(state='REPORTED',status='PASS',calls=22,attempts=22),**{field:c.digest(out/leaf) for leaf,field in r.EXTRA_PINS.items()})))
+"""
+  subprocess.run([sys.executable,'-B','-c',code],cwd=self.root,env=self.env,check=True,capture_output=True,timeout=15)
+  return {r:'repair-own/glm-'+r for r in values}
+
+ def test_release_repair_round_has_no_old_fallback_or_weaker_publication(self):
+  values=self.repair_receipts(self.captures());args=['glm-archive','.evidence/minimax-release-repair-raw','--round','release-repair-validation-1']
+  for route,value in values.items():args+=['--'+route,value]
+  self.runcli(*args)
+  fixed=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes();self.assertEqual(json.loads(fixed)['collectionRound'],'release-repair-validation-1')
+  receipt=self.root/'.evidence/minimax-launches/release-repair-validation-1-glm-responses.json';original=receipt.read_bytes()
+  for field,bad in [('phase','legacy'),('authorizationSha256','0'*64),('sourceCommit','f'*40),('validationRound','routed-validation-1')]:
+   value=json.loads(original);value[field]=bad;receipt.write_text(json.dumps(value));args[1]='.evidence/minimax-release-repair-bad-'+field;self.runcli(*args,ok=False)
+   self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),fixed);receipt.write_bytes(original)
+  report=self.root/'repair-own/glm-responses/session/formal-glm-report.json';value=json.loads(report.read_text());value['outcome']='FAIL';report.write_text(json.dumps(value));args[1]='.evidence/minimax-release-repair-failed';self.runcli(*args,ok=False)
+  self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),fixed)
+
+ def test_release_repair_views_reopen_original_canonical_and_usage_bytes(self):
+  code="""import sys,json,pathlib,zipfile,hashlib
+args=sys.argv[1:];root=pathlib.Path.cwd();base=root/'ai/live/testdata/glm-formal';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+if './ai/live/cmd/glmformal' in args:
+ route=args[args.index('-route')+1];out=pathlib.Path(args[args.index('-out')+1]);out.mkdir();index=json.loads((base/'live-captures.json').read_text());row=index['routes'][route]
+ with zipfile.ZipFile(root/row['archive']) as archive:
+  for name in archive.namelist():
+   target=out/'original'/name.partition('/')[2];target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(archive.read(name))
+ proof=dict(schema=1,kind='glm-derived-live-support',route=route,rawCaptureIndexSHA256=sha(base/'live-captures.json'),rawArchiveSHA256=row['archiveSHA256'],originalFormalReportSHA256=sha(out/'original/formal-glm-report.json'),originalSupportReportSHA256=sha(out/'original/live-report.json'),originalGitCommit=index['originalLiveSourceCommit'])
+ if (root/'bad-derivation').exists():proof['rawArchiveSHA256']='0'*64
+ (out/'glm-support-derivation.json').write_text(json.dumps(proof));(out/'live-report.json').write_text('{}')
+"""
+  self.write('fake-bin/go',('#!'+sys.executable+'\n'+code).encode());(self.bin/'go').chmod(0o755)
+  values=self.repair_receipts(self.captures());out='.evidence/minimax-repair-views';args=['glm-archive',out,'--round','release-repair-validation-1']
+  for route,value in values.items():args+=['--'+route,value]
+  self.runcli(*args);seed=self.root/'view-seed';shutil.copytree(self.root/out,seed);self.commit();self.runcli('glm-views',out)
+  target=self.root/'ai/live/testdata/glm-formal/support-views.json';fixed=target.read_bytes();self.assertEqual(set(json.loads(fixed)['routes']),{'chat','responses','messages'})
+  usage=self.root/'ai/live/testdata/glm-formal/known-usage.json';original=usage.read_bytes()
+  for mode in ('raw-payload','known-usage','derivation'):
+   with self.subTest(invalid=mode):
+    clone='.evidence/minimax-repair-bad-view-'+mode;shutil.copytree(seed,self.root/clone)
+    if mode=='known-usage':
+     value=json.loads(original);value['routes']['chat']['output']+=1;usage.write_text(json.dumps(value))
+     state=json.loads((self.root/clone/'raw-published.json').read_text());state['selectorSHA256']['ai/live/testdata/glm-formal/known-usage.json']=hashlib.sha256(usage.read_bytes()).hexdigest();self.put(clone+'/raw-published.json',state);self.commit()
+    elif mode=='raw-payload':
+     import io,zipfile
+     index_path=self.root/'ai/live/testdata/glm-formal/live-captures.json';index_raw=index_path.read_bytes();index=json.loads(index_raw);archive=self.root/index['routes']['chat']['archive'];archive_raw=archive.read_bytes()
+     with zipfile.ZipFile(io.BytesIO(archive_raw)) as z:files={n:z.read(n) for n in z.namelist()}
+     leaf=next(n for n in files if n.endswith('attempt-1-result.json'));files[leaf]+=b' '
+     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
+      for n,raw in files.items():
+       import stat
+       info=zipfile.ZipInfo(n);info.external_attr=(stat.S_IFREG|0o600)<<16;z.writestr(info,raw)
+     digest=hashlib.sha256(archive.read_bytes()).hexdigest();index['routes']['chat']['archiveSHA256']=digest;index_path.write_text(json.dumps(index));(index_path.parent/'live-captures.sha256').write_text(hashlib.sha256(index_path.read_bytes()).hexdigest()+'\n')
+     value=json.loads(original);value['routes']['chat']['archiveSHA256']=digest;usage.write_text(json.dumps(value));state=json.loads((self.root/clone/'raw-published.json').read_text());state['selectorSHA256']={n:hashlib.sha256((self.root/n).read_bytes()).hexdigest() for n in state['selectorSHA256']};self.put(clone+'/raw-published.json',state);self.commit()
+    else:(self.root/'bad-derivation').touch()
+    self.runcli('glm-views',clone,ok=False);self.assertEqual(target.read_bytes(),fixed)
+    usage.write_bytes(original)
+    if mode=='raw-payload':
+     index_path.write_bytes(index_raw);(index_path.parent/'live-captures.sha256').write_text(hashlib.sha256(index_raw).hexdigest()+'\n');archive.write_bytes(archive_raw)
+    self.commit()
+
  def test_raw_capture_symlink_and_mixed_source_refuse_without_selector_mutation(self):
   values=self.captures();target=self.root/'raw/chat/session/link';target.symlink_to(self.root/'go.mod')
   original=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
