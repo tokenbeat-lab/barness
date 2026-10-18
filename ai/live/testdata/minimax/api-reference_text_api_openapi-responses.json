@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "MiniMax Responses API",
-    "description": "MiniMax OpenAI Responses API 兼容接口，支持对话生成和 Token 估算",
+    "description": "MiniMax OpenAI Responses API compatible endpoints, supporting chat generation and token estimation",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.minimax.cn"
+      "url": "https://api.minimax.io"
     }
   ],
   "security": [
@@ -21,7 +21,7 @@
   "paths": {
     "/v1/responses": {
       "post": {
-        "summary": "对话生成",
+        "summary": "Create Response",
         "operationId": "createResponse",
         "tags": [
           "Responses"
@@ -31,7 +31,7 @@
             "name": "Content-Type",
             "in": "header",
             "required": true,
-            "description": "请求体的媒介类型，请设置为 `application/json`，确保请求数据的格式为 JSON",
+            "description": "Media type of the request body. Must be set to `application/json`",
             "schema": {
               "type": "string",
               "enum": [
@@ -49,38 +49,38 @@
               },
               "examples": {
                 "SimpleText": {
-                  "summary": "简单文本输入",
+                  "summary": "Simple text input",
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "reasoning": {"effort": "max"},
-                    "input": "你好！"
+                    "input": "Hello!"
                   }
                 },
                 "ConversationHistory": {
-                  "summary": "完整对话历史",
+                  "summary": "Full conversation history",
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "reasoning": {"effort": "max"},
-                    "instructions": "你是一位中文技术写作助手。",
+                    "instructions": "You are a technical writing assistant.",
                     "input": [
                       {
                         "role": "user",
-                        "content": "我们公司要做一个海外社交产品，技术栈我倾向于 Go + React Native + PostgreSQL，你怎么看？"
+                        "content": "We are building a social product for overseas users. I prefer Go + React Native + PostgreSQL. What do you think?"
                       }
                     ]
                   }
                 },
                 "Streaming": {
-                  "summary": "流式输出",
+                  "summary": "Streaming output",
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "reasoning": {"effort": "max"},
-                    "input": "你好！",
+                    "input": "Hello!",
                     "stream": true
                   }
                 },
                 "FunctionCall": {
-                  "summary": "工具调用",
+                  "summary": "Function call",
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "reasoning": {"effort": "max"},
@@ -109,7 +109,7 @@
                   }
                 },
                 "MultiTurnFunctionCall": {
-                  "summary": "多轮工具调用",
+                  "summary": "Multi-turn function call",
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "reasoning": {"effort": "max"},
@@ -154,7 +154,7 @@
         },
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -177,7 +177,7 @@
                           "content": [
                             {
                               "type": "reasoning_text",
-                              "text": "用户打了招呼。用中文回一句简短友好的问候，并询问需要什么帮助即可。"
+                              "text": "The user sent a greeting. Reply with a short friendly greeting and offer help."
                             }
                           ]
                         },
@@ -189,23 +189,23 @@
                           "content": [
                             {
                               "type": "output_text",
-                              "text": "你好！我是 MiniMax，请问有什么可以帮你的？",
+                              "text": "Hello! I'm MiniMax. How can I help you today?",
                               "annotations": []
                             }
                           ]
                         }
                       ],
-                      "output_text": "你好！我是 MiniMax，请问有什么可以帮你的？",
+                      "output_text": "Hello! I'm MiniMax. How can I help you today?",
                       "usage": {
                         "input_tokens": 8,
                         "input_tokens_details": {
                           "cached_tokens": 0
                         },
-                        "output_tokens": 90,
+                        "output_tokens": 86,
                         "output_tokens_details": {
                           "reasoning_tokens": 76
                         },
-                        "total_tokens": 98
+                        "total_tokens": 94
                       },
                       "parallel_tool_calls": true,
                       "store": false,
@@ -221,7 +221,7 @@
     },
     "/v1/responses/input_tokens": {
       "post": {
-        "summary": "Token 估算",
+        "summary": "Estimate Input Tokens",
         "operationId": "estimateInputTokens",
         "tags": [
           "Responses"
@@ -231,7 +231,7 @@
             "name": "Content-Type",
             "in": "header",
             "required": true,
-            "description": "请求体的媒介类型，请设置为 `application/json`，确保请求数据的格式为 JSON",
+            "description": "Media type of the request body. Must be set to `application/json`",
             "schema": {
               "type": "string",
               "enum": [
@@ -255,19 +255,19 @@
                       {
                         "type": "message",
                         "role": "user",
-                        "content": "请帮我用 Python 实现一个支持泛型的快速排序算法，要求：1) 原地排序节省内存；2) 处理重复元素时使用三路划分；3) 小数组切换到插入排序优化；4) 提供完整的单元测试。最后还请解释一下三路划分相比经典 Lomuto 划分在重复键场景下的优势。"
+                        "content": "Please implement a generic quicksort algorithm in Python with these requirements: 1) in-place sorting to save memory; 2) three-way partitioning to handle duplicate elements; 3) switch to insertion sort for small subarrays; 4) include complete unit tests. Finally, explain the advantage of three-way partitioning over the classic Lomuto scheme when keys repeat."
                       }
                     ],
                     "tools": [
                       {
                         "type": "function",
                         "name": "search_docs",
-                        "description": "搜索 Python 标准库或第三方库的官方文档",
+                        "description": "Search the official documentation of the Python standard library or a third-party package",
                         "parameters": {
                           "type": "object",
                           "properties": {
-                            "library": {"type": "string", "description": "库名称，如 `typing`、`itertools`"},
-                            "query": {"type": "string", "description": "搜索关键词"}
+                            "library": {"type": "string", "description": "Library name, e.g. `typing`, `itertools`"},
+                            "query": {"type": "string", "description": "Search keywords"}
                           },
                           "required": ["library", "query"]
                         }
@@ -275,12 +275,12 @@
                       {
                         "type": "function",
                         "name": "run_python",
-                        "description": "在沙箱中执行 Python 代码，返回标准输出和错误信息",
+                        "description": "Execute Python code in a sandbox and return stdout / error",
                         "parameters": {
                           "type": "object",
                           "properties": {
-                            "code": {"type": "string", "description": "要执行的 Python 代码"},
-                            "timeout_seconds": {"type": "integer", "description": "执行超时时间（秒）", "default": 10}
+                            "code": {"type": "string", "description": "Python code to execute"},
+                            "timeout_seconds": {"type": "integer", "description": "Execution timeout in seconds", "default": 10}
                           },
                           "required": ["code"]
                         }
@@ -295,7 +295,7 @@
         },
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -324,12 +324,12 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "调用的模型名称，如 `MiniMax-M3.1-Flash-Preview`",
+            "description": "Model name to invoke, e.g. `MiniMax-M3.1-Flash-Preview`",
             "example": "MiniMax-M3.1-Flash-Preview"
           },
           "service_tier": {
             "type": "string",
-            "description": "请求准入服务层级。支持的取值为 `standard` 和 `priority`。省略时默认使用 `standard`。`priority` 的[价格](https://platform.minimax.cn/docs/pricing/overview#models/text)为 `standard` 的 1.5 倍，并会确保请求获得优先准入，使其排在其他请求之前处理，从而带来更快响应并减少失败。",
+            "description": "Service tier for request admission. Supported values are `standard` and `priority`. If omitted, the request uses the `standard` tier. The `priority` [price](https://platform.minimax.io/docs/pricing/overview#models/text) is 1.5 times the `standard` price and ensures priority admission so the request is processed ahead of other requests, leading to faster responses and fewer failures.",
             "enum": [
               "standard",
               "priority"
@@ -337,15 +337,15 @@
             "default": "standard"
           },
           "input": {
-            "description": "对话内容，支持简单文本或完整对话历史数组",
+            "description": "Conversation content. Supports either a simple text or a full conversation history array",
             "oneOf": [
               {
                 "type": "string",
-                "description": "简单文本输入"
+                "description": "Simple text input"
               },
               {
                 "type": "array",
-                "description": "完整对话历史",
+                "description": "Full conversation history",
                 "items": {
                   "$ref": "#/components/schemas/InputItem"
                 }
@@ -354,16 +354,16 @@
           },
           "instructions": {
             "type": "string",
-            "description": "系统指令"
+            "description": "System instructions"
           },
           "max_output_tokens": {
             "type": "integer",
-            "description": "最大输出 token 数。推理 token 也计入此上限，设置过小会导致 `status` 为 `incomplete` 且 `output` 中没有 `message` 项。"
+            "description": "Maximum output token count. Reasoning tokens count toward it too, so a value that is too small yields `status: \"incomplete\"` with no `message` item in `output`."
           },
           "temperature": {
             "type": "number",
             "format": "float",
-            "description": "采样温度，取值范围 (0, 1]",
+            "description": "Sampling temperature, range (0, 1]",
             "default": 1,
             "minimum": 0,
             "maximum": 1
@@ -371,19 +371,19 @@
           "top_p": {
             "type": "number",
             "format": "float",
-            "description": "核采样，取值范围 (0, 1]",
+            "description": "Nucleus sampling, range (0, 1]",
             "default": 0.95,
             "minimum": 0,
             "maximum": 1
           },
           "stream": {
             "type": "boolean",
-            "description": "设置为 `true` 启用 SSE 流式响应",
+            "description": "Set to `true` to enable SSE streaming response",
             "default": false
           },
           "tools": {
             "type": "array",
-            "description": "工具列表",
+            "description": "Tool list",
             "items": {
               "$ref": "#/components/schemas/Tool"
             }
@@ -391,22 +391,22 @@
           "tool_choice": {
             "type": "string",
             "enum": ["none", "auto"],
-            "description": "工具选择策略：`none` 表示不调用任何工具；`auto` 表示由模型自动判断是否调用工具"
+            "description": "Tool selection strategy: `none` means no tool will be called; `auto` lets the model decide whether to call tools"
           },
           "metadata": {
             "type": "object",
-            "description": "请求元数据，key-value 均为字符串",
+            "description": "Request metadata. Both keys and values are strings",
             "additionalProperties": {
               "type": "string"
             }
           },
           "prompt_cache_key": {
             "type": "string",
-            "description": "Prompt 缓存路由标识"
+            "description": "Prompt cache routing identifier"
           },
           "text": {
             "type": "object",
-            "description": "输出格式控制",
+            "description": "Output format control",
             "properties": {
               "format": {
                 "type": "object",
@@ -415,7 +415,7 @@
                     "type": "string",
                     "enum": ["text"],
                     "default": "text",
-                    "description": "输出格式类型"
+                    "description": "Output format type"
                   }
                 }
               }
@@ -423,7 +423,7 @@
           },
           "reasoning": {
             "type": "object",
-            "description": "推理控制。默认值随模型不同，因此未在 schema 层声明统一默认值。\n- `MiniMax-M3.1-Flash-Preview`：推理始终开启，省略 `reasoning` 时也会推理。`effort` 可取 `low`、`medium`、`high`、`xhigh` 或 `max`，并且确实会调节推理深度；省略时默认使用 `max` 档位。传入 `effort: \"none\"` 会返回 HTTP 400。\n- `MiniMax-M3`：默认关闭推理；将 `effort` 设为非 `none` 值可开启推理，但不会调节推理深度。\n- M2.x 模型：推理无法关闭，传入 `effort: \"none\"` 会被接收但不生效。",
+            "description": "Reasoning control. The default depends on the model, so no schema-level default is declared.\n- `MiniMax-M3.1-Flash-Preview`: reasoning is always on, including when `reasoning` is omitted. `effort` accepts `low`, `medium`, `high`, `xhigh` or `max`, and does tune reasoning depth. When omitted, it defaults to `max`. `effort: \"none\"` returns HTTP 400.\n- `MiniMax-M3`: reasoning is off unless `effort` is set to a non-`none` value, which turns reasoning on but does not tune its depth.\n- M2.x models: reasoning cannot be disabled; `effort: \"none\"` is accepted but ignored.",
             "properties": {
               "effort": {
                 "type": "string",
@@ -436,21 +436,21 @@
       },
       "InputItem": {
         "type": "object",
-        "description": "对话历史条目。`type` 字段决定具体形态：`message`（默认）/ `function_call` / `function_call_output` / `reasoning`",
+        "description": "Conversation history item. The `type` field determines the shape: `message` (default) / `function_call` / `function_call_output` / `reasoning`",
         "properties": {
           "type": {
             "type": "string",
             "enum": ["message", "function_call", "function_call_output", "reasoning"],
             "default": "message",
-            "description": "条目类型"
+            "description": "Item type"
           },
           "role": {
             "type": "string",
             "enum": ["user", "assistant", "system", "developer", "tool"],
-            "description": "消息角色（仅当 `type` 为 `message` 时使用）"
+            "description": "Message role (only when `type` is `message`)"
           },
           "content": {
-            "description": "消息内容，可以是字符串或多模态片段数组（仅当 `type` 为 `message` 时使用）",
+            "description": "Message content; string or multimodal parts array (only when `type` is `message`)",
             "oneOf": [
               {"type": "string"},
               {"type": "array", "items": {"$ref": "#/components/schemas/ContentPart"}}
@@ -458,18 +458,18 @@
           },
           "call_id": {
             "type": "string",
-            "description": "工具调用 ID（仅当 `type` 为 `function_call` 或 `function_call_output` 时使用）"
+            "description": "Tool call ID (only when `type` is `function_call` or `function_call_output`)"
           },
           "name": {
             "type": "string",
-            "description": "函数名（仅当 `type` 为 `function_call` 时使用）"
+            "description": "Function name (only when `type` is `function_call`)"
           },
           "arguments": {
             "type": "string",
-            "description": "函数参数的 JSON 字符串（仅当 `type` 为 `function_call` 时使用）"
+            "description": "Function arguments as a JSON string (only when `type` is `function_call`)"
           },
           "output": {
-            "description": "工具返回结果（仅当 `type` 为 `function_call_output` 时使用）",
+            "description": "Tool return result (only when `type` is `function_call_output`)",
             "oneOf": [
               {"type": "string"},
               {"type": "array", "items": {"$ref": "#/components/schemas/ContentPart"}}
@@ -477,7 +477,7 @@
           },
           "summary": {
             "type": "array",
-            "description": "思维链段落数组（仅当 `type` 为 `reasoning` 时使用）",
+            "description": "Reasoning segment array (only when `type` is `reasoning`)",
             "items": {
               "type": "object",
               "properties": {
@@ -487,7 +487,7 @@
                 },
                 "text": {
                   "type": "string",
-                  "description": "思维链文本"
+                  "description": "Reasoning text"
                 }
               }
             }
@@ -497,19 +497,19 @@
       "ContentPart": {
         "type": "object",
         "required": ["type"],
-        "description": "消息内容片段",
+        "description": "Message content part",
         "properties": {
           "type": {
             "type": "string",
             "enum": ["input_text", "output_text", "input_image", "input_video"],
-            "description": "内容片段类型：\n- `input_text` / `output_text`: 文本片段\n- `input_image`: 图片输入\n- `input_video`: 视频输入"
+            "description": "Content part type:\n- `input_text` / `output_text`: Text part\n- `input_image`: Image input\n- `input_video`: Video input"
           },
           "text": {
             "type": "string",
-            "description": "文本内容（当 `type` 为 `input_text` / `output_text` 时）"
+            "description": "Text content (when `type` is `input_text` / `output_text`)"
           },
           "image_url": {
-            "description": "图片输入（当 `type` 为 `input_image` 时）。支持的格式：JPEG、PNG、GIF、WEBP",
+            "description": "Image input (when `type` is `input_image`). Supported formats: JPEG, PNG, GIF, WEBP",
             "oneOf": [
               {"type": "string"},
               {
@@ -518,20 +518,20 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "description": "图片链接或 Base64 编码"
+                    "description": "Image URL or Base64 encoding"
                   },
                   "detail": {
                     "type": "string",
                     "enum": ["low", "default", "high"],
                     "default": "default",
-                    "description": "图片理解的精细度档位"
+                    "description": "Image understanding precision tier"
                   }
                 }
               }
             ]
           },
           "video_url": {
-            "description": "视频输入（当 `type` 为 `input_video` 时）。支持的格式：MP4、AVI、MOV、MKV",
+            "description": "Video input (when `type` is `input_video`). Supported formats: MP4, AVI, MOV, MKV",
             "oneOf": [
               {"type": "string"},
               {
@@ -540,7 +540,7 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "description": "视频链接或 Base64 编码，大文件建议使用 File API 上传"
+                    "description": "Video URL or Base64 encoding. Use the File API to upload large files"
                   },
                   "fps": {
                     "type": "number",
@@ -548,17 +548,17 @@
                     "default": 1,
                     "minimum": 0.2,
                     "maximum": 5,
-                    "description": "抽帧频率"
+                    "description": "Frame extraction rate"
                   },
                   "detail": {
                     "type": "string",
                     "enum": ["low", "default", "high"],
                     "default": "default",
-                    "description": "视频理解的精细度档位"
+                    "description": "Video understanding precision tier"
                   },
                   "max_long_side_pixel": {
                     "type": "integer",
-                    "description": "视频帧最长边的像素约束"
+                    "description": "Pixel constraint on the longest side of video frames"
                   }
                 }
               }
@@ -573,19 +573,19 @@
           "type": {
             "type": "string",
             "enum": ["function"],
-            "description": "工具类型"
+            "description": "Tool type"
           },
           "name": {
             "type": "string",
-            "description": "函数名称"
+            "description": "Function name"
           },
           "description": {
             "type": "string",
-            "description": "函数说明，用于模型判断何时调用"
+            "description": "Function description, helps the model decide when to call it"
           },
           "parameters": {
             "type": "object",
-            "description": "函数参数定义，使用 JSON Schema 格式"
+            "description": "Function parameter definition in JSON Schema format"
           }
         }
       },
@@ -594,31 +594,31 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "响应 ID",
+            "description": "Response ID",
             "example": "abc123"
           },
           "object": {
             "type": "string",
             "enum": ["response"],
-            "description": "对象类型，固定为 `response`"
+            "description": "Object type, always `response`"
           },
           "created_at": {
             "type": "integer",
-            "description": "响应创建时间（Unix 秒）"
+            "description": "Response creation time (Unix seconds)"
           },
           "model": {
             "type": "string",
-            "description": "实际处理请求的模型名称",
+            "description": "Actual model that processed the request",
             "example": "MiniMax-M3.1-Flash-Preview"
           },
           "status": {
             "type": "string",
             "enum": ["completed", "incomplete", "failed"],
-            "description": "响应状态"
+            "description": "Response status"
           },
           "output": {
             "type": "array",
-            "description": "模型输出列表",
+            "description": "Model output list",
             "items": {
               "$ref": "#/components/schemas/OutputItem"
             }
@@ -626,7 +626,7 @@
           "output_text": {
             "type": "string",
             "nullable": true,
-            "description": "便捷字段：所有文本输出拼接后的结果"
+            "description": "Convenience field: concatenates all text outputs"
           },
           "usage": {
             "$ref": "#/components/schemas/Usage"
@@ -634,22 +634,22 @@
           "error": {
             "type": "object",
             "nullable": true,
-            "description": "错误信息，仅在 `status=failed` 时返回",
+            "description": "Error info, only returned when `status=failed`",
             "properties": {
               "code": {
                 "type": "string",
-                "description": "错误码"
+                "description": "Error code"
               },
               "message": {
                 "type": "string",
-                "description": "人类可读的错误描述"
+                "description": "Human-readable error description"
               }
             }
           },
           "incomplete_details": {
             "type": "object",
             "nullable": true,
-            "description": "未完成原因，仅在 `status=incomplete` 时返回",
+            "description": "Reason for incompletion, only returned when `status=incomplete`",
             "properties": {
               "reason": {
                 "type": "string",
@@ -659,16 +659,16 @@
           },
           "parallel_tool_calls": {
             "type": "boolean",
-            "description": "请求中暂不支持该参数，传入后将被忽略，响应中固定返回 **`true`**。"
+            "description": "This parameter is not supported in requests. If passed, it will be ignored, and the response always returns **`true`**."
           },
           "store": {
             "type": "boolean",
-            "description": "请求中暂不支持该参数，传入后将被忽略，响应中固定返回 **`false`**。"
+            "description": "This parameter is not supported in requests. If passed, it will be ignored, and the response always returns **`false`**."
           },
           "truncation": {
             "type": "string",
             "enum": ["disabled"],
-            "description": "请求中暂不支持该参数，传入后将被忽略，响应中固定返回 **`disabled`**。"
+            "description": "This parameter is not supported in requests. If passed, it will be ignored, and the response always returns **`disabled`**."
           }
         }
       },
@@ -680,7 +680,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "`<id>_msg` 格式"
+                "description": "`<id>_msg` format"
               },
               "type": {
                 "type": "string",
@@ -705,11 +705,11 @@
                     },
                     "text": {
                       "type": "string",
-                      "description": "模型生成的文本"
+                      "description": "Text generated by the model"
                     },
                     "annotations": {
                       "type": "array",
-                      "description": "引用标注"
+                      "description": "Reference annotations"
                     }
                   }
                 }
@@ -719,11 +719,11 @@
           {
             "title": "Reasoning",
             "type": "object",
-            "description": "思维链输出（仅开启推理时返回）",
+            "description": "Reasoning output (only returned when reasoning is enabled)",
             "properties": {
               "id": {
                 "type": "string",
-                "description": "`<id>_rs` 格式"
+                "description": "`<id>_rs` format"
               },
               "type": {
                 "type": "string",
@@ -735,7 +735,7 @@
               },
               "summary": {
                 "type": "array",
-                "description": "思维链摘要"
+                "description": "Reasoning summary"
               },
               "content": {
                 "type": "array",
@@ -748,7 +748,7 @@
                     },
                     "text": {
                       "type": "string",
-                      "description": "思维链文本"
+                      "description": "Reasoning text"
                     }
                   }
                 }
@@ -758,11 +758,11 @@
           {
             "title": "Function Call",
             "type": "object",
-            "description": "工具调用",
+            "description": "Function call",
             "properties": {
               "id": {
                 "type": "string",
-                "description": "`<id>_fc_<index>` 格式"
+                "description": "`<id>_fc_<index>` format"
               },
               "type": {
                 "type": "string",
@@ -774,15 +774,15 @@
               },
               "call_id": {
                 "type": "string",
-                "description": "工具调用 ID，用于关联 `function_call_output`"
+                "description": "Tool call ID, used to correlate with `function_call_output`"
               },
               "name": {
                 "type": "string",
-                "description": "函数名称"
+                "description": "Function name"
               },
               "arguments": {
                 "type": "string",
-                "description": "函数参数的 JSON 字符串"
+                "description": "Function arguments as a JSON string"
               }
             }
           }
@@ -793,33 +793,33 @@
         "properties": {
           "input_tokens": {
             "type": "integer",
-            "description": "输入 token 数"
+            "description": "Input token count"
           },
           "input_tokens_details": {
             "type": "object",
             "properties": {
               "cached_tokens": {
                 "type": "integer",
-                "description": "Prompt 缓存命中的 token 数"
+                "description": "Prompt cache hit tokens"
               }
             }
           },
           "output_tokens": {
             "type": "integer",
-            "description": "输出 token 数"
+            "description": "Output token count"
           },
           "output_tokens_details": {
             "type": "object",
             "properties": {
               "reasoning_tokens": {
                 "type": "integer",
-                "description": "思维链消耗的 token 数（仅开启推理时计入）"
+                "description": "Tokens consumed by reasoning (only counted when reasoning is enabled)"
               }
             }
           },
           "total_tokens": {
             "type": "integer",
-            "description": "总 token 数"
+            "description": "Total token count"
           }
         }
       },
@@ -829,19 +829,19 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "调用的模型名称，如 `MiniMax-M3.1-Flash-Preview`",
+            "description": "Model name to invoke, e.g. `MiniMax-M3.1-Flash-Preview`",
             "example": "MiniMax-M3.1-Flash-Preview"
           },
           "input": {
-            "description": "对话内容，支持简单文本或完整对话历史数组",
+            "description": "Conversation content. Supports either a simple text or a full conversation history array",
             "oneOf": [
               {
                 "type": "string",
-                "description": "简单文本输入"
+                "description": "Simple text input"
               },
               {
                 "type": "array",
-                "description": "完整对话历史",
+                "description": "Full conversation history",
                 "items": {
                   "$ref": "#/components/schemas/InputItem"
                 }
@@ -850,11 +850,11 @@
           },
           "instructions": {
             "type": "string",
-            "description": "系统指令"
+            "description": "System instructions"
           },
           "tools": {
             "type": "array",
-            "description": "工具列表",
+            "description": "Tool list",
             "items": {
               "$ref": "#/components/schemas/Tool"
             }
@@ -862,11 +862,11 @@
           "tool_choice": {
             "type": "string",
             "enum": ["none", "auto"],
-            "description": "工具选择策略：`none` 表示不调用任何工具；`auto` 表示由模型自动判断是否调用工具"
+            "description": "Tool selection strategy: `none` means no tool will be called; `auto` lets the model decide whether to call tools"
           },
           "text": {
             "type": "object",
-            "description": "输出格式控制",
+            "description": "Output format control",
             "properties": {
               "format": {
                 "type": "object",
@@ -875,7 +875,7 @@
                     "type": "string",
                     "enum": ["text"],
                     "default": "text",
-                    "description": "输出格式类型"
+                    "description": "Output format type"
                   }
                 }
               }
@@ -883,7 +883,7 @@
           },
           "reasoning": {
             "type": "object",
-            "description": "推理控制。默认值随模型不同，因此未在 schema 层声明统一默认值。\n- `MiniMax-M3.1-Flash-Preview`：推理始终开启，省略 `reasoning` 时也会推理。`effort` 可取 `low`、`medium`、`high`、`xhigh` 或 `max`，并且确实会调节推理深度；省略时默认使用 `max` 档位。传入 `effort: \"none\"` 会返回 HTTP 400。\n- `MiniMax-M3`：默认关闭推理；将 `effort` 设为非 `none` 值可开启推理，但不会调节推理深度。\n- M2.x 模型：推理无法关闭，传入 `effort: \"none\"` 会被接收但不生效。",
+            "description": "Reasoning control. The default depends on the model, so no schema-level default is declared.\n- `MiniMax-M3.1-Flash-Preview`: reasoning is always on, including when `reasoning` is omitted. `effort` accepts `low`, `medium`, `high`, `xhigh` or `max`, and does tune reasoning depth. When omitted, it defaults to `max`. `effort: \"none\"` returns HTTP 400.\n- `MiniMax-M3`: reasoning is off unless `effort` is set to a non-`none` value, which turns reasoning on but does not tune its depth.\n- M2.x models: reasoning cannot be disabled; `effort: \"none\"` is accepted but ignored.",
             "properties": {
               "effort": {
                 "type": "string",
@@ -901,11 +901,11 @@
           "object": {
             "type": "string",
             "enum": ["response.input_tokens"],
-            "description": "对象类型，固定为 `response.input_tokens`"
+            "description": "Object type, always `response.input_tokens`"
           },
           "input_tokens": {
             "type": "integer",
-            "description": "估算的输入 token 数"
+            "description": "Estimated input token count"
           }
         }
       }
@@ -915,7 +915,7 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT",
-        "description": "`HTTP: Bearer Auth`\n - Security Scheme Type: http\n - HTTP Authorization Scheme: Bearer API_key，用于验证账户信息，可在 [账户管理>接口密钥](https://platform.minimax.cn/user-center/basic-information/interface-key) 中查看"
+        "description": "`HTTP: Bearer Auth`\n - Security Scheme Type: http\n - HTTP Authorization Scheme: Bearer API_key, used to authenticate your account. View it in [Account Management > API Keys](https://platform.minimax.io/user-center/basic-information/interface-key)"
       }
     }
   }

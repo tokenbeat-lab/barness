@@ -5,7 +5,7 @@
     "model": "MiniMax-M3",
     "kind": "route",
     "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
-    "pidiffSkip": "Frozen pi-ai1.1.0 does not route minimax-cn on openai-completions. Own extension acceptance only.",
+    "pidiffSkip": "Frozen pi-ai1.1.0 does not route minimax on openai-completions. Own extension acceptance only.",
     "expectedText": "MiniMax extension.",
     "events": [
       {
@@ -43,7 +43,7 @@
     "model": "MiniMax-M3",
     "kind": "route",
     "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
-    "pidiffSkip": "Frozen pi-ai1.1.0 does not route minimax-cn on openai-responses. Own extension acceptance only.",
+    "pidiffSkip": "Frozen pi-ai1.1.0 does not route minimax on openai-responses. Own extension acceptance only.",
     "expectedText": "MiniMax extension.",
     "events": [
       {
@@ -81,7 +81,7 @@
     "model": "MiniMax-M3.1-Flash-Preview",
     "kind": "model",
     "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
-    "pidiffSkip": "MiniMax-M3.1 is absent from the frozen pi-ai1.1.0 model catalog; do not substitute M3. Frozen pi-ai1.1.0 does not route minimax-cn on openai-completions. Own extension acceptance only.",
+    "pidiffSkip": "MiniMax-M3.1 is absent from the frozen pi-ai1.1.0 model catalog; do not substitute M3. Frozen pi-ai1.1.0 does not route minimax on openai-completions. Own extension acceptance only.",
     "expectedText": "MiniMax extension.",
     "events": [
       {
@@ -119,7 +119,7 @@
     "model": "MiniMax-M3.1-Flash-Preview",
     "kind": "model",
     "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
-    "pidiffSkip": "MiniMax-M3.1 is absent from the frozen pi-ai1.1.0 model catalog; do not substitute M3. Frozen pi-ai1.1.0 does not route minimax-cn on openai-responses. Own extension acceptance only.",
+    "pidiffSkip": "MiniMax-M3.1 is absent from the frozen pi-ai1.1.0 model catalog; do not substitute M3. Frozen pi-ai1.1.0 does not route minimax on openai-responses. Own extension acceptance only.",
     "expectedText": "MiniMax extension.",
     "events": [
       {

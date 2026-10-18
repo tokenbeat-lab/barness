@@ -350,7 +350,7 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 		return
 	}
 	res := capture.Result
-	cs.Check("exact identity snapshot", res.Metadata.ProviderID == ai.ProviderMiniMaxCN && res.Metadata.API == minimaxReport.Identity.API && res.Metadata.ModelID == minimaxReport.Identity.Model && res.Metadata.CatalogHash == minimaxReport.CatalogHash, "identity mismatch")
+	cs.Check("exact identity snapshot", res.Metadata.ProviderID == ai.ProviderMiniMax && res.Metadata.API == minimaxReport.Identity.API && res.Metadata.ModelID == minimaxReport.Identity.Model && res.Metadata.CatalogHash == minimaxReport.CatalogHash, "identity mismatch")
 	cs.Check("body and Observer resources settled", s.gate.active.Load() == 0 && s.client.ObserverStats().Dropped == 0 && s.client.ObserverStats().Failed == 0, "resource not settled")
 	if rerun == 0 && minimaxReport.Kind != "minimax-research-only" && s.requestReruns < minimaxlive.MaxRequestReruns && minimaxlive.RequestRerunnable(capture, events, ex[0].Status, ex[0].ResponseBody) {
 		for _, x := range ex {

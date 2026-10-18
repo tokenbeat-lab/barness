@@ -12,7 +12,7 @@ import (
 // report's Expected list. Keep extras in sync with the live scenario registry;
 // a missing scenario must fail closed rather than shrink the release.
 func expectedCapabilities(combo string) []string {
-	if strings.HasPrefix(combo, "minimax-cn-") {
+	if strings.HasPrefix(combo, "minimax-") {
 		return supportmatrix.MiniMaxExpected()
 	}
 	if expected := supportmatrix.GLMExpected(combo); len(expected) > 0 {
@@ -58,10 +58,10 @@ func capabilityProblems(row supportmatrix.Row) []string {
 				continue
 			}
 			matches++
-			if c.Model == "" || ((row.Operation != "chat" || row.Provider == "minimax-cn") && c.Model != row.Model) {
+			if c.Model == "" || ((row.Operation != "chat" || row.Provider == "minimax") && c.Model != row.Model) {
 				problems = append(problems, id+": missing or substituted capability model")
 			}
-			if c.Outcome == supportmatrix.Unsupported && (c.Note == "" || row.Provider == "zhipu" || row.Provider == "minimax-cn" || (row.Operation != "chat" && !(row.Combo == "openai-images" && id == "mask-edit"))) {
+			if c.Outcome == supportmatrix.Unsupported && (c.Note == "" || row.Provider == "zhipu" || row.Provider == "minimax" || (row.Operation != "chat" && !(row.Combo == "openai-images" && id == "mask-edit"))) {
 				problems = append(problems, id+": required capability cannot be UNSUPPORTED")
 			}
 		}

@@ -159,7 +159,7 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	svc := anthropic.NewBetaMessageService(reqOpts...)
 	requestIDHeader := anthropicRequestIDHeaderFor(ac.model.Provider)
 	failures := httpFailures{apiKey: ac.apiKey, clock: ac.initial.clock, requestIDHeader: requestIDHeader, describe: anthropicHTTPError}
-	if ac.model.Provider == ProviderMiniMaxCN {
+	if ac.model.Provider == ProviderMiniMax {
 		failures.minimax = APIAnthropicMessages
 	}
 	if ac.model.Provider == ProviderZhipu {
@@ -193,7 +193,7 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	requestID := res.Header.Get(requestIDHeader)
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
-		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMaxCN {
+		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMax {
 			failure.HTTPStatus = res.StatusCode
 		}
 		return failure
@@ -205,7 +205,7 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	failure = p.read(ctx, newSSEDecoder(res.Body, ac.limits.frame))
 	if failure != nil {
 		failure.ProviderRequestID = requestID
-		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMaxCN {
+		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMax {
 			failure.HTTPStatus = res.StatusCode
 		}
 	}

@@ -31,7 +31,7 @@ func miniMaxResponsesCallID(id string) (string, error) {
 	return pair[0], nil
 }
 func miniMaxResponsesHistoryToolID(id string, source AssistantMessage) string {
-	if source.Provider == ProviderMiniMaxCN && source.API == APIOpenAIResponses {
+	if source.Provider == ProviderMiniMax && source.API == APIOpenAIResponses {
 		return id
 	}
 	return miniMaxResponsesToolID(id, "")

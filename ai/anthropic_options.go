@@ -134,7 +134,7 @@ func (anthropicAdapter) simpleOptions(m Model, o SimpleOptions, history []Messag
 	if c, ok := o.ToolChoice.Get(); ok {
 		full.ToolChoice = Value(AnthropicToolChoice{Mode: string(c)})
 	}
-	if m.Provider == ProviderMiniMaxCN {
+	if m.Provider == ProviderMiniMax {
 		if o.Reasoning != "" {
 			full.ThinkingEnabled = Value(true)
 			if miniMaxMessagesHasEffort(m) {

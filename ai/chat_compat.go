@@ -51,7 +51,7 @@ type chatCompat struct {
 // thinking and has no automatic stream usage/cache fields. Existing other
 // providers retain the standard OpenAI compat (ADR-0013).
 func chatCompatOf(p ProviderID) chatCompat {
-	if p == ProviderMiniMaxCN {
+	if p == ProviderMiniMax {
 		return chatCompat{streamUsage: true, adaptiveThinking: true, preserveThinkingDefault: true}
 	}
 	if p == ProviderDeepSeek {

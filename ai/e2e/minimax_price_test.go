@@ -33,13 +33,13 @@ func TestMiniMaxSourcedPriceTiers(t *testing.T) {
 				o := drain(w.client.Stream(ctxFor(t), textScope(t.Name()), route.target("MiniMax-M3"), ai.Request{Messages: []ai.Message{ai.UserText("Synthetic pricing only.")}}, route.options()))
 				o.record(ev)
 				ev.Record("requests", w.provider.Requests())
-				// Independent decimal source values: fixed CNY/6.7220 rounded10 places.
-				inRate, outRate, cacheRate := .3124070217, 1.2496280869, .0624814043
+				// Independent international USD snapshot;512000 is declared estimate policy.
+				inRate, outRate, cacheRate := .30, 1.20, .06
 				if input > 512000 {
-					inRate, outRate, cacheRate = .6248140434, 2.4992561738, .1249628087
+					inRate, outRate, cacheRate = .60, 2.40, .12
 				}
 				want := float64(uncached)*inRate/1e6 + float64(output)*outRate/1e6 + float64(cached)*cacheRate/1e6
-				ev.Check("official sourced tier inclusive boundary", o.err == nil && math.Abs(o.result.Message.Usage.Cost.Total-want) < 1e-12, "err=%v usage=%+v want=%g", o.err, o.result.Message.Usage, want)
+				ev.Check("dated international USD rates and conservative project512000 tier policy", o.err == nil && math.Abs(o.result.Message.Usage.Cost.Total-want) < 1e-12, "err=%v usage=%+v want=%g", o.err, o.result.Message.Usage, want)
 			})
 		}
 	}

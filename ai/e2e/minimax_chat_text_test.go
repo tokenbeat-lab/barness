@@ -49,7 +49,7 @@ func TestMiniMaxChatText(t *testing.T) {
 				}
 				o.record(ev)
 				obs := rec.awaitCall(ev, scope.RequestID)
-				ev.Check("attributed observer lifecycle", len(obs) == 4 && !obs[0].Call.Resolved && obs[3].Call.ProviderID == ai.ProviderMiniMaxCN && obs[3].Call.ModelID == model, "%+v", obs)
+				ev.Check("attributed observer lifecycle", len(obs) == 4 && !obs[0].Call.Resolved && obs[3].Call.ProviderID == ai.ProviderMiniMax && obs[3].Call.ModelID == model, "%+v", obs)
 				ev.Record("requests", w.provider.Requests())
 				ev.Record("candidate", w.client.Catalog())
 				if !ev.Check("one successful attempt", o.err == nil && len(w.provider.Requests()) == 1 && len(o.result.Metadata.Attempts) == 1, "%v", o.err) {

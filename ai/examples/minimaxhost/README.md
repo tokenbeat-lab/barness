@@ -1,4 +1,4 @@
-# MiniMax China Host example
+# MiniMax international Host example
 
 [简体中文](README.zh-CN.md). Status on 2026-10-18: the three adapters and all six
 candidate identities have offline tests. **M3 formal support is pending ticket10**;
@@ -27,9 +27,9 @@ bindings, err := minimaxhost.Bindings(minimaxhost.Authorization{
 
 | Binding suffix | Protocol | Base endpoint | Final resource | Authentication |
 | --- | --- | --- | --- | --- |
-| `chat` | `openai-completions` | `https://api.minimax.cn/v1` | `/v1/chat/completions` | Bearer |
-| `responses` | `openai-responses` | `https://api.minimax.cn/v1` | `/v1/responses` | Bearer |
-| `messages` | `anthropic-messages` | `https://api.minimax.cn/anthropic` | `/anthropic/v1/messages` | x-api-key |
+| `chat` | `openai-completions` | `https://api.minimax.io/v1` | `/v1/chat/completions` | Bearer |
+| `responses` | `openai-responses` | `https://api.minimax.io/v1` | `/v1/responses` | Bearer |
+| `messages` | `anthropic-messages` | `https://api.minimax.io/anthropic` | `/anthropic/v1/messages` | x-api-key |
 
 Binding IDs include `minimax-standard-` or `minimax-m-plan-`. The Host keeps the two
 purposes in separate credential references and grants; it may share one reference
@@ -92,7 +92,7 @@ client, err := ai.NewClient(ai.Config{
 // Check err. Both Client and HookedClient satisfy hostintegration.ModelClient.
 bounded := client.WithHooks(ai.Hooks{OnPayload: func(_ context.Context,
     _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
-    if p.ProviderID == ai.ProviderMiniMaxCN {
+    if p.ProviderID == ai.ProviderMiniMax {
         field := map[ai.API]string{
             ai.APIOpenAICompletions: "max_completion_tokens",
             ai.APIOpenAIResponses: "max_output_tokens",
@@ -193,7 +193,8 @@ Messages input excludes separately reported cache read/write; total input is the
 Chat/Responses cached input is split out of input totals. Reasoning is an output subset
 and is never billed twice by the estimator. CostRates use USD per million tokens;
 UsageCost is USD, with CatalogVersion/Hash identifying the fixed Price Snapshot.
-Formal M3 rates need dated CNY→USD sources and the inclusive 512000-input tier boundary;
+M3 standard rates use a dated direct-USD international snapshot. Official sources say512k;
+512000 is the conservative project estimate policy pending reliable integer confirmation;
 unknown cache-write or M3.1 rates must not be replaced with zero or copied prices.
 Current synthetic candidate rates are mechanism fixtures, not an M Plan/standard quote.
 Cancellation ends local work, not a guarantee of free or remotely cancelled generation.
@@ -236,3 +237,5 @@ go test ./ai/e2e -run '^TestMiniMax(Host|FullRollback)' -count=1
 [Ticket08 evidence](../../../.scratch/barness-ai-minimax/evidence/ticket-08/README.md)
 contains replayable configuration/software proofs and redaction audits. It does not
 renew historical real-provider evidence or bypass the final ticket09/10 release gates.
+
+Ticket08 captures retain their historical CN target. [Ticket11 evidence](../../../.scratch/barness-ai-minimax/evidence/ticket-11/README.md) records current international offline observations; neither grants real-service support.

@@ -8,6 +8,7 @@ import sys
 sys.dont_write_bytecode=True
 import paid_core as c
 import renewal_common as u
+import paid_plan as p
 
 
 def catalog_pins(out):
@@ -34,7 +35,7 @@ def catalog_pins(out):
 
 
 def origins(out,values):
-    allowed={'mm-'+s+'-m3-'+r for s in ('candidate','formal') for r in u.ROUTES}
+    allowed={'mm-global-'+s+'-m3-'+r for s in ('candidate','formal') for r in u.ROUTES}
     selected={}
     for value in values:
         route,sep,path=value.partition('=')
@@ -50,12 +51,12 @@ def origins(out,values):
         report=u.json_doc(base/'minimax-report.json');origin=receipt.get('origin',{})
         fields={'schema','stage','identity','session','reportSha256','sealSha256','ledgerSha256','sourceCommit','sourceManifestSha256','binariesManifestSha256','planSha256'}
         if not isinstance(origin,dict) or set(origin)!=fields:raise RuntimeError('exact canonical origin schema required')
-        stage=name.split('-')[1];route=name.removeprefix('mm-'+stage+'-m3-')
+        stage=name.split('-')[2];route=name.removeprefix('mm-global-'+stage+'-m3-')
         if (receipt.get('state')!='COMPLETED' or receipt.get('exitCode')!=0 or receipt.get('credentialsRead') is not True or
             receipt.get('launcherAudit',{}).get('passed') is not True or receipt.get('route')!=name or
             report.get('outcome')!='PASS' or report.get('mode')!='live' or report.get('complete') is not True or
             report.get('identity',{}).get('model')!='MiniMax-M3' or report.get('identity',{}).get('purpose')!='standard' or
-            report.get('identity',{}).get('route')!=route or report.get('stage')!=stage or origin.get('schema')!=1 or
+            report.get('identity')!=p.identity(dict(route=route,model='MiniMax-M3',purpose='standard')) or report.get('stage')!=stage or origin.get('schema')!=1 or
             origin.get('stage')!=stage or origin.get('identity')!=report.get('identity') or origin.get('session')!=report.get('session') or
             origin.get('sourceCommit')!=report.get('gitCommit') or receipt.get('sourceCommit')!=report.get('gitCommit')):
             raise RuntimeError('canonical successful own actual launcher origin required')
@@ -85,16 +86,16 @@ def m31_not_run(out):
         name='m31-not-run-'+route;base=out/name
         if base.exists():raise RuntimeError('fresh NOT_RUN output required')
         env={'BARNESS_MINIMAX_ROUTE':route,'BARNESS_MINIMAX_MODEL':'MiniMax-M3.1-Flash-Preview',
-             'BARNESS_MINIMAX_PURPOSE':'mplan','BARNESS_MINIMAX_ACCOUNT_ALIAS':'mplan-unverified',
-             'BARNESS_MINIMAX_REGION_ALIAS':'cn-unverified','BARNESS_AI_EVIDENCE_DIR':str(base),
+             'BARNESS_MINIMAX_PURPOSE':'mplan','BARNESS_MINIMAX_ACCOUNT_ALIAS':'minimax-global-mplan-unverified',
+             'BARNESS_MINIMAX_REGION_ALIAS':'global-unverified','BARNESS_AI_EVIDENCE_DIR':str(base),
              'BARNESS_MINIMAX_LEDGER':str(ledger)}
         u.public(out,name,[out/'live.test','-test.run=^TestMiniMaxCandidate$','-test.timeout=120s'],
                  timeout=150,env=env,cwd=c.ROOT/'ai/live')
         report=u.json_doc(u.bundle(base,'minimax-report.json')/'minimax-report.json')
         if (report.get('gitCommit')!=frozen['sourceCommit'] or report.get('outcome')!='NOT_RUN' or report.get('complete') is not False or report.get('mode')!='live' or report.get('entitlement','')!='' or
-            any(report.get('identity',{}).get(k)!=v for k,v in {'route':route,'model':'MiniMax-M3.1-Flash-Preview','purpose':'mplan'}.items()) or
+            report.get('identity')!=p.identity(dict(route=route,model='MiniMax-M3.1-Flash-Preview',purpose='mplan')) or
             report.get('stage')!='candidate' or any(type(report.get('budget',{}).get(k)) is not int or report['budget'][k]!=0 for k in ('calls','reservedAttempts','attempts','requestedOutput','reservedInput'))):
-            raise RuntimeError('M3.1 keyless process must preserve own zero-consumption NOT_RUN')
+            raise RuntimeError('M3.1 keyless process must preserve own exact global zero-consumption NOT_RUN')
         rows.append(dict(route=route,model=report['identity']['model'],status='NOT_RUN',credentialsRead=False,calls=0,attempts=0))
         c.guard(out)
     after=u.file_bytes(ledger) if ledger.exists() else None

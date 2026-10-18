@@ -23,10 +23,10 @@ func TestMiniMaxHostBindings(t *testing.T) {
 			if purpose == minimaxhost.MPlan {
 				model = "MiniMax-M3.1-Flash-Preview"
 			}
-			endpoints := map[ai.API]string{ai.APIOpenAICompletions: "https://api.minimax.cn/v1", ai.APIOpenAIResponses: "https://api.minimax.cn/v1", ai.APIAnthropicMessages: "https://api.minimax.cn/anthropic"}
+			endpoints := map[ai.API]string{ai.APIOpenAICompletions: "https://api.minimax.io/v1", ai.APIOpenAIResponses: "https://api.minimax.io/v1", ai.APIAnthropicMessages: "https://api.minimax.io/anthropic"}
 			ids := map[string]bool{}
 			for _, b := range got {
-				ev.Check("official endpoint and explicit purpose-specific identity", b.Operation == ai.OperationChat && b.ProviderID == ai.ProviderMiniMaxCN && b.Endpoint == endpoints[b.API] && b.TenantID == cfg.TenantID && b.AccountScopeID == cfg.AccountScopeID && b.CredentialRef == cfg.CredentialRef && b.Version == cfg.Version && b.Enabled && b.AuthKind == ai.AuthAPIKey && reflect.DeepEqual(b.AllowedModels, []string{model}) && b.Retry.MaxRetries == 0, "%+v", b)
+				ev.Check("official endpoint and explicit purpose-specific identity", b.Operation == ai.OperationChat && b.ProviderID == ai.ProviderID("minimax") && b.Endpoint == endpoints[b.API] && b.TenantID == cfg.TenantID && b.AccountScopeID == cfg.AccountScopeID && b.CredentialRef == cfg.CredentialRef && b.Version == cfg.Version && b.Enabled && b.AuthKind == ai.AuthAPIKey && reflect.DeepEqual(b.AllowedModels, []string{model}) && b.Retry.MaxRetries == 0, "%+v", b)
 				ev.Check("independent BindingID", !ids[b.BindingID], "duplicate binding")
 				ids[b.BindingID] = true
 			}

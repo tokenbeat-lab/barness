@@ -2,26 +2,18 @@
   "schema": 1,
   "retrievedAt": "2026-10-18",
   "priceDate": "2026-10-18",
-  "currency": "CNY per million tokens converted to USD",
-  "catalogSha256": "6e3e792549e51d3529143548a942dff4a978d6558988f315550901a3d4cc37e3",
-  "fx": {
-    "date": "2026-10-16",
-    "usdCny": "6.7220",
-    "rounding": "10 decimal places, half up"
-  },
+  "currency": "USD per million tokens",
+  "catalogSha256": "ec2819c93857dad9268a87d4d9fa586e16e8673ab2a3fbd22d88c955c210a45c",
   "sources": [
     {
       "file": "pricing-source.md",
-      "url": "https://platform.minimax.cn/docs/pricing/overview.md",
-      "sha256": "9cc4095db97b24c7f66f98fa09d8dd591dd97f0e16c4ee296512fbf018451bc7"
-    },
-    {
-      "file": "fx.json",
-      "url": "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr-notice2026-10-16.json",
-      "sha256": "bb0b4f2575c08eeb09daba9af3e59c1c9d2ddda7c1df09dfbfbac9994c5ae36c"
+      "url": "https://platform.minimax.io/docs/pricing/overview.md",
+      "sha256": "92fde6068cfd911157e944bd7c2c16887abea7b1ab10be7b89dfe35695350400"
     }
   ],
   "scope": {
+    "provider": "minimax",
+    "region": "international",
     "model": "MiniMax-M3",
     "routes": [
       "chat",
@@ -30,17 +22,19 @@
     ],
     "serviceTier": "standard",
     "inputSideThreshold": 512000,
-    "lowCnyPerMillion": {
-      "input": "2.10",
-      "output": "8.40",
-      "cacheRead": "0.42"
+    "thresholdPolicy": "Official sources say512k without an exact integer.512000 is the conservative barness estimate policy, not an official integer assertion; revise only after reliable integer confirmation. No high-context paid probe.",
+    "lowUsdPerMillion": {
+      "input": "0.30",
+      "output": "1.20",
+      "cacheRead": "0.06"
     },
-    "highCnyPerMillion": {
-      "input": "4.20",
-      "output": "16.80",
-      "cacheRead": "0.84"
+    "highUsdPerMillion": {
+      "input": "0.60",
+      "output": "2.40",
+      "cacheRead": "0.12"
     },
-    "cacheWrite": "No official rate supplied. Active writes excluded; positive automatic writes prevent promotion/formal certification until resolved. Zero numeric test/catalog placeholder does not assert a free rate.",
+    "cacheWrite": "No M3-specific separate creation-token rate/accounting supplied. Active writes excluded; positive separately classified writes retain known usage and fail. Zero numeric placeholder is not a free-rate claim.",
+    "sourceConflict": "Passive-cache worked example retains old .60/2.40/.12 low-tier rates; current pricing overview permanent50percent discount is the dated rate source.",
     "excluded": [
       "priority multiplier",
       "M Plan fees/entitlement",

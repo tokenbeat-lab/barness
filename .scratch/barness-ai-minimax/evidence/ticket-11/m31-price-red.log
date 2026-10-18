@@ -1,0 +1,11 @@
+--- FAIL: TestMiniMaxProcess (0.88s)
+    --- FAIL: TestMiniMaxProcess/success-m31-chat (0.31s)
+        minimax_process_test.go:96: [MM07-process-success-m31-chat] raw usage is separate from unknown M Plan pricing: missing M3.1 price warning
+    --- FAIL: TestMiniMaxProcess/success-m31-responses (0.28s)
+        minimax_process_test.go:96: [MM07-process-success-m31-responses] raw usage is separate from unknown M Plan pricing: missing M3.1 price warning
+    --- FAIL: TestMiniMaxProcess/success-m31-messages (0.29s)
+        minimax_process_test.go:96: [MM07-process-success-m31-messages] raw usage is separate from unknown M Plan pricing: missing M3.1 price warning
+FAIL
+barness-ai evidence bundle: .evidence/mm11-m31-price-red/20261018T011232.564187000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	1.488s
+FAIL

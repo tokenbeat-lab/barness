@@ -65,7 +65,7 @@ func verifyCall(dir string, r Report, c Call, p Case) error {
 	if len(ex) != 1 || len(meta.Attempts) != 1 || len(c.Attempts) != 1 || len(obs) != 4 || obs[3].Kind != ai.ObservationCallFinished {
 		return fmt.Errorf("MiniMax omitted or extra actual Attempt")
 	}
-	if meta.ProviderID != ai.ProviderMiniMaxCN || meta.ModelID != r.Identity.Model || meta.API != r.Identity.API || meta.CatalogHash != r.CatalogHash || meta.RequestID != c.RequestID {
+	if meta.ProviderID != ai.ProviderMiniMax || meta.ModelID != r.Identity.Model || meta.API != r.Identity.API || meta.CatalogHash != r.CatalogHash || meta.RequestID != c.RequestID {
 		return fmt.Errorf("MiniMax actual attribution differs")
 	}
 	if c.Attempts[0].Kind != "attempt" || c.Attempts[0].Case != c.ID || c.Attempts[0].Identity != r.Identity || c.Attempts[0].Hash != receiptHash(c.Attempts[0]) {

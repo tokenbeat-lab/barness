@@ -19,5 +19,5 @@ request, fixture, event, Result and Attempt evidence through the existing runner
 - Untrusted or cross-account native history must not replay native reasoning.
 
 Synthetic reasoning_content and typed reasoning_details exercise preservation only.
-They do not resolve the official M3 split-field conflict. Real M3 China standard
+They do not resolve the official M3 split-field conflict. Real M3 international standard
 pay-as-you-go capture and replay remain ticket 07 evidence obligations.

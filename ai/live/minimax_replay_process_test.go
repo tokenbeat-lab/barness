@@ -26,7 +26,7 @@ func TestMiniMaxReplayProcess(t *testing.T) {
 			}
 			base := t.TempDir()
 			exe, _ := os.Executable()
-			env := []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=" + route, "BARNESS_MINIMAX_MODEL=MiniMax-M3", "BARNESS_MINIMAX_PURPOSE=standard", "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=cn-test", "BARNESS_MINIMAX_CONTROLLED=" + control, "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "source-stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + filepath.Join(base, "source")}
+			env := []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=" + route, "BARNESS_MINIMAX_MODEL=MiniMax-M3", "BARNESS_MINIMAX_PURPOSE=standard", "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=global-test", "BARNESS_MINIMAX_CONTROLLED=" + control, "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "source-stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + filepath.Join(base, "source")}
 			execute := func(entry string, environment []string) []byte {
 				ctx, cancel := context.WithTimeout(context.Background(), 40*time.Second)
 				defer cancel()

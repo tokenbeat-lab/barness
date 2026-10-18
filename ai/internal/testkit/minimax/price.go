@@ -20,14 +20,11 @@ var priceSources []byte
 //go:embed pricing-source.md
 var priceSource []byte
 
-//go:embed fx.json
-var fxSource []byte
-
-const PriceSourcePin = "a53bbc77a50f71d6a1c044a81fb5274467cdfa79b6550d1d77055dd8c7e29de5"
+const PriceSourcePin = "e695d05b6ed05322433702502b1292b33f2984fa1937d961b06213e87b6fea0d"
 
 // PricedM3Catalog is a Host-owned candidate snapshot; inclusion here does not
 // promote BuiltinCatalog or claim live acceptance. Cache-write has no verified
-// rate; positive writes must block promotion/certification (ADR-0041).
+// rate; positive writes must block promotion/certification (ADR-0042).
 func PricedM3Catalog() ai.Catalog {
 	if err := VerifyPriceSources(); err != nil {
 		panic(err)
@@ -47,14 +44,14 @@ func VerifyPriceSources() error {
 		CatalogSHA256 string                          `json:"catalogSha256"`
 		Sources       []struct{ File, SHA256 string } `json:"sources"`
 	}
-	if json.Unmarshal(priceSources, &source) != nil || source.CatalogSHA256 != hash(pricedM3) || len(source.Sources) != 2 {
+	if json.Unmarshal(priceSources, &source) != nil || source.CatalogSHA256 != hash(pricedM3) || len(source.Sources) != 1 {
 		return fmt.Errorf("MiniMax priced snapshot changed")
 	}
-	files := map[string][]byte{"pricing-source.md": priceSource, "fx.json": fxSource}
+	files := map[string][]byte{"pricing-source.md": priceSource}
 	for _, s := range source.Sources {
 		raw, ok := files[s.File]
 		if !ok || hash(raw) != s.SHA256 {
-			return fmt.Errorf("MiniMax fixed price/FX source changed")
+			return fmt.Errorf("MiniMax fixed USD price source changed")
 		}
 	}
 	return nil

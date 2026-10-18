@@ -59,7 +59,7 @@ func verifyOrigin(dir string, r Report) error {
 	if id.Model == M31 {
 		short = "m31"
 	}
-	route := "mm-" + r.Stage + "-" + short + "-" + id.Route
+	route := "mm-global-" + r.Stage + "-" + short + "-" + id.Route
 	receiptPath := filepath.Join(filepath.Dir(filepath.Dir(stage)), "minimax-launches", route+".json")
 	receiptRaw, receiptErr := ReadFile(receiptPath, 2<<20)
 	var origin Origin

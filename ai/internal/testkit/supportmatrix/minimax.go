@@ -33,7 +33,7 @@ func NewMiniMaxReport(dir string) (Report, error) {
 	if e != nil {
 		return Report{}, fmt.Errorf("MiniMax formal evidence: %w", e)
 	}
-	r := Report{Schema: SchemaVersion, Combo: "minimax-cn-" + own.Identity.Route, Operation: "chat", Provider: "minimax-cn", API: string(own.Identity.API), Endpoint: own.Identity.Endpoint, Model: own.Identity.Model, SDK: own.SDK, AccountAlias: own.AccountAlias, GitCommit: own.GitCommit, CatalogVersion: own.CatalogVersion, CatalogHash: own.CatalogHash, StartedAt: own.StartedAt, FinishedAt: own.FinishedAt, Expected: MiniMaxExpected(), evidenceDir: dir,
+	r := Report{Schema: SchemaVersion, Combo: "minimax-" + own.Identity.Route, Operation: "chat", Provider: "minimax", API: string(own.Identity.API), Endpoint: own.Identity.Endpoint, Model: own.Identity.Model, SDK: own.SDK, AccountAlias: own.AccountAlias, GitCommit: own.GitCommit, CatalogVersion: own.CatalogVersion, CatalogHash: own.CatalogHash, StartedAt: own.StartedAt, FinishedAt: own.FinishedAt, Expected: MiniMaxExpected(), evidenceDir: dir,
 		Budget: Budget{MaxRetries: 1, MaxCalls: 20, MaxAttempts: 24, MaxOutputTokens: 4096, CallSeconds: 120, ProcessSeconds: 1800, CallsUsed: own.Budget.Calls, AttemptsReserved: own.Budget.ReservedAttempts, HTTPAttempts: own.Budget.Attempts, MaxRequestedOutputTokens: 40000, RequestedOutputTokens: own.Budget.RequestedOutput, MaxReservedInputTokens: 120000, ReservedInputTokens: own.Budget.ReservedInput}}
 	for _, p := range own.Expected {
 		scenario := ScenarioResult{ID: p.ID, Model: r.Model, Outcome: Pass}
@@ -75,7 +75,7 @@ func VerifyMiniMaxReport(r Report) error {
 	return nil
 }
 func checkMiniMax(r Report) error {
-	if !strings.HasPrefix(r.Combo, "minimax-cn-") {
+	if !strings.HasPrefix(r.Combo, "minimax-") {
 		if r.MiniMax != nil {
 			return refuse("foreign report carries MiniMax proof")
 		}

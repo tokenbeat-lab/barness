@@ -77,7 +77,9 @@ func verifyRevocationCase(dir, id, mode, entry string) error {
 		if !slices.ContainsFunc(a.Assertions, func(v struct {
 			Name string
 			Pass bool
-		}) bool { return v.Name == name && v.Pass }) {
+		}) bool {
+			return v.Name == name && v.Pass
+		}) {
 			return fmt.Errorf("assertions.json: required revocation assertion missing")
 		}
 	}

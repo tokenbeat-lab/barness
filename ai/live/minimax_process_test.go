@@ -34,7 +34,7 @@ func TestMiniMaxProcess(t *testing.T) {
 			if name == "permanent-429" || name == "unknown-429" || name == "typed-503" || name == "success-one-hour-zero" {
 				route = "messages"
 			}
-			env := []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=" + route, "BARNESS_MINIMAX_MODEL=" + model, "BARNESS_MINIMAX_PURPOSE=" + purpose, "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=cn-test", "BARNESS_MINIMAX_CONTROLLED=" + name, "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + filepath.Join(base, "captures")}
+			env := []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=" + route, "BARNESS_MINIMAX_MODEL=" + model, "BARNESS_MINIMAX_PURPOSE=" + purpose, "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=global-test", "BARNESS_MINIMAX_CONTROLLED=" + name, "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + filepath.Join(base, "captures")}
 			switch name {
 			case "not-run":
 				env[4] = "BARNESS_MINIMAX_KEY="
@@ -87,10 +87,35 @@ func TestMiniMaxProcess(t *testing.T) {
 			var r struct {
 				Outcome, Mode, Kind string
 				Complete            bool
+				Unknown             []string
 				Budget              minimaxlive.Budget
 				Calls               []minimaxlive.Call
 			}
 			json.Unmarshal(raw, &r)
+			var reportFields map[string]json.RawMessage
+			json.Unmarshal(raw, &reportFields)
+			cs.Check("cumulative slot budget is labeled separately from proof identity", len(reportFields["cumulativeSlotBudget"]) > 0 && len(reportFields["cumulativeIdentityBudget"]) == 0, "missing slot budget label")
+			if model == minimaxlive.M31 {
+				cs.Check("raw usage is separate from unknown M Plan pricing", strings.Contains(strings.Join(r.Unknown, "\n"), "M3.1 price unknown; usage is raw provider evidence; Cost is synthetic mechanism output, not M Plan fees"), "missing M3.1 price warning")
+				dir := filepath.Dir(reports[0])
+				originalSeal, _ := os.ReadFile(filepath.Join(dir, minimaxlive.SealFile))
+				var edited minimaxlive.Report
+				json.Unmarshal(raw, &edited)
+				edited.Unknown = nil
+				changed, _ := json.Marshal(edited)
+				os.WriteFile(reports[0], changed, 0600)
+				files, inventoryErr := minimaxlive.Inventory(dir)
+				if inventoryErr != nil {
+					t.Fatal(inventoryErr)
+				}
+				changed, _ = json.Marshal(minimaxlive.Seal{Schema: 1, Files: files})
+				os.WriteFile(filepath.Join(dir, minimaxlive.SealFile), changed, 0600)
+				_, warningErr := minimaxlive.Verify(dir, false)
+				cs.Check("unpriced actual usage cannot lose synthetic-cost context", warningErr != nil && strings.Contains(warningErr.Error(), "price"), "%v", warningErr)
+				os.WriteFile(reports[0], raw, 0600)
+				os.WriteFile(filepath.Join(dir, minimaxlive.SealFile), originalSeal, 0600)
+
+			}
 			if strings.HasPrefix(name, "tool-") {
 				count := 0
 				for _, call := range r.Calls {

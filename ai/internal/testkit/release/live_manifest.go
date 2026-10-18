@@ -12,7 +12,7 @@ import (
 )
 
 func verifyLiveManifest(dir string, r supportmatrix.Report) error {
-	if strings.HasPrefix(r.Combo, "minimax-cn-") {
+	if strings.HasPrefix(r.Combo, "minimax-") {
 		return supportmatrix.VerifyMiniMaxReport(r)
 	}
 	if len(supportmatrix.GLMExpected(r.Combo)) > 0 {

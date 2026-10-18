@@ -108,10 +108,10 @@ def reviewed(out,job):
         job['name'] not in review.get('authorizedRoutes',[]) or
         doc(out/'checks.json').get('passed') is not True):
         raise RuntimeError('APPROVED exact-source review and no-key checks required')
-    if job.get('purpose')=='mplan' and review.get('credentialScopes',{}).get('MINIMAX_MPLAN_KEY')!='cn-mplan':
+    if job.get('purpose')=='mplan' and review.get('credentialScopes',{}).get('MINIMAX_MPLAN_KEY')!='global-mplan':
         raise RuntimeError('independent M Plan entitlement and credential review required')
-    if job.get('purpose')=='standard' and review.get('credentialScopes',{}).get('MINIMAX_KEY')!='cn-standard':
-        raise RuntimeError('China standard credential review required')
+    if job.get('purpose')=='standard' and review.get('credentialScopes',{}).get('MINIMAX_KEY')!='global-standard':
+        raise RuntimeError('Global standard credential review required')
     return frozen
 
 

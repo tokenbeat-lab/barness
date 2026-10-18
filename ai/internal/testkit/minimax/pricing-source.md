@@ -1,104 +1,104 @@
 > ## Documentation Index
-> Fetch the complete documentation index at: https://platform.minimaxi.com/docs/llms.txt
+> Fetch the complete documentation index at: https://platform.minimax.io/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# 定价概览
+# Pricing Overview
 
-<div id="pricing-document" data-pricing-language="zh" data-pricing-overview-title="定价概览" data-pricing-overview-group="产品定价">
-  <div role="navigation" className="pricing-sidebar-navigation pricing-anchor-navigation not-prose" data-pricing-sidebar="" aria-label="定价目录">
+<div id="pricing-document" data-pricing-language="en" data-pricing-overview-title="Pricing Overview" data-pricing-overview-group="Product Pricing">
+  <div role="navigation" className="pricing-sidebar-navigation pricing-anchor-navigation not-prose" data-pricing-sidebar="" aria-label="Pricing navigation">
     <div className="pricing-navigation-group">
-      <span className="pricing-navigation-title">产品定价</span>
-      <a className="pricing-anchor-link" data-pricing-anchor="overview" href="#overview">定价概览</a>
+      <span className="pricing-navigation-title">Product Pricing</span>
+      <a className="pricing-anchor-link" data-pricing-anchor="overview" href="#overview">Pricing Overview</a>
     </div>
 
     <div className="pricing-navigation-group" data-pricing-group="models">
-      <span className="pricing-navigation-title">模型价格</span>
+      <span className="pricing-navigation-title">Model Pricing</span>
 
       <div>
-        <a className="pricing-anchor-link" data-pricing-anchor="models/text" href="#models/text">语言模型</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="models/speech" href="#models/speech">语音</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="models/video" href="#models/video">视频</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="models/image" href="#models/image">图像</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="models/music" href="#models/music">音乐</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="models/text" href="#models/text">LLM</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="models/speech" href="#models/speech">Audio</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="models/video" href="#models/video">Video</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="models/image" href="#models/image">Image</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="models/music" href="#models/music">Music</a>
       </div>
     </div>
 
     <div className="pricing-navigation-group" data-pricing-group="tools">
-      <span className="pricing-navigation-title">工具价格</span>
+      <span className="pricing-navigation-title">Tool Pricing</span>
 
       <div>
         <a className="pricing-anchor-link" data-pricing-anchor="tools/mcp" href="#tools/mcp">MCP</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="tools/tools" href="#tools/tools">服务端工具</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="tools/tools" href="#tools/tools">Server Tools</a>
       </div>
     </div>
 
     <div className="pricing-navigation-group" data-pricing-group="packages">
-      <span className="pricing-navigation-title">资源包</span>
+      <span className="pricing-navigation-title">Subscriptions & Packages</span>
 
       <div>
-        <a className="pricing-anchor-link" data-pricing-anchor="packages/speech" href="#packages/speech">语音资源包</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="packages/video" href="#packages/video">视频资源包</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="packages/speech" href="#packages/speech">Audio Subscription</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="packages/video" href="#packages/video">Video Packages</a>
       </div>
     </div>
 
     <div className="pricing-navigation-group" data-pricing-group="guides">
-      <span className="pricing-navigation-title">计费指南</span>
+      <span className="pricing-navigation-title">Billing Guides</span>
 
       <div>
-        <a className="pricing-anchor-link" data-pricing-anchor="guides/compare" href="#guides/compare">付费方式对比</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="guides/billing" href="#guides/billing">按量计费说明</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="guides/packages" href="#guides/packages">资源包使用规则</a>
-        <a className="pricing-anchor-link" data-pricing-anchor="guides/faq" href="#guides/faq">常见问题</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="guides/compare" href="#guides/compare">Payment Methods</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="guides/billing" href="#guides/billing">Pay-as-you-go Billing</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="guides/packages" href="#guides/packages">Package Usage Rules</a>
+        <a className="pricing-anchor-link" data-pricing-anchor="guides/faq" href="#guides/faq">FAQ</a>
       </div>
     </div>
   </div>
 
   <div className="pricing-mobile-navigation not-prose">
-    <Accordion title="定价目录">
-      <div role="navigation" className="pricing-anchor-navigation" aria-label="定价目录">
+    <Accordion title="Pricing navigation">
+      <div role="navigation" className="pricing-anchor-navigation" aria-label="Pricing navigation">
         <div className="pricing-navigation-group">
-          <span className="pricing-navigation-title">产品定价</span>
-          <a className="pricing-anchor-link" data-pricing-anchor="overview" href="#overview">定价概览</a>
+          <span className="pricing-navigation-title">Product Pricing</span>
+          <a className="pricing-anchor-link" data-pricing-anchor="overview" href="#overview">Pricing Overview</a>
         </div>
 
         <div className="pricing-navigation-group" data-pricing-group="models">
-          <span className="pricing-navigation-title">模型价格</span>
+          <span className="pricing-navigation-title">Model Pricing</span>
 
           <div>
-            <a className="pricing-anchor-link" data-pricing-anchor="models/text" href="#models/text">语言模型</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="models/speech" href="#models/speech">语音</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="models/video" href="#models/video">视频</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="models/image" href="#models/image">图像</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="models/music" href="#models/music">音乐</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="models/text" href="#models/text">LLM</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="models/speech" href="#models/speech">Audio</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="models/video" href="#models/video">Video</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="models/image" href="#models/image">Image</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="models/music" href="#models/music">Music</a>
           </div>
         </div>
 
         <div className="pricing-navigation-group" data-pricing-group="tools">
-          <span className="pricing-navigation-title">工具价格</span>
+          <span className="pricing-navigation-title">Tool Pricing</span>
 
           <div>
             <a className="pricing-anchor-link" data-pricing-anchor="tools/mcp" href="#tools/mcp">MCP</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="tools/tools" href="#tools/tools">服务端工具</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="tools/tools" href="#tools/tools">Server Tools</a>
           </div>
         </div>
 
         <div className="pricing-navigation-group" data-pricing-group="packages">
-          <span className="pricing-navigation-title">资源包</span>
+          <span className="pricing-navigation-title">Subscriptions & Packages</span>
 
           <div>
-            <a className="pricing-anchor-link" data-pricing-anchor="packages/speech" href="#packages/speech">语音资源包</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="packages/video" href="#packages/video">视频资源包</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="packages/speech" href="#packages/speech">Audio Subscription</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="packages/video" href="#packages/video">Video Packages</a>
           </div>
         </div>
 
         <div className="pricing-navigation-group" data-pricing-group="guides">
-          <span className="pricing-navigation-title">计费指南</span>
+          <span className="pricing-navigation-title">Billing Guides</span>
 
           <div>
-            <a className="pricing-anchor-link" data-pricing-anchor="guides/compare" href="#guides/compare">付费方式对比</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="guides/billing" href="#guides/billing">按量计费说明</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="guides/packages" href="#guides/packages">资源包使用规则</a>
-            <a className="pricing-anchor-link" data-pricing-anchor="guides/faq" href="#guides/faq">常见问题</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="guides/compare" href="#guides/compare">Payment Methods</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="guides/billing" href="#guides/billing">Pay-as-you-go Billing</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="guides/packages" href="#guides/packages">Package Usage Rules</a>
+            <a className="pricing-anchor-link" data-pricing-anchor="guides/faq" href="#guides/faq">FAQ</a>
           </div>
         </div>
       </div>
@@ -106,256 +106,236 @@
   </div>
 
   <div id="overview" className="pricing-overview">
-    查看 MiniMax 开放平台的模型与工具价格，选购语音、视频资源包，或了解计费规则。
+    Explore MiniMax model and tool pricing, choose an Audio Subscription or Video Package, or learn about billing.
   </div>
 
-  <section id="models/text" className="pricing-section" data-pricing-title="语言模型">
-    ## 语言模型
+  <section id="models/text" className="pricing-section" data-pricing-title="LLM">
+    ## LLM
 
-    [立即充值](https://platform.minimax.cn/user-center/payment/balance)
+    [Recharge Now](https://platform.minimax.io/user-center/payment/balance)
 
     <Tabs>
-      <Tab title="标准">
-        | **模型** | **输入价格**<br /> 元/百万 tokens | **输出价格**<br /> 元/百万 tokens | **缓存读取**<br /> 元/百万 tokens |
-        | :- | :-: | :-: | :-: |
-        | **MiniMax-M3**<br />≤ 512k 输入 tokens <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">永久五折</span> | ~~4.20~~ 2.10 | ~~16.80~~ 8.40 | ~~0.84~~ 0.42 |
-        | **MiniMax-M3**<br />> 512k 输入 tokens\* <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">永久五折</span> | ~~8.40~~ 4.20 | ~~33.60~~ 16.80 | ~~1.68~~ 0.84 |
+      <Tab title="Standard">
+        | Model | Input | Output | Prompt caching Read |
+        | :- | :- | :- | :- |
+        | **MiniMax-M3**<br />≤ 512k input tokens <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">Permanent 50% off</span> | ~~\$0.60~~ \$0.30 / M tokens | ~~\$2.40~~ \$1.20 / M tokens | ~~\$0.12~~ \$0.06 / M tokens |
+        | **MiniMax-M3**<br />> 512k input tokens\* <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">Permanent 50% off</span> | ~~\$1.20~~ \$0.60 / M tokens | ~~\$4.80~~ \$2.40 / M tokens | ~~\$0.24~~ \$0.12 / M tokens |
       </Tab>
 
-      <Tab title="优先*">
-        | **模型** | **输入价格**<br /> 元/百万 tokens | **输出价格**<br /> 元/百万 tokens | **缓存读取**<br /> 元/百万 tokens |
-        | :- | :-: | :-: | :-: |
-        | **MiniMax-M3**<br />≤ 512k 输入 tokens <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">永久五折</span> | ~~6.30~~ 3.15 | ~~25.20~~ 12.60 | ~~1.26~~ 0.63 |
-        | **MiniMax-M3**<br />> 512k 输入 tokens <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">永久五折</span> | ~~12.60~~ 6.30 | ~~50.40~~ 25.20 | ~~2.52~~ 1.26 |
+      <Tab title="Priority*">
+        | Model | Input | Output | Prompt caching Read |
+        | :- | :- | :- | :- |
+        | **MiniMax-M3**<br />≤ 512k input tokens <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">Permanent 50% off</span> | ~~\$0.90~~ \$0.45 / M tokens | ~~\$3.60~~ \$1.80 / M tokens | ~~\$0.18~~ \$0.09 / M tokens |
+        | **MiniMax-M3**<br />> 512k input tokens <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">Permanent 50% off</span> | ~~\$1.80~~ \$0.90 / M tokens | ~~\$7.20~~ \$3.60 / M tokens | ~~\$0.36~~ \$0.18 / M tokens |
 
-        \* 优先服务可让请求获得优先准入，从而更快响应并降低失败率。调用时将 `service_tier` 设为 `priority` 即可启用。该层级按标准价格的 1.5 倍计费。
+        \* Priority provides priority admission for faster response times and improved request reliability. Set `service_tier` to `priority` to enable it. Pricing is 1.5x standard.
       </Tab>
     </Tabs>
 
-    | **模型** | **输入价格**<br /> 元/百万 tokens | **输出价格**<br /> 元/百万 tokens | **缓存读取**<br /> 元/百万 tokens | **缓存写入**<br /> 元/百万 tokens |
-    | :- | :-: | :-: | :-: | :-: |
-    | **MiniMax-M2.7** | 2.1 | 8.4 | 0.42 | 2.625 |
-    | **MiniMax-M2.7-highspeed** | 4.2 | 16.8 | 0.42 | 2.625 |
+    | Model | Input | Output | Prompt caching Read | Prompt caching Write |
+    | :- | :- | :- | :- | :- |
+    | **MiniMax-M2.7** | \$0.3 / M tokens | \$1.2 / M tokens | \$0.06 / M tokens | \$0.375 / M tokens |
+    | **MiniMax-M2.7-highspeed** | \$0.6 / M tokens | \$2.4 / M tokens | \$0.06 / M tokens | \$0.375 / M tokens |
 
-    <Accordion title="历史模型">
-      | **模型** | **输入价格**<br /> 元/百万 tokens | **输出价格**<br /> 元/百万 tokens | **缓存读取**<br /> 元/百万 tokens | **缓存写入**<br /> 元/百万 tokens |
-      | :- | :-: | :-: | :-: | :-: |
-      | **MiniMax-M2.5** | 2.1 | 8.4 | 0.21 | 2.625 |
-      | **MiniMax-M2.5-highspeed** | 4.2 | 16.8 | 0.21 | 2.625 |
-      | **MiniMax-M2.1** | 2.1 | 8.4 | 0.21 | 2.625 |
-      | **MiniMax-M2.1-highspeed** | 4.2 | 16.8 | 0.21 | 2.625 |
-      | **MiniMax-M2** | 2.1 | 8.4 | 0.21 | 2.625 |
+    <Accordion title="Legacy Models">
+      | Model | Input | Output | Prompt caching Read | Prompt caching Write |
+      | :- | :- | :- | :- | :- |
+      | **MiniMax-M2.5** | \$0.3 / M tokens | \$1.2 / M tokens | \$0.03 / M tokens | \$0.375 / M tokens |
+      | **MiniMax-M2.5-highspeed** | \$0.6 / M tokens | \$2.4 / M tokens | \$0.03 / M tokens | \$0.375 / M tokens |
+      | **MiniMax-M2.1** | \$0.3 / M tokens | \$1.2 / M tokens | \$0.03 / M tokens | \$0.375 / M tokens |
+      | **MiniMax-M2.1-highspeed** | \$0.6 / M tokens | \$2.4 / M tokens | \$0.03 / M tokens | \$0.375 / M tokens |
+      | **MiniMax-M2** | \$0.3 / M tokens | \$1.2 / M tokens | \$0.03 / M tokens | \$0.375 / M tokens |
     </Accordion>
 
     <Info>
-      请注意：
+      Note:
 
-      1. 计费项是token数；tokens字符比值根据使用场景的不同略有浮动，以实际消耗为准，字符数包括标点等
-      2. Token与字符比（估算）：1600 中文字符约消耗 1000 tokens
+      1. The billing item is token count; the token-to-character ratio varies slightly depending on the usage scenario, subject to actual consumption
+      2. Token to English word ratio (estimate): approximately 750 English words consume 1000 tokens
     </Info>
   </section>
 
-  <section id="models/speech" className="pricing-section" data-pricing-title="语音">
-    ## 语音
+  <section id="models/speech" className="pricing-section" data-pricing-title="Audio">
+    ## Audio
 
-    [立即充值](https://platform.minimax.cn/user-center/payment/balance)
+    [Recharge Now](https://platform.minimax.io/user-center/payment/balance)
 
-    **语音识别（ASR）**
+    **Automatic Speech Recognition (ASR)**
 
-    | **计费项** | **接口** | **接口说明** | **单价**<br />元/小时 |
-    | :- | :- | :- | :-: |
-    | 语音识别 | Speech-to-Text | 音频转文本，支持流式返回、说话人分离与字幕（srt/vtt）导出。 | 2.50 |
-
-    **语音合成（TTS）**
-
-    | **计费项** | **模型** | **接口说明** | **单价**<br />元/万字符 |
-    | :- | :- | :- | :-: |
-    | 同步语音合成<br />T2A | speech-2.8-hd | 支持音量、语调、语速调整和混音，支持比特率、采样率相关参数调整，支持音频时长、音频大小等返回参数。适用于短文本快速合成，如闲聊、对话等场景。 | 3.50 |
-    | 同步语音合成<br />T2A | speech-2.8-turbo | 同上，速度更快、成本更低。 | 2.00 |
-    | 异步长文本语音合成<br />T2A Async | speech-2.8-hd | 支持文本到语音的异步生成，单次最大支持 100 万字符，生成结果支持异步检索。 | 3.50 |
-    | 异步长文本语音合成<br />T2A Async | speech-2.8-turbo | 同上，速度更快、成本更低。 | 2.00 |
-
-    <Info>
-      计费单位为字符数，以 10,000 个字符（输入）为单位。1 个汉字算 2 个字符；英文字母、希腊字母、标点符号、特殊符号、空格、回车等各算 1 个字符。
-    </Info>
-
-    **音色管理**
-
-    | **计费项** | **接口说明** | **单价**<br />元/音色 | **计费说明** |
-    | :- | :- | :-: | :- |
-    | **音色设计**<br />Voice Design | 基于用户输入的声音描述 prompt 生成音色（voice\_id），可用于同步/异步语音合成接口。 | 9.90 | 生成音色时不立即收费，首次使用该音色进行合成时才计入。接口内的试听语音合成按 2.00 元/万字符计费。 |
-    | **快速复刻**<br />Voice Cloning | 基于大语言模型的音色克隆，无需超长时长的高质量原音频，即可在极短时间内完成音色复刻，并保持与原音色的高保真还原。 | 9.90 | 复刻音色时不立即收费，首次使用该音色进行合成时才计入。试听字符按所选试听模型的单价计费。 |
-
-    <Accordion title="历史模型">
-      | **计费项** | **模型** | **单价**<br />元/万字符 |
-      | :- | :- | :-: |
-      | 同步语音合成 T2A | speech-2.6-hd / speech-02-hd | 3.50 |
-      | 同步语音合成 T2A | speech-2.6-turbo / speech-02-turbo | 2.00 |
-      | 异步长文本语音合成 T2A Async | speech-2.6-hd / speech-02-hd | 3.50 |
-      | 异步长文本语音合成 T2A Async | speech-2.6-turbo / speech-02-turbo | 2.00 |
-    </Accordion>
-  </section>
-
-  <section id="models/video" className="pricing-section" data-pricing-title="视频">
-    ## 视频
-
-    [立即充值](https://platform.minimax.cn/user-center/payment/balance)
-
-    **视频生成-输出价格**
-
-    | **模型/接口** | **分辨率** | **计费规则** | **刊例价** |
+    | **API** | **Endpoint** | **Description** | **Price** |
     | :- | :- | :- | :- |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | 768P | 按秒计费 | 0.50 元/秒 |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | 2K | 按秒计费 | 0.80 元/秒 |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | 480P | 按秒计费 | 0.33 元/秒 |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | 768P | 按秒计费 | 0.50 元/秒 |
+    | Speech Recognition | Speech-to-Text | Audio-to-text transcription with streaming, speaker diarization, and subtitle (srt/vtt) export. | \$0.38 / hour |
 
-    **视频生成-输入素材价格**
+    **Text-to-Speech (TTS)**
 
-    | **模型/接口** | **素材类型** | **计费规则** |
-    | :- | :- | :- |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | 音频 | 免费 |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | 图片 | **5 张**以内免费，超出部分 **0.20 元/张** |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | 视频 | 按输入视频时长及生成视频分辨率计费：**2K 0.80 元/秒**，**768P 0.50 元/秒** |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | 音频 | 免费 |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | 图片 | **2 张**以内免费，超出部分 **0.50 元/张** |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | 视频 | 按输入视频时长及生成视频分辨率计费：**480P 0.37 元/秒**，**768P 0.97 元/秒** |
-
-    **视频再生成-输出价格**
-
-    将已生成的 768P 视频进一步生成为 2K 视频，按视频再生成输出秒数计费。
-
-    | **模型/接口** | **分辨率** | **计费规则** | **刊例价** |
+    | **API** | **Model** | **Description** | **Price** |
     | :- | :- | :- | :- |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Regeneration</div> | 768P → 2K | 按视频再生成输出秒数计费 | 0.30 元/秒 |
+    | **T2A** (Sync) | speech-2.8-hd | Real-time synthesis with volume/pitch/speed/mixing controls and bitrate/sample-rate options. Best for short-form conversational audio. | \$100 / M characters |
+    | **T2A** (Sync) | speech-2.8-turbo | Same capabilities as hd, optimized for speed and cost. | \$60 / M characters |
+    | **T2A Async** | speech-2.8-hd | Asynchronous long-form synthesis, up to 1M characters per request, retrieved asynchronously. | \$100 / M characters |
+    | **T2A Async** | speech-2.8-turbo | Same capabilities as hd, optimized for speed and cost. | \$60 / M characters |
 
-    **视频再生成-输入素材价格**
+    **Voice Management**
 
-    原 768P 生成任务中使用的输入素材需要重新计费。
+    | **API** | **Description** | **Price** | **Notes** |
+    | :- | :- | :- | :- |
+    | **Voice Design** | Generate a voice (voice\_id) from a natural-language description; usable in both sync and async T2A endpoints. | \$3 per voice | Charged when the designed voice is first used for synthesis, not at generation time. In-API preview synthesis is billed at \$60 / M characters. |
+    | **Rapid Voice Cloning** | LLM-powered voice cloning that produces a high-fidelity replica in seconds, without long high-quality reference audio. | \$1.5 per voice | Charged when the cloned voice is first used for synthesis, not at cloning time. Preview characters are billed at the selected preview model's rate. |
 
-    | **模型/接口** | **素材类型** | **计费规则** |
-    | :- | :- | :- |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Regeneration</div> | 音频 | 免费 |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Regeneration</div> | 图片 | **5 张**以内免费，超出部分 **0.15 元/张** |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Regeneration</div> | 视频 | 按原 768P 生成任务中输入视频的秒数计费：**0.30 元/秒** |
-
-    **H3-Context-IR 任务价格**
-
-    | **模型/接口** | **输入价格** | **输出价格** |
-    | :- | :-: | :-: |
-    | <div style={{minWidth:'240px'}}>MiniMax-H3-Context-IR</div> | 5.80 元/百万 tokens | 23.00 元/百万 tokens |
-
-    <Accordion title="历史模型">
-      | **模型** | **功能** | **单价**<br /> 元/视频 |
+    <Accordion title="Legacy Models">
+      | API | Model | Price |
       | :- | :- | :- |
-      | MiniMax-Hailuo-2.3-Fast | 图生视频，768P 6s | 1.35 |
-      | MiniMax-Hailuo-2.3-Fast | 图生视频，768P 10s | 2.25 |
-      | MiniMax-Hailuo-2.3-Fast | 图生视频，1080P 6s | 2.31 |
-      | MiniMax-Hailuo-2.3 | 文生视频，图生视频，768P 6s | 2.00 |
-      | MiniMax-Hailuo-2.3 | 文生视频，图生视频，768P 10s | 4.00 |
-      | MiniMax-Hailuo-2.3 | 文生视频，图生视频，1080P 6s | 3.50 |
-      | MiniMax-Hailuo-02 | 文生视频，图生视频，768P 6s | 2.00 |
-      | MiniMax-Hailuo-02 | 文生视频，图生视频，768P 10s | 4.00 |
-      | MiniMax-Hailuo-02 | 文生视频，图生视频，1080P 6s | 3.50 |
-      | MiniMax-Hailuo-02 | 图生视频，512P 6s | 0.60 |
-      | MiniMax-Hailuo-02 | 图生视频，512P 10s | 1.00 |
+      | **T2A** | speech-2.6-turbo / speech-02-turbo | \$60/M characters |
+      | **T2A** | speech-2.6-hd / speech-02-hd | \$100/M characters |
     </Accordion>
   </section>
 
-  <section id="models/image" className="pricing-section" data-pricing-title="图像">
-    ## 图像
+  <section id="models/video" className="pricing-section" data-pricing-title="Video">
+    ## Video
 
-    [立即充值](https://platform.minimax.cn/user-center/payment/balance)
+    [Recharge Now](https://platform.minimax.io/user-center/payment/balance)
 
-    | **模型** | **接口说明** | **单价**<br /> 元/张 |
-    | :- | :- | :-: |
-    | image-01<br />image-01-live | 支持用户通过文本描述或参考图片生成图片 | 0.025 |
+    **Video Generation - Output Pricing**
+
+    | **Model / API** | **Resolution** | **Billing Rules** | **List Price** |
+    | :- | :- | :- | :- |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | 768P | Billed per second | \$0.08 / second |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | 2K | Billed per second | \$0.13 / second |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | 480P | Billed per second | \$0.05 / second |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | 768P | Billed per second | \$0.08 / second |
+
+    **Video Generation - Input Material Pricing**
+
+    | **Model / API** | **Material Type** | **Billing Rules** |
+    | :- | :- | :- |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | Audio | Free |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | Image | First **5 images** free; **\$0.04 per additional image** |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3</div> | Video | Billed by input video duration and output video resolution: **2K \$0.13/sec**, **768P \$0.08/sec** |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | Audio | Free |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | Image | First **2 images** free; **\$0.074 per additional image** |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Max</div> | Video | Billed by input video duration and output video resolution: **480P \$0.0553/sec**, **768P \$0.143/sec** |
+
+    **Video Regeneration - Output Pricing**
+
+    Regenerate a previously produced 768P video into 2K, billed per second of the regenerated output.
+
+    | **Model / API** | **Resolution** | **Billing Rules** | **List Price** |
+    | :- | :- | :- | :- |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Regeneration</div> | 768P → 2K | Billed per second of the regenerated output | \$0.05 / second |
+
+    **Video Regeneration - Input Material Pricing**
+
+    The input materials used in the original 768P generation task will be billed again.
+
+    | **Model / API** | **Material Type** | **Billing Rules** |
+    | :- | :- | :- |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Regeneration</div> | Audio | Free |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Regeneration</div> | Image | First **5 images** free; **\$0.025 per additional image** |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Regeneration</div> | Video | Billed by input video duration from the original 768P task: **\$0.05 / second** |
+
+    **H3-Context-IR Task Pricing**
+
+    | **Model / API** | **Input Price** | **Output Price** |
+    | :- | :-: | :-: |
+    | <div style={{minWidth:'240px'}}>MiniMax-H3-Context-IR</div> | \$0.90 / M tokens | \$3.60 / M tokens |
+
+    <Accordion title="Legacy Models">
+      | Model | Price |
+      | :- | :- |
+      | MiniMax-Hailuo-2.3-Fast | \$0.19 per 768P, 6s video |
+      | MiniMax-Hailuo-2.3-Fast | \$0.32 per 768P, 10s video |
+      | MiniMax-Hailuo-2.3-Fast | \$0.33 per 1080P, 6s video |
+      | MiniMax-Hailuo-2.3 | \$0.28 per 768P, 6s video |
+      | MiniMax-Hailuo-2.3 | \$0.56 per 768P, 10s video |
+      | MiniMax-Hailuo-2.3 | \$0.49 per 1080P, 6s video |
+      | MiniMax-Hailuo-02 | \$0.28 per 768P, 6s video |
+      | MiniMax-Hailuo-02 | \$0.56 per 768P, 10s video |
+      | MiniMax-Hailuo-02 | \$0.49 per 1080P, 6s video |
+      | MiniMax-Hailuo-02 | \$0.10 per 512P, 6s video |
+      | MiniMax-Hailuo-02 | \$0.15 per 512P, 10s video |
+    </Accordion>
   </section>
 
-  <section id="models/music" className="pricing-section" data-pricing-title="音乐">
-    ## 音乐
+  <section id="models/image" className="pricing-section" data-pricing-title="Image">
+    ## Image
 
-    <Note title="Music API 服务调整通知">
-      自 2026 年 8 月 20 日起，付费接口（音乐生成、歌词生成）不再面向新用户提供服务，历史付费用户可继续使用现有 API 服务；免费音乐生成接口（Music-3.0-free、Music-2.6-free、music-cover-free）停止服务。
+    [Recharge Now](https://platform.minimax.io/user-center/payment/balance)
 
-      如需体验或使用音乐生成能力，可前往 [MiniMax Audio](https://www.minimax.cn/audio)，或使用已发布在 [Hugging Face](https://huggingface.co/MiniMaxAI/MiniMax-Music3) 和 [魔搭 ModelScope](https://modelscope.cn/models/MiniMax/MiniMax-Music3) 的 MiniMax Music 3 开源模型。
+    | Model | Price |
+    | :- | :- |
+    | image-01 | \$0.0035 per image |
+  </section>
+
+  <section id="models/music" className="pricing-section" data-pricing-title="Music">
+    ## Music
+
+    <Note title="Music API Service Adjustment Notice">
+      Starting August 20, 2026, the paid APIs (Music Generation and Lyrics Generation) will no longer be available to new users; existing paying users can continue to use the current API services. The free music generation APIs (Music-3.0-free, Music-2.6-free, music-cover-free) will be discontinued.
+
+      To experience or use music generation capabilities, please visit [MiniMax Audio](https://www.minimax.io/audio), or use the open-source [MiniMax Music 3 model on Hugging Face](https://huggingface.co/MiniMaxAI/MiniMax-Music3).
     </Note>
 
-    | **模型** | **接口说明** | **单价**<br /> 元/首 |
+    | Model | Description | Price |
     | :- | :- | :-: |
-    | Music-3.0（已下线） | RPM = 120，若需提升可联系销售定制 | 1.0 |
-    | Music-2.6（已下线） | RPM = 120，若需提升可联系销售定制 | 1.0 |
-    | 歌词生成（已下线） | 歌词生成/编辑 | 0.05 |
+    | Music-3.0 (Discontinued) | RPM = 120, contact sales to increase | \$0.15/up-to-5 minutes music |
+    | Music-2.6 (Discontinued) | RPM = 120, contact sales to increase | \$0.15/up-to-5 minutes music |
+    | Lyrics Generation (Discontinued) | Lyrics generation/editing | \$0.01/per song |
 
-    <Accordion title="历史模型">
-      | **模型** | **接口说明** | **单价**<br /> 元/首 |
+    <Accordion title="Legacy Models">
+      | Model | Description | Price |
       | :- | :- | :-: |
-      | Music-2.5+（已下线） | 最新音乐生成模型，纯音乐解锁，突破风格边界 | 1.0 |
-      | Music-2.5（已下线） | 全维度突破，指挥细节，定义真实 | 1.0 |
-      | Music-2.0（已下线） | 多变音色，丰富乐器表现 | 0.25 |
+      | Music-2.5+ (Discontinued) | Instrumental unlocked, break through style boundaries | \$0.15/up-to-5 minutes music |
+      | Music-2.5 (Discontinued) | Direct the detail, define the real | \$0.15/up-to-5 minutes music |
+      | Music-2.0 (Discontinued) | Enhanced musical expression | \$0.03/up-to-5 minutes music |
     </Accordion>
   </section>
 
   <section id="tools/mcp" className="pricing-section" data-pricing-title="MCP">
     ## MCP
 
-    [立即充值](https://platform.minimax.cn/user-center/payment/balance)
+    [Recharge Now](https://platform.minimax.io/user-center/payment/balance)
 
-    | **模型** | **接口说明** | **输入价格**<br />元/次 |
-    | :- | :- | :-: |
-    | API-vlm | 通过 **M Plan MCP** 插件或工具自带的视觉接口调用 | 0.025 |
+    | Model | Input Price |
+    | :- | :- |
+    | **API-vlm** | \$0.01 / request |
 
-    通过 M Plan 调用 API-vlm 时，会按其按量计费价格扣减套餐内 M Plan 额度；套餐内额度耗尽且已购积分可用时，超出部分可由已购积分自动补充支付。
+    When API-vlm is called through M Plan, usage deducts from the included M Plan quota according to its pay-as-you-go price. If the included quota is exhausted and purchased Credits are available, additional usage can be automatically covered by purchased Credits.
 
     <Callout color="#FFC107">
-      🔔 **定价调整预告**：自2026年7月22日起，API-vlm 按量价格调整为 ¥0.025 元/次。M Plan 套餐内单次 API-vlm 调用扣减的 token 额度将同步减少，同等套餐可支持更多次调用。接口与能力保持不变，无需任何代码调整。
+      🔔 **Pricing Update Notice** — Effective July 22, 2026, the API-vlm price will be adjusted to \$0.01 per call. Accordingly, the token quota deducted per API-vlm call under M Plan subscriptions will decrease, allowing the same plan to support more calls. API endpoints and model capabilities remain unchanged — no code changes required.
     </Callout>
   </section>
 
-  <section id="tools/tools" className="pricing-section" data-pricing-title="服务端工具">
-    ## 服务端工具 <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-semibold text-blue-700 before:content-['Beta'] dark:bg-blue-900/30 dark:text-blue-300" />
+  <section id="tools/tools" className="pricing-section" data-pricing-title="Server Tools">
+    ## Server Tools <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-semibold text-blue-700 before:content-['Beta'] dark:bg-blue-900/30 dark:text-blue-300" />
 
-    [立即充值](https://platform.minimax.cn/user-center/payment/balance)
+    [Recharge Now](https://platform.minimax.io/user-center/payment/balance)
 
-    | **服务端工具** | **接口说明** | **单价**<br /> 元/次 |
-    | :- | :- | :-: |
-    | **web\_search** | 联网搜索，模型在服务端自动执行搜索并基于结果作答，详见[服务端工具](/docs/guides/server-tools) | 0.03 |
+    | Server Tool | Description | Price |
+    | :- | :- | :- |
+    | **web\_search** | Web search; the model runs the search on the server and answers based on the results. See [Server Tools](/docs/guides/server-tools). | \$0.01 / request |
   </section>
 
-  <section id="packages/speech" className="pricing-section" data-pricing-title="语音资源包">
-    ## 语音资源包
+  <section id="packages/speech" className="pricing-section" data-pricing-title="Audio Subscription">
+    ## Audio Subscription
 
-    ## HD 系列
+    [Purchase Now](https://platform.minimax.io/subscribe/audio-subscription)
 
-    [立即购买](https://platform.minimax.cn/user-center/payment/subscription)
-
-    | **分类** | **语音套餐一**<br />**（节省 10%）** | **语音套餐二**<br />**（节省 15%）** | **语音套餐三**<br />**（节省 20%）** | **商务定制** |
-    | :- | :- | :- | :- | :- |
-    | 折扣价 | ¥630 | ¥5,950 | ¥56,000 | 基于量级的额外折扣 |
-    | 原价 | ¥700 | ¥7,000 | ¥70,000 | —— |
-    | 有效期 | 1 个月 | 3 个月 | 1 年 | —— |
-    | 总字符数量 | 2,000,000 字符 | 20,000,000 字符 | 200,000,000 字符 | —— |
-    | 功能 | 支持 T2A v2 / T2A async v2 接口<br />RPM：60<br />支持 HD 系列模型<br />赠送 10 个快速克隆音色 | 支持 T2A v2 / T2A async v2 接口<br />RPM：200<br />支持 HD 系列模型<br />赠送 30 个快速克隆音色 | 支持 T2A v2 / T2A async v2 接口<br />RPM：500<br />支持 HD 系列模型<br />赠送 300 个快速克隆音色 | 无限 RPM/TPM<br />模型更新优先体验<br />专属的安全和稳定性保障 |
-
-    ## Turbo 系列
-
-    [立即购买](https://platform.minimax.cn/user-center/payment/subscription)
-
-    | **分类** | **语音套餐一**<br />**（节省 10%）** | **语音套餐二**<br />**（节省 15%）** | **语音套餐三**<br />**（节省 20%）** | **商务定制** |
-    | :- | :- | :- | :- | :- |
-    | 折扣价 | ¥360 | ¥3,400 | ¥32,000 | 基于量级的额外折扣 |
-    | 原价 | ¥400 | ¥4,000 | ¥40,000 | —— |
-    | 有效期 | 1 个月 | 3 个月 | 1 年 | —— |
-    | 总字符数量 | 2,000,000 字符 | 20,000,000 字符 | 200,000,000 字符 | —— |
-    | 功能 | 支持 T2A v2 / T2A async v2 接口<br />RPM：60<br />支持 Turbo 系列模型<br />赠送 10 个快速克隆音色 | 支持 T2A v2 / T2A async v2 接口<br />RPM：200<br />支持 Turbo 系列模型<br />赠送 30 个快速克隆音色 | 支持 T2A v2 / T2A async v2 接口<br />RPM：500<br />支持 Turbo 系列模型<br />赠送 300 个快速克隆音色 | 无限 RPM/TPM<br />模型更新优先体验<br />专属的安全和稳定性保障 |
+    | Category | Starter | Standard | Pro | Scale | Business | Customer Pricing |
+    | :- | :- | :- | :- | :- | :- | :- |
+    | **Monthly Subscription** | \$5 | \$30 | \$99 | \$249 | \$999 | / |
+    | **3-month Subscription** (10% off) | \$13.5 | \$81 | \$267 | \$672 | \$2,697 | / |
+    | **Yearly Subscription** (20% off) | \$48 | \$288 | \$950 | \$2,390 | \$9,590 | / |
+    | **Audio points per month** | 100,000 | 300,000 | 1,100,000 | 3,300,000 | 20,000,000 | As many audio points as you need |
+    | **Functions** | • Voice slots: 10 <br />• RPM: 10<br />• Faster speed of generating speech<br />• Supports T2A v2, T2A large v2 API <br />• Supports all speech models | • Voice slots: 100 <br />• RPM: 50 <br />• Faster speed of generating speech<br />• Supports T2A v2, T2A large v2 API<br />• Supports all speech models | • Voice slots: 250 <br />• RPM: 200<br /> • Faster speed of generating speech <br />• Supports T2A v2, T2A large v2 API <br />• Supports all speech models | • Voice slots: 500 <br />• RPM: 500 <br />• Faster speed of generating speech <br />• Supports T2A v2, T2A large v2 API <br />• Supports all speech models | • Voice slots: 800 <br />• RPM: 800 <br />• Faster speed of generating speech <br />• Supports T2A v2, T2A large v2 API <br />• Supports all speech models | • Unlimited RPM/TPM <br />• Priority access to model updates <br />• More voices and more cloning options <br />• Exclusive security and stability guarantees |
   </section>
 
-  <section id="packages/video" className="pricing-section" data-pricing-title="视频资源包">
-    ## 视频资源包
+  <section id="packages/video" className="pricing-section" data-pricing-title="Video Packages">
+    ## Video Packages
 
-    [立即购买](https://platform.minimax.cn/user-center/payment/subscription)
+    [Purchase Now](https://platform.minimax.io/subscribe/subscription)
 
-    <div className="video-package-alert" role="note" aria-label="视频资源包模型支持说明">
+    <div className="video-package-alert" role="note" aria-label="Video package model support notice">
       <div className="video-package-alert__icon" aria-hidden="true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 3 2.8 20h18.4L12 3Z" />
@@ -366,160 +346,159 @@
 
       <div className="video-package-alert__content">
         <div className="video-package-alert__title">
-          视频资源包支持 Hailuo 系列视频模型，暂不支持 MiniMax H3
+          Video packages support Hailuo video models. MiniMax H3 is not supported yet
         </div>
 
         <div className="video-package-alert__desc">
-          需要使用 H3？请点击{" "}<a href="https://platform.minimax.cn/docs/pricing/overview#models/video" target="_blank" rel="noreferrer">按量购买 API</a>，或联系销售定制。
+          Need H3? Use the{" "}
+          <a href="https://platform.minimax.io/docs/pricing/overview#models/video" target="_blank" rel="noreferrer">pay-as-you-go API</a>, or contact sales for a custom plan.
         </div>
       </div>
     </div>
 
-    | **类型** | **视频基础包**<br />**（节省 5%）** | **视频高级包**<br />**（节省 10%）** | **视频进阶包**<br />**（节省 15%）** | **视频企业包**<br />**（节省 20%）** | **商务定制** |
+    | Package Category | Standard <br />(SAVE 5%) | Pro <br />(SAVE 10%) | Scale<br /> (SAVE 15%) | Business <br />(SAVE 20%) | Custom Pricing |
     | :- | :- | :- | :- | :- | :- |
-    | 折扣价 | ¥7,000 | ¥15,000 | ¥30,000 | ¥40,000 | —— |
-    | 原价 | ¥7,368 | ¥16,667 | ¥35,294 | ¥50,000 | |
-    | 有效期 | 1 个月 | 1 个月 | 1 个月 | 1 个月 | —— |
-    | 视频点数总量 | 3,680 | 8,330 | 17,650 | 25,000 | —— |
-    | 功能 | 支持 video generation 接口<br />RPM：20 | 支持 video generation 接口<br />RPM：30 | 支持 video generation 接口<br />RPM：40 | 支持 video generation 接口<br />RPM：50 | 无限 RPM/TPM<br />模型更新优先体验<br />专属的安全和稳定性保障 |
+    | **Discounted Price** | \$1,000 | \$2,500 | \$4,500 | \$6,000 | - |
+    | **Valid** | 1 month | 1 month | 1 month | 1 month | - |
+    | **Total video points** | 3,760 video points | 9,920 video points | 18,900 video points | 26,780 video points | As many video points as you need |
+    | **Functions** | • Supports Video Generation API<br />• RPM: 20 | • Supports Video Generation API <br />• RPM: 30 | • Supports Video Generation API<br />• RPM: 40 | • Supports Video Generation API <br />• RPM: 50 | • Unlimited RPM/TPM<br /> • Priority access to model updates<br /> • Exclusive security and stability guarantees |
 
     <Callout icon="lightbulb" color="#4885FF" iconType="regular">
-      视频资源包相关事项如下：
+      Tips
 
-      1. 不同模型生成视频的扣减次数不同
+      1. The deduction times for generating videos differ depending on the model:
+         * For model \[MiniMax-Hailuo-2.3-Fast], generating a single 768p,6s video will deduct 0.7 video points
+         * For model \[MiniMax-Hailuo-2.3-Fast], generating a single 768p,10s video will deduct 1.1 video points
+         * For model \[MiniMax-Hailuo-2.3-Fast], generating a single 1080p,6s video will deduct 1.3 video points
+         * For model \[MiniMax-Hailuo-2.3] \[MiniMax-Hailuo-02], generating a single 768p,6s video will deduct 1 video point
+         * For model \[MiniMax-Hailuo-2.3] \[MiniMax-Hailuo-02], generating a single 768p,10s video will deduct 2 video points
+         * For model \[MiniMax-Hailuo-2.3] \[MiniMax-Hailuo-02], generating a single 1080p,6s video will deduct 2 video points
+         * For model \[MiniMax-Hailuo-02], generating a single 512p,6s video will deduct 0.3 video points
+         * For model \[MiniMax-Hailuo-02], generating a single 512p,10s video will deduct 0.5 video points
 
-      * \[MiniMax-Hailuo-2.3-Fast]，生成单条768p，6s视频，扣减0.7视频点数
-      * \[MiniMax-Hailuo-2.3-Fast]，生成单条768p，10s视频，扣减1.1视频点数
-      * \[MiniMax-Hailuo-2.3-Fast]，生成单条1080p，6s视频，扣减1.3视频点数
-      * \[MiniMax-Hailuo-02]，生成单条512p，6s视频，扣减0.3视频点数
-      * \[MiniMax-Hailuo-02]，生成单条512p，10s视频，扣减0.5视频点数
-      * \[MiniMax-Hailuo-02] \[MiniMax-Hailuo-2.3]，生成单条768p，6s视频，扣减1视频点数
-      * \[MiniMax-Hailuo-02] \[MiniMax-Hailuo-2.3]，生成单条768p，10s视频，扣减2视频点数
-      * \[MiniMax-Hailuo-02] \[MiniMax-Hailuo-2.3]，生成单条1080p，6s视频，扣减2视频点数
+      2. Video generation failures or videos that trigger security review will not result in a deduction.
 
-      2. 生成失败或命中安全审核的视频不会扣减视频点数
-      3. 资源包余量不继承，过期会自动清零
+      3. Resource pack remaining quantity is not inherited; it will automatically reset to zero when expired.
     </Callout>
   </section>
 
-  <section id="guides/compare" className="pricing-section" data-pricing-title="付费方式对比">
+  <section id="guides/compare" className="pricing-section" data-pricing-title="Payment Methods">
     <h2 id="guides/compare-title">
-      付费方式对比
+      Payment Methods
     </h2>
 
-    MiniMax 开放平台支持按量计费和资源包。结合使用的模型、预计用量与使用周期，选择适合的付费方式。
+    MiniMax offers pay-as-you-go billing, Audio Subscription plans, and Video Packages. Choose a billing option based on the models you use, how much you expect to use them, and for how long.
 
     <h3 id="guides/compare/comparison">
-      按量计费与资源包
+      Compare Billing Options
     </h3>
 
-    | 对比项 | 按量计费 | 资源包 |
+    | Feature | Pay-as-you-go | Subscriptions and Packages |
     | - | - | - |
-    | 适用场景 | 支持 MiniMax 全部模型与工具，按实际使用量计费，灵活满足多元化业务场景及各类调用需求 | 明确使用语音或视频模型，预计可在有效期内用完预购额度的业务场景。 |
-    | 付费方式 | 充值账户，按实际用量扣费 | 预付购买，在有效期内使用对应额度 |
-    | 支持范围 | MiniMax全系模型及工具 | 语音 HD / Turbo、Hailuo 系列视频 |
-    | 计费单位 | 按模型、规格与计费项确定 | 语音字符数、视频点数 |
-    | 开始使用 | [立即充值](https://platform.minimax.cn/user-center/payment/balance) | [立即购买](https://platform.minimax.cn/user-center/payment/subscription) |
+    | Use cases | Use any MiniMax model or tool and pay for what you use, with the flexibility to support a wide range of business needs and API workloads. | For speech or video workloads where you expect to use the included points during the subscription term or before the package expires. |
+    | How you pay | Add funds to your account and pay for what you use | Purchase an Audio Subscription or a prepaid Video Package |
+    | Coverage | All MiniMax models and tools | All speech models; Hailuo video models |
+    | Billing units | Varies by model, configuration, and type of usage | Audio points per month; video points |
+    | Get started | [Recharge Now](https://platform.minimax.io/user-center/payment/balance) | [View Audio Subscription](#packages/speech) · [View Video Packages](#packages/video) |
 
     <h3 id="guides/compare/choose-package">
-      选购资源包前
+      Before You Buy
     </h3>
 
-    请核对适用模型、额度与有效期。语音 HD 与 Turbo 资源包分别适用于对应模型系列；视频资源包支持 Hailuo 系列，暂不支持 MiniMax H3。
+    Check the supported models, included points, and how long the subscription or package lasts. Audio Subscription plans support all speech models. Video Packages support Hailuo video models; MiniMax H3 is not yet supported.
 
-    [查看语音资源包](#packages/speech) · [查看视频资源包](#packages/video) · [查看使用规则](#guides/packages)
+    [View Audio Subscription](#packages/speech) · [View Video Packages](#packages/video) · [View Usage Rules](#guides/packages)
   </section>
 
-  <section id="guides/billing" className="pricing-section" data-pricing-title="按量计费说明">
+  <section id="guides/billing" className="pricing-section" data-pricing-title="Pay-as-you-go Billing">
     <h2 id="guides/billing-title">
-      按量计费说明
+      Pay-as-you-go Billing
     </h2>
 
-    按量计费使用开放平台普通 API Key，根据实际使用量消耗账户余额。以下价格均以人民币计价。
+    With pay-as-you-go billing, you use standard Open Platform API keys and pay from your account balance based on usage. All prices are in USD.
 
     <h3 id="guides/billing/billing">
-      扣费与计量
+      How Billing Works
     </h3>
 
-    * <strong>扣费方式：</strong>调用产生的费用从账户余额中扣除。
-    * <strong>计量方式：</strong>不同能力按 tokens、字符数、时长、图片张数、音色数量或调用次数计费，具体单位见对应价格表。
-    * <strong>价格选择：</strong>根据实际调用的模型、接口及规格匹配单价。例如，语言模型的输入长度与服务等级、视频的输出分辨率可能对应不同价格。
+    * <strong>Payment:</strong> API usage charges are deducted from your account balance.
+    * <strong>Billing units:</strong> Depending on the service, charges are based on tokens, characters, duration, images, voices, or requests. See the relevant pricing table for the exact unit.
+    * <strong>Rates:</strong> Rates vary by model, API, and configuration. For example, LLM input length and service tier, or video output resolution, can affect pricing.
 
     <h3 id="guides/billing/calculation">
-      费用计算
+      How Charges Are Calculated
     </h3>
 
     <Info>
-      <strong>费用计算：</strong>单项费用 = 实际用量 × 对应单价。计算前需统一用量与价格的单位；例如，按“元/百万 tokens”计价时，先将 token 用量除以 1,000,000，再乘以单价。一次调用涉及多个计费项时，总费用为各项费用之和。
+      For each billing item, multiply actual usage by the applicable unit price. First, convert usage to the unit listed in the pricing table. For example, if a price is listed per million tokens, divide the token count by 1,000,000 before multiplying by the price. If a request includes multiple billing items, add their costs together.
     </Info>
 
-    具体单价见左侧模型价格与工具价格。语音、视频还可选购对应的资源包，详见[付费方式对比](#guides/compare)。
+    See Model Pricing and Tool Pricing for individual rates. Audio Subscription plans and Video Packages are also available for supported models. To compare these options, see [Payment Methods](#guides/compare).
   </section>
 
-  <section id="guides/packages" className="pricing-section" data-pricing-title="资源包使用规则">
+  <section id="guides/packages" className="pricing-section" data-pricing-title="Package Usage Rules">
     <h2 id="guides/packages-title">
-      资源包使用规则
+      Package Usage Rules
     </h2>
 
-    资源包通过预付购买额度，在有效期内用于适用的模型与接口。购买前请确认模型系列、使用量与有效期。
+    Audio Subscription plans and Video Packages include points for use with supported models and APIs. Before purchasing, check which models are supported, how many points are included, and how long the subscription or package lasts.
 
     <h3 id="guides/packages/scope">
-      适用范围
+      Coverage
     </h3>
 
-    | 对比项 | 语音资源包 | 视频资源包 |
+    | Feature | Audio Subscription | Video Packages |
     | - | - | - |
-    | 适用模型 | HD 与 Turbo 系列分别对应各自资源包 | Hailuo 系列；暂不支持 MiniMax H3 |
-    | 适用接口 | 同步语音合成、异步长文本语音合成 | 视频生成 |
-    | 额度单位 | 字符数 | 视频点数 |
-    | 有效期 | 标准套餐按套餐分别为 1 个月、3 个月或 1 年 | 四档标准套餐均为 1 个月 |
-    | 到期规则 | 余量不继承，到期清零 | 余量不继承，到期清零 |
-    | 套餐详情 | [语音资源包](#packages/speech) | [视频资源包](#packages/video) |
+    | Supported models | All speech models | Hailuo video models; MiniMax H3 is not supported yet |
+    | Supported APIs | T2A v2 and T2A large v2 | Video Generation API |
+    | Included points | Audio points per month | Video points |
+    | Subscription term / package validity | Monthly, 3-month (10% off), or annual (20% off) subscriptions | The four standard packages are valid for 1 month |
+    | Plan details | [Audio Subscription](#packages/speech) | [Video Packages](#packages/video) |
 
     <h3 id="guides/packages/deductions">
-      额度计量与扣减
+      How Points Are Used
     </h3>
 
-    * <strong>语音字符：</strong>1 个汉字计 2 个字符；英文字母、希腊字母、标点、特殊符号、空格、回车等各计 1 个字符。
-    * <strong>视频点数：</strong>不同模型、分辨率与视频时长对应不同点数，点数不等同于视频条数。详见[视频点数扣减规则](#packages/video/package-rules)。
-    * <strong>失败任务：</strong>生成失败或命中安全审核的视频，不扣减视频点数。
+    * <strong>Audio points:</strong> Starter, Standard, Pro, Scale, and Business each include a monthly allowance of audio points. The allowance varies by plan. See the [Audio Subscription table](#packages/speech) for included points, voice slots, and rate limits.
+    * <strong>Video points:</strong> Points used depend on the model, resolution, and video duration. One point does not equal one video. See the [video point deduction rules](#packages/video/package-rules).
+    * <strong>Failed video tasks:</strong> No points are deducted when video generation fails or a video triggers a security review.
 
     <h3 id="guides/packages/validity">
-      有效期与使用限制
+      Expiration and Usage Limits
     </h3>
 
-    请结合有效期内的预估用量选择套餐。各套餐的调用频率限制与权益见对应套餐价格表。资源包优惠需结合实际使用模型、规格与额度利用情况比较，详见[付费方式对比](#guides/compare)。
+    Unused video points expire with the package and do not roll over. Your video point balance resets to zero when the package expires. For Audio Subscription plans, see the subscription table for available terms, monthly audio points, and plan features. Rate limits and other included features are listed in the relevant pricing tables.
   </section>
 
-  <section id="guides/faq" className="pricing-section" data-pricing-title="常见问题">
+  <section id="guides/faq" className="pricing-section" data-pricing-title="FAQ">
     <h2 id="guides/faq-title">
-      常见问题
+      FAQ
     </h2>
 
-    查看按量计费与资源包的常见问题。具体价格与套餐权益请以对应价格表为准。
+    Find answers to common questions about pay-as-you-go billing, Audio Subscription plans, and Video Packages. See the relevant pricing tables for exact prices and included features.
 
     <h3 id="guides/faq/faq">
-      计费与使用
+      Billing and Usage
     </h3>
 
-    <Accordion title="M3 标准服务与优先服务有什么区别？">
-      优先服务让请求获得优先准入，按标准价格的 1.5 倍计费。调用时将 `service_tier` 设为 `priority` 即可启用。不同输入长度对应的价格档位见语言模型价格表。
+    <Accordion title="What’s the difference between the Standard and Priority service tiers for MiniMax-M3?">
+      Priority gives your requests priority access for faster responses and improved reliability. It costs 1.5 times the Standard rate. To enable it, set `service_tier` to `priority`. See the LLM pricing tables for the rates that apply to each input length.
     </Accordion>
 
-    <Accordion title="视频价格包含输入素材费用吗？">
-      H3 视频生成的输出与输入素材分别计费。输入图片超过免费张数后需额外付费，输入视频按时长及生成分辨率计费。视频再生成也需重新计算原任务使用的输入素材费用。
+    <Accordion title="Does video output pricing include charges for input media?">
+      H3 video output and input media are billed separately. Images beyond the free allowance incur an additional charge. Input video is billed based on its duration and the output resolution. If you regenerate a video, the input media from the original task is billed again. See the video pricing tables for the applicable rates.
     </Accordion>
 
-    <Accordion title="在哪里充值和查看账户费用？">
-      可在[账户充值页面](https://platform.minimax.cn/user-center/payment/balance)充值并查看余额，在[控制台](https://platform.minimax.cn/user-center/basic-information)查看用量与费用记录。平台支持余额预警，可在账户中设置。
+    <Accordion title="How do I add funds to my account?">
+      Visit the [Recharge page](https://platform.minimax.io/user-center/payment/balance) to add funds to your account for pay-as-you-go API usage.
     </Accordion>
 
-    <Accordion title="资源包可以用于所有模型吗？">
-      资源包有明确的适用范围。语音包区分 HD 与 Turbo 系列；视频包支持 Hailuo 系列，暂不支持 H3。购买前请核对适用模型、额度和有效期，详见 [资源包使用规则](#guides/packages)。
+    <Accordion title="Which models can I use with subscriptions and packages?">
+      You can use Audio Subscription plans with all speech models via the T2A v2 and T2A large v2 APIs. Video Packages support Hailuo video models, but do not currently support MiniMax H3. Before you buy, check the supported models, included points, and plan duration. For details, see [Package Usage Rules](#guides/packages).
     </Accordion>
 
-    <Accordion title="资源包到期后，剩余额度可以保留吗？">
-      不可以。资源包余量不继承，到期清零。请结合预估用量和有效期选择合适的规格。
+    <Accordion title="What happens to unused video points when my package expires?">
+      Any unused video points expire when your package ends, and your video point balance resets to zero. Each of the four standard video packages is valid for one month.
     </Accordion>
   </section>
 </div>

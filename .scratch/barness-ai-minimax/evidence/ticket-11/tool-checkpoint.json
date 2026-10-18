@@ -1,0 +1,80 @@
+{
+  "kind": "tools-source-checkpoint",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "paidPrepares": 0,
+  "tests": {
+    "launcher": 16,
+    "renewal": 11
+  },
+  "files": {
+    "README.md": {
+      "sha256": "6678c8f813be3dac85143bb363ccb7a6a021c1c7204c3023c752fe9b296c2bff",
+      "lines": 164
+    },
+    "RENEWAL.md": {
+      "sha256": "2473a6ff20e31485ec4f577ade25d496b29cdc85975ec2861480a4ce0761e32e",
+      "lines": 119
+    },
+    "paid.py": {
+      "sha256": "abefec50b8f245f774d54e20c8ceb4136dfc6a79dc993bb667ffc98657d3c389",
+      "lines": 281
+    },
+    "paid_core.py": {
+      "sha256": "ff571d46a6d49e2180b9d49587375fd580307781698cacecc6b0cf5b59f1268b",
+      "lines": 183
+    },
+    "paid_history.py": {
+      "sha256": "a56b2bc83530829335762a46f48917a15ad268619e9e0d167c2d863cd743eae0",
+      "lines": 38
+    },
+    "paid_plan.py": {
+      "sha256": "8213089eee34ff2ff4ad973b835886c167b90fc8fd8ac0b9af7f96eb79979a5a",
+      "lines": 147
+    },
+    "renewal.py": {
+      "sha256": "2cfb31ac7ee5961089e7aba67212f056e84a158cd20b46aeba258f0c0e09c127",
+      "lines": 128
+    },
+    "test_paid.py": {
+      "sha256": "8a113f307d1beeb06a066b8cdbe0aa4635778dfe3ac90888bfe7a6d0c5a32945",
+      "lines": 410
+    },
+    "test_renewal.py": {
+      "sha256": "c5122f3e40ba35f8d2c9db7bd6fb40debad1c0b63f80003f9601fcbf309af706",
+      "lines": 231
+    }
+  },
+  "logs": {
+    "renewal-red.log": {
+      "originalSha256": "df5293a7a905f93fc0d2511d1f48e4b5bd84eb78491a297caa9c3495844b7d70",
+      "curatedSha256": "6bd63c01c4edac510d6b8e3084d68d209638a93af8084906f3efec2c345fd00c"
+    },
+    "notrun-identity-red.log": {
+      "originalSha256": "94ab9b2f680a9548c473716ba17392f3908e0b4fad0d0e99fb8119e735bbfe9a",
+      "curatedSha256": "bda80480edaef93fa83661cac63dba4a31593508cf931b86f76e0e8dbbae2c33"
+    },
+    "slot-label-red.log": {
+      "originalSha256": "9cd75215b5197901fba7b10c4012b84e054be3018a686fbedb16bd7e1a5805f2",
+      "curatedSha256": "6c55bcadf0d635a0870292033bd0a7be2600a3cd4246600ecac059bef607ab99"
+    },
+    "slot-proof-red.log": {
+      "originalSha256": "f1a97cd396e2a1214cee484216813b5e960819ed5b7649a6a31dfe691955614a",
+      "curatedSha256": "4100491ddbaf15983b0372bf47331c185d526c84fd10dc4f4f5853f9a98fa088"
+    },
+    "launcher-green.log": {
+      "originalSha256": "5c51b191c032de664494f08bb7de01596434d63a38033dc7e57cc61821903487",
+      "curatedSha256": "5c51b191c032de664494f08bb7de01596434d63a38033dc7e57cc61821903487"
+    },
+    "renewal-green.log": {
+      "originalSha256": "ca3cb23fc900124455fbcecc2576877dcea9f9b4d96a234d840ea101ed7b628a",
+      "curatedSha256": "ca3cb23fc900124455fbcecc2576877dcea9f9b4d96a234d840ea101ed7b628a"
+    },
+    "launcher-red.log.gz": {
+      "originalSha256": "3640012447f5d363001736bd8fc06c8d55ca31bb137dc165791dd07c3db25e07",
+      "curatedSha256": "cfc1179bec202f26c1906673c902c7d54a99bdcd52bd1ab5ca4e52a8a5eed284",
+      "compression": "gzip; text bytes preserved including captured whitespace",
+      "compressedSha256": "41a0de6063a5e2932886cea10b76ff65cf65ddb547bff186925296e3821d06bc"
+    }
+  }
+}

@@ -53,6 +53,9 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	if e != nil || id != r.Identity {
 		return r, fmt.Errorf("MiniMax identity mismatch")
 	}
+	if id.Model == M31 && !strings.Contains(strings.Join(r.Unknown, "\n"), UnpricedM31Warning) {
+		return r, fmt.Errorf("MiniMax M3.1 price unknown context missing")
+	}
 	source, e := ExecutionSource()
 	if e != nil || !reflect.DeepEqual(source, r.ExecutionSource) {
 		return r, fmt.Errorf("MiniMax execution source set changed")
@@ -77,7 +80,7 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	if err != nil || hash != r.CatalogHash || cat.Version != r.CatalogVersion {
 		return r, fmt.Errorf("MiniMax selected catalog/price snapshot is stale")
 	}
-	if _, ok := cat.Lookup(ai.ProviderMiniMaxCN, id.API, id.Model); !ok {
+	if _, ok := cat.Lookup(ai.ProviderMiniMax, id.API, id.Model); !ok {
 		return r, fmt.Errorf("MiniMax formal identity is absent")
 	}
 	if formal && (r.Kind != "minimax-formal" || r.Mode != "live" || r.Stage != "formal" || id.Model != M3) {

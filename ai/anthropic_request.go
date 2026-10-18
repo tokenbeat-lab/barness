@@ -217,7 +217,7 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 	if v, ok := model.Compat.SupportsTemperature.Get(); ok {
 		supportsTemperature = v
 	}
-	if (!enabled && !managed && supportsTemperature) || model.Provider == ProviderMiniMaxCN {
+	if (!enabled && !managed && supportsTemperature) || model.Provider == ProviderMiniMax {
 		body.Temperature = opts.Temperature
 	}
 
@@ -245,7 +245,7 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 		body.Thinking = &anthropicThinking{Type: "adaptive", Display: display,
 			BlockBinding: &anthropicBlockBinding{PrefixMismatchBehavior: "drop_block"}}
 		body.OutputConfig = &anthropicOutputConfig{Effort: AnthropicEffortHigh}
-	case model.Provider == ProviderMiniMaxCN:
+	case model.Provider == ProviderMiniMax:
 		// Omission keeps the service default, including mandatory M3.1.
 		if enabled {
 			body.Thinking = &anthropicThinking{Type: "adaptive"}

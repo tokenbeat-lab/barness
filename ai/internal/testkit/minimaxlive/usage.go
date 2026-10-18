@@ -82,7 +82,7 @@ func verifyUsage(dir string, r Report, result Capture, raw []json.RawMessage) er
 		if e != nil || hash != r.CatalogHash || catalog.Version != r.CatalogVersion {
 			return fmt.Errorf("MiniMax catalog hash differs")
 		}
-		model, ok := catalog.Lookup(ai.ProviderMiniMaxCN, r.Identity.API, r.Identity.Model)
+		model, ok := catalog.Lookup(ai.ProviderMiniMax, r.Identity.API, r.Identity.Model)
 		if !ok {
 			return fmt.Errorf("MiniMax captured model absent")
 		}

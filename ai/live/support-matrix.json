@@ -1284,23 +1284,23 @@
       ]
     },
     {
-      "combo": "minimax-cn-chat",
+      "combo": "minimax-chat",
       "operation": "chat",
-      "provider": "minimax-cn",
+      "provider": "minimax",
       "api": "openai-completions",
       "model": "MiniMax-M3"
     },
     {
-      "combo": "minimax-cn-responses",
+      "combo": "minimax-responses",
       "operation": "chat",
-      "provider": "minimax-cn",
+      "provider": "minimax",
       "api": "openai-responses",
       "model": "MiniMax-M3"
     },
     {
-      "combo": "minimax-cn-messages",
+      "combo": "minimax-messages",
       "operation": "chat",
-      "provider": "minimax-cn",
+      "provider": "minimax",
       "api": "anthropic-messages",
       "model": "MiniMax-M3"
     }

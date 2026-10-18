@@ -23,7 +23,7 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 45*time.Second)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, exe, "-test.run=^TestMiniMaxCandidate$", "-test.timeout=40s")
-	cmd.Env = []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=chat", "BARNESS_MINIMAX_MODEL=MiniMax-M3", "BARNESS_MINIMAX_PURPOSE=standard", "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=cn-test", "BARNESS_MINIMAX_CONTROLLED=success-chat", "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + base}
+	cmd.Env = []string{"BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE=chat", "BARNESS_MINIMAX_MODEL=MiniMax-M3", "BARNESS_MINIMAX_PURPOSE=standard", "BARNESS_MINIMAX_KEY=synthetic-minimax", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=global-test", "BARNESS_MINIMAX_CONTROLLED=success-chat", "BARNESS_MINIMAX_LEDGER=" + filepath.Join(base, "stage.jsonl"), "BARNESS_AI_EVIDENCE_DIR=" + base}
 	output, e := cmd.CombinedOutput()
 	if e != nil {
 		t.Fatalf("controlled source failed: %v %s", e, output)
@@ -41,7 +41,7 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 	for name := range original {
 		saved[name], _ = os.ReadFile(filepath.Join(dir, name))
 	}
-	for _, name := range []string{"candidate-mode-spoof", "formal-mode-spoof", "formal-controlled", "invented-case", "omitted-attempt", "altered-usage", "coordinated-usage", "altered-request", "altered-events", "source-addition", "source-deletion", "ledger-omission", "unknown-field", "duplicate-field", "noncanonical-field", "extra-file", "unsafe-file"} {
+	for _, name := range []string{"cn-identity", "cn-provider", "cn-source", "cn-prices", "candidate-mode-spoof", "formal-mode-spoof", "formal-controlled", "invented-case", "omitted-attempt", "altered-usage", "coordinated-usage", "altered-request", "altered-events", "source-addition", "source-deletion", "ledger-omission", "unknown-field", "duplicate-field", "noncanonical-field", "extra-file", "unsafe-file"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "MM07-validator-"+name)
 			for path, raw := range saved {
@@ -57,6 +57,22 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 				os.WriteFile(filepath.Join(dir, path), raw, 0600)
 			}
 			switch name {
+
+			case "cn-identity":
+				mutate(minimaxlive.ReportFile, func(v map[string]any) { v["identity"].(map[string]any)["endpoint"] = "https://api.minimax.cn/v1" })
+			case "cn-provider":
+				mutate("MM07-full-stream/result.json", func(v map[string]any) {
+					v["result"].(map[string]any)["metadata"].(map[string]any)["providerId"] = "minimax-cn"
+				})
+			case "cn-source":
+				mutate(minimaxlive.ReportFile, func(v map[string]any) {
+					v["sourceHash"] = "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a"
+				})
+			case "cn-prices":
+				mutate(minimaxlive.ReportFile, func(v map[string]any) {
+					v["catalogHash"] = "sha256:0ef9cf881b44453009017f52b120b44ad575f4ecd6c35cf79e956f2d2ba66659"
+					v["catalogVersion"] = "minimax-m3-standard-priced-candidate-2026-10-18.1"
+				})
 			case "candidate-mode-spoof", "formal-mode-spoof":
 				mutate(minimaxlive.ReportFile, func(v map[string]any) {
 					v["mode"] = "live"

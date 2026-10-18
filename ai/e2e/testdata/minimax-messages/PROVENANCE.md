@@ -8,8 +8,8 @@ synthetic. Candidate prices are explicitly synthetic test rates.
 
 The protocol field vocabulary and request shapes were checked against the
 2026-10-18 official OpenAPI snapshot:
-<https://platform.minimax.cn/docs/api-reference/text/api/openapi-chat-anthropic.json>
-(SHA-256 `57111d5dddd2ada7f481e5c373d88c745eba0b852b60bf1ca20096c61f28b77c`),
+<https://platform.minimax.io/docs/api-reference/text/api/openapi-chat-anthropic.json>
+(SHA-256 `867ac2ff2f6ceb9da629bdeb2c0172c6af95a25864adc3323e643229eddd45b0`),
 plus the frozen local spec/research. Public enum omissions do not establish
 that a stream feature is unsupported.
 
@@ -29,4 +29,12 @@ request ID headers and M3.1 qualification stay separate ticket07 obligations;
 these synthetic results cannot certify any live capability.
 
 Replay and immutable assertion/event/Result/Attempt/Observer bundles:
-[Ticket04 evidence](../../../../.scratch/barness-ai-minimax/evidence/ticket-04/README.md).
+[Current international evidence](../../../../.scratch/barness-ai-minimax/evidence/ticket-11/README.md).
+[Ticket04 evidence](../../../../.scratch/barness-ai-minimax/evidence/ticket-04/README.md) retains its original historical CN applicability.
+
+International applicability was rechecked for ticket11 using independently
+retrieved2026-10-18 `.io` snapshots. The three OpenAPI structural schemas match
+the historical CN shapes after prose metadata is excluded; this is not live
+wire/account/pricing proof. Historical CN captures and source hashes remain
+immutable in their original evidence archives; no CN native origin qualifies
+an international continuation. See ADR-0042 and research-international.md.

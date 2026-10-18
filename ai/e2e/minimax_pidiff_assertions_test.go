@@ -119,6 +119,6 @@ func TestMiniMaxPiLedgerBounds(t *testing.T) {
 	ev.Check("other protocol stays pending", !l.Classify("openai-completions", "PIDIFF-MM06-messages-text-stream", []pioracle.Diff{diff}).Pass, "protocol scope widened")
 	diff.Path = "request.body.model"
 	ev.Check("unlisted field stays pending", !l.Classify("anthropic-messages", "PIDIFF-MM06-messages-text-stream", []pioracle.Diff{diff}).Pass, "whole request exempted")
-	_, blanket := l.Route("minimax-cn", "anthropic-messages")
+	_, blanket := l.Route("minimax", "anthropic-messages")
 	ev.Check("existing MiniMax Messages route never exempted", !blanket, "native route hidden")
 }

@@ -1,4 +1,4 @@
-# MiniMax 中国区 Host 示例
+# MiniMax 国际站 Host 示例
 
 [English](README.md)。2026-10-18 当前状态：三协议和六个候选身份有离线机制验收，
 **M3 正式支持仍待工单10**。M3.1 没有已确认的 M Plan 资格或有来源的正式价格，不能继承
@@ -25,9 +25,9 @@ bindings, err := minimaxhost.Bindings(minimaxhost.Authorization{
 
 | 后缀 | API | 基址 | 最终资源 | 认证 |
 | --- | --- | --- | --- | --- |
-| chat | openai-completions | https://api.minimax.cn/v1 | /v1/chat/completions | Bearer |
-| responses | openai-responses | https://api.minimax.cn/v1 | /v1/responses | Bearer |
-| messages | anthropic-messages | https://api.minimax.cn/anthropic | /anthropic/v1/messages | x-api-key |
+| chat | openai-completions | https://api.minimax.io/v1 | /v1/chat/completions | Bearer |
+| responses | openai-responses | https://api.minimax.io/v1 | /v1/responses | Bearer |
+| messages | anthropic-messages | https://api.minimax.io/anthropic | /anthropic/v1/messages | x-api-key |
 
 BindingID 含 `minimax-standard-` 或 `minimax-m-plan-`。两种用途使用独立凭据引用和授权；
 同租户、同真实账户、同用途的三协议可以在明确许可下共享一个 CredentialRef。AccountScopeID
@@ -78,7 +78,7 @@ client, err := ai.NewClient(ai.Config{
 // 检查 err。可信部署可统一收紧输出预算，不触碰已授权型号和思考默认。
 bounded := client.WithHooks(ai.Hooks{OnPayload: func(_ context.Context,
     _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
-    if p.ProviderID == ai.ProviderMiniMaxCN {
+    if p.ProviderID == ai.ProviderMiniMax {
         field := map[ai.API]string{
             ai.APIOpenAICompletions: "max_completion_tokens",
             ai.APIOpenAIResponses: "max_output_tokens",
@@ -158,7 +158,8 @@ Responses 只有 SessionID 且 retention 非 none 时派生租户/账户/session
 Usage 缺失/部分/中断不等于已上报零。Messages 总输入是 Input+CacheRead+CacheWrite；
 Chat/Responses 从输入总量拆出缓存部分；Reasoning 属于 Output，不重复累计或计费。
 CostRates 是 USD/百万 tokens，UsageCost 是 USD；CatalogVersion/Hash 标识固定价格快照。
-正式 M3 需有日期来源的人民币→美元换算及输入总量 512000 含等号的阶梯边界。未知缓存写入
+M3 标准价格采用有日期来源的国际站原生美元快照；官方只写512k，512000是保守项目估算策略，
+取得可靠整数定义后再修订。未知缓存写入
 或 M3.1 价格不能填零或复制；当前候选合成费率不是真实按量/M Plan 报价。取消只停止本地
 工作，不保证远端停算或免计费。
 
@@ -195,3 +196,5 @@ go test ./ai/e2e -run '^TestMiniMax(Host|FullRollback)' -count=1
 
 [工单08证据](../../../.scratch/barness-ai-minimax/evidence/ticket-08/README.md)含配置、完整
 软件恢复及脱敏审计。它不续订历史真实支持，不绕过工单09/10最终发布门禁。
+
+08证据保留历史中国区适用性；[11证据](../../../.scratch/barness-ai-minimax/evidence/ticket-11/README.md)记录当前国际站离线观察，不授予真实服务支持。

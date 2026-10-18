@@ -5,6 +5,8 @@ date: 2026-10-18
 
 # MiniMax Responses：独立能力、权威输出与无损候选历史投影
 
+地区/Provider、来源和价格的当前适用性由[ADR-0042](0042-barness-ai-minimax-international-target.md)取代；下文保留初始中国区决策及历史证据上下文。既有协议约束、可信历史、正写入缺价保护和晋升边界继续有效，国际站须取得自身证据。
+
 ## Context
 
 [MiniMax spec](../../.scratch/barness-ai-minimax/spec.md) R07–R08、R12–R14 与

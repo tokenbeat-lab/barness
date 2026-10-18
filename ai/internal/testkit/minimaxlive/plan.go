@@ -12,6 +12,7 @@ const M3 = "MiniMax-M3"
 const M31 = "MiniMax-M3.1-Flash-Preview"
 const ReportFile = "minimax-report.json"
 const SealFile = "minimax-integrity.json"
+const UnpricedM31Warning = "M3.1 price unknown; usage is raw provider evidence; Cost is synthetic mechanism output, not M Plan fees"
 
 type Identity struct {
 	Route    string `json:"route"`
@@ -44,7 +45,10 @@ func Select(route, model, purpose string) (Identity, error) {
 	}
 	return id, nil
 }
-func (id Identity) Key() string { return id.Route + "/" + id.Model + "/" + id.Purpose }
+
+// BudgetSlot is finite across the international target replacement. Historical
+// CN consumption shares this cap; exact Identity still governs proof and cases.
+func (id Identity) BudgetSlot() string { return id.Route + "/" + id.Model + "/" + id.Purpose }
 
 type Case struct {
 	ID       string `json:"id"`

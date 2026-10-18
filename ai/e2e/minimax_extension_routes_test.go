@@ -45,7 +45,7 @@ func TestMiniMaxExtensionRoutes(t *testing.T) {
 				ev.Fixture("extension-inventory.json", raw)
 				ev.Record("pi-status", map[string]string{"classification": "extension", "piParity": "NOT_RUN", "pidiffSkip": sc.PidiffSkip, "source": sc.Source, "kind": sc.Kind})
 				ev.Check("explicit scoped pi skip", sc.PidiffSkip != "" && sc.Source != "" && (sc.Kind == "route" || sc.Kind == "model"), "%+v", sc)
-				registered, routeExtension := loadLedger(t).Route("minimax-cn", string(sc.API))
+				registered, routeExtension := loadLedger(t).Route("minimax", string(sc.API))
 				ev.Check("exact route inventory", sc.API == ai.APIAnthropicMessages && !routeExtension || sc.API != ai.APIAnthropicMessages && routeExtension && registered.Classification == pioracle.Extension, "%+v", registered)
 				var w *world
 				var target ai.Target
@@ -71,7 +71,7 @@ func TestMiniMaxExtensionRoutes(t *testing.T) {
 				ev.Record("requests", w.provider.Requests())
 				ev.Record("catalog", w.client.Catalog())
 				ev.Check("own extension is independently executed", o.err == nil && len(w.provider.Requests()) == 1 && len(o.result.Metadata.Attempts) == 1 && textOf(o.result.Message) == sc.ExpectedText && o.result.Message.StopReason == ai.StopReasonStop, "%v %+v", o.err, o.result.Message)
-				ev.Check("actual route/model identity preserved", o.result.Message.Provider == ai.ProviderMiniMaxCN && o.result.Message.API == sc.API && o.result.Message.Model == sc.Model, "%+v", o.result.Message)
+				ev.Check("actual route/model identity preserved", o.result.Message.Provider == ai.ProviderMiniMax && o.result.Message.API == sc.API && o.result.Message.Model == sc.Model, "%+v", o.result.Message)
 				if sc.Kind == "model" {
 					ev.Check("new model cannot borrow M3 frozen identity", sc.Model == "MiniMax-M3.1-Flash-Preview" && strings.Contains(sc.PidiffSkip, "M3.1"), "%+v", sc)
 				}

@@ -38,7 +38,7 @@ class Renewal(unittest.TestCase):
    'elif "./ai/live/cmd/glmformal" in a:\n p=pathlib.Path(a[a.index("-out")+1]);p.mkdir();(p/"live-report.json").write_text("{}");(p/"original"/"case").mkdir(parents=True);(p/"original"/"case"/"result.json").write_text("{}")\n'
    'print(json.dumps({"environmentKeys":sorted(os.environ)}))\n').encode());(self.bin/'go').chmod(0o755)
   self.write('fake-bin/producer',('#!'+sys.executable+'\nimport os,json,pathlib,subprocess\nr=os.environ["BARNESS_MINIMAX_ROUTE"];p=pathlib.Path(os.environ["BARNESS_AI_EVIDENCE_DIR"])/"session";p.mkdir(parents=True)\n'
-   'd={"outcome":"NOT_RUN","complete":False,"mode":"live","stage":"candidate","identity":{"route":r,"model":"MiniMax-M3.1-Flash-Preview","purpose":"mplan"},"budget":{"calls":0,"reservedAttempts":0,"attempts":0,"requestedOutput":0,"reservedInput":0},"gitCommit":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()}\n'
+   'd={"outcome":"NOT_RUN","complete":False,"mode":"live","stage":"candidate","identity":{"route":r,"model":"MiniMax-M3.1-Flash-Preview","purpose":"mplan","api":{"chat":"openai-completions","responses":"openai-responses","messages":"anthropic-messages"}[r],"endpoint":"https://api.minimax.io/"+("anthropic" if r=="messages" else "v1")},"budget":{"calls":0,"reservedAttempts":0,"attempts":0,"requestedOutput":0,"reservedInput":0},"gitCommit":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()}\n'
    '(p/"minimax-report.json").write_text(json.dumps(d));print(json.dumps({"environmentKeys":sorted(os.environ)}))\n').encode())
   self.env={'PATH':str(self.bin)+os.pathsep+os.environ['PATH'],'HOME':str(self.root/'home'),'OPENAI_API_KEY':'FORBIDDEN-AMBIENT','HTTP_PROXY':'http://forbidden.invalid'}
   (self.root/'.env').mkdir()
@@ -112,24 +112,39 @@ class Renewal(unittest.TestCase):
   args[1]='.evidence/minimax-renewal-mixed';self.runcli(*args,ok=False)
   self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),original)
  def test_origin_index_only_accepts_successful_canonical_receipt(self):
-  base='own-mm/session';identity={'route':'chat','model':'MiniMax-M3','purpose':'standard','api':'openai-completions','endpoint':'https://api.minimax.cn/v1'}
+  base='own-mm/session';identity={'route':'chat','model':'MiniMax-M3','purpose':'standard','api':'openai-completions','endpoint':'https://api.minimax.io/v1'}
   commit=self.git('rev-parse','HEAD')
   self.put(base+'/minimax-report.json',{'mode':'live','outcome':'PASS','complete':True,'stage':'candidate','identity':identity,'session':'session','gitCommit':commit})
   self.put(base+'/minimax-integrity.json',{'fixture':'seal'});self.put(base+'/minimax-ledger.json',{'fixture':'ledger'})
   origin={'schema':1,'stage':'candidate','identity':identity,'session':'session','sourceCommit':commit,'sourceManifestSha256':'a'*64,'binariesManifestSha256':'b'*64,'planSha256':'c'*64}
   for key,name in [('reportSha256','minimax-report.json'),('sealSha256','minimax-integrity.json'),('ledgerSha256','minimax-ledger.json')]:origin[key]=hashlib.sha256((self.root/base/name).read_bytes()).hexdigest()
-  receipt={'state':'COMPLETED','exitCode':0,'credentialsRead':True,'route':'mm-candidate-m3-chat','sourceCommit':commit,'launcherAudit':{'passed':True},'origin':origin}
+  receipt={'state':'COMPLETED','exitCode':0,'credentialsRead':True,'route':'mm-global-candidate-m3-chat','sourceCommit':commit,'launcherAudit':{'passed':True},'origin':origin}
   # A bundle-local receipt is never accepted as actual-origin authority.
   self.put(base+'/receipt.json',receipt)
-  self.runcli('origins','.evidence/minimax-origin-invalid','--bundle','mm-candidate-m3-chat='+base,ok=False)
-  path='.evidence/minimax-launches/mm-candidate-m3-chat.json';self.put(path,receipt)
-  self.runcli('origins','.evidence/minimax-origin-current','--bundle','mm-candidate-m3-chat='+base)
+  self.runcli('origins','.evidence/minimax-origin-invalid','--bundle','mm-global-candidate-m3-chat='+base,ok=False)
+  path='.evidence/minimax-launches/mm-global-candidate-m3-chat.json';self.put(path,receipt)
+  self.runcli('origins','.evidence/minimax-origin-current','--bundle','mm-global-candidate-m3-chat='+base)
   index=json.loads((self.root/'ai/live/testdata/minimax-formal/origins.json').read_text())
   entry=index['entries'][origin['reportSha256']]
   self.assertEqual(entry['origin'],origin)
   self.assertEqual(entry['launcherReceiptSha256'],hashlib.sha256((self.root/path).read_bytes()).hexdigest())
   receipt['credentialsRead']=False;self.put(path,receipt)
-  self.runcli('origins','.evidence/minimax-origin-failed','--bundle','mm-candidate-m3-chat='+base,ok=False)
+  self.runcli('origins','.evidence/minimax-origin-failed','--bundle','mm-global-candidate-m3-chat='+base,ok=False)
+ def test_global_origin_names_cannot_borrow_cn_identity_or_old_name(self):
+  base='cn-own/session';identity={'route':'chat','model':'MiniMax-M3','purpose':'standard','api':'openai-completions','endpoint':'https://api.minimax.cn/v1'}
+  commit=self.git('rev-parse','HEAD')
+  self.put(base+'/minimax-report.json',{'mode':'live','outcome':'PASS','complete':True,'stage':'candidate','identity':identity,'session':'session','gitCommit':commit})
+  self.put(base+'/minimax-integrity.json',{});self.put(base+'/minimax-ledger.json',{})
+  origin={'schema':1,'stage':'candidate','identity':identity,'session':'session','sourceCommit':commit,'sourceManifestSha256':'a'*64,'binariesManifestSha256':'b'*64,'planSha256':'c'*64}
+  for key,name in [('reportSha256','minimax-report.json'),('sealSha256','minimax-integrity.json'),('ledgerSha256','minimax-ledger.json')]:origin[key]=hashlib.sha256((self.root/base/name).read_bytes()).hexdigest()
+  receipt={'state':'COMPLETED','exitCode':0,'credentialsRead':True,'route':'mm-global-candidate-m3-chat','sourceCommit':commit,'launcherAudit':{'passed':True},'origin':origin}
+  self.put('.evidence/minimax-launches/mm-global-candidate-m3-chat.json',receipt)
+  before=(self.root/'ai/live/testdata/minimax-formal/origins.json').read_bytes()
+  self.runcli('origins','.evidence/minimax-cn-spoof','--bundle','mm-global-candidate-m3-chat='+base,ok=False)
+  self.put('.evidence/minimax-launches/mm-candidate-m3-chat.json',receipt)
+  self.runcli('origins','.evidence/minimax-old-name','--bundle','mm-candidate-m3-chat='+base,ok=False)
+  self.assertEqual((self.root/'ai/live/testdata/minimax-formal/origins.json').read_bytes(),before)
+
  def test_three_not_run_processes_never_acquire_key_or_paid_intents(self):
   command=[sys.executable,str(self.tools/'paid.py'),'prepare','prepared']
   subprocess.run(command,cwd=self.root,env=self.env,check=True,capture_output=True,timeout=15)
@@ -142,6 +157,13 @@ class Renewal(unittest.TestCase):
    text=(self.root/f'prepared/m31-not-run-{route}.log').read_text()
    self.assertNotIn('OPENAI_API_KEY',text);self.assertNotIn('HTTP_PROXY',text)
    self.assertNotIn('BARNESS_MINIMAX_KEY',text);self.assertNotIn('BARNESS_MINIMAX_ENTITLEMENT',text)
+
+ def test_keyless_not_run_cannot_report_archived_cn_identity(self):
+  producer=self.bin/'producer';producer.write_text(producer.read_text().replace('https://api.minimax.io/','https://api.minimax.cn/'))
+  subprocess.run([sys.executable,str(self.tools/'paid.py'),'prepare','prepared'],cwd=self.root,env=self.env,check=True,capture_output=True,timeout=15)
+  self.runcli('m31-not-run','prepared',ok=False)
+  self.assertFalse((self.root/'.evidence/minimax-launches').exists())
+  self.assertFalse((self.root/'.evidence/minimax-stages/candidate.jsonl').exists())
 
  def test_empty_directory_fanout_and_depth_refuse_before_selector_writes(self):
   values=self.captures();base=self.root/'raw/chat/session'

@@ -8,7 +8,7 @@ GENERIC = (
  ('openai-images','openai','OPENAI_KEY',4),('google-interactions-image','google','GEMINI_KEY',4),
  ('openai-decisions','openai','OPENAI_KEY',12),('typesafe-classifier','typesafe','TYPESAFE_KEY',6))
 LIVE_IDENTITIES = [r[0] for r in GENERIC]+['typesafe-classifier-jev-1.14.0']+[
- 'zhipu-'+r for r in ('chat','responses','messages')]+['minimax-cn-'+r for r in ('chat','responses','messages')]
+ 'zhipu-'+r for r in ('chat','responses','messages')]+['minimax-'+r for r in ('chat','responses','messages')]
 PROVIDER_CAPS = {'openai':116,'anthropic':32,'google':36,'deepseek':64,'typesafe':54,'zhipu':72}
 
 
@@ -58,14 +58,14 @@ def jobs(root, out, common):
             if short=='m31' and phase=='formal':continue
             stage='formal' if phase=='formal' else 'candidate'
             for route in ('chat','responses','messages'):
-                name='mm-'+phase+'-'+short+'-'+route
+                name='mm-global-'+phase+'-'+short+'-'+route
                 env={'BARNESS_AI_LIVE':'1','BARNESS_MINIMAX_ROUTE':route,'BARNESS_MINIMAX_MODEL':model,
                      'BARNESS_MINIMAX_PURPOSE':purpose,'BARNESS_MINIMAX_ENTITLEMENT':'confirmed',
-                     'BARNESS_MINIMAX_ACCOUNT_ALIAS':'minimax-cn-'+purpose,
-                     'BARNESS_MINIMAX_REGION_ALIAS':'cn','BARNESS_AI_EVIDENCE_DIR':str(out/name),
+                     'BARNESS_MINIMAX_ACCOUNT_ALIAS':'minimax-global-'+purpose,
+                     'BARNESS_MINIMAX_REGION_ALIAS':'global','BARNESS_AI_EVIDENCE_DIR':str(out/name),
                      'BARNESS_MINIMAX_LEDGER':str(common/'.evidence/minimax-stages'/(stage+'.jsonl'))}
                 if phase=='research':env['BARNESS_MINIMAX_RESEARCH']='1'
-                if phase=='candidate':env['BARNESS_MINIMAX_PREDECESSOR_ROOT']=str(common/'.evidence/minimax-research-captures'/('mm-research-'+short+'-'+route))
+                if phase=='candidate':env['BARNESS_MINIMAX_PREDECESSOR_ROOT']=str(common/'.evidence/minimax-research-captures'/('mm-global-research-'+short+'-'+route))
                 if phase=='formal':env['BARNESS_MINIMAX_FORMAL']='1'
                 selector='^TestMiniMax'+phase.title()+'$'
                 add(name,'minimax',key,'BARNESS_MINIMAX_KEY',
@@ -74,6 +74,13 @@ def jobs(root, out, common):
                     route=route,plannedCalls=3 if phase=='research' else 13,maxOutputTokens=4096,
                     maxRequestedOutput=40000,maxReservedInput=120000,maxToolReruns=0 if phase=='research' else 1,maxRequestReruns=0 if phase=='research' else 3)
     return result
+
+
+def identity(job):
+    route=job['route']
+    return dict(route=route,model=job['model'],purpose=job['purpose'],
+                api={'chat':'openai-completions','responses':'openai-responses','messages':'anthropic-messages'}[route],
+                endpoint='https://api.minimax.io/'+('anthropic' if route=='messages' else 'v1'))
 
 
 def authorizations(out, catalog_hash):
@@ -113,7 +120,7 @@ def live_inputs(out):
     result['typesafe-classifier-jev-1.14.0']=out/'support'
     for r in ('chat','responses','messages'):
         result['zhipu-'+r]=unique(out/('glm-'+r),'live-report.json')
-        result['minimax-cn-'+r]=unique(out/('mm-formal-m3-'+r),'live-report.json')
+        result['minimax-'+r]=unique(out/('mm-global-formal-m3-'+r),'live-report.json')
     for path in result.values():
         if not (path/'live-report.json').is_file():raise RuntimeError('own live report missing')
     return [result[n] for n in LIVE_IDENTITIES]
@@ -128,7 +135,7 @@ def keyless_plan(root,out):
     commands.append(['go','run','./ai/live/cmd/jevformal','-verify',str(out/'support'),'-require-live'])
     for r in ('chat','responses','messages'):
         commands.append(['go','run','./ai/live/cmd/minimaxverify','-formal',
-                         str(unique(out/('mm-formal-m3-'+r),'minimax-report.json'))])
+                         str(unique(out/('mm-global-formal-m3-'+r),'minimax-report.json'))])
     inputs=list(map(str,live_inputs(out)))
     merge=['go','run','./ai/live/cmd/supportmatrix',*inputs]
     gate=['go','run','./ai/release/cmd/releasegate','-out',str(out/'gate'),

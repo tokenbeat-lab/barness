@@ -16,7 +16,7 @@ Derived support views require the new raw selector/index bytes committed first,
 and use the existing public Go derivation/importer. No new view can borrow old
 archives. MiniMax origin indexing accepts only the fixed common-root canonical
 successful launcher receipts, never a receipt or index from an imported bundle;
-report/seal/ledger/identity/source pins and public verification must agree before
+report/seal/ledger/exact global identity/source pins and public verification must agree before
 publishing. M3.1 NOT_RUN invokes only three exact candidate processes with no
 key, entitlement or live switch, without paid intents or stage reservations.
 
@@ -74,13 +74,15 @@ To preserve portable MiniMax origins, supply only own candidate/formal bundles:
 
 ```sh
 python3 .scratch/barness-ai-minimax/tools/renewal.py origins .evidence/minimax-origin-index \
-  --bundle mm-candidate-m3-chat=<own-bundle> \
-  --bundle mm-formal-m3-chat=<own-bundle>
+  --bundle mm-global-candidate-m3-chat=<own-bundle> \
+  --bundle mm-global-formal-m3-chat=<own-bundle>
 ```
 
-Repeat the exact route names for Responses/Messages as appropriate. The helper
+Repeat the exact route names for Responses/Messages as appropriate. Current
+proof requires the exact `.io` endpoint and protocol; CN identities and the old
+launcher names cannot be indexed as global evidence. The helper
 reads authority exclusively from common-root
-`.evidence/minimax-launches/mm-{candidate,formal}-m3-{route}.json`, checks actual
+`.evidence/minimax-launches/mm-global-{candidate,formal}-m3-{route}.json`, checks actual
 completion/key-acquisition/audit/source/report/seal/ledger pins and invokes
 public `minimaxverify` before updating trusted `origins.json`. Imported receipt
 or origin files are never authority. Existing trusted entries are retained;
@@ -108,6 +110,10 @@ python3 .scratch/barness-ai-minimax/tools/test_renewal.py
 
 The initial missing-CLI red log preceded implementation; the enumeration and
 coherent report/seal mutation checks each failed before their Standards fixes.
-Nine controlled executable checks now pass, including empty-directory fanout,
+Eleven controlled executable checks now pass, including empty-directory fanout,
 excess depth, bounded bundle lookup and four original capture pins. Logs are preserved by the parent evidence
 assembly; each check can be repeated without credentials or network access.
+
+International-switch failure inventory: a keyless M3.1 NOT_RUN process must
+preserve the exact current global protocol/endpoint identity; archived CN
+identity metadata cannot substitute for a current missing-entitlement outcome.

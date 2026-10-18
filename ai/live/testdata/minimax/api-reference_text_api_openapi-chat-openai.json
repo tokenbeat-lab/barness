@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "MiniMax Text API OpenAI",
-    "description": "MiniMax 文本生成 API，支持对话补全与流式输出。\n\n> ⚡ **`MiniMax-M3.1-Flash-Preview` 亮点** —— **1M 超长上下文**、**多模态**、**思考深度可调**。\n",
+    "description": "MiniMax text generation API with support for chat completion and streaming output.\n\n> ⚡ **`MiniMax-M3.1-Flash-Preview` highlights** — **1M long context**, **multimodal**, and **tunable thinking depth**.\n",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.minimax.cn"
+      "url": "https://api.minimax.io"
     }
   ],
   "security": [
@@ -31,7 +31,7 @@
             "name": "Content-Type",
             "in": "header",
             "required": true,
-            "description": "请求体的媒介类型，请设置为 `application/json`，确保请求数据的格式为 JSON",
+            "description": "Media type of the request body, should be set to `application/json` to ensure JSON format",
             "schema": {
               "type": "string",
               "enum": [
@@ -48,7 +48,7 @@
                 "$ref": "#/components/schemas/ChatCompletionReq"
               },
               "examples": {
-                "深度思考": {
+                "Deep Thinking": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "thinking": {
@@ -57,14 +57,14 @@
                     "messages": [
                       {
                         "role": "user",
-                        "content": "9.11 和 9.9 哪个更大？"
+                        "content": "Which is bigger, 9.11 or 9.9?"
                       }
                     ],
                     "max_completion_tokens": 500,
                     "reasoning_effort": "max"
                   }
                 },
-                "图片理解": {
+                "Image Understanding": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "thinking": {
@@ -76,7 +76,7 @@
                         "content": [
                           {
                             "type": "text",
-                            "text": "这张图片的内容是什么？"
+                            "text": "What does this image show?"
                           },
                           {
                             "type": "image_url",
@@ -91,7 +91,7 @@
                     "reasoning_effort": "max"
                   }
                 },
-                "视频理解": {
+                "Video Understanding": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "thinking": {
@@ -103,7 +103,7 @@
                         "content": [
                           {
                             "type": "text",
-                            "text": "这个视频里发生了什么？"
+                            "text": "What is happening in this video?"
                           },
                           {
                             "type": "video_url",
@@ -118,7 +118,7 @@
                     "reasoning_effort": "max"
                   }
                 },
-                "流式": {
+                "Stream": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "thinking": {
@@ -130,7 +130,7 @@
                         "content": [
                           {
                             "type": "text",
-                            "text": "这张图片的内容是什么？"
+                            "text": "What does this image show?"
                           },
                           {
                             "type": "image_url",
@@ -146,13 +146,13 @@
                     "reasoning_effort": "max"
                   }
                 },
-                "工具调用": {
+                "Tool Use": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "messages": [
                       {
                         "role": "user",
-                        "content": "旧金山现在天气怎么样？"
+                        "content": "How's the weather in San Francisco?"
                       }
                     ],
                     "tools": [
@@ -193,32 +193,32 @@
                   "$ref": "#/components/schemas/ChatCompletionResp"
                 },
                 "examples": {
-                  "深度思考": {
+                  "Deep Thinking": {
                     "value": {
-                      "id": "066b36619b147e326d17053cccdef70f",
+                      "id": "066b366b8e8beeafd3b8b49f89e00648",
                       "choices": [
                         {
                           "finish_reason": "stop",
                           "index": 0,
                           "message": {
-                            "content": "**9.9 更大。**\n\n比较方法很简单：把小数位数对齐：\n\n- 9.11 = 9.11\n- 9.90 = 9.9\n\n整数部分都是 9，所以比较小数部分：90 > 11，因此 **9.9 > 9.11**。\n\n---\n\n这是一个经典的小数比较问题，容易被混淆的原因在于：如果按**字符串**逐字符比较，\"9.9\"中的 '9' 会大于 \"9.11\"中的 '1'，从而得出相反的结论。但在**数值**上，9.9 = 9.90 显然大于 9.11。",
-                            "reasoning_content": "The user is asking which is larger: 9.11 or 9.9.\n\nLet me compare these two numbers:\n- 9.11\n- 9.9 = 9.90\n\nComparing 9.11 and 9.90:\n- The integer parts are both 9.\n- Compare the decimal parts: 11 vs 90 (treating as cents: 0.11 vs 0.90)\n- 90 > 11, so 9.9 > 9.11\n\nThis is actually a famous question that is sometimes used to trick people who might confuse string comparison with numerical comparison (since \"9.11\" > \"9.9\" as strings, but numerically 9.9 > 9.11).\n\nThe answer is straightforward: 9.9 is larger.",
+                            "content": "**9.9 is bigger than 9.11.**\n\nIt can be tempting to think 9.11 > 9.9 because \"11\" looks larger than \"9,\" but decimals don't work that way. Here's why:\n\n- **9.11** = 9 + **0.11** (eleven hundredths)\n- **9.9** = 9 + **0.90** (ninety hundredths)\n\nSince 0.90 > 0.11, **9.9 is greater**. ✅\n\n**Tip:** When comparing decimals, compare them to the same number of decimal places. Write 9.9 as 9.90 — now it's easy to see that 9.90 > 9.11.",
+                            "reasoning_content": "The user is asking which is bigger, 9.11 or 9.9. This is a comparison of two decimal numbers.\n\n9.11 vs 9.9\n\nLet me think carefully:\n- 9.11 = 9 + 0.11\n- 9.9 = 9 + 0.90\n\n0.90 > 0.11, so 9.9 > 9.11.\n\nAlternatively, I can compare them as if they were both decimals to the same place:\n- 9.11\n- 9.90\n\nComparing the tenths place: 1 vs 9. Since 9 > 1, 9.9 is bigger.\n\nSo 9.9 is bigger than 9.11.",
                             "role": "assistant",
                             "name": "MiniMax AI",
                             "audio_content": ""
                           }
                         }
                       ],
-                      "created": 1780220769,
+                      "created": 1780220779,
                       "model": "MiniMax-M3.1-Flash-Preview",
                       "object": "chat.completion",
                       "usage": {
-                        "total_tokens": 473,
+                        "total_tokens": 484,
                         "total_characters": 0,
-                        "prompt_tokens": 170,
-                        "completion_tokens": 303,
+                        "prompt_tokens": 172,
+                        "completion_tokens": 312,
                         "prompt_tokens_details": {
-                          "cached_tokens": 157
+                          "cached_tokens": 159
                         }
                       },
                       "input_sensitive": false,
@@ -232,69 +232,30 @@
                       }
                     }
                   },
-                  "图片理解": {
+                  "Image Understanding": {
                     "value": {
-                      "id": "066a2a568140d42ba2020cec72d592c0",
+                      "id": "066a33a7d290378f8a9e57a055812afa",
                       "choices": [
                         {
                           "finish_reason": "stop",
                           "index": 0,
                           "message": {
-                            "content": "这张图片是一张温馨的人像摄影作品，画面内容如下：\n\n**主体人物：**\n- 一个可爱的小女孩，大约3-5岁左右\n- 她有一头蓬松的棕色卷发，额前有可爱的刘海\n- 有着大大的棕绿色眼睛，目光清澈明亮\n- 嘴角微微上扬，展露出甜美、纯真的微笑\n- 脸颊丰满，皮肤白皙光滑，透着孩童特有的红润\n\n**服装：**\n- 身穿一件米白色或奶油色的连衣裙\n- 衣领和肩部有精致的蕾丝花边装饰，带有荷叶边设计\n- 显得十分优雅可爱\n\n**构图与光线：**\n- 这是一张特写肖像照，聚焦于女孩的面部表情\n- 采用柔和的暖色调光线，营造出温馨梦幻的氛围\n- 背景是模糊的暖棕色调，采用了浅景深（背景虚化）效果\n- 整体呈现出油画般的质感，画风柔和、温暖\n\n整张照片充满了童真和纯朴之美，捕捉到了小女孩天真烂漫的瞬间。",
-                            "reasoning_content": "The user is asking in Chinese what the content of this image is. Let me describe the image in detail in Chinese.",
+                            "content": "This image is a warm, softly-lit portrait photograph of a young girl, likely a child around 4-6 years old. Key features include:\n\n- **Hair**: Wavy/curly brown hair with bangs, with some strands pulled back or styled on top\n- **Eyes**: Large, expressive amber/brown eyes looking directly at the camera\n- **Expression**: A gentle, sweet smile\n- **Clothing**: A cream or off-white dress with delicate lace trim and ruffled cap sleeves\n- **Lighting**: Soft, warm, golden lighting that gives the image a dreamy, classic portrait quality\n- **Background**: A neutral, muted grayish-brown backdrop, blurred to keep focus on the subject\n\nThe overall aesthetic resembles a professional studio portrait or a finely-tuned AI-generated image, with attention to detail in features like the catchlights in her eyes, the texture of her hair, and the soft focus on the background. It has a timeless, painterly quality.",
+                            "reasoning_content": "The user is asking me to describe an image. Let me look at it carefully and provide a description.\n\nThe image shows a young girl, likely a child, with curly/wavy brown hair that has bangs. She has large brown/amber eyes and is smiling gently. She's wearing what appears to be a cream or off-white dress with lace/ruffled details. The lighting is soft and warm, suggesting this is a portrait-style photograph with a blurred neutral background.",
                             "role": "assistant",
                             "name": "MiniMax AI",
                             "audio_content": ""
                           }
                         }
                       ],
-                      "created": 1780152150,
+                      "created": 1780154535,
                       "model": "MiniMax-M3.1-Flash-Preview",
                       "object": "chat.completion",
                       "usage": {
-                        "total_tokens": 1604,
+                        "total_tokens": 1659,
                         "total_characters": 0,
-                        "prompt_tokens": 1365,
-                        "completion_tokens": 239,
-                        "prompt_tokens_details": {
-                          "cached_tokens": 114
-                        }
-                      },
-                      "input_sensitive": false,
-                      "output_sensitive": false,
-                      "input_sensitive_type": 0,
-                      "output_sensitive_type": 0,
-                      "output_sensitive_int": 0,
-                      "base_resp": {
-                        "status_code": 0,
-                        "status_msg": ""
-                      }
-                    }
-                  },
-                  "视频理解": {
-                    "value": {
-                      "id": "066b4556dd449d59fdfbc602ba47bec9",
-                      "choices": [
-                        {
-                          "finish_reason": "stop",
-                          "index": 0,
-                          "message": {
-                            "content": "The video shows a cat walking on a diving board. It then proceeds to jump off, performing a flip before plunging into the water below.",
-                            "reasoning_content": "The user wants me to describe the events in the provided video.\n\n1.  **Analyze the initial state (0.0s - 0.1s):** A cat is walking on a diving board. The background shows an Olympic setting, specifically London 2012, with the rings and \"London 2012\" text visible. There are spectators in the stands. A person is standing at the end of the board.\n\n2.  **Observe the action (0.1s - 0.2s):** The cat continues to walk confidently along the diving board. It approaches the end of the board. The person at the end moves out of the way.\n\n3.  **Identify the climax (0.2s - 0.3s):** The cat reaches the end of the diving board, leaps off, and begins a mid-air rotation. It tucks its body, performing a dive.\n\n4.  **Observe the resolution (0.3s - 0.4s):** The cat completes its dive, extending its body to enter the water headfirst. It creates a splash upon entry.\n\n5.  **Synthesize the description:**\n    *   Start with the setting: A cat on a diving board at an Olympic venue (London 2012).\n    *   Describe the main action: The cat walks to the end of the board.\n    *   Describe the jump: The cat performs a flip or dive off the board.\n    *   Describe the conclusion: The cat enters the water, creating a splash.\n\n6.  **Refine the language:** Make it sound natural and descriptive. \"A cat is seen walking on a diving board...\" \"It then proceeds to jump off...\" \"...performing a flip before plunging into the water below.\" This covers all the key elements observed in the video clip.",
-                            "role": "assistant",
-                            "name": "MiniMax AI",
-                            "audio_content": ""
-                          }
-                        }
-                      ],
-                      "created": 1780224598,
-                      "model": "MiniMax-M3.1-Flash-Preview",
-                      "object": "chat.completion",
-                      "usage": {
-                        "total_tokens": 2647,
-                        "total_characters": 0,
-                        "prompt_tokens": 2243,
-                        "completion_tokens": 404,
+                        "prompt_tokens": 1366,
+                        "completion_tokens": 293,
                         "prompt_tokens_details": {
                           "cached_tokens": 114
                         }
@@ -310,10 +271,49 @@
                       }
                     }
                   },
-                  "流式": {
+                  "Video Understanding": {
+                    "value": {
+                      "id": "066b4564af67dda4130e1db289c2ba25",
+                      "choices": [
+                        {
+                          "finish_reason": "stop",
+                          "index": 0,
+                          "message": {
+                            "content": "A cat is seen walking on a diving board and then jumping into a pool of water.",
+                            "reasoning_content": "The user wants me to describe the action in the video.\n\n1.  **Analyze the video:**\n    *   The video shows an AI-generated scene (indicated by the \"MINIMAX\" and \"Hailuo AI\" watermarks).\n    *   The setting is a large indoor arena, likely an Olympic pool venue, given the Olympic rings logo and the \"Lausanne 2020\" text (which is anachronistic, but it's a generated video).\n    *   The main subject is a domestic cat, specifically a spotted breed like a Bengal or Savannah, but it looks a bit distorted in the generated style.\n    *   The cat is walking on a diving board. It starts on the left side and walks towards the right.\n    *   Around 0.2 seconds, the cat reaches the end of the diving board and leaps off.\n    *   The cat is airborne for a brief moment, performing what looks like a basic jump, not a complex dive.\n    *   It falls towards the water below.\n    *   It hits the water and splashes.\n    *   The camera follows the cat's trajectory.\n    *   The background shows a crowd of spectators sitting in the stands, watching the event.\n    *   A person is standing on the pool deck, observing.\n\n2.  **Synthesize the description:**\n    *   Start with the main subject and action: A cat is walking on a diving board.\n    *   Describe the progression: It walks to the end.\n    *   Describe the climax: It jumps off the board.\n    *   Describe the conclusion: It falls into the water below.\n    *   Keep it concise and objective.\n\n3.  **Draft the final sentence:** \"A cat is seen walking on a diving board and then jumping into a pool of water.\" This accurately and concisely captures the entire sequence of events in the video. It covers the initial state (walking), the action (jumping), and the final state (in the pool).",
+                            "role": "assistant",
+                            "name": "MiniMax AI",
+                            "audio_content": ""
+                          }
+                        }
+                      ],
+                      "created": 1780224612,
+                      "model": "MiniMax-M3.1-Flash-Preview",
+                      "object": "chat.completion",
+                      "usage": {
+                        "total_tokens": 2672,
+                        "total_characters": 0,
+                        "prompt_tokens": 2245,
+                        "completion_tokens": 427,
+                        "prompt_tokens_details": {
+                          "cached_tokens": 114
+                        }
+                      },
+                      "input_sensitive": false,
+                      "output_sensitive": false,
+                      "input_sensitive_type": 0,
+                      "output_sensitive_type": 0,
+                      "output_sensitive_int": 0,
+                      "base_resp": {
+                        "status_code": 0,
+                        "status_msg": ""
+                      }
+                    }
+                  },
+                  "Stream": {
                     "value": [
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
@@ -325,7 +325,7 @@
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -336,19 +336,20 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "reasoning_content": " is asking in Chinese what the content of this image is. Let me describe the image in detail.",
+                              "content": "This image is",
+                              "reasoning_content": " is asking what the image shows. I should describe the image in detail.",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -359,19 +360,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "这张图片是一个小女孩的肖像特写照片。\n\n**图片内容描述：**\n\n- **",
+                              "content": " a close-up portrait of a young girl, likely a toddler or preschool-aged child. Key details include:\n\n",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -382,19 +383,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "人物**：照片中是一个大约3-5岁的小女孩，她正面面对镜头\n",
+                              "content": "- **Facial expression**: She has a sweet, subtle smile and is looking directly at the camera",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -405,19 +406,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "- **外貌特征**：\n  - 棕色的波浪卷发，前面有",
+                              "content": " with large, expressive hazel/light brown eyes.\n- **Hair**: She has tousled, wavy",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -428,19 +429,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "齐刘海，头发似乎在顶部扎了起来\n  - 大大的浅褐色/",
+                              "content": " light brown/auburn hair with wispy bangs that frame her face, appearing somewhat wild and",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -451,19 +452,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "榛色眼睛，眼神清澈明亮\n  - 皮肤白皙，脸颊微微泛红\n ",
+                              "content": " natural.\n- **Clothing**: She's wearing a cream or off-white top with delicate lace or ruff",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -474,19 +475,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": " - 嘴角带着温柔、腼腆的微笑\n- **服装**：身穿一件白色",
+                              "content": "led detailing around the neckline, giving it a vintage or romantic feel.\n- **Lighting and mood",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -497,19 +498,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "或米色的连衣裙，肩部有精致的蕾丝褶皱装饰，领口也",
+                              "content": "**: The photo uses soft, warm lighting that highlights her features and creates a gentle, painter",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -520,19 +521,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "带有蕾丝花边\n- **背景**：背景是柔和的暖灰色调，营造出温馨",
+                              "content": "ly quality. The background is a neutral, muted olive-gray tone, which keeps the focus",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -543,19 +544,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "的氛围\n- **光线**：采用了柔和的暖色调光线，类似于经典肖像画的",
+                              "content": " on her face.\n- **Style**: The overall aesthetic has an artistic, portrait-ph",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -566,19 +567,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "打光方式（类似伦勃朗光），光从一侧照在女孩脸上",
+                              "content": "otography quality, reminiscent of fine art children's portraiture, with shallow depth of field that softly",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -589,43 +590,20 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
-                        "choices": [
-                          {
-                            "index": 0,
-                            "delta": {
-                              "content": "，突出了她的面部轮廓和发丝的光泽\n- **整体风格**：照片具有油画般的质感",
-                              "role": "assistant",
-                              "name": "MiniMax AI",
-                              "audio_content": ""
-                            }
-                          }
-                        ],
-                        "created": 1780153015,
-                        "model": "MiniMax-M3.1-Flash-Preview",
-                        "object": "chat.completion.chunk",
-                        "usage": null,
-                        "input_sensitive": false,
-                        "output_sensitive": false,
-                        "input_sensitive_type": 0,
-                        "output_sensitive_type": 0,
-                        "output_sensitive_int": 0
-                      },
-                      {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "finish_reason": "stop",
                             "index": 0,
                             "delta": {
-                              "content": "，色彩温暖，是一张非常经典的儿童肖像摄影作品",
+                              "content": " blurs the background.\n\nThe image evokes a sense of innocence, warmth, and charm.",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -637,21 +615,21 @@
                       }
                     ]
                   },
-                  "工具调用": {
+                  "Tool Use": {
                     "value": {
-                      "id": "066b13db03518f86c2e3c9b073c04272",
+                      "id": "066b13237d4accbb697b81f696876915",
                       "choices": [
                         {
                           "finish_reason": "tool_calls",
                           "index": 0,
                           "message": {
-                            "content": "我来帮你查询旧金山的当前天气。",
-                            "reasoning_content": "The user is asking about the current weather in San Francisco. I should use the get_weather tool to fetch this information.",
+                            "content": "",
+                            "reasoning_content": "The user is asking about the weather in San Francisco. I'll use the get_weather tool to retrieve this information.",
                             "role": "assistant",
                             "name": "MiniMax AI",
                             "tool_calls": [
                               {
-                                "id": "call_function_p4iiqtpnh5bj_1",
+                                "id": "call_function_a1nrtksph4pi_1",
                                 "type": "function",
                                 "function": {
                                   "name": "get_weather",
@@ -664,14 +642,14 @@
                           }
                         }
                       ],
-                      "created": 1780211931,
+                      "created": 1780211747,
                       "model": "MiniMax-M3.1-Flash-Preview",
                       "object": "chat.completion",
                       "usage": {
-                        "total_tokens": 477,
+                        "total_tokens": 473,
                         "total_characters": 0,
-                        "prompt_tokens": 411,
-                        "completion_tokens": 66,
+                        "prompt_tokens": 418,
+                        "completion_tokens": 55,
                         "prompt_tokens_details": {
                           "cached_tokens": 114
                         }
@@ -694,10 +672,10 @@
                   "$ref": "#/components/schemas/ChatCompletionChunk"
                 },
                 "examples": {
-                  "流式": {
+                  "Stream": {
                     "value": [
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
@@ -709,7 +687,7 @@
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -720,19 +698,20 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "reasoning_content": " is asking in Chinese what the content of this image is. Let me describe the image in detail.",
+                              "content": "This image is",
+                              "reasoning_content": " is asking what the image shows. I should describe the image in detail.",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -743,19 +722,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "这张图片是一个小女孩的肖像特写照片。\n\n**图片内容描述：**\n\n- **",
+                              "content": " a close-up portrait of a young girl, likely a toddler or preschool-aged child. Key details include:\n\n",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -766,19 +745,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "人物**：照片中是一个大约3-5岁的小女孩，她正面面对镜头\n",
+                              "content": "- **Facial expression**: She has a sweet, subtle smile and is looking directly at the camera",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -789,19 +768,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "- **外貌特征**：\n  - 棕色的波浪卷发，前面有",
+                              "content": " with large, expressive hazel/light brown eyes.\n- **Hair**: She has tousled, wavy",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -812,19 +791,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "齐刘海，头发似乎在顶部扎了起来\n  - 大大的浅褐色/",
+                              "content": " light brown/auburn hair with wispy bangs that frame her face, appearing somewhat wild and",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -835,19 +814,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "榛色眼睛，眼神清澈明亮\n  - 皮肤白皙，脸颊微微泛红\n ",
+                              "content": " natural.\n- **Clothing**: She's wearing a cream or off-white top with delicate lace or ruff",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -858,19 +837,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": " - 嘴角带着温柔、腼腆的微笑\n- **服装**：身穿一件白色",
+                              "content": "led detailing around the neckline, giving it a vintage or romantic feel.\n- **Lighting and mood",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -881,19 +860,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "或米色的连衣裙，肩部有精致的蕾丝褶皱装饰，领口也",
+                              "content": "**: The photo uses soft, warm lighting that highlights her features and creates a gentle, painter",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -904,19 +883,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "带有蕾丝花边\n- **背景**：背景是柔和的暖灰色调，营造出温馨",
+                              "content": "ly quality. The background is a neutral, muted olive-gray tone, which keeps the focus",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -927,19 +906,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "的氛围\n- **光线**：采用了柔和的暖色调光线，类似于经典肖像画的",
+                              "content": " on her face.\n- **Style**: The overall aesthetic has an artistic, portrait-ph",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -950,19 +929,19 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "index": 0,
                             "delta": {
-                              "content": "打光方式（类似伦勃朗光），光从一侧照在女孩脸上",
+                              "content": "otography quality, reminiscent of fine art children's portraiture, with shallow depth of field that softly",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -973,43 +952,20 @@
                         "output_sensitive_int": 0
                       },
                       {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
-                        "choices": [
-                          {
-                            "index": 0,
-                            "delta": {
-                              "content": "，突出了她的面部轮廓和发丝的光泽\n- **整体风格**：照片具有油画般的质感",
-                              "role": "assistant",
-                              "name": "MiniMax AI",
-                              "audio_content": ""
-                            }
-                          }
-                        ],
-                        "created": 1780153015,
-                        "model": "MiniMax-M3.1-Flash-Preview",
-                        "object": "chat.completion.chunk",
-                        "usage": null,
-                        "input_sensitive": false,
-                        "output_sensitive": false,
-                        "input_sensitive_type": 0,
-                        "output_sensitive_type": 0,
-                        "output_sensitive_int": 0
-                      },
-                      {
-                        "id": "066a2db7cb70134c45f5d6443d434c2c",
+                        "id": "066a34c738d29f6687fbf54ab6c98c34",
                         "choices": [
                           {
                             "finish_reason": "stop",
                             "index": 0,
                             "delta": {
-                              "content": "，色彩温暖，是一张非常经典的儿童肖像摄影作品",
+                              "content": " blurs the background.\n\nThe image evokes a sense of innocence, warmth, and charm.",
                               "role": "assistant",
                               "name": "MiniMax AI",
                               "audio_content": ""
                             }
                           }
                         ],
-                        "created": 1780153015,
+                        "created": 1780154823,
                         "model": "MiniMax-M3.1-Flash-Preview",
                         "object": "chat.completion.chunk",
                         "usage": null,
@@ -1040,7 +996,7 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "模型 ID",
+            "description": "Model ID",
             "enum": [
               "MiniMax-M3.1-Flash-Preview",
               "MiniMax-M3",
@@ -1055,7 +1011,7 @@
           },
           "service_tier": {
             "type": "string",
-            "description": "请求准入服务层级。支持的取值为 `standard` 和 `priority`。省略时默认使用 `standard`。`priority` 的[价格](https://platform.minimax.cn/docs/pricing/overview#models/text)为 `standard` 的 1.5 倍，并会确保请求获得优先准入，使其排在其他请求之前处理，从而带来更快响应并减少失败。",
+            "description": "Service tier for request admission. Supported values are `standard` and `priority`. If omitted, the request uses the `standard` tier. The `priority` [price](https://platform.minimax.io/docs/pricing/overview#models/text) is 1.5 times the `standard` price and ensures priority admission so the request is processed ahead of other requests, leading to faster responses and fewer failures.",
             "enum": [
               "standard",
               "priority"
@@ -1064,14 +1020,14 @@
           },
           "messages": {
             "type": "array",
-            "description": "包含对话历史的消息列表。支持文本、图片、视频和工具调用。",
+            "description": "A list of messages containing the conversation history. Supports text, image, video, and tool call content.",
             "items": {
               "$ref": "#/components/schemas/Message"
             }
           },
           "thinking": {
             "type": "object",
-            "description": "控制 thinking 行为。`adaptive` 这个默认值对所有模型都生效，差异只在 `disabled` 的效果上。\n- `MiniMax-M3.1-Flash-Preview`：强制开启 thinking。传入 `disabled` 会返回 HTTP 400。如需调节思考深度，请使用 `reasoning_effort`。\n- `MiniMax-M3`：默认开启 adaptive thinking；传入 `disabled` 会跳过 thinking 直接回答。\n- M2.x 模型：thinking 无法关闭，传入 `disabled` 会被接收但不生效。",
+            "description": "Controls thinking behavior. The `adaptive` default applies to every model here; only the effect of `disabled` differs.\n- `MiniMax-M3.1-Flash-Preview`: always thinks. `disabled` returns HTTP 400. Use `reasoning_effort` to tune thinking depth.\n- `MiniMax-M3`: adaptive thinking is on by default; `disabled` skips thinking and answers directly.\n- M2.x models: thinking cannot be disabled; `disabled` is accepted but ignored.",
             "properties": {
               "type": {
                 "type": "string",
@@ -1080,14 +1036,14 @@
                   "adaptive"
                 ],
                 "default": "adaptive",
-                "description": "thinking 控制类型。\n- `disabled`：让 `MiniMax-M3` 跳过 thinking 并直接回答。`MiniMax-M3.1-Flash-Preview` 不支持该取值，传入会返回 HTTP 400。对于 M2.x 模型，thinking 仍会保持开启。\n- `adaptive`：开启 adaptive thinking。省略 `thinking` 时默认使用该值，也是 `MiniMax-M3.1-Flash-Preview` 唯一接受的取值。"
+                "description": "Thinking control type.\n- `disabled`: Skip thinking for `MiniMax-M3` and answer directly. Not supported by `MiniMax-M3.1-Flash-Preview`, which returns HTTP 400. For M2.x models, thinking remains on.\n- `adaptive`: Enable adaptive thinking. This is the default when `thinking` is omitted, and the only accepted value for `MiniMax-M3.1-Flash-Preview`."
               }
             },
             "required": []
           },
           "reasoning_effort": {
             "type": "string",
-            "description": "调节思考深度。仅 `MiniMax-M3.1-Flash-Preview` 支持真正的思考深度调节，其他模型会忽略该字段。省略时，该模型的默认思考深度为 `max`。由于 `MiniMax-M3.1-Flash-Preview` 强制开启 thinking，不接受 `none`，传入会返回 HTTP 400。",
+            "description": "Tunes thinking depth. Only `MiniMax-M3.1-Flash-Preview` supports real thinking-depth tuning; other models ignore this field. When omitted, its default thinking depth is `max`. `none` is not accepted and returns HTTP 400 because `MiniMax-M3.1-Flash-Preview` always thinks.",
             "enum": [
               "low",
               "medium",
@@ -1098,34 +1054,34 @@
           },
           "reasoning_split": {
             "type": "boolean",
-            "description": "输出格式开关。为 `true` 时将 thinking 内容拆分到 `reasoning_content` 字段；为 `false` 时 thinking 以 `<think>` 标签保留在 `content` 字段内。`MiniMax-M3.1-Flash-Preview` 暂不支持将该参数设为 `false`。该参数不会开启或关闭 thinking。"
+            "description": "Output-format switch. When `true`, thinking content is separated into the `reasoning_content` field; when `false`, thinking is kept inside `content` wrapped in `<think>` tags. `MiniMax-M3.1-Flash-Preview` does not currently support setting this parameter to `false`. This parameter does not enable or disable thinking."
           },
           "stream": {
             "type": "boolean",
-            "description": "是否使用流式传输，默认为 `false`。设置为 `true` 后，响应将分批返回。",
+            "description": "Whether to use streaming output, defaults to `false`. When set to `true`, the response will be returned in chunks.",
             "default": false
           },
           "stream_options": {
             "type": "object",
-            "description": "流式响应选项。",
+            "description": "Streaming response options.",
             "properties": {
               "include_usage": {
                 "type": "boolean",
                 "default": false,
-                "description": "是否在流式响应中包含 token 用量。"
+                "description": "Whether to include token usage in the streaming response."
               }
             }
           },
           "max_completion_tokens": {
             "type": "integer",
             "format": "int64",
-            "description": "指定生成内容长度的上限（Token 数）。MiniMax-M3.1-Flash-Preview 和 MiniMax-M3 推荐值为 131072（128K），上限为 524288（512K）；其他模型推荐值为 65536（64K），上限为 204800（200K）。如果生成因 `length` 原因中断，请尝试调高此值。",
+            "description": "Specifies the upper limit for generated content length, in tokens. For MiniMax-M3.1-Flash-Preview and MiniMax-M3 the recommended value is 131072 (128K) and the maximum is 524288 (512K); for other models the recommended value is 65536 (64K) and the maximum is 204800 (200K). If generation stops due to `length`, try increasing this value.",
             "minimum": 1
           },
           "temperature": {
             "type": "number",
             "format": "double",
-            "description": "温度系数，影响输出随机性，取值范围 [0, 2]，默认值为 1。值越高，输出越随机；值越低，输出越确定。",
+            "description": "Temperature coefficient, affects output randomness. Range [0, 2], default 1. Higher values produce more random output; lower values produce more deterministic output.",
             "minimum": 0,
             "maximum": 2,
             "default": 1
@@ -1133,14 +1089,14 @@
           "top_p": {
             "type": "number",
             "format": "double",
-            "description": "核采样参数，取值范围 [0, 1]。MiniMax-M3.1-Flash-Preview 和 MiniMax-M3 默认值为 0.95，M2.x 系列模型默认值为 0.9。",
+            "description": "Nucleus sampling parameter. Range [0, 1]. Default is 0.95 for MiniMax-M3.1-Flash-Preview and MiniMax-M3, and 0.9 for M2.x models.",
             "minimum": 0,
             "maximum": 1,
             "default": 0.95
           },
           "tools": {
             "type": "array",
-            "description": "工具定义列表，当前支持 function 工具。",
+            "description": "Tool definition list. Function tools are supported.",
             "items": {
               "type": "object",
               "properties": {
@@ -1149,22 +1105,22 @@
                   "enum": [
                     "function"
                   ],
-                  "description": "工具类型，固定为 function。"
+                  "description": "Tool type, always function."
                 },
                 "function": {
                   "type": "object",
                   "properties": {
                     "name": {
                       "type": "string",
-                      "description": "函数名称。"
+                      "description": "Function name."
                     },
                     "description": {
                       "type": "string",
-                      "description": "函数描述。"
+                      "description": "Function description."
                     },
                     "parameters": {
                       "type": "object",
-                      "description": "函数参数 JSON Schema。"
+                      "description": "Function parameters JSON Schema."
                     }
                   },
                   "required": [
@@ -1183,7 +1139,7 @@
             "type": "integer",
             "format": "int64",
             "deprecated": true,
-            "description": "旧版生成长度限制参数。已弃用，请改用 `max_completion_tokens`。",
+            "description": "Legacy generation length limit parameter. Deprecated; use `max_completion_tokens` instead.",
             "minimum": 1
           }
         }
@@ -1193,17 +1149,17 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "本次响应的唯一 ID"
+            "description": "Unique ID of this response"
           },
           "choices": {
             "type": "array",
-            "description": "响应选择列表",
+            "description": "List of response choices",
             "items": {
               "type": "object",
               "properties": {
                 "finish_reason": {
                   "type": "string",
-                  "description": "生成停止的原因：`stop`、`length`、`content_filter` 或 `tool_calls`。",
+                  "description": "Reason for stopping generation: `stop`, `length`, `content_filter`, or `tool_calls`.",
                   "enum": [
                     "stop",
                     "length",
@@ -1213,11 +1169,11 @@
                 },
                 "index": {
                   "type": "integer",
-                  "description": "选项的索引，从 0 开始"
+                  "description": "Index of the choice, starting from 0"
                 },
                 "message": {
                   "type": "object",
-                  "description": "模型生成的完整回复",
+                  "description": "Complete reply generated by the model",
                   "required": [
                     "content",
                     "role"
@@ -1225,22 +1181,22 @@
                   "properties": {
                     "content": {
                       "type": "string",
-                      "description": "文本回复内容"
+                      "description": "Text reply content"
                     },
                     "reasoning_content": {
                       "type": "string",
-                      "description": "思考内容。深度思考是自适应的，模型在简单轮次可能不思考，此时响应中不会出现该字段，读取前请先判空。"
+                      "description": "Thinking content. Thinking is adaptive, so on a simple turn the model may not think and the field is then absent from the response - check for it before reading it."
                     },
                     "role": {
                       "type": "string",
-                      "description": "角色，固定为 `assistant`",
+                      "description": "Role, fixed as `assistant`",
                       "enum": [
                         "assistant"
                       ]
                     },
                     "tool_calls": {
                       "type": "array",
-                      "description": "模型生成的工具调用列表。仅当 `finish_reason` 为 `tool_calls` 时返回。下一轮请求需在 assistant 消息中原样回带这些调用，并为每个调用追加一条 `role: tool` 消息，其 `tool_call_id` 取自此处的 `id`。",
+                      "description": "Tool calls generated by the model. Returned only when `finish_reason` is `tool_calls`. Echo each entry back as part of the next-turn assistant message and pair it with a `role: tool` message whose `tool_call_id` equals the entry's `id`.",
                       "items": {
                         "$ref": "#/components/schemas/ToolCall"
                       }
@@ -1253,15 +1209,15 @@
           "created": {
             "type": "integer",
             "format": "int64",
-            "description": "响应创建的 Unix 时间戳（秒）"
+            "description": "Unix timestamp (seconds) when the response was created"
           },
           "model": {
             "type": "string",
-            "description": "本次请求使用的模型 ID"
+            "description": "Model ID used for this request"
           },
           "object": {
             "type": "string",
-            "description": "对象类型。非流式为 `chat.completion`，流式为 `chat.completion.chunk`",
+            "description": "Object type. `chat.completion` for non-streaming, `chat.completion.chunk` for streaming",
             "enum": [
               "chat.completion",
               "chat.completion.chunk"
@@ -1272,34 +1228,34 @@
           },
           "input_sensitive": {
             "type": "boolean",
-            "description": "输入内容是否命中敏感词。如果输入内容严重违规，接口会返回内容违规错误信息，回复内容为空"
+            "description": "Whether the input content triggered sensitive word detection. If the input content is severely inappropriate, the API will return a content violation error message with empty reply content"
           },
           "input_sensitive_type": {
             "type": "integer",
             "format": "int64",
-            "description": "输入命中敏感词类型，当input_sensitive为true时返回。取值为以下其一：1 严重违规；2 色情；3 广告；4 违禁；5 谩骂；6 暴恐；7 其他"
+            "description": "Type of sensitive word triggered by input, returned when input_sensitive is true. Values: 1 Severe violation; 2 Pornography; 3 Advertising; 4 Prohibited; 5 Abuse; 6 Violence/Terrorism; 7 Other"
           },
           "output_sensitive": {
             "type": "boolean",
-            "description": "输出内容是否命中敏感词。如果输出内容严重违规，接口会返回内容违规错误信息，回复内容为空"
+            "description": "Whether the output content triggered sensitive word detection. If the output content is severely inappropriate, the API will return a content violation error message with empty reply content"
           },
           "output_sensitive_type": {
             "type": "integer",
             "format": "int64",
-            "description": "输出命中敏感词类型"
+            "description": "Type of sensitive word triggered by output"
           },
           "base_resp": {
             "type": "object",
-            "description": "错误状态码和详情",
+            "description": "Error status code and details",
             "properties": {
               "status_code": {
                 "type": "integer",
                 "format": "int64",
-                "description": "状态码\n\n- `1000`: 未知错误\n- `1001`: 请求超时\n- `1002`: 触发限流\n- `1004`: 鉴权失败\n- `1008`: 余额不足\n- `1013`: 服务内部错误\n- `1027`: 输出内容错误\n- `1039`:  Token 超出限制\n- `2013`: 参数错误\n\n更多内容可查看 [错误码查询列表](/api-reference/errorcode) 了解详情"
+                "description": "Status code\n\n- `1000`: Unknown error\n- `1001`: Request timeout\n- `1002`: Rate limit triggered\n- `1004`: Authentication failed\n- `1008`: Insufficient balance\n- `1013`: Internal server error\n- `1027`: Output content error\n- `1039`: Token limit exceeded\n- `2013`: Parameter error\n\nFor more details, see [Error Code Reference](/api-reference/errorcode)"
               },
               "status_msg": {
                 "type": "string",
-                "description": "错误详情"
+                "description": "Error details"
               }
             }
           }
@@ -1319,38 +1275,38 @@
               "assistant",
               "tool"
             ],
-            "description": "消息发送者的角色。"
+            "description": "Role of the message sender."
           },
           "name": {
             "type": "string",
-            "description": "发送者的名称。若同一类型的角色有多个，须提供具体名称以区分"
+            "description": "Name of the sender. If there are multiple roles of the same type, a specific name must be provided to distinguish them"
           },
           "content": {
             "oneOf": [
               {
                 "type": "string",
-                "description": "文本消息内容"
+                "description": "Text message content"
               },
               {
                 "type": "array",
-                "description": "多模态消息内容块。`MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持文本、图片和视频输入。\n\n**多模态文件大小及容量限制**\n- URL / Base64 方式传入：视频文件 ≤ 50 MB，图片文件 ≤ 10 MB，请求体 ≤ 64 MB。\n- 使用 Files API 上传：在 `content` 中以 `mm_file://{file_id}` 形式引用，单个视频最大 512 MB。",
+                "description": "Multimodal message content parts. `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` support text, image, and video input.\n\n**File size and request limits**\n- URL or Base64 input: video file ≤ 50 MB, image file ≤ 10 MB, request body ≤ 64 MB.\n- Files API upload: referenced in `content` as `mm_file://{file_id}`, with a single video up to 512 MB.",
                 "items": {
                   "$ref": "#/components/schemas/MessageContentPart"
                 }
               }
             ],
-            "description": "消息内容。`MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持文本、图片和视频内容块。"
+            "description": "Message content. `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` support text, image, and video content parts."
           },
           "tool_calls": {
             "type": "array",
-            "description": "assistant 消息中的工具调用列表。",
+            "description": "Tool call list in an assistant message.",
             "items": {
               "$ref": "#/components/schemas/ToolCall"
             }
           },
           "tool_call_id": {
             "type": "string",
-            "description": "工具调用 ID。当 `role` 为 `tool` 时必填，取值为上一轮 assistant 消息中 `tool_calls` 内对应一项的 `id`，用于将本条工具返回结果与具体的工具调用关联。其他角色下该字段会被忽略。"
+            "description": "Tool call ID. Required when `role` is `tool`. Set this to the `id` of the corresponding entry in the assistant message's `tool_calls` so the model can match the tool result with the originating call. Ignored for other roles."
           }
         }
       },
@@ -1359,7 +1315,7 @@
         "required": [
           "type"
         ],
-        "description": "多模态消息内容块。每个内容块通过 `type` 声明类型，仅填写与该类型匹配的字段。",
+        "description": "Multimodal message content part. Each part declares its kind via `type`, and only the field matching that type should be populated.",
         "properties": {
           "type": {
             "type": "string",
@@ -1368,22 +1324,22 @@
               "image_url",
               "video_url"
             ],
-            "description": "内容块类型：\n- `text`：文本块\n- `image_url`：图片输入\n- `video_url`：视频输入"
+            "description": "Content part type:\n- `text`: Text part\n- `image_url`: Image input\n- `video_url`: Video input"
           },
           "text": {
             "type": "string",
-            "description": "文本内容（当 `type` 为 `text` 时）。"
+            "description": "Text content (when `type` is `text`)."
           },
           "image_url": {
             "type": "object",
-            "description": "图片输入（当 `type` 为 `image_url` 时）。单张图片最大 10 MB。\n\n**支持的图片格式**\n\n| 格式 | 常见拓展名 | MIME Type |\n| :-- | :-- | :-- |\n| JPEG | .jpg, .jpeg | image/jpeg |\n| PNG | .png | image/png |\n| GIF | .gif | image/gif |\n| WEBP | .webp | image/webp |",
+            "description": "Image input (when `type` is `image_url`). Each image can be up to 10 MB.\n\n**Supported image formats**\n\n| Format | Common extensions | MIME Type |\n| :-- | :-- | :-- |\n| JPEG | .jpg, .jpeg | image/jpeg |\n| PNG | .png | image/png |\n| GIF | .gif | image/gif |\n| WEBP | .webp | image/webp |",
             "required": [
               "url"
             ],
             "properties": {
               "url": {
                 "type": "string",
-                "description": "图片 URL 或 Base64 data URL。"
+                "description": "Image URL or Base64 data URL."
               },
               "detail": {
                 "type": "string",
@@ -1393,25 +1349,25 @@
                   "high"
                 ],
                 "default": "default",
-                "description": "控制图片解析分辨率，默认值为 default。\n\n单张图片粗略 token 用量估算：\n\n| detail | 粗略 token 用量 |\n| :-- | :-- |\n| low | 通常为几百 token，最高约 600 |\n| default | 通常约 1k-3k token，最高约 5k |\n| high | 通常为数千 token，最高约 15k+ |\n\n实际用量取决于图片尺寸和内容；请以响应中的 usage 或可用的 token 计数接口为准。"
+                "description": "Controls image resolution. Defaults to default.\n\nRough single-image token usage heuristic:\n\n| detail | Rough token usage |\n| :-- | :-- |\n| low | Usually a few hundred tokens, up to ~600 |\n| default | Often ~1k-3k tokens, up to ~5k |\n| high | Often several thousand tokens, up to ~15k+ |\n\nActual usage depends on image size and content; check response usage or token counting where available."
               },
               "max_long_side_pixel": {
                 "type": "integer",
                 "minimum": 1,
-                "description": "图片最长边像素限制。"
+                "description": "Longest-side pixel limit for the image."
               }
             }
           },
           "video_url": {
             "type": "object",
-            "description": "视频输入（当 `type` 为 `video_url` 时）。\n\n**支持的视频格式**\n\n| 格式 | 常见拓展名 | MIME Type |\n| :-- | :-- | :-- |\n| MP4 | .mp4 | video/mp4 |\n| AVI | .avi | video/avi 或 video/x-msvideo |\n| MOV | .mov | url 传入视频：对象存储请设置 Content-Type 为 video/quicktime；base64 编码：请使用 video/mov，即 data:video/mov;base64,<BASE64_ENCODING> |\n| MKV | .mkv | video/x-matroska |",
+            "description": "Video input (when `type` is `video_url`).\n\n**Supported video formats**\n\n| Format | Common extensions | MIME Type |\n| :-- | :-- | :-- |\n| MP4 | .mp4 | video/mp4 |\n| AVI | .avi | video/avi or video/x-msvideo |\n| MOV | .mov | URL input: set the object storage Content-Type to video/quicktime; base64 input: use video/mov, i.e. data:video/mov;base64,<BASE64_ENCODING> |\n| MKV | .mkv | video/x-matroska |",
             "required": [
               "url"
             ],
             "properties": {
               "url": {
                 "type": "string",
-                "description": "视频 URL、Base64 data URL，或形如 `mm_file://{file_id}` 的 Files API 引用。`file_id` 需先通过[文件上传](/api-reference/file-management-upload)接口上传视频后获取。URL 或 Base64 视频最大 50 MB；Files API 视频最大 512 MB。"
+                "description": "Video URL, Base64 data URL, or Files API reference in the form `mm_file://{file_id}`. To obtain a `file_id`, first upload the video via the [Upload File](/api-reference/file-management-upload) API. URL or Base64 videos can be up to 50 MB; Files API videos can be up to 512 MB."
               },
               "detail": {
                 "type": "string",
@@ -1421,19 +1377,19 @@
                   "high"
                 ],
                 "default": "default",
-                "description": "控制视频抽帧分辨率，默认值为 default。"
+                "description": "Controls per-frame video resolution. Defaults to default."
               },
               "fps": {
                 "type": "number",
                 "minimum": 0.2,
                 "maximum": 5,
                 "default": 1,
-                "description": "视频抽帧频率。默认值为 1，范围 [0.2, 5]。\n- 取值越高：对画面变化越敏感，token 花费高、速度慢。\n- 取值越低：token 花费少、速度快，但对画面变化迟钝。"
+                "description": "Video frame sampling rate. Defaults to 1. Range [0.2, 5].\n- Higher values: more sensitive to scene changes, but higher token cost and slower response.\n- Lower values: lower token cost and faster response, but less sensitive to scene changes."
               },
               "max_long_side_pixel": {
                 "type": "integer",
                 "minimum": 1,
-                "description": "视频单帧最长边像素限制。"
+                "description": "Longest-side pixel limit for video frames."
               }
             }
           }
@@ -1446,18 +1402,18 @@
           "type",
           "function"
         ],
-        "description": "assistant 消息中模型生成的工具调用。",
+        "description": "Tool call generated by the model in an assistant message.",
         "properties": {
           "id": {
             "type": "string",
-            "description": "工具调用 ID，由模型生成。"
+            "description": "Tool call ID, generated by the model."
           },
           "type": {
             "type": "string",
             "enum": [
               "function"
             ],
-            "description": "工具调用类型。当前仅支持 `function`。"
+            "description": "Tool call type. Currently only `function` is supported."
           },
           "function": {
             "type": "object",
@@ -1468,11 +1424,11 @@
             "properties": {
               "name": {
                 "type": "string",
-                "description": "待调用函数名称。"
+                "description": "Name of the function to call."
               },
               "arguments": {
                 "type": "string",
-                "description": "函数入参，JSON 格式字符串。"
+                "description": "Function arguments as a JSON-formatted string."
               }
             }
           }
@@ -1496,17 +1452,17 @@
               "content_filter",
               "tool_calls"
             ],
-            "description": "生成停止的原因。"
+            "description": "Reason for completion."
           }
         }
       },
       "Usage": {
         "type": "object",
-        "description": "本次请求的 Token 使用情况统计",
+        "description": "Token usage statistics for this request",
         "properties": {
           "total_tokens": {
             "type": "integer",
-            "description": "消耗的总 Token 数"
+            "description": "Total number of tokens consumed"
           }
         }
       },
@@ -1516,43 +1472,43 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "本次响应的唯一 ID"
+            "description": "Unique ID of this response"
           },
           "choices": {
             "type": "array",
-            "description": "流式响应选择列表",
+            "description": "List of streaming response choices",
             "items": {
               "type": "object",
               "properties": {
                 "index": {
                   "type": "integer",
-                  "description": "选项的索引，从 0 开始"
+                  "description": "Index of the choice, starting from 0"
                 },
                 "delta": {
                   "type": "object",
-                  "description": "增量内容",
+                  "description": "Incremental content",
                   "properties": {
                     "role": {
                       "type": "string",
-                      "description": "角色，固定为 `assistant`",
+                      "description": "Role, fixed as `assistant`",
                       "enum": [
                         "assistant"
                       ]
                     },
                     "content": {
                       "type": "string",
-                      "description": "增量文本内容"
+                      "description": "Incremental text content"
                     },
                     "reasoning_content": {
                       "type": "string",
-                      "description": "增量思考内容；未生成思考内容时不返回。"
+                      "description": "Incremental thinking content; omitted when no thinking is generated."
                     }
                   }
                 },
                 "finish_reason": {
                   "type": "string",
                   "nullable": true,
-                  "description": "生成停止的原因，未结束时为 null：`stop`（自然结束），`length`（达到 `max_completion_tokens` 上限）",
+                  "description": "Reason for stopping generation, null when not finished: `stop` (natural ending), `length` (reached `max_completion_tokens` limit)",
                   "enum": [
                     "stop",
                     "length"
@@ -1564,36 +1520,36 @@
           "created": {
             "type": "integer",
             "format": "int64",
-            "description": "响应创建的 Unix 时间戳（秒）"
+            "description": "Unix timestamp (seconds) when the response was created"
           },
           "model": {
             "type": "string",
-            "description": "本次请求使用的模型 ID"
+            "description": "Model ID used for this request"
           },
           "object": {
             "type": "string",
-            "description": "对象类型，固定为 `chat.completion.chunk`",
+            "description": "Object type, fixed as `chat.completion.chunk`",
             "enum": [
               "chat.completion.chunk"
             ]
           },
           "usage": {
             "$ref": "#/components/schemas/Usage",
-            "description": "Token 使用情况（仅在最后一个 chunk 中返回）"
+            "description": "Token usage (only returned in the last chunk)"
           },
           "input_sensitive_type": {
             "type": "integer",
             "format": "int64",
-            "description": "输入命中敏感词类型"
+            "description": "Type of sensitive word triggered by input"
           },
           "output_sensitive": {
             "type": "boolean",
-            "description": "输出内容是否命中敏感词"
+            "description": "Whether the output content triggered sensitive word detection"
           },
           "output_sensitive_type": {
             "type": "integer",
             "format": "int64",
-            "description": "输出命中敏感词类型"
+            "description": "Type of sensitive word triggered by output"
           }
         }
       }
@@ -1603,7 +1559,7 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT",
-        "description": "`HTTP: Bearer Auth`\n - Security Scheme Type: http\n - HTTP Authorization Scheme: Bearer API_key，用于验证账户信息，可在 [账户管理>接口密钥](https://platform.minimax.cn/user-center/basic-information/interface-key) 中查看"
+        "description": "`HTTP: Bearer Auth`\n - Security Scheme Type: http\n - HTTP Authorization Scheme: Bearer API_key, used for account verification, can be viewed in [Account Management > API Keys](https://platform.minimax.io/user-center/basic-information/interface-key)"
       }
     }
   }

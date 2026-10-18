@@ -5,6 +5,8 @@ date: 2026-10-18
 
 # MiniMax Messages adaptive 与原厂扩展分离
 
+地区/Provider、来源和价格的当前适用性由[ADR-0042](0042-barness-ai-minimax-international-target.md)取代；下文保留初始中国区决策及历史证据上下文。既有协议约束、可信历史、正写入缺价保护和晋升边界继续有效，国际站须取得自身证据。
+
 MiniMax 的 adaptive 开关和逐请求 effort 复用 Messages adapter，但不具有 Claude 的
 显示、budget、beta、managed per-turn effort、缓存断点、eager tool streaming 或 browser
 access 语义。协议能力将 adaptive 与原厂扩展拆开；型号 compat 只能收紧已实现的形状，

@@ -4,7 +4,7 @@ Frozen pi-ai remains 1.1.0, commit
 `abe508e1b89912adde45528136c3221eb69acdd7`, 43-file model data
 `8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8`,
 827-file source `39a9951108d0e7faf60886302ce4bc953d8c51d5ebad22370301f23b29aa2504`
-and unchanged SDK lock. The wrapper exposes the existing MINIMAX_CN_MODELS
+and unchanged SDK lock. The wrapper exposes the existing MINIMAX_MODELS
 export. No package data, compiled source, version or dependency is modified.
 
 ## Actually compared native M3 Messages
@@ -46,18 +46,19 @@ neither a paid-wire capture nor evidence of the real endpoint's acceptance.
 `PIDIFF-MM06-frozen-catalog` verifies literal frozen facts and confirms that
 M3.1, MiniMax Chat and Responses entries are absent. The separate complete
 `PIDIFF-MM06-catalog-differences` compares full public model metadata with
-Binding-owned endpoint/type added explicitly; it retains both endpoints.
-Only exact fields differ: baseUrl, candidate display name, maxTokens, text
+Binding-owned endpoint/type added explicitly. Both current and frozen bases are
+`https://api.minimax.io/anthropic`, so no baseUrl exception remains.
+Only exact fields differ: candidate display name, maxTokens, text
 input vs image/resize policy, binary/default compatibility metadata and
 synthetic cost fields/historical tier. Literal frozen/current metadata is
-asserted. The old `api.minimaxi.com` endpoint,512000 budget,image policy and
-historical USD rates are recorded honestly, not silently updated.
+asserted. The frozen512000 budget,image policy and historical USD rates remain
+unchanged; switching the wrapper export does not edit frozen package data.
 
-Current official `api.minimax.cn` endpoint and text subset are spec R02/R06.
+Current official `api.minimax.io` endpoint and text subset are spec R02/R06.
 Official source hashes and conservative capacity origin are in
 `ai/internal/testkit/minimax/sources.json`; candidate prices are deliberately
 synthetic and must stay outside formal cost/support claims. Ticket10 owns
-current CNY→USD/tier evidence and each real M3 protocol's formal release.
+current direct USD/tier-policy evidence and each real M3 protocol's formal release.
 
 ## Extension acceptance, never fabricated parity
 
@@ -65,7 +66,7 @@ current CNY→USD/tier evidence and each real M3 protocol's formal release.
 extensions. Each has a source, independent synthetic script, explicit
 `pidiffSkip`, and own public four-entry acceptance. Their evidence IDs begin
 `MM06-extension-`, never PIDIFF, and record `piParity=NOT_RUN` plus the reason.
-The central route registry adds only minimax-cn Chat/Responses; Messages is
+The central route registry adds only minimax Chat/Responses; Messages is
 not exempted. M3.1 Messages does not borrow frozen M3's identity. Existing
 protocol-specific text/tools/thinking/native-state/error suites retain their
 own fixtures and remain separate from this bounded text extension inventory.
@@ -74,5 +75,7 @@ No old decisions, route registrations, fixture selection or native subtest is
 removed. No whole request/result/protocol exception is added. This work does
 not promote a candidate catalog, support-matrix row or live claim.
 
-Replay and immutable captures:
-`.scratch/barness-ai-minimax/evidence/ticket-06/README.md`.
+Current international observations and replayable captures:
+`.scratch/barness-ai-minimax/evidence/ticket-11/README.md`.
+Ticket06 captures remain immutable historical CN observations and cannot qualify
+the international target.

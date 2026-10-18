@@ -29,7 +29,7 @@ const approvedMappingHash = "803e5aa6b091bdb7557a68c824befe01289428ea688e0c58e6d
 func CheckReleasePlan(m TraceMap) Snapshot {
 	s := Snapshot{Name: "release-plan"}
 	var problems []string
-	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0 zhipu-chat zhipu-responses zhipu-messages minimax-cn-chat minimax-cn-responses minimax-cn-messages") {
+	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0 zhipu-chat zhipu-responses zhipu-messages minimax-chat minimax-responses minimax-messages") {
 		if count(m.LiveCombos, combo) != 1 {
 			problems = append(problems, "required live combo "+combo)
 		}
@@ -47,7 +47,7 @@ func CheckReleasePlan(m TraceMap) Snapshot {
 			problems = append(problems, "required differential "+scenario)
 		}
 	}
-	for _, route := range []RouteRef{{Scenario: "P05", Provider: "deepseek", API: "openai-responses"}, {Scenario: "P08", Provider: "openai", API: "openai-images"}, {Scenario: "P09", Provider: "google", API: "google-interactions"}, {Scenario: "GLM-CHAT", Provider: "zhipu", API: "openai-completions"}, {Scenario: "GLM-RESPONSES", Provider: "zhipu", API: "openai-responses"}, {Scenario: "GLM-MESSAGES", Provider: "zhipu", API: "anthropic-messages"}, {Scenario: "MM-CHAT", Provider: "minimax-cn", API: "openai-completions"}, {Scenario: "MM-RESPONSES", Provider: "minimax-cn", API: "openai-responses"}} {
+	for _, route := range []RouteRef{{Scenario: "P05", Provider: "deepseek", API: "openai-responses"}, {Scenario: "P08", Provider: "openai", API: "openai-images"}, {Scenario: "P09", Provider: "google", API: "google-interactions"}, {Scenario: "GLM-CHAT", Provider: "zhipu", API: "openai-completions"}, {Scenario: "GLM-RESPONSES", Provider: "zhipu", API: "openai-responses"}, {Scenario: "GLM-MESSAGES", Provider: "zhipu", API: "anthropic-messages"}, {Scenario: "MM-CHAT", Provider: "minimax", API: "openai-completions"}, {Scenario: "MM-RESPONSES", Provider: "minimax", API: "openai-responses"}} {
 		if !slices.Contains(m.Differential.Routes, route) {
 			problems = append(problems, "required extension route "+route.Scenario)
 		}

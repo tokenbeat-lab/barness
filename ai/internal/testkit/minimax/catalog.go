@@ -33,15 +33,15 @@ func MessagesCatalog() ai.Catalog { return protocolCatalog(ai.APIAnthropicMessag
 
 func protocolCatalog(api ai.API) ai.Catalog {
 	cat := CandidateCatalog()
-	cat.Models = cat.ModelsOf(ai.ProviderMiniMaxCN, api)
+	cat.Models = cat.ModelsOf(ai.ProviderMiniMax, api)
 	return cat
 }
 
-// Documented SDK base paths; no Coding-specific or international rerouting.
+// Documented international SDK bases; account purpose never changes the host.
 const (
-	ChatEndpoint      = "https://api.minimax.cn/v1"
-	ResponsesEndpoint = "https://api.minimax.cn/v1"
-	MessagesEndpoint  = "https://api.minimax.cn/anthropic"
+	ChatEndpoint      = "https://api.minimax.io/v1"
+	ResponsesEndpoint = "https://api.minimax.io/v1"
+	MessagesEndpoint  = "https://api.minimax.io/anthropic"
 )
 
 // ChatBinding explicitly fixes one Host-authorized Chat candidate account.
@@ -61,7 +61,7 @@ func MessagesBinding(tenant, account, credentialRef, endpoint string) ai.Binding
 
 func binding(tenant, account, credentialRef, endpoint, id string, api ai.API) ai.Binding {
 	return ai.Binding{TenantID: tenant, BindingID: id, Version: "minimax-candidate-1",
-		Operation: ai.OperationChat, Enabled: true, ProviderID: ai.ProviderMiniMaxCN,
+		Operation: ai.OperationChat, Enabled: true, ProviderID: ai.ProviderMiniMax,
 		API: api, Endpoint: endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: account,
 		CredentialRef: credentialRef, AllowedModels: []string{"MiniMax-M3", "MiniMax-M3.1-Flash-Preview"}}
 }

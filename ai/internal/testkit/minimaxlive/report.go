@@ -23,7 +23,7 @@ type Call struct {
 }
 type Report struct {
 	Session         string            `json:"session"`
-	Cumulative      Budget            `json:"cumulativeIdentityBudget"`
+	Cumulative      Budget            `json:"cumulativeSlotBudget"`
 	Schema          int               `json:"schema"`
 	Kind            string            `json:"kind"`
 	Mode            string            `json:"mode"`

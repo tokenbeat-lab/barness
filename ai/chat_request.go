@@ -146,7 +146,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 		tools := make([]chatTool, len(history.tools))
 		for i, t := range history.tools {
 			tools[i] = chatTool{Type: "function", Function: chatToolFunction{Name: t.Name, Description: t.Description, Parameters: t.Parameters}}
-			if model.Compat.SupportsStrictMode && model.Provider != ProviderZhipu && model.Provider != ProviderMiniMaxCN {
+			if model.Compat.SupportsStrictMode && model.Provider != ProviderZhipu && model.Provider != ProviderMiniMax {
 				tools[i].Function.Strict = new(bool)
 			}
 		}
@@ -166,7 +166,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	if err == nil && model.Provider == ProviderZhipu {
 		out, err = preserveGLMChatSamplingBudget(out, model, opts)
 	}
-	if err == nil && model.Provider == ProviderMiniMaxCN {
+	if err == nil && model.Provider == ProviderMiniMax {
 		out, err = preserveMiniMaxChatSampling(out, model, opts)
 	}
 	return out, err

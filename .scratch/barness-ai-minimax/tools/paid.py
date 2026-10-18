@@ -12,6 +12,7 @@ sys.dont_write_bytecode=True
 import paid_core as c
 import paid_plan as p
 import paid_capture
+import paid_history as h
 
 
 def out_path(value):
@@ -31,7 +32,8 @@ def prepare(out):
         maxLegacyCalls=374,maxLegacyAttempts=398,providerCaps=p.PROVIDER_CAPS,
         miniMaxCandidate=dict(maxCalls=120,maxAttempts=144,maxIdentities=6),
         miniMaxFormal=dict(maxCalls=60,maxAttempts=72,maxIdentities=3),
-        automaticProcessReruns=False,previousTaskBalanceCarried=False,routes=inventory)))
+        automaticProcessReruns=False,previousTaskBalanceCarried=True,
+        historicalAccounting=h.inventory(),routes=inventory)))
     catalog=c.doc(c.ROOT/'ai/release/catalog-snapshot.json')
     auth=p.authorizations(out,catalog['hash'])
     for name,value in auth.items():c.dump(out/name,value)
@@ -105,13 +107,13 @@ def counters(out,job):
         fields=('calls','attempts','callsUsed','httpAttempts','reservedAttempts','attemptsReserved','requestedOutput','reservedInput')
         safe={k:v for k,v in b.items() if k in fields}
         if any(type(v) is not int or v<0 for v in safe.values()):raise ValueError('invalid budget counter')
-        cumulative=report.get('cumulativeIdentityBudget')
+        cumulative=report.get('cumulativeSlotBudget')
         if cumulative is not None:
             cumulative={k:v for k,v in cumulative.items() if k in fields}
             if any(type(v) is not int or v<0 for v in cumulative.values()):raise ValueError('invalid cumulative counter')
         if status=='NOT_RUN' and (calls or attempts):raise ValueError('NOT_RUN consumed resources')
         return dict(state='NOT_RUN' if status=='NOT_RUN' else 'REPORTED',calls=calls,attempts=attempts,
-                    status=status,currentReportBudget=safe,cumulativeIdentityBudget=cumulative)
+                    status=status,currentReportBudget=safe,cumulativeSlotBudget=cumulative)
     except (OSError,RuntimeError,ValueError,KeyError,TypeError):
         return dict(state='UNKNOWN',calls=None,attempts=None,status='UNKNOWN')
 
@@ -121,7 +123,7 @@ def pin_actual_origin(out,job,record):
     c.guard(out)
     bundle=p.report_path(out,job).parent
     report=c.doc(bundle/'minimax-report.json')
-    expected=dict(route=job['route'],model=job['model'],purpose=job['purpose'])
+    expected=p.identity(job)
     if (record.get('state')!='COMPLETED' or record.get('exitCode')!=0 or
         not record.get('credentialsRead') or not record.get('launcherAudit',{}).get('passed') or
         report.get('mode')!='live' or report.get('outcome')!='PASS' or report.get('complete') is not True or
@@ -153,12 +155,13 @@ def pin_glm_capture(out,job,record):
 
 def run_selected(out,job):
     frozen=c.reviewed(out,job)
+    if job['provider']=='minimax':h.require_known()
     evidence=Path(job['evidenceRoot'])
     if evidence.exists() or evidence.is_symlink() or (out/(job['name']+'-command.json')).exists():
         raise RuntimeError('selected route output already exists; stale evidence cannot be reused')
     # Fail closed across output directories/worktrees, including pre-key crashes.
     if job.get('phase') in ('candidate','research'):
-        sibling='mm-'+('research' if job['phase']=='candidate' else 'candidate')+'-'+(
+        sibling='mm-global-'+('research' if job['phase']=='candidate' else 'candidate')+'-'+(
             'm3' if job['purpose']=='standard' else 'm31')+'-'+job['route']
         if marker(sibling).exists():
             prior=c.doc(marker(sibling))
@@ -215,7 +218,7 @@ def summarize(out):
         row=dict(route=job['name'],provider=job['provider'],maxCalls=job['maxCalls'],maxAttempts=job['maxAttempts'],
             **actual,conservativeCalls=actual['calls'] if known else job['maxCalls'],
             conservativeAttempts=actual['attempts'] if known else job['maxAttempts'])
-        if 'stage' in job:row.update(stage=job['stage'],identity=job['route']+'/'+job['model']+'/'+job['purpose'])
+        if 'stage' in job:row.update(stage=job['stage'],identity=p.identity(job),budgetSlot=job['route']+'/'+job['model']+'/'+job['purpose'])
         rows.append(row)
     legacy=[r for r in rows if r['provider']!='minimax']
     total=dict(calls=sum(r['calls'] or 0 for r in legacy),attempts=sum(r['attempts'] or 0 for r in legacy),
@@ -227,24 +230,29 @@ def summarize(out):
         if sum(r['conservativeCalls'] for r in own)>cap:raise RuntimeError('provider budget exceeded')
         attemptcap=96 if provider=='zhipu' else cap
         if sum(r['conservativeAttempts'] for r in own)>attemptcap:raise RuntimeError('provider attempt budget exceeded')
+    history=h.inventory()
     mini=[]
     for stage,calls,attempts in (('candidate',120,144),('formal',60,72)):
         grouped={}
-        for row in rows:
+        for row in [*rows,*history['routes']]:
             if row.get('stage')!=stage:continue
-            own=grouped.setdefault(row['identity'],dict(calls=0,attempts=0,unknown=False))
+            own=grouped.setdefault(row['budgetSlot'],dict(calls=0,attempts=0,requestedOutput=0,reservedInput=0,unknown=False))
             own['calls']+=row['calls'] or 0;own['attempts']+=row['attempts'] or 0
+            for field in ('requestedOutput','reservedInput'):
+                own[field]+=row.get('currentReportBudget',{}).get(field,0)
             own['unknown']|=row['state']=='UNKNOWN'
-        if any(v['calls']>20 or v['attempts']>24 for v in grouped.values()):
-            raise RuntimeError('MiniMax identity cumulative budget exceeded')
-        # Unknown consumes the whole identity allowance, not one cap per phase.
+        if any(v['calls']>20 or v['attempts']>24 or v['requestedOutput']>40000 or v['reservedInput']>120000 for v in grouped.values()):
+            raise RuntimeError('MiniMax slot cumulative budget exceeded')
+        # Unknown consumes the whole shared slot allowance, including prior spend.
         summary=dict(stage=stage,maxCalls=calls,maxAttempts=attempts,
             conservativeCalls=sum(20 if v['unknown'] else v['calls'] for v in grouped.values()),
-            conservativeAttempts=sum(24 if v['unknown'] else v['attempts'] for v in grouped.values()),identities=grouped)
+            conservativeAttempts=sum(24 if v['unknown'] else v['attempts'] for v in grouped.values()),
+            conservativeRequestedOutput=sum(40000 if v['unknown'] else v['requestedOutput'] for v in grouped.values()),
+            conservativeReservedInput=sum(120000 if v['unknown'] else v['reservedInput'] for v in grouped.values()),budgetSlots=grouped)
         if summary['conservativeCalls']>calls or summary['conservativeAttempts']>attempts:
             raise RuntimeError('MiniMax stage budget exceeded')
         mini.append(summary)
-    result=dict(routes=rows,legacy=total,minimax=mini,credentialsRead=False)
+    result=dict(routes=rows,legacy=total,minimax=mini,historicalAccounting=history,credentialsRead=False)
     c.dump(out/'consumption.json',result)
     return result
 

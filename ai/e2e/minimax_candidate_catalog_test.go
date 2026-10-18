@@ -22,10 +22,10 @@ func TestMiniMaxCandidateCatalog(t *testing.T) {
 	ev.Record("candidate-catalog", client.Catalog())
 	ev.Check("synthetic rates cannot look formal", strings.Contains(cat.Version, "candidate") && strings.Contains(cat.Version, "synthetic-prices"), "%s", cat.Version)
 	ev.Check("six independent identities", len(cat.Models) == 6, "%d", len(cat.Models))
-	ev.Check("regional provider identity", ai.ProviderMiniMaxCN == ai.ProviderID("minimax-cn"), "%s", ai.ProviderMiniMaxCN)
+	ev.Check("regional provider identity", ai.ProviderMiniMax == ai.ProviderID("minimax"), "%s", ai.ProviderMiniMax)
 	for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
 		for _, id := range []string{"MiniMax-M3", "MiniMax-M3.1-Flash-Preview"} {
-			m, ok := client.Catalog().Lookup(ai.ProviderMiniMaxCN, api, id)
+			m, ok := client.Catalog().Lookup(ai.ProviderMiniMax, api, id)
 			if !ev.Check("own candidate identity "+string(api)+"/"+id, ok, "missing") {
 				continue
 			}
@@ -49,13 +49,13 @@ func TestMiniMaxCandidateCatalog(t *testing.T) {
 				}
 			}
 			ev.Check("per-protocol omitted label", string(fields["defaultThinkingLevel"]) == wantDefault, "%s", mustMarshal(t, m))
-			_, formal := ai.BuiltinCatalog().Lookup(ai.ProviderMiniMaxCN, api, id)
+			_, formal := ai.BuiltinCatalog().Lookup(ai.ProviderMiniMax, api, id)
 			if id == "MiniMax-M3.1-Flash-Preview" {
 				ev.Check("unpriced M3.1 stays outside formal catalog", !formal, "%s/%s", api, id)
 			} else if formal {
 				sourced := minimax.PricedM3Catalog()
-				want, _ := sourced.Lookup(ai.ProviderMiniMaxCN, api, id)
-				got, _ := ai.BuiltinCatalog().Lookup(ai.ProviderMiniMaxCN, api, id)
+				want, _ := sourced.Lookup(ai.ProviderMiniMax, api, id)
+				got, _ := ai.BuiltinCatalog().Lookup(ai.ProviderMiniMax, api, id)
 				ev.Check("promoted M3 keeps own sourced constraints", got.MaxTokens == want.MaxTokens && jsonEqual(mustMarshal(t, got.Cost), mustMarshal(t, want.Cost)), "%+v", got)
 			}
 		}

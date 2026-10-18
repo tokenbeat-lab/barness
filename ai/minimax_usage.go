@@ -5,7 +5,7 @@ package ai
 // retained but cannot become a successful zero-cost estimate. Synthetic Host
 // catalogs with an explicit positive rate still test usage normalization.
 func miniMaxUnpricedWriteFailure(model Model, attempts []Attempt) *Error {
-	if model.Provider != ProviderMiniMaxCN {
+	if model.Provider != ProviderMiniMax {
 		return nil
 	}
 	for _, attempt := range attempts {

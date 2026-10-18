@@ -18,7 +18,7 @@ type anthropicCapabilities struct {
 // Zhipu keeps only the basic Messages shape established by its own public
 // Client wire captures (ADR-0035). Native Anthropic defaults stay unchanged.
 func anthropicCapabilitiesOf(provider ProviderID) anthropicCapabilities {
-	if provider == ProviderMiniMaxCN {
+	if provider == ProviderMiniMax {
 		return anthropicCapabilities{adaptiveThinking: true}
 	}
 	if provider == ProviderZhipu {
@@ -33,7 +33,7 @@ func (c anthropicCapabilities) managesEffort(m Model) bool {
 }
 
 func (c anthropicCapabilities) usesAdaptiveThinking(m Model) bool {
-	return c.adaptiveThinking && (m.Provider == ProviderMiniMaxCN || m.Compat.ForceAdaptiveThinking)
+	return c.adaptiveThinking && (m.Provider == ProviderMiniMax || m.Compat.ForceAdaptiveThinking)
 }
 
 // The China Messages endpoint returns X-Request-Id in both successful and

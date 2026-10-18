@@ -87,11 +87,11 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 		if r.Stage != l.Stage {
 			return Receipt{}, fmt.Errorf("mixed stage ledger")
 		}
-		seen[r.Identity.Key()] = true
+		seen[r.Identity.BudgetSlot()] = true
 		addBudget(&stage, r)
-		if r.Identity == l.Identity {
+		if r.Identity.BudgetSlot() == l.Identity.BudgetSlot() {
 			addBudget(&own, r)
-			if r.Case == caseID {
+			if r.Identity == l.Identity && r.Case == caseID {
 				if r.Kind == "reserve" {
 					perCase[caseID]++
 					reserved++
@@ -105,7 +105,7 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if l.Stage == "formal" {
 		maxCalls, maxAttempts, maxIDs = 60, 72, 3
 	}
-	seen[l.Identity.Key()] = true
+	seen[l.Identity.BudgetSlot()] = true
 	if len(seen) > maxIDs {
 		return Receipt{}, fmt.Errorf("stage identity budget exhausted")
 	}
@@ -163,11 +163,10 @@ func ReadLedger(path string) ([]Receipt, error) {
 			continue
 		}
 		var r Receipt
-		if e = json.Unmarshal([]byte(line), &r); e != nil || r.Sequence != len(out)+1 || r.Previous != previous || r.Hash != receiptHash(r) || (r.Kind != "reserve" && r.Kind != "attempt") {
+		if e = StrictJSON([]byte(line), &r); e != nil || r.Sequence != len(out)+1 || r.Previous != previous || r.Hash != receiptHash(r) || (r.Kind != "reserve" && r.Kind != "attempt") {
 			return nil, fmt.Errorf("invalid MiniMax ledger receipt chain")
 		}
-		id, err := Select(r.Identity.Route, r.Identity.Model, r.Identity.Purpose)
-		if err != nil || id != r.Identity {
+		if !accountingIdentity(r) {
 			return nil, fmt.Errorf("invalid ledger identity")
 		}
 		previous = r.Hash

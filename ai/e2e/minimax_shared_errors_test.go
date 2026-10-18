@@ -33,7 +33,7 @@ func TestMiniMaxSharedFailures(t *testing.T) {
 					ev.Check("private freeform errors stay out of caller and Observer", o.err != nil && !strings.Contains(o.err.Error(), private) && !strings.Contains(o.result.Message.ErrorMessage, private), "%v", o.err)
 					ev.Check("actual diagnostic header preserved", o.result.Metadata.Attempts[0].ProviderRequestID == "synthetic-actual-id", "%+v", o.result.Metadata.Attempts)
 				} else {
-					ev.Check("retry can succeed without changing route", o.err == nil && o.result.Metadata.ProviderID == ai.ProviderMiniMaxCN, "%v", o.err)
+					ev.Check("retry can succeed without changing route", o.err == nil && o.result.Metadata.ProviderID == ai.ProviderMiniMax, "%v", o.err)
 				}
 				miniMaxSharedOneTerminal(ev, o)
 				w.released(ev)

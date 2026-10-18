@@ -76,7 +76,7 @@ func TestMiniMaxSharedTenantRoundTrips(t *testing.T) {
 
 func TestMiniMaxSharedNativeBoundaries(t *testing.T) {
 	for _, r := range miniMaxSharedRoutes {
-		for _, mode := range []string{"restored", "untrusted", "foreign-tenant", "account", "model-account", "api", "provider"} {
+		for _, mode := range []string{"restored", "untrusted", "foreign-tenant", "account", "model-account", "api", "provider", "region"} {
 			t.Run(r.name+"/"+mode, func(t *testing.T) {
 				ev := run.Case(t, "MM05-native-"+r.name+mode)
 				w := newMiniMaxSharedWorld(t, nil)
@@ -112,6 +112,9 @@ func TestMiniMaxSharedNativeBoundaries(t *testing.T) {
 					want.CrossModel = 1
 				case "api":
 					env.API = ai.APIGoogleGenerativeAI
+					want.CrossModel = 1
+				case "region":
+					env.ProviderID = ai.ProviderID("minimax-cn")
 					want.CrossModel = 1
 				case "provider":
 					env.ProviderID = ai.ProviderOpenAI

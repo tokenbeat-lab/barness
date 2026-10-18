@@ -1,4 +1,4 @@
-// Package minimaxhost assembles explicit MiniMax China Host bindings. It
+// Package minimaxhost assembles explicit MiniMax international Host bindings. It
 // reads no credentials and does not discover entitlements or select fallbacks.
 package minimaxhost
 
@@ -54,13 +54,13 @@ func Bindings(a Authorization) ([]ai.Binding, error) {
 		api      ai.API
 		endpoint string
 	}{
-		{"chat", ai.APIOpenAICompletions, "https://api.minimax.cn/v1"},
-		{"responses", ai.APIOpenAIResponses, "https://api.minimax.cn/v1"},
-		{"messages", ai.APIAnthropicMessages, "https://api.minimax.cn/anthropic"},
+		{"chat", ai.APIOpenAICompletions, "https://api.minimax.io/v1"},
+		{"responses", ai.APIOpenAIResponses, "https://api.minimax.io/v1"},
+		{"messages", ai.APIAnthropicMessages, "https://api.minimax.io/anthropic"},
 	}
 	out := make([]ai.Binding, 0, len(routes))
 	for _, r := range routes {
-		out = append(out, ai.Binding{TenantID: a.TenantID, BindingID: "minimax-" + string(a.Purpose) + "-" + r.name, Operation: ai.OperationChat, Version: a.Version, Enabled: true, ProviderID: ai.ProviderMiniMaxCN, API: r.api, Endpoint: r.endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: a.AccountScopeID, CredentialRef: a.CredentialRef, AllowedModels: []string{model}})
+		out = append(out, ai.Binding{TenantID: a.TenantID, BindingID: "minimax-" + string(a.Purpose) + "-" + r.name, Operation: ai.OperationChat, Version: a.Version, Enabled: true, ProviderID: ai.ProviderMiniMax, API: r.api, Endpoint: r.endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: a.AccountScopeID, CredentialRef: a.CredentialRef, AllowedModels: []string{model}})
 	}
 	return out, nil
 }

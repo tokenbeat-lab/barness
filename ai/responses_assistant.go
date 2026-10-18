@@ -21,7 +21,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 		switch b := block.(type) {
 		case Thinking:
 			if b.Signature == "" {
-				if model.Provider == ProviderMiniMaxCN && b.Thinking != "" {
+				if model.Provider == ProviderMiniMax && b.Thinking != "" {
 					items = append(items, responsesUserMessage{Role: "assistant", Content: []any{responsesInputText{Type: "output_text", Text: b.Thinking}}})
 				}
 				if model.Provider == ProviderZhipu && b.Thinking != "" {
@@ -29,7 +29,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 				}
 				continue
 			}
-			if model.Provider == ProviderMiniMaxCN {
+			if model.Provider == ProviderMiniMax {
 				item, err := miniMaxResponsesReasoning(b)
 				if err != nil {
 					return nil, err
@@ -56,7 +56,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 			}
 			items = append(items, json.RawMessage(stringifyJSON(item)))
 		case Text:
-			if model.Provider == ProviderMiniMaxCN {
+			if model.Provider == ProviderMiniMax {
 				items = append(items, responsesUserMessage{Role: "assistant", Content: []any{responsesInputText{Type: "output_text", Text: b.Text}}})
 				continue
 			}
@@ -79,7 +79,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 		case ToolCall:
 			parts := strings.Split(b.ID, "|")
 			callID := parts[0]
-			if model.Provider == ProviderMiniMaxCN {
+			if model.Provider == ProviderMiniMax {
 				var err error
 				callID, err = miniMaxResponsesCallID(b.ID)
 				if err != nil {
@@ -95,7 +95,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 			}
 			// A different model's fc_ id would trip OpenAI's reasoning pairing
 			// check, and function_call item ids must start with fc_.
-			if model.Provider == ProviderZhipu || model.Provider == ProviderMiniMaxCN || differentModel || !strings.HasPrefix(itemID, "fc_") {
+			if model.Provider == ProviderZhipu || model.Provider == ProviderMiniMax || differentModel || !strings.HasPrefix(itemID, "fc_") {
 				itemID = ""
 			}
 			// Arguments that are not JSON (only a host-built call can have

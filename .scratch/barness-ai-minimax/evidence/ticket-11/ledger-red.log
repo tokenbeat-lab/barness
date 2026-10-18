@@ -1,0 +1,7 @@
+--- FAIL: TestMiniMaxInternationalHistoricalBudget (0.00s)
+    minimax_international_ledger_test.go:30: [MM11-historical-budget] current selection is international only: {Route:chat Model:MiniMax-M3 Purpose:standard API:openai-completions Endpoint:https://api.minimax.cn/v1}
+    minimax_international_ledger_test.go:39: [MM11-historical-budget] same scene name in new exact target is not duplicate: unregistered repeated scenario
+FAIL
+barness-ai evidence bundle: .evidence/mm11-ledger-red/20261018T010703.317464000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.358s
+FAIL

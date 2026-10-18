@@ -260,7 +260,7 @@ func newClientWithPolicy(c *combo, key string, rec *recorder, cat ai.Catalog, po
 	var models []string
 	for _, m := range cat.Models {
 		if m.Provider == c.provider && m.API == c.api {
-			if c.provider != ai.ProviderMiniMaxCN || m.ID == c.model {
+			if c.provider != ai.ProviderMiniMax || m.ID == c.model {
 				models = append(models, m.ID)
 			}
 		}

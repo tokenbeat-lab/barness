@@ -84,7 +84,7 @@ type Source struct {
 }
 
 // SourcePin binds complete official snapshots, not a mutable URL or excerpt.
-const SourcePin = "cf78d95276518b97c551cf887f3655f02de0749a25ffc867ae8dba5f6a0f9b9a"
+const SourcePin = "41dbf84331b516c45e180128634146aefd54b6daaedf1118f0628b355d8e0684"
 
 func Sources() (map[string][]byte, error) {
 	root, e := Root()

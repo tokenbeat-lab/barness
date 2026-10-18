@@ -46,7 +46,7 @@ func TestMiniMaxHostExample(t *testing.T) {
 						o.record(ev)
 						ev.Record("requests", w.provider.Requests())
 						ev.Record("catalog-kind", "controlled candidate with synthetic prices; no formal support")
-						ev.Check("own model, purpose, account and fixed credential snapshot", o.err == nil && o.result.Metadata.ProviderID == ai.ProviderMiniMaxCN && o.result.Metadata.API == r.api && o.result.Metadata.ModelID == model && o.result.Metadata.AccountScopeID == "acct-mm08-"+tenantA.tenant+"-"+string(purpose) && o.result.Metadata.CredentialVersion == "mm08-key-v1" && o.result.Metadata.BindingVersion == "mm08-v1", "%v %+v", o.err, o.result.Metadata)
+						ev.Check("own model, purpose, account and fixed credential snapshot", o.err == nil && o.result.Metadata.ProviderID == ai.ProviderMiniMax && o.result.Metadata.API == r.api && o.result.Metadata.ModelID == model && o.result.Metadata.AccountScopeID == "acct-mm08-"+tenantA.tenant+"-"+string(purpose) && o.result.Metadata.CredentialVersion == "mm08-key-v1" && o.result.Metadata.BindingVersion == "mm08-v1", "%v %+v", o.err, o.result.Metadata)
 						if len(w.provider.Requests()) == 1 {
 							req := w.provider.Requests()[0]
 							ev.Check("one authorized protocol and credential purpose", req.Path == miniMaxHostPrefix(tenantA, purpose, r)+r.suffix && req.KeyAlias == miniMaxHostKey(tenantA, purpose).alias, "%+v", req)

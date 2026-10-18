@@ -15,7 +15,7 @@ func TestMiniMaxMessagesBusinessFields(t *testing.T) {
 	tool := ai.ToolCall{ID: "business-call", Name: "inspect", Arguments: ai.UncheckedArguments(`{"type":"file","file_id":"business-id","thinking":{"type":"disabled"},"cache_control":"business","stop_sequences":["business"]}`)}
 	req := miniMaxMessagesRequest()
 	req.Tools = []ai.Tool{{Name: "inspect", Description: "Inspect business fields.", Parameters: json.RawMessage(`{"type":"object","properties":{"file_id":{"type":"string"},"type":{"type":"string"},"thinking":{"type":"object"},"cache_control":{"type":"string"},"stop_sequences":{"type":"array","items":{"type":"string"}}},"required":["file_id"]}`)}}
-	req.Messages = append(req.Messages, ai.AssistantMessage{Provider: ai.ProviderMiniMaxCN, API: ai.APIAnthropicMessages, Model: "MiniMax-M3", Content: []ai.AssistantContent{tool}, StopReason: ai.StopReasonToolUse}, ai.ToolResultText(tool, "Synthetic result.", false))
+	req.Messages = append(req.Messages, ai.AssistantMessage{Provider: ai.ProviderMiniMax, API: ai.APIAnthropicMessages, Model: "MiniMax-M3", Content: []ai.AssistantContent{tool}, StopReason: ai.StopReasonToolUse}, ai.ToolResultText(tool, "Synthetic result.", false))
 	enqueue(ev, w, miniMaxMessagesReply(t, "MiniMax-M3"))
 	o := drain(w.client.Stream(ctxFor(t), textScope("mm04-business-fields"), miniMaxMessagesTarget("MiniMax-M3"), req, nil))
 	o.record(ev)

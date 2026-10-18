@@ -21,7 +21,7 @@ func builtinMiniMaxCatalog() Catalog {
 		panic("MiniMax activation requires three own M3 identities")
 	}
 	for _, m := range c.Models {
-		if m.Provider != ProviderMiniMaxCN || m.ID != "MiniMax-M3" {
+		if m.Provider != ProviderMiniMax || m.ID != "MiniMax-M3" {
 			panic("invalid embedded MiniMax formal identity")
 		}
 	}

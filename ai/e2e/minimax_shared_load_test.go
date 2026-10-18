@@ -146,7 +146,7 @@ func TestMiniMaxSharedDesignLoad(t *testing.T) {
 					if o.metadata.Operation == ai.OperationClassifier {
 						ev.Check("all original questions", len(o.classifier.Answers) == l.Questions, "%+v", o.classifier)
 					}
-					if o.metadata.ProviderID == ai.ProviderMiniMaxCN {
+					if o.metadata.ProviderID == ai.ProviderMiniMax {
 						ev.Check("MiniMax whole16KiB output", len(textOf(o.chat.Message)) == l.ChatOutputBytes, "%d", len(textOf(o.chat.Message)))
 					}
 					w.record(ev, o)

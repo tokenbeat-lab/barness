@@ -69,7 +69,7 @@ func TestMiniMaxPiMessages(t *testing.T) {
 						res, callErr := stream.Result()
 						ev.Record("observer", rec.awaitCall(ev, scope.RequestID))
 						ev.Check("public MiniMax turn succeeds", callErr == nil, "%v", callErr)
-						piRun, err := o.Run(ctxFor(t), pioracle.Case{API: string(ai.APIAnthropicMessages), Provider: "minimax-cn", Model: "MiniMax-M3", BaseURL: srv.URL() + "/anthropic", APIKey: anthropicA.secret, Entry: entry, Context: piContext(t, req), Options: mustMarshal(t, options)})
+						piRun, err := o.Run(ctxFor(t), pioracle.Case{API: string(ai.APIAnthropicMessages), Provider: "minimax", Model: "MiniMax-M3", BaseURL: srv.URL() + "/anthropic", APIKey: anthropicA.secret, Entry: entry, Context: piContext(t, req), Options: mustMarshal(t, options)})
 						if !ev.Check("frozen MiniMax turn executes", err == nil, "%v", err) {
 							return
 						}
@@ -129,17 +129,17 @@ func TestMiniMaxPiCatalogDifferences(t *testing.T) {
 	ev := run.Case(t, "PIDIFF-MM06-catalog-differences")
 	ev.ReplayEnv(pioracle.EnableEnv + "=1")
 	o := openOracle(t)
-	models, err := o.Models(ctxFor(t), []pioracle.ModelKey{{Provider: "minimax-cn", API: "anthropic-messages", ID: "MiniMax-M3"}})
+	models, err := o.Models(ctxFor(t), []pioracle.ModelKey{{Provider: "minimax", API: "anthropic-messages", ID: "MiniMax-M3"}})
 	if !ev.Check("frozen M3 metadata available", err == nil && len(models) == 1 && string(models[0]) != "null", "%v", err) {
 		return
 	}
 	w := newMiniMaxMessagesWorld(t, nil)
-	m, _ := w.client.Catalog().Lookup(ai.ProviderMiniMaxCN, ai.APIAnthropicMessages, "MiniMax-M3")
+	m, _ := w.client.Catalog().Lookup(ai.ProviderMiniMax, ai.APIAnthropicMessages, "MiniMax-M3")
 	ev.Check("candidate metadata remains explicitly bounded", m.Name == "MiniMax-M3 anthropic-messages candidate (synthetic prices)" && m.DefaultThinkingLevel == "off" && m.MaxTokens == 131072 && jsonEqual(mustMarshal(t, m.Input), []byte(`["text"]`)), "%s", mustMarshal(t, m))
 	ev.Check("complete own hard constraints stay fixed", jsonEqual(mustMarshal(t, m.Compat), []byte(`{"supportsLongCacheRetention":false,"thinkingSwitchOnly":true}`)) && jsonEqual(mustMarshal(t, m.ThinkingLevelMap), []byte(`{"off":"disabled","minimal":null,"low":null,"medium":null,"high":"high","xhigh":null,"max":null}`)), "%s", mustMarshal(t, m))
 	ev.Check("complete candidate test rates stay synthetic", jsonEqual(mustMarshal(t, m.Cost), []byte(`{"input":1,"output":2,"cacheRead":0.1,"cacheWrite":1}`)), "%+v", m.Cost)
 	metadata := jsonObject(t, m)
-	metadata["type"], metadata["baseUrl"] = "chat", "https://api.minimax.cn/anthropic"
+	metadata["type"], metadata["baseUrl"] = "chat", "https://api.minimax.io/anthropic"
 	pi, b := pioracle.Observation{Result: models[0]}, pioracle.Observation{Result: mustMarshal(t, metadata)}
 	ev.Record("pi-observation", pi)
 	ev.Record("barness-observation", b)

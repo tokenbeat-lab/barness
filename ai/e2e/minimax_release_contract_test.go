@@ -40,7 +40,7 @@ func TestMiniMaxAdditiveReleaseContract(t *testing.T) {
 	ev.Check("sixteen distinct protocol routes", len(routes) == 16, "routes=%d", len(routes))
 	ev.Check("eighth frozen differential is own M3 Messages", len(plan.Differential.Required) == 8 && slices.Contains(plan.Differential.Required, "MM-MESSAGES"), "%v", plan.Differential.Required)
 	for _, route := range []string{"chat", "responses", "messages"} {
-		combo := "minimax-cn-" + route
+		combo := "minimax-" + route
 		i := slices.IndexFunc(matrix.Rows, func(r supportmatrix.Row) bool { return r.Combo == combo })
 		ev.Check("own MiniMax row "+combo, i >= 0 && matrix.Rows[i].ValidIdentity(), "missing exact own row")
 		changed := plan

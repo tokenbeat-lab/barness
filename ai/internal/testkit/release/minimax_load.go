@@ -268,7 +268,7 @@ func miniMaxLoadResult(dir, host, route, tenant, binding string) error {
 	api := ai.APIOpenAIResponses
 	operation := ai.OperationChat
 	if strings.HasPrefix(binding, "minimax-") {
-		model, providerID = "MiniMax-M3", ai.ProviderMiniMaxCN
+		model, providerID = "MiniMax-M3", ai.ProviderMiniMax
 		api = map[string]ai.API{"chat": ai.APIOpenAICompletions, "responses": ai.APIOpenAIResponses, "messages": ai.APIAnthropicMessages}[route]
 	} else if binding == "openai-image" {
 		api, operation = ai.APIOpenAIImages, ai.OperationImage

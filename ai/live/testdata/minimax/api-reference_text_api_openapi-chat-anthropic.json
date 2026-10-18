@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "MiniMax Text API Anthropic",
-    "description": "MiniMax 文本生成 API，支持对话补全与流式输出。\n\n> ⚡ **`MiniMax-M3.1-Flash-Preview` 亮点** —— **1M 超长上下文**、**多模态**、**思考深度可调**。\n",
+    "description": "MiniMax text generation API with support for chat completion and streaming output.\n\n> ⚡ **`MiniMax-M3.1-Flash-Preview` highlights** — **1M long context**, **multimodal**, and **tunable thinking depth**.\n",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.minimax.cn"
+      "url": "https://api.minimax.io"
     }
   ],
   "security": [
@@ -34,7 +34,7 @@
             "name": "Content-Type",
             "in": "header",
             "required": true,
-            "description": "请求体的媒介类型，请设置为 `application/json`，确保请求数据的格式为 JSON",
+            "description": "Media type of the request body, should be set to `application/json` to ensure JSON format",
             "schema": {
               "type": "string",
               "enum": [
@@ -51,7 +51,7 @@
                 "$ref": "#/components/schemas/CreateMessageReq"
               },
               "examples": {
-                "深度思考": {
+                "Deep Thinking": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "thinking": {
@@ -60,7 +60,7 @@
                     "messages": [
                       {
                         "role": "user",
-                        "content": "9.11 和 9.9 哪个更大？"
+                        "content": "Which is bigger, 9.11 or 9.9?"
                       }
                     ],
                     "max_tokens": 4096,
@@ -69,16 +69,19 @@
                     }
                   }
                 },
-                "图片理解": {
+                "Image Understanding": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
+                    "thinking": {
+                      "type": "adaptive"
+                    },
                     "messages": [
                       {
                         "role": "user",
                         "content": [
                           {
                             "type": "text",
-                            "text": "这张图片的内容是什么？"
+                            "text": "What does this image show?"
                           },
                           {
                             "type": "image",
@@ -91,15 +94,12 @@
                       }
                     ],
                     "max_tokens": 4096,
-                    "thinking": {
-                      "type": "adaptive"
-                    },
                     "output_config": {
                       "effort": "max"
                     }
                   }
                 },
-                "视频理解": {
+                "Video Understanding": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "thinking": {
@@ -111,7 +111,7 @@
                         "content": [
                           {
                             "type": "text",
-                            "text": "这个视频里发生了什么？"
+                            "text": "What is happening in this video?"
                           },
                           {
                             "type": "video",
@@ -129,16 +129,19 @@
                     }
                   }
                 },
-                "流式": {
+                "Stream": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
+                    "thinking": {
+                      "type": "adaptive"
+                    },
                     "messages": [
                       {
                         "role": "user",
                         "content": [
                           {
                             "type": "text",
-                            "text": "这张图片的内容是什么？"
+                            "text": "What does this image show?"
                           },
                           {
                             "type": "image",
@@ -152,21 +155,18 @@
                     ],
                     "stream": true,
                     "max_tokens": 4096,
-                    "thinking": {
-                      "type": "adaptive"
-                    },
                     "output_config": {
                       "effort": "max"
                     }
                   }
                 },
-                "工具调用": {
+                "Tool Use": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "messages": [
                       {
                         "role": "user",
-                        "content": "旧金山现在天气怎么样？"
+                        "content": "How's the weather in San Francisco?"
                       }
                     ],
                     "max_tokens": 4096,
@@ -210,90 +210,90 @@
                   "$ref": "#/components/schemas/CreateMessageResp"
                 },
                 "examples": {
-                  "深度思考": {
+                  "Deep Thinking": {
                     "value": {
-                      "id": "066b367547c2650d17dc215f503da551",
+                      "id": "066b367ba949a58a9d6829b4bf8cbcd4",
                       "type": "message",
                       "role": "assistant",
                       "model": "MiniMax-M3.1-Flash-Preview",
                       "content": [
                         {
-                          "thinking": "The user is asking which is larger: 9.11 or 9.9.\n\nComparing 9.11 and 9.9:\n9.9 = 9.90\n9.11 = 9.11\n\n9.90 > 9.11, so 9.9 is larger.",
-                          "signature": "7564f4e0e54b5c08b380d0b800aeb5463ea050e546cec7722e08ef6e912f6c67",
+                          "thinking": "The user is asking which is bigger, 9.11 or 9.9.\n\n9.11 vs 9.9\n\n9.9 is greater than 9.11.\n\nTo compare: 9.11 = 9.11 and 9.9 = 9.90\n\n9.90 > 9.11, so 9.9 is bigger.",
+                          "signature": "6d0315c818f9664ff185dabaa22cd89f2bf28a3a52122095bce23d905471ec5f",
                           "type": "thinking"
                         },
                         {
-                          "text": "**9.9 更大。**\n\n比较方法很简单：将两个数的小数位数对齐后比较：\n\n- 9.11 = 9.**11**\n- 9.9 = 9.**90**\n\n因为 90 > 11，所以 **9.9 > 9.11**。\n\n这是一个常见的思维陷阱——虽然 11 看起来比 9 大，但在比较小数时，应该先比较整数部分（都是 9），然后再比较小数部分，而小数部分需要**补齐位数**后再比较。",
+                          "text": "**9.9 is bigger than 9.11.**\n\nTo compare decimals, it helps to write them with the same number of decimal places:\n- 9.11 = 9.11\n- 9.9 = 9.90\n\nSince 9.90 > 9.11, **9.9 is larger**.",
                           "type": "text"
                         }
                       ],
                       "usage": {
                         "input_tokens": 13,
-                        "output_tokens": 172,
+                        "output_tokens": 149,
+                        "cache_creation_input_tokens": 0,
+                        "cache_read_input_tokens": 159
+                      },
+                      "stop_reason": "end_turn"
+                    }
+                  },
+                  "Image Understanding": {
+                    "value": {
+                      "id": "066a3730f92943410551c4b4978ddad1",
+                      "type": "message",
+                      "role": "assistant",
+                      "model": "MiniMax-M3.1-Flash-Preview",
+                      "content": [
+                        {
+                          "thinking": "The user is asking what the image shows. I can describe this image of a young child.",
+                          "signature": "db8ecae1e5a63cabebd69d2625983499bb498bfd329dde5c3cede76f12896336",
+                          "type": "thinking"
+                        },
+                        {
+                          "text": "This image shows a young girl, probably around 4-5 years old, photographed in a close-up portrait style. She has:\n\n- **Wavy, tousled light brown hair** with bangs that fall across her forehead, with some strands appearing slightly messy or windblown\n- **Large, expressive hazel-green eyes** that are looking directly at the camera\n- **A soft, subtle smile** giving her a warm, gentle expression\n- **Fair skin** with rosy cheeks, illuminated by warm, soft lighting\n\nShe's wearing what appears to be a **cream or off-white dress** with delicate lace or ruffled detailing around the neckline and shoulders.\n\nThe photograph has a **professional portrait quality**, with a softly blurred, neutral grayish-beige background and warm directional lighting that creates a classic, painterly aesthetic. The composition and styling suggest this could be a formal portrait or an AI-generated image with a vintage/realistic photographic style.",
+                          "type": "text"
+                        }
+                      ],
+                      "usage": {
+                        "input_tokens": 1209,
+                        "output_tokens": 214,
                         "cache_creation_input_tokens": 0,
                         "cache_read_input_tokens": 157
                       },
                       "stop_reason": "end_turn"
                     }
                   },
-                  "图片理解": {
+                  "Video Understanding": {
                     "value": {
-                      "id": "066a381bdc3c0ded310e27c9a46d16e7",
+                      "id": "066b458956dd2902de31eae19cf15c6e",
                       "type": "message",
                       "role": "assistant",
                       "model": "MiniMax-M3.1-Flash-Preview",
                       "content": [
                         {
-                          "thinking": "The user is asking in Chinese what the content of the image is. I should describe the image in Chinese.",
-                          "signature": "6b19dfedcc8d3e065eb0ebe4262efd4a69e3e73ad69eeb7e5e629e552c40f969",
+                          "thinking": "The user wants to know what is happening in the video.\n\n1.  **Analyze the video:**\n    *   The video is a meme/edited clip.\n    *   It starts with a cat (specifically a Bengal cat, looks like a Savannah cat or similar breed) walking on a diving board at the Olympics (London 2012).\n    *   The cat is edited into the scene, replacing a human diver.\n    *   The cat walks to the end of the board.\n    *   The cat then jumps off the diving board into the pool.\n    *   The people in the background are real, reacting (or rather, just sitting there, as it's a static crowd image or very slow movement).\n    *   The text \"MINIMAX | Hailuo AI\" is visible, indicating it's an AI-generated video.\n\n2.  **Describe the action:**\n    *   A cat walks on a diving board.\n    *   The cat jumps off the diving board.\n    *   The setting is an Olympic-sized pool.\n\n3.  **Synthesize the description:**\n    *   Start with the main subject: a cat.\n    *   Describe the location: a diving board at a swimming pool.\n    *   Describe the action: walking, then jumping off.\n    *   Combine into a concise sentence: \"A cat is seen walking on a diving board and then jumping off into a swimming pool.\"\n\n4.  **Review against the video:**\n    *   Does the video show a cat? Yes.\n    *   Does it show a diving board? Yes.\n    *   Does the cat jump off? Yes.\n    *   Is there a swimming pool below? Yes.\n    *   The description is accurate and covers the key events in the short clip.\n\n5.  **Final Output Generation:** Present the synthesized description clearly.",
+                          "signature": "4849e0d596e25f03504dbb4eee7316fc48714dc86b93c9b7dd63adef7f4aa9b2",
                           "type": "thinking"
                         },
                         {
-                          "text": "这张图片是一张温馨的儿童肖像照片，内容如下：\n\n**主体**：一个大约4-6岁的小女孩，有着棕色的卷曲长发和齐刘海，扎着蓬松的发型。她有一双大大的浅棕色（琥珀色）眼睛，长长的睫毛，粉嫩的嘴唇微微上扬，露出甜美自然的微笑。\n\n**服饰**：她穿着一件米白色或浅奶油色的连衣裙，领口和肩部有精致的蕾丝花边装饰，袖子是蓬松的荷叶边设计，整体风格显得优雅可爱。\n\n**光影与背景**：照片采用了柔和的暖色调光线，背景是朦胧的米灰色/暖灰色，营造出温馨柔和的氛围。光线从侧面打来，突出了她脸部的轮廓和头发的质感。\n\n**整体风格**：这是一张高质量的人像摄影作品，采用了浅景深的虚化效果（背景模糊），突出了小女孩纯真可爱的形象，画面充满童真与温暖感。",
-                          "type": "text"
-                        }
-                      ],
-                      "usage": {
-                        "input_tokens": 1209,
-                        "output_tokens": 211,
-                        "cache_creation_input_tokens": 0,
-                        "cache_read_input_tokens": 156
-                      },
-                      "stop_reason": "end_turn"
-                    }
-                  },
-                  "视频理解": {
-                    "value": {
-                      "id": "066b4573467fa2bb299cee687b68873d",
-                      "type": "message",
-                      "role": "assistant",
-                      "model": "MiniMax-M3.1-Flash-Preview",
-                      "content": [
-                        {
-                          "thinking": "The user is asking in Chinese: \"What happened in this video?\"\n\nI need to describe the events in the video clip provided.\n\n1.  **Analyze the initial state (0.0s - 0.2s):** A spotted cat, resembling a Bengal cat, is walking confidently on a springboard, which looks like a diving board. The background shows an Olympic setting (\"Lausanne 2022\" and the Olympic rings are visible). There's a crowd watching in the background. The cat is moving towards the end of the board.\n2.  **Observe the action (0.2s - 0.4s):** The cat reaches the end of the springboard and leaps off.\n3.  **Follow the trajectory (0.4s - 0.5s):** The cat is in mid-air, flying over a swimming pool. It looks like it's doing a dive.\n4.  **Analyze the final state (0.5s - 0.6s):** The cat splashes into the blue water of the swimming pool, creating a white splash. A person standing by the side of the pool appears to be reacting or clapping.\n\n**Synthesize the description:**\n- Start with the subject: A cat.\n- Describe its initial action: Walking on a diving board (springboard).\n- Describe the setting: It looks like an Olympic swimming event (Lausanne 2022).\n- Describe the main event: The cat jumps off the diving board into the air.\n- Describe the conclusion: The cat lands in the swimming pool, making a splash.\n\n**Translate to Chinese (as requested implicitly by the prompt language, but I should respond in the language the user used. The user asked in Chinese, so I will respond in Chinese. Wait, let me double-check standard practices. Usually, I should answer in the same language as the prompt. Prompt is Chinese. So, answer in Chinese.)\n\n**Drafting the Chinese response:**\n- 视频里，一只猫正在走路。\n- 它走到跳板的尽头。\n- 然后它从跳板上跳了下去。\n- 它在空中飞了一会儿。\n- 最后，它一头扎进了游泳池里，溅起了一片水花。\n- 背景看起来像是在洛桑2022年奥运会。\n\nLet's refine it into a concise and accurate description.\n\"视频显示，一只猫在跳水板上行走，然后从跳水板上跳下，扎进游泳池里。\" (The video shows a cat walking on a diving board, then jumping off it and plunging into a swimming pool.)\n\nLet's add a bit more detail based on the visual evidence.\n\"在洛桑2022年奥运会的背景下，一只猫在跳板上走到尽头，然后纵身一跃，跳入泳池中。\" (Against the backdrop of the Lausanne 2022 Olympics, a cat walks to the end of a diving board, then leaps and jumps into a swimming pool.)\n\nLet's stick to a simple, direct description of the main action.\n\"一只猫在跳板上行走，随后从跳板上跳下，扎进了身后的游泳池中。\" (A cat walks on a diving board, then jumps off the board and plunges into the swimming pool behind it.)\n\nThis is a good, concise summary of the key events. It covers the initial state, the action, and the final state.",
-                          "signature": "3ebe06a965f7edbb379552ee8f6485100f473eb42f12fb3541d952d5f5908d46",
-                          "type": "thinking"
-                        },
-                        {
-                          "text": "视频显示，一只猫在跳板上行走，随后从跳板上跳下，扎进了身后的游泳池中。",
+                          "text": "A cat is seen walking on a diving board and then jumping off into a swimming pool.",
                           "type": "text"
                         }
                       ],
                       "usage": {
                         "input_tokens": 349,
-                        "output_tokens": 686,
+                        "output_tokens": 393,
                         "cache_creation_input_tokens": 0,
-                        "cache_read_input_tokens": 1894
+                        "cache_read_input_tokens": 1896
                       },
                       "stop_reason": "end_turn"
                     }
                   },
-                  "流式": {
+                  "Stream": {
                     "value": [
                       {
                         "type": "message_start",
                         "message": {
-                          "id": "066a38a98a4ffbf5554a468fe0cbedf6",
+                          "id": "066a3766d21ce23c8afc5e85a427036c",
                           "type": "message",
                           "role": "assistant",
                           "content": [],
@@ -304,7 +304,7 @@
                             "input_tokens": 0,
                             "output_tokens": 0,
                             "cache_creation_input_tokens": 0,
-                            "cache_read_input_tokens": 1365
+                            "cache_read_input_tokens": 1366
                           },
                           "service_tier": "standard"
                         }
@@ -333,7 +333,7 @@
                         "index": 0,
                         "delta": {
                           "type": "thinking_delta",
-                          "thinking": " is asking in Chinese what the content of this image is. Let me describe it in Chinese.\n\nThe"
+                          "thinking": " is asking me to describe what an image shows. I should describe the image objectively, focusing on"
                         }
                       },
                       {
@@ -341,39 +341,7 @@
                         "index": 0,
                         "delta": {
                           "type": "thinking_delta",
-                          "thinking": " image shows a close-up portrait of a young girl with curly/wavy brown hair and bangs."
-                        }
-                      },
-                      {
-                        "type": "content_block_delta",
-                        "index": 0,
-                        "delta": {
-                          "type": "thinking_delta",
-                          "thinking": " She has brown eyes and is smiling slightly at the camera. She's wearing a cream/iv"
-                        }
-                      },
-                      {
-                        "type": "content_block_delta",
-                        "index": 0,
-                        "delta": {
-                          "type": "thinking_delta",
-                          "thinking": "ory colored dress with lace details and ruffles. The lighting is soft and warm, creating a classic"
-                        }
-                      },
-                      {
-                        "type": "content_block_delta",
-                        "index": 0,
-                        "delta": {
-                          "type": "thinking_delta",
-                          "thinking": " portrait photography feel. The background is a neutral olive/grayish color, blurred to keep focus"
-                        }
-                      },
-                      {
-                        "type": "content_block_delta",
-                        "index": 0,
-                        "delta": {
-                          "type": "thinking_delta",
-                          "thinking": " on the subject."
+                          "thinking": " visible features without identifying the person."
                         }
                       },
                       {
@@ -381,7 +349,7 @@
                         "index": 0,
                         "delta": {
                           "type": "signature_delta",
-                          "signature": "6deea14a039646c64cff2cdc13db8e1aa093c3f7334bfd4941ee1eee8663b214"
+                          "signature": "69b031ac42358c4e99f8f80f5ea48ff9cec06ca68500428ee1145e16a8020843"
                         }
                       },
                       {
@@ -401,7 +369,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "这张图片是一张温馨的儿童人像摄影作品，主要内容如下"
+                          "text": "The image shows a close-up portrait of a young girl"
                         }
                       },
                       {
@@ -409,7 +377,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "：\n\n**人物：**\n- 一个大约5-7岁的小女孩\n- 有着卷曲蓬"
+                          "text": ", probably around 3-5 years old. She has the following features:\n\n- **Hair"
                         }
                       },
                       {
@@ -417,7 +385,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "松的棕色头发，留着刘海\n- 有着明亮的棕色大眼睛\n- 微微"
+                          "text": "**: Wavy, light brown/auburn hair with bangs across her forehead, with some"
                         }
                       },
                       {
@@ -425,7 +393,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "带着甜美的微笑看向镜头\n\n**服装：**\n- 身穿一件米白色/象牙色的"
+                          "text": " strands appearing to be pulled up\n- **Eyes**: Large, expressive brown/amber eyes looking"
                         }
                       },
                       {
@@ -433,7 +401,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "连衣裙\n- 衣领和肩部有精致的蕾丝花边和褶"
+                          "text": " directly at the camera\n- **Expression**: A subtle, closed-mouth smile that gives her a gentle"
                         }
                       },
                       {
@@ -441,7 +409,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "皱装饰\n\n**拍摄风格：**\n- 经典的近距离肖像构图\n- 柔和的暖色调"
+                          "text": ", slightly mischievous look\n- **Clothing**: She's wearing a white or cream-colored top with delicate"
                         }
                       },
                       {
@@ -449,7 +417,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "光线，营造出温馨的氛围\n- 背景是模糊的橄榄灰色调，使人物更加突出"
+                          "text": " lace or ruffled trim around the neckline and sleeves\n- **Lighting**: The photo uses"
                         }
                       },
                       {
@@ -457,7 +425,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "\n- 整体呈现出专业的人像摄影质感，光影处理细腻\n\n这是一张"
+                          "text": " warm, soft lighting that creates a gentle glow on her face\n- **Background**: A muted, neutral"
                         }
                       },
                       {
@@ -465,7 +433,23 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "很有艺术感的儿童写真照，捕捉到了小女孩天真可爱的瞬间。"
+                          "text": " brownish-gray backdrop that keeps the focus entirely on her\n\nThe overall aesthetic has"
+                        }
+                      },
+                      {
+                        "type": "content_block_delta",
+                        "index": 1,
+                        "delta": {
+                          "type": "text_delta",
+                          "text": " a professional, portrait-photography quality with a warm, vintage feel to the color tones"
+                        }
+                      },
+                      {
+                        "type": "content_block_delta",
+                        "index": 1,
+                        "delta": {
+                          "type": "text_delta",
+                          "text": "."
                         }
                       },
                       {
@@ -478,8 +462,8 @@
                           "stop_reason": "end_turn"
                         },
                         "usage": {
-                          "input_tokens": 1251,
-                          "output_tokens": 264,
+                          "input_tokens": 1252,
+                          "output_tokens": 213,
                           "cache_creation_input_tokens": 0,
                           "cache_read_input_tokens": 114
                         }
@@ -489,21 +473,25 @@
                       }
                     ]
                   },
-                  "工具调用": {
+                  "Tool Use": {
                     "value": {
-                      "id": "066b13de1224099141792cd806ed4f56",
+                      "id": "066b133406cd8cfd88eb3b2b893a5daa",
                       "type": "message",
                       "role": "assistant",
                       "model": "MiniMax-M3.1-Flash-Preview",
                       "content": [
                         {
-                          "thinking": "The user is asking about the current weather in San Francisco. I should use the get_weather tool to fetch this information. The location parameter requires city and state/country format, so \"San Francisco, US\" would be appropriate.",
-                          "signature": "ca8010ef1c5606561a17158c090bd20f33a8a8ac5f3b6cfb4326408395cbff39",
+                          "thinking": "The user is asking about the weather in San Francisco. I have access to a get_weather tool that can provide this information. I need to format the location parameter appropriately - the example shows \"San Francisco, US\" as the format.",
+                          "signature": "fa86efec7c27d4aa23eac60ba7a1f4e5f0f37a18d6ec4944fe495aebb6bd0930",
                           "type": "thinking"
                         },
                         {
+                          "text": "I'll check the current weather in San Francisco for you.",
+                          "type": "text"
+                        },
+                        {
                           "type": "tool_use",
-                          "id": "call_function_debp7sfnk20c_1",
+                          "id": "call_function_9pjh8jjdebck_1",
                           "name": "get_weather",
                           "input": {
                             "location": "San Francisco, US"
@@ -512,9 +500,9 @@
                       ],
                       "usage": {
                         "input_tokens": 14,
-                        "output_tokens": 79,
+                        "output_tokens": 91,
                         "cache_creation_input_tokens": 0,
-                        "cache_read_input_tokens": 397
+                        "cache_read_input_tokens": 404
                       },
                       "stop_reason": "tool_use"
                     }
@@ -526,12 +514,12 @@
                   "$ref": "#/components/schemas/StreamEvent"
                 },
                 "examples": {
-                  "流式": {
+                  "Stream": {
                     "value": [
                       {
                         "type": "message_start",
                         "message": {
-                          "id": "066a38a98a4ffbf5554a468fe0cbedf6",
+                          "id": "066a3766d21ce23c8afc5e85a427036c",
                           "type": "message",
                           "role": "assistant",
                           "content": [],
@@ -542,7 +530,7 @@
                             "input_tokens": 0,
                             "output_tokens": 0,
                             "cache_creation_input_tokens": 0,
-                            "cache_read_input_tokens": 1365
+                            "cache_read_input_tokens": 1366
                           },
                           "service_tier": "standard"
                         }
@@ -571,7 +559,7 @@
                         "index": 0,
                         "delta": {
                           "type": "thinking_delta",
-                          "thinking": " is asking in Chinese what the content of this image is. Let me describe it in Chinese.\n\nThe"
+                          "thinking": " is asking me to describe what an image shows. I should describe the image objectively, focusing on"
                         }
                       },
                       {
@@ -579,39 +567,7 @@
                         "index": 0,
                         "delta": {
                           "type": "thinking_delta",
-                          "thinking": " image shows a close-up portrait of a young girl with curly/wavy brown hair and bangs."
-                        }
-                      },
-                      {
-                        "type": "content_block_delta",
-                        "index": 0,
-                        "delta": {
-                          "type": "thinking_delta",
-                          "thinking": " She has brown eyes and is smiling slightly at the camera. She's wearing a cream/iv"
-                        }
-                      },
-                      {
-                        "type": "content_block_delta",
-                        "index": 0,
-                        "delta": {
-                          "type": "thinking_delta",
-                          "thinking": "ory colored dress with lace details and ruffles. The lighting is soft and warm, creating a classic"
-                        }
-                      },
-                      {
-                        "type": "content_block_delta",
-                        "index": 0,
-                        "delta": {
-                          "type": "thinking_delta",
-                          "thinking": " portrait photography feel. The background is a neutral olive/grayish color, blurred to keep focus"
-                        }
-                      },
-                      {
-                        "type": "content_block_delta",
-                        "index": 0,
-                        "delta": {
-                          "type": "thinking_delta",
-                          "thinking": " on the subject."
+                          "thinking": " visible features without identifying the person."
                         }
                       },
                       {
@@ -619,7 +575,7 @@
                         "index": 0,
                         "delta": {
                           "type": "signature_delta",
-                          "signature": "6deea14a039646c64cff2cdc13db8e1aa093c3f7334bfd4941ee1eee8663b214"
+                          "signature": "69b031ac42358c4e99f8f80f5ea48ff9cec06ca68500428ee1145e16a8020843"
                         }
                       },
                       {
@@ -639,7 +595,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "这张图片是一张温馨的儿童人像摄影作品，主要内容如下"
+                          "text": "The image shows a close-up portrait of a young girl"
                         }
                       },
                       {
@@ -647,7 +603,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "：\n\n**人物：**\n- 一个大约5-7岁的小女孩\n- 有着卷曲蓬"
+                          "text": ", probably around 3-5 years old. She has the following features:\n\n- **Hair"
                         }
                       },
                       {
@@ -655,7 +611,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "松的棕色头发，留着刘海\n- 有着明亮的棕色大眼睛\n- 微微"
+                          "text": "**: Wavy, light brown/auburn hair with bangs across her forehead, with some"
                         }
                       },
                       {
@@ -663,7 +619,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "带着甜美的微笑看向镜头\n\n**服装：**\n- 身穿一件米白色/象牙色的"
+                          "text": " strands appearing to be pulled up\n- **Eyes**: Large, expressive brown/amber eyes looking"
                         }
                       },
                       {
@@ -671,7 +627,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "连衣裙\n- 衣领和肩部有精致的蕾丝花边和褶"
+                          "text": " directly at the camera\n- **Expression**: A subtle, closed-mouth smile that gives her a gentle"
                         }
                       },
                       {
@@ -679,7 +635,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "皱装饰\n\n**拍摄风格：**\n- 经典的近距离肖像构图\n- 柔和的暖色调"
+                          "text": ", slightly mischievous look\n- **Clothing**: She's wearing a white or cream-colored top with delicate"
                         }
                       },
                       {
@@ -687,7 +643,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "光线，营造出温馨的氛围\n- 背景是模糊的橄榄灰色调，使人物更加突出"
+                          "text": " lace or ruffled trim around the neckline and sleeves\n- **Lighting**: The photo uses"
                         }
                       },
                       {
@@ -695,7 +651,7 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "\n- 整体呈现出专业的人像摄影质感，光影处理细腻\n\n这是一张"
+                          "text": " warm, soft lighting that creates a gentle glow on her face\n- **Background**: A muted, neutral"
                         }
                       },
                       {
@@ -703,7 +659,23 @@
                         "index": 1,
                         "delta": {
                           "type": "text_delta",
-                          "text": "很有艺术感的儿童写真照，捕捉到了小女孩天真可爱的瞬间。"
+                          "text": " brownish-gray backdrop that keeps the focus entirely on her\n\nThe overall aesthetic has"
+                        }
+                      },
+                      {
+                        "type": "content_block_delta",
+                        "index": 1,
+                        "delta": {
+                          "type": "text_delta",
+                          "text": " a professional, portrait-photography quality with a warm, vintage feel to the color tones"
+                        }
+                      },
+                      {
+                        "type": "content_block_delta",
+                        "index": 1,
+                        "delta": {
+                          "type": "text_delta",
+                          "text": "."
                         }
                       },
                       {
@@ -716,8 +688,8 @@
                           "stop_reason": "end_turn"
                         },
                         "usage": {
-                          "input_tokens": 1251,
-                          "output_tokens": 264,
+                          "input_tokens": 1252,
+                          "output_tokens": 213,
                           "cache_creation_input_tokens": 0,
                           "cache_read_input_tokens": 114
                         }
@@ -732,7 +704,7 @@
             }
           },
               "400": {
-                "description": "请求参数非法（必填缺失、type 不在白名单、tool_use.input 非 JSON 对象等）",
+                "description": "Invalid request parameters (missing required fields, type not in the whitelist, tool_use.input not a JSON object, etc.).",
                 "content": {
                   "application/json": {
                     "schema": {
@@ -750,7 +722,7 @@
                 }
               },
               "401": {
-                "description": "API Key 缺失/无效",
+                "description": "API key missing or invalid.",
                 "content": {
                   "application/json": {
                     "schema": {
@@ -761,14 +733,14 @@
                       "request_id": "req_xxxxxxxx",
                       "error": {
                         "type": "authentication_error",
-                        "message": "API Key 缺失/无效"
+                        "message": "API key missing or invalid."
                       }
                     }
                   }
                 }
               },
               "403": {
-                "description": "无权访问该模型或该路径",
+                "description": "No permission to access this model or path.",
                 "content": {
                   "application/json": {
                     "schema": {
@@ -779,14 +751,14 @@
                       "request_id": "req_xxxxxxxx",
                       "error": {
                         "type": "permission_error",
-                        "message": "无权访问该模型或该路径"
+                        "message": "No permission to access this model or path."
                       }
                     }
                   }
                 }
               },
               "404": {
-                "description": "模型不存在",
+                "description": "Model does not exist.",
                 "content": {
                   "application/json": {
                     "schema": {
@@ -797,14 +769,14 @@
                       "request_id": "req_xxxxxxxx",
                       "error": {
                         "type": "not_found_error",
-                        "message": "模型不存在"
+                        "message": "Model does not exist."
                       }
                     }
                   }
                 }
               },
               "413": {
-                "description": "请求体超过 64MB，或多模态文件超出大小限制",
+                "description": "Request body exceeds 64 MB, or a multimodal file exceeds the size limit.",
                 "content": {
                   "application/json": {
                     "schema": {
@@ -815,14 +787,14 @@
                       "request_id": "req_xxxxxxxx",
                       "error": {
                         "type": "request_too_large",
-                        "message": "请求体超过 64MB，或多模态文件超出大小限制"
+                        "message": "Request body exceeds 64 MB, or a multimodal file exceeds the size limit."
                       }
                     }
                   }
                 }
               },
               "429": {
-                "description": "触发 RPM/TPM/连接数 等限流",
+                "description": "RPM / TPM / connection-count or other rate limit triggered.",
                 "content": {
                   "application/json": {
                     "schema": {
@@ -833,14 +805,14 @@
                       "request_id": "req_xxxxxxxx",
                       "error": {
                         "type": "rate_limit_error",
-                        "message": "触发 RPM/TPM/连接数 等限流"
+                        "message": "RPM / TPM / connection-count or other rate limit triggered."
                       }
                     }
                   }
                 }
               },
               "500": {
-                "description": "服务端内部错误",
+                "description": "Internal server error.",
                 "content": {
                   "application/json": {
                     "schema": {
@@ -851,14 +823,14 @@
                       "request_id": "req_xxxxxxxx",
                       "error": {
                         "type": "api_error",
-                        "message": "服务端内部错误"
+                        "message": "Internal server error."
                       }
                     }
                   }
                 }
               },
               "529": {
-                "description": "上游模型过载，可重试",
+                "description": "Upstream model overloaded; retryable.",
                 "content": {
                   "application/json": {
                     "schema": {
@@ -869,7 +841,7 @@
                       "request_id": "req_xxxxxxxx",
                       "error": {
                         "type": "overloaded_error",
-                        "message": "上游模型过载，可重试"
+                        "message": "Upstream model overloaded; retryable."
                       }
                     }
                   }
@@ -880,7 +852,7 @@
     },
     "/anthropic/v1/messages/count_tokens": {
       "post": {
-        "summary": "Anthropic Token 计数",
+        "summary": "Count Tokens Anthropic",
         "operationId": "countTokensAnthropic",
         "tags": [
           "Text Generation"
@@ -890,7 +862,7 @@
             "name": "Content-Type",
             "in": "header",
             "required": true,
-            "description": "请求体的媒介类型，请设置为 `application/json`，确保请求数据的格式为 JSON",
+            "description": "Media type of the request body, should be set to `application/json` to ensure JSON format",
             "schema": {
               "type": "string",
               "enum": [
@@ -907,7 +879,7 @@
                 "$ref": "#/components/schemas/CreateMessageReq"
               },
               "examples": {
-                "标准": {
+                "Request": {
                   "value": {
                     "model": "MiniMax-M3.1-Flash-Preview",
                     "messages": [
@@ -925,14 +897,14 @@
         },
         "responses": {
           "200": {
-            "description": "返回本次请求的输入 token 用量，不生成模型输出。",
+            "description": "Returns input token usage for the request without generating model output.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CountTokensResp"
                 },
                 "examples": {
-                  "标准": {
+                  "Request": {
                     "value": {
                       "usage": {
                         "input_tokens": 3,
@@ -960,7 +932,7 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "模型 ID。`MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 是多模态模型，原生支持文本、图片和视频输入，并兼容工具调用与 thinking 内容块；`MiniMax-M3.1-Flash-Preview` 还会强制开启 thinking，并支持通过 `output_config.effort` 调节思考深度。M2.7、M2.5、M2.1 和 M2 系列仅支持文本与工具调用，不支持图片和视频输入。",
+            "description": "Model ID. `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` are multimodal models with native support for text, image, and video input, alongside tool use and thinking content blocks. `MiniMax-M3.1-Flash-Preview` additionally always thinks and supports tunable thinking depth via `output_config.effort`. The M2.7, M2.5, M2.1, and M2 series support text and tool calls only and do not accept image or video input.",
             "enum": [
               "MiniMax-M3.1-Flash-Preview",
               "MiniMax-M3",
@@ -975,7 +947,7 @@
           },
           "service_tier": {
             "type": "string",
-            "description": "请求准入服务层级。支持的取值为 `standard` 和 `priority`。省略时默认使用 `standard`。`priority` 的[价格](https://platform.minimax.cn/docs/pricing/overview#models/text)为 `standard` 的 1.5 倍，并会确保请求获得优先准入，使其排在其他请求之前处理，从而带来更快响应并减少失败。",
+            "description": "Service tier for request admission. Supported values are `standard` and `priority`. If omitted, the request uses the `standard` tier. The `priority` [price](https://platform.minimax.io/docs/pricing/overview#models/text) is 1.5 times the `standard` price and ensures priority admission so the request is processed ahead of other requests, leading to faster responses and fewer failures.",
             "enum": [
               "standard",
               "priority"
@@ -983,15 +955,15 @@
             "default": "standard"
           },
           "system": {
-            "description": "设置模型角色与行为。",
+            "description": "Set the role and behavior of the model.",
             "oneOf": [
               {
                 "type": "string",
-                "description": "纯文本系统提示词"
+                "description": "Plain text system prompt"
               },
               {
                 "type": "array",
-                "description": "内容块数组格式的系统提示词。text 块可携带 cache_control。",
+                "description": "System prompt in content block array format. Text blocks can include cache_control.",
                 "items": {
                   "type": "object",
                   "properties": {
@@ -1000,11 +972,11 @@
                       "enum": [
                         "text"
                       ],
-                      "description": "内容块类型"
+                      "description": "Content block type"
                     },
                     "text": {
                       "type": "string",
-                      "description": "文本内容"
+                      "description": "Text content"
                     },
                     "cache_control": {
                       "$ref": "#/components/schemas/CacheControl"
@@ -1020,26 +992,26 @@
           },
           "messages": {
             "type": "array",
-            "description": "对话历史。`MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持文本、图片、视频、工具调用、工具结果和 thinking 内容块。M2.7、M2.5、M2.1 和 M2 系列仅支持文本与工具调用相关内容块，不支持图片和视频输入。",
+            "description": "Conversation history. `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` support text, image, video, tool use, tool result, and thinking content blocks. The M2.7, M2.5, M2.1, and M2 series support text and tool-call content blocks only; they do not support image or video input.",
             "items": {
               "$ref": "#/components/schemas/Message"
             }
           },
           "stream": {
             "type": "boolean",
-            "description": "是否使用流式传输，默认为 `false`。设置为 `true` 后，响应将分批返回",
+            "description": "Whether to use streaming output, defaults to `false`. When set to `true`, the response will be returned in chunks",
             "default": false
           },
           "max_tokens": {
             "type": "integer",
             "format": "int64",
-            "description": "指定生成内容长度的上限（Token 数）。MiniMax-M3.1-Flash-Preview 和 MiniMax-M3 推荐值为 131072（128K），上限为 524288（512K）；其他模型推荐值为 65536（64K），上限为 204800（200K）。超过上限的内容会被截断。如果生成因 `length` 原因中断，请尝试调高此值",
+            "description": "Specifies the upper limit for generated content length (in tokens). For MiniMax-M3.1-Flash-Preview and MiniMax-M3 the recommended value is 131072 (128K) and the maximum is 524288 (512K); for other models the recommended value is 65536 (64K) and the maximum is 204800 (200K). Content exceeding the limit will be truncated. If generation stops due to `length`, try increasing this value",
             "minimum": 1
           },
           "temperature": {
             "type": "number",
             "format": "double",
-            "description": "温度系数，影响输出随机性，取值范围 [0, 2]，默认值为 1。值越高，输出越随机；值越低，输出越确定。",
+            "description": "Temperature coefficient, affects output randomness. Range [0, 2], default 1. Higher values produce more random output; lower values produce more deterministic output.",
             "minimum": 0,
             "maximum": 2,
             "default": 1
@@ -1047,14 +1019,14 @@
           "top_p": {
             "type": "number",
             "format": "double",
-            "description": "核采样参数，取值范围 [0, 1]。MiniMax-M3.1-Flash-Preview 和 MiniMax-M3 默认值为 0.95，M2.x 系列模型默认值为 0.9。",
+            "description": "Nucleus sampling parameter. Range [0, 1]. Default is 0.95 for MiniMax-M3.1-Flash-Preview and MiniMax-M3, and 0.9 for M2.x models.",
             "minimum": 0,
             "maximum": 1,
             "default": 0.95
           },
           "tools": {
             "type": "array",
-            "description": "Anthropic 兼容工具调用的工具定义。",
+            "description": "Tool definitions for Anthropic-compatible tool use.",
             "items": {
               "$ref": "#/components/schemas/Tool"
             }
@@ -1064,7 +1036,7 @@
           },
           "thinking": {
             "type": "object",
-            "description": "控制 thinking 行为。默认值随模型不同，因此未在 schema 层声明统一默认值。\n- `MiniMax-M3.1-Flash-Preview`：强制开启 thinking。若传入 `type` 只能为 `adaptive`；传入 `disabled` 会返回 HTTP 400。如需调节思考深度，请使用 `output_config.effort`。\n- `MiniMax-M3`：省略 `thinking` 时默认关闭；传入 `adaptive` 可开启并返回 thinking 块。\n- M2.x 模型：thinking 无法关闭，传入 `disabled` 会被接收但不生效。",
+            "description": "Controls thinking behavior. The default depends on the model, so no schema-level default is declared.\n- `MiniMax-M3.1-Flash-Preview`: always thinks. If `type` is sent it must be `adaptive`; `disabled` returns HTTP 400. Use `output_config.effort` to tune thinking depth.\n- `MiniMax-M3`: thinking is off when `thinking` is omitted; send `adaptive` to enable it and return thinking blocks.\n- M2.x models: thinking cannot be disabled; `disabled` is accepted but ignored.",
             "properties": {
               "type": {
                 "type": "string",
@@ -1072,18 +1044,18 @@
                   "disabled",
                   "adaptive"
                 ],
-                "description": "thinking 控制类型。\n- `disabled`：关闭 `MiniMax-M3` 的 thinking 输出。`MiniMax-M3.1-Flash-Preview` 传入该值会返回 HTTP 400；M2.x 模型会接收但不生效。\n- `adaptive`：开启 thinking 输出并返回 thinking 块。这是 `MiniMax-M3.1-Flash-Preview` 唯一接受的取值。"
+                "description": "Thinking control type.\n- `disabled`: turns off thinking output for `MiniMax-M3`. Rejected with HTTP 400 by `MiniMax-M3.1-Flash-Preview`; accepted but ignored by M2.x models.\n- `adaptive`: enables thinking output and returns thinking blocks. The only value accepted by `MiniMax-M3.1-Flash-Preview`."
               }
             },
             "required": []
           },
           "output_config": {
             "type": "object",
-            "description": "输出配置。通过 `effort` 调节 `MiniMax-M3.1-Flash-Preview` 的思考深度。",
+            "description": "Output configuration. Use `effort` to tune thinking depth for `MiniMax-M3.1-Flash-Preview`.",
             "properties": {
               "effort": {
                 "type": "string",
-                "description": "`MiniMax-M3.1-Flash-Preview` 的思考深度档位，可取 `low`、`medium`、`high`、`xhigh`、`max`；省略时默认为 `max`。其他模型会忽略该字段。`MiniMax-M3.1-Flash-Preview` 不支持 `none`，传入会返回 HTTP 400。",
+                "description": "Thinking depth for `MiniMax-M3.1-Flash-Preview`. Accepts `low`, `medium`, `high`, `xhigh`, or `max`; defaults to `max` when omitted. Other models ignore this field. `none` is not supported for `MiniMax-M3.1-Flash-Preview` and returns HTTP 400.",
                 "enum": [
                   "low",
                   "medium",
@@ -1097,11 +1069,11 @@
           },
           "metadata": {
             "type": "object",
-            "description": "请求元信息。建议对 to-C 业务传入 user_id，便于按终端用户聚合限流和计费分析。",
+            "description": "Request metadata. user_id is recommended for end-user-level aggregation, rate limiting, and billing analysis.",
             "properties": {
               "user_id": {
                 "type": "string",
-                "description": "终端用户 ID。"
+                "description": "End-user ID."
               }
             }
           }
@@ -1112,36 +1084,36 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "本次响应的唯一 ID"
+            "description": "Unique ID of this response"
           },
           "type": {
             "type": "string",
-            "description": "对象类型，固定为 `message`",
+            "description": "Object type, fixed as `message`",
             "enum": [
               "message"
             ]
           },
           "role": {
             "type": "string",
-            "description": "角色，固定为 `assistant`",
+            "description": "Role, fixed as `assistant`",
             "enum": [
               "assistant"
             ]
           },
           "model": {
             "type": "string",
-            "description": "本次请求使用的模型 ID"
+            "description": "Model ID used for this request"
           },
           "content": {
             "type": "array",
-            "description": "响应内容块列表",
+            "description": "List of response content blocks",
             "items": {
               "$ref": "#/components/schemas/ResponseContentBlock"
             }
           },
           "stop_reason": {
             "type": "string",
-            "description": "模型停止生成的原因：\n- end_turn：模型自然结束\n- max_tokens：达到 max_tokens 限制\n- tool_use：模型请求工具调用",
+            "description": "Reason for stopping generation:\n- end_turn: Model ended naturally\n- max_tokens: Reached max_tokens limit\n- tool_use: Model requested tool use",
             "enum": [
               "end_turn",
               "max_tokens",
@@ -1170,18 +1142,18 @@
               "sample_message_user",
               "sample_message_ai"
             ],
-            "description": "消息发送方角色。`MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 使用 user / assistant 交替消息。"
+            "description": "Role of the message sender. `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` use alternating user / assistant messages."
           },
           "content": {
-            "description": "消息内容。`MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持文本、图片、视频、工具调用、工具结果和 thinking 内容块。",
+            "description": "Message content. `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` support text, image, video, tool use, tool result, and thinking content blocks.",
             "oneOf": [
               {
                 "type": "string",
-                "description": "纯文本消息"
+                "description": "Plain text message"
               },
               {
                 "type": "array",
-                "description": "消息内容。`MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持文本、图片、视频、工具调用、工具结果和 thinking 内容块。",
+                "description": "Message content. `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` support text, image, video, tool use, tool result, and thinking content blocks.",
                 "items": {
                   "$ref": "#/components/schemas/RequestContentBlock"
                 }
@@ -1192,14 +1164,14 @@
       },
       "RequestContentBlock": {
         "type": "object",
-        "description": "请求消息中可用的内容块。text 与工具相关块所有模型均支持；image 与 video 块仅 `MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持。thinking 仅在多轮对话中将上一轮 assistant 输出原样回带时使用。",
+        "description": "Content block accepted in request messages. text and tool blocks are supported by all models; image and video blocks are supported by `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` only. thinking is only used when echoing a prior assistant turn back to the model.",
         "required": [
           "type"
         ],
         "properties": {
           "type": {
             "type": "string",
-            "description": "内容块类型：\n- text：文本内容\n- image：图片输入，仅 `MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持\n- video：视频输入，仅 `MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持\n- tool_use：回带上一轮的 assistant 工具调用\n- tool_result：工具执行结果\n- thinking：回带上一轮的 assistant 思考内容\n- mid_conv_system：对话中途插入的系统指令",
+            "description": "Content block type:\n- text: Text content\n- image: Image input, `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` only\n- video: Video input, `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` only\n- tool_use: Echoed assistant tool call from a previous turn\n- tool_result: Tool execution result\n- thinking: Echoed assistant thinking from a previous turn\n- mid_conv_system: System instructions inserted mid-conversation",
             "enum": [
               "text",
               "image",
@@ -1212,27 +1184,27 @@
           },
           "text": {
             "type": "string",
-            "description": "文本内容，type=text 时使用。"
+            "description": "Text content when type=text."
           },
           "source": {
             "$ref": "#/components/schemas/MediaSource",
-            "description": "图片或视频来源，type=image 或 type=video 时使用，仅 `MiniMax-M3.1-Flash-Preview` 和 `MiniMax-M3` 支持。"
+            "description": "Image or video source when type=image or type=video. `MiniMax-M3.1-Flash-Preview` and `MiniMax-M3` only."
           },
           "id": {
             "type": "string",
-            "description": "回带 type=tool_use 时使用的工具调用 ID。"
+            "description": "Tool call ID when echoing type=tool_use."
           },
           "name": {
             "type": "string",
-            "description": "回带 type=tool_use 时使用的工具名称。"
+            "description": "Tool name when echoing type=tool_use."
           },
           "input": {
             "type": "object",
-            "description": "回带 type=tool_use 时使用的工具输入。"
+            "description": "Tool input when echoing type=tool_use."
           },
           "tool_use_id": {
             "type": "string",
-            "description": "对应 tool_use 块的 ID，type=tool_result 时使用。"
+            "description": "ID of the matching tool_use block when type=tool_result."
           },
           "content": {
             "oneOf": [
@@ -1246,15 +1218,15 @@
                 }
               }
             ],
-            "description": "工具执行结果，可为字符串或 text/image 内容块数组。"
+            "description": "Tool execution result, either a string or an array of text/image content blocks."
           },
           "thinking": {
             "type": "string",
-            "description": "回带的 assistant 思考过程内容，type=thinking 时使用。"
+            "description": "Echoed assistant thinking content when type=thinking."
           },
           "signature": {
             "type": "string",
-            "description": "回带的 thinking 内容签名，多轮续写时需要原样回带。"
+            "description": "Signature for echoed thinking content. Return unchanged in later turns."
           },
           "cache_control": {
             "$ref": "#/components/schemas/CacheControl"
@@ -1263,14 +1235,14 @@
       },
       "ResponseContentBlock": {
         "type": "object",
-        "description": "响应消息中的内容块。模型输出 text、tool_use（调用工具时），以及 thinking（开启深度思考时）。响应中不会出现 image、video、tool_result 或 mid_conv_system 块。",
+        "description": "Content block returned in response messages. The model emits text, tool_use (when calling tools), and thinking (when extended thinking is active). Responses never contain image, video, tool_result, or mid_conv_system blocks.",
         "required": [
           "type"
         ],
         "properties": {
           "type": {
             "type": "string",
-            "description": "内容块类型：\n- text：文本内容\n- tool_use：模型工具调用\n- thinking：模型思考过程",
+            "description": "Content block type:\n- text: Text content\n- tool_use: Model tool call\n- thinking: Model thinking content",
             "enum": [
               "text",
               "tool_use",
@@ -1279,49 +1251,49 @@
           },
           "text": {
             "type": "string",
-            "description": "文本内容，type=text 时使用。"
+            "description": "Text content when type=text."
           },
           "id": {
             "type": "string",
-            "description": "工具调用 ID，type=tool_use 时返回。"
+            "description": "Tool call ID returned when type=tool_use."
           },
           "name": {
             "type": "string",
-            "description": "工具名称，type=tool_use 时返回。"
+            "description": "Tool name returned when type=tool_use."
           },
           "input": {
             "type": "object",
-            "description": "工具输入参数，type=tool_use 时返回。"
+            "description": "Tool input returned when type=tool_use."
           },
           "thinking": {
             "type": "string",
-            "description": "模型思考过程内容，type=thinking 时使用。"
+            "description": "Model thinking content when type=thinking."
           },
           "signature": {
             "type": "string",
-            "description": "thinking 内容签名，多轮续写时需要原样回带。"
+            "description": "Signature for thinking content. Return unchanged in later turns."
           }
         }
       },
       "Usage": {
         "type": "object",
-        "description": "本次请求的 token 用量，包含适用时的 prompt cache 用量。",
+        "description": "Token usage for this request, including prompt cache usage when applicable.",
         "properties": {
           "input_tokens": {
             "type": "integer",
-            "description": "输入消耗的 Token 数"
+            "description": "Number of tokens consumed by input"
           },
           "output_tokens": {
             "type": "integer",
-            "description": "输出消耗的 Token 数"
+            "description": "Number of tokens consumed by output"
           },
           "cache_creation_input_tokens": {
             "type": "integer",
-            "description": "创建 prompt cache 的输入 token 数。"
+            "description": "Number of input tokens used to create prompt cache entries."
           },
           "cache_read_input_tokens": {
             "type": "integer",
-            "description": "命中 prompt cache 的输入 token 数。"
+            "description": "Number of input tokens read from prompt cache."
           }
         }
       },
@@ -1334,7 +1306,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "事件类型：\n- `message_start`: 消息开始，包含完整的消息元数据\n- `ping`: 心跳事件\n- `content_block_start`: 内容块开始\n- `content_block_delta`: 内容块增量更新\n- `content_block_stop`: 内容块结束\n- `message_delta`: 消息级别的增量更新（如 stop_reason）\n- `message_stop`: 消息结束",
+            "description": "Event type:\n- `message_start`: Message start, contains complete message metadata\n- `ping`: Heartbeat event\n- `content_block_start`: Content block start\n- `content_block_delta`: Content block incremental update\n- `content_block_stop`: Content block end\n- `message_delta`: Message-level incremental update (e.g., stop_reason)\n- `message_stop`: Message end",
             "enum": [
               "message_start",
               "ping",
@@ -1347,11 +1319,11 @@
           },
           "message": {
             "type": "object",
-            "description": "消息对象（`type` 为 `message_start` 时返回）",
+            "description": "Message object (returned when `type` is `message_start`)",
             "properties": {
               "id": {
                 "type": "string",
-                "description": "消息的唯一 ID"
+                "description": "Unique ID of the message"
               },
               "type": {
                 "type": "string",
@@ -1367,24 +1339,24 @@
               },
               "content": {
                 "type": "array",
-                "description": "内容块列表，初始为空数组",
+                "description": "Content block list, initially an empty array",
                 "items": {
                   "$ref": "#/components/schemas/ResponseContentBlock"
                 }
               },
               "model": {
                 "type": "string",
-                "description": "模型 ID"
+                "description": "Model ID"
               },
               "stop_reason": {
                 "type": "string",
                 "nullable": true,
-                "description": "停止原因，流式开始时为 null"
+                "description": "Stop reason, null at the start of streaming"
               },
               "stop_sequence": {
                 "type": "string",
                 "nullable": true,
-                "description": "停止序列，流式开始时为 null"
+                "description": "Stop sequence, null at the start of streaming"
               },
               "usage": {
                 "$ref": "#/components/schemas/Usage"
@@ -1393,19 +1365,19 @@
           },
           "index": {
             "type": "integer",
-            "description": "内容块的索引（`content_block_start`、`content_block_delta`、`content_block_stop` 时返回）"
+            "description": "Index of the content block (returned for `content_block_start`, `content_block_delta`, `content_block_stop`)"
           },
           "content_block": {
             "$ref": "#/components/schemas/ResponseContentBlock",
-            "description": "内容块对象（`type` 为 `content_block_start` 时返回）"
+            "description": "Content block object (returned when `type` is `content_block_start`)"
           },
           "delta": {
             "type": "object",
-            "description": "增量更新内容（`content_block_delta` 或 `message_delta` 时返回）",
+            "description": "Incremental update content (returned for `content_block_delta` or `message_delta`)",
             "properties": {
               "type": {
                 "type": "string",
-                "description": "增量类型，例如 text_delta、thinking_delta 或 signature_delta。",
+                "description": "Delta type, for example text_delta, thinking_delta, or signature_delta.",
                 "enum": [
                   "text_delta",
                   "thinking_delta",
@@ -1414,11 +1386,11 @@
               },
               "text": {
                 "type": "string",
-                "description": "增量文本内容"
+                "description": "Incremental text content"
               },
               "stop_reason": {
                 "type": "string",
-                "description": "模型停止生成的原因。",
+                "description": "Reason for stopping generation.",
                 "enum": [
                   "end_turn",
                   "max_tokens",
@@ -1429,20 +1401,20 @@
           },
           "usage": {
             "$ref": "#/components/schemas/Usage",
-            "description": "Token 使用情况（`message_delta` 时返回）"
+            "description": "Token usage (returned for `message_delta`)"
           }
         }
       },
       "CacheControl": {
         "type": "object",
-        "description": "提示词缓存标记。",
+        "description": "Prompt cache marker.",
         "properties": {
           "type": {
             "type": "string",
             "enum": [
               "ephemeral"
             ],
-            "description": "提示词缓存标记。"
+            "description": "Prompt cache marker."
           }
         },
         "required": [
@@ -1451,7 +1423,7 @@
       },
       "MediaSource": {
         "type": "object",
-        "description": "图片或视频内容块的媒体来源。\n\n**支持的图片格式**\n\n| 格式 | 常见拓展名 | MIME Type |\n| :-- | :-- | :-- |\n| JPEG | .jpg, .jpeg | image/jpeg |\n| PNG | .png | image/png |\n| GIF | .gif | image/gif |\n| WEBP | .webp | image/webp |\n\n**支持的视频格式**\n\n| 格式 | 常见拓展名 | MIME Type |\n| :-- | :-- | :-- |\n| MP4 | .mp4 | video/mp4 |\n| AVI | .avi | video/avi 或 video/x-msvideo |\n| MOV | .mov | url 传入视频：对象存储请设置 Content-Type 为 video/quicktime；base64 编码：请使用 video/mov，即 data:video/mov;base64,<BASE64_ENCODING> |\n| MKV | .mkv | video/x-matroska |\n\n**多模态文件大小及容量限制**\n- URL / Base64 方式传入：视频文件 ≤ 50 MB，图片文件 ≤ 10 MB，请求体 ≤ 64 MB。\n- 使用 Files API 上传：以 `mm_file://{file_id}` 形式引用，单个视频最大 512 MB。",
+        "description": "Media source for image or video blocks.\n\n**Supported image formats**\n\n| Format | Common extensions | MIME Type |\n| :-- | :-- | :-- |\n| JPEG | .jpg, .jpeg | image/jpeg |\n| PNG | .png | image/png |\n| GIF | .gif | image/gif |\n| WEBP | .webp | image/webp |\n\n**Supported video formats**\n\n| Format | Common extensions | MIME Type |\n| :-- | :-- | :-- |\n| MP4 | .mp4 | video/mp4 |\n| AVI | .avi | video/avi or video/x-msvideo |\n| MOV | .mov | URL input: set the object storage Content-Type to video/quicktime; base64 input: use video/mov, i.e. data:video/mov;base64,<BASE64_ENCODING> |\n| MKV | .mkv | video/x-matroska |\n\n**File size and request limits**\n- URL or Base64 input: video file ≤ 50 MB, image file ≤ 10 MB, request body ≤ 64 MB.\n- Files API upload: referenced as `mm_file://{file_id}`, with a single video up to 512 MB.",
         "properties": {
           "type": {
             "type": "string",
@@ -1459,19 +1431,19 @@
               "base64",
               "url"
             ],
-            "description": "媒体来源类型。"
+            "description": "Media source type."
           },
           "media_type": {
             "type": "string",
-            "description": "base64 输入时必填，例如 image/png 或 video/mp4。"
+            "description": "Required for base64 input, for example image/png or video/mp4."
           },
           "data": {
             "type": "string",
-            "description": "base64 编码后的媒体字节。"
+            "description": "Base64-encoded media bytes."
           },
           "url": {
             "type": "string",
-            "description": "公网 URL。视频还可使用 Files API 引用 `mm_file://{file_id}`，`file_id` 需先通过[文件上传](/api-reference/file-management-upload)接口上传视频后获取。"
+            "description": "Public URL. Videos can also use a Files API reference in the form `mm_file://{file_id}`. To obtain a `file_id`, first upload the video via the [Upload File](/api-reference/file-management-upload) API."
           },
           "detail": {
             "type": "string",
@@ -1481,19 +1453,19 @@
               "high"
             ],
             "default": "default",
-            "description": "理解精细度，默认 default。\n\n图片输入时，单张图片粗略 token 用量估算：\n\n| detail | 粗略 token 用量 |\n| :-- | :-- |\n| low | 通常为几百 token，最高约 600 |\n| default | 通常约 1k-3k token，最高约 5k |\n| high | 通常为数千 token，最高约 15k+ |\n\n实际用量取决于图片尺寸和内容；请以 `POST /anthropic/v1/messages/count_tokens` 或响应中的 usage 为准。"
+            "description": "Understanding detail level. Defaults to default.\n\nFor image input, rough single-image token usage heuristic:\n\n| detail | Rough token usage |\n| :-- | :-- |\n| low | Usually a few hundred tokens, up to ~600 |\n| default | Often ~1k-3k tokens, up to ~5k |\n| high | Often several thousand tokens, up to ~15k+ |\n\nActual usage depends on image size and content; use `POST /anthropic/v1/messages/count_tokens` or response usage for exact usage."
           },
           "fps": {
             "type": "number",
             "minimum": 0.2,
             "maximum": 5,
             "default": 1,
-            "description": "视频抽帧频率，默认 1，范围 [0.2, 5]。\n- 取值越高：对画面变化越敏感，token 花费高、速度慢。\n- 取值越低：token 花费少、速度快，但对画面变化迟钝。"
+            "description": "Video frame sampling rate. Defaults to 1. Range [0.2, 5].\n- Higher values: more sensitive to scene changes, but higher token cost and slower response.\n- Lower values: lower token cost and faster response, but less sensitive to scene changes."
           },
           "max_long_side_pixel": {
             "type": "integer",
             "minimum": 1,
-            "description": "图片或视频帧最长边像素约束。"
+            "description": "Longest-side pixel limit for the image or video frames."
           }
         },
         "required": [
@@ -1502,19 +1474,19 @@
       },
       "Tool": {
         "type": "object",
-        "description": "Anthropic 兼容工具调用的工具定义。",
+        "description": "Tool definitions for Anthropic-compatible tool use.",
         "properties": {
           "name": {
             "type": "string",
-            "description": "工具名称。"
+            "description": "Tool name."
           },
           "description": {
             "type": "string",
-            "description": "工具描述。"
+            "description": "Tool description."
           },
           "input_schema": {
             "type": "object",
-            "description": "工具输入参数 JSON Schema。"
+            "description": "Tool input parameters JSON Schema."
           },
           "cache_control": {
             "$ref": "#/components/schemas/CacheControl"
@@ -1527,7 +1499,7 @@
       },
       "ToolChoice": {
         "type": "object",
-        "description": "工具选择策略。仅支持 auto 和 none。",
+        "description": "Tool selection strategy. Only auto and none are supported.",
         "properties": {
           "type": {
             "type": "string",
@@ -1535,7 +1507,7 @@
               "auto",
               "none"
             ],
-            "description": "工具选择类型。"
+            "description": "Tool choice type."
           }
         },
         "required": [
@@ -1544,7 +1516,7 @@
       },
       "CountTokensResp": {
         "type": "object",
-        "description": "返回本次请求的输入 token 用量，不生成模型输出。",
+        "description": "Returns input token usage for the request without generating model output.",
         "properties": {
           "usage": {
             "$ref": "#/components/schemas/Usage"
@@ -1553,25 +1525,25 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "description": "错误响应。统一使用 HTTP 状态码 + JSON body。流式过程中出现错误时，会以 `event: error` SSE 事件下发，body 结构与此一致；客户端应在收到 error 后停止读取并清理本次会话状态。",
+        "description": "Error response. Uses an HTTP status code plus a JSON body. When an error occurs during streaming, it is delivered as an `event: error` SSE event with the same body structure; clients should stop reading and clean up the session state after receiving an error.",
         "properties": {
           "type": {
             "type": "string",
             "enum": [
               "error"
             ],
-            "description": "固定为 `error`。"
+            "description": "Always `error`."
           },
           "request_id": {
             "type": "string",
-            "description": "本次请求的唯一标识，便于排查问题。"
+            "description": "Unique identifier of the request, useful for troubleshooting."
           },
           "error": {
             "type": "object",
             "properties": {
               "type": {
                 "type": "string",
-                "description": "错误类型。",
+                "description": "Error type.",
                 "enum": [
                   "invalid_request_error",
                   "authentication_error",
@@ -1585,7 +1557,7 @@
               },
               "message": {
                 "type": "string",
-                "description": "错误详情。"
+                "description": "Error details."
               }
             }
           }
@@ -1596,13 +1568,13 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "description": "Bearer API Key 鉴权。发送 Authorization: Bearer <API_KEY>。如果 Authorization 和 x-api-key 同时存在，优先使用 Authorization。"
+        "description": "Bearer API Key auth. Send Authorization: Bearer <API_KEY>. If Authorization and x-api-key are both present, Authorization takes precedence."
       },
       "apiKeyAuth": {
         "type": "apiKey",
         "in": "header",
         "name": "x-api-key",
-        "description": "Anthropic 兼容 API Key 鉴权。发送 x-api-key: <API_KEY>。推荐使用 Authorization: Bearer <API_KEY>。"
+        "description": "Anthropic-compatible API Key auth. Send x-api-key: <API_KEY>. Authorization: Bearer <API_KEY> is recommended."
       }
     }
   }

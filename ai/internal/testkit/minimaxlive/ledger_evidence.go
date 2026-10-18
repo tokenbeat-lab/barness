@@ -18,7 +18,7 @@ type LedgerEvidence struct {
 func Summarize(receipts []Receipt, id Identity) Budget {
 	var b Budget
 	for _, r := range receipts {
-		if r.Identity == id {
+		if r.Identity.BudgetSlot() == id.BudgetSlot() {
 			addBudget(&b, r)
 		}
 	}
@@ -36,9 +36,13 @@ func VerifyLedger(dir string, r Report) error {
 	previous := ""
 	stageBudget := Budget{}
 	identityBudget := map[string]Budget{}
-	caseCount := map[string]int{}
-	reservations := map[string]int{}
-	attempts := map[string]int{}
+	type exactCase struct {
+		Identity Identity
+		Case     string
+	}
+	caseCount := map[exactCase]int{}
+	reservations := map[exactCase]int{}
+	attempts := map[exactCase]int{}
 	own := []Receipt{}
 	predecessors := map[string]bool{}
 	for i, receipt := range ledger.Receipts {
@@ -46,16 +50,16 @@ func VerifyLedger(dir string, r Report) error {
 			return fmt.Errorf("MiniMax stage receipt chain changed")
 		}
 		previous = receipt.Hash
-		id, e := Select(receipt.Identity.Route, receipt.Identity.Model, receipt.Identity.Purpose)
-		if e != nil || id != receipt.Identity {
+		id := receipt.Identity
+		if !accountingIdentity(receipt) {
 			return fmt.Errorf("MiniMax stage identity changed")
 		}
-		key := id.Key()
+		key := id.BudgetSlot()
 		b := identityBudget[key]
 		addBudget(&b, receipt)
 		identityBudget[key] = b
 		addBudget(&stageBudget, receipt)
-		caseKey := key + "/" + receipt.Case
+		caseKey := exactCase{id, receipt.Case}
 		if receipt.Kind == "reserve" {
 			if receipt.Output < 1 || receipt.Output > 4096 || receipt.Input < 1 || receipt.Input > 120000 {
 				return fmt.Errorf("invalid recorded reservation")
@@ -94,7 +98,7 @@ func VerifyLedger(dir string, r Report) error {
 	if r.Stage == "formal" {
 		maxCalls, maxAttempts, maxIDs = 60, 72, 3
 	}
-	if stageBudget.Calls > maxCalls || stageBudget.ReservedAttempts > maxAttempts || stageBudget.Attempts > maxAttempts || len(identityBudget) > maxIDs || !reflect.DeepEqual(identityBudget[r.Identity.Key()], r.Cumulative) {
+	if stageBudget.Calls > maxCalls || stageBudget.ReservedAttempts > maxAttempts || stageBudget.Attempts > maxAttempts || len(identityBudget) > maxIDs || !reflect.DeepEqual(identityBudget[r.Identity.BudgetSlot()], r.Cumulative) {
 		return fmt.Errorf("MiniMax cumulative stage budget differs")
 	}
 	var expected []Receipt

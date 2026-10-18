@@ -344,3 +344,18 @@ GLM-5.3 Chat/Responses保留不可关闭思考，仅low/high/max子集；省略�
 标准Key用途由Host管理；2026-10-16分类规则不等于字符串识别、套餐资格或账务证明。两型号固定CNY费率按2026-10-16 CFETS 6.7220换成既有USD/M估算契约，cache-write按input是已标明的来源推断。reported缺项与报告零不同，reasoning已经包含在output；取消/中断未知usage仍未知，估算不是账单，也不承诺远端取消免计费。
 
 GLM三个可信回调的panic按callback_failed结算，Provider判断来自冻结Call Attribution；既有Provider/operation继续原来的panic传播。取消/截止时间优先，任意panic值不进入消息/Observer。禁用Binding拒绝新调用且零凭据读取/Attempt；已发送调用继续使用原版本和消耗。完整回滚恢复此前整棵实现/目录/能力/矩阵/证据树，不自动换Provider、账户或协议。见[正式决策ADR0036](../adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)与[可重复发布/回滚索引](../../.scratch/barness-ai-glm/evidence/ticket-13/README.md)。
+
+
+## MiniMax 国际站候选边界
+
+当前唯一身份是 ProviderMiniMax/minimax，三条协议分别绑定 api.minimax.io/v1 或
+api.minimax.io/anthropic；Host显式提供国际站账户和standard/M Plan用途，不推断地区、
+套餐资格或跨区fallback。原CN失败捕获和2 calls/2 Attempts只占用共同预算槽，不授予
+国际站原生续接、实际候选或正式证明。历史Provider/账户封套与当前目标不匹配时必须降级。
+
+M3标准价格快照直接使用有日期的USD/M费率，不依赖FX；官方512k的整数歧义使用项目
+512000保守估算策略。正的未定价缓存创建用量保留已知usage并失败，M3.1不复制M3费用，
+候选报告明确分开原始usage、合成机制Cost和未知M Plan费用。三协议自身真实候选与正式
+证明仍必交；当前BuiltinCatalog没有MiniMax正式型号。宿主装配见
+[国际站示例](../../ai/examples/minimaxhost/README.zh-CN.md)；决策见
+[ADR-0042](../adr/0042-barness-ai-minimax-international-target.md)。

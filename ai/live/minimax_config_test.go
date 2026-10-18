@@ -28,6 +28,13 @@ func initializeMiniMax() {
 	r := &minimaxlive.Report{Schema: 1, Kind: "minimax-candidate-only", Mode: "live", Stage: "candidate", Identity: id, Outcome: "NOT_RUN", StartedAt: started, Deadline: started.Add(1800 * time.Second), GitCommit: evidence.GitCommit(), SourceHash: minimaxlive.SourcePin, Unknown: []string{"known usage is not an invoice; cancellation may consume unreported tokens", "conservative input reservation uses complete synthetic request bytes +1024, minimum2048; no remote token estimator", "cache-hit and capacity/quality are not guaranteed"}}
 	r.Session = filepath.Base(run.Dir())
 	minimaxReport = r
+	if id.Model == minimaxlive.M31 {
+		r.Unknown = append(r.Unknown, minimaxlive.UnpricedM31Warning)
+		run.SetVersion("minimax_price_basis", "synthetic-mechanism-only; M3.1 actual price unknown")
+	} else {
+		r.Unknown = append(r.Unknown, "USD rates are sourced;512000 input tier is conservative project policy for official512k ambiguity")
+		run.SetVersion("minimax_price_basis", "international-standard-direct-USD; project512000 tier policy")
+	}
 	if e != nil {
 		minimaxConfigError = e.Error()
 	}
@@ -78,7 +85,7 @@ func initializeMiniMax() {
 	if r.Mode == "replay" && (minimaxKey != "" || os.Getenv(envLive) == "1") {
 		minimaxConfigError = "replay forbids credentials and live switch"
 	}
-	minimaxSelected = &combo{name: "minimax-cn-" + id.Route, operation: ai.OperationChat, provider: ai.ProviderMiniMaxCN, api: id.API, endpoint: id.Endpoint, model: id.Model, sdk: openAISDK}
+	minimaxSelected = &combo{name: "minimax-" + id.Route, operation: ai.OperationChat, provider: ai.ProviderMiniMax, api: id.API, endpoint: id.Endpoint, model: id.Model, sdk: openAISDK}
 	if id.Route == "messages" {
 		minimaxSelected.sdk = anthropicSDK
 	}
@@ -92,7 +99,7 @@ func initializeMiniMax() {
 	}
 	// Pass only this exact selected model to the Host assembly. Formal metadata
 	// still refers to the complete built-in snapshot, never synthetic candidate prices.
-	if _, ok := minimaxCatalog.Lookup(ai.ProviderMiniMaxCN, id.API, id.Model); !ok {
+	if _, ok := minimaxCatalog.Lookup(ai.ProviderMiniMax, id.API, id.Model); !ok {
 		minimaxConfigError = "selected model absent from exact catalog"
 	}
 	r.CatalogVersion = minimaxCatalog.Version

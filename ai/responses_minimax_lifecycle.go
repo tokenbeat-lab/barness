@@ -15,7 +15,7 @@ type miniMaxResponsesState struct {
 }
 
 func newMiniMaxResponsesState(provider ProviderID) *miniMaxResponsesState {
-	if provider != ProviderMiniMaxCN {
+	if provider != ProviderMiniMax {
 		return nil
 	}
 	return &miniMaxResponsesState{finished: map[responsesIndex]responsesSlot{}, ids: map[responsesIndex]string{}, doneParts: map[responsesIndex]map[int64]string{}, functions: map[responsesIndex]miniMaxFunctionIdentity{}}

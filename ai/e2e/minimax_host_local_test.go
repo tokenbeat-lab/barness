@@ -33,7 +33,7 @@ func TestMiniMaxHostLocalAssembly(t *testing.T) {
 				res, callErr := assembly.Client.Complete(ctxFor(t), assembly.Scope(), assembly.Target(miniMaxHostModel(purpose)), miniMaxMessagesRequest(), nil)
 				ev.Record("result", res)
 				ev.Record("requests", w.provider.Requests())
-				ev.Check("local Client owns catalog, selected key and tenant attribution", callErr == nil && res.Metadata.TenantID == tenantA.tenant && res.Metadata.ProviderID == ai.ProviderMiniMaxCN && res.Metadata.API == r.api && res.Metadata.CredentialVersion == "local" && len(w.provider.Requests()) == 1, "%v %+v", callErr, res.Metadata)
+				ev.Check("local Client owns catalog, selected key and tenant attribution", callErr == nil && res.Metadata.TenantID == tenantA.tenant && res.Metadata.ProviderID == ai.ProviderMiniMax && res.Metadata.API == r.api && res.Metadata.CredentialVersion == "local" && len(w.provider.Requests()) == 1, "%v %+v", callErr, res.Metadata)
 				if len(w.provider.Requests()) == 1 {
 					ev.Check("ambient vendor key never overrides the Host source", w.provider.Requests()[0].KeyAlias == key.alias, "%+v", w.provider.Requests()[0])
 				}

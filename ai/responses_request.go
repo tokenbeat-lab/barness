@@ -166,7 +166,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 			}
 		case ToolResultMessage:
 			result := responsesToolResult(m, vision)
-			if model.Provider == ProviderMiniMaxCN {
+			if model.Provider == ProviderMiniMax {
 				var err error
 				result.CallID, err = miniMaxResponsesCallID(m.ToolCallID)
 				if err != nil {
@@ -202,7 +202,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 		level = ThinkingMedium
 	}
 	out, err = applyModelSamplingParams(out, model, level, opts.SamplingParams)
-	if err == nil && model.Provider == ProviderMiniMaxCN {
+	if err == nil && model.Provider == ProviderMiniMax {
 		return preserveMiniMaxResponsesSampling(out, model, level, opts.SamplingParams)
 	}
 	if err != nil || model.Provider != ProviderZhipu {

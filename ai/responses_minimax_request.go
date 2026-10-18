@@ -30,7 +30,7 @@ func validateMiniMaxResponsesOptions(m Model, options Options) *Error {
 }
 
 func validateMiniMaxResponsesFinalBody(m Model, raw []byte, authorize func(map[string]any) string) *Error {
-	if m.Provider != ProviderMiniMaxCN {
+	if m.Provider != ProviderMiniMax {
 		return nil
 	}
 	var body map[string]any
