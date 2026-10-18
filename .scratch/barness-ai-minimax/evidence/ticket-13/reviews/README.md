@@ -26,3 +26,6 @@ dcd30f7票16的Standards/Spec源码审查均0发现：GLM专属装配一处响�
 
 
 3a76c7c票14/gap2与4bfdaa7票16留存的两轴审查均0发现。原本的工作树RED/GREEN、后来提交源码的实际六项PENDING检查、首次360秒wrapper失败与替代900秒成功、初setup-copy更正、M3额外README路径、NOT_RUN及只留Hash的binary均逐项区分；原始文件与各自native引用一致。它们不授予当前完整发布认证，固定新6项仍待新的人类预算批准。
+
+
+7231fdad集成后，当前11份状态文档经[Standards](barness-routed-integrated-repair-status-standards-review.json)与[Spec](barness-routed-integrated-repair-status-spec-review.json)独立复核均0发现；[精确集成收据](../reviewed-integration-receipt.json)保留目标4bfdaa7与源码逐字相同的验证。此次仅收敛metadata，旧actual FAIL、全量false及545/545不变；新6项仍PENDING，不授予完整认证或新增付费。

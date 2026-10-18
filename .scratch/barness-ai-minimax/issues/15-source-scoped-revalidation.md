@@ -3,7 +3,7 @@
 Type: task
 Status: ready-for-human
 Updated: 2026-10-18
-Blocked by: 14, 16, explicit additional finite paid approval
+Blocked by: explicit additional finite paid approval
 
 ## Context
 
@@ -30,3 +30,7 @@ Blocked by: 14, 16, explicit additional finite paid approval
 三GLM必须同轮自身完整PASS才发布严格raw/known-usage/support views；任何FAIL保留且不拼接旧Chat/Messages。随后冻结新protocol/visual阶段，派生新Jev支持包。矩阵只原子导入新GLM3+新Jev共4份报告，保留原13rows的全部时间和证明；不能重导旧报告绕过FinishedAt单调要求。最终公开门禁仍接收全部17自身输入与4效果，原未受影响输入按原字节保留。
 
 最后在最终源码真正执行新双vet、完整ordinary/race、差分和压力，持久化四项数字退出码和报告；票13旧全量bundle不能授予修复后认证。新实际失败不自动开启下一轮。全部证据保留有界复核与独立两轴审查，完成后清理本轮自建工作树。
+
+## Comments
+
+2026-10-18：14、16的已审查源码及留存已在 `7231fdad` 合入并按各自离线范围关闭。本票6进程CLI/合同仍在失败先行实现，无新增付费审批。新来源、binary、plan及六项实际无Key检查须就绪并两轴复核，才提交一次具体108/132预算问题。

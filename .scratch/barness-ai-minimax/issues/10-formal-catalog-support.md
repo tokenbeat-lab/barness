@@ -51,3 +51,5 @@ M3三候选与三自身正式PASS，候选历史49/45、正式39/36。唯一获�
 
 
 2026-10-18区域路由轮次后：用户指定中国区直连/国际127.0.0.1:7890代理，固定18个进程已全部关闭。其余15项collection全部PASS，Jev自身支持包已完成，默认17身份矩阵原子导入16PASS/1FAIL。GLM本轮native-history两型号均PASS，Responses仍因两次约90秒超时及其依赖场景FAIL；三路raw/views严格续期拒绝，旧四selector保持。新增245/245、连历史300/300累计545/545。完整CLI生成false报告并发现离线缺口，归[14](14-release-preflight-gaps.md)修复；原失败和旧来源保留。后续证据适用与最小重验范围独立复核，尚无新增付费批准。本票保持claimed，当前状态见[交付状态](../delivery-status.md)。
+
+2026-10-18离线合入检查点：已审查修复与有限归档在 `7231fdad` 合入，13按固定执行/证据范围resolved，14/16按离线范围resolved。六项无Key检查与本地GLM91秒边界证明不替代真实支持；旧545/545、GLM Responses FAIL和8fbd全量false保持。[15](15-source-scoped-revalidation.md)准备固定6进程，最终来源/二进制/计划及无Key检查审查就绪后才请求新108/132预算；本票与spec继续开放。

@@ -29,7 +29,7 @@ Base: `ecfd4b4`
 
 - [11 国际站身份、美元价格与地区证据切换](issues/11-international-target.md)；Blocked by: 01–08（均已resolved）。
 
-- [13 按区域固定路由的缺口验证](issues/13-routed-validation.md)；用户新增指令已授权继续，当前 claimed；本轮合同和无 Key [连通性诊断](evidence/ticket-13/network/README.md)独立保留。
+- [13 按区域固定路由的缺口验证](issues/13-routed-validation.md)；固定18进程及证据已完成，当前 resolved；本轮合同和无 Key [连通性诊断](evidence/ticket-13/network/README.md)独立保留。
 
 ## Decisions so far
 
@@ -76,6 +76,10 @@ Base: `ecfd4b4`
 
 8fbd170完整公共CLI已完成两种vet、ordinary/race，四项数字退出0/0/1/1，两套各12439PASS/8FAIL/1NOT_RUN、审计0；报告pass=false。原始启动中断与完成后的全量运行分开保留；不采用旧bundle冒充新执行。
 
-[14 离线前置缺口](issues/14-release-preflight-gaps.md)承接完整门禁发现的固定映射Hash、可选诊断默认注册和测试夹具inventory修复。当前frontier为14、[16 GLM验收Host预算对齐](issues/16-glm-host-deadline-alignment.md) → [15 最小来源重验](issues/15-source-scoped-revalidation.md)（待新增有限付费批准） → 10 → 09；13的有限实际执行已结束，归档审查和状态收敛仍在完成。M3自身映射仍适用；其他证据按既有执行范围核对，不刷新旧pins。新增付费尚未请求或批准，最小必要重验范围待两轴独立政策复核。
+[14 离线前置缺口](issues/14-release-preflight-gaps.md)承接完整门禁发现的固定映射Hash、可选诊断默认注册和测试夹具inventory修复。14与[16 GLM验收Host预算对齐](issues/16-glm-host-deadline-alignment.md)的离线源码/证据已在7231fdad合入，均按离线范围resolved；13的有限执行与归档也已resolved。当前frontier为[15 最小来源重验](issues/15-source-scoped-revalidation.md)（合同离线实现，待新增有限付费批准） → 10 → 09。独立政策复核确认条件成立时只需GLM3、protocol114和visual2，最高108calls/132Attempts；M3自身映射不变，原generic10/text2保持各自适用来源，不刷新旧pins或时间。新增付费尚未请求或批准，必须先完成新合同与精确来源审查。
 
 历史Fog条目保留原检查点语境，当前结论以[交付状态](delivery-status.md)和机器状态为准；spec/10/09不关闭。
+
+- 13 resolved（固定区域验证/证据范围）：[Answer](issues/13-routed-validation.md#answer)与[证据](evidence/ticket-13/README.md)保留17PASS/1FAIL、245/245及全量false，不关闭spec。
+- 14 resolved（离线范围）：[Answer](issues/14-release-preflight-gaps.md#answer)记录映射/诊断/inventory修复、实际六项无Key检查0及双轴审查；旧同号映射子记录保留历史。
+- 16 resolved（离线范围）：[Answer](issues/16-glm-host-deadline-alignment.md#answer)记录GLM专属120秒装配、本地91秒RED/GREEN及M3三份263项不变；没有厂商120秒成功证据。

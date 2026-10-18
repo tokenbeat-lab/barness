@@ -1,7 +1,7 @@
 # 13 — 按区域固定路由的缺口验证
 
 Type: task
-Status: claimed
+Status: resolved
 Updated: 2026-10-18
 
 ## 授权与范围
@@ -27,3 +27,7 @@ Updated: 2026-10-18
 
 
 2026-10-18实际完成：固定18进程已全部关闭，17PASS/1FAIL，新增245calls/245Attempts，连旧300/300累计545/545。其余15项collection均PASS（180/180），GLM Chat/Messages PASS、Responses19PASS/3FAIL（三路65/65）；严格三路续期拒绝，旧四selector不变。17身份默认矩阵原子导入16PASS/1FAIL，Jev自身支持包完成。8fbd170完整CLI数字退出0/0/1/1，ordinary/race各12439PASS/8FAIL/1NOT_RUN/audit0，报告pass=false。原中断与全部实际失败保留。完整门禁新暴露的离线缺口转[票14](14-release-preflight-gaps.md)；本票归档与两轴复核仍在收敛，不授权自动下一轮。当前结果见[交付状态](../delivery-status.md)。
+
+## Answer
+
+本轮固定实际验证、原始失败、全量false报告和全部有界留存均已完成两轴审查，并于 `7231fdad` 合入。按有限执行和如实报告范围关闭；17PASS/1FAIL及545/545不改写，spec、10、09仍开放。[证据入口](../evidence/ticket-13/README.md)保留各自测量来源。后续离线修复由14/16完成，新同源真实重验与新完整门禁由[15](15-source-scoped-revalidation.md)承接，仍待独立预算；当前自建工作树继续用于15，完成该工作后统一清理。

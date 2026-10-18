@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "axis": "Standards metadata reconciliation",
+  "decision": "APPROVED_METADATA_ONLY",
+  "reviewedHEAD": "7231fdad77bd1fb69bb1f21b934e55db77aab814",
+  "mergedCertifiedWorkerCommit": "4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef",
+  "diffCommand": "git diff HEAD -- .scratch/barness-ai-minimax/delivery-status.md .scratch/barness-ai-minimax/evidence/ticket-09/international-delivery-status.json .scratch/barness-ai-minimax/issues/09-integrated-acceptance-review.md .scratch/barness-ai-minimax/issues/10-formal-catalog-support.md .scratch/barness-ai-minimax/issues/13-routed-validation.md .scratch/barness-ai-minimax/issues/14-release-evidence-mapping-pin.md .scratch/barness-ai-minimax/issues/14-release-preflight-gaps.md .scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md .scratch/barness-ai-minimax/issues/16-glm-host-deadline-alignment.md .scratch/barness-ai-minimax/map.md .scratch/barness-ai-minimax/spec.md",
+  "diffSHA256": "4b3f097bf189c37b728cc71d56248640ee801feddddf2e16338f5dfcbf1d4982",
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/delivery-status.md",
+      "sha256": "561b80b9698b275e9ead3b004e0db9b6fb616a61a2a85e38293e407d538a00da",
+      "bytes": 5400,
+      "HEADSHA256": "b970462bde961130d90062d3fe3343a430c17ecbb400fc9683fe690ee5611713"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/international-delivery-status.json",
+      "sha256": "f4b62e9f88ceb72b092d0fb7f8dce29bed6c6b49d3684ce2e8af07664f440e02",
+      "bytes": 6806,
+      "HEADSHA256": "11e91b881a19b545430fc6cd40bf9ce4abd96c9067c09e294abd8439bbfd128b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/09-integrated-acceptance-review.md",
+      "sha256": "13d7670a3dd7ad765584b943614c1b10aa0f390709af46cb953e0802fb779f01",
+      "bytes": 4066,
+      "HEADSHA256": "1c746592761700f3ad36a35ce01c3781dadb7686acf3717ad8d549f9923af25f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/10-formal-catalog-support.md",
+      "sha256": "5bb3f4ea63e40f605d6173160f36c2fbf0e9d786b7a2974979c82142ed98e506",
+      "bytes": 8650,
+      "HEADSHA256": "3c4b8a904857fab9a205de4ea70f0c7676c55f434093002ff86bbff66b0453dd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/13-routed-validation.md",
+      "sha256": "ccacd3b087aab8e106148066761f5273b12bf9e28e6d47ceb7b8257a61a9f687",
+      "bytes": 3807,
+      "HEADSHA256": "d1e370eaee7d5cdd0170c686f5107fd1d92a8c86258f2147d5ddff40d1114c01"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/14-release-evidence-mapping-pin.md",
+      "sha256": "dff2e3325d4964cc6d2fdb54397b42e43d10d5b888fff37e942db4fb363fc368",
+      "bytes": 5009,
+      "HEADSHA256": "c9227d1636f940cdbb4e32bedee8ba3526b8041d3d3d654e1d7f48f774c9771c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/14-release-preflight-gaps.md",
+      "sha256": "42bd4ca7597d73e4dcd84813accc1079b6a483d610b04952651a89b51f06758d",
+      "bytes": 3658,
+      "HEADSHA256": "c08394828413627d4e42d83f0818ec8fe9878f3a07246a804cd80b60c0df1f5d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md",
+      "sha256": "9a759f70611aa9c1cac0f97dd5485aefc047fd4f9b0fbcaab7b5f2364219d64b",
+      "bytes": 4342,
+      "HEADSHA256": "f6e9c1668d0de3d533bb556fa04452fb0ff1b9022e4f123ea367601b768a4e57"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/16-glm-host-deadline-alignment.md",
+      "sha256": "66bee27bf1a9291a096a587ac65e61de874bc2b34ca4c5e940d6c7ad8cf43fb7",
+      "bytes": 2746,
+      "HEADSHA256": "ee4c5dfde869e3db0bbc8d7137026e28845a72af6d8b88176834118328f7f5e1"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/map.md",
+      "sha256": "6c25ea5f685738b840fb2b4d52339dfe47a06c0507521c2019f286c85ec62ff7",
+      "bytes": 11764,
+      "HEADSHA256": "713495e8f0b26b376404f5c4e26c6e22975424f8e4357d37ff61a5863d7af76a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/spec.md",
+      "sha256": "212c7ee886d186deab5a62ed39def94e42d096bd6d5d284ad4de359571e21a96",
+      "bytes": 59786,
+      "HEADSHA256": "8deae44b13f33b034974fe9f1ef51acc9194a750860d1fde3a6b61e5af1e6434"
+    }
+  ],
+  "findings": [],
+  "possibleSmells": [],
+  "summary": "No documented Standards breach or actionable baseline smell found in the11 owned status documents. Actual merge parents are252c02e+certified4bfdaa7 and integrated ai/tools bytes equal4bf; no future ticket15 WIP is included. Ticket13 closes only finite execution/accurate reporting; tickets14/16 close only their completed offline repair/controlled proof, with historical comments retained and explicit Answers. Gap2 six-check source572570bb and GLM source dcd are distinguished from historical actual8fbd and current integration7231. The machine status binds the six-check source explicitly and denies new full certification. Old545/545, actual GLM ResponsesFAIL, rejected strict publication,17matrix16PASS/1FAIL and fullgatefalse/0/0/1/1 remain unchanged. Source16 is correctly a local91s proof, with old90s failures and unknown vendor120s success preserved. Ticket15 remains unimplemented/unfrozen and PENDING for a distinct108/132 approval;102 nominal,108/132 maximum and545→653/677 arithmetic are consistent. Specs09/10 remain open, no prior balance or approval becomes new authority. All local document links resolve; no source or selector was changed by this metadata diff.",
+  "confirmedBoundaries": {
+    "partialDelivery": true,
+    "currentActualSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+    "currentIntegratedRepairSource": "7231fdad77bd1fb69bb1f21b934e55db77aab814",
+    "finalHistoricalKeylessChecksSource": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f",
+    "oldFullRunRewritten": false,
+    "newFullCertificate": false,
+    "additionalPaidAuthorized": false,
+    "futureSixSourceFrozen": false,
+    "workerWIPRead": false
+  },
+  "sourceEqualityCommand": "git diff --exit-code 4bfdaa7 7231fdad77bd1fb69bb1f21b934e55db77aab814 -- ai .scratch/barness-ai-minimax/tools: exit0",
+  "standards": [
+    "AGENTS.md principles3,4,8,9",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0045/0046",
+    "full12-smell code-review baseline; documented repo overrides; tool-enforced issues skipped"
+  ],
+  "constraints": {
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "sourceEdits": false,
+    "metadataEdits": false,
+    "commitPerformed": false,
+    "mergePerformed": false
+  }
+}

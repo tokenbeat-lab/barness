@@ -1,7 +1,7 @@
 # 14 — 完整门禁暴露的离线前置缺口
 
 Type: task
-Status: claimed
+Status: resolved
 Updated: 2026-10-18
 Blocked by: None
 
@@ -28,3 +28,9 @@ Blocked by: None
 ## Comments
 
 2026-10-18：完整门禁09:34:10Z已结束，解除8fbd170执行期间的HEAD冻结；实际报告与原始普通/race封存。票14仍在实现工作树修复，尚未合入集成分支，不授予新完整发布认证。
+
+## Answer
+
+离线修复及完整留存已于集成提交 `7231fdad77bd1fb69bb1f21b934e55db77aab814` 合入。映射固定值、可选诊断默认注册顺序、两个原生夹具 inventory 和六项付费前置检查完成；严格消费者、必需 trace 与旧 selector 保持。源码 `1a0ce345`、合并检查点 `572570bb` 的六项实际无 Key 检查全部退出0，普通/race的语义与进程反例、工具检查、双vet通过；早期缺ZIP与race外层限时失败单独保留。
+
+[映射阶段证据](../evidence/ticket-14/repair/README.md)、[后续缺口与六项检查](../evidence/ticket-14/gap2/README.md)、[独立两轴审查](../evidence/ticket-13/reviews/README.md)完整保留失败先行、源码与归档边界。本票按离线范围关闭，不声称修复后的全仓发布门禁通过；真实重验和最终新全量由[15](15-source-scoped-revalidation.md)承接，无新增付费批准。
