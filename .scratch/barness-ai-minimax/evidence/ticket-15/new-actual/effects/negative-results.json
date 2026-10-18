@@ -1,0 +1,83 @@
+{
+  "verified": true,
+  "negativeGuards": [
+    {
+      "case": "local-pin",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: local metadata pin differs"
+    },
+    {
+      "case": "wrong-source",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed effects retention identity differs"
+    },
+    {
+      "case": "summary-usage",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent summary differs"
+    },
+    {
+      "case": "summary-certified",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent summary differs"
+    },
+    {
+      "case": "archive-pin",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: compressed archive pin"
+    },
+    {
+      "case": "archive-link",
+      "exitCode": 1,
+      "reason": "REFUSED: OSError: [Errno 62] Too many levels of symbolic links: 'effects-actual-raw.tar.gz'"
+    },
+    {
+      "case": "archive-fifo",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: regular artifact required"
+    },
+    {
+      "case": "observation-limit",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: observed metadata bound differs"
+    },
+    {
+      "case": "inventory-limit",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: inventory decoded pin or limit"
+    },
+    {
+      "case": "secondary-path",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed secondary capsule identity differs"
+    },
+    {
+      "case": "shared-binary",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: shared original binary reference differs"
+    },
+    {
+      "case": "canonical-root",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: canonical root/phase/base/source/caps differ"
+    },
+    {
+      "case": "canonical-phase",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: canonical root/phase/base/source/caps differ"
+    },
+    {
+      "case": "visual-quality",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent visual quality metrics differ"
+    },
+    {
+      "case": "visual-proxy",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: explicit visual proxy/native mode differs"
+    }
+  ],
+  "originalArchivesMutated": false,
+  "credentialsRead": false,
+  "paidCalls": 0
+}
