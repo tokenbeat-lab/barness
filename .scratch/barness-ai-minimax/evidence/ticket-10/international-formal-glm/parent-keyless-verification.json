@@ -1,0 +1,213 @@
+{
+  "schema": 1,
+  "credentialsRead": false,
+  "networkUsed": false,
+  "candidatePortableChecks": 10569,
+  "formalGLMPortableChecks": 13710,
+  "trustedOriginCount": 6,
+  "currentM3ExecutionMaps": {
+    "chat": {
+      "files": 263,
+      "drift": 0
+    },
+    "responses": {
+      "files": 263,
+      "drift": 0
+    },
+    "messages": {
+      "files": 263,
+      "drift": 0
+    }
+  },
+  "originPublicVerificationCommands": {
+    "verify-mm-global-candidate-m3-chat-command.json": {
+      "sha256": "96c71635abc0bb31deb9a58a319f0cd116c03f18850ebd46be46506fa075ab6c",
+      "receipt": {
+        "state": "COMPLETED",
+        "name": "verify-mm-global-candidate-m3-chat",
+        "argv": [
+          "go",
+          "run",
+          "./ai/live/cmd/minimaxverify",
+          "$REPO/.evidence/minimax-global-candidate-complete/mm-global-candidate-m3-chat/20261018T025534.477214000Z"
+        ],
+        "cwd": "$REPO",
+        "timeoutSeconds": 240,
+        "credentialsInherited": false,
+        "sourceVariable": null,
+        "injectedCredential": null,
+        "credentialsRead": false,
+        "startedAt": "2026-10-18T03:20:15.552339+00:00",
+        "exitCode": 0,
+        "environmentKeys": [
+          "HOME",
+          "PATH",
+          "TMPDIR"
+        ],
+        "seconds": 3.131104167085141,
+        "launcherAudit": {
+          "passed": true,
+          "findings": []
+        }
+      }
+    },
+    "verify-mm-global-candidate-m3-messages-command.json": {
+      "sha256": "a165eb7df87d3e05363e7b93bf857e0d6f0132e7dade2c83e0dbf6784774acb8",
+      "receipt": {
+        "state": "COMPLETED",
+        "name": "verify-mm-global-candidate-m3-messages",
+        "argv": [
+          "go",
+          "run",
+          "./ai/live/cmd/minimaxverify",
+          "$REPO/.evidence/minimax-global-candidate-complete/mm-global-candidate-m3-messages/20261018T025623.432954000Z"
+        ],
+        "cwd": "$REPO",
+        "timeoutSeconds": 240,
+        "credentialsInherited": false,
+        "sourceVariable": null,
+        "injectedCredential": null,
+        "credentialsRead": false,
+        "startedAt": "2026-10-18T03:20:18.875202+00:00",
+        "exitCode": 0,
+        "environmentKeys": [
+          "HOME",
+          "PATH",
+          "TMPDIR"
+        ],
+        "seconds": 0.1791565832681954,
+        "launcherAudit": {
+          "passed": true,
+          "findings": []
+        }
+      }
+    },
+    "verify-mm-global-candidate-m3-responses-command.json": {
+      "sha256": "60d8e79b1b813b9047aa95823854909ab2927387cb65bb45ca7979cf6492afb5",
+      "receipt": {
+        "state": "COMPLETED",
+        "name": "verify-mm-global-candidate-m3-responses",
+        "argv": [
+          "go",
+          "run",
+          "./ai/live/cmd/minimaxverify",
+          "$REPO/.evidence/minimax-global-candidate-complete/mm-global-candidate-m3-responses/20261018T025604.488119000Z"
+        ],
+        "cwd": "$REPO",
+        "timeoutSeconds": 240,
+        "credentialsInherited": false,
+        "sourceVariable": null,
+        "injectedCredential": null,
+        "credentialsRead": false,
+        "startedAt": "2026-10-18T03:20:18.686158+00:00",
+        "exitCode": 0,
+        "environmentKeys": [
+          "HOME",
+          "PATH",
+          "TMPDIR"
+        ],
+        "seconds": 0.18665912467986345,
+        "launcherAudit": {
+          "passed": true,
+          "findings": []
+        }
+      }
+    },
+    "verify-mm-global-formal-m3-chat-command.json": {
+      "sha256": "0f48256b23fa8787aeab51873c2ea661ff3ad247b6c692ccbf4063aa722332d6",
+      "receipt": {
+        "state": "COMPLETED",
+        "name": "verify-mm-global-formal-m3-chat",
+        "argv": [
+          "go",
+          "run",
+          "./ai/live/cmd/minimaxverify",
+          "-formal",
+          "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z"
+        ],
+        "cwd": "$REPO",
+        "timeoutSeconds": 240,
+        "credentialsInherited": false,
+        "sourceVariable": null,
+        "injectedCredential": null,
+        "credentialsRead": false,
+        "startedAt": "2026-10-18T03:20:19.055999+00:00",
+        "exitCode": 0,
+        "environmentKeys": [
+          "HOME",
+          "PATH",
+          "TMPDIR"
+        ],
+        "seconds": 0.18340204190462828,
+        "launcherAudit": {
+          "passed": true,
+          "findings": []
+        }
+      }
+    },
+    "verify-mm-global-formal-m3-messages-command.json": {
+      "sha256": "e9c378352b24aa9e9ee07331af88c440984fdc709731f9575e7e70efc633150f",
+      "receipt": {
+        "state": "COMPLETED",
+        "name": "verify-mm-global-formal-m3-messages",
+        "argv": [
+          "go",
+          "run",
+          "./ai/live/cmd/minimaxverify",
+          "-formal",
+          "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z"
+        ],
+        "cwd": "$REPO",
+        "timeoutSeconds": 240,
+        "credentialsInherited": false,
+        "sourceVariable": null,
+        "injectedCredential": null,
+        "credentialsRead": false,
+        "startedAt": "2026-10-18T03:20:19.431245+00:00",
+        "exitCode": 0,
+        "environmentKeys": [
+          "HOME",
+          "PATH",
+          "TMPDIR"
+        ],
+        "seconds": 0.19088658317923546,
+        "launcherAudit": {
+          "passed": true,
+          "findings": []
+        }
+      }
+    },
+    "verify-mm-global-formal-m3-responses-command.json": {
+      "sha256": "69a9d001db00804ce117f579bb2d6c6cf6a9b49494240bf7d268b0a6ac72842d",
+      "receipt": {
+        "state": "COMPLETED",
+        "name": "verify-mm-global-formal-m3-responses",
+        "argv": [
+          "go",
+          "run",
+          "./ai/live/cmd/minimaxverify",
+          "-formal",
+          "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z"
+        ],
+        "cwd": "$REPO",
+        "timeoutSeconds": 240,
+        "credentialsInherited": false,
+        "sourceVariable": null,
+        "injectedCredential": null,
+        "credentialsRead": false,
+        "startedAt": "2026-10-18T03:20:19.242048+00:00",
+        "exitCode": 0,
+        "environmentKeys": [
+          "HOME",
+          "PATH",
+          "TMPDIR"
+        ],
+        "seconds": 0.18234649999067187,
+        "launcherAudit": {
+          "passed": true,
+          "findings": []
+        }
+      }
+    }
+  }
+}

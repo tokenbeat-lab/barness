@@ -36,3 +36,7 @@ M3三身份只有自身候选通过才能进入BuiltinCatalog，正式三份报�
 `de05193` 修复激活后的历史目录回放归属、MiniMax 两目录同版本标签、当前配置 pin 续期与 Host 候选重复；`df342b9` 固定中文业务任务的独立非目录哈希，允许且仅允许当前目录 pin 演进。两次独立 Standards/Spec 均零发现。完整受控激活 live 为331 PASS/62正常未选择厂商 NOT_RUN/0 FAIL，MiniMax普通/race各1340 PASS；当前业务门禁激活普通/race各24 PASS、未激活各23 PASS，审计0/源码保护不变。
 
 [完整证据、归档与来源](../evidence/ticket-10/international-postactivation/README.md)保留激活普通整套12378 PASS/11 FAIL/exit1/audit0原结果；三项门禁叶子失败及汇总、一个私有冻结运行时软链接准备问题已分别受控证明修复，六项GLM当前来源/目录失败仍须自身真实续期，不以重算旧包替代。真实根目录未激活，规范候选账本仍10预留/9Attempt，原CN2/2及全部研究捕获原样保留；不关闭10/09，不授予任何实际或正式PASS。
+
+### 2026-10-18 国际站自身正式完成、旧GLM续期缺口
+
+三份完整M3实际候选与三份自身正式均PASS；目录已数据激活，六份canonical origin由公共验证器验证登记。[正式/GLM原始轮次证据](../evidence/ticket-10/international-formal-glm/README.md)保留实际来源8900034、全原始捕获及所有真实消费。M3正式39/36；GLM Chat/Messages各22/22 PASS，Responses22/22 FAIL且不完整，无seal或成功capturePins。不得重置intent、拼接报告或刷新旧源码。继续GLM专属离线补正设计；新付费轮次须单独固定合同与明确预算批准。其余旧身份、四效果及完整发布门禁未完成，Status仍claimed。

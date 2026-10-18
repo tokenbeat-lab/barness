@@ -18,9 +18,9 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 | 国际站M3 Responses实际研究 | FAIL，原始研究范围 | 文本/工具通过HTTP200；native续接本地编码失败，3calls/2attempts。 |
 | 国际站M3 Messages实际研究 | PASS，仅研究范围 | 文本、思考工具及native续接3calls/3attempts通过；不能代替完整候选或正式支持。 |
 | 国际站M3完整候选三身份 | 三项PASS，完整实际候选 | 来源7605332、各13calls/12attempts；三路推理/工具及持久化native续接通过，自己的实际origin与审计通过，见[精确汇总](evidence/ticket-10/international-candidates-7605332-summary.json)。 |
-| 国际站M3正式三身份及目录激活 | 目录已激活；正式三项NOT_RUN | 经三份自身完整实际候选作数据激活，目录2026-10-18.1-minimax/3718603f；正式自身报告、支持矩阵和完整门禁仍未取得。 |
+| 国际站M3正式三身份及目录激活 | 三项正式PASS；目录已激活 | 来源8900034，各13calls/12attempts，完整正式总39/36；目录2026-10-18.1-minimax/3718603f，原始报告/origin/源码/审计见[正式胶囊](evidence/ticket-10/international-formal-glm/README.md)。支持矩阵及完整门禁待完成。 |
 | M3.1线上候选三身份 | 三项NOT_RUN | 未获M Plan用途/资格授权；零实际调用，不虚构公开价格，离线约束已完成。 |
-| 原十四身份与四业务效果续期 | NOT_RUN | 尚待最终正式目录/来源确定后重新获取实际证据；六个GLM当前来源适用性校验仍不通过。 |
+| 原十四身份与四业务效果续期 | PARTIAL | 当前GLM Chat/Messages各22/22 PASS；Responses原始22/22 FAIL、不完整且无seal，66/66消费全部保留。其余身份与四效果尚待续期。失败不得作为当前支持；补正预算尚未批准。 |
 | 完整ordinary/race发布门禁 | NOT_RUN，未取得发布认证 | 已保留原ordinary失败/中断记录；46个可本地修复case的定向普通/race重验均通过，不能推出完整门禁PASS。 |
 
 原两次实际调用后，另有一次仅本地语法诊断读取同一已选`MINIMAX_KEY`，网络请求为0，未输出Key值、长度或Hash；Bearer前缀、内部空白和控制字符标记均为false。此诊断不增加收费账本，实际消费仍为2次调用/2次Attempt；无Key验证进程各自保持未读凭据。
@@ -58,8 +58,10 @@ Historical CN checkpoint: `codex/minimax-cn` / `4295ee8`
 ## 待继续工作
 
 1. [票11](issues/11-international-target.md)已完成国际站身份、三端点、USD价格、frozen pi与离线复验；沿用户指示使用单一MINIMAX_KEY做国际站标准M3三协议验收，不再等待中国区修复，不推断M3.1资格。
-2. 票10先以已保存实际wire失败E2E修复Chat镜像推理及Responses本地native编码。随后对新的已提交源码重新prepare、无Key检查和精确来源审查；旧9481a6a批准不适用于新HEAD。随后使用独立国际站研究intent与自身前驱继续三候选真实验收；保留原CN401及所有失败，不将其作为跨区native前驱，不覆盖既有intent。完整候选三路已通过；候选阶段累计49/120调用、45/144 Attempts（49reserved），包含历史消费；Chat槽17calls/16attempts、Responses16/14、Messages16/15。正式阶段仍0/60、0/72。不得重置账本或降低验收。
+2. 票10先以已保存实际wire失败E2E修复Chat镜像推理及Responses本地native编码。随后对新的已提交源码重新prepare、无Key检查和精确来源审查；旧9481a6a批准不适用于新HEAD。随后使用独立国际站研究intent与自身前驱继续三候选真实验收；保留原CN401及所有失败，不将其作为跨区native前驱，不覆盖既有intent。完整候选三路已通过；候选阶段累计49/120调用、45/144 Attempts（49reserved），包含历史消费；Chat槽17calls/16attempts、Responses16/14、Messages16/15。正式阶段已39/60调用、36/72实际Attempts（39reserved）。不得重置账本或降低验收。
 3. 三候选各自通过后才作数据目录激活，获取三份自身正式报告；再续期原十四身份和四业务效果，运行完整ordinary/race/压力/pi、两种vet、逐包脱敏和回滚门禁。
 4. 对固定基点`ecfd4b4`完成最终独立Standards/Spec审查及必要修复重验，全部必交通过后才关闭spec和10/09。
 
 历史、受控或回放结果均不转成actual/formal PASS。历史追溯表继续保留其原来源和状态；当前完整交付判断只依据实际适用证据。
+
+2026-10-18当前实际收集已封存：[完整候选](evidence/ticket-10/international-complete-candidates/README.md)和[正式/GLM原始轮次](evidence/ticket-10/international-formal-glm/README.md)。两份便携校验器均通过，全量原始失败保留；六份M3实际origin已由公共验证器验证并登记。GLM Responses失败同时包含4096预算用尽、无正文、512KiB捕获截断和17.7MB事件文件；原22/22计入消费。拟离线准备一次GLM专属补正，不修改M3执行来源或正式断言，不自动授予新预算。
