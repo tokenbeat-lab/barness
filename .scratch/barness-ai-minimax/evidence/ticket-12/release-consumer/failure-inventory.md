@@ -52,3 +52,14 @@ require `a.json, b.json`. Counting two is insufficient; duplicate entry names
 must be refused and the exact successfully authenticated file-name set must
 equal the declared set. No new exported API or dependency is allowed. Ordinary
 unique iteration and nested parent attribution remain unchanged.
+
+09fea initial-open follow-up: a root swapped only during `os.OpenRoot` can
+have identical pre/post path stats but a different opened inode. Bind all
+three identities, and choose the narrow contract that the selected bundle
+itself is a real directory (system or explicit parent aliases may precede it).
+Public RED covers direct bundle symlink selection, also with a trailing slash;
+ordinary real-directory selection must remain valid. Normalize only the
+caller-selected root spelling before Lstat, not any manifest member. Open the
+root before consuming its manifest, using the same 64 MiB actual-file ceiling
+already preregistered above. A manifest is the initial declaration input; all
+subsequent case reads still require its nonempty expected artifact hash.

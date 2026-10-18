@@ -183,7 +183,7 @@ func copyInventoryArtifact(root *os.Root, name, want string, remaining int64, ds
 	}
 	h := sha256.New()
 	n, err := io.Copy(io.MultiWriter(h, dst), io.LimitReader(f, limit+1))
-	if err != nil || n > limit || hex.EncodeToString(h.Sum(nil)) != want {
+	if err != nil || n > limit || want != "" && hex.EncodeToString(h.Sum(nil)) != want {
 		return 0, fmt.Errorf("case artifact missing, changed or over byte limit")
 	}
 	return n, nil

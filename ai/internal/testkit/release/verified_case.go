@@ -27,8 +27,11 @@ type verifiedCase struct {
 }
 
 func openArtifactBundle(dir string) (*artifactBundle, *os.Root, error) {
+	// The caller selects this root; member paths never receive general Clean.
+	// Remove a trailing slash before Lstat so it cannot hide a symlink root.
+	dir = filepath.Clean(dir)
 	before, err := os.Lstat(dir)
-	if err != nil {
+	if err != nil || !before.IsDir() {
 		return nil, nil, fmt.Errorf("release: evidence bundle unavailable")
 	}
 	root, err := os.OpenRoot(dir)
@@ -37,11 +40,23 @@ func openArtifactBundle(dir string) (*artifactBundle, *os.Root, error) {
 	}
 	info, e1 := root.Stat(".")
 	after, e2 := os.Lstat(dir)
-	if e1 != nil || e2 != nil || !info.IsDir() || !os.SameFile(before, after) {
+	if e1 != nil || e2 != nil || !info.IsDir() || !after.IsDir() || !os.SameFile(before, info) || !os.SameFile(before, after) {
 		root.Close()
 		return nil, nil, fmt.Errorf("release: evidence bundle changed")
 	}
 	return &artifactBundle{dir: dir, info: info, pathInfo: before}, root, nil
+}
+
+// The initial declaration has no prior expected hash. It still receives the
+// same rooted, non-symlink, bounded actual read; case consumption always has
+// a nonempty expected hash from the subsequently validated inventory.
+func readBundleManifest(root *os.Root, value any) error {
+	var raw bytes.Buffer
+	_, err := copyInventoryArtifact(root, "manifest.json", "", maxInventoryFile, &raw)
+	if err != nil || json.Unmarshal(raw.Bytes(), value) != nil {
+		return fmt.Errorf("release: manifest missing or invalid")
+	}
+	return nil
 }
 
 func (b *artifactBundle) open() (*os.Root, error) {

@@ -20,6 +20,11 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 	if r.Combo == supportmatrix.JevFormalCombo {
 		return supportmatrix.VerifyJevReport(r, true)
 	}
+	source, root, err := openArtifactBundle(dir)
+	if err != nil {
+		return err
+	}
+	defer root.Close()
 	var m struct {
 		Package  string
 		Commit   string    `json:"git_commit"`
@@ -32,7 +37,7 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 			Artifacts       map[string]string
 		}
 	}
-	if err := readJSON(filepath.Join(dir, "manifest.json"), &m); err != nil {
+	if err := readBundleManifest(root, &m); err != nil {
 		return err
 	}
 	packageArgs := "-tags live ./ai/live"
@@ -42,11 +47,6 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 	if m.Package != packageArgs || m.Commit != r.GitCommit || m.Started.IsZero() || m.Finished.Before(r.FinishedAt) || m.Started.Before(r.StartedAt) || m.Started.After(r.FinishedAt) || m.Versions["live_combo"] != r.Combo || m.Versions["live_sdk"] != r.SDK || m.Versions["model_catalog_version"] != r.CatalogVersion || m.Versions["model_catalog_hash"] != r.CatalogHash {
 		return fmt.Errorf("live manifest provenance disagrees with report")
 	}
-	source, root, err := openArtifactBundle(dir)
-	if err != nil {
-		return err
-	}
-	defer root.Close()
 	for _, s := range r.Scenarios {
 		matches := 0
 		for _, c := range m.Cases {

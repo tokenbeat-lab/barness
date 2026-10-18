@@ -25,6 +25,11 @@ const OfflinePackage = "./ai/e2e"
 // LoadBundle reads an offline evidence bundle: every case's status from
 // manifest.json and every differential case's verdict from its pidiff.json.
 func LoadBundle(dir string) (Bundle, error) {
+	source, root, err := openArtifactBundle(dir)
+	if err != nil {
+		return Bundle{}, err
+	}
+	defer root.Close()
 	var m struct {
 		Package   string `json:"package"`
 		GitCommit string `json:"git_commit"`
@@ -35,18 +40,13 @@ func LoadBundle(dir string) (Bundle, error) {
 			Artifacts map[string]string `json:"artifacts"`
 		} `json:"cases"`
 	}
-	if err := readJSON(filepath.Join(dir, "manifest.json"), &m); err != nil {
+	if err := readBundleManifest(root, &m); err != nil {
 		return Bundle{}, err
 	}
 	if m.Package != OfflinePackage {
 		return Bundle{}, fmt.Errorf("release: %s is a bundle of %q, not the offline E2E (%s)", dir, m.Package, OfflinePackage)
 	}
 	b := Bundle{Dir: dir, Commit: m.GitCommit, caseFiles: map[string]verifiedCase{}}
-	source, root, err := openArtifactBundle(dir)
-	if err != nil {
-		return Bundle{}, fmt.Errorf("release: cannot open evidence bundle")
-	}
-	defer root.Close()
 	seenDirs := map[string]bool{}
 	for _, c := range m.Cases {
 		// Manifest identifiers become report fields. Reject sensitive names

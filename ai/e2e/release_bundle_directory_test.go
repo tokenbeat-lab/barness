@@ -63,3 +63,28 @@ func TestReleaseProducerNestedEmptyEffortDirectories(t *testing.T) {
 		ev.Check("parent assertion attribution "+id, e == nil && e2 == nil && root.CaseID == id, "parent assertion replaced by child")
 	}
 }
+
+func TestReleaseBundleRootSelection(t *testing.T) {
+	for _, mode := range []string{"directory", "symlink", "symlink-trailing-slash"} {
+		t.Run(mode, func(t *testing.T) {
+			ev := run.Case(t, "OD57-release-root-selection-"+mode)
+			dir := releaseRollbackBundle(t)
+			if mode != "directory" {
+				outside := filepath.Join(t.TempDir(), "original")
+				if err := os.Rename(dir, outside); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.Symlink(outside, dir); err != nil {
+					t.Fatal(err)
+				}
+				if mode == "symlink-trailing-slash" {
+					dir += "/"
+				}
+			}
+			b, err := release.LoadBundle(dir)
+			accepted := err == nil && len(b.Problems) == 0
+			ev.Record("selection", map[string]any{"accepted": accepted, "error": err != nil, "problems": len(b.Problems)})
+			ev.Check("only a real selected bundle directory imports", accepted == (mode == "directory"), "accepted=%t", accepted)
+		})
+	}
+}
