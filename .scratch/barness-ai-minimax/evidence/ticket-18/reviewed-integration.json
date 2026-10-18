@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "kind": "ticket18-reviewed-diagnostic-fast-forward",
+  "startedAt": "2026-10-18T23:00:16.035665+00:00",
+  "finishedAt": "2026-10-18T23:00:16.162911+00:00",
+  "before": {
+    "head": "8357ded2d83cef9bbdfdc3a3348179adc3165fb5",
+    "branch": "codex/minimax-global",
+    "status": [
+      "?? .scratch/barness-ai-minimax/evidence/ticket-18/",
+      "?? .scratch/barness-ai-minimax/session-analysis/",
+      "?? .scratch/jev-1.14-multimodal-box/human-review/"
+    ],
+    "trackedClean": true,
+    "indexClean": true
+  },
+  "workerBefore": {
+    "head": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "branch": "codex/glm-cancel-diagnostic",
+    "status": [],
+    "trackedClean": true,
+    "indexClean": true
+  },
+  "ancestorCheck": {
+    "argv": [
+      "git",
+      "merge-base",
+      "--is-ancestor",
+      "8357ded2d83cef9bbdfdc3a3348179adc3165fb5",
+      "6a24ba3308ade8712dd4b0d20d67d9442603ad67"
+    ],
+    "cwd": "/Users/cyber/RestoX/barness",
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "exactReviewedTarget": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "reviews": {
+    "standards": {
+      "path": "/tmp/barness-ticket18-standards-review.json",
+      "sha256": "9333bdf92a88195fa37b11da9fa57a3b4e8fc9888048bc10615075290be3a92f"
+    },
+    "spec": {
+      "path": "/tmp/barness-ticket18-spec-review.json",
+      "sha256": "2309dc828acefe4522270a57522fc0adbcb93253161d269608794b82c70acdee"
+    }
+  },
+  "command": {
+    "argv": [
+      "git",
+      "-c",
+      "core.hooksPath=/dev/null",
+      "merge",
+      "--ff-only",
+      "6a24ba3308ade8712dd4b0d20d67d9442603ad67"
+    ],
+    "cwd": "/Users/cyber/RestoX/barness",
+    "exitCode": 0,
+    "stdout": "Updating 8357ded..6a24ba3\nFast-forward\n .../ticket-18/controlled/failure-inventory.md      |   5 +\n .../evidence/ticket-18/controlled/index.json       |  19 ++++\n .../ticket-18/controlled/inventory.json.gz         | Bin 0 -> 7913 bytes\n .../ticket-18/controlled/source-proof.json         |  47 +++++++++\n ai/live/glm_capture_test.go                        |  10 ++\n ai/live/glm_config_test.go                         |   7 +-\n ai/live/glm_diagnostic_process_test.go             | 116 +++++++++++++++++++++\n ai/live/glm_diagnostic_test.go                     | 105 +++++++++++++++++++\n ai/live/main_test.go                               |  11 +-\n 9 files changed, 317 insertions(+), 3 deletions(-)\n create mode 100644 .scratch/barness-ai-minimax/evidence/ticket-18/controlled/failure-inventory.md\n create mode 100644 .scratch/barness-ai-minimax/evidence/ticket-18/controlled/index.json\n create mode 100644 .scratch/barness-ai-minimax/evidence/ticket-18/controlled/inventory.json.gz\n create mode 100644 .scratch/barness-ai-minimax/evidence/ticket-18/controlled/source-proof.json\n create mode 100644 ai/live/glm_diagnostic_process_test.go\n create mode 100644 ai/live/glm_diagnostic_test.go\n",
+    "stderr": ""
+  },
+  "commandLocalHooksSuppressed": true,
+  "after": {
+    "head": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "branch": "codex/minimax-global",
+    "status": [
+      "?? .scratch/barness-ai-minimax/evidence/ticket-18/authorization.json",
+      "?? .scratch/barness-ai-minimax/evidence/ticket-18/original-failure-pins.json",
+      "?? .scratch/barness-ai-minimax/evidence/ticket-18/plan.json",
+      "?? .scratch/barness-ai-minimax/evidence/ticket-18/publication-before.json",
+      "?? .scratch/barness-ai-minimax/session-analysis/",
+      "?? .scratch/jev-1.14-multimodal-box/human-review/"
+    ],
+    "trackedClean": true,
+    "indexClean": true
+  },
+  "changedFiles": [
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/failure-inventory.md",
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/index.json",
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/inventory.json.gz",
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/source-proof.json",
+    "ai/live/glm_capture_test.go",
+    "ai/live/glm_config_test.go",
+    "ai/live/glm_diagnostic_process_test.go",
+    "ai/live/glm_diagnostic_test.go",
+    "ai/live/main_test.go"
+  ],
+  "rootOwnedUntrackedTicket18Before": {
+    ".scratch/barness-ai-minimax/evidence/ticket-18/authorization.json": {
+      "bytes": 745,
+      "sha256": "73277790beef3960e35f5b708992ae4c684a37aad943517646e4b8bc37a5bb9e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/original-failure-pins.json": {
+      "bytes": 1620,
+      "sha256": "a3a0ad26d7c24a15a4e1340db9d509c98ad37f9f242fa78af63147f7f25cd648"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/plan.json": {
+      "bytes": 1093,
+      "sha256": "39a25cba7bcb48635983fdeba3a7a08b5c2c5958df54dc8745bc45a9d974a68a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/publication-before.json": {
+      "bytes": 584,
+      "sha256": "abf13919d50b06324bd9d63b8e6c14b111020f972f52ef4338a1280d93350fd0"
+    }
+  },
+  "rootOwnedUntrackedTicket18After": {
+    ".scratch/barness-ai-minimax/evidence/ticket-18/authorization.json": {
+      "bytes": 745,
+      "sha256": "73277790beef3960e35f5b708992ae4c684a37aad943517646e4b8bc37a5bb9e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/original-failure-pins.json": {
+      "bytes": 1620,
+      "sha256": "a3a0ad26d7c24a15a4e1340db9d509c98ad37f9f242fa78af63147f7f25cd648"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/plan.json": {
+      "bytes": 1093,
+      "sha256": "39a25cba7bcb48635983fdeba3a7a08b5c2c5958df54dc8745bc45a9d974a68a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/publication-before.json": {
+      "bytes": 584,
+      "sha256": "abf13919d50b06324bd9d63b8e6c14b111020f972f52ef4338a1280d93350fd0"
+    }
+  },
+  "rootOwnedTicket18FilesUnchanged": true,
+  "userDirectoriesBefore": {
+    ".scratch/barness-ai-minimax/session-analysis/": {
+      "device": 16777234,
+      "inode": 89600159,
+      "mode": 16877,
+      "mtimeNS": 1792307679016698385
+    },
+    ".scratch/jev-1.14-multimodal-box/human-review/": {
+      "device": 16777234,
+      "inode": 80264406,
+      "mode": 16877,
+      "mtimeNS": 1792227923487013005
+    }
+  },
+  "userDirectoriesAfter": {
+    ".scratch/barness-ai-minimax/session-analysis/": {
+      "device": 16777234,
+      "inode": 89600159,
+      "mode": 16877,
+      "mtimeNS": 1792307679016698385
+    },
+    ".scratch/jev-1.14-multimodal-box/human-review/": {
+      "device": 16777234,
+      "inode": 80264406,
+      "mode": 16877,
+      "mtimeNS": 1792227923487013005
+    }
+  },
+  "userDirectoriesPreserved": true,
+  "diagnosticSourceFilesMatchReviewedProof": {
+    "ai/live/main_test.go": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05",
+    "ai/live/glm_config_test.go": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa",
+    "ai/live/glm_capture_test.go": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274",
+    "ai/live/glm_diagnostic_test.go": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13",
+    "ai/live/glm_diagnostic_process_test.go": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed"
+  },
+  "testsRun": false,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "networkCalls": 0,
+  "selectorsOrPinsRewritten": false,
+  "worktreeCleanup": false,
+  "releaseCertified": false,
+  "singleVendorExecutionAuthorizedByThisReceipt": false
+}

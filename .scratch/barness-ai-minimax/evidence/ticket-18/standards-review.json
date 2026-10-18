@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "14769dc1c1cdf426803c88d401b6d3e7b2406256",
+  "reviewedCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "diffCommand": "git diff 14769dc1c1cdf426803c88d401b6d3e7b2406256...6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "diffSHA256": "101052abf80e6a080ad8ef9b704b5279aed9033caafa3dc79c75ffcc41d130dc",
+  "diffBytes": 19847,
+  "commits": [
+    "6a24ba3 Add isolated one-case GLM Messages cancellation diagnostic",
+    "8357ded docs: scope one GLM Messages cancellation rerun"
+  ],
+  "scope": "Five diagnostic live-harness source files and controlled proof; parent8357 ticket metadata included in full diff but ROOT-owned untracked plan/auth/status excluded.",
+  "standards": [
+    "AGENTS.md principles1-10 and failure-first public E2E.",
+    "docs/agents/domain.md, GLOSSARY and ADR0045/0046: closed old contracts, immutable prior captures and diagnostic distinct from formal certification.",
+    "All12 supplied baseline smells assessed as judgment calls; repo semantics override, tool-enforced checks omitted."
+  ],
+  "findings": [],
+  "smells": [],
+  "report": "PASS: no documented Standards breach or possible baseline smell was found in this exact diagnostic delta. The entry selects only Messages glm-5.3/cancel, preserves the original fixed prompt/options/public Client/cancellation assertion, and keeps1 call/1 HTTP Attempt,4096 output tokens,120s call,180s process and20s finalization reserve. Existing reservation and actual transport gates remain independent; the recorder is direct with no inherited proxy.\n\nThe diagnostic is isolated before legacy configuration, rejects mixed modes and narrowed entry selection, and leaves formal22 selection strict. Its distinct diagnostic-only report suppresses model/formal/support publication; no absent glm-5.2 or route qualification is manufactured. Original selectors are byte-identical. Existing report/capture ownership and resource cleanup are reused without new dependencies or speculative abstraction.\n\nIndependent bounded stdlib inspection verified all222 regular archive members,592856 payload bytes, hashes and five source files matching the committed tip byte for byte. Genuine missing-entry RED1 and separately retained refused-child RED1 remain; GREEN and race each9/9 PASS with audits0, and live vet0. Controlled success/429 spend1/1 with retry0; refusal and missing-key cases spend0/0. Measurements are14769dc+WIP bytes equal to6a24ba3, not a postcommit or real-vendor run.\n\nNo project/captured program, test, real credential or network request was executed by this review. This code review does not itself authorize a paid execution, update selectors, refresh old evidence or certify the full Messages route/release.",
+  "independentReadHashProof": {
+    "path": "/tmp/barness-ticket18-standards-independent-readhash.json",
+    "sha256": "251369c8a283007421b46a128e2834bbd40cee88b7852c0002628cdb5ec3993e",
+    "regularMembers": 222,
+    "payloadBytes": 592856,
+    "sourceFiles": 5,
+    "artifactReferencesChecked": 262
+  },
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/failure-inventory.md",
+      "sha256": "096b92bafeb41d379de140850bdb958f08912c1426aeecd1525575635c36a5c7",
+      "bytes": 903
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/index.json",
+      "sha256": "edfdad771ac8b3c7790dc64d385a1225c140c37dff5b4ada2590c53b495dd62b",
+      "bytes": 528
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/inventory.json.gz",
+      "sha256": "4eaab73e2d6a000046bea51b0e6060efcb6b18b7308e402322660e4653e63ea5",
+      "bytes": 7913
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/source-proof.json",
+      "sha256": "c2e8965ddc6931e31d74c2c612f67e8758ec0ace9d329180b62a53280299af52",
+      "bytes": 1598
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/18-glm-messages-cancel-rerun.md",
+      "sha256": "c239debc3e7937eb2d20c8122b1a3763600b4cc37929fbea4935c30b8c5d2a0a",
+      "bytes": 1675
+    },
+    {
+      "path": "ai/live/glm_capture_test.go",
+      "sha256": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274",
+      "bytes": 5959
+    },
+    {
+      "path": "ai/live/glm_config_test.go",
+      "sha256": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa",
+      "bytes": 9883
+    },
+    {
+      "path": "ai/live/glm_diagnostic_process_test.go",
+      "sha256": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed",
+      "bytes": 5657
+    },
+    {
+      "path": "ai/live/glm_diagnostic_test.go",
+      "sha256": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13",
+      "bytes": 3972
+    },
+    {
+      "path": "ai/live/main_test.go",
+      "sha256": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05",
+      "bytes": 11660
+    }
+  ],
+  "paidExecutionAuthorizedByReview": false,
+  "realPaidCallsByReviewer": 0,
+  "reviewerExecution": {
+    "projectOrCapturedCodeExecuted": false,
+    "testsRun": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "repositoryWrites": false
+  },
+  "releaseCertified": false
+}

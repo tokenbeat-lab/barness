@@ -1,7 +1,7 @@
 # GLM Messages glm-5.3/cancel 单用例复测
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: None
 
 ## Question
@@ -24,3 +24,9 @@ Blocked by: None
 ## Comments
 
 2026-10-19：继续用户已调用的 implement-spec 工作流。实现者在独立 worktree 中增加最小诊断入口；本票之外的用户目录不参与变更。
+
+## Answer
+
+2026-10-19 单用例真实复测PASS，来源6a24ba3；861ms，收到非空ThinkingDelta后取消，`canceled/stream`、HTTP200、StopReason=`aborted`。中国区直连，1call/1Attempt、零重试，usage partial未知部分不作免费。新1/1授权已关闭，续期累计648/648；原失败及wire request、selector、矩阵均核对保留。单用例结果不替代完整formal22/发布认证。
+
+[本次证据](../evidence/ticket-18/README.md)、[机器状态](../evidence/ticket-09/international-delivery-status.json)。

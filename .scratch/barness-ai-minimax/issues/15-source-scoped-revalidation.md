@@ -47,3 +47,7 @@ Blocked by: GLM Messages actual failure; strict current-source applicability; fi
 最终双轴审查发现的Messages最终payload形状及文档问题已由票17离线补正，源码2306917、文档295728a均复审零发现。44公共用例为42非法输入零Provider/Attempt拒绝、两合法业务JSON原值发送；定向普通/race各1663PASS/8NOT_RUN，同8项mandatory显式开关另各8PASS，双vet0。实际测量为ca67+WIP，1027编译/JSON/mod/sum文件等于2306，不声称提交后重跑。修复后M3/GLM/文本/protocol/视觉全部11组严格来源当前相等性不成立；历史证据保持，generic10按既有受影响规则另行核对不变。旧门禁不认证当前源码。
 
 本票固定执行与留存范围完成，但完整验收未满足，保持ready-for-human。不得将本轮108/132授权推给修复后的新来源或另开付费轮次。见[当前交付](../delivery-status.md)、[六项原件](../evidence/ticket-15/new-actual/glm/README.md)、[全量门禁](../evidence/ticket-15/new-actual/final-gate/README.md)及[最终审查](../evidence/ticket-09/final-closure/README.md)。
+
+### 2026-10-19 单场景复测更新
+
+用户单独要求重测Messages `glm-5.3/cancel`，票18独立1/1真实诊断PASS：来源6a24ba3，861ms收到非空ThinkingDelta后取消，canceled/stream与aborted，HTTP200。新增1/1、零重试，连647/647累计648/648；原固定六项与超时失败仍封存。没有拼接22场景、发布formal报告或修改四selector/矩阵；本票完整当前来源验收与发布门禁缺口仍在，状态不变。见[票18结果](../evidence/ticket-18/README.md)。

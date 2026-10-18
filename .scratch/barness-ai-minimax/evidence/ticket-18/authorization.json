@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "source": "direct user message in current task",
+  "request": "重新进行`glm-5.3/cancel` 在 Messages 路线的测试，如果通过请及时更新上下文",
+  "scope": "single-case diagnostic; no route/formal/release certification",
+  "route": "messages",
+  "model": "glm-5.3",
+  "case": "cancel",
+  "maxCalls": 1,
+  "maxHTTPAttempts": 1,
+  "maxOutputTokens": 4096,
+  "callSeconds": 120,
+  "retries": 0,
+  "china": "DIRECT",
+  "endpoint": "https://open.bigmodel.cn/api/anthropic/v1/messages?beta=true",
+  "inheritedProxy": false,
+  "automaticReruns": false,
+  "previousRenewalCalls": 647,
+  "previousRenewalHTTPAttempts": 647,
+  "oldFixedSixClosed": true,
+  "unusedOldBudgetTransferable": false
+}

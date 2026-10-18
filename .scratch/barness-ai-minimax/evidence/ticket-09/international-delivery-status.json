@@ -1,17 +1,17 @@
 {
   "schema": 3,
-  "updated": "2026-10-18",
+  "updated": "2026-10-19",
   "integrationBranch": "codex/minimax-global",
   "delivery": "PARTIAL",
   "releaseCertified": false,
   "specClosed": false,
-  "latestPaidActualSource": "7931b163f983a8b362374163b7949d31e68bbec4",
-  "currentCodeSource": "230691742b731c77e8167b94646219e10f78c8f7",
+  "latestPaidActualSource": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "currentCodeSource": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
   "allAuthorizedPaidProcessesClosed": true,
   "additionalPaidRoundAuthorized": false,
   "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
-  "legacyCalls": 647,
-  "legacyAttempts": 647,
+  "legacyCalls": 648,
+  "legacyAttempts": 648,
   "fixedSixReleaseRepair1": {
     "round": "release-repair-validation-1",
     "status": "CLOSED",
@@ -226,7 +226,10 @@
     "targetCommit": "6b440de18181128e082c56acc10d277fb0a721ab",
     "sourceDataFilesByteEqual": 1117,
     "sourceDataRecordSetSHA256": "b02623831357bed132dd7ae5699b311e5e12855418abd2375cf1a60149c10a76",
-    "byteEqualityEvidence": "evidence/ticket-09/final-closure/current-source-byte-equality.json"
+    "byteEqualityEvidence": "evidence/ticket-09/final-closure/current-source-byte-equality.json",
+    "currentSourceReassessmentPending": true,
+    "newDiagnosticSourceCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "newDiagnosticDoesNotRenewStrictMaps": true
   },
   "openTickets": [
     "09",
@@ -235,8 +238,8 @@
     "15"
   ],
   "blockers": [
-    "Latest GLM Messages actual cancel FAIL; native support report missing",
-    "Strict GLM publication and four-report candidate import refused",
+    "Messages glm-5.3/cancel latest single-case diagnostic PASS; full current-source Messages formal22 report remains absent",
+    "Strict GLM publication and four-report candidate import remain refused; diagnostic is not a replacement report",
     "No passing complete release certification",
     "Current final source native/formal/effect applicability not established"
   ],
@@ -435,7 +438,49 @@
     "normalPrivateNegativeConstructorExit": 0,
     "normalPrivateCounterfeitConsumerExpectedExit": 1
   },
-  "currentIntegrationSourceTip": "6b440de18181128e082c56acc10d277fb0a721ab",
-  "currentCodeSourceScope": "AI source/data assessment; final reviewed evidence and metadata do not renew native qualification.",
-  "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json"
+  "currentIntegrationSourceTip": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "currentCodeSourceScope": "AI runtime at2306917 plus isolated one-case diagnostic at6a24ba3; no native/formal/effect qualification renewed.",
+  "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
+  "singleCaseMessagesCancelRerun": {
+    "schema": 1,
+    "updated": "2026-10-19",
+    "status": "CLOSED",
+    "outcome": "PASS",
+    "scope": "single-case diagnostic only",
+    "sourceCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "route": "messages",
+    "case": "glm-5.3/cancel",
+    "durationMs": 861,
+    "httpStatus": 200,
+    "firstObservableEvent": "thinking_delta",
+    "nonEmptyDeltaObserved": true,
+    "cancelCode": "canceled",
+    "cancelPhase": "stream",
+    "stopReason": "aborted",
+    "logicalCalls": 1,
+    "httpAttempts": 1,
+    "retries": 0,
+    "china": "DIRECT",
+    "usageReporting": [
+      "partial"
+    ],
+    "unknownUsageMeansFree": false,
+    "priorRenewalCalls": 647,
+    "priorRenewalHTTPAttempts": 647,
+    "combinedRenewalCalls": 648,
+    "combinedRenewalHTTPAttempts": 648,
+    "originalFailurePreserved": true,
+    "sameWireRequestAsOriginalFailure": true,
+    "publicationSelectorsAndMatrixUnchanged": true,
+    "fullMessagesRouteCertified": false,
+    "releaseCertified": false,
+    "additionalPaidRoundAuthorized": false,
+    "report": ".evidence/glm-messages-cancel-20261019-1/actual/20261018T230218.566865000Z/diagnostic-glm-messages-cancel-report.json",
+    "reportSHA256": "78395266585b5c632bced498789d2135d57c214860e59cba48b1c317d483267c",
+    "evidence": "evidence/ticket-18/README.md"
+  },
+  "ticket18OwnedWorkerCleanup": {
+    "removed": true,
+    "evidence": "evidence/ticket-18/cleanup.json"
+  }
 }

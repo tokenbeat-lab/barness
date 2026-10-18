@@ -98,3 +98,7 @@ Base: `ecfd4b4`
 最终双轴审查发现的Messages最终payload形状及文档问题已由票17离线补正，源码2306917、文档295728a均复审零发现。44公共用例为42非法输入零Provider/Attempt拒绝、两合法业务JSON原值发送；定向普通/race各1663PASS/8NOT_RUN，同8项mandatory显式开关另各8PASS，双vet0。实际测量为ca67+WIP，1027编译/JSON/mod/sum文件等于2306，不声称提交后重跑。修复后M3/GLM/文本/protocol/视觉全部11组严格来源当前相等性不成立；历史证据保持，generic10按既有受影响规则另行核对不变。旧门禁不认证当前源码。
 
 [17 最终payload及文档补正](issues/17-final-payload-review-gaps.md)只按离线修复与审查留存范围闭合；[15](issues/15-source-scoped-revalidation.md)及[12](issues/12-glm-corrective-1.md)保留ready-for-human验收缺口，10、09和spec保持claimed/PARTIAL。无当前完整发布认证。原始报告、严格适用性与双轴复审见[最终审查入口](evidence/ticket-09/final-closure/README.md)。历史Fog与审批前条目按原检查点保留，不代表当前待审批状态。
+
+## 2026-10-19 单场景复测检查点
+
+[18 resolved](issues/18-glm-messages-cancel-rerun.md)：用户单独授权的Messages `glm-5.3/cancel` 真实1/1复测PASS，861ms，首个非空ThinkingDelta后取消，canceled/stream、aborted；[证据](evidence/ticket-18/README.md)。原120001ms失败与固定六项647/647保留，累计648/648。该新授权已关闭；全路线formal22/严格来源/装配/完整门禁仍开放，10、09和spec不关闭。

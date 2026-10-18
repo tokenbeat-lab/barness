@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "name": "glm-messages-cancel-20261019-1",
+  "kind": "glm-single-case-diagnostic-only",
+  "entry": "^TestGLMMessagesCancelDiagnostic$",
+  "route": "messages",
+  "case": "glm-5.3/cancel",
+  "catalog": "BuiltinCatalog",
+  "sourceCredential": "GLM_KEY",
+  "injectedCredential": "BARNESS_GLM_KEY",
+  "environment": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_GLM_ROUTE": "messages",
+    "BARNESS_GLM_DIAGNOSTIC": "glm-5.3/cancel"
+  },
+  "argvSuffix": [
+    "-test.run=^TestGLMMessagesCancelDiagnostic$",
+    "-test.timeout=180s",
+    "-test.count=1",
+    "-test.v"
+  ],
+  "cwd": "ai/live",
+  "transport": "DIRECT",
+  "inheritedProxy": false,
+  "maxCalls": 1,
+  "maxHTTPAttempts": 1,
+  "maxOutputTokens": 4096,
+  "callSeconds": 120,
+  "processTimeoutSeconds": 180,
+  "launcherTimeoutSeconds": 210,
+  "retries": 0,
+  "prompt": "Write the integers from 1 through 1000, one per line.",
+  "cancelTrigger": "first EventTextDelta or EventThinkingDelta",
+  "assertion": "observable delta, ai.CodeCanceled, ai.StopReasonAborted",
+  "formalPublication": false,
+  "automaticReruns": false
+}

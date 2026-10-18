@@ -1,0 +1,1435 @@
+{
+  "baseCommit": "14769dc1c1cdf426803c88d401b6d3e7b2406256",
+  "reviewedCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "diffSHA256": "101052abf80e6a080ad8ef9b704b5279aed9033caafa3dc79c75ffcc41d130dc",
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/failure-inventory.md": {
+      "bytes": 903,
+      "sha256": "096b92bafeb41d379de140850bdb958f08912c1426aeecd1525575635c36a5c7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/index.json": {
+      "bytes": 528,
+      "sha256": "edfdad771ac8b3c7790dc64d385a1225c140c37dff5b4ada2590c53b495dd62b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/inventory.json.gz": {
+      "bytes": 7913,
+      "sha256": "4eaab73e2d6a000046bea51b0e6060efcb6b18b7308e402322660e4653e63ea5"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/source-proof.json": {
+      "bytes": 1598,
+      "sha256": "c2e8965ddc6931e31d74c2c612f67e8758ec0ace9d329180b62a53280299af52"
+    },
+    ".scratch/barness-ai-minimax/issues/18-glm-messages-cancel-rerun.md": {
+      "bytes": 1675,
+      "sha256": "c239debc3e7937eb2d20c8122b1a3763600b4cc37929fbea4935c30b8c5d2a0a"
+    },
+    "ai/live/glm_capture_test.go": {
+      "bytes": 5959,
+      "sha256": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274"
+    },
+    "ai/live/glm_config_test.go": {
+      "bytes": 9883,
+      "sha256": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa"
+    },
+    "ai/live/glm_diagnostic_process_test.go": {
+      "bytes": 5657,
+      "sha256": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed"
+    },
+    "ai/live/glm_diagnostic_test.go": {
+      "bytes": 3972,
+      "sha256": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13"
+    },
+    "ai/live/main_test.go": {
+      "bytes": 11660,
+      "sha256": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05"
+    }
+  },
+  "sourceProof": {
+    "measuredHEAD": "14769dc1c1cdf426803c88d401b6d3e7b2406256",
+    "files": {
+      "ai/live/main_test.go": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05",
+      "ai/live/glm_config_test.go": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa",
+      "ai/live/glm_capture_test.go": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274",
+      "ai/live/glm_diagnostic_test.go": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13",
+      "ai/live/glm_diagnostic_process_test.go": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed"
+    },
+    "commands": [
+      {
+        "argv": "go test -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$/^success$' -timeout=90s",
+        "actualExit": 1,
+        "stage": "red"
+      },
+      {
+        "argv": "same exact RED command with complete refused-child retention",
+        "actualExit": 1,
+        "stage": "red-retained"
+      },
+      {
+        "argv": "go test -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$' -timeout=90s",
+        "actualExit": 0,
+        "stage": "green"
+      },
+      {
+        "argv": "go test -race -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$' -timeout=90s",
+        "actualExit": 0,
+        "stage": "race"
+      },
+      {
+        "argv": "go vet -tags live ./ai/live",
+        "actualExit": 0,
+        "stage": "vet"
+      }
+    ],
+    "environmentKeys": [
+      "PATH",
+      "HOME",
+      "TMPDIR",
+      "BARNESS_AI_EVIDENCE_DIR"
+    ],
+    "vendorCalls": 0,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "releaseCertified": false
+  },
+  "archive": {
+    "archive": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/ticket18-diagnostic-controlled/controlled-raw.tar.gz",
+    "bytes": 91564,
+    "sha256": "1958a651ac05a180939098b33ac4431c4dd82043d1beef434c01708f2d126fe9",
+    "files": 222,
+    "payloadBytes": 592856,
+    "bounds": {
+      "files": 4096,
+      "entries": 4096,
+      "depth": 32,
+      "memberBytes": 8388608,
+      "payloadBytes": 67108864,
+      "compressedBytes": 16777216
+    },
+    "vendorCalls": 0,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "releaseCertified": false
+  },
+  "archiveMembers": 222,
+  "payloadBytes": 592856,
+  "decodedTarBytes": 931840,
+  "manifests": {
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-429/child/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-formal-mixed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-formal-narrowed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-missing-key/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-narrowed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-proxy/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-success/child/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      }
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-wrong-model/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-wrong-route/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/green/20261018T225541.524632000Z/manifest.json": {
+      "cases": 9,
+      "statuses": {
+        "PASS": 9
+      }
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-429/child/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-formal-mixed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-formal-narrowed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-missing-key/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-narrowed/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-proxy/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-success/child/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      }
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-wrong-model/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-wrong-route/child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/race/20261018T225631.154072000Z/manifest.json": {
+      "cases": 9,
+      "statuses": {
+        "PASS": 9
+      }
+    },
+    "bundles/red-retained/20261018T225519.711790000Z/GLM18-diagnostic-process-success/refused-child/manifest.json": {
+      "cases": 0,
+      "statuses": {}
+    },
+    "bundles/red-retained/20261018T225519.711790000Z/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    },
+    "bundles/red/20261018T225502.308558000Z/manifest.json": {
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      }
+    }
+  },
+  "artifactReferences": 262,
+  "childReports": {
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-429/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "controlled",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:55:41.683792Z",
+      "finishedAt": "2026-10-18T22:55:41.688057Z",
+      "processDeadline": "2026-10-19T06:56:06.685855+08:00",
+      "executionDeadline": "2026-10-19T06:55:46.685855+08:00",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 1,
+        "attemptsReserved": 1,
+        "httpAttempts": 1,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "FAIL",
+          "failure": "assertion",
+          "calls": 1,
+          "httpAttempts": 1,
+          "durationMs": 0,
+          "providerRequestIds": [
+            "controlled-request"
+          ],
+          "requestIdSources": [
+            "response header:x-request-id"
+          ],
+          "requestId": "req-e2c8d52f4afd23080b4cb2f12f5f9a5b",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "usageReporting": [
+            "unreported"
+          ],
+          "rawUsagePresence": null,
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "FAIL"
+      },
+      "failure": "",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-formal-mixed/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "",
+      "catalogHash": "",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:55:41.609392Z",
+      "finishedAt": "2026-10-18T22:55:41.611454Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": null,
+      "scenarios": null,
+      "models": {},
+      "failure": "diagnostic forbids mixed formal/replay/provider mode",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-missing-key/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "NOT_RUN",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:55:41.669598Z",
+      "finishedAt": "2026-10-18T22:55:41.671943Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "NOT_RUN",
+          "failure": "",
+          "calls": 0,
+          "httpAttempts": 0,
+          "durationMs": 0,
+          "providerRequestIds": null,
+          "requestIdSources": null,
+          "requestId": "",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "usageReporting": null,
+          "rawUsagePresence": null,
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "NOT_RUN"
+      },
+      "failure": "",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-narrowed/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:55:41.565446Z",
+      "finishedAt": "2026-10-18T22:55:41.56801Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "NOT_RUN",
+          "failure": "",
+          "calls": 0,
+          "httpAttempts": 0,
+          "durationMs": 0,
+          "providerRequestIds": null,
+          "requestIdSources": null,
+          "requestId": "",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "usageReporting": null,
+          "rawUsagePresence": null,
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "NOT_RUN"
+      },
+      "failure": "exact isolated entry selection required",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-proxy/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:55:41.655904Z",
+      "finishedAt": "2026-10-18T22:55:41.658036Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "NOT_RUN",
+          "failure": "",
+          "calls": 0,
+          "httpAttempts": 0,
+          "durationMs": 0,
+          "providerRequestIds": null,
+          "requestIdSources": null,
+          "requestId": "",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "usageReporting": null,
+          "rawUsagePresence": null,
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "NOT_RUN"
+      },
+      "failure": "mixed route, credential or endpoint override forbidden",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-success/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "PASS",
+      "complete": true,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "controlled",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:55:41.537969Z",
+      "finishedAt": "2026-10-18T22:55:41.546127Z",
+      "processDeadline": "2026-10-19T06:56:06.542845+08:00",
+      "executionDeadline": "2026-10-19T06:55:46.542845+08:00",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 1,
+        "attemptsReserved": 1,
+        "httpAttempts": 1,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "failure": "",
+          "calls": 1,
+          "httpAttempts": 1,
+          "durationMs": 1,
+          "providerRequestIds": [
+            "controlled-request"
+          ],
+          "requestIdSources": [
+            "response header:x-request-id"
+          ],
+          "requestId": "req-6b269876a9a9ae854ae4a86ac04e2834",
+          "usage": {
+            "input": 20,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 20,
+            "cost": {
+              "input": 2.380243975e-05,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 2.380243975e-05
+            }
+          },
+          "usageReporting": [
+            "partial"
+          ],
+          "rawUsagePresence": [
+            {
+              "input_tokens": 20,
+              "output_tokens": 0
+            }
+          ],
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "PASS"
+      },
+      "failure": "",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-wrong-model/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "",
+      "catalogHash": "",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:55:41.595388Z",
+      "finishedAt": "2026-10-18T22:55:41.597484Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": null,
+      "scenarios": null,
+      "models": {},
+      "failure": "diagnostic requires only Messages glm-5.3/cancel",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-wrong-route/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "responses",
+      "api": "openai-responses",
+      "endpoint": "https://open.bigmodel.cn/api/v1",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+      "catalogVersion": "",
+      "catalogHash": "",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:55:41.581347Z",
+      "finishedAt": "2026-10-18T22:55:41.583553Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": null,
+      "scenarios": null,
+      "models": {},
+      "failure": "diagnostic requires only Messages glm-5.3/cancel",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-429/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "controlled",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:56:33.818122Z",
+      "finishedAt": "2026-10-18T22:56:33.840663Z",
+      "processDeadline": "2026-10-19T06:56:58.832381+08:00",
+      "executionDeadline": "2026-10-19T06:56:38.832381+08:00",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 1,
+        "attemptsReserved": 1,
+        "httpAttempts": 1,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "FAIL",
+          "failure": "assertion",
+          "calls": 1,
+          "httpAttempts": 1,
+          "durationMs": 1,
+          "providerRequestIds": [
+            "controlled-request"
+          ],
+          "requestIdSources": [
+            "response header:x-request-id"
+          ],
+          "requestId": "req-e4714652ae1766f962a95b596e962a2c",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "usageReporting": [
+            "unreported"
+          ],
+          "rawUsagePresence": null,
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "FAIL"
+      },
+      "failure": "",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-formal-mixed/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "",
+      "catalogHash": "",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:56:32.44536Z",
+      "finishedAt": "2026-10-18T22:56:32.454479Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": null,
+      "scenarios": null,
+      "models": {},
+      "failure": "diagnostic forbids mixed formal/replay/provider mode",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-missing-key/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "NOT_RUN",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:56:32.740139Z",
+      "finishedAt": "2026-10-18T22:56:32.75154Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "NOT_RUN",
+          "failure": "",
+          "calls": 0,
+          "httpAttempts": 0,
+          "durationMs": 0,
+          "providerRequestIds": null,
+          "requestIdSources": null,
+          "requestId": "",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "usageReporting": null,
+          "rawUsagePresence": null,
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "NOT_RUN"
+      },
+      "failure": "",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-narrowed/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:56:32.307227Z",
+      "finishedAt": "2026-10-18T22:56:32.322267Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "NOT_RUN",
+          "failure": "",
+          "calls": 0,
+          "httpAttempts": 0,
+          "durationMs": 0,
+          "providerRequestIds": null,
+          "requestIdSources": null,
+          "requestId": "",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "usageReporting": null,
+          "rawUsagePresence": null,
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "NOT_RUN"
+      },
+      "failure": "exact isolated entry selection required",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-proxy/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:56:32.692428Z",
+      "finishedAt": "2026-10-18T22:56:32.703684Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "NOT_RUN",
+          "failure": "",
+          "calls": 0,
+          "httpAttempts": 0,
+          "durationMs": 0,
+          "providerRequestIds": null,
+          "requestIdSources": null,
+          "requestId": "",
+          "usage": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0
+            }
+          },
+          "usageReporting": null,
+          "rawUsagePresence": null,
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "NOT_RUN"
+      },
+      "failure": "mixed route, credential or endpoint override forbidden",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-success/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "PASS",
+      "complete": true,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "2026-10-18.1-minimax",
+      "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "controlled",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:56:31.185072Z",
+      "finishedAt": "2026-10-18T22:56:31.210018Z",
+      "processDeadline": "2026-10-19T06:56:56.201238+08:00",
+      "executionDeadline": "2026-10-19T06:56:36.201238+08:00",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 1,
+        "attemptsReserved": 1,
+        "httpAttempts": 1,
+        "retries": 0
+      },
+      "expected": [
+        "glm-5.3/cancel"
+      ],
+      "scenarios": [
+        {
+          "replayAttempts": 0,
+          "id": "glm-5.3/cancel",
+          "model": "glm-5.3",
+          "outcome": "PASS",
+          "failure": "",
+          "calls": 1,
+          "httpAttempts": 1,
+          "durationMs": 2,
+          "providerRequestIds": [
+            "controlled-request"
+          ],
+          "requestIdSources": [
+            "response header:x-request-id"
+          ],
+          "requestId": "req-86138c2f2dad71e3f4ebdb43da329bd4",
+          "usage": {
+            "input": 20,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 20,
+            "cost": {
+              "input": 2.380243975e-05,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 2.380243975e-05
+            }
+          },
+          "usageReporting": [
+            "partial"
+          ],
+          "rawUsagePresence": [
+            {
+              "input_tokens": 20,
+              "output_tokens": 0
+            }
+          ],
+          "truncated": false
+        }
+      ],
+      "models": {
+        "glm-5.3": "PASS"
+      },
+      "failure": "",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-wrong-model/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "messages",
+      "api": "anthropic-messages",
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+      "catalogVersion": "",
+      "catalogHash": "",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:56:32.403641Z",
+      "finishedAt": "2026-10-18T22:56:32.41293Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": null,
+      "scenarios": null,
+      "models": {},
+      "failure": "diagnostic requires only Messages glm-5.3/cancel",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-wrong-route/child/diagnostic-glm-messages-cancel-report.json": {
+      "schema": 1,
+      "kind": "glm-single-case-diagnostic-only",
+      "outcome": "FAIL",
+      "complete": false,
+      "auditPassed": true,
+      "route": "responses",
+      "api": "openai-responses",
+      "endpoint": "https://open.bigmodel.cn/api/v1",
+      "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+      "catalogVersion": "",
+      "catalogHash": "",
+      "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+      "gitCommit": "unknown",
+      "mode": "live",
+      "accountAlias": "local-glm",
+      "regionAlias": "cn-standard-endpoint",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "startedAt": "2026-10-18T22:56:32.361231Z",
+      "finishedAt": "2026-10-18T22:56:32.370197Z",
+      "processDeadline": "0001-01-01T00:00:00Z",
+      "executionDeadline": "0001-01-01T00:00:00Z",
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 1,
+        "maxCalls": 1,
+        "maxAttempts": 1,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 180,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 0,
+        "attemptsReserved": 0,
+        "httpAttempts": 0,
+        "retries": 0
+      },
+      "expected": null,
+      "scenarios": null,
+      "models": {},
+      "failure": "diagnostic requires only Messages glm-5.3/cancel",
+      "unknown": [
+        "vendor account/region/permissions/billing",
+        "capacity load not tested",
+        "storage/time charges",
+        "acceptance does not establish intensity"
+      ]
+    }
+  },
+  "unchangedOriginalFunctionsAndSelectors": [
+    "ai/live/glm_harness_test.go",
+    "ai/live/glm_assembly_test.go",
+    "ai/live/glm_formal_test.go",
+    "ai/live/glm_finish_test.go",
+    "ai/live/recorder_test.go",
+    "ai/live/testdata/glm-candidate/plan.json",
+    "ai/live/testdata/glm-formal/live-captures.json",
+    "ai/live/testdata/glm-formal/live-captures.sha256",
+    "ai/live/testdata/glm-formal/known-usage.json",
+    "ai/live/testdata/glm-formal/support-views.json",
+    "ai/live/support-matrix.json"
+  ],
+  "sourcesInCapsule": {
+    "source/ai/live/glm_capture_test.go": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274",
+    "source/ai/live/glm_config_test.go": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa",
+    "source/ai/live/glm_diagnostic_process_test.go": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed",
+    "source/ai/live/glm_diagnostic_test.go": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13",
+    "source/ai/live/main_test.go": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05"
+  },
+  "commandAndOtherPaths": [
+    "commands/green.log",
+    "commands/race.log",
+    "commands/red-retained.log",
+    "commands/red.log",
+    "commands/vet.log",
+    "failure-inventory.md",
+    "source-proof.json",
+    "source/ai/live/glm_capture_test.go",
+    "source/ai/live/glm_config_test.go",
+    "source/ai/live/glm_diagnostic_process_test.go",
+    "source/ai/live/glm_diagnostic_test.go",
+    "source/ai/live/main_test.go"
+  ],
+  "projectExecuted": false,
+  "keyRead": false,
+  "network": false,
+  "repoWrites": false
+}
