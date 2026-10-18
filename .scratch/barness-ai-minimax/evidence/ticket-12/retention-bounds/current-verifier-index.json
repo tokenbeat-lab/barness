@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "kind": "current-bounded-portable-verifier-provenance",
+  "baseCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "currentVerifiers": {
+    "original-preflight-source-proof/verify_q.py": {
+      "bytes": 9719,
+      "sha256": "a75a9484b0ffc37a50d00cd52f03efa75462197883241ad4e9e9a17aea5f7455",
+      "historicalSHA256": "5adb020f62629fe4002dd70378f749392c4ea00ec2a3004af6be08663d2e6788"
+    },
+    "actual-corrective-1/verify_actual.py": {
+      "bytes": 11276,
+      "sha256": "f143fde5cf5932442b2e29b6f69a77a52f36940fd88f7ee3de0b82dbc48047c0",
+      "historicalSHA256": "c0ce198c4d72d4378c8bbdb04a2a09ec4f9b0dd5bfa104b9cde8d22439e133c3"
+    }
+  },
+  "limits": {
+    "compressedInventoryBytes": 8388608,
+    "expandedInventoryBytes": 33554432,
+    "compressedHashValidatedBeforeDecode": true,
+    "sameCompressedBytesHashedAndDecoded": true,
+    "expandedLimitCheckedBeforeJSON": true
+  },
+  "historicalMetadataProof": "historical-verifier-metadata.json",
+  "historicalArchiveSHA256": "796a386da05888cc2cca1df0b48a8fde1e30ae2e454d1544f720272af6abb870",
+  "oldParentIndicesAndProvenanceUnchanged": [
+    "original-preflight-source-proof/parent-retention-index.json",
+    "original-preflight-source-proof/parent-retention.json",
+    "original-preflight-source-proof/provenance.json",
+    "original-preflight-source-proof/verification-result.json",
+    "actual-corrective-1/parent-retention-index.json",
+    "actual-corrective-1/glm-corrective-actual-5bf2c16-provenance.json",
+    "actual-corrective-1/verification-result.json"
+  ],
+  "rawActualArchivesReportsAndSelectorsChanged": false,
+  "generationSourceFilesUnchanged": 1034,
+  "currentVerificationSummary": "verification-summary.json",
+  "scope": "Original parent metadata indexes remain historical records of original verifier bytes, preserved explicitly; this separate index authenticates current corrected programs",
+  "credentialsRead": false,
+  "networkUsed": false,
+  "GoTestsRun": false
+}

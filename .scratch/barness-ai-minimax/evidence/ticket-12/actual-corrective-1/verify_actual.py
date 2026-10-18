@@ -4,6 +4,7 @@ from collections import Counter
 import argparse
 import gzip
 import hashlib
+import io
 import json
 import os
 import tarfile
@@ -143,8 +144,12 @@ need(args.prepay_index.read_bytes() == files['lineage/approved-prepay-index.json
      'exact external passed prepay index bound by actual capsule')
 need(digest(args.prepay_archive) == prepay['archiveSha256'] and
      args.prepay_archive.stat().st_size == prepay['archiveBytes'], 'passed prepay archive identity')
-need(digest(args.prepay_inventory) == prepay['inventorySha256'], 'passed prepay inventory identity')
-inventory_raw = gzip.decompress(args.prepay_inventory.read_bytes())
+with args.prepay_inventory.open('rb') as stream:
+    compressed = stream.read((8 << 20) + 1)
+need(len(compressed) <= 8 << 20, 'passed prepay compressed inventory bound')
+need(sha(compressed) == prepay['inventorySha256'], 'passed prepay inventory identity')
+with gzip.GzipFile(fileobj=io.BytesIO(compressed)) as stream:
+    inventory_raw = stream.read((32 << 20) + 1)
 need(len(inventory_raw) <= 32 << 20, 'passed prepay inventory expanded bound')
 inventory = json.loads(inventory_raw)
 need(len(inventory) <= 40000, 'passed prepay entry bound')

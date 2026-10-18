@@ -4,6 +4,7 @@ from collections import Counter
 import argparse
 import gzip
 import hashlib
+import io
 import json
 import os
 import tarfile
@@ -33,17 +34,20 @@ def verify_raw(archive, index_path, inventory_path):
             raise ValueError(detail)
         checks += 1
 
-    need(index_path.stat().st_size <= 1 << 20 and inventory_path.stat().st_size <= 8 << 20,
-         'bounded external metadata')
+    need(index_path.stat().st_size <= 1 << 20, 'bounded external metadata')
     idx = json.loads(index_path.read_bytes())
-    inventory_raw = gzip.decompress(inventory_path.read_bytes())
+    with inventory_path.open('rb') as stream:
+        compressed = stream.read((8 << 20) + 1)
+    need(len(compressed) <= 8 << 20, 'compressed inventory bound')
+    need(sha(compressed) == idx['inventorySha256'], 'original full inventory identity')
+    with gzip.GzipFile(fileobj=io.BytesIO(compressed)) as stream:
+        inventory_raw = stream.read((32 << 20) + 1)
     need(len(inventory_raw) <= 32 << 20, 'expanded inventory bound')
     inv = json.loads(inventory_raw)
     need(len(inv) == 27418 and idx['codeCommit'] == SOURCE and idx['actualSupport'] is False,
          'original failed source and inventory')
     need(digest(archive) == idx['archiveSha256'] == ARCHIVE_SHA and
          archive.stat().st_size == idx['archiveBytes'] == 53271279, 'raw archive identity')
-    need(digest(inventory_path) == idx['inventorySha256'], 'original full inventory identity')
     selected = {}
     seen = set()
     regular_bytes = 0
