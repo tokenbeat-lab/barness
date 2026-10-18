@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED_STANDARDS_INCREMENTAL_SOURCE_ONLY",
+  "reviewedSource": "1a0ce3458d5c499b95c03e3994f3e7be35e88ea2",
+  "base": "1dedc575228c1691bed0843ddb54b84c379c5727",
+  "diffCommand": "git diff 1dedc575228c1691bed0843ddb54b84c379c5727...1a0ce3458d5c499b95c03e3994f3e7be35e88ea2",
+  "commitLogCommand": "git log 1dedc575228c1691bed0843ddb54b84c379c5727..1a0ce3458d5c499b95c03e3994f3e7be35e88ea2 --oneline",
+  "commits": [
+    "1a0ce34 fix: exercise strict release fixtures before paid preflight"
+  ],
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/tools/routed_validation.py",
+      "sha256": "2f4f7fbcc73eb61d1cfc3896349babd40fb9345e170a02d28d3ac42c93648ba9",
+      "bytes": 12227,
+      "lines": 187
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/tools/test_routed_validation.py",
+      "sha256": "1d8c0bab92234d6343051635d61b3a49f600e26780608ed76cb66aa383f094be",
+      "bytes": 19031,
+      "lines": 269
+    },
+    {
+      "path": "ai/e2e/release_recorded_bundle_process_test.go",
+      "sha256": "1b39ba3dba57263469671cf02924c1e134e41ca6a1ceccb788bd99c6ae9dd662",
+      "bytes": 3588,
+      "lines": 90
+    },
+    {
+      "path": "ai/e2e/release_recorded_bundle_test.go",
+      "sha256": "cb0e26849683cc5bf9fef8bb3b0722fbce32b1baae16ce19cad0864638667abd",
+      "bytes": 2767,
+      "lines": 62
+    },
+    {
+      "path": "ai/internal/testkit/release/artifacts_test.go",
+      "sha256": "7e70f5ffa9c53d0ea785bf48487758d213c6a14e6b22b169a0ef6c4ceba93efd",
+      "bytes": 5245,
+      "lines": 128
+    },
+    {
+      "path": "ai/internal/testkit/release/decisions_record_test.go",
+      "sha256": "c58f068e08b23cd13b2ca534b9d18d930f1d367c0f248fa1e949331f928225fb",
+      "bytes": 3163,
+      "lines": 64
+    }
+  ],
+  "standardsSources": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "adb0f58dabe63475d9f327828e0a540fe47013c52aa37fb90764338bb620eb6c"
+    },
+    {
+      "path": "GLOSSARY.md",
+      "sha256": "e799846cab1f56811c34152ebf9ec804ac19810dd1856cd05b949f6c45a9f6d9"
+    },
+    {
+      "path": "docs/agents/domain.md",
+      "sha256": "593a7042218689f1d24df89df14eaf0a20e19e0d0a7d479a01947ac78f0784b9"
+    },
+    {
+      "path": "docs/adr/0045-glm-corrective-capture-round.md",
+      "sha256": "a81f1849fb935238818e1420afbc749242b7fe502667fedc0e4c134af58e0dbd"
+    },
+    {
+      "path": "docs/adr/0046-region-routed-validation-round.md",
+      "sha256": "50acc10857513d84e7b0385bf9d8dab0c456e6a04aabead666150a3681fcd3fb"
+    }
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "findings": [],
+  "possibleSmells": [],
+  "summary": "No documented standard breach or actionable baseline smell found in the six committed files. All files remain below 500 lines (maximum269). The optional diagnostic now skips before registering a case; configured invalid inputs still register FAIL. Literal historical manifest hashes, original six failures, 12391/12385 counts, unchanged bytes and original identity assertions remain intact. The new process E2E covers absent, malformed, wrong-count and both wrong-hash inputs through a credential-free child. Differential/Decisions fixtures hash their deliberately mutated artifacts at the native inventory boundary, then require the intended semantic rejection; the valid Decisions case must pass. The shared fixture writer serves two real callers. Paid preflight executes six fixed native commands through the existing isolated executor, records actual numeric exits and leaves checks false if either release command fails. The controlled public CLI checks failed checks deny canonical intent before Key/native paid execution even with supplied review/hash. No importer, source guard, authority, budget or runtime acceptance rule is loosened.",
+  "unchangedBoundaryFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/tools/paid_core.py",
+      "sha256": "d04b6ada7669530169debbfead314e9140f2f6f9295871ecddb42764cad14177"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/tools/paid.py",
+      "sha256": "c3400977aaba68ef7cf043145729d3d7753eafb1728923281b75d2103b714921"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/tools/routed_contract.py",
+      "sha256": "b6a8ba6f9daf116d664af30ffcfd96033b0d38f5d62e84f2c318e6584eb52bd8"
+    },
+    {
+      "path": "ai/internal/testkit/release/inventory.go",
+      "sha256": "f58f2e0b57aef18ede5c10538e395dcac00a26e2c503775faf9e221915d20fe7"
+    },
+    {
+      "path": "ai/internal/testkit/release/differential_record.go",
+      "sha256": "72ec9f81de35ab8489e9e8816ab91f5e46b5f25dfeec3554cfaa327236ea1ddb"
+    }
+  ],
+  "validationLimits": {
+    "committedBytesOnly": true,
+    "workerMutableTreeReadAsSource": false,
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "sourceEdits": false,
+    "mergePerformed": false,
+    "claimedReceipts": "Failure-first RED, tools61, ordinary0 and completed race2 exit0/358.55s were reported by implementer; this static source review does not recertify those runs. Earlier360s wrapper timeout remains a separate historical result.",
+    "notPaidApproval": true,
+    "notFullSpecCertification": true,
+    "notFreshFullSuiteCertification": true,
+    "priorReviews": "711/c260 source and 1ded retention reviews remain unchanged; actual six-command current-source receipts still require their independent binding."
+  }
+}

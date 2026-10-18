@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "axis": "SPEC retention review",
+  "decision": "PASS_RETENTION_ONLY",
+  "base": "dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98",
+  "reviewedCommit": "3a76c7cb550f45517e2c156f4825f54ac93956cc",
+  "diffCommand": "git diff dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98...3a76c7cb550f45517e2c156f4825f54ac93956cc",
+  "scope": "Exactly19 new files under ticket14/gap2; committed objects and original retained data only.",
+  "review": "R26/T04 require original source/inventory/usage provenance and immutable failures; R27 keeps real FAIL/NOT_RUN and all mandatory gates; T02 requires external RED before implementation. The capsule accurately preserves package RED,15 inventory/semantic RED modes, diagnostic3PASS/1FAIL→ordinary/race4PASS, CLI3FAIL→3PASS,61 tools and dualvet0. The first360s race remains STARTING/exit1 with killpg error, distinct from unchanged-source900s-wrapper COMPLETED0/358.550s. Committed572 six actual checks are0 and PENDING;1ded/WIP and earlier Go-slice qualifiers remain explicit. Main live336PASS/62NOT_RUN, two replay1PASS children, visual16PASS and contracts10PASS remain separate; no vendor support or full repaired-source suite PASS is claimed. Child audit absence is preserved as null while main audits are0. Reader and snapshot limits match the documented finite protocol; original smaller implementation limits are unchanged. One deliberate link is regular metadata only, with no following/recreation; three unused binaries are manifest/build/hash references. No consumer, selector, mandatory trace, paid round or budget was changed by retention.",
+  "findings": [],
+  "scopeCreep": [],
+  "wrongImplementation": [],
+  "independentChecks": "Read/hash analysis confirms all28917 regular archive members,226583975payload/278374400decoded bytes,133 observed metadata files,115 originals byte-equal to retained TDD/preflight roots, and15761 native artifact-reference hashes. All39 current original canonical receipt hashes still match the observed historical proof; prior21 sum300/300. Exact archive SHA and sourceManifest d734e81d match. Public verifier0 plus14 actual refusals are retained, not executed by this reviewer.",
+  "limits": "Retention only, separate from1a code approval,16 header alignment and future fixed-six source/binary/check reviews. Old A2 is still false; no human108/132 approval, Key read, paid intent or current full-spec certificate is inferred.",
+  "reviewedCommittedFilesSHA256": {
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/README.md": "bf3798ef95245e77982eb03582fcbe9c68e4ad6fa96750d221fcf34563c2e393",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/SHA256SUMS": "83db33ac18bdfcfd61d541881a5229329a34b8382f9921cb258b1b7130e3a7ae",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/actual-six-check-observed.json": "a9d8cef476da498fd9af6082a621eb15537d7d8edfcec9926ef47949396b9672",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/boundary-checks.json": "d79a7c6d38dbc098ca649161968afad4d9bd14a0a7856b22ea87f4cf91ab938b",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/capsule.py": "651903be831bcff9ac172f2f8e1b3cbd5f469460760bfaa3af9af59a08c30f84",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/check-boundaries-command.json": "3a04ae34a058d1fb80ff442e78480a63cde69461efeb3a3d38003efba60205c0",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/check-boundaries.log": "d79a7c6d38dbc098ca649161968afad4d9bd14a0a7856b22ea87f4cf91ab938b",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/check-boundaries.py": "5c8113088355a817272fca55150c32467638b6f4a14c88f9ac688895085f0991",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/external-references.json": "306b7dcd55edc3a32d54bd4f2c4fab2e77dff3afd5b932d5c09590b4b41d2e4e",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/index.json": "a85fc2fd6584be1815bf3d22f6829ed9f0d471b991b46ca825d1d1dce165b8fc",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/inventory.json.gz": "3e06d72a4501cd147872e4ce0872302b5907cfc112f11f6f32424bb35756e9c9",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/race-timeout-annotation.json": "d01537dfe473bf23c4e23e419e57cbe03622b8ed2d85b140960b4b67b3e44583",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/snapshot.py": "5673a773e8b149456888075321caa5d928c61d77619b646f9e7e06103448b29c",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/source-at-start.json.gz": "9ed814a344352de01d6516535b79fad42f161ef4f837002e99a2e78b6dd3835a",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/summary.json": "3cea1687fade061fd77cbe0c1335f586d3da775a33e2316fd1c7101d666881da",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/validation.json": "bb2a8599aadc87952ac4f8317dea3f186df2c7e649068828ecf183582c68e889",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/verify-command.json": "612057ef4f505a995776e5235386f93ffd219124a5beb3aaae437fd8b36c7209",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/verify.log": "f8867d8788ec9656ec279af50bc10b5d345ea69f025c56e57eda462f87b04fe9",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/verify.py": "857024d022cd9c8a71c838a3536ca8b6e27a68abc8159076cdef314240dc2a18"
+  },
+  "independentStaticPins": {
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-14-offline-gap2/gap2-raw.tar.gz",
+      "bytes": 41164640,
+      "sha256": "1c36af4d252552e9d42792c7e9f05296b86e75fb2a6bcaa6f9ec0cb35b8574ab",
+      "prefix": "offline-gap2"
+    },
+    "allRegularMembersHashed": 28917,
+    "payloadBytes": 226583975,
+    "decodedTarBytes": 278374400,
+    "observedMetadataFiles": 133,
+    "observedTDDPreflightOriginalsByteEqual": 115,
+    "nativeArtifactReferences": 15761,
+    "nativeManifests": [
+      {
+        "member": "actual-visual-proxy/20261018T095859.948556000Z/manifest.json",
+        "cases": 16,
+        "statuses": {
+          "PASS": 16
+        },
+        "measuredCommit": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f"
+      },
+      {
+        "member": "preflight/no-key-live/20261018T095705.965429000Z/manifest.json",
+        "cases": 398,
+        "statuses": {
+          "PASS": 336,
+          "NOT_RUN": 62
+        },
+        "measuredCommit": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f"
+      },
+      {
+        "member": "preflight/no-key-live/20261018T095743.738495000Z/manifest.json",
+        "cases": 1,
+        "statuses": {
+          "PASS": 1
+        },
+        "measuredCommit": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f"
+      },
+      {
+        "member": "preflight/no-key-live/20261018T095759.363326000Z/manifest.json",
+        "cases": 1,
+        "statuses": {
+          "PASS": 1
+        },
+        "measuredCommit": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f"
+      },
+      {
+        "member": "preflight/no-key-release-contracts/20261018T095903.536674000Z/manifest.json",
+        "cases": 10,
+        "statuses": {
+          "PASS": 10
+        },
+        "measuredCommit": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f"
+      },
+      {
+        "member": "tdd/green-diagnostic-process/20261018T094131.366487000Z/manifest.json",
+        "cases": 4,
+        "statuses": {
+          "PASS": 4
+        },
+        "measuredCommit": "1dedc575228c1691bed0843ddb54b84c379c5727"
+      },
+      {
+        "member": "tdd/race-diagnostic-process/20261018T094248.005421000Z/manifest.json",
+        "cases": 4,
+        "statuses": {
+          "PASS": 4
+        },
+        "measuredCommit": "1dedc575228c1691bed0843ddb54b84c379c5727"
+      },
+      {
+        "member": "tdd/red-diagnostic-process/20261018T094052.787735000Z/manifest.json",
+        "cases": 4,
+        "statuses": {
+          "FAIL": 1,
+          "PASS": 3
+        },
+        "measuredCommit": "1dedc575228c1691bed0843ddb54b84c379c5727"
+      }
+    ],
+    "original39CurrentReceiptHashesUnchanged": 39,
+    "old21Calls": 300,
+    "old21Attempts": 300,
+    "negativeFixtureLinkMetadataOnly": 1,
+    "sourceAtStartSHA256": "d734e81d9668eb27784f9402822d2f2bd651c65a309ab0fed5415c0e30831bb5"
+  },
+  "staticPinsReportSHA256": "0a482adda7563c3e4c35e57975b73252d90b6bddf75730ea72201d2d94eecd70",
+  "reviewerActions": {
+    "readHashOnly": true,
+    "testsOrVerifiersExecuted": false,
+    "keysRead": false,
+    "network": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

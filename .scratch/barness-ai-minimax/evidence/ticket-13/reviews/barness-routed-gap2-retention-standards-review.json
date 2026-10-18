@@ -1,0 +1,284 @@
+{
+  "schema": 1,
+  "axis": "Standards retention",
+  "decision": "APPROVED_RETENTION_ONLY",
+  "reviewedSource": "3a76c7cb550f45517e2c156f4825f54ac93956cc",
+  "base": "dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98",
+  "diffCommand": "git diff dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98...3a76c7cb550f45517e2c156f4825f54ac93956cc",
+  "commitLogCommand": "git log dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98..3a76c7cb550f45517e2c156f4825f54ac93956cc --oneline",
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/README.md",
+      "bytes": 3322,
+      "sha256": "bf3798ef95245e77982eb03582fcbe9c68e4ad6fa96750d221fcf34563c2e393",
+      "lines": 22
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/SHA256SUMS",
+      "bytes": 1521,
+      "sha256": "83db33ac18bdfcfd61d541881a5229329a34b8382f9921cb258b1b7130e3a7ae",
+      "lines": 18
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/actual-six-check-observed.json",
+      "bytes": 10216,
+      "sha256": "a9d8cef476da498fd9af6082a621eb15537d7d8edfcec9926ef47949396b9672",
+      "lines": 217
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/boundary-checks.json",
+      "bytes": 1432,
+      "sha256": "d79a7c6d38dbc098ca649161968afad4d9bd14a0a7856b22ea87f4cf91ab938b",
+      "lines": 79
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/capsule.py",
+      "bytes": 5204,
+      "sha256": "651903be831bcff9ac172f2f8e1b3cbd5f469460760bfaa3af9af59a08c30f84",
+      "lines": 78
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/check-boundaries-command.json",
+      "bytes": 601,
+      "sha256": "3a04ae34a058d1fb80ff442e78480a63cde69461efeb3a3d38003efba60205c0",
+      "lines": 29
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/check-boundaries.log",
+      "bytes": 1432,
+      "sha256": "d79a7c6d38dbc098ca649161968afad4d9bd14a0a7856b22ea87f4cf91ab938b",
+      "lines": 79
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/check-boundaries.py",
+      "bytes": 6211,
+      "sha256": "5c8113088355a817272fca55150c32467638b6f4a14c88f9ac688895085f0991",
+      "lines": 95
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/external-references.json",
+      "bytes": 1004,
+      "sha256": "306b7dcd55edc3a32d54bd4f2c4fab2e77dff3afd5b932d5c09590b4b41d2e4e",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/index.json",
+      "bytes": 9265,
+      "sha256": "a85fc2fd6584be1815bf3d22f6829ed9f0d471b991b46ca825d1d1dce165b8fc",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/inventory.json.gz",
+      "bytes": 1135278,
+      "sha256": "3e06d72a4501cd147872e4ce0872302b5907cfc112f11f6f32424bb35756e9c9",
+      "lines": null
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/race-timeout-annotation.json",
+      "bytes": 744,
+      "sha256": "d01537dfe473bf23c4e23e419e57cbe03622b8ed2d85b140960b4b67b3e44583",
+      "lines": 16
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/snapshot.py",
+      "bytes": 7881,
+      "sha256": "5673a773e8b149456888075321caa5d928c61d77619b646f9e7e06103448b29c",
+      "lines": 82
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/source-at-start.json.gz",
+      "bytes": 48916,
+      "sha256": "9ed814a344352de01d6516535b79fad42f161ef4f837002e99a2e78b6dd3835a",
+      "lines": null
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/summary.json",
+      "bytes": 2998,
+      "sha256": "3cea1687fade061fd77cbe0c1335f586d3da775a33e2316fd1c7101d666881da",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/validation.json",
+      "bytes": 218,
+      "sha256": "bb2a8599aadc87952ac4f8317dea3f186df2c7e649068828ecf183582c68e889",
+      "lines": 1
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/verify-command.json",
+      "bytes": 583,
+      "sha256": "612057ef4f505a995776e5235386f93ffd219124a5beb3aaae437fd8b36c7209",
+      "lines": 29
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/verify.log",
+      "bytes": 486,
+      "sha256": "f8867d8788ec9656ec279af50bc10b5d345ea69f025c56e57eda462f87b04fe9",
+      "lines": 16
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/verify.py",
+      "bytes": 11278,
+      "sha256": "857024d022cd9c8a71c838a3536ca8b6e27a68abc8159076cdef314240dc2a18",
+      "lines": 105
+    }
+  ],
+  "findings": [],
+  "possibleSmells": [],
+  "summary": "No documented Standards breach or actionable baseline smell found. All four Python programs stay below500 lines (maximum105). The fixed ticket14 retention envelope streams through the unchanged SHA-pinned safe opener/duplicate-JSON/decoded limiter, validates exact member inventories, rejects links/duplicates/escapes/nonregular files and bounds compressed/decoded/member/observed bytes; it never extracts or runs captured programs. One deliberate fixture link is preserved only as regular metadata with target-byte hash, never followed or recreated. The41,164,640-byte archive and all28,917 regular members match the committed inventory;132 observed original/source files and15,761 native artifact references match. True code/15 semantic fixture/diagnostic/CLI RED records remain separate from GREEN, tools61 and six actual0 checks at572570bb. Keyless live explicitly remains336PASS/62NOT_RUN. The first360s race stays STARTING/exit1; PermissionError is retained as an annotation alongside original Go output, not presented as a complete traceback or success. Separate900s completion0 at358.550s does not overwrite it. PENDING,39 unchanged canonical hashes, zero new paid work and three unused-binary hash-only references remain explicit. No current full-suite certification, new authority or native producer provenance is manufactured.",
+  "originalCodeSource": "1a0ce3458d5c499b95c03e3994f3e7be35e88ea2",
+  "actualSixCheckSource": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f",
+  "readHashProof": {
+    "file": "/tmp/barness-routed-gap2-retention-readhash.json",
+    "sha256": "5faee365d53c0bee438200c5c47df53afa87ad15d2981ac85529b5f06fb19125",
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-14-offline-gap2/gap2-raw.tar.gz",
+      "bytes": 41164640,
+      "sha256": "1c36af4d252552e9d42792c7e9f05296b86e75fb2a6bcaa6f9ec0cb35b8574ab",
+      "prefix": "offline-gap2"
+    },
+    "files": 28917,
+    "rawPayloadBytes": 226583975,
+    "originalObservedFilesCompared": 132,
+    "artifactReferences": 15761,
+    "prior39CurrentPinsMatch": true
+  },
+  "limits": {
+    "compressedBytes": 201326592,
+    "decodedTarBytes": 1073741824,
+    "files": 90000,
+    "entries": 100000,
+    "memberBytes": 67108864,
+    "observedMetadataBytes": 8388608,
+    "inventoryDecodedBytes": 25165824,
+    "inventoryCompressedBytes": 8388608
+  },
+  "nativeProofs": {
+    "actualSixChecks": {
+      "passed": true,
+      "commands": {
+        "vet": 0,
+        "vet-live": 0,
+        "no-key-live": 0,
+        "no-key-visual-proxy": 0,
+        "no-key-release-contracts": 0,
+        "no-key-release-package": 0
+      },
+      "credentialsRead": false
+    },
+    "publicPreflightCLI": {
+      "RED": 3,
+      "GREEN": 3,
+      "toolsGREEN": 61
+    },
+    "publicDiagnostic": {
+      "RED": {
+        "PASS": 3,
+        "FAIL": 1
+      },
+      "ordinaryGREEN": {
+        "PASS": 4
+      },
+      "raceGREEN": {
+        "PASS": 4
+      }
+    },
+    "fullReleasePackage": {
+      "RED": 1,
+      "ordinaryGREEN": 0,
+      "raceGREEN": 0,
+      "replacementRaceSeconds": 358.5500322501175,
+      "first360sAttemptSuccessful": false
+    },
+    "manifests": [
+      {
+        "member": "actual-visual-proxy/20261018T095859.948556000Z/manifest.json",
+        "cases": 16,
+        "statuses": {
+          "PASS": 16
+        }
+      },
+      {
+        "member": "preflight/no-key-live/20261018T095705.965429000Z/manifest.json",
+        "cases": 398,
+        "statuses": {
+          "PASS": 336,
+          "NOT_RUN": 62
+        }
+      },
+      {
+        "member": "preflight/no-key-live/20261018T095743.738495000Z/manifest.json",
+        "cases": 1,
+        "statuses": {
+          "PASS": 1
+        }
+      },
+      {
+        "member": "preflight/no-key-live/20261018T095759.363326000Z/manifest.json",
+        "cases": 1,
+        "statuses": {
+          "PASS": 1
+        }
+      },
+      {
+        "member": "preflight/no-key-release-contracts/20261018T095903.536674000Z/manifest.json",
+        "cases": 10,
+        "statuses": {
+          "PASS": 10
+        }
+      },
+      {
+        "member": "tdd/green-diagnostic-process/20261018T094131.366487000Z/manifest.json",
+        "cases": 4,
+        "statuses": {
+          "PASS": 4
+        }
+      },
+      {
+        "member": "tdd/race-diagnostic-process/20261018T094248.005421000Z/manifest.json",
+        "cases": 4,
+        "statuses": {
+          "PASS": 4
+        }
+      },
+      {
+        "member": "tdd/red-diagnostic-process/20261018T094052.787735000Z/manifest.json",
+        "cases": 4,
+        "statuses": {
+          "FAIL": 1,
+          "PASS": 3
+        }
+      }
+    ]
+  },
+  "retainedPublicReplay": {
+    "schema": 1,
+    "publicVerifyExit": 0,
+    "negativeGuards": 14,
+    "allNegativeGuardsRejected": true,
+    "originalArchiveVerifiedBeforeAfter": true,
+    "retentionCredentialsRead": false,
+    "retentionPaidCalls": 0,
+    "capturedCommandsExecuted": false
+  },
+  "standards": [
+    "AGENTS.md principles1-5,7-9 and failure-first testing",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0045",
+    "ADR0046",
+    "full12-smell code-review baseline; repo overrides; tool-enforced issues skipped"
+  ],
+  "boundaries": {
+    "committedMetadataOnly": true,
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "capturedCommandsExecuted": false,
+    "sourceEdits": false,
+    "mergePerformed": false,
+    "paidApproval": false,
+    "releaseCertified": false,
+    "priorSourceReviewsUnchanged": true
+  }
+}
