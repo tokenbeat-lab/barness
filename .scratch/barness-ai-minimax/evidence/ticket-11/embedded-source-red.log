@@ -1,0 +1,23 @@
+test_embedded_price_document_drift_refuses_before_intent (__main__.Launcher.test_embedded_price_document_drift_refuses_before_intent) ... FAIL
+
+======================================================================
+FAIL: test_embedded_price_document_drift_refuses_before_intent (__main__.Launcher.test_embedded_price_document_drift_refuses_before_intent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 221, in test_embedded_price_document_drift_refuses_before_intent
+    self.invoke('preview','out','mm-global-research-m3-chat',ok=False)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 105, in invoke
+    else: self.assertNotEqual(p.returncode,0,p.stderr[-500:]+p.stdout[:200])
+          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : {
+  "name": "mm-global-research-m3-chat",
+  "provider": "minimax",
+  "sourceVariable": "MINIMAX_KEY",
+  "injectedCredential": "BARNESS_MINIMAX_KEY",
+  "evidenceRoot": "$REPO/out/mm-global-research-m3-
+
+----------------------------------------------------------------------
+Ran 1 test in 1.577s
+
+FAILED (failures=1)

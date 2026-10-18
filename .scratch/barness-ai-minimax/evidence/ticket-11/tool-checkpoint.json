@@ -4,7 +4,7 @@
   "vendorCalls": 0,
   "paidPrepares": 0,
   "tests": {
-    "launcher": 16,
+    "launcher": 17,
     "renewal": 11
   },
   "files": {
@@ -21,7 +21,7 @@
       "lines": 281
     },
     "paid_core.py": {
-      "sha256": "ff571d46a6d49e2180b9d49587375fd580307781698cacecc6b0cf5b59f1268b",
+      "sha256": "d04b6ada7669530169debbfead314e9140f2f6f9295871ecddb42764cad14177",
       "lines": 183
     },
     "paid_history.py": {
@@ -37,8 +37,8 @@
       "lines": 128
     },
     "test_paid.py": {
-      "sha256": "8a113f307d1beeb06a066b8cdbe0aa4635778dfe3ac90888bfe7a6d0c5a32945",
-      "lines": 410
+      "sha256": "0bcce1eb02e3ae013b017b026ce644cf86e64e87f1d55e46f4ca2a051a770023",
+      "lines": 425
     },
     "test_renewal.py": {
       "sha256": "c5122f3e40ba35f8d2c9db7bd6fb40debad1c0b63f80003f9601fcbf309af706",
@@ -76,5 +76,11 @@
       "compression": "gzip; text bytes preserved including captured whitespace",
       "compressedSha256": "41a0de6063a5e2932886cea10b76ff65cf65ddb547bff186925296e3821d06bc"
     }
+  },
+  "embeddedSourceFollowup": {
+    "red": "embedded-source-red.log",
+    "green": "embedded-source-launcher-green.log",
+    "publicCLIRejectsBeforeIntent": true,
+    "credentialsRead": false
   }
 }

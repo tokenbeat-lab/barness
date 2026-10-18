@@ -35,7 +35,7 @@ api.minimax.io/anthropic. All317 old decisions/six old extension routes and old1
 matrix objects are identical; preservation.json records43 checks including all
 34 original CN research files. Ticket06 evidence retains its historical CN scope.
 
-Launcher16 and renewal11 failure-first CLI checks pass; tool-checkpoint.json
+Launcher17 and renewal11 failure-first CLI checks pass; tool-checkpoint.json
 records their exact files and logs. Global-exclusive launch IDs/scopes/origin
 and predecessor roots do not reuse the old CN intent. Missing/edited historical
 accounting remains UNKNOWN/full-slot and fails before a new intent or key read.
@@ -46,3 +46,7 @@ still being completed for this source. Ticket11 remains claimed until those
 checks finish. Ticket10/09 real acceptance, activation, old14 identities/four
 effects renewal and final release gate remain open. Known stale GLM formal
 source proofs are not hidden by running a partial suite as the whole gate.
+
+The embedded direct-USD pricing document is included in the parent source
+freeze. Its post-build mutation has a public CLI red→green test: both preview
+and run-selected reject before intent/key acquisition. See embedded-source logs.

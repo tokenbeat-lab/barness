@@ -208,6 +208,21 @@ class Launcher(unittest.TestCase):
         self.invoke('preview','out','mm-global-candidate-m3-chat')
         self.assertFalse((self.root/'.evidence/minimax-launches/mm-global-candidate-m3-chat.json').exists())
 
+    def test_embedded_price_document_drift_refuses_before_intent(self):
+        source=self.root/'ai/internal/testkit/minimax/pricing-source.md'
+        source.parent.mkdir(parents=True)
+        source.write_text('Synthetic fixed USD rate document\n')
+        for args in (['add',str(source.relative_to(self.root))],
+                     ['-c','user.name=Controlled','-c','user.email=controlled@example.invalid','commit','-qm','rate source']):
+            subprocess.run(['git',*args],cwd=self.root,env=self.env,check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        self.invoke('prepare','out');self.invoke('check','out');self.approve()
+        (self.root/'.env').mkdir()
+        source.write_text('Changed after reviewed binary build\n')
+        self.invoke('preview','out','mm-global-research-m3-chat',ok=False)
+        self.invoke('run-selected','out','mm-global-research-m3-chat',ok=False)
+        self.assertFalse((self.root/'.evidence/minimax-launches/mm-global-research-m3-chat.json').exists())
+        self.assertTrue((self.root/'.env').is_dir())
+
     def test_source_binary_review_drift_refuses_before_intent(self):
         self.prepared()
         runtime=self.root/'ai/runtime.go'

@@ -37,3 +37,7 @@ identity. Old CN intent remains exclusive and included once in accounting;
 UNKNOWN keeps original conservative caps. No imported CN/resealed controlled
 bundle may certify global support. No vendor work until fresh committed-source
 preparation and independent review by parent after this ticket.
+
+Source-freeze failure discovered before broad checks: embedded pricing-source.md
+was not in parent sources(). Post-build mutation must reject preview/launch
+before intent/key acquisition; add its exact generation-input path.

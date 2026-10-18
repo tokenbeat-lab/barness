@@ -71,7 +71,7 @@ def sources():
         dirs[:]=[n for n in dirs if n not in ('node_modules','.evidence','.git')]
         for name in files:
             path=Path(base)/name;rel=path.relative_to(ROOT).as_posix()
-            if (name.endswith(('.go','.json')) or rel.startswith('ai/live/testdata/minimax/')) and rel not in ('ai/live/support-matrix.json','ai/live/testdata/minimax-formal/origins.json'):
+            if (name.endswith(('.go','.json')) or rel.startswith('ai/live/testdata/minimax/') or rel=='ai/internal/testkit/minimax/pricing-source.md') and rel not in ('ai/live/support-matrix.json','ai/live/testdata/minimax-formal/origins.json'):
                 names.add(rel)
     names.update(p.relative_to(ROOT).as_posix() for p in Path(__file__).parent.glob('*.py'))
     return {n:digest(ROOT/n) for n in sorted(names)}
