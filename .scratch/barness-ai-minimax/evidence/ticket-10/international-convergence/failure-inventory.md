@@ -55,3 +55,13 @@ subset without duplicate active identities or losing M3.1 mechanisms. Current
 usage and legacy Chinese default pins need transactional catalog-only renewal;
 all instructions/scenarios/dataset and 24/24/0 limits stay exact, including legacy
 180s versus route 600s. The executable helper red first showed stale legacy pins.
+
+The complete activated ordinary run then exposed a genuine release importer
+raw-config hash trap: catalog fields were embedded in two hardcoded Chinese
+business config hashes. Independently freeze canonical noncatalog fields while
+Plan.Load keeps exact current catalog identity; coherent instruction and timeout
+changes must still fail specifically at the fixed-task guard. The old dataset
+pin and every remaining task field stay immutable. The isolated old GLM rollback
+also encountered its untracked runtime-directory symlink as a regular file;
+retain the raw failure and explicitly ignore only that fixture prerequisite,
+without changing the historical rollback script or frozen runtime bytes.
