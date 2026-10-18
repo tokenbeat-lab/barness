@@ -1,0 +1,62 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_RETENTION_REVIEW",
+  "reviewedCommit": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+  "codeCommit": "09228e06e6ff6ea5062e3636228cf59724f8041e",
+  "commands": [
+    "git rev-parse --verify 90ecf203fa979e21cb46b1ad74f15e40b38a6c11^{commit}",
+    "git diff 09228e06e6ff6ea5062e3636228cf59724f8041e..90ecf203fa979e21cb46b1ad74f15e40b38a6c11"
+  ],
+  "diffSHA256": "c31a04e2657a5d3328dc255d8d611d58bfd799f247c462d5c08b82878af9fed5",
+  "reviewedFilesSHA256": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/README.md": "a285d8fa05e49c2edd14ff7ebe810d312e0a68cd19418252751761c67cff5f39",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/SHA256SUMS": "7d9136f980edff9c4fdccfcb2567c651be15de42da23042e6b8f437e80044649",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/index.json": "f87cb9239bce6352c61e89649008db1306ab3277631a6b1522e75b90049900cc",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/inventory.json.gz": "4c99c94ed1af459e8143c5bf9306f305bbec4390dfd2386e077485a96004a0aa",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative-guards-command.json": "be33456cdae60ce5e13ee66425a544c4b2c13d061412691fc12eb5b80a6797fc",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative-results.json": "11eaf9cc191cea350b57bf7f66c5214f94deca20fd7667f9d7894d6eb42ad56a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative_guards.py": "15a266adea8f8de44a919da3078870bb5e7a5572ad51768ab6ef7c2971b582c9",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/retention-build-history.json": "72f873ccdae8c744a85bbf76db94d8704720800a4c79edde3275de0a77500d62",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/source-at-start.json.gz": "103705306f7b8b8dbe5527f86f2a9b786f49c04e1a032b582ba777e6fe493912",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/summary.json": "ee003b9efce08991b3832cd8bb72b4f179cafd3f95f70f91cccb9669e1833dd6",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify-command.json": "d30d67c533a0bcdc01b3cebf0f8899e56aed709973d755ab325171d623b6e5e2",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify.log": "0d3505ac5070b26f07b251cc99aa80f4177f35fc6556580edc742586b0d1352d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify.py": "ed5e84ba40309476371925e4f44c948caf513dfe36ced88f95e5bbb989500981"
+  },
+  "findings": [],
+  "assessment": [
+    "No missing retention requirement, scope creep, or incorrect historical claim found. This commit adds only the ticket15 implementation frontdoor; the fixed-six source remains exact09228e0. The 1,056-file measured snapshots at4bf+WIP match the committed code bytes, while the later parent merge is explicitly distinguished.",
+    "The immutable archive independently matches all497 regular entries and their byte lengths/hashes, 6,140,529 compressed bytes and21,490,173 payload bytes. Its30 command receipts retain genuine boundary REDs, fixture-correction failures and later GREENs separately. Final71 tests and both real vets are zero; no captured program was executed for this review.",
+    "Eight bounded public CLI inventories retain361 referenced artifacts, synthetic selected credentials/calls and honest failed Responses continuation101/101 separately from actual vendor activity. The original39/545 history, new108/132 maxima, PENDING templates and whole-cap UNKNOWN disclosure match the archived artifacts. No.env is retained and no new actual paid or current release certification is claimed.",
+    "The pinned read-only helper, finite archive/decoded/inventory/observation bounds, no-link/no-extraction behavior, retained successful verifier receipt and14 rejected boundary probes agree with the documentation. The initial observation-list omission is explicitly recorded without archive rewriting. Current ROOT preparation, six actual keyless checks, precise binary/plan reviews, new human approval and eventual full gate remain separate prerequisites."
+  ],
+  "independentArchiveRead": {
+    "archiveSHA256": "80ee8036d43152f22a3e2b605578ead8c6f662c15545ead4404586601bcca648",
+    "compressedBytes": 6140529,
+    "regularFiles": 497,
+    "payloadBytes": 21490173,
+    "decodedTarBytes": 22251520,
+    "allMemberHashesMatch": true,
+    "observedMembers": 250,
+    "observedBytes": 6025926,
+    "commandReceipts": 30,
+    "publicCLIInventories": 8,
+    "artifactReferences": 361,
+    "envRetained": false,
+    "selectedSourceFiles": 1056
+  },
+  "boundedReaderSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+  "retainedOutcomes": {
+    "toolsTests": 71,
+    "toolsSeconds": 336.252,
+    "toolsExit": 0,
+    "vetExit": 0,
+    "vetLiveExit": 0,
+    "verifierExit": 0,
+    "negativeGuardsRejected": 14,
+    "realVendorCalls": 0,
+    "authority": "PENDING",
+    "releaseCertified": false
+  },
+  "reviewerActions": "Committed metadata/static reader reads and independent regular-member archive hashing only; no verifier/tests, captured command execution, Key reads, network, paid calls, source edits or merges."
+}

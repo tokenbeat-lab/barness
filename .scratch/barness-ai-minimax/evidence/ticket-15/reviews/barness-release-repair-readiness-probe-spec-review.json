@@ -1,0 +1,26 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_NARROW_METADATA_ADDENDUM",
+  "reviewedHEAD": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+  "priorReviewSHA256": "56934bf6138860e76bc59b715dcdd04f886e4c46a7ac87e417a998ca98b89783",
+  "reviewedFilesSHA256": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/README.md": "1d9f2e2d7d154fd9aa773c9639fa5280ac450754573c4688b41d2f5ae0be00f2",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/index.json": "86926964258ab232568e32eafee8d5f9d35faca14ffadf35242468cf20c1b5a3",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/SHA256SUMS": "7514797e52361964067a0d0754ba5f878bfd22ef2a5ddba58fdd1cd379523919",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/premature-refusal-command.json": "78f26afa9af0ae05db2b18c5366dea03a1d7008dce891c55fe4dff03c846a22b",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/premature-refusal.log": "545abdf7f56c32d92be6f208d5b20e9e4f963eaeb3f2f09cff77a4b02bac613c"
+  },
+  "findings": [],
+  "assessment": "The five-file addendum accurately distinguishes an actual premature public CLI refusal probe from assembly/final-gate execution. Both retained files exactly match original raw bytes. V4 atROOT90ec exited1 on the absent new GLM canonical receipt, with no new namespace entries, Key read, paid calls or finalizer output. The README/index preserve pending future actual source/binary/plan review and no certification. All other files in the prior27-file snapshot are unchanged; updated SHA pins match. No tests or probe were rerun by this reviewer.",
+  "observed": {
+    "actualProbeExit": 1,
+    "expectedRefusal": true,
+    "newCanonicalBefore": 0,
+    "newCanonicalAfter": 0,
+    "finalizerOutputExists": false,
+    "newPaidCalls": 0,
+    "futureFinalPlanApproved": false,
+    "unexpectedChangesOutsideFive": []
+  },
+  "reviewerActions": "Read/hash-only; no tests, helper/verifier execution, Keys, network, source edits or commits."
+}

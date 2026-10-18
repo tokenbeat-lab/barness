@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "axis": "Standards retention",
+  "decision": "APPROVED_RETENTION_ONLY",
+  "reviewedCommit": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+  "codeCommit": "09228e06e6ff6ea5062e3636228cf59724f8041e",
+  "diffCommand": "git diff 09228e06e6ff6ea5062e3636228cf59724f8041e..90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+  "diffSHA256": "c31a04e2657a5d3328dc255d8d611d58bfd799f247c462d5c08b82878af9fed5",
+  "scope": "Only ticket15/implementation frontdoor; exact09228 source review remains separate and immutable.",
+  "findings": [],
+  "possibleSmells": [],
+  "review": "The13-file frontdoor accurately retains implementation evidence:71 tools PASS and dual real vet0, measured4bf+WIP source with1056 hashes equal to committed09228, original RED/failed GREEN/fixture corrections, and eight controlled public CLI artifacts. Synthetic selected-secret reads and101/101 consumption are explicitly separate from real credential/vendor work; prospective authority stays PENDING and releaseCertified remains false. The initial observation omission is disclosed without changing raw bytes. Public verification uses the pinned previously reviewed reader, bounded compressed/decoded data, inventories, observed metadata and FD no-follow reads; it streams without extraction and rejects duplicate/traversing paths, links, FIFO and changed pins. Fourteen negative receipts retain nonzero refusal reasons. All497 regular members, archive/inventory seals,1056 source hashes and89 archived TDD originals were independently read/hash-compared. No new documented breach or baseline smell found.",
+  "archive": {
+    "archiveSHA256": "80ee8036d43152f22a3e2b605578ead8c6f662c15545ead4404586601bcca648",
+    "archiveBytes": 6140529,
+    "regularFiles": 497,
+    "payloadBytes": 21490173,
+    "decodedBytes": 22251520,
+    "observedMembers": 250,
+    "observedBytes": 6025926
+  },
+  "sharedReaderSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+  "readhashProof": {
+    "path": "/tmp/barness-release-repair-retention-readhash.json",
+    "sha256": "1c1a1f73f36ec2aa0adddeca05fbd0b2d125871a681b583f9896428ab6612d10",
+    "selectedSourceHashesCompared": 1056,
+    "originalTDDMemberComparisons": 89
+  },
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/README.md": {
+      "bytes": 4869,
+      "sha256": "a285d8fa05e49c2edd14ff7ebe810d312e0a68cd19418252751761c67cff5f39"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/SHA256SUMS": {
+      "bytes": 1008,
+      "sha256": "7d9136f980edff9c4fdccfcb2567c651be15de42da23042e6b8f437e80044649"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/index.json": {
+      "bytes": 26679,
+      "sha256": "f87cb9239bce6352c61e89649008db1306ab3277631a6b1522e75b90049900cc"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/inventory.json.gz": {
+      "bytes": 17867,
+      "sha256": "4c99c94ed1af459e8143c5bf9306f305bbec4390dfd2386e077485a96004a0aa"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative-guards-command.json": {
+      "bytes": 612,
+      "sha256": "be33456cdae60ce5e13ee66425a544c4b2c13d061412691fc12eb5b80a6797fc"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative-results.json": {
+      "bytes": 2032,
+      "sha256": "11eaf9cc191cea350b57bf7f66c5214f94deca20fd7667f9d7894d6eb42ad56a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative_guards.py": {
+      "bytes": 4122,
+      "sha256": "15a266adea8f8de44a919da3078870bb5e7a5572ad51768ab6ef7c2971b582c9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/retention-build-history.json": {
+      "bytes": 344,
+      "sha256": "72f873ccdae8c744a85bbf76db94d8704720800a4c79edde3275de0a77500d62"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/source-at-start.json.gz": {
+      "bytes": 49087,
+      "sha256": "103705306f7b8b8dbe5527f86f2a9b786f49c04e1a032b582ba777e6fe493912"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/summary.json": {
+      "bytes": 3455,
+      "sha256": "ee003b9efce08991b3832cd8bb72b4f179cafd3f95f70f91cccb9669e1833dd6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify-command.json": {
+      "bytes": 594,
+      "sha256": "d30d67c533a0bcdc01b3cebf0f8899e56aed709973d755ab325171d623b6e5e2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify.log": {
+      "bytes": 443,
+      "sha256": "0d3505ac5070b26f07b251cc99aa80f4177f35fc6556580edc742586b0d1352d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify.py": {
+      "bytes": 8807,
+      "sha256": "ed5e84ba40309476371925e4f44c948caf513dfe36ced88f95e5bbb989500981"
+    }
+  },
+  "bounds": {
+    "readerCompressedBytes": 33554432,
+    "readerDecodedBytes": 201326592,
+    "readerEntries": 32768,
+    "inventoryBytes": 8388608,
+    "memberBytes": 67108864,
+    "observedMemberBytes": 1048576,
+    "observedMembers": 512,
+    "observedTotalBytes": 16777216,
+    "creationMemberBytes": 16777216,
+    "creationPayloadBytes": 167772160
+  },
+  "retainedVerification": {
+    "publicVerifierExit": 0,
+    "negativeGuardCount": 14,
+    "negativeExitsAllNonzero": true,
+    "rerunByReviewer": false
+  },
+  "standards": [
+    "AGENTS.md principles2/4/5/8/9",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0045/0046",
+    "All12 supplied baseline smells considered as judgment calls; repo overrides respected; tool-enforced issues skipped"
+  ],
+  "constraints": {
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "capturedProgramsExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "paidApproval": false,
+    "currentReleaseCertified": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

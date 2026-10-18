@@ -34,3 +34,5 @@ Blocked by: explicit additional finite paid approval
 ## Comments
 
 2026-10-18：14、16的已审查源码及留存已在 `7231fdad` 合入并按各自离线范围关闭。本票6进程CLI/合同仍在失败先行实现，无新增付费审批。新来源、binary、plan及六项实际无Key检查须就绪并两轴复核，才提交一次具体108/132预算问题。
+
+2026-10-18离线实现完成：源码09228（1b64后合入parent4d83）及留存90ec已合入集成分支，13个Python工具文件变化，Go/runtime仍等已审查4bf。71项公共工具测试、双vet、语法/行数/差异检查通过；源与留存各两轴0发现。[证据](../evidence/ticket-15/README.md)明确测量HEAD4bf+WIP与后提交的1056文件字节等同，隔离合成消费不作真实支持。实际ROOT source/binary/plan及六项无Key检查仍待完成，新108/132尚未请求或批准，本票不关闭。

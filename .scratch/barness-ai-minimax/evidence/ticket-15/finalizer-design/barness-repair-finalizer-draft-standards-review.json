@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "axis": "Standards static operational draft",
+  "decision": "CHANGES_REQUESTED_DRAFT_ONLY",
+  "reviewedDraft": {
+    "file": "/tmp/barness-repair-final-keyless.py",
+    "sha256": "1cf19f87e583dcbc42f419380400684a6db451dc0292333604798cc396af5e88",
+    "bytes": 14886,
+    "lines": 251
+  },
+  "design": {
+    "file": "/tmp/barness-repair-final-keyless-design.md",
+    "sha256": "94596803c8cc8d6efe4c4920cdaff66958cafcb3eb6982344f9c6a0fb783db3e"
+  },
+  "inputGuardPlan": {
+    "file": "/tmp/barness-repair-finalizer-input-guard-plan.md",
+    "sha256": "5ee556ca834608a2964f4dc9e3850a470558a1f5e605c8e40c3441ce10ea8a18"
+  },
+  "integrationHEAD": "4d83ca2b00b76f313c32d62f020a331a4cf3b88c",
+  "findings": [
+    {
+      "id": "FINAL-STANDARDS-01",
+      "priority": "P2",
+      "path": "/tmp/barness-repair-final-keyless.py",
+      "line": 165,
+      "rule": "AGENTS.md principles4,8,9: untrusted input boundaries, accurate provenance and verifiable transitions.",
+      "quote": "if assembled.get('state')!='COMPLETED' or sha(MATRIX)!=assembled['matrixAfterSHA256']:",
+      "finding": "Prepare trusts the editable completion file and current matrix hash without reauthenticating OLD_MATRIX/matrix-before, old13 equality, assembly originalActuals or real derivation/import receipts. Loaded later trusts only the newly pinned completion hash. An edit between assemble and prepare can therefore make changed old13 history part of the accepted final plan.",
+      "requestedFix": "At prepare and loaded, use one fixed handoff check: authenticate matrix-before against OLD_MATRIX_SHA, require old13 parsed equality with current/after matrix, bind assembly inputs/actuals and exact completed derive/verify/candidate/default receipts. Preserve the allowed post-assembly commit boundary without rewriting native sources."
+    },
+    {
+      "id": "FINAL-STANDARDS-02",
+      "priority": "P2",
+      "path": "/tmp/barness-repair-final-keyless.py",
+      "line": 112,
+      "rule": "AGENTS.md principles4,5,9: bounded trusted execution and diagnosable failures.",
+      "quote": "code=perform('derive-jev-support',[REAL_GO,'run',...])",
+      "finding": "Assemble executes REAL_GO and mutates the default matrix before any GO_SHA check; that check appears only in prepare. Helper/observer/Go hashing also uses c.digest, whose read_bytes has no finite byte bound or descriptor-relative no-follow open. This misses the plan's operational-pin and bounded-read boundary for the mutating stage.",
+      "requestedFix": "Pin the reviewed helper and fixed Go/observer through bounded FD reads before assemble can execute, then recheck around each perform and each later stage. Use explicit small helper/observer caps and a finite real-Go cap, retaining the existing hash constants."
+    }
+  ],
+  "possibleSmells": [],
+  "positiveReview": "The251-line draft stays below500 lines, keeps current F separate from native measured commits, never invokes old L guard or selected-secret execution, has fixed roots/modes and exclusive output/intent receipts, uses all17/four effects, and launches a freshly compiled public gate directly. merge[4]=MATRIX and the public CLI argument positions are correct. Candidate/default old13 validation during assemble itself is sound.",
+  "executionApprovalConditions": [
+    "Review only assumes the promised ri.historical/reusable/scope/tree, r.jobs/report_path and e.settled contract APIs; no worker WIP was inspected. Freeze and verify their exact committed return shapes before execution.",
+    "Before exact plan approval, retain/hash-check both actual independent reports and their source/plan/binary bindings; hexadecimal placeholders alone are not review evidence.",
+    "Validate observer receipts against their exact expected argv/cwd/no-Key identities and reconcile their integer exits with the current public report/source, rather than treating integer presence as the complete observation proof."
+  ],
+  "constraints": {
+    "draftOnly": true,
+    "futureExactBinaryApproved": false,
+    "futureExactPlanApproved": false,
+    "paidApproval": false,
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "codeExecuted": false,
+    "workerWIPInspected": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  },
+  "standards": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0045/0046",
+    "all12 Fowler baseline smells considered as judgment calls; repo overrides and tool-enforced issues skipped"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_SOURCE_REVIEW",
+  "reviewedCommit": "09228e06e6ff6ea5062e3636228cf59724f8041e",
+  "sourceCommit": "1b64e0b",
+  "certifiedBaseline": "4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef",
+  "implementationParent": "4d83ca2b00b76f313c32d62f020a331a4cf3b88c",
+  "commands": [
+    "git rev-parse --verify 09228e06e6ff6ea5062e3636228cf59724f8041e^{commit}",
+    "git diff 4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef...09228e06e6ff6ea5062e3636228cf59724f8041e",
+    "git diff 4d83ca2b00b76f313c32d62f020a331a4cf3b88c..09228e06e6ff6ea5062e3636228cf59724f8041e",
+    "git log 4bfdaa7..09228e0 --oneline"
+  ],
+  "implementationDiffSHA256": "d1176bf5a9dc1dd7b5eae81bfd80b60285829e030b65ff91c7b3b88ce25a5289",
+  "reviewedFilesSHA256": {
+    ".scratch/barness-ai-minimax/tools/paid_checks.py": "fb43c9aded424d475892e1cb9c890299aca33b9e4bcb0822465f292059385034",
+    ".scratch/barness-ai-minimax/tools/release_repair_validation.py": "a5ed655967041360e79a0527c7c13aca685265d7f0994b7660b18ec8711b503f",
+    ".scratch/barness-ai-minimax/tools/renewal.py": "dd7176a56737f8df3e209c9ac71467d8ca676872fd2f084765e7fc1a35da4aac",
+    ".scratch/barness-ai-minimax/tools/renewal_glm.py": "75fa4f408e1b9a280fca6750b30913fc08233fe46429552aa1064d6cdf385281",
+    ".scratch/barness-ai-minimax/tools/repair_anchors.py": "33c279ccc32bdbbbb63c6dfd1fd0af82cf918d40111c9ef0ef224606130f6c42",
+    ".scratch/barness-ai-minimax/tools/repair_contract.py": "97ce3c09620d8beaef2f0d7ed530feb413ae6c51011bff775be8ec99eeb7cce3",
+    ".scratch/barness-ai-minimax/tools/repair_inputs.py": "d6e38602f14b1edbcf881b0a0262a904a87859b022a55344a5cb44b92577e047",
+    ".scratch/barness-ai-minimax/tools/repair_publication.py": "b976b09fa66378eced20a479a590663e5cc58a3a2ecd6bc3e0edb9529d37a1ec",
+    ".scratch/barness-ai-minimax/tools/routed_evidence.py": "fa3504ebc442506e4c1bb95f804b4f0a539b3662510427a1d0f6cb1296bb38d1",
+    ".scratch/barness-ai-minimax/tools/routed_validation.py": "d4218ae16c85a1e679a775d78f59870b374d530e65d7f3d7060d61cc95efe4ca",
+    ".scratch/barness-ai-minimax/tools/test_release_repair.py": "20ed2ab31668c85c4390e67e917c754a212bd2906e3259ec7824ded16232cb5e",
+    ".scratch/barness-ai-minimax/tools/test_renewal.py": "adbfe37776cc3cdb319c80aff316e5b309807ad858b82021a59127d912dce0f8",
+    ".scratch/barness-ai-minimax/tools/test_repair_fixtures.py": "e60d2d7107adf66f42a8880b203236e3bb665dfdd9e7b94931b7e0ecd914f9fb"
+  },
+  "requirementsSHA256": {
+    ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md": "9a759f70611aa9c1cac0f97dd5485aefc047fd4f9b0fbcaab7b5f2364219d64b",
+    "docs/adr/0046-region-routed-validation-round.md": "35c165b9f070b96f0ee45ba801deba513daf2da7ba8f084be7654a1064a68312"
+  },
+  "designV2SHA256": "fa45ace9793deb00776e93c636248a779919b3aa710f6b0ddc01a4746cef1da3",
+  "findings": [],
+  "assessment": [
+    "No missing requirement, scope creep, or incorrect implementation found in the fixed-six source delta. The new authority remains PENDING and cannot directly reuse old authorization files; its exact new round/proposal/additional108/132, 545/545 history, source/binary/plan/check/history/reuse/scope pins and selected credential scope are required before the exclusive global intent and Key acquisition.",
+    "The fixed G3/E3 job inventory preserves native scenarios, 4096-output GLM controls, zero automatic retries, China direct and explicit international proxy. Missing or invalid canonical consumption becomes UNKNOWN with whole-cap reservation and blocks further credentials; settled ordinary GLM FAIL permits the remaining fixed effects, while strict raw/usage/view publication requires the three own complete22 PASS reports from one actual source and canonical capture pins.",
+    "Original39 receipt hashes and 545/545 are independently anchored; old native15 inventories, text261/M3three263 maps and original provenance are reopened unchanged. The limited affected-source proof rejects unrelated producer/runtime/SDK/catalog changes; the old launcher guard remains authoritative. The matrix seam preserves all original13 rows.",
+    "Parent helper V4 statically matches the committed APIs, including root-qualified tree inventories and scope.matrixSHA256 normalization for the sole four-row transition. It derives and verifies new Jev without substitution, imports only newGLM3/Jev, and requires all17/four effects, actual four numeric exits, matching native verdict, all8 verifiers and current source for success. This is draft-only review: no actual future final binary, plan, six-check receipts, human authorization, paid execution or current full-suite certificate is approved."
+  ],
+  "retainedValidation": {
+    "executedByReviewer": false,
+    "receipts": {
+      "final-tools-command.json": {
+        "sha256": "3eae29adc34a3e514652b2ef6cde63699e8428ba932075a08569b74f86091755",
+        "state": "COMPLETED",
+        "argv": [
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          ".scratch/barness-ai-minimax/tools",
+          "-p",
+          "test_*.py"
+        ],
+        "credentialsRead": false,
+        "exitCode": 0,
+        "seconds": 336.36801887489855
+      },
+      "final-vet-command.json": {
+        "sha256": "854f71602eff0642bd9d18bf9ba39108bd3ff5defec7f73191479a82f58f4ba6",
+        "state": "COMPLETED",
+        "argv": [
+          "go",
+          "vet",
+          "./..."
+        ],
+        "credentialsRead": false,
+        "exitCode": 0,
+        "seconds": 0.5205527092330158
+      },
+      "final-vet-live-command.json": {
+        "sha256": "79081fad74e1ef56177a58a692ce2c22e47eed889184ac6cf8159a5e16386041",
+        "state": "COMPLETED",
+        "argv": [
+          "go",
+          "vet",
+          "-tags",
+          "live",
+          "./..."
+        ],
+        "credentialsRead": false,
+        "exitCode": 0,
+        "seconds": 0.2958905422128737
+      }
+    },
+    "toolsLogSHA256": "a0b30ffcdf225eacae1cc92f8070279d53245e63c0d2c610193829ebd49e5d0d",
+    "toolsResult": "71 tests, 336.252s, OK",
+    "measuredHEAD": "4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef",
+    "measuredWorkingTreeMatchesCommitted1056": true,
+    "sourceSnapshotsSHA256": {
+      "source-final-tools.json": "956f60d7dfb0953eba56b81ead133ef5715df0a279ffbf99bc2536d27fdce904",
+      "source-final-vets.json": "956f60d7dfb0953eba56b81ead133ef5715df0a279ffbf99bc2536d27fdce904"
+    },
+    "TDD": "Genuine public CLI REDs and incremental GREENs inspected; initial fixture corrections are retained separately."
+  },
+  "operationalDraft": {
+    "path": "/tmp/barness-repair-final-keyless.py",
+    "sha256": "e5dc66b14e65011574c807602a77502a4b28b72fe64c1685953c7d2e53fda836",
+    "verdict": "PASS_STATIC_DRAFT_ONLY",
+    "actualExecutionReviewed": false
+  },
+  "reviewerActions": "Committed-source reads, receipt/log reads and SHA256 comparisons only; no tests/verifier execution, Key reads, network, paid calls, source edits, commits or merges."
+}

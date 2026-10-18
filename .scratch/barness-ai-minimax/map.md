@@ -83,3 +83,5 @@ Base: `ecfd4b4`
 - 13 resolved（固定区域验证/证据范围）：[Answer](issues/13-routed-validation.md#answer)与[证据](evidence/ticket-13/README.md)保留17PASS/1FAIL、245/245及全量false，不关闭spec。
 - 14 resolved（离线范围）：[Answer](issues/14-release-preflight-gaps.md#answer)记录映射/诊断/inventory修复、实际六项无Key检查0及双轴审查；旧同号映射子记录保留历史。
 - 16 resolved（离线范围）：[Answer](issues/16-glm-host-deadline-alignment.md#answer)记录GLM专属120秒装配、本地91秒RED/GREEN及M3三份263项不变；没有厂商120秒成功证据。
+
+- 15离线实现检查点：09228工具源码与90ec留存已两轴0发现并合入，71工具测试/双vet通过；[证据](evidence/ticket-15/README.md)。ROOT精确计划及六项实际无Key检查仍待执行，新108/132审批未请求，真实六项/最终门禁尚未执行，15、10、09和spec不关闭。

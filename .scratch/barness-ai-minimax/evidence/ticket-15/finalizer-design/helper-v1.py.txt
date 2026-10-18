@@ -1,0 +1,251 @@
+#!/usr/bin/env python3
+"""Fixed-six keyless finalizer; design/failure inventory saved before code.
+
+Only existing public readers, Jev derivation, four-row merge and direct compiled
+release gate. No paid command, credential lookup, old launcher guard or retry.
+"""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import sys
+
+sys.dont_write_bytecode=True
+ROOT=Path.cwd()
+sys.path.insert(0,str(ROOT/'.scratch/barness-ai-minimax/tools'))
+import paid_core as c
+import paid_plan as p
+import paid
+import routed_evidence as e
+import renewal_common as u
+import repair_contract as r
+import repair_inputs as ri
+
+if ROOT!=c.ROOT:raise RuntimeError('repository root working directory required')
+G=ROOT/'.evidence/minimax-release-repair-glm-1'
+E=ROOT/'.evidence/minimax-release-repair-effects-1'
+A=ROOT/'.evidence/minimax-release-repair-final-1'
+MATRIX=ROOT/'ai/live/support-matrix.json'
+OBSERVER=Path('/tmp/barness-routed-go-recorder.py')
+REAL_GO=Path('/usr/local/go/bin/go')
+OBSERVER_SHA='aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7'
+GO_SHA='005640c7ff93028cb704283b0f737f2db3faf8b51b2561170c769b83905da646'
+OLD_MATRIX_SHA='7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f'
+NEW_ROWS={'zhipu-chat','zhipu-responses','zhipu-messages','typesafe-classifier-jev-1.14.0'}
+
+
+def regular(path,limit=64<<20):
+    path=Path(path)
+    if not path.is_absolute() or not path.is_relative_to(ROOT):raise ValueError('root-owned path required')
+    with e.Root(ROOT) as reader:return reader.read(path.relative_to(ROOT).as_posix(),limit)
+
+
+def doc(path):return e.document(regular(path,16<<20))
+def rel(path):return Path(path).relative_to(ROOT).as_posix()
+def sha(path):return u.sha(regular(path))
+def native_tree(path):
+    with e.Root(ROOT) as reader:return ri.tree(reader,rel(path))
+
+
+def current_proofs():
+    history,collections=ri.historical()
+    return dict(history=history,reuse=ri.reusable(collections),scope=ri.scope('effects'))
+
+
+def actuals():
+    rows={};roots={}
+    for out,phase in ((G,'glm'),(E,'effects')):
+        for name,job in r.jobs(out,phase).items():
+            receipt_path=paid.marker(name);receipt=doc(receipt_path)
+            settled=e.settled(job,contract=r)
+            if (settled.get('state')!='REPORTED' or receipt.get('state')!='COMPLETED' or
+                receipt.get('validationRound')!=r.ROUND or receipt.get('phase')!=phase or
+                receipt.get('collectionRoot')!='$REPO/'+rel(out)):
+                raise ValueError('all six original canonical jobs must be closed with known consumption: '+name)
+            report=r.report_path(out,job)
+            rows[name]=dict(receiptSHA256=sha(receipt_path),native=settled,report=rel(report),
+                           reportSHA256=sha(report),sourceCommit=receipt['sourceCommit'])
+            roots[job['baseName']]=report.parent
+    if len(rows)!=6 or sum(v['native']['calls'] for v in rows.values())>108 or sum(v['native']['attempts'] for v in rows.values())>132:
+        raise ValueError('fixed six finite consumption exceeded')
+    commits={v['sourceCommit'] for n,v in rows.items() if n.rsplit('-',1)[-1] in ('chat','responses','messages')}
+    if len(commits)!=1:raise ValueError('three GLM reports must retain one actual measured source')
+    return rows,roots
+
+
+def inputs():
+    proofs=current_proofs();rows,new=actuals()
+    live={n:ROOT/v['bundle'] for n,v in proofs['reuse']['inputs'].items() if n in p.LIVE_IDENTITIES}
+    live.update({'zhipu-'+route:new['glm-'+route] for route in ('chat','responses','messages')})
+    live['typesafe-classifier-jev-1.14.0']=A/'jev-support'
+    if set(live)!=set(p.LIVE_IDENTITIES) or len(set(live.values()))!=17:raise ValueError('exact17 distinct own identities required')
+    text={n:ROOT/proofs['reuse']['inputs']['text-'+n]['bundle'] for n in ('jev','luna')}
+    visual={n:new['visual-'+n] for n in ('jev','decisions')}
+    return proofs,rows,live,text,visual,new['protocol114']
+
+
+def source_equal(frozen):
+    if c.git('rev-parse','HEAD')!=frozen['sourceCommit'] or c.sources()!=frozen['files']:
+        raise ValueError('current frozen source or HEAD changed')
+
+
+def old_rows(matrix):
+    rows=matrix.get('rows')
+    if not isinstance(rows,list):raise ValueError('matrix rows required')
+    identities=[v.get('combo') for v in rows]
+    if len(rows)!=17 or len(set(identities))!=17 or set(identities)!=set(p.LIVE_IDENTITIES):
+        raise ValueError('exact17 matrix identities required')
+    return [v for v in rows if v['combo'] not in NEW_ROWS]
+
+
+def perform(name,argv,timeout=240,env=None):
+    code=c.execute(A,name,argv,timeout=timeout,env=env)
+    record=doc(A/(name+'-command.json'))
+    print(json.dumps(dict(name=name,state=record['state'],exitCode=record.get('exitCode'),credentialsRead=False)),flush=True)
+    if record.get('state')!='COMPLETED' or type(record.get('exitCode')) is not int:
+        raise ValueError('interrupted command retained; no automatic rerun')
+    return code
+
+
+def assemble():
+    u.repo_path(rel(A))
+    if A.exists() or A.is_symlink():raise ValueError('fresh one-shot finalizer output required')
+    frozen=c.committed_sources();proofs,rows,live,text,visual,protocol=inputs()
+    before=regular(MATRIX)
+    if u.sha(before)!=OLD_MATRIX_SHA:raise ValueError('authenticated original matrix required before four-row update')
+    before_doc=e.document(before);preserved=old_rows(before_doc)
+    A.mkdir(mode=0o700);c.dump(A/'assemble-intent.json',dict(state='STARTING',credentialsRead=False,paidCalls=0),exclusive=True)
+    (A/'matrix-before.json').write_bytes(before)
+    initial=dict(proofs=proofs,actuals=rows,source=frozen)
+    c.dump(A/'assemble-inputs.json',initial)
+    def guard(expected_matrix):
+        source_equal(frozen)
+        if current_proofs()!=proofs or actuals()[0]!=rows or sha(MATRIX)!=expected_matrix:
+            raise ValueError('assembly input or matrix changed')
+    guard(OLD_MATRIX_SHA)
+    code=perform('derive-jev-support',[REAL_GO,'run','./ai/live/cmd/jevformal','-protocol',protocol,
+        '-effects',visual['jev'],'-out',A/'jev-support','-require-live'])
+    guard(OLD_MATRIX_SHA)
+    if code!=0:raise ValueError('new Jev cannot derive; retain refusal, no old substitution or retry')
+    if perform('verify-derived-jev',[REAL_GO,'run','./ai/live/cmd/jevformal','-verify',A/'jev-support','-require-live'])!=0:
+        raise ValueError('new own Jev verification failed')
+    new_inputs={n:native_tree(live[n]) for n in NEW_ROWS}
+    def all_guard(expected_matrix):
+        guard(expected_matrix)
+        if any(native_tree(live[n])!=files for n,files in new_inputs.items()):raise ValueError('new own input changed')
+    candidate=A/'matrix-candidate.json';candidate.write_bytes(before)
+    merge=[REAL_GO,'run','./ai/live/cmd/supportmatrix','-matrix',candidate,
+        *(live[n] for n in ('zhipu-chat','zhipu-responses','zhipu-messages','typesafe-classifier-jev-1.14.0'))]
+    all_guard(OLD_MATRIX_SHA)
+    if perform('validate-four-candidate',merge)!=0:raise ValueError('new four own native inputs refused')
+    all_guard(OLD_MATRIX_SHA);after=regular(candidate);after_doc=e.document(after)
+    if old_rows(after_doc)!=preserved:raise ValueError('candidate changed one of original13 rows')
+    merge[4]=MATRIX
+    if perform('merge-four-default',merge)!=0:raise ValueError('atomic default four-row import failed')
+    all_guard(u.sha(after))
+    if regular(MATRIX)!=after or old_rows(doc(MATRIX))!=preserved:raise ValueError('default/candidate or original13 mismatch')
+    (A/'matrix-after.json').write_bytes(after)
+    result=dict(state='COMPLETED',credentialsRead=False,paidCalls=0,matrixBeforeSHA256=u.sha(before),
+        matrixAfterSHA256=u.sha(after),old13Preserved=True,newRows=sorted(NEW_ROWS),originalActuals=rows,
+        next='commit only allowed matrix/data; prepare fresh committed final gate freeze')
+    c.dump(A/'assemble-completed.json',result);return result
+
+
+def snapshot_inputs():
+    proofs,rows,live,text,visual,protocol=inputs()
+    roots=set(live.values())|set(text.values())|set(visual.values())|{protocol}
+    files={}
+    for root in sorted(roots):files.update(native_tree(root))
+    return dict(proofs=proofs,actuals=rows,files=files,live={n:rel(v) for n,v in live.items()},
+                text={n:rel(v) for n,v in text.items()},visual={n:rel(v) for n,v in visual.items()},protocol=rel(protocol))
+
+
+def prepare():
+    assembled=doc(A/'assemble-completed.json')
+    if assembled.get('state')!='COMPLETED' or sha(MATRIX)!=assembled['matrixAfterSHA256']:
+        raise ValueError('successful exact four-row assembly required')
+    if (A/'plan.json').exists():raise ValueError('gate plan already exists')
+    u.committed(['ai/live/support-matrix.json'])
+    frozen=c.committed_sources();native=snapshot_inputs()
+    if c.digest(OBSERVER)!=OBSERVER_SHA or c.digest(REAL_GO)!=GO_SHA:raise ValueError('reviewed observer or Go changed')
+    before=dict(source=frozen,inputs=native,matrixSHA256=sha(MATRIX),assemblySHA256=sha(A/'assemble-completed.json'),
+        helperSHA256=c.digest(Path(__file__)),observerSHA256=OBSERVER_SHA,realGoSHA256=GO_SHA,
+        collection=e.location(A),credentialsRead=False,paidCalls=0,automaticReruns=False,gateTimeoutSeconds=6600)
+    c.dump(A/'prepare-plan.json',before,exclusive=True)
+    bindir=A/'observer-bin';bindir.mkdir(mode=0o700)
+    shutil.copyfile(OBSERVER,bindir/'go');(bindir/'go').chmod(0o700)
+    if perform('build-current-public-releasegate',[REAL_GO,'build','-o',A/'releasegate','./ai/release/cmd/releasegate'],300)!=0:
+        raise ValueError('current keyless build failed')
+    source_equal(frozen)
+    if snapshot_inputs()!=native or sha(MATRIX)!=before['matrixSHA256']:raise ValueError('input drift during build')
+    plan=before|dict(compiledCLISHA256=sha(A/'releasegate'),buildReceiptSHA256=sha(A/'build-current-public-releasegate-command.json'))
+    c.dump(A/'plan.json',plan,exclusive=True)
+    c.dump(A/'keyless-source-review.template.json',dict(decision='PENDING',reviewedBy=[],sourceCommit=frozen['sourceCommit'],
+        planSHA256=sha(A/'plan.json'),helperSHA256=plan['helperSHA256'],compiledCLISHA256=plan['compiledCLISHA256'],reportsSHA256={}))
+    return dict(state='PREPARED_PENDING_REVIEW',sourceCommit=frozen['sourceCommit'],planSHA256=sha(A/'plan.json'),credentialsRead=False,paidCalls=0)
+
+
+def loaded():
+    plan=doc(A/'plan.json');source_equal(plan['source'])
+    if (e.location(A)!=plan['collection'] or snapshot_inputs()!=plan['inputs'] or sha(MATRIX)!=plan['matrixSHA256'] or
+        sha(A/'assemble-completed.json')!=plan['assemblySHA256'] or c.digest(Path(__file__))!=plan['helperSHA256'] or
+        c.digest(OBSERVER)!=plan['observerSHA256'] or c.digest(REAL_GO)!=plan['realGoSHA256'] or
+        sha(A/'observer-bin/go')!=plan['observerSHA256'] or sha(A/'releasegate')!=plan['compiledCLISHA256'] or
+        sha(A/'build-current-public-releasegate-command.json')!=plan['buildReceiptSHA256']):
+        raise ValueError('exact final plan inputs/helper/compiled binary changed')
+    return plan
+
+
+def run():
+    plan=loaded();review=doc(A/'keyless-source-review.json')
+    expected=dict(sourceCommit=plan['source']['sourceCommit'],planSHA256=sha(A/'plan.json'),
+        helperSHA256=plan['helperSHA256'],compiledCLISHA256=plan['compiledCLISHA256'])
+    if (review.get('decision')!='APPROVED' or any(review.get(k)!=v for k,v in expected.items()) or
+        len(set(review.get('reviewedBy',[])))!=2 or set(review.get('reportsSHA256',{}))!={'Standards','Spec'} or
+        any(u.HEX.fullmatch(v) is None for v in review['reportsSHA256'].values())):
+        raise ValueError('two independent exact-source keyless plan reviews required')
+    c.dump(A/'execution-intent.json',dict(state='STARTING',credentialsRead=False,paidCalls=0,
+        planSHA256=sha(A/'plan.json'),reviewSHA256=sha(A/'keyless-source-review.json')),exclusive=True)
+    native=plan['inputs'];checks=[]
+    for route,path in native['text'].items():checks.append(('verify-text-'+route,[REAL_GO,'run','./ai/examples/chineseeval/cmd/chineseeval','-route',route,'-verify',ROOT/path]))
+    for route,path in native['visual'].items():checks.append(('verify-visual-'+route,[REAL_GO,'run','./ai/examples/visualeval','-verify',ROOT/path,'-require-live']))
+    checks.append(('verify-current-jev',[REAL_GO,'run','./ai/live/cmd/jevformal','-verify',A/'jev-support','-require-live']))
+    for route in ('chat','responses','messages'):
+        checks.append(('verify-minimax-'+route,[REAL_GO,'run','./ai/live/cmd/minimaxverify','-formal',ROOT/native['live']['minimax-'+route]]))
+    checked={}
+    for name,argv in checks:loaded();checked[name]=perform(name,argv);loaded()
+    gate=[A/'releasegate','-out',A/'gate','-matrix',MATRIX,
+        '-evaluation-jev',ROOT/native['text']['jev'],'-evaluation-luna',ROOT/native['text']['luna'],
+        '-visual-evaluation-jev',ROOT/native['visual']['jev'],'-visual-evaluation-decisions',ROOT/native['visual']['decisions']]
+    for identity in p.LIVE_IDENTITIES:gate+=['-live',ROOT/native['live'][identity]]
+    if gate.count('-live')!=17 or any(str(v) in ('-bundle','-race','-race-bundle') for v in gate):raise ValueError('fixed complete public gate required')
+    loaded();code=perform('actual-current-releasegate',gate,plan['gateTimeoutSeconds'],
+        {'PATH':str(A/'observer-bin')+os.pathsep+c.ENV['PATH'],
+         'BARNESS_GATE_COMMAND_RECORD_DIR':str(A/'gate-command-exits'),'BARNESS_GATE_RECORD_REPO_ROOT':str(ROOT)})
+    loaded();exits={}
+    for name in ('vet','vet-live','ordinary','race'):
+        path=A/'gate-command-exits'/(name+'.json')
+        exits[name]=doc(path) if path.exists() else dict(state='MISSING',exitCode=None)
+    numeric=all(v.get('state')=='COMPLETED' and type(v.get('exitCode')) is int for v in exits.values())
+    path=A/'gate/release-report.json';report=doc(path) if path.exists() else None
+    result=dict(state='COMPLETED',credentialsRead=False,paidCalls=0,outerExit=code,verificationExits=checked,
+        actualCommands=exits,allFourNumeric=numeric,reportPresent=report is not None,
+        releasePass=report.get('pass') if report else None,planSHA256=sha(A/'plan.json'))
+    c.dump(A/'completed.json',result)
+    return result
+
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('mode',choices=('assemble','prepare','run'))
+    args=parser.parse_args();result=globals()[args.mode]()
+    print(json.dumps(c.redact(result),ensure_ascii=False,indent=2),flush=True)
+    if args.mode=='run' and (result['outerExit']!=0 or not result['allFourNumeric'] or result['releasePass'] is not True):return 1
+    return 0
+
+
+if __name__=='__main__':
+    try:sys.exit(main())
+    except (OSError,ValueError,RuntimeError,KeyError,TypeError) as error:
+        print(json.dumps(dict(state='REFUSED',error=c.redact(str(error)),credentialsRead=False,paidCalls=0)),flush=True);sys.exit(1)

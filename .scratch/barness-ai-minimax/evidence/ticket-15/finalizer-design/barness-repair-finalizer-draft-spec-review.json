@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "axis": "SPEC static draft review",
+  "decision": "CHANGES_REQUESTED",
+  "reviewedHelper": "/tmp/barness-repair-final-keyless.py",
+  "reviewedHelperSHA256": "1cf19f87e583dcbc42f419380400684a6db451dc0292333604798cc396af5e88",
+  "helperSHA256ObservedAtReportWrite": "1cf19f87e583dcbc42f419380400684a6db451dc0292333604798cc396af5e88",
+  "designSHA256": "94596803c8cc8d6efe4c4920cdaff66958cafcb3eb6982344f9c6a0fb783db3e",
+  "operatorPlanSHA256": "45fc685cba47faf93d10e313d51a3038b4398001b8b28a06238eec1226ecf620",
+  "scope": "Static parent-owned draft only; future worker repair_contract/repair_inputs APIs were treated as advertised interfaces, not read or executed. No source/binary/plan execution approval.",
+  "review": "Fixed G/effects paths and canonical REPORTED six-job closure enforce108/132, original history/reuse/scope proofs and same GLM measured source. Honest native GLM FAIL remains admissible; malformed closure is refused. Jev derivation is fresh/public/require-live and a refusal stops without stale substitution. Candidate/default supportmatrix commands contain exactly newGLM3+Jev, preserve original13 row values/times, and require the sole expected default-matrix hash transition. Current final freeze is separate from oldL, pins all17 native roots/four effects, builds and directly executes the public gate under the pinned observer, retains numeric verifier exits and forbids bundle adoption/retry/credential-source arguments. Source/helper/binary/inputs are checked before/after operations.",
+  "findings": [
+    {
+      "id": "FINALIZER-DRAFT-SPEC-01",
+      "severity": "P2",
+      "file": "/tmp/barness-repair-final-keyless.py",
+      "line": 231,
+      "requirement": "Failure inventory/operator plan section5 requires four real numeric command exits and a truthful current-source public verdict; missing or contradictory proof must not be promoted to successful certification.",
+      "finding": "numeric only checks COMPLETED plus integer exitCode. main line244 accepts outer0 and report.pass=true even if ordinary/race/vet numeric receipts contain nonzero exits. No report.commit check or report.commands/receipt argv/cwd consistency check exists. The four-command evidence can therefore contradict a successful finalizer return.",
+      "requestedCorrection": "Validate exact four receipt argv/cwd and source ownership; bind release-report.commit to the frozen source and match its four native command booleans to numeric results. Only return successful certification when all4 numeric exits are0 and the actual outer/report verdicts agree. Keep honest nonzero exits/false reports as retained failed completion; missing or inconsistent proof remains incomplete/refused, never fabricated."
+    }
+  ],
+  "integrationConditions": [
+    "Independently inspect the final committed worker APIs before execution: historical/reusable/scope must be read-only/fail-closed, e.settled must reopen exact original canonical command/report/source/approval/check/review pins, and ri.tree must return complete root-qualified paths without collisions.",
+    "Review actual assembled input inventories, preserved13 rows, current exact source/binary/plan/build receipts and both independent source-review reports before a one-shot gate run. This static draft review cannot stand in for those actual preparations.",
+    "Recheck final helper SHA and any edits; old A2 and all prior FAIL/NOT_RUN/accounting remain immutable. No paid authorization or new Key acquisition follows."
+  ],
+  "reviewerActions": {
+    "staticReadAndHashOnly": true,
+    "testsOrVerifiersExecuted": false,
+    "keysRead": false,
+    "network": false,
+    "workerWIPInspected": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

@@ -166,7 +166,7 @@
   "blockers": [
     "GLM Responses latest actual failures remain; new three-route same-source proof needed",
     "Strict GLM formal raw/views renewal refused on latest closed actual run",
-    "Fixed6 source/binary/plan and keyless preflights not yet frozen; new108/132 explicit approval pending",
+    "Fixed6 ROOT committed-source/binary/plan and six real keyless preflights plus exact reviews pending; new108/132 explicit approval not asked/granted",
     "No passing current complete release certification"
   ],
   "historicalPreviousDelivery": "evidence/ticket-13/pre-routed-delivery-status.json",
@@ -201,7 +201,20 @@
       "vendorCalls": 0,
       "evidence": "evidence/ticket-16/deadline-alignment/README.md"
     },
-    "implementationStatus": "OFFLINE_CLI_TDD_IN_PROGRESS"
+    "implementationStatus": "INTEGRATED_OFFLINE_ROOT_PREFLIGHT_PENDING",
+    "codeCommit": "09228e06e6ff6ea5062e3636228cf59724f8041e",
+    "integratedAt": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+    "controlledToolTestsPass": 71,
+    "controlledToolTestSeconds": 336.252,
+    "realVets": {
+      "vet": 0,
+      "vet-live": 0
+    },
+    "sourceAndRetentionReviews": "evidence/ticket-15/reviews/README.md",
+    "rootSourceBinaryPlanFrozen": false,
+    "rootSixKeylessChecksComplete": false,
+    "newPrimaryPaidIntents": 0,
+    "realCredentialsRead": false
   },
-  "currentIntegratedRepairSource": "7231fdad77bd1fb69bb1f21b934e55db77aab814"
+  "currentIntegratedRepairSource": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11"
 }

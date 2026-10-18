@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "axis": "SPEC narrow static draft rereview",
+  "decision": "PASS_DRAFT_ONLY",
+  "reviewedHelper": "/tmp/barness-repair-final-keyless.py",
+  "reviewedHelperSHA256": "bbc37116927566418faf933c72bbb3fa0b77c94f8398ab6b9adb8024fc88ded7",
+  "reviewedLines": 346,
+  "originalHelperSHA256": "1cf19f87e583dcbc42f419380400684a6db451dc0292333604798cc396af5e88",
+  "priorReview": {
+    "path": "/tmp/barness-repair-finalizer-draft-spec-review.json",
+    "sha256": "d2eb59ab7c62967288a7c5b0d787079aeed9680b36d87132f7431233bb3971a5",
+    "unchanged": true
+  },
+  "resolvedFindings": [
+    {
+      "id": "FINALIZER-DRAFT-SPEC-01",
+      "status": "RESOLVED",
+      "proof": "Lines305–325 now require four COMPLETED integer receipts, exact real-Go argv/cwd/no-Key bindings, current frozen report.commit, exact four native command IDs/lines and booleans agreeing with numeric exits. Report.pass agrees with all native gate booleans and actual outer0/pass or outer1/fail. Successful finalizer return additionally requires all4 numeric exits0, all8 constructed public verifiers0 and report true; missing/inconsistent/nonzero proof cannot satisfy success. Honest failed completion and raw receipts remain retained."
+    }
+  ],
+  "openFindings": [],
+  "scopeCreep": [],
+  "additionalStaticChecks": "Handoff now reopens authenticated original matrix-before, exact candidate/default/after bytes and original13 row equality, original actuals/source maps, four successful fixed public command receipts and new own-input trees. Operational helper/observer/Go bounds and pins are checked before assembly and across handoff/build/run. Only scope.matrixSHA256 is normalized during the explicitly checked before→candidate transition; every other source/scope/input pin remains fixed. The direct compiled17-input/four-effect gate, one-shot intent, Jev refusal/no-stale-substitution and valid GLM FAIL path remain intact.",
+  "integrationConditions": [
+    "Worker repair_contract/repair_inputs and changed routed_evidence APIs remain advertised interfaces, not inspected or executed here. Their final committed implementation and exact matrixSHA256 scope field/root-qualified complete tree semantics must receive separate review.",
+    "Review actual source/binary/plan/build receipts, exact all17 native inputs/four effects, preserved13 rows and independent review receipts after assembly/prepare before running. This static draft closure does not approve that future prepared plan.",
+    "New human108/132 paid approval is independent; no Key, paid call or full-spec/current vendor certificate is authorized by this report."
+  ],
+  "reviewerActions": {
+    "staticReadHashOnly": true,
+    "testsOrVerifiersExecuted": false,
+    "workerWIPInspected": false,
+    "keysRead": false,
+    "network": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}
