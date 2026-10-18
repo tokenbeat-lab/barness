@@ -42,3 +42,12 @@ Minimal change: require successful public call before capability classification.
 No production runtime, public DTO, retry policy, capture rewrite or budgets
 change. New source needs focused normal/race checks and both-axis review before
 any new exact-source preparation / dependent paid command.
+
+Failure-first matrix history correction: three newly added empty capabilities
+arrays round-trip through the canonical writer as omitted fields, causing the
+public Jev history gate to reject other-row preservation. Existing
+TestJevFormalMatrixHistory reproduced the failure before the data change.
+Only those three empty arrays are omitted; old14 rows and all requirements
+stay byte-identical. Normal/race repaired families verify the correction.
+Missing ignored historical ZIPs must be copied from exact pinned originals;
+no reconstructed ZIP, source rehash or freshness waiver is permitted.

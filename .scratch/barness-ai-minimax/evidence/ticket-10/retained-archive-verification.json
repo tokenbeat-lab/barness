@@ -1,0 +1,52 @@
+{
+  "kind": "bounded-stream-reread-of-final-archives",
+  "credentialsRead": false,
+  "mutatesOriginals": false,
+  "reports": [
+    {
+      "archive": ".evidence/minimax-retained/minimax-ordinary-1205300.tar.gz",
+      "archiveSha256": "a5334448a80b1bd8805c6a983028449fa9e920a04b045034a65f9d68b80032f5",
+      "archiveBytes": 2682292,
+      "runFiles": 9924,
+      "allRunBytesMatchEmbeddedAndExternalInventory": true,
+      "archiveMembers": 9928,
+      "seconds": 0.317
+    },
+    {
+      "archive": ".evidence/minimax-retained/minimax-race-1205300.tar.gz",
+      "archiveSha256": "6139ed4b27644e393dc96ae13157e2e088f0698fc317baa5f075a86f4fe75d40",
+      "archiveBytes": 2692301,
+      "runFiles": 9924,
+      "allRunBytesMatchEmbeddedAndExternalInventory": true,
+      "archiveMembers": 9928,
+      "seconds": 0.305
+    },
+    {
+      "archive": ".evidence/minimax-retained/repaired-ordinary-1205300.tar.gz",
+      "archiveSha256": "69e9e006f62b8d5345badc00c46ad6d63b2c173e4b2200ffc5034f2890fc85bf",
+      "archiveBytes": 74301,
+      "runFiles": 100,
+      "allRunBytesMatchEmbeddedAndExternalInventory": true,
+      "archiveMembers": 104,
+      "seconds": 0.004
+    },
+    {
+      "archive": ".evidence/minimax-retained/repaired-race-1205300.tar.gz",
+      "archiveSha256": "87d95b45ada720abc1ce6a25ffd9787e1c1b310f6aa5b33d18f3114979703f87",
+      "archiveBytes": 74391,
+      "runFiles": 100,
+      "allRunBytesMatchEmbeddedAndExternalInventory": true,
+      "archiveMembers": 104,
+      "seconds": 0.003
+    },
+    {
+      "archive": ".evidence/minimax-retained/whole-ordinary-failed-9481a6a.tar.gz",
+      "archiveSha256": "4a4e3db782980460be550c7c07fbecbdca9eac20c8f36f665270720efff30183",
+      "archiveBytes": 110349400,
+      "runFiles": 131506,
+      "allRunBytesMatchEmbeddedAndExternalInventory": true,
+      "archiveMembers": 131516,
+      "seconds": 3.286
+    }
+  ]
+}

@@ -48,13 +48,76 @@ counts are15/14; the canonical paid ledger is unchanged. Public minimaxverify
 passes the current controlled proof. This is a synthetic mechanism check and
 cannot certify actual candidate/formal support. Old source is never relabeled.
 
-A whole ordinary run on9481a6a was cancelled by the parent after536.749s once
-the harness defect required a source correction. Its original receipt retains
-exitCode=-15; the separate cancellation record explains the interruption.
-There is no whole-suite PASS claim. Complete fixed-source ordinary/race suites,
-three own actual M3 candidate/formal reports, data-only activation, fourteen
-renewed legacy support identities, four renewed business effects and the actual
-release gate remain outstanding at this checkpoint. Ticket10/09 stay open.
+[Current offline results](offline-checks-1205300.json) bind Go/tool source
+1205300 and the exact tested matrix data delta. Complete MiniMax ordinary and
+race runs each passed all1,307 cases, with exit0 and zero audit findings.
+The46 repaired historical-evidence families also passed ordinary and race,
+with exit0 and zero audit findings. The only data change omits empty capabilities
+from the three new MiniMax rows, matching the canonical writer; old14 rows are
+unchanged. Exact pinned historical ZIPs were restored without regenerating or
+changing their hashes. [Hydration record](additional-fixture-hydration.json)
+and the failure-first [red](matrix-empty-red.log)/[green](matrix-empty-green.log)
+checks record the prerequisites and correction. Both review axes passed the
+runtime fix and the narrow matrix delta.
+
+| Complete retained bundle | Cases PASS | Seconds | Portable archive |
+| --- | ---: | ---: | --- |
+| MiniMax ordinary | 1,307 | 43.000 | [Full bundle](minimax-ordinary-1205300.tar.gz) |
+| MiniMax race | 1,307 | 152.736 | [Full bundle](minimax-race-1205300.tar.gz) |
+| Repaired families ordinary | 46 | 9.479 | [Full bundle](repaired-ordinary-1205300.tar.gz) |
+| Repaired families race | 46 | 35.288 | [Full bundle](repaired-race-1205300.tar.gz) |
+
+Each full archive contains every run file, original manifest/audit, command
+receipt, source manifest, tested matrix and recomputed full file-hash inventory.
+The matching JSON index pins archive size/hash and artifact-reference checks.
+Copies also remain in the shared main checkout's `.evidence/minimax-retained`,
+independently of this temporary worktree. These are offline checks; they do not
+certify actual provider support.
+
+[Fresh keyless preparation checks](prepay-1205300-checks.json) passed both vets
+and the whole no-key live package at1205300 (102.567s), without credentials.
+Its primary manifest records323 PASS/62 NOT_RUN, plus two auxiliary PASS cases.
+The [keyless capsule](postauth-keyless-1205300.tar.gz) retains preparation,
+source/binary/plan/command/check metadata, original live manifests/audits, six
+selected current process/handoff cases with full child captures, and all three
+current M3.1 own NOT_RUN bundles. It explicitly omits other live case payloads.
+[Current M3.1 summary](m31-not-run-1205300-summary.json) remains zero calls and
+zero Attempts with no entitlement or paid intent. Historical9481a6a evidence
+above remains unchanged. Committing this checkpoint changes HEAD: these source
+pins and the prior9481a6a paid approval do not authorize later paid collection.
+
+The original whole ordinary run on9481a6a was cancelled after536.749s for the
+separately known harness fix. Its immutable manifest records12,304 PASS and52
+FAIL across12,356 cases; original exitCode=-15 is preserved. A separate current
+audit completed successfully with zero findings in72.16s. The audit does not
+change the original Go result. [Read-only triage](whole-ordinary-triage.md)
+identified46 fixture/data failures subsequently repaired above and six GLM
+current-source freshness failures that still require actual renewal. No new
+whole ordinary/race run was launched while these six failures remain known.
+
+[Full failed-run retention index](whole-ordinary-failed-9481a6a.json) pins the
+110,349,400-byte complete archive at the shared main checkout's
+`.evidence/minimax-retained/whole-ordinary-failed-9481a6a.tar.gz`, SHA256
+`4a4e3db782980460be550c7c07fbecbdca9eac20c8f36f665270720efff30183`.
+It survives temporary worktree cleanup. Its131,506 retained run files include
+the original131,505 files plus the separately derived21-byte audit.json. The
+[complete compressed file inventory](whole-ordinary-failed-9481a6a-files.json.gz)
+is tracked. Requests/responses/events/results/observers/resources and failure
+assertions remain in the full archive; no historical byte/hash was repaired.
+
+All98,236 declared artifact references match their retained bytes. The349
+fixture-source attribution differences have a different meaning from artifact
+integrity: input fixtures can be redacted when retained. The
+[independent diagnosis](../ticket-09/whole-ordinary-artifact-integrity.md) confirms the registered
+replacement exactly explains the examined difference. The superseded curation
+diagnostic in curation-provisional-map-error.json.gz incorrectly merged these
+maps; it is retained only as curation history. No original tamper or overwrite
+was found, and no Go correction was needed.
+
+Three own actual M3 candidate/formal reports, data-only activation, fourteen
+renewed legacy support identities, four renewed business effects, complete
+whole ordinary/race gates and the actual release gate remain outstanding.
+Ticket10/09 stay open pending credential repair and actual acceptance.
 
 Historical prepay source slices: ba8305a (sourced prices and first review fixes),
 9de9068 (actual-origin/ledger and complete tool integrity),65b20b9/5decc7a

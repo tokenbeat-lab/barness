@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "curated-copy-content-audit",
+  "argv": [
+    "go",
+    "run",
+    "./ai/internal/testkit/audit/cmd/auditbundle",
+    "$REPO/.evidence/minimax-ticket10-final-curation/audit-stage"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 120,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T00:41:49.619102+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.977956207934767,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

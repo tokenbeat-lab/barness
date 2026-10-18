@@ -489,5 +489,65 @@
     "cumulativeCalls": 15,
     "cumulativeAttempts": 14,
     "canonicalPaidLedgerUnchanged": true
+  },
+  "finalOfflineCheckpoint": {
+    "summary": "offline-checks-1205300.json",
+    "codeSourceCommit": "120530041de78c26e803719dd5c856d321d6aa34",
+    "dataMatrixSha256": "42cd2f1f91335c2588e2ad0e0d5697236cf2aac6293efc5a29fd2d27a42a0976",
+    "notes": {
+      "whole-ordinary-triage.md": {
+        "originalSha256": "dbb7bde248f5fb7553f89f7be005a9b2d2b48d3632f6d8a145ba4db16c972527",
+        "curatedSha256": "38406259af6ee93b104a668e90b53eab154e87e86b70295e40eb8536a404cfa7",
+        "pathRedactionOnly": true
+      },
+      "matrix-empty-red.log": {
+        "originalSha256": "612d7f5b37dfc182fb9653006ad3fa16977c27d51da4ddd7aedbe1fbafe9067d",
+        "curatedSha256": "3a97a302d64e6c5738079236c73949f76258740e6f71d861ceb0f11417c52c9a",
+        "pathRedactionOnly": true
+      },
+      "matrix-empty-green.log": {
+        "originalSha256": "577ebc7259756800d216073837556e6fe8d5772b57c882791a4e7f3bbcc5a995",
+        "curatedSha256": "577ebc7259756800d216073837556e6fe8d5772b57c882791a4e7f3bbcc5a995",
+        "pathRedactionOnly": true
+      }
+    },
+    "completeBundleArchives": {
+      "minimax-ordinary-1205300": "a5334448a80b1bd8805c6a983028449fa9e920a04b045034a65f9d68b80032f5",
+      "minimax-race-1205300": "6139ed4b27644e393dc96ae13157e2e088f0698fc317baa5f075a86f4fe75d40",
+      "repaired-ordinary-1205300": "69e9e006f62b8d5345badc00c46ad6d63b2c173e4b2200ffc5034f2890fc85bf",
+      "repaired-race-1205300": "87d95b45ada720abc1ce6a25ffd9787e1c1b310f6aa5b33d18f3114979703f87"
+    },
+    "keyless": {
+      "archive": "postauth-keyless-1205300.tar.gz",
+      "sha256": "5499e79f017768f5b176f67114e36210d9531ac27d257ca93878cb3971b57fed",
+      "bytes": 2055286,
+      "files": 71,
+      "sourceCommit": "120530041de78c26e803719dd5c856d321d6aa34",
+      "selectedLiveCases": 6,
+      "fullLiveCaseCapsule": false,
+      "m31OwnNotRunReports": 3,
+      "credentialsRead": false,
+      "canonicalLedgerChanged": false
+    },
+    "wholeFailedArchive": {
+      "sharedRoot": ".evidence/minimax-retained/whole-ordinary-failed-9481a6a.tar.gz",
+      "sha256": "4a4e3db782980460be550c7c07fbecbdca9eac20c8f36f665270720efff30183",
+      "bytes": 110349400,
+      "inventoryGzipSha256": "734721c3d939da00a0991bed4b920bb2a96ff361fbf0d60dc43f09a3d61b446b"
+    },
+    "originalFailuresUnchanged": true,
+    "actualAcceptanceComplete": false,
+    "independentArtifactIntegrity": {
+      "curatedBy": "ticket-09",
+      "path": "../ticket-09/whole-ordinary-artifact-integrity.md",
+      "originalSha256": "65e7299e4a711cabfd252c14a1a58a9d8bff982bac52baa33792135c603e4fa1",
+      "supersededOriginalNoteSha256": "2059b3ee0f1ca15f3d2629152382befefaac090862f892d19a08cef7847462d6"
+    },
+    "curationContentAudit": {
+      "command": "curation-content-audit-command.json",
+      "audit": "curation-content-audit.json",
+      "scope": "Content audit of separate staged curated copy; original bundles retain own audits.",
+      "firstInvalidDirectoryInvocationRetained": true
+    }
   }
 }
