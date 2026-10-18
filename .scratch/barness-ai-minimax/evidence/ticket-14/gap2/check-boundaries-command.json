@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "check-boundaries",
+  "argv": [
+    "python3",
+    "-B",
+    ".scratch/barness-ai-minimax/evidence/ticket-14/gap2/check-boundaries.py",
+    "--common-root",
+    "$COMMON"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 90,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T10:13:55.955495+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 7.51737575000152,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}
