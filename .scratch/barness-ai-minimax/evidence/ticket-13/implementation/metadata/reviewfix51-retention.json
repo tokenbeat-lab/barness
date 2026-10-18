@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "finding": "SPEC-13-01",
+  "sourceCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "rawFiles": 12,
+  "archiveBytes": 65366,
+  "archiveSHA256": "f70359541f175efc0e7306315b190133b5639303ec30acab136ae78fb8f2372a",
+  "red": "Changed foreign-phase original report incorrectly remained REPORTED22/22; observed failing public CLI E2E.",
+  "fixtureRepair": "First green attempt reached later mutations and failed fixture symlink creation because its old path had been restored; original log preserved, fixed before final green.",
+  "green": "58 offline public CLI checks PASS; final5 launcher E2Es PASS including cross-phase proof/path/type/bounds and foreign-worktree unknown accounting.",
+  "originalImplementationArchiveSHA256": "34d68cce3b7f23c9a1add084eff7762769bb800257a72b7a2df3284464edd70e"
+}

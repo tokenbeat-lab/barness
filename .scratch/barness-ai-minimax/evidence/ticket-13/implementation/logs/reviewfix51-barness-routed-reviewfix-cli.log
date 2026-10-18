@@ -1,0 +1,22 @@
+test_concurrent_and_cross_directory_launch_cannot_reset_unknown_spend (test_routed_validation.Routed.test_concurrent_and_cross_directory_launch_cannot_reset_unknown_spend) ... ok
+test_cross_phase_settlement_reopens_pinned_original_proof (test_routed_validation.Routed.test_cross_phase_settlement_reopens_pinned_original_proof) ... ERROR
+test_fixed_two_phase_plan_is_keyless_and_routes_by_service_region (test_routed_validation.Routed.test_fixed_two_phase_plan_is_keyless_and_routes_by_service_region) ... ok
+test_legacy_phase_repeats_both_deepseek_jobs_on_a_fresh_source (test_routed_validation.Routed.test_legacy_phase_repeats_both_deepseek_jobs_on_a_fresh_source) ... ok
+test_review_request_and_exact_freeze_precede_key_and_intent (test_routed_validation.Routed.test_review_request_and_exact_freeze_precede_key_and_intent) ... ok
+
+======================================================================
+ERROR: test_cross_phase_settlement_reopens_pinned_original_proof (test_routed_validation.Routed.test_cross_phase_settlement_reopens_pinned_original_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$WORKTREE/.scratch/barness-ai-minimax/tools/test_routed_validation.py", line 181, in test_cross_phase_settlement_reopens_pinned_original_proof
+    target=base/'exact-copy.json';target.write_bytes(raw);path.symlink_to(target)
+                                                          ~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 1213, in symlink_to
+    os.symlink(target, self, target_is_directory)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: '$FIXTURE/glm/exact-copy.json' -> '$FIXTURE/glm/glm-chat/session/formal-glm-report.json'
+
+----------------------------------------------------------------------
+Ran 5 tests in 10.195s
+
+FAILED (errors=1)

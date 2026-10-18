@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "fixtures": "temporary synthetic archive paths only; original archives read-only",
+  "results": [
+    {
+      "case": "wrong-hash",
+      "exitCode": 1,
+      "rejected": true,
+      "diagnosticType": "ValueError",
+      "originalArchiveUnchanged": true
+    },
+    {
+      "case": "symlink",
+      "exitCode": 1,
+      "rejected": true,
+      "diagnosticType": "OSError",
+      "originalArchiveUnchanged": true
+    },
+    {
+      "case": "oversized",
+      "exitCode": 1,
+      "rejected": true,
+      "diagnosticType": "ValueError",
+      "originalArchiveUnchanged": true
+    },
+    {
+      "case": "symlink-parent",
+      "exitCode": 1,
+      "rejected": true,
+      "diagnosticType": "NotADirectoryError",
+      "originalArchiveUnchanged": true
+    }
+  ]
+}

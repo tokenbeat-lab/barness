@@ -1,0 +1,36 @@
+test_actual_origin_requires_successful_reviewed_child_and_seal (test_paid.Launcher.test_actual_origin_requires_successful_reviewed_child_and_seal) ... ok
+test_actual_producer_status_formats_keep_known_component_counters (test_paid.Launcher.test_actual_producer_status_formats_keep_known_component_counters) ... ok
+test_all_commands_keep_component_caps_and_exact_seventeen_inputs (test_paid.Launcher.test_all_commands_keep_component_caps_and_exact_seventeen_inputs) ... ok
+test_embedded_price_document_drift_refuses_before_intent (test_paid.Launcher.test_embedded_price_document_drift_refuses_before_intent) ... ok
+test_global_inventory_scopes_and_historical_balance_are_explicit (test_paid.Launcher.test_global_inventory_scopes_and_historical_balance_are_explicit) ... ok
+test_history_and_global_requested_token_caps_share_one_slot (test_paid.Launcher.test_history_and_global_requested_token_caps_share_one_slot) ... ok
+test_history_is_counted_once_with_current_component_not_cumulative (test_paid.Launcher.test_history_is_counted_once_with_current_component_not_cumulative) ... ok
+test_history_mutation_missing_or_partial_is_unknown_full_slot (test_paid.Launcher.test_history_mutation_missing_or_partial_is_unknown_full_slot) ... ok
+test_known_research_plus_candidate_cannot_exceed_identity_cap (test_paid.Launcher.test_known_research_plus_candidate_cannot_exceed_identity_cap) ... ok
+test_malformed_report_never_prints_unknown_fields (test_paid.Launcher.test_malformed_report_never_prints_unknown_fields) ... ok
+test_prepare_check_preview_never_acquire_credentials (test_paid.Launcher.test_prepare_check_preview_never_acquire_credentials) ... ok
+test_selected_process_isolation_redaction_and_directory_restart (test_paid.Launcher.test_selected_process_isolation_redaction_and_directory_restart) ... ok
+test_source_binary_review_drift_refuses_before_intent (test_paid.Launcher.test_source_binary_review_drift_refuses_before_intent) ... ok
+test_stale_output_refuses_before_key_or_budget_reservation (test_paid.Launcher.test_stale_output_refuses_before_key_or_budget_reservation) ... ok
+test_timeout_receipt_cannot_borrow_partial_report_counts (test_paid.Launcher.test_timeout_receipt_cannot_borrow_partial_report_counts) ... ok
+test_unknown_research_consumes_full_identity_cap (test_paid.Launcher.test_unknown_research_consumes_full_identity_cap) ... ok
+test_verifier_origin_index_is_not_paid_generation_input (test_paid.Launcher.test_verifier_origin_index_is_not_paid_generation_input) ... ok
+test_fixed_two_phase_plan_is_keyless_and_routes_by_service_region (__main__.Routed.test_fixed_two_phase_plan_is_keyless_and_routes_by_service_region) ... FAIL
+
+======================================================================
+FAIL: test_fixed_two_phase_plan_is_keyless_and_routes_by_service_region (__main__.Routed.test_fixed_two_phase_plan_is_keyless_and_routes_by_service_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$WORKTREE/.scratch/barness-ai-minimax/tools/test_routed_validation.py", line 35, in test_fixed_two_phase_plan_is_keyless_and_routes_by_service_region
+    self.invoke('prepare',phase,'--phase',phase)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$WORKTREE/.scratch/barness-ai-minimax/tools/test_paid.py", line 104, in invoke
+    if ok: self.assertEqual(p.returncode,0,p.stderr[-500:]+p.stdout[:200])
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : /opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '$FIXTURE/.scratch/barness-ai-minimax/tools/routed_validation.py': [Errno 2] No such file or directory
+
+
+----------------------------------------------------------------------
+Ran 18 tests in 23.278s
+
+FAILED (failures=1)

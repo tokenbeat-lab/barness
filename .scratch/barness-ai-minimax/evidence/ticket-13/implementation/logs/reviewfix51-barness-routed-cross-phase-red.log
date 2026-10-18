@@ -1,0 +1,22 @@
+test_cross_phase_settlement_reopens_pinned_original_proof (test_routed_validation.Routed.test_cross_phase_settlement_reopens_pinned_original_proof) ... FAIL
+
+======================================================================
+FAIL: test_cross_phase_settlement_reopens_pinned_original_proof (test_routed_validation.Routed.test_cross_phase_settlement_reopens_pinned_original_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$WORKTREE/.scratch/barness-ai-minimax/tools/test_routed_validation.py", line 183, in test_cross_phase_settlement_reopens_pinned_original_proof
+    self.assertEqual((actual['state'],actual['conservativeCalls'],actual['conservativeAttempts']),('UNKNOWN',24,32),(leaf,mode))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('REPORTED', 22, 22) != ('UNKNOWN', 24, 32)
+
+First differing element 0:
+'REPORTED'
+'UNKNOWN'
+
+- ('REPORTED', 22, 22)
++ ('UNKNOWN', 24, 32) : ('glm-chat/session/formal-glm-report.json', 'changed')
+
+----------------------------------------------------------------------
+Ran 1 test in 2.314s
+
+FAILED (failures=1)
