@@ -84,9 +84,44 @@ func validateMiniMaxMessagesBody(m Model, raw []byte, header http.Header, beta s
 			return invalid("MiniMax Messages supports only auto or none tool choice")
 		}
 	}
-	if tools, ok := body["tools"].([]any); ok {
+	if problem := miniMaxMessagesShape(body["messages"]); problem != "" {
+		return invalid(problem)
+	}
+	if value, present := body["tools"]; present {
+		tools, ok := value.([]any)
+		if !ok {
+			return invalid("MiniMax Messages tools must be an array")
+		}
 		for _, tool := range tools {
-			obj, _ := tool.(map[string]any)
+			obj, ok := tool.(map[string]any)
+			if !ok || !miniMaxMessagesString(obj["name"]) {
+				return invalid("MiniMax Messages function tool requires a name")
+			}
+			schema, ok := obj["input_schema"].(map[string]any)
+			if !ok || schema["type"] != "object" {
+				return invalid("MiniMax Messages function tool requires an object input_schema")
+			}
+			if description, present := obj["description"]; present {
+				if _, ok := description.(string); !ok {
+					return invalid("MiniMax Messages function tool description must be a string")
+				}
+			}
+			if properties, present := schema["properties"]; present {
+				if _, ok := properties.(map[string]any); !ok {
+					return invalid("MiniMax Messages schema properties must be an object")
+				}
+			}
+			if required, present := schema["required"]; present {
+				list, ok := required.([]any)
+				if !ok {
+					return invalid("MiniMax Messages schema required must be a string array")
+				}
+				for _, value := range list {
+					if _, ok := value.(string); !ok {
+						return invalid("MiniMax Messages schema required must be a string array")
+					}
+				}
+			}
 			for key := range obj {
 				if !slices.Contains([]string{"name", "description", "input_schema"}, key) {
 					return invalid("MiniMax Messages tool field is not supported: " + key)
