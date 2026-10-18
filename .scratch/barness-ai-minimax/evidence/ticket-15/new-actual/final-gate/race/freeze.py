@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Freeze only the explicitly closed race subtree, receipt and immutable plan."""
-import gzip,hashlib,io,json,os,stat,tarfile
+import argparse,gzip,hashlib,io,json,os,stat,tarfile
 from pathlib import Path
 import readers
 BASE=Path(__file__).resolve().parent;ROOT=Path('/Users/cyber/RestoX/barness');B=ROOT/'.evidence/minimax-release-repair-incomplete-gate-1';SESSION='20261018T121452.571280000Z';ORD=B/'gate/race'/SESSION;EXT=ROOT/'.evidence/minimax-retained/ticket-15-new-actual';SOURCE='7931b163f983a8b362374163b7949d31e68bbec4';PLAN='f97c97c158189bc741a22ea714a1cc64053ea79755d688f8a66450d87fab6985';b=readers.small();full=readers.full();sha=lambda v:hashlib.sha256(v).hexdigest()
@@ -12,8 +12,22 @@ def raw(path):
  if len(data)!=size or len(data)>64<<20:raise ValueError('original changed during snapshot')
  return data
 
-def main():
- archive=EXT/'incomplete-race-raw.tar.gz'
+def archive_pin(common,archive,limit):
+ # Independent standalone retention creators keep their existing reader protocol.
+ with b.opened(common,archive.relative_to(common).as_posix()) as stream:
+  before=os.fstat(stream.fileno())
+  if before.st_size>limit:raise ValueError('compressed archive size bound')
+  digest=hashlib.sha256();count=0
+  for chunk in iter(lambda:stream.read(1<<20),b''):
+   count+=len(chunk)
+   if count>limit:raise ValueError('compressed archive byte bound')
+   digest.update(chunk)
+  after=os.fstat(stream.fileno())
+  if count!=before.st_size or (before.st_size,before.st_mtime_ns,before.st_ctime_ns)!=(after.st_size,after.st_mtime_ns,after.st_ctime_ns):raise ValueError('archive changed during final bounded hash')
+ return count,digest.hexdigest()
+
+def main(common):
+ archive=common/'.evidence/minimax-retained/ticket-15-new-actual/incomplete-race-raw.tar.gz'
  if archive.exists() or (BASE/'index.json').exists():raise ValueError('fresh exclusive race capsule required')
  plan=raw(B/'plan-v2.json');receipt=raw(B/'gate-command-exits/race.json');source=raw(ROOT/'.evidence/minimax-release-repair-glm-1/source-at-start.json');p=b.doc(plan);r=b.doc(receipt)
  if sha(plan)!=PLAN or p['source']!=b.doc(source) or p['source']['sourceCommit']!=SOURCE or len(p['source']['files'])!=1056 or r['state']!='COMPLETED' or type(r['exitCode']) is not int or r['exitCode']!=1 or r['credentialsRead'] is not False or r['argv']!=['/usr/local/go/bin/go','test','-race','-count=1','-timeout=75m','./...']:raise ValueError('closed original race/source/plan required')
@@ -51,6 +65,8 @@ def main():
   for leaf in case.get('artifacts',{}):
    n='race/'+SESSION+'/'+case['dir']+'/'+leaf
    if leaf.endswith('.json') and pins[n]['bytes']<=1<<20:observe.append(n)
- cap=dict(sourceCommit=SOURCE,suite='race',limits=full.LIMITS,archive=dict(file=archive.relative_to(ROOT).as_posix(),bytes=archive.stat().st_size,sha256=sha(archive.read_bytes()),prefix=prefix),inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-at-start.json.gz',compressedSHA256=sha(se),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='source/source-at-start.json'),observe=sorted(set(observe)),mainManifest=manifest,originalsUnchangedAfterSnapshot=True,retentionPaidCalls=0,retentionCredentialsRead=False,gateVerdictCaptured=False,raceCaptured=True)
+ archive_bytes,archive_sha256=archive_pin(common,archive,full.LIMITS['compressedBytes'])
+ cap=dict(sourceCommit=SOURCE,suite='race',limits=full.LIMITS,archive=dict(file=archive.relative_to(common).as_posix(),bytes=archive_bytes,sha256=archive_sha256,prefix=prefix),inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-at-start.json.gz',compressedSHA256=sha(se),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='source/source-at-start.json'),observe=sorted(set(observe)),mainManifest=manifest,originalsUnchangedAfterSnapshot=True,retentionPaidCalls=0,retentionCredentialsRead=False,gateVerdictCaptured=False,raceCaptured=True)
  (BASE/'index.json').write_text(json.dumps(cap,separators=(',',':'))+'\n');archive.chmod(0o444);print(json.dumps(dict(archive=cap['archive'],files=len(pins),rawBytes=sum(v['bytes'] for v in pins.values()),observations=len(cap['observe']))),flush=True)
-if __name__=='__main__':main()
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,default=ROOT);main(p.parse_args().common_root)

@@ -1,0 +1,61 @@
+{
+  "case": "source-oversize",
+  "creator": "ticket17",
+  "expectation": "unsafe",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/creator-probe.py",
+    "--child",
+    "--creator",
+    "ticket17",
+    "--case",
+    "source-oversize",
+    "--producer",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/red-source-oversize/clone/.scratch/barness-ai-minimax/evidence/ticket-17/freeze.py",
+    "--common",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/red-source-oversize/common",
+    "--events",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/red-source-oversize/events.jsonl"
+  ],
+  "exitCode": 0,
+  "seconds": 36.12298533320427,
+  "timeout": false,
+  "injected": false,
+  "nextCommandRead": true,
+  "indexPublished": true,
+  "diagnostic": "",
+  "originalBefore": {
+    "target": {
+      "type": 32768,
+      "mode": 420,
+      "bytes": 107685,
+      "sha256": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299"
+    },
+    "archive": {
+      "type": 32768,
+      "mode": 292,
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d"
+    }
+  },
+  "originalAfter": {
+    "target": {
+      "type": 32768,
+      "mode": 420,
+      "bytes": 107685,
+      "sha256": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299"
+    },
+    "archive": {
+      "type": 32768,
+      "mode": 292,
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d"
+    }
+  },
+  "originalsUnchanged": true,
+  "producerSHA256": "3da01a866bc38499f08c76b7cc50c60894ef6b01970e22f9ca4a04665ee93eaa",
+  "probeSHA256": "6b54a16bb20467cc627df08792aefe7ef4152e2090d7efe6a7f112b5ff9d6223",
+  "credentialsRead": false,
+  "paidCalls": 0
+}

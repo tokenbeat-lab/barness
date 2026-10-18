@@ -1,0 +1,50 @@
+{
+  "kind": "NON_AUTHORITATIVE-negative-resource-fixture",
+  "originalArchiveSHA256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d",
+  "value": "float",
+  "changes": {
+    "stages/green-final-native-shapes/bundles/20261018T123017.584602000Z/MM04-final-block-field-text-missing/resources.json": {
+      "before": {
+        "bytes": 99,
+        "sha256": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42"
+      },
+      "after": {
+        "bytes": 76,
+        "sha256": "30d78da33351f21232839028bc1c1739a30e7311a83bf33bced271ffe86d147c"
+      }
+    },
+    "stages/green-final-native-shapes/bundles/20261018T123017.584602000Z/manifest.json": {
+      "before": {
+        "bytes": 54323,
+        "sha256": "1b936a2ab42e3d71d177bade2c1241d4b06bc42ee35b0d6abf076e64f991e035"
+      },
+      "after": {
+        "bytes": 54323,
+        "sha256": "ba323c5d91877f935ef7fbed12249927468ceed9c38350f73a7e66005bc40c9f"
+      }
+    }
+  },
+  "files": 62996,
+  "unchangedOtherFiles": 62994,
+  "archive": {
+    "file": ".evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+    "bytes": 90847894,
+    "sha256": "5cb9eddba4cbca5c4f03cf0521ad58028d18ca9aa56ec8886bfc951edd162161",
+    "prefix": "ticket17-offline-tdd"
+  },
+  "limits": {
+    "compressedBytes": 268435456,
+    "decodedTarBytes": 2147483648,
+    "files": 160000,
+    "entries": 200000,
+    "memberBytes": 67108864,
+    "observedMetadataBytes": 16777216,
+    "observedTotalBytes": 67108864,
+    "inventoryDecodedBytes": 41943040,
+    "inventoryCompressedBytes": 8388608,
+    "rawMemberBytes": 1677721600
+  },
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "releaseCertified": false
+}

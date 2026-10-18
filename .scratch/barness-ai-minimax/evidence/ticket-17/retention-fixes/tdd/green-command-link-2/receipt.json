@@ -1,0 +1,61 @@
+{
+  "case": "command-link",
+  "creator": "ticket17",
+  "expectation": "bounded",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/creator-probe.py",
+    "--child",
+    "--creator",
+    "ticket17",
+    "--case",
+    "command-link",
+    "--producer",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-command-link-2/clone/.scratch/barness-ai-minimax/evidence/ticket-17/freeze.py",
+    "--common",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-command-link-2/common",
+    "--events",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-command-link-2/events.jsonl"
+  ],
+  "exitCode": 1,
+  "seconds": 2.391749333124608,
+  "timeout": false,
+  "injected": true,
+  "nextCommandRead": false,
+  "indexPublished": false,
+  "diagnostic": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/creator-probe.py\", line 93, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--creator',choices=('ticket17','race','verdict'),required=True);p.add_argument('--case',required=True);p.add_argument('--expect',choices=('unsafe','bounded'));p.add_argument('--out');p.add_argument('--child',action='store_true');p.add_argument('--producer');p.add_argument('--common');p.add_argument('--events');a=p.parse_args();child(a) if a.child else main(a)\n                                                                                                                                                                                                                                                                                                                                                                                         ~~~~~^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/creator-probe.py\", line 51, in child\n    sys.path.insert(0,str(base));sys.addaudithook(audit);sys.argv=[str(producer),'--common-root',a.common];runpy.run_path(str(producer),run_name='__main__')\n                                                                                                           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen runpy>\", line 294, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-command-link-2/clone/.scratch/barness-ai-minimax/evidence/ticket-17/freeze.py\", line 82, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,default=COMMON);main(p.parse_args().common_root)\n                                                                                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-command-link-2/clone/.scratch/barness-ai-minimax/evidence/ticket-17/freeze.py\", line 36, in main\n    v=json.loads(read(RAW/label/'command.json'))\n                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-command-link-2/clone/.scratch/barness-ai-minimax/evidence/ticket-17/freeze.py\", line 29, in read\n    with b.opened(root,relative) as f:\n         ~~~~~~~~^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-command-link-2/clone/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 31, in opened\n    child=os.open(part,flags,dir_fd=fd);os.close(fd);fd=child\nOSError: [Errno 62] Too many levels of symbolic links: 'command.json'\n",
+  "originalBefore": {
+    "target": {
+      "type": 32768,
+      "mode": 420,
+      "bytes": 659,
+      "sha256": "954904d58c5c665f8d08aec7fbd51a1a1a23b71bd2cb05eb7131033e90c65c9b"
+    },
+    "archive": {
+      "type": 32768,
+      "mode": 292,
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d"
+    }
+  },
+  "originalAfter": {
+    "target": {
+      "type": 32768,
+      "mode": 420,
+      "bytes": 659,
+      "sha256": "954904d58c5c665f8d08aec7fbd51a1a1a23b71bd2cb05eb7131033e90c65c9b"
+    },
+    "archive": {
+      "type": 32768,
+      "mode": 292,
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d"
+    }
+  },
+  "originalsUnchanged": true,
+  "producerSHA256": "a65f069f7c995c09a4a63106a602369d5ef584fb0debbd0b31a6b9e1fbf1af2e",
+  "probeSHA256": "dd5109648420fc588534cf1395f94bfdc66307de515f753d8ba2d3a1d033eab6",
+  "credentialsRead": false,
+  "paidCalls": 0
+}

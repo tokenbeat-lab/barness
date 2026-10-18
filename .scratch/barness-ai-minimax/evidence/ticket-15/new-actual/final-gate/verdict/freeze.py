@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Exclusively freeze all closed outer B originals without duplicating suite bulk."""
-import gzip,hashlib,io,json,os,stat,tarfile
+import argparse,gzip,hashlib,io,json,os,stat,tarfile
 from pathlib import Path
 import readers
 BASE=Path(__file__).resolve().parent;ROOT=Path('/Users/cyber/RestoX/barness');B=ROOT/'.evidence/minimax-release-repair-incomplete-gate-1';EXT=ROOT/'.evidence/minimax-retained/ticket-15-new-actual';SOURCE='7931b163f983a8b362374163b7949d31e68bbec4';b=readers.small();full=readers.full();sha=lambda v:hashlib.sha256(v).hexdigest()
@@ -11,8 +11,22 @@ def raw(path):
   data=f.read((64<<20)+1)
  if len(data)!=size:raise ValueError('original changed during read')
  return data
-def main():
- archive=EXT/'incomplete-outer-raw.tar.gz'
+def archive_pin(common,archive,limit):
+ # Independent standalone retention creators keep their existing reader protocol.
+ with b.opened(common,archive.relative_to(common).as_posix()) as stream:
+  before=os.fstat(stream.fileno())
+  if before.st_size>limit:raise ValueError('compressed archive size bound')
+  digest=hashlib.sha256();count=0
+  for chunk in iter(lambda:stream.read(1<<20),b''):
+   count+=len(chunk)
+   if count>limit:raise ValueError('compressed archive byte bound')
+   digest.update(chunk)
+  after=os.fstat(stream.fileno())
+  if count!=before.st_size or (before.st_size,before.st_mtime_ns,before.st_ctime_ns)!=(after.st_size,after.st_mtime_ns,after.st_ctime_ns):raise ValueError('archive changed during final bounded hash')
+ return count,digest.hexdigest()
+
+def main(common):
+ archive=common/'.evidence/minimax-retained/ticket-15-new-actual/incomplete-outer-raw.tar.gz'
  if archive.exists() or (BASE/'index.json').exists():raise ValueError('exclusive fresh outer capsule required')
  selected={};pending=[(B,0)];entries=0;total=0
  while pending:
@@ -43,8 +57,10 @@ def main():
   if sha(raw(path))!=pins[name]['sha256']:raise ValueError('original outer changed after snapshot')
  if source!=raw(ROOT/'.evidence/minimax-release-repair-glm-1/source-at-start.json'):raise ValueError('original source changed after snapshot')
  inventory=(json.dumps(pins,sort_keys=True,separators=(',',':'))+'\n').encode();encoded=gzip.compress(inventory,mtime=0);se=gzip.compress(source,mtime=0);(BASE/'inventory.json.gz').write_bytes(encoded);(BASE/'source-at-start.json.gz').write_bytes(se)
- refs={label:dict(frontdoor='../'+label,indexSHA256=sha((BASE.parent/label/'index.json').read_bytes())) for label in ('ordinary','race')}
+ refs={label:dict(frontdoor='../'+label,indexSHA256=sha(b.read(BASE.parent,label+'/index.json',1<<20))) for label in ('ordinary','race')}
  observe=sorted(set(pins)-{'outer/releasegate'})
- index=dict(kind='closed-incomplete-gate-verdict',sourceCommit=SOURCE,limits=full.LIMITS,archive=dict(file=archive.relative_to(ROOT).as_posix(),bytes=archive.stat().st_size,sha256=sha(archive.read_bytes()),prefix=prefix),inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-at-start.json.gz',compressedSHA256=sha(se),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='source/source-at-start.json'),observe=observe,suiteReferences=refs,originalsUnchangedAfterSnapshot=True,releaseCertified=False,credentialsRead=False,paidCalls=0,creationBounds=dict(files=512,entries=4096,depth=32,payloadBytes=64<<20,memberBytes=64<<20,compressedBytes=32<<20))
+ archive_bytes,archive_sha256=archive_pin(common,archive,32<<20)
+ index=dict(kind='closed-incomplete-gate-verdict',sourceCommit=SOURCE,limits=full.LIMITS,archive=dict(file=archive.relative_to(common).as_posix(),bytes=archive_bytes,sha256=archive_sha256,prefix=prefix),inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-at-start.json.gz',compressedSHA256=sha(se),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='source/source-at-start.json'),observe=observe,suiteReferences=refs,originalsUnchangedAfterSnapshot=True,releaseCertified=False,credentialsRead=False,paidCalls=0,creationBounds=dict(files=512,entries=4096,depth=32,payloadBytes=64<<20,memberBytes=64<<20,compressedBytes=32<<20))
  (BASE/'index.json').write_text(json.dumps(index,separators=(',',':'))+'\n');archive.chmod(0o444);print(json.dumps(dict(files=len(pins),rawBytes=sum(v['bytes'] for v in pins.values()),archive=index['archive']),indent=2))
-if __name__=='__main__':main()
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,default=ROOT);main(p.parse_args().common_root)

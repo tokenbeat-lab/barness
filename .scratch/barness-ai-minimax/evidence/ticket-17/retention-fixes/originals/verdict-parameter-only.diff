@@ -1,0 +1,31 @@
+--- original-actual
++++ destination-only-unsafe
+@@ -1,6 +1,6 @@
+ #!/usr/bin/env python3
+ """Exclusively freeze all closed outer B originals without duplicating suite bulk."""
+-import gzip,hashlib,io,json,os,stat,tarfile
++import argparse,gzip,hashlib,io,json,os,stat,tarfile
+ from pathlib import Path
+ import readers
+ BASE=Path(__file__).resolve().parent;ROOT=Path('/Users/cyber/RestoX/barness');B=ROOT/'.evidence/minimax-release-repair-incomplete-gate-1';EXT=ROOT/'.evidence/minimax-retained/ticket-15-new-actual';SOURCE='7931b163f983a8b362374163b7949d31e68bbec4';b=readers.small();full=readers.full();sha=lambda v:hashlib.sha256(v).hexdigest()
+@@ -11,8 +11,8 @@
+   data=f.read((64<<20)+1)
+  if len(data)!=size:raise ValueError('original changed during read')
+  return data
+-def main():
+- archive=EXT/'incomplete-outer-raw.tar.gz'
++def main(common):
++ archive=common/'.evidence/minimax-retained/ticket-15-new-actual/incomplete-outer-raw.tar.gz'
+  if archive.exists() or (BASE/'index.json').exists():raise ValueError('exclusive fresh outer capsule required')
+  selected={};pending=[(B,0)];entries=0;total=0
+  while pending:
+@@ -45,6 +45,7 @@
+  inventory=(json.dumps(pins,sort_keys=True,separators=(',',':'))+'\n').encode();encoded=gzip.compress(inventory,mtime=0);se=gzip.compress(source,mtime=0);(BASE/'inventory.json.gz').write_bytes(encoded);(BASE/'source-at-start.json.gz').write_bytes(se)
+  refs={label:dict(frontdoor='../'+label,indexSHA256=sha((BASE.parent/label/'index.json').read_bytes())) for label in ('ordinary','race')}
+  observe=sorted(set(pins)-{'outer/releasegate'})
+- index=dict(kind='closed-incomplete-gate-verdict',sourceCommit=SOURCE,limits=full.LIMITS,archive=dict(file=archive.relative_to(ROOT).as_posix(),bytes=archive.stat().st_size,sha256=sha(archive.read_bytes()),prefix=prefix),inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-at-start.json.gz',compressedSHA256=sha(se),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='source/source-at-start.json'),observe=observe,suiteReferences=refs,originalsUnchangedAfterSnapshot=True,releaseCertified=False,credentialsRead=False,paidCalls=0,creationBounds=dict(files=512,entries=4096,depth=32,payloadBytes=64<<20,memberBytes=64<<20,compressedBytes=32<<20))
++ index=dict(kind='closed-incomplete-gate-verdict',sourceCommit=SOURCE,limits=full.LIMITS,archive=dict(file=archive.relative_to(common).as_posix(),bytes=archive.stat().st_size,sha256=sha(archive.read_bytes()),prefix=prefix),inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-at-start.json.gz',compressedSHA256=sha(se),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='source/source-at-start.json'),observe=observe,suiteReferences=refs,originalsUnchangedAfterSnapshot=True,releaseCertified=False,credentialsRead=False,paidCalls=0,creationBounds=dict(files=512,entries=4096,depth=32,payloadBytes=64<<20,memberBytes=64<<20,compressedBytes=32<<20))
+  (BASE/'index.json').write_text(json.dumps(index,separators=(',',':'))+'\n');archive.chmod(0o444);print(json.dumps(dict(files=len(pins),rawBytes=sum(v['bytes'] for v in pins.values()),archive=index['archive']),indent=2))
+-if __name__=='__main__':main()
++if __name__=='__main__':
++ p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,default=ROOT);main(p.parse_args().common_root)

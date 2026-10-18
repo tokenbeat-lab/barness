@@ -15,3 +15,5 @@ python3 -B .scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/
 ```
 
 All archives remain regular-only, immutable, separately bounded by the established full-reader256MiB compressed/2GiB decoded/160000-file envelope. No original paid/Key/native/source data was modified during retention. Actual capture creation code is retained as historical source; a separately reviewed prospective same-FD hash-bound repair will not rewrite these archives. Current release remains PARTIAL.
+
+Prospective producer bound corrections and their original P2 review chain are in [ticket17 retention fixes](../../../ticket-17/retention-fixes/README.md). Original B archives/indexes and actual writer snapshots remain unchanged. The current destination option and final bounded hash path were checked only with isolated non-authoritative outputs; they do not rerun or revise this7931 gate.

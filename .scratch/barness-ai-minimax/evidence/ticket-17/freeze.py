@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Exclusively freeze the complete closed offline TDD, with unchanged full bounds."""
-import gzip,hashlib,io,json,os,stat,tarfile
+import argparse,gzip,hashlib,io,json,os,stat,tarfile
 from pathlib import Path
 import contract as c,readers
 BASE=Path(__file__).resolve().parent;ROOT=BASE.parents[3];RAW=ROOT/'.evidence/minimax-ticket17';COMMON=Path('/Users/cyber/RestoX/barness');sha=lambda v:hashlib.sha256(v).hexdigest()
-def main():
- b=readers.small();full=readers.full();archive=COMMON/c.ARCHIVE
+def main(common):
+ b=readers.small();full=readers.full();archive=common/c.ARCHIVE
  if archive.exists() or (BASE/'index.json').exists():raise ValueError('fresh exclusive retention required')
  expected=set(c.STAGES)|{'dependency-restore','dependency-restore-2'}
  if {p.name for p in RAW.iterdir()}!=expected:raise ValueError('exact original stage roots required')
@@ -23,15 +23,6 @@ def main():
     if not stat.S_ISREG(info.st_mode) or info.st_size>full.LIMITS['memberBytes']:raise ValueError('regular finite snapshot member required')
     name='stages/'+path.relative_to(RAW).as_posix();b.relative(name);selected[name]=path;total+=info.st_size
  if len(selected)>full.LIMITS['files'] or total>full.LIMITS['rawMemberBytes']:raise ValueError('snapshot file/payload bound')
- for label,(code,_) in c.STAGES.items():
-  v=json.loads((RAW/label/'command.json').read_bytes())
-  if v['state']!='COMPLETED' or type(v['exitCode']) is not int or v['exitCode']!=code or not v['sourceUnchangedAfter']:raise ValueError('all original commands must be closed with honest numeric codes')
- metadata=('source-proof.json','final-checks.json','original-spec-review.json','original-standards-review.json','failure-inventory.md','tool-fixture-repair-source-proof.json','tool-guard-reapplied-proof.json','trace-expansion.json','trace-byte-delta.json','trace-before.json.gz','trace-after.json.gz')
- for name in metadata:selected['final/'+name]=BASE/name
- selected['controllers/runner.py']=Path('/tmp/barness-ticket17-run.py').resolve();selected['controllers/freeze.py']=Path(__file__)
- 
- if len(selected)>full.LIMITS['files']:raise ValueError('final snapshot file bound')
- pins={};prefix='ticket17-offline-tdd';observed=[]
  def read(path):
   if path.is_relative_to(ROOT):root=ROOT;relative=path.relative_to(ROOT).as_posix()
   else:root=path.parent;relative=path.name
@@ -39,8 +30,17 @@ def main():
    size=os.fstat(f.fileno()).st_size
    if size>full.LIMITS['memberBytes']:raise ValueError('member size bound')
    data=f.read(full.LIMITS['memberBytes']+1)
-  if len(data)!=size:raise ValueError('snapshot source changed')
+  if len(data)>full.LIMITS['memberBytes'] or len(data)!=size:raise ValueError('snapshot source changed')
   return data
+ for label,(code,_) in c.STAGES.items():
+  v=json.loads(read(RAW/label/'command.json'))
+  if v['state']!='COMPLETED' or type(v['exitCode']) is not int or v['exitCode']!=code or not v['sourceUnchangedAfter']:raise ValueError('all original commands must be closed with honest numeric codes')
+ metadata=('source-proof.json','final-checks.json','original-spec-review.json','original-standards-review.json','failure-inventory.md','tool-fixture-repair-source-proof.json','tool-guard-reapplied-proof.json','trace-expansion.json','trace-byte-delta.json','trace-before.json.gz','trace-after.json.gz')
+ for name in metadata:selected['final/'+name]=BASE/name
+ selected['controllers/runner.py']=Path('/tmp/barness-ticket17-run.py').resolve();selected['controllers/freeze.py']=Path(__file__)
+
+ if len(selected)>full.LIMITS['files']:raise ValueError('final snapshot file bound')
+ pins={};prefix='ticket17-offline-tdd';observed=[]
  archive.parent.mkdir(parents=True,exist_ok=True)
  with archive.open('xb') as output:
   with gzip.GzipFile(fileobj=output,mode='wb',mtime=0,compresslevel=6) as zipped:
@@ -65,8 +65,18 @@ def main():
  if len(observed)>256 or len(set(observed))!=len(observed) or sum(pins[n]['bytes'] for n in observed)>full.LIMITS['observedTotalBytes'] or any(pins[n]['bytes']>full.LIMITS['observedMetadataBytes'] for n in observed):raise ValueError('fixed observation count')
  inventory=(json.dumps(pins,sort_keys=True,separators=(',',':'))+'\n').encode();encoded=gzip.compress(inventory,mtime=0);
  if len(inventory)>full.LIMITS['inventoryDecodedBytes'] or len(encoded)>full.LIMITS['inventoryCompressedBytes']:raise ValueError('fixed inventory bound')
- (BASE/'inventory.json.gz').write_bytes(encoded);source=(BASE/'source-proof.json').read_bytes();source_encoded=gzip.compress(source,mtime=0);(BASE/'source-proof.json.gz').write_bytes(source_encoded)
- with archive.open('rb') as f:digest=hashlib.file_digest(f,'sha256').hexdigest()
- index=dict(schema=1,kind='ticket17-offline-final-payload-tdd',sourceCommit=c.SOURCE,archive=dict(file=c.ARCHIVE,bytes=archive.stat().st_size,sha256=digest,prefix=prefix),limits=full.LIMITS,inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-proof.json.gz',compressedSHA256=sha(source_encoded),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='final/source-proof.json'),observe=sorted(observed),roots=roots,originalsUnchangedAfterSnapshot=True,credentialsRead=False,paidCalls=0,releaseCertified=False)
+ (BASE/'inventory.json.gz').write_bytes(encoded);source=read(BASE/'source-proof.json');source_encoded=gzip.compress(source,mtime=0);(BASE/'source-proof.json.gz').write_bytes(source_encoded)
+ with b.opened(common,c.ARCHIVE) as stream:
+  before=os.fstat(stream.fileno());digest=hashlib.sha256();archive_bytes=0
+  if before.st_size>full.LIMITS['compressedBytes']:raise ValueError('compressed archive size bound')
+  for chunk in iter(lambda:stream.read(1<<20),b''):
+   archive_bytes+=len(chunk)
+   if archive_bytes>full.LIMITS['compressedBytes']:raise ValueError('compressed archive byte bound')
+   digest.update(chunk)
+  after=os.fstat(stream.fileno())
+  if archive_bytes!=before.st_size or (before.st_size,before.st_mtime_ns,before.st_ctime_ns)!=(after.st_size,after.st_mtime_ns,after.st_ctime_ns):raise ValueError('archive changed during final bounded hash')
+ digest=digest.hexdigest()
+ index=dict(schema=1,kind='ticket17-offline-final-payload-tdd',sourceCommit=c.SOURCE,archive=dict(file=c.ARCHIVE,bytes=archive_bytes,sha256=digest,prefix=prefix),limits=full.LIMITS,inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-proof.json.gz',compressedSHA256=sha(source_encoded),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='final/source-proof.json'),observe=sorted(observed),roots=roots,originalsUnchangedAfterSnapshot=True,credentialsRead=False,paidCalls=0,releaseCertified=False)
  (BASE/'index.json').write_text(json.dumps(index,separators=(',',':'))+'\n');archive.chmod(0o444);print(json.dumps(dict(files=len(pins),rawBytes=sum(v['bytes'] for v in pins.values()),archive=index['archive'],observed=len(observed)),indent=2))
-if __name__=='__main__':main()
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,default=COMMON);main(p.parse_args().common_root)

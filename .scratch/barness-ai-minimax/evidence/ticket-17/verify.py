@@ -80,7 +80,8 @@ def main():
  pins,m,archive=full.verify(b,BASE,a.common_root,index);summary,resources=analyse(b,index,pins,m)
  follow=dict(index,observe=resources);_,values,_=full.verify(b,BASE,a.common_root,follow)
  for name in resources:
-  if b.doc(values[name])!={key:0 for key in ('bodies','calls','events','hostPermits','permits','waiters')}:raise ValueError('original public resource release differs')
+  row=b.doc(values[name]);keys={'bodies','calls','events','hostPermits','permits','waiters'}
+  if set(row)!=keys or any(type(value) is not int or value!=0 for value in row.values()):raise ValueError('original public resource release differs')
  if summary!=b.doc(b.read(BASE,'summary.json',1<<20)):raise ValueError('independent complete history summary differs')
  print(json.dumps(dict(verified=True,archive=archive,resourceRecords=len(resources),summary=summary),indent=2))
 if __name__=='__main__':

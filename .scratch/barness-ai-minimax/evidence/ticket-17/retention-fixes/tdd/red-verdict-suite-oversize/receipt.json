@@ -1,0 +1,61 @@
+{
+  "case": "suite-oversize",
+  "creator": "verdict",
+  "expectation": "unsafe",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/creator-probe.py",
+    "--child",
+    "--creator",
+    "verdict",
+    "--case",
+    "suite-oversize",
+    "--producer",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/red-verdict-suite-oversize/clone/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/freeze.py",
+    "--common",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/red-verdict-suite-oversize/common",
+    "--events",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/red-verdict-suite-oversize/events.jsonl"
+  ],
+  "exitCode": 0,
+  "seconds": 0.8569434592500329,
+  "timeout": false,
+  "injected": true,
+  "nextCommandRead": false,
+  "indexPublished": true,
+  "diagnostic": "",
+  "originalBefore": {
+    "target": {
+      "type": 32768,
+      "mode": 420,
+      "bytes": 2045,
+      "sha256": "02aaa2870f5fe0be70ec847f87eb370b8e81f1a38998725af5d1aebdac40e996"
+    },
+    "archive": {
+      "type": 32768,
+      "mode": 292,
+      "bytes": 13522586,
+      "sha256": "28a657eb1aecf02036af15ec47513c9f3100c0e6317e615a63429ff8a78fba3a"
+    }
+  },
+  "originalAfter": {
+    "target": {
+      "type": 32768,
+      "mode": 420,
+      "bytes": 2045,
+      "sha256": "02aaa2870f5fe0be70ec847f87eb370b8e81f1a38998725af5d1aebdac40e996"
+    },
+    "archive": {
+      "type": 32768,
+      "mode": 292,
+      "bytes": 13522586,
+      "sha256": "28a657eb1aecf02036af15ec47513c9f3100c0e6317e615a63429ff8a78fba3a"
+    }
+  },
+  "originalsUnchanged": true,
+  "producerSHA256": "8ccef5640509da9d3ca67ef96dd1f4ba6b8f14e59dfab2d58855705f07e594c6",
+  "probeSHA256": "6b54a16bb20467cc627df08792aefe7ef4152e2090d7efe6a7f112b5ff9d6223",
+  "credentialsRead": false,
+  "paidCalls": 0
+}
