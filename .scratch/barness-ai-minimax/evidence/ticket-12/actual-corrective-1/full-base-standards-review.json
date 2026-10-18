@@ -1,0 +1,29 @@
+{
+  "axis": "standards",
+  "base": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+  "target": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+  "diffCommand": "git diff ecfd4b4d6ec54db30453f4b5112989e9fdbd0782...5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+  "commitList": "/tmp/barness-minimax-final-source-commit-list.txt",
+  "verdict": "PASS",
+  "confidence": "high",
+  "documentedBreaches": [],
+  "judgmentSmells": [],
+  "findings": [],
+  "reviewMethod": "Reused prior pinned full-base and delta reviews for unchanged blobs; inspected intervening activation data, historical capsule/curation utilities, final evidence retention, and selected previously fixed boundary code.",
+  "priorReviewsReused": [
+    "e9731a4245339c0696bfad427b2d4efe500f2944",
+    "8d564103b7c3dda97e9bbfd1b6d50f435276becb",
+    "de051931b8d4e30fb6adf5cc5b2a3672f243ba35",
+    "df342b9e0f3fbc784e81081d81f9582a88223c9f",
+    "4ff6dca903adbf73b8324c7475482c4a902163ff",
+    "5abc1a541ed2ed09d588904bb7eb55f951f56f04",
+    "6ff05b843750d062de012bd4f64da625a3caa189",
+    "ecce8678dafb8dbf816539d4c958cc4dbcb7536c"
+  ],
+  "scope": "Stable implementation source verdict only; user-approved corrective execution and remaining legacy/effect/final-gate evidence require later final integration review.",
+  "repoMutations": false,
+  "testsRun": false,
+  "credentialAccess": false,
+  "networkUsed": false,
+  "vendorCalls": 0
+}

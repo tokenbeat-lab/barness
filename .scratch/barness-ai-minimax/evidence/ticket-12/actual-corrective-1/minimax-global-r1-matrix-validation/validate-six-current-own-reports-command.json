@@ -1,0 +1,35 @@
+{
+  "state": "COMPLETED",
+  "name": "validate-six-current-own-reports",
+  "argv": [
+    "go",
+    "run",
+    "./ai/live/cmd/supportmatrix",
+    "-matrix",
+    "$REPO/.evidence/minimax-global-r1-matrix-validation/matrix-copy.json",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat/20261018T041951.329592000Z",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses/20261018T042202.466861000Z",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages/20261018T042527.020498000Z",
+    "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z",
+    "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z",
+    "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 300,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T04:30:45.845767+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.7244034172035754,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

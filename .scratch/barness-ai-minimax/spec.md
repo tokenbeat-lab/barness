@@ -6,7 +6,7 @@ Updated: 2026-10-18
 
 本文件是交付契约，本身不表示 MiniMax 接入或真实冒烟已通过。2026-10-18 用户明确将接入目标改为国际站；当前依据为 [国际站研究](research-international.md)，[中国区研究](research.md)及原始失败捕获作为历史保留。官方声明、文档冲突与待实测项分别记录，不将其他地区或厂商的行为当作国际站事实。
 
-当前交付为PARTIAL，见[交付状态](delivery-status.md)。国际站M3三候选与三份自身正式已PASS；旧GLM证据补正的唯一额外预算方案见[工单12](issues/12-glm-corrective-1.md)，当前PENDING HUMAN APPROVAL，不能由已完成的M3验收推导新付费权限。此前中国区实现和离线验证不授予国际站支持；[工单11](issues/11-international-target.md)完成国际站切换后继续10/09的真实验收、旧证据续期与完整门禁。此前中国区两次调用、两次Attempt仍计入共同候选阶段预算，历史不重置。
+当前交付为PARTIAL，见[交付状态](delivery-status.md)。国际站M3三候选与三份自身正式已PASS；旧GLM证据补正的唯一额外预算方案见[工单12](issues/12-glm-corrective-1.md)，用户已明确批准唯一额外72/96补正，三路已执行66/66：Chat、Messages各22/22 PASS，Responses为21 PASS/1 FAIL；原66/66保留，累计132/132，无自动下一轮。其余15项原授权验证和完整门禁继续，见[实际补正证据](evidence/ticket-12/actual-corrective-1/README.md)。此前中国区实现和离线验证不授予国际站支持；[工单11](issues/11-international-target.md)完成国际站切换后继续10/09的真实验收、旧证据续期与完整门禁。此前中国区两次调用、两次Attempt仍计入共同候选阶段预算，历史不重置。
 
 领域与架构依据：[领域词汇](../../GLOSSARY.md)、[协议边界 ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[DeepSeek Responses ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[DeepSeek Chat ADR-0015](../../docs/adr/0015-barness-ai-deepseek-chat-completions.md)、[型号纳入 ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[Provider 自动字段 ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[GLM 接入 spec](../barness-ai-glm/spec.md)、[GLM 正式支持 ADR-0036](../../docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)。
 

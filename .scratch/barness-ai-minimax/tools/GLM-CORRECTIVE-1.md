@@ -1,6 +1,15 @@
-# GLM corrective-1 — PENDING HUMAN APPROVAL
+# GLM corrective-1 — APPROVED AND EXECUTED (PARTIAL)
 
-This prospective workflow is deliberately separate from the spent original
+Current outcome: the user approved the one72/96 extension. All three exact
+processes completed at5bf2c16, additional66/66 and cumulative132/132. Chat and
+Messages PASS22/22; Responses FAIL21PASS/1FAIL because its complete native-history
+response contained no visible text. No R2 is authorized. The archive command
+below correctly refused; the four existing selectors stayed unchanged.
+[Immutable actual evidence](../evidence/ticket-12/actual-corrective-1/README.md).
+The remaining instructions document the original approval boundary and must
+not be used to restart spent intents.
+
+This workflow is deliberately separate from the spent original
 `glm-{chat,responses,messages}` intents. It never changes them or splices scenes.
 One new full22 process per route, max24 calls/32 Attempts, output4096,
 120s/call,1800s/process, zero default retries. Additional72/96 plus original66/66
@@ -26,7 +35,7 @@ the exact independent source review (GLM_KEY scope `glm-corrective-1`) and
 human-approval.json matching source/binary/plan/checks/original receipt pins.
 No paid command is authorized by this document or its code.
 
-Only after that future approval, `run-selected` accepts exactly the three fixed
+Only after that explicit approval, `run-selected` accepts exactly the three fixed
 `glm-corrective-1-*` names. It exclusively creates a shared-common-Git-root
 intent before acquiring only GLM_KEY and injects only BARNESS_GLM_KEY. Interrupted
 or unknown outcomes consume a full24/32 reservation. Changing output directory

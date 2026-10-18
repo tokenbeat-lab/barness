@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "createdAt": "2026-10-18T04:30:11.740293+00:00",
+  "sourceCommit": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+  "curator": "/root/candidate_capsule",
+  "qualification": "PARTIAL",
+  "scripts": {
+    "common.py": {
+      "sha256": "678ac1bc76ae097244986830723905f294d4c1aa249815642c6d8989935031df",
+      "bytes": 4015
+    },
+    "glm.py": {
+      "sha256": "2842c16f22f65ca454616d72fc311002df9501003b8547517fa028f44b4b8290",
+      "bytes": 9285
+    },
+    "glm_forensic.py": {
+      "sha256": "0d0090d43db40e4562377a12479416e7c4bc8da8de56e9c9bcceca2e8cbc9dfe",
+      "bytes": 9469
+    },
+    "prepare_actual.py": {
+      "sha256": "5968911eb031479575a61c951fb4cb419338ea7d62c011004ca83261170c820b",
+      "bytes": 7794
+    },
+    "prepare_closed_responses.py": {
+      "sha256": "9290e0753b535676954d0938fef00198189a8ad087d1ab3ff063185c087e30d1",
+      "bytes": 2284
+    },
+    "retain_prepay.py": {
+      "sha256": "452a973c141fff520be0a076e6f1d702ae1d526ef49f8b947bbea6cbe3599748",
+      "bytes": 5912
+    },
+    "retain_actual.py": {
+      "sha256": "3d53864cb47f5704edd04f062401e203efa32d37b75f68dceaffa7b3c4796eda",
+      "bytes": 15378
+    },
+    "verify_actual.py": {
+      "sha256": "c0ce198c4d72d4378c8bbdb04a2a09ec4f9b0dd5bfa104b9cde8d22439e133c3",
+      "bytes": 11068
+    }
+  },
+  "outputs": {
+    "glm-corrective-actual-5bf2c16.tar.gz": {
+      "sha256": "3ecbc3fec9929ede98e0feeb4e18b9bfd0d71a96bbd2323d676a8910c8529d38",
+      "bytes": 4632201
+    },
+    "glm-corrective-actual-5bf2c16.json": {
+      "sha256": "8dbbfaefafb4871545ebe267d61320f52dae25abb22f0f060a51ae92d9ed92e6",
+      "bytes": 497829
+    },
+    "glm-corrective-actual-5bf2c16-audit.md": {
+      "sha256": "ad8523de9533c10ba703585c776790b30fd7768d7d4155f6619864eafb0053b6",
+      "bytes": 3233
+    }
+  },
+  "credentialsRead": false,
+  "networkUsed": false,
+  "testsRun": false,
+  "rootModified": false
+}

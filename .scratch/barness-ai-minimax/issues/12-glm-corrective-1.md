@@ -3,13 +3,13 @@
 Status: ready-for-human
 Type: task
 Updated: 2026-10-18
-Blocked by: explicit human approval of additional paid budget
+Blocked by: actual GLM Responses native-history failure
 
 ## Context
 
 国际站三条 M3 formal 已有自身通过证据；冻结来源8900034下 GLM Chat、Messages 各22/22 PASS，Responses 为21 PASS/1 FAIL。失败既有512KiB wire截断和17.7MB事件重复快照，又有真实4096输出耗尽、只有thinking而无最终text。原始三路66 calls/66 Attempts、失败捕获、intent及报告不修改。此票不重开原进程、不拼接场景、不变更正式导入或来源规则。[ADR0045](../../../docs/adr/0045-glm-corrective-capture-round.md)。
 
-## Prospective contract — PENDING HUMAN APPROVAL
+## Approved one-round contract
 
 只新增一次固定 `glm-corrective-1-{chat,responses,messages}` 三路完整22场景。沿用既定prompts/plan/source manifest、两型号、4096输出、120s单调用/1800s进程、默认零重试，各24 calls/32 Attempts，无自动R2。原66/66不刷新；额外最多72/96，本次续期GLM累计上限138/162；其他旧能力302/302保持，旧能力总体440/464。原unused6/30不转移。人类明确同意前禁止读取凭据或调用；实现只生成PENDING模板，精确code/binary/plan/checks及原收据pins需同时获得人类授权和独立源码审查。
 
@@ -27,6 +27,6 @@ Blocked by: explicit human approval of additional paid budget
 
 4ff完整GLM普通/race各61项PASS、审计0；最终6ff针对全部新捕获与事件预算的普通/race各4项PASS、审计0，工具CLI35项PASS，普通/live vet通过。原4ff两条Spec发现、5abc修正与6ff fixture独立双轴报告均保留，最终两轴0 open。5abc中间race为4项断言PASS但实现者中断慢速final audit，exit-15/无审计，不能称为Go PASS或timeout；纠正说明原样保留。详见[证据](../evidence/ticket-12/README.md)。
 
-付费预算扩展仍为 **PENDING HUMAN APPROVAL**。本票没有读取用户.env/真实Key、调用厂商、创建APPROVED或新的canonical R1 intent，也未改写任何真实历史。原Responses失败、GLM当前来源续期及全规格未完成状态保持；父任务将在集成后生成精确PENDING源码/二进制/计划/检查pins供人类审批。
+以上为离线实现检查点。用户随后明确批准唯一新增72/96；精确来源5bf2c16、二进制/计划/检查及APPROVED收据均在[实际补正胶囊](../evidence/ticket-12/actual-corrective-1/README.md)保留。实际额外66 calls/66 Attempts，连原66/66为132/132。Chat与Messages各22/22 PASS；Responses为21 PASS/1 FAIL，glm-5.2/native-history的完整HTTP200/SSE只有推理而无正文，适配器未丢失内容。三路均完成且审计通过；没有R2。严格raw/views续期拒绝失败、原四selector不变；公共矩阵可记录真实完整FAIL。此外部验收阻塞未解决，票12保持ready-for-human，10/09/spec保持未关闭；其余15项原授权验证与完整门禁继续。
 
 Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66/66 plus corrective-1. Prior GLM-task paid history (including its separate282-call contract) remains immutable and separately accounted; this extension does not erase or reset it.

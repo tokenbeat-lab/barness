@@ -1,0 +1,11 @@
+# Executed GLM corrective-1: PARTIAL
+
+The user explicitly approved one additional72-call/96-Attempt round. At source5bf2c16, Chat and Messages each PASS22/22; Responses is21PASS/1FAIL at glm-5.2/native-history. Total additional66/66, current renewal132/132 including the immutable original66/66. No R2 was started. [Provider diagnosis](responses-provider-omission.md) confirms complete HTTP200/SSE with reasoning only and no visible-text payload; the adapter preserves all returned content.
+
+The4,632,201-byte actual archive preserves1034Git source files, all three own raw357-file captures, APPROVED user/source receipts, exact plans/commands, final accounting and original canonical lineage. The existing Responses producer seal/view remain forensic FAIL, incomplete and without successful canonical capturePins; they never certify support. Chat/Messages qualify individually. Curation15037checks and portable verification109798checksPASS certify integrity only.
+
+The separate passed no-key prepay archive (336PASS/62NOT_RUN/audit0) is retained at `$COMMON/.evidence/minimax-retained/corrective-approved-prepay-5bf2c16.tar.gz`, SHA2566517f953a0e56fb5cf477f0196704193af76589137c11322a5c83179f223e71a. Its complete index/inventory are here. The prior9dc failed preflight remains335PASS/62NOT_RUN/audit2/Goexit1, with source proof retained beside this directory; it was not relabeled.
+
+The strict current GLM archive/views renewal refused the failed report and left all four existing selector files byte-identical. Separately, the existing public supportmatrix importer accepted a temporary six-input current matrix containing the authentic ResponsesFAIL plus the twoGLMPASS and threeM3PASS reports. This changes no actual matrix and proves that truthful failure recording is distinct from support certification. A final17-input atomic import may record actual outcomes; the release gate must continue refusing incomplete support.
+
+Full-base Standards and Spec source reviews both PASS0 at5bf2c16. Remaining15legacy/effect actual jobs and the real ordinary/race release gate remain mandatory. The GLM failure is an unresolved external acceptance blocker; it does not authorize another paid round or weaker assertions.

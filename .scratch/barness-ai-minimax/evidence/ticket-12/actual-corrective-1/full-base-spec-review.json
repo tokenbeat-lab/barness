@@ -1,0 +1,57 @@
+{
+  "base": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+  "target": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+  "diff": "git diff ecfd4b4...5bf2c16",
+  "scope": "full-base Spec source review; R01-R28/A01-A20; release/evidence integration remains incomplete",
+  "confidence": "high",
+  "verdict": "PASS",
+  "findings": [],
+  "preservation": {
+    "oldSupportRows": 14,
+    "currentRows": 17,
+    "currentRoutes": 16,
+    "oldDecisions": 317,
+    "oldExtensionRoutes": 6,
+    "oldTraceObjects": 262,
+    "oldChatModels": 93,
+    "oldImageModels": 2,
+    "oldClassifierModels": 3,
+    "frozenPiPackageAndProvenanceUnchanged": true,
+    "historicalCNIntentAndFirstFourLedgerReceiptsUnchanged": true
+  },
+  "m3FormalSources": {
+    "chat": {
+      "files": 263,
+      "drift": 0,
+      "outcome": "PASS",
+      "calls": 13,
+      "attempts": 12
+    },
+    "responses": {
+      "files": 263,
+      "drift": 0,
+      "outcome": "PASS",
+      "calls": 13,
+      "attempts": 12
+    },
+    "messages": {
+      "files": 263,
+      "drift": 0,
+      "outcome": "PASS",
+      "calls": 13,
+      "attempts": 12
+    }
+  },
+  "minimaxLedger": {
+    "candidate": {
+      "calls": 49,
+      "attempts": 45
+    },
+    "formal": {
+      "calls": 39,
+      "attempts": 36
+    }
+  },
+  "glmCorrectiveAuthorization": "explicit human approval reported by trusted parent; existing exact source/binary/plan/checks controls still required",
+  "releaseCertification": false
+}
