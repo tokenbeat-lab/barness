@@ -9,6 +9,10 @@ and existing observations; it does not execute vendor calls, change runtime
 sources, or close ticket09, ticket10 or the spec. Integration base is
 `01cfc5a4eadfe31c35feb93500b3b3e270274d75`.
 
+## International research checkpoint
+
+[Independent read-only audit](international-research-audit.md) passes3,439integrity/accountingchecks for [source38b rawresearch](../ticket-10/international-research-38b7098.json). Global authentication and actualM3 are observed. Chatmirror parsing and Responsesnative localencoding remain runtime gaps; Messagesresearch3PASS is incompletecandidate evidence. Stage10calls/9Attempts/10reserved includesCN2/2;formal0. This audit neither fixes runtime nor certifies support. [Provenance](international-research-audit-provenance.json).
+
 ## Finite traceability
 
 The following tables copy the exact finite `requiredCases` selections from

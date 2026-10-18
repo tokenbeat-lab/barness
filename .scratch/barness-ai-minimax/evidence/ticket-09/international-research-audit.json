@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "kind": "independent-read-only-international-research-audit",
+  "captureIntegrity": "PASS",
+  "candidateAndFormalSupport": "PENDING",
+  "checksPassed": 3439,
+  "archivedFiles": 148,
+  "archivedBytes": 2041697,
+  "archiveSha256": "b272fa0aa78ca83a22d792bae1e4ac8ca0ee479d1ddc5bcf3dfc7d5db5f383ca",
+  "archiveIndexSha256": "ee4aea08098148086b2d1272f287e5f408badabd8735686027cf02ba21c13bab",
+  "requestedIntegrationPin": "70b5af6",
+  "observedHEAD": "26c31bce197bb5c97f9b1e66b1144bc31bb2862b",
+  "actualCaptureSource": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+  "sourceHashesVerified": 1018,
+  "canonicalCaptureFilesCompared": 123,
+  "newHTTPAttemptsVerified": 7,
+  "reportSummaries": {
+    "chat": {
+      "outcome": "FAIL",
+      "complete": false,
+      "budget": {
+        "calls": 2,
+        "reservedAttempts": 2,
+        "attempts": 2,
+        "requestedOutput": 5120,
+        "reservedInput": 4096
+      },
+      "cumulativeSlotBudget": {
+        "calls": 4,
+        "reservedAttempts": 4,
+        "attempts": 4,
+        "requestedOutput": 10240,
+        "reservedInput": 8192
+      },
+      "callOutcomes": [
+        "FAIL",
+        "FAIL"
+      ]
+    },
+    "responses": {
+      "outcome": "FAIL",
+      "complete": false,
+      "budget": {
+        "calls": 3,
+        "reservedAttempts": 3,
+        "attempts": 2,
+        "requestedOutput": 7168,
+        "reservedInput": 7650
+      },
+      "cumulativeSlotBudget": {
+        "calls": 3,
+        "reservedAttempts": 3,
+        "attempts": 2,
+        "requestedOutput": 7168,
+        "reservedInput": 7650
+      },
+      "callOutcomes": [
+        "PASS",
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "messages": {
+      "outcome": "PASS",
+      "complete": false,
+      "budget": {
+        "calls": 3,
+        "reservedAttempts": 3,
+        "attempts": 3,
+        "requestedOutput": 7168,
+        "reservedInput": 6887
+      },
+      "cumulativeSlotBudget": {
+        "calls": 3,
+        "reservedAttempts": 3,
+        "attempts": 3,
+        "requestedOutput": 7168,
+        "reservedInput": 6887
+      },
+      "callOutcomes": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    }
+  },
+  "stage": {
+    "calls": 10,
+    "attempts": 9,
+    "reservedAttempts": 10,
+    "formalCalls": 0,
+    "formalAttempts": 0
+  },
+  "readEnvironmentOrKey": false,
+  "networkRequests": 0,
+  "testsRun": false,
+  "repoOrCaptureMutations": false,
+  "findings": [],
+  "limits": "Integrity/accounting of immutable research only; no current-source or candidate/formal support certification. Unknown Chat usage is not free consumption.",
+  "originalCNCaptureFilesCompared": 34,
+  "canonicalCaptureFilesComparedIncludingCN": 157,
+  "allSlotsWithinOriginalCaps": true,
+  "stageWithinOriginalCaps": true
+}
