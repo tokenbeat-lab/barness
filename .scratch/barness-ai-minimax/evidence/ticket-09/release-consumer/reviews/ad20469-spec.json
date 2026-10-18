@@ -1,0 +1,58 @@
+{
+  "base": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+  "target": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+  "confidence": "high",
+  "verdict": "PASS",
+  "findings": [],
+  "producerRepair": {
+    "lookupControlID": "MM06-frozen-catalog-metadata",
+    "lookupAssertionsAndArtifactsPreserved": true,
+    "twoOriginalProducerCasesRetained": true,
+    "genuineCatalogCompareRecordRetained": true,
+    "genuineWireDifferentialsUnchanged": true,
+    "actualGoToolchainAndModuleProvenance": true,
+    "frozenNpmProvenanceUnchanged": true,
+    "zeroStructuredRequestNotHTTP": true
+  },
+  "traceVerification": {
+    "totalItems": 394,
+    "changedRows": [
+      "MM-R24",
+      "MM-T03",
+      "MM-A19",
+      "MM-US68",
+      "MM-US71",
+      "MM-US72",
+      "MM-US73"
+    ],
+    "changedLeaves": 14,
+    "changes": "exact old/new control ID only in regex and requiredCases",
+    "requiredCaseCountsUnchanged": true,
+    "allOtherFieldsEqual": true
+  },
+  "strictConsumerSDKNegatives": {
+    "coherentArtifactRehash": true,
+    "inventoryProblems": 0,
+    "missingGo": "sdk_versions mismatch",
+    "wrongPi": "sdk_versions mismatch",
+    "consumerUnchanged": true
+  },
+  "exactTargetRetainedReceipts": {
+    "ordinaryExit": 0,
+    "raceExit": 0,
+    "producerChildRace": true,
+    "vetExit": 0,
+    "vetLiveExit": 0
+  },
+  "selectedSourceApplicability": {
+    "M3Three263": "unchanged; reviewed paths excluded",
+    "QGLMThree217": "unchanged; reviewed paths excluded",
+    "broadLJev": "historical"
+  },
+  "historicalEvidenceMutated": false,
+  "approvalOrPaidScopeChanged": false,
+  "originalAOrDiagnosticUpgraded": false,
+  "diagnosisV2": "zero-valued structured Request; v1 null-hash assertion superseded and retained",
+  "releaseCertification": false,
+  "testsRunByReviewer": false
+}

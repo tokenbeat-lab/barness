@@ -1,0 +1,281 @@
+{
+  "schema": 1,
+  "kind": "release-consumer-targeted-red-green-and-adopted-input-diagnostic",
+  "testedSource": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+  "futureProducerSource": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+  "diagnostic": {
+    "source": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "pass": false,
+    "commands": null,
+    "outerExit": 1,
+    "adoptedHistoricalInputs": true,
+    "originalCommandNumericExits": "UNKNOWN",
+    "secondGateRun": false
+  },
+  "originalActualSource": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "archive": {
+    "file": "release-consumer-ad20469.tar.gz",
+    "bytes": 1735862,
+    "sha256": "f4cbc2b94cfe6c6a17aaedc875c5f0e72127a8dce6f87914382f86096a51d268",
+    "members": 1985,
+    "expandedBytes": 18592971
+  },
+  "memberIndex": {
+    "file": "members.json.gz",
+    "sha256": "77e6a7984000796c2d5ee3582271f6d6003131c56b689a1455d9fa5a1bc6f869",
+    "expandedBytes": 361210
+  },
+  "runs": [
+    {
+      "prefix": "intermediate/20261018T055437.664002000Z",
+      "sourceCommit": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+      "manifestSHA256": "d52240fe3a607f43c382ee75d972a0887e5d13822c168ba1af2863969289af7a",
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 3
+    },
+    {
+      "prefix": "intermediate/20261018T055556.087287000Z",
+      "sourceCommit": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+      "manifestSHA256": "271af4fd80db7f6e81c4a01d019dcb774f455d5997c01e51902734f1ce4df506",
+      "cases": 29,
+      "statuses": {
+        "PASS": 22,
+        "FAIL": 7
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 87
+    },
+    {
+      "prefix": "intermediate/20261018T055755.494478000Z",
+      "sourceCommit": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+      "manifestSHA256": "9908cdbc7f98c74271c01a0946c231c7e84ee245774e2f243f0d453d12c65563",
+      "cases": 29,
+      "statuses": {
+        "PASS": 29
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 87
+    },
+    {
+      "prefix": "intermediate/20261018T055856.210596000Z",
+      "sourceCommit": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+      "manifestSHA256": "641eb0e7f96dc6bacd67707feaf6ca60eef05263bf16179df97977d5bf589499",
+      "cases": 39,
+      "statuses": {
+        "PASS": 39
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 107
+    },
+    {
+      "prefix": "intermediate/20261018T060012.054594000Z",
+      "sourceCommit": "c6801d0441da589cce29a9d4169d195b54207ac7",
+      "manifestSHA256": "1cd379565055225c452510bd2e96a78810033b4fd8f7640eb9e8822ec10a98a1",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 3
+    },
+    {
+      "prefix": "intermediate/20261018T060017.124471000Z",
+      "sourceCommit": "c6801d0441da589cce29a9d4169d195b54207ac7",
+      "manifestSHA256": "c4a4622d03e9384cbb2882dbb32be59b3702d352c3419f34d7c0929c73490fae",
+      "cases": 71,
+      "statuses": {
+        "PASS": 71
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 183
+    },
+    {
+      "prefix": "intermediate/20261018T060412.448542000Z",
+      "sourceCommit": "c6801d0441da589cce29a9d4169d195b54207ac7",
+      "manifestSHA256": "3d0ae3eb31a0c82a6f70442dec16b32efb05d40479fad80b264b9f16bc0b3383",
+      "cases": 6,
+      "statuses": {
+        "FAIL": 5,
+        "PASS": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 12
+    },
+    {
+      "prefix": "intermediate/20261018T060617.077771000Z",
+      "sourceCommit": "c6801d0441da589cce29a9d4169d195b54207ac7",
+      "manifestSHA256": "2e51d6691baee1974b77d11824d18f3af0e9bae1c7a8166ab1ff570b607636a3",
+      "cases": 36,
+      "statuses": {
+        "PASS": 36
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 102
+    },
+    {
+      "prefix": "intermediate/20261018T060731.391195000Z",
+      "sourceCommit": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+      "manifestSHA256": "2d036ed4522c30edbef2430458f536bfa3af0d1098ae9157dd2f2a85d4395f82",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 3
+    },
+    {
+      "prefix": "intermediate/20261018T060732.370703000Z",
+      "sourceCommit": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+      "manifestSHA256": "c2473a01858663d47f661cd46ed8f1493b25d906919f559a78596955f2c193d7",
+      "cases": 90,
+      "statuses": {
+        "PASS": 90
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 269
+    },
+    {
+      "prefix": "intermediate/20261018T060734.130674000Z",
+      "sourceCommit": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+      "manifestSHA256": "55630d98f12121ac1d95c3d661a49a6246b721593b828ea416af86d0e97f912d",
+      "cases": 90,
+      "statuses": {
+        "PASS": 90
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 269
+    },
+    {
+      "prefix": "root-selection-red/20261018T061021.613396000Z",
+      "sourceCommit": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+      "manifestSHA256": "9e2e04d4c509db70327fd0d13647ac159b0f6b7be95956c8c5f43bdb245517b0",
+      "cases": 3,
+      "statuses": {
+        "PASS": 1,
+        "FAIL": 2
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 6
+    },
+    {
+      "prefix": "root-selection-green/20261018T061105.867450000Z",
+      "sourceCommit": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+      "manifestSHA256": "b9006e8a64182df584aac268c05a83a7f1b39780e09e2d87aabbd3a5eb2f65ec",
+      "cases": 3,
+      "statuses": {
+        "PASS": 3
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 6
+    },
+    {
+      "prefix": "fixed-ordinary/20261018T061201.796615000Z",
+      "sourceCommit": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+      "manifestSHA256": "ad72d6da5827fe377798b2368eb668529569d8c1f04748246457cd88d2842f70",
+      "cases": 93,
+      "statuses": {
+        "PASS": 93
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 275
+    },
+    {
+      "prefix": "fixed-race/20261018T061205.069322000Z",
+      "sourceCommit": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+      "manifestSHA256": "a68809594e73b7ed7a1191988ba11045575ad463a191955c1f7c10399bb574e2",
+      "cases": 93,
+      "statuses": {
+        "PASS": 93
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 275
+    },
+    {
+      "prefix": "fixed-actual-read-only/20261018T061200.789543000Z",
+      "sourceCommit": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+      "manifestSHA256": "3eb9673bcd18be89ba1a4fc9ea547f6db1c9590576191ad9ec936f722e20328f",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 3
+    },
+    {
+      "prefix": "catalog-red/20261018T062729.029706000Z",
+      "sourceCommit": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+      "manifestSHA256": "7b0fb3579a155ea45d671994deb650c7c10ec31621f16f29871372df114d305b",
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 2
+    },
+    {
+      "prefix": "catalog-red-actual/20261018T062827.534768000Z",
+      "sourceCommit": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+      "manifestSHA256": "ffdd2514144a4d7682bd34afe1d107e6bc3c271bd1c211eecad3cb41e0cf4be8",
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 10
+    },
+    {
+      "prefix": "catalog-red-corrected/20261018T063001.366789000Z",
+      "sourceCommit": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+      "manifestSHA256": "bebc11c03becf47d0428b8d1213cb9f0b6be5c9f23b84285242d07f5c0a70331",
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 16
+    },
+    {
+      "prefix": "catalog-green/20261018T063042.579392000Z",
+      "sourceCommit": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+      "manifestSHA256": "587a2dca9eaad796c1beec5f3c402bfe8df34d5956b232670becdb3bbf465bcf",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 16
+    },
+    {
+      "prefix": "catalog-final-ordinary/20261018T063149.844871000Z",
+      "sourceCommit": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+      "manifestSHA256": "953e38cbf38d7fc3ef7aa1c9b7b62504f30146efc2fad9da9aa4a76c8e56fd52",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 16
+    },
+    {
+      "prefix": "catalog-final-race/20261018T063152.795772000Z",
+      "sourceCommit": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+      "manifestSHA256": "8ddbc8a1ed2b7150765e79b9ddf89a99740b939b34d0314e7e790ebef550b9bd",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "recordedAuditFindings": 0,
+      "artifactRefsVerified": 16
+    }
+  ],
+  "archiveRoundtrip": "PASS: every member exact; all recorded case.Artifacts pins checked; fixtures remain distinct raw attribution pins",
+  "historicalCaveat": "Original early RED commands ran with uncommitted test additions; their complete uncommitted working tree was not independently frozen. Retained original tracked implementation commits, genuine logs/manifests/artifacts, and final regression test source are distinct. No retrospective current-source certification.",
+  "originalActualA": "../international-final-actual/A-final-keyless-3d3.json",
+  "originalActualL": "../../ticket-10/international-legacy-final/legacy-paid-3d3.json",
+  "fullCertificate": false,
+  "paidCalls": 0
+}

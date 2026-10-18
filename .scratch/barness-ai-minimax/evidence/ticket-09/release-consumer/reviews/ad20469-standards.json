@@ -1,0 +1,44 @@
+{
+  "axis": "standards",
+  "base": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+  "target": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+  "verdict": "PASS",
+  "confidence": "high",
+  "documentedBreaches": [],
+  "judgmentSmells": [],
+  "findings": [],
+  "verifiedSourceChanges": [
+    {
+      "file": "ai/e2e/minimax_pidiff_test.go",
+      "line": 151,
+      "observation": "Real Go toolchain and existing pinned module provenance; comparison/versions/oracle contract otherwise unchanged."
+    },
+    {
+      "file": "ai/e2e/minimax_pidiff_catalog_test.go",
+      "startLine": 10,
+      "endLine": 11,
+      "observation": "Lookup-only metadata control renamed without assertion/artifact removal."
+    },
+    {
+      "file": "ai/e2e/minimax_catalog_release_test.go",
+      "startLine": 75,
+      "endLine": 116,
+      "observation": "Two cases retained; one differential; literal zero Request hash; coherently rehashed SDK negatives reach semantic mismatch."
+    }
+  ],
+  "traceComparison": {
+    "rowsChanged": 7,
+    "leafChanges": 14,
+    "allChangesExactControlIdSubstitution": true,
+    "requiredCountsAndArrayLengthsUnchanged": true,
+    "otherFieldsUnchanged": true
+  },
+  "causalHistory": "Reviewed corrected-v2 zero-valued Request diagnosis; original-v1 null hypothesis and failed intermediate attempts remain historical.",
+  "scope": "Prospective producer/e2e/trace-only change; no runtime, consumer, oracle, selected M3/Q source or paid evidence change; old A/L/Jev applicability not refreshed.",
+  "repoMutations": false,
+  "testsRun": false,
+  "credentialAccess": false,
+  "networkUsed": false,
+  "vendorCalls": 0,
+  "priorReportsUnchanged": true
+}
