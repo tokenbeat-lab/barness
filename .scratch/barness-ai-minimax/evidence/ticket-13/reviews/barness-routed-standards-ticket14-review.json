@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED",
+  "reviewedSource": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "fixedPoint": "a3a9097dcf13d42217337be35718f8ae21c5d174",
+  "diffCommand": "git diff a3a9097...c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "diffSHA256": "d5dbd7c7b986714d784bc7f42036ed6bc85187ae63cfdcec3f104c89f02dddc1",
+  "integrationHeldAt": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md",
+    ".scratch/barness-ai-minimax/issues/14-release-evidence-mapping-pin.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "findings": [],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "mappingProof": {
+    "oldHash": "803e5aa6b091bdb7557a68c824befe01289428ea688e0c58e6d9e2d5ca79c225",
+    "newHash": "f1de4ce6b8a81f08b0ce27c56bc01f6c8fae9e8a8ca51c114c44d5a55acd21b6",
+    "itemsBefore": 394,
+    "itemsAfter": 394,
+    "exactCaseRenames": [
+      "MM-R24",
+      "MM-T03",
+      "MM-A19",
+      "MM-US68",
+      "MM-US71",
+      "MM-US72",
+      "MM-US73"
+    ],
+    "requiredCaseCountsPreserved": true
+  },
+  "actualCheckOnly": {
+    "sourceManifestSHA256": "05afee8d403eef34a4b8cea2d168d821d853072004b5e0b8568387543186a411",
+    "binariesManifestSHA256": "a21b6631f18615d7305c735d655719064547de8558265f783495bdb4c52c6ee2",
+    "planSHA256": "8054e81990310c381264e57f8005d7af7ffd2f086579ed88e3d70d564e5667ab",
+    "checksSHA256": "23180c0fef5d79151f2220bd070278e0558f29f0f47c8fcbd891ae8e542cc7da",
+    "observedSHA256": "8915477281fd40631b54046bfcd39addabada1dff1af89fb2b48c2d66dfbac21",
+    "selectedSourceFiles": 1047,
+    "allCurrentSourceAndBinaryBytesMatch": true,
+    "checks": {
+      "vet": {
+        "sha256": "c8f3f44ae4b06c65572bd46d51254fcc22f9c45004495c1228a5e3b44ded8287",
+        "exitCode": 0
+      },
+      "vet-live": {
+        "sha256": "1cfc7134e491213700c0cc9bff3d013d15a4c9fd25f41971d4c243236eb809ff",
+        "exitCode": 0
+      },
+      "no-key-live": {
+        "sha256": "7ffd143b02e2d61883e5f7b8bbdea28ea57917b6d3fd0eb543cdf0e0e09d3cba",
+        "exitCode": 0
+      },
+      "no-key-visual-proxy": {
+        "sha256": "c18e4084c57ddc9e8b0d6f7991204e818d04dd0797e35c40fd18d8694f821216",
+        "exitCode": 0
+      },
+      "no-key-release-contracts": {
+        "sha256": "2708a7331ae298dce4c477d62eb9bb30eca3df15f8bd7f6df74e8cbda352e155",
+        "exitCode": 0
+      }
+    },
+    "authorization": "PENDING",
+    "newRoundCreated": false,
+    "paidCalls": 0,
+    "credentialsRead": false
+  },
+  "failureFirstAndRegressionReceipts": {
+    "red-public-contracts": {
+      "sha256": "ed39de70be44aadda22a7708b4d7b8af875de0bcc0696b20276d48100d1507b8",
+      "exitCode": 1
+    },
+    "green-public-contracts": {
+      "sha256": "19eb8614c1fe3e41c68c5dd0f5fcf5cf1f6e3f3e84c6e217c0347f4ab9f403a8",
+      "exitCode": 0
+    },
+    "red-release-contract-preflight": {
+      "sha256": "c82470677247a60111e5aa6651685a738476f6095b69a5356ce20a4233208fa0",
+      "exitCode": 1
+    },
+    "green-release-contract-preflight": {
+      "sha256": "94b1878859f1b0569363c2b31dc178364e5b314ebe091e746f0851b9d5ebdfef",
+      "exitCode": 0
+    },
+    "tools-all": {
+      "sha256": "9e911d4830943c0d43fcc9fcea4cfed8ea7c29de72f304f5e6413d441322fa94",
+      "exitCode": 0
+    },
+    "race-public-contracts": {
+      "sha256": "efc2e5218accf15e27079bea608cae5732e49038c20504cdf609938bb38c6997",
+      "exitCode": 0
+    },
+    "vet": {
+      "sha256": "38cc7889fdc641f42fb76d6076c1ba56e12efd31ec00b107d3c9a153822ac3b6",
+      "exitCode": 0
+    },
+    "vet-live": {
+      "sha256": "974a67c75e0d7b00ca7593f4d6a9574594d5f770612b1bdbd2d10a6c526ad515",
+      "exitCode": 0
+    }
+  },
+  "fixtureRestoration": {
+    "firstCheckFailedAtNoKeyLive": true,
+    "originalFailedCheckSHA256": "bf7446a7e51e0764dc0efb95f08d2455124ac81157ed9d7c45807753a102524a",
+    "copyProofSHA256": "9d52953bc88e165f5773ecb0c293127b49ed6c799cac01875843c191caab81c7",
+    "files": 6,
+    "bytes": 2891933,
+    "exactOriginalAndWorkerHashesMatch": true,
+    "sourceAndSelectorUnchanged": true
+  },
+  "notes": [
+    "Only approved mapping digest changes in Go; independent normalization matches the original803e and currentf1de maps, and all394 identities plus seven exact regex/required-case renames preserve acceptance set sizes.",
+    "Routed check now actually runs the two existing public release contracts as fixed fifth keyless command, preserves their semantic negative controls and numeric exit receipt, and folds failure into checks=false before any paid intent.",
+    "Two new public CLI process regressions were retained RED before Python changes and GREEN afterward; existing Go contracts were RED before constant change, then ordinary/race GREEN, tools60 and dualvet0. Reviewer read receipts only and executed no tests.",
+    "First real check-only attempt retained missing ignored fixture ZIP failure separately; six exact committed-selector archives restored to worker, no source or selector edits. Fresh committed-source actual five-command check now exits0 with all18 old canonical receipts unchanged.",
+    "Old A2 full failures and source pins remain immutable; plan.go/Python change naturally expires affected full-source/visual/protocol/Jev evidence. No old pin refresh or new paid authorization is inferred, M3 own applicability is separately preserved."
+  ],
+  "scope": "Independent static Standards review and read-only original receipt/hash checks. No tests, Key, network, source/input/root write or merge by reviewer. Current full release certification is not claimed."
+}

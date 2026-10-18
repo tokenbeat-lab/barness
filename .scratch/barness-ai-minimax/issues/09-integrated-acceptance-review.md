@@ -25,3 +25,6 @@ Blocked by: 08, 10
 实际M3 Chat研究已执行两次调用、两次Attempt，均为HTTP401认证失败；工具续接明确NOT_RUN，不能将已执行研究改写成NOT_RUN。该中国区失败作为历史保留；用户已改用国际站，先由11完成切换后继续10的自身真实验收；M3.1缺少获准M Plan资格，三个线上候选保持NOT_RUN。实际失败捕获与预算由10持有，09只引用其不可变来源。
 
 2026-10-18当前：全部批准实际收集与原始完整门禁均已结束。其余15项原授权验证已完成168/168（两项DeepSeek PASS、13项FAIL）；3d3a1fb的完整普通/race各12385 PASS/6 FAIL、审计0，CLI随后读取bundle失败且没有发布报告。全部实际进程已关闭，旧能力本次续期累计300/300，17身份矩阵与完整交付仍未通过；消费者修复及其适用范围见交付状态。 原始双套每套869个PIDiff及29个Pressure标记case均PASS，不能因此推出发布PASS；内部各命令数字退出码未留存，保持未知。后续 release-only 读取修复及两轴复审与原始3d3全量结果分别保留。见[原始门禁](../evidence/ticket-09/international-final-actual/README.md)、[审查索引](../evidence/ticket-09/final-reviews/README.md)及[当前交付状态](../delivery-status.md)。本票保持claimed，不关闭spec。
+
+
+2026-10-18区域路由轮次后：来源8fbd170的新完整公共CLI已实际完成双vet、ordinary/race，四项数字退出0/0/1/1；两套各12439PASS/8FAIL/1NOT_RUN、审计0，868个真实PIDiff及29个Pressure case均PASS。已生成pass=false报告；不改写3d3a1fb原来无报告的历史。其余15项与GLM Chat/Messages本轮PASS，GLM Responses仍真实FAIL，17矩阵记录16PASS/1FAIL。新增245/245、累计545/545全部关闭。离线新缺口由[14](14-release-preflight-gaps.md)补正，最终完整认证仍未通过。本票保持claimed。

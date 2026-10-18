@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED",
+  "reviewedSource": "67e8b916f6e003a3f84dd79c314f12824e4d3d22",
+  "integrationHeldAt": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "fixedPoint": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "diffCommand": "git diff 8fbd170...67e8b916f6e003a3f84dd79c314f12824e4d3d22",
+  "diffSHA256": "cffdc99d3cb55721fc101430c55589f4aac469cdc7acbe1465fe6c5b6e41f3fc",
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "findings": [],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "metadataOnly": true,
+  "scope": "Static Standards review and read-only byte comparison of actual GLM frontdoor. No verifier/check-boundaries/test/credential/network execution by reviewer; no merge while full gate runs.",
+  "files": 17,
+  "verifierSHA256": "f2c6507aa27e889fb67a466ab2ea92f1ac137f2db7fb777ae81cb800cc4709ec",
+  "boundaryProgramSHA256": "cbd467caf593285fd09290244688cea2276a618984b4b6de2cea25b6b64e1b3c",
+  "boundedHelperSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+  "rawArchive": {
+    "path": ".evidence/minimax-retained/ticket-13-actual-glm/actual-glm-raw.tar.gz",
+    "sha256": "e28b2bcc02c545d7c876b983458806855aae2ed0dfbe1c93a16d868b245a1793",
+    "bytes": 2719870,
+    "regularMembersCompared": 1113,
+    "decodedTarBytes": 25405440,
+    "allMemberHashesMatch": true,
+    "originalRouteMembersMatched": {
+      "chat": 357,
+      "responses": 340,
+      "messages": 357
+    },
+    "originalCanonicalReceiptsMatched": 3,
+    "originalFrozenMetadataMatched": true
+  },
+  "actualOutcome": {
+    "source": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+    "collectionOutcome": "FAIL",
+    "calls": 65,
+    "attempts": 65,
+    "threeRoutePublication": false,
+    "outcomes": {
+      "PASS": 63,
+      "FAIL": 3
+    }
+  },
+  "notes": [
+    "All three archived route member trees, exact original canonical receipts and all frozen phase metadata match original root evidence byte-for-byte. Raw archive SHA and complete1113-member inventory verified by read-only inspection.",
+    "Verifier pins and reuses the existing bounded read-only archive reader instead of creating a second decompression/security policy; executable helper bytes are hash-checked before evaluation. No paid tool import, .env read, summarize call or network exists.",
+    "Independent analysis preserves Responses19PASS/3FAIL with two actual header timeouts and the zero-call tool prerequisite, total65/65, partial/unreported usage, absent failed capturePins and rejected publication; no failure is upgraded.",
+    "Original retired83 no-key preflight, source51 actual measurement, selected-file equality at8fbd, unmodified four selectors and standalone prior accounting remain distinct.",
+    "The seven negative-check program operates only on temporary metadata/synthetic files and re-verifies original raw archives; neither program grants support PASS or authorizes paid replay."
+  ]
+}

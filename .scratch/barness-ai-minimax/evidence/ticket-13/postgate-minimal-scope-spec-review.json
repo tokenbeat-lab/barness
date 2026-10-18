@@ -1,0 +1,93 @@
+{
+  "axis": "SPEC applicability policy",
+  "decision": "CONDITIONAL_MINIMAL_SIX_SUPPORTED",
+  "reviewedBaseline": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "reviewedOfflineTip": "1dedc575228c1691bed0843ddb54b84c379c5727",
+  "readOnly": true,
+  "testsKeysNetworkOrEdits": false,
+  "correctionToPriorConservativeAssessment": "My earlier recommendation treated the outer1047 pre-key freeze as an automatic expiry rule for all generic live reports. That overextended its role. Existing accepted baseline policy expressly requires SDK/model/adapter affected-combination renewal, while generic public admission intentionally retains the measured commit and does not require HEAD equality. This independent finding refines the future proposal; all old reports/reviews and their actual measured pins remain immutable.",
+  "existingAuthority": [
+    {
+      "path": ".scratch/barness-ai/spec.md",
+      "line": 327,
+      "rule": "SDK/模型/adapter 改动重跑受影响组合及横向隔离场景; offline/differential/live results stay separate."
+    },
+    {
+      "path": "docs/adr/0017-barness-ai-release-gate.md",
+      "line": 14,
+      "rule": "Accepted release policy checks current SDK/model/capture evidence, with maintainer-controlled affected adapter reruns, not arbitrary HEAD freshness."
+    },
+    {
+      "path": "ai/internal/testkit/release/live.go",
+      "line": 190,
+      "rule": "staleSDK compares actual module/version; directHTTP has no module and is never marked stale by this SDK rule. Adapter changes require maintainer affected-combination rerun."
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/spec.md",
+      "line": 294,
+      "rule": "Execution-source/catalog changes expire inapplicable evidence according to existing applicability rules; this does not impose wholeHEAD equality or erase narrower established native selections."
+    }
+  ],
+  "actualReviewedDiff": "8fbd..1ded has exactlyone ai Go change: release/plan.go constant, plus auxiliary Python/tests/docs. go.mod,go.sum,catalog-snapshot are byte-identical. No provider, adapter, model, catalog/prices, shared transport/lifecycle or selected generic execution change exists. Prospective optional-diagnostic/fixture repairs must remain test/release/tool-only and final diff must be re-reviewed before this conclusion is used.",
+  "reuseAndRefresh": [
+    {
+      "evidence": "Original generic10 ownL reports",
+      "reuse": true,
+      "conditions": "Keep8fbd commit, actual report/manifests/SDK/catalog/route/account/usage/status/capture pins byte-identical. Existing native reports eachmatch current matrix lastRun/allPassed timestamp and SDK. Unchanged SDK/model/adapter policy permits reuse; do not fabricate a new generic narrow map or rewrite outer freeze. Prior broad rerun was a completed conservative round, not a permanent new invalidation rule."
+    },
+    {
+      "evidence": "Original2Chinese text effects",
+      "reuse": true,
+      "conditions": "Preserve860-file raw snapshot/codeHash and8fbd actuals. Existing261 execution selection explicitly excludes release tooling and tests; invoke unchanged public current source/effect verifiers."
+    },
+    {
+      "evidence": "Original M3threeformal",
+      "reuse": true,
+      "conditions": "Native263selected maps remain unchanged; current public minimaxverify must still validate original own origins, catalog and seals. No new MPlan entitlement;M3.1 staysNOT_RUN0/0."
+    },
+    {
+      "evidence": "GLMthree",
+      "reuse": false,
+      "reason": "Responses actualFAIL blocks own triple publication; fresh complete sameactualsource triple is required. Do not mix oldChat/Messages with newResponses despite unchanged217maps."
+    },
+    {
+      "evidence": "protocol114 and visual2",
+      "reuse": false,
+      "reason": "Their native strict861allGo /323non-testGo source rules includeplan.go. Refresh these3actualprocesses after final offline source freeze. Then derive new ownJev support from newprotocol+visualJev; derivation is keyless."
+    }
+  ],
+  "prospectiveFiniteBudget": {
+    "processes": 6,
+    "logicalInventory": "3completeGLM22scene processes + protocol11412scene + visualJev12sample + visualDecisions12sample",
+    "maxNewCalls": 108,
+    "maxNewAttempts": 132,
+    "components": {
+      "GLM3": {
+        "calls": 72,
+        "attempts": 96
+      },
+      "protocol114": {
+        "calls": 12,
+        "attempts": 12
+      },
+      "visual2": {
+        "calls": 24,
+        "attempts": 24
+      }
+    },
+    "plannedNominalCalls": 102,
+    "priorCurrentRenewalActualCalls": 545,
+    "priorCurrentRenewalActualAttempts": 545,
+    "conservativeCombinedCeilingCalls": 653,
+    "conservativeCombinedCeilingAttempts": 677,
+    "authorization": "Future separately fixed approved one-shot contract only. Old18intents remain closed; no numeric headroom or oldAPPROVED transfer; no actual calls authorized by this review."
+  },
+  "publicMixedSourceAdmission": "supportmatrix/load and release.liveEvidenceProblem have no sameHEAD requirement across17identities; measured commits stay original. Only GLM raw publication independently requires its3actualcommits equal. Gate still receives17own bundles and4effects: oldgeneric10+oldM3three+freshGLMthree+freshderivedJev, oldtexttwo+freshvisualtwo. All assertions/capability selectors remain unchanged, so this is affected-evidence renewal rather than removing requirements.",
+  "matrixImportantConstraint": "Merge rejects report.FinishedAt <= row.LastRunAt (matrix.go:268). Do NOT remerge the13already-current generic/M3 rows, rewrite their timestamps, clear their history or rebuild a favourable emptymatrix. Using existing public CLI, atomically merge only4fresh own live reports (GLM3 + newlyderivedJev1) into the current17row matrix; validate fresh4 against temporary copy first, then original13rows remain byte-identical. Audit/pass all17old+new own inputs through public releasegate.",
+  "finalConditions": [
+    "Complete/review all isolated offline fixes first, with appropriate fullpackage and source-sensitive checks, before any budget question or new paid source freeze.",
+    "Every selected SDK/model/adapter/runtime dependency and strict source-map rule remains unchanged except explicitly refreshed protocol/visual. Any additional shared/provider/catalog change requires re-evaluating affected scope rather than assuming6.",
+    "Fresh triple allPASS is prerequisite for raw/known-usage/support-view publication; preserve all formerfailedcaptures/selectors/history and truthful newfailures.",
+    "After fresh data-only publication and matrix4update, run actual current fullordinary/race+bothvet+PIDiff+pressure with all17/foureffects, exact4numericexits and audits; retain old8fbdA2false outcome. No historical bundle adoption or pinrefresh can produce new certification."
+  ]
+}

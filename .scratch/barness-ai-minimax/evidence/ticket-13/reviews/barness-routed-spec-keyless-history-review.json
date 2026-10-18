@@ -1,0 +1,27 @@
+{
+  "axis": "SPEC",
+  "decision": "PASS",
+  "findings": [],
+  "reviewedCommit": "a3a9097dcf13d42217337be35718f8ae21c5d174",
+  "measuredSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "scope": "Static code/schema/negative-guard review plus read-only archive compressed hash, finite inventory and stable original file hash comparisons. No verifier/test/probe execution, .env/Key/network, merge or root/input/HEAD writes. No evolving A2 file was read or included.",
+  "pins": {
+    "archiveSHA256": "997bdf9e25ec98192636ba83d0a0e742f0125cf975a1c04aa0221c2015669782",
+    "archiveBytes": 66090602,
+    "indexSHA256": "46eb30483f4d9d5eaa5abd1eb2640a91c2175be4e2862e952908a0e7c544b5c8",
+    "summarySHA256": "0a80ffc82574992cc5e6f39a3e68a46e66b784827b7559e32d7c016756617918",
+    "streamingReaderSHA256": "1d2fc4888e51b18c946dfa8d216b18e07a50551c54df900422815e87adc42e5e",
+    "verifierSHA256": "ee67a34025960e6770e54a68e45eac7b80ca16e9fb7e865259b510b7e38fbf2e",
+    "negativeBoundaryProgramSHA256": "f56b645e1864583271a241ef79bb5680f16acdde265751f0c61905833e6e270c",
+    "boundedPrimitiveHelperSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f"
+  },
+  "observations": {
+    "archive": "Compressed original66090602 bytes hashes997bdf9e25ec98192636ba83d0a0e742f0125cf975a1c04aa0221c2015669782. Pinned inventory has81742files/799768259raw bytes; recorded tar expansion949196800bytes. Bounded decoded inventory16917587bytes is below24MiB.73observed metadata files total519894bytes.56 stable original A/probe files and all11 frozen A2 prepared allowlist files match original hashes.",
+    "originalA": "Native gate exit-15, passVerdictfalse, releasePassnull, reportabsent, zero recorded internal numeric exits, race absent and no primary ordinary manifest remain exact. Retains81667partialordinary files rather than presenting them as a complete suite. Interruption note preserves no surviving owned PIDs and no paid calls added.",
+    "probe": "Same Go probe original RED go-run actualvet0 but observer absent, GREEN directcompiled actualvet0 with numeric record; local AppendPATH cause and exact program/toolchain/controller/build/readback bytes remain pinned. Probe does not assert full gate execution.",
+    "frozenA2": "Exactly11 prepared files are permitted: plan/preplan/inputpins/buildreceipt+log/binarymetadata/publicCLI/observer+programbytes/independentreview. Fixed helpera1ecf4... and binaryc54a7d... bind source8fbd,18canonicalactuals,137inputpins,8checks and17live inputs. Runtime gate, verification outputs, progress, executionintent and release report are excluded. completedGateCapturedfalse remains explicit.",
+    "historicalAndCurrentHelpers": "Historical83 program bytes remain their original reviews and non-executed launch descriptions; current f7c2 actual phase helper and G51/L8fbd parent plans remain independently identified. Captured operational zero-paid work does not reset or replace the actual G/L paid accounting."
+  },
+  "staticBoundaryReview": "A distinct fixed192MiBcompressed/1GiBdecoded protocol documents the large incomplete run. Max90kfiles/100kentries/64MiBmember/24MiBdecoded inventory/8MiBcompressed inventory/1MiBobserved metadata/8MiB observed total are constants independent of index. Reader hashes compressed bytes before parsing, bounds total reads, rejects symlink/nonregular/foreign/path/duplicate/missing/resized members, checks inventory content pins, drains gzip, and detects changed archive metadata. Existing32/192MiB helper remains unchanged; only pinned bounded IO/strictJSON primitives are reused. Verifier enforces no-certificate histories and fixed prepared allowlist. Ten stored boundary records cover false PASS/RED laundering, larger bounds, evolving A2 injection and redirects; none were executed during this review.",
+  "limitation": "Retention and launch-instrumentation history only. Does not certify paid G/L work, the interrupted full suite, the running A2 outcome or the entire spec."
+}

@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED",
+  "reviewedSource": "534a7abc53f6d9fa5d4e513f3cbcd8a41f4d90b3",
+  "integrationHeldAt": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "fixedPoint": "67e8b916f6e003a3f84dd79c314f12824e4d3d22",
+  "diffCommand": "git diff 67e8b916...534a7abc53f6d9fa5d4e513f3cbcd8a41f4d90b3",
+  "diffSHA256": "eb3716a551a4e202d63324be4fdde4a352c35b50f1c49f81d2444efead1e09a6",
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "findings": [],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "metadataOnly": true,
+  "scope": "Static Standards review and read-only original-byte comparison; no new verifier, tests, credentials or network executed, and no merge during actual gate.",
+  "archive": {
+    "sha256": "b8ebed319b4f6f3a7ea40d18fe9bf967f92959ca472cc41d1caf0b24b4a5ca87",
+    "bytes": 5833549,
+    "decodedTarBytes": 18063360,
+    "regularMembersVerified": 2228,
+    "allMemberHashesMatch": true,
+    "canonicalReceiptsMatched": 15,
+    "actualOriginalRouteAndSupportMembersMatched": 2082,
+    "originalFrozenMetadataMatched": 77,
+    "originalDerivationArtifactsMatched": 7
+  },
+  "verifierSHA256": "6aca7e2f1cd08337cc131a7f4922bb5056ee017c4f30217b4fc6818155bd31d6",
+  "boundaryProgramSHA256": "3b16b84813d8a63d8aa0249652f4c8425e549bc35c062a17e20c6619eb8ab4f7",
+  "boundedHelperSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+  "actualOutcome": {
+    "source": "8fbd17006677774368d4d77d924a8672fd205c51",
+    "collections": 15,
+    "calls": 180,
+    "attempts": 180,
+    "scenarioRows": 155,
+    "usageReporting": {
+      "unreported": 8,
+      "complete": 170,
+      "partial": 2
+    },
+    "reasoningHistory": {
+      "outcome": "UNSUPPORTED",
+      "calls": 0,
+      "attempts": 0
+    },
+    "mplanStatus": "NOT_RUN",
+    "matrixFailurePreserved": "zhipu-responses"
+  },
+  "notes": [
+    "Archive original15 canonical receipts, complete actual route/support bytes, available frozen metadata and original successful derive/import records match root originals exactly; all2228 archive members match the pinned inventory.",
+    "Verifier reuses the existing byte-pinned bounded read-only archive implementation, independently sums original Attempt/wire and usage records, and validates source/review/command/report pins, original seals/audits, derived protocol/effect copies and synthetic quality denominators.",
+    "OpenAI Chat reasoning-history remains UNSUPPORTED0/0, M3.1 remains unpaid NOT_RUN, usage170complete/2partial/8unreported is retained and known token totals are explicitly a lower bound rather than a bill.",
+    "Fifteen collection PASS is separated from155 scenario rows, GLM Responses FAIL and full release certification. Default17 matrix truthfully retains zhipu-responses failure; no automatic or additional paid round is granted.",
+    "Eight negative checks operate on temporary metadata or synthetic files and preserve original archive bytes; no .env lookup, vendor traffic or actual request replay exists."
+  ]
+}

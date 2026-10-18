@@ -1,0 +1,44 @@
+{
+  "axis": "SPEC",
+  "decision": "PASS",
+  "findings": [],
+  "reviewedCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "base": "a3a9097dcf13d42217337be35718f8ae21c5d174",
+  "scope": "Static final code/contract review and read-only exact source/receipt/hash inspection. No tests, verifier, Key, network, source/root/HEAD writes or merge by this reviewer.",
+  "preparedPins": {
+    "sourceCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+    "sourceManifestSHA256": "05afee8d403eef34a4b8cea2d168d821d853072004b5e0b8568387543186a411",
+    "binariesManifestSHA256": "a21b6631f18615d7305c735d655719064547de8558265f783495bdb4c52c6ee2",
+    "planSHA256": "8054e81990310c381264e57f8005d7af7ffd2f086579ed88e3d70d564e5667ab",
+    "checksSHA256": "23180c0fef5d79151f2220bd070278e0558f29f0f47c8fcbd891ae8e542cc7da"
+  },
+  "nativeFiveCommandReceiptSHA256": {
+    "vet": "c8f3f44ae4b06c65572bd46d51254fcc22f9c45004495c1228a5e3b44ded8287",
+    "vet-live": "1cfc7134e491213700c0cc9bff3d013d15a4c9fd25f41971d4c243236eb809ff",
+    "no-key-live": "7ffd143b02e2d61883e5f7b8bbdea28ea57917b6d3fd0eb543cdf0e0e09d3cba",
+    "no-key-visual-proxy": "c18e4084c57ddc9e8b0d6f7991204e818d04dd0797e35c40fd18d8694f821216",
+    "no-key-release-contracts": "2708a7331ae298dce4c477d62eb9bb30eca3df15f8bd7f6df74e8cbda352e155"
+  },
+  "proofPins": {
+    "mapping-delta-proof.json": "dd1b4c83e102c87b320f0e6b0cafec4ba8812246a87ce80aaa809b4c89008e1d",
+    "red-public-contracts-command.json": "ed39de70be44aadda22a7708b4d7b8af875de0bcc0696b20276d48100d1507b8",
+    "green-public-contracts-command.json": "19eb8614c1fe3e41c68c5dd0f5fcf5cf1f6e3f3e84c6e217c0347f4ab9f403a8",
+    "red-release-contract-preflight-command.json": "c82470677247a60111e5aa6651685a738476f6095b69a5356ce20a4233208fa0",
+    "green-release-contract-preflight-command.json": "94b1878859f1b0569363c2b31dc178364e5b314ebe091e746f0851b9d5ebdfef",
+    "tools-all-command.json": "9e911d4830943c0d43fcc9fcea4cfed8ea7c29de72f304f5e6413d441322fa94",
+    "race-public-contracts-command.json": "efc2e5218accf15e27079bea608cae5732e49038c20504cdf609938bb38c6997",
+    "vet-command.json": "38cc7889fdc641f42fb76d6076c1ba56e12efd31ec00b107d3c9a153822ac3b6",
+    "vet-live-command.json": "974a67c75e0d7b00ca7593f4d6a9574594d5f770612b1bdbd2d10a6c526ad515",
+    "offline-fixture-restoration.json": "9d52953bc88e165f5773ecb0c293127b49ed6c799cac01875843c191caab81c7",
+    "actual-five-check-observed-2.json": "8915477281fd40631b54046bfcd39addabada1dff1af89fb2b48c2d66dfbac21"
+  },
+  "assessment": [
+    "Go change is only803e→f1de normalized approved mapping pin. Independent proof matches394items and exactly7previously reviewed metadata case renames with unchanged required counts/other fields. Trace, assertions, selectors, source acceptance rules and budgets stay intact.",
+    "Fixed fifth preflight runs the existing two public contract tests, including complete plus4GLM deletion controls, under isolated no-Key environment and360s process bound. Output has a dedicated evidence root. Its numeric exit joins checks.passed; a failure persists false and blocks source review authorization, Key acquisition and intent even with separately approved exact receipts. Passing checks creates no approval or new round.",
+    "Failure-first native Go2tests: RED1/audit0 with2failedcases+4negativePASS; same working-tree GREEN0/6PASS/audit0; race0/6PASS/audit0. Original measured heads remaina3/711, not retrospectivelyc260. CLI2tests RED1→GREEN0; all60tool checks0(83.175s); bothvet0.",
+    "First actual committed check-only attempt retained vet0/vet-live0/no-key-live1 from absent ignored ZIP fixtures, separately from genuine codeRED. Six restored ZIPs match primary and committed selector hashes exactly, with no source/selector change. Fresh c260 check-only-2 has all5completed numeric0 receipts, credentialsReadfalse;1047current source and binary hashes match prepared pins.",
+    "All18originalcanonicalreceipt hashes remain unchanged. Review/authorization files remain absent/PENDING, no new round or paid intent. The primary8fbd full-run history is not relabelled."
+  ],
+  "sourceApplicabilityCaveat": "One-line Go fix changes existing outer1047full freeze; visual2 own323maps and protocol114/derivedJev861maps includeplan.go and become stale for repaired tree. Text retains raw860snapshot but existing261execution selection excludes release tooling. G217/M3three263maps excludeplan.go/Python tools and remain unchanged; GLM Responses remainsFAIL. Generic10 lack native Go maps; old admission is no complete-source freshness exception. Future conservative3GLM+15L proposal requires a distinct finite approved contract; no new paid work now and no old pin refresh.",
+  "limitation": "Ticket14 local repair/preflight checks only. No current full release or provider certification is created."
+}

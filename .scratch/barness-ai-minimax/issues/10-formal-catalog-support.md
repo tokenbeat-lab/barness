@@ -48,3 +48,6 @@ M3三身份只有自身候选通过才能进入BuiltinCatalog，正式三份报�
 ### 2026-10-18 已批准实际验收全部结束，交付仍 PARTIAL
 
 M3三候选与三自身正式PASS，候选历史49/45、正式39/36。唯一获批72/96的GLM R1实际66/66，连原轮132/132，Chat/Messages PASS、Responses FAIL，严格raw/views拒绝，旧四selector不变，无R2。其余15项原授权验证已完成168/168（两项DeepSeek PASS、13项FAIL）；3d3a1fb的完整普通/race各12385 PASS/6 FAIL、审计0，CLI随后读取bundle失败且没有发布报告。全部实际进程已关闭，旧能力本次续期累计300/300，17身份矩阵与完整交付仍未通过；消费者修复及其适用范围见交付状态。 M3.1三路仍无资格NOT_RUN0/0。剩余15项中403、451和未取得HTTP响应的失败均保留，未知usage不记免费；没有派生缺失的Jev正式支持包或写入不完整默认矩阵。见[实际15项](../evidence/ticket-10/international-legacy-final/README.md)、[实际GLM R1](../evidence/ticket-12/actual-corrective-1/README.md)、[当前状态](../delivery-status.md)。本票保持claimed。
+
+
+2026-10-18区域路由轮次后：用户指定中国区直连/国际127.0.0.1:7890代理，固定18个进程已全部关闭。其余15项collection全部PASS，Jev自身支持包已完成，默认17身份矩阵原子导入16PASS/1FAIL。GLM本轮native-history两型号均PASS，Responses仍因两次约90秒超时及其依赖场景FAIL；三路raw/views严格续期拒绝，旧四selector保持。新增245/245、连历史300/300累计545/545。完整CLI生成false报告并发现离线缺口，归[14](14-release-preflight-gaps.md)修复；原失败和旧来源保留。后续证据适用与最小重验范围独立复核，尚无新增付费批准。本票保持claimed，当前状态见[交付状态](../delivery-status.md)。

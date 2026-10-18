@@ -24,3 +24,6 @@ Updated: 2026-10-18
 ## Comments
 
 - 本票是用户新增路由指令后的前瞻合同；票12的“无自动R2”仍约束旧合同。本票仅固定一次新路由验证，不给予无限重试或后续轮次。
+
+
+2026-10-18实际完成：固定18进程已全部关闭，17PASS/1FAIL，新增245calls/245Attempts，连旧300/300累计545/545。其余15项collection均PASS（180/180），GLM Chat/Messages PASS、Responses19PASS/3FAIL（三路65/65）；严格三路续期拒绝，旧四selector不变。17身份默认矩阵原子导入16PASS/1FAIL，Jev自身支持包完成。8fbd170完整CLI数字退出0/0/1/1，ordinary/race各12439PASS/8FAIL/1NOT_RUN/audit0，报告pass=false。原中断与全部实际失败保留。完整门禁新暴露的离线缺口转[票14](14-release-preflight-gaps.md)；本票归档与两轴复核仍在收敛，不授权自动下一轮。当前结果见[交付状态](../delivery-status.md)。
