@@ -46,4 +46,6 @@ Jev1.14 的部分失败无法派生正式支持包，17项临时矩阵导入因�
 
 早期中国区和国际站研究、历史失败/中断、目录激活及受控检查点仍在[票09历史证据](evidence/ticket-09/README.md)、[票10历史证据](evidence/ticket-10/README.md)与[票11](evidence/ticket-11/README.md)中。原CN401、9481a6a的12304 PASS/52 FAIL/exit-15，以及后续12378 PASS/11 FAIL均保持原状态。GLM便携校验器的有界解压修复保留[原程序及 red/green](evidence/ticket-12/retention-bounds/README.md)，旧索引继续对应原字节，当前校验器 Hash 独立登记。
 
+两处实现工作树已在原字节保留全部忽略输入后清理，[清理收据](evidence/ticket-09/worktree-cleanup.json)记录恢复位置和分支。
+
 完整交付仍为 PARTIAL。剩余真实支持缺口需要可用且获准的服务配置/上游结果与另行明确的有限调用合同；不能重置历史消费、降低验收或自动新增补正轮次。

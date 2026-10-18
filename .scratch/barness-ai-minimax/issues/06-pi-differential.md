@@ -25,4 +25,4 @@ Blocked by: 02, 03, 04
 
 中央账本新增41条精确case/path/kind说明和MiniMax Chat/Responses两条Extension Route，317条旧决策与6条旧路线逐对象保持原样。M3.1三协议fixture明确pi skip/model extension，不借用M3身份；Messages整条路线不豁免。现有70条Anthropic原生差分、pioracle tests、9条runner guards和targeted vet通过。
 
-[有限差异与来源](../../../../ai/e2e/testdata/minimax-pidiff/README.md)、[失败先行与不可变证据索引](../evidence/ticket-06/README.md)记录完整请求/SSE/事件/Result/Attempt/Observer、来源/目录/SDK哈希、red及测试装配修正历史。所有运行离线合成，未读取真实Key或调用厂商；合成候选费率不证明当前RMB→USD价格，不声称live或正式目录支持。
+[有限差异与来源](../../../ai/e2e/testdata/minimax-pidiff/README.md)、[失败先行与不可变证据索引](../evidence/ticket-06/README.md)记录完整请求/SSE/事件/Result/Attempt/Observer、来源/目录/SDK哈希、red及测试装配修正历史。所有运行离线合成，未读取真实Key或调用厂商；合成候选费率不证明当前RMB→USD价格，不声称live或正式目录支持。

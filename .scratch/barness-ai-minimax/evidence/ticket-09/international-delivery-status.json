@@ -260,5 +260,11 @@
     "originalActualCapturesReceiptsAndLedgerModified": false
   },
   "integratedWorkerTip": "ecb60da5b44d41ef83db34299b01230d8b216f80",
-  "integrationMergeReceipt": "integration-merge.json"
+  "integrationMergeReceipt": "integration-merge.json",
+  "worktreeCleanup": {
+    "receipt": "worktree-cleanup.json",
+    "allOwnedImplementationWorktreesRemoved": true,
+    "ignoredInputsPreservedByRename": true,
+    "forced": false
+  }
 }

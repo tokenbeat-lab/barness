@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "updated": "2026-10-18",
+  "ownedImplementationWorktrees": [
+    {
+      "worktree": "/private/tmp/barness-minimax-11",
+      "branch": "codex/minimax-11",
+      "head": "1b2d784555e1da4874679a80a3cefec078eaedd0",
+      "mergedInto": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "trackedCleanBeforeRemoval": true,
+      "forced": false,
+      "ignoredInputsRetained": [
+        {
+          "from": "/private/tmp/barness-minimax-11/.evidence",
+          "retained": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/cleaned-worktrees/minimax-11/.evidence",
+          "method": "same-filesystem rename; original bytes preserved"
+        },
+        {
+          "from": "/private/tmp/barness-minimax-11/.scratch/barness-ai-openai-decisions/jev-baseline/baseline.zip",
+          "retained": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/cleaned-worktrees/minimax-11/.scratch/barness-ai-openai-decisions/jev-baseline/baseline.zip",
+          "method": "same-filesystem rename; original bytes preserved"
+        },
+        {
+          "from": "/private/tmp/barness-minimax-11/.scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip",
+          "retained": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/cleaned-worktrees/minimax-11/.scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip",
+          "method": "same-filesystem rename; original bytes preserved"
+        },
+        {
+          "from": "/private/tmp/barness-minimax-11/.scratch/barness-ai-openai-decisions/text-choice-evidence/text-choice.zip",
+          "retained": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/cleaned-worktrees/minimax-11/.scratch/barness-ai-openai-decisions/text-choice-evidence/text-choice.zip",
+          "method": "same-filesystem rename; original bytes preserved"
+        }
+      ],
+      "status": "removed",
+      "scope": "worktree cleanup; no acceptance status changed"
+    },
+    {
+      "worktree": "/private/tmp/barness-minimax-10-global",
+      "branch": "codex/minimax-10-global",
+      "head": "ecb60da5b44d41ef83db34299b01230d8b216f80",
+      "mergedInto": "b9e9f11a541a6557113d37f9e21b9192e87257dc",
+      "trackedAndUntrackedCleanBeforeRemoval": true,
+      "forced": false,
+      "ignoredInputsRetained": [
+        {
+          "from": "/private/tmp/barness-minimax-10-global/.evidence",
+          "retained": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/cleaned-worktrees/minimax-10-global/.evidence",
+          "method": "same-filesystem rename; original bytes/link text preserved; not read"
+        },
+        {
+          "from": "/private/tmp/barness-minimax-10-global/.scratch/barness-ai-openai-decisions/jev-baseline/baseline.zip",
+          "retained": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/cleaned-worktrees/minimax-10-global/.scratch/barness-ai-openai-decisions/jev-baseline/baseline.zip",
+          "method": "same-filesystem rename; original bytes/link text preserved; not read"
+        },
+        {
+          "from": "/private/tmp/barness-minimax-10-global/.scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip",
+          "retained": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/cleaned-worktrees/minimax-10-global/.scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip",
+          "method": "same-filesystem rename; original bytes/link text preserved; not read"
+        },
+        {
+          "from": "/private/tmp/barness-minimax-10-global/.scratch/barness-ai-openai-decisions/text-choice-evidence/text-choice.zip",
+          "retained": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/cleaned-worktrees/minimax-10-global/.scratch/barness-ai-openai-decisions/text-choice-evidence/text-choice.zip",
+          "method": "same-filesystem rename; original bytes/link text preserved; not read"
+        }
+      ],
+      "status": "removed",
+      "scope": "worktree cleanup; no capture, acceptance result or source changed"
+    }
+  ],
+  "allOwnedImplementationWorktreesRemoved": true,
+  "gitWorktreeListAfter": "worktree /Users/cyber/RestoX/barness\nHEAD b9e9f11a541a6557113d37f9e21b9192e87257dc\nbranch refs/heads/codex/minimax-global",
+  "retainedBranches": [
+    "codex/minimax-11",
+    "codex/minimax-10-global"
+  ],
+  "forceUsed": false,
+  "paidCalls": 0,
+  "originalEvidenceModified": false
+}
