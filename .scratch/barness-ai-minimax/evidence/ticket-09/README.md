@@ -1,5 +1,7 @@
 # Ticket 09 — evidence curation checkpoint
 
+> 2026-10-18国际站转向：当前交付以[交付状态](../../delivery-status.md)和[ticket11国际站实现/离线证据](../ticket-11/README.md)为准。下列CN来源、追溯、401和当时缺口保留为4295ee8历史；不再等待中国区Key修复。国际站真实验收继续由10/09完成，历史记录不授予国际站支持。
+
 当前整体交付为[PARTIAL](../../delivery-status.md)。下列追溯表保留其原始历史来源；最新验证与剩余义务由交付状态和ticket10证据分别记录。
 
 Final acceptance is **BLOCKED by ticket10**. This checkpoint curates documents
@@ -61,7 +63,7 @@ all 33 original controlled red/green bundles. The
 files, original status/source metadata, original audits and archive/index pins.
 No historical capture was rewritten to appear current or live.
 
-## Current delivery gaps
+## Historical CN delivery gaps at4295ee8
 
 The actual M3 Chat research returned HTTP401 `authorized_error` twice: two
 logical calls and two actual Attempts. Research remains FAIL/incomplete; its

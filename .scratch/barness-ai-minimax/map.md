@@ -13,7 +13,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-历史任务图01 → {02,03,04} → {05,06,07}、06→08已完成；当前frontier为11 → 10 → 09，10同时保留05/06/07依赖。07先建受控证据工具，10等执行源码冻结后才运行真实调用；09汇合最终判定。
+历史任务图01 → {02,03,04} → {05,06,07}、06→08已完成；当前frontier为10 → 09（11已完成国际站实现/离线范围），10同时保留05/06/07依赖。07先建受控证据工具，10等执行源码冻结后才运行真实调用；09汇合最终判定。
 
 - [01 Provider 身份、六个候选型号与思考元数据](issues/01-provider-model-contract.md)；Blocked by: None。
 - [02 MiniMax Chat 文本、推理、工具历史与边界](issues/02-chat-protocol.md)；Blocked by: 01。
@@ -55,6 +55,8 @@ Base: `ecfd4b4`
 - 09文档整理检查点：[有限追溯与历史保存](evidence/ticket-09/README.md)保留28个R、20个A、80个US到1304个既有有限case的精确映射，以及原始1307-case离线观察的来源/状态。03的33次受控red/green捕获及29012文件已原样归档并验证。此整理不代表最终验收；09仍受10阻塞。
 
 - 2026-10-18用户明确改用国际站：01–08的原resolved范围作为CN历史保留；11承接当前目标转换和国际站离线复验，10/09原正式要求不减。使用ProviderMiniMax/minimax、.io端点、直接USD快照；按ADR-0042分开历史预算槽与当前精确证明身份。共享候选消费2/120、2/144，Chat槽2/20、2/24，不重置历史intent或账本。
+
+- 11 resolved（国际站实现/离线范围）：ProviderMiniMax/minimax、.io三端点、直接USD快照、冻结MINIMAX_MODELS、精确目标证明与共享预算槽完成；[Answer](issues/11-international-target.md#answer)、[当前国际站证据](evidence/ticket-11/README.md)。源码e9731a4普通/race各1314 PASS、live-tag race66 PASS、两种vet与无Key检查通过，双轴源码审查0发现；原CN2/2与全部历史完整保留。10继续真实国际站候选/正式报告与旧证据续期，09继续完整门禁及最终审查。
 
 ## Fog
 
