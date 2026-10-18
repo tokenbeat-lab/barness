@@ -148,6 +148,6 @@ func TestMiniMaxPiCatalogDifferences(t *testing.T) {
 		return
 	}
 	v := loadLedger(t).Classify(string(ai.APIAnthropicMessages), ev.ID(), diffs)
-	ev.Record("pidiff", o.Record(ev.ID(), string(ai.APIAnthropicMessages), v, pioracle.Sides{ModelCatalogHash: catalogHash(t, w.client.Catalog()), PiRequest: mustMarshal(t, pi.Request), BarnessRequest: mustMarshal(t, b.Request), PiResult: pi.Result, BarnessResult: b.Result, Frames: mustMarshal(t, models)}))
+	ev.Record("pidiff", o.Record(ev.ID(), string(ai.APIAnthropicMessages), v, pioracle.Sides{BarnessVersions: map[string]string{"go": runtime.Version(), "anthropic-sdk-go": evidence.ModuleVersion("github.com/anthropics/anthropic-sdk-go")}, ModelCatalogHash: catalogHash(t, w.client.Catalog()), PiRequest: mustMarshal(t, pi.Request), BarnessRequest: mustMarshal(t, b.Request), PiResult: pi.Result, BarnessResult: b.Result, Frames: mustMarshal(t, models)}))
 	ev.Check("catalog differences are bounded and reviewed", v.Pass, "%s", mustMarshal(t, v))
 }

@@ -7,7 +7,8 @@ import (
 )
 
 func TestMiniMaxPiCatalog(t *testing.T) {
-	ev := run.Case(t, "PIDIFF-MM06-frozen-catalog")
+	// This is a lookup/provenance control, not a two-sided differential.
+	ev := run.Case(t, "MM06-frozen-catalog-metadata")
 	ev.ReplayEnv(pioracle.EnableEnv + "=1")
 	o := openOracle(t)
 	models, err := o.Models(ctxFor(t), []pioracle.ModelKey{
