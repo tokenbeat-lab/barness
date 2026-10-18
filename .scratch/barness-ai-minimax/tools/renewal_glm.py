@@ -29,7 +29,7 @@ def known_usage(files,report):
 
 
 def capture(out,values,round_name='original'):
-    if round_name not in ('original','corrective-1'):raise RuntimeError('fixed explicit GLM collection round required')
+    if round_name not in ('original','corrective-1','routed-validation-1'):raise RuntimeError('fixed explicit GLM collection round required')
     snapshot=u.json_doc(c.ROOT/'ai/release/catalog-snapshot.json')
     source=u.sha(u.file_bytes(c.ROOT/'ai/live/testdata/glm-candidate/sources.json'))
     code=u.file_bytes(c.ROOT/'ai/internal/testkit/supportmatrix/glm.go').decode()
@@ -46,7 +46,8 @@ def capture(out,values,round_name='original'):
                 report.get('catalogHash')!=snapshot['hash'] or report.get('catalogVersion')!=snapshot['catalog']['version'] or
                 re.fullmatch(r'[a-f0-9]{40}',report.get('gitCommit','')) is None):
                 raise RuntimeError('fresh own current GLM formal identity/source/catalog required')
-            launch='glm-'+('corrective-1-' if round_name=='corrective-1' else '')+route
+            launch=('routed-validation-1-glm-' if round_name=='routed-validation-1' else
+                'glm-'+('corrective-1-' if round_name=='corrective-1' else ''))+route
             receipt_path=c.common_root()/'.evidence/minimax-launches'/(launch+'.json')
             receipt=u.json_doc(receipt_path)
             if (receipt.get('state')!='COMPLETED' or receipt.get('exitCode')!=0 or receipt.get('credentialsRead') is not True or
@@ -56,6 +57,18 @@ def capture(out,values,round_name='original'):
             if round_name=='corrective-1' and (receipt.get('correctiveRound')!='corrective-1' or
                 u.HEX.fullmatch(receipt.get('humanApprovalSha256','')) is None):
                 raise RuntimeError('explicit corrective-1 approved canonical receipt required; no original fallback')
+            if round_name=='routed-validation-1':
+                fields=('authorizationSha256','sourceReviewSha256','sourceManifestSha256',
+                    'binariesManifestSha256','planSha256','commandReceiptSha256')
+                budget=receipt.get('budget',{})
+                if (receipt.get('validationRound')!='routed-validation-1' or receipt.get('baseName')!='glm-'+route or
+                    receipt.get('phase')!='glm' or receipt.get('networkRoute')!='china-direct' or
+                    receipt.get('maxCalls')!=24 or receipt.get('maxAttempts')!=32 or receipt.get('automaticReruns') is not False or
+                    budget.get('state')!='REPORTED' or budget.get('status')!='PASS' or
+                    type(budget.get('calls')) is not int or budget['calls']!=22 or
+                    type(budget.get('attempts')) is not int or budget['attempts']!=22 or
+                    any(u.HEX.fullmatch(receipt.get(field,'')) is None for field in fields)):
+                    raise RuntimeError('new routed round requires reviewed own direct full22 canonical receipt; no old-round fallback')
             receipts[route]=u.sha(u.file_bytes(receipt_path,2<<20))
             # A completed process is not authority for subsequently edited
             # captures. These hashes are written only by the successful fixed

@@ -127,6 +127,29 @@ class Renewal(unittest.TestCase):
   fixed=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
   args[1]='.evidence/minimax-corrective-mixed';self.runcli(*args,ok=False)
   self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),fixed)
+ def test_routed_round_requires_own_reviewed_direct_capture_receipts(self):
+  values=self.captures();args=['glm-archive','.evidence/minimax-routed-missing','--round','routed-validation-1']
+  for route,value in values.items():args+=['--'+route,value]
+  before=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
+  self.runcli(*args,ok=False)
+  self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),before)
+  for route in ('chat','responses','messages'):
+   value=json.loads((self.root/'.evidence/minimax-launches'/('glm-'+route+'.json')).read_text())
+   value.update(route='routed-validation-1-glm-'+route,baseName='glm-'+route,
+    validationRound='routed-validation-1',phase='glm',networkRoute='china-direct',maxCalls=24,maxAttempts=32,
+    automaticReruns=False,budget={'state':'REPORTED','status':'PASS','calls':22,'attempts':22})
+   value.update({field:'a'*64 for field in ('authorizationSha256','sourceReviewSha256','sourceManifestSha256','binariesManifestSha256','planSha256','commandReceiptSha256')})
+   self.put('.evidence/minimax-launches/routed-validation-1-glm-'+route+'.json',value)
+  args[1]='.evidence/minimax-routed-complete';self.runcli(*args)
+  fixed=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
+  self.assertEqual(json.loads(fixed)['collectionRound'],'routed-validation-1')
+  path=self.root/'.evidence/minimax-launches/routed-validation-1-glm-responses.json';original=path.read_bytes()
+  for field,bad in (('networkRoute','international-loopback-proxy'),('authorizationSha256',''),('validationRound','corrective-1'),('budget',{'state':'REPORTED','status':'FAIL','calls':22,'attempts':22})):
+   value=json.loads(original);value[field]=bad;path.write_text(json.dumps(value))
+   args[1]='.evidence/minimax-routed-bad-'+field;self.runcli(*args,ok=False)
+   self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),fixed)
+   path.write_bytes(original)
+
  def test_raw_capture_symlink_and_mixed_source_refuse_without_selector_mutation(self):
   values=self.captures();target=self.root/'raw/chat/session/link';target.symlink_to(self.root/'go.mod')
   original=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()

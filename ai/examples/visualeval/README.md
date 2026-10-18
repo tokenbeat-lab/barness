@@ -71,6 +71,12 @@ go run ./ai/examples/visualeval -formal -mode live -route decisions -out .eviden
 环境变量及 endpoint override。HTTP transport 不使用环境代理、不跟随重定向，
 仅使用路线固定的官方服务。
 
+需要本地出站代理时显式添加 `-proxy http://127.0.0.1:7890`。只允许带有效端口、
+无凭据的 loopback IP HTTP proxy，拒绝 query、fragment 和非根路径；该参数仅供
+实际 live 执行，不能与 controlled 或 `-verify` 同用。官方 HTTPS 目标、TLS 校验、
+12 次调用及零重试保持原约束；代理失败保留为 FAIL，不直连回退。安全的显式地址写入
+`run-config.json` 并由独立验证器复核。
+
 ```sh
 # 不提供授权/凭据时生成 12 样本、零调用的 NOT_RUN 包。
 go run ./ai/examples/visualeval -mode live -route jev -out .evidence/my-jev-not-run

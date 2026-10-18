@@ -119,12 +119,16 @@ func verify(dir string, requireLive bool) error {
 		CallMS        int                `json:"callMS"`
 		Policy        *ai.ResourcePolicy `json:"policy"`
 		Authorization *authorization     `json:"authorization"`
+		Proxy         string             `json:"proxy"`
 	}
 	if get("run-config.json", &config) != nil || config.Formal != p.formal || config.Mode != r.Mode || config.Route != r.Route || config.Entry != r.Entry || config.MaxCalls < 1 || config.MaxCalls > 12 || config.WorkMS < 1 || config.WorkMS > 225000 || config.CallMS < 1 || config.CallMS > 30000 || !same(config.Policy, policy(time.Duration(config.CallMS)*time.Millisecond)) {
 		return errors.New("invalid run configuration")
 	}
 	if (r.Mode != "controlled" && r.Mode != "live") || (r.Entry != "plain" && r.Entry != "hooked") {
 		return errors.New("invalid evaluation source")
+	}
+	if _, err := visualProxy(config.Proxy); err != nil || (config.Proxy != "" && r.Mode != "live") {
+		return errors.New("invalid recorded proxy configuration")
 	}
 	if r.Mode == "controlled" && config.Authorization != nil {
 		return errors.New("controlled run cannot carry live authorization")

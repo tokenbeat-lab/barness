@@ -7,6 +7,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"net/url"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -17,10 +18,10 @@ import (
 )
 
 type arguments struct {
-	mode, route, entry, out, responses, authorization, verify string
-	requireLive                                               bool
-	formal                                                    bool
-	calls, workMS, callMS                                     int
+	mode, route, entry, out, responses, authorization, verify, proxy string
+	requireLive                                                      bool
+	formal                                                           bool
+	calls, workMS, callMS                                            int
 }
 type scriptReply struct {
 	Status  int             `json:"status"`
@@ -37,6 +38,7 @@ func main() {
 	flag.StringVar(&a.responses, "responses", "", "controlled-only native response script")
 	flag.StringVar(&a.authorization, "authorization", "", "live Host authorization JSON; sole key is BARNESS_VISUAL_KEY")
 	flag.StringVar(&a.verify, "verify", "", "independently verify an existing bundle without network")
+	flag.StringVar(&a.proxy, "proxy", "", "explicit loopback HTTP proxy for live HTTPS requests")
 	flag.BoolVar(&a.requireLive, "require-live", false, "verification must contain complete real quality evidence")
 	flag.BoolVar(&a.formal, "formal", false, "use the current formal catalog for the selected fixed classifier; preserve candidate fixtures")
 	flag.IntVar(&a.calls, "calls", 12, "controlled-only lower call limit")
@@ -44,17 +46,20 @@ func main() {
 	flag.IntVar(&a.callMS, "call-ms", 30000, "controlled-only shorter call deadline")
 	flag.Parse()
 	var err error
-	if a.verify != "" {
+	proxyURL, proxyErr := visualProxy(a.proxy)
+	if proxyErr != nil || (a.proxy != "" && (a.mode != "live" || a.verify != "")) {
+		err = errors.New("invalid live proxy configuration")
+	} else if a.verify != "" {
 		err = verify(a.verify, a.requireLive)
 	} else {
-		err = execute(a)
+		err = execute(a, proxyURL)
 	}
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "visualeval:", err)
 		os.Exit(1)
 	}
 }
-func execute(a arguments) error {
+func execute(a arguments, proxyURL *url.URL) error {
 	started := time.Now()
 	watchdog := time.AfterFunc(240*time.Second, func() { fmt.Fprintln(os.Stderr, "visualeval: hard process deadline"); os.Exit(124) })
 	defer watchdog.Stop()
@@ -141,6 +146,9 @@ func execute(a arguments) error {
 			endpoint = official(p.route)
 			alias = authorization.AccountAlias
 			transport = &http.Transport{TLSHandshakeTimeout: 5 * time.Second, IdleConnTimeout: 30 * time.Second}
+			if proxyURL != nil {
+				transport.Proxy = http.ProxyURL(proxyURL)
+			}
 		}
 		defer transport.CloseIdleConnections()
 		if e = executeCalls(work, p, a, b, &r, endpoint, key, alias, transport); e != nil {
