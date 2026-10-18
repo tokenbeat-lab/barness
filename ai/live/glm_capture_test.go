@@ -93,6 +93,9 @@ func glmSafeFailure(err error) string {
 func glmModelReports() map[string]any {
 	reports := map[string]any{}
 	r := glmReportState
+	if r.Kind == glmDiagnosticKind {
+		return reports
+	}
 	for _, model := range []string{"glm-5.3", "glm-5.2"} {
 		var cases []glmOutcome
 		calls, attempts, replayAttempts := 0, 0, 0
@@ -138,6 +141,10 @@ func glmModelReports() map[string]any {
 }
 
 func setGLMReplay(cs *evidence.Case) {
+	if glmReportState.Kind == glmDiagnosticKind {
+		setGLMDiagnosticReplay(cs)
+		return
+	}
 	if glmReportState != nil && glmReportState.Mode == "replay" {
 		if name := os.Getenv("BARNESS_GLM_REPLAY_TESTCASE"); name != "" {
 			cs.ReplayEnv("BARNESS_GLM_ROUTE= BARNESS_GLM_KEY= BARNESS_GLM_REPLAY_ARCHIVE= BARNESS_AI_LIVE=0")
@@ -164,6 +171,9 @@ func glmAttemptCount() int {
 	return glmReportState.Budget.HTTPAttempts
 }
 func glmSelectedEntry() string {
+	if glmReportState.Kind == glmDiagnosticKind {
+		return glmDiagnosticEntry
+	}
 	if glmReportState.Mode == "replay" {
 		return "^TestGLMCaptureReplay$"
 	}

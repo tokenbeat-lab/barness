@@ -185,7 +185,12 @@ func initializeGLM() {
 		glmConfigError = "fixed six-candidate/22-call identity set required"
 		return
 	}
-	if os.Getenv("BARNESS_GLM_FORMAL") == "1" {
+	if glmDiagnosticSelected() {
+		if err := selectGLMDiagnostic(); err != nil {
+			glmConfigError = err.Error()
+			return
+		}
+	} else if os.Getenv("BARNESS_GLM_FORMAL") == "1" {
 		if err := selectGLMFormalCatalog(); err != nil {
 			glmConfigError = err.Error()
 			return

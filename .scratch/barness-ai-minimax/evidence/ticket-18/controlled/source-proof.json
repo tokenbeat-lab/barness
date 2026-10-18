@@ -1,0 +1,47 @@
+{
+  "measuredHEAD": "14769dc1c1cdf426803c88d401b6d3e7b2406256",
+  "files": {
+    "ai/live/main_test.go": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05",
+    "ai/live/glm_config_test.go": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa",
+    "ai/live/glm_capture_test.go": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274",
+    "ai/live/glm_diagnostic_test.go": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13",
+    "ai/live/glm_diagnostic_process_test.go": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed"
+  },
+  "commands": [
+    {
+      "argv": "go test -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$/^success$' -timeout=90s",
+      "actualExit": 1,
+      "stage": "red"
+    },
+    {
+      "argv": "same exact RED command with complete refused-child retention",
+      "actualExit": 1,
+      "stage": "red-retained"
+    },
+    {
+      "argv": "go test -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$' -timeout=90s",
+      "actualExit": 0,
+      "stage": "green"
+    },
+    {
+      "argv": "go test -race -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$' -timeout=90s",
+      "actualExit": 0,
+      "stage": "race"
+    },
+    {
+      "argv": "go vet -tags live ./ai/live",
+      "actualExit": 0,
+      "stage": "vet"
+    }
+  ],
+  "environmentKeys": [
+    "PATH",
+    "HOME",
+    "TMPDIR",
+    "BARNESS_AI_EVIDENCE_DIR"
+  ],
+  "vendorCalls": 0,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "releaseCertified": false
+}

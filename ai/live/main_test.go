@@ -46,7 +46,9 @@ func TestMain(m *testing.M) {
 	var err error
 	// Select the isolated mode before legacy configuration can enable a route.
 	// An MM process never resolves or executes a legacy live combination.
-	if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+	if glmDiagnosticSelected() {
+		cfg = processConfig{notRun: "isolated one-case GLM diagnostic"}
+	} else if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated MiniMax identity"}
 	} else if os.Getenv("BARNESS_GLM_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated GLM candidate"}
@@ -62,11 +64,16 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_GLM_ROUTE") != "" || os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
 		packageArgs = "-tags live -timeout 1800s ./ai/live"
 	}
+	if glmDiagnosticSelected() {
+		packageArgs = "-tags live -timeout 180s ./ai/live"
+	}
 	if run, err = evidence.NewRun(packageArgs); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+	if glmDiagnosticSelected() {
+		initializeGLM()
+	} else if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
 		initializeMiniMax()
 	} else if os.Getenv("BARNESS_GLM_ROUTE") != "" {
 		initializeGLM()
