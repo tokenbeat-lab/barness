@@ -161,3 +161,9 @@ Derived artifacts:
 - `facts.json` SHA-256 `d9d4a1a8baf345b7d158a8687d13fa1180eaaa187d7dd4d8a8cc5427352963f6`
 - `guides_terms-of-service.md.extracted.txt` SHA-256 `3edccad1882a1ead4716dc6f4bc0e62390f76aaf24c79398b3ccae33e1db08fc`
 - `guides_privacy-policy.md.extracted.txt` SHA-256 `dec6075dced83cf7eb462ac3a17264848ab3efdd98a4151383431b65410eb4af`
+
+## 2026-10-18 own international research checkpoint
+
+Actual source `38b7098`; [unchanged raw capsule and pins](evidence/ticket-10/international-research-38b7098.json). International authentication works: all attempted generation requests returned HTTP200 and actual modelMiniMax-M3. Chat aborts at the first mirrored reasoning chunk: simultaneous reasoning_content and reasoning_details carry equal text; the existing parser incorrectly treats the pair as conflicting, leaving usage unreported. Native continuation was NOT_RUN. Responses text and tool/thinking succeed with known usage, but persisted trusted native continuation fails during local request encoding before any HTTP attempt. Messages text, tool/thinking and native continuation all PASS. These are bounded research observations, not complete candidate/formal reports.
+
+The three new processes consumed8 Logical Calls and7 Attempts; with the retained CN2/2, candidate stage totals10/120 calls and9/144 Attempts (10 reserved). Chat slot4calls/4attempts, Responses3/2, Messages3/3; formal0/0. Unknown Chat consumption is not a zero bill. Source changes require fresh exact-source preparation/review before the unexecuted one-shot complete candidates; no failed research intent/receipt is overwritten or reset.

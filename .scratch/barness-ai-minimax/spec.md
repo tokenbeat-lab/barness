@@ -181,6 +181,8 @@ Chat 首期只支持默认函数选择；公开 auto 作为相同默认语义，
 
 M3 的 reasoning_content 与 reasoning_details 文档冲突须在候选阶段按实际型号、端点和 Key 用途收敛。优先复用已有 reasoning_content reader 与 reasoning_details 的 typed entries/签名处理，不重新建立 reader；后者若形状不同，在协议边界最小转换并单独保留原生状态。不得压平原生数组后称为原样回放，不向所有 assistant 强行补 DeepSeek 的空字段。
 
+2026-10-18国际站M3自身研究已观察到同一delta同时包含reasoning_content与reasoning_details，后者为reasoning.text/MiniMax-response-v1条目，拼接文本与前者完全一致。这种已证实的镜像只显示一次，保留原生明细及镜像归属以支持持久化后可信续接；只有严格相等的已集成镜像可接受，值矛盾或未集成跨帧格式切换仍失败。原始失败捕获按38b7098来源保留，不能在修复后改写成PASS。
+
 正式默认采用已验证的分离格式；若 M3 只能以原始带 think 标签的 content 正确续接，必须记录这个格式限制、公开内容语义及差分决定后再验收，不能临时剥标签或伪造独立 Thinking。M3.1 不允许 reasoning_split=false。未验证的同协议格式变体明确拒绝，不能默许回调破坏 Native State 的可回放性。
 
 工具往返保留该轮完整 assistant 正文、推理、调用和结果顺序。流中多个调用按实际 index/ID 分片独立组装，空 content/null assistant、并行调用、只在 done 有完整 arguments 均按实际 wire 验收。只有完整 ToolCall 交给 Host 验证执行；不在库内执行函数，不合并不同调用，不丢弃同轮思考。工具已返回但 finish_reason 语义冲突时不能当普通回答静默通过。
