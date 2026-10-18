@@ -29,7 +29,7 @@ python3 -B .scratch/barness-ai-minimax/evidence/ticket-13/final-gate/check-bound
 
 ordinary在结束后先冻结，race结束后另冻；最终外层关闭后才保存verdict。三个原始集合快照前后逐文件SHA相同；先前ordinary/race归档没有因最终报告或离线修复重写。30MB编译二进制已在[launch history](../keyless-launch-history/README.md)归档，当前仅固定同一SHA/大小与原始编译收据，避免重复blob；它不作为修复后当前可执行程序复用。
 
-每个完整suite采用独立固定上限：256 MiB压缩、2 GiB解码tar、160,000文件/200,000条目、64 MiB单成员、40 MiB解码inventory/8 MiB压缩inventory、16 MiB单观察元数据/64 MiB观察总量、1600 MiB原始payload。实际ordinary/race解码tar分别1,538,959,360 /1,516,769,280字节。小型verdict另限原始32 MiB/256文件，保存45文件4,619,704 payload字节。旧implementation的32MiB/192MiB/32k协议从未扩大；`capsule.py`是明确的新全suite协议。
+每个完整suite采用独立固定上限：256 MiB压缩、2 GiB解码tar、160,000文件/200,000条目、64 MiB单成员、40 MiB解码inventory/8 MiB压缩inventory、16 MiB单观察元数据/64 MiB观察总量、1600 MiB原始payload。实际ordinary/race解码tar分别1,538,959,360 /1,516,769,280字节。小型verdict的创建快照另限原始32 MiB/256文件，保存45文件4,619,704 payload字节；复验仍使用上述统一的256 MiB压缩/2 GiB解码/160,000文件有限reader包络，并以固定45文件inventory与原始hash约束实际内容，不宣称它有独立32 MiB/256文件读取器。旧implementation的32MiB/192MiB/32k协议从未扩大；`capsule.py`是明确的新全suite协议。
 
 验证逐级安全打开固定相对路径，拒绝链接/非普通文件/越界或重复成员/JSON重复字段/改动的hash、source或compiled observer身份。14项公共CLI反例覆盖archive损坏/超限/链接、父链接、洗白FAIL/真实race1/额外unit失败、错路径/扩大上限/tar链接、错helper/source/binary和隐藏suite失败数。所有反例只写临时目录；前后复验原始三份归档。
 
