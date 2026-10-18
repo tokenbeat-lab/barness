@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "retentionCredentialsRead": false,
+  "retentionPaidCalls": 0,
+  "actualRequestsReplayed": false,
+  "originalArchiveVerifiedBeforeAndAfter": true,
+  "results": [
+    {
+      "case": "wrong-hash",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "symlink",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "oversized",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "symlink-parent",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "launder-interruption",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "launder-red-to-green",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "enlarge-streaming-limit",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "inject-live-a2",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "redirect-archive",
+      "exitCode": 1,
+      "rejected": true
+    },
+    {
+      "case": "change-bounded-helper",
+      "exitCode": 1,
+      "rejected": true
+    }
+  ]
+}
