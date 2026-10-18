@@ -73,7 +73,11 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 		return r, fmt.Errorf("MiniMax provenance incomplete")
 	}
 	cat := CandidateCatalog(id)
-	if r.Stage == "formal" || r.Mode == "replay" && r.CatalogVersion == ai.BuiltinCatalog().Version {
+	// Candidate and full built-in snapshots may share a version label after
+	// activation. Replay selects only one of these fixed snapshots by complete
+	// identity; a label alone cannot promote the candidate catalog.
+	candidateHash, _ := cat.Hash()
+	if r.Stage == "formal" || r.Mode == "replay" && (r.CatalogHash != candidateHash || r.CatalogVersion != cat.Version) {
 		cat = ai.BuiltinCatalog()
 	}
 	hash, err := cat.Hash()

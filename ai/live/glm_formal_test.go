@@ -12,6 +12,13 @@ import (
 
 func selectGLMFormalCatalog() error {
 	formal := ai.BuiltinCatalog()
+	if glmReportState.Mode == "replay" {
+		var err error
+		formal, err = glmOriginalReplayCatalog()
+		if err != nil {
+			return err
+		}
+	}
 	count := 0
 	for _, m := range formal.Models {
 		if m.Provider == ai.ProviderZhipu {

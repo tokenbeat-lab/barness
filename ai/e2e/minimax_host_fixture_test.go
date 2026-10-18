@@ -3,6 +3,7 @@ package e2e
 import (
 	"context"
 	"encoding/json"
+	"slices"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -59,6 +60,10 @@ func newMiniMaxHostWorld(t *testing.T) *miniMaxHostWorld {
 	cat := ai.BuiltinCatalog()
 	candidate := minimax.CandidateCatalog()
 	cat.Version = "mm08-controlled-candidate-synthetic-prices"
+	// This world owns six synthetic MiniMax candidates, including unpriced
+	// M3.1 mechanism fixtures. Replace that provider subset after activation;
+	// every unrelated built-in model remains unchanged.
+	cat.Models = slices.DeleteFunc(slices.Clone(cat.Models), func(m ai.Model) bool { return m.Provider == ai.ProviderMiniMax })
 	cat.Models = append(cat.Models, candidate.Models...)
 	rec := newRecorder()
 	bodies := provider.TrackBodies(provider.LoopbackTransport())

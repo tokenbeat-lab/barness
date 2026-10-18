@@ -139,7 +139,7 @@ func installGLMCaptureReplay(rec *recorder) error {
 	}
 	reportRaw := files[entry.ReportPath]
 	var original glmReport
-	if sha256Text(reportRaw) != entry.ReportSHA256 || json.Unmarshal(reportRaw, &original) != nil || original.Mode != "live" || original.Kind != glmOriginalKind() || !original.Complete || !original.AuditPassed || original.SourceManifestHash != glmSourcePin || original.Outcome != "PASS" || original.Route != glmReportState.Route || original.GitCommit != index.OriginalLiveSourceCommit || original.CatalogHash != glmReportState.CatalogHash || len(original.Scenarios) != 22 {
+	if sha256Text(reportRaw) != entry.ReportSHA256 || json.Unmarshal(reportRaw, &original) != nil || original.Mode != "live" || original.Kind != glmOriginalKind() || !original.Complete || !original.AuditPassed || original.SourceManifestHash != glmSourcePin || original.Outcome != "PASS" || original.Route != glmReportState.Route || original.GitCommit != index.OriginalLiveSourceCommit || original.CatalogHash != glmReportState.CatalogHash || original.CatalogVersion != glmReportState.CatalogVersion || len(original.Scenarios) != 22 {
 		return fmt.Errorf("original live authority does not match replay")
 	}
 	state := &glmCaptureReplay{calls: map[string]glmReplayCall{}, wireMatched: map[string]bool{}, ack: make(chan struct{}, 1)}

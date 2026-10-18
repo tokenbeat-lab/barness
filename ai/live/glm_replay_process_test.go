@@ -11,6 +11,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
 func TestGLMCaptureReplayProcess(t *testing.T)       { driveGLMCaptureReplayProcess(t, false) }
@@ -29,7 +31,7 @@ func driveGLMCaptureReplayProcess(t *testing.T, formal bool) {
 	}
 	names := []string{"chat", "responses", "messages", "missing", "mutated", "wrong-route", "credential", "narrowed", "provider-id", "native-signature"}
 	if formal {
-		names = append(names, "index-mutated")
+		names = append(names, "index-mutated", "snapshot-unavailable", "snapshot-hash", "snapshot-overflow")
 	}
 	for _, name := range names {
 		t.Run(name, func(t *testing.T) {
@@ -75,7 +77,7 @@ func driveGLMCaptureReplayProcess(t *testing.T, formal bool) {
 			defer cancel()
 			cmd := exec.CommandContext(ctx, exe, "-test.run="+entry, "-test.timeout=50s")
 			cwd, _ := os.Getwd()
-			if name == "index-mutated" {
+			if name == "index-mutated" || name == "snapshot-unavailable" {
 				inputs := filepath.Join(base, "inputs")
 				for _, source := range []string{"glm-candidate", "glm-formal"} {
 					if e := os.MkdirAll(filepath.Join(inputs, "testdata", source), 0755); e != nil {
@@ -90,10 +92,30 @@ func driveGLMCaptureReplayProcess(t *testing.T, formal bool) {
 				if e != nil {
 					t.Fatal(e)
 				}
-				os.WriteFile(p, append(raw, ' '), 0600)
+				if name == "index-mutated" {
+					os.WriteFile(p, append(raw, ' '), 0600)
+				}
 				cwd = inputs
 			}
 			cmd.Dir = cwd
+			env = append(env, "PATH="+os.Getenv("PATH"))
+			if name == "snapshot-hash" || name == "snapshot-overflow" {
+				realGit, err := exec.LookPath("git")
+				if err != nil {
+					t.Fatal(err)
+				}
+				payload := []byte(`{"hash":"sha256:wrong","catalog":{"version":"wrong"}}`)
+				if name == "snapshot-overflow" {
+					payload = []byte(strings.Repeat(" ", (2<<20)+1))
+				}
+				file := filepath.Join(base, "snapshot.json")
+				os.WriteFile(file, payload, 0600)
+				bin := filepath.Join(base, "bin")
+				os.Mkdir(bin, 0700)
+				script := "#!/bin/sh\ncase \"$*\" in *show*) exec /bin/cat '" + file + "';; *) exec '" + realGit + "' \"$@\";; esac\n"
+				os.WriteFile(filepath.Join(bin, "git"), []byte(script), 0700)
+				env = append(env, "PATH="+bin+string(os.PathListSeparator)+os.Getenv("PATH"))
+			}
 			cmd.Env = env
 			output, err := cmd.CombinedOutput()
 			cs.Record("exit", map[string]any{"success": err == nil, "output": string(output)})
@@ -116,6 +138,13 @@ func driveGLMCaptureReplayProcess(t *testing.T, formal bool) {
 				cs.Check("failure preserved", !report.Complete && report.Outcome == "FAIL", "%s", data)
 			}
 			child := filepath.Dir(matches[0])
+			if formal && success {
+				_, certificationError := supportmatrix.NewGLMReport(child)
+				published, _ := filepath.Glob(filepath.Join(child, "live-report.json"))
+				cs.Check("historical replay cannot certify current live support", certificationError != nil && len(published) == 0, "replay certified current support")
+				raw, err := os.ReadFile(filepath.Join(child, "capture-replay-catalog.json"))
+				cs.Check("original catalog authority retained", err == nil && strings.Contains(string(raw), report.CatalogHash), "historical catalog provenance missing")
+			}
 			if name == "provider-id" || name == "native-signature" {
 				data, e := os.ReadFile(filepath.Join(child, "GLM11-glm-5.3-full-stream", "capture-result-comparison.json"))
 				var comparison struct{ Equal bool }

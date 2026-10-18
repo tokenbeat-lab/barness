@@ -12,13 +12,19 @@ import paid_plan as p
 
 
 def catalog_pins(out):
-    names=['ai/release/catalog-snapshot.json']+[
-        'ai/examples/chineseeval/testdata/'+r+'-route-v1.json' for r in ('jev','luna')]
+    configs_names=['ai/examples/chineseeval/testdata/'+r+'-route-v1.json' for r in ('jev','luna')]
+    legacy='ai/examples/chineseeval/testdata/jev-1.13.0-v1.json'
+    usage='ai/e2e/testdata/responses/usage.json'
+    names=['ai/release/catalog-snapshot.json',*configs_names,legacy,usage]
     before={n:u.file_bytes(c.ROOT/n) for n in names}
-    configs={n:u.json_doc(c.ROOT/n) for n in names[1:]}
-    for value in configs.values():
-        if any(value.get(k)!=v for k,v in {'maxCalls':24,'maxAttempts':24,'maxQuestions':24,'maxRetries':0,'callTimeoutSeconds':15,'timeoutSeconds':600}.items()) or not value.get('instructions') or not value.get('datasetHash'):
+    configs={n:u.json_doc(c.ROOT/n) for n in [*configs_names,legacy]}
+    for name,value in configs.items():
+        fixed={'maxCalls':24,'maxAttempts':24,'maxQuestions':24,'maxRetries':0,'callTimeoutSeconds':15,'timeoutSeconds':180 if name==legacy else 600}
+        if any(value.get(k)!=v for k,v in fixed.items()) or not value.get('instructions') or not value.get('datasetHash'):
             raise RuntimeError('fixed Chinese effect contract must remain unchanged')
+    usage_doc=u.json_doc(c.ROOT/usage)
+    if not isinstance(usage_doc.get('catalog'),dict) or any(not isinstance(usage_doc['catalog'].get(k),str) for k in ('version','hash')):
+        raise RuntimeError('independent current usage catalog pin required')
     try:
         u.public(out,'catalog-snapshot',['go','run','./ai/release/cmd/releasegate','-write-snapshot'])
         snapshot=u.json_doc(c.ROOT/names[0]);version=snapshot['catalog']['version'];digest=snapshot['hash']
@@ -27,6 +33,9 @@ def catalog_pins(out):
             check=u.json_doc(c.ROOT/name)
             old=json.loads(before[name]);old['catalogHash']=digest;old['catalogVersion']=version
             if check!=old:raise RuntimeError('noncatalog Chinese effect fields changed')
+        usage_doc['catalog'].update(version=version,hash=digest);c.dump(c.ROOT/usage,usage_doc)
+        old=json.loads(before[usage]);old['catalog'].update(version=version,hash=digest)
+        if u.json_doc(c.ROOT/usage)!=old:raise RuntimeError('noncatalog usage fields changed')
     except BaseException:
         for name,raw in before.items():(c.ROOT/name).write_bytes(raw)
         raise

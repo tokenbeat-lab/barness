@@ -34,7 +34,7 @@ python3 .scratch/barness-ai-minimax/tools/renewal.py catalog-pins .evidence/mini
 ```
 
 This calls the existing `releasegate -write-snapshot` and updates only
-`catalogHash`/`catalogVersion` in Jev/Luna Chinese route JSON. The unchanged
+`catalogHash`/`catalogVersion` in Jev/Luna Chinese route JSON and the current legacy Jev default, plus only `catalog.version`/`catalog.hash` in the independent current Responses usage fixture. The legacy default keeps its 180-second process limit; route configurations keep 600 seconds. The unchanged
 instructions, dataset and24call/attempt/question limits are checked first;
 failed generation restores the prior snapshot/config bytes. Commit the new
 source/config before preparing and approving a live collection.

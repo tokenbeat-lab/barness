@@ -29,6 +29,8 @@ class Renewal(unittest.TestCase):
   self.put('ai/live/testdata/minimax-formal/origins.json',{'schema':1,'entries':{}})
   for r in ('jev','luna'):
    self.put(f'ai/examples/chineseeval/testdata/{r}-route-v1.json',{'catalogHash':'old','catalogVersion':'old','maxCalls':24,'maxAttempts':24,'maxQuestions':24,'maxRetries':0,'callTimeoutSeconds':15,'timeoutSeconds':600,'instructions':'fixed Chinese instructions','datasetHash':'fixed dataset','route':{'model':'jev-1.13.0' if r=='jev' else 'gpt-6-luna'}})
+  self.put('ai/examples/chineseeval/testdata/jev-1.13.0-v1.json',{'catalogHash':'old','catalogVersion':'old','maxCalls':24,'maxAttempts':24,'maxQuestions':24,'maxRetries':0,'callTimeoutSeconds':15,'timeoutSeconds':180,'instructions':'legacy fixed Chinese instructions','datasetHash':'legacy dataset'})
+  self.put('ai/e2e/testdata/responses/usage.json',{'catalog':{'version':'old','hash':'old'},'scenarios':[{'id':'preserved','usage':{'output':7}}]})
   for n in ('live-captures.json','known-usage.json','support-views.json'):self.put('ai/live/testdata/glm-formal/'+n,{'historical':n})
   self.write('ai/live/testdata/glm-formal/live-captures.sha256',b'historical-pin\n')
   self.bin=self.root/'fake-bin';self.bin.mkdir()
@@ -55,12 +57,15 @@ class Renewal(unittest.TestCase):
   else:self.assertNotEqual(p.returncode,0,p.stderr[-700:]+p.stdout[:200])
   return p
  def test_catalog_pins_preserve_fixed_business_contract_without_credentials(self):
-  paths=[self.root/f'ai/examples/chineseeval/testdata/{r}-route-v1.json' for r in ('jev','luna')]
+  paths=[self.root/f'ai/examples/chineseeval/testdata/{r}-route-v1.json' for r in ('jev','luna')]+[self.root/'ai/examples/chineseeval/testdata/jev-1.13.0-v1.json']
+  usage=self.root/'ai/e2e/testdata/responses/usage.json';usage_before=json.loads(usage.read_text())
   before=[json.loads(p.read_text()) for p in paths]
   self.runcli('catalog-pins','.evidence/minimax-renewal-pins')
   for p,old in zip(paths,before):
    new=json.loads(p.read_text());self.assertEqual((new.pop('catalogHash'),new.pop('catalogVersion')),('sha256:new','new'))
    old.pop('catalogHash');old.pop('catalogVersion');self.assertEqual(new,old)
+  usage_after=json.loads(usage.read_text());self.assertEqual(usage_after.pop('catalog'),{'version':'new','hash':'sha256:new'})
+  usage_before.pop('catalog');self.assertEqual(usage_after,usage_before)
   log=(self.root/'.evidence/minimax-renewal-pins/catalog-snapshot.log').read_text()
   self.assertNotIn('OPENAI_API_KEY',log);self.assertNotIn('HTTP_PROXY',log)
 

@@ -22,6 +22,7 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 	if os.Getenv("BARNESS_DECISIONS_CONTROLLED") != "" {
 		return
 	}
+	formalHash, _ := ai.BuiltinCatalog().Hash()
 	cases := []string{"direct", "unknown-account-direct", "not-run", "switch-off", "foreign-key", "missing-alias", "missing-permissions", "endpoint-override", "remote-proxy", "source-missing", "source-changed", "catalog-changed", "success", "refusal", "usage-absent", "usage-partial", "usage-zero", "model-alias", "model-missing", "429", "504", "malformed-2xx", "precision-2xx", "narrowed", "calls-budget", "questions-budget", "state-budget", "images-budget", "image-bytes-budget", "permissions-trailing", "permissions-duplicate", "permissions-broad", "permissions-not-dedicated", "missing-region", "no-key-foreign", "mixed-refusal", "price-threshold", "price-long-tier", "permissions-case-alias", "process-deadline", "integrity-read-failure", "integrity-write-failure", "unknown-account", "unknown-account-invalid-proof", "unknown-account-foreign-key", "unknown-account-remote-proxy", "unknown-account-no-key"}
 	for _, name := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -290,7 +291,8 @@ func TestDecisionsCandidateProcess(t *testing.T) {
 				cs.Check("config refuses before spend", b.CallsUsed == 0 && b.HTTPAttempts == 0, "config escaped")
 			}
 			_, included := ai.BuiltinCatalog().LookupClassifier(ai.ProviderOpenAI, ai.APIOpenAIDecisions, "gpt-6-luna")
-			cs.Check("candidate leaves formal catalog intact", included && ai.BuiltinCatalog().Version == "2026-10-17.2", "formal catalog changed")
+			afterHash, _ := ai.BuiltinCatalog().Hash()
+			cs.Check("candidate leaves formal catalog intact", included && afterHash == formalHash, "formal catalog changed")
 		})
 	}
 }
