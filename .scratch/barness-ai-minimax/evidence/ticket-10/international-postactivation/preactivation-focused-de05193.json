@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "name": "preactivation-focused-de05193",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "$COMMON/.evidence/minimax-retained/preactivation-focused-de05193.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/preactivation-focused-de05193.tar.gz",
+  "archiveBytes": 27936652,
+  "archiveSha256": "eb28913df7d1dc82743ef9c552300ad9700edb6463f9d4850f2531ab400ba8c9",
+  "files": 10597,
+  "negativeSymlinkFixtures": 0,
+  "entries": 10597,
+  "expandedBytes": 171517538,
+  "inventory": "preactivation-focused-de05193-files.json.gz",
+  "inventorySha256": "6c4ca9255a5d1c796a6127a00eaa8e1b4bf1d88830e82b0d0f7571658ae800ce",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "focused-live-normal",
+      "manifest": "focused-live-normal/live/20261018T022323.789407000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 67
+      },
+      "artifactReferences": 4730,
+      "auditFindings": 0,
+      "executionGitCommit": "7c28174f8d51a4acdde73ac581815e5362b9862e"
+    },
+    {
+      "group": "inactive-affected-e2e",
+      "manifest": "inactive-affected-e2e/e2e/20261018T022421.755918000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 156
+      },
+      "artifactReferences": 1114,
+      "auditFindings": 0,
+      "executionGitCommit": "7c28174f8d51a4acdde73ac581815e5362b9862e"
+    },
+    {
+      "group": "retained-checks",
+      "manifest": "retained-checks/live-race/20261018T023030.725061000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 67
+      },
+      "artifactReferences": 4730,
+      "auditFindings": 0,
+      "executionGitCommit": "de051931b8d4e30fb6adf5cc5b2a3672f243ba35"
+    }
+  ],
+  "fixCheckpoint": "de051931b8d4e30fb6adf5cc5b2a3672f243ba35",
+  "executionSourceAuthority": "per-run original manifest, command and source receipts; red states may contain new tests with original implementation"
+}

@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "name": "preactivation-activated-live-de05193",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "$COMMON/.evidence/minimax-retained/preactivation-activated-live-de05193.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/preactivation-activated-live-de05193.tar.gz",
+  "archiveBytes": 36728373,
+  "archiveSha256": "c939a59321393f787e9c9f199c5202fc2b85a24f035e3aceed89ac8b54eb80c2",
+  "files": 25572,
+  "negativeSymlinkFixtures": 1,
+  "entries": 25573,
+  "expandedBytes": 186363573,
+  "inventory": "preactivation-activated-live-de05193-files.json.gz",
+  "inventorySha256": "0cf34ddc57cd466b0be599f14b4f63e61b4b4df25970ca58352f750d4a4d4a39",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "activated-live",
+      "manifest": "activated-live/live/20261018T022548.128972000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 331,
+        "NOT_RUN": 62
+      },
+      "artifactReferences": 13431,
+      "auditFindings": 0,
+      "executionGitCommit": "688b1e6364f9af7ffd0622f63b62043780feaf2c"
+    }
+  ],
+  "fixCheckpoint": "de051931b8d4e30fb6adf5cc5b2a3672f243ba35",
+  "executionSourceAuthority": "per-run original manifest, command and source receipts; red states may contain new tests with original implementation"
+}

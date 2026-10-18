@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "name": "preactivation-activated-whole-de05193",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "$COMMON/.evidence/minimax-retained/preactivation-activated-whole-de05193.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/preactivation-activated-whole-de05193.tar.gz",
+  "archiveBytes": 111557747,
+  "archiveSha256": "1b28b778ca18e524b55bf7697c9debd960b1708ad7bc1cad00046ea0fc1898bf",
+  "files": 131964,
+  "negativeSymlinkFixtures": 0,
+  "entries": 131964,
+  "expandedBytes": 1312780816,
+  "inventory": "preactivation-activated-whole-de05193-files.json.gz",
+  "inventorySha256": "d5205b3bce842845e151331f48acab64e6bfafbe34308fb7cb07672bd3b281c4",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "activated-whole",
+      "manifest": "activated-whole/e2e/20261018T023011.696071000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 12378,
+        "FAIL": 11
+      },
+      "artifactReferences": 98524,
+      "auditFindings": 0,
+      "executionGitCommit": "688b1e6364f9af7ffd0622f63b62043780feaf2c"
+    }
+  ],
+  "fixCheckpoint": "de051931b8d4e30fb6adf5cc5b2a3672f243ba35",
+  "executionSourceAuthority": "per-run original manifest, command and source receipts; red states may contain new tests with original implementation"
+}

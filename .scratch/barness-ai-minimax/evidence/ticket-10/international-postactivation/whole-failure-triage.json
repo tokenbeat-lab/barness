@@ -1,0 +1,33 @@
+{
+  "originalCodeCommit": "de05193",
+  "fixtureCommit": "688b1e6",
+  "wholeGoExitCode": 1,
+  "originalAuditFindings": 0,
+  "sourceGuardUnchanged": true,
+  "originalManifestCases": 12389,
+  "originalPass": 12378,
+  "originalFail": 11,
+  "knownStillUnqualifiedGLMCases": [
+    "TestGLMFormalReports/chat",
+    "TestGLMFormalReports/messages",
+    "TestGLMFormalReports/responses",
+    "TestGLMFormalKnownUsage/chat",
+    "TestGLMFormalKnownUsage/messages",
+    "TestGLMFormalKnownUsage/responses"
+  ],
+  "fixedReleaseLeafCases": [
+    "TestReleaseAllRefusalImport",
+    "TestReleaseExecutionSourceDrift",
+    "TestReleaseEvaluationIdentityAndIntegrity/current"
+  ],
+  "aggregateCase": "TestReleaseEvaluationIdentityAndIntegrity",
+  "privateFixtureSetupOnly": "TestGLMFullRollback: directory symlink was an untracked file; explicit local Git exclude, no historical script edit",
+  "sourceFixCommit": "df342b9",
+  "focusedActiveOrdinaryAndRace": {
+    "PASS": 24,
+    "FAIL": 0,
+    "auditFindings": 0
+  },
+  "fullWholeWasNotRepeatedOrRelabeled": true,
+  "actualSupport": false
+}

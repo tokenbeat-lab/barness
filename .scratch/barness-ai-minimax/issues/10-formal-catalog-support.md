@@ -30,3 +30,9 @@ M3三身份只有自身候选通过才能进入BuiltinCatalog，正式三份报�
 ## Comments
 
 2026-10-18国际站转向：[票11](11-international-target.md)先完成Provider/端点/USD价格/冻结pi与无损共享预算。新国际站捕获必须绑定新源码和账户/地区身份；原CN两次调用仍计入共同阶段和Chat预算槽。当前票维持未关闭，全部原正式门槛继续适用。
+
+## Current source preflight convergence (acceptance stays open)
+
+`de05193` 修复激活后的历史目录回放归属、MiniMax 两目录同版本标签、当前配置 pin 续期与 Host 候选重复；`df342b9` 固定中文业务任务的独立非目录哈希，允许且仅允许当前目录 pin 演进。两次独立 Standards/Spec 均零发现。完整受控激活 live 为331 PASS/62正常未选择厂商 NOT_RUN/0 FAIL，MiniMax普通/race各1340 PASS；当前业务门禁激活普通/race各24 PASS、未激活各23 PASS，审计0/源码保护不变。
+
+[完整证据、归档与来源](../evidence/ticket-10/international-postactivation/README.md)保留激活普通整套12378 PASS/11 FAIL/exit1/audit0原结果；三项门禁叶子失败及汇总、一个私有冻结运行时软链接准备问题已分别受控证明修复，六项GLM当前来源/目录失败仍须自身真实续期，不以重算旧包替代。真实根目录未激活，规范候选账本仍10预留/9Attempt，原CN2/2及全部研究捕获原样保留；不关闭10/09，不授予任何实际或正式PASS。
