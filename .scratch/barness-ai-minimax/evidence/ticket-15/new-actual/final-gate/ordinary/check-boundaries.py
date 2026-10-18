@@ -31,6 +31,14 @@ def run(common):
    r=probe(base,root)
    if r.returncode!=1 or reason not in r.stderr:raise ValueError('wrong rejection '+name+': '+r.stderr[-500:])
    results.append(dict(case=name,exitCode=r.returncode,reason=r.stderr.strip()))
+ for kind in ('boolean','float'):
+  with tempfile.TemporaryDirectory(prefix='repair-ordinary-numeric-negative-') as tmp:
+   root=Path(tmp)/'private'
+   result=subprocess.run([sys.executable,'-B',str(BASE/'boolean-receipt-probe.py'),'--common-root',str(common),'--work-output',str(root),'--mode','prepare','--kind',kind],capture_output=True,text=True,timeout=300,env={k:os.environ[k] for k in ('PATH','HOME','TMPDIR') if k in os.environ})
+   if result.returncode!=0:raise ValueError('typed numeric public guard failed: '+result.stderr[-500:])
+   receipt=json.loads(result.stdout);reason=(root/'prepare-public.log').read_text()
+   if receipt['publicExitCode']!=1 or receipt['invalidNumericReceiptRefused'] is not True or not reason.startswith('REFUSED:'):raise ValueError('exact numeric type public refusal required')
+   results.append(dict(case='exit-code-'+kind,exitCode=1,reason=reason.strip(),fixtureArchiveSHA256=json.loads((root/'fixture-proof.json').read_text())['fixtureArchive']['archiveSHA256']))
  after=probe(BASE,common)
  if after.returncode or json.loads(after.stdout)!=original:raise ValueError('original archive changed')
  return dict(verified=True,negativeGuards=results,originalArchivesMutated=False,archiveHardlinksUsedReadOnly=True,credentialsRead=False,paidCalls=0)

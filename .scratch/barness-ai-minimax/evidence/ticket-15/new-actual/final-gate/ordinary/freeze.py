@@ -16,7 +16,7 @@ def main():
  archive=EXT/'incomplete-ordinary-raw.tar.gz'
  if archive.exists() or (BASE/'index.json').exists():raise ValueError('fresh exclusive ordinary capsule required')
  plan=raw(B/'plan-v2.json');receipt=raw(B/'gate-command-exits/ordinary.json');source=raw(ROOT/'.evidence/minimax-release-repair-glm-1/source-at-start.json');p=b.doc(plan);r=b.doc(receipt)
- if sha(plan)!=PLAN or p['source']!=b.doc(source) or p['source']['sourceCommit']!=SOURCE or len(p['source']['files'])!=1056 or r['state']!='COMPLETED' or r['exitCode']!=1 or r['credentialsRead'] is not False or r['argv']!=['/usr/local/go/bin/go','test','-count=1','-timeout=20m','./...']:raise ValueError('closed original ordinary/source/plan required')
+ if sha(plan)!=PLAN or p['source']!=b.doc(source) or p['source']['sourceCommit']!=SOURCE or len(p['source']['files'])!=1056 or r['state']!='COMPLETED' or type(r['exitCode']) is not int or r['exitCode']!=1 or r['credentialsRead'] is not False or r['argv']!=['/usr/local/go/bin/go','test','-count=1','-timeout=20m','./...']:raise ValueError('closed original ordinary/source/plan required')
  selected={};pending=[(ORD,0)];entries=0;total=0
  while pending:
   folder,depth=pending.pop()

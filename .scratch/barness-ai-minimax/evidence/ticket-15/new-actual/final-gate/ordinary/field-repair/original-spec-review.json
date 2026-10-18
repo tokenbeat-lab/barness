@@ -1,0 +1,675 @@
+{
+  "axis": "Spec",
+  "verdict": "CHANGES_REQUESTED_RETENTION_CONSUMER",
+  "baseCommit": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+  "reviewedCommit": "2afcc52b8ca46a94af2dab8344f427e819ce5de0",
+  "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5...2afcc52b8ca46a94af2dab8344f427e819ce5de0",
+  "commitsCommand": "git log d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5..2afcc52b8ca46a94af2dab8344f427e819ce5de0 --oneline",
+  "diffSHA256": "58446e339f4b5d03576293d74423945ecefd07152a8d81c27f61066cde9836e9",
+  "findings": [
+    {
+      "id": "ORDINARY-SPEC-01",
+      "severity": "P2",
+      "category": "RETENTION_CONSUMER_BUG",
+      "file": ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py",
+      "line": 11,
+      "related": {
+        "file": ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/freeze.py",
+        "line": 19
+      },
+      "requirement": {
+        "file": ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md",
+        "line": 32,
+        "quote": "最后在最终源码真正执行新双vet、完整ordinary/race、差分和压力，持久化四项数字退出码和报告；票13旧全量bundle不能授予修复后认证。"
+      },
+      "finding": "exitCode!=1 accepts Python boolean true or float1.0, while analyse emits literal integer1. Other checked fields do not constrain JSON numeric type. Actual original receipt is independently type int/value1.",
+      "requestedChange": "Failure-first public retention probe for noninteger native exit followed by type(exitCode) is int guards in both consumer and freeze; preserve archive/native receipts and this original review.",
+      "validation": "Static condition analysis only; no project/captured code or mutation probe executed."
+    }
+  ],
+  "report": "Spec retention review: CHANGES REQUESTED for one P2 reader guard; original ordinary custody independently verified.\n\nP2 — ordinary/verify.py:11 and freeze.py:19. Ticket15:32 requires “持久化四项数字退出码和报告”. The receipt check uses exitCode!=1 without exact integer typing. Python True and1.0 satisfy that predicate; analyse then emits literal integer1 at line27, allowing altered/resealed noninteger native metadata to become a claimed numeric receipt. Require exact-int typing in both boundaries and a failure-first public semantic negative. The actual retained original was independently confirmed int1; this finding does not claim falsified custody.\n\nReviewed exactd47d7bd…2afcc52,28 ordinary-only files. Independent bounded stdlib streaming checked archive9c8c1bcb…,133177 regular members/every inventory hash, including133174 original paths plus3 frozen metadata. Payload1308872132, decoded tar1543362560 and compressed114797350 match; unchanged256MiB/2GiB reader limits were not widened. Source7931/1056 and immutable planf97c97… agree; native plan newRowsImported is int0, assemblyComplete/releaseCertified false.\n\nActual Go test -count=1 -timeout=20m ./... exits1 after644.330863s. Native12451 cases comprise12445PASS/6FAIL/0NOT_RUN,audit0. All98710 artifact references,868 true PIDIFF PASS,29 named pressure PASS and the exact fixed PRESSURE regex’s15 PASS agree. Six GLM formal-import/known-usage assertion failures remain original. Eight original trailing-slash directories resolve to owned member paths.\n\nRecorded public verifier0 and eight reason-checked refusals were inspected, not rerun. Missing-entry RED and initial plan/metadata authoring refusal logs remain distinct from final GREEN; raw archive/native manifest unchanged. No old bundle adoption, ordinary Go PASS, package-level success, race/outer verdict, ticket17 applicability or certificate is asserted. B race/outer was not read; no project/captured program, test/verifier, Key, network, paid call or repository mutation occurred. Later WIP metadata bytes are excluded from this committed review.",
+  "reportBodyWords": 243,
+  "actualCustodyVerified": true,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/README.md": {
+      "bytes": 3936,
+      "sha256": "72098d2374f7eafdad11caa00e682383e65abb312f65feafce6c5ea84eb63a42"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/SHA256SUMS": {
+      "bytes": 2519,
+      "sha256": "b08df4ba696234fe4cdb9bf6f3fa7ce13d326a617d9dddc15bf08937a8190760"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-boundaries.py": {
+      "bytes": 3239,
+      "sha256": "74c0610de479f3360fc5e9009446d08ed0b32d751d1563c4ad25669aa1b5d743"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/failure-inventory.md": {
+      "bytes": 862,
+      "sha256": "eec936b0117fdb299a47b8e5f9e7554db6dccc004edcfba37a7b5b7e2b5b75eb"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/freeze.py": {
+      "bytes": 5717,
+      "sha256": "b9071b13adaeb1faf2b81dcdad2ecd3463edb053928a031a5cb60213d6c73dd7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/index.json": {
+      "bytes": 2045,
+      "sha256": "02aaa2870f5fe0be70ec847f87eb370b8e81f1a38998725af5d1aebdac40e996"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/inventory.json.gz": {
+      "bytes": 4400866,
+      "sha256": "1ecd63272c0b4c6c4333c6fed62779761a07737a47dc0513cc86fd92dc529627"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/negative-results.json": {
+      "bytes": 1286,
+      "sha256": "3462f3b6192bffb656a113fa7aa1c185efdf067334dc86139b55abff12233833"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/readers.py": {
+      "bytes": 949,
+      "sha256": "b3bec7f74b5378096bb735b0d515ffd1d64bc0063ffd2506d609de6f9e30dd4a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/source-at-start.json.gz": {
+      "bytes": 49298,
+      "sha256": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/summary.json": {
+      "bytes": 6372,
+      "sha256": "03e34963e94fd1e88f10b20518db502eab749dbde555eb5853958ec535f49f9f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/final-public-verification-output.json": {
+      "bytes": 675,
+      "sha256": "de11c069f24468e82512540a3e9977eda242cc2ebb751e02da71cf1f8c65d685"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/final-public-verification.json": {
+      "bytes": 308,
+      "sha256": "80e6c3901eb5c3a3ff1b927402f1bbf83ce5cec3e43cdb25b6b9da0a149fdc4a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/green-all8-boundaries-attempt2-command.json": {
+      "bytes": 318,
+      "sha256": "02b00fcc33a62bcb0e9ea0dbb3cf80390089b131e1661143b55d1c08e131e08e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/green-all8-boundaries-attempt2.log.gz": {
+      "bytes": 365,
+      "sha256": "e4e3915cec2fdb31a0c16876ae953355129482cba60c6d5083690898a83911db"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/green-all8-boundaries-command.json": {
+      "bytes": 318,
+      "sha256": "f284bc545f0515f9fa58105cc74004d9aa8363d05c8425bc2f848677593e8362"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/green-all8-boundaries.log.gz": {
+      "bytes": 427,
+      "sha256": "76ff9cf53be623daea650aac40985b1d998c06d9d4ad670b20383ba045953fc5"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/public-boundaries-command.json": {
+      "bytes": 318,
+      "sha256": "22c28da319caced77cde08c7eb9fa2a94e09dabed8da9e41c1635a9a2c00ca88"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/public-boundaries.log.gz": {
+      "bytes": 437,
+      "sha256": "2c7a11910b189057a1d56cd3e27cad73bdc7f16290339641ee0735aef149d9d5"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/raw-log-index.json": {
+      "bytes": 1704,
+      "sha256": "61b2be0c6571b27343f2d03862c8f2508d4a9e63e69937d394dd66054e4f67b4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/red-missing-public-reader-command.json": {
+      "bytes": 343,
+      "sha256": "93e8b3d81ada98945ffee6f5661afbde2d4a9af378bda6e82096c75774e35710"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/red-missing-public-reader.log.gz": {
+      "bytes": 241,
+      "sha256": "9d6b6b814a5a3268cf2670a4c1dfe87bde9a44853e26cb503776ae24274b39aa"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/sealed-bytes-verification-command.json": {
+      "bytes": 362,
+      "sha256": "eddf46d0a529a4133af3ee7da4d8080aa48e51a04ab3a30b6776f713006e5619"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/sealed-bytes-verification.log.gz": {
+      "bytes": 256,
+      "sha256": "310305e56f608364dcee1b0f9ccb9071280a0cb4e78115d1f2956dc2b8c6b87c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/snapshot-command.json": {
+      "bytes": 260,
+      "sha256": "b4da21c15d1ae08784351e4a320b20a2e1f391dfe9749d878aec589c265431eb"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/snapshot-command.log.gz": {
+      "bytes": 283,
+      "sha256": "cfb8f2c3dfb762b41ebde0da66a3773b526ee83fdecc201fe07e35cfc66b16a7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/tdd/verify-sealed-bytes.py": {
+      "bytes": 413,
+      "sha256": "755ca3c8a6e719c8a5f3288b9dc7fdf0ddbb13693e940765d1ff39a94a019f67"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py": {
+      "bytes": 5097,
+      "sha256": "a5e33c7e105a33563efa53fedd0435a58fd20031ea755ac5e554b22c9763017d"
+    }
+  },
+  "independentProof": {
+    "baseCommit": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+    "reviewedCommit": "2afcc52b8ca46a94af2dab8344f427e819ce5de0",
+    "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "diffSHA256": "58446e339f4b5d03576293d74423945ecefd07152a8d81c27f61066cde9836e9",
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz",
+      "bytes": 114797350,
+      "sha256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd",
+      "prefix": "repair-incomplete-ordinary"
+    },
+    "inventory": {
+      "file": "inventory.json.gz",
+      "compressedSHA256": "1ecd63272c0b4c6c4333c6fed62779761a07737a47dc0513cc86fd92dc529627",
+      "decodedBytes": 25702325,
+      "decodedSHA256": "028ff6d22fb284214c103543c0fffbe99d0ef67c940c81404ac679abce70fc1d",
+      "files": 133177
+    },
+    "limits": {
+      "compressedBytes": 268435456,
+      "decodedTarBytes": 2147483648,
+      "files": 160000,
+      "entries": 200000,
+      "memberBytes": 67108864,
+      "observedMetadataBytes": 16777216,
+      "observedTotalBytes": 67108864,
+      "inventoryDecodedBytes": 41943040,
+      "inventoryCompressedBytes": 8388608,
+      "rawMemberBytes": 1677721600
+    },
+    "totalMembers": 133177,
+    "originalMembers": 133174,
+    "payloadBytes": 1308872132,
+    "decodedTarBytes": 1543362560,
+    "maxMemberBytes": 36351001,
+    "observedTotalBytes": 17514926,
+    "receipt": {
+      "state": "COMPLETED",
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-count=1",
+        "-timeout=20m",
+        "./..."
+      ],
+      "cwd": "$REPO",
+      "credentialsRead": false,
+      "exitCode": 1,
+      "startedAt": "2026-10-18T12:04:01.301763+00:00",
+      "seconds": 644.3308634581044,
+      "finishedAt": "2026-10-18T12:14:45.661672+00:00"
+    },
+    "planNewRowsImportedType": "int",
+    "cases": 12451,
+    "statuses": {
+      "PASS": 12445,
+      "FAIL": 6
+    },
+    "artifactReferences": 98710,
+    "trailingSlashOriginalDirs": [
+      "MM03-effort-TestMiniMaxResponsesEffort/MiniMax-M3.1-Flash-Preview/full/",
+      "MM03-effort-TestMiniMaxResponsesEffort/MiniMax-M3.1-Flash-Preview/hook/",
+      "MM03-effort-TestMiniMaxResponsesEffort/MiniMax-M3.1-Flash-Preview/sampling/",
+      "MM03-effort-TestMiniMaxResponsesEffort/MiniMax-M3.1-Flash-Preview/simple/",
+      "MM03-effort-TestMiniMaxResponsesEffort/MiniMax-M3/full/",
+      "MM03-effort-TestMiniMaxResponsesEffort/MiniMax-M3/hook/",
+      "MM03-effort-TestMiniMaxResponsesEffort/MiniMax-M3/sampling/",
+      "MM03-effort-TestMiniMaxResponsesEffort/MiniMax-M3/simple/"
+    ],
+    "truePIDiff": 868,
+    "namedPressure": 29,
+    "requiredPRESSURE": 15,
+    "failureRows": [
+      {
+        "id": "GLM12-formal-import-chat",
+        "status": "FAIL",
+        "assertionsSHA256": "10ace3131b9a3a5c75964a2c6c68d1ebb301961a69812d98979523dbed895bc2",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "own full current-hash report accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM consumer/importer source drift"
+            }
+          ],
+          "case_id": "GLM12-formal-import-chat",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalReports$/^chat$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalReports/chat"
+        }
+      },
+      {
+        "id": "GLM12-formal-import-messages",
+        "status": "FAIL",
+        "assertionsSHA256": "46d72c40f87cb3ff5aa0d6452401f8e696c546c44a4f5db0e3b6adfa0000c866",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "own full current-hash report accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM consumer/importer source drift"
+            }
+          ],
+          "case_id": "GLM12-formal-import-messages",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalReports$/^messages$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalReports/messages"
+        }
+      },
+      {
+        "id": "GLM12-formal-import-responses",
+        "status": "FAIL",
+        "assertionsSHA256": "6bead3ef080a41e821811e2b110cc2e8e9b39b636e79b727613c2d555bcc78e3",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "own full current-hash report accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM consumer/importer source drift"
+            }
+          ],
+          "case_id": "GLM12-formal-import-responses",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalReports$/^responses$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalReports/responses"
+        }
+      },
+      {
+        "id": "GLM12-reported-known-usage-chat",
+        "status": "FAIL",
+        "assertionsSHA256": "fad3738259ed453988cdff2ccad02237477de2c4d6eb854ad3f117008d5a70ef",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "expectations bound to exact immutable source/report/archive",
+              "pass": true,
+              "detail": "expectation identity drift"
+            },
+            {
+              "name": "independently reconciled measured totals present",
+              "pass": true,
+              "detail": "missing measured expectations"
+            },
+            {
+              "name": "captured formal source accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM formal identity, source, mode, catalog or execution provenance invalid"
+            }
+          ],
+          "case_id": "GLM12-reported-known-usage-chat",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalKnownUsage$/^chat$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalKnownUsage/chat"
+        }
+      },
+      {
+        "id": "GLM12-reported-known-usage-messages",
+        "status": "FAIL",
+        "assertionsSHA256": "3bbea41893776c8fbce142760710bedf593f0a3ef8ce4190eec852e70ba0210c",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "expectations bound to exact immutable source/report/archive",
+              "pass": true,
+              "detail": "expectation identity drift"
+            },
+            {
+              "name": "independently reconciled measured totals present",
+              "pass": true,
+              "detail": "missing measured expectations"
+            },
+            {
+              "name": "captured formal source accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM formal identity, source, mode, catalog or execution provenance invalid"
+            }
+          ],
+          "case_id": "GLM12-reported-known-usage-messages",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalKnownUsage$/^messages$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalKnownUsage/messages"
+        }
+      },
+      {
+        "id": "GLM12-reported-known-usage-responses",
+        "status": "FAIL",
+        "assertionsSHA256": "e1b1477c2a52da0a2ae2fc3a24cbbbe2df2ec5e061ec85e9f275cb3e1012e7b6",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "expectations bound to exact immutable source/report/archive",
+              "pass": true,
+              "detail": "expectation identity drift"
+            },
+            {
+              "name": "independently reconciled measured totals present",
+              "pass": true,
+              "detail": "missing measured expectations"
+            },
+            {
+              "name": "captured formal source accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM formal identity, source, mode, catalog or execution provenance invalid"
+            }
+          ],
+          "case_id": "GLM12-reported-known-usage-responses",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalKnownUsage$/^responses$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalKnownUsage/responses"
+        }
+      }
+    ],
+    "recordedNegativeGuards": {
+      "verified": true,
+      "negativeGuards": [
+        {
+          "case": "metadata",
+          "exitCode": 1,
+          "reason": "REFUSED: ValueError: local metadata pin differs"
+        },
+        {
+          "case": "wrong-source",
+          "exitCode": 1,
+          "reason": "REFUSED: ValueError: fixed original ordinary capsule identity differs"
+        },
+        {
+          "case": "wrong-path",
+          "exitCode": 1,
+          "reason": "REFUSED: ValueError: fixed original ordinary capsule identity differs"
+        },
+        {
+          "case": "widen-limits",
+          "exitCode": 1,
+          "reason": "REFUSED: ValueError: fixed streaming limits differ"
+        },
+        {
+          "case": "archive-pin",
+          "exitCode": 1,
+          "reason": "REFUSED: ValueError: compressed archive pin differs"
+        },
+        {
+          "case": "summary-pass",
+          "exitCode": 1,
+          "reason": "REFUSED: ValueError: independent ordinary summary differs"
+        },
+        {
+          "case": "summary-failures",
+          "exitCode": 1,
+          "reason": "REFUSED: ValueError: independent ordinary summary differs"
+        },
+        {
+          "case": "observations",
+          "exitCode": 1,
+          "reason": "REFUSED: ValueError: fixed observed metadata inventory"
+        }
+      ],
+      "originalArchivesMutated": false,
+      "archiveHardlinksUsedReadOnly": true,
+      "credentialsRead": false,
+      "paidCalls": 0
+    },
+    "rawLogs": [
+      {
+        "file": "tdd/green-all8-boundaries-attempt2.log.gz",
+        "decoded": "{\n  \"verified\": true,\n  \"negativeGuards\": [\n    {\n      \"case\": \"metadata\",\n      \"exitCode\": 1,\n      \"reason\": \"REFUSED: ValueError: local metadata pin differs\"\n    },\n    {\n      \"case\": \"wrong-source\",\n      \"exitCode\": 1,\n      \"reason\": \"REFUSED: ValueError: fixed original ordinary capsule identity differs\"\n    },\n    {\n      \"case\": \"wrong-path\",\n      \"exitCode\": 1,\n      \"reason\": \"REFUSED: ValueError: fixed original ordinary capsule identity differs\"\n    },\n    {\n      \"case\": \"widen-limits\",\n      \"exitCode\": 1,\n      \"reason\": \"REFUSED: ValueError: fixed streaming limits differ\"\n    },\n    {\n      \"case\": \"archive-pin\",\n      \"exitCode\": 1,\n      \"reason\": \"REFUSED: ValueError: compressed archive pin differs\"\n    },\n    {\n      \"case\": \"summary-pass\",\n      \"exitCode\": 1,\n      \"reason\": \"REFUSED: ValueError: independent ordinary summary differs\"\n    },\n    {\n      \"case\": \"summary-failures\",\n      \"exitCode\": 1,\n      \"reason\": \"REFUSED: ValueError: independent ordinary summary differs\"\n    },\n    {\n      \"case\": \"observations\",\n      \"exitCode\": 1,\n      \"reason\": \"REFUSED: ValueError: fixed observed metadata inventory\"\n    }\n  ],\n  \"originalArchivesMutated\": false,\n  \"archiveHardlinksUsedReadOnly\": true,\n  \"credentialsRead\": false,\n  \"paidCalls\": 0\n}\n"
+      },
+      {
+        "file": "tdd/green-all8-boundaries.log.gz",
+        "decoded": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-boundaries.py\", line 38, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,default=BASE.parents[6]);a=p.parse_args();print(json.dumps(run(a.common_root),indent=2))\n                                                                                                                                    ~~~^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-boundaries.py\", line 10, in run\n    if baseline.returncode:raise ValueError('original failed ordinary must verify: '+baseline.stderr[-500:])\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: original failed ordinary must verify: REFUSED: ValueError: local metadata pin differs\n\n"
+      },
+      {
+        "file": "tdd/public-boundaries.log.gz",
+        "decoded": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-boundaries.py\", line 38, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,default=BASE.parents[6]);a=p.parse_args();print(json.dumps(run(a.common_root),indent=2))\n                                                                                                                                    ~~~^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-boundaries.py\", line 10, in run\n    if baseline.returncode:raise ValueError('original failed ordinary must verify: '+baseline.stderr[-500:])\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: original failed ordinary must verify: REFUSED: ValueError: original immutable source7931/plan-v2 differs\n\n"
+      },
+      {
+        "file": "tdd/red-missing-public-reader.log.gz",
+        "decoded": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py': [Errno 2] No such file or directory\n"
+      },
+      {
+        "file": "tdd/sealed-bytes-verification.log.gz",
+        "decoded": "{\n  \"verified\": true,\n  \"archive\": {\n    \"files\": 133177,\n    \"entries\": 133177,\n    \"rawBytes\": 1308872132,\n    \"decodedTarBytes\": 1543362560,\n    \"archiveBytes\": 114797350,\n    \"archiveSHA256\": \"9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd\"\n  },\n  \"sourceCommit\": \"7931b163f983a8b362374163b7949d31e68bbec4\",\n  \"credentialsRead\": false,\n  \"paidCalls\": 0\n}\n"
+      },
+      {
+        "file": "tdd/snapshot-command.log.gz",
+        "decoded": "{\"snapshot\": \"ordinary\", \"originalFiles\": 133174, \"rawBytes\": 1306948334}\n{\"archivedFiles\": 30000}\n{\"archivedFiles\": 60000}\n{\"archivedFiles\": 90000}\n{\"archivedFiles\": 120000}\n{\"archive\": {\"file\": \".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz\", \"bytes\": 114797350, \"sha256\": \"9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd\", \"prefix\": \"repair-incomplete-ordinary\"}, \"files\": 133177, \"rawBytes\": 1308872132, \"observations\": 11}\n"
+      }
+    ]
+  },
+  "retainedSummary": {
+    "schema": 1,
+    "suite": "ordinary",
+    "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "sourceFiles": 1056,
+    "exitCode": 1,
+    "seconds": 644.3308634581044,
+    "cases": 12451,
+    "statuses": {
+      "PASS": 12445,
+      "FAIL": 6
+    },
+    "truePIDiff": 868,
+    "allNamedPressureCases": 29,
+    "requiredPRESSURERegexCases": 15,
+    "pressureIDs": [
+      "E08-admission-burst-pressure-cloud-batch",
+      "E08-admission-burst-pressure-cloud-interactive",
+      "E08-admission-burst-pressure-cloud-interactive-waiters-x4",
+      "E08-admission-burst-pressure-local",
+      "E08-mixed-pressure-cloud-classifier-images-design-load",
+      "E08-mixed-pressure-cloud-design-load",
+      "E08-mixed-pressure-local-classifier-images-design-load",
+      "E08-mixed-pressure-local-design-load",
+      "E08-policy-pressure-cloud-batch-design-load",
+      "E08-policy-pressure-cloud-batch-stalled-consumer",
+      "E08-policy-pressure-cloud-interactive-design-load",
+      "E08-policy-pressure-cloud-interactive-stalled-consumer",
+      "E08-policy-pressure-local-design-load",
+      "E08-policy-pressure-local-stalled-consumer",
+      "E08-policy-pressure-tool-arguments-scaling",
+      "E08-pressure-body-error-diagnostics",
+      "E08-pressure-tool-write-argument-limit",
+      "E08-pressure-tool-write-clean",
+      "E08-pressure-tool-write-json-envelope",
+      "E08-pressure-write-canceled",
+      "E08-pressure-write-clean",
+      "E08-pressure-write-closed",
+      "E08-pressure-write-deadline",
+      "E08-pressure-write-other",
+      "E08-pressure-write-partial",
+      "E08-pressure-write-partial-unreported",
+      "E08-pressure-write-persistent",
+      "E08-pressure-write-transient",
+      "E08-pressure-write-unreported"
+    ],
+    "requiredPressureIDs": [
+      "E08-admission-burst-pressure-cloud-batch",
+      "E08-admission-burst-pressure-cloud-interactive",
+      "E08-admission-burst-pressure-cloud-interactive-waiters-x4",
+      "E08-admission-burst-pressure-local",
+      "E08-mixed-pressure-cloud-classifier-images-design-load",
+      "E08-mixed-pressure-cloud-design-load",
+      "E08-mixed-pressure-local-classifier-images-design-load",
+      "E08-mixed-pressure-local-design-load",
+      "E08-policy-pressure-cloud-batch-design-load",
+      "E08-policy-pressure-cloud-batch-stalled-consumer",
+      "E08-policy-pressure-cloud-interactive-design-load",
+      "E08-policy-pressure-cloud-interactive-stalled-consumer",
+      "E08-policy-pressure-local-design-load",
+      "E08-policy-pressure-local-stalled-consumer",
+      "E08-policy-pressure-tool-arguments-scaling"
+    ],
+    "artifactReferences": 98710,
+    "auditFindings": 0,
+    "failures": [
+      {
+        "id": "GLM12-formal-import-chat",
+        "status": "FAIL",
+        "assertionsSHA256": "10ace3131b9a3a5c75964a2c6c68d1ebb301961a69812d98979523dbed895bc2",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "own full current-hash report accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM consumer/importer source drift"
+            }
+          ],
+          "case_id": "GLM12-formal-import-chat",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalReports$/^chat$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalReports/chat"
+        }
+      },
+      {
+        "id": "GLM12-formal-import-messages",
+        "status": "FAIL",
+        "assertionsSHA256": "46d72c40f87cb3ff5aa0d6452401f8e696c546c44a4f5db0e3b6adfa0000c866",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "own full current-hash report accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM consumer/importer source drift"
+            }
+          ],
+          "case_id": "GLM12-formal-import-messages",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalReports$/^messages$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalReports/messages"
+        }
+      },
+      {
+        "id": "GLM12-formal-import-responses",
+        "status": "FAIL",
+        "assertionsSHA256": "6bead3ef080a41e821811e2b110cc2e8e9b39b636e79b727613c2d555bcc78e3",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "own full current-hash report accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM consumer/importer source drift"
+            }
+          ],
+          "case_id": "GLM12-formal-import-responses",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalReports$/^responses$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalReports/responses"
+        }
+      },
+      {
+        "id": "GLM12-reported-known-usage-chat",
+        "status": "FAIL",
+        "assertionsSHA256": "fad3738259ed453988cdff2ccad02237477de2c4d6eb854ad3f117008d5a70ef",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "expectations bound to exact immutable source/report/archive",
+              "pass": true,
+              "detail": "expectation identity drift"
+            },
+            {
+              "name": "independently reconciled measured totals present",
+              "pass": true,
+              "detail": "missing measured expectations"
+            },
+            {
+              "name": "captured formal source accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM formal identity, source, mode, catalog or execution provenance invalid"
+            }
+          ],
+          "case_id": "GLM12-reported-known-usage-chat",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalKnownUsage$/^chat$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalKnownUsage/chat"
+        }
+      },
+      {
+        "id": "GLM12-reported-known-usage-messages",
+        "status": "FAIL",
+        "assertionsSHA256": "3bbea41893776c8fbce142760710bedf593f0a3ef8ce4190eec852e70ba0210c",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "expectations bound to exact immutable source/report/archive",
+              "pass": true,
+              "detail": "expectation identity drift"
+            },
+            {
+              "name": "independently reconciled measured totals present",
+              "pass": true,
+              "detail": "missing measured expectations"
+            },
+            {
+              "name": "captured formal source accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM formal identity, source, mode, catalog or execution provenance invalid"
+            }
+          ],
+          "case_id": "GLM12-reported-known-usage-messages",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalKnownUsage$/^messages$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalKnownUsage/messages"
+        }
+      },
+      {
+        "id": "GLM12-reported-known-usage-responses",
+        "status": "FAIL",
+        "assertionsSHA256": "e1b1477c2a52da0a2ae2fc3a24cbbbe2df2ec5e061ec85e9f275cb3e1012e7b6",
+        "assertions": {
+          "assertions": [
+            {
+              "name": "expectations bound to exact immutable source/report/archive",
+              "pass": true,
+              "detail": "expectation identity drift"
+            },
+            {
+              "name": "independently reconciled measured totals present",
+              "pass": true,
+              "detail": "missing measured expectations"
+            },
+            {
+              "name": "captured formal source accepted",
+              "pass": false,
+              "detail": "supportmatrix: invalid report: GLM formal identity, source, mode, catalog or execution provenance invalid"
+            }
+          ],
+          "case_id": "GLM12-reported-known-usage-responses",
+          "replay": "go test ./ai/e2e -count=1 -run '^TestGLMFormalKnownUsage$/^responses$'",
+          "status": "FAIL",
+          "test": "TestGLMFormalKnownUsage/responses"
+        }
+      }
+    ],
+    "archive": {
+      "files": 133177,
+      "entries": 133177,
+      "rawBytes": 1308872132,
+      "decodedTarBytes": 1543362560,
+      "archiveBytes": 114797350,
+      "archiveSHA256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd"
+    },
+    "gateVerdictCaptured": false,
+    "raceCaptured": false,
+    "packageLevelOuterLogCaptured": false,
+    "retentionPaidCalls": 0,
+    "retentionCredentialsRead": false,
+    "releaseCertified": false
+  },
+  "workingDriftExcluded": [
+    {
+      "file": ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/failure-inventory.md",
+      "committedSHA256": "eec936b0117fdb299a47b8e5f9e7554db6dccc004edcfba37a7b5b7e2b5b75eb",
+      "unreviewedWIPSHA256": "7b599dc1bb37adf01af218e943ee507626f41fd70e517dcd8302e19861541bc4"
+    }
+  ],
+  "scopeConstraints": {
+    "ordinaryOnly": true,
+    "raceOrOuterRead": false,
+    "rootSourceChanged": false,
+    "newSourceApplicabilityApproved": false,
+    "projectCapturedProgramOrVerifierExecuted": false,
+    "testsRun": false,
+    "keysRead": false,
+    "networkCalls": 0,
+    "releaseCertified": false
+  },
+  "independentReaderSHA256": "f93e62a80423ba041e3b097086f1e9cb72ed4fe7d824f909f1505bcb6b257065"
+}

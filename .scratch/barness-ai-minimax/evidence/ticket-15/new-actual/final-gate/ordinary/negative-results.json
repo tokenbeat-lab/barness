@@ -40,6 +40,18 @@
       "case": "observations",
       "exitCode": 1,
       "reason": "REFUSED: ValueError: fixed observed metadata inventory"
+    },
+    {
+      "case": "exit-code-boolean",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: original actual ordinary numeric exit differs",
+      "fixtureArchiveSHA256": "ff7ea49e9fdec8f8004a8c98bd73cd9273f38d5c2d25ff1ed32d5046fe06ad53"
+    },
+    {
+      "case": "exit-code-float",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: original actual ordinary numeric exit differs",
+      "fixtureArchiveSHA256": "a294c835e078d6eeac61454f939476115715f0f9b7acc35e0cdad9f33b9f4373"
     }
   ],
   "originalArchivesMutated": false,

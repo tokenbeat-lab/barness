@@ -8,7 +8,7 @@ BASE=Path(__file__).resolve().parent;SOURCE='7931b163f983a8b362374163b7949d31e68
 def analyse(b,index,pins,m,archive):
  name=index['mainManifest'];prefix='ordinary/'+SESSION+'/';manifest=b.doc(m[name]);source=b.doc(m['source/source-at-start.json']);plan=b.doc(m['frozen/plan-v2.json']);receipt=b.doc(m['receipts/ordinary.json']);cases=manifest['cases']
  if source['sourceCommit']!=SOURCE or len(source['files'])!=1056 or plan['source']!=source or b.sha(m['frozen/plan-v2.json'])!=PLAN or plan['releaseCertified'] is not False or plan['assemblyComplete'] is not False or type(plan['newRowsImported']) is not int or plan['newRowsImported']!=0:raise ValueError('original immutable source7931/plan-v2 differs')
- if receipt['state']!='COMPLETED' or receipt['exitCode']!=1 or receipt['credentialsRead'] is not False or receipt['cwd']!='$REPO' or receipt['argv']!=['/usr/local/go/bin/go','test','-count=1','-timeout=20m','./...']:raise ValueError('original actual ordinary numeric exit differs')
+ if receipt['state']!='COMPLETED' or type(receipt['exitCode']) is not int or receipt['exitCode']!=1 or receipt['credentialsRead'] is not False or receipt['cwd']!='$REPO' or receipt['argv']!=['/usr/local/go/bin/go','test','-count=1','-timeout=20m','./...']:raise ValueError('original actual ordinary numeric exit differs')
  statuses=dict(collections.Counter(c['status'] for c in cases));failed=sorted(c['id'] for c in cases if c['status']=='FAIL')
  if manifest['git_commit']!=SOURCE or len(cases)!=12451 or len({c['id'] for c in cases})!=12451 or statuses!={'PASS':12445,'FAIL':6} or failed!=FAILURES or b.doc(m[prefix+'audit.json'])['findings']:raise ValueError('actual complete ordinary failures/counts/audit differ')
  refs=0
