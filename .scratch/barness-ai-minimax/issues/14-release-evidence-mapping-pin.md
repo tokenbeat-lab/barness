@@ -32,3 +32,7 @@ Updated: 2026-10-18
 独立诊断 `/tmp/barness-routed-release-plan-gap.json` 固定当前基线8fbd；旧包和原消费545/545保持原样。此修复令完整1047来源freeze过期；GLM217与M3各263的已选native来源不含plan.go或Python工具，因此自身映射不改，GLM Responses实际FAIL也不改变。两路visual323含plan.go；protocol114及派生Jev的861来源含plan.go，因此对修复树过期。两路中文原始860完整snapshot不改；现有261执行选择排除release工具，因此此限定修复不改变既有中文执行适用性。
 
 十项generic live native没有Go执行来源映射；原读入策略接受非空measured commit并不构成1047完整测量的新鲜度例外。后续若要求当前完整source验收，按独立审查的保守解释需新固定3 GLM + 完整15 L合同，现有单进程上限合计374 calls /398 Attempts；这是未来提案，不是现在的授权。不借用旧未消费上限、不刷新旧hash、不剪裁15项、不创建新round工具或paid intent。M3现有native适用则不重跑，M Plan仍NOT_RUN。
+
+## 修复证据留存
+
+代码提交 `c2604db6` 完成公开Go契约ordinary/race各6 PASS、公开CLI RED/GREEN、工具60项及双vet。c260的实际无Key预检在补齐6个selector固定的历史ZIP后五项均0；首次缺ZIP的12 FAIL完整保留，未混入真正代码RED或覆盖历史结果。模板保持PENDING，原18 canonical hash前后不变，无新round/paid intent。固定原始归档、逐项hash、27,412个artifact引用校验及14个拒绝反例见[票14无Key修复留存](../evidence/ticket-14/repair/README.md)。源代码审查锚点仍为c260，留存文档提交不刷新原始capture来源。
