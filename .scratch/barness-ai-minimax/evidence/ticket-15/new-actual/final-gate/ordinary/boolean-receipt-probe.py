@@ -14,8 +14,14 @@ def prepare(common,root,kind):
  if index['archive']['sha256']!=EXPECTED or index['limits']!=full.LIMITS:raise ValueError('fixed original archive required')
  archive=root/REL;archive.parent.mkdir(parents=True);entries=0;total=0;seen=set();changed=False
  with b.opened(common,REL) as source:
-  digest=hashlib.sha256()
-  for chunk in iter(lambda:source.read(1<<20),b''):digest.update(chunk)
+  expected=index['archive']['bytes'];size=os.fstat(source.fileno()).st_size
+  if type(expected) is not int or size!=expected or size>full.LIMITS['compressedBytes']:raise ValueError('compressed archive size differs')
+  digest=hashlib.sha256();read=0
+  for chunk in iter(lambda:source.read(1<<20),b''):
+   read+=len(chunk)
+   if read>expected or read>full.LIMITS['compressedBytes']:raise ValueError('compressed archive read bound')
+   digest.update(chunk)
+  if read!=expected:raise ValueError('compressed archive size differs')
   if digest.hexdigest()!=EXPECTED:raise ValueError('original archive pin differs')
   source.seek(0)
   with gzip.GzipFile(fileobj=source) as zipped:

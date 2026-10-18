@@ -1,0 +1,93 @@
+{
+  "originalReports": {
+    "standards": "24a5f812d7bc0a8876c30c25bb7c4e4defae622b966477caabf21843eb4c2943",
+    "spec": "023b902e715cea85a9195744b05664702f942162f272059e11588ffca2405483"
+  },
+  "stages": [
+    {
+      "stage": "red-1",
+      "wrapperActualExit": 1,
+      "rawLog": {
+        "decodedSHA256": "722f0982c3657b000197564442b0c1c9cc96d819bd8dac13d23ae037d5d61c78",
+        "decodedBytes": 4694
+      },
+      "caseLogs": {
+        "oversize": {
+          "decodedSHA256": "18614a002f78343875366bd390b4e5c986d9f3f68492945f6ff8a451179932e2",
+          "decodedBytes": 1646
+        },
+        "wrong-size": {
+          "decodedSHA256": "18614a002f78343875366bd390b4e5c986d9f3f68492945f6ff8a451179932e2",
+          "decodedBytes": 1646
+        },
+        "fifo": {
+          "decodedSHA256": "ad52df41efc65a69b68a4828aa03d59562cddb12512ec8cbbf0ca102d518493b",
+          "decodedBytes": 1860
+        },
+        "link": {
+          "decodedSHA256": "60f0860e210aa191ed41c92fa7922ed693b5a616aedc0dd71a5c72009c6d6c2a",
+          "decodedBytes": 1804
+        }
+      }
+    },
+    {
+      "stage": "red-2",
+      "wrapperActualExit": 1,
+      "rawLog": {
+        "decodedSHA256": "af9392e5c6b62345952f2323195c42c89121948f7d395eae79decaf532d09ccd",
+        "decodedBytes": 4694
+      },
+      "caseLogs": {
+        "oversize": {
+          "decodedSHA256": "18614a002f78343875366bd390b4e5c986d9f3f68492945f6ff8a451179932e2",
+          "decodedBytes": 1646
+        },
+        "wrong-size": {
+          "decodedSHA256": "18614a002f78343875366bd390b4e5c986d9f3f68492945f6ff8a451179932e2",
+          "decodedBytes": 1646
+        },
+        "fifo": {
+          "decodedSHA256": "ad52df41efc65a69b68a4828aa03d59562cddb12512ec8cbbf0ca102d518493b",
+          "decodedBytes": 1860
+        },
+        "link": {
+          "decodedSHA256": "60f0860e210aa191ed41c92fa7922ed693b5a616aedc0dd71a5c72009c6d6c2a",
+          "decodedBytes": 1804
+        }
+      }
+    },
+    {
+      "stage": "green-1",
+      "wrapperActualExit": 0,
+      "rawLog": {
+        "decodedSHA256": "b1bb10d8cea6170f3c6090ba4881044e5301133db8cd491d0a310c2d932a5f38",
+        "decodedBytes": 3816
+      },
+      "caseLogs": {
+        "oversize": {
+          "decodedSHA256": "230adde1ba6c495cb71b29b918a36dceaa9fa86d8a5280013c73bc53a3e32475",
+          "decodedBytes": 1763
+        },
+        "wrong-size": {
+          "decodedSHA256": "230adde1ba6c495cb71b29b918a36dceaa9fa86d8a5280013c73bc53a3e32475",
+          "decodedBytes": 1763
+        },
+        "fifo": {
+          "decodedSHA256": "cefc4b60a7f094b3597a51d7150bd5b501837f17f4bf969ee94cb491b2a076d0",
+          "decodedBytes": 1860
+        },
+        "link": {
+          "decodedSHA256": "030587edf36c2fbfab421a403e6de0a4d57cc12ea137d23bcddca2a4bb96d8f7",
+          "decodedBytes": 1804
+        }
+      }
+    }
+  ],
+  "limitsUnchanged": true,
+  "originalArchiveSHA256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd",
+  "classification": "old public exits1 with wrong-pin after full regular-file read; missing early size bound, never oversized native acceptance",
+  "firstProbeOracleCorrection": "red-1 FIFO was correctly refused with regular artifact required; initial test expected different text. red-2 corrects only test expectation before implementation.",
+  "reviewPending": true,
+  "paidCalls": 0,
+  "credentialsRead": false
+}
