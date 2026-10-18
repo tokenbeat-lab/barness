@@ -9,13 +9,14 @@ import paid_core as c
 import paid_plan as p
 import paid
 import routed_contract as r
+import routed_evidence as e
 
 
 def prepare(out,phase):
     prior=r.prior();frozen=c.committed_sources()
     out.mkdir(parents=True,exist_ok=False,mode=0o700)
     c.dump(out/'source-at-start.json',frozen)
-    c.dump(out/'plan.json',c.redact(dict(schema=1,round=r.ROUND,phase=phase,budget=r.BUDGET,accountingScope=r.ACCOUNTING_SCOPE,
+    c.dump(out/'plan.json',c.redact(dict(schema=1,round=r.ROUND,phase=phase,budget=r.BUDGET,accountingScope=r.ACCOUNTING_SCOPE,collection=e.location(out),
         priorReceipts=prior,routes=r.jobs(out,phase),automaticProcessReruns=False,
         authorizationBasis='explicit continuation request; finite ceiling is not an explicit numeric reply',
         noSceneSplice=True,proxy=r.PROXY)))
@@ -53,7 +54,7 @@ def guard(out):
     frozen=c.guard(out);plan=c.doc(out/'plan.json');phase=plan.get('phase')
     if (phase not in ('glm','legacy') or plan.get('round')!=r.ROUND or plan.get('budget')!=r.BUDGET or
         plan.get('priorReceipts')!=r.prior() or plan.get('routes')!=c.redact(r.jobs(out,phase)) or
-        plan.get('proxy')!=r.PROXY or plan.get('accountingScope')!=r.ACCOUNTING_SCOPE or plan.get('automaticProcessReruns') is not False):
+        plan.get('proxy')!=r.PROXY or plan.get('collection')!=e.location(out) or plan.get('accountingScope')!=r.ACCOUNTING_SCOPE or plan.get('automaticProcessReruns') is not False):
         raise RuntimeError('fixed routed plan or carried prior receipts changed')
     return frozen
 
@@ -85,19 +86,7 @@ def counters(out,job):
         path=r.report_path(out,job)
         if intent.get('reportedFileSha256') and c.digest(path)!=intent['reportedFileSha256']:
             raise ValueError('original report changed')
-        report=c.doc(path);budget=report['budget'];base=job['baseName']
-        if base=='protocol114':budget=budget['actual']
-        fields=('calls','attempts') if base.startswith(('text-','visual-')) or base=='protocol114' else ('callsUsed','httpAttempts')
-        calls,attempts=(budget[key] for key in fields)
-        status=paid.report_status(report,job|dict(name=base))
-        if (type(calls) is not int or type(attempts) is not int or
-            not 0<=calls<=job['maxCalls'] or not 0<=attempts<=job['maxAttempts'] or
-            status not in ('PASS','FAIL','NOT_RUN','UNSUPPORTED') or (status=='NOT_RUN' and (calls or attempts))):
-            raise ValueError('invalid native status or counters')
-        safe={k:v for k,v in budget.items() if k in ('calls','attempts','callsUsed','httpAttempts','reservedAttempts','attemptsReserved')}
-        if any(type(v) is not int or v<0 for v in safe.values()):raise ValueError('invalid reservation counters')
-        return dict(state='NOT_RUN' if status=='NOT_RUN' else 'REPORTED',status=status,
-            calls=calls,attempts=attempts,currentReportBudget=safe)
+        return e.native_counters(c.doc(path),job)
     except (OSError,RuntimeError,ValueError,KeyError,TypeError):
         return dict(state='UNKNOWN',status='UNKNOWN',calls=None,attempts=None)
 
@@ -107,13 +96,8 @@ def summarize(out):
     for name,job in r.jobs(out).items():
         marker=paid.marker(name)
         actual=dict(state='NOT_RUN',status='NOT_RUN',calls=0,attempts=0)
-        if marker.exists():
-            receipt=c.doc(marker);actual=dict(state='UNKNOWN',status='UNKNOWN',calls=None,attempts=None)
-            if (receipt.get('route')==name and receipt.get('baseName')==job['baseName'] and
-                receipt.get('validationRound')==r.ROUND and receipt.get('maxCalls')==job['maxCalls'] and
-                receipt.get('maxAttempts')==job['maxAttempts'] and receipt.get('networkRoute')==job['networkRoute']):
-                if (out/(job['baseName']+'-command.json')).exists():actual=counters(out,job)
-                elif receipt.get('state')=='COMPLETED':actual=receipt.get('budget',actual)
+        if marker.exists() or marker.is_symlink():
+            actual=e.settled(job)
         known=(actual.get('state') in ('REPORTED','NOT_RUN') and actual.get('status') in ('PASS','FAIL','NOT_RUN','UNSUPPORTED') and
             type(actual.get('calls')) is int and 0<=actual['calls']<=job['maxCalls'] and
             type(actual.get('attempts')) is int and 0<=actual['attempts']<=job['maxAttempts'])
@@ -142,7 +126,7 @@ def run_selected(out,job):
     c.dump(intent,c.redact(dict(state='STARTING',route=name,baseName=base,validationRound=r.ROUND,
         phase=c.doc(out/'plan.json')['phase'],sourceCommit=frozen['sourceCommit'],sourceVariable=job['sourceVariable'],
         credentialsRead=False,maxCalls=job['maxCalls'],maxAttempts=job['maxAttempts'],networkRoute=job['networkRoute'],
-        collectionRoot=str(out),automaticReruns=False,accountingScope=r.ACCOUNTING_SCOPE,priorReceipts=r.prior(),
+        collectionRoot=str(out),collectionOwnerSHA256=e.location(out)['rootSHA256'],automaticReruns=False,accountingScope=r.ACCOUNTING_SCOPE,priorReceipts=r.prior(),
         authorizationSha256=c.digest(out/'execution-authorization.json'),sourceReviewSha256=c.digest(out/'prerelease-source-review.json'),
         sourceManifestSha256=c.digest(out/'source-at-start.json'),binariesManifestSha256=c.digest(out/'binaries.json'),
         planSha256=c.digest(out/'plan.json'))),exclusive=True)

@@ -58,6 +58,17 @@ and the674/698 current-renewal ceiling. Earlier standalone GLM-task history is
 separate and unchanged. Missing/interrupted/changed reports reserve the original
 component maximum. No key, output root, worktree or failure can reset an intent.
 
+Settlement reopens the original native command and report on every summary,
+including the other phase. Pinned source/binary manifests, plan, independent
+review, request authorization and checks establish their provenance without
+requiring that historical phase's HEAD to remain current. A plan-pinned relative
+collection location and hash of the original checkout root prevent redirecting
+the canonical intent to a copied proof. Reads remain inside the current owned
+checkout, use directory file descriptors, reject every symlink component and
+bound metadata, report bytes and bundle enumeration. An unavailable foreign
+worktree is UNKNOWN and retains its full component cap. Stored budget numbers
+alone never settle historical consumption.
+
 Only if GLM3 own same-source reports all pass, invoke the existing keyless
 `renewal.py glm-archive <new-out> --round routed-validation-1` with all three
 native bundle paths, commit raw selectors/known usage, derive `glm-views`, and

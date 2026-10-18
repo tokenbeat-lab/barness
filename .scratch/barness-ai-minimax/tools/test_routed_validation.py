@@ -2,6 +2,8 @@
 """Public routed-launcher CLI checks; synthetic accounts and local processes."""
 import json
 import hashlib
+import shutil
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -136,6 +138,10 @@ class Routed(unittest.TestCase):
         for args in (('prepare','foreign','--phase','glm'),('check','foreign')):
             result=subprocess.run([*alternate_cli,*args],cwd=alternate,env=self.env,text=True,capture_output=True,timeout=10)
             self.assertEqual(result.returncode,0,result.stderr[-500:])
+        result=subprocess.run([*alternate_cli,'summarize','foreign'],cwd=alternate,env=self.env,text=True,capture_output=True,timeout=10)
+        self.assertEqual(result.returncode,0,result.stderr[-500:])
+        foreign=next(row for row in json.loads(result.stdout)['routes'] if row['route']==name)
+        self.assertEqual((foreign['state'],foreign['conservativeCalls'],foreign['conservativeAttempts']),('UNKNOWN',24,32))
         primary=self.root
         try:self.root=alternate;self.approve('foreign')
         finally:self.root=primary
@@ -157,6 +163,47 @@ class Routed(unittest.TestCase):
             job=plan['routes']['routed-validation-1-'+route]
             self.assertEqual(job['evidenceRoot'],'$REPO/legacy/live/'+route)
             self.assertEqual(job['networkRoute'],'china-direct')
+
+    def test_cross_phase_settlement_reopens_pinned_original_proof(self):
+        self.prepared();self.approve();(self.root/'.env').write_text('GLM_KEY=SYNTHETIC-SELECTED\n')
+        name='routed-validation-1-glm-chat';self.invoke('run-selected','glm',name)
+        source=self.root/'ai/release/fresh-view.json';source.write_text('{"fresh":true}')
+        subprocess.run(['git','add','ai/release/fresh-view.json'],cwd=self.root,env=self.env,check=True)
+        subprocess.run(['git','-c','user.name=Controlled','-c','user.email=controlled@example.invalid','commit','-qm','fresh selectors after GLM'],cwd=self.root,env=self.env,check=True,stdout=subprocess.PIPE)
+        self.invoke('prepare','legacy','--phase','legacy')
+        def row():
+            summary=json.loads(self.invoke('summarize','legacy').stdout)
+            return next(r for r in summary['routes'] if r['route']==name)
+        self.assertEqual((row()['calls'],row()['attempts']),(22,22))
+        base=self.root/'glm'
+        for leaf in ('glm-chat/session/formal-glm-report.json','glm-chat-command.json',
+                     'source-at-start.json','plan.json','binaries.json','execution-authorization.json','prerelease-source-review.json','checks.json'):
+            path=base/leaf;raw=path.read_bytes()
+            for mode in ('changed','missing','symlink'):
+                if mode=='changed':path.write_bytes(raw+b' ')
+                elif mode=='missing':path.unlink()
+                else:
+                    target=base/'exact-copy.json';target.write_bytes(raw);path.unlink();path.symlink_to(target)
+                actual=row()
+                self.assertEqual((actual['state'],actual['conservativeCalls'],actual['conservativeAttempts']),('UNKNOWN',24,32),(leaf,mode))
+                if path.is_symlink():path.unlink()
+                path.write_bytes(raw)
+        path=base/'glm-chat/session/formal-glm-report.json';raw=path.read_bytes()
+        path.write_bytes(b'x'*((16<<20)+1))
+        self.assertEqual((row()['state'],row()['conservativeCalls'],row()['conservativeAttempts']),('UNKNOWN',24,32))
+        path.unlink();os.mkfifo(path)
+        self.assertEqual((row()['state'],row()['conservativeCalls'],row()['conservativeAttempts']),('UNKNOWN',24,32))
+        path.unlink();path.write_bytes(raw)
+        intent=self.root/'.evidence/minimax-launches'/(name+'.json');original=intent.read_bytes()
+        shutil.copytree(base,self.root/'copied-proof')
+        for field,value in (('collectionRoot','$REPO/copied-proof'),('collectionRoot','$REPO/../glm'),
+                            ('commandReceiptSha256','0'*64),('reportedFileSha256','0'*64),
+                            ('collectionOwnerSHA256','0'*64),
+                            ('sourceCommit','f'*40)):
+            doc=json.loads(original);doc[field]=value;intent.write_text(json.dumps(doc))
+            self.assertEqual((row()['state'],row()['conservativeCalls'],row()['conservativeAttempts']),('UNKNOWN',24,32),field)
+            intent.write_bytes(original)
+        self.assertEqual((row()['calls'],row()['attempts']),(22,22))
 
 
 if __name__=='__main__':unittest.main(verbosity=2)
