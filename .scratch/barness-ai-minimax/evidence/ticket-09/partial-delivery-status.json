@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "delivery": "PARTIAL",
+  "specOpen": true,
+  "ticketsOpen": [
+    "10",
+    "09"
+  ],
+  "integrationBranch": "codex/minimax-cn",
+  "evidenceCommit": "21c787fbf76ca021c4eecbf8141fde31d9dc153e",
+  "actualResearch": {
+    "model": "MiniMax-M3",
+    "route": "chat",
+    "status": "FAIL",
+    "calls": 2,
+    "attempts": 2,
+    "httpStatus": 401,
+    "vendorErrorType": "authorized_error",
+    "knownUsageReported": false,
+    "dependentNativeContinuation": "NOT_RUN",
+    "sourceCommit": "9481a6ad8028025a7f35da19a3e488935c6cd897"
+  },
+  "M3": {
+    "fullCandidate": {
+      "chat": "NOT_RUN",
+      "responses": "NOT_RUN",
+      "messages": "NOT_RUN"
+    },
+    "formal": {
+      "chat": "NOT_RUN",
+      "responses": "NOT_RUN",
+      "messages": "NOT_RUN"
+    },
+    "builtinCatalogActivated": false
+  },
+  "M31": {
+    "onlineCandidate": {
+      "chat": "NOT_RUN",
+      "responses": "NOT_RUN",
+      "messages": "NOT_RUN"
+    },
+    "MPlanEntitlementAuthorized": false,
+    "knownOfflineConstraints": "COMPLETE"
+  },
+  "offlineMiniMax": {
+    "normal": {
+      "cases": 1307,
+      "pass": 1307,
+      "seconds": 43.0
+    },
+    "race": {
+      "cases": 1307,
+      "pass": 1307,
+      "seconds": 152.736
+    },
+    "frozenPi": true,
+    "pressure": true,
+    "fullSoftwareRollback": true,
+    "auditFindings": 0
+  },
+  "repairedHistoricalCases": {
+    "normalPass": 46,
+    "racePass": 46,
+    "scope": "targeted cases only"
+  },
+  "originalWholeOrdinary": {
+    "sourceCommit": "9481a6ad8028025a7f35da19a3e488935c6cd897",
+    "pass": 12304,
+    "fail": 52,
+    "exitCode": -15,
+    "wholeSuitePass": false,
+    "derivedIndependentAudit": {
+      "findings": 0,
+      "seconds": 72.16,
+      "doesNotRewriteOriginalExit": true
+    }
+  },
+  "legacyRenewal": {
+    "ownIdentities": 14,
+    "businessEffects": 4,
+    "actualStatus": "NOT_RUN",
+    "currentGLMSourceFreshnessFailures": 6
+  },
+  "completeReleaseGate": "NOT_RUN",
+  "sharedBudget": {
+    "candidateCalls": 2,
+    "candidateAttempts": 2,
+    "candidateCallsLimit": 120,
+    "candidateAttemptsLimit": 144,
+    "chatIdentityCalls": 2,
+    "chatIdentityAttempts": 2,
+    "chatIdentityCallsLimit": 20,
+    "chatIdentityAttemptsLimit": 24,
+    "formalCalls": 0,
+    "formalAttempts": 0,
+    "formalCallsLimit": 60,
+    "formalAttemptsLimit": 72
+  },
+  "humanAction": "Repair local .env MINIMAX_KEY or the China standard account authentication and reply without sending the secret. Existing M3 scope authorization persists.",
+  "remaining": [
+    "own actual M3 candidate and formal proof",
+    "data-only final catalog activation",
+    "legacy identities and effects renewal",
+    "complete release gate",
+    "final acceptance review and closure only after all mandatory proof passes"
+  ],
+  "newPaidCallsRunByDocumentationAgent": false,
+  "integrationBeforeDocCommit": "74a210844ea9649d25691d5ed4b7480186f7adee",
+  "codeSourceCommit": "120530041de78c26e803719dd5c856d321d6aa34",
+  "testedMatrixSha256": "42cd2f1f91335c2588e2ad0e0d5697236cf2aac6293efc5a29fd2d27a42a0976",
+  "testedDataDelta": "Only three MiniMax rows omit empty capabilities, matching canonical writer serialization.",
+  "evidenceSummary": {
+    "path": ".scratch/barness-ai-minimax/evidence/ticket-10/offline-checks-1205300.json",
+    "sha256": "be4aea68195abc855f7cfd81c063f59ac20887609d6e09ae180a5380fccc067a"
+  },
+  "keylessLive": {
+    "exitCode": 0,
+    "seconds": 102.56713708397001,
+    "primaryManifest": {
+      "cases": 385,
+      "pass": 323,
+      "notRun": 62
+    },
+    "auxiliaryPassCases": 2,
+    "credentialsRead": false
+  },
+  "futurePaidPrerequisite": "Fresh committed-source prepare, keyless checks and root exact-source review after user credential repair; prior approval remains tied to 9481a6a.",
+  "completeRetainedArchiveIndex": "../ticket-10/whole-ordinary-failed-9481a6a.json",
+  "independentIntegrityNote": {
+    "path": "whole-ordinary-artifact-integrity.md",
+    "sha256": "65e7299e4a711cabfd252c14a1a58a9d8bff982bac52baa33792135c603e4fa1",
+    "version": "v2"
+  },
+  "certified": false,
+  "completeReleaseGateBlocker": "Actual own M3 candidate/formal proof, final catalog and legacy/effects renewal are outstanding.",
+  "separateRootCredentialDiagnostic": {
+    "selectedCredential": "MINIMAX_KEY",
+    "credentialsRead": true,
+    "networkRequests": 0,
+    "printedValueLengthOrHash": false,
+    "bearerPrefixPresent": false,
+    "internalWhitespacePresent": false,
+    "controlCharactersPresent": false,
+    "scope": "Local syntax check after401; no paid ledger change or other credential."
+  }
+}
