@@ -207,16 +207,20 @@ class Routed(unittest.TestCase):
 
 
     # Failure inventory at the existing public CLI/process seam: the two
-    # release contract tests must actually execute, remain keyless, and a
-    # nonzero result must prevent even a separately reviewed paid intent.
+    # release contracts, optional default diagnostic and full release package
+    # must execute keylessly; either failure denies a reviewed paid intent.
     def release_contract_preflight_probe(self):
         args=['test','./ai/e2e','-count=1','-run',
-              '^(TestMiniMaxAdditiveReleaseContract|TestGLMReleaseTraceContract)$']
+              '^(TestMiniMaxAdditiveReleaseContract|TestGLMReleaseTraceContract|TestReleaseRecordedBundleDiagnosticProcess)$']
+        package=['test','./ai/internal/testkit/release','-count=1']
         code='#!'+sys.executable+'\nimport json,os,pathlib,shutil,sys\n'
         code+='root=pathlib.Path('+repr(str(self.root))+');args=sys.argv[1:]\n'
         code+='if args=='+repr(args)+':\n'
         code+=' (root/"release-contract-probe.json").write_text(json.dumps(dict(argv=args,environmentKeys=sorted(os.environ))))\n'
         code+=' sys.exit(7 if (root/"release-contract-fail").exists() else 0)\n'
+        code+='if args=='+repr(package)+':\n'
+        code+=' (root/"release-package-probe.json").write_text(json.dumps(dict(argv=args,environmentKeys=sorted(os.environ))))\n'
+        code+=' sys.exit(7 if (root/"release-package-fail").exists() else 0)\n'
         code+='if "-o" in args:\n target=pathlib.Path(args[args.index("-o")+1]);shutil.copyfile(root/"fake-bin/producer",target);target.chmod(0o755)\n'
         (self.bin/'go').write_text(code)
         return args
@@ -225,32 +229,41 @@ class Routed(unittest.TestCase):
         self.setup_round();expected=self.release_contract_preflight_probe();(self.root/'.env').mkdir()
         self.invoke('prepare','glm','--phase','glm');self.invoke('check','glm')
         probe=self.root/'release-contract-probe.json'
-        self.assertTrue(probe.is_file(),'existing public release contracts never executed')
+        self.assertTrue(probe.is_file(),'required public release contracts/optional diagnostic never executed')
         request=json.loads(probe.read_text());self.assertEqual(request['argv'],expected)
         self.assertNotIn('OPENAI_API_KEY',request['environmentKeys']);self.assertNotIn('BARNESS_GLM_KEY',request['environmentKeys'])
         checks=json.loads((self.root/'glm/checks.json').read_text())
         self.assertTrue(checks['passed']);self.assertFalse(checks['credentialsRead'])
         self.assertEqual(checks['commands'],dict(vet=0,**{'vet-live':0,'no-key-live':0,
-            'no-key-visual-proxy':0,'no-key-release-contracts':0}))
+            'no-key-visual-proxy':0,'no-key-release-contracts':0,'no-key-release-package':0}))
+        package=json.loads((self.root/'release-package-probe.json').read_text())
+        self.assertEqual(package['argv'],['test','./ai/internal/testkit/release','-count=1'])
+        self.assertNotIn('OPENAI_API_KEY',package['environmentKeys']);self.assertNotIn('BARNESS_GLM_KEY',package['environmentKeys'])
         record=json.loads((self.root/'glm/no-key-release-contracts-command.json').read_text())
         self.assertFalse(record['credentialsRead']);self.assertIsNone(record['sourceVariable'])
         self.invoke('run-selected','glm','routed-validation-1-glm-chat',ok=False)
         self.assertFalse((self.root/'.evidence/minimax-launches/routed-validation-1-glm-chat.json').exists())
         self.assertTrue((self.root/'.env').is_dir())
 
-    def test_release_contract_preflight_failure_blocks_key_and_intent(self):
+    def release_contract_preflight_denies_intent(self,marker,command):
         self.setup_round();self.release_contract_preflight_probe();(self.root/'.env').mkdir()
-        (self.root/'release-contract-fail').write_text('controlled public command failure')
+        (self.root/marker).write_text('controlled public command failure')
         self.invoke('prepare','glm','--phase','glm');self.invoke('check','glm',ok=False)
         base=self.root/'glm';checks=json.loads((base/'checks.json').read_text())
         self.assertFalse(checks['passed']);self.assertFalse(checks['credentialsRead'])
-        self.assertEqual(checks['commands']['no-key-release-contracts'],7)
+        self.assertEqual(checks['commands'][command],7)
         self.approve()
         auth=base/'execution-authorization.json';value=json.loads(auth.read_text())
         value['checksSHA256']=hashlib.sha256((base/'checks.json').read_bytes()).hexdigest();auth.write_text(json.dumps(value))
         self.invoke('run-selected','glm','routed-validation-1-glm-chat',ok=False)
         self.assertFalse((self.root/'.evidence/minimax-launches/routed-validation-1-glm-chat.json').exists())
         self.assertFalse((base/'glm-chat-command.json').exists());self.assertTrue((self.root/'.env').is_dir())
+
+    def test_release_contract_preflight_failure_blocks_key_and_intent(self):
+        self.release_contract_preflight_denies_intent('release-contract-fail','no-key-release-contracts')
+
+    def test_release_contract_preflight_package_failure_blocks_key_and_intent(self):
+        self.release_contract_preflight_denies_intent('release-package-fail','no-key-release-package')
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

@@ -160,11 +160,13 @@ def main():
             '^TestVisualEvaluationProxyProcess$','-count=1','-timeout=5m'],timeout=360)
         result['commands']['no-key-visual-proxy']=code;result['passed']=result['passed'] and code==0
         code=c.execute(out,'no-key-release-contracts',['go','test','./ai/e2e','-count=1','-run',
-            '^(TestMiniMaxAdditiveReleaseContract|TestGLMReleaseTraceContract)$'],
+            '^(TestMiniMaxAdditiveReleaseContract|TestGLMReleaseTraceContract|TestReleaseRecordedBundleDiagnosticProcess)$'],
             env={'BARNESS_AI_EVIDENCE_DIR':str(out/'no-key-release-contracts')},timeout=360)
         result['commands']['no-key-release-contracts']=code;result['passed']=result['passed'] and code==0
+        code=c.execute(out,'no-key-release-package',['go','test','./ai/internal/testkit/release','-count=1'],timeout=360)
+        result['commands']['no-key-release-package']=code;result['passed']=result['passed'] and code==0
         c.dump(out/'checks.json',result);guard(out)
-        if not result['passed']:raise RuntimeError('no-key visual or release-contract checks failed')
+        if not result['passed']:raise RuntimeError('no-key visual or release checks failed')
         template=c.doc(out/'execution-authorization.template.json')
         template['checksSHA256']=c.digest(out/'checks.json');c.dump(out/'execution-authorization.template.json',template)
     else:

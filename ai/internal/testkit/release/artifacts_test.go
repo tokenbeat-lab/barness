@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"slices"
 	"testing"
+
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 )
 
 func writeArtifact(t *testing.T, dir, name string, v any) {
@@ -21,6 +24,22 @@ func writeArtifact(t *testing.T, dir, name string, v any) {
 	}
 }
 
+// Both differential fixtures enter through the native artifact inventory. Hash
+// the actual deliberately mutated bytes so semantic guards, rather than an
+// unrelated missing-inventory rejection, decide each test's result.
+func writeDifferentialManifest(t *testing.T, dir, id string, names ...string) {
+	t.Helper()
+	artifacts := make(map[string]string, len(names))
+	for _, name := range names {
+		raw, err := os.ReadFile(filepath.Join(dir, id, name))
+		if err != nil {
+			t.Fatal(err)
+		}
+		artifacts[name] = pioracle.SHA256(raw)
+	}
+	writeArtifact(t, dir, "manifest.json", map[string]any{"package": OfflinePackage, "cases": []map[string]any{{"id": id, "dir": id, "status": "PASS", "artifacts": artifacts}}})
+}
+
 // The frozen record boundary must check values, not just field presence.
 func TestImportedDifferentialRejectsWrongOracle(t *testing.T) {
 	for _, field := range []string{"pi_version", "pi_commit", "pi_model_data_sha256", "request_sha256", "sdk_versions", "gate", "case_id", "model_catalog_hash"} {
@@ -29,11 +48,21 @@ func TestImportedDifferentialRejectsWrongOracle(t *testing.T) {
 			id := "PIDIFF-P01-known"
 			r := map[string]any{"case_id": id, "pi_commit": "abe508e1b89912adde45528136c3221eb69acdd7", "pi_version": "1.1.0", "pi_model_data_sha256": "8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8", "sdk_versions": map[string]string{"@earendil-works/pi-ai": "1.1.0", "go": "go1.26.2"}, "model_catalog_hash": "sha256:8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8", "request_sha256": map[string]string{"pi": "8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8", "barness": "8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8"}, "frame_sha256": "8a06cf635be3392b977f7bb328e7ba5065cbe55825d997ca7d00309fedcdced8", "findings": []any{}, "pending": 0, "pass": true, "gate": "PASS"}
 			r[field] = "wrong"
-			writeArtifact(t, dir, "manifest.json", map[string]any{"package": OfflinePackage, "cases": []map[string]string{{"id": id, "dir": id, "status": "PASS"}}})
 			writeArtifact(t, dir, id+"/pidiff.json", r)
+			writeDifferentialManifest(t, dir, id, "pidiff.json")
 			b, err := LoadBundle(dir)
-			if err == nil && (len(b.Diffs) != 1 || len(b.Diffs[0].Missing) == 0) {
+			if err != nil || len(b.Problems) != 0 {
+				t.Fatalf("fixture must reach oracle semantics: err=%v problems=%v", err, b.Problems)
+			}
+			if len(b.Diffs) != 1 || len(b.Diffs[0].Missing) == 0 {
 				t.Fatal("invalid frozen differential accepted")
+			}
+			want := field + " mismatch"
+			if field == "request_sha256" || field == "sdk_versions" {
+				want = "invalid differential record values"
+			}
+			if !slices.Contains(b.Diffs[0].Missing, want) {
+				t.Fatalf("%s missed intended oracle guard: %v", field, b.Diffs[0].Missing)
 			}
 		})
 	}

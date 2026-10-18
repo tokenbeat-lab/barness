@@ -14,11 +14,11 @@ import (
 // Explicit diagnostic only: adopt the two immutable original executions,
 // preserve their failures, and never attribute their commands to current Go.
 func TestReleaseRecordedBundleDiagnostic(t *testing.T) {
-	ev := run.Case(t, "OD57-release-recorded-bundle-diagnostic")
 	raw := os.Getenv("BARNESS_RELEASE_DIAGNOSTIC_BUNDLES")
 	if raw == "" {
 		t.Skip("optional read-only recorded-bundle diagnosis; no new suite certification")
 	}
+	ev := run.Case(t, "OD57-release-recorded-bundle-diagnostic")
 	var dirs []string
 	if err := json.Unmarshal([]byte(raw), &dirs); err != nil || len(dirs) != 2 {
 		t.Fatal("diagnostic requires exactly two recorded bundle paths")

@@ -3,6 +3,7 @@ package release
 import (
 	"encoding/json"
 	"path/filepath"
+	"slices"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
@@ -39,10 +40,13 @@ func TestDecisionsEvidenceRejectsSourceAndCaptureDrift(t *testing.T) {
 				obs.Result = json.RawMessage(`{"answers":{},"stopReason":"error"}`)
 			}
 			writeArtifact(t, dir, filepath.Join(id, "barness-observation.json"), obs)
-			writeArtifact(t, dir, "manifest.json", map[string]any{"package": OfflinePackage, "cases": []map[string]string{{"id": id, "dir": id, "status": "PASS"}}})
+			writeDifferentialManifest(t, dir, id, "pidiff.json", "pi-observation.json", "barness-observation.json")
 			b, err := LoadBundle(dir)
 			if err != nil {
 				t.Fatal(err)
+			}
+			if len(b.Problems) != 0 {
+				t.Fatalf("fixture must reach semantic validation: %v", b.Problems)
 			}
 			if len(b.Diffs) != 1 {
 				t.Fatal("missing record")
@@ -50,6 +54,10 @@ func TestDecisionsEvidenceRejectsSourceAndCaptureDrift(t *testing.T) {
 			valid := len(b.Diffs[0].Missing) == 0
 			if valid != (name == "valid") {
 				t.Fatalf("%s accepted=%v problems=%v", name, valid, b.Diffs[0].Missing)
+			}
+			want := map[string]string{"source": "pi_source_sha256 mismatch", "results": "result_sha256 mismatch", "protocol": "protocol mismatch", "capture": "barness result hash mismatch", "sdk-missing": "sdk_lock_sha256 mismatch", "sdk-wrong": "sdk_lock_sha256 mismatch"}
+			if name != "valid" && !slices.Contains(b.Diffs[0].Missing, want[name]) {
+				t.Fatalf("%s missed intended semantic guard: %v", name, b.Diffs[0].Missing)
 			}
 		})
 	}
