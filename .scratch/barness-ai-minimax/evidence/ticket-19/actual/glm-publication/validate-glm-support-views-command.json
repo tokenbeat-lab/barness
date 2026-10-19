@@ -1,0 +1,32 @@
+{
+  "state": "COMPLETED",
+  "name": "validate-glm-support-views",
+  "argv": [
+    "go",
+    "run",
+    "./ai/live/cmd/supportmatrix",
+    "-matrix",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/matrix-ivpcdmco/matrix.json",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/support-views/chat",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/support-views/responses",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/support-views/messages"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:13:01.837955+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 2.1248344159685075,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "state": "COMPLETED",
+  "name": "derive-glm-messages",
+  "argv": [
+    "go",
+    "run",
+    "./ai/live/cmd/glmformal",
+    "-route",
+    "messages",
+    "-out",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/support-views/messages"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:13:00.590020+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.2088101250119507,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

@@ -36,3 +36,5 @@ Blocked by: None
 2026-10-19：最终冻结d235/1074文件的六项实际前置检查全部exit0，精确来源/二进制/固定计划与历史输入经独立最终复核通过；source-only批准仅覆盖固定三GLM路线，原件见[最终前置记录](../evidence/ticket-19/preflight-final/README.md)。已询问一次新增216/252预算；尚未取得该轮直接批准，不读Key、不建收费intent/真实grant。原11组当前formal资格未授予，完整发布未认证。工作树已清理，分支/中央原件保留；活动阶段HEAD维持d235，新文档/收据待该阶段关闭后提交。
 
 2026-10-19：直接回复call_11ea21ff批准新增216/252，固定十一项正式复验开始；canonical human批准bc185e82已保存，GLM阶段冻结d235，三路中国直连。该次批准覆盖后续独立重新冻结/检查/审查的国际其余八项，最大预算不追加、不自动续轮。
+
+2026-10-19：GLM三路新正式各22/22、共66/66全部PASS；Messages glm-5.3/cancel 1146ms PASS，usage partial未知不记免费。严格raw/known-usage公开验证后提交336a78b，派生support views公开验证亦0；四selector以两步独立提交进入其余八项新冻结，runtime/断言/原始报告未变。

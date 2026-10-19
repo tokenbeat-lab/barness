@@ -485,7 +485,7 @@
     "evidence": "evidence/ticket-18/cleanup.json"
   },
   "currentSourceElevenRevalidation": {
-    "state": "GLM3_PASS_REMAINING8_PREPARING",
+    "state": "GLM3_PASS_PUBLICATION_COMPLETE_REMAINING8_PREPARING",
     "sourceCommit": "751ad941a7dcda4392ee9dd73ff6089f8c846f0e",
     "precheckCurrentQualified": 0,
     "strictGroups": 11,
@@ -596,7 +596,14 @@
       "calls": 66,
       "attempts": 66,
       "currentFormalReports": 3,
-      "evidence": "evidence/ticket-19/actual/glm/README.md"
+      "evidence": "evidence/ticket-19/actual/glm/README.md",
+      "strictPublication": {
+        "raw": true,
+        "knownUsage": true,
+        "views": true,
+        "allPublicExitCodesZero": true,
+        "evidence": "evidence/ticket-19/actual/glm-publication/README.md"
+      }
     },
     "currentRoundCalls": 66,
     "currentRoundHTTPAttempts": 66,
