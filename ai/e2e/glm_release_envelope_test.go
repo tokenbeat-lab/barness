@@ -8,8 +8,8 @@ import (
 	"testing"
 )
 
-// Invoke the actual CLI, with a fake child executable only at its external
-// Go-command seam. The full gate below still runs real normal and race suites.
+// Invoke the actual CLI at its external Go-command seam. Missing external
+// proofs must refuse the entire expensive sequence, including race.
 func TestGLMReleaseCommandEnvelope(t *testing.T) {
 	ev := run.Case(t, "P0-GLM13-release-command-envelope")
 	dir := t.TempDir()
@@ -36,7 +36,6 @@ func TestGLMReleaseCommandEnvelope(t *testing.T) {
 	raw, readErr := os.ReadFile(log)
 	ev.Record("child-command-argv", string(raw))
 	ev.Record("process", map[string]any{"rejected": err != nil, "panic": strings.Contains(string(output), "panic:")})
-	ev.Check("incomplete commands fail closed", err != nil && readErr == nil && !strings.Contains(string(output), "panic:"), "err=%v read=%v", err, readErr)
-	ev.Check("normal bounded package envelope preregistered", strings.Contains(string(raw), "test -count=1 -timeout=20m ./..."), "normal command=%s", raw)
-	ev.Check("race bounded package envelope preregistered", strings.Contains(string(raw), "test -race -count=1 -timeout=75m ./..."), "race command=%s", raw)
+	ev.Check("missing proofs refuse before starting commands", err != nil && os.IsNotExist(readErr) && !strings.Contains(string(output), "panic:"), "err=%v read=%v", err, readErr)
+	ev.Check("no normal or race command started", len(raw) == 0, "unexpected child command")
 }

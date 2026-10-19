@@ -66,10 +66,14 @@ python3 .scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence
 在仓库根目录执行（需要 Node.js 与 `npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node` 安装的冻结 pi 副本）：
 
 ```sh
-go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> -visual-evaluation-jev <Jev-视觉包> -visual-evaluation-decisions <Decisions-视觉包> [-live <live 证据包目录>]...
+go run ./ai/release/cmd/releasegate -stage check -out <check-dir> -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> -visual-evaluation-jev <Jev-视觉包> -visual-evaluation-decisions <Decisions-视觉包> [-live <live 证据包目录>]...
+# 普通验证结束后，由人工明确选择：
+go run ./ai/release/cmd/releasegate -stage race -from <check-dir> -out <race-dir>
 ```
 
-它依次执行 `go vet ./...`（含与不含 `live` tag）、离线 E2E 与 `go test -race ./...`；两次测试均打开 `BARNESS_AI_PIDIFF=1` 和 `BARNESS_AI_PRESSURE=1`。证据写入 `.evidence/barness-ai-release/<时间>/`；全部门禁通过才退出 0：
+默认执行 check：先核对固定映射、账本、快照、17份自身支持和四项业务效果的当前来源、完整性及审计；通过后顺序执行两种 vet、完整普通测试与原生证据消费。失败停止后续启动，全部普通验证通过则输出 `READY_FOR_RACE`、race `NOT_RUN`、发布false，退出2。`-collect-all`仅继续收集check阶段诊断，不启动race；独立`-preflight`不执行验证命令，退出0只表示外部输入就绪。
+
+人工选择 race 后，`-from`必须指向原check目录，不能覆盖输入。工具验证原实际命令回执、来源、测试、工具身份和选定输入，复核普通原件后才运行完整race；来源或输入变化拒绝沿用。两次测试均打开`BARNESS_AI_PIDIFF=1`和`BARNESS_AI_PRESSURE=1`，分别保留原生bundle。check与race输出目录须独立且为空；命令保存执行报告、数字退出、起止时间、事件元数据及有界失败尾部。实际失败退出1，十项门禁全部通过才退出0。旧`-bundle`/`-race-bundle`入口只读重评估，命令保持NOT_RUN，不能替代认证。项目执行规则见[验证策略](../agents/verification.md)。
 
 | 门禁 | 通过条件 |
 | --- | --- |

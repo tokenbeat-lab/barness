@@ -455,8 +455,12 @@ go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # 把冒烟报告合并进�
 go run ./ai/examples/chineseeval/cmd/chineseeval -route jev  # 不联网，生成 NOT_RUN 包
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna # 独立的 NOT_RUN 包
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -verify <Luna-效果包>
-go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> [-live <bundle-dir>]...
+go run ./ai/release/cmd/releasegate -stage check -out <check-dir> -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> -visual-evaluation-jev <Jev-视觉包> -visual-evaluation-decisions <Decisions-视觉包> [-live <bundle-dir>]...
+# 人工明确选择最后的 race 阶段后执行：
+go run ./ai/release/cmd/releasegate -stage race -from <check-dir> -out <race-dir>
 ```
+
+默认 check 阶段先检查当前输入，再运行双 vet、完整普通测试和原生证据消费，完成后停在 `READY_FOR_RACE`（退出2、race NOT_RUN、发布false）。失败退出1并停止后续工作；`-collect-all`只收集普通阶段诊断。`-preflight`不运行验证命令，其退出0仅表示输入就绪。race阶段重新核对原check来源与输入；完整发布全部通过才退出0。`-bundle`只读重评估不能认证未执行的命令。详见[验证策略](../docs/agents/verification.md)。
 
 每次 E2E 运行都会在 `.evidence/` 下写出脱敏的证据包（可用 `BARNESS_AI_EVIDENCE_DIR` 覆盖）。新行为需要一个 E2E 用例，且其证据能被发布门禁追溯（`release/traceability.json`）。
 完整发布门禁需要十六协议组合、十七支持身份各自的当前真实证据，Jev/Luna 各自独立中文评估、Jev/Decisions 各自独立视觉评估，以及完整离线、race、差分、压力和审计；离线 fixture 与 NOT_RUN 报告不能替代真实证据。

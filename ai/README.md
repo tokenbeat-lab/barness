@@ -480,8 +480,12 @@ go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # merge reports into the ma
 go run ./ai/examples/chineseeval/cmd/chineseeval -route jev  # NOT_RUN; no network
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna # independent NOT_RUN bundle
 go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -verify <Luna-bundle>
-go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-bundle> -evaluation-luna <Luna-bundle> -visual-evaluation-jev <Jev-visual> -visual-evaluation-decisions <Decisions-visual> [-live <bundle-dir>]...
+go run ./ai/release/cmd/releasegate -stage check -out <check-dir> -evaluation-jev <Jev-bundle> -evaluation-luna <Luna-bundle> -visual-evaluation-jev <Jev-visual> -visual-evaluation-decisions <Decisions-visual> [-live <bundle-dir>]...
+# After a human explicitly chooses the final race stage:
+go run ./ai/release/cmd/releasegate -stage race -from <check-dir> -out <race-dir>
 ```
+
+The default check stage preflights current inputs, runs both vet variants and the complete ordinary suite, and verifies its native evidence. It stops at `READY_FOR_RACE` (exit 2, race `NOT_RUN`, release false). Failures exit 1 and stop later work; `-collect-all` only gathers check-stage diagnostics. `-preflight` runs no verification commands and exit 0 means input readiness only. The race stage revalidates the original check inputs and source before running; only complete release success exits 0. Read-only `-bundle` reevaluation cannot certify unexecuted commands. See [verification policy](../docs/agents/verification.md).
 
 Every E2E run writes a redacted evidence bundle under `.evidence/` (`BARNESS_AI_EVIDENCE_DIR` overrides). New behavior
 needs an E2E case whose evidence the release gate can trace (`release/traceability.json`). The full release gate

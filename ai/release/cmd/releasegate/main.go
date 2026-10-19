@@ -1,246 +1,119 @@
-// Command releasegate runs barness-ai's release gate (spec Testing Decisions
-// §6, issue 24) from the repository root and writes a release bundle:
-//
-//	go run ./ai/release/cmd/releasegate [-live <live-bundle-dir>]...
-//
-// It runs go vet (with and without the live tag), the offline E2E with the
-// frozen pi differential (BARNESS_AI_PIDIFF=1) and the policy pressure
-// scenarios (BARNESS_AI_PRESSURE=1), and the suite under -race, each
-// writing its evidence below the release bundle; audits every
-// bundle for keys, Authorization values and real content; checks the
-// difference ledger, the support matrix, the traceability map and the
-// checked-in catalog snapshot; and writes release-report.{json,md} with the
-// offline, differential and live results in separate sections. It exits 1
-// unless every gate passes.
-//
-// -bundle evaluates an existing offline bundle without running anything;
-// its command gates then fail as not run. -write-snapshot regenerates the
-// catalog snapshot and exits.
+// Command releasegate checks ordinary evidence first. An explicit -stage race
+// -from <check-dir> invocation performs the independent final race stage.
+// Read-only -bundle reevaluation cannot certify unexecuted command gates.
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"flag"
+	"context"
 	"fmt"
-	"os"
-	"os/exec"
-	"path/filepath"
-	"strings"
-	"time"
-
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
+	"os"
+	"os/signal"
+	"path/filepath"
+	"syscall"
+	"time"
 )
 
-type multi []string
-
-func (m *multi) String() string     { return strings.Join(*m, ",") }
-func (m *multi) Set(v string) error { *m = append(*m, v); return nil }
-
-// tailBytes is how much of a failed command's output the report keeps.
-const tailBytes = 4 << 10
-
 func main() {
-	out := flag.String("out", "", "release bundle directory (default .evidence/barness-ai-release/<time>)")
-	bundle := flag.String("bundle", "", "evaluate this existing offline bundle instead of running the suite")
-	raceBundle := flag.String("race-bundle", "", "independent race bundle when evaluating existing artifacts")
-	matrixPath := flag.String("matrix", "ai/live/support-matrix.json", "support matrix")
-	extensionsPath := flag.String("extensions", "ai/release/classifier-extensions.json", "finite classifier extension case/path registry")
-	tracePath := flag.String("trace", "ai/release/traceability.json", "traceability map")
-	ledgerPath := flag.String("ledger", "ai/e2e/testdata/pidiff/ledger.json", "difference ledger")
-	snapshotPath := flag.String("snapshot", "ai/release/catalog-snapshot.json", "checked-in catalog snapshot")
-	writeSnapshot := flag.Bool("write-snapshot", false, "regenerate the catalog snapshot and exit")
-	jev := flag.String("evaluation-jev", "", "current independent Jev Chinese evaluation bundle")
-	luna := flag.String("evaluation-luna", "", "current independent Luna Chinese evaluation bundle")
-	visualJev := flag.String("visual-evaluation-jev", "", "current formal Jev fixed visual task bundle")
-	visualDecisions := flag.String("visual-evaluation-decisions", "", "current formal Decisions fixed visual task bundle")
-	var live multi
-	flag.Var(&live, "live", "a live evidence bundle to audit (repeatable)")
-	flag.Parse()
-
-	snapshot, err := release.CatalogSnapshot()
-	if err != nil {
-		fail(err)
-	}
-	if *writeSnapshot {
-		if err := os.WriteFile(*snapshotPath, snapshot, 0o644); err != nil {
-			fail(err)
-		}
-		fmt.Println("wrote", *snapshotPath)
-		return
-	}
-	if *out == "" {
-		*out = filepath.Join(".evidence", "barness-ai-release", time.Now().UTC().Format("20060102T150405Z"))
-	}
-	if err := os.MkdirAll(*out, 0o755); err != nil {
-		fail(err)
-	}
-	trace, err := release.LoadTraceMap(*tracePath)
-	if err != nil {
-		fail(err)
-	}
-	ledger, err := release.LoadLedger(*ledgerPath)
-	if err != nil {
-		fail(err)
-	}
-	matrix, err := supportmatrix.LoadMatrix(*matrixPath)
-	if err != nil {
-		fail(err)
-	}
-
-	extensionPlan, extensionBytes := release.CheckClassifierExtensions(*extensionsPath)
-	modules, err := release.GoModules(".")
-	if err != nil {
-		fail(err)
-	}
-	in := release.Inputs{Ledger: ledger, Matrix: matrix, Trace: trace, Modules: modules,
-		Snapshots: []release.Snapshot{release.CheckSnapshot("catalog", *snapshotPath, snapshot), release.CheckReleasePlan(trace), release.HistoricalPressureBlocker(), extensionPlan}}
-	var catalog struct {
-		Hash    string
-		Catalog struct{ Version string }
-	}
-	if err := json.Unmarshal(snapshot, &catalog); err != nil {
-		fail(err)
-	}
-	in.CatalogVersion, in.CatalogHash = catalog.Catalog.Version, catalog.Hash
-	audited := live
-	var missing []release.AuditResult
-	if *bundle == "" {
-		offlineBase, raceBase := filepath.Join(*out, "offline"), filepath.Join(*out, "race")
-		in.Commands = []release.Command{
-			run(release.CmdVet, nil, "go", "vet", "./..."),
-			run(release.CmdVetLive, nil, "go", "vet", "-tags", "live", "./..."),
-			run(release.CmdTest, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(offlineBase)}, "go", "test", "-count=1", "-timeout=20m", "./..."),
-			// The complete catalog now includes three GLM extension routes.
-			// Preregister bounded 20m normal / 75m race package envelopes before
-			// collection: the prior complete race command took about31m with
-			// compilation/audits. Scenario deadlines, pressure loads, resource
-			// limits and the separate1800s GLM paid-process cap are unchanged.
-			run(release.CmdRace, []string{"BARNESS_AI_PIDIFF=1", "BARNESS_AI_PRESSURE=1", evidenceDir(raceBase)}, "go", "test", "-race", "-count=1", "-timeout=75m", "./..."),
-		}
-		if *bundle, err = release.FindBundle(offlineBase); err != nil {
-			fail(err)
-		}
-		if race, err := release.FindBundle(raceBase); err == nil {
-			*raceBundle = race
-		} else {
-			// A race bundle that cannot be found cannot be audited: report
-			// it rather than audit less.
-			missing = append(missing, release.AuditResult{Bundle: raceBase, Err: err.Error()})
-		}
-	}
-	if in.Offline, err = release.LoadBundle(*bundle); err != nil {
-		fail(err)
-	}
-	forbidden := audit.Environment()
-	for _, dir := range []string{*jev, *luna, *visualJev, *visualDecisions, *raceBundle} {
-		if dir != "" {
-			audited = append(audited, dir)
-		}
-	}
-	for _, dir := range append([]string{*bundle}, audited...) {
-		in.RequiredAudits = append(in.RequiredAudits, dir)
-		in.Audits = append(in.Audits, release.AuditBundle(dir, forbidden))
-	}
-	in.Audits = append(in.Audits, missing...)
-	in.Evidence = append(release.DesignLoadEvidence(in.Offline), release.RevocationEvidence(in.Offline))
-	in.Evidence = append(in.Evidence, release.MultimodalImageEvidence(in.Offline)...)
-
-	in.Evidence = append(in.Evidence, release.ChineseEffectsEvidence(*jev, *luna)...)
-	in.Evidence = append(in.Evidence, release.VisualEffectsEvidence(*visualJev, *visualDecisions)...)
-	in.Evidence = append(in.Evidence, release.RaceEvidence(*raceBundle, trace, ledger)...)
-	report := release.Evaluate(in)
-	fixtures, err := release.Fixtures(".", "ai/e2e/testdata")
-	if err != nil {
-		fail(err)
-	}
-	if extensionPlan.Current {
-		writeRaw(*out, "classifier-extensions.json", extensionBytes)
-	}
-	write(*out, "release-report.json", report)
-	write(*out, "fixtures.json", fixtures)
-	writeRaw(*out, "release-report.md", []byte(report.Markdown()))
-	writeRaw(*out, "catalog-snapshot.json", snapshot)
-	for _, src := range []string{*matrixPath, *tracePath, *ledgerPath} {
-		data, err := os.ReadFile(src)
-		if err != nil {
-			fail(err)
-		}
-		writeRaw(*out, filepath.Base(src), data)
-	}
-	fmt.Println(report.Markdown())
-	fmt.Fprintf(os.Stderr, "barness-ai release bundle: %s\n", *out)
-	if !report.Pass {
-		os.Exit(1)
-	}
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer cancel()
+	os.Exit(cli(ctx, os.Args[1:]))
 }
-
-func evidenceDir(base string) string {
-	abs, err := filepath.Abs(base)
+func cli(ctx context.Context, args []string) int {
+	o, err := parseOptions(args, os.Stderr)
 	if err != nil {
-		fail(err)
-	}
-	return "BARNESS_AI_EVIDENCE_DIR=" + abs
-}
-
-// run executes one gate command, streaming its output to stderr and keeping
-// its tail for the report.
-func run(id string, env []string, name string, args ...string) release.Command {
-	// The evidence directory is the release bundle's business, not the
-	// command's meaning; only the switches are shown.
-	var shown []string
-	for _, kv := range env {
-		if !strings.HasPrefix(kv, "BARNESS_AI_EVIDENCE_DIR=") {
-			shown = append(shown, kv)
-		}
-	}
-	line := strings.TrimSpace(strings.Join(shown, " ") + " " + name + " " + strings.Join(args, " "))
-	fmt.Fprintf(os.Stderr, "releasegate: %s\n", line)
-	var buf bytes.Buffer
-	cmd := exec.Command(name, args...)
-	cmd.Env = append(os.Environ(), env...)
-	// One writer for both streams, so exec copies them on one goroutine.
-	out := &tee{&buf}
-	cmd.Stdout, cmd.Stderr = out, out
-	started := time.Now()
-	err := cmd.Run()
-	c := release.Command{ID: id, Line: line, Passed: err == nil, Duration: time.Since(started)}
-	var exit *exec.ExitError
-	if err != nil && !errors.As(err, &exit) {
 		fmt.Fprintln(os.Stderr, "releasegate:", err)
+		return 2
 	}
-	if !c.Passed {
-		tail := buf.Bytes()
-		c.Tail = string(tail[max(0, len(tail)-tailBytes):])
+	if o.WriteSnapshot {
+		raw, err := release.CatalogSnapshot()
+		if err == nil {
+			err = os.WriteFile(o.Snapshot, raw, 0644)
+		}
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "releasegate: snapshot write failed")
+			return 1
+		}
+		return 0
 	}
-	return c
-}
-
-type tee struct{ buf *bytes.Buffer }
-
-func (t *tee) Write(p []byte) (int, error) {
-	t.buf.Write(p)
-	return os.Stderr.Write(p)
-}
-
-func write(dir, name string, v any) {
-	data, err := release.Encode(v)
-	if err != nil {
-		fail(err)
+	if o.Out == "" {
+		o.Out = filepath.Join(".evidence", "barness-ai-release", time.Now().UTC().Format("20060102T150405.000000000Z"))
 	}
-	writeRaw(dir, name, data)
-}
-
-func writeRaw(dir, name string, data []byte) {
-	if err := os.WriteFile(filepath.Join(dir, name), data, 0o644); err != nil {
-		fail(err)
+	if err := newOutput(o.Out); err != nil {
+		fmt.Fprintln(os.Stderr, "releasegate:", err)
+		return 1
 	}
+	if o.Stage == "race" {
+		return resumeRace(ctx, o)
+	}
+	root, rootErr := os.Getwd()
+	var frozen frozenInputs
+	var freezeErr error
+	if o.Bundle == "" && rootErr == nil {
+		frozen, freezeErr = captureCheckpointInputs(root, o)
+	}
+	in, inputErr := externalInputs(o)
+	if inputErr == nil && (rootErr != nil || freezeErr != nil) {
+		inputErr = fmt.Errorf("source/input freeze unavailable")
+	}
+	if o.Bundle != "" {
+		if err := loadOrdinary(&in, o.Bundle); err != nil {
+			in.Offline.Problems = append(in.Offline.Problems, err.Error())
+		}
+		if o.RaceBundle != "" {
+			in.RequiredAudits = append(in.RequiredAudits, o.RaceBundle)
+			in.Audits = append(in.Audits, release.AuditBundle(o.RaceBundle, audit.Environment()))
+		}
+		in.Evidence = append(in.Evidence, release.RaceEvidence(o.RaceBundle, in.Trace, in.Ledger)...)
+		_, err := writeVerdict(o, in)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "releasegate: report write failed")
+		}
+		return 1
+	}
+	p := release.Preflight(in)
+	if inputErr != nil {
+		p.Ready = false
+		p.Checks = append(p.Checks, release.Gate{ID: "input-loading", Name: "load fixed release inputs", Problems: []string{inputErr.Error()}})
+	}
+	if err := writeJSON(o.Out, "preflight-report.json", p); err != nil {
+		fmt.Fprintln(os.Stderr, "releasegate: preflight report write failed")
+		return 1
+	}
+	if !p.Ready || o.Preflight {
+		r := newExecution("check")
+		if !p.Ready {
+			r.fail("preflight", fmt.Errorf("external inputs not ready"))
+		} else {
+			r.Status = "NOT_RUN"
+			r.BlockedBy = "preflight-only"
+		}
+		if err := r.save(o.Out); err != nil {
+			fmt.Fprintln(os.Stderr, "releasegate: execution report write failed")
+			return 1
+		}
+		_, err := writeVerdict(o, in)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "releasegate: report write failed")
+			return 1
+		}
+		if p.Ready {
+			fmt.Fprintln(os.Stderr, "preflight ready; release remains unverified")
+			return 0
+		}
+		fmt.Fprintln(os.Stderr, "preflight failed; no verification command started")
+		return 1
+	}
+	return checkStage(ctx, o, in, frozen)
 }
-
-func fail(err error) {
-	fmt.Fprintln(os.Stderr, "releasegate:", err)
-	os.Exit(2)
+func newOutput(dir string) error {
+	if err := os.MkdirAll(dir, 0700); err != nil {
+		return fmt.Errorf("output directory unavailable")
+	}
+	entries, err := os.ReadDir(dir)
+	if err != nil || len(entries) != 0 {
+		return fmt.Errorf("output directory must be empty")
+	}
+	return nil
 }

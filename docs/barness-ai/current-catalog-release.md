@@ -17,16 +17,22 @@ Jev 1.14 正式包还需独立视觉效果包；门禁分别要求 Jev 与 Decis
 经已有严格 verifier 复核完整数据、源码、捕获重放、评分、预算和审计。
 源码新增测试也会使该正式包过期；保留原包，在获准预算内重新采集，不能重写旧包。
 
-从仓库根目录运行完整 normal/race、差分和压力：
+从仓库根目录先运行普通阶段，差分和压力保持开启：
 
 ```sh
-go run ./ai/release/cmd/releasegate -out .evidence/NEW_RELEASE \
+go run ./ai/release/cmd/releasegate -stage check -out .evidence/NEW_RELEASE_CHECK \
   -evaluation-jev CURRENT_JEV_113_TEXT_EFFECTS \
   -evaluation-luna CURRENT_LUNA_TEXT_EFFECTS \
   -visual-evaluation-jev CURRENT_JEV_FORMAL_VISUAL_EFFECTS \
   -visual-evaluation-decisions CURRENT_DECISIONS_FORMAL_VISUAL_EFFECTS \
   -live CURRENT_ROUTE_PACKAGE
+
+# 普通完成（READY_FOR_RACE，退出2）后，由人工明确选择：
+go run ./ai/release/cmd/releasegate -stage race \
+  -from .evidence/NEW_RELEASE_CHECK -out .evidence/NEW_RELEASE_RACE
 ```
+
+这是ADR-0048定义的新执行方式；上方2026-10-17的历史验收结果保持原样。新入口默认不运行race；第二阶段重新验证原来源、输入和实际命令回执，十项门禁全部通过才认证发布。新工具源码可能使历史真实证明过期，前置会如实拒绝，不能将原PASS当作本次源码的资格。需要续期时另行确定范围和预算。
 
 `-live` 对每个独立路线包重复；生产者和各自有限预算继续见
 `ai/live/testdata/jev-formal/README.md`、`ai/examples/chineseeval/README.md`
