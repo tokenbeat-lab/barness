@@ -37,7 +37,14 @@ def run(out):
  bundles+=[p.unique(glm/('glm-'+route),'live-report.json') for route in ('chat','responses','messages')]
  bundles+=[p.unique(out/('mm-global-formal-m3-'+route),'live-report.json') for route in ('chat','responses','messages')]
  bundles.append(support)
- u.public(destination,'validate-seventeen-current-inputs',['go','run','./ai/live/cmd/supportmatrix','-matrix',candidate,*bundles])
+ # The independent audit has no measurement history. Reimporting retained
+ # generic reports into a default copy would correctly fail equalLastRunAt.
+ # Candidate/default history is untouched and receives only seven new reports.
+ audit=destination/'audit-identities.json'
+ c.dump(audit,dict(schema=original['schema'],rows=[{k:row[k] for k in ('combo','operation','provider','api')} for row in original['rows']]))
+ u.public(destination,'audit-seventeen-current-inputs',['go','run','./ai/live/cmd/supportmatrix','-matrix',audit,*bundles])
+ guard(out)
+ u.public(destination,'validate-seven-new-reports',['go','run','./ai/live/cmd/supportmatrix','-matrix',candidate,*bundles[10:]])
  guard(out);updated=c.doc(candidate);oldrows={v['combo']:v for v in original['rows']};newrows={v['combo']:v for v in updated['rows']};protected={n for n,_,_,_ in p.GENERIC}
  if (len(oldrows)!=17 or len(newrows)!=17 or len(updated['rows'])!=17 or set(oldrows)!=set(newrows) or
      {k:v for k,v in original.items() if k!='rows'}!={k:v for k,v in updated.items() if k!='rows'} or
