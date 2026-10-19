@@ -35,7 +35,7 @@ H1（发送前 deadline）由原始 v08 的 scope terminal、0 Attempt、2 Obser
 
 先写公共 Client → 原 production writer → bundle.finish → verify 的八组合回归。仅抽取现有逐样本 block，接受外层 precheck 之后的真实 context，先保留行为 RED，再修复。受控使用真实已取消/已过期 context；transport 无网络能力。package-specific evidence 与 offline E2E package 分开，不干扰 release.FindBundle。
 
-## Answer
+## Historical pre-closure answer
 
 离线修复源码 `d02b5adb862e98d73672b47bfd1e3142a2d6082d` 已通过 Standards / Spec 精确复核。最终受控场景普通与 race 各23 PASS、audit0，双 vet exit0；测量时是 a203 HEAD 加 WIP，1,040 项编译/JSON/module 字节与 d02 提交完全一致，不能写成提交后测试。
 
