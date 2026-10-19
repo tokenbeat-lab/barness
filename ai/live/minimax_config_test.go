@@ -117,6 +117,17 @@ func initializeMiniMax() {
 	if _, e = minimaxlive.Sources(); e != nil {
 		minimaxConfigError = e.Error()
 	}
+	if renewal := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL"); renewal != "" {
+		r.FormalRenewalID = renewal
+		r.Unknown = append(r.Unknown, "fixed formal source renewal has independent60/72 cap; original formal39/36 history remains immutable and is pinned by the canonical grant")
+		if r.Mode != "live" || r.Stage != "formal" || r.Identity.Model != minimaxlive.M3 {
+			minimaxConfigError = "fixed formal renewal requires actual M3 formal live"
+		} else if _, pin, e := minimaxlive.RenewalAuthority(renewal, true); e != nil {
+			minimaxConfigError = e.Error()
+		} else {
+			r.FormalRenewalGrantSHA256 = pin
+		}
+	}
 	path := os.Getenv("BARNESS_MINIMAX_LEDGER")
 	if r.Mode == "live" {
 		canonical, e := minimaxlive.StageLedgerPath(r.Stage)

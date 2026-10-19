@@ -46,6 +46,9 @@ func VerifyLedger(dir string, r Report) error {
 	own := []Receipt{}
 	predecessors := map[string]bool{}
 	for i, receipt := range ledger.Receipts {
+		if receipt.RenewalID != r.FormalRenewalID || receipt.RenewalGrantSHA256 != r.FormalRenewalGrantSHA256 {
+			return fmt.Errorf("MiniMax renewal receipt authority differs")
+		}
 		if receipt.Sequence != i+1 || receipt.Previous != previous || receipt.Hash != receiptHash(receipt) || receipt.Stage != r.Stage {
 			return fmt.Errorf("MiniMax stage receipt chain changed")
 		}

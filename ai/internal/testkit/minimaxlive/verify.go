@@ -31,6 +31,9 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	if e != nil {
 		return r, e
 	}
+	if e = verifyRenewalReport(r); e != nil {
+		return r, e
+	}
 	raw, e := ReadFile(filepath.Join(dir, SealFile), 2<<20)
 	if e != nil {
 		return r, e

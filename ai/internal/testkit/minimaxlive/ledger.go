@@ -22,17 +22,19 @@ type Budget struct {
 	ReservedInput    int `json:"reservedInput"`
 }
 type Receipt struct {
-	Session  string    `json:"session"`
-	Sequence int       `json:"sequence"`
-	Stage    string    `json:"stage"`
-	Identity Identity  `json:"identity"`
-	Case     string    `json:"case"`
-	Kind     string    `json:"kind"`
-	Output   int       `json:"output"`
-	Input    int       `json:"input"`
-	At       time.Time `json:"at"`
-	Previous string    `json:"previous"`
-	Hash     string    `json:"hash"`
+	RenewalID          string    `json:"renewalId,omitempty"`
+	RenewalGrantSHA256 string    `json:"renewalGrantSha256,omitempty"`
+	Session            string    `json:"session"`
+	Sequence           int       `json:"sequence"`
+	Stage              string    `json:"stage"`
+	Identity           Identity  `json:"identity"`
+	Case               string    `json:"case"`
+	Kind               string    `json:"kind"`
+	Output             int       `json:"output"`
+	Input              int       `json:"input"`
+	At                 time.Time `json:"at"`
+	Previous           string    `json:"previous"`
+	Hash               string    `json:"hash"`
 }
 type Ledger struct {
 	Path, Stage, Session string
@@ -55,6 +57,10 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	selected, e := Select(l.Identity.Route, l.Identity.Model, l.Identity.Purpose)
 	if e != nil || selected != l.Identity || l.Stage == "formal" && selected.Model != M3 {
 		return Receipt{}, fmt.Errorf("invalid stage identity")
+	}
+	renewal, grantPin, e := l.renewalAuthority(caseID)
+	if e != nil {
+		return Receipt{}, e
 	}
 	if caseID == "" {
 		return Receipt{}, fmt.Errorf("empty case")
@@ -84,7 +90,7 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	reserved := 0
 	attempted := 0
 	for _, r := range receipts {
-		if r.Stage != l.Stage {
+		if r.Stage != l.Stage || r.RenewalID != renewal || r.RenewalGrantSHA256 != grantPin {
 			return Receipt{}, fmt.Errorf("mixed stage ledger")
 		}
 		seen[r.Identity.BudgetSlot()] = true
@@ -109,7 +115,7 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if len(seen) > maxIDs {
 		return Receipt{}, fmt.Errorf("stage identity budget exhausted")
 	}
-	r := Receipt{Session: l.Session, Sequence: len(receipts) + 1, Stage: l.Stage, Identity: l.Identity, Case: caseID, Kind: kind, Output: output, Input: input, At: time.Now().UTC()}
+	r := Receipt{RenewalID: renewal, RenewalGrantSHA256: grantPin, Session: l.Session, Sequence: len(receipts) + 1, Stage: l.Stage, Identity: l.Identity, Case: caseID, Kind: kind, Output: output, Input: input, At: time.Now().UTC()}
 	if len(receipts) > 0 {
 		r.Previous = receipts[len(receipts)-1].Hash
 	}
@@ -123,6 +129,11 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	}
 	if kind == "attempt" && attempted >= reserved {
 		return Receipt{}, fmt.Errorf("unreserved actual attempt")
+	}
+	if renewal != "" {
+		if e = l.claimRenewal(grantPin, receipts); e != nil {
+			return Receipt{}, e
+		}
 	}
 	r.Hash = receiptHash(r)
 	f, e := os.OpenFile(l.Path, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600)

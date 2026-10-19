@@ -1,0 +1,74 @@
+{
+  "verified": true,
+  "custody": {
+    "id": "ticket19-native-renewal",
+    "archiveSHA256": "cd38a57550f4f765722d586e059c4e4b598255f655face8ab3f8cc07617c8acd",
+    "files": 636,
+    "entries": 636,
+    "decodedTarBytes": 52387840
+  },
+  "numericCommands": {
+    "1": 1,
+    "2": 0,
+    "3": 1,
+    "4": 1,
+    "5": 1,
+    "6": 0,
+    "7": 1,
+    "8": 1,
+    "9": 1,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 0,
+    "14": 1,
+    "15": 0,
+    "16": 0,
+    "17": 0,
+    "18": 0,
+    "19": 0,
+    "20": 0,
+    "21": 0,
+    "22": 0,
+    "23": 2
+  },
+  "controlledHarness": [
+    {
+      "member": "raw/15-harness-green/20261019T050252.515313000Z/manifest.json",
+      "cases": 67,
+      "statuses": {
+        "PASS": 67
+      },
+      "auditFindings": 0
+    },
+    {
+      "member": "raw/18-final-harness-race/20261019T050535.699691000Z/manifest.json",
+      "cases": 67,
+      "statuses": {
+        "PASS": 67
+      },
+      "auditFindings": 0
+    }
+  ],
+  "syntheticLedgerMechanism": [
+    {
+      "member": "raw/positive-api-fixture/.evidence/minimax-stages/formal.jsonl",
+      "counts": {
+        "reserve": 39,
+        "attempt": 36
+      },
+      "realProviderCalls": 0
+    },
+    {
+      "member": "raw/positive-api-fixture/.evidence/minimax-renewals/current-source-eleven-renewal-1/formal.jsonl",
+      "counts": {
+        "reserve": 40,
+        "attempt": 37
+      },
+      "realProviderCalls": 0
+    }
+  ],
+  "sourceMeasuredAs": "751ad94 plus WIP; exact872 compiler bytes equal f599",
+  "paidCalls": 0,
+  "formalVendorQualification": false
+}
