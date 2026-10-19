@@ -1,0 +1,27 @@
+{
+  "case": "source-drift",
+  "state": "COMPLETED",
+  "exitCode": 1,
+  "expectedExitCode": 1,
+  "expectedTerminalReason": "ValueError: independent original index anchor differs",
+  "actualTerminalReason": "ValueError: independent original index anchor differs",
+  "expectedOutcomeObserved": true,
+  "startedAt": "2026-10-19T11:24:50.606608+00:00",
+  "finishedAt": "2026-10-19T11:24:50.653591+00:00",
+  "seconds": 0.04700612463057041,
+  "readerSHA256": "c8822bb073117b87b15ef026e5a5b9055a8f415f9a66a0a382e1123a015b3c67",
+  "classification": "PRIVATE_METADATA_NEGATIVE; anchor-first or exact no-follow refusal; no deeper branch claim",
+  "argvDisplay": [
+    "python3",
+    "$SYSTEM_TMP/barness-ticket21-finalgate-verify.py",
+    "--common-root",
+    "$REPO",
+    "--metadata-root",
+    "$PRIVATE_FIXTURE/source-drift",
+    "--repository-root",
+    "$OWN_WORKTREE"
+  ],
+  "displayIsDerived": true,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

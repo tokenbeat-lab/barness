@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "classification": "CUSTODY_FRONTDOOR; native facts remain bound to recorded source",
+  "recordedSourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+  "recordedSourceFiles": 1078,
+  "recordedSourceManifestSHA256": "319357cf2cb40a70414bb09fd9016b76bbc663170e23d930dba839a5fe96715d",
+  "laterCommitsWereNotRerun": true,
+  "capsules": {
+    "ordinary": {
+      "index": "ordinary/index.json",
+      "indexBytes": 1849,
+      "indexSHA256": "5958cab38d235dde0dc1d810945a815c5bd7f34ac265aeedda284ad11663f44f",
+      "archive": {
+        "bytes": 134251096,
+        "file": ".evidence/minimax-retained/ticket-21-final-gate-ordinary/raw.tar.gz",
+        "prefix": "current-visual-gate-ordinary",
+        "sha256": "71db259c0f740ed3ce6d2f6abe8a14dae88c6cc3bb9b81ed183cfa832ab0a11d"
+      },
+      "inventory": {
+        "compressedSHA256": "5a186b8de080a9e6936fb50a14dbc7946a73e24ddd08da3829c5524d9f9aa8c3",
+        "decodedBytes": 27477672,
+        "decodedSHA256": "8327375d3cc8c6992c95678fb49a726c93f0557fa8818eaf910c15f95502e6da",
+        "file": "inventory.json.gz",
+        "files": 142540
+      },
+      "originalScope": {
+        "entries": 160913,
+        "payloadBytes": 1350851478,
+        "regularFiles": 142534
+      }
+    },
+    "race": {
+      "index": "race/index.json",
+      "indexBytes": 1838,
+      "indexSHA256": "d6cd5d6a23bdc43e3d4dce510ff4746cc1345a4df48f40d52d94d7224b224b6f",
+      "archive": {
+        "bytes": 133909347,
+        "file": ".evidence/minimax-retained/ticket-21-final-gate-race/raw.tar.gz",
+        "prefix": "current-visual-gate-race",
+        "sha256": "f9195ec6e8655f34967eff2b073eac49e111a59994899cdc460e600b6c123b17"
+      },
+      "inventory": {
+        "compressedSHA256": "ba42311a19cf1c04e5dc5da3e46099d04375e7febd005971e3e3ed345467461d",
+        "decodedBytes": 27487572,
+        "decodedSHA256": "bdbec89c26fbe554080afe75672d6dd0d9187ea57b7b73118cfbdf71ccbc740f",
+        "file": "inventory.json.gz",
+        "files": 142593
+      },
+      "originalScope": {
+        "entries": 160975,
+        "payloadBytes": 1346333368,
+        "regularFiles": 142587
+      }
+    },
+    "outer": {
+      "index": "outer/index.json",
+      "indexBytes": 2091,
+      "indexSHA256": "3683879afe7123e7e5ef7b896c07e80f01ad7ce4c04af5749d1aec012ba950ff",
+      "archive": {
+        "bytes": 12543298,
+        "file": ".evidence/minimax-retained/ticket-21-final-gate-outer/raw.tar.gz",
+        "prefix": "current-visual-gate-outer",
+        "sha256": "1fa7deb1f2e1284030da02510655a58849dee9bc3ce5657221349e9d6f72ae96"
+      },
+      "inventory": {
+        "compressedSHA256": "79dfcaac3e8d5eb43756729ea57f2d87897c1ca16ac360a02188da0c9a433ec6",
+        "decodedBytes": 4422,
+        "decodedSHA256": "8009a47446b69b8acec20664773e1ecaf62261512eb73831c955e00e3072e8aa",
+        "file": "inventory.json.gz",
+        "files": 35
+      },
+      "originalScope": {
+        "entries": 34,
+        "payloadBytes": 35333452,
+        "regularFiles": 29
+      }
+    },
+    "publication": {
+      "index": "supplement/publication/index.json",
+      "indexBytes": 2150,
+      "indexSHA256": "839bef6e78ad823ffeb8b5d88ad0f39d91c3de5087b463945118d5a272936e0e",
+      "archive": {
+        "bytes": 173070,
+        "file": ".evidence/minimax-retained/ticket-21-postgate-publication/raw.tar.gz",
+        "prefix": "current-visual-postgate-publication",
+        "sha256": "303ba11c28ecdd054f07e5d505e1c3560565884a99993cad1e990ecc1527e346"
+      },
+      "inventory": {
+        "compressedSHA256": "90cfa96e6769979a084d45e690c137cf5c2760babe11fb965ca165cad9eddb36",
+        "decodedBytes": 2414,
+        "decodedSHA256": "7e249ddb4a02dc3da29e30f4c1068c1826a6b4c6401221c6744732c5d3fa2808",
+        "file": "inventory.json.gz",
+        "files": 19
+      },
+      "originalScope": {
+        "entries": 4,
+        "payloadBytes": 72593,
+        "regularFiles": 4
+      }
+    },
+    "history": {
+      "index": "supplement/history/index.json",
+      "indexBytes": 6390,
+      "indexSHA256": "f68eb6f84562215267d5c7957324f2c50f2d29ce68a0bec5c175c1e882a8495e",
+      "archive": {
+        "bytes": 10100205,
+        "file": ".evidence/minimax-retained/ticket-21-postgate-history/raw.tar.gz",
+        "prefix": "current-visual-postgate-history",
+        "sha256": "04e01a330668438b4ba097d50926e0a80b8b48c1d8018b649f21e62686143b39"
+      },
+      "inventory": {
+        "compressedSHA256": "0d06cd19ada983d92eea6450ce2f1f1851482d2d73ab33a9af055c6230ea950d",
+        "decodedBytes": 21617,
+        "decodedSHA256": "a4cb3b00d4e59dde1e0672ea5ae71c3f8ebfcc26b7e138ca766a2f574c99d612",
+        "file": "inventory.json.gz",
+        "files": 136
+      },
+      "originalScope": {
+        "payloadBytes": 11153486,
+        "regularFiles": 120
+      }
+    }
+  },
+  "publicReaders": {
+    "gate": {
+      "file": "verify.py",
+      "sha256": "c8822bb073117b87b15ef026e5a5b9055a8f415f9a66a0a382e1123a015b3c67",
+      "actualNumericExit": 0,
+      "receipt": "public-readback-command.json"
+    },
+    "supplement": {
+      "file": "supplement/verify.py",
+      "sha256": "de9550f1e4458310ead810d6154a4b1e3929077fb642cdba140d50d1a88f825c",
+      "actualNumericExit": 0,
+      "receipt": "supplement/public-readback-command.json"
+    }
+  },
+  "privateControls": {
+    "core": {
+      "validControlExit": 0,
+      "expectedRefusals": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "summary": "public-guards.json"
+    },
+    "supplement": {
+      "validControlExit": 0,
+      "expectedRefusals": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "summary": "supplement/public-guards.json"
+    }
+  },
+  "externalOperations": {
+    "namespace": ".evidence/minimax-retained/ticket-21-final-gate-operations-v1",
+    "inventoryFile": "operations-inventory.json",
+    "inventorySHA256": "4bfd5784f1712aeac2a5122d19e4af5ff21bac006932355d2903dd7f67ded690",
+    "payloadFiles": 86,
+    "payloadBytes": 663941,
+    "sameFDReadback": true,
+    "rawAliasesAreProjections": "display-projections.json",
+    "originalRawNamespacesImmutable": true
+  },
+  "newGoOrGateRuns": 0,
+  "paidCalls": 0,
+  "credentialsRead": false,
+  "capturedProgramsExecuted": false,
+  "sourceReviewDoesNotReplaceActualCustodyReview": true
+}
