@@ -4,13 +4,15 @@ Delivery: PARTIAL
 Updated: 2026-10-19
 Integration branch: `codex/minimax-global`
 
-2026-10-19 **十一组当前源码正式资格全部通过（11/11）**：M3×3、GLM×3、文本×2、protocol114×1、视觉×2。GLM三路来源d235，各22/22；严格raw/known-usage/views发布全部exit0。其余八项来源b9c3c7c，每项自身真实报告及当前公开消费者全部通过。Messages `glm-5.3/cancel` 在新完整22场景报告中1146ms PASS，返回canceled/stream、aborted；partial usage不记免费。
+2026-10-19 **原定十一组复验全部通过（11/11，测量来源01341及其相同选定源码）**：M3×3、GLM×3、文本×2、protocol114×1、视觉×2。GLM三路来源d235，各22/22；严格raw/known-usage/views发布全部exit0。其余八项来源b9c3c7c，每项自身真实报告及当前公开消费者全部通过。Messages `glm-5.3/cancel` 在新完整22场景报告中1146ms PASS，返回canceled/stream、aborted；partial usage不记免费。
 
 本轮付费已关闭：新增189calls/186HTTPAttempts，上限216/252；未用27/66不转移。中国GLM直连，国际服务经127.0.0.1:7890。连原续期648/648为837/834；原M3候选49/45、正式39/36及更早GLM任务另列。新M3自身正式39/36保留独立账本；M3.1三路新无Key证明NOT_RUN0/0，未获MPlan资格。见[GLM原件](evidence/ticket-19/actual/glm/README.md)、[严格发布](evidence/ticket-19/actual/glm-publication/README.md)、[剩余八项与统一装配](evidence/ticket-19/actual/remaining/README.md)。
 
 统一装配已审计17份自身支持输入，仅更新新7行，旧generic10行对象与时间不变；默认矩阵17PASS/0FAIL。两文本另经公开`release.ChineseEffectsEvidence`当前来源校验exit0。此次关闭严格来源证据缺口，证据/文档两轴审查已各0发现。**完整发布门禁已实际关闭但未通过，交付保持PARTIAL**：来源01341f8，双vet/普通/race退出0/0/0/1，CLI1、pass=false；普通12495PASS/audit0，race12494PASS/1FAIL/0NOT_RUN/audit1。唯一场景VQ12-failure-decisions-plain-deadline的失败包重放被拒；唯一审计发现是该包samples/v08/request.json零字节、unparseable。17自身支持输入与四项业务效果均PASS，前后1074来源及21输入树相等，0Key/0新增付费。原件位于`.evidence/minimax-current-eleven-gate-2`；[完整留存入口](evidence/ticket-19/final-gate/README.md)已独立有界读回、零留存发现。票19按复验及真实结果留存范围关闭，完整spec继续开放。
 
-视觉示例的发送前取消证据缺陷已稳定收敛：真实调用可在归属解析前或读取凭据后以零Attempt结束，生成器却写空JSON且校验器默认一次Attempt；定向回归另发现已发送取消包的JSON null模型判断问题，正分别修复。离线修复在独立工作树进行，尚未合入当前01341源码；原十一组当前资格与全部原始报告保持。按现有完整来源集合，若只改视觉示例，M3/GLM/文本八组不受影响，protocol114与视觉两组需新来源证明；本轮216/252已关闭、未用额度不转移，尚无这三项的新增付费授权。
+**修复合入后的当前来源资格为8/11**。视觉示例修复已由两轴复审零发现并精确合入`d02b5ad`：真实调用在解析归属前或读取凭据后取消时保留实测零Attempt证据；不再生成空请求JSON；已发送取消包的null/unset型号判断亦已修复。23个确定性回归的普通/race均23PASS、audit0，双vet0；实际测量a203+WIP的1040份编译/JSON/modsum字节与已提交d02相等，不冒充提交后重跑。原a203的null访问计数发现已失败先行补正，原失败及审查保留。
+
+本次只改视觉示例，M3/GLM/文本八组的完整原生选定源码集合保持；protocol114与视觉两组需新来源证明，派生Jev支持同时待新证明。原矩阵17PASS仍为已测量来源的保存数据，不能替代这三组当前资格。[票21](issues/21-visual-source-renewal.md)正在离线准备固定三组补验：各最多12calls/12Attempts、共36/36、零重试，经127.0.0.1:7890。原216/252轮已关闭、未用27/66不转移；**尚无新增36/36付费授权**。最新完整门禁仍是01341的历史FAIL，尚未为d02执行新的完整门禁。票20的原始回归留存正在封存。
 
 以下为历史检查点；原失败、旧输入0/11诊断、原hash/map与消费均保持，不用本轮结果改写历史。
 

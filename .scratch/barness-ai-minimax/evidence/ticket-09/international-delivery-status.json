@@ -6,7 +6,7 @@
   "releaseCertified": false,
   "specClosed": false,
   "latestPaidActualSource": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
-  "currentCodeSource": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "currentCodeSource": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
   "allAuthorizedPaidProcessesClosed": true,
   "additionalPaidRoundAuthorized": false,
   "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
@@ -206,21 +206,36 @@
     "evidence": "evidence/ticket-19/actual/remaining/README.md"
   },
   "sourceApplicability": {
-    "evaluatedCodeCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
-    "strictSourceMapsCurrent": true,
+    "evaluatedCodeCommit": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+    "strictSourceMapsCurrent": false,
     "strictGroups": 11,
-    "currentQualifiedGroups": 11,
+    "currentQualifiedGroups": 8,
     "glmCollectionSource": "d2354144570da8aeda56862bbcaffe323061f986",
     "glmToRemainingTransition": "Only four GLM raw/known-usage/views publication data selectors changed; exact runtime and assertion bytes unchanged",
-    "publicNativeConsumerExitsAllZero": true,
+    "publicNativeConsumerExitsAllZero": false,
     "currentChineseEffectsAPIExit": 0,
     "genericTenSourceApplicabilityRetained": true,
     "oldReportsRehashed": false,
     "oldSourceMapsNarrowed": false,
     "oldGateCertifiesChangedSource": false,
     "evidence": "evidence/ticket-19/actual/remaining/README.md",
-    "selectedExecutionFiles": 1074,
-    "selectedExecutionBytesUnchangedFromRemainingSource": true
+    "selectedExecutionFiles": 1078,
+    "selectedExecutionBytesUnchangedFromRemainingSource": false,
+    "unchangedSelectedGroups": [
+      "m3-chat",
+      "m3-responses",
+      "m3-messages",
+      "glm-chat",
+      "glm-responses",
+      "glm-messages",
+      "text-jev",
+      "text-luna"
+    ],
+    "pendingRenewedGroups": [
+      "protocol114",
+      "visual-jev",
+      "visual-decisions"
+    ]
   },
   "openTickets": [
     "09",
@@ -546,8 +561,8 @@
     "normalPrivateNegativeConstructorExit": 0,
     "normalPrivateCounterfeitConsumerExpectedExit": 1
   },
-  "currentIntegrationSourceTip": "7c6616dc27301d9fc3d32777beec27dffd36d033",
-  "currentCodeSourceScope": "Current selected runtime/assertion source at b9c3c7c; GLM captured at d235; transition changes only four GLM publication data selectors. Current native consumers passed all eleven groups.",
+  "currentIntegrationSourceTip": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "currentCodeSourceScope": "Example-only visual cancellation evidence fix; retained eight native execution-source sets unchanged; three classifier groups require fresh current-source proof",
   "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
   "singleCaseMessagesCancelRerun": {
     "schema": 1,
@@ -898,8 +913,8 @@
     "resolutionScope": "Fixed eleven revalidation and truthful complete-gate retention; full specification remains open"
   },
   "pendingVisualUnsentFix": {
-    "state": "IN_PROGRESS_IN_SEPARATE_WORKTREE",
-    "mergedIntoIntegration": false,
+    "state": "FIXED_OFFLINE_SOURCE_MERGED_CUSTODY_PENDING",
+    "mergedIntoIntegration": true,
     "rootCause": "Unsent cancellation recording/replay assumptions and sent cancellation JSON-null response-model decoding",
     "sourceImpactIfExampleOnly": [
       "protocol114",
@@ -909,6 +924,39 @@
     "otherEightSelectedMapsUnchanged": true,
     "originalElevenReportsUnchanged": true,
     "additionalPaidApprovalPresent": false,
-    "unusedPriorBudgetTransferable": false
+    "unusedPriorBudgetTransferable": false,
+    "sourceCommit": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+    "sourceReviews": {
+      "Standards": 0,
+      "Spec": 0
+    },
+    "ordinaryRegressionPASS": 23,
+    "raceRegressionPASS": 23,
+    "auditFindings": 0,
+    "dualVetExitCodes": [
+      0,
+      0
+    ],
+    "measuredCompilerFilesEqualCommittedSource": 1040
+  },
+  "proposedThreeSourceRenewal": {
+    "state": "PREPARING_OFFLINE",
+    "round": "visual-source-renewal-1",
+    "additionalMaxCalls": 36,
+    "additionalMaxHTTPAttempts": 36,
+    "humanApprovalPresent": false,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "automaticRetries": false,
+    "automaticProcessReruns": false,
+    "groups": [
+      "protocol114",
+      "visual-jev",
+      "visual-decisions"
+    ],
+    "otherEightPaidReruns": false,
+    "proxy": "http://127.0.0.1:7890",
+    "outputTokenLimitSupported": false,
+    "evidence": "issues/21-visual-source-renewal.md"
   }
 }
