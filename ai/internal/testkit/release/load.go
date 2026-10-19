@@ -204,7 +204,7 @@ func safeAuditFindings(findings []audit.Finding, forbidden []audit.Forbidden) []
 
 // GoModules returns the module versions go.mod in dir pins.
 func GoModules(dir string) (map[string]string, error) {
-	data, err := os.ReadFile(filepath.Join(dir, "go.mod"))
+	data, err := readArtifact(filepath.Join(dir, "go.mod"), 1<<20)
 	if err != nil {
 		return nil, fmt.Errorf("release: %w", err)
 	}
@@ -220,7 +220,7 @@ func GoModules(dir string) (map[string]string, error) {
 
 // LoadLedger reads and validates the difference ledger.
 func LoadLedger(path string) (Ledger, error) {
-	data, err := os.ReadFile(path)
+	data, err := readArtifact(path, 16<<20)
 	if err != nil {
 		return Ledger{}, fmt.Errorf("release: %w", err)
 	}
@@ -237,7 +237,7 @@ func LoadLedger(path string) (Ledger, error) {
 
 // LoadTraceMap reads and validates the traceability map.
 func LoadTraceMap(path string) (TraceMap, error) {
-	data, err := os.ReadFile(path)
+	data, err := readArtifact(path, 16<<20)
 	if err != nil {
 		return TraceMap{}, fmt.Errorf("release: %w", err)
 	}
@@ -266,7 +266,7 @@ func CatalogSnapshot() ([]byte, error) {
 
 // CheckSnapshot compares the checked-in snapshot at path with the code's.
 func CheckSnapshot(name, path string, want []byte) Snapshot {
-	got, err := os.ReadFile(path)
+	got, err := readArtifact(path, 16<<20)
 	switch {
 	case err != nil:
 		return Snapshot{Name: name, Detail: err.Error()}
@@ -308,7 +308,7 @@ func Fixtures(base, root string) ([]Fixture, error) {
 }
 
 func readJSON(path string, v any) error {
-	data, err := os.ReadFile(path)
+	data, err := readArtifact(path, maxInventoryFile)
 	if err != nil {
 		return fmt.Errorf("release: %w", err)
 	}

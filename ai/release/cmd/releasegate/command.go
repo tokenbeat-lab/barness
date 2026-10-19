@@ -17,17 +17,18 @@ import (
 const tailBytes = 4 << 10
 
 type stepResult struct {
-	ID         string    `json:"id"`
-	Status     string    `json:"status"`
-	Argv       []string  `json:"argv,omitempty"`
-	ExitCode   *int      `json:"exitCode,omitempty"`
-	StartedAt  time.Time `json:"startedAt,omitempty"`
-	FinishedAt time.Time `json:"finishedAt,omitempty"`
-	Seconds    float64   `json:"seconds"`
-	Log        string    `json:"log,omitempty"`
-	Events     string    `json:"events,omitempty"`
-	Error      string    `json:"error,omitempty"`
-	Tail       string    `json:"tail,omitempty"`
+	ID           string    `json:"id"`
+	Status       string    `json:"status"`
+	Argv         []string  `json:"argv,omitempty"`
+	ExitCode     *int      `json:"exitCode,omitempty"`
+	StartedAt    time.Time `json:"startedAt,omitempty"`
+	FinishedAt   time.Time `json:"finishedAt,omitempty"`
+	Seconds      float64   `json:"seconds"`
+	LimitSeconds float64   `json:"limitSeconds,omitempty"`
+	Log          string    `json:"log,omitempty"`
+	Events       string    `json:"events,omitempty"`
+	Error        string    `json:"error,omitempty"`
+	Tail         string    `json:"tail,omitempty"`
 }
 
 func commandArgs(id string) []string {
@@ -68,8 +69,18 @@ func runTool(ctx context.Context, root, out, id string) stepResult {
 		return s
 	}
 	s.Log = logName
-	writer := &commandOutput{dst: log}
-	childCtx, cancel := context.WithCancel(ctx)
+	writer := &commandOutput{dst: io.MultiWriter(log, os.Stderr)}
+	limit := 10 * time.Minute
+	if id == "go-test" {
+		limit = 25 * time.Minute
+	}
+	if id == "go-test-race" {
+		limit = 80 * time.Minute
+	}
+	s.LimitSeconds = limit.Seconds()
+	// Package timeouts exclude builds and tool startup. This outer deadline
+	// bounds the complete process while retaining the 20m/75m package limits.
+	childCtx, cancel := context.WithTimeout(ctx, limit)
 	defer cancel()
 	stdout := io.Writer(writer)
 	var eventFile *os.File
@@ -135,6 +146,9 @@ func runTool(ctx context.Context, root, out, id string) stepResult {
 	}
 	if ctx.Err() != nil {
 		s.Error = "verification cancelled"
+	}
+	if errors.Is(childCtx.Err(), context.DeadlineExceeded) {
+		s.Error = "verification process deadline exceeded"
 	}
 	s.FinishedAt = time.Now().UTC()
 	s.Seconds = s.FinishedAt.Sub(s.StartedAt).Seconds()

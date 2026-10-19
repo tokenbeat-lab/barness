@@ -13,7 +13,7 @@ import (
 // unsafe file types and oversized metadata must refuse continuation. Ordinary
 // native consumers remain a separate mandatory boundary in the public stage.
 func TestCheckpointRefusesDrift(t *testing.T) {
-	for _, mode := range []string{"current", "documentation", "source", "added", "removed", "test", "input", "receipt", "log", "bundle", "tool"} {
+	for _, mode := range []string{"current", "documentation", "readme-source", "evidence-script", "source", "added", "removed", "test", "input", "receipt", "log", "bundle", "tool"} {
 		t.Run(mode, func(t *testing.T) {
 			root := t.TempDir()
 			out := t.TempDir()
@@ -56,6 +56,13 @@ func TestCheckpointRefusesDrift(t *testing.T) {
 			switch mode {
 			case "documentation":
 				put("ai/README.md", "updated documentation")
+			case "readme-source":
+				put("ai/README_test.go", "package controlled\n")
+			case "evidence-script":
+				if err := os.MkdirAll(filepath.Join(root, ".scratch/fixture/evidence"), 0700); err != nil {
+					t.Fatal(err)
+				}
+				put(".scratch/fixture/evidence/run.py", "print('changed executed fixture')")
 			case "source":
 				put("ai/main.go", "package changed\n")
 			case "added":

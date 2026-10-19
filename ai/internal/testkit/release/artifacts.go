@@ -6,6 +6,7 @@ import (
 	"io"
 	"math"
 	"os"
+	"syscall"
 	"time"
 )
 
@@ -73,11 +74,20 @@ func DesignLoadEvidence(b Bundle) []EvidenceCheck {
 
 // Import budgets apply before allocation, even if a file changes while read.
 func readArtifact(path string, budget int64) ([]byte, error) {
-	f, err := os.Open(path)
+	before, err := os.Lstat(path)
+	if err != nil || !before.Mode().IsRegular() || before.Size() > budget {
+		return nil, fmt.Errorf("release: artifact missing, non-regular or over import budget")
+	}
+	f, err := os.OpenFile(path, os.O_RDONLY|syscall.O_NONBLOCK|syscall.O_NOFOLLOW, 0)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
+	opened, e1 := f.Stat()
+	after, e2 := os.Lstat(path)
+	if e1 != nil || e2 != nil || !opened.Mode().IsRegular() || !after.Mode().IsRegular() || opened.Size() > budget || !os.SameFile(before, opened) || !os.SameFile(before, after) {
+		return nil, fmt.Errorf("release: artifact changed during open")
+	}
 	raw, err := io.ReadAll(io.LimitReader(f, budget+1))
 	if err != nil {
 		return nil, err

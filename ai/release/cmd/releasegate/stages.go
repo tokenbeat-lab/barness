@@ -12,7 +12,7 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
 )
 
-func checkStage(ctx context.Context, o options, in release.Inputs, frozen frozenInputs) int {
+func checkStage(ctx context.Context, o options, in release.Inputs, frozen frozenInputs, preflightReady bool) int {
 	root, err := os.Getwd()
 	if err != nil {
 		return 1
@@ -38,6 +38,9 @@ func checkStage(ctx context.Context, o options, in release.Inputs, frozen frozen
 		return nil
 	}
 	r := runCheckCommands(ctx, root, o.Out, o.CollectAll, guard, consume)
+	if !preflightReady {
+		r.fail("preflight", errors.New("preflight qualification failed; check diagnostics retained"))
+	}
 	if r.Status == "READY_FOR_RACE" {
 		if err := writeInputCopies(o); err != nil {
 			r.fail("metadata", err)
@@ -48,7 +51,7 @@ func checkStage(ctx context.Context, o options, in release.Inputs, frozen frozen
 			}
 		}
 	}
-	code := persistStage(o, in, &r)
+	code := persistStage(o, in, &r, guard)
 	if code == 2 {
 		fmt.Fprintln(os.Stderr, "READY_FOR_RACE: ordinary verification complete; race NOT_RUN; release not certified")
 	}
@@ -59,7 +62,8 @@ func resumeRace(ctx context.Context, o options) int {
 	r := newExecution("race")
 	root, err := os.Getwd()
 	in := release.Inputs{}
-	reject := func(id string, err error) int { r.fail(id, err); return persistStage(o, in, &r) }
+	var guard func() error
+	reject := func(id string, err error) int { r.fail(id, err); return persistStage(o, in, &r, guard) }
 	if err != nil {
 		return reject("source", errors.New("source root unavailable"))
 	}
@@ -70,6 +74,7 @@ func resumeRace(ctx context.Context, o options) int {
 	if err != nil {
 		return reject("checkpoint", checkpointError(err))
 	}
+	guard = func() error { _, _, err := loadCheckpoint(root, o.From); return err }
 	r.Steps = slices.Clone(prior.Steps)
 	in, err = externalInputs(c.Inputs)
 	if err != nil {
@@ -114,15 +119,28 @@ func resumeRace(ctx context.Context, o options) int {
 	if _, _, err := loadCheckpoint(root, o.From); err != nil {
 		return reject("checkpoint", err)
 	}
-	return persistStage(o, in, &r)
+	return persistStage(o, in, &r, guard)
 }
 
-func persistStage(o options, in release.Inputs, r *executionReport) int {
+func persistStage(o options, in release.Inputs, r *executionReport, guard func() error) int {
+	if guard != nil {
+		if err := guard(); err != nil {
+			r.fail("source-or-input", err)
+		}
+	}
 	if r.Status == "FAIL" {
 		in.Snapshots = append(in.Snapshots, release.Snapshot{Name: "execution-continuity", Detail: r.BlockedBy + ": " + r.Error})
 	}
 	in.Commands = r.commands()
-	pass, err := writeVerdict(o, in)
+	report := release.Evaluate(in)
+	if guard != nil {
+		if err := guard(); err != nil {
+			r.fail("source-or-input", err)
+			in.Snapshots = append(in.Snapshots, release.Snapshot{Name: "final-source-input-check", Detail: err.Error()})
+			report = release.Evaluate(in)
+		}
+	}
+	pass, err := writeReport(o, report)
 	if err != nil {
 		r.fail("report", errors.New("release report write failed"))
 	}

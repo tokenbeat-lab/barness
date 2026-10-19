@@ -1,12 +1,15 @@
 package e2e
 
 import (
+	"context"
 	"encoding/json"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"testing"
+	"time"
 )
 
 // The approved seam is the public CLI process. Missing or invalid external
@@ -19,13 +22,13 @@ func TestReleaseGatePreflightStopsCommands(t *testing.T) {
 	if output, err := build.CombinedOutput(); err != nil {
 		t.Fatalf("build: %v %s", err, output)
 	}
-	for _, mode := range []string{"default", "preflight", "missing-trace", "bad-snapshot", "pending-ledger", "conflicting-mode", "race-without-from"} {
+	for _, mode := range []string{"default", "preflight", "fifo-trace", "fifo-trace-bundle", "missing-trace", "bad-snapshot", "pending-ledger", "collect-all", "conflicting-mode", "race-without-from"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "OD57-release-preflight-"+mode)
 			work := t.TempDir()
 			log := filepath.Join(work, "commands")
 			fake := filepath.Join(work, "go")
-			if err := os.WriteFile(fake, []byte("#!/bin/sh\nprintf '%s\\n' \"$*\" >> \"$RELEASE_COMMAND_LOG\"\nexit 1\n"), 0700); err != nil {
+			if err := os.WriteFile(fake, []byte("#!/bin/sh\nprintf '%s\\n' \"$*\" >> \"${0%/*}/commands\"\nexit 1\n"), 0700); err != nil {
 				t.Fatal(err)
 			}
 			out := filepath.Join(work, "out")
@@ -33,8 +36,19 @@ func TestReleaseGatePreflightStopsCommands(t *testing.T) {
 			switch mode {
 			case "preflight":
 				args = append(args, "-preflight")
+			case "collect-all":
+				args = append(args, "-collect-all")
 			case "missing-trace":
 				args = append(args, "-trace", filepath.Join(work, "missing.json"))
+			case "fifo-trace", "fifo-trace-bundle":
+				p := filepath.Join(work, "trace.json")
+				if err := syscall.Mkfifo(p, 0600); err != nil {
+					t.Fatal(err)
+				}
+				args = append(args, "-trace", p)
+				if mode == "fifo-trace-bundle" {
+					args = append(args, "-bundle", work)
+				}
 			case "pending-ledger":
 				raw, err := os.ReadFile("testdata/pidiff/ledger.json")
 				if err != nil {
@@ -58,14 +72,32 @@ func TestReleaseGatePreflightStopsCommands(t *testing.T) {
 			case "race-without-from":
 				args = append(args, "-stage", "race")
 			}
-			cmd := exec.CommandContext(ctxFor(t), binary, args...)
+			ctx, cancel := context.WithTimeout(ctxFor(t), 5*time.Second)
+			defer cancel()
+			cmd := exec.CommandContext(ctx, binary, args...)
 			cmd.Dir = "../.."
 			cmd.Env = append(releaseToolEnv(), "PATH="+work+string(os.PathListSeparator)+os.Getenv("PATH"), "RELEASE_COMMAND_LOG="+log)
 			output, processErr := cmd.CombinedOutput()
+			ev.Check("input refusal does not block on a file read", ctx.Err() == nil, "process exceeded bounded refusal time")
 			_, logErr := os.Stat(log)
 			ev.Record("process", map[string]any{"rejected": processErr != nil, "childStarted": logErr == nil, "panic": strings.Contains(string(output), "panic:")})
-			ev.Check("invalid inputs start no Go commands", processErr != nil && os.IsNotExist(logErr), "failed=%t childStarted=%t", processErr != nil, logErr == nil)
+			if mode == "collect-all" {
+				raw, _ := os.ReadFile(log)
+				ev.Record("diagnostic-command-argv", string(raw))
+				if data, err := os.ReadFile(filepath.Join(out, "execution-report.json")); err == nil {
+					var report any
+					if json.Unmarshal(data, &report) == nil {
+						ev.Record("diagnostic-execution", report)
+					}
+				}
+				ev.Check("explicit diagnostic continues only check commands", processErr != nil && logErr == nil && len(strings.Split(strings.TrimSpace(string(raw)), "\n")) == 3 && !strings.Contains(string(raw), "-race"), "diagnostic command sequence missing")
+			} else {
+				ev.Check("invalid inputs start no Go commands", processErr != nil && os.IsNotExist(logErr), "failed=%t childStarted=%t", processErr != nil, logErr == nil)
+			}
 			if mode == "conflicting-mode" || mode == "race-without-from" {
+				return
+			}
+			if mode == "fifo-trace-bundle" {
 				return
 			}
 			var preflight struct {

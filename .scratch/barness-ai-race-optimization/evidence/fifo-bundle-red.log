@@ -1,0 +1,7 @@
+--- FAIL: TestReleaseGatePreflightStopsCommands (5.69s)
+    --- FAIL: TestReleaseGatePreflightStopsCommands/fifo-trace-bundle (5.01s)
+        release_gate_preflight_test.go:81: [OD57-release-preflight-fifo-trace-bundle] input refusal does not block on a file read: process exceeded bounded refusal time
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/race-optimization/red-fifo-bundle/20261019T220528.986057000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	6.301s
+FAIL

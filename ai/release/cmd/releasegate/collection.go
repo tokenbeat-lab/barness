@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 	"os"
 	"path/filepath"
 )
@@ -30,7 +29,8 @@ func externalInputs(o options) (release.Inputs, error) {
 	if in.Ledger, err = release.LoadLedger(o.Ledger); err != nil {
 		return in, fmt.Errorf("ledger input unavailable or invalid")
 	}
-	if in.Matrix, err = supportmatrix.LoadMatrix(o.Matrix); err != nil {
+	matrix, err := readRegular(o.Matrix, checkpointLimit)
+	if err != nil || json.Unmarshal(matrix, &in.Matrix) != nil {
 		return in, fmt.Errorf("matrix input unavailable or invalid")
 	}
 	if in.Modules, err = release.GoModules("."); err != nil {
@@ -67,6 +67,9 @@ func writeJSON(dir, name string, v any) error {
 }
 func writeVerdict(o options, in release.Inputs) (bool, error) {
 	r := release.Evaluate(in)
+	return writeReport(o, r)
+}
+func writeReport(o options, r release.Report) (bool, error) {
 	if err := writeJSON(o.Out, "release-report.json", r); err != nil {
 		return false, err
 	}

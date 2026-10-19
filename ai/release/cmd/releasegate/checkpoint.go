@@ -84,7 +84,7 @@ func fileHash(path string) (string, int64, error) {
 }
 func captureCheckpointInputs(root string, o options) (frozenInputs, error) {
 	f := frozenInputs{Sources: map[string]string{}, Files: map[string]string{}}
-	addTree := func(dir string, selected func(string) bool, dst map[string]string) error {
+	addTree := func(dir string, selected func(string) bool, dst map[string]string, sourceTree bool) error {
 		var total int64
 		count := 0
 		return filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
@@ -92,7 +92,7 @@ func captureCheckpointInputs(root string, o options) (frozenInputs, error) {
 				return errors.New("verification source/input unavailable")
 			}
 			if d.IsDir() {
-				if d.Name() == ".git" || d.Name() == "node_modules" || dir == filepath.Join(root, ".scratch") && (d.Name() == "evidence" || d.Name() == "session-analysis") {
+				if sourceTree && (d.Name() == ".git" || d.Name() == "node_modules" || d.Name() == "__pycache__" || d.Name() == "session-analysis") {
 					return filepath.SkipDir
 				}
 				return nil
@@ -120,8 +120,12 @@ func captureCheckpointInputs(root string, o options) (frozenInputs, error) {
 			return nil
 		})
 	}
-	source := func(path string) bool { return !strings.HasPrefix(filepath.Base(path), "README") }
-	if err := addTree(filepath.Join(root, "ai"), source, f.Sources); err != nil {
+	isReadme := func(path string) bool {
+		name := filepath.Base(path)
+		return name == "README.md" || name == "README.zh-CN.md"
+	}
+	source := func(path string) bool { return !isReadme(path) }
+	if err := addTree(filepath.Join(root, "ai"), source, f.Sources, true); err != nil {
 		return f, err
 	}
 	for _, name := range []string{"go.mod", "go.sum", "go.work", "go.work.sum"} {
@@ -139,25 +143,31 @@ func captureCheckpointInputs(root string, o options) (frozenInputs, error) {
 	if _, err := os.Stat(scratch); err == nil {
 		scripts := func(path string) bool {
 			ext := filepath.Ext(path)
-			return ext == ".go" || ext == ".py" || ext == ".sh" || strings.Contains(filepath.ToSlash(path), "/tools/") && !strings.HasPrefix(filepath.Base(path), "README")
+			return ext == ".go" || ext == ".py" || ext == ".sh" || filepath.Base(path) == "rollback-probe.txt" || strings.Contains(filepath.ToSlash(path), "/tools/") && !isReadme(path)
 		}
-		if err := addTree(scratch, scripts, f.Sources); err != nil {
+		if err := addTree(scratch, scripts, f.Sources, true); err != nil {
 			return f, err
 		}
 	}
-	tool, err := exec.LookPath("go")
-	if err != nil {
-		return f, errors.New("Go tool unavailable")
+	for _, name := range []string{"go", "node", "python3"} {
+		tool, err := exec.LookPath(name)
+		if err != nil {
+			if name == "go" {
+				return f, errors.New("Go tool unavailable")
+			}
+			f.Sources["@tool-"+name] = "unavailable"
+			continue
+		}
+		tool, err = filepath.EvalSymlinks(tool)
+		if err != nil {
+			return f, errors.New("tool identity unavailable")
+		}
+		h, _, err := fileHash(tool)
+		if err != nil {
+			return f, err
+		}
+		f.Sources["@tool-"+name] = h
 	}
-	tool, err = filepath.EvalSymlinks(tool)
-	if err != nil {
-		return f, errors.New("Go tool identity unavailable")
-	}
-	h, _, err := fileHash(tool)
-	if err != nil {
-		return f, err
-	}
-	f.Sources["@go-tool"] = h
 	f.Sources["@runtime"] = digest([]byte(runtime.Version() + "/" + runtime.GOOS + "/" + runtime.GOARCH))
 	f.Sources["@build-environment"] = digest([]byte(strings.Join(buildEnvironment(), "\n")))
 	for _, path := range []string{o.Matrix, o.Extensions, o.Trace, o.Ledger, o.Snapshot} {
@@ -180,7 +190,7 @@ func captureCheckpointInputs(root string, o options) (frozenInputs, error) {
 			dir = filepath.Join(root, dir)
 		}
 		files := map[string]string{}
-		if err := addTree(dir, func(string) bool { return true }, files); err != nil {
+		if err := addTree(dir, func(string) bool { return true }, files, false); err != nil {
 			return f, err
 		}
 		for name, h := range files {
@@ -208,7 +218,7 @@ func saveCheckpoint(root, out string, o options, f frozenInputs, bundle string) 
 	o.Out = ""
 	o.From = ""
 	c := checkState{Schema: 1, RootSHA256: rootIdentity(root), Inputs: o, Frozen: f, Bundle: filepath.ToSlash(rel), Metadata: map[string]string{}}
-	names := []string{"execution-report.json", "go-vet.log", "go-vet-live.log", "go-test.log", "go-test.events.jsonl", c.Bundle + "/manifest.json", c.Bundle + "/audit.json"}
+	names := checkpointMetadataNames(c.Bundle)
 	for _, name := range names {
 		h, _, err := fileHash(filepath.Join(out, filepath.FromSlash(name)))
 		if err != nil {
@@ -229,7 +239,7 @@ func loadCheckpoint(root, from string) (checkState, executionReport, error) {
 	if c.Schema != 1 || c.RootSHA256 != rootIdentity(root) || c.Inputs.Stage != "check" || c.Inputs.Preflight || c.Inputs.WriteSnapshot || c.Inputs.Bundle != "" || c.Inputs.RaceBundle != "" || c.Inputs.From != "" || c.Inputs.Out != "" || len(c.Frozen.Sources) == 0 || len(c.Frozen.Files) == 0 || !fs.ValidPath(c.Bundle) || !strings.HasPrefix(c.Bundle, "offline/") {
 		return c, r, bad
 	}
-	names := []string{"execution-report.json", "go-vet.log", "go-vet-live.log", "go-test.log", "go-test.events.jsonl", c.Bundle + "/manifest.json", c.Bundle + "/audit.json"}
+	names := checkpointMetadataNames(c.Bundle)
 	if len(c.Metadata) != len(names) {
 		return c, r, bad
 	}
@@ -271,6 +281,10 @@ func loadCheckpoint(root, from string) (checkState, executionReport, error) {
 		return c, r, err
 	}
 	return c, r, nil
+}
+
+func checkpointMetadataNames(bundle string) []string {
+	return []string{"execution-report.json", "go-vet.log", "go-vet-live.log", "go-test.log", "go-test.events.jsonl", bundle + "/manifest.json", bundle + "/audit.json"}
 }
 
 func checkpointsOverlap(a, b string) bool {

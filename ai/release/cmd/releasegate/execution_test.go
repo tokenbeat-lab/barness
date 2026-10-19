@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"errors"
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -94,7 +93,7 @@ func TestCommandCancellation(t *testing.T) {
 func fakeGoTool(t *testing.T, root, mode string) string {
 	t.Helper()
 	log := filepath.Join(root, "commands")
-	script := fmt.Sprintf("#!/bin/sh\nprintf '%%s\\n' \"$*\" >> %q\n", log)
+	script := "#!/bin/sh\nprintf '%s\\n' \"$*\" >> \"${0%/*}/commands\"\n"
 	switch mode {
 	case "vet", "collect-all":
 		script += "case \"$*\" in 'vet ./...') exit 7;; esac\n"

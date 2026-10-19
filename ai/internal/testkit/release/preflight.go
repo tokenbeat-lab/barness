@@ -61,5 +61,13 @@ func OrdinaryChecks(in Inputs) []Gate {
 			g.Problems = append(g.Problems, e.Name+": "+string(e.Status))
 		}
 	}
-	return []Gate{off, diff, auditGate(in), settle(g)}
+	in.Evidence = append(slices.Clone(in.Evidence), evidence...)
+	liveSection, _ := live(in)
+	trace := Gate{ID: "ordinary-traceability", Name: "every available ordinary, live and effect requirement has complete evidence"}
+	for _, item := range traceItems(in.Trace, in.Offline.Cases, liveSection.Rows, in.Evidence) {
+		if item.Status != Pass {
+			trace.Problems = append(trace.Problems, item.ID+": "+string(item.Status))
+		}
+	}
+	return []Gate{off, diff, auditGate(in), settle(g), settle(trace)}
 }

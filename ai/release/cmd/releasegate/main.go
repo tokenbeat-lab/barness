@@ -53,11 +53,19 @@ func cli(ctx context.Context, args []string) int {
 	if o.Bundle == "" && rootErr == nil {
 		frozen, freezeErr = captureCheckpointInputs(root, o)
 	}
-	in, inputErr := externalInputs(o)
-	if inputErr == nil && (rootErr != nil || freezeErr != nil) {
+	var in release.Inputs
+	var inputErr error
+	if rootErr != nil || freezeErr != nil {
 		inputErr = fmt.Errorf("source/input freeze unavailable")
+	} else {
+		in, inputErr = externalInputs(o)
 	}
 	if o.Bundle != "" {
+		if inputErr != nil {
+			in.Snapshots = append(in.Snapshots, release.Snapshot{Name: "input-loading", Detail: inputErr.Error()})
+			_, _ = writeVerdict(o, in)
+			return 1
+		}
 		if err := loadOrdinary(&in, o.Bundle); err != nil {
 			in.Offline.Problems = append(in.Offline.Problems, err.Error())
 		}
@@ -81,7 +89,7 @@ func cli(ctx context.Context, args []string) int {
 		fmt.Fprintln(os.Stderr, "releasegate: preflight report write failed")
 		return 1
 	}
-	if !p.Ready || o.Preflight {
+	if o.Preflight || inputErr != nil || !p.Ready && !o.CollectAll {
 		r := newExecution("check")
 		if !p.Ready {
 			r.fail("preflight", fmt.Errorf("external inputs not ready"))
@@ -105,7 +113,7 @@ func cli(ctx context.Context, args []string) int {
 		fmt.Fprintln(os.Stderr, "preflight failed; no verification command started")
 		return 1
 	}
-	return checkStage(ctx, o, in, frozen)
+	return checkStage(ctx, o, in, frozen, p.Ready)
 }
 func newOutput(dir string) error {
 	if err := os.MkdirAll(dir, 0700); err != nil {

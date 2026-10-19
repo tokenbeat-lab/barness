@@ -133,7 +133,7 @@ go run ./ai/release/cmd/releasegate -stage check -collect-all <现有输入参�
 
 | 场景 | 必须观察到的结果 |
 | --- | --- |
-| 缺少支持输入、陈旧来源、错误 mapping、坏 inventory | 前置拒绝；启动 vet/普通/race 次数均为0 |
+| 默认模式缺少支持输入、陈旧来源、错误 mapping、坏 inventory | 前置拒绝；启动 vet/普通/race 次数均为0 |
 | 独立 preflight 全部就绪 | ready=true；没有完整执行；不能作为 release PASS |
 | vet 或 live-vet 失败 | 后续普通/race NOT_RUN，保留真实退出码 |
 | 普通测试失败 | race 启动次数0，发布false |
@@ -144,7 +144,7 @@ go run ./ai/release/cmd/releasegate -stage check -collect-all <现有输入参�
 | 两阶段之间源码/依赖/相关测试/选定输入变化 | 拒绝旧阶段一，不能认证混合来源 |
 | race 失败或实际出现检测器报告 | 保留失败，不能发布 |
 | 全部阶段与必交消费者通过 | 每条命令恰好执行一次，仍经原 Evaluate 判定 |
-| collect-all 的前项失败 | 后续check命令确实执行；始终不自动race，原失败仍保留 |
+| collect-all 的可装配前项失败（含前置资格失败） | 后续check命令确实执行；始终不自动race，原失败仍保留；不安全或不可读取输入仍直接拒绝 |
 | 子进程启动失败、取消或写报告失败 | 非零退出；已知事实不丢失，未完成不能算PASS |
 | 使用 bundle 重评估或冲突参数 | 不能替代执行；参数组合明确拒绝 |
 

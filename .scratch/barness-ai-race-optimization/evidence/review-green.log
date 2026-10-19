@@ -1,0 +1,9 @@
+ok  	github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate	13.439s
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/release	1.500s
+--- FAIL: TestReleaseGatePreflightStopsCommands (7.38s)
+    --- FAIL: TestReleaseGatePreflightStopsCommands/collect-all (3.92s)
+        release_gate_preflight_test.go:86: [OD57-release-preflight-collect-all] explicit diagnostic continues only check commands: diagnostic command sequence missing
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/race-optimization/review-green/20261019T220700.203234000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	17.351s
+FAIL
