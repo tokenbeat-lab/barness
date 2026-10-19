@@ -1,0 +1,34 @@
+{
+  "state": "COMPLETED",
+  "name": "build",
+  "argv": [
+    "go",
+    "build",
+    "-o",
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/",
+    "./ai/live/cmd/minimaxverify",
+    "./ai/live/cmd/supportmatrix",
+    "./ai/live/cmd/jevformal",
+    "./ai/release/cmd/releasegate",
+    "./ai/examples/chineseeval/cmd/chineseeval",
+    "./ai/examples/visualeval"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:51:25.811423+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 4.1125230002216995,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

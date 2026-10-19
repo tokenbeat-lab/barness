@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "measuredSourceCommit": "751ad941a7dcda4392ee9dd73ff6089f8c846f0e",
+  "baselineCodeSource": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "productionSourceChangedByProbe": false,
+  "sourceGuardPassed": true,
+  "strictGroups": 11,
+  "currentQualified": 0,
+  "oldInputsRejectedAsCurrent": 11,
+  "checks": [
+    {
+      "name": "m3-chat",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "MiniMax execution source set changed"
+    },
+    {
+      "name": "glm-chat",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "supportmatrix: zhipu-chat report finished 2026-10-18T11:36:47Z: supportmatrix: invalid report: GLM execution source drift"
+    },
+    {
+      "name": "m3-responses",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "MiniMax execution source set changed"
+    },
+    {
+      "name": "glm-responses",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "supportmatrix: zhipu-responses report finished 2026-10-18T11:38:55Z: supportmatrix: invalid report: GLM execution source drift"
+    },
+    {
+      "name": "m3-messages",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "MiniMax execution source set changed"
+    },
+    {
+      "name": "glm-messages",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "supportmatrix: lstat $REPO/.evidence/minimax-release-repair-glm-1/glm-messages/20261018T113921.111086000Z/live-report.json: no such file or directory"
+    },
+    {
+      "name": "visual-jev",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "visualeval: source set drift"
+    },
+    {
+      "name": "visual-decisions",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "visualeval: source set drift"
+    },
+    {
+      "name": "protocol114",
+      "exitCode": 1,
+      "credentialsRead": false,
+      "vendorCalls": 0,
+      "detail": "jevformal: formal source set drift"
+    },
+    {
+      "name": "text-jev",
+      "exitCode": 1,
+      "detail": "evaluation execution source is stale or incomplete",
+      "credentialsRead": false,
+      "vendorCalls": 0
+    },
+    {
+      "name": "text-luna",
+      "exitCode": 1,
+      "detail": "evaluation execution source is stale or incomplete",
+      "credentialsRead": false,
+      "vendorCalls": 0
+    }
+  ],
+  "textCheckMethod": "read-only standalone entrypoint invokes unchanged public release.ChineseEffectsEvidence via go entrypoint overlay; production source files unchanged",
+  "diagnosticOnly": true,
+  "releaseCertified": false,
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "paidCalls": 0,
+  "previousRenewalCalls": 648,
+  "previousRenewalHTTPAttempts": 648,
+  "originalM3FormalCalls": 39,
+  "originalM3FormalHTTPAttempts": 36,
+  "defaultMatrixAndFourGLMSelectorsUnchanged": true,
+  "nominalFreshCalls": 189,
+  "nominalFreshHTTPAttempts": 186,
+  "proposedMaxAdditionalCalls": 216,
+  "proposedMaxAdditionalHTTPAttempts": 252,
+  "newBudgetApproved": false
+}

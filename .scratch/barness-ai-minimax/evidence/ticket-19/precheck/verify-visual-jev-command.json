@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-visual-jev",
+  "argv": [
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/visualeval",
+    "-verify",
+    "$REPO/.evidence/minimax-release-repair-effects-1/visual-jev",
+    "-require-live"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:53:29.370525+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.5977780828252435,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}
