@@ -150,14 +150,16 @@ class Renewal(unittest.TestCase):
    self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),fixed)
    path.write_bytes(original)
 
- def repair_receipts(self,values):
+ def repair_receipts(self,values,contract="repair_contract"):
+  import_statement="import "+contract+" as r"
   # Synthetic approved historical metadata at the public renewal boundary;
   # no launcher or key acquisition is performed by these fixtures.
   code="""
 import sys,shutil
 from pathlib import Path
 sys.path.insert(0,'.scratch/barness-ai-minimax/tools')
-import paid_core as c,repair_contract as r,routed_evidence as e,paid_checks
+import paid_core as c,routed_evidence as e,paid_checks
+REPLACE_CONTRACT_IMPORT
 out=c.ROOT/'repair-own';out.mkdir();jobs=r.jobs(out,'glm');commit=c.git('rev-parse','HEAD')
 for route in ('chat','responses','messages'):
  source=c.ROOT/'raw'/route/'session';target=out/('glm-'+route)/'session';shutil.copytree(source,target)
@@ -180,8 +182,19 @@ for name,job in jobs.items():
  capture=dict(schema=1,**{field:c.digest(bundle/leaf) for field,leaf in [('formalReportSha256','formal-glm-report.json'),('integritySha256','glm-integrity.json'),('supportReportSha256','live-report.json'),('executionSourceSha256','glm-execution-source.json')]})
  c.dump(c.common_root()/'.evidence/minimax-launches'/(name+'.json'),c.redact(dict(state='COMPLETED',route=name,baseName=base,validationRound=r.ROUND,phase='glm',sourceCommit=commit,sourceVariable='GLM_KEY',maxCalls=24,maxAttempts=32,networkRoute='china-direct',automaticReruns=False,credentialsRead=True,exitCode=0,launcherAudit=dict(passed=True),collectionRoot=str(out),collectionOwnerSHA256=e.location(out)['rootSHA256'],sourceManifestSha256=pins['sourceManifestSHA256'],binariesManifestSha256=pins['binariesManifestSHA256'],planSha256=pins['planSHA256'],sourceReviewSha256=c.digest(out/'prerelease-source-review.json'),authorizationSha256=c.digest(out/'execution-authorization.json'),commandReceiptSha256=c.digest(out/(base+'-command.json')),reportedFileSha256=c.digest(bundle/'formal-glm-report.json'),capturePins=capture,budget=dict(state='REPORTED',status='PASS',calls=22,attempts=22),**{field:c.digest(out/leaf) for leaf,field in r.EXTRA_PINS.items()})))
 """
+  code=code.replace("REPLACE_CONTRACT_IMPORT",import_statement).replace("approvedAdditionalMaxCalls=108,approvedAdditionalMaxAttempts=132","approvedAdditionalMaxCalls=r.BUDGET['additionalMaxCalls'],approvedAdditionalMaxAttempts=r.BUDGET['additionalMaxAttempts']")
   subprocess.run([sys.executable,'-B','-c',code],cwd=self.root,env=self.env,check=True,capture_output=True,timeout=15)
   return {r:'repair-own/glm-'+r for r in values}
+
+ def test_eleven_publication_requires_own_three_complete_new_canonical_processes(self):
+  values=self.repair_receipts(self.captures(),contract='eleven_contract');args=['glm-archive','.evidence/minimax-eleven-raw','--round','current-source-eleven-renewal-1']
+  for route,value in values.items():args+=['--'+route,value]
+  self.runcli(*args)
+  target=self.root/'ai/live/testdata/glm-formal/live-captures.json';fixed=target.read_bytes()
+  self.assertEqual(json.loads(fixed)['collectionRound'],'current-source-eleven-renewal-1')
+  marker=self.root/'.evidence/minimax-launches/current-source-eleven-renewal-1-glm-messages.json';raw=marker.read_bytes();marker.unlink()
+  args[1]='.evidence/minimax-eleven-no-fallback';self.runcli(*args,ok=False);self.assertEqual(target.read_bytes(),fixed)
+  marker.write_bytes(raw);value=json.loads(raw);value['budget']['calls']=True;marker.write_text(json.dumps(value));args[1]='.evidence/minimax-eleven-bool';self.runcli(*args,ok=False);self.assertEqual(target.read_bytes(),fixed)
 
  def test_release_repair_round_has_no_old_fallback_or_weaker_publication(self):
   values=self.repair_receipts(self.captures());args=['glm-archive','.evidence/minimax-release-repair-raw','--round','release-repair-validation-1']
@@ -265,6 +278,17 @@ if './ai/live/cmd/glmformal' in args:
   self.assertEqual(entry['launcherReceiptSha256'],hashlib.sha256((self.root/path).read_bytes()).hexdigest())
   receipt['credentialsRead']=False;self.put(path,receipt)
   self.runcli('origins','.evidence/minimax-origin-failed','--bundle','mm-global-candidate-m3-chat='+base,ok=False)
+ def test_new_formal_origin_retains_old_index_and_requires_own_new_canonical_name(self):
+  base='own-renewed/session';identity=dict(route='chat',model='MiniMax-M3',purpose='standard',api='openai-completions',endpoint='https://api.minimax.io/v1');commit=self.git('rev-parse','HEAD');renewal='current-source-eleven-renewal-1'
+  self.put(base+'/minimax-report.json',dict(mode='live',outcome='PASS',complete=True,stage='formal',identity=identity,session='session',gitCommit=commit,formalRenewalId=renewal,formalRenewalGrantSha256='d'*64))
+  for leaf in ('minimax-integrity.json','minimax-ledger.json'):self.put(base+'/'+leaf,{})
+  origin=dict(schema=1,stage='formal',identity=identity,session='session',sourceCommit=commit,sourceManifestSha256='a'*64,binariesManifestSha256='b'*64,planSha256='c'*64,formalRenewalId=renewal,formalRenewalGrantSha256='d'*64)
+  for key,leaf in [('reportSha256','minimax-report.json'),('sealSha256','minimax-integrity.json'),('ledgerSha256','minimax-ledger.json')]:origin[key]=hashlib.sha256((self.root/base/leaf).read_bytes()).hexdigest()
+  name=renewal+'-mm-global-formal-m3-chat';receipt=dict(state='COMPLETED',route=name,exitCode=0,credentialsRead=True,launcherAudit=dict(passed=True),sourceCommit=commit,renewalId=renewal,renewalGrantSha256='d'*64,origin=origin)
+  self.put('.evidence/minimax-launches/'+name+'.json',receipt);self.put('ai/live/testdata/minimax-formal/origins.json',dict(schema=1,entries={'old-history':{'kept':True}}))
+  self.runcli('origins','.evidence/minimax-renewed-origin','--bundle',name+'='+base)
+  index=json.loads((self.root/'ai/live/testdata/minimax-formal/origins.json').read_text());self.assertEqual(index['entries']['old-history'],{'kept':True});self.assertEqual(index['entries'][origin['reportSha256']]['origin'],origin)
+  self.runcli('origins','.evidence/minimax-renewed-old-marker','--bundle','mm-global-formal-m3-chat='+base,ok=False)
  def test_global_origin_names_cannot_borrow_cn_identity_or_old_name(self):
   base='cn-own/session';identity={'route':'chat','model':'MiniMax-M3','purpose':'standard','api':'openai-completions','endpoint':'https://api.minimax.cn/v1'}
   commit=self.git('rev-parse','HEAD')

@@ -28,10 +28,12 @@ def seed():
    if '/.evidence/minimax-global-formal-glm/mm-global-formal-m3-' in source or '/.evidence/minimax-launches/mm-global-formal-m3-' in source:copy(reader,relative,row['sha256'])
 
 class Isolated:
+ SOURCE_REF="7931b163f983a8b362374163b7949d31e68bbec4"
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory(prefix='release-repair-cli-');self.root=Path(self.tmp.name)/'repo';source=TOOLS.parents[2];self.outputs=set();self.journal=[]
   self.env={k:os.environ[k] for k in ('PATH','HOME','TMPDIR') if k in os.environ}
   subprocess.run(['git','clone','-q','--shared','--no-hardlinks',str(source),str(self.root)],env=self.env,check=True)
+  if self.SOURCE_REF:subprocess.run(['git','checkout','-q',self.SOURCE_REF],cwd=self.root,env=self.env,check=True)
   self.tools=self.root/'.scratch/barness-ai-minimax/tools';shutil.copytree(TOOLS,self.tools,dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__'))
   subprocess.run(['git','add','.scratch/barness-ai-minimax/tools'],cwd=self.root,env=self.env,check=True)
   subprocess.run(['git','-c','user.name=Controlled','-c','user.email=controlled@example.invalid','commit','--allow-empty','-qm','synthetic public CLI source'],cwd=self.root,env=self.env,check=True)
@@ -73,7 +75,9 @@ class Isolated:
    for directory,dirs,files in os.walk(base,followlinks=False):
     if any((Path(directory)/n).is_symlink() for n in dirs):raise ValueError('test output directory link forbidden')
     for leaf in files:copy(Path(directory)/leaf)
-  for path in (self.root/'.evidence/minimax-launches').glob('release-repair-validation-1-*.json'):copy(path)
+  for path in (self.root/'.evidence/minimax-launches').glob(getattr(self,'INTENT_GLOB','release-repair-validation-1-*.json')):copy(path)
+  for relative in getattr(self,'EXTRA_ARTIFACTS',()):
+   for path in (self.root/relative).glob('*.json'):copy(path)
   for name in ('go-probe.jsonl',):
    if (self.root/name).exists():copy(self.root/name)
   (target/'public-cli-journal.json').write_text(json.dumps(self.journal,indent=2)+'\n')

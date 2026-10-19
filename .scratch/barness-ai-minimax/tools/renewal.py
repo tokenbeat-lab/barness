@@ -45,6 +45,8 @@ def catalog_pins(out):
 
 def origins(out,values):
     allowed={'mm-global-'+s+'-m3-'+r for s in ('candidate','formal') for r in u.ROUTES}
+    renewal='current-source-eleven-renewal-1'
+    allowed.update(renewal+'-mm-global-formal-m3-'+route for route in u.ROUTES)
     selected={}
     for value in values:
         route,sep,path=value.partition('=')
@@ -59,8 +61,14 @@ def origins(out,values):
         raw=u.file_bytes(receipt_path,2<<20);receipt=u.json_doc(receipt_path)
         report=u.json_doc(base/'minimax-report.json');origin=receipt.get('origin',{})
         fields={'schema','stage','identity','session','reportSha256','sealSha256','ledgerSha256','sourceCommit','sourceManifestSha256','binariesManifestSha256','planSha256'}
+        renewed=name.startswith(renewal+'-')
+        if renewed:fields|={'formalRenewalId','formalRenewalGrantSha256'}
         if not isinstance(origin,dict) or set(origin)!=fields:raise RuntimeError('exact canonical origin schema required')
-        stage=name.split('-')[2];route=name.removeprefix('mm-global-'+stage+'-m3-')
+        launch_base=name.removeprefix(renewal+'-') if renewed else name
+        stage=launch_base.split('-')[2];route=launch_base.removeprefix('mm-global-'+stage+'-m3-')
+        if renewed:
+            if (report.get('formalRenewalId')!=renewal or origin.get('formalRenewalId')!=renewal or receipt.get('renewalId')!=renewal or u.HEX.fullmatch(report.get('formalRenewalGrantSha256','')) is None or report['formalRenewalGrantSha256']!=origin.get('formalRenewalGrantSha256') or report['formalRenewalGrantSha256']!=receipt.get('renewalGrantSha256')):raise RuntimeError('own canonical renewed formal origin/grant required')
+        elif report.get('formalRenewalId'):raise RuntimeError('renewed report cannot borrow old canonical marker')
         if (receipt.get('state')!='COMPLETED' or receipt.get('exitCode')!=0 or receipt.get('credentialsRead') is not True or
             receipt.get('launcherAudit',{}).get('passed') is not True or receipt.get('route')!=name or
             report.get('outcome')!='PASS' or report.get('mode')!='live' or report.get('complete') is not True or
@@ -119,7 +127,7 @@ def main():
         p=sub.add_parser(mode);p.add_argument('out')
         if mode=='glm-archive':
             for route in u.ROUTES:p.add_argument('--'+route,required=True)
-            p.add_argument('--round',choices=('original','corrective-1','routed-validation-1','release-repair-validation-1'),default='original')
+            p.add_argument('--round',choices=('original','corrective-1','routed-validation-1','release-repair-validation-1','current-source-eleven-renewal-1'),default='original')
         if mode=='origins':p.add_argument('--bundle',action='append',required=True)
     a=parser.parse_args()
     if a.mode=='m31-not-run':out=u.repo_path(a.out);result=m31_not_run(out)

@@ -30,7 +30,7 @@ def known_usage(files,report):
 
 
 def capture(out,values,round_name='original'):
-    if round_name not in ('original','corrective-1','routed-validation-1','release-repair-validation-1'):raise RuntimeError('fixed explicit GLM collection round required')
+    if round_name not in ('original','corrective-1','routed-validation-1','release-repair-validation-1','current-source-eleven-renewal-1'):raise RuntimeError('fixed explicit GLM collection round required')
     snapshot=u.json_doc(c.ROOT/'ai/release/catalog-snapshot.json')
     source=u.sha(u.file_bytes(c.ROOT/'ai/live/testdata/glm-candidate/sources.json'))
     code=u.file_bytes(c.ROOT/'ai/internal/testkit/supportmatrix/glm.go').decode()
@@ -47,7 +47,7 @@ def capture(out,values,round_name='original'):
                 report.get('catalogHash')!=snapshot['hash'] or report.get('catalogVersion')!=snapshot['catalog']['version'] or
                 re.fullmatch(r'[a-f0-9]{40}',report.get('gitCommit','')) is None):
                 raise RuntimeError('fresh own current GLM formal identity/source/catalog required')
-            launch=(round_name+'-glm-' if round_name in ('routed-validation-1','release-repair-validation-1') else
+            launch=(round_name+'-glm-' if round_name in ('routed-validation-1','release-repair-validation-1','current-source-eleven-renewal-1') else
                 'glm-'+('corrective-1-' if round_name=='corrective-1' else ''))+route
             receipt_path=c.common_root()/'.evidence/minimax-launches'/(launch+'.json')
             receipt=u.json_doc(receipt_path)
@@ -58,10 +58,10 @@ def capture(out,values,round_name='original'):
             if round_name=='corrective-1' and (receipt.get('correctiveRound')!='corrective-1' or
                 u.HEX.fullmatch(receipt.get('humanApprovalSha256','')) is None):
                 raise RuntimeError('explicit corrective-1 approved canonical receipt required; no original fallback')
-            if round_name=='release-repair-validation-1':
-                import repair_publication
-                repair_publication.require(route)
-            if round_name in ('routed-validation-1','release-repair-validation-1'):
+            if round_name in ('release-repair-validation-1','current-source-eleven-renewal-1'):
+                import repair_publication,eleven_contract,repair_contract
+                repair_publication.require(route,contract=eleven_contract if round_name==eleven_contract.ROUND else repair_contract)
+            if round_name in ('routed-validation-1','release-repair-validation-1','current-source-eleven-renewal-1'):
                 fields=('authorizationSha256','sourceReviewSha256','sourceManifestSha256',
                     'binariesManifestSha256','planSha256','commandReceiptSha256')
                 budget=receipt.get('budget',{})
@@ -141,9 +141,9 @@ def views(out):
     target=c.ROOT/BASE/'support-views.json'
     (out/'support-views-before.json').write_bytes(u.file_bytes(target))
     view=dict(schema=1,kind='no-paid-derived-glm-support-views',routes=entries)
-    if index.get('collectionRound')=='release-repair-validation-1':
-        import repair_publication
-        repair_publication.validate(index,view)
+    if index.get('collectionRound') in ('release-repair-validation-1','current-source-eleven-renewal-1'):
+        import repair_publication,eleven_contract,repair_contract
+        repair_publication.validate(index,view,contract=eleven_contract if index['collectionRound']==eleven_contract.ROUND else repair_contract)
     c.dump(target,view)
     result=dict(credentialsRead=False,routes=entries,next='commit support-view selectors before fresh complete legacy/Jev source freeze')
     c.dump(out/'views-published.json',result);return result
@@ -151,3 +151,7 @@ def views(out):
 def validate_repair_publication(index):
     import repair_publication
     return repair_publication.validate(index)
+
+def validate_eleven_publication(index):
+    import repair_publication,eleven_contract
+    return repair_publication.validate(index,contract=eleven_contract)

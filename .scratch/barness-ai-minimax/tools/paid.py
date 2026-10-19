@@ -136,11 +136,15 @@ def pin_actual_origin(out,job,record):
         report.get('gitCommit')!=record.get('sourceCommit') or
         any(report.get('identity',{}).get(k)!=v for k,v in expected.items())):
         raise RuntimeError('actual origin requires successful reviewed own live report and seal')
-    return dict(schema=1,stage=report['stage'],identity=report['identity'],session=report['session'],
+    result=dict(schema=1,stage=report['stage'],identity=report['identity'],session=report['session'],
         reportSha256=c.digest(bundle/'minimax-report.json'),sealSha256=c.digest(bundle/'minimax-integrity.json'),
         ledgerSha256=c.digest(bundle/'minimax-ledger.json'),sourceCommit=record['sourceCommit'],
         sourceManifestSha256=c.digest(out/'source-at-start.json'),binariesManifestSha256=c.digest(out/'binaries.json'),
         planSha256=c.digest(out/'plan.json'))
+    if report.get('formalRenewalId'):
+        if (record.get('renewalId')!=report['formalRenewalId'] or record.get('renewalGrantSha256')!=report.get('formalRenewalGrantSha256')):raise RuntimeError('native renewal origin must match canonical grant')
+        result.update(formalRenewalId=report['formalRenewalId'],formalRenewalGrantSha256=report['formalRenewalGrantSha256'])
+    return result
 
 
 def pin_glm_capture(out,job,record):

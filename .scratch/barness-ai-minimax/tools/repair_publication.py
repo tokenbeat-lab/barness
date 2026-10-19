@@ -7,7 +7,8 @@ import repair_contract as r
 import renewal_common as u
 FIELDS={'formalReportSha256':'formal-glm-report.json','integritySha256':'glm-integrity.json','supportReportSha256':'live-report.json','executionSourceSha256':'glm-execution-source.json'}
 
-def require(route):
+def require(route,contract=r):
+ r=contract
  job=r.jobs(c.ROOT/'.evidence/unused-publication','glm')[r.ROUND+'-glm-'+route];actual=e.settled(job,contract=r)
  if any(actual.get(k)!=v for k,v in dict(state='REPORTED',status='PASS',calls=22,attempts=22).items()):raise RuntimeError('new exact reviewed/approved own full22 PASS canonical capture required; no old round fallback')
  with e.Root(c.common_root()) as root:raw=root.read('.evidence/minimax-launches/'+job['name']+'.json')
@@ -30,12 +31,13 @@ def zipped(entry,wanted):
    selected[name]=data
  return selected,{v.filename for v in infos}
 
-def validate(index,views=None):
+def validate(index,views=None,contract=r):
+ r=contract
  from renewal_glm import known_usage,USAGE_BASIS,BASE
  if index.get('collectionRound')!=r.ROUND or set(index.get('routes',{}))!=set(u.ROUTES) or set(index.get('launcherReceiptSHA256',{}))!=set(u.ROUTES):raise RuntimeError('exact new three-route publication index required')
  expected_usage={};commits=set();captures={};originals={}
  for route in u.ROUTES:
-  receipt,receipt_sha=require(route)
+  receipt,receipt_sha=require(route,contract=r)
   if index['launcherReceiptSHA256'][route]!=receipt_sha:raise RuntimeError('new canonical receipt changed after publication')
   relative=receipt['collectionRoot'].removeprefix('$REPO/');e.parts(relative);base=u.bundle(relative+'/glm-'+route,'formal-glm-report.json');files=u.tree(base);report=e.document(files['formal-glm-report.json']);pins=receipt['capturePins'];commits.add(receipt['sourceCommit'])
   if pins!={'schema':1,**{key:u.sha(files[leaf]) for key,leaf in FIELDS.items()}}:raise RuntimeError('new original canonical capture pins changed')

@@ -146,14 +146,14 @@ def settled(job,*,root=None,contract=r,expected_owner=None):
 
 def report_bytes(reader,relative,base):
  directory=relative+('/live/' if base in {v[0] for v in p.GENERIC} else '/')+base
- leaf='evaluation-report.json' if base.startswith('text-') else 'multimodal-report.json' if base=='protocol114' else 'formal-glm-report.json' if base.startswith('glm-') else 'live-report.json'
+ leaf='minimax-report.json' if base.startswith('mm-') else 'evaluation-report.json' if base.startswith('text-') else 'multimodal-report.json' if base=='protocol114' else 'formal-glm-report.json' if base.startswith('glm-') else 'live-report.json'
  return reader.read(directory+'/report.json',16<<20) if base.startswith('visual-') else reader.unique(directory,leaf)
 
 
 def native_counters(report,job):
     budget=report['budget'];base=job['baseName']
     if base=='protocol114':budget=budget['actual']
-    fields=('calls','attempts') if base.startswith(('text-','visual-')) or base=='protocol114' else ('callsUsed','httpAttempts')
+    fields=('calls','attempts') if base.startswith(('mm-','text-','visual-')) or base=='protocol114' else ('callsUsed','httpAttempts')
     calls,attempts=(budget[key] for key in fields);status=paid.report_status(report,job|dict(name=base))
     if (type(calls) is not int or type(attempts) is not int or not 0<=calls<=job['maxCalls'] or not 0<=attempts<=job['maxAttempts'] or
         status not in ('PASS','FAIL','NOT_RUN','UNSUPPORTED') or (status=='NOT_RUN' and (calls or attempts))):
