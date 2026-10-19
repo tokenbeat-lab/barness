@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-glm-responses",
+  "argv": [
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/supportmatrix",
+    "-matrix",
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/glm-responses-matrix-copy.json",
+    "$REPO/.evidence/minimax-release-repair-glm-1/glm-responses/20261018T113707.359791000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:53:28.446998+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.8015969581902027,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

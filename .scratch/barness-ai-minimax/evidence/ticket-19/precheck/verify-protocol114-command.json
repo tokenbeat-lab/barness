@@ -1,0 +1,32 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-protocol114",
+  "argv": [
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/jevformal",
+    "-protocol",
+    "$REPO/.evidence/minimax-release-repair-effects-1/protocol114/20261018T115021.300997000Z",
+    "-effects",
+    "$REPO/.evidence/minimax-release-repair-effects-1/visual-jev",
+    "-out",
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/refused-protocol-support",
+    "-require-live"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:53:30.263627+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.2540216245688498,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

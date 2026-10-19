@@ -1,0 +1,31 @@
+{
+  "state": "COMPLETED",
+  "name": "build-text-current-probe",
+  "argv": [
+    "go",
+    "build",
+    "-overlay",
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/textcheck-overlay.json",
+    "-o",
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/current-textcheck",
+    "./ai/release/cmd/releasegate"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:53:39.873258+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.8247640421614051,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

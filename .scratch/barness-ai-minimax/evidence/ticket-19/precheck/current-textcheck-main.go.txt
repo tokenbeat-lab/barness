@@ -1,0 +1,12 @@
+package main
+import (
+ "encoding/json"
+ "os"
+ "github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
+)
+func main() {
+ if len(os.Args)!=3 { os.Exit(2) }
+ checks:=release.ChineseEffectsEvidence(os.Args[1],os.Args[2])
+ if err:=json.NewEncoder(os.Stdout).Encode(checks); err!=nil { os.Exit(2) }
+ for _, check:=range checks { if check.Status!=release.Pass { os.Exit(1) } }
+}
