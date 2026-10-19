@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "$SYSTEM_TMP/barness-ticket21-postgate-verify.py", line 135, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "$SYSTEM_TMP/barness-ticket21-postgate-verify.py", line 116, in main
+    cap=metadata(b,a.metadata_root,label);pins,seen,verified=full.verify(b,a.metadata_root/label,a.common_root,cap)
+  File "$SYSTEM_TMP/barness-ticket21-postgate-verify.py", line 35, in metadata
+    if len(raw)!=anchor['indexBytes'] or b.sha(raw)!=anchor['indexSHA256']:raise ValueError('independent supplement index anchor differs')
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: independent supplement index anchor differs

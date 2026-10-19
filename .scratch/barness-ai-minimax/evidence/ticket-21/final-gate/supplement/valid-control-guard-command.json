@@ -1,0 +1,27 @@
+{
+  "case": "valid-control",
+  "state": "COMPLETED",
+  "exitCode": 0,
+  "expectedExitCode": 0,
+  "expectedTerminalReason": null,
+  "actualTerminalReason": null,
+  "expectedOutcomeObserved": true,
+  "startedAt": "2026-10-19T11:26:40.755861+00:00",
+  "finishedAt": "2026-10-19T11:26:40.833574+00:00",
+  "seconds": 0.07762037497013807,
+  "readerSHA256": "de9550f1e4458310ead810d6154a4b1e3929077fb642cdba140d50d1a88f825c",
+  "classification": "PRIVATE_VALID_CONTROL",
+  "argvDisplay": [
+    "python3",
+    "$SYSTEM_TMP/barness-ticket21-postgate-verify.py",
+    "--common-root",
+    "$REPO",
+    "--metadata-root",
+    "$PRIVATE_FIXTURE/valid-control",
+    "--repository-root",
+    "$OWN_WORKTREE"
+  ],
+  "displayIsDerived": true,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

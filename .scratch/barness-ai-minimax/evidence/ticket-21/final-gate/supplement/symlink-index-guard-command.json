@@ -1,0 +1,27 @@
+{
+  "case": "symlink-index",
+  "state": "COMPLETED",
+  "exitCode": 1,
+  "expectedExitCode": 1,
+  "expectedTerminalReason": "OSError: [Errno 62] Too many levels of symbolic links: 'index.json'",
+  "actualTerminalReason": "OSError: [Errno 62] Too many levels of symbolic links: 'index.json'",
+  "expectedOutcomeObserved": true,
+  "startedAt": "2026-10-19T11:26:41.107056+00:00",
+  "finishedAt": "2026-10-19T11:26:41.147300+00:00",
+  "seconds": 0.040250124875456095,
+  "readerSHA256": "de9550f1e4458310ead810d6154a4b1e3929077fb642cdba140d50d1a88f825c",
+  "classification": "PRIVATE_METADATA_NEGATIVE; anchor-first or exact index ENOENT/ELOOP; missing-history checks after prior publication archive; no deeper branch claim",
+  "argvDisplay": [
+    "python3",
+    "$SYSTEM_TMP/barness-ticket21-postgate-verify.py",
+    "--common-root",
+    "$REPO",
+    "--metadata-root",
+    "$PRIVATE_FIXTURE/symlink-index",
+    "--repository-root",
+    "$OWN_WORKTREE"
+  ],
+  "displayIsDerived": true,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

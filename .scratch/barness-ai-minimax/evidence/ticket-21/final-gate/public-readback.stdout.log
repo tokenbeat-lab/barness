@@ -1,0 +1,169 @@
+{"scope": "ordinary", "archive": {"files": 142540, "entries": 142540, "rawBytes": 1350982187, "decodedTarBytes": 1604362240, "archiveBytes": 134251096, "archiveSHA256": "71db259c0f740ed3ce6d2f6abe8a14dae88c6cc3bb9b81ed183cfa832ab0a11d"}, "originalFiles": 142534, "suite": {"scope": "ordinary", "main": {"manifest": "original/20261019T095117.520297000Z/manifest.json", "manifestSHA256": "e79ba5062dc4a2428de8786b7cd274a698afb562c910594c75ec31e7e0fac1bf", "package": "./ai/e2e", "cases": 12495, "statuses": {"PASS": 12495, "FAIL": 0, "NOT_RUN": 0}, "auditPresent": true, "auditFindings": [], "artifactReferences": 99113, "normalizedArtifactReferencePaths": 420, "truePIDiffCases": 868, "truePIDiffAllPass": true, "allNamedPressureCases": 29, "fixedPressureRegexCases": 15, "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-", "namedPressureAllPass": true, "failures": [], "notRun": []}, "siblings": [{"manifest": "original/20261019T095118.492609000Z/manifest.json", "manifestSHA256": "be91dca52daff9b8432a2a10fe55761a107d54eae65de71d5451b88de4fe30a5", "package": "./ai/examples/visualeval", "cases": 23, "statuses": {"PASS": 23, "FAIL": 0, "NOT_RUN": 0}, "auditPresent": true, "auditFindings": [], "artifactReferences": 35, "normalizedArtifactReferencePaths": 0, "truePIDiffCases": 0, "truePIDiffAllPass": true, "allNamedPressureCases": 0, "fixedPressureRegexCases": 0, "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-", "namedPressureAllPass": true, "failures": [], "notRun": []}]}}
+{"scope": "race", "archive": {"files": 142593, "entries": 142593, "rawBytes": 1346464083, "decodedTarBytes": 1594071040, "archiveBytes": 133909347, "archiveSHA256": "f9195ec6e8655f34967eff2b073eac49e111a59994899cdc460e600b6c123b17"}, "originalFiles": 142587, "suite": {"scope": "race", "main": {"manifest": "original/20261019T100226.892171000Z/manifest.json", "manifestSHA256": "1aa5e145c0b52c234f3ebafdbff0d806b3ea5afa82422e0e9bfe3d53f4c1caa3", "package": "./ai/e2e", "cases": 12495, "statuses": {"PASS": 12495, "FAIL": 0, "NOT_RUN": 0}, "auditPresent": true, "auditFindings": [], "artifactReferences": 99112, "normalizedArtifactReferencePaths": 420, "truePIDiffCases": 868, "truePIDiffAllPass": true, "allNamedPressureCases": 29, "fixedPressureRegexCases": 15, "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-", "namedPressureAllPass": true, "failures": [], "notRun": []}, "siblings": [{"manifest": "original/20261019T100229.010446000Z/manifest.json", "manifestSHA256": "edbf6f17e10630969cd176adc2c8508b051cb52b5d261c32f48b702e4a78c84d", "package": "./ai/examples/visualeval", "cases": 23, "statuses": {"PASS": 23, "FAIL": 0, "NOT_RUN": 0}, "auditPresent": true, "auditFindings": [], "artifactReferences": 35, "normalizedArtifactReferencePaths": 0, "truePIDiffCases": 0, "truePIDiffAllPass": true, "allNamedPressureCases": 0, "fixedPressureRegexCases": 0, "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-", "namedPressureAllPass": true, "failures": [], "notRun": []}]}}
+{"scope": "outer", "archive": {"files": 35, "entries": 35, "rawBytes": 35479333, "decodedTarBytes": 35512320, "archiveBytes": 12543298, "archiveSHA256": "1fa7deb1f2e1284030da02510655a58849dee9bc3ce5657221349e9d6f72ae96"}, "originalFiles": 29}
+{
+  "custodyVerified": true,
+  "recordedSourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+  "capsules": {
+    "ordinary": {
+      "archive": {
+        "files": 142540,
+        "entries": 142540,
+        "rawBytes": 1350982187,
+        "decodedTarBytes": 1604362240,
+        "archiveBytes": 134251096,
+        "archiveSHA256": "71db259c0f740ed3ce6d2f6abe8a14dae88c6cc3bb9b81ed183cfa832ab0a11d"
+      },
+      "originalFiles": 142534,
+      "suite": {
+        "scope": "ordinary",
+        "main": {
+          "manifest": "original/20261019T095117.520297000Z/manifest.json",
+          "manifestSHA256": "e79ba5062dc4a2428de8786b7cd274a698afb562c910594c75ec31e7e0fac1bf",
+          "package": "./ai/e2e",
+          "cases": 12495,
+          "statuses": {
+            "PASS": 12495,
+            "FAIL": 0,
+            "NOT_RUN": 0
+          },
+          "auditPresent": true,
+          "auditFindings": [],
+          "artifactReferences": 99113,
+          "normalizedArtifactReferencePaths": 420,
+          "truePIDiffCases": 868,
+          "truePIDiffAllPass": true,
+          "allNamedPressureCases": 29,
+          "fixedPressureRegexCases": 15,
+          "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-",
+          "namedPressureAllPass": true,
+          "failures": [],
+          "notRun": []
+        },
+        "siblings": [
+          {
+            "manifest": "original/20261019T095118.492609000Z/manifest.json",
+            "manifestSHA256": "be91dca52daff9b8432a2a10fe55761a107d54eae65de71d5451b88de4fe30a5",
+            "package": "./ai/examples/visualeval",
+            "cases": 23,
+            "statuses": {
+              "PASS": 23,
+              "FAIL": 0,
+              "NOT_RUN": 0
+            },
+            "auditPresent": true,
+            "auditFindings": [],
+            "artifactReferences": 35,
+            "normalizedArtifactReferencePaths": 0,
+            "truePIDiffCases": 0,
+            "truePIDiffAllPass": true,
+            "allNamedPressureCases": 0,
+            "fixedPressureRegexCases": 0,
+            "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-",
+            "namedPressureAllPass": true,
+            "failures": [],
+            "notRun": []
+          }
+        ]
+      }
+    },
+    "race": {
+      "archive": {
+        "files": 142593,
+        "entries": 142593,
+        "rawBytes": 1346464083,
+        "decodedTarBytes": 1594071040,
+        "archiveBytes": 133909347,
+        "archiveSHA256": "f9195ec6e8655f34967eff2b073eac49e111a59994899cdc460e600b6c123b17"
+      },
+      "originalFiles": 142587,
+      "suite": {
+        "scope": "race",
+        "main": {
+          "manifest": "original/20261019T100226.892171000Z/manifest.json",
+          "manifestSHA256": "1aa5e145c0b52c234f3ebafdbff0d806b3ea5afa82422e0e9bfe3d53f4c1caa3",
+          "package": "./ai/e2e",
+          "cases": 12495,
+          "statuses": {
+            "PASS": 12495,
+            "FAIL": 0,
+            "NOT_RUN": 0
+          },
+          "auditPresent": true,
+          "auditFindings": [],
+          "artifactReferences": 99112,
+          "normalizedArtifactReferencePaths": 420,
+          "truePIDiffCases": 868,
+          "truePIDiffAllPass": true,
+          "allNamedPressureCases": 29,
+          "fixedPressureRegexCases": 15,
+          "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-",
+          "namedPressureAllPass": true,
+          "failures": [],
+          "notRun": []
+        },
+        "siblings": [
+          {
+            "manifest": "original/20261019T100229.010446000Z/manifest.json",
+            "manifestSHA256": "edbf6f17e10630969cd176adc2c8508b051cb52b5d261c32f48b702e4a78c84d",
+            "package": "./ai/examples/visualeval",
+            "cases": 23,
+            "statuses": {
+              "PASS": 23,
+              "FAIL": 0,
+              "NOT_RUN": 0
+            },
+            "auditPresent": true,
+            "auditFindings": [],
+            "artifactReferences": 35,
+            "normalizedArtifactReferencePaths": 0,
+            "truePIDiffCases": 0,
+            "truePIDiffAllPass": true,
+            "allNamedPressureCases": 0,
+            "fixedPressureRegexCases": 0,
+            "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-",
+            "namedPressureAllPass": true,
+            "failures": [],
+            "notRun": []
+          }
+        ]
+      }
+    },
+    "outer": {
+      "archive": {
+        "files": 35,
+        "entries": 35,
+        "rawBytes": 35479333,
+        "decodedTarBytes": 35512320,
+        "archiveBytes": 12543298,
+        "archiveSHA256": "1fa7deb1f2e1284030da02510655a58849dee9bc3ce5657221349e9d6f72ae96"
+      },
+      "originalFiles": 29
+    }
+  },
+  "disjointOriginalRegularFiles": 285150,
+  "gate": {
+    "outerExit": 0,
+    "numericExits": {
+      "vet": 0,
+      "vet-live": 0,
+      "ordinary": 0,
+      "race": 0
+    },
+    "reportPresent": true,
+    "reportedReleasePass": true,
+    "reportParsingOrBindingError": null,
+    "allFourSucceeded": true,
+    "commandBindingsValid": true,
+    "candidateMatrixCopyValid": true,
+    "selectedSourceAndInputsUnchanged": true,
+    "releaseCertifiedAtRecordedSource": true,
+    "defaultPublicationClaimed": false,
+    "fullInputTrees": 21
+  },
+  "publicationIncluded": false,
+  "historyIncluded": false,
+  "retentionPaidCalls": 0,
+  "retentionCredentialsRead": false,
+  "capturedProgramsExecuted": false
+}
