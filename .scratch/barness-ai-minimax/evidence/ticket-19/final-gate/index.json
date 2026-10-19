@@ -1,0 +1,102 @@
+{
+  "capsules": [
+    {
+      "archive": {
+        "bytes": 114962711,
+        "file": ".evidence/minimax-retained/ticket-19-final-gate-ordinary/raw.tar.gz",
+        "prefix": "current-eleven-gate-ordinary",
+        "sha256": "0321a2c16adc5048d1d19e521d88ee2c56e389a95616ec0acb845954313c6d9a"
+      },
+      "index": "ordinary/index.json",
+      "label": "ordinary"
+    },
+    {
+      "archive": {
+        "bytes": 114584263,
+        "file": ".evidence/minimax-retained/ticket-19-final-gate-race/raw.tar.gz",
+        "prefix": "current-eleven-gate-race",
+        "sha256": "2c652fc0f6b0c6cc68ef1beeed90e49a0591079c816554e7e0cec01cfeafc822"
+      },
+      "index": "race/index.json",
+      "label": "race"
+    },
+    {
+      "archive": {
+        "bytes": 12532917,
+        "file": ".evidence/minimax-retained/ticket-19-final-gate-outer/raw.tar.gz",
+        "prefix": "current-eleven-gate-outer",
+        "sha256": "139b97005b01ef640747d1fb854c3166b676ee822f267ffd987126aa642f203a"
+      },
+      "index": "outer/index.json",
+      "label": "outer"
+    },
+    {
+      "archive": {
+        "bytes": 21535782,
+        "file": ".evidence/minimax-retained/ticket-19-final-gate-prepared-history/raw.tar.gz",
+        "prefix": "current-eleven-gate-prepared-history",
+        "sha256": "ae3c8bcb75bc25cdbe292e4a809e065f0dbf46afaac1e60fb052d498e4ba1a18"
+      },
+      "index": "prepared-history/index.json",
+      "label": "prepared-history"
+    },
+    {
+      "archive": {
+        "bytes": 1242519,
+        "file": ".evidence/minimax-retained/ticket-19-final-gate-diagnostic/raw.tar.gz",
+        "prefix": "current-eleven-gate-diagnostic",
+        "sha256": "22443f0d109801be5d58a870e2cc0868bc84e000e29180ab18c2dc23cb8a0b78"
+      },
+      "index": "diagnostic/index.json",
+      "label": "diagnostic"
+    }
+  ],
+  "diagnosticScope": "Only diagnosis at unchanged01341; later count3PASS does not upgrade saved packet or full gate",
+  "disjointFullGateScopes": {
+    "ordinary": ".evidence/minimax-current-eleven-gate-2/gate/offline",
+    "originalRegularFiles": 267820,
+    "outerExcludedDirectories": [
+      "gate/offline",
+      "gate/race"
+    ],
+    "outerRoot": ".evidence/minimax-current-eleven-gate-2",
+    "race": ".evidence/minimax-current-eleven-gate-2/gate/race"
+  },
+  "fullReaderSHA256": "3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328",
+  "gateCommands": {
+    "ordinary": 0,
+    "race": 1,
+    "vet": 0,
+    "vetLive": 0
+  },
+  "kind": "closed-failed-full-gate-and-separate-diagnostic-custody",
+  "ordinaryCases": {
+    "FAIL": 0,
+    "NOT_RUN": 0,
+    "PASS": 12495
+  },
+  "outerExit": 1,
+  "preparedHistoryScope": "SUPERSEDED_PREPARED_ONLY; actual build/text verification preserved, full gate never executed",
+  "raceCases": {
+    "FAIL": 1,
+    "NOT_RUN": 0,
+    "PASS": 12494
+  },
+  "releaseCertified": false,
+  "releasePass": false,
+  "retentionCredentialsRead": false,
+  "retentionPaidCalls": 0,
+  "schema": 1,
+  "smallReaderSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+  "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "displayProvenance": "display-provenance.json",
+  "observations": {
+    "ordinary": "ordinary/observation.json",
+    "race": "race/observation.json",
+    "outer": "outer/observation.json"
+  },
+  "sourceEquivalence": "source-equivalence.json",
+  "readbackOperator": "operator.txt",
+  "combinedReadback": "readback-command.json",
+  "custodyVerified": true
+}

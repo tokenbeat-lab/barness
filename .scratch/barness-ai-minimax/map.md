@@ -13,7 +13,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-[19 当前源码十一组严格证据复验](issues/19-current-source-eleven-renewal.md)的实际复验及统一装配已完成：11/11全部PASS，新增189calls/186HTTPAttempts，216/252固定轮次关闭；17份支持输入审计0、新7行导入0、generic10对象/时间不变，默认矩阵17PASS/0FAIL。见[新原件与当前来源证明](evidence/ticket-19/actual/remaining/README.md)。完整发布门禁与最终独立审查待完成，票19保持claimed。
+[19 当前源码十一组严格证据复验](issues/19-current-source-eleven-renewal.md)的实际复验及统一装配已完成：11/11全部PASS，新增189calls/186HTTPAttempts，216/252固定轮次关闭；17份支持输入审计0、新7行导入0、generic10对象/时间不变，默认矩阵17PASS/0FAIL。见[新原件与当前来源证明](evidence/ticket-19/actual/remaining/README.md)。独立数据/文档两轴各0发现；来源01341的完整门禁已执行0/0/0/1，CLI1、报告false，唯一失败为视觉deadline空请求证据重放/审计。离线修复在独立工作树进行；票19按十一组复验、如实执行门禁及完整留存范围resolved；[完整失败门禁留存](evidence/ticket-19/final-gate/README.md)已独立审查0。视觉取消证据修复继续，spec、10、09仍开放。
 
 当前01–08、11、13、14、16、17按各票既定范围resolved；12/15原有限付费轮次失败与历史保持。本轮十一组已补足此前真实GLM及来源失效缺口，剩余链为完整发布门禁/最终审查→10→09→spec。没有待执行付费frontier，所有付费进程已关闭，无追加轮次授权。
 
@@ -106,3 +106,5 @@ Base: `ecfd4b4`
 [18 resolved](issues/18-glm-messages-cancel-rerun.md)：用户单独授权的Messages `glm-5.3/cancel` 真实1/1复测PASS，861ms，首个非空ThinkingDelta后取消，canceled/stream、aborted；[证据](evidence/ticket-18/README.md)。原120001ms失败与固定六项647/647保留，累计648/648。该新授权已关闭；全路线formal22/严格来源/装配/完整门禁仍开放，10、09和spec不关闭。
 
 - 2026-10-19：票19十一组真实复验及当前来源公开验证全部通过，默认17身份矩阵全部PASS；[实际证据](evidence/ticket-19/actual/remaining/README.md)。旧0/11诊断、历史失败与原阶段消费均保留。完整门禁及最终审查另行判定。
+
+- 19 resolved：[Answer](issues/19-current-source-eleven-renewal.md#answer)关闭固定十一组复验与结果留存。11/11、189/186及17身份PASS已记录；完整门禁实际FAIL由后续视觉取消证据修复承接。五份有界归档、267820份门禁原件及每套99113引用经独立核对0，来源/矩阵未变；原预算关闭，无新付费授权。

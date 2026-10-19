@@ -1,0 +1,39 @@
+{
+  "axis": "Spec",
+  "status": "CHANGES_REQUESTED_ORIGINAL_UNRUN_PLAN",
+  "reviewedAt": "2026-10-19T06:42:09.033010+00:00",
+  "sourceCommit": "7454776b667b3145f5418dc90a0c1a20c377bc96",
+  "collectionRoot": ".evidence/minimax-current-eleven-gate-1",
+  "originalControllerSHA256": "a884771df5f17a73b405128b6f7a9b4327d3e08fa010afbdfa5dffd89e3fff75",
+  "originalPlanSHA256": "b868f04a8fc36f10e7963882a3c9bb5b4cc2fe12e232c7ad0977389678785781",
+  "sourceManifestSHA256": "fa659b66474f1a29a06f3eb92c8f3a62344758ab7edb9a1c0dc39e0205f16f6f",
+  "inputsManifestSHA256": "8b36b0e764936cc08be1cbae65da0e4e5a6260e050ff556ec5e72a310543895d",
+  "compiledBinarySHA256": "9beaa740d8c4fb084a39785ec1d2dbbb03920a85a20b434d770c3a9a08453d6b",
+  "observerSHA256": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+  "findings": [
+    {
+      "id": "FG-SPEC-01",
+      "severity": "P2",
+      "file": "/tmp/barness-ticket19-full-gate.py (original a884)",
+      "line": 38,
+      "requirement": "R26 actual complete execution source; T04 original finite input integrity",
+      "finding": "Plan manifest SHA fields are recorded but not enforced; editable manifest plus changed source/input defeats approved freeze.",
+      "prospectiveCorrectionObserved": true
+    },
+    {
+      "id": "FG-SPEC-02",
+      "severity": "P2",
+      "file": "/tmp/barness-ticket19-full-gate.py (original a884)",
+      "line": 53,
+      "requirement": "R26 actual execution binary/provenance binding; T04 repeatability",
+      "finding": "Pinned provenance does not enforce actual real Go bytes; four observed commands could use changed unapproved executable.",
+      "prospectiveCorrectionObserved": true
+    }
+  ],
+  "report": "CHANGES REQUESTED for the unrun gate-1 plan, 2 original controller findings. R26 requires evidence to bind the actual complete execution source; T04 requires reproducible original inputs and no adoption/refresh of historical proof.\n\n[P2] FG-SPEC-01 — original controller guard lines38–44 never checked full-gate-source.json/full-gate-inputs.json bytes against the SHA fields already pinned in the approved plan. It compared current source/input trees only with those mutable manifests. Coherently changing an input/source plus its manifest could pass with unchanged HEAD while violating the approved hashes. Check both manifest hashes and sourceCommit on every guard.\n\n[P2] FG-SPEC-02 — original fixedFiles pinned observer/provenance but never the actual Go executable named by the observer. observer-provenance.json recorded realGoSHA256, yet replacement bytes at /usr/local/go/bin/go would still run the four commands without guard rejection. Retain the existing observer and guard the real Go bytes before/after too, as the earlier reviewed compiled helper did.\n\nThe prospective updated controller visibly implements both corrections, including an absolute real-Go fixedFile and repeated approved-plan equality. That is not approval of a future prepared plan. Gate-1 remains PREPARED/unrun and source745 will be superseded by the independent metadata HOME correction; no approval file is written. The unchanged observer hashaec940… still selects exactly four native commands at exact ROOTcwd and passes through real Go. The planned compiled public CLI has17 own inputs, four current effects,6600s bound, no bundle-adoption flags or selected credentials. Fresh source/input/binary/controller/plan pins and exact runtime review are required before gate-2.",
+  "updatedControllerReadSHA256": "6a9a5f9df95b1825a13e44a3a12d9b9e531d4e580ce9a632a0ff1b534646e53d",
+  "futurePreparedPlanApproval": "PENDING fresh exact gate-2 pins after metadata correction",
+  "approvalWritten": false,
+  "reviewerExecutedProjectCode": false,
+  "paidCalls": 0
+}

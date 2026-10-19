@@ -1,0 +1,60 @@
+{
+  "suite": "race",
+  "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "sourceFiles": 1074,
+  "mainManifest": ".evidence/minimax-current-eleven-gate-2/gate/race/20261019T065939.629010000Z/manifest.json",
+  "mainManifestSHA256": "26045d073f3a87db9f61e034b71b6f34a7d6a25f34479288a7bd363abaec21d1",
+  "auditSHA256": "590172eba1ae878d0da11357ab8577b8d271747200ab661f7753e3f247bb5d34",
+  "cases": 12495,
+  "statuses": {
+    "PASS": 12494,
+    "FAIL": 1,
+    "NOT_RUN": 0
+  },
+  "audit": {
+    "findings": [
+      {
+        "file": "visual-failure-decisions-plain-deadline/samples/v08/request.json",
+        "rule": "unparseable",
+        "detail": "not JSON (invalid): JSON rules not applied"
+      }
+    ]
+  },
+  "artifactReferences": 99113,
+  "artifactReferencePinFailures": [],
+  "truePIDiffCases": 868,
+  "truePIDiffAllPass": true,
+  "allNamedPressureCases": 29,
+  "fixedPressureRegexCases": 15,
+  "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-",
+  "namedPressureAllPass": true,
+  "failures": [
+    {
+      "artifacts": {
+        "assertions.json": "dee8feeb99139c40f8d514d111f8872640bd06000f4a184d42c1558ad079dd82",
+        "report.json": "61e2832cef169ead46cdc0acb81e4cde3a68efe2f22be3fdf89a9f1ae45b8b00"
+      },
+      "dir": "VQ12-failure-decisions-plain-deadline",
+      "fixtures": {},
+      "id": "VQ12-failure-decisions-plain-deadline",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestVisualEvaluationFailureRetention$/^decisions$/^plain$/^deadline$'",
+      "status": "FAIL",
+      "test": "TestVisualEvaluationFailureRetention/decisions/plain/deadline"
+    }
+  ],
+  "archive": {
+    "bytes": 114584263,
+    "file": ".evidence/minimax-retained/ticket-19-final-gate-race/raw.tar.gz",
+    "prefix": "current-eleven-gate-race",
+    "sha256": "2c652fc0f6b0c6cc68ef1beeed90e49a0591079c816554e7e0cec01cfeafc822"
+  },
+  "sourceQualifiedOnlyAtRecordedMap": true,
+  "retentionPaidCalls": 0,
+  "retentionCredentialsRead": false,
+  "auditFailureRequestPin": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "artifactReferencePathSemantics": "Native filepath.Join: empty separators and dot components collapse; parent/absolute references refuse; original hashes unchanged",
+  "normalizedArtifactReferencePaths": 420
+}
