@@ -1,0 +1,11 @@
+{
+  "kind": "DERIVED_COLLECTOR_AUTHORING_CORRECTION",
+  "firstCollectorSHA256": "d5ad3806eb1d301ee9c5652e84ce41f549d2b598b2c8e832d94bc5e24ee2802b",
+  "reason": "Literal string concatenation treated legitimate trailing empty-effort directory separators as missing member names; native consumer filepath.Join resolves those separators. Correct the observer only, preserve raw manifests, every SHA, and all original gate refusals.",
+  "initialObservations": [
+    "ordinary-initial-literal-join.json.gz",
+    "race-initial-literal-join.json.gz"
+  ],
+  "sourceOrOracleChanged": false,
+  "nativeGateResultChanged": false
+}

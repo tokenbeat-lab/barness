@@ -1,0 +1,48 @@
+{
+  "state": "CLOSED",
+  "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "sourceUnchanged": true,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "commands": {
+    "minimal-audit-1-command.json": 1,
+    "minimal-audit-2-command.json": 1,
+    "minimal-with-marker-1-command.json": 1,
+    "minimal-with-marker-2-command.json": 1,
+    "replay-race-once-command.json": 1,
+    "replay-race-three-command.json": 0,
+    "verify-retained-failure-command.json": 1
+  },
+  "symptom": "VQ12-failure-decisions-plain-deadline honest failure package replays",
+  "fastScenarioOnceExit": 1,
+  "threeLaterScenariosExit": 0,
+  "captureTimingSensitive": true,
+  "retainedPacketPublicVerificationExit": 1,
+  "retainedError": "independent redaction audit failed",
+  "minimalPayloadBytes": 0,
+  "minimalPayloadSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "minimalWithRequiredMarkerRepeatedExits": [
+    1,
+    1
+  ],
+  "initialMinimalNoMarkerExits": [
+    1,
+    1
+  ],
+  "initialMinimalNoMarkerError": "evidence audit could not read the bundle",
+  "minimalMarkerAddedAfterInitialProbe": true,
+  "rootCause": "Authentic pre-attempt scope deadline; writer serializes absent request bytes as empty JSON and verifier assumes a transmitted attempt",
+  "hypotheses": {
+    "preAttemptScopeDeadline": "CONFIRMED",
+    "captureLossAfterAttempt": "FALSIFIED",
+    "diskOverwrite": "NO_SUPPORT"
+  },
+  "unchangedQualifiedGroups": 11,
+  "proposedExampleOnlyFixAffectedGroups": [
+    "protocol114",
+    "visual-jev",
+    "visual-decisions"
+  ],
+  "freshProofRequiredAfterSuchFix": true,
+  "paidRoundRemainsClosed": true
+}

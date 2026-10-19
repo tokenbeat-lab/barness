@@ -1,0 +1,161 @@
+{
+  "decision": "PASS_DATA_CONSISTENCY_RELEASE_FAILED",
+  "axis": "Spec",
+  "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "findings": [],
+  "report": "The completed gate records the actual numeric command exits 0/0/0/1 (vet/live-vet/ordinary/race), matching the public report command booleans; the outer command exited1 and release pass is false. Ordinary produced12,495 PASS and audit0. Race produced12,494 PASS plus exactly one FAIL: VQ12-failure-decisions-plain-deadline. Its only original audit finding is the already diagnosed empty samples/v08/request.json. The public report repeats the run finding during independent audit; these are the same file and rule, not two independent leaks. All17 own support inputs and four independent Chinese/visual effects are PASS. The eleven freshly qualified groups remain applicable at unchanged01341; no native report or matrix was modified. The failed gate IDs are go-test-race, redaction-audit, traceability and required-artifacts. TS-R11 and the required-artifact failures propagate the race case/audit failure; the report does not establish an additional provider or business-effect defect. Independent postrun hashes still match all1,074 selected source files,21 input trees/3,536 files, compiled CLI, observer, actual Go, matrix and origins. This review accepts the truthfulness of the failed result, not full release certification. No project program, verifier, test, credential or provider call was executed by the reviewer.",
+  "actualExits": {
+    "ordinary": 0,
+    "vet-live": 0,
+    "race": 1,
+    "vet": 0
+  },
+  "outerExit": 1,
+  "releasePass": false,
+  "sourceAndInputsUnchanged": {
+    "selectedFiles": 1074,
+    "inputTrees": 21,
+    "inputFiles": 3536,
+    "independentlyRehashedAfterRun": true
+  },
+  "suites": {
+    "offline": {
+      "cases": 12495,
+      "counts": {
+        "PASS": 12495
+      },
+      "failedCases": [],
+      "auditFindings": [],
+      "manifestSHA256": "1a21bee8eb8a04c2e874a8a6e5e2b1aae63477a8ab2305d1ef45e57cd8c0534f",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+    },
+    "race": {
+      "cases": 12495,
+      "counts": {
+        "PASS": 12494,
+        "FAIL": 1
+      },
+      "failedCases": [
+        "VQ12-failure-decisions-plain-deadline"
+      ],
+      "auditFindings": [
+        {
+          "file": "visual-failure-decisions-plain-deadline/samples/v08/request.json",
+          "rule": "unparseable",
+          "detail": "not JSON (invalid): JSON rules not applied"
+        }
+      ],
+      "manifestSHA256": "26045d073f3a87db9f61e034b71b6f34a7d6a25f34479288a7bd363abaec21d1",
+      "auditSHA256": "590172eba1ae878d0da11357ab8577b8d271747200ab661f7753e3f247bb5d34"
+    }
+  },
+  "liveOwnInputs": 17,
+  "fourBusinessEffects": {
+    "chinese-effect-jev": "PASS",
+    "chinese-effect-luna": "PASS",
+    "visual-effect-jev": "PASS",
+    "visual-effect-decisions": "PASS"
+  },
+  "failedGateIDs": [
+    "go-test-race",
+    "redaction-audit",
+    "traceability",
+    "required-artifacts"
+  ],
+  "traceabilityFailures": [
+    {
+      "id": "TS-R11",
+      "source": ".scratch/barness-ai-thinking-sampling/spec.md#r11",
+      "requirement": "Current nine-route release contract, independent Chinese effect and design-load artifacts",
+      "scenarios": [
+        "LIVE",
+        "ARTIFACTS"
+      ],
+      "status": "FAIL",
+      "offline": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "differential": {
+        "pass": 0,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "live": {
+        "pass": 17,
+        "fail": 0,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "artifacts": {
+        "pass": 27,
+        "fail": 1,
+        "notRun": 0,
+        "unsupported": 0
+      },
+      "evidence": [
+        "support-matrix:openai-responses=PASS",
+        "support-matrix:anthropic-messages=PASS",
+        "support-matrix:google-gemini=PASS",
+        "support-matrix:openai-chat=PASS",
+        "support-matrix:deepseek-responses=PASS",
+        "support-matrix:deepseek-chat=PASS",
+        "support-matrix:typesafe-classifier=PASS",
+        "support-matrix:openai-images=PASS",
+        "support-matrix:google-interactions-image=PASS",
+        "support-matrix:openai-decisions=PASS",
+        "support-matrix:typesafe-classifier-jev-1.14.0=PASS",
+        "support-matrix:zhipu-chat=PASS"
+      ]
+    }
+  ],
+  "rawPins": {
+    "full-gate-result.json": {
+      "bytes": 1849,
+      "sha256": "af95c0f653f7730cce85ce92cdbe12f0dc72404662912dbeb71f69de71b907b1"
+    },
+    "full-releasegate-command.json": {
+      "bytes": 3000,
+      "sha256": "d107ed04ed5fc0addef2b0b60a22117b86b4959a354c59dc785f6276c9c543a4"
+    },
+    "full-releasegate.log": {
+      "bytes": 142920,
+      "sha256": "36482daa4c4b6f61664f8379775106a5c9280af3e4ff79cc886f2b77c097ee94"
+    },
+    "gate/release-report.json": {
+      "bytes": 458223,
+      "sha256": "62637ac00b9d1dadfce5b2cf39e5f978ed910cda853b9476272afabb1b72680f"
+    },
+    "full-gate-source-review.json": {
+      "bytes": 1945,
+      "sha256": "23fbffb0a95bae30e1ca7e0a4cd35b81bdce2c3719abc4dedc2ecaee3d791dd6"
+    },
+    "full-gate-plan.json": {
+      "bytes": 5895,
+      "sha256": "c81ead7d3b162a2a6a448a548df4794e8838af782e59ff5cf7d3398a9c10802c"
+    },
+    "full-gate-source.json": {
+      "bytes": 119452,
+      "sha256": "1addf761d313ea38d80ae049364e4cdaa8f62c38c6dfae321c54171f1ca9528a"
+    },
+    "full-gate-inputs.json": {
+      "bytes": 417484,
+      "sha256": "9c5141d89868dccb32fbdb44177d23d2b5f9c4df3fc88b07dfe6950a56e27ff9"
+    }
+  },
+  "numericCommandReceiptSHA256": {
+    "vet": "084072f771d1f0d5bcb52ce4d85275cfc7391e462d229336a5fce8d854254117",
+    "vet-live": "b8797f84a90f63c50434a69e31122e1cdf4085bd12514a132ae5669b4e8e5035",
+    "ordinary": "458e25e982174b424fb9a578a608df4df0549866378b143d1bc1ec4aeaa1e974",
+    "race": "7d2775eb7632fb172eff686247fdc34681d8be126447bd70402484678b9370be"
+  },
+  "qualificationReview": "/tmp/barness-ticket19-final-data-docs-spec-review.json",
+  "rootCauseDiagnosis": "/tmp/barness-visual-deadline-diagnosis-spec.json",
+  "lifecycleDomainAddendum": "/tmp/barness-ticket20-unsent-lifecycle-domain.json",
+  "noCapturedOrProjectCodeExecuted": true,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

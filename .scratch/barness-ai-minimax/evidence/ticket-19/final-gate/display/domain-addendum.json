@@ -1,0 +1,61 @@
+{
+  "kind": "READ_ONLY_LIFECYCLE_DOMAIN_ADDENDUM",
+  "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "priorDiagnosis": "/tmp/barness-visual-deadline-diagnosis-spec.json",
+  "answer": "Resolved=true with zero Attempts is authentic. The observed PhaseScope timeout is necessarily unresolved and has zero credential reads, but that is only one reachable unsent state.",
+  "states": [
+    {
+      "state": "Already-ended at scope",
+      "resolved": false,
+      "credentialReads": 0,
+      "attempts": 0,
+      "errorPhase": "scope",
+      "source": "ai/classifier.go:63-69 checks context before executeClassifier and pin."
+    },
+    {
+      "state": "Cancellation during credential resolver",
+      "resolved": false,
+      "credentialReads": "0 at precheck, or1 when resolver was called before postcheck",
+      "attempts": 0,
+      "errorPhase": "credential",
+      "source": "ai/preflight.go:75,78-79; metadata Resolved is set only after resolveCredential and snapshot validation in ai/call_runtime.go:121-134."
+    },
+    {
+      "state": "Ended after credential pin during final request preparation",
+      "resolved": true,
+      "credentialReads": 1,
+      "attempts": 0,
+      "errorPhase": "request",
+      "source": "ai/call_runtime.go:131 pins resolved identity; ai/openai_decisions.go:23,33,37 call context-aware freeze/image checks before sendUnary at41; ai/openai_decisions_guard.go:67 and classifier_image_inputs.go:89 return context failures."
+    },
+    {
+      "state": "Ended while acquiring initial admission",
+      "resolved": true,
+      "credentialReads": 1,
+      "attempts": 0,
+      "errorPhase": "admission",
+      "source": "ai/retry.go:191-195 obtains admission before AttemptStarted and before recording; ai/admission.go:57-61 returns interruption on the ended context."
+    }
+  ],
+  "observationSemantics": "Zero-Attempt calls emit exactly CallStarted and CallFinished. For a post-pin cancellation, CallStarted retains the initial unresolved attribution, while CallFinished/result metadata is resolved. Match the immutable caller identity across both and the final complete metadata at the terminal; do not require their full attribution objects to be equal.",
+  "concreteExistingDeterministicSeam": "A public HookedClient.Classify header callback can cancel the caller context and return nil. pin is already complete; boundHooks.headers calls callbackFailure(ctx,nil), which checks context at ai/hooks_run.go:167 before any send. This deterministically reaches resolved=true/one credential read/zero Attempts/PhaseRequest using an existing public control point. Not executed during this review.",
+  "implication": "The strict example verifier may narrowly accept its observed unresolved scope branch, but cannot define all authentic unsent cancel/deadline records as unresolved/no credential reads. A complete unsent lifecycle branch must preserve actual measured credential access and distinguish pre-pin from post-pin terminals; no fabricated Attempt or capture and no audit weakening.",
+  "sourcePins": {
+    "ai/classifier.go": "f89ea4b016ffce7421f077f7bd02c1f07285a5951de3cd554c6d38e29af21328",
+    "ai/call_runtime.go": "75a839ce1a35ecc811420f94b53f2106dcd5ebc23ff576f217136ee4e61ff0f0",
+    "ai/preflight.go": "3a9d7e6eca9b19dd90f4a98071be72cb36dc20b5cb324bb4c21bc793aac90740",
+    "ai/openai_decisions.go": "4f3494ee48ec2dde5c8286b7dcb67f73a91403f2b012fd0b7d6e2b657c13af48",
+    "ai/openai_decisions_guard.go": "fc32bc2a7347ba602555e89218cbb02237d7d8ad211f2e682f27ce8cad989f72",
+    "ai/classifier_image_inputs.go": "ee93fc681fda458f35562af174ea55943184fd5295acfcbd2b687e66f1cbcbba",
+    "ai/typesafe.go": "5a987b09c528c795f0c7d3b66223f966646b2d14954ebf0f089c337556d573c0",
+    "ai/typesafe_image_guard.go": "82918dd8ab33707bd60412e0140c6e3c39670c889dbdb2a59645a0353331d6c2",
+    "ai/retry.go": "e3a9592a1b7d4d34dd95051db4378fdb1a00947318571bea195b2edf1c47766a",
+    "ai/admission.go": "3735107e50e76061462ac439ac252f9966539d6016d80a1b980ea48680c46543",
+    "ai/hooks_run.go": "d7f26553a4da9cf6a4163e198e4fdeecb8fed542c34d895fa11e5843b0407828",
+    "ai/examples/visualeval/host.go": "2bb077fac84996cc38134f4eb33718573c18ae9350938346a630c10c1aee0e92"
+  },
+  "testsOrProjectProgramsExecuted": false,
+  "sourceOrEvidenceMutated": false,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

@@ -1,0 +1,46 @@
+Run from the owned or integrated repository. Only the two exact existing readers execute; captured programs never execute.
+
+python3 -B - <<'PY'
+import gzip,hashlib,json,os,stat,subprocess,types
+from pathlib import Path
+root=Path.cwd().resolve();base=root/'.scratch/barness-ai-minimax/evidence/ticket-19/final-gate'
+def load(relative,pin):
+ p=root/'.scratch/barness-ai-minimax/evidence/ticket-13'/relative
+ with os.fdopen(os.open(p,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK),'rb') as stream:
+  info=os.fstat(stream.fileno())
+  if not stat.S_ISREG(info.st_mode) or info.st_size>65536:raise ValueError('bounded fixed reader')
+  raw=stream.read(65537)
+ if len(raw)>65536 or hashlib.sha256(raw).hexdigest()!=pin:raise ValueError('fixed reader hash')
+ module=types.ModuleType('fixed_reader');module.__file__=str(p);exec(compile(raw,str(p),'exec'),module.__dict__);return module
+b=load('implementation/verify.py','b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f');full=load('final-gate/capsule.py','3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328')
+for line in b.read(base,'SHA256SUMS',1<<20).decode().splitlines():
+ expected,name=line.split('  ',1)
+ if b.sha(b.read(base,name,8<<20))!=expected:raise ValueError('frontdoor metadata pin')
+index=b.doc(b.read(base,'index.json',1<<20));common=Path(subprocess.check_output(['git','rev-parse','--git-common-dir'],text=True).strip()).resolve().parent
+if [v['label'] for v in index['capsules']]!=['ordinary','race','outer','prepared-history','diagnostic']:raise ValueError('fixed disjoint closed scopes')
+results=[];captured={}
+for item in index['capsules']:
+ cap=b.doc(b.read(base,item['index'],1<<20))
+ if cap['archive']!=item['archive']:raise ValueError('original archive pin')
+ pins,observed,result=full.verify(b,base/item['label'],common,cap);captured[item['label']]=observed
+ if item['label'] in ('ordinary','race'):
+  main=[n for n in observed if n.startswith('original/') and n.endswith('/manifest.json') and len(n.split('/'))==3]
+  if len(main)!=1:raise ValueError('original main manifest')
+  manifest=b.doc(observed[main[0]]);prefix=main[0].removesuffix('manifest.json');refs=0
+  for case in manifest['cases']:
+   for leaf,pin in case.get('artifacts',{}).items():
+    if any(p.startswith('/') or '..' in p.split('/') for p in (case['dir'],leaf)):raise ValueError('escaping original reference')
+    name='/'.join(p for p in (prefix+case['dir']+'/'+leaf).split('/') if p not in ('','.'));b.relative(name)
+    if pins.get(name,{}).get('sha256')!=pin:raise ValueError('native filepath.Join artifact reference pin')
+    refs+=1
+  if refs!=99113:raise ValueError('complete original artifact reference count')
+  result['artifactReferences']=refs
+ results.append(dict(label=item['label'],**result));print(json.dumps(results[-1]),flush=True)
+result=b.doc(captured['outer']['original/full-gate-result.json']);report=b.doc(captured['outer']['original/gate/release-report.json'])
+if result['outerExit']!=1 or report['pass'] is not False or [result['commands'][k]['exitCode'] for k in ('vet','vet-live','ordinary','race')]!=[0,0,0,1] or any(type(result['commands'][k]['exitCode']) is not int for k in result['commands']):raise ValueError('literal original failed verdict')
+history=b.doc(captured['prepared-history']['original/prepared-only-superseded.json'])
+if history['fullGateExecuted'] is not False:raise ValueError('history must remain unrun')
+diag=b.doc(captured['diagnostic']['original/closed-diagnostic-summary.json'])
+if diag['state']!='CLOSED' or diag['retainedPacketPublicVerificationExit']!=1 or diag['threeLaterScenariosExit']!=0:raise ValueError('separate honest diagnostic')
+print(json.dumps(dict(custodyVerified=True,capsules=results,recordedSourceCommit=result['sourceCommit'],releasePass=False,releaseCertified=False,retentionPaidCalls=0,retentionCredentialsRead=False),indent=2))
+PY
