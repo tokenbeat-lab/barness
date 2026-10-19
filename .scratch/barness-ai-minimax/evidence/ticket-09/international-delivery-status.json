@@ -6,7 +6,7 @@
   "releaseCertified": false,
   "specClosed": false,
   "latestPaidActualSource": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
-  "currentCodeSource": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "currentCodeSource": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
   "allAuthorizedPaidProcessesClosed": true,
   "additionalPaidRoundAuthorized": false,
   "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
@@ -484,7 +484,7 @@
     "evidence": "evidence/ticket-18/cleanup.json"
   },
   "currentSourceElevenRevalidation": {
-    "state": "PREPARING",
+    "state": "SOURCE_REVIEWED_KEYLESS_CHECKS_PENDING",
     "sourceCommit": "751ad941a7dcda4392ee9dd73ff6089f8c846f0e",
     "precheckCurrentQualified": 0,
     "strictGroups": 11,
@@ -494,6 +494,14 @@
     "newBudgetApproved": false,
     "proposedAdditionalMaxCalls": 216,
     "proposedAdditionalMaxHTTPAttempts": 252,
-    "evidence": "evidence/ticket-19/precheck/README.md"
+    "evidence": "evidence/ticket-19/precheck/README.md",
+    "codeSourceCommit": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+    "sourceReviews": {
+      "Standards": 0,
+      "Spec": 0,
+      "evidence": "evidence/ticket-19/reviews/README.md"
+    },
+    "sixCurrentKeylessChecksCompleted": false,
+    "newActualFormalQualification": false
   }
 }

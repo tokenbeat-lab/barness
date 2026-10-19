@@ -1,0 +1,208 @@
+{
+  "axis": "Spec",
+  "status": "PASS_SOURCE_ONLY",
+  "reviewedAt": "2026-10-19T05:24:54.293460+00:00",
+  "base": "5ba420231082f1b6df2ce6ec9d7d3bd88a079cef",
+  "head": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+  "diffCommand": "git diff 5ba420231082f1b6df2ce6ec9d7d3bd88a079cef...fbbdea4c321fe4368879845d5e6f224dac289c9a",
+  "diffSHA256": "690531ccd691a0bfb02ccbfc92a140cdda3b8986499b98138cee60f42bc5e744",
+  "commitCommand": "git log 5ba420231082f1b6df2ce6ec9d7d3bd88a079cef..fbbdea4c321fe4368879845d5e6f224dac289c9a --oneline",
+  "commits": [
+    "fbbdea4c321fe4368879845d5e6f224dac289c9a Audit retained reports independently before merging seven new rows",
+    "e4a7bb15a1d2c75f83d36c02eed798f33fa885af Merge commit '01e8e423e0529e9ca12dbe992b6bc9ae3b48607a' into codex/current-eleven-renewal-tools",
+    "70dd53ac9b5e41a54e7e8f7ab3dff9efd42d8c67 Merge commit '1c366ab' into codex/current-eleven-renewal-tools",
+    "057430ae2b7305996bdbdf29b23f8cc664d6f424 Add one bounded current-source eleven-group renewal authority",
+    "01e8e423e0529e9ca12dbe992b6bc9ae3b48607a docs: retain native formal renewal TDD and bounded keyless proof",
+    "e3fd1e5b224546480e4ac3197271a57689aa8c93 Merge branch 'codex/minimax-global' into codex/minimax-formal-source-renewal",
+    "f599c6cee2a8c7a666cfbcccb5ad44ccd94b575e feat: bound MiniMax formal source renewal to one approved grant",
+    "1c366ab3338378e15b711d379777cd58a9082930 docs: preserve independent remaining verification after closed GLM failure",
+    "ebf76c9d73095b5de5fabc4cc6cfd92f9fd5f59d docs: distinguish verifier processes from qualification results",
+    "e466a3f9d7d6b1ab27b0c4561fd3ae2d5576fe1a docs: record eleven-group source rejection and renewal boundary",
+    "751ad941a7dcda4392ee9dd73ff6089f8c846f0e docs: scope current-source eleven-group renewal"
+  ],
+  "originalReview": {
+    "head": "70dd53ac9b5e41a54e7e8f7ab3dff9efd42d8c67",
+    "file": "/tmp/barness-ticket19-final-spec-review.json",
+    "sha256": "7eb4943a0513f58c612a22f649c855a4161e61bd87773fe863afb1dae04a44b0",
+    "unchanged": true
+  },
+  "resolvedFindings": [
+    {
+      "id": "T19-FINAL-SPEC-01",
+      "status": "RESOLVED",
+      "file": ".scratch/barness-ai-minimax/tools/eleven_finalize.py",
+      "line": 43,
+      "requirementQuote": "本轮七份新支持报告（M3×3、GLM×3、派生Jev）经公开消费者和临时矩阵验证后才更新对应行，其余十行按既有受影响组合规则复核保留。",
+      "requirementSource": "docs/adr/0047-current-source-formal-renewal.md:11",
+      "correction": "Separate identity-only matrix audits all17 through original public consumer; original candidate/default receives only bundles[10:] fresh7; old10 and non-row fields verified unchanged; source/identity/assertion admission unchanged.",
+      "closedProofSHA256": {
+        "result.json": "be7c0862de6b909e6ece4220764dcee42e6ddb301b25ec945cea1f7516f2354a",
+        "existing-default-red-command.json": "4b8f8e3b4f099b1bfc70f02ff386886744f6bb7cb905cb801f89f7814c065981",
+        "existing-default-red.log": "5963c3f57dec809c131cb54997f7b1d1b0663b67f24da5e5976e10505abe2bf1",
+        "independent-identity-audit-green-command.json": "05d78353e6f07838fa3e68df987e720c3ef134640246ed1f49aaa1df08d2e265",
+        "independent-identity-audit-green.log": "0e8f7f6296a586394118f73ba714965b83b49d8eb2ca6674908a7398f7ed2286"
+      }
+    }
+  ],
+  "findings": [],
+  "report": "PASS — combined source scope, 0 open Spec findings. T19-FINAL-SPEC-01 is resolved. ADR0047 requires “本轮七份新支持报告…经公开消费者和临时矩阵验证后才更新对应行，其余十行…保留”. Finalization now sends all17 own reports to the unchanged real supportmatrix consumer with a separate identity-only audit matrix. The candidate copied from the original default matrix receives only the fresh seven reports; the original ten row objects and all non-row data are checked unchanged before atomic replacement. Default history is never cleared or reimported. Closed real CLI receipts preserve equalLastRunAt RED1 and independent generic10 audit GREEN0; these do not claim a new vendor experiment. The false M3/text path concern remains excluded: p.unique returns a bundle directory.\n\nAll16 reviewed native AI source files exactly equal f599c6c, so its separate Spec PASS is reused. R26's immutable old39/36 history, fixed new60/72 plus20/24 identity caps, registered same-session reruns, one route/session claim, exact canonical grant/review/human/source/binary/plan bindings and complete source selection remain. Current-mode active HEAD and later unchanged-selected-source verification stay distinct.\n\nThe outer scope remains exactly11 jobs and216/252: GLM3 direct, remaining8 explicit local proxy, M3 own native report counters and canonical origin/public publication. Three closed known GLM with FAIL permit remaining work only with every source/data byte and four selectors unchanged; publication/promotion still requires all three own complete PASS. UNKNOWN blocks subsequent credential use. All eleven own PASS plus public effects/native verification are required before seven-row promotion, which explicitly leaves releaseCertified=false.\n\nNo missing mandatory source behavior, unrequested paid scope or incorrect implementation remains identified. This review does not authorize a real grant/budget, certify live qualification, approve unsealed retention, assert completion of the still-running full tool suite, or substitute for final exact root preparation/checks/reviews. Historical failures and the latest single Messages diagnostic PASS remain unchanged.",
+  "specSources": [
+    ".scratch/barness-ai-minimax/spec.md:R26/R27",
+    ".scratch/barness-ai-minimax/issues/19-current-source-eleven-renewal.md",
+    "docs/adr/0047-current-source-formal-renewal.md"
+  ],
+  "reviewedFilesSHA256": {
+    ".scratch/barness-ai-minimax/delivery-status.md": "0ee27165ce888e3072248e1be074f8488e99c3615a6c960e284815ca9945b386",
+    ".scratch/barness-ai-minimax/evidence/ticket-09/international-delivery-status.json": "470f02755abd0af89d3838335fee0051221c0a3e0161e9bcf929d90dfe9beb07",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/README.md": "0018aa2493e1d043cda408c617851980ecfaf35f1187086a684889968e1448a8",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/boundary-checks.json": "2ba6c99dffd7e87e1bc5f3f980eba222c6e5b93c15985459319fd708612c9d88",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/failure-inventory.md": "0415db02df6b9729e989ac8bc832ddf338a1cb87b9f3e1caf2234e3b2bb123a1",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/handoff.json": "b19d2a4ffa0bd1038d046ea8e96db8ee9c3789e088da55a95d614cbe46079ace",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/index.json": "e34507665a884b588e40b57e2c5af59af26ad07415a0fed222c215c3e4578475",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/inventory.json.gz": "199c8ce9833e7a2c6b1d23b8f360dbe98a9eaaab2c547772fb6e1a400930de3c",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/source-snapshot.json.gz": "0ad280370406e4b4c3d3c6e06c5eb385aa48f1e12ae26bee16c231a87636defa",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verification.json": "c8af2687ddff139820fef5c40bd285ce8bcaefa2a906cb530f7bf6ab99df5d38",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py": "78262464d63824c5cf5a94aea4fa18ea639ae422a8fd68ae63ca9e6f26c851e7",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/README.md": "b385d33d287e8d966fc9c32ae82b4677e85df4ca5e2e4c95c71dfc80361e2e49",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/binaries.json": "d0780ba362a2ad60d8a6e5295a21ec63dc7469eb8d2bb76b954338b922ff9eb7",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/build-command.json": "250320c6a8c4179af79bbe8d2b853d4cb7f4f55c500e4f850d51b4f1c03df50c",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/build-text-current-probe-command.json": "931bf3aa5ae8daa2da8dde4774cd8a3bfc4d47e44ad39b047a9f04522fc17fa8",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/build-text-current-probe.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/current-textcheck-main.go.txt": "d3dd85d0bbad952189c16a6bf96859ddcc9b64149800d6e9f280f9bee9544163",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/glm-chat-matrix-copy.json": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/glm-messages-matrix-copy.json": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/glm-responses-matrix-copy.json": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/public-native-results.json": "6109ab0109dc23887d33954f9258a36b987f51623853a30f49ec278c58a5f11e",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/result.json": "b19250098cad42014c647be70cd35ec1b9ddf3c3a62d01c52a0f88638c57be14",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/source-at-start.json.gz": "7977e4f7511079b915cdf16d0a86240d82862dc24db7c165ac6d6b9ce75f703e",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/text-probe-source.json": "3f2c1bc128180067da6bde8f582d364648a46b93c0ac6173d00fef86099bac55",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/textcheck-overlay.json": "323d785df981519a0960ba732e534c14af62ce601726cb6fa142d6225b6bee91",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-glm-chat-command.json": "6de3a0f0761539c879652d7c2dc0bee2f9c86ed467b6bc42e0b50e075dc28f34",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-glm-chat.log": "9442d1d60075ae29a86923819b864ee1cc00f19b923180eee0d507d97081a9bf",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-glm-messages-command.json": "2443e4a2aedbb595e67be82091891bd48c9b96774324a0c6736f1acd8afaf375",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-glm-messages.log": "cde33eff52387f65a172606bca3a7a908c68e19d54a80ac7b04c3a032d0199d7",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-glm-responses-command.json": "4cfd5613b3a0da80188f5ebb036c614aaf96e2e4ff532b388455e518ae7e9b1e",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-glm-responses.log": "04d60f3f6279e8ea08096576a00991f62cc2fabc38efeb8f1dae1c1d1db7e48c",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-m3-chat-command.json": "ec10ed5a585bf0338ca2556e1630272451464a5adaf2ae463f33cef0bbd00583",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-m3-chat.log": "4f26086237e46242823327625f61331d9fd298d1b87c524e07a052245dd03cb0",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-m3-messages-command.json": "9cc698579ed3f27dd41265eaa120ff2bd33a1ca647656904d3309d9f82de651f",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-m3-messages.log": "4f26086237e46242823327625f61331d9fd298d1b87c524e07a052245dd03cb0",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-m3-responses-command.json": "38da7eb13b3a32e54e67e7afc1b3d67651b35ef0142f4d3aa48ea47b3ab4e649",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-m3-responses.log": "4f26086237e46242823327625f61331d9fd298d1b87c524e07a052245dd03cb0",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-protocol114-command.json": "6762267ea301e8bdd3654b5d5f4f1838cbca87e1b3cf5b6bcae830d77bec9f19",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-protocol114.log": "b9d3c33c1e6e2b417cbfffb21b8d0d490dbf1b5d7a8db9bb19d9fb6595a08786",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-text-current-command.json": "347e63c9a609429a7543c6eacfb46c153603b36b811e2421022eb842d7d6e7ad",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-text-current.log": "4a7d37d980408e8586a41cd650d1db255d314c3fb7fcfcc95ca019ec57004494",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-visual-decisions-command.json": "5cfeee37e3e1663b0535f5d1726321d171efa7112ed792ab1a3cd2384065096f",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-visual-decisions.log": "b0b38eb5d0afb4afff8957b3c75a22d081e953ff844f4ba9d545731a9ec1a542",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-visual-jev-command.json": "07327ccfbaf1313f95d81c192b97bce151176a756cefbdeaf12f30a24795383d",
+    ".scratch/barness-ai-minimax/evidence/ticket-19/precheck/verify-visual-jev.log": "b0b38eb5d0afb4afff8957b3c75a22d081e953ff844f4ba9d545731a9ec1a542",
+    ".scratch/barness-ai-minimax/issues/19-current-source-eleven-renewal.md": "3de8aa49f3e9a9604c59bee80c268e510382a05d3bdfb783ee4008fe4a76ebb5",
+    ".scratch/barness-ai-minimax/map.md": "d54ca93a1a242e38a7d135de3b949aee710696b52dbed42dce9d4e829aa55f38",
+    ".scratch/barness-ai-minimax/spec.md": "c0856b1bd6de7253152f7df0aff0407b5ad8bed076e7e1e2e9645c0a1690df55",
+    ".scratch/barness-ai-minimax/tools/eleven_contract.py": "6198e1057ed79031fd78d6e02309e0089c3444715a5d27821b4c2fa8b81b0e94",
+    ".scratch/barness-ai-minimax/tools/eleven_finalize.py": "c5bf639f10975be958d58b05bf0647f11b64289fed21000385d1ed83c4d7a2f5",
+    ".scratch/barness-ai-minimax/tools/eleven_grant.py": "5de6bba81f6a32228b00dd6c02aeb5f2c3f38c5f96776219e98054284471c8bd",
+    ".scratch/barness-ai-minimax/tools/eleven_inputs.py": "ee274b7127369c2a97db9c796edcb533da5f24f233268beb5c931bc259b70e0c",
+    ".scratch/barness-ai-minimax/tools/eleven_validation.py": "173823d998b55703cb6ba9e7cd1287836a7775993d61f351cd365f0b9a36d7a5",
+    ".scratch/barness-ai-minimax/tools/paid.py": "5560df5569b897cc46b315288b67188557a9af47b5c04772b005dff88392cf99",
+    ".scratch/barness-ai-minimax/tools/renewal.py": "5029aec8ad065f3ab85d79f85d66f0f51ee4cdb3315a70864b16693f3f330b0b",
+    ".scratch/barness-ai-minimax/tools/renewal_glm.py": "2a1421000c359f0d38a4aefb477b643d76728ed58828d733e666e5efc8da33c6",
+    ".scratch/barness-ai-minimax/tools/repair_publication.py": "116270bb06c9084e65bd3a42845630bf0e70c22bbd2447baf688cc4cb0eca849",
+    ".scratch/barness-ai-minimax/tools/routed_evidence.py": "ab1eb2247183768680c0d6315357fc9ea7394405b0028775fe8611d63f41f0a0",
+    ".scratch/barness-ai-minimax/tools/test_eleven_validation.py": "fdb15670df9611aaf1a9649b8f08b6e0f5cbee481f6809943aedcfdd4ab99b33",
+    ".scratch/barness-ai-minimax/tools/test_renewal.py": "a28d8ba1d389f7fc96c42d83b89dc01f2f269a7540aa6b9d3b90dc391819dc30",
+    ".scratch/barness-ai-minimax/tools/test_repair_fixtures.py": "b61a79b10f307ad9f7edd5715c0fe7718d52c1f7ffafb527fa1d6b697d91d522",
+    "GLOSSARY.md": "8b39a5bbe77ff9d7424222f11f7f377ac163474c8b4b37125e991a5ff44bfff2",
+    "ai/internal/testkit/minimaxlive/ledger.go": "115f74eaa011bdca6b131da391a846910b1d3cd3c45445deb58f132ad84bba49",
+    "ai/internal/testkit/minimaxlive/ledger_evidence.go": "883536c0a8816b370ebee629a676d577a2c57a9756b53bb5b93786496ee0bca8",
+    "ai/internal/testkit/minimaxlive/origin.go": "b2a65ccf9a43a191db46d657b8d4a32c35533ed77fac1750e5fef199d281e52c",
+    "ai/internal/testkit/minimaxlive/renewal.go": "7b65d54824e81534e77dfa3f1519e2f19d58bc25c46edb80ccde34a93de8274c",
+    "ai/internal/testkit/minimaxlive/renewal_ledger.go": "cd76163c68a8b24797ba0bc7b8b4c3d719334d002c7a8e89c34e3313b1522f35",
+    "ai/internal/testkit/minimaxlive/renewal_process_test.go": "9f3c10294efa78be0305dca9ce4a8346cdf7d8ce44dd200af71a54b3a8ed67e3",
+    "ai/internal/testkit/minimaxlive/renewal_report.go": "c4f9ef2c763ea96cd21d85006991f6667bc16047e6c74d49407f8e180d2b0914",
+    "ai/internal/testkit/minimaxlive/renewal_report_test.go": "3bdda4bfac874fccf17382e511859f2bd5e290dc22caeb1cf5873b2f3063ad79",
+    "ai/internal/testkit/minimaxlive/renewal_test.go": "e07c52e8a7a83970094ed377e21b29c3946a6bc35cd4c2710682c49a53691004",
+    "ai/internal/testkit/minimaxlive/report.go": "c0c938c1d3c4a8875abd432b477e0a49c63026f8bcd64c8b3302e40f5d9dfdcc",
+    "ai/internal/testkit/minimaxlive/source.go": "d390eea4bdc3e16ff0900f08b7afc8f46817908ad73aaebec1ad89fc7af9ef09",
+    "ai/internal/testkit/minimaxlive/stage_path.go": "78e68e2d75a1dd3cf919ec5a706ea72667b6a427186a6f05f6c22e2cf86d184e",
+    "ai/internal/testkit/minimaxlive/verify.go": "e0f42f51974990a523d6de11714d106914deadf95a544bd318f2dbfb487732c8",
+    "ai/live/cmd/minimaxverify/main.go": "46cf9612fac8124bb8ebda9afca803b126f25dda5026eb1b623ca5d82cc85f67",
+    "ai/live/minimax_config_test.go": "55118e7edb7a02ab1662d8b617fbb2b58e52ed7d2407bb0abd148991fc918f0f",
+    "ai/live/minimax_renewal_process_test.go": "2336903948d72bd32a746040e842162594ca9d2d1db955292c965d24e74a3fcc",
+    "docs/adr/0047-current-source-formal-renewal.md": "8c9b29b601ed9960b5ca7b84f3e76e939a9df1a03daa2113fe7280ad4a26f4ec"
+  },
+  "nativeComponent": {
+    "head": "f599c6cee2a8c7a666cfbcccb5ad44ccd94b575e",
+    "reviewFile": "/tmp/barness-ticket19-native-source-spec-review.json",
+    "reviewSHA256": "887ea3f72207e03859d32bd4a907de04d1a3bd50593d98c2106965f124be63d7",
+    "exactFileEquality": {
+      "ai/internal/testkit/minimaxlive/ledger.go": {
+        "sha256": "115f74eaa011bdca6b131da391a846910b1d3cd3c45445deb58f132ad84bba49",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/ledger_evidence.go": {
+        "sha256": "883536c0a8816b370ebee629a676d577a2c57a9756b53bb5b93786496ee0bca8",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/origin.go": {
+        "sha256": "b2a65ccf9a43a191db46d657b8d4a32c35533ed77fac1750e5fef199d281e52c",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/renewal.go": {
+        "sha256": "7b65d54824e81534e77dfa3f1519e2f19d58bc25c46edb80ccde34a93de8274c",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/renewal_ledger.go": {
+        "sha256": "cd76163c68a8b24797ba0bc7b8b4c3d719334d002c7a8e89c34e3313b1522f35",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/renewal_process_test.go": {
+        "sha256": "9f3c10294efa78be0305dca9ce4a8346cdf7d8ce44dd200af71a54b3a8ed67e3",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/renewal_report.go": {
+        "sha256": "c4f9ef2c763ea96cd21d85006991f6667bc16047e6c74d49407f8e180d2b0914",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/renewal_report_test.go": {
+        "sha256": "3bdda4bfac874fccf17382e511859f2bd5e290dc22caeb1cf5873b2f3063ad79",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/renewal_test.go": {
+        "sha256": "e07c52e8a7a83970094ed377e21b29c3946a6bc35cd4c2710682c49a53691004",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/report.go": {
+        "sha256": "c0c938c1d3c4a8875abd432b477e0a49c63026f8bcd64c8b3302e40f5d9dfdcc",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/source.go": {
+        "sha256": "d390eea4bdc3e16ff0900f08b7afc8f46817908ad73aaebec1ad89fc7af9ef09",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/stage_path.go": {
+        "sha256": "78e68e2d75a1dd3cf919ec5a706ea72667b6a427186a6f05f6c22e2cf86d184e",
+        "sameAsF599": true
+      },
+      "ai/internal/testkit/minimaxlive/verify.go": {
+        "sha256": "e0f42f51974990a523d6de11714d106914deadf95a544bd318f2dbfb487732c8",
+        "sameAsF599": true
+      },
+      "ai/live/cmd/minimaxverify/main.go": {
+        "sha256": "46cf9612fac8124bb8ebda9afca803b126f25dda5026eb1b623ca5d82cc85f67",
+        "sameAsF599": true
+      },
+      "ai/live/minimax_config_test.go": {
+        "sha256": "55118e7edb7a02ab1662d8b617fbb2b58e52ed7d2407bb0abd148991fc918f0f",
+        "sameAsF599": true
+      },
+      "ai/live/minimax_renewal_process_test.go": {
+        "sha256": "2336903948d72bd32a746040e842162594ca9d2d1db955292c965d24e74a3fcc",
+        "sameAsF599": true
+      }
+    }
+  },
+  "verification": "Read-only committed Git objects and closed local CLI receipts/logs. No project/captured program/test/verifier execution, Key/env read, network, paid request, or repository writes. Full tools suite not inspected while active."
+}

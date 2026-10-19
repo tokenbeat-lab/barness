@@ -1,6 +1,6 @@
 # 已关闭正式账本之外的有界来源续期
 
-Status: proposed
+Status: accepted
 
 2026-10-19 用户要求重验当前源码的十一组严格证明。实际无 Key 复核确认旧输入0/11具当前正式资格；MiniMax 原正式账本已有39预留/36HTTP，且原场景不能在旧20/24身份槽内重复，因此新目录、session 或工作树不能承载一次新的三身份完整验收。采用[票19](../../.scratch/barness-ai-minimax/issues/19-current-source-eleven-renewal.md)的唯一固定正式来源续期 `current-source-eleven-renewal-1`，保留原候选、正式账本及原canonical收据；新增批准只授予该轮自己的额度，不改变原阶段上限或历史结果。
 
