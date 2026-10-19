@@ -3,15 +3,15 @@
   "updated": "2026-10-19",
   "integrationBranch": "codex/minimax-global",
   "delivery": "PARTIAL",
-  "releaseCertified": false,
+  "releaseCertified": true,
   "specClosed": false,
-  "latestPaidActualSource": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+  "latestPaidActualSource": "78843eb99905e95c8fa534a75897e0dc8787b1da",
   "currentCodeSource": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
   "allAuthorizedPaidProcessesClosed": true,
   "additionalPaidRoundAuthorized": false,
   "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
-  "legacyCalls": 648,
-  "legacyAttempts": 648,
+  "legacyCalls": 873,
+  "legacyAttempts": 870,
   "fixedSixReleaseRepair1": {
     "round": "release-repair-validation-1",
     "status": "CLOSED",
@@ -111,25 +111,28 @@
     }
   },
   "defaultMatrix": {
-    "sha256": "5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754",
+    "sha256": "5913236998b006a14f3e611e71f584e3c6c6c17859d8bf319d51655dce5fc899",
     "rowCount": 17,
     "latestPass": 17,
     "latestFail": 0,
-    "updatedFreshRows": 7,
-    "preservedGenericRows": 10,
-    "genericRowObjectsAndTimesUnchanged": true,
-    "evidence": "evidence/ticket-19/actual/remaining/README.md"
+    "updatedFreshRows": 1,
+    "protectedRows": 16,
+    "protectedRowObjectsAndTimesUnchanged": true,
+    "publicationExit": 0,
+    "publicationResultSHA256": "6a52a09b8384d4ab3edae9695261c4dffcdd8931736b099d9b06f8fd340ced07",
+    "testedCandidateBeforePublication": true,
+    "evidence": "evidence/ticket-21/actual/README.md"
   },
   "latestFullGate": {
-    "source": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+    "source": "78843eb99905e95c8fa534a75897e0dc8787b1da",
     "state": "COMPLETED",
-    "certifiesCurrentCodeSource": false,
+    "certifiesCurrentCodeSource": true,
     "fourCommandsActuallyExecuted": true,
     "individualCommandExitCodes": {
-      "ordinary": 0,
+      "vet": 0,
       "vet-live": 0,
-      "race": 1,
-      "vet": 0
+      "ordinary": 0,
+      "race": 0
     },
     "mainE2E": {
       "ordinary": {
@@ -141,15 +144,15 @@
       },
       "race": {
         "cases": 12495,
-        "PASS": 12494,
-        "FAIL": 1,
+        "PASS": 12495,
+        "FAIL": 0,
         "NOT_RUN": 0,
-        "auditFindings": 1
+        "auditFindings": 0
       }
     },
     "reportPresent": true,
-    "releasePass": false,
-    "outerExit": 1,
+    "releasePass": true,
+    "outerExit": 0,
     "reportConsistent": true,
     "finalInputPostGuardsComplete": true,
     "selectedSourceAndInputsUnchanged": true,
@@ -158,23 +161,18 @@
     "adoptedOldOfflineBundles": false,
     "liveSupportIdentitiesPASS": 17,
     "independentBusinessEffectsPASS": 4,
-    "failedCase": "VQ12-failure-decisions-plain-deadline",
-    "failedAssertion": "honest failure package replays",
-    "failedAuditRule": "unparseable",
-    "failedAuditFile": "visual-failure-decisions-plain-deadline/samples/v08/request.json",
-    "failedGateIDs": [
-      "go-test-race",
-      "redaction-audit",
-      "traceability",
-      "required-artifacts"
-    ],
-    "seconds": 3770.7171571250074,
-    "reportSHA256": "62637ac00b9d1dadfce5b2cf39e5f978ed910cda853b9476272afabb1b72680f",
-    "resultSHA256": "af95c0f653f7730cce85ce92cdbe12f0dc72404662912dbeb71f69de71b907b1",
-    "rawEvidence": ".evidence/minimax-current-eleven-gate-2",
-    "retainedEvidence": "evidence/ticket-19/final-gate/README.md",
-    "custodyReviewSHA256": "7ff7d98196a5964ebdce3355f28b46424dea3eb8606c6f94d459892c9be971b6",
-    "custodyReviewFindings": 0
+    "reportSHA256": "badb24706cad2629d6553a878b4afdfcfdadb071397ce8153597eaa43bcf4a77",
+    "resultSHA256": "454b0f928e3d6b2cfbb87019ad3dbbd371326b4655110278c0869a37b72fc211",
+    "rawEvidence": ".evidence/minimax-current-visual-gate-1",
+    "actualReviewFindings": {
+      "Spec": 0,
+      "Standards": 0
+    },
+    "actualReviewSHA256": {
+      "Spec": "7345e06866513c39e5f714f916c81d98f462008805e1a219a787f80ed41d6a5a",
+      "Standards": "2816449602056c73427f1b1eeb4b95f605993e34bdc2b2bddd95db947f16e4a0"
+    },
+    "custodyState": "IN_PROGRESS"
   },
   "m3Formal": {
     "source": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
@@ -207,18 +205,18 @@
   },
   "sourceApplicability": {
     "evaluatedCodeCommit": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
-    "strictSourceMapsCurrent": false,
+    "strictSourceMapsCurrent": true,
     "strictGroups": 11,
-    "currentQualifiedGroups": 8,
+    "currentQualifiedGroups": 11,
     "glmCollectionSource": "d2354144570da8aeda56862bbcaffe323061f986",
     "glmToRemainingTransition": "Only four GLM raw/known-usage/views publication data selectors changed; exact runtime and assertion bytes unchanged",
-    "publicNativeConsumerExitsAllZero": false,
+    "publicNativeConsumerExitsAllZero": true,
     "currentChineseEffectsAPIExit": 0,
     "genericTenSourceApplicabilityRetained": true,
     "oldReportsRehashed": false,
     "oldSourceMapsNarrowed": false,
     "oldGateCertifiesChangedSource": false,
-    "evidence": "evidence/ticket-19/actual/remaining/README.md",
+    "evidence": "evidence/ticket-21/actual/README.md",
     "selectedExecutionFiles": 1078,
     "selectedExecutionBytesUnchangedFromRemainingSource": false,
     "unchangedSelectedGroups": [
@@ -231,22 +229,19 @@
       "text-jev",
       "text-luna"
     ],
-    "pendingRenewedGroups": [
-      "protocol114",
-      "visual-jev",
-      "visual-decisions"
-    ]
+    "pendingRenewedGroups": [],
+    "evaluatedExecutionCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da"
   },
   "openTickets": [
     "09",
     "10",
     "12",
     "15",
-    "19"
+    "21"
   ],
   "blockers": [
-    "Visual example invoked-but-unsent cancellation retention/replay defect causes race failure and one unparseable audit finding",
-    "Final source review, current-source proof for any affected groups, and a passing complete release certification remain required"
+    "Final complete gate/publication custody and independent evidence/document review remain pending",
+    "Final integration/ticket closure and owned worktree cleanup remain pending"
   ],
   "historical": {
     "preFixedSixStatus": "evidence/ticket-15/pre-fixed6-delivery-status.json",
@@ -461,6 +456,72 @@
       "paidCalls": 0,
       "adoptedOldOfflineBundles": false,
       "previousFailurePreserved": true
+    },
+    "preThreeCurrentSourceFullGate": {
+      "source": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "state": "COMPLETED",
+      "certifiesCurrentCodeSource": false,
+      "fourCommandsActuallyExecuted": true,
+      "individualCommandExitCodes": {
+        "ordinary": 0,
+        "vet-live": 0,
+        "race": 1,
+        "vet": 0
+      },
+      "mainE2E": {
+        "ordinary": {
+          "cases": 12495,
+          "PASS": 12495,
+          "FAIL": 0,
+          "NOT_RUN": 0,
+          "auditFindings": 0
+        },
+        "race": {
+          "cases": 12495,
+          "PASS": 12494,
+          "FAIL": 1,
+          "NOT_RUN": 0,
+          "auditFindings": 1
+        }
+      },
+      "reportPresent": true,
+      "releasePass": false,
+      "outerExit": 1,
+      "reportConsistent": true,
+      "finalInputPostGuardsComplete": true,
+      "selectedSourceAndInputsUnchanged": true,
+      "credentialsRead": false,
+      "paidCalls": 0,
+      "adoptedOldOfflineBundles": false,
+      "liveSupportIdentitiesPASS": 17,
+      "independentBusinessEffectsPASS": 4,
+      "failedCase": "VQ12-failure-decisions-plain-deadline",
+      "failedAssertion": "honest failure package replays",
+      "failedAuditRule": "unparseable",
+      "failedAuditFile": "visual-failure-decisions-plain-deadline/samples/v08/request.json",
+      "failedGateIDs": [
+        "go-test-race",
+        "redaction-audit",
+        "traceability",
+        "required-artifacts"
+      ],
+      "seconds": 3770.7171571250074,
+      "reportSHA256": "62637ac00b9d1dadfce5b2cf39e5f978ed910cda853b9476272afabb1b72680f",
+      "resultSHA256": "af95c0f653f7730cce85ce92cdbe12f0dc72404662912dbeb71f69de71b907b1",
+      "rawEvidence": ".evidence/minimax-current-eleven-gate-2",
+      "retainedEvidence": "evidence/ticket-19/final-gate/README.md",
+      "custodyReviewSHA256": "7ff7d98196a5964ebdce3355f28b46424dea3eb8606c6f94d459892c9be971b6",
+      "custodyReviewFindings": 0
+    },
+    "preThreeDefaultMatrix": {
+      "sha256": "5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754",
+      "rowCount": 17,
+      "latestPass": 17,
+      "latestFail": 0,
+      "updatedFreshRows": 7,
+      "preservedGenericRows": 10,
+      "genericRowObjectsAndTimesUnchanged": true,
+      "evidence": "evidence/ticket-19/actual/remaining/README.md"
     }
   },
   "ownedWorker": "/tmp/barness-minimax-routed-validation",
@@ -490,6 +551,20 @@
     "finalRetentionReviewSHA256": {
       "Standards": "670bc5f44543e4ea975857b6b430b894f0fcf6cea61af52cd20b21735ac9fd76",
       "Spec": "e33f2a70d786d2d82ebf439d18191e72cd855a5cf29906fab2268ff2980d1cc0"
+    },
+    "currentFixedSourceReview": {
+      "base": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+      "sourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+      "sourceFiles": 1078,
+      "findings": {
+        "Standards": 0,
+        "Spec": 0
+      },
+      "reviewSHA256": {
+        "Standards": "7e02066eed914b57bb97668bf48bd36876658db9515198c20dd55019fd1816cd",
+        "Spec": "e43bca00216144f3e0d00f19aa629c6af1467fd4a0e8d4874c31338e1227a0a3"
+      },
+      "actualAcceptancePending": true
     }
   },
   "offlineTicket17": {
@@ -561,8 +636,8 @@
     "normalPrivateNegativeConstructorExit": 0,
     "normalPrivateCounterfeitConsumerExpectedExit": 1
   },
-  "currentIntegrationSourceTip": "2ddaa6e11fe4e858888b40e0f56076b44e1e33f3",
-  "currentCodeSourceScope": "Example-only visual cancellation evidence fix; retained eight native execution-source sets unchanged; three classifier groups require fresh current-source proof",
+  "currentIntegrationSourceTip": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+  "currentCodeSourceScope": "Example-only visual fix d02; all eleven native source groups now qualified by retained eight exact selected sets plus three newly executed reports and current public consumers",
   "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
   "singleCaseMessagesCancelRerun": {
     "schema": 1,
@@ -949,13 +1024,13 @@
     "ownedWorktreeRemoved": true
   },
   "proposedThreeSourceRenewal": {
-    "state": "PREPARING_OFFLINE",
+    "state": "CLOSED_PASS",
     "round": "visual-source-renewal-1",
     "additionalMaxCalls": 36,
     "additionalMaxHTTPAttempts": 36,
-    "humanApprovalPresent": false,
-    "credentialsRead": false,
-    "paidCalls": 0,
+    "humanApprovalPresent": true,
+    "credentialsRead": true,
+    "paidCalls": 36,
     "automaticRetries": false,
     "automaticProcessReruns": false,
     "groups": [
@@ -966,6 +1041,111 @@
     "otherEightPaidReruns": false,
     "proxy": "http://127.0.0.1:7890",
     "outputTokenLimitSupported": false,
-    "evidence": "issues/21-visual-source-renewal.md"
-  }
+    "evidence": "evidence/ticket-21/actual/README.md",
+    "humanApprovalReference": "request_user_input_async/call_cbb7af167e4f4c439e3a73ed647ef1ae/0",
+    "humanApprovalSHA256": "de47fa2b8002f2de0ae8ca3a890d52614b612b3f160cacf104ab45328dbfaae5",
+    "executionAuthorizationSHA256": "c9d8e12102a6abed069f548b6daa0aa516deb0e2577e8f6a3ebddfe662e451fe",
+    "paidHTTPAttempts": 36,
+    "cumulativeRenewalCalls": 873,
+    "cumulativeRenewalHTTPAttempts": 870,
+    "allProcessesClosed": true,
+    "unusedCalls": 0,
+    "unusedAttempts": 0,
+    "unusedBudgetTransferable": false,
+    "sourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+    "currentNativeConsumerExitCodes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "strictElevenCurrent": true,
+    "nativeSupportInputs": 17,
+    "effectsInputs": 4,
+    "candidateUpdatedRows": 1,
+    "protectedRowObjectsAndTimes": 16,
+    "defaultPublished": true,
+    "candidateSHA256": "5913236998b006a14f3e611e71f584e3c6c6c17859d8bf319d51655dce5fc899",
+    "custody": {
+      "state": "CLOSED_PASS",
+      "evidenceCommit": "868e02263eaa3931d463c3f7d8374956253b6f36",
+      "archiveSHA256": "a95ffa0ca3aba1c816a2b956048037a9578af4602f69756fc1972bf650de537b",
+      "originalRegularFiles": 29941,
+      "nativeArtifactReferences": 1028,
+      "historyPayloads": 77,
+      "reviews": {
+        "Spec": "7f02bddfc60c2febce1c6459a9b4d85aefa13456a42a9f24591099a87ef778c6",
+        "Standards": "6f3442e3bd10b3fa6d2c37e8022f107bf3ba62d2671cc4a0c01cb933221a28fc"
+      },
+      "findings": 0,
+      "integrationPendingUntilActiveGateCloses": true
+    }
+  },
+  "currentSourceReleaseGate": {
+    "state": "CLOSED_PASS_PUBLISHED_PENDING_FINAL_CUSTODY",
+    "sourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "candidateMatrixSHA256": "5913236998b006a14f3e611e71f584e3c6c6c17859d8bf319d51655dce5fc899",
+    "defaultMatrixPublished": true,
+    "adoptedOldBundles": false,
+    "planSHA256": "b71df75d0c3adc0f09d73d33a058caef80e718cd4b29a0b8a0f33798edc95a33",
+    "inputManifestSHA256": "99f5579abf7db65d526a0bde9d1ff6b09bc86e60426eb3b5243f62751591bb08",
+    "inputTrees": 21,
+    "inputFiles": 3539,
+    "sourceFiles": 1078,
+    "keylessPublicCLIBuildExit": 0,
+    "sourceReviews": {
+      "Standards": 0,
+      "Spec": 0
+    },
+    "preparedPlanReview": {
+      "Standards": 0,
+      "Spec": 0
+    },
+    "rawEvidence": ".evidence/minimax-current-visual-gate-1",
+    "allFourNumericCommandsCompleted": true,
+    "fullGatePass": true,
+    "completedCommandExits": {
+      "vet": 0,
+      "vet-live": 0,
+      "ordinary": 0,
+      "race": 0
+    },
+    "ordinaryMain": {
+      "cases": 12495,
+      "PASS": 12495,
+      "FAIL": 0,
+      "NOT_RUN": 0,
+      "auditFindings": 0
+    },
+    "raceExit": 0,
+    "outerExit": 0,
+    "selectedSourceAndInputsUnchanged": true,
+    "postGuardPassed": true,
+    "candidateMatrixCopyValid": true,
+    "resultSHA256": "454b0f928e3d6b2cfbb87019ad3dbbd371326b4655110278c0869a37b72fc211",
+    "reportSHA256": "badb24706cad2629d6553a878b4afdfcfdadb071397ce8153597eaa43bcf4a77",
+    "actualResultReviews": {
+      "Spec": 0,
+      "Standards": 0
+    },
+    "raceMain": {
+      "cases": 12495,
+      "PASS": 12495,
+      "FAIL": 0,
+      "NOT_RUN": 0,
+      "auditFindings": 0
+    }
+  },
+  "legacyBaselineBeforeElevenCalls": 648,
+  "legacyBaselineBeforeElevenAttempts": 648
 }
