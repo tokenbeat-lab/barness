@@ -13,7 +13,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-[19 当前源码十一组严格证据复验](issues/19-current-source-eleven-renewal.md)的实际复验及统一装配已完成：11/11全部PASS，新增189calls/186HTTPAttempts，216/252固定轮次关闭；17份支持输入审计0、新7行导入0、generic10对象/时间不变，默认矩阵17PASS/0FAIL。见[新原件与当前来源证明](evidence/ticket-19/actual/remaining/README.md)。完整发布门禁与最终独立审查待完成，票19保持claimed。
+[19 当前源码十一组严格证据复验](issues/19-current-source-eleven-renewal.md)的实际复验及统一装配已完成：11/11全部PASS，新增189calls/186HTTPAttempts，216/252固定轮次关闭；17份支持输入审计0、新7行导入0、generic10对象/时间不变，默认矩阵17PASS/0FAIL。见[新原件与当前来源证明](evidence/ticket-19/actual/remaining/README.md)。独立数据/文档两轴各0发现；来源01341的完整门禁已执行0/0/0/1，CLI1、报告false，唯一失败为视觉deadline空请求证据重放/审计。离线修复在独立工作树进行；票19待最终留存归档完成后按本票范围关闭。
 
 当前01–08、11、13、14、16、17按各票既定范围resolved；12/15原有限付费轮次失败与历史保持。本轮十一组已补足此前真实GLM及来源失效缺口，剩余链为完整发布门禁/最终审查→10→09→spec。没有待执行付费frontier，所有付费进程已关闭，无追加轮次授权。
 

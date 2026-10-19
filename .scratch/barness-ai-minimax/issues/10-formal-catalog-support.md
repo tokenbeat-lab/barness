@@ -64,3 +64,5 @@ M3三候选与三自身正式PASS，候选历史49/45、正式39/36。唯一获�
 最终双轴审查发现的Messages最终payload形状及文档问题已由票17离线补正，源码2306917、文档295728a均复审零发现。44公共用例为42非法输入零Provider/Attempt拒绝、两合法业务JSON原值发送；定向普通/race各1663PASS/8NOT_RUN，同8项mandatory显式开关另各8PASS，双vet0。实际测量为ca67+WIP，1027编译/JSON/mod/sum文件等于2306，不声称提交后重跑。修复后M3/GLM/文本/protocol/视觉全部11组严格来源当前相等性不成立；历史证据保持，generic10按既有受影响规则另行核对不变。旧门禁不认证当前源码。
 
 本票保持claimed；M3原来源8900034三份自身正式PASS39/36、本轮未重跑，M3.1线上三候选NOT_RUN0/0仍无获准MPlan资格。spec继续开放，不以受控通过替代修复后当前来源的必交证明。见[当前交付](../delivery-status.md)、[六项原件](../evidence/ticket-15/new-actual/glm/README.md)、[全量门禁](../evidence/ticket-15/new-actual/final-gate/README.md)及[最终审查](../evidence/ticket-09/final-closure/README.md)。
+
+2026-10-19 本轮最新检查点：十一组真实复验及当前来源公开消费者全部PASS，新增189/186、固定216/252关闭。来源01341完整门禁已实际结束，双vet/ordinary/race=0/0/0/1，CLI1、报告false；ordinary12495PASS/audit0，race12494PASS/1FAIL/audit1。唯一VQ12-failure-decisions-plain-deadline及其零字节request.json审计失败正在独立工作树离线修复，原17支持与四效果均PASS、测量前后来源/输入未变。当前root源码尚未修改，十一组证明保留；完整交付不宣称通过。见[交付状态](../delivery-status.md)。

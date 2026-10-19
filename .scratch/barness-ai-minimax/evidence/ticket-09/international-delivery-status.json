@@ -6,7 +6,7 @@
   "releaseCertified": false,
   "specClosed": false,
   "latestPaidActualSource": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
-  "currentCodeSource": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+  "currentCodeSource": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
   "allAuthorizedPaidProcessesClosed": true,
   "additionalPaidRoundAuthorized": false,
   "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
@@ -121,13 +121,57 @@
     "evidence": "evidence/ticket-19/actual/remaining/README.md"
   },
   "latestFullGate": {
-    "state": "PREPARING",
+    "source": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+    "state": "COMPLETED",
     "certifiesCurrentCodeSource": false,
+    "fourCommandsActuallyExecuted": true,
+    "individualCommandExitCodes": {
+      "ordinary": 0,
+      "vet-live": 0,
+      "race": 1,
+      "vet": 0
+    },
+    "mainE2E": {
+      "ordinary": {
+        "cases": 12495,
+        "PASS": 12495,
+        "FAIL": 0,
+        "NOT_RUN": 0,
+        "auditFindings": 0
+      },
+      "race": {
+        "cases": 12495,
+        "PASS": 12494,
+        "FAIL": 1,
+        "NOT_RUN": 0,
+        "auditFindings": 1
+      }
+    },
+    "reportPresent": true,
     "releasePass": false,
+    "outerExit": 1,
+    "reportConsistent": true,
+    "finalInputPostGuardsComplete": true,
+    "selectedSourceAndInputsUnchanged": true,
     "credentialsRead": false,
     "paidCalls": 0,
     "adoptedOldOfflineBundles": false,
-    "previousFailurePreserved": true
+    "liveSupportIdentitiesPASS": 17,
+    "independentBusinessEffectsPASS": 4,
+    "failedCase": "VQ12-failure-decisions-plain-deadline",
+    "failedAssertion": "honest failure package replays",
+    "failedAuditRule": "unparseable",
+    "failedAuditFile": "visual-failure-decisions-plain-deadline/samples/v08/request.json",
+    "failedGateIDs": [
+      "go-test-race",
+      "redaction-audit",
+      "traceability",
+      "required-artifacts"
+    ],
+    "seconds": 3770.7171571250074,
+    "reportSHA256": "62637ac00b9d1dadfce5b2cf39e5f978ed910cda853b9476272afabb1b72680f",
+    "resultSHA256": "af95c0f653f7730cce85ce92cdbe12f0dc72404662912dbeb71f69de71b907b1",
+    "rawEvidence": ".evidence/minimax-current-eleven-gate-2"
   },
   "m3Formal": {
     "source": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
@@ -159,7 +203,7 @@
     "evidence": "evidence/ticket-19/actual/remaining/README.md"
   },
   "sourceApplicability": {
-    "evaluatedCodeCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "evaluatedCodeCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
     "strictSourceMapsCurrent": true,
     "strictGroups": 11,
     "currentQualifiedGroups": 11,
@@ -171,7 +215,9 @@
     "oldReportsRehashed": false,
     "oldSourceMapsNarrowed": false,
     "oldGateCertifiesChangedSource": false,
-    "evidence": "evidence/ticket-19/actual/remaining/README.md"
+    "evidence": "evidence/ticket-19/actual/remaining/README.md",
+    "selectedExecutionFiles": 1074,
+    "selectedExecutionBytesUnchangedFromRemainingSource": true
   },
   "openTickets": [
     "09",
@@ -181,7 +227,8 @@
     "19"
   ],
   "blockers": [
-    "Complete current-source public releasegate and final independent evidence/document reviews pending"
+    "Visual example invoked-but-unsent cancellation retention/replay defect causes race failure and one unparseable audit finding",
+    "Final source review, current-source proof for any affected groups, and a passing complete release certification remain required"
   ],
   "historical": {
     "preFixedSixStatus": "evidence/ticket-15/pre-fixed6-delivery-status.json",
@@ -387,6 +434,15 @@
       "currentSourceReassessmentPending": true,
       "newDiagnosticSourceCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
       "newDiagnosticDoesNotRenewStrictMaps": true
+    },
+    "elevenGatePreparingStatus": {
+      "state": "PREPARING",
+      "certifiesCurrentCodeSource": false,
+      "releasePass": false,
+      "credentialsRead": false,
+      "paidCalls": 0,
+      "adoptedOldOfflineBundles": false,
+      "previousFailurePreserved": true
     }
   },
   "ownedWorker": "/tmp/barness-minimax-routed-validation",
@@ -487,7 +543,7 @@
     "normalPrivateNegativeConstructorExit": 0,
     "normalPrivateCounterfeitConsumerExpectedExit": 1
   },
-  "currentIntegrationSourceTip": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+  "currentIntegrationSourceTip": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
   "currentCodeSourceScope": "Current selected runtime/assertion source at b9c3c7c; GLM captured at d235; transition changes only four GLM publication data selectors. Current native consumers passed all eleven groups.",
   "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
   "singleCaseMessagesCancelRerun": {
@@ -831,6 +887,23 @@
         "conservativeCalls": 12,
         "conservativeAttempts": 12
       }
-    ]
+    ],
+    "fullGateExecuted": true,
+    "fullGatePass": false,
+    "allElevenQualifiedAtCodeSource": "01341f8df60d4787bcdbeb48a024e3873fc780f6"
+  },
+  "pendingVisualUnsentFix": {
+    "state": "IN_PROGRESS_IN_SEPARATE_WORKTREE",
+    "mergedIntoIntegration": false,
+    "rootCause": "Authentic pre-attempt cancellation was stored as empty request JSON and replay required an Attempt",
+    "sourceImpactIfExampleOnly": [
+      "protocol114",
+      "visual-jev",
+      "visual-decisions"
+    ],
+    "otherEightSelectedMapsUnchanged": true,
+    "originalElevenReportsUnchanged": true,
+    "additionalPaidApprovalPresent": false,
+    "unusedPriorBudgetTransferable": false
   }
 }
