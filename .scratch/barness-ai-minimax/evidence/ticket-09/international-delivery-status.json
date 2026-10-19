@@ -172,7 +172,7 @@
       "Spec": "7345e06866513c39e5f714f916c81d98f462008805e1a219a787f80ed41d6a5a",
       "Standards": "2816449602056c73427f1b1eeb4b95f605993e34bdc2b2bddd95db947f16e4a0"
     },
-    "custodyState": "IN_PROGRESS"
+    "custodyState": "READBACK_PASS_FINAL_REVIEW_PENDING"
   },
   "m3Formal": {
     "source": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
@@ -522,10 +522,15 @@
       "preservedGenericRows": 10,
       "genericRowObjectsAndTimesUnchanged": true,
       "evidence": "evidence/ticket-19/actual/remaining/README.md"
+    },
+    "preTicket21WorkerCleanup": {
+      "ownedWorker": "/tmp/barness-minimax-routed-validation",
+      "ownedWorkerRemoved": true,
+      "evidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json"
     }
   },
-  "ownedWorker": "/tmp/barness-minimax-routed-validation",
-  "ownedWorkerRemoved": true,
+  "ownedWorker": "/tmp/barness-ticket21-actual-retained",
+  "ownedWorkerRemoved": false,
   "userUntrackedDirectoriesPreserved": true,
   "finalStaticCodeReview": {
     "fixedBase": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
@@ -638,7 +643,7 @@
   },
   "currentIntegrationSourceTip": "78843eb99905e95c8fa534a75897e0dc8787b1da",
   "currentCodeSourceScope": "Example-only visual fix d02; all eleven native source groups now qualified by retained eight exact selected sets plus three newly executed reports and current public consumers",
-  "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
+  "ownedWorkerCleanupEvidence": "evidence/ticket-21/final-closure/README.md",
   "singleCaseMessagesCancelRerun": {
     "schema": 1,
     "updated": "2026-10-19",
@@ -1086,7 +1091,10 @@
         "Standards": "6f3442e3bd10b3fa6d2c37e8022f107bf3ba62d2671cc4a0c01cb933221a28fc"
       },
       "findings": 0,
-      "integrationPendingUntilActiveGateCloses": true
+      "integrationPendingUntilActiveGateCloses": false,
+      "integrationMerge": "b7af09ef9354615dfd7f423ba45049ac325f595d",
+      "selectedExecutionFilesEqualRecordedSource": 1078,
+      "mergeProofSHA256": "98b994cb2b6a5eba6fe9677362c40f403d9d1fe47f0eaddd394d09be8461d0a9"
     }
   },
   "currentSourceReleaseGate": {

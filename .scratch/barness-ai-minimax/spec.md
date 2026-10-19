@@ -8,7 +8,7 @@ Updated: 2026-10-19
 
 原定十一组严格来源复验全部PASS，新增189calls/186HTTPAttempts；Messages cancel在完整22场景新报告中1146ms PASS。默认17身份矩阵已按原测量来源装配PASS，全部原件与历史失败保留。固定216/252轮关闭、未用27/66不可转移。见[票19 Answer](issues/19-current-source-eleven-renewal.md#answer)及[完整失败门禁](evidence/ticket-19/final-gate/README.md)。
 
-完整门禁暴露的视觉取消证据缺陷已离线修复并精确合入d02b5ad，两轴源码复审0发现、23个确定性普通/race回归与双vet均通过。修复后M3/GLM/文本八组原生选定源码未变；人类直接批准的[票21固定三组补验](issues/21-visual-source-renewal.md)现已全部PASS，各12/12、总36/36，零重试，当前公开消费者及17输入审计全部exit0；当前资格11/11、续期累计873/870。候选矩阵只更新Jev，其他16行保持，默认矩阵待完整新门禁通过后发布。原01341完整门禁0/0/0/1、release=false保持历史；当前新完整发布认证、留存及最终审查尚待完成。交付保持PARTIAL，10、09和spec开放，以下原要求不减。
+完整门禁暴露的视觉取消证据缺陷已离线修复并精确合入d02b5ad，两轴源码复审0发现、23个确定性普通/race回归与双vet均通过。修复后M3/GLM/文本八组原生选定源码未变；人类直接批准的[票21固定三组补验](issues/21-visual-source-renewal.md)现已全部PASS，各12/12、总36/36，零重试，当前公开消费者及17输入审计全部exit0；当前资格11/11、续期累计873/870。候选矩阵只更新Jev，其他16行保持。来源78843的新完整门禁已实际通过：四命令0/0/0/0、CLI0、报告true，普通/race各12495PASS/audit0，两轴实际审查均0；精确591323候选已以实际exit0原子发布，发布后来源1078、输入21树及其他30历史pins保持。原01341完整门禁0/0/0/1、release=false保持历史；最终归档读回、文档审查和工单关闭仍在收尾，交付暂保留PARTIAL，以下原要求不减。
 
 领域与架构依据：[领域词汇](../../GLOSSARY.md)、[协议边界 ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[DeepSeek Responses ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[DeepSeek Chat ADR-0015](../../docs/adr/0015-barness-ai-deepseek-chat-completions.md)、[型号纳入 ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[Provider 自动字段 ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[GLM 接入 spec](../barness-ai-glm/spec.md)、[GLM 正式支持 ADR-0036](../../docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)。
 

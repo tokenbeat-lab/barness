@@ -1,9 +1,9 @@
 # 15 — 离线修复后的最小来源重验
 
 Type: task
-Status: ready-for-human
-Updated: 2026-10-18
-Blocked by: final current-source release certification and evidence/document review (ticket19 eleven groups now PASS)
+Status: claimed
+Updated: 2026-10-19
+Blocked by: 21
 
 ## Context
 
@@ -53,3 +53,5 @@ Blocked by: final current-source release certification and evidence/document rev
 用户单独要求重测Messages `glm-5.3/cancel`，票18独立1/1真实诊断PASS：来源6a24ba3，861ms收到非空ThinkingDelta后取消，canceled/stream与aborted，HTTP200。新增1/1、零重试，连647/647累计648/648；原固定六项与超时失败仍封存。没有拼接22场景、发布formal报告或修改四selector/矩阵；本票完整当前来源验收与发布门禁缺口仍在，状态不变。见[票18结果](../evidence/ticket-18/README.md)。
 
 2026-10-19 当前补充结论：本票原有限轮次的失败、预算与旧拒绝保持历史。票19按新的直接批准执行十一组当前来源复验，GLM三路完整各22/22 PASS（Messages cancel1146ms），严格raw/known-usage/views发布及17份支持输入装配均exit0，默认矩阵17PASS/0FAIL。此前Messages/来源资格阻断已由新独立证据补足；完整发布门禁与最终审查另待完成。见[票19原件](../evidence/ticket-19/actual/remaining/README.md)。
+
+2026-10-19 当前收尾检查点：票21新增36/36已闭合，三项各12/12 PASS；M3/GLM/文本八组完整原生来源集合不变，当前严格资格11/11。来源78843新完整门禁四命令0/0/0/0、CLI0、报告true；普通/race各12495PASS/audit0，最终源码及实际结果两轴均0发现。精确591323候选已实际exit0原子发布，仅Jev一行改变、其余16行对象与时间不变。原01341门禁FAIL及所有原有限授权轮次的失败、消费和未用额度保持；当前仅完整有界归档公开读回、最终文档审查及工单关闭收尾。见[当前交付](../delivery-status.md)及[当前实际结果](../evidence/ticket-21/actual/README.md)。
