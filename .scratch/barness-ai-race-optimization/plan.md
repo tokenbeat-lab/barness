@@ -1,12 +1,12 @@
 # barness ai race 验证优化实施方案
 
-Status: implementing
+Status: implemented; release acceptance open
 Date: 2026-10-20
 Review baseline: `eae89d5a1170bc8b716e6ee9ab26d016b9bbd013`
 
 Review update: 用户已批准按收窄后的方案实施；当前进展与实际验证以 [status.json](status.json) 为准。实际 race 仍单独等待人工选择。
 
-本轮只提交方案，待用户确认后实施。按用户最新要求，race 改为最后由人工显式选择触发的独立步骤；开发与普通验证均不自动启动 race。保留正式发布的完整 race 要求，再依据实测决定单轮性能改造。既有复盘记录为 76 次启动、累计约 5 小时 9 分钟，其中 5 次全量约 3 小时 31 分钟，见[执行明细](../barness-ai-minimax/race-run-audit-2026-10-19.json)。
+本方案已获批准并完成实现与普通验证，实际结果见 [交付索引](verification.md)。按用户最新要求，race 改为最后由人工显式选择触发的独立步骤；开发与普通验证均不自动启动 race。保留正式发布的完整 race 要求，再依据实测决定单轮性能改造。既有复盘记录为 76 次启动、累计约 5 小时 9 分钟，其中 5 次全量约 3 小时 31 分钟，见[执行明细](../barness-ai-minimax/race-run-audit-2026-10-19.json)。
 
 ## 本次建议批准的范围
 

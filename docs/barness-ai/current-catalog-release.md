@@ -1,5 +1,7 @@
 # 当前目录的分类图片发布验收
 
+本次门禁拆分后的实施与实际验证状态见[当前状态](../../.scratch/barness-ai-race-optimization/status.json)；本文既有 PASS 仍限定于各记录的原受测源码。
+
 2026-10-17最新整版验收已PASS：当前Go内容`9a8ea45`，实际报告提交`fc8f02b`，
 公开releasegate退出0、10项门禁全部通过。11条独立真实支持和4项效果均被接受，
 normal/race各9098 PASS、0 FAIL，各861 Pi及33 UC14，17个输入审计零发现；#14已resolved。

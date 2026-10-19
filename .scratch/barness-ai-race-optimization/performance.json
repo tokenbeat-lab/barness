@@ -1,0 +1,376 @@
+{
+  "sourceCommit": "04334590ed6ea64758cafb822d286ff91685b3a9",
+  "ordinaryWallSeconds": 633.1101409583353,
+  "testEvents": 54438,
+  "nonEventLines": 0,
+  "packages": [
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "status": "pass",
+      "seconds": 631.409,
+      "afterLastTestSeconds": 88.5028
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+      "status": "pass",
+      "seconds": 39.124,
+      "afterLastTestSeconds": 0.012101
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive",
+      "status": "pass",
+      "seconds": 22.425,
+      "afterLastTestSeconds": 0.000978
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate",
+      "status": "pass",
+      "seconds": 14.621,
+      "afterLastTestSeconds": 4.4e-05
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/visualeval",
+      "status": "pass",
+      "seconds": 13.243,
+      "afterLastTestSeconds": 1.960811
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix",
+      "status": "pass",
+      "seconds": 3.5,
+      "afterLastTestSeconds": 0.000523
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle",
+      "status": "pass",
+      "seconds": 2.561,
+      "afterLastTestSeconds": 0.000671
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit",
+      "status": "pass",
+      "seconds": 2.11,
+      "afterLastTestSeconds": 0.000605
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai",
+      "status": "pass",
+      "seconds": 1.573,
+      "afterLastTestSeconds": 0.000684
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/chineseeval",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/classifierimages",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/glmhost",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/hostintegration",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/localassembly",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/minimaxhost",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/requestid",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/toolloop",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/clock",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/probe",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/audit/cmd/auditbundle",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/glm",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/host",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/jevformal",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/minimax",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/provider",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/live",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/live/cmd/glmformal",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/live/cmd/jevformal",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/live/cmd/minimaxpromote",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/live/cmd/minimaxverify",
+      "status": "skip",
+      "seconds": 0
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/live/cmd/supportmatrix",
+      "status": "skip",
+      "seconds": 0
+    }
+  ],
+  "topLevelTests": [
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPiDifferential",
+      "status": "pass",
+      "seconds": 178.59
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGLMFormalReports",
+      "status": "pass",
+      "seconds": 30.32
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure",
+      "status": "pass",
+      "seconds": 27.84
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestVisualEvaluationFailureRetention",
+      "status": "pass",
+      "seconds": 22.49
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestVisualEvaluationIntegrity",
+      "status": "pass",
+      "seconds": 21.3
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive",
+      "test": "TestFormalRenewalAuthorityProcess",
+      "status": "pass",
+      "seconds": 17
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMiniMaxLiveEvidenceTools",
+      "status": "pass",
+      "seconds": 15.99
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestProtocolTimeouts",
+      "status": "pass",
+      "seconds": 11.12
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestReleaseGatePreflightStopsCommands",
+      "status": "pass",
+      "seconds": 10.79
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport",
+      "status": "pass",
+      "seconds": 9.53
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestCurrentReleaseVisualCorruption",
+      "status": "pass",
+      "seconds": 9.33
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestCurrentReleaseVisualEffects",
+      "status": "pass",
+      "seconds": 8.8
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestTimeouts",
+      "status": "pass",
+      "seconds": 8.39
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestDecisionsPiDifferential",
+      "status": "pass",
+      "seconds": 7.77
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGLMFullRollback",
+      "status": "pass",
+      "seconds": 7.38
+    }
+  ],
+  "slowSubtests": [
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPiDifferential/openai-responses",
+      "status": "pass",
+      "seconds": 95.29
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPiDifferential/openai-completions",
+      "status": "pass",
+      "seconds": 34.25
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPiDifferential/openai-responses/retry/invalid-header-backoff-ceiling",
+      "status": "pass",
+      "seconds": 20.8
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPiDifferential/deepseek/openai-completions",
+      "status": "pass",
+      "seconds": 19.63
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure/cloud-batch/design-load",
+      "status": "pass",
+      "seconds": 16.44
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPiDifferential/google-generative-ai",
+      "status": "pass",
+      "seconds": 16.12
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGLMFormalReports/chat",
+      "status": "pass",
+      "seconds": 11.73
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPiDifferential/anthropic-messages",
+      "status": "pass",
+      "seconds": 11.67
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestVisualEvaluationIntegrity/decisions",
+      "status": "pass",
+      "seconds": 10.7
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestVisualEvaluationIntegrity/jev",
+      "status": "pass",
+      "seconds": 10.6
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGLMFormalReports/responses",
+      "status": "pass",
+      "seconds": 10.33
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGLMFormalReports/messages",
+      "status": "pass",
+      "seconds": 8.26
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive",
+      "test": "TestFormalRenewalAuthorityProcess/valid-three",
+      "status": "pass",
+      "seconds": 6.5
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure/cloud-interactive/design-load",
+      "status": "pass",
+      "seconds": 5.66
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/internal/testkit/release",
+      "test": "TestDecisionsDifferentialCannotBeDeleted/missing",
+      "status": "pass",
+      "seconds": 5.21
+    }
+  ],
+  "actualRaceExecutions": 0,
+  "raceAmplification": null,
+  "historicalFullRaceMinutes": [
+    36.99903333333334,
+    38.20326206179646,
+    38.11665679166715,
+    48.870655338885264,
+    48.541914540963866
+  ],
+  "caveat": "Package/test/parent/subtest times overlap and must not be summed as wall time. afterLastTestSeconds is not measured Finish/Audit duration."
+}

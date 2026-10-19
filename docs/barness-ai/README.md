@@ -1,6 +1,8 @@
 # barness-ai 发布说明
 
-> **当前完整验收（2026-10-19）**：目录`2026-10-18.1-minimax`包含96聊天身份、2图像和3分类；16协议组合、17自身支持和4项独立效果通过。严格来源资格11/11；来源`78843eb`完整普通/race主包各12495PASS、audit0，双vet与CLI均exit0、发布报告true，精确矩阵已发布。M3.1线上三个候选仍NOT_RUN0/0。后续文档/证据提交保持1078份选定源码。当前结论见[交付状态](../../.scratch/barness-ai-minimax/delivery-status.md)和[完整证据及最终审查](../../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)。以下保留各次历史结果。
+> **门禁拆分后的当前状态（2026-10-20）**：实现、普通验证与人工 race 待执行情况见[当前状态](../../.scratch/barness-ai-race-optimization/status.json)。下述完整验收基线属于记录的原受测源码；新源码的整版资格须重新由当前来源消费者判定。
+
+> **MiniMax 完整验收基线（2026-10-19）**：目录`2026-10-18.1-minimax`包含96聊天身份、2图像和3分类；16协议组合、17自身支持和4项独立效果通过。严格来源资格11/11；来源`78843eb`完整普通/race主包各12495PASS、audit0，双vet与CLI均exit0、发布报告true，精确矩阵已发布。M3.1线上三个候选仍NOT_RUN0/0。后续文档/证据提交保持1078份选定源码。当前结论见[交付状态](../../.scratch/barness-ai-minimax/delivery-status.md)和[完整证据及最终审查](../../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)。以下保留各次历史结果。
 
 > **历史GLM完整验收（2026-10-18）**：目录 `2026-10-17.2` / Hash `sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942`，93聊天身份、2图像、3分类；中国标准GLM-5.3/5.2三协议六身份、十三协议组合/十四自身支持和四独立效果全部通过。实际完整CLI在3d3cd0f执行 normal11049/race11049、两种vet、压力/差分/撤权及20份审计，十门禁PASS。[票13结论及精确来源](../../.scratch/barness-ai-glm/evidence/ticket-13/README.md)、[可重复校验索引](../../.scratch/barness-ai-glm/evidence/ticket-13/index.json)保留原失败、282次本票实际HTTP、完整基线回滚与99项/643用例追溯。以下历次验收保留各自历史身份。
 
@@ -20,7 +22,7 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 | 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |
 | 最小示例 | `ai/examples/localassembly`、`hostintegration`（聊天与混合操作）、`toolloop`、`requestid`；独立中文评估见 [`chineseeval`](../../ai/examples/chineseeval/README.md) |
 | 研究条目追溯 | [`ai/release/traceability.json`](../../ai/release/traceability.json)（研究 T/C/H/V/S 条目 → E/P/D 场景 → 证据用例） |
-| 决策 | [ADR-0001…0047](../adr/)；门禁本身见 ADR-0017 |
+| 决策 | [ADR-0001…0048](../adr/)；门禁本身见 ADR-0017 |
 
 ## 历史完整验收与交付状态（2026-10-13）
 
@@ -71,7 +73,7 @@ go run ./ai/release/cmd/releasegate -stage check -out <check-dir> -evaluation-je
 go run ./ai/release/cmd/releasegate -stage race -from <check-dir> -out <race-dir>
 ```
 
-默认执行 check：先核对固定映射、账本、快照、17份自身支持和四项业务效果的当前来源、完整性及审计；通过后顺序执行两种 vet、完整普通测试与原生证据消费。失败停止后续启动，全部普通验证通过则输出 `READY_FOR_RACE`、race `NOT_RUN`、发布false，退出2。`-collect-all`仅继续收集check阶段诊断，不启动race；独立`-preflight`不执行验证命令，退出0只表示外部输入就绪。
+默认执行 check：先核对固定映射、账本、快照、17份自身支持和四项业务效果的当前来源、完整性及审计；通过后顺序执行两种 vet、完整普通测试与原生证据消费。失败停止后续启动，全部普通验证通过则输出 `READY_FOR_RACE`、race `NOT_RUN`、发布false，退出2。使用编译后的 CLI 读取此退出码；`go run` 会将程序非零退出包装成自身退出1。`-collect-all`仅继续收集check阶段诊断，不启动race；独立`-preflight`不执行验证命令，退出0只表示外部输入就绪。
 
 人工选择 race 后，`-from`必须指向原check目录，不能覆盖输入。工具验证原实际命令回执、来源、测试、工具身份和选定输入，复核普通原件后才运行完整race；来源或输入变化拒绝沿用。两次测试均打开`BARNESS_AI_PIDIFF=1`和`BARNESS_AI_PRESSURE=1`，分别保留原生bundle。check与race输出目录须独立且为空；命令保存执行报告、数字退出、起止时间、事件元数据及有界失败尾部。实际失败退出1，十项门禁全部通过才退出0。旧`-bundle`/`-race-bundle`入口只读重评估，命令保持NOT_RUN，不能替代认证。项目执行规则见[验证策略](../agents/verification.md)。
 
@@ -80,8 +82,8 @@ go run ./ai/release/cmd/releasegate -stage race -from <check-dir> -out <race-dir
 | go-test / go-test-race / go-vet | 命令成功；未执行即失败 |
 | p0-offline | 每个用例 PASS（或明确 UNSUPPORTED），完整 artifacts 哈希清单成立；E01–E11、P01–P10、D1、D2 与压力场景各至少一个 PASS |
 | differential | 全部 PASS、0 pending；固定当前唯一 pi 1.1.0 的版本/commit/model-data hash、SDK、请求/帧哈希及发现清单有效；P01–P04/P06/P07/P10 有差分，DeepSeek Responses 与两条原生图像有独立扩展登记及 skip |
-| live | 十三协议组合、十四自身支持身份的报告与矩阵当前完整运行的能力、操作、型号、SDK、时间及正式目录/价格哈希一致，捕获/结果/Observer/图片校验完整；必交分类、生成与编辑不可 UNSUPPORTED |
-| redaction-audit | 离线、race、十四份 live 与两份中文/两份视觉效果包均审计，逐包与运行时 audit.json 零发现；拒绝证据不重新输出敏感字段 |
+| live | 十六协议组合、十七自身支持身份的报告与矩阵当前完整运行的能力、操作、型号、SDK、时间及正式目录/价格哈希一致，捕获/结果/Observer/图片校验完整；必交分类、生成与编辑不可 UNSUPPORTED |
+| redaction-audit | 离线、race、十七份 live 与两份中文/两份视觉效果包均审计，逐包与运行时 audit.json 零发现；拒绝证据不重新输出敏感字段 |
 | traceability | 每个研究条目由实际证据判定为 PASS；只有映射没有证据的条目为 NO_EVIDENCE |
 | snapshots | 目录/价格快照与代码一致，固定发布合同不因删追溯或路线而缩减 |
 | required-artifacts | normal/race 各自的旧混合与分类图片设计负载、并发/内存/限额占用率 <=75%（余量 >=25%）/资源释放及六个授权撤销场景有效；Jev/Luna 中文与 Jev/Decisions 视觉四份独立当前真实报告通过完整重放与来源核验，不设置准确率阈值 |

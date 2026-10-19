@@ -1,0 +1,58 @@
+{
+  "implementationSource": "0433459",
+  "fullOrdinaryRunsAtStableSource": 1,
+  "ordinary": "PASS",
+  "packageResults": "9 tested packages PASS; remaining packages have no tests",
+  "ordinaryCases": {
+    "PASS": 12508
+  },
+  "ordinaryAuditFindings": 0,
+  "offlineGate": true,
+  "differentialGate": true,
+  "differentialPass": 868,
+  "differentialPending": 0,
+  "preflight": "FAIL",
+  "readyForRace": false,
+  "releasePass": false,
+  "actualRaceExecutions": 0,
+  "paidCalls": 0,
+  "ordinaryBundle": ".evidence/race-optimization/validation-0433459/ordinary/20261019T221447.296837000Z",
+  "commands": {
+    "vet": {
+      "receipt": ".evidence/race-optimization/validation-0433459/vet-command.json",
+      "exitCode": 0,
+      "seconds": 0.798853250220418
+    },
+    "vet-live": {
+      "receipt": ".evidence/race-optimization/validation-0433459/vet-live-command.json",
+      "exitCode": 0,
+      "seconds": 0.538564208894968
+    },
+    "ordinary": {
+      "receipt": ".evidence/race-optimization/validation-0433459/ordinary-command.json",
+      "exitCode": 0,
+      "seconds": 633.1101409583353
+    },
+    "build-releasegate": {
+      "receipt": ".evidence/race-optimization/validation-0433459/build-releasegate-command.json",
+      "exitCode": 0,
+      "seconds": 2.167766749858856
+    },
+    "preflight": {
+      "receipt": ".evidence/race-optimization/validation-0433459/preflight-command.json",
+      "exitCode": 1,
+      "seconds": 12.625900458078831
+    },
+    "ordinary-consumption": {
+      "receipt": ".evidence/race-optimization/validation-0433459/ordinary-consumption-command.json",
+      "exitCode": 1,
+      "seconds": 91.60172679228708
+    }
+  },
+  "qualificationBlockers": [
+    "typesafe-classifier-jev-1.14.0",
+    "visual-effect-jev",
+    "visual-effect-decisions"
+  ],
+  "readOnlyReevaluation": "Command gates intentionally NOT_RUN; standalone actual Go receipts are not imported as fabricated CLI check state."
+}

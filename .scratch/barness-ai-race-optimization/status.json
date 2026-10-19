@@ -1,21 +1,27 @@
 {
-  "status": "implementing",
-  "stage": "pre-long-validation-review",
+  "status": "implemented",
+  "stage": "ordinary-verified-release-blocked",
   "race": "NOT_RUN",
   "releasePass": false,
   "paidCalls": 0,
   "plan": "plan.md",
   "failureModes": "failure-modes.md",
   "coverage": "coverage.json",
-  "verification": [
-    "evidence/preflight-red.log",
-    "evidence/preflight-green.log",
-    "evidence/execution-red.log",
-    "evidence/execution-green.log",
-    "evidence/checkpoint-red.log",
-    "evidence/checkpoint-green.log",
-    "evidence/ledger-red.log",
-    "evidence/stderr-red.log",
-    "evidence/focused.log"
+  "verification": "verification.json",
+  "preflight": "FAIL",
+  "sourceImpact": "source-impact.json",
+  "readyForRace": false,
+  "review": "review.md",
+  "implementationSource": "0433459",
+  "ordinary": "PASS",
+  "actualRaceExecutions": 0,
+  "validationDirectory": ".evidence/race-optimization/validation-0433459",
+  "index": "verification.md",
+  "performance": "performance.md",
+  "manualRace": "manual-race.md",
+  "pending": [
+    "受影响三份真实证明另行授权续期",
+    "有效输入下正式check及人工完整race",
+    "完整发布Evaluate与race性能比例"
   ]
 }
