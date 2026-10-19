@@ -364,11 +364,7 @@ M3标准价格快照直接使用有日期的USD/M费率，不依赖FX；官方51
 均为PASS；这不等于整体发布通过。M3.1仍为未推广候选，自身NOT_RUN，M Plan权益、
 正式费率和当前正式资格未知，不由M3继承。
 
-整体MiniMax发布仍为PARTIAL。最新source7931的GLM Messages cancel为真实FAIL且缺少
-原生live-report，严格GLM发布与四行候选导入被拒，原矩阵未变。[票17](../../.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md)又修改了最终payload
-校验边界；原M3三份263、GLM217、文本selected261、协议862及视觉323来源映射不能认证
-此后新源码，原报告/hash/pin/selector保留，当前正式适用性尚未建立。旧generic身份亦须按
-最终源码差异独立核验，不能因缺完整map豁免。离线受控修复不授予付费重跑或正式PASS。
+当前MiniMax交付已COMPLETE，来源资格与发布依据见[当前交付](../../.scratch/barness-ai-minimax/delivery-status.md)及[最终闭合](../../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)。M3三协议、GLM三协议、文本两路线、protocol114及两份视觉共11组均具当前来源资格，17份自身支持与4项独立效果PASS。测量来源78843的双vet/完整普通/race实际退出0/0/0/0、CLI0、报告true；两套主包各12495PASS、audit0，最终矩阵17PASS。GLM Messages cancel在完整22场景报告中1146ms PASS。后续文档/证据提交保持1078份选定源码；原source7931取消超时、票17修复前映射、旧失败及账本仍保留历史，未重写为新证明。M3.1线上三个候选保持NOT_RUN0/0，不授予M Plan资格或正式支持。
 宿主装配见
 [国际站示例](../../ai/examples/minimaxhost/README.zh-CN.md)；决策见
 [ADR-0042](../adr/0042-barness-ai-minimax-international-target.md)。

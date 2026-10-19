@@ -1,6 +1,8 @@
 # barness-ai 发布说明
 
-> **当前完整验收（2026-10-18）**：目录 `2026-10-17.2` / Hash `sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942`，93聊天身份、2图像、3分类；中国标准GLM-5.3/5.2三协议六身份、十三协议组合/十四自身支持和四独立效果全部通过。实际完整CLI在3d3cd0f执行 normal11049/race11049、两种vet、压力/差分/撤权及20份审计，十门禁PASS。[票13结论及精确来源](../../.scratch/barness-ai-glm/evidence/ticket-13/README.md)、[可重复校验索引](../../.scratch/barness-ai-glm/evidence/ticket-13/index.json)保留原失败、282次本票实际HTTP、完整基线回滚与99项/643用例追溯。以下历次验收保留各自历史身份。
+> **当前完整验收（2026-10-19）**：目录`2026-10-18.1-minimax`包含96聊天身份、2图像和3分类；16协议组合、17自身支持和4项独立效果通过。严格来源资格11/11；来源`78843eb`完整普通/race主包各12495PASS、audit0，双vet与CLI均exit0、发布报告true，精确矩阵已发布。M3.1线上三个候选仍NOT_RUN0/0。后续文档/证据提交保持1078份选定源码。当前结论见[交付状态](../../.scratch/barness-ai-minimax/delivery-status.md)和[完整证据及最终审查](../../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)。以下保留各次历史结果。
+
+> **历史GLM完整验收（2026-10-18）**：目录 `2026-10-17.2` / Hash `sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942`，93聊天身份、2图像、3分类；中国标准GLM-5.3/5.2三协议六身份、十三协议组合/十四自身支持和四独立效果全部通过。实际完整CLI在3d3cd0f执行 normal11049/race11049、两种vet、压力/差分/撤权及20份审计，十门禁PASS。[票13结论及精确来源](../../.scratch/barness-ai-glm/evidence/ticket-13/README.md)、[可重复校验索引](../../.scratch/barness-ai-glm/evidence/ticket-13/index.json)保留原失败、282次本票实际HTTP、完整基线回滚与99项/643用例追溯。以下历次验收保留各自历史身份。
 
 barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go 包 `github.com/tokenbeat-lab/barness/ai`），支持 chat、image、classifier 三种操作。本目录汇总发布交付物、当前验证结论与历史证据。
 
@@ -18,7 +20,7 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 | 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |
 | 最小示例 | `ai/examples/localassembly`、`hostintegration`（聊天与混合操作）、`toolloop`、`requestid`；独立中文评估见 [`chineseeval`](../../ai/examples/chineseeval/README.md) |
 | 研究条目追溯 | [`ai/release/traceability.json`](../../ai/release/traceability.json)（研究 T/C/H/V/S 条目 → E/P/D 场景 → 证据用例） |
-| 决策 | [ADR-0001…0036](../adr/)；门禁本身见 ADR-0017 |
+| 决策 | [ADR-0001…0047](../adr/)；门禁本身见 ADR-0017 |
 
 ## 历史完整验收与交付状态（2026-10-13）
 
@@ -39,7 +41,7 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 | 独立中文效果 | Jev/Luna 本轮分别新采集，均 COMPLETE、24 Calls / 24 Attempts、零重试、24/24 正确 |
 | 脱敏审计 | 普通、race、十个 live、两份效果包，共 14 包全部零发现 |
 
-以下旧工单及交付状态保留该次历史记录；本次 GLM 完整自动门禁结论见本文开头，父 spec 的最终审查与关闭另行记录。
+以下旧工单及交付状态保留该次历史记录；当前 MiniMax 完整门禁结论及此前 GLM 结论见本文开头，父 spec 的最终审查与关闭另行记录。
 
 自动门禁 PASS 与最终交付状态分别记录。[历史交付 verdict](../../.scratch/barness-ai-openai-decisions/release-evidence/delivery-verdict.json)
 仍为 `FAIL / completed=false`，[工单 13](../../.scratch/barness-ai-openai-decisions/issues/13-ten-route-release-gate.md)

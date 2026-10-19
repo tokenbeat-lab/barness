@@ -1,8 +1,8 @@
 # barness-ai
 
-> **目录与发布状态（2026-10-18）**：`2026-10-18.1-minimax` 包含96个聊天身份、两个图像型号和三个分类型号，发布合同要求十六协议组合、十七自身支持身份。中国区标准GLM-5.3/5.2各有Chat、Responses、Messages独立绑定；[Host示例](examples/glmhost/README.md)覆盖标准Key和full/simple/WithHooks。Jev1.14图像与Box继续要求实验图像开关和显式授权。下表保留各路线自身真实历史；当前源码适用性须重新核验，MiniMax整体验收仍为 **PARTIAL**。
+> **目录与发布状态（2026-10-19）**：`2026-10-18.1-minimax` 包含96个聊天身份、两个图像型号和三个分类型号，发布合同要求十六协议组合、十七自身支持身份。中国区标准GLM-5.3/5.2各有Chat、Responses、Messages独立绑定；[Host示例](examples/glmhost/README.md)覆盖标准Key和full/simple/WithHooks。Jev1.14图像与Box继续要求实验图像开关和显式授权。当前支持矩阵17身份全部PASS；当前来源资格、完整发布门禁与最终审查均已完成，交付为 **COMPLETE**。见[当前交付状态](../.scratch/barness-ai-minimax/delivery-status.md)。
 
-> **MiniMax 国际站**：`BuiltinCatalog()` 已包含 `minimax` × Chat、Responses、Messages 的三个 `MiniMax-M3` 身份，端点为 `api.minimax.io/v1` 或 `api.minimax.io/anthropic`。三份自身[国际站正式报告](../.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md)保留历史PASS及有日期的USD价格快照。M3.1仍为未推广候选，自身报告NOT_RUN，M Plan权益与正式价格未知。[Host示例](examples/minimaxhost/README.zh-CN.md)要求明确账户和凭据用途。[票17](../.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md)修改最终payload边界后，原M3、GLM、文本、协议及视觉来源pins不能认证新源码；严格发布与整体资格仍不完整。
+> **MiniMax 国际站**：`BuiltinCatalog()` 已包含 `minimax` × Chat、Responses、Messages 的三个 `MiniMax-M3` 身份，端点为 `api.minimax.io/v1` 或 `api.minimax.io/anthropic`。三份自身[当前正式报告](../.scratch/barness-ai-minimax/evidence/ticket-19/actual/remaining/README.md)均PASS，并已核对最终测量来源的适用性。M3.1仍为未推广候选，线上自身报告NOT_RUN，M Plan权益与正式价格未知。[Host示例](examples/minimaxhost/README.zh-CN.md)要求明确账户和凭据用途。[最终闭合](../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)记录11组来源资格、完整门禁和精确矩阵发布通过；原失败和旧来源map保留历史。
 
 [English](README.md) | 简体中文
 
@@ -53,23 +53,25 @@
 | chat | DeepSeek × Responses（扩展路径，pi 无此路由） | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One，jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS（上下文探针返回 400；422 形状未确认） |
-| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（自身历史正式证据，须重验来源） |
-| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS（自身历史正式证据，须重验来源） |
-| chat | 中国区智谱 × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS（自身历史证据，须重验来源） |
-| chat | 中国区智谱 × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS（自身历史证据，须重验来源） |
-| chat | 中国区智谱 × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | 最新source7931为FAIL（cancel），旧PASS保留 |
-| chat | 国际站MiniMax-M3 × Chat | `minimax` / `openai-completions` | 自身正式历史PASS，票17新源码资格未建立 |
-| chat | 国际站MiniMax-M3 × Responses | `minimax` / `openai-responses` | 自身正式历史PASS，票17新源码资格未建立 |
-| chat | 国际站MiniMax-M3 × Messages | `minimax` / `anthropic-messages` | 自身正式历史PASS，票17新源码资格未建立 |
+| classifier | OpenAI × Decisions，gpt-6-luna | `openai` / `openai-decisions` | PASS（当前来源资格已验证） |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS（当前来源资格已验证） |
+| chat | 中国区智谱 × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS（当前来源资格已验证） |
+| chat | 中国区智谱 × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS（当前来源资格已验证） |
+| chat | 中国区智谱 × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | PASS（当前完整22场景；原取消失败保留） |
+| chat | 国际站MiniMax-M3 × Chat | `minimax` / `openai-completions` | PASS（当前自身正式证据） |
+| chat | 国际站MiniMax-M3 × Responses | `minimax` / `openai-responses` | PASS（当前自身正式证据） |
+| chat | 国际站MiniMax-M3 × Messages | `minimax` / `anthropic-messages` | PASS（当前自身正式证据） |
 | image | OpenAI × Images，gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS（生成、JSON 编辑与 mask） |
 | image | Google × Interactions v1beta，gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS（生成与参考编辑，1K / 1:1） |
 
-十组合已在 **2026-10-13** 的正式目录 `2026-10-13.1` 与 schema 3 下各自重跑，路线状态见 [`live/support-matrix.json`](live/support-matrix.json)。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
+历史十组合曾在 **2026-10-13** 的正式目录 `2026-10-13.1` 与 schema 3 下各自重跑，路线状态见 [`live/support-matrix.json`](live/support-matrix.json)。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
 
 两条原生图像路线与 DeepSeek Responses 均登记为扩展路径，其自身证据不计为 pi 差分通过。发布结论与后续离线修复见[发布说明](../docs/barness-ai/README.md)。
 内置目录包含 96 个聊天身份、两个图像型号与三个分类型号；同名型号可以分属不同操作或协议。
 
 ### 当前验证与发布状态
+
+[当前MiniMax交付](../.scratch/barness-ai-minimax/delivery-status.md)已COMPLETE：测量来源`78843eb`两种vet、普通/race实际命令均exit0，两套主包各12495PASS、0FAIL、0NOT_RUN、audit0。17份自身支持与4项效果全部PASS，严格来源资格11/11；GLM Messages cancel在完整报告中1146ms PASS。后续文档/证据提交保持1078份选定源码字节，不冒充新Go执行。以下基线保持各自历史结果。
 
 上一完整基线为[票14正式结论](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md)：11份自身真实支持、四份独立效果、normal/race各9098例、861份冻结pi案例和全部门禁通过。[原压力票07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) 已由自身因果证据解决，历史失败保留。
 

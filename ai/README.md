@@ -1,8 +1,8 @@
 # barness-ai
 
-> **Catalog and release status (2026-10-18):** `2026-10-18.1-minimax` contains 96 chat identities, two image models and three classifiers. The release contract requires 16 protocol combinations and 17 independent own support identities. China standard GLM-5.3/5.2 keep separate Chat, Responses and Messages bindings; [Host examples](examples/glmhost/README.md) cover standard keys and full/simple/WithHooks. Jev1.14 images and Box retain experimental-image and explicit-authorization requirements. The table records own live history; current source applicability must be revalidated and the complete MiniMax release remains **PARTIAL**.
+> **Catalog and release status (2026-10-19):** `2026-10-18.1-minimax` contains 96 chat identities, two image models and three classifiers. The release contract requires 16 protocol combinations and 17 independent own support identities. China standard GLM-5.3/5.2 keep separate Chat, Responses and Messages bindings; [Host examples](examples/glmhost/README.md) cover standard keys and full/simple/WithHooks. Jev1.14 images and Box retain experimental-image and explicit-authorization requirements. The current support matrix has 17 PASS identities; current-source qualification, the complete release gate and final reviews are **COMPLETE**. See the [delivery status](../.scratch/barness-ai-minimax/delivery-status.md).
 
-> **MiniMax international:** `BuiltinCatalog()` includes `MiniMax-M3` on `minimax` × `openai-completions`, `openai-responses` and `anthropic-messages`, using `api.minimax.io/v1` or `api.minimax.io/anthropic`. The three own [international formal reports](../.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/README.md) are historical PASS with a dated USD price snapshot. M3.1 remains an unpromoted candidate: its own reports are NOT_RUN, with M Plan entitlement and production price unconfirmed. [Host examples](examples/minimaxhost/README.md) require an explicit account and credential purpose. [Ticket17](../.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md) changes the final-payload boundary; the old M3, GLM, text, protocol and visual source pins do not certify this new source. Strict publication and full release qualification remain incomplete.
+> **MiniMax international:** `BuiltinCatalog()` includes `MiniMax-M3` on `minimax` × `openai-completions`, `openai-responses` and `anthropic-messages`, using `api.minimax.io/v1` or `api.minimax.io/anthropic`. The three own [current formal reports](../.scratch/barness-ai-minimax/evidence/ticket-19/actual/remaining/README.md) pass with source applicability verified at the final measured source. M3.1 remains an unpromoted candidate: its own online reports are NOT_RUN, with M Plan entitlement and production price unconfirmed. [Host examples](examples/minimaxhost/README.md) require an explicit account and credential purpose. The [final closure](../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md) records eleven qualified source groups, the passing complete gate and exact matrix publication; original failures and older source maps remain historical.
 
 English | [简体中文](README.zh-CN.md)
 
@@ -57,20 +57,22 @@ Non-goals: no agent loop, no built-in memory or history trimming, no tool execut
 | chat | DeepSeek × Responses (extension route, not in pi) | `deepseek` / `openai-responses` | PASS |
 | chat | DeepSeek × Chat Completions | `deepseek` / `openai-completions` | PASS |
 | classifier | TypeSafe × System One, jev-1.13.0 | `typesafe` / `typesafe-system-one` | PASS (context probe returned 400; 422 shape unconfirmed) |
-| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (own historical formal evidence; revalidate source) |
-| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS (own historical formal evidence; revalidate source) |
-| chat | China Zhipu × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS (own historical evidence; revalidate source) |
-| chat | China Zhipu × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS (own historical evidence; revalidate source) |
-| chat | China Zhipu × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | Latest source7931 FAIL (cancel); older PASS retained |
-| chat | International MiniMax-M3 × Chat | `minimax` / `openai-completions` | Own formal historical PASS; ticket17 source unqualified |
-| chat | International MiniMax-M3 × Responses | `minimax` / `openai-responses` | Own formal historical PASS; ticket17 source unqualified |
-| chat | International MiniMax-M3 × Messages | `minimax` / `anthropic-messages` | Own formal historical PASS; ticket17 source unqualified |
+| classifier | OpenAI × Decisions, gpt-6-luna | `openai` / `openai-decisions` | PASS (current source qualified) |
+| classifier | TypeSafe × System One, jev-1.14.0 | `typesafe` / `typesafe-system-one` | PASS (current source qualified) |
+| chat | China Zhipu × Chat, glm-5.3 / glm-5.2 | `zhipu` / `openai-completions` | PASS (current source qualified) |
+| chat | China Zhipu × Responses, glm-5.3 / glm-5.2 | `zhipu` / `openai-responses` | PASS (current source qualified) |
+| chat | China Zhipu × Messages, glm-5.3 / glm-5.2 | `zhipu` / `anthropic-messages` | PASS (current full 22-case report; old cancel failure retained) |
+| chat | International MiniMax-M3 × Chat | `minimax` / `openai-completions` | PASS (current own formal evidence) |
+| chat | International MiniMax-M3 × Responses | `minimax` / `openai-responses` | PASS (current own formal evidence) |
+| chat | International MiniMax-M3 × Messages | `minimax` / `anthropic-messages` | PASS (current own formal evidence) |
 | image | OpenAI × Images, gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS (generation, JSON edit and mask) |
 | image | Google × Interactions v1beta, gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS (generation and reference edit, 1K / 1:1) |
 
 The matrix records each identity's own source/catalog-scoped evidence. Jev1.13 and1.14 share one protocol combination and retain separate required identities. GLM routes are Extension Routes with their own evidence, alongside DeepSeek Responses and both native image routes; none claims frozen pi parity. Callable models remain the intersection of the full `(Operation, Provider, API, ModelID)` catalog identity and the binding allowlist.
 
 ### Current verification and release status
+
+The [current MiniMax delivery](../.scratch/barness-ai-minimax/delivery-status.md) is COMPLETE: at measured source `78843eb`, both vet modes, ordinary and race commands exited 0; each main suite has 12,495 PASS, 0 FAIL, 0 NOT_RUN and audit0. All 17 own support inputs and four effects pass. Eleven source groups qualify; GLM Messages cancel passes in the full report at 1146ms. Later documentation/evidence commits preserve all 1,078 selected source files and are not new Go executions. The following baselines retain their original historical results.
 
 The previous complete baseline is [ticket14's accepted release](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md):11 own live identities, four independent effects, normal/race9098 each,861 frozen pi cases and all gates PASS. The original [pressure issue07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) is resolved with retained causal evidence; earlier failing releases remain history.
 
