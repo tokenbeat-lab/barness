@@ -6,7 +6,7 @@
   "releaseCertified": false,
   "specClosed": false,
   "latestPaidActualSource": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
-  "currentCodeSource": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+  "currentCodeSource": "a808e0ef49f60832b0d5f49aa4c6d4e7cf752c57",
   "allAuthorizedPaidProcessesClosed": true,
   "additionalPaidRoundAuthorized": false,
   "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
@@ -235,7 +235,8 @@
     "09",
     "10",
     "12",
-    "15"
+    "15",
+    "19"
   ],
   "blockers": [
     "Messages glm-5.3/cancel latest single-case diagnostic PASS; full current-source Messages formal22 report remains absent",
@@ -484,7 +485,7 @@
     "evidence": "evidence/ticket-18/cleanup.json"
   },
   "currentSourceElevenRevalidation": {
-    "state": "KEYLESS_CHECK_FAILED",
+    "state": "SOURCE_REVIEWED_NEW_PREFLIGHT_PENDING",
     "sourceCommit": "751ad941a7dcda4392ee9dd73ff6089f8c846f0e",
     "precheckCurrentQualified": 0,
     "strictGroups": 11,
@@ -495,22 +496,44 @@
     "proposedAdditionalMaxCalls": 216,
     "proposedAdditionalMaxHTTPAttempts": 252,
     "evidence": "evidence/ticket-19/precheck/README.md",
-    "codeSourceCommit": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+    "codeSourceCommit": "a808e0ef49f60832b0d5f49aa4c6d4e7cf752c57",
     "sourceReviews": {
       "Standards": 0,
       "Spec": 0,
       "evidence": "evidence/ticket-19/reviews/README.md"
     },
-    "sixCurrentKeylessChecksCompleted": true,
+    "sixCurrentKeylessChecksCompleted": false,
     "newActualFormalQualification": false,
     "sixCurrentKeylessChecksPassed": false,
-    "keylessCheckSourceCommit": "0bbd73d77eb40460d4051662e9a5d6abd6de9c47",
-    "keylessCheckResult": {
+    "firstPreflight": {
       "PASS": 5,
       "FAIL": 1,
       "failed": "no-key-live",
       "reason": "MM19 controlled child output records home directory; final redaction audit fails",
-      "evidence": "evidence/ticket-19/preflight-first/README.md"
+      "evidence": "evidence/ticket-19/preflight-first/README.md",
+      "sourceCommit": "0bbd73d77eb40460d4051662e9a5d6abd6de9c47"
+    },
+    "homePatchReviews": {
+      "Standards": 0,
+      "Spec": 0,
+      "sourceCommit": "a25737aeb605b4d5ede11aafeb60916e5c5c701e"
+    },
+    "pythonRegression": {
+      "sourceCommit": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+      "tests": 80,
+      "exitCode": 0,
+      "seconds": 666.097,
+      "selectedSourceBeforeAfterEqual": 1074,
+      "currentApplicability": "All Python and production AI unchanged; one controlled Go test HOME diagnostic fix reviewed separately and requires fresh root checks",
+      "evidence": "evidence/ticket-19/outer-controlled/README.md"
+    },
+    "retentionReadbacks": {
+      "nativeHomeMembers": 101,
+      "outerMembers": 4148,
+      "exitCodes": [
+        0,
+        0
+      ]
     }
   }
 }

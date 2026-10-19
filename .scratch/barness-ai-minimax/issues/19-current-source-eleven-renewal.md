@@ -30,3 +30,5 @@ Blocked by: None
 2026-10-19 无Key前置复核完成：来源751ad94（AI代码同6a24ba3），11项旧输入均拒绝当前正式资格。实际公开CLI/文本公开API出口及完整日志见[前置证据](../evidence/ticket-19/precheck/README.md)。0Key/0收费；不会把该诊断或旧快照完整性当作当前formal通过。固定新续期边界继续离线实现。
 
 2026-10-19：续期实现源码fbbdea4已集成；[Standards/Spec源码复审](../evidence/ticket-19/reviews/README.md)均0未解决发现。原Spec P2为旧generic10重复导入遇相等LastRunAt拒绝，保留真实公开CLI RED1与独立审计GREEN0；修正为独立矩阵审计17份、默认候选仅更新新7行。六项最终无Key前置检查、固定完整Python工具检查与新增216/252直接批准尚待完成；无真实Key、付费intent或grant，票不关闭。
+
+2026-10-19：首次冻结0bb完整前置检查5通过/1live脱敏审计失败，原件见[首轮检查](../evidence/ticket-19/preflight-first/README.md)。HOME路径诊断修复a257经双轴复审各0发现，原执行/断言/审计不变；普通、race、双vet0及12份子报告0预算均留存。固定fbb的80项Python工具测试PASS；该测量前后1074来源相等，不把后续单个Go测试变更冒充同源重跑。两组有界归档读回0，合并a808无额外源码变更。下一步新冻结六项检查、精确计划复审与216/252新增预算批准；当前真实调用仍0。

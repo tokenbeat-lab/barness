@@ -11,3 +11,7 @@
 0未解决发现。原[70dd审查](spec-source-initial.json)发现1项P2：将旧10报告重导至原矩阵副本会被严格时间戳消费者拒绝。修正后全部17输入经独立identity矩阵公开审计，原候选矩阵仅导入新7报告，并校验旧10行及非行字段不变后原子替换。真实公开消费者的相等时间戳RED1和独立审计GREEN0均保留；[最终复审](spec-source-final.json)关闭该发现。16份原生AI源码与独立已审f599字节相等，沿用[原生审查](spec-native-source.json)。
 
 Standards 0，Spec 0；完整工具检查及最终六项无Key前置检查尚未在本审查中声称通过。
+
+后续HOME诊断修复a257的[Standards](home-standards.json)与[Spec](home-spec.json)增量复审各0发现：仅一份受控Go测试改变，其余1073份执行来源不变，实际执行、原断言与审计政策保持。101份HOME原件和4148份外层原件均由[独立合并者](retention-merger.json)有限读回，合并至a808；80项Python工具回归在fbb测量PASS，单个Go测试补正另以定向普通/race和新root前置检查覆盖。
+
+[首次GLM准备静态审查](prepared-glm-first-static.json)只记录0bb的静态计划相符，后续该冻结的六项检查5通过/1失败；不能移用为新冻结的批准。新冻结仍须全部实际前置检查及精确计划审查，不在此文档提前批准216/252新增预算。

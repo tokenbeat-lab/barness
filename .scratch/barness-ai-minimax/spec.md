@@ -6,7 +6,7 @@ Updated: 2026-10-18
 
 本文件是交付契约，本身不表示 MiniMax 接入或真实冒烟已通过。2026-10-18 用户明确将接入目标改为国际站；当前依据为 [国际站研究](research-international.md)，[中国区研究](research.md)及原始失败捕获作为历史保留。官方声明、文档冲突与待实测项分别记录，不将其他地区或厂商的行为当作国际站事实。
 
-当前交付为PARTIAL，见[交付状态](delivery-status.md)。原固定六项已关闭，历史累计647/647；2026-10-19用户单独要求的Messages `glm-5.3/cancel`真实诊断PASS，新增1/1，旧能力续期累计648/648，原超时失败保留。该单场景不替代完整formal22。票19在来源751ad94（AI代码同6a24ba3）实际无Key复核，十一组旧输入均无当前正式资格；独立新续期授权、账本和固定计划已在fbbdea4集成并经双轴源码复审各0发现；最终六项无Key检查待执行，尚未批准216/252新增消费。原M3来源8900034自身三正式PASS39/36、候选49/45另列，M3.1线上三项仍NOT_RUN0/0。严格GLM发布、矩阵装配与完整门禁仍未完成，10、09和spec开放；历史轮次、失败及消费不改写。以下既有要求保持。
+当前交付为PARTIAL，见[交付状态](delivery-status.md)。原固定六项已关闭，历史累计647/647；2026-10-19用户单独要求的Messages `glm-5.3/cancel`真实诊断PASS，新增1/1，旧能力续期累计648/648，原超时失败保留。该单场景不替代完整formal22。票19在来源751ad94（AI代码同6a24ba3）实际无Key复核，十一组旧输入均无当前正式资格；独立新续期授权、账本和固定计划已在fbbdea4集成并经双轴源码复审各0发现；首次六项无Key检查5通过/1受控诊断脱敏失败已保留；HOME修复a257双轴复审各0发现、80项工具回归PASS，最终新冻结六项检查待执行，尚未批准216/252新增消费。原M3来源8900034自身三正式PASS39/36、候选49/45另列，M3.1线上三项仍NOT_RUN0/0。严格GLM发布、矩阵装配与完整门禁仍未完成，10、09和spec开放；历史轮次、失败及消费不改写。以下既有要求保持。
 
 领域与架构依据：[领域词汇](../../GLOSSARY.md)、[协议边界 ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[DeepSeek Responses ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[DeepSeek Chat ADR-0015](../../docs/adr/0015-barness-ai-deepseek-chat-completions.md)、[型号纳入 ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[Provider 自动字段 ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[GLM 接入 spec](../barness-ai-glm/spec.md)、[GLM 正式支持 ADR-0036](../../docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)。
 

@@ -1,0 +1,126 @@
+{
+  "axis": "Spec",
+  "status": "STATIC_PASS_CHECKS_PENDING",
+  "reviewedAt": "2026-10-19T05:28:13.188503+00:00",
+  "sourceCommit": "0bbd73d77eb40460d4051662e9a5d6abd6de9c47",
+  "reviewedImplementationCommit": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+  "collectionRoot": ".evidence/minimax-current-eleven-glm-1",
+  "pins": {
+    "sourceCommit": "0bbd73d77eb40460d4051662e9a5d6abd6de9c47",
+    "sourceManifestSHA256": "af7fcd18a4633cde869bd46a1714fa7ec36f293bb18ab902aefe16a6d4351262",
+    "binariesManifestSHA256": "13a02450ec5add9f78ba24984e0bbf0860cec858a230533976563bf9eba4ab02",
+    "planSHA256": "dc088837f1fc0db027b5a3325a891e012c3a8e4b51a833065c49025ccc9b3752",
+    "historySHA256": "afe54cb33b19635c97c644fc160c46c032413bb6a498e5f6104f3fecc050d57a",
+    "genericSHA256": "eae5b2fbbd431fcb884a16c3680a21a4d854fae7fdf86b3e6c3725a34d095fd1",
+    "transitionSHA256": "0b853fe5845c1d79d50536353fbc224a2c7c554e0ccf1abd7c102fa5d6010d22",
+    "nativeRenewalFactsSHA256": "0cd9cee0eb7363ecf646bd34dd74b54662bc4e34357eb0736799276a1dc097c3"
+  },
+  "binaryFilesSHA256": {
+    "live.test": "bda3111d4ab18f54d76dab5eacf84c3d47709e9138c62ebf49acbbc6cc6bf988"
+  },
+  "buildReceiptSHA256": "f33c4ed9baffc4a986ceea21f02175782e29d545279f8b305ea009b95c24b6ca",
+  "sourceProof": {
+    "selectedFiles": 1074,
+    "completeCurrentSet": true,
+    "everyCurrentFileEqualsFrozenManifest": true,
+    "everyFileEqualsCommittedRoot": true,
+    "everyFileEqualsReviewedFbb": true
+  },
+  "planProof": {
+    "phase": "glm",
+    "selectedJobs": [
+      "current-source-eleven-renewal-1-glm-chat",
+      "current-source-eleven-renewal-1-glm-responses",
+      "current-source-eleven-renewal-1-glm-messages"
+    ],
+    "allJobs": 11,
+    "nominalCalls": 189,
+    "nominalHTTPAttempts": 186,
+    "additionalMaxCalls": 216,
+    "additionalMaxAttempts": 252,
+    "allFixedInventoryRoutesAndProxiesMatch": true,
+    "phaseGLMNoProxy": true,
+    "remainingRequiresFreshFreezeReview": true
+  },
+  "historyProof": {
+    "legacyCalls": 648,
+    "legacyAttempts": 648,
+    "canonicalReceiptsRehashed": 45,
+    "diagnosticOriginalPinsRehashed": 3,
+    "separateM3FormalCalls": 39,
+    "separateM3FormalHTTPAttempts": 36,
+    "originalM3FormalLedgerSHA256": "18da13b55406c7d4a1754ad26984c617185cae3dbef270e68dff95db9cd2e4ef",
+    "originalM3FormalLedgerTail": "a2a958661017e2052865641c5c14ecb5520910b447346a8960552a8d1f190ce1",
+    "genericOwnInputs": 10,
+    "genericOriginalNativeFilesRehashed": 445,
+    "genericProducerFilesMatchReviewedBaseline": 184,
+    "fourSelectorsAndOriginalMatrixUnchanged": true
+  },
+  "keylessChecksAtRead": {
+    "vet": {
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false
+    },
+    "vet-live": {
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false
+    },
+    "no-key-live": {
+      "state": "STARTING",
+      "exitCode": null,
+      "credentialsRead": false
+    },
+    "no-key-visual-proxy": {
+      "state": "NOT_YET_PRESENT",
+      "exitCode": null
+    },
+    "no-key-release-contracts": {
+      "state": "NOT_YET_PRESENT",
+      "exitCode": null
+    },
+    "no-key-release-package": {
+      "state": "NOT_YET_PRESENT",
+      "exitCode": null
+    }
+  },
+  "finalChecksSHA256": null,
+  "broadToolsStatus": "PENDING final closed receipt from parent; not claimed completed",
+  "findings": [],
+  "conditionsBeforeFinalSourceTemplate": [
+    "All six actual exact keyless command receipts COMPLETED, exact integer exitCode0, no credential read/inheritance, checks final pins verified.",
+    "Full fixed-source broad Python tool suite completed0 and exact source bytes retained; no running suite claimed PASS.",
+    "Root HEAD and complete1074 selected set, live.test, plan/history/generic/transition/nativefacts remain exact pins above.",
+    "Final exact source review may authorize only GLM3 with GLM_KEY=current-source-eleven-renewal-1/china-direct; new direct human216/252 approval remains separate and absent."
+  ],
+  "expectedFinalSourceReviewScope": {
+    "decision": "PENDING until conditions satisfied",
+    "reviewedBy": "Independent Spec /root/routed_spec_review; combine with separate Standards result and final report identities only after closure",
+    "authorizedRoutes": [
+      "current-source-eleven-renewal-1-glm-chat",
+      "current-source-eleven-renewal-1-glm-responses",
+      "current-source-eleven-renewal-1-glm-messages"
+    ],
+    "credentialScopes": {
+      "GLM_KEY": "current-source-eleven-renewal-1/china-direct"
+    },
+    "sourceCommit": "0bbd73d77eb40460d4051662e9a5d6abd6de9c47",
+    "sourceManifestSHA256": "af7fcd18a4633cde869bd46a1714fa7ec36f293bb18ab902aefe16a6d4351262",
+    "binariesManifestSHA256": "13a02450ec5add9f78ba24984e0bbf0860cec858a230533976563bf9eba4ab02",
+    "planSHA256": "dc088837f1fc0db027b5a3325a891e012c3a8e4b51a833065c49025ccc9b3752",
+    "historySHA256": "afe54cb33b19635c97c644fc160c46c032413bb6a498e5f6104f3fecc050d57a",
+    "genericSHA256": "eae5b2fbbd431fcb884a16c3680a21a4d854fae7fdf86b3e6c3725a34d095fd1",
+    "transitionSHA256": "0b853fe5845c1d79d50536353fbc224a2c7c554e0ccf1abd7c102fa5d6010d22",
+    "nativeRenewalFactsSHA256": "0cd9cee0eb7363ecf646bd34dd74b54662bc4e34357eb0736799276a1dc097c3"
+  },
+  "authorizationState": {
+    "executionTemplate": "PENDING",
+    "realExecutionAuthorizationPresent": false,
+    "realNativeGrantPresent": false,
+    "nativeFacts": "NOT_ISSUED",
+    "paidRequestsByReviewer": 0
+  },
+  "report": "Static prepared-plan review has no findings. All1074 frozen files exactly equal both committed ROOT0bbd and reviewed fbb implementation; binary/build/plan, prior648 and immutable originalM3 formal39/36, generic10 original files/current relevant producer baseline, selectors and matrix match. GLM3 uses ChinaDIRECT; only future freshly reviewed remaining8 uses explicit local proxy. Checks and broad tools completion remain pending; no source template, real grant, budget or qualification is authorized by this interim report.",
+  "execution": "Only read-only stdlib/Git/blob/hash/JSON inspection; no project program, test, verifier, .env/Key, vendor/network, or repository writes."
+}

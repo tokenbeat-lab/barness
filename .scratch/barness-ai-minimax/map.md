@@ -13,7 +13,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-新增离线frontier：[19 当前源码十一组严格证据复验](issues/19-current-source-eleven-renewal.md)，Status claimed；旧输入0/11当前合格已实际复核。M3续期授权与固定两阶段计划已在fbbdea4集成，双轴源码复审各0发现；当前完整六项无Key检查待执行，无Key/收费intent，216/252新预算待批准。已关闭旧合同及票18单场景PASS均保留。
+新增离线frontier：[19 当前源码十一组严格证据复验](issues/19-current-source-eleven-renewal.md)，Status claimed；旧输入0/11当前合格已实际复核。M3续期授权与固定两阶段计划已在fbbdea4集成，双轴源码复审各0发现；首次六项无Key检查5通过/1脱敏失败已保留；HOME修复a257双轴0发现、80项工具回归PASS，当前新提交的完整六项检查待执行，无Key/收费intent，216/252新预算待批准。已关闭旧合同及票18单场景PASS均保留。
 
 当前01–08、11、13、14、16均按各票范围resolved；票17在本轮离线修复/审查留存范围闭合。票15固定六项已批准且全部执行结束，因Messages失败、严格来源与发布认证缺口保持ready-for-human；票12亦保留ready-for-human。当前阻断链为15（实际验收缺口）→10→09，spec保持claimed/PARTIAL，没有待自动执行的付费frontier。
 

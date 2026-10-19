@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "status": "VERIFIED_AND_MERGED_SOURCE_ONLY",
+  "nativeHome": {
+    "tip": "f402607eb42422b15b17cff7622cda0151d15de2",
+    "reviewedSourceTip": "7d76ba46e739e1a474903531f658fac99f57a181",
+    "sourceUnchanged": true,
+    "archiveSHA256": "c61b768bf5b0b36dd2b10415b24fc6ab5a34d00d47a9df2013c064704de453b4",
+    "readbackReceipt": {
+      "argv": [
+        "python3",
+        "-B",
+        ".scratch/barness-ai-minimax/evidence/ticket-19/native-home-redaction/verify.py",
+        "--common-root",
+        "/Users/cyber/RestoX/barness"
+      ],
+      "cwd": "/tmp/barness-minimax-formal-source-renewal",
+      "exitCode": 0,
+      "seconds": 0.04553637467324734,
+      "stdout": "{\n  \"verified\": true,\n  \"custody\": {\n    \"id\": \"ticket19-native-home-redaction\",\n    \"archiveSHA256\": \"c61b768bf5b0b36dd2b10415b24fc6ab5a34d00d47a9df2013c064704de453b4\",\n    \"files\": 101,\n    \"entries\": 101,\n    \"decodedTarBytes\": 604160\n  },\n  \"commands\": {\n    \"red\": 1,\n    \"red-assertions\": 1,\n    \"green\": 0,\n    \"race\": 0,\n    \"vet\": 0,\n    \"vet-live\": 0\n  },\n  \"publicManifests\": [\n    {\n      \"phase\": \"red\",\n      \"caseStatus\": \"PASS\",\n      \"auditFindings\": 4\n    },\n    {\n      \"phase\": \"red-assertions\",\n      \"caseStatus\": \"FAIL\",\n      \"auditFindings\": 4\n    },\n    {\n      \"phase\": \"green\",\n      \"caseStatus\": \"PASS\",\n      \"auditFindings\": 0\n    },\n    {\n      \"phase\": \"race\",\n      \"caseStatus\": \"PASS\",\n      \"auditFindings\": 0\n    }\n  ],\n  \"rawControlledChildReports\": 12,\n  \"paidCalls\": 0,\n  \"currentFormalQualification\": false\n}\n",
+      "stderr": "",
+      "credentialsRead": false,
+      "capturedCommandsExecuted": false,
+      "paidCalls": 0
+    }
+  },
+  "outer": {
+    "tip": "6d04705c422077c9fd734aa890a640b1395d388d",
+    "reviewedSourceTip": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+    "sourceUnchanged": true,
+    "archiveSHA256": "9b366f0574a79a6dbdd4c953000d416f418ec6606b9f1ebc84ad61d7566a8464",
+    "readbackReceipt": {
+      "argv": [
+        "python3",
+        "-B",
+        "-"
+      ],
+      "stdinSource": "outer-controlled/operator.txt exact documented bounded readback",
+      "stdinSHA256": "8013f4355cb0446529ca366faa1b5a66fbeaa719ac77b086ce777574dc268415",
+      "cwd": "/private/tmp/barness-current-eleven-renewal",
+      "exitCode": 0,
+      "seconds": 0.19210724998265505,
+      "stdout": "{\n  \"verified\": true,\n  \"custody\": {\n    \"id\": \"ticket19-outer-controlled\",\n    \"archiveSHA256\": \"9b366f0574a79a6dbdd4c953000d416f418ec6606b9f1ebc84ad61d7566a8464\",\n    \"files\": 4148,\n    \"entries\": 4148,\n    \"decodedTarBytes\": 48517120\n  },\n  \"observed\": 11,\n  \"pythonTests\": 80,\n  \"paidAuthority\": \"PENDING\",\n  \"formalVendorQualification\": false\n}\n",
+      "stderr": "",
+      "credentialsRead": false,
+      "capturedCommandsExecuted": false,
+      "paidCalls": 0
+    }
+  },
+  "merged": true,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "capturedCommandsExecuted": false,
+  "independentHomeSpecReview": {
+    "path": "/tmp/barness-ticket19-home-spec-review.json",
+    "sha256": "b3030d5a779cd53daa87e41b86ba77a276cce50a1971931d8435a3bfaad704dc",
+    "status": "PASS_SOURCE_ONLY",
+    "findings": []
+  },
+  "independentHomeStandardsReview": {
+    "path": "/tmp/barness-ticket19-home-standards-review.json",
+    "sha256": "e0232c6446d64ca8f20ec53048080fb3bdbc3f1fdc023c7078b4be3811ade295",
+    "findings": []
+  },
+  "integration": {
+    "branch": "codex/minimax-global",
+    "before": "69015accdf38678df9264be818527e619007a7ec",
+    "nativeMerge": {
+      "mode": "fast-forward",
+      "tip": "f402607eb42422b15b17cff7622cda0151d15de2"
+    },
+    "outerMerge": {
+      "mode": "ort-merge",
+      "commit": "a808e0ef49f60832b0d5f49aa4c6d4e7cf752c57",
+      "parents": [
+        "f402607eb42422b15b17cff7622cda0151d15de2",
+        "6d04705c422077c9fd734aa890a640b1395d388d"
+      ]
+    },
+    "tip": "a808e0ef49f60832b0d5f49aa4c6d4e7cf752c57",
+    "userUntrackedDirectoriesPreserved": [
+      ".scratch/barness-ai-minimax/session-analysis/",
+      ".scratch/jev-1.14-multimodal-box/human-review/"
+    ],
+    "trackedWorktreeClean": true,
+    "aiAndToolsSameAsReviewedNativeFinal": true
+  },
+  "paidExecutionApproved": false,
+  "findings": [],
+  "notes": "Both bounded custody frontdoors exited0. Captured programs were not executed. The closed Python80 suite remains evidence for its original fbb selected bytes; the one native HOME diagnostic delta has separate review and focused evidence. Fresh root freeze/checks and direct human budget approval remain independent requirements."
+}
