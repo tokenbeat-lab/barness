@@ -121,12 +121,15 @@ func TestVisualUnsentCancellation(t *testing.T) {
 func testUnsentTampering(t *testing.T, original *bundle, originalReport report) {
 	t.Helper()
 	mutations := map[string]func(*bundle, *report){
-		"missing-measured-access": func(b *bundle, _ *report) { b.record("samples/v01/unsent.json", map[string]int{}) },
-		"invented-access":         func(b *bundle, _ *report) { b.record("samples/v01/unsent.json", unsentCapture{CredentialReads: 9}) },
-		"credential":              func(_ *bundle, r *report) { r.Samples[0].Result.Metadata.CredentialVersion = "invented" },
-		"resolved":                func(_ *bundle, r *report) { r.Samples[0].Result.Metadata.Resolved = true },
-		"attempt":                 func(_ *bundle, r *report) { r.Samples[0].Result.Metadata.Attempts = []ai.Attempt{{}} },
-		"wire":                    func(b *bundle, _ *report) { b.record("samples/v01/wire.json", wire{Method: "POST"}) },
+		"null-measured-access":       func(b *bundle, _ *report) { b.file("samples/v01/unsent.json", []byte("{\"credentialReads\":null}\n")) },
+		"boolean-measured-access":    func(b *bundle, _ *report) { b.file("samples/v01/unsent.json", []byte("{\"credentialReads\":false}\n")) },
+		"fractional-measured-access": func(b *bundle, _ *report) { b.file("samples/v01/unsent.json", []byte("{\"credentialReads\":0.0}\n")) },
+		"missing-measured-access":    func(b *bundle, _ *report) { b.record("samples/v01/unsent.json", map[string]int{}) },
+		"invented-access":            func(b *bundle, _ *report) { b.record("samples/v01/unsent.json", unsentCapture{CredentialReads: 9}) },
+		"credential":                 func(_ *bundle, r *report) { r.Samples[0].Result.Metadata.CredentialVersion = "invented" },
+		"resolved":                   func(_ *bundle, r *report) { r.Samples[0].Result.Metadata.Resolved = true },
+		"attempt":                    func(_ *bundle, r *report) { r.Samples[0].Result.Metadata.Attempts = []ai.Attempt{{}} },
+		"wire":                       func(b *bundle, _ *report) { b.record("samples/v01/wire.json", wire{Method: "POST"}) },
 		"missing-terminal": func(b *bundle, _ *report) {
 			b.record("samples/v01/observations.json", []ai.Observation{{Kind: ai.ObservationCallStarted}})
 		},

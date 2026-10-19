@@ -238,15 +238,15 @@ func verify(dir string, requireLive bool) error {
 			if listed[prefix+"request.json"] || listed[prefix+"response.bin"] {
 				return errors.New("unsent call invents payload capture")
 			}
-			var access map[string]int
+			var access map[string]*int
 			if get(prefix+"unsent.json", &access) != nil || len(access) != 1 {
 				return errors.New("missing measured unsent access")
 			}
 			reads, present := access["credentialReads"]
-			if !present {
+			if !present || reads == nil {
 				return errors.New("missing credential read count")
 			}
-			if err := verifyUnsent(p, i, r.Entry, alias, s, w, obs, unsentCapture{CredentialReads: reads}); err != nil {
+			if err := verifyUnsent(p, i, r.Entry, alias, s, w, obs, unsentCapture{CredentialReads: *reads}); err != nil {
 				return err
 			}
 		} else {

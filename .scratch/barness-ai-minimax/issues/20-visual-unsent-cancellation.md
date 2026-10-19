@@ -22,6 +22,7 @@ Status: claimed
 11. 未发送访问记录必须明确提供唯一的整数 credentialReads；缺失字段不能借 int 零值冒充实测 0，伪造次数必须拒绝。
 12. Jev 在 pin 前图片检查可能返回 Capability 或 Request 取消：两者都未解析/read0，Request 仍为 aborted。消费者应接受这些由源码证明的有限形态；Decisions 不允许这两个未解析分支。对应派生包仅是私有消费者 fixture，不是假称在公共执行中观察到该精确阶段。
 13. 已发送 response-read 取消可保留完整捕获体但未进入解码：1 Attempt、Unreported、零 usage、无返回型号。序列化为 JSON null 后，Nullable.IsZero 不能识别缺席状态。先以真实公开核验 RED 和受控公共 Client 在读完响应时取消的 E2E 证明，再最小修正编码缺席比较；不得接受非零 usage/伪造型号。
+14. 独立源码复核指出 JSON null 也可被 map[string]int 解为默认 0。必须先保留真实消费者 null 接受 RED，并保持 bool/小数拒绝，再使用非 nil 的必填整数解码；原候选 a203 和原正确整数原件不能覆盖。
 
 ## Diagnostic provenance
 
