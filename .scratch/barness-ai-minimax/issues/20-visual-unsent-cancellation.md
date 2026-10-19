@@ -1,7 +1,7 @@
 # 20 — 保留视觉调用在发送前取消的真实证据
 
 Type: task
-Status: claimed
+Status: resolved
 
 ## Scope
 
@@ -40,3 +40,9 @@ H1（发送前 deadline）由原始 v08 的 scope terminal、0 Attempt、2 Obser
 离线修复源码 `d02b5adb862e98d73672b47bfd1e3142a2d6082d` 已通过 Standards / Spec 精确复核。最终受控场景普通与 race 各23 PASS、audit0，双 vet exit0；测量时是 a203 HEAD 加 WIP，1,040 项编译/JSON/module 字节与 d02 提交完全一致，不能写成提交后测试。
 
 [证据入口](../evidence/ticket-20/README.md) 保留原始行为 RED、setup 失败、失败 GREEN、finite lifecycle 扩展、已发送取消 null/unset RED、访问计数 null 接纳 RED及最终 GREEN。三个独占创建的有界归档已整包流式核验0，原始输入前后哈希一致；没有读取 Key 或新增付费调用。此票仍待原始留存的独立双轴复核后关闭；不表示协议114与两个 visual 的当前正式资格已建立。
+
+## Answer
+
+离线修复已精确合入d02：不再写入虚构的空请求JSON；按七种有限控制流校验未发送调用的实测归属、凭据读取、两条生命周期事件与零资源；正确重放已发送但未解码的null型号取消包。必填credentialReads使用非nil整数，null/bool/小数及伪造次数均拒绝。原始调用仍计入完整分母，失败不授予require-live。
+
+最终23个确定性回归普通/race均23PASS、audit0，双vet0；实际WIP1040份编译/JSON/module字节与提交d02相等。原scope/post-pin/response-read/null接受RED、失败GREEN、setup和派生夹具保留。三个完整有界归档203335成员及45实际命令收据经两轴独立留存复核0；[证据及审查](../evidence/ticket-20/README.md)。本票关闭离线修复及留存，不改写旧全量FAIL，不授予当前三组live或全量发布认证；21承接新证明/发布门禁，新增36/36尚未获授权。

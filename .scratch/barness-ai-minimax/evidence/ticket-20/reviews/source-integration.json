@@ -1,0 +1,77 @@
+{
+  "kind": "REVIEWED_SOURCE_ONLY_FF_INTEGRATION",
+  "startedUnix": 1792398737.528928,
+  "finishedUnix": 1792398749.766604,
+  "command": [
+    "git",
+    "merge",
+    "--ff-only",
+    "d02b5adb862e98d73672b47bfd1e3142a2d6082d"
+  ],
+  "exitCode": 0,
+  "stdout": "Updating 06bd510..d02b5ad\nFast-forward\n .../issues/20-visual-unsent-cancellation.md        |  36 +++++\n ai/examples/visualeval/run.go                      |  67 ++++++---\n ai/examples/visualeval/sent_cancel_test.go         |  81 ++++++++++\n ai/examples/visualeval/unsent.go                   | 103 +++++++++++++\n ai/examples/visualeval/unsent_after_pin_test.go    |  67 +++++++++\n ai/examples/visualeval/unsent_test.go              | 166 +++++++++++++++++++++\n ai/examples/visualeval/verify.go                   |  72 ++++++---\n 7 files changed, 548 insertions(+), 44 deletions(-)\n create mode 100644 .scratch/barness-ai-minimax/issues/20-visual-unsent-cancellation.md\n create mode 100644 ai/examples/visualeval/sent_cancel_test.go\n create mode 100644 ai/examples/visualeval/unsent.go\n create mode 100644 ai/examples/visualeval/unsent_after_pin_test.go\n create mode 100644 ai/examples/visualeval/unsent_test.go\n",
+  "stderr": "",
+  "before": {
+    "head": "06bd510880cb390b11482949891e1be265a5c525",
+    "branch": "codex/minimax-global",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/",
+    "selectedSourceCount": 1074,
+    "selectedSourceSnapshotSHA256": "b695e9bfa0be6001d869d3a870a1abcb23a59b92fa95207c712cdf1fd6be18e3",
+    "matrixSHA256": "5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754",
+    "userDirs": {
+      ".scratch/barness-ai-minimax/session-analysis/": {
+        "exists": true,
+        "untracked": "?? .scratch/barness-ai-minimax/session-analysis/"
+      },
+      ".scratch/jev-1.14-multimodal-box/human-review/": {
+        "exists": true,
+        "untracked": "?? .scratch/jev-1.14-multimodal-box/human-review/"
+      }
+    }
+  },
+  "after": {
+    "head": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+    "branch": "codex/minimax-global",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/",
+    "selectedSourceCount": 1078,
+    "selectedSourceSnapshotSHA256": "bb769f740e9a19a2ce7ab5ba1d779a0140a932e6646bdc7216dfcde02a0b18ef",
+    "matrixSHA256": "5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754",
+    "userDirs": {
+      ".scratch/barness-ai-minimax/session-analysis/": {
+        "exists": true,
+        "untracked": "?? .scratch/barness-ai-minimax/session-analysis/"
+      },
+      ".scratch/jev-1.14-multimodal-box/human-review/": {
+        "exists": true,
+        "untracked": "?? .scratch/jev-1.14-multimodal-box/human-review/"
+      }
+    }
+  },
+  "reviewSHA256": {
+    "barness-ticket20-source-spec-rereview.json": "70034f693f0c6d8f3099bbd400f80a4bd25a8f6231b8660350544855bdc86df1",
+    "barness-ticket20-source-standards-rereview.json": "6a514af816dc577bf6850b34a8a16bae7a0a51b8bd667f101970eabfc0276191"
+  },
+  "sourceChanges": {
+    "changed": [
+      "ai/examples/visualeval/run.go",
+      "ai/examples/visualeval/verify.go"
+    ],
+    "added": [
+      "ai/examples/visualeval/sent_cancel_test.go",
+      "ai/examples/visualeval/unsent.go",
+      "ai/examples/visualeval/unsent_after_pin_test.go",
+      "ai/examples/visualeval/unsent_test.go"
+    ],
+    "deleted": []
+  },
+  "sourceTreeEqualsReviewedCandidate": true,
+  "ticket20Closed": false,
+  "releaseCertified": false,
+  "paidAuthorityGranted": false,
+  "pendingFreshGroups": [
+    "protocol114",
+    "visual-jev",
+    "visual-decisions"
+  ],
+  "reviewScope": "Source-only; no test, provider, native consumer, old guard or paid execution."
+}

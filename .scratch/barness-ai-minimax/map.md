@@ -15,9 +15,9 @@ Base: `ecfd4b4`
 
 [19 resolved](issues/19-current-source-eleven-renewal.md#answer)：原十一组复验及公开消费者11/11 PASS，新增189/186；17支持输入审计0、新7行导入0、generic10对象/时间不变，原来源矩阵17PASS。固定216/252关闭，原始结果与完整门禁FAIL已独立留存。
 
-[20 视觉取消证据修复](issues/20-visual-unsent-cancellation.md)代码d02已合入、两轴0发现，23个确定性普通/race回归及双vet0；原始TDD留存封存中。[21 修复后的三组来源补证](issues/21-visual-source-renewal.md)先进行离线准备：当前M3/GLM/文本八组原生执行来源未变，protocol114/视觉两组需新证明，当前资格8/11。拟申请独立36/36、零重试，仅这三组国际代理路线；尚无新增付费授权，旧未用额度不转移。
+[20 视觉取消证据修复](issues/20-visual-unsent-cancellation.md)代码d02已合入、两轴0发现，23个确定性普通/race回归及双vet0；原始TDD留存两轴0，按离线修复范围resolved。[21 修复后的三组来源补证](issues/21-visual-source-renewal.md)先进行离线准备：当前M3/GLM/文本八组原生执行来源未变，protocol114/视觉两组需新证明，当前资格8/11。拟申请独立36/36、零重试，仅这三组国际代理路线；尚无新增付费授权，旧未用额度不转移。
 
-当前01–08、11、13、14、16、17、18、19按既定范围resolved；12/15的有限轮次与历史失败保持。剩余链为20留存→21新三组来源证明/完整发布门禁/最终审查→10→09→spec。所有付费进程已关闭。
+当前01–08、11、13、14、16、17、18、19、20按既定范围resolved；12/15的有限轮次与历史失败保持。剩余链为21新三组来源证明/完整发布门禁/最终审查→10→09→spec。所有付费进程已关闭。
 - [01 Provider 身份、六个候选型号与思考元数据](issues/01-provider-model-contract.md)；Blocked by: None。
 - [02 MiniMax Chat 文本、推理、工具历史与边界](issues/02-chat-protocol.md)；Blocked by: 01。
 - [03 MiniMax Responses 无状态流、工具与可信续接](issues/03-responses-protocol.md)；Blocked by: 01。
@@ -111,3 +111,5 @@ Base: `ecfd4b4`
 - 19 resolved：[Answer](issues/19-current-source-eleven-renewal.md#answer)关闭固定十一组复验与结果留存。11/11、189/186及17身份PASS已记录；完整门禁实际FAIL由后续视觉取消证据修复承接。五份有界归档、267820份门禁原件及每套99113引用经独立核对0，来源/矩阵未变；原预算关闭，无新付费授权。
 
 - 2026-10-19：20源码d02精确合入，两轴复审各0；23普通/race与双vet通过，真实WIP源码与提交相等。当前资格8/11，21只准备protocol114/visual-jev/visual-decisions新36/36；未授权、未读Key、未建新付费intent，原预算与门禁失败保持。
+
+- 20 resolved：[Answer](issues/20-visual-unsent-cancellation.md#answer)关闭视觉取消证据离线修复及完整留存；原始RED/失败GREEN与45数字命令保留，203335成员两轴流式核验0，23确定性普通/race和双vet通过。21承接当前三组补证及全量门禁，预算仍未授权。

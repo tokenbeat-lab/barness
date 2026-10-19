@@ -1,0 +1,143 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "status": "APPROVED_SOURCE_ONLY",
+  "base": "06bd510880cb390b11482949891e1be265a5c525",
+  "reviewedHead": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "diffCommand": "git diff 06bd510880cb390b11482949891e1be265a5c525...d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "diffSHA256": "02bdfaa43c82997cc531e90a28c26b0678c9cdf3419d1f1968e031ae5afffa18",
+  "incrementalDiffCommand": "git diff a2038ff805b51ca9c60fc4218abc23810549f8dc...d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "incrementalDiffSHA256": "673c4dbc06facda90b31311f3f6e3f195e3dd83578e7d1a9183fdd39604d11f9",
+  "originalReview": {
+    "path": "/tmp/barness-ticket20-source-standards-review.json",
+    "sha256": "a921331f501d2c80d18351b11c69f0b439223bba8879a39fb0680dd2701baa7d",
+    "preservedUnchanged": true
+  },
+  "resolvedFindings": [
+    {
+      "id": "T20-STANDARDS-01",
+      "status": "RESOLVED",
+      "file": "ai/examples/visualeval/verify.go",
+      "line": 241,
+      "correction": "Required exact-key map[string]*int, explicit non-nil value, then dereference into the finite0/1 lifecycle validation; null cannot masquerade as measured0."
+    }
+  ],
+  "findings": [],
+  "baselineSmells": [],
+  "reviewedFilesSHA256": {
+    ".scratch/barness-ai-minimax/issues/20-visual-unsent-cancellation.md": "7b4a8c0b85e6656e4927746f0ad1297503308783890280240248d297538a9135",
+    "ai/examples/visualeval/run.go": "d960ae951a22b39c5d7582d54470a81c8bda978e4410e7dcc463fccc2a7aa7f8",
+    "ai/examples/visualeval/sent_cancel_test.go": "5f0e5560f28bdc33106d1f7284578abd5027b49d3997918cf6794bcfb6a281e0",
+    "ai/examples/visualeval/unsent.go": "df31ba2e3e244ef3efb6c11ecbf96e442d891b81392b0c45a522426f581e0ba8",
+    "ai/examples/visualeval/unsent_after_pin_test.go": "372cfcf02efffe6f3bb9c813cef2d46147363bc43ee28731160afac3ddd7c265",
+    "ai/examples/visualeval/unsent_test.go": "bd8c4a8e71ea294e16004e274e8349fd43aacf8ab47213a91822ac6fc1e76c78",
+    "ai/examples/visualeval/verify.go": "f112b8fbaad158f38ee7cbce2c97ef7125cf2dd1dc439f9a312be24338f2db61"
+  },
+  "closedRegressionRecords": {
+    "null-access-red": {
+      "exitCode": 1,
+      "startedUnix": 1792398070.888146,
+      "finishedUnix": 1792398075.128652,
+      "recordedHEAD": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceBeforeAfterEqual": 1040,
+      "commandSHA256": "ceffb215eb3cf748ebc67b7aa8ac80832d2054a942f24782f02f988d012e9337",
+      "sourceBeforeSHA256": "09c82056614055a6a077c0176a6b280dcacbaebebdd70a024738f3d53e19274d",
+      "stdoutSHA256": "061e8879f1e7da85eac823cb8397c52e1e4743b1ced7fade5973fcc281a24364",
+      "manifests": [
+        {
+          "cases": 4,
+          "statuses": {
+            "PASS": 2,
+            "FAIL": 2
+          },
+          "failedCases": [
+            "VQ20-tamper-null-measured-access",
+            "VQ20-unsent-jev-plain-cancel"
+          ],
+          "auditFindings": 0,
+          "manifestSHA256": "ff99dee047108c7cd06c14c969ca9bc25c214b4a401ad352915d70a2e8a3d22a"
+        }
+      ]
+    },
+    "null-final-ordinary": {
+      "exitCode": 0,
+      "startedUnix": 1792398123.383331,
+      "finishedUnix": 1792398133.624938,
+      "recordedHEAD": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceBeforeAfterEqual": 1040,
+      "commandSHA256": "f778d121d0bd037fbf3386058c48c0a2e2f8bf24160041e77a217e2643365ae0",
+      "sourceBeforeSHA256": "80d6aa3f673af2f10580cb99901dec329f3e08c3268fad4bb2cd2013f29c9e86",
+      "stdoutSHA256": "942b16b14659c834228cfaa0417332465668df4ccbc8659d7a0bdcb9d78200d0",
+      "manifests": [
+        {
+          "cases": 23,
+          "statuses": {
+            "PASS": 23
+          },
+          "failedCases": [],
+          "auditFindings": 0,
+          "manifestSHA256": "d5b7f48055acbba3abd5fdbdd5b9aff280daf0a878ca827e5bdd1b146a4be858"
+        }
+      ],
+      "measuredBytesEqualFinalCommittedCandidate": true
+    },
+    "null-final-race": {
+      "exitCode": 0,
+      "startedUnix": 1792398124.441133,
+      "finishedUnix": 1792398245.628233,
+      "recordedHEAD": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceBeforeAfterEqual": 1040,
+      "commandSHA256": "5669ceff592d5e4de0a12f6546509b441889802d734bc1f2de15fa92a204171e",
+      "sourceBeforeSHA256": "80d6aa3f673af2f10580cb99901dec329f3e08c3268fad4bb2cd2013f29c9e86",
+      "stdoutSHA256": "ba1cbd8502f55dca1ae5bd9629e0889988a90a2461acc284daba2f6267fba921",
+      "manifests": [
+        {
+          "cases": 23,
+          "statuses": {
+            "PASS": 23
+          },
+          "failedCases": [],
+          "auditFindings": 0,
+          "manifestSHA256": "844232d782ee619be9a5080905b5e0ef83677f0c52c36dc077db877781c2aecd"
+        }
+      ],
+      "measuredBytesEqualFinalCommittedCandidate": true
+    },
+    "null-final-vet": {
+      "exitCode": 0,
+      "startedUnix": 1792398124.441138,
+      "finishedUnix": 1792398124.94699,
+      "recordedHEAD": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceBeforeAfterEqual": 1040,
+      "commandSHA256": "4f755d62022608b953a3dd506d67aee7b60f2776daefa0759872c8d64f92aab5",
+      "sourceBeforeSHA256": "80d6aa3f673af2f10580cb99901dec329f3e08c3268fad4bb2cd2013f29c9e86",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "manifests": [],
+      "measuredBytesEqualFinalCommittedCandidate": true
+    },
+    "null-final-vet-live": {
+      "exitCode": 0,
+      "startedUnix": 1792398124.441138,
+      "finishedUnix": 1792398124.929673,
+      "recordedHEAD": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceBeforeAfterEqual": 1040,
+      "commandSHA256": "5f808658dd313c307e1c26137abf9d8f52a75c7ba5cd3fedbe63faa026a1d97c",
+      "sourceBeforeSHA256": "80d6aa3f673af2f10580cb99901dec329f3e08c3268fad4bb2cd2013f29c9e86",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "manifests": [],
+      "measuredBytesEqualFinalCommittedCandidate": true
+    }
+  },
+  "redCountingClarification": "The full null-access-red manifest is4cases=2PASS/2FAIL: null tamper and its containing unsent case fail. The three invalid-type tamper subtests alone are2PASS/1FAIL. Numeric command exit remains1.",
+  "report": "No remaining documented-standard violations or actionable baseline smells found. T20-STANDARDS-01 is resolved: the exact credentialReads key now decodes to *int and rejects nil before finite lifecycle validation. New null/bool/fractional consumer cases precede the correction; the genuine RED1 manifest has2PASS/2FAIL because the null failure also fails its containing case. Final ordinary/race each23PASS/audit0, and both vets exit0. All1040 measured Go/JSON/mod source bytes remain stable during each final command and equal committed d02; measurement is recorded as a203 plus WIP, not a postcommit rerun. Producer and sent branches are unchanged by this narrow correction; prior20-case/four-deadline/two-accounting evidence stays in the original review. Exact finite phase/access/start-terminal metadata, no-wire/no-payload unsent rules, strict sent admission, deterministic public regressions and category-only unsent replay remain as reviewed. Approval covers source d02 only; no merge, real credential access, paid budget, refreshed three-group qualification or complete release certification is granted.",
+  "method": {
+    "readOnly": true,
+    "projectOrCapturedProgramsExecuted": false,
+    "testsExecuted": false,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "rootEdited": false,
+    "candidateEdited": false,
+    "merged": false
+  }
+}

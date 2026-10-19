@@ -561,7 +561,7 @@
     "normalPrivateNegativeConstructorExit": 0,
     "normalPrivateCounterfeitConsumerExpectedExit": 1
   },
-  "currentIntegrationSourceTip": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "currentIntegrationSourceTip": "2ddaa6e11fe4e858888b40e0f56076b44e1e33f3",
   "currentCodeSourceScope": "Example-only visual cancellation evidence fix; retained eight native execution-source sets unchanged; three classifier groups require fresh current-source proof",
   "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
   "singleCaseMessagesCancelRerun": {
@@ -913,7 +913,7 @@
     "resolutionScope": "Fixed eleven revalidation and truthful complete-gate retention; full specification remains open"
   },
   "pendingVisualUnsentFix": {
-    "state": "FIXED_OFFLINE_SOURCE_MERGED_CUSTODY_PENDING",
+    "state": "CLOSED_OFFLINE_REPAIR_AND_CUSTODY",
     "mergedIntoIntegration": true,
     "rootCause": "Unsent cancellation recording/replay assumptions and sent cancellation JSON-null response-model decoding",
     "sourceImpactIfExampleOnly": [
@@ -937,7 +937,16 @@
       0,
       0
     ],
-    "measuredCompilerFilesEqualCommittedSource": 1040
+    "measuredCompilerFilesEqualCommittedSource": 1040,
+    "ticketStatus": "resolved",
+    "custodyReviews": {
+      "Standards": 0,
+      "Spec": 0
+    },
+    "retainedRegularMembers": 203335,
+    "actualNumericTDDReceipts": 45,
+    "evidence": "evidence/ticket-20/README.md",
+    "ownedWorktreeRemoved": true
   },
   "proposedThreeSourceRenewal": {
     "state": "PREPARING_OFFLINE",

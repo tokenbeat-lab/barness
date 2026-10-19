@@ -45,3 +45,9 @@ PYTHONDONTWRITEBYTECODE=1 python3 .scratch/barness-ai-minimax/evidence/ticket-20
 ```
 
 The reader pins and reuses the existing bounded readers, streams every regular member, checks whole inventories and hashes, recomputes manifest/audit counts and verifies exact integer numeric exits plus the WIP/commit proof. It executes no captured command and extracts nothing. [Creation](creation-command.json) and [readback](readback-command.json) both exited0. Paid calls0; real credentials read0. All owned command windows are closed.
+
+## Independent closure
+
+Both source axes and both custody axes finished with zero open findings. [Original Standards](reviews/source-standards-initial.json) and [Spec](reviews/source-spec-initial.json) findings remain unchanged; [final Standards](reviews/source-standards-final.json) and [Spec](reviews/source-spec-final.json) close them. Independent [custody Standards](reviews/custody-standards.json) and [Spec](reviews/custody-spec.json) streamed all three archives. The Standards custody link is an explicitly derived HOME-aliased display: its wrapper pins the unchanged original SHA and central raw file; it is not a native verification input. The other reports are original bytes. [Source integration](reviews/source-integration.json) and [custody integration](reviews/custody-integration.json) preserve all1078 selected source bytes, the matrix and user directories. Ticket20 closes only this offline repair and verifiable custody. Ticket21 still needs new three-group live proof and an actual successful full gate; no extra paid authority is granted here.
+
+The owned implementation worktree was removed only after both independent custody passes and rehashing all three common-root archives. Its branch and complete raw evidence remain; [cleanup receipt](owned-worktree-cleanup.json). User-owned directories were untouched.
