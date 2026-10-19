@@ -2,6 +2,7 @@ package minimaxlive
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -10,6 +11,18 @@ import (
 // StageLedgerPath is common to every worktree of this repository. A new
 // checkout or process cannot reset the six/three-identity paid stage budget.
 func StageLedgerPath(stage string) (string, error) {
+	if id := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL"); id != "" {
+		if stage != "formal" {
+			return "", fmt.Errorf("renewal requires formal stage")
+		}
+		if _, _, e := approvedRenewal(id, true); e != nil {
+			return "", e
+		}
+		return RenewalLedgerPath(id)
+	}
+	return originalStageLedgerPath(stage)
+}
+func originalStageLedgerPath(stage string) (string, error) {
 	if stage != "candidate" && stage != "formal" {
 		return "", fmt.Errorf("invalid MiniMax stage")
 	}

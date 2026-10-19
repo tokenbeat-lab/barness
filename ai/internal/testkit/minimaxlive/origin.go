@@ -12,17 +12,19 @@ import (
 // inside an imported bundle. It pins the unchanged child report/seal after
 // fixed live argv, exact-source approval, successful exit and credential audit.
 type Origin struct {
-	Schema                 int      `json:"schema"`
-	Stage                  string   `json:"stage"`
-	Identity               Identity `json:"identity"`
-	Session                string   `json:"session"`
-	ReportSHA256           string   `json:"reportSha256"`
-	SealSHA256             string   `json:"sealSha256"`
-	LedgerSHA256           string   `json:"ledgerSha256"`
-	SourceCommit           string   `json:"sourceCommit"`
-	SourceManifestSHA256   string   `json:"sourceManifestSha256"`
-	BinariesManifestSHA256 string   `json:"binariesManifestSha256"`
-	PlanSHA256             string   `json:"planSha256"`
+	FormalRenewalID          string   `json:"formalRenewalId,omitempty"`
+	FormalRenewalGrantSHA256 string   `json:"formalRenewalGrantSha256,omitempty"`
+	Schema                   int      `json:"schema"`
+	Stage                    string   `json:"stage"`
+	Identity                 Identity `json:"identity"`
+	Session                  string   `json:"session"`
+	ReportSHA256             string   `json:"reportSha256"`
+	SealSHA256               string   `json:"sealSha256"`
+	LedgerSHA256             string   `json:"ledgerSha256"`
+	SourceCommit             string   `json:"sourceCommit"`
+	SourceManifestSHA256     string   `json:"sourceManifestSha256"`
+	BinariesManifestSHA256   string   `json:"binariesManifestSha256"`
+	PlanSHA256               string   `json:"planSha256"`
 }
 
 // Verify adds the external actual-origin boundary to structural capture checks.
@@ -51,7 +53,13 @@ func verifyOrigin(dir string, r Report) error {
 		return e
 	}
 	reportHash := Hash(raw)
-	stage, e := StageLedgerPath(r.Stage)
+	if e = verifyRenewalReport(r); e != nil {
+		return e
+	}
+	stage, e := originalStageLedgerPath(r.Stage)
+	if r.FormalRenewalID != "" {
+		stage, e = RenewalLedgerPath(r.FormalRenewalID)
+	}
 	if e != nil {
 		return fmt.Errorf("MiniMax actual origin root unavailable")
 	}
@@ -60,7 +68,14 @@ func verifyOrigin(dir string, r Report) error {
 		short = "m31"
 	}
 	route := "mm-global-" + r.Stage + "-" + short + "-" + id.Route
-	receiptPath := filepath.Join(filepath.Dir(filepath.Dir(stage)), "minimax-launches", route+".json")
+	if r.FormalRenewalID != "" {
+		route = r.FormalRenewalID + "-" + route
+	}
+	original, e := originalStageLedgerPath(r.Stage)
+	if e != nil {
+		return e
+	}
+	receiptPath := filepath.Join(filepath.Dir(filepath.Dir(original)), "minimax-launches", route+".json")
 	receiptRaw, receiptErr := ReadFile(receiptPath, 2<<20)
 	var origin Origin
 	if receiptErr == nil {
@@ -88,6 +103,9 @@ func verifyOrigin(dir string, r Report) error {
 			return fmt.Errorf("MiniMax actual origin canonical ledger differs")
 		}
 	} else {
+		if r.FormalRenewalID != "" {
+			return fmt.Errorf("renewal canonical launcher receipt unavailable")
+		}
 		if !os.IsNotExist(receiptErr) {
 			return fmt.Errorf("MiniMax actual origin receipt unavailable")
 		}
@@ -113,6 +131,9 @@ func verifyOrigin(dir string, r Report) error {
 			return fmt.Errorf("MiniMax actual origin has no trusted launcher pin")
 		}
 		origin = entry.Origin
+	}
+	if e = verifyRenewalOrigin(r, origin); e != nil {
+		return e
 	}
 	seal, e := ReadFile(filepath.Join(dir, SealFile), 2<<20)
 	if e != nil {

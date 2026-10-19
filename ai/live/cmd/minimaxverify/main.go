@@ -2,6 +2,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
@@ -13,7 +14,23 @@ import (
 func main() {
 	formal := flag.Bool("formal", false, "require current own M3 formal live evidence")
 	publish := flag.Bool("publish", false, "exclusively publish own formal support projection after trusted origin")
+	facts := flag.Bool("renewal-source", false, "read-only fixed formal-renewal source and original39/36 history facts")
 	flag.Parse()
+	if *facts {
+		if flag.NArg() != 0 || *formal || *publish {
+			fmt.Fprintln(os.Stderr, "renewal-source cannot verify or publish")
+			os.Exit(2)
+		}
+		f, e := minimaxlive.RenewalFacts()
+		if e != nil {
+			fmt.Fprintln(os.Stderr, e)
+			os.Exit(1)
+		}
+		if e = json.NewEncoder(os.Stdout).Encode(f); e != nil {
+			os.Exit(1)
+		}
+		return
+	}
 	if flag.NArg() != 1 || *publish && !*formal {
 		fmt.Fprintln(os.Stderr, "usage: minimaxverify [-formal] <bundle-directory>")
 		os.Exit(2)
