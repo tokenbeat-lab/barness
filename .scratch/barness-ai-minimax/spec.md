@@ -2,11 +2,11 @@
 
 Status: claimed
 Type: feature
-Updated: 2026-10-18
+Updated: 2026-10-19
 
 本文件是交付契约，本身不表示 MiniMax 接入或真实冒烟已通过。2026-10-18 用户明确将接入目标改为国际站；当前依据为 [国际站研究](research-international.md)，[中国区研究](research.md)及原始失败捕获作为历史保留。官方声明、文档冲突与待实测项分别记录，不将其他地区或厂商的行为当作国际站事实。
 
-当前交付为PARTIAL，见[交付状态](delivery-status.md)。原固定六项已关闭，历史累计647/647；2026-10-19用户单独要求的Messages `glm-5.3/cancel`真实诊断PASS，新增1/1，旧能力续期累计648/648，原超时失败保留。该单场景不替代完整formal22。票19在来源751ad94（AI代码同6a24ba3）实际无Key复核，十一组旧输入均无当前正式资格；独立新续期授权、账本和固定计划已在fbbdea4集成并经双轴源码复审各0发现；首次六项无Key检查5通过/1受控诊断脱敏失败已保留；HOME修复a257双轴复审各0发现、80项工具回归PASS，最终d235新冻结六项检查全部0，精确来源/计划复审已通过，新增216/252已由call_11ea21ff直接批准，GLM三路新正式各22/22 PASS、合计66/66，尚余八项与完整门禁。原M3来源8900034自身三正式PASS39/36、候选49/45另列，M3.1线上三项仍NOT_RUN0/0。严格GLM发布、矩阵装配与完整门禁仍未完成，10、09和spec开放；历史轮次、失败及消费不改写。以下既有要求保持。
+当前十一组严格来源复验已全部PASS（M3×3、GLM×3、文本×2、protocol114×1、视觉×2）。GLM来源d235三路各22/22，Messages cancel 1146ms PASS；严格raw/known-usage/views均公开验证通过。其余八项来源b9c3c7c，真实报告与当前正式消费者均通过；文本另经公开ChineseEffectsEvidence当前来源检查0。17份自身支持输入审计0，仅更新新7行，原generic10对象/时间不变，默认矩阵17PASS/0FAIL。新固定216/252已关闭，实际189/186，未用27/66不转移；连原648/648为837/834，原M3候选49/45、正式39/36及更早GLM独立保留。M3.1三路新NOT_RUN0/0、无MPlan资格。完整发布门禁及最终证据/文档审查仍待执行，交付保持PARTIAL，10、09和spec保持开放。见[交付状态](delivery-status.md)、[本轮证据](evidence/ticket-19/actual/remaining/README.md)。历史超时、失效来源与原失败不改写。以下既有要求保持。
 
 领域与架构依据：[领域词汇](../../GLOSSARY.md)、[协议边界 ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[DeepSeek Responses ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[DeepSeek Chat ADR-0015](../../docs/adr/0015-barness-ai-deepseek-chat-completions.md)、[型号纳入 ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[Provider 自动字段 ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[GLM 接入 spec](../barness-ai-glm/spec.md)、[GLM 正式支持 ADR-0036](../../docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)。
 

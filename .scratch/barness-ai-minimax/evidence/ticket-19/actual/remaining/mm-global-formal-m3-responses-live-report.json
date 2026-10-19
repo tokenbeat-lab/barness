@@ -1,0 +1,176 @@
+{
+  "schema": 3,
+  "combo": "minimax-responses",
+  "operation": "chat",
+  "provider": "minimax",
+  "api": "openai-responses",
+  "endpoint": "https://api.minimax.io/v1",
+  "model": "MiniMax-M3",
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "accountAlias": "minimax-global-standard",
+  "gitCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+  "catalogVersion": "2026-10-18.1-minimax",
+  "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+  "startedAt": "2026-10-19T06:23:07.720544Z",
+  "finishedAt": "2026-10-19T06:23:30.36732Z",
+  "budget": {
+    "maxRequestedOutputTokens": 40000,
+    "requestedOutputTokens": 17410,
+    "maxReservedInputTokens": 120000,
+    "reservedInputTokens": 31393,
+    "maxAttempts": 24,
+    "attemptsReserved": 13,
+    "processSeconds": 1800,
+    "callSeconds": 120,
+    "maxCalls": 20,
+    "httpAttempts": 12,
+    "maxRetriesPerScenario": 1,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 13,
+    "outputTokensUsed": 0,
+    "inputTokensUsed": 0,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "full-stream",
+    "full-complete",
+    "simple-stream",
+    "simple-complete",
+    "thinking-on",
+    "thinking-control",
+    "tool-call",
+    "tool-result-native",
+    "truncate",
+    "cache-first",
+    "cache-repeat",
+    "cancel",
+    "preflight-error"
+  ],
+  "scenarios": [
+    {
+      "id": "full-stream",
+      "caseId": "MM07-full-stream",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 2684,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "full-complete",
+      "caseId": "MM07-full-complete",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 2641,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "simple-stream",
+      "caseId": "MM07-simple-stream",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 1005,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "simple-complete",
+      "caseId": "MM07-simple-complete",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 963,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "thinking-on",
+      "caseId": "MM07-thinking-on",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 1279,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "thinking-control",
+      "caseId": "MM07-thinking-control",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 780,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "tool-call",
+      "caseId": "MM07-tool-call",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 2118,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "tool-result-native",
+      "caseId": "MM07-tool-result-native",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 1430,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "truncate",
+      "caseId": "MM07-truncate",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 4477,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "cache-first",
+      "caseId": "MM07-cache-first",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 962,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "cache-repeat",
+      "caseId": "MM07-cache-repeat",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 941,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "cancel",
+      "caseId": "MM07-cancel",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 1606,
+      "calls": 1,
+      "attempts": 1
+    },
+    {
+      "id": "preflight-error",
+      "caseId": "MM07-preflight-error",
+      "model": "MiniMax-M3",
+      "outcome": "PASS",
+      "durationMs": 0,
+      "calls": 1,
+      "attempts": 0
+    }
+  ],
+  "minimax": {
+    "reportSha256": "7383bb37846c42f6e4e4b9d3f892425e7b8453edd09d4cf71b41f8beec763dc6",
+    "sealSha256": "ae6fbd38d473d02d14745c5da49e34217956d6c47cafd483bf1eb38c0c0dc553",
+    "planSha256": "86bff2ee446a74a4e64bb4a84d3bdb108dc55e021a2978a0c46e3a39e5406550",
+    "sourceSha256": "41dbf84331b516c45e180128634146aefd54b6daaedf1118f0628b355d8e0684",
+    "regionAlias": "global",
+    "purpose": "standard"
+  }
+}

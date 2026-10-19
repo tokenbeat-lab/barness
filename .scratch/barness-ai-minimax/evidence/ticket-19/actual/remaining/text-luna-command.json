@@ -1,0 +1,35 @@
+{
+  "state": "COMPLETED",
+  "name": "text-luna",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/chineseeval",
+    "-route",
+    "luna",
+    "-live",
+    "-out",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/text-luna",
+    "-proxy",
+    "http://127.0.0.1:7890"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 630,
+  "credentialsInherited": false,
+  "sourceVariable": "OPENAI_KEY",
+  "injectedCredential": "BARNESS_AI_CHINESE_EVAL_OPENAI_KEY",
+  "credentialsRead": true,
+  "startedAt": "2026-10-19T06:25:20.202986+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_CHINESE_EVAL",
+    "BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS",
+    "BARNESS_AI_CHINESE_EVAL_OPENAI_KEY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 9.606458167079836,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

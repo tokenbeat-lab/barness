@@ -1,0 +1,30 @@
+=== RUN   TestMiniMaxFormal
+=== RUN   TestMiniMaxFormal/full-stream
+=== RUN   TestMiniMaxFormal/full-complete
+=== RUN   TestMiniMaxFormal/simple-stream
+=== RUN   TestMiniMaxFormal/simple-complete
+=== RUN   TestMiniMaxFormal/thinking-on
+=== RUN   TestMiniMaxFormal/thinking-control
+=== RUN   TestMiniMaxFormal/tool-call
+=== RUN   TestMiniMaxFormal/tool-result-native
+=== RUN   TestMiniMaxFormal/truncate
+=== RUN   TestMiniMaxFormal/cache-first
+=== RUN   TestMiniMaxFormal/cache-repeat
+=== RUN   TestMiniMaxFormal/cancel
+=== RUN   TestMiniMaxFormal/preflight-error
+--- PASS: TestMiniMaxFormal (19.57s)
+    --- PASS: TestMiniMaxFormal/full-stream (1.84s)
+    --- PASS: TestMiniMaxFormal/full-complete (1.17s)
+    --- PASS: TestMiniMaxFormal/simple-stream (0.96s)
+    --- PASS: TestMiniMaxFormal/simple-complete (1.03s)
+    --- PASS: TestMiniMaxFormal/thinking-on (1.61s)
+    --- PASS: TestMiniMaxFormal/thinking-control (1.34s)
+    --- PASS: TestMiniMaxFormal/tool-call (1.85s)
+    --- PASS: TestMiniMaxFormal/tool-result-native (2.02s)
+    --- PASS: TestMiniMaxFormal/truncate (1.34s)
+    --- PASS: TestMiniMaxFormal/cache-first (4.53s)
+    --- PASS: TestMiniMaxFormal/cache-repeat (0.90s)
+    --- PASS: TestMiniMaxFormal/cancel (0.86s)
+    --- PASS: TestMiniMaxFormal/preflight-error (0.11s)
+PASS
+barness-ai evidence bundle: $REPO/.evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-messages/20261019T062340.882760000Z

@@ -1,0 +1,1721 @@
+{
+  "catalogKind": "formal",
+  "schema": 1,
+  "mode": "live",
+  "route": "jev",
+  "entry": "plain",
+  "status": "COMPLETE",
+  "realQuality": "COMPLETE",
+  "reason": "",
+  "catalogVersion": "2026-10-18.1-minimax",
+  "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+  "model": "jev-1.14.0",
+  "datasetHash": "43046cde2de5a6c846f961c31fbe07b773611a7d2c0e33648826507cf95beb71",
+  "configHash": "4fe588c74bf395b9f7765fdee91cfdecd10060db8b31220d09357a56e797e2b9",
+  "codeHash": "79088fe0f52b9fbdb32f0735cd903788227ec651cd987962964f82b119a4f4d1",
+  "protocolEvidenceHash": "c2d39b9def9f8a9dc4f9b68571ec94e337b5aba89a876156ae7304fc963a6873",
+  "startedAt": "2026-10-19T06:26:49.444689Z",
+  "finishedAt": "2026-10-19T06:26:53.54035Z",
+  "samples": [
+    {
+      "id": "v01",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.78
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0,
+            "red": 1
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.78
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0,
+              "red": 1
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "ae74962932ce5112b5243b5663f85c183c67cd38583adef73a6ea67c437644c6"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 712,
+          "output": 54,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 766,
+          "cost": {
+            "input": 0.000029904000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000029904000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-a620b2d5fe10a4c042021fcf1a8d43af",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-a620b2d5fe10a4c042021fcf1a8d43af#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d7667c7cdf9c50f8525f8632fb",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 712,
+                "output": 54,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 766,
+                "cost": {
+                  "input": 0.000029904000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000029904000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:49.519085Z",
+      "finishedAt": "2026-10-19T06:26:50.60682Z"
+    },
+    {
+      "id": "v02",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.83
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0,
+            "red": 1
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.83
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0,
+              "red": 1
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "f9767f39a55aebd9dfe7f3f17a619e980c10e01fa03effed3c8c0ffc8fe4af12"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 717,
+          "output": 54,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 771,
+          "cost": {
+            "input": 0.000030114000000000003,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000030114000000000003
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-7fcd4636822b4e5bd06af61256d23729",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-7fcd4636822b4e5bd06af61256d23729#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d7677c766e9b8000fa778e8892",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 717,
+                "output": 54,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 771,
+                "cost": {
+                  "input": 0.000030114000000000003,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000030114000000000003
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:50.610372Z",
+      "finishedAt": "2026-10-19T06:26:50.863318Z"
+    },
+    {
+      "id": "v03",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.02
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "blue",
+          "probabilities": {
+            "blue": 1,
+            "empty": 0,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.02
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "blue",
+            "probabilities": {
+              "blue": 1,
+              "empty": 0,
+              "red": 0
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "6a430f5b6a206581b30ad9a26c7ed78e06710b0959f89262b28f75e64575797b"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 713,
+          "output": 54,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 767,
+          "cost": {
+            "input": 0.000029946000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000029946000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-0c83efaad8aacd02ec9bc8f53b504de9",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-0c83efaad8aacd02ec9bc8f53b504de9#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d7687b7f8c98690964a27d180f",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 713,
+                "output": 54,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 767,
+                "cost": {
+                  "input": 0.000029946000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000029946000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:50.865782Z",
+      "finishedAt": "2026-10-19T06:26:51.117171Z"
+    },
+    {
+      "id": "v04",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.03
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "empty",
+          "probabilities": {
+            "blue": 0,
+            "empty": 1,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.03
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "empty",
+            "probabilities": {
+              "blue": 0,
+              "empty": 1,
+              "red": 0
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "f8f2cae89d45af83135728fc17756cd4cd8127308a3becc92c7d492f5d9faf4b"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 713,
+          "output": 54,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 767,
+          "cost": {
+            "input": 0.000029946000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000029946000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-c77981ef959882197ae91fb6d3f69fc3",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-c77981ef959882197ae91fb6d3f69fc3#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d7698d781a8a6f13d58850842d",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 713,
+                "output": 54,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 767,
+                "cost": {
+                  "input": 0.000029946000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000029946000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:51.120189Z",
+      "finishedAt": "2026-10-19T06:26:51.393723Z"
+    },
+    {
+      "id": "v05",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.76
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0,
+            "red": 1
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.76
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0,
+              "red": 1
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "ae74962932ce5112b5243b5663f85c183c67cd38583adef73a6ea67c437644c6"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 715,
+          "output": 54,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 769,
+          "cost": {
+            "input": 0.000030030000000000006,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000030030000000000006
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-eddea4c325c0c1dde85e65251f94d9ad",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-eddea4c325c0c1dde85e65251f94d9ad#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d76a8c7118a874a10e3d7e5bdf",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 715,
+                "output": 54,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 769,
+                "cost": {
+                  "input": 0.000030030000000000006,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000030030000000000006
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:51.395505Z",
+      "finishedAt": "2026-10-19T06:26:51.645181Z"
+    },
+    {
+      "id": "v06",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.01
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "blue",
+          "probabilities": {
+            "blue": 1,
+            "empty": 0,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.01
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "blue",
+            "probabilities": {
+              "blue": 1,
+              "empty": 0,
+              "red": 0
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "bc987e870ad0b9371038ec5e331d69f62d045d84952d805571baa881810e81d8"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 713,
+          "output": 54,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 767,
+          "cost": {
+            "input": 0.000029946000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000029946000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-bcc3d2a80b5b7c27669479f0a840ee70",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-bcc3d2a80b5b7c27669479f0a840ee70#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d76b8a77b8bad44a8d0dd77e27",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 713,
+                "output": 54,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 767,
+                "cost": {
+                  "input": 0.000029946000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000029946000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:51.646715Z",
+      "finishedAt": "2026-10-19T06:26:52.019188Z"
+    },
+    {
+      "id": "v07",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.03
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "empty",
+          "probabilities": {
+            "blue": 0,
+            "empty": 1,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.03
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "empty",
+            "probabilities": {
+              "blue": 0,
+              "empty": 1,
+              "red": 0
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "dad2d661dfa800d39066e94aedc2ed3a2630e97e1079787c523b7733fd633788"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 712,
+          "output": 54,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 766,
+          "cost": {
+            "input": 0.000029904000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000029904000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-a566f213f642ae7f032e03e365efd8e8",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-a566f213f642ae7f032e03e365efd8e8#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d76d0272ecbb9b88fbaa63a21f",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 712,
+                "output": 54,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 766,
+                "cost": {
+                  "input": 0.000029904000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000029904000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:52.0248Z",
+      "finishedAt": "2026-10-19T06:26:52.270086Z"
+    },
+    {
+      "id": "v08",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.81
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0,
+            "red": 1
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.81
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0,
+              "red": 1
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "f9767f39a55aebd9dfe7f3f17a619e980c10e01fa03effed3c8c0ffc8fe4af12"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 714,
+          "output": 54,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 768,
+          "cost": {
+            "input": 0.000029988000000000005,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000029988000000000005
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-77879294d6bbd280ec9815c51be38f93",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-77879294d6bbd280ec9815c51be38f93#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d76dfa7fe7a35b5e5e665f97e1",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 714,
+                "output": 54,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 768,
+                "cost": {
+                  "input": 0.000029988000000000005,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000029988000000000005
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:52.273109Z",
+      "finishedAt": "2026-10-19T06:26:52.519238Z"
+    },
+    {
+      "id": "v09",
+      "group": "local",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.78
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0,
+            "red": 1
+          },
+          "confidence": 1,
+          "probability": null
+        },
+        "location": {
+          "status": "answered",
+          "confidence": 0.68,
+          "probability": null,
+          "box": {
+            "top": 0.16,
+            "bottom": 0.67,
+            "left": 0.23,
+            "right": 0.67
+          }
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.78
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0,
+              "red": 1
+            },
+            "confidence": 1
+          },
+          "location": {
+            "type": "box",
+            "box": {
+              "top": 0.16,
+              "bottom": 0.67,
+              "left": 0.23,
+              "right": 0.67
+            },
+            "confidence": 0.68
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "ae74962932ce5112b5243b5663f85c183c67cd38583adef73a6ea67c437644c6"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 756,
+          "output": 71,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 827,
+          "cost": {
+            "input": 0.000031752000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000031752000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-4ec6da280a788ac52eb601c78f4d905d",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-4ec6da280a788ac52eb601c78f4d905d#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d76ef37d29968cfbe9dded3ad8",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 756,
+                "output": 71,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 827,
+                "cost": {
+                  "input": 0.000031752000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000031752000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": 0.5919463087248323,
+      "consumed": true,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:52.520365Z",
+      "finishedAt": "2026-10-19T06:26:52.76699Z"
+    },
+    {
+      "id": "v10",
+      "group": "local",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.84
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0,
+            "red": 1
+          },
+          "confidence": 1,
+          "probability": null
+        },
+        "location": {
+          "status": "answered",
+          "confidence": 0.71,
+          "probability": null,
+          "box": {
+            "top": 0.22,
+            "bottom": 0.74,
+            "left": 0.11,
+            "right": 0.6
+          }
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.84
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0,
+              "red": 1
+            },
+            "confidence": 1
+          },
+          "location": {
+            "type": "box",
+            "box": {
+              "top": 0.22,
+              "bottom": 0.74,
+              "left": 0.11,
+              "right": 0.6
+            },
+            "confidence": 0.71
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "09c61fd680b4cef8ce132494f2f103d1eef6b941be0b05c40d838e3be1000749"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 754,
+          "output": 71,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 825,
+          "cost": {
+            "input": 0.000031668,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000031668
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-8b3710d955bc263c6b731322f9f3c55a",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-8b3710d955bc263c6b731322f9f3c55a#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d76fea70e897fa97fb480dc8c1",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 754,
+                "output": 71,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 825,
+                "cost": {
+                  "input": 0.000031668,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000031668
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": 0.8555412607976474,
+      "consumed": true,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:52.768283Z",
+      "finishedAt": "2026-10-19T06:26:53.017821Z"
+    },
+    {
+      "id": "v11",
+      "group": "local",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.02
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "empty",
+          "probabilities": {
+            "blue": 0,
+            "empty": 1,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        },
+        "location": {
+          "status": "answered",
+          "confidence": 0.05,
+          "probability": null,
+          "box": {
+            "top": 0.01,
+            "bottom": 0.98,
+            "left": 0.01,
+            "right": 0.99
+          }
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.02
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "empty",
+            "probabilities": {
+              "blue": 0,
+              "empty": 1,
+              "red": 0
+            },
+            "confidence": 1
+          },
+          "location": {
+            "type": "box",
+            "box": {
+              "top": 0.01,
+              "bottom": 0.98,
+              "left": 0.01,
+              "right": 0.99
+            },
+            "confidence": 0.05
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "dad2d661dfa800d39066e94aedc2ed3a2630e97e1079787c523b7733fd633788"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 1399,
+          "output": 71,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 1470,
+          "cost": {
+            "input": 0.00005875800000000001,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00005875800000000001
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-2cd5ccaacb774dcff448aa34e70b0bf1",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-2cd5ccaacb774dcff448aa34e70b0bf1#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d770e37ab7b3f80a1e3040cc3a",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 1399,
+                "output": 71,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 1470,
+                "cost": {
+                  "input": 0.00005875800000000001,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.00005875800000000001
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:53.019165Z",
+      "finishedAt": "2026-10-19T06:26:53.284973Z"
+    },
+    {
+      "id": "v12",
+      "group": "local",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.01
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "blue",
+          "probabilities": {
+            "blue": 1,
+            "empty": 0,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        },
+        "location": {
+          "status": "answered",
+          "confidence": 0.04,
+          "probability": null,
+          "box": {
+            "top": 0.02,
+            "bottom": 0.46,
+            "left": 0.03,
+            "right": 0.57
+          }
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.01
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "blue",
+            "probabilities": {
+              "blue": 1,
+              "empty": 0,
+              "red": 0
+            },
+            "confidence": 1
+          },
+          "location": {
+            "type": "box",
+            "box": {
+              "top": 0.02,
+              "bottom": 0.46,
+              "left": 0.03,
+              "right": 0.57
+            },
+            "confidence": 0.04
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "bc987e870ad0b9371038ec5e331d69f62d045d84952d805571baa881810e81d8"
+          }
+        ],
+        "responseModel": "jev-1.14.0",
+        "usage": {
+          "input": 1399,
+          "output": 71,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 1470,
+          "cost": {
+            "input": 0.00005875800000000001,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.00005875800000000001
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-aa42eace79b8947cc58fce9a5b24e19d",
+          "bindingId": "jev",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "typesafe",
+          "api": "typesafe-system-one",
+          "modelId": "jev-1.14.0",
+          "accountScopeId": "typesafe-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-aa42eace79b8947cc58fce9a5b24e19d#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_01a152d771f072228204788a8873c007",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 1399,
+                "output": 71,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "totalTokens": 1470,
+                "cost": {
+                  "input": 0.00005875800000000001,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.00005875800000000001
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:26:53.287839Z",
+      "finishedAt": "2026-10-19T06:26:53.538669Z"
+    }
+  ],
+  "budget": {
+    "calls": 12,
+    "attempts": 12,
+    "retries": 0,
+    "questions": 28,
+    "occurrences": 16,
+    "sourceBytes": 27959,
+    "expandedBytes": 41603,
+    "inputTokens": 10017,
+    "outputTokens": 716,
+    "knownCostUSD": 0.00042071400000000004,
+    "unreported": 0,
+    "partial": 0
+  },
+  "metrics": {
+    "common": {
+      "total": 8,
+      "classScored": 8,
+      "classCorrect": 8,
+      "existScored": 8,
+      "existCorrect": 8,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "classAccuracy": 1,
+      "existAccuracy": 1,
+      "confusion": {
+        "blue": {
+          "blue": 2
+        },
+        "empty": {
+          "empty": 2
+        },
+        "red": {
+          "red": 4
+        }
+      },
+      "statuses": {
+        "answered": 8
+      },
+      "errors": [],
+      "confidenceBins": [
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 8,
+          "correct": 8,
+          "sum": 8
+        }
+      ],
+      "existenceBrier": 0.021662499999999998
+    },
+    "local": {
+      "total": 4,
+      "classScored": 4,
+      "classCorrect": 4,
+      "existScored": 4,
+      "existCorrect": 4,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "classAccuracy": 1,
+      "existAccuracy": 1,
+      "confusion": {
+        "blue": {
+          "blue": 1
+        },
+        "empty": {
+          "empty": 1
+        },
+        "red": {
+          "red": 2
+        }
+      },
+      "statuses": {
+        "answered": 4
+      },
+      "errors": [],
+      "confidenceBins": [
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 4,
+          "correct": 4,
+          "sum": 4
+        }
+      ],
+      "existenceBrier": 0.018625
+    },
+    "supplementalContext": null,
+    "box": {
+      "present": 2,
+      "absent": 2,
+      "iouCount": 2,
+      "meanIoU": 0.7237437847612398,
+      "presentDenominatorMeanIoU": 0.7237437847612398,
+      "consumed": 2,
+      "absentFalsePositive": 0,
+      "absentRawBoxes": 2,
+      "lowExistenceBoxes": 2,
+      "missingExistenceBoxes": 0,
+      "missingPresentBoxes": 0
+    }
+  }
+}

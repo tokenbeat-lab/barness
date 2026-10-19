@@ -1,0 +1,41 @@
+{
+  "state": "COMPLETED",
+  "name": "mm-global-formal-m3-messages",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/live.test",
+    "-test.run=^TestMiniMaxFormal$",
+    "-test.timeout=1800s",
+    "-test.v"
+  ],
+  "cwd": "$REPO/ai/live",
+  "timeoutSeconds": 1800,
+  "credentialsInherited": false,
+  "sourceVariable": "MINIMAX_KEY",
+  "injectedCredential": "BARNESS_MINIMAX_KEY",
+  "credentialsRead": true,
+  "startedAt": "2026-10-19T06:23:40.870907+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "BARNESS_AI_LIVE",
+    "BARNESS_MINIMAX_ACCOUNT_ALIAS",
+    "BARNESS_MINIMAX_ENTITLEMENT",
+    "BARNESS_MINIMAX_FORMAL",
+    "BARNESS_MINIMAX_FORMAL_RENEWAL",
+    "BARNESS_MINIMAX_KEY",
+    "BARNESS_MINIMAX_LEDGER",
+    "BARNESS_MINIMAX_MODEL",
+    "BARNESS_MINIMAX_PROXY",
+    "BARNESS_MINIMAX_PURPOSE",
+    "BARNESS_MINIMAX_REGION_ALIAS",
+    "BARNESS_MINIMAX_ROUTE",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 20.002739207819104,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

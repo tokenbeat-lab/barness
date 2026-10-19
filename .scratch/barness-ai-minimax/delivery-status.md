@@ -4,7 +4,13 @@ Delivery: PARTIAL
 Updated: 2026-10-19
 Integration branch: `codex/minimax-global`
 
-2026-10-19 十一组当前来源复核已实际执行：旧输入当前正式资格0/11；逐组来源拒绝及缺失报告见[无Key复核](evidence/ticket-19/precheck/README.md)。原场景历史结果及票18单场景PASS不改写。独立、有界的续期工具与M3持久授权已集成，源码fbbdea4经Standards/Spec独立复审各0发现；矩阵历史报告重导缺陷已失败先行修复。来源0bb的六项无Key前置检查已关闭：5通过、live测试因新受控场景的子进程输出含本机路径触发脱敏审计而失败；[原失败](evidence/ticket-19/preflight-first/README.md)保留。HOME诊断修复a257已合入且双轴复审各0发现，80项Python工具回归PASS，HOME及外层原件有限读回均0；最终来源d235的[新冻结六项无Key检查](evidence/ticket-19/preflight-final/README.md)全部通过，新216/252已由直接回复批准，GLM三路各22/22正式PASS，共66/66；Messages取消场景1146ms通过，新增原始证据见[本轮GLM](evidence/ticket-19/actual/glm/README.md)，[严格raw/known-usage/views发布](evidence/ticket-19/actual/glm-publication/README.md)全部公开验证通过；其余八项仍待执行。本阶段0Key读取、0收费请求，新预算216/252已批准且开始执行；[源码审查](evidence/ticket-19/reviews/README.md)不授予正式资格。
+2026-10-19 **十一组当前源码正式资格全部通过（11/11）**：M3×3、GLM×3、文本×2、protocol114×1、视觉×2。GLM三路来源d235，各22/22；严格raw/known-usage/views发布全部exit0。其余八项来源b9c3c7c，每项自身真实报告及当前公开消费者全部通过。Messages `glm-5.3/cancel` 在新完整22场景报告中1146ms PASS，返回canceled/stream、aborted；partial usage不记免费。
+
+本轮付费已关闭：新增189calls/186HTTPAttempts，上限216/252；未用27/66不转移。中国GLM直连，国际服务经127.0.0.1:7890。连原续期648/648为837/834；原M3候选49/45、正式39/36及更早GLM任务另列。新M3自身正式39/36保留独立账本；M3.1三路新无Key证明NOT_RUN0/0，未获MPlan资格。见[GLM原件](evidence/ticket-19/actual/glm/README.md)、[严格发布](evidence/ticket-19/actual/glm-publication/README.md)、[剩余八项与统一装配](evidence/ticket-19/actual/remaining/README.md)。
+
+统一装配已审计17份自身支持输入，仅更新新7行，旧generic10行对象与时间不变；默认矩阵17PASS/0FAIL。两文本另经公开`release.ChineseEffectsEvidence`当前来源校验exit0。此次关闭严格来源证据缺口；**完整发布门禁与最终证据/文档独立审查仍待完成，交付保持PARTIAL**。完整门禁将重新执行双vet、普通/race全套、17份支持输入及四项独立效果，0Key/0新增付费。
+
+以下为历史检查点；原失败、旧输入0/11诊断、原hash/map与消费均保持，不用本轮结果改写历史。
 
 2026-10-19 最新单场景复测：**Messages `glm-5.3/cancel` PASS**，来源 `6a24ba3`。中国区直连，861ms 收到非空 ThinkingDelta 后主动取消，返回 `canceled/stream`、HTTP200、`aborted`；1call/1HTTPAttempt、零重试，usage为partial、不记免费。当前用户指令单独授权的1/1已执行关闭，旧续期连历史647/647累计648/648。已立即更新[机器状态](evidence/ticket-09/international-delivery-status.json)与[本次证据](evidence/ticket-18/README.md)。原120001ms失败保留，原始wire request相同，四selector与默认矩阵未变。此PASS只关闭该场景的最新复测观察；全22场景正式Messages报告、严格来源资格、GLM续期/矩阵装配与完整发布门禁仍未通过。以下固定六项是原历史检查点。
 
@@ -28,6 +34,6 @@ GLM Messages的`glm-5.3/cancel`在收到可观察内容之前到达120秒调用�
 
 原M3、GLM、文本、protocol及视觉的严格来源集合均包含本次最终payload修复涉及的runtime文件。修改后，原报告仍可在其测量来源复核历史结果，但不能认证修复后的当前源码。全部原hash、map、selector、catalog、矩阵时间和授权保持；source7931全量门禁也不授予后续17源码认证。generic10已按原受影响组合规则核对SDK/目录/型号/live producer及非MiniMax路径不变；这不依赖缺map豁免。最终合入来源共1117个文件（ai源码/数据及go.mod/go.sum）与2306字节相等，完整新增/删除集合也已核对，原严格map仍不具当前资格。
 
-spec、10、09及真实GLM验收仍未关闭。当前没有完整发布认证。此前300/300与区域路由轮245/245、旧全量失败及中国区401均按各自原轮保留；M3候选49/45、正式39/36与更早独立GLM任务另列。未知或部分usage不记免费。
+历史检查点当时spec、10、09及真实GLM验收未关闭。当前真实GLM与十一组来源资格已通过，spec、10、09仍待完整发布认证和最终审查。此前300/300与区域路由轮245/245、旧全量失败及中国区401均按各自原轮保留；M3候选49/45、正式39/36与更早独立GLM任务另列。未知或部分usage不记免费。
 
 [两轴审查及留存入口](evidence/ticket-09/final-closure/README.md)提供原始命令、全文件hash、有界无Key复核及失败分支；大型归档保留在主仓库`.evidence/minimax-retained/`。自建worktree已实际移除，分支保留以便恢复；见[清理记录](evidence/ticket-09/final-closure/owned-worktree-cleanup.json)。用户原有session-analysis与其他功能human-review目录保持。

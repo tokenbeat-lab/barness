@@ -38,3 +38,5 @@ Blocked by: None
 2026-10-19：直接回复call_11ea21ff批准新增216/252，固定十一项正式复验开始；canonical human批准bc185e82已保存，GLM阶段冻结d235，三路中国直连。该次批准覆盖后续独立重新冻结/检查/审查的国际其余八项，最大预算不追加、不自动续轮。
 
 2026-10-19：GLM三路新正式各22/22、共66/66全部PASS；Messages glm-5.3/cancel 1146ms PASS，usage partial未知不记免费。严格raw/known-usage公开验证后提交336a78b，派生support views公开验证亦0；四selector以两步独立提交进入其余八项新冻结，runtime/断言/原始报告未变。
+
+2026-10-19：固定十一项已全部执行关闭、真实报告11/11 PASS；新增189calls/186Attempts，未用27/66不转移。新M3三正式自身39/36；文本两路各24/24，protocol/视觉各12/12。来源b9c3c7c公开正式消费者、两文本当前API及17份支持输入审计全部exit0；仅导入新7行，旧10行对象/时间不变，默认矩阵17PASS/0FAIL。M3.1三路新NOT_RUN0/0。原件见[本轮剩余证据](../evidence/ticket-19/actual/remaining/README.md)。完整发布门禁与最终数据/文档独立审查待执行，本票不提前关闭。

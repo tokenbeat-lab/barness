@@ -1,0 +1,34 @@
+{
+  "state": "COMPLETED",
+  "name": "protocol114",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/live.test",
+    "-test.run=^TestMultimodalFormal$",
+    "-test.timeout=180s"
+  ],
+  "cwd": "$REPO/ai/live",
+  "timeoutSeconds": 210,
+  "credentialsInherited": false,
+  "sourceVariable": "TYPESAFE_KEY",
+  "injectedCredential": "BARNESS_MM_KEY",
+  "credentialsRead": true,
+  "startedAt": "2026-10-19T06:26:21.938071+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "BARNESS_AI_LIVE_PROXY",
+    "BARNESS_MM_AUTHORIZATION",
+    "BARNESS_MM_FORMAL",
+    "BARNESS_MM_KEY",
+    "BARNESS_MM_LIVE",
+    "BARNESS_MM_ROUTE",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 5.000868958886713,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

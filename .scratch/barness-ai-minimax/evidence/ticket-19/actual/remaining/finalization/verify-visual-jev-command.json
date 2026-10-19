@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-visual-jev",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visualeval",
+    "-verify",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visual-jev",
+    "-require-live"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:29:17.266261+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.17902420880272985,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

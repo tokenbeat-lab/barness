@@ -1,0 +1,32 @@
+{
+  "state": "COMPLETED",
+  "name": "build-live.test",
+  "argv": [
+    "go",
+    "test",
+    "-tags",
+    "live",
+    "-c",
+    "-o",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/live.test",
+    "./ai/live"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:14:02.806751+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 2.2118584159761667,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

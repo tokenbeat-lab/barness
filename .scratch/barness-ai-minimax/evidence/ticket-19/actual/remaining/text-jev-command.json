@@ -1,0 +1,35 @@
+{
+  "state": "COMPLETED",
+  "name": "text-jev",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/chineseeval",
+    "-route",
+    "jev",
+    "-live",
+    "-out",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/text-jev",
+    "-proxy",
+    "http://127.0.0.1:7890"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 630,
+  "credentialsInherited": false,
+  "sourceVariable": "TYPESAFE_KEY",
+  "injectedCredential": "BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY",
+  "credentialsRead": true,
+  "startedAt": "2026-10-19T06:24:18.184772+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_CHINESE_EVAL",
+    "BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS",
+    "BARNESS_AI_CHINESE_EVAL_TYPESAFE_KEY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 8.185079875402153,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

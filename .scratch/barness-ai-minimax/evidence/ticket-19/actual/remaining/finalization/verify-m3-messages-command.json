@@ -1,0 +1,27 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-m3-messages",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/minimaxverify",
+    "-formal",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-messages/20261019T062340.882760000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:29:15.622249+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.34562412463128567,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-derived-jev",
+  "argv": [
+    "go",
+    "run",
+    "./ai/live/cmd/jevformal",
+    "-verify",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/finalization/jev-support",
+    "-require-live"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:29:18.453119+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.6029017912223935,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

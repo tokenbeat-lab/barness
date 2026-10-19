@@ -1,0 +1,46 @@
+{
+  "state": "COMPLETED",
+  "name": "audit-seventeen-current-inputs",
+  "argv": [
+    "go",
+    "run",
+    "./ai/live/cmd/supportmatrix",
+    "-matrix",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/finalization/audit-identities.json",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/openai-responses/20261018T082351.964640000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/openai-chat/20261018T082415.346674000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/anthropic-messages/20261018T082432.962715000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/google-gemini/20261018T082500.989942000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/deepseek-responses/20261018T082519.737452000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/deepseek-chat/20261018T082530.544023000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/openai-images/20261018T082544.322311000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/google-interactions-image/20261018T082613.527826000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/openai-decisions/20261018T082643.731045000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/live/typesafe-classifier/20261018T082648.885174000Z",
+    "$REPO/.evidence/minimax-current-eleven-glm-2/glm-chat/20261019T060512.942349000Z",
+    "$REPO/.evidence/minimax-current-eleven-glm-2/glm-responses/20261019T060724.271931000Z",
+    "$REPO/.evidence/minimax-current-eleven-glm-2/glm-messages/20261019T060929.035688000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-chat/20261019T062128.598465000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-responses/20261019T062307.720629000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-messages/20261019T062340.882760000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/finalization/jev-support"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:29:19.462787+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 2.4046539161354303,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}
