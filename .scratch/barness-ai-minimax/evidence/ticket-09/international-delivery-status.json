@@ -171,7 +171,10 @@
     "seconds": 3770.7171571250074,
     "reportSHA256": "62637ac00b9d1dadfce5b2cf39e5f978ed910cda853b9476272afabb1b72680f",
     "resultSHA256": "af95c0f653f7730cce85ce92cdbe12f0dc72404662912dbeb71f69de71b907b1",
-    "rawEvidence": ".evidence/minimax-current-eleven-gate-2"
+    "rawEvidence": ".evidence/minimax-current-eleven-gate-2",
+    "retainedEvidence": "evidence/ticket-19/final-gate/README.md",
+    "custodyReviewSHA256": "7ff7d98196a5964ebdce3355f28b46424dea3eb8606c6f94d459892c9be971b6",
+    "custodyReviewFindings": 0
   },
   "m3Formal": {
     "source": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
@@ -543,7 +546,7 @@
     "normalPrivateNegativeConstructorExit": 0,
     "normalPrivateCounterfeitConsumerExpectedExit": 1
   },
-  "currentIntegrationSourceTip": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "currentIntegrationSourceTip": "7c6616dc27301d9fc3d32777beec27dffd36d033",
   "currentCodeSourceScope": "Current selected runtime/assertion source at b9c3c7c; GLM captured at d235; transition changes only four GLM publication data selectors. Current native consumers passed all eleven groups.",
   "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
   "singleCaseMessagesCancelRerun": {
@@ -890,12 +893,14 @@
     ],
     "fullGateExecuted": true,
     "fullGatePass": false,
-    "allElevenQualifiedAtCodeSource": "01341f8df60d4787bcdbeb48a024e3873fc780f6"
+    "allElevenQualifiedAtCodeSource": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+    "ticketStatus": "resolved",
+    "resolutionScope": "Fixed eleven revalidation and truthful complete-gate retention; full specification remains open"
   },
   "pendingVisualUnsentFix": {
     "state": "IN_PROGRESS_IN_SEPARATE_WORKTREE",
     "mergedIntoIntegration": false,
-    "rootCause": "Authentic pre-attempt cancellation was stored as empty request JSON and replay required an Attempt",
+    "rootCause": "Unsent cancellation recording/replay assumptions and sent cancellation JSON-null response-model decoding",
     "sourceImpactIfExampleOnly": [
       "protocol114",
       "visual-jev",

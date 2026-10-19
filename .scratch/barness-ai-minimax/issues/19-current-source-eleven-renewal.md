@@ -1,7 +1,7 @@
 # 19 — 当前源码十一组严格证据复验
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: None
 
 ## Question
@@ -42,3 +42,9 @@ Blocked by: None
 2026-10-19：固定十一项已全部执行关闭、真实报告11/11 PASS；新增189calls/186Attempts，未用27/66不转移。新M3三正式自身39/36；文本两路各24/24，protocol/视觉各12/12。来源b9c3c7c公开正式消费者、两文本当前API及17份支持输入审计全部exit0；仅导入新7行，旧10行对象/时间不变，默认矩阵17PASS/0FAIL。M3.1三路新NOT_RUN0/0。原件见[本轮剩余证据](../evidence/ticket-19/actual/remaining/README.md)。完整发布门禁与最终数据/文档独立审查待执行，本票不提前关闭。
 
 2026-10-19 本轮最新检查点：十一组真实复验及当前来源公开消费者全部PASS，新增189/186、固定216/252关闭。来源01341完整门禁已实际结束，双vet/ordinary/race=0/0/0/1，CLI1、报告false；ordinary12495PASS/audit0，race12494PASS/1FAIL/audit1。唯一VQ12-failure-decisions-plain-deadline及其零字节request.json审计失败正在独立工作树离线修复，原17支持与四效果均PASS、测量前后来源/输入未变。当前root源码尚未修改，十一组证明保留；完整交付不宣称通过。见[交付状态](../delivery-status.md)。
+
+## Answer
+
+固定十一组重新采集及当前源码公开消费者均通过：11/11 PASS，新增189calls/186HTTPAttempts；216/252合同已关闭，未用27/66不转移。Messages `glm-5.3/cancel` 在完整22场景新报告中1146ms PASS，partial usage不记免费。17份支持输入审计0，仅导入新7行，旧generic10对象及时间保持；矩阵17PASS。全部原件、旧失败与授权已留存，[实际结果](../evidence/ticket-19/actual/remaining/README.md)、[完整原件归档](../evidence/ticket-19/actual-retained/README.md)。
+
+本票要求的完整发布验收已实际执行并诚实留存：[门禁原件](../evidence/ticket-19/final-gate/README.md)，双vet/ordinary/race=0/0/0/1、release=false。race唯一视觉deadline证据缺陷由后续20离线修复承接；留存及数据审查零发现，不授予发布资格。当前视觉修复仍在独立工作树，未合入；原十一组在01341的来源证明保留，spec、10、09继续开放。此Answer仅关闭本票十一组复验与真实结果留存范围，不声称完整spec通过，也不新增付费授权。
