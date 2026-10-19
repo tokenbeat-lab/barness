@@ -6,7 +6,7 @@ Updated: 2026-10-18
 
 本文件是交付契约，本身不表示 MiniMax 接入或真实冒烟已通过。2026-10-18 用户明确将接入目标改为国际站；当前依据为 [国际站研究](research-international.md)，[中国区研究](research.md)及原始失败捕获作为历史保留。官方声明、文档冲突与待实测项分别记录，不将其他地区或厂商的行为当作国际站事实。
 
-当前交付为PARTIAL，见[交付状态](delivery-status.md)。用户批准的固定六项补充真实验收已按中国区直连、国际站经127.0.0.1:7890完成：五项collection通过，GLM Messages为21PASS/1FAIL。新增102calls/102Attempts，连原545/545累计647/647；该合同关闭，未用额度不转移，无后续付费授权。严格GLM续期与新四报告装配拒绝，原17身份矩阵仍16PASS/1FAIL（旧Responses记录），最新Messages失败未导入。来源7931完整公共门禁实际数字退出0/0/1/1、报告false；票17源码/文档补正经两轴复审零发现，但该修复后全部11组严格来源集合尚不具当前证明。M3原来源8900034自身三正式PASS39/36，本轮未重跑；M3.1仍三项线上NOT_RUN0/0。10、09和spec保持开放。历史轮次、原失败、审批及消费详见交付状态与证据；以下要求不变。
+当前交付为PARTIAL，见[交付状态](delivery-status.md)。原固定六项已关闭，历史累计647/647；2026-10-19用户单独要求的Messages `glm-5.3/cancel`真实诊断PASS，新增1/1，旧能力续期累计648/648，原超时失败保留。该单场景不替代完整formal22。票19在来源751ad94（AI代码同6a24ba3）实际无Key复核，十一组旧输入均无当前正式资格；正在准备独立新续期授权、账本和固定计划，尚未批准216/252新增消费。原M3来源8900034自身三正式PASS39/36、候选49/45另列，M3.1线上三项仍NOT_RUN0/0。严格GLM发布、矩阵装配与完整门禁仍未完成，10、09和spec开放；历史轮次、失败及消费不改写。以下既有要求保持。
 
 领域与架构依据：[领域词汇](../../GLOSSARY.md)、[协议边界 ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[DeepSeek Responses ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[DeepSeek Chat ADR-0015](../../docs/adr/0015-barness-ai-deepseek-chat-completions.md)、[型号纳入 ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[Provider 自动字段 ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[GLM 接入 spec](../barness-ai-glm/spec.md)、[GLM 正式支持 ADR-0036](../../docs/adr/0036-barness-ai-zhipu-formal-catalog-evidence.md)。
 
@@ -292,6 +292,8 @@ M3 正式三路径必须收敛：Chat 分离推理字段与完整历史；工具
 每个候选或正式身份进程上限 20 个 Logical Call、24 个实际 HTTP Attempt、40000 个请求输出预算 tokens，单次输出上限 4096、单调用 120 秒、进程 1800 秒且服从 Host 更短时限。输入按固定合成文本/历史的保守估算累计预留最多 120000 tokens，实际已知用量超出估算时停止后续请求，不把取消后的未知量当零。场景运行前预留最坏输出/Attempt，合法历史须完成至少一次 Host 工具往返；text/thinking、开关/档位、截断、缓存/usage、error/cancel 场景固定 inventory。预算为低成本协议取样，长上下文阶梯用离线合成用量验证，不执行高容量收费压测；输入估算边界与误差须记录，不能把这些本地预算宣称厂商计费硬上限。
 
 候选阶段含所有 SDK/HTTP 探索，当前六个国际站身份与此前中国区历史消费共同受最多 120 个 Logical Call/144 个 Attempt 限制；中国区已消费的2次调用/2次Attempt保留，地区切换不刷新阶段余额或route/model/purpose预算槽；该Chat/M3/standard槽仍受20/24限制，历史计数与当前精确Provider/endpoint证明身份分别校验；正式阶段首期三个 M3 身份合计最多 60 个 Logical Call/72 个 Attempt。M3.1 线上候选依合法配置执行，缺资格可 NOT_RUN，但其三协议离线约束仍为必交，不影响 M3 正式门槛。不得循环启动新进程绕开同阶段上限。场景重跑至多一次且占同一预算，预算不足为 FAIL。固定 inventory 或预算需变更时先更新规范和证据计划，不运行中放宽。candidate/controlled/capture replay 不发布正式 PASS；正式报告绑定实际 SDK、执行源码完整集合/依赖、目录/价格 Hash、型号、endpoint、区域与账户用途别名及捕获来源。执行源码或目录改变令不适用证据过期，允许的文档变更不得篡改已测身份。
+
+**2026-10-19 当前源码续期计划（新增付费批准待定）**：票19承接用户要求的十一组正式来源续期；一次固定 `current-source-eleven-renewal-1` 预计189预留/186HTTP，新增上限216calls/252HTTPAttempts（M3三正式60/72、GLM三协议72/96、文本两路线48/48、protocol114及两视觉36/36）。原candidate/formal账本、旧canonical收据及旧消费均保留，不得覆盖、清空或以新session绕过；MiniMax新续期必须有绑定旧正式账本哈希/尾链/39/36、当前完整执行来源、二进制、固定计划、成功无Key检查、独立源码审查及直接人类新增预算批准的独立续期授权。每个身份只领取一个新执行session，保留20/24、40000输出请求预算、120000预留输入、4096单次输出、120秒/1800秒及原更低Host限制；M3仅保留既有已登记且计入同一预算的有界场景重跑，其余零重试，无自动新进程或下一轮。先完成同源GLM三路；三路完整PASS才严格发布并提交raw/known-usage/views，再冻结其余八项。若三路已关闭但有FAIL，保留四selector及全部执行源码/数据原字节，以无发布分支冻结其余八项独立验证；GLM失败不重试、不拼旧场景或放宽消费者。中国GLM直连，国际服务经127.0.0.1:7890。不新增M3.1/M Plan收费测试。此计划不变更原阶段限额，也不声称预算已获批准；见[ADR-0047](../../docs/adr/0047-current-source-formal-renewal.md)。
 
 ### R27 — 支持矩阵、门禁与交付判定
 

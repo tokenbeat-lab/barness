@@ -26,3 +26,5 @@ Blocked by: None
 ## Comments
 
 2026-10-19：继续 implement-spec。当前基点5ba4202；原用户未跟踪目录保持。新一轮尚未读 Key、尚未建立收费 intent。
+
+2026-10-19 无Key前置复核完成：来源751ad94（AI代码同6a24ba3），11项旧输入均拒绝当前正式资格。实际公开CLI/文本公开API出口及完整日志见[前置证据](../evidence/ticket-19/precheck/README.md)。0Key/0收费；不会把该诊断或旧快照完整性当作当前formal通过。固定新续期边界继续离线实现。
