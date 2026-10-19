@@ -9,3 +9,5 @@
 默认矩阵现17PASS/0FAIL，SHA为5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754。[装配结果](finalization/result.json)明确strictElevenCurrent=true、releaseCertified=false。历史失败、旧map与原报告不修改；此前0/11指旧输入在751的失效诊断，不是本次新报告结果。
 
 完整发布门禁另以当前源码执行双vet、普通/race全套及17自有支持输入、四独立业务效果，不以本次十一组PASS代替门禁结论。
+
+[current-textcheck-overlay.json](current-textcheck-overlay.json) 是明确标注的派生展示映射：机器路径以 `$REPO`、`$EVIDENCE` 替代，使用 `displayMapping` 格式，不能直接作为 Go overlay 编译输入。原可执行 overlay 的原始字节仍保留在 `.evidence/minimax-current-eleven-gate-1/current-textcheck-overlay.json`，SHA256 为 `b1570cbb83c4fd6eae3b4d6120bcde8a6511b3db7493b0e7c8211e9def6c5b44`；[index.json](index.json) 的 `derivedFiles` 另列原件来源、转换规则及展示副本的文件 pin。这项展示脱敏不重写原校验输入或验收来源。
