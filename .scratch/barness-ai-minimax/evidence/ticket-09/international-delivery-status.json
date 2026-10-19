@@ -484,7 +484,7 @@
     "evidence": "evidence/ticket-18/cleanup.json"
   },
   "currentSourceElevenRevalidation": {
-    "state": "SOURCE_REVIEWED_KEYLESS_CHECKS_PENDING",
+    "state": "KEYLESS_CHECK_FAILED",
     "sourceCommit": "751ad941a7dcda4392ee9dd73ff6089f8c846f0e",
     "precheckCurrentQualified": 0,
     "strictGroups": 11,
@@ -501,7 +501,16 @@
       "Spec": 0,
       "evidence": "evidence/ticket-19/reviews/README.md"
     },
-    "sixCurrentKeylessChecksCompleted": false,
-    "newActualFormalQualification": false
+    "sixCurrentKeylessChecksCompleted": true,
+    "newActualFormalQualification": false,
+    "sixCurrentKeylessChecksPassed": false,
+    "keylessCheckSourceCommit": "0bbd73d77eb40460d4051662e9a5d6abd6de9c47",
+    "keylessCheckResult": {
+      "PASS": 5,
+      "FAIL": 1,
+      "failed": "no-key-live",
+      "reason": "MM19 controlled child output records home directory; final redaction audit fails",
+      "evidence": "evidence/ticket-19/preflight-first/README.md"
+    }
   }
 }
