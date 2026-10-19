@@ -1,0 +1,16 @@
+# 已批准的验证边界与失败清单
+
+依据 plan.md 的 B、D 先行场景。公共 CLI 进程是前置拒绝、参数冲突、只读消费与状态报告的边界；生产工具不提供跳过前置的测试开关。由于正式17身份及四效果不能由合成证明替代，完整顺序、停止、等待人工、续接及事件错误在 CLI 私有执行入口以真实子进程作隔离验证；合成结果只验证编排，不作为发布证明。
+
+- 输入缺失、来源陈旧、mapping/snapshot错误、inventory损坏：长测不启动，报告可读。
+- preflight成功也不执行命令；preflight/collect-all/stage/from/bundle冲突拒绝。
+- vet/live-vet/ordinary失败：默认停止；collect-all只继续check，不触发race。
+- ordinary退出0但bundle缺失、损坏或审计失败：拒绝READY；保留数字退出和原因。
+- ordinary全部通过：READY_FOR_RACE、退出2、race NOT_RUN；不能发布。
+- race缺from、普通未完成、回执/输入/来源变化、相同输出目录：拒绝且不启动race。
+- 执行来源必须覆盖新增、删除、测试、模块与构建工具身份；纯文档等非选定字节可变化。
+- 续接不能执行报告中的任意命令；命令固定；原check只读，新结果写独立目录。
+- 子进程启动失败、非零、取消、无效/过大JSON事件、事件写入失败：回收进程，保留失败，不认证。
+- 事件仅记录Time/Action/Package/Test/Elapsed；失败尾部有界；并行与父子时间不相加为墙钟。
+- bundle读取或报告写入失败：非零，能写的已知事实仍保留；未运行不伪造PASS。
+- 成功组合两个阶段后仍调用原Evaluate，不新增成功捷径。

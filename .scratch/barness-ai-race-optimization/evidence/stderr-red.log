@@ -1,0 +1,23 @@
+--- FAIL: TestRawLogStreamCancellation (0.00s)
+panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+[signal SIGSEGV: segmentation violation code=0x2 addr=0x28 pc=0x101561efc]
+
+goroutine 20 [running]:
+testing.tRunner.func1.2({0x101cec040, 0x101f24c90})
+	/usr/local/go/src/testing/testing.go:1974 +0x1a0
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:1977 +0x318
+panic({0x101cec040?, 0x101f24c90?})
+	/usr/local/go/src/runtime/panic.go:860 +0x12c
+github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate.(*eventWriter).Write(0xd729e46dcb0?, {0xd729e3cd1e8?, 0x17?, 0x1015650dc?})
+	/Users/cyber/RestoX/barness/ai/release/cmd/releasegate/testevents.go:31 +0x1c
+github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate.(*eventOutput).Write(0xd729e210f20, {0xd729e3cd1e8, 0x17, 0x17})
+	/Users/cyber/RestoX/barness/ai/release/cmd/releasegate/command.go:181 +0x50
+github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate.TestRawLogStreamCancellation(0xd729e41bb08)
+	/Users/cyber/RestoX/barness/ai/release/cmd/releasegate/testevents_test.go:58 +0xb8
+testing.tRunner(0xd729e41bb08, 0x101e8f270)
+	/usr/local/go/src/testing/testing.go:2036 +0xc4
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2101 +0x3a8
+FAIL	github.com/tokenbeat-lab/barness/ai/release/cmd/releasegate	0.535s
+FAIL

@@ -1,0 +1,22 @@
+--- FAIL: TestGLMReleaseCommandEnvelope (1.88s)
+    glm_release_envelope_test.go:39: [P0-GLM13-release-command-envelope] missing proofs refuse before starting commands: err=exit status 2 read=<nil>
+    glm_release_envelope_test.go:40: [P0-GLM13-release-command-envelope] no normal or race command started: unexpected child command
+--- FAIL: TestReleaseGatePreflightStopsCommands (2.17s)
+    --- FAIL: TestReleaseGatePreflightStopsCommands/default (1.01s)
+        release_gate_preflight_test.go:55: [OD57-release-preflight-default] invalid inputs start no Go commands: failed=true childStarted=true
+        release_gate_preflight_test.go:66: [OD57-release-preflight-default] preflight rejection remains reviewable: report available=false
+        release_gate_preflight_test.go:69: [OD57-release-preflight-default] rejection never certifies release: release report available=false
+    --- FAIL: TestReleaseGatePreflightStopsCommands/preflight (0.01s)
+        release_gate_preflight_test.go:66: [OD57-release-preflight-preflight] preflight rejection remains reviewable: report available=false
+        release_gate_preflight_test.go:69: [OD57-release-preflight-preflight] rejection never certifies release: release report available=false
+    --- FAIL: TestReleaseGatePreflightStopsCommands/missing-trace (0.01s)
+        release_gate_preflight_test.go:66: [OD57-release-preflight-missing-trace] preflight rejection remains reviewable: report available=false
+        release_gate_preflight_test.go:69: [OD57-release-preflight-missing-trace] rejection never certifies release: release report available=false
+    --- FAIL: TestReleaseGatePreflightStopsCommands/bad-snapshot (0.43s)
+        release_gate_preflight_test.go:55: [OD57-release-preflight-bad-snapshot] invalid inputs start no Go commands: failed=true childStarted=true
+        release_gate_preflight_test.go:66: [OD57-release-preflight-bad-snapshot] preflight rejection remains reviewable: report available=false
+        release_gate_preflight_test.go:69: [OD57-release-preflight-bad-snapshot] rejection never certifies release: release report available=false
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/race-optimization/red-preflight/20261019T214812.450546000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	5.318s
+FAIL

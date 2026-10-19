@@ -25,6 +25,10 @@ barness 是 [pi](https://github.com/earendil-works/pi) 的 Go（Golang）复刻�
 
 ## Agent skills
 
+### Verification
+
+决定测试范围、准备付费验证或执行发布门禁前，读取并遵循 `docs/agents/verification.md`。
+
 ### Issue tracker
 
 Issues and specs live as local markdown files under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.

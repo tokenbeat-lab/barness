@@ -1,0 +1,7 @@
+--- FAIL: TestReleaseGatePreflightStopsCommands (2.13s)
+    --- FAIL: TestReleaseGatePreflightStopsCommands/pending-ledger (1.39s)
+        release_gate_preflight_test.go:89: [OD57-release-preflight-pending-ledger] pending difference rejected before tests: missing ledger rejection
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/race-optimization/red-ledger/20261019T215656.247632000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	3.406s
+FAIL
