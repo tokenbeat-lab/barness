@@ -1,0 +1,39 @@
+{
+  "derivedDisplay": true,
+  "usableAsOriginalReport": false,
+  "originalSHA256": "81871fc3cda2ed5dd638418bce403068ab0ff6771e874396cc7377826a9a4f30",
+  "originalPrivateSidecar": "operations-v1/operator/barness-ticket21-custody-spec-source-review.json.data",
+  "transform": [
+    "absolute repository prefix -> $REPO",
+    "absolute HOME prefix -> $HOME",
+    "absolute owned worktree prefix -> $WORKTREE"
+  ],
+  "document": {
+    "decision": "CHANGES_REQUESTED",
+    "reviewedBy": "/root/routed_spec_review",
+    "scope": "Source-only review of closed ticket21 paid-round retention; no sealed archive or actual public readback approval.",
+    "sourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+    "producerSHA256": "bbac74847b82f33f0ed1ff81c617ea17358505e1969b1615bba4b8cddde3621a",
+    "readerSHA256": "8910466d945993ef21d0440b3d204bbbfc2ca32a2f323ec650961e5398c5c254",
+    "publicGuardsSHA256": "ac96f072d479b5a6fbd552a9aa387ccddad9fac0ac68ff5decf9855c865df718",
+    "authoritySHA256": "184e22962fb06f342154a70a514596f372488bc3910eaf01e38caec9a1a0cf42",
+    "planSHA256": "70bcec75a08adf82e4793de55fb5587dbf22b8283c74e92782fb841e07423cff",
+    "failureInventorySHA256": "948c81fa073521aea1e37957e932cf73530123f9cc452674e53af78516f6a31f",
+    "findings": [
+      {
+        "id": "T21-CUSTODY-SPEC-01",
+        "severity": "P2",
+        "file": "/tmp/barness-ticket21-retain-actual.py",
+        "line": 126,
+        "endLine": 136,
+        "consumerFile": "$WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py",
+        "consumerLine": 130,
+        "requirement": "Retention failure inventory:16: “Public consumer independently streams all members and checks actual facts, rather than trusting a stored summary alone.” Retention plan:18 requires successful “readback ... candidate/current17 proof”. Spec T04:357 requires complete file inventory, SHA-256 and provenance.",
+        "finding": "The producer never observes actual/finalization/matrix-candidate.json. This member is absent from the43 authority.closedFiles, and no REPORTS/manifest/result/command addition selects it. The pinned full reader retains bytes only for cap.observe, while facts130 unconditionally reads the candidate from seen. Consequently the genuine archive cannot complete its candidate proof/public positive readback and raises KeyError.",
+        "requestedChange": "Add this exact member to the bounded fixed observed set before preparation/sealing; keep its candidate591323 hash, one-row/16-row checks, all existing limits and original bytes unchanged. Demonstrate the normal public CLI succeeds before treating negative guards as meaningful."
+      }
+    ],
+    "report": "CHANGES_REQUESTED: one P2. The retained candidate is included as an original archive member but omitted from the producer’s observed metadata set. It is absent from the43 closed-file authority entries (candidateSHA256 is a separate authority field). The fixed full reader returns raw metadata only for observed members, yet facts130 always parses this candidate. Normal public readback therefore cannot finish and raises KeyError. Add only that fixed observed member before preparation/sealing.\n\nThe exclusive bounded whole-tree writer, unchanged trusted FD/full-capsule readers, exact canonical/43-authority pins, native12×3 accounting, strict integer resources/exits, failed control preservation, metadata-only intentional link and pre-gate false publication/certification statements otherwise fit this custody scope. Gate/publication outputs are excluded. No unrelated scope creep identified.\n\nThis is source analysis, not a positive archive/readback result. No project/captured program, native command, build, test, credential or network operation was executed; no repository or original evidence was changed.",
+    "method": "Read-only source/data-flow inspection, authority JSON membership check and local hashing; exact reviewed source snapshots retained under /tmp."
+  }
+}

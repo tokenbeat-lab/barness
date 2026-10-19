@@ -1,0 +1,90 @@
+{
+  "authority": "prior root/independent reported immutable hashes; not freshly hashed tmp",
+  "expectedSHA256": {
+    "barness-ticket20-three-renewal.py": "ac28d6f4ef170f149f69b5100fbecc5d1ab35e1c6d8257ebdb148226191bbde6",
+    "barness-ticket20-three-source-proof.py": "e230c685994b940a26278d886147356985fd694033632e4a8704a6a2ab6ee57b",
+    "barness-ticket20-three-controller-draft-spec-review.json": "06ab8757a35405dd3828948c93cf8c524664c1b203392d84369709e6d972628a",
+    "barness-ticket20-three-controller-draft-spec-rereview.json": "f5217820d61ece221e7932fcf4d144e9628068cec133ad9a5fa7400a81dc993e",
+    "barness-ticket21-final-prerequisites-2.json": "b0de46fbd814571b0e554d4026e7b316724869438da4a19b5f880a84c4544851",
+    "barness-ticket21-prepared-source-spec-review.json": "7acd2f35a2102e9d26a4b2773f81ce1d15afb278d4d55f40812cd5dbf8354e57",
+    "barness-ticket21-prepared-source-standards-review.json": "e9e4c18d9d9632fa96fb4524305d3909758cd0ce8428187e67f34193d1c79ca8",
+    "barness-ticket21-finalize.py": "4934acc6ceaadbf6ea6b7ed9d9f0bc86f35fca017e0e6a8412e93895dba1fd3f",
+    "barness-ticket21-finalizer-reviewed-c0b281d9.py.txt": "c0b281d9cac1074c3f7d69acea7e3a137cd080cd385073c8aa6bb72d024f6bbd",
+    "barness-ticket21-finalizer-reviewed-4934acc6.py.txt": "4934acc6ceaadbf6ea6b7ed9d9f0bc86f35fca017e0e6a8412e93895dba1fd3f",
+    "barness-ticket21-finalizer-spec-review.json": "155728ac73e2da5e3d32d76a527d3f52cae341332ce85ec5e53b775fc2a3cebd",
+    "barness-ticket21-finalizer-standards-review.json": "fa8acc5f81d27636a987f341fbe3b02a65506f523435d34226e691fb5ac383b5",
+    "barness-ticket21-finalizer-spec-rereview.json": "c5459709de328f9415d435e5dcd2cffd3058bfe16709908a4f7f146b93c39274",
+    "barness-ticket21-finalizer-standards-rereview.json": "0e16f2317a0e617cec6d6909931c260641e302f3bc023eb96c5fe4d9678d3d5b",
+    "barness-ticket21-finalization-guidance.md": "d24781538b6eab38f36b5ed76efa65fdecc6cbaec18a404969ed2c4220b4fcf8",
+    "barness-ticket20-three-renewal-failure-inventory.md": "0a5e48d207d124d6a211e280a416ab8734849aceca356bf1d26a5d078303150a",
+    "barness-ticket20-three-renewal-prerequisites.md": "64184b32cef9613a6c046c41cff6af9bcbef18baff203aed8fa5326ff105d1fd",
+    "barness-ticket21-prepared-final-independent-proof.json": "afbf987f2d282bfa617c3e775e239f762b77484fdb583c5c81b0838449cf96b6",
+    "barness-ticket21-final-receipts-spec-proof.json": "98e39f2f4db73a5df35321f6e35e593840e540d7f66fe8847863b5a4d68d853a",
+    "barness-ticket21-controller-hash-namespace-rereview.json": "1a36d2eafb6914f3fc5b84ec2af62fca6881c3ddfc9e62ba8d2d056cea1c4b00",
+    "barness-ticket21-prepared-native-source-checks.json": "2d230985383470faa8b5f07ffaaec20a8c86753a694bf581210fa0e3c5514a31",
+    "barness-ticket21-prepared-plan-pin-checks.json": "cb2e1bef853a8a66e90dcdc108143be9e2bec293964b863eb0c8aff246cfe21b",
+    "barness-ticket21-finalize-failures.md": "8ec2f3803087840fea46c4d58965dfa579927815351653d9ca14a29ea2efd59c"
+  },
+  "linkedIndependentSeeds": {
+    "barness-ticket21-prepared-final-independent-proof.json": [
+      {
+        "independentSeed": "barness-ticket21-prepared-source-spec-review.json",
+        "seedSHA256": "7acd2f35a2102e9d26a4b2773f81ce1d15afb278d4d55f40812cd5dbf8354e57",
+        "jsonPointer": "/sourceProof/sha256",
+        "recordedValue": "afbf987f2d282bfa617c3e775e239f762b77484fdb583c5c81b0838449cf96b6"
+      }
+    ],
+    "barness-ticket21-final-receipts-spec-proof.json": [
+      {
+        "independentSeed": "barness-ticket21-prepared-source-spec-review.json",
+        "seedSHA256": "7acd2f35a2102e9d26a4b2773f81ce1d15afb278d4d55f40812cd5dbf8354e57",
+        "jsonPointer": "/actualReceiptsProof/sha256",
+        "recordedValue": "98e39f2f4db73a5df35321f6e35e593840e540d7f66fe8847863b5a4d68d853a"
+      }
+    ],
+    "barness-ticket21-controller-hash-namespace-rereview.json": [
+      {
+        "independentSeed": "barness-ticket21-prepared-source-spec-review.json",
+        "seedSHA256": "7acd2f35a2102e9d26a4b2773f81ce1d15afb278d4d55f40812cd5dbf8354e57",
+        "jsonPointer": "/historicalReports/namespaceClosure",
+        "recordedValue": "1a36d2eafb6914f3fc5b84ec2af62fca6881c3ddfc9e62ba8d2d056cea1c4b00"
+      }
+    ],
+    "barness-ticket21-prepared-native-source-checks.json": [
+      {
+        "independentSeed": "barness-ticket21-prepared-source-standards-review.json",
+        "seedSHA256": "e9e4c18d9d9632fa96fb4524305d3909758cd0ce8428187e67f34193d1c79ca8",
+        "jsonPointer": "/checks/0/sha256",
+        "recordedValue": "2d230985383470faa8b5f07ffaaec20a8c86753a694bf581210fa0e3c5514a31"
+      }
+    ],
+    "barness-ticket21-prepared-plan-pin-checks.json": [
+      {
+        "independentSeed": "barness-ticket21-prepared-source-standards-review.json",
+        "seedSHA256": "e9e4c18d9d9632fa96fb4524305d3909758cd0ce8428187e67f34193d1c79ca8",
+        "jsonPointer": "/checks/1/sha256",
+        "recordedValue": "cb2e1bef853a8a66e90dcdc108143be9e2bec293964b863eb0c8aff246cfe21b"
+      }
+    ],
+    "barness-ticket21-finalize-failures.md": [
+      {
+        "independentSeed": "barness-ticket21-finalizer-spec-review.json",
+        "seedSHA256": "155728ac73e2da5e3d32d76a527d3f52cae341332ce85ec5e53b775fc2a3cebd",
+        "jsonPointer": "/failureInventorySHA256",
+        "recordedValue": "8ec2f3803087840fea46c4d58965dfa579927815351653d9ca14a29ea2efd59c"
+      },
+      {
+        "independentSeed": "barness-ticket21-finalizer-standards-review.json",
+        "seedSHA256": "fa8acc5f81d27636a987f341fbe3b02a65506f523435d34226e691fb5ac383b5",
+        "jsonPointer": "/failure_inventory_sha256",
+        "recordedValue": "8ec2f3803087840fea46c4d58965dfa579927815351653d9ca14a29ea2efd59c"
+      },
+      {
+        "independentSeed": "barness-ticket21-finalizer-spec-rereview.json",
+        "seedSHA256": "c5459709de328f9415d435e5dcd2cffd3058bfe16709908a4f7f146b93c39274",
+        "jsonPointer": "/failureInventorySHA256",
+        "recordedValue": "8ec2f3803087840fea46c4d58965dfa579927815351653d9ca14a29ea2efd59c"
+      }
+    ]
+  }
+}

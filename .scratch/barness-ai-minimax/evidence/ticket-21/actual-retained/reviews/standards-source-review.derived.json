@@ -1,0 +1,76 @@
+{
+  "derivedDisplay": true,
+  "usableAsOriginalReport": false,
+  "originalSHA256": "24de0e51304168fe5bc353c3ec052c44b58b579d767f01f9ec91786d54501099",
+  "originalPrivateSidecar": "operations-v1/operator/barness-ticket21-custody-standards-source-review.json.data",
+  "transform": [
+    "absolute repository prefix -> $REPO",
+    "absolute HOME prefix -> $HOME",
+    "absolute owned worktree prefix -> $WORKTREE"
+  ],
+  "document": {
+    "axis": "Standards",
+    "scope": "Initial actual36 custody producer/public-reader source review",
+    "sourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+    "reviewed_sources": {
+      "producer": {
+        "file": "/tmp/barness-ticket21-retain-actual.py",
+        "sha256": "bbac74847b82f33f0ed1ff81c617ea17358505e1969b1615bba4b8cddde3621a",
+        "reviewed_copy": "/tmp/barness-ticket21-custody-reviewed-producer-bbac7484.py.txt",
+        "lines": 182
+      },
+      "reader": {
+        "file": "$WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py",
+        "sha256": "8910466d945993ef21d0440b3d204bbbfc2ca32a2f323ec650961e5398c5c254",
+        "reviewed_copy": "/tmp/barness-ticket21-custody-reviewed-reader-8910466d.py.txt",
+        "lines": 159
+      },
+      "public_guards": {
+        "file": "$WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/public-guards.py",
+        "sha256": "ac96f072d479b5a6fbd552a9aa387ccddad9fac0ac68ff5decf9855c865df718",
+        "reviewed_copy": "/tmp/barness-ticket21-custody-reviewed-public_guards-ac96f072.py.txt",
+        "lines": 69
+      }
+    },
+    "failure_inventory_sha256": "948c81fa073521aea1e37957e932cf73530123f9cc452674e53af78516f6a31f",
+    "plan_sha256": "70bcec75a08adf82e4793de55fb5587dbf22b8283c74e92782fb841e07423cff",
+    "finding_count": 3,
+    "findings": [
+      {
+        "id": "T21-CUSTODY-STANDARDS-01",
+        "severity": "P2",
+        "file": "/tmp/barness-ticket21-retain-actual.py",
+        "line": 147,
+        "rule": "AGENTS.md principles3–5: validate external boundary data before access and retain finite isolation.",
+        "finding": "seal() consumes mutable selected.json owner/path fields without revalidating fixed selection policy or aggregate limits. read(repo,.env) is permitted before pin comparison; a changed stage can read a secret file even if it then refuses. Added/repeated staged entries can also bypass prepare-time envelope checks before archive writing.",
+        "fix": "Validate/reconstruct every key-to-fixed-owner/path mapping, exact sets/prefixes, source/cap/prefix/limits and aggregate file/byte bounds before any stage-driven read or archive creation."
+      },
+      {
+        "id": "T21-CUSTODY-STANDARDS-02",
+        "severity": "P2",
+        "file": "/tmp/barness-ticket21-retain-actual.py",
+        "line": 111,
+        "related_file": "$WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py",
+        "rule": "AGENTS.md principles8–9: preserve authentic original context and independently verifiable evidence.",
+        "finding": "The26 closed /tmp programs/reviews are freshly hashed by name without independently expected hashes; facts() does not authenticate these metadata members. Changed files can be described as original history.",
+        "fix": "Authenticate authoritative source/approval members against independent existing hashes in producer and reader. Unanchored optional helpers may instead be explicitly NONAUTHORITATIVE captured-data snapshots tied to the immutable original archive inventory; never use them as approval/native authority."
+      },
+      {
+        "id": "T21-CUSTODY-STANDARDS-03",
+        "severity": "P2",
+        "file": "/tmp/barness-ticket21-retain-actual.py",
+        "line": 133,
+        "related_file": "$WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py",
+        "related_line": 130,
+        "rule": "AGENTS.md principle9: deliver a usable independent verification path.",
+        "finding": "facts() always reads actual/finalization/matrix-candidate.json from seen, but prepare() never includes that member in observe. It is not in the43 authority JSON pins either. The unchanged full reader therefore does not return it, and public positive readback fails with missing metadata.",
+        "fix": "Add the candidate member to the observation set while preserving every original archive byte. Retain the original failed public readback/index; perform any observe-only correction explicitly."
+      }
+    ],
+    "narrative": "Three P2 source issues remain; no custody approval is granted. Existing pinned FD/full-tar readers and fixed limits are reused, with no extraction or captured-program execution. The known corrupt symlink is metadata-only and other links refuse. Native/canonical accounting, strict integer resources, six checks,12 finalizer commands and protected16 facts are otherwise explicit. Parent reports a premature seal before HOLD; this source review has not validated or altered that archive. All initial sources are preserved for narrow closure.",
+    "no_execution_archive_seal_build_native_key_network_or_root_mutation": true,
+    "limitations": [
+      "Source review only; genuine public failure/green receipts, exact archive/index provenance and complete independent custody readback remain separate."
+    ]
+  }
+}
