@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "renewalId": "current-source-eleven-renewal-1",
+  "canonicalFileSHA256": {
+    "human-approval.json": "bc185e82398ecebaa84a58e00cb541c301332b157152c637174421d51e9cb59c",
+    "grant.json": "4db78522951769f22b0b73283508a63cd32a89c99738d8d77861238e2a04b9b4",
+    "source-review.json": "200bfce81531e0d51f6432daa332a346a97bcde0c715fd3c921614f52240a971",
+    "formal.jsonl": "449c752ee003a1b264d9332c1f6b9f6317ac631bcb29f6a5adaa830ee75eb187",
+    "finalize-intent.json": "446aae7277352636a43da368aacb4a29a5d4b46849a48db7218e3ed3d7f5ee1a"
+  },
+  "nativeGrantOpaqueCustodyOnly": true,
+  "canonicalAuthorityMustRemainOriginalCommonRoot": true,
+  "actualNewCalls": 189,
+  "actualNewAttempts": 186,
+  "closedCanonicalMarkers": 11,
+  "additionalCapCalls": 216,
+  "additionalCapAttempts": 252,
+  "unusedCalls": 27,
+  "unusedAttempts": 66,
+  "unusedTransferable": false,
+  "rootFinalization": {
+    "credentialsRead": false,
+    "current": {
+      "attempts": 186,
+      "calls": 189,
+      "conservativeAttempts": 186,
+      "conservativeCalls": 189,
+      "maxAttempts": 252,
+      "maxCalls": 216
+    },
+    "matrixAfterSHA256": "5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754",
+    "matrixBeforeSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "noAutomaticReruns": true,
+    "preservedGenericRows": 10,
+    "releaseCertified": false,
+    "sourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "state": "COMPLETED",
+    "strictElevenCurrent": true,
+    "total": {
+      "attempts": 834,
+      "calls": 837,
+      "conservativeAttempts": 834,
+      "conservativeCalls": 837,
+      "maxAttempts": 900,
+      "maxCalls": 864
+    },
+    "updatedRows": 7,
+    "verifiedSupportInputs": 17
+  },
+  "oldFormalLedgerSHA256": "18da13b55406c7d4a1754ad26984c617185cae3dbef270e68dff95db9cd2e4ef",
+  "retentionPaidCalls": 0,
+  "retentionCredentialsRead": false
+}

@@ -1,0 +1,17 @@
+{
+  "state": "COMPLETED",
+  "kind": "operator-tool-observation",
+  "argv": [
+    "python3",
+    "-B",
+    "$OPERATOR/barness-retain-eleven-actual.py"
+  ],
+  "cwd": "$OWNED_WORKTREE",
+  "exitCode": 0,
+  "operatorSHA256": "688925941ee34737ae69c0bfc9f7686b12c630242250459c0ba5faa172db2ce1",
+  "rawLog": "creation.log",
+  "rawStderr": "creation-stderr.log",
+  "paidCalls": 0,
+  "credentialsRead": false,
+  "note": "Exit0 observed from the real terminal command; this is a custody operation, not an original native paid-command receipt."
+}
